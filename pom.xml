@@ -24,7 +24,6 @@
 		<module>email</module>
 		<module>utils</module>
 		<module>exceptions</module>
-		<!-- <module>webapp</module> -->
 	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -32,6 +31,17 @@
 		<version>1.2.3.RELEASE</version>
 	</parent>
 	<dependencies>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>4.3.8.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc7</artifactId>
+			<version>12.1.0.2</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
@@ -92,7 +102,12 @@
 		<repository>
 			<id>wiley-maven</id>
 			<name>wiley maven</name>
-			<url>http://build.wiley.com/nexus/content/repositories/central/</url>
+			<url>http://build.wiley.com/nexus/content/repositories/central</url>
+		</repository>
+		<repository>
+			<id>wiley-maven-jdbc</id>
+			<name>wiley maven-jdbc</name>
+			<url>http://build.wiley.com/nexus/content/repositories/thirdparty</url>
 		</repository>
 	</repositories>
 	<build>
