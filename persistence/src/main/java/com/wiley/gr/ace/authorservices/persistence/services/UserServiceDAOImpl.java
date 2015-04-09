@@ -22,6 +22,7 @@ public class UserServiceDAOImpl implements UserServiceDAO {
 		Session session = con.getSessionFactory().openSession();
 		List<UserProfile> upList = session.createCriteria(UserProfile.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		session.close();
+		con.shutDownSessionFactory();
 		return upList;
 	}
 
