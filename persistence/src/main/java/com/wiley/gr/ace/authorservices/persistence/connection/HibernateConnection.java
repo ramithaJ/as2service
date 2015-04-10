@@ -25,7 +25,7 @@ public class HibernateConnection {
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
-	
+
 	public void shutDownSessionFactory() {
 		sessionFactory.close();
 	}
