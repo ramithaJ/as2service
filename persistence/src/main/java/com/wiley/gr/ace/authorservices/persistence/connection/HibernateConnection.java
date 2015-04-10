@@ -22,12 +22,12 @@ public class HibernateConnection {
 		}
 	}
 
-	public SessionFactory getSessionFactory() {
+	public static SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
 
-	public void shutDownSessionFactory() {
-		sessionFactory.close();
+	public static void shutDownSessionFactory() {
+		getSessionFactory().close();
 	}
 
 	/*

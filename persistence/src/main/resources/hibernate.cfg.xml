@@ -2,14 +2,21 @@
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
                                          "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
- <session-factory name="">
-  <property name="connection.driver_class">oracle.jdbc.OracleDriver</property>
-  <property name="connection.url">jdbc:oracle:thin:@10.6.4.146:1521/pdasapp</property>
-  <property name="connection.username">as2appuser</property>
-  <property name="connection.password">as2appuser_123</property>
-  <property name="dialect">org.hibernate.dialect.OracleDialect</property>
-  <property name="show_sql">true</property>
-  <property name="validationQuery">select 1 from dual</property>
-  <mapping class="com.wiley.gr.ace.authorservices.persistence.entity.UserProfile"/>
- </session-factory>
+	<session-factory name="">
+		<property name="connection.driver_class">oracle.jdbc.OracleDriver</property>
+		<property name="connection.url">jdbc:oracle:thin:@10.6.4.146:1521/pdasapp</property>
+		<property name="connection.username">as2appuser</property>
+		<property name="connection.password">as2appuser_123</property>
+		<property name="dialect">org.hibernate.dialect.OracleDialect</property>
+		<property name="show_sql">true</property>
+		<!-- <property name="validationQuery">select 1 from dual</property> -->
+		<property name="hibernate.c3p0.min_size">10</property>
+		<property name="hibernate.c3p0.max_size">20</property>
+		<property name="hibernate.c3p0.acquire_increment">1</property>
+		<property name="hibernate.c3p0.idle_test_period">3000</property>
+		<property name="hibernate.c3p0.max_statements">50</property>
+		<property name="hibernate.c3p0.timeout">1800</property>
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.UserProfile" />
+	</session-factory>
 </hibernate-configuration>
