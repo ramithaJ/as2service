@@ -13,16 +13,19 @@ import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
 
 public class UserServiceDAOImpl implements UserServiceDAO {
 
-	private static ApplicationContext context = new AnnotationConfigApplicationContext(PersistenceBeanConfig.class);
-	
-	private static HibernateConnection con = (HibernateConnection) context.getBean("HibernateConnection");
+	private static ApplicationContext context = new AnnotationConfigApplicationContext(
+			PersistenceBeanConfig.class);
+
+	private static HibernateConnection con = (HibernateConnection) context
+			.getBean("HibernateConnection");
+
 	@Override
 	public List<UserProfile> getUsersList() {
-		
+
 		Session session = con.getSessionFactory().openSession();
-		List<UserProfile> upList = session.createCriteria(UserProfile.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		List<UserProfile> upList = session.createCriteria(UserProfile.class)
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		session.close();
-//		con.shutDownSessionFactory();
 		return upList;
 	}
 
