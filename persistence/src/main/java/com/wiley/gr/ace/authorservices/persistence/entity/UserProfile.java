@@ -16,10 +16,6 @@ public class UserProfile {
 	private Integer userId;
 	@Column(name = "PRIMARY_EMAIL_ADDR")
 	private String primaryEmailAddr;
-	@Column(name = "ORCID_ID")
-	private String orcidId;
-	@Column(name = "EC_ID")
-	private String ecId;
 	@Column(name = "TITLE")
 	private String title;
 	@Column(name = "FIRST_NAME")
@@ -52,8 +48,6 @@ public class UserProfile {
 	private String isAccountVerified;
 	@Column(name = "INVALID_LOGIN_FLG")
 	private Double invalidLoginFlg;
-	@Column(name = "IS_INTERNAL")
-	private String isInternal;
 	@Column(name = "MERGER_ACCNT_ID")
 	private Integer mergerAccntId;
 	@Column(name = "PROFILE_PIC")
@@ -85,22 +79,6 @@ public class UserProfile {
 
 	public void setPrimaryEmailAddr(String primaryEmailAddr) {
 		this.primaryEmailAddr = primaryEmailAddr;
-	}
-
-	public String getOrcidId() {
-		return orcidId;
-	}
-
-	public void setOrcidId(String orcidId) {
-		this.orcidId = orcidId;
-	}
-
-	public String getEcId() {
-		return ecId;
-	}
-
-	public void setEcId(String ecId) {
-		this.ecId = ecId;
 	}
 
 	public String getTitle() {
@@ -229,14 +207,6 @@ public class UserProfile {
 
 	public void setInvalidLoginFlg(Double invalidLoginFlg) {
 		this.invalidLoginFlg = invalidLoginFlg;
-	}
-
-	public String getIsInternal() {
-		return isInternal;
-	}
-
-	public void setIsInternal(String isInternal) {
-		this.isInternal = isInternal;
 	}
 
 	public Integer getMergerAccntId() {
