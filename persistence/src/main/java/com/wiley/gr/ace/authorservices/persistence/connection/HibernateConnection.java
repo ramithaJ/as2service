@@ -1,14 +1,8 @@
 package com.wiley.gr.ace.authorservices.persistence.connection;
 
-import java.util.List;
-
-import org.hibernate.Criteria;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-
-import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
 
 public class HibernateConnection {
 
@@ -31,9 +25,9 @@ public class HibernateConnection {
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
-	
+
 	public void shutDownSessionFactory() {
-		 sessionFactory.close();
+		sessionFactory.close();
 	}
 
 	/*
