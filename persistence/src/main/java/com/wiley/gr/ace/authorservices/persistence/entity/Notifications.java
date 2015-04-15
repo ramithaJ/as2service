@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -29,6 +31,9 @@ public class Notifications {
 	private Date updatedDate;
 	@Column(name = "UPDATED_BY")
 	private String updatedBy;
+	@ManyToOne
+	@JoinColumn(name="EMAIL_TYPE")
+	private EmailType emailTypeVar;
 
 	public Integer getNotificationId() {
 		return notificationId;

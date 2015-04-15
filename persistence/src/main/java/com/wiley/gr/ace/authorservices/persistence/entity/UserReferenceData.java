@@ -3,6 +3,8 @@ package com.wiley.gr.ace.authorservices.persistence.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,6 +23,9 @@ public class UserReferenceData {
 	
 	@Column(name="ALMID")
 	private String almId;
+	@ManyToOne
+	@JoinColumn(name="USER_ID")
+	private UserProfile userProfile;
 
 	public Integer getUserId() {
 		return userId;
@@ -52,6 +57,14 @@ public class UserReferenceData {
 
 	public void setAlmId(String almId) {
 		this.almId = almId;
+	}
+
+	public UserProfile getUserProfile() {
+		return userProfile;
+	}
+
+	public void setUserProfile(UserProfile userProfile) {
+		this.userProfile = userProfile;
 	}
 	
 	
