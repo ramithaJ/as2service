@@ -1,5 +1,7 @@
 package com.wiley.gr.ace.authorservices.persistence.services.usermanagement;
 
+import com.wiley.gr.ace.authorservices.persistence.entity.AdminTasks;
+
 public interface UserLoginDao {
 	
 	/**
@@ -16,5 +18,13 @@ public interface UserLoginDao {
 	 * @return
 	 */
 	public boolean doLogin(String emailId);
+	
+	/**
+	 * This method adds or updates a record in Admin Task table
+	 * 
+	 * @param uprofile
+	 * @return
+	 */
+	public String addAdminTask(AdminTasks adminTasks);
 
 }
