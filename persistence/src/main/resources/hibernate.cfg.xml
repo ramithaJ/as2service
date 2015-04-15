@@ -18,5 +18,21 @@
 		<property name="hibernate.c3p0.timeout">1800</property>
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.UserProfile" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.AdditionalPermissions" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.AdminTasks" />
+		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Alerts" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.EmailType" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.Notifications" />
+		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Roles" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.UserProfileAttribVisible" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.UserReferenceData" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails" />
 	</session-factory>
 </hibernate-configuration>
