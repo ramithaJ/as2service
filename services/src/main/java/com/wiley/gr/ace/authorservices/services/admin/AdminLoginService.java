@@ -1,5 +1,9 @@
 package com.wiley.gr.ace.authorservices.services.admin;
 
+/**
+ * @author RAVISINHA
+ *
+ */
 public interface AdminLoginService {
 	
 	/**
@@ -16,6 +20,14 @@ public interface AdminLoginService {
 	 * @param emailId
 	 * @return
 	 */
-	public boolean doLogin(String emailId);
+	public boolean doLogin(String emailId, String password);
+	
+	/**
+	 * This method requests for a wiley user to get Admin Access.
+	 *  
+	 * @param emailId
+	 * @return
+	 */
+	public boolean requestAdminAccess(String emailId);
 
 }

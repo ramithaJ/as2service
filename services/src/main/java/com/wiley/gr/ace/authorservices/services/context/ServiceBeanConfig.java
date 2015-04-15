@@ -4,6 +4,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.wiley.gr.ace.authorservices.services.admin.AdminLoginService;
+import com.wiley.gr.ace.authorservices.services.admin.external.ALMInterfaceService;
+import com.wiley.gr.ace.authorservices.services.admin.external.impl.ALMInterfaceServiceImpl;
 import com.wiley.gr.ace.authorservices.services.admin.impl.AdminLoginServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.UserService;
 import com.wiley.gr.ace.authorservices.services.service.UserServiceImpl;
@@ -19,6 +21,13 @@ public class ServiceBeanConfig {
 	@Bean(name = "AdminLoginService")
 	public AdminLoginService adminloginservice() {
 		return new AdminLoginServiceImpl();
+	}
+	
+	
+	@Bean(name = "ALMExternalService")
+	public ALMInterfaceService aLMExternalService()
+	{
+		return new ALMInterfaceServiceImpl();
 	}
 
 }
