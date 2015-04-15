@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.services.admin.AdminLoginService;
+import com.wiley.gr.ace.authorservices.services.admin.external.ALMInterfaceService;
+import com.wiley.gr.ace.authorservices.services.admin.external.impl.ALMInterfaceServiceImpl;
 import com.wiley.gr.ace.authorservices.services.admin.impl.AdminLoginServiceImpl;
 import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
 
@@ -29,7 +31,12 @@ public class AdminLoginController {
       	status = adminlogin.validateEmail(emailId);
       	
       	if(status) {
-      		return "true";
+      		
+      		adminlogin.doLogin(emailId, password);
+      	}
+      	
+      	if(status) {
+      		return "true ";
       	} else {
       		return "false";
       	}
