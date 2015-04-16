@@ -8,8 +8,8 @@ public class SecurityVO {
 	/** The security question1. */
 	private String securityQuestion1;
 
-	/** The secutity question2. */
-	private String secutityQuestion2;
+	/** The security question2. */
+	private String securityQuestion2;
 
 	/** The security answer1. */
 	private String securityAnswer1;
@@ -42,30 +42,6 @@ public class SecurityVO {
 		this.securityQuestion1 = securityQuestion1;
 	}
 
-	/**
-	 * Gets the secutity question2.
-	 *
-	 * @return the secutity question2
-	 */
-	public String getSecutityQuestion2() {
-		return secutityQuestion2;
-	}
-
-	/**
-	 * Sets the secutity question2.
-	 *
-	 * @param secutityQuestion2
-	 *            the new secutity question2
-	 */
-	public void setSecutityQuestion2(String secutityQuestion2) {
-		this.secutityQuestion2 = secutityQuestion2;
-	}
-
-	/**
-	 * Gets the security answer1.
-	 *
-	 * @return the security answer1
-	 */
 	public String getSecurityAnswer1() {
 		return securityAnswer1;
 	}
@@ -135,6 +111,14 @@ public class SecurityVO {
 	 */
 	public void setNewPassword(String newPassword) {
 		this.newPassword = newPassword;
+	}
+
+	public String getSecurityQuestion2() {
+		return securityQuestion2;
+	}
+
+	public void setSecurityQuestion2(String securityQuestion2) {
+		this.securityQuestion2 = securityQuestion2;
 	}
 
 }
