@@ -29,8 +29,6 @@ public class Permissions {
 	private String updatedBy;
 	@Column(name = "UPDATED_DATE")
 	private Date updatedDate;
-	@ManyToMany(mappedBy = "permissionsList")
-	private List<Roles> rolesList;
 
 	public Integer getPermissionId() {
 		return permissionId;
@@ -94,14 +92,6 @@ public class Permissions {
 
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
-	}
-
-	public List<Roles> getRolesList() {
-		return rolesList;
-	}
-
-	public void setRolesList(List<Roles> rolesList) {
-		this.rolesList = rolesList;
 	}
 
 }

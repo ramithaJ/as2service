@@ -30,12 +30,6 @@ public class Roles {
 	@Column(name = "UPDATED_DATE")
 	private Date updatedDate;
 
-	@ManyToMany(mappedBy = "rolesList")
-	private List<UserProfile> userProfileList;
-	@ManyToMany(cascade = { CascadeType.ALL })
-	@JoinTable(name = "ROLE_PERMISSIONS", joinColumns = { @JoinColumn(name = "ROLE_ID") }, inverseJoinColumns = { @JoinColumn(name = "PERMISSION_ID") })
-	private List<Permissions> permissionsList;
-
 	public Integer getRoleId() {
 		return roleId;
 	}
@@ -82,22 +76,6 @@ public class Roles {
 
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
-	}
-
-	public List<UserProfile> getUserProfileList() {
-		return userProfileList;
-	}
-
-	public void setUserProfileList(List<UserProfile> userProfileList) {
-		this.userProfileList = userProfileList;
-	}
-
-	public List<Permissions> getPermissionsList() {
-		return permissionsList;
-	}
-
-	public void setPermissionsList(List<Permissions> permissionsList) {
-		this.permissionsList = permissionsList;
 	}
 
 }

@@ -19,9 +19,6 @@ public class UserProfileAttribVisible {
 
 	@Column(name = "LIST_OF_ATTRIBUTES_TOBE_VISIB")
 	private String listOfAttributesToBeVisib;
-	@ManyToOne
-	@JoinColumn(name = "USER_ID")
-	private UserProfile userProfile;
 
 	public Integer getUserId() {
 		return userId;
@@ -45,14 +42,6 @@ public class UserProfileAttribVisible {
 
 	public void setListOfAttributesToBeVisib(String listOfAttributesToBeVisib) {
 		this.listOfAttributesToBeVisib = listOfAttributesToBeVisib;
-	}
-
-	public UserProfile getUserProfile() {
-		return userProfile;
-	}
-
-	public void setUserProfile(UserProfile userProfile) {
-		this.userProfile = userProfile;
 	}
 
 }

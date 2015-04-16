@@ -8,24 +8,21 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="USER_REFERENCE_DATA")
+@Table(name = "USER_REFERENCE_DATA")
 public class UserReferenceData {
 
 	@Id
-	@Column(name="USER_ID")
+	@Column(name = "USER_ID")
 	private Integer userId;
-	
-	@Column(name="ECID")
+
+	@Column(name = "ECID")
 	private String ecId;
-	
-	@Column(name="ORCID")
+
+	@Column(name = "ORCID")
 	private String orcId;
-	
-	@Column(name="ALMID")
+
+	@Column(name = "ALMID")
 	private String almId;
-	@ManyToOne
-	@JoinColumn(name="USER_ID")
-	private UserProfile userProfile;
 
 	public Integer getUserId() {
 		return userId;
@@ -59,13 +56,4 @@ public class UserReferenceData {
 		this.almId = almId;
 	}
 
-	public UserProfile getUserProfile() {
-		return userProfile;
-	}
-
-	public void setUserProfile(UserProfile userProfile) {
-		this.userProfile = userProfile;
-	}
-	
-	
 }

@@ -19,9 +19,6 @@ public class UserSecurityDetails {
 
 	@Column(name = "SECURITY_ANSWER")
 	private String securityAnswer;
-	@ManyToOne
-	@JoinColumn(name = "USER_ID")
-	private UserProfile userProfile;
 
 	public Integer getUserId() {
 		return userId;
@@ -45,14 +42,6 @@ public class UserSecurityDetails {
 
 	public void setSecurityAnswer(String securityAnswer) {
 		this.securityAnswer = securityAnswer;
-	}
-
-	public UserProfile getUserProfile() {
-		return userProfile;
-	}
-
-	public void setUserProfile(UserProfile userProfile) {
-		this.userProfile = userProfile;
 	}
 
 }

@@ -23,8 +23,6 @@ public class EmailType {
 	private Date updatedDate;
 	@Column(name = "UPDATED_BY")
 	private String updatedBy;
-	@OneToMany(mappedBy = "emailTypeVar")
-	private List<Notifications> notificationList;
 
 	public Integer getEmailTypeId() {
 		return emailTypeId;
@@ -64,14 +62,6 @@ public class EmailType {
 
 	public void setUpdatedBy(String updatedBy) {
 		this.updatedBy = updatedBy;
-	}
-
-	public List<Notifications> getNotificationList() {
-		return notificationList;
-	}
-
-	public void setNotificationList(List<Notifications> notificationList) {
-		this.notificationList = notificationList;
 	}
 
 }

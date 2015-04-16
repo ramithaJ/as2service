@@ -31,9 +31,6 @@ public class Notifications {
 	private Date updatedDate;
 	@Column(name = "UPDATED_BY")
 	private String updatedBy;
-	@ManyToOne
-	@JoinColumn(name="EMAIL_TYPE")
-	private EmailType emailTypeVar;
 
 	public Integer getNotificationId() {
 		return notificationId;
