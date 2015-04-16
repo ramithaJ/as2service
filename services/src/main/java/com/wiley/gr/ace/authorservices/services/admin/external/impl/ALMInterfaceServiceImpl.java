@@ -12,7 +12,7 @@ public class ALMInterfaceServiceImpl  implements ALMInterfaceService {
 	 * @see com.wiley.gr.ace.authorservices.services.admin.external.ALMInterfaceService#authenticateUser(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public boolean authenticateUser(String emailId, String password) {
+	public boolean authenticateUser(String emailId) {
 		
 		// TODO: Authenticate with LDAP  
 		return true;
