@@ -3,15 +3,24 @@ package com.wiley.gr.ace.authorservices.persistence.services;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
 
+/**
+ * @author kpshiva
+ */
 public class UserServiceDAOImpl implements UserServiceDAO {
+
+	private static final String YES = "y";
 
 	private static ApplicationContext context = new AnnotationConfigApplicationContext(
 			PersistenceBeanConfig.class);
@@ -27,6 +36,135 @@ public class UserServiceDAOImpl implements UserServiceDAO {
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		session.close();
 		return upList;
+	}
+
+	@Override
+	public boolean validateEmailAddress(String emailId) {
+		// TODO Auto-generated method stub
+		boolean status = false;
+		Session session = con.getSessionFactory().openSession();
+		String hql = "from UserProfile where primaryEmailAddr = :emailId";
+		List<UserProfile> result = session.createQuery(hql)
+				.setString("emailId", emailId).list();
+
+		if (result != null && result.size() > 0) {
+
+			status = true;
+		}
+		return status;
+	}
+
+	@Override
+	public boolean checkSecuritySetup(String emailId) {
+		boolean isSecure = false;
+		Session session = con.getSessionFactory().openSession();
+		Transaction tx = session.beginTransaction();
+
+		Criteria criteria = session.createCriteria(UserProfile.class);
+		criteria.add(Restrictions.eq("primaryEmailAddr", emailId));
+		UserProfile userProfile = (UserProfile) criteria.uniqueResult();
+
+		if (null == userProfile)
+			return false;
+
+		isSecure = YES.equalsIgnoreCase(userProfile.getSecurityQuestFlg());
+
+		session.flush();
+		session.close();
+		tx.commit();
+		return isSecure;
+	}
+
+	@Override
+	public List<Object[]> getSecurityQuestions(String userId) {
+		// TODO Auto-generated method stub
+		Session session = con.getSessionFactory().openSession();
+
+		/*
+		 * String hql = "from UserSecurityDetails where userId = :userId";
+		 * List<UserSecurityDetails> userSecirityDetails
+		 * =session.createQuery(hql).setString("userId", userId).list();
+		 * System.out.println("list values"+userSecirityDetails.toString());
+		 * return userSecirityDetails;
+		 */
+
+		List<Object[]> rows = session.createSQLQuery(
+				"select * from USER_SECURITY_DETAILS where USER_ID=1234")
+				.list();
+		/*
+		 * for (UserSecurityDetails userSecurityDetails : userSecirityDetails) {
+		 * System.out.println(userSecurityDetails.getSecurityQuestion());
+		 * System.out.println(userSecurityDetails.getSecurityAnswer()); }
+		 */
+		return rows;
+		// Transaction tx = session.beginTransaction();
+		/*
+		 * Criteria criteria =
+		 * session.createCriteria(UserSecurityDetails.class);
+		 * criteria.add(Restrictions.eq("userId", Integer.parseInt(userId)));
+		 * ArrayList<UserSecurityDetails> list =
+		 * (ArrayList<UserSecurityDetails>)criteria.list(); Iterator
+		 * iterator=list.iterator();
+		 * System.out.println("---------------"+list.size());
+		 * System.out.println(
+		 * "---------------"+list.get(0).getSecurityQuestion());
+		 * System.out.println
+		 * ("---------------"+list.get(1).getSecurityQuestion());
+		 * UserSecurityDetails userSecurityDetails = null;
+		 * while(iterator.hasNext()){ userSecurityDetails=(UserSecurityDetails)
+		 * iterator.next();
+		 * System.out.println("---------------"+userSecurityDetails
+		 * .getSecurityQuestion());
+		 * System.out.println("---------------"+userSecurityDetails
+		 * .getSecurityAnswer()); } session.close(); return null;
+		 */
+		/*
+		 * Transaction tx = session.beginTransaction(); Criteria criteria =
+		 * session.createCriteria(UserSecurityDetails.class);
+		 * criteria.add(Restrictions.eq("userId", Integer.parseInt(userId)));
+		 * List<UserSecurityDetails> userSecurityDetails =
+		 * (List<UserSecurityDetails>) criteria.list(); session.flush();
+		 * session.close(); tx.commit(); return userSecurityDetails;
+		 */
+	}
+
+	@Override
+	public boolean validateSecurityQuestions(String emailId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean doLogin(String emailId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isUserLocked(String emailId) {
+		// TODO Auto-generated method stub
+		boolean isLocked;
+		Session session = con.getSessionFactory().openSession();
+		Criteria criteria = session.createCriteria(UserProfile.class);
+		criteria.add(Restrictions.eq("primaryEmailAddr", emailId));
+		UserProfile userProfile = (UserProfile) criteria.uniqueResult();
+		if (null == userProfile)
+			return false;
+		isLocked = StringUtils.equalsIgnoreCase(
+				userProfile.getIsAccountActive(), "y");
+		return isLocked;
+	}
+
+	@Override
+	public int lockUser(String emailId) {
+		// TODO Auto-generated method stub
+		Session session = con.getSessionFactory().openSession();
+		String hql = "UPDATE UserProfile set isAccountActive = :isAccountActive "
+				+ "WHERE primaryEmailAddr = :emailId";
+		Query query = session.createQuery(hql);
+		query.setParameter("isAccountActive", "n");
+		query.setParameter("emailId", emailId);
+		return query.executeUpdate();
 	}
 
 }
