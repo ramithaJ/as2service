@@ -5,14 +5,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
-import com.wiley.gr.ace.authorservices.persistence.entity.AdminTasks;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
 import com.wiley.gr.ace.authorservices.persistence.services.usermanagement.UserLoginDao;
 
@@ -29,9 +27,6 @@ public class UserLoginDaoImpl implements UserLoginDao {
 		boolean status=false;
 		Session session = con.getSessionFactory().openSession();
 		
-//		List<UserProfile> upList = session.createCriteria(UserProfile.class)
-//				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-//		
 		String hql = "from UserProfile where primaryEmailAddr = :emailId";
 		List<UserProfile> result = session.createQuery(hql).setString("emailId", emailId).list();
 	
@@ -77,25 +72,4 @@ public class UserLoginDaoImpl implements UserLoginDao {
 		return true;
 	}
 
-	@Override
-	public String addAdminTask(AdminTasks adminTasks) {
-		Session session = con.getSessionFactory().openSession();
-		session.beginTransaction();
-
-		String hql = "from AdminTasks where taskReceviedFrom = :taskReceviedFrom";
-		List<AdminTasks> result = session.createQuery(hql).setString("taskReceviedFrom", adminTasks.getTaskReceviedFrom()).list();
-		
-		if(result!=null && result.size() > 0){
-			adminTasks = result.get(0);
-		}
-		
-		
-		
-		
-		
-		return null;
-	}
-
-	
-	
 }
