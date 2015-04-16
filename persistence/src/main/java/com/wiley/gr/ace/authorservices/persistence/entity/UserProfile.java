@@ -2,10 +2,16 @@ package com.wiley.gr.ace.authorservices.persistence.entity;
 
 import java.sql.Blob;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -64,6 +70,15 @@ public class UserProfile {
 	private Date lastLoginDate;
 	@Column(name = "LAST_ACTIVITY_DATE")
 	private Date lastActivityDate;
+	@OneToMany(mappedBy = "userProfile")
+	private List<UserReferenceData> userReferenceDataList;
+	@OneToMany(mappedBy = "userProfile")
+	private List<UserProfileAttribVisible> userProfileAttribVisibleList;
+	@ManyToMany(cascade = { CascadeType.ALL })
+	@JoinTable(name = "USER_ROLES", joinColumns = { @JoinColumn(name = "USER_ID") }, inverseJoinColumns = { @JoinColumn(name = "ROLE_ID") })
+	private List<Roles> rolesList;
+	@OneToMany(mappedBy = "userProfile")
+	private List<UserSecurityDetails> userSecurityDetailsList;
 
 	public Integer getUserId() {
 		return userId;
@@ -271,6 +286,41 @@ public class UserProfile {
 
 	public void setLastActivityDate(Date lastActivityDate) {
 		this.lastActivityDate = lastActivityDate;
+	}
+
+	public List<UserReferenceData> getUserReferenceDataList() {
+		return userReferenceDataList;
+	}
+
+	public void setUserReferenceDataList(
+			List<UserReferenceData> userReferenceDataList) {
+		this.userReferenceDataList = userReferenceDataList;
+	}
+
+	public List<UserProfileAttribVisible> getUserProfileAttribVisibleList() {
+		return userProfileAttribVisibleList;
+	}
+
+	public void setUserProfileAttribVisibleList(
+			List<UserProfileAttribVisible> userProfileAttribVisibleList) {
+		this.userProfileAttribVisibleList = userProfileAttribVisibleList;
+	}
+
+	public List<Roles> getRolesList() {
+		return rolesList;
+	}
+
+	public void setRolesList(List<Roles> rolesList) {
+		this.rolesList = rolesList;
+	}
+
+	public List<UserSecurityDetails> getUserSecurityDetailsList() {
+		return userSecurityDetailsList;
+	}
+
+	public void setUserSecurityDetailsList(
+			List<UserSecurityDetails> userSecurityDetailsList) {
+		this.userSecurityDetailsList = userSecurityDetailsList;
 	}
 
 }

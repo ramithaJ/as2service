@@ -1,10 +1,12 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -27,6 +29,8 @@ public class Permissions {
 	private String updatedBy;
 	@Column(name = "UPDATED_DATE")
 	private Date updatedDate;
+	@ManyToMany(mappedBy = "permissionsList")
+	private List<Roles> rolesList;
 
 	public Integer getPermissionId() {
 		return permissionId;
@@ -90,6 +94,14 @@ public class Permissions {
 
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
+	}
+
+	public List<Roles> getRolesList() {
+		return rolesList;
+	}
+
+	public void setRolesList(List<Roles> rolesList) {
+		this.rolesList = rolesList;
 	}
 
 }
