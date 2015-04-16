@@ -54,7 +54,7 @@ public class UserLoginController {
 	 */
 	@RequestMapping(value = "/resetPwd/{emailId}", method = RequestMethod.GET)
 	public String resetPassword(@PathVariable("emailId") String userId) {
-		
+
 		return null;
 	}
 
@@ -63,11 +63,10 @@ public class UserLoginController {
 	 * @return
 	 */
 	@RequestMapping(value = "/getSecurityQuestions/{userId}", method = RequestMethod.GET)
-	public SecurityVO getSecurityQuestions(
-			@PathVariable("userId") String userId) {
+	public SecurityVO getSecurityQuestions(@PathVariable("userId") String userId) {
 		UserLoginService userLoginService = (UserLoginServiceImpl) context
 				.getBean("UserLoginService");
-		SecurityVO securityVO=userLoginService.getSecurityQuestions(userId);
+		SecurityVO securityVO = userLoginService.getSecurityQuestions(userId);
 		return securityVO;
 	}
 
@@ -78,7 +77,7 @@ public class UserLoginController {
 	 * @return
 	 */
 	@RequestMapping(value = "/valdiateSecurityQuestions", method = RequestMethod.POST)
-	/*@ModelAttribute("userSecurityModel") UserSecurityModel userSecurityModel*/
+	/* @ModelAttribute("userSecurityModel") UserSecurityModel userSecurityModel */
 	public String validateSecurityQuestions() {
 
 		return null;

@@ -9,7 +9,6 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
@@ -66,9 +65,8 @@ public class UserServiceDAOImpl implements UserServiceDAO {
 
 		if (null == userProfile)
 			return false;
-
-		isSecure = YES.equalsIgnoreCase(userProfile.getSecurityQuestFlg());
-
+		if (userProfile.getSecurityQuestFlg().equals(YES))
+			isSecure = true;
 		session.flush();
 		session.close();
 		tx.commit();
@@ -81,51 +79,32 @@ public class UserServiceDAOImpl implements UserServiceDAO {
 		Session session = con.getSessionFactory().openSession();
 
 		/*
-		 * String hql = "from UserSecurityDetails where userId = :userId";
-		 * List<UserSecurityDetails> userSecirityDetails
-		 * =session.createQuery(hql).setString("userId", userId).list();
-		 * System.out.println("list values"+userSecirityDetails.toString());
+		 * use this scenario when hql required
+		 * 
+		 * String hql = "from USER_SECURITY_DETAILS where USER_ID= :userId";
+		 * List<UserSecurityDetails> userSecirityDetails = session
+		 * .createQuery(hql).setString("userId", userId).list();
+		 * System.out.println("list values" + userSecirityDetails.toString());
 		 * return userSecirityDetails;
 		 */
 
 		List<Object[]> rows = session.createSQLQuery(
-				"select * from USER_SECURITY_DETAILS where USER_ID=1234")
+				"SELECT * FROM USER_SECURITY_DETAILS where USER_ID=1234")
 				.list();
-		/*
-		 * for (UserSecurityDetails userSecurityDetails : userSecirityDetails) {
-		 * System.out.println(userSecurityDetails.getSecurityQuestion());
-		 * System.out.println(userSecurityDetails.getSecurityAnswer()); }
-		 */
+		System.out.println("--------------" + rows.size());
 		return rows;
-		// Transaction tx = session.beginTransaction();
+
 		/*
-		 * Criteria criteria =
-		 * session.createCriteria(UserSecurityDetails.class);
+		 * use this when criteria required
+		 * 
+		 * Transaction tx = session.beginTransaction(); Criteria criteria
+		 * =session.createCriteria(UserSecurityDetails.class);
 		 * criteria.add(Restrictions.eq("userId", Integer.parseInt(userId)));
-		 * ArrayList<UserSecurityDetails> list =
-		 * (ArrayList<UserSecurityDetails>)criteria.list(); Iterator
-		 * iterator=list.iterator();
-		 * System.out.println("---------------"+list.size());
-		 * System.out.println(
-		 * "---------------"+list.get(0).getSecurityQuestion());
-		 * System.out.println
-		 * ("---------------"+list.get(1).getSecurityQuestion());
-		 * UserSecurityDetails userSecurityDetails = null;
-		 * while(iterator.hasNext()){ userSecurityDetails=(UserSecurityDetails)
-		 * iterator.next();
-		 * System.out.println("---------------"+userSecurityDetails
-		 * .getSecurityQuestion());
-		 * System.out.println("---------------"+userSecurityDetails
-		 * .getSecurityAnswer()); } session.close(); return null;
-		 */
-		/*
-		 * Transaction tx = session.beginTransaction(); Criteria criteria =
-		 * session.createCriteria(UserSecurityDetails.class);
-		 * criteria.add(Restrictions.eq("userId", Integer.parseInt(userId)));
-		 * List<UserSecurityDetails> userSecurityDetails =
-		 * (List<UserSecurityDetails>) criteria.list(); session.flush();
+		 * List<UserSecurityDetails> userSecurityDetails
+		 * =(List<UserSecurityDetails>) criteria.list(); session.flush();
 		 * session.close(); tx.commit(); return userSecurityDetails;
 		 */
+
 	}
 
 	@Override
@@ -143,15 +122,15 @@ public class UserServiceDAOImpl implements UserServiceDAO {
 	@Override
 	public boolean isUserLocked(String emailId) {
 		// TODO Auto-generated method stub
-		boolean isLocked;
+		boolean isLocked = false;
 		Session session = con.getSessionFactory().openSession();
 		Criteria criteria = session.createCriteria(UserProfile.class);
 		criteria.add(Restrictions.eq("primaryEmailAddr", emailId));
 		UserProfile userProfile = (UserProfile) criteria.uniqueResult();
 		if (null == userProfile)
 			return false;
-		isLocked = StringUtils.equalsIgnoreCase(
-				userProfile.getIsAccountActive(), "y");
+		if (userProfile.getSecurityQuestFlg().equals(YES))
+			isLocked = true;
 		return isLocked;
 	}
 

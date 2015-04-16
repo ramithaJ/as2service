@@ -37,29 +37,34 @@ public class UserLoginServiceImpl implements UserLoginService {
 		SecurityVO securityVO = null;
 		UserServiceDAO userDAO = (UserServiceDAOImpl) context
 				.getBean("UserServiceDAO");
-		List<Object[]> securityQuestionslist = userDAO
+
+		List<Object[]> securityQuestionsList = userDAO
 				.getSecurityQuestions(userId);
-		for (Object[] row : securityQuestionslist) {
-			securityVO = new SecurityVO();
-			securityVO.setSecurityQuestion1(row[0].toString());
-			securityVO.setSecurityAnswer1(row[1].toString());
-			securityVO.setSecutityQuestion2(row[2].toString());
-			securityVO.setSecurityAnswer2(row[3].toString());
-			System.out.println(securityVO);
-		}
+
+		securityVO = new SecurityVO();
+		securityVO.setSecurityQuestion1(securityQuestionsList.get(0)[2]
+				.toString());
+		securityVO.setSecurityAnswer1(securityQuestionsList.get(0)[3]
+				.toString());
+		securityVO.setSecurityQuestion2(securityQuestionsList.get(1)[2]
+				.toString());
+		securityVO.setSecurityAnswer2(securityQuestionsList.get(1)[3]
+				.toString());
+		System.out.println(securityVO);
 
 		/*
-		 * List<UserSecurityDetails> securityQuestionslist =
-		 * userDAO.getSecurityQuestions(userId);
-		 * securityVO.setSecurityQuestion1(
-		 * securityQuestionslist.get(0).getSecurityQuestion());
-		 * securityVO.setSecurityAnswer1
-		 * (securityQuestionslist.get(0).getSecurityAnswer());
-		 * securityVO.setSecutityQuestion2
-		 * (securityQuestionslist.get(1).getSecurityQuestion());
-		 * securityVO.setSecurityAnswer2
-		 * (securityQuestionslist.get(1).getSecurityAnswer());
+		 * List<UserSecurityDetails> securityQuestionslist = userDAO
+		 * .getSecurityQuestions(userId);
+		 * securityVO.setSecurityQuestion1(securityQuestionslist.get(0)
+		 * .getSecurityQuestion());
+		 * securityVO.setSecurityAnswer1(securityQuestionslist.get(0)
+		 * .getSecurityAnswer());
+		 * securityVO.setSecurityQuestion2(securityQuestionslist.get(1)
+		 * .getSecurityQuestion());
+		 * securityVO.setSecurityAnswer2(securityQuestionslist.get(1)
+		 * .getSecurityAnswer());
 		 */
+
 		return securityVO;
 	}
 

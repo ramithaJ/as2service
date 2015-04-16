@@ -4,7 +4,12 @@ import java.util.List;
 
 import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
 
+/**
+ * @author kpshiva
+ *
+ */
 public interface UserServiceDAO {
+
 	public List<UserProfile> getUsersList();
 
 	boolean validateSecurityQuestions(String emailId);
