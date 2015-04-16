@@ -19,4 +19,30 @@
 	<packaging>war</packaging>
 	<version>2.0.0-SNAPSHOT</version>
 
+	<build>
+		<plugins>
+			<!-- PMD CPD plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>check-pmd</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>check</goal>
+							<goal>cpd-check</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<targetJdk>${jdk.version}</targetJdk>
+					<format>xml</format>
+					<outputDirectory>target/pmd-cpd/</outputDirectory>
+				</configuration>
+			</plugin>
+			<!-- PMD CPD plugin ends here -->
+		</plugins>
+	</build>
+
 </project>
