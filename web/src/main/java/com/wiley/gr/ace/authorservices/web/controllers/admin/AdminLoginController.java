@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiley.gr.ace.authorservices.model.ServiceVO;
 import com.wiley.gr.ace.authorservices.services.admin.AdminLoginService;
 import com.wiley.gr.ace.authorservices.services.admin.impl.AdminLoginServiceImpl;
 import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
@@ -21,25 +22,22 @@ public class AdminLoginController {
 	public static ApplicationContext context = new AnnotationConfigApplicationContext(
 			ServiceBeanConfig.class);
 
-	@RequestMapping(value = "/login/{emailId}/{password}", method = RequestMethod.GET, produces = "application/json")
-	public String login(@PathVariable("emailId") String emailId,
-			@PathVariable("password") String password) {
+	@RequestMapping(value = "/login/{emailId}", method = RequestMethod.POST, produces = "application/json")
+	public ServiceVO login(@PathVariable("emailId") String emailId) {
 
 		boolean status = false;
+		ServiceVO serviceVO = new ServiceVO();
 		AdminLoginService adminlogin = (AdminLoginServiceImpl) context
 				.getBean("AdminLoginService");
 		status = adminlogin.validateEmail(emailId);
 
 		if (status) {
 
-			adminlogin.doLogin(emailId, password);
+			adminlogin.doLogin(emailId);
+			serviceVO.setStatus("success");
 		}
 
-		if (status) {
-			return "true ";
-		} else {
-			return "false";
-		}
+		return serviceVO;
 
 	}
 }
