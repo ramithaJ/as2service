@@ -1,5 +1,7 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -27,10 +29,10 @@ public class AdminTasks {
 	private Integer taskAssignedToUserId;
 	
 	@Column(name="TASK_RECEVIED_DATE")
-	private Date taskReceviedDate;
+	private Timestamp taskReceviedDate;
 	
 	@Column(name="TASK_COMPLETION_DATE")
-	private Date taskCompletionDate;
+	private Timestamp taskCompletionDate;
 	
 	@Column(name="TASK_RECEVIED_FROM")
 	private String taskReceviedFrom;
@@ -78,19 +80,19 @@ public class AdminTasks {
 		this.taskAssignedToUserId = taskAssignedToUserId;
 	}
 
-	public Date getTaskReceviedDate() {
+	public Timestamp getTaskReceviedDate() {
 		return taskReceviedDate;
 	}
 
-	public void setTaskReceviedDate(Date taskReceviedDate) {
+	public void setTaskReceviedDate(Timestamp taskReceviedDate) {
 		this.taskReceviedDate = taskReceviedDate;
 	}
 
-	public Date getTaskCompletionDate() {
+	public Timestamp getTaskCompletionDate() {
 		return taskCompletionDate;
 	}
 
-	public void setTaskCompletionDate(Date taskCompletionDate) {
+	public void setTaskCompletionDate(Timestamp taskCompletionDate) {
 		this.taskCompletionDate = taskCompletionDate;
 	}
 
@@ -109,7 +111,6 @@ public class AdminTasks {
 	public void setTaskAssignedBy(String taskAssignedBy) {
 		this.taskAssignedBy = taskAssignedBy;
 	}
-	
-	
 
+	
 }
