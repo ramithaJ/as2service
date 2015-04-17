@@ -1,5 +1,9 @@
 package com.wiley.gr.ace.authorservices.persistence.services;
 
+/**
+ * @author RAVISINHA
+ *
+ */
 public interface UserLoginDao {
 
 	/**

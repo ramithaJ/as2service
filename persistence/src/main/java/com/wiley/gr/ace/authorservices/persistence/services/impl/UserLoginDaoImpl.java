@@ -14,6 +14,10 @@ import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig
 import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
 
+/**
+ * @author RAVISINHA
+ *
+ */
 public class UserLoginDaoImpl implements UserLoginDao {
 	
 	private static ApplicationContext context = new AnnotationConfigApplicationContext(
