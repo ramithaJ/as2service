@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import com.wiley.gr.ace.authorservices.model.SecurityVO;
+import com.wiley.gr.ace.authorservices.model.Security;
 import com.wiley.gr.ace.authorservices.model.UISecurityDetails;
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
@@ -35,12 +35,12 @@ public class UserLoginServiceImpl implements UserLoginService {
 	}
 
 	@Override
-	public SecurityVO getSecurityQuestions(String userId) {
-		SecurityVO securityVO = null;
+	public Security getSecurityQuestions(String userId) {
+		Security securityVO = null;
 		UserServiceDAO userDAO = (UserServiceDAOImpl) context
 				.getBean("UserServiceDAO");
 
-		securityVO = new SecurityVO();
+		securityVO = new Security();
 		List<UserSecurityDetails> securityQuestionslist = userDAO
 				.getSecurityQuestions(userId);
 		securityVO.setId1(securityQuestionslist.get(0).getUserSecurityId());
@@ -65,7 +65,7 @@ public class UserLoginServiceImpl implements UserLoginService {
 
 	@Override
 	public boolean validateSecurityQuestions(String userId,
-			SecurityVO securityVO) {
+			Security securityVO) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -102,7 +102,7 @@ public class UserLoginServiceImpl implements UserLoginService {
 	@Override
 	public boolean validateSecurityQuestions(UISecurityDetails uiSecurityDetails) {
 
-		SecurityVO securityVO = this.getSecurityQuestions("1234");
+		Security securityVO = this.getSecurityQuestions("1234");
 		if (securityVO.getId1() == uiSecurityDetails.getId1()
 				&& securityVO.getSecurityAnswer1().equalsIgnoreCase(
 						uiSecurityDetails.getAnswer1())

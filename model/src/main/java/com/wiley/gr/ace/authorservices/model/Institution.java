@@ -3,7 +3,7 @@ package com.wiley.gr.ace.authorservices.model;
 /**
  * @author kpshiva
  */
-public class InstitutionVO {
+public class Institution {
 
 	/** The institution id. */
 	private String institutionId;

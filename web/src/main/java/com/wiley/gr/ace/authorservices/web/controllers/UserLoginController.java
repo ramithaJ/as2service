@@ -2,13 +2,12 @@ package com.wiley.gr.ace.authorservices.web.controllers;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wiley.gr.ace.authorservices.model.SecurityVO;
+import com.wiley.gr.ace.authorservices.model.Security;
 import com.wiley.gr.ace.authorservices.model.UISecurityDetails;
 import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
@@ -66,10 +65,10 @@ public class UserLoginController {
 	 * @return
 	 */
 	@RequestMapping(value = "/getSecurityQuestions/{userId}", method = RequestMethod.GET)
-	public SecurityVO getSecurityQuestions(@PathVariable("userId") String userId) {
+	public Security getSecurityQuestions(@PathVariable("userId") String userId) {
 		UserLoginService userLoginService = (UserLoginServiceImpl) context
 				.getBean("UserLoginService");
-		SecurityVO securityVO = userLoginService.getSecurityQuestions(userId);
+		Security securityVO = userLoginService.getSecurityQuestions(userId);
 		return securityVO;
 	}
 

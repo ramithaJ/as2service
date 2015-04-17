@@ -3,7 +3,7 @@ package com.wiley.gr.ace.authorservices.model;
 /**
  * @author kpshiva
  */
-public class UserMgmtVO {
+public class UserMgmt {
 
 	/** The user id. */
 	private String userId;

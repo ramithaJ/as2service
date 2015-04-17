@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.services.service;
 
-import com.wiley.gr.ace.authorservices.model.SecurityVO;
+import com.wiley.gr.ace.authorservices.model.Security;
 import com.wiley.gr.ace.authorservices.model.UISecurityDetails;
 
 /**
@@ -28,12 +28,12 @@ public interface UserLoginService {
 	 * @param securityVO
 	 * @return
 	 */
-	public boolean validateSecurityQuestions(String userId, SecurityVO securityVO);
+	public boolean validateSecurityQuestions(String userId, Security securityVO);
 	/**
 	 * @param userId
 	 * @return
 	 */
-	public SecurityVO getSecurityQuestions(String userId);
+	public Security getSecurityQuestions(String userId);
 	/**
 	 * @param userId
 	 * @return

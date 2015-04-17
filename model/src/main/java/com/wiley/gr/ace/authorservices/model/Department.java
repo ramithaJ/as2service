@@ -3,7 +3,7 @@ package com.wiley.gr.ace.authorservices.model;
 /**
  * @author kpshiva
  */
-public class DepartmentVO {
+public class Department {
 
 	/** The department id. */
 	private String departmentId;

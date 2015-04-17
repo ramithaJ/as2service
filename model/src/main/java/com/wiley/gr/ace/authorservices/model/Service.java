@@ -7,13 +7,13 @@ package com.wiley.gr.ace.authorservices.model;
  * @author SarmaKumarap
  *
  */
-public class ServiceVO {
+public class Service {
 	
 	private String status;
 	
 	private Object serviceObject;
 	
-	private ErrorVO errorVO;
+	private Error errorVO;
 
 	/**
 	 * @return
@@ -46,14 +46,14 @@ public class ServiceVO {
 	/**
 	 * @return
 	 */
-	public ErrorVO getErrorVO() {
+	public Error getErrorVO() {
 		return errorVO;
 	}
 
 	/**
 	 * @param errorVO
 	 */
-	public void setErrorVO(ErrorVO errorVO) {
+	public void setErrorVO(Error errorVO) {
 		this.errorVO = errorVO;
 	}
 	

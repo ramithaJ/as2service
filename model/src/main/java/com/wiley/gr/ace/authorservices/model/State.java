@@ -3,7 +3,7 @@ package com.wiley.gr.ace.authorservices.model;
 /**
  * @author kpshiva
  */
-public class StateVO {
+public class State {
 
 	/** The state code. */
 	private String stateCode;

@@ -4,7 +4,7 @@ package com.wiley.gr.ace.authorservices.model;
  * @author kpshiva
  */
 
-public class UserAddressVO {
+public class UserAddress {
 
 	/** The title vo. */
 	private String titleVO;

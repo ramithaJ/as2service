@@ -6,7 +6,7 @@ package com.wiley.gr.ace.authorservices.model;
  * @author SarmaKumarap
  *
  */
-public class ErrorVO {
+public class Error {
 	
 	private int errorCode;
 	

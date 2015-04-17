@@ -3,13 +3,13 @@ package com.wiley.gr.ace.authorservices.model;
 /**
  * @author kpshiva
  */
-public class UserAccountVO {
+public class UserAccount {
 
 	/** The title. */
-	private TitleVO title;
+	private Title title;
 
 	/** The suffix. */
-	private SuffixVO suffix;
+	private Suffix suffix;
 
 	/** The first name. */
 	private String firstName;
@@ -55,7 +55,7 @@ public class UserAccountVO {
 	 *
 	 * @return the title
 	 */
-	public TitleVO getTitle() {
+	public Title getTitle() {
 		return title;
 	}
 
@@ -65,7 +65,7 @@ public class UserAccountVO {
 	 * @param title
 	 *            the new title
 	 */
-	public void setTitle(TitleVO title) {
+	public void setTitle(Title title) {
 		this.title = title;
 	}
 
@@ -74,7 +74,7 @@ public class UserAccountVO {
 	 *
 	 * @return the suffix
 	 */
-	public SuffixVO getSuffix() {
+	public Suffix getSuffix() {
 		return suffix;
 	}
 
@@ -84,7 +84,7 @@ public class UserAccountVO {
 	 * @param suffix
 	 *            the new suffix
 	 */
-	public void setSuffix(SuffixVO suffix) {
+	public void setSuffix(Suffix suffix) {
 		this.suffix = suffix;
 	}
 

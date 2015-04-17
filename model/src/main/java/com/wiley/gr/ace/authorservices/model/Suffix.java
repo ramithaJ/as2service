@@ -3,7 +3,7 @@ package com.wiley.gr.ace.authorservices.model;
 /**
  * @author kpshiva
  */
-public class SuffixVO {
+public class Suffix {
 
 	/** The suffix id. */
 	private String suffixId;

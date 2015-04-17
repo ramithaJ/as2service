@@ -3,7 +3,7 @@ package com.wiley.gr.ace.authorservices.model;
 /**
  * @author kpshiva
  */
-public class CountryVO {
+public class Country {
 
 	/** The country code. */
 	private String countryCode;
