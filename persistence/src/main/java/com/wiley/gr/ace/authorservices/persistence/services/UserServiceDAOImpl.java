@@ -13,6 +13,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
 
 /**
  * @author kpshiva
@@ -39,7 +40,7 @@ public class UserServiceDAOImpl implements UserServiceDAO {
 
 	@Override
 	public boolean validateEmailAddress(String emailId) {
-		// TODO Auto-generated method stub
+
 		boolean status = false;
 		Session session = con.getSessionFactory().openSession();
 		String hql = "from UserProfile where primaryEmailAddr = :emailId";
@@ -74,36 +75,18 @@ public class UserServiceDAOImpl implements UserServiceDAO {
 	}
 
 	@Override
-	public List<Object[]> getSecurityQuestions(String userId) {
-		// TODO Auto-generated method stub
+	public List<UserSecurityDetails> getSecurityQuestions(String userId) {
+
 		Session session = con.getSessionFactory().openSession();
-
-		/*
-		 * use this scenario when hql required
-		 * 
-		 * String hql = "from USER_SECURITY_DETAILS where USER_ID= :userId";
-		 * List<UserSecurityDetails> userSecirityDetails = session
-		 * .createQuery(hql).setString("userId", userId).list();
-		 * System.out.println("list values" + userSecirityDetails.toString());
-		 * return userSecirityDetails;
-		 */
-
-		List<Object[]> rows = session.createSQLQuery(
-				"SELECT * FROM USER_SECURITY_DETAILS where USER_ID=1234")
+		Transaction tx = session.beginTransaction();
+		Criteria criteria = session.createCriteria(UserSecurityDetails.class);
+		criteria.add(Restrictions.eq("userId", Integer.parseInt(userId)));
+		List<UserSecurityDetails> userSecurityDetails = (List<UserSecurityDetails>) criteria
 				.list();
-		System.out.println("--------------" + rows.size());
-		return rows;
-
-		/*
-		 * use this when criteria required
-		 * 
-		 * Transaction tx = session.beginTransaction(); Criteria criteria
-		 * =session.createCriteria(UserSecurityDetails.class);
-		 * criteria.add(Restrictions.eq("userId", Integer.parseInt(userId)));
-		 * List<UserSecurityDetails> userSecurityDetails
-		 * =(List<UserSecurityDetails>) criteria.list(); session.flush();
-		 * session.close(); tx.commit(); return userSecurityDetails;
-		 */
+		session.flush();
+		session.close();
+		tx.commit();
+		return userSecurityDetails;
 
 	}
 
@@ -121,7 +104,7 @@ public class UserServiceDAOImpl implements UserServiceDAO {
 
 	@Override
 	public boolean isUserLocked(String emailId) {
-		// TODO Auto-generated method stub
+
 		boolean isLocked = false;
 		Session session = con.getSessionFactory().openSession();
 		Criteria criteria = session.createCriteria(UserProfile.class);
@@ -136,7 +119,7 @@ public class UserServiceDAOImpl implements UserServiceDAO {
 
 	@Override
 	public int lockUser(String emailId) {
-		// TODO Auto-generated method stub
+
 		Session session = con.getSessionFactory().openSession();
 		String hql = "UPDATE UserProfile set isAccountActive = :isAccountActive "
 				+ "WHERE primaryEmailAddr = :emailId";

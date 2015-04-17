@@ -6,6 +6,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
 import com.wiley.gr.ace.authorservices.persistence.services.UserServiceDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserServiceDAOImpl;
 import com.wiley.gr.ace.authorservices.services.usermanagement.UserLoginService;
@@ -39,37 +40,19 @@ public class UserLoginServiceImpl implements UserLoginService {
 		UserServiceDAO userDAO = (UserServiceDAOImpl) context
 				.getBean("UserServiceDAO");
 
-		List<Object[]> securityQuestionsList = userDAO
-				.getSecurityQuestions(userId);
-
 		securityVO = new SecurityVO();
-
-		securityVO.setId1(Integer.parseInt(securityQuestionsList.get(0)[0]
-				.toString()));
-		securityVO.setSecurityQuestion1(securityQuestionsList.get(0)[2]
-				.toString());
-		securityVO.setSecurityAnswer1(securityQuestionsList.get(0)[3]
-				.toString());
-		securityVO.setId2(Integer.parseInt(securityQuestionsList.get(1)[0]
-				.toString()));
-		securityVO.setSecurityQuestion2(securityQuestionsList.get(1)[2]
-				.toString());
-		securityVO.setSecurityAnswer2(securityQuestionsList.get(1)[3]
-				.toString());
-		System.out.println(securityVO);
-
-		/*
-		 * List<UserSecurityDetails> securityQuestionslist = userDAO
-		 * .getSecurityQuestions(userId);
-		 * securityVO.setSecurityQuestion1(securityQuestionslist.get(0)
-		 * .getSecurityQuestion());
-		 * securityVO.setSecurityAnswer1(securityQuestionslist.get(0)
-		 * .getSecurityAnswer());
-		 * securityVO.setSecurityQuestion2(securityQuestionslist.get(1)
-		 * .getSecurityQuestion());
-		 * securityVO.setSecurityAnswer2(securityQuestionslist.get(1)
-		 * .getSecurityAnswer());
-		 */
+		List<UserSecurityDetails> securityQuestionslist = userDAO
+				.getSecurityQuestions(userId);
+		securityVO.setId1(securityQuestionslist.get(0).getUserSecurityId());
+		securityVO.setSecurityQuestion1(securityQuestionslist.get(0)
+				.getSecurityQuestion());
+		securityVO.setSecurityAnswer1(securityQuestionslist.get(0)
+				.getSecurityAnswer());
+		securityVO.setId2(securityQuestionslist.get(1).getUserSecurityId());
+		securityVO.setSecurityQuestion2(securityQuestionslist.get(1)
+				.getSecurityQuestion());
+		securityVO.setSecurityAnswer2(securityQuestionslist.get(1)
+				.getSecurityAnswer());
 
 		return securityVO;
 	}

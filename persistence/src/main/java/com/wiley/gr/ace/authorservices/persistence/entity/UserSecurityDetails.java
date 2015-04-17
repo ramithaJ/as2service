@@ -3,14 +3,15 @@ package com.wiley.gr.ace.authorservices.persistence.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "USER_SECURITY_DETAILS")
 public class UserSecurityDetails {
 	@Id
+	@Column(name = "USER_SECURITY_ID")
+	private Integer userSecurityId;
+	
 	@Column(name = "USER_ID")
 	private Integer userId;
 
@@ -43,5 +44,15 @@ public class UserSecurityDetails {
 	public void setSecurityAnswer(String securityAnswer) {
 		this.securityAnswer = securityAnswer;
 	}
+	
+
+	public Integer getUserSecurityId() {
+		return userSecurityId;
+	}
+
+	public void setUserSecurityId(Integer userSecurityId) {
+		this.userSecurityId = userSecurityId;
+	}
+
 
 }
