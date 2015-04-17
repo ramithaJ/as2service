@@ -2,12 +2,14 @@ package com.wiley.gr.ace.authorservices.web.controllers;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.model.SecurityVO;
+import com.wiley.gr.ace.authorservices.model.UISecurityDetails;
 import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 import com.wiley.gr.ace.authorservices.services.service.impl.UserLoginServiceImpl;
@@ -76,9 +78,8 @@ public class UserLoginController {
 	 * 
 	 * @param userId
 	 * @return
-	 *//*
+	 */
 	@RequestMapping(value = "/valdiateSecurityQuestions", method = RequestMethod.POST)
-	 @ModelAttribute("userSecurityModel") UserSecurityModel userSecurityModel 
 	public boolean validateSecurityQuestions() {
 		UserLoginService userLoginService = (UserLoginServiceImpl) context
 				.getBean("UserLoginService");
@@ -89,5 +90,5 @@ public class UserLoginController {
 		uiSecurityDetails.setAnswer2("i will not tell");
 		return userLoginService.validateSecurityQuestions(uiSecurityDetails);
 	}
-*/
+
 }
