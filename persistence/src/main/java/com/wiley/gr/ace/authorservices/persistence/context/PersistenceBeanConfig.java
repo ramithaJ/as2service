@@ -4,10 +4,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
+import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
 import com.wiley.gr.ace.authorservices.persistence.services.UserServiceDAO;
-import com.wiley.gr.ace.authorservices.persistence.services.UserServiceDAOImpl;
-import com.wiley.gr.ace.authorservices.persistence.services.usermanagement.impl.UserLoginDaoImpl;
-import com.wiley.gr.ace.authorservices.persistence.services.usermanagement.UserLoginDao;
+import com.wiley.gr.ace.authorservices.persistence.services.impl.UserLoginDaoImpl;
+import com.wiley.gr.ace.authorservices.persistence.services.impl.UserServiceDAOImpl;
 
 @Configuration
 public class PersistenceBeanConfig {

@@ -1,6 +1,6 @@
-package com.wiley.gr.ace.authorservices.services.admin.external.impl;
+package com.wiley.gr.ace.authorservices.services.external.impl;
 
-import com.wiley.gr.ace.authorservices.services.admin.external.BPMInterfaceService;
+import com.wiley.gr.ace.authorservices.services.external.BPMInterfaceService;
 
 /**
  * @author RAVISINHA

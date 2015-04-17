@@ -1,17 +1,17 @@
-package com.wiley.gr.ace.authorservices.services.usermanagement.impl;
+package com.wiley.gr.ace.authorservices.services.service.impl;
 
 import java.util.List;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import com.wiley.gr.ace.authorservices.model.SecurityVO;
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
 import com.wiley.gr.ace.authorservices.persistence.services.UserServiceDAO;
-import com.wiley.gr.ace.authorservices.persistence.services.UserServiceDAOImpl;
-import com.wiley.gr.ace.authorservices.services.usermanagement.UserLoginService;
-import com.wiley.gr.ace.authorservices.usermanagement.model.SecurityVO;
-import com.wiley.gr.ace.authorservices.usermanagement.model.UISecurityDetails;
+import com.wiley.gr.ace.authorservices.persistence.services.impl.UserServiceDAOImpl;
+import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
+//import com.wiley.gr.ace.authorservices.usermanagement.model.UISecurityDetails;
 
 /**
  * @author kpshiva
@@ -99,7 +99,7 @@ public class UserLoginServiceImpl implements UserLoginService {
 		// TODO Auto-generated method stub
 	}
 
-	@Override
+	/*@Override
 	public boolean validateSecurityQuestions(UISecurityDetails uiSecurityDetails) {
 
 		SecurityVO securityVO = this.getSecurityQuestions("1234");
@@ -112,6 +112,6 @@ public class UserLoginServiceImpl implements UserLoginService {
 			return true;
 
 		return false;
-	}
+	}*/
 
 }

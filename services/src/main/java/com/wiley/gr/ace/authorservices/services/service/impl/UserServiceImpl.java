@@ -1,4 +1,4 @@
-package com.wiley.gr.ace.authorservices.services.service;
+package com.wiley.gr.ace.authorservices.services.service.impl;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -10,6 +10,7 @@ import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
 import com.wiley.gr.ace.authorservices.persistence.services.UserServiceDAO;
+import com.wiley.gr.ace.authorservices.services.service.UserService;
 
 public class UserServiceImpl implements UserService {
 

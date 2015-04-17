@@ -1,4 +1,4 @@
-package com.wiley.gr.ace.authorservices.usermanagement.model;
+package com.wiley.gr.ace.authorservices.model;
 
 /**
  * @author kpshiva

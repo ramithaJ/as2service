@@ -3,16 +3,16 @@ package com.wiley.gr.ace.authorservices.services.context;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.wiley.gr.ace.authorservices.services.admin.AdminLoginService;
-import com.wiley.gr.ace.authorservices.services.admin.external.ALMInterfaceService;
-import com.wiley.gr.ace.authorservices.services.admin.external.BPMInterfaceService;
-import com.wiley.gr.ace.authorservices.services.admin.external.impl.ALMInterfaceServiceImpl;
-import com.wiley.gr.ace.authorservices.services.admin.external.impl.BPMInterfaceServiceImpl;
-import com.wiley.gr.ace.authorservices.services.admin.impl.AdminLoginServiceImpl;
+import com.wiley.gr.ace.authorservices.services.external.ALMInterfaceService;
+import com.wiley.gr.ace.authorservices.services.external.BPMInterfaceService;
+import com.wiley.gr.ace.authorservices.services.external.impl.ALMInterfaceServiceImpl;
+import com.wiley.gr.ace.authorservices.services.external.impl.BPMInterfaceServiceImpl;
+import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
+import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 import com.wiley.gr.ace.authorservices.services.service.UserService;
-import com.wiley.gr.ace.authorservices.services.service.UserServiceImpl;
-import com.wiley.gr.ace.authorservices.services.usermanagement.UserLoginService;
-import com.wiley.gr.ace.authorservices.services.usermanagement.impl.UserLoginServiceImpl;
+import com.wiley.gr.ace.authorservices.services.service.impl.AdminLoginServiceImpl;
+import com.wiley.gr.ace.authorservices.services.service.impl.UserLoginServiceImpl;
+import com.wiley.gr.ace.authorservices.services.service.impl.UserServiceImpl;
 
 @Configuration
 public class ServiceBeanConfig {

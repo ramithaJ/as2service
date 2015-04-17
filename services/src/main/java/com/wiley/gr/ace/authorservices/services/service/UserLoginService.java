@@ -1,7 +1,7 @@
-package com.wiley.gr.ace.authorservices.services.usermanagement;
+package com.wiley.gr.ace.authorservices.services.service;
 
-import com.wiley.gr.ace.authorservices.usermanagement.model.SecurityVO;
-import com.wiley.gr.ace.authorservices.usermanagement.model.UISecurityDetails;
+import com.wiley.gr.ace.authorservices.model.SecurityVO;
+//import com.wiley.gr.ace.authorservices.usermanagement.model.UISecurityDetails;
 
 /**
  * @author kpshiva
@@ -61,5 +61,5 @@ public interface UserLoginService {
 	 */
 	public void sendEmail(String userId, String template_id);
 	
-	public boolean validateSecurityQuestions(UISecurityDetails uiSecurityDetails);
+//	public boolean validateSecurityQuestions(UISecurityDetails uiSecurityDetails);
 }

@@ -1,4 +1,4 @@
-package com.wiley.gr.ace.authorservices.persistence.services;
+package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
 import java.util.List;
 
@@ -14,6 +14,7 @@ import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnectio
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
+import com.wiley.gr.ace.authorservices.persistence.services.UserServiceDAO;
 
 /**
  * @author kpshiva

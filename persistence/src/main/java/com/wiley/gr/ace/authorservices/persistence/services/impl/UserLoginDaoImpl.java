@@ -1,4 +1,4 @@
-package com.wiley.gr.ace.authorservices.persistence.services.usermanagement.impl;
+package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -12,7 +12,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
-import com.wiley.gr.ace.authorservices.persistence.services.usermanagement.UserLoginDao;
+import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
 
 public class UserLoginDaoImpl implements UserLoginDao {
 	

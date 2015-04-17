@@ -1,4 +1,4 @@
-package com.wiley.gr.ace.authorservices.web.controllers.admin;
+package com.wiley.gr.ace.authorservices.web.controllers;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.model.ServiceVO;
-import com.wiley.gr.ace.authorservices.services.admin.AdminLoginService;
-import com.wiley.gr.ace.authorservices.services.admin.impl.AdminLoginServiceImpl;
 import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
+import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
+import com.wiley.gr.ace.authorservices.services.service.impl.AdminLoginServiceImpl;
 
 /**
  * @author ravisinha

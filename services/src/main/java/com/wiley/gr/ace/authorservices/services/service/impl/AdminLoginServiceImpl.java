@@ -1,17 +1,17 @@
-package com.wiley.gr.ace.authorservices.services.admin.impl;
+package com.wiley.gr.ace.authorservices.services.service.impl;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
-import com.wiley.gr.ace.authorservices.persistence.services.usermanagement.impl.UserLoginDaoImpl;
-import com.wiley.gr.ace.authorservices.persistence.services.usermanagement.UserLoginDao;
-import com.wiley.gr.ace.authorservices.services.admin.AdminLoginService;
-import com.wiley.gr.ace.authorservices.services.admin.external.ALMInterfaceService;
-import com.wiley.gr.ace.authorservices.services.admin.external.BPMInterfaceService;
-import com.wiley.gr.ace.authorservices.services.admin.external.impl.ALMInterfaceServiceImpl;
-import com.wiley.gr.ace.authorservices.services.admin.external.impl.BPMInterfaceServiceImpl;
+import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
+import com.wiley.gr.ace.authorservices.persistence.services.impl.UserLoginDaoImpl;
 import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
+import com.wiley.gr.ace.authorservices.services.external.ALMInterfaceService;
+import com.wiley.gr.ace.authorservices.services.external.BPMInterfaceService;
+import com.wiley.gr.ace.authorservices.services.external.impl.ALMInterfaceServiceImpl;
+import com.wiley.gr.ace.authorservices.services.external.impl.BPMInterfaceServiceImpl;
+import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 
 /**
  * @author RAVISINHA

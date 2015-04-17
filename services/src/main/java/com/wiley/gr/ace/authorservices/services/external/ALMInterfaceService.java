@@ -1,4 +1,4 @@
-package com.wiley.gr.ace.authorservices.services.admin.external;
+package com.wiley.gr.ace.authorservices.services.external;
 
 public interface ALMInterfaceService {
 

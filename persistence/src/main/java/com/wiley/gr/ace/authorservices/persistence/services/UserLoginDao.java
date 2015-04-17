@@ -1,4 +1,4 @@
-package com.wiley.gr.ace.authorservices.persistence.services.usermanagement;
+package com.wiley.gr.ace.authorservices.persistence.services;
 
 public interface UserLoginDao {
 

@@ -1,4 +1,4 @@
-package com.wiley.gr.ace.authorservices.services.admin;
+package com.wiley.gr.ace.authorservices.services.service;
 
 /**
  * @author RAVISINHA

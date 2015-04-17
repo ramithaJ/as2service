@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
 import com.wiley.gr.ace.authorservices.services.service.UserService;
-import com.wiley.gr.ace.authorservices.services.service.UserServiceImpl;
+import com.wiley.gr.ace.authorservices.services.service.impl.UserServiceImpl;
 
 @RestController
 @RequestMapping("/userManagement")
