@@ -3,7 +3,7 @@ package com.wiley.gr.ace.authorservices.model;
 /**
  * @author kpshiva
  */
-public class UserVO {
+public class User {
 
 	/** The title. */
 	private String title;
