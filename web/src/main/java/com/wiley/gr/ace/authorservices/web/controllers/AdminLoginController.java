@@ -12,7 +12,9 @@ import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 import com.wiley.gr.ace.authorservices.services.service.impl.AdminLoginServiceImpl;
 
-/**
+/** This method takes email in encrypted format like --
+	 * kondavinay%40gmail.com/
+	 * Hit the link as http://localhost:8080/author-services/admin/login/kondavinay%40gmail.com/
  * @author ravisinha
  *
  */
@@ -41,3 +43,4 @@ public class AdminLoginController {
 
 	}
 }
+   
