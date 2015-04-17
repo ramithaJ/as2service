@@ -11,6 +11,7 @@ import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
 import com.wiley.gr.ace.authorservices.services.usermanagement.UserLoginService;
 import com.wiley.gr.ace.authorservices.services.usermanagement.impl.UserLoginServiceImpl;
 import com.wiley.gr.ace.authorservices.usermanagement.model.SecurityVO;
+import com.wiley.gr.ace.authorservices.usermanagement.model.UISecurityDetails;
 
 /**
  * @author kpshiva
@@ -78,9 +79,15 @@ public class UserLoginController {
 	 */
 	@RequestMapping(value = "/valdiateSecurityQuestions", method = RequestMethod.POST)
 	/* @ModelAttribute("userSecurityModel") UserSecurityModel userSecurityModel */
-	public String validateSecurityQuestions() {
-
-		return null;
+	public boolean validateSecurityQuestions() {
+		UserLoginService userLoginService = (UserLoginServiceImpl) context
+				.getBean("UserLoginService");
+		UISecurityDetails uiSecurityDetails = new UISecurityDetails();
+		uiSecurityDetails.setId1(3);
+		uiSecurityDetails.setAnswer1("cat");
+		uiSecurityDetails.setId2(4);
+		uiSecurityDetails.setAnswer2("i will not tell");
+		return userLoginService.validateSecurityQuestions(uiSecurityDetails);
 	}
 
 }

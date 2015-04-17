@@ -10,6 +10,7 @@ import com.wiley.gr.ace.authorservices.persistence.services.UserServiceDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserServiceDAOImpl;
 import com.wiley.gr.ace.authorservices.services.usermanagement.UserLoginService;
 import com.wiley.gr.ace.authorservices.usermanagement.model.SecurityVO;
+import com.wiley.gr.ace.authorservices.usermanagement.model.UISecurityDetails;
 
 /**
  * @author kpshiva
@@ -42,10 +43,15 @@ public class UserLoginServiceImpl implements UserLoginService {
 				.getSecurityQuestions(userId);
 
 		securityVO = new SecurityVO();
+
+		securityVO.setId1(Integer.parseInt(securityQuestionsList.get(0)[0]
+				.toString()));
 		securityVO.setSecurityQuestion1(securityQuestionsList.get(0)[2]
 				.toString());
 		securityVO.setSecurityAnswer1(securityQuestionsList.get(0)[3]
 				.toString());
+		securityVO.setId2(Integer.parseInt(securityQuestionsList.get(1)[0]
+				.toString()));
 		securityVO.setSecurityQuestion2(securityQuestionsList.get(1)[2]
 				.toString());
 		securityVO.setSecurityAnswer2(securityQuestionsList.get(1)[3]
@@ -108,6 +114,21 @@ public class UserLoginServiceImpl implements UserLoginService {
 	@Override
 	public void sendEmail(String userId, String template_id) {
 		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public boolean validateSecurityQuestions(UISecurityDetails uiSecurityDetails) {
+
+		SecurityVO securityVO = this.getSecurityQuestions("1234");
+		if (securityVO.getId1() == uiSecurityDetails.getId1()
+				&& securityVO.getSecurityAnswer1().equalsIgnoreCase(
+						uiSecurityDetails.getAnswer1())
+				&& securityVO.getId2() == uiSecurityDetails.getId2()
+				&& securityVO.getSecurityAnswer2().equalsIgnoreCase(
+						uiSecurityDetails.getAnswer2()))
+			return true;
+
+		return false;
 	}
 
 }
