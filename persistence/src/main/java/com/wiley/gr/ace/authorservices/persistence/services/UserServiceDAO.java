@@ -15,8 +15,6 @@ public interface UserServiceDAO {
 
 	boolean validateSecurityQuestions(String emailId);
 
-	boolean doLogin(String emailId);
-
 	boolean isUserLocked(String emailId);
 
 	int lockUser(String emailId);
@@ -26,4 +24,8 @@ public interface UserServiceDAO {
 	boolean checkSecuritySetup(String emailId);
 
 	boolean validateEmailAddress(String emailId);
+
+	public boolean doLogin(String emailId, String password);
+	
+	public boolean resetPassword(String emailId, String password);
 }

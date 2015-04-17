@@ -1,6 +1,7 @@
 package com.wiley.gr.ace.authorservices.services.service;
 
 import com.wiley.gr.ace.authorservices.model.Security;
+import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.UISecurityDetails;
 
 /**
@@ -16,13 +17,13 @@ public interface UserLoginService {
 	 * @param password
 	 * @return
 	 */
-	public boolean doLogin(String emailId, String password);
+	public Service doLogin(String emailId, String password);
 	//Forgot Password // see
 	/**
 	 * @param password
 	 * @return
 	 */
-	public boolean resetPassword(String password);
+	public boolean resetPassword(String emailId,String password);
 	/**
 	 * @param userId
 	 * @param securityVO
@@ -61,5 +62,10 @@ public interface UserLoginService {
 	 */
 	public void sendEmail(String userId, String template_id);
 	
+	/**
+	 * @param uiSecurityDetails
+	 * @return
+	 */
 	public boolean validateSecurityQuestions(UISecurityDetails uiSecurityDetails);
+
 }

@@ -6,6 +6,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.wiley.gr.ace.authorservices.model.Security;
+import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.UISecurityDetails;
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
@@ -20,26 +21,31 @@ public class UserLoginServiceImpl implements UserLoginService {
 
 	private static ApplicationContext context = new AnnotationConfigApplicationContext(
 			PersistenceBeanConfig.class);
+	UserServiceDAO userDAO = (UserServiceDAOImpl) context
+			.getBean("UserServiceDAO");
 
 	@Override
-	public boolean doLogin(String emailId, String password) {
-		// TODO Auto-generated method stub
-		return false;
+	public Service doLogin(String emailId, String password) {
+
+		Service service = new Service();
+		if (userDAO.doLogin(emailId, password)) {
+			service.setStatus("success");
+		} else {
+			service.setStatus("failure");
+		}
+		return service;
 	}
 
 	@Override
 	public boolean checkSecuritySetUp(String emailId) {
-		UserServiceDAO userDAO = (UserServiceDAOImpl) context
-				.getBean("UserServiceDAO");
+
 		return userDAO.checkSecuritySetup(emailId);
 	}
 
 	@Override
 	public Security getSecurityQuestions(String userId) {
-		Security securityVO = null;
-		UserServiceDAO userDAO = (UserServiceDAOImpl) context
-				.getBean("UserServiceDAO");
 
+		Security securityVO = null;
 		securityVO = new Security();
 		List<UserSecurityDetails> securityQuestionslist = userDAO
 				.getSecurityQuestions(userId);
@@ -58,22 +64,20 @@ public class UserLoginServiceImpl implements UserLoginService {
 	}
 
 	@Override
-	public boolean resetPassword(String password) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean resetPassword(String emailId, String password) {
+
+		return userDAO.resetPassword(emailId, password);
 	}
 
 	@Override
-	public boolean validateSecurityQuestions(String userId,
-			Security securityVO) {
+	public boolean validateSecurityQuestions(String userId, Security securityVO) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean lockUser(String emailId) {
-		UserServiceDAO userDAO = (UserServiceDAOImpl) context
-				.getBean("UserServiceDAO");
+
 		int records = userDAO.lockUser(emailId);
 		if (records == 1)
 			return true;
@@ -82,15 +86,13 @@ public class UserLoginServiceImpl implements UserLoginService {
 
 	@Override
 	public boolean validateEmailAddress(String emailId) {
-		UserServiceDAO userDAO = (UserServiceDAOImpl) context
-				.getBean("UserServiceDAO");
+
 		return userDAO.validateEmailAddress(emailId);
 	}
 
 	@Override
 	public boolean isUserLocked(String emailId) {
-		UserServiceDAO userDAO = (UserServiceDAOImpl) context
-				.getBean("UserServiceDAO");
+
 		return userDAO.isUserLocked(emailId);
 	}
 

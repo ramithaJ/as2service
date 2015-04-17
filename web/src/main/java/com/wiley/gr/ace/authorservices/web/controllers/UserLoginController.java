@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.model.Security;
+import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.UISecurityDetails;
 import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 import com.wiley.gr.ace.authorservices.services.service.impl.UserLoginServiceImpl;
+
 //import com.wiley.gr.ace.authorservices.usermanagement.model.UISecurityDetails;
 
 /**
@@ -24,6 +26,8 @@ public class UserLoginController {
 
 	public static ApplicationContext context = new AnnotationConfigApplicationContext(
 			ServiceBeanConfig.class);
+	UserLoginService userLoginService = (UserLoginServiceImpl) context
+			.getBean("UserLoginService");
 
 	/**
 	 * This method takes email in encrypted format like --
@@ -35,8 +39,6 @@ public class UserLoginController {
 	@RequestMapping(value = "/checkSecuritySetup/{emailId}", method = RequestMethod.GET)
 	public boolean checkecuritySetUp(@PathVariable("emailId") String emailId) {
 
-		UserLoginService userLoginService = (UserLoginServiceImpl) context
-				.getBean("UserLoginService");
 		return userLoginService.checkSecuritySetUp(emailId);
 	}
 
@@ -44,20 +46,25 @@ public class UserLoginController {
 	 * @param userId
 	 * @return
 	 */
-	@RequestMapping(value = "/login/{emailId}", method = RequestMethod.GET)
-	public String login(@PathVariable("emailId") String userId) {
+	@RequestMapping(value = "/doLogin/{emailId}/{password}", method = RequestMethod.GET)
+	public Service login(@PathVariable("emailId") String emailId,
+			@PathVariable("password") String password) {
 
-		return null;
+		Service service = new Service();
+		if (userLoginService.validateEmailAddress(emailId))
+			return userLoginService.doLogin(emailId, password);
+		return service;
 	}
 
 	/**
 	 * @param userId
 	 * @return
 	 */
-	@RequestMapping(value = "/resetPwd/{emailId}", method = RequestMethod.GET)
-	public String resetPassword(@PathVariable("emailId") String userId) {
+	@RequestMapping(value = "/resetPwd/{emailId}/{password}", method = RequestMethod.GET)
+	public boolean resetPassword(@PathVariable("emailId") String emailId,
+			@PathVariable("password") String password) {
 
-		return null;
+		return userLoginService.resetPassword(emailId, password);
 	}
 
 	/**
@@ -66,8 +73,7 @@ public class UserLoginController {
 	 */
 	@RequestMapping(value = "/getSecurityQuestions/{userId}", method = RequestMethod.GET)
 	public Security getSecurityQuestions(@PathVariable("userId") String userId) {
-		UserLoginService userLoginService = (UserLoginServiceImpl) context
-				.getBean("UserLoginService");
+
 		Security securityVO = userLoginService.getSecurityQuestions(userId);
 		return securityVO;
 	}
@@ -80,8 +86,7 @@ public class UserLoginController {
 	 */
 	@RequestMapping(value = "/valdiateSecurityQuestions", method = RequestMethod.POST)
 	public boolean validateSecurityQuestions() {
-		UserLoginService userLoginService = (UserLoginServiceImpl) context
-				.getBean("UserLoginService");
+
 		UISecurityDetails uiSecurityDetails = new UISecurityDetails();
 		uiSecurityDetails.setId1(3);
 		uiSecurityDetails.setAnswer1("cat");
