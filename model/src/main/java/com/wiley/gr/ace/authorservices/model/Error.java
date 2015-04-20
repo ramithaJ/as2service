@@ -1,11 +1,15 @@
 package com.wiley.gr.ace.authorservices.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * This is the generic errorVO returned by the service.
  * 
  * @author SarmaKumarap
  *
  */
+@JsonInclude(Include.NON_NULL)
 public class Error {
 	
 	private int errorCode;

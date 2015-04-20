@@ -28,7 +28,6 @@ public class UserServiceDAOImpl implements UserServiceDAO {
 
 	private static HibernateConnection con = (HibernateConnection) context
 			.getBean("HibernateConnection");
-	
 
 	@Override
 	public List<UserProfile> getUsersList() {
@@ -95,7 +94,7 @@ public class UserServiceDAOImpl implements UserServiceDAO {
 	@Override
 	public boolean validateSecurityQuestions(String emailId) {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
@@ -134,7 +133,7 @@ public class UserServiceDAOImpl implements UserServiceDAO {
 		Query query = session.createQuery(hql);
 		query.setParameter("isAccountActive", "n");
 		query.setParameter("emailId", emailId);
-		int result=query.executeUpdate();
+		int result = query.executeUpdate();
 		session.flush();
 		session.close();
 		tx.commit();
@@ -157,7 +156,7 @@ public class UserServiceDAOImpl implements UserServiceDAO {
 		Criteria criteria = session.createCriteria(UserProfile.class);
 		criteria.add(Restrictions.eq("primaryEmailAddr", emailId));
 		UserProfile userProfile = (UserProfile) criteria.uniqueResult();
-		int usreId= userProfile.getUserId();
+		int usreId = userProfile.getUserId();
 		session.flush();
 		session.close();
 		tx.commit();
