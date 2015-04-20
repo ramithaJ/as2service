@@ -2,8 +2,6 @@ package com.wiley.gr.ace.authorservices.services.service;
 
 import com.wiley.gr.ace.authorservices.model.Security;
 import com.wiley.gr.ace.authorservices.model.Service;
-import com.wiley.gr.ace.authorservices.model.UISecurityDetails;
-
 /**
  * @author kpshiva
  *
@@ -23,20 +21,20 @@ public interface UserLoginService {
 	 * @param password
 	 * @return
 	 */
-	public boolean resetPassword(String emailId, String password);
+	public boolean resetPassword(String emailId, String oldPassword, String newPassword);
 
 	/**
 	 * @param userId
 	 * @param securityVO
 	 * @return
 	 */
-	public boolean validateSecurityQuestions(String emailId, Security securityVO);
+	public boolean validateSecurityQuestions(String emailId, Security security);
 
 	/**
 	 * @param userId
 	 * @return
 	 */
-	public Security getSecurityQuestions(String userId);
+	public Security getSecurityQuestions(String emailId);
 
 	/**
 	 * @param userId
@@ -67,18 +65,5 @@ public interface UserLoginService {
 	 * @param template_id
 	 */
 	public void sendEmail(String userId, String template_id);
-
-	/**
-	 * @param uiSecurityDetails
-	 * @return
-	 */
-	public boolean validateSecurityQuestions(String emailId,
-			UISecurityDetails uiSecurityDetails);
-
-	/**
-	 * @param emailId
-	 * @return
-	 */
-	public int updateCount(String emailId);
-
+	
 }
