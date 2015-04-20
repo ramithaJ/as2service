@@ -5,9 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
-import com.wiley.gr.ace.authorservices.persistence.services.UserServiceDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserLoginDaoImpl;
-import com.wiley.gr.ace.authorservices.persistence.services.impl.UserServiceDAOImpl;
 
 @Configuration
 public class PersistenceBeanConfig {
@@ -16,12 +14,6 @@ public class PersistenceBeanConfig {
 	public HibernateConnection hibernateConnection() {
 		return new HibernateConnection();
 	}
-
-	@Bean(name = "UserServiceDAO")
-	public UserServiceDAO userServiceDAO() {
-		return new UserServiceDAOImpl();
-	}
-	
 	
 	@Bean(name = "AdminLoginDao")
 	public UserLoginDao userlogindao() {

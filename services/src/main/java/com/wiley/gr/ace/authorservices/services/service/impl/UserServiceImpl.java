@@ -9,7 +9,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
-import com.wiley.gr.ace.authorservices.persistence.services.UserServiceDAO;
+import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.services.service.UserService;
 
 public class UserServiceImpl implements UserService {
@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<User> getUsersList() {
-		UserServiceDAO userDAO = (UserServiceDAO) context
+		UserLoginServiceDAO userDAO = (UserLoginServiceDAO) context
 				.getBean("UserServiceDAO");
 		List<UserProfile> userProfileList = userDAO.getUsersList();
 		User user;

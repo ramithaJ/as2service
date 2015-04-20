@@ -7,11 +7,10 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import com.wiley.gr.ace.authorservices.model.Security;
 import com.wiley.gr.ace.authorservices.model.Service;
-import com.wiley.gr.ace.authorservices.model.UISecurityDetails;
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
-import com.wiley.gr.ace.authorservices.persistence.services.UserServiceDAO;
-import com.wiley.gr.ace.authorservices.persistence.services.impl.UserServiceDAOImpl;
+import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
+import com.wiley.gr.ace.authorservices.persistence.services.impl.UserLoginServiceDAOImpl;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 
 /**
@@ -21,14 +20,14 @@ public class UserLoginServiceImpl implements UserLoginService {
 
 	private static ApplicationContext context = new AnnotationConfigApplicationContext(
 			PersistenceBeanConfig.class);
-	UserServiceDAO userDAO = (UserServiceDAOImpl) context
-			.getBean("UserServiceDAO");
+	UserLoginServiceDAO userLoginServiceDAO = (UserLoginServiceDAOImpl) context
+			.getBean("UserLoginServiceDAO");
 
 	@Override
 	public Service doLogin(String emailId, String password) {
 
 		Service service = new Service();
-		if (userDAO.doLogin(emailId, password)) {
+		if (userLoginServiceDAO.doLogin(emailId, password)) {
 			service.setStatus("success");
 		} else {
 			service.setStatus("failure");
@@ -39,7 +38,7 @@ public class UserLoginServiceImpl implements UserLoginService {
 	@Override
 	public boolean checkSecuritySetUp(String emailId) {
 
-		return userDAO.checkSecuritySetup(emailId);
+		return userLoginServiceDAO.checkSecuritySetup(emailId);
 	}
 
 	@Override
@@ -47,8 +46,8 @@ public class UserLoginServiceImpl implements UserLoginService {
 
 		Security security = null;
 		security = new Security();
-		Integer userId = userDAO.getUserId(emailId);
-		List<UserSecurityDetails> securityQuestionslist = userDAO
+		Integer userId = userLoginServiceDAO.getUserId(emailId);
+		List<UserSecurityDetails> securityQuestionslist = userLoginServiceDAO
 				.getSecurityQuestions(userId);
 		security.setId1(securityQuestionslist.get(0).getUserSecurityId());
 		security.setSecurityQuestion1(securityQuestionslist.get(0)
@@ -60,9 +59,10 @@ public class UserLoginServiceImpl implements UserLoginService {
 	}
 
 	@Override
-	public boolean resetPassword(String emailId, String password) {
+	public boolean resetPassword(String emailId, String oldPassword,
+			String newPassword) {
 
-		return userDAO.resetPassword(emailId, password);
+		return userLoginServiceDAO.resetPassword(emailId, newPassword);
 	}
 
 	@Override
@@ -74,7 +74,7 @@ public class UserLoginServiceImpl implements UserLoginService {
 	@Override
 	public boolean lockUser(String emailId) {
 
-		int records = userDAO.lockUser(emailId);
+		int records = userLoginServiceDAO.lockUser(emailId);
 		if (records == 1)
 			return true;
 		return false;
@@ -83,47 +83,17 @@ public class UserLoginServiceImpl implements UserLoginService {
 	@Override
 	public boolean validateEmailAddress(String emailId) {
 
-		return userDAO.validateEmailAddress(emailId);
+		return userLoginServiceDAO.validateEmailAddress(emailId);
 	}
 
 	@Override
 	public boolean isUserLocked(String emailId) {
 
-		return userDAO.isUserLocked(emailId);
+		return userLoginServiceDAO.isUserLocked(emailId);
 	}
 
 	@Override
 	public void sendEmail(String userId, String template_id) {
 		// TODO Auto-generated method stub
 	}
-
-	@Override
-	public boolean validateSecurityQuestions(String emailId,
-			UISecurityDetails uiSecurityDetails) {
-
-		Integer userId = userDAO.getUserId(emailId);
-		List<UserSecurityDetails> securityQuestionslist = userDAO
-				.getSecurityQuestions(userId);
-		if (null == securityQuestionslist)
-			return false;
-
-		if (securityQuestionslist.get(0).getUserSecurityId() == uiSecurityDetails
-				.getId1()
-				&& securityQuestionslist.get(0).getSecurityAnswer()
-						.equalsIgnoreCase(uiSecurityDetails.getAnswer1())
-				&& securityQuestionslist.get(1).getUserSecurityId() == uiSecurityDetails
-						.getId2()
-				&& securityQuestionslist.get(1).getSecurityAnswer()
-						.equalsIgnoreCase(uiSecurityDetails.getAnswer2()))
-			return true;
-
-		return false;
-	}
-
-	@Override
-	public int updateCount(String emailId) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 }

@@ -9,12 +9,7 @@ import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
  * @author kpshiva
  *
  */
-public interface UserServiceDAO {
-
-	/**
-	 * @return
-	 */
-	public List<UserProfile> getUsersList();
+public interface UserLoginServiceDAO {
 
 	/**
 	 * @param emailId
@@ -71,4 +66,9 @@ public interface UserServiceDAO {
 	 * @return
 	 */
 	public Integer getUserId(String emailId);
+
+	/**
+	 * @return
+	 */
+	public List<UserProfile> getUsersList();
 }

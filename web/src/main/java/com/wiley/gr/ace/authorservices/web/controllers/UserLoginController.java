@@ -10,19 +10,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.model.Security;
 import com.wiley.gr.ace.authorservices.model.Service;
-import com.wiley.gr.ace.authorservices.model.UISecurityDetails;
 import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 import com.wiley.gr.ace.authorservices.services.service.impl.UserLoginServiceImpl;
-
-//import com.wiley.gr.ace.authorservices.usermanagement.model.UISecurityDetails;
 
 /**
  * @author kpshiva
  *
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/userLogin")
 public class UserLoginController {
 
 	public static ApplicationContext context = new AnnotationConfigApplicationContext(
@@ -38,7 +35,7 @@ public class UserLoginController {
 	 * @return
 	 */
 	@RequestMapping(value = "/checkSecuritySetup/{emailId}", method = RequestMethod.GET)
-	public boolean checkecuritySetUp(@PathVariable("emailId") String emailId) {
+	public boolean checkSecuritySetUp(@PathVariable("emailId") String emailId) {
 
 		return userLoginService.checkSecuritySetUp(emailId);
 	}
@@ -50,7 +47,7 @@ public class UserLoginController {
 	 * @return
 	 */
 	@RequestMapping(value = "/doLogin/{emailId}", method = RequestMethod.POST)
-	public Service login(@PathVariable("emailId") String emailId,
+	public Service doLogin(@PathVariable("emailId") String emailId,
 			@RequestBody String password) {
 
 		Service service = new Service();
@@ -65,11 +62,12 @@ public class UserLoginController {
 	 * @param userId
 	 * @return
 	 */
-	@RequestMapping(value = "/resetPwd/{emailId}", method = RequestMethod.POST)
+	@RequestMapping(value = "/resetPassword/{emailId}", method = RequestMethod.POST)
 	public boolean resetPassword(@PathVariable("emailId") String emailId,
-			@RequestBody String password) {
+			@RequestBody String oldPassword, @RequestBody String newPassword) {
 
-		return userLoginService.resetPassword(emailId, password);
+		return userLoginService
+				.resetPassword(emailId, oldPassword, newPassword);
 	}
 
 	/**
@@ -94,15 +92,19 @@ public class UserLoginController {
 	 */
 	@RequestMapping(value = "/valdiateSecurityQuestions/{emailId}", method = RequestMethod.POST)
 	public boolean validateSecurityQuestions(
-			@PathVariable("emailId") String emailId) {
+			@PathVariable("emailId") String emailId,
+			@RequestBody String securityDetails) {
 
-		UISecurityDetails uiSecurityDetails = new UISecurityDetails();
-		uiSecurityDetails.setId1(3);
-		uiSecurityDetails.setAnswer1("cat");
-		uiSecurityDetails.setId2(4);
-		uiSecurityDetails.setAnswer2("i will not tell");
-		return userLoginService.validateSecurityQuestions(emailId,
-				uiSecurityDetails);
+		return false;
 	}
 
+	/**
+	 * @param emailId
+	 * @return
+	 */
+	@RequestMapping(value = "/lockUser/{emailId}", method = RequestMethod.GET)
+	public boolean lockUser(@PathVariable("emailId") String emailId) {
+
+		return userLoginService.lockUser(emailId);
+	}
 }
