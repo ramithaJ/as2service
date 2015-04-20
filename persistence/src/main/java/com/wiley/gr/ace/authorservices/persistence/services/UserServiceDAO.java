@@ -13,19 +13,21 @@ public interface UserServiceDAO {
 
 	public List<UserProfile> getUsersList();
 
-	boolean validateSecurityQuestions(String emailId);
+	public boolean validateSecurityQuestions(String emailId);
 
-	boolean isUserLocked(String emailId);
+	public boolean isUserLocked(String emailId);
 
-	int lockUser(String emailId);
+	public int lockUser(String emailId);
 
-	List<UserSecurityDetails> getSecurityQuestions(String userId);
+	public List<UserSecurityDetails> getSecurityQuestions(Integer userId);
 
-	boolean checkSecuritySetup(String emailId);
+	public boolean checkSecuritySetup(String emailId);
 
-	boolean validateEmailAddress(String emailId);
+	public boolean validateEmailAddress(String emailId);
 
 	public boolean doLogin(String emailId, String password);
 	
 	public boolean resetPassword(String emailId, String password);
+	
+	public Integer getUserId(String emailId);
 }

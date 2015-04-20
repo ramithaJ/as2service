@@ -3,6 +3,7 @@ package com.wiley.gr.ace.authorservices.web.controllers;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,9 +47,9 @@ public class UserLoginController {
 	 * @param userId
 	 * @return
 	 */
-	@RequestMapping(value = "/doLogin/{emailId}/{password}", method = RequestMethod.GET)
+	@RequestMapping(value = "/doLogin/{emailId}", method = RequestMethod.GET)
 	public Service login(@PathVariable("emailId") String emailId,
-			@PathVariable("password") String password) {
+			@RequestBody String password) {
 
 		Service service = new Service();
 		if (userLoginService.validateEmailAddress(emailId))
@@ -60,9 +61,9 @@ public class UserLoginController {
 	 * @param userId
 	 * @return
 	 */
-	@RequestMapping(value = "/resetPwd/{emailId}/{password}", method = RequestMethod.GET)
+	@RequestMapping(value = "/resetPwd/{emailId}", method = RequestMethod.GET)
 	public boolean resetPassword(@PathVariable("emailId") String emailId,
-			@PathVariable("password") String password) {
+			@RequestBody String password) {
 
 		return userLoginService.resetPassword(emailId, password);
 	}
@@ -71,10 +72,10 @@ public class UserLoginController {
 	 * @param emailId
 	 * @return
 	 */
-	@RequestMapping(value = "/getSecurityQuestions/{userId}", method = RequestMethod.GET)
-	public Security getSecurityQuestions(@PathVariable("userId") String userId) {
+	@RequestMapping(value = "/getSecurityQuestions/{emailId}", method = RequestMethod.GET)
+	public Security getSecurityQuestions(@PathVariable("emailId") String emailId) {
 
-		Security securityVO = userLoginService.getSecurityQuestions(userId);
+		Security securityVO = userLoginService.getSecurityQuestions(emailId);
 		return securityVO;
 	}
 
@@ -93,6 +94,14 @@ public class UserLoginController {
 		uiSecurityDetails.setId2(4);
 		uiSecurityDetails.setAnswer2("i will not tell");
 		return userLoginService.validateSecurityQuestions(uiSecurityDetails);
+	}
+	
+	@RequestMapping(value = "/temp", method = RequestMethod.GET)
+	public String temp(){
+		
+		boolean s1=userLoginService.isUserLocked("kondavinay@gmail.com");
+		boolean s2=userLoginService.lockUser("kondavinay@gmail.com");
+		return "is userLocked="+s1+"   "+"lockuser="+s2;
 	}
 
 }
