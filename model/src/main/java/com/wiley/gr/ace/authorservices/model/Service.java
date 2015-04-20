@@ -1,5 +1,8 @@
 package com.wiley.gr.ace.authorservices.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * This is the generic service VO object which is returned by every service.
  * Data from the service is wrapped into this and returned.
@@ -7,6 +10,7 @@ package com.wiley.gr.ace.authorservices.model;
  * @author SarmaKumarap
  *
  */
+@JsonInclude(Include.NON_NULL)
 public class Service {
 	
 	private String status;
