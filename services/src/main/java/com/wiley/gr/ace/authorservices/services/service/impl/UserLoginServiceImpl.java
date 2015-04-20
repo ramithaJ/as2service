@@ -43,10 +43,11 @@ public class UserLoginServiceImpl implements UserLoginService {
 	}
 
 	@Override
-	public Security getSecurityQuestions(String userId) {
+	public Security getSecurityQuestions(String emailId) {
 
 		Security securityVO = null;
 		securityVO = new Security();
+		Integer userId=userDAO.getUserId(emailId);
 		List<UserSecurityDetails> securityQuestionslist = userDAO
 				.getSecurityQuestions(userId);
 		securityVO.setId1(securityQuestionslist.get(0).getUserSecurityId());
@@ -70,7 +71,7 @@ public class UserLoginServiceImpl implements UserLoginService {
 	}
 
 	@Override
-	public boolean validateSecurityQuestions(String userId, Security securityVO) {
+	public boolean validateSecurityQuestions(String emailId, Security securityVO) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -104,7 +105,7 @@ public class UserLoginServiceImpl implements UserLoginService {
 	@Override
 	public boolean validateSecurityQuestions(UISecurityDetails uiSecurityDetails) {
 
-		Security securityVO = this.getSecurityQuestions("1234");
+		Security securityVO = this.getSecurityQuestions("kondavinay@gmail.com");
 		if (securityVO.getId1() == uiSecurityDetails.getId1()
 				&& securityVO.getSecurityAnswer1().equalsIgnoreCase(
 						uiSecurityDetails.getAnswer1())
@@ -114,6 +115,12 @@ public class UserLoginServiceImpl implements UserLoginService {
 			return true;
 
 		return false;
+	}
+
+	@Override
+	public int updateCount(String emailId) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

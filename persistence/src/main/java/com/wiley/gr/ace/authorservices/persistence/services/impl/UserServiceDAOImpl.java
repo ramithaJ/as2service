@@ -28,12 +28,13 @@ public class UserServiceDAOImpl implements UserServiceDAO {
 
 	private static HibernateConnection con = (HibernateConnection) context
 			.getBean("HibernateConnection");
-	Session session = con.getSessionFactory().openSession();
-	Transaction tx = session.beginTransaction();
+	
 
 	@Override
 	public List<UserProfile> getUsersList() {
 
+		Session session = con.getSessionFactory().openSession();
+		Transaction tx = session.beginTransaction();
 		List<UserProfile> upList = session.createCriteria(UserProfile.class)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		session.close();
@@ -43,6 +44,8 @@ public class UserServiceDAOImpl implements UserServiceDAO {
 	@Override
 	public boolean validateEmailAddress(String emailId) {
 
+		Session session = con.getSessionFactory().openSession();
+		Transaction tx = session.beginTransaction();
 		boolean status = false;
 		String hql = "from UserProfile where primaryEmailAddr = :emailId";
 		List<UserProfile> result = session.createQuery(hql)
@@ -58,12 +61,14 @@ public class UserServiceDAOImpl implements UserServiceDAO {
 	@Override
 	public boolean checkSecuritySetup(String emailId) {
 
+		Session session = con.getSessionFactory().openSession();
+		Transaction tx = session.beginTransaction();
 		boolean isSecure = false;
 		Criteria criteria = session.createCriteria(UserProfile.class);
 		criteria.add(Restrictions.eq("primaryEmailAddr", emailId));
 		UserProfile userProfile = (UserProfile) criteria.uniqueResult();
 		if (null == userProfile)
-			return false;
+			return isSecure;
 		if (userProfile.getSecurityQuestFlg().equals(YES))
 			isSecure = true;
 		session.flush();
@@ -73,11 +78,12 @@ public class UserServiceDAOImpl implements UserServiceDAO {
 	}
 
 	@Override
-	public List<UserSecurityDetails> getSecurityQuestions(String userId) {
+	public List<UserSecurityDetails> getSecurityQuestions(Integer userId) {
 
+		Session session = con.getSessionFactory().openSession();
 		Transaction tx = session.beginTransaction();
 		Criteria criteria = session.createCriteria(UserSecurityDetails.class);
-		criteria.add(Restrictions.eq("userId", Integer.parseInt(userId)));
+		criteria.add(Restrictions.eq("userId", userId));
 		List<UserSecurityDetails> userSecurityDetails = criteria.list();
 		session.flush();
 		session.close();
@@ -102,13 +108,15 @@ public class UserServiceDAOImpl implements UserServiceDAO {
 	@Override
 	public boolean isUserLocked(String emailId) {
 
+		Session session = con.getSessionFactory().openSession();
+		Transaction tx = session.beginTransaction();
 		boolean isLocked = false;
 		Criteria criteria = session.createCriteria(UserProfile.class);
 		criteria.add(Restrictions.eq("primaryEmailAddr", emailId));
 		UserProfile userProfile = (UserProfile) criteria.uniqueResult();
 		if (null == userProfile)
-			return false;
-		if (userProfile.getSecurityQuestFlg().equals(YES))
+			return isLocked;
+		if (!userProfile.getIsAccountActive().equals(YES))
 			isLocked = true;
 		session.flush();
 		session.close();
@@ -119,15 +127,18 @@ public class UserServiceDAOImpl implements UserServiceDAO {
 	@Override
 	public int lockUser(String emailId) {
 
+		Session session = con.getSessionFactory().openSession();
+		Transaction tx = session.beginTransaction();
 		String hql = "UPDATE UserProfile set isAccountActive = :isAccountActive "
 				+ "WHERE primaryEmailAddr = :emailId";
 		Query query = session.createQuery(hql);
 		query.setParameter("isAccountActive", "n");
 		query.setParameter("emailId", emailId);
+		int result=query.executeUpdate();
 		session.flush();
 		session.close();
 		tx.commit();
-		return query.executeUpdate();
+		return result;
 	}
 
 	@Override
@@ -136,6 +147,21 @@ public class UserServiceDAOImpl implements UserServiceDAO {
 		// we should call the external AML service to update the password
 
 		return false;
+	}
+
+	@Override
+	public Integer getUserId(String emailId) {
+
+		Session session = con.getSessionFactory().openSession();
+		Transaction tx = session.beginTransaction();
+		Criteria criteria = session.createCriteria(UserProfile.class);
+		criteria.add(Restrictions.eq("primaryEmailAddr", emailId));
+		UserProfile userProfile = (UserProfile) criteria.uniqueResult();
+		int usreId= userProfile.getUserId();
+		session.flush();
+		session.close();
+		tx.commit();
+		return usreId;
 	}
 
 }

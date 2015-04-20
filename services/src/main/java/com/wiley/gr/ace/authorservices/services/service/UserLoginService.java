@@ -29,7 +29,7 @@ public interface UserLoginService {
 	 * @param securityVO
 	 * @return
 	 */
-	public boolean validateSecurityQuestions(String userId, Security securityVO);
+	public boolean validateSecurityQuestions(String emailId, Security securityVO);
 	/**
 	 * @param userId
 	 * @return
@@ -68,4 +68,10 @@ public interface UserLoginService {
 	 */
 	public boolean validateSecurityQuestions(UISecurityDetails uiSecurityDetails);
 
+	/**
+	 * @param emailId
+	 * @return
+	 */
+	public int updateCount(String emailId);
+	
 }
