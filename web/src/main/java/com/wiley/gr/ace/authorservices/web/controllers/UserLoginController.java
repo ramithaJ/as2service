@@ -44,10 +44,12 @@ public class UserLoginController {
 	}
 
 	/**
+	 * this method takes the password from request body
+	 * 
 	 * @param userId
 	 * @return
 	 */
-	@RequestMapping(value = "/doLogin/{emailId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/doLogin/{emailId}", method = RequestMethod.POST)
 	public Service login(@PathVariable("emailId") String emailId,
 			@RequestBody String password) {
 
@@ -58,10 +60,12 @@ public class UserLoginController {
 	}
 
 	/**
+	 * this method takes the password from request body
+	 * 
 	 * @param userId
 	 * @return
 	 */
-	@RequestMapping(value = "/resetPwd/{emailId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/resetPwd/{emailId}", method = RequestMethod.POST)
 	public boolean resetPassword(@PathVariable("emailId") String emailId,
 			@RequestBody String password) {
 
@@ -85,23 +89,17 @@ public class UserLoginController {
 	 * @param userId
 	 * @return
 	 */
-	@RequestMapping(value = "/valdiateSecurityQuestions", method = RequestMethod.POST)
-	public boolean validateSecurityQuestions() {
+	@RequestMapping(value = "/valdiateSecurityQuestions/{emailId}", method = RequestMethod.POST)
+	public boolean validateSecurityQuestions(
+			@PathVariable("emailId") String emailId) {
 
 		UISecurityDetails uiSecurityDetails = new UISecurityDetails();
 		uiSecurityDetails.setId1(3);
 		uiSecurityDetails.setAnswer1("cat");
 		uiSecurityDetails.setId2(4);
 		uiSecurityDetails.setAnswer2("i will not tell");
-		return userLoginService.validateSecurityQuestions(uiSecurityDetails);
-	}
-	
-	@RequestMapping(value = "/temp", method = RequestMethod.GET)
-	public String temp(){
-		
-		boolean s1=userLoginService.isUserLocked("kondavinay@gmail.com");
-		boolean s2=userLoginService.lockUser("kondavinay@gmail.com");
-		return "is userLocked="+s1+"   "+"lockuser="+s2;
+		return userLoginService.validateSecurityQuestions(emailId,
+				uiSecurityDetails);
 	}
 
 }

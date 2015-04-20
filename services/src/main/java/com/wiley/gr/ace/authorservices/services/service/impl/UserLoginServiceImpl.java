@@ -45,23 +45,18 @@ public class UserLoginServiceImpl implements UserLoginService {
 	@Override
 	public Security getSecurityQuestions(String emailId) {
 
-		Security securityVO = null;
-		securityVO = new Security();
-		Integer userId=userDAO.getUserId(emailId);
+		Security security = null;
+		security = new Security();
+		Integer userId = userDAO.getUserId(emailId);
 		List<UserSecurityDetails> securityQuestionslist = userDAO
 				.getSecurityQuestions(userId);
-		securityVO.setId1(securityQuestionslist.get(0).getUserSecurityId());
-		securityVO.setSecurityQuestion1(securityQuestionslist.get(0)
+		security.setId1(securityQuestionslist.get(0).getUserSecurityId());
+		security.setSecurityQuestion1(securityQuestionslist.get(0)
 				.getSecurityQuestion());
-		securityVO.setSecurityAnswer1(securityQuestionslist.get(0)
-				.getSecurityAnswer());
-		securityVO.setId2(securityQuestionslist.get(1).getUserSecurityId());
-		securityVO.setSecurityQuestion2(securityQuestionslist.get(1)
+		security.setId2(securityQuestionslist.get(1).getUserSecurityId());
+		security.setSecurityQuestion2(securityQuestionslist.get(1)
 				.getSecurityQuestion());
-		securityVO.setSecurityAnswer2(securityQuestionslist.get(1)
-				.getSecurityAnswer());
-
-		return securityVO;
+		return security;
 	}
 
 	@Override
@@ -71,7 +66,7 @@ public class UserLoginServiceImpl implements UserLoginService {
 	}
 
 	@Override
-	public boolean validateSecurityQuestions(String emailId, Security securityVO) {
+	public boolean validateSecurityQuestions(String emailId, Security security) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -103,15 +98,23 @@ public class UserLoginServiceImpl implements UserLoginService {
 	}
 
 	@Override
-	public boolean validateSecurityQuestions(UISecurityDetails uiSecurityDetails) {
+	public boolean validateSecurityQuestions(String emailId,
+			UISecurityDetails uiSecurityDetails) {
 
-		Security securityVO = this.getSecurityQuestions("kondavinay@gmail.com");
-		if (securityVO.getId1() == uiSecurityDetails.getId1()
-				&& securityVO.getSecurityAnswer1().equalsIgnoreCase(
-						uiSecurityDetails.getAnswer1())
-				&& securityVO.getId2() == uiSecurityDetails.getId2()
-				&& securityVO.getSecurityAnswer2().equalsIgnoreCase(
-						uiSecurityDetails.getAnswer2()))
+		Integer userId = userDAO.getUserId(emailId);
+		List<UserSecurityDetails> securityQuestionslist = userDAO
+				.getSecurityQuestions(userId);
+		if (null == securityQuestionslist)
+			return false;
+
+		if (securityQuestionslist.get(0).getUserSecurityId() == uiSecurityDetails
+				.getId1()
+				&& securityQuestionslist.get(0).getSecurityAnswer()
+						.equalsIgnoreCase(uiSecurityDetails.getAnswer1())
+				&& securityQuestionslist.get(1).getUserSecurityId() == uiSecurityDetails
+						.getId2()
+				&& securityQuestionslist.get(1).getSecurityAnswer()
+						.equalsIgnoreCase(uiSecurityDetails.getAnswer2()))
 			return true;
 
 		return false;
