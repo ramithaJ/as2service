@@ -75,10 +75,13 @@ public class UserLoginController {
 	 * @return
 	 */
 	@RequestMapping(value = "/getSecurityQuestions/{emailId}", method = RequestMethod.GET)
-	public Security getSecurityQuestions(@PathVariable("emailId") String emailId) {
+	public Service getSecurityQuestions(@PathVariable("emailId") String emailId) {
 
+		Service service = new Service();
 		Security securityVO = userLoginService.getSecurityQuestions(emailId);
-		return securityVO;
+		service.setStatus("success");
+		service.setServiceObject(securityVO);
+		return service;
 	}
 
 	/**
