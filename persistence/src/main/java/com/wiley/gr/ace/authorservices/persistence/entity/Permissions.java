@@ -1,6 +1,7 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,10 +25,10 @@ public class Permissions implements java.io.Serializable {
 	private String permissionName;
 	private String levelOfPermission;
 	private String permActiveNotes;
-	private Serializable createdDate;
+	private Date createdDate;
 	private String createdBy;
 	private String updatedBy;
-	private Serializable updatedDate;
+	private Date updatedDate;
 	private Set<AdditionalPermissions> additionalPermissionses = new HashSet<AdditionalPermissions>(
 			0);
 	private Set<Roles> roleses = new HashSet<Roles>(0);
@@ -41,8 +42,8 @@ public class Permissions implements java.io.Serializable {
 
 	public Permissions(Integer permissionId, String permissionName,
 			String levelOfPermission, String permActiveNotes,
-			Serializable createdDate, String createdBy, String updatedBy,
-			Serializable updatedDate,
+			Date createdDate, String createdBy, String updatedBy,
+			Date updatedDate,
 			Set<AdditionalPermissions> additionalPermissionses,
 			Set<Roles> roleses) {
 		this.permissionId = permissionId;
@@ -95,11 +96,11 @@ public class Permissions implements java.io.Serializable {
 	}
 
 	@Column(name = "CREATED_DATE")
-	public Serializable getCreatedDate() {
+	public Date getCreatedDate() {
 		return this.createdDate;
 	}
 
-	public void setCreatedDate(Serializable createdDate) {
+	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
 
@@ -122,11 +123,11 @@ public class Permissions implements java.io.Serializable {
 	}
 
 	@Column(name = "UPDATED_DATE")
-	public Serializable getUpdatedDate() {
+	public Date getUpdatedDate() {
 		return this.updatedDate;
 	}
 
-	public void setUpdatedDate(Serializable updatedDate) {
+	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
 	}
 

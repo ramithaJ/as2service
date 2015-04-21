@@ -1,6 +1,8 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
 import java.io.Serializable;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,9 +19,9 @@ public class Alerts implements java.io.Serializable {
 	private Integer alertId;
 	private String alertName;
 	private String description;
-	private Serializable createdDate;
+	private Date createdDate;
 	private String createdBy;
-	private Serializable updatedDate;
+	private Date updatedDate;
 	private String updatedBy;
 
 	public Alerts() {
@@ -30,8 +32,8 @@ public class Alerts implements java.io.Serializable {
 	}
 
 	public Alerts(Integer alertId, String alertName, String description,
-			Serializable createdDate, String createdBy,
-			Serializable updatedDate, String updatedBy) {
+			Date createdDate, String createdBy,
+			Date updatedDate, String updatedBy) {
 		this.alertId = alertId;
 		this.alertName = alertName;
 		this.description = description;
@@ -70,11 +72,11 @@ public class Alerts implements java.io.Serializable {
 	}
 
 	@Column(name = "CREATED_DATE")
-	public Serializable getCreatedDate() {
+	public Date getCreatedDate() {
 		return this.createdDate;
 	}
 
-	public void setCreatedDate(Serializable createdDate) {
+	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
 
@@ -88,11 +90,11 @@ public class Alerts implements java.io.Serializable {
 	}
 
 	@Column(name = "UPDATED_DATE")
-	public Serializable getUpdatedDate() {
+	public Date getUpdatedDate() {
 		return this.updatedDate;
 	}
 
-	public void setUpdatedDate(Serializable updatedDate) {
+	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
 	}
 

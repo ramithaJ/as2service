@@ -1,6 +1,8 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
 import java.io.Serializable;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -19,8 +21,8 @@ public class AdminTasks implements java.io.Serializable {
 	private String taskAssignedTo;
 	private String taskLockedBy;
 	private Integer taskAssignedToUserid;
-	private Serializable taskReceviedDate;
-	private Serializable taskCompletionDate;
+	private Date taskReceviedDate;
+	private Date taskCompletionDate;
 	private String taskReceviedFrom;
 	private String taskAssignedBy;
 
@@ -33,8 +35,8 @@ public class AdminTasks implements java.io.Serializable {
 
 	public AdminTasks(Integer taskId, String taskName,
 			String taskAssignedTo, String taskLockedBy,
-			Integer taskAssignedToUserid, Serializable taskReceviedDate,
-			Serializable taskCompletionDate, String taskReceviedFrom,
+			Integer taskAssignedToUserid, Date taskReceviedDate,
+			Date taskCompletionDate, String taskReceviedFrom,
 			String taskAssignedBy) {
 		this.taskId = taskId;
 		this.taskName = taskName;
@@ -94,20 +96,20 @@ public class AdminTasks implements java.io.Serializable {
 	}
 
 	@Column(name = "TASK_RECEVIED_DATE")
-	public Serializable getTaskReceviedDate() {
+	public Date getTaskReceviedDate() {
 		return this.taskReceviedDate;
 	}
 
-	public void setTaskReceviedDate(Serializable taskReceviedDate) {
+	public void setTaskReceviedDate(Date taskReceviedDate) {
 		this.taskReceviedDate = taskReceviedDate;
 	}
 
 	@Column(name = "TASK_COMPLETION_DATE")
-	public Serializable getTaskCompletionDate() {
+	public Date getTaskCompletionDate() {
 		return this.taskCompletionDate;
 	}
 
-	public void setTaskCompletionDate(Serializable taskCompletionDate) {
+	public void setTaskCompletionDate(Date taskCompletionDate) {
 		this.taskCompletionDate = taskCompletionDate;
 	}
 
