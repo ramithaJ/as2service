@@ -26,6 +26,8 @@ public class User {
 
 	/** The alternate name. */
 	private String alternateName;
+	
+	private String primaryEmailAddr;
 
 	/** The recovery email address. */
 	private String recoveryEmailAddress;
@@ -166,6 +168,14 @@ public class User {
 	 */
 	public void setAlternateName(String alternateName) {
 		this.alternateName = alternateName;
+	}
+
+	public String getPrimaryEmailAddr() {
+		return primaryEmailAddr;
+	}
+
+	public void setPrimaryEmailAddr(String primaryEmailAddr) {
+		this.primaryEmailAddr = primaryEmailAddr;
 	}
 
 	/**
