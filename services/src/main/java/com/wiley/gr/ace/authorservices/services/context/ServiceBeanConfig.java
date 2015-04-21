@@ -12,19 +12,13 @@ import com.wiley.gr.ace.authorservices.services.external.impl.ESBInterfaceServic
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
-import com.wiley.gr.ace.authorservices.services.service.UserService;
 import com.wiley.gr.ace.authorservices.services.service.impl.AdminLoginServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.RegistrationServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UserLoginServiceImpl;
-import com.wiley.gr.ace.authorservices.services.service.impl.UserServiceImpl;
 
 @Configuration
 public class ServiceBeanConfig {
 
-	@Bean(name = "UserService")
-	public UserService userService() {
-		return new UserServiceImpl();
-	}
 
 	@Bean(name = "AdminLoginService")
 	public AdminLoginService adminloginservice() {
