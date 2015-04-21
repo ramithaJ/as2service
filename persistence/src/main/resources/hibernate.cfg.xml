@@ -20,6 +20,8 @@
 			class="com.wiley.gr.ace.authorservices.persistence.entity.UserProfile" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.AdditionalPermissions" />
+			<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.Permissions" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.AdminTasks" />
 		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Alerts" />
