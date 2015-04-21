@@ -29,7 +29,8 @@ public class RegistrationServiceImpl implements RegistrationService {
 		UserProfile userProfile = new UserProfile();
 		userProfile.setFirstName(user.getFirstName());
 		userProfile.setLastName(user.getLastName());
-		// userProfile.setPrimaryEmailAddr(user.getPrimaryEmailAddr());
+		userProfile.setPrimaryEmailAddr(user.getPrimaryEmailAddr());
+		//userProfile.setTermsOfUseFlg();
 
 		ESBInterfaceService esbInterfaceService = (ESBInterfaceService) serviceContext
 				.getBean("ESBInterfaceService");
@@ -43,29 +44,46 @@ public class RegistrationServiceImpl implements RegistrationService {
 	@Override
 	public List<User> getUserFromFirstNameLastName(String firstName,
 			String lastName) {
-		// TODO Auto-generated method stub
-		List<UserProfile> userProfileList = regDao.getUserFromFirstNameLastName(firstName, lastName);
+		List<UserProfile> userProfileList = regDao
+				.getUserFromFirstNameLastName(firstName, lastName);
 		List<User> userList = new ArrayList<User>();
 		for (UserProfile userProfile : userProfileList) {
 			User user = new User();
 			user.setTitle(userProfile.getTitle());
-			user.setFirstName(userProfile.getFirstName());
+			user.setFirstName(userProfile.getFirstName()); //suffix, Journal Title, ORCID Id, Security Question - AS2.0
+														   //institution, Middle Name - CDM
+			userList.add(user);
 		}
-		return null;
+		return userList;
 	}
 
 	@Override
-	public List<User> checkPrimaryEmailAddres(String emailId) {
+	public List<User> getFromPrimaryEmailAddres(String emailId) {
 		// TODO Auto-generated method stub
-		return null;
+		List<UserProfile> userProfileList = regDao.getFromPrimaryEmailAddres(emailId);
+		List<User> userList = new ArrayList<User>();
+		for (UserProfile userProfile : userProfileList) {
+			User user = new User();
+			user.setPrimaryEmailAddr(userProfile.getPrimaryEmailAddr());
+			user.setFirstName(userProfile.getFirstName());
+			user.setLastName(userProfile.getLastName());//country - CDM
+			userList.add(user);
+		}
+		return userList;
 	}
 
 	@Override
-	public List<User> checkSecondaryEmailAddress(String emailId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<User> getFromSecondaryEmailAddress(String emailId) {
+		List<UserProfile> userProfileList = regDao.getFromSecondaryEmailAddress(emailId);
+		List<User> userList = new ArrayList<User>();
+		for (UserProfile userProfile : userProfileList) {
+			User user = new User();
+			user.setPrimaryEmailAddr(userProfile.getPrimaryEmailAddr());
+			user.setFirstName(userProfile.getFirstName());
+			user.setLastName(userProfile.getLastName());//Country - CDM
+			userList.add(user);
+		}
+		return userList;
 	}
-
-	
 
 }

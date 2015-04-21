@@ -42,7 +42,7 @@ public class RegistrationServiceDAOImpl implements RegistrationServiceDAO {
 	}
 
 	@Override
-	public List<UserProfile> checkPrimaryEmailAddres(String emailId) {
+	public List<UserProfile> getFromPrimaryEmailAddres(String emailId) {
 		Session session = con.getSessionFactory().openSession();
 		String hql = "from UserProfile uf where uf.primaryEmailAddr = :primaryEmailAddr";
 		List<UserProfile> userProfileList = session.createQuery(hql)
@@ -51,7 +51,7 @@ public class RegistrationServiceDAOImpl implements RegistrationServiceDAO {
 	}
 
 	@Override
-	public List<UserProfile> checkSecondaryEmailAddress(String emailId) {
+	public List<UserProfile> getFromSecondaryEmailAddress(String emailId) {
 		Session session = con.getSessionFactory().openSession();
 		String hql = "from UserProfile uf where uf.secondaryEmailAddr = :secondaryEmailAddr";
 		List<UserProfile> userProfileList = session.createQuery(hql)

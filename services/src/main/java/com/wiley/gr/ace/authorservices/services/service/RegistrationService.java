@@ -11,7 +11,7 @@ public interface RegistrationService {
 	public List<User> getUserFromFirstNameLastName(String firstName,
 			String lastName);
 
-	public List<User> checkPrimaryEmailAddres(String emailId);
+	public List<User> getFromPrimaryEmailAddres(String emailId);
 
-	public List<User> checkSecondaryEmailAddress(String emailId);
+	public List<User> getFromSecondaryEmailAddress(String emailId);
 }

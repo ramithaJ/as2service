@@ -1,5 +1,6 @@
 package com.wiley.gr.ace.authorservices.web.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,6 +33,17 @@ public class RegistrationController {
 			@PathVariable String firstName, @PathVariable String lastName) {
 
 		return rs.getUserFromFirstNameLastName(firstName, lastName);
+	}
+
+	@RequestMapping(value = "/fetchbyemail/{emailId}")
+	public @ResponseBody List<User> getUserFromEmailEntered(
+			@PathVariable String emailId) {
+		List<User> userList = new ArrayList<User>();
+		userList = rs.getFromPrimaryEmailAddres(emailId);
+		if (userList.isEmpty()) {
+			userList = rs.getFromSecondaryEmailAddress(emailId);
+		}
+		return userList;
 	}
 
 	@RequestMapping(value = "/resgister", method = RequestMethod.POST, consumes = { "application/json" })
