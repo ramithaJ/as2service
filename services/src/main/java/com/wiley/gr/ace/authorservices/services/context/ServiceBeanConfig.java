@@ -10,9 +10,11 @@ import com.wiley.gr.ace.authorservices.services.external.impl.ALMInterfaceServic
 import com.wiley.gr.ace.authorservices.services.external.impl.BPMInterfaceServiceImpl;
 import com.wiley.gr.ace.authorservices.services.external.impl.ESBInterfaceServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
+import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 import com.wiley.gr.ace.authorservices.services.service.UserService;
 import com.wiley.gr.ace.authorservices.services.service.impl.AdminLoginServiceImpl;
+import com.wiley.gr.ace.authorservices.services.service.impl.RegistrationServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UserLoginServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UserServiceImpl;
 
@@ -47,6 +49,12 @@ public class ServiceBeanConfig {
 	@Bean(name = "ESBInterfaceService")
 	public ESBInterfaceService eSBInterfaceService() {
 		return new ESBInterfaceServiceImpl();
+	}
+	@Bean (name="RegistrationService")
+	public RegistrationService registrationService()
+	{
+		
+		return new RegistrationServiceImpl();
 	}
 
 }
