@@ -1,10 +1,10 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.sql.Blob;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,7 +23,7 @@ import javax.persistence.Table;
 @Table(name = "USER_PROFILE")
 public class UserProfile implements java.io.Serializable {
 
-	private BigDecimal userId;
+	private Integer userId;
 	private String primaryEmailAddr;
 	private String title;
 	private String firstName;
@@ -41,7 +41,7 @@ public class UserProfile implements java.io.Serializable {
 	private String ipAddress;
 	private Character isAccountVerified;
 	private Boolean invalidLoginFlg;
-	private BigDecimal mergerAccntId;
+	private Integer mergerAccntId;
 	private Blob profilePic;
 	private String createdBy;
 	private Serializable createdDate;
@@ -60,12 +60,12 @@ public class UserProfile implements java.io.Serializable {
 	public UserProfile() {
 	}
 
-	public UserProfile(BigDecimal userId, String primaryEmailAddr) {
+	public UserProfile(Integer userId, String primaryEmailAddr) {
 		this.userId = userId;
 		this.primaryEmailAddr = primaryEmailAddr;
 	}
 
-	public UserProfile(BigDecimal userId, String primaryEmailAddr,
+	public UserProfile(Integer userId, String primaryEmailAddr,
 			String title, String firstName, String lastName,
 			Character optInPromoteFlg, Character optInActivatedFlg,
 			Character termsOfUseFlg, Character securityQuestFlg,
@@ -73,7 +73,7 @@ public class UserProfile implements java.io.Serializable {
 			String secondaryEmailAddr, Character billingAddrFlg,
 			Character shippingAdrFlg, String alternateName, String ipAddress,
 			Character isAccountVerified, Boolean invalidLoginFlg,
-			BigDecimal mergerAccntId, Blob profilePic, String createdBy,
+			Integer mergerAccntId, Blob profilePic, String createdBy,
 			Serializable createdDate, String updatedBy,
 			Serializable updatedDate, Serializable lastLoginDate,
 			Serializable lastActivityDate,
@@ -114,11 +114,11 @@ public class UserProfile implements java.io.Serializable {
 
 	@Id
 	@Column(name = "USER_ID", unique = true, nullable = false, precision = 22, scale = 0)
-	public BigDecimal getUserId() {
+	public Integer getUserId() {
 		return this.userId;
 	}
 
-	public void setUserId(BigDecimal userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 
@@ -276,11 +276,11 @@ public class UserProfile implements java.io.Serializable {
 	}
 
 	@Column(name = "MERGER_ACCNT_ID", precision = 22, scale = 0)
-	public BigDecimal getMergerAccntId() {
+	public Integer getMergerAccntId() {
 		return this.mergerAccntId;
 	}
 
-	public void setMergerAccntId(BigDecimal mergerAccntId) {
+	public void setMergerAccntId(Integer mergerAccntId) {
 		this.mergerAccntId = mergerAccntId;
 	}
 

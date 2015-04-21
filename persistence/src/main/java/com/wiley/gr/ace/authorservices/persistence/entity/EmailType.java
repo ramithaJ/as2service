@@ -1,7 +1,7 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @Table(name = "EMAIL_TYPE")
 public class EmailType implements java.io.Serializable {
 
-	private BigDecimal emailTypeId;
+	private Integer emailTypeId;
 	private String description;
 	private Serializable createdDate;
 	private String craetedBy;
@@ -25,11 +25,11 @@ public class EmailType implements java.io.Serializable {
 	public EmailType() {
 	}
 
-	public EmailType(BigDecimal emailTypeId) {
+	public EmailType(Integer emailTypeId) {
 		this.emailTypeId = emailTypeId;
 	}
 
-	public EmailType(BigDecimal emailTypeId, String description,
+	public EmailType(Integer emailTypeId, String description,
 			Serializable createdDate, String craetedBy,
 			Serializable updatedDate, String updatedBy) {
 		this.emailTypeId = emailTypeId;
@@ -42,11 +42,11 @@ public class EmailType implements java.io.Serializable {
 
 	@Id
 	@Column(name = "EMAIL_TYPE_ID", unique = true, nullable = false, precision = 22, scale = 0)
-	public BigDecimal getEmailTypeId() {
+	public Integer getEmailTypeId() {
 		return this.emailTypeId;
 	}
 
-	public void setEmailTypeId(BigDecimal emailTypeId) {
+	public void setEmailTypeId(Integer emailTypeId) {
 		this.emailTypeId = emailTypeId;
 	}
 

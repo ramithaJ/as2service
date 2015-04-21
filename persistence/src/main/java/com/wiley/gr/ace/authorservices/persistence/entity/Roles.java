@@ -1,9 +1,9 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,7 +22,7 @@ import javax.persistence.Table;
 @Table(name = "ROLES")
 public class Roles implements java.io.Serializable {
 
-	private BigDecimal roleId;
+	private Integer roleId;
 	private String roleName;
 	private String createdBy;
 	private Serializable createdDate;
@@ -36,11 +36,11 @@ public class Roles implements java.io.Serializable {
 	public Roles() {
 	}
 
-	public Roles(BigDecimal roleId) {
+	public Roles(Integer roleId) {
 		this.roleId = roleId;
 	}
 
-	public Roles(BigDecimal roleId, String roleName, String createdBy,
+	public Roles(Integer roleId, String roleName, String createdBy,
 			Serializable createdDate, String updatedBy,
 			Serializable updatedDate, Set<UserProfile> userProfiles,
 			Set<AdditionalPermissions> additionalPermissionses,
@@ -58,11 +58,11 @@ public class Roles implements java.io.Serializable {
 
 	@Id
 	@Column(name = "ROLE_ID", unique = true, nullable = false, precision = 22, scale = 0)
-	public BigDecimal getRoleId() {
+	public Integer getRoleId() {
 		return this.roleId;
 	}
 
-	public void setRoleId(BigDecimal roleId) {
+	public void setRoleId(Integer roleId) {
 		this.roleId = roleId;
 	}
 

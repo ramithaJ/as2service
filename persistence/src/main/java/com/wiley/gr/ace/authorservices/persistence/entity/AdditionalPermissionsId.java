@@ -1,6 +1,5 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
@@ -11,44 +10,44 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class AdditionalPermissionsId implements java.io.Serializable {
 
-	private BigDecimal userId;
-	private BigDecimal articleId;
-	private BigDecimal permissionId;
+	private Integer userId;
+	private Integer articleId;
+	private Integer permissionId;
 
 	public AdditionalPermissionsId() {
 	}
 
-	public AdditionalPermissionsId(BigDecimal userId, BigDecimal articleId,
-			BigDecimal permissionId) {
+	public AdditionalPermissionsId(Integer userId, Integer articleId,
+			Integer permissionId) {
 		this.userId = userId;
 		this.articleId = articleId;
 		this.permissionId = permissionId;
 	}
 
 	@Column(name = "USER_ID", nullable = false, precision = 22, scale = 0)
-	public BigDecimal getUserId() {
+	public Integer getUserId() {
 		return this.userId;
 	}
 
-	public void setUserId(BigDecimal userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 
 	@Column(name = "ARTICLE_ID", nullable = false, precision = 22, scale = 0)
-	public BigDecimal getArticleId() {
+	public Integer getArticleId() {
 		return this.articleId;
 	}
 
-	public void setArticleId(BigDecimal articleId) {
+	public void setArticleId(Integer articleId) {
 		this.articleId = articleId;
 	}
 
 	@Column(name = "PERMISSION_ID", nullable = false, precision = 22, scale = 0)
-	public BigDecimal getPermissionId() {
+	public Integer getPermissionId() {
 		return this.permissionId;
 	}
 
-	public void setPermissionId(BigDecimal permissionId) {
+	public void setPermissionId(Integer permissionId) {
 		this.permissionId = permissionId;
 	}
 

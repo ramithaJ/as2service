@@ -1,7 +1,7 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,11 +15,11 @@ import javax.persistence.Table;
 @Table(name = "NOTIFICATIONS")
 public class Notifications implements java.io.Serializable {
 
-	private BigDecimal notificationId;
+	private Integer notificationId;
 	private String notificationCategory;
-	private BigDecimal emailType;
+	private Integer emailType;
 	private String notificationDescription;
-	private BigDecimal intendedUserRole;
+	private Integer intendedUserRole;
 	private Serializable createdDate;
 	private String createdBy;
 	private Serializable updatedDate;
@@ -28,16 +28,16 @@ public class Notifications implements java.io.Serializable {
 	public Notifications() {
 	}
 
-	public Notifications(BigDecimal notificationId, BigDecimal emailType,
-			BigDecimal intendedUserRole) {
+	public Notifications(Integer notificationId, Integer emailType,
+			Integer intendedUserRole) {
 		this.notificationId = notificationId;
 		this.emailType = emailType;
 		this.intendedUserRole = intendedUserRole;
 	}
 
-	public Notifications(BigDecimal notificationId,
-			String notificationCategory, BigDecimal emailType,
-			String notificationDescription, BigDecimal intendedUserRole,
+	public Notifications(Integer notificationId,
+			String notificationCategory, Integer emailType,
+			String notificationDescription, Integer intendedUserRole,
 			Serializable createdDate, String createdBy,
 			Serializable updatedDate, String updatedBy) {
 		this.notificationId = notificationId;
@@ -53,11 +53,11 @@ public class Notifications implements java.io.Serializable {
 
 	@Id
 	@Column(name = "NOTIFICATION_ID", unique = true, nullable = false, precision = 22, scale = 0)
-	public BigDecimal getNotificationId() {
+	public Integer getNotificationId() {
 		return this.notificationId;
 	}
 
-	public void setNotificationId(BigDecimal notificationId) {
+	public void setNotificationId(Integer notificationId) {
 		this.notificationId = notificationId;
 	}
 
@@ -71,11 +71,11 @@ public class Notifications implements java.io.Serializable {
 	}
 
 	@Column(name = "EMAIL_TYPE", nullable = false, precision = 22, scale = 0)
-	public BigDecimal getEmailType() {
+	public Integer getEmailType() {
 		return this.emailType;
 	}
 
-	public void setEmailType(BigDecimal emailType) {
+	public void setEmailType(Integer emailType) {
 		this.emailType = emailType;
 	}
 
@@ -89,11 +89,11 @@ public class Notifications implements java.io.Serializable {
 	}
 
 	@Column(name = "INTENDED_USER_ROLE", nullable = false, precision = 22, scale = 0)
-	public BigDecimal getIntendedUserRole() {
+	public Integer getIntendedUserRole() {
 		return this.intendedUserRole;
 	}
 
-	public void setIntendedUserRole(BigDecimal intendedUserRole) {
+	public void setIntendedUserRole(Integer intendedUserRole) {
 		this.intendedUserRole = intendedUserRole;
 	}
 

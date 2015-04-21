@@ -1,6 +1,5 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,7 +16,7 @@ import javax.persistence.Table;
 @Table(name = "USER_SECURITY_DETAILS")
 public class UserSecurityDetails implements java.io.Serializable {
 
-	private BigDecimal userSecurityId;
+	private Integer userSecurityId;
 	private UserProfile userProfile;
 	private String securityQuestion;
 	private String securityAnswer;
@@ -25,13 +24,13 @@ public class UserSecurityDetails implements java.io.Serializable {
 	public UserSecurityDetails() {
 	}
 
-	public UserSecurityDetails(BigDecimal userSecurityId,
+	public UserSecurityDetails(Integer userSecurityId,
 			UserProfile userProfile) {
 		this.userSecurityId = userSecurityId;
 		this.userProfile = userProfile;
 	}
 
-	public UserSecurityDetails(BigDecimal userSecurityId,
+	public UserSecurityDetails(Integer userSecurityId,
 			UserProfile userProfile, String securityQuestion,
 			String securityAnswer) {
 		this.userSecurityId = userSecurityId;
@@ -42,11 +41,11 @@ public class UserSecurityDetails implements java.io.Serializable {
 
 	@Id
 	@Column(name = "USER_SECURITY_ID", unique = true, nullable = false, precision = 22, scale = 0)
-	public BigDecimal getUserSecurityId() {
+	public Integer getUserSecurityId() {
 		return this.userSecurityId;
 	}
 
-	public void setUserSecurityId(BigDecimal userSecurityId) {
+	public void setUserSecurityId(Integer userSecurityId) {
 		this.userSecurityId = userSecurityId;
 	}
 

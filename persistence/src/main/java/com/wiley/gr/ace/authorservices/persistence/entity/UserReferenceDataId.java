@@ -1,6 +1,5 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
@@ -14,23 +13,23 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class UserReferenceDataId implements java.io.Serializable {
 
-	private BigDecimal userId;
+	private Integer userId;
 	private String ecid;
 
 	public UserReferenceDataId() {
 	}
 
-	public UserReferenceDataId(BigDecimal userId, String ecid) {
+	public UserReferenceDataId(Integer userId, String ecid) {
 		this.userId = userId;
 		this.ecid = ecid;
 	}
 
 	@Column(name = "USER_ID", nullable = false, precision = 22, scale = 0)
-	public BigDecimal getUserId() {
+	public Integer getUserId() {
 		return this.userId;
 	}
 
-	public void setUserId(BigDecimal userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 

@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+
+import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
 import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
@@ -29,21 +31,32 @@ public class RegistrationController {
 			.getLogger(RegistrationController.class);
 
 	@RequestMapping(value = "/fetch/{firstName}/{lastName}", method = RequestMethod.GET)
-	public @ResponseBody List<User> getUserFromFirstNameLastName(
+	public @ResponseBody Service getUserFromFirstNameLastName(
 			@PathVariable String firstName, @PathVariable String lastName) {
 
-		return rs.getUserFromFirstNameLastName(firstName, lastName);
+		Service service = new Service();
+		List<User> userList = rs.getUserFromFirstNameLastName(firstName, lastName);
+		service.setStatus("User first name and last names already Exists");
+		service.setServiceObject(userList);
+		return service;
 	}
 
 	@RequestMapping(value = "/fetchbyemail/{emailId}")
-	public @ResponseBody List<User> getUserFromEmailEntered(
+	public @ResponseBody Service getUserFromEmailEntered(
 			@PathVariable String emailId) {
 		List<User> userList = new ArrayList<User>();
+		Service service = new Service();
 		userList = rs.getFromPrimaryEmailAddres(emailId);
 		if (userList.isEmpty()) {
 			userList = rs.getFromSecondaryEmailAddress(emailId);
+			service.setStatus("User email id already exists as Secondary Email Id");
 		}
-		return userList;
+		else {
+			service.setStatus("User email id already exists as Primary Email Id");
+		}
+		
+		service.setServiceObject(userList);
+		return service;
 	}
 
 	@RequestMapping(value = "/resgister", method = RequestMethod.POST, consumes = { "application/json" })

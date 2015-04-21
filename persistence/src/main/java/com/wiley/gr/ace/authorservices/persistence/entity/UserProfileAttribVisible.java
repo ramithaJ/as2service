@@ -1,6 +1,5 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,20 +13,20 @@ import javax.persistence.Table;
 @Table(name = "USER_PROFILE_ATTRIB_VISIBLE")
 public class UserProfileAttribVisible implements java.io.Serializable {
 
-	private BigDecimal userProfileAttribId;
-	private BigDecimal userId;
+	private Integer userProfileAttribId;
+	private Integer userId;
 	private String profileVisibilityFlg;
 	private String listOfAttributesTobeVisib;
 
 	public UserProfileAttribVisible() {
 	}
 
-	public UserProfileAttribVisible(BigDecimal userProfileAttribId) {
+	public UserProfileAttribVisible(Integer userProfileAttribId) {
 		this.userProfileAttribId = userProfileAttribId;
 	}
 
-	public UserProfileAttribVisible(BigDecimal userProfileAttribId,
-			BigDecimal userId, String profileVisibilityFlg,
+	public UserProfileAttribVisible(Integer userProfileAttribId,
+			Integer userId, String profileVisibilityFlg,
 			String listOfAttributesTobeVisib) {
 		this.userProfileAttribId = userProfileAttribId;
 		this.userId = userId;
@@ -37,20 +36,20 @@ public class UserProfileAttribVisible implements java.io.Serializable {
 
 	@Id
 	@Column(name = "USER_PROFILE_ATTRIB_ID", unique = true, nullable = false, precision = 22, scale = 0)
-	public BigDecimal getUserProfileAttribId() {
+	public Integer getUserProfileAttribId() {
 		return this.userProfileAttribId;
 	}
 
-	public void setUserProfileAttribId(BigDecimal userProfileAttribId) {
+	public void setUserProfileAttribId(Integer userProfileAttribId) {
 		this.userProfileAttribId = userProfileAttribId;
 	}
 
 	@Column(name = "USER_ID", precision = 22, scale = 0)
-	public BigDecimal getUserId() {
+	public Integer getUserId() {
 		return this.userId;
 	}
 
-	public void setUserId(BigDecimal userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 

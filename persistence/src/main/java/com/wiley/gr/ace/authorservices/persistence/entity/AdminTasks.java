@@ -1,7 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,11 +14,11 @@ import javax.persistence.Table;
 @Table(name = "ADMIN_TASKS")
 public class AdminTasks implements java.io.Serializable {
 
-	private BigDecimal taskId;
+	private Integer taskId;
 	private String taskName;
 	private String taskAssignedTo;
 	private String taskLockedBy;
-	private BigDecimal taskAssignedToUserid;
+	private Integer taskAssignedToUserid;
 	private Serializable taskReceviedDate;
 	private Serializable taskCompletionDate;
 	private String taskReceviedFrom;
@@ -28,13 +27,13 @@ public class AdminTasks implements java.io.Serializable {
 	public AdminTasks() {
 	}
 
-	public AdminTasks(BigDecimal taskId) {
+	public AdminTasks(Integer taskId) {
 		this.taskId = taskId;
 	}
 
-	public AdminTasks(BigDecimal taskId, String taskName,
+	public AdminTasks(Integer taskId, String taskName,
 			String taskAssignedTo, String taskLockedBy,
-			BigDecimal taskAssignedToUserid, Serializable taskReceviedDate,
+			Integer taskAssignedToUserid, Serializable taskReceviedDate,
 			Serializable taskCompletionDate, String taskReceviedFrom,
 			String taskAssignedBy) {
 		this.taskId = taskId;
@@ -50,11 +49,11 @@ public class AdminTasks implements java.io.Serializable {
 
 	@Id
 	@Column(name = "TASK_ID", unique = true, nullable = false, precision = 22, scale = 0)
-	public BigDecimal getTaskId() {
+	public Integer getTaskId() {
 		return this.taskId;
 	}
 
-	public void setTaskId(BigDecimal taskId) {
+	public void setTaskId(Integer taskId) {
 		this.taskId = taskId;
 	}
 
@@ -86,11 +85,11 @@ public class AdminTasks implements java.io.Serializable {
 	}
 
 	@Column(name = "TASK_ASSIGNED_TO_USERID", precision = 22, scale = 0)
-	public BigDecimal getTaskAssignedToUserid() {
+	public Integer getTaskAssignedToUserid() {
 		return this.taskAssignedToUserid;
 	}
 
-	public void setTaskAssignedToUserid(BigDecimal taskAssignedToUserid) {
+	public void setTaskAssignedToUserid(Integer taskAssignedToUserid) {
 		this.taskAssignedToUserid = taskAssignedToUserid;
 	}
 

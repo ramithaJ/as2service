@@ -1,9 +1,9 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,7 +20,7 @@ import javax.persistence.Table;
 @Table(name = "PERMISSIONS")
 public class Permissions implements java.io.Serializable {
 
-	private BigDecimal permissionId;
+	private Integer permissionId;
 	private String permissionName;
 	private String levelOfPermission;
 	private String permActiveNotes;
@@ -35,11 +35,11 @@ public class Permissions implements java.io.Serializable {
 	public Permissions() {
 	}
 
-	public Permissions(BigDecimal permissionId) {
+	public Permissions(Integer permissionId) {
 		this.permissionId = permissionId;
 	}
 
-	public Permissions(BigDecimal permissionId, String permissionName,
+	public Permissions(Integer permissionId, String permissionName,
 			String levelOfPermission, String permActiveNotes,
 			Serializable createdDate, String createdBy, String updatedBy,
 			Serializable updatedDate,
@@ -59,11 +59,11 @@ public class Permissions implements java.io.Serializable {
 
 	@Id
 	@Column(name = "PERMISSION_ID", unique = true, nullable = false, precision = 22, scale = 0)
-	public BigDecimal getPermissionId() {
+	public Integer getPermissionId() {
 		return this.permissionId;
 	}
 
-	public void setPermissionId(BigDecimal permissionId) {
+	public void setPermissionId(Integer permissionId) {
 		this.permissionId = permissionId;
 	}
 

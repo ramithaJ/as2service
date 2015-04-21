@@ -1,7 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,7 +14,7 @@ import javax.persistence.Table;
 @Table(name = "ALERTS")
 public class Alerts implements java.io.Serializable {
 
-	private BigDecimal alertId;
+	private Integer alertId;
 	private String alertName;
 	private String description;
 	private Serializable createdDate;
@@ -26,11 +25,11 @@ public class Alerts implements java.io.Serializable {
 	public Alerts() {
 	}
 
-	public Alerts(BigDecimal alertId) {
+	public Alerts(Integer alertId) {
 		this.alertId = alertId;
 	}
 
-	public Alerts(BigDecimal alertId, String alertName, String description,
+	public Alerts(Integer alertId, String alertName, String description,
 			Serializable createdDate, String createdBy,
 			Serializable updatedDate, String updatedBy) {
 		this.alertId = alertId;
@@ -44,11 +43,11 @@ public class Alerts implements java.io.Serializable {
 
 	@Id
 	@Column(name = "ALERT_ID", unique = true, nullable = false, precision = 22, scale = 0)
-	public BigDecimal getAlertId() {
+	public Integer getAlertId() {
 		return this.alertId;
 	}
 
-	public void setAlertId(BigDecimal alertId) {
+	public void setAlertId(Integer alertId) {
 		this.alertId = alertId;
 	}
 
