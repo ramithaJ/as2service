@@ -27,6 +27,11 @@ public class AdminLoginController {
 	public static ApplicationContext context = new AnnotationConfigApplicationContext(
 			ServiceBeanConfig.class);
 
+	/**
+	 * @param emailId
+	 * @param password
+	 * @return
+	 */
 	@RequestMapping(value = "/login/{emailId}", method = RequestMethod.POST, produces = "application/json")
 	public Service login(@PathVariable("emailId") String emailId,
 			@RequestBody String password) {
@@ -44,6 +49,20 @@ public class AdminLoginController {
 		}
 
 		return serviceVO;
+
+	}
+	
+	
+	/**
+	 * @param emailId
+	 * @param password
+	 * @return
+	 */
+	@RequestMapping(value = "/requestAccess/{emailId}", method = RequestMethod.POST, produces = "application/json")
+	public Service requestAccess(@PathVariable("emailId") String emailId,
+			@RequestBody String password) {
+
+		return null;
 
 	}
 }
