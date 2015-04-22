@@ -11,7 +11,7 @@
 		<property name="show_sql">true</property>
 		<!-- <property name="validationQuery">select 1 from dual</property> -->
 		<property name="format_sql">true</property>
-        <property name="use_sql_comments">true</property>
+		<property name="use_sql_comments">true</property>
 		<property name="hibernate.c3p0.min_size">10</property>
 		<property name="hibernate.c3p0.max_size">20</property>
 		<property name="hibernate.c3p0.acquire_increment">1</property>
@@ -22,7 +22,7 @@
 			class="com.wiley.gr.ace.authorservices.persistence.entity.UserProfile" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.AdditionalPermissions" />
-			<mapping
+		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.Permissions" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.AdminTasks" />
@@ -38,5 +38,13 @@
 			class="com.wiley.gr.ace.authorservices.persistence.entity.UserReferenceData" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.UserAlerts" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.UserAlertsId" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.UserPreferredJournals" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.UserPreferredJournalsId" />
 	</session-factory>
 </hibernate-configuration>
