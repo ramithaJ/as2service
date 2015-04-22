@@ -4,9 +4,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
+import com.wiley.gr.ace.authorservices.persistence.services.DashBoardDao;
 import com.wiley.gr.ace.authorservices.persistence.services.RegistrationServiceDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
+import com.wiley.gr.ace.authorservices.persistence.services.impl.DashBoardDaoImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.RegistrationServiceDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserLoginDaoImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserLoginServiceDAOImpl;
@@ -33,5 +35,8 @@ public class PersistenceBeanConfig {
 	public UserLoginServiceDAO userLoginServiceDAO() {
 		return new UserLoginServiceDAOImpl();
 	}
-	
+    @Bean(name="DashBoardDao")
+    public DashBoardDao dashBoardDao() {
+    	return new DashBoardDaoImpl();
+    }
 }
