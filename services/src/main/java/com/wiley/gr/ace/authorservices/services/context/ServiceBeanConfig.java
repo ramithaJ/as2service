@@ -10,9 +10,11 @@ import com.wiley.gr.ace.authorservices.services.external.impl.ALMInterfaceServic
 import com.wiley.gr.ace.authorservices.services.external.impl.BPMInterfaceServiceImpl;
 import com.wiley.gr.ace.authorservices.services.external.impl.ESBInterfaceServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
+import com.wiley.gr.ace.authorservices.services.service.DashBoardService;
 import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 import com.wiley.gr.ace.authorservices.services.service.impl.AdminLoginServiceImpl;
+import com.wiley.gr.ace.authorservices.services.service.impl.DashBoardServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.RegistrationServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UserLoginServiceImpl;
 
@@ -49,6 +51,10 @@ public class ServiceBeanConfig {
 	{
 		
 		return new RegistrationServiceImpl();
+	}
+	@Bean(name="DashBoardService")
+	public DashBoardService dashBoardService(){
+		return new DashBoardServiceImpl();
 	}
 
 }
