@@ -248,4 +248,106 @@ public class UserProfileController {
 
 		return null;
 	}
+	
+	/**
+	 * @param userId
+	 * @param coAuthorId
+	 * @return
+	 */
+	@RequestMapping(value = "/editCoAuthor/{userId}", method = RequestMethod.POST, produces = "application/json")
+	public Service editCoAuthor(@PathVariable("userId") String userId, @PathVariable("coAuthorId") String coAuthorId, @RequestBody String coAuthorJson) {
+
+		return null;
+	}
+	
+	/**
+	 * @param userId
+	 * @param coAuthorId
+	 * @return
+	 */
+	@RequestMapping(value = "/deleteCoAuthor/{userId}", method = RequestMethod.GET, produces = "application/json")
+	public Service deleteCoAuthor(@PathVariable("userId") String userId, @PathVariable("coAuthorId") String coAuthorId) {
+
+		return null;
+	}
+	
+	/**
+	 * @param userId
+	 * @param coAuthorJson
+	 * @return
+	 */
+	@RequestMapping(value = "/addCoAuthor/{userId}", method = RequestMethod.POST, produces = "application/json")
+	public Service addCoAuthor(@PathVariable("userId") String userId, @RequestBody String coAuthorJson) {
+
+		return null;
+	}
+	
+	/**
+	 * @param userId
+	 * @return
+	 */
+	@RequestMapping(value = "/getPreferredJournals/{userId}", method = RequestMethod.GET, produces = "application/json")
+	public Service getPreferredJournals(@PathVariable("userId") String userId) {
+
+		return null;
+	}
+	
+	
+	/**
+	 * @param userId
+	 * @param journalId
+	 * @return
+	 */
+	@RequestMapping(value = "/deletePreferredJournals/{userId}", method = RequestMethod.POST, produces = "application/json")
+	public Service deletePreferredJournals(@PathVariable("userId") String userId, @RequestBody String journalId) {
+
+		return null;
+	}
+	
+	
+	/**
+	 * @param userId
+	 * @return
+	 */
+	@RequestMapping(value = "/searchPreferredJournals/{userId}", method = RequestMethod.POST, produces = "application/json")
+	public Service searchPreferredJournals(@PathVariable("userId") String userId) {
+
+		return null;
+	}
+	
+	/**
+	 * @param userId
+	 * @return
+	 */
+	@RequestMapping(value = "/getArticlesPublishedForJournals/{userId}", method = RequestMethod.GET, produces = "application/json")
+	public Service getArticlesPublishedForJournals(@PathVariable("userId") String userId) {
+
+		return null;
+	}
+	
+	
+	/**
+	 * @param userId
+	 * @return
+	 */
+	@RequestMapping(value = "/getListOfAlrets/{userId}", method = RequestMethod.GET, produces = "application/json")
+	public Service getListOfAlerts(@PathVariable("userId") String userId) {
+
+		return null;
+	}
+	
+	
+	/**
+	 * @param userId
+	 * @param alertsJson
+	 * @return
+	 */
+	@RequestMapping(value = "/updateAlerts/{userId}", method = RequestMethod.GET, produces = "application/json")
+	public Service updateAlerts(@PathVariable("userId") String userId,  @RequestBody String alertsJson) {
+
+		return null;
+	}
+	
+	
+	
 }
