@@ -38,7 +38,6 @@ public class UserProfile implements java.io.Serializable {
 	private String alternateName;
 	private String ipAddress;
 	private Character isAccountVerified;
-	private Integer invalidLoginFlg;
 	private Integer mergerAccntId;
 	private Blob profilePic;
 	private String createdBy;
@@ -50,7 +49,10 @@ public class UserProfile implements java.io.Serializable {
 	private Character isAccountLocked;
 	private Date accountLockedTime;
 	private Integer invalidLoginCnt;
+	private Set<UserAlerts> userAlertses = new HashSet<UserAlerts>(0);
 	private Set<UserReferenceData> userReferenceDatas = new HashSet<UserReferenceData>(
+			0);
+	private Set<UserPreferredJournals> userPreferredJournalses = new HashSet<UserPreferredJournals>(
 			0);
 	private Set<Roles> roleses = new HashSet<Roles>(0);
 	private Set<UserSecurityDetails> userSecurityDetailses = new HashSet<UserSecurityDetails>(
@@ -73,12 +75,14 @@ public class UserProfile implements java.io.Serializable {
 			Character isAccountActive, String secondaryEmailAddr,
 			Character billingAddrFlg, Character shippingAdrFlg,
 			String alternateName, String ipAddress,
-			Character isAccountVerified, Integer invalidLoginFlg,
-			Integer mergerAccntId, Blob profilePic, String createdBy,
-			Date createdDate, String updatedBy, Date updatedDate,
-			Date lastLoginDate, Date lastActivityDate,
-			Character isAccountLocked, Date accountLockedTime,
-			Integer invalidLoginCnt, Set<UserReferenceData> userReferenceDatas,
+			Character isAccountVerified, Integer mergerAccntId,
+			Blob profilePic, String createdBy, Date createdDate,
+			String updatedBy, Date updatedDate, Date lastLoginDate,
+			Date lastActivityDate, Character isAccountLocked,
+			Date accountLockedTime, Integer invalidLoginCnt,
+			Set<UserAlerts> userAlertses,
+			Set<UserReferenceData> userReferenceDatas,
+			Set<UserPreferredJournals> userPreferredJournalses,
 			Set<Roles> roleses, Set<UserSecurityDetails> userSecurityDetailses,
 			Set<AdditionalPermissions> additionalPermissionses) {
 		this.userId = userId;
@@ -98,7 +102,6 @@ public class UserProfile implements java.io.Serializable {
 		this.alternateName = alternateName;
 		this.ipAddress = ipAddress;
 		this.isAccountVerified = isAccountVerified;
-		this.invalidLoginFlg = invalidLoginFlg;
 		this.mergerAccntId = mergerAccntId;
 		this.profilePic = profilePic;
 		this.createdBy = createdBy;
@@ -110,7 +113,9 @@ public class UserProfile implements java.io.Serializable {
 		this.isAccountLocked = isAccountLocked;
 		this.accountLockedTime = accountLockedTime;
 		this.invalidLoginCnt = invalidLoginCnt;
+		this.userAlertses = userAlertses;
 		this.userReferenceDatas = userReferenceDatas;
+		this.userPreferredJournalses = userPreferredJournalses;
 		this.roleses = roleses;
 		this.userSecurityDetailses = userSecurityDetailses;
 		this.additionalPermissionses = additionalPermissionses;
@@ -270,15 +275,6 @@ public class UserProfile implements java.io.Serializable {
 		this.isAccountVerified = isAccountVerified;
 	}
 
-	@Column(name = "INVALID_LOGIN_FLG", precision = 1, scale = 0)
-	public Integer getInvalidLoginFlg() {
-		return this.invalidLoginFlg;
-	}
-
-	public void setInvalidLoginFlg(Integer invalidLoginFlg) {
-		this.invalidLoginFlg = invalidLoginFlg;
-	}
-
 	@Column(name = "MERGER_ACCNT_ID", precision = 22, scale = 0)
 	public Integer getMergerAccntId() {
 		return this.mergerAccntId;
@@ -379,12 +375,31 @@ public class UserProfile implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userProfile")
+	public Set<UserAlerts> getUserAlertses() {
+		return this.userAlertses;
+	}
+
+	public void setUserAlertses(Set<UserAlerts> userAlertses) {
+		this.userAlertses = userAlertses;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userProfile")
 	public Set<UserReferenceData> getUserReferenceDatas() {
 		return this.userReferenceDatas;
 	}
 
 	public void setUserReferenceDatas(Set<UserReferenceData> userReferenceDatas) {
 		this.userReferenceDatas = userReferenceDatas;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userProfile")
+	public Set<UserPreferredJournals> getUserPreferredJournalses() {
+		return this.userPreferredJournalses;
+	}
+
+	public void setUserPreferredJournalses(
+			Set<UserPreferredJournals> userPreferredJournalses) {
+		this.userPreferredJournalses = userPreferredJournalses;
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY)
