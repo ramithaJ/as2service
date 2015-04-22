@@ -71,11 +71,10 @@ public class DashBoardDaoImpl implements DashBoardDao{
 		// TODO Auto-generated method stub
 		Session session = con.getSessionFactory().openSession();
 		Transaction tx = session.beginTransaction();
-		boolean b=false;
-		
 		String hql = "from UserSecurityDetails where userProfile.userId=:userId";
 		List<UserSecurityDetails> secureResultList = session.createQuery(hql)
 				.setInteger("userId", userId).list();
+		
 		session.flush();
 		session.close();
 		tx.commit();
