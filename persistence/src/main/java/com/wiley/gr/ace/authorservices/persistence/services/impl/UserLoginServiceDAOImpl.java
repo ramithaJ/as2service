@@ -1,5 +1,8 @@
 package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -39,13 +42,14 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 			transaction = session.beginTransaction();
 			List<UserProfile> upList = session.createCriteria(UserProfile.class)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-			session.flush();
 			transaction.commit();
 			return upList;
 		}
 		finally{
-			if(session==null)
+			if(session!=null){
+				session.flush();
 				session.close();
+			}
 		}		
 	}
 	
@@ -63,12 +67,13 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 				.setString("emailId", emailId).list();
 			if (result != null && result.size() > 0)
 			status = true;
-			session.flush();
 			transaction.commit();
 			return status;		
 		}finally{
-			if(session==null)				
-				session.close();		
+			if(session!=null){
+				session.flush();
+				session.close();
+			}
 		}
 	}
 
@@ -88,12 +93,13 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 	    		return isSecure;
 	    	if (userProfile.getSecurityQuestFlg().equals(YES))
 	    		isSecure = true;
-	    	session.flush();
 	    	transaction.commit();
 	    	return isSecure;
 	    }finally{
-	    	if(session==null)
+	    	if(session!=null){
+	    		session.flush();
 	    		session.close();
+	    	}
 	    }
 	}
 
@@ -108,12 +114,13 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 	    	Criteria criteria = session.createCriteria(UserSecurityDetails.class);
 	    	criteria.add(Restrictions.eq("userId", userId));
 	    	List<UserSecurityDetails> userSecurityDetails = criteria.list();
-	    	session.flush();
 	    	transaction.commit();
 	    	return userSecurityDetails;
 	    }finally{
-	    	if(session==null)
+	    	if(session!=null){
+	    		session.flush();
 	    		session.close();
+	    	}
 	    }
 
 	}
@@ -127,8 +134,42 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 	@Override
 	public boolean doLogin(String emailId, String password) {
 
-		// here we should call the external AML service to authenticate the user
-		return true;
+		boolean status=false;
+		Session session = null;
+	    Transaction transaction = null;
+	    UserProfile userProfile = null;
+		try{
+			session = con.getSessionFactory().openSession();
+			session.beginTransaction();
+			
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+			Date date = new Date();
+					
+			String hql = "from UserProfile where primaryEmailAddr = :emailId";
+			List<UserProfile> result = session.createQuery(hql).setString("emailId", emailId).list();
+		
+			if(result!=null && result.size() > 0){
+				userProfile = result.get(0);
+			}
+		
+			if(userProfile != null) {
+				userProfile.setUpdatedBy("system");
+				userProfile.setUpdatedDate(date);
+				userProfile.setLastLoginDate(date);
+			}
+		
+			session.saveOrUpdate(userProfile);
+		
+			session.getTransaction().commit();
+		
+			session.close();
+			
+			}finally{
+			
+			}
+		
+			return true;
+		
 	}
 
 	@Override
@@ -147,12 +188,13 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 	    		return isLocked;
 	    	if (!userProfile.getIsAccountActive().equals(YES))
 	    		isLocked = true;
-	    	session.flush();
 	    	transaction.commit();
 	    	return isLocked;
 	    }finally{
-	    	if(session==null)
+	    	if(session!=null){
+	    		session.flush();
 	    		session.close();
+	    	}
 	    }
 	}
 
@@ -170,12 +212,13 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 	    	query.setParameter("isAccountActive", "N");
 	    	query.setParameter("emailId", emailId);
 	    	int result = query.executeUpdate();
-	    	session.flush();
 	    	transaction.commit();
 	    	return result;
 	    }finally{
-	    	if(session==null)
+	    	if(session!=null){
+	    		session.flush();
 	    		session.close();
+	    	}
 	    }
 	}
 
@@ -199,12 +242,86 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 	    	criteria.add(Restrictions.eq("primaryEmailAddr", emailId));
 	    	UserProfile userProfile = (UserProfile) criteria.uniqueResult();
 			int usreId = userProfile.getUserId();
-			session.flush();
 			transaction.commit();
 			return usreId;
 	    }finally{
-	    	if(session==null)
+	    	if(session!=null){
+	    		session.flush();
 	    		session.close();
+	    	}
+	    }
+	}
+
+	@Override
+	public int getCount(String emailId) {
+
+		Session session = null;
+	    Transaction transaction = null;
+	    try{
+	    	session = con.getSessionFactory().openSession();
+	    	transaction = session.beginTransaction();
+	    	Criteria criteria = session.createCriteria(UserProfile.class);
+	    	criteria.add(Restrictions.eq("primaryEmailAddr", emailId));
+	    	UserProfile userProfile = (UserProfile) criteria.uniqueResult();
+			int count = 0;//userProfile.getInvalidLoginCount();
+			transaction.commit();
+			return count;
+	    }finally{
+	    	if(session!=null){
+	    		session.flush();
+	    		session.close();
+	    	}
+	    }
+	}
+
+	@Override
+	public boolean updateCount(int count, String emailId) {
+
+		Session session = null;
+	    Transaction transaction = null;
+	    boolean status=false;
+	    try{
+	    	session = con.getSessionFactory().openSession();
+	    	transaction = session.beginTransaction();
+	    	String hql = "UPDATE UserProfile set isAccountActive = :isAccountActive "
+				+ "WHERE primaryEmailAddr = :emailId";
+	    	//String hql = "UPDATE UserProfile set inValidLoginCount = :invalidLoginCount "
+			///+ "WHERE primaryEmailAddr = :emailId";
+	    	Query query = session.createQuery(hql);
+	    	query.setParameter("invalidLoginCount", count);
+	    	query.setParameter("emailId", emailId);
+	    	int result = query.executeUpdate();
+	    	if(result==1)
+	    		return status;
+	    	transaction.commit();
+	    	return status;
+	    }finally{
+	    	if(session!=null){
+	    		session.flush();
+	    		session.close();
+	    	}
+	    }
+	}
+
+	@Override
+	public String getLockedTime(String emailId) {
+
+		Session session = null;
+	    Transaction transaction = null;
+	    try{
+	    	session = con.getSessionFactory().openSession();
+	    	transaction = session.beginTransaction();
+	    	Criteria criteria = session.createCriteria(UserProfile.class);
+	    	criteria.add(Restrictions.eq("primaryEmailAddr", emailId));
+	    	UserProfile userProfile = (UserProfile) criteria.uniqueResult();
+			String lockedTime= "2012-03-28 11:10:00";//userProfile.getAccountLockedTime();
+			transaction.commit();
+			return lockedTime;
+	    }finally{
+	    	if(session!=null){
+	    		session.flush();
+	    		session.close();
+	    	}
 	    }
 	}
 

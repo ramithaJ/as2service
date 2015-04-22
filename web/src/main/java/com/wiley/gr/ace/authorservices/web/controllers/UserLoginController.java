@@ -50,10 +50,7 @@ public class UserLoginController {
 	public Service doLogin(@PathVariable("emailId") String emailId,
 			@RequestBody String password) {
 
-		Service service = new Service();
-		if (userLoginService.validateEmailAddress(emailId))
-			return userLoginService.doLogin(emailId, password);
-		return service;
+		return userLoginService.doLogin(emailId, password);
 	}
 
 	/**
@@ -93,8 +90,9 @@ public class UserLoginController {
 	@RequestMapping(value = "/valdiateSecurityQuestions/{emailId}", method = RequestMethod.POST)
 	public boolean validateSecurityQuestions(
 			@PathVariable("emailId") String emailId,
-			@RequestBody String securityDetails) {
-
+			@RequestBody Security securityDetails){
+		
+		userLoginService.validateSecurityQuestions(emailId, securityDetails);		
 		return false;
 	}
 

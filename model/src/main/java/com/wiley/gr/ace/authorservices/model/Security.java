@@ -151,6 +151,5 @@ public class Security {
 		this.id2 = id2;
 	}
 
-	
-	
+		
 }

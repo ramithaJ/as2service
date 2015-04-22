@@ -66,4 +66,6 @@ public interface UserLoginService {
 	 */
 	public void sendEmail(String userId, String template_id);
 	
+	public Service authentication(String emailId, String password);
+	
 }
