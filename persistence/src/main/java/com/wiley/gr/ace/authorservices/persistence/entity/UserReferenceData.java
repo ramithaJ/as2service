@@ -1,6 +1,5 @@
-// default package
-// Generated Apr 22, 2015 11:49:40 AM by Hibernate Tools 3.4.0.CR1
 package com.wiley.gr.ace.authorservices.persistence.entity;
+
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
