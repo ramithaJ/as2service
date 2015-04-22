@@ -1,6 +1,7 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,9 +26,9 @@ public class Roles implements java.io.Serializable {
 	private Integer roleId;
 	private String roleName;
 	private String createdBy;
-	private Serializable createdDate;
+	private Date createdDate;
 	private String updatedBy;
-	private Serializable updatedDate;
+	private Date updatedDate;
 	private Set<UserProfile> userProfiles = new HashSet<UserProfile>(0);
 	private Set<AdditionalPermissions> additionalPermissionses = new HashSet<AdditionalPermissions>(
 			0);
@@ -41,8 +42,8 @@ public class Roles implements java.io.Serializable {
 	}
 
 	public Roles(Integer roleId, String roleName, String createdBy,
-			Serializable createdDate, String updatedBy,
-			Serializable updatedDate, Set<UserProfile> userProfiles,
+			Date createdDate, String updatedBy,
+			Date updatedDate, Set<UserProfile> userProfiles,
 			Set<AdditionalPermissions> additionalPermissionses,
 			Set<Permissions> permissionses) {
 		this.roleId = roleId;
@@ -85,11 +86,11 @@ public class Roles implements java.io.Serializable {
 	}
 
 	@Column(name = "CREATED_DATE")
-	public Serializable getCreatedDate() {
+	public Date getCreatedDate() {
 		return this.createdDate;
 	}
 
-	public void setCreatedDate(Serializable createdDate) {
+	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
 
@@ -103,11 +104,11 @@ public class Roles implements java.io.Serializable {
 	}
 
 	@Column(name = "UPDATED_DATE")
-	public Serializable getUpdatedDate() {
+	public Date getUpdatedDate() {
 		return this.updatedDate;
 	}
 
-	public void setUpdatedDate(Serializable updatedDate) {
+	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
 	}
 

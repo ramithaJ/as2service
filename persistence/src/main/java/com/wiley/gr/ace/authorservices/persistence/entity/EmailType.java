@@ -1,6 +1,7 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,9 +18,9 @@ public class EmailType implements java.io.Serializable {
 
 	private Integer emailTypeId;
 	private String description;
-	private Serializable createdDate;
+	private Date createdDate;
 	private String craetedBy;
-	private Serializable updatedDate;
+	private Date updatedDate;
 	private String updatedBy;
 
 	public EmailType() {
@@ -30,8 +31,8 @@ public class EmailType implements java.io.Serializable {
 	}
 
 	public EmailType(Integer emailTypeId, String description,
-			Serializable createdDate, String craetedBy,
-			Serializable updatedDate, String updatedBy) {
+			Date createdDate, String craetedBy,
+			Date updatedDate, String updatedBy) {
 		this.emailTypeId = emailTypeId;
 		this.description = description;
 		this.createdDate = createdDate;
@@ -60,11 +61,11 @@ public class EmailType implements java.io.Serializable {
 	}
 
 	@Column(name = "CREATED_DATE")
-	public Serializable getCreatedDate() {
+	public Date getCreatedDate() {
 		return this.createdDate;
 	}
 
-	public void setCreatedDate(Serializable createdDate) {
+	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
 
@@ -78,11 +79,11 @@ public class EmailType implements java.io.Serializable {
 	}
 
 	@Column(name = "UPDATED_DATE")
-	public Serializable getUpdatedDate() {
+	public Date getUpdatedDate() {
 		return this.updatedDate;
 	}
 
-	public void setUpdatedDate(Serializable updatedDate) {
+	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
 	}
 

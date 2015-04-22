@@ -1,6 +1,7 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,9 +21,9 @@ public class Notifications implements java.io.Serializable {
 	private Integer emailType;
 	private String notificationDescription;
 	private Integer intendedUserRole;
-	private Serializable createdDate;
+	private Date createdDate;
 	private String createdBy;
-	private Serializable updatedDate;
+	private Date updatedDate;
 	private String updatedBy;
 
 	public Notifications() {
@@ -38,8 +39,8 @@ public class Notifications implements java.io.Serializable {
 	public Notifications(Integer notificationId,
 			String notificationCategory, Integer emailType,
 			String notificationDescription, Integer intendedUserRole,
-			Serializable createdDate, String createdBy,
-			Serializable updatedDate, String updatedBy) {
+			Date createdDate, String createdBy,
+			Date updatedDate, String updatedBy) {
 		this.notificationId = notificationId;
 		this.notificationCategory = notificationCategory;
 		this.emailType = emailType;
@@ -98,11 +99,11 @@ public class Notifications implements java.io.Serializable {
 	}
 
 	@Column(name = "CREATED_DATE")
-	public Serializable getCreatedDate() {
+	public Date getCreatedDate() {
 		return this.createdDate;
 	}
 
-	public void setCreatedDate(Serializable createdDate) {
+	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
 
@@ -116,11 +117,11 @@ public class Notifications implements java.io.Serializable {
 	}
 
 	@Column(name = "UPDATED_DATE")
-	public Serializable getUpdatedDate() {
+	public Date getUpdatedDate() {
 		return this.updatedDate;
 	}
 
-	public void setUpdatedDate(Serializable updatedDate) {
+	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
 	}
 

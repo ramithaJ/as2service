@@ -1,6 +1,8 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
 import java.io.Serializable;
+import java.util.Date;
+
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -24,7 +26,7 @@ public class AdditionalPermissions implements java.io.Serializable {
 	private UserProfile userProfile;
 	private Permissions permissions;
 	private Character splPermissionFlg;
-	private Serializable permEndDt;
+	private Date permEndDt;
 
 	public AdditionalPermissions() {
 	}
@@ -39,7 +41,7 @@ public class AdditionalPermissions implements java.io.Serializable {
 
 	public AdditionalPermissions(AdditionalPermissionsId id, Roles roles,
 			UserProfile userProfile, Permissions permissions,
-			Character splPermissionFlg, Serializable permEndDt) {
+			Character splPermissionFlg, Date permEndDt) {
 		this.id = id;
 		this.roles = roles;
 		this.userProfile = userProfile;
@@ -101,11 +103,11 @@ public class AdditionalPermissions implements java.io.Serializable {
 	}
 
 	@Column(name = "PERM_END_DT")
-	public Serializable getPermEndDt() {
+	public Date getPermEndDt() {
 		return this.permEndDt;
 	}
 
-	public void setPermEndDt(Serializable permEndDt) {
+	public void setPermEndDt(Date permEndDt) {
 		this.permEndDt = permEndDt;
 	}
 

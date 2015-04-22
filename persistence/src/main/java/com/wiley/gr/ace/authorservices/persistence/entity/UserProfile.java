@@ -2,6 +2,7 @@ package com.wiley.gr.ace.authorservices.persistence.entity;
 
 import java.io.Serializable;
 import java.sql.Blob;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -44,11 +45,11 @@ public class UserProfile implements java.io.Serializable {
 	private Integer mergerAccntId;
 	private Blob profilePic;
 	private String createdBy;
-	private Serializable createdDate;
+	private Date createdDate;
 	private String updatedBy;
-	private Serializable updatedDate;
-	private Serializable lastLoginDate;
-	private Serializable lastActivityDate;
+	private Date updatedDate;
+	private Date lastLoginDate;
+	private Date lastActivityDate;
 	private Set<UserReferenceData> userReferenceDatas = new HashSet<UserReferenceData>(
 			0);
 	private Set<Roles> roleses = new HashSet<Roles>(0);
@@ -74,9 +75,9 @@ public class UserProfile implements java.io.Serializable {
 			Character shippingAdrFlg, String alternateName, String ipAddress,
 			Character isAccountVerified, Boolean invalidLoginFlg,
 			Integer mergerAccntId, Blob profilePic, String createdBy,
-			Serializable createdDate, String updatedBy,
-			Serializable updatedDate, Serializable lastLoginDate,
-			Serializable lastActivityDate,
+			Date createdDate, String updatedBy,
+			Date updatedDate, Date lastLoginDate,
+			Date lastActivityDate,
 			Set<UserReferenceData> userReferenceDatas, Set<Roles> roleses,
 			Set<UserSecurityDetails> userSecurityDetailses,
 			Set<AdditionalPermissions> additionalPermissionses) {
@@ -303,11 +304,11 @@ public class UserProfile implements java.io.Serializable {
 	}
 
 	@Column(name = "CREATED_DATE")
-	public Serializable getCreatedDate() {
+	public Date getCreatedDate() {
 		return this.createdDate;
 	}
 
-	public void setCreatedDate(Serializable createdDate) {
+	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
 
@@ -321,29 +322,29 @@ public class UserProfile implements java.io.Serializable {
 	}
 
 	@Column(name = "UPDATED_DATE")
-	public Serializable getUpdatedDate() {
+	public Date getUpdatedDate() {
 		return this.updatedDate;
 	}
 
-	public void setUpdatedDate(Serializable updatedDate) {
+	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
 	}
 
 	@Column(name = "LAST_LOGIN_DATE")
-	public Serializable getLastLoginDate() {
+	public Date getLastLoginDate() {
 		return this.lastLoginDate;
 	}
 
-	public void setLastLoginDate(Serializable lastLoginDate) {
+	public void setLastLoginDate(Date lastLoginDate) {
 		this.lastLoginDate = lastLoginDate;
 	}
 
 	@Column(name = "LAST_ACTIVITY_DATE")
-	public Serializable getLastActivityDate() {
+	public Date getLastActivityDate() {
 		return this.lastActivityDate;
 	}
 
-	public void setLastActivityDate(Serializable lastActivityDate) {
+	public void setLastActivityDate(Date lastActivityDate) {
 		this.lastActivityDate = lastActivityDate;
 	}
 

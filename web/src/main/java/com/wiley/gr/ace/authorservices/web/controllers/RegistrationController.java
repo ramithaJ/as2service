@@ -41,7 +41,7 @@ public class RegistrationController {
 		return service;
 	}
 
-	@RequestMapping(value = "/fetchbyemail/{emailId}")
+	@RequestMapping(value = "/fetchbyemail/{emailId}", method = RequestMethod.GET)
 	public @ResponseBody Service getUserFromEmailEntered(
 			@PathVariable String emailId) {
 		List<User> userList = new ArrayList<User>();
