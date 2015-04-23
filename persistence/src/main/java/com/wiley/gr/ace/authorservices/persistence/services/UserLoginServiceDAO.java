@@ -28,7 +28,7 @@ public interface UserLoginServiceDAO {
 	 * @param emailId
 	 * @return
 	 */
-	public int lockUser(String emailId);
+	public boolean lockUser(String emailId);
 
 	/**
 	 * @param userId
