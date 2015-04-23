@@ -2,6 +2,7 @@ package com.wiley.gr.ace.authorservices.services.service;
 
 import com.wiley.gr.ace.authorservices.model.Security;
 import com.wiley.gr.ace.authorservices.model.Service;
+import com.wiley.gr.ace.authorservices.model.UserMgmt;
 /**
  * @author kpshiva
  *
@@ -15,7 +16,7 @@ public interface UserLoginService {
 	 * @param password
 	 * @return
 	 */
-	public Service doLogin(String emailId, String password);
+	public UserMgmt doLogin(String emailId, String password);
 
 	/**
 	 * @param password
@@ -66,6 +67,11 @@ public interface UserLoginService {
 	 */
 	public void sendEmail(String userId, String template_id);
 	
+	/**
+	 * @param emailId
+	 * @param password
+	 * @return
+	 */
 	public Service authentication(String emailId, String password);
 	
 }
