@@ -3,11 +3,8 @@
  */
 package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
-import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -17,7 +14,6 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
 import com.wiley.gr.ace.authorservices.persistence.entity.Article;
-import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
 import com.wiley.gr.ace.authorservices.persistence.services.DashBoardDao;
 
@@ -26,17 +22,19 @@ import com.wiley.gr.ace.authorservices.persistence.services.DashBoardDao;
  *
  */
 public class DashBoardDaoImpl implements DashBoardDao{
+	
 	private static ApplicationContext context = new AnnotationConfigApplicationContext(
 			PersistenceBeanConfig.class);
 
 	private static HibernateConnection con = (HibernateConnection) context
 			.getBean("HibernateConnection");
-	Session session = con.getSessionFactory().openSession();
+	
 	
 	
 	@Override
 	public List<Article> getAllAuthorArticles() {
 		// TODO Auto-generated method stub
+		
 		List<Article> list=new LinkedList<Article>();
 		Article article=new Article();
 		/*
@@ -63,6 +61,7 @@ public class DashBoardDaoImpl implements DashBoardDao{
 		article1.setShowLicenceAgreementToSign(true);
 		list.add(article);
 		list.add(article1);
+				
 		return list;
 	}
 
