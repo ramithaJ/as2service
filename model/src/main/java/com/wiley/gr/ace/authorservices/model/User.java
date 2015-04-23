@@ -9,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class User {
 
+	/** The user id. */
+	private Integer userId;
 	/** The title. */
 	private String title;
 
@@ -57,6 +59,20 @@ public class User {
 	private String visibleAttributes[];
 	
 	private String contactId; //Need to confirm the datatype
+
+	/**
+	 * @return the userId
+	 */
+	public Integer getUserId() {
+		return userId;
+	}
+
+	/**
+	 * @param userId the userId to set
+	 */
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
 
 	/**
 	 * Gets the title.

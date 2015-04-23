@@ -10,7 +10,7 @@ import com.wiley.gr.ace.authorservices.externalservices.context.ExternalServiceB
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
-import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
+import com.wiley.gr.ace.authorservices.persistence.services.UpdateUserDAO;
 import com.wiley.gr.ace.authorservices.services.service.UpdateUserService;
 
 /**
@@ -22,7 +22,7 @@ public class UpdateUserServiceImpl implements UpdateUserService {
 	private ApplicationContext contextDao = new AnnotationConfigApplicationContext(PersistenceBeanConfig.class);
 	private ApplicationContext context = new AnnotationConfigApplicationContext(ExternalServiceBeanConfig.class);
 	private ESBInterfaceService esbInterfaceService = (ESBInterfaceService) context.getBean("ESBInterfaceService");
-
+	private UpdateUserDAO userDao = (UpdateUserDAO)contextDao.getBean("UpdateUserDAO");
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -30,20 +30,23 @@ public class UpdateUserServiceImpl implements UpdateUserService {
 	 * updateOrcidProfile(java.lang.String)
 	 */
 	@Override
-	public User updateOrcidProfile(String orcidId) throws Exception {
+	public User updateOrcidProfile(String orcidId, String userId) throws Exception {
 
 		/**
 		 * Fetch Account details and Profile details from external service
 		 * (ESB->ORCID)
 		 */
 		User user = esbInterfaceService.fetchOrcidDetails(orcidId);
+		User updatedUser = null;
 		if(user!=null){
 			/**
 			 * Update the user account details with ORCID account details
 			 */
+			user.setUserId(Integer.parseInt(userId));
+			updatedUser = userDao.updateUserWithOrcid(user);
 		}
 
-		return null;
+		return updatedUser;
 	}
 
 }
