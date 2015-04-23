@@ -202,7 +202,7 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 	}
 
 	@Override
-	public int lockUser(String emailId) {
+	public boolean lockUser(String emailId) {
 
 		Session session = null;
 		Transaction transaction = null;
@@ -212,11 +212,15 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 			String hql = "UPDATE UserProfile set isAccountActive = :isAccountActive "
 					+ "WHERE primaryEmailAddr = :emailId";
 			Query query = session.createQuery(hql);
-			query.setParameter("isAccountActive", "N");
+			query.setParameter("isAccountActive", "Y");
 			query.setParameter("emailId", emailId);
 			int result = query.executeUpdate();
 			transaction.commit();
-			return result;
+			if(result == 1) {
+				return true;
+			} else {
+				return false;
+			}
 		} finally {
 			if (session != null) {
 				session.flush();
