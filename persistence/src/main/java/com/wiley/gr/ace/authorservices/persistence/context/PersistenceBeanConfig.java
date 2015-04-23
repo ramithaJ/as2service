@@ -49,6 +49,7 @@ public class PersistenceBeanConfig {
 	public UserAlertsDao userAlertsdao() {
 		return new UserAlertsDaoImpl();
 	}
+	
     @Bean(name="UpdateUserDAO")
     public UpdateUserDAO updateUserDAO() {
     	return new UpdateUserDAOImpl();
