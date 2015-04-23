@@ -24,6 +24,7 @@
 		<module>email</module>
 		<module>utils</module>
 		<module>exceptions</module>
+		<module>externalservice</module>
 	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>

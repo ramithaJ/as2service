@@ -6,10 +6,11 @@ package com.wiley.gr.ace.authorservices.services.service.impl;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import com.wiley.gr.ace.authorservices.externalservices.context.ExternalServiceBeanConfig;
+import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
 import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
-import com.wiley.gr.ace.authorservices.services.external.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.services.service.UpdateUserService;
 
 /**
@@ -19,7 +20,7 @@ import com.wiley.gr.ace.authorservices.services.service.UpdateUserService;
 public class UpdateUserServiceImpl implements UpdateUserService {
 	
 	private ApplicationContext contextDao = new AnnotationConfigApplicationContext(PersistenceBeanConfig.class);
-	private ApplicationContext context = new AnnotationConfigApplicationContext(ServiceBeanConfig.class);
+	private ApplicationContext context = new AnnotationConfigApplicationContext(ExternalServiceBeanConfig.class);
 	private ESBInterfaceService esbInterfaceService = (ESBInterfaceService) context.getBean("ESBInterfaceService");
 
 	/*

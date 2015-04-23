@@ -2,15 +2,18 @@ package com.wiley.gr.ace.authorservices.services.service.impl;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import com.wiley.gr.ace.authorservices.externalservices.context.ExternalServiceBeanConfig;
+import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.BPMInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.impl.ALMInterfaceServiceImpl;
+import com.wiley.gr.ace.authorservices.externalservices.service.impl.BPMInterfaceServiceImpl;
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserLoginDaoImpl;
 import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
-import com.wiley.gr.ace.authorservices.services.external.ALMInterfaceService;
-import com.wiley.gr.ace.authorservices.services.external.BPMInterfaceService;
-import com.wiley.gr.ace.authorservices.services.external.impl.ALMInterfaceServiceImpl;
-import com.wiley.gr.ace.authorservices.services.external.impl.BPMInterfaceServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
+//import  com.wiley.gr.ace.authorservices.externalservices.service;
 
 /**
  * @author RAVISINHA
@@ -22,6 +25,8 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 			PersistenceBeanConfig.class);
 	private static ApplicationContext serviceContext = new AnnotationConfigApplicationContext(
 			ServiceBeanConfig.class);
+	private static ApplicationContext externalServiceContext = new AnnotationConfigApplicationContext(
+			ExternalServiceBeanConfig.class);
 
 	/*
 	 * (non-Javadoc)
@@ -51,7 +56,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 		boolean status = false;
 		// Call external service for password validation
 
-		ALMInterfaceService almService = (ALMInterfaceServiceImpl) serviceContext
+		ALMInterfaceService almService = (ALMInterfaceServiceImpl) externalServiceContext
 				.getBean("ALMExternalService");
 
 		if (almService.authenticateUser(emailId)) {
@@ -67,7 +72,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 	@Override
 	public boolean requestAdminAccess(String emailId) {
 
-		BPMInterfaceService bpmService = (BPMInterfaceServiceImpl) serviceContext
+		BPMInterfaceService bpmService = (BPMInterfaceServiceImpl) externalServiceContext
 				.getBean("BPMExternalService");
 		// TODO: Integrate with BPM Service
 		return bpmService.createTask();

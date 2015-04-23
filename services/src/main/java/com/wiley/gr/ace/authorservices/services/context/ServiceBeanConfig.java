@@ -3,12 +3,6 @@ package com.wiley.gr.ace.authorservices.services.context;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.wiley.gr.ace.authorservices.services.external.ALMInterfaceService;
-import com.wiley.gr.ace.authorservices.services.external.BPMInterfaceService;
-import com.wiley.gr.ace.authorservices.services.external.ESBInterfaceService;
-import com.wiley.gr.ace.authorservices.services.external.impl.ALMInterfaceServiceImpl;
-import com.wiley.gr.ace.authorservices.services.external.impl.BPMInterfaceServiceImpl;
-import com.wiley.gr.ace.authorservices.services.external.impl.ESBInterfaceServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 import com.wiley.gr.ace.authorservices.services.service.DashBoardService;
 import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
@@ -23,7 +17,6 @@ import com.wiley.gr.ace.authorservices.services.service.impl.UserLoginServiceImp
 @Configuration
 public class ServiceBeanConfig {
 
-
 	@Bean(name = "AdminLoginService")
 	public AdminLoginService adminloginservice() {
 		return new AdminLoginServiceImpl();
@@ -34,33 +27,19 @@ public class ServiceBeanConfig {
 		return new UserLoginServiceImpl();
 	}
 
-	@Bean(name = "ALMExternalService")
-	public ALMInterfaceService aLMExternalService() {
-		return new ALMInterfaceServiceImpl();
-	}
+	@Bean(name = "RegistrationService")
+	public RegistrationService registrationService() {
 
-	@Bean(name = "BPMExternalService")
-	public BPMInterfaceService bpmExternalService() {
-		return new BPMInterfaceServiceImpl();
-	}
-
-	@Bean(name = "ESBInterfaceService")
-	public ESBInterfaceService eSBInterfaceService() {
-		return new ESBInterfaceServiceImpl();
-	}
-	@Bean (name="RegistrationService")
-	public RegistrationService registrationService()
-	{
-		
 		return new RegistrationServiceImpl();
 	}
-	@Bean(name="DashBoardService")
-	public DashBoardService dashBoardService(){
+
+	@Bean(name = "DashBoardService")
+	public DashBoardService dashBoardService() {
 		return new DashBoardServiceImpl();
 	}
 
-	@Bean (name="UpdateUserService")
-	public UpdateUserService updateUserService(){
+	@Bean(name = "UpdateUserService")
+	public UpdateUserService updateUserService() {
 		return new UpdateUserServiceImpl();
 	}
 

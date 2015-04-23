@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
                                          "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-	<session-factory name="">
+	<session-factory name="asdb">
 		<property name="connection.driver_class">oracle.jdbc.OracleDriver</property>
 		<property name="connection.url">jdbc:oracle:thin:@10.6.4.146:1521/pdasapp</property>
 		<property name="connection.username">as2appuser</property>
@@ -23,6 +23,8 @@
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.AdditionalPermissions" />
 		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.AdditionalPermissionsId" />
+		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.Permissions" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.AdminTasks" />
@@ -37,6 +39,8 @@
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.UserReferenceData" />
 		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.UserReferenceDataId" />
+		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.UserAlerts" />
@@ -46,5 +50,9 @@
 			class="com.wiley.gr.ace.authorservices.persistence.entity.UserPreferredJournals" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.UserPreferredJournalsId" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.Article" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.AdminDetails" />
 	</session-factory>
 </hibernate-configuration>

@@ -6,6 +6,10 @@ import java.util.List;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import com.wiley.gr.ace.authorservices.exception.ASException;
+import com.wiley.gr.ace.authorservices.externalservices.context.ExternalServiceBeanConfig;
+import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.impl.ALMInterfaceServiceImpl;
 import com.wiley.gr.ace.authorservices.model.Security;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
@@ -13,8 +17,6 @@ import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserLoginServiceDAOImpl;
 import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
-import com.wiley.gr.ace.authorservices.services.external.ALMInterfaceService;
-import com.wiley.gr.ace.authorservices.services.external.impl.ALMInterfaceServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 
 /**
@@ -28,6 +30,13 @@ public class UserLoginServiceImpl implements UserLoginService {
 			.getBean("UserLoginServiceDAO");
 	private static ApplicationContext serviceContext = new AnnotationConfigApplicationContext(
 			ServiceBeanConfig.class);
+<<<<<<< HEAD
+=======
+	private static ApplicationContext externalServiceContext = new AnnotationConfigApplicationContext(
+			ExternalServiceBeanConfig.class);
+
+	
+>>>>>>> a48491a378975cb64e67e93d2e4c429187f4fc20
 
 	@Override
 	public Service doLogin(String emailId, String password) {
@@ -46,6 +55,7 @@ public class UserLoginServiceImpl implements UserLoginService {
 		} else {
 			this.authentication(emailId, password);
 			service.setStatus("Invalid email address. Please Re-Enter");
+			throw new ASException("1001", "Invalid email address. Please Re-Enter");
 		}
 		return service;
 	}
@@ -127,7 +137,7 @@ public class UserLoginServiceImpl implements UserLoginService {
 	@Override
 	public Service authentication(String emailId, String password) {
 
-		ALMInterfaceService almService = (ALMInterfaceServiceImpl) serviceContext
+		ALMInterfaceService almService = (ALMInterfaceServiceImpl) externalServiceContext
 				.getBean("ALMExternalService");
 		Service service = new Service();
 

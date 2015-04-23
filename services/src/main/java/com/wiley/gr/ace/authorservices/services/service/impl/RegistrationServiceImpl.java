@@ -6,12 +6,13 @@ import java.util.List;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import com.wiley.gr.ace.authorservices.externalservices.context.ExternalServiceBeanConfig;
+import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
 import com.wiley.gr.ace.authorservices.persistence.services.RegistrationServiceDAO;
 import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
-import com.wiley.gr.ace.authorservices.services.external.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
 
 public class RegistrationServiceImpl implements RegistrationService {
@@ -20,6 +21,8 @@ public class RegistrationServiceImpl implements RegistrationService {
 			PersistenceBeanConfig.class);
 	private static ApplicationContext serviceContext = new AnnotationConfigApplicationContext(
 			ServiceBeanConfig.class);
+	private static ApplicationContext externalServiceContext = new AnnotationConfigApplicationContext(
+			ExternalServiceBeanConfig.class);
 	RegistrationServiceDAO regDao = (RegistrationServiceDAO) context
 			.getBean("RegistrationServiceDAO");
 
@@ -32,7 +35,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 		userProfile.setPrimaryEmailAddr(user.getPrimaryEmailAddr());
 		//userProfile.setTermsOfUseFlg();
 
-		ESBInterfaceService esbInterfaceService = (ESBInterfaceService) serviceContext
+		ESBInterfaceService esbInterfaceService = (ESBInterfaceService) externalServiceContext
 				.getBean("ESBInterfaceService");
 		boolean esbCreationStatus = esbInterfaceService.createCustomer(user);
 		if (esbCreationStatus) {
