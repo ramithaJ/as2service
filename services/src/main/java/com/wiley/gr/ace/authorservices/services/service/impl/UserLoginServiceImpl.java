@@ -41,15 +41,20 @@ public class UserLoginServiceImpl implements UserLoginService {
 
 		UserMgmt userMgmt = null;
 		if (userLoginServiceDAO.validateEmailAddress(emailId)) {
-			
+
 			if (userLoginServiceDAO.isUserLocked(emailId)) {
 				
 				Date currentDate = new Date();
 				Date date = userLoginServiceDAO.getLockedTime(emailId);
 				Date lockedDate = new Date(date.getTime());
-				if((currentDate.getTime() - lockedDate.getTime()) > 1800000) {
-					// TODO: unlockUser and resetCount
+				System.out.println("date difference"+(currentDate.getTime() - lockedDate.getTime()));
+				//(currentDate.getTime() - lockedDate.getTime()) > 1800000
+				if(true) {
+					
+					userLoginServiceDAO.unLockUser(emailId);
+					userLoginServiceDAO.updateCount(0, emailId);
 					if(authenticateUser(emailId, password)) {
+						System.out.println("babu");
 						userMgmt = new UserMgmt();
 						userMgmt.setUserId(userLoginServiceDAO.getUserId(emailId)+"");
 					}
@@ -156,7 +161,7 @@ public class UserLoginServiceImpl implements UserLoginService {
 				.getBean("ALMExternalService");
 		
 		boolean loginStatus = false;
-		
+
 		if (almService.authenticateUser(emailId)) {
 			
 			userLoginServiceDAO.doLogin(emailId, password);

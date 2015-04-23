@@ -43,7 +43,7 @@ public class UserLoginController {
 		Service service = new Service();
 		service.setStatus("success");
 		UserMgmt userMgmt = new UserMgmt();
-		if(status) {
+		if (status) {
 			userMgmt.setIsSecuritySetup("true");
 		} else {
 			userMgmt.setIsSecuritySetup("false");
@@ -67,11 +67,12 @@ public class UserLoginController {
 			UserMgmt userMgmt = userLoginService.doLogin(emailId, password);
 			service.setStatus("success");
 			service.setServiceObject(userMgmt);
-		
-		} catch(ASException asException) {
-			
+
+		} catch (ASException asException) {
+
 			service.setStatus("failed");
-			service.getErrorVO().setErrorCode(Integer.parseInt(asException.getErrorCode()));
+			service.getErrorVO().setErrorCode(
+					Integer.parseInt(asException.getErrorCode()));
 			service.getErrorVO().setErrorMessage(asException.getDescription());
 		}
 		return service;

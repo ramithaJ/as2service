@@ -73,9 +73,28 @@ public interface UserLoginServiceDAO {
 	 */
 	public List<UserProfile> getUsersList();
 	
+	/**
+	 * @param emailId
+	 * @return
+	 */
 	public int getCount(String emailId);
 	
+	/**
+	 * @param count
+	 * @param emailId
+	 * @return
+	 */
 	public boolean updateCount(int count, String emailId); 
 	
+	/**
+	 * @param emailId
+	 * @return
+	 */
 	public Date getLockedTime(String emailId);
+	
+	/**
+	 * @param emailId
+	 * @return
+	 */
+	public boolean unLockUser(String emailId);
 }
