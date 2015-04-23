@@ -30,14 +30,11 @@ public class UserLoginServiceImpl implements UserLoginService {
 			.getBean("UserLoginServiceDAO");
 	private static ApplicationContext serviceContext = new AnnotationConfigApplicationContext(
 			ServiceBeanConfig.class);
-<<<<<<< HEAD
-=======
+
 	private static ApplicationContext externalServiceContext = new AnnotationConfigApplicationContext(
 			ExternalServiceBeanConfig.class);
 
 	
->>>>>>> a48491a378975cb64e67e93d2e4c429187f4fc20
-
 	@Override
 	public Service doLogin(String emailId, String password) {
 
