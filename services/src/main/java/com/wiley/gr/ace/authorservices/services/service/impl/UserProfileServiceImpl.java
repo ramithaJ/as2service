@@ -1,5 +1,11 @@
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.Alert;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
@@ -7,6 +13,11 @@ import com.wiley.gr.ace.authorservices.model.Interests;
 import com.wiley.gr.ace.authorservices.model.PreferredJournals;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Society;
+import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserAlerts;
+import com.wiley.gr.ace.authorservices.persistence.services.UserAlertsDao;
+import com.wiley.gr.ace.authorservices.persistence.services.impl.UserAlertsDaoImpl;
+import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
 import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
 
 /**
@@ -14,6 +25,10 @@ import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
  *
  */
 public class UserProfileServiceImpl implements UserProfileService {
+	private static ApplicationContext daoContext = new AnnotationConfigApplicationContext(
+			PersistenceBeanConfig.class);
+	private static ApplicationContext serviceContext = new AnnotationConfigApplicationContext(
+			ServiceBeanConfig.class);
 
 	@Override
 	public Affiliation[] getAffiliationsForUser(String userId) {
@@ -149,10 +164,41 @@ public class UserProfileServiceImpl implements UserProfileService {
 		return null;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.wiley.gr.ace.authorservices.services.service.UserProfileService#
+	 * getListOfAlerts(java.lang.String)
+	 */
 	@Override
 	public Alert[] getListOfAlerts(String userId) {
-		// TODO Auto-generated method stub
-		return null;
+
+		UserAlertsDao userAlertsDao = (UserAlertsDaoImpl) daoContext
+				.getBean("UserAlertsDao");
+		List<UserAlerts> userAlerts = userAlertsDao.getListOfAlerts(userId);
+		ArrayList<Alert> alertsList = new ArrayList<Alert>();
+
+		for (int i = 0; i < userAlerts.size(); i++) {
+			Alert alert = new Alert();
+
+			alert.setAlertId(userAlerts.get(i).getId().getAlertId() + "");
+			alert.setAlertName(userAlerts.get(i).getAlerts().getAlertName());
+
+			if (userAlerts.get(i).getEmailFlg().equals("Y")) {
+				alert.setEmail(true);
+			} else {
+				alert.setEmail(false);
+			}
+
+			if (userAlerts.get(i).getOnScreenFlg().equals("Y")) {
+				alert.setOnScreen(true);
+			} else {
+				alert.setOnScreen(false);
+			}
+			alertsList.add(alert);
+
+		}
+		return (Alert[]) alertsList.toArray(new Alert[alertsList.size()]);
 	}
 
 	@Override

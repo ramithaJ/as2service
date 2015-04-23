@@ -13,9 +13,6 @@ import com.wiley.gr.ace.authorservices.externalservices.service.impl.ESBInterfac
 @Configuration
 public class ExternalServiceBeanConfig {
 
-
-	
-
 	@Bean(name = "ALMExternalService")
 	public ALMInterfaceService aLMExternalService() {
 		return new ALMInterfaceServiceImpl();
@@ -30,8 +27,5 @@ public class ExternalServiceBeanConfig {
 	public ESBInterfaceService eSBInterfaceService() {
 		return new ESBInterfaceServiceImpl();
 	}
-
-		
-
 
 }

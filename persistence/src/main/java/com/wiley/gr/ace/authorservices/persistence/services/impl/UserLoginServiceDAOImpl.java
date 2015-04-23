@@ -1,7 +1,5 @@
 package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -136,43 +134,33 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 	@Override
 	public boolean doLogin(String emailId, String password) {
 
-		boolean status = false;
 		Session session = null;
 		Transaction transaction = null;
-		UserProfile userProfile = null;
 		try {
 			session = con.getSessionFactory().openSession();
-			session.beginTransaction();
-
-			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+			transaction = session.beginTransaction();
 			Date date = new Date();
 
-			String hql = "from UserProfile where primaryEmailAddr = :emailId";
-			List<UserProfile> result = session.createQuery(hql)
-					.setString("emailId", emailId).list();
-
-			if (result != null && result.size() > 0) {
-				userProfile = result.get(0);
+			String hql = "UPDATE UserProfile set lastLoginDate = :lastLoginDate, updatedBy = :updatedBy, updatedDate = :updatedDate "
+					+ "WHERE primaryEmailAddr = :emailId";
+			Query query = session.createQuery(hql);
+			query.setParameter("lastLoginDate", date);
+			query.setParameter("updatedBy", "System");
+			query.setParameter("updatedDate", date);
+			query.setParameter("emailId", emailId);
+			int result = query.executeUpdate();
+			transaction.commit();
+			if (result == 1) {
+				return true;
+			} else {
+				return false;
 			}
-
-			if (userProfile != null) {
-				userProfile.setUpdatedBy("system");
-				userProfile.setUpdatedDate(date);
-				userProfile.setLastLoginDate(date);
-			}
-
-			session.saveOrUpdate(userProfile);
-
-			session.getTransaction().commit();
-
-			session.close();
-
 		} finally {
-
+			if (session != null) {
+				session.flush();
+				session.close();
+			}
 		}
-
-		return true;
-
 	}
 
 	@Override
@@ -180,17 +168,22 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 
 		Session session = null;
 		Transaction transaction = null;
+		boolean isLocked = false;
 		try {
 			session = con.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			boolean isLocked = false;
 			Criteria criteria = session.createCriteria(UserProfile.class);
 			criteria.add(Restrictions.eq("primaryEmailAddr", emailId));
 			UserProfile userProfile = (UserProfile) criteria.uniqueResult();
+			System.out.println("shiva======================="
+					+ userProfile.getIsAccountLocked());
 			if (null == userProfile)
 				return isLocked;
-			if (userProfile.getIsAccountLocked() == 'Y')
+			if (userProfile.getIsAccountLocked() == 'Y') {
 				isLocked = true;
+			} else {
+				isLocked = false;
+			}
 			transaction.commit();
 			return isLocked;
 		} finally {
@@ -209,14 +202,14 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 		try {
 			session = con.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			String hql = "UPDATE UserProfile set isAccountActive = :isAccountActive "
+			String hql = "UPDATE UserProfile set isAccountLocked = :isAccountLocked "
 					+ "WHERE primaryEmailAddr = :emailId";
 			Query query = session.createQuery(hql);
-			query.setParameter("isAccountActive", "Y");
+			query.setParameter("isAccountLocked", "Y");
 			query.setParameter("emailId", emailId);
 			int result = query.executeUpdate();
 			transaction.commit();
-			if(result == 1) {
+			if (result == 1) {
 				return true;
 			} else {
 				return false;
@@ -290,11 +283,8 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 		try {
 			session = con.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			String hql = "UPDATE UserProfile set isAccountActive = :isAccountActive "
+			String hql = "UPDATE UserProfile set invalidLoginCnt = :invalidLoginCount "
 					+ "WHERE primaryEmailAddr = :emailId";
-			// String hql =
-			// "UPDATE UserProfile set inValidLoginCount = :invalidLoginCount "
-			// /+ "WHERE primaryEmailAddr = :emailId";
 			Query query = session.createQuery(hql);
 			query.setParameter("invalidLoginCount", count);
 			query.setParameter("emailId", emailId);
@@ -325,6 +315,34 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 			Date lockedTime = userProfile.getAccountLockedTime();
 			transaction.commit();
 			return lockedTime;
+		} finally {
+			if (session != null) {
+				session.flush();
+				session.close();
+			}
+		}
+	}
+
+	@Override
+	public boolean unLockUser(String emailId) {
+
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = con.getSessionFactory().openSession();
+			transaction = session.beginTransaction();
+			String hql = "UPDATE UserProfile set isAccountActive = :isAccountActive "
+					+ "WHERE primaryEmailAddr = :emailId";
+			Query query = session.createQuery(hql);
+			query.setParameter("isAccountActive", 'N');
+			query.setParameter("emailId", emailId);
+			int result = query.executeUpdate();
+			transaction.commit();
+			if (result == 1) {
+				return true;
+			} else {
+				return false;
+			}
 		} finally {
 			if (session != null) {
 				session.flush();

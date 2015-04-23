@@ -8,11 +8,13 @@ import com.wiley.gr.ace.authorservices.services.service.DashBoardService;
 import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
 import com.wiley.gr.ace.authorservices.services.service.UpdateUserService;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
+import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
 import com.wiley.gr.ace.authorservices.services.service.impl.AdminLoginServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.DashBoardServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.RegistrationServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UpdateUserServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UserLoginServiceImpl;
+import com.wiley.gr.ace.authorservices.services.service.impl.UserProfileServiceImpl;
 
 @Configuration
 public class ServiceBeanConfig {
@@ -43,4 +45,10 @@ public class ServiceBeanConfig {
 		return new UpdateUserServiceImpl();
 	}
 
+	@Bean(name = "UserProfileService")
+	public UserProfileService userProfileService() {
+
+		return new UserProfileServiceImpl();
+
+	}
 }
