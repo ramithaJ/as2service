@@ -11,12 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.User;
+import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
 import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
 
@@ -30,40 +31,34 @@ public class RegistrationController {
 	private Logger logger = LoggerFactory
 			.getLogger(RegistrationController.class);
 
-	@RequestMapping(value = "/checkByName/{firstName}/{lastName}", method = RequestMethod.GET)
-	public @ResponseBody Service getUserFromFirstNameLastName(
+	@RequestMapping(value = "/checkIfExists/{email}/{firstName}/{lastName}", method = RequestMethod.GET)
+	public @ResponseBody Service checkUserExists(@PathVariable String email,
 			@PathVariable String firstName, @PathVariable String lastName) {
 
-		Service service = new Service();
-		List<User> userList = rs.getUserFromFirstNameLastName(firstName, lastName);
-		service.setStatus("User first name and last names already Exists");
-		service.setServiceObject(userList);
-		return service;
-	}
+		Service service = null;
+		ESBUser esbUser = rs.checkEmailIdExists(email);
 
-	@RequestMapping(value = "/checkByEmail/{emailId}", method = RequestMethod.GET)
-	public @ResponseBody Service getUserFromEmailEntered(
-			@PathVariable String emailId) {
-		List<User> userList = new ArrayList<User>();
-		Service service = new Service();
-		userList = rs.getFromPrimaryEmailAddres(emailId);
-		if (userList.isEmpty()) {
-			userList = rs.getFromSecondaryEmailAddress(emailId);
-			service.setStatus("User email id already exists as Secondary Email Id");
+		if (esbUser != null) {
+			service.setStatus("User email exists as primary email in the system");
+			service.setServiceObject(esbUser);
+		} else {
+			List<ESBUser> esbUserList = rs.getUserFromFirstNameLastName(
+					firstName, lastName);
+			if (!esbUserList.isEmpty()) {
+				service.setStatus("Number of user with email as secondary email in the system is: "
+						+ esbUserList.size());
+				service.setServiceObject(esbUserList);
+			}
 		}
-		else {
-			service.setStatus("User email id already exists as Primary Email Id");
-		}
-		
-		service.setServiceObject(userList);
+
 		return service;
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST, consumes = { "application/json" })
-	public void registerUser(@RequestBody User user) {
+	public void registerUser(@RequestParam String contactId,
+			@RequestBody ESBUser esbUser) {
 		try {
-
-			rs.createUser(user);
+			rs.createUser(contactId, esbUser);
 		} catch (Exception ex) {
 			logger.error(ex.getMessage(), ex);
 		}

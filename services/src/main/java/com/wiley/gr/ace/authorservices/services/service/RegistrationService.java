@@ -1,17 +1,17 @@
 package com.wiley.gr.ace.authorservices.services.service;
 
 import java.util.List;
+
 import com.wiley.gr.ace.authorservices.model.User;
-import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
+import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 
 public interface RegistrationService {
 
-	public void createUser(User user);
+	public void createUser(String contactId, ESBUser esbUser);
 
-	public List<User> getUserFromFirstNameLastName(String firstName,
+	public List<ESBUser> getUserFromFirstNameLastName(String firstName,
 			String lastName);
 
-	public List<User> getFromPrimaryEmailAddres(String emailId);
+	public ESBUser checkEmailIdExists(String emailId);
 
-	public List<User> getFromSecondaryEmailAddress(String emailId);
 }

@@ -9,6 +9,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import com.wiley.gr.ace.authorservices.externalservices.context.ExternalServiceBeanConfig;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.model.User;
+import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
 import com.wiley.gr.ace.authorservices.persistence.services.RegistrationServiceDAO;
@@ -25,68 +26,36 @@ public class RegistrationServiceImpl implements RegistrationService {
 			ExternalServiceBeanConfig.class);
 	RegistrationServiceDAO regDao = (RegistrationServiceDAO) context
 			.getBean("RegistrationServiceDAO");
+	ESBInterfaceService esbInterFaceService = (ESBInterfaceService) externalServiceContext
+			.getBean("ESBInterfaceService");
 
 	@Override
-	public void createUser(User user) {
+	public void createUser(String contactID, ESBUser esbUser) {
 
 		UserProfile userProfile = new UserProfile();
-		userProfile.setFirstName(user.getFirstName());
-		userProfile.setLastName(user.getLastName());
-		userProfile.setPrimaryEmailAddr(user.getPrimaryEmailAddr());
-		//userProfile.setTermsOfUseFlg();
-
-		ESBInterfaceService esbInterfaceService = (ESBInterfaceService) externalServiceContext
-				.getBean("ESBInterfaceService");
-		boolean esbCreationStatus = esbInterfaceService.createCustomer(user);
-		if (esbCreationStatus) {
-			regDao.createUser(userProfile);
+		if (contactID.isEmpty()) {
+			ESBUser esbUserAfterCreate = esbInterFaceService
+					.createCustomer(esbUser);
+			// userProfile.setContactId(esbUserAfterCreate.getContactId()); TODO: data model/entity change
+		} else {
+			// userProfile.setContactId(contactID); TODO: data model/entity change
 		}
-
+		
+		regDao.createUser(userProfile);
 	}
 
 	@Override
-	public List<User> getUserFromFirstNameLastName(String firstName,
+	public List<ESBUser> getUserFromFirstNameLastName(String firstName,
 			String lastName) {
-		List<UserProfile> userProfileList = regDao
-				.getUserFromFirstNameLastName(firstName, lastName);
-		List<User> userList = new ArrayList<User>();
-		for (UserProfile userProfile : userProfileList) {
-			User user = new User();
-			user.setTitle(userProfile.getTitle());
-			user.setFirstName(userProfile.getFirstName()); //suffix, Journal Title, ORCID Id, Security Question - AS2.0
-														   //institution, Middle Name - CDM
-			userList.add(user);
-		}
-		return userList;
+		List<ESBUser> esbUserList = esbInterFaceService
+				.checkFirstNameLastNameExists(firstName, lastName);
+
+		return esbUserList;
 	}
 
 	@Override
-	public List<User> getFromPrimaryEmailAddres(String emailId) {
-		// TODO Auto-generated method stub
-		List<UserProfile> userProfileList = regDao.getFromPrimaryEmailAddres(emailId);
-		List<User> userList = new ArrayList<User>();
-		for (UserProfile userProfile : userProfileList) {
-			User user = new User();
-			user.setPrimaryEmailAddr(userProfile.getPrimaryEmailAddr());
-			user.setFirstName(userProfile.getFirstName());
-			user.setLastName(userProfile.getLastName());//country - CDM
-			userList.add(user);
-		}
-		return userList;
+	public ESBUser checkEmailIdExists(String emailId) {
+		ESBUser esbUser = esbInterFaceService.checkEmailIdExists(emailId);
+		return esbUser;
 	}
-
-	@Override
-	public List<User> getFromSecondaryEmailAddress(String emailId) {
-		List<UserProfile> userProfileList = regDao.getFromSecondaryEmailAddress(emailId);
-		List<User> userList = new ArrayList<User>();
-		for (UserProfile userProfile : userProfileList) {
-			User user = new User();
-			user.setPrimaryEmailAddr(userProfile.getPrimaryEmailAddr());
-			user.setFirstName(userProfile.getFirstName());
-			user.setLastName(userProfile.getLastName());//Country - CDM
-			userList.add(user);
-		}
-		return userList;
-	}
-
 }

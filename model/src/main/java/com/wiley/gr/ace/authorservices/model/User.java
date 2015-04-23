@@ -55,6 +55,8 @@ public class User {
 
 	/** The visible attributes. */
 	private String visibleAttributes[];
+	
+	private String contactId; //Need to confirm the datatype
 
 	/**
 	 * Gets the title.
