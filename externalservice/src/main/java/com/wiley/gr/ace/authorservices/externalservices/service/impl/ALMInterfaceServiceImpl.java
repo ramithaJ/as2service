@@ -1,6 +1,6 @@
-package com.wiley.gr.ace.authorservices.services.external.impl;
+package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
-import com.wiley.gr.ace.authorservices.services.external.ALMInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
 
 /**
  * @author RAVISINHA

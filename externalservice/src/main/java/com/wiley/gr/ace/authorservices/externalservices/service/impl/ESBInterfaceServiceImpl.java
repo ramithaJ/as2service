@@ -1,4 +1,4 @@
-package com.wiley.gr.ace.authorservices.services.external.impl;
+package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
 import java.net.URI;
 import java.util.Arrays;
@@ -10,8 +10,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.model.User;
-import com.wiley.gr.ace.authorservices.services.external.ESBInterfaceService;
 
 public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 

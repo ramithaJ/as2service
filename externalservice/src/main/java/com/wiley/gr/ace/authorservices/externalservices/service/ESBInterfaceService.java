@@ -1,4 +1,4 @@
-package com.wiley.gr.ace.authorservices.services.external;
+package com.wiley.gr.ace.authorservices.externalservices.service;
 
 import com.wiley.gr.ace.authorservices.model.User;
 
