@@ -30,7 +30,7 @@ public class RegistrationController {
 	private Logger logger = LoggerFactory
 			.getLogger(RegistrationController.class);
 
-	@RequestMapping(value = "/fetch/{firstName}/{lastName}", method = RequestMethod.GET)
+	@RequestMapping(value = "/checkByName/{firstName}/{lastName}", method = RequestMethod.GET)
 	public @ResponseBody Service getUserFromFirstNameLastName(
 			@PathVariable String firstName, @PathVariable String lastName) {
 
@@ -41,7 +41,7 @@ public class RegistrationController {
 		return service;
 	}
 
-	@RequestMapping(value = "/fetchbyemail/{emailId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/checkByEmail/{emailId}", method = RequestMethod.GET)
 	public @ResponseBody Service getUserFromEmailEntered(
 			@PathVariable String emailId) {
 		List<User> userList = new ArrayList<User>();
@@ -59,7 +59,7 @@ public class RegistrationController {
 		return service;
 	}
 
-	@RequestMapping(value = "/resgister", method = RequestMethod.POST, consumes = { "application/json" })
+	@RequestMapping(value = "/register", method = RequestMethod.POST, consumes = { "application/json" })
 	public void registerUser(@RequestBody User user) {
 		try {
 
