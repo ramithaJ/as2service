@@ -1,5 +1,7 @@
 package com.wiley.gr.ace.authorservices.web.controllers;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.model.Service;
+import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
+import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
+import com.wiley.gr.ace.authorservices.services.service.impl.UserProfileServiceImpl;
 
 /**
  * @author SarmaKumarap
@@ -16,6 +21,8 @@ import com.wiley.gr.ace.authorservices.model.Service;
 @RestController
 @RequestMapping("/userprofile")
 public class UserProfileController {
+	public static ApplicationContext context = new AnnotationConfigApplicationContext(
+			ServiceBeanConfig.class);
 
 	/**
 	 * @param userId
@@ -137,8 +144,7 @@ public class UserProfileController {
 
 		return null;
 	}
-	
-	
+
 	/**
 	 * @param userId
 	 * @return
@@ -148,54 +154,55 @@ public class UserProfileController {
 
 		return null;
 	}
-	
-	
+
 	/**
 	 * @param userId
 	 * @param societyId
 	 * @return
 	 */
 	@RequestMapping(value = "/editSocietyDetails/{userId}", method = RequestMethod.GET, produces = "application/json")
-	public Service editSocietyDetails(@PathVariable("userId") String userId, @PathVariable("societyId") String societyId) {
+	public Service editSocietyDetails(@PathVariable("userId") String userId,
+			@PathVariable("societyId") String societyId) {
 
 		return null;
 	}
-	
+
 	/**
 	 * @param userId
 	 * @param societyId
 	 * @return
 	 */
 	@RequestMapping(value = "/deleteSociety/{userId}", method = RequestMethod.POST, produces = "application/json")
-	public Service deleteSociety(@PathVariable("userId") String userId, @PathVariable("societyId") String societyId) {
+	public Service deleteSociety(@PathVariable("userId") String userId,
+			@PathVariable("societyId") String societyId) {
 
 		return null;
 	}
-	
+
 	/**
 	 * @param userId
 	 * @param societyId
 	 * @return
 	 */
 	@RequestMapping(value = "/updateSocietyDetails/{userId}", method = RequestMethod.POST, produces = "application/json")
-	public Service updateSocietyDetails(@PathVariable("userId") String userId, @RequestBody String societyId) {
+	public Service updateSocietyDetails(@PathVariable("userId") String userId,
+			@RequestBody String societyId) {
 
 		return null;
 	}
-	
-	
+
 	/**
 	 * @param userId
 	 * @param societyId
 	 * @return
 	 */
 	@RequestMapping(value = "/addSociety/{userId}", method = RequestMethod.POST, produces = "application/json")
-	public Service addSociety(@PathVariable("userId") String userId, @RequestBody String societyId) {
+	public Service addSociety(@PathVariable("userId") String userId,
+			@RequestBody String societyId) {
 
 		return null;
 	}
-	
-	
+
 	/**
 	 * @param userId
 	 * @return
@@ -205,40 +212,44 @@ public class UserProfileController {
 
 		return null;
 	}
-	
+
 	/**
 	 * @param userId
 	 * @param interestsJson
 	 * @return
 	 */
 	@RequestMapping(value = "/addInterests/{userId}", method = RequestMethod.POST, produces = "application/json")
-	public Service addInterests(@PathVariable("userId") String userId, @RequestBody String interestsJson) {
+	public Service addInterests(@PathVariable("userId") String userId,
+			@RequestBody String interestsJson) {
 
 		return null;
 	}
-	
+
 	/**
 	 * @param userId
 	 * @param interestId
 	 * @return
 	 */
 	@RequestMapping(value = "/removeInterest/{userId}", method = RequestMethod.POST, produces = "application/json")
-	public Service removeInterest(@PathVariable("userId") String userId, @RequestBody String interestId) {
+	public Service removeInterest(@PathVariable("userId") String userId,
+			@RequestBody String interestId) {
 
 		return null;
 	}
-	
+
 	/**
 	 * @param userId
 	 * @param searchString
 	 * @return
 	 */
 	@RequestMapping(value = "/searchInterests/{userId}", method = RequestMethod.POST, produces = "application/json")
-	public Service searchInterests(@PathVariable("userId") String userId, @RequestParam(required = false, value = "searchStr") String searchString) {
+	public Service searchInterests(
+			@PathVariable("userId") String userId,
+			@RequestParam(required = false, value = "searchStr") String searchString) {
 
 		return null;
 	}
-	
+
 	/**
 	 * @param userId
 	 * @return
@@ -248,40 +259,44 @@ public class UserProfileController {
 
 		return null;
 	}
-	
+
 	/**
 	 * @param userId
 	 * @param coAuthorId
 	 * @return
 	 */
 	@RequestMapping(value = "/editCoAuthor/{userId}", method = RequestMethod.POST, produces = "application/json")
-	public Service editCoAuthor(@PathVariable("userId") String userId, @PathVariable("coAuthorId") String coAuthorId, @RequestBody String coAuthorJson) {
+	public Service editCoAuthor(@PathVariable("userId") String userId,
+			@PathVariable("coAuthorId") String coAuthorId,
+			@RequestBody String coAuthorJson) {
 
 		return null;
 	}
-	
+
 	/**
 	 * @param userId
 	 * @param coAuthorId
 	 * @return
 	 */
 	@RequestMapping(value = "/deleteCoAuthor/{userId}", method = RequestMethod.GET, produces = "application/json")
-	public Service deleteCoAuthor(@PathVariable("userId") String userId, @PathVariable("coAuthorId") String coAuthorId) {
+	public Service deleteCoAuthor(@PathVariable("userId") String userId,
+			@PathVariable("coAuthorId") String coAuthorId) {
 
 		return null;
 	}
-	
+
 	/**
 	 * @param userId
 	 * @param coAuthorJson
 	 * @return
 	 */
 	@RequestMapping(value = "/addCoAuthor/{userId}", method = RequestMethod.POST, produces = "application/json")
-	public Service addCoAuthor(@PathVariable("userId") String userId, @RequestBody String coAuthorJson) {
+	public Service addCoAuthor(@PathVariable("userId") String userId,
+			@RequestBody String coAuthorJson) {
 
 		return null;
 	}
-	
+
 	/**
 	 * @param userId
 	 * @return
@@ -291,20 +306,19 @@ public class UserProfileController {
 
 		return null;
 	}
-	
-	
+
 	/**
 	 * @param userId
 	 * @param journalId
 	 * @return
 	 */
 	@RequestMapping(value = "/deletePreferredJournals/{userId}", method = RequestMethod.POST, produces = "application/json")
-	public Service deletePreferredJournals(@PathVariable("userId") String userId, @RequestBody String journalId) {
+	public Service deletePreferredJournals(
+			@PathVariable("userId") String userId, @RequestBody String journalId) {
 
 		return null;
 	}
-	
-	
+
 	/**
 	 * @param userId
 	 * @return
@@ -314,40 +328,44 @@ public class UserProfileController {
 
 		return null;
 	}
-	
+
 	/**
 	 * @param userId
 	 * @return
 	 */
 	@RequestMapping(value = "/getArticlesPublishedForJournals/{userId}", method = RequestMethod.GET, produces = "application/json")
-	public Service getArticlesPublishedForJournals(@PathVariable("userId") String userId) {
+	public Service getArticlesPublishedForJournals(
+			@PathVariable("userId") String userId) {
 
 		return null;
 	}
-	
-	
+
 	/**
 	 * @param userId
 	 * @return
 	 */
-	@RequestMapping(value = "/getListOfAlrets/{userId}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/getListOfAlerts/{userId}", method = RequestMethod.GET, produces = "application/json")
 	public Service getListOfAlerts(@PathVariable("userId") String userId) {
 
-		return null;
+		UserProfileService userProfileService = (UserProfileServiceImpl) context
+				.getBean("UserProfileService");
+		Service service = new Service();
+		service.setStatus("success");
+		service.setServiceObject(userProfileService.getListOfAlerts(userId));
+
+		return service;
 	}
-	
-	
+
 	/**
 	 * @param userId
 	 * @param alertsJson
 	 * @return
 	 */
 	@RequestMapping(value = "/updateAlerts/{userId}", method = RequestMethod.GET, produces = "application/json")
-	public Service updateAlerts(@PathVariable("userId") String userId,  @RequestBody String alertsJson) {
+	public Service updateAlerts(@PathVariable("userId") String userId,
+			@RequestBody String alertsJson) {
 
 		return null;
 	}
-	
-	
-	
+
 }
