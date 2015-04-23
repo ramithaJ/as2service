@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.model.Security;
 import com.wiley.gr.ace.authorservices.model.Service;
+import com.wiley.gr.ace.authorservices.model.UserMgmt;
 import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 import com.wiley.gr.ace.authorservices.services.service.impl.UserLoginServiceImpl;
@@ -35,9 +36,19 @@ public class UserLoginController {
 	 * @return
 	 */
 	@RequestMapping(value = "/checkSecuritySetup/{emailId}", method = RequestMethod.GET)
-	public boolean checkSecuritySetUp(@PathVariable("emailId") String emailId) {
+	public Service checkSecuritySetUp(@PathVariable("emailId") String emailId) {
 
-		return userLoginService.checkSecuritySetUp(emailId);
+		boolean status = userLoginService.checkSecuritySetUp(emailId);
+		Service service = new Service();
+		service.setStatus("success");
+		UserMgmt userMgmt = new UserMgmt();
+		if(status) {
+			userMgmt.setIsSecuritySetup("true");
+		} else {
+			userMgmt.setIsSecuritySetup("false");
+		}
+		service.setServiceObject(userMgmt);
+		return service;
 	}
 
 	/**
