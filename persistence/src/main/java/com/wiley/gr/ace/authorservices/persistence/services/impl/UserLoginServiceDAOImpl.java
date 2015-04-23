@@ -263,7 +263,7 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 			Criteria criteria = session.createCriteria(UserProfile.class);
 			criteria.add(Restrictions.eq("primaryEmailAddr", emailId));
 			UserProfile userProfile = (UserProfile) criteria.uniqueResult();
-			int count = 0;// userProfile.getInvalidLoginCount();
+			int count =userProfile.getInvalidLoginCnt();
 			transaction.commit();
 			return count;
 		} finally {
@@ -277,18 +277,21 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 	@Override
 	public boolean updateCount(int count, String emailId) {
 
+		System.out.println("enteringcount");
 		Session session = null;
 		Transaction transaction = null;
 		boolean status = false;
 		try {
 			session = con.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			String hql = "UPDATE UserProfile set invalidLoginCnt = :invalidLoginCount "
+			String hql = "UPDATE UserProfile set invalidLoginCnt = :invalidLoginCnt "
 					+ "WHERE primaryEmailAddr = :emailId";
 			Query query = session.createQuery(hql);
-			query.setParameter("invalidLoginCount", count);
+			query.setParameter("invalidLoginCnt"
+					+ "", count);
 			query.setParameter("emailId", emailId);
 			int result = query.executeUpdate();
+			System.out.println("enteringconut1"+result);
 			if (result == 1)
 				return status;
 			transaction.commit();
@@ -331,10 +334,10 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 		try {
 			session = con.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			String hql = "UPDATE UserProfile set isAccountActive = :isAccountActive "
+			String hql = "UPDATE UserProfile set isAccountLocked = :isAccountLocked "
 					+ "WHERE primaryEmailAddr = :emailId";
 			Query query = session.createQuery(hql);
-			query.setParameter("isAccountActive", 'N');
+			query.setParameter("isAccountLocked", 'N');
 			query.setParameter("emailId", emailId);
 			int result = query.executeUpdate();
 			transaction.commit();

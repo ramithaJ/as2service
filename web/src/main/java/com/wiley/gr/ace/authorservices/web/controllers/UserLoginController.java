@@ -64,13 +64,16 @@ public class UserLoginController {
 
 		Service service = new Service();
 		try {
+			System.out.println("try");
 			UserMgmt userMgmt = userLoginService.doLogin(emailId, password);
+			System.out.println("try1");
 			service.setStatus("success");
 			service.setServiceObject(userMgmt);
 
 		} catch (ASException asException) {
 
 			service.setStatus("failed");
+			service.setErrorVO(new com.wiley.gr.ace.authorservices.model.Error());
 			service.getErrorVO().setErrorCode(
 					Integer.parseInt(asException.getErrorCode()));
 			service.getErrorVO().setErrorMessage(asException.getDescription());

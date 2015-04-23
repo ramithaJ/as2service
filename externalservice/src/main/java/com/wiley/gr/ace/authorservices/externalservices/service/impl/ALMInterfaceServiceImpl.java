@@ -15,7 +15,7 @@ public class ALMInterfaceServiceImpl  implements ALMInterfaceService {
 	public boolean authenticateUser(String emailId) {
 		
 		// TODO: Authenticate with LDAP  
-		return true;
+		return false;
 	}
 
 	

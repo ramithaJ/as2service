@@ -51,12 +51,12 @@ public class UserLoginServiceImpl implements UserLoginService {
 				//(currentDate.getTime() - lockedDate.getTime()) > 1800000
 				if(true) {
 					
-					userLoginServiceDAO.unLockUser(emailId);
-					userLoginServiceDAO.updateCount(0, emailId);
 					if(authenticateUser(emailId, password)) {
 						System.out.println("babu");
 						userMgmt = new UserMgmt();
 						userMgmt.setUserId(userLoginServiceDAO.getUserId(emailId)+"");
+					}else{
+						throw new ASException("1005", "Your account is locked. Please try after sometime.");
 					}
 				}
 			} else {
@@ -165,22 +165,26 @@ public class UserLoginServiceImpl implements UserLoginService {
 		if (almService.authenticateUser(emailId)) {
 			
 			userLoginServiceDAO.doLogin(emailId, password);
+			userLoginServiceDAO.unLockUser(emailId);
+			userLoginServiceDAO.updateCount(0, emailId);
 			loginStatus = true;
 			
 		} else {
-			// get count
+
 			int count = userLoginServiceDAO.getCount(emailId);
-			// increment the count
+			System.out.println("increment"+count);
 			if (count >= 2) {
 				
 				if (userLoginServiceDAO.lockUser(emailId))
 					throw new ASException("1002", "Your account is locked. Please try after sometime.");
 				
 			} else {
-				
+				System.out.println("entering");
 				count++;
-				if (userLoginServiceDAO.updateCount(count, emailId))
-					throw new ASException("1003", "Please enter valid EmailId and Password.");
+				System.out.println("increment2"+count);
+				userLoginServiceDAO.updateCount(count, emailId);
+				
+				throw new ASException("1003", "Please enter valid EmailId and Password.");
 			}
 		}
 		
