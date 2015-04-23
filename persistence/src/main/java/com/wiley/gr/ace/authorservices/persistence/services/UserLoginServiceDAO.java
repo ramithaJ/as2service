@@ -1,5 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.services;
 
+import java.util.Date;
 import java.util.List;
 
 import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
@@ -76,5 +77,5 @@ public interface UserLoginServiceDAO {
 	
 	public boolean updateCount(int count, String emailId); 
 	
-	public String getLockedTime(String emailId);
+	public Date getLockedTime(String emailId);
 }

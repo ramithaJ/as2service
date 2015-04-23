@@ -90,9 +90,9 @@ public class UserLoginController {
 	@RequestMapping(value = "/valdiateSecurityQuestions/{emailId}", method = RequestMethod.POST)
 	public boolean validateSecurityQuestions(
 			@PathVariable("emailId") String emailId,
-			@RequestBody Security securityDetails){
-		
-		userLoginService.validateSecurityQuestions(emailId, securityDetails);		
+			@RequestBody Security securityDetails) {
+
+		userLoginService.validateSecurityQuestions(emailId, securityDetails);
 		return false;
 	}
 
