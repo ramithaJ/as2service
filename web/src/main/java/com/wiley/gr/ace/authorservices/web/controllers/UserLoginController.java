@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.Security;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.UserMgmt;
@@ -61,7 +62,19 @@ public class UserLoginController {
 	public Service doLogin(@PathVariable("emailId") String emailId,
 			@RequestBody String password) {
 
-		return userLoginService.doLogin(emailId, password);
+		Service service = new Service();
+		try {
+			UserMgmt userMgmt = userLoginService.doLogin(emailId, password);
+			service.setStatus("success");
+			service.setServiceObject(userMgmt);
+		
+		} catch(ASException asException) {
+			
+			service.setStatus("failed");
+			service.getErrorVO().setErrorCode(Integer.parseInt(asException.getErrorCode()));
+			service.getErrorVO().setErrorMessage(asException.getDescription());
+		}
+		return service;
 	}
 
 	/**
