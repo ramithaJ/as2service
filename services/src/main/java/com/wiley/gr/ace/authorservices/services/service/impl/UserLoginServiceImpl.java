@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.externalservices.context.ExternalServiceBeanConfig;
 import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.ALMInterfaceServiceImpl;
@@ -73,6 +74,7 @@ public class UserLoginServiceImpl implements UserLoginService {
 			}
 		}else{
 			service.setStatus("Invalid email address. Please Re-Enter");
+			throw new ASException("1001", "Invalid email address. Please Re-Enter");
 		}
 		return service;
 	}
