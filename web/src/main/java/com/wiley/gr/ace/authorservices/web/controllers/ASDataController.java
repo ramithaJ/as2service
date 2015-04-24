@@ -1,10 +1,16 @@
 package com.wiley.gr.ace.authorservices.web.controllers;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.Service;
+import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
+import com.wiley.gr.ace.authorservices.services.service.ASDataService;
+import com.wiley.gr.ace.authorservices.services.service.impl.ASDataServiceImpl;
 
 /**
  * This controller is used to get common data in dropdown across application
@@ -16,7 +22,9 @@ import com.wiley.gr.ace.authorservices.model.Service;
 @RequestMapping("/asdata")
 public class ASDataController {
 	
-	
+	public static ApplicationContext context = new AnnotationConfigApplicationContext(
+			ServiceBeanConfig.class);
+	ASDataService aSDataService = (ASDataServiceImpl) context.getBean("ASDataService");
 	/**
 	 * @return
 	 */
@@ -116,6 +124,33 @@ public class ASDataController {
 	@RequestMapping(value = "/getAreasOfInterests/", method = RequestMethod.GET, produces = "application/json")
 	public Service getAreasOfInterests() {
 		
+		return null;
+	}
+	
+	@RequestMapping(value = "/getSecurityQuestions/", method = RequestMethod.GET, produces = "application/json")
+	public Service getSecurityQuestions() {
+		
+		/*Service service = new Service();
+		try{
+			
+			service.setStatus("Success");
+			service.setServiceObject(aSDataService.get);
+			
+		}catch (ASException asException) {
+
+			service.setStatus("failed");
+			service.setErrorVO(new com.wiley.gr.ace.authorservices.model.Error());
+			service.getErrorVO().setErrorCode(
+					Integer.parseInt(asException.getErrorCode()));
+			service.getErrorVO().setErrorMessage(asException.getDescription());
+			
+		} catch(Exception exception) {
+			service.setStatus("failed");
+			service.setErrorVO(new com.wiley.gr.ace.authorservices.model.Error());
+			service.getErrorVO().setErrorCode(-1);
+			service.getErrorVO().setErrorMessage(exception.getMessage());
+		}
+		return service;*/
 		return null;
 	}
 	

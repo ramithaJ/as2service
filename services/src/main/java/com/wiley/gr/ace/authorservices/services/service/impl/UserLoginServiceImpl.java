@@ -17,7 +17,6 @@ import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig
 import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserLoginServiceDAOImpl;
-import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 
 /**
@@ -27,14 +26,10 @@ public class UserLoginServiceImpl implements UserLoginService {
 
 	private static ApplicationContext context = new AnnotationConfigApplicationContext(
 			PersistenceBeanConfig.class);
-	UserLoginServiceDAO userLoginServiceDAO = (UserLoginServiceDAOImpl) context
-			.getBean("UserLoginServiceDAO");
-	private static ApplicationContext serviceContext = new AnnotationConfigApplicationContext(
-			ServiceBeanConfig.class);
-
 	private static ApplicationContext externalServiceContext = new AnnotationConfigApplicationContext(
 			ExternalServiceBeanConfig.class);
-
+	UserLoginServiceDAO userLoginServiceDAO = (UserLoginServiceDAOImpl) context
+			.getBean("UserLoginServiceDAO");
 	
 	@Override
 	public UserMgmt doLogin(String emailId, String password) {
