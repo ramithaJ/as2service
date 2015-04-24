@@ -142,11 +142,13 @@
 						<id>check-pmd</id>
 						<phase>verify</phase>
 						<goals>
-							<goal>check</goal>
-							<goal>cpd-check</goal>
+<!-- 							<goal>check</goal> -->
+<!-- 							<goal>cpd-check</goal> -->
+
 						</goals>
 					</execution>
 				</executions>
+
 				<configuration>
 					<targetJdk>${jdk.version}</targetJdk>
 					<format>xml</format>
