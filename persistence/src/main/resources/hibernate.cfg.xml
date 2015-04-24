@@ -54,5 +54,9 @@
 			class="com.wiley.gr.ace.authorservices.persistence.entity.Article" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.AdminDetails" />
+			<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.LookupValues" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.LookupValuesId" />
 	</session-factory>
 </hibernate-configuration>
