@@ -81,5 +81,6 @@ public interface ASDataService {
 	 */
 	public List<Interests> getAreasOfInterests();
 	
+	public void getSecurityQuestions();
 
 }

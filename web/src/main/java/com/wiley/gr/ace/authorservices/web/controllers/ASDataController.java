@@ -130,11 +130,11 @@ public class ASDataController {
 	@RequestMapping(value = "/getSecurityQuestions/", method = RequestMethod.GET, produces = "application/json")
 	public Service getSecurityQuestions() {
 		
-		/*Service service = new Service();
+		Service service = new Service();
 		try{
 			
 			service.setStatus("Success");
-			service.setServiceObject(aSDataService.get);
+			//service.setServiceObject(aSDataService.getSecurityQuestions());
 			
 		}catch (ASException asException) {
 
@@ -150,8 +150,7 @@ public class ASDataController {
 			service.getErrorVO().setErrorCode(-1);
 			service.getErrorVO().setErrorMessage(exception.getMessage());
 		}
-		return service;*/
-		return null;
+		return service;
 	}
 	
 

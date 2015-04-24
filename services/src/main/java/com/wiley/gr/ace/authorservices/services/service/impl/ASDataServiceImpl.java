@@ -2,6 +2,9 @@ package com.wiley.gr.ace.authorservices.services.service.impl;
 
 import java.util.List;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import com.wiley.gr.ace.authorservices.model.Country;
 import com.wiley.gr.ace.authorservices.model.Department;
 import com.wiley.gr.ace.authorservices.model.Industry;
@@ -13,7 +16,10 @@ import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.State;
 import com.wiley.gr.ace.authorservices.model.Suffix;
 import com.wiley.gr.ace.authorservices.model.Title;
+import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
 import com.wiley.gr.ace.authorservices.persistence.entity.Article;
+import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
+import com.wiley.gr.ace.authorservices.persistence.services.impl.ASDataDAOImpl;
 import com.wiley.gr.ace.authorservices.services.service.ASDataService;
 
 /**
@@ -22,6 +28,9 @@ import com.wiley.gr.ace.authorservices.services.service.ASDataService;
  */
 public class ASDataServiceImpl implements ASDataService {
 
+	private static ApplicationContext daoContext = new AnnotationConfigApplicationContext(
+			PersistenceBeanConfig.class);
+	ASDataDAO aSDataDAO = (ASDataDAOImpl) daoContext.getBean("ASDataDAO");
 	@Override
 	public List<Title> getTitles() {
 		// TODO Auto-generated method stub
@@ -92,6 +101,12 @@ public class ASDataServiceImpl implements ASDataService {
 	public List<Interests> getAreasOfInterests() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void getSecurityQuestions() {
+
+		aSDataDAO.getSecurityDetails();
 	}
 
 }
