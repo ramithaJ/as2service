@@ -43,10 +43,10 @@ public class UpdateUserDAOImpl implements UpdateUserDAO {
 				 */
 				Transaction getTxn = session.beginTransaction();
 				UserProfile up = (UserProfile)session.load(UserProfile.class, user.getUserId());
-				System.out.println("Before Update ::: "+up.getUserId());
+				/*System.out.println("Before Update ::: "+up.getUserId());
 				System.out.println("Before Update ::: "+up.getPrimaryEmailAddr());
 				System.out.println("Before Update ::: "+up.getFirstName());
-				System.out.println("Before Update ::: "+up.getLastName());
+				System.out.println("Before Update ::: "+up.getLastName());*/
 				getTxn.commit();
 				
 				/**
@@ -58,10 +58,10 @@ public class UpdateUserDAOImpl implements UpdateUserDAO {
 				Transaction updateTxn = session.beginTransaction();
 				session.update(up);
 				updateTxn.commit();
-				System.out.println("After Update ::: "+up.getUserId());
+				/*System.out.println("After Update ::: "+up.getUserId());
 				System.out.println("After Update ::: "+up.getPrimaryEmailAddr());
 				System.out.println("After Update ::: "+up.getFirstName());
-				System.out.println("After Update ::: "+up.getLastName());
+				System.out.println("After Update ::: "+up.getLastName());*/
 				user.setPrimaryEmailAddr(up.getPrimaryEmailAddr());
 				user.setFirstName(up.getFirstName());
 				user.setLastName(up.getLastName());

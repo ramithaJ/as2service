@@ -31,8 +31,8 @@ public class UpdateUserController {
 	@RequestMapping(value = "/orcid/{orcidId}/{userId}", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody Service updateUserOrcidDetails(
 			@PathVariable String orcidId, @PathVariable String userId) {
-System.out.println("Path variable ORCID ID " + orcidId);
-System.out.println("Path variable User ID " + userId);
+//System.out.println("Path variable ORCID ID " + orcidId);
+//System.out.println("Path variable User ID " + userId);
 
 		User user = null;
 		Service service = null;
@@ -42,7 +42,7 @@ System.out.println("Path variable User ID " + userId);
 			e.printStackTrace();
 		}
 		if(user!=null){
-System.out.println("User details updated " + user.getFirstName());
+//System.out.println("User details updated " + user.getFirstName());
 			service = new Service();
 			service.setStatus("SUCCESS");
 			service.setServiceObject(user);
