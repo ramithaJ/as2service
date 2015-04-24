@@ -19,7 +19,7 @@ import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
  *
  */
 public class UserLoginDaoImpl implements UserLoginDao {
-	
+
 	private static ApplicationContext context = new AnnotationConfigApplicationContext(
 			PersistenceBeanConfig.class);
 
@@ -28,51 +28,52 @@ public class UserLoginDaoImpl implements UserLoginDao {
 
 	@Override
 	public boolean validateEmail(String emailId) {
-		boolean status=false;
+		boolean status = false;
 		Session session = con.getSessionFactory().openSession();
-		
+
 		String hql = "from UserProfile where primaryEmailAddr = :emailId";
-		List<UserProfile> result = session.createQuery(hql).setString("emailId", emailId).list();
-	
-		if(result!=null && result.size() > 0){  
-		   
-			status = true;  
-		} 
+		List<UserProfile> result = session.createQuery(hql)
+				.setString("emailId", emailId).list();
+
+		if (result != null && result.size() > 0) {
+
+			status = true;
+		}
 		return status;
 	}
 
 	@Override
 	public boolean doLogin(String emailId) {
-		boolean status=false;
+		boolean status = false;
 		Session session = con.getSessionFactory().openSession();
 		session.beginTransaction();
-		
+
 		UserProfile userProfile = null;
-		
+
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 		Date date = new Date();
 		System.out.println(dateFormat.format(date));
-		
+
 		String hql = "from UserProfile where primaryEmailAddr = :emailId";
-		List<UserProfile> result = session.createQuery(hql).setString("emailId", emailId).list();
-		
-		if(result!=null && result.size() > 0){
+		List<UserProfile> result = session.createQuery(hql)
+				.setString("emailId", emailId).list();
+
+		if (result != null && result.size() > 0) {
 			userProfile = result.get(0);
 		}
-		
-		if(userProfile != null) {
+
+		if (userProfile != null) {
 			userProfile.setUpdatedBy("system");
 			userProfile.setUpdatedDate(date);
 			userProfile.setLastLoginDate(date);
 		}
-		
+
 		session.saveOrUpdate(userProfile);
-		
+
 		session.getTransaction().commit();
-		
+
 		session.close();
-		
-		
+
 		return true;
 	}
 
