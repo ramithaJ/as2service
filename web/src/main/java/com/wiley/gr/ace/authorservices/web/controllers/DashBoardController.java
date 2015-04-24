@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
 import com.wiley.gr.ace.authorservices.services.service.DashBoardService;
 import com.wiley.gr.ace.authorservices.services.service.impl.DashBoardServiceImpl;
@@ -32,10 +30,10 @@ public class DashBoardController {
 		return dashBoardService.getAllAuthorArticles();
 	}
 	@RequestMapping(value="/getProfileMeter/{userId}",method=RequestMethod.GET,produces="application/json")
-	public Service getProfileMeter(@PathVariable("userId") String userId) {
+	public List getProfileMeter(@PathVariable("userId") String userId) {
 		DashBoardService dashBoardService=(DashBoardServiceImpl)context.getBean("DashBoardService");
-         Service service=	(Service) dashBoardService.getProfileMeter(Integer.parseInt(userId));
-  		return service;
+		return dashBoardService.getProfileMeter(Integer.parseInt(userId));
+  		 
 	}
 	
 }

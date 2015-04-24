@@ -5,7 +5,8 @@ package com.wiley.gr.ace.authorservices.services.service;
 
 import java.util.List;
 
-import com.wiley.gr.ace.authorservices.model.Service;
+
+
 
 /**
  * @author yugandhark
@@ -13,6 +14,6 @@ import com.wiley.gr.ace.authorservices.model.Service;
  */
 public interface DashBoardService {
 	public List getAllAuthorArticles();
-	public Service getProfileMeter(int userId);
+	public List getProfileMeter(int userId);
 
 }
