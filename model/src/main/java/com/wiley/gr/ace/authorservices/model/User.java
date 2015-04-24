@@ -367,4 +367,18 @@ public class User {
 		this.visibleAttributes = visibleAttributes;
 	}
 
+	/**
+	 * @return the contactId
+	 */
+	public String getContactId() {
+		return contactId;
+	}
+
+	/**
+	 * @param contactId the contactId to set
+	 */
+	public void setContactId(String contactId) {
+		this.contactId = contactId;
+	}
+
 }
