@@ -38,7 +38,7 @@ public class UserAlertsId implements java.io.Serializable {
 		this.alertId = alertId;
 	}
 
-	public boolean equals(Object other) {
+	/*public boolean equals(Object other) {
 		if ((this == other))
 			return true;
 		if ((other == null))
@@ -61,5 +61,5 @@ public class UserAlertsId implements java.io.Serializable {
 		result = 37 * result + this.getAlertId();
 		return result;
 	}
-
+*/
 }

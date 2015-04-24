@@ -16,85 +16,85 @@ public interface UserLoginServiceDAO {
 	 * @param emailId
 	 * @return
 	 */
-	public boolean validateSecurityQuestions(String emailId);
+	boolean validateSecurityQuestions(String emailId);
 
 	/**
 	 * @param emailId
 	 * @return
 	 */
-	public boolean isUserLocked(String emailId);
+	boolean isUserLocked(String emailId);
 
 	/**
 	 * @param emailId
 	 * @return
 	 */
-	public boolean lockUser(String emailId);
+	boolean lockUser(String emailId);
 
 	/**
 	 * @param userId
 	 * @return
 	 */
-	public List<UserSecurityDetails> getSecurityQuestions(Integer userId);
+	List<UserSecurityDetails> getSecurityQuestions(Integer userId);
 
 	/**
 	 * @param emailId
 	 * @return
 	 */
-	public boolean checkSecuritySetup(String emailId);
+	boolean checkSecuritySetup(String emailId);
 
 	/**
 	 * @param emailId
 	 * @return
 	 */
-	public boolean validateEmailAddress(String emailId);
+	boolean validateEmailAddress(String emailId);
 
 	/**
 	 * @param emailId
 	 * @param password
 	 * @return
 	 */
-	public boolean doLogin(String emailId, String password);
+	boolean doLogin(String emailId, String password);
 	
 	/**
 	 * @param emailId
 	 * @param password
 	 * @return
 	 */
-	public boolean resetPassword(String emailId, String password);
+	boolean resetPassword(String emailId, String password);
 	
 	/**
 	 * @param emailId
 	 * @return
 	 */
-	public Integer getUserId(String emailId);
+	Integer getUserId(String emailId);
 
 	/**
 	 * @return
 	 */
-	public List<UserProfile> getUsersList();
+	List<UserProfile> getUsersList();
 	
 	/**
 	 * @param emailId
 	 * @return
 	 */
-	public int getCount(String emailId);
+	int getCount(String emailId);
 	
 	/**
 	 * @param count
 	 * @param emailId
 	 * @return
 	 */
-	public boolean updateCount(int count, String emailId); 
+	boolean updateCount(int count, String emailId); 
 	
 	/**
 	 * @param emailId
 	 * @return
 	 */
-	public Date getLockedTime(String emailId);
+	Date getLockedTime(String emailId);
 	
 	/**
 	 * @param emailId
 	 * @return
 	 */
-	public boolean unLockUser(String emailId);
+	boolean unLockUser(String emailId);
 }

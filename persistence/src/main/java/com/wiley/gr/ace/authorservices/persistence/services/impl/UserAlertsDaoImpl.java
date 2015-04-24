@@ -22,7 +22,7 @@ public class UserAlertsDaoImpl implements UserAlertsDao {
 	public List<UserAlerts> getListOfAlerts(String userId) {
 		Session session = con.getSessionFactory().openSession();
 		session.beginTransaction();
-		UserAlerts userAlerts = null;
+//		UserAlerts userAlerts = null;
 
 		String hql = "from UserAlerts where id.userId = :userId";
 		List<UserAlerts> result = session.createQuery(hql)

@@ -38,7 +38,7 @@ public class UserReferenceDataId implements java.io.Serializable {
 		this.ecid = ecid;
 	}
 
-	public boolean equals(Object other) {
+	/*public boolean equals(Object other) {
 		if ((this == other))
 			return true;
 		if ((other == null))
@@ -60,6 +60,6 @@ public class UserReferenceDataId implements java.io.Serializable {
 		result = 37 * result
 				+ (getEcid() == null ? 0 : this.getEcid().hashCode());
 		return result;
-	}
+	}*/
 
 }

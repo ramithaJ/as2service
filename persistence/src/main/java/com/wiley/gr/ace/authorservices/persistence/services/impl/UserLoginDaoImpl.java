@@ -44,7 +44,7 @@ public class UserLoginDaoImpl implements UserLoginDao {
 
 	@Override
 	public boolean doLogin(String emailId) {
-		boolean status = false;
+//		boolean status = false;
 		Session session = con.getSessionFactory().openSession();
 		session.beginTransaction();
 

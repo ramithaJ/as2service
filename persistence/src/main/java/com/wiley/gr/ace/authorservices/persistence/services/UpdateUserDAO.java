@@ -11,6 +11,6 @@ import com.wiley.gr.ace.authorservices.model.User;
  */
 public interface UpdateUserDAO {
 	
-	public User updateUserWithOrcid(User user) throws Exception;
+	User updateUserWithOrcid(User user) throws Exception;
 
 }

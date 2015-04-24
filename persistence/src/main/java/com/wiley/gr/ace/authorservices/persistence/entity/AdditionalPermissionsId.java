@@ -50,7 +50,7 @@ public class AdditionalPermissionsId implements java.io.Serializable {
 		this.permissionId = permissionId;
 	}
 
-	public boolean equals(Object other) {
+	/*public boolean equals(Object other) {
 		if (this == other)
 			return true;
 		if (other == null)
@@ -84,6 +84,6 @@ public class AdditionalPermissionsId implements java.io.Serializable {
 				+ (getPermissionId() == null ? 0 : this.getPermissionId()
 						.hashCode());
 		return result;
-	}
+	}*/
 
 }

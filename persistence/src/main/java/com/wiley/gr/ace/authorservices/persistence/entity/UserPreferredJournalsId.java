@@ -38,7 +38,7 @@ public class UserPreferredJournalsId implements java.io.Serializable {
 		this.journalId = journalId;
 	}
 
-	public boolean equals(Object other) {
+	/*public boolean equals(Object other) {
 		if ((this == other))
 			return true;
 		if ((other == null))
@@ -64,6 +64,6 @@ public class UserPreferredJournalsId implements java.io.Serializable {
 		result = 37 * result
 				+ (getJournalId() == null ? 0 : this.getJournalId().hashCode());
 		return result;
-	}
+	}*/
 
 }

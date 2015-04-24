@@ -12,6 +12,6 @@ import com.wiley.gr.ace.authorservices.persistence.entity.Article;
  *
  */
 public interface DashBoardDao {
- public List<Article> getAllAuthorArticles();
- public List getProfileMeter(int userId);
+ List<Article> getAllAuthorArticles();
+ List getProfileMeter(int userId);
 }

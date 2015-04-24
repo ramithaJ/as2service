@@ -96,7 +96,7 @@ public class LookupValuesId implements java.io.Serializable {
 		this.updatedDate = updatedDate;
 	}
 
-	public boolean equals(Object other) {
+	/*public boolean equals(Object other) {
 		if ((this == other))
 			return true;
 		if ((other == null))
@@ -160,6 +160,6 @@ public class LookupValuesId implements java.io.Serializable {
 				+ (getUpdatedDate() == null ? 0 : this.getUpdatedDate()
 						.hashCode());
 		return result;
-	}
+	}*/
 
 }

@@ -14,7 +14,7 @@ public interface UserAlertsDao {
 	 * @param userId
 	 * @return
 	 */
-	public List<UserAlerts> getListOfAlerts(String userId);
+	List<UserAlerts> getListOfAlerts(String userId);
 	
 
 }

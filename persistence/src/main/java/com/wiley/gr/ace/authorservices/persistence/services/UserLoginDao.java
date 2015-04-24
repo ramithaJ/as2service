@@ -11,7 +11,7 @@ public interface UserLoginDao {
 	 * 
 	 * @param emailId
 	 */
-	public boolean validateEmail(String emailId);
+	boolean validateEmail(String emailId);
 
 	/**
 	 * Updates the LAST_LOGIN_TIME, UPDATED_BY, UPDATED_DATE columns of
@@ -20,6 +20,6 @@ public interface UserLoginDao {
 	 * @param emailId
 	 * @return
 	 */
-	public boolean doLogin(String emailId);
+	boolean doLogin(String emailId);
 
 }
