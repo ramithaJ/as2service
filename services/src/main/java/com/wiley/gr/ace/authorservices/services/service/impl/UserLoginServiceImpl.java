@@ -47,17 +47,18 @@ public class UserLoginServiceImpl implements UserLoginService {
 				Date currentDate = new Date();
 				Date date = userLoginServiceDAO.getLockedTime(emailId);
 				Date lockedDate = new Date(date.getTime());
-				System.out.println("date difference"+(currentDate.getTime() - lockedDate.getTime()));
-				//(currentDate.getTime() - lockedDate.getTime()) > 1800000
-				if(true) {
+				if((currentDate.getTime() - lockedDate.getTime()) > 1800000) {
 					
 					if(authenticateUser(emailId, password)) {
-						System.out.println("babu");
+
 						userMgmt = new UserMgmt();
 						userMgmt.setUserId(userLoginServiceDAO.getUserId(emailId)+"");
 					}else{
 						throw new ASException("1005", "Your account is locked. Please try after sometime.");
 					}
+				}else{
+					
+					throw new ASException("1007", "Your account is locked. Please try after sometime.");
 				}
 			} else {
 				if(authenticateUser(emailId, password)) {
@@ -162,7 +163,8 @@ public class UserLoginServiceImpl implements UserLoginService {
 		
 		boolean loginStatus = false;
 
-		if (almService.authenticateUser(emailId)) {
+		if (almService.authenticateUserALM(emailId,password)) {
+			System.out.println("nani"+emailId+"  "+password);
 			
 			userLoginServiceDAO.doLogin(emailId, password);
 			userLoginServiceDAO.unLockUser(emailId);
@@ -172,18 +174,14 @@ public class UserLoginServiceImpl implements UserLoginService {
 		} else {
 
 			int count = userLoginServiceDAO.getCount(emailId);
-			System.out.println("increment"+count);
 			if (count >= 2) {
 				
 				if (userLoginServiceDAO.lockUser(emailId))
 					throw new ASException("1002", "Your account is locked. Please try after sometime.");
-				
 			} else {
-				System.out.println("entering");
-				count++;
-				System.out.println("increment2"+count);
-				userLoginServiceDAO.updateCount(count, emailId);
 				
+				count++;
+				userLoginServiceDAO.updateCount(count, emailId);
 				throw new ASException("1003", "Please enter valid EmailId and Password.");
 			}
 		}
