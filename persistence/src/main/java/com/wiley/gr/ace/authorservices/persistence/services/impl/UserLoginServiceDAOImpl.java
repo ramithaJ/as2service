@@ -175,8 +175,6 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 			Criteria criteria = session.createCriteria(UserProfile.class);
 			criteria.add(Restrictions.eq("primaryEmailAddr", emailId));
 			UserProfile userProfile = (UserProfile) criteria.uniqueResult();
-			System.out.println("shiva======================="
-					+ userProfile.getIsAccountLocked());
 			if (null == userProfile)
 				return isLocked;
 			if (userProfile.getIsAccountLocked() == 'Y') {
@@ -199,13 +197,15 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 
 		Session session = null;
 		Transaction transaction = null;
+		Date accountLockedTime=new Date();
 		try {
 			session = con.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			String hql = "UPDATE UserProfile set isAccountLocked = :isAccountLocked "
+			String hql = "UPDATE UserProfile set isAccountLocked = :isAccountLocked, accountLockedTime = :accountLockedTime "
 					+ "WHERE primaryEmailAddr = :emailId";
 			Query query = session.createQuery(hql);
-			query.setParameter("isAccountLocked", "Y");
+			query.setParameter("isAccountLocked", 'Y');
+			query.setParameter("accountLockedTime", accountLockedTime);
 			query.setParameter("emailId", emailId);
 			int result = query.executeUpdate();
 			transaction.commit();
@@ -277,7 +277,6 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 	@Override
 	public boolean updateCount(int count, String emailId) {
 
-		System.out.println("enteringcount");
 		Session session = null;
 		Transaction transaction = null;
 		boolean status = false;
@@ -287,11 +286,9 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 			String hql = "UPDATE UserProfile set invalidLoginCnt = :invalidLoginCnt "
 					+ "WHERE primaryEmailAddr = :emailId";
 			Query query = session.createQuery(hql);
-			query.setParameter("invalidLoginCnt"
-					+ "", count);
+			query.setParameter("invalidLoginCnt", count);
 			query.setParameter("emailId", emailId);
 			int result = query.executeUpdate();
-			System.out.println("enteringconut1"+result);
 			if (result == 1)
 				return status;
 			transaction.commit();

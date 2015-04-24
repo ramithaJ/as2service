@@ -18,5 +18,15 @@ public class ALMInterfaceServiceImpl  implements ALMInterfaceService {
 		return false;
 	}
 
+	@Override
+	public boolean authenticateUserALM(String emailId, String password) {
+
+		if(password.equals("Password")){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
 	
 }

@@ -14,5 +14,7 @@ public interface ALMInterfaceService {
 	 * @return
 	 */
 	public boolean authenticateUser(String emailId);
+	
+	public boolean authenticateUserALM(String emailId, String password);
 
 }
