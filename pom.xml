@@ -137,13 +137,14 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
+				
 				<executions>
 					<execution>
 						<id>check-pmd</id>
 						<phase>verify</phase>
 						<goals>
-<!-- 							<goal>check</goal> -->
-<!-- 							<goal>cpd-check</goal> -->
+ 							<goal>check</goal> 
+ 							<!--  <goal>cpd-check</goal>  -->
 
 						</goals>
 					</execution>
@@ -151,6 +152,9 @@
 
 				<configuration>
 					<targetJdk>${jdk.version}</targetJdk>
+					<excludes>
+						<exclude>.*/entity/*.java</exclude>
+					</excludes>
 					<format>xml</format>
 					<outputDirectory>target/pmd-cpd/</outputDirectory>
 				</configuration>
