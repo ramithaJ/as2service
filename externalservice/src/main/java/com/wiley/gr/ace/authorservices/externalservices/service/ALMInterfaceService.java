@@ -13,8 +13,8 @@ public interface ALMInterfaceService {
 	 * @param password
 	 * @return
 	 */
-	public boolean authenticateUser(String emailId);
+	boolean authenticateUser(String emailId);
 	
-	public boolean authenticateUserALM(String emailId, String password);
+	boolean authenticateUserALM(String emailId, String password);
 
 }
