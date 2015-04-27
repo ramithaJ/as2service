@@ -30,13 +30,13 @@ public class RegistrationServiceImpl implements RegistrationService {
 	public void createUser(String contactID, ESBUser esbUser) {
 
 		UserProfile userProfile = new UserProfile();
-		if (contactID.isEmpty()) {
+		/*if (contactID.isEmpty()) {
 			ESBUser esbUserAfterCreate = esbInterFaceService
 					.createCustomer(esbUser);
 			// userProfile.setContactId(esbUserAfterCreate.getContactId()); TODO: data model/entity change
 		} else {
 			// userProfile.setContactId(contactID); TODO: data model/entity change
-		}
+		}*/
 		
 		regDao.createUser(userProfile);
 	}
