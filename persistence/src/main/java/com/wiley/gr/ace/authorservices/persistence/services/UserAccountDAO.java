@@ -12,13 +12,13 @@ public interface UserAccountDAO {
 	 * @param userId
 	 * @return
 	 */
-	public UserProfile getEmailDetails(String userId);
+	UserProfile getEmailDetails(String userId);
 	/**
 	 * @return
 	 */
-	public boolean updateEmailDetails();
+	boolean updateEmailDetails();
 	/**
 	 * @return
 	 */
-	public boolean updateSecurityDetails();
+	boolean updateSecurityDetails();
 }

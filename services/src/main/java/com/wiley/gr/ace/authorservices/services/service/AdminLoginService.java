@@ -12,7 +12,7 @@ public interface AdminLoginService {
 	 * @param emailId
 	 * @return
 	 */
-	public boolean validateEmail(String emailId);
+	boolean validateEmail(String emailId);
 
 	/**
 	 * This method updates the lastLoginTime in the AS 2.0 database
@@ -20,7 +20,7 @@ public interface AdminLoginService {
 	 * @param emailId
 	 * @return
 	 */
-	public boolean doLogin(String emailId);
+	boolean doLogin(String emailId);
 
 	/**
 	 * This method requests for a wiley user to get Admin Access.
@@ -28,6 +28,6 @@ public interface AdminLoginService {
 	 * @param emailId
 	 * @return
 	 */
-	public boolean requestAdminAccess(String emailId);
+	boolean requestAdminAccess(String emailId);
 
 }

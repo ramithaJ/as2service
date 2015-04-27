@@ -7,9 +7,9 @@ import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 
 public interface ESBInterfaceService {
 
-	public ESBUser createCustomer(ESBUser esbUser);
-	public User fetchOrcidDetails(String orcid) throws Exception;
-	public ESBUser checkEmailIdExists(String emailId);
-	public List<ESBUser> checkFirstNameLastNameExists(String firstName, String lastName);
+	ESBUser createCustomer(ESBUser esbUser);
+	User fetchOrcidDetails(String orcid) throws Exception;
+	ESBUser checkEmailIdExists(String emailId);
+	List<ESBUser> checkFirstNameLastNameExists(String firstName, String lastName);
 	
 }
