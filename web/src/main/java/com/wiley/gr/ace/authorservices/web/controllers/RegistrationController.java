@@ -30,10 +30,10 @@ public class RegistrationController {
 			.getLogger(RegistrationController.class);
 
 	@RequestMapping(value = "/checkIfExists/{email}/{firstName}/{lastName}", method = RequestMethod.GET)
-	public @ResponseBody Service checkUserExists(@PathVariable String email,
-			@PathVariable String firstName, @PathVariable String lastName) {
+	public @ResponseBody Service checkUserExists(@PathVariable("email") String email,
+			@PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName) {
 
-		Service service = null;
+		Service service = new Service();
 		ESBUser esbUser = rs.checkEmailIdExists(email);
 
 		if (esbUser != null) {

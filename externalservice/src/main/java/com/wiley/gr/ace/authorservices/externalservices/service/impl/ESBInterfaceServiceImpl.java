@@ -60,6 +60,10 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 		ESBUser esbUser = new ESBUser();
 		// TODO: Check primary if not exists check secondary and return the user
 		// from external ESB services
+		esbUser.setEmailId("disharide@virtusa.com");
+		esbUser.setContactId("1234");
+		esbUser.setFirstName("Dishari");
+		esbUser.setLastName("De");
 		return esbUser;
 	}
 
