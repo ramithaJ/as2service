@@ -12,13 +12,13 @@ public interface UserAccountService {
 	 * @param userId
 	 * @return
 	 */
-	public UserMgmt[] getEmailDetails(String userId);
+	UserMgmt[] getEmailDetails(String userId);
 	/**
 	 * @return
 	 */
-	public boolean updateEmailDetails();
+	boolean updateEmailDetails();
 	/**
 	 * @return
 	 */
-	public boolean updateSecurityDetails();
+	boolean updateSecurityDetails();
 }

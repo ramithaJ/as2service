@@ -16,62 +16,62 @@ public interface UserLoginService {
 	 * @param password
 	 * @return
 	 */
-	public UserMgmt doLogin(String emailId, String password);
+	UserMgmt doLogin(String emailId, String password);
 
 	/**
 	 * @param password
 	 * @return
 	 */
-	public boolean resetPassword(String emailId, String oldPassword, String newPassword);
+	boolean resetPassword(String emailId, String oldPassword, String newPassword);
 
 	/**
 	 * @param userId
 	 * @param securityVO
 	 * @return
 	 */
-	public boolean validateSecurityQuestions(String emailId, Security security);
+	boolean validateSecurityQuestions(String emailId, Security security);
 
 	/**
 	 * @param userId
 	 * @return
 	 */
-	public Security getSecurityQuestions(String emailId);
+	Security getSecurityQuestions(String emailId);
 
 	/**
 	 * @param userId
 	 * @return
 	 */
-	public boolean lockUser(String emailId);
+	boolean lockUser(String emailId);
 
 	/**
 	 * @param userId
 	 * @return
 	 */
-	public boolean checkSecuritySetUp(String emailId);
+	boolean checkSecuritySetUp(String emailId);
 
 	/**
 	 * @param emailId
 	 * @return
 	 */
-	public boolean validateEmailAddress(String emailId);
+	boolean validateEmailAddress(String emailId);
 
 	/**
 	 * @param userId
 	 * @return
 	 */
-	public boolean isUserLocked(String emailId);
+	boolean isUserLocked(String emailId);
 
 	/**
 	 * @param userId
 	 * @param template_id
 	 */
-	public void sendEmail(String userId, String template_id);
+	void sendEmail(String userId, String template_id);
 	
 	/**
 	 * @param emailId
 	 * @param password
 	 * @return
 	 */
-	public Service authentication(String emailId, String password);
+	Service authentication(String emailId, String password);
 	
 }

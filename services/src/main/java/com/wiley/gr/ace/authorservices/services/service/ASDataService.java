@@ -24,63 +24,65 @@ public interface ASDataService {
 	/**
 	 * @return
 	 */
-	public List<Title> getTitles();
+	List<Title> getTitles();
 	
 	/**
 	 * @return
 	 */
-	public List<Suffix> getSuffixes();
+	List<Suffix> getSuffixes();
 	
 	/**
 	 * @return
 	 */
-	public List<Industry> getIndustries();
+	List<Industry> getIndustries();
 	
 	/**
 	 * @return
 	 */
-	public List<JobCategory> getJobCategories();
+	List<JobCategory> getJobCategories();
 	
 	/**
 	 * @return
 	 */
-	public List<Country> getCountries();
+	List<Country> getCountries();
 	
 	/**
 	 * @return
 	 */
-	public List<State> getStates();
+	List<State> getStates();
 	
 	/**
 	 * @return
 	 */
-	public List<Institution> getInstitutions();
+	List<Institution> getInstitutions();
 	
 	/**
 	 * @return
 	 */
-	public List<Department> getDepartments();
+	List<Department> getDepartments();
 	
 	/**
 	 * @return
 	 */
-	public List<ResearchFunder> getResearchFunders();
+	List<ResearchFunder> getResearchFunders();
 	
 	/**
 	 * @return
 	 */
-	public List<Article> getArticles();
+	List<Article> getArticles();
 	
 	/**
 	 * @return
 	 */
-	public List<Society> getSocieties();
+	List<Society> getSocieties();
 	
 	/**
 	 * @return
 	 */
-	public List<Interests> getAreasOfInterests();
+	List<Interests> getAreasOfInterests();
 	
-	public void getSecurityQuestions();
-
+	/**
+	 * 
+	 */
+	void getSecurityQuestions(); 
 }

@@ -13,7 +13,7 @@ import java.util.List;
  *
  */
 public interface DashBoardService {
-	public List getAllAuthorArticles();
-	public List getProfileMeter(int userId);
+	List getAllAuthorArticles();
+	List getProfileMeter(int userId);
 
 }
