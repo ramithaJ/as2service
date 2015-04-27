@@ -12,6 +12,6 @@ public interface ASDataDAO {
 	 * @return 
 	 * 
 	 */
-	public List<String> getSecurityDetails();
+	List<String> getSecurityDetails();
 
 }

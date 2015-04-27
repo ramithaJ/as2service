@@ -146,6 +146,8 @@ public class ASDataController {
 		try {
 
 			lookupList = aSDataDAO.getSecurityDetails();
+			if(null==lookupList)
+				throw new ASException("2001", "List is empty");
 			service.setStatus("Success");
 			service.setServiceObject(lookupList);
 		} catch (ASException asException) {
