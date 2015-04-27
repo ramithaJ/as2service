@@ -44,7 +44,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 		System.out.println("####  " + user.getPrimaryEmailAddr());
 		return user;
 	}
-
+/*
 	public static void main(String[] args) {
 		ESBInterfaceServiceImpl em = new ESBInterfaceServiceImpl();
 		try {
@@ -54,7 +54,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 		}
 
 	}
-
+*/
 	@Override
 	public ESBUser checkEmailIdExists(String emailId) {
 		ESBUser esbUser = new ESBUser();
