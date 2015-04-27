@@ -10,6 +10,7 @@ public class Alert {
 	
 	private boolean email;
 
+
 	/**
 	 * @return
 	 */
