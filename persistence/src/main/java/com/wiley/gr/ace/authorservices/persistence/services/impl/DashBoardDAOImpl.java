@@ -4,23 +4,25 @@
 package com.wiley.gr.ace.authorservices.persistence.services.impl;
 import java.util.LinkedList;
 import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
 import com.wiley.gr.ace.authorservices.persistence.entity.Article;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserReferenceData;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
-import com.wiley.gr.ace.authorservices.persistence.services.DashBoardDao;
+import com.wiley.gr.ace.authorservices.persistence.services.DashBoardDAO;
 
 /**
  * @author yugandhark
  *
  */
-public class DashBoardDaoImpl implements DashBoardDao{
+public class DashBoardDAOImpl implements DashBoardDAO{
 	private static ApplicationContext context = new AnnotationConfigApplicationContext(
 			PersistenceBeanConfig.class);
 
@@ -62,7 +64,7 @@ public class DashBoardDaoImpl implements DashBoardDao{
 	}
 
 	@Override
-	public List getProfileMeter(int userId) {
+	public List<LinkedList> getProfileMeter(int userId) {
 		// TODO Auto-generated method stub
 		Session session = con.getSessionFactory().openSession();
 		Transaction tx = session.beginTransaction();
