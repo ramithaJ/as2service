@@ -1,5 +1,6 @@
 package com.wiley.gr.ace.authorservices.exception;
 
+
 /**
  * @author SarmaKumarap
  *
@@ -7,11 +8,16 @@ package com.wiley.gr.ace.authorservices.exception;
 public class ASException extends RuntimeException {
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String errorCode;
 	private Throwable t;
 	private String description;
 	private Object[] msgPart;
-
+	
+	
 	public ASException (String errorCode, Throwable t) {
 		this.errorCode = errorCode;
 		this.t = t;
@@ -39,6 +45,10 @@ public class ASException extends RuntimeException {
 	
 	public ASException (Throwable t) {
 		this.t = t;
+	}
+
+	public ASException() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public String getErrorCode() {
