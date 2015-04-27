@@ -103,10 +103,4 @@ public class ASDataServiceImpl implements ASDataService {
 		return null;
 	}
 
-	@Override
-	public void getSecurityQuestions() {
-
-		aSDataDAO.getSecurityDetails();
-	}
-
 }

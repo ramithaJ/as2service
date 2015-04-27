@@ -79,8 +79,27 @@ public class UserAccountController {
 	public Service updateUserEmail(@PathVariable("userId") String userId,
 			@RequestBody String emailDetails) {
 
-		return null;
+		Service service = new Service();
+		try{
+			
+			service.setStatus("Success");
+			service.setServiceObject(userAccountService.getEmailDetails(userId));
+			
+		}catch (ASException asException) {
 
+			service.setStatus("failed");
+			service.setErrorVO(new com.wiley.gr.ace.authorservices.model.Error());
+			service.getErrorVO().setErrorCode(
+					Integer.parseInt(asException.getErrorCode()));
+			service.getErrorVO().setErrorMessage(asException.getDescription());
+			
+		} catch(Exception exception) {
+			service.setStatus("failed");
+			service.setErrorVO(new com.wiley.gr.ace.authorservices.model.Error());
+			service.getErrorVO().setErrorCode(-1);
+			service.getErrorVO().setErrorMessage(exception.getMessage());
+		}
+		return service;
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.wiley.gr.ace.authorservices.persistence.services;
 
+import java.util.List;
+
 /**
  * @author kpshiva
  *
@@ -7,8 +9,9 @@ package com.wiley.gr.ace.authorservices.persistence.services;
 public interface ASDataDAO {
 	
 	/**
+	 * @return 
 	 * 
 	 */
-	public void getSecurityDetails();
+	public List<String> getSecurityDetails();
 
 }
