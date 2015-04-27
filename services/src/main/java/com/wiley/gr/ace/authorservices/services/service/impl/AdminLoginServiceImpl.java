@@ -11,7 +11,6 @@ import com.wiley.gr.ace.authorservices.externalservices.service.impl.BPMInterfac
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserLoginDaoImpl;
-import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 //import  com.wiley.gr.ace.authorservices.externalservices.service;
 
@@ -23,8 +22,6 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 
 	private static ApplicationContext daoContext = new AnnotationConfigApplicationContext(
 			PersistenceBeanConfig.class);
-	private static ApplicationContext serviceContext = new AnnotationConfigApplicationContext(
-			ServiceBeanConfig.class);
 	private static ApplicationContext externalServiceContext = new AnnotationConfigApplicationContext(
 			ExternalServiceBeanConfig.class);
 

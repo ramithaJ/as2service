@@ -17,7 +17,6 @@ import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig
 import com.wiley.gr.ace.authorservices.persistence.entity.UserAlerts;
 import com.wiley.gr.ace.authorservices.persistence.services.UserAlertsDao;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserAlertsDaoImpl;
-import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
 import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
 
 /**
@@ -27,8 +26,6 @@ import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
 public class UserProfileServiceImpl implements UserProfileService {
 	private static ApplicationContext daoContext = new AnnotationConfigApplicationContext(
 			PersistenceBeanConfig.class);
-	private static ApplicationContext serviceContext = new AnnotationConfigApplicationContext(
-			ServiceBeanConfig.class);
 
 	@Override
 	public Affiliation[] getAffiliationsForUser(String userId) {
