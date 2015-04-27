@@ -6,9 +6,10 @@ package com.wiley.gr.ace.authorservices.persistence.services;
  */
 public interface ASDataDAO {
 	
+	
 	/**
 	 * 
 	 */
-	public void getSecurityDetails();
+	void getSecurityDetails();
 
 }
