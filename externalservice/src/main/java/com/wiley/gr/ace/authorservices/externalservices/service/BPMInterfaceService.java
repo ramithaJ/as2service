@@ -9,6 +9,6 @@ public interface BPMInterfaceService {
 	/**
 	 * @return
 	 */
-	public boolean createTask();
+	boolean createTask();
 
 }
