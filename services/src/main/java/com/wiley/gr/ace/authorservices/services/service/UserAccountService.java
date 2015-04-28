@@ -1,5 +1,6 @@
 package com.wiley.gr.ace.authorservices.services.service;
 
+import com.wiley.gr.ace.authorservices.model.Security;
 import com.wiley.gr.ace.authorservices.model.UserMgmt;
 
 /**
@@ -16,9 +17,9 @@ public interface UserAccountService {
 	/**
 	 * @return
 	 */
-	boolean updateEmailDetails();
+	boolean updateEmailDetails(String userId, UserMgmt emailDetails);
 	/**
 	 * @return
 	 */
-	boolean updateSecurityDetails();
+	boolean updateSecurityDetails(String emailId, Security securityDetails);
 }
