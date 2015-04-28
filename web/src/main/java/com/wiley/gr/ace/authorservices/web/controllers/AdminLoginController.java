@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
+import com.wiley.gr.ace.authorservices.exception.context.ExceptionBeanConfig;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
@@ -25,8 +26,12 @@ import com.wiley.gr.ace.authorservices.services.service.impl.AdminLoginServiceIm
 @RestController
 @RequestMapping("/admin")
 public class AdminLoginController {
+	
 	public static ApplicationContext context = new AnnotationConfigApplicationContext(
 			ServiceBeanConfig.class);
+	
+	public static ApplicationContext exceptionContext = new AnnotationConfigApplicationContext(
+			ExceptionBeanConfig.class);
 
 	/**
 	 * @param emailId
@@ -38,39 +43,21 @@ public class AdminLoginController {
 			@RequestBody String password) {
 
 		Service serviceVO = new Service();
-		try {
-			boolean status = false;
-			
-			AdminLoginService adminlogin = (AdminLoginServiceImpl) context
-					.getBean("AdminLoginService");
-			status = adminlogin.validateEmail(emailId);
-			
-	
-			if (status) {
-	
-				adminlogin.doLogin(emailId);
-				serviceVO.setStatus("success");
-			} else {
-				serviceVO.setStatus("failed");
-				throw new ASException("1001", "Invalid email address. Please Re-Enter");
-			}
+		boolean status = false;
 		
-		} catch(ASException asException) {
-			
-			serviceVO.setStatus("failed");
-			serviceVO.setErrorVO(new com.wiley.gr.ace.authorservices.model.Error());
-			serviceVO.getErrorVO().setErrorCode(
-					Integer.parseInt(asException.getErrorCode()));
-			serviceVO.getErrorVO().setErrorMessage(asException.getDescription());
-			
-		} catch(Exception exception) {
-			
-			serviceVO.setStatus("failed");
-			serviceVO.setErrorVO(new com.wiley.gr.ace.authorservices.model.Error());
-			serviceVO.getErrorVO().setErrorCode(-1);
-			serviceVO.getErrorVO().setErrorMessage(exception.getMessage());
-		}
+		AdminLoginService adminlogin = (AdminLoginServiceImpl) context
+				.getBean("AdminLoginService");
+		status = adminlogin.validateEmail(emailId);
+		
 
+		if (status) {
+
+			adminlogin.doLogin(emailId);
+			serviceVO.setStatus("success");
+		} else {
+			throw new ASException("1001", "Invalid email address. Please Re-Enter");
+		}
+		
 		return serviceVO;
 
 	}
