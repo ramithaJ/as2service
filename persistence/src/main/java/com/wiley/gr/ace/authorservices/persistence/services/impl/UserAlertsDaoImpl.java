@@ -23,8 +23,6 @@ public class UserAlertsDaoImpl implements UserAlertsDao {
 	public List<UserAlerts> getListOfAlerts(String userId) {
 		Session session = con.getSessionFactory().openSession();
 		session.beginTransaction();
-		// UserAlerts userAlerts = null;
-
 		String hql = "from UserAlerts where id.userId = :userId";
 		List<UserAlerts> result = session.createQuery(hql)
 				.setString("userId", userId).list();
@@ -36,40 +34,23 @@ public class UserAlertsDaoImpl implements UserAlertsDao {
 	}
 
 	@Override
-	public boolean updateAlerts(List<UserAlerts> userAlertsList) {
+	public boolean updateAlerts(List<UserAlerts> serviceUserAlertsList) {
 
 		Session session = con.getSessionFactory().openSession();
-		Transaction Txn = session.beginTransaction();
+		session.beginTransaction();
 
-		for (UserAlerts userAlerts1 : userAlertsList) {
+		for (UserAlerts userAlerts : serviceUserAlertsList) {
 
-			for (int i = 0; i < userAlertsList.size(); i++) {
+			UserAlerts daoUseralerts = (UserAlerts) session.load(
+					UserAlerts.class, userAlerts.getId());
 
-				{
-					UserAlerts userAlerts = (UserAlerts) session.load(
-							UserAlerts.class, userAlertsList.get(i).getId());
-
-					if (userAlerts.getId().getAlertId() == userAlerts1
-							.getAlerts().getAlertId()) {
-						userAlerts.setOnScreenFlg(userAlertsList.get(i)
-								.getOnScreenFlg());
-						userAlerts.setEmailFlg(userAlertsList.get(i)
-								.getEmailFlg());
-						session.save(userAlerts);
-						if (i % 20 == 0) {
-
-							session.flush();
-							session.clear();
-
-						}
-					}
-
-				}
-
-			}
+			daoUseralerts.setEmailFlg(userAlerts.getEmailFlg());
+			daoUseralerts.setOnScreenFlg(userAlerts.getOnScreenFlg());
+			session.save(daoUseralerts);
 
 		}
-		Txn.commit();
+		session.getTransaction().commit();
+		session.flush();
 		session.close();
 
 		return false;

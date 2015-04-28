@@ -205,12 +205,12 @@ public class UserProfileServiceImpl implements UserProfileService {
 		UserAlertsDao userAlertsDao = (UserAlertsDao) daoContext
 				.getBean("UserAlertsDao");
 
-		List<UserAlerts> userAlerts = userAlertsDao.getListOfAlerts(userId);
+		List<UserAlerts> serviceUserAlertsList = userAlertsDao.getListOfAlerts(userId);
 		 
 
 		   for (Alert alert : alerts) {
 
-			for (Iterator<UserAlerts> iterator = userAlerts.iterator(); iterator
+			for (Iterator<UserAlerts> iterator = serviceUserAlertsList.iterator(); iterator
 					.hasNext();) {
 				UserAlerts daoAlert = (UserAlerts) iterator.next();
 					if (daoAlert.getId().getAlertId() == Integer.valueOf(alert.getAlertId())) {
@@ -233,7 +233,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 
 		}
           
-		userAlertsDao.updateAlerts(userAlerts);
+		userAlertsDao.updateAlerts(serviceUserAlertsList);
 
 		return false;
 	}

@@ -17,7 +17,7 @@ public interface UserAlertsDao {
 	 List<UserAlerts> getListOfAlerts(String userId);
 	 
 	 
-	boolean  updateAlerts (List<UserAlerts> userAlertsList);
+	boolean  updateAlerts (List<UserAlerts> serviceUserAlertsList);
 	
 
 }
