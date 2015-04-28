@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
+import com.wiley.gr.ace.authorservices.model.Security;
 import com.wiley.gr.ace.authorservices.model.Service;
+import com.wiley.gr.ace.authorservices.model.UserMgmt;
 import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
 import com.wiley.gr.ace.authorservices.services.service.impl.UserAccountServiceImpl;
@@ -77,13 +79,12 @@ public class UserAccountController {
 
 	@RequestMapping(value = "/updateUserEmail/{userId}", method = RequestMethod.POST)
 	public Service updateUserEmail(@PathVariable("userId") String userId,
-			@RequestBody String emailDetails) {
+			@RequestBody UserMgmt emailDetails) {
 
 		Service service = new Service();
 		try{
-			
 			service.setStatus("Success");
-			service.setServiceObject(userAccountService.getEmailDetails(userId));
+			service.setServiceObject(userAccountService.updateEmailDetails(userId,emailDetails));
 			
 		}catch (ASException asException) {
 
@@ -101,5 +102,17 @@ public class UserAccountController {
 		}
 		return service;
 	}
+	
+	
+	@RequestMapping(value = "/updateSecutiryDetails/{emailId}", method = RequestMethod.POST)
+	public boolean updateSecurityDetails(
+			@PathVariable("emailId") String emailId,
+			@RequestBody Security securityDetails) {
+				
+		userAccountService.updateSecurityDetails(emailId,securityDetails);
+		return true;
+		
+	}
+	
 
 }
