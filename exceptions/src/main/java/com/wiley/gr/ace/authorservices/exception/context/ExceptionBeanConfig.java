@@ -14,12 +14,12 @@ import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
 public class ExceptionBeanConfig {
 	
 	@Bean(name = "asException")
-	public ASException getASExceptionException() {
+	public ASException getASException() {
 		return new ASException();
 	}
 	
 	@Bean(name = "asExceptionController")
-	public ASExceptionController getASExceptionExceptionController() {
+	public ASExceptionController getASExceptionController() {
 		return new ASExceptionController();
 	}
 	
