@@ -40,37 +40,38 @@ public class UserAlertsDaoImpl implements UserAlertsDao {
 
 		Session session = con.getSessionFactory().openSession();
 		Transaction Txn = session.beginTransaction();
-		
-		
+
 		for (UserAlerts userAlerts1 : userAlertsList) {
-			
-	
-		  for (int i = 0; i < userAlertsList.size(); i++) {
-			
-			{
-				UserAlerts userAlerts = (UserAlerts) session.load(UserAlerts.class,userAlertsList.get(i).getId());
-				
-				if (userAlerts.getId().getAlertId()==userAlerts1.getAlerts().getAlertId())
+
+			for (int i = 0; i < userAlertsList.size(); i++) {
+
 				{
-				userAlerts.setOnScreenFlg(userAlertsList.get(i).getOnScreenFlg());
-				userAlerts.setEmailFlg(userAlertsList.get(i).getEmailFlg());
-				session.save(userAlerts);
-				 if ( i % 20 == 0 ) { 
-				       
-				        session.flush();
-				        session.clear();
-				
-				
+					UserAlerts userAlerts = (UserAlerts) session.load(
+							UserAlerts.class, userAlertsList.get(i).getId());
+
+					if (userAlerts.getId().getAlertId() == userAlerts1
+							.getAlerts().getAlertId()) {
+						userAlerts.setOnScreenFlg(userAlertsList.get(i)
+								.getOnScreenFlg());
+						userAlerts.setEmailFlg(userAlertsList.get(i)
+								.getEmailFlg());
+						session.save(userAlerts);
+						if (i % 20 == 0) {
+
+							session.flush();
+							session.clear();
+
+						}
+					}
+
+				}
+
 			}
+
 		}
+		Txn.commit();
+		session.close();
 
-	}
-		 
-}
-		 Txn.commit();
-			session.close();
-
-	}
 		return false;
-}
+	}
 }
