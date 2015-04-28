@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
+import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
 import com.wiley.gr.ace.authorservices.model.Security;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.UserMgmt;
@@ -22,7 +23,7 @@ import com.wiley.gr.ace.authorservices.services.service.impl.UserLoginServiceImp
  */
 @RestController
 @RequestMapping("/userLogin")
-public class UserLoginController {
+public class UserLoginController extends ASExceptionController {
 
 	public static ApplicationContext context = new AnnotationConfigApplicationContext(
 			ServiceBeanConfig.class);
@@ -63,25 +64,10 @@ public class UserLoginController {
 			@RequestBody String password) {
 
 		Service service = new Service();
-		try {
-			UserMgmt userMgmt = userLoginService.doLogin(emailId, password);
-			service.setStatus("success");
-			service.setServiceObject(userMgmt);
+		UserMgmt userMgmt = userLoginService.doLogin(emailId, password);
+		service.setStatus("success");
+		service.setServiceObject(userMgmt);
 
-		} catch (ASException asException) {
-
-			service.setStatus("failed");
-			service.setErrorVO(new com.wiley.gr.ace.authorservices.model.Error());
-			service.getErrorVO().setErrorCode(
-					Integer.parseInt(asException.getErrorCode()));
-			service.getErrorVO().setErrorMessage(asException.getDescription());
-			
-		} catch(Exception exception) {
-			service.setStatus("failed");
-			service.setErrorVO(new com.wiley.gr.ace.authorservices.model.Error());
-			service.getErrorVO().setErrorCode(-1);
-			service.getErrorVO().setErrorMessage(exception.getMessage());
-		}
 		return service;
 	}
 
