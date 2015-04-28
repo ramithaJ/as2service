@@ -3,8 +3,6 @@ package com.wiley.gr.ace.authorservices.web.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.jsp.tagext.TryCatchFinally;
-
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -377,11 +375,9 @@ public class UserProfileController {
 		Service service = new Service();
 	
 		 System.err.println("in controller" +userId);
-		// Get Json - convert to Lis
+		// Get Json - convert to List
 		              
-		List<Alert> alerts = new ArrayList<Alert>();
-         
-		
+		List<Alert> alerts = new ArrayList<Alert>();		
 		alert.setOnScreen(false);
 		alert.setEmail(false);
 		alert.setAlertId("19");

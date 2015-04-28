@@ -54,13 +54,15 @@ public class UserAlertsDaoImpl implements UserAlertsDao {
 				{
 				userAlerts.setOnScreenFlg(userAlertsList.get(i).getOnScreenFlg());
 				userAlerts.setEmailFlg(userAlertsList.get(i).getEmailFlg());
-				session.saveOrUpdate(userAlerts);
+				session.save(userAlerts);
+				 if ( i % 20 == 0 ) { 
+				       
+				        session.flush();
+				        session.clear();
+				
 				
 			}
 		}
-		  
-		 
-		
 
 	}
 		 
@@ -68,6 +70,7 @@ public class UserAlertsDaoImpl implements UserAlertsDao {
 		 Txn.commit();
 			session.close();
 
-		return false;
 	}
+		return false;
+}
 }
