@@ -29,7 +29,7 @@ public interface UserLoginService {
 	 * @param securityVO
 	 * @return
 	 */
-	boolean validateSecurityQuestions(String emailId, Security security);
+	boolean validateSecurityQuestions(String emailId, String securityDetails);
 
 	/**
 	 * @param userId

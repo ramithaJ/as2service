@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import com.google.gson.Gson;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.externalservices.context.ExternalServiceBeanConfig;
 import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
@@ -99,12 +100,12 @@ public class UserLoginServiceImpl implements UserLoginService {
 
 	@Override
 	public boolean validateSecurityQuestions(String emailId,
-			Security securityDetails) {
+			String securityDetails) {
 
 		Integer userId = userLoginServiceDAO.getUserId(emailId);
 		List<UserSecurityDetails> securityQuestionslist = userLoginServiceDAO
 				.getSecurityQuestions(userId);
-		if (securityDetails.getSecurityAnswer1().equalsIgnoreCase(
+		/*if (securityDetails.getSecurityAnswer1().equalsIgnoreCase(
 				securityQuestionslist.get(0).getSecurityQuestion())
 				&& securityDetails.getSecurityAnswer1().equalsIgnoreCase(
 						securityQuestionslist.get(0).getSecurityAnswer())
@@ -112,6 +113,13 @@ public class UserLoginServiceImpl implements UserLoginService {
 						securityQuestionslist.get(1).getSecurityQuestion())
 				&& securityDetails.getSecurityAnswer2().equalsIgnoreCase(
 						securityQuestionslist.get(1).getSecurityAnswer()))
+			return true;*/
+		Gson gson=new Gson();
+		Security secutiry=gson.fromJson("securityDetails",Security.class);
+		if(secutiry.getSecurityQuestion1().equalsIgnoreCase(securityQuestionslist.get(0).getSecurityQuestion())
+				&&secutiry.getSecurityAnswer1().equalsIgnoreCase(securityQuestionslist.get(0).getSecurityAnswer())
+				&&secutiry.getSecurityQuestion2().equalsIgnoreCase(securityQuestionslist.get(1).getSecurityQuestion())
+				&&secutiry.getSecurityAnswer2().equalsIgnoreCase(securityQuestionslist.get(1).getSecurityAnswer()))
 			return true;
 		return false;
 	}
