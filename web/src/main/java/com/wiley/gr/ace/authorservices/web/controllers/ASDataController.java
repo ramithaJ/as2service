@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.Service;
+import com.wiley.gr.ace.authorservices.model.StaticData;
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.ASDataDAOImpl;
@@ -32,10 +33,6 @@ public class ASDataController {
 			ServiceBeanConfig.class);
 	ASDataService aSDataService = (ASDataServiceImpl) context
 			.getBean("ASDataService");
-	private static ApplicationContext daoContext = new AnnotationConfigApplicationContext(
-			PersistenceBeanConfig.class);
-	ASDataDAO aSDataDAO = (ASDataDAOImpl) daoContext.getBean("ASDataDAO");
-
 	/**
 	 * @return
 	 */
@@ -139,17 +136,13 @@ public class ASDataController {
 	}
 
 	@RequestMapping(value = "/getSecurityQuestions/", method = RequestMethod.GET, produces = "application/json")
-	public Service getSecurityQuestions() {
+	public StaticData[] getSecurityQuestions() {
 
-		Service service = new Service();
-		List<String> lookupList = new ArrayList<String>();
+		/*Service service = new Service();
 		try {
 
-			lookupList = aSDataDAO.getSecurityDetails();
-			if(null==lookupList)
-				throw new ASException("2001", "List is empty");
 			service.setStatus("Success");
-			service.setServiceObject(lookupList);
+			service.setServiceObject(aSDataService.getSecurityQuestions());
 		} catch (ASException asException) {
 
 			service.setStatus("failed");
@@ -164,6 +157,8 @@ public class ASDataController {
 			service.getErrorVO().setErrorCode(-1);
 			service.getErrorVO().setErrorMessage(exception.getMessage());
 		}
-		return service;
+		return service;*/
+		
+		return aSDataService.getSecurityQuestions();
 	}
 }
