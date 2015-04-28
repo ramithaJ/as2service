@@ -32,7 +32,7 @@ public class UserLoginController {
 
 	/**
 	 * This method takes email in encrypted format like --
-	 * kondavinay%40gmail.com
+	 * kondavinay4%40gmail.com
 	 * 
 	 * @param emailId
 	 * @return
@@ -143,7 +143,9 @@ public class UserLoginController {
 	}
 
 	/**
-	 * This method takes reads SecurityVO from POST
+	 * this method requires json string like
+	 * { "id1": "SEQ5", "id2": "SEQ4", "securityQuestion1": "what's ur pet name", "securityQuestion2": "What is your birthday?","securityAnswer1": "cat","securityAnswer2": "i will not tell"}
+	 * This method takes reads Security from POST
 	 * 
 	 * @param userId
 	 * @return
@@ -151,7 +153,7 @@ public class UserLoginController {
 	@RequestMapping(value = "/valdiateSecurityQuestions/{emailId}", method = RequestMethod.POST)
 	public boolean validateSecurityQuestions(
 			@PathVariable("emailId") String emailId,
-			@RequestBody String securityDetails) {
+			@RequestBody Security securityDetails) {
 
 		return userLoginService.validateSecurityQuestions(emailId, securityDetails);
 	}
