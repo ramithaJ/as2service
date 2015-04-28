@@ -16,9 +16,9 @@ public interface UserAccountDAO {
 	/**
 	 * @return
 	 */
-	boolean updateEmailDetails();
+	boolean updateEmailDetails(String userId,String primaryEmail, String secondaryEmail);
 	/**
 	 * @return
 	 */
-	boolean updateSecurityDetails();
+	boolean updateSecurityDetails(String question1,String answer1,String question2,String answer2, Integer userId);
 }
