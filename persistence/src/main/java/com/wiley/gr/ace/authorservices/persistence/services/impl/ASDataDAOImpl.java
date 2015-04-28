@@ -36,8 +36,10 @@ public class ASDataDAOImpl implements ASDataDAO {
 			List<LookupValues> lookupList =	criteria.list();
 			for(int i=0; i<lookupList.size();i++){
 				
+				list.add(lookupList.get(i).getLookupName());
 				list.add(lookupList.get(i).getLookupValue());
 			}
+			System.out.println("shiva"+list.size());
 			transaction.commit();
 		} finally {
 			if (session != null) {
