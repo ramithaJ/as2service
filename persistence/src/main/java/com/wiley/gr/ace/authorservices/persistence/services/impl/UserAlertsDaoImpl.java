@@ -53,6 +53,6 @@ public class UserAlertsDaoImpl implements UserAlertsDao {
 		session.flush();
 		session.close();
 
-		return false;
+		return true;
 	}
 }

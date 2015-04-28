@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wiley.gr.ace.authorservices.model.Alert;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
@@ -32,6 +33,7 @@ public class UserProfileController {
 	 * @param userId
 	 * @return
 	 */
+
 	@RequestMapping(value = "/getAffiliations/{userId}", method = RequestMethod.GET, produces = "application/json")
 	public Service getAffiliationsList(@PathVariable("userId") String userId) {
 
@@ -367,22 +369,17 @@ public class UserProfileController {
 	 */
 	@RequestMapping(value = "/updateAlerts/{userId}", method = RequestMethod.POST, produces = "application/json")
 	public Service updateAlerts(@PathVariable("userId") String userId,
-			@RequestBody String alertsJson) {
+			@RequestBody List<Alert> alertsList) {
+		
 		UserProfileService userProfileService = (UserProfileServiceImpl) context
 				.getBean("UserProfileService");
-		Alert alert = new Alert();
 		Service service = new Service();
 
+		System.err.println("alertsList::" + alertsList);
+
 		System.err.println("in controller" + userId);
-		// Get Json - convert to List
-		List<Alert> alerts = new ArrayList<Alert>();
-		alert.setOnScreen(false);
-		alert.setEmail(false);
-		alert.setAlertId("19");
 
-		alerts.add(alert);
-
-		userProfileService.updateAlerts(userId, alerts);
+		userProfileService.updateAlerts(userId, alertsList);
 
 		return service;
 	}

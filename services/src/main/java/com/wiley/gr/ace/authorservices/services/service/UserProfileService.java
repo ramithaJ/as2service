@@ -168,7 +168,7 @@ public interface UserProfileService {
 	 * @param alerts
 	 * @return
 	 */
-	 boolean updateAlerts(String userId,List<Alert> alerts );
+	 boolean updateAlerts(String userId,List<Alert> alertsList );
 	
 	
 

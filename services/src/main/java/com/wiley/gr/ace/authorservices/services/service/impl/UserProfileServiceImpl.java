@@ -200,42 +200,41 @@ public class UserProfileServiceImpl implements UserProfileService {
 	}
 
 	@Override
-	public boolean updateAlerts(String userId, List<Alert> alerts) {
+	public boolean updateAlerts(String userId, List<Alert> alertsList) {
 
 		UserAlertsDao userAlertsDao = (UserAlertsDao) daoContext
 				.getBean("UserAlertsDao");
 
-		List<UserAlerts> serviceUserAlertsList = userAlertsDao.getListOfAlerts(userId);
+		List<UserAlerts> daoAlertsList = userAlertsDao.getListOfAlerts(userId);
 		 
 
-		   for (Alert alert : alerts) {
-
-			for (Iterator<UserAlerts> iterator = serviceUserAlertsList.iterator(); iterator
-					.hasNext();) {
-				UserAlerts daoAlert = (UserAlerts) iterator.next();
+		   for (Alert alert : alertsList) {
+			   
+			   for (UserAlerts userAlerts : daoAlertsList) {
+				UserAlerts daoAlert = (userAlerts);
 					if (daoAlert.getId().getAlertId() == Integer.valueOf(alert.getAlertId())) {
 
-					if (alert.isEmail()) {
-						daoAlert.setEmailFlg(new Character('Y'));
-					} else {
-						daoAlert.setEmailFlg(new Character('N'));
-					}
-
-					if (alert.isOnScreen()) {
-						daoAlert.setOnScreenFlg(new Character('Y'));
-					} else {
-						daoAlert.setOnScreenFlg(new Character('N'));
-					}
-					break;
+						if (alert.isEmail()) {
+							daoAlert.setEmailFlg(new Character('Y'));
+						} else {
+							daoAlert.setEmailFlg(new Character('N'));
+						}
+	
+						if (alert.isOnScreen()) {
+							daoAlert.setOnScreenFlg(new Character('Y'));
+						} else {
+							daoAlert.setOnScreenFlg(new Character('N'));
+						}
+						break;
 				}
 
 			}
 
 		}
           
-		userAlertsDao.updateAlerts(serviceUserAlertsList);
+		userAlertsDao.updateAlerts(daoAlertsList);
 
-		return false;
+		return true;
 	}
 
 }
