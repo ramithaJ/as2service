@@ -1,6 +1,7 @@
 package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
@@ -10,6 +11,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
 import com.wiley.gr.ace.authorservices.persistence.services.UserAccountDAO;
 
 /**
@@ -47,16 +49,61 @@ public class UserAccountDAOImpl implements UserAccountDAO {
 		}
 	}
 
+	
 	@Override
-	public boolean updateEmailDetails() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean updateSecurityDetails(String question1,String answer1,String question2,String answer2, Integer userId) {
+
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = con.getSessionFactory().openSession();
+			transaction = session.beginTransaction();
+			
+			String hql = "UPDATE UserSecurityDetails set securityQuestion = :securityQuestion, securityAnswer = :securityAnswer "
+					+ "WHERE userProfile.userId = :userId";
+			Query query = session.createQuery(hql);
+			query.setParameter("securityQuestion", question1);
+			query.setParameter("securityAnswer", answer1);
+			query.setParameter("userId", userId);
+			query.executeUpdate();
+			transaction.commit();
+			return true;
+		} finally {
+			if (session != null) {
+				session.flush();
+				session.close();
+			}
+		}
 	}
 
+
 	@Override
-	public boolean updateSecurityDetails() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean updateEmailDetails(String userId,String primaryEmail, String secondaryEmail) {
+
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = con.getSessionFactory().openSession();
+			transaction = session.beginTransaction();
+			String hql = "UPDATE UserProfile set primaryEmailAddr = :primaryEmailAddr, secondaryEmailAddr = :secondaryEmailAddr "
+					+ "WHERE userId = :userId";
+			Query query = session.createQuery(hql);
+			query.setParameter("primaryEmailAddr", primaryEmail);
+			query.setParameter("secondaryEmailAddr", secondaryEmail);
+			query.setParameter("userId", Integer.parseInt(userId));
+			int result = query.executeUpdate();
+			transaction.commit();
+			if (result == 1) {
+				return true;
+			} else {
+				return false;
+			}
+		} finally {
+			if (session != null) {
+				session.flush();
+				session.close();
+			}
+		}
 	}
 
 }
