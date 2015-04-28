@@ -383,11 +383,6 @@ public class UserProfileController {
 		UserProfileService userProfileService = (UserProfileServiceImpl) context
 				.getBean("UserProfileService");
 		Service service = new Service();
-
-		System.err.println("alertsList::" + alertsList);
-
-		System.err.println("in controller" + userId);
-
 		userProfileService.updateAlerts(userId, alertsList);
 
 		return service;
