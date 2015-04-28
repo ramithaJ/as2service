@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
+import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
 import com.wiley.gr.ace.authorservices.exception.context.ExceptionBeanConfig;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
@@ -25,7 +26,7 @@ import com.wiley.gr.ace.authorservices.services.service.impl.AdminLoginServiceIm
  */
 @RestController
 @RequestMapping("/admin")
-public class AdminLoginController {
+public class AdminLoginController extends ASExceptionController {
 	
 	public static ApplicationContext context = new AnnotationConfigApplicationContext(
 			ServiceBeanConfig.class);
