@@ -1,7 +1,6 @@
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.context.ApplicationContext;

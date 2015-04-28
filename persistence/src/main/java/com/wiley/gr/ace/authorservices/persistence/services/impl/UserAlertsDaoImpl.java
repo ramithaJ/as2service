@@ -3,7 +3,6 @@ package com.wiley.gr.ace.authorservices.persistence.services.impl;
 import java.util.List;
 
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
