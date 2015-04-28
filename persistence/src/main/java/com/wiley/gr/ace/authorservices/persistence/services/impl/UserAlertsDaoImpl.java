@@ -1,9 +1,19 @@
+/*******************************************************************************
+ * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
+ *
+ * All material contained herein is proprietary to John Wiley & Sons 
+ * and its third party suppliers, if any. The methods, techniques and 
+ * technical concepts contained herein are considered trade secrets 
+ * and confidential and may be protected by intellectual property laws.  
+ * Reproduction or distribution of this material, in whole or in part, 
+ * is strictly forbidden except by express prior written permission 
+ * of John Wiley & Sons.
+ *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
 import java.util.List;
 
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -23,8 +33,6 @@ public class UserAlertsDaoImpl implements UserAlertsDao {
 	public List<UserAlerts> getListOfAlerts(String userId) {
 		Session session = con.getSessionFactory().openSession();
 		session.beginTransaction();
-		// UserAlerts userAlerts = null;
-
 		String hql = "from UserAlerts where id.userId = :userId";
 		List<UserAlerts> result = session.createQuery(hql)
 				.setString("userId", userId).list();
@@ -36,42 +44,25 @@ public class UserAlertsDaoImpl implements UserAlertsDao {
 	}
 
 	@Override
-	public boolean updateAlerts(List<UserAlerts> userAlertsList) {
+	public boolean updateAlerts(List<UserAlerts> serviceUserAlertsList) {
 
 		Session session = con.getSessionFactory().openSession();
-		Transaction Txn = session.beginTransaction();
+		session.beginTransaction();
 
-		for (UserAlerts userAlerts1 : userAlertsList) {
+		for (UserAlerts userAlerts : serviceUserAlertsList) {
 
-			for (int i = 0; i < userAlertsList.size(); i++) {
+			UserAlerts daoUseralerts = (UserAlerts) session.load(
+					UserAlerts.class, userAlerts.getId());
 
-				{
-					UserAlerts userAlerts = (UserAlerts) session.load(
-							UserAlerts.class, userAlertsList.get(i).getId());
-
-					if (userAlerts.getId().getAlertId() == userAlerts1
-							.getAlerts().getAlertId()) {
-						userAlerts.setOnScreenFlg(userAlertsList.get(i)
-								.getOnScreenFlg());
-						userAlerts.setEmailFlg(userAlertsList.get(i)
-								.getEmailFlg());
-						session.save(userAlerts);
-						if (i % 20 == 0) {
-
-							session.flush();
-							session.clear();
-
-						}
-					}
-
-				}
-
-			}
+			daoUseralerts.setEmailFlg(userAlerts.getEmailFlg());
+			daoUseralerts.setOnScreenFlg(userAlerts.getOnScreenFlg());
+			session.save(daoUseralerts);
 
 		}
-		Txn.commit();
+		session.getTransaction().commit();
+		session.flush();
 		session.close();
 
-		return false;
+		return true;
 	}
 }

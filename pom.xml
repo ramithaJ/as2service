@@ -1,3 +1,13 @@
+<!-- Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved. -->
+
+<!-- All material contained herein is proprietary to John Wiley & Sons  -->
+<!-- and its third party suppliers, if any. The methods, techniques and  -->
+<!-- technical concepts contained herein are considered trade secrets  -->
+<!-- and confidential and may be protected by intellectual property laws.   -->
+<!-- Reproduction or distribution of this material, in whole or in part,  -->
+<!-- is strictly forbidden except by express prior written permission  -->
+<!-- of John Wiley & Sons. -->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
@@ -107,12 +117,6 @@
 			<artifactId>slf4j-api</artifactId>
 			<version>${sl4j.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.3.1</version>
-		</dependency>
-
 	</dependencies>
 
 	<repositories>
@@ -156,7 +160,7 @@
 						<phase>verify</phase>
 						<goals>
 							<goal>check</goal>
-<!-- 							<goal>cpd-check</goal> -->
+							<!-- <goal>cpd-check</goal> -->
 
 						</goals>
 					</execution>

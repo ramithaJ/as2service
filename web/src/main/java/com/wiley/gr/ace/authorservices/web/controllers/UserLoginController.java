@@ -1,3 +1,14 @@
+/*******************************************************************************
+ * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
+ *
+ * All material contained herein is proprietary to John Wiley & Sons 
+ * and its third party suppliers, if any. The methods, techniques and 
+ * technical concepts contained herein are considered trade secrets 
+ * and confidential and may be protected by intellectual property laws.  
+ * Reproduction or distribution of this material, in whole or in part, 
+ * is strictly forbidden except by express prior written permission 
+ * of John Wiley & Sons.
+ *******************************************************************************/
 package com.wiley.gr.ace.authorservices.web.controllers;
 
 import org.springframework.context.ApplicationContext;
@@ -9,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
+import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
 import com.wiley.gr.ace.authorservices.model.Security;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.User;
@@ -23,7 +35,7 @@ import com.wiley.gr.ace.authorservices.services.service.impl.UserLoginServiceImp
  */
 @RestController
 @RequestMapping("/userLogin")
-public class UserLoginController {
+public class UserLoginController extends ASExceptionController {
 
 	public static ApplicationContext context = new AnnotationConfigApplicationContext(
 			ServiceBeanConfig.class);
@@ -64,25 +76,10 @@ public class UserLoginController {
 			@RequestBody String password) {
 
 		Service service = new Service();
-		try {
-			UserMgmt userMgmt = userLoginService.doLogin(emailId, password);
-			service.setStatus("success");
-			service.setServiceObject(userMgmt);
+		UserMgmt userMgmt = userLoginService.doLogin(emailId, password);
+		service.setStatus("success");
+		service.setServiceObject(userMgmt);
 
-		} catch (ASException asException) {
-
-			service.setStatus("failed");
-			service.setErrorVO(new com.wiley.gr.ace.authorservices.model.Error());
-			service.getErrorVO().setErrorCode(
-					Integer.parseInt(asException.getErrorCode()));
-			service.getErrorVO().setErrorMessage(asException.getDescription());
-			
-		} catch(Exception exception) {
-			service.setStatus("failed");
-			service.setErrorVO(new com.wiley.gr.ace.authorservices.model.Error());
-			service.getErrorVO().setErrorCode(-1);
-			service.getErrorVO().setErrorMessage(exception.getMessage());
-		}
 		return service;
 	}
 	

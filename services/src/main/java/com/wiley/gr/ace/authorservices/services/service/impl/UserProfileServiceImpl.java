@@ -1,7 +1,17 @@
+/*******************************************************************************
+ * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
+ *
+ * All material contained herein is proprietary to John Wiley & Sons 
+ * and its third party suppliers, if any. The methods, techniques and 
+ * technical concepts contained herein are considered trade secrets 
+ * and confidential and may be protected by intellectual property laws.  
+ * Reproduction or distribution of this material, in whole or in part, 
+ * is strictly forbidden except by express prior written permission 
+ * of John Wiley & Sons.
+ *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.context.ApplicationContext;
@@ -200,42 +210,41 @@ public class UserProfileServiceImpl implements UserProfileService {
 	}
 
 	@Override
-	public boolean updateAlerts(String userId, List<Alert> alerts) {
+	public boolean updateAlerts(String userId, List<Alert> alertsList) {
 
 		UserAlertsDao userAlertsDao = (UserAlertsDao) daoContext
 				.getBean("UserAlertsDao");
 
-		List<UserAlerts> userAlerts = userAlertsDao.getListOfAlerts(userId);
+		List<UserAlerts> daoAlertsList = userAlertsDao.getListOfAlerts(userId);
 		 
 
-		   for (Alert alert : alerts) {
-
-			for (Iterator<UserAlerts> iterator = userAlerts.iterator(); iterator
-					.hasNext();) {
-				UserAlerts daoAlert = (UserAlerts) iterator.next();
+		   for (Alert alert : alertsList) {
+			   
+			   for (UserAlerts userAlerts : daoAlertsList) {
+				UserAlerts daoAlert = userAlerts;
 					if (daoAlert.getId().getAlertId() == Integer.valueOf(alert.getAlertId())) {
 
-					if (alert.isEmail()) {
-						daoAlert.setEmailFlg(new Character('Y'));
-					} else {
-						daoAlert.setEmailFlg(new Character('N'));
-					}
-
-					if (alert.isOnScreen()) {
-						daoAlert.setOnScreenFlg(new Character('Y'));
-					} else {
-						daoAlert.setOnScreenFlg(new Character('N'));
-					}
-					break;
+						if (alert.isEmail()) {
+							daoAlert.setEmailFlg(new Character('Y'));
+						} else {
+							daoAlert.setEmailFlg(new Character('N'));
+						}
+	
+						if (alert.isOnScreen()) {
+							daoAlert.setOnScreenFlg(new Character('Y'));
+						} else {
+							daoAlert.setOnScreenFlg(new Character('N'));
+						}
+						break;
 				}
 
 			}
 
 		}
           
-		userAlertsDao.updateAlerts(userAlerts);
+		userAlertsDao.updateAlerts(daoAlertsList);
 
-		return false;
+		return true;
 	}
 
 }

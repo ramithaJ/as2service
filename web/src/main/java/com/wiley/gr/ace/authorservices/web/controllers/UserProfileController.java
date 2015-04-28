@@ -1,6 +1,16 @@
+/*******************************************************************************
+ * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
+ *
+ * All material contained herein is proprietary to John Wiley & Sons 
+ * and its third party suppliers, if any. The methods, techniques and 
+ * technical concepts contained herein are considered trade secrets 
+ * and confidential and may be protected by intellectual property laws.  
+ * Reproduction or distribution of this material, in whole or in part, 
+ * is strictly forbidden except by express prior written permission 
+ * of John Wiley & Sons.
+ *******************************************************************************/
 package com.wiley.gr.ace.authorservices.web.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.context.ApplicationContext;
@@ -32,6 +42,7 @@ public class UserProfileController {
 	 * @param userId
 	 * @return
 	 */
+
 	@RequestMapping(value = "/getAffiliations/{userId}", method = RequestMethod.GET, produces = "application/json")
 	public Service getAffiliationsList(@PathVariable("userId") String userId) {
 
@@ -367,31 +378,12 @@ public class UserProfileController {
 	 */
 	@RequestMapping(value = "/updateAlerts/{userId}", method = RequestMethod.POST, produces = "application/json")
 	public Service updateAlerts(@PathVariable("userId") String userId,
-			@RequestBody String alertsJson) {
+			@RequestBody List<Alert> alertsList) {
+		
 		UserProfileService userProfileService = (UserProfileServiceImpl) context
 				.getBean("UserProfileService");
-		Alert alert = new Alert();
-		Alert alert2=new Alert();
 		Service service = new Service();
-	
-		 System.err.println("in controller" +userId);
-		// Get Json - convert to List
-		              
-		List<Alert> alerts = new ArrayList<Alert>();		
-		alert.setOnScreen(false);
-		alert.setEmail(false);
-		alert.setAlertId("19");
-		alert2.setOnScreen(true);
-		alert2.setEmail(true);
-		alert2.setAlertId("20");
-		
-		
-		alerts.add(alert);
-		alerts.add(alert2);
-
-		userProfileService.updateAlerts(userId,alerts);
-	//	service.setServiceObject(userProfileService.updateAlerts(userId,alerts));
-		
+		userProfileService.updateAlerts(userId, alertsList);
 
 		return service;
 	}
