@@ -46,6 +46,9 @@ public class UpdateUserController {
 			service = new Service();
 			service.setStatus("SUCCESS");
 			service.setServiceObject(user);
+		}else {
+			service = new Service();
+			service.setStatus("FAILURE");
 		}
 		return service;
 	}

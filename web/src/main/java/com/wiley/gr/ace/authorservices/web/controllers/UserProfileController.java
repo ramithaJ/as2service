@@ -1,5 +1,8 @@
 package com.wiley.gr.ace.authorservices.web.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiley.gr.ace.authorservices.model.Alert;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
 import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
@@ -361,11 +365,26 @@ public class UserProfileController {
 	 * @param alertsJson
 	 * @return
 	 */
-	@RequestMapping(value = "/updateAlerts/{userId}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/updateAlerts/{userId}", method = RequestMethod.POST, produces = "application/json")
 	public Service updateAlerts(@PathVariable("userId") String userId,
 			@RequestBody String alertsJson) {
+		UserProfileService userProfileService = (UserProfileServiceImpl) context
+				.getBean("UserProfileService");
+		Alert alert = new Alert();
+		Service service = new Service();
 
-		return null;
+		System.err.println("in controller" + userId);
+		// Get Json - convert to List
+		List<Alert> alerts = new ArrayList<Alert>();
+		alert.setOnScreen(false);
+		alert.setEmail(false);
+		alert.setAlertId("19");
+
+		alerts.add(alert);
+
+		userProfileService.updateAlerts(userId, alerts);
+
+		return service;
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.context.ApplicationContext;
@@ -199,8 +200,41 @@ public class UserProfileServiceImpl implements UserProfileService {
 	}
 
 	@Override
-	public boolean updateAlerts(Alert[] alerts) {
-		// TODO Auto-generated method stub
+	public boolean updateAlerts(String userId, List<Alert> alerts) {
+
+		UserAlertsDao userAlertsDao = (UserAlertsDao) daoContext
+				.getBean("UserAlertsDao");
+
+		List<UserAlerts> serviceUserAlertsList = userAlertsDao.getListOfAlerts(userId);
+		 
+
+		   for (Alert alert : alerts) {
+
+			for (Iterator<UserAlerts> iterator = serviceUserAlertsList.iterator(); iterator
+					.hasNext();) {
+				UserAlerts daoAlert = (UserAlerts) iterator.next();
+					if (daoAlert.getId().getAlertId() == Integer.valueOf(alert.getAlertId())) {
+
+					if (alert.isEmail()) {
+						daoAlert.setEmailFlg(new Character('Y'));
+					} else {
+						daoAlert.setEmailFlg(new Character('N'));
+					}
+
+					if (alert.isOnScreen()) {
+						daoAlert.setOnScreenFlg(new Character('Y'));
+					} else {
+						daoAlert.setOnScreenFlg(new Character('N'));
+					}
+					break;
+				}
+
+			}
+
+		}
+          
+		userAlertsDao.updateAlerts(serviceUserAlertsList);
+
 		return false;
 	}
 

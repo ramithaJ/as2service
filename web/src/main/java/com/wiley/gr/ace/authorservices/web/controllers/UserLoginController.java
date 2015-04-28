@@ -12,6 +12,7 @@ import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
 import com.wiley.gr.ace.authorservices.model.Security;
 import com.wiley.gr.ace.authorservices.model.Service;
+import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserMgmt;
 import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
@@ -70,7 +71,35 @@ public class UserLoginController extends ASExceptionController {
 
 		return service;
 	}
-
+	
+	@RequestMapping(value = "/orcid", method = RequestMethod.POST, produces = "application/json")
+	public Service doOrcidLogin(@RequestBody String email, @RequestBody String password){
+		
+		Service service = new Service();
+		try{
+			
+			User user = new User();
+			user.setUserId(1234);
+			user.setOrcidID("123");
+			/**
+			 * Service impl TODO
+			 */
+			service.setStatus("success");
+			service.setServiceObject(user);
+		} catch (ASException asException) {
+			service.setStatus("failed");
+			service.setErrorVO(new com.wiley.gr.ace.authorservices.model.Error());
+			service.getErrorVO().setErrorCode(
+					Integer.parseInt(asException.getErrorCode()));
+			service.getErrorVO().setErrorMessage(asException.getDescription());
+		} catch(Exception exception) {
+			service.setStatus("failed");
+			service.setErrorVO(new com.wiley.gr.ace.authorservices.model.Error());
+			service.getErrorVO().setErrorCode(-1);
+			service.getErrorVO().setErrorMessage(exception.getMessage());
+		}
+		return service;
+	}
 	/**
 	 * this method takes the password from request body
 	 * 
