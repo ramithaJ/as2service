@@ -12,13 +12,16 @@ public class Security {
 	/**
 	 * 
 	 */
-	private int id1;
+	private String id1;
 	
 	/**
 	 * 
 	 */
-	private int id2;
+	private String id2;
 	
+	/**
+	 * @return
+	 */
 	/** The security question1. */
 	private String securityQuestion1;
 
@@ -31,12 +34,31 @@ public class Security {
 	/** The security answer2. */
 	private String securityAnswer2;
 
-	/** The old password. */
-	private String oldPassword;
+	
+	public String getId1() {
+		return id1;
+	}
 
-	/** The new password. */
-	private String newPassword;
+	/**
+	 * @param id1
+	 */
+	public void setId1(String id1) {
+		this.id1 = id1;
+	}
 
+	/**
+	 * @return
+	 */
+	public String getId2() {
+		return id2;
+	}
+
+	/**
+	 * @param id2
+	 */
+	public void setId2(String id2) {
+		this.id2 = id2;
+	}
 	/**
 	 * Gets the security question1.
 	 *
@@ -89,44 +111,6 @@ public class Security {
 		this.securityAnswer2 = securityAnswer2;
 	}
 
-	/**
-	 * Gets the old password.
-	 *
-	 * @return the old password
-	 */
-	public String getOldPassword() {
-		return oldPassword;
-	}
-
-	/**
-	 * Sets the old password.
-	 *
-	 * @param oldPassword
-	 *            the new old password
-	 */
-	public void setOldPassword(String oldPassword) {
-		this.oldPassword = oldPassword;
-	}
-
-	/**
-	 * Gets the new password.
-	 *
-	 * @return the new password
-	 */
-	public String getNewPassword() {
-		return newPassword;
-	}
-
-	/**
-	 * Sets the new password.
-	 *
-	 * @param newPassword
-	 *            the new new password
-	 */
-	public void setNewPassword(String newPassword) {
-		this.newPassword = newPassword;
-	}
-
 	public String getSecurityQuestion2() {
 		return securityQuestion2;
 	}
@@ -135,21 +119,4 @@ public class Security {
 		this.securityQuestion2 = securityQuestion2;
 	}
 
-	public int getId1() {
-		return id1;
-	}
-
-	public void setId1(int id1) {
-		this.id1 = id1;
-	}
-
-	public int getId2() {
-		return id2;
-	}
-
-	public void setId2(int id2) {
-		this.id2 = id2;
-	}
-
-		
 }
