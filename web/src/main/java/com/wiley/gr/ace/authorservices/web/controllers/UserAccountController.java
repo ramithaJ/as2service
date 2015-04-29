@@ -59,14 +59,14 @@ public class UserAccountController {
 		}catch (ASException asException) {
 
 			service.setStatus("failed");
-			service.setError(new com.wiley.gr.ace.authorservices.model.Error());
+			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
 			service.getError().setCode(
 					Integer.parseInt(asException.getErrorCode()));
 			service.getError().setMessage(asException.getDescription());
 			
 		} catch(Exception exception) {
 			service.setStatus("failed");
-			service.setError(new com.wiley.gr.ace.authorservices.model.Error());
+			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
 			service.getError().setCode(-1);
 			service.getError().setMessage(exception.getMessage());
 		}
@@ -100,14 +100,14 @@ public class UserAccountController {
 		}catch (ASException asException) {
 
 			service.setStatus("failed");
-			service.setError(new com.wiley.gr.ace.authorservices.model.Error());
+			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
 			service.getError().setCode(
 					Integer.parseInt(asException.getErrorCode()));
 			service.getError().setMessage(asException.getDescription());
 			
 		} catch(Exception exception) {
 			service.setStatus("failed");
-			service.setError(new com.wiley.gr.ace.authorservices.model.Error());
+			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
 			service.getError().setCode(-1);
 			service.getError().setMessage(exception.getMessage());
 		}

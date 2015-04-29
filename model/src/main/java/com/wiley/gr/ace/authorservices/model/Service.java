@@ -28,7 +28,7 @@ public class Service {
 	
 	private Object payload;
 	
-	private Error error;
+	private ErrorPOJO error;
 
 	/**
 	 * @return
@@ -61,14 +61,14 @@ public class Service {
 	/**
 	 * @return
 	 */
-	public Error getError() {
+	public ErrorPOJO getError() {
 		return error;
 	}
 
 	/**
 	 * @param error
 	 */
-	public void setError(Error error) {
+	public void setError(ErrorPOJO error) {
 		this.error = error;
 	}
 	

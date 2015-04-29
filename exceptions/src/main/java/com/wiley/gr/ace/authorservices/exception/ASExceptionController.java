@@ -43,7 +43,7 @@ public class ASExceptionController {
 		Service response = new Service();
 		
 		response.setStatus("failed");
-		response.setError(new com.wiley.gr.ace.authorservices.model.Error());
+		response.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
 		response.getError().setCode(
 				Integer.parseInt(asException.getErrorCode()));
 		response.getError().setMessage(asException.getDescription());
@@ -66,7 +66,7 @@ public class ASExceptionController {
 		Service response = new Service();
 		
 		response.setStatus("failed");
-		response.setError(new com.wiley.gr.ace.authorservices.model.Error());
+		response.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
 		response.getError().setCode(-1);
 		response.getError().setMessage(exception.getMessage());
 		
