@@ -137,12 +137,6 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 	}
 
 	@Override
-	public boolean validateSecurityQuestions(String emailId) {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
 	public boolean doLogin(String emailId, String password) {
 
 		Session session = null;
@@ -208,7 +202,7 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 
 		Session session = null;
 		Transaction transaction = null;
-		Date accountLockedTime=new Date();
+		Date accountLockedTime = new Date();
 		try {
 			session = con.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
@@ -231,14 +225,6 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 				session.close();
 			}
 		}
-	}
-
-	@Override
-	public boolean resetPassword(String emailId, String password) {
-
-		// we should call the external AML service to update the password
-
-		return false;
 	}
 
 	@Override
@@ -274,7 +260,7 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 			Criteria criteria = session.createCriteria(UserProfile.class);
 			criteria.add(Restrictions.eq("primaryEmailAddr", emailId));
 			UserProfile userProfile = (UserProfile) criteria.uniqueResult();
-			int count =userProfile.getInvalidLoginCnt();
+			int count = userProfile.getInvalidLoginCnt();
 			transaction.commit();
 			return count;
 		} finally {
