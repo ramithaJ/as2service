@@ -22,6 +22,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiley.gr.ace.authorservices.externalservices.context.ExternalServiceBeanConfig;
+import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.impl.CDMInterfaceServiceImpl;
 import com.wiley.gr.ace.authorservices.model.Alert;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
@@ -37,6 +40,9 @@ import com.wiley.gr.ace.authorservices.services.service.impl.UserProfileServiceI
 public class UserProfileController {
 	public static ApplicationContext context = new AnnotationConfigApplicationContext(
 			ServiceBeanConfig.class);
+	
+private static ApplicationContext externalServiceContext = new AnnotationConfigApplicationContext(
+		ExternalServiceBeanConfig.class);
 
 	/**
 	 * @param userId
@@ -45,8 +51,12 @@ public class UserProfileController {
 
 	@RequestMapping(value = "/getAffiliations/{userId}", method = RequestMethod.GET, produces = "application/json")
 	public Service getAffiliationsList(@PathVariable("userId") String userId) {
+		CDMInterfaceService cdmservices = (CDMInterfaceServiceImpl) externalServiceContext.getBean("CDMInterfaceService");
+		Service service = new Service();
+		service.setPayload(cdmservices.getAffiliationsForUser(userId));
+	
 
-		return null;
+		return service;
 	}
 
 	/**
