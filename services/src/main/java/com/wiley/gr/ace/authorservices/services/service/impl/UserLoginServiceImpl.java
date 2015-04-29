@@ -21,8 +21,8 @@ import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.externalservices.context.ExternalServiceBeanConfig;
 import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.ALMInterfaceServiceImpl;
+import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.Security;
-import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.UserMgmt;
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
@@ -41,7 +41,9 @@ public class UserLoginServiceImpl implements UserLoginService {
 			ExternalServiceBeanConfig.class);
 	UserLoginServiceDAO userLoginServiceDAO = (UserLoginServiceDAOImpl) context
 			.getBean("UserLoginServiceDAO");
-	
+	ALMInterfaceService almService = (ALMInterfaceServiceImpl) externalServiceContext
+			.getBean("ALMExternalService");
+
 	@Override
 	public UserMgmt doLogin(String emailId, String password) {
 
@@ -49,32 +51,37 @@ public class UserLoginServiceImpl implements UserLoginService {
 		if (userLoginServiceDAO.validateEmailAddress(emailId)) {
 
 			if (userLoginServiceDAO.isUserLocked(emailId)) {
-				
+
 				Date currentDate = new Date();
 				Date date = userLoginServiceDAO.getLockedTime(emailId);
 				Date lockedDate = new Date(date.getTime());
-				if((currentDate.getTime() - lockedDate.getTime()) > 1800000) {
-					
-					if(authenticateUser(emailId, password)) {
+				if ((currentDate.getTime() - lockedDate.getTime()) > 1800000) {
+
+					if (authenticateUser(emailId, password)) {
 
 						userMgmt = new UserMgmt();
-						userMgmt.setUserId(userLoginServiceDAO.getUserId(emailId)+"");
-					}else{
-						throw new ASException("1005", "Your account is locked. Please try after sometime.");
+						userMgmt.setUserId(userLoginServiceDAO
+								.getUserId(emailId) + "");
+					} else {
+						throw new ASException("1005",
+								"Your account is locked. Please try after sometime.");
 					}
-				}else{
-					
-					throw new ASException("1007", "Your account is locked. Please try after sometime.");
+				} else {
+
+					throw new ASException("1007",
+							"Your account is locked. Please try after sometime.");
 				}
 			} else {
-				if(authenticateUser(emailId, password)) {
+				if (authenticateUser(emailId, password)) {
 					userMgmt = new UserMgmt();
-					userMgmt.setUserId(userLoginServiceDAO.getUserId(emailId)+"");
+					userMgmt.setUserId(userLoginServiceDAO.getUserId(emailId)
+							+ "");
 				}
 			}
 		} else {
-			
-			throw new ASException("1001", "Invalid email address. Please Re-Enter");
+
+			throw new ASException("1001",
+					"Invalid email address. Please Re-Enter");
 		}
 		return userMgmt;
 	}
@@ -100,10 +107,13 @@ public class UserLoginServiceImpl implements UserLoginService {
 	}
 
 	@Override
-	public boolean resetPassword(String emailId, String oldPassword,
-			String newPassword) {
+	public boolean updatePassword(String emailId,
+			PasswordDetails passwordDetails) {
 
-		return userLoginServiceDAO.resetPassword(emailId, newPassword);
+		String newPassword = passwordDetails.getNewPassword();
+		String oldPassword = passwordDetails.getOldPassword();
+
+		return almService.updatePassword(emailId, oldPassword, newPassword);
 	}
 
 	@Override
@@ -129,7 +139,7 @@ public class UserLoginServiceImpl implements UserLoginService {
 	public boolean lockUser(String emailId) {
 
 		return userLoginServiceDAO.lockUser(emailId);
-		
+
 	}
 
 	@Override
@@ -149,47 +159,40 @@ public class UserLoginServiceImpl implements UserLoginService {
 		// TODO Auto-generated method stub
 	}
 
-	@Override
-	public Service authentication(String emailId, String password) {
-
-		return null;
-	}
-	
-	/**
-	 * @param emailId
-	 * @param password
-	 * @return
-	 */
 	private boolean authenticateUser(String emailId, String password) {
-		
-		ALMInterfaceService almService = (ALMInterfaceServiceImpl) externalServiceContext
-				.getBean("ALMExternalService");
-		
+
 		boolean loginStatus = false;
 
-		if (almService.authenticateUserALM(emailId,password)) {
-			System.out.println("nani"+emailId+"  "+password);
-			
+		if (almService.authenticateUserALM(emailId, password)) {
+
 			userLoginServiceDAO.doLogin(emailId, password);
 			userLoginServiceDAO.unLockUser(emailId);
 			userLoginServiceDAO.updateCount(0, emailId);
 			loginStatus = true;
-			
+
 		} else {
 
 			int count = userLoginServiceDAO.getCount(emailId);
 			if (count >= 2) {
-				
+
 				if (userLoginServiceDAO.lockUser(emailId))
-					throw new ASException("1002", "Your account is locked. Please try after sometime.");
+					throw new ASException("1002",
+							"Your account is locked. Please try after sometime.");
 			} else {
-				
+
 				count++;
 				userLoginServiceDAO.updateCount(count, emailId);
-				throw new ASException("1003", "Please enter valid EmailId and Password.");
+				throw new ASException("1003",
+						"Please enter valid EmailId and Password.");
 			}
 		}
-		
+
 		return loginStatus;
+	}
+
+	@Override
+	public boolean resetPassword(String emailId, String newPassword) {
+
+		return almService.resetPassword(emailId, newPassword);
 	}
 }
