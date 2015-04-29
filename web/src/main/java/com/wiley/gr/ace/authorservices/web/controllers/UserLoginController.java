@@ -53,16 +53,30 @@ public class UserLoginController extends ASExceptionController {
 	@RequestMapping(value = "/checkSecuritySetup/{emailId}", method = RequestMethod.GET)
 	public Service checkSecuritySetUp(@PathVariable("emailId") String emailId) {
 
-		boolean status = userLoginService.checkSecuritySetUp(emailId);
 		Service service = new Service();
-		service.setStatus("success");
-		UserMgmt userMgmt = new UserMgmt();
-		if (status) {
-			userMgmt.setIsSecuritySetup("true");
-		} else {
-			userMgmt.setIsSecuritySetup("false");
+		try {
+
+			boolean status = userLoginService.checkSecuritySetUp(emailId);
+			UserMgmt userMgmt = new UserMgmt();
+			if (status) {
+				userMgmt.setIsSecuritySetup("true");
+			} else {
+				userMgmt.setIsSecuritySetup("false");
+			}
+			service.setStatus("success");
+			service.setPayload(userMgmt);
+		} catch (ASException asException) {
+			service.setStatus("failed");
+			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
+			service.getError().setCode(
+					Integer.parseInt(asException.getErrorCode()));
+			service.getError().setMessage(asException.getDescription());
+		} catch (Exception exception) {
+			service.setStatus("failed");
+			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
+			service.getError().setCode(-1);
+			service.getError().setMessage(exception.getMessage());
 		}
-		service.setPayload(userMgmt);
 		return service;
 	}
 
@@ -77,19 +91,32 @@ public class UserLoginController extends ASExceptionController {
 			@RequestBody String password) {
 
 		Service service = new Service();
-		UserMgmt userMgmt = userLoginService.doLogin(emailId, password);
-		service.setStatus("success");
-		service.setPayload(userMgmt);
+		try {
 
+			service.setStatus("success");
+			service.setPayload(userLoginService.doLogin(emailId, password));
+		} catch (ASException asException) {
+			service.setStatus("failed");
+			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
+			service.getError().setCode(
+					Integer.parseInt(asException.getErrorCode()));
+			service.getError().setMessage(asException.getDescription());
+		} catch (Exception exception) {
+			service.setStatus("failed");
+			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
+			service.getError().setCode(-1);
+			service.getError().setMessage(exception.getMessage());
+		}
 		return service;
 	}
-	
+
 	@RequestMapping(value = "/orcid", method = RequestMethod.POST, produces = "application/json")
-	public Service doOrcidLogin(@RequestBody String email, @RequestBody String password){
-		
+	public Service doOrcidLogin(@RequestBody String email,
+			@RequestBody String password) {
+
 		Service service = new Service();
-		try{
-			
+		try {
+
 			User user = new User();
 			user.setUserId(1234);
 			user.setOrcidID("123");
@@ -104,7 +131,7 @@ public class UserLoginController extends ASExceptionController {
 			service.getError().setCode(
 					Integer.parseInt(asException.getErrorCode()));
 			service.getError().setMessage(asException.getDescription());
-		} catch(Exception exception) {
+		} catch (Exception exception) {
 			service.setStatus("failed");
 			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
 			service.getError().setCode(-1);
@@ -112,7 +139,7 @@ public class UserLoginController extends ASExceptionController {
 		}
 		return service;
 	}
-	
+
 	/**
 	 * this method takes the password from request body
 	 * 
@@ -120,17 +147,49 @@ public class UserLoginController extends ASExceptionController {
 	 * @return
 	 */
 	@RequestMapping(value = "/updatePassword/{emailId}", method = RequestMethod.POST)
-	public boolean updatePassword(@PathVariable("emailId") String emailId,
+	public Service updatePassword(@PathVariable("emailId") String emailId,
 			@RequestBody PasswordDetails passwordDetails) {
 
-		return userLoginService.updatePassword(emailId, passwordDetails);
+		Service service = new Service();
+		try {
+			userLoginService.updatePassword(emailId, passwordDetails);
+			service.setStatus("success");
+		} catch (ASException asException) {
+			service.setStatus("failed");
+			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
+			service.getError().setCode(
+					Integer.parseInt(asException.getErrorCode()));
+			service.getError().setMessage(asException.getDescription());
+		} catch (Exception exception) {
+			service.setStatus("failed");
+			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
+			service.getError().setCode(-1);
+			service.getError().setMessage(exception.getMessage());
+		}
+		return service;
 	}
 
 	@RequestMapping(value = "/resetPassword/{emailId}", method = RequestMethod.POST)
-	public boolean resetPassword(@PathVariable("emailId") String emailId,
+	public Service resetPassword(@PathVariable("emailId") String emailId,
 			@RequestBody String newPassword) {
 
-		return userLoginService.resetPassword(emailId, newPassword);
+		Service service = new Service();
+		try {
+			userLoginService.resetPassword(emailId, newPassword);
+			service.setStatus("success");
+		} catch (ASException asException) {
+			service.setStatus("failed");
+			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
+			service.getError().setCode(
+					Integer.parseInt(asException.getErrorCode()));
+			service.getError().setMessage(asException.getDescription());
+		} catch (Exception exception) {
+			service.setStatus("failed");
+			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
+			service.getError().setCode(-1);
+			service.getError().setMessage(exception.getMessage());
+		}
+		return service;
 	}
 
 	/**
@@ -141,35 +200,56 @@ public class UserLoginController extends ASExceptionController {
 	public Service getSecurityQuestions(@PathVariable("emailId") String emailId) {
 
 		Service service = new Service();
-		Security securityVO = userLoginService.getSecurityQuestions(emailId);
-		service.setStatus("success");
-		service.setPayload(securityVO);
+		try {
+			service.setStatus("success");
+			service.setPayload(userLoginService.getSecurityQuestions(emailId));
+		} catch (ASException asException) {
+			service.setStatus("failed");
+			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
+			service.getError().setCode(
+					Integer.parseInt(asException.getErrorCode()));
+			service.getError().setMessage(asException.getDescription());
+		} catch (Exception exception) {
+			service.setStatus("failed");
+			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
+			service.getError().setCode(-1);
+			service.getError().setMessage(exception.getMessage());
+		}
 		return service;
 	}
 
 	/**
-	 * this method requires json string like
-	 * { "id1": "SEQ5", "id2": "SEQ4", "securityQuestion1": "what's ur pet name", "securityQuestion2": "What is your birthday?","securityAnswer1": "cat","securityAnswer2": "i will not tell"}
-	 * This method takes reads Security from POST
+	 * this method requires json string like { "id1": "SEQ5", "id2": "SEQ4",
+	 * "securityQuestion1": "what's ur pet name", "securityQuestion2":
+	 * "What is your birthday?","securityAnswer1": "cat","securityAnswer2":
+	 * "i will not tell"} This method takes reads Security from POST
 	 * 
 	 * @param userId
 	 * @return
 	 */
 	@RequestMapping(value = "/valdiateSecurityQuestions/{emailId}", method = RequestMethod.POST)
-	public boolean validateSecurityQuestions(
+	public Service validateSecurityQuestions(
 			@PathVariable("emailId") String emailId,
 			@RequestBody Security securityDetails) {
 
-		return userLoginService.validateSecurityQuestions(emailId, securityDetails);
+		Service service = new Service();
+		try {
+			userLoginService
+					.validateSecurityQuestions(emailId, securityDetails);
+			service.setStatus("success");
+		} catch (ASException asException) {
+			service.setStatus("failed");
+			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
+			service.getError().setCode(
+					Integer.parseInt(asException.getErrorCode()));
+			service.getError().setMessage(asException.getDescription());
+		} catch (Exception exception) {
+			service.setStatus("failed");
+			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
+			service.getError().setCode(-1);
+			service.getError().setMessage(exception.getMessage());
+		}
+		return service;
 	}
 
-	/**
-	 * @param emailId
-	 * @return
-	 */
-	@RequestMapping(value = "/lockUser/{emailId}", method = RequestMethod.GET)
-	public boolean lockUser(@PathVariable("emailId") String emailId) {
-
-		return userLoginService.lockUser(emailId);
-	}
 }

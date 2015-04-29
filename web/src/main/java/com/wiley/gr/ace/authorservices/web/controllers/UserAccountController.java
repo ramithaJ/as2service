@@ -51,20 +51,20 @@ public class UserAccountController {
 	public Service getEmailDetails(@PathVariable("userId") String userId) {
 
 		Service service = new Service();
-		try{
-			
+		try {
+
 			service.setStatus("Success");
 			service.setPayload(userAccountService.getEmailDetails(userId));
-			
-		}catch (ASException asException) {
+
+		} catch (ASException asException) {
 
 			service.setStatus("failed");
 			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
 			service.getError().setCode(
 					Integer.parseInt(asException.getErrorCode()));
 			service.getError().setMessage(asException.getDescription());
-			
-		} catch(Exception exception) {
+
+		} catch (Exception exception) {
 			service.setStatus("failed");
 			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
 			service.getError().setCode(-1);
@@ -93,19 +93,20 @@ public class UserAccountController {
 			@RequestBody UserMgmt emailDetails) {
 
 		Service service = new Service();
-		try{
+		try {
 			service.setStatus("Success");
-			service.setPayload(userAccountService.updateEmailDetails(userId,emailDetails));
-			
-		}catch (ASException asException) {
+			service.setPayload(userAccountService.updateEmailDetails(userId,
+					emailDetails));
+
+		} catch (ASException asException) {
 
 			service.setStatus("failed");
 			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
 			service.getError().setCode(
 					Integer.parseInt(asException.getErrorCode()));
 			service.getError().setMessage(asException.getDescription());
-			
-		} catch(Exception exception) {
+
+		} catch (Exception exception) {
 			service.setStatus("failed");
 			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
 			service.getError().setCode(-1);
@@ -113,17 +114,15 @@ public class UserAccountController {
 		}
 		return service;
 	}
-	
-	
+
 	@RequestMapping(value = "/updateSecutiryDetails/{emailId}", method = RequestMethod.POST)
 	public boolean updateSecurityDetails(
 			@PathVariable("emailId") String emailId,
 			@RequestBody Security securityDetails) {
-				
-		userAccountService.updateSecurityDetails(emailId,securityDetails);
+
+		userAccountService.updateSecurityDetails(emailId, securityDetails);
 		return true;
-		
+
 	}
-	
 
 }
