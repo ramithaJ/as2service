@@ -11,8 +11,8 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service;
 
+import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.Security;
-import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.UserMgmt;
 /**
  * @author kpshiva
@@ -33,7 +33,14 @@ public interface UserLoginService {
 	 * @param password
 	 * @return
 	 */
-	boolean resetPassword(String emailId, String oldPassword, String newPassword);
+	boolean updatePassword(String emailId, PasswordDetails passwordDetails);
+	
+	/**
+	 * @param emailId
+	 * @param newPassword
+	 * @return
+	 */
+	boolean resetPassword(String emailId, String newPassword);
 
 	/**
 	 * @param userId
@@ -77,12 +84,5 @@ public interface UserLoginService {
 	 * @param template_id
 	 */
 	void sendEmail(String userId, String template_id);
-	
-	/**
-	 * @param emailId
-	 * @param password
-	 * @return
-	 */
-	Service authentication(String emailId, String password);
-	
+		
 }
