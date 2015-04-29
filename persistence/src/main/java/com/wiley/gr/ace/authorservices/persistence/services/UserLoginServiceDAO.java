@@ -27,12 +27,6 @@ public interface UserLoginServiceDAO {
 	 * @param emailId
 	 * @return
 	 */
-	boolean validateSecurityQuestions(String emailId);
-
-	/**
-	 * @param emailId
-	 * @return
-	 */
 	boolean isUserLocked(String emailId);
 
 	/**
@@ -65,14 +59,7 @@ public interface UserLoginServiceDAO {
 	 * @return
 	 */
 	boolean doLogin(String emailId, String password);
-	
-	/**
-	 * @param emailId
-	 * @param password
-	 * @return
-	 */
-	boolean resetPassword(String emailId, String password);
-	
+		
 	/**
 	 * @param emailId
 	 * @return
