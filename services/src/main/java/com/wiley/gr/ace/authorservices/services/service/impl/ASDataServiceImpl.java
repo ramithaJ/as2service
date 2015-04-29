@@ -17,7 +17,6 @@ import java.util.List;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import com.wiley.gr.ace.authorservices.model.Alert;
 import com.wiley.gr.ace.authorservices.model.Country;
 import com.wiley.gr.ace.authorservices.model.Department;
 import com.wiley.gr.ace.authorservices.model.Industry;
@@ -45,6 +44,7 @@ public class ASDataServiceImpl implements ASDataService {
 	private static ApplicationContext daoContext = new AnnotationConfigApplicationContext(
 			PersistenceBeanConfig.class);
 	ASDataDAO aSDataDAO = (ASDataDAOImpl) daoContext.getBean("ASDataDAO");
+
 	@Override
 	public List<Title> getTitles() {
 		// TODO Auto-generated method stub
@@ -119,20 +119,24 @@ public class ASDataServiceImpl implements ASDataService {
 
 	@Override
 	public StaticData[] getSecurityQuestions() {
-		
+
 		List<String> lookupList = aSDataDAO.getSecurityDetails();
-		System.out.println("nanu"+lookupList.get(0)+" " + lookupList.get(1));
+		System.out
+				.println("nanu" + lookupList.get(0) + " " + lookupList.get(1));
 		ArrayList<StaticData> securityQuestionsList = new ArrayList<StaticData>();
-		for (int i = 0; i <=19; i++) {
-			System.out.println("hello"+i);
+		for (int i = 0; i <= 19; i++) {
+			System.out.println("hello" + i);
 			StaticData staticData = new StaticData();
 			staticData.setId(lookupList.get(i));
 			staticData.setDescription(lookupList.get(++i));
-			System.out.println("hi"+i);
+			System.out.println("hi" + i);
 			securityQuestionsList.add(staticData);
-		}	
-		System.out.println("nani"+securityQuestionsList.get(0)+" "+securityQuestionsList.get(1)+" "+ securityQuestionsList.size());
-		return (StaticData[]) securityQuestionsList.toArray(new StaticData[securityQuestionsList.size()]);
+		}
+		System.out.println("nani" + securityQuestionsList.get(0) + " "
+				+ securityQuestionsList.get(1) + " "
+				+ securityQuestionsList.size());
+		return (StaticData[]) securityQuestionsList
+				.toArray(new StaticData[securityQuestionsList.size()]);
 	}
 
 }
