@@ -61,7 +61,7 @@ public class UserLoginController extends ASExceptionController {
 		} else {
 			userMgmt.setIsSecuritySetup("false");
 		}
-		service.setServiceObject(userMgmt);
+		service.setPayload(userMgmt);
 		return service;
 	}
 
@@ -78,7 +78,7 @@ public class UserLoginController extends ASExceptionController {
 		Service service = new Service();
 		UserMgmt userMgmt = userLoginService.doLogin(emailId, password);
 		service.setStatus("success");
-		service.setServiceObject(userMgmt);
+		service.setPayload(userMgmt);
 
 		return service;
 	}
@@ -96,18 +96,18 @@ public class UserLoginController extends ASExceptionController {
 			 * Service impl TODO
 			 */
 			service.setStatus("success");
-			service.setServiceObject(user);
+			service.setPayload(user);
 		} catch (ASException asException) {
 			service.setStatus("failed");
-			service.setErrorVO(new com.wiley.gr.ace.authorservices.model.Error());
-			service.getErrorVO().setErrorCode(
+			service.setError(new com.wiley.gr.ace.authorservices.model.Error());
+			service.getError().setCode(
 					Integer.parseInt(asException.getErrorCode()));
-			service.getErrorVO().setErrorMessage(asException.getDescription());
+			service.getError().setMessage(asException.getDescription());
 		} catch(Exception exception) {
 			service.setStatus("failed");
-			service.setErrorVO(new com.wiley.gr.ace.authorservices.model.Error());
-			service.getErrorVO().setErrorCode(-1);
-			service.getErrorVO().setErrorMessage(exception.getMessage());
+			service.setError(new com.wiley.gr.ace.authorservices.model.Error());
+			service.getError().setCode(-1);
+			service.getError().setMessage(exception.getMessage());
 		}
 		return service;
 	}
@@ -135,7 +135,7 @@ public class UserLoginController extends ASExceptionController {
 		Service service = new Service();
 		Security securityVO = userLoginService.getSecurityQuestions(emailId);
 		service.setStatus("success");
-		service.setServiceObject(securityVO);
+		service.setPayload(securityVO);
 		return service;
 	}
 

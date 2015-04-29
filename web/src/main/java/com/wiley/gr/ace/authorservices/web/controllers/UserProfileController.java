@@ -366,7 +366,7 @@ public class UserProfileController {
 				.getBean("UserProfileService");
 		Service service = new Service();
 		service.setStatus("success");
-		service.setServiceObject(userProfileService.getListOfAlerts(userId));
+		service.setPayload(userProfileService.getListOfAlerts(userId));
 
 		return service;
 	}

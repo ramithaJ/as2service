@@ -54,21 +54,21 @@ public class UserAccountController {
 		try{
 			
 			service.setStatus("Success");
-			service.setServiceObject(userAccountService.getEmailDetails(userId));
+			service.setPayload(userAccountService.getEmailDetails(userId));
 			
 		}catch (ASException asException) {
 
 			service.setStatus("failed");
-			service.setErrorVO(new com.wiley.gr.ace.authorservices.model.Error());
-			service.getErrorVO().setErrorCode(
+			service.setError(new com.wiley.gr.ace.authorservices.model.Error());
+			service.getError().setCode(
 					Integer.parseInt(asException.getErrorCode()));
-			service.getErrorVO().setErrorMessage(asException.getDescription());
+			service.getError().setMessage(asException.getDescription());
 			
 		} catch(Exception exception) {
 			service.setStatus("failed");
-			service.setErrorVO(new com.wiley.gr.ace.authorservices.model.Error());
-			service.getErrorVO().setErrorCode(-1);
-			service.getErrorVO().setErrorMessage(exception.getMessage());
+			service.setError(new com.wiley.gr.ace.authorservices.model.Error());
+			service.getError().setCode(-1);
+			service.getError().setMessage(exception.getMessage());
 		}
 		return service;
 	}
@@ -95,21 +95,21 @@ public class UserAccountController {
 		Service service = new Service();
 		try{
 			service.setStatus("Success");
-			service.setServiceObject(userAccountService.updateEmailDetails(userId,emailDetails));
+			service.setPayload(userAccountService.updateEmailDetails(userId,emailDetails));
 			
 		}catch (ASException asException) {
 
 			service.setStatus("failed");
-			service.setErrorVO(new com.wiley.gr.ace.authorservices.model.Error());
-			service.getErrorVO().setErrorCode(
+			service.setError(new com.wiley.gr.ace.authorservices.model.Error());
+			service.getError().setCode(
 					Integer.parseInt(asException.getErrorCode()));
-			service.getErrorVO().setErrorMessage(asException.getDescription());
+			service.getError().setMessage(asException.getDescription());
 			
 		} catch(Exception exception) {
 			service.setStatus("failed");
-			service.setErrorVO(new com.wiley.gr.ace.authorservices.model.Error());
-			service.getErrorVO().setErrorCode(-1);
-			service.getErrorVO().setErrorMessage(exception.getMessage());
+			service.setError(new com.wiley.gr.ace.authorservices.model.Error());
+			service.getError().setCode(-1);
+			service.getError().setMessage(exception.getMessage());
 		}
 		return service;
 	}

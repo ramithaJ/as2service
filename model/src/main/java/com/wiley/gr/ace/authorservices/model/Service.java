@@ -26,9 +26,9 @@ public class Service {
 	
 	private String status;
 	
-	private Object serviceObject;
+	private Object payload;
 	
-	private Error errorVO;
+	private Error error;
 
 	/**
 	 * @return
@@ -47,29 +47,29 @@ public class Service {
 	/**
 	 * @return
 	 */
-	public Object getServiceObject() {
-		return serviceObject;
+	public Object getPayload() {
+		return payload;
 	}
 
 	/**
-	 * @param serviceObject
+	 * @param payload
 	 */
-	public void setServiceObject(Object serviceObject) {
-		this.serviceObject = serviceObject;
+	public void setPayload(Object payload) {
+		this.payload = payload;
 	}
 
 	/**
 	 * @return
 	 */
-	public Error getErrorVO() {
-		return errorVO;
+	public Error getError() {
+		return error;
 	}
 
 	/**
-	 * @param errorVO
+	 * @param error
 	 */
-	public void setErrorVO(Error errorVO) {
-		this.errorVO = errorVO;
+	public void setError(Error error) {
+		this.error = error;
 	}
 	
 	

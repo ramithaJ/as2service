@@ -49,14 +49,14 @@ public class RegistrationController {
 
 		if (esbUser != null) {
 			service.setStatus("User email exists as primary email in the system");
-			service.setServiceObject(esbUser);
+			service.setPayload(esbUser);
 		} else {
 			List<ESBUser> esbUserList = rs.getUserFromFirstNameLastName(
 					firstName, lastName);
 			if (!esbUserList.isEmpty()) {
 				service.setStatus("Number of user with email as secondary email in the system is: "
 						+ esbUserList.size());
-				service.setServiceObject(esbUserList);
+				service.setPayload(esbUserList);
 			}
 		}
 
