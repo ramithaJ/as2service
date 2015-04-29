@@ -24,7 +24,7 @@ public interface ALMInterfaceService {
 	 * @param password
 	 * @return
 	 */
-	boolean authenticateUser(String emailId);
+	boolean authenticateAdminUser(String emailId);
 	
 	/**
 	 * @param emailId

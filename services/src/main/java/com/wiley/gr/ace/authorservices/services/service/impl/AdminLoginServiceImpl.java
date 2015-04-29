@@ -67,7 +67,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 		ALMInterfaceService almService = (ALMInterfaceServiceImpl) externalServiceContext
 				.getBean("ALMExternalService");
 
-		if (almService.authenticateUser(emailId)) {
+		if (almService.authenticateAdminUser(emailId)) {
 			// Calling dao for updating timestamp
 
 			UserLoginDao userlogindao = (UserLoginDaoImpl) daoContext
