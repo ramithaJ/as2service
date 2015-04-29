@@ -39,5 +39,18 @@ public class ALMInterfaceServiceImpl  implements ALMInterfaceService {
 		}
 	}
 
+	@Override
+	public boolean updatePassword(String emailId, String oldPassword,
+			String newPassword) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean resetPassword(String emailId, String newPassword) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
 	
 }
