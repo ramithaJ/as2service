@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
+import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.Security;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.User;
@@ -82,13 +83,19 @@ public class UserLoginController extends ASExceptionController {
 
 		return service;
 	}
-	
+
+	/**
+	 * @param email
+	 * @param password
+	 * @return
+	 */
 	@RequestMapping(value = "/orcid", method = RequestMethod.POST, produces = "application/json")
-	public Service doOrcidLogin(@RequestBody String email, @RequestBody String password){
-		
+	public Service doOrcidLogin(@RequestBody String email,
+			@RequestBody String password) {
+
 		Service service = new Service();
-		try{
-			
+		try {
+
 			User user = new User();
 			user.setUserId(1234);
 			user.setOrcidID("123");
@@ -103,7 +110,7 @@ public class UserLoginController extends ASExceptionController {
 			service.getErrorVO().setErrorCode(
 					Integer.parseInt(asException.getErrorCode()));
 			service.getErrorVO().setErrorMessage(asException.getDescription());
-		} catch(Exception exception) {
+		} catch (Exception exception) {
 			service.setStatus("failed");
 			service.setErrorVO(new com.wiley.gr.ace.authorservices.model.Error());
 			service.getErrorVO().setErrorCode(-1);
@@ -111,18 +118,28 @@ public class UserLoginController extends ASExceptionController {
 		}
 		return service;
 	}
+
 	/**
-	 * this method takes the password from request body
-	 * 
 	 * @param userId
+	 * @return
+	 */
+	@RequestMapping(value = "/updatePassword/{emailId}", method = RequestMethod.POST)
+	public boolean updatePassword(@PathVariable("emailId") String emailId,
+			@RequestBody PasswordDetails passwordDetails) {
+
+		return userLoginService.updatePassword(emailId, passwordDetails);
+	}
+
+	/**
+	 * @param emailId
+	 * @param newPassword
 	 * @return
 	 */
 	@RequestMapping(value = "/resetPassword/{emailId}", method = RequestMethod.POST)
 	public boolean resetPassword(@PathVariable("emailId") String emailId,
-			@RequestBody String oldPassword, @RequestBody String newPassword) {
+			@RequestBody String newPassword) {
 
-		return userLoginService
-				.resetPassword(emailId, oldPassword, newPassword);
+		return userLoginService.resetPassword(emailId, newPassword);
 	}
 
 	/**
@@ -140,9 +157,10 @@ public class UserLoginController extends ASExceptionController {
 	}
 
 	/**
-	 * this method requires json string like
-	 * { "id1": "SEQ5", "id2": "SEQ4", "securityQuestion1": "what's ur pet name", "securityQuestion2": "What is your birthday?","securityAnswer1": "cat","securityAnswer2": "i will not tell"}
-	 * This method takes reads Security from POST
+	 * this method requires json string like { "id1": "SEQ5", "id2": "SEQ4",
+	 * "securityQuestion1": "what's ur pet name", "securityQuestion2":
+	 * "What is your birthday?","securityAnswer1": "cat","securityAnswer2":
+	 * "i will not tell"} This method takes reads Security from POST
 	 * 
 	 * @param userId
 	 * @return
@@ -152,7 +170,8 @@ public class UserLoginController extends ASExceptionController {
 			@PathVariable("emailId") String emailId,
 			@RequestBody Security securityDetails) {
 
-		return userLoginService.validateSecurityQuestions(emailId, securityDetails);
+		return userLoginService.validateSecurityQuestions(emailId,
+				securityDetails);
 	}
 
 	/**
