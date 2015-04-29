@@ -51,24 +51,24 @@ public class UserAccountController {
 	public Service getEmailDetails(@PathVariable("userId") String userId) {
 
 		Service service = new Service();
-		try {
-
+		try{
+			
 			service.setStatus("Success");
-			service.setServiceObject(userAccountService.getEmailDetails(userId));
-
-		} catch (ASException asException) {
+			service.setPayload(userAccountService.getEmailDetails(userId));
+			
+		}catch (ASException asException) {
 
 			service.setStatus("failed");
-			service.setErrorVO(new com.wiley.gr.ace.authorservices.model.Error());
-			service.getErrorVO().setErrorCode(
+			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
+			service.getError().setCode(
 					Integer.parseInt(asException.getErrorCode()));
-			service.getErrorVO().setErrorMessage(asException.getDescription());
-
-		} catch (Exception exception) {
+			service.getError().setMessage(asException.getDescription());
+			
+		} catch(Exception exception) {
 			service.setStatus("failed");
-			service.setErrorVO(new com.wiley.gr.ace.authorservices.model.Error());
-			service.getErrorVO().setErrorCode(-1);
-			service.getErrorVO().setErrorMessage(exception.getMessage());
+			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
+			service.getError().setCode(-1);
+			service.getError().setMessage(exception.getMessage());
 		}
 		return service;
 	}
@@ -93,36 +93,37 @@ public class UserAccountController {
 			@RequestBody UserMgmt emailDetails) {
 
 		Service service = new Service();
-		try {
+		try{
 			service.setStatus("Success");
-			service.setServiceObject(userAccountService.updateEmailDetails(
-					userId, emailDetails));
-
-		} catch (ASException asException) {
+			service.setPayload(userAccountService.updateEmailDetails(userId,emailDetails));
+			
+		}catch (ASException asException) {
 
 			service.setStatus("failed");
-			service.setErrorVO(new com.wiley.gr.ace.authorservices.model.Error());
-			service.getErrorVO().setErrorCode(
+			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
+			service.getError().setCode(
 					Integer.parseInt(asException.getErrorCode()));
-			service.getErrorVO().setErrorMessage(asException.getDescription());
-
-		} catch (Exception exception) {
+			service.getError().setMessage(asException.getDescription());
+			
+		} catch(Exception exception) {
 			service.setStatus("failed");
-			service.setErrorVO(new com.wiley.gr.ace.authorservices.model.Error());
-			service.getErrorVO().setErrorCode(-1);
-			service.getErrorVO().setErrorMessage(exception.getMessage());
+			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
+			service.getError().setCode(-1);
+			service.getError().setMessage(exception.getMessage());
 		}
 		return service;
 	}
-
+	
+	
 	@RequestMapping(value = "/updateSecutiryDetails/{emailId}", method = RequestMethod.POST)
 	public boolean updateSecurityDetails(
 			@PathVariable("emailId") String emailId,
 			@RequestBody Security securityDetails) {
-
-		userAccountService.updateSecurityDetails(emailId, securityDetails);
+				
+		userAccountService.updateSecurityDetails(emailId,securityDetails);
 		return true;
-
+		
 	}
+	
 
 }

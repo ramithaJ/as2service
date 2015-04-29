@@ -62,7 +62,7 @@ public class UserLoginController extends ASExceptionController {
 		} else {
 			userMgmt.setIsSecuritySetup("false");
 		}
-		service.setServiceObject(userMgmt);
+		service.setPayload(userMgmt);
 		return service;
 	}
 
@@ -79,23 +79,17 @@ public class UserLoginController extends ASExceptionController {
 		Service service = new Service();
 		UserMgmt userMgmt = userLoginService.doLogin(emailId, password);
 		service.setStatus("success");
-		service.setServiceObject(userMgmt);
+		service.setPayload(userMgmt);
 
 		return service;
 	}
-
-	/**
-	 * @param email
-	 * @param password
-	 * @return
-	 */
+	
 	@RequestMapping(value = "/orcid", method = RequestMethod.POST, produces = "application/json")
-	public Service doOrcidLogin(@RequestBody String email,
-			@RequestBody String password) {
-
+	public Service doOrcidLogin(@RequestBody String email, @RequestBody String password){
+		
 		Service service = new Service();
-		try {
-
+		try{
+			
 			User user = new User();
 			user.setUserId(1234);
 			user.setOrcidID("123");
@@ -103,23 +97,25 @@ public class UserLoginController extends ASExceptionController {
 			 * Service impl TODO
 			 */
 			service.setStatus("success");
-			service.setServiceObject(user);
+			service.setPayload(user);
 		} catch (ASException asException) {
 			service.setStatus("failed");
-			service.setErrorVO(new com.wiley.gr.ace.authorservices.model.Error());
-			service.getErrorVO().setErrorCode(
+			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
+			service.getError().setCode(
 					Integer.parseInt(asException.getErrorCode()));
-			service.getErrorVO().setErrorMessage(asException.getDescription());
-		} catch (Exception exception) {
+			service.getError().setMessage(asException.getDescription());
+		} catch(Exception exception) {
 			service.setStatus("failed");
-			service.setErrorVO(new com.wiley.gr.ace.authorservices.model.Error());
-			service.getErrorVO().setErrorCode(-1);
-			service.getErrorVO().setErrorMessage(exception.getMessage());
+			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
+			service.getError().setCode(-1);
+			service.getError().setMessage(exception.getMessage());
 		}
 		return service;
 	}
-
+	
 	/**
+	 * this method takes the password from request body
+	 * 
 	 * @param userId
 	 * @return
 	 */
@@ -130,11 +126,6 @@ public class UserLoginController extends ASExceptionController {
 		return userLoginService.updatePassword(emailId, passwordDetails);
 	}
 
-	/**
-	 * @param emailId
-	 * @param newPassword
-	 * @return
-	 */
 	@RequestMapping(value = "/resetPassword/{emailId}", method = RequestMethod.POST)
 	public boolean resetPassword(@PathVariable("emailId") String emailId,
 			@RequestBody String newPassword) {
@@ -152,15 +143,14 @@ public class UserLoginController extends ASExceptionController {
 		Service service = new Service();
 		Security securityVO = userLoginService.getSecurityQuestions(emailId);
 		service.setStatus("success");
-		service.setServiceObject(securityVO);
+		service.setPayload(securityVO);
 		return service;
 	}
 
 	/**
-	 * this method requires json string like { "id1": "SEQ5", "id2": "SEQ4",
-	 * "securityQuestion1": "what's ur pet name", "securityQuestion2":
-	 * "What is your birthday?","securityAnswer1": "cat","securityAnswer2":
-	 * "i will not tell"} This method takes reads Security from POST
+	 * this method requires json string like
+	 * { "id1": "SEQ5", "id2": "SEQ4", "securityQuestion1": "what's ur pet name", "securityQuestion2": "What is your birthday?","securityAnswer1": "cat","securityAnswer2": "i will not tell"}
+	 * This method takes reads Security from POST
 	 * 
 	 * @param userId
 	 * @return
@@ -170,8 +160,7 @@ public class UserLoginController extends ASExceptionController {
 			@PathVariable("emailId") String emailId,
 			@RequestBody Security securityDetails) {
 
-		return userLoginService.validateSecurityQuestions(emailId,
-				securityDetails);
+		return userLoginService.validateSecurityQuestions(emailId, securityDetails);
 	}
 
 	/**
