@@ -11,21 +11,14 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.web.controllers;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.StaticData;
-import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
-import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
-import com.wiley.gr.ace.authorservices.persistence.services.impl.ASDataDAOImpl;
 import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
 import com.wiley.gr.ace.authorservices.services.service.ASDataService;
 import com.wiley.gr.ace.authorservices.services.service.impl.ASDataServiceImpl;
@@ -44,6 +37,7 @@ public class ASDataController {
 			ServiceBeanConfig.class);
 	ASDataService aSDataService = (ASDataServiceImpl) context
 			.getBean("ASDataService");
+
 	/**
 	 * @return
 	 */
@@ -149,27 +143,6 @@ public class ASDataController {
 	@RequestMapping(value = "/getSecurityQuestions/", method = RequestMethod.GET, produces = "application/json")
 	public StaticData[] getSecurityQuestions() {
 
-		/*Service service = new Service();
-		try {
-
-			service.setStatus("Success");
-			service.setServiceObject(aSDataService.getSecurityQuestions());
-		} catch (ASException asException) {
-
-			service.setStatus("failed");
-			service.setErrorVO(new com.wiley.gr.ace.authorservices.model.Error());
-			service.getErrorVO().setErrorCode(
-					Integer.parseInt(asException.getErrorCode()));
-			service.getErrorVO().setErrorMessage(asException.getDescription());
-
-		} catch (Exception exception) {
-			service.setStatus("failed");
-			service.setErrorVO(new com.wiley.gr.ace.authorservices.model.Error());
-			service.getErrorVO().setErrorCode(-1);
-			service.getErrorVO().setErrorMessage(exception.getMessage());
-		}
-		return service;*/
-		
 		return aSDataService.getSecurityQuestions();
 	}
 }
