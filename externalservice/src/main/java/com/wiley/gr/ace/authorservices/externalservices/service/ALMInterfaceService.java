@@ -26,6 +26,25 @@ public interface ALMInterfaceService {
 	 */
 	boolean authenticateUser(String emailId);
 	
+	/**
+	 * @param emailId
+	 * @param password
+	 * @return
+	 */
 	boolean authenticateUserALM(String emailId, String password);
 
+	/**
+	 * @param emailId
+	 * @param oldPassword
+	 * @param newPassword
+	 * @return
+	 */
+	boolean updatePassword(String emailId, String oldPassword, String newPassword);
+	
+	/**
+	 * @param emailId
+	 * @param newPassword
+	 * @return
+	 */
+	boolean resetPassword(String emailId, String newPassword);
 }
