@@ -12,32 +12,38 @@
 package com.wiley.gr.ace.authorservices.model;
 
 /**
- * This is the generic model for all dropdowns in AS2.0
- * @author SarmaKumarap
+ * @author kpshiva
  *
  */
-public class StaticData {
+public class PasswordDetails {
+
+	private String oldPassword;
 	
-	private String id;
+	private String newPassword;
 	
-	private String description;
-
-	public String getId() {
-		return id;
+	/**
+	 * @return
+	 */
+	public String getOldPassword() {
+		return oldPassword;
 	}
-
-	public void setId(String id) {
-		this.id = id;
+	/**
+	 * @param oldPassword
+	 */
+	public void setOldPassword(String oldPassword) {
+		this.oldPassword = oldPassword;
 	}
-
-	public String getDescription() {
-		return description;
+	/**
+	 * @return
+	 */
+	public String getNewPassword() {
+		return newPassword;
 	}
-
-	public void setDescription(String description) {
-		this.description = description;
+	/**
+	 * @param newPassword
+	 */
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
 	}
 	
-	
-
 }
