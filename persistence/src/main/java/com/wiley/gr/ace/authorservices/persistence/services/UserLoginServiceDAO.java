@@ -27,13 +27,13 @@ public interface UserLoginServiceDAO {
 	 * @param emailId
 	 * @return
 	 */
-	boolean isUserLocked(String emailId);
+	boolean isUserLocked(int userId);
 
 	/**
 	 * @param emailId
 	 * @return
 	 */
-	boolean lockUser(String emailId);
+	boolean lockUser(int userId);
 
 	/**
 	 * @param userId
@@ -58,7 +58,7 @@ public interface UserLoginServiceDAO {
 	 * @param password
 	 * @return
 	 */
-	boolean doLogin(String emailId, String password);
+	boolean doLogin(int userId, String password);
 		
 	/**
 	 * @param emailId
@@ -75,24 +75,24 @@ public interface UserLoginServiceDAO {
 	 * @param emailId
 	 * @return
 	 */
-	int getCount(String emailId);
+	int getCount(int userId);
 	
 	/**
 	 * @param count
 	 * @param emailId
 	 * @return
 	 */
-	boolean updateCount(int count, String emailId); 
+	boolean updateCount(int count, int userId); 
 	
 	/**
 	 * @param emailId
 	 * @return
 	 */
-	Date getLockedTime(String emailId);
+	Date getLockedTime(int userId);
 	
 	/**
 	 * @param emailId
 	 * @return
 	 */
-	boolean unLockUser(String emailId);
+	boolean unLockUser(int userId);
 }
