@@ -19,7 +19,6 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import com.wiley.gr.ace.authorservices.model.Security;
 import com.wiley.gr.ace.authorservices.model.UserMgmt;
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
-import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 import com.wiley.gr.ace.authorservices.persistence.services.UserAccountDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserAccountDAOImpl;
@@ -42,7 +41,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 	@Override
 	public UserMgmt[] getEmailDetails(String userId) {
 
-		AuthorProfile userProfile = userAccountDAO.getEmailDetails(userId);
+		//AuthorProfile userProfile = userAccountDAO.getEmailDetails(userId);
 		ArrayList<UserMgmt> email = new ArrayList<UserMgmt>();
 		UserMgmt userMgmt = new UserMgmt();
 		//Commented for Hibernate changes

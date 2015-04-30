@@ -18,7 +18,6 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import com.wiley.gr.ace.authorservices.externalservices.context.ExternalServiceBeanConfig;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
-import com.wiley.gr.ace.authorservices.model.UserProfile;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
 import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
