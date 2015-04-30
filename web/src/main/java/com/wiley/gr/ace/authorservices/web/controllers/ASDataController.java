@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
 import com.wiley.gr.ace.authorservices.services.service.ASDataService;
@@ -144,21 +143,9 @@ public class ASDataController {
 	public Service getSecurityQuestions() {
 
 		Service service = new Service();
-		try {
-			service.setStatus("success");
-			service.setPayload(aSDataService.getSecurityQuestions());
-		} catch (ASException asException) {
-			service.setStatus("failed");
-			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
-			service.getError().setCode(
-					Integer.parseInt(asException.getErrorCode()));
-			service.getError().setMessage(asException.getDescription());
-		} catch (Exception exception) {
-			service.setStatus("failed");
-			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
-			service.getError().setCode(-1);
-			service.getError().setMessage(exception.getMessage());
-		}
+		service.setStatus("success");
+		service.setPayload(aSDataService.getSecurityQuestions());
+		
 		return service;
 	}
 }

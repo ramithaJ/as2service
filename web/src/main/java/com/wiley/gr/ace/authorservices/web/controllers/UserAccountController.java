@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.Security;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.UserMgmt;
@@ -51,25 +50,11 @@ public class UserAccountController {
 	public Service getEmailDetails(@PathVariable("userId") String userId) {
 
 		Service service = new Service();
-		try {
 
-			service.setStatus("Success");
-			service.setPayload(userAccountService.getEmailDetails(userId));
+		service.setStatus("Success");
+		service.setPayload(userAccountService.getEmailDetails(userId));
 
-		} catch (ASException asException) {
-
-			service.setStatus("failed");
-			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
-			service.getError().setCode(
-					Integer.parseInt(asException.getErrorCode()));
-			service.getError().setMessage(asException.getDescription());
-
-		} catch (Exception exception) {
-			service.setStatus("failed");
-			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
-			service.getError().setCode(-1);
-			service.getError().setMessage(exception.getMessage());
-		}
+		
 		return service;
 	}
 
@@ -93,25 +78,11 @@ public class UserAccountController {
 			@RequestBody UserMgmt emailDetails) {
 
 		Service service = new Service();
-		try {
-			service.setStatus("Success");
-			service.setPayload(userAccountService.updateEmailDetails(userId,
-					emailDetails));
+		service.setStatus("Success");
+		service.setPayload(userAccountService.updateEmailDetails(userId,
+				emailDetails));
 
-		} catch (ASException asException) {
-
-			service.setStatus("failed");
-			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
-			service.getError().setCode(
-					Integer.parseInt(asException.getErrorCode()));
-			service.getError().setMessage(asException.getDescription());
-
-		} catch (Exception exception) {
-			service.setStatus("failed");
-			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
-			service.getError().setCode(-1);
-			service.getError().setMessage(exception.getMessage());
-		}
+		
 		return service;
 	}
 

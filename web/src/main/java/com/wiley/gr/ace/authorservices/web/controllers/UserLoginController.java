@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
 import com.wiley.gr.ace.authorservices.model.Login;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
@@ -79,22 +78,9 @@ public class UserLoginController extends ASExceptionController {
 	public Service doLogin(@RequestBody Login login) {
 
 		Service service = new Service();
-		try {
-
-			service.setStatus("success");
-			service.setPayload(userLoginService.doLogin(login.getEmailId(), login.getPassword()));
-		} catch (ASException asException) {
-			service.setStatus("failed");
-			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
-			service.getError().setCode(
-					Integer.parseInt(asException.getErrorCode()));
-			service.getError().setMessage(asException.getDescription());
-		} catch (Exception exception) {
-			service.setStatus("failed");
-			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
-			service.getError().setCode(-1);
-			service.getError().setMessage(exception.getMessage());
-		}
+		service.setStatus("success");
+		service.setPayload(userLoginService.doLogin(login.getEmailId(), login.getPassword()));
+		
 		return service;
 	}
 
@@ -103,28 +89,15 @@ public class UserLoginController extends ASExceptionController {
 			@RequestBody String password) {
 
 		Service service = new Service();
-		try {
-
-			User user = new User();
-			user.setUserId(1234);
-			user.setOrcidID("123");
-			/**
-			 * Service impl TODO
-			 */
-			service.setStatus("success");
-			service.setPayload(user);
-		} catch (ASException asException) {
-			service.setStatus("failed");
-			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
-			service.getError().setCode(
-					Integer.parseInt(asException.getErrorCode()));
-			service.getError().setMessage(asException.getDescription());
-		} catch (Exception exception) {
-			service.setStatus("failed");
-			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
-			service.getError().setCode(-1);
-			service.getError().setMessage(exception.getMessage());
-		}
+		User user = new User();
+		user.setUserId(1234);
+		user.setOrcidID("123");
+		/**
+		 * Service impl TODO
+		 */
+		service.setStatus("success");
+		service.setPayload(user);
+		
 		return service;
 	}
 
@@ -139,21 +112,9 @@ public class UserLoginController extends ASExceptionController {
 			@RequestBody PasswordDetails passwordDetails) {
 
 		Service service = new Service();
-		try {
-			userLoginService.updatePassword(emailId, passwordDetails);
-			service.setStatus("success");
-		} catch (ASException asException) {
-			service.setStatus("failed");
-			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
-			service.getError().setCode(
-					Integer.parseInt(asException.getErrorCode()));
-			service.getError().setMessage(asException.getDescription());
-		} catch (Exception exception) {
-			service.setStatus("failed");
-			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
-			service.getError().setCode(-1);
-			service.getError().setMessage(exception.getMessage());
-		}
+		userLoginService.updatePassword(emailId, passwordDetails);
+		service.setStatus("success");
+		
 		return service;
 	}
 
@@ -162,21 +123,9 @@ public class UserLoginController extends ASExceptionController {
 			@RequestBody String newPassword) {
 
 		Service service = new Service();
-		try {
-			userLoginService.resetPassword(emailId, newPassword);
-			service.setStatus("success");
-		} catch (ASException asException) {
-			service.setStatus("failed");
-			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
-			service.getError().setCode(
-					Integer.parseInt(asException.getErrorCode()));
-			service.getError().setMessage(asException.getDescription());
-		} catch (Exception exception) {
-			service.setStatus("failed");
-			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
-			service.getError().setCode(-1);
-			service.getError().setMessage(exception.getMessage());
-		}
+		userLoginService.resetPassword(emailId, newPassword);
+		service.setStatus("success");
+	
 		return service;
 	}
 
@@ -188,21 +137,9 @@ public class UserLoginController extends ASExceptionController {
 	public Service getSecurityQuestions(@PathVariable("emailId") String emailId) {
 
 		Service service = new Service();
-		try {
-			service.setStatus("success");
-			service.setPayload(userLoginService.getSecurityQuestions(emailId));
-		} catch (ASException asException) {
-			service.setStatus("failed");
-			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
-			service.getError().setCode(
-					Integer.parseInt(asException.getErrorCode()));
-			service.getError().setMessage(asException.getDescription());
-		} catch (Exception exception) {
-			service.setStatus("failed");
-			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
-			service.getError().setCode(-1);
-			service.getError().setMessage(exception.getMessage());
-		}
+		service.setStatus("success");
+		service.setPayload(userLoginService.getSecurityQuestions(emailId));
+		
 		return service;
 	}
 
@@ -221,22 +158,10 @@ public class UserLoginController extends ASExceptionController {
 			@RequestBody Security securityDetails) {
 
 		Service service = new Service();
-		try {
-			userLoginService
-					.validateSecurityQuestions(emailId, securityDetails);
-			service.setStatus("success");
-		} catch (ASException asException) {
-			service.setStatus("failed");
-			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
-			service.getError().setCode(
-					Integer.parseInt(asException.getErrorCode()));
-			service.getError().setMessage(asException.getDescription());
-		} catch (Exception exception) {
-			service.setStatus("failed");
-			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
-			service.getError().setCode(-1);
-			service.getError().setMessage(exception.getMessage());
-		}
+		userLoginService
+				.validateSecurityQuestions(emailId, securityDetails);
+		service.setStatus("success");
+	
 		return service;
 	}
 
