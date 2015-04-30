@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
 import com.wiley.gr.ace.authorservices.exception.context.ExceptionBeanConfig;
+import com.wiley.gr.ace.authorservices.model.Login;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
@@ -51,20 +52,19 @@ public class AdminLoginController extends ASExceptionController {
 	 * @return
 	 */
 	@RequestMapping(value = "/login/", method = RequestMethod.POST, produces = "application/json")
-	public Service login(@RequestBody String emailId,
-			@RequestBody String password) {
+	public Service login(@RequestBody Login login) {
 
 		Service serviceVO = new Service();
 		boolean status = false;
 		
 		AdminLoginService adminlogin = (AdminLoginServiceImpl) context
 				.getBean("AdminLoginService");
-		status = adminlogin.validateEmail(emailId);
+		status = adminlogin.validateEmail(login.getEmailId());
 		
 
 		if (status) {
 
-			adminlogin.doLogin(emailId);
+			adminlogin.doLogin(login.getEmailId());
 			serviceVO.setStatus("success");
 		} else {
 			throw new ASException("1001", "Invalid email address. Please Re-Enter");
