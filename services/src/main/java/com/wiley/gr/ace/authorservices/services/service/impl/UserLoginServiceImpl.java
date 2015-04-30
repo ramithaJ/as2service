@@ -49,15 +49,17 @@ public class UserLoginServiceImpl implements UserLoginService {
 
 		UserMgmt userMgmt = null;
 		if (userLoginServiceDAO.validateEmailAddress(emailId)) {
+			
+			int userId = userLoginServiceDAO.getUserId(emailId);
 
-			if (userLoginServiceDAO.isUserLocked(emailId)) {
+			if (userLoginServiceDAO.isUserLocked(userId)) {
 
 				Date currentDate = new Date();
-				Date date = userLoginServiceDAO.getLockedTime(emailId);
+				Date date = userLoginServiceDAO.getLockedTime(userId);
 				Date lockedDate = new Date(date.getTime());
 				if ((currentDate.getTime() - lockedDate.getTime()) > 1800000) {
 
-					if (authenticateUser(emailId, password)) {
+					if (authenticateUser(userId, emailId, password)) {
 
 						userMgmt = new UserMgmt();
 						userMgmt.setUserId(userLoginServiceDAO
@@ -72,10 +74,9 @@ public class UserLoginServiceImpl implements UserLoginService {
 							"Your account is locked. Please try after sometime.");
 				}
 			} else {
-				if (authenticateUser(emailId, password)) {
+				if (authenticateUser(userId, emailId, password)) {
 					userMgmt = new UserMgmt();
-					userMgmt.setUserId(userLoginServiceDAO.getUserId(emailId)
-							+ "");
+					userMgmt.setUserId(userId+ "");
 				}
 			}
 		} else {
@@ -136,9 +137,9 @@ public class UserLoginServiceImpl implements UserLoginService {
 	}
 
 	@Override
-	public boolean lockUser(String emailId) {
+	public boolean lockUser(int userId) {
 
-		return userLoginServiceDAO.lockUser(emailId);
+		return userLoginServiceDAO.lockUser(userId);
 
 	}
 
@@ -149,9 +150,9 @@ public class UserLoginServiceImpl implements UserLoginService {
 	}
 
 	@Override
-	public boolean isUserLocked(String emailId) {
+	public boolean isUserLocked(int userId) {
 
-		return userLoginServiceDAO.isUserLocked(emailId);
+		return userLoginServiceDAO.isUserLocked(userId);
 	}
 
 	@Override
@@ -159,29 +160,29 @@ public class UserLoginServiceImpl implements UserLoginService {
 		// TODO Auto-generated method stub
 	}
 
-	private boolean authenticateUser(String emailId, String password) {
+	private boolean authenticateUser(int userId, String emailId, String password) {
 
 		boolean loginStatus = false;
 
 		if (almService.authenticateUserALM(emailId, password)) {
 
-			userLoginServiceDAO.doLogin(emailId, password);
-			userLoginServiceDAO.unLockUser(emailId);
-			userLoginServiceDAO.updateCount(0, emailId);
+			userLoginServiceDAO.doLogin(userId, password);
+			userLoginServiceDAO.unLockUser(userId);
+			userLoginServiceDAO.updateCount(0, userId);
 			loginStatus = true;
 
 		} else {
 
-			int count = userLoginServiceDAO.getCount(emailId);
+			int count = userLoginServiceDAO.getCount(userId);
 			if (count >= 2) {
 
-				if (userLoginServiceDAO.lockUser(emailId))
+				if (userLoginServiceDAO.lockUser(userId))
 					throw new ASException("1002",
 							"Your account is locked. Please try after sometime.");
 			} else {
 
 				count++;
-				userLoginServiceDAO.updateCount(count, emailId);
+				userLoginServiceDAO.updateCount(count, userId);
 				throw new ASException("1003",
 						"Please enter valid EmailId and Password.");
 			}
