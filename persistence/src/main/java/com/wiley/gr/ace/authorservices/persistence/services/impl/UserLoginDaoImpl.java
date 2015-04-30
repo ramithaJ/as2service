@@ -70,7 +70,7 @@ public class UserLoginDaoImpl implements UserLoginDao {
 		
 		String hql = "from AuthorProfile where userId = :userId";
 		List<AuthorProfile> result = session.createQuery(hql)
-				.setString("emailId", emailId).list();
+				.setInteger("userId", userId).list();
 
 		if (result != null && result.size() > 0) {
 			authorProfile = result.get(0);
