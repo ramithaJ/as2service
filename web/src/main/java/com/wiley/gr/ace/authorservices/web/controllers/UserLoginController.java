@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
+import com.wiley.gr.ace.authorservices.model.Login;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.Security;
 import com.wiley.gr.ace.authorservices.model.Service;
@@ -50,33 +51,21 @@ public class UserLoginController extends ASExceptionController {
 	 * @param emailId
 	 * @return
 	 */
-	@RequestMapping(value = "/checkSecuritySetup/{emailId}", method = RequestMethod.GET)
-	public Service checkSecuritySetUp(@PathVariable("emailId") String emailId) {
+	@RequestMapping(value = "/checkSecuritySetup/", method = RequestMethod.GET)
+	public Service checkSecuritySetUp(@RequestBody String emailId) {
 
 		Service service = new Service();
-		try {
 
-			boolean status = userLoginService.checkSecuritySetUp(emailId);
-			UserMgmt userMgmt = new UserMgmt();
-			if (status) {
-				userMgmt.setIsSecuritySetup("true");
-			} else {
-				userMgmt.setIsSecuritySetup("false");
-			}
-			service.setStatus("success");
-			service.setPayload(userMgmt);
-		} catch (ASException asException) {
-			service.setStatus("failed");
-			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
-			service.getError().setCode(
-					Integer.parseInt(asException.getErrorCode()));
-			service.getError().setMessage(asException.getDescription());
-		} catch (Exception exception) {
-			service.setStatus("failed");
-			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
-			service.getError().setCode(-1);
-			service.getError().setMessage(exception.getMessage());
+		boolean status = userLoginService.checkSecuritySetUp(emailId);
+		UserMgmt userMgmt = new UserMgmt();
+		if (status) {
+			userMgmt.setIsSecuritySetup("true");
+		} else {
+			userMgmt.setIsSecuritySetup("false");
 		}
+		service.setStatus("success");
+		service.setPayload(userMgmt);
+		
 		return service;
 	}
 
@@ -87,14 +76,13 @@ public class UserLoginController extends ASExceptionController {
 	 * @return
 	 */
 	@RequestMapping(value = "/doLogin/", method = RequestMethod.POST)
-	public Service doLogin(@RequestBody String emailId,
-			@RequestBody String password) {
+	public Service doLogin(@RequestBody Login login) {
 
 		Service service = new Service();
 		try {
 
 			service.setStatus("success");
-			service.setPayload(userLoginService.doLogin(emailId, password));
+			service.setPayload(userLoginService.doLogin(login.getEmailId(), login.getPassword()));
 		} catch (ASException asException) {
 			service.setStatus("failed");
 			service.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
