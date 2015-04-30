@@ -50,8 +50,8 @@ public class AdminLoginController extends ASExceptionController {
 	 * @param password
 	 * @return
 	 */
-	@RequestMapping(value = "/login/{emailId}", method = RequestMethod.POST, produces = "application/json")
-	public Service login(@PathVariable("emailId") String emailId,
+	@RequestMapping(value = "/login/", method = RequestMethod.POST, produces = "application/json")
+	public Service login(@RequestBody String emailId,
 			@RequestBody String password) {
 
 		Service serviceVO = new Service();

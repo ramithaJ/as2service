@@ -86,8 +86,8 @@ public class UserLoginController extends ASExceptionController {
 	 * @param userId
 	 * @return
 	 */
-	@RequestMapping(value = "/doLogin/{emailId}", method = RequestMethod.POST)
-	public Service doLogin(@PathVariable("emailId") String emailId,
+	@RequestMapping(value = "/doLogin/", method = RequestMethod.POST)
+	public Service doLogin(@RequestBody String emailId,
 			@RequestBody String password) {
 
 		Service service = new Service();
