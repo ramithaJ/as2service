@@ -20,10 +20,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.wiley.gr.ace.authorservices.model.User;
-import com.wiley.gr.ace.authorservices.model.UserProfile;
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
-import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
+import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.UpdateUserDAO;
 
 /**
@@ -54,7 +53,7 @@ public class UpdateUserDAOImpl implements UpdateUserDAO {
 				 * Fetch user profile with user Id
 				 */
 				Transaction getTxn = session.beginTransaction();
-				AuthorProfile up = (AuthorProfile)session.load(UserProfile.class, user.getUserId());
+				Users up = (Users)session.load(Users.class, user.getUserId());
 				/*System.out.println("Before Update ::: "+up.getUserId());
 				System.out.println("Before Update ::: "+up.getPrimaryEmailAddr());
 				System.out.println("Before Update ::: "+up.getFirstName());
@@ -64,9 +63,9 @@ public class UpdateUserDAOImpl implements UpdateUserDAO {
 				/**
 				 * Update profile with ORCID details
 				 */
-				up.setPrimaryEmailAddr(user.getPrimaryEmailAddr());
-				up.setFirstName(user.getFirstName());
-				up.setLastName(user.getLastName());
+				up.setEmailAddr(user.getPrimaryEmailAddr());
+				/*up.setFirstName(user.getFirstName());
+				up.setLastName(user.getLastName());*/
 				Transaction updateTxn = session.beginTransaction();
 				session.update(up);
 				updateTxn.commit();
@@ -74,9 +73,9 @@ public class UpdateUserDAOImpl implements UpdateUserDAO {
 				System.out.println("After Update ::: "+up.getPrimaryEmailAddr());
 				System.out.println("After Update ::: "+up.getFirstName());
 				System.out.println("After Update ::: "+up.getLastName());*/
-				user.setPrimaryEmailAddr(up.getPrimaryEmailAddr());
-				user.setFirstName(up.getFirstName());
-				user.setLastName(up.getLastName());
+				user.setPrimaryEmailAddr(up.getEmailAddr());
+				/*user.setFirstName(up.getFirstName());
+				user.setLastName(up.getLastName());*/
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

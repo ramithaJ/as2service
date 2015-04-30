@@ -22,7 +22,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.wiley.gr.ace.authorservices.model.UserProfile;
-import com.wiley.gr.ace.authorservices.model.external.Article;
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserReferenceData;
