@@ -59,7 +59,7 @@ public interface UserLoginService {
 	 * @param userId
 	 * @return
 	 */
-	boolean lockUser(String emailId);
+	boolean lockUser(int userId);
 
 	/**
 	 * @param userId
@@ -77,7 +77,7 @@ public interface UserLoginService {
 	 * @param userId
 	 * @return
 	 */
-	boolean isUserLocked(String emailId);
+	boolean isUserLocked(int userId);
 
 	/**
 	 * @param userId
