@@ -34,8 +34,6 @@
 			class="com.wiley.gr.ace.authorservices.persistence.entity.AdditionalPermissionsId" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.Permissions" />
-		<mapping
-			class="com.wiley.gr.ace.authorservices.persistence.entity.AdminTasks" />
 		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Alerts" />
 		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.AuthCoauthDetails" />
 		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.AuthColleagueDetails" />
@@ -70,7 +68,5 @@
 			class="com.wiley.gr.ace.authorservices.persistence.entity.AdminDetails" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.LookupValues" />
-		<mapping
-			class="com.wiley.gr.ace.authorservices.persistence.entity.LookupValuesId" />
 	</session-factory>
 </hibernate-configuration>
