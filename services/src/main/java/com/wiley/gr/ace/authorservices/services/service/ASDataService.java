@@ -25,7 +25,6 @@ import com.wiley.gr.ace.authorservices.model.State;
 import com.wiley.gr.ace.authorservices.model.StaticData;
 import com.wiley.gr.ace.authorservices.model.Suffix;
 import com.wiley.gr.ace.authorservices.model.Title;
-import com.wiley.gr.ace.authorservices.persistence.entity.Article;
 
 /**
  * @author SarmaKumarap
@@ -81,7 +80,7 @@ public interface ASDataService {
 	/**
 	 * @return
 	 */
-	List<Article> getArticles();
+//	List<Article> getArticles();
 	
 	/**
 	 * @return

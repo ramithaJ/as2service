@@ -24,7 +24,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
-import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
+import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 
@@ -40,15 +40,15 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 			.getBean("HibernateConnection");
 
 	@Override
-	public List<UserProfile> getUsersList() {
+	public List<AuthorProfile> getUsersList() {
 
 		Session session = null;
 		Transaction transaction = null;
 		try {
 			session = con.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			List<UserProfile> upList = session
-					.createCriteria(UserProfile.class)
+			List<AuthorProfile> upList = session
+					.createCriteria(AuthorProfile.class)
 					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 			transaction.commit();
 			return upList;
@@ -69,8 +69,8 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 			session = con.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			boolean status = false;
-			String hql = "from UserProfile where primaryEmailAddr = :emailId";
-			List<UserProfile> result = session.createQuery(hql)
+			String hql = "from AuthorProfile where primaryEmailAddr = :emailId";
+			List<AuthorProfile> result = session.createQuery(hql)
 					.setString("emailId", emailId).list();
 			if (result != null && result.size() > 0)
 				status = true;
@@ -93,9 +93,9 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 			session = con.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			boolean isSecure = false;
-			Criteria criteria = session.createCriteria(UserProfile.class);
+			Criteria criteria = session.createCriteria(AuthorProfile.class);
 			criteria.add(Restrictions.eq("primaryEmailAddr", emailId));
-			UserProfile userProfile = (UserProfile) criteria.uniqueResult();
+			AuthorProfile userProfile = (AuthorProfile) criteria.uniqueResult();
 			if (null == userProfile)
 				return isSecure;
 			if (userProfile.getSecurityQuestFlg() == 'Y') {
@@ -122,9 +122,9 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 			transaction = session.beginTransaction();
 			Criteria criteria = session.createCriteria(
 					UserSecurityDetails.class, "userSecurityDetails");
-			criteria.createAlias("userSecurityDetails.userProfile",
-					"userProfile");
-			criteria.add(Restrictions.eq("userProfile.userId", userId));
+			criteria.createAlias("userSecurityDetails.authorProfile",
+					"authorProfile");
+			criteria.add(Restrictions.eq("authorProfile.userId", userId));
 			List<UserSecurityDetails> userSecurityDetails = criteria.list();
 			transaction.commit();
 			return userSecurityDetails;
@@ -146,7 +146,7 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 			transaction = session.beginTransaction();
 			Date date = new Date();
 
-			String hql = "UPDATE UserProfile set lastLoginDate = :lastLoginDate, updatedBy = :updatedBy, updatedDate = :updatedDate "
+			String hql = "UPDATE AuthorProfile set lastLoginDate = :lastLoginDate, updatedBy = :updatedBy, updatedDate = :updatedDate "
 					+ "WHERE primaryEmailAddr = :emailId";
 			Query query = session.createQuery(hql);
 			query.setParameter("lastLoginDate", date);
@@ -177,9 +177,9 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 		try {
 			session = con.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			Criteria criteria = session.createCriteria(UserProfile.class);
+			Criteria criteria = session.createCriteria(AuthorProfile.class);
 			criteria.add(Restrictions.eq("primaryEmailAddr", emailId));
-			UserProfile userProfile = (UserProfile) criteria.uniqueResult();
+			AuthorProfile userProfile = (AuthorProfile) criteria.uniqueResult();
 			if (null == userProfile)
 				return isLocked;
 			if (userProfile.getIsAccountLocked() == 'Y') {
@@ -206,7 +206,7 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 		try {
 			session = con.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			String hql = "UPDATE UserProfile set isAccountLocked = :isAccountLocked, accountLockedTime = :accountLockedTime "
+			String hql = "UPDATE AuthorProfile set isAccountLocked = :isAccountLocked, accountLockedTime = :accountLockedTime "
 					+ "WHERE primaryEmailAddr = :emailId";
 			Query query = session.createQuery(hql);
 			query.setParameter("isAccountLocked", 'Y');
@@ -235,9 +235,9 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 		try {
 			session = con.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			Criteria criteria = session.createCriteria(UserProfile.class);
+			Criteria criteria = session.createCriteria(AuthorProfile.class);
 			criteria.add(Restrictions.eq("primaryEmailAddr", emailId));
-			UserProfile userProfile = (UserProfile) criteria.uniqueResult();
+			AuthorProfile userProfile = (AuthorProfile) criteria.uniqueResult();
 			int usreId = userProfile.getUserId();
 			transaction.commit();
 			return usreId;
@@ -257,9 +257,9 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 		try {
 			session = con.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			Criteria criteria = session.createCriteria(UserProfile.class);
+			Criteria criteria = session.createCriteria(AuthorProfile.class);
 			criteria.add(Restrictions.eq("primaryEmailAddr", emailId));
-			UserProfile userProfile = (UserProfile) criteria.uniqueResult();
+			AuthorProfile userProfile = (AuthorProfile) criteria.uniqueResult();
 			int count = userProfile.getInvalidLoginCnt();
 			transaction.commit();
 			return count;
@@ -280,7 +280,7 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 		try {
 			session = con.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			String hql = "UPDATE UserProfile set invalidLoginCnt = :invalidLoginCnt "
+			String hql = "UPDATE AuthorProfile set invalidLoginCnt = :invalidLoginCnt "
 					+ "WHERE primaryEmailAddr = :emailId";
 			Query query = session.createQuery(hql);
 			query.setParameter("invalidLoginCnt", count);
@@ -306,9 +306,9 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 		try {
 			session = con.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			Criteria criteria = session.createCriteria(UserProfile.class);
+			Criteria criteria = session.createCriteria(AuthorProfile.class);
 			criteria.add(Restrictions.eq("primaryEmailAddr", emailId));
-			UserProfile userProfile = (UserProfile) criteria.uniqueResult();
+			AuthorProfile userProfile = (AuthorProfile) criteria.uniqueResult();
 			Date lockedTime = userProfile.getAccountLockedTime();
 			transaction.commit();
 			return lockedTime;
@@ -328,7 +328,7 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 		try {
 			session = con.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			String hql = "UPDATE UserProfile set isAccountLocked = :isAccountLocked "
+			String hql = "UPDATE AuthorProfile set isAccountLocked = :isAccountLocked "
 					+ "WHERE primaryEmailAddr = :emailId";
 			Query query = session.createQuery(hql);
 			query.setParameter("isAccountLocked", 'N');

@@ -1,14 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
- *
- * All material contained herein is proprietary to John Wiley & Sons 
- * and its third party suppliers, if any. The methods, techniques and 
- * technical concepts contained herein are considered trade secrets 
- * and confidential and may be protected by intellectual property laws.  
- * Reproduction or distribution of this material, in whole or in part, 
- * is strictly forbidden except by express prior written permission 
- * of John Wiley & Sons.
- *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
 import javax.persistence.Column;
@@ -61,10 +50,10 @@ public class AdditionalPermissionsId implements java.io.Serializable {
 		this.permissionId = permissionId;
 	}
 
-	/*public boolean equals(Object other) {
-		if (this == other)
+	public boolean equals(Object other) {
+		if ((this == other))
 			return true;
-		if (other == null)
+		if ((other == null))
 			return false;
 		if (!(other instanceof AdditionalPermissionsId))
 			return false;
@@ -95,6 +84,6 @@ public class AdditionalPermissionsId implements java.io.Serializable {
 				+ (getPermissionId() == null ? 0 : this.getPermissionId()
 						.hashCode());
 		return result;
-	}*/
+	}
 
 }

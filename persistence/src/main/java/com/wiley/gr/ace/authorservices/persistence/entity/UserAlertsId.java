@@ -1,14 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
- *
- * All material contained herein is proprietary to John Wiley & Sons 
- * and its third party suppliers, if any. The methods, techniques and 
- * technical concepts contained herein are considered trade secrets 
- * and confidential and may be protected by intellectual property laws.  
- * Reproduction or distribution of this material, in whole or in part, 
- * is strictly forbidden except by express prior written permission 
- * of John Wiley & Sons.
- *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
 import javax.persistence.Column;
@@ -20,23 +9,23 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class UserAlertsId implements java.io.Serializable {
 
-	private Integer userId;
+	private int userId;
 	private int alertId;
 
 	public UserAlertsId() {
 	}
 
-	public UserAlertsId(Integer userId, int alertId) {
+	public UserAlertsId(int userId, int alertId) {
 		this.userId = userId;
 		this.alertId = alertId;
 	}
 
 	@Column(name = "USER_ID", nullable = false, precision = 22, scale = 0)
-	public Integer getUserId() {
+	public int getUserId() {
 		return this.userId;
 	}
 
-	public void setUserId(Integer userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 
@@ -49,7 +38,7 @@ public class UserAlertsId implements java.io.Serializable {
 		this.alertId = alertId;
 	}
 
-	/*public boolean equals(Object other) {
+	public boolean equals(Object other) {
 		if ((this == other))
 			return true;
 		if ((other == null))
@@ -58,19 +47,16 @@ public class UserAlertsId implements java.io.Serializable {
 			return false;
 		UserAlertsId castOther = (UserAlertsId) other;
 
-		return ((this.getUserId() == castOther.getUserId()) || (this
-				.getUserId() != null && castOther.getUserId() != null && this
-				.getUserId().equals(castOther.getUserId())))
+		return (this.getUserId() == castOther.getUserId())
 				&& (this.getAlertId() == castOther.getAlertId());
 	}
 
 	public int hashCode() {
 		int result = 17;
 
-		result = 37 * result
-				+ (getUserId() == null ? 0 : this.getUserId().hashCode());
+		result = 37 * result + this.getUserId();
 		result = 37 * result + this.getAlertId();
 		return result;
 	}
-*/
+
 }

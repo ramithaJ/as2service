@@ -1,14 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
- *
- * All material contained herein is proprietary to John Wiley & Sons 
- * and its third party suppliers, if any. The methods, techniques and 
- * technical concepts contained herein are considered trade secrets 
- * and confidential and may be protected by intellectual property laws.  
- * Reproduction or distribution of this material, in whole or in part, 
- * is strictly forbidden except by express prior written permission 
- * of John Wiley & Sons.
- *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
 import java.util.Date;
@@ -18,7 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -35,11 +23,13 @@ public class Permissions implements java.io.Serializable {
 	private String permActiveNotes;
 	private Date createdDate;
 	private String createdBy;
-	private String updatedBy;
 	private Date updatedDate;
+	private String updatedBy;
+	private String permType;
 	private Set<AdditionalPermissions> additionalPermissionses = new HashSet<AdditionalPermissions>(
 			0);
-	private Set<Roles> roleses = new HashSet<Roles>(0);
+	private Set<RolePermissions> rolePermissionses = new HashSet<RolePermissions>(
+			0);
 
 	public Permissions() {
 	}
@@ -50,19 +40,21 @@ public class Permissions implements java.io.Serializable {
 
 	public Permissions(Integer permissionId, String permissionName,
 			String levelOfPermission, String permActiveNotes, Date createdDate,
-			String createdBy, String updatedBy, Date updatedDate,
+			String createdBy, Date updatedDate, String updatedBy,
+			String permType,
 			Set<AdditionalPermissions> additionalPermissionses,
-			Set<Roles> roleses) {
+			Set<RolePermissions> rolePermissionses) {
 		this.permissionId = permissionId;
 		this.permissionName = permissionName;
 		this.levelOfPermission = levelOfPermission;
 		this.permActiveNotes = permActiveNotes;
 		this.createdDate = createdDate;
 		this.createdBy = createdBy;
-		this.updatedBy = updatedBy;
 		this.updatedDate = updatedDate;
+		this.updatedBy = updatedBy;
+		this.permType = permType;
 		this.additionalPermissionses = additionalPermissionses;
-		this.roleses = roleses;
+		this.rolePermissionses = rolePermissionses;
 	}
 
 	@Id
@@ -111,22 +103,13 @@ public class Permissions implements java.io.Serializable {
 		this.createdDate = createdDate;
 	}
 
-	@Column(name = "CREATED_BY", length = 50)
+	@Column(name = "CREATED_BY", length = 100)
 	public String getCreatedBy() {
 		return this.createdBy;
 	}
 
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
-	}
-
-	@Column(name = "UPDATED_BY", length = 50)
-	public String getUpdatedBy() {
-		return this.updatedBy;
-	}
-
-	public void setUpdatedBy(String updatedBy) {
-		this.updatedBy = updatedBy;
 	}
 
 	@Column(name = "UPDATED_DATE")
@@ -136,6 +119,24 @@ public class Permissions implements java.io.Serializable {
 
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
+	}
+
+	@Column(name = "UPDATED_BY", length = 100)
+	public String getUpdatedBy() {
+		return this.updatedBy;
+	}
+
+	public void setUpdatedBy(String updatedBy) {
+		this.updatedBy = updatedBy;
+	}
+
+	@Column(name = "PERM_TYPE", length = 25)
+	public String getPermType() {
+		return this.permType;
+	}
+
+	public void setPermType(String permType) {
+		this.permType = permType;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "permissions")
@@ -148,13 +149,13 @@ public class Permissions implements java.io.Serializable {
 		this.additionalPermissionses = additionalPermissionses;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "permissionses")
-	public Set<Roles> getRoleses() {
-		return this.roleses;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "permissions")
+	public Set<RolePermissions> getRolePermissionses() {
+		return this.rolePermissionses;
 	}
 
-	public void setRoleses(Set<Roles> roleses) {
-		this.roleses = roleses;
+	public void setRolePermissionses(Set<RolePermissions> rolePermissionses) {
+		this.rolePermissionses = rolePermissionses;
 	}
 
 }

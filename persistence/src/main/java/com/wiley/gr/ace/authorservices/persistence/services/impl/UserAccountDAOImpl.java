@@ -21,7 +21,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
-import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
+import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 import com.wiley.gr.ace.authorservices.persistence.services.UserAccountDAO;
 
 /**
@@ -36,17 +36,17 @@ public class UserAccountDAOImpl implements UserAccountDAO {
 			.getBean("HibernateConnection");
 
 	@Override
-	public UserProfile getEmailDetails(String userId) {
+	public AuthorProfile getEmailDetails(String userId) {
 
 		Session session = null;
 		Transaction transaction = null;
 		try {
 			session = con.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			Criteria criteria = session.createCriteria(UserProfile.class);
+			Criteria criteria = session.createCriteria(AuthorProfile.class);
 			criteria.add(Restrictions.eq("userId", Integer.parseInt(userId)));
-			UserProfile userProfile = (UserProfile) criteria.uniqueResult();
-			System.out.println("shiva" + userProfile.getSecondaryEmailAddr());
+			AuthorProfile userProfile = (AuthorProfile) criteria.uniqueResult();
+			//System.out.println("shiva" + userProfile.getSecondaryEmailAddr());
 			if (null == userProfile)
 				return null;
 			transaction.commit();
@@ -70,7 +70,7 @@ public class UserAccountDAOImpl implements UserAccountDAO {
 			transaction = session.beginTransaction();
 			
 			String hql = "UPDATE UserSecurityDetails set securityQuestion = :securityQuestion, securityAnswer = :securityAnswer "
-					+ "WHERE userProfile.userId = :userId";
+					+ "WHERE authorProfile.userId = :userId";
 			Query query = session.createQuery(hql);
 			query.setParameter("securityQuestion", question1);
 			query.setParameter("securityAnswer", answer1);
@@ -95,7 +95,7 @@ public class UserAccountDAOImpl implements UserAccountDAO {
 		try {
 			session = con.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			String hql = "UPDATE UserProfile set primaryEmailAddr = :primaryEmailAddr, secondaryEmailAddr = :secondaryEmailAddr "
+			String hql = "UPDATE AuthorProfile set primaryEmailAddr = :primaryEmailAddr, secondaryEmailAddr = :secondaryEmailAddr "
 					+ "WHERE userId = :userId";
 			Query query = session.createQuery(hql);
 			query.setParameter("primaryEmailAddr", primaryEmail);

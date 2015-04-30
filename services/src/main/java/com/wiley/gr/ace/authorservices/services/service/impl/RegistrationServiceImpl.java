@@ -18,9 +18,10 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import com.wiley.gr.ace.authorservices.externalservices.context.ExternalServiceBeanConfig;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
+import com.wiley.gr.ace.authorservices.model.UserProfile;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
-import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
+import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 import com.wiley.gr.ace.authorservices.persistence.services.RegistrationServiceDAO;
 import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
 
@@ -40,7 +41,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 	@Override
 	public void createUser(String contactID, ESBUser esbUser) {
 
-		UserProfile userProfile = new UserProfile();
+		AuthorProfile userProfile = new AuthorProfile();
 		/*if (contactID.isEmpty()) {
 			ESBUser esbUserAfterCreate = esbInterFaceService
 					.createCustomer(esbUser);

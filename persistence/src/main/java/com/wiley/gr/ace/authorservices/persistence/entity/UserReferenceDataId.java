@@ -1,14 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
- *
- * All material contained herein is proprietary to John Wiley & Sons 
- * and its third party suppliers, if any. The methods, techniques and 
- * technical concepts contained herein are considered trade secrets 
- * and confidential and may be protected by intellectual property laws.  
- * Reproduction or distribution of this material, in whole or in part, 
- * is strictly forbidden except by express prior written permission 
- * of John Wiley & Sons.
- *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
 import javax.persistence.Column;
@@ -40,7 +29,7 @@ public class UserReferenceDataId implements java.io.Serializable {
 		this.userId = userId;
 	}
 
-	@Column(name = "ECID", nullable = false, length = 15)
+	@Column(name = "ECID", nullable = false, length = 50)
 	public String getEcid() {
 		return this.ecid;
 	}
@@ -49,7 +38,7 @@ public class UserReferenceDataId implements java.io.Serializable {
 		this.ecid = ecid;
 	}
 
-	/*public boolean equals(Object other) {
+	public boolean equals(Object other) {
 		if ((this == other))
 			return true;
 		if ((other == null))
@@ -71,6 +60,6 @@ public class UserReferenceDataId implements java.io.Serializable {
 		result = 37 * result
 				+ (getEcid() == null ? 0 : this.getEcid().hashCode());
 		return result;
-	}*/
+	}
 
 }

@@ -1,14 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
- *
- * All material contained herein is proprietary to John Wiley & Sons 
- * and its third party suppliers, if any. The methods, techniques and 
- * technical concepts contained herein are considered trade secrets 
- * and confidential and may be protected by intellectual property laws.  
- * Reproduction or distribution of this material, in whole or in part, 
- * is strictly forbidden except by express prior written permission 
- * of John Wiley & Sons.
- *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
 import javax.persistence.AttributeOverride;
@@ -30,7 +19,7 @@ public class UserAlerts implements java.io.Serializable {
 
 	private UserAlertsId id;
 	private Alerts alerts;
-	private UserProfile userProfile;
+	private AuthorProfile authorProfile;
 	private Character onScreenFlg;
 	private Character emailFlg;
 	private String emailAddrAlertNotification;
@@ -38,18 +27,19 @@ public class UserAlerts implements java.io.Serializable {
 	public UserAlerts() {
 	}
 
-	public UserAlerts(UserAlertsId id, Alerts alerts, UserProfile userProfile) {
+	public UserAlerts(UserAlertsId id, Alerts alerts,
+			AuthorProfile authorProfile) {
 		this.id = id;
 		this.alerts = alerts;
-		this.userProfile = userProfile;
+		this.authorProfile = authorProfile;
 	}
 
-	public UserAlerts(UserAlertsId id, Alerts alerts, UserProfile userProfile,
-			Character onScreenFlg, Character emailFlg,
-			String emailAddrAlertNotification) {
+	public UserAlerts(UserAlertsId id, Alerts alerts,
+			AuthorProfile authorProfile, Character onScreenFlg,
+			Character emailFlg, String emailAddrAlertNotification) {
 		this.id = id;
 		this.alerts = alerts;
-		this.userProfile = userProfile;
+		this.authorProfile = authorProfile;
 		this.onScreenFlg = onScreenFlg;
 		this.emailFlg = emailFlg;
 		this.emailAddrAlertNotification = emailAddrAlertNotification;
@@ -67,7 +57,7 @@ public class UserAlerts implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ALERT_ID", nullable = false, insertable = false, updatable = false)
 	public Alerts getAlerts() {
 		return this.alerts;
@@ -79,12 +69,12 @@ public class UserAlerts implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "USER_ID", nullable = false, insertable = false, updatable = false)
-	public UserProfile getUserProfile() {
-		return this.userProfile;
+	public AuthorProfile getAuthorProfile() {
+		return this.authorProfile;
 	}
 
-	public void setUserProfile(UserProfile userProfile) {
-		this.userProfile = userProfile;
+	public void setAuthorProfile(AuthorProfile authorProfile) {
+		this.authorProfile = authorProfile;
 	}
 
 	@Column(name = "ON_SCREEN_FLG", length = 1)

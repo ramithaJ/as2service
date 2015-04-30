@@ -20,9 +20,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.wiley.gr.ace.authorservices.model.User;
+import com.wiley.gr.ace.authorservices.model.UserProfile;
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
-import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
+import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 import com.wiley.gr.ace.authorservices.persistence.services.UpdateUserDAO;
 
 /**
@@ -53,7 +54,7 @@ public class UpdateUserDAOImpl implements UpdateUserDAO {
 				 * Fetch user profile with user Id
 				 */
 				Transaction getTxn = session.beginTransaction();
-				UserProfile up = (UserProfile)session.load(UserProfile.class, user.getUserId());
+				AuthorProfile up = (AuthorProfile)session.load(UserProfile.class, user.getUserId());
 				/*System.out.println("Before Update ::: "+up.getUserId());
 				System.out.println("Before Update ::: "+up.getPrimaryEmailAddr());
 				System.out.println("Before Update ::: "+up.getFirstName());

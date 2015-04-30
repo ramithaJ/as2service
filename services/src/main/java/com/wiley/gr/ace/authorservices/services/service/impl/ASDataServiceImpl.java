@@ -30,7 +30,6 @@ import com.wiley.gr.ace.authorservices.model.StaticData;
 import com.wiley.gr.ace.authorservices.model.Suffix;
 import com.wiley.gr.ace.authorservices.model.Title;
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
-import com.wiley.gr.ace.authorservices.persistence.entity.Article;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.ASDataDAOImpl;
 import com.wiley.gr.ace.authorservices.services.service.ASDataService;
@@ -99,11 +98,11 @@ public class ASDataServiceImpl implements ASDataService {
 		return null;
 	}
 
-	@Override
-	public List<Article> getArticles() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public List<Article> getArticles() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 	@Override
 	public List<Society> getSocieties() {

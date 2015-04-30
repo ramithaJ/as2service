@@ -13,12 +13,12 @@ package com.wiley.gr.ace.authorservices.persistence.services;
 
 import java.util.List;
 
-import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
+import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 
 public interface RegistrationServiceDAO {
-	void createUser(UserProfile userProfile);
-	List<UserProfile> getUserFromFirstNameLastName(String firstName, String lastName);
-	List<UserProfile> getFromPrimaryEmailAddres(String emailId);
-	List<UserProfile> getFromSecondaryEmailAddress(String emailId);
+	void createUser(AuthorProfile userProfile);
+	List<AuthorProfile> getUserFromFirstNameLastName(String firstName, String lastName);
+	List<AuthorProfile> getFromPrimaryEmailAddres(String emailId);
+	List<AuthorProfile> getFromSecondaryEmailAddress(String emailId);
 
 }

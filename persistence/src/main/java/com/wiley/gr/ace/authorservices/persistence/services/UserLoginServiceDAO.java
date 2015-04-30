@@ -14,7 +14,7 @@ package com.wiley.gr.ace.authorservices.persistence.services;
 import java.util.Date;
 import java.util.List;
 
-import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
+import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
 
 /**
@@ -69,7 +69,7 @@ public interface UserLoginServiceDAO {
 	/**
 	 * @return
 	 */
-	List<UserProfile> getUsersList();
+	List<AuthorProfile> getUsersList();
 	
 	/**
 	 * @param emailId
