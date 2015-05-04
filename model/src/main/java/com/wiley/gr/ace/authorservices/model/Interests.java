@@ -17,54 +17,36 @@ package com.wiley.gr.ace.authorservices.model;
  */
 public class Interests {
 	
-	private String interestId;
+	private String aoeId;
 	
-	private String interestCategory;
+	private String aoeCategory;
 	
-	private String interestName;
+	private String aoeName;
 
-	/**
-	 * @return
-	 */
-	public String getInterestId() {
-		return interestId;
+	public String getAoeId() {
+		return aoeId;
 	}
 
-	/**
-	 * @param interestId
-	 */
-	public void setInterestId(String interestId) {
-		this.interestId = interestId;
+	public void setAoeId(String aoeId) {
+		this.aoeId = aoeId;
 	}
 
-	/**
-	 * @return
-	 */
-	public String getInterestCategory() {
-		return interestCategory;
+	public String getAoeCategory() {
+		return aoeCategory;
 	}
 
-	/**
-	 * @param interestCategory
-	 */
-	public void setInterestCategory(String interestCategory) {
-		this.interestCategory = interestCategory;
+	public void setAoeCategory(String aoeCategory) {
+		this.aoeCategory = aoeCategory;
 	}
 
-	/**
-	 * @return
-	 */
-	public String getInterestName() {
-		return interestName;
+	public String getAoeName() {
+		return aoeName;
 	}
 
-	/**
-	 * @param interestName
-	 */
-	public void setInterestName(String interestName) {
-		this.interestName = interestName;
+	public void setAoeName(String aoeName) {
+		this.aoeName = aoeName;
 	}
-	
+
 	
 
 }
