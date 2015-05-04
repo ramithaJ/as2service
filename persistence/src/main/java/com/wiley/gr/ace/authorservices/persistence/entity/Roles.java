@@ -25,6 +25,7 @@ public class Roles implements java.io.Serializable {
 	private String createdBy;
 	private Date updatedDate;
 	private String updatedBy;
+	private String roleType;
 	private Set<Users> userses = new HashSet<Users>(0);
 	private Set<AdditionalPermissions> additionalPermissionses = new HashSet<AdditionalPermissions>(
 			0);
@@ -40,7 +41,7 @@ public class Roles implements java.io.Serializable {
 
 	public Roles(Integer roleId, String roleName, String description,
 			Date createdDate, String createdBy, Date updatedDate,
-			String updatedBy, Set<Users> userses,
+			String updatedBy, String roleType, Set<Users> userses,
 			Set<AdditionalPermissions> additionalPermissionses,
 			Set<RolePermissions> rolePermissionses) {
 		this.roleId = roleId;
@@ -50,6 +51,7 @@ public class Roles implements java.io.Serializable {
 		this.createdBy = createdBy;
 		this.updatedDate = updatedDate;
 		this.updatedBy = updatedBy;
+		this.roleType = roleType;
 		this.userses = userses;
 		this.additionalPermissionses = additionalPermissionses;
 		this.rolePermissionses = rolePermissionses;
@@ -117,6 +119,15 @@ public class Roles implements java.io.Serializable {
 
 	public void setUpdatedBy(String updatedBy) {
 		this.updatedBy = updatedBy;
+	}
+	
+	@Column(name = "ROLE_TYPE", length = 50)
+	public String getRoleType() {
+		return this.roleType;
+	}
+
+	public void setRoleType(String roleType) {
+		this.roleType = roleType;
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "roleses")
