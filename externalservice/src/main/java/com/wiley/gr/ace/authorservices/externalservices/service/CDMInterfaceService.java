@@ -12,6 +12,7 @@
 
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
+import com.wiley.gr.ace.authorservices.model.Interests;
 import com.wiley.gr.ace.authorservices.model.external.CDMAffiliation;
 
 public interface CDMInterfaceService {
@@ -25,4 +26,5 @@ public interface CDMInterfaceService {
 	boolean addAffiliationsForUser(CDMAffiliation cdmAffiliation);
 	CDMAffiliation[] editAffialiationsForUser(String userId ,String affiliationId);
 
+	Interests[] getInterests(String userId);
 }
