@@ -27,4 +27,6 @@ public interface CDMInterfaceService {
 	CDMAffiliation[] editAffialiationsForUser(String userId ,String affiliationId);
 
 	Interests[] getInterests(String userId);
+
+	boolean addInterest(String userId, Interests interest);
 }
