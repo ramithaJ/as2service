@@ -152,6 +152,28 @@ final String url = "http://demo6003007.mockable.io/user/editAffiliation/Aff1";
 		
 
 	}
+	
+	@Override
+	public boolean removeInterest(String userId, String interestId) {
+
+		final String url="http://demo6374909.mockable.io/user/removeInterest/ecId";
+		URI uri = null;
+		try{
+			
+			uri = new URI(url);
+			RestTemplate restTemplate = new RestTemplate();
+			HttpHeaders requestHeaders = new HttpHeaders();
+			HttpEntity<Interests> requestEntity = new HttpEntity<Interests>(requestHeaders);
+			ResponseEntity<Interests> response = restTemplate.exchange(uri,
+					HttpMethod.POST, requestEntity, Interests.class);
+			response.getBody();
+			return true;
+			
+		} catch (URISyntaxException e) {
+				
+			throw new ASException();
+		}		
+	}
 }
 		
 

@@ -308,7 +308,10 @@ CDMInterfaceService cdmservices = (CDMInterfaceServiceImpl) externalServiceConte
 	public Service removeInterest(@PathVariable("userId") String userId,
 			@RequestBody String interestId) {
 
-		return null;
+		Service service = new Service();
+		cdmservices.removeInterest(userId,interestId);
+		service.setStatus("Success");
+		return service;
 	}
 
 	/**
