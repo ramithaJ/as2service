@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.externalservices.context.ExternalServiceBeanConfig;
 import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.CDMInterfaceServiceImpl;
@@ -86,11 +87,17 @@ private static ApplicationContext externalServiceContext = new AnnotationConfigA
 	@RequestMapping(value = "/updateAffiliation/{userId}/{affiliationId}", method = RequestMethod.POST, produces = "application/json")
 	public Service updateAffiliation(@PathVariable("userId") String userId,
 			@RequestBody CDMAffiliation cdmAffiliation) {
-		
+		 
+		boolean status = false;
 		CDMInterfaceService cdmservices = (CDMInterfaceServiceImpl) externalServiceContext.getBean("CDMInterfaceService");
 		Service service = new Service();
-		service.setPayload(cdmservices.updateAffiliationForUser(cdmAffiliation));
-	
+		//service.setPayload(cdmservices.updateAffiliationForUser(cdmAffiliation));
+	  status=cdmservices.updateAffiliationForUser(cdmAffiliation);
+	   if(status){
+		   
+		   service.setStatus("success");
+	   }
+	  
 
 		return service;
 	}
@@ -106,8 +113,13 @@ private static ApplicationContext externalServiceContext = new AnnotationConfigA
 			@PathVariable("affiliationId") String affiliationId) {
 		CDMInterfaceService cdmservices = (CDMInterfaceServiceImpl) externalServiceContext.getBean("CDMInterfaceService");
 		Service service = new Service();
-	service.setPayload(cdmservices.deleteAffiliationForUser(userId, affiliationId));
-
+		boolean status = false;
+	//service.setPayload(cdmservices.deleteAffiliationForUser(userId, affiliationId));
+   status=cdmservices.deleteAffiliationForUser(userId, affiliationId);
+   if(status)
+   {
+	   service.setStatus("success");
+   }
 		return service;
 	}
 
@@ -120,11 +132,16 @@ private static ApplicationContext externalServiceContext = new AnnotationConfigA
 	@RequestMapping(value = "/addAffiliation/{userId}", method = RequestMethod.POST, produces = "application/json")
 	public Service addAffiliation(@PathVariable("userId") String userId,
 			@RequestBody CDMAffiliation cdmAffiliation) {
+		boolean status=false;
 		
 		CDMInterfaceService cdmservices = (CDMInterfaceServiceImpl) externalServiceContext.getBean("CDMInterfaceService");
 		Service service = new Service();
-		service.setPayload(cdmservices.addAffiliationsForUser(cdmAffiliation));
-	
+        status=cdmservices.addAffiliationsForUser(cdmAffiliation);
+	if (status)
+	{
+		
+		service.setStatus("success");
+	}
 
 		return service;
 	}
