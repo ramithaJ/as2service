@@ -13,6 +13,8 @@ package com.wiley.gr.ace.authorservices.persistence.services;
 
 import java.util.List;
 
+import com.wiley.gr.ace.authorservices.persistence.entity.Roles;
+
 /**
  * @author kpshiva
  *
@@ -24,5 +26,10 @@ public interface ASDataDAO {
 	 * 
 	 */
 	List<String> getSecurityDetails();
+	
+	/**
+	 * @return
+	 */
+	List<Roles> getAdminRoles();
 
 }
