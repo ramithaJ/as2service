@@ -16,6 +16,13 @@ import com.wiley.gr.ace.authorservices.model.external.CDMAffiliation;
 
 public interface CDMInterfaceService {
 
-	
-	CDMAffiliation[]  getAffiliationsForUser(String userId);
+	CDMAffiliation[] getAffiliationsForUser(String userId);
+
+	boolean updateAffiliationForUser(CDMAffiliation cdmAffiliation);
+
+	boolean deleteAffiliationForUser(String userId, String affiliationId);
+
+	boolean addAffiliationsForUser(CDMAffiliation cdmAffiliation);
+	CDMAffiliation[] editAffialiationsForUser(String userId ,String affiliationId);
+
 }

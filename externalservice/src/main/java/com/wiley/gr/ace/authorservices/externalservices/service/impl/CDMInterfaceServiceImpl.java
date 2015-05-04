@@ -22,7 +22,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
+import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
+import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.external.CDMAffiliation;
 
 public class CDMInterfaceServiceImpl implements CDMInterfaceService {
@@ -52,4 +54,72 @@ public class CDMInterfaceServiceImpl implements CDMInterfaceService {
 		}
 	}
 
-}
+	@Override
+	public boolean updateAffiliationForUser(CDMAffiliation cdmAffiliation) {
+		final String url = "http://demo6003007.mockable.io/user/updateAffiliation";
+		Service service = (Service) StubInvokerUtil.invokeStub(url, HttpMethod.POST, "Service");
+		String status = service.getStatus();
+
+		if (status != null && status.equalsIgnoreCase("success")) {
+			return true;
+		} 
+		return false;
+			
+
+		
+
+	}
+
+	@Override
+	public boolean addAffiliationsForUser(CDMAffiliation cdmAffiliation) {
+		final String url = "http://demo6003007.mockable.io/user/updateAffiliation";
+		Service service = (Service) StubInvokerUtil.invokeStub(url, HttpMethod.POST, "Service");
+		String status = service.getStatus();
+
+		if (status != null && status.equalsIgnoreCase("success")) {
+			return true;
+		} 
+		return false;
+			
+	}
+
+	@Override
+	public boolean deleteAffiliationForUser(String userId,String affiliationId) {
+		final String url = "http://demo6003007.mockable.io/user/updateAffiliation";
+		Service service = (Service) StubInvokerUtil.invokeStub(url, HttpMethod.POST, "Service");
+		String status = service.getStatus();
+
+		if (status != null && status.equalsIgnoreCase("success")) {
+			return true;
+		} 
+		return false;
+			
+	}
+
+	@Override
+	public CDMAffiliation[] editAffialiationsForUser(String userId,
+			String affiliationId) {
+		
+		final String url = "http://demo6003007.mockable.io/user/editAffiliation/{affiliaitionId}";
+
+
+		URI uri = null;
+		try {
+			uri = new URI(url);
+			RestTemplate restTemplate = new RestTemplate();
+			HttpHeaders requestHeaders = new HttpHeaders();
+			HttpEntity<CDMAffiliation[]> requestEntity = new HttpEntity<CDMAffiliation[]>(requestHeaders);
+
+			ResponseEntity<CDMAffiliation[]> response = restTemplate.exchange(uri,
+					HttpMethod.GET, requestEntity, CDMAffiliation[].class);
+			return response.getBody();
+			
+
+		} catch (URISyntaxException e) {
+
+			throw new ASException();
+
+		}
+	}
+	}
+
