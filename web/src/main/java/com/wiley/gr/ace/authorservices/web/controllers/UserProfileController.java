@@ -74,7 +74,6 @@ CDMInterfaceService cdmservices = (CDMInterfaceServiceImpl) externalServiceConte
 	@RequestMapping(value = "/editAffiliation/{userId}/{affiliationId}", method = RequestMethod.GET, produces = "application/json")
 	public Service editAffiliation(@PathVariable("userId") String userId,
 			@PathVariable("affiliationId") String affiliationId) {
-		boolean status = false;
 
 		CDMInterfaceService cdmservices = (CDMInterfaceServiceImpl) externalServiceContext
 				.getBean("CDMInterfaceService");
