@@ -24,6 +24,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
 import com.wiley.gr.ace.authorservices.persistence.entity.LookupValues;
+import com.wiley.gr.ace.authorservices.persistence.entity.Roles;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
 
 /**
@@ -63,6 +64,33 @@ public class ASDataDAOImpl implements ASDataDAO {
 			}
 		}
 
+		return list;
+	}
+
+	@Override
+	public List<Roles> getAdminRoles() {
+		
+		Session session = null;
+		List<Roles> list = new ArrayList();
+		String roleType = "Internal";
+		
+		try {
+			
+			session = con.getSessionFactory().openSession();
+			
+			String hql = "from Roles where roleType = :roleType";
+			
+			list = session.createQuery(hql)
+					.setString("roleType", roleType).list();
+			
+			
+		} finally {
+			if (session != null) {
+				session.flush();
+				session.close();
+			}
+		}
+		
 		return list;
 	}
 }
