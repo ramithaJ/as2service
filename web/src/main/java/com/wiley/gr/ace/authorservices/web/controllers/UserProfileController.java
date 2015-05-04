@@ -26,6 +26,7 @@ import com.wiley.gr.ace.authorservices.externalservices.context.ExternalServiceB
 import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.CDMInterfaceServiceImpl;
 import com.wiley.gr.ace.authorservices.model.Alert;
+import com.wiley.gr.ace.authorservices.model.Interests;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.external.CDMAffiliation;
 import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
@@ -286,9 +287,12 @@ CDMInterfaceService cdmservices = (CDMInterfaceServiceImpl) externalServiceConte
 	 */
 	@RequestMapping(value = "/addInterests/{userId}", method = RequestMethod.POST, produces = "application/json")
 	public Service addInterests(@PathVariable("userId") String userId,
-			@RequestBody String interestsJson) {
+			@RequestBody Interests interestsJson) {
 
-		return null;
+		Service service = new Service();
+		cdmservices.addInterest(userId, interestsJson);
+		service.setStatus("Success");
+		return service;
 	}
 
 	/**
