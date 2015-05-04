@@ -20,6 +20,7 @@ import com.wiley.gr.ace.authorservices.model.Institution;
 import com.wiley.gr.ace.authorservices.model.Interests;
 import com.wiley.gr.ace.authorservices.model.JobCategory;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
+import com.wiley.gr.ace.authorservices.model.Role;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.State;
 import com.wiley.gr.ace.authorservices.model.StaticData;
@@ -96,5 +97,10 @@ public interface ASDataService {
 	 * @return
 	 */
 	StaticData[] getSecurityQuestions();
+	
+	/**
+	 * @return
+	 */
+	List<Role> getAdminRoles();
 	
 }
