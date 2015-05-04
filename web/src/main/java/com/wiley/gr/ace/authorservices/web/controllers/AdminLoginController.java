@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
 import com.wiley.gr.ace.authorservices.exception.context.ExceptionBeanConfig;
+import com.wiley.gr.ace.authorservices.model.AdminUser;
 import com.wiley.gr.ace.authorservices.model.Login;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
@@ -86,5 +87,12 @@ public class AdminLoginController extends ASExceptionController {
 
 		return null;
 
+	}
+	
+	@RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/json")
+	public Service createAdmin(@RequestBody AdminUser admin) {
+		
+		return null;
+		
 	}
 }
