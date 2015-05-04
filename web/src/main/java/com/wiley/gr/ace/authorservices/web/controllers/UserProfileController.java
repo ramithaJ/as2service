@@ -57,7 +57,9 @@ CDMInterfaceService cdmservices = (CDMInterfaceServiceImpl) externalServiceConte
 		CDMInterfaceService cdmservices = (CDMInterfaceServiceImpl) externalServiceContext
 				.getBean("CDMInterfaceService");
 		Service service = new Service();
+		
 		service.setPayload(cdmservices.getAffiliationsForUser(userId));
+		service.setStatus("success");
 
 		return service;
 	}
@@ -72,14 +74,17 @@ CDMInterfaceService cdmservices = (CDMInterfaceServiceImpl) externalServiceConte
 	@RequestMapping(value = "/editAffiliation/{userId}/{affiliationId}", method = RequestMethod.GET, produces = "application/json")
 	public Service editAffiliation(@PathVariable("userId") String userId,
 			@PathVariable("affiliationId") String affiliationId) {
+		boolean status = false;
 
 		CDMInterfaceService cdmservices = (CDMInterfaceServiceImpl) externalServiceContext
 				.getBean("CDMInterfaceService");
 		Service service = new Service();
-
+        
 		service.setPayload(cdmservices.editAffialiationsForUser(userId,
 				affiliationId));
-
+		service.setStatus("success");
+     
+		
 		return service;
 	}
 
@@ -445,6 +450,7 @@ CDMInterfaceService cdmservices = (CDMInterfaceServiceImpl) externalServiceConte
 				.getBean("UserProfileService");
 		Service service = new Service();
 		userProfileService.updateAlerts(userId, alertsList);
+		service.setStatus("success");
 
 		return service;
 	}
