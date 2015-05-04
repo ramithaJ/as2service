@@ -29,4 +29,5 @@ public interface CDMInterfaceService {
 	Interests[] getInterests(String userId);
 
 	boolean addInterest(String userId, Interests interest);
+	boolean removeInterest(String userId, String interestId);
 }
