@@ -44,31 +44,6 @@ public class UserLoginController extends ASExceptionController {
 			.getBean("UserLoginService");
 
 	/**
-	 * This method takes email in encrypted format like --
-	 * kondavinay4%40gmail.com
-	 * 
-	 * @param emailId
-	 * @return
-	 */
-	@RequestMapping(value = "/checkSecuritySetup/", method = RequestMethod.GET)
-	public Service checkSecuritySetUp(@RequestBody String emailId) {
-
-		Service service = new Service();
-
-		boolean status = userLoginService.checkSecuritySetUp(emailId);
-		UserMgmt userMgmt = new UserMgmt();
-		if (status) {
-			userMgmt.setIsSecuritySetup("true");
-		} else {
-			userMgmt.setIsSecuritySetup("false");
-		}
-		service.setStatus("success");
-		service.setPayload(userMgmt);
-		
-		return service;
-	}
-
-	/**
 	 * this method takes the password from request body
 	 * 
 	 * @param userId
@@ -120,7 +95,7 @@ public class UserLoginController extends ASExceptionController {
 
 	@RequestMapping(value = "/resetPassword/{emailId}", method = RequestMethod.POST)
 	public Service resetPassword(@PathVariable("emailId") String emailId,
-			@RequestBody String newPassword) {
+			@RequestBody String newPassword)  {
 
 		Service service = new Service();
 		userLoginService.resetPassword(emailId, newPassword);
@@ -158,8 +133,8 @@ public class UserLoginController extends ASExceptionController {
 			@RequestBody Security securityDetails) {
 
 		Service service = new Service();
-		userLoginService
-				.validateSecurityQuestions(emailId, securityDetails);
+		service.setPayload(userLoginService
+				.validateSecurityQuestions(emailId, securityDetails));
 		service.setStatus("success");
 	
 		return service;
