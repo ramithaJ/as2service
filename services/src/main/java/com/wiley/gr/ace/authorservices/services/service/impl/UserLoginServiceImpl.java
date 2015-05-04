@@ -124,6 +124,7 @@ public class UserLoginServiceImpl implements UserLoginService {
 		Integer userId = userLoginServiceDAO.getUserId(emailId);
 		List<UserSecurityDetails> securityQuestionslist = userLoginServiceDAO
 				.getSecurityQuestions(userId);
+		
 		if (securityDetails.getSecurityQuestion1().equalsIgnoreCase(
 				securityQuestionslist.get(0).getSecurityQuestion())
 				&& securityDetails.getSecurityAnswer1().equalsIgnoreCase(
@@ -131,9 +132,14 @@ public class UserLoginServiceImpl implements UserLoginService {
 				&& securityDetails.getSecurityQuestion2().equalsIgnoreCase(
 						securityQuestionslist.get(1).getSecurityQuestion())
 				&& securityDetails.getSecurityAnswer2().equalsIgnoreCase(
-						securityQuestionslist.get(1).getSecurityAnswer()))
+						securityQuestionslist.get(1).getSecurityAnswer())){
 			return true;
-		return false;
+		}else{
+			
+			throw new ASException("1011",
+					"Please enter valid security details.");
+		}
+			
 	}
 
 	@Override
