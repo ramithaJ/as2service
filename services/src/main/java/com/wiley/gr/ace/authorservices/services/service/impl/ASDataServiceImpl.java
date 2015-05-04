@@ -122,20 +122,13 @@ public class ASDataServiceImpl implements ASDataService {
 	public StaticData[] getSecurityQuestions() {
 
 		List<String> lookupList = aSDataDAO.getSecurityDetails();
-		System.out
-				.println("nanu" + lookupList.get(0) + " " + lookupList.get(1));
 		ArrayList<StaticData> securityQuestionsList = new ArrayList<StaticData>();
 		for (int i = 0; i <= 19; i++) {
-			System.out.println("hello" + i);
 			StaticData staticData = new StaticData();
 			staticData.setId(lookupList.get(i));
 			staticData.setDescription(lookupList.get(++i));
-			System.out.println("hi" + i);
 			securityQuestionsList.add(staticData);
 		}
-		System.out.println("nani" + securityQuestionsList.get(0) + " "
-				+ securityQuestionsList.get(1) + " "
-				+ securityQuestionsList.size());
 		return (StaticData[]) securityQuestionsList
 				.toArray(new StaticData[securityQuestionsList.size()]);
 	}
