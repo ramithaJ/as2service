@@ -43,14 +43,20 @@ public class ALMInterfaceServiceImpl  implements ALMInterfaceService {
 	@Override
 	public boolean authenticateUserALM(String emailId, String password) {
 
-		final String url = "http://demo6003007.mockable.io/user/login";
+		/*final String url = "http://demo6003007.mockable.io/user/login";
 		Service service = (Service) StubInvokerUtil.invokeStub(url, HttpMethod.POST, "Service");
 		String status = service.getStatus();
 
 		if (status != null && status.equalsIgnoreCase("success")) {
 			return true;
 		} 
-		return false;
+		return false;*/
+		
+		if (password.equalsIgnoreCase("Password")){
+			return true;
+		}else{
+			return false;
+		}
 
 	}
 
