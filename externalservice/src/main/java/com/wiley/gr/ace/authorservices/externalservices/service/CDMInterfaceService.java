@@ -24,7 +24,7 @@ public interface CDMInterfaceService {
 	boolean deleteAffiliationForUser(String userId, String affiliationId);
 
 	boolean addAffiliationsForUser(CDMAffiliation cdmAffiliation);
-	CDMAffiliation[] editAffialiationsForUser(String userId ,String affiliationId);
+	CDMAffiliation editAffialiationsForUser(String userId ,String affiliationId);
 
 	Interests[] getInterests(String userId);
 

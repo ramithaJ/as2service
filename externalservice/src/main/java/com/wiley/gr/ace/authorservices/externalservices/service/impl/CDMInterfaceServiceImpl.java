@@ -98,29 +98,12 @@ public class CDMInterfaceServiceImpl implements CDMInterfaceService {
 	}
 
 	@Override
-	public CDMAffiliation[] editAffialiationsForUser(String userId,
+	public CDMAffiliation editAffialiationsForUser(String userId,
 			String affiliationId) {
 		
-		final String url = "http://demo6003007.mockable.io/user/editAffiliation/{affiliaitionId}";
-
-
-		URI uri = null;
-		try {
-			uri = new URI(url);
-			RestTemplate restTemplate = new RestTemplate();
-			HttpHeaders requestHeaders = new HttpHeaders();
-			HttpEntity<CDMAffiliation[]> requestEntity = new HttpEntity<CDMAffiliation[]>(requestHeaders);
-
-			ResponseEntity<CDMAffiliation[]> response = restTemplate.exchange(uri,
-					HttpMethod.GET, requestEntity, CDMAffiliation[].class);
-			return response.getBody();
-			
-
-		} catch (URISyntaxException e) {
-
-			throw new ASException();
-
-		}
+final String url = "http://demo6003007.mockable.io/user/editAffiliation/Aff1";
+		
+		return (CDMAffiliation) StubInvokerUtil.invokeStub(url, HttpMethod.GET, "CDMAffiliation");
 	}
 	
 	@Override
@@ -165,6 +148,10 @@ public class CDMInterfaceServiceImpl implements CDMInterfaceService {
 				
 			throw new ASException();
 		}
+
+		
+
 	}
 }
+		
 
