@@ -45,6 +45,7 @@ public class UserProfileController {
 private static ApplicationContext externalServiceContext = new AnnotationConfigApplicationContext(
 		ExternalServiceBeanConfig.class);
 
+CDMInterfaceService cdmservices = (CDMInterfaceServiceImpl) externalServiceContext.getBean("CDMInterfaceService");
 	/**
 	 * @param userId
 	 * @return
@@ -271,7 +272,11 @@ private static ApplicationContext externalServiceContext = new AnnotationConfigA
 	@RequestMapping(value = "/getMyInterests/{userId}", method = RequestMethod.GET, produces = "application/json")
 	public Service getMyInterests(@PathVariable("userId") String userId) {
 
-		return null;
+		Service service = new Service();
+		service.setStatus("Success");
+		service.setPayload(cdmservices.getInterests(userId));
+		
+		return service;
 	}
 
 	/**
