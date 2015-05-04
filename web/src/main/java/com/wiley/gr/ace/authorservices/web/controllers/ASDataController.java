@@ -148,4 +148,14 @@ public class ASDataController {
 		
 		return service;
 	}
+	
+	@RequestMapping(value = "/getRoles/", method = RequestMethod.GET, produces = "application/json")
+	public Service getAdminRoles() {
+
+		Service service = new Service();
+		service.setStatus("success");
+		service.setPayload(aSDataService.getAdminRoles());
+		
+		return service;
+	}
 }
