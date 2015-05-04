@@ -24,12 +24,14 @@ import com.wiley.gr.ace.authorservices.model.Institution;
 import com.wiley.gr.ace.authorservices.model.Interests;
 import com.wiley.gr.ace.authorservices.model.JobCategory;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
+import com.wiley.gr.ace.authorservices.model.Role;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.State;
 import com.wiley.gr.ace.authorservices.model.StaticData;
 import com.wiley.gr.ace.authorservices.model.Suffix;
 import com.wiley.gr.ace.authorservices.model.Title;
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
+import com.wiley.gr.ace.authorservices.persistence.entity.Roles;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.ASDataDAOImpl;
 import com.wiley.gr.ace.authorservices.services.service.ASDataService;
@@ -136,6 +138,26 @@ public class ASDataServiceImpl implements ASDataService {
 				+ securityQuestionsList.size());
 		return (StaticData[]) securityQuestionsList
 				.toArray(new StaticData[securityQuestionsList.size()]);
+	}
+
+	@Override
+	public List<Role> getAdminRoles() {
+		
+		List<Roles> daoRolesList = aSDataDAO.getAdminRoles();
+		List<Role> adminRoles = new ArrayList<Role>();
+		Role adminRole = null;
+		
+		if(daoRolesList != null && daoRolesList.size() > 0) {
+			
+			for (Roles roles : daoRolesList) {
+				adminRole  = new Role();
+				adminRole.setRoleId(roles.getRoleId()+"");
+				adminRole.setRoleName(roles.getRoleName());
+				adminRoles.add(adminRole);
+			}
+			
+		}
+		return adminRoles;
 	}
 
 }
