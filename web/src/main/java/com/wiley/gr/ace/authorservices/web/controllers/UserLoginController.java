@@ -152,7 +152,7 @@ public class UserLoginController extends ASExceptionController {
 	 * @param userId
 	 * @return
 	 */
-	@RequestMapping(value = "/valdiateSecurityQuestions/{emailId}", method = RequestMethod.POST)
+	@RequestMapping(value = "/validateSecurityQuestions/{emailId}", method = RequestMethod.POST)
 	public Service validateSecurityQuestions(
 			@PathVariable("emailId") String emailId,
 			@RequestBody Security securityDetails) {
