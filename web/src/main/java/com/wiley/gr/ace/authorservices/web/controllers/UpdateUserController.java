@@ -32,7 +32,7 @@ import com.wiley.gr.ace.authorservices.services.service.UpdateUserService;
  *
  */
 @RestController
-@RequestMapping("/updateUser")
+@RequestMapping("/user/update")
 public class UpdateUserController {
 	public static ApplicationContext context = new AnnotationConfigApplicationContext(
 			ServiceBeanConfig.class);
