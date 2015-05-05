@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
@@ -39,6 +40,11 @@ public class UpdateUserController {
 	UpdateUserService updateUserService = (UpdateUserService) context
 			.getBean("UpdateUserService");
 
+	/**
+	 * @param orcidId
+	 * @param userId
+	 * @return
+	 */
 	@RequestMapping(value = "/orcid/{orcidId}/{userId}", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody Service updateUserOrcidDetails(
 			@PathVariable String orcidId, @PathVariable String userId) {
@@ -47,7 +53,7 @@ public class UpdateUserController {
 		try {
 			user = updateUserService.updateOrcidProfile(orcidId,userId);
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new ASException("-1","Error updating user details with ORCID details",e);
 		}
 		if(user!=null){
 			service = new Service();
