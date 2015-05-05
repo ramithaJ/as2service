@@ -11,6 +11,8 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.web.controllers;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.Security;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.UserMgmt;
@@ -39,21 +42,34 @@ public class UserAccountController {
 	UserAccountService userAccountService = (UserAccountServiceImpl) context
 			.getBean("UserAccountService");
 
-	@RequestMapping(value = "/getUserDetails/{userId}", method = RequestMethod.GET)
-	public Service getUserDetails(@PathVariable("userId") String userId) {
-
+	@RequestMapping(value = "/userDetails/{userId}", method = {RequestMethod.GET, RequestMethod.POST})
+	public Service getUserDetails(@PathVariable("userId") String userId, @RequestBody String userDetails, HttpServletRequest request) {
+		
 		return null;
 
 	}
 
-	@RequestMapping(value = "/getEmailDetails/{userId}", method = RequestMethod.GET)
-	public Service getEmailDetails(@PathVariable("userId") String userId) {
+	@RequestMapping(value = "/emailDetails/{userId}", method = {RequestMethod.GET, RequestMethod.POST})
+	public Service getEmailDetails(@PathVariable("userId") String userId, @RequestBody(required = false) UserMgmt emailDetails, HttpServletRequest request) {
 
-		Service service = new Service();
+		Service service = null;
 
-		service.setStatus("Success");
-		service.setPayload(userAccountService.getEmailDetails(userId));
-
+		if(request.getMethod().equals(RequestMethod.GET)) {
+			
+			service = new Service();
+			service.setPayload(userAccountService.getEmailDetails(userId));
+		
+		} else if(request.getMethod().equals(RequestMethod.POST) && emailDetails != null) {
+			
+			service = new Service();
+			service.setPayload(userAccountService.updateEmailDetails(userId,
+					emailDetails));
+		
+		} else if(request.getMethod().equals(RequestMethod.POST) && emailDetails == null) {
+			
+			throw new ASException("400","Invalid Request Body");
+			
+		}
 		
 		return service;
 	}
@@ -63,27 +79,6 @@ public class UserAccountController {
 
 		return null;
 
-	}
-
-	@RequestMapping(value = "/updateUserDetails/{userId}", method = RequestMethod.POST)
-	public Service updateUserDetails(@PathVariable("userId") String userId,
-			@RequestBody String userDetails) {
-
-		return null;
-
-	}
-
-	@RequestMapping(value = "/updateUserEmail/{userId}", method = RequestMethod.POST)
-	public Service updateUserEmail(@PathVariable("userId") String userId,
-			@RequestBody UserMgmt emailDetails) {
-
-		Service service = new Service();
-		service.setStatus("Success");
-		service.setPayload(userAccountService.updateEmailDetails(userId,
-				emailDetails));
-
-		
-		return service;
 	}
 
 	@RequestMapping(value = "/updateSecutiryDetails/{emailId}", method = RequestMethod.POST)
