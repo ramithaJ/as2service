@@ -43,7 +43,7 @@ public class ASExceptionController {
 		
 		Service response = new Service();
 		
-		response.setStatus("failed");
+		response.setStatus("failure");
 		ErrorPOJO errorPojo = new ErrorPOJO();
 		errorPojo.setCode(
 				Integer.parseInt(asException.getErrorCode()));
@@ -67,7 +67,7 @@ public class ASExceptionController {
 		
 		Service response = new Service();
 		
-		response.setStatus("failed");
+		response.setStatus("failure");
 		ErrorPOJO errorPojo = new ErrorPOJO();
 		errorPojo.setCode(-1);
 		errorPojo.setMessage(exception.getMessage());
