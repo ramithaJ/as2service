@@ -24,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class Service {
 	
-	private String status;
+	private String status = "success";
 	
 	private Object payload;
 	
