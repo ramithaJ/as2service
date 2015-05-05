@@ -46,38 +46,27 @@ public class UpdateUserDAOImpl implements UpdateUserDAO {
 		try {
 			
 			if(user!=null){
-				/*up.setPrimaryEmailAddr(user.getPrimaryEmailAddr());
-				up.setFirstName(user.getFirstName());
-				up.setLastName(user.getLastName());*/
 				/**
 				 * Fetch user profile with user Id
 				 */
 				Transaction getTxn = session.beginTransaction();
-				Users up = (Users)session.load(Users.class, user.getUserId());
-				/*System.out.println("Before Update ::: "+up.getUserId());
-				System.out.println("Before Update ::: "+up.getPrimaryEmailAddr());
-				System.out.println("Before Update ::: "+up.getFirstName());
-				System.out.println("Before Update ::: "+up.getLastName());*/
+				Users userEntity = (Users)session.load(Users.class, user.getUserId());
 				getTxn.commit();
 				
 				/**
 				 * Update profile with ORCID details
 				 */
-				up.setEmailAddr(user.getPrimaryEmailAddr());
-				/*up.setFirstName(user.getFirstName());
-				up.setLastName(user.getLastName());*/
+				userEntity.setEmailAddr(user.getPrimaryEmailAddr());
 				Transaction updateTxn = session.beginTransaction();
-				session.update(up);
+				session.update(userEntity);
 				updateTxn.commit();
-				/*System.out.println("After Update ::: "+up.getUserId());
-				System.out.println("After Update ::: "+up.getPrimaryEmailAddr());
-				System.out.println("After Update ::: "+up.getFirstName());
-				System.out.println("After Update ::: "+up.getLastName());*/
-				user.setPrimaryEmailAddr(up.getEmailAddr());
-				/*user.setFirstName(up.getFirstName());
-				user.setLastName(up.getLastName());*/
+				
+				user.setPrimaryEmailAddr(userEntity.getEmailAddr());
+			}else {
+				user = null;
 			}
 		} catch (Exception e) {
+			user = null;
 			e.printStackTrace();
 			throw new Exception();
 		}

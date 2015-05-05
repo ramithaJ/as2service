@@ -55,17 +55,34 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 		System.out.println("####  " + user.getPrimaryEmailAddr());
 		return user;
 	}
-/*
-	public static void main(String[] args) {
+	@Override
+	public String updateALMUser(User updateUser) throws Exception{
+		String status = "failure";
+		final String url = "http://demo3275860.mockable.io/user/update";
+		URI uri = new URI(url);
+		RestTemplate restTemplate = new RestTemplate();
+		HttpHeaders requestHeaders = new HttpHeaders();
+		
+		requestHeaders.setAccept(Arrays.asList(MediaType.TEXT_PLAIN));
+		HttpEntity<String> requestEntity = new HttpEntity<String>(requestHeaders);
+		ResponseEntity<String> response = restTemplate.exchange(uri,HttpMethod.GET, requestEntity, String.class);
+		status = response.getBody();
+System.out.println("status :: "+status);	
+		return status;
+	}
+
+	/*public static void main(String[] args) {
 		ESBInterfaceServiceImpl em = new ESBInterfaceServiceImpl();
 		try {
-			User user = em.fetchOrcidDetails("1111");
+//			User user = em.fetchOrcidDetails("1111");
+			User user = new User();
+			String s = em.updateALMUser(user);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-	}
-*/
+	}*/
+
 	@Override
 	public ESBUser checkEmailIdExists(String emailId) {
 		ESBUser esbUser = new ESBUser();

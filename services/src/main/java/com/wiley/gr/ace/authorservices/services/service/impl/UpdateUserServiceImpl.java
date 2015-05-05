@@ -51,12 +51,19 @@ public class UpdateUserServiceImpl implements UpdateUserService {
 		User updatedUser = null;
 		if(user!=null){
 			/**
-			 * Update the user account details with ORCID account details
+			 * Code to update ALM user attributes through ESB
 			 */
-			user.setUserId(Integer.parseInt(userId));
-			updatedUser = userDao.updateUserWithOrcid(user);
-		}
+			String status = esbInterfaceService.updateALMUser(user);
+System.out.println("ALM user update status :: "+status);	
 
+			if(status.equalsIgnoreCase("success")){
+				/**
+				 * Update the user account details with ORCID account details
+				 */
+				user.setUserId(Integer.parseInt(userId));
+				updatedUser = userDao.updateUserWithOrcid(user);				
+			}
+		}
 		return updatedUser;
 	}
 

@@ -20,6 +20,7 @@ public interface ESBInterfaceService {
 
 	ESBUser createCustomer(ESBUser esbUser);
 	User fetchOrcidDetails(String orcid) throws Exception;
+	String updateALMUser(User user) throws Exception;
 	ESBUser checkEmailIdExists(String emailId);
 	List<ESBUser> checkFirstNameLastNameExists(String firstName, String lastName);
 	
