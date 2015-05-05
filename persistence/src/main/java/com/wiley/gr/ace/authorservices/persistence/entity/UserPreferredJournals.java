@@ -1,14 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
- *
- * All material contained herein is proprietary to John Wiley & Sons 
- * and its third party suppliers, if any. The methods, techniques and 
- * technical concepts contained herein are considered trade secrets 
- * and confidential and may be protected by intellectual property laws.  
- * Reproduction or distribution of this material, in whole or in part, 
- * is strictly forbidden except by express prior written permission 
- * of John Wiley & Sons.
- *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
 import javax.persistence.AttributeOverride;
@@ -29,22 +18,25 @@ import javax.persistence.Table;
 public class UserPreferredJournals implements java.io.Serializable {
 
 	private UserPreferredJournalsId id;
-	private UserProfile userProfile;
+	private Journals journals;
+	private AuthorProfile authorProfile;
 	private String jouImpactFactor;
 
 	public UserPreferredJournals() {
 	}
 
-	public UserPreferredJournals(UserPreferredJournalsId id,
-			UserProfile userProfile) {
+	public UserPreferredJournals(UserPreferredJournalsId id, Journals journals,
+			AuthorProfile authorProfile) {
 		this.id = id;
-		this.userProfile = userProfile;
+		this.journals = journals;
+		this.authorProfile = authorProfile;
 	}
 
-	public UserPreferredJournals(UserPreferredJournalsId id,
-			UserProfile userProfile, String jouImpactFactor) {
+	public UserPreferredJournals(UserPreferredJournalsId id, Journals journals,
+			AuthorProfile authorProfile, String jouImpactFactor) {
 		this.id = id;
-		this.userProfile = userProfile;
+		this.journals = journals;
+		this.authorProfile = authorProfile;
 		this.jouImpactFactor = jouImpactFactor;
 	}
 
@@ -61,13 +53,23 @@ public class UserPreferredJournals implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USER_ID", nullable = false, insertable = false, updatable = false)
-	public UserProfile getUserProfile() {
-		return this.userProfile;
+	@JoinColumn(name = "JOURNAL_ID", nullable = false, insertable = false, updatable = false)
+	public Journals getJournals() {
+		return this.journals;
 	}
 
-	public void setUserProfile(UserProfile userProfile) {
-		this.userProfile = userProfile;
+	public void setJournals(Journals journals) {
+		this.journals = journals;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "USER_ID", nullable = false, insertable = false, updatable = false)
+	public AuthorProfile getAuthorProfile() {
+		return this.authorProfile;
+	}
+
+	public void setAuthorProfile(AuthorProfile authorProfile) {
+		this.authorProfile = authorProfile;
 	}
 
 	@Column(name = "JOU_IMPACT_FACTOR", length = 100)

@@ -22,8 +22,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiley.gr.ace.authorservices.externalservices.context.ExternalServiceBeanConfig;
+import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.impl.CDMInterfaceServiceImpl;
 import com.wiley.gr.ace.authorservices.model.Alert;
+import com.wiley.gr.ace.authorservices.model.Interests;
 import com.wiley.gr.ace.authorservices.model.Service;
+import com.wiley.gr.ace.authorservices.model.external.CDMAffiliation;
 import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
 import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
 import com.wiley.gr.ace.authorservices.services.service.impl.UserProfileServiceImpl;
@@ -38,6 +43,10 @@ public class UserProfileController {
 	public static ApplicationContext context = new AnnotationConfigApplicationContext(
 			ServiceBeanConfig.class);
 
+	private static ApplicationContext externalServiceContext = new AnnotationConfigApplicationContext(
+			ExternalServiceBeanConfig.class);
+
+CDMInterfaceService cdmservices = (CDMInterfaceServiceImpl) externalServiceContext.getBean("CDMInterfaceService");
 	/**
 	 * @param userId
 	 * @return
@@ -45,8 +54,14 @@ public class UserProfileController {
 
 	@RequestMapping(value = "/getAffiliations/{userId}", method = RequestMethod.GET, produces = "application/json")
 	public Service getAffiliationsList(@PathVariable("userId") String userId) {
+		CDMInterfaceService cdmservices = (CDMInterfaceServiceImpl) externalServiceContext
+				.getBean("CDMInterfaceService");
+		Service service = new Service();
+		
+		service.setPayload(cdmservices.getAffiliationsForUser(userId));
+		service.setStatus("success");
 
-		return null;
+		return service;
 	}
 
 	/**
@@ -57,9 +72,19 @@ public class UserProfileController {
 	 * @return
 	 */
 	@RequestMapping(value = "/editAffiliation/{userId}/{affiliationId}", method = RequestMethod.GET, produces = "application/json")
-	public Service editAffiliation(@PathVariable("userId") String userId) {
+	public Service editAffiliation(@PathVariable("userId") String userId,
+			@PathVariable("affiliationId") String affiliationId) {
 
-		return null;
+		CDMInterfaceService cdmservices = (CDMInterfaceServiceImpl) externalServiceContext
+				.getBean("CDMInterfaceService");
+		Service service = new Service();
+        
+		service.setPayload(cdmservices.editAffialiationsForUser(userId,
+				affiliationId));
+		service.setStatus("success");
+     
+		
+		return service;
 	}
 
 	/**
@@ -68,9 +93,20 @@ public class UserProfileController {
 	 */
 	@RequestMapping(value = "/updateAffiliation/{userId}/{affiliationId}", method = RequestMethod.POST, produces = "application/json")
 	public Service updateAffiliation(@PathVariable("userId") String userId,
-			@RequestBody String affiliationJson) {
+			@RequestBody CDMAffiliation cdmAffiliation) {
 
-		return null;
+		boolean status = false;
+		CDMInterfaceService cdmservices = (CDMInterfaceServiceImpl) externalServiceContext
+				.getBean("CDMInterfaceService");
+		Service service = new Service();
+		// service.setPayload(cdmservices.updateAffiliationForUser(cdmAffiliation));
+		status = cdmservices.updateAffiliationForUser(cdmAffiliation);
+		if (status) {
+
+			service.setStatus("success");
+		}
+
+		return service;
 	}
 
 	/**
@@ -81,9 +117,18 @@ public class UserProfileController {
 	 */
 	@RequestMapping(value = "/deleteAffiliation/{userId}/{affiliationId}", method = RequestMethod.POST, produces = "application/json")
 	public Service deleteAffiliation(@PathVariable("userId") String userId,
-			@RequestBody String affiliationId) {
-
-		return null;
+			@PathVariable("affiliationId") String affiliationId) {
+		CDMInterfaceService cdmservices = (CDMInterfaceServiceImpl) externalServiceContext
+				.getBean("CDMInterfaceService");
+		Service service = new Service();
+		boolean status = false;
+		// service.setPayload(cdmservices.deleteAffiliationForUser(userId,
+		// affiliationId));
+		status = cdmservices.deleteAffiliationForUser(userId, affiliationId);
+		if (status) {
+			service.setStatus("success");
+		}
+		return service;
 	}
 
 	/**
@@ -94,9 +139,19 @@ public class UserProfileController {
 	 */
 	@RequestMapping(value = "/addAffiliation/{userId}", method = RequestMethod.POST, produces = "application/json")
 	public Service addAffiliation(@PathVariable("userId") String userId,
-			@RequestBody String affiliationJson) {
+			@RequestBody CDMAffiliation cdmAffiliation) {
+		boolean status = false;
 
-		return null;
+		CDMInterfaceService cdmservices = (CDMInterfaceServiceImpl) externalServiceContext
+				.getBean("CDMInterfaceService");
+		Service service = new Service();
+		status = cdmservices.addAffiliationsForUser(cdmAffiliation);
+		if (status) {
+
+			service.setStatus("success");
+		}
+
+		return service;
 	}
 
 	/**
@@ -225,7 +280,11 @@ public class UserProfileController {
 	@RequestMapping(value = "/getMyInterests/{userId}", method = RequestMethod.GET, produces = "application/json")
 	public Service getMyInterests(@PathVariable("userId") String userId) {
 
-		return null;
+		Service service = new Service();
+		service.setStatus("Success");
+		service.setPayload(cdmservices.getInterests(userId));
+		
+		return service;
 	}
 
 	/**
@@ -235,9 +294,12 @@ public class UserProfileController {
 	 */
 	@RequestMapping(value = "/addInterests/{userId}", method = RequestMethod.POST, produces = "application/json")
 	public Service addInterests(@PathVariable("userId") String userId,
-			@RequestBody String interestsJson) {
+			@RequestBody Interests interestsJson) {
 
-		return null;
+		Service service = new Service();
+		cdmservices.addInterest(userId, interestsJson);
+		service.setStatus("Success");
+		return service;
 	}
 
 	/**
@@ -249,7 +311,10 @@ public class UserProfileController {
 	public Service removeInterest(@PathVariable("userId") String userId,
 			@RequestBody String interestId) {
 
-		return null;
+		Service service = new Service();
+		cdmservices.removeInterest(userId,interestId);
+		service.setStatus("Success");
+		return service;
 	}
 
 	/**
@@ -366,7 +431,7 @@ public class UserProfileController {
 				.getBean("UserProfileService");
 		Service service = new Service();
 		service.setStatus("success");
-		service.setServiceObject(userProfileService.getListOfAlerts(userId));
+		service.setPayload(userProfileService.getListOfAlerts(userId));
 
 		return service;
 	}
@@ -379,11 +444,12 @@ public class UserProfileController {
 	@RequestMapping(value = "/updateAlerts/{userId}", method = RequestMethod.POST, produces = "application/json")
 	public Service updateAlerts(@PathVariable("userId") String userId,
 			@RequestBody List<Alert> alertsList) {
-		
+
 		UserProfileService userProfileService = (UserProfileServiceImpl) context
 				.getBean("UserProfileService");
 		Service service = new Service();
 		userProfileService.updateAlerts(userId, alertsList);
+		service.setStatus("success");
 
 		return service;
 	}

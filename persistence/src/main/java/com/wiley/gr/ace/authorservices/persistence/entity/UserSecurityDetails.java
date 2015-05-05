@@ -1,14 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
- *
- * All material contained herein is proprietary to John Wiley & Sons 
- * and its third party suppliers, if any. The methods, techniques and 
- * technical concepts contained herein are considered trade secrets 
- * and confidential and may be protected by intellectual property laws.  
- * Reproduction or distribution of this material, in whole or in part, 
- * is strictly forbidden except by express prior written permission 
- * of John Wiley & Sons.
- *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
 import javax.persistence.Column;
@@ -27,22 +16,22 @@ import javax.persistence.Table;
 public class UserSecurityDetails implements java.io.Serializable {
 
 	private Integer userSecurityId;
-	private UserProfile userProfile;
+	private AuthorProfile authorProfile;
 	private String securityQuestion;
 	private String securityAnswer;
 
 	public UserSecurityDetails() {
 	}
 
-	public UserSecurityDetails(Integer userSecurityId, UserProfile userProfile) {
+	public UserSecurityDetails(Integer userSecurityId) {
 		this.userSecurityId = userSecurityId;
-		this.userProfile = userProfile;
 	}
 
-	public UserSecurityDetails(Integer userSecurityId, UserProfile userProfile,
-			String securityQuestion, String securityAnswer) {
+	public UserSecurityDetails(Integer userSecurityId,
+			AuthorProfile authorProfile, String securityQuestion,
+			String securityAnswer) {
 		this.userSecurityId = userSecurityId;
-		this.userProfile = userProfile;
+		this.authorProfile = authorProfile;
 		this.securityQuestion = securityQuestion;
 		this.securityAnswer = securityAnswer;
 	}
@@ -58,13 +47,13 @@ public class UserSecurityDetails implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USER_ID", nullable = false)
-	public UserProfile getUserProfile() {
-		return this.userProfile;
+	@JoinColumn(name = "USER_ID")
+	public AuthorProfile getAuthorProfile() {
+		return this.authorProfile;
 	}
 
-	public void setUserProfile(UserProfile userProfile) {
-		this.userProfile = userProfile;
+	public void setAuthorProfile(AuthorProfile authorProfile) {
+		this.authorProfile = authorProfile;
 	}
 
 	@Column(name = "SECURITY_QUESTION", length = 250)

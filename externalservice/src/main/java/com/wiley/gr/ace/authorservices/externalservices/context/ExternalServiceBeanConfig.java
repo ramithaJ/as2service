@@ -16,9 +16,11 @@ import org.springframework.context.annotation.Configuration;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.BPMInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.ALMInterfaceServiceImpl;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.BPMInterfaceServiceImpl;
+import com.wiley.gr.ace.authorservices.externalservices.service.impl.CDMInterfaceServiceImpl;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.ESBInterfaceServiceImpl;
 
 @Configuration
@@ -37,6 +39,12 @@ public class ExternalServiceBeanConfig {
 	@Bean(name = "ESBInterfaceService")
 	public ESBInterfaceService eSBInterfaceService() {
 		return new ESBInterfaceServiceImpl();
+	}
+	@Bean(name="CDMInterfaceService")
+	public CDMInterfaceService cdmInterfaceService()
+	{
+		
+		return new CDMInterfaceServiceImpl();
 	}
 
 }

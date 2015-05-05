@@ -11,7 +11,7 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.services;
 
-import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
+import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 
 /**
  * @author kpshiva
@@ -23,7 +23,7 @@ public interface UserAccountDAO {
 	 * @param userId
 	 * @return
 	 */
-	UserProfile getEmailDetails(String userId);
+	AuthorProfile getEmailDetails(String userId);
 	/**
 	 * @return
 	 */

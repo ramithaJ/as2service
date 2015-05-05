@@ -1,18 +1,6 @@
-/*******************************************************************************
- * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
- *
- * All material contained herein is proprietary to John Wiley & Sons 
- * and its third party suppliers, if any. The methods, techniques and 
- * technical concepts contained herein are considered trade secrets 
- * and confidential and may be protected by intellectual property laws.  
- * Reproduction or distribution of this material, in whole or in part, 
- * is strictly forbidden except by express prior written permission 
- * of John Wiley & Sons.
- *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
 import java.util.Date;
-
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -32,7 +20,7 @@ public class AdditionalPermissions implements java.io.Serializable {
 
 	private AdditionalPermissionsId id;
 	private Roles roles;
-	private UserProfile userProfile;
+	private Users users;
 	private Permissions permissions;
 	private Character splPermissionFlg;
 	private Date permEndDt;
@@ -40,20 +28,19 @@ public class AdditionalPermissions implements java.io.Serializable {
 	public AdditionalPermissions() {
 	}
 
-	public AdditionalPermissions(AdditionalPermissionsId id, Roles roles,
-			UserProfile userProfile, Permissions permissions) {
+	public AdditionalPermissions(AdditionalPermissionsId id, Users users,
+			Permissions permissions) {
 		this.id = id;
-		this.roles = roles;
-		this.userProfile = userProfile;
+		this.users = users;
 		this.permissions = permissions;
 	}
 
 	public AdditionalPermissions(AdditionalPermissionsId id, Roles roles,
-			UserProfile userProfile, Permissions permissions,
-			Character splPermissionFlg, Date permEndDt) {
+			Users users, Permissions permissions, Character splPermissionFlg,
+			Date permEndDt) {
 		this.id = id;
 		this.roles = roles;
-		this.userProfile = userProfile;
+		this.users = users;
 		this.permissions = permissions;
 		this.splPermissionFlg = splPermissionFlg;
 		this.permEndDt = permEndDt;
@@ -73,7 +60,7 @@ public class AdditionalPermissions implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ROLE_ID", nullable = false)
+	@JoinColumn(name = "ROLE_ID")
 	public Roles getRoles() {
 		return this.roles;
 	}
@@ -84,12 +71,12 @@ public class AdditionalPermissions implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "USER_ID", nullable = false, insertable = false, updatable = false)
-	public UserProfile getUserProfile() {
-		return this.userProfile;
+	public Users getUsers() {
+		return this.users;
 	}
 
-	public void setUserProfile(UserProfile userProfile) {
-		this.userProfile = userProfile;
+	public void setUsers(Users users) {
+		this.users = users;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

@@ -1,14 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
- *
- * All material contained herein is proprietary to John Wiley & Sons 
- * and its third party suppliers, if any. The methods, techniques and 
- * technical concepts contained herein are considered trade secrets 
- * and confidential and may be protected by intellectual property laws.  
- * Reproduction or distribution of this material, in whole or in part, 
- * is strictly forbidden except by express prior written permission 
- * of John Wiley & Sons.
- *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
 import javax.persistence.Column;
@@ -20,36 +9,36 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class UserPreferredJournalsId implements java.io.Serializable {
 
-	private Integer userId;
-	private Integer journalId;
+	private int userId;
+	private int journalId;
 
 	public UserPreferredJournalsId() {
 	}
 
-	public UserPreferredJournalsId(Integer userId, Integer journalId) {
+	public UserPreferredJournalsId(int userId, int journalId) {
 		this.userId = userId;
 		this.journalId = journalId;
 	}
 
 	@Column(name = "USER_ID", nullable = false, precision = 22, scale = 0)
-	public Integer getUserId() {
+	public int getUserId() {
 		return this.userId;
 	}
 
-	public void setUserId(Integer userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 
 	@Column(name = "JOURNAL_ID", nullable = false, precision = 22, scale = 0)
-	public Integer getJournalId() {
+	public int getJournalId() {
 		return this.journalId;
 	}
 
-	public void setJournalId(Integer journalId) {
+	public void setJournalId(int journalId) {
 		this.journalId = journalId;
 	}
 
-	/*public boolean equals(Object other) {
+	public boolean equals(Object other) {
 		if ((this == other))
 			return true;
 		if ((other == null))
@@ -58,23 +47,16 @@ public class UserPreferredJournalsId implements java.io.Serializable {
 			return false;
 		UserPreferredJournalsId castOther = (UserPreferredJournalsId) other;
 
-		return ((this.getUserId() == castOther.getUserId()) || (this
-				.getUserId() != null && castOther.getUserId() != null && this
-				.getUserId().equals(castOther.getUserId())))
-				&& ((this.getJournalId() == castOther.getJournalId()) || (this
-						.getJournalId() != null
-						&& castOther.getJournalId() != null && this
-						.getJournalId().equals(castOther.getJournalId())));
+		return (this.getUserId() == castOther.getUserId())
+				&& (this.getJournalId() == castOther.getJournalId());
 	}
 
 	public int hashCode() {
 		int result = 17;
 
-		result = 37 * result
-				+ (getUserId() == null ? 0 : this.getUserId().hashCode());
-		result = 37 * result
-				+ (getJournalId() == null ? 0 : this.getJournalId().hashCode());
+		result = 37 * result + this.getUserId();
+		result = 37 * result + this.getJournalId();
 		return result;
-	}*/
+	}
 
 }

@@ -11,7 +11,11 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
+import org.springframework.http.HttpMethod;
+
+import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
+import com.wiley.gr.ace.authorservices.model.Service;
 
 /**
  * @author RAVISINHA
@@ -23,20 +27,50 @@ public class ALMInterfaceServiceImpl  implements ALMInterfaceService {
 	 * @see com.wiley.gr.ace.authorservices.services.admin.external.ALMInterfaceService#authenticateUser(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public boolean authenticateUser(String emailId) {
+	public boolean authenticateAdminUser(String emailId) {
 		
-		// TODO: Authenticate with LDAP  
-		return false;
+		// TODO: Authenticate with LDAP
+		final String url = "http://demo6003007.mockable.io/admin/login";
+		Service service = (Service) StubInvokerUtil.invokeStub(url, HttpMethod.POST, "Service");
+		String status = service.getStatus();
+
+		if (status != null && status.equalsIgnoreCase("success")) {
+			return true;
+		} 
+		return false;	
 	}
 
 	@Override
 	public boolean authenticateUserALM(String emailId, String password) {
 
-		if(password.equals("Password")){
+		/*final String url = "http://demo6003007.mockable.io/user/login";
+		Service service = (Service) StubInvokerUtil.invokeStub(url, HttpMethod.POST, "Service");
+		String status = service.getStatus();
+
+		if (status != null && status.equalsIgnoreCase("success")) {
+			return true;
+		} 
+		return false;*/
+		
+		if (password.equalsIgnoreCase("Password")){
 			return true;
 		}else{
 			return false;
 		}
+
+	}
+
+	@Override
+	public boolean updatePassword(String emailId, String oldPassword,
+			String newPassword) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean resetPassword(String emailId, String newPassword) {
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 	

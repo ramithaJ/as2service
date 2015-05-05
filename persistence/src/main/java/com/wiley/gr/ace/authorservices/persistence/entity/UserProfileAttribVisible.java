@@ -1,19 +1,11 @@
-/*******************************************************************************
- * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
- *
- * All material contained herein is proprietary to John Wiley & Sons 
- * and its third party suppliers, if any. The methods, techniques and 
- * technical concepts contained herein are considered trade secrets 
- * and confidential and may be protected by intellectual property laws.  
- * Reproduction or distribution of this material, in whole or in part, 
- * is strictly forbidden except by express prior written permission 
- * of John Wiley & Sons.
- *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -24,7 +16,7 @@ import javax.persistence.Table;
 public class UserProfileAttribVisible implements java.io.Serializable {
 
 	private Integer userProfileAttribId;
-	private Integer userId;
+	private AuthorProfile authorProfile;
 	private String profileVisibilityFlg;
 	private String listOfAttributesTobeVisib;
 
@@ -36,10 +28,10 @@ public class UserProfileAttribVisible implements java.io.Serializable {
 	}
 
 	public UserProfileAttribVisible(Integer userProfileAttribId,
-			Integer userId, String profileVisibilityFlg,
+			AuthorProfile authorProfile, String profileVisibilityFlg,
 			String listOfAttributesTobeVisib) {
 		this.userProfileAttribId = userProfileAttribId;
-		this.userId = userId;
+		this.authorProfile = authorProfile;
 		this.profileVisibilityFlg = profileVisibilityFlg;
 		this.listOfAttributesTobeVisib = listOfAttributesTobeVisib;
 	}
@@ -54,13 +46,14 @@ public class UserProfileAttribVisible implements java.io.Serializable {
 		this.userProfileAttribId = userProfileAttribId;
 	}
 
-	@Column(name = "USER_ID", precision = 22, scale = 0)
-	public Integer getUserId() {
-		return this.userId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "USER_ID")
+	public AuthorProfile getAuthorProfile() {
+		return this.authorProfile;
 	}
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
+	public void setAuthorProfile(AuthorProfile authorProfile) {
+		this.authorProfile = authorProfile;
 	}
 
 	@Column(name = "PROFILE_VISIBILITY_FLG", length = 50)

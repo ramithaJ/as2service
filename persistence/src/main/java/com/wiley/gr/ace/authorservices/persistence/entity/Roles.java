@@ -1,14 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
- *
- * All material contained herein is proprietary to John Wiley & Sons 
- * and its third party suppliers, if any. The methods, techniques and 
- * technical concepts contained herein are considered trade secrets 
- * and confidential and may be protected by intellectual property laws.  
- * Reproduction or distribution of this material, in whole or in part, 
- * is strictly forbidden except by express prior written permission 
- * of John Wiley & Sons.
- *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
 import java.util.Date;
@@ -18,8 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -33,14 +20,17 @@ public class Roles implements java.io.Serializable {
 
 	private Integer roleId;
 	private String roleName;
-	private String createdBy;
+	private String description;
 	private Date createdDate;
-	private String updatedBy;
+	private String createdBy;
 	private Date updatedDate;
-	private Set<UserProfile> userProfiles = new HashSet<UserProfile>(0);
+	private String updatedBy;
+	private String roleType;
+	private Set<Users> userses = new HashSet<Users>(0);
 	private Set<AdditionalPermissions> additionalPermissionses = new HashSet<AdditionalPermissions>(
 			0);
-	private Set<Permissions> permissionses = new HashSet<Permissions>(0);
+	private Set<RolePermissions> rolePermissionses = new HashSet<RolePermissions>(
+			0);
 
 	public Roles() {
 	}
@@ -49,20 +39,22 @@ public class Roles implements java.io.Serializable {
 		this.roleId = roleId;
 	}
 
-	public Roles(Integer roleId, String roleName, String createdBy,
-			Date createdDate, String updatedBy, Date updatedDate,
-			Set<UserProfile> userProfiles,
+	public Roles(Integer roleId, String roleName, String description,
+			Date createdDate, String createdBy, Date updatedDate,
+			String updatedBy, String roleType, Set<Users> userses,
 			Set<AdditionalPermissions> additionalPermissionses,
-			Set<Permissions> permissionses) {
+			Set<RolePermissions> rolePermissionses) {
 		this.roleId = roleId;
 		this.roleName = roleName;
-		this.createdBy = createdBy;
+		this.description = description;
 		this.createdDate = createdDate;
-		this.updatedBy = updatedBy;
+		this.createdBy = createdBy;
 		this.updatedDate = updatedDate;
-		this.userProfiles = userProfiles;
+		this.updatedBy = updatedBy;
+		this.roleType = roleType;
+		this.userses = userses;
 		this.additionalPermissionses = additionalPermissionses;
-		this.permissionses = permissionses;
+		this.rolePermissionses = rolePermissionses;
 	}
 
 	@Id
@@ -84,13 +76,13 @@ public class Roles implements java.io.Serializable {
 		this.roleName = roleName;
 	}
 
-	@Column(name = "CREATED_BY", length = 50)
-	public String getCreatedBy() {
-		return this.createdBy;
+	@Column(name = "DESCRIPTION", length = 250)
+	public String getDescription() {
+		return this.description;
 	}
 
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	@Column(name = "CREATED_DATE")
@@ -102,13 +94,13 @@ public class Roles implements java.io.Serializable {
 		this.createdDate = createdDate;
 	}
 
-	@Column(name = "UPDATED_BY", length = 50)
-	public String getUpdatedBy() {
-		return this.updatedBy;
+	@Column(name = "CREATED_BY", length = 100)
+	public String getCreatedBy() {
+		return this.createdBy;
 	}
 
-	public void setUpdatedBy(String updatedBy) {
-		this.updatedBy = updatedBy;
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
 	}
 
 	@Column(name = "UPDATED_DATE")
@@ -120,13 +112,31 @@ public class Roles implements java.io.Serializable {
 		this.updatedDate = updatedDate;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "roleses")
-	public Set<UserProfile> getUserProfiles() {
-		return this.userProfiles;
+	@Column(name = "UPDATED_BY", length = 100)
+	public String getUpdatedBy() {
+		return this.updatedBy;
 	}
 
-	public void setUserProfiles(Set<UserProfile> userProfiles) {
-		this.userProfiles = userProfiles;
+	public void setUpdatedBy(String updatedBy) {
+		this.updatedBy = updatedBy;
+	}
+	
+	@Column(name = "ROLE_TYPE", length = 50)
+	public String getRoleType() {
+		return this.roleType;
+	}
+
+	public void setRoleType(String roleType) {
+		this.roleType = roleType;
+	}
+
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "roleses")
+	public Set<Users> getUserses() {
+		return this.userses;
+	}
+
+	public void setUserses(Set<Users> userses) {
+		this.userses = userses;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "roles")
@@ -139,14 +149,13 @@ public class Roles implements java.io.Serializable {
 		this.additionalPermissionses = additionalPermissionses;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "ROLE_PERMISSIONS", joinColumns = { @JoinColumn(name = "ROLE_ID", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "PERMISSION_ID", nullable = false, updatable = false) })
-	public Set<Permissions> getPermissionses() {
-		return this.permissionses;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "roles")
+	public Set<RolePermissions> getRolePermissionses() {
+		return this.rolePermissionses;
 	}
 
-	public void setPermissionses(Set<Permissions> permissionses) {
-		this.permissionses = permissionses;
+	public void setRolePermissionses(Set<RolePermissions> rolePermissionses) {
+		this.rolePermissionses = rolePermissionses;
 	}
 
 }

@@ -21,38 +21,38 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  *
  */
 @JsonInclude(Include.NON_NULL)
-public class Error {
+public class ErrorPOJO {
 	
-	private int errorCode;
+	private int code;
 	
-	private String errorMessage;
+	private String message;
 	
 	/**
 	 * @return
 	 */
-	public int getErrorCode() {
-		return errorCode;
+	public int getCode() {
+		return code;
 	}
 
 	/**
-	 * @param errorCode
+	 * @param code
 	 */
-	public void setErrorCode(int errorCode) {
-		this.errorCode = errorCode;
+	public void setCode(int code) {
+		this.code = code;
 	}
 
 	/**
 	 * @return
 	 */
-	public String getErrorMessage() {
-		return errorMessage;
+	public String getMessage() {
+		return message;
 	}
 
 	/**
-	 * @param errorMessage
+	 * @param message
 	 */
-	public void setErrorMessage(String errorMessage) {
-		this.errorMessage = errorMessage;
+	public void setMessage(String message) {
+		this.message = message;
 	}
 
 	

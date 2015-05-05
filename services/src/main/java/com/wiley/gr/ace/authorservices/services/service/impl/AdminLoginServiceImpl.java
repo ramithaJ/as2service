@@ -61,20 +61,13 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 
 	@Override
 	public boolean doLogin(String emailId) {
-		boolean status = false;
 		// Call external service for password validation
 
 		ALMInterfaceService almService = (ALMInterfaceServiceImpl) externalServiceContext
 				.getBean("ALMExternalService");
+		
+		return almService.authenticateAdminUser(emailId);
 
-		if (almService.authenticateUser(emailId)) {
-			// Calling dao for updating timestamp
-
-			UserLoginDao userlogindao = (UserLoginDaoImpl) daoContext
-					.getBean("AdminLoginDao");
-			status = userlogindao.doLogin(emailId);
-		}
-		return status;
 	}
 
 	@Override

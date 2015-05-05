@@ -14,7 +14,7 @@ package com.wiley.gr.ace.authorservices.persistence.services;
 import java.util.Date;
 import java.util.List;
 
-import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
+import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
 
 /**
@@ -27,19 +27,13 @@ public interface UserLoginServiceDAO {
 	 * @param emailId
 	 * @return
 	 */
-	boolean validateSecurityQuestions(String emailId);
+	boolean isUserLocked(int userId);
 
 	/**
 	 * @param emailId
 	 * @return
 	 */
-	boolean isUserLocked(String emailId);
-
-	/**
-	 * @param emailId
-	 * @return
-	 */
-	boolean lockUser(String emailId);
+	boolean lockUser(int userId);
 
 	/**
 	 * @param userId
@@ -64,15 +58,8 @@ public interface UserLoginServiceDAO {
 	 * @param password
 	 * @return
 	 */
-	boolean doLogin(String emailId, String password);
-	
-	/**
-	 * @param emailId
-	 * @param password
-	 * @return
-	 */
-	boolean resetPassword(String emailId, String password);
-	
+	boolean doLogin(int userId, String password);
+		
 	/**
 	 * @param emailId
 	 * @return
@@ -82,30 +69,30 @@ public interface UserLoginServiceDAO {
 	/**
 	 * @return
 	 */
-	List<UserProfile> getUsersList();
+	List<AuthorProfile> getUsersList();
 	
 	/**
 	 * @param emailId
 	 * @return
 	 */
-	int getCount(String emailId);
+	int getCount(int userId);
 	
 	/**
 	 * @param count
 	 * @param emailId
 	 * @return
 	 */
-	boolean updateCount(int count, String emailId); 
+	boolean updateCount(int count, int userId); 
 	
 	/**
 	 * @param emailId
 	 * @return
 	 */
-	Date getLockedTime(String emailId);
+	Date getLockedTime(int userId);
 	
 	/**
 	 * @param emailId
 	 * @return
 	 */
-	boolean unLockUser(String emailId);
+	boolean unLockUser(int userId);
 }

@@ -19,9 +19,8 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import com.wiley.gr.ace.authorservices.model.Security;
 import com.wiley.gr.ace.authorservices.model.Service;
+import com.wiley.gr.ace.authorservices.model.UserProfile;
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
-import com.wiley.gr.ace.authorservices.persistence.entity.Article;
-import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserReferenceData;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
 import com.wiley.gr.ace.authorservices.persistence.services.DashBoardDAO;
@@ -31,11 +30,11 @@ public class DashBoardServiceImpl implements DashBoardService {
 	private static ApplicationContext context = new AnnotationConfigApplicationContext(
 			PersistenceBeanConfig.class);
 	DashBoardDAO dashBoardDAO=(DashBoardDAO)context.getBean("DashBoardDAO");
-	@Override
-	public List<Article> getAllAuthorArticles() {
-		// TODO Auto-generated method stub
-		return dashBoardDAO.getAllAuthorArticles();	 
-	}
+//	@Override
+//	public List<Article> getAllAuthorArticles() {
+//		// TODO Auto-generated method stub
+//		return dashBoardDAO.getAllAuthorArticles();	 
+//	}
 	@Override
 	public List<LinkedList> getProfileMeter(int userId) {
 		Security security=new Security();

@@ -1,14 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
- *
- * All material contained herein is proprietary to John Wiley & Sons 
- * and its third party suppliers, if any. The methods, techniques and 
- * technical concepts contained herein are considered trade secrets 
- * and confidential and may be protected by intellectual property laws.  
- * Reproduction or distribution of this material, in whole or in part, 
- * is strictly forbidden except by express prior written permission 
- * of John Wiley & Sons.
- *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
 import javax.persistence.AttributeOverride;
@@ -29,30 +18,20 @@ import javax.persistence.Table;
 public class UserReferenceData implements java.io.Serializable {
 
 	private UserReferenceDataId id;
-	private UserProfile userProfile;
-	private String orcid;
-	private String almid;
+	private Users users;
 
 	public UserReferenceData() {
 	}
 
-	public UserReferenceData(UserReferenceDataId id, UserProfile userProfile) {
+	public UserReferenceData(UserReferenceDataId id, Users users) {
 		this.id = id;
-		this.userProfile = userProfile;
-	}
-
-	public UserReferenceData(UserReferenceDataId id, UserProfile userProfile,
-			String orcid, String almid) {
-		this.id = id;
-		this.userProfile = userProfile;
-		this.orcid = orcid;
-		this.almid = almid;
+		this.users = users;
 	}
 
 	@EmbeddedId
 	@AttributeOverrides({
 			@AttributeOverride(name = "userId", column = @Column(name = "USER_ID", nullable = false, precision = 22, scale = 0)),
-			@AttributeOverride(name = "ecid", column = @Column(name = "ECID", nullable = false, length = 15)) })
+			@AttributeOverride(name = "ecid", column = @Column(name = "ECID", nullable = false, length = 50)) })
 	public UserReferenceDataId getId() {
 		return this.id;
 	}
@@ -63,30 +42,12 @@ public class UserReferenceData implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "USER_ID", nullable = false, insertable = false, updatable = false)
-	public UserProfile getUserProfile() {
-		return this.userProfile;
+	public Users getUsers() {
+		return this.users;
 	}
 
-	public void setUserProfile(UserProfile userProfile) {
-		this.userProfile = userProfile;
-	}
-
-	@Column(name = "ORCID", length = 15)
-	public String getOrcid() {
-		return this.orcid;
-	}
-
-	public void setOrcid(String orcid) {
-		this.orcid = orcid;
-	}
-
-	@Column(name = "ALMID", length = 15)
-	public String getAlmid() {
-		return this.almid;
-	}
-
-	public void setAlmid(String almid) {
-		this.almid = almid;
+	public void setUsers(Users users) {
+		this.users = users;
 	}
 
 }

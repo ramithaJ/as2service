@@ -24,8 +24,13 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
 import com.wiley.gr.ace.authorservices.persistence.entity.LookupValues;
+import com.wiley.gr.ace.authorservices.persistence.entity.Roles;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
 
+/**
+ * @author kpshiva
+ *
+ */
 public class ASDataDAOImpl implements ASDataDAO {
 
 	private static ApplicationContext context = new AnnotationConfigApplicationContext(
@@ -44,13 +49,12 @@ public class ASDataDAOImpl implements ASDataDAO {
 			transaction = session.beginTransaction();
 			Criteria criteria = session.createCriteria(LookupValues.class);
 			criteria.add(Restrictions.eq("lookupKey", "SEQ"));
-			List<LookupValues> lookupList =	criteria.list();
-			for(int i=0; i<lookupList.size();i++){
-				
+			List<LookupValues> lookupList = criteria.list();
+			for (int i = 0; i < lookupList.size(); i++) {
+
 				list.add(lookupList.get(i).getLookupName());
 				list.add(lookupList.get(i).getLookupValue());
 			}
-			System.out.println("shiva"+list.size());
 			transaction.commit();
 		} finally {
 			if (session != null) {
@@ -59,6 +63,33 @@ public class ASDataDAOImpl implements ASDataDAO {
 			}
 		}
 
+		return list;
+	}
+
+	@Override
+	public List<Roles> getAdminRoles() {
+		
+		Session session = null;
+		List<Roles> list = new ArrayList();
+		String roleType = "Internal";
+		
+		try {
+			
+			session = con.getSessionFactory().openSession();
+			
+			String hql = "from Roles where roleType = :roleType";
+			
+			list = session.createQuery(hql)
+					.setString("roleType", roleType).list();
+			
+			
+		} finally {
+			if (session != null) {
+				session.flush();
+				session.close();
+			}
+		}
+		
 		return list;
 	}
 }

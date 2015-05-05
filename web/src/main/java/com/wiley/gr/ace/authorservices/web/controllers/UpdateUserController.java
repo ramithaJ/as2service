@@ -56,7 +56,7 @@ public class UpdateUserController {
 //System.out.println("User details updated " + user.getFirstName());
 			service = new Service();
 			service.setStatus("SUCCESS");
-			service.setServiceObject(user);
+			service.setPayload(user);
 		}else {
 			service = new Service();
 			service.setStatus("ERROR");

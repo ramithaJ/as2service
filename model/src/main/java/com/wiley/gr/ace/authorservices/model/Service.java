@@ -24,11 +24,11 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class Service {
 	
-	private String status;
+	private String status = "success";
 	
-	private Object serviceObject;
+	private Object payload;
 	
-	private Error errorVO;
+	private ErrorPOJO error;
 
 	/**
 	 * @return
@@ -47,29 +47,29 @@ public class Service {
 	/**
 	 * @return
 	 */
-	public Object getServiceObject() {
-		return serviceObject;
+	public Object getPayload() {
+		return payload;
 	}
 
 	/**
-	 * @param serviceObject
+	 * @param payload
 	 */
-	public void setServiceObject(Object serviceObject) {
-		this.serviceObject = serviceObject;
+	public void setPayload(Object payload) {
+		this.payload = payload;
 	}
 
 	/**
 	 * @return
 	 */
-	public Error getErrorVO() {
-		return errorVO;
+	public ErrorPOJO getError() {
+		return error;
 	}
 
 	/**
-	 * @param errorVO
+	 * @param error
 	 */
-	public void setErrorVO(Error errorVO) {
-		this.errorVO = errorVO;
+	public void setError(ErrorPOJO error) {
+		this.error = error;
 	}
 	
 	

@@ -1,20 +1,13 @@
-/*******************************************************************************
- * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
- *
- * All material contained herein is proprietary to John Wiley & Sons 
- * and its third party suppliers, if any. The methods, techniques and 
- * technical concepts contained herein are considered trade secrets 
- * and confidential and may be protected by intellectual property laws.  
- * Reproduction or distribution of this material, in whole or in part, 
- * is strictly forbidden except by express prior written permission 
- * of John Wiley & Sons.
- *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -31,6 +24,7 @@ public class Alerts implements java.io.Serializable {
 	private String createdBy;
 	private Date updatedDate;
 	private String updatedBy;
+	private Set<UserAlerts> userAlertses = new HashSet<UserAlerts>(0);
 
 	public Alerts() {
 	}
@@ -41,7 +35,7 @@ public class Alerts implements java.io.Serializable {
 
 	public Alerts(Integer alertId, String alertName, String description,
 			Date createdDate, String createdBy, Date updatedDate,
-			String updatedBy) {
+			String updatedBy, Set<UserAlerts> userAlertses) {
 		this.alertId = alertId;
 		this.alertName = alertName;
 		this.description = description;
@@ -49,6 +43,7 @@ public class Alerts implements java.io.Serializable {
 		this.createdBy = createdBy;
 		this.updatedDate = updatedDate;
 		this.updatedBy = updatedBy;
+		this.userAlertses = userAlertses;
 	}
 
 	@Id
@@ -88,7 +83,7 @@ public class Alerts implements java.io.Serializable {
 		this.createdDate = createdDate;
 	}
 
-	@Column(name = "CREATED_BY", length = 50)
+	@Column(name = "CREATED_BY", length = 100)
 	public String getCreatedBy() {
 		return this.createdBy;
 	}
@@ -106,13 +101,22 @@ public class Alerts implements java.io.Serializable {
 		this.updatedDate = updatedDate;
 	}
 
-	@Column(name = "UPDATED_BY", length = 50)
+	@Column(name = "UPDATED_BY", length = 100)
 	public String getUpdatedBy() {
 		return this.updatedBy;
 	}
 
 	public void setUpdatedBy(String updatedBy) {
 		this.updatedBy = updatedBy;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "alerts")
+	public Set<UserAlerts> getUserAlertses() {
+		return this.userAlertses;
+	}
+
+	public void setUserAlertses(Set<UserAlerts> userAlertses) {
+		this.userAlertses = userAlertses;
 	}
 
 }
