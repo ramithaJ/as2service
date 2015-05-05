@@ -59,7 +59,7 @@ public class UpdateUserController {
 			service.setServiceObject(user);
 		}else {
 			service = new Service();
-			service.setStatus("FAILURE");
+			service.setStatus("ERROR");
 		}
 		return service;
 	}
