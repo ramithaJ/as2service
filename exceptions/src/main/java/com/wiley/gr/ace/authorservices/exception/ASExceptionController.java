@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
 import com.wiley.gr.ace.authorservices.model.Service;
 
 /**
@@ -43,10 +44,11 @@ public class ASExceptionController {
 		Service response = new Service();
 		
 		response.setStatus("failed");
-		response.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
-		response.getError().setCode(
+		ErrorPOJO errorPojo = new com.wiley.gr.ace.authorservices.model.ErrorPOJO();
+		errorPojo.setCode(
 				Integer.parseInt(asException.getErrorCode()));
-		response.getError().setMessage(asException.getDescription());
+		errorPojo.setMessage(asException.getDescription());
+		response.setError(errorPojo);
 		
 		return response;
 		
@@ -66,9 +68,10 @@ public class ASExceptionController {
 		Service response = new Service();
 		
 		response.setStatus("failed");
-		response.setError(new com.wiley.gr.ace.authorservices.model.ErrorPOJO());
-		response.getError().setCode(-1);
-		response.getError().setMessage(exception.getMessage());
+		ErrorPOJO errorPojo = new com.wiley.gr.ace.authorservices.model.ErrorPOJO();
+		errorPojo.setCode(-1);
+		errorPojo.setMessage(exception.getMessage());
+		response.setError(errorPojo);
 		
 		return response;
 		
