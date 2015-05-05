@@ -11,6 +11,8 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.web.controllers;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,7 +36,7 @@ import com.wiley.gr.ace.authorservices.services.service.impl.UserLoginServiceImp
  *
  */
 @RestController
-@RequestMapping("/userLogin")
+@RequestMapping("/user")
 public class UserLoginController extends ASExceptionController {
 
 	public static ApplicationContext context = new AnnotationConfigApplicationContext(
@@ -48,8 +50,8 @@ public class UserLoginController extends ASExceptionController {
 	 * @param userId
 	 * @return
 	 */
-	@RequestMapping(value = "/doLogin/", method = RequestMethod.POST)
-	public Service doLogin(@RequestBody Login login) {
+	@RequestMapping(value = "/login/", method = RequestMethod.POST)
+	public Service login(@RequestBody Login login) {
 
 		Service service = new Service();
 		service.setStatus("success");
@@ -81,25 +83,23 @@ public class UserLoginController extends ASExceptionController {
 	 * @param userId
 	 * @return
 	 */
-	@RequestMapping(value = "/updatePassword/{emailId}", method = RequestMethod.POST)
+	@RequestMapping(value = "/password/{emailId}", method = {RequestMethod.POST, RequestMethod.PUT})
 	public Service updatePassword(@PathVariable("emailId") String emailId,
-			@RequestBody PasswordDetails passwordDetails) {
+			@RequestBody PasswordDetails passwordDetails, HttpServletRequest request) {
 
 		Service service = new Service();
-		userLoginService.updatePassword(emailId, passwordDetails);
-		service.setStatus("success");
 		
-		return service;
-	}
-
-	@RequestMapping(value = "/resetPassword/{emailId}", method = RequestMethod.POST)
-	public Service resetPassword(@PathVariable("emailId") String emailId,
-			@RequestBody String newPassword)  {
-
-		Service service = new Service();
-		userLoginService.resetPassword(emailId, newPassword);
-		service.setStatus("success");
-	
+		if(request.getMethod().equals(RequestMethod.POST)) {
+			
+			service = new Service();
+			userLoginService.updatePassword(emailId, passwordDetails);
+		
+		} else if(request.getMethod().equals(RequestMethod.PUT)) {
+			
+			service = new Service();
+			userLoginService.resetPassword(emailId, passwordDetails.getNewPassword());
+		}
+		
 		return service;
 	}
 
@@ -107,8 +107,8 @@ public class UserLoginController extends ASExceptionController {
 	 * @param emailId
 	 * @return
 	 */
-	@RequestMapping(value = "/getSecurityQuestions/{emailId}", method = RequestMethod.GET)
-	public Service getSecurityQuestions(@PathVariable("emailId") String emailId) {
+	@RequestMapping(value = "/securityQuestions/{emailId}", method = RequestMethod.GET)
+	public Service securityQuestions(@PathVariable("emailId") String emailId) {
 
 		Service service = new Service();
 		service.setStatus("success");
@@ -126,7 +126,7 @@ public class UserLoginController extends ASExceptionController {
 	 * @param userId
 	 * @return
 	 */
-	@RequestMapping(value = "/validateSecurityQuestions/{emailId}", method = RequestMethod.POST)
+	@RequestMapping(value = "/securityQuestions/validate/{emailId}", method = RequestMethod.POST)
 	public Service validateSecurityQuestions(
 			@PathVariable("emailId") String emailId,
 			@RequestBody Security securityDetails) {
