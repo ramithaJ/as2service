@@ -14,20 +14,15 @@ package com.wiley.gr.ace.authorservices.services.service.impl;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
-import com.wiley.gr.ace.authorservices.externalservices.context.ExternalServiceBeanConfig;
 import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
-import com.wiley.gr.ace.authorservices.externalservices.service.impl.ALMInterfaceServiceImpl;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.Security;
 import com.wiley.gr.ace.authorservices.model.UserMgmt;
-import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
-import com.wiley.gr.ace.authorservices.persistence.services.impl.UserLoginServiceDAOImpl;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 
 /**
@@ -35,21 +30,17 @@ import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
  */
 public class UserLoginServiceImpl implements UserLoginService {
 
-	private static ApplicationContext context = new AnnotationConfigApplicationContext(
-			PersistenceBeanConfig.class);
-	private static ApplicationContext externalServiceContext = new AnnotationConfigApplicationContext(
-			ExternalServiceBeanConfig.class);
-	UserLoginServiceDAO userLoginServiceDAO = (UserLoginServiceDAOImpl) context
-			.getBean("UserLoginServiceDAO");
-	ALMInterfaceService almService = (ALMInterfaceServiceImpl) externalServiceContext
-			.getBean("ALMExternalService");
+	@Autowired(required = true)
+	UserLoginServiceDAO userLoginServiceDAO;
+	@Autowired(required = true)
+	ALMInterfaceService almService;
 
 	@Override
 	public UserMgmt doLogin(String emailId, String password) {
 
 		UserMgmt userMgmt = null;
 		if (userLoginServiceDAO.validateEmailAddress(emailId)) {
-			
+
 			int userId = userLoginServiceDAO.getUserId(emailId);
 
 			if (userLoginServiceDAO.isUserLocked(userId)) {
@@ -76,7 +67,7 @@ public class UserLoginServiceImpl implements UserLoginService {
 			} else {
 				if (authenticateUser(userId, emailId, password)) {
 					userMgmt = new UserMgmt();
-					userMgmt.setUserId(userId+ "");
+					userMgmt.setUserId(userId + "");
 				}
 			}
 		} else {
@@ -124,7 +115,7 @@ public class UserLoginServiceImpl implements UserLoginService {
 		Integer userId = userLoginServiceDAO.getUserId(emailId);
 		List<UserSecurityDetails> securityQuestionslist = userLoginServiceDAO
 				.getSecurityQuestions(userId);
-		
+
 		if (securityDetails.getSecurityQuestion1().equalsIgnoreCase(
 				securityQuestionslist.get(0).getSecurityQuestion())
 				&& securityDetails.getSecurityAnswer1().equalsIgnoreCase(
@@ -132,14 +123,14 @@ public class UserLoginServiceImpl implements UserLoginService {
 				&& securityDetails.getSecurityQuestion2().equalsIgnoreCase(
 						securityQuestionslist.get(1).getSecurityQuestion())
 				&& securityDetails.getSecurityAnswer2().equalsIgnoreCase(
-						securityQuestionslist.get(1).getSecurityAnswer())){
+						securityQuestionslist.get(1).getSecurityAnswer())) {
 			return true;
-		}else{
-			
+		} else {
+
 			throw new ASException("1011",
 					"Please enter valid security details.");
 		}
-			
+
 	}
 
 	@Override

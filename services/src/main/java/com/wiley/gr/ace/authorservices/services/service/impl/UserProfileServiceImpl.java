@@ -14,8 +14,7 @@ package com.wiley.gr.ace.authorservices.services.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.Alert;
@@ -24,10 +23,8 @@ import com.wiley.gr.ace.authorservices.model.Interests;
 import com.wiley.gr.ace.authorservices.model.PreferredJournals;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Society;
-import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserAlerts;
 import com.wiley.gr.ace.authorservices.persistence.services.UserAlertsDao;
-import com.wiley.gr.ace.authorservices.persistence.services.impl.UserAlertsDaoImpl;
 import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
 
 /**
@@ -35,8 +32,9 @@ import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
  *
  */
 public class UserProfileServiceImpl implements UserProfileService {
-	private static ApplicationContext daoContext = new AnnotationConfigApplicationContext(
-			PersistenceBeanConfig.class);
+
+	@Autowired(required = true)
+	UserAlertsDao userAlertsDao;
 
 	@Override
 	public Affiliation[] getAffiliationsForUser(String userId) {
@@ -181,8 +179,6 @@ public class UserProfileServiceImpl implements UserProfileService {
 	@Override
 	public Alert[] getListOfAlerts(String userId) {
 
-		UserAlertsDao userAlertsDao = (UserAlertsDaoImpl) daoContext
-				.getBean("UserAlertsDao");
 		List<UserAlerts> userAlerts = userAlertsDao.getListOfAlerts(userId);
 		ArrayList<Alert> alertsList = new ArrayList<Alert>();
 
@@ -212,36 +208,33 @@ public class UserProfileServiceImpl implements UserProfileService {
 	@Override
 	public boolean updateAlerts(String userId, List<Alert> alertsList) {
 
-		UserAlertsDao userAlertsDao = (UserAlertsDao) daoContext
-				.getBean("UserAlertsDao");
-
 		List<UserAlerts> daoAlertsList = userAlertsDao.getListOfAlerts(userId);
-		 
 
-		   for (Alert alert : alertsList) {
-			   
-			   for (UserAlerts userAlerts : daoAlertsList) {
+		for (Alert alert : alertsList) {
+
+			for (UserAlerts userAlerts : daoAlertsList) {
 				UserAlerts daoAlert = userAlerts;
-					if (daoAlert.getId().getAlertId() == Integer.valueOf(alert.getAlertId())) {
+				if (daoAlert.getId().getAlertId() == Integer.valueOf(alert
+						.getAlertId())) {
 
-						if (alert.isEmail()) {
-							daoAlert.setEmailFlg(new Character('Y'));
-						} else {
-							daoAlert.setEmailFlg(new Character('N'));
-						}
-	
-						if (alert.isOnScreen()) {
-							daoAlert.setOnScreenFlg(new Character('Y'));
-						} else {
-							daoAlert.setOnScreenFlg(new Character('N'));
-						}
-						break;
+					if (alert.isEmail()) {
+						daoAlert.setEmailFlg(new Character('Y'));
+					} else {
+						daoAlert.setEmailFlg(new Character('N'));
+					}
+
+					if (alert.isOnScreen()) {
+						daoAlert.setOnScreenFlg(new Character('Y'));
+					} else {
+						daoAlert.setOnScreenFlg(new Character('N'));
+					}
+					break;
 				}
 
 			}
 
 		}
-          
+
 		userAlertsDao.updateAlerts(daoAlertsList);
 
 		return true;
