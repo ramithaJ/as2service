@@ -19,11 +19,9 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
-import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
 import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
@@ -34,11 +32,8 @@ import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
  */
 public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 
-	private static ApplicationContext context = new AnnotationConfigApplicationContext(
-			PersistenceBeanConfig.class);
-
-	private static HibernateConnection con = (HibernateConnection) context
-			.getBean("HibernateConnection");
+	@Autowired(required = true)
+	HibernateConnection con;
 
 	@Override
 	public List<AuthorProfile> getUsersList() {
@@ -180,7 +175,8 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 			transaction = session.beginTransaction();
 			Criteria criteria = session.createCriteria(AuthorProfile.class);
 			criteria.add(Restrictions.eq("userId", userId));
-			AuthorProfile authorProfile = (AuthorProfile) criteria.uniqueResult();
+			AuthorProfile authorProfile = (AuthorProfile) criteria
+					.uniqueResult();
 			if (null == authorProfile)
 				return isLocked;
 			if (authorProfile.getIsAccountLocked() == 'Y') {

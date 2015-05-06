@@ -17,11 +17,9 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
-import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
 import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
@@ -32,11 +30,8 @@ import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
  */
 public class UserLoginDaoImpl implements UserLoginDao {
 
-	private static ApplicationContext context = new AnnotationConfigApplicationContext(
-			PersistenceBeanConfig.class);
-
-	private static HibernateConnection con = (HibernateConnection) context
-			.getBean("HibernateConnection");
+	@Autowired(required = true)
+	HibernateConnection con;
 
 	@Override
 	public boolean validateEmail(String emailId) {
@@ -56,7 +51,7 @@ public class UserLoginDaoImpl implements UserLoginDao {
 
 	@Override
 	public boolean doLogin(String emailId) {
-//		boolean status = false;
+		// boolean status = false;
 		Session session = con.getSessionFactory().openSession();
 		session.beginTransaction();
 
@@ -65,9 +60,9 @@ public class UserLoginDaoImpl implements UserLoginDao {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 		Date date = new Date();
 		System.out.println(dateFormat.format(date));
-		
+
 		int userId = getUserId(emailId);
-		
+
 		String hql = "from AuthorProfile where userId = :userId";
 		List<AuthorProfile> result = session.createQuery(hql)
 				.setInteger("userId", userId).list();
@@ -90,14 +85,15 @@ public class UserLoginDaoImpl implements UserLoginDao {
 
 		return true;
 	}
-	
+
 	/**
 	 * Method to get UserId using emailId
+	 * 
 	 * @param emailId
 	 * @return
 	 */
 	private int getUserId(String emailId) {
-		
+
 		Session session = con.getSessionFactory().openSession();
 		Users user = null;
 		int userId = 0;
@@ -107,13 +103,13 @@ public class UserLoginDaoImpl implements UserLoginDao {
 				.setString("emailId", emailId).list();
 
 		if (result != null && result.size() > 0) {
-			
+
 			user = result.get(0);
 			userId = user.getUserId();
 		}
-		
+
 		return userId;
-		
+
 	}
 
 }

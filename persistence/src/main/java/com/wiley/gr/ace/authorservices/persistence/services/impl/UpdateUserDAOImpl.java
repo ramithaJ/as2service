@@ -16,12 +16,10 @@ package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
-import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.UpdateUserDAO;
 
@@ -30,29 +28,33 @@ import com.wiley.gr.ace.authorservices.persistence.services.UpdateUserDAO;
  *
  */
 public class UpdateUserDAOImpl implements UpdateUserDAO {
-	
-	private static ApplicationContext context = new AnnotationConfigApplicationContext(PersistenceBeanConfig.class);
-	private static HibernateConnection con = (HibernateConnection) context.getBean("HibernateConnection");
-	
-	/* (non-Javadoc)
-	 * @see com.wiley.gr.ace.authorservices.persistence.services.UpdateUserDAO#updateUserWithOrcid(com.wiley.gr.ace.authorservices.model.User)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.wiley.gr.ace.authorservices.persistence.services.UpdateUserDAO#
+	 * updateUserWithOrcid(com.wiley.gr.ace.authorservices.model.User)
 	 */
+	@Autowired(required = true)
+	HibernateConnection con;
+
 	@Override
-	public User updateUserWithOrcid(User user) throws Exception{
+	public User updateUserWithOrcid(User user) throws Exception {
 		/**
-		 * Create hibernate session 
+		 * Create hibernate session
 		 */
 		Session session = con.getSessionFactory().openSession();
 		try {
-			
-			if(user!=null){
+
+			if (user != null) {
 				/**
 				 * Fetch user profile with user Id
 				 */
 				Transaction getTxn = session.beginTransaction();
-				Users userEntity = (Users)session.load(Users.class, user.getUserId());
+				Users userEntity = (Users) session.load(Users.class,
+						user.getUserId());
 				getTxn.commit();
-				
+
 				/**
 				 * Update profile with ORCID details
 				 */
@@ -60,17 +62,16 @@ public class UpdateUserDAOImpl implements UpdateUserDAO {
 				Transaction updateTxn = session.beginTransaction();
 				session.update(userEntity);
 				updateTxn.commit();
-				
+
 				user.setPrimaryEmailAddr(userEntity.getEmailAddr());
-			}else {
+			} else {
 				user = null;
 			}
 		} catch (Exception e) {
 			user = null;
 			e.printStackTrace();
 			throw new Exception();
-		}
-		finally{
+		} finally {
 			session.close();
 		}
 		return user;

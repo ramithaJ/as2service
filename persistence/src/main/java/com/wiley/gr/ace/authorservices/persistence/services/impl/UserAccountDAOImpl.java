@@ -16,11 +16,9 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
-import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
 import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 import com.wiley.gr.ace.authorservices.persistence.services.UserAccountDAO;
 
@@ -30,10 +28,8 @@ import com.wiley.gr.ace.authorservices.persistence.services.UserAccountDAO;
  */
 public class UserAccountDAOImpl implements UserAccountDAO {
 
-	private static ApplicationContext context = new AnnotationConfigApplicationContext(
-			PersistenceBeanConfig.class);
-	private static HibernateConnection con = (HibernateConnection) context
-			.getBean("HibernateConnection");
+	@Autowired(required = true)
+	HibernateConnection con;
 
 	@Override
 	public AuthorProfile getEmailDetails(String userId) {
@@ -46,7 +42,8 @@ public class UserAccountDAOImpl implements UserAccountDAO {
 			Criteria criteria = session.createCriteria(AuthorProfile.class);
 			criteria.add(Restrictions.eq("userId", Integer.parseInt(userId)));
 			AuthorProfile userProfile = (AuthorProfile) criteria.uniqueResult();
-			//System.out.println("shiva" + userProfile.getSecondaryEmailAddr());
+			// System.out.println("shiva" +
+			// userProfile.getSecondaryEmailAddr());
 			if (null == userProfile)
 				return null;
 			transaction.commit();
@@ -59,16 +56,16 @@ public class UserAccountDAOImpl implements UserAccountDAO {
 		}
 	}
 
-	
 	@Override
-	public boolean updateSecurityDetails(String question1,String answer1,String question2,String answer2, Integer userId) {
+	public boolean updateSecurityDetails(String question1, String answer1,
+			String question2, String answer2, Integer userId) {
 
 		Session session = null;
 		Transaction transaction = null;
 		try {
 			session = con.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			
+
 			String hql = "UPDATE UserSecurityDetails set securityQuestion = :securityQuestion, securityAnswer = :securityAnswer "
 					+ "WHERE authorProfile.userId = :userId";
 			Query query = session.createQuery(hql);
@@ -86,9 +83,9 @@ public class UserAccountDAOImpl implements UserAccountDAO {
 		}
 	}
 
-
 	@Override
-	public boolean updateEmailDetails(String userId,String primaryEmail, String secondaryEmail) {
+	public boolean updateEmailDetails(String userId, String primaryEmail,
+			String secondaryEmail) {
 
 		Session session = null;
 		Transaction transaction = null;
