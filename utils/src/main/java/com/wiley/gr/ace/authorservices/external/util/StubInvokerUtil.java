@@ -48,8 +48,13 @@ public class StubInvokerUtil {
 						requestEntity, CDMAffiliation.class);
 
 			}
-
-			return response.getBody();
+			
+			if(response != null) {
+				
+				return response.getBody();
+			} else {
+				return null;
+			}
 
 		} catch (URISyntaxException e) {
 
