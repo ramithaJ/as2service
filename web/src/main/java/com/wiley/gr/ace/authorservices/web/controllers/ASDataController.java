@@ -11,16 +11,13 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.web.controllers;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.model.Service;
-import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
 import com.wiley.gr.ace.authorservices.services.service.ASDataService;
-import com.wiley.gr.ace.authorservices.services.service.impl.ASDataServiceImpl;
 
 /**
  * This controller is used to get common data in dropdown across application
@@ -32,10 +29,8 @@ import com.wiley.gr.ace.authorservices.services.service.impl.ASDataServiceImpl;
 @RequestMapping("/asdata")
 public class ASDataController {
 
-	public static ApplicationContext context = new AnnotationConfigApplicationContext(
-			ServiceBeanConfig.class);
-	ASDataService aSDataService = (ASDataServiceImpl) context
-			.getBean("ASDataService");
+	@Autowired(required = true)
+	ASDataService aSDataService;
 
 	/**
 	 * @return
@@ -145,17 +140,17 @@ public class ASDataController {
 		Service service = new Service();
 		service.setStatus("success");
 		service.setPayload(aSDataService.getSecurityQuestions());
-		
+
 		return service;
 	}
-	
+
 	@RequestMapping(value = "/roles/", method = RequestMethod.GET, produces = "application/json")
 	public Service getAdminRoles() {
 
 		Service service = new Service();
 		service.setStatus("success");
 		service.setPayload(aSDataService.getAdminRoles());
-		
+
 		return service;
 	}
 }

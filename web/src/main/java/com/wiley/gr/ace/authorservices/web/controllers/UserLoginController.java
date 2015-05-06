@@ -13,8 +13,7 @@ package com.wiley.gr.ace.authorservices.web.controllers;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,9 +26,7 @@ import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.Security;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.User;
-import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
-import com.wiley.gr.ace.authorservices.services.service.impl.UserLoginServiceImpl;
 
 /**
  * @author kpshiva
@@ -39,24 +36,23 @@ import com.wiley.gr.ace.authorservices.services.service.impl.UserLoginServiceImp
 @RequestMapping("/user")
 public class UserLoginController extends ASExceptionController {
 
-	public static ApplicationContext context = new AnnotationConfigApplicationContext(
-			ServiceBeanConfig.class);
-	UserLoginService userLoginService = (UserLoginServiceImpl) context
-			.getBean("UserLoginService");
-
 	/**
 	 * this method takes the password from request body
 	 * 
 	 * @param userId
 	 * @return
 	 */
+	@Autowired(required = true)
+	UserLoginService userLoginService;
+
 	@RequestMapping(value = "/login/", method = RequestMethod.POST)
 	public Service login(@RequestBody Login login) {
 
 		Service service = new Service();
 		service.setStatus("success");
-		service.setPayload(userLoginService.doLogin(login.getEmailId(), login.getPassword()));
-		
+		service.setPayload(userLoginService.doLogin(login.getEmailId(),
+				login.getPassword()));
+
 		return service;
 	}
 
@@ -73,7 +69,7 @@ public class UserLoginController extends ASExceptionController {
 		 */
 		service.setStatus("success");
 		service.setPayload(user);
-		
+
 		return service;
 	}
 
@@ -83,23 +79,26 @@ public class UserLoginController extends ASExceptionController {
 	 * @param userId
 	 * @return
 	 */
-	@RequestMapping(value = "/password/{emailId}", method = {RequestMethod.POST, RequestMethod.PUT})
+	@RequestMapping(value = "/password/{emailId}", method = {
+			RequestMethod.POST, RequestMethod.PUT })
 	public Service updatePassword(@PathVariable("emailId") String emailId,
-			@RequestBody PasswordDetails passwordDetails, HttpServletRequest request) {
+			@RequestBody PasswordDetails passwordDetails,
+			HttpServletRequest request) {
 
 		Service service = new Service();
-		
-		if(request.getMethod().equals(RequestMethod.POST)) {
-			
+
+		if (request.getMethod().equals(RequestMethod.POST)) {
+
 			service = new Service();
 			userLoginService.updatePassword(emailId, passwordDetails);
-		
-		} else if(request.getMethod().equals(RequestMethod.PUT)) {
-			
+
+		} else if (request.getMethod().equals(RequestMethod.PUT)) {
+
 			service = new Service();
-			userLoginService.resetPassword(emailId, passwordDetails.getNewPassword());
+			userLoginService.resetPassword(emailId,
+					passwordDetails.getNewPassword());
 		}
-		
+
 		return service;
 	}
 
@@ -113,7 +112,7 @@ public class UserLoginController extends ASExceptionController {
 		Service service = new Service();
 		service.setStatus("success");
 		service.setPayload(userLoginService.getSecurityQuestions(emailId));
-		
+
 		return service;
 	}
 
@@ -132,10 +131,10 @@ public class UserLoginController extends ASExceptionController {
 			@RequestBody Security securityDetails) {
 
 		Service service = new Service();
-		service.setPayload(userLoginService
-				.validateSecurityQuestions(emailId, securityDetails));
+		service.setPayload(userLoginService.validateSecurityQuestions(emailId,
+				securityDetails));
 		service.setStatus("success");
-	
+
 		return service;
 	}
 

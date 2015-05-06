@@ -15,8 +15,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,22 +26,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
-import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
 import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
 
 @RestController
 @RequestMapping("/registration")
 public class RegistrationController {
-	public static ApplicationContext context = new AnnotationConfigApplicationContext(
-			ServiceBeanConfig.class);
-	RegistrationService rs = (RegistrationService) context
-			.getBean("RegistrationService");
+
+	@Autowired(required = true)
+	RegistrationService rs;
+
 	private Logger logger = LoggerFactory
 			.getLogger(RegistrationController.class);
 
 	@RequestMapping(value = "/checkIfExists/{email}/{firstName}/{lastName}", method = RequestMethod.GET)
-	public @ResponseBody Service checkUserExists(@PathVariable("email") String email,
-			@PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName) {
+	public @ResponseBody Service checkUserExists(
+			@PathVariable("email") String email,
+			@PathVariable("firstName") String firstName,
+			@PathVariable("lastName") String lastName) {
 
 		Service service = new Service();
 		ESBUser esbUser = rs.checkEmailIdExists(email);

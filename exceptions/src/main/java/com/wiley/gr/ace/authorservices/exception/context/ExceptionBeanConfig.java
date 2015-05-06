@@ -24,11 +24,17 @@ import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
 @Configuration
 public class ExceptionBeanConfig {
 	
+	/**
+	 * @return
+	 */
 	@Bean(name = "asException")
 	public ASException getASException() {
 		return new ASException();
 	}
 	
+	/**
+	 * @return
+	 */
 	@Bean(name = "asExceptionController")
 	public ASExceptionController getASExceptionController() {
 		return new ASExceptionController();

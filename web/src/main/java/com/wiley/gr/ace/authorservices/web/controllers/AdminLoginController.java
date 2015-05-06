@@ -11,8 +11,7 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.web.controllers;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,13 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
-import com.wiley.gr.ace.authorservices.exception.context.ExceptionBeanConfig;
 import com.wiley.gr.ace.authorservices.model.AdminUser;
 import com.wiley.gr.ace.authorservices.model.Login;
 import com.wiley.gr.ace.authorservices.model.Service;
-import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
-import com.wiley.gr.ace.authorservices.services.service.impl.AdminLoginServiceImpl;
 
 /**
  * This method takes email in encrypted format like -- kondavinay%40gmail.com/
@@ -40,42 +36,37 @@ import com.wiley.gr.ace.authorservices.services.service.impl.AdminLoginServiceIm
 @RestController
 @RequestMapping("/admin")
 public class AdminLoginController extends ASExceptionController {
-	
-	public static ApplicationContext context = new AnnotationConfigApplicationContext(
-			ServiceBeanConfig.class);
-	
-	public static ApplicationContext exceptionContext = new AnnotationConfigApplicationContext(
-			ExceptionBeanConfig.class);
 
 	/**
 	 * @param emailId
 	 * @param password
 	 * @return
 	 */
+
+	@Autowired(required = true)
+	AdminLoginService adminlogin;
+
 	@RequestMapping(value = "/login/", method = RequestMethod.POST, produces = "application/json")
 	public Service login(@RequestBody Login login) {
-
-		Service serviceVO = new Service();
 		boolean status = false;
-		
-		AdminLoginService adminlogin = (AdminLoginServiceImpl) context
-				.getBean("AdminLoginService");
+		Service serviceVO = new Service();
+
 		status = adminlogin.validateEmail(login.getEmailId());
-		
 
 		if (status) {
 
 			adminlogin.doLogin(login.getEmailId());
 			serviceVO.setStatus("success");
+			
 		} else {
-			throw new ASException("1001", "Invalid email address. Please Re-Enter");
+			throw new ASException("1001",
+					"Invalid email address. Please Re-Enter");
 		}
-		
+
 		return serviceVO;
 
 	}
-	
-	
+
 	/**
 	 * @param emailId
 	 * @param password
@@ -88,11 +79,11 @@ public class AdminLoginController extends ASExceptionController {
 		return null;
 
 	}
-	
+
 	@RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/json")
 	public Service createAdmin(@RequestBody AdminUser admin) {
-		
+
 		return null;
-		
+
 	}
 }

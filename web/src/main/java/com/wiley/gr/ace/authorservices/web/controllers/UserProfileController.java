@@ -13,8 +13,7 @@ package com.wiley.gr.ace.authorservices.web.controllers;
 
 import java.util.List;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,16 +21,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wiley.gr.ace.authorservices.externalservices.context.ExternalServiceBeanConfig;
 import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
-import com.wiley.gr.ace.authorservices.externalservices.service.impl.CDMInterfaceServiceImpl;
 import com.wiley.gr.ace.authorservices.model.Alert;
 import com.wiley.gr.ace.authorservices.model.Interests;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.external.CDMAffiliation;
-import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
 import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
-import com.wiley.gr.ace.authorservices.services.service.impl.UserProfileServiceImpl;
 
 /**
  * @author SarmaKumarap
@@ -40,24 +35,22 @@ import com.wiley.gr.ace.authorservices.services.service.impl.UserProfileServiceI
 @RestController
 @RequestMapping("/userprofile")
 public class UserProfileController {
-	public static ApplicationContext context = new AnnotationConfigApplicationContext(
-			ServiceBeanConfig.class);
 
-	private static ApplicationContext externalServiceContext = new AnnotationConfigApplicationContext(
-			ExternalServiceBeanConfig.class);
-
-CDMInterfaceService cdmservices = (CDMInterfaceServiceImpl) externalServiceContext.getBean("CDMInterfaceService");
 	/**
 	 * @param userId
 	 * @return
 	 */
+	@Autowired(required = true)
+	CDMInterfaceService cdmservices;
+
+	@Autowired(required = true)
+	UserProfileService userProfileService;
 
 	@RequestMapping(value = "/getAffiliations/{userId}", method = RequestMethod.GET, produces = "application/json")
 	public Service getAffiliationsList(@PathVariable("userId") String userId) {
-		CDMInterfaceService cdmservices = (CDMInterfaceServiceImpl) externalServiceContext
-				.getBean("CDMInterfaceService");
+
 		Service service = new Service();
-		
+
 		service.setPayload(cdmservices.getAffiliationsForUser(userId));
 		service.setStatus("success");
 
@@ -75,15 +68,12 @@ CDMInterfaceService cdmservices = (CDMInterfaceServiceImpl) externalServiceConte
 	public Service editAffiliation(@PathVariable("userId") String userId,
 			@PathVariable("affiliationId") String affiliationId) {
 
-		CDMInterfaceService cdmservices = (CDMInterfaceServiceImpl) externalServiceContext
-				.getBean("CDMInterfaceService");
 		Service service = new Service();
-        
+
 		service.setPayload(cdmservices.editAffialiationsForUser(userId,
 				affiliationId));
 		service.setStatus("success");
-     
-		
+
 		return service;
 	}
 
@@ -96,8 +86,7 @@ CDMInterfaceService cdmservices = (CDMInterfaceServiceImpl) externalServiceConte
 			@RequestBody CDMAffiliation cdmAffiliation) {
 
 		boolean status = false;
-		CDMInterfaceService cdmservices = (CDMInterfaceServiceImpl) externalServiceContext
-				.getBean("CDMInterfaceService");
+
 		Service service = new Service();
 		// service.setPayload(cdmservices.updateAffiliationForUser(cdmAffiliation));
 		status = cdmservices.updateAffiliationForUser(cdmAffiliation);
@@ -118,8 +107,7 @@ CDMInterfaceService cdmservices = (CDMInterfaceServiceImpl) externalServiceConte
 	@RequestMapping(value = "/deleteAffiliation/{userId}/{affiliationId}", method = RequestMethod.POST, produces = "application/json")
 	public Service deleteAffiliation(@PathVariable("userId") String userId,
 			@PathVariable("affiliationId") String affiliationId) {
-		CDMInterfaceService cdmservices = (CDMInterfaceServiceImpl) externalServiceContext
-				.getBean("CDMInterfaceService");
+
 		Service service = new Service();
 		boolean status = false;
 		// service.setPayload(cdmservices.deleteAffiliationForUser(userId,
@@ -142,8 +130,6 @@ CDMInterfaceService cdmservices = (CDMInterfaceServiceImpl) externalServiceConte
 			@RequestBody CDMAffiliation cdmAffiliation) {
 		boolean status = false;
 
-		CDMInterfaceService cdmservices = (CDMInterfaceServiceImpl) externalServiceContext
-				.getBean("CDMInterfaceService");
 		Service service = new Service();
 		status = cdmservices.addAffiliationsForUser(cdmAffiliation);
 		if (status) {
@@ -283,7 +269,7 @@ CDMInterfaceService cdmservices = (CDMInterfaceServiceImpl) externalServiceConte
 		Service service = new Service();
 		service.setStatus("Success");
 		service.setPayload(cdmservices.getInterests(userId));
-		
+
 		return service;
 	}
 
@@ -312,7 +298,7 @@ CDMInterfaceService cdmservices = (CDMInterfaceServiceImpl) externalServiceConte
 			@RequestBody String interestId) {
 
 		Service service = new Service();
-		cdmservices.removeInterest(userId,interestId);
+		cdmservices.removeInterest(userId, interestId);
 		service.setStatus("Success");
 		return service;
 	}
@@ -424,11 +410,9 @@ CDMInterfaceService cdmservices = (CDMInterfaceServiceImpl) externalServiceConte
 	 * @param userId
 	 * @return
 	 */
+
 	@RequestMapping(value = "/getListOfAlerts/{userId}", method = RequestMethod.GET, produces = "application/json")
 	public Service getListOfAlerts(@PathVariable("userId") String userId) {
-
-		UserProfileService userProfileService = (UserProfileServiceImpl) context
-				.getBean("UserProfileService");
 		Service service = new Service();
 		service.setStatus("success");
 		service.setPayload(userProfileService.getListOfAlerts(userId));
@@ -444,9 +428,6 @@ CDMInterfaceService cdmservices = (CDMInterfaceServiceImpl) externalServiceConte
 	@RequestMapping(value = "/updateAlerts/{userId}", method = RequestMethod.POST, produces = "application/json")
 	public Service updateAlerts(@PathVariable("userId") String userId,
 			@RequestBody List<Alert> alertsList) {
-
-		UserProfileService userProfileService = (UserProfileServiceImpl) context
-				.getBean("UserProfileService");
 		Service service = new Service();
 		userProfileService.updateAlerts(userId, alertsList);
 		service.setStatus("success");

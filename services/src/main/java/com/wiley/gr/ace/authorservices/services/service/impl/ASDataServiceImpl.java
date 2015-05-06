@@ -14,8 +14,7 @@ package com.wiley.gr.ace.authorservices.services.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.model.Country;
 import com.wiley.gr.ace.authorservices.model.Department;
@@ -30,10 +29,8 @@ import com.wiley.gr.ace.authorservices.model.State;
 import com.wiley.gr.ace.authorservices.model.StaticData;
 import com.wiley.gr.ace.authorservices.model.Suffix;
 import com.wiley.gr.ace.authorservices.model.Title;
-import com.wiley.gr.ace.authorservices.persistence.context.PersistenceBeanConfig;
 import com.wiley.gr.ace.authorservices.persistence.entity.Roles;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
-import com.wiley.gr.ace.authorservices.persistence.services.impl.ASDataDAOImpl;
 import com.wiley.gr.ace.authorservices.services.service.ASDataService;
 
 /**
@@ -42,9 +39,8 @@ import com.wiley.gr.ace.authorservices.services.service.ASDataService;
  */
 public class ASDataServiceImpl implements ASDataService {
 
-	private static ApplicationContext daoContext = new AnnotationConfigApplicationContext(
-			PersistenceBeanConfig.class);
-	ASDataDAO aSDataDAO = (ASDataDAOImpl) daoContext.getBean("ASDataDAO");
+	@Autowired(required = true)
+	ASDataDAO aSDataDAO;
 
 	@Override
 	public List<Title> getTitles() {
@@ -100,11 +96,11 @@ public class ASDataServiceImpl implements ASDataService {
 		return null;
 	}
 
-//	@Override
-//	public List<Article> getArticles() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+	// @Override
+	// public List<Article> getArticles() {
+	// // TODO Auto-generated method stub
+	// return null;
+	// }
 
 	@Override
 	public List<Society> getSocieties() {
@@ -135,20 +131,20 @@ public class ASDataServiceImpl implements ASDataService {
 
 	@Override
 	public List<Role> getAdminRoles() {
-		
+
 		List<Roles> daoRolesList = aSDataDAO.getAdminRoles();
 		List<Role> adminRoles = new ArrayList<Role>();
 		Role adminRole = null;
-		
-		if(daoRolesList != null && daoRolesList.size() > 0) {
-			
+
+		if (daoRolesList != null && daoRolesList.size() > 0) {
+
 			for (Roles roles : daoRolesList) {
-				adminRole  = new Role();
-				adminRole.setRoleId(roles.getRoleId()+"");
+				adminRole = new Role();
+				adminRole.setRoleId(roles.getRoleId() + "");
 				adminRole.setRoleName(roles.getRoleName());
 				adminRoles.add(adminRole);
 			}
-			
+
 		}
 		return adminRoles;
 	}

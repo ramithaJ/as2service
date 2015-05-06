@@ -13,8 +13,7 @@ package com.wiley.gr.ace.authorservices.web.controllers;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,9 +24,7 @@ import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.Security;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.UserMgmt;
-import com.wiley.gr.ace.authorservices.services.context.ServiceBeanConfig;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
-import com.wiley.gr.ace.authorservices.services.service.impl.UserAccountServiceImpl;
 
 /**
  * @author SarmaKumarap
@@ -37,40 +34,51 @@ import com.wiley.gr.ace.authorservices.services.service.impl.UserAccountServiceI
 @RequestMapping("/userAccount")
 public class UserAccountController {
 
-	public static ApplicationContext context = new AnnotationConfigApplicationContext(
-			ServiceBeanConfig.class);
-	UserAccountService userAccountService = (UserAccountServiceImpl) context
-			.getBean("UserAccountService");
+	// public static ApplicationContext context = new
+	// AnnotationConfigApplicationContext(
+	// ServiceBeanConfig.class);
+	// UserAccountService userAccountService = (UserAccountServiceImpl) context
+	// .getBean("UserAccountService");
 
-	@RequestMapping(value = "/userDetails/{userId}", method = {RequestMethod.GET, RequestMethod.POST})
-	public Service getUserDetails(@PathVariable("userId") String userId, @RequestBody String userDetails, HttpServletRequest request) {
-		
+	@Autowired
+	UserAccountService userAccountService;
+
+	@RequestMapping(value = "/userDetails/{userId}", method = {
+			RequestMethod.GET, RequestMethod.POST })
+	public Service getUserDetails(@PathVariable("userId") String userId,
+			@RequestBody String userDetails, HttpServletRequest request) {
+
 		return null;
 
 	}
 
-	@RequestMapping(value = "/emailDetails/{userId}", method = {RequestMethod.GET, RequestMethod.POST})
-	public Service getEmailDetails(@PathVariable("userId") String userId, @RequestBody(required = false) UserMgmt emailDetails, HttpServletRequest request) {
+	@RequestMapping(value = "/emailDetails/{userId}", method = {
+			RequestMethod.GET, RequestMethod.POST })
+	public Service getEmailDetails(@PathVariable("userId") String userId,
+			@RequestBody(required = false) UserMgmt emailDetails,
+			HttpServletRequest request) {
 
 		Service service = null;
 
-		if(request.getMethod().equals(RequestMethod.GET)) {
-			
+		if (request.getMethod().equals(RequestMethod.GET)) {
+
 			service = new Service();
 			service.setPayload(userAccountService.getEmailDetails(userId));
-		
-		} else if(request.getMethod().equals(RequestMethod.POST) && emailDetails != null) {
-			
+
+		} else if (request.getMethod().equals(RequestMethod.POST)
+				&& emailDetails != null) {
+
 			service = new Service();
 			service.setPayload(userAccountService.updateEmailDetails(userId,
 					emailDetails));
-		
-		} else if(request.getMethod().equals(RequestMethod.POST) && emailDetails == null) {
-			
-			throw new ASException("400","Invalid Request Body");
-			
+
+		} else if (request.getMethod().equals(RequestMethod.POST)
+				&& emailDetails == null) {
+
+			throw new ASException("400", "Invalid Request Body");
+
 		}
-		
+
 		return service;
 	}
 
