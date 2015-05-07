@@ -21,6 +21,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
@@ -63,15 +64,16 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 		Transaction transaction = null;
 		try {
 			session = con.getSessionFactory().openSession();
-			transaction = session.beginTransaction();
 			boolean status = false;
 			int userId = getUserId(emailId);
+			if(userId == 0) {
+				throw new ASException("1001","Invalid email address. Please Re-Enter");
+			}
 			String hql = "from AuthorProfile where userId = :userId";
 			List<AuthorProfile> result = session.createQuery(hql)
 					.setInteger("userId", userId).list();
 			if (result != null && result.size() > 0)
 				status = true;
-			transaction.commit();
 			return status;
 		} finally {
 			if (session != null) {
@@ -88,7 +90,6 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 		Transaction transaction = null;
 		try {
 			session = con.getSessionFactory().openSession();
-			transaction = session.beginTransaction();
 			boolean isSecure = false;
 			Criteria criteria = session.createCriteria(AuthorProfile.class);
 			criteria.add(Restrictions.eq("primaryEmailAddr", emailId));
@@ -99,7 +100,6 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 				isSecure = true;
 				return isSecure;
 			}
-			transaction.commit();
 			return isSecure;
 		} finally {
 			if (session != null) {
@@ -134,7 +134,7 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 	}
 
 	@Override
-	public boolean doLogin(int userId, String password) {
+	public void doLogin(int userId, String password) {
 
 		Session session = null;
 		Transaction transaction = null;
@@ -142,21 +142,14 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 			session = con.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			Date date = new Date();
+			
+			Users users = (Users) session.load(Users.class, userId);
+			
+			users.getAuthorProfile().setLastLoginDate(date);
+			users.getAuthorProfile().setUpdatedBy("test");
+			
+			session.update(users);
 
-			String hql = "UPDATE AuthorProfile set lastLoginDate = :lastLoginDate, updatedBy = :updatedBy, updatedDate = :updatedDate "
-					+ "WHERE userId = :userId";
-			Query query = session.createQuery(hql);
-			query.setParameter("lastLoginDate", date);
-			query.setParameter("updatedBy", "system");
-			query.setParameter("updatedDate", date);
-			query.setParameter("userId", userId);
-			int result = query.executeUpdate();
-			transaction.commit();
-			if (result == 1) {
-				return true;
-			} else {
-				return false;
-			}
 		} finally {
 			if (session != null) {
 				session.flush();
@@ -173,19 +166,17 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 		boolean isLocked = false;
 		try {
 			session = con.getSessionFactory().openSession();
-			transaction = session.beginTransaction();
 			Criteria criteria = session.createCriteria(AuthorProfile.class);
 			criteria.add(Restrictions.eq("userId", userId));
 			AuthorProfile authorProfile = (AuthorProfile) criteria
 					.uniqueResult();
 			if (null == authorProfile)
 				return isLocked;
-			if (authorProfile.getIsAccountLocked() == 'Y') {
+			if (authorProfile.getIsAccountLocked() != null && authorProfile.getIsAccountLocked() == 'Y') {
 				isLocked = true;
 			} else {
 				isLocked = false;
 			}
-			transaction.commit();
 			return isLocked;
 		} finally {
 			if (session != null) {
@@ -230,15 +221,16 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 
 		Session session = null;
 		Transaction transaction = null;
+		int userId = 0;
 		try {
 			session = con.getSessionFactory().openSession();
-			transaction = session.beginTransaction();
 			Criteria criteria = session.createCriteria(Users.class);
 			criteria.add(Restrictions.eq("emailAddr", emailId));
 			Users user = (Users) criteria.uniqueResult();
-			int usreId = user.getUserId();
-			transaction.commit();
-			return usreId;
+			if(user != null) {
+				userId = user.getUserId();
+			}
+			return userId;
 		} finally {
 			if (session != null) {
 				session.flush();
@@ -254,12 +246,10 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 		Transaction transaction = null;
 		try {
 			session = con.getSessionFactory().openSession();
-			transaction = session.beginTransaction();
 			Criteria criteria = session.createCriteria(AuthorProfile.class);
 			criteria.add(Restrictions.eq("userId", userId));
 			AuthorProfile userProfile = (AuthorProfile) criteria.uniqueResult();
 			int count = userProfile.getInvalidLoginCnt();
-			transaction.commit();
 			return count;
 		} finally {
 			if (session != null) {
@@ -303,12 +293,10 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 		Transaction transaction = null;
 		try {
 			session = con.getSessionFactory().openSession();
-			transaction = session.beginTransaction();
 			Criteria criteria = session.createCriteria(AuthorProfile.class);
 			criteria.add(Restrictions.eq("userId", userId));
 			AuthorProfile userProfile = (AuthorProfile) criteria.uniqueResult();
 			Date lockedTime = userProfile.getAccountLockedTime();
-			transaction.commit();
 			return lockedTime;
 		} finally {
 			if (session != null) {
