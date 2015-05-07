@@ -45,7 +45,7 @@ public interface UserLoginServiceDAO {
 	 * @param emailId
 	 * @return
 	 */
-	boolean checkSecuritySetup(String emailId);
+	boolean checkSecuritySetup(int userId);
 
 	/**
 	 * @param emailId
