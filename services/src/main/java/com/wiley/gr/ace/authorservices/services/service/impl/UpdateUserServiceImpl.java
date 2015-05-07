@@ -27,17 +27,17 @@ import com.wiley.gr.ace.authorservices.services.service.UpdateUserService;
  */
 public class UpdateUserServiceImpl implements UpdateUserService {
 
+	@Autowired(required = true)
+	ESBInterfaceService esbInterfaceService;
+	@Autowired(required = true)
+	UpdateUserDAO userDao;
+
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see com.wiley.gr.ace.authorservices.services.service.UpdateUserService#
 	 * updateOrcidProfile(java.lang.String)
 	 */
-	@Autowired(required = true)
-	ESBInterfaceService esbInterfaceService;
-	@Autowired(required = true)
-	UpdateUserDAO userDao;
-
 	@Override
 	public User updateOrcidProfile(String orcidId, String userId)
 			throws Exception {
@@ -55,7 +55,7 @@ public class UpdateUserServiceImpl implements UpdateUserService {
 			String status = esbInterfaceService.updateALMUser(user);
 			System.out.println("ALM user update status :: " + status);
 
-			if (status.equalsIgnoreCase("success")) {
+			if (null != status && status.equalsIgnoreCase("success")) {
 				/**
 				 * Update the user account details with ORCID account details
 				 */
@@ -64,6 +64,30 @@ public class UpdateUserServiceImpl implements UpdateUserService {
 			}
 		}
 		return updatedUser;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.wiley.gr.ace.authorservices.services.service.UpdateUserService#
+	 * updateOrcidId(java.lang.String, java.lang.String)
+	 */
+	@Override
+	public String updateOrcidId(String orcidId, String userId) throws Exception {
+
+		String status = "";
+		if (null != orcidId && null != userId) {
+			/**
+			 * Update ORCID ID for the given user ID
+			 */
+			status = userDao.updateUserOrcidId(orcidId, userId);
+		} else {
+			/**
+			 * TODO: Log the null message
+			 */
+			status = "failure"; // Added this just to avoid PMD.
+		}
+		return status;
 	}
 
 }

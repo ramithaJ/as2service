@@ -14,9 +14,9 @@
  */
 package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
@@ -30,20 +30,21 @@ import com.wiley.gr.ace.authorservices.persistence.services.UpdateUserDAO;
 public class UpdateUserDAOImpl implements UpdateUserDAO {
 
 	/*
+	 * @Autowired(required = true) HibernateConnection con;
+	 */
+
+	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see com.wiley.gr.ace.authorservices.persistence.services.UpdateUserDAO#
 	 * updateUserWithOrcid(com.wiley.gr.ace.authorservices.model.User)
 	 */
-	@Autowired(required = true)
-	HibernateConnection con;
-
 	@Override
 	public User updateUserWithOrcid(User user) throws Exception {
 		/**
 		 * Create hibernate session
 		 */
-		Session session = con.getSessionFactory().openSession();
+		Session session = HibernateConnection.getSessionFactory().openSession();
 		try {
 
 			if (user != null) {
@@ -75,6 +76,47 @@ public class UpdateUserDAOImpl implements UpdateUserDAO {
 			session.close();
 		}
 		return user;
+	}
+
+	@Override
+	public String updateUserOrcidId(String orcidId, String userId)
+			throws Exception {
+
+		String status = "";
+		/**
+		 * Create hibernate session
+		 */
+		Session session = HibernateConnection.getSessionFactory().openSession();
+		try {
+			/**
+			 * This block of code will be work now as Author_profile does not
+			 * have Orcid ID. But will be added as per new design.
+			 */
+			Transaction txn = session.beginTransaction();
+
+			String hql = "UPDATE AuthorProfile set orcid = :orcidId "
+					+ "WHERE userId = :userId";
+			Query query = session.createQuery(hql);
+			query.setParameter("orcidId", orcidId);
+			query.setParameter("userId", userId);
+
+			int result = query.executeUpdate();
+			System.out.println("Rows affected: " + result);
+			if (result == 1) {
+				status = "success";
+				txn.commit();
+			} else {
+				status = "failure";
+				txn.rollback();
+			}
+		} catch (Exception e) {
+			status = "";
+			e.printStackTrace();
+			throw new Exception();
+		} finally {
+			session.close();
+		}
+		return status;
 	}
 
 }
