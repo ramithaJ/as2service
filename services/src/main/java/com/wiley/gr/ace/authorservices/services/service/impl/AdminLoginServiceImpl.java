@@ -44,9 +44,8 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 	BPMInterfaceService bpmService;
 	@Override
 	public boolean validateEmail(String emailId) {
-		boolean status = false;
-
 		
+		boolean status = false;
 
 		status = userlogindao.validateEmail(emailId);
 
