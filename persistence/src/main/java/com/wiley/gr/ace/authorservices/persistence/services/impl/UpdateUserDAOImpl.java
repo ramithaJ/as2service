@@ -87,13 +87,12 @@ public class UpdateUserDAOImpl implements UpdateUserDAO {
 		 * Create hibernate session
 		 */
 		Session session = HibernateConnection.getSessionFactory().openSession();
+		Transaction txn = session.beginTransaction();
 		try {
 			/**
 			 * This block of code will be work now as Author_profile does not
 			 * have Orcid ID. But will be added as per new design.
 			 */
-			Transaction txn = session.beginTransaction();
-
 			String hql = "UPDATE AuthorProfile set orcid = :orcidId "
 					+ "WHERE userId = :userId";
 			Query query = session.createQuery(hql);
@@ -110,6 +109,7 @@ public class UpdateUserDAOImpl implements UpdateUserDAO {
 				txn.rollback();
 			}
 		} catch (Exception e) {
+			txn.rollback();
 			status = "";
 			e.printStackTrace();
 			throw new Exception();
