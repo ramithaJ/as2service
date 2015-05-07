@@ -16,6 +16,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
+import com.wiley.gr.ace.authorservices.model.AccessReasons;
 import com.wiley.gr.ace.authorservices.model.Country;
 import com.wiley.gr.ace.authorservices.model.Department;
 import com.wiley.gr.ace.authorservices.model.Industry;
@@ -29,8 +31,10 @@ import com.wiley.gr.ace.authorservices.model.State;
 import com.wiley.gr.ace.authorservices.model.StaticData;
 import com.wiley.gr.ace.authorservices.model.Suffix;
 import com.wiley.gr.ace.authorservices.model.Title;
+import com.wiley.gr.ace.authorservices.persistence.entity.LookupValues;
 import com.wiley.gr.ace.authorservices.persistence.entity.Roles;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
+import com.wiley.gr.ace.authorservices.persistence.services.LookUpValuesDAO;
 import com.wiley.gr.ace.authorservices.services.service.ASDataService;
 
 /**
@@ -41,6 +45,8 @@ public class ASDataServiceImpl implements ASDataService {
 
 	@Autowired(required = true)
 	ASDataDAO aSDataDAO;
+	@Autowired(required=true)
+	LookUpValuesDAO lookupDAO;
 
 	@Override
 	public List<Title> getTitles() {
@@ -147,6 +153,26 @@ public class ASDataServiceImpl implements ASDataService {
 
 		}
 		return adminRoles;
+	}
+	
+	@Override
+	public List<AccessReasons> getAccessReasons() {
+		
+		List<LookupValues> daoList = lookupDAO.getLookUpData(AuthorServicesConstants.ADM_ACC_LOOKUP_KEY);
+		List<AccessReasons> accessList = new ArrayList<AccessReasons>();
+		AccessReasons accessReason = null;
+		
+		if(daoList  != null) {
+			
+			for (LookupValues lookupValues : daoList) {
+				accessReason = new AccessReasons();
+				accessReason.setAccessId(lookupValues.getLookupName());
+				accessReason.setAccessReason(lookupValues.getLookupValue());
+				accessList.add(accessReason);
+			}
+			
+		}
+		return accessList;
 	}
 
 }
