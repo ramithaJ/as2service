@@ -11,11 +11,15 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.web.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiley.gr.ace.authorservices.exception.ASException;
+import com.wiley.gr.ace.authorservices.model.AccessReasons;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.services.service.ASDataService;
 
@@ -138,7 +142,6 @@ public class ASDataController {
 	public Service getSecurityQuestions() {
 
 		Service service = new Service();
-		service.setStatus("success");
 		service.setPayload(aSDataService.getSecurityQuestions());
 
 		return service;
@@ -148,8 +151,25 @@ public class ASDataController {
 	public Service getAdminRoles() {
 
 		Service service = new Service();
-		service.setStatus("success");
 		service.setPayload(aSDataService.getAdminRoles());
+
+		return service;
+	}
+	
+	@RequestMapping(value = "/accessReasons/", method = RequestMethod.GET, produces = "application/json")
+	public Service getAdminAccessReasons() {
+
+		Service service = new Service();
+		List<AccessReasons> accessList = aSDataService.getAccessReasons();
+		
+		if(accessList != null && accessList.size() > 0) {
+			service.setPayload(accessList);
+		
+		} else {
+			
+			throw new ASException("1005","No data found");
+		}
+		
 
 		return service;
 	}
