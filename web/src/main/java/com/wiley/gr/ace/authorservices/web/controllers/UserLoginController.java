@@ -36,15 +36,13 @@ import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 @RequestMapping("/user")
 public class UserLoginController extends ASExceptionController {
 
-	/**
-	 * this method takes the password from request body
-	 * 
-	 * @param userId
-	 * @return
-	 */
 	@Autowired(required = true)
 	UserLoginService userLoginService;
 
+	/**
+	 * @param login
+	 * @return
+	 */
 	@RequestMapping(value = "/login/", method = RequestMethod.POST)
 	public Service login(@RequestBody Login login) {
 
@@ -56,6 +54,11 @@ public class UserLoginController extends ASExceptionController {
 		return service;
 	}
 
+	/**
+	 * @param email
+	 * @param password
+	 * @return
+	 */
 	@RequestMapping(value = "/orcid", method = RequestMethod.POST, produces = "application/json")
 	public Service doOrcidLogin(@RequestBody String email,
 			@RequestBody String password) {
@@ -74,9 +77,9 @@ public class UserLoginController extends ASExceptionController {
 	}
 
 	/**
-	 * this method takes the password from request body
-	 * 
-	 * @param userId
+	 * @param emailId
+	 * @param passwordDetails
+	 * @param request
 	 * @return
 	 */
 	@RequestMapping(value = "/password/{emailId}", method = {
@@ -110,19 +113,15 @@ public class UserLoginController extends ASExceptionController {
 	public Service securityQuestions(@PathVariable("emailId") String emailId) {
 
 		Service service = new Service();
-		service.setStatus("success");
 		service.setPayload(userLoginService.getSecurityQuestions(emailId));
+		service.setStatus("success");
 
 		return service;
 	}
 
 	/**
-	 * this method requires json string like { "id1": "SEQ5", "id2": "SEQ4",
-	 * "securityQuestion1": "what's ur pet name", "securityQuestion2":
-	 * "What is your birthday?","securityAnswer1": "cat","securityAnswer2":
-	 * "i will not tell"} This method takes reads Security from POST
-	 * 
-	 * @param userId
+	 * @param emailId
+	 * @param securityDetails
 	 * @return
 	 */
 	@RequestMapping(value = "/securityQuestions/validate/{emailId}", method = RequestMethod.POST)
