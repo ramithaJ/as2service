@@ -134,7 +134,7 @@ public class Users implements java.io.Serializable {
 		this.adminDetails = adminDetails;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "users")
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "users")
 	public AuthorProfile getAuthorProfile() {
 		return this.authorProfile;
 	}
