@@ -23,5 +23,6 @@ import com.wiley.gr.ace.authorservices.model.User;
 public interface UpdateUserService {
 	
 	User updateOrcidProfile(String orcidId, String userId) throws Exception;
+	String updateOrcidId(String orcidId, String userId) throws Exception;
 
 }

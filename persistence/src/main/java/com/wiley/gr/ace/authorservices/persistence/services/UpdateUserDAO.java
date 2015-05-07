@@ -23,5 +23,6 @@ import com.wiley.gr.ace.authorservices.model.User;
 public interface UpdateUserDAO {
 	
 	User updateUserWithOrcid(User user) throws Exception;
+	String updateUserOrcidId(String orcidId, String userId) throws Exception;
 
 }
