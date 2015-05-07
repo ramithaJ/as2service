@@ -14,6 +14,7 @@
  */
 package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -23,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.model.UserProfile;
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
+import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserReferenceData;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
 import com.wiley.gr.ace.authorservices.persistence.services.DashBoardDAO;
@@ -75,22 +77,57 @@ public class DashBoardDAOImpl implements DashBoardDAO {
 		Session session = con.getSessionFactory().openSession();
 		Transaction tx = session.beginTransaction();
 		List profileMeterList = new LinkedList();
-		String secureDetailsHql = "from UserSecurityDetails where userProfile.userId=:userId";
+		String secureDetailsHql = "from UserSecurityDetails where authorProfile.userId=:userId";
 		List<UserSecurityDetails> secureResultList = session
 				.createQuery(secureDetailsHql).setInteger("userId", userId)
 				.list();
 
-		String secondaryEmailHql = " select upf.secondaryEmailAddr from UserProfile upf where upf.userId=:userId";
+		/*String secondaryEmailHql = " select upf.secondaryEmailAddr from UserProfile upf where upf.userId=:userId";
 		List<UserProfile> userProfileList = session
 				.createQuery(secondaryEmailHql).setInteger("userId", userId)
 				.list();
 
 		String orcidIdHql = "select orcid from UserReferenceData where userProfile.userId=:userId";
 		List<UserReferenceData> userOrcIdList = session.createQuery(orcidIdHql)
-				.setInteger("userId", userId).list();
+				.setInteger("userId", userId).list();*/
+		
+		String secondaryEmailHql = " select upf.secondaryEmailAddr from UserProfile upf where upf.userId=:userId";
+		List<AuthorProfile> secondaryEmailList=new ArrayList<AuthorProfile>();
+		secondaryEmailList.add(null);
+		
+		String orcidIdHql = "select orcid from UserReferenceData where userProfile.userId=:userId";
+		List<UserReferenceData> userOrcIdList=new ArrayList<UserReferenceData>();
+		userOrcIdList.add(null);
+		
+		String societyHql="from UserSocietyDetails where userId=:userId";
+		List userSocietyList=new ArrayList();
+		userSocietyList.add(null);
+		
+		String affliationHql=" from Affilations where userId=:userId";
+		List userAffliationsList=new ArrayList();
+		userAffliationsList.add(null);
+		
+		String fundersHql=" from Funders where userId=:userId";
+		List userFundersList=new ArrayList();
+		userFundersList.add(null);
+		
+		String areasOfExpertiseHql=" from AreasOfExpertise where userId=:userId";
+		List areasOfExpertiseList=new ArrayList();
+		areasOfExpertiseList.add(null);
+		
+		String isAccountVerifiedHql="select isAccountVerified from AuthorProfle where userId=:userId";
+		List isAccountVerifiedList=new ArrayList();
+		isAccountVerifiedList.add(null);
+		
 		profileMeterList.add(secureResultList);
-		profileMeterList.add(userProfileList);
+		profileMeterList.add(secondaryEmailList);
 		profileMeterList.add(userOrcIdList);
+		profileMeterList.add(userSocietyList);
+		profileMeterList.add(userAffliationsList);
+		profileMeterList.add(userFundersList);
+		profileMeterList.add(areasOfExpertiseList);
+		profileMeterList.add(isAccountVerifiedList);
+		
 		session.flush();
 		session.close();
 		tx.commit();
