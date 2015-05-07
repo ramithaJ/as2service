@@ -58,7 +58,7 @@ public interface UserLoginServiceDAO {
 	 * @param password
 	 * @return
 	 */
-	boolean doLogin(int userId, String password);
+	void doLogin(int userId, String password);
 		
 	/**
 	 * @param emailId
