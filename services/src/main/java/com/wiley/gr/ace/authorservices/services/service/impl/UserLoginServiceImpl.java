@@ -35,6 +35,11 @@ public class UserLoginServiceImpl implements UserLoginService {
 	@Autowired(required = true)
 	ALMInterfaceService almService;
 
+	/**
+	 * @param emailId
+	 * @param password
+	 * @return
+	 */
 	@Override
 	public UserMgmt doLogin(String emailId, String password) {
 
@@ -78,26 +83,50 @@ public class UserLoginServiceImpl implements UserLoginService {
 		return userMgmt;
 	}
 
+	/**
+	 * @param userId
+	 * @return
+	 */
 	@Override
-	public boolean checkSecuritySetUp(String emailId) {
+	public boolean checkSecuritySetUp(int userId) {
 
-		return userLoginServiceDAO.checkSecuritySetup(emailId);
+		return userLoginServiceDAO.checkSecuritySetup(userId);
 	}
 
+	/**
+	 * @param emailId
+	 * @return
+	 */
 	@Override
 	public Security getSecurityQuestions(String emailId) {
 
 		Security security = new Security();
-		Integer userId = userLoginServiceDAO.getUserId(emailId);
-		List<UserSecurityDetails> securityQuestionslist = userLoginServiceDAO
-				.getSecurityQuestions(userId);
-		security.setSecurityQuestion1(securityQuestionslist.get(0)
-				.getSecurityQuestion());
-		security.setSecurityQuestion2(securityQuestionslist.get(1)
-				.getSecurityQuestion());
+		if(validateEmailAddress(emailId)){
+		
+			int userId = userLoginServiceDAO.getUserId(emailId);
+			if(checkSecuritySetUp(userId)){
+				
+				List<UserSecurityDetails> securityQuestionslist = userLoginServiceDAO
+						.getSecurityQuestions(userId);
+				security.setSecurityQuestion1(securityQuestionslist.get(0)
+						.getSecurityQuestion());
+				security.setSecurityQuestion2(securityQuestionslist.get(1)
+						.getSecurityQuestion());
+				return security;
+			}else{
+				
+				throw new ASException("1015", "User doen't have security setup");
+			}
+		}
 		return security;
+		
 	}
 
+	/**
+	 * @param emailId
+	 * @param passwordDetails
+	 * @return
+	 */
 	@Override
 	public boolean updatePassword(String emailId,
 			PasswordDetails passwordDetails) {
@@ -108,6 +137,11 @@ public class UserLoginServiceImpl implements UserLoginService {
 		return almService.updatePassword(emailId, oldPassword, newPassword);
 	}
 
+	/**
+	 * @param emailId
+	 * @param securityDetails
+	 * @return
+	 */
 	@Override
 	public boolean validateSecurityQuestions(String emailId,
 			Security securityDetails) {
@@ -133,6 +167,10 @@ public class UserLoginServiceImpl implements UserLoginService {
 
 	}
 
+	/**
+	 * @param userId
+	 * @return
+	 */
 	@Override
 	public boolean lockUser(int userId) {
 
@@ -140,23 +178,41 @@ public class UserLoginServiceImpl implements UserLoginService {
 
 	}
 
+	/**
+	 * @param emailId
+	 * @return
+	 */
 	@Override
 	public boolean validateEmailAddress(String emailId) {
 
 		return userLoginServiceDAO.validateEmailAddress(emailId);
 	}
 
+	/**
+	 * @param userId
+	 * @return
+	 */
 	@Override
 	public boolean isUserLocked(int userId) {
 
 		return userLoginServiceDAO.isUserLocked(userId);
 	}
 
+	/**
+	 * @param userId
+	 * @param template_id
+	 */
 	@Override
 	public void sendEmail(String userId, String template_id) {
 		// TODO Auto-generated method stub
 	}
 
+	/**
+	 * @param userId
+	 * @param emailId
+	 * @param password
+	 * @return
+	 */
 	private boolean authenticateUser(int userId, String emailId, String password) {
 
 		boolean loginStatus = false;
@@ -188,6 +244,11 @@ public class UserLoginServiceImpl implements UserLoginService {
 		return loginStatus;
 	}
 
+	/**
+	 * @param emailId
+	 * @param newPassword
+	 * @return
+	 */
 	@Override
 	public boolean resetPassword(String emailId, String newPassword) {
 
