@@ -67,7 +67,7 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 			boolean status = false;
 			int userId = getUserId(emailId);
 			String hql = "from AuthorProfile where userId = :userId";
-			List<Users> result = session.createQuery(hql)
+			List<AuthorProfile> result = session.createQuery(hql)
 					.setInteger("userId", userId).list();
 			if (result != null && result.size() > 0)
 				status = true;
