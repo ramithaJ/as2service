@@ -95,7 +95,6 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 	public boolean checkSecuritySetup(int userId) {
 
 		Session session = null;
-		Transaction transaction = null;
 		try {
 			session = con.getSessionFactory().openSession();
 			boolean isSecure = false;
@@ -163,6 +162,7 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 			users.getAuthorProfile().setUpdatedBy("test");
 			
 			session.update(users);
+			transaction.commit();
 
 		} finally {
 			if (session != null) {
