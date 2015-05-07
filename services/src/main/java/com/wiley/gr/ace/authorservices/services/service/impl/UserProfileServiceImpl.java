@@ -214,7 +214,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 
 			for (UserAlerts userAlerts : daoAlertsList) {
 				UserAlerts daoAlert = userAlerts;
-				if (daoAlert.getId().getAlertId() == Integer.valueOf(alert
+				if (daoAlert.getId().getAlertId() == Integer.parseInt(alert
 						.getAlertId())) {
 
 					if (alert.isEmail()) {
