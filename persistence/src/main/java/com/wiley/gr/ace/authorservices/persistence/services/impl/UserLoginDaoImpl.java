@@ -58,16 +58,25 @@ public class UserLoginDaoImpl implements UserLoginDao {
 		session.beginTransaction();
 
 		AuthorProfile authorProfile = null;
+		
+		
 
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 		Date date = new Date();
-		System.out.println(dateFormat.format(date));
+		
+		
+		String utildate=dateFormat.format(date);
+		java.sql.Date.valueOf(utildate);
+		
+	
+		System.out.println(utildate);
 
 		int userId = getUserId(emailId);
 
 		String hql = "from AuthorProfile where userId = :userId";
 		List<AuthorProfile> result = session.createQuery(hql)
 				.setInteger("userId", userId).list();
+		
 
 		if (result != null && result.size() > 0) {
 			authorProfile = result.get(0);
@@ -113,5 +122,6 @@ public class UserLoginDaoImpl implements UserLoginDao {
 		return userId;
 
 	}
+	
 
 }
