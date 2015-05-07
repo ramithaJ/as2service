@@ -61,7 +61,6 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 	public boolean validateEmailAddress(String emailId) {
 
 		Session session = null;
-		Transaction transaction = null;
 		try {
 			session = con.getSessionFactory().openSession();
 			boolean status = false;
@@ -162,7 +161,6 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 	public boolean isUserLocked(int userId) {
 
 		Session session = null;
-		Transaction transaction = null;
 		boolean isLocked = false;
 		try {
 			session = con.getSessionFactory().openSession();
@@ -220,7 +218,6 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 	public Integer getUserId(String emailId) {
 
 		Session session = null;
-		Transaction transaction = null;
 		int userId = 0;
 		try {
 			session = con.getSessionFactory().openSession();
@@ -243,7 +240,6 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 	public int getCount(int userId) {
 
 		Session session = null;
-		Transaction transaction = null;
 		try {
 			session = con.getSessionFactory().openSession();
 			Criteria criteria = session.createCriteria(AuthorProfile.class);
@@ -290,7 +286,6 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 	public Date getLockedTime(int userId) {
 
 		Session session = null;
-		Transaction transaction = null;
 		try {
 			session = con.getSessionFactory().openSession();
 			Criteria criteria = session.createCriteria(AuthorProfile.class);
