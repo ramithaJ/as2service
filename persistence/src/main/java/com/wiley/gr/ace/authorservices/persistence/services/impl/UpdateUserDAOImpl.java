@@ -45,13 +45,15 @@ public class UpdateUserDAOImpl implements UpdateUserDAO {
 		 * Create hibernate session
 		 */
 		Session session = HibernateConnection.getSessionFactory().openSession();
+		Transaction getTxn = null;
+		Transaction updateTxn = null;
 		try {
 
 			if (user != null) {
 				/**
 				 * Fetch user profile with user Id
 				 */
-				Transaction getTxn = session.beginTransaction();
+				getTxn = session.beginTransaction();
 				Users userEntity = (Users) session.load(Users.class,
 						user.getUserId());
 				getTxn.commit();
@@ -60,7 +62,7 @@ public class UpdateUserDAOImpl implements UpdateUserDAO {
 				 * Update profile with ORCID details
 				 */
 				userEntity.setEmailAddr(user.getPrimaryEmailAddr());
-				Transaction updateTxn = session.beginTransaction();
+				updateTxn = session.beginTransaction();
 				session.update(userEntity);
 				updateTxn.commit();
 
@@ -69,6 +71,8 @@ public class UpdateUserDAOImpl implements UpdateUserDAO {
 				user = null;
 			}
 		} catch (Exception e) {
+			if(updateTxn!=null)
+				updateTxn.rollback();
 			user = null;
 			e.printStackTrace();
 			throw new Exception();
