@@ -91,31 +91,31 @@ public class DashBoardDAOImpl implements DashBoardDAO {
 		List<UserReferenceData> userOrcIdList = session.createQuery(orcidIdHql)
 				.setInteger("userId", userId).list();*/
 		
-		String secondaryEmailHql = " select upf.secondaryEmailAddr from UserProfile upf where upf.userId=:userId";
+		//String secondaryEmailHql = " select upf.secondaryEmailAddr from UserProfile upf where upf.userId=:userId";
 		List<AuthorProfile> secondaryEmailList=new ArrayList<AuthorProfile>();
 		secondaryEmailList.add(null);
 		
-		String orcidIdHql = "select orcid from UserReferenceData where userProfile.userId=:userId";
+		//String orcidIdHql = "select orcid from UserReferenceData where userProfile.userId=:userId";
 		List<UserReferenceData> userOrcIdList=new ArrayList<UserReferenceData>();
 		userOrcIdList.add(null);
 		
-		String societyHql="from UserSocietyDetails where userId=:userId";
+		//String societyHql="from UserSocietyDetails where userId=:userId";
 		List userSocietyList=new ArrayList();
 		userSocietyList.add(null);
 		
-		String affliationHql=" from Affilations where userId=:userId";
+		//String affliationHql=" from Affilations where userId=:userId";
 		List userAffliationsList=new ArrayList();
 		userAffliationsList.add(null);
 		
-		String fundersHql=" from Funders where userId=:userId";
+		//String fundersHql=" from Funders where userId=:userId";
 		List userFundersList=new ArrayList();
 		userFundersList.add(null);
 		
-		String areasOfExpertiseHql=" from AreasOfExpertise where userId=:userId";
+		//String areasOfExpertiseHql=" from AreasOfExpertise where userId=:userId";
 		List areasOfExpertiseList=new ArrayList();
 		areasOfExpertiseList.add(null);
 		
-		String isAccountVerifiedHql="select isAccountVerified from AuthorProfle where userId=:userId";
+		//String isAccountVerifiedHql="select isAccountVerified from AuthorProfle where userId=:userId";
 		List isAccountVerifiedList=new ArrayList();
 		isAccountVerifiedList.add(null);
 		
