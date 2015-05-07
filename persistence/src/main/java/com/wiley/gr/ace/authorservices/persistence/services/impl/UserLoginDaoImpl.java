@@ -37,10 +37,12 @@ public class UserLoginDaoImpl implements UserLoginDao {
 	public boolean validateEmail(String emailId) {
 		boolean status = false;
 		Session session = con.getSessionFactory().openSession();
-
-		String hql = "from Users where emailAddr = :emailId";
+		
+		int userId = getUserId(emailId);
+		
+		String hql = "from AdminDetails where adminId = :userId";
 		List<Users> result = session.createQuery(hql)
-				.setString("emailId", emailId).list();
+				.setInteger("userId", userId).list();
 
 		if (result != null && result.size() > 0) {
 
