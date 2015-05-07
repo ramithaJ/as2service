@@ -25,10 +25,14 @@ import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
  */
 public class AdminLoginServiceImpl implements AdminLoginService {
 
-//	private static ApplicationContext daoContext = new AnnotationConfigApplicationContext(
-//			PersistenceBeanConfig.class);
-//	private static ApplicationContext externalServiceContext = new AnnotationConfigApplicationContext(
-//			ExternalServiceBeanConfig.class);
+	
+	@Autowired(required=true)
+	UserLoginDao userlogindao;
+	@Autowired(required=true)
+	ALMInterfaceService almService;
+	@Autowired(required=true)
+	BPMInterfaceService bpmService;
+	
 
 	/*
 	 * (non-Javadoc)
@@ -36,12 +40,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 	 * @see com.wiley.gr.ace.authorservices.services.admin.AdminLoginService#
 	 * validateEmail(java.lang.String)
 	 */
-	@Autowired(required=true)
-	UserLoginDao userlogindao;
-	@Autowired(required=true)
-	ALMInterfaceService almService;
-	@Autowired(required=true)
-	BPMInterfaceService bpmService;
+	
 	@Override
 	public boolean validateEmail(String emailId) {
 		
