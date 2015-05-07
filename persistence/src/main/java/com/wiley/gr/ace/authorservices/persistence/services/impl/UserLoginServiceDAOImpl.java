@@ -65,9 +65,10 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 			session = con.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			boolean status = false;
-			String hql = "from Users where emailAddr = :emailId";
+			int userId = getUserId(emailId);
+			String hql = "from AuthorProfile where userId = :userId";
 			List<Users> result = session.createQuery(hql)
-					.setString("emailId", emailId).list();
+					.setInteger("userId", userId).list();
 			if (result != null && result.size() > 0)
 				status = true;
 			transaction.commit();
