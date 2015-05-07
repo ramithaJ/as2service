@@ -125,7 +125,7 @@ public class Users implements java.io.Serializable {
 		this.userReferenceDatas = userReferenceDatas;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "users")
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "users")
 	public AdminDetails getAdminDetails() {
 		return this.adminDetails;
 	}
