@@ -36,6 +36,9 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 	@Autowired(required = true)
 	HibernateConnection con;
 
+	/* (non-Javadoc)
+	 * @see com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO#getUsersList()
+	 */
 	@Override
 	public List<AuthorProfile> getUsersList() {
 
@@ -57,6 +60,9 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO#validateEmailAddress(java.lang.String)
+	 */
 	@Override
 	public boolean validateEmailAddress(String emailId) {
 
@@ -82,8 +88,11 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO#checkSecuritySetup(int)
+	 */
 	@Override
-	public boolean checkSecuritySetup(String emailId) {
+	public boolean checkSecuritySetup(int userId) {
 
 		Session session = null;
 		Transaction transaction = null;
@@ -91,7 +100,7 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 			session = con.getSessionFactory().openSession();
 			boolean isSecure = false;
 			Criteria criteria = session.createCriteria(AuthorProfile.class);
-			criteria.add(Restrictions.eq("primaryEmailAddr", emailId));
+			criteria.add(Restrictions.eq("userId", userId));
 			AuthorProfile userProfile = (AuthorProfile) criteria.uniqueResult();
 			if (null == userProfile)
 				return isSecure;
@@ -108,6 +117,9 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO#getSecurityQuestions(java.lang.Integer)
+	 */
 	@Override
 	public List<UserSecurityDetails> getSecurityQuestions(Integer userId) {
 
@@ -132,6 +144,9 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO#doLogin(int, java.lang.String)
+	 */
 	@Override
 	public void doLogin(int userId, String password) {
 
@@ -157,6 +172,9 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO#isUserLocked(int)
+	 */
 	@Override
 	public boolean isUserLocked(int userId) {
 
@@ -184,6 +202,9 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO#lockUser(int)
+	 */
 	@Override
 	public boolean lockUser(int userId) {
 
@@ -214,6 +235,9 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO#getUserId(java.lang.String)
+	 */
 	@Override
 	public Integer getUserId(String emailId) {
 
@@ -236,6 +260,9 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO#getCount(int)
+	 */
 	@Override
 	public int getCount(int userId) {
 
@@ -255,6 +282,9 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO#updateCount(int, int)
+	 */
 	@Override
 	public boolean updateCount(int count, int userId) {
 
@@ -282,6 +312,9 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO#getLockedTime(int)
+	 */
 	@Override
 	public Date getLockedTime(int userId) {
 
@@ -301,6 +334,9 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO#unLockUser(int)
+	 */
 	@Override
 	public boolean unLockUser(int userId) {
 
