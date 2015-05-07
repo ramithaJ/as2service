@@ -35,6 +35,7 @@ public class ALMInterfaceServiceImpl  implements ALMInterfaceService {
 		String status = service.getStatus();
 
 		if (status != null && status.equalsIgnoreCase("success")) {
+			
 			return true;
 		} 
 		return false;	
