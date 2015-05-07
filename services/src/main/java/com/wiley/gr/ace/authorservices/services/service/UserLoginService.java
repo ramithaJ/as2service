@@ -65,7 +65,7 @@ public interface UserLoginService {
 	 * @param userId
 	 * @return
 	 */
-	boolean checkSecuritySetUp(String emailId);
+	boolean checkSecuritySetUp(int userId);
 
 	/**
 	 * @param emailId
