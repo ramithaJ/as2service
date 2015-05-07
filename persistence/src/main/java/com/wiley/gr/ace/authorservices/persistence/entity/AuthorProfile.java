@@ -49,6 +49,7 @@ public class AuthorProfile implements java.io.Serializable {
 	private String createdBy;
 	private Date updatedDate;
 	private String updatedBy;
+	private String alertPrefEmailid;
 	private Set<AuthCoauthDetails> authCoauthDetailsesForAuthorId = new HashSet<AuthCoauthDetails>(
 			0);
 	private Set<UserAlerts> userAlertses = new HashSet<UserAlerts>(0);
@@ -85,7 +86,7 @@ public class AuthorProfile implements java.io.Serializable {
 			Character isAccountLocked, Integer invalidLoginCnt,
 			Date accountLockedTime, Date lastLoginDate, Date lastActivityDate,
 			Date createdDate, String createdBy, Date updatedDate,
-			String updatedBy,
+			String updatedBy, String alertPrefEmailid,
 			Set<AuthCoauthDetails> authCoauthDetailsesForAuthorId,
 			Set<UserAlerts> userAlertses,
 			Set<AuthColleagueDetails> authColleagueDetailsesForInvitedAuthorId,
@@ -118,6 +119,7 @@ public class AuthorProfile implements java.io.Serializable {
 		this.createdBy = createdBy;
 		this.updatedDate = updatedDate;
 		this.updatedBy = updatedBy;
+		this.alertPrefEmailid = alertPrefEmailid;
 		this.authCoauthDetailsesForAuthorId = authCoauthDetailsesForAuthorId;
 		this.userAlertses = userAlertses;
 		this.authColleagueDetailsesForInvitedAuthorId = authColleagueDetailsesForInvitedAuthorId;
@@ -339,6 +341,15 @@ public class AuthorProfile implements java.io.Serializable {
 
 	public void setUpdatedBy(String updatedBy) {
 		this.updatedBy = updatedBy;
+	}
+	
+	@Column(name = "ALERT_PREF_EMAILID", length = 200)
+	public String getAlertPrefEmailid() {
+		return this.alertPrefEmailid;
+	}
+
+	public void setAlertPrefEmailid(String alertPrefEmailid) {
+		this.alertPrefEmailid = alertPrefEmailid;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "authorProfileByAuthorId")
