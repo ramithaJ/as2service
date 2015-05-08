@@ -43,6 +43,12 @@ public class UserAccountController {
 	@Autowired
 	UserAccountService userAccountService;
 
+	/**
+	 * @param userId
+	 * @param userDetails
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/userDetails/{userId}", method = {
 			RequestMethod.GET, RequestMethod.POST })
 	public Service getUserDetails(@PathVariable("userId") String userId,
@@ -52,6 +58,12 @@ public class UserAccountController {
 
 	}
 
+	/**
+	 * @param userId
+	 * @param emailDetails
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/emailDetails/{userId}", method = {
 			RequestMethod.GET, RequestMethod.POST })
 	public Service getEmailDetails(@PathVariable("userId") String userId,
@@ -82,6 +94,10 @@ public class UserAccountController {
 		return service;
 	}
 
+	/**
+	 * @param userId
+	 * @return
+	 */
 	@RequestMapping(value = "/getUserAddresses/{userId}", method = RequestMethod.GET)
 	public Service getUserAddresses(@PathVariable("userId") String userId) {
 
@@ -89,13 +105,20 @@ public class UserAccountController {
 
 	}
 
+	/**
+	 * @param emailId
+	 * @param securityDetails
+	 * @return
+	 */
 	@RequestMapping(value = "/updateSecutiryDetails/{emailId}", method = RequestMethod.POST)
-	public boolean updateSecurityDetails(
+	public Service updateSecurityDetails(
 			@PathVariable("emailId") String emailId,
 			@RequestBody Security securityDetails) {
 
+		Service service = new Service();
+		service.setStatus("Success");
 		userAccountService.updateSecurityDetails(emailId, securityDetails);
-		return true;
+		return service;
 
 	}
 
