@@ -11,6 +11,10 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.model;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -20,32 +24,23 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class Security {
 
-	/**
-	 * 
-	 */
+	@NotNull @NotBlank
 	private int id1;
 	
-	/**
-	 * 
-	 */
+	@NotNull @NotBlank
 	private int id2;
 	
-	/**
-	 * @return
-	 */
-	/** The security question1. */
+	@NotNull @NotBlank
 	private String securityQuestion1;
 
-	/** The security question2. */
+	@NotNull @NotBlank
 	private String securityQuestion2;
 
-	/** The security answer1. */
+	@NotNull @NotBlank
 	private String securityAnswer1;
 
-	/** The security answer2. */
+	@NotNull @NotBlank
 	private String securityAnswer2;
-
-	
 	
 	public int getId1() {
 		return id1;
