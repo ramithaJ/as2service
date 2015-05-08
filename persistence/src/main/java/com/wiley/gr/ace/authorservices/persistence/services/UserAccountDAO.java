@@ -11,6 +11,7 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.services;
 
+import com.wiley.gr.ace.authorservices.model.Security;
 import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 
 /**
@@ -31,5 +32,7 @@ public interface UserAccountDAO {
 	/**
 	 * @return
 	 */
-	boolean updateSecurityDetails(String question1,String answer1,String question2,String answer2, Integer userId);
+	boolean updateSecurityDetails(Integer userId, Security securityDetails);
+	
+	Security getSecurityIDs(int userId);
 }
