@@ -101,11 +101,11 @@ public class UserLoginServiceImpl implements UserLoginService {
 	public Security getSecurityQuestions(String emailId) {
 
 		Security security = new Security();
-		if(validateEmailAddress(emailId)){
-		
+		if (validateEmailAddress(emailId)) {
+
 			int userId = userLoginServiceDAO.getUserId(emailId);
-			if(checkSecuritySetUp(userId)){
-				
+			if (checkSecuritySetUp(userId)) {
+
 				List<UserSecurityDetails> securityQuestionslist = userLoginServiceDAO
 						.getSecurityQuestions(userId);
 				security.setSecurityQuestion1(securityQuestionslist.get(0)
@@ -113,13 +113,13 @@ public class UserLoginServiceImpl implements UserLoginService {
 				security.setSecurityQuestion2(securityQuestionslist.get(1)
 						.getSecurityQuestion());
 				return security;
-			}else{
-				
+			} else {
+
 				throw new ASException("1015", "User doen't have security setup");
 			}
 		}
 		return security;
-		
+
 	}
 
 	/**
@@ -252,6 +252,11 @@ public class UserLoginServiceImpl implements UserLoginService {
 	@Override
 	public boolean resetPassword(String emailId, String newPassword) {
 
-		return almService.resetPassword(emailId, newPassword);
+		/*
+		 * almService.resetPassword(String emailId, String securityQuestion1,
+		 * String answer1, String securityQuestion2, String answer2, String
+		 * password);
+		 */
+		return true;
 	}
 }
