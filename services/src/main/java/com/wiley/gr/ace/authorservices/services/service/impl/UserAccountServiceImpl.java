@@ -32,6 +32,12 @@ public class UserAccountServiceImpl implements UserAccountService {
 	@Autowired(required = true)
 	UserLoginServiceDAO userLoginServiceDAO;
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.wiley.gr.ace.authorservices.services.service.UserAccountService#
+	 * getEmailDetails(java.lang.String)
+	 */
 	@Override
 	public UserMgmt[] getEmailDetails(String userId) {
 
@@ -45,6 +51,13 @@ public class UserAccountServiceImpl implements UserAccountService {
 		return (UserMgmt[]) email.toArray(new UserMgmt[email.size()]);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.wiley.gr.ace.authorservices.services.service.UserAccountService#
+	 * updateEmailDetails(java.lang.String,
+	 * com.wiley.gr.ace.authorservices.model.UserMgmt)
+	 */
 	@Override
 	public boolean updateEmailDetails(String userId, UserMgmt emailDetails) {
 
@@ -54,18 +67,20 @@ public class UserAccountServiceImpl implements UserAccountService {
 				SecondaryEmail);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.wiley.gr.ace.authorservices.services.service.UserAccountService#
+	 * updateSecurityDetails(java.lang.String,
+	 * com.wiley.gr.ace.authorservices.model.Security)
+	 */
 	@Override
 	public boolean updateSecurityDetails(String emailId,
 			Security securityDetails) {
 
 		Integer userId = userLoginServiceDAO.getUserId(emailId);
-		String question1 = securityDetails.getSecurityQuestion1();
-		String answer1 = securityDetails.getSecurityAnswer1();
-		String question2 = securityDetails.getSecurityQuestion2();
-		String answer2 = securityDetails.getSecurityAnswer2();
-		userAccountDAO.updateSecurityDetails(question1, answer1, question2,
-				answer2, userId);
-		return false;
+		userAccountDAO.updateSecurityDetails(userId, securityDetails);
+		return true;
 	}
 
 }
