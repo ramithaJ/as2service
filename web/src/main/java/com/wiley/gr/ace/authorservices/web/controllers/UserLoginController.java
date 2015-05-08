@@ -12,8 +12,10 @@
 package com.wiley.gr.ace.authorservices.web.controllers;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,12 +41,15 @@ public class UserLoginController extends ASExceptionController {
 	@Autowired(required = true)
 	UserLoginService userLoginService;
 
-	/**
-	 * @param login
+	@Autowired(required = true)
+	LocalValidatorFactoryBean validator;
+	
+	/** This method will authenticate the user based on email id and password 
+	 * @param login - it is a JSON object having email id and password 
 	 * @return
 	 */
 	@RequestMapping(value = "/login/", method = RequestMethod.POST)
-	public Service login(@RequestBody Login login) {
+	public Service login(@Valid @RequestBody Login login) {
 
 		Service service = new Service();
 		service.setStatus("success");
@@ -127,7 +132,7 @@ public class UserLoginController extends ASExceptionController {
 	@RequestMapping(value = "/securityQuestions/validate/{emailId}", method = RequestMethod.POST)
 	public Service validateSecurityQuestions(
 			@PathVariable("emailId") String emailId,
-			@RequestBody Security securityDetails) {
+			@Valid @RequestBody Security securityDetails) {
 
 		Service service = new Service();
 		service.setPayload(userLoginService.validateSecurityQuestions(emailId,
