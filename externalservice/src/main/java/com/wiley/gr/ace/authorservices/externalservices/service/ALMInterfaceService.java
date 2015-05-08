@@ -25,7 +25,7 @@ public interface ALMInterfaceService {
 	 * @return
 	 */
 	boolean authenticateAdminUser(String emailId);
-	
+
 	/**
 	 * @param emailId
 	 * @param password
@@ -39,12 +39,42 @@ public interface ALMInterfaceService {
 	 * @param newPassword
 	 * @return
 	 */
-	boolean updatePassword(String emailId, String oldPassword, String newPassword);
-	
+	boolean updatePassword(String emailId, String oldPassword,
+			String newPassword);
+
 	/**
 	 * @param emailId
 	 * @param newPassword
 	 * @return
 	 */
-	boolean resetPassword(String emailId, String newPassword);
+	boolean resetPassword(String emailId, String securityQuestion1,
+			String answer1, String securityQuestion2, String answer2,
+			String password);
+
+	/**
+	 * @param oldEmailId
+	 * @param newEmailId
+	 * @return
+	 */
+	boolean updateUserId(String oldEmailId, String newEmailId);
+
+	/**
+	 * @param emailId
+	 * @param newPassword
+	 * @return
+	 */
+	boolean forceFulReset(String emailId, String newPassword);
+
+	/**
+	 * @param emailId
+	 * @return
+	 */
+	boolean lockUser(String emailId);
+
+	/**
+	 * @param emailId
+	 * @return
+	 */
+	boolean unLockUser(String emailId);
+
 }
