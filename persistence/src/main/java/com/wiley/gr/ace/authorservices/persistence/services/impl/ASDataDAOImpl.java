@@ -66,16 +66,14 @@ public class ASDataDAOImpl implements ASDataDAO {
 
 		Session session = null;
 		List<Roles> list = new ArrayList();
-		String roleType = "Internal";
 
 		try {
 
 			session = con.getSessionFactory().openSession();
 
-			String hql = "from Roles where roleType = :roleType";
-
-			list = session.createQuery(hql).setString("roleType", roleType)
-					.list();
+			String hql = "from Roles";
+			
+			list = session.createQuery(hql).list();
 
 		} finally {
 			if (session != null) {
