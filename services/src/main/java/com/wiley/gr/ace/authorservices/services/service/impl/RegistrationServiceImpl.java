@@ -11,12 +11,13 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
-import com.wiley.gr.ace.authorservices.model.external.ESBUser;
+import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 import com.wiley.gr.ace.authorservices.persistence.services.RegistrationServiceDAO;
 import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
@@ -29,25 +30,44 @@ public class RegistrationServiceImpl implements RegistrationService {
 	ESBInterfaceService esbInterFaceService;
 
 	@Override
-	public void createUser(String contactID, ESBUser esbUser) {
+	public String createUser(User user) throws Exception {
 
-		AuthorProfile userProfile = new AuthorProfile();
-	
-		regDao.createUser(userProfile);
+		String status = "failure";
+		if (null != user) {
+			status = esbInterFaceService.creatUser(user);
+		}
+		return status;
 	}
 
 	@Override
-	public List<ESBUser> getUserFromFirstNameLastName(String firstName,
+	public List<User> getUserFromFirstNameLastName(String firstName,
 			String lastName) {
-		List<ESBUser> esbUserList = esbInterFaceService
-				.checkFirstNameLastNameExists(firstName, lastName);
 
-		return esbUserList;
+		List<AuthorProfile> authorProfileList = new ArrayList<AuthorProfile>();
+		if (null != firstName && !firstName.isEmpty() && null != lastName
+				&& !lastName.isEmpty()) {
+			authorProfileList = regDao.getUserFromFirstNameLastName(firstName,
+					lastName);
+		}
+		List<User> userList = new ArrayList<User>();
+
+		for (AuthorProfile authorProfile : authorProfileList) {
+			User user = new User();
+			user.setPrimaryEmailAddr(authorProfile.getAlertPrefEmailid()); // should
+																			// be
+																			// modified
+		}
+
+		return userList;
 	}
 
 	@Override
-	public ESBUser checkEmailIdExists(String emailId) {
-		ESBUser esbUser = esbInterFaceService.checkEmailIdExists(emailId);
-		return esbUser;
+	public User checkEmailIdExists(String emailId) throws Exception {
+		User user = new User();
+		if (null != emailId && !emailId.isEmpty()) {
+			user = esbInterFaceService.checkEmailIdExists(emailId);
+		}
+
+		return user;
 	}
 }

@@ -26,16 +26,6 @@ public class RegistrationServiceDAOImpl implements RegistrationServiceDAO {
 	HibernateConnection con;
 
 	@Override
-	public void createUser(AuthorProfile userProfile) {
-
-		Session session = con.getSessionFactory().openSession();
-		session.beginTransaction();
-		session.save(userProfile);
-		session.getTransaction().commit();
-		session.close();
-	}
-
-	@Override
 	public List<AuthorProfile> getUserFromFirstNameLastName(String firstName,
 			String lastName) {
 		Session session = con.getSessionFactory().openSession();
@@ -44,24 +34,6 @@ public class RegistrationServiceDAOImpl implements RegistrationServiceDAO {
 				.setString("firstName", firstName)
 				.setString("lastName", lastName).list();
 
-		return userProfileList;
-	}
-
-	@Override
-	public List<AuthorProfile> getFromPrimaryEmailAddres(String emailId) {
-		Session session = con.getSessionFactory().openSession();
-		String hql = "from AuthorProfile uf where uf.primaryEmailAddr = :primaryEmailAddr";
-		List<AuthorProfile> userProfileList = session.createQuery(hql)
-				.setString("primaryEmailAddr", emailId).list();
-		return userProfileList;
-	}
-
-	@Override
-	public List<AuthorProfile> getFromSecondaryEmailAddress(String emailId) {
-		Session session = con.getSessionFactory().openSession();
-		String hql = "from AuthorProfile uf where uf.secondaryEmailAddr = :secondaryEmailAddr";
-		List<AuthorProfile> userProfileList = session.createQuery(hql)
-				.setString("secondaryEmailAddr", emailId).list();
 		return userProfileList;
 	}
 

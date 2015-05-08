@@ -12,9 +12,7 @@
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -84,23 +82,36 @@ System.out.println("status :: "+status);
 	}*/
 
 	@Override
-	public ESBUser checkEmailIdExists(String emailId) {
-		ESBUser esbUser = new ESBUser();
-		// TODO: Check primary if not exists check secondary and return the user
-		// from external ESB services
-		esbUser.setEmailId("disharide@virtusa.com");
-		esbUser.setContactId("1234");
-		esbUser.setFirstName("Dishari");
-		esbUser.setLastName("De");
-		return esbUser;
+	public User checkEmailIdExists(String emailId) throws Exception {
+		User user = new User();
+		final String url = "http://demo7614669.mockable.io/checkEmailId/email@email.com";
+		URI uri = new URI(url);
+		RestTemplate restTemplate = new RestTemplate();
+		HttpHeaders requestHeaders = new HttpHeaders();
+
+		requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+		HttpEntity<User> requestEntity = new HttpEntity<User>(requestHeaders);
+
+		ResponseEntity<User> response = restTemplate.exchange(uri,
+				HttpMethod.GET, requestEntity, User.class);
+		user = response.getBody();
+		return user;
 	}
 
 	@Override
-	public List<ESBUser> checkFirstNameLastNameExists(String firstName,
-			String lastName) {
-		List<ESBUser> esbUserList = new ArrayList<ESBUser>();
-		// TODO: Check first name + last name and return the list of users from
-		// external ESB services
-		return esbUserList;
+	public String creatUser(User user) throws Exception {
+		String status = "failure";
+		final String url = "http://demo7614669.mockable.io/createUser/userobject";
+		URI uri = new URI(url);
+		RestTemplate restTemplate = new RestTemplate();
+		HttpHeaders requestHeaders = new HttpHeaders();
+		
+		requestHeaders.setAccept(Arrays.asList(MediaType.TEXT_PLAIN));
+		HttpEntity<String> requestEntity = new HttpEntity<String>(requestHeaders);
+		ResponseEntity<String> response = restTemplate.exchange(uri,HttpMethod.GET, requestEntity, String.class);
+		status = response.getBody();
+System.out.println("status :: "+status);	
+		return status;
 	}
+
 }
