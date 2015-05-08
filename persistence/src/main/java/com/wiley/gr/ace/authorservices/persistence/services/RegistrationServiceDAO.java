@@ -16,9 +16,6 @@ import java.util.List;
 import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 
 public interface RegistrationServiceDAO {
-	void createUser(AuthorProfile userProfile);
 	List<AuthorProfile> getUserFromFirstNameLastName(String firstName, String lastName);
-	List<AuthorProfile> getFromPrimaryEmailAddres(String emailId);
-	List<AuthorProfile> getFromSecondaryEmailAddress(String emailId);
 
 }

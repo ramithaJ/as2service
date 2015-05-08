@@ -13,15 +13,15 @@ package com.wiley.gr.ace.authorservices.services.service;
 
 import java.util.List;
 
-import com.wiley.gr.ace.authorservices.model.external.ESBUser;
+import com.wiley.gr.ace.authorservices.model.User;
 
 public interface RegistrationService {
 
-	void createUser(String contactId, ESBUser esbUser);
+	String createUser(User user) throws Exception;
 
-	List<ESBUser> getUserFromFirstNameLastName(String firstName,
+	List<User> getUserFromFirstNameLastName(String firstName,
 			String lastName);
 
-	ESBUser checkEmailIdExists(String emailId);
+	User checkEmailIdExists(String emailId) throws Exception;
 
 }
