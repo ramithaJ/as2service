@@ -66,6 +66,7 @@ public class UserLoginDaoImpl implements UserLoginDao {
 		
 		
 		String utildate=dateFormat.format(date);
+		
 		java.sql.Date.valueOf(utildate);
 		
 	

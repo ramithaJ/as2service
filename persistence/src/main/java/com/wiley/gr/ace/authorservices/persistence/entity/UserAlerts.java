@@ -22,7 +22,7 @@ public class UserAlerts implements java.io.Serializable {
 	private AuthorProfile authorProfile;
 	private Character onScreenFlg;
 	private Character emailFlg;
-	private String emailAddrAlertNotification;
+	//private String emailAddrAlertNotification;
 
 	public UserAlerts() {
 	}
@@ -42,7 +42,7 @@ public class UserAlerts implements java.io.Serializable {
 		this.authorProfile = authorProfile;
 		this.onScreenFlg = onScreenFlg;
 		this.emailFlg = emailFlg;
-		this.emailAddrAlertNotification = emailAddrAlertNotification;
+		//this.emailAddrAlertNotification = emailAddrAlertNotification;
 	}
 
 	@EmbeddedId
@@ -57,7 +57,7 @@ public class UserAlerts implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ALERT_ID", nullable = false, insertable = false, updatable = false)
 	public Alerts getAlerts() {
 		return this.alerts;
@@ -67,7 +67,7 @@ public class UserAlerts implements java.io.Serializable {
 		this.alerts = alerts;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "USER_ID", nullable = false, insertable = false, updatable = false)
 	public AuthorProfile getAuthorProfile() {
 		return this.authorProfile;
@@ -95,13 +95,13 @@ public class UserAlerts implements java.io.Serializable {
 		this.emailFlg = emailFlg;
 	}
 
-	@Column(name = "EMAIL_ADDR_ALERT_NOTIFICATION", length = 50)
-	public String getEmailAddrAlertNotification() {
-		return this.emailAddrAlertNotification;
-	}
-
-	public void setEmailAddrAlertNotification(String emailAddrAlertNotification) {
-		this.emailAddrAlertNotification = emailAddrAlertNotification;
-	}
+//	@Column(name = "EMAIL_ADDR_ALERT_NOTIFICATION", length = 50)
+//	public String getEmailAddrAlertNotification() {
+//		return this.emailAddrAlertNotification;
+//	}
+//
+//	public void setEmailAddrAlertNotification(String emailAddrAlertNotification) {
+//		this.emailAddrAlertNotification = emailAddrAlertNotification;
+//	}
 
 }
