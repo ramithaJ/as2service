@@ -23,12 +23,12 @@ public class Security {
 	/**
 	 * 
 	 */
-	private String id1;
+	private int id1;
 	
 	/**
 	 * 
 	 */
-	private String id2;
+	private int id2;
 	
 	/**
 	 * @return
@@ -46,30 +46,23 @@ public class Security {
 	private String securityAnswer2;
 
 	
-	public String getId1() {
+	
+	public int getId1() {
 		return id1;
 	}
 
-	/**
-	 * @param id1
-	 */
-	public void setId1(String id1) {
+	public void setId1(int id1) {
 		this.id1 = id1;
 	}
 
-	/**
-	 * @return
-	 */
-	public String getId2() {
+	public int getId2() {
 		return id2;
 	}
 
-	/**
-	 * @param id2
-	 */
-	public void setId2(String id2) {
+	public void setId2(int id2) {
 		this.id2 = id2;
 	}
+
 	/**
 	 * Gets the security question1.
 	 *
