@@ -44,18 +44,18 @@ public class AdminLoginController extends ASExceptionController {
 	 */
 
 	@Autowired(required = true)
-	AdminLoginService adminlogin;
+	AdminLoginService adminLoginService;
 
 	@RequestMapping(value = "/login/", method = RequestMethod.POST, produces = "application/json")
 	public Service login(@RequestBody Login login) {
 		boolean status = false;
 		Service serviceVO = new Service();
 
-		status = adminlogin.validateEmail(login.getEmailId());
+		status = adminLoginService.validateEmail(login.getEmailId());
 
 		if (status) {
 
-			adminlogin.doLogin(login.getEmailId());
+			adminLoginService.doLogin(login.getEmailId());
 			serviceVO.setStatus("success");
 			
 		} else {
@@ -75,7 +75,7 @@ public class AdminLoginController extends ASExceptionController {
 	@RequestMapping(value = "/requestAccess/{emailId}", method = RequestMethod.POST, produces = "application/json")
 	public Service requestAccess(@PathVariable("emailId") String emailId,
 			@RequestBody String password) {
-
+		
 		return null;
 
 	}
