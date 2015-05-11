@@ -81,7 +81,7 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
 	 * #updatePassword(java.lang.String, java.lang.String, java.lang.String)
 	 */
 	@Override
-	public boolean updatePassword(String emailId, String oldPassword,
+	public boolean updatePassword(String userId, String oldPassword,
 			String newPassword) {
 
 		final String url = "http://demo6374909.mockable.io/user/updatePassword";
