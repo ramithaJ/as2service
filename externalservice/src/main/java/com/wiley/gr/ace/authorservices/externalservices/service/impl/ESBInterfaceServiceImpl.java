@@ -28,7 +28,6 @@ import com.wiley.gr.ace.authorservices.model.User;
 
 public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 
-
 	@Override
 	public User fetchOrcidDetails(String orcid) throws Exception {
 		User user = null;
@@ -92,11 +91,11 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 				HttpMethod.GET, requestEntity, User.class);
 		if (null != response)
 			user = response.getBody();
-		else 
+		else
 			user = null;
 		return user;
 	}
-	
+
 	@Override
 	public List<User> getUsersFromFirstNameLastName(String firstName,
 			String lastName) throws Exception {
@@ -112,11 +111,9 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 		ResponseEntity<List> response = restTemplate.exchange(uri,
 				HttpMethod.GET, requestEntity, List.class);
 		usersList = response.getBody();
-		
+
 		return usersList;
 	}
-
-	
 
 	@Override
 	public String creatUser(User user) throws Exception {
@@ -136,5 +133,4 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 		return status;
 	}
 
-	
 }

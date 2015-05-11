@@ -27,7 +27,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 	@Override
 	public String createUser(User user) throws Exception {
 
-		String status = "failure";
+		String status = null;
 		if (null != user) {
 			status = esbInterFaceService.creatUser(user);
 		}
