@@ -11,11 +11,15 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.web.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
@@ -45,9 +49,12 @@ public class AdminLoginController extends ASExceptionController {
 
 	@Autowired(required = true)
 	AdminLoginService adminLoginService;
+	
+	@Autowired(required = true)
+	LocalValidatorFactoryBean validator;
 
 	@RequestMapping(value = "/login/", method = RequestMethod.POST, produces = "application/json")
-	public Service login(@RequestBody Login login) {
+	public Service login(@Valid @RequestBody Login login) {
 		boolean status = false;
 		Service serviceVO = new Service();
 
@@ -85,5 +92,11 @@ public class AdminLoginController extends ASExceptionController {
 
 		return null;
 
+	}
+	
+	@RequestMapping(value = "/permissions", method = RequestMethod.POST, produces = "application/json")
+	public Service getPermissions(@RequestParam(value="roleId", required=false) String roleId) {
+		
+		return null;
 	}
 }
