@@ -19,5 +19,15 @@ package com.wiley.gr.ace.authorservices.constants;
 public class AuthorServicesConstants {
 	
 	public static final String ADM_ACC_LOOKUP_KEY = "ADMACC";
+	
+	public static final String PERMISSION_LEVEL_SYSTEM = "System";
+	
+	public static final String PERMISSION_LEVEL_ARTICLE = "Article";
+	
+	public static final String PERMISSION_LEVEL_ADMIN = "Admin";
+	
+	public static final String PERMISSION_TYPE_INTERNAL = "internalusers";
+	
+	public static final String PERMISSION_TYPE_EXTERNAL = "externalusers";
 
 }
