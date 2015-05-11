@@ -320,7 +320,7 @@ public class UserProfileController {
 	 * @param userId
 	 * @return
 	 */
-	@RequestMapping(value = "/getCoAuthorsList/{userId}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/coAuthors/{userId}", method = RequestMethod.GET)
 	public Service getCoAuthorsList(@PathVariable("userId") String userId) {
 
 		Service service = new Service();
