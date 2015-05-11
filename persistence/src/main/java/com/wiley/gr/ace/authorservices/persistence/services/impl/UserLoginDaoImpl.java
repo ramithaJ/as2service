@@ -17,9 +17,11 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
+import com.wiley.gr.ace.authorservices.persistence.entity.AdminDetails;
 import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
@@ -36,18 +38,25 @@ public class UserLoginDaoImpl implements UserLoginDao {
 	@Override
 	public boolean validateEmail(String emailId) {
 		boolean status = false;
-		Session session = con.getSessionFactory().openSession();
-		
 		int userId = getUserId(emailId);
-		
-		String hql = "from AdminDetails where adminId = :userId";
-		List<Users> result = session.createQuery(hql)
-				.setInteger("userId", userId).list();
 
-		if (result != null && result.size() > 0) {
+		Session session = con.getSessionFactory().openSession();
+		Transaction txn = session.getTransaction();
+		txn.begin();
+		System.err.println("user id" + userId);
+
+		AdminDetails adminDetails = (AdminDetails) session.get(
+				AdminDetails.class, userId);
+
+		if (null != adminDetails) {
+			System.err.println(adminDetails.getAdminId());
 
 			status = true;
 		}
+		txn.commit();
+		session.flush();
+
+		session.close();
 		return status;
 	}
 
@@ -55,21 +64,16 @@ public class UserLoginDaoImpl implements UserLoginDao {
 	public boolean doLogin(String emailId) {
 		// boolean status = false;
 		Session session = con.getSessionFactory().openSession();
-		session.beginTransaction();
 
 		AuthorProfile authorProfile = null;
-		
-		
 
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 		Date date = new Date();
-		
-		
-		String utildate=dateFormat.format(date);
-		
+
+		String utildate = dateFormat.format(date);
+
 		java.sql.Date.valueOf(utildate);
-		
-	
+
 		System.out.println(utildate);
 
 		int userId = getUserId(emailId);
@@ -77,9 +81,8 @@ public class UserLoginDaoImpl implements UserLoginDao {
 		String hql = "from AuthorProfile where userId = :userId";
 		List<AuthorProfile> result = session.createQuery(hql)
 				.setInteger("userId", userId).list();
-		
 
-		if (result != null && result.size() > 0) {
+		if (null !=result && result.size() > 0) {
 			authorProfile = result.get(0);
 		}
 
@@ -90,8 +93,7 @@ public class UserLoginDaoImpl implements UserLoginDao {
 		}
 
 		session.saveOrUpdate(authorProfile);
-
-		session.getTransaction().commit();
+		session.flush();
 
 		session.close();
 
@@ -120,9 +122,11 @@ public class UserLoginDaoImpl implements UserLoginDao {
 			userId = user.getUserId();
 		}
 
+		session.flush();
+		session.close();
+
 		return userId;
 
 	}
-	
 
 }

@@ -11,6 +11,7 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,8 +20,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
-import com.wiley.gr.ace.authorservices.model.Security;
+import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.UserMgmt;
+import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
@@ -84,6 +86,8 @@ public class UserLoginServiceImpl implements UserLoginService {
 	}
 
 	/**
+	 * this method will check whether user has security setup or not.
+	 * 
 	 * @param userId
 	 * @return
 	 */
@@ -94,47 +98,73 @@ public class UserLoginServiceImpl implements UserLoginService {
 	}
 
 	/**
+	 * this method will give list of security questions and answers based on
+	 * email id.
+	 * 
 	 * @param emailId
 	 * @return
 	 */
 	@Override
-	public Security getSecurityQuestions(String emailId) {
+	public ArrayList<SecurityDetails> getSecurityQuestions(String emailId) {
 
-		Security security = new Security();
-		if (validateEmailAddress(emailId)) {
+		// it checks whether user is exit or not in the user table
+		// if exist it will return userId
+		int userId = userLoginServiceDAO.getUserId(emailId);
+		if (userId != 0) {
 
-			int userId = userLoginServiceDAO.getUserId(emailId);
-			if (checkSecuritySetUp(userId)) {
+			AuthorProfile authorProfile = userLoginServiceDAO
+					.authorProfile(userId);
+			// it will check whether the user is exist in author profile table
+			// or not
+			// it means whether user is normal user or Admin user.
+			if (null != authorProfile) {
 
-				List<UserSecurityDetails> securityQuestionslist = userLoginServiceDAO
-						.getSecurityQuestions(userId);
-				security.setSecurityQuestion1(securityQuestionslist.get(0)
-						.getSecurityQuestion());
-				security.setSecurityQuestion2(securityQuestionslist.get(1)
-						.getSecurityQuestion());
-				return security;
+				// check whether user has security set up or not.
+				if (authorProfile.getSecurityQuestFlg().equals('Y')) {
+
+					List<UserSecurityDetails> securityQuestions = userLoginServiceDAO
+							.getSecurityQuestions(userId);
+					ArrayList<SecurityDetails> securityQuestionsList = new ArrayList<SecurityDetails>();
+					for (int i = 0; i < securityQuestions.size(); i++) {
+
+						SecurityDetails security = new SecurityDetails();
+						security.setSecurityQuestionId("SecurityQuestion"
+								+ (i + 1));
+						security.setSecurityQuestion(securityQuestions.get(i)
+								.getSecurityQuestion());
+						securityQuestionsList.add(security);
+					}
+					return securityQuestionsList;
+				} else {
+
+					throw new ASException("1015",
+							"User doen't have security setup");
+				}
 			} else {
 
-				throw new ASException("1015", "User doen't have security setup");
+				throw new ASException("1017", "Invalid user, please try again");
 			}
+		} else {
+
+			throw new ASException("1016",
+					"Invalid email Details, please try again");
 		}
-		return security;
 
 	}
 
 	/**
+	 * this method will update the password at user profile level.
+	 * 
 	 * @param emailId
 	 * @param passwordDetails
 	 * @return
 	 */
 	@Override
-	public boolean updatePassword(String emailId,
-			PasswordDetails passwordDetails) {
+	public boolean updatePassword(PasswordDetails passwordDetails) {
 
-		String newPassword = passwordDetails.getNewPassword();
-		String oldPassword = passwordDetails.getOldPassword();
-
-		return almService.updatePassword(emailId, oldPassword, newPassword);
+		return almService.updatePassword(passwordDetails.getUserId(),
+				passwordDetails.getOldPassword(),
+				passwordDetails.getNewPassword());
 	}
 
 	/**
@@ -144,27 +174,33 @@ public class UserLoginServiceImpl implements UserLoginService {
 	 */
 	@Override
 	public boolean validateSecurityQuestions(String emailId,
-			Security securityDetails) {
+			ArrayList<SecurityDetails> securityDetails) {
 
+		boolean status = false;
 		Integer userId = userLoginServiceDAO.getUserId(emailId);
 		List<UserSecurityDetails> securityQuestionslist = userLoginServiceDAO
 				.getSecurityQuestions(userId);
 
-		if (securityDetails.getSecurityQuestion1().equalsIgnoreCase(
-				securityQuestionslist.get(0).getSecurityQuestion())
-				&& securityDetails.getSecurityAnswer1().equalsIgnoreCase(
-						securityQuestionslist.get(0).getSecurityAnswer())
-				&& securityDetails.getSecurityQuestion2().equalsIgnoreCase(
-						securityQuestionslist.get(1).getSecurityQuestion())
-				&& securityDetails.getSecurityAnswer2().equalsIgnoreCase(
-						securityQuestionslist.get(1).getSecurityAnswer())) {
-			return true;
-		} else {
+		for (int i = 0; i < securityDetails.size(); i++) {
 
-			throw new ASException("1011",
-					"Please enter valid security details.");
+			if (securityDetails
+					.get(i)
+					.getSecurityQuestion()
+					.equalsIgnoreCase(
+							securityQuestionslist.get(i).getSecurityQuestion())
+					&& securityDetails
+							.get(i)
+							.getSecurityAnswer()
+							.equalsIgnoreCase(
+									securityQuestionslist.get(i)
+											.getSecurityAnswer())) {
+				status = true;
+			} else {
+				throw new ASException("1011",
+						"Please enter valid security details.");
+			}
 		}
-
+		return status;
 	}
 
 	/**
@@ -245,6 +281,8 @@ public class UserLoginServiceImpl implements UserLoginService {
 	}
 
 	/**
+	 * this method will reset the password at the time of login.
+	 * 
 	 * @param emailId
 	 * @param newPassword
 	 * @return

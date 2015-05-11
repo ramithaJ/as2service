@@ -11,7 +11,8 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.web.controllers;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
 import com.wiley.gr.ace.authorservices.model.Login;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
-import com.wiley.gr.ace.authorservices.model.Security;
+import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
@@ -43,9 +44,12 @@ public class UserLoginController extends ASExceptionController {
 
 	@Autowired(required = true)
 	LocalValidatorFactoryBean validator;
-	
-	/** This method will authenticate the user based on email id and password 
-	 * @param login - it is a JSON object having email id and password 
+
+	/**
+	 * This method will authenticate the user based on email id and password
+	 * 
+	 * @param login
+	 *            - it is a JSON object having email id and password
 	 * @return
 	 */
 	@RequestMapping(value = "/login/", method = RequestMethod.POST)
@@ -82,35 +86,44 @@ public class UserLoginController extends ASExceptionController {
 	}
 
 	/**
-	 * @param emailId
-	 * @param passwordDetails
-	 * @param request
+	 * this method will reset the password at the time of login.
+	 * 
+	 * @param login
+	 *            - it takes the email id and new password as inputs.
 	 * @return
 	 */
-	@RequestMapping(value = "/password/{emailId}", method = {
-			RequestMethod.POST, RequestMethod.PUT })
-	public Service updatePassword(@PathVariable("emailId") String emailId,
-			@RequestBody PasswordDetails passwordDetails,
-			HttpServletRequest request) {
+	@RequestMapping(value = "/password/reset", method = RequestMethod.POST)
+	public Service resetPassword(@Valid @RequestBody Login login) {
 
 		Service service = new Service();
-
-		if (request.getMethod().equals(RequestMethod.POST)) {
-
-			service = new Service();
-			userLoginService.updatePassword(emailId, passwordDetails);
-
-		} else if (request.getMethod().equals(RequestMethod.PUT)) {
-
-			service = new Service();
-			userLoginService.resetPassword(emailId,
-					passwordDetails.getNewPassword());
-		}
-
+		userLoginService.resetPassword(login.getEmailId(), login.getPassword());
+		service.setStatus("Success");
 		return service;
+
 	}
 
 	/**
+	 * this method will update the password at user profile level.
+	 * 
+	 * @param passwordDetails
+	 *            - it takes userId, old password and new password as inputs.
+	 * @return
+	 */
+	@RequestMapping(value = "/password/update", method = RequestMethod.POST)
+	public Service updatePassword(
+			@Valid @RequestBody PasswordDetails passwordDetails) {
+
+		Service service = new Service();
+		userLoginService.updatePassword(passwordDetails);
+		service.setStatus("Success");
+		return service;
+
+	}
+
+	/**
+	 * this method will give the security questions which are selected by the
+	 * user.
+	 * 
 	 * @param emailId
 	 * @return
 	 */
@@ -125,14 +138,19 @@ public class UserLoginController extends ASExceptionController {
 	}
 
 	/**
+	 * this method will validate the security questions and answers to reset the
+	 * password at the time of login.
+	 * 
 	 * @param emailId
 	 * @param securityDetails
+	 *            - it takes security questions and answers as inputs in JSON
+	 *            array format.
 	 * @return
 	 */
 	@RequestMapping(value = "/securityQuestions/validate/{emailId}", method = RequestMethod.POST)
 	public Service validateSecurityQuestions(
 			@PathVariable("emailId") String emailId,
-			@Valid @RequestBody Security securityDetails) {
+			@Valid @RequestBody ArrayList<SecurityDetails> securityDetails) {
 
 		Service service = new Service();
 		service.setPayload(userLoginService.validateSecurityQuestions(emailId,

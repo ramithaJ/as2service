@@ -95,4 +95,6 @@ public interface UserLoginServiceDAO {
 	 * @return
 	 */
 	boolean unLockUser(int userId);
+	
+	AuthorProfile authorProfile(int userId);
 }

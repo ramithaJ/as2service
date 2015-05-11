@@ -1,11 +1,11 @@
 <!-- Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved. -->
 
-<!-- All material contained herein is proprietary to John Wiley & Sons  -->
-<!-- and its third party suppliers, if any. The methods, techniques and  -->
-<!-- technical concepts contained herein are considered trade secrets  -->
-<!-- and confidential and may be protected by intellectual property laws.   -->
-<!-- Reproduction or distribution of this material, in whole or in part,  -->
-<!-- is strictly forbidden except by express prior written permission  -->
+<!-- All material contained herein is proprietary to John Wiley & Sons -->
+<!-- and its third party suppliers, if any. The methods, techniques and -->
+<!-- technical concepts contained herein are considered trade secrets -->
+<!-- and confidential and may be protected by intellectual property laws. -->
+<!-- Reproduction or distribution of this material, in whole or in part, -->
+<!-- is strictly forbidden except by express prior written permission -->
 <!-- of John Wiley & Sons. -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -21,6 +21,7 @@
 		<spring.version>4.1.4.RELEASE</spring.version>
 		<sl4j.version>1.7.10</sl4j.version>
 		<spring.boot>1.2.3.RELEASE</spring.boot>
+		<restlet.version>2.0.5</restlet.version>
 	</properties>
 
 	<modules>
@@ -78,7 +79,7 @@
 			<artifactId>servlet-api</artifactId>
 			<version>2.5</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
@@ -117,6 +118,15 @@
 			<artifactId>slf4j-api</artifactId>
 			<version>${sl4j.version}</version>
 		</dependency>
+		<!-- Begin: ORCID specific dependency -->
+		<dependency>
+			<groupId>org.restlet</groupId>
+			<artifactId>org.restlet</artifactId>
+			<version>${restlet.version}</version>
+			<optional>true</optional>
+			<scope>provided</scope>
+		</dependency>
+		<!-- End -->
 	</dependencies>
 
 	<repositories>
@@ -153,7 +163,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
-				
+
 				<executions>
 					<execution>
 						<id>check-pmd</id>

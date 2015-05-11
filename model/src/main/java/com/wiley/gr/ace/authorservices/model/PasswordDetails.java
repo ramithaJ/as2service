@@ -11,14 +11,23 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.model;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 /**
  * @author kpshiva
  *
  */
 public class PasswordDetails {
 
-	private String oldPassword;
+	@NotNull @NotBlank
+	private String userId;
 	
+	@NotNull @NotBlank
+	private String oldPassword;
+
+	@NotNull @NotBlank
 	private String newPassword;
 	
 	/**
@@ -45,5 +54,13 @@ public class PasswordDetails {
 	public void setNewPassword(String newPassword) {
 		this.newPassword = newPassword;
 	}
+	
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
 	
 }

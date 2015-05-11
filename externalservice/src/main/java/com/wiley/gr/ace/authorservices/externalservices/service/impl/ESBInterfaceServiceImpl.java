@@ -12,7 +12,9 @@
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -23,15 +25,8 @@ import org.springframework.web.client.RestTemplate;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.model.User;
-import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 
 public class ESBInterfaceServiceImpl implements ESBInterfaceService {
-
-	@Override
-	public ESBUser createCustomer(ESBUser esbUser) {
-		ESBUser esbUserAfterCreate = new ESBUser();
-		return esbUserAfterCreate;
-	}
 
 	@Override
 	public User fetchOrcidDetails(String orcid) throws Exception {
@@ -53,33 +48,33 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 		System.out.println("####  " + user.getPrimaryEmailAddr());
 		return user;
 	}
+
 	@Override
-	public String updateALMUser(User updateUser) throws Exception{
+	public String updateALMUser(User updateUser) throws Exception {
 		String status = "failure";
 		final String url = "http://demo3275860.mockable.io/user/update";
 		URI uri = new URI(url);
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders requestHeaders = new HttpHeaders();
-		
+
 		requestHeaders.setAccept(Arrays.asList(MediaType.TEXT_PLAIN));
-		HttpEntity<String> requestEntity = new HttpEntity<String>(requestHeaders);
-		ResponseEntity<String> response = restTemplate.exchange(uri,HttpMethod.GET, requestEntity, String.class);
+		HttpEntity<String> requestEntity = new HttpEntity<String>(
+				requestHeaders);
+		ResponseEntity<String> response = restTemplate.exchange(uri,
+				HttpMethod.GET, requestEntity, String.class);
 		status = response.getBody();
-System.out.println("status :: "+status);	
+		System.out.println("status :: " + status);
 		return status;
 	}
 
-	/*public static void main(String[] args) {
-		ESBInterfaceServiceImpl em = new ESBInterfaceServiceImpl();
-		try {
-//			User user = em.fetchOrcidDetails("1111");
-			User user = new User();
-			String s = em.updateALMUser(user);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}*/
+	/*
+	 * public static void main(String[] args) { ESBInterfaceServiceImpl em = new
+	 * ESBInterfaceServiceImpl(); try { // User user =
+	 * em.fetchOrcidDetails("1111"); User user = new User(); String s =
+	 * em.updateALMUser(user); } catch (Exception e) { e.printStackTrace(); }
+	 * 
+	 * }
+	 */
 
 	@Override
 	public User checkEmailIdExists(String emailId) throws Exception {
@@ -94,8 +89,30 @@ System.out.println("status :: "+status);
 
 		ResponseEntity<User> response = restTemplate.exchange(uri,
 				HttpMethod.GET, requestEntity, User.class);
-		user = response.getBody();
+		if (null != response)
+			user = response.getBody();
+		else
+			user = null;
 		return user;
+	}
+
+	@Override
+	public List<User> getUsersFromFirstNameLastName(String firstName,
+			String lastName) throws Exception {
+		List<User> usersList = new ArrayList<User>();
+		final String url = "http://demo7614669.mockable.io/getFromFirstNameLastName/Dishari/De";
+		URI uri = new URI(url);
+		RestTemplate restTemplate = new RestTemplate();
+		HttpHeaders requestHeaders = new HttpHeaders();
+
+		requestHeaders.setAccept(Arrays.asList(MediaType.TEXT_PLAIN));
+		HttpEntity<List<User>> requestEntity = new HttpEntity<List<User>>(
+				requestHeaders);
+		ResponseEntity<List> response = restTemplate.exchange(uri,
+				HttpMethod.GET, requestEntity, List.class);
+		usersList = response.getBody();
+
+		return usersList;
 	}
 
 	@Override
@@ -105,12 +122,14 @@ System.out.println("status :: "+status);
 		URI uri = new URI(url);
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders requestHeaders = new HttpHeaders();
-		
+
 		requestHeaders.setAccept(Arrays.asList(MediaType.TEXT_PLAIN));
-		HttpEntity<String> requestEntity = new HttpEntity<String>(requestHeaders);
-		ResponseEntity<String> response = restTemplate.exchange(uri,HttpMethod.GET, requestEntity, String.class);
+		HttpEntity<String> requestEntity = new HttpEntity<String>(
+				requestHeaders);
+		ResponseEntity<String> response = restTemplate.exchange(uri,
+				HttpMethod.POST, requestEntity, String.class);
 		status = response.getBody();
-System.out.println("status :: "+status);	
+		System.out.println("status :: " + status);
 		return status;
 	}
 

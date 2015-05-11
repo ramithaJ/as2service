@@ -36,8 +36,12 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 	@Autowired(required = true)
 	HibernateConnection con;
 
-	/* (non-Javadoc)
-	 * @see com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO#getUsersList()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO
+	 * #getUsersList()
 	 */
 	@Override
 	public List<AuthorProfile> getUsersList() {
@@ -60,8 +64,12 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO#validateEmailAddress(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO
+	 * #validateEmailAddress(java.lang.String)
 	 */
 	@Override
 	public boolean validateEmailAddress(String emailId) {
@@ -71,8 +79,9 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 			session = con.getSessionFactory().openSession();
 			boolean status = false;
 			int userId = getUserId(emailId);
-			if(userId == 0) {
-				throw new ASException("1001","Invalid email address. Please Re-Enter");
+			if (userId == 0) {
+				throw new ASException("1001",
+						"Invalid email address. Please Re-Enter");
 			}
 			String hql = "from AuthorProfile where userId = :userId";
 			List<AuthorProfile> result = session.createQuery(hql)
@@ -88,8 +97,12 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO#checkSecuritySetup(int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO
+	 * #checkSecuritySetup(int)
 	 */
 	@Override
 	public boolean checkSecuritySetup(int userId) {
@@ -116,8 +129,12 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO#getSecurityQuestions(java.lang.Integer)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO
+	 * #getSecurityQuestions(java.lang.Integer)
 	 */
 	@Override
 	public List<UserSecurityDetails> getSecurityQuestions(Integer userId) {
@@ -143,8 +160,12 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO#doLogin(int, java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO
+	 * #doLogin(int, java.lang.String)
 	 */
 	@Override
 	public void doLogin(int userId, String password) {
@@ -155,12 +176,12 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 			session = con.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			Date date = new Date();
-			
+
 			Users users = (Users) session.load(Users.class, userId);
-			
+
 			users.getAuthorProfile().setLastLoginDate(date);
 			users.getAuthorProfile().setUpdatedBy("test");
-			
+
 			session.update(users);
 			transaction.commit();
 
@@ -172,8 +193,12 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO#isUserLocked(int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO
+	 * #isUserLocked(int)
 	 */
 	@Override
 	public boolean isUserLocked(int userId) {
@@ -188,7 +213,8 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 					.uniqueResult();
 			if (null == authorProfile)
 				return isLocked;
-			if (authorProfile.getIsAccountLocked() != null && authorProfile.getIsAccountLocked() == 'Y') {
+			if (authorProfile.getIsAccountLocked() != null
+					&& authorProfile.getIsAccountLocked() == 'Y') {
 				isLocked = true;
 			} else {
 				isLocked = false;
@@ -202,8 +228,12 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO#lockUser(int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO
+	 * #lockUser(int)
 	 */
 	@Override
 	public boolean lockUser(int userId) {
@@ -235,8 +265,12 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO#getUserId(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO
+	 * #getUserId(java.lang.String)
 	 */
 	@Override
 	public Integer getUserId(String emailId) {
@@ -248,7 +282,7 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 			Criteria criteria = session.createCriteria(Users.class);
 			criteria.add(Restrictions.eq("emailAddr", emailId));
 			Users user = (Users) criteria.uniqueResult();
-			if(user != null) {
+			if (user != null) {
 				userId = user.getUserId();
 			}
 			return userId;
@@ -260,8 +294,12 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO#getCount(int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO
+	 * #getCount(int)
 	 */
 	@Override
 	public int getCount(int userId) {
@@ -282,8 +320,12 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO#updateCount(int, int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO
+	 * #updateCount(int, int)
 	 */
 	@Override
 	public boolean updateCount(int count, int userId) {
@@ -312,8 +354,12 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO#getLockedTime(int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO
+	 * #getLockedTime(int)
 	 */
 	@Override
 	public Date getLockedTime(int userId) {
@@ -334,8 +380,12 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO#unLockUser(int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO
+	 * #unLockUser(int)
 	 */
 	@Override
 	public boolean unLockUser(int userId) {
@@ -357,6 +407,26 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 			} else {
 				return false;
 			}
+		} finally {
+			if (session != null) {
+				session.flush();
+				session.close();
+			}
+		}
+	}
+
+	@Override
+	public AuthorProfile authorProfile(int userId) {
+
+		Session session = null;
+		try {
+			session = con.getSessionFactory().openSession();
+			Criteria criteria = session.createCriteria(AuthorProfile.class);
+			criteria.add(Restrictions.eq("userId", userId));
+			AuthorProfile userProfile = (AuthorProfile) criteria.uniqueResult();
+			if (null == userProfile)
+				return null;
+			return userProfile;
 		} finally {
 			if (session != null) {
 				session.flush();

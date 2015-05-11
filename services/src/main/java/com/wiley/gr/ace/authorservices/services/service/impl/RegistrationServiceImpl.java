@@ -11,28 +11,23 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.model.User;
-import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
-import com.wiley.gr.ace.authorservices.persistence.services.RegistrationServiceDAO;
 import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
 
 public class RegistrationServiceImpl implements RegistrationService {
 
-	@Autowired(required = true)
-	RegistrationServiceDAO regDao;
 	@Autowired(required = true)
 	ESBInterfaceService esbInterFaceService;
 
 	@Override
 	public String createUser(User user) throws Exception {
 
-		String status = "failure";
+		String status = null;
 		if (null != user) {
 			status = esbInterFaceService.creatUser(user);
 		}
@@ -41,29 +36,20 @@ public class RegistrationServiceImpl implements RegistrationService {
 
 	@Override
 	public List<User> getUserFromFirstNameLastName(String firstName,
-			String lastName) {
+			String lastName) throws Exception {
 
-		List<AuthorProfile> authorProfileList = new ArrayList<AuthorProfile>();
+		List<User> userList = null;
 		if (null != firstName && !firstName.isEmpty() && null != lastName
 				&& !lastName.isEmpty()) {
-			authorProfileList = regDao.getUserFromFirstNameLastName(firstName,
-					lastName);
+			userList = esbInterFaceService.getUsersFromFirstNameLastName(firstName, lastName);
 		}
-		List<User> userList = new ArrayList<User>();
-
-		for (AuthorProfile authorProfile : authorProfileList) {
-			User user = new User();
-			user.setPrimaryEmailAddr(authorProfile.getAlertPrefEmailid()); // should
-																			// be
-																			// modified
-		}
-
+		
 		return userList;
 	}
 
 	@Override
 	public User checkEmailIdExists(String emailId) throws Exception {
-		User user = new User();
+		User user = null;
 		if (null != emailId && !emailId.isEmpty()) {
 			user = esbInterFaceService.checkEmailIdExists(emailId);
 		}

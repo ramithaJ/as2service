@@ -9,19 +9,17 @@
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
  *******************************************************************************/
+/**
+ * 
+ */
 package com.wiley.gr.ace.authorservices.services.service;
 
-import java.util.List;
+import com.wiley.gr.ace.authorservices.model.orcid.OrcidAccessToken;
 
-import com.wiley.gr.ace.authorservices.model.User;
-
-public interface RegistrationService {
-
-	String createUser(User user) throws Exception;
-
-	List<User> getUserFromFirstNameLastName(String firstName,
-			String lastName) throws Exception;
-
-	User checkEmailIdExists(String emailId) throws Exception;
-
+/**
+ * @author vkumark
+ *
+ */
+public interface OrcidService {
+	OrcidAccessToken getAccessToken(String authorizationCode) throws Exception;
 }
