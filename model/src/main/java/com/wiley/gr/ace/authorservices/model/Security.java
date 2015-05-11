@@ -25,38 +25,97 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class Security {
 
 	@NotNull @NotBlank
-	private String securityQuestionId;
+	private int id1;
 	
 	@NotNull @NotBlank
-	private String securityQuestion;
+	private int id2;
+	
+	@NotNull @NotBlank
+	private String securityQuestion1;
 
 	@NotNull @NotBlank
-	private String securityAnswer;
+	private String securityQuestion2;
 
-	public String getSecurityQuestion() {
-		return securityQuestion;
+	@NotNull @NotBlank
+	private String securityAnswer1;
+
+	@NotNull @NotBlank
+	private String securityAnswer2;
+	
+	public int getId1() {
+		return id1;
 	}
 
-	public void setSecurityQuestion(String securityQuestion) {
-		this.securityQuestion = securityQuestion;
+	public void setId1(int id1) {
+		this.id1 = id1;
 	}
 
-	public String getSecurityAnswer() {
-		return securityAnswer;
+	public int getId2() {
+		return id2;
 	}
 
-	public void setSecurityAnswer(String securityAnswer) {
-		this.securityAnswer = securityAnswer;
+	public void setId2(int id2) {
+		this.id2 = id2;
 	}
 
-	public String getSecurityQuestionId() {
-		return securityQuestionId;
+	/**
+	 * Gets the security question1.
+	 *
+	 * @return the security question1
+	 */
+	public String getSecurityQuestion1() {
+		return securityQuestion1;
 	}
 
-	public void setSecurityQuestionId(String securityQuestionId) {
-		this.securityQuestionId = securityQuestionId;
+	/**
+	 * Sets the security question1.
+	 *
+	 * @param securityQuestion1
+	 *            the new security question1
+	 */
+	public void setSecurityQuestion1(String securityQuestion1) {
+		this.securityQuestion1 = securityQuestion1;
 	}
 
+	public String getSecurityAnswer1() {
+		return securityAnswer1;
+	}
 
+	/**
+	 * Sets the security answer1.
+	 *
+	 * @param securityAnswer1
+	 *            the new security answer1
+	 */
+	public void setSecurityAnswer1(String securityAnswer1) {
+		this.securityAnswer1 = securityAnswer1;
+	}
+
+	/**
+	 * Gets the security answer2.
+	 *
+	 * @return the security answer2
+	 */
+	public String getSecurityAnswer2() {
+		return securityAnswer2;
+	}
+
+	/**
+	 * Sets the security answer2.
+	 *
+	 * @param securityAnswer2
+	 *            the new security answer2
+	 */
+	public void setSecurityAnswer2(String securityAnswer2) {
+		this.securityAnswer2 = securityAnswer2;
+	}
+
+	public String getSecurityQuestion2() {
+		return securityQuestion2;
+	}
+
+	public void setSecurityQuestion2(String securityQuestion2) {
+		this.securityQuestion2 = securityQuestion2;
+	}
 
 }

@@ -17,9 +17,11 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
+import com.wiley.gr.ace.authorservices.persistence.entity.AdminDetails;
 import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
@@ -36,27 +38,25 @@ public class UserLoginDaoImpl implements UserLoginDao {
 	@Override
 	public boolean validateEmail(String emailId) {
 		boolean status = false;
-		Session session = con.getSessionFactory().openSession();
-
 		int userId = getUserId(emailId);
 
-		String hql = "from AdminDetails where adminId = :userId";
-		List<Users> result = session.createQuery(hql)
-				.setInteger("userId", userId).list();
+		Session session = con.getSessionFactory().openSession();
+		Transaction txn = session.getTransaction();
+		txn.begin();
+		System.err.println("user id" + userId);
 
-		if (result != null && result.size() > 0) {
+		AdminDetails adminDetails = (AdminDetails) session.get(
+				AdminDetails.class, userId);
+
+		if (adminDetails != null) {
+			System.err.println(adminDetails.getAdminId());
 
 			status = true;
 		}
-	
+		txn.commit();
 		session.flush();
 
-		session.getTransaction().commit();
-	
-
 		session.close();
-
-
 		return status;
 	}
 
@@ -64,7 +64,6 @@ public class UserLoginDaoImpl implements UserLoginDao {
 	public boolean doLogin(String emailId) {
 		// boolean status = false;
 		Session session = con.getSessionFactory().openSession();
-		session.beginTransaction();
 
 		AuthorProfile authorProfile = null;
 
@@ -96,9 +95,6 @@ public class UserLoginDaoImpl implements UserLoginDao {
 		session.saveOrUpdate(authorProfile);
 		session.flush();
 
-		session.getTransaction().commit();
-	
-
 		session.close();
 
 		return true;
@@ -119,20 +115,16 @@ public class UserLoginDaoImpl implements UserLoginDao {
 		String hql = "from Users where emailAddr = :emailId";
 		List<Users> result = session.createQuery(hql)
 				.setString("emailId", emailId).list();
-
+		
 		if (result != null && result.size() > 0) {
+			
 
 			user = result.get(0);
 			userId = user.getUserId();
 		}
-	
+
 		session.flush();
-
-		session.getTransaction().commit();
-	
-
 		session.close();
-
 
 		return userId;
 

@@ -11,7 +11,6 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.web.controllers;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,9 +42,12 @@ public class UserLoginController extends ASExceptionController {
 
 	@Autowired(required = true)
 	LocalValidatorFactoryBean validator;
-	
-	/** This method will authenticate the user based on email id and password 
-	 * @param login - it is a JSON object having email id and password 
+
+	/**
+	 * This method will authenticate the user based on email id and password
+	 * 
+	 * @param login
+	 *            - it is a JSON object having email id and password
 	 * @return
 	 */
 	@RequestMapping(value = "/login/", method = RequestMethod.POST)
@@ -81,33 +83,25 @@ public class UserLoginController extends ASExceptionController {
 		return service;
 	}
 
-	/**
-	 * @param emailId
-	 * @param passwordDetails
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping(value = "/password/{emailId}", method = {
-			RequestMethod.POST, RequestMethod.PUT })
-	public Service updatePassword(@PathVariable("emailId") String emailId,
-			@RequestBody PasswordDetails passwordDetails,
-			HttpServletRequest request) {
+	@RequestMapping(value = "/password/reset", method = RequestMethod.POST)
+	public Service resetPassword(@Valid @RequestBody Login login) {
 
 		Service service = new Service();
-
-		if (request.getMethod().equals(RequestMethod.POST)) {
-
-			service = new Service();
-			userLoginService.updatePassword(emailId, passwordDetails);
-
-		} else if (request.getMethod().equals(RequestMethod.PUT)) {
-
-			service = new Service();
-			userLoginService.resetPassword(emailId,
-					passwordDetails.getNewPassword());
-		}
-
+		userLoginService.resetPassword(login.getEmailId(), login.getPassword());
+		service.setStatus("Success");
 		return service;
+
+	}
+
+	@RequestMapping(value = "/password/update", method = RequestMethod.POST)
+	public Service updatePassword(
+			@Valid @RequestBody PasswordDetails passwordDetails) {
+
+		Service service = new Service();
+		userLoginService.updatePassword(passwordDetails);
+		service.setStatus("Success");
+		return service;
+
 	}
 
 	/**
@@ -132,7 +126,7 @@ public class UserLoginController extends ASExceptionController {
 	@RequestMapping(value = "/securityQuestions/validate/{emailId}", method = RequestMethod.POST)
 	public Service validateSecurityQuestions(
 			@PathVariable("emailId") String emailId,
-			@Valid @RequestBody Security securityDetails) {
+			@Valid @RequestBody Security[] securityDetails) {
 
 		Service service = new Service();
 		service.setPayload(userLoginService.validateSecurityQuestions(emailId,

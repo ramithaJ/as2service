@@ -33,7 +33,7 @@ public interface UserLoginService {
 	 * @param password
 	 * @return
 	 */
-	boolean updatePassword(String emailId, PasswordDetails passwordDetails);
+	boolean updatePassword(PasswordDetails passwordDetails);
 	
 	/**
 	 * @param emailId
@@ -47,7 +47,7 @@ public interface UserLoginService {
 	 * @param securityVO
 	 * @return
 	 */
-	boolean validateSecurityQuestions(String emailId, Security securityDetails);
+	boolean validateSecurityQuestions(String emailId, Security[] securityDetails);
 
 	/**
 	 * @param userId
