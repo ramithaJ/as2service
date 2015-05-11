@@ -22,6 +22,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.entity.LookupValues;
+import com.wiley.gr.ace.authorservices.persistence.entity.Permissions;
+import com.wiley.gr.ace.authorservices.persistence.entity.RolePermissions;
 import com.wiley.gr.ace.authorservices.persistence.entity.Roles;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
 
@@ -61,6 +63,9 @@ public class ASDataDAOImpl implements ASDataDAO {
 		return list;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO#getAdminRoles()
+	 */
 	@Override
 	public List<Roles> getAdminRoles() {
 
@@ -72,6 +77,60 @@ public class ASDataDAOImpl implements ASDataDAO {
 			session = con.getSessionFactory().openSession();
 
 			String hql = "from Roles";
+			
+			list = session.createQuery(hql).list();
+
+		} finally {
+			if (session != null) {
+				session.flush();
+				session.close();
+			}
+		}
+
+		return list;
+	}
+	
+	
+	/* (non-Javadoc)
+	 * @see com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO#getPermissions()
+	 */
+	public List<Permissions> getPermissions() {
+		
+		Session session = null;
+		List<Permissions> list = new ArrayList();
+
+		try {
+
+			session = con.getSessionFactory().openSession();
+
+			String hql = "from Permissions";
+			
+			list = session.createQuery(hql).list();
+
+		} finally {
+			if (session != null) {
+				session.flush();
+				session.close();
+			}
+		}
+
+		return list;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO#getRolePermissionMappings()
+	 */
+	@Override
+	public List<RolePermissions> getRolePermissionMappings() {
+		
+		Session session = null;
+		List<RolePermissions> list = new ArrayList();
+
+		try {
+
+			session = con.getSessionFactory().openSession();
+
+			String hql = "from RolePermissions";
 			
 			list = session.createQuery(hql).list();
 
