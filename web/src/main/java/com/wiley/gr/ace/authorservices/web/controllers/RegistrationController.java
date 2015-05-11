@@ -121,10 +121,14 @@ public class RegistrationController {
 				service.setError(err);
 			}
 
-			if (status == "success") {
+			if (status.equalsIgnoreCase("success")) {
 				service.setStatus("SUCCESS");
 			} else {
 				service.setStatus("FAILURE");
+				ErrorPOJO err = new ErrorPOJO();
+				err.setCode(208);
+				err.setMessage("Creating user failed");
+				service.setError(err);
 			}
 		} catch (Exception e) {
 
