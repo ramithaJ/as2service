@@ -22,6 +22,7 @@ import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceServ
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.UserMgmt;
+import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
@@ -85,6 +86,8 @@ public class UserLoginServiceImpl implements UserLoginService {
 	}
 
 	/**
+	 * this method will check whether user has security setup or not.
+	 * 
 	 * @param userId
 	 * @return
 	 */
@@ -95,41 +98,63 @@ public class UserLoginServiceImpl implements UserLoginService {
 	}
 
 	/**
+	 * this method will give list of security questions and answers based on
+	 * email id.
+	 * 
 	 * @param emailId
 	 * @return
 	 */
 	@Override
 	public ArrayList<SecurityDetails> getSecurityQuestions(String emailId) {
 
-		if (validateEmailAddress(emailId)) {
+		// it checks whether user is exit or not in the user table
+		// if exist it will return userId
+		int userId = userLoginServiceDAO.getUserId(emailId);
+		if (userId != 0) {
 
-			int userId = userLoginServiceDAO.getUserId(emailId);
-			if (checkSecuritySetUp(userId)) {
+			AuthorProfile authorProfile = userLoginServiceDAO
+					.authorProfile(userId);
+			// it will check whether the user is exist in author profile table
+			// or not
+			// it means whether user is normal user or Admin user.
+			if (null != authorProfile) {
 
-				List<UserSecurityDetails> securityQuestions = userLoginServiceDAO
-						.getSecurityQuestions(userId);
-				ArrayList<SecurityDetails> securityQuestionsList = new ArrayList<SecurityDetails>();
-				for (int i = 0; i < securityQuestions.size(); i++) {
+				// check whether user has security set up or not.
+				if (authorProfile.getSecurityQuestFlg().equals('Y')) {
 
-					SecurityDetails security = new SecurityDetails();
-					security.setSecurityQuestionId("SecurityQuestion" + (i + 1));
-					security.setSecurityQuestion(securityQuestions.get(i)
-							.getSecurityQuestion());
-					securityQuestionsList.add(security);
+					List<UserSecurityDetails> securityQuestions = userLoginServiceDAO
+							.getSecurityQuestions(userId);
+					ArrayList<SecurityDetails> securityQuestionsList = new ArrayList<SecurityDetails>();
+					for (int i = 0; i < securityQuestions.size(); i++) {
+
+						SecurityDetails security = new SecurityDetails();
+						security.setSecurityQuestionId("SecurityQuestion"
+								+ (i + 1));
+						security.setSecurityQuestion(securityQuestions.get(i)
+								.getSecurityQuestion());
+						securityQuestionsList.add(security);
+					}
+					return securityQuestionsList;
+				} else {
+
+					throw new ASException("1015",
+							"User doen't have security setup");
 				}
-				return securityQuestionsList;
 			} else {
 
-				throw new ASException("1015", "User doen't have security setup");
+				throw new ASException("1017", "Invalid user, please try again");
 			}
 		} else {
 
 			throw new ASException("1016",
 					"Invalid email Details, please try again");
 		}
+
 	}
 
 	/**
+	 * this method will update the password at user profile level.
+	 * 
 	 * @param emailId
 	 * @param passwordDetails
 	 * @return
@@ -256,6 +281,8 @@ public class UserLoginServiceImpl implements UserLoginService {
 	}
 
 	/**
+	 * this method will reset the password at the time of login.
+	 * 
 	 * @param emailId
 	 * @param newPassword
 	 * @return
