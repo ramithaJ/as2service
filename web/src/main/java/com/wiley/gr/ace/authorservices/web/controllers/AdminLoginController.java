@@ -79,7 +79,7 @@ public class AdminLoginController extends ASExceptionController {
 	 * @param password
 	 * @return
 	 */
-	@RequestMapping(value = "/requestAccess/{emailId}", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/requestAccess/{emailId}/", method = RequestMethod.POST, produces = "application/json")
 	public Service requestAccess(@PathVariable("emailId") String emailId,
 			@RequestBody String password) {
 		
@@ -94,9 +94,24 @@ public class AdminLoginController extends ASExceptionController {
 
 	}
 	
-	@RequestMapping(value = "/permissions", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/permissions/", method = RequestMethod.GET, produces = "application/json")
 	public Service getPermissions(@RequestParam(value="roleId", required=false) String roleId) {
 		
+		Service service = new Service();
+		service.setPayload(adminLoginService.getRolesAndPermissions(null));
+		return service;
+	}
+	
+	@RequestMapping(value = "/permissions/{roleId}", method = RequestMethod.GET, produces = "application/json")
+	public Service getPermissionsForRole(@PathVariable("roleId") String roleId) {
+		
 		return null;
+	}
+	
+	@RequestMapping(value = "/permissions", method = RequestMethod.POST, produces = "application/json")
+	public Service updatePermissions() {
+		
+		return null;
+		
 	}
 }
