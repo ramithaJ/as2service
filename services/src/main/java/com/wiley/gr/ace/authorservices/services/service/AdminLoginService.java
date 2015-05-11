@@ -11,6 +11,8 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service;
 
+import com.wiley.gr.ace.authorservices.model.RolesAndPermissions;
+
 /**
  * @author RAVISINHA
  *
@@ -40,5 +42,14 @@ public interface AdminLoginService {
 	 * @return
 	 */
 	boolean requestAdminAccess(String emailId);
+	
+	/**
+	 * This method gets the list of all roles, the sections and permissions List
+	 * and the role and permissions mappings
+	 * 
+	 * @param roleId
+	 * @return
+	 */
+	RolesAndPermissions getRolesAndPermissions(String roleId);
 
 }
