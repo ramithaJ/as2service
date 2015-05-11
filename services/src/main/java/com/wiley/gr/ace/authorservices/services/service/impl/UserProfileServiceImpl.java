@@ -155,7 +155,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 			coAuthor.setPhone(authCoauthDetails.get(i).getCoauthPhone());
 			coAuthor.setEmailId(authCoauthDetails.get(i).getCoauthEmailAddr());
 			coAuthor.setDepartmentName(authCoauthDetails.get(i).getCoauthDept());
-			coAuthor.setInstitutionId(authCoauthDetails.get(i)
+			coAuthor.setInstitutionName(authCoauthDetails.get(i)
 					.getCoauthInstitution());
 			coAuthorList.add(coAuthor);
 		}
