@@ -53,7 +53,7 @@ public interface UserLoginService {
 	 * @param userId
 	 * @return
 	 */
-	Security getSecurityQuestions(String emailId);
+	Security[] getSecurityQuestions(String emailId);
 
 	/**
 	 * @param userId
