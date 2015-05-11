@@ -11,6 +11,8 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.web.controllers;
 
+import java.util.ArrayList;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
 import com.wiley.gr.ace.authorservices.model.Login;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
-import com.wiley.gr.ace.authorservices.model.Security;
+import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
@@ -83,6 +85,13 @@ public class UserLoginController extends ASExceptionController {
 		return service;
 	}
 
+	/**
+	 * this method will reset the password at the time of login.
+	 * 
+	 * @param login
+	 *            - it takes the email id and new password as inputs.
+	 * @return
+	 */
 	@RequestMapping(value = "/password/reset", method = RequestMethod.POST)
 	public Service resetPassword(@Valid @RequestBody Login login) {
 
@@ -93,6 +102,13 @@ public class UserLoginController extends ASExceptionController {
 
 	}
 
+	/**
+	 * this method will update the password at user profile level.
+	 * 
+	 * @param passwordDetails
+	 *            - it takes userId, old password and new password as inputs.
+	 * @return
+	 */
 	@RequestMapping(value = "/password/update", method = RequestMethod.POST)
 	public Service updatePassword(
 			@Valid @RequestBody PasswordDetails passwordDetails) {
@@ -105,6 +121,9 @@ public class UserLoginController extends ASExceptionController {
 	}
 
 	/**
+	 * this method will give the security questions which are selected by the
+	 * user.
+	 * 
 	 * @param emailId
 	 * @return
 	 */
@@ -119,14 +138,19 @@ public class UserLoginController extends ASExceptionController {
 	}
 
 	/**
+	 * this method will validate the security questions and answers to reset the
+	 * password at the time of login.
+	 * 
 	 * @param emailId
 	 * @param securityDetails
+	 *            - it takes security questions and answers as inputs in JSON
+	 *            array format.
 	 * @return
 	 */
 	@RequestMapping(value = "/securityQuestions/validate/{emailId}", method = RequestMethod.POST)
 	public Service validateSecurityQuestions(
 			@PathVariable("emailId") String emailId,
-			@Valid @RequestBody Security securityDetails) {
+			@Valid @RequestBody ArrayList<SecurityDetails> securityDetails) {
 
 		Service service = new Service();
 		service.setPayload(userLoginService.validateSecurityQuestions(emailId,
