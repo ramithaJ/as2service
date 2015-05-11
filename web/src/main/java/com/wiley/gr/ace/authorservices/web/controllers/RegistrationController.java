@@ -14,11 +14,10 @@ package com.wiley.gr.ace.authorservices.web.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,7 +34,7 @@ public class RegistrationController {
 	RegistrationService rs;
 
 	@RequestMapping(value = "/verify/email", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody Service checkUserExists(@RequestBody String email) {
+	public @ResponseBody Service checkUserExists(@RequestHeader String email) {
 
 		Service service = new Service();
 		User user = null;
@@ -69,31 +68,64 @@ public class RegistrationController {
 		return service;
 	}
 
-	@RequestMapping(value = "/verify/fullname", method = RequestMethod.GET)
+	@RequestMapping(value = "/verify/fullname", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody Service checkFirstNameLastName(
-			@PathVariable("firstName") String firstName,
-			@PathVariable("lastName") String lastName) {
+			@RequestHeader String firstName, @RequestHeader String lastName) {
 
 		Service service = new Service();
-		List<User> userList = rs.getUserFromFirstNameLastName(firstName,
-				lastName);
-
-		if (userList != null) {
-			service.setStatus("FAILURE");
-			service.setPayload(userList);
-		} else {
-			service.setStatus("SUCCESS");
+		List<User> userList = null;
+		try {
+			if (null != firstName && !firstName.isEmpty() && null != lastName
+					&& !lastName.isEmpty())
+				userList = rs.getUserFromFirstNameLastName(firstName, lastName);
+			else {
+				ErrorPOJO err = new ErrorPOJO();
+				err.setCode(205);
+				err.setMessage("First Name or Last Name is empty");
+				service.setStatus("ERROR");
+				service.setError(err);
+			}
+			if (userList != null) {
+				service.setStatus("FAILURE");
+				ErrorPOJO err = new ErrorPOJO();
+				err.setCode(205);
+				err.setMessage("First Name and Last Name already exists");
+				service.setError(err);
+				service.setPayload(userList);
+			} else {
+				service.setStatus("SUCCESS");
+			}
+		} catch (Exception e) {
+			ErrorPOJO err = new ErrorPOJO();
+			err.setCode(206);
+			err.setMessage("Searching user by full name encountered exception");
+			service.setStatus("ERROR");
+			service.setError(err);
 		}
 
 		return service;
 	}
 
-	@RequestMapping(value = "/register", method = RequestMethod.POST, consumes = { "application/json" })
+	@RequestMapping(value = "/register", method = RequestMethod.POST, consumes = "application/json")
 	public @ResponseBody Service registerUser(@RequestBody User user) {
 		String status = null;
 		Service service = new Service();
 		try {
-			status = rs.createUser(user);
+			if (null != user)
+				status = rs.createUser(user);
+			else {
+				ErrorPOJO err = new ErrorPOJO();
+				err.setCode(207);
+				err.setMessage("User object is empty");
+				service.setStatus("ERROR");
+				service.setError(err);
+			}
+
+			if (status == "success") {
+				service.setStatus("SUCCESS");
+			} else {
+				service.setStatus("FAILURE");
+			}
 		} catch (Exception e) {
 
 			ErrorPOJO err = new ErrorPOJO();
@@ -103,11 +135,6 @@ public class RegistrationController {
 			service.setError(err);
 		}
 
-		if (status == "success") {
-			service.setStatus("SUCCESS");
-		} else {
-			service.setStatus("FAILURE");
-		}
 		return service;
 	}
 

@@ -20,7 +20,7 @@ public interface RegistrationService {
 	String createUser(User user) throws Exception;
 
 	List<User> getUserFromFirstNameLastName(String firstName,
-			String lastName);
+			String lastName) throws Exception;
 
 	User checkEmailIdExists(String emailId) throws Exception;
 

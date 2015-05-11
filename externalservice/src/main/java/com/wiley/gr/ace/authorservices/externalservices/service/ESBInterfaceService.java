@@ -11,15 +11,16 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
+import java.util.List;
+
 import com.wiley.gr.ace.authorservices.model.User;
-import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 
 public interface ESBInterfaceService {
 
-	ESBUser createCustomer(ESBUser esbUser);
 	User fetchOrcidDetails(String orcid) throws Exception;
 	String updateALMUser(User user) throws Exception;
 	User checkEmailIdExists(String emailId) throws Exception;
+	List<User> getUsersFromFirstNameLastName(String firstName, String lastName) throws Exception;
 	String creatUser(User user) throws Exception;
 	
 }
