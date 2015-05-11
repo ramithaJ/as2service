@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * @author kpshiva
  */
 @JsonInclude(Include.NON_NULL)
-public class Security {
+public class SecurityDetails {
 
 	@NotNull @NotBlank
 	private String securityQuestionId;
