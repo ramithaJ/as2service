@@ -37,9 +37,9 @@ public class UserLoginDaoImpl implements UserLoginDao {
 	public boolean validateEmail(String emailId) {
 		boolean status = false;
 		Session session = con.getSessionFactory().openSession();
-		
+
 		int userId = getUserId(emailId);
-		
+
 		String hql = "from AdminDetails where adminId = :userId";
 		List<Users> result = session.createQuery(hql)
 				.setInteger("userId", userId).list();
@@ -48,6 +48,15 @@ public class UserLoginDaoImpl implements UserLoginDao {
 
 			status = true;
 		}
+	
+		session.flush();
+
+		session.getTransaction().commit();
+	
+
+		session.close();
+
+
 		return status;
 	}
 
@@ -58,18 +67,14 @@ public class UserLoginDaoImpl implements UserLoginDao {
 		session.beginTransaction();
 
 		AuthorProfile authorProfile = null;
-		
-		
 
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 		Date date = new Date();
-		
-		
-		String utildate=dateFormat.format(date);
-		
+
+		String utildate = dateFormat.format(date);
+
 		java.sql.Date.valueOf(utildate);
-		
-	
+
 		System.out.println(utildate);
 
 		int userId = getUserId(emailId);
@@ -77,7 +82,6 @@ public class UserLoginDaoImpl implements UserLoginDao {
 		String hql = "from AuthorProfile where userId = :userId";
 		List<AuthorProfile> result = session.createQuery(hql)
 				.setInteger("userId", userId).list();
-		
 
 		if (result != null && result.size() > 0) {
 			authorProfile = result.get(0);
@@ -90,8 +94,10 @@ public class UserLoginDaoImpl implements UserLoginDao {
 		}
 
 		session.saveOrUpdate(authorProfile);
+		session.flush();
 
 		session.getTransaction().commit();
+	
 
 		session.close();
 
@@ -119,10 +125,17 @@ public class UserLoginDaoImpl implements UserLoginDao {
 			user = result.get(0);
 			userId = user.getUserId();
 		}
+	
+		session.flush();
+
+		session.getTransaction().commit();
+	
+
+		session.close();
+
 
 		return userId;
 
 	}
-	
 
 }
