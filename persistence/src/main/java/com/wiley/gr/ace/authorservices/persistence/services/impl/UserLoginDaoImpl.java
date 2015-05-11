@@ -48,7 +48,7 @@ public class UserLoginDaoImpl implements UserLoginDao {
 		AdminDetails adminDetails = (AdminDetails) session.get(
 				AdminDetails.class, userId);
 
-		if (adminDetails != null) {
+		if (null != adminDetails) {
 			System.err.println(adminDetails.getAdminId());
 
 			status = true;
@@ -82,7 +82,7 @@ public class UserLoginDaoImpl implements UserLoginDao {
 		List<AuthorProfile> result = session.createQuery(hql)
 				.setInteger("userId", userId).list();
 
-		if (result != null && result.size() > 0) {
+		if (null !=result && result.size() > 0) {
 			authorProfile = result.get(0);
 		}
 
@@ -115,9 +115,8 @@ public class UserLoginDaoImpl implements UserLoginDao {
 		String hql = "from Users where emailAddr = :emailId";
 		List<Users> result = session.createQuery(hql)
 				.setString("emailId", emailId).list();
-		
+
 		if (result != null && result.size() > 0) {
-			
 
 			user = result.get(0);
 			userId = user.getUserId();
