@@ -63,7 +63,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 
 	@Override
 	public User checkEmailIdExists(String emailId) throws Exception {
-		User user = new User();
+		User user = null;
 		if (null != emailId && !emailId.isEmpty()) {
 			user = esbInterFaceService.checkEmailIdExists(emailId);
 		}

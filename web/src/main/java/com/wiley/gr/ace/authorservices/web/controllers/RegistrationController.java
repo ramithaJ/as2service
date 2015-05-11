@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,15 +34,31 @@ public class RegistrationController {
 	@Autowired(required = true)
 	RegistrationService rs;
 
-
-	@RequestMapping(value = "/checkIfExists/{email}", method = RequestMethod.GET)
-	public @ResponseBody Service checkUserExists(
-			@PathVariable("email") String email) {
+	@RequestMapping(value = "/verify/email", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody Service checkUserExists(@RequestBody String email) {
 
 		Service service = new Service();
-		User user = new User();
+		User user = null;
 		try {
-			user = rs.checkEmailIdExists(email);
+			if (null != email && !email.isEmpty())
+				user = rs.checkEmailIdExists(email);
+			else {
+				ErrorPOJO err = new ErrorPOJO();
+				err.setCode(201);
+				err.setMessage("Email is null or empty");
+				service.setStatus("ERROR");
+				service.setError(err);
+			}
+			if (user != null) {
+				service.setStatus("FAILURE");
+				ErrorPOJO err = new ErrorPOJO();
+				err.setCode(202);
+				err.setMessage("Email address already exists");
+				service.setError(err);
+				service.setPayload(user);
+			} else {
+				service.setStatus("SUCCESS");
+			}
 		} catch (Exception e) {
 			ErrorPOJO err = new ErrorPOJO();
 			err.setCode(202);
@@ -49,18 +66,10 @@ public class RegistrationController {
 			service.setStatus("ERROR");
 			service.setError(err);
 		}
-
-		if (user != null) {
-			service.setStatus("FAILURE");
-			service.setPayload(user);
-		} else {
-			service.setStatus("SUCCESS");
-		}
-
 		return service;
 	}
 
-	@RequestMapping(value = "/checkFirstNameLastName/{firstName}/{lastName}", method = RequestMethod.GET)
+	@RequestMapping(value = "/verify/fullname", method = RequestMethod.GET)
 	public @ResponseBody Service checkFirstNameLastName(
 			@PathVariable("firstName") String firstName,
 			@PathVariable("lastName") String lastName) {
@@ -86,15 +95,15 @@ public class RegistrationController {
 		try {
 			status = rs.createUser(user);
 		} catch (Exception e) {
-		
+
 			ErrorPOJO err = new ErrorPOJO();
 			err.setCode(201);
 			err.setMessage("Creating user encountered exception");
 			service.setStatus("ERROR");
 			service.setError(err);
 		}
-		
-		if(status == "success") {
+
+		if (status == "success") {
 			service.setStatus("SUCCESS");
 		} else {
 			service.setStatus("FAILURE");
