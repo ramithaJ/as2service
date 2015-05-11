@@ -17,6 +17,7 @@ import org.springframework.context.annotation.Configuration;
 import com.wiley.gr.ace.authorservices.services.service.ASDataService;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 import com.wiley.gr.ace.authorservices.services.service.DashBoardService;
+import com.wiley.gr.ace.authorservices.services.service.OrcidService;
 import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
 import com.wiley.gr.ace.authorservices.services.service.UpdateUserService;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
@@ -25,6 +26,7 @@ import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
 import com.wiley.gr.ace.authorservices.services.service.impl.ASDataServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.AdminLoginServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.DashBoardServiceImpl;
+import com.wiley.gr.ace.authorservices.services.service.impl.OrcidServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.RegistrationServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UpdateUserServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UserAccountServiceImpl;
@@ -59,7 +61,12 @@ public class ServiceBeanConfig {
 	public UpdateUserService updateUserService() {
 		return new UpdateUserServiceImpl();
 	}
-
+	
+	@Bean(name = "OrcidService")
+	public OrcidService orcidService() {
+		return new OrcidServiceImpl();
+	}
+	
 	@Bean(name = "UserProfileService")
 	public UserProfileService userProfileService() {
 
