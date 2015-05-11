@@ -20,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
-import com.wiley.gr.ace.authorservices.model.Security;
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.UserMgmt;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
@@ -100,7 +99,7 @@ public class UserLoginServiceImpl implements UserLoginService {
 	 * @return
 	 */
 	@Override
-	public Security[] getSecurityQuestions(String emailId) {
+	public ArrayList<SecurityDetails> getSecurityQuestions(String emailId) {
 
 		if (validateEmailAddress(emailId)) {
 
@@ -118,8 +117,7 @@ public class UserLoginServiceImpl implements UserLoginService {
 							.getSecurityQuestion());
 					securityQuestionsList.add(security);
 				}
-				return (Security[]) securityQuestionsList
-						.toArray(new Security[securityQuestionsList.size()]);
+				return securityQuestionsList;
 			} else {
 
 				throw new ASException("1015", "User doen't have security setup");
@@ -151,28 +149,33 @@ public class UserLoginServiceImpl implements UserLoginService {
 	 */
 	@Override
 	public boolean validateSecurityQuestions(String emailId,
-			Security securityDetails) {
+			ArrayList<SecurityDetails> securityDetails) {
 
+		boolean status = false;
 		Integer userId = userLoginServiceDAO.getUserId(emailId);
-		userLoginServiceDAO.getSecurityQuestions(userId);
 		List<UserSecurityDetails> securityQuestionslist = userLoginServiceDAO
 				.getSecurityQuestions(userId);
 
-		if (securityDetails.getSecurityQuestion1().equalsIgnoreCase(
-				securityQuestionslist.get(0).getSecurityQuestion())
-				&& securityDetails.getSecurityAnswer1().equalsIgnoreCase(
-						securityQuestionslist.get(0).getSecurityAnswer())
-				&& securityDetails.getSecurityQuestion2().equalsIgnoreCase(
-						securityQuestionslist.get(1).getSecurityQuestion())
-				&& securityDetails.getSecurityAnswer2().equalsIgnoreCase(
-						securityQuestionslist.get(1).getSecurityAnswer())) {
+		for (int i = 0; i < securityDetails.size(); i++) {
 
-			return true;
-		} else {
-
-			throw new ASException("1011",
-					"Please enter valid security details.");
+			if (securityDetails
+					.get(i)
+					.getSecurityQuestion()
+					.equalsIgnoreCase(
+							securityQuestionslist.get(i).getSecurityQuestion())
+					&& securityDetails
+							.get(i)
+							.getSecurityAnswer()
+							.equalsIgnoreCase(
+									securityQuestionslist.get(i)
+											.getSecurityAnswer())) {
+				status = true;
+			} else {
+				throw new ASException("1011",
+						"Please enter valid security details.");
+			}
 		}
+		return status;
 	}
 
 	/**
