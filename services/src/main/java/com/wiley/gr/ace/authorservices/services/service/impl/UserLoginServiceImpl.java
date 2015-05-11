@@ -151,29 +151,28 @@ public class UserLoginServiceImpl implements UserLoginService {
 	 */
 	@Override
 	public boolean validateSecurityQuestions(String emailId,
-			Security[] securityDetails) {
+			Security securityDetails) {
 
 		Integer userId = userLoginServiceDAO.getUserId(emailId);
 		userLoginServiceDAO.getSecurityQuestions(userId);
-		/*
-		 * List<UserSecurityDetails> securityQuestionslist = userLoginServiceDAO
-		 * .getSecurityQuestions(userId);
-		 * 
-		 * if (securityDetails.getSecurityQuestion1().equalsIgnoreCase(
-		 * securityQuestionslist.get(0).getSecurityQuestion()) &&
-		 * securityDetails.getSecurityAnswer1().equalsIgnoreCase(
-		 * securityQuestionslist.get(0).getSecurityAnswer()) &&
-		 * securityDetails.getSecurityQuestion2().equalsIgnoreCase(
-		 * securityQuestionslist.get(1).getSecurityQuestion()) &&
-		 * securityDetails.getSecurityAnswer2().equalsIgnoreCase(
-		 * securityQuestionslist.get(1).getSecurityAnswer())) { return true; }
-		 * else {
-		 * 
-		 * throw new ASException("1011",
-		 * "Please enter valid security details."); }
-		 */
+		List<UserSecurityDetails> securityQuestionslist = userLoginServiceDAO
+				.getSecurityQuestions(userId);
 
-		return true;
+		if (securityDetails.getSecurityQuestion1().equalsIgnoreCase(
+				securityQuestionslist.get(0).getSecurityQuestion())
+				&& securityDetails.getSecurityAnswer1().equalsIgnoreCase(
+						securityQuestionslist.get(0).getSecurityAnswer())
+				&& securityDetails.getSecurityQuestion2().equalsIgnoreCase(
+						securityQuestionslist.get(1).getSecurityQuestion())
+				&& securityDetails.getSecurityAnswer2().equalsIgnoreCase(
+						securityQuestionslist.get(1).getSecurityAnswer())) {
+
+			return true;
+		} else {
+
+			throw new ASException("1011",
+					"Please enter valid security details.");
+		}
 	}
 
 	/**
