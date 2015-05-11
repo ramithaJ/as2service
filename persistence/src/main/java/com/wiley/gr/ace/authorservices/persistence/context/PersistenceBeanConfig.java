@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
+import com.wiley.gr.ace.authorservices.persistence.services.AuthorCoAuthorDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.DashBoardDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.LookUpValuesDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.RegistrationServiceDAO;
@@ -25,6 +26,7 @@ import com.wiley.gr.ace.authorservices.persistence.services.UserAlertsDao;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.ASDataDAOImpl;
+import com.wiley.gr.ace.authorservices.persistence.services.impl.AuthorCoAuthorDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.DashBoardDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.LookupValuesDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.RegistrationServiceDAOImpl;
@@ -85,5 +87,10 @@ public class PersistenceBeanConfig {
     @Bean(name="LookUpValuesDAO")
     public LookUpValuesDAO lookupValuesDAO(){
     	return new LookupValuesDAOImpl();
+    }
+    
+    @Bean(name="AuthorCoAuthorDAO")
+    public AuthorCoAuthorDAO authorCoAuthorDAO(){
+    	return new AuthorCoAuthorDAOImpl();
     }
 }

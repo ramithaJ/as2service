@@ -126,7 +126,7 @@ public class UserLoginController extends ASExceptionController {
 	@RequestMapping(value = "/securityQuestions/validate/{emailId}", method = RequestMethod.POST)
 	public Service validateSecurityQuestions(
 			@PathVariable("emailId") String emailId,
-			@Valid @RequestBody Security[] securityDetails) {
+			@Valid @RequestBody Security securityDetails) {
 
 		Service service = new Service();
 		service.setPayload(userLoginService.validateSecurityQuestions(emailId,

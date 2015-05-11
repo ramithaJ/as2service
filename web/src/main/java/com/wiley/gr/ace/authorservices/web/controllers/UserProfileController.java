@@ -323,7 +323,10 @@ public class UserProfileController {
 	@RequestMapping(value = "/getCoAuthorsList/{userId}", method = RequestMethod.GET, produces = "application/json")
 	public Service getCoAuthorsList(@PathVariable("userId") String userId) {
 
-		return null;
+		Service service = new Service();
+		service.setStatus("Success");
+		service.setPayload(userProfileService.getCoAuthorsList(userId));
+		return service;
 	}
 
 	/**

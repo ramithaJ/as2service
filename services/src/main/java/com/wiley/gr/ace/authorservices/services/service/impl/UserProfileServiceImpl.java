@@ -23,7 +23,9 @@ import com.wiley.gr.ace.authorservices.model.Interests;
 import com.wiley.gr.ace.authorservices.model.PreferredJournals;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Society;
+import com.wiley.gr.ace.authorservices.persistence.entity.AuthCoauthDetails;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserAlerts;
+import com.wiley.gr.ace.authorservices.persistence.services.AuthorCoAuthorDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserAlertsDao;
 import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
 
@@ -35,6 +37,9 @@ public class UserProfileServiceImpl implements UserProfileService {
 
 	@Autowired(required = true)
 	UserAlertsDao userAlertsDao;
+
+	@Autowired(required = true)
+	AuthorCoAuthorDAO authorCoAuthorDAO;
 
 	@Override
 	public Affiliation[] getAffiliationsForUser(String userId) {
@@ -136,8 +141,27 @@ public class UserProfileServiceImpl implements UserProfileService {
 
 	@Override
 	public CoAuthor[] getCoAuthorsList(String userId) {
-		// TODO Auto-generated method stub
-		return null;
+
+		List<AuthCoauthDetails> authCoauthDetails = authorCoAuthorDAO
+				.getCoAuthorsList(userId);
+		ArrayList<CoAuthor> coAuthorList = new ArrayList<CoAuthor>();
+		for (int i = 0; i < authCoauthDetails.size(); i++) {
+
+			CoAuthor coAuthor = new CoAuthor();
+			coAuthor.setUserId(authCoauthDetails.get(i).getAuthCoauthId());
+			coAuthor.setTitle(authCoauthDetails.get(i).getCoauthTitle());
+			coAuthor.setFirstName(authCoauthDetails.get(i).getCoauthFirstName());
+			coAuthor.setLastName(authCoauthDetails.get(i).getCoauthLastName());
+			coAuthor.setPhone(authCoauthDetails.get(i).getCoauthPhone());
+			coAuthor.setEmailId(authCoauthDetails.get(i).getCoauthEmailAddr());
+			coAuthor.setDepartmentName(authCoauthDetails.get(i).getCoauthDept());
+			coAuthor.setInstitutionId(authCoauthDetails.get(i)
+					.getCoauthInstitution());
+			coAuthorList.add(coAuthor);
+		}
+
+		return (CoAuthor[]) coAuthorList.toArray(new CoAuthor[coAuthorList
+				.size()]);
 	}
 
 	@Override
