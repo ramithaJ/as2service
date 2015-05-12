@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
 import com.wiley.gr.ace.authorservices.model.Alert;
+import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.Interests;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.external.CDMAffiliation;
@@ -317,6 +318,9 @@ public class UserProfileController {
 	}
 
 	/**
+	 * This service will give list of Co-authors that are tagged to the
+	 * author/user.
+	 * 
 	 * @param userId
 	 * @return
 	 */
@@ -330,28 +334,39 @@ public class UserProfileController {
 	}
 
 	/**
+	 * This service will update the co-author details which are tagged to the
+	 * author/user at user profile level.
+	 * 
 	 * @param userId
 	 * @param coAuthorId
 	 * @return
 	 */
-	@RequestMapping(value = "/editCoAuthor/{userId}", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/coAuthor/update/{userId}", method = RequestMethod.POST)
 	public Service editCoAuthor(@PathVariable("userId") String userId,
-			@PathVariable("coAuthorId") String coAuthorId,
-			@RequestBody String coAuthorJson) {
+			@RequestBody CoAuthor coAuthorJson) {
 
-		return null;
+		Service service = new Service();
+		service.setStatus("Success");
+		userProfileService.editCoAuthor(userId, coAuthorJson);
+		return service;
 	}
 
 	/**
+	 * This service will delete the co-author which are tagged to the
+	 * user/author.
+	 * 
 	 * @param userId
 	 * @param coAuthorId
 	 * @return
 	 */
-	@RequestMapping(value = "/deleteCoAuthor/{userId}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/coAuthor/delete/{userId}/{coAuthorId}", method = RequestMethod.GET)
 	public Service deleteCoAuthor(@PathVariable("userId") String userId,
 			@PathVariable("coAuthorId") String coAuthorId) {
 
-		return null;
+		Service service = new Service();
+		service.setStatus("Success");
+		userProfileService.deleteCoAuthor(userId, coAuthorId);
+		return service;
 	}
 
 	/**
@@ -370,18 +385,15 @@ public class UserProfileController {
 	 * @param userId
 	 * @return
 	 */
-	
+
 	@RequestMapping(value = "/getPreferredJournals/{userId}", method = RequestMethod.GET, produces = "application/json")
 	public Service getPreferredJournals(@PathVariable("userId") String userId) {
-		System.err.println( " in controller"+userId);
-		
-		
-		Service service=new Service();
+		System.err.println(" in controller" + userId);
+
+		Service service = new Service();
 		service.setStatus("success");
-		
-		 service.setPayload( userProfileService.getPreferredJournals(userId)); 
-		
-		     
+
+		service.setPayload(userProfileService.getPreferredJournals(userId));
 
 		return service;
 	}
