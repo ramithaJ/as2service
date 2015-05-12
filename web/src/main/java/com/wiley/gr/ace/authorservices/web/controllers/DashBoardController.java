@@ -14,7 +14,7 @@
  */
 package com.wiley.gr.ace.authorservices.web.controllers;
 
-import java.util.LinkedList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,16 +53,16 @@ public class DashBoardController {
 			@PathVariable("userId") String userId) {
 
 		Service service = new Service();
-		List<LinkedList> profileMeterList = null;
+		List<Service> profileMeterList = null;
 
 		try {
 			profileMeterList = dashBoardService.getProfileMeter(Integer
 					.parseInt(userId));
 			if (null != profileMeterList) {
-				service.setStatus("failuer");
+				service.setStatus("Success");
 				service.setPayload(profileMeterList);
 			} else {
-				service.setStatus("success");
+				service.setStatus("failure");
 				service.setPayload(profileMeterList);
 			}
 		} catch (Exception e) {
