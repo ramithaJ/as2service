@@ -25,8 +25,10 @@ import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.persistence.entity.AuthCoauthDetails;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserAlerts;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserPreferredJournals;
 import com.wiley.gr.ace.authorservices.persistence.services.AuthorCoAuthorDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserAlertsDao;
+import com.wiley.gr.ace.authorservices.persistence.services.UserPreferredJournalsDAO;
 import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
 
 /**
@@ -169,17 +171,34 @@ public class UserProfileServiceImpl implements UserProfileService {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+     
 	@Override
 	public boolean deleteCoAuthor(String coAuthorId) {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+   @Autowired
+   UserPreferredJournalsDAO userPreferredJournalsDAO;
 	@Override
 	public PreferredJournals[] getPreferredJournals(String userId) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		List<UserPreferredJournals> listOfPrefferedJournals=userPreferredJournalsDAO.getPreferredJournals(userId);
+		PreferredJournals preferredJournals=new PreferredJournals();
+		List<PreferredJournals> preferredJournalslist=new ArrayList<PreferredJournals>();
+		for (UserPreferredJournals userPreferredJournals : listOfPrefferedJournals) {
+			
+		
+			preferredJournals.setJournalId(userPreferredJournals.getJournals().getJournalId().toString());
+			preferredJournals.setJournalTitle(userPreferredJournals.getJournals().getJouTitle());
+			
+		}
+		
+		
+	      
+		return (PreferredJournals[]) preferredJournalslist.toArray(new PreferredJournals[preferredJournalslist.size()]);
+		   
+		
+	
 	}
 
 	@Override

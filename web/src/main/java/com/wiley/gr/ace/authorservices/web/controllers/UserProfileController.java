@@ -370,10 +370,20 @@ public class UserProfileController {
 	 * @param userId
 	 * @return
 	 */
+	
 	@RequestMapping(value = "/getPreferredJournals/{userId}", method = RequestMethod.GET, produces = "application/json")
 	public Service getPreferredJournals(@PathVariable("userId") String userId) {
+		System.err.println( " in controller"+userId);
+		
+		
+		Service service=new Service();
+		service.setStatus("success");
+		
+		 service.setPayload( userProfileService.getPreferredJournals(userId)); 
+		
+		     
 
-		return null;
+		return service;
 	}
 
 	/**

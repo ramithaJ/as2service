@@ -25,6 +25,7 @@ import com.wiley.gr.ace.authorservices.persistence.services.UserAccountDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserAlertsDao;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
+import com.wiley.gr.ace.authorservices.persistence.services.UserPreferredJournalsDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.ASDataDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.AuthorCoAuthorDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.DashBoardDAOImpl;
@@ -35,6 +36,7 @@ import com.wiley.gr.ace.authorservices.persistence.services.impl.UserAccountDAOI
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserAlertsDaoImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserLoginDaoImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserLoginServiceDAOImpl;
+import com.wiley.gr.ace.authorservices.persistence.services.impl.UserPreferredJournalsDAOImpl;
 
 @Configuration
 public class PersistenceBeanConfig {
@@ -68,29 +70,35 @@ public class PersistenceBeanConfig {
 	public UserAlertsDao userAlertsdao() {
 		return new UserAlertsDaoImpl();
 	}
-	
-    @Bean(name="UpdateUserDAO")
-    public UpdateUserDAO updateUserDAO() {
-    	return new UpdateUserDAOImpl();
-    }
-    
-    @Bean(name="UserAccountDAO")
-    public UserAccountDAO userAccountDAO(){
-    	return new UserAccountDAOImpl();
-    }
-    
-    @Bean(name="ASDataDAO")
-    public ASDataDAO aSDataDAO(){
-    	return new ASDataDAOImpl();
-    }
-    
-    @Bean(name="LookUpValuesDAO")
-    public LookUpValuesDAO lookupValuesDAO(){
-    	return new LookupValuesDAOImpl();
-    }
-    
-    @Bean(name="AuthorCoAuthorDAO")
-    public AuthorCoAuthorDAO authorCoAuthorDAO(){
-    	return new AuthorCoAuthorDAOImpl();
-    }
+
+	@Bean(name = "UpdateUserDAO")
+	public UpdateUserDAO updateUserDAO() {
+		return new UpdateUserDAOImpl();
+	}
+
+	@Bean(name = "UserAccountDAO")
+	public UserAccountDAO userAccountDAO() {
+		return new UserAccountDAOImpl();
+	}
+
+	@Bean(name = "ASDataDAO")
+	public ASDataDAO aSDataDAO() {
+		return new ASDataDAOImpl();
+	}
+
+	@Bean(name = "LookUpValuesDAO")
+	public LookUpValuesDAO lookupValuesDAO() {
+		return new LookupValuesDAOImpl();
+	}
+
+	@Bean(name = "AuthorCoAuthorDAO")
+	public AuthorCoAuthorDAO authorCoAuthorDAO() {
+		return new AuthorCoAuthorDAOImpl();
+	}
+
+	@Bean(name = "UserPreferredJournals")
+	public UserPreferredJournalsDAO userPrefferedJournals() {
+
+		return new UserPreferredJournalsDAOImpl();
+	}
 }
