@@ -141,6 +141,10 @@ public class UserProfileServiceImpl implements UserProfileService {
 		return null;
 	}
 
+	/**
+	 * This method will call the dao to get the list of co-author based on
+	 * author id. and will return the co-authors list to service.
+	 */
 	@Override
 	public CoAuthor[] getCoAuthorsList(String userId) {
 
@@ -166,39 +170,50 @@ public class UserProfileServiceImpl implements UserProfileService {
 				.size()]);
 	}
 
+	/**
+	 * This method will call the DB and update the co-author details based on
+	 * author id and co-author id.
+	 */
 	@Override
-	public boolean editCoAuthor(CoAuthor coAuthor) {
-		// TODO Auto-generated method stub
+	public boolean editCoAuthor(String userId, CoAuthor coAuthorJson) {
+
+		authorCoAuthorDAO.editCoAuthor(userId, coAuthorJson);
+		return true;
+	}
+
+	/**
+	 * This method will call the DB and delete the co-author details based on
+	 * author id and co-author id.
+	 */
+	@Override
+	public boolean deleteCoAuthor(String userId, String coAuthorId) {
+
+		authorCoAuthorDAO.deleteCoAuthor(userId, coAuthorId);
 		return false;
 	}
-     
-	@Override
-	public boolean deleteCoAuthor(String coAuthorId) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-   @Autowired
-   UserPreferredJournalsDAO userPreferredJournalsDAO;
+
+	@Autowired
+	UserPreferredJournalsDAO userPreferredJournalsDAO;
+
 	@Override
 	public PreferredJournals[] getPreferredJournals(String userId) {
-		
-		List<UserPreferredJournals> listOfPrefferedJournals=userPreferredJournalsDAO.getPreferredJournals(userId);
-		PreferredJournals preferredJournals=new PreferredJournals();
-		List<PreferredJournals> preferredJournalslist=new ArrayList<PreferredJournals>();
+
+		List<UserPreferredJournals> listOfPrefferedJournals = userPreferredJournalsDAO
+				.getPreferredJournals(userId);
+		PreferredJournals preferredJournals = new PreferredJournals();
+		List<PreferredJournals> preferredJournalslist = new ArrayList<PreferredJournals>();
 		for (UserPreferredJournals userPreferredJournals : listOfPrefferedJournals) {
-			
-		
-			preferredJournals.setJournalId(userPreferredJournals.getJournals().getJournalId().toString());
-			preferredJournals.setJournalTitle(userPreferredJournals.getJournals().getJouTitle());
-			
+
+			preferredJournals.setJournalId(userPreferredJournals.getJournals()
+					.getJournalId().toString());
+			preferredJournals.setJournalTitle(userPreferredJournals
+					.getJournals().getJouTitle());
+
 		}
-		
-		
-	      
-		return (PreferredJournals[]) preferredJournalslist.toArray(new PreferredJournals[preferredJournalslist.size()]);
-		   
-		
-	
+
+		return (PreferredJournals[]) preferredJournalslist
+				.toArray(new PreferredJournals[preferredJournalslist.size()]);
+
 	}
 
 	@Override
