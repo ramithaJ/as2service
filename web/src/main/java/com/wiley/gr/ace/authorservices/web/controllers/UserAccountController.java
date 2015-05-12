@@ -11,6 +11,8 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.web.controllers;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,24 +23,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
-import com.wiley.gr.ace.authorservices.model.Security;
+import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.UserMgmt;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
 
 /**
- * @author SarmaKumarap
+ * @author kpshiva
  *
  */
 @RestController
 @RequestMapping("/userAccount")
 public class UserAccountController {
-
-	// public static ApplicationContext context = new
-	// AnnotationConfigApplicationContext(
-	// ServiceBeanConfig.class);
-	// UserAccountService userAccountService = (UserAccountServiceImpl) context
-	// .getBean("UserAccountService");
 
 	@Autowired
 	UserAccountService userAccountService;
@@ -106,18 +102,22 @@ public class UserAccountController {
 	}
 
 	/**
-	 * @param emailId
+	 * This service will update the security questions and answers at user
+	 * profile level.
+	 * 
+	 * @param userId
 	 * @param securityDetails
+	 *            - it is a JSON array having security questions and answers.
 	 * @return
 	 */
-	@RequestMapping(value = "/updateSecutiryDetails/{emailId}", method = RequestMethod.POST)
-	public Service updateSecurityDetails(
-			@PathVariable("emailId") String emailId,
-			@RequestBody Security securityDetails) {
+	@RequestMapping(value = "/secutiryDetails/update/{userId}", method = RequestMethod.POST)
+	public Service updateSecurityDetails(@PathVariable("userId") String userId,
+			@RequestBody ArrayList<SecurityDetails> securityDetails) {
 
 		Service service = new Service();
 		service.setStatus("Success");
-		userAccountService.updateSecurityDetails(emailId, securityDetails);
+		service.setPayload(userAccountService.updateSecurityDetails(userId,
+				securityDetails));
 		return service;
 
 	}
