@@ -14,20 +14,20 @@
  */
 package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
-import java.util.ArrayList;
+
 import java.util.LinkedList;
 import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
-
-
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
-import com.wiley.gr.ace.authorservices.persistence.entity.UserReferenceData;
+import com.wiley.gr.ace.authorservices.persistence.entity.DashBoard;
+import com.wiley.gr.ace.authorservices.persistence.entity.ResearchFunders;
+import com.wiley.gr.ace.authorservices.persistence.entity.SocietyDetails;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
 import com.wiley.gr.ace.authorservices.persistence.services.DashBoardDAO;
+
 
 /**
  * @author yugandhark
@@ -69,70 +69,65 @@ public class DashBoardDAOImpl implements DashBoardDAO {
 
 	@Autowired(required = true)
 	HibernateConnection con;
-	Session session = con.getSessionFactory().openSession();
-
-	@Override
-	public List<LinkedList> getProfileMeter(int userId) {
-		// TODO Auto-generated method stub
-		Session session = con.getSessionFactory().openSession();
+//	Session session = con.getSessionFactory().openSession();
+     DashBoard dashBoard=new DashBoard();
+     
+	public DashBoard getProfileMeter(int userId) {
+		
+		Session session = HibernateConnection.getSessionFactory().openSession();
 		Transaction tx = session.beginTransaction();
-		List profileMeterList = new LinkedList();
+		
 		String secureDetailsHql = "from UserSecurityDetails where authorProfile.userId=:userId";
-		List<UserSecurityDetails> secureResultList = session
-				.createQuery(secureDetailsHql).setInteger("userId", userId)
-				.list();
-
-		/*String secondaryEmailHql = " select upf.secondaryEmailAddr from UserProfile upf where upf.userId=:userId";
-		List<UserProfile> userProfileList = session
-				.createQuery(secondaryEmailHql).setInteger("userId", userId)
-				.list();
-
-		String orcidIdHql = "select orcid from UserReferenceData where userProfile.userId=:userId";
-		List<UserReferenceData> userOrcIdList = session.createQuery(orcidIdHql)
-				.setInteger("userId", userId).list();*/
+		List<UserSecurityDetails> secureResultList = session.createQuery(secureDetailsHql).setInteger("userId", userId).list();
+		dashBoard.setUserSecurityDetails(secureResultList);
 		
-		//String secondaryEmailHql = " select upf.secondaryEmailAddr from UserProfile upf where upf.userId=:userId";
-		List<AuthorProfile> secondaryEmailList=new ArrayList<AuthorProfile>();
-		secondaryEmailList.add(null);
+//		String profileHql = " select apf.secondaryEmailAddr,apf.orcidId,apf.isAccountVerified from AuthorProfile apf where apf.userId=:userId";
+//		List<AuthorProfile> userProfileList= session
+//				.createQuery(profileHql).setInteger("userId", userId)
+//				.list();
 		
-		//String orcidIdHql = "select orcid from UserReferenceData where userProfile.userId=:userId";
-		List<UserReferenceData> userOrcIdList=new ArrayList<UserReferenceData>();
-		userOrcIdList.add(null);
+		List<AuthorProfile> authorProfileList=new LinkedList<AuthorProfile>();
+		authorProfileList.add(null);
+		authorProfileList.add(null);
+		authorProfileList.add(null);
+		dashBoard.setAuthorProfileList(authorProfileList);
 		
-		//String societyHql="from UserSocietyDetails where userId=:userId";
-		List userSocietyList=new ArrayList();
-		userSocietyList.add(null);
+		List<LinkedList> affiliationsList=new LinkedList<LinkedList>();
+		affiliationsList.add(null);
+		dashBoard.setAffiliation(affiliationsList);
+		List<LinkedList> areaOfExpertiseList=new LinkedList<LinkedList>();
+		areaOfExpertiseList.add(null);
+		dashBoard.setAreaOfExpertise(areaOfExpertiseList);
 		
-		//String affliationHql=" from Affilations where userId=:userId";
-		List userAffliationsList=new ArrayList();
-		userAffliationsList.add(null);
+		List<SocietyDetails> societyDetailsList=new LinkedList<SocietyDetails>();
+		societyDetailsList.add(null);
+		dashBoard.setSocietyDetails(societyDetailsList);
 		
-		//String fundersHql=" from Funders where userId=:userId";
-		List userFundersList=new ArrayList();
-		userFundersList.add(null);
+		List<ResearchFunders> researchFundersList=new LinkedList<ResearchFunders>();
+		researchFundersList.add(null);
+		dashBoard.setResearchFunder(researchFundersList);
 		
-		//String areasOfExpertiseHql=" from AreasOfExpertise where userId=:userId";
-		List areasOfExpertiseList=new ArrayList();
-		areasOfExpertiseList.add(null);
-		
-		//String isAccountVerifiedHql="select isAccountVerified from AuthorProfle where userId=:userId";
-		List isAccountVerifiedList=new ArrayList();
-		isAccountVerifiedList.add(null);
-		
-		profileMeterList.add(secureResultList);
-		profileMeterList.add(secondaryEmailList);
-		profileMeterList.add(userOrcIdList);
-		profileMeterList.add(userSocietyList);
-		profileMeterList.add(userAffliationsList);
-		profileMeterList.add(userFundersList);
-		profileMeterList.add(areasOfExpertiseList);
-		profileMeterList.add(isAccountVerifiedList);
-		
+//		String SocietyDetailsHql = "select sd.societyId,ap.userId from SocietyDetails sd ,AuthorProfile ap where ap.userId=:userId";
+//		List<SocietyDetails> societyDetailsList = session.createQuery(SocietyDetailsHql)
+//				.setInteger("userId", userId).list();
+//        dashBoard.setSociety(societyDetailsList);
+        
+//		String affiliationHql = " from Affiliations where userId=:userId";
+//List<Affiliation> affiliationList = session.createQuery(affiliationHql)
+//	.setInteger("userId", userId).list();
+        
+//		String areasOfExpertiseHql = " from AreasOfExpertise where userId=:userId";
+//List<Affiliation> affiliationList = session.createQuery(areasOfExpertiseHql)
+//	.setInteger("userId", userId).list();
+        
+//		String researchFundersHql = "select ap.userId,rf.rfunderId from ResearchFunders rf,AuthorProfile ap where ap.userId=:userId";
+//		List<ResearchFunders> researchFundersList = session.createQuery(researchFundersHql)
+//				.setInteger("userId", userId).list();
+//		dashBoard.setResearchFunder(researchFundersList);
+        
 		session.flush();
-		session.close();
-		tx.commit();
-		return profileMeterList;
-
+ 		session.close();
+ 		tx.commit();
+		return dashBoard;
 	}
-
 }
