@@ -11,7 +11,9 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service;
 
-import com.wiley.gr.ace.authorservices.model.Security;
+import java.util.ArrayList;
+
+import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.UserMgmt;
 
 /**
@@ -25,12 +27,19 @@ public interface UserAccountService {
 	 * @return
 	 */
 	UserMgmt[] getEmailDetails(String userId);
+
 	/**
+	 * @param userId
+	 * @param emailDetails
 	 * @return
 	 */
 	boolean updateEmailDetails(String userId, UserMgmt emailDetails);
+
 	/**
+	 * @param userId
+	 * @param securityDetails
 	 * @return
 	 */
-	boolean updateSecurityDetails(String emailId, Security securityDetails);
+	boolean updateSecurityDetails(String userId,
+			ArrayList<SecurityDetails> securityDetails);
 }
