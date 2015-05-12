@@ -14,8 +14,9 @@
  */
 package com.wiley.gr.ace.authorservices.services.service;
 
-import java.util.LinkedList;
 import java.util.List;
+
+import com.wiley.gr.ace.authorservices.model.Service;
 
 
 
@@ -26,6 +27,6 @@ import java.util.List;
  */
 public interface DashBoardService {
 	//List<Article> getAllAuthorArticles();
-	List<LinkedList> getProfileMeter(int userId);
+	List<Service> getProfileMeter(int userId);
 
 }
