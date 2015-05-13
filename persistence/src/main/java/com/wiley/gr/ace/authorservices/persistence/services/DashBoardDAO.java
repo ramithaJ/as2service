@@ -18,7 +18,7 @@ package com.wiley.gr.ace.authorservices.persistence.services;
 import com.wiley.gr.ace.authorservices.persistence.entity.DashBoard;
 
 /**
- * @author yugandhark
+ * @author Virtusa
  *
  */
 public interface DashBoardDAO {
