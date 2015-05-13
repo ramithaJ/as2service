@@ -14,6 +14,7 @@ package com.wiley.gr.ace.authorservices.services.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.model.User;
@@ -43,18 +44,18 @@ public class RegistrationServiceImpl implements RegistrationService {
 			String lastName) throws Exception {
 
 		List<User> userList = null;
-		if (null != firstName && !firstName.isEmpty() && null != lastName
-				&& !lastName.isEmpty()) {
-			userList = esbInterFaceService.getUsersFromFirstNameLastName(firstName, lastName);
+		if (!StringUtils.isEmpty(firstName) && !StringUtils.isEmpty(lastName)) {
+			userList = esbInterFaceService.getUsersFromFirstNameLastName(
+					firstName, lastName);
 		}
-		
+
 		return userList;
 	}
 
 	@Override
 	public User checkEmailIdExists(String emailId) throws Exception {
 		User user = null;
-		if (null != emailId && !emailId.isEmpty()) {
+		if (!StringUtils.isEmpty(emailId)) {
 			user = esbInterFaceService.checkEmailIdExists(emailId);
 		}
 

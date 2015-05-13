@@ -15,6 +15,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,7 +45,7 @@ public class RegistrationController {
 		Service service = new Service();
 		User user = null;
 		try {
-			if (null != email && !email.isEmpty())
+			if (!StringUtils.isEmpty(email))
 				user = rs.checkEmailIdExists(email);
 			else {
 				ErrorPOJO err = new ErrorPOJO();
@@ -80,8 +81,8 @@ public class RegistrationController {
 		Service service = new Service();
 		List<User> userList = null;
 		try {
-			if (null != firstName && !firstName.isEmpty() && null != lastName
-					&& !lastName.isEmpty())
+			if (!StringUtils.isEmpty(firstName)
+					&& !StringUtils.isEmpty(lastName))
 				userList = rs.getUserFromFirstNameLastName(firstName, lastName);
 			else {
 				ErrorPOJO err = new ErrorPOJO();
