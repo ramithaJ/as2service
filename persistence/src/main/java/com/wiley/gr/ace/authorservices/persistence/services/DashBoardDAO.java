@@ -15,13 +15,15 @@
 package com.wiley.gr.ace.authorservices.persistence.services;
 
 
-import com.wiley.gr.ace.authorservices.persistence.entity.DashBoard;
+import java.util.List;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserFunderGrants;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
 
 /**
  * @author Virtusa
  *
  */
 public interface DashBoardDAO {
- //List<Article> getAllAuthorArticles();
-	DashBoard getProfileMeter(int userId);
+	List<UserSecurityDetails> getSecurityDetailsList(int userId);
+	UserFunderGrants getFundersDetails(int userId);
 }
