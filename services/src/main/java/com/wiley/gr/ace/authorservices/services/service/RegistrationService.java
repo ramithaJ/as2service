@@ -15,6 +15,10 @@ import java.util.List;
 
 import com.wiley.gr.ace.authorservices.model.User;
 
+/**
+ * @author Virtusa
+ *
+ */
 public interface RegistrationService {
 
 	String createUser(User user) throws Exception;

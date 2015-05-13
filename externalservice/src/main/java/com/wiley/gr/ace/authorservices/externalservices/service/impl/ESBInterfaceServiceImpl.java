@@ -26,6 +26,10 @@ import org.springframework.web.client.RestTemplate;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.model.User;
 
+/**
+ * @author Virtusa
+ *
+ */
 public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 
 	@Override

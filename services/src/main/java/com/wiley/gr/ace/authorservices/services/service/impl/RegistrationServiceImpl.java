@@ -19,6 +19,10 @@ import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceServ
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
 
+/**
+ * @author Virtusa
+ *
+ */
 public class RegistrationServiceImpl implements RegistrationService {
 
 	@Autowired(required = true)

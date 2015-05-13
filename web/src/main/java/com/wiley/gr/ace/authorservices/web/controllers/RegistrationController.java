@@ -14,6 +14,7 @@ package com.wiley.gr.ace.authorservices.web.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,10 @@ import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
 
+/**
+ * @author Virtusa
+ *
+ */
 @RestController
 @RequestMapping("/registration")
 public class RegistrationController {
@@ -33,7 +38,7 @@ public class RegistrationController {
 	@Autowired(required = true)
 	RegistrationService rs;
 
-	@RequestMapping(value = "/verify/email", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/verify/email", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Service checkUserExists(@RequestHeader String email) {
 
 		Service service = new Service();
@@ -68,7 +73,7 @@ public class RegistrationController {
 		return service;
 	}
 
-	@RequestMapping(value = "/verify/fullname", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/verify/fullname", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Service checkFirstNameLastName(
 			@RequestHeader String firstName, @RequestHeader String lastName) {
 
@@ -106,7 +111,7 @@ public class RegistrationController {
 		return service;
 	}
 
-	@RequestMapping(value = "/register", method = RequestMethod.POST, consumes = "application/json")
+	@RequestMapping(value = "/register", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Service registerUser(@RequestBody User user) {
 		String status = null;
 		Service service = new Service();
