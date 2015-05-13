@@ -26,7 +26,10 @@ import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.persistence.services.DashBoardDAO;
 import com.wiley.gr.ace.authorservices.services.service.DashBoardService;
-
+/**
+ * @author Virtusa
+ *
+ */
 public class DashBoardServiceImpl implements DashBoardService {
 
 	@Autowired(required = true)
@@ -66,37 +69,31 @@ public class DashBoardServiceImpl implements DashBoardService {
 		 
 	    }
 	    List<LinkedList> authorMissedAffiliationList=dashBoard.getAffiliation();
-	    if(null!=authorMissedAffiliationList){
 	    if(null==authorMissedAffiliationList.get(0)){
 	    	Service service = new Service();
 	    	service.setStatus("Add Affiliations");
 	    	dashBoardProfileList.add(service);
 	    }
-	    }
 	    List<LinkedList> areasOfExpertiseList=dashBoard.getAreaOfExpertise();
-	    if(null!=areasOfExpertiseList){
 	    if(null==areasOfExpertiseList.get(0)){
 	    	Service service = new Service();
 	    	service.setStatus("Add in which Area Of Expertise");
 	    	dashBoardProfileList.add(service);
 	    }
-	    }
+	  
 	    List<SocietyDetails> missedSocietyList=dashBoard.getSocietyDetails();
-	    if(null!=missedSocietyList){
 	    if(null==missedSocietyList.get(0)){
 	    	Service service = new Service();
 	    	service.setStatus("Add Society Details");
 	    	dashBoardProfileList.add(service);
 	    }
-	    }
 	    List<ResearchFunders> researchFundersList=dashBoard.getResearchFunder();
-	    if(null!=researchFundersList){
 	    if(null==researchFundersList.get(0)){
 	    	Service service = new Service();
 	    	service.setStatus("Add Funder Details ");
 	    	dashBoardProfileList.add(service);
 	    }
-	    }
+	    
 //	    List<ResearchFunders> userFunderList=dashBoard.getResearchFunder();
 //	    if(userFunderList!=null){
 //	    	for(UserFunderGrants userFunders:userFunderList){
