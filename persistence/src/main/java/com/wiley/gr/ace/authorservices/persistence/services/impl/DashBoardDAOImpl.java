@@ -30,7 +30,7 @@ import com.wiley.gr.ace.authorservices.persistence.services.DashBoardDAO;
 
 
 /**
- * @author yugandhark
+ * @author Virtusa
  *
  */
 public class DashBoardDAOImpl implements DashBoardDAO {
@@ -72,6 +72,12 @@ public class DashBoardDAOImpl implements DashBoardDAO {
 //	Session session = con.getSessionFactory().openSession();
      DashBoard dashBoard=new DashBoard();
      
+	/* (non-Javadoc)
+	 * @see com.wiley.gr.ace.authorservices.persistence.services.DashBoardDAO#getProfileMeter(int)
+	 */
+	/* (non-Javadoc)
+	 * @see com.wiley.gr.ace.authorservices.persistence.services.DashBoardDAO#getProfileMeter(int)
+	 */
 	public DashBoard getProfileMeter(int userId) {
 		
 		Session session = HibernateConnection.getSessionFactory().openSession();
@@ -107,10 +113,10 @@ public class DashBoardDAOImpl implements DashBoardDAO {
 		researchFundersList.add(null);
 		dashBoard.setResearchFunder(researchFundersList);
 		
-//		String SocietyDetailsHql = "select sd.societyId,ap.userId from SocietyDetails sd ,AuthorProfile ap where ap.userId=:userId";
-//		List<SocietyDetails> societyDetailsList = session.createQuery(SocietyDetailsHql)
+//		String SocietyDetailsHql = "select sd.societyId,authorProfiles.societyDetailses.userId from SocietyDetails sd where authorProfiles.userId=:userId";
+//		List<SocietyDetails> societyDetailList = session.createQuery(SocietyDetailsHql)
 //				.setInteger("userId", userId).list();
-//        dashBoard.setSociety(societyDetailsList);
+//        dashBoard.setSocietyDetails(societyDetailList);
         
 //		String affiliationHql = " from Affiliations where userId=:userId";
 //List<Affiliation> affiliationList = session.createQuery(affiliationHql)
