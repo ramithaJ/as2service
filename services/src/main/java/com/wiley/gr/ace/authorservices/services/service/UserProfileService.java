@@ -153,7 +153,7 @@ public interface UserProfileService {
 	 * @param userId
 	 * @return
 	 */
-	PreferredJournals[] getPreferredJournals(String userId);
+	List<PreferredJournals> getPreferredJournals(String userId);
 
 	/**
 	 * @param userId

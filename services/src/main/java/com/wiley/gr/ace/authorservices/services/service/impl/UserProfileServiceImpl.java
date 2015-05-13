@@ -196,23 +196,25 @@ public class UserProfileServiceImpl implements UserProfileService {
 	UserPreferredJournalsDAO userPreferredJournalsDAO;
 
 	@Override
-	public PreferredJournals[] getPreferredJournals(String userId) {
+	public List<PreferredJournals> getPreferredJournals(String userId) {
 
 		List<UserPreferredJournals> listOfPrefferedJournals = userPreferredJournalsDAO
 				.getPreferredJournals(userId);
-		PreferredJournals preferredJournals = new PreferredJournals();
-		List<PreferredJournals> preferredJournalslist = new ArrayList<PreferredJournals>();
-		for (UserPreferredJournals userPreferredJournals : listOfPrefferedJournals) {
 
-			preferredJournals.setJournalId(userPreferredJournals.getJournals()
-					.getJournalId().toString());
-			preferredJournals.setJournalTitle(userPreferredJournals
+		List<PreferredJournals> preferredJournalslist = new ArrayList<PreferredJournals>();
+
+		for (int i = 0; i < listOfPrefferedJournals.size(); i++) {
+			PreferredJournals preferredJournals = new PreferredJournals();
+
+			preferredJournals.setJournalId(listOfPrefferedJournals.get(i)
+					.getJournals().getJournalId().toString());
+			preferredJournals.setJournalTitle(listOfPrefferedJournals.get(i)
 					.getJournals().getJouTitle());
 
+			preferredJournalslist.add(preferredJournals);
 		}
 
-		return (PreferredJournals[]) preferredJournalslist
-				.toArray(new PreferredJournals[preferredJournalslist.size()]);
+		return preferredJournalslist;
 
 	}
 

@@ -388,7 +388,6 @@ public class UserProfileController {
 
 	@RequestMapping(value = "/getPreferredJournals/{userId}", method = RequestMethod.GET, produces = "application/json")
 	public Service getPreferredJournals(@PathVariable("userId") String userId) {
-		System.err.println(" in controller" + userId);
 
 		Service service = new Service();
 		service.setStatus("success");
