@@ -32,16 +32,15 @@ public class UserPreferredJournalsDAOImpl implements UserPreferredJournalsDAO {
 		Session session = con.getSessionFactory().openSession();
 
 		List<UserPreferredJournals> userPreferredJournals = null;
-
 		try {
-			userPreferredJournals = (List<UserPreferredJournals>) session.get(
-					UserPreferredJournals.class, userId);
-			System.err.println("DAO DATA" +userPreferredJournals);
-		
-		}
+			String hql = "from UserPreferredJournals where id.userId = :userId";
 
-		finally {
+			userPreferredJournals = session.createQuery(hql)
+					.setString("userId", userId).list();
+
+		} finally {
 			if (null != session)
+
 				session.flush();
 			session.close();
 
