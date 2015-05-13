@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -31,6 +32,15 @@ import com.wiley.gr.ace.authorservices.model.User;
  *
  */
 public class ESBInterfaceServiceImpl implements ESBInterfaceService {
+	
+	@Value("${email-mock.url}")
+	private String emailCheckUrl;
+	
+	@Value("${fullname-mock.url}")
+	private String nameCheckUrl;
+	
+	@Value("${createuser-mock.url}")
+	private String createUserUrl;
 
 	@Override
 	public User fetchOrcidDetails(String orcid) throws Exception {
@@ -83,7 +93,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 	@Override
 	public User checkEmailIdExists(String emailId) throws Exception {
 		User user = new User();
-		final String url = "http://demo7614669.mockable.io/checkEmailId/email@email.com";
+		final String url = emailCheckUrl;
 		URI uri = new URI(url);
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders requestHeaders = new HttpHeaders();
@@ -104,7 +114,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 	public List<User> getUsersFromFirstNameLastName(String firstName,
 			String lastName) throws Exception {
 		List<User> usersList = new ArrayList<User>();
-		final String url = "http://demo7614669.mockable.io/getFromFirstNameLastName/Dishari/De";
+		final String url = nameCheckUrl;
 		URI uri = new URI(url);
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders requestHeaders = new HttpHeaders();
@@ -122,7 +132,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 	@Override
 	public String creatUser(User user) throws Exception {
 		String status = "failure";
-		final String url = "http://demo7614669.mockable.io/createUser/userobject";
+		final String url = createUserUrl;
 		URI uri = new URI(url);
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders requestHeaders = new HttpHeaders();
