@@ -22,11 +22,9 @@ import com.wiley.gr.ace.authorservices.model.Service;
 
 
 /**
- * @author yugandhark
+ * @author Virtusa
  *
  */
 public interface DashBoardService {
-	//List<Article> getAllAuthorArticles();
 	List<Service> getProfileMeter(int userId);
-
 }

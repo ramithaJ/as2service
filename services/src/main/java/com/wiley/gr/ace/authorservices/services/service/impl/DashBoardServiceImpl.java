@@ -11,21 +11,17 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
-
 import java.util.LinkedList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
-import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
-import com.wiley.gr.ace.authorservices.persistence.entity.DashBoard;
-import com.wiley.gr.ace.authorservices.persistence.entity.ResearchFunders;
-import com.wiley.gr.ace.authorservices.persistence.entity.SocietyDetails;
-import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
+import org.springframework.util.StringUtils;
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.Service;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserFunderGrants;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
 import com.wiley.gr.ace.authorservices.persistence.services.DashBoardDAO;
 import com.wiley.gr.ace.authorservices.services.service.DashBoardService;
+
 /**
  * @author Virtusa
  *
@@ -35,80 +31,39 @@ public class DashBoardServiceImpl implements DashBoardService {
 	@Autowired(required = true)
 	DashBoardDAO dashBoardDAO;
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.wiley.gr.ace.authorservices.services.service.DashBoardService#
+	 * getProfileMeter(int) To show Missing Profile Information of User
+	 */
 	@Override
-	public List<Service> getProfileMeter(int userId)  {
+	public List<Service> getProfileMeter(int userId) {
 		List<Service> dashBoardProfileList = new LinkedList<Service>();
-	    DashBoard dashBoard=dashBoardDAO.getProfileMeter(userId);
-	    if(dashBoard!=null){
-	     List<UserSecurityDetails> userSecureDetails=dashBoard.getUserSecurityDetails();
-		 if(userSecureDetails!=null) {
-		     for(UserSecurityDetails secureDetails:userSecureDetails) {
-			    SecurityDetails security = new SecurityDetails();
-			    security.setSecurityQuestion(secureDetails.getSecurityQuestion());
-			    security.setSecurityAnswer(secureDetails.getSecurityAnswer());
-			     if (security != null) {
-				    Service service = new Service();
-		    		if (null == security.getSecurityQuestion() || null == security.getSecurityAnswer()) {
-		    			   service.setStatus("Security Questions");
-		    			     service.setPayload(security);
-				    		dashBoardProfileList.add(service);
-				    		break;
-				    }
+		List<UserSecurityDetails> securityDetailsList = dashBoardDAO
+				.getSecurityDetailsList(userId);
+		if (securityDetailsList != null) {
+			for (UserSecurityDetails secureDetails : securityDetailsList) {
+				SecurityDetails security = new SecurityDetails();
+				security.setSecurityQuestion(secureDetails
+						.getSecurityQuestion());
+				security.setSecurityAnswer(secureDetails.getSecurityAnswer());
+				if (StringUtils.isEmpty(security.getSecurityQuestion())
+						|| StringUtils.isEmpty(security.getSecurityAnswer())) {
+					Service service = new Service();
+					service.setStatus("Please Fill  Questions and Answers");
+					dashBoardProfileList.add(service);
+					break;
 				}
-		     }
-		} 	
-		 List<AuthorProfile> authorMissedProfieList=dashBoard.getAuthorProfileList();
-		 if(authorMissedProfieList!=null){
-			 AuthorProfile authorProfile=null;
-			 Service service = new Service();
-			 if(null==authorMissedProfieList.get(0)&&null==authorMissedProfieList.get(1)&&null==authorMissedProfieList.get(2))
-				 service.setStatus("Set up your OrcidId , Secondary Email address ,Check is Your Accound Verified or Not");			    			
-	    		service.setPayload(authorProfile);
-	    		dashBoardProfileList.add(service);
-		     }
-		 
-	    }
-	    List<LinkedList> authorMissedAffiliationList=dashBoard.getAffiliation();
-	    if(null==authorMissedAffiliationList.get(0)){
-	    	Service service = new Service();
-	    	service.setStatus("Add Affiliations");
-	    	dashBoardProfileList.add(service);
-	    }
-	    List<LinkedList> areasOfExpertiseList=dashBoard.getAreaOfExpertise();
-	    if(null==areasOfExpertiseList.get(0)){
-	    	Service service = new Service();
-	    	service.setStatus("Add in which Area Of Expertise");
-	    	dashBoardProfileList.add(service);
-	    }
-	  
-	    List<SocietyDetails> missedSocietyList=dashBoard.getSocietyDetails();
-	    if(null==missedSocietyList.get(0)){
-	    	Service service = new Service();
-	    	service.setStatus("Add Society Details");
-	    	dashBoardProfileList.add(service);
-	    }
-	    List<ResearchFunders> researchFundersList=dashBoard.getResearchFunder();
-	    if(null==researchFundersList.get(0)){
-	    	Service service = new Service();
-	    	service.setStatus("Add Funder Details ");
-	    	dashBoardProfileList.add(service);
-	    }
-	    
-//	    List<ResearchFunders> userFunderList=dashBoard.getResearchFunder();
-//	    if(userFunderList!=null){
-//	    	for(UserFunderGrants userFunders:userFunderList){
-//	    		if(null==userFunders.getAuthorProfile().getUserId()&&null==userFunders.getResearchFunders().getRfunderId()){
-//	    			Service service = new Service();
-//	    			service.setPayload(userFunders);
-//		    		dashBoardProfileList.add(service);
-//		    		break;
-//	    		}
-//	    	}
-//	    }
-	   
+			}
+		}
+		UserFunderGrants userFunderGrants = dashBoardDAO
+				.getFundersDetails(userId);
+		if (StringUtils.isEmpty(userFunderGrants)) {
+			Service service = new Service();
+			service.setStatus("Missed to Add Your Funder Details ");
+			dashBoardProfileList.add(service);
+		}
 		return dashBoardProfileList;
 	}
-
 }
-		
-	
