@@ -18,6 +18,7 @@ package com.wiley.gr.ace.authorservices.web.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,25 +31,17 @@ import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.services.service.DashBoardService;
 
 /**
- * @author yugandhark
+ * @author Virtusa
  *
  */
 @RestController
 @RequestMapping("/dashboard")
 public class DashBoardController {
 
-	// @RequestMapping(value = "/viewAllAuthorArticles", method =
-	// RequestMethod.GET, produces = "application/json")
-	// public List<Article> getAllAuthorArticles(){
-	// DashBoardService
-	// dashBoardService=(DashBoardServiceImpl)context.getBean("DashBoardService");
-	// return dashBoardService.getAllAuthorArticles();
-	// }
-
 	@Autowired(required = true)
 	DashBoardService dashBoardService;
 
-	@RequestMapping(value = "/profilemeter/{userId}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/profilemeter/{userId}", method = RequestMethod.GET, produces =  MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Service getProfileMeter(
 			@PathVariable("userId") String userId) {
 
