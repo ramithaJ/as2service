@@ -29,5 +29,9 @@ public class AuthorServicesConstants {
 	public static final String PERMISSION_TYPE_INTERNAL = "internalusers";
 	
 	public static final String PERMISSION_TYPE_EXTERNAL = "externalusers";
+	
+	public static final String ROLE_TYPE_EXTERNAL = "External";
+	
+	public static final String ROLE_TYPE_INTERNAL = "Internal";
 
 }

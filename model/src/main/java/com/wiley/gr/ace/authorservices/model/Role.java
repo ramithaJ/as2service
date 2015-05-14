@@ -9,6 +9,8 @@ public class Role {
 	private String roleId;
 	
 	private String roleName;
+	
+	private boolean isAdminRole = false;
 
 	/**
 	 * @return
@@ -37,7 +39,20 @@ public class Role {
 	public void setRoleName(String roleName) {
 		this.roleName = roleName;
 	}
-	
-	
+
+	/**
+	 * @return
+	 */
+	public boolean isAdminRole() {
+		return isAdminRole;
+	}
+
+	/**
+	 * @param isAdminRole
+	 */
+	public void setAdminRole(boolean isAdminRole) {
+		this.isAdminRole = isAdminRole;
+	}
+
 
 }
