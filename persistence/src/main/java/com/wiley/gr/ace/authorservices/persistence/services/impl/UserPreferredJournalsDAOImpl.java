@@ -70,7 +70,7 @@ public class UserPreferredJournalsDAOImpl implements UserPreferredJournalsDAO {
 			if (userPrefferJournals != null) {
 				session.delete(userPrefferJournals);
 			}else {
-				throw new ASException("1004", "In valid Data");
+				throw new ASException("1004", "No Record Found For this UserId and JournalId");
 			}
 
 		} finally {
