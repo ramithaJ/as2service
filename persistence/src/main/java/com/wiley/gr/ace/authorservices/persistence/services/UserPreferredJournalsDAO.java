@@ -21,5 +21,7 @@ public interface UserPreferredJournalsDAO {
 	
 	
 	List<UserPreferredJournals> getPreferredJournals(String userId);
+	
+	boolean deletePreferredJournals (String userId,String journalId );
 
 }

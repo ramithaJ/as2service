@@ -48,10 +48,11 @@ public class UserAccountServiceImpl implements UserAccountService {
 	@Override
 	public boolean updateEmailDetails(String userId, UserMgmt emailDetails) {
 
-		String primaryEmail = emailDetails.getPrimaryEmailAddress();
+		/*String primaryEmail = emailDetails.getPrimaryEmailAddress();
 		String SecondaryEmail = emailDetails.getSecondaryEmailAddress();
 		return userAccountDAO.updateEmailDetails(userId, primaryEmail,
-				SecondaryEmail);
+				SecondaryEmail);*/
+		return true;
 	}
 
 	/**

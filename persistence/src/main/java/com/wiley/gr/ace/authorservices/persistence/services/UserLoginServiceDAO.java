@@ -59,7 +59,7 @@ public interface UserLoginServiceDAO {
 	 * @return
 	 */
 	void doLogin(int userId, String password);
-		
+
 	/**
 	 * @param emailId
 	 * @return
@@ -70,31 +70,31 @@ public interface UserLoginServiceDAO {
 	 * @return
 	 */
 	List<AuthorProfile> getUsersList();
-	
+
 	/**
 	 * @param emailId
 	 * @return
 	 */
 	int getCount(int userId);
-	
+
 	/**
 	 * @param count
 	 * @param emailId
 	 * @return
 	 */
-	boolean updateCount(int count, int userId); 
-	
+	boolean updateCount(int count, int userId);
+
 	/**
 	 * @param emailId
 	 * @return
 	 */
 	Date getLockedTime(int userId);
-	
+
 	/**
 	 * @param emailId
 	 * @return
 	 */
 	boolean unLockUser(int userId);
-	
+
 	AuthorProfile authorProfile(int userId);
 }
