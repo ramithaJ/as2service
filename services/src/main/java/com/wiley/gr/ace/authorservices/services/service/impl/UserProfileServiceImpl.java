@@ -221,10 +221,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 	@Override
 	public boolean deletePreferredJournals(String userId, String journalId) {
 		
-		System.err.println("service" +userId + journalId +"in service");
-
-		userPreferredJournalsDAO.deletePreferredJournals(userId, journalId);
-		return false;
+		return userPreferredJournalsDAO.deletePreferredJournals(userId, journalId);
 	}
 
 	@Override

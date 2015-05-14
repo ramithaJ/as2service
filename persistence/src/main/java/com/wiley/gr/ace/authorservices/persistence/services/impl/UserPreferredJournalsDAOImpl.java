@@ -53,69 +53,31 @@ public class UserPreferredJournalsDAOImpl implements UserPreferredJournalsDAO {
 
 	@Override
 	public boolean deletePreferredJournals(String userId, String journalId) {
-		System.err.println("DAo "  +userId +"dao" +journalId);
+
 		Session session = con.getSessionFactory().openSession();
-          session.beginTransaction();
-          System.err.println("before try");
+		session.beginTransaction();
 
 		try {
-			System.err.println("in try");
 
 			UserPreferredJournals userPrefferJournals = new UserPreferredJournals();
-			System.err.println("userPrefferJournals");
-			
-			userPrefferJournals.setId(new UserPreferredJournalsId(Integer.parseInt("userId"), Integer.parseInt("journalId")));
-		System.err.println("after setting UserPreferredJournalsId " +userPrefferJournals.getId());
-			UserPreferredJournals userPreferredJournals2=(UserPreferredJournals) session.get(UserPreferredJournals.class, userPrefferJournals.getId());
-			
-			 if (userPreferredJournals2 !=null) {
-				  session.delete(userPreferredJournals2);
-				  return true;
-				
-			} 	
 
-	}
-		finally{
-			if(session !=null)
+			userPrefferJournals.setId(new UserPreferredJournalsId(Integer
+					.valueOf(userId), Integer.valueOf(journalId)));
+			userPrefferJournals = (UserPreferredJournals) session.get(
+					UserPreferredJournals.class, userPrefferJournals.getId());
+
+			if (userPrefferJournals != null) {
+				session.delete(userPrefferJournals);
+			}
+
+		} finally {
+			if (session != null)
 				session.getTransaction().commit();
-				session.flush();
+			session.flush();
 			session.close();
 		}
-		return false;
-			
-			
-		}
+		return true;
 
-	public static void main(String[] args) {
-	Session session = con.getSessionFactory().openSession();
-	
-    session.beginTransaction();
-
-	try {
-
-		UserPreferredJournals userPrefferJournals = new UserPreferredJournals();
-		
-		userPrefferJournals.setId(new UserPreferredJournalsId(Integer.parseInt("1000"), Integer.parseInt("101")));
-	
-		userPrefferJournals=(UserPreferredJournals) session.get(UserPreferredJournals.class, userPrefferJournals.getId());
-		
-		 if (userPrefferJournals !=null) {
-			  session.delete(userPrefferJournals); 
-			
-		} 	
-			
-	
-}
-	finally{
-		if(session !=null)
-			session.getTransaction().commit();
-			session.flush();
-		session.close();
 	}
-		
-		
-	}
+
 }
-
-
-
