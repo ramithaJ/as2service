@@ -111,7 +111,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 	}
 
 	@Override
-	public List<User> getUsersFromFirstNameLastName(String firstName,
+	public List<User> getUsersFromFirstNameLastName(String email, String firstName,
 			String lastName) throws Exception {
 		List<User> usersList = new ArrayList<User>();
 		final String url = nameCheckUrl;

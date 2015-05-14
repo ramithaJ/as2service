@@ -40,12 +40,12 @@ public class RegistrationServiceImpl implements RegistrationService {
 	}
 
 	@Override
-	public List<User> getUserFromFirstNameLastName(String firstName,
-			String lastName) throws Exception {
+	public List<User> getUserFromFirstNameLastName(String email,
+			String firstName, String lastName) throws Exception {
 
 		List<User> userList = null;
 		if (!StringUtils.isEmpty(firstName) && !StringUtils.isEmpty(lastName)) {
-			userList = esbInterFaceService.getUsersFromFirstNameLastName(
+			userList = esbInterFaceService.getUsersFromFirstNameLastName(email,
 					firstName, lastName);
 		}
 

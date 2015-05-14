@@ -24,7 +24,7 @@ public interface ESBInterfaceService {
 	User fetchOrcidDetails(String orcid) throws Exception;
 	String updateALMUser(User user) throws Exception;
 	User checkEmailIdExists(String emailId) throws Exception;
-	List<User> getUsersFromFirstNameLastName(String firstName, String lastName) throws Exception;
+	List<User> getUsersFromFirstNameLastName(String email, String firstName, String lastName) throws Exception;
 	String creatUser(User user) throws Exception;
 	
 }

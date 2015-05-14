@@ -39,7 +39,7 @@ public class User {
 
 	/** The alternate name. */
 	private String alternateName;
-	
+
 	private String primaryEmailAddr;
 
 	/** The recovery email address. */
@@ -68,8 +68,16 @@ public class User {
 
 	/** The visible attributes. */
 	private String visibleAttributes[];
+
+	private String contactId; // Need to confirm the datatype
+
+	private String password;
+
+	private boolean searchFullName;
 	
-	private String contactId; //Need to confirm the datatype
+	private String country;
+	
+	private Character termsOfUseFlg;
 
 	/**
 	 * @return the userId
@@ -79,7 +87,8 @@ public class User {
 	}
 
 	/**
-	 * @param userId the userId to set
+	 * @param userId
+	 *            the userId to set
 	 */
 	public void setUserId(Integer userId) {
 		this.userId = userId;
@@ -386,10 +395,43 @@ public class User {
 	}
 
 	/**
-	 * @param contactId the contactId to set
+	 * @param contactId
+	 *            the contactId to set
 	 */
 	public void setContactId(String contactId) {
 		this.contactId = contactId;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public boolean isSearchFullName() {
+		return searchFullName;
+	}
+
+	public void setSearchFullName(boolean searchFullName) {
+		this.searchFullName = searchFullName;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public Character getTermsOfUseFlg() {
+		return termsOfUseFlg;
+	}
+
+	public void setTermsOfUseFlg(Character termsOfUseFlg) {
+		this.termsOfUseFlg = termsOfUseFlg;
 	}
 
 }
