@@ -14,7 +14,6 @@
  */
 package com.wiley.gr.ace.authorservices.persistence.services;
 
-
 import java.util.List;
 
 import com.wiley.gr.ace.authorservices.persistence.entity.UserFunderGrants;
@@ -25,6 +24,14 @@ import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
  *
  */
 public interface DashBoardDAO {
+	/**
+	 * @param userId
+	 * @return List
+	 */
 	List<UserSecurityDetails> getSecurityDetailsList(int userId);
+	/**
+	 * @param userId
+	 * @return UserFunderGrants
+	 */
 	UserFunderGrants getFundersDetails(int userId);
 }
