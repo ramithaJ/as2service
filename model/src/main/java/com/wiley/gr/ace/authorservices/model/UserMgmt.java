@@ -49,13 +49,53 @@ public class UserMgmt {
 
 	/** The session id. */
 	private String sessionId;
+	
+	/** The orcid id. */
+	private String orcidID;
 
 	/** The ec id. */
 	private String ecId;
 
 	/** The user vo. */
 	private String userVO;
+	/** The isAccountVerified. */
+	private Character isAccountVerified;
+	
+	/**
+	 * Gets the isAccountVerified.
+	 *
+	 * @return the isAccountVerified
+	 */
+	public Character getIsAccountVerified() {
+		return isAccountVerified;
+	}
+	/**
+	 * Sets the isAccountVerified.
+	 *
+	 * @param isAccountVerifed
+	 *            
+	 */
+	public void setIsAccountVerified(Character isAccountVerified) {
+		this.isAccountVerified = isAccountVerified;
+	}
+	/**
+	 * Gets the orcid id.
+	 *
+	 * @return the orcid id
+	 */
+	public String getOrcidID() {
+		return orcidID;
+	}
 
+	/**
+	 * Sets the orcid id.
+	 *
+	 * @param orcidID
+	 *            the new orcid id
+	 */
+	public void setOrcidID(String orcidID) {
+		this.orcidID = orcidID;
+	}
 	/**
 	 * Gets the user id.
 	 *
