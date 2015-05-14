@@ -56,7 +56,6 @@ public class DashBoardController {
 				service.setPayload(profileMeterList);
 			} else {
 				service.setStatus("failure");
-				service.setPayload(profileMeterList);
 			}
 		} catch (Exception e) {
 			ErrorPOJO error = new ErrorPOJO();
