@@ -13,10 +13,13 @@ package com.wiley.gr.ace.authorservices.services.service.impl;
 
 import java.util.LinkedList;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
+
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.Service;
+import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserFunderGrants;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
 import com.wiley.gr.ace.authorservices.persistence.services.DashBoardDAO;
@@ -34,7 +37,7 @@ public class DashBoardServiceImpl implements DashBoardService {
 	private DashBoardDAO dashBoardDAO;
 
 	/**
-	 * @param userId
+	 * @param userId to get the data from DashBoardDAO
 	 * @return dashBoardProfileList
 	 */
 	public final List<Service> getProfileMeter(final int userId) {
@@ -63,6 +66,13 @@ public class DashBoardServiceImpl implements DashBoardService {
 			service.setStatus("Missed to Add Your Funder Details ");
 			dashBoardProfileList.add(service);
 		}
+		AuthorProfile authorMissedProfile = dashBoardDAO
+				.getMissedUserProfile(userId);
+			if (authorMissedProfile.getIsAccountVerified().equals('N')) {
+				Service service = new Service();
+				service.setStatus("Your Account is Not Verified And setup OrcidId and SecondaryEmail Address");
+				dashBoardProfileList.add(service);
+			}
 		return dashBoardProfileList;
 	}
 }
