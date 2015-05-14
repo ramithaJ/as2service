@@ -27,22 +27,21 @@ import com.wiley.gr.ace.authorservices.services.service.DashBoardService;
  *
  */
 public class DashBoardServiceImpl implements DashBoardService {
-
-	@Autowired(required = true)
-	DashBoardDAO dashBoardDAO;
-
-	/*
-	 * (non-Javadoc)
+	/**
 	 * 
-	 * @see com.wiley.gr.ace.authorservices.services.service.DashBoardService#
-	 * getProfileMeter(int) To show Missing Profile Information of User
 	 */
-	@Override
-	public List<Service> getProfileMeter(int userId) {
+	@Autowired(required = true)
+	private DashBoardDAO dashBoardDAO;
+
+	/**
+	 * @param userId
+	 * @return dashBoardProfileList
+	 */
+	public final List<Service> getProfileMeter(final int userId) {
 		List<Service> dashBoardProfileList = new LinkedList<Service>();
-		List<UserSecurityDetails> securityDetailsList = dashBoardDAO
-				.getSecurityDetailsList(userId);
-		if (securityDetailsList != null) {
+		List<UserSecurityDetails> securityDetailsList = null;
+		securityDetailsList = dashBoardDAO.getSecurityDetailsList(userId);
+		if (null != securityDetailsList) {
 			for (UserSecurityDetails secureDetails : securityDetailsList) {
 				SecurityDetails security = new SecurityDetails();
 				security.setSecurityQuestion(secureDetails
