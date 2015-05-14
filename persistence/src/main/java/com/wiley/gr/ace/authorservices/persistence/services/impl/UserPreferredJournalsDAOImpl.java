@@ -23,11 +23,18 @@ import com.wiley.gr.ace.authorservices.persistence.entity.UserPreferredJournals;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserPreferredJournalsId;
 import com.wiley.gr.ace.authorservices.persistence.services.UserPreferredJournalsDAO;
 
+/**
+ * @author RAVISINHA
+ *
+ */
 public class UserPreferredJournalsDAOImpl implements UserPreferredJournalsDAO {
 
 	@Autowired(required = true)
-	static HibernateConnection con;
+	HibernateConnection con;
 
+	/* (non-Javadoc)
+	 * @see com.wiley.gr.ace.authorservices.persistence.services.UserPreferredJournalsDAO#getPreferredJournals(java.lang.String)
+	 */
 	@Override
 	public List<UserPreferredJournals> getPreferredJournals(String userId) {
 
@@ -52,6 +59,9 @@ public class UserPreferredJournalsDAOImpl implements UserPreferredJournalsDAO {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.wiley.gr.ace.authorservices.persistence.services.UserPreferredJournalsDAO#deletePreferredJournals(java.lang.String, java.lang.String)
+	 */
 	@Override
 	public boolean deletePreferredJournals(String userId, String journalId) {
 

@@ -195,6 +195,9 @@ public class UserProfileServiceImpl implements UserProfileService {
 	@Autowired
 	UserPreferredJournalsDAO userPreferredJournalsDAO;
 
+	/* (non-Javadoc)
+	 * @see com.wiley.gr.ace.authorservices.services.service.UserProfileService#getPreferredJournals(java.lang.String)
+	 */
 	@Override
 	public List<PreferredJournals> getPreferredJournals(String userId) {
 
@@ -218,6 +221,9 @@ public class UserProfileServiceImpl implements UserProfileService {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.wiley.gr.ace.authorservices.services.service.UserProfileService#deletePreferredJournals(java.lang.String, java.lang.String)
+	 */
 	@Override
 	public boolean deletePreferredJournals(String userId, String journalId) {
 		
@@ -265,6 +271,9 @@ public class UserProfileServiceImpl implements UserProfileService {
 		return (Alert[]) alertsList.toArray(new Alert[alertsList.size()]);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.wiley.gr.ace.authorservices.services.service.UserProfileService#updateAlerts(java.lang.String, java.util.List)
+	 */
 	@Override
 	public boolean updateAlerts(String userId, List<Alert> alertsList) {
 
