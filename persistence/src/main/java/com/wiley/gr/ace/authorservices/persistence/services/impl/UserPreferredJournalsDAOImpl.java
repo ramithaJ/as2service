@@ -17,6 +17,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserPreferredJournals;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserPreferredJournalsId;
@@ -68,6 +69,8 @@ public class UserPreferredJournalsDAOImpl implements UserPreferredJournalsDAO {
 
 			if (userPrefferJournals != null) {
 				session.delete(userPrefferJournals);
+			}else {
+				throw new ASException("1004", "In valid Data");
 			}
 
 		} finally {
