@@ -34,9 +34,8 @@ import com.wiley.gr.ace.authorservices.services.service.DashBoardService;
  *
  */
 public class DashBoardServiceImpl implements DashBoardService {
-	/**
-	 * 
-	 */
+	
+	/** The Auto Wired for DashBoardDAO . */
 	@Autowired(required = true)
 	private DashBoardDAO dashBoardDAO;
 
