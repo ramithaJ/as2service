@@ -11,8 +11,6 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.web.controllers;
 
-import java.util.ArrayList;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
 import com.wiley.gr.ace.authorservices.model.Login;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
-import com.wiley.gr.ace.authorservices.model.SecurityDetails;
+import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
@@ -150,11 +148,11 @@ public class UserLoginController extends ASExceptionController {
 	@RequestMapping(value = "/securityQuestions/validate/{emailId}", method = RequestMethod.POST)
 	public Service validateSecurityQuestions(
 			@PathVariable("emailId") String emailId,
-			@Valid @RequestBody ArrayList<SecurityDetails> securityDetails) {
+			@Valid @RequestBody SecurityDetailsHolder securityDetails) {
 
 		Service service = new Service();
 		service.setPayload(userLoginService.validateSecurityQuestions(emailId,
-				securityDetails));
+				securityDetails.getSecurityDetails()));
 		service.setStatus("success");
 
 		return service;
