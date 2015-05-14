@@ -11,9 +11,8 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.web.controllers;
 
-import java.util.ArrayList;
-
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wiley.gr.ace.authorservices.model.SecurityDetails;
+import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.UserMgmt;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
@@ -102,12 +101,12 @@ public class UserAccountController {
 	 */
 	@RequestMapping(value = "/secutiryDetails/update/{userId}", method = RequestMethod.POST)
 	public Service updateSecurityDetails(@PathVariable("userId") String userId,
-			@RequestBody ArrayList<SecurityDetails> securityDetails) {
+			@Valid @RequestBody SecurityDetailsHolder securityDetails) {
 
 		Service service = new Service();
 		service.setStatus("Success");
 		service.setPayload(userAccountService.updateSecurityDetails(userId,
-				securityDetails));
+				securityDetails.getSecurityDetails()));
 		return service;
 
 	}
