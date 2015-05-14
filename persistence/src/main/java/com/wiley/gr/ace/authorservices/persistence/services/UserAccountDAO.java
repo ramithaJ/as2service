@@ -11,7 +11,7 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.services;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
@@ -43,6 +43,6 @@ public interface UserAccountDAO {
 	 * @return
 	 */
 	boolean updateSecurityDetails(Integer userId,
-			ArrayList<SecurityDetails> securityDetails);
+			List<SecurityDetails> securityDetails);
 
 }
