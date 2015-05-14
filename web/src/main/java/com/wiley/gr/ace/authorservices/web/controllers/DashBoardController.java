@@ -14,9 +14,6 @@
  */
 package com.wiley.gr.ace.authorservices.web.controllers;
 
-
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
+import com.wiley.gr.ace.authorservices.model.DashBoard;
 import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.services.service.DashBoardService;
@@ -38,22 +36,23 @@ import com.wiley.gr.ace.authorservices.services.service.DashBoardService;
 @RequestMapping("/dashboard")
 public class DashBoardController {
 
+	/** The Auto Wired for DashBoard Service . */
 	@Autowired(required = true)
-	DashBoardService dashBoardService;
+	private DashBoardService dashBoardService;
 
-	@RequestMapping(value = "/profilemeter/{userId}", method = RequestMethod.GET, produces =  MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/profilemeter/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Service getProfileMeter(
 			@PathVariable("userId") String userId) {
 
 		Service service = new Service();
-		List<Service> profileMeterList = null;
+		DashBoard dashBoard = null;
 
 		try {
-			profileMeterList = dashBoardService.getProfileMeter(Integer
+			dashBoard = dashBoardService.getProfileMeter(Integer
 					.parseInt(userId));
-			if (null != profileMeterList) {
+			if (null != dashBoard) {
 				service.setStatus("Success");
-				service.setPayload(profileMeterList);
+				service.setPayload(dashBoard);
 			} else {
 				service.setStatus("failure");
 			}
@@ -64,7 +63,7 @@ public class DashBoardController {
 			error.setMessage("Error fetching profile meter");
 
 			service.setStatus("error");
-			service.setPayload(profileMeterList);
+			service.setPayload(dashBoard);
 			service.setError(error);
 			throw new ASException("-2", "Error fetching profile meter", e);
 		}
