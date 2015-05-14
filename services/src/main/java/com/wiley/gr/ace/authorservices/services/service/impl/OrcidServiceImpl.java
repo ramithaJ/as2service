@@ -14,14 +14,15 @@
  */
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
-import org.restlet.Context;
-import org.restlet.data.Form;
-import org.restlet.data.MediaType;
-import org.restlet.data.Reference;
-import org.restlet.representation.Representation;
-import org.restlet.resource.ClientResource;
+import java.util.Iterator;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.wiley.gr.ace.authorservices.externalservices.service.OrcidInterfaceService;
+import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.orcid.OrcidAccessToken;
 import com.wiley.gr.ace.authorservices.services.service.OrcidService;
 
@@ -30,6 +31,9 @@ import com.wiley.gr.ace.authorservices.services.service.OrcidService;
  *
  */
 public class OrcidServiceImpl implements OrcidService {
+
+	@Autowired(required = true)
+	OrcidInterfaceService oricdInterfaceService;
 
 	/*
 	 * (non-Javadoc)
@@ -41,33 +45,115 @@ public class OrcidServiceImpl implements OrcidService {
 	@Override
 	public OrcidAccessToken getAccessToken(String authorizationCode)
 			throws Exception {
-
-		OrcidAccessToken accessToken = null;
-		Reference ref = new Reference("http://pub.orcid.org/oauth/token");
-		if (Context.getCurrent() == null) {
-			Context.setCurrent(new Context());
-		}
-		ClientResource client = new ClientResource(ref);
-		/**
-		 * TODO : Need to fetch this values from prop files depending on environment
-		 */
-		Form form = new Form();
-		form.add("client_id", "APP-7E4BRADG8DTVCY64");
-		form.add("client_secret", "3408b30c-bbdc-4f45-963d-294f7a7bc0b1");
-		form.add("grant_type", "authorization_code");
-		form.add("code", authorizationCode);
-		form.add("redirect_uri", "http://www.vinay.com:8080/orcid/index.jsp");
-
-		client.getContext().getParameters().add("followRedirects", "true");
-		System.out.println("form.toString() ##### " + form.toString());
-		System.out.println("client.toString() ##### " + client.toString());
-
-		Representation rep = client.post(form, MediaType.APPLICATION_JSON);
-		String json = rep.getText();
-		System.out.println("json ##### " + json);
-		ObjectMapper objectMapper = new ObjectMapper();
-		accessToken = objectMapper.readValue(json, OrcidAccessToken.class);
-		return accessToken;
+		return oricdInterfaceService.getAccessToken(authorizationCode);
 	}
 
+	@Override
+	public User getBio(OrcidAccessToken token) throws Exception {
+
+		User user = null;
+		String orcidMessageJSON = oricdInterfaceService.getBio(token);
+		if (null != orcidMessageJSON && !orcidMessageJSON.isEmpty()) {
+			/**
+			 * Code to map the orcid JSON to user model object
+			 */
+			user = parseOrcidJSON(orcidMessageJSON);
+		}
+		return user;
+	}
+
+	private User parseOrcidJSON(String orcidMessageJSON) {
+		User user = null;
+		try {
+			JSONObject orcidProfileJSON = (JSONObject) new JSONParser()
+					.parse(orcidMessageJSON);
+			JSONObject orcidProfile = (JSONObject) orcidProfileJSON
+					.get("orcid-profile");
+			System.out.println("orcidProfile ##### " + orcidProfile);
+			if (null != orcidProfile) {
+				JSONObject orcidBioJSON = (JSONObject) new JSONParser()
+						.parse(orcidProfile.toJSONString());
+				JSONObject orcidBio = (JSONObject) orcidBioJSON
+						.get("orcid-bio");
+				System.out.println("orcidBio ##### " + orcidBio);
+				if (null != orcidBio) {
+					user = new User();
+					JSONObject personalDetailsJSON = (JSONObject) new JSONParser()
+							.parse(orcidBio.toJSONString());
+					JSONObject personalDetails = (JSONObject) personalDetailsJSON
+							.get("personal-details");
+					System.out.println("personalDetails ##### "
+							+ personalDetails);
+					if (null != personalDetails) {
+						/**
+						 * Code to fetch FN and LN.
+						 */
+						JSONObject givenNamesJSON = (JSONObject) new JSONParser()
+								.parse(personalDetails.toJSONString());
+						JSONObject givenNames = (JSONObject) givenNamesJSON
+								.get("given-names");
+						System.out.println("givenNames ##### " + givenNames);
+
+						JSONObject familyNamesJSON = (JSONObject) new JSONParser()
+								.parse(personalDetails.toJSONString());
+						JSONObject familyNames = (JSONObject) familyNamesJSON
+								.get("family-name");
+						System.out.println("familyNames ##### " + familyNames);
+
+						if (null != givenNames) {
+							JSONObject givenNamesValueJSON = (JSONObject) new JSONParser()
+									.parse(givenNames.toJSONString());
+							user.setFirstName((String) givenNamesValueJSON
+									.get("value"));
+						}
+						if (null != familyNames) {
+							JSONObject familyNamesValueJSON = (JSONObject) new JSONParser()
+									.parse(familyNames.toJSONString());
+							user.setLastName((String) familyNamesValueJSON
+									.get("value"));
+						}
+					}
+					/**
+					 * Code to fetch Email and ORCID ID
+					 */
+					JSONObject contactDetails = (JSONObject) personalDetailsJSON
+							.get("contact-details");
+					if (null != contactDetails) {
+						JSONObject emailArrayJSON = (JSONObject) new JSONParser()
+								.parse(contactDetails.toJSONString());
+						JSONArray emailArray = (JSONArray) emailArrayJSON
+								.get("email");
+						System.out.println("emailArray ##### " + emailArray);
+						/**
+						 * Email JSON is an array so iterating through it to
+						 * find primary email
+						 */
+						if (null != emailArray) {
+							Iterator<JSONObject> emailItr = emailArray
+									.iterator();
+							Boolean isPrimary;
+							while (emailItr.hasNext()) {
+								JSONObject emailJSON = (JSONObject) new JSONParser()
+										.parse(emailItr.next().toJSONString());
+								isPrimary = (Boolean) emailJSON.get("primary");
+
+								System.out.println("isPrimary ---->"
+										+ isPrimary);
+								if (isPrimary) {
+									user.setPrimaryEmailAddr((String) emailJSON
+											.get("value"));
+									user.setOrcidID((String) emailJSON
+											.get("source"));
+								}
+							}
+						}
+					}
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
 }

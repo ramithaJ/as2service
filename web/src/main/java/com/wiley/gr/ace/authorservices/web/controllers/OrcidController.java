@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
 import com.wiley.gr.ace.authorservices.model.Service;
+import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.orcid.OrcidAccessToken;
 import com.wiley.gr.ace.authorservices.services.service.OrcidService;
 
@@ -73,20 +74,30 @@ public class OrcidController {
 	 * @param authorizationCode
 	 * @return
 	 */
-	@RequestMapping(value = "/orcidprofile/{authorizationCode}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/bio/{authorizationCode}/{type}", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody Service getOrcidDetails(
-			@PathVariable String authorizationCode) {
+			@PathVariable String authorizationCode, @PathVariable String type) {
 		Service service = new Service();
+		User user = null;
 		try {
+
 			if (null != authorizationCode) {
 				OrcidAccessToken accessToken = orcidService
 						.getAccessToken(authorizationCode);
 				if (null != accessToken) {
-System.out.println("accessToken.getAccess_token() --->"+accessToken.getAccess_token());
-System.out.println("accessToken.getOrcid() ---> "+accessToken.getOrcid());
+					System.out.println("accessToken.getAccess_token() --->"
+							+ accessToken.getAccess_token());
+					System.out.println("accessToken.getOrcid() ---> "
+							+ accessToken.getOrcid());
+					if (null != type && type.equalsIgnoreCase("registration")) {
+						user = orcidService.getBio(accessToken);
+						service.setStatus("SUCCESS");
+						service.setPayload(user);
+					}
 				}
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			ErrorPOJO error = new ErrorPOJO();
 			error.setCode(-101); // Need to set proper error code this one is
 									// dummy

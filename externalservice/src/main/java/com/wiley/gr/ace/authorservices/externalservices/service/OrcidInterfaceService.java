@@ -12,17 +12,16 @@
 /**
  * 
  */
-package com.wiley.gr.ace.authorservices.services.service;
+package com.wiley.gr.ace.authorservices.externalservices.service;
 
-import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.orcid.OrcidAccessToken;
 
 /**
  * @author vkumark
  *
  */
-public interface OrcidService {
+public interface OrcidInterfaceService {
 	OrcidAccessToken getAccessToken(String authorizationCode) throws Exception;
 
-	User getBio(OrcidAccessToken accessToken) throws Exception;
+	String getBio(OrcidAccessToken accessToken) throws Exception;
 }
