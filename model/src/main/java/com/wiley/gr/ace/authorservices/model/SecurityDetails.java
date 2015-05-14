@@ -57,6 +57,4 @@ public class SecurityDetails {
 		this.securityQuestionId = securityQuestionId;
 	}
 
-
-
 }
