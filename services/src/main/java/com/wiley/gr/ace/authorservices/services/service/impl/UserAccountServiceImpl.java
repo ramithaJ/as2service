@@ -12,6 +12,7 @@
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -48,10 +49,13 @@ public class UserAccountServiceImpl implements UserAccountService {
 	@Override
 	public boolean updateEmailDetails(String userId, UserMgmt emailDetails) {
 
-		String primaryEmail = emailDetails.getPrimaryEmailAddress();
-		String SecondaryEmail = emailDetails.getSecondaryEmailAddress();
-		return userAccountDAO.updateEmailDetails(userId, primaryEmail,
-				SecondaryEmail);
+		/*
+		 * String primaryEmail = emailDetails.getPrimaryEmailAddress(); String
+		 * SecondaryEmail = emailDetails.getSecondaryEmailAddress(); return
+		 * userAccountDAO.updateEmailDetails(userId, primaryEmail,
+		 * SecondaryEmail);
+		 */
+		return true;
 	}
 
 	/**
@@ -60,7 +64,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 	 */
 	@Override
 	public boolean updateSecurityDetails(String userId,
-			ArrayList<SecurityDetails> securityDetails) {
+			List<SecurityDetails> securityDetails) {
 
 		return userAccountDAO.updateSecurityDetails(Integer.parseInt(userId),
 				securityDetails);

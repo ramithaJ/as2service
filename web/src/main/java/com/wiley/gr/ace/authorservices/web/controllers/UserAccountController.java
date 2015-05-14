@@ -11,9 +11,8 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.web.controllers;
 
-import java.util.ArrayList;
-
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,8 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wiley.gr.ace.authorservices.exception.ASException;
-import com.wiley.gr.ace.authorservices.model.SecurityDetails;
+import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.UserMgmt;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
@@ -57,36 +55,27 @@ public class UserAccountController {
 	/**
 	 * @param userId
 	 * @param emailDetails
-	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/emailDetails/{userId}", method = {
-			RequestMethod.GET, RequestMethod.POST })
-	public Service getEmailDetails(@PathVariable("userId") String userId,
-			@RequestBody(required = false) UserMgmt emailDetails,
-			HttpServletRequest request) {
+	@RequestMapping(value = "/emailDetails/update/{userId}", method = RequestMethod.POST)
+	public Service updateEmail(@PathVariable("userId") String userId,
+			@RequestBody UserMgmt emailDetails) {
 
-		Service service = null;
+		Service service = new Service();
+		service.setPayload(userAccountService.updateEmailDetails(userId,
+				emailDetails));
+		return service;
+	}
 
-		if (request.getMethod().equals(RequestMethod.GET)) {
+	/**
+	 * @param userId
+	 * @return
+	 */
+	@RequestMapping(value = "/emailDetails/{userId}", method = RequestMethod.GET)
+	public Service getEmailDetails(@PathVariable("userId") String userId) {
 
-			service = new Service();
-			service.setPayload(userAccountService.getEmailDetails(userId));
-
-		} else if (request.getMethod().equals(RequestMethod.POST)
-				&& emailDetails != null) {
-
-			service = new Service();
-			service.setPayload(userAccountService.updateEmailDetails(userId,
-					emailDetails));
-
-		} else if (request.getMethod().equals(RequestMethod.POST)
-				&& emailDetails == null) {
-
-			throw new ASException("400", "Invalid Request Body");
-
-		}
-
+		Service service = new Service();
+		service.setPayload(userAccountService.getEmailDetails(userId));
 		return service;
 	}
 
@@ -112,12 +101,12 @@ public class UserAccountController {
 	 */
 	@RequestMapping(value = "/secutiryDetails/update/{userId}", method = RequestMethod.POST)
 	public Service updateSecurityDetails(@PathVariable("userId") String userId,
-			@RequestBody ArrayList<SecurityDetails> securityDetails) {
+			@Valid @RequestBody SecurityDetailsHolder securityDetails) {
 
 		Service service = new Service();
 		service.setStatus("Success");
 		service.setPayload(userAccountService.updateSecurityDetails(userId,
-				securityDetails));
+				securityDetails.getSecurityDetails()));
 		return service;
 
 	}

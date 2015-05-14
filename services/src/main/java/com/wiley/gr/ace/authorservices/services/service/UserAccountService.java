@@ -11,7 +11,7 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.UserMgmt;
@@ -41,5 +41,5 @@ public interface UserAccountService {
 	 * @return
 	 */
 	boolean updateSecurityDetails(String userId,
-			ArrayList<SecurityDetails> securityDetails);
+			List<SecurityDetails> securityDetails);
 }

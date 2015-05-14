@@ -14,6 +14,7 @@ package com.wiley.gr.ace.authorservices.web.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -402,11 +403,15 @@ public class UserProfileController {
 	 * @param journalId
 	 * @return
 	 */
-	@RequestMapping(value = "/deletePreferredJournals/{userId}", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/deletePreferredJournals/{userId}/{journalId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Service deletePreferredJournals(
-			@PathVariable("userId") String userId, @RequestBody String journalId) {
+			@PathVariable("userId") String userId,
+			@PathVariable("journalId") String journalId) {
+		Service service = new Service();
+		service.setPayload(userProfileService.deletePreferredJournals(userId,
+				journalId));
 
-		return null;
+		return new Service();
 	}
 
 	/**
@@ -452,11 +457,9 @@ public class UserProfileController {
 	@RequestMapping(value = "/updateAlerts/{userId}", method = RequestMethod.POST, produces = "application/json")
 	public Service updateAlerts(@PathVariable("userId") String userId,
 			@RequestBody List<Alert> alertsList) {
-		Service service = new Service();
 		userProfileService.updateAlerts(userId, alertsList);
-		service.setStatus("success");
 
-		return service;
+		return new Service();
 	}
 
 }

@@ -11,7 +11,6 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -70,7 +69,7 @@ public class UserAccountDAOImpl implements UserAccountDAO {
 	 */
 	@Override
 	public boolean updateSecurityDetails(Integer userId,
-			ArrayList<SecurityDetails> securityDetails) {
+			List<SecurityDetails> securityDetails) {
 
 		Session session = null;
 		try {

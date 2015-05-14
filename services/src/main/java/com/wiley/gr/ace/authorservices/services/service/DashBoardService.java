@@ -18,15 +18,14 @@ import java.util.List;
 
 import com.wiley.gr.ace.authorservices.model.Service;
 
-
-
-
 /**
- * @author yugandhark
+ * @author Virtusa
  *
  */
 public interface DashBoardService {
-	//List<Article> getAllAuthorArticles();
-	List<Service> getProfileMeter(int userId);
-
+/**
+ * @param userId to get the data from DashBoardDAO
+ * @return List
+ */
+List<Service> getProfileMeter(int userId);
 }

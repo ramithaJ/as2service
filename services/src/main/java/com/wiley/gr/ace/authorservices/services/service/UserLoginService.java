@@ -11,11 +11,13 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
+import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.UserMgmt;
+
 /**
  * @author kpshiva
  *
@@ -36,7 +38,7 @@ public interface UserLoginService {
 	 * @return
 	 */
 	boolean updatePassword(PasswordDetails passwordDetails);
-	
+
 	/**
 	 * @param emailId
 	 * @param newPassword
@@ -49,13 +51,14 @@ public interface UserLoginService {
 	 * @param securityVO
 	 * @return
 	 */
-	boolean validateSecurityQuestions(String emailId, ArrayList<SecurityDetails> securityDetails);
+	boolean validateSecurityQuestions(String emailId,
+			List<SecurityDetails> securityDetails);
 
 	/**
 	 * @param userId
 	 * @return
 	 */
-	ArrayList<SecurityDetails> getSecurityQuestions(String emailId);
+	SecurityDetailsHolder getSecurityQuestions(String emailId);
 
 	/**
 	 * @param userId
@@ -86,5 +89,5 @@ public interface UserLoginService {
 	 * @param template_id
 	 */
 	void sendEmail(String userId, String template_id);
-		
+
 }

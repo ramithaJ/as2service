@@ -21,6 +21,7 @@ import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
+import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.UserMgmt;
 import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
@@ -105,7 +106,7 @@ public class UserLoginServiceImpl implements UserLoginService {
 	 * @return
 	 */
 	@Override
-	public ArrayList<SecurityDetails> getSecurityQuestions(String emailId) {
+	public SecurityDetailsHolder getSecurityQuestions(String emailId) {
 
 		// it checks whether user is exit or not in the user table
 		// if exist it will return userId
@@ -119,12 +120,13 @@ public class UserLoginServiceImpl implements UserLoginService {
 			// it means whether user is normal user or Admin user.
 			if (null != authorProfile) {
 
+				SecurityDetailsHolder securityDetailsHolder = new SecurityDetailsHolder();
 				// check whether user has security set up or not.
 				if (authorProfile.getSecurityQuestFlg().equals('Y')) {
 
 					List<UserSecurityDetails> securityQuestions = userLoginServiceDAO
 							.getSecurityQuestions(userId);
-					ArrayList<SecurityDetails> securityQuestionsList = new ArrayList<SecurityDetails>();
+					List<SecurityDetails> securityQuestionsList = new ArrayList<SecurityDetails>();
 					for (int i = 0; i < securityQuestions.size(); i++) {
 
 						SecurityDetails security = new SecurityDetails();
@@ -134,7 +136,9 @@ public class UserLoginServiceImpl implements UserLoginService {
 								.getSecurityQuestion());
 						securityQuestionsList.add(security);
 					}
-					return securityQuestionsList;
+					securityDetailsHolder
+							.setSecurityDetails(securityQuestionsList);
+					return securityDetailsHolder;
 				} else {
 
 					throw new ASException("1015",
@@ -174,7 +178,7 @@ public class UserLoginServiceImpl implements UserLoginService {
 	 */
 	@Override
 	public boolean validateSecurityQuestions(String emailId,
-			ArrayList<SecurityDetails> securityDetails) {
+			List<SecurityDetails> securityDetails) {
 
 		boolean status = false;
 		Integer userId = userLoginServiceDAO.getUserId(emailId);

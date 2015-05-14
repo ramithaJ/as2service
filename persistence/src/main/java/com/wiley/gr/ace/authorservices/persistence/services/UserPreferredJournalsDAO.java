@@ -16,10 +16,25 @@ import java.util.List;
 
 import com.wiley.gr.ace.authorservices.persistence.entity.UserPreferredJournals;
 
+/**
+ * @author RAVISINHA
+ *
+ */
 public interface UserPreferredJournalsDAO {
 	
 	
 	
+	/**
+	 * @param userId
+	 * @return
+	 */
 	List<UserPreferredJournals> getPreferredJournals(String userId);
+	
+	/**
+	 * @param userId
+	 * @param journalId
+	 * @return
+	 */
+	boolean deletePreferredJournals (String userId,String journalId );
 
 }

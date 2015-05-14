@@ -195,6 +195,9 @@ public class UserProfileServiceImpl implements UserProfileService {
 	@Autowired
 	UserPreferredJournalsDAO userPreferredJournalsDAO;
 
+	/* (non-Javadoc)
+	 * @see com.wiley.gr.ace.authorservices.services.service.UserProfileService#getPreferredJournals(java.lang.String)
+	 */
 	@Override
 	public List<PreferredJournals> getPreferredJournals(String userId) {
 
@@ -218,10 +221,13 @@ public class UserProfileServiceImpl implements UserProfileService {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.wiley.gr.ace.authorservices.services.service.UserProfileService#deletePreferredJournals(java.lang.String, java.lang.String)
+	 */
 	@Override
 	public boolean deletePreferredJournals(String userId, String journalId) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		return userPreferredJournalsDAO.deletePreferredJournals(userId, journalId);
 	}
 
 	@Override
@@ -265,6 +271,9 @@ public class UserProfileServiceImpl implements UserProfileService {
 		return (Alert[]) alertsList.toArray(new Alert[alertsList.size()]);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.wiley.gr.ace.authorservices.services.service.UserProfileService#updateAlerts(java.lang.String, java.util.List)
+	 */
 	@Override
 	public boolean updateAlerts(String userId, List<Alert> alertsList) {
 
@@ -278,15 +287,15 @@ public class UserProfileServiceImpl implements UserProfileService {
 						.getAlertId())) {
 
 					if (alert.isEmail()) {
-						daoAlert.setEmailFlg(new Character('Y'));
+						daoAlert.setEmailFlg(new Character('y'));
 					} else {
-						daoAlert.setEmailFlg(new Character('N'));
+						daoAlert.setEmailFlg(new Character('n'));
 					}
 
 					if (alert.isOnScreen()) {
-						daoAlert.setOnScreenFlg(new Character('Y'));
+						daoAlert.setOnScreenFlg(new Character('y'));
 					} else {
-						daoAlert.setOnScreenFlg(new Character('N'));
+						daoAlert.setOnScreenFlg(new Character('n'));
 					}
 					break;
 				}
