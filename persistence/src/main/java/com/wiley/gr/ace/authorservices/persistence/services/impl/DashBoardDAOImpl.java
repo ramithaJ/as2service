@@ -88,7 +88,7 @@ public class DashBoardDAOImpl implements DashBoardDAO {
 	/**
 	 * @param userId
 	 *            to extract the data from Database
-	 * @return userFunderGrants
+	 * @return AuthorProfile
 	 */
 	public AuthorProfile getMissedUserProfile(int userId) {
 		try {
