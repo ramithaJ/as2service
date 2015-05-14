@@ -29,35 +29,58 @@ import com.wiley.gr.ace.authorservices.persistence.services.DashBoardDAO;
  *
  */
 public class DashBoardDAOImpl implements DashBoardDAO {
-
+	/**
+	 * @see
+	 */
 	@Autowired(required = true)
-	HibernateConnection con;
+	private HibernateConnection con;
+	private Session session = null;
+	Transaction txn = null;
 
-	public List<UserSecurityDetails> getSecurityDetailsList(int userId) {
-		Session session = HibernateConnection.getSessionFactory().openSession();
-		Transaction tx = session.beginTransaction();
-		String secureDetailsHql = "from UserSecurityDetails where authorProfile.userId=:userId";
-		List<UserSecurityDetails> secureResultList = session
-				.createQuery(secureDetailsHql).setInteger("userId", userId)
-				.list();
-		tx.commit();
-		session.flush();
-		session.close();
-		return secureResultList;
+	/**
+	 * @param userId
+	 *            to extract the data from Database
+	 * @return secureResultList
+	 */
+	public final List<UserSecurityDetails> getSecurityDetailsList(
+			final int userId) {
+		try {
+			session = con.getSessionFactory().openSession();
+			txn = session.beginTransaction();
+			String secureDetailsHql = "from UserSecurityDetails where authorProfile.userId=:userId";
+			List<UserSecurityDetails> secureResultList = session
+					.createQuery(secureDetailsHql).setInteger("userId", userId)
+					.list();
+			txn.commit();
+			return secureResultList;
+		} finally {
+			if (session != null) {
+				session.flush();
+				session.close();
+			}
+		}
 	}
-
-	@Override
-	public UserFunderGrants getFundersDetails(int userId) {
-		Session session = HibernateConnection.getSessionFactory().openSession();
-		Transaction tx = session.beginTransaction();
-		String userFunderGrantsHql = " from UserFunderGrants where id.userId=:userId";
-		String userIdhql = String.valueOf(userId);
-		UserFunderGrants userFunderGrants = (UserFunderGrants) session
-				.createQuery(userFunderGrantsHql)
-				.setString("userId", userIdhql).uniqueResult();
-		tx.commit();
-		session.flush();
-		session.close();
-		return userFunderGrants;
+	/**
+	 * @param userId
+	 *            to extract the data from Database
+	 * @return userFunderGrants
+	 */
+	public final UserFunderGrants getFundersDetails(final int userId) {
+		try {
+			session = con.getSessionFactory().openSession();
+			txn = session.beginTransaction();
+			String userFunderGrantsHql = " from UserFunderGrants where id.userId=:userId";
+			String userIdhql = String.valueOf(userId);
+			UserFunderGrants userFunderGrants = (UserFunderGrants) session
+					.createQuery(userFunderGrantsHql)
+					.setString("userId", userIdhql).uniqueResult();
+			txn.commit();
+			return userFunderGrants;
+		} finally {
+			if (session != null) {
+				session.flush();
+				session.close();
+			}
+		}
 	}
 }
