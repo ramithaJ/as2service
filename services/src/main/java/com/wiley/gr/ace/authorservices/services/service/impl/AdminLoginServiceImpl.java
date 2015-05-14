@@ -11,6 +11,7 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -92,7 +93,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 		
 		RolesAndPermissions rolesAndPermissions = new RolesAndPermissions();
 		
-		Map<String, StringBuffer> permissionsMap = new HashMap();
+		Map<String, List<String>> permissionsMap = new HashMap();
 		
 		PermissionSection systemSection = new PermissionSection();
 		PermissionSection articleSection = new PermissionSection();
@@ -111,6 +112,9 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 				Role role = new Role();
 				role.setRoleId(daoRoles.getRoleId()+"");
 				role.setRoleName(daoRoles.getRoleName());
+				if(daoRoles.getRoleType().equals(AuthorServicesConstants.ROLE_TYPE_INTERNAL)) {
+					role.setAdminRole(true);
+				}
 				rolesAndPermissions.getRolesList().add(role);
 			}
 			
@@ -146,19 +150,28 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 				
 				String roleIdString = daoRolePermissions.getId().getRoleId()+"";
 				if(permissionsMap.containsKey(roleIdString)) {
-					StringBuffer permissionsString = permissionsMap.get(roleIdString);
-					if(permissionsString == null) {
-						permissionsString = new StringBuffer();
-						permissionsString.append(daoRolePermissions.getId().getPermissionId()+"");
-					} else {
-						permissionsString.append(", "+daoRolePermissions.getId().getPermissionId()+"");
+					List<String> permissionsList = permissionsMap.get(roleIdString);
+					if(permissionsList == null) {
+						permissionsList = new ArrayList<String>();
+						permissionsMap.put(roleIdString, permissionsList);
 					}
+					permissionsList.add(daoRolePermissions.getId().getPermissionId()+"");
+					
 				} else {
-					permissionsMap.put(roleIdString, new StringBuffer().append(daoRolePermissions.getId().getPermissionId()+""));
+					List<String> permissionsList = new ArrayList<String>();
+					permissionsList.add(daoRolePermissions.getId().getPermissionId()+"");
+					permissionsMap.put(roleIdString, permissionsList);
 				}
 				
 			}
-			rolesAndPermissions.setPermissionsMap(permissionsMap);
+			
+			Map<String, String> returnMap = new HashMap<String, String>();
+			
+			for (Map.Entry<String, List<String>> entry : permissionsMap.entrySet()) {
+				
+				returnMap.put(entry.getKey(), entry.getValue().toString());
+			}
+			rolesAndPermissions.setPermissionsMap(returnMap);
 		}
 		return rolesAndPermissions;
 	}

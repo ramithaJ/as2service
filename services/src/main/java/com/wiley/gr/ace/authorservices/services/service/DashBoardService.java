@@ -14,9 +14,10 @@
  */
 package com.wiley.gr.ace.authorservices.services.service;
 
-import java.util.List;
 
-import com.wiley.gr.ace.authorservices.model.Service;
+
+import com.wiley.gr.ace.authorservices.model.DashBoard;
+
 
 /**
  * @author Virtusa
@@ -27,5 +28,5 @@ public interface DashBoardService {
  * @param userId to get the data from DashBoardDAO
  * @return List
  */
-List<Service> getProfileMeter(int userId);
+DashBoard getProfileMeter(int userId);
 }

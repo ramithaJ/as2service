@@ -9,29 +9,19 @@
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
  *******************************************************************************/
+/**
+ * 
+ */
+package com.wiley.gr.ace.authorservices.externalservices.service;
 
-package com.wiley.gr.ace.authorservices.constants;
+import com.wiley.gr.ace.authorservices.model.orcid.OrcidAccessToken;
 
 /**
- * @author sarmakumarap
+ * @author vkumark
  *
  */
-public class AuthorServicesConstants {
-	
-	public static final String ADM_ACC_LOOKUP_KEY = "ADMACC";
-	
-	public static final String PERMISSION_LEVEL_SYSTEM = "System";
-	
-	public static final String PERMISSION_LEVEL_ARTICLE = "Article";
-	
-	public static final String PERMISSION_LEVEL_ADMIN = "Admin";
-	
-	public static final String PERMISSION_TYPE_INTERNAL = "internalusers";
-	
-	public static final String PERMISSION_TYPE_EXTERNAL = "externalusers";
-	
-	public static final String ROLE_TYPE_EXTERNAL = "External";
-	
-	public static final String ROLE_TYPE_INTERNAL = "Internal";
+public interface OrcidInterfaceService {
+	OrcidAccessToken getAccessToken(String authorizationCode) throws Exception;
 
+	String getBio(OrcidAccessToken accessToken) throws Exception;
 }

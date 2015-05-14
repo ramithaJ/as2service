@@ -64,7 +64,6 @@ public class UserAccount {
 
 	/** The address vo. */
 	private String addressVO;
-
 	/**
 	 * Gets the title.
 	 *

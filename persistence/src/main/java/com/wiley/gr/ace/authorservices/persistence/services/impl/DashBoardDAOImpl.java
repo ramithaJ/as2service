@@ -31,13 +31,16 @@ import com.wiley.gr.ace.authorservices.persistence.services.DashBoardDAO;
  *
  */
 public class DashBoardDAOImpl implements DashBoardDAO {
-	/**
-	 * @see
-	 */
+	
+	/** HibernateConnection . */
 	@Autowired(required = true)
 	private HibernateConnection con;
+	
+	/** The Session . */
 	private Session session = null;
-	Transaction txn = null;
+	
+	/** The Transaction . */
+	private Transaction txn = null;
 
 	/**
 	 * @param userId
@@ -69,9 +72,9 @@ public class DashBoardDAOImpl implements DashBoardDAO {
 	 */
 	public final UserFunderGrants getFundersDetails(final int userId) {
 		try {
-			session = con.getSessionFactory().openSession();
+			session = HibernateConnection.getSessionFactory().openSession();
 			txn = session.beginTransaction();
-			String userFunderGrantsHql = " from UserFunderGrants where id.userId=:userId";
+			String userFunderGrantsHql = "from UserFunderGrants where id.userId=:userId";
 			UserFunderGrants userFunderGrants = (UserFunderGrants) session
 					.createQuery(userFunderGrantsHql)
 					.setInteger("userId", userId).uniqueResult();
@@ -90,16 +93,18 @@ public class DashBoardDAOImpl implements DashBoardDAO {
 	 *            to extract the data from Database
 	 * @return AuthorProfile
 	 */
-	public AuthorProfile getMissedUserProfile(int userId) {
+	public final AuthorProfile getMissedUserProfile(final int userId) {
 		try {
-			session = con.getSessionFactory().openSession();
+			session = HibernateConnection.getSessionFactory().openSession();
 			txn = session.beginTransaction();
-			String profileHql = "from AuthorProfile where userId=:userId";
-			AuthorProfile userMissedProfile = (AuthorProfile) session
+			String profileHql = "select isAccountVerified from AuthorProfile where userId=:userId";
+			Character isAccountVerified = (Character) session
 					.createQuery(profileHql).setInteger("userId", userId)
 					.uniqueResult();
+			AuthorProfile authorProfile = new AuthorProfile();
+			authorProfile.setIsAccountVerified(isAccountVerified);
 			txn.commit();
-			return userMissedProfile;
+			return authorProfile;
 		} finally {
 			if (session != null) {
 				session.flush();

@@ -27,7 +27,7 @@ public class RolesAndPermissions {
 	
 	private List<PermissionSection> sectionsList = new ArrayList<PermissionSection>();
 	
-	private Map<String, StringBuffer> permissionsMap = new HashMap<String, StringBuffer>();
+	private Map<String, String> permissionsMap = new HashMap<String, String>();
 
 	/**
 	 * @return
@@ -60,16 +60,20 @@ public class RolesAndPermissions {
 	/**
 	 * @return
 	 */
-	public Map<String, StringBuffer> getPermissionsMap() {
+	public Map<String, String> getPermissionsMap() {
 		return permissionsMap;
 	}
 
 	/**
 	 * @param permissionsMap
 	 */
-	public void setPermissionsMap(Map<String, StringBuffer> permissionsMap) {
+	public void setPermissionsMap(Map<String, String> permissionsMap) {
 		this.permissionsMap = permissionsMap;
 	}
+
+	
+
+	
 
 
 }
