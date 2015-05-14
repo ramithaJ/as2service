@@ -74,10 +74,12 @@ public class User {
 	private String password;
 
 	private boolean searchFullName;
-	
+
 	private String country;
-	
+
 	private Character termsOfUseFlg;
+
+	private UserReferenceData userReferenceData;
 
 	/**
 	 * @return the userId
@@ -432,6 +434,14 @@ public class User {
 
 	public void setTermsOfUseFlg(Character termsOfUseFlg) {
 		this.termsOfUseFlg = termsOfUseFlg;
+	}
+
+	public UserReferenceData getUserReferenceData() {
+		return userReferenceData;
+	}
+
+	public void setUserReferenceData(UserReferenceData userReferenceData) {
+		this.userReferenceData = userReferenceData;
 	}
 
 }

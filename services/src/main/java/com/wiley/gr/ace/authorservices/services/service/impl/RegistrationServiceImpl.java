@@ -18,6 +18,8 @@ import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.model.User;
+import com.wiley.gr.ace.authorservices.model.UserReferenceData;
+import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
 
 /**
@@ -54,9 +56,25 @@ public class RegistrationServiceImpl implements RegistrationService {
 
 	@Override
 	public User checkEmailIdExists(String emailId) throws Exception {
-		User user = null;
+		User user = new User();
+		ESBUser esbUser = null;
 		if (!StringUtils.isEmpty(emailId)) {
-			user = esbInterFaceService.checkEmailIdExists(emailId);
+			esbUser = esbInterFaceService.checkEmailIdExists(emailId);
+			if (null != esbUser) {
+				UserReferenceData userRefData = new UserReferenceData();
+				userRefData.setEcid(esbUser.getEcid());
+				userRefData.setStatus(esbUser.getStatus());
+				user.setUserId(esbUser.getUserId());
+				user.setFirstName(esbUser.getFirstName());
+				user.setLastName(esbUser.getLastName());
+				user.setPrimaryEmailAddr(esbUser.getEmailId());
+				user.setCountry(esbUser.getCountry());
+				user.setUserReferenceData(userRefData);
+			} else {
+				user = null;
+			}
+		} else {
+			user = null;
 		}
 
 		return user;

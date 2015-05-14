@@ -26,19 +26,20 @@ import org.springframework.web.client.RestTemplate;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.model.User;
+import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 
 /**
  * @author Virtusa
  *
  */
 public class ESBInterfaceServiceImpl implements ESBInterfaceService {
-	
+
 	@Value("${email-mock.url}")
 	private String emailCheckUrl;
-	
+
 	@Value("${fullname-mock.url}")
 	private String nameCheckUrl;
-	
+
 	@Value("${createuser-mock.url}")
 	private String createUserUrl;
 
@@ -91,28 +92,30 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 	 */
 
 	@Override
-	public User checkEmailIdExists(String emailId) throws Exception {
-		User user = new User();
+	public ESBUser checkEmailIdExists(String emailId) throws Exception {
+		ESBUser esbUser = new ESBUser();
 		final String url = emailCheckUrl;
 		URI uri = new URI(url);
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders requestHeaders = new HttpHeaders();
 
 		requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-		HttpEntity<User> requestEntity = new HttpEntity<User>(requestHeaders);
+		HttpEntity<ESBUser> requestEntity = new HttpEntity<ESBUser>(
+				requestHeaders);
 
-		ResponseEntity<User> response = restTemplate.exchange(uri,
-				HttpMethod.GET, requestEntity, User.class);
-		if (null != response)
-			user = response.getBody();
-		else
-			user = null;
-		return user;
+		ResponseEntity<ESBUser> response = restTemplate.exchange(uri,
+				HttpMethod.GET, requestEntity, ESBUser.class);
+		if (null != response) {
+			esbUser = response.getBody();
+			//System.err.println(esbUser.getFirstName());
+		} else
+			esbUser = null;
+		return esbUser;
 	}
 
 	@Override
-	public List<User> getUsersFromFirstNameLastName(String email, String firstName,
-			String lastName) throws Exception {
+	public List<User> getUsersFromFirstNameLastName(String email,
+			String firstName, String lastName) throws Exception {
 		List<User> usersList = new ArrayList<User>();
 		final String url = nameCheckUrl;
 		URI uri = new URI(url);

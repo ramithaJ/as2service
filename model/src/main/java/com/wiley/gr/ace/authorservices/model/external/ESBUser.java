@@ -16,7 +16,10 @@ public class ESBUser {
 	private String firstName;
 	private String lastName;
 	private String emailId;
-	private String contactId; // need to finalise the datatype
+	private String country;
+	private String ecid;
+	private String status;
+	private int userId;
 
 	public String getFirstName() {
 		return firstName;
@@ -42,12 +45,36 @@ public class ESBUser {
 		this.emailId = emailId;
 	}
 
-	public String getContactId() {
-		return contactId;
+	public String getCountry() {
+		return country;
 	}
 
-	public void setContactId(String contactId) {
-		this.contactId = contactId;
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getEcid() {
+		return ecid;
+	}
+
+	public void setEcid(String ecid) {
+		this.ecid = ecid;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 }

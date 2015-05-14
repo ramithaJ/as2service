@@ -55,18 +55,28 @@ public class RegistrationController {
 				service.setError(err);
 			}
 			if (user != null) {
-				service.setStatus("FAILURE");
-				ErrorPOJO err = new ErrorPOJO();
-				err.setCode(202);
-				err.setMessage("Email address already exists");
-				service.setError(err);
-				service.setPayload(user);
+				if (user.getUserId() > 0) {
+					service.setStatus("FAILURE");
+					ErrorPOJO err = new ErrorPOJO();
+					err.setCode(202);
+					err.setMessage("Email address already registered");
+					service.setError(err);
+					service.setPayload(user);
+				} else {
+					service.setStatus("FAILURE");
+					ErrorPOJO err = new ErrorPOJO();
+					err.setCode(203);
+					err.setMessage("Email address exists in the system but not registered with AS 2.0");
+					service.setError(err);
+					service.setPayload(user);
+				}
 			} else {
 				service.setStatus("SUCCESS");
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			ErrorPOJO err = new ErrorPOJO();
-			err.setCode(202);
+			err.setCode(204);
 			err.setMessage("searching user encountered exception");
 			service.setStatus("ERROR");
 			service.setError(err);
@@ -97,7 +107,7 @@ public class RegistrationController {
 			}
 			status = rs.createUser(user);
 			if (status.equalsIgnoreCase("success")) {
-				service.setStatus("SUCESS");
+				service.setStatus("SUCCESS");
 			} else {
 				service.setStatus("FAILURE");
 				ErrorPOJO err = new ErrorPOJO();
