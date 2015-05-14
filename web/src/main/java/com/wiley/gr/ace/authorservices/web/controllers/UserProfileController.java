@@ -405,6 +405,9 @@ public class UserProfileController {
 	@RequestMapping(value = "/deletePreferredJournals/{userId}", method = RequestMethod.POST, produces = "application/json")
 	public Service deletePreferredJournals(
 			@PathVariable("userId") String userId, @RequestBody String journalId) {
+		System.err.println("controller" +userId + journalId +"in controller");
+		
+		   userProfileService.deletePreferredJournals(userId, journalId);
 
 		return null;
 	}
@@ -452,11 +455,9 @@ public class UserProfileController {
 	@RequestMapping(value = "/updateAlerts/{userId}", method = RequestMethod.POST, produces = "application/json")
 	public Service updateAlerts(@PathVariable("userId") String userId,
 			@RequestBody List<Alert> alertsList) {
-		Service service = new Service();
 		userProfileService.updateAlerts(userId, alertsList);
-		service.setStatus("success");
 
-		return service;
+		return new Service();
 	}
 
 }

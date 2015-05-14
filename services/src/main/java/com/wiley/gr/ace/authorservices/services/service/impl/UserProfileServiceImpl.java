@@ -220,7 +220,10 @@ public class UserProfileServiceImpl implements UserProfileService {
 
 	@Override
 	public boolean deletePreferredJournals(String userId, String journalId) {
-		// TODO Auto-generated method stub
+		
+		System.err.println("service" +userId + journalId +"in service");
+
+		userPreferredJournalsDAO.deletePreferredJournals(userId, journalId);
 		return false;
 	}
 
@@ -278,15 +281,15 @@ public class UserProfileServiceImpl implements UserProfileService {
 						.getAlertId())) {
 
 					if (alert.isEmail()) {
-						daoAlert.setEmailFlg(new Character('Y'));
+						daoAlert.setEmailFlg(new Character('y'));
 					} else {
-						daoAlert.setEmailFlg(new Character('N'));
+						daoAlert.setEmailFlg(new Character('n'));
 					}
 
 					if (alert.isOnScreen()) {
-						daoAlert.setOnScreenFlg(new Character('Y'));
+						daoAlert.setOnScreenFlg(new Character('y'));
 					} else {
-						daoAlert.setOnScreenFlg(new Character('N'));
+						daoAlert.setOnScreenFlg(new Character('n'));
 					}
 					break;
 				}

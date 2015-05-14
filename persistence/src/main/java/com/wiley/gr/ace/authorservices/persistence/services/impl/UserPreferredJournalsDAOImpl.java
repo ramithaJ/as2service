@@ -19,12 +19,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserPreferredJournals;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserPreferredJournalsId;
 import com.wiley.gr.ace.authorservices.persistence.services.UserPreferredJournalsDAO;
 
 public class UserPreferredJournalsDAOImpl implements UserPreferredJournalsDAO {
 
 	@Autowired(required = true)
-	HibernateConnection con;
+	static HibernateConnection con;
 
 	@Override
 	public List<UserPreferredJournals> getPreferredJournals(String userId) {
@@ -50,4 +51,71 @@ public class UserPreferredJournalsDAOImpl implements UserPreferredJournalsDAO {
 
 	}
 
+	@Override
+	public boolean deletePreferredJournals(String userId, String journalId) {
+		System.err.println("DAo "  +userId +"dao" +journalId);
+		Session session = con.getSessionFactory().openSession();
+          session.beginTransaction();
+          System.err.println("before try");
+
+		try {
+			System.err.println("in try");
+
+			UserPreferredJournals userPrefferJournals = new UserPreferredJournals();
+			System.err.println("userPrefferJournals");
+			
+			userPrefferJournals.setId(new UserPreferredJournalsId(Integer.parseInt("userId"), Integer.parseInt("journalId")));
+		System.err.println("after setting UserPreferredJournalsId " +userPrefferJournals.getId());
+			UserPreferredJournals userPreferredJournals2=(UserPreferredJournals) session.get(UserPreferredJournals.class, userPrefferJournals.getId());
+			
+			 if (userPreferredJournals2 !=null) {
+				  session.delete(userPreferredJournals2);
+				  return true;
+				
+			} 	
+
+	}
+		finally{
+			if(session !=null)
+				session.getTransaction().commit();
+				session.flush();
+			session.close();
+		}
+		return false;
+			
+			
+		}
+
+	public static void main(String[] args) {
+	Session session = con.getSessionFactory().openSession();
+	
+    session.beginTransaction();
+
+	try {
+
+		UserPreferredJournals userPrefferJournals = new UserPreferredJournals();
+		
+		userPrefferJournals.setId(new UserPreferredJournalsId(Integer.parseInt("1000"), Integer.parseInt("101")));
+	
+		userPrefferJournals=(UserPreferredJournals) session.get(UserPreferredJournals.class, userPrefferJournals.getId());
+		
+		 if (userPrefferJournals !=null) {
+			  session.delete(userPrefferJournals); 
+			
+		} 	
+			
+	
 }
+	finally{
+		if(session !=null)
+			session.getTransaction().commit();
+			session.flush();
+		session.close();
+	}
+		
+		
+	}
+}
+
+
+
