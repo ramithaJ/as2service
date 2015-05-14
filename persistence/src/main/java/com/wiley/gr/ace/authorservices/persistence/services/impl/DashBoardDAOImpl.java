@@ -19,7 +19,9 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
+import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserFunderGrants;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
 import com.wiley.gr.ace.authorservices.persistence.services.DashBoardDAO;
@@ -70,12 +72,34 @@ public class DashBoardDAOImpl implements DashBoardDAO {
 			session = con.getSessionFactory().openSession();
 			txn = session.beginTransaction();
 			String userFunderGrantsHql = " from UserFunderGrants where id.userId=:userId";
-			String userIdhql = String.valueOf(userId);
 			UserFunderGrants userFunderGrants = (UserFunderGrants) session
 					.createQuery(userFunderGrantsHql)
-					.setString("userId", userIdhql).uniqueResult();
+					.setInteger("userId", userId).uniqueResult();
 			txn.commit();
 			return userFunderGrants;
+		} finally {
+			if (session != null) {
+				session.flush();
+				session.close();
+			}
+		}
+	}
+
+	/**
+	 * @param userId
+	 *            to extract the data from Database
+	 * @return userFunderGrants
+	 */
+	public AuthorProfile getMissedUserProfile(int userId) {
+		try {
+			session = con.getSessionFactory().openSession();
+			txn = session.beginTransaction();
+			String profileHql = "from AuthorProfile where userId=:userId";
+			AuthorProfile userMissedProfile = (AuthorProfile) session
+					.createQuery(profileHql).setInteger("userId", userId)
+					.uniqueResult();
+			txn.commit();
+			return userMissedProfile;
 		} finally {
 			if (session != null) {
 				session.flush();
