@@ -11,6 +11,8 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.model;
 
+import java.util.Set;
+
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -35,7 +37,7 @@ public class ResearchFunder {
 	
 	private String articleName;
 	
-	private String[] grantNumber;
+	private Set<String> grantNumber;
 
 	
 	public Integer getResearchFunderId() {
@@ -46,60 +48,43 @@ public class ResearchFunder {
 		this.researchFunderId = researchFunderId;
 	}
 
-	/**
-	 * @return
-	 */
 	public String getResearchFunderName() {
 		return researchFunderName;
 	}
 
-	/**
-	 * @param researchFunderName
-	 */
 	public void setResearchFunderName(String researchFunderName) {
 		this.researchFunderName = researchFunderName;
 	}
 
-	/**
-	 * @return
-	 */
 	public String getArticleAID() {
 		return articleAID;
 	}
 
-	/**
-	 * @param articleAID
-	 */
 	public void setArticleAID(String articleAID) {
 		this.articleAID = articleAID;
 	}
 
-	/**
-	 * @return
-	 */
 	public String getArticleName() {
 		return articleName;
 	}
 
-	/**
-	 * @param articleName
-	 */
 	public void setArticleName(String articleName) {
 		this.articleName = articleName;
 	}
 
-	/**
-	 * @return
-	 */
-	public String[] getGrantNumber() {
+	public Set<String> getGrantNumber() {
 		return grantNumber;
 	}
 
-	/**
-	 * @param grantNumber
-	 */
-	public void setGrantNumber(String[] grantNumber) {
+	public void setGrantNumber(Set<String> grantNumber) {
 		this.grantNumber = grantNumber;
 	}
 
+	
+	
+	
+
+	
+
+	
 }

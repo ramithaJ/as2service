@@ -2,15 +2,13 @@ package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
 import java.util.List;
 
-import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
-import com.wiley.gr.ace.authorservices.persistence.entity.ResearchFunders;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserFunderGrants;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserFunderGrantsId;
 import com.wiley.gr.ace.authorservices.persistence.services.ResearchFundersDAO;
 
 public class ResearchFundersDAOImpl implements ResearchFundersDAO {
@@ -46,22 +44,18 @@ public class ResearchFundersDAOImpl implements ResearchFundersDAO {
 
 		Session session = con.getSessionFactory().openSession();
 		session.beginTransaction();
-		UserFunderGrants userFunderGrants = null;
-		ResearchFunders researchFunders = new ResearchFunders();
 		try {
 
-			Criteria criteria = session.createCriteria(UserFunderGrants.class);
-			criteria.add(Restrictions.eq("id.userId", Integer.parseInt(userId)));
-			criteria.add(Restrictions.eq("researchFunders.rfunderId",
-					researchFunder.getResearchFunderId()));
-			userFunderGrants = (UserFunderGrants) criteria.uniqueResult();
+			UserFunderGrants userFunderGrants = new UserFunderGrants();
+			userFunderGrants.setId(new UserFunderGrantsId(Integer
+					.parseInt(userId), researchFunder.getResearchFunderId(),
+					researchFunder.getResearchFunderName()));
+			userFunderGrants = (UserFunderGrants) session.get(
+					UserFunderGrants.class, userFunderGrants.getId());
 			if (null != userFunderGrants) {
-				
-				researchFunders.setFunderName(researchFunder
-						.getResearchFunderName());
-				userFunderGrants.setResearchFunders(researchFunders);
-				session.saveOrUpdate(userFunderGrants);
-				session.getTransaction().commit();
+
+				// userFunderGrants.s
+
 			}
 			return true;
 		} finally {

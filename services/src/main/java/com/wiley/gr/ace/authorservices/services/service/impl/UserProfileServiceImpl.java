@@ -12,7 +12,10 @@
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -83,14 +86,31 @@ public class UserProfileServiceImpl implements UserProfileService {
 		List<UserFunderGrants> userFunderGrants = researchFundersDAO
 				.getResearchFunders(userId);
 		List<ResearchFunder> researchList = new ArrayList<ResearchFunder>();
-		for (int i = 0; i < userFunderGrants.size(); i++) {
+		HashSet<Integer> checkSet = new HashSet<>();
+		Set<String> grantNumbers = null;
+		ResearchFunder researchFunder = null;
+		Set<UserFunderGrants> grantset = null;
+		for (UserFunderGrants funderDAO : userFunderGrants) {
 
-			ResearchFunder researchFunder = new ResearchFunder();
-			researchFunder.setResearchFunderId(userFunderGrants.get(i)
-					.getResearchFunders().getRfunderId());
-			researchFunder.setResearchFunderName(userFunderGrants.get(i)
-					.getResearchFunders().getFunderName());
-			researchList.add(researchFunder);
+			grantNumbers = new TreeSet<String>();
+			if (!checkSet.contains(funderDAO.getResearchFunders()
+					.getRfunderId())) {
+
+				researchFunder = new ResearchFunder();
+				researchFunder.setResearchFunderId(funderDAO
+						.getResearchFunders().getRfunderId());
+				checkSet.add(funderDAO.getResearchFunders().getRfunderId());
+				researchFunder.setResearchFunderName(funderDAO
+						.getResearchFunders().getFunderName());
+				funderDAO.getResearchFunders().getUserFunderGrantses();
+				grantset = funderDAO.getResearchFunders()
+						.getUserFunderGrantses();
+				for (UserFunderGrants funderSet : grantset) {
+					grantNumbers.add(funderSet.getId().getGrantNum());
+				}
+				researchFunder.setGrantNumber(grantNumbers);
+				researchList.add(researchFunder);
+			}
 		}
 		return researchList;
 	}
