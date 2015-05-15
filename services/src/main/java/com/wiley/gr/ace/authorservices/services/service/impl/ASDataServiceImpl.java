@@ -138,7 +138,7 @@ public class ASDataServiceImpl implements ASDataService {
 	@Override
 	public List<Role> getAdminRoles() {
 
-		List<Roles> daoRolesList = aSDataDAO.getAdminRoles();
+		List<Roles> daoRolesList = aSDataDAO.getAdminRoles(null);
 		List<Role> adminRoles = new ArrayList<Role>();
 		Role adminRole = null;
 
