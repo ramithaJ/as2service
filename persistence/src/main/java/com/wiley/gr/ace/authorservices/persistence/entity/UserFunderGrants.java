@@ -44,7 +44,7 @@ public class UserFunderGrants implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "USER_ID", nullable = false, insertable = false, updatable = false)
 	public AuthorProfile getAuthorProfile() {
 		return this.authorProfile;
@@ -54,7 +54,7 @@ public class UserFunderGrants implements java.io.Serializable {
 		this.authorProfile = authorProfile;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "RFUNDER_ID", nullable = false, insertable = false, updatable = false)
 	public ResearchFunders getResearchFunders() {
 		return this.researchFunders;
