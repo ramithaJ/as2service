@@ -34,59 +34,65 @@ import com.wiley.gr.ace.authorservices.services.service.DashBoardService;
  *
  */
 public class DashBoardServiceImpl implements DashBoardService {
-	
+
 	/** The Auto Wired for DashBoardDAO . */
 	@Autowired(required = true)
 	private DashBoardDAO dashBoardDAO;
 
 	/**
-	 * @param userId to get the data from DashBoardDAO
+	 * @param userId
+	 *            to get the data from DashBoardDAO
 	 * @return dashBoard
 	 */
-	public final DashBoard getProfileMeter(final int userId) {
+	public DashBoard getProfileMeter(int userId) throws Exception {
 		List<UserSecurityDetails> securityDetailsList = null;
 		DashBoard dashBoard = new DashBoard();
-		securityDetailsList = dashBoardDAO.getSecurityDetailsList(userId);
-		if (null != securityDetailsList) {
-			for (UserSecurityDetails secureDetails : securityDetailsList) {
-				if (StringUtils.isEmpty(secureDetails.getSecurityQuestion())
-						|| StringUtils.isEmpty(secureDetails
-								.getSecurityAnswer())) {
-					SecurityDetails securityDetails = new SecurityDetails();
-					securityDetails.setSecurityQuestion(secureDetails
-							.getSecurityQuestion());
-					securityDetails.setSecurityAnswer(secureDetails
-							.getSecurityAnswer());
-					dashBoard.setSecurityDetails(securityDetails);
-					break;
+		if (userId > 0) {
+			securityDetailsList = dashBoardDAO.getSecurityDetailsList(userId);
+			if (null != securityDetailsList) {
+				for (UserSecurityDetails secureDetails : securityDetailsList) {
+					if (StringUtils
+							.isEmpty(secureDetails.getSecurityQuestion())
+							|| StringUtils.isEmpty(secureDetails
+									.getSecurityAnswer())) {
+						SecurityDetails securityDetails = new SecurityDetails();
+						securityDetails.setSecurityQuestion(secureDetails
+								.getSecurityQuestion());
+						securityDetails.setSecurityAnswer(secureDetails
+								.getSecurityAnswer());
+						dashBoard.setSecurityDetails(securityDetails);
+						break;
+					}
 				}
 			}
+			UserFunderGrants userFunderGrants = dashBoardDAO
+					.getFundersDetails(userId);
+			if (StringUtils.isEmpty(userFunderGrants)) {
+				Service service = new Service();
+				service.setStatus("Missed to Add Your Funder Details ");
+				dashBoard.setServiceFunders(service);
+			}
+			AuthorProfile authorMissedProfile = dashBoardDAO
+					.getMissedUserProfile(userId);
+			Character isAccountVerified = authorMissedProfile
+					.getIsAccountVerified();
+			if (isAccountVerified.equals('N')) {
+				UserMgmt userMgmt = new UserMgmt();
+				userMgmt.setIsAccountVerified(isAccountVerified);
+				userMgmt.setOrcidID("OrcidId");
+				userMgmt.setSecondaryEmailAddress("secondaryEmailAddr");
+				dashBoard.setUserMgmt(userMgmt);
+			}
+			Society society = new Society();
+			society.setSocietyId("false");
+			dashBoard.setSociety(society);
+			Affiliation affiliation = new Affiliation();
+			dashBoard.setAffiliation(affiliation);
+			Interests interests = new Interests();
+			dashBoard.setInterests(interests);
+		} else {
+			dashBoard = null;
 		}
-		UserFunderGrants userFunderGrants = dashBoardDAO
-				.getFundersDetails(userId);
-		if (StringUtils.isEmpty(userFunderGrants)) {
-			Service service = new Service();
-			service.setStatus("Missed to Add Your Funder Details ");
-			dashBoard.setServiceFunders(service);
-		}
-		AuthorProfile authorMissedProfile = dashBoardDAO
-				.getMissedUserProfile(userId);
-		Character isAccountVerified = authorMissedProfile
-				.getIsAccountVerified();
-		if (isAccountVerified.equals('N')) {
-			UserMgmt userMgmt = new UserMgmt();
-			userMgmt.setIsAccountVerified(isAccountVerified);
-			userMgmt.setOrcidID("OrcidId");
-			userMgmt.setSecondaryEmailAddress("secondaryEmailAddr");
-			dashBoard.setUserMgmt(userMgmt);
-		}
-		Society society = new Society();
-		society.setSocietyId("false");
-		dashBoard.setSociety(society);
-		Affiliation affiliation = new Affiliation();
-		dashBoard.setAffiliation(affiliation);
-		Interests interests = new Interests();
-		dashBoard.setInterests(interests);
 		return dashBoard;
 	}
 }

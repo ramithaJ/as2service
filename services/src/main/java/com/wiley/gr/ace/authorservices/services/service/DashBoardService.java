@@ -28,5 +28,5 @@ public interface DashBoardService {
  * @param userId to get the data from DashBoardDAO
  * @return List
  */
-DashBoard getProfileMeter(int userId);
+DashBoard getProfileMeter(int userId) throws Exception;
 }

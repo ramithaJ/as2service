@@ -42,19 +42,22 @@ public class DashBoardController {
 
 	@RequestMapping(value = "/profilemeter/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Service getProfileMeter(
-			@PathVariable("userId") String userId) {
+			@PathVariable("userId") int userId) {
 
 		Service service = new Service();
 		DashBoard dashBoard = null;
 
 		try {
-			dashBoard = dashBoardService.getProfileMeter(Integer
-					.parseInt(userId));
+			dashBoard = dashBoardService.getProfileMeter(userId);
 			if (null != dashBoard) {
-				service.setStatus("Success");
+				service.setStatus("SUCCESS");
 				service.setPayload(dashBoard);
 			} else {
-				service.setStatus("failure");
+				service.setStatus("FAILURE");
+				ErrorPOJO error = new ErrorPOJO();
+				error.setCode(-102);
+				error.setMessage("Profilemeter is empty");
+				service.setError(error);
 			}
 		} catch (Exception e) {
 			ErrorPOJO error = new ErrorPOJO();
@@ -62,7 +65,7 @@ public class DashBoardController {
 									// dummy
 			error.setMessage("Error fetching profile meter");
 
-			service.setStatus("error");
+			service.setStatus("ERROR");
 			service.setPayload(dashBoard);
 			service.setError(error);
 			throw new ASException("-2", "Error fetching profile meter", e);

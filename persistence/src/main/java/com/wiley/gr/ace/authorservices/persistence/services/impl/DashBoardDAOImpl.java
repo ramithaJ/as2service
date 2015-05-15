@@ -31,14 +31,14 @@ import com.wiley.gr.ace.authorservices.persistence.services.DashBoardDAO;
  *
  */
 public class DashBoardDAOImpl implements DashBoardDAO {
-	
+
 	/** HibernateConnection . */
 	@Autowired(required = true)
 	private HibernateConnection con;
-	
+
 	/** The Session . */
 	private Session session = null;
-	
+
 	/** The Transaction . */
 	private Transaction txn = null;
 
@@ -47,8 +47,7 @@ public class DashBoardDAOImpl implements DashBoardDAO {
 	 *            to extract the data from Database
 	 * @return secureResultList
 	 */
-	public final List<UserSecurityDetails> getSecurityDetailsList(
-			final int userId) {
+	public List<UserSecurityDetails> getSecurityDetailsList(int userId) {
 		try {
 			session = con.getSessionFactory().openSession();
 			txn = session.beginTransaction();
@@ -65,12 +64,13 @@ public class DashBoardDAOImpl implements DashBoardDAO {
 			}
 		}
 	}
+
 	/**
 	 * @param userId
 	 *            to extract the data from Database
 	 * @return userFunderGrants
 	 */
-	public final UserFunderGrants getFundersDetails(final int userId) {
+	public UserFunderGrants getFundersDetails(int userId) throws Exception {
 		try {
 			session = HibernateConnection.getSessionFactory().openSession();
 			txn = session.beginTransaction();
@@ -93,7 +93,7 @@ public class DashBoardDAOImpl implements DashBoardDAO {
 	 *            to extract the data from Database
 	 * @return AuthorProfile
 	 */
-	public final AuthorProfile getMissedUserProfile(final int userId) {
+	public AuthorProfile getMissedUserProfile(int userId) throws Exception {
 		try {
 			session = HibernateConnection.getSessionFactory().openSession();
 			txn = session.beginTransaction();

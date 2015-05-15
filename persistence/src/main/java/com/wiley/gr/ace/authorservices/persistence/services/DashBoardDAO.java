@@ -29,15 +29,15 @@ public interface DashBoardDAO {
 	 * @param userId
 	 * @return List
 	 */
-	List<UserSecurityDetails> getSecurityDetailsList(int userId);
+	List<UserSecurityDetails> getSecurityDetailsList(int userId) throws Exception;
 	/**
 	 * @param userId
 	 * @return UserFunderGrants
 	 */
-	UserFunderGrants getFundersDetails(int userId);
+	UserFunderGrants getFundersDetails(int userId) throws Exception;
 	/**
 	 * @param userId
 	 * @return AuthorProfile
 	 */
-	AuthorProfile getMissedUserProfile(int userId);
+	AuthorProfile getMissedUserProfile(int userId) throws Exception;
 }
