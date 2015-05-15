@@ -148,10 +148,13 @@ public class UserProfileController {
 	 * @param userId
 	 * @return
 	 */
-	@RequestMapping(value = "/getResearchFunders/{userId}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/researchFunders/{userId}", method = RequestMethod.GET)
 	public Service getResearchFundersList(@PathVariable("userId") String userId) {
 
-		return null;
+		Service service = new Service();
+		service.setStatus("Success");
+		service.setPayload(userProfileService.getResearchFunders(userId));
+		return service;
 	}
 
 	/**
