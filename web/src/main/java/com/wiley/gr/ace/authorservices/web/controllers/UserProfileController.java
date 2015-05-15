@@ -13,8 +13,6 @@ package com.wiley.gr.ace.authorservices.web.controllers;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
@@ -51,7 +49,7 @@ public class UserProfileController {
 
 	@Autowired(required = true)
 	UserProfileService userProfileService;
-	
+
 	@Autowired(required = true)
 	LocalValidatorFactoryBean validator;
 
@@ -208,11 +206,12 @@ public class UserProfileController {
 	 */
 	@RequestMapping(value = "/researchFunder/update/{userId}", method = RequestMethod.POST)
 	public Service updateResearchFunder(@PathVariable("userId") String userId,
-			 @RequestBody ResearchFunder funderJson) {
+			@RequestBody ResearchFunder funderJson) {
 
 		Service service = new Service();
 		service.setStatus("Success");
-		service.setPayload(userProfileService.updateResearchFunder(userId, funderJson));
+		service.setPayload(userProfileService.updateResearchFunder(userId,
+				funderJson));
 		return service;
 	}
 
@@ -220,10 +219,13 @@ public class UserProfileController {
 	 * @param userId
 	 * @return
 	 */
-	@RequestMapping(value = "/getSocietiesList/{userId}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/societies/{userId}", method = RequestMethod.GET, produces = "application/json")
 	public Service getSocietiesList(@PathVariable("userId") String userId) {
 
-		return null;
+		Service service = new Service();
+		service.setPayload(userProfileService.getSocietiesForUser(userId));
+
+		return service;
 	}
 
 	/**

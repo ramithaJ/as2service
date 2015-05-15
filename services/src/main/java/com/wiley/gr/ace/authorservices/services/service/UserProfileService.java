@@ -85,7 +85,7 @@ public interface UserProfileService {
 	 * @param userId
 	 * @return
 	 */
-	Society[] getSocietiesForUser(String userId);
+	List<Society> getSocietiesForUser(String userId);
 
 	/**
 	 * @param userId
