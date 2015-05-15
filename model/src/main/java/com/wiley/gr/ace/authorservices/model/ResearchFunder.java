@@ -11,13 +11,17 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * @author SarmaKumarap
  *
  */
+@JsonInclude(Include.NON_NULL)
 public class ResearchFunder {
 	
-	private String researchFunderId;
+	private Integer researchFunderId;
 	
 	private String researchFunderName;
 	
@@ -27,17 +31,12 @@ public class ResearchFunder {
 	
 	private String[] grantNumber;
 
-	/**
-	 * @return
-	 */
-	public String getResearchFunderId() {
+	
+	public Integer getResearchFunderId() {
 		return researchFunderId;
 	}
 
-	/**
-	 * @param researchFunderId
-	 */
-	public void setResearchFunderId(String researchFunderId) {
+	public void setResearchFunderId(Integer researchFunderId) {
 		this.researchFunderId = researchFunderId;
 	}
 
