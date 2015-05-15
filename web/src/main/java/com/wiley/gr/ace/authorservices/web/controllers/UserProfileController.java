@@ -214,7 +214,6 @@ public class UserProfileController {
 				funderJson));
 		return service;
 	}
-
 	/**
 	 * @param userId
 	 * @return
