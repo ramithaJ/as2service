@@ -13,11 +13,19 @@ package com.wiley.gr.ace.authorservices.model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * @author SarmaKumarap
  *
  */
+@JsonInclude(Include.NON_NULL)
 public class Society {
+	
+
+	/** The user Id . */
+	private String userId;
 	
 	private String societyId;
 	
@@ -30,6 +38,24 @@ public class Society {
 	private Date startDate;
 	
 	private Date endDate;
+	
+	/**
+	 * Gets the user Id.
+	 *
+	 * @return the user Id
+	 */
+	public String getUserId() {
+		return userId;
+	}
+
+	/**
+	 * Sets the user Id.
+	 *
+	 * @return the user Id
+	 */
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
 	/**
 	 * @return
