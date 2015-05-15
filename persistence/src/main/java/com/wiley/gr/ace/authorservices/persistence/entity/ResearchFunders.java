@@ -100,7 +100,7 @@ public class ResearchFunders implements java.io.Serializable {
 		this.updatedBy = updatedBy;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "researchFunders")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "researchFunders")
 	public Set<UserFunderGrants> getUserFunderGrantses() {
 		return this.userFunderGrantses;
 	}
