@@ -147,6 +147,22 @@ public class OrcidServiceImpl implements OrcidService {
 								}
 							}
 						}
+						/**
+						 * Fetching country code from address field
+						 */
+						JSONObject addressJSON = (JSONObject) new JSONParser()
+								.parse(contactDetails.toJSONString());
+						JSONObject addressDetails = (JSONObject) addressJSON
+								.get("address");
+						System.out.println("addressDetails ##### "
+								+ addressDetails);
+						if (null != addressDetails) {
+							JSONObject countryJSON = (JSONObject) new JSONParser()
+									.parse(addressDetails.toJSONString());
+							JSONObject countryDetails = (JSONObject) countryJSON
+									.get("country");
+							user.setCountry((String) countryDetails.get("value"));
+						}
 					}
 				}
 			}
