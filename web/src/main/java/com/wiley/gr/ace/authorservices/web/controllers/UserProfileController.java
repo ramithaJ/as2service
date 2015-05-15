@@ -13,8 +13,11 @@ package com.wiley.gr.ace.authorservices.web.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +29,7 @@ import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceServ
 import com.wiley.gr.ace.authorservices.model.Alert;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.Interests;
+import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.external.CDMAffiliation;
 import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
@@ -47,6 +51,9 @@ public class UserProfileController {
 
 	@Autowired(required = true)
 	UserProfileService userProfileService;
+	
+	@Autowired(required = true)
+	LocalValidatorFactoryBean validator;
 
 	@RequestMapping(value = "/getAffiliations/{userId}", method = RequestMethod.GET, produces = "application/json")
 	public Service getAffiliationsList(@PathVariable("userId") String userId) {
@@ -199,11 +206,14 @@ public class UserProfileController {
 	 * @param funderJson
 	 * @return
 	 */
-	@RequestMapping(value = "/updateResearchFunder/{userId}", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/researchFunder/update/{userId}", method = RequestMethod.POST)
 	public Service updateResearchFunder(@PathVariable("userId") String userId,
-			@RequestBody String funderJson) {
+			 @RequestBody ResearchFunder funderJson) {
 
-		return null;
+		Service service = new Service();
+		service.setStatus("Success");
+		service.setPayload(userProfileService.updateResearchFunder(userId, funderJson));
+		return service;
 	}
 
 	/**

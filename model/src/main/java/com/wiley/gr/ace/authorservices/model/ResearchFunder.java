@@ -11,6 +11,10 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.model;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -21,8 +25,10 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class ResearchFunder {
 	
+	@NotNull @NotBlank
 	private Integer researchFunderId;
 	
+	@NotNull @NotBlank
 	private String researchFunderName;
 	
 	private String articleAID;

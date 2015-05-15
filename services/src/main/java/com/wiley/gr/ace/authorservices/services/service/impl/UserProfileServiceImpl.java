@@ -98,8 +98,9 @@ public class UserProfileServiceImpl implements UserProfileService {
 	@Override
 	public boolean updateResearchFunder(String userId,
 			ResearchFunder researchFunder) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		researchFundersDAO.updateResearchFunder(userId, researchFunder);
+		return true;
 	}
 
 	@Override
