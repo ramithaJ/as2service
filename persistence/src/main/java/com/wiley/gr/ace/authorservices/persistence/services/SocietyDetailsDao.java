@@ -9,35 +9,23 @@
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
  *******************************************************************************/
-/**
- * 
- */
+
 package com.wiley.gr.ace.authorservices.persistence.services;
 
 import java.util.List;
 
-import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
-import com.wiley.gr.ace.authorservices.persistence.entity.UserFunderGrants;
-import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserSocietyDetails;
 
 /**
- * @author Virtusa
+ * @author RAVISINHA
  *
  */
-public interface DashBoardDAO {
+public interface SocietyDetailsDao {
+
 	/**
 	 * @param userId
-	 * @return List
+	 * @return
 	 */
-	List<UserSecurityDetails> getSecurityDetailsList(int userId) throws Exception;
-	/**
-	 * @param userId
-	 * @return UserFunderGrants
-	 */
-	List<UserFunderGrants> getFundersDetails(int userId) throws Exception;
-	/**
-	 * @param userId
-	 * @return AuthorProfile
-	 */
-	AuthorProfile getMissedUserProfile(int userId) throws Exception;
+	List<UserSocietyDetails> getSocietiesForUser(String userId);
+
 }

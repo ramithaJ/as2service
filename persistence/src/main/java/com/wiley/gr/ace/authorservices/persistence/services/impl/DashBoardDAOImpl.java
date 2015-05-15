@@ -16,10 +16,10 @@ package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
 import java.util.List;
 
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserFunderGrants;
@@ -47,7 +47,7 @@ public class DashBoardDAOImpl implements DashBoardDAO {
 	 *            to extract the data from Database
 	 * @return secureResultList
 	 */
-	public List<UserSecurityDetails> getSecurityDetailsList(int userId) {
+	public List<UserSecurityDetails> getSecurityDetailsList(int userId) throws Exception {
 		try {
 			session = con.getSessionFactory().openSession();
 			txn = session.beginTransaction();
@@ -70,16 +70,16 @@ public class DashBoardDAOImpl implements DashBoardDAO {
 	 *            to extract the data from Database
 	 * @return userFunderGrants
 	 */
-	public UserFunderGrants getFundersDetails(int userId) throws Exception {
+	public List<UserFunderGrants> getFundersDetails(int userId) throws Exception {
 		try {
-			session = HibernateConnection.getSessionFactory().openSession();
+			session = con.getSessionFactory().openSession();
 			txn = session.beginTransaction();
 			String userFunderGrantsHql = "from UserFunderGrants where id.userId=:userId";
-			UserFunderGrants userFunderGrants = (UserFunderGrants) session
+			List<UserFunderGrants> userFunderGrantsList = session
 					.createQuery(userFunderGrantsHql)
-					.setInteger("userId", userId).uniqueResult();
+					.setInteger("userId", userId).list();
 			txn.commit();
-			return userFunderGrants;
+			return userFunderGrantsList;
 		} finally {
 			if (session != null) {
 				session.flush();
@@ -95,7 +95,7 @@ public class DashBoardDAOImpl implements DashBoardDAO {
 	 */
 	public AuthorProfile getMissedUserProfile(int userId) throws Exception {
 		try {
-			session = HibernateConnection.getSessionFactory().openSession();
+			session = con.getSessionFactory().openSession();
 			txn = session.beginTransaction();
 			String profileHql = "select isAccountVerified from AuthorProfile where userId=:userId";
 			Character isAccountVerified = (Character) session

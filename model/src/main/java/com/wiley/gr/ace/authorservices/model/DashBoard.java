@@ -1,16 +1,20 @@
 package com.wiley.gr.ace.authorservices.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * @author Virtusa
  *
  */
+@JsonInclude(Include.NON_NULL)
 public class DashBoard {
 
 	/** The security Details . */
 	private SecurityDetails securityDetails;
 
-	/** The service funders . */
-	private Service serviceFunders;
+	/** The user funders . */
+	private UserFunder userFunders;
 
 	/** The userMgmt . */
 	private UserMgmt userMgmt;
@@ -48,8 +52,8 @@ public class DashBoard {
 	 *
 	 * @return the Funders Details
 	 */
-	public Service getServiceFunders() {
-		return serviceFunders;
+	public UserFunder getUserFunders() {
+		return userFunders;
 	}
 
 	/**
@@ -58,8 +62,8 @@ public class DashBoard {
 	 * @param the
 	 *            Funders
 	 */
-	public void setServiceFunders(Service serviceFunders) {
-		this.serviceFunders = serviceFunders;
+	public void setUserFunders(UserFunder userFunders) {
+		this.userFunders = userFunders;
 	}
 
 	/**

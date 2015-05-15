@@ -12,7 +12,10 @@
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -27,8 +30,10 @@ import com.wiley.gr.ace.authorservices.persistence.entity.AuthCoauthDetails;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserAlerts;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserFunderGrants;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserPreferredJournals;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserSocietyDetails;
 import com.wiley.gr.ace.authorservices.persistence.services.AuthorCoAuthorDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.ResearchFundersDAO;
+import com.wiley.gr.ace.authorservices.persistence.services.SocietyDetailsDao;
 import com.wiley.gr.ace.authorservices.persistence.services.UserAlertsDao;
 import com.wiley.gr.ace.authorservices.persistence.services.UserPreferredJournalsDAO;
 import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
@@ -47,6 +52,9 @@ public class UserProfileServiceImpl implements UserProfileService {
 
 	@Autowired(required = true)
 	ResearchFundersDAO researchFundersDAO;
+
+	@Autowired(required = true)
+	SocietyDetailsDao SocietyDetailsDao;
 
 	@Override
 	public Affiliation[] getAffiliationsForUser(String userId) {
@@ -78,12 +86,31 @@ public class UserProfileServiceImpl implements UserProfileService {
 		List<UserFunderGrants> userFunderGrants = researchFundersDAO
 				.getResearchFunders(userId);
 		List<ResearchFunder> researchList = new ArrayList<ResearchFunder>();
-		for(int i=0; i<userFunderGrants.size(); i++){
-			
-			ResearchFunder researchFunder = new ResearchFunder();
-			researchFunder.setResearchFunderId(userFunderGrants.get(i).getResearchFunders().getRfunderId());
-			researchFunder.setResearchFunderName(userFunderGrants.get(i).getResearchFunders().getFunderName());
-			researchList.add(researchFunder);
+		HashSet<Integer> checkSet = new HashSet<>();
+		Set<String> grantNumbers = null;
+		ResearchFunder researchFunder = null;
+		Set<UserFunderGrants> grantset = null;
+		for (UserFunderGrants funderDAO : userFunderGrants) {
+
+			grantNumbers = new TreeSet<String>();
+			if (!checkSet.contains(funderDAO.getResearchFunders()
+					.getRfunderId())) {
+
+				researchFunder = new ResearchFunder();
+				researchFunder.setResearchFunderId(funderDAO
+						.getResearchFunders().getRfunderId());
+				checkSet.add(funderDAO.getResearchFunders().getRfunderId());
+				researchFunder.setResearchFunderName(funderDAO
+						.getResearchFunders().getFunderName());
+				funderDAO.getResearchFunders().getUserFunderGrantses();
+				grantset = funderDAO.getResearchFunders()
+						.getUserFunderGrantses();
+				for (UserFunderGrants funderSet : grantset) {
+					grantNumbers.add(funderSet.getId().getGrantNum());
+				}
+				researchFunder.setGrantNumber(grantNumbers);
+				researchList.add(researchFunder);
+			}
 		}
 		return researchList;
 	}
@@ -98,7 +125,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 	@Override
 	public boolean updateResearchFunder(String userId,
 			ResearchFunder researchFunder) {
-		
+
 		researchFundersDAO.updateResearchFunder(userId, researchFunder);
 		return true;
 	}
@@ -110,9 +137,28 @@ public class UserProfileServiceImpl implements UserProfileService {
 	}
 
 	@Override
-	public Society[] getSocietiesForUser(String userId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Society> getSocietiesForUser(String userId) {
+
+		List<UserSocietyDetails> listOfUserSocietyDetails = SocietyDetailsDao
+				.getSocietiesForUser(userId);
+		List<Society> societylist = new ArrayList<Society>();
+
+		for (int i = 0; i < listOfUserSocietyDetails.size(); i++) {
+			Society society = new Society();
+			society.setSocietyId(listOfUserSocietyDetails.get(i).getSocietyId()
+					.toString());
+			society.setSocietyName(listOfUserSocietyDetails.get(i)
+					.getSocietyName());
+			society.setMembershipNumber(listOfUserSocietyDetails.get(i)
+					.getMembershipNo());
+			society.setPromoCode(listOfUserSocietyDetails.get(i).getPromoCode());
+			society.setStartDate(listOfUserSocietyDetails.get(i).getStartDt());
+			society.setEndDate(listOfUserSocietyDetails.get(i).getEndDt());
+			societylist.add(society);
+
+		}
+
+		return societylist;
 	}
 
 	@Override

@@ -103,9 +103,9 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 		articleSection.setSectionName(AuthorServicesConstants.PERMISSION_LEVEL_ARTICLE);
 		adminSection.setSectionName(AuthorServicesConstants.PERMISSION_LEVEL_ADMIN);
 		
-		if(roleId == null || roleId.equals("")) {
+		//if(roleId == null || roleId.equals("")) {
 			
-			List<Roles> daoRolesList = asDataDAO.getAdminRoles();
+			List<Roles> daoRolesList = asDataDAO.getAdminRoles(roleId);
 			
 			for (Roles daoRoles : daoRolesList) {
 				
@@ -144,7 +144,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 			rolesAndPermissions.getSectionsList().add(articleSection);
 			rolesAndPermissions.getSectionsList().add(systemSection);
 			
-			List<RolePermissions> daoPermissionMappings = asDataDAO.getRolePermissionMappings();
+			List<RolePermissions> daoPermissionMappings = asDataDAO.getRolePermissionMappings(roleId);
 			
 			for (RolePermissions daoRolePermissions : daoPermissionMappings) {
 				
@@ -172,7 +172,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 				returnMap.put(entry.getKey(), entry.getValue().toString());
 			}
 			rolesAndPermissions.setPermissionsMap(returnMap);
-		}
+		//}
 		return rolesAndPermissions;
 	}
 

@@ -65,7 +65,7 @@ public class UserSocietyDetails implements java.io.Serializable {
 		this.societyId = societyId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "USER_ID")
 	public AuthorProfile getAuthorProfile() {
 		return this.authorProfile;

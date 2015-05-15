@@ -95,7 +95,7 @@ public class AdminLoginController extends ASExceptionController {
 	}
 	
 	@RequestMapping(value = "/permissions/", method = RequestMethod.GET, produces = "application/json")
-	public Service getPermissions(@RequestParam(value="roleId", required=false) String roleId) {
+	public Service getPermissions() {
 		
 		Service service = new Service();
 		service.setPayload(adminLoginService.getRolesAndPermissions(null));
@@ -105,7 +105,9 @@ public class AdminLoginController extends ASExceptionController {
 	@RequestMapping(value = "/permissions/{roleId}", method = RequestMethod.GET, produces = "application/json")
 	public Service getPermissionsForRole(@PathVariable("roleId") String roleId) {
 		
-		return null;
+		Service service = new Service();
+		service.setPayload(adminLoginService.getRolesAndPermissions(roleId));
+		return service;
 	}
 	
 	@RequestMapping(value = "/permissions", method = RequestMethod.POST, produces = "application/json")
