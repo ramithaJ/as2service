@@ -52,11 +52,11 @@ public class ResearchFundersDAOImpl implements ResearchFundersDAO {
 					researchFunder.getResearchFunderName()));
 			userFunderGrants = (UserFunderGrants) session.get(
 					UserFunderGrants.class, userFunderGrants.getId());
-			if (null != userFunderGrants) {
-
-				// userFunderGrants.s
-
-			}
+//			if (null != userFunderGrants) {
+//
+//				// userFunderGrants.s
+//
+//			}
 			return true;
 		} finally {
 
