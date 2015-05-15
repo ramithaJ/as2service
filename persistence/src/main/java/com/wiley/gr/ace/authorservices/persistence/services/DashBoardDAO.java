@@ -34,7 +34,7 @@ public interface DashBoardDAO {
 	 * @param userId
 	 * @return UserFunderGrants
 	 */
-	UserFunderGrants getFundersDetails(int userId) throws Exception;
+	List<UserFunderGrants> getFundersDetails(int userId) throws Exception;
 	/**
 	 * @param userId
 	 * @return AuthorProfile
