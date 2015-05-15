@@ -20,6 +20,7 @@ import com.wiley.gr.ace.authorservices.persistence.services.AuthorCoAuthorDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.DashBoardDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.LookUpValuesDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.RegistrationServiceDAO;
+import com.wiley.gr.ace.authorservices.persistence.services.ResearchFundersDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UpdateUserDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserAccountDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserAlertsDao;
@@ -31,6 +32,7 @@ import com.wiley.gr.ace.authorservices.persistence.services.impl.AuthorCoAuthorD
 import com.wiley.gr.ace.authorservices.persistence.services.impl.DashBoardDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.LookupValuesDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.RegistrationServiceDAOImpl;
+import com.wiley.gr.ace.authorservices.persistence.services.impl.ResearchFundersDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UpdateUserDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserAccountDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserAlertsDaoImpl;
@@ -94,6 +96,11 @@ public class PersistenceBeanConfig {
 	@Bean(name = "AuthorCoAuthorDAO")
 	public AuthorCoAuthorDAO authorCoAuthorDAO() {
 		return new AuthorCoAuthorDAOImpl();
+	}
+	
+	@Bean(name= "ResearchFundersDAO")
+	public ResearchFundersDAO researchFundersDAO(){
+		return new ResearchFundersDAOImpl();
 	}
 
 	@Bean(name = "UserPreferredJournals")
