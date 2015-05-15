@@ -32,7 +32,7 @@ public interface ASDataDAO {
 	/**
 	 * @return
 	 */
-	List<Roles> getAdminRoles();
+	List<Roles> getAdminRoles(String roleId);
 	
 	/**
 	 * This method gets all the permissions in the system
@@ -44,6 +44,6 @@ public interface ASDataDAO {
 	 * This method returns the permissions for all roles
 	 * @return
 	 */
-	List<RolePermissions> getRolePermissionMappings();
+	List<RolePermissions> getRolePermissionMappings(String roleId);
 
 }
