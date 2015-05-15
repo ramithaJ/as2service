@@ -20,8 +20,8 @@ import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.DashBoard;
 import com.wiley.gr.ace.authorservices.model.Interests;
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
-import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.Society;
+import com.wiley.gr.ace.authorservices.model.UserFunder;
 import com.wiley.gr.ace.authorservices.model.UserMgmt;
 import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserFunderGrants;
@@ -65,12 +65,11 @@ public class DashBoardServiceImpl implements DashBoardService {
 					}
 				}
 			}
-			UserFunderGrants userFunderGrants = dashBoardDAO
+			List<UserFunderGrants> userFunderGrantsList = dashBoardDAO
 					.getFundersDetails(userId);
-			if (StringUtils.isEmpty(userFunderGrants)) {
-				Service service = new Service();
-				service.setStatus("Missed to Add Your Funder Details ");
-				dashBoard.setServiceFunders(service);
+			if (userFunderGrantsList.size() == 0) {
+				UserFunder userFunders = new UserFunder();
+				dashBoard.setUserFunders(userFunders);
 			}
 			AuthorProfile authorMissedProfile = dashBoardDAO
 					.getMissedUserProfile(userId);
@@ -79,12 +78,11 @@ public class DashBoardServiceImpl implements DashBoardService {
 			if (isAccountVerified.equals('N')) {
 				UserMgmt userMgmt = new UserMgmt();
 				userMgmt.setIsAccountVerified(isAccountVerified);
-				userMgmt.setOrcidID("OrcidId");
-				userMgmt.setSecondaryEmailAddress("secondaryEmailAddr");
+				userMgmt.setOrcidID("null");
+				userMgmt.setSecondaryEmailAddress("null");
 				dashBoard.setUserMgmt(userMgmt);
 			}
 			Society society = new Society();
-			society.setSocietyId("false");
 			dashBoard.setSociety(society);
 			Affiliation affiliation = new Affiliation();
 			dashBoard.setAffiliation(affiliation);
