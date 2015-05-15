@@ -58,7 +58,7 @@ public interface UserProfileService {
 	 * @param userId
 	 * @return
 	 */
-	ResearchFunder[] getResearchFunders(String userId);
+	List<ResearchFunder> getResearchFunders(String userId);
 
 	/**
 	 * @param userId
