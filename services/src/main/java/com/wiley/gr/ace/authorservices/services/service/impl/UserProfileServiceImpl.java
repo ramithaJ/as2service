@@ -25,8 +25,10 @@ import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.persistence.entity.AuthCoauthDetails;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserAlerts;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserFunderGrants;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserPreferredJournals;
 import com.wiley.gr.ace.authorservices.persistence.services.AuthorCoAuthorDAO;
+import com.wiley.gr.ace.authorservices.persistence.services.ResearchFundersDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserAlertsDao;
 import com.wiley.gr.ace.authorservices.persistence.services.UserPreferredJournalsDAO;
 import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
@@ -42,6 +44,9 @@ public class UserProfileServiceImpl implements UserProfileService {
 
 	@Autowired(required = true)
 	AuthorCoAuthorDAO authorCoAuthorDAO;
+
+	@Autowired(required = true)
+	ResearchFundersDAO researchFundersDAO;
 
 	@Override
 	public Affiliation[] getAffiliationsForUser(String userId) {
@@ -68,9 +73,19 @@ public class UserProfileServiceImpl implements UserProfileService {
 	}
 
 	@Override
-	public ResearchFunder[] getResearchFunders(String userId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ResearchFunder> getResearchFunders(String userId) {
+
+		List<UserFunderGrants> userFunderGrants = researchFundersDAO
+				.getResearchFunders(userId);
+		List<ResearchFunder> researchList = new ArrayList<ResearchFunder>();
+		for(int i=0; i<userFunderGrants.size(); i++){
+			
+			ResearchFunder researchFunder = new ResearchFunder();
+			researchFunder.setResearchFunderId(userFunderGrants.get(i).getResearchFunders().getRfunderId());
+			researchFunder.setResearchFunderName(userFunderGrants.get(i).getResearchFunders().getFunderName());
+			researchList.add(researchFunder);
+		}
+		return researchList;
 	}
 
 	@Override
@@ -195,8 +210,11 @@ public class UserProfileServiceImpl implements UserProfileService {
 	@Autowired
 	UserPreferredJournalsDAO userPreferredJournalsDAO;
 
-	/* (non-Javadoc)
-	 * @see com.wiley.gr.ace.authorservices.services.service.UserProfileService#getPreferredJournals(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.wiley.gr.ace.authorservices.services.service.UserProfileService#
+	 * getPreferredJournals(java.lang.String)
 	 */
 	@Override
 	public List<PreferredJournals> getPreferredJournals(String userId) {
@@ -221,13 +239,17 @@ public class UserProfileServiceImpl implements UserProfileService {
 
 	}
 
-	/* (non-Javadoc)
-	 * @see com.wiley.gr.ace.authorservices.services.service.UserProfileService#deletePreferredJournals(java.lang.String, java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.wiley.gr.ace.authorservices.services.service.UserProfileService#
+	 * deletePreferredJournals(java.lang.String, java.lang.String)
 	 */
 	@Override
 	public boolean deletePreferredJournals(String userId, String journalId) {
-		
-		return userPreferredJournalsDAO.deletePreferredJournals(userId, journalId);
+
+		return userPreferredJournalsDAO.deletePreferredJournals(userId,
+				journalId);
 	}
 
 	@Override
@@ -271,8 +293,11 @@ public class UserProfileServiceImpl implements UserProfileService {
 		return (Alert[]) alertsList.toArray(new Alert[alertsList.size()]);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.wiley.gr.ace.authorservices.services.service.UserProfileService#updateAlerts(java.lang.String, java.util.List)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.wiley.gr.ace.authorservices.services.service.UserProfileService#
+	 * updateAlerts(java.lang.String, java.util.List)
 	 */
 	@Override
 	public boolean updateAlerts(String userId, List<Alert> alertsList) {
