@@ -61,12 +61,12 @@ public class UpdateUserDAOImpl implements UpdateUserDAO {
 				/**
 				 * Update profile with ORCID details
 				 */
-				userEntity.setEmailAddr(user.getPrimaryEmailAddr());
+				//userEntity.setEmailAddr(user.getPrimaryEmailAddr());
 				updateTxn = session.beginTransaction();
 				session.update(userEntity);
 				updateTxn.commit();
 
-				user.setPrimaryEmailAddr(userEntity.getEmailAddr());
+				//user.setPrimaryEmailAddr(userEntity.getEmailAddr());
 			} else {
 				user = null;
 			}

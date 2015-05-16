@@ -49,7 +49,7 @@ public class UserLoginDaoImpl implements UserLoginDao {
 				AdminDetails.class, userId);
 
 		if (null != adminDetails) {
-			System.err.println(adminDetails.getAdminId());
+			System.err.println(adminDetails.getAdminUserId());
 
 			status = true;
 		}
