@@ -102,7 +102,7 @@ public interface ASDataService {
 	/**
 	 * @return
 	 */
-	List<Role> getAdminRoles();
+	List<Role> getAdminRoles(String roleType);
 	
 	/**
 	 * @return
