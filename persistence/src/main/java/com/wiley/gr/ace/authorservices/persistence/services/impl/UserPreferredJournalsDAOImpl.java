@@ -32,8 +32,12 @@ public class UserPreferredJournalsDAOImpl implements UserPreferredJournalsDAO {
 	@Autowired(required = true)
 	HibernateConnection con;
 
-	/* (non-Javadoc)
-	 * @see com.wiley.gr.ace.authorservices.persistence.services.UserPreferredJournalsDAO#getPreferredJournals(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.wiley.gr.ace.authorservices.persistence.services.UserPreferredJournalsDAO
+	 * #getPreferredJournals(java.lang.String)
 	 */
 	@Override
 	public List<UserPreferredJournals> getPreferredJournals(String userId) {
@@ -59,8 +63,12 @@ public class UserPreferredJournalsDAOImpl implements UserPreferredJournalsDAO {
 
 	}
 
-	/* (non-Javadoc)
-	 * @see com.wiley.gr.ace.authorservices.persistence.services.UserPreferredJournalsDAO#deletePreferredJournals(java.lang.String, java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.wiley.gr.ace.authorservices.persistence.services.UserPreferredJournalsDAO
+	 * #deletePreferredJournals(java.lang.String, java.lang.String)
 	 */
 	@Override
 	public boolean deletePreferredJournals(String userId, String journalId) {
@@ -79,8 +87,9 @@ public class UserPreferredJournalsDAOImpl implements UserPreferredJournalsDAO {
 
 			if (userPrefferJournals != null) {
 				session.delete(userPrefferJournals);
-			}else {
-				throw new ASException("1004", "No Record Found For this UserId and JournalId");
+			} else {
+				throw new ASException("1004",
+						"No Record Found For this UserId and JournalId");
 			}
 
 		} finally {
