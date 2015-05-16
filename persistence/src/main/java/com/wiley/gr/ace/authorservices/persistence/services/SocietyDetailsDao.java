@@ -28,4 +28,6 @@ public interface SocietyDetailsDao {
 	 */
 	List<UserSocietyDetails> getSocietiesForUser(String userId);
 
+	boolean deleteSociety(String userId ,String societyId);
+
 }

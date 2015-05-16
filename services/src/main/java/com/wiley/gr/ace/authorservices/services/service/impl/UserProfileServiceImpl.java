@@ -175,8 +175,8 @@ public class UserProfileServiceImpl implements UserProfileService {
 
 	@Override
 	public boolean deleteSociety(String userId, String societyId) {
-		// TODO Auto-generated method stub
-		return false;
+		SocietyDetailsDao.deleteSociety(userId, societyId);
+		return true;
 	}
 
 	@Override
