@@ -26,6 +26,7 @@ import com.wiley.gr.ace.authorservices.model.UserMgmt;
 import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserFunderGrants;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserSocietyDetails;
 import com.wiley.gr.ace.authorservices.persistence.services.DashBoardDAO;
 import com.wiley.gr.ace.authorservices.services.service.DashBoardService;
 
@@ -82,8 +83,12 @@ public class DashBoardServiceImpl implements DashBoardService {
 				userMgmt.setSecondaryEmailAddress("null");
 				dashBoard.setUserMgmt(userMgmt);
 			}
-			Society society = new Society();
-			dashBoard.setSociety(society);
+			List<UserSocietyDetails> userSocietyDetailsList = dashBoardDAO
+					.getSocietyDetailsList(userId);
+			if (userSocietyDetailsList.size() == 0) {
+				Society societyDetails = new Society();
+				dashBoard.setSociety(societyDetails);
+			}
 			Affiliation affiliation = new Affiliation();
 			dashBoard.setAffiliation(affiliation);
 			Interests interests = new Interests();
