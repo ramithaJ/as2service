@@ -5,9 +5,6 @@ import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -18,14 +15,12 @@ import javax.persistence.Table;
 public class UserReferenceData implements java.io.Serializable {
 
 	private UserReferenceDataId id;
-	private Users users;
 
 	public UserReferenceData() {
 	}
 
-	public UserReferenceData(UserReferenceDataId id, Users users) {
+	public UserReferenceData(UserReferenceDataId id) {
 		this.id = id;
-		this.users = users;
 	}
 
 	@EmbeddedId
@@ -38,16 +33,6 @@ public class UserReferenceData implements java.io.Serializable {
 
 	public void setId(UserReferenceDataId id) {
 		this.id = id;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USER_ID", nullable = false, insertable = false, updatable = false)
-	public Users getUsers() {
-		return this.users;
-	}
-
-	public void setUsers(Users users) {
-		this.users = users;
 	}
 
 }

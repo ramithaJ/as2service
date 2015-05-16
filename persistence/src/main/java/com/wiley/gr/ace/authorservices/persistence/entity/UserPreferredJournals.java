@@ -52,7 +52,7 @@ public class UserPreferredJournals implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "JOURNAL_ID", nullable = false, insertable = false, updatable = false)
 	public Journals getJournals() {
 		return this.journals;
@@ -62,7 +62,7 @@ public class UserPreferredJournals implements java.io.Serializable {
 		this.journals = journals;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "USER_ID", nullable = false, insertable = false, updatable = false)
 	public AuthorProfile getAuthorProfile() {
 		return this.authorProfile;

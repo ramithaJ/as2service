@@ -1,11 +1,10 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
+import java.util.Date;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -17,48 +16,56 @@ import javax.persistence.Table;
 @Table(name = "AUTH_COLLEAGUE_DETAILS")
 public class AuthColleagueDetails implements java.io.Serializable {
 
-	private AuthColleagueDetailsId id;
+	private Integer authColleagueId;
 	private AuthorProfile authorProfileByColleagueUserId;
 	private AuthorProfile authorProfileByInvitedAuthorId;
+	private String firstName;
+	private String lastName;
+	private String emailAddr;
+	private Integer assignedArticleId;
+	private Date createdDate;
+	private String createdBy;
+	private String updatedBy;
+	private Date updatedDate;
 
 	public AuthColleagueDetails() {
 	}
 
-	public AuthColleagueDetails(AuthColleagueDetailsId id) {
-		this.id = id;
+	public AuthColleagueDetails(Integer authColleagueId) {
+		this.authColleagueId = authColleagueId;
 	}
 
-	public AuthColleagueDetails(AuthColleagueDetailsId id,
+	public AuthColleagueDetails(Integer authColleagueId,
 			AuthorProfile authorProfileByColleagueUserId,
-			AuthorProfile authorProfileByInvitedAuthorId) {
-		this.id = id;
+			AuthorProfile authorProfileByInvitedAuthorId, String firstName,
+			String lastName, String emailAddr, Integer assignedArticleId,
+			Date createdDate, String createdBy, String updatedBy,
+			Date updatedDate) {
+		this.authColleagueId = authColleagueId;
 		this.authorProfileByColleagueUserId = authorProfileByColleagueUserId;
 		this.authorProfileByInvitedAuthorId = authorProfileByInvitedAuthorId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.emailAddr = emailAddr;
+		this.assignedArticleId = assignedArticleId;
+		this.createdDate = createdDate;
+		this.createdBy = createdBy;
+		this.updatedBy = updatedBy;
+		this.updatedDate = updatedDate;
 	}
 
-	@EmbeddedId
-	@AttributeOverrides({
-			@AttributeOverride(name = "authColleagueId", column = @Column(name = "AUTH_COLLEAGUE_ID", precision = 22, scale = 0)),
-			@AttributeOverride(name = "firstName", column = @Column(name = "FIRST_NAME", length = 50)),
-			@AttributeOverride(name = "lastName", column = @Column(name = "LAST_NAME", length = 50)),
-			@AttributeOverride(name = "emailAddr", column = @Column(name = "EMAIL_ADDR", length = 250)),
-			@AttributeOverride(name = "invitedAuthorId", column = @Column(name = "INVITED_AUTHOR_ID", precision = 22, scale = 0)),
-			@AttributeOverride(name = "colleagueUserId", column = @Column(name = "COLLEAGUE_USER_ID", precision = 22, scale = 0)),
-			@AttributeOverride(name = "assignedArticleId", column = @Column(name = "ASSIGNED_ARTICLE_ID", precision = 22, scale = 0)),
-			@AttributeOverride(name = "createdDate", column = @Column(name = "CREATED_DATE")),
-			@AttributeOverride(name = "createdBy", column = @Column(name = "CREATED_BY", length = 100)),
-			@AttributeOverride(name = "updatedBy", column = @Column(name = "UPDATED_BY", length = 100)),
-			@AttributeOverride(name = "updatedDate", column = @Column(name = "UPDATED_DATE")) })
-	public AuthColleagueDetailsId getId() {
-		return this.id;
+	@Id
+	@Column(name = "AUTH_COLLEAGUE_ID", unique = true, nullable = false, precision = 22, scale = 0)
+	public Integer getAuthColleagueId() {
+		return this.authColleagueId;
 	}
 
-	public void setId(AuthColleagueDetailsId id) {
-		this.id = id;
+	public void setAuthColleagueId(Integer authColleagueId) {
+		this.authColleagueId = authColleagueId;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "COLLEAGUE_USER_ID", insertable = false, updatable = false)
+	@JoinColumn(name = "COLLEAGUE_USER_ID")
 	public AuthorProfile getAuthorProfileByColleagueUserId() {
 		return this.authorProfileByColleagueUserId;
 	}
@@ -69,7 +76,7 @@ public class AuthColleagueDetails implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "INVITED_AUTHOR_ID", insertable = false, updatable = false)
+	@JoinColumn(name = "INVITED_AUTHOR_ID")
 	public AuthorProfile getAuthorProfileByInvitedAuthorId() {
 		return this.authorProfileByInvitedAuthorId;
 	}
@@ -77,6 +84,78 @@ public class AuthColleagueDetails implements java.io.Serializable {
 	public void setAuthorProfileByInvitedAuthorId(
 			AuthorProfile authorProfileByInvitedAuthorId) {
 		this.authorProfileByInvitedAuthorId = authorProfileByInvitedAuthorId;
+	}
+
+	@Column(name = "FIRST_NAME", length = 50)
+	public String getFirstName() {
+		return this.firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	@Column(name = "LAST_NAME", length = 50)
+	public String getLastName() {
+		return this.lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	@Column(name = "EMAIL_ADDR", length = 250)
+	public String getEmailAddr() {
+		return this.emailAddr;
+	}
+
+	public void setEmailAddr(String emailAddr) {
+		this.emailAddr = emailAddr;
+	}
+
+	@Column(name = "ASSIGNED_ARTICLE_ID", precision = 22, scale = 0)
+	public Integer getAssignedArticleId() {
+		return this.assignedArticleId;
+	}
+
+	public void setAssignedArticleId(Integer assignedArticleId) {
+		this.assignedArticleId = assignedArticleId;
+	}
+
+	@Column(name = "CREATED_DATE")
+	public Date getCreatedDate() {
+		return this.createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	@Column(name = "CREATED_BY", length = 100)
+	public String getCreatedBy() {
+		return this.createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	@Column(name = "UPDATED_BY", length = 100)
+	public String getUpdatedBy() {
+		return this.updatedBy;
+	}
+
+	public void setUpdatedBy(String updatedBy) {
+		this.updatedBy = updatedBy;
+	}
+
+	@Column(name = "UPDATED_DATE")
+	public Date getUpdatedDate() {
+		return this.updatedDate;
+	}
+
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
 	}
 
 }

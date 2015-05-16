@@ -20,7 +20,6 @@ public class AdditionalPermissions implements java.io.Serializable {
 
 	private AdditionalPermissionsId id;
 	private Roles roles;
-	private Users users;
 	private Permissions permissions;
 	private Character splPermissionFlg;
 	private Date permEndDt;
@@ -28,19 +27,16 @@ public class AdditionalPermissions implements java.io.Serializable {
 	public AdditionalPermissions() {
 	}
 
-	public AdditionalPermissions(AdditionalPermissionsId id, Users users,
+	public AdditionalPermissions(AdditionalPermissionsId id,
 			Permissions permissions) {
 		this.id = id;
-		this.users = users;
 		this.permissions = permissions;
 	}
 
 	public AdditionalPermissions(AdditionalPermissionsId id, Roles roles,
-			Users users, Permissions permissions, Character splPermissionFlg,
-			Date permEndDt) {
+			Permissions permissions, Character splPermissionFlg, Date permEndDt) {
 		this.id = id;
 		this.roles = roles;
-		this.users = users;
 		this.permissions = permissions;
 		this.splPermissionFlg = splPermissionFlg;
 		this.permEndDt = permEndDt;
@@ -67,16 +63,6 @@ public class AdditionalPermissions implements java.io.Serializable {
 
 	public void setRoles(Roles roles) {
 		this.roles = roles;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USER_ID", nullable = false, insertable = false, updatable = false)
-	public Users getUsers() {
-		return this.users;
-	}
-
-	public void setUsers(Users users) {
-		this.users = users;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

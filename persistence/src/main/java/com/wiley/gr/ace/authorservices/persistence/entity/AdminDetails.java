@@ -19,11 +19,11 @@ import org.hibernate.annotations.Parameter;
 @Table(name = "ADMIN_DETAILS")
 public class AdminDetails implements java.io.Serializable {
 
-	private Integer adminId;
+	private Integer adminUserId;
 	private Users users;
-	private String firstName;
-	private String lastName;
-	private Date createdDate;
+	private String emailAddr;
+	private String secondaryEmailAddr;
+	private Date cratedDate;
 	private String createdBy;
 	private Date updatedDate;
 	private String updatedBy;
@@ -35,13 +35,13 @@ public class AdminDetails implements java.io.Serializable {
 		this.users = users;
 	}
 
-	public AdminDetails(Users users, String firstName, String lastName,
-			Date createdDate, String createdBy, Date updatedDate,
-			String updatedBy) {
+	public AdminDetails(Users users, String emailAddr,
+			String secondaryEmailAddr, Date cratedDate, String createdBy,
+			Date updatedDate, String updatedBy) {
 		this.users = users;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.createdDate = createdDate;
+		this.emailAddr = emailAddr;
+		this.secondaryEmailAddr = secondaryEmailAddr;
+		this.cratedDate = cratedDate;
 		this.createdBy = createdBy;
 		this.updatedDate = updatedDate;
 		this.updatedBy = updatedBy;
@@ -50,13 +50,13 @@ public class AdminDetails implements java.io.Serializable {
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "users"))
 	@Id
 	@GeneratedValue(generator = "generator")
-	@Column(name = "ADMIN_ID", unique = true, nullable = false, precision = 22, scale = 0)
-	public Integer getAdminId() {
-		return this.adminId;
+	@Column(name = "ADMIN_USER_ID", unique = true, nullable = false, precision = 22, scale = 0)
+	public Integer getAdminUserId() {
+		return this.adminUserId;
 	}
 
-	public void setAdminId(Integer adminId) {
-		this.adminId = adminId;
+	public void setAdminUserId(Integer adminUserId) {
+		this.adminUserId = adminUserId;
 	}
 
 	@OneToOne(fetch = FetchType.LAZY)
@@ -69,34 +69,34 @@ public class AdminDetails implements java.io.Serializable {
 		this.users = users;
 	}
 
-	@Column(name = "FIRST_NAME", length = 200)
-	public String getFirstName() {
-		return this.firstName;
+	@Column(name = "EMAIL_ADDR", length = 256)
+	public String getEmailAddr() {
+		return this.emailAddr;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setEmailAddr(String emailAddr) {
+		this.emailAddr = emailAddr;
 	}
 
-	@Column(name = "LAST_NAME", length = 200)
-	public String getLastName() {
-		return this.lastName;
+	@Column(name = "SECONDARY_EMAIL_ADDR", length = 256)
+	public String getSecondaryEmailAddr() {
+		return this.secondaryEmailAddr;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setSecondaryEmailAddr(String secondaryEmailAddr) {
+		this.secondaryEmailAddr = secondaryEmailAddr;
 	}
 
-	@Column(name = "CREATED_DATE")
-	public Date getCreatedDate() {
-		return this.createdDate;
+	@Column(name = "CRATED_DATE")
+	public Date getCratedDate() {
+		return this.cratedDate;
 	}
 
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
+	public void setCratedDate(Date cratedDate) {
+		this.cratedDate = cratedDate;
 	}
 
-	@Column(name = "CREATED_BY", length = 100)
+	@Column(name = "CREATED_BY", length = 50)
 	public String getCreatedBy() {
 		return this.createdBy;
 	}
@@ -114,7 +114,7 @@ public class AdminDetails implements java.io.Serializable {
 		this.updatedDate = updatedDate;
 	}
 
-	@Column(name = "UPDATED_BY", length = 100)
+	@Column(name = "UPDATED_BY", length = 50)
 	public String getUpdatedBy() {
 		return this.updatedBy;
 	}
