@@ -14,6 +14,7 @@ package com.wiley.gr.ace.authorservices.web.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -148,10 +149,19 @@ public class ASDataController {
 	}
 
 	@RequestMapping(value = "/roles/", method = RequestMethod.GET, produces = "application/json")
-	public Service getAdminRoles() {
+	public Service getUserRoles() {
 
 		Service service = new Service();
-		service.setPayload(aSDataService.getAdminRoles());
+		service.setPayload(aSDataService.getAdminRoles(null));
+
+		return service;
+	}
+	
+	@RequestMapping(value = "/roles/{roleType}", method = RequestMethod.GET, produces = "application/json")
+	public Service getAdminRoles(@PathVariable("roleType") String roleType) {
+
+		Service service = new Service();
+		service.setPayload(aSDataService.getAdminRoles(roleType));
 
 		return service;
 	}
