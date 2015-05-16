@@ -16,14 +16,15 @@ package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
 import java.util.List;
 
-
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserFunderGrants;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserSocietyDetails;
 import com.wiley.gr.ace.authorservices.persistence.services.DashBoardDAO;
 
 /**
@@ -105,6 +106,29 @@ public class DashBoardDAOImpl implements DashBoardDAO {
 			authorProfile.setIsAccountVerified(isAccountVerified);
 			txn.commit();
 			return authorProfile;
+		} finally {
+			if (session != null) {
+				session.flush();
+				session.close();
+			}
+		}
+	}
+	/**
+	 * @param userId
+	 *            to extract the data from Database
+	 * @return secureResultList
+	 */
+	public List<UserSocietyDetails> getSocietyDetailsList(int userId) throws Exception{
+		try {
+			session = con.getSessionFactory().openSession();
+			txn = session.beginTransaction();
+			String societyDetailsHql = "from UserSocietyDetails usd where usd.authorProfile.userId = :userId";
+			List<UserSocietyDetails> societyResultList = session
+					.createQuery(societyDetailsHql).setInteger("userId", userId)
+					.list();
+			System.err.println("================"+societyResultList.size());
+			txn.commit();
+			return societyResultList;
 		} finally {
 			if (session != null) {
 				session.flush();

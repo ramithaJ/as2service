@@ -19,6 +19,7 @@ import java.util.List;
 import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserFunderGrants;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserSocietyDetails;
 
 /**
  * @author Virtusa
@@ -40,4 +41,9 @@ public interface DashBoardDAO {
 	 * @return AuthorProfile
 	 */
 	AuthorProfile getMissedUserProfile(int userId) throws Exception;
+	/**
+	 * @param userId
+	 * @return UserSocietyDetails
+	 */
+	List<UserSocietyDetails> getSocietyDetailsList(int userId) throws Exception;
 }
