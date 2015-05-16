@@ -15,6 +15,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
@@ -35,6 +36,23 @@ public class RegistrationServiceDAOImpl implements RegistrationServiceDAO {
 				.setString("lastName", lastName).list();
 
 		return userProfileList;
+	}
+
+	@Override
+	public boolean searchUserByOrcidId(String orcidId)
+			throws Exception {
+
+		boolean isUserFound = false;
+		Session session = con.getSessionFactory().openSession();
+		String searchOrcidHql = "from AuthorProfile af where af.orcidId=:orcidId";
+		List<AuthorProfile> authorProfilesList = session
+				.createQuery(searchOrcidHql).setString("orcidId", "orcidId")
+				.list();
+		if(!StringUtils.isEmpty(authorProfilesList)) {
+			isUserFound = true;
+		}
+		
+		return isUserFound;
 	}
 
 }

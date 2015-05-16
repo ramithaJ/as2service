@@ -20,6 +20,7 @@ import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceServ
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserReferenceData;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
+import com.wiley.gr.ace.authorservices.persistence.services.RegistrationServiceDAO;
 import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
 
 /**
@@ -30,6 +31,9 @@ public class RegistrationServiceImpl implements RegistrationService {
 
 	@Autowired(required = true)
 	ESBInterfaceService esbInterFaceService;
+
+	@Autowired(required = true)
+	RegistrationServiceDAO registrationServiceDAO;
 
 	@Override
 	public String createUser(User user) throws Exception {
@@ -78,5 +82,17 @@ public class RegistrationServiceImpl implements RegistrationService {
 		}
 
 		return user;
+	}
+
+	@Override
+	public boolean searchUserByOrcidId(String orcidId) throws Exception {
+
+		boolean isUserFound = false;
+		if (!StringUtils.isEmpty(orcidId)
+				&& registrationServiceDAO.searchUserByOrcidId(orcidId)) {
+			isUserFound = true;
+		}
+
+		return isUserFound;
 	}
 }

@@ -16,6 +16,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -127,4 +128,37 @@ public class RegistrationController {
 		return service;
 	}
 
+	@RequestMapping(value = "/search/orcid/{orcidId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Service isUserFoundWithOrcidId(
+			@PathVariable("orcidId") String orcidId) {
+
+		Service service = new Service();
+		if (!StringUtils.isEmpty(orcidId)) {
+			try {
+				if (rs.searchUserByOrcidId(orcidId)) {
+					service.setStatus("FAILURE");
+					ErrorPOJO err = new ErrorPOJO();
+					err.setCode(214);
+					err.setMessage("User already exists with the same ORCID Id");
+					service.setError(err);
+				} else {
+					service.setStatus("SUCCESS");
+				}
+			} catch (Exception e) {
+				service.setStatus("FAILURE");
+				ErrorPOJO err = new ErrorPOJO();
+				err.setCode(215);
+				err.setMessage("Searching user with ORCID Id encountered exception");
+				service.setError(err);
+			}
+		} else {
+			service.setStatus("FAILURE");
+			ErrorPOJO err = new ErrorPOJO();
+			err.setCode(216);
+			err.setMessage("Please enter ORCID Id");
+			service.setError(err);
+		}
+
+		return service;
+	}
 }

@@ -27,5 +27,7 @@ public interface RegistrationService {
 			String lastName) throws Exception;
 
 	User checkEmailIdExists(String emailId) throws Exception;
+	
+	boolean searchUserByOrcidId(String orcidId) throws Exception;
 
 }
