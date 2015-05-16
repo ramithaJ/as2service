@@ -23,6 +23,9 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class Affiliation {
 	
+	/** The user Id . */
+	private String userId;
+
 	private String institutionId;
 	
 	private String departmentId;
@@ -36,7 +39,25 @@ public class Affiliation {
 	private Date startDate;
 	
 	private Date endDate;
+	
+	/**
+	 * Gets the user Id.
+	 *
+	 * @return the user Id
+	 */
+	public String getUserId() {
+		return userId;
+	}
 
+	/**
+	 * Sets the user Id.
+	 *
+	 * @return the user Id
+	 */
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
 	/**
 	 * @return
 	 */
