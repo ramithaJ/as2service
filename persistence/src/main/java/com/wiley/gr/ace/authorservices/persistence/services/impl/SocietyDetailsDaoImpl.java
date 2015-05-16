@@ -16,12 +16,10 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.neo4j.cypher.internal.compiler.v2_1.ast.rewriters.literalReplacement;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
-import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserSocietyDetails;
 import com.wiley.gr.ace.authorservices.persistence.services.SocietyDetailsDao;
 
@@ -77,6 +75,13 @@ public class SocietyDetailsDaoImpl implements SocietyDetailsDao {
 		return userSocietyDetails;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.wiley.gr.ace.authorservices.persistence.services.SocietyDetailsDao
+	 * #deleteSociety(java.lang.String, java.lang.String)
+	 */
 	@Override
 	public boolean deleteSociety(String userId, String societyId) {
 
@@ -92,7 +97,8 @@ public class SocietyDetailsDaoImpl implements SocietyDetailsDao {
 
 			if (count == 0) {
 
-				throw new ASException("45345", "Delete Record Failed please Check With Support Team");
+				throw new ASException("45345",
+						"Delete Record Failed please Check With Support Team");
 			}
 		}
 
