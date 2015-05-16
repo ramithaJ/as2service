@@ -67,7 +67,7 @@ public class ASDataDAOImpl implements ASDataDAO {
 	 * @see com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO#getAdminRoles()
 	 */
 	@Override
-	public List<Roles> getAdminRoles(String roleId) {
+	public List<Roles> getUserRoles(String roleId) {
 
 		Session session = null;
 		List<Roles> list = new ArrayList();
@@ -85,6 +85,37 @@ public class ASDataDAOImpl implements ASDataDAO {
 			} else {
 				hql = "from Roles where roleId = :roleId";
 				list = session.createQuery(hql).setString("roleId", roleId).list();
+			}
+
+		} finally {
+			if (session != null) {
+				session.flush();
+				session.close();
+			}
+		}
+
+		return list;
+	}
+	
+	@Override
+	public List<Roles> getAdminRoles(String roleType) {
+
+		Session session = null;
+		List<Roles> list = new ArrayList();
+		String hql = null;
+
+		try {
+
+			session = con.getSessionFactory().openSession();
+			
+			if(roleType == null) {
+				
+				hql = "from Roles";
+				list = session.createQuery(hql).list();
+				
+			} else {
+				hql = "from Roles where roleType = :roleType";
+				list = session.createQuery(hql).setString("roleType", roleType).list();
 			}
 
 		} finally {
