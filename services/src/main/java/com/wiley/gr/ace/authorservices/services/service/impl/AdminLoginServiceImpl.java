@@ -105,7 +105,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 		
 		//if(roleId == null || roleId.equals("")) {
 			
-			List<Roles> daoRolesList = asDataDAO.getAdminRoles(roleId);
+			List<Roles> daoRolesList = asDataDAO.getUserRoles(roleId);
 			
 			for (Roles daoRoles : daoRolesList) {
 				

@@ -35,6 +35,11 @@ public interface ASDataDAO {
 	List<Roles> getAdminRoles(String roleId);
 	
 	/**
+	 * @return
+	 */
+	List<Roles> getUserRoles(String roleId);
+	
+	/**
 	 * This method gets all the permissions in the system
 	 * @return
 	 */

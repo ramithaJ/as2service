@@ -136,9 +136,9 @@ public class ASDataServiceImpl implements ASDataService {
 	}
 
 	@Override
-	public List<Role> getAdminRoles() {
+	public List<Role> getAdminRoles(String roleType) {
 
-		List<Roles> daoRolesList = aSDataDAO.getAdminRoles(null);
+		List<Roles> daoRolesList = aSDataDAO.getAdminRoles(roleType);
 		List<Role> adminRoles = new ArrayList<Role>();
 		Role adminRole = null;
 
@@ -148,6 +148,10 @@ public class ASDataServiceImpl implements ASDataService {
 				adminRole = new Role();
 				adminRole.setRoleId(roles.getRoleId() + "");
 				adminRole.setRoleName(roles.getRoleName());
+				adminRole.setRoleDescription(roles.getDescription());
+				if(roles.getRoleType().equals(AuthorServicesConstants.ROLE_TYPE_INTERNAL)) {
+					adminRole.setAdminRole(true);
+				}
 				adminRoles.add(adminRole);
 			}
 
