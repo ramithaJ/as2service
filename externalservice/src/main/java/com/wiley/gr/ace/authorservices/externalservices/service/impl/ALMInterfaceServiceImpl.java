@@ -11,10 +11,19 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
-import org.springframework.http.HttpMethod;
+import java.net.URI;
+import java.net.URISyntaxException;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
+
+import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
+import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Service;
 
 /**
@@ -208,5 +217,28 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
 		}
 		return false;
 	}
+
+	@Override
+	public SecurityDetailsHolder getSecurityDetails(String userId) {
+		
+		final String url = "http://demo6374909.mockable.io/user/securityDetails";
+		URI uri = null;
+		try {
+
+			uri = new URI(url);
+			RestTemplate restTemplate = new RestTemplate();
+			HttpHeaders requestHeaders = new HttpHeaders();
+			HttpEntity<SecurityDetailsHolder> requestEntity = new HttpEntity<SecurityDetailsHolder>(
+					requestHeaders);
+			ResponseEntity<SecurityDetailsHolder> response = restTemplate.exchange(uri,
+					HttpMethod.GET, requestEntity, SecurityDetailsHolder.class);
+			return response.getBody();
+
+		} catch (URISyntaxException e) {
+
+			throw new ASException();
+		}
+	}
+	
 
 }
