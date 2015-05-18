@@ -20,10 +20,17 @@ import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnectio
 import com.wiley.gr.ace.authorservices.persistence.entity.UserAlerts;
 import com.wiley.gr.ace.authorservices.persistence.services.UserAlertsDao;
 
+/**
+ * @author RAVISINHA
+ *
+ */
 public class UserAlertsDaoImpl implements UserAlertsDao {
 	@Autowired(required = true)
 	HibernateConnection con;
 
+	/* (non-Javadoc)
+	 * @see com.wiley.gr.ace.authorservices.persistence.services.UserAlertsDao#getListOfAlerts(java.lang.String)
+	 */
 	@Override
 	public List<UserAlerts> getListOfAlerts(String userId) {
 		Session session = con.getSessionFactory().openSession();
@@ -38,6 +45,9 @@ public class UserAlertsDaoImpl implements UserAlertsDao {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.wiley.gr.ace.authorservices.persistence.services.UserAlertsDao#updateAlerts(java.util.List)
+	 */
 	@Override
 	public boolean updateAlerts(List<UserAlerts> serviceUserAlertsList) {
 
