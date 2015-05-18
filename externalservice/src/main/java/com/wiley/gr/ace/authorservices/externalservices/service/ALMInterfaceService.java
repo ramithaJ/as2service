@@ -11,6 +11,8 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
+import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
+
 /**
  * @author RAVISINHA
  *
@@ -76,5 +78,7 @@ public interface ALMInterfaceService {
 	 * @return
 	 */
 	boolean unLockUser(String emailId);
+	
+	SecurityDetailsHolder getSecurityDetails(String userId);
 
 }

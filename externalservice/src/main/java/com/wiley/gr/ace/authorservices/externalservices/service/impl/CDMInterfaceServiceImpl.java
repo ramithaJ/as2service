@@ -25,9 +25,9 @@ import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
 import com.wiley.gr.ace.authorservices.model.Interests;
-import com.wiley.gr.ace.authorservices.model.LookUpProfile;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.external.CDMAffiliation;
+import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
 
 public class CDMInterfaceServiceImpl implements CDMInterfaceService {
 

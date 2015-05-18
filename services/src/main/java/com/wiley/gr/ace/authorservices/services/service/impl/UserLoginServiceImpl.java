@@ -301,4 +301,10 @@ public class UserLoginServiceImpl implements UserLoginService {
 		 */
 		return true;
 	}
+
+	@Override
+	public SecurityDetailsHolder securityDetails(String userId) {
+
+		return almService.getSecurityDetails(userId);
+	}
 }

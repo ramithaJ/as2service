@@ -89,5 +89,7 @@ public interface UserLoginService {
 	 * @param template_id
 	 */
 	void sendEmail(String userId, String template_id);
+	
+	SecurityDetailsHolder securityDetails(String userId);
 
 }
