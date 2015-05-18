@@ -17,7 +17,7 @@ public class DashBoard {
 	private UserFunder userFunders;
 
 	/** The userMgmt . */
-	private UserMgmt userMgmt;
+	private User user;
 
 	/** The society Details . */
 	private Society society;
@@ -71,8 +71,8 @@ public class DashBoard {
 	 *
 	 * @return the UserMgmt
 	 */
-	public UserMgmt getUserMgmt() {
-		return userMgmt;
+	public User getUser() {
+		return user;
 	}
 
 	/**
@@ -81,8 +81,8 @@ public class DashBoard {
 	 * @param the
 	 *            UserMgmt
 	 */
-	public void setUserMgmt(UserMgmt userMgmt) {
-		this.userMgmt = userMgmt;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	/**
