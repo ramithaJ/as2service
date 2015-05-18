@@ -38,7 +38,7 @@ public class SocietyDetailsDaoImpl implements SocietyDetailsDao {
 	 */
 
 	@Autowired(required = true)
-	static HibernateConnection con;
+	HibernateConnection con;
 
 	/*
 	 * (non-Javadoc)
@@ -104,8 +104,9 @@ public class SocietyDetailsDaoImpl implements SocietyDetailsDao {
 
 		finally {
 			if (null != session)
-				session.getTransaction().commit();
-			session.flush();
+
+				session.flush();
+			session.getTransaction().commit();
 			session.close();
 
 		}
@@ -113,4 +114,36 @@ public class SocietyDetailsDaoImpl implements SocietyDetailsDao {
 		return true;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.wiley.gr.ace.authorservices.persistence.services.SocietyDetailsDao
+	 * #updateSociety(java.lang.String,
+	 * com.wiley.gr.ace.authorservices.model.Society)
+	 */
+	@Override
+	public void updateSociety(UserSocietyDetails userSocietyDetails) {
+		Session session = con.getSessionFactory().openSession();
+		session.beginTransaction();
+		try {
+			
+		session.saveOrUpdate(userSocietyDetails);
+		if (null != session) {
+			session.flush();
+			session.getTransaction().commit();
+			session.close();
+
+		}
+	}
+		finally {
+			if (null != session)
+
+				session.flush();
+			session.getTransaction().commit();
+			session.close();
+
+		}
+
+	}
 }

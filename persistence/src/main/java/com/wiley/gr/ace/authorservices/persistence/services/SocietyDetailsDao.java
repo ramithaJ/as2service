@@ -34,5 +34,11 @@ public interface SocietyDetailsDao {
 	 * @return
 	 */
 	boolean deleteSociety(String userId ,String societyId);
+	
+	/**
+	 * @param userId
+	 * @param society
+	 */
+	void updateSociety(UserSocietyDetails userSocietyDetails);
 
 }

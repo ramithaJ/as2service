@@ -29,6 +29,7 @@ import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.Interests;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Service;
+import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.external.CDMAffiliation;
 import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
 
@@ -214,6 +215,7 @@ public class UserProfileController {
 				funderJson));
 		return service;
 	}
+
 	/**
 	 * @param userId
 	 * @return
@@ -232,23 +234,11 @@ public class UserProfileController {
 	 * @param societyId
 	 * @return
 	 */
-	@RequestMapping(value = "/editSocietyDetails/{userId}", method = RequestMethod.GET, produces = "application/json")
-	public Service editSocietyDetails(@PathVariable("userId") String userId,
-			@PathVariable("societyId") String societyId) {
-
-		return null;
-	}
-
-	/**
-	 * @param userId
-	 * @param societyId
-	 * @return
-	 */
 	@RequestMapping(value = "/deleteSociety/{userId}/{societyId}", method = RequestMethod.POST, produces = "application/json")
 	public Service deleteSociety(@PathVariable("userId") String userId,
 			@PathVariable("societyId") String societyId) {
 		Service service = new Service();
-		
+
 		service.setPayload(userProfileService.deleteSociety(userId, societyId));
 		return service;
 	}
@@ -260,21 +250,12 @@ public class UserProfileController {
 	 */
 	@RequestMapping(value = "/updateSocietyDetails/{userId}", method = RequestMethod.POST, produces = "application/json")
 	public Service updateSocietyDetails(@PathVariable("userId") String userId,
-			@RequestBody String societyId) {
+			@RequestBody Society society) {
 
-		return null;
-	}
+		society.setUserId(userId);
+		userProfileService.updateSocietyDetails(society);
 
-	/**
-	 * @param userId
-	 * @param societyId
-	 * @return
-	 */
-	@RequestMapping(value = "/addSociety/{userId}", method = RequestMethod.POST, produces = "application/json")
-	public Service addSociety(@PathVariable("userId") String userId,
-			@RequestBody String societyId) {
-
-		return null;
+		return new Service();
 	}
 
 	/**

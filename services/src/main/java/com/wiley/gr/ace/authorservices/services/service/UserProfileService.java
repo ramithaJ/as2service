@@ -99,7 +99,7 @@ public interface UserProfileService {
 	 * @param society
 	 * @return
 	 */
-	boolean updateSocietyDetails(String userId, Society society);
+	boolean updateSocietyDetails(Society society);
 
 	/**
 	 * @param userId

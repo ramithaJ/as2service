@@ -27,6 +27,7 @@ import com.wiley.gr.ace.authorservices.model.PreferredJournals;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.persistence.entity.AuthCoauthDetails;
+import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserAlerts;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserFunderGrants;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserPreferredJournals;
@@ -168,9 +169,20 @@ public class UserProfileServiceImpl implements UserProfileService {
 	}
 
 	@Override
-	public boolean updateSocietyDetails(String userId, Society society) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean updateSocietyDetails(Society society) {
+		UserSocietyDetails userSocietyDetails = new UserSocietyDetails();
+		AuthorProfile authorProfile=new AuthorProfile();
+		authorProfile.setUserId(Integer.parseInt(society.getUserId()));
+		userSocietyDetails.setAuthorProfile(authorProfile);
+		userSocietyDetails.setSocietyId(Integer.parseInt(society.getSocietyId()));
+		userSocietyDetails.setSocietyName(society.getSocietyName());
+		userSocietyDetails.setMembershipNo(society.getMembershipNumber());
+		userSocietyDetails.setPromoCode(society.getPromoCode());
+		userSocietyDetails.setStartDt(society.getStartDate());
+		userSocietyDetails.setEndDt(society.getEndDate());
+		SocietyDetailsDao.updateSociety(userSocietyDetails);
+		
+		return true;
 	}
 
 	@Override
