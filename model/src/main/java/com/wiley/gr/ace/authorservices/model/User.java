@@ -48,15 +48,6 @@ public class User {
 	/** The additional email address. */
 	private String additionalEmailAddress;
 
-	/** The correspondance address. */
-	private String correspondanceAddress;
-
-	/** The billing address. */
-	private String billingAddress;
-
-	/** The shipping address. */
-	private String shippingAddress;
-
 	/** The industry. */
 	private String industry;
 
@@ -80,6 +71,16 @@ public class User {
 	private Character termsOfUseFlg;
 
 	private UserReferenceData userReferenceData;
+	
+	private Addresses addresses;
+
+	public Addresses getAddresses() {
+		return addresses;
+	}
+
+	public void setAddresses(Addresses addresses) {
+		this.addresses = addresses;
+	}
 
 	/**
 	 * @return the userId
@@ -261,57 +262,6 @@ public class User {
 	 *
 	 * @return the correspondance address
 	 */
-	public String getCorrespondanceAddress() {
-		return correspondanceAddress;
-	}
-
-	/**
-	 * Sets the correspondance address.
-	 *
-	 * @param correspondanceAddress
-	 *            the new correspondance address
-	 */
-	public void setCorrespondanceAddress(String correspondanceAddress) {
-		this.correspondanceAddress = correspondanceAddress;
-	}
-
-	/**
-	 * Gets the billing address.
-	 *
-	 * @return the billing address
-	 */
-	public String getBillingAddress() {
-		return billingAddress;
-	}
-
-	/**
-	 * Sets the billing address.
-	 *
-	 * @param billingAddress
-	 *            the new billing address
-	 */
-	public void setBillingAddress(String billingAddress) {
-		this.billingAddress = billingAddress;
-	}
-
-	/**
-	 * Gets the shipping address.
-	 *
-	 * @return the shipping address
-	 */
-	public String getShippingAddress() {
-		return shippingAddress;
-	}
-
-	/**
-	 * Sets the shipping address.
-	 *
-	 * @param shippingAddress
-	 *            the new shipping address
-	 */
-	public void setShippingAddress(String shippingAddress) {
-		this.shippingAddress = shippingAddress;
-	}
 
 	/**
 	 * Gets the industry.

@@ -28,7 +28,7 @@ public class Address {
 	
 	private String postCode;
 	
-	private String country;
+	private Country country;
 	
 	private String phoneNumber;
 	
@@ -124,11 +124,12 @@ public class Address {
 		this.postCode = postCode;
 	}
 
-	public String getCountry() {
+
+	public Country getCountry() {
 		return country;
 	}
 
-	public void setCountry(String country) {
+	public void setCountry(Country country) {
 		this.country = country;
 	}
 
