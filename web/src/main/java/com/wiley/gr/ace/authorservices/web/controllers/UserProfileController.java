@@ -237,10 +237,8 @@ public class UserProfileController {
 	@RequestMapping(value = "/deleteSociety/{userId}/{societyId}", method = RequestMethod.POST, produces = "application/json")
 	public Service deleteSociety(@PathVariable("userId") String userId,
 			@PathVariable("societyId") String societyId) {
-		Service service = new Service();
-
-		service.setPayload(userProfileService.deleteSociety(userId, societyId));
-		return service;
+		userProfileService.deleteSociety(userId, societyId);
+		return new Service();
 	}
 
 	/**
