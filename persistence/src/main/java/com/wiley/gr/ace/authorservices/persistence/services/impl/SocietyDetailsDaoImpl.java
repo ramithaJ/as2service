@@ -132,7 +132,6 @@ public class SocietyDetailsDaoImpl implements SocietyDetailsDao {
 
 		} finally {
 			if (null != session)
-
 				session.flush();
 			session.getTransaction().commit();
 			session.close();

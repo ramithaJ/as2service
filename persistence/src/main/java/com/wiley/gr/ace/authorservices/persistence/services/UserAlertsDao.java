@@ -28,6 +28,10 @@ public interface UserAlertsDao {
 	 List<UserAlerts> getListOfAlerts(String userId);
 	 
 	 
+	/**
+	 * @param serviceUserAlertsList
+	 * @return
+	 */
 	boolean  updateAlerts (List<UserAlerts> serviceUserAlertsList);
 	
 
