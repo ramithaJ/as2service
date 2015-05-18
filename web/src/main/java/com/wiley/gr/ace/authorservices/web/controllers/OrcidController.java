@@ -15,6 +15,7 @@
 package com.wiley.gr.ace.authorservices.web.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,7 +43,7 @@ public class OrcidController {
 	/**
 	 * @return ORCID URL
 	 */
-	@RequestMapping(value = "/url", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/url", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Service getOrcidURL() {
 		Service service = new Service();
 
@@ -74,7 +75,7 @@ public class OrcidController {
 	 * @param authorizationCode
 	 * @return
 	 */
-	@RequestMapping(value = "/bio/{authorizationCode}/{type}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/bio/{authorizationCode}/{type}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Service getOrcidDetails(
 			@PathVariable String authorizationCode, @PathVariable String type) {
 		Service service = new Service();
