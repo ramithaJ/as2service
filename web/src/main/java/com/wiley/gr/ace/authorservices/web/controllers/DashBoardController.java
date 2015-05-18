@@ -42,7 +42,7 @@ public class DashBoardController {
 
 	@RequestMapping(value = "/profilemeter/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Service getProfileMeter(
-			@PathVariable("userId") int userId) {
+			@PathVariable("userId")String userId) {
 
 		Service service = new Service();
 		DashBoard dashBoard = null;
