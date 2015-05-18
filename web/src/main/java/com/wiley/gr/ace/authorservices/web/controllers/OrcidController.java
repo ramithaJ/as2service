@@ -53,7 +53,7 @@ public class OrcidController {
 			String env = "DEV";// Need to fetch this from prop file
 			String url = "";
 			if (null != env) {
-				url = "https://orcid.org/oauth/authorize?client_id=APP-7E4BRADG8DTVCY64&response_type=code&scope=/authenticate&redirect_uri=http://www.vinay.com:8080/orcid/index.jsp";
+				url = "https://sandbox.orcid.org/oauth/authorize?client_id=APP-EU26CF7K2HTG34SV&response_type=code&scope=/authenticate&redirect_uri=http://www.vinay.com:8080/orcid/index.jsp";
 				service.setStatus("SUCCESS");
 				service.setPayload(url);
 			}
