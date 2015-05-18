@@ -13,6 +13,8 @@ package com.wiley.gr.ace.authorservices.web.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
@@ -248,7 +250,7 @@ public class UserProfileController {
 	 */
 	@RequestMapping(value = "/updateSocietyDetails/{userId}", method = RequestMethod.POST, produces = "application/json")
 	public Service updateSocietyDetails(@PathVariable("userId") String userId,
-			@RequestBody Society society) {
+			@Valid @RequestBody Society society) {
 
 		society.setUserId(userId);
 		userProfileService.updateSocietyDetails(society);

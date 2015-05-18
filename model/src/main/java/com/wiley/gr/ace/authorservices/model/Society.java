@@ -13,6 +13,10 @@ package com.wiley.gr.ace.authorservices.model;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -25,18 +29,19 @@ public class Society {
 	
 
 	/** The user Id . */
+	@NotNull @NotBlank
 	private String userId;
-	
+	@NotNull @NotBlank
 	private String societyId;
-	
+	@NotNull @NotBlank
 	private String societyName;
-	
+	@NotNull @NotBlank
 	private String membershipNumber;
-	
+	@NotNull @NotBlank
 	private String promoCode;
-	
+	@NotNull @NotBlank
 	private Date startDate;
-	
+	@NotNull @NotBlank
 	private Date endDate;
 	
 	/**
