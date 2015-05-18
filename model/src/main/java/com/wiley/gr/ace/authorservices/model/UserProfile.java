@@ -11,138 +11,121 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.model;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+
 /**
  * @author SarmaKumarap
  *
  */
+@JsonInclude(Include.NON_NULL)
 public class UserProfile {
 	
-	private Affiliation[] affiliations;
+	private User profileInformation;
 	
-	private ResearchFunder[] researchFunders;
+	//private User emailDetails;
 	
-	private Society[] societies;
+	private List<Addresses> addressDetails;
 	
-	private Interests[] interests;
+	private List<Affiliation> affiliations;
 	
-	private CoAuthor[] coAuthors;
+	private List<ResearchFunder> researchFunders;
 	
-	private PreferredJournals[] preferredJournals;
+	private List<Society> societies;
 	
-	private Alert[] alerts;
+	private List<Interests> interests;
+	
+	private List<CoAuthor> coAuthors;
+	
+	private List<PreferredJournals> preferredJournals;
+	
+	private List<Alert> alerts;
 	
 	private String emailForAlerts;
 
-	/**
-	 * @return
-	 */
-	public Affiliation[] getAffiliations() {
-		return affiliations;
-	}
-
-	/**
-	 * @param affiliations
-	 */
-	public void setAffiliations(Affiliation[] affiliations) {
-		this.affiliations = affiliations;
-	}
-
-	/**
-	 * @return
-	 */
-	public ResearchFunder[] getResearchFunders() {
-		return researchFunders;
-	}
-
-	/**
-	 * @param researchFunders
-	 */
-	public void setResearchFunders(ResearchFunder[] researchFunders) {
-		this.researchFunders = researchFunders;
-	}
-
-	/**
-	 * @return
-	 */
-	public Society[] getSocieties() {
-		return societies;
-	}
-
-	/**
-	 * @param societies
-	 */
-	public void setSocieties(Society[] societies) {
-		this.societies = societies;
-	}
-
-	/**
-	 * @return
-	 */
-	public Interests[] getInterests() {
-		return interests;
-	}
-
-	/**
-	 * @param interests
-	 */
-	public void setInterests(Interests[] interests) {
-		this.interests = interests;
-	}
-
-	/**
-	 * @return
-	 */
-	public CoAuthor[] getCoAuthors() {
-		return coAuthors;
-	}
-
-	/**
-	 * @param coAuthors
-	 */
-	public void setCoAuthors(CoAuthor[] coAuthors) {
-		this.coAuthors = coAuthors;
-	}
-
-	/**
-	 * @return
-	 */
-	public PreferredJournals[] getPreferredJournals() {
-		return preferredJournals;
-	}
-
-	/**
-	 * @param preferredJournals
-	 */
-	public void setPreferredJournals(PreferredJournals[] preferredJournals) {
-		this.preferredJournals = preferredJournals;
-	}
-
-	/**
-	 * @return
-	 */
-	public Alert[] getAlerts() {
-		return alerts;
-	}
-
-	/**
-	 * @param alerts
-	 */
-	public void setAlerts(Alert[] alerts) {
-		this.alerts = alerts;
-	}
-
-	/**
-	 * @return
-	 */
+	
 	public String getEmailForAlerts() {
 		return emailForAlerts;
 	}
 
-	/**
-	 * @param emailForAlerts
-	 */
 	public void setEmailForAlerts(String emailForAlerts) {
 		this.emailForAlerts = emailForAlerts;
 	}
 
-}
+	public User getProfileInformation() {
+		return profileInformation;
+	}
+
+	public void setProfileInformation(User profileInformation) {
+		this.profileInformation = profileInformation;
+	}
+
+	public List<Addresses> getAddressDetails() {
+		return addressDetails;
+	}
+
+	public void setAddressDetails(List<Addresses> addressDetails) {
+		this.addressDetails = addressDetails;
+	}
+
+	public List<Affiliation> getAffiliations() {
+		return affiliations;
+	}
+
+	public void setAffiliations(List<Affiliation> affiliations) {
+		this.affiliations = affiliations;
+	}
+
+	public List<ResearchFunder> getResearchFunders() {
+		return researchFunders;
+	}
+
+	public void setResearchFunders(List<ResearchFunder> researchFunders) {
+		this.researchFunders = researchFunders;
+	}
+
+	public List<Society> getSocieties() {
+		return societies;
+	}
+
+	public void setSocieties(List<Society> societies) {
+		this.societies = societies;
+	}
+
+	public List<Interests> getInterests() {
+		return interests;
+	}
+
+	public void setInterests(List<Interests> interests) {
+		this.interests = interests;
+	}
+
+	public List<CoAuthor> getCoAuthors() {
+		return coAuthors;
+	}
+
+	public void setCoAuthors(List<CoAuthor> coAuthors) {
+		this.coAuthors = coAuthors;
+	}
+
+	public List<PreferredJournals> getPreferredJournals() {
+		return preferredJournals;
+	}
+
+	public void setPreferredJournals(List<PreferredJournals> preferredJournals) {
+		this.preferredJournals = preferredJournals;
+	}
+
+	public List<Alert> getAlerts() {
+		return alerts;
+	}
+
+	public void setAlerts(List<Alert> alerts) {
+		this.alerts = alerts;
+	}
+	
+
+	}

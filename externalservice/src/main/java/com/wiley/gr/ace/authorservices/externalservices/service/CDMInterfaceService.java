@@ -13,6 +13,7 @@
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
 import com.wiley.gr.ace.authorservices.model.Interests;
+import com.wiley.gr.ace.authorservices.model.LookUpProfile;
 import com.wiley.gr.ace.authorservices.model.external.CDMAffiliation;
 
 public interface CDMInterfaceService {
@@ -30,4 +31,6 @@ public interface CDMInterfaceService {
 
 	boolean addInterest(String userId, Interests interest);
 	boolean removeInterest(String userId, String interestId);
+	
+	LookUpProfile lookUpProfile(String userId);
 }

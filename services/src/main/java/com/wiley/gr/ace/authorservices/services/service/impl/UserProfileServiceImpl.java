@@ -19,10 +19,12 @@ import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.Alert;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.Interests;
+import com.wiley.gr.ace.authorservices.model.LookUpProfile;
 import com.wiley.gr.ace.authorservices.model.PreferredJournals;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Society;
@@ -56,6 +58,9 @@ public class UserProfileServiceImpl implements UserProfileService {
 
 	@Autowired(required = true)
 	SocietyDetailsDao SocietyDetailsDao;
+	
+	@Autowired(required = true)
+	CDMInterfaceService cdmservices;
 
 	@Override
 	public Affiliation[] getAffiliationsForUser(String userId) {
@@ -393,4 +398,9 @@ public class UserProfileServiceImpl implements UserProfileService {
 		return true;
 	}
 
+	@Override
+	public LookUpProfile lookUpProfile(String userId) {
+
+		return cdmservices.lookUpProfile(userId);
+	}
 }

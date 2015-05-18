@@ -53,7 +53,7 @@ public class UserAlertsDaoImpl implements UserAlertsDao {
 				session.close();
 			}
 		}
-		return null;
+		return result;
 	}
 
 	/*

@@ -459,4 +459,13 @@ public class UserProfileController {
 		return new Service();
 	}
 
+	@RequestMapping(value = "/lookUpProfile/{userId}", method = RequestMethod.GET)
+	public Service lookUpProfile(@PathVariable("userId") String userId) {
+
+		Service service = new Service();
+		service.setStatus("Success");
+		service.setPayload(userProfileService.lookUpProfile(userId));
+		return service;
+
+	}
 }
