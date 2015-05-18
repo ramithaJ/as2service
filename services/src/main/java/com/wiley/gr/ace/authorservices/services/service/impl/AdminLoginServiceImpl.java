@@ -71,6 +71,9 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.wiley.gr.ace.authorservices.services.service.AdminLoginService#doLogin(java.lang.String)
+	 */
 	@Override
 	public boolean doLogin(String emailId) {
 		// Call external service for password validation
@@ -80,6 +83,9 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.wiley.gr.ace.authorservices.services.service.AdminLoginService#requestAdminAccess(java.lang.String)
+	 */
 	@Override
 	public boolean requestAdminAccess(String emailId) {
 
@@ -89,8 +95,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 	}
 
 	@Override
-	public RolesAndPermissions getRolesAndPermissions(String roleId) {
-		
+	public RolesAndPermissions getRolesAndPermissions(String roleId) { 
 		RolesAndPermissions rolesAndPermissions = new RolesAndPermissions();
 		
 		Map<String, List<String>> permissionsMap = new HashMap();
@@ -112,7 +117,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 				Role role = new Role();
 				role.setRoleId(daoRoles.getRoleId()+"");
 				role.setRoleName(daoRoles.getRoleName());
-				if(daoRoles.getRoleType().equals(AuthorServicesConstants.ROLE_TYPE_INTERNAL)) {
+				if(daoRoles.getRoleType() != null && daoRoles.getRoleType().equals(AuthorServicesConstants.ROLE_TYPE_INTERNAL)) {
 					role.setAdminRole(true);
 				}
 				rolesAndPermissions.getRolesList().add(role);
@@ -175,5 +180,15 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 		//}
 		return rolesAndPermissions;
 	}
+
+	/* (non-Javadoc)
+	 * @see com.wiley.gr.ace.authorservices.services.service.AdminLoginService#addOrUpdateUserRole(com.wiley.gr.ace.authorservices.model.RolesAndPermissions)
+	 */
+//	@Override
+//	public void addOrUpdateUserRole(RolesAndPermissions rolesAndPermissions) {
+//		
+//		
+//		
+//	}
 
 }
