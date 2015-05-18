@@ -14,43 +14,11 @@
  */
 package com.wiley.gr.ace.authorservices.persistence.services;
 
-import java.util.List;
 
-import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
-import com.wiley.gr.ace.authorservices.persistence.entity.UserAffiliations;
-import com.wiley.gr.ace.authorservices.persistence.entity.UserAreaOfInterest;
-import com.wiley.gr.ace.authorservices.persistence.entity.UserFunderGrants;
-import com.wiley.gr.ace.authorservices.persistence.entity.UserSocietyDetails;
 
 /**
  * @author Virtusa
  *
  */
 public interface DashBoardDAO {
-	
-	/**
-	 * @param userId
-	 * @return UserFunderGrants
-	 */
-	List<UserFunderGrants> getFundersDetailsList(int userId) throws Exception;
-	/**
-	 * @param userId
-	 * @return AuthorProfile
-	 */
-	List<AuthorProfile> getMissedUserProfileList(int userId) throws Exception;
-	/**
-	 * @param userId
-	 * @return UserSocietyDetails
-	 */
-	List<UserSocietyDetails> getSocietyDetailsList(int userId) throws Exception;
-	/**
-	 * @param userId
-	 * @return UserAffiliations
-	 */
-	List<UserAffiliations> getUserAffiliationsList(int userId) throws Exception;
-	/**
-	 * @param userId
-	 * @return UserAreaOfInterest
-	 */
-	List<UserAreaOfInterest> getUserAreaOfInterestsList(int userId) throws Exception;
 }
