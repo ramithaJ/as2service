@@ -19,13 +19,13 @@ import org.springframework.util.StringUtils;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.DashBoard;
 import com.wiley.gr.ace.authorservices.model.Interests;
-import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.UserFunder;
 import com.wiley.gr.ace.authorservices.model.UserMgmt;
 import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserAffiliations;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserAreaOfInterest;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserFunderGrants;
-import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserSocietyDetails;
 import com.wiley.gr.ace.authorservices.persistence.services.DashBoardDAO;
 import com.wiley.gr.ace.authorservices.services.service.DashBoardService;
@@ -46,41 +46,31 @@ public class DashBoardServiceImpl implements DashBoardService {
 	 * @return dashBoard
 	 */
 	public DashBoard getProfileMeter(int userId) throws Exception {
-		List<UserSecurityDetails> securityDetailsList = null;
 		DashBoard dashBoard = new DashBoard();
 		if (userId > 0) {
-			securityDetailsList = dashBoardDAO.getSecurityDetailsList(userId);
-			if (null != securityDetailsList) {
-				for (UserSecurityDetails secureDetails : securityDetailsList) {
-					if (StringUtils
-							.isEmpty(secureDetails.getSecurityQuestion())
-							|| StringUtils.isEmpty(secureDetails
-									.getSecurityAnswer())) {
-						SecurityDetails securityDetails = new SecurityDetails();
-						securityDetails.setSecurityQuestion(secureDetails
-								.getSecurityQuestion());
-						securityDetails.setSecurityAnswer(secureDetails
-								.getSecurityAnswer());
-						dashBoard.setSecurityDetails(securityDetails);
-						break;
-					}
-				}
-			}
 			List<UserFunderGrants> userFunderGrantsList = dashBoardDAO
-					.getFundersDetails(userId);
+					.getFundersDetailsList(userId);
 			if (userFunderGrantsList.size() == 0) {
 				UserFunder userFunders = new UserFunder();
 				dashBoard.setUserFunders(userFunders);
 			}
-			AuthorProfile authorMissedProfile = dashBoardDAO
-					.getMissedUserProfile(userId);
-			Character isAccountVerified = authorMissedProfile
-					.getIsAccountVerified();
-			if (isAccountVerified.equals('N')) {
+			List<AuthorProfile> authorMissedProfileList = dashBoardDAO
+					.getMissedUserProfileList(userId);
+			for (AuthorProfile authorMissedProfile : authorMissedProfileList) {
+				Character isAccountVerified = authorMissedProfile
+						.getIsAccountVerified();
 				UserMgmt userMgmt = new UserMgmt();
-				userMgmt.setIsAccountVerified(isAccountVerified);
-				userMgmt.setOrcidID("null");
-				userMgmt.setSecondaryEmailAddress("null");
+				if (StringUtils.isEmpty(authorMissedProfile.getOrcidId())) {
+					userMgmt.setOrcidID(authorMissedProfile.getOrcidId());
+				}
+				if (StringUtils.isEmpty(authorMissedProfile
+						.getSecondaryEmailAddr())) {
+					userMgmt.setSecondaryEmailAddress(authorMissedProfile
+							.getSecondaryEmailAddr());
+				}
+				if (isAccountVerified.equals('N')) {
+					userMgmt.setIsAccountVerified(isAccountVerified);
+				}
 				dashBoard.setUserMgmt(userMgmt);
 			}
 			List<UserSocietyDetails> userSocietyDetailsList = dashBoardDAO
@@ -89,10 +79,18 @@ public class DashBoardServiceImpl implements DashBoardService {
 				Society societyDetails = new Society();
 				dashBoard.setSociety(societyDetails);
 			}
-			Affiliation affiliation = new Affiliation();
-			dashBoard.setAffiliation(affiliation);
-			Interests interests = new Interests();
-			dashBoard.setInterests(interests);
+			List<UserAffiliations> userAffiliationsList = dashBoardDAO
+					.getUserAffiliationsList(userId);
+			if (userAffiliationsList.size() == 0) {
+				Affiliation affiliation = new Affiliation();
+				dashBoard.setAffiliation(affiliation);
+			}
+			List<UserAreaOfInterest> userAreaOfInterestList = dashBoardDAO
+					.getUserAreaOfInterestsList(userId);
+			if (userAreaOfInterestList.size() == 0) {
+				Interests interests = new Interests();
+				dashBoard.setInterests(interests);
+			}
 		} else {
 			dashBoard = null;
 		}

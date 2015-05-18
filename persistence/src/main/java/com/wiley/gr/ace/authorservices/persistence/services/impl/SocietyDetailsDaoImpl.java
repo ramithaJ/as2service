@@ -14,6 +14,7 @@ package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -39,8 +40,12 @@ public class SocietyDetailsDaoImpl implements SocietyDetailsDao {
 	@Autowired(required = true)
 	HibernateConnection con;
 
-	/* (non-Javadoc)
-	 * @see com.wiley.gr.ace.authorservices.persistence.services.SocietyDetailsDao#getSocietiesForUser(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.wiley.gr.ace.authorservices.persistence.services.SocietyDetailsDao
+	 * #getSocietiesForUser(java.lang.String)
 	 */
 	@Override
 	public List<UserSocietyDetails> getSocietiesForUser(String userId) {
@@ -53,9 +58,10 @@ public class SocietyDetailsDaoImpl implements SocietyDetailsDao {
 
 			userSocietyDetails = session.createQuery(hql)
 					.setString("userId", userId).list();
-			if (userSocietyDetails.size()==0) {
-				
-				throw new ASException( "1914" ,"Requested User id Doesn't exist please contact Support team");
+			if (userSocietyDetails.size() == 0) {
+
+				throw new ASException("1914",
+						"Requested User id Doesn't exist please contact Support team");
 			}
 
 		} finally {
@@ -69,4 +75,69 @@ public class SocietyDetailsDaoImpl implements SocietyDetailsDao {
 		return userSocietyDetails;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.wiley.gr.ace.authorservices.persistence.services.SocietyDetailsDao
+	 * #deleteSociety(java.lang.String, java.lang.String)
+	 */
+	@Override
+	public boolean deleteSociety(String userId, String societyId) {
+
+		Session session = con.getSessionFactory().openSession();
+
+		session.beginTransaction();
+		try {
+			String hql = "delete from UserSocietyDetails where authorProfile.userId=:userId and societyId = :societyId";
+			Query query = session.createQuery(hql);
+			query.setString("userId", userId);
+			query.setString("societyId", societyId);
+			int count = query.executeUpdate();
+
+			if (count == 0) {
+
+				throw new ASException("45345",
+						"Delete Record Failed please Check With Support Team");
+			}
+		}
+
+		finally {
+			if (null != session)
+
+				session.flush();
+			session.getTransaction().commit();
+			session.close();
+
+		}
+
+		return true;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.wiley.gr.ace.authorservices.persistence.services.SocietyDetailsDao
+	 * #updateSociety(java.lang.String,
+	 * com.wiley.gr.ace.authorservices.model.Society)
+	 */
+	@Override
+	public void updateSociety(UserSocietyDetails userSocietyDetails) {
+		Session session = con.getSessionFactory().openSession();
+		session.beginTransaction();
+		try {
+
+			session.saveOrUpdate(userSocietyDetails);
+
+		} finally {
+			if (null != session)
+
+				session.flush();
+			session.getTransaction().commit();
+			session.close();
+
+		}
+
+	}
 }

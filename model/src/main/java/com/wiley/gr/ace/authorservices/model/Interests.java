@@ -21,12 +21,33 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class Interests {
 	
+	/** The user Id . */
+	private String userId;
+	
 	private String aoeId;
 	
 	private String aoeCategory;
 	
 	private String aoeName;
 
+	/**
+	 * Gets the user Id.
+	 *
+	 * @return the user Id
+	 */
+	public String getUserId() {
+		return userId;
+	}
+
+	/**
+	 * Sets the user Id.
+	 *
+	 * @return the user Id
+	 */
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
 	public String getAoeId() {
 		return aoeId;
 	}

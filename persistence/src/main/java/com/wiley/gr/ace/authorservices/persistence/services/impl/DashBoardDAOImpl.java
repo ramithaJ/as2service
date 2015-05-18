@@ -22,8 +22,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserAffiliations;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserAreaOfInterest;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserFunderGrants;
-import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserSocietyDetails;
 import com.wiley.gr.ace.authorservices.persistence.services.DashBoardDAO;
 
@@ -46,32 +47,9 @@ public class DashBoardDAOImpl implements DashBoardDAO {
 	/**
 	 * @param userId
 	 *            to extract the data from Database
-	 * @return secureResultList
-	 */
-	public List<UserSecurityDetails> getSecurityDetailsList(int userId) throws Exception {
-		try {
-			session = con.getSessionFactory().openSession();
-			txn = session.beginTransaction();
-			String secureDetailsHql = "from UserSecurityDetails where authorProfile.userId=:userId";
-			List<UserSecurityDetails> secureResultList = session
-					.createQuery(secureDetailsHql).setInteger("userId", userId)
-					.list();
-			txn.commit();
-			return secureResultList;
-		} finally {
-			if (session != null) {
-				session.flush();
-				session.close();
-			}
-		}
-	}
-
-	/**
-	 * @param userId
-	 *            to extract the data from Database
 	 * @return userFunderGrants
 	 */
-	public List<UserFunderGrants> getFundersDetails(int userId) throws Exception {
+	public List<UserFunderGrants> getFundersDetailsList(int userId) throws Exception {
 		try {
 			session = con.getSessionFactory().openSession();
 			txn = session.beginTransaction();
@@ -94,18 +72,17 @@ public class DashBoardDAOImpl implements DashBoardDAO {
 	 *            to extract the data from Database
 	 * @return AuthorProfile
 	 */
-	public AuthorProfile getMissedUserProfile(int userId) throws Exception {
+	public List<AuthorProfile> getMissedUserProfileList(int userId) throws Exception {
 		try {
 			session = con.getSessionFactory().openSession();
 			txn = session.beginTransaction();
-			String profileHql = "select isAccountVerified from AuthorProfile where userId=:userId";
-			Character isAccountVerified = (Character) session
+			String profileHql = "from AuthorProfile ap where ap.userId=:userId";
+			List<AuthorProfile> authorProfileList=session
 					.createQuery(profileHql).setInteger("userId", userId)
-					.uniqueResult();
-			AuthorProfile authorProfile = new AuthorProfile();
-			authorProfile.setIsAccountVerified(isAccountVerified);
+					.list();
+			System.err.println("=============="+authorProfileList.get(0).getOrcidId());
 			txn.commit();
-			return authorProfile;
+			return authorProfileList;
 		} finally {
 			if (session != null) {
 				session.flush();
@@ -126,9 +103,53 @@ public class DashBoardDAOImpl implements DashBoardDAO {
 			List<UserSocietyDetails> societyResultList = session
 					.createQuery(societyDetailsHql).setInteger("userId", userId)
 					.list();
-			System.err.println("================"+societyResultList.size());
 			txn.commit();
 			return societyResultList;
+		} finally {
+			if (session != null) {
+				session.flush();
+				session.close();
+			}
+		}
+	}
+	/**
+	 * @param userId
+	 *            to extract the data from Database
+	 * @return userAffiliationsList
+	 */
+	public List<UserAffiliations> getUserAffiliationsList(int userId) throws Exception{
+		try{
+		session = con.getSessionFactory().openSession();
+		txn = session.beginTransaction();
+		String userAffiliationsHql = "from UserAffiliations ua where ua.authorProfile.userId = :userId";
+		List<UserAffiliations> userAffiliationsList = session
+				.createQuery(userAffiliationsHql).setInteger("userId", userId)
+				.list();
+		System.err.println("================"+userAffiliationsList.size());
+		txn.commit();
+		return userAffiliationsList;
+	} finally {
+		if (session != null) {
+			session.flush();
+			session.close();
+		}
+	}
+	}
+	/**
+	 * @param userId
+	 *            to extract the data from Database
+	 * @return userAreaOfInterestList
+	 */
+	public List<UserAreaOfInterest> getUserAreaOfInterestsList(int userId) throws Exception {
+		try {
+			session = con.getSessionFactory().openSession();
+			txn = session.beginTransaction();
+			String userAreaOfInterestHql = "from UserAreaOfInterest where id.userId=:userId";
+			List<UserAreaOfInterest> userAreaOfInterestList = session
+					.createQuery(userAreaOfInterestHql)
+					.setInteger("userId", userId).list();
+			txn.commit();
+			return userAreaOfInterestList;
 		} finally {
 			if (session != null) {
 				session.flush();

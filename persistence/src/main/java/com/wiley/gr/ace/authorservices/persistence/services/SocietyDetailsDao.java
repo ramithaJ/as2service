@@ -28,4 +28,17 @@ public interface SocietyDetailsDao {
 	 */
 	List<UserSocietyDetails> getSocietiesForUser(String userId);
 
+	/**
+	 * @param userId
+	 * @param societyId
+	 * @return
+	 */
+	boolean deleteSociety(String userId ,String societyId);
+	
+	/**
+	 * @param userId
+	 * @param society
+	 */
+	void updateSociety(UserSocietyDetails userSocietyDetails);
+
 }
