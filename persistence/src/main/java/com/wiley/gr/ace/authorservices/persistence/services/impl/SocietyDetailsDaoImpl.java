@@ -29,14 +29,6 @@ import com.wiley.gr.ace.authorservices.persistence.services.SocietyDetailsDao;
  */
 public class SocietyDetailsDaoImpl implements SocietyDetailsDao {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.wiley.gr.ace.authorservices.persistence.services.SocietyDetailsDao
-	 * #getSocietiesForUser()
-	 */
-
 	@Autowired(required = true)
 	HibernateConnection con;
 

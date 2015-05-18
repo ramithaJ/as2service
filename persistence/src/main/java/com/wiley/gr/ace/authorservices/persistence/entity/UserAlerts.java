@@ -55,7 +55,7 @@ public class UserAlerts implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ALERT_ID", nullable = false, insertable = false, updatable = false)
 	public Alerts getAlerts() {
 		return this.alerts;
@@ -65,7 +65,7 @@ public class UserAlerts implements java.io.Serializable {
 		this.alerts = alerts;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "USER_ID", nullable = false, insertable = false, updatable = false)
 	public AuthorProfile getAuthorProfile() {
 		return this.authorProfile;
