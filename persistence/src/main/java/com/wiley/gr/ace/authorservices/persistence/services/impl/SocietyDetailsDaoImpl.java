@@ -127,16 +127,10 @@ public class SocietyDetailsDaoImpl implements SocietyDetailsDao {
 		Session session = con.getSessionFactory().openSession();
 		session.beginTransaction();
 		try {
-			
-		session.saveOrUpdate(userSocietyDetails);
-		if (null != session) {
-			session.flush();
-			session.getTransaction().commit();
-			session.close();
 
-		}
-	}
-		finally {
+			session.saveOrUpdate(userSocietyDetails);
+
+		} finally {
 			if (null != session)
 
 				session.flush();
