@@ -28,6 +28,7 @@ import com.wiley.gr.ace.authorservices.persistence.services.UserAlertsDao;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserPreferredJournalsDAO;
+import com.wiley.gr.ace.authorservices.persistence.services.UserRolesDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.ASDataDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.AuthorCoAuthorDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.DashBoardDAOImpl;
@@ -41,6 +42,7 @@ import com.wiley.gr.ace.authorservices.persistence.services.impl.UserAlertsDaoIm
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserLoginDaoImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserLoginServiceDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserPreferredJournalsDAOImpl;
+import com.wiley.gr.ace.authorservices.persistence.services.impl.UserRolesDAOImpl;
 
 @Configuration
 public class PersistenceBeanConfig {
@@ -114,6 +116,12 @@ public class PersistenceBeanConfig {
 	@Bean(name = "SocietyDetailsDao")
 	public SocietyDetailsDao societyDetailsDao() {
 		return new SocietyDetailsDaoImpl();
+
+	}
+	
+	@Bean(name = "UserRolesDAO")
+	public UserRolesDAO userRolesDAO() {
+		return new UserRolesDAOImpl();
 
 	}
 }
