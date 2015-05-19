@@ -221,7 +221,7 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
 	@Override
 	public SecurityDetailsHolder getSecurityDetails(String userId) {
 		
-		final String url = "http://demo6374909.mockable.io/user/securityDetails";
+		final String url = "http://demo7930138.mockable.io/user/RetrieveSecQuestions/1000";
 		URI uri = null;
 		try {
 
