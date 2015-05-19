@@ -17,16 +17,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * @author sarmakumarap
  *
  */
 public class RolesAndPermissions {
 	
+	@NotNull
 	private List<Role> rolesList = new ArrayList<Role>();
 	
 	private List<PermissionSection> sectionsList = new ArrayList<PermissionSection>();
 	
+	@NotNull
 	private Map<String, String> permissionsMap = new HashMap<String, String>();
 
 	/**
@@ -70,10 +74,6 @@ public class RolesAndPermissions {
 	public void setPermissionsMap(Map<String, String> permissionsMap) {
 		this.permissionsMap = permissionsMap;
 	}
-
-	
-
-	
 
 
 }
