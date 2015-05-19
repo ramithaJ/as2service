@@ -12,6 +12,7 @@
 
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,9 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 	public boolean updateSocietyDetails(Society society) {
 		UserProfile userProfile = new UserProfile();
 		LookUpProfile lookUpProfile = new LookUpProfile();
-		userProfile.setSocieties((List<Society>) society);
+		List<Society> list=new ArrayList<Society>();
+		list.add(society);
+		userProfile.setSocieties(list);
 		lookUpProfile.setUserProfile(userProfile);
 		cdmservices.updateProfile(lookUpProfile);
 
@@ -48,8 +51,10 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 	public boolean updateAffiliation(Affiliation affiliation) {
 		UserProfile userProfile = new UserProfile();
 		LookUpProfile lookUpProfile = new LookUpProfile();
+		List<Affiliation> list=new ArrayList<Affiliation>();
+		list.add(affiliation);
 
-		userProfile.setAffiliations((List<Affiliation>) affiliation);
+		userProfile.setAffiliations(list);
 		lookUpProfile.setUserProfile(userProfile);
 		cdmservices.updateProfile(lookUpProfile);
 
@@ -61,7 +66,9 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 			ResearchFunder researchFunder) {
 		UserProfile userProfile = new UserProfile();
 		LookUpProfile lookUpProfile = new LookUpProfile();
-		userProfile.setResearchFunders((List<ResearchFunder>) researchFunder);
+		List<ResearchFunder> list =new ArrayList<ResearchFunder>();
+		list.add(researchFunder);
+		userProfile.setResearchFunders(list);
 		lookUpProfile.setUserProfile(userProfile);
 		cdmservices.updateProfile(lookUpProfile);
 
@@ -82,7 +89,9 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 	public boolean UpdatecoAuthor(CoAuthor coAuthor) {
 		UserProfile userProfile = new UserProfile();
 		LookUpProfile lookUpProfile = new LookUpProfile();
-		userProfile.setCoAuthors((List<CoAuthor>) coAuthor);
+		List<CoAuthor> list=new ArrayList<CoAuthor>();
+		list.add(coAuthor);
+		userProfile.setCoAuthors(list);
 		lookUpProfile.setUserProfile(userProfile);
 		cdmservices.updateProfile(lookUpProfile);
 		return true;
