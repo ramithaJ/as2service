@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.external.CDMAffiliation;
+import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
 
 /**
  * @author SarmaKumarap
@@ -46,6 +47,11 @@ public class StubInvokerUtil {
 				requestEntity = new HttpEntity<CDMAffiliation>(requestHeaders);
 				response = restTemplate.exchange(uri, httpMethod,
 						requestEntity, CDMAffiliation.class);
+
+			} else if (className.equals("LookUpProfile")) {
+				requestEntity = new HttpEntity<LookUpProfile>(requestHeaders);
+				response = restTemplate.exchange(uri, httpMethod,
+						requestEntity, LookUpProfile.class);
 
 			}
 			
