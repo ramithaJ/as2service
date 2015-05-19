@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
+import com.wiley.gr.ace.authorservices.model.ASRolesAndPermissions;
 import com.wiley.gr.ace.authorservices.model.AdminUser;
 import com.wiley.gr.ace.authorservices.model.Login;
 import com.wiley.gr.ace.authorservices.model.RolesAndPermissions;
@@ -119,7 +120,7 @@ public class AdminLoginController extends ASExceptionController {
 	 * @return
 	 */
 	@RequestMapping(value = "/permissions/", method = RequestMethod.POST, produces = "application/json")
-	public Service addOrUpdateUserRole(@RequestBody RolesAndPermissions rolesAndPermissions) {
+	public Service addOrUpdateUserRole(@RequestBody ASRolesAndPermissions rolesAndPermissions) {
 		
 		adminLoginService.addOrUpdateUserRole(rolesAndPermissions);
 		return new Service();

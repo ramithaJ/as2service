@@ -12,23 +12,19 @@
 
 package com.wiley.gr.ace.authorservices.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.validation.constraints.NotNull;
 
 /**
- * @author sarmakumarap
+ * @author SarmaKumarap
  *
  */
-public class RolesAndPermissions {
+public class ASRolesAndPermissions {
 	
 	@NotNull
-	private List<Role> rolesList = new ArrayList<Role>();
-	
-	private List<PermissionSection> sectionsList = new ArrayList<PermissionSection>();
+	private Role role = new Role();
 	
 	@NotNull
 	private Map<String, String[]> permissionsMap = new HashMap<String, String[]>();
@@ -36,29 +32,15 @@ public class RolesAndPermissions {
 	/**
 	 * @return
 	 */
-	public List<Role> getRolesList() {
-		return rolesList;
+	public Role getRole() {
+		return role;
 	}
 
 	/**
-	 * @param rolesList
+	 * @param role
 	 */
-	public void setRolesList(List<Role> rolesList) {
-		this.rolesList = rolesList;
-	}
-
-	/**
-	 * @return
-	 */
-	public List<PermissionSection> getSectionsList() {
-		return sectionsList;
-	}
-
-	/**
-	 * @param sectionsList
-	 */
-	public void setSectionsList(List<PermissionSection> sectionsList) {
-		this.sectionsList = sectionsList;
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	/**
@@ -74,6 +56,5 @@ public class RolesAndPermissions {
 	public void setPermissionsMap(Map<String, String[]> permissionsMap) {
 		this.permissionsMap = permissionsMap;
 	}
-
 
 }
