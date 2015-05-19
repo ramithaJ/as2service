@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -30,6 +31,7 @@ import com.wiley.gr.ace.authorservices.persistence.entity.RolePermissions;
 import com.wiley.gr.ace.authorservices.persistence.entity.Roles;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
+import com.wiley.gr.ace.authorservices.persistence.services.UserRolesDAO;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 
 
@@ -48,6 +50,8 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 	BPMInterfaceService bpmService;
 	@Autowired(required=true)
 	ASDataDAO  asDataDAO;
+	@Autowired(required=true)
+	UserRolesDAO userRolesDAO;
 
 	/*
 	 * (non-Javadoc)
@@ -184,11 +188,44 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 	/* (non-Javadoc)
 	 * @see com.wiley.gr.ace.authorservices.services.service.AdminLoginService#addOrUpdateUserRole(com.wiley.gr.ace.authorservices.model.RolesAndPermissions)
 	 */
-//	@Override
-//	public void addOrUpdateUserRole(RolesAndPermissions rolesAndPermissions) {
-//		
-//		
-//		
-//	}
+	@Override
+	public void addOrUpdateUserRole(RolesAndPermissions rolesAndPermissions) {
+		
+		Roles roles = new Roles();
+		
+		for (Role role : rolesAndPermissions.getRolesList()) {
+			
+			if(role.getRoleId() != null) {
+				roles.setRoleId(Integer.parseInt(role.getRoleId()));
+			}
+			roles.setDescription(role.getRoleDescription());
+			roles.setRoleName(role.getRoleName());
+			if(role.isAdminRole()) {
+				roles.setRoleType(AuthorServicesConstants.ROLE_TYPE_INTERNAL);
+			} else {
+				roles.setRoleType(AuthorServicesConstants.ROLE_TYPE_EXTERNAL);
+			}
+		}
+		
+		List<Permissions> permissionsList = new ArrayList<Permissions>();
+		
+		for (Map.Entry<String, String> entry : rolesAndPermissions.getPermissionsMap().entrySet()) {
+			
+			String permissionsString = entry.getValue().substring(1, entry.getValue().length()-1);
+			
+			String[] tokens = permissionsString.split(",");
+			
+			for (String token : tokens) {
+				
+				Permissions permissions = new Permissions();
+				permissions.setPermissionId(Integer.parseInt(token.trim()));
+				permissionsList.add(permissions);
+				
+			}
+			
+		}
+		userRolesDAO.addOrUpdateUserRoles(roles, permissionsList);
+		
+	}
 
 }
