@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.UserMgmt;
+import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
 
 /**
@@ -37,6 +38,9 @@ public class UserAccountController {
 	@Autowired
 	UserAccountService userAccountService;
 
+	@Autowired
+	AuthorProfileService authorProfileService;
+	
 	/**
 	 * @param userId
 	 * @param userDetails
