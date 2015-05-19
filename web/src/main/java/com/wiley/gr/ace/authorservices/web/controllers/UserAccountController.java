@@ -56,7 +56,7 @@ public class UserAccountController {
 
 	}
 	
-	@RequestMapping(value = "/profileInfo/update/{userId}",method = RequestMethod.POST)
+	@RequestMapping(value = "/profileInfo/{userId}",method = RequestMethod.POST)
 	public Service updateProfileInformation(@PathVariable("userId") String userId, @RequestBody User user) {
 		
 		Service service = new Service();
@@ -82,7 +82,7 @@ public class UserAccountController {
 	 * @param emailDetails
 	 * @return
 	 */
-	@RequestMapping(value = "/emailDetails/update/{userId}", method = RequestMethod.POST)
+	@RequestMapping(value = "/emailDetails/{userId}", method = RequestMethod.POST)
 	public Service updateEmail(@PathVariable("userId") String userId,
 			@RequestBody User emailDetails) {
 
@@ -105,7 +105,7 @@ public class UserAccountController {
 		return service;
 	}
 	
-	@RequestMapping(value = "/userAddresses/update/{userId}", method = RequestMethod.POST)
+	@RequestMapping(value = "/userAddresses/{userId}", method = RequestMethod.POST)
 	public Service updateUserAddresses(@PathVariable("userId") String userId, @RequestBody Addresses addresses) {
 
 		Service service = new Service();

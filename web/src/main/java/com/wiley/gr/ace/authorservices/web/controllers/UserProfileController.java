@@ -100,7 +100,7 @@ public class UserProfileController {
 	 * @param funderJson
 	 * @return
 	 */
-	@RequestMapping(value = "/researchFunder/update/{userId}", method = RequestMethod.POST)
+	@RequestMapping(value = "/researchFunder/{userId}", method = RequestMethod.POST)
 	public Service updateResearchFunder(@PathVariable("userId") String userId,
 			@RequestBody ResearchFunder researchFunder) {
 
