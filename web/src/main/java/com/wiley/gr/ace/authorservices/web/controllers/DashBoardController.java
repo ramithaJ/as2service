@@ -16,6 +16,7 @@ package com.wiley.gr.ace.authorservices.web.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,7 +50,7 @@ public class DashBoardController {
 
 		try {
 			dashBoard = dashBoardService.getProfileMeter(userId);
-			if (null != dashBoard) {
+			if (!StringUtils.isEmpty(dashBoard)) {
 				service.setStatus("SUCCESS");
 				service.setPayload(dashBoard);
 			} else {
