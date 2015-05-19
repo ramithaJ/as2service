@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.BPMInterfaceService;
+import com.wiley.gr.ace.authorservices.model.ASRolesAndPermissions;
 import com.wiley.gr.ace.authorservices.model.PermissionSection;
 import com.wiley.gr.ace.authorservices.model.Role;
 import com.wiley.gr.ace.authorservices.model.RolesAndPermissions;
@@ -101,7 +102,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 	public RolesAndPermissions getRolesAndPermissions(String roleId) { 
 		RolesAndPermissions rolesAndPermissions = new RolesAndPermissions();
 		
-		Map<String, List<String>> permissionsMap = new HashMap();
+		Map<String, List<String>> permissionsMap = new HashMap<String, List<String>>();
 		
 		PermissionSection systemSection = new PermissionSection();
 		PermissionSection articleSection = new PermissionSection();
@@ -173,11 +174,11 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 				
 			}
 			
-			Map<String, String> returnMap = new HashMap<String, String>();
+			Map<String, String[]> returnMap = new HashMap<String, String[]>();
 			
 			for (Map.Entry<String, List<String>> entry : permissionsMap.entrySet()) {
 				
-				returnMap.put(entry.getKey(), entry.getValue().toString());
+				returnMap.put(entry.getKey(), entry.getValue().toArray(new String[entry.getValue().size()]));
 			}
 			rolesAndPermissions.setPermissionsMap(returnMap);
 		//}
@@ -188,38 +189,31 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 	 * @see com.wiley.gr.ace.authorservices.services.service.AdminLoginService#addOrUpdateUserRole(com.wiley.gr.ace.authorservices.model.RolesAndPermissions)
 	 */
 	@Override
-	public void addOrUpdateUserRole(RolesAndPermissions rolesAndPermissions) {
+	public void addOrUpdateUserRole(ASRolesAndPermissions rolesAndPermissions) {
 		
 		Roles roles = new Roles();
-		
-		for (Role role : rolesAndPermissions.getRolesList()) {
 			
-			if(role.getRoleId() != null) {
-				roles.setRoleId(Integer.parseInt(role.getRoleId()));
-			}
-			roles.setDescription(role.getRoleDescription());
-			roles.setRoleName(role.getRoleName());
-			if(role.isAdminRole()) {
-				roles.setRoleType(AuthorServicesConstants.ROLE_TYPE_INTERNAL);
-			} else {
-				roles.setRoleType(AuthorServicesConstants.ROLE_TYPE_EXTERNAL);
-			}
+		if(rolesAndPermissions.getRole().getRoleId() != null
+				&& !rolesAndPermissions.getRole().getRoleId().trim().equals("0")) {
+			roles.setRoleId(Integer.parseInt(rolesAndPermissions.getRole().getRoleId()));
+		}
+		roles.setDescription(rolesAndPermissions.getRole().getRoleDescription());
+		roles.setRoleName(rolesAndPermissions.getRole().getRoleName());
+		if(rolesAndPermissions.getRole().isAdminRole()) {
+			roles.setRoleType(AuthorServicesConstants.ROLE_TYPE_INTERNAL);
+		} else {
+			roles.setRoleType(AuthorServicesConstants.ROLE_TYPE_EXTERNAL);
 		}
 		
 		List<Permissions> permissionsList = new ArrayList<Permissions>();
 		
-		for (Map.Entry<String, String> entry : rolesAndPermissions.getPermissionsMap().entrySet()) {
+		for (Map.Entry<String, String[]> entry : rolesAndPermissions.getPermissionsMap().entrySet()) {
 			
-			String permissionsString = entry.getValue().substring(1, entry.getValue().length()-1);
-			
-			String[] tokens = permissionsString.split(",");
-			
-			for (String token : tokens) {
+			for (String permissionId : entry.getValue()) {
 				
 				Permissions permissions = new Permissions();
-				permissions.setPermissionId(Integer.parseInt(token.trim()));
+				permissions.setPermissionId(Integer.parseInt(permissionId));
 				permissionsList.add(permissions);
-				
 			}
 			
 		}
