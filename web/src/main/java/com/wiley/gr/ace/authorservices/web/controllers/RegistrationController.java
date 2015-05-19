@@ -52,7 +52,7 @@ public class RegistrationController {
 				ErrorPOJO err = new ErrorPOJO();
 				err.setCode(201);
 				err.setMessage("Email is null or empty");
-				service.setStatus("ERROR");
+				service.setStatus("FAILURE");
 				service.setError(err);
 			}
 			if (user != null) {
@@ -86,34 +86,43 @@ public class RegistrationController {
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Service createUser(@RequestBody User user)
-			throws Exception {
+	public @ResponseBody Service createUser(@RequestBody User user) {
 		Service service = new Service();
 		String status = null;
 		if (null != user) {
-			if (user.isSearchFullName()) {
-				List<User> usersList = null;
-				usersList = rs.getUserFromFirstNameLastName(
-						user.getPrimaryEmailAddr(), user.getFirstName(),
-						user.getLastName());
-				if (null != usersList) {
+			try {
+				if (user.isSearchFullName()) {
+					List<User> usersList = null;
+					usersList = rs.getUserFromFirstNameLastName(
+							user.getPrimaryEmailAddr(), user.getFirstName(),
+							user.getLastName());
+					if (null != usersList) {
+						service.setStatus("FAILURE");
+						ErrorPOJO err = new ErrorPOJO();
+						err.setCode(205);
+						err.setMessage("First Name and Last Name already exists");
+						service.setError(err);
+						service.setPayload(usersList);
+						return service;
+					}
+				}
+				status = rs.createUser(user);
+				if (status.equalsIgnoreCase("success")) {
+					service.setStatus("SUCCESS");
+				} else {
 					service.setStatus("FAILURE");
 					ErrorPOJO err = new ErrorPOJO();
-					err.setCode(205);
-					err.setMessage("First Name and Last Name already exists");
+					err.setCode(208);
+					err.setMessage("Creating user failed");
 					service.setError(err);
-					service.setPayload(usersList);
-					return service;
 				}
-			}
-			status = rs.createUser(user);
-			if (status.equalsIgnoreCase("success")) {
-				service.setStatus("SUCCESS");
-			} else {
-				service.setStatus("FAILURE");
+			} catch (Exception e) {
+
+				e.printStackTrace();
 				ErrorPOJO err = new ErrorPOJO();
-				err.setCode(208);
-				err.setMessage("Creating user failed");
+				err.setCode(204);
+				err.setMessage("searching user encountered exception");
+				service.setStatus("ERROR");
 				service.setError(err);
 			}
 
@@ -121,7 +130,7 @@ public class RegistrationController {
 			ErrorPOJO err = new ErrorPOJO();
 			err.setCode(207);
 			err.setMessage("User object is empty");
-			service.setStatus("ERROR");
+			service.setStatus("FAILURE");
 			service.setError(err);
 		}
 
