@@ -31,7 +31,7 @@ public class RolesAndPermissions {
 	private List<PermissionSection> sectionsList = new ArrayList<PermissionSection>();
 	
 	@NotNull
-	private Map<String, String> permissionsMap = new HashMap<String, String>();
+	private Map<String, String[]> permissionsMap = new HashMap<String, String[]>();
 
 	/**
 	 * @return
@@ -64,14 +64,14 @@ public class RolesAndPermissions {
 	/**
 	 * @return
 	 */
-	public Map<String, String> getPermissionsMap() {
+	public Map<String, String[]> getPermissionsMap() {
 		return permissionsMap;
 	}
 
 	/**
 	 * @param permissionsMap
 	 */
-	public void setPermissionsMap(Map<String, String> permissionsMap) {
+	public void setPermissionsMap(Map<String, String[]> permissionsMap) {
 		this.permissionsMap = permissionsMap;
 	}
 
