@@ -50,7 +50,7 @@ public class DashBoardServiceImpl implements DashBoardService {
 	public DashBoard getProfileMeter(String userId) throws Exception {
 		DashBoard dashBoard = new DashBoard();
 		if (!StringUtils.isEmpty(userId)) {
-            SecurityDetailsHolder securityDetailsHolder=almIntefaceService.getSecurityDetails(userId);
+			SecurityDetailsHolder securityDetailsHolder=almIntefaceService.getSecurityDetails(userId);
             List<SecurityDetails> securityDetailsList=securityDetailsHolder.getSecurityDetails();
             if (null != securityDetailsList) {
 				for (SecurityDetails securityDetails : securityDetailsList) {
@@ -101,8 +101,8 @@ public class DashBoardServiceImpl implements DashBoardService {
 				UserFunder userFunders = new UserFunder();
 				dashBoard.setUserFunders(userFunders);
 			}
-		} else {
-			dashBoard = null;
+		}else{
+			dashBoard=null;
 		}
 		return dashBoard;
 	}
