@@ -42,7 +42,7 @@ public class ASExceptionController {
 		System.out.println("Inside ASException Controller");
 		
 		Service response = new Service();
-		
+		asException.printStackTrace();
 		response.setStatus("failure");
 		ErrorPOJO errorPojo = new ErrorPOJO();
 		errorPojo.setCode(
@@ -66,7 +66,7 @@ public class ASExceptionController {
 		System.out.println("Inside ASException Controller");
 		
 		Service response = new Service();
-		
+		exception.printStackTrace();
 		response.setStatus("failure");
 		ErrorPOJO errorPojo = new ErrorPOJO();
 		errorPojo.setCode(-1);
