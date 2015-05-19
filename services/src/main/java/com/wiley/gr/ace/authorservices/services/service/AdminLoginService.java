@@ -12,6 +12,7 @@
 package com.wiley.gr.ace.authorservices.services.service;
 
 import com.wiley.gr.ace.authorservices.model.RolesAndPermissions;
+import com.wiley.gr.ace.authorservices.model.ASRolesAndPermissions;
 
 /**
  * @author RAVISINHA
@@ -56,6 +57,6 @@ public interface AdminLoginService {
 	 * This method is used to add or update user roles and permissions
 	 * @param rolesAndPermissions
 	 */
-	void addOrUpdateUserRole(RolesAndPermissions rolesAndPermissions);
+	void addOrUpdateUserRole(ASRolesAndPermissions rolesAndPermissions);
 
 }
