@@ -3,11 +3,15 @@ package com.wiley.gr.ace.authorservices.persistence.entity;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -57,6 +61,8 @@ public class Roles implements java.io.Serializable {
 	}
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ROLE_SEQ")
+	@SequenceGenerator(name = "ROLE_SEQ",sequenceName = "ROLE_SEQ", allocationSize = 1)
 	@Column(name = "ROLE_ID", unique = true, nullable = false, precision = 22, scale = 0)
 	public Integer getRoleId() {
 		return this.roleId;
