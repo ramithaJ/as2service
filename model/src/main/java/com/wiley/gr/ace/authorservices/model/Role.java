@@ -1,5 +1,9 @@
 package com.wiley.gr.ace.authorservices.model;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 /**
  * @author SarmaKumarap
  *
@@ -8,8 +12,10 @@ public class Role {
 	
 	private String roleId;
 	
+	@NotNull @NotBlank
 	private String roleName;
 	
+	@NotNull @NotBlank
 	private String roleDescription;
 	
 	private boolean isAdminRole = false;
