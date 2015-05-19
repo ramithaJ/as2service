@@ -40,19 +40,23 @@ public class ASDataController {
 	/**
 	 * @return
 	 */
-	@RequestMapping(value = "/titles/", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/titles/", method = RequestMethod.GET)
 	public Service getTitles() {
 
-		return null;
+		Service service = new Service();
+		service.setPayload(aSDataService.getTitles());
+		return service;
 	}
 
 	/**
 	 * @return
 	 */
-	@RequestMapping(value = "/suffixes/", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/suffixes/", method = RequestMethod.GET)
 	public Service getSuffixes() {
 
-		return null;
+		Service service = new Service();
+		service.setPayload(aSDataService.getSuffixes());
+		return service;
 	}
 
 	/**
@@ -156,7 +160,7 @@ public class ASDataController {
 
 		return service;
 	}
-	
+
 	@RequestMapping(value = "/roles/{roleType}", method = RequestMethod.GET, produces = "application/json")
 	public Service getAdminRoles(@PathVariable("roleType") String roleType) {
 
@@ -165,21 +169,20 @@ public class ASDataController {
 
 		return service;
 	}
-	
+
 	@RequestMapping(value = "/accessReasons/", method = RequestMethod.GET, produces = "application/json")
 	public Service getAdminAccessReasons() {
 
 		Service service = new Service();
 		List<AccessReasons> accessList = aSDataService.getAccessReasons();
-		
-		if(accessList != null && accessList.size() > 0) {
+
+		if (accessList != null && accessList.size() > 0) {
 			service.setPayload(accessList);
-		
+
 		} else {
-			
-			throw new ASException("1005","No data found");
+
+			throw new ASException("1005", "No data found");
 		}
-		
 
 		return service;
 	}

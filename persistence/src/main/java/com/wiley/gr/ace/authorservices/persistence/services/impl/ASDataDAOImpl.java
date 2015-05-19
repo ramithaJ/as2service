@@ -37,34 +37,33 @@ public class ASDataDAOImpl implements ASDataDAO {
 	HibernateConnection con;
 
 	@Override
-	public List<String> getSecurityDetails() {
+	public List<LookupValues> getDropDown(String keyName) {
+
 		Session session = null;
 		Transaction transaction = null;
-		List<String> list = new ArrayList();
+		List<LookupValues> lookupList = null;
 		try {
 			session = con.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			Criteria criteria = session.createCriteria(LookupValues.class);
-			criteria.add(Restrictions.eq("lookupKey", "SEQ"));
-			List<LookupValues> lookupList = criteria.list();
-			for (int i = 0; i < lookupList.size(); i++) {
-
-				list.add(lookupList.get(i).getLookupName());
-				list.add(lookupList.get(i).getLookupValue());
-			}
+			criteria.add(Restrictions.eq("lookupKey", keyName));
+			lookupList = criteria.list();
 			transaction.commit();
+			return lookupList;
 		} finally {
 			if (session != null) {
 				session.flush();
 				session.close();
 			}
 		}
-
-		return list;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO#getAdminRoles()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO#getAdminRoles
+	 * ()
 	 */
 	@Override
 	public List<Roles> getUserRoles(String roleId) {
@@ -76,15 +75,16 @@ public class ASDataDAOImpl implements ASDataDAO {
 		try {
 
 			session = con.getSessionFactory().openSession();
-			
-			if(roleId == null) {
-				
+
+			if (roleId == null) {
+
 				hql = "from Roles";
 				list = session.createQuery(hql).list();
-				
+
 			} else {
 				hql = "from Roles where roleId = :roleId";
-				list = session.createQuery(hql).setString("roleId", roleId).list();
+				list = session.createQuery(hql).setString("roleId", roleId)
+						.list();
 			}
 
 		} finally {
@@ -96,7 +96,7 @@ public class ASDataDAOImpl implements ASDataDAO {
 
 		return list;
 	}
-	
+
 	@Override
 	public List<Roles> getAdminRoles(String roleType) {
 
@@ -107,15 +107,16 @@ public class ASDataDAOImpl implements ASDataDAO {
 		try {
 
 			session = con.getSessionFactory().openSession();
-			
-			if(roleType == null) {
-				
+
+			if (roleType == null) {
+
 				hql = "from Roles";
 				list = session.createQuery(hql).list();
-				
+
 			} else {
 				hql = "from Roles where roleType = :roleType";
-				list = session.createQuery(hql).setString("roleType", roleType).list();
+				list = session.createQuery(hql).setString("roleType", roleType)
+						.list();
 			}
 
 		} finally {
@@ -127,13 +128,16 @@ public class ASDataDAOImpl implements ASDataDAO {
 
 		return list;
 	}
-	
-	
-	/* (non-Javadoc)
-	 * @see com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO#getPermissions()
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO#getPermissions
+	 * ()
 	 */
 	public List<Permissions> getPermissions() {
-		
+
 		Session session = null;
 		List<Permissions> list = new ArrayList();
 
@@ -142,7 +146,7 @@ public class ASDataDAOImpl implements ASDataDAO {
 			session = con.getSessionFactory().openSession();
 
 			String hql = "from Permissions";
-			
+
 			list = session.createQuery(hql).list();
 
 		} finally {
@@ -155,12 +159,15 @@ public class ASDataDAOImpl implements ASDataDAO {
 		return list;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO#getRolePermissionMappings()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO#
+	 * getRolePermissionMappings()
 	 */
 	@Override
 	public List<RolePermissions> getRolePermissionMappings(String roleId) {
-		
+
 		Session session = null;
 		List<RolePermissions> list = new ArrayList();
 		String hql = "";
@@ -168,15 +175,16 @@ public class ASDataDAOImpl implements ASDataDAO {
 		try {
 
 			session = con.getSessionFactory().openSession();
-			
-			if(roleId == null) {
-				
+
+			if (roleId == null) {
+
 				hql = "from RolePermissions";
 				list = session.createQuery(hql).list();
-				
+
 			} else {
 				hql = "from RolePermissions where id.roleId = :roleId";
-				list = session.createQuery(hql).setString("roleId", roleId).list();
+				list = session.createQuery(hql).setString("roleId", roleId)
+						.list();
 			}
 
 		} finally {
@@ -188,4 +196,5 @@ public class ASDataDAOImpl implements ASDataDAO {
 
 		return list;
 	}
+
 }

@@ -56,31 +56,15 @@ public class UserAccountController {
 
 	}
 	
-	@RequestMapping(value = "/profileInfo/update/{userId}",method = RequestMethod.POST)
-	public Service updateProfileInformation(@PathVariable("userId") String userId, @RequestBody Addresses addresses) {
+	@RequestMapping(value = "/profileInfo/{userId}",method = RequestMethod.POST)
+	public Service updateProfileInformation(@PathVariable("userId") String userId, @RequestBody User user) {
 		
 		Service service = new Service();
-		service.setPayload(authorProfileService.updateUserAddress(addresses));
+		service.setPayload(authorProfileService.updateUserProfileInfo(user));
 		return service;
 
 	}
 	
-
-	/**
-	 * @param userId
-	 * @param emailDetails
-	 * @return
-	 */
-	@RequestMapping(value = "/emailDetails/update/{userId}", method = RequestMethod.POST)
-	public Service updateEmail(@PathVariable("userId") String userId,
-			@RequestBody User emailDetails) {
-
-		Service service = new Service();
-		emailDetails.setUserId(Integer.parseInt(userId));
-		service.setPayload(authorProfileService.updateEmailDetails(emailDetails));
-		return service;
-	}
-
 	/**
 	 * @param userId
 	 * @return
@@ -95,6 +79,22 @@ public class UserAccountController {
 
 	/**
 	 * @param userId
+	 * @param emailDetails
+	 * @return
+	 */
+	@RequestMapping(value = "/emailDetails/{userId}", method = RequestMethod.POST)
+	public Service updateEmail(@PathVariable("userId") String userId,
+			@RequestBody User emailDetails) {
+
+		Service service = new Service();
+		emailDetails.setUserId(Integer.parseInt(userId));
+		service.setPayload(authorProfileService.updateEmailDetails(emailDetails));
+		return service;
+	}
+
+
+	/**
+	 * @param userId
 	 * @return
 	 */
 	@RequestMapping(value = "/userAddresses/{userId}", method = RequestMethod.GET)
@@ -102,6 +102,14 @@ public class UserAccountController {
 
 		Service service = new Service();
 		service.setPayload(userAccountService.getEmailDetails(userId));
+		return service;
+	}
+	
+	@RequestMapping(value = "/userAddresses/{userId}", method = RequestMethod.POST)
+	public Service updateUserAddresses(@PathVariable("userId") String userId, @RequestBody Addresses addresses) {
+
+		Service service = new Service();
+		service.setPayload(authorProfileService.updateUserAddress(addresses));
 		return service;
 	}
 

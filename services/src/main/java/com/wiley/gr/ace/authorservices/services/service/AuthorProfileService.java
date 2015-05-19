@@ -38,5 +38,7 @@ public interface AuthorProfileService {
 	boolean updateEmailDetails(User emailDetails);
 	
 	boolean updateUserAddress(Addresses addresses);
+	
+	boolean updateUserProfileInfo(User user);
 
 }

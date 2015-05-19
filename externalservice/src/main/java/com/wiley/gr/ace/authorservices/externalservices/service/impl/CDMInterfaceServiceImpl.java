@@ -33,7 +33,7 @@ public class CDMInterfaceServiceImpl implements CDMInterfaceService {
 	@Override
 	public LookUpProfile lookUpProfile(String userId) {
 
-		final String url = "http://demo7930138.mockable.io/user/LookUpProfile/1000";
+		final String url = "http://demo6374909.mockable.io/user/lookUpProfile";
 		
 		LookUpProfile lookupProfile = (LookUpProfile) StubInvokerUtil.invokeStub(url,
 				HttpMethod.GET, "LookUpProfile");

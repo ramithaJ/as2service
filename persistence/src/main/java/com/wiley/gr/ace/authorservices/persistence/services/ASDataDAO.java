@@ -13,6 +13,7 @@ package com.wiley.gr.ace.authorservices.persistence.services;
 
 import java.util.List;
 
+import com.wiley.gr.ace.authorservices.persistence.entity.LookupValues;
 import com.wiley.gr.ace.authorservices.persistence.entity.Permissions;
 import com.wiley.gr.ace.authorservices.persistence.entity.RolePermissions;
 import com.wiley.gr.ace.authorservices.persistence.entity.Roles;
@@ -22,31 +23,33 @@ import com.wiley.gr.ace.authorservices.persistence.entity.Roles;
  *
  */
 public interface ASDataDAO {
-	
+
 	/**
-	 * @return 
+	 * @return
 	 * 
 	 */
-	List<String> getSecurityDetails();
-	
+	List<LookupValues> getDropDown(String keyName);
+
 	/**
 	 * @return
 	 */
 	List<Roles> getAdminRoles(String roleId);
-	
+
 	/**
 	 * @return
 	 */
 	List<Roles> getUserRoles(String roleId);
-	
+
 	/**
 	 * This method gets all the permissions in the system
+	 * 
 	 * @return
 	 */
 	List<Permissions> getPermissions();
-	
+
 	/**
 	 * This method returns the permissions for all roles
+	 * 
 	 * @return
 	 */
 	List<RolePermissions> getRolePermissionMappings(String roleId);
