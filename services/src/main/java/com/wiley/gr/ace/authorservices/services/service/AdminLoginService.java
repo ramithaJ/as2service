@@ -51,5 +51,11 @@ public interface AdminLoginService {
 	 * @return
 	 */
 	RolesAndPermissions getRolesAndPermissions(String roleId);
+	
+	/**
+	 * This method is used to add or update user roles and permissions
+	 * @param rolesAndPermissions
+	 */
+	void addOrUpdateUserRole(RolesAndPermissions rolesAndPermissions);
 
 }
