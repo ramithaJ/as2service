@@ -26,7 +26,6 @@ import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
 import com.wiley.gr.ace.authorservices.model.ASRolesAndPermissions;
 import com.wiley.gr.ace.authorservices.model.AdminUser;
 import com.wiley.gr.ace.authorservices.model.Login;
-import com.wiley.gr.ace.authorservices.model.RolesAndPermissions;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 
