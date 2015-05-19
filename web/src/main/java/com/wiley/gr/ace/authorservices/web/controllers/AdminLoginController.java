@@ -25,6 +25,7 @@ import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
 import com.wiley.gr.ace.authorservices.model.AdminUser;
 import com.wiley.gr.ace.authorservices.model.Login;
+import com.wiley.gr.ace.authorservices.model.RolesAndPermissions;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 
@@ -101,6 +102,10 @@ public class AdminLoginController extends ASExceptionController {
 		return service;
 	}
 	
+	/**
+	 * @param roleId
+	 * @return
+	 */
 	@RequestMapping(value = "/permissions/{roleId}", method = RequestMethod.GET, produces = "application/json")
 	public Service getPermissionsForRole(@PathVariable("roleId") String roleId) {
 		
@@ -109,10 +114,15 @@ public class AdminLoginController extends ASExceptionController {
 		return service;
 	}
 	
-	@RequestMapping(value = "/permissions", method = RequestMethod.POST, produces = "application/json")
-	public Service updatePermissions() {
+	/**
+	 * @param rolesAndPermissions
+	 * @return
+	 */
+	@RequestMapping(value = "/permissions/", method = RequestMethod.POST, produces = "application/json")
+	public Service addOrUpdateUserRole(@RequestBody RolesAndPermissions rolesAndPermissions) {
 		
-		return null;
+		adminLoginService.addOrUpdateUserRole(rolesAndPermissions);
+		return new Service();
 		
 	}
 }
