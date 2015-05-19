@@ -14,10 +14,13 @@ package com.wiley.gr.ace.authorservices.services.service;
 
 import java.util.List;
 
+import com.wiley.gr.ace.authorservices.model.Addresses;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.Alert;
+import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Society;
+import com.wiley.gr.ace.authorservices.model.User;
 
 public interface AuthorProfileService {
 
@@ -30,6 +33,10 @@ public interface AuthorProfileService {
 
 	boolean updateAlerts(String userId, List<Alert> alertsList);
 
-	boolean UpdatecoAuthor(String userId);
+	boolean UpdatecoAuthor(CoAuthor coAuthor);
+	
+	boolean updateEmailDetails(User emailDetails);
+	
+	boolean updateUserAddress(Addresses addresses);
 
 }

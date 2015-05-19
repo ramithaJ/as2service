@@ -11,13 +11,14 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
-import com.wiley.gr.ace.authorservices.model.UserMgmt;
+import com.wiley.gr.ace.authorservices.model.User;
+import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
 import com.wiley.gr.ace.authorservices.persistence.services.UserAccountDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
@@ -32,30 +33,18 @@ public class UserAccountServiceImpl implements UserAccountService {
 	UserAccountDAO userAccountDAO;
 	@Autowired(required = true)
 	UserLoginServiceDAO userLoginServiceDAO;
+	@Autowired
+	CDMInterfaceService cdmservices;
 
 	@Override
-	public UserMgmt[] getEmailDetails(String userId) {
+	public User getEmailDetails(String userId) {
 
-		// AuthorProfile userProfile = userAccountDAO.getEmailDetails(userId);
-		ArrayList<UserMgmt> email = new ArrayList<UserMgmt>();
-		UserMgmt userMgmt = new UserMgmt();
-		// Commented for Hibernate changes
-		// userMgmt.setPrimaryEmailAddress(userProfile.getPrimaryEmailAddr());
-		// userMgmt.setSecondaryEmailAddress(userProfile.getSecondaryEmailAddr());
-		email.add(userMgmt);
-		return (UserMgmt[]) email.toArray(new UserMgmt[email.size()]);
-	}
-
-	@Override
-	public boolean updateEmailDetails(String userId, UserMgmt emailDetails) {
-
-		/*
-		 * String primaryEmail = emailDetails.getPrimaryEmailAddress(); String
-		 * SecondaryEmail = emailDetails.getSecondaryEmailAddress(); return
-		 * userAccountDAO.updateEmailDetails(userId, primaryEmail,
-		 * SecondaryEmail);
-		 */
-		return true;
+		LookUpProfile lookupProfile = cdmservices.lookUpProfile(userId);
+		User user = new User();
+		user.setPrimaryEmailAddr(lookupProfile.getUserProfile().getProfileInformation().getPrimaryEmailAddr());
+		user.setRecoveryEmailAddress(lookupProfile.getUserProfile().getProfileInformation().getRecoveryEmailAddress());
+		return user;
+		
 	}
 
 	/**
@@ -68,6 +57,13 @@ public class UserAccountServiceImpl implements UserAccountService {
 
 		return userAccountDAO.updateSecurityDetails(Integer.parseInt(userId),
 				securityDetails);
+	}
+
+	@Override
+	public User getProfileInformation(String userId) {
+
+		LookUpProfile lookupProfile = cdmservices.lookUpProfile(userId);
+		return lookupProfile.getUserProfile().getProfileInformation();
 	}
 
 }

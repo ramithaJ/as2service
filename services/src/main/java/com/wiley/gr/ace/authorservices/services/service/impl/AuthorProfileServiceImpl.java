@@ -17,10 +17,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
+import com.wiley.gr.ace.authorservices.model.Addresses;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.Alert;
+import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Society;
+import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserProfile;
 import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
@@ -76,12 +79,29 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 	}
 
 	@Override
-	public boolean UpdatecoAuthor(String userId) {
+	public boolean UpdatecoAuthor(CoAuthor coAuthor) {
 		UserProfile userProfile = new UserProfile();
 		LookUpProfile lookUpProfile = new LookUpProfile();
+		userProfile.setCoAuthors((List<CoAuthor>) coAuthor);
 		lookUpProfile.setUserProfile(userProfile);
 		cdmservices.updateProfile(lookUpProfile);
 		return true;
+	}
+
+	@Override
+	public boolean updateEmailDetails(User emailDetails) {
+
+		UserProfile userProfile = new UserProfile();
+		LookUpProfile lookUpProfile = new LookUpProfile();
+		userProfile.setProfileInformation(emailDetails);
+		lookUpProfile.setUserProfile(userProfile);
+		return cdmservices.updateProfile(lookUpProfile);
+	}
+
+	@Override
+	public boolean updateUserAddress(Addresses addresses) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.Alert;
+import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.Society;
@@ -184,10 +185,12 @@ public class UserProfileController {
      * @param userId
      * @return
      */
-    @RequestMapping(value = "/coAuthors/{userId}", method = RequestMethod.POST)
-	public Service updateCoAuthors(@PathVariable String userId){
+    @RequestMapping(value = "/coAuthors/update/{userId}", method = RequestMethod.POST)
+	public Service updateCoAuthors(@PathVariable String userId, @RequestBody CoAuthor coAuthor){
     	
-    	authorProfileService.UpdatecoAuthor(userId);
+    	Service service = new Service();
+    	coAuthor.setUserId(Integer.parseInt(userId));
+    	authorProfileService.UpdatecoAuthor(coAuthor);
     	
     	return new Service();
     }
