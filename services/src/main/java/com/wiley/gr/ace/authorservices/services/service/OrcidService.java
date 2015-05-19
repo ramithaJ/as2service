@@ -25,4 +25,6 @@ public interface OrcidService {
 	OrcidAccessToken getAccessToken(String authorizationCode) throws Exception;
 
 	User getBio(OrcidAccessToken accessToken) throws Exception;
+
+	void getWork(User user) throws Exception;
 }

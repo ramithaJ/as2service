@@ -34,7 +34,7 @@ import com.wiley.gr.ace.authorservices.services.service.OrcidService;
  *
  */
 @RestController
-@RequestMapping("/orcid")
+@RequestMapping("user/orcid")
 public class OrcidController {
 
 	@Autowired(required = true)
@@ -75,9 +75,9 @@ public class OrcidController {
 	 * @param authorizationCode
 	 * @return
 	 */
-	@RequestMapping(value = "/bio/{authorizationCode}/{type}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Service getOrcidDetails(
-			@PathVariable String authorizationCode, @PathVariable String type) {
+	@RequestMapping(value = "/profile/{type}/{authorizationCode}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Service getOrcidDetails(@PathVariable String type,
+			@PathVariable String authorizationCode) {
 		Service service = new Service();
 		User user = null;
 		try {
@@ -90,11 +90,14 @@ public class OrcidController {
 							+ accessToken.getAccess_token());
 					System.out.println("accessToken.getOrcid() ---> "
 							+ accessToken.getOrcid());
-					if (null != type && type.equalsIgnoreCase("registration")) {
+					if (null != type) {
 						user = orcidService.getBio(accessToken);
-						service.setStatus("SUCCESS");
-						service.setPayload(user);
+						if (type.equalsIgnoreCase("userupdate")) {
+							orcidService.getWork(user);
+						}
 					}
+					service.setStatus("SUCCESS");
+					service.setPayload(user);
 				}
 			}
 		} catch (Exception e) {
