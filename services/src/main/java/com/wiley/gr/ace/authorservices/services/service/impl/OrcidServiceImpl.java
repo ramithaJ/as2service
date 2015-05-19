@@ -52,6 +52,10 @@ public class OrcidServiceImpl implements OrcidService {
 	}
 
 	@Override
+	public void getWork(User user) throws Exception {
+	}
+
+	@Override
 	public User getBio(OrcidAccessToken token) throws Exception {
 
 		User user = null;
@@ -167,7 +171,8 @@ public class OrcidServiceImpl implements OrcidService {
 							Addresses addresses = new Addresses();
 							Address address = new Address();
 							Country country = new Country();
-							country.setCountryCode((String) countryDetails.get("value"));
+							country.setCountryCode((String) countryDetails
+									.get("value"));
 							country.setCountryName("INDIA"); // Need to replace
 																// with actual
 																// name once we
