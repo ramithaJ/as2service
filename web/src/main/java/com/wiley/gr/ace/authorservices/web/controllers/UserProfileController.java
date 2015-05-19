@@ -185,7 +185,7 @@ public class UserProfileController {
      * @param userId
      * @return
      */
-    @RequestMapping(value = "/coAuthors/update/{userId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/coAuthors/{userId}", method = RequestMethod.POST)
 	public Service updateCoAuthors(@PathVariable String userId, @RequestBody CoAuthor coAuthor){
     	
     	Service service = new Service();

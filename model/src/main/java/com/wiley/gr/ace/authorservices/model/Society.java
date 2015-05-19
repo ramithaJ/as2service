@@ -29,7 +29,7 @@ public class Society {
 	
 
 	/** The user Id . */
-	@NotNull @NotBlank
+	
 	private String userId;
 	@NotNull @NotBlank
 	private String societyId;
@@ -39,9 +39,9 @@ public class Society {
 	private String membershipNumber;
 	@NotNull @NotBlank
 	private String promoCode;
-	@NotNull @NotBlank
+	@NotNull 
 	private Date startDate;
-	@NotNull @NotBlank
+	@NotNull 
 	private Date endDate;
 	
 	/**
