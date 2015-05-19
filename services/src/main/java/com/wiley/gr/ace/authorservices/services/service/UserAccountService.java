@@ -14,7 +14,7 @@ package com.wiley.gr.ace.authorservices.services.service;
 import java.util.List;
 
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
-import com.wiley.gr.ace.authorservices.model.UserMgmt;
+import com.wiley.gr.ace.authorservices.model.User;
 
 /**
  * @author kpshiva
@@ -26,14 +26,7 @@ public interface UserAccountService {
 	 * @param userId
 	 * @return
 	 */
-	UserMgmt[] getEmailDetails(String userId);
-
-	/**
-	 * @param userId
-	 * @param emailDetails
-	 * @return
-	 */
-	boolean updateEmailDetails(String userId, UserMgmt emailDetails);
+	User getEmailDetails(String userId);
 
 	/**
 	 * @param userId
@@ -42,4 +35,6 @@ public interface UserAccountService {
 	 */
 	boolean updateSecurityDetails(String userId,
 			List<SecurityDetails> securityDetails);
+	
+	User getProfileInformation(String userId);
 }

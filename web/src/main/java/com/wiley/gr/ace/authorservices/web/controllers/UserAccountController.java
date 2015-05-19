@@ -21,9 +21,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiley.gr.ace.authorservices.model.Addresses;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Service;
-import com.wiley.gr.ace.authorservices.model.UserMgmt;
+import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
 
@@ -47,14 +48,24 @@ public class UserAccountController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/userDetails/{userId}", method = {
-			RequestMethod.GET, RequestMethod.POST })
-	public Service getUserDetails(@PathVariable("userId") String userId,
-			@RequestBody String userDetails, HttpServletRequest request) {
-
-		return null;
+	@RequestMapping(value = "/profileInfo/{userId}",method = RequestMethod.GET)
+	public Service getProfileInformation(@PathVariable("userId") String userId) {
+		
+		Service service = new Service();
+		service.setPayload(userAccountService.getProfileInformation(userId));
+		return service;
 
 	}
+	
+	@RequestMapping(value = "/profileInfo/update/{userId}",method = RequestMethod.POST)
+	public Service updateProfileInformation(@PathVariable("userId") String userId, @RequestBody Addresses addresses) {
+		
+		Service service = new Service();
+		service.setPayload(authorProfileService.updateUserAddress(addresses));
+		return service;
+
+	}
+	
 
 	/**
 	 * @param userId
@@ -63,11 +74,11 @@ public class UserAccountController {
 	 */
 	@RequestMapping(value = "/emailDetails/update/{userId}", method = RequestMethod.POST)
 	public Service updateEmail(@PathVariable("userId") String userId,
-			@RequestBody UserMgmt emailDetails) {
+			@RequestBody User emailDetails) {
 
 		Service service = new Service();
-		service.setPayload(userAccountService.updateEmailDetails(userId,
-				emailDetails));
+		emailDetails.setUserId(Integer.parseInt(userId));
+		service.setPayload(authorProfileService.updateEmailDetails(emailDetails));
 		return service;
 	}
 
@@ -87,11 +98,12 @@ public class UserAccountController {
 	 * @param userId
 	 * @return
 	 */
-	@RequestMapping(value = "/getUserAddresses/{userId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/userAddresses/{userId}", method = RequestMethod.GET)
 	public Service getUserAddresses(@PathVariable("userId") String userId) {
 
-		return null;
-
+		Service service = new Service();
+		service.setPayload(userAccountService.getEmailDetails(userId));
+		return service;
 	}
 
 	/**
