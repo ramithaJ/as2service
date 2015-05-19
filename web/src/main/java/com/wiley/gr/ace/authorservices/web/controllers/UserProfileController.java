@@ -190,7 +190,7 @@ public class UserProfileController {
     	
     	Service service = new Service();
     	coAuthor.setUserId(Integer.parseInt(userId));
-    	authorProfileService.UpdatecoAuthor(coAuthor);
+    	service.setPayload(authorProfileService.UpdatecoAuthor(coAuthor));
     	
     	return new Service();
     }
