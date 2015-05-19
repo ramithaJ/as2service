@@ -57,14 +57,25 @@ public class UserAccountController {
 	}
 	
 	@RequestMapping(value = "/profileInfo/update/{userId}",method = RequestMethod.POST)
-	public Service updateProfileInformation(@PathVariable("userId") String userId, @RequestBody Addresses addresses) {
+	public Service updateProfileInformation(@PathVariable("userId") String userId, @RequestBody User user) {
 		
 		Service service = new Service();
-		service.setPayload(authorProfileService.updateUserAddress(addresses));
+		service.setPayload(authorProfileService.updateUserProfileInfo(user));
 		return service;
 
 	}
 	
+	/**
+	 * @param userId
+	 * @return
+	 */
+	@RequestMapping(value = "/emailDetails/{userId}", method = RequestMethod.GET)
+	public Service getEmailDetails(@PathVariable("userId") String userId) {
+
+		Service service = new Service();
+		service.setPayload(userAccountService.getEmailDetails(userId));
+		return service;
+	}
 
 	/**
 	 * @param userId
@@ -81,17 +92,6 @@ public class UserAccountController {
 		return service;
 	}
 
-	/**
-	 * @param userId
-	 * @return
-	 */
-	@RequestMapping(value = "/emailDetails/{userId}", method = RequestMethod.GET)
-	public Service getEmailDetails(@PathVariable("userId") String userId) {
-
-		Service service = new Service();
-		service.setPayload(userAccountService.getEmailDetails(userId));
-		return service;
-	}
 
 	/**
 	 * @param userId
@@ -102,6 +102,14 @@ public class UserAccountController {
 
 		Service service = new Service();
 		service.setPayload(userAccountService.getEmailDetails(userId));
+		return service;
+	}
+	
+	@RequestMapping(value = "/userAddresses/update/{userId}", method = RequestMethod.POST)
+	public Service updateUserAddresses(@PathVariable("userId") String userId, @RequestBody Addresses addresses) {
+
+		Service service = new Service();
+		service.setPayload(authorProfileService.updateUserAddress(addresses));
 		return service;
 	}
 

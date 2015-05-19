@@ -26,9 +26,9 @@ import com.wiley.gr.ace.authorservices.model.Interests;
 import com.wiley.gr.ace.authorservices.model.JobCategory;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Role;
+import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.State;
-import com.wiley.gr.ace.authorservices.model.StaticData;
 import com.wiley.gr.ace.authorservices.model.Suffix;
 import com.wiley.gr.ace.authorservices.model.Title;
 import com.wiley.gr.ace.authorservices.persistence.entity.LookupValues;
@@ -45,19 +45,39 @@ public class ASDataServiceImpl implements ASDataService {
 
 	@Autowired(required = true)
 	ASDataDAO aSDataDAO;
-	@Autowired(required=true)
+	@Autowired(required = true)
 	LookUpValuesDAO lookupDAO;
 
 	@Override
 	public List<Title> getTitles() {
-		// TODO Auto-generated method stub
-		return null;
+
+		List<LookupValues> lookupList = aSDataDAO.getDropDown("TITLE");
+		List<Title> titleList = new ArrayList<Title>();
+		Title title = null;
+		for (LookupValues lookupValues : lookupList) {
+
+			title = new Title();
+			title.setTitleId(lookupValues.getLookupName());
+			title.setTitleName(lookupValues.getLookupValue());
+			titleList.add(title);
+		}
+		return titleList;
 	}
 
 	@Override
 	public List<Suffix> getSuffixes() {
-		// TODO Auto-generated method stub
-		return null;
+
+		List<LookupValues> lookupList = aSDataDAO.getDropDown("SUFFIX");
+		List<Suffix> suffixList = new ArrayList<Suffix>();
+		Suffix suffix = null;
+		for (LookupValues lookupValues : lookupList) {
+
+			suffix = new Suffix();
+			suffix.setSuffixId(lookupValues.getLookupName());
+			suffix.setSuffixName(lookupValues.getLookupValue());
+			suffixList.add(suffix);
+		}
+		return suffixList;
 	}
 
 	@Override
@@ -121,18 +141,19 @@ public class ASDataServiceImpl implements ASDataService {
 	}
 
 	@Override
-	public StaticData[] getSecurityQuestions() {
+	public List<SecurityDetails> getSecurityQuestions() {
 
-		List<String> lookupList = aSDataDAO.getSecurityDetails();
-		ArrayList<StaticData> securityQuestionsList = new ArrayList<StaticData>();
-		for (int i = 0; i <= 19; i++) {
-			StaticData staticData = new StaticData();
-			staticData.setId(lookupList.get(i));
-			staticData.setDescription(lookupList.get(++i));
-			securityQuestionsList.add(staticData);
+		List<LookupValues> lookupList = aSDataDAO.getDropDown("SEQ");
+		List<SecurityDetails> securityQuestionsList = new ArrayList<SecurityDetails>();
+		SecurityDetails securityDetails = null;
+		for (LookupValues lookupValues : lookupList) {
+
+			securityDetails = new SecurityDetails();
+			securityDetails.setSecurityQuestionId(lookupValues.getLookupName());
+			securityDetails.setSecurityQuestion(lookupValues.getLookupValue());
+			securityQuestionsList.add(securityDetails);
 		}
-		return (StaticData[]) securityQuestionsList
-				.toArray(new StaticData[securityQuestionsList.size()]);
+		return securityQuestionsList;
 	}
 
 	@Override
@@ -149,7 +170,9 @@ public class ASDataServiceImpl implements ASDataService {
 				adminRole.setRoleId(roles.getRoleId() + "");
 				adminRole.setRoleName(roles.getRoleName());
 				adminRole.setRoleDescription(roles.getDescription());
-				if(roles.getRoleType() != null && roles.getRoleType().equals(AuthorServicesConstants.ROLE_TYPE_INTERNAL)) {
+				if (roles.getRoleType() != null
+						&& roles.getRoleType().equals(
+								AuthorServicesConstants.ROLE_TYPE_INTERNAL)) {
 					adminRole.setAdminRole(true);
 				}
 				adminRoles.add(adminRole);
@@ -158,23 +181,24 @@ public class ASDataServiceImpl implements ASDataService {
 		}
 		return adminRoles;
 	}
-	
+
 	@Override
 	public List<AccessReasons> getAccessReasons() {
-		
-		List<LookupValues> daoList = lookupDAO.getLookUpData(AuthorServicesConstants.ADM_ACC_LOOKUP_KEY);
+
+		List<LookupValues> daoList = lookupDAO
+				.getLookUpData(AuthorServicesConstants.ADM_ACC_LOOKUP_KEY);
 		List<AccessReasons> accessList = new ArrayList<AccessReasons>();
 		AccessReasons accessReason = null;
-		
-		if(daoList  != null) {
-			
+
+		if (daoList != null) {
+
 			for (LookupValues lookupValues : daoList) {
 				accessReason = new AccessReasons();
 				accessReason.setAccessId(lookupValues.getLookupName());
 				accessReason.setAccessReason(lookupValues.getLookupValue());
 				accessList.add(accessReason);
 			}
-			
+
 		}
 		return accessList;
 	}

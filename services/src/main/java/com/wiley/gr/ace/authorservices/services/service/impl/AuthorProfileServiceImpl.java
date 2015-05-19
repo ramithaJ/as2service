@@ -113,4 +113,14 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 		return false;
 	}
 
+	@Override
+	public boolean updateUserProfileInfo(User user) {
+
+		UserProfile userProfile = new UserProfile();
+		LookUpProfile lookUpProfile = new LookUpProfile();
+		userProfile.setProfileInformation(user);
+		lookUpProfile.setUserProfile(userProfile);
+		return cdmservices.updateProfile(lookUpProfile);
+	}
+
 }
