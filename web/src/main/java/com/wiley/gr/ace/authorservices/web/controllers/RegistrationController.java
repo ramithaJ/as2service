@@ -13,6 +13,8 @@ package com.wiley.gr.ace.authorservices.web.controllers;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.util.StringUtils;
@@ -36,6 +38,9 @@ import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
 @RequestMapping("/registration")
 public class RegistrationController {
     
+    private static final Logger LOGGER = LoggerFactory.getLogger(RegistrationController.class);
+    
+    
     @Autowired(required = true)
     RegistrationService rs;
     
@@ -45,8 +50,9 @@ public class RegistrationController {
         Service service = new Service();
         User user = null;
         try {
-            if (!StringUtils.isEmpty(email))
+            if (!StringUtils.isEmpty(email)){
                 user = rs.checkEmailIdExists(email);
+            }
             else {
                 ErrorPOJO err = new ErrorPOJO();
                 err.setCode(201);
@@ -74,7 +80,7 @@ public class RegistrationController {
                 service.setStatus("SUCCESS");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Initial SessionFactory creation failed.", e);
             ErrorPOJO err = new ErrorPOJO();
             err.setCode(204);
             err.setMessage("searching user encountered exception");
@@ -117,7 +123,7 @@ public class RegistrationController {
                 }
             } catch (Exception e) {
                 
-                e.printStackTrace();
+                LOGGER.error("Initial SessionFactory creation failed.", e);
                 ErrorPOJO err = new ErrorPOJO();
                 err.setCode(204);
                 err.setMessage("searching user encountered exception");

@@ -14,6 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.web.controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +37,9 @@ import com.wiley.gr.ace.authorservices.services.service.OrcidService;
 @RestController
 @RequestMapping("user/orcid")
 public class OrcidController {
+    
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(OrcidController.class);
     
     @Autowired(required = true)
     OrcidService orcidService;
@@ -100,7 +105,7 @@ public class OrcidController {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Initial SessionFactory creation failed.", e);
             ErrorPOJO error = new ErrorPOJO();
             error.setCode(-101); // Need to set proper error code this one is
                                  // dummy

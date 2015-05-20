@@ -17,6 +17,8 @@ package com.wiley.gr.ace.authorservices.persistence.services.impl;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
@@ -37,6 +39,9 @@ public class UpdateUserDAOImpl implements UpdateUserDAO {
      * @see com.wiley.gr.ace.authorservices.persistence.services.UpdateUserDAO#
      * updateUserWithOrcid(com.wiley.gr.ace.authorservices.model.User)
      */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(UpdateUserDAOImpl.class);
+    
     @Override
     public User updateUserWithOrcid(User user) throws Exception {
         /**
@@ -72,7 +77,7 @@ public class UpdateUserDAOImpl implements UpdateUserDAO {
             if (updateTxn != null)
                 updateTxn.rollback();
             user = null;
-            e.printStackTrace();
+            LOGGER.error("Initial SessionFactory creation failed.", e);
             throw new Exception();
         } finally {
             session.close();
@@ -102,7 +107,7 @@ public class UpdateUserDAOImpl implements UpdateUserDAO {
             query.setParameter("userId", userId);
             
             int result = query.executeUpdate();
-            System.out.println("Rows affected: " + result);
+            LOGGER.info("Rows affected: ", result);
             if (result == 1) {
                 status = "success";
                 txn.commit();
@@ -113,7 +118,7 @@ public class UpdateUserDAOImpl implements UpdateUserDAO {
         } catch (Exception e) {
             txn.rollback();
             status = "";
-            e.printStackTrace();
+            LOGGER.error("Initial SessionFactory creation failed.", e);
             throw new Exception();
         } finally {
             session.close();

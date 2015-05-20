@@ -19,6 +19,8 @@ import java.util.Iterator;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.OrcidInterfaceService;
@@ -34,6 +36,8 @@ import com.wiley.gr.ace.authorservices.services.service.OrcidService;
  */
 public class OrcidServiceImpl implements OrcidService {
     
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(OrcidServiceImpl.class);
     @Autowired(required = true)
     OrcidInterfaceService oricdInterfaceService;
     
@@ -74,20 +78,20 @@ public class OrcidServiceImpl implements OrcidService {
                     .parse(orcidMessageJSON);
             JSONObject orcidProfile = (JSONObject) orcidProfileJSON
                     .get("orcid-profile");
-            System.out.println("orcidProfile ##### " + orcidProfile);
+            LOGGER.info("orcidProfile ##### " , orcidProfile);
             if (null != orcidProfile) {
                 JSONObject orcidBioJSON = (JSONObject) new JSONParser()
                         .parse(orcidProfile.toJSONString());
                 JSONObject orcidBio = (JSONObject) orcidBioJSON
                         .get("orcid-bio");
-                System.out.println("orcidBio ##### " + orcidBio);
+                LOGGER.info("orcidBio ##### " , orcidBio);
                 if (null != orcidBio) {
                     user = new User();
                     JSONObject personalDetailsJSON = (JSONObject) new JSONParser()
                             .parse(orcidBio.toJSONString());
                     JSONObject personalDetails = (JSONObject) personalDetailsJSON
                             .get("personal-details");
-                    System.out.println("personalDetails ##### "
+                    LOGGER.info("personalDetails ##### "
                             + personalDetails);
                     if (null != personalDetails) {
                         /**
@@ -97,13 +101,13 @@ public class OrcidServiceImpl implements OrcidService {
                                 .parse(personalDetails.toJSONString());
                         JSONObject givenNames = (JSONObject) givenNamesJSON
                                 .get("given-names");
-                        System.out.println("givenNames ##### " + givenNames);
+                        LOGGER.info("givenNames ##### " , givenNames);
                         
                         JSONObject familyNamesJSON = (JSONObject) new JSONParser()
                                 .parse(personalDetails.toJSONString());
                         JSONObject familyNames = (JSONObject) familyNamesJSON
                                 .get("family-name");
-                        System.out.println("familyNames ##### " + familyNames);
+                        LOGGER.info("familyNames ##### " , familyNames);
                         
                         if (null != givenNames) {
                             JSONObject givenNamesValueJSON = (JSONObject) new JSONParser()
@@ -128,7 +132,7 @@ public class OrcidServiceImpl implements OrcidService {
                                 .parse(contactDetails.toJSONString());
                         JSONArray emailArray = (JSONArray) emailArrayJSON
                                 .get("email");
-                        System.out.println("emailArray ##### " + emailArray);
+                        LOGGER.info("emailArray ##### " , emailArray);
                         /**
                          * Email JSON is an array so iterating through it to
                          * find primary email
@@ -142,7 +146,7 @@ public class OrcidServiceImpl implements OrcidService {
                                         .parse(emailItr.next().toJSONString());
                                 isPrimary = (Boolean) emailJSON.get("primary");
                                 
-                                System.out.println("isPrimary ---->"
+                                LOGGER.info("isPrimary ---->"
                                         + isPrimary);
                                 if (isPrimary) {
                                     user.setPrimaryEmailAddr((String) emailJSON
@@ -159,8 +163,7 @@ public class OrcidServiceImpl implements OrcidService {
                                 .parse(contactDetails.toJSONString());
                         JSONObject addressDetails = (JSONObject) addressJSON
                                 .get("address");
-                        System.out.println("addressDetails ##### "
-                                + addressDetails);
+                        LOGGER.info("addressDetails ##### ", addressDetails);
                         if (null != addressDetails) {
                             JSONObject countryJSON = (JSONObject) new JSONParser()
                                     .parse(addressDetails.toJSONString());
@@ -186,7 +189,7 @@ public class OrcidServiceImpl implements OrcidService {
             }
             
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Initial SessionFactory creation failed.", e);
         }
         return user;
     }

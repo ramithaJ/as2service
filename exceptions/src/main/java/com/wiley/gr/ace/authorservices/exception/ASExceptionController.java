@@ -67,7 +67,7 @@ public class ASExceptionController {
         LOGGER.info("Inside ASException Controller");
         
         Service response = new Service();
-        exception.printStackTrace();
+        LOGGER.error("Initial SessionFactory creation failed.", exception);
         response.setStatus("FAILURE");
         ErrorPOJO errorPojo = new ErrorPOJO();
         errorPojo.setCode(-1);
