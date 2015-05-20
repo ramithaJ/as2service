@@ -14,16 +14,20 @@
  */
 package com.wiley.gr.ace.authorservices.services.service;
 
+
+
+
 import com.wiley.gr.ace.authorservices.model.DashBoard;
+
 
 /**
  * @author Virtusa
+ *
  */
 public interface DashBoardService {
-    /**
-     * @param userId
-     *            to get the data from DashBoardDAO
-     * @return List
-     */
-    DashBoard getProfileMeter(String userId) throws Exception;
+/**
+ * @param userId to get the data from DashBoardDAO
+ * @return List
+ */
+DashBoard getProfileMeter(String userId) throws Exception;
 }
