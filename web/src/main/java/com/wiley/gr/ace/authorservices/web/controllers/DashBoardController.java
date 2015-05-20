@@ -31,46 +31,45 @@ import com.wiley.gr.ace.authorservices.services.service.DashBoardService;
 
 /**
  * @author Virtusa
+ *
  */
 @RestController
 @RequestMapping("/dashboard")
 public class DashBoardController {
-    
-    /** The Auto Wired for DashBoard Service . */
-    @Autowired(required = true)
-    private DashBoardService dashBoardService;
-    
-    @RequestMapping(value = "/profilemeter/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Service getProfileMeter(
-            @PathVariable("userId") String userId) {
-        
-        Service service = new Service();
-        DashBoard dashBoard = null;
-        
-        try {
-            dashBoard = dashBoardService.getProfileMeter(userId);
-            if (!StringUtils.isEmpty(dashBoard)) {
-                service.setStatus("SUCCESS");
-                service.setPayload(dashBoard);
-            } else {
-                service.setStatus("FAILURE");
-                ErrorPOJO error = new ErrorPOJO();
-                error.setCode(-102);
-                error.setMessage("Profilemeter is empty");
-                service.setError(error);
-            }
-        } catch (Exception e) {
-            ErrorPOJO error = new ErrorPOJO();
-            error.setCode(-101); // Need to set proper error code this one is
-                                 // dummy
-            error.setMessage("Error fetching profile meter");
-            
-            service.setStatus("ERROR");
-            service.setPayload(dashBoard);
-            service.setError(error);
-            throw new ASException("-2", "Error fetching profile meter", e);
-        }
-        return service;
-        
-    }
+
+	/** The Auto Wired for DashBoard Service . */
+	@Autowired(required = true)
+	private DashBoardService dashBoardService;
+
+	@RequestMapping(value = "/profilemeter/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Service getProfileMeter(
+			@PathVariable("userId")String userId) {
+
+		Service service = new Service();
+		DashBoard dashBoard = null;
+
+		try {
+			dashBoard = dashBoardService.getProfileMeter(userId);
+			if (!StringUtils.isEmpty(dashBoard)) {
+				if(dashBoard.getDashBoardInfo().size()==0)
+				service.setStatus("SUCCESS");
+				service.setPayload(dashBoard);
+			}else{
+				service.setStatus("SUCCESS");
+				service.setPayload(dashBoard);
+			}
+		} catch (Exception e) {
+			ErrorPOJO error = new ErrorPOJO();
+			error.setCode(-101); // Need to set proper error code this one is
+									// dummy
+			error.setMessage("Error fetching profile meter");
+
+			service.setStatus("ERROR");
+			service.setPayload(dashBoard);
+			service.setError(error);
+			throw new ASException("-2", "Error fetching profile meter", e);
+		}
+		return service;
+
+	}
 }
