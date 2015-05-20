@@ -30,17 +30,19 @@ public class CDMInterfaceServiceImpl implements CDMInterfaceService {
      * com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService
      * #lookUpProfile(java.lang.String)
      */
-    @Override
-    public LookUpProfile lookUpProfile(String userId) {
-        
-        final String url = "http://demo6374909.mockable.io/user/lookUpProfile";
-        
-        LookUpProfile lookupProfile = (LookUpProfile) StubInvokerUtil
-                .invokeStub(url, HttpMethod.GET, "LookUpProfile");
-        
-        return lookupProfile;
-        
-    }
+	@Override
+	public LookUpProfile lookUpProfile(String userId) {
+
+//		final String url ="http://demo7930138.mockable.io/user/LookUpProfile";
+		final String url = "http://demo6374909.mockable.io/user/lookUpProfile";
+		
+		LookUpProfile lookupProfile = (LookUpProfile) StubInvokerUtil.invokeStub(url,
+				HttpMethod.GET, "LookUpProfile");
+		
+		return lookupProfile;
+		
+	}
+
     
     /*
      * (non-Javadoc)
