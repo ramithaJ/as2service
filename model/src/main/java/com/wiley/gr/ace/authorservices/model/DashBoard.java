@@ -11,12 +11,13 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  */
 @JsonInclude(Include.NON_NULL)
 public class DashBoard {
-	
+
 	/** The profileMeterMessage. */
 	private String profileMeterMessage;
-	
+
 	/** The dashBoardInfo. */
 	private List<DashBoardInfo> dashBoardInfo;
+
 	/**
 	 * Gets the profileMeterMessage.
 	 *
@@ -26,6 +27,7 @@ public class DashBoard {
 	public String getProfileMeterMessage() {
 		return profileMeterMessage;
 	}
+
 	/**
 	 * Sets the profileMeterMessage.
 	 *
@@ -36,17 +38,17 @@ public class DashBoard {
 	public void setProfileMeterMessage(String profileMeterMessage) {
 		this.profileMeterMessage = profileMeterMessage;
 	}
-	
+
 	/**
 	 * Gets the DashBoardInfo List.
 	 *
-	 * @return the
-	 *            DashBoardInfo List
+	 * @return the DashBoardInfo List
 	 * 
 	 */
 	public List<DashBoardInfo> getDashBoardInfo() {
 		return dashBoardInfo;
 	}
+
 	/**
 	 * Sets the DashBoardInfo List.
 	 *
