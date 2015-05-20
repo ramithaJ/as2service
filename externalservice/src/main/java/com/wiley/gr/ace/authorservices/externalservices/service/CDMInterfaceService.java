@@ -15,8 +15,8 @@ package com.wiley.gr.ace.authorservices.externalservices.service;
 import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
 
 public interface CDMInterfaceService {
-
-	LookUpProfile lookUpProfile(String userId);
-
-	boolean updateProfile(LookUpProfile lookUpProfile);
+    
+    LookUpProfile lookUpProfile(String userId);
+    
+    boolean updateProfile(LookUpProfile lookUpProfile);
 }

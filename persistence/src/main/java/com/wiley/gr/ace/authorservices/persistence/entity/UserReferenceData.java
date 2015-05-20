@@ -13,26 +13,26 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "USER_REFERENCE_DATA")
 public class UserReferenceData implements java.io.Serializable {
-
-	private UserReferenceDataId id;
-
-	public UserReferenceData() {
-	}
-
-	public UserReferenceData(UserReferenceDataId id) {
-		this.id = id;
-	}
-
-	@EmbeddedId
-	@AttributeOverrides({
-			@AttributeOverride(name = "userId", column = @Column(name = "USER_ID", nullable = false, precision = 22, scale = 0)),
-			@AttributeOverride(name = "ecid", column = @Column(name = "ECID", nullable = false, length = 50)) })
-	public UserReferenceDataId getId() {
-		return this.id;
-	}
-
-	public void setId(UserReferenceDataId id) {
-		this.id = id;
-	}
-
+    
+    private UserReferenceDataId id;
+    
+    public UserReferenceData() {
+    }
+    
+    public UserReferenceData(UserReferenceDataId id) {
+        this.id = id;
+    }
+    
+    @EmbeddedId
+    @AttributeOverrides({
+            @AttributeOverride(name = "userId", column = @Column(name = "USER_ID", nullable = false, precision = 22, scale = 0)),
+            @AttributeOverride(name = "ecid", column = @Column(name = "ECID", nullable = false, length = 50)) })
+    public UserReferenceDataId getId() {
+        return this.id;
+    }
+    
+    public void setId(UserReferenceDataId id) {
+        this.id = id;
+    }
+    
 }

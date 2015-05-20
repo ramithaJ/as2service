@@ -12,107 +12,107 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "LOOKUP_VALUES")
 public class LookupValues implements java.io.Serializable {
-
-	private Integer lookupId;
-	private String lookupKey;
-	private String lookupName;
-	private String lookupValue;
-	private Date createdDate;
-	private String createdBy;
-	private Date updatedDate;
-	private String updatedBy;
-
-	public LookupValues() {
-	}
-
-	public LookupValues(Integer lookupId) {
-		this.lookupId = lookupId;
-	}
-
-	public LookupValues(Integer lookupId, String lookupKey, String lookupName,
-			String lookupValue, Date createdDate, String createdBy,
-			Date updatedDate, String updatedBy) {
-		this.lookupId = lookupId;
-		this.lookupKey = lookupKey;
-		this.lookupName = lookupName;
-		this.lookupValue = lookupValue;
-		this.createdDate = createdDate;
-		this.createdBy = createdBy;
-		this.updatedDate = updatedDate;
-		this.updatedBy = updatedBy;
-	}
-
-	@Id
-	@Column(name = "LOOKUP_ID", unique = true, nullable = false, precision = 22, scale = 0)
-	public Integer getLookupId() {
-		return this.lookupId;
-	}
-
-	public void setLookupId(Integer lookupId) {
-		this.lookupId = lookupId;
-	}
-
-	@Column(name = "LOOKUP_KEY", length = 50)
-	public String getLookupKey() {
-		return this.lookupKey;
-	}
-
-	public void setLookupKey(String lookupKey) {
-		this.lookupKey = lookupKey;
-	}
-
-	@Column(name = "LOOKUP_NAME", length = 250)
-	public String getLookupName() {
-		return this.lookupName;
-	}
-
-	public void setLookupName(String lookupName) {
-		this.lookupName = lookupName;
-	}
-
-	@Column(name = "LOOKUP_VALUE", length = 1000)
-	public String getLookupValue() {
-		return this.lookupValue;
-	}
-
-	public void setLookupValue(String lookupValue) {
-		this.lookupValue = lookupValue;
-	}
-
-	@Column(name = "CREATED_DATE")
-	public Date getCreatedDate() {
-		return this.createdDate;
-	}
-
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	@Column(name = "CREATED_BY", length = 100)
-	public String getCreatedBy() {
-		return this.createdBy;
-	}
-
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	@Column(name = "UPDATED_DATE")
-	public Date getUpdatedDate() {
-		return this.updatedDate;
-	}
-
-	public void setUpdatedDate(Date updatedDate) {
-		this.updatedDate = updatedDate;
-	}
-
-	@Column(name = "UPDATED_BY", length = 100)
-	public String getUpdatedBy() {
-		return this.updatedBy;
-	}
-
-	public void setUpdatedBy(String updatedBy) {
-		this.updatedBy = updatedBy;
-	}
-
+    
+    private Integer lookupId;
+    private String lookupKey;
+    private String lookupName;
+    private String lookupValue;
+    private Date createdDate;
+    private String createdBy;
+    private Date updatedDate;
+    private String updatedBy;
+    
+    public LookupValues() {
+    }
+    
+    public LookupValues(Integer lookupId) {
+        this.lookupId = lookupId;
+    }
+    
+    public LookupValues(Integer lookupId, String lookupKey, String lookupName,
+            String lookupValue, Date createdDate, String createdBy,
+            Date updatedDate, String updatedBy) {
+        this.lookupId = lookupId;
+        this.lookupKey = lookupKey;
+        this.lookupName = lookupName;
+        this.lookupValue = lookupValue;
+        this.createdDate = createdDate;
+        this.createdBy = createdBy;
+        this.updatedDate = updatedDate;
+        this.updatedBy = updatedBy;
+    }
+    
+    @Id
+    @Column(name = "LOOKUP_ID", unique = true, nullable = false, precision = 22, scale = 0)
+    public Integer getLookupId() {
+        return this.lookupId;
+    }
+    
+    public void setLookupId(Integer lookupId) {
+        this.lookupId = lookupId;
+    }
+    
+    @Column(name = "LOOKUP_KEY", length = 50)
+    public String getLookupKey() {
+        return this.lookupKey;
+    }
+    
+    public void setLookupKey(String lookupKey) {
+        this.lookupKey = lookupKey;
+    }
+    
+    @Column(name = "LOOKUP_NAME", length = 250)
+    public String getLookupName() {
+        return this.lookupName;
+    }
+    
+    public void setLookupName(String lookupName) {
+        this.lookupName = lookupName;
+    }
+    
+    @Column(name = "LOOKUP_VALUE", length = 1000)
+    public String getLookupValue() {
+        return this.lookupValue;
+    }
+    
+    public void setLookupValue(String lookupValue) {
+        this.lookupValue = lookupValue;
+    }
+    
+    @Column(name = "CREATED_DATE")
+    public Date getCreatedDate() {
+        return this.createdDate;
+    }
+    
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+    
+    @Column(name = "CREATED_BY", length = 100)
+    public String getCreatedBy() {
+        return this.createdBy;
+    }
+    
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+    
+    @Column(name = "UPDATED_DATE")
+    public Date getUpdatedDate() {
+        return this.updatedDate;
+    }
+    
+    public void setUpdatedDate(Date updatedDate) {
+        this.updatedDate = updatedDate;
+    }
+    
+    @Column(name = "UPDATED_BY", length = 100)
+    public String getUpdatedBy() {
+        return this.updatedBy;
+    }
+    
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+    
 }

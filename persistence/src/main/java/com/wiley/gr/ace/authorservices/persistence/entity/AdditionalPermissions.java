@@ -17,80 +17,80 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "ADDITIONAL_PERMISSIONS")
 public class AdditionalPermissions implements java.io.Serializable {
-
-	private AdditionalPermissionsId id;
-	private Roles roles;
-	private Permissions permissions;
-	private Character splPermissionFlg;
-	private Date permEndDt;
-
-	public AdditionalPermissions() {
-	}
-
-	public AdditionalPermissions(AdditionalPermissionsId id,
-			Permissions permissions) {
-		this.id = id;
-		this.permissions = permissions;
-	}
-
-	public AdditionalPermissions(AdditionalPermissionsId id, Roles roles,
-			Permissions permissions, Character splPermissionFlg, Date permEndDt) {
-		this.id = id;
-		this.roles = roles;
-		this.permissions = permissions;
-		this.splPermissionFlg = splPermissionFlg;
-		this.permEndDt = permEndDt;
-	}
-
-	@EmbeddedId
-	@AttributeOverrides({
-			@AttributeOverride(name = "userId", column = @Column(name = "USER_ID", nullable = false, precision = 22, scale = 0)),
-			@AttributeOverride(name = "articleId", column = @Column(name = "ARTICLE_ID", nullable = false, precision = 22, scale = 0)),
-			@AttributeOverride(name = "permissionId", column = @Column(name = "PERMISSION_ID", nullable = false, precision = 22, scale = 0)) })
-	public AdditionalPermissionsId getId() {
-		return this.id;
-	}
-
-	public void setId(AdditionalPermissionsId id) {
-		this.id = id;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ROLE_ID")
-	public Roles getRoles() {
-		return this.roles;
-	}
-
-	public void setRoles(Roles roles) {
-		this.roles = roles;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "PERMISSION_ID", nullable = false, insertable = false, updatable = false)
-	public Permissions getPermissions() {
-		return this.permissions;
-	}
-
-	public void setPermissions(Permissions permissions) {
-		this.permissions = permissions;
-	}
-
-	@Column(name = "SPL_PERMISSION_FLG", length = 1)
-	public Character getSplPermissionFlg() {
-		return this.splPermissionFlg;
-	}
-
-	public void setSplPermissionFlg(Character splPermissionFlg) {
-		this.splPermissionFlg = splPermissionFlg;
-	}
-
-	@Column(name = "PERM_END_DT")
-	public Date getPermEndDt() {
-		return this.permEndDt;
-	}
-
-	public void setPermEndDt(Date permEndDt) {
-		this.permEndDt = permEndDt;
-	}
-
+    
+    private AdditionalPermissionsId id;
+    private Roles roles;
+    private Permissions permissions;
+    private Character splPermissionFlg;
+    private Date permEndDt;
+    
+    public AdditionalPermissions() {
+    }
+    
+    public AdditionalPermissions(AdditionalPermissionsId id,
+            Permissions permissions) {
+        this.id = id;
+        this.permissions = permissions;
+    }
+    
+    public AdditionalPermissions(AdditionalPermissionsId id, Roles roles,
+            Permissions permissions, Character splPermissionFlg, Date permEndDt) {
+        this.id = id;
+        this.roles = roles;
+        this.permissions = permissions;
+        this.splPermissionFlg = splPermissionFlg;
+        this.permEndDt = permEndDt;
+    }
+    
+    @EmbeddedId
+    @AttributeOverrides({
+            @AttributeOverride(name = "userId", column = @Column(name = "USER_ID", nullable = false, precision = 22, scale = 0)),
+            @AttributeOverride(name = "articleId", column = @Column(name = "ARTICLE_ID", nullable = false, precision = 22, scale = 0)),
+            @AttributeOverride(name = "permissionId", column = @Column(name = "PERMISSION_ID", nullable = false, precision = 22, scale = 0)) })
+    public AdditionalPermissionsId getId() {
+        return this.id;
+    }
+    
+    public void setId(AdditionalPermissionsId id) {
+        this.id = id;
+    }
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ROLE_ID")
+    public Roles getRoles() {
+        return this.roles;
+    }
+    
+    public void setRoles(Roles roles) {
+        this.roles = roles;
+    }
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PERMISSION_ID", nullable = false, insertable = false, updatable = false)
+    public Permissions getPermissions() {
+        return this.permissions;
+    }
+    
+    public void setPermissions(Permissions permissions) {
+        this.permissions = permissions;
+    }
+    
+    @Column(name = "SPL_PERMISSION_FLG", length = 1)
+    public Character getSplPermissionFlg() {
+        return this.splPermissionFlg;
+    }
+    
+    public void setSplPermissionFlg(Character splPermissionFlg) {
+        this.splPermissionFlg = splPermissionFlg;
+    }
+    
+    @Column(name = "PERM_END_DT")
+    public Date getPermEndDt() {
+        return this.permEndDt;
+    }
+    
+    public void setPermEndDt(Date permEndDt) {
+        this.permEndDt = permEndDt;
+    }
+    
 }

@@ -46,82 +46,82 @@ import com.wiley.gr.ace.authorservices.persistence.services.impl.UserRolesDAOImp
 
 @Configuration
 public class PersistenceBeanConfig {
-
-	@Bean(name = "HibernateConnection")
-	public HibernateConnection hibernateConnection() {
-		return new HibernateConnection();
-	}
-
-	@Bean(name = "AdminLoginDao")
-	public UserLoginDao userlogindao() {
-		return new UserLoginDaoImpl();
-	}
-
-	@Bean(name = "RegistrationServiceDAO")
-	public RegistrationServiceDAO registrationServiceDAO() {
-		return new RegistrationServiceDAOImpl();
-	}
-
-	@Bean(name = "UserLoginServiceDAO")
-	public UserLoginServiceDAO userLoginServiceDAO() {
-		return new UserLoginServiceDAOImpl();
-	}
-
-	@Bean(name = "DashBoardDAO")
-	public DashBoardDAO dashBoardDAO() {
-		return new DashBoardDAOImpl();
-	}
-
-	@Bean(name = "UserAlertsDao")
-	public UserAlertsDao userAlertsdao() {
-		return new UserAlertsDaoImpl();
-	}
-
-	@Bean(name = "UpdateUserDAO")
-	public UpdateUserDAO updateUserDAO() {
-		return new UpdateUserDAOImpl();
-	}
-
-	@Bean(name = "UserAccountDAO")
-	public UserAccountDAO userAccountDAO() {
-		return new UserAccountDAOImpl();
-	}
-
-	@Bean(name = "ASDataDAO")
-	public ASDataDAO aSDataDAO() {
-		return new ASDataDAOImpl();
-	}
-
-	@Bean(name = "LookUpValuesDAO")
-	public LookUpValuesDAO lookupValuesDAO() {
-		return new LookupValuesDAOImpl();
-	}
-
-	@Bean(name = "AuthorCoAuthorDAO")
-	public AuthorCoAuthorDAO authorCoAuthorDAO() {
-		return new AuthorCoAuthorDAOImpl();
-	}
-
-	@Bean(name = "ResearchFundersDAO")
-	public ResearchFundersDAO researchFundersDAO() {
-		return new ResearchFundersDAOImpl();
-	}
-
-	@Bean(name = "UserPreferredJournals")
-	public UserPreferredJournalsDAO userPrefferedJournals() {
-
-		return new UserPreferredJournalsDAOImpl();
-	}
-
-	@Bean(name = "SocietyDetailsDao")
-	public SocietyDetailsDao societyDetailsDao() {
-		return new SocietyDetailsDaoImpl();
-
-	}
-	
-	@Bean(name = "UserRolesDAO")
-	public UserRolesDAO userRolesDAO() {
-		return new UserRolesDAOImpl();
-
-	}
+    
+    @Bean(name = "HibernateConnection")
+    public HibernateConnection hibernateConnection() {
+        return new HibernateConnection();
+    }
+    
+    @Bean(name = "AdminLoginDao")
+    public UserLoginDao userlogindao() {
+        return new UserLoginDaoImpl();
+    }
+    
+    @Bean(name = "RegistrationServiceDAO")
+    public RegistrationServiceDAO registrationServiceDAO() {
+        return new RegistrationServiceDAOImpl();
+    }
+    
+    @Bean(name = "UserLoginServiceDAO")
+    public UserLoginServiceDAO userLoginServiceDAO() {
+        return new UserLoginServiceDAOImpl();
+    }
+    
+    @Bean(name = "DashBoardDAO")
+    public DashBoardDAO dashBoardDAO() {
+        return new DashBoardDAOImpl();
+    }
+    
+    @Bean(name = "UserAlertsDao")
+    public UserAlertsDao userAlertsdao() {
+        return new UserAlertsDaoImpl();
+    }
+    
+    @Bean(name = "UpdateUserDAO")
+    public UpdateUserDAO updateUserDAO() {
+        return new UpdateUserDAOImpl();
+    }
+    
+    @Bean(name = "UserAccountDAO")
+    public UserAccountDAO userAccountDAO() {
+        return new UserAccountDAOImpl();
+    }
+    
+    @Bean(name = "ASDataDAO")
+    public ASDataDAO aSDataDAO() {
+        return new ASDataDAOImpl();
+    }
+    
+    @Bean(name = "LookUpValuesDAO")
+    public LookUpValuesDAO lookupValuesDAO() {
+        return new LookupValuesDAOImpl();
+    }
+    
+    @Bean(name = "AuthorCoAuthorDAO")
+    public AuthorCoAuthorDAO authorCoAuthorDAO() {
+        return new AuthorCoAuthorDAOImpl();
+    }
+    
+    @Bean(name = "ResearchFundersDAO")
+    public ResearchFundersDAO researchFundersDAO() {
+        return new ResearchFundersDAOImpl();
+    }
+    
+    @Bean(name = "UserPreferredJournals")
+    public UserPreferredJournalsDAO userPrefferedJournals() {
+        
+        return new UserPreferredJournalsDAOImpl();
+    }
+    
+    @Bean(name = "SocietyDetailsDao")
+    public SocietyDetailsDao societyDetailsDao() {
+        return new SocietyDetailsDaoImpl();
+        
+    }
+    
+    @Bean(name = "UserRolesDAO")
+    public UserRolesDAO userRolesDAO() {
+        return new UserRolesDAOImpl();
+        
+    }
 }

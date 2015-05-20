@@ -16,39 +16,39 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "USER_AREA_OF_INTEREST")
 public class UserAreaOfInterest implements java.io.Serializable {
-
-	private UserAreaOfInterestId id;
-	private AuthorProfile authorProfile;
-
-	public UserAreaOfInterest() {
-	}
-
-	public UserAreaOfInterest(UserAreaOfInterestId id,
-			AuthorProfile authorProfile) {
-		this.id = id;
-		this.authorProfile = authorProfile;
-	}
-
-	@EmbeddedId
-	@AttributeOverrides({
-			@AttributeOverride(name = "userId", column = @Column(name = "USER_ID", nullable = false, precision = 22, scale = 0)),
-			@AttributeOverride(name = "areaOfInterestId", column = @Column(name = "AREA_OF_INTEREST_ID", nullable = false, precision = 22, scale = 0)) })
-	public UserAreaOfInterestId getId() {
-		return this.id;
-	}
-
-	public void setId(UserAreaOfInterestId id) {
-		this.id = id;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USER_ID", nullable = false, insertable = false, updatable = false)
-	public AuthorProfile getAuthorProfile() {
-		return this.authorProfile;
-	}
-
-	public void setAuthorProfile(AuthorProfile authorProfile) {
-		this.authorProfile = authorProfile;
-	}
-
+    
+    private UserAreaOfInterestId id;
+    private AuthorProfile authorProfile;
+    
+    public UserAreaOfInterest() {
+    }
+    
+    public UserAreaOfInterest(UserAreaOfInterestId id,
+            AuthorProfile authorProfile) {
+        this.id = id;
+        this.authorProfile = authorProfile;
+    }
+    
+    @EmbeddedId
+    @AttributeOverrides({
+            @AttributeOverride(name = "userId", column = @Column(name = "USER_ID", nullable = false, precision = 22, scale = 0)),
+            @AttributeOverride(name = "areaOfInterestId", column = @Column(name = "AREA_OF_INTEREST_ID", nullable = false, precision = 22, scale = 0)) })
+    public UserAreaOfInterestId getId() {
+        return this.id;
+    }
+    
+    public void setId(UserAreaOfInterestId id) {
+        this.id = id;
+    }
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "USER_ID", nullable = false, insertable = false, updatable = false)
+    public AuthorProfile getAuthorProfile() {
+        return this.authorProfile;
+    }
+    
+    public void setAuthorProfile(AuthorProfile authorProfile) {
+        this.authorProfile = authorProfile;
+    }
+    
 }

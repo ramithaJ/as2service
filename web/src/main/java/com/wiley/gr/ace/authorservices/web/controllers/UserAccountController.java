@@ -29,109 +29,110 @@ import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
 
 /**
  * @author kpshiva
- *
  */
 @RestController
 @RequestMapping("/userAccount")
 public class UserAccountController {
-
-	@Autowired
-	UserAccountService userAccountService;
-
-	@Autowired
-	AuthorProfileService authorProfileService;
-	
-	/**
-	 * @param userId
-	 * @param userDetails
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping(value = "/profileInfo/{userId}",method = RequestMethod.GET)
-	public Service getProfileInformation(@PathVariable("userId") String userId) {
-		
-		Service service = new Service();
-		service.setPayload(userAccountService.getProfileInformation(userId));
-		return service;
-
-	}
-	
-	@RequestMapping(value = "/profileInfo/{userId}",method = RequestMethod.POST)
-	public Service updateProfileInformation(@PathVariable("userId") String userId, @RequestBody User user) {
-		
-		Service service = new Service();
-		service.setPayload(authorProfileService.updateUserProfileInfo(user));
-		return service;
-
-	}
-	
-	/**
-	 * @param userId
-	 * @return
-	 */
-	@RequestMapping(value = "/emailDetails/{userId}", method = RequestMethod.GET)
-	public Service getEmailDetails(@PathVariable("userId") String userId) {
-
-		Service service = new Service();
-		service.setPayload(userAccountService.getEmailDetails(userId));
-		return service;
-	}
-
-	/**
-	 * @param userId
-	 * @param emailDetails
-	 * @return
-	 */
-	@RequestMapping(value = "/emailDetails/{userId}", method = RequestMethod.POST)
-	public Service updateEmail(@PathVariable("userId") String userId,
-			@RequestBody User emailDetails) {
-
-		Service service = new Service();
-		emailDetails.setUserId(Integer.parseInt(userId));
-		service.setPayload(authorProfileService.updateEmailDetails(emailDetails));
-		return service;
-	}
-
-
-	/**
-	 * @param userId
-	 * @return
-	 */
-	@RequestMapping(value = "/userAddresses/{userId}", method = RequestMethod.GET)
-	public Service getUserAddresses(@PathVariable("userId") String userId) {
-
-		Service service = new Service();
-		service.setPayload(userAccountService.getEmailDetails(userId));
-		return service;
-	}
-	
-	@RequestMapping(value = "/userAddresses/{userId}", method = RequestMethod.POST)
-	public Service updateUserAddresses(@PathVariable("userId") String userId, @RequestBody Addresses addresses) {
-
-		Service service = new Service();
-		service.setPayload(authorProfileService.updateUserAddress(addresses));
-		return service;
-	}
-
-	/**
-	 * This service will update the security questions and answers at user
-	 * profile level.
-	 * 
-	 * @param userId
-	 * @param securityDetails
-	 *            - it is a JSON array having security questions and answers.
-	 * @return
-	 */
-	@RequestMapping(value = "/secutiryDetails/update/{userId}", method = RequestMethod.POST)
-	public Service updateSecurityDetails(@PathVariable("userId") String userId,
-			@Valid @RequestBody SecurityDetailsHolder securityDetails) {
-
-		Service service = new Service();
-		service.setStatus("Success");
-		service.setPayload(userAccountService.updateSecurityDetails(userId,
-				securityDetails.getSecurityDetails()));
-		return service;
-
-	}
-
+    
+    @Autowired
+    UserAccountService userAccountService;
+    
+    @Autowired
+    AuthorProfileService authorProfileService;
+    
+    /**
+     * @param userId
+     * @param userDetails
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/profileInfo/{userId}", method = RequestMethod.GET)
+    public Service getProfileInformation(@PathVariable("userId") String userId) {
+        
+        Service service = new Service();
+        service.setPayload(userAccountService.getProfileInformation(userId));
+        return service;
+        
+    }
+    
+    @RequestMapping(value = "/profileInfo/{userId}", method = RequestMethod.POST)
+    public Service updateProfileInformation(
+            @PathVariable("userId") String userId, @RequestBody User user) {
+        
+        Service service = new Service();
+        service.setPayload(authorProfileService.updateUserProfileInfo(user));
+        return service;
+        
+    }
+    
+    /**
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "/emailDetails/{userId}", method = RequestMethod.GET)
+    public Service getEmailDetails(@PathVariable("userId") String userId) {
+        
+        Service service = new Service();
+        service.setPayload(userAccountService.getEmailDetails(userId));
+        return service;
+    }
+    
+    /**
+     * @param userId
+     * @param emailDetails
+     * @return
+     */
+    @RequestMapping(value = "/emailDetails/{userId}", method = RequestMethod.POST)
+    public Service updateEmail(@PathVariable("userId") String userId,
+            @RequestBody User emailDetails) {
+        
+        Service service = new Service();
+        emailDetails.setUserId(Integer.parseInt(userId));
+        service.setPayload(authorProfileService
+                .updateEmailDetails(emailDetails));
+        return service;
+    }
+    
+    /**
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "/userAddresses/{userId}", method = RequestMethod.GET)
+    public Service getUserAddresses(@PathVariable("userId") String userId) {
+        
+        Service service = new Service();
+        service.setPayload(userAccountService.getEmailDetails(userId));
+        return service;
+    }
+    
+    @RequestMapping(value = "/userAddresses/{userId}", method = RequestMethod.POST)
+    public Service updateUserAddresses(@PathVariable("userId") String userId,
+            @RequestBody Addresses addresses) {
+        
+        Service service = new Service();
+        service.setPayload(authorProfileService.updateUserAddress(addresses));
+        return service;
+    }
+    
+    /**
+     * This service will update the security questions and answers at user
+     * profile level.
+     * 
+     * @param userId
+     * @param securityDetails
+     *            - it is a JSON array having security questions and answers.
+     * @return
+     */
+    @RequestMapping(value = "/secutiryDetails/update/{userId}", method = RequestMethod.POST)
+    public Service updateSecurityDetails(@PathVariable("userId") String userId,
+            @Valid @RequestBody SecurityDetailsHolder securityDetails) {
+        
+        Service service = new Service();
+        service.setStatus("Success");
+        service.setPayload(userAccountService.updateSecurityDetails(userId,
+                securityDetails.getSecurityDetails()));
+        return service;
+        
+    }
+    
 }

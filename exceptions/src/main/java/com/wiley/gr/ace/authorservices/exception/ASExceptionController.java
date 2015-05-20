@@ -11,6 +11,8 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.exception;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -24,58 +26,56 @@ import com.wiley.gr.ace.authorservices.model.Service;
  * This class serves as a global exception handler for all controller classes
  * 
  * @author SarmaKumarap
- *
  */
 @ControllerAdvice
 public class ASExceptionController {
-	
-	
-	/**
-	 * @param asException
-	 * @return
-	 */
-	@ExceptionHandler(ASException.class)
-	@ResponseStatus(value=HttpStatus.OK)
-	@ResponseBody
-	public Service handleASException(ASException asException) {
-		
-		System.out.println("Inside ASException Controller");
-		
-		Service response = new Service();
-		asException.printStackTrace();
-		response.setStatus("FAILURE");
-		ErrorPOJO errorPojo = new ErrorPOJO();
-		errorPojo.setCode(
-				Integer.parseInt(asException.getErrorCode()));
-		errorPojo.setMessage(asException.getDescription());
-		response.setError(errorPojo);
-		
-		return response;
-		
-	}
-	
-	
-	/**
-	 * @param asException
-	 * @return
-	 */
-	@ExceptionHandler(Exception.class)
-	@ResponseStatus(value=HttpStatus.INTERNAL_SERVER_ERROR)
-	@ResponseBody	public Service handleException(Exception exception) {
-		
-		System.out.println("Inside ASException Controller");
-		
-		Service response = new Service();
-		exception.printStackTrace();
-		response.setStatus("FAILURE");
-		ErrorPOJO errorPojo = new ErrorPOJO();
-		errorPojo.setCode(-1);
-		errorPojo.setMessage(exception.getMessage());
-		response.setError(errorPojo);
-		
-		return response;
-		
-	}
-	
-
+    
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(ASExceptionController.class);
+    
+    /**
+     * @param asException
+     * @return
+     */
+    @ExceptionHandler(ASException.class)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public Service handleASException(ASException asException) {
+        
+        LOGGER.info("Inside ASException Controller");
+        
+        Service response = new Service();
+        LOGGER.error("Error Trace - ", asException);
+        response.setStatus("FAILURE");
+        ErrorPOJO errorPojo = new ErrorPOJO();
+        errorPojo.setCode(Integer.parseInt(asException.getErrorCode()));
+        errorPojo.setMessage(asException.getDescription());
+        response.setError(errorPojo);
+        return response;
+        
+    }
+    
+    /**
+     * @param asException
+     * @return
+     */
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public Service handleException(Exception exception) {
+        
+        LOGGER.info("Inside ASException Controller");
+        
+        Service response = new Service();
+        exception.printStackTrace();
+        response.setStatus("FAILURE");
+        ErrorPOJO errorPojo = new ErrorPOJO();
+        errorPojo.setCode(-1);
+        errorPojo.setMessage(exception.getMessage());
+        response.setError(errorPojo);
+        
+        return response;
+        
+    }
+    
 }

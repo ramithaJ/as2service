@@ -16,146 +16,146 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "PERMISSIONS")
 public class Permissions implements java.io.Serializable {
-
-	private Integer permissionId;
-	private String permissionName;
-	private String levelOfPermission;
-	private String permActiveNotes;
-	private Date createdDate;
-	private String createdBy;
-	private Date updatedDate;
-	private String updatedBy;
-	private String permType;
-	private Set<AdditionalPermissions> additionalPermissionses = new HashSet<AdditionalPermissions>(
-			0);
-	private Set<RolePermissions> rolePermissionses = new HashSet<RolePermissions>(
-			0);
-
-	public Permissions() {
-	}
-
-	public Permissions(Integer permissionId) {
-		this.permissionId = permissionId;
-	}
-
-	public Permissions(Integer permissionId, String permissionName,
-			String levelOfPermission, String permActiveNotes, Date createdDate,
-			String createdBy, Date updatedDate, String updatedBy,
-			String permType,
-			Set<AdditionalPermissions> additionalPermissionses,
-			Set<RolePermissions> rolePermissionses) {
-		this.permissionId = permissionId;
-		this.permissionName = permissionName;
-		this.levelOfPermission = levelOfPermission;
-		this.permActiveNotes = permActiveNotes;
-		this.createdDate = createdDate;
-		this.createdBy = createdBy;
-		this.updatedDate = updatedDate;
-		this.updatedBy = updatedBy;
-		this.permType = permType;
-		this.additionalPermissionses = additionalPermissionses;
-		this.rolePermissionses = rolePermissionses;
-	}
-
-	@Id
-	@Column(name = "PERMISSION_ID", unique = true, nullable = false, precision = 22, scale = 0)
-	public Integer getPermissionId() {
-		return this.permissionId;
-	}
-
-	public void setPermissionId(Integer permissionId) {
-		this.permissionId = permissionId;
-	}
-
-	@Column(name = "PERMISSION_NAME", length = 50)
-	public String getPermissionName() {
-		return this.permissionName;
-	}
-
-	public void setPermissionName(String permissionName) {
-		this.permissionName = permissionName;
-	}
-
-	@Column(name = "LEVEL_OF_PERMISSION", length = 250)
-	public String getLevelOfPermission() {
-		return this.levelOfPermission;
-	}
-
-	public void setLevelOfPermission(String levelOfPermission) {
-		this.levelOfPermission = levelOfPermission;
-	}
-
-	@Column(name = "PERM_ACTIVE_NOTES", length = 100)
-	public String getPermActiveNotes() {
-		return this.permActiveNotes;
-	}
-
-	public void setPermActiveNotes(String permActiveNotes) {
-		this.permActiveNotes = permActiveNotes;
-	}
-
-	@Column(name = "CREATED_DATE")
-	public Date getCreatedDate() {
-		return this.createdDate;
-	}
-
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	@Column(name = "CREATED_BY", length = 100)
-	public String getCreatedBy() {
-		return this.createdBy;
-	}
-
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	@Column(name = "UPDATED_DATE")
-	public Date getUpdatedDate() {
-		return this.updatedDate;
-	}
-
-	public void setUpdatedDate(Date updatedDate) {
-		this.updatedDate = updatedDate;
-	}
-
-	@Column(name = "UPDATED_BY", length = 100)
-	public String getUpdatedBy() {
-		return this.updatedBy;
-	}
-
-	public void setUpdatedBy(String updatedBy) {
-		this.updatedBy = updatedBy;
-	}
-
-	@Column(name = "PERM_TYPE", length = 25)
-	public String getPermType() {
-		return this.permType;
-	}
-
-	public void setPermType(String permType) {
-		this.permType = permType;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "permissions")
-	public Set<AdditionalPermissions> getAdditionalPermissionses() {
-		return this.additionalPermissionses;
-	}
-
-	public void setAdditionalPermissionses(
-			Set<AdditionalPermissions> additionalPermissionses) {
-		this.additionalPermissionses = additionalPermissionses;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "permissions")
-	public Set<RolePermissions> getRolePermissionses() {
-		return this.rolePermissionses;
-	}
-
-	public void setRolePermissionses(Set<RolePermissions> rolePermissionses) {
-		this.rolePermissionses = rolePermissionses;
-	}
-
+    
+    private Integer permissionId;
+    private String permissionName;
+    private String levelOfPermission;
+    private String permActiveNotes;
+    private Date createdDate;
+    private String createdBy;
+    private Date updatedDate;
+    private String updatedBy;
+    private String permType;
+    private Set<AdditionalPermissions> additionalPermissionses = new HashSet<AdditionalPermissions>(
+            0);
+    private Set<RolePermissions> rolePermissionses = new HashSet<RolePermissions>(
+            0);
+    
+    public Permissions() {
+    }
+    
+    public Permissions(Integer permissionId) {
+        this.permissionId = permissionId;
+    }
+    
+    public Permissions(Integer permissionId, String permissionName,
+            String levelOfPermission, String permActiveNotes, Date createdDate,
+            String createdBy, Date updatedDate, String updatedBy,
+            String permType,
+            Set<AdditionalPermissions> additionalPermissionses,
+            Set<RolePermissions> rolePermissionses) {
+        this.permissionId = permissionId;
+        this.permissionName = permissionName;
+        this.levelOfPermission = levelOfPermission;
+        this.permActiveNotes = permActiveNotes;
+        this.createdDate = createdDate;
+        this.createdBy = createdBy;
+        this.updatedDate = updatedDate;
+        this.updatedBy = updatedBy;
+        this.permType = permType;
+        this.additionalPermissionses = additionalPermissionses;
+        this.rolePermissionses = rolePermissionses;
+    }
+    
+    @Id
+    @Column(name = "PERMISSION_ID", unique = true, nullable = false, precision = 22, scale = 0)
+    public Integer getPermissionId() {
+        return this.permissionId;
+    }
+    
+    public void setPermissionId(Integer permissionId) {
+        this.permissionId = permissionId;
+    }
+    
+    @Column(name = "PERMISSION_NAME", length = 50)
+    public String getPermissionName() {
+        return this.permissionName;
+    }
+    
+    public void setPermissionName(String permissionName) {
+        this.permissionName = permissionName;
+    }
+    
+    @Column(name = "LEVEL_OF_PERMISSION", length = 250)
+    public String getLevelOfPermission() {
+        return this.levelOfPermission;
+    }
+    
+    public void setLevelOfPermission(String levelOfPermission) {
+        this.levelOfPermission = levelOfPermission;
+    }
+    
+    @Column(name = "PERM_ACTIVE_NOTES", length = 100)
+    public String getPermActiveNotes() {
+        return this.permActiveNotes;
+    }
+    
+    public void setPermActiveNotes(String permActiveNotes) {
+        this.permActiveNotes = permActiveNotes;
+    }
+    
+    @Column(name = "CREATED_DATE")
+    public Date getCreatedDate() {
+        return this.createdDate;
+    }
+    
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+    
+    @Column(name = "CREATED_BY", length = 100)
+    public String getCreatedBy() {
+        return this.createdBy;
+    }
+    
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+    
+    @Column(name = "UPDATED_DATE")
+    public Date getUpdatedDate() {
+        return this.updatedDate;
+    }
+    
+    public void setUpdatedDate(Date updatedDate) {
+        this.updatedDate = updatedDate;
+    }
+    
+    @Column(name = "UPDATED_BY", length = 100)
+    public String getUpdatedBy() {
+        return this.updatedBy;
+    }
+    
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+    
+    @Column(name = "PERM_TYPE", length = 25)
+    public String getPermType() {
+        return this.permType;
+    }
+    
+    public void setPermType(String permType) {
+        this.permType = permType;
+    }
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "permissions")
+    public Set<AdditionalPermissions> getAdditionalPermissionses() {
+        return this.additionalPermissionses;
+    }
+    
+    public void setAdditionalPermissionses(
+            Set<AdditionalPermissions> additionalPermissionses) {
+        this.additionalPermissionses = additionalPermissionses;
+    }
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "permissions")
+    public Set<RolePermissions> getRolePermissionses() {
+        return this.rolePermissionses;
+    }
+    
+    public void setRolePermissionses(Set<RolePermissions> rolePermissionses) {
+        this.rolePermissionses = rolePermissionses;
+    }
+    
 }

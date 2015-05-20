@@ -18,14 +18,18 @@ import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 
 /**
  * @author Virtusa
- *
  */
 public interface ESBInterfaceService {
-
-	User fetchOrcidDetails(String orcid) throws Exception;
-	String updateALMUser(User user) throws Exception;
-	ESBUser checkEmailIdExists(String emailId) throws Exception;
-	List<User> getUsersFromFirstNameLastName(String email, String firstName, String lastName) throws Exception;
-	String creatUser(User user) throws Exception;
-	
+    
+    User fetchOrcidDetails(String orcid) throws Exception;
+    
+    String updateALMUser(User user) throws Exception;
+    
+    ESBUser checkEmailIdExists(String emailId) throws Exception;
+    
+    List<User> getUsersFromFirstNameLastName(String email, String firstName,
+            String lastName) throws Exception;
+    
+    String creatUser(User user) throws Exception;
+    
 }

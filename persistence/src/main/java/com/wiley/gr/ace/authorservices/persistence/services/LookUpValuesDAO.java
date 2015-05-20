@@ -18,15 +18,15 @@ import com.wiley.gr.ace.authorservices.persistence.entity.LookupValues;
 
 /**
  * @author sarmakumarap
- *
  */
 public interface LookUpValuesDAO {
-	
-	/**
-	 * This method gets data from LOOKUP_VALUES table with a key
-	 * @param lookupKey
-	 * @return
-	 */
-	List<LookupValues> getLookUpData(String lookupKey);
-
+    
+    /**
+     * This method gets data from LOOKUP_VALUES table with a key
+     * 
+     * @param lookupKey
+     * @return
+     */
+    List<LookupValues> getLookUpData(String lookupKey);
+    
 }

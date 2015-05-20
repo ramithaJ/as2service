@@ -21,41 +21,46 @@ import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
 
 /**
  * @author RAVISINHA
- *
  */
 public class CDMInterfaceServiceImpl implements CDMInterfaceService {
-
-
-
-	/* (non-Javadoc)
-	 * @see com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService#lookUpProfile(java.lang.String)
-	 */
-	@Override
-	public LookUpProfile lookUpProfile(String userId) {
-
-		final String url = "http://demo6374909.mockable.io/user/lookUpProfile";
-		
-		LookUpProfile lookupProfile = (LookUpProfile) StubInvokerUtil.invokeStub(url,
-				HttpMethod.GET, "LookUpProfile");
-		
-		return lookupProfile;
-		
-	}
-
-	/* (non-Javadoc)
-	 * @see com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService#updateProfile(com.wiley.gr.ace.authorservices.model.external.LookUpProfile)
-	 */
-	@Override
-	public boolean updateProfile(LookUpProfile lookUpProfile) {
-		final String url = "http://demo6374909.mockable.io/user/updateProfile";
-		Service service = (Service) StubInvokerUtil.invokeStub(url,
-				HttpMethod.POST, "Service");
-		String status = service.getStatus();
-
-		if (status != null && status.equalsIgnoreCase("success")) {
-
-			return true;
-		}
-		return false;
-	}
+    
+    /*
+     * (non-Javadoc)
+     * @see
+     * com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService
+     * #lookUpProfile(java.lang.String)
+     */
+    @Override
+    public LookUpProfile lookUpProfile(String userId) {
+        
+        final String url = "http://demo6374909.mockable.io/user/lookUpProfile";
+        
+        LookUpProfile lookupProfile = (LookUpProfile) StubInvokerUtil
+                .invokeStub(url, HttpMethod.GET, "LookUpProfile");
+        
+        return lookupProfile;
+        
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see
+     * com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService
+     * #
+     * updateProfile(com.wiley.gr.ace.authorservices.model.external.LookUpProfile
+     * )
+     */
+    @Override
+    public boolean updateProfile(LookUpProfile lookUpProfile) {
+        final String url = "http://demo6374909.mockable.io/user/updateProfile";
+        Service service = (Service) StubInvokerUtil.invokeStub(url,
+                HttpMethod.POST, "Service");
+        String status = service.getStatus();
+        
+        if (status != null && status.equalsIgnoreCase("success")) {
+            
+            return true;
+        }
+        return false;
+    }
 }

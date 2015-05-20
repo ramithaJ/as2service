@@ -18,23 +18,22 @@ import com.wiley.gr.ace.authorservices.model.User;
 
 /**
  * @author kpshiva
- *
  */
 public interface UserAccountService {
-
-	/**
-	 * @param userId
-	 * @return
-	 */
-	User getEmailDetails(String userId);
-
-	/**
-	 * @param userId
-	 * @param securityDetails
-	 * @return
-	 */
-	boolean updateSecurityDetails(String userId,
-			List<SecurityDetails> securityDetails);
-	
-	User getProfileInformation(String userId);
+    
+    /**
+     * @param userId
+     * @return
+     */
+    User getEmailDetails(String userId);
+    
+    /**
+     * @param userId
+     * @param securityDetails
+     * @return
+     */
+    boolean updateSecurityDetails(String userId,
+            List<SecurityDetails> securityDetails);
+    
+    User getProfileInformation(String userId);
 }

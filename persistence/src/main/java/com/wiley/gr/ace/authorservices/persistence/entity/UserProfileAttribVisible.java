@@ -14,64 +14,64 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "USER_PROFILE_ATTRIB_VISIBLE")
 public class UserProfileAttribVisible implements java.io.Serializable {
-
-	private Integer userProfileAttribId;
-	private AuthorProfile authorProfile;
-	private String profileVisibilityFlg;
-	private String listOfAttributesTobeVisib;
-
-	public UserProfileAttribVisible() {
-	}
-
-	public UserProfileAttribVisible(Integer userProfileAttribId) {
-		this.userProfileAttribId = userProfileAttribId;
-	}
-
-	public UserProfileAttribVisible(Integer userProfileAttribId,
-			AuthorProfile authorProfile, String profileVisibilityFlg,
-			String listOfAttributesTobeVisib) {
-		this.userProfileAttribId = userProfileAttribId;
-		this.authorProfile = authorProfile;
-		this.profileVisibilityFlg = profileVisibilityFlg;
-		this.listOfAttributesTobeVisib = listOfAttributesTobeVisib;
-	}
-
-	@Id
-	@Column(name = "USER_PROFILE_ATTRIB_ID", unique = true, nullable = false, precision = 22, scale = 0)
-	public Integer getUserProfileAttribId() {
-		return this.userProfileAttribId;
-	}
-
-	public void setUserProfileAttribId(Integer userProfileAttribId) {
-		this.userProfileAttribId = userProfileAttribId;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USER_ID")
-	public AuthorProfile getAuthorProfile() {
-		return this.authorProfile;
-	}
-
-	public void setAuthorProfile(AuthorProfile authorProfile) {
-		this.authorProfile = authorProfile;
-	}
-
-	@Column(name = "PROFILE_VISIBILITY_FLG", length = 50)
-	public String getProfileVisibilityFlg() {
-		return this.profileVisibilityFlg;
-	}
-
-	public void setProfileVisibilityFlg(String profileVisibilityFlg) {
-		this.profileVisibilityFlg = profileVisibilityFlg;
-	}
-
-	@Column(name = "LIST_OF_ATTRIBUTES_TOBE_VISIB", length = 3000)
-	public String getListOfAttributesTobeVisib() {
-		return this.listOfAttributesTobeVisib;
-	}
-
-	public void setListOfAttributesTobeVisib(String listOfAttributesTobeVisib) {
-		this.listOfAttributesTobeVisib = listOfAttributesTobeVisib;
-	}
-
+    
+    private Integer userProfileAttribId;
+    private AuthorProfile authorProfile;
+    private String profileVisibilityFlg;
+    private String listOfAttributesTobeVisib;
+    
+    public UserProfileAttribVisible() {
+    }
+    
+    public UserProfileAttribVisible(Integer userProfileAttribId) {
+        this.userProfileAttribId = userProfileAttribId;
+    }
+    
+    public UserProfileAttribVisible(Integer userProfileAttribId,
+            AuthorProfile authorProfile, String profileVisibilityFlg,
+            String listOfAttributesTobeVisib) {
+        this.userProfileAttribId = userProfileAttribId;
+        this.authorProfile = authorProfile;
+        this.profileVisibilityFlg = profileVisibilityFlg;
+        this.listOfAttributesTobeVisib = listOfAttributesTobeVisib;
+    }
+    
+    @Id
+    @Column(name = "USER_PROFILE_ATTRIB_ID", unique = true, nullable = false, precision = 22, scale = 0)
+    public Integer getUserProfileAttribId() {
+        return this.userProfileAttribId;
+    }
+    
+    public void setUserProfileAttribId(Integer userProfileAttribId) {
+        this.userProfileAttribId = userProfileAttribId;
+    }
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "USER_ID")
+    public AuthorProfile getAuthorProfile() {
+        return this.authorProfile;
+    }
+    
+    public void setAuthorProfile(AuthorProfile authorProfile) {
+        this.authorProfile = authorProfile;
+    }
+    
+    @Column(name = "PROFILE_VISIBILITY_FLG", length = 50)
+    public String getProfileVisibilityFlg() {
+        return this.profileVisibilityFlg;
+    }
+    
+    public void setProfileVisibilityFlg(String profileVisibilityFlg) {
+        this.profileVisibilityFlg = profileVisibilityFlg;
+    }
+    
+    @Column(name = "LIST_OF_ATTRIBUTES_TOBE_VISIB", length = 3000)
+    public String getListOfAttributesTobeVisib() {
+        return this.listOfAttributesTobeVisib;
+    }
+    
+    public void setListOfAttributesTobeVisib(String listOfAttributesTobeVisib) {
+        this.listOfAttributesTobeVisib = listOfAttributesTobeVisib;
+    }
+    
 }

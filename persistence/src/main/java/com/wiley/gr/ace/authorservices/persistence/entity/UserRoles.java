@@ -16,38 +16,38 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "USER_ROLES")
 public class UserRoles implements java.io.Serializable {
-
-	private UserRolesId id;
-	private Roles roles;
-
-	public UserRoles() {
-	}
-
-	public UserRoles(UserRolesId id, Roles roles) {
-		this.id = id;
-		this.roles = roles;
-	}
-
-	@EmbeddedId
-	@AttributeOverrides({
-			@AttributeOverride(name = "userId", column = @Column(name = "USER_ID", nullable = false, precision = 22, scale = 0)),
-			@AttributeOverride(name = "roleId", column = @Column(name = "ROLE_ID", nullable = false, precision = 22, scale = 0)) })
-	public UserRolesId getId() {
-		return this.id;
-	}
-
-	public void setId(UserRolesId id) {
-		this.id = id;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ROLE_ID", nullable = false, insertable = false, updatable = false)
-	public Roles getRoles() {
-		return this.roles;
-	}
-
-	public void setRoles(Roles roles) {
-		this.roles = roles;
-	}
-
+    
+    private UserRolesId id;
+    private Roles roles;
+    
+    public UserRoles() {
+    }
+    
+    public UserRoles(UserRolesId id, Roles roles) {
+        this.id = id;
+        this.roles = roles;
+    }
+    
+    @EmbeddedId
+    @AttributeOverrides({
+            @AttributeOverride(name = "userId", column = @Column(name = "USER_ID", nullable = false, precision = 22, scale = 0)),
+            @AttributeOverride(name = "roleId", column = @Column(name = "ROLE_ID", nullable = false, precision = 22, scale = 0)) })
+    public UserRolesId getId() {
+        return this.id;
+    }
+    
+    public void setId(UserRolesId id) {
+        this.id = id;
+    }
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ROLE_ID", nullable = false, insertable = false, updatable = false)
+    public Roles getRoles() {
+        return this.roles;
+    }
+    
+    public void setRoles(Roles roles) {
+        this.roles = roles;
+    }
+    
 }

@@ -27,31 +27,31 @@ import com.wiley.gr.ace.authorservices.externalservices.service.impl.OrcidInterf
 
 @Configuration
 public class ExternalServiceBeanConfig {
-
-	@Bean(name = "ALMExternalService")
-	public ALMInterfaceService aLMExternalService() {
-		return new ALMInterfaceServiceImpl();
-	}
-
-	@Bean(name = "BPMExternalService")
-	public BPMInterfaceService bpmExternalService() {
-		return new BPMInterfaceServiceImpl();
-	}
-
-	@Bean(name = "ESBInterfaceService")
-	public ESBInterfaceService eSBInterfaceService() {
-		return new ESBInterfaceServiceImpl();
-	}
-
-	@Bean(name = "OricdInterfaceService")
-	public OrcidInterfaceService orcidInterfaceService() {
-		return new OrcidInterfaceServiceImpl();
-	}
-	@Bean(name="CDMInterfaceService")
-	public CDMInterfaceService cdmInterfaceService()
-	{
-		
-		return new CDMInterfaceServiceImpl();
-	}
-
+    
+    @Bean(name = "ALMExternalService")
+    public ALMInterfaceService aLMExternalService() {
+        return new ALMInterfaceServiceImpl();
+    }
+    
+    @Bean(name = "BPMExternalService")
+    public BPMInterfaceService bpmExternalService() {
+        return new BPMInterfaceServiceImpl();
+    }
+    
+    @Bean(name = "ESBInterfaceService")
+    public ESBInterfaceService eSBInterfaceService() {
+        return new ESBInterfaceServiceImpl();
+    }
+    
+    @Bean(name = "OricdInterfaceService")
+    public OrcidInterfaceService orcidInterfaceService() {
+        return new OrcidInterfaceServiceImpl();
+    }
+    
+    @Bean(name = "CDMInterfaceService")
+    public CDMInterfaceService cdmInterfaceService() {
+        
+        return new CDMInterfaceServiceImpl();
+    }
+    
 }

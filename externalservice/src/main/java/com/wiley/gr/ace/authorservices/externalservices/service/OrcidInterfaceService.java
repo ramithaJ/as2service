@@ -18,10 +18,9 @@ import com.wiley.gr.ace.authorservices.model.orcid.OrcidAccessToken;
 
 /**
  * @author vkumark
- *
  */
 public interface OrcidInterfaceService {
-	OrcidAccessToken getAccessToken(String authorizationCode) throws Exception;
-
-	String getBio(OrcidAccessToken accessToken) throws Exception;
+    OrcidAccessToken getAccessToken(String authorizationCode) throws Exception;
+    
+    String getBio(OrcidAccessToken accessToken) throws Exception;
 }

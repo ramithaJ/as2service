@@ -13,30 +13,30 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "SECURITY_QUESTIONS")
 public class SecurityQuestions implements java.io.Serializable {
-
-	private SecurityQuestionsId id;
-
-	public SecurityQuestions() {
-	}
-
-	public SecurityQuestions(SecurityQuestionsId id) {
-		this.id = id;
-	}
-
-	@EmbeddedId
-	@AttributeOverrides({
-			@AttributeOverride(name = "questionId", column = @Column(name = "QUESTION_ID", precision = 22, scale = 0)),
-			@AttributeOverride(name = "questDesc", column = @Column(name = "QUEST_DESC", length = 500)),
-			@AttributeOverride(name = "createdDate", column = @Column(name = "CREATED_DATE")),
-			@AttributeOverride(name = "createdBy", column = @Column(name = "CREATED_BY", length = 100)),
-			@AttributeOverride(name = "updatedDate", column = @Column(name = "UPDATED_DATE")),
-			@AttributeOverride(name = "updatedBy", column = @Column(name = "UPDATED_BY", length = 100)) })
-	public SecurityQuestionsId getId() {
-		return this.id;
-	}
-
-	public void setId(SecurityQuestionsId id) {
-		this.id = id;
-	}
-
+    
+    private SecurityQuestionsId id;
+    
+    public SecurityQuestions() {
+    }
+    
+    public SecurityQuestions(SecurityQuestionsId id) {
+        this.id = id;
+    }
+    
+    @EmbeddedId
+    @AttributeOverrides({
+            @AttributeOverride(name = "questionId", column = @Column(name = "QUESTION_ID", precision = 22, scale = 0)),
+            @AttributeOverride(name = "questDesc", column = @Column(name = "QUEST_DESC", length = 500)),
+            @AttributeOverride(name = "createdDate", column = @Column(name = "CREATED_DATE")),
+            @AttributeOverride(name = "createdBy", column = @Column(name = "CREATED_BY", length = 100)),
+            @AttributeOverride(name = "updatedDate", column = @Column(name = "UPDATED_DATE")),
+            @AttributeOverride(name = "updatedBy", column = @Column(name = "UPDATED_BY", length = 100)) })
+    public SecurityQuestionsId getId() {
+        return this.id;
+    }
+    
+    public void setId(SecurityQuestionsId id) {
+        this.id = id;
+    }
+    
 }

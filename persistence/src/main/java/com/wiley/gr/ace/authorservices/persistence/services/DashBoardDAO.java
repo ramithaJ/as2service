@@ -14,11 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.persistence.services;
 
-
-
 /**
  * @author Virtusa
- *
  */
 public interface DashBoardDAO {
 }

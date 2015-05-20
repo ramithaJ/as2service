@@ -23,38 +23,41 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  */
 @JsonInclude(Include.NON_NULL)
 public class SecurityDetails {
-
-	@NotNull @NotBlank
-	private String securityQuestionId;
-	
-	@NotNull @NotBlank
-	private String securityQuestion;
-
-	@NotNull @NotBlank
-	private String securityAnswer;
-
-	public String getSecurityQuestion() {
-		return securityQuestion;
-	}
-
-	public void setSecurityQuestion(String securityQuestion) {
-		this.securityQuestion = securityQuestion;
-	}
-
-	public String getSecurityAnswer() {
-		return securityAnswer;
-	}
-
-	public void setSecurityAnswer(String securityAnswer) {
-		this.securityAnswer = securityAnswer;
-	}
-
-	public String getSecurityQuestionId() {
-		return securityQuestionId;
-	}
-
-	public void setSecurityQuestionId(String securityQuestionId) {
-		this.securityQuestionId = securityQuestionId;
-	}
-
+    
+    @NotNull
+    @NotBlank
+    private String securityQuestionId;
+    
+    @NotNull
+    @NotBlank
+    private String securityQuestion;
+    
+    @NotNull
+    @NotBlank
+    private String securityAnswer;
+    
+    public String getSecurityQuestion() {
+        return securityQuestion;
+    }
+    
+    public void setSecurityQuestion(String securityQuestion) {
+        this.securityQuestion = securityQuestion;
+    }
+    
+    public String getSecurityAnswer() {
+        return securityAnswer;
+    }
+    
+    public void setSecurityAnswer(String securityAnswer) {
+        this.securityAnswer = securityAnswer;
+    }
+    
+    public String getSecurityQuestionId() {
+        return securityQuestionId;
+    }
+    
+    public void setSecurityQuestionId(String securityQuestionId) {
+        this.securityQuestionId = securityQuestionId;
+    }
+    
 }

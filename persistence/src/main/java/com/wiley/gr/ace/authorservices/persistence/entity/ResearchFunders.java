@@ -16,97 +16,97 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "RESEARCH_FUNDERS")
 public class ResearchFunders implements java.io.Serializable {
-
-	private Integer rfunderId;
-	private String funderName;
-	private Date createdDate;
-	private String createdBy;
-	private Date updatedDate;
-	private String updatedBy;
-	private Set<UserFunderGrants> userFunderGrantses = new HashSet<UserFunderGrants>(
-			0);
-
-	public ResearchFunders() {
-	}
-
-	public ResearchFunders(Integer rfunderId) {
-		this.rfunderId = rfunderId;
-	}
-
-	public ResearchFunders(Integer rfunderId, String funderName,
-			Date createdDate, String createdBy, Date updatedDate,
-			String updatedBy, Set<UserFunderGrants> userFunderGrantses) {
-		this.rfunderId = rfunderId;
-		this.funderName = funderName;
-		this.createdDate = createdDate;
-		this.createdBy = createdBy;
-		this.updatedDate = updatedDate;
-		this.updatedBy = updatedBy;
-		this.userFunderGrantses = userFunderGrantses;
-	}
-
-	@Id
-	@Column(name = "RFUNDER_ID", unique = true, nullable = false, precision = 22, scale = 0)
-	public Integer getRfunderId() {
-		return this.rfunderId;
-	}
-
-	public void setRfunderId(Integer rfunderId) {
-		this.rfunderId = rfunderId;
-	}
-
-	@Column(name = "FUNDER_NAME", length = 1000)
-	public String getFunderName() {
-		return this.funderName;
-	}
-
-	public void setFunderName(String funderName) {
-		this.funderName = funderName;
-	}
-
-	@Column(name = "CREATED_DATE")
-	public Date getCreatedDate() {
-		return this.createdDate;
-	}
-
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	@Column(name = "CREATED_BY", length = 100)
-	public String getCreatedBy() {
-		return this.createdBy;
-	}
-
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	@Column(name = "UPDATED_DATE")
-	public Date getUpdatedDate() {
-		return this.updatedDate;
-	}
-
-	public void setUpdatedDate(Date updatedDate) {
-		this.updatedDate = updatedDate;
-	}
-
-	@Column(name = "UPDATED_BY", length = 100)
-	public String getUpdatedBy() {
-		return this.updatedBy;
-	}
-
-	public void setUpdatedBy(String updatedBy) {
-		this.updatedBy = updatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "researchFunders")
-	public Set<UserFunderGrants> getUserFunderGrantses() {
-		return this.userFunderGrantses;
-	}
-
-	public void setUserFunderGrantses(Set<UserFunderGrants> userFunderGrantses) {
-		this.userFunderGrantses = userFunderGrantses;
-	}
-
+    
+    private Integer rfunderId;
+    private String funderName;
+    private Date createdDate;
+    private String createdBy;
+    private Date updatedDate;
+    private String updatedBy;
+    private Set<UserFunderGrants> userFunderGrantses = new HashSet<UserFunderGrants>(
+            0);
+    
+    public ResearchFunders() {
+    }
+    
+    public ResearchFunders(Integer rfunderId) {
+        this.rfunderId = rfunderId;
+    }
+    
+    public ResearchFunders(Integer rfunderId, String funderName,
+            Date createdDate, String createdBy, Date updatedDate,
+            String updatedBy, Set<UserFunderGrants> userFunderGrantses) {
+        this.rfunderId = rfunderId;
+        this.funderName = funderName;
+        this.createdDate = createdDate;
+        this.createdBy = createdBy;
+        this.updatedDate = updatedDate;
+        this.updatedBy = updatedBy;
+        this.userFunderGrantses = userFunderGrantses;
+    }
+    
+    @Id
+    @Column(name = "RFUNDER_ID", unique = true, nullable = false, precision = 22, scale = 0)
+    public Integer getRfunderId() {
+        return this.rfunderId;
+    }
+    
+    public void setRfunderId(Integer rfunderId) {
+        this.rfunderId = rfunderId;
+    }
+    
+    @Column(name = "FUNDER_NAME", length = 1000)
+    public String getFunderName() {
+        return this.funderName;
+    }
+    
+    public void setFunderName(String funderName) {
+        this.funderName = funderName;
+    }
+    
+    @Column(name = "CREATED_DATE")
+    public Date getCreatedDate() {
+        return this.createdDate;
+    }
+    
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+    
+    @Column(name = "CREATED_BY", length = 100)
+    public String getCreatedBy() {
+        return this.createdBy;
+    }
+    
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+    
+    @Column(name = "UPDATED_DATE")
+    public Date getUpdatedDate() {
+        return this.updatedDate;
+    }
+    
+    public void setUpdatedDate(Date updatedDate) {
+        this.updatedDate = updatedDate;
+    }
+    
+    @Column(name = "UPDATED_BY", length = 100)
+    public String getUpdatedBy() {
+        return this.updatedBy;
+    }
+    
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+    
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "researchFunders")
+    public Set<UserFunderGrants> getUserFunderGrantses() {
+        return this.userFunderGrantses;
+    }
+    
+    public void setUserFunderGrantses(Set<UserFunderGrants> userFunderGrantses) {
+        this.userFunderGrantses = userFunderGrantses;
+    }
+    
 }

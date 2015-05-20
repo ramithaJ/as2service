@@ -16,81 +16,81 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "USER_ALERTS")
 public class UserAlerts implements java.io.Serializable {
-
-	private UserAlertsId id;
-	private Alerts alerts;
-	private AuthorProfile authorProfile;
-	private Character onScreenFlg;
-	private Character emailFlg;
-
-	public UserAlerts() {
-	}
-
-	public UserAlerts(UserAlertsId id, Alerts alerts,
-			AuthorProfile authorProfile) {
-		this.id = id;
-		this.alerts = alerts;
-		this.authorProfile = authorProfile;
-	}
-
-	public UserAlerts(UserAlertsId id, Alerts alerts,
-			AuthorProfile authorProfile, Character onScreenFlg,
-			Character emailFlg) {
-		this.id = id;
-		this.alerts = alerts;
-		this.authorProfile = authorProfile;
-		this.onScreenFlg = onScreenFlg;
-		this.emailFlg = emailFlg;
-	}
-
-	@EmbeddedId
-	@AttributeOverrides({
-			@AttributeOverride(name = "userId", column = @Column(name = "USER_ID", nullable = false, precision = 22, scale = 0)),
-			@AttributeOverride(name = "alertId", column = @Column(name = "ALERT_ID", nullable = false, precision = 22, scale = 0)) })
-	public UserAlertsId getId() {
-		return this.id;
-	}
-
-	public void setId(UserAlertsId id) {
-		this.id = id;
-	}
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "ALERT_ID", nullable = false, insertable = false, updatable = false)
-	public Alerts getAlerts() {
-		return this.alerts;
-	}
-
-	public void setAlerts(Alerts alerts) {
-		this.alerts = alerts;
-	}
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "USER_ID", nullable = false, insertable = false, updatable = false)
-	public AuthorProfile getAuthorProfile() {
-		return this.authorProfile;
-	}
-
-	public void setAuthorProfile(AuthorProfile authorProfile) {
-		this.authorProfile = authorProfile;
-	}
-
-	@Column(name = "ON_SCREEN_FLG", length = 1)
-	public Character getOnScreenFlg() {
-		return this.onScreenFlg;
-	}
-
-	public void setOnScreenFlg(Character onScreenFlg) {
-		this.onScreenFlg = onScreenFlg;
-	}
-
-	@Column(name = "EMAIL_FLG", length = 1)
-	public Character getEmailFlg() {
-		return this.emailFlg;
-	}
-
-	public void setEmailFlg(Character emailFlg) {
-		this.emailFlg = emailFlg;
-	}
-
+    
+    private UserAlertsId id;
+    private Alerts alerts;
+    private AuthorProfile authorProfile;
+    private Character onScreenFlg;
+    private Character emailFlg;
+    
+    public UserAlerts() {
+    }
+    
+    public UserAlerts(UserAlertsId id, Alerts alerts,
+            AuthorProfile authorProfile) {
+        this.id = id;
+        this.alerts = alerts;
+        this.authorProfile = authorProfile;
+    }
+    
+    public UserAlerts(UserAlertsId id, Alerts alerts,
+            AuthorProfile authorProfile, Character onScreenFlg,
+            Character emailFlg) {
+        this.id = id;
+        this.alerts = alerts;
+        this.authorProfile = authorProfile;
+        this.onScreenFlg = onScreenFlg;
+        this.emailFlg = emailFlg;
+    }
+    
+    @EmbeddedId
+    @AttributeOverrides({
+            @AttributeOverride(name = "userId", column = @Column(name = "USER_ID", nullable = false, precision = 22, scale = 0)),
+            @AttributeOverride(name = "alertId", column = @Column(name = "ALERT_ID", nullable = false, precision = 22, scale = 0)) })
+    public UserAlertsId getId() {
+        return this.id;
+    }
+    
+    public void setId(UserAlertsId id) {
+        this.id = id;
+    }
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ALERT_ID", nullable = false, insertable = false, updatable = false)
+    public Alerts getAlerts() {
+        return this.alerts;
+    }
+    
+    public void setAlerts(Alerts alerts) {
+        this.alerts = alerts;
+    }
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "USER_ID", nullable = false, insertable = false, updatable = false)
+    public AuthorProfile getAuthorProfile() {
+        return this.authorProfile;
+    }
+    
+    public void setAuthorProfile(AuthorProfile authorProfile) {
+        this.authorProfile = authorProfile;
+    }
+    
+    @Column(name = "ON_SCREEN_FLG", length = 1)
+    public Character getOnScreenFlg() {
+        return this.onScreenFlg;
+    }
+    
+    public void setOnScreenFlg(Character onScreenFlg) {
+        this.onScreenFlg = onScreenFlg;
+    }
+    
+    @Column(name = "EMAIL_FLG", length = 1)
+    public Character getEmailFlg() {
+        return this.emailFlg;
+    }
+    
+    public void setEmailFlg(Character emailFlg) {
+        this.emailFlg = emailFlg;
+    }
+    
 }

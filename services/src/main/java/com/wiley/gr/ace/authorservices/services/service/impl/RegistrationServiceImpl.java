@@ -25,74 +25,73 @@ import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
 
 /**
  * @author Virtusa
- *
  */
 public class RegistrationServiceImpl implements RegistrationService {
-
-	@Autowired(required = true)
-	ESBInterfaceService esbInterFaceService;
-
-	@Autowired(required = true)
-	RegistrationServiceDAO registrationServiceDAO;
-
-	@Override
-	public String createUser(User user) throws Exception {
-
-		String status = null;
-		if (null != user) {
-			status = esbInterFaceService.creatUser(user);
-		}
-		return status;
-	}
-
-	@Override
-	public List<User> getUserFromFirstNameLastName(String email,
-			String firstName, String lastName) throws Exception {
-
-		List<User> userList = null;
-		if (!StringUtils.isEmpty(firstName) && !StringUtils.isEmpty(lastName)) {
-			userList = esbInterFaceService.getUsersFromFirstNameLastName(email,
-					firstName, lastName);
-		}
-
-		return userList;
-	}
-
-	@Override
-	public User checkEmailIdExists(String emailId) throws Exception {
-		User user = new User();
-		ESBUser esbUser = null;
-		if (!StringUtils.isEmpty(emailId)) {
-			esbUser = esbInterFaceService.checkEmailIdExists(emailId);
-			if (null != esbUser) {
-				UserReferenceData userRefData = new UserReferenceData();
-				userRefData.setEcid(esbUser.getEcid());
-				userRefData.setStatus(esbUser.getStatus());
-				user.setUserId(esbUser.getUserId());
-				user.setFirstName(esbUser.getFirstName());
-				user.setLastName(esbUser.getLastName());
-				user.setPrimaryEmailAddr(esbUser.getEmailId());
-				user.setCountry(esbUser.getCountry());
-				user.setUserReferenceData(userRefData);
-			} else {
-				user = null;
-			}
-		} else {
-			user = null;
-		}
-
-		return user;
-	}
-
-	@Override
-	public boolean searchUserByOrcidId(String orcidId) throws Exception {
-
-		boolean isUserFound = false;
-		if (!StringUtils.isEmpty(orcidId)
-				&& registrationServiceDAO.searchUserByOrcidId(orcidId)) {
-			isUserFound = true;
-		}
-
-		return isUserFound;
-	}
+    
+    @Autowired(required = true)
+    ESBInterfaceService esbInterFaceService;
+    
+    @Autowired(required = true)
+    RegistrationServiceDAO registrationServiceDAO;
+    
+    @Override
+    public String createUser(User user) throws Exception {
+        
+        String status = null;
+        if (null != user) {
+            status = esbInterFaceService.creatUser(user);
+        }
+        return status;
+    }
+    
+    @Override
+    public List<User> getUserFromFirstNameLastName(String email,
+            String firstName, String lastName) throws Exception {
+        
+        List<User> userList = null;
+        if (!StringUtils.isEmpty(firstName) && !StringUtils.isEmpty(lastName)) {
+            userList = esbInterFaceService.getUsersFromFirstNameLastName(email,
+                    firstName, lastName);
+        }
+        
+        return userList;
+    }
+    
+    @Override
+    public User checkEmailIdExists(String emailId) throws Exception {
+        User user = new User();
+        ESBUser esbUser = null;
+        if (!StringUtils.isEmpty(emailId)) {
+            esbUser = esbInterFaceService.checkEmailIdExists(emailId);
+            if (null != esbUser) {
+                UserReferenceData userRefData = new UserReferenceData();
+                userRefData.setEcid(esbUser.getEcid());
+                userRefData.setStatus(esbUser.getStatus());
+                user.setUserId(esbUser.getUserId());
+                user.setFirstName(esbUser.getFirstName());
+                user.setLastName(esbUser.getLastName());
+                user.setPrimaryEmailAddr(esbUser.getEmailId());
+                user.setCountry(esbUser.getCountry());
+                user.setUserReferenceData(userRefData);
+            } else {
+                user = null;
+            }
+        } else {
+            user = null;
+        }
+        
+        return user;
+    }
+    
+    @Override
+    public boolean searchUserByOrcidId(String orcidId) throws Exception {
+        
+        boolean isUserFound = false;
+        if (!StringUtils.isEmpty(orcidId)
+                && registrationServiceDAO.searchUserByOrcidId(orcidId)) {
+            isUserFound = true;
+        }
+        
+        return isUserFound;
+    }
 }

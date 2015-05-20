@@ -16,38 +16,38 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "USER_WOA_ACCOUNTS")
 public class UserWoaAccounts implements java.io.Serializable {
-
-	private UserWoaAccountsId id;
-	private AuthorProfile authorProfile;
-
-	public UserWoaAccounts() {
-	}
-
-	public UserWoaAccounts(UserWoaAccountsId id, AuthorProfile authorProfile) {
-		this.id = id;
-		this.authorProfile = authorProfile;
-	}
-
-	@EmbeddedId
-	@AttributeOverrides({
-			@AttributeOverride(name = "userId", column = @Column(name = "USER_ID", nullable = false, precision = 22, scale = 0)),
-			@AttributeOverride(name = "woaaccntId", column = @Column(name = "WOAACCNT_ID", nullable = false, length = 25)) })
-	public UserWoaAccountsId getId() {
-		return this.id;
-	}
-
-	public void setId(UserWoaAccountsId id) {
-		this.id = id;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USER_ID", nullable = false, insertable = false, updatable = false)
-	public AuthorProfile getAuthorProfile() {
-		return this.authorProfile;
-	}
-
-	public void setAuthorProfile(AuthorProfile authorProfile) {
-		this.authorProfile = authorProfile;
-	}
-
+    
+    private UserWoaAccountsId id;
+    private AuthorProfile authorProfile;
+    
+    public UserWoaAccounts() {
+    }
+    
+    public UserWoaAccounts(UserWoaAccountsId id, AuthorProfile authorProfile) {
+        this.id = id;
+        this.authorProfile = authorProfile;
+    }
+    
+    @EmbeddedId
+    @AttributeOverrides({
+            @AttributeOverride(name = "userId", column = @Column(name = "USER_ID", nullable = false, precision = 22, scale = 0)),
+            @AttributeOverride(name = "woaaccntId", column = @Column(name = "WOAACCNT_ID", nullable = false, length = 25)) })
+    public UserWoaAccountsId getId() {
+        return this.id;
+    }
+    
+    public void setId(UserWoaAccountsId id) {
+        this.id = id;
+    }
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "USER_ID", nullable = false, insertable = false, updatable = false)
+    public AuthorProfile getAuthorProfile() {
+        return this.authorProfile;
+    }
+    
+    public void setAuthorProfile(AuthorProfile authorProfile) {
+        this.authorProfile = authorProfile;
+    }
+    
 }

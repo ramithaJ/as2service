@@ -33,77 +33,78 @@ import com.wiley.gr.ace.authorservices.services.service.DashBoardService;
 
 /**
  * @author Virtusa
- *
  */
 public class DashBoardServiceImpl implements DashBoardService {
-
-	@Autowired(required = true)
-	private CDMInterfaceService cdmIntefaceService;
-	@Autowired(required = true)
-	private ALMInterfaceService almIntefaceService;
-
-	/**
-	 * @param userId
-	 *            to get the data from DashBoardDAO
-	 * @return dashBoard
-	 */
-	public DashBoard getProfileMeter(String userId) throws Exception {
-		DashBoard dashBoard = new DashBoard();
-		if (!StringUtils.isEmpty(userId)) {
-			SecurityDetailsHolder securityDetailsHolder=almIntefaceService.getSecurityDetails(userId);
-            List<SecurityDetails> securityDetailsList=securityDetailsHolder.getSecurityDetails();
+    
+    @Autowired(required = true)
+    private CDMInterfaceService cdmIntefaceService;
+    @Autowired(required = true)
+    private ALMInterfaceService almIntefaceService;
+    
+    /**
+     * @param userId
+     *            to get the data from DashBoardDAO
+     * @return dashBoard
+     */
+    public DashBoard getProfileMeter(String userId) throws Exception {
+        DashBoard dashBoard = new DashBoard();
+        if (!StringUtils.isEmpty(userId)) {
+            SecurityDetailsHolder securityDetailsHolder = almIntefaceService
+                    .getSecurityDetails(userId);
+            List<SecurityDetails> securityDetailsList = securityDetailsHolder
+                    .getSecurityDetails();
             if (null != securityDetailsList) {
-				for (SecurityDetails securityDetails : securityDetailsList) {
-					if (StringUtils
-							.isEmpty(securityDetails.getSecurityQuestion())
-							|| StringUtils.isEmpty(securityDetails
-									.getSecurityAnswer())) {
-						dashBoard.setSecurityDetails(securityDetails);
-						break;
-					}
-				}
-			}
-			LookUpProfile lookUpProfile = cdmIntefaceService
-					.lookUpProfile(userId);
-			UserProfile userProfile = lookUpProfile.getUserProfile();
-			User user = userProfile.getProfileInformation();
-			if (StringUtils.isEmpty(user.getRecoveryEmailAddress())) {
-				user.setRecoveryEmailAddress(user.getRecoveryEmailAddress());
-				User userForSecEmailAddr = new User();
-				userForSecEmailAddr.setRecoveryEmailAddress(user
-						.getRecoveryEmailAddress());
-				dashBoard.setUser(userForSecEmailAddr);
-			}
-			if (StringUtils.isEmpty(user.getOrcidID())) {
-				User userForOrcidId = new User();
-				userForOrcidId.setOrcidID(user.getOrcidID());
-				dashBoard.setUser(userForOrcidId);
-			}
-			List<Interests> userInterestsList = userProfile.getInterests();
-			if (userInterestsList.size() == 0) {
-				Interests interests = new Interests();
-				dashBoard.setInterests(interests);
-			}
-			List<Affiliation> userAffiliationsList = userProfile
-					.getAffiliations();
-			if (userAffiliationsList.size() == 0) {
-				Affiliation affiliation = new Affiliation();
-				dashBoard.setAffiliation(affiliation);
-			}
-			List<Society> societyList = userProfile.getSocieties();
-			if (societyList.size() == 0) {
-				Society societyDetails = new Society();
-				dashBoard.setSociety(societyDetails);
-			}
-			List<ResearchFunder> researchFundersList = userProfile
-					.getResearchFunders();
-			if (researchFundersList.size() == 0) {
-				UserFunder userFunders = new UserFunder();
-				dashBoard.setUserFunders(userFunders);
-			}
-		}else{
-			dashBoard=null;
-		}
-		return dashBoard;
-	}
+                for (SecurityDetails securityDetails : securityDetailsList) {
+                    if (StringUtils.isEmpty(securityDetails
+                            .getSecurityQuestion())
+                            || StringUtils.isEmpty(securityDetails
+                                    .getSecurityAnswer())) {
+                        dashBoard.setSecurityDetails(securityDetails);
+                        break;
+                    }
+                }
+            }
+            LookUpProfile lookUpProfile = cdmIntefaceService
+                    .lookUpProfile(userId);
+            UserProfile userProfile = lookUpProfile.getUserProfile();
+            User user = userProfile.getProfileInformation();
+            if (StringUtils.isEmpty(user.getRecoveryEmailAddress())) {
+                user.setRecoveryEmailAddress(user.getRecoveryEmailAddress());
+                User userForSecEmailAddr = new User();
+                userForSecEmailAddr.setRecoveryEmailAddress(user
+                        .getRecoveryEmailAddress());
+                dashBoard.setUser(userForSecEmailAddr);
+            }
+            if (StringUtils.isEmpty(user.getOrcidID())) {
+                User userForOrcidId = new User();
+                userForOrcidId.setOrcidID(user.getOrcidID());
+                dashBoard.setUser(userForOrcidId);
+            }
+            List<Interests> userInterestsList = userProfile.getInterests();
+            if (userInterestsList.size() == 0) {
+                Interests interests = new Interests();
+                dashBoard.setInterests(interests);
+            }
+            List<Affiliation> userAffiliationsList = userProfile
+                    .getAffiliations();
+            if (userAffiliationsList.size() == 0) {
+                Affiliation affiliation = new Affiliation();
+                dashBoard.setAffiliation(affiliation);
+            }
+            List<Society> societyList = userProfile.getSocieties();
+            if (societyList.size() == 0) {
+                Society societyDetails = new Society();
+                dashBoard.setSociety(societyDetails);
+            }
+            List<ResearchFunder> researchFundersList = userProfile
+                    .getResearchFunders();
+            if (researchFundersList.size() == 0) {
+                UserFunder userFunders = new UserFunder();
+                dashBoard.setUserFunders(userFunders);
+            }
+        } else {
+            dashBoard = null;
+        }
+        return dashBoard;
+    }
 }

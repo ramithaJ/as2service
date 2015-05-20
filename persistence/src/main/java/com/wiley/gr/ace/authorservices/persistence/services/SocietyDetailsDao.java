@@ -18,27 +18,26 @@ import com.wiley.gr.ace.authorservices.persistence.entity.UserSocietyDetails;
 
 /**
  * @author RAVISINHA
- *
  */
 public interface SocietyDetailsDao {
-
-	/**
-	 * @param userId
-	 * @return
-	 */
-	List<UserSocietyDetails> getSocietiesForUser(String userId);
-
-	/**
-	 * @param userId
-	 * @param societyId
-	 * @return
-	 */
-	boolean deleteSociety(String userId ,String societyId);
-	
-	/**
-	 * @param userId
-	 * @param society
-	 */
-	void updateSociety(UserSocietyDetails userSocietyDetails);
-
+    
+    /**
+     * @param userId
+     * @return
+     */
+    List<UserSocietyDetails> getSocietiesForUser(String userId);
+    
+    /**
+     * @param userId
+     * @param societyId
+     * @return
+     */
+    boolean deleteSociety(String userId, String societyId);
+    
+    /**
+     * @param userId
+     * @param society
+     */
+    void updateSociety(UserSocietyDetails userSocietyDetails);
+    
 }

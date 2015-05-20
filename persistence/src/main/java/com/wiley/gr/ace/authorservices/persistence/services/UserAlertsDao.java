@@ -17,22 +17,19 @@ import com.wiley.gr.ace.authorservices.persistence.entity.UserAlerts;
 
 /**
  * @author RAVISINHA
- *
  */
 public interface UserAlertsDao {
-	
-	/**
-	 * @param userId
-	 * @return
-	 */
-	 List<UserAlerts> getListOfAlerts(String userId);
-	 
-	 
-	/**
-	 * @param serviceUserAlertsList
-	 * @return
-	 */
-	boolean  updateAlerts (List<UserAlerts> serviceUserAlertsList);
-	
-
+    
+    /**
+     * @param userId
+     * @return
+     */
+    List<UserAlerts> getListOfAlerts(String userId);
+    
+    /**
+     * @param serviceUserAlertsList
+     * @return
+     */
+    boolean updateAlerts(List<UserAlerts> serviceUserAlertsList);
+    
 }

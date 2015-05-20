@@ -20,76 +20,75 @@ import com.wiley.gr.ace.authorservices.model.UserMgmt;
 
 /**
  * @author kpshiva
- *
  */
 public interface UserLoginService {
-
-	/**
-	 * This method authenticates the user and does login
-	 * 
-	 * @param emailId
-	 * @param password
-	 * @return
-	 */
-	UserMgmt doLogin(String emailId, String password);
-
-	/**
-	 * @param password
-	 * @return
-	 */
-	boolean updatePassword(PasswordDetails passwordDetails);
-
-	/**
-	 * @param emailId
-	 * @param newPassword
-	 * @return
-	 */
-	boolean resetPassword(String emailId, String newPassword);
-
-	/**
-	 * @param userId
-	 * @param securityVO
-	 * @return
-	 */
-	boolean validateSecurityQuestions(String emailId,
-			List<SecurityDetails> securityDetails);
-
-	/**
-	 * @param userId
-	 * @return
-	 */
-	SecurityDetailsHolder getSecurityQuestions(String emailId);
-
-	/**
-	 * @param userId
-	 * @return
-	 */
-	boolean lockUser(int userId);
-
-	/**
-	 * @param userId
-	 * @return
-	 */
-	boolean checkSecuritySetUp(int userId);
-
-	/**
-	 * @param emailId
-	 * @return
-	 */
-	boolean validateEmailAddress(String emailId);
-
-	/**
-	 * @param userId
-	 * @return
-	 */
-	boolean isUserLocked(int userId);
-
-	/**
-	 * @param userId
-	 * @param template_id
-	 */
-	void sendEmail(String userId, String template_id);
-	
-	SecurityDetailsHolder securityDetails(String userId);
-
+    
+    /**
+     * This method authenticates the user and does login
+     * 
+     * @param emailId
+     * @param password
+     * @return
+     */
+    UserMgmt doLogin(String emailId, String password);
+    
+    /**
+     * @param password
+     * @return
+     */
+    boolean updatePassword(PasswordDetails passwordDetails);
+    
+    /**
+     * @param emailId
+     * @param newPassword
+     * @return
+     */
+    boolean resetPassword(String emailId, String newPassword);
+    
+    /**
+     * @param userId
+     * @param securityVO
+     * @return
+     */
+    boolean validateSecurityQuestions(String emailId,
+            List<SecurityDetails> securityDetails);
+    
+    /**
+     * @param userId
+     * @return
+     */
+    SecurityDetailsHolder getSecurityQuestions(String emailId);
+    
+    /**
+     * @param userId
+     * @return
+     */
+    boolean lockUser(int userId);
+    
+    /**
+     * @param userId
+     * @return
+     */
+    boolean checkSecuritySetUp(int userId);
+    
+    /**
+     * @param emailId
+     * @return
+     */
+    boolean validateEmailAddress(String emailId);
+    
+    /**
+     * @param userId
+     * @return
+     */
+    boolean isUserLocked(int userId);
+    
+    /**
+     * @param userId
+     * @param template_id
+     */
+    void sendEmail(String userId, String templateId);
+    
+    SecurityDetailsHolder securityDetails(String userId);
+    
 }

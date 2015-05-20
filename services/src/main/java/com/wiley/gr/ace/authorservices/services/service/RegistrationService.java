@@ -17,17 +17,16 @@ import com.wiley.gr.ace.authorservices.model.User;
 
 /**
  * @author Virtusa
- *
  */
 public interface RegistrationService {
-
-	String createUser(User user) throws Exception;
-
-	List<User> getUserFromFirstNameLastName(String email, String firstName,
-			String lastName) throws Exception;
-
-	User checkEmailIdExists(String emailId) throws Exception;
-	
-	boolean searchUserByOrcidId(String orcidId) throws Exception;
-
+    
+    String createUser(User user) throws Exception;
+    
+    List<User> getUserFromFirstNameLastName(String email, String firstName,
+            String lastName) throws Exception;
+    
+    User checkEmailIdExists(String emailId) throws Exception;
+    
+    boolean searchUserByOrcidId(String orcidId) throws Exception;
+    
 }

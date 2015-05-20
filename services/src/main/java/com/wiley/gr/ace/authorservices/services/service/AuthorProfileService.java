@@ -23,22 +23,21 @@ import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.User;
 
 public interface AuthorProfileService {
-
-	boolean updateSocietyDetails(Society society);
-
-	boolean updateAffiliation(Affiliation affiliation);
-
-	boolean updateResearchFunder(String userId,
-			ResearchFunder researchFunder);
-
-	boolean updateAlerts(String userId, List<Alert> alertsList);
-
-	boolean UpdatecoAuthor(CoAuthor coAuthor);
-	
-	boolean updateEmailDetails(User emailDetails);
-	
-	boolean updateUserAddress(Addresses addresses);
-	
-	boolean updateUserProfileInfo(User user);
-
+    
+    boolean updateSocietyDetails(Society society);
+    
+    boolean updateAffiliation(Affiliation affiliation);
+    
+    boolean updateResearchFunder(String userId, ResearchFunder researchFunder);
+    
+    boolean updateAlerts(String userId, List<Alert> alertsList);
+    
+    boolean UpdatecoAuthor(CoAuthor coAuthor);
+    
+    boolean updateEmailDetails(User emailDetails);
+    
+    boolean updateUserAddress(Addresses addresses);
+    
+    boolean updateUserProfileInfo(User user);
+    
 }

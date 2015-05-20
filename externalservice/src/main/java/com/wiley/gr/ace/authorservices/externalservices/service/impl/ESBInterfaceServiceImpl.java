@@ -30,124 +30,121 @@ import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 
 /**
  * @author Virtusa
- *
  */
 public class ESBInterfaceServiceImpl implements ESBInterfaceService {
-
-	@Value("${email-mock.url}")
-	private String emailCheckUrl;
-
-	@Value("${fullname-mock.url}")
-	private String nameCheckUrl;
-
-	@Value("${createuser-mock.url}")
-	private String createUserUrl;
-
-	@Override
-	public User fetchOrcidDetails(String orcid) throws Exception {
-		User user = null;
-		final String url = "http://demo3275860.mockable.io/fetchOrcidDetails/123";
-		URI uri = new URI(url);
-		RestTemplate restTemplate = new RestTemplate();
-		HttpHeaders requestHeaders = new HttpHeaders();
-
-		requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-		HttpEntity<User> requestEntity = new HttpEntity<User>(requestHeaders);
-
-		ResponseEntity<User> response = restTemplate.exchange(uri,
-				HttpMethod.GET, requestEntity, User.class);
-		System.out.println("####  response #### " + response.getStatusCode());
-		System.out.println("####  response #### " + response.getBody());
-
-		user = response.getBody();
-		System.out.println("####  " + user.getPrimaryEmailAddr());
-		return user;
-	}
-
-	@Override
-	public String updateALMUser(User updateUser) throws Exception {
-		String status = "failure";
-		final String url = "http://demo3275860.mockable.io/user/update";
-		URI uri = new URI(url);
-		RestTemplate restTemplate = new RestTemplate();
-		HttpHeaders requestHeaders = new HttpHeaders();
-
-		requestHeaders.setAccept(Arrays.asList(MediaType.TEXT_PLAIN));
-		HttpEntity<String> requestEntity = new HttpEntity<String>(
-				requestHeaders);
-		ResponseEntity<String> response = restTemplate.exchange(uri,
-				HttpMethod.GET, requestEntity, String.class);
-		status = response.getBody();
-		System.out.println("status :: " + status);
-		return status;
-	}
-
-	/*
-	 * public static void main(String[] args) { ESBInterfaceServiceImpl em = new
-	 * ESBInterfaceServiceImpl(); try { // User user =
-	 * em.fetchOrcidDetails("1111"); User user = new User(); String s =
-	 * em.updateALMUser(user); } catch (Exception e) { e.printStackTrace(); }
-	 * 
-	 * }
-	 */
-
-	@Override
-	public ESBUser checkEmailIdExists(String emailId) throws Exception {
-		ESBUser esbUser = new ESBUser();
-		final String url = emailCheckUrl;
-		URI uri = new URI(url);
-		RestTemplate restTemplate = new RestTemplate();
-		HttpHeaders requestHeaders = new HttpHeaders();
-
-		requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-		HttpEntity<ESBUser> requestEntity = new HttpEntity<ESBUser>(
-				requestHeaders);
-
-		ResponseEntity<ESBUser> response = restTemplate.exchange(uri,
-				HttpMethod.GET, requestEntity, ESBUser.class);
-		if (null != response) {
-			esbUser = response.getBody();
-			//System.err.println(esbUser.getFirstName());
-		} else
-			esbUser = null;
-		return esbUser;
-	}
-
-	@Override
-	public List<User> getUsersFromFirstNameLastName(String email,
-			String firstName, String lastName) throws Exception {
-		List<User> usersList = new ArrayList<User>();
-		final String url = nameCheckUrl;
-		URI uri = new URI(url);
-		RestTemplate restTemplate = new RestTemplate();
-		HttpHeaders requestHeaders = new HttpHeaders();
-
-		requestHeaders.setAccept(Arrays.asList(MediaType.TEXT_PLAIN));
-		HttpEntity<List<User>> requestEntity = new HttpEntity<List<User>>(
-				requestHeaders);
-		ResponseEntity<List> response = restTemplate.exchange(uri,
-				HttpMethod.GET, requestEntity, List.class);
-		usersList = response.getBody();
-
-		return usersList;
-	}
-
-	@Override
-	public String creatUser(User user) throws Exception {
-		String status = "failure";
-		final String url = createUserUrl;
-		URI uri = new URI(url);
-		RestTemplate restTemplate = new RestTemplate();
-		HttpHeaders requestHeaders = new HttpHeaders();
-
-		requestHeaders.setAccept(Arrays.asList(MediaType.TEXT_PLAIN));
-		HttpEntity<String> requestEntity = new HttpEntity<String>(
-				requestHeaders);
-		ResponseEntity<String> response = restTemplate.exchange(uri,
-				HttpMethod.POST, requestEntity, String.class);
-		status = response.getBody();
-		System.out.println("status :: " + status);
-		return status;
-	}
-
+    
+    @Value("${email-mock.url}")
+    private String emailCheckUrl;
+    
+    @Value("${fullname-mock.url}")
+    private String nameCheckUrl;
+    
+    @Value("${createuser-mock.url}")
+    private String createUserUrl;
+    
+    @Override
+    public User fetchOrcidDetails(String orcid) throws Exception {
+        User user = null;
+        final String url = "http://demo3275860.mockable.io/fetchOrcidDetails/123";
+        URI uri = new URI(url);
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders requestHeaders = new HttpHeaders();
+        
+        requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        HttpEntity<User> requestEntity = new HttpEntity<User>(requestHeaders);
+        
+        ResponseEntity<User> response = restTemplate.exchange(uri,
+                HttpMethod.GET, requestEntity, User.class);
+        System.out.println("####  response #### " + response.getStatusCode());
+        System.out.println("####  response #### " + response.getBody());
+        
+        user = response.getBody();
+        System.out.println("####  " + user.getPrimaryEmailAddr());
+        return user;
+    }
+    
+    @Override
+    public String updateALMUser(User updateUser) throws Exception {
+        String status = "failure";
+        final String url = "http://demo3275860.mockable.io/user/update";
+        URI uri = new URI(url);
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders requestHeaders = new HttpHeaders();
+        
+        requestHeaders.setAccept(Arrays.asList(MediaType.TEXT_PLAIN));
+        HttpEntity<String> requestEntity = new HttpEntity<String>(
+                requestHeaders);
+        ResponseEntity<String> response = restTemplate.exchange(uri,
+                HttpMethod.GET, requestEntity, String.class);
+        status = response.getBody();
+        System.out.println("status :: " + status);
+        return status;
+    }
+    
+    /*
+     * public static void main(String[] args) { ESBInterfaceServiceImpl em = new
+     * ESBInterfaceServiceImpl(); try { // User user =
+     * em.fetchOrcidDetails("1111"); User user = new User(); String s =
+     * em.updateALMUser(user); } catch (Exception e) { e.printStackTrace(); } }
+     */
+    
+    @Override
+    public ESBUser checkEmailIdExists(String emailId) throws Exception {
+        ESBUser esbUser = new ESBUser();
+        final String url = emailCheckUrl;
+        URI uri = new URI(url);
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders requestHeaders = new HttpHeaders();
+        
+        requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        HttpEntity<ESBUser> requestEntity = new HttpEntity<ESBUser>(
+                requestHeaders);
+        
+        ResponseEntity<ESBUser> response = restTemplate.exchange(uri,
+                HttpMethod.GET, requestEntity, ESBUser.class);
+        if (null != response) {
+            esbUser = response.getBody();
+            // System.err.println(esbUser.getFirstName());
+        } else
+            esbUser = null;
+        return esbUser;
+    }
+    
+    @Override
+    public List<User> getUsersFromFirstNameLastName(String email,
+            String firstName, String lastName) throws Exception {
+        List<User> usersList = new ArrayList<User>();
+        final String url = nameCheckUrl;
+        URI uri = new URI(url);
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders requestHeaders = new HttpHeaders();
+        
+        requestHeaders.setAccept(Arrays.asList(MediaType.TEXT_PLAIN));
+        HttpEntity<List<User>> requestEntity = new HttpEntity<List<User>>(
+                requestHeaders);
+        ResponseEntity<List> response = restTemplate.exchange(uri,
+                HttpMethod.GET, requestEntity, List.class);
+        usersList = response.getBody();
+        
+        return usersList;
+    }
+    
+    @Override
+    public String creatUser(User user) throws Exception {
+        String status = "failure";
+        final String url = createUserUrl;
+        URI uri = new URI(url);
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders requestHeaders = new HttpHeaders();
+        
+        requestHeaders.setAccept(Arrays.asList(MediaType.TEXT_PLAIN));
+        HttpEntity<String> requestEntity = new HttpEntity<String>(
+                requestHeaders);
+        ResponseEntity<String> response = restTemplate.exchange(uri,
+                HttpMethod.POST, requestEntity, String.class);
+        status = response.getBody();
+        System.out.println("status :: " + status);
+        return status;
+    }
+    
 }

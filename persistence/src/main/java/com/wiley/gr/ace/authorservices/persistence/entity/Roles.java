@@ -20,147 +20,147 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "ROLES")
 public class Roles implements java.io.Serializable {
-
-	private Integer roleId;
-	private String roleName;
-	private String description;
-	private Date createdDate;
-	private String createdBy;
-	private Date updatedDate;
-	private String updatedBy;
-	private String roleType;
-	private Set<UserRoles> userRoleses = new HashSet<UserRoles>(0);
-	private Set<AdditionalPermissions> additionalPermissionses = new HashSet<AdditionalPermissions>(
-			0);
-	private Set<RolePermissions> rolePermissionses = new HashSet<RolePermissions>(
-			0);
-
-	public Roles() {
-	}
-
-	public Roles(Integer roleId) {
-		this.roleId = roleId;
-	}
-
-	public Roles(Integer roleId, String roleName, String description,
-			Date createdDate, String createdBy, Date updatedDate,
-			String updatedBy, String roleType, Set<UserRoles> userRoleses,
-			Set<AdditionalPermissions> additionalPermissionses,
-			Set<RolePermissions> rolePermissionses) {
-		this.roleId = roleId;
-		this.roleName = roleName;
-		this.description = description;
-		this.createdDate = createdDate;
-		this.createdBy = createdBy;
-		this.updatedDate = updatedDate;
-		this.updatedBy = updatedBy;
-		this.roleType = roleType;
-		this.userRoleses = userRoleses;
-		this.additionalPermissionses = additionalPermissionses;
-		this.rolePermissionses = rolePermissionses;
-	}
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ROLE_SEQ")
-	@SequenceGenerator(name = "ROLE_SEQ",sequenceName = "ROLE_SEQ", allocationSize = 1)
-	@Column(name = "ROLE_ID", unique = true, nullable = false, precision = 22, scale = 0)
-	public Integer getRoleId() {
-		return this.roleId;
-	}
-
-	public void setRoleId(Integer roleId) {
-		this.roleId = roleId;
-	}
-
-	@Column(name = "ROLE_NAME", length = 100)
-	public String getRoleName() {
-		return this.roleName;
-	}
-
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
-	}
-
-	@Column(name = "DESCRIPTION", length = 250)
-	public String getDescription() {
-		return this.description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	@Column(name = "CREATED_DATE")
-	public Date getCreatedDate() {
-		return this.createdDate;
-	}
-
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	@Column(name = "CREATED_BY", length = 100)
-	public String getCreatedBy() {
-		return this.createdBy;
-	}
-
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	@Column(name = "UPDATED_DATE")
-	public Date getUpdatedDate() {
-		return this.updatedDate;
-	}
-
-	public void setUpdatedDate(Date updatedDate) {
-		this.updatedDate = updatedDate;
-	}
-
-	@Column(name = "UPDATED_BY", length = 100)
-	public String getUpdatedBy() {
-		return this.updatedBy;
-	}
-
-	public void setUpdatedBy(String updatedBy) {
-		this.updatedBy = updatedBy;
-	}
-
-	@Column(name = "ROLE_TYPE", length = 50)
-	public String getRoleType() {
-		return this.roleType;
-	}
-
-	public void setRoleType(String roleType) {
-		this.roleType = roleType;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "roles")
-	public Set<UserRoles> getUserRoleses() {
-		return this.userRoleses;
-	}
-
-	public void setUserRoleses(Set<UserRoles> userRoleses) {
-		this.userRoleses = userRoleses;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "roles")
-	public Set<AdditionalPermissions> getAdditionalPermissionses() {
-		return this.additionalPermissionses;
-	}
-
-	public void setAdditionalPermissionses(
-			Set<AdditionalPermissions> additionalPermissionses) {
-		this.additionalPermissionses = additionalPermissionses;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "roles")
-	public Set<RolePermissions> getRolePermissionses() {
-		return this.rolePermissionses;
-	}
-
-	public void setRolePermissionses(Set<RolePermissions> rolePermissionses) {
-		this.rolePermissionses = rolePermissionses;
-	}
-
+    
+    private Integer roleId;
+    private String roleName;
+    private String description;
+    private Date createdDate;
+    private String createdBy;
+    private Date updatedDate;
+    private String updatedBy;
+    private String roleType;
+    private Set<UserRoles> userRoleses = new HashSet<UserRoles>(0);
+    private Set<AdditionalPermissions> additionalPermissionses = new HashSet<AdditionalPermissions>(
+            0);
+    private Set<RolePermissions> rolePermissionses = new HashSet<RolePermissions>(
+            0);
+    
+    public Roles() {
+    }
+    
+    public Roles(Integer roleId) {
+        this.roleId = roleId;
+    }
+    
+    public Roles(Integer roleId, String roleName, String description,
+            Date createdDate, String createdBy, Date updatedDate,
+            String updatedBy, String roleType, Set<UserRoles> userRoleses,
+            Set<AdditionalPermissions> additionalPermissionses,
+            Set<RolePermissions> rolePermissionses) {
+        this.roleId = roleId;
+        this.roleName = roleName;
+        this.description = description;
+        this.createdDate = createdDate;
+        this.createdBy = createdBy;
+        this.updatedDate = updatedDate;
+        this.updatedBy = updatedBy;
+        this.roleType = roleType;
+        this.userRoleses = userRoleses;
+        this.additionalPermissionses = additionalPermissionses;
+        this.rolePermissionses = rolePermissionses;
+    }
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ROLE_SEQ")
+    @SequenceGenerator(name = "ROLE_SEQ", sequenceName = "ROLE_SEQ", allocationSize = 1)
+    @Column(name = "ROLE_ID", unique = true, nullable = false, precision = 22, scale = 0)
+    public Integer getRoleId() {
+        return this.roleId;
+    }
+    
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
+    }
+    
+    @Column(name = "ROLE_NAME", length = 100)
+    public String getRoleName() {
+        return this.roleName;
+    }
+    
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+    
+    @Column(name = "DESCRIPTION", length = 250)
+    public String getDescription() {
+        return this.description;
+    }
+    
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
+    @Column(name = "CREATED_DATE")
+    public Date getCreatedDate() {
+        return this.createdDate;
+    }
+    
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+    
+    @Column(name = "CREATED_BY", length = 100)
+    public String getCreatedBy() {
+        return this.createdBy;
+    }
+    
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+    
+    @Column(name = "UPDATED_DATE")
+    public Date getUpdatedDate() {
+        return this.updatedDate;
+    }
+    
+    public void setUpdatedDate(Date updatedDate) {
+        this.updatedDate = updatedDate;
+    }
+    
+    @Column(name = "UPDATED_BY", length = 100)
+    public String getUpdatedBy() {
+        return this.updatedBy;
+    }
+    
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+    
+    @Column(name = "ROLE_TYPE", length = 50)
+    public String getRoleType() {
+        return this.roleType;
+    }
+    
+    public void setRoleType(String roleType) {
+        this.roleType = roleType;
+    }
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "roles")
+    public Set<UserRoles> getUserRoleses() {
+        return this.userRoleses;
+    }
+    
+    public void setUserRoleses(Set<UserRoles> userRoleses) {
+        this.userRoleses = userRoleses;
+    }
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "roles")
+    public Set<AdditionalPermissions> getAdditionalPermissionses() {
+        return this.additionalPermissionses;
+    }
+    
+    public void setAdditionalPermissionses(
+            Set<AdditionalPermissions> additionalPermissionses) {
+        this.additionalPermissionses = additionalPermissionses;
+    }
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "roles")
+    public Set<RolePermissions> getRolePermissionses() {
+        return this.rolePermissionses;
+    }
+    
+    public void setRolePermissionses(Set<RolePermissions> rolePermissionses) {
+        this.rolePermissionses = rolePermissionses;
+    }
+    
 }

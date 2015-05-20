@@ -16,132 +16,132 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "USERS")
 public class Users implements java.io.Serializable {
-
-	private Integer userId;
-	private String firstName;
-	private String lastName;
-	private Integer as1UserId;
-	private String createdBy;
-	private Date createdDt;
-	private String updatedBy;
-	private Date updatedDt;
-	private AdminDetails adminDetails;
-	private AuthorProfile authorProfile;
-
-	public Users() {
-	}
-
-	public Users(Integer userId) {
-		this.userId = userId;
-	}
-
-	public Users(Integer userId, String firstName, String lastName,
-			Integer as1UserId, String createdBy, Date createdDt,
-			String updatedBy, Date updatedDt, AdminDetails adminDetails,
-			AuthorProfile authorProfile) {
-		this.userId = userId;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.as1UserId = as1UserId;
-		this.createdBy = createdBy;
-		this.createdDt = createdDt;
-		this.updatedBy = updatedBy;
-		this.updatedDt = updatedDt;
-		this.adminDetails = adminDetails;
-		this.authorProfile = authorProfile;
-	}
-
-	@Id
-	@Column(name = "USER_ID", unique = true, nullable = false, precision = 22, scale = 0)
-	public Integer getUserId() {
-		return this.userId;
-	}
-
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
-
-	@Column(name = "FIRST_NAME", length = 100)
-	public String getFirstName() {
-		return this.firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	@Column(name = "LAST_NAME", length = 100)
-	public String getLastName() {
-		return this.lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	@Column(name = "AS1_USER_ID", precision = 22, scale = 0)
-	public Integer getAs1UserId() {
-		return this.as1UserId;
-	}
-
-	public void setAs1UserId(Integer as1UserId) {
-		this.as1UserId = as1UserId;
-	}
-
-	@Column(name = "CREATED_BY", length = 50)
-	public String getCreatedBy() {
-		return this.createdBy;
-	}
-
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "CREATED_DT", length = 7)
-	public Date getCreatedDt() {
-		return this.createdDt;
-	}
-
-	public void setCreatedDt(Date createdDt) {
-		this.createdDt = createdDt;
-	}
-
-	@Column(name = "UPDATED_BY", length = 50)
-	public String getUpdatedBy() {
-		return this.updatedBy;
-	}
-
-	public void setUpdatedBy(String updatedBy) {
-		this.updatedBy = updatedBy;
-	}
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "UPDATED_DT", length = 7)
-	public Date getUpdatedDt() {
-		return this.updatedDt;
-	}
-
-	public void setUpdatedDt(Date updatedDt) {
-		this.updatedDt = updatedDt;
-	}
-
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "users")
-	public AdminDetails getAdminDetails() {
-		return this.adminDetails;
-	}
-
-	public void setAdminDetails(AdminDetails adminDetails) {
-		this.adminDetails = adminDetails;
-	}
-
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "users")
-	public AuthorProfile getAuthorProfile() {
-		return this.authorProfile;
-	}
-
-	public void setAuthorProfile(AuthorProfile authorProfile) {
-		this.authorProfile = authorProfile;
-	}
-
+    
+    private Integer userId;
+    private String firstName;
+    private String lastName;
+    private Integer as1UserId;
+    private String createdBy;
+    private Date createdDt;
+    private String updatedBy;
+    private Date updatedDt;
+    private AdminDetails adminDetails;
+    private AuthorProfile authorProfile;
+    
+    public Users() {
+    }
+    
+    public Users(Integer userId) {
+        this.userId = userId;
+    }
+    
+    public Users(Integer userId, String firstName, String lastName,
+            Integer as1UserId, String createdBy, Date createdDt,
+            String updatedBy, Date updatedDt, AdminDetails adminDetails,
+            AuthorProfile authorProfile) {
+        this.userId = userId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.as1UserId = as1UserId;
+        this.createdBy = createdBy;
+        this.createdDt = createdDt;
+        this.updatedBy = updatedBy;
+        this.updatedDt = updatedDt;
+        this.adminDetails = adminDetails;
+        this.authorProfile = authorProfile;
+    }
+    
+    @Id
+    @Column(name = "USER_ID", unique = true, nullable = false, precision = 22, scale = 0)
+    public Integer getUserId() {
+        return this.userId;
+    }
+    
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+    
+    @Column(name = "FIRST_NAME", length = 100)
+    public String getFirstName() {
+        return this.firstName;
+    }
+    
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+    
+    @Column(name = "LAST_NAME", length = 100)
+    public String getLastName() {
+        return this.lastName;
+    }
+    
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+    
+    @Column(name = "AS1_USER_ID", precision = 22, scale = 0)
+    public Integer getAs1UserId() {
+        return this.as1UserId;
+    }
+    
+    public void setAs1UserId(Integer as1UserId) {
+        this.as1UserId = as1UserId;
+    }
+    
+    @Column(name = "CREATED_BY", length = 50)
+    public String getCreatedBy() {
+        return this.createdBy;
+    }
+    
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+    
+    @Temporal(TemporalType.DATE)
+    @Column(name = "CREATED_DT", length = 7)
+    public Date getCreatedDt() {
+        return this.createdDt;
+    }
+    
+    public void setCreatedDt(Date createdDt) {
+        this.createdDt = createdDt;
+    }
+    
+    @Column(name = "UPDATED_BY", length = 50)
+    public String getUpdatedBy() {
+        return this.updatedBy;
+    }
+    
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+    
+    @Temporal(TemporalType.DATE)
+    @Column(name = "UPDATED_DT", length = 7)
+    public Date getUpdatedDt() {
+        return this.updatedDt;
+    }
+    
+    public void setUpdatedDt(Date updatedDt) {
+        this.updatedDt = updatedDt;
+    }
+    
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "users")
+    public AdminDetails getAdminDetails() {
+        return this.adminDetails;
+    }
+    
+    public void setAdminDetails(AdminDetails adminDetails) {
+        this.adminDetails = adminDetails;
+    }
+    
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "users")
+    public AuthorProfile getAuthorProfile() {
+        return this.authorProfile;
+    }
+    
+    public void setAuthorProfile(AuthorProfile authorProfile) {
+        this.authorProfile = authorProfile;
+    }
+    
 }

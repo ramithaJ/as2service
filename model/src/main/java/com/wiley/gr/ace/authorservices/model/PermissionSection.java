@@ -17,40 +17,39 @@ import java.util.List;
 
 /**
  * @author sarmakumarap
- *
  */
 public class PermissionSection {
-	
-	private String sectionName;
-	
-	private List<UserPermissions> permissionsList = new ArrayList<UserPermissions>();
-
-	/**
-	 * @return
-	 */
-	public String getSectionName() {
-		return sectionName;
-	}
-
-	/**
-	 * @param sectionName
-	 */
-	public void setSectionName(String sectionName) {
-		this.sectionName = sectionName;
-	}
-
-	/**
-	 * @return
-	 */
-	public List<UserPermissions> getPermissionsList() {
-		return permissionsList;
-	}
-
-	/**
-	 * @param permissionsList
-	 */
-	public void setPermissionsList(List<UserPermissions> permissionsList) {
-		this.permissionsList = permissionsList;
-	}
-
+    
+    private String sectionName;
+    
+    private List<UserPermissions> permissionsList = new ArrayList<UserPermissions>();
+    
+    /**
+     * @return
+     */
+    public String getSectionName() {
+        return sectionName;
+    }
+    
+    /**
+     * @param sectionName
+     */
+    public void setSectionName(String sectionName) {
+        this.sectionName = sectionName;
+    }
+    
+    /**
+     * @return
+     */
+    public List<UserPermissions> getPermissionsList() {
+        return permissionsList;
+    }
+    
+    /**
+     * @param permissionsList
+     */
+    public void setPermissionsList(List<UserPermissions> permissionsList) {
+        this.permissionsList = permissionsList;
+    }
+    
 }

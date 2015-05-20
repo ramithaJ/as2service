@@ -12,53 +12,47 @@
 
 package com.wiley.gr.ace.authorservices.model;
 
-
-
 /**
  * @author sarmakumarap
- *
  */
 public class RolePermissionMapping {
-	
-	private String roleId;
-	
-	private StringBuffer permissionsList;
-	
-
-	/**
-	 * @return
-	 */
-	/**
-	 * @return
-	 */
-	public String getRoleId() {
-		return roleId;
-	}
-
-	/**
-	 * @param roleId
-	 */
-	/**
-	 * @param roleId
-	 */
-	public void setRoleId(String roleId) {
-		this.roleId = roleId;
-	}
-
-	/**
-	 * @return
-	 */
-	public StringBuffer getPermissionsList() {
-		return permissionsList;
-	}
-
-	/**
-	 * @param permissionsList
-	 */
-	public void setPermissionsList(StringBuffer permissionsList) {
-		this.permissionsList = permissionsList;
-	}
-	
-	
-
+    
+    private String roleId;
+    
+    private StringBuffer permissionsList;
+    
+    /**
+     * @return
+     */
+    /**
+     * @return
+     */
+    public String getRoleId() {
+        return roleId;
+    }
+    
+    /**
+     * @param roleId
+     */
+    /**
+     * @param roleId
+     */
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
+    }
+    
+    /**
+     * @return
+     */
+    public StringBuffer getPermissionsList() {
+        return permissionsList;
+    }
+    
+    /**
+     * @param permissionsList
+     */
+    public void setPermissionsList(StringBuffer permissionsList) {
+        this.permissionsList = permissionsList;
+    }
+    
 }

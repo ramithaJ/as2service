@@ -35,236 +35,233 @@ import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
 
 /**
  * @author SarmaKumarap
- *
  */
 @RestController
 @RequestMapping("/userprofile")
 public class UserProfileController {
-
-	/**
-	 * @param userId
-	 * @return
-	 */
-	@Autowired(required = true)
-	UserProfileService userProfileService;
-	@Autowired
-	AuthorProfileService authorProfileService;
-
-	@Autowired(required = true)
-	LocalValidatorFactoryBean validator;
-
-	@RequestMapping(value = "/affiliations/{userId}", method = RequestMethod.GET, produces = "application/json")
-	public Service getAffiliationsList(@PathVariable("userId") String userId) {
-
-		Service service = new Service();
-
-		service.setPayload(userProfileService.lookUpProfile(userId).getUserProfile().getAffiliations());
-
-		return service;
-	}
-
-	/**
-	 * @param userId
-	 * @return
-	 */
-	@RequestMapping(value = "/affiliations/{userId}/{affiliationId}", method = RequestMethod.POST, produces = "application/json")
-	public Service updateAffiliation(@PathVariable("userId") String userId,
-			@RequestBody Affiliation affiliation) {
-		affiliation.setUserId(userId);
-		Service service= new Service();
-		service.setPayload(authorProfileService.updateAffiliation(affiliation));  
-		return service;
-	}
-
-	
-
-	
-	/**
-	 * Returns the list of all research funders added by the user.
-	 * 
-	 * @param userId
-	 * @return
-	 */
-	@RequestMapping(value = "/researchFunders/{userId}", method = RequestMethod.GET)
-	public Service getResearchFundersList(@PathVariable("userId") String userId) {
-
-		Service service = new Service();
-		service.setPayload(userProfileService.lookUpProfile(userId).getUserProfile().getResearchFunders());
-	
-		return service;
-	}
-
-
-	/**
-	 * @param userId
-	 * @param funderJson
-	 * @return
-	 */
-	@RequestMapping(value = "/researchFunder/{userId}", method = RequestMethod.POST)
-	public Service updateResearchFunder(@PathVariable("userId") String userId,
-			@RequestBody ResearchFunder researchFunder) {
-
-		Service service = new Service();
-		service.setPayload(authorProfileService.updateResearchFunder(userId, researchFunder));
-		return service;
-	}
-
-	/**
-	 * @param userId
-	 * @return
-	 */
-	@RequestMapping(value = "/societies/{userId}", method = RequestMethod.GET, produces = "application/json")
-	public Service getSocietiesList(@PathVariable("userId") String userId) {
-
-		Service service = new Service();
-		service.setPayload(userProfileService.lookUpProfile(userId).getUserProfile().getSocieties());
-
-		return service;
-	}
-
-	
-	/**
-	 * @param userId
-	 * @param societyId
-	 * @return
-	 */
-	@RequestMapping(value = "/societies/{userId}", method = RequestMethod.POST, produces = "application/json")
-	public Service updateSocietyDetails(@PathVariable("userId") String userId,
-			@Valid @RequestBody Society society) {
-	
+    
+    /**
+     * @param userId
+     * @return
+     */
+    @Autowired(required = true)
+    UserProfileService userProfileService;
+    @Autowired
+    AuthorProfileService authorProfileService;
+    
+    @Autowired(required = true)
+    LocalValidatorFactoryBean validator;
+    
+    @RequestMapping(value = "/affiliations/{userId}", method = RequestMethod.GET, produces = "application/json")
+    public Service getAffiliationsList(@PathVariable("userId") String userId) {
+        
+        Service service = new Service();
+        
+        service.setPayload(userProfileService.lookUpProfile(userId)
+                .getUserProfile().getAffiliations());
+        
+        return service;
+    }
+    
+    /**
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "/affiliations/{userId}/{affiliationId}", method = RequestMethod.POST, produces = "application/json")
+    public Service updateAffiliation(@PathVariable("userId") String userId,
+            @RequestBody Affiliation affiliation) {
+        affiliation.setUserId(userId);
+        Service service = new Service();
+        service.setPayload(authorProfileService.updateAffiliation(affiliation));
+        return service;
+    }
+    
+    /**
+     * Returns the list of all research funders added by the user.
+     * 
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "/researchFunders/{userId}", method = RequestMethod.GET)
+    public Service getResearchFundersList(@PathVariable("userId") String userId) {
+        
+        Service service = new Service();
+        service.setPayload(userProfileService.lookUpProfile(userId)
+                .getUserProfile().getResearchFunders());
+        
+        return service;
+    }
+    
+    /**
+     * @param userId
+     * @param funderJson
+     * @return
+     */
+    @RequestMapping(value = "/researchFunder/{userId}", method = RequestMethod.POST)
+    public Service updateResearchFunder(@PathVariable("userId") String userId,
+            @RequestBody ResearchFunder researchFunder) {
+        
+        Service service = new Service();
+        service.setPayload(authorProfileService.updateResearchFunder(userId,
+                researchFunder));
+        return service;
+    }
+    
+    /**
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "/societies/{userId}", method = RequestMethod.GET, produces = "application/json")
+    public Service getSocietiesList(@PathVariable("userId") String userId) {
+        
+        Service service = new Service();
+        service.setPayload(userProfileService.lookUpProfile(userId)
+                .getUserProfile().getSocieties());
+        
+        return service;
+    }
+    
+    /**
+     * @param userId
+     * @param societyId
+     * @return
+     */
+    @RequestMapping(value = "/societies/{userId}", method = RequestMethod.POST, produces = "application/json")
+    public Service updateSocietyDetails(@PathVariable("userId") String userId,
+            @Valid @RequestBody Society society) {
+        
         authorProfileService.updateSocietyDetails(society);
-	
-
-		return new Service();
-	}
-
-	/**
-	 * @param userId
-	 * @return
-	 */
-	@RequestMapping(value = "/interests/{userId}", method = RequestMethod.GET, produces = "application/json")
-	public Service getMyInterests(@PathVariable("userId") String userId) {
-
-		Service service = new Service();
-		service.setPayload(userProfileService.lookUpProfile(userId).getUserProfile().getInterests());
-
-		return service;
-	}
-
-
-	/**
-	 * @param userId
-	 * @param searchString
-	 * @return
-	 */
-	@RequestMapping(value = "/interests/search/{userId}", method = RequestMethod.POST, produces = "application/json")
-	public Service searchInterests(
-			@PathVariable("userId") String userId,
-			@RequestParam(required = false, value = "searchStr") String searchString) {
-
-		return null;
-	}
-
-	/**
-	 * This service will give list of Co-authors that are tagged to the
-	 * author/user.
-	 * 
-	 * @param userId
-	 * @return
-	 */
-	@RequestMapping(value = "/coAuthors/{userId}", method = RequestMethod.GET)
-	public Service getCoAuthorsList(@PathVariable("userId") String userId) {
-
-		Service service = new Service();
-		service.setPayload(userProfileService.lookUpProfile(userId).getUserProfile().getCoAuthors());
-		return service;
-	}
-
-
+        
+        return new Service();
+    }
+    
+    /**
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "/interests/{userId}", method = RequestMethod.GET, produces = "application/json")
+    public Service getMyInterests(@PathVariable("userId") String userId) {
+        
+        Service service = new Service();
+        service.setPayload(userProfileService.lookUpProfile(userId)
+                .getUserProfile().getInterests());
+        
+        return service;
+    }
+    
+    /**
+     * @param userId
+     * @param searchString
+     * @return
+     */
+    @RequestMapping(value = "/interests/search/{userId}", method = RequestMethod.POST, produces = "application/json")
+    public Service searchInterests(
+            @PathVariable("userId") String userId,
+            @RequestParam(required = false, value = "searchStr") String searchString) {
+        
+        return null;
+    }
+    
+    /**
+     * This service will give list of Co-authors that are tagged to the
+     * author/user.
+     * 
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "/coAuthors/{userId}", method = RequestMethod.GET)
+    public Service getCoAuthorsList(@PathVariable("userId") String userId) {
+        
+        Service service = new Service();
+        service.setPayload(userProfileService.lookUpProfile(userId)
+                .getUserProfile().getCoAuthors());
+        return service;
+    }
+    
     /**
      * @param userId
      * @return
      */
     @RequestMapping(value = "/coAuthors/{userId}", method = RequestMethod.POST)
-	public Service updateCoAuthors(@PathVariable String userId, @RequestBody CoAuthor coAuthor){
-    	
-    	Service service = new Service();
-    	coAuthor.setUserId(Integer.parseInt(userId));
-    	service.setPayload(authorProfileService.UpdatecoAuthor(coAuthor));
-    	
-    	return new Service();
+    public Service updateCoAuthors(@PathVariable String userId,
+            @RequestBody CoAuthor coAuthor) {
+        
+        Service service = new Service();
+        coAuthor.setUserId(Integer.parseInt(userId));
+        service.setPayload(authorProfileService.UpdatecoAuthor(coAuthor));
+        
+        return new Service();
     }
-
-	/**
-	 * @param userId
-	 * @return
-	 */
-
-	@RequestMapping(value = "/preferredJournals/{userId}", method = RequestMethod.GET, produces = "application/json")
-	public Service getPreferredJournals(@PathVariable("userId") String userId) {
-
-		Service service = new Service();
-		service.setPayload(userProfileService.lookUpProfile(userId).getUserProfile().getPreferredJournals());
-		
-
-		return service;
-	}
-
-	
-
-	/**
-	 * @param userId
-	 * @return
-	 */
-	@RequestMapping(value = "/preferredJournals/search/{userId}", method = RequestMethod.POST, produces = "application/json")
-	public Service searchPreferredJournals(@PathVariable("userId") String userId) {
-
-		return null;
-	}
-
-	/**
-	 * @param userId
-	 * @return
-	 */
-	@RequestMapping(value = "/articlesPublishedForJournals/{userId}", method = RequestMethod.GET, produces = "application/json")
-	public Service getArticlesPublishedForJournals(
-			@PathVariable("userId") String userId) {
-
-		return null;
-	}
-
-	/**
-	 * @param userId
-	 * @return
-	 */
-
-	@RequestMapping(value = "/alerts/{userId}", method = RequestMethod.GET, produces = "application/json")
-	public Service getListOfAlerts(@PathVariable("userId") String userId) {
-		Service service = new Service();
-		service.setPayload(userProfileService.lookUpProfile(userId).getUserProfile().getAlerts());
-
-		return service;
-	}
-
-	/**
-	 * @param userId
-	 * @param alertsJson
-	 * @return
-	 */
-	@RequestMapping(value = "/alerts/{userId}", method = RequestMethod.POST, produces = "application/json")
-	public Service updateAlerts(@PathVariable("userId") String userId,
-			@RequestBody List<Alert> alertsList) {
-		authorProfileService.updateAlerts(userId, alertsList);
-
-		return new Service();
-	}
-
-	@RequestMapping(value = "/lookUpProfile/{userId}", method = RequestMethod.GET)
-	public Service lookUpProfile(@PathVariable("userId") String userId) {
-
-		Service service = new Service();
-		service.setPayload(userProfileService.lookUpProfile(userId));
-		return service;
-
-	}
+    
+    /**
+     * @param userId
+     * @return
+     */
+    
+    @RequestMapping(value = "/preferredJournals/{userId}", method = RequestMethod.GET, produces = "application/json")
+    public Service getPreferredJournals(@PathVariable("userId") String userId) {
+        
+        Service service = new Service();
+        service.setPayload(userProfileService.lookUpProfile(userId)
+                .getUserProfile().getPreferredJournals());
+        
+        return service;
+    }
+    
+    /**
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "/preferredJournals/search/{userId}", method = RequestMethod.POST, produces = "application/json")
+    public Service searchPreferredJournals(@PathVariable("userId") String userId) {
+        
+        return null;
+    }
+    
+    /**
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "/articlesPublishedForJournals/{userId}", method = RequestMethod.GET, produces = "application/json")
+    public Service getArticlesPublishedForJournals(
+            @PathVariable("userId") String userId) {
+        
+        return null;
+    }
+    
+    /**
+     * @param userId
+     * @return
+     */
+    
+    @RequestMapping(value = "/alerts/{userId}", method = RequestMethod.GET, produces = "application/json")
+    public Service getListOfAlerts(@PathVariable("userId") String userId) {
+        Service service = new Service();
+        service.setPayload(userProfileService.lookUpProfile(userId)
+                .getUserProfile().getAlerts());
+        
+        return service;
+    }
+    
+    /**
+     * @param userId
+     * @param alertsJson
+     * @return
+     */
+    @RequestMapping(value = "/alerts/{userId}", method = RequestMethod.POST, produces = "application/json")
+    public Service updateAlerts(@PathVariable("userId") String userId,
+            @RequestBody List<Alert> alertsList) {
+        authorProfileService.updateAlerts(userId, alertsList);
+        
+        return new Service();
+    }
+    
+    @RequestMapping(value = "/lookUpProfile/{userId}", method = RequestMethod.GET)
+    public Service lookUpProfile(@PathVariable("userId") String userId) {
+        
+        Service service = new Service();
+        service.setPayload(userProfileService.lookUpProfile(userId));
+        return service;
+        
+    }
 }

@@ -17,234 +17,234 @@ import org.hibernate.annotations.Parameter;
 @Entity
 @Table(name = "ADDRESS")
 public class Address implements java.io.Serializable {
-
-	private Integer addressId;
-	private AuthorProfile authorProfile;
-	private Integer userId;
-	private String addressType;
-	private String title;
-	private String firstName;
-	private String suffix;
-	private String addressLine1;
-	private String addressLine2;
-	private String city;
-	private String state;
-	private String countryCd;
-	private String postalCode;
-	private String phone;
-	private String fax;
-	private String institutionId;
-	private String departmentId;
-	private Character billingCorrFlg;
-	private Character shippingCorrFlg;
-
-	public Address() {
-	}
-
-	public Address(AuthorProfile authorProfile, Integer userId) {
-		this.authorProfile = authorProfile;
-		this.userId = userId;
-	}
-
-	public Address(AuthorProfile authorProfile, Integer userId,
-			String addressType, String title, String firstName, String suffix,
-			String addressLine1, String addressLine2, String city,
-			String state, String countryCd, String postalCode, String phone,
-			String fax, String institutionId, String departmentId,
-			Character billingCorrFlg, Character shippingCorrFlg) {
-		this.authorProfile = authorProfile;
-		this.userId = userId;
-		this.addressType = addressType;
-		this.title = title;
-		this.firstName = firstName;
-		this.suffix = suffix;
-		this.addressLine1 = addressLine1;
-		this.addressLine2 = addressLine2;
-		this.city = city;
-		this.state = state;
-		this.countryCd = countryCd;
-		this.postalCode = postalCode;
-		this.phone = phone;
-		this.fax = fax;
-		this.institutionId = institutionId;
-		this.departmentId = departmentId;
-		this.billingCorrFlg = billingCorrFlg;
-		this.shippingCorrFlg = shippingCorrFlg;
-	}
-
-	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "authorProfile"))
-	@Id
-	@GeneratedValue(generator = "generator")
-	@Column(name = "ADDRESS_ID", unique = true, nullable = false, precision = 22, scale = 0)
-	public Integer getAddressId() {
-		return this.addressId;
-	}
-
-	public void setAddressId(Integer addressId) {
-		this.addressId = addressId;
-	}
-
-	@OneToOne(fetch = FetchType.LAZY)
-	@PrimaryKeyJoinColumn
-	public AuthorProfile getAuthorProfile() {
-		return this.authorProfile;
-	}
-
-	public void setAuthorProfile(AuthorProfile authorProfile) {
-		this.authorProfile = authorProfile;
-	}
-
-	@Column(name = "USER_ID", nullable = false, precision = 22, scale = 0)
-	public Integer getUserId() {
-		return this.userId;
-	}
-
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
-
-	@Column(name = "ADDRESS_TYPE", length = 25)
-	public String getAddressType() {
-		return this.addressType;
-	}
-
-	public void setAddressType(String addressType) {
-		this.addressType = addressType;
-	}
-
-	@Column(name = "TITLE", length = 50)
-	public String getTitle() {
-		return this.title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	@Column(name = "FIRST_NAME", length = 100)
-	public String getFirstName() {
-		return this.firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	@Column(name = "SUFFIX", length = 50)
-	public String getSuffix() {
-		return this.suffix;
-	}
-
-	public void setSuffix(String suffix) {
-		this.suffix = suffix;
-	}
-
-	@Column(name = "ADDRESS_LINE_1", length = 200)
-	public String getAddressLine1() {
-		return this.addressLine1;
-	}
-
-	public void setAddressLine1(String addressLine1) {
-		this.addressLine1 = addressLine1;
-	}
-
-	@Column(name = "ADDRESS_LINE_2", length = 200)
-	public String getAddressLine2() {
-		return this.addressLine2;
-	}
-
-	public void setAddressLine2(String addressLine2) {
-		this.addressLine2 = addressLine2;
-	}
-
-	@Column(name = "CITY", length = 200)
-	public String getCity() {
-		return this.city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	@Column(name = "STATE", length = 100)
-	public String getState() {
-		return this.state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
-	@Column(name = "COUNTRY_CD", length = 100)
-	public String getCountryCd() {
-		return this.countryCd;
-	}
-
-	public void setCountryCd(String countryCd) {
-		this.countryCd = countryCd;
-	}
-
-	@Column(name = "POSTAL_CODE", length = 50)
-	public String getPostalCode() {
-		return this.postalCode;
-	}
-
-	public void setPostalCode(String postalCode) {
-		this.postalCode = postalCode;
-	}
-
-	@Column(name = "PHONE", length = 60)
-	public String getPhone() {
-		return this.phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-	@Column(name = "FAX", length = 50)
-	public String getFax() {
-		return this.fax;
-	}
-
-	public void setFax(String fax) {
-		this.fax = fax;
-	}
-
-	@Column(name = "INSTITUTION_ID", length = 100)
-	public String getInstitutionId() {
-		return this.institutionId;
-	}
-
-	public void setInstitutionId(String institutionId) {
-		this.institutionId = institutionId;
-	}
-
-	@Column(name = "DEPARTMENT_ID", length = 100)
-	public String getDepartmentId() {
-		return this.departmentId;
-	}
-
-	public void setDepartmentId(String departmentId) {
-		this.departmentId = departmentId;
-	}
-
-	@Column(name = "BILLING_CORR_FLG", length = 1)
-	public Character getBillingCorrFlg() {
-		return this.billingCorrFlg;
-	}
-
-	public void setBillingCorrFlg(Character billingCorrFlg) {
-		this.billingCorrFlg = billingCorrFlg;
-	}
-
-	@Column(name = "SHIPPING_CORR_FLG", length = 1)
-	public Character getShippingCorrFlg() {
-		return this.shippingCorrFlg;
-	}
-
-	public void setShippingCorrFlg(Character shippingCorrFlg) {
-		this.shippingCorrFlg = shippingCorrFlg;
-	}
-
+    
+    private Integer addressId;
+    private AuthorProfile authorProfile;
+    private Integer userId;
+    private String addressType;
+    private String title;
+    private String firstName;
+    private String suffix;
+    private String addressLine1;
+    private String addressLine2;
+    private String city;
+    private String state;
+    private String countryCd;
+    private String postalCode;
+    private String phone;
+    private String fax;
+    private String institutionId;
+    private String departmentId;
+    private Character billingCorrFlg;
+    private Character shippingCorrFlg;
+    
+    public Address() {
+    }
+    
+    public Address(AuthorProfile authorProfile, Integer userId) {
+        this.authorProfile = authorProfile;
+        this.userId = userId;
+    }
+    
+    public Address(AuthorProfile authorProfile, Integer userId,
+            String addressType, String title, String firstName, String suffix,
+            String addressLine1, String addressLine2, String city,
+            String state, String countryCd, String postalCode, String phone,
+            String fax, String institutionId, String departmentId,
+            Character billingCorrFlg, Character shippingCorrFlg) {
+        this.authorProfile = authorProfile;
+        this.userId = userId;
+        this.addressType = addressType;
+        this.title = title;
+        this.firstName = firstName;
+        this.suffix = suffix;
+        this.addressLine1 = addressLine1;
+        this.addressLine2 = addressLine2;
+        this.city = city;
+        this.state = state;
+        this.countryCd = countryCd;
+        this.postalCode = postalCode;
+        this.phone = phone;
+        this.fax = fax;
+        this.institutionId = institutionId;
+        this.departmentId = departmentId;
+        this.billingCorrFlg = billingCorrFlg;
+        this.shippingCorrFlg = shippingCorrFlg;
+    }
+    
+    @GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "authorProfile"))
+    @Id
+    @GeneratedValue(generator = "generator")
+    @Column(name = "ADDRESS_ID", unique = true, nullable = false, precision = 22, scale = 0)
+    public Integer getAddressId() {
+        return this.addressId;
+    }
+    
+    public void setAddressId(Integer addressId) {
+        this.addressId = addressId;
+    }
+    
+    @OneToOne(fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn
+    public AuthorProfile getAuthorProfile() {
+        return this.authorProfile;
+    }
+    
+    public void setAuthorProfile(AuthorProfile authorProfile) {
+        this.authorProfile = authorProfile;
+    }
+    
+    @Column(name = "USER_ID", nullable = false, precision = 22, scale = 0)
+    public Integer getUserId() {
+        return this.userId;
+    }
+    
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+    
+    @Column(name = "ADDRESS_TYPE", length = 25)
+    public String getAddressType() {
+        return this.addressType;
+    }
+    
+    public void setAddressType(String addressType) {
+        this.addressType = addressType;
+    }
+    
+    @Column(name = "TITLE", length = 50)
+    public String getTitle() {
+        return this.title;
+    }
+    
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    
+    @Column(name = "FIRST_NAME", length = 100)
+    public String getFirstName() {
+        return this.firstName;
+    }
+    
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+    
+    @Column(name = "SUFFIX", length = 50)
+    public String getSuffix() {
+        return this.suffix;
+    }
+    
+    public void setSuffix(String suffix) {
+        this.suffix = suffix;
+    }
+    
+    @Column(name = "ADDRESS_LINE_1", length = 200)
+    public String getAddressLine1() {
+        return this.addressLine1;
+    }
+    
+    public void setAddressLine1(String addressLine1) {
+        this.addressLine1 = addressLine1;
+    }
+    
+    @Column(name = "ADDRESS_LINE_2", length = 200)
+    public String getAddressLine2() {
+        return this.addressLine2;
+    }
+    
+    public void setAddressLine2(String addressLine2) {
+        this.addressLine2 = addressLine2;
+    }
+    
+    @Column(name = "CITY", length = 200)
+    public String getCity() {
+        return this.city;
+    }
+    
+    public void setCity(String city) {
+        this.city = city;
+    }
+    
+    @Column(name = "STATE", length = 100)
+    public String getState() {
+        return this.state;
+    }
+    
+    public void setState(String state) {
+        this.state = state;
+    }
+    
+    @Column(name = "COUNTRY_CD", length = 100)
+    public String getCountryCd() {
+        return this.countryCd;
+    }
+    
+    public void setCountryCd(String countryCd) {
+        this.countryCd = countryCd;
+    }
+    
+    @Column(name = "POSTAL_CODE", length = 50)
+    public String getPostalCode() {
+        return this.postalCode;
+    }
+    
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+    
+    @Column(name = "PHONE", length = 60)
+    public String getPhone() {
+        return this.phone;
+    }
+    
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+    
+    @Column(name = "FAX", length = 50)
+    public String getFax() {
+        return this.fax;
+    }
+    
+    public void setFax(String fax) {
+        this.fax = fax;
+    }
+    
+    @Column(name = "INSTITUTION_ID", length = 100)
+    public String getInstitutionId() {
+        return this.institutionId;
+    }
+    
+    public void setInstitutionId(String institutionId) {
+        this.institutionId = institutionId;
+    }
+    
+    @Column(name = "DEPARTMENT_ID", length = 100)
+    public String getDepartmentId() {
+        return this.departmentId;
+    }
+    
+    public void setDepartmentId(String departmentId) {
+        this.departmentId = departmentId;
+    }
+    
+    @Column(name = "BILLING_CORR_FLG", length = 1)
+    public Character getBillingCorrFlg() {
+        return this.billingCorrFlg;
+    }
+    
+    public void setBillingCorrFlg(Character billingCorrFlg) {
+        this.billingCorrFlg = billingCorrFlg;
+    }
+    
+    @Column(name = "SHIPPING_CORR_FLG", length = 1)
+    public Character getShippingCorrFlg() {
+        return this.shippingCorrFlg;
+    }
+    
+    public void setShippingCorrFlg(Character shippingCorrFlg) {
+        this.shippingCorrFlg = shippingCorrFlg;
+    }
+    
 }

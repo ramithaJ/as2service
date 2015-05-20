@@ -20,38 +20,36 @@ import com.wiley.gr.ace.authorservices.persistence.entity.Roles;
 
 /**
  * @author kpshiva
- *
  */
 public interface ASDataDAO {
-
-	/**
-	 * @return
-	 * 
-	 */
-	List<LookupValues> getDropDown(String keyName);
-
-	/**
-	 * @return
-	 */
-	List<Roles> getAdminRoles(String roleId);
-
-	/**
-	 * @return
-	 */
-	List<Roles> getUserRoles(String roleId);
-
-	/**
-	 * This method gets all the permissions in the system
-	 * 
-	 * @return
-	 */
-	List<Permissions> getPermissions();
-
-	/**
-	 * This method returns the permissions for all roles
-	 * 
-	 * @return
-	 */
-	List<RolePermissions> getRolePermissionMappings(String roleId);
-
+    
+    /**
+     * @return
+     */
+    List<LookupValues> getDropDown(String keyName);
+    
+    /**
+     * @return
+     */
+    List<Roles> getAdminRoles(String roleId);
+    
+    /**
+     * @return
+     */
+    List<Roles> getUserRoles(String roleId);
+    
+    /**
+     * This method gets all the permissions in the system
+     * 
+     * @return
+     */
+    List<Permissions> getPermissions();
+    
+    /**
+     * This method returns the permissions for all roles
+     * 
+     * @return
+     */
+    List<RolePermissions> getRolePermissionMappings(String roleId);
+    
 }

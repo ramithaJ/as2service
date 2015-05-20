@@ -18,31 +18,30 @@ import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 
 /**
  * @author kpshiva
- *
  */
 public interface UserAccountDAO {
-
-	/**
-	 * @param userId
-	 * @return
-	 */
-	AuthorProfile getEmailDetails(String userId);
-
-	/**
-	 * @param userId
-	 * @param primaryEmail
-	 * @param secondaryEmail
-	 * @return
-	 */
-	boolean updateEmailDetails(String userId, String primaryEmail,
-			String secondaryEmail);
-
-	/**
-	 * @param userId
-	 * @param securityDetails
-	 * @return
-	 */
-	boolean updateSecurityDetails(Integer userId,
-			List<SecurityDetails> securityDetails);
-
+    
+    /**
+     * @param userId
+     * @return
+     */
+    AuthorProfile getEmailDetails(String userId);
+    
+    /**
+     * @param userId
+     * @param primaryEmail
+     * @param secondaryEmail
+     * @return
+     */
+    boolean updateEmailDetails(String userId, String primaryEmail,
+            String secondaryEmail);
+    
+    /**
+     * @param userId
+     * @param securityDetails
+     * @return
+     */
+    boolean updateSecurityDetails(Integer userId,
+            List<SecurityDetails> securityDetails);
+    
 }

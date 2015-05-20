@@ -25,45 +25,46 @@ import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
 
 /**
  * @author kpshiva
- *
  */
 public class UserAccountServiceImpl implements UserAccountService {
-
-	@Autowired(required = true)
-	UserAccountDAO userAccountDAO;
-	@Autowired(required = true)
-	UserLoginServiceDAO userLoginServiceDAO;
-	@Autowired
-	CDMInterfaceService cdmservices;
-
-	@Override
-	public User getEmailDetails(String userId) {
-
-		LookUpProfile lookupProfile = cdmservices.lookUpProfile(userId);
-		User user = new User();
-		user.setPrimaryEmailAddr(lookupProfile.getUserProfile().getProfileInformation().getPrimaryEmailAddr());
-		user.setRecoveryEmailAddress(lookupProfile.getUserProfile().getProfileInformation().getRecoveryEmailAddress());
-		return user;
-		
-	}
-
-	/**
-	 * this method will call the DAO to update security details which are
-	 * updated by user at userProfile level.
-	 */
-	@Override
-	public boolean updateSecurityDetails(String userId,
-			List<SecurityDetails> securityDetails) {
-
-		return userAccountDAO.updateSecurityDetails(Integer.parseInt(userId),
-				securityDetails);
-	}
-
-	@Override
-	public User getProfileInformation(String userId) {
-
-		LookUpProfile lookupProfile = cdmservices.lookUpProfile(userId);
-		return lookupProfile.getUserProfile().getProfileInformation();
-	}
-
+    
+    @Autowired(required = true)
+    UserAccountDAO userAccountDAO;
+    @Autowired(required = true)
+    UserLoginServiceDAO userLoginServiceDAO;
+    @Autowired
+    CDMInterfaceService cdmservices;
+    
+    @Override
+    public User getEmailDetails(String userId) {
+        
+        LookUpProfile lookupProfile = cdmservices.lookUpProfile(userId);
+        User user = new User();
+        user.setPrimaryEmailAddr(lookupProfile.getUserProfile()
+                .getProfileInformation().getPrimaryEmailAddr());
+        user.setRecoveryEmailAddress(lookupProfile.getUserProfile()
+                .getProfileInformation().getRecoveryEmailAddress());
+        return user;
+        
+    }
+    
+    /**
+     * this method will call the DAO to update security details which are
+     * updated by user at userProfile level.
+     */
+    @Override
+    public boolean updateSecurityDetails(String userId,
+            List<SecurityDetails> securityDetails) {
+        
+        return userAccountDAO.updateSecurityDetails(Integer.parseInt(userId),
+                securityDetails);
+    }
+    
+    @Override
+    public User getProfileInformation(String userId) {
+        
+        LookUpProfile lookupProfile = cdmservices.lookUpProfile(userId);
+        return lookupProfile.getUserProfile().getProfileInformation();
+    }
+    
 }

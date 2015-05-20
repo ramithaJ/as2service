@@ -11,39 +11,39 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "AREA_OF_INTEREST")
 public class AreaOfInterest implements java.io.Serializable {
-
-	private Integer areaOfInterestId;
-	private String interestName;
-
-	public AreaOfInterest() {
-	}
-
-	public AreaOfInterest(Integer areaOfInterestId) {
-		this.areaOfInterestId = areaOfInterestId;
-	}
-
-	public AreaOfInterest(Integer areaOfInterestId, String interestName) {
-		this.areaOfInterestId = areaOfInterestId;
-		this.interestName = interestName;
-	}
-
-	@Id
-	@Column(name = "AREA_OF_INTEREST_ID", unique = true, nullable = false, precision = 22, scale = 0)
-	public Integer getAreaOfInterestId() {
-		return this.areaOfInterestId;
-	}
-
-	public void setAreaOfInterestId(Integer areaOfInterestId) {
-		this.areaOfInterestId = areaOfInterestId;
-	}
-
-	@Column(name = "INTEREST_NAME", length = 500)
-	public String getInterestName() {
-		return this.interestName;
-	}
-
-	public void setInterestName(String interestName) {
-		this.interestName = interestName;
-	}
-
+    
+    private Integer areaOfInterestId;
+    private String interestName;
+    
+    public AreaOfInterest() {
+    }
+    
+    public AreaOfInterest(Integer areaOfInterestId) {
+        this.areaOfInterestId = areaOfInterestId;
+    }
+    
+    public AreaOfInterest(Integer areaOfInterestId, String interestName) {
+        this.areaOfInterestId = areaOfInterestId;
+        this.interestName = interestName;
+    }
+    
+    @Id
+    @Column(name = "AREA_OF_INTEREST_ID", unique = true, nullable = false, precision = 22, scale = 0)
+    public Integer getAreaOfInterestId() {
+        return this.areaOfInterestId;
+    }
+    
+    public void setAreaOfInterestId(Integer areaOfInterestId) {
+        this.areaOfInterestId = areaOfInterestId;
+    }
+    
+    @Column(name = "INTEREST_NAME", length = 500)
+    public String getInterestName() {
+        return this.interestName;
+    }
+    
+    public void setInterestName(String interestName) {
+        this.interestName = interestName;
+    }
+    
 }

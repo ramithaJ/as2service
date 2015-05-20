@@ -19,21 +19,18 @@ import com.wiley.gr.ace.authorservices.model.UserProfile;
 
 /**
  * @author kpshiva
- *
  */
 @JsonInclude(Include.NON_NULL)
 public class LookUpProfile implements Serializable {
-	
-	private UserProfile userProfile;
-
-	public UserProfile getUserProfile() {
-		return userProfile;
-	}
-
-	public void setUserProfile(UserProfile userProfile) {
-		this.userProfile = userProfile;
-	}
-
-	
-
+    
+    private UserProfile userProfile;
+    
+    public UserProfile getUserProfile() {
+        return userProfile;
+    }
+    
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
+    }
+    
 }

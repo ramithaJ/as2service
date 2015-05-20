@@ -19,42 +19,41 @@ import javax.validation.constraints.NotNull;
 
 /**
  * @author SarmaKumarap
- *
  */
 public class ASRolesAndPermissions {
-	
-	@NotNull
-	private Role role = new Role();
-	
-	@NotNull
-	private Map<String, String[]> permissionsMap = new HashMap<String, String[]>();
-
-	/**
-	 * @return
-	 */
-	public Role getRole() {
-		return role;
-	}
-
-	/**
-	 * @param role
-	 */
-	public void setRole(Role role) {
-		this.role = role;
-	}
-
-	/**
-	 * @return
-	 */
-	public Map<String, String[]> getPermissionsMap() {
-		return permissionsMap;
-	}
-
-	/**
-	 * @param permissionsMap
-	 */
-	public void setPermissionsMap(Map<String, String[]> permissionsMap) {
-		this.permissionsMap = permissionsMap;
-	}
-
+    
+    @NotNull
+    private Role role = new Role();
+    
+    @NotNull
+    private Map<String, String[]> permissionsMap = new HashMap<String, String[]>();
+    
+    /**
+     * @return
+     */
+    public Role getRole() {
+        return role;
+    }
+    
+    /**
+     * @param role
+     */
+    public void setRole(Role role) {
+        this.role = role;
+    }
+    
+    /**
+     * @return
+     */
+    public Map<String, String[]> getPermissionsMap() {
+        return permissionsMap;
+    }
+    
+    /**
+     * @param permissionsMap
+     */
+    public void setPermissionsMap(Map<String, String[]> permissionsMap) {
+        this.permissionsMap = permissionsMap;
+    }
+    
 }

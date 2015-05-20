@@ -17,145 +17,145 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "USER_AFFILIATIONS")
 public class UserAffiliations implements java.io.Serializable {
-
-	private Integer affiliationId;
-	private AuthorProfile authorProfile;
-	private Integer institutionId;
-	private String institutionName;
-	private Integer departmentId;
-	private String departmentName;
-	private String townOrCityName;
-	private String state;
-	private String stateOrProvinceName;
-	private Date startDt;
-	private Date endDt;
-
-	public UserAffiliations() {
-	}
-
-	public UserAffiliations(Integer affiliationId, AuthorProfile authorProfile) {
-		this.affiliationId = affiliationId;
-		this.authorProfile = authorProfile;
-	}
-
-	public UserAffiliations(Integer affiliationId, AuthorProfile authorProfile,
-			Integer institutionId, String institutionName,
-			Integer departmentId, String departmentName, String townOrCityName,
-			String state, String stateOrProvinceName, Date startDt, Date endDt) {
-		this.affiliationId = affiliationId;
-		this.authorProfile = authorProfile;
-		this.institutionId = institutionId;
-		this.institutionName = institutionName;
-		this.departmentId = departmentId;
-		this.departmentName = departmentName;
-		this.townOrCityName = townOrCityName;
-		this.state = state;
-		this.stateOrProvinceName = stateOrProvinceName;
-		this.startDt = startDt;
-		this.endDt = endDt;
-	}
-
-	@Id
-	@Column(name = "AFFILIATION_ID", unique = true, nullable = false, precision = 22, scale = 0)
-	public Integer getAffiliationId() {
-		return this.affiliationId;
-	}
-
-	public void setAffiliationId(Integer affiliationId) {
-		this.affiliationId = affiliationId;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USER_ID", nullable = false)
-	public AuthorProfile getAuthorProfile() {
-		return this.authorProfile;
-	}
-
-	public void setAuthorProfile(AuthorProfile authorProfile) {
-		this.authorProfile = authorProfile;
-	}
-
-	@Column(name = "INSTITUTION_ID", precision = 22, scale = 0)
-	public Integer getInstitutionId() {
-		return this.institutionId;
-	}
-
-	public void setInstitutionId(Integer institutionId) {
-		this.institutionId = institutionId;
-	}
-
-	@Column(name = "INSTITUTION_NAME", length = 250)
-	public String getInstitutionName() {
-		return this.institutionName;
-	}
-
-	public void setInstitutionName(String institutionName) {
-		this.institutionName = institutionName;
-	}
-
-	@Column(name = "DEPARTMENT_ID", precision = 22, scale = 0)
-	public Integer getDepartmentId() {
-		return this.departmentId;
-	}
-
-	public void setDepartmentId(Integer departmentId) {
-		this.departmentId = departmentId;
-	}
-
-	@Column(name = "DEPARTMENT_NAME", length = 250)
-	public String getDepartmentName() {
-		return this.departmentName;
-	}
-
-	public void setDepartmentName(String departmentName) {
-		this.departmentName = departmentName;
-	}
-
-	@Column(name = "TOWN_OR_CITY_NAME", length = 250)
-	public String getTownOrCityName() {
-		return this.townOrCityName;
-	}
-
-	public void setTownOrCityName(String townOrCityName) {
-		this.townOrCityName = townOrCityName;
-	}
-
-	@Column(name = "STATE", length = 200)
-	public String getState() {
-		return this.state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
-	@Column(name = "STATE_OR_PROVINCE_NAME", length = 250)
-	public String getStateOrProvinceName() {
-		return this.stateOrProvinceName;
-	}
-
-	public void setStateOrProvinceName(String stateOrProvinceName) {
-		this.stateOrProvinceName = stateOrProvinceName;
-	}
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "START_DT", length = 7)
-	public Date getStartDt() {
-		return this.startDt;
-	}
-
-	public void setStartDt(Date startDt) {
-		this.startDt = startDt;
-	}
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "END_DT", length = 7)
-	public Date getEndDt() {
-		return this.endDt;
-	}
-
-	public void setEndDt(Date endDt) {
-		this.endDt = endDt;
-	}
-
+    
+    private Integer affiliationId;
+    private AuthorProfile authorProfile;
+    private Integer institutionId;
+    private String institutionName;
+    private Integer departmentId;
+    private String departmentName;
+    private String townOrCityName;
+    private String state;
+    private String stateOrProvinceName;
+    private Date startDt;
+    private Date endDt;
+    
+    public UserAffiliations() {
+    }
+    
+    public UserAffiliations(Integer affiliationId, AuthorProfile authorProfile) {
+        this.affiliationId = affiliationId;
+        this.authorProfile = authorProfile;
+    }
+    
+    public UserAffiliations(Integer affiliationId, AuthorProfile authorProfile,
+            Integer institutionId, String institutionName,
+            Integer departmentId, String departmentName, String townOrCityName,
+            String state, String stateOrProvinceName, Date startDt, Date endDt) {
+        this.affiliationId = affiliationId;
+        this.authorProfile = authorProfile;
+        this.institutionId = institutionId;
+        this.institutionName = institutionName;
+        this.departmentId = departmentId;
+        this.departmentName = departmentName;
+        this.townOrCityName = townOrCityName;
+        this.state = state;
+        this.stateOrProvinceName = stateOrProvinceName;
+        this.startDt = startDt;
+        this.endDt = endDt;
+    }
+    
+    @Id
+    @Column(name = "AFFILIATION_ID", unique = true, nullable = false, precision = 22, scale = 0)
+    public Integer getAffiliationId() {
+        return this.affiliationId;
+    }
+    
+    public void setAffiliationId(Integer affiliationId) {
+        this.affiliationId = affiliationId;
+    }
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "USER_ID", nullable = false)
+    public AuthorProfile getAuthorProfile() {
+        return this.authorProfile;
+    }
+    
+    public void setAuthorProfile(AuthorProfile authorProfile) {
+        this.authorProfile = authorProfile;
+    }
+    
+    @Column(name = "INSTITUTION_ID", precision = 22, scale = 0)
+    public Integer getInstitutionId() {
+        return this.institutionId;
+    }
+    
+    public void setInstitutionId(Integer institutionId) {
+        this.institutionId = institutionId;
+    }
+    
+    @Column(name = "INSTITUTION_NAME", length = 250)
+    public String getInstitutionName() {
+        return this.institutionName;
+    }
+    
+    public void setInstitutionName(String institutionName) {
+        this.institutionName = institutionName;
+    }
+    
+    @Column(name = "DEPARTMENT_ID", precision = 22, scale = 0)
+    public Integer getDepartmentId() {
+        return this.departmentId;
+    }
+    
+    public void setDepartmentId(Integer departmentId) {
+        this.departmentId = departmentId;
+    }
+    
+    @Column(name = "DEPARTMENT_NAME", length = 250)
+    public String getDepartmentName() {
+        return this.departmentName;
+    }
+    
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
+    }
+    
+    @Column(name = "TOWN_OR_CITY_NAME", length = 250)
+    public String getTownOrCityName() {
+        return this.townOrCityName;
+    }
+    
+    public void setTownOrCityName(String townOrCityName) {
+        this.townOrCityName = townOrCityName;
+    }
+    
+    @Column(name = "STATE", length = 200)
+    public String getState() {
+        return this.state;
+    }
+    
+    public void setState(String state) {
+        this.state = state;
+    }
+    
+    @Column(name = "STATE_OR_PROVINCE_NAME", length = 250)
+    public String getStateOrProvinceName() {
+        return this.stateOrProvinceName;
+    }
+    
+    public void setStateOrProvinceName(String stateOrProvinceName) {
+        this.stateOrProvinceName = stateOrProvinceName;
+    }
+    
+    @Temporal(TemporalType.DATE)
+    @Column(name = "START_DT", length = 7)
+    public Date getStartDt() {
+        return this.startDt;
+    }
+    
+    public void setStartDt(Date startDt) {
+        this.startDt = startDt;
+    }
+    
+    @Temporal(TemporalType.DATE)
+    @Column(name = "END_DT", length = 7)
+    public Date getEndDt() {
+        return this.endDt;
+    }
+    
+    public void setEndDt(Date endDt) {
+        this.endDt = endDt;
+    }
+    
 }

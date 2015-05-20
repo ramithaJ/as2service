@@ -16,69 +16,69 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "ROLE_PERMISSIONS")
 public class RolePermissions implements java.io.Serializable {
-
-	private RolePermissionsId id;
-	private Roles roles;
-	private Permissions permissions;
-	private String roleLevelDataAccess;
-
-	public RolePermissions() {
-	}
-
-	public RolePermissions(RolePermissionsId id, Roles roles,
-			Permissions permissions) {
-		this.id = id;
-		this.roles = roles;
-		this.permissions = permissions;
-	}
-
-	public RolePermissions(RolePermissionsId id, Roles roles,
-			Permissions permissions, String roleLevelDataAccess) {
-		this.id = id;
-		this.roles = roles;
-		this.permissions = permissions;
-		this.roleLevelDataAccess = roleLevelDataAccess;
-	}
-
-	@EmbeddedId
-	@AttributeOverrides({
-			@AttributeOverride(name = "roleId", column = @Column(name = "ROLE_ID", nullable = false, precision = 22, scale = 0)),
-			@AttributeOverride(name = "permissionId", column = @Column(name = "PERMISSION_ID", nullable = false, precision = 22, scale = 0)) })
-	public RolePermissionsId getId() {
-		return this.id;
-	}
-
-	public void setId(RolePermissionsId id) {
-		this.id = id;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ROLE_ID", nullable = false, insertable = false, updatable = false)
-	public Roles getRoles() {
-		return this.roles;
-	}
-
-	public void setRoles(Roles roles) {
-		this.roles = roles;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "PERMISSION_ID", nullable = false, insertable = false, updatable = false)
-	public Permissions getPermissions() {
-		return this.permissions;
-	}
-
-	public void setPermissions(Permissions permissions) {
-		this.permissions = permissions;
-	}
-
-	@Column(name = "ROLE_LEVEL_DATA_ACCESS", length = 500)
-	public String getRoleLevelDataAccess() {
-		return this.roleLevelDataAccess;
-	}
-
-	public void setRoleLevelDataAccess(String roleLevelDataAccess) {
-		this.roleLevelDataAccess = roleLevelDataAccess;
-	}
-
+    
+    private RolePermissionsId id;
+    private Roles roles;
+    private Permissions permissions;
+    private String roleLevelDataAccess;
+    
+    public RolePermissions() {
+    }
+    
+    public RolePermissions(RolePermissionsId id, Roles roles,
+            Permissions permissions) {
+        this.id = id;
+        this.roles = roles;
+        this.permissions = permissions;
+    }
+    
+    public RolePermissions(RolePermissionsId id, Roles roles,
+            Permissions permissions, String roleLevelDataAccess) {
+        this.id = id;
+        this.roles = roles;
+        this.permissions = permissions;
+        this.roleLevelDataAccess = roleLevelDataAccess;
+    }
+    
+    @EmbeddedId
+    @AttributeOverrides({
+            @AttributeOverride(name = "roleId", column = @Column(name = "ROLE_ID", nullable = false, precision = 22, scale = 0)),
+            @AttributeOverride(name = "permissionId", column = @Column(name = "PERMISSION_ID", nullable = false, precision = 22, scale = 0)) })
+    public RolePermissionsId getId() {
+        return this.id;
+    }
+    
+    public void setId(RolePermissionsId id) {
+        this.id = id;
+    }
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ROLE_ID", nullable = false, insertable = false, updatable = false)
+    public Roles getRoles() {
+        return this.roles;
+    }
+    
+    public void setRoles(Roles roles) {
+        this.roles = roles;
+    }
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PERMISSION_ID", nullable = false, insertable = false, updatable = false)
+    public Permissions getPermissions() {
+        return this.permissions;
+    }
+    
+    public void setPermissions(Permissions permissions) {
+        this.permissions = permissions;
+    }
+    
+    @Column(name = "ROLE_LEVEL_DATA_ACCESS", length = 500)
+    public String getRoleLevelDataAccess() {
+        return this.roleLevelDataAccess;
+    }
+    
+    public void setRoleLevelDataAccess(String roleLevelDataAccess) {
+        this.roleLevelDataAccess = roleLevelDataAccess;
+    }
+    
 }
