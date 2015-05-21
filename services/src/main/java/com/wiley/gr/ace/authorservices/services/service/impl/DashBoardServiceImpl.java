@@ -38,99 +38,93 @@ import com.wiley.gr.ace.authorservices.services.service.DashBoardService;
  */
 public class DashBoardServiceImpl implements DashBoardService {
 
-	@Autowired(required = true)
-	private CDMInterfaceService cdmIntefaceService;
-	@Autowired(required = true)
-	private ALMInterfaceService almIntefaceService;
+    @Autowired(required = true)
+    private CDMInterfaceService cdmIntefaceService;
+    @Autowired(required = true)
+    private ALMInterfaceService almIntefaceService;
 
-	/**
-	 * @param userId
-	 *            to get the data from DashBoardDAO
-	 * @return DashBoardInfo
-	 */
-	public DashBoard getProfileMeter(String userId) throws Exception {
-		List<DashBoardInfo> dashBoardInfoList = new ArrayList<DashBoardInfo>();
-		DashBoardInfo dashBoardInfo = null;
-		DashBoard dashBoard = null;
-		if (!StringUtils.isEmpty(userId)) {
-			SecurityDetailsHolder securityDetailsHolder = almIntefaceService
-					.getSecurityDetails(userId);
-			List<SecurityDetails> securityDetailsList = securityDetailsHolder
-					.getSecurityDetails();
-			if (null != securityDetailsList) {
-				for (SecurityDetails securityDetails : securityDetailsList) {
-					if (StringUtils.isEmpty(securityDetails
-							.getSecurityQuestion())
-							|| StringUtils.isEmpty(securityDetails
-									.getSecurityAnswer())) {
-						dashBoardInfo = new DashBoardInfo();
-						dashBoardInfo.setId("security");
-						dashBoardInfo
-								.setDashBoardInfoMessage("No Security Details");
-						dashBoardInfoList.add(dashBoardInfo);
-						break;
-					}
-				}
-			}
-			LookUpProfile lookUpProfile = cdmIntefaceService
-					.lookUpProfile(userId);
-			UserProfile userProfile = lookUpProfile.getUserProfile();
-			User user = userProfile.getProfileInformation();
-			if (StringUtils.isEmpty(user.getRecoveryEmailAddress())) {
-				dashBoardInfo = new DashBoardInfo();
-				dashBoardInfo.setId("secondaryEmailAddr");
-				dashBoardInfo
-						.setDashBoardInfoMessage("No Secondary Email(Recovery Email Addr)");
-				dashBoardInfoList.add(dashBoardInfo);
-			}
-			if (StringUtils.isEmpty(user.getOrcidID())) {
-				dashBoardInfo = new DashBoardInfo();
-				dashBoardInfo.setId("OrcidId");
-				dashBoardInfo.setDashBoardInfoMessage("No Orcid ID");
-				dashBoardInfoList.add(dashBoardInfo);
-			}
-			List<Interests> userInterestsList = userProfile.getInterests();
-			if (null != userInterestsList && userInterestsList.size() == 0) {
-				dashBoardInfo = new DashBoardInfo();
-				dashBoardInfo.setId("Interests");
-				dashBoardInfo
-						.setDashBoardInfoMessage("No Areas Of Expertizes(Interests) Details");
-				dashBoardInfoList.add(dashBoardInfo);
-			}
-			List<Affiliation> userAffiliationsList = userProfile
-					.getAffiliations();
-			if (null != userAffiliationsList
-					&& userAffiliationsList.size() == 0) {
-				dashBoardInfo = new DashBoardInfo();
-				dashBoardInfo.setId("Affiliation");
-				dashBoardInfo.setDashBoardInfoMessage("No Affiliation Details");
-				dashBoardInfoList.add(dashBoardInfo);
-			}
-			List<Society> societyList = userProfile.getSocieties();
-			if (null != societyList && societyList.size() == 0) {
-				dashBoardInfo = new DashBoardInfo();
-				dashBoardInfo.setId("Society");
-				dashBoardInfo.setDashBoardInfoMessage("No Society Details");
-				dashBoardInfoList.add(dashBoardInfo);
-			}
-			List<ResearchFunder> researchFundersList = userProfile
-					.getResearchFunders();
-			if (null != researchFundersList && researchFundersList.size() == 0) {
-				dashBoardInfo = new DashBoardInfo();
-				dashBoardInfo.setId("ResearchFunder");
-				dashBoardInfo
-						.setDashBoardInfoMessage("No Research Funders Details");
-				dashBoardInfoList.add(dashBoardInfo);
-			}
-			dashBoard = new DashBoard();
-			if (null != dashBoardInfoList && dashBoardInfoList.size() == 0) {
-				dashBoard.setProfileMeterMessage("Profile Completed");
-				dashBoard.setDashBoardInfo(dashBoardInfoList);
-			} else {
-				dashBoard.setProfileMeterMessage("");
-				dashBoard.setDashBoardInfo(dashBoardInfoList);
-			}
-		}
-		return dashBoard;
-	}
+    /**
+     * @param userId
+     *            to get the data from DashBoardDAO
+     * @return DashBoardInfo
+     */
+    public DashBoard getProfileMeter(String userId) throws NullPointerException {
+        List<DashBoardInfo> dashBoardInfoList = new ArrayList<DashBoardInfo>();
+        DashBoardInfo dashBoardInfo = null;
+        DashBoard dashBoard = null;
+        SecurityDetailsHolder securityDetailsHolder = almIntefaceService
+                .getSecurityDetails(userId);
+        List<SecurityDetails> securityDetailsList = securityDetailsHolder
+                .getSecurityDetails();
+        if (null != securityDetailsList) {
+            for (SecurityDetails securityDetails : securityDetailsList) {
+                if (StringUtils.isEmpty(securityDetails.getSecurityQuestion())
+                        || StringUtils.isEmpty(securityDetails
+                                .getSecurityAnswer())) {
+                    dashBoardInfo = new DashBoardInfo();
+                    dashBoardInfo.setId("security");
+                    dashBoardInfo
+                            .setDashBoardInfoMessage("No Security Details");
+                    dashBoardInfoList.add(dashBoardInfo);
+                    break;
+                }
+            }
+        }
+        LookUpProfile lookUpProfile = cdmIntefaceService.lookUpProfile(userId);
+        UserProfile userProfile = lookUpProfile.getUserProfile();
+        User user = userProfile.getProfileInformation();
+        if (StringUtils.isEmpty(user.getRecoveryEmailAddress())) {
+            dashBoardInfo = new DashBoardInfo();
+            dashBoardInfo.setId("secondaryEmailAddr");
+            dashBoardInfo
+                    .setDashBoardInfoMessage("No Secondary Email(Recovery Email Addr)");
+            dashBoardInfoList.add(dashBoardInfo);
+        }
+        if (StringUtils.isEmpty(user.getOrcidID())) {
+            dashBoardInfo = new DashBoardInfo();
+            dashBoardInfo.setId("OrcidId");
+            dashBoardInfo.setDashBoardInfoMessage("No Orcid ID");
+            dashBoardInfoList.add(dashBoardInfo);
+        }
+        List<Interests> userInterestsList = userProfile.getInterests();
+        if (null != userInterestsList && userInterestsList.isEmpty()) {
+            dashBoardInfo = new DashBoardInfo();
+            dashBoardInfo.setId("Interests");
+            dashBoardInfo
+                    .setDashBoardInfoMessage("No Areas Of Expertizes(Interests) Details");
+            dashBoardInfoList.add(dashBoardInfo);
+        }
+        List<Affiliation> userAffiliationsList = userProfile.getAffiliations();
+        if (null != userAffiliationsList && userAffiliationsList.isEmpty()) {
+            dashBoardInfo = new DashBoardInfo();
+            dashBoardInfo.setId("Affiliation");
+            dashBoardInfo.setDashBoardInfoMessage("No Affiliation Details");
+            dashBoardInfoList.add(dashBoardInfo);
+        }
+        List<Society> societyList = userProfile.getSocieties();
+        if (null != societyList && societyList.isEmpty()) {
+            dashBoardInfo = new DashBoardInfo();
+            dashBoardInfo.setId("Society");
+            dashBoardInfo.setDashBoardInfoMessage("No Society Details");
+            dashBoardInfoList.add(dashBoardInfo);
+        }
+        List<ResearchFunder> researchFundersList = userProfile
+                .getResearchFunders();
+        if (null != researchFundersList && researchFundersList.isEmpty()) {
+            dashBoardInfo = new DashBoardInfo();
+            dashBoardInfo.setId("ResearchFunder");
+            dashBoardInfo
+                    .setDashBoardInfoMessage("No Research Funders Details");
+            dashBoardInfoList.add(dashBoardInfo);
+        }
+        dashBoard = new DashBoard();
+        if (null != dashBoardInfoList && dashBoardInfoList.isEmpty()) {
+            dashBoard.setProfileMeterMessage("Profile Completed");
+            dashBoard.setDashBoardInfo(dashBoardInfoList);
+        } else {
+            dashBoard.setProfileMeterMessage("");
+            dashBoard.setDashBoardInfo(dashBoardInfoList);
+        }
+        return dashBoard;
+    }
 }
