@@ -11,6 +11,7 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
+import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 
 /**
@@ -40,17 +41,14 @@ public interface ALMInterfaceService {
      * @param newPassword
      * @return
      */
-    boolean updatePassword(String emailId, String oldPassword,
-            String newPassword);
+    boolean updatePassword(PasswordDetails passwordDetails);
     
     /**
      * @param emailId
      * @param newPassword
      * @return
      */
-    boolean resetPassword(String emailId, String securityQuestion1,
-            String answer1, String securityQuestion2, String answer2,
-            String password);
+    boolean resetPassword(SecurityDetailsHolder securityDetailsHolder);
     
     /**
      * @param oldEmailId
@@ -88,5 +86,7 @@ public interface ALMInterfaceService {
      * @return SecurityDetailsHolder
      */
     SecurityDetailsHolder getSecurityQuestions(String emailId);
+    
+    boolean updateSecurityDetails(SecurityDetailsHolder securityDetails);
     
 }

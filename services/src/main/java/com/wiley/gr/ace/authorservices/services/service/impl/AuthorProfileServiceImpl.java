@@ -23,7 +23,9 @@ import com.wiley.gr.ace.authorservices.model.Addresses;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.Alert;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
+import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
+import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserProfile;
@@ -131,6 +133,18 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     public boolean updateUserId(String oldEmailId, String newEmailId) {
 
         return almService.updateUserId(oldEmailId, newEmailId);
+    }
+    
+    @Override
+    public boolean updatePassword(PasswordDetails passwordDetails) {
+        
+        return almService.updatePassword(passwordDetails);
+    }
+
+    @Override
+    public boolean updateSecurityDetails(SecurityDetailsHolder securityDetails) {
+
+        return almService.updateSecurityDetails(securityDetails);
     }
     
 }

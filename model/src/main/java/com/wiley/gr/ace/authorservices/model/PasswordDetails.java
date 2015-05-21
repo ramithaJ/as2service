@@ -13,6 +13,7 @@ package com.wiley.gr.ace.authorservices.model;
 
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -20,9 +21,12 @@ import org.hibernate.validator.constraints.NotBlank;
  */
 public class PasswordDetails {
     
+    private String userId;
+    
     @NotNull
     @NotBlank
-    private String userId;
+    @Email
+    private String emailId;
     
     @NotNull
     @NotBlank
@@ -66,6 +70,14 @@ public class PasswordDetails {
     
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getEmailId() {
+        return emailId;
+    }
+
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
     }
     
 }

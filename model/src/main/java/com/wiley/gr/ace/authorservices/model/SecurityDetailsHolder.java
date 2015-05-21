@@ -20,7 +20,11 @@ import java.util.List;
  */
 public class SecurityDetailsHolder implements Serializable {
     
+    private String emailId;
+    
     private List<SecurityDetails> securityDetails = new ArrayList<SecurityDetails>();
+    
+    private String password;
     
     /**
      * @return
@@ -35,5 +39,22 @@ public class SecurityDetailsHolder implements Serializable {
     public void setSecurityDetails(List<SecurityDetails> securityDetails) {
         this.securityDetails = securityDetails;
     }
+
+    public String getEmailId() {
+        return emailId;
+    }
+
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
     
 }

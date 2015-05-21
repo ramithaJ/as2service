@@ -13,7 +13,6 @@ package com.wiley.gr.ace.authorservices.services.service;
 
 import java.util.List;
 
-import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.UserMgmt;
@@ -33,17 +32,11 @@ public interface UserLoginService {
     UserMgmt doLogin(String emailId, String password);
     
     /**
-     * @param password
-     * @return
-     */
-    boolean updatePassword(PasswordDetails passwordDetails);
-    
-    /**
      * @param emailId
      * @param newPassword
      * @return
      */
-    boolean resetPassword(String emailId, String newPassword);
+    boolean resetPassword(SecurityDetailsHolder securityDetailsHolder);
     
     /**
      * @param userId
@@ -64,6 +57,10 @@ public interface UserLoginService {
      * @return
      */
     boolean lockUser(int userId);
+    
+    boolean lockUser(String emailId);
+    
+    boolean unLockUser(String emailId);
     
     /**
      * @param userId

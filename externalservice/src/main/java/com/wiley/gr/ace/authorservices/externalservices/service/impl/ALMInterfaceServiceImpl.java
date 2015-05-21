@@ -23,6 +23,7 @@ import org.springframework.web.client.RestTemplate;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
+import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Service;
 
@@ -82,35 +83,11 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
      * (non-Javadoc)
      * @see
      * com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService
-     * #updatePassword(java.lang.String, java.lang.String, java.lang.String)
-     */
-    @Override
-    public boolean updatePassword(String userId, String oldPassword,
-            String newPassword) {
-        
-        final String url = "http://demo6374909.mockable.io/user/updatePassword";
-        Service service = (Service) StubInvokerUtil.invokeStub(url,
-                HttpMethod.POST, "Service");
-        String status = service.getStatus();
-        
-        if (status != null && status.equalsIgnoreCase("success")) {
-            
-            return true;
-        }
-        return false;
-    }
-    
-    /*
-     * (non-Javadoc)
-     * @see
-     * com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService
      * #resetPassword(java.lang.String, java.lang.String, java.lang.String,
      * java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public boolean resetPassword(String emailId, String securityQuestion1,
-            String answer1, String securityQuestion2, String answer2,
-            String password) {
+    public boolean resetPassword(SecurityDetailsHolder securityDetailsHolder) {
         
         final String url = "http://demo6003007.mockable.io/user/resetPassword";
         Service service = (Service) StubInvokerUtil.invokeStub(url,
@@ -252,6 +229,36 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
 
             throw new ASException();
         }
+    }
+
+    @Override
+    public boolean updatePassword(PasswordDetails passwordDetails) {
+
+        final String url = "http://demo6374909.mockable.io/user/updatePassword";
+        Service service = (Service) StubInvokerUtil.invokeStub(url,
+                HttpMethod.POST, "Service");
+        String status = service.getStatus();
+        
+        if (status != null && status.equalsIgnoreCase("success")) {
+            
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateSecurityDetails(SecurityDetailsHolder securityDetails) {
+        
+        final String url = "http://demo6374909.mockable.io/user/updateSecurityDetails";
+        Service service = (Service) StubInvokerUtil.invokeStub(url,
+                HttpMethod.POST, "Service");
+        String status = service.getStatus();
+        
+        if (status != null && status.equalsIgnoreCase("success")) {
+            
+            return true;
+        }
+        return false;
     }
     
 }

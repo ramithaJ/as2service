@@ -11,8 +11,6 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.web.controllers;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -123,16 +121,24 @@ public class UserAccountController {
      *            - it is a JSON array having security questions and answers.
      * @return
      */
-    @RequestMapping(value = "/secutiryDetails/update/{userId}", method = RequestMethod.POST)
-    public Service updateSecurityDetails(@PathVariable("userId") String userId,
-            @Valid @RequestBody SecurityDetailsHolder securityDetails) {
+    @RequestMapping(value = "/secutiryDetails/update", method = RequestMethod.POST)
+    public Service updateSecurityDetails(@RequestBody SecurityDetailsHolder securityDetails) {
         
         Service service = new Service();
         service.setStatus("Success");
-        service.setPayload(userAccountService.updateSecurityDetails(userId,
-                securityDetails.getSecurityDetails()));
+        service.setPayload(authorProfileService.updateSecurityDetails(securityDetails));
         return service;
         
+    }
+    
+    @RequestMapping(value = "/updateUserId/{oldEmailId}/{newEmailId}", method = RequestMethod.POST)
+    public Service updateUserId(@PathVariable("oldEmailId") String oldEmailId,
+            @PathVariable("newEmailId") String newEmailId) {
+        
+        Service service = new Service();
+        service.setStatus("success");
+        service.setPayload(authorProfileService.updateUserId(oldEmailId, newEmailId));
+        return service;
     }
     
 }

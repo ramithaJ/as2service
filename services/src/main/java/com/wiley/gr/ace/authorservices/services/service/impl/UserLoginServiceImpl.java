@@ -19,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
-import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.UserMgmt;
@@ -157,21 +156,6 @@ public class UserLoginServiceImpl implements UserLoginService {
     }
     
     /**
-     * this method will update the password at user profile level.
-     * 
-     * @param emailId
-     * @param passwordDetails
-     * @return
-     */
-    @Override
-    public boolean updatePassword(PasswordDetails passwordDetails) {
-        
-        return almService.updatePassword(passwordDetails.getUserId(),
-                passwordDetails.getOldPassword(),
-                passwordDetails.getNewPassword());
-    }
-    
-    /**
      * @param emailId
      * @param securityDetails
      * @return
@@ -293,14 +277,26 @@ public class UserLoginServiceImpl implements UserLoginService {
      * @return
      */
     @Override
-    public boolean resetPassword(String emailId, String newPassword) {
+    public boolean resetPassword(SecurityDetailsHolder securityDetailsHolder) {
         
-        return true;
+        return almService.resetPassword(securityDetailsHolder);
     }
     
     @Override
     public SecurityDetailsHolder securityQuestions(String emailId) {
         
         return almService.getSecurityQuestions(emailId);
+    }
+
+    @Override
+    public boolean lockUser(String emailId) {
+
+        return almService.lockUser(emailId);
+    }
+
+    @Override
+    public boolean unLockUser(String emailId) {
+
+        return almService.unLockUser(emailId);
     }
 }

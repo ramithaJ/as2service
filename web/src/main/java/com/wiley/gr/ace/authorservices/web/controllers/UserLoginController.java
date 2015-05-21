@@ -94,10 +94,10 @@ public class UserLoginController extends ASExceptionController {
      * @return
      */
     @RequestMapping(value = "/password/reset", method = RequestMethod.POST)
-    public Service resetPassword(@Valid @RequestBody Login login) {
+    public Service resetPassword(@RequestBody SecurityDetailsHolder securityDetailsHolder) {
         
         Service service = new Service();
-        userLoginService.resetPassword(login.getEmailId(), login.getPassword());
+        service.setPayload(userLoginService.resetPassword(securityDetailsHolder));
         service.setStatus("Success");
         return service;
         
@@ -115,7 +115,7 @@ public class UserLoginController extends ASExceptionController {
             @Valid @RequestBody PasswordDetails passwordDetails) {
         
         Service service = new Service();
-        userLoginService.updatePassword(passwordDetails);
+        service.setPayload(authorProfileService.updatePassword(passwordDetails));
         service.setStatus("Success");
         return service;
         
@@ -171,13 +171,23 @@ public class UserLoginController extends ASExceptionController {
         
     }
     
-    @RequestMapping(value = "/updateUserId/{oldEmailId}/{newEmailId}", method = RequestMethod.POST)
-    public Service updateUserId(@PathVariable("oldEmailId") String oldEmailId,
-            @PathVariable("newEmailId") String newEmailId) {
+    @RequestMapping(value = "/lockUser/{emailId}", method = RequestMethod.POST)
+    public Service lockUser(@PathVariable("emailId") String emailId) {
         
         Service service = new Service();
         service.setStatus("success");
-        service.setPayload(authorProfileService.updateUserId(oldEmailId, newEmailId));
+        service.setPayload(userLoginService.lockUser(emailId));
         return service;
+        
+    }
+    
+    @RequestMapping(value = "/unLockUser/{emailId}", method = RequestMethod.POST)
+    public Service unLockUser(@PathVariable("emailId") String emailId) {
+        
+        Service service = new Service();
+        service.setStatus("success");
+        service.setPayload(userLoginService.unLockUser(emailId));
+        return service;
+        
     }
 }
