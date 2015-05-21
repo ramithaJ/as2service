@@ -124,12 +124,10 @@ public class DashBoardServiceImpl implements DashBoardService {
 			}
 			dashBoard = new DashBoard();
 			if (null != dashBoardInfoList && dashBoardInfoList.size() == 0) {
+				dashBoard.setProfileMeterMessage("Profile Completed");
 				dashBoard.setDashBoardInfo(dashBoardInfoList);
-				String profileMeterMesaage="Profile Completed";
-				dashBoard.setProfileMeterMessage(profileMeterMesaage);
 			} else {
-				String profileMeterMesaage="";
-				dashBoard.setProfileMeterMessage(profileMeterMesaage);
+				dashBoard.setProfileMeterMessage("");
 				dashBoard.setDashBoardInfo(dashBoardInfoList);
 			}
 		}
