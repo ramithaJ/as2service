@@ -48,17 +48,18 @@ public class SocietyDetailsDaoImpl implements SocietyDetailsDao {
             
             userSocietyDetails = session.createQuery(hql)
                     .setString("userId", userId).list();
-            if (userSocietyDetails.size() == 0) {
+            if (userSocietyDetails.isEmpty()) {
                 
                 throw new ASException("1914",
                         "Requested User id Doesn't exist please contact Support team");
             }
             
         } finally {
-            if (null != session)
+            if (null != session){
                 session.getTransaction().commit();
             session.flush();
             session.close();
+            }
             
         }
         
@@ -89,15 +90,13 @@ public class SocietyDetailsDaoImpl implements SocietyDetailsDao {
                 throw new ASException("45345",
                         "Delete Record Failed please Check With Support Team");
             }
-        }
-        
-        finally {
+        } finally {
             if (null != session)
-                
+            {
                 session.flush();
             session.getTransaction().commit();
             session.close();
-            
+            } 
         }
         
         return true;
@@ -119,11 +118,11 @@ public class SocietyDetailsDaoImpl implements SocietyDetailsDao {
             session.saveOrUpdate(userSocietyDetails);
             
         } finally {
-            if (null != session)
+            if (null != session){
                 session.flush();
             session.getTransaction().commit();
             session.close();
-            
+            } 
         }
         
     }

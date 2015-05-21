@@ -30,100 +30,96 @@ import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
  * @author RAVISINHA
  */
 public class UserLoginDaoImpl implements UserLoginDao {
-    
-    @Autowired(required = true)
-    HibernateConnection con;
-    
-    @Override
-    public boolean validateEmail(String emailId) {
-        boolean status = false;
-        int userId = getUserId(emailId);
-        
-        Session session = con.getSessionFactory().openSession();
-        Transaction txn = session.getTransaction();
-        txn.begin();
-        
-        AdminDetails adminDetails = (AdminDetails) session.get(
-                AdminDetails.class, userId);
-        
-        if (null != adminDetails) {
-            
-            status = true;
-        }
-        txn.commit();
-        session.flush();
-        
-        session.close();
-        return status;
-    }
-    
-    @Override
-    public boolean doLogin(String emailId) {
-        // boolean status = false;
-        Session session = con.getSessionFactory().openSession();
-        
-        AuthorProfile authorProfile = null;
-        
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-        Date date = new Date();
-        
-        String utildate = dateFormat.format(date);
-        
-        java.sql.Date.valueOf(utildate);
-        
-        System.out.println(utildate);
-        
-        int userId = getUserId(emailId);
-        
-        String hql = "from AuthorProfile where userId = :userId";
-        List<AuthorProfile> result = session.createQuery(hql)
-                .setInteger("userId", userId).list();
-        
-        if (null != result && result.size() > 0) {
-            authorProfile = result.get(0);
-        }
-        
-        if (authorProfile != null) {
-            authorProfile.setUpdatedBy("system");
-            authorProfile.setUpdatedDate(date);
-            authorProfile.setLastLoginDate(date);
-        }
-        
-        session.saveOrUpdate(authorProfile);
-        session.flush();
-        
-        session.close();
-        
-        return true;
-    }
-    
-    /**
-     * Method to get UserId using emailId
-     * 
-     * @param emailId
-     * @return
-     */
-    private int getUserId(String emailId) {
-        
-        Session session = con.getSessionFactory().openSession();
-        Users user = null;
-        int userId = 0;
-        
-        String hql = "from Users where emailAddr = :emailId";
-        List<Users> result = session.createQuery(hql)
-                .setString("emailId", emailId).list();
-        
-        if (result != null && result.size() > 0) {
-            
-            user = result.get(0);
-            userId = user.getUserId();
-        }
-        
-        session.flush();
-        session.close();
-        
-        return userId;
-        
-    }
-    
+
+	@Autowired(required = true)
+	HibernateConnection con;
+
+	@Override
+	public boolean validateEmail(String emailId) {
+		boolean status = false;
+		int userId = getUserId(emailId);
+
+		Session session = con.getSessionFactory().openSession();
+		Transaction txn = session.getTransaction();
+		txn.begin();
+
+		AdminDetails adminDetails = (AdminDetails) session.get(
+				AdminDetails.class, userId);
+
+		if (null != adminDetails) {
+
+			status = true;
+		}
+		txn.commit();
+		session.flush();
+
+		session.close();
+		return status;
+	}
+
+	@Override
+	public boolean doLogin(String emailId) {
+		Session session = con.getSessionFactory().openSession();
+
+		AuthorProfile authorProfile = null;
+
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+		Date date = new Date();
+
+		String utildate = dateFormat.format(date);
+
+		java.sql.Date.valueOf(utildate);
+		int userId = getUserId(emailId);
+
+		String hql = "from AuthorProfile where userId = :userId";
+		List<AuthorProfile> result = session.createQuery(hql)
+				.setInteger("userId", userId).list();
+
+		if (null != result && result.size() > 0) {
+			authorProfile = result.get(0);
+		}
+
+		if (authorProfile != null) {
+			authorProfile.setUpdatedBy("system");
+			authorProfile.setUpdatedDate(date);
+			authorProfile.setLastLoginDate(date);
+		}
+
+		session.saveOrUpdate(authorProfile);
+		session.flush();
+
+		session.close();
+
+		return true;
+	}
+
+	/**
+	 * Method to get UserId using emailId
+	 * 
+	 * @param emailId
+	 * @return
+	 */
+	private int getUserId(String emailId) {
+
+		Session session = con.getSessionFactory().openSession();
+		Users user = null;
+		int userId = 0;
+
+		String hql = "from Users where emailAddr = :emailId";
+		List<Users> result = session.createQuery(hql)
+				.setString("emailId", emailId).list();
+
+		if (result != null && result.size() > 0) {
+
+			user = result.get(0);
+			userId = user.getUserId();
+		}
+
+		session.flush();
+		session.close();
+
+		return userId;
+
+	}
+
 }
