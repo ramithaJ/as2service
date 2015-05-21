@@ -23,52 +23,52 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  */
 @JsonInclude(Include.NON_NULL)
 public class DashBoardInfo {
-	
-	/** The id. */
-	private String id;
-	
-	/** The dashBoardInfoMessage. */
-	private String dashBoardInfoMessage;
 
-	/**
-	 * Gets the dashBoardInfoMessage.
-	 *
-	 * @return the dashBoardInfoMessage
-	 * 
-	 */
-	public String getDashBoardInfoMessage() {
-		return dashBoardInfoMessage;
-	}
+    /** The id. */
+    private String id;
 
-	/**
-	 * Sets the dashBoardInfoMessage.
-	 *
-	 * @param the
-	 *            dashBoardInfoMessage
-	 * 
-	 */
-	public void setDashBoardInfoMessage(String dashBoardInfoMessage) {
-		this.dashBoardInfoMessage = dashBoardInfoMessage;
-	}
+    /** The dashBoardInfoMessage. */
+    private String dashBoardInfoMessage;
 
-	/**
-	 * Gets the id.
-	 *
-	 * @return the id
-	 * 
-	 */
-	public String getId() {
-		return id;
-	}
+    /**
+     * Gets the dashBoardInfoMessage.
+     *
+     * @return the dashBoardInfoMessage
+     * 
+     */
+    public String getDashBoardInfoMessage() {
+        return dashBoardInfoMessage;
+    }
 
-	/**
-	 * Sets the id.
-	 *
-	 * @param Id
-	 *            the new id
-	 */
-	public void setId(String id) {
-		this.id = id;
-	}
+    /**
+     * Sets the dashBoardInfoMessage.
+     *
+     * @param the
+     *            dashBoardInfoMessage
+     * 
+     */
+    public void setDashBoardInfoMessage(String dashBoardInfoMessage) {
+        this.dashBoardInfoMessage = dashBoardInfoMessage;
+    }
+
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     * 
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * Sets the id.
+     *
+     * @param Id
+     *            the new id
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
 
 }
