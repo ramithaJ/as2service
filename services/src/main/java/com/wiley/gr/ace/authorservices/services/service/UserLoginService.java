@@ -89,6 +89,6 @@ public interface UserLoginService {
      */
     void sendEmail(String userId, String templateId);
     
-    SecurityDetailsHolder securityDetails(String userId);
+    SecurityDetailsHolder securityDetails(String emailId);
     
 }

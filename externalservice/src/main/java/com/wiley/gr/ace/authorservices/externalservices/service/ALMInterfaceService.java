@@ -78,6 +78,6 @@ public interface ALMInterfaceService {
      */
     boolean unLockUser(String emailId);
     
-    SecurityDetailsHolder getSecurityDetails(String userId);
+    SecurityDetailsHolder getSecurityDetails(String emailId);
     
 }
