@@ -42,13 +42,11 @@ public class UserLoginDaoImpl implements UserLoginDao {
         Session session = con.getSessionFactory().openSession();
         Transaction txn = session.getTransaction();
         txn.begin();
-        System.err.println("user id" + userId);
         
         AdminDetails adminDetails = (AdminDetails) session.get(
                 AdminDetails.class, userId);
         
         if (null != adminDetails) {
-            System.err.println(adminDetails.getAdminUserId());
             
             status = true;
         }
