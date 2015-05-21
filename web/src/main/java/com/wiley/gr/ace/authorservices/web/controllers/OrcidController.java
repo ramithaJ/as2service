@@ -105,7 +105,7 @@ public class OrcidController {
                 }
             }
         } catch (Exception e) {
-            LOGGER.error("Initial SessionFactory creation failed.", e);
+            LOGGER.error("Stack Trace-.", e);
             ErrorPOJO error = new ErrorPOJO();
             error.setCode(-101); // Need to set proper error code this one is
                                  // dummy
