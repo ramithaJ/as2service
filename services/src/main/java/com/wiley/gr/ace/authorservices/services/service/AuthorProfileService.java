@@ -40,4 +40,6 @@ public interface AuthorProfileService {
     
     boolean updateUserProfileInfo(User user);
     
+    boolean updateUserId(String oldEmailId, String newEmailId);
+    
 }

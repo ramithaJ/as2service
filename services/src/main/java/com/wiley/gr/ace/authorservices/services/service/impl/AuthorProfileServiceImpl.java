@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
 import com.wiley.gr.ace.authorservices.model.Addresses;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
@@ -33,6 +34,9 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     
     @Autowired
     CDMInterfaceService cdmservices;
+    
+    @Autowired
+    ALMInterfaceService almService;
     
     @Override
     public boolean updateSocietyDetails(Society society) {
@@ -121,6 +125,12 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         userProfile.setProfileInformation(user);
         lookUpProfile.setUserProfile(userProfile);
         return cdmservices.updateProfile(lookUpProfile);
+    }
+
+    @Override
+    public boolean updateUserId(String oldEmailId, String newEmailId) {
+
+        return almService.updateUserId(oldEmailId, newEmailId);
     }
     
 }

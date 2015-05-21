@@ -27,6 +27,7 @@ import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.User;
+import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 
 /**
@@ -41,6 +42,9 @@ public class UserLoginController extends ASExceptionController {
     
     @Autowired(required = true)
     LocalValidatorFactoryBean validator;
+    
+    @Autowired
+    AuthorProfileService authorProfileService;
     
     /**
      * This method will authenticate the user based on email id and password
@@ -158,12 +162,22 @@ public class UserLoginController extends ASExceptionController {
     }
     
     @RequestMapping(value = "/userSecurityQuestions/{emailId}", method = RequestMethod.GET)
-    public Service securityDetails(@PathVariable("emailId") String emailId) {
+    public Service userSecurityQuestions(@PathVariable("emailId") String emailId) {
         
         Service service = new Service();
         service.setStatus("success");
-        service.setPayload(userLoginService.securityDetails(emailId));
+        service.setPayload(userLoginService.securityQuestions(emailId));
         return service;
         
+    }
+    
+    @RequestMapping(value = "/updateUserId/{oldEmailId}/{newEmailId}", method = RequestMethod.POST)
+    public Service updateUserId(@PathVariable("oldEmailId") String oldEmailId,
+            @PathVariable("newEmailId") String newEmailId) {
+        
+        Service service = new Service();
+        service.setStatus("success");
+        service.setPayload(authorProfileService.updateUserId(oldEmailId, newEmailId));
+        return service;
     }
 }
