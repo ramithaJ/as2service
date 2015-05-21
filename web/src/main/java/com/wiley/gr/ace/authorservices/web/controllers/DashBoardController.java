@@ -51,7 +51,7 @@ public class DashBoardController {
         try {
             dashBoard = dashBoardService.getProfileMeter(userId);
             if (!StringUtils.isEmpty(dashBoard)) {
-                if (dashBoard.getDashBoardInfo().size() == 0)
+                if (dashBoard.getDashBoardInfo().isEmpty())
                     service.setStatus("SUCCESS");
                 service.setPayload(dashBoard);
             } else {
@@ -60,10 +60,8 @@ public class DashBoardController {
             }
         } catch (Exception e) {
             ErrorPOJO error = new ErrorPOJO();
-            error.setCode(-101); // Need to set proper error code this one is
-                                 // dummy
+            error.setCode(-101);
             error.setMessage("Error fetching profile meter");
-
             service.setStatus("ERROR");
             service.setPayload(dashBoard);
             service.setError(error);
