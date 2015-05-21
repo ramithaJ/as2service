@@ -157,12 +157,12 @@ public class UserLoginController extends ASExceptionController {
         return service;
     }
     
-    @RequestMapping(value = "/securityDetails/{userId}", method = RequestMethod.GET)
-    public Service securityDetails(@PathVariable("userId") String userId) {
+    @RequestMapping(value = "/userSecurityQuestions/{emailId}", method = RequestMethod.GET)
+    public Service securityDetails(@PathVariable("emailId") String emailId) {
         
         Service service = new Service();
         service.setStatus("success");
-        service.setPayload(userLoginService.securityDetails(userId));
+        service.setPayload(userLoginService.securityDetails(emailId));
         return service;
         
     }

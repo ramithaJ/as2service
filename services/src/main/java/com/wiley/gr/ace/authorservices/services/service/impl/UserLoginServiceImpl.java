@@ -299,8 +299,8 @@ public class UserLoginServiceImpl implements UserLoginService {
     }
     
     @Override
-    public SecurityDetailsHolder securityDetails(String userId) {
+    public SecurityDetailsHolder securityDetails(String emailId) {
         
-        return almService.getSecurityDetails(userId);
+        return almService.getSecurityDetails(emailId);
     }
 }
