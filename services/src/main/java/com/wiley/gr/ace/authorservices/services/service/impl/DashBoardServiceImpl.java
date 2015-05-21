@@ -45,8 +45,8 @@ public class DashBoardServiceImpl implements DashBoardService {
 
     /**
      * @param userId
-     *            to get the data from DashBoardDAO
-     * @return DashBoardInfo
+     *            to get the data from ExternalService
+     * @return DashBoard
      */
     public DashBoard getProfileMeter(String userId) throws NullPointerException {
         List<DashBoardInfo> dashBoardInfoList = new ArrayList<DashBoardInfo>();
