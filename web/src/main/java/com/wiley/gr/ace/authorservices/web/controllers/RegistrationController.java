@@ -80,7 +80,7 @@ public class RegistrationController {
                 service.setStatus("SUCCESS");
             }
         } catch (Exception e) {
-            LOGGER.error("Initial SessionFactory creation failed.", e);
+            LOGGER.error("Print Stack Trace- ", e);
             ErrorPOJO err = new ErrorPOJO();
             err.setCode(204);
             err.setMessage("searching user encountered exception");
@@ -123,7 +123,7 @@ public class RegistrationController {
                 }
             } catch (Exception e) {
                 
-                LOGGER.error("Initial SessionFactory creation failed.", e);
+                LOGGER.error("Stack Trace", e);
                 ErrorPOJO err = new ErrorPOJO();
                 err.setCode(204);
                 err.setMessage("searching user encountered exception");

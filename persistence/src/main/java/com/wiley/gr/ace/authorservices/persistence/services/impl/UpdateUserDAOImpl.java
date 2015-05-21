@@ -77,7 +77,7 @@ public class UpdateUserDAOImpl implements UpdateUserDAO {
             if (updateTxn != null)
                 updateTxn.rollback();
             user = null;
-            LOGGER.error("Initial SessionFactory creation failed.", e);
+            LOGGER.error("Stack Trace- .", e);
             throw new Exception();
         } finally {
             session.close();
@@ -118,7 +118,7 @@ public class UpdateUserDAOImpl implements UpdateUserDAO {
         } catch (Exception e) {
             txn.rollback();
             status = "";
-            LOGGER.error("Initial SessionFactory creation failed.", e);
+            LOGGER.error("Print Stack Trace- ", e);
             throw new Exception();
         } finally {
             session.close();

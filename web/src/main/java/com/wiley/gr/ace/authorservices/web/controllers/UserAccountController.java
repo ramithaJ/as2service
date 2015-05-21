@@ -101,7 +101,7 @@ public class UserAccountController {
     public Service getUserAddresses(@PathVariable("userId") String userId) {
         
         Service service = new Service();
-        service.setPayload(userAccountService.getEmailDetails(userId));
+        service.setPayload(userAccountService.getUserAddress(userId));
         return service;
     }
     

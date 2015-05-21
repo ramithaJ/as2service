@@ -13,6 +13,7 @@ package com.wiley.gr.ace.authorservices.services.service;
 
 import java.util.List;
 
+import com.wiley.gr.ace.authorservices.model.Addresses;
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.User;
 
@@ -21,19 +22,12 @@ import com.wiley.gr.ace.authorservices.model.User;
  */
 public interface UserAccountService {
     
-    /**
-     * @param userId
-     * @return
-     */
     User getEmailDetails(String userId);
     
-    /**
-     * @param userId
-     * @param securityDetails
-     * @return
-     */
     boolean updateSecurityDetails(String userId,
             List<SecurityDetails> securityDetails);
     
     User getProfileInformation(String userId);
+    
+    List<Addresses> getUserAddress(String userId);
 }
