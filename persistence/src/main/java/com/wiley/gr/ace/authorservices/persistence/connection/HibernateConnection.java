@@ -31,7 +31,7 @@ public class HibernateConnection {
             LOGGER.info("Hibernate Configuration loaded");
             
             return configuration.buildSessionFactory(builder.build());
-        } catch (Throwable ex) {
+        } catch (Exception ex) {
             LOGGER.error("Initial SessionFactory creation failed.", ex);
             throw new ExceptionInInitializerError(ex);
         }
