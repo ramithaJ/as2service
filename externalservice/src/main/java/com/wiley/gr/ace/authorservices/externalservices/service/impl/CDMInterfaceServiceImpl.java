@@ -23,29 +23,25 @@ import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
  * @author RAVISINHA
  */
 public class CDMInterfaceServiceImpl implements CDMInterfaceService {
-    
+
     /*
      * (non-Javadoc)
+     * 
      * @see
      * com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService
      * #lookUpProfile(java.lang.String)
      */
-	@Override
-	public LookUpProfile lookUpProfile(String userId) {
+    @Override
+    public LookUpProfile lookUpProfile(String userId) {
+        final String url = "http://demo7930138.mockable.io/user/LookUpProfile";
+        LookUpProfile lookupProfile = (LookUpProfile) StubInvokerUtil
+                .invokeStub(url, HttpMethod.GET, "LookUpProfile");
+        return lookupProfile;
+    }
 
-//		final String url ="http://demo7930138.mockable.io/user/LookUpProfile";
-		final String url = "http://demo6374909.mockable.io/user/lookUpProfile";
-		
-		LookUpProfile lookupProfile = (LookUpProfile) StubInvokerUtil.invokeStub(url,
-				HttpMethod.GET, "LookUpProfile");
-		
-		return lookupProfile;
-		
-	}
-
-    
     /*
      * (non-Javadoc)
+     * 
      * @see
      * com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService
      * #
@@ -58,9 +54,9 @@ public class CDMInterfaceServiceImpl implements CDMInterfaceService {
         Service service = (Service) StubInvokerUtil.invokeStub(url,
                 HttpMethod.POST, "Service");
         String status = service.getStatus();
-        
+
         if (status != null && status.equalsIgnoreCase("success")) {
-            
+
             return true;
         }
         return false;

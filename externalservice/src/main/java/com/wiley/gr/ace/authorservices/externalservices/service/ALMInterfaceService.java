@@ -78,6 +78,15 @@ public interface ALMInterfaceService {
      */
     boolean unLockUser(String emailId);
     
+    /**
+     * @param emailId
+     * @return SecurityDetailsHolder
+     */
     SecurityDetailsHolder getSecurityDetails(String emailId);
+    /**
+     * @param emailId
+     * @return SecurityDetailsHolder
+     */
+    SecurityDetailsHolder getSecurityQuestions(String emailId);
     
 }

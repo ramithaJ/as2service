@@ -209,25 +209,49 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
     }
     
     @Override
-	public SecurityDetailsHolder getSecurityDetails(String emailId) {
-		
-		final String url = "http://demo6374909.mockable.io/user/securityQuestions";
-		URI uri = null;
-		try {
+    public SecurityDetailsHolder getSecurityDetails(String emailId) {
 
-			uri = new URI(url);
-			RestTemplate restTemplate = new RestTemplate();
-			HttpHeaders requestHeaders = new HttpHeaders();
-			HttpEntity<SecurityDetailsHolder> requestEntity = new HttpEntity<SecurityDetailsHolder>(
-					requestHeaders);
-			ResponseEntity<SecurityDetailsHolder> response = restTemplate.exchange(uri,
-					HttpMethod.GET, requestEntity, SecurityDetailsHolder.class);
-			return response.getBody();
+        final String url = "http://demo7930138.mockable.io/user/getSecurityDetails";
+        URI uri = null;
+        try {
 
-		} catch (URISyntaxException e) {
+            uri = new URI(url);
+            RestTemplate restTemplate = new RestTemplate();
+            HttpHeaders requestHeaders = new HttpHeaders();
+            HttpEntity<SecurityDetailsHolder> requestEntity = new HttpEntity<SecurityDetailsHolder>(
+                    requestHeaders);
+            ResponseEntity<SecurityDetailsHolder> response = restTemplate
+                    .exchange(uri, HttpMethod.GET, requestEntity,
+                            SecurityDetailsHolder.class);
+            return response.getBody();
 
-			throw new ASException();
-		}
-	}
+        } catch (URISyntaxException e) {
+
+            throw new ASException();
+        }
+    }
+
+    @Override
+    public SecurityDetailsHolder getSecurityQuestions(String emailId) {
+
+        final String url = "http://demo6374909.mockable.io/user/securityDetails";
+        URI uri = null;
+        try {
+
+            uri = new URI(url);
+            RestTemplate restTemplate = new RestTemplate();
+            HttpHeaders requestHeaders = new HttpHeaders();
+            HttpEntity<SecurityDetailsHolder> requestEntity = new HttpEntity<SecurityDetailsHolder>(
+                    requestHeaders);
+            ResponseEntity<SecurityDetailsHolder> response = restTemplate
+                    .exchange(uri, HttpMethod.GET, requestEntity,
+                            SecurityDetailsHolder.class);
+            return response.getBody();
+
+        } catch (URISyntaxException e) {
+
+            throw new ASException();
+        }
+    }
     
 }
