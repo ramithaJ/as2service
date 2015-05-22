@@ -228,6 +228,7 @@ public class UserLoginServiceImpl implements UserLoginService {
      */
     @Override
     public void sendEmail(String userId, String templateId) {
+    	//TODO: send email service
     }
     
     /**
