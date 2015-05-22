@@ -11,14 +11,13 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author kpshiva
  */
-public class SecurityDetailsHolder implements Serializable {
+public class SecurityDetailsHolder {
     
     private String emailId;
     

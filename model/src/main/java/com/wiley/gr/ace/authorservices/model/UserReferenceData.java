@@ -1,5 +1,9 @@
 package com.wiley.gr.ace.authorservices.model;
 
+/**
+ * @author virtusa
+ *
+ */
 public class UserReferenceData {
     
     private String ecid;
