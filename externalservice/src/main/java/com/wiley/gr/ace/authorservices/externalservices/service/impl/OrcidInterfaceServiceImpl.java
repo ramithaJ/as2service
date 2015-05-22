@@ -97,5 +97,23 @@ public class OrcidInterfaceServiceImpl implements OrcidInterfaceService {
         System.out.println("json ##### " + orcidMessageJSON);
         return orcidMessageJSON;
     }
-    
+    @Override
+    public String getWork(OrcidAccessToken token) throws Exception {
+        
+        Reference ref = new Reference("http://sandbox.orcid.org" + "/"
+                + token.getOrcid() + "/orcid-work");
+        ClientResource client = new ClientResource(ref);
+        Form headers = (Form) client.getRequestAttributes().get(
+                "org.restlet.http.headers");
+        if (headers == null) {
+            headers = new Form();
+            client.getRequestAttributes().put("org.restlet.http.headers",
+                    headers);
+        }
+        headers.add("Authorization", "Bearer " + token.getAccess_token());
+        Representation representation = client.get(MediaType.APPLICATION_JSON);
+        String orcidMessageJSON = representation.getText();
+        System.out.println("json ##### " + orcidMessageJSON);
+        return orcidMessageJSON;
+    }
 }
