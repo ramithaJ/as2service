@@ -58,7 +58,7 @@ public class UpdateUserServiceImpl implements UpdateUserService {
             String status = esbInterfaceService.updateALMUser(user);
             LOGGER.debug("ALM user update status :: " + status);
             
-            if (null != status && ("success").equalsIgnoreCase(status)) {
+            if (null != status && "success".equalsIgnoreCase(status)) {
                 /**
                  * Update the user account details with ORCID account details
                  */
