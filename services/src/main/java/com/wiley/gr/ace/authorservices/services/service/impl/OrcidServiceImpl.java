@@ -26,7 +26,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrcidInterfaceService;
 import com.wiley.gr.ace.authorservices.model.Address;
 import com.wiley.gr.ace.authorservices.model.Addresses;
+import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.Country;
+import com.wiley.gr.ace.authorservices.model.DisambiguatedOrganization;
+import com.wiley.gr.ace.authorservices.model.Organization;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.orcid.OrcidAccessToken;
 import com.wiley.gr.ace.authorservices.services.service.OrcidService;
@@ -54,8 +57,16 @@ public class OrcidServiceImpl implements OrcidService {
     }
     
     @Override
-    public void getWork(User user) throws Exception {
-    	//TODO: get work method
+    public User getWork(OrcidAccessToken token) throws Exception {
+        User user = null;
+        String orcidMessageJSON = oricdInterfaceService.getWork(token);
+        if (null != orcidMessageJSON && !orcidMessageJSON.isEmpty()) {
+            /**
+             * Code to map the orcid JSON to user model object
+             */
+            user = parseOrcidJSONForWork(orcidMessageJSON);
+        }
+        return user;
     }
     
     @Override
@@ -189,6 +200,129 @@ public class OrcidServiceImpl implements OrcidService {
                 }
             }
             
+        } catch (Exception e) {
+            LOGGER.error("Initial SessionFactory creation failed.", e);
+        }
+        return user;
+    }
+    private User parseOrcidJSONForWork(String orcidMessageJSON) {
+        User user = null;
+        try {
+            JSONObject orcidMessageJSONObject = (JSONObject) new JSONParser()
+                    .parse(orcidMessageJSON);
+            JSONObject orcidMessage = (JSONObject) orcidMessageJSONObject
+                    .get("orcid-message");
+            LOGGER.info("orcidMessage ##### ", orcidMessage);
+            if (null != orcidMessage) {
+                JSONObject orcidProfile = (JSONObject) orcidMessage
+                        .get("orcid-profile");
+                LOGGER.info("orcidProfile ##### ", orcidProfile);
+                if (null != orcidProfile) {
+                    JSONObject orcidActivitiesJSON = (JSONObject) new JSONParser()
+                            .parse(orcidProfile.toJSONString());
+                    JSONObject orcidActivities = (JSONObject) orcidActivitiesJSON
+                            .get("orcid-activities");
+                    LOGGER.info("orcidActivities ##### ", orcidActivities);
+                    if (null != orcidActivities) {
+                        JSONObject orcidWorkJSON = (JSONObject) new JSONParser()
+                                .parse(orcidActivities.toJSONString());
+                        JSONObject orcidWork = (JSONObject) orcidWorkJSON
+                                .get("orcid-work");
+                        LOGGER.info("orcidWork ##### ", orcidWork);
+                        if (null != orcidWork) {
+                            user = new User();
+
+                            /**
+                             * Code to fetch Affiliations
+                             */
+                            JSONObject affiliations = (JSONObject) orcidActivities
+                                    .get("affiliations");
+                            if (null != affiliations) {
+                                JSONObject affiliationArrayJSON = (JSONObject) new JSONParser()
+                                        .parse(affiliations.toJSONString());
+                                JSONArray affiliationArray = (JSONArray) affiliationArrayJSON
+                                        .get("affiliation");
+                                LOGGER.info("affiliationArray ##### ",
+                                        affiliationArray);
+                                /**
+                                 * Affiliation JSON is an array so iterating
+                                 * through it to find the affiliations
+                                 */
+                                if (null != affiliationArray) {
+                                    Iterator<JSONObject> affiliationItr = affiliationArray
+                                            .iterator();
+                                    while (affiliationItr.hasNext()) {
+                                        JSONObject affiliationJSON = (JSONObject) new JSONParser()
+                                                .parse(affiliationItr.next()
+                                                        .toJSONString());
+                                        Affiliation affiliation = new Affiliation();
+                                        affiliation
+                                                .setVisibility((String) affiliationJSON
+                                                        .get("-visibility"));
+                                        affiliation
+                                                .setType((String) affiliationJSON
+                                                        .get("type"));
+                                        affiliation
+                                                .setDepartmentName((String) affiliationJSON
+                                                        .get("department-name"));
+                                        affiliation
+                                                .setRoleTitle((String) affiliationJSON
+                                                        .get("role-title"));
+                                        affiliation
+                                                .setStartDate((java.util.Date) affiliationJSON
+                                                        .get("start-date"));
+
+                                        JSONObject organizationJSON = (JSONObject) new JSONParser()
+                                                .parse(affiliationJSON
+                                                        .toJSONString());
+                                        JSONObject organizationDetails = (JSONObject) organizationJSON
+                                                .get("organization");
+                                        if (null != organizationDetails) {
+                                            Organization organization = new Organization();
+                                            organization
+                                                    .setName((String) organizationDetails
+                                                            .get("name"));
+                                            JSONObject addressJSON = (JSONObject) new JSONParser()
+                                                    .parse(organizationDetails
+                                                            .toJSONString());
+                                            JSONObject addressDetails = (JSONObject) addressJSON
+                                                    .get("address");
+                                            if (null != addressDetails) {
+                                                Address address = new Address();
+                                                address.setCity((String) addressDetails
+                                                        .get("city"));
+                                                address.setRegion((String) addressDetails
+                                                        .get("region"));
+                                                organization
+                                                        .setAddress(address);
+                                                affiliation
+                                                        .setOrganization(organization);
+                                            }
+                                        }
+                                        JSONObject disambiguatedOrganizationJSON = (JSONObject) new JSONParser()
+                                                .parse(affiliationJSON
+                                                        .toJSONString());
+                                        JSONObject disambiguatedOrganizationDetails = (JSONObject) disambiguatedOrganizationJSON
+                                                .get("disambiguated-organization");
+                                        if (null != disambiguatedOrganizationDetails) {
+                                            DisambiguatedOrganization disambiguatedOrganization = new DisambiguatedOrganization();
+                                            disambiguatedOrganization
+                                                    .setDisambiguatedOrganizationIdentifier((String) disambiguatedOrganizationDetails
+                                                            .get("disambiguated-organization-identifier"));
+                                            disambiguatedOrganization
+                                                    .setDisambiguationSource((String) disambiguatedOrganizationDetails
+                                                            .get("disambiguation-source"));
+                                            affiliation
+                                                    .setDisambiguatedOrganization(disambiguatedOrganization);
+                                        }
+                                        user.setAffiliation(affiliation);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         } catch (Exception e) {
             LOGGER.error("Initial SessionFactory creation failed.", e);
         }
