@@ -29,6 +29,14 @@ public class Affiliation {
     
     private String departmentId;
     
+    private String departmentName;
+    
+    private String visibility;
+    
+    private String type;
+    
+    private String roleTitle;
+    
     private String city;
     
     private String stateCode;
@@ -39,6 +47,57 @@ public class Affiliation {
     
     private Date endDate;
     
+    private Organization organization;
+    
+    private DisambiguatedOrganization disambiguatedOrganization;
+    public DisambiguatedOrganization getDisambiguatedOrganization() {
+        return disambiguatedOrganization;
+    }
+
+    public void setDisambiguatedOrganization(
+            DisambiguatedOrganization disambiguatedOrganization) {
+        this.disambiguatedOrganization = disambiguatedOrganization;
+    }
+
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
+    }
+
+    public String getVisibility() {
+        return visibility;
+    }
+
+    public void setVisibility(String visibility) {
+        this.visibility = visibility;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getRoleTitle() {
+        return roleTitle;
+    }
+
+    public void setRoleTitle(String roleTitle) {
+        this.roleTitle = roleTitle;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
+    }
     /**
      * Gets the user Id.
      *

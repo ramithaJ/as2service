@@ -74,6 +74,16 @@ public class User {
     
     private Addresses addresses;
     
+    private Affiliation affiliation;
+    
+    public Affiliation getAffiliation() {
+        return affiliation;
+    }
+
+    public void setAffiliation(Affiliation affiliation) {
+        this.affiliation = affiliation;
+    }
+
     public Addresses getAddresses() {
         return addresses;
     }

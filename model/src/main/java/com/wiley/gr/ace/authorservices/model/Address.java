@@ -50,6 +50,17 @@ public class Address {
     
     private Character addressFag;
     
+    private String region;
+    
+    
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
     public String getTitle() {
         return title;
     }
