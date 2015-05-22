@@ -55,6 +55,7 @@ public class OrcidServiceImpl implements OrcidService {
     
     @Override
     public void getWork(User user) throws Exception {
+    	//TODO: get work method
     }
     
     @Override

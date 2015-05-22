@@ -14,6 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
@@ -26,6 +28,9 @@ import com.wiley.gr.ace.authorservices.services.service.UpdateUserService;
  */
 public class UpdateUserServiceImpl implements UpdateUserService {
     
+	 private static final Logger LOGGER = LoggerFactory
+	            .getLogger(OrcidServiceImpl.class);
+	
     @Autowired(required = true)
     ESBInterfaceService esbInterfaceService;
     @Autowired(required = true)
@@ -51,9 +56,9 @@ public class UpdateUserServiceImpl implements UpdateUserService {
              * Code to update ALM user attributes through ESB
              */
             String status = esbInterfaceService.updateALMUser(user);
-            System.out.println("ALM user update status :: " + status);
+            LOGGER.debug("ALM user update status :: " + status);
             
-            if (null != status && status.equalsIgnoreCase("success")) {
+            if (null != status && ("success").equalsIgnoreCase(status)) {
                 /**
                  * Update the user account details with ORCID account details
                  */
