@@ -80,7 +80,7 @@ public class UserPreferredJournalsDAOImpl implements UserPreferredJournalsDAO {
 			UserPreferredJournals userPrefferJournals = new UserPreferredJournals();
 
 			userPrefferJournals.setId(new UserPreferredJournalsId(Integer
-					.valueOf(userId), Integer.valueOf(journalId)));
+					.parseInt(userId), Integer.parseInt(journalId)));
 			userPrefferJournals = (UserPreferredJournals) session.get(
 					UserPreferredJournals.class, userPrefferJournals.getId());
 
