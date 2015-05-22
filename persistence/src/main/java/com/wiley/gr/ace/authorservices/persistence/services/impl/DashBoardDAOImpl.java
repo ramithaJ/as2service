@@ -17,7 +17,7 @@ package com.wiley.gr.ace.authorservices.persistence.services.impl;
 import com.wiley.gr.ace.authorservices.persistence.services.DashBoardDAO;
 
 /**
- * @author Virtusa
+ * @author yugandhark
  */
 public class DashBoardDAOImpl implements DashBoardDAO {
     
