@@ -112,7 +112,7 @@ public class OrcidController {
 					if (null != type) {
 						user = orcidService.getBio(accessToken);
 						if (type.equalsIgnoreCase("userupdate")) {
-							orcidService.getWork(user);
+							orcidService.getWork(accessToken);
 						}
 					}
 					service.setStatus("SUCCESS");
