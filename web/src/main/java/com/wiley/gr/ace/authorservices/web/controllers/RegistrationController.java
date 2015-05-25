@@ -96,6 +96,7 @@ public class RegistrationController {
         String status = null;
         if (null != user) {
             try {
+            	user.setSearchFullName(false); //TODO: change during service integration
                 if (user.isSearchFullName()) {
                     List<User> usersList = null;
                     usersList = rs.getUserFromFirstNameLastName(
