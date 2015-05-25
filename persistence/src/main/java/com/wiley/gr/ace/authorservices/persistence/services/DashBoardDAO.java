@@ -14,14 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.persistence.services;
 
-import java.util.LinkedList;
-import java.util.List;
-
 /**
  * @author yugandhark
- *
  */
 public interface DashBoardDAO {
- //List<Article> getAllAuthorArticles();
- List<LinkedList> getProfileMeter(int userId);
 }

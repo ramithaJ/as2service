@@ -11,76 +11,68 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.wiley.gr.ace.authorservices.model.Security;
-import com.wiley.gr.ace.authorservices.model.UserMgmt;
+import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
+import com.wiley.gr.ace.authorservices.model.Addresses;
+import com.wiley.gr.ace.authorservices.model.SecurityDetails;
+import com.wiley.gr.ace.authorservices.model.User;
+import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
 import com.wiley.gr.ace.authorservices.persistence.services.UserAccountDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
 
 /**
  * @author kpshiva
- *
  */
 public class UserAccountServiceImpl implements UserAccountService {
+    
+    @Autowired(required = true)
+    UserAccountDAO userAccountDAO;
+    @Autowired(required = true)
+    UserLoginServiceDAO userLoginServiceDAO;
+    @Autowired
+    CDMInterfaceService cdmservices;
+    
+    @Override
+    public User getEmailDetails(String userId) {
+        
+        LookUpProfile lookupProfile = cdmservices.lookUpProfile(userId);
+        User user = new User();
+        user.setPrimaryEmailAddr(lookupProfile.getUserProfile()
+                .getProfileInformation().getPrimaryEmailAddr());
+        user.setRecoveryEmailAddress(lookupProfile.getUserProfile()
+                .getProfileInformation().getRecoveryEmailAddress());
+        return user;
+        
+    }
+    
+    /**
+     * this method will call the DAO to update security details which are
+     * updated by user at userProfile level.
+     */
+    @Override
+    public boolean updateSecurityDetails(String userId,
+            List<SecurityDetails> securityDetails) {
+        
+        return userAccountDAO.updateSecurityDetails(Integer.parseInt(userId),
+                securityDetails);
+    }
+    
+    @Override
+    public User getProfileInformation(String userId) {
+        
+        LookUpProfile lookupProfile = cdmservices.lookUpProfile(userId);
+        return lookupProfile.getUserProfile().getProfileInformation();
+    }
 
-	@Autowired(required = true)
-	UserAccountDAO userAccountDAO;
-	@Autowired(required = true)
-	UserLoginServiceDAO userLoginServiceDAO;
+    @Override
+    public List<Addresses> getUserAddress(String userId) {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.wiley.gr.ace.authorservices.services.service.UserAccountService#
-	 * getEmailDetails(java.lang.String)
-	 */
-	@Override
-	public UserMgmt[] getEmailDetails(String userId) {
-
-		// AuthorProfile userProfile = userAccountDAO.getEmailDetails(userId);
-		ArrayList<UserMgmt> email = new ArrayList<UserMgmt>();
-		UserMgmt userMgmt = new UserMgmt();
-		// Commented for Hibernate changes
-		// userMgmt.setPrimaryEmailAddress(userProfile.getPrimaryEmailAddr());
-		// userMgmt.setSecondaryEmailAddress(userProfile.getSecondaryEmailAddr());
-		email.add(userMgmt);
-		return (UserMgmt[]) email.toArray(new UserMgmt[email.size()]);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.wiley.gr.ace.authorservices.services.service.UserAccountService#
-	 * updateEmailDetails(java.lang.String,
-	 * com.wiley.gr.ace.authorservices.model.UserMgmt)
-	 */
-	@Override
-	public boolean updateEmailDetails(String userId, UserMgmt emailDetails) {
-
-		String primaryEmail = emailDetails.getPrimaryEmailAddress();
-		String SecondaryEmail = emailDetails.getSecondaryEmailAddress();
-		return userAccountDAO.updateEmailDetails(userId, primaryEmail,
-				SecondaryEmail);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.wiley.gr.ace.authorservices.services.service.UserAccountService#
-	 * updateSecurityDetails(java.lang.String,
-	 * com.wiley.gr.ace.authorservices.model.Security)
-	 */
-	@Override
-	public boolean updateSecurityDetails(String emailId,
-			Security securityDetails) {
-
-		Integer userId = userLoginServiceDAO.getUserId(emailId);
-		userAccountDAO.updateSecurityDetails(userId, securityDetails);
-		return true;
-	}
-
+        LookUpProfile lookupProfile = cdmservices.lookUpProfile(userId);
+        return lookupProfile.getUserProfile().getAddressDetails();
+    }
+    
 }

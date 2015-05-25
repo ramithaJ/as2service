@@ -14,10 +14,9 @@
  */
 package com.wiley.gr.ace.authorservices.web.controllers;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
+import com.wiley.gr.ace.authorservices.model.DashBoard;
 import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.services.service.DashBoardService;
@@ -37,46 +37,38 @@ import com.wiley.gr.ace.authorservices.services.service.DashBoardService;
 @RequestMapping("/dashboard")
 public class DashBoardController {
 
-	// @RequestMapping(value = "/viewAllAuthorArticles", method =
-	// RequestMethod.GET, produces = "application/json")
-	// public List<Article> getAllAuthorArticles(){
-	// DashBoardService
-	// dashBoardService=(DashBoardServiceImpl)context.getBean("DashBoardService");
-	// return dashBoardService.getAllAuthorArticles();
-	// }
+    /** The Auto Wired for DashBoard Service . */
+    @Autowired(required = true)
+    private DashBoardService dashBoardService;
 
-	@Autowired(required = true)
-	DashBoardService dashBoardService;
+    @RequestMapping(value = "/profilemeter/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Service getProfileMeter(
+            @PathVariable("userId") String userId) {
 
-	@RequestMapping(value = "/profilemeter/{userId}", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody Service getProfileMeter(
-			@PathVariable("userId") String userId) {
+        Service service = new Service();
+        DashBoard dashBoard = null;
 
-		Service service = new Service();
-		List<LinkedList> profileMeterList = null;
+        try {
+            dashBoard = dashBoardService.getProfileMeter(userId);
+            if (!StringUtils.isEmpty(dashBoard)) {
+                if (dashBoard.getDashBoardInfo().isEmpty()) {
+                    service.setStatus("SUCCESS");
+                    service.setPayload(dashBoard);
+                } else {
+                    service.setStatus("SUCCESS");
+                    service.setPayload(dashBoard);
+                }
+            }
+        } catch (Exception e) {
+            ErrorPOJO error = new ErrorPOJO();
+            error.setCode(-101);
+            error.setMessage("Error fetching profile meter");
+            service.setStatus("ERROR");
+            service.setPayload(dashBoard);
+            service.setError(error);
+            throw new ASException("-2", "Error fetching profile meter", e);
+        }
+        return service;
 
-		try {
-			profileMeterList = dashBoardService.getProfileMeter(Integer
-					.parseInt(userId));
-			if (null != profileMeterList) {
-				service.setStatus("failuer");
-				service.setPayload(profileMeterList);
-			} else {
-				service.setStatus("success");
-				service.setPayload(profileMeterList);
-			}
-		} catch (Exception e) {
-			ErrorPOJO error = new ErrorPOJO();
-			error.setCode(-101); // Need to set proper error code this one is
-									// dummy
-			error.setMessage("Error fetching profile meter");
-
-			service.setStatus("error");
-			service.setPayload(profileMeterList);
-			service.setError(error);
-			throw new ASException("-2", "Error fetching profile meter", e);
-		}
-		return service;
-
-	}
+    }
 }

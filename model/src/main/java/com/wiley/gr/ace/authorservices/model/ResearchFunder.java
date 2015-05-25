@@ -11,90 +11,73 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.model;
 
+import java.util.Set;
+
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * @author SarmaKumarap
- *
  */
+@JsonInclude(Include.NON_NULL)
 public class ResearchFunder {
-	
-	private String researchFunderId;
-	
-	private String researchFunderName;
-	
-	private String articleAID;
-	
-	private String articleName;
-	
-	private String[] grantNumber;
-
-	/**
-	 * @return
-	 */
-	public String getResearchFunderId() {
-		return researchFunderId;
-	}
-
-	/**
-	 * @param researchFunderId
-	 */
-	public void setResearchFunderId(String researchFunderId) {
-		this.researchFunderId = researchFunderId;
-	}
-
-	/**
-	 * @return
-	 */
-	public String getResearchFunderName() {
-		return researchFunderName;
-	}
-
-	/**
-	 * @param researchFunderName
-	 */
-	public void setResearchFunderName(String researchFunderName) {
-		this.researchFunderName = researchFunderName;
-	}
-
-	/**
-	 * @return
-	 */
-	public String getArticleAID() {
-		return articleAID;
-	}
-
-	/**
-	 * @param articleAID
-	 */
-	public void setArticleAID(String articleAID) {
-		this.articleAID = articleAID;
-	}
-
-	/**
-	 * @return
-	 */
-	public String getArticleName() {
-		return articleName;
-	}
-
-	/**
-	 * @param articleName
-	 */
-	public void setArticleName(String articleName) {
-		this.articleName = articleName;
-	}
-
-	/**
-	 * @return
-	 */
-	public String[] getGrantNumber() {
-		return grantNumber;
-	}
-
-	/**
-	 * @param grantNumber
-	 */
-	public void setGrantNumber(String[] grantNumber) {
-		this.grantNumber = grantNumber;
-	}
-
+    
+    @NotNull
+    @NotBlank
+    private Integer researchFunderId;
+    
+    @NotNull
+    @NotBlank
+    private String researchFunderName;
+    
+    private String articleAID;
+    
+    private String articleName;
+    
+    private Set<String> grantNumber;
+    
+    public Integer getResearchFunderId() {
+        return researchFunderId;
+    }
+    
+    public void setResearchFunderId(Integer researchFunderId) {
+        this.researchFunderId = researchFunderId;
+    }
+    
+    public String getResearchFunderName() {
+        return researchFunderName;
+    }
+    
+    public void setResearchFunderName(String researchFunderName) {
+        this.researchFunderName = researchFunderName;
+    }
+    
+    public String getArticleAID() {
+        return articleAID;
+    }
+    
+    public void setArticleAID(String articleAID) {
+        this.articleAID = articleAID;
+    }
+    
+    public String getArticleName() {
+        return articleName;
+    }
+    
+    public void setArticleName(String articleName) {
+        this.articleName = articleName;
+    }
+    
+    public Set<String> getGrantNumber() {
+        return grantNumber;
+    }
+    
+    public void setGrantNumber(Set<String> grantNumber) {
+        this.grantNumber = grantNumber;
+    }
+    
 }

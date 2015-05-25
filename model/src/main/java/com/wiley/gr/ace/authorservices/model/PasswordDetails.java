@@ -13,54 +13,71 @@ package com.wiley.gr.ace.authorservices.model;
 
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * @author kpshiva
- *
  */
 public class PasswordDetails {
+    
+    private String userId;
+    
+    @NotNull
+    @NotBlank
+    @Email
+    private String emailId;
+    
+    @NotNull
+    @NotBlank
+    private String oldPassword;
+    
+    @NotNull
+    @NotBlank
+    private String newPassword;
+    
+    /**
+     * @return
+     */
+    public String getOldPassword() {
+        return oldPassword;
+    }
+    
+    /**
+     * @param oldPassword
+     */
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
+    }
+    
+    /**
+     * @return
+     */
+    public String getNewPassword() {
+        return newPassword;
+    }
+    
+    /**
+     * @param newPassword
+     */
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+    
+    public String getUserId() {
+        return userId;
+    }
+    
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
-	@NotNull @NotBlank
-	private String userId;
-	
-	@NotNull @NotBlank
-	private String oldPassword;
+    public String getEmailId() {
+        return emailId;
+    }
 
-	@NotNull @NotBlank
-	private String newPassword;
-	
-	/**
-	 * @return
-	 */
-	public String getOldPassword() {
-		return oldPassword;
-	}
-	/**
-	 * @param oldPassword
-	 */
-	public void setOldPassword(String oldPassword) {
-		this.oldPassword = oldPassword;
-	}
-	/**
-	 * @return
-	 */
-	public String getNewPassword() {
-		return newPassword;
-	}
-	/**
-	 * @param newPassword
-	 */
-	public void setNewPassword(String newPassword) {
-		this.newPassword = newPassword;
-	}
-	
-	public String getUserId() {
-		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	
-	
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
+    }
+    
 }

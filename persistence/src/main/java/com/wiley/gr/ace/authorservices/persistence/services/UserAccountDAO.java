@@ -11,28 +11,37 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.services;
 
-import com.wiley.gr.ace.authorservices.model.Security;
+import java.util.List;
+
+import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 
 /**
  * @author kpshiva
- *
  */
 public interface UserAccountDAO {
-
-	/**
-	 * @param userId
-	 * @return
-	 */
-	AuthorProfile getEmailDetails(String userId);
-	/**
-	 * @return
-	 */
-	boolean updateEmailDetails(String userId,String primaryEmail, String secondaryEmail);
-	/**
-	 * @return
-	 */
-	boolean updateSecurityDetails(Integer userId, Security securityDetails);
-	
-	Security getSecurityIDs(int userId);
+    
+    /**
+     * @param userId
+     * @return
+     */
+    AuthorProfile getEmailDetails(String userId);
+    
+    /**
+     * @param userId
+     * @param primaryEmail
+     * @param secondaryEmail
+     * @return
+     */
+    boolean updateEmailDetails(String userId, String primaryEmail,
+            String secondaryEmail);
+    
+    /**
+     * @param userId
+     * @param securityDetails
+     * @return
+     */
+    boolean updateSecurityDetails(Integer userId,
+            List<SecurityDetails> securityDetails);
+    
 }

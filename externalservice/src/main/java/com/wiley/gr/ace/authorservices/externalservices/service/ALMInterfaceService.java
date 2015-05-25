@@ -11,70 +11,82 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
+import com.wiley.gr.ace.authorservices.model.PasswordDetails;
+import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
+
 /**
  * @author RAVISINHA
- *
  */
 public interface ALMInterfaceService {
-
-	/**
-	 * This method authenticates the user by calling the ALM LDAP Service
-	 * 
-	 * @param emailId
-	 * @param password
-	 * @return
-	 */
-	boolean authenticateAdminUser(String emailId);
-
-	/**
-	 * @param emailId
-	 * @param password
-	 * @return
-	 */
-	boolean authenticateUserALM(String emailId, String password);
-
-	/**
-	 * @param emailId
-	 * @param oldPassword
-	 * @param newPassword
-	 * @return
-	 */
-	boolean updatePassword(String emailId, String oldPassword,
-			String newPassword);
-
-	/**
-	 * @param emailId
-	 * @param newPassword
-	 * @return
-	 */
-	boolean resetPassword(String emailId, String securityQuestion1,
-			String answer1, String securityQuestion2, String answer2,
-			String password);
-
-	/**
-	 * @param oldEmailId
-	 * @param newEmailId
-	 * @return
-	 */
-	boolean updateUserId(String oldEmailId, String newEmailId);
-
-	/**
-	 * @param emailId
-	 * @param newPassword
-	 * @return
-	 */
-	boolean forceFulReset(String emailId, String newPassword);
-
-	/**
-	 * @param emailId
-	 * @return
-	 */
-	boolean lockUser(String emailId);
-
-	/**
-	 * @param emailId
-	 * @return
-	 */
-	boolean unLockUser(String emailId);
-
+    
+    /**
+     * This method authenticates the user by calling the ALM LDAP Service
+     * 
+     * @param emailId
+     * @param password
+     * @return
+     */
+    boolean authenticateAdminUser(String emailId);
+    
+    /**
+     * @param emailId
+     * @param password
+     * @return
+     */
+    boolean authenticateUserALM(String emailId, String password);
+    
+    /**
+     * @param emailId
+     * @param oldPassword
+     * @param newPassword
+     * @return
+     */
+    boolean updatePassword(PasswordDetails passwordDetails);
+    
+    /**
+     * @param emailId
+     * @param newPassword
+     * @return
+     */
+    boolean resetPassword(SecurityDetailsHolder securityDetailsHolder);
+    
+    /**
+     * @param oldEmailId
+     * @param newEmailId
+     * @return
+     */
+    boolean updateUserId(String oldEmailId, String newEmailId);
+    
+    /**
+     * @param emailId
+     * @param newPassword
+     * @return
+     */
+    boolean forceFulReset(String emailId, String newPassword);
+    
+    /**
+     * @param emailId
+     * @return
+     */
+    boolean lockUser(String emailId);
+    
+    /**
+     * @param emailId
+     * @return
+     */
+    boolean unLockUser(String emailId);
+    
+    /**
+     * @param emailId
+     * @return SecurityDetailsHolder
+     */
+    SecurityDetailsHolder getSecurityDetails(String emailId);
+    /**
+     * @param emailId
+     * @return SecurityDetailsHolder
+     */
+    SecurityDetailsHolder getSecurityQuestions(String emailId);
+    
+    boolean updateSecurityDetails(SecurityDetailsHolder securityDetails);
+    
 }

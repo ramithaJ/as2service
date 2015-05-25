@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -25,13 +26,32 @@ import org.springframework.web.client.RestTemplate;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.model.User;
+import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 
+/**
+ * @author Virtusa
+ */
 public class ESBInterfaceServiceImpl implements ESBInterfaceService {
+
+	@Value("${email.url}")
+	private String emailCheckUrl;
+
+	@Value("${fullname.url}")
+	private String nameCheckUrl;
+
+	@Value("${createuser.url}")
+	private String createUserUrl;
+
+	@Value("${fetchorciddetails.url}")
+	private String fetchOrcidDetailsUrl;
+
+	@Value("${updatealmuser.url}")
+	private String updateAlmUserUrl;
 
 	@Override
 	public User fetchOrcidDetails(String orcid) throws Exception {
 		User user = null;
-		final String url = "http://demo3275860.mockable.io/fetchOrcidDetails/123";
+		final String url = fetchOrcidDetailsUrl;
 		URI uri = new URI(url);
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders requestHeaders = new HttpHeaders();
@@ -52,7 +72,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 	@Override
 	public String updateALMUser(User updateUser) throws Exception {
 		String status = "failure";
-		final String url = "http://demo3275860.mockable.io/user/update";
+		final String url = updateAlmUserUrl;
 		URI uri = new URI(url);
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders requestHeaders = new HttpHeaders();
@@ -71,36 +91,36 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 	 * public static void main(String[] args) { ESBInterfaceServiceImpl em = new
 	 * ESBInterfaceServiceImpl(); try { // User user =
 	 * em.fetchOrcidDetails("1111"); User user = new User(); String s =
-	 * em.updateALMUser(user); } catch (Exception e) { e.printStackTrace(); }
-	 * 
-	 * }
+	 * em.updateALMUser(user); } catch (Exception e) { e.printStackTrace(); } }
 	 */
 
 	@Override
-	public User checkEmailIdExists(String emailId) throws Exception {
-		User user = new User();
-		final String url = "http://demo7614669.mockable.io/checkEmailId/email@email.com";
+	public ESBUser checkEmailIdExists(String emailId) throws Exception {
+		ESBUser esbUser = new ESBUser();
+		final String url = emailCheckUrl;
 		URI uri = new URI(url);
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders requestHeaders = new HttpHeaders();
 
 		requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-		HttpEntity<User> requestEntity = new HttpEntity<User>(requestHeaders);
+		HttpEntity<ESBUser> requestEntity = new HttpEntity<ESBUser>(
+				requestHeaders);
 
-		ResponseEntity<User> response = restTemplate.exchange(uri,
-				HttpMethod.GET, requestEntity, User.class);
-		if (null != response)
-			user = response.getBody();
-		else
-			user = null;
-		return user;
+		ResponseEntity<ESBUser> response = restTemplate.exchange(uri,
+				HttpMethod.GET, requestEntity, ESBUser.class);
+		if (null != response) {
+			esbUser = response.getBody();
+			// System.err.println(esbUser.getFirstName());
+		} else
+			esbUser = null;
+		return esbUser;
 	}
 
 	@Override
-	public List<User> getUsersFromFirstNameLastName(String firstName,
-			String lastName) throws Exception {
+	public List<User> getUsersFromFirstNameLastName(String email,
+			String firstName, String lastName) throws Exception {
 		List<User> usersList = new ArrayList<User>();
-		final String url = "http://demo7614669.mockable.io/getFromFirstNameLastName/Dishari/De";
+		final String url = nameCheckUrl;
 		URI uri = new URI(url);
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders requestHeaders = new HttpHeaders();
@@ -118,7 +138,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 	@Override
 	public String creatUser(User user) throws Exception {
 		String status = "failure";
-		final String url = "http://demo7614669.mockable.io/createUser/userobject";
+		final String url = createUserUrl;
 		URI uri = new URI(url);
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders requestHeaders = new HttpHeaders();

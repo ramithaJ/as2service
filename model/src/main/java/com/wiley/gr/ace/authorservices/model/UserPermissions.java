@@ -14,58 +14,55 @@ package com.wiley.gr.ace.authorservices.model;
 
 /**
  * @author sarmakumarap
- *
  */
 public class UserPermissions {
-	
-	private String permissionId;
-	
-	private String permissionName;
-	
-	private boolean status = true;
-	
-	/**
-	 * @return
-	 */
-	public String getPermissionId() {
-		return permissionId;
-	}
-
-	/**
-	 * @param permissionId
-	 */
-	public void setPermissionId(String permissionId) {
-		this.permissionId = permissionId;
-	}
-
-	/**
-	 * @return
-	 */
-	public String getPermissionName() {
-		return permissionName;
-	}
-
-	/**
-	 * @param permissionName
-	 */
-	public void setPermissionName(String permissionName) {
-		this.permissionName = permissionName;
-	}
-
-	/**
-	 * @return
-	 */
-	public boolean isStatus() {
-		return status;
-	}
-
-	/**
-	 * @param status
-	 */
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
-	
-	
-
+    
+    private String permissionId;
+    
+    private String permissionName;
+    
+    private boolean status = true;
+    
+    /**
+     * @return
+     */
+    public String getPermissionId() {
+        return permissionId;
+    }
+    
+    /**
+     * @param permissionId
+     */
+    public void setPermissionId(String permissionId) {
+        this.permissionId = permissionId;
+    }
+    
+    /**
+     * @return
+     */
+    public String getPermissionName() {
+        return permissionName;
+    }
+    
+    /**
+     * @param permissionName
+     */
+    public void setPermissionName(String permissionName) {
+        this.permissionName = permissionName;
+    }
+    
+    /**
+     * @return
+     */
+    public boolean isStatus() {
+        return status;
+    }
+    
+    /**
+     * @param status
+     */
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+    
 }

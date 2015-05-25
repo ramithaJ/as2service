@@ -20,43 +20,68 @@ import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnectio
 import com.wiley.gr.ace.authorservices.persistence.entity.UserAlerts;
 import com.wiley.gr.ace.authorservices.persistence.services.UserAlertsDao;
 
+/**
+ * @author RAVISINHA
+ */
 public class UserAlertsDaoImpl implements UserAlertsDao {
 	@Autowired(required = true)
 	HibernateConnection con;
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.wiley.gr.ace.authorservices.persistence.services.UserAlertsDao#
+	 * getListOfAlerts(java.lang.String)
+	 */
 	@Override
 	public List<UserAlerts> getListOfAlerts(String userId) {
 		Session session = con.getSessionFactory().openSession();
 		session.beginTransaction();
-		String hql = "from UserAlerts where id.userId = :userId";
-		List<UserAlerts> result = session.createQuery(hql)
-				.setString("userId", userId).list();
-		session.getTransaction().commit();
-		session.flush();
-		session.close();
+		List<UserAlerts> result = null;
+		try {
 
+			String hql = "from UserAlerts where id.userId = :userId";
+			result = session.createQuery(hql).setString("userId", userId)
+					.list();
+		}finally {
+			if (null != session) {
+				session.flush();
+				session.getTransaction().commit();
+				session.close();
+			}
+		}
 		return result;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.wiley.gr.ace.authorservices.persistence.services.UserAlertsDao#
+	 * updateAlerts(java.util.List)
+	 */
 	@Override
 	public boolean updateAlerts(List<UserAlerts> serviceUserAlertsList) {
 
 		Session session = con.getSessionFactory().openSession();
 		session.beginTransaction();
+		try {
 
-		for (UserAlerts userAlerts : serviceUserAlertsList) {
+			for (UserAlerts userAlerts : serviceUserAlertsList) {
 
-			UserAlerts daoUseralerts = (UserAlerts) session.load(
-					UserAlerts.class, userAlerts.getId());
+				UserAlerts daoUseralerts = (UserAlerts) session.load(
+						UserAlerts.class, userAlerts.getId());
 
-			daoUseralerts.setEmailFlg(userAlerts.getEmailFlg());
-			daoUseralerts.setOnScreenFlg(userAlerts.getOnScreenFlg());
-			session.save(daoUseralerts);
-
+				daoUseralerts.setEmailFlg(userAlerts.getEmailFlg());
+				daoUseralerts.setOnScreenFlg(userAlerts.getOnScreenFlg());
+				session.save(daoUseralerts);
+			}
+		} finally {
+			if (null != session){
+				session.flush();
+			session.getTransaction().commit();
+			session.close();
+			}
 		}
-		session.getTransaction().commit();
-		session.flush();
-		session.close();
 
 		return true;
 	}

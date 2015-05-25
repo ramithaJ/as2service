@@ -16,52 +16,52 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "USER_FUNDER_GRANTS")
 public class UserFunderGrants implements java.io.Serializable {
-
-	private UserFunderGrantsId id;
-	private AuthorProfile authorProfile;
-	private ResearchFunders researchFunders;
-
-	public UserFunderGrants() {
-	}
-
-	public UserFunderGrants(UserFunderGrantsId id, AuthorProfile authorProfile,
-			ResearchFunders researchFunders) {
-		this.id = id;
-		this.authorProfile = authorProfile;
-		this.researchFunders = researchFunders;
-	}
-
-	@EmbeddedId
-	@AttributeOverrides({
-			@AttributeOverride(name = "userId", column = @Column(name = "USER_ID", nullable = false, precision = 22, scale = 0)),
-			@AttributeOverride(name = "rfunderId", column = @Column(name = "RFUNDER_ID", nullable = false, precision = 22, scale = 0)),
-			@AttributeOverride(name = "grantNum", column = @Column(name = "GRANT_NUM", nullable = false, length = 250)) })
-	public UserFunderGrantsId getId() {
-		return this.id;
-	}
-
-	public void setId(UserFunderGrantsId id) {
-		this.id = id;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USER_ID", nullable = false, insertable = false, updatable = false)
-	public AuthorProfile getAuthorProfile() {
-		return this.authorProfile;
-	}
-
-	public void setAuthorProfile(AuthorProfile authorProfile) {
-		this.authorProfile = authorProfile;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "RFUNDER_ID", nullable = false, insertable = false, updatable = false)
-	public ResearchFunders getResearchFunders() {
-		return this.researchFunders;
-	}
-
-	public void setResearchFunders(ResearchFunders researchFunders) {
-		this.researchFunders = researchFunders;
-	}
-
+    
+    private UserFunderGrantsId id;
+    private AuthorProfile authorProfile;
+    private ResearchFunders researchFunders;
+    
+    public UserFunderGrants() {
+    }
+    
+    public UserFunderGrants(UserFunderGrantsId id, AuthorProfile authorProfile,
+            ResearchFunders researchFunders) {
+        this.id = id;
+        this.authorProfile = authorProfile;
+        this.researchFunders = researchFunders;
+    }
+    
+    @EmbeddedId
+    @AttributeOverrides({
+            @AttributeOverride(name = "userId", column = @Column(name = "USER_ID", nullable = false, precision = 22, scale = 0)),
+            @AttributeOverride(name = "rfunderId", column = @Column(name = "RFUNDER_ID", nullable = false, precision = 22, scale = 0)),
+            @AttributeOverride(name = "grantNum", column = @Column(name = "GRANT_NUM", nullable = false, length = 250)) })
+    public UserFunderGrantsId getId() {
+        return this.id;
+    }
+    
+    public void setId(UserFunderGrantsId id) {
+        this.id = id;
+    }
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "USER_ID", nullable = false, insertable = false, updatable = false)
+    public AuthorProfile getAuthorProfile() {
+        return this.authorProfile;
+    }
+    
+    public void setAuthorProfile(AuthorProfile authorProfile) {
+        this.authorProfile = authorProfile;
+    }
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "RFUNDER_ID", nullable = false, insertable = false, updatable = false)
+    public ResearchFunders getResearchFunders() {
+        return this.researchFunders;
+    }
+    
+    public void setResearchFunders(ResearchFunders researchFunders) {
+        this.researchFunders = researchFunders;
+    }
+    
 }

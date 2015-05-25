@@ -22,91 +22,90 @@ import com.wiley.gr.ace.authorservices.model.Interests;
 import com.wiley.gr.ace.authorservices.model.JobCategory;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Role;
+import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.State;
-import com.wiley.gr.ace.authorservices.model.StaticData;
 import com.wiley.gr.ace.authorservices.model.Suffix;
 import com.wiley.gr.ace.authorservices.model.Title;
 
 /**
  * @author SarmaKumarap
- *
  */
 public interface ASDataService {
-	
-	/**
-	 * @return
-	 */
-	List<Title> getTitles();
-	
-	/**
-	 * @return
-	 */
-	List<Suffix> getSuffixes();
-	
-	/**
-	 * @return
-	 */
-	List<Industry> getIndustries();
-	
-	/**
-	 * @return
-	 */
-	List<JobCategory> getJobCategories();
-	
-	/**
-	 * @return
-	 */
-	List<Country> getCountries();
-	
-	/**
-	 * @return
-	 */
-	List<State> getStates();
-	
-	/**
-	 * @return
-	 */
-	List<Institution> getInstitutions();
-	
-	/**
-	 * @return
-	 */
-	List<Department> getDepartments();
-	
-	/**
-	 * @return
-	 */
-	List<ResearchFunder> getResearchFunders();
-	
-	/**
-	 * @return
-	 */
-//	List<Article> getArticles();
-	
-	/**
-	 * @return
-	 */
-	List<Society> getSocieties();
-	
-	/**
-	 * @return
-	 */
-	List<Interests> getAreasOfInterests();
-	
-	/**
-	 * @return
-	 */
-	StaticData[] getSecurityQuestions();
-	
-	/**
-	 * @return
-	 */
-	List<Role> getAdminRoles();
-	
-	/**
-	 * @return
-	 */
-	List<AccessReasons> getAccessReasons();
-	
+    
+    /**
+     * @return
+     */
+    List<Title> getTitles();
+    
+    /**
+     * @return
+     */
+    List<Suffix> getSuffixes();
+    
+    /**
+     * @return
+     */
+    List<Industry> getIndustries();
+    
+    /**
+     * @return
+     */
+    List<JobCategory> getJobCategories();
+    
+    /**
+     * @return
+     */
+    List<Country> getCountries();
+    
+    /**
+     * @return
+     */
+    List<State> getStates();
+    
+    /**
+     * @return
+     */
+    List<Institution> getInstitutions();
+    
+    /**
+     * @return
+     */
+    List<Department> getDepartments();
+    
+    /**
+     * @return
+     */
+    List<ResearchFunder> getResearchFunders();
+    
+    /**
+     * @return
+     */
+    // List<Article> getArticles();
+    
+    /**
+     * @return
+     */
+    List<Society> getSocieties();
+    
+    /**
+     * @return
+     */
+    List<Interests> getAreasOfInterests();
+    
+    /**
+     * @return
+     */
+    List<SecurityDetails> getSecurityQuestions();
+    
+    /**
+     * @return
+     */
+    List<Role> getAdminRoles(String roleType);
+    
+    /**
+     * @return
+     */
+    List<AccessReasons> getAccessReasons();
+    
 }

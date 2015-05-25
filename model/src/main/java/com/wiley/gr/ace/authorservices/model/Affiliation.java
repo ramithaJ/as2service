@@ -13,122 +13,205 @@ package com.wiley.gr.ace.authorservices.model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * @author SarmaKumarap
- *
  */
+@JsonInclude(Include.NON_NULL)
 public class Affiliation {
-	
-	private String institutionId;
-	
-	private String departmentId;
-	
-	private String city;
-	
-	private String stateCode;
-	
-	private String countryCode;
-	
-	private Date startDate;
-	
-	private Date endDate;
+    
+    /** The user Id . */
+    private String userId;
+    
+    private String institutionId;
+    
+    private String departmentId;
+    
+    private String departmentName;
+    
+    private String visibility;
+    
+    private String type;
+    
+    private String roleTitle;
+    
+    private String city;
+    
+    private String stateCode;
+    
+    private String countryCode;
+    
+    private Date startDate;
+    
+    private Date endDate;
+    
+    private Organization organization;
+    
+    private DisambiguatedOrganization disambiguatedOrganization;
+    public DisambiguatedOrganization getDisambiguatedOrganization() {
+        return disambiguatedOrganization;
+    }
 
-	/**
-	 * @return
-	 */
-	public String getInstitutionId() {
-		return institutionId;
-	}
+    public void setDisambiguatedOrganization(
+            DisambiguatedOrganization disambiguatedOrganization) {
+        this.disambiguatedOrganization = disambiguatedOrganization;
+    }
 
-	/**
-	 * @param institutionId
-	 */
-	public void setInstitutionId(String institutionId) {
-		this.institutionId = institutionId;
-	}
+    public Organization getOrganization() {
+        return organization;
+    }
 
-	/**
-	 * @return
-	 */
-	public String getDepartmentId() {
-		return departmentId;
-	}
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
+    }
 
-	/**
-	 * @param departmentId
-	 */
-	public void setDepartmentId(String departmentId) {
-		this.departmentId = departmentId;
-	}
+    public String getVisibility() {
+        return visibility;
+    }
 
-	/**
-	 * @return
-	 */
-	public String getCity() {
-		return city;
-	}
+    public void setVisibility(String visibility) {
+        this.visibility = visibility;
+    }
 
-	/**
-	 * @param city
-	 */
-	public void setCity(String city) {
-		this.city = city;
-	}
+    public String getType() {
+        return type;
+    }
 
-	/**
-	 * @return
-	 */
-	public String getStateCode() {
-		return stateCode;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	/**
-	 * @param stateCode
-	 */
-	public void setStateCode(String stateCode) {
-		this.stateCode = stateCode;
-	}
+    public String getRoleTitle() {
+        return roleTitle;
+    }
 
-	/**
-	 * @return
-	 */
-	public String getCountryCode() {
-		return countryCode;
-	}
+    public void setRoleTitle(String roleTitle) {
+        this.roleTitle = roleTitle;
+    }
 
-	/**
-	 * @param countryCode
-	 */
-	public void setCountryCode(String countryCode) {
-		this.countryCode = countryCode;
-	}
+    public String getDepartmentName() {
+        return departmentName;
+    }
 
-	/**
-	 * @return
-	 */
-	public Date getStartDate() {
-		return startDate;
-	}
-
-	/**
-	 * @param startDate
-	 */
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
-	}
-
-	/**
-	 * @return
-	 */
-	public Date getEndDate() {
-		return endDate;
-	}
-
-	/**
-	 * @param endDate
-	 */
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
-
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
+    }
+    /**
+     * Gets the user Id.
+     *
+     * @return the user Id
+     */
+    public String getUserId() {
+        return userId;
+    }
+    
+    /**
+     * Sets the user Id.
+     *
+     * @return the user Id
+     */
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+    
+    /**
+     * @return
+     */
+    public String getInstitutionId() {
+        return institutionId;
+    }
+    
+    /**
+     * @param institutionId
+     */
+    public void setInstitutionId(String institutionId) {
+        this.institutionId = institutionId;
+    }
+    
+    /**
+     * @return
+     */
+    public String getDepartmentId() {
+        return departmentId;
+    }
+    
+    /**
+     * @param departmentId
+     */
+    public void setDepartmentId(String departmentId) {
+        this.departmentId = departmentId;
+    }
+    
+    /**
+     * @return
+     */
+    public String getCity() {
+        return city;
+    }
+    
+    /**
+     * @param city
+     */
+    public void setCity(String city) {
+        this.city = city;
+    }
+    
+    /**
+     * @return
+     */
+    public String getStateCode() {
+        return stateCode;
+    }
+    
+    /**
+     * @param stateCode
+     */
+    public void setStateCode(String stateCode) {
+        this.stateCode = stateCode;
+    }
+    
+    /**
+     * @return
+     */
+    public String getCountryCode() {
+        return countryCode;
+    }
+    
+    /**
+     * @param countryCode
+     */
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+    
+    /**
+     * @return
+     */
+    public Date getStartDate() {
+        return startDate;
+    }
+    
+    /**
+     * @param startDate
+     */
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+    
+    /**
+     * @return
+     */
+    public Date getEndDate() {
+        return endDate;
+    }
+    
+    /**
+     * @param endDate
+     */
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+    
 }

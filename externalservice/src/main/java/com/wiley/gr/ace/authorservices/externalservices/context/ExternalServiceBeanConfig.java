@@ -18,33 +18,40 @@ import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceServ
 import com.wiley.gr.ace.authorservices.externalservices.service.BPMInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.OrcidInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.ALMInterfaceServiceImpl;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.BPMInterfaceServiceImpl;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.CDMInterfaceServiceImpl;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.ESBInterfaceServiceImpl;
+import com.wiley.gr.ace.authorservices.externalservices.service.impl.OrcidInterfaceServiceImpl;
 
 @Configuration
 public class ExternalServiceBeanConfig {
-
-	@Bean(name = "ALMExternalService")
-	public ALMInterfaceService aLMExternalService() {
-		return new ALMInterfaceServiceImpl();
-	}
-
-	@Bean(name = "BPMExternalService")
-	public BPMInterfaceService bpmExternalService() {
-		return new BPMInterfaceServiceImpl();
-	}
-
-	@Bean(name = "ESBInterfaceService")
-	public ESBInterfaceService eSBInterfaceService() {
-		return new ESBInterfaceServiceImpl();
-	}
-	@Bean(name="CDMInterfaceService")
-	public CDMInterfaceService cdmInterfaceService()
-	{
-		
-		return new CDMInterfaceServiceImpl();
-	}
-
+    
+    @Bean(name = "ALMExternalService")
+    public ALMInterfaceService aLMExternalService() {
+        return new ALMInterfaceServiceImpl();
+    }
+    
+    @Bean(name = "BPMExternalService")
+    public BPMInterfaceService bpmExternalService() {
+        return new BPMInterfaceServiceImpl();
+    }
+    
+    @Bean(name = "ESBInterfaceService")
+    public ESBInterfaceService eSBInterfaceService() {
+        return new ESBInterfaceServiceImpl();
+    }
+    
+    @Bean(name = "OricdInterfaceService")
+    public OrcidInterfaceService orcidInterfaceService() {
+        return new OrcidInterfaceServiceImpl();
+    }
+    
+    @Bean(name = "CDMInterfaceService")
+    public CDMInterfaceService cdmInterfaceService() {
+        
+        return new CDMInterfaceServiceImpl();
+    }
+    
 }

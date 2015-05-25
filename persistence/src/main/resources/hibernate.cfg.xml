@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <!-- Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved. -->
 
-<!-- All material contained herein is proprietary to John Wiley & Sons  -->
-<!-- and its third party suppliers, if any. The methods, techniques and  -->
-<!-- technical concepts contained herein are considered trade secrets  -->
-<!-- and confidential and may be protected by intellectual property laws.   -->
-<!-- Reproduction or distribution of this material, in whole or in part,  -->
-<!-- is strictly forbidden except by express prior written permission  -->
+<!-- All material contained herein is proprietary to John Wiley & Sons -->
+<!-- and its third party suppliers, if any. The methods, techniques and -->
+<!-- technical concepts contained herein are considered trade secrets -->
+<!-- and confidential and may be protected by intellectual property laws. -->
+<!-- Reproduction or distribution of this material, in whole or in part, -->
+<!-- is strictly forbidden except by express prior written permission -->
 <!-- of John Wiley & Sons. -->
 
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
@@ -35,17 +35,25 @@
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.Permissions" />
 		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Alerts" />
-		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.AuthCoauthDetails" />
-		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.AuthColleagueDetails" />
-		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.AuthColleagueDetailsId" />
-		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.AuthCoauthDetails" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.AuthColleagueDetails" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.AuthColleagueDetailsId" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile" />
 		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Journals" />
-		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.ResearchFunders" />
-		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.RolePermissions" />
-		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.RolePermissionsId" />
-		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.SocietyDetails" />
-		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.UserFunderGrants" />
-		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.UserFunderGrantsId" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.ResearchFunders" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.RolePermissions" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.RolePermissionsId" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.UserFunderGrants" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.UserFunderGrantsId" />
 		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Users" />
 		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Roles" />
 		<mapping
@@ -68,5 +76,17 @@
 			class="com.wiley.gr.ace.authorservices.persistence.entity.AdminDetails" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.LookupValues" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.UserSocietyDetails" />
+		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Address" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.AreaOfInterest" />
+			<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.UserAffiliations"/>
+			<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.UserWoaAccounts"/>
+				<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.UserWoaAccountsId"/>
+			<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.UserRoles"/>
+			<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.UserAreaOfInterest"/>
+			<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.UserAreaOfInterestId"/>
+
 	</session-factory>
 </hibernate-configuration>

@@ -14,60 +14,318 @@
  */
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
-import org.restlet.Context;
-import org.restlet.data.Form;
-import org.restlet.data.MediaType;
-import org.restlet.data.Reference;
-import org.restlet.representation.Representation;
-import org.restlet.resource.ClientResource;
+import java.util.Iterator;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.wiley.gr.ace.authorservices.externalservices.service.OrcidInterfaceService;
+import com.wiley.gr.ace.authorservices.model.Address;
+import com.wiley.gr.ace.authorservices.model.Addresses;
+import com.wiley.gr.ace.authorservices.model.Affiliation;
+import com.wiley.gr.ace.authorservices.model.Country;
+import com.wiley.gr.ace.authorservices.model.DisambiguatedOrganization;
+import com.wiley.gr.ace.authorservices.model.Organization;
+import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.orcid.OrcidAccessToken;
 import com.wiley.gr.ace.authorservices.services.service.OrcidService;
 
 /**
  * @author vkumark
- *
  */
 public class OrcidServiceImpl implements OrcidService {
+    
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(OrcidServiceImpl.class);
+    @Autowired(required = true)
+    OrcidInterfaceService oricdInterfaceService;
+    
+    /*
+     * (non-Javadoc)
+     * @see
+     * com.wiley.gr.ace.authorservices.services.service.OrcidService#getAccessToken
+     * (java.lang.String)
+     */
+    @Override
+    public OrcidAccessToken getAccessToken(String authorizationCode)
+            throws Exception {
+        return oricdInterfaceService.getAccessToken(authorizationCode);
+    }
+    
+    @Override
+    public User getWork(OrcidAccessToken token) throws Exception {
+        User user = null;
+        String orcidMessageJSON = oricdInterfaceService.getWork(token);
+        if (null != orcidMessageJSON && !orcidMessageJSON.isEmpty()) {
+            /**
+             * Code to map the orcid JSON to user model object
+             */
+            user = parseOrcidJSONForWork(orcidMessageJSON);
+        }
+        return user;
+    }
+    
+    @Override
+    public User getBio(OrcidAccessToken token) throws Exception {
+        
+        User user = null;
+        String orcidMessageJSON = oricdInterfaceService.getBio(token);
+        if (null != orcidMessageJSON && !orcidMessageJSON.isEmpty()) {
+            /**
+             * Code to map the orcid JSON to user model object
+             */
+            user = parseOrcidJSON(orcidMessageJSON);
+        }
+        return user;
+    }
+    
+    private User parseOrcidJSON(String orcidMessageJSON) {
+        User user = null;
+        try {
+            JSONObject orcidProfileJSON = (JSONObject) new JSONParser()
+                    .parse(orcidMessageJSON);
+            JSONObject orcidProfile = (JSONObject) orcidProfileJSON
+                    .get("orcid-profile");
+            LOGGER.info("orcidProfile ##### " , orcidProfile);
+            if (null != orcidProfile) {
+                JSONObject orcidBioJSON = (JSONObject) new JSONParser()
+                        .parse(orcidProfile.toJSONString());
+                JSONObject orcidBio = (JSONObject) orcidBioJSON
+                        .get("orcid-bio");
+                LOGGER.info("orcidBio ##### " , orcidBio);
+                if (null != orcidBio) {
+                    user = new User();
+                    JSONObject personalDetailsJSON = (JSONObject) new JSONParser()
+                            .parse(orcidBio.toJSONString());
+                    JSONObject personalDetails = (JSONObject) personalDetailsJSON
+                            .get("personal-details");
+                    LOGGER.info("personalDetails ##### "
+                            + personalDetails);
+                    if (null != personalDetails) {
+                        /**
+                         * Code to fetch FN and LN.
+                         */
+                        JSONObject givenNamesJSON = (JSONObject) new JSONParser()
+                                .parse(personalDetails.toJSONString());
+                        JSONObject givenNames = (JSONObject) givenNamesJSON
+                                .get("given-names");
+                        LOGGER.info("givenNames ##### " , givenNames);
+                        
+                        JSONObject familyNamesJSON = (JSONObject) new JSONParser()
+                                .parse(personalDetails.toJSONString());
+                        JSONObject familyNames = (JSONObject) familyNamesJSON
+                                .get("family-name");
+                        LOGGER.info("familyNames ##### " , familyNames);
+                        
+                        if (null != givenNames) {
+                            JSONObject givenNamesValueJSON = (JSONObject) new JSONParser()
+                                    .parse(givenNames.toJSONString());
+                            user.setFirstName((String) givenNamesValueJSON
+                                    .get("value"));
+                        }
+                        if (null != familyNames) {
+                            JSONObject familyNamesValueJSON = (JSONObject) new JSONParser()
+                                    .parse(familyNames.toJSONString());
+                            user.setLastName((String) familyNamesValueJSON
+                                    .get("value"));
+                        }
+                    }
+                    /**
+                     * Code to fetch Email and ORCID ID
+                     */
+                    JSONObject contactDetails = (JSONObject) personalDetailsJSON
+                            .get("contact-details");
+                    if (null != contactDetails) {
+                        JSONObject emailArrayJSON = (JSONObject) new JSONParser()
+                                .parse(contactDetails.toJSONString());
+                        JSONArray emailArray = (JSONArray) emailArrayJSON
+                                .get("email");
+                        LOGGER.info("emailArray ##### " , emailArray);
+                        /**
+                         * Email JSON is an array so iterating through it to
+                         * find primary email
+                         */
+                        if (null != emailArray) {
+                            Iterator<JSONObject> emailItr = emailArray
+                                    .iterator();
+                            Boolean isPrimary;
+                            while (emailItr.hasNext()) {
+                                JSONObject emailJSON = (JSONObject) new JSONParser()
+                                        .parse(emailItr.next().toJSONString());
+                                isPrimary = (Boolean) emailJSON.get("primary");
+                                
+                                LOGGER.info("isPrimary ---->"
+                                        + isPrimary);
+                                if (isPrimary) {
+                                    user.setPrimaryEmailAddr((String) emailJSON
+                                            .get("value"));
+                                    user.setOrcidID((String) emailJSON
+                                            .get("source"));
+                                }
+                            }
+                        }
+                        /**
+                         * Fetching country code from address field
+                         */
+                        JSONObject addressJSON = (JSONObject) new JSONParser()
+                                .parse(contactDetails.toJSONString());
+                        JSONObject addressDetails = (JSONObject) addressJSON
+                                .get("address");
+                        LOGGER.info("addressDetails ##### ", addressDetails);
+                        if (null != addressDetails) {
+                            JSONObject countryJSON = (JSONObject) new JSONParser()
+                                    .parse(addressDetails.toJSONString());
+                            JSONObject countryDetails = (JSONObject) countryJSON
+                                    .get("country");
+                            Addresses addresses = new Addresses();
+                            Address address = new Address();
+                            Country country = new Country();
+                            country.setCountryCode((String) countryDetails
+                                    .get("value"));
+                            country.setCountryName("INDIA"); // Need to replace
+                                                             // with actual
+                                                             // name once we
+                                                             // have the
+                                                             // service for
+                                                             // country
+                            address.setCountry(country);
+                            addresses.setCorrespondenceAddress(address);
+                            user.setAddresses(addresses);
+                        }
+                    }
+                }
+            }
+            
+        } catch (Exception e) {
+            LOGGER.error("Initial SessionFactory creation failed.", e);
+        }
+        return user;
+    }
+    private User parseOrcidJSONForWork(String orcidMessageJSON) {
+        User user = null;
+        try {
+            JSONObject orcidMessageJSONObject = (JSONObject) new JSONParser()
+                    .parse(orcidMessageJSON);
+            JSONObject orcidMessage = (JSONObject) orcidMessageJSONObject
+                    .get("orcid-message");
+            LOGGER.info("orcidMessage ##### ", orcidMessage);
+            if (null != orcidMessage) {
+                JSONObject orcidProfile = (JSONObject) orcidMessage
+                        .get("orcid-profile");
+                LOGGER.info("orcidProfile ##### ", orcidProfile);
+                if (null != orcidProfile) {
+                    JSONObject orcidActivitiesJSON = (JSONObject) new JSONParser()
+                            .parse(orcidProfile.toJSONString());
+                    JSONObject orcidActivities = (JSONObject) orcidActivitiesJSON
+                            .get("orcid-activities");
+                    LOGGER.info("orcidActivities ##### ", orcidActivities);
+                    if (null != orcidActivities) {
+                        JSONObject orcidWorkJSON = (JSONObject) new JSONParser()
+                                .parse(orcidActivities.toJSONString());
+                        JSONObject orcidWork = (JSONObject) orcidWorkJSON
+                                .get("orcid-work");
+                        LOGGER.info("orcidWork ##### ", orcidWork);
+                        if (null != orcidWork) {
+                            user = new User();
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.wiley.gr.ace.authorservices.services.service.OrcidService#getAccessToken
-	 * (java.lang.String)
-	 */
-	@Override
-	public OrcidAccessToken getAccessToken(String authorizationCode)
-			throws Exception {
+                            /**
+                             * Code to fetch Affiliations
+                             */
+                            JSONObject affiliations = (JSONObject) orcidActivities
+                                    .get("affiliations");
+                            if (null != affiliations) {
+                                JSONObject affiliationArrayJSON = (JSONObject) new JSONParser()
+                                        .parse(affiliations.toJSONString());
+                                JSONArray affiliationArray = (JSONArray) affiliationArrayJSON
+                                        .get("affiliation");
+                                LOGGER.info("affiliationArray ##### ",
+                                        affiliationArray);
+                                /**
+                                 * Affiliation JSON is an array so iterating
+                                 * through it to find the affiliations
+                                 */
+                                if (null != affiliationArray) {
+                                    Iterator<JSONObject> affiliationItr = affiliationArray
+                                            .iterator();
+                                    while (affiliationItr.hasNext()) {
+                                        JSONObject affiliationJSON = (JSONObject) new JSONParser()
+                                                .parse(affiliationItr.next()
+                                                        .toJSONString());
+                                        Affiliation affiliation = new Affiliation();
+                                        affiliation
+                                                .setVisibility((String) affiliationJSON
+                                                        .get("-visibility"));
+                                        affiliation
+                                                .setType((String) affiliationJSON
+                                                        .get("type"));
+                                        affiliation
+                                                .setDepartmentName((String) affiliationJSON
+                                                        .get("department-name"));
+                                        affiliation
+                                                .setRoleTitle((String) affiliationJSON
+                                                        .get("role-title"));
+                                        affiliation
+                                                .setStartDate((java.util.Date) affiliationJSON
+                                                        .get("start-date"));
 
-		OrcidAccessToken accessToken = null;
-		Reference ref = new Reference("http://pub.orcid.org/oauth/token");
-		if (Context.getCurrent() == null) {
-			Context.setCurrent(new Context());
-		}
-		ClientResource client = new ClientResource(ref);
-		/**
-		 * TODO : Need to fetch this values from prop files depending on environment
-		 */
-		Form form = new Form();
-		form.add("client_id", "APP-7E4BRADG8DTVCY64");
-		form.add("client_secret", "3408b30c-bbdc-4f45-963d-294f7a7bc0b1");
-		form.add("grant_type", "authorization_code");
-		form.add("code", authorizationCode);
-		form.add("redirect_uri", "http://www.vinay.com:8080/orcid/index.jsp");
-
-		client.getContext().getParameters().add("followRedirects", "true");
-		System.out.println("form.toString() ##### " + form.toString());
-		System.out.println("client.toString() ##### " + client.toString());
-
-		Representation rep = client.post(form, MediaType.APPLICATION_JSON);
-		String json = rep.getText();
-		System.out.println("json ##### " + json);
-		ObjectMapper objectMapper = new ObjectMapper();
-		accessToken = objectMapper.readValue(json, OrcidAccessToken.class);
-		return accessToken;
-	}
-
+                                        JSONObject organizationJSON = (JSONObject) new JSONParser()
+                                                .parse(affiliationJSON
+                                                        .toJSONString());
+                                        JSONObject organizationDetails = (JSONObject) organizationJSON
+                                                .get("organization");
+                                        if (null != organizationDetails) {
+                                            Organization organization = new Organization();
+                                            organization
+                                                    .setName((String) organizationDetails
+                                                            .get("name"));
+                                            JSONObject addressJSON = (JSONObject) new JSONParser()
+                                                    .parse(organizationDetails
+                                                            .toJSONString());
+                                            JSONObject addressDetails = (JSONObject) addressJSON
+                                                    .get("address");
+                                            if (null != addressDetails) {
+                                                Address address = new Address();
+                                                address.setCity((String) addressDetails
+                                                        .get("city"));
+                                                address.setRegion((String) addressDetails
+                                                        .get("region"));
+                                                organization
+                                                        .setAddress(address);
+                                                affiliation
+                                                        .setOrganization(organization);
+                                            }
+                                        }
+                                        JSONObject disambiguatedOrganizationJSON = (JSONObject) new JSONParser()
+                                                .parse(affiliationJSON
+                                                        .toJSONString());
+                                        JSONObject disambiguatedOrganizationDetails = (JSONObject) disambiguatedOrganizationJSON
+                                                .get("disambiguated-organization");
+                                        if (null != disambiguatedOrganizationDetails) {
+                                            DisambiguatedOrganization disambiguatedOrganization = new DisambiguatedOrganization();
+                                            disambiguatedOrganization
+                                                    .setDisambiguatedOrganizationIdentifier((String) disambiguatedOrganizationDetails
+                                                            .get("disambiguated-organization-identifier"));
+                                            disambiguatedOrganization
+                                                    .setDisambiguationSource((String) disambiguatedOrganizationDetails
+                                                            .get("disambiguation-source"));
+                                            affiliation
+                                                    .setDisambiguatedOrganization(disambiguatedOrganization);
+                                        }
+                                        user.setAffiliation(affiliation);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.error("Initial SessionFactory creation failed.", e);
+        }
+        return user;
+    }
 }

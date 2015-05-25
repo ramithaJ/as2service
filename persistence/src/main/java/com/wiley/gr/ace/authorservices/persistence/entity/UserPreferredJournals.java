@@ -16,69 +16,69 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "USER_PREFERRED_JOURNALS")
 public class UserPreferredJournals implements java.io.Serializable {
-
-	private UserPreferredJournalsId id;
-	private Journals journals;
-	private AuthorProfile authorProfile;
-	private String jouImpactFactor;
-
-	public UserPreferredJournals() {
-	}
-
-	public UserPreferredJournals(UserPreferredJournalsId id, Journals journals,
-			AuthorProfile authorProfile) {
-		this.id = id;
-		this.journals = journals;
-		this.authorProfile = authorProfile;
-	}
-
-	public UserPreferredJournals(UserPreferredJournalsId id, Journals journals,
-			AuthorProfile authorProfile, String jouImpactFactor) {
-		this.id = id;
-		this.journals = journals;
-		this.authorProfile = authorProfile;
-		this.jouImpactFactor = jouImpactFactor;
-	}
-
-	@EmbeddedId
-	@AttributeOverrides({
-			@AttributeOverride(name = "userId", column = @Column(name = "USER_ID", nullable = false, precision = 22, scale = 0)),
-			@AttributeOverride(name = "journalId", column = @Column(name = "JOURNAL_ID", nullable = false, precision = 22, scale = 0)) })
-	public UserPreferredJournalsId getId() {
-		return this.id;
-	}
-
-	public void setId(UserPreferredJournalsId id) {
-		this.id = id;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "JOURNAL_ID", nullable = false, insertable = false, updatable = false)
-	public Journals getJournals() {
-		return this.journals;
-	}
-
-	public void setJournals(Journals journals) {
-		this.journals = journals;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USER_ID", nullable = false, insertable = false, updatable = false)
-	public AuthorProfile getAuthorProfile() {
-		return this.authorProfile;
-	}
-
-	public void setAuthorProfile(AuthorProfile authorProfile) {
-		this.authorProfile = authorProfile;
-	}
-
-	@Column(name = "JOU_IMPACT_FACTOR", length = 100)
-	public String getJouImpactFactor() {
-		return this.jouImpactFactor;
-	}
-
-	public void setJouImpactFactor(String jouImpactFactor) {
-		this.jouImpactFactor = jouImpactFactor;
-	}
-
+    
+    private UserPreferredJournalsId id;
+    private Journals journals;
+    private AuthorProfile authorProfile;
+    private String jouImpactFactor;
+    
+    public UserPreferredJournals() {
+    }
+    
+    public UserPreferredJournals(UserPreferredJournalsId id, Journals journals,
+            AuthorProfile authorProfile) {
+        this.id = id;
+        this.journals = journals;
+        this.authorProfile = authorProfile;
+    }
+    
+    public UserPreferredJournals(UserPreferredJournalsId id, Journals journals,
+            AuthorProfile authorProfile, String jouImpactFactor) {
+        this.id = id;
+        this.journals = journals;
+        this.authorProfile = authorProfile;
+        this.jouImpactFactor = jouImpactFactor;
+    }
+    
+    @EmbeddedId
+    @AttributeOverrides({
+            @AttributeOverride(name = "userId", column = @Column(name = "USER_ID", nullable = false, precision = 22, scale = 0)),
+            @AttributeOverride(name = "journalId", column = @Column(name = "JOURNAL_ID", nullable = false, precision = 22, scale = 0)) })
+    public UserPreferredJournalsId getId() {
+        return this.id;
+    }
+    
+    public void setId(UserPreferredJournalsId id) {
+        this.id = id;
+    }
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "JOURNAL_ID", nullable = false, insertable = false, updatable = false)
+    public Journals getJournals() {
+        return this.journals;
+    }
+    
+    public void setJournals(Journals journals) {
+        this.journals = journals;
+    }
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "USER_ID", nullable = false, insertable = false, updatable = false)
+    public AuthorProfile getAuthorProfile() {
+        return this.authorProfile;
+    }
+    
+    public void setAuthorProfile(AuthorProfile authorProfile) {
+        this.authorProfile = authorProfile;
+    }
+    
+    @Column(name = "JOU_IMPACT_FACTOR", length = 100)
+    public String getJouImpactFactor() {
+        return this.jouImpactFactor;
+    }
+    
+    public void setJouImpactFactor(String jouImpactFactor) {
+        this.jouImpactFactor = jouImpactFactor;
+    }
+    
 }

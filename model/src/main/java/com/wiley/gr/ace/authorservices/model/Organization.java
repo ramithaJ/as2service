@@ -9,3 +9,30 @@
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
  *******************************************************************************/
+/**
+ * 
+ */
+package com.wiley.gr.ace.authorservices.model;
+
+/**
+ * @author yugandhark
+ *
+ */
+public class Organization {
+    private String name;
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public Address getAddress() {
+        return address;
+    }
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+    private Address address;
+    
+
+}

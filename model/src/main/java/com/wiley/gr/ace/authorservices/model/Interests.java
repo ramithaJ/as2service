@@ -11,42 +11,64 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * @author SarmaKumarap
- *
  */
+@JsonInclude(Include.NON_NULL)
 public class Interests {
-	
-	private String aoeId;
-	
-	private String aoeCategory;
-	
-	private String aoeName;
-
-	public String getAoeId() {
-		return aoeId;
-	}
-
-	public void setAoeId(String aoeId) {
-		this.aoeId = aoeId;
-	}
-
-	public String getAoeCategory() {
-		return aoeCategory;
-	}
-
-	public void setAoeCategory(String aoeCategory) {
-		this.aoeCategory = aoeCategory;
-	}
-
-	public String getAoeName() {
-		return aoeName;
-	}
-
-	public void setAoeName(String aoeName) {
-		this.aoeName = aoeName;
-	}
-
-	
-
+    
+    /** The user Id . */
+    private String userId;
+    
+    private String aoeId;
+    
+    private String aoeCategory;
+    
+    private String aoeName;
+    
+    /**
+     * Gets the user Id.
+     *
+     * @return the user Id
+     */
+    public String getUserId() {
+        return userId;
+    }
+    
+    /**
+     * Sets the user Id.
+     *
+     * @return the user Id
+     */
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+    
+    public String getAoeId() {
+        return aoeId;
+    }
+    
+    public void setAoeId(String aoeId) {
+        this.aoeId = aoeId;
+    }
+    
+    public String getAoeCategory() {
+        return aoeCategory;
+    }
+    
+    public void setAoeCategory(String aoeCategory) {
+        this.aoeCategory = aoeCategory;
+    }
+    
+    public String getAoeName() {
+        return aoeName;
+    }
+    
+    public void setAoeName(String aoeName) {
+        this.aoeName = aoeName;
+    }
+    
 }

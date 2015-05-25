@@ -14,10 +14,10 @@
  */
 package com.wiley.gr.ace.authorservices.services.service;
 
-import java.util.LinkedList;
-import java.util.List;
 
 
+
+import com.wiley.gr.ace.authorservices.model.DashBoard;
 
 
 /**
@@ -25,7 +25,9 @@ import java.util.List;
  *
  */
 public interface DashBoardService {
-	//List<Article> getAllAuthorArticles();
-	List<LinkedList> getProfileMeter(int userId);
-
+/**
+ * @param userId to get the data from DashBoardDAO
+ * @return List
+ */
+DashBoard getProfileMeter(String userId) throws NullPointerException;
 }

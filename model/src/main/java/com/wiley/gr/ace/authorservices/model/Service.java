@@ -19,59 +19,56 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * Data from the service is wrapped into this and returned.
  * 
  * @author SarmaKumarap
- *
  */
 @JsonInclude(Include.NON_NULL)
 public class Service {
-	
-	private String status = "success";
-	
-	private Object payload;
-	
-	private ErrorPOJO error;
-
-	/**
-	 * @return
-	 */
-	public String getStatus() {
-		return status;
-	}
-
-	/**
-	 * @param status
-	 */
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	/**
-	 * @return
-	 */
-	public Object getPayload() {
-		return payload;
-	}
-
-	/**
-	 * @param payload
-	 */
-	public void setPayload(Object payload) {
-		this.payload = payload;
-	}
-
-	/**
-	 * @return
-	 */
-	public ErrorPOJO getError() {
-		return error;
-	}
-
-	/**
-	 * @param error
-	 */
-	public void setError(ErrorPOJO error) {
-		this.error = error;
-	}
-	
-	
-
+    
+    private String status = "SUCCESS";
+    
+    private Object payload;
+    
+    private ErrorPOJO error;
+    
+    /**
+     * @return
+     */
+    public String getStatus() {
+        return status;
+    }
+    
+    /**
+     * @param status
+     */
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
+    /**
+     * @return
+     */
+    public Object getPayload() {
+        return payload;
+    }
+    
+    /**
+     * @param payload
+     */
+    public void setPayload(Object payload) {
+        this.payload = payload;
+    }
+    
+    /**
+     * @return
+     */
+    public ErrorPOJO getError() {
+        return error;
+    }
+    
+    /**
+     * @param error
+     */
+    public void setError(ErrorPOJO error) {
+        this.error = error;
+    }
+    
 }

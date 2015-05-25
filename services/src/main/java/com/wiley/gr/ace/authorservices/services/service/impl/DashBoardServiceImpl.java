@@ -11,103 +11,120 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 
-import com.wiley.gr.ace.authorservices.model.Security;
-import com.wiley.gr.ace.authorservices.model.Service;
+import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
+import com.wiley.gr.ace.authorservices.model.Affiliation;
+import com.wiley.gr.ace.authorservices.model.DashBoard;
+import com.wiley.gr.ace.authorservices.model.DashBoardInfo;
+import com.wiley.gr.ace.authorservices.model.Interests;
+import com.wiley.gr.ace.authorservices.model.ResearchFunder;
+import com.wiley.gr.ace.authorservices.model.SecurityDetails;
+import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
+import com.wiley.gr.ace.authorservices.model.Society;
+import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserProfile;
-import com.wiley.gr.ace.authorservices.persistence.entity.UserReferenceData;
-import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
-
-import com.wiley.gr.ace.authorservices.persistence.services.DashBoardDAO;
+import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
 import com.wiley.gr.ace.authorservices.services.service.DashBoardService;
 
+/**
+ * @author yugandhark
+ *
+ */
 public class DashBoardServiceImpl implements DashBoardService {
 
-	@Autowired(required = true)
-	DashBoardDAO dashBoardDAO;
+    @Autowired(required = true)
+    private CDMInterfaceService cdmIntefaceService;
+    @Autowired(required = true)
+    private ALMInterfaceService almIntefaceService;
 
-	@Override
-	public List<LinkedList> getProfileMeter(int userId) {
-		Security security = new Security();
-		List dashBoardProfileList = new LinkedList();
-		List profileMeterList = dashBoardDAO.getProfileMeter(userId);
-		List<UserSecurityDetails> userSecureDetailsList = (List<UserSecurityDetails>) profileMeterList.get(0);
-		security.setSecurityQuestion1(userSecureDetailsList.get(0)
-				.getSecurityQuestion());
-		security.setSecurityAnswer1(userSecureDetailsList.get(0)
-				.getSecurityAnswer());
-		security.setSecurityQuestion2(userSecureDetailsList.get(1)
-				.getSecurityQuestion());
-		security.setSecurityAnswer2(userSecureDetailsList.get(1)
-				.getSecurityAnswer());
-		if (userSecureDetailsList != null) {
-			Service service = new Service();
-			if (null == security.getSecurityQuestion1()
-					|| null == security.getSecurityAnswer1()) {
-				if (null == security.getSecurityQuestion2()
-						|| null == security.getSecurityAnswer2()) {
-					service.setStatus("Set up your security questions, it will allow you to easily access your Wiley account if you ever forget your password");
-					dashBoardProfileList.add(service);
-				}
-			} else if (null == security.getSecurityQuestion1()
-					&& null == security.getSecurityAnswer1()) {
-				service.setStatus("Set up your security question1 and answer1,it will allow you to easily access your Wiley account if you ever forget your password");
-				dashBoardProfileList.add(service);
-			} else if (null == security.getSecurityQuestion2()
-					&& null == security.getSecurityAnswer2()) {
-				service.setStatus("Set up your security question2 and answer2, it will allow you to easily access your Wiley account if you ever forget your password");
-				dashBoardProfileList.add(service);
-			} 
-		}
-		List<UserProfile> secondaryEmailList = (List<UserProfile>) profileMeterList
-				.get(1);
-		Service service = new Service();
-		if (null == secondaryEmailList.get(0)) {
-			service.setStatus("Set up a recovery email address, it will help you recover all your information if you ever change the current associated email");
-			dashBoardProfileList.add(service);
-		}
-		List<UserReferenceData> userOrcIdList = (List<UserReferenceData>) profileMeterList.get(2);
-		if (null == userOrcIdList.get(0)) {
-			Service serviceOrciId = new Service();
-			serviceOrciId.setStatus("Set up a OrcidId, it will help you recover all your information if you ever change the current Login Details");
-			dashBoardProfileList.add(serviceOrciId);
-		}
-		List userSocietyList=(List)profileMeterList.get(3);
-		if(null==userSocietyList.get(0)){
-			Service serviceSocietyDetails=new Service();
-			serviceSocietyDetails.setStatus("Add Info About Your Societies");
-			dashBoardProfileList.add(serviceSocietyDetails);
-		}
-		List userAffliationsList=(List)profileMeterList.get(4);
-		if(null==userAffliationsList.get(0)){
-			Service serviceAffliationsDetails=new Service();
-			serviceAffliationsDetails.setStatus("Add Info About Your Affliations");
-			dashBoardProfileList.add(serviceAffliationsDetails);
-		}
-		List userFundersList=(List)profileMeterList.get(5);
-		if(null==userFundersList.get(0)){
-			Service serviceFundersDetails=new Service();
-			serviceFundersDetails.setStatus("Add Info About Your Funders");
-			dashBoardProfileList.add(serviceFundersDetails);
-		}
-		List areasOfExpertiseList=(List)profileMeterList.get(6);
-		if(null==areasOfExpertiseList.get(0)){
-			Service serviceareasOfExpertiseDetails=new Service();
-			serviceareasOfExpertiseDetails.setStatus("Add Info About  Your Areas of Expertise");
-			dashBoardProfileList.add(serviceareasOfExpertiseDetails);
-		}
-		List isAccountVerifiedList=(List)profileMeterList.get(7);
-		if(null==isAccountVerifiedList.get(0)){
-			Service serviceisAccountVerifiedDetails=new Service();
-			serviceisAccountVerifiedDetails.setStatus("Your Account is Not Verified");
-			dashBoardProfileList.add(serviceisAccountVerifiedDetails);
-		}
-		System.out.println(dashBoardProfileList.size()+"size of service list");
-		return dashBoardProfileList;
-	}
-
+    /**
+     * @param userId
+     *            to get the data from ExternalService
+     * @return DashBoard
+     */
+    public DashBoard getProfileMeter(String userId) throws NullPointerException {
+        List<DashBoardInfo> dashBoardInfoList = new ArrayList<DashBoardInfo>();
+        DashBoardInfo dashBoardInfo = null;
+        DashBoard dashBoard = null;
+        SecurityDetailsHolder securityDetailsHolder = almIntefaceService
+                .getSecurityDetails(userId);
+        List<SecurityDetails> securityDetailsList = securityDetailsHolder
+                .getSecurityDetails();
+        if (null != securityDetailsList) {
+            for (SecurityDetails securityDetails : securityDetailsList) {
+                if (StringUtils.isEmpty(securityDetails.getSecurityQuestion())
+                        || StringUtils.isEmpty(securityDetails
+                                .getSecurityAnswer())) {
+                    dashBoardInfo = new DashBoardInfo();
+                    dashBoardInfo.setId("security");
+                    dashBoardInfo
+                            .setDashBoardInfoMessage("No Security Details");
+                    dashBoardInfoList.add(dashBoardInfo);
+                    break;
+                }
+            }
+        }
+        LookUpProfile lookUpProfile = cdmIntefaceService.lookUpProfile(userId);
+        UserProfile userProfile = lookUpProfile.getUserProfile();
+        User user = userProfile.getProfileInformation();
+        if (StringUtils.isEmpty(user.getRecoveryEmailAddress())) {
+            dashBoardInfo = new DashBoardInfo();
+            dashBoardInfo.setId("secondaryEmailAddr");
+            dashBoardInfo
+                    .setDashBoardInfoMessage("No Secondary Email(Recovery Email Addr)");
+            dashBoardInfoList.add(dashBoardInfo);
+        }
+        if (StringUtils.isEmpty(user.getOrcidID())) {
+            dashBoardInfo = new DashBoardInfo();
+            dashBoardInfo.setId("OrcidId");
+            dashBoardInfo.setDashBoardInfoMessage("No Orcid ID");
+            dashBoardInfoList.add(dashBoardInfo);
+        }
+        List<Interests> userInterestsList = userProfile.getInterests();
+        if (null != userInterestsList && userInterestsList.isEmpty()) {
+            dashBoardInfo = new DashBoardInfo();
+            dashBoardInfo.setId("Interests");
+            dashBoardInfo
+                    .setDashBoardInfoMessage("No Areas Of Expertizes(Interests) Details");
+            dashBoardInfoList.add(dashBoardInfo);
+        }
+        List<Affiliation> userAffiliationsList = userProfile.getAffiliations();
+        if (null != userAffiliationsList && userAffiliationsList.isEmpty()) {
+            dashBoardInfo = new DashBoardInfo();
+            dashBoardInfo.setId("Affiliation");
+            dashBoardInfo.setDashBoardInfoMessage("No Affiliation Details");
+            dashBoardInfoList.add(dashBoardInfo);
+        }
+        List<Society> societyList = userProfile.getSocieties();
+        if (null != societyList && societyList.isEmpty()) {
+            dashBoardInfo = new DashBoardInfo();
+            dashBoardInfo.setId("Society");
+            dashBoardInfo.setDashBoardInfoMessage("No Society Details");
+            dashBoardInfoList.add(dashBoardInfo);
+        }
+        List<ResearchFunder> researchFundersList = userProfile
+                .getResearchFunders();
+        if (null != researchFundersList && researchFundersList.isEmpty()) {
+            dashBoardInfo = new DashBoardInfo();
+            dashBoardInfo.setId("ResearchFunder");
+            dashBoardInfo
+                    .setDashBoardInfoMessage("No Research Funders Details");
+            dashBoardInfoList.add(dashBoardInfo);
+        }
+        dashBoard = new DashBoard();
+        if (null != dashBoardInfoList && dashBoardInfoList.isEmpty()) {
+            dashBoard.setProfileMeterMessage("Profile Completed");
+            dashBoard.setDashBoardInfo(dashBoardInfoList);
+        } else {
+            dashBoard.setProfileMeterMessage("");
+            dashBoard.setDashBoardInfo(dashBoardInfoList);
+        }
+        return dashBoard;
+    }
 }

@@ -4,18 +4,17 @@ import java.sql.Blob;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -25,429 +24,580 @@ import org.hibernate.annotations.Parameter;
 @Entity
 @Table(name = "AUTHOR_PROFILE")
 public class AuthorProfile implements java.io.Serializable {
-
-	private Integer userId;
-	private Users users;
-	private Character optInActivatedFlg;
-	private Character termsOfUseFlg;
-	private Character securityQuestFlg;
-	private String typeOfConsent;
-	private Character isAccountActive;
-	private Character billingAddrFlg;
-	private Character shippingAdrFlg;
-	private String ipAddress;
-	private Character isAccountVerified;
-	private Integer mergerAccntId;
-	private Blob profilePic;
-	private String alternativeName;
-	private Character isAccountLocked;
-	private Integer invalidLoginCnt;
-	private Date accountLockedTime;
-	private Date lastLoginDate;
-	private Date lastActivityDate;
-	private Date createdDate;
-	private String createdBy;
-	private Date updatedDate;
-	private String updatedBy;
-	private String alertPrefEmailid;
-	private Set<AuthCoauthDetails> authCoauthDetailsesForAuthorId = new HashSet<AuthCoauthDetails>(
-			0);
-	private Set<UserAlerts> userAlertses = new HashSet<UserAlerts>(0);
-	private Set<AuthColleagueDetails> authColleagueDetailsesForInvitedAuthorId = new HashSet<AuthColleagueDetails>(
-			0);
-	private Set<UserSecurityDetails> userSecurityDetailses = new HashSet<UserSecurityDetails>(
-			0);
-	private Set<AuthCoauthDetails> authCoauthDetailsesForCoauthUserId = new HashSet<AuthCoauthDetails>(
-			0);
-	private Set<AuthColleagueDetails> authColleagueDetailsesForColleagueUserId = new HashSet<AuthColleagueDetails>(
-			0);
-	private Set<SocietyDetails> societyDetailses = new HashSet<SocietyDetails>(
-			0);
-	private Set<UserFunderGrants> userFunderGrantses = new HashSet<UserFunderGrants>(
-			0);
-	private Set<UserProfileAttribVisible> userProfileAttribVisibles = new HashSet<UserProfileAttribVisible>(
-			0);
-	private Set<UserPreferredJournals> userPreferredJournalses = new HashSet<UserPreferredJournals>(
-			0);
-
-	public AuthorProfile() {
-	}
-
-	public AuthorProfile(Users users) {
-		this.users = users;
-	}
-
-	public AuthorProfile(Users users, Character optInActivatedFlg,
-			Character termsOfUseFlg, Character securityQuestFlg,
-			String typeOfConsent, Character isAccountActive,
-			Character billingAddrFlg, Character shippingAdrFlg,
-			String ipAddress, Character isAccountVerified,
-			Integer mergerAccntId, Blob profilePic, String alternativeName,
-			Character isAccountLocked, Integer invalidLoginCnt,
-			Date accountLockedTime, Date lastLoginDate, Date lastActivityDate,
-			Date createdDate, String createdBy, Date updatedDate,
-			String updatedBy, String alertPrefEmailid,
-			Set<AuthCoauthDetails> authCoauthDetailsesForAuthorId,
-			Set<UserAlerts> userAlertses,
-			Set<AuthColleagueDetails> authColleagueDetailsesForInvitedAuthorId,
-			Set<UserSecurityDetails> userSecurityDetailses,
-			Set<AuthCoauthDetails> authCoauthDetailsesForCoauthUserId,
-			Set<AuthColleagueDetails> authColleagueDetailsesForColleagueUserId,
-			Set<SocietyDetails> societyDetailses,
-			Set<UserFunderGrants> userFunderGrantses,
-			Set<UserProfileAttribVisible> userProfileAttribVisibles,
-			Set<UserPreferredJournals> userPreferredJournalses) {
-		this.users = users;
-		this.optInActivatedFlg = optInActivatedFlg;
-		this.termsOfUseFlg = termsOfUseFlg;
-		this.securityQuestFlg = securityQuestFlg;
-		this.typeOfConsent = typeOfConsent;
-		this.isAccountActive = isAccountActive;
-		this.billingAddrFlg = billingAddrFlg;
-		this.shippingAdrFlg = shippingAdrFlg;
-		this.ipAddress = ipAddress;
-		this.isAccountVerified = isAccountVerified;
-		this.mergerAccntId = mergerAccntId;
-		this.profilePic = profilePic;
-		this.alternativeName = alternativeName;
-		this.isAccountLocked = isAccountLocked;
-		this.invalidLoginCnt = invalidLoginCnt;
-		this.accountLockedTime = accountLockedTime;
-		this.lastLoginDate = lastLoginDate;
-		this.lastActivityDate = lastActivityDate;
-		this.createdDate = createdDate;
-		this.createdBy = createdBy;
-		this.updatedDate = updatedDate;
-		this.updatedBy = updatedBy;
-		this.alertPrefEmailid = alertPrefEmailid;
-		this.authCoauthDetailsesForAuthorId = authCoauthDetailsesForAuthorId;
-		this.userAlertses = userAlertses;
-		this.authColleagueDetailsesForInvitedAuthorId = authColleagueDetailsesForInvitedAuthorId;
-		this.userSecurityDetailses = userSecurityDetailses;
-		this.authCoauthDetailsesForCoauthUserId = authCoauthDetailsesForCoauthUserId;
-		this.authColleagueDetailsesForColleagueUserId = authColleagueDetailsesForColleagueUserId;
-		this.societyDetailses = societyDetailses;
-		this.userFunderGrantses = userFunderGrantses;
-		this.userProfileAttribVisibles = userProfileAttribVisibles;
-		this.userPreferredJournalses = userPreferredJournalses;
-	}
-
-	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "users"))
-	@Id
-	@GeneratedValue(generator = "generator")
-	@Column(name = "USER_ID", unique = true, nullable = false, precision = 22, scale = 0)
-	public Integer getUserId() {
-		return this.userId;
-	}
-
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
-
-	@OneToOne(fetch = FetchType.LAZY)
-	@PrimaryKeyJoinColumn
-	public Users getUsers() {
-		return this.users;
-	}
-
-	public void setUsers(Users users) {
-		this.users = users;
-	}
-
-	@Column(name = "OPT_IN_ACTIVATED_FLG", length = 1)
-	public Character getOptInActivatedFlg() {
-		return this.optInActivatedFlg;
-	}
-
-	public void setOptInActivatedFlg(Character optInActivatedFlg) {
-		this.optInActivatedFlg = optInActivatedFlg;
-	}
-
-	@Column(name = "TERMS_OF_USE_FLG", length = 1)
-	public Character getTermsOfUseFlg() {
-		return this.termsOfUseFlg;
-	}
-
-	public void setTermsOfUseFlg(Character termsOfUseFlg) {
-		this.termsOfUseFlg = termsOfUseFlg;
-	}
-
-	@Column(name = "SECURITY_QUEST_FLG", length = 1)
-	public Character getSecurityQuestFlg() {
-		return this.securityQuestFlg;
-	}
-
-	public void setSecurityQuestFlg(Character securityQuestFlg) {
-		this.securityQuestFlg = securityQuestFlg;
-	}
-
-	@Column(name = "TYPE_OF_CONSENT", length = 50)
-	public String getTypeOfConsent() {
-		return this.typeOfConsent;
-	}
-
-	public void setTypeOfConsent(String typeOfConsent) {
-		this.typeOfConsent = typeOfConsent;
-	}
-
-	@Column(name = "IS_ACCOUNT_ACTIVE", length = 1)
-	public Character getIsAccountActive() {
-		return this.isAccountActive;
-	}
-
-	public void setIsAccountActive(Character isAccountActive) {
-		this.isAccountActive = isAccountActive;
-	}
-
-	@Column(name = "BILLING_ADDR_FLG", length = 1)
-	public Character getBillingAddrFlg() {
-		return this.billingAddrFlg;
-	}
-
-	public void setBillingAddrFlg(Character billingAddrFlg) {
-		this.billingAddrFlg = billingAddrFlg;
-	}
-
-	@Column(name = "SHIPPING_ADR_FLG", length = 1)
-	public Character getShippingAdrFlg() {
-		return this.shippingAdrFlg;
-	}
-
-	public void setShippingAdrFlg(Character shippingAdrFlg) {
-		this.shippingAdrFlg = shippingAdrFlg;
-	}
-
-	@Column(name = "IP_ADDRESS", length = 50)
-	public String getIpAddress() {
-		return this.ipAddress;
-	}
-
-	public void setIpAddress(String ipAddress) {
-		this.ipAddress = ipAddress;
-	}
-
-	@Column(name = "IS_ACCOUNT_VERIFIED", length = 1)
-	public Character getIsAccountVerified() {
-		return this.isAccountVerified;
-	}
-
-	public void setIsAccountVerified(Character isAccountVerified) {
-		this.isAccountVerified = isAccountVerified;
-	}
-
-	@Column(name = "MERGER_ACCNT_ID", precision = 22, scale = 0)
-	public Integer getMergerAccntId() {
-		return this.mergerAccntId;
-	}
-
-	public void setMergerAccntId(Integer mergerAccntId) {
-		this.mergerAccntId = mergerAccntId;
-	}
-
-	@Column(name = "PROFILE_PIC")
-	public Blob getProfilePic() {
-		return this.profilePic;
-	}
-
-	public void setProfilePic(Blob profilePic) {
-		this.profilePic = profilePic;
-	}
-
-	@Column(name = "ALTERNATIVE_NAME", length = 200)
-	public String getAlternativeName() {
-		return this.alternativeName;
-	}
-
-	public void setAlternativeName(String alternativeName) {
-		this.alternativeName = alternativeName;
-	}
-
-	@Column(name = "IS_ACCOUNT_LOCKED", length = 1)
-	public Character getIsAccountLocked() {
-		return this.isAccountLocked;
-	}
-
-	public void setIsAccountLocked(Character isAccountLocked) {
-		this.isAccountLocked = isAccountLocked;
-	}
-
-	@Column(name = "INVALID_LOGIN_CNT", precision = 2, scale = 0)
-	public Integer getInvalidLoginCnt() {
-		return this.invalidLoginCnt;
-	}
-
-	public void setInvalidLoginCnt(Integer invalidLoginCnt) {
-		this.invalidLoginCnt = invalidLoginCnt;
-	}
-
-	@Column(name = "ACCOUNT_LOCKED_TIME")
-	public Date getAccountLockedTime() {
-		return this.accountLockedTime;
-	}
-
-	public void setAccountLockedTime(Date accountLockedTime) {
-		this.accountLockedTime = accountLockedTime;
-	}
-
-	@Column(name = "LAST_LOGIN_DATE")
-	public Date getLastLoginDate() {
-		return this.lastLoginDate;
-	}
-
-	public void setLastLoginDate(Date lastLoginDate) {
-		this.lastLoginDate = lastLoginDate;
-	}
-
-	@Column(name = "LAST_ACTIVITY_DATE")
-	public Date getLastActivityDate() {
-		return this.lastActivityDate;
-	}
-
-	public void setLastActivityDate(Date lastActivityDate) {
-		this.lastActivityDate = lastActivityDate;
-	}
-
-	@Column(name = "CREATED_DATE")
-	public Date getCreatedDate() {
-		return this.createdDate;
-	}
-
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	@Column(name = "CREATED_BY", length = 100)
-	public String getCreatedBy() {
-		return this.createdBy;
-	}
-
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	@Column(name = "UPDATED_DATE")
-	public Date getUpdatedDate() {
-		return this.updatedDate;
-	}
-
-	public void setUpdatedDate(Date updatedDate) {
-		this.updatedDate = updatedDate;
-	}
-
-	@Column(name = "UPDATED_BY", length = 100)
-	public String getUpdatedBy() {
-		return this.updatedBy;
-	}
-
-	public void setUpdatedBy(String updatedBy) {
-		this.updatedBy = updatedBy;
-	}
-	
-	@Column(name = "ALERT_PREF_EMAILID", length = 200)
-	public String getAlertPrefEmailid() {
-		return this.alertPrefEmailid;
-	}
-
-	public void setAlertPrefEmailid(String alertPrefEmailid) {
-		this.alertPrefEmailid = alertPrefEmailid;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "authorProfileByAuthorId")
-	public Set<AuthCoauthDetails> getAuthCoauthDetailsesForAuthorId() {
-		return this.authCoauthDetailsesForAuthorId;
-	}
-
-	public void setAuthCoauthDetailsesForAuthorId(
-			Set<AuthCoauthDetails> authCoauthDetailsesForAuthorId) {
-		this.authCoauthDetailsesForAuthorId = authCoauthDetailsesForAuthorId;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "authorProfile")
-	public Set<UserAlerts> getUserAlertses() {
-		return this.userAlertses;
-	}
-
-	public void setUserAlertses(Set<UserAlerts> userAlertses) {
-		this.userAlertses = userAlertses;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "authorProfileByInvitedAuthorId")
-	public Set<AuthColleagueDetails> getAuthColleagueDetailsesForInvitedAuthorId() {
-		return this.authColleagueDetailsesForInvitedAuthorId;
-	}
-
-	public void setAuthColleagueDetailsesForInvitedAuthorId(
-			Set<AuthColleagueDetails> authColleagueDetailsesForInvitedAuthorId) {
-		this.authColleagueDetailsesForInvitedAuthorId = authColleagueDetailsesForInvitedAuthorId;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "authorProfile")
-	public Set<UserSecurityDetails> getUserSecurityDetailses() {
-		return this.userSecurityDetailses;
-	}
-
-	public void setUserSecurityDetailses(
-			Set<UserSecurityDetails> userSecurityDetailses) {
-		this.userSecurityDetailses = userSecurityDetailses;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "authorProfileByCoauthUserId")
-	public Set<AuthCoauthDetails> getAuthCoauthDetailsesForCoauthUserId() {
-		return this.authCoauthDetailsesForCoauthUserId;
-	}
-
-	public void setAuthCoauthDetailsesForCoauthUserId(
-			Set<AuthCoauthDetails> authCoauthDetailsesForCoauthUserId) {
-		this.authCoauthDetailsesForCoauthUserId = authCoauthDetailsesForCoauthUserId;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "authorProfileByColleagueUserId")
-	public Set<AuthColleagueDetails> getAuthColleagueDetailsesForColleagueUserId() {
-		return this.authColleagueDetailsesForColleagueUserId;
-	}
-
-	public void setAuthColleagueDetailsesForColleagueUserId(
-			Set<AuthColleagueDetails> authColleagueDetailsesForColleagueUserId) {
-		this.authColleagueDetailsesForColleagueUserId = authColleagueDetailsesForColleagueUserId;
-	}
-
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "USER_SOCIETY_DETAILS", joinColumns = { @JoinColumn(name = "USER_ID", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "SOCIETY_ID", nullable = false, updatable = false) })
-	public Set<SocietyDetails> getSocietyDetailses() {
-		return this.societyDetailses;
-	}
-
-	public void setSocietyDetailses(Set<SocietyDetails> societyDetailses) {
-		this.societyDetailses = societyDetailses;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "authorProfile")
-	public Set<UserFunderGrants> getUserFunderGrantses() {
-		return this.userFunderGrantses;
-	}
-
-	public void setUserFunderGrantses(Set<UserFunderGrants> userFunderGrantses) {
-		this.userFunderGrantses = userFunderGrantses;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "authorProfile")
-	public Set<UserProfileAttribVisible> getUserProfileAttribVisibles() {
-		return this.userProfileAttribVisibles;
-	}
-
-	public void setUserProfileAttribVisibles(
-			Set<UserProfileAttribVisible> userProfileAttribVisibles) {
-		this.userProfileAttribVisibles = userProfileAttribVisibles;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "authorProfile")
-	public Set<UserPreferredJournals> getUserPreferredJournalses() {
-		return this.userPreferredJournalses;
-	}
-
-	public void setUserPreferredJournalses(
-			Set<UserPreferredJournals> userPreferredJournalses) {
-		this.userPreferredJournalses = userPreferredJournalses;
-	}
-
+    
+    private Integer userId;
+    private Users users;
+    private String emailAddr;
+    private String title;
+    private String middleName;
+    private String suffix;
+    private String alternativeName;
+    private String industryId;
+    private String jobCategoryId;
+    private String orcidId;
+    private String optInPromoteFlg;
+    private Character optInActivatedFlg;
+    private Blob profilePic;
+    private Character termsOfUseFlg;
+    private Character securityQuestFlg;
+    private String typeOfConsent;
+    private Character isAccountActive;
+    private String secondaryEmailAddr;
+    private String ipAddress;
+    private Character isAccountVerified;
+    private Integer mergerAccntId;
+    private Character isAccountLocked;
+    private Integer invalidLoginCnt;
+    private Date accountLockedTime;
+    private String alertPrefEmailid;
+    private Date lastLoginDate;
+    private Date lastActivityDate;
+    private String cdmUpdstatus;
+    private String authorFlg;
+    private String registrantFlg;
+    private String createdBy;
+    private Date createdDate;
+    private String updatedBy;
+    private Date updatedDate;
+    private Set<UserAreaOfInterest> userAreaOfInterests = new HashSet<UserAreaOfInterest>(
+            0);
+    private Set<UserAffiliations> userAffiliationses = new HashSet<UserAffiliations>(
+            0);
+    private Set<AuthColleagueDetails> authColleagueDetailsesForInvitedAuthorId = new HashSet<AuthColleagueDetails>(
+            0);
+    private Set<AuthCoauthDetails> authCoauthDetailsesForCoauthUserId = new HashSet<AuthCoauthDetails>(
+            0);
+    private Address address;
+    private Set<UserProfileAttribVisible> userProfileAttribVisibles = new HashSet<UserProfileAttribVisible>(
+            0);
+    private Set<AuthCoauthDetails> authCoauthDetailsesForAuthorId = new HashSet<AuthCoauthDetails>(
+            0);
+    private Set<UserAlerts> userAlertses = new HashSet<UserAlerts>(0);
+    private Set<UserSocietyDetails> userSocietyDetailses = new HashSet<UserSocietyDetails>(
+            0);
+    private Set<AuthColleagueDetails> authColleagueDetailsesForColleagueUserId = new HashSet<AuthColleagueDetails>(
+            0);
+    private Set<UserFunderGrants> userFunderGrantses = new HashSet<UserFunderGrants>(
+            0);
+    private Set<UserWoaAccounts> userWoaAccountses = new HashSet<UserWoaAccounts>(
+            0);
+    private Set<UserPreferredJournals> userPreferredJournalses = new HashSet<UserPreferredJournals>(
+            0);
+    
+    public AuthorProfile() {
+    }
+    
+    public AuthorProfile(Users users) {
+        this.users = users;
+    }
+    
+    public AuthorProfile(Users users, String emailAddr, String title,
+            String middleName, String suffix, String alternativeName,
+            String industryId, String jobCategoryId, String orcidId,
+            String optInPromoteFlg, Character optInActivatedFlg,
+            Blob profilePic, Character termsOfUseFlg,
+            Character securityQuestFlg, String typeOfConsent,
+            Character isAccountActive, String secondaryEmailAddr,
+            String ipAddress, Character isAccountVerified,
+            Integer mergerAccntId, Character isAccountLocked,
+            Integer invalidLoginCnt, Date accountLockedTime,
+            String alertPrefEmailid, Date lastLoginDate, Date lastActivityDate,
+            String cdmUpdstatus, String authorFlg, String registrantFlg,
+            String createdBy, Date createdDate, String updatedBy,
+            Date updatedDate, Set<UserAreaOfInterest> userAreaOfInterests,
+            Set<UserAffiliations> userAffiliationses,
+            Set<AuthColleagueDetails> authColleagueDetailsesForInvitedAuthorId,
+            Set<AuthCoauthDetails> authCoauthDetailsesForCoauthUserId,
+            Address address,
+            Set<UserProfileAttribVisible> userProfileAttribVisibles,
+            Set<AuthCoauthDetails> authCoauthDetailsesForAuthorId,
+            Set<UserAlerts> userAlertses,
+            Set<UserSocietyDetails> userSocietyDetailses,
+            Set<AuthColleagueDetails> authColleagueDetailsesForColleagueUserId,
+            Set<UserFunderGrants> userFunderGrantses,
+            Set<UserWoaAccounts> userWoaAccountses,
+            Set<UserPreferredJournals> userPreferredJournalses) {
+        this.users = users;
+        this.emailAddr = emailAddr;
+        this.title = title;
+        this.middleName = middleName;
+        this.suffix = suffix;
+        this.alternativeName = alternativeName;
+        this.industryId = industryId;
+        this.jobCategoryId = jobCategoryId;
+        this.orcidId = orcidId;
+        this.optInPromoteFlg = optInPromoteFlg;
+        this.optInActivatedFlg = optInActivatedFlg;
+        this.profilePic = profilePic;
+        this.termsOfUseFlg = termsOfUseFlg;
+        this.securityQuestFlg = securityQuestFlg;
+        this.typeOfConsent = typeOfConsent;
+        this.isAccountActive = isAccountActive;
+        this.secondaryEmailAddr = secondaryEmailAddr;
+        this.ipAddress = ipAddress;
+        this.isAccountVerified = isAccountVerified;
+        this.mergerAccntId = mergerAccntId;
+        this.isAccountLocked = isAccountLocked;
+        this.invalidLoginCnt = invalidLoginCnt;
+        this.accountLockedTime = accountLockedTime;
+        this.alertPrefEmailid = alertPrefEmailid;
+        this.lastLoginDate = lastLoginDate;
+        this.lastActivityDate = lastActivityDate;
+        this.cdmUpdstatus = cdmUpdstatus;
+        this.authorFlg = authorFlg;
+        this.registrantFlg = registrantFlg;
+        this.createdBy = createdBy;
+        this.createdDate = createdDate;
+        this.updatedBy = updatedBy;
+        this.updatedDate = updatedDate;
+        this.userAreaOfInterests = userAreaOfInterests;
+        this.userAffiliationses = userAffiliationses;
+        this.authColleagueDetailsesForInvitedAuthorId = authColleagueDetailsesForInvitedAuthorId;
+        this.authCoauthDetailsesForCoauthUserId = authCoauthDetailsesForCoauthUserId;
+        this.address = address;
+        this.userProfileAttribVisibles = userProfileAttribVisibles;
+        this.authCoauthDetailsesForAuthorId = authCoauthDetailsesForAuthorId;
+        this.userAlertses = userAlertses;
+        this.userSocietyDetailses = userSocietyDetailses;
+        this.authColleagueDetailsesForColleagueUserId = authColleagueDetailsesForColleagueUserId;
+        this.userFunderGrantses = userFunderGrantses;
+        this.userWoaAccountses = userWoaAccountses;
+        this.userPreferredJournalses = userPreferredJournalses;
+    }
+    
+    @GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "users"))
+    @Id
+    @GeneratedValue(generator = "generator")
+    @Column(name = "USER_ID", unique = true, nullable = false, precision = 22, scale = 0)
+    public Integer getUserId() {
+        return this.userId;
+    }
+    
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+    
+    @OneToOne(fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn
+    public Users getUsers() {
+        return this.users;
+    }
+    
+    public void setUsers(Users users) {
+        this.users = users;
+    }
+    
+    @Column(name = "EMAIL_ADDR", length = 256)
+    public String getEmailAddr() {
+        return this.emailAddr;
+    }
+    
+    public void setEmailAddr(String emailAddr) {
+        this.emailAddr = emailAddr;
+    }
+    
+    @Column(name = "TITLE", length = 50)
+    public String getTitle() {
+        return this.title;
+    }
+    
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    
+    @Column(name = "MIDDLE_NAME", length = 50)
+    public String getMiddleName() {
+        return this.middleName;
+    }
+    
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+    
+    @Column(name = "SUFFIX", length = 50)
+    public String getSuffix() {
+        return this.suffix;
+    }
+    
+    public void setSuffix(String suffix) {
+        this.suffix = suffix;
+    }
+    
+    @Column(name = "ALTERNATIVE_NAME", length = 100)
+    public String getAlternativeName() {
+        return this.alternativeName;
+    }
+    
+    public void setAlternativeName(String alternativeName) {
+        this.alternativeName = alternativeName;
+    }
+    
+    @Column(name = "INDUSTRY_ID", length = 6)
+    public String getIndustryId() {
+        return this.industryId;
+    }
+    
+    public void setIndustryId(String industryId) {
+        this.industryId = industryId;
+    }
+    
+    @Column(name = "JOB_CATEGORY_ID", length = 7)
+    public String getJobCategoryId() {
+        return this.jobCategoryId;
+    }
+    
+    public void setJobCategoryId(String jobCategoryId) {
+        this.jobCategoryId = jobCategoryId;
+    }
+    
+    @Column(name = "ORCID_ID", length = 20)
+    public String getOrcidId() {
+        return this.orcidId;
+    }
+    
+    public void setOrcidId(String orcidId) {
+        this.orcidId = orcidId;
+    }
+    
+    @Column(name = "OPT_IN_PROMOTE_FLG", length = 5)
+    public String getOptInPromoteFlg() {
+        return this.optInPromoteFlg;
+    }
+    
+    public void setOptInPromoteFlg(String optInPromoteFlg) {
+        this.optInPromoteFlg = optInPromoteFlg;
+    }
+    
+    @Column(name = "OPT_IN_ACTIVATED_FLG", length = 1)
+    public Character getOptInActivatedFlg() {
+        return this.optInActivatedFlg;
+    }
+    
+    public void setOptInActivatedFlg(Character optInActivatedFlg) {
+        this.optInActivatedFlg = optInActivatedFlg;
+    }
+    
+    @Column(name = "PROFILE_PIC")
+    public Blob getProfilePic() {
+        return this.profilePic;
+    }
+    
+    public void setProfilePic(Blob profilePic) {
+        this.profilePic = profilePic;
+    }
+    
+    @Column(name = "TERMS_OF_USE_FLG", length = 1)
+    public Character getTermsOfUseFlg() {
+        return this.termsOfUseFlg;
+    }
+    
+    public void setTermsOfUseFlg(Character termsOfUseFlg) {
+        this.termsOfUseFlg = termsOfUseFlg;
+    }
+    
+    @Column(name = "SECURITY_QUEST_FLG", length = 1)
+    public Character getSecurityQuestFlg() {
+        return this.securityQuestFlg;
+    }
+    
+    public void setSecurityQuestFlg(Character securityQuestFlg) {
+        this.securityQuestFlg = securityQuestFlg;
+    }
+    
+    @Column(name = "TYPE_OF_CONSENT", length = 50)
+    public String getTypeOfConsent() {
+        return this.typeOfConsent;
+    }
+    
+    public void setTypeOfConsent(String typeOfConsent) {
+        this.typeOfConsent = typeOfConsent;
+    }
+    
+    @Column(name = "IS_ACCOUNT_ACTIVE", length = 1)
+    public Character getIsAccountActive() {
+        return this.isAccountActive;
+    }
+    
+    public void setIsAccountActive(Character isAccountActive) {
+        this.isAccountActive = isAccountActive;
+    }
+    
+    @Column(name = "SECONDARY_EMAIL_ADDR", length = 256)
+    public String getSecondaryEmailAddr() {
+        return this.secondaryEmailAddr;
+    }
+    
+    public void setSecondaryEmailAddr(String secondaryEmailAddr) {
+        this.secondaryEmailAddr = secondaryEmailAddr;
+    }
+    
+    @Column(name = "IP_ADDRESS", length = 30)
+    public String getIpAddress() {
+        return this.ipAddress;
+    }
+    
+    public void setIpAddress(String ipAddress) {
+        this.ipAddress = ipAddress;
+    }
+    
+    @Column(name = "IS_ACCOUNT_VERIFIED", length = 1)
+    public Character getIsAccountVerified() {
+        return this.isAccountVerified;
+    }
+    
+    public void setIsAccountVerified(Character isAccountVerified) {
+        this.isAccountVerified = isAccountVerified;
+    }
+    
+    @Column(name = "MERGER_ACCNT_ID", precision = 22, scale = 0)
+    public Integer getMergerAccntId() {
+        return this.mergerAccntId;
+    }
+    
+    public void setMergerAccntId(Integer mergerAccntId) {
+        this.mergerAccntId = mergerAccntId;
+    }
+    
+    @Column(name = "IS_ACCOUNT_LOCKED", length = 1)
+    public Character getIsAccountLocked() {
+        return this.isAccountLocked;
+    }
+    
+    public void setIsAccountLocked(Character isAccountLocked) {
+        this.isAccountLocked = isAccountLocked;
+    }
+    
+    @Column(name = "INVALID_LOGIN_CNT", precision = 22, scale = 0)
+    public Integer getInvalidLoginCnt() {
+        return this.invalidLoginCnt;
+    }
+    
+    public void setInvalidLoginCnt(Integer invalidLoginCnt) {
+        this.invalidLoginCnt = invalidLoginCnt;
+    }
+    
+    @Column(name = "ACCOUNT_LOCKED_TIME")
+    public Date getAccountLockedTime() {
+        return this.accountLockedTime;
+    }
+    
+    public void setAccountLockedTime(Date accountLockedTime) {
+        this.accountLockedTime = accountLockedTime;
+    }
+    
+    @Column(name = "ALERT_PREF_EMAILID", length = 256)
+    public String getAlertPrefEmailid() {
+        return this.alertPrefEmailid;
+    }
+    
+    public void setAlertPrefEmailid(String alertPrefEmailid) {
+        this.alertPrefEmailid = alertPrefEmailid;
+    }
+    
+    @Column(name = "LAST_LOGIN_DATE")
+    public Date getLastLoginDate() {
+        return this.lastLoginDate;
+    }
+    
+    public void setLastLoginDate(Date lastLoginDate) {
+        this.lastLoginDate = lastLoginDate;
+    }
+    
+    @Column(name = "LAST_ACTIVITY_DATE")
+    public Date getLastActivityDate() {
+        return this.lastActivityDate;
+    }
+    
+    public void setLastActivityDate(Date lastActivityDate) {
+        this.lastActivityDate = lastActivityDate;
+    }
+    
+    @Column(name = "CDM_UPDSTATUS", length = 15)
+    public String getCdmUpdstatus() {
+        return this.cdmUpdstatus;
+    }
+    
+    public void setCdmUpdstatus(String cdmUpdstatus) {
+        this.cdmUpdstatus = cdmUpdstatus;
+    }
+    
+    @Column(name = "AUTHOR_FLG", length = 2)
+    public String getAuthorFlg() {
+        return this.authorFlg;
+    }
+    
+    public void setAuthorFlg(String authorFlg) {
+        this.authorFlg = authorFlg;
+    }
+    
+    @Column(name = "REGISTRANT_FLG", length = 2)
+    public String getRegistrantFlg() {
+        return this.registrantFlg;
+    }
+    
+    public void setRegistrantFlg(String registrantFlg) {
+        this.registrantFlg = registrantFlg;
+    }
+    
+    @Column(name = "CREATED_BY", length = 50)
+    public String getCreatedBy() {
+        return this.createdBy;
+    }
+    
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+    
+    @Column(name = "CREATED_DATE")
+    public Date getCreatedDate() {
+        return this.createdDate;
+    }
+    
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+    
+    @Column(name = "UPDATED_BY", length = 25)
+    public String getUpdatedBy() {
+        return this.updatedBy;
+    }
+    
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+    
+    @Column(name = "UPDATED_DATE")
+    public Date getUpdatedDate() {
+        return this.updatedDate;
+    }
+    
+    public void setUpdatedDate(Date updatedDate) {
+        this.updatedDate = updatedDate;
+    }
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "authorProfile")
+    public Set<UserAreaOfInterest> getUserAreaOfInterests() {
+        return this.userAreaOfInterests;
+    }
+    
+    public void setUserAreaOfInterests(
+            Set<UserAreaOfInterest> userAreaOfInterests) {
+        this.userAreaOfInterests = userAreaOfInterests;
+    }
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "authorProfile")
+    public Set<UserAffiliations> getUserAffiliationses() {
+        return this.userAffiliationses;
+    }
+    
+    public void setUserAffiliationses(Set<UserAffiliations> userAffiliationses) {
+        this.userAffiliationses = userAffiliationses;
+    }
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "authorProfileByInvitedAuthorId")
+    public Set<AuthColleagueDetails> getAuthColleagueDetailsesForInvitedAuthorId() {
+        return this.authColleagueDetailsesForInvitedAuthorId;
+    }
+    
+    public void setAuthColleagueDetailsesForInvitedAuthorId(
+            Set<AuthColleagueDetails> authColleagueDetailsesForInvitedAuthorId) {
+        this.authColleagueDetailsesForInvitedAuthorId = authColleagueDetailsesForInvitedAuthorId;
+    }
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "authorProfileByCoauthUserId")
+    public Set<AuthCoauthDetails> getAuthCoauthDetailsesForCoauthUserId() {
+        return this.authCoauthDetailsesForCoauthUserId;
+    }
+    
+    public void setAuthCoauthDetailsesForCoauthUserId(
+            Set<AuthCoauthDetails> authCoauthDetailsesForCoauthUserId) {
+        this.authCoauthDetailsesForCoauthUserId = authCoauthDetailsesForCoauthUserId;
+    }
+    
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "authorProfile")
+    public Address getAddress() {
+        return this.address;
+    }
+    
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "authorProfile")
+    public Set<UserProfileAttribVisible> getUserProfileAttribVisibles() {
+        return this.userProfileAttribVisibles;
+    }
+    
+    public void setUserProfileAttribVisibles(
+            Set<UserProfileAttribVisible> userProfileAttribVisibles) {
+        this.userProfileAttribVisibles = userProfileAttribVisibles;
+    }
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "authorProfileByAuthorId")
+    public Set<AuthCoauthDetails> getAuthCoauthDetailsesForAuthorId() {
+        return this.authCoauthDetailsesForAuthorId;
+    }
+    
+    public void setAuthCoauthDetailsesForAuthorId(
+            Set<AuthCoauthDetails> authCoauthDetailsesForAuthorId) {
+        this.authCoauthDetailsesForAuthorId = authCoauthDetailsesForAuthorId;
+    }
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "authorProfile")
+    public Set<UserAlerts> getUserAlertses() {
+        return this.userAlertses;
+    }
+    
+    public void setUserAlertses(Set<UserAlerts> userAlertses) {
+        this.userAlertses = userAlertses;
+    }
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "authorProfile")
+    public Set<UserSocietyDetails> getUserSocietyDetailses() {
+        return this.userSocietyDetailses;
+    }
+    
+    public void setUserSocietyDetailses(
+            Set<UserSocietyDetails> userSocietyDetailses) {
+        this.userSocietyDetailses = userSocietyDetailses;
+    }
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "authorProfileByColleagueUserId")
+    public Set<AuthColleagueDetails> getAuthColleagueDetailsesForColleagueUserId() {
+        return this.authColleagueDetailsesForColleagueUserId;
+    }
+    
+    public void setAuthColleagueDetailsesForColleagueUserId(
+            Set<AuthColleagueDetails> authColleagueDetailsesForColleagueUserId) {
+        this.authColleagueDetailsesForColleagueUserId = authColleagueDetailsesForColleagueUserId;
+    }
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "authorProfile")
+    public Set<UserFunderGrants> getUserFunderGrantses() {
+        return this.userFunderGrantses;
+    }
+    
+    public void setUserFunderGrantses(Set<UserFunderGrants> userFunderGrantses) {
+        this.userFunderGrantses = userFunderGrantses;
+    }
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "authorProfile")
+    public Set<UserWoaAccounts> getUserWoaAccountses() {
+        return this.userWoaAccountses;
+    }
+    
+    public void setUserWoaAccountses(Set<UserWoaAccounts> userWoaAccountses) {
+        this.userWoaAccountses = userWoaAccountses;
+    }
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "authorProfile")
+    public Set<UserPreferredJournals> getUserPreferredJournalses() {
+        return this.userPreferredJournalses;
+    }
+    
+    public void setUserPreferredJournalses(
+            Set<UserPreferredJournals> userPreferredJournalses) {
+        this.userPreferredJournalses = userPreferredJournalses;
+    }
+    
 }

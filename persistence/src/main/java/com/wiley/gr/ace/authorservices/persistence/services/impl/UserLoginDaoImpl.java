@@ -28,7 +28,6 @@ import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
 
 /**
  * @author RAVISINHA
- *
  */
 public class UserLoginDaoImpl implements UserLoginDao {
 
@@ -43,13 +42,11 @@ public class UserLoginDaoImpl implements UserLoginDao {
 		Session session = con.getSessionFactory().openSession();
 		Transaction txn = session.getTransaction();
 		txn.begin();
-		System.err.println("user id" + userId);
 
 		AdminDetails adminDetails = (AdminDetails) session.get(
 				AdminDetails.class, userId);
 
 		if (null != adminDetails) {
-			System.err.println(adminDetails.getAdminId());
 
 			status = true;
 		}
@@ -62,7 +59,6 @@ public class UserLoginDaoImpl implements UserLoginDao {
 
 	@Override
 	public boolean doLogin(String emailId) {
-		// boolean status = false;
 		Session session = con.getSessionFactory().openSession();
 
 		AuthorProfile authorProfile = null;
@@ -73,16 +69,13 @@ public class UserLoginDaoImpl implements UserLoginDao {
 		String utildate = dateFormat.format(date);
 
 		java.sql.Date.valueOf(utildate);
-
-		System.out.println(utildate);
-
 		int userId = getUserId(emailId);
 
 		String hql = "from AuthorProfile where userId = :userId";
 		List<AuthorProfile> result = session.createQuery(hql)
 				.setInteger("userId", userId).list();
 
-		if (null !=result && result.size() > 0) {
+		if (null != result && result.size() > 0) {
 			authorProfile = result.get(0);
 		}
 

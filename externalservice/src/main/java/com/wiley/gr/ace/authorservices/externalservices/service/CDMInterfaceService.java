@@ -12,22 +12,11 @@
 
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
-import com.wiley.gr.ace.authorservices.model.Interests;
-import com.wiley.gr.ace.authorservices.model.external.CDMAffiliation;
+import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
 
 public interface CDMInterfaceService {
-
-	CDMAffiliation[] getAffiliationsForUser(String userId);
-
-	boolean updateAffiliationForUser(CDMAffiliation cdmAffiliation);
-
-	boolean deleteAffiliationForUser(String userId, String affiliationId);
-
-	boolean addAffiliationsForUser(CDMAffiliation cdmAffiliation);
-	CDMAffiliation editAffialiationsForUser(String userId ,String affiliationId);
-
-	Interests[] getInterests(String userId);
-
-	boolean addInterest(String userId, Interests interest);
-	boolean removeInterest(String userId, String interestId);
+    
+    LookUpProfile lookUpProfile(String userId);
+    
+    boolean updateProfile(LookUpProfile lookUpProfile);
 }

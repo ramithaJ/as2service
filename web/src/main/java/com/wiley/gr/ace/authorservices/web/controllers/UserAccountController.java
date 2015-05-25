@@ -11,8 +11,6 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.web.controllers;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,106 +18,127 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wiley.gr.ace.authorservices.exception.ASException;
-import com.wiley.gr.ace.authorservices.model.Security;
+import com.wiley.gr.ace.authorservices.model.Addresses;
+import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Service;
-import com.wiley.gr.ace.authorservices.model.UserMgmt;
+import com.wiley.gr.ace.authorservices.model.User;
+import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
 
 /**
- * @author SarmaKumarap
- *
+ * @author kpshiva
  */
 @RestController
 @RequestMapping("/userAccount")
 public class UserAccountController {
-
-	// public static ApplicationContext context = new
-	// AnnotationConfigApplicationContext(
-	// ServiceBeanConfig.class);
-	// UserAccountService userAccountService = (UserAccountServiceImpl) context
-	// .getBean("UserAccountService");
-
-	@Autowired
-	UserAccountService userAccountService;
-
-	/**
-	 * @param userId
-	 * @param userDetails
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping(value = "/userDetails/{userId}", method = {
-			RequestMethod.GET, RequestMethod.POST })
-	public Service getUserDetails(@PathVariable("userId") String userId,
-			@RequestBody String userDetails, HttpServletRequest request) {
-
-		return null;
-
-	}
-
-	/**
-	 * @param userId
-	 * @param emailDetails
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping(value = "/emailDetails/{userId}", method = {
-			RequestMethod.GET, RequestMethod.POST })
-	public Service getEmailDetails(@PathVariable("userId") String userId,
-			@RequestBody(required = false) UserMgmt emailDetails,
-			HttpServletRequest request) {
-
-		Service service = null;
-
-		if (request.getMethod().equals(RequestMethod.GET)) {
-
-			service = new Service();
-			service.setPayload(userAccountService.getEmailDetails(userId));
-
-		} else if (request.getMethod().equals(RequestMethod.POST)
-				&& emailDetails != null) {
-
-			service = new Service();
-			service.setPayload(userAccountService.updateEmailDetails(userId,
-					emailDetails));
-
-		} else if (request.getMethod().equals(RequestMethod.POST)
-				&& emailDetails == null) {
-
-			throw new ASException("400", "Invalid Request Body");
-
-		}
-
-		return service;
-	}
-
-	/**
-	 * @param userId
-	 * @return
-	 */
-	@RequestMapping(value = "/getUserAddresses/{userId}", method = RequestMethod.GET)
-	public Service getUserAddresses(@PathVariable("userId") String userId) {
-
-		return null;
-
-	}
-
-	/**
-	 * @param emailId
-	 * @param securityDetails
-	 * @return
-	 */
-	@RequestMapping(value = "/updateSecutiryDetails/{emailId}", method = RequestMethod.POST)
-	public Service updateSecurityDetails(
-			@PathVariable("emailId") String emailId,
-			@RequestBody Security securityDetails) {
-
-		Service service = new Service();
-		service.setStatus("Success");
-		userAccountService.updateSecurityDetails(emailId, securityDetails);
-		return service;
-
-	}
-
+    
+    @Autowired
+    UserAccountService userAccountService;
+    
+    @Autowired
+    AuthorProfileService authorProfileService;
+    
+    /**
+     * @param userId
+     * @param userDetails
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/profileInfo/{userId}", method = RequestMethod.GET)
+    public Service getProfileInformation(@PathVariable("userId") String userId) {
+        
+        Service service = new Service();
+        service.setPayload(userAccountService.getProfileInformation(userId));
+        return service;
+        
+    }
+    
+    @RequestMapping(value = "/profileInfo/{userId}", method = RequestMethod.POST)
+    public Service updateProfileInformation(
+            @PathVariable("userId") String userId, @RequestBody User user) {
+        
+        Service service = new Service();
+        service.setPayload(authorProfileService.updateUserProfileInfo(user));
+        return service;
+        
+    }
+    
+    /**
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "/emailDetails/{userId}", method = RequestMethod.GET)
+    public Service getEmailDetails(@PathVariable("userId") String userId) {
+        
+        Service service = new Service();
+        service.setPayload(userAccountService.getEmailDetails(userId));
+        return service;
+    }
+    
+    /**
+     * @param userId
+     * @param emailDetails
+     * @return
+     */
+    @RequestMapping(value = "/emailDetails/{userId}", method = RequestMethod.POST)
+    public Service updateEmail(@PathVariable("userId") String userId,
+            @RequestBody User emailDetails) {
+        
+        Service service = new Service();
+        emailDetails.setUserId(Integer.parseInt(userId));
+        service.setPayload(authorProfileService
+                .updateEmailDetails(emailDetails));
+        return service;
+    }
+    
+    /**
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "/userAddresses/{userId}", method = RequestMethod.GET)
+    public Service getUserAddresses(@PathVariable("userId") String userId) {
+        
+        Service service = new Service();
+        service.setPayload(userAccountService.getUserAddress(userId));
+        return service;
+    }
+    
+    @RequestMapping(value = "/userAddresses/{userId}", method = RequestMethod.POST)
+    public Service updateUserAddresses(@PathVariable("userId") String userId,
+            @RequestBody Addresses addresses) {
+        
+        Service service = new Service();
+        service.setPayload(authorProfileService.updateUserAddress(addresses));
+        return service;
+    }
+    
+    /**
+     * This service will update the security questions and answers at user
+     * profile level.
+     * 
+     * @param userId
+     * @param securityDetails
+     *            - it is a JSON array having security questions and answers.
+     * @return
+     */
+    @RequestMapping(value = "/secutiryDetails/update", method = RequestMethod.POST)
+    public Service updateSecurityDetails(@RequestBody SecurityDetailsHolder securityDetails) {
+        
+        Service service = new Service();
+        service.setStatus("Success");
+        service.setPayload(authorProfileService.updateSecurityDetails(securityDetails));
+        return service;
+        
+    }
+    
+    @RequestMapping(value = "/updateUserId/{oldEmailId}/{newEmailId}", method = RequestMethod.POST)
+    public Service updateUserId(@PathVariable("oldEmailId") String oldEmailId,
+            @PathVariable("newEmailId") String newEmailId) {
+        
+        Service service = new Service();
+        service.setStatus("success");
+        service.setPayload(authorProfileService.updateUserId(oldEmailId, newEmailId));
+        return service;
+    }
+    
 }

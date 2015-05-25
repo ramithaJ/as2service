@@ -8,55 +8,55 @@ import javax.persistence.Embeddable;
  */
 @Embeddable
 public class UserAlertsId implements java.io.Serializable {
-
-	private int userId;
-	private int alertId;
-
-	public UserAlertsId() {
-	}
-
-	public UserAlertsId(int userId, int alertId) {
-		this.userId = userId;
-		this.alertId = alertId;
-	}
-
-	@Column(name = "USER_ID", nullable = false, precision = 22, scale = 0)
-	public int getUserId() {
-		return this.userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
-
-	@Column(name = "ALERT_ID", nullable = false, precision = 22, scale = 0)
-	public int getAlertId() {
-		return this.alertId;
-	}
-
-	public void setAlertId(int alertId) {
-		this.alertId = alertId;
-	}
-
-	public boolean equals(Object other) {
-		if ((this == other))
-			return true;
-		if ((other == null))
-			return false;
-		if (!(other instanceof UserAlertsId))
-			return false;
-		UserAlertsId castOther = (UserAlertsId) other;
-
-		return (this.getUserId() == castOther.getUserId())
-				&& (this.getAlertId() == castOther.getAlertId());
-	}
-
-	public int hashCode() {
-		int result = 17;
-
-		result = 37 * result + this.getUserId();
-		result = 37 * result + this.getAlertId();
-		return result;
-	}
-
+    
+    private int userId;
+    private int alertId;
+    
+    public UserAlertsId() {
+    }
+    
+    public UserAlertsId(int userId, int alertId) {
+        this.userId = userId;
+        this.alertId = alertId;
+    }
+    
+    @Column(name = "USER_ID", nullable = false, precision = 22, scale = 0)
+    public int getUserId() {
+        return this.userId;
+    }
+    
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+    
+    @Column(name = "ALERT_ID", nullable = false, precision = 22, scale = 0)
+    public int getAlertId() {
+        return this.alertId;
+    }
+    
+    public void setAlertId(int alertId) {
+        this.alertId = alertId;
+    }
+    
+    public boolean equals(Object other) {
+        if ((this == other))
+            return true;
+        if ((other == null))
+            return false;
+        if (!(other instanceof UserAlertsId))
+            return false;
+        UserAlertsId castOther = (UserAlertsId) other;
+        
+        return (this.getUserId() == castOther.getUserId())
+                && (this.getAlertId() == castOther.getAlertId());
+    }
+    
+    public int hashCode() {
+        int result = 17;
+        
+        result = 37 * result + this.getUserId();
+        result = 37 * result + this.getAlertId();
+        return result;
+    }
+    
 }

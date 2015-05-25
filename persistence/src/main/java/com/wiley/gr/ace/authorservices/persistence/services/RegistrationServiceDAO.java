@@ -16,6 +16,9 @@ import java.util.List;
 import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 
 public interface RegistrationServiceDAO {
-	List<AuthorProfile> getUserFromFirstNameLastName(String firstName, String lastName);
-
+    List<AuthorProfile> getUserFromFirstNameLastName(String firstName,
+            String lastName);
+    
+    boolean searchUserByOrcidId(String orcidId) throws Exception;
+    
 }

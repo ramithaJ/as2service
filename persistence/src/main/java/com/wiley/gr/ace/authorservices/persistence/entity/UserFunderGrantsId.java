@@ -8,72 +8,72 @@ import javax.persistence.Embeddable;
  */
 @Embeddable
 public class UserFunderGrantsId implements java.io.Serializable {
-
-	private int userId;
-	private int rfunderId;
-	private String grantNum;
-
-	public UserFunderGrantsId() {
-	}
-
-	public UserFunderGrantsId(int userId, int rfunderId, String grantNum) {
-		this.userId = userId;
-		this.rfunderId = rfunderId;
-		this.grantNum = grantNum;
-	}
-
-	@Column(name = "USER_ID", nullable = false, precision = 22, scale = 0)
-	public int getUserId() {
-		return this.userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
-
-	@Column(name = "RFUNDER_ID", nullable = false, precision = 22, scale = 0)
-	public int getRfunderId() {
-		return this.rfunderId;
-	}
-
-	public void setRfunderId(int rfunderId) {
-		this.rfunderId = rfunderId;
-	}
-
-	@Column(name = "GRANT_NUM", nullable = false, length = 250)
-	public String getGrantNum() {
-		return this.grantNum;
-	}
-
-	public void setGrantNum(String grantNum) {
-		this.grantNum = grantNum;
-	}
-
-	public boolean equals(Object other) {
-		if ((this == other))
-			return true;
-		if ((other == null))
-			return false;
-		if (!(other instanceof UserFunderGrantsId))
-			return false;
-		UserFunderGrantsId castOther = (UserFunderGrantsId) other;
-
-		return (this.getUserId() == castOther.getUserId())
-				&& (this.getRfunderId() == castOther.getRfunderId())
-				&& ((this.getGrantNum() == castOther.getGrantNum()) || (this
-						.getGrantNum() != null
-						&& castOther.getGrantNum() != null && this
-						.getGrantNum().equals(castOther.getGrantNum())));
-	}
-
-	public int hashCode() {
-		int result = 17;
-
-		result = 37 * result + this.getUserId();
-		result = 37 * result + this.getRfunderId();
-		result = 37 * result
-				+ (getGrantNum() == null ? 0 : this.getGrantNum().hashCode());
-		return result;
-	}
-
+    
+    private int userId;
+    private int rfunderId;
+    private String grantNum;
+    
+    public UserFunderGrantsId() {
+    }
+    
+    public UserFunderGrantsId(int userId, int rfunderId, String grantNum) {
+        this.userId = userId;
+        this.rfunderId = rfunderId;
+        this.grantNum = grantNum;
+    }
+    
+    @Column(name = "USER_ID", nullable = false, precision = 22, scale = 0)
+    public int getUserId() {
+        return this.userId;
+    }
+    
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+    
+    @Column(name = "RFUNDER_ID", nullable = false, precision = 22, scale = 0)
+    public int getRfunderId() {
+        return this.rfunderId;
+    }
+    
+    public void setRfunderId(int rfunderId) {
+        this.rfunderId = rfunderId;
+    }
+    
+    @Column(name = "GRANT_NUM", nullable = false, length = 250)
+    public String getGrantNum() {
+        return this.grantNum;
+    }
+    
+    public void setGrantNum(String grantNum) {
+        this.grantNum = grantNum;
+    }
+    
+    public boolean equals(Object other) {
+        if ((this == other))
+            return true;
+        if ((other == null))
+            return false;
+        if (!(other instanceof UserFunderGrantsId))
+            return false;
+        UserFunderGrantsId castOther = (UserFunderGrantsId) other;
+        
+        return (this.getUserId() == castOther.getUserId())
+                && (this.getRfunderId() == castOther.getRfunderId())
+                && ((this.getGrantNum() == castOther.getGrantNum()) || (this
+                        .getGrantNum() != null
+                        && castOther.getGrantNum() != null && this
+                        .getGrantNum().equals(castOther.getGrantNum())));
+    }
+    
+    public int hashCode() {
+        int result = 17;
+        
+        result = 37 * result + this.getUserId();
+        result = 37 * result + this.getRfunderId();
+        result = 37 * result
+                + (getGrantNum() == null ? 0 : this.getGrantNum().hashCode());
+        return result;
+    }
+    
 }

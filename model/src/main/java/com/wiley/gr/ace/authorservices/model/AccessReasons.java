@@ -14,42 +14,39 @@ package com.wiley.gr.ace.authorservices.model;
 
 /**
  * @author sarmakumarap
- *
  */
 public class AccessReasons {
-	
-	private String accessId;
-	
-	private String accessReason;
-
-	/**
-	 * @return
-	 */
-	public String getAccessId() {
-		return accessId;
-	}
-
-	/**
-	 * @param accessId
-	 */
-	public void setAccessId(String accessId) {
-		this.accessId = accessId;
-	}
-
-	/**
-	 * @return
-	 */
-	public String getAccessReason() {
-		return accessReason;
-	}
-
-	/**
-	 * @param accessReason
-	 */
-	public void setAccessReason(String accessReason) {
-		this.accessReason = accessReason;
-	}
-	
-	
-
+    
+    private String accessId;
+    
+    private String accessReason;
+    
+    /**
+     * @return
+     */
+    public String getAccessId() {
+        return accessId;
+    }
+    
+    /**
+     * @param accessId
+     */
+    public void setAccessId(String accessId) {
+        this.accessId = accessId;
+    }
+    
+    /**
+     * @return
+     */
+    public String getAccessReason() {
+        return accessReason;
+    }
+    
+    /**
+     * @param accessReason
+     */
+    public void setAccessReason(String accessReason) {
+        this.accessReason = accessReason;
+    }
+    
 }

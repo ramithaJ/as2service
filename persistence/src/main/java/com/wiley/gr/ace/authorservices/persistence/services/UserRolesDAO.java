@@ -9,3 +9,25 @@
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
  *******************************************************************************/
+
+package com.wiley.gr.ace.authorservices.persistence.services;
+
+import java.util.List;
+
+import com.wiley.gr.ace.authorservices.persistence.entity.Permissions;
+import com.wiley.gr.ace.authorservices.persistence.entity.Roles;
+
+/**
+ * @author sarmakumarap
+ */
+public interface UserRolesDAO {
+    
+    /**
+     * This method is used to add or update user roles and permissions
+     * 
+     * @param userRoles
+     * @param permissionsList
+     */
+    void addOrUpdateUserRoles(Roles userRoles, List<Permissions> permissionsList);
+    
+}

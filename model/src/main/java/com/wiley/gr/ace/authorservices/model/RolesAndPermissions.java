@@ -17,59 +17,61 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * @author sarmakumarap
- *
  */
 public class RolesAndPermissions {
-	
-	private List<Role> rolesList = new ArrayList<Role>();
-	
-	private List<PermissionSection> sectionsList = new ArrayList<PermissionSection>();
-	
-	private Map<String, StringBuffer> permissionsMap = new HashMap<String, StringBuffer>();
-
-	/**
-	 * @return
-	 */
-	public List<Role> getRolesList() {
-		return rolesList;
-	}
-
-	/**
-	 * @param rolesList
-	 */
-	public void setRolesList(List<Role> rolesList) {
-		this.rolesList = rolesList;
-	}
-
-	/**
-	 * @return
-	 */
-	public List<PermissionSection> getSectionsList() {
-		return sectionsList;
-	}
-
-	/**
-	 * @param sectionsList
-	 */
-	public void setSectionsList(List<PermissionSection> sectionsList) {
-		this.sectionsList = sectionsList;
-	}
-
-	/**
-	 * @return
-	 */
-	public Map<String, StringBuffer> getPermissionsMap() {
-		return permissionsMap;
-	}
-
-	/**
-	 * @param permissionsMap
-	 */
-	public void setPermissionsMap(Map<String, StringBuffer> permissionsMap) {
-		this.permissionsMap = permissionsMap;
-	}
-
-
+    
+    @NotNull
+    private List<Role> rolesList = new ArrayList<Role>();
+    
+    private List<PermissionSection> sectionsList = new ArrayList<PermissionSection>();
+    
+    @NotNull
+    private Map<String, String[]> permissionsMap = new HashMap<String, String[]>();
+    
+    /**
+     * @return
+     */
+    public List<Role> getRolesList() {
+        return rolesList;
+    }
+    
+    /**
+     * @param rolesList
+     */
+    public void setRolesList(List<Role> rolesList) {
+        this.rolesList = rolesList;
+    }
+    
+    /**
+     * @return
+     */
+    public List<PermissionSection> getSectionsList() {
+        return sectionsList;
+    }
+    
+    /**
+     * @param sectionsList
+     */
+    public void setSectionsList(List<PermissionSection> sectionsList) {
+        this.sectionsList = sectionsList;
+    }
+    
+    /**
+     * @return
+     */
+    public Map<String, String[]> getPermissionsMap() {
+        return permissionsMap;
+    }
+    
+    /**
+     * @param permissionsMap
+     */
+    public void setPermissionsMap(Map<String, String[]> permissionsMap) {
+        this.permissionsMap = permissionsMap;
+    }
+    
 }

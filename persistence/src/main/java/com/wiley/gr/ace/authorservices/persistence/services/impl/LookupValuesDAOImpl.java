@@ -23,31 +23,30 @@ import com.wiley.gr.ace.authorservices.persistence.services.LookUpValuesDAO;
 
 /**
  * @author sarmakumarap
- *
  */
 public class LookupValuesDAOImpl implements LookUpValuesDAO {
-	
-	@Autowired(required = true)
-	HibernateConnection connection;
-
-	@Override
-	public List<LookupValues> getLookUpData(String lookupKey) {
-		
-		List<LookupValues> lookupList = null;
-		Session session = null;
-		try {
-			session = connection.getSessionFactory().openSession();
-			
-			String hql = "from LookupValues where lookupKey = :lookupKey";
-			lookupList = session.createQuery(hql)
-					.setString("lookupKey", lookupKey).list();
-		} finally {
-			if (session != null) {
-				session.flush();
-				session.close();
-			}
-		}
-		return lookupList;
-	}
-
+    
+    @Autowired(required = true)
+    HibernateConnection connection;
+    
+    @Override
+    public List<LookupValues> getLookUpData(String lookupKey) {
+        
+        List<LookupValues> lookupList = null;
+        Session session = null;
+        try {
+            session = connection.getSessionFactory().openSession();
+            
+            String hql = "from LookupValues where lookupKey = :lookupKey";
+            lookupList = session.createQuery(hql)
+                    .setString("lookupKey", lookupKey).list();
+        } finally {
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
+        }
+        return lookupList;
+    }
+    
 }

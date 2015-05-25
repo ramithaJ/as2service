@@ -15,180 +15,180 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "AUTH_COAUTH_DETAILS")
 public class AuthCoauthDetails implements java.io.Serializable {
-
-	private Integer authCoauthId;
-	private AuthorProfile authorProfileByAuthorId;
-	private AuthorProfile authorProfileByCoauthUserId;
-	private String coauthTitle;
-	private String coauthFirstName;
-	private String coauthLastName;
-	private String coauthEmailAddr;
-	private String coauthPhone;
-	private String coauthInstitution;
-	private String coauthDept;
-	private Date createdDate;
-	private String createdBy;
-	private Date updatedDate;
-	private String updatedBy;
-
-	public AuthCoauthDetails() {
-	}
-
-	public AuthCoauthDetails(Integer authCoauthId) {
-		this.authCoauthId = authCoauthId;
-	}
-
-	public AuthCoauthDetails(Integer authCoauthId,
-			AuthorProfile authorProfileByAuthorId,
-			AuthorProfile authorProfileByCoauthUserId, String coauthTitle,
-			String coauthFirstName, String coauthLastName,
-			String coauthEmailAddr, String coauthPhone,
-			String coauthInstitution, String coauthDept, Date createdDate,
-			String createdBy, Date updatedDate, String updatedBy) {
-		this.authCoauthId = authCoauthId;
-		this.authorProfileByAuthorId = authorProfileByAuthorId;
-		this.authorProfileByCoauthUserId = authorProfileByCoauthUserId;
-		this.coauthTitle = coauthTitle;
-		this.coauthFirstName = coauthFirstName;
-		this.coauthLastName = coauthLastName;
-		this.coauthEmailAddr = coauthEmailAddr;
-		this.coauthPhone = coauthPhone;
-		this.coauthInstitution = coauthInstitution;
-		this.coauthDept = coauthDept;
-		this.createdDate = createdDate;
-		this.createdBy = createdBy;
-		this.updatedDate = updatedDate;
-		this.updatedBy = updatedBy;
-	}
-
-	@Id
-	@Column(name = "AUTH_COAUTH_ID", unique = true, nullable = false, precision = 22, scale = 0)
-	public Integer getAuthCoauthId() {
-		return this.authCoauthId;
-	}
-
-	public void setAuthCoauthId(Integer authCoauthId) {
-		this.authCoauthId = authCoauthId;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "AUTHOR_ID")
-	public AuthorProfile getAuthorProfileByAuthorId() {
-		return this.authorProfileByAuthorId;
-	}
-
-	public void setAuthorProfileByAuthorId(AuthorProfile authorProfileByAuthorId) {
-		this.authorProfileByAuthorId = authorProfileByAuthorId;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "COAUTH_USER_ID")
-	public AuthorProfile getAuthorProfileByCoauthUserId() {
-		return this.authorProfileByCoauthUserId;
-	}
-
-	public void setAuthorProfileByCoauthUserId(
-			AuthorProfile authorProfileByCoauthUserId) {
-		this.authorProfileByCoauthUserId = authorProfileByCoauthUserId;
-	}
-
-	@Column(name = "COAUTH_TITLE", length = 50)
-	public String getCoauthTitle() {
-		return this.coauthTitle;
-	}
-
-	public void setCoauthTitle(String coauthTitle) {
-		this.coauthTitle = coauthTitle;
-	}
-
-	@Column(name = "COAUTH_FIRST_NAME", length = 50)
-	public String getCoauthFirstName() {
-		return this.coauthFirstName;
-	}
-
-	public void setCoauthFirstName(String coauthFirstName) {
-		this.coauthFirstName = coauthFirstName;
-	}
-
-	@Column(name = "COAUTH_LAST_NAME", length = 50)
-	public String getCoauthLastName() {
-		return this.coauthLastName;
-	}
-
-	public void setCoauthLastName(String coauthLastName) {
-		this.coauthLastName = coauthLastName;
-	}
-
-	@Column(name = "COAUTH_EMAIL_ADDR", length = 250)
-	public String getCoauthEmailAddr() {
-		return this.coauthEmailAddr;
-	}
-
-	public void setCoauthEmailAddr(String coauthEmailAddr) {
-		this.coauthEmailAddr = coauthEmailAddr;
-	}
-
-	@Column(name = "COAUTH_PHONE", length = 15)
-	public String getCoauthPhone() {
-		return this.coauthPhone;
-	}
-
-	public void setCoauthPhone(String coauthPhone) {
-		this.coauthPhone = coauthPhone;
-	}
-
-	@Column(name = "COAUTH_INSTITUTION", length = 50)
-	public String getCoauthInstitution() {
-		return this.coauthInstitution;
-	}
-
-	public void setCoauthInstitution(String coauthInstitution) {
-		this.coauthInstitution = coauthInstitution;
-	}
-
-	@Column(name = "COAUTH_DEPT", length = 50)
-	public String getCoauthDept() {
-		return this.coauthDept;
-	}
-
-	public void setCoauthDept(String coauthDept) {
-		this.coauthDept = coauthDept;
-	}
-
-	@Column(name = "CREATED_DATE")
-	public Date getCreatedDate() {
-		return this.createdDate;
-	}
-
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	@Column(name = "CREATED_BY", length = 100)
-	public String getCreatedBy() {
-		return this.createdBy;
-	}
-
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	@Column(name = "UPDATED_DATE")
-	public Date getUpdatedDate() {
-		return this.updatedDate;
-	}
-
-	public void setUpdatedDate(Date updatedDate) {
-		this.updatedDate = updatedDate;
-	}
-
-	@Column(name = "UPDATED_BY", length = 100)
-	public String getUpdatedBy() {
-		return this.updatedBy;
-	}
-
-	public void setUpdatedBy(String updatedBy) {
-		this.updatedBy = updatedBy;
-	}
-
+    
+    private Integer authCoauthId;
+    private AuthorProfile authorProfileByAuthorId;
+    private AuthorProfile authorProfileByCoauthUserId;
+    private String coauthTitle;
+    private String coauthFirstName;
+    private String coauthLastName;
+    private String coauthEmailAddr;
+    private String coauthPhone;
+    private String coauthInstitution;
+    private String coauthDept;
+    private Date createdDate;
+    private String createdBy;
+    private Date updatedDate;
+    private String updatedBy;
+    
+    public AuthCoauthDetails() {
+    }
+    
+    public AuthCoauthDetails(Integer authCoauthId) {
+        this.authCoauthId = authCoauthId;
+    }
+    
+    public AuthCoauthDetails(Integer authCoauthId,
+            AuthorProfile authorProfileByAuthorId,
+            AuthorProfile authorProfileByCoauthUserId, String coauthTitle,
+            String coauthFirstName, String coauthLastName,
+            String coauthEmailAddr, String coauthPhone,
+            String coauthInstitution, String coauthDept, Date createdDate,
+            String createdBy, Date updatedDate, String updatedBy) {
+        this.authCoauthId = authCoauthId;
+        this.authorProfileByAuthorId = authorProfileByAuthorId;
+        this.authorProfileByCoauthUserId = authorProfileByCoauthUserId;
+        this.coauthTitle = coauthTitle;
+        this.coauthFirstName = coauthFirstName;
+        this.coauthLastName = coauthLastName;
+        this.coauthEmailAddr = coauthEmailAddr;
+        this.coauthPhone = coauthPhone;
+        this.coauthInstitution = coauthInstitution;
+        this.coauthDept = coauthDept;
+        this.createdDate = createdDate;
+        this.createdBy = createdBy;
+        this.updatedDate = updatedDate;
+        this.updatedBy = updatedBy;
+    }
+    
+    @Id
+    @Column(name = "AUTH_COAUTH_ID", unique = true, nullable = false, precision = 22, scale = 0)
+    public Integer getAuthCoauthId() {
+        return this.authCoauthId;
+    }
+    
+    public void setAuthCoauthId(Integer authCoauthId) {
+        this.authCoauthId = authCoauthId;
+    }
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "AUTHOR_ID")
+    public AuthorProfile getAuthorProfileByAuthorId() {
+        return this.authorProfileByAuthorId;
+    }
+    
+    public void setAuthorProfileByAuthorId(AuthorProfile authorProfileByAuthorId) {
+        this.authorProfileByAuthorId = authorProfileByAuthorId;
+    }
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "COAUTH_USER_ID")
+    public AuthorProfile getAuthorProfileByCoauthUserId() {
+        return this.authorProfileByCoauthUserId;
+    }
+    
+    public void setAuthorProfileByCoauthUserId(
+            AuthorProfile authorProfileByCoauthUserId) {
+        this.authorProfileByCoauthUserId = authorProfileByCoauthUserId;
+    }
+    
+    @Column(name = "COAUTH_TITLE", length = 50)
+    public String getCoauthTitle() {
+        return this.coauthTitle;
+    }
+    
+    public void setCoauthTitle(String coauthTitle) {
+        this.coauthTitle = coauthTitle;
+    }
+    
+    @Column(name = "COAUTH_FIRST_NAME", length = 50)
+    public String getCoauthFirstName() {
+        return this.coauthFirstName;
+    }
+    
+    public void setCoauthFirstName(String coauthFirstName) {
+        this.coauthFirstName = coauthFirstName;
+    }
+    
+    @Column(name = "COAUTH_LAST_NAME", length = 50)
+    public String getCoauthLastName() {
+        return this.coauthLastName;
+    }
+    
+    public void setCoauthLastName(String coauthLastName) {
+        this.coauthLastName = coauthLastName;
+    }
+    
+    @Column(name = "COAUTH_EMAIL_ADDR", length = 250)
+    public String getCoauthEmailAddr() {
+        return this.coauthEmailAddr;
+    }
+    
+    public void setCoauthEmailAddr(String coauthEmailAddr) {
+        this.coauthEmailAddr = coauthEmailAddr;
+    }
+    
+    @Column(name = "COAUTH_PHONE", length = 15)
+    public String getCoauthPhone() {
+        return this.coauthPhone;
+    }
+    
+    public void setCoauthPhone(String coauthPhone) {
+        this.coauthPhone = coauthPhone;
+    }
+    
+    @Column(name = "COAUTH_INSTITUTION", length = 50)
+    public String getCoauthInstitution() {
+        return this.coauthInstitution;
+    }
+    
+    public void setCoauthInstitution(String coauthInstitution) {
+        this.coauthInstitution = coauthInstitution;
+    }
+    
+    @Column(name = "COAUTH_DEPT", length = 50)
+    public String getCoauthDept() {
+        return this.coauthDept;
+    }
+    
+    public void setCoauthDept(String coauthDept) {
+        this.coauthDept = coauthDept;
+    }
+    
+    @Column(name = "CREATED_DATE")
+    public Date getCreatedDate() {
+        return this.createdDate;
+    }
+    
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+    
+    @Column(name = "CREATED_BY", length = 100)
+    public String getCreatedBy() {
+        return this.createdBy;
+    }
+    
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+    
+    @Column(name = "UPDATED_DATE")
+    public Date getUpdatedDate() {
+        return this.updatedDate;
+    }
+    
+    public void setUpdatedDate(Date updatedDate) {
+        this.updatedDate = updatedDate;
+    }
+    
+    @Column(name = "UPDATED_BY", length = 100)
+    public String getUpdatedBy() {
+        return this.updatedBy;
+    }
+    
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+    
 }

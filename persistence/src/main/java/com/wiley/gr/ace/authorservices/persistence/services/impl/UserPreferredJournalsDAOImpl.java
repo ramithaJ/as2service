@@ -17,37 +17,88 @@ import java.util.List;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserPreferredJournals;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserPreferredJournalsId;
 import com.wiley.gr.ace.authorservices.persistence.services.UserPreferredJournalsDAO;
 
+/**
+ * @author RAVISINHA
+ */
 public class UserPreferredJournalsDAOImpl implements UserPreferredJournalsDAO {
 
 	@Autowired(required = true)
 	HibernateConnection con;
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.wiley.gr.ace.authorservices.persistence.services.UserPreferredJournalsDAO
+	 * #getPreferredJournals(java.lang.String)
+	 */
 	@Override
 	public List<UserPreferredJournals> getPreferredJournals(String userId) {
 
 		Session session = con.getSessionFactory().openSession();
 
 		List<UserPreferredJournals> userPreferredJournals = null;
-
 		try {
-			userPreferredJournals = (List<UserPreferredJournals>) session.get(
-					UserPreferredJournals.class, userId);
-			System.err.println("DAO DATA" +userPreferredJournals);
-		
-		}
+			String hql = "from UserPreferredJournals where id.userId = :userId";
 
-		finally {
-			if (null != session)
+			userPreferredJournals = session.createQuery(hql)
+					.setString("userId", userId).list();
+
+		} finally {
+			if (null != session) {
+
 				session.flush();
-			session.close();
-
+				session.close();
+			}
 		}
 
 		return userPreferredJournals;
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.wiley.gr.ace.authorservices.persistence.services.UserPreferredJournalsDAO
+	 * #deletePreferredJournals(java.lang.String, java.lang.String)
+	 */
+	@Override
+	public boolean deletePreferredJournals(String userId, String journalId) {
+
+		Session session = con.getSessionFactory().openSession();
+		session.beginTransaction();
+
+		try {
+
+			UserPreferredJournals userPrefferJournals = new UserPreferredJournals();
+
+			userPrefferJournals.setId(new UserPreferredJournalsId(Integer
+					.parseInt(userId), Integer.parseInt(journalId)));
+			userPrefferJournals = (UserPreferredJournals) session.get(
+					UserPreferredJournals.class, userPrefferJournals.getId());
+
+			if (userPrefferJournals != null) {
+				session.delete(userPrefferJournals);
+			} else {
+				throw new ASException("1004",
+						"No Record Found For this UserId and JournalId");
+			}
+
+		} finally {
+			if (session != null){
+				session.getTransaction().commit();
+			session.flush();
+			session.close();
+			}
+		}
+		return true;
 
 	}
 
