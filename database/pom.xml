@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved. -->
+
+<!-- All material contained herein is proprietary to John Wiley & Sons -->
+<!-- and its third party suppliers, if any. The methods, techniques and -->
+<!-- technical concepts contained herein are considered trade secrets -->
+<!-- and confidential and may be protected by intellectual property laws. -->
+<!-- Reproduction or distribution of this material, in whole or in part, -->
+<!-- is strictly forbidden except by express prior written permission -->
+<!-- of John Wiley & Sons. -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>src.main</groupId>
+	<artifactId>db</artifactId>
+	 
+	<version>2.0.0-SNAPSHOT</version>
+	
+	 <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <liquibase.version>3.3.3</liquibase.version>
+        <liquibase.assembly.dir>${basedir}/target/liquibase-files</liquibase.assembly.dir>
+        <liquibase.assembly.finalName>liquibase-env</liquibase.assembly.finalName>
+        <cxf.version>2.7.10</cxf.version>
+    </properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc6</artifactId>
+			<version>11.2.0.3</version>
+		</dependency>
+		
+	</dependencies>
+	
+<!--	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-maven-plugin</artifactId>
+				<version>3.3.3</version>
+				<configuration>
+					<propertyFile>src/main/resources/properties/liquibase.properties</propertyFile>
+					<username>phani_liqui</username>
+					<password>phani_liqui</password>
+					<changeLogFile>src/main/resources/liquibase/dbchangelog-master.xml</changeLogFile>
+					<promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	-->
+	<profiles>
+        <!-- Liquibase profiles -->
+        <profile>
+            <id>liquibase-local</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+                <property>
+                    <name>liquibase-local</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                      <groupId>org.liquibase</groupId>
+                      <artifactId>liquibase-maven-plugin</artifactId>
+                      <version>3.3.2</version>
+                      <executions>
+                        <execution>
+                            <phase>process-resources</phase>
+                            <configuration>
+                     <propertyFile>src/main/resources/properties/liquibase-dev.properties</propertyFile>
+					<username>phani_liqui</username>
+					<password>phani_liqui</password>
+					<changeLogFile>src/main/resources/liquibase/dbchangelog-master.xml</changeLogFile>
+					<promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+                            </configuration>
+                            <goals>
+                                <goal>update</goal>
+                            </goals>
+                        </execution>
+                      </executions>
+                    </plugin>
+                </plugins>
+            </build>        
+        </profile>
+    
+        <!-- This profile builds a zip file, which can be used to execute liquibase updates in standalone manner -->
+        <profile>
+            <id>dev-profile</id>        
+            <activation>
+                <activeByDefault>true</activeByDefault>
+                <property>
+                    <name>liquibase-assembly</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-resources-plugin</artifactId>
+						<version>2.7</version>
+						<executions>
+						  <execution>
+							<id>copy-resources</id>
+							<!-- here the phase you need -->
+							<phase>process-resources</phase>
+							<goals>
+							  <goal>copy-resources</goal>
+							</goals>
+							<configuration>
+							<outputDirectory>${liquibase.assembly.dir}</outputDirectory>
+							<resources>
+                                        <resource>
+                                            <!-- This includes all update directories and ela-changelog.xml -->  
+                                            <directory>src/main/resources/liquibase</directory>
+                                            <excludes>
+                                                <exclude>assembly/</exclude>
+                                            </excludes>                                            
+                                        </resource>
+                                        <resource> 
+                                            <directory>src/main/scripts/liquibase</directory>
+                                        </resource>
+										</resources>
+							</configuration>              
+						  </execution>
+						   <execution>
+						  <id>copy-resources2</id>
+							<!-- here the phase you need -->
+							<phase>process-resources</phase>
+							<goals>
+							  <goal>copy-resources</goal>
+							</goals>
+							<configuration>
+							<outputDirectory>${liquibase.assembly.dir}/profiles</outputDirectory>
+						                 <resources>
+										 <resource>
+                                            <directory>src/main/resources/properties</directory>
+                                            <includes>
+                                                <include>liquibase*.properties</include>
+                                            </includes>
+                                        </resource>
+                                    </resources>
+									</configuration>   
+									 </execution>
+						</executions>
+                    </plugin>
+                    <plugin>					
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-dependency-plugin</artifactId>
+						<version>2.10</version>
+                        <executions>
+                            <execution>
+                                <id>copy-libraries</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>copy</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${liquibase.assembly.dir}/lib</outputDirectory>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>org.liquibase</groupId>
+                                            <artifactId>liquibase-core</artifactId>
+                                            <version>${liquibase.version}</version>
+                                        </artifactItem>
+                                        <artifactItem>
+                                            <groupId>com.oracle</groupId>
+                                            <artifactId>ojdbc6</artifactId>
+                                            <version>11.2.0.3</version>
+                                        </artifactItem>
+                                    </artifactItems>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <version>2.4</version>
+                        <executions>
+                            <execution>
+                                <id>make-zip</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                                <configuration>
+                                    <archiveBaseDirectory>${liquibase.assembly.dir}</archiveBaseDirectory>
+                                    <appendAssemblyId>false</appendAssemblyId>
+                                    <finalName>${liquibase.assembly.finalName}</finalName>
+                                    <descriptors>
+                                        <descriptor>src/main/resources/liquibase/assembly/liquibase-assembly.xml</descriptor>
+                                    </descriptors>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>      
+    </profiles>
+		
+</project>
