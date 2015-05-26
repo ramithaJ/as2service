@@ -15,7 +15,6 @@ import java.util.Date;
 import java.util.List;
 
 import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
-import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
 
 /**
  * @author kpshiva
