@@ -61,12 +61,12 @@ public class UserRolesDAOImpl implements UserRolesDAO {
             
             List<Permissions> addList = new ArrayList<Permissions>();
             
-            Map<Integer, RolePermissions> daoPermissionsMap = new HashMap<Integer, RolePermissions>();
+            Map<String, RolePermissions> daoPermissionsMap = new HashMap<String, RolePermissions>();
             
             for (RolePermissions rolePermissions : daoPermissionsList) {
                 
                 daoPermissionsMap.put(
-                        rolePermissions.getId().getPermissionId(),
+                        rolePermissions.getId().getPermissionCd(),
                         rolePermissions);
                 
             }
@@ -74,8 +74,8 @@ public class UserRolesDAOImpl implements UserRolesDAO {
             for (Permissions permissions : permissionsList) {
                 
                 if (daoPermissionsMap
-                        .containsKey(permissions.getPermissionId())) {
-                    daoPermissionsMap.remove(permissions.getPermissionId());
+                        .containsKey(permissions.getPermissionCd())) {
+                    daoPermissionsMap.remove(permissions.getPermissionCd());
                 } else {
                     addList.add(permissions);
                 }
@@ -84,15 +84,17 @@ public class UserRolesDAOImpl implements UserRolesDAO {
             for (Permissions permissions : addList) {
                 
                 RolePermissions rolePermissions = new RolePermissions();
+                RolePermissionsId rolePermissionsId = new RolePermissionsId();
+                rolePermissionsId.setRoleId(roles.getRoleId());
+                rolePermissionsId.setPermissionCd(permissions.getPermissionCd());
                 
-                rolePermissions.setId(new RolePermissionsId(roles.getRoleId(),
-                        permissions.getPermissionId()));
+                rolePermissions.setId(rolePermissionsId);
                 
                 session.saveOrUpdate(rolePermissions);
                 
             }
             
-            for (Map.Entry<Integer, RolePermissions> entry : daoPermissionsMap
+            for (Map.Entry<String, RolePermissions> entry : daoPermissionsMap
                     .entrySet()) {
                 session.delete(entry.getValue());
             }
