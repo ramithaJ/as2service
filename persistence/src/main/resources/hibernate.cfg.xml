@@ -40,8 +40,6 @@
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.AuthColleagueDetails" />
 		<mapping
-			class="com.wiley.gr.ace.authorservices.persistence.entity.AuthColleagueDetailsId" />
-		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile" />
 		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Journals" />
 		<mapping
@@ -52,8 +50,6 @@
 			class="com.wiley.gr.ace.authorservices.persistence.entity.RolePermissionsId" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.UserFunderGrants" />
-		<mapping
-			class="com.wiley.gr.ace.authorservices.persistence.entity.UserFunderGrantsId" />
 		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Users" />
 		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Roles" />
 		<mapping
@@ -62,8 +58,6 @@
 			class="com.wiley.gr.ace.authorservices.persistence.entity.UserReferenceData" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.UserReferenceDataId" />
-		<mapping
-			class="com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.UserAlerts" />
 		<mapping
@@ -87,6 +81,17 @@
 			<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.UserRoles"/>
 			<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.UserAreaOfInterest"/>
 			<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.UserAreaOfInterestId"/>
+			
+			<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Actions"/>
+			<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.AuditDetails"/>
+			<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.AuditDetailsId"/>
+			<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.ProfileAttributeList"/>
+			<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.UserAddresses"/>
+            <mapping class="com.wiley.gr.ace.authorservices.persistence.entity.UserAddressesId"/>
+            <mapping class="com.wiley.gr.ace.authorservices.persistence.entity.UserProfileAttribVisibleId"/>
+            <mapping class="com.wiley.gr.ace.authorservices.persistence.entity.UserRolesId"/>
+            <mapping class="com.wiley.gr.ace.authorservices.persistence.entity.UserSecondaryEmailAddr"/>
+			
 
 	</session-factory>
 </hibernate-configuration>
