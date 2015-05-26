@@ -21,14 +21,14 @@ import com.wiley.gr.ace.authorservices.model.UserProfile;
 @JsonInclude(Include.NON_NULL)
 public class LookUpProfile {
     
-    private UserProfile userProfile;
+    private UserProfile customerProfile;
     
-    public UserProfile getUserProfile() {
-        return userProfile;
+    public UserProfile getCustomerProfile() {
+        return customerProfile;
     }
     
-    public void setUserProfile(UserProfile userProfile) {
-        this.userProfile = userProfile;
+    public void setCustomerProfile(UserProfile customerProfile) {
+        this.customerProfile = customerProfile;
     }
     
 }
