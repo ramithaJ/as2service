@@ -58,7 +58,7 @@ public class UserProfileController {
         Service service = new Service();
         
         service.setPayload(userProfileService.lookUpProfile(userId)
-                .getUserProfile().getAffiliations());
+                .getCustomerProfile().getAffiliations());
         
         return service;
     }
@@ -87,7 +87,7 @@ public class UserProfileController {
         
         Service service = new Service();
         service.setPayload(userProfileService.lookUpProfile(userId)
-                .getUserProfile().getResearchFunders());
+                .getCustomerProfile().getResearchFunders());
         
         return service;
     }
@@ -116,7 +116,7 @@ public class UserProfileController {
         
         Service service = new Service();
         service.setPayload(userProfileService.lookUpProfile(userId)
-                .getUserProfile().getSocieties());
+                .getCustomerProfile().getSocieties());
         
         return service;
     }
@@ -144,7 +144,7 @@ public class UserProfileController {
         
         Service service = new Service();
         service.setPayload(userProfileService.lookUpProfile(userId)
-                .getUserProfile().getInterests());
+                .getCustomerProfile().getInterests());
         
         return service;
     }
@@ -174,7 +174,7 @@ public class UserProfileController {
         
         Service service = new Service();
         service.setPayload(userProfileService.lookUpProfile(userId)
-                .getUserProfile().getCoAuthors());
+                .getCustomerProfile().getCoAuthors());
         return service;
     }
     
@@ -203,7 +203,7 @@ public class UserProfileController {
         
         Service service = new Service();
         service.setPayload(userProfileService.lookUpProfile(userId)
-                .getUserProfile().getPreferredJournals());
+                .getCustomerProfile().getPreferredJournals());
         
         return service;
     }
@@ -238,7 +238,7 @@ public class UserProfileController {
     public Service getListOfAlerts(@PathVariable("userId") String userId) {
         Service service = new Service();
         service.setPayload(userProfileService.lookUpProfile(userId)
-                .getUserProfile().getAlerts());
+                .getCustomerProfile().getAlerts());
         
         return service;
     }

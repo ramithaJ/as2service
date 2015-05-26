@@ -71,7 +71,7 @@ public class DashBoardServiceImpl implements DashBoardService {
             }
         }
         LookUpProfile lookUpProfile = cdmIntefaceService.lookUpProfile(userId);
-        UserProfile userProfile = lookUpProfile.getUserProfile();
+        UserProfile userProfile = lookUpProfile.getCustomerProfile();
         User user = userProfile.getProfileInformation();
         if (StringUtils.isEmpty(user.getRecoveryEmailAddress())) {
             dashBoardInfo = new DashBoardInfo();

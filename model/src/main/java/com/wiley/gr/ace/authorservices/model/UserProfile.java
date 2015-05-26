@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class UserProfile {
     
-    private User profileInformation;
+    private User customerDetails;
     
     private List<Addresses> addressDetails;
     
@@ -51,11 +51,11 @@ public class UserProfile {
     }
     
     public User getProfileInformation() {
-        return profileInformation;
+        return customerDetails;
     }
     
-    public void setProfileInformation(User profileInformation) {
-        this.profileInformation = profileInformation;
+    public void setProfileInformation(User customerDetails) {
+        this.customerDetails = customerDetails;
     }
     
     public List<Addresses> getAddressDetails() {
