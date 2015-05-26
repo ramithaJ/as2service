@@ -24,7 +24,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
-import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 
@@ -117,41 +116,12 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
             if (null == userProfile) {
                 return isSecure;
             }
-            if (userProfile.getSecurityQuestFlg() == 'Y') {
+            // TODO: This method is not required now.
+            /*if (userProfile.getSecurityQuestFlg() == 'Y') {
                 isSecure = true;
                 return isSecure;
-            }
+            } */
             return isSecure;
-        } finally {
-            if (session != null) {
-                session.flush();
-                session.close();
-            }
-        }
-    }
-    
-    /*
-     * (non-Javadoc)
-     * @see
-     * com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO
-     * #getSecurityQuestions(java.lang.Integer)
-     */
-    @Override
-    public List<UserSecurityDetails> getSecurityQuestions(Integer userId) {
-        
-        Session session = null;
-        Transaction transaction = null;
-        try {
-            session = con.getSessionFactory().openSession();
-            transaction = session.beginTransaction();
-            Criteria criteria = session.createCriteria(
-                    UserSecurityDetails.class, "userSecurityDetails");
-            criteria.createAlias("userSecurityDetails.authorProfile",
-                    "authorProfile");
-            criteria.add(Restrictions.eq("authorProfile.userId", userId));
-            List<UserSecurityDetails> userSecurityDetails = criteria.list();
-            transaction.commit();
-            return userSecurityDetails;
         } finally {
             if (session != null) {
                 session.flush();
@@ -178,8 +148,10 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
             
             Users users = (Users) session.load(Users.class, userId);
             
-            users.getAuthorProfile().setLastLoginDate(date);
-            users.getAuthorProfile().setUpdatedBy("test");
+            users.setLastLoginDate(date);
+            Users updateByUser = new Users();
+            updateByUser.setUserId(userId);
+            users.setUsersByUpdatedBy(updateByUser);
             
             session.update(users);
             transaction.commit();
@@ -212,12 +184,13 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
             if (null == authorProfile) {
                 return isLocked;
             }
-            if (authorProfile.getIsAccountLocked() != null
+            // TODO: Should change logic here
+            /*if (authorProfile.getIsAccountLocked() != null
                     && authorProfile.getIsAccountLocked() == 'Y') {
                 isLocked = true;
             } else {
                 isLocked = false;
-            }
+            }*/
             return isLocked;
         } finally {
             if (session != null) {
@@ -299,10 +272,10 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
         Session session = null;
         try {
             session = con.getSessionFactory().openSession();
-            Criteria criteria = session.createCriteria(AuthorProfile.class);
+            Criteria criteria = session.createCriteria(Users.class);
             criteria.add(Restrictions.eq(USERID, userId));
-            AuthorProfile userProfile = (AuthorProfile) criteria.uniqueResult();
-            return userProfile.getInvalidLoginCnt();
+            Users user = (Users) criteria.uniqueResult();
+            return user.getInvalidLoginCnt();
         } finally {
             if (session != null) {
                 session.flush();
@@ -353,10 +326,10 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
         Session session = null;
         try {
             session = con.getSessionFactory().openSession();
-            Criteria criteria = session.createCriteria(AuthorProfile.class);
+            Criteria criteria = session.createCriteria(Users.class);
             criteria.add(Restrictions.eq(USERID, userId));
-            AuthorProfile userProfile = (AuthorProfile) criteria.uniqueResult();
-            return userProfile.getAccountLockedTime();
+            Users user = (Users) criteria.uniqueResult();
+            return user.getAccountLockedTime();
         } finally {
             if (session != null) {
                 session.flush();
