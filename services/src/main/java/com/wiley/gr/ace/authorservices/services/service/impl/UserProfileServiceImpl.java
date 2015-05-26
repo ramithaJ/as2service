@@ -111,7 +111,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 				grantset = funderDAO.getResearchFunders()
 						.getUserFunderGrantses();
 				for (UserFunderGrants funderSet : grantset) {
-					grantNumbers.add(funderSet.getId().getGrantNum());
+					grantNumbers.add(funderSet.getGrantNum());
 				}
 				researchFunder.setGrantNumber(grantNumbers);
 				researchList.add(researchFunder);
