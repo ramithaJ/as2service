@@ -137,22 +137,22 @@ public class AdminLoginServiceImpl implements AdminLoginService {
             
             UserPermissions permission = new UserPermissions();
             
-            permission.setPermissionId(daoPermissions.getPermissionId() + "");
+            permission.setPermissionId(daoPermissions.getPermissionCd() + "");
             permission.setPermissionName(daoPermissions.getPermissionName());
             
-            if (daoPermissions.getLevelOfPermission().equalsIgnoreCase(
+            if (daoPermissions.getPermissionGroup().equalsIgnoreCase(
                     AuthorServicesConstants.PERMISSION_LEVEL_SYSTEM)
-                    && daoPermissions.getPermType().equalsIgnoreCase(
-                            AuthorServicesConstants.PERMISSION_TYPE_EXTERNAL)) {
+                    /*&& daoPermissions.getPermType().equalsIgnoreCase(
+                            AuthorServicesConstants.PERMISSION_TYPE_EXTERNAL)*/) { //TODO
                 systemSection.getPermissionsList().add(permission);
                 
-            } else if (daoPermissions.getLevelOfPermission().equalsIgnoreCase(
+            } else if (daoPermissions.getPermissionGroup().equalsIgnoreCase(
                     AuthorServicesConstants.PERMISSION_LEVEL_SYSTEM)
-                    && daoPermissions.getPermType().equalsIgnoreCase(
-                            AuthorServicesConstants.PERMISSION_TYPE_INTERNAL)) {
+                    /*&& daoPermissions.getPermType().equalsIgnoreCase(
+                            AuthorServicesConstants.PERMISSION_TYPE_INTERNAL)*/) { //TODO
                 adminSection.getPermissionsList().add(permission);
                 
-            } else if (daoPermissions.getLevelOfPermission().equalsIgnoreCase(
+            } else if (daoPermissions.getPermissionGroup().equalsIgnoreCase(
                     AuthorServicesConstants.PERMISSION_LEVEL_ARTICLE)) {
                 articleSection.getPermissionsList().add(permission);
             }
@@ -175,12 +175,12 @@ public class AdminLoginServiceImpl implements AdminLoginService {
                     permissionsMap.put(roleIdString, permissionsList);
                 }
                 permissionsList.add(daoRolePermissions.getId()
-                        .getPermissionId() + "");
+                        .getPermissionCd() + "");
                 
             } else {
                 List<String> permissionsList = new ArrayList<String>();
                 permissionsList.add(daoRolePermissions.getId()
-                        .getPermissionId() + "");
+                        .getPermissionCd() + "");
                 permissionsMap.put(roleIdString, permissionsList);
             }
             
@@ -233,7 +233,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
             for (String permissionId : entry.getValue()) {
                 
                 Permissions permissions = new Permissions();
-                permissions.setPermissionId(Integer.parseInt(permissionId));
+                permissions.setPermissionCd(permissionId);
                 permissionsList.add(permissions);
             }
             

@@ -22,7 +22,6 @@ import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnectio
 import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.Journals;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserPreferredJournals;
-import com.wiley.gr.ace.authorservices.persistence.entity.UserPreferredJournalsId;
 import com.wiley.gr.ace.authorservices.persistence.services.UserPreferredJournalsDAO;
 
 /**
