@@ -69,42 +69,8 @@ public class UserAccountDAOImpl implements UserAccountDAO {
     public boolean updateSecurityDetails(Integer userId,
             List<SecurityDetails> securityDetails) {
         
-        Session session = null;
-        try {
-            
-            // it will give the unique id's of security quesitons based on
-            // userId.
-            List<UserSecurityDetails> security = userLoginServiceDAO
-                    .getSecurityQuestions(userId);
-            session = con.getSessionFactory().openSession();
-            for (int i = 0; i < securityDetails.size(); i++) {
-                
-                session.beginTransaction();
-                Criteria criteria = session
-                        .createCriteria(UserSecurityDetails.class);
-                criteria.add(Restrictions.eq("authorProfile.userId", userId));
-                criteria.add(Restrictions.eq("userSecurityId", security.get(i)
-                        .getUserSecurityId()));
-                UserSecurityDetails userSecurityDetails = (UserSecurityDetails) criteria
-                        .uniqueResult();
-                if (null != userSecurityDetails) {
-                    
-                    userSecurityDetails.setSecurityQuestion(securityDetails
-                            .get(i).getSecurityQuestion());
-                    userSecurityDetails.setSecurityAnswer(securityDetails
-                            .get(i).getSecurityAnswer());
-                    session.saveOrUpdate(userSecurityDetails);
-                    session.getTransaction().commit();
-                }
-                
-            }
-            return true;
-        } finally {
-            if (session != null) {
-                session.flush();
-                session.close();
-            }
-        }
+        // TODO: This is not required now, security details are maintained by ALM
+        return true;
     }
     
     @Override
