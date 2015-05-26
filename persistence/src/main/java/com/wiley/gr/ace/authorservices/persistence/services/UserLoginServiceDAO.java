@@ -35,12 +35,6 @@ public interface UserLoginServiceDAO {
     boolean lockUser(int userId);
     
     /**
-     * @param userId
-     * @return
-     */
-    List<UserSecurityDetails> getSecurityQuestions(Integer userId);
-    
-    /**
      * @param emailId
      * @return
      */
