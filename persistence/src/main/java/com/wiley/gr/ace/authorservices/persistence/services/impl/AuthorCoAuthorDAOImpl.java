@@ -89,9 +89,9 @@ public class AuthorCoAuthorDAOImpl implements AuthorCoAuthorDAO {
                 authCoauthDetails.setCoauthLastName(coAuthorJson.getLastName());
                 authCoauthDetails.setCoauthEmailAddr(coAuthorJson.getEmailId());
                 authCoauthDetails.setCoauthPhone(coAuthorJson.getPhone());
-                authCoauthDetails.setCoauthInstitution(coAuthorJson
+                authCoauthDetails.setCoauthInstitutionName(coAuthorJson
                         .getInstitutionName());
-                authCoauthDetails.setCoauthDept(coAuthorJson
+                authCoauthDetails.setCoauthDeptName(coAuthorJson
                         .getDepartmentName());
                 session.saveOrUpdate(authCoauthDetails);
                 session.getTransaction().commit();
