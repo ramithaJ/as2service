@@ -18,8 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
+import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
+import com.wiley.gr.ace.authorservices.persistence.entity.ResearchFunders;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserFunderGrants;
-import com.wiley.gr.ace.authorservices.persistence.entity.UserFunderGrantsId;
 import com.wiley.gr.ace.authorservices.persistence.services.ResearchFundersDAO;
 
 /**
@@ -61,11 +62,16 @@ public class ResearchFundersDAOImpl implements ResearchFundersDAO {
         try {
             
             UserFunderGrants userFunderGrants = new UserFunderGrants();
-            userFunderGrants.setId(new UserFunderGrantsId(Integer
-                    .parseInt(userId), researchFunder.getResearchFunderId(),
-                    researchFunder.getResearchFunderName()));
+            AuthorProfile authorProfile = new AuthorProfile();
+            authorProfile.setUserId(Integer.valueOf(userId));
+            userFunderGrants.setAuthorProfile(authorProfile);
+            ResearchFunders researchFunderEntity = new ResearchFunders();
+            researchFunderEntity.setFundrefId(researchFunder.getResearchFunderId());
+            researchFunderEntity.setFunderName(researchFunder.getResearchFunderName());
+            userFunderGrants.setResearchFunders(researchFunderEntity);
+            
             userFunderGrants = (UserFunderGrants) session.get(
-                    UserFunderGrants.class, userFunderGrants.getId());
+                    UserFunderGrants.class, userFunderGrants.getUserFunderGrantId());
             return true;
         } finally {
             
