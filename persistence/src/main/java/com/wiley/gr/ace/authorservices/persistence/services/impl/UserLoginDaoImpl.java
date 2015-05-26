@@ -80,9 +80,10 @@ public class UserLoginDaoImpl implements UserLoginDao {
 		}
 
 		if (authorProfile != null) {
-			authorProfile.setUpdatedBy("system");
+		    Users users = new Users();
+		    users.setUserId(userId);
+			authorProfile.setUsersByUpdatedBy(users);
 			authorProfile.setUpdatedDate(date);
-			authorProfile.setLastLoginDate(date);
 		}
 
 		session.saveOrUpdate(authorProfile);
