@@ -38,14 +38,15 @@ import com.wiley.gr.ace.authorservices.services.service.OrcidService;
  * @author vkumark
  */
 public class OrcidServiceImpl implements OrcidService {
-    
+
     private static final Logger LOGGER = LoggerFactory
             .getLogger(OrcidServiceImpl.class);
     @Autowired(required = true)
     OrcidInterfaceService oricdInterfaceService;
-    
+
     /*
      * (non-Javadoc)
+     * 
      * @see
      * com.wiley.gr.ace.authorservices.services.service.OrcidService#getAccessToken
      * (java.lang.String)
@@ -55,23 +56,22 @@ public class OrcidServiceImpl implements OrcidService {
             throws Exception {
         return oricdInterfaceService.getAccessToken(authorizationCode);
     }
-    
+
     @Override
-    public User getWork(OrcidAccessToken token) throws Exception {
-        User user = null;
+    public User getWork(OrcidAccessToken token, User user) throws Exception {
         String orcidMessageJSON = oricdInterfaceService.getWork(token);
         if (null != orcidMessageJSON && !orcidMessageJSON.isEmpty()) {
             /**
              * Code to map the orcid JSON to user model object
              */
-            user = parseOrcidJSONForWork(orcidMessageJSON);
+            user = parseOrcidJSONForWork(orcidMessageJSON, user);
         }
         return user;
     }
-    
+
     @Override
     public User getBio(OrcidAccessToken token) throws Exception {
-        
+
         User user = null;
         String orcidMessageJSON = oricdInterfaceService.getBio(token);
         if (null != orcidMessageJSON && !orcidMessageJSON.isEmpty()) {
@@ -82,250 +82,408 @@ public class OrcidServiceImpl implements OrcidService {
         }
         return user;
     }
-    
+
     private User parseOrcidJSON(String orcidMessageJSON) {
+        User user = null;
+        try {
+            user = parseOrcidProfileJSON(orcidMessageJSON);
+        } catch (Exception e) {
+            LOGGER.error("Initial SessionFactory creation failed.", e);
+        }
+        return user;
+    }
+
+    private User parseOrcidProfileJSON(String orcidMessageJSON) {
         User user = null;
         try {
             JSONObject orcidProfileJSON = (JSONObject) new JSONParser()
                     .parse(orcidMessageJSON);
             JSONObject orcidProfile = (JSONObject) orcidProfileJSON
                     .get("orcid-profile");
-            LOGGER.info("orcidProfile ##### " , orcidProfile);
-            if (null != orcidProfile) {
-                JSONObject orcidBioJSON = (JSONObject) new JSONParser()
-                        .parse(orcidProfile.toJSONString());
-                JSONObject orcidBio = (JSONObject) orcidBioJSON
-                        .get("orcid-bio");
-                LOGGER.info("orcidBio ##### " , orcidBio);
-                if (null != orcidBio) {
-                    user = new User();
-                    JSONObject personalDetailsJSON = (JSONObject) new JSONParser()
-                            .parse(orcidBio.toJSONString());
-                    JSONObject personalDetails = (JSONObject) personalDetailsJSON
-                            .get("personal-details");
-                    LOGGER.info("personalDetails ##### "
-                            + personalDetails);
-                    if (null != personalDetails) {
-                        /**
-                         * Code to fetch FN and LN.
-                         */
-                        JSONObject givenNamesJSON = (JSONObject) new JSONParser()
-                                .parse(personalDetails.toJSONString());
-                        JSONObject givenNames = (JSONObject) givenNamesJSON
-                                .get("given-names");
-                        LOGGER.info("givenNames ##### " , givenNames);
-                        
-                        JSONObject familyNamesJSON = (JSONObject) new JSONParser()
-                                .parse(personalDetails.toJSONString());
-                        JSONObject familyNames = (JSONObject) familyNamesJSON
-                                .get("family-name");
-                        LOGGER.info("familyNames ##### " , familyNames);
-                        
-                        if (null != givenNames) {
-                            JSONObject givenNamesValueJSON = (JSONObject) new JSONParser()
-                                    .parse(givenNames.toJSONString());
-                            user.setFirstName((String) givenNamesValueJSON
-                                    .get("value"));
-                        }
-                        if (null != familyNames) {
-                            JSONObject familyNamesValueJSON = (JSONObject) new JSONParser()
-                                    .parse(familyNames.toJSONString());
-                            user.setLastName((String) familyNamesValueJSON
-                                    .get("value"));
-                        }
-                    }
-                    /**
-                     * Code to fetch Email and ORCID ID
-                     */
-                    JSONObject contactDetails = (JSONObject) personalDetailsJSON
-                            .get("contact-details");
-                    if (null != contactDetails) {
-                        JSONObject emailArrayJSON = (JSONObject) new JSONParser()
-                                .parse(contactDetails.toJSONString());
-                        JSONArray emailArray = (JSONArray) emailArrayJSON
-                                .get("email");
-                        LOGGER.info("emailArray ##### " , emailArray);
-                        /**
-                         * Email JSON is an array so iterating through it to
-                         * find primary email
-                         */
-                        if (null != emailArray) {
-                            Iterator<JSONObject> emailItr = emailArray
-                                    .iterator();
-                            Boolean isPrimary;
-                            while (emailItr.hasNext()) {
-                                JSONObject emailJSON = (JSONObject) new JSONParser()
-                                        .parse(emailItr.next().toJSONString());
-                                isPrimary = (Boolean) emailJSON.get("primary");
-                                
-                                LOGGER.info("isPrimary ---->"
-                                        + isPrimary);
-                                if (isPrimary) {
-                                    user.setPrimaryEmailAddr((String) emailJSON
-                                            .get("value"));
-                                    user.setOrcidID((String) emailJSON
-                                            .get("source"));
-                                }
-                            }
-                        }
-                        /**
-                         * Fetching country code from address field
-                         */
-                        JSONObject addressJSON = (JSONObject) new JSONParser()
-                                .parse(contactDetails.toJSONString());
-                        JSONObject addressDetails = (JSONObject) addressJSON
-                                .get("address");
-                        LOGGER.info("addressDetails ##### ", addressDetails);
-                        if (null != addressDetails) {
-                            JSONObject countryJSON = (JSONObject) new JSONParser()
-                                    .parse(addressDetails.toJSONString());
-                            JSONObject countryDetails = (JSONObject) countryJSON
-                                    .get("country");
-                            Addresses addresses = new Addresses();
-                            Address address = new Address();
-                            Country country = new Country();
-                            country.setCountryCode((String) countryDetails
-                                    .get("value"));
-                            country.setCountryName("INDIA"); // Need to replace
-                                                             // with actual
-                                                             // name once we
-                                                             // have the
-                                                             // service for
-                                                             // country
-                            address.setCountry(country);
-                            addresses.setCorrespondenceAddress(address);
-                            user.setAddresses(addresses);
-                        }
-                    }
-                }
-            }
-            
+            LOGGER.info("orcidProfile ##### ", orcidProfile);
+            user = parseUserProfileJSON(orcidProfile);
         } catch (Exception e) {
             LOGGER.error("Initial SessionFactory creation failed.", e);
         }
         return user;
     }
-    private User parseOrcidJSONForWork(String orcidMessageJSON) {
+
+    private User parseUserProfileJSON(JSONObject orcidProfile) {
         User user = null;
+        try {
+            if (null != orcidProfile) {
+                JSONObject orcidBioJSON = (JSONObject) new JSONParser()
+                        .parse(orcidProfile.toJSONString());
+                JSONObject orcidBio = (JSONObject) orcidBioJSON
+                        .get("orcid-bio");
+                LOGGER.info("orcidBio ##### ", orcidBio);
+                user = parseOrcidBio(orcidBio);
+            }
+        } catch (Exception e) {
+            LOGGER.error("Initial SessionFactory creation failed.", e);
+        }
+        return user;
+    }
+
+    private User parseOrcidBio(JSONObject orcidBio) {
+        User user = null;
+        try {
+            if (null != orcidBio) {
+                JSONObject personalDetailsJSON = (JSONObject) new JSONParser()
+                        .parse(orcidBio.toJSONString());
+                user = parsePersonalDetails(personalDetailsJSON);
+                user = parseContactDetails(personalDetailsJSON);
+            }
+        } catch (Exception e) {
+            LOGGER.error("Initial SessionFactory creation failed.", e);
+        }
+        return user;
+    }
+
+    private User parsePersonalDetails(JSONObject personalDetailsJSON) {
+        User user = null;
+        try {
+            JSONObject personalDetails = (JSONObject) personalDetailsJSON
+                    .get("personal-details");
+            if (null != personalDetails) {
+                /**
+                 * Code to fetch FN and LN.
+                 */
+                user = parseGivenNames(personalDetails);
+                user = parseFamilyNames(personalDetails);
+            }
+        } catch (Exception e) {
+            LOGGER.error("Initial SessionFactory creation failed.", e);
+        }
+        return user;
+    }
+
+    private User parseGivenNames(JSONObject personalDetails) {
+        User user = null;
+        try {
+            JSONObject givenNamesJSON = (JSONObject) new JSONParser()
+                    .parse(personalDetails.toJSONString());
+            JSONObject givenNames = (JSONObject) givenNamesJSON
+                    .get("given-names");
+            LOGGER.info("givenNames ##### ", givenNames);
+            if (null != givenNames) {
+                user = new User();
+                JSONObject givenNamesValueJSON = (JSONObject) new JSONParser()
+                        .parse(givenNames.toJSONString());
+                user.setFirstName((String) givenNamesValueJSON.get("value"));
+            }
+        } catch (Exception e) {
+            LOGGER.error("Initial SessionFactory creation failed.", e);
+        }
+        return user;
+    }
+
+    private User parseFamilyNames(JSONObject personalDetails) {
+        User user = null;
+        try {
+            JSONObject familyNamesJSON = (JSONObject) new JSONParser()
+                    .parse(personalDetails.toJSONString());
+            JSONObject familyNames = (JSONObject) familyNamesJSON
+                    .get("family-name");
+            LOGGER.info("familyNames ##### ", familyNames);
+            if (null != familyNames) {
+                user = new User();
+                JSONObject familyNamesValueJSON = (JSONObject) new JSONParser()
+                        .parse(familyNames.toJSONString());
+                user.setLastName((String) familyNamesValueJSON.get("value"));
+            }
+        } catch (Exception e) {
+            LOGGER.error("Initial SessionFactory creation failed.", e);
+        }
+        return user;
+    }
+
+    private User parseContactDetails(JSONObject personalDetailsJSON) {
+        User user = null;
+        try {
+            JSONObject contactDetails = (JSONObject) personalDetailsJSON
+                    .get("contact-details");
+            if (null != contactDetails) {
+                JSONObject emailArrayJSON = (JSONObject) new JSONParser()
+                        .parse(contactDetails.toJSONString());
+                JSONArray emailArray = (JSONArray) emailArrayJSON.get("email");
+                LOGGER.info("emailArray ##### ", emailArray);
+                user = new User();
+                user = parseEmailArray(emailArray);
+                Addresses addresses = parseAddressesDetails(contactDetails);
+                user.setAddresses(addresses);
+            }
+        } catch (Exception e) {
+            LOGGER.error("Initial SessionFactory creation failed.", e);
+        }
+        return user;
+    }
+
+    private User parseEmailArray(JSONArray emailArray) {
+        User user = null;
+        try {
+            /**
+             * Email JSON is an array so iterating through it to find primary
+             * email
+             */
+            if (null != emailArray) {
+                Iterator<JSONObject> emailItr = emailArray.iterator();
+                Boolean isPrimary;
+                while (emailItr.hasNext()) {
+                    JSONObject emailJSON = (JSONObject) new JSONParser()
+                            .parse(emailItr.next().toJSONString());
+                    isPrimary = (Boolean) emailJSON.get("primary");
+
+                    LOGGER.info("isPrimary ---->" + isPrimary);
+                    if (isPrimary) {
+                        user = new User();
+                        user.setPrimaryEmailAddr((String) emailJSON
+                                .get("value"));
+                        user.setOrcidID((String) emailJSON.get("source"));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.error("Initial SessionFactory creation failed.", e);
+        }
+        return user;
+    }
+
+    private Addresses parseAddressesDetails(JSONObject contactDetails) {
+        Addresses addresses = null;
+        try {
+            JSONObject addressJSON = (JSONObject) new JSONParser()
+                    .parse(contactDetails.toJSONString());
+            JSONObject addressDetails = (JSONObject) addressJSON.get("address");
+            LOGGER.info("addressDetails ##### ", addressDetails);
+            if (null != addressDetails) {
+                JSONObject countryJSON = (JSONObject) new JSONParser()
+                        .parse(addressDetails.toJSONString());
+                JSONObject countryDetails = (JSONObject) countryJSON
+                        .get("country");
+                addresses = new Addresses();
+                Address address = new Address();
+                Country country = parseCountryDetails(countryDetails);
+                address.setCountry(country);
+                addresses.setCorrespondenceAddress(address);
+            }
+        } catch (Exception e) {
+            LOGGER.error("Initial SessionFactory creation failed.", e);
+        }
+        return addresses;
+    }
+
+    private Country parseCountryDetails(JSONObject countryDetails) {
+        Country country = null;
+        try {
+            country = new Country();
+            country.setCountryCode((String) countryDetails.get("value"));
+            country.setCountryName("INDIA"); // Need to replace
+                                             // with actual
+                                             // name once we
+                                             // have the
+                                             // service for
+                                             // country
+
+        } catch (Exception e) {
+            LOGGER.error("Initial SessionFactory creation failed.", e);
+        }
+        return country;
+    }
+
+    private User parseOrcidJSONForWork(String orcidMessageJSON, User user) {
+        try {
+            user = parseOrcidMessageJSON(orcidMessageJSON, user);
+        } catch (Exception e) {
+            LOGGER.error("Initial SessionFactory creation failed.", e);
+        }
+        return user;
+    }
+
+    private User parseOrcidMessageJSON(String orcidMessageJSON, User user) {
         try {
             JSONObject orcidMessageJSONObject = (JSONObject) new JSONParser()
                     .parse(orcidMessageJSON);
             JSONObject orcidMessage = (JSONObject) orcidMessageJSONObject
                     .get("orcid-message");
             LOGGER.info("orcidMessage ##### ", orcidMessage);
-            if (null != orcidMessage) {
-                JSONObject orcidProfile = (JSONObject) orcidMessage
-                        .get("orcid-profile");
-                LOGGER.info("orcidProfile ##### ", orcidProfile);
-                if (null != orcidProfile) {
-                    JSONObject orcidActivitiesJSON = (JSONObject) new JSONParser()
-                            .parse(orcidProfile.toJSONString());
-                    JSONObject orcidActivities = (JSONObject) orcidActivitiesJSON
-                            .get("orcid-activities");
-                    LOGGER.info("orcidActivities ##### ", orcidActivities);
-                    if (null != orcidActivities) {
-                        JSONObject orcidWorkJSON = (JSONObject) new JSONParser()
-                                .parse(orcidActivities.toJSONString());
-                        JSONObject orcidWork = (JSONObject) orcidWorkJSON
-                                .get("orcid-work");
-                        LOGGER.info("orcidWork ##### ", orcidWork);
-                        if (null != orcidWork) {
-                            user = new User();
+            user = parseOrcidProfile(orcidMessage, user);
+        } catch (Exception e) {
+            LOGGER.error("Initial SessionFactory creation failed.", e);
+        }
+        return user;
+    }
 
-                            /**
-                             * Code to fetch Affiliations
-                             */
-                            JSONObject affiliations = (JSONObject) orcidActivities
-                                    .get("affiliations");
-                            if (null != affiliations) {
-                                JSONObject affiliationArrayJSON = (JSONObject) new JSONParser()
-                                        .parse(affiliations.toJSONString());
-                                JSONArray affiliationArray = (JSONArray) affiliationArrayJSON
-                                        .get("affiliation");
-                                LOGGER.info("affiliationArray ##### ",
-                                        affiliationArray);
-                                /**
-                                 * Affiliation JSON is an array so iterating
-                                 * through it to find the affiliations
-                                 */
-                                if (null != affiliationArray) {
-                                    Iterator<JSONObject> affiliationItr = affiliationArray
-                                            .iterator();
-                                    while (affiliationItr.hasNext()) {
-                                        JSONObject affiliationJSON = (JSONObject) new JSONParser()
-                                                .parse(affiliationItr.next()
-                                                        .toJSONString());
-                                        Affiliation affiliation = new Affiliation();
-                                        affiliation
-                                                .setVisibility((String) affiliationJSON
-                                                        .get("-visibility"));
-                                        affiliation
-                                                .setType((String) affiliationJSON
-                                                        .get("type"));
-                                        affiliation
-                                                .setDepartmentName((String) affiliationJSON
-                                                        .get("department-name"));
-                                        affiliation
-                                                .setRoleTitle((String) affiliationJSON
-                                                        .get("role-title"));
-                                        affiliation
-                                                .setStartDate((java.util.Date) affiliationJSON
-                                                        .get("start-date"));
+    private User parseOrcidProfile(JSONObject orcidMessage, User user) {
+        try {
+            JSONObject orcidProfile = (JSONObject) orcidMessage
+                    .get("orcid-profile");
+            LOGGER.info("orcidProfile ##### ", orcidProfile);
+            JSONObject orcidActivitiesJSON = (JSONObject) new JSONParser()
+                    .parse(orcidProfile.toJSONString());
+            JSONObject orcidActivities = (JSONObject) orcidActivitiesJSON
+                    .get("orcid-activities");
+            LOGGER.info("orcidActivities ##### ", orcidActivities);
+            user = parseOrcidActivitiesForAffiliations(orcidActivities, user);
+        } catch (Exception e) {
+            LOGGER.error("Initial SessionFactory creation failed.", e);
+        }
+        return user;
+    }
 
-                                        JSONObject organizationJSON = (JSONObject) new JSONParser()
-                                                .parse(affiliationJSON
-                                                        .toJSONString());
-                                        JSONObject organizationDetails = (JSONObject) organizationJSON
-                                                .get("organization");
-                                        if (null != organizationDetails) {
-                                            Organization organization = new Organization();
-                                            organization
-                                                    .setName((String) organizationDetails
-                                                            .get("name"));
-                                            JSONObject addressJSON = (JSONObject) new JSONParser()
-                                                    .parse(organizationDetails
-                                                            .toJSONString());
-                                            JSONObject addressDetails = (JSONObject) addressJSON
-                                                    .get("address");
-                                            if (null != addressDetails) {
-                                                Address address = new Address();
-                                                address.setCity((String) addressDetails
-                                                        .get("city"));
-                                                address.setRegion((String) addressDetails
-                                                        .get("region"));
-                                                organization
-                                                        .setAddress(address);
-                                                affiliation
-                                                        .setOrganization(organization);
-                                            }
-                                        }
-                                        JSONObject disambiguatedOrganizationJSON = (JSONObject) new JSONParser()
-                                                .parse(affiliationJSON
-                                                        .toJSONString());
-                                        JSONObject disambiguatedOrganizationDetails = (JSONObject) disambiguatedOrganizationJSON
-                                                .get("disambiguated-organization");
-                                        if (null != disambiguatedOrganizationDetails) {
-                                            DisambiguatedOrganization disambiguatedOrganization = new DisambiguatedOrganization();
-                                            disambiguatedOrganization
-                                                    .setDisambiguatedOrganizationIdentifier((String) disambiguatedOrganizationDetails
-                                                            .get("disambiguated-organization-identifier"));
-                                            disambiguatedOrganization
-                                                    .setDisambiguationSource((String) disambiguatedOrganizationDetails
-                                                            .get("disambiguation-source"));
-                                            affiliation
-                                                    .setDisambiguatedOrganization(disambiguatedOrganization);
-                                        }
-                                        user.setAffiliation(affiliation);
-                                    }
-                                }
-                            }
-                        }
-                    }
+    private User parseOrcidActivitiesForAffiliations(
+            JSONObject orcidActivities, User user) {
+        try {
+            JSONObject orcidWorkJSON = (JSONObject) new JSONParser()
+                    .parse(orcidActivities.toJSONString());
+            JSONObject orcidWork = (JSONObject) orcidWorkJSON.get("orcid-work");
+            LOGGER.info("orcidWork ##### ", orcidWork);
+            JSONObject affiliations = (JSONObject) orcidActivities
+                    .get("affiliations");
+            user = parseAffiliations(affiliations, user);
+        } catch (Exception e) {
+            LOGGER.error("Initial SessionFactory creation failed.", e);
+        }
+        return user;
+    }
+
+    private User parseAffiliations(JSONObject affiliations, User user) {
+        try {
+            if (null != affiliations) {
+                JSONObject affiliationArrayJSON = (JSONObject) new JSONParser()
+                        .parse(affiliations.toJSONString());
+                JSONArray affiliationArray = (JSONArray) affiliationArrayJSON
+                        .get("affiliation");
+                LOGGER.info("affiliationArray ##### ", affiliationArray);
+                user = parseAffiliationArray(affiliationArray, user);
+            }
+        } catch (Exception e) {
+            LOGGER.error("Initial SessionFactory creation failed.", e);
+        }
+        return user;
+    }
+
+    private User parseAffiliationArray(JSONArray affiliationArray, User user) {
+        Affiliation affiliation = null;
+        try {
+            if (null != affiliationArray) {
+                Iterator<JSONObject> affiliationItr = affiliationArray
+                        .iterator();
+                while (affiliationItr.hasNext()) {
+                    JSONObject affiliationJSON = (JSONObject) new JSONParser()
+                            .parse(affiliationItr.next().toJSONString());
+                    affiliation = parseAffiliationJSON(affiliationJSON);
+                    user.setAffiliation(affiliation);
                 }
             }
         } catch (Exception e) {
             LOGGER.error("Initial SessionFactory creation failed.", e);
         }
         return user;
+    }
+
+    private Affiliation parseAffiliationJSON(JSONObject affiliationJSON) {
+        Affiliation affiliation = null;
+        Organization organization = null;
+        DisambiguatedOrganization disambiguatedOrganization = null;
+        try {
+            affiliation = setJSONAffiliation(affiliationJSON);
+            organization = parseOrganization(affiliationJSON);
+            affiliation.setOrganization(organization);
+            disambiguatedOrganization = parseDisambiguatedOrganization(affiliationJSON);
+            affiliation.setDisambiguatedOrganization(disambiguatedOrganization);
+        } catch (Exception e) {
+            LOGGER.error("Initial SessionFactory creation failed.", e);
+        }
+        return affiliation;
+    }
+
+    private Affiliation setJSONAffiliation(JSONObject affiliationJSON) {
+        Affiliation affiliation = null;
+        try {
+            affiliation = new Affiliation();
+            affiliation.setVisibility((String) affiliationJSON
+                    .get("-visibility"));
+            affiliation.setType((String) affiliationJSON.get("type"));
+            affiliation.setDepartmentName((String) affiliationJSON
+                    .get("department-name"));
+            affiliation
+                    .setRoleTitle((String) affiliationJSON.get("role-title"));
+            affiliation.setStartDate((java.util.Date) affiliationJSON
+                    .get("start-date"));
+        } catch (Exception e) {
+            LOGGER.error("Initial SessionFactory creation failed.", e);
+        }
+        return affiliation;
+    }
+
+    private Organization parseOrganization(JSONObject affiliationJSON) {
+        Organization organization = null;
+        try {
+            JSONObject organizationJSON = (JSONObject) new JSONParser()
+                    .parse(affiliationJSON.toJSONString());
+            JSONObject organizationDetails = (JSONObject) organizationJSON
+                    .get("organization");
+            if (null != organizationDetails) {
+                organization = new Organization();
+                organization.setName((String) organizationDetails.get("name"));
+                Address address = parseAddress(organizationDetails);
+                organization.setAddress(address);
+            }
+        } catch (Exception e) {
+            LOGGER.error("Initial SessionFactory creation failed.", e);
+        }
+        return organization;
+    }
+
+    private Address parseAddress(JSONObject organizationDetails) {
+        Address address = null;
+        try {
+            JSONObject addressJSON = (JSONObject) new JSONParser()
+                    .parse(organizationDetails.toJSONString());
+            JSONObject addressDetails = (JSONObject) addressJSON.get("address");
+            if (null != addressDetails) {
+                address = new Address();
+                address.setCity((String) addressDetails.get("city"));
+                address.setRegion((String) addressDetails.get("region"));
+            }
+        } catch (Exception e) {
+            LOGGER.error("Initial SessionFactory creation failed.", e);
+        }
+        return address;
+    }
+
+    private DisambiguatedOrganization parseDisambiguatedOrganization(
+            JSONObject affiliationJSON) {
+        DisambiguatedOrganization disambiguatedOrganization = null;
+        try {
+            JSONObject disambiguatedOrganizationJSON = (JSONObject) new JSONParser()
+                    .parse(affiliationJSON.toJSONString());
+            JSONObject disambiguatedOrganizationDetails = (JSONObject) disambiguatedOrganizationJSON
+                    .get("disambiguated-organization");
+            disambiguatedOrganization = parseDeDisambiguatedOrganizationDetails(disambiguatedOrganizationDetails);
+        } catch (Exception e) {
+            LOGGER.error("Initial SessionFactory creation failed.", e);
+        }
+        return disambiguatedOrganization;
+    }
+
+    private DisambiguatedOrganization parseDeDisambiguatedOrganizationDetails(
+            JSONObject disambiguatedOrganizationDetails) {
+        DisambiguatedOrganization disambiguatedOrganization = null;
+        try {
+            if (null != disambiguatedOrganizationDetails) {
+                disambiguatedOrganization = new DisambiguatedOrganization();
+                disambiguatedOrganization
+                        .setDisambiguatedOrganizationIdentifier((String) disambiguatedOrganizationDetails
+                                .get("disambiguated-organization-identifier"));
+                disambiguatedOrganization
+                        .setDisambiguationSource((String) disambiguatedOrganizationDetails
+                                .get("disambiguation-source"));
+            }
+        } catch (Exception e) {
+            LOGGER.error("Initial SessionFactory creation failed.", e);
+        }
+        return disambiguatedOrganization;
     }
 }

@@ -26,5 +26,5 @@ public interface OrcidService {
     
     User getBio(OrcidAccessToken accessToken) throws Exception;
     
-    User getWork(OrcidAccessToken token) throws Exception;
+    User getWork(OrcidAccessToken token,User user) throws Exception;
 }
