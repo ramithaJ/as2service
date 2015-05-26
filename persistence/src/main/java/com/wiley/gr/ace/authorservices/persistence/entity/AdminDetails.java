@@ -1,11 +1,15 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
+// Generated May 26, 2015 2:39:51 PM by Hibernate Tools 3.4.0.CR1
+
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -18,109 +22,88 @@ import org.hibernate.annotations.Parameter;
 @Entity
 @Table(name = "ADMIN_DETAILS")
 public class AdminDetails implements java.io.Serializable {
-    
-    private Integer adminUserId;
-    private Users users;
-    private String emailAddr;
-    private String secondaryEmailAddr;
-    private Date cratedDate;
-    private String createdBy;
-    private Date updatedDate;
-    private String updatedBy;
-    
-    public AdminDetails() {
-    }
-    
-    public AdminDetails(Users users) {
-        this.users = users;
-    }
-    
-    public AdminDetails(Users users, String emailAddr,
-            String secondaryEmailAddr, Date cratedDate, String createdBy,
-            Date updatedDate, String updatedBy) {
-        this.users = users;
-        this.emailAddr = emailAddr;
-        this.secondaryEmailAddr = secondaryEmailAddr;
-        this.cratedDate = cratedDate;
-        this.createdBy = createdBy;
-        this.updatedDate = updatedDate;
-        this.updatedBy = updatedBy;
-    }
-    
-    @GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "users"))
-    @Id
-    @GeneratedValue(generator = "generator")
-    @Column(name = "ADMIN_USER_ID", unique = true, nullable = false, precision = 22, scale = 0)
-    public Integer getAdminUserId() {
-        return this.adminUserId;
-    }
-    
-    public void setAdminUserId(Integer adminUserId) {
-        this.adminUserId = adminUserId;
-    }
-    
-    @OneToOne(fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn
-    public Users getUsers() {
-        return this.users;
-    }
-    
-    public void setUsers(Users users) {
-        this.users = users;
-    }
-    
-    @Column(name = "EMAIL_ADDR", length = 256)
-    public String getEmailAddr() {
-        return this.emailAddr;
-    }
-    
-    public void setEmailAddr(String emailAddr) {
-        this.emailAddr = emailAddr;
-    }
-    
-    @Column(name = "SECONDARY_EMAIL_ADDR", length = 256)
-    public String getSecondaryEmailAddr() {
-        return this.secondaryEmailAddr;
-    }
-    
-    public void setSecondaryEmailAddr(String secondaryEmailAddr) {
-        this.secondaryEmailAddr = secondaryEmailAddr;
-    }
-    
-    @Column(name = "CRATED_DATE")
-    public Date getCratedDate() {
-        return this.cratedDate;
-    }
-    
-    public void setCratedDate(Date cratedDate) {
-        this.cratedDate = cratedDate;
-    }
-    
-    @Column(name = "CREATED_BY", length = 50)
-    public String getCreatedBy() {
-        return this.createdBy;
-    }
-    
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-    
-    @Column(name = "UPDATED_DATE")
-    public Date getUpdatedDate() {
-        return this.updatedDate;
-    }
-    
-    public void setUpdatedDate(Date updatedDate) {
-        this.updatedDate = updatedDate;
-    }
-    
-    @Column(name = "UPDATED_BY", length = 50)
-    public String getUpdatedBy() {
-        return this.updatedBy;
-    }
-    
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-    
+
+	private Integer adminUserId;
+	private Users usersByCreatedBy;
+	private Users usersByUpdatedBy;
+	private Users usersByUserId;
+	private Date createdDate;
+	private Date updatedDate;
+
+	public AdminDetails() {
+	}
+
+	public AdminDetails(Users usersByUserId) {
+		this.usersByUserId = usersByUserId;
+	}
+
+	public AdminDetails(Users usersByCreatedBy, Users usersByUpdatedBy,
+			Users usersByUserId, Date createdDate, Date updatedDate) {
+		this.usersByCreatedBy = usersByCreatedBy;
+		this.usersByUpdatedBy = usersByUpdatedBy;
+		this.usersByUserId = usersByUserId;
+		this.createdDate = createdDate;
+		this.updatedDate = updatedDate;
+	}
+
+	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "usersByUserId"))
+	@Id
+	@GeneratedValue(generator = "generator")
+	@Column(name = "ADMIN_USER_ID", unique = true, nullable = false, precision = 22, scale = 0)
+	public Integer getAdminUserId() {
+		return this.adminUserId;
+	}
+
+	public void setAdminUserId(Integer adminUserId) {
+		this.adminUserId = adminUserId;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CREATED_BY")
+	public Users getUsersByCreatedBy() {
+		return this.usersByCreatedBy;
+	}
+
+	public void setUsersByCreatedBy(Users usersByCreatedBy) {
+		this.usersByCreatedBy = usersByCreatedBy;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "UPDATED_BY")
+	public Users getUsersByUpdatedBy() {
+		return this.usersByUpdatedBy;
+	}
+
+	public void setUsersByUpdatedBy(Users usersByUpdatedBy) {
+		this.usersByUpdatedBy = usersByUpdatedBy;
+	}
+
+	@OneToOne(fetch = FetchType.LAZY)
+	@PrimaryKeyJoinColumn
+	public Users getUsersByUserId() {
+		return this.usersByUserId;
+	}
+
+	public void setUsersByUserId(Users usersByUserId) {
+		this.usersByUserId = usersByUserId;
+	}
+
+	@Column(name = "CREATED_DATE")
+	public Date getCreatedDate() {
+		return this.createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	@Column(name = "UPDATED_DATE")
+	public Date getUpdatedDate() {
+		return this.updatedDate;
+	}
+
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
+	}
+
 }

@@ -1,9 +1,13 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
+// Generated May 26, 2015 2:39:51 PM by Hibernate Tools 3.4.0.CR1
+
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -14,64 +18,87 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "USER_PROFILE_ATTRIB_VISIBLE")
 public class UserProfileAttribVisible implements java.io.Serializable {
-    
-    private Integer userProfileAttribId;
-    private AuthorProfile authorProfile;
-    private String profileVisibilityFlg;
-    private String listOfAttributesTobeVisib;
-    
-    public UserProfileAttribVisible() {
-    }
-    
-    public UserProfileAttribVisible(Integer userProfileAttribId) {
-        this.userProfileAttribId = userProfileAttribId;
-    }
-    
-    public UserProfileAttribVisible(Integer userProfileAttribId,
-            AuthorProfile authorProfile, String profileVisibilityFlg,
-            String listOfAttributesTobeVisib) {
-        this.userProfileAttribId = userProfileAttribId;
-        this.authorProfile = authorProfile;
-        this.profileVisibilityFlg = profileVisibilityFlg;
-        this.listOfAttributesTobeVisib = listOfAttributesTobeVisib;
-    }
-    
-    @Id
-    @Column(name = "USER_PROFILE_ATTRIB_ID", unique = true, nullable = false, precision = 22, scale = 0)
-    public Integer getUserProfileAttribId() {
-        return this.userProfileAttribId;
-    }
-    
-    public void setUserProfileAttribId(Integer userProfileAttribId) {
-        this.userProfileAttribId = userProfileAttribId;
-    }
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID")
-    public AuthorProfile getAuthorProfile() {
-        return this.authorProfile;
-    }
-    
-    public void setAuthorProfile(AuthorProfile authorProfile) {
-        this.authorProfile = authorProfile;
-    }
-    
-    @Column(name = "PROFILE_VISIBILITY_FLG", length = 50)
-    public String getProfileVisibilityFlg() {
-        return this.profileVisibilityFlg;
-    }
-    
-    public void setProfileVisibilityFlg(String profileVisibilityFlg) {
-        this.profileVisibilityFlg = profileVisibilityFlg;
-    }
-    
-    @Column(name = "LIST_OF_ATTRIBUTES_TOBE_VISIB", length = 3000)
-    public String getListOfAttributesTobeVisib() {
-        return this.listOfAttributesTobeVisib;
-    }
-    
-    public void setListOfAttributesTobeVisib(String listOfAttributesTobeVisib) {
-        this.listOfAttributesTobeVisib = listOfAttributesTobeVisib;
-    }
-    
+
+	private UserProfileAttribVisibleId id;
+	private Users usersByCreatedBy;
+	private Users usersByUpdatedBy;
+	private AuthorProfile authorProfile;
+	private ProfileAttributeList profileAttributeList;
+
+	public UserProfileAttribVisible() {
+	}
+
+	public UserProfileAttribVisible(UserProfileAttribVisibleId id) {
+		this.id = id;
+	}
+
+	public UserProfileAttribVisible(UserProfileAttribVisibleId id,
+			Users usersByCreatedBy, Users usersByUpdatedBy,
+			AuthorProfile authorProfile,
+			ProfileAttributeList profileAttributeList) {
+		this.id = id;
+		this.usersByCreatedBy = usersByCreatedBy;
+		this.usersByUpdatedBy = usersByUpdatedBy;
+		this.authorProfile = authorProfile;
+		this.profileAttributeList = profileAttributeList;
+	}
+
+	@EmbeddedId
+	@AttributeOverrides({
+			@AttributeOverride(name = "userId", column = @Column(name = "USER_ID", precision = 22, scale = 0)),
+			@AttributeOverride(name = "profileVisibilityFlg", column = @Column(name = "PROFILE_VISIBILITY_FLG", length = 1)),
+			@AttributeOverride(name = "profileAttribCd", column = @Column(name = "PROFILE_ATTRIB_CD", length = 15)),
+			@AttributeOverride(name = "createdDate", column = @Column(name = "CREATED_DATE")),
+			@AttributeOverride(name = "createdBy", column = @Column(name = "CREATED_BY", precision = 22, scale = 0)),
+			@AttributeOverride(name = "updatedDate", column = @Column(name = "UPDATED_DATE")),
+			@AttributeOverride(name = "updatedBy", column = @Column(name = "UPDATED_BY", precision = 22, scale = 0)) })
+	public UserProfileAttribVisibleId getId() {
+		return this.id;
+	}
+
+	public void setId(UserProfileAttribVisibleId id) {
+		this.id = id;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CREATED_BY", insertable = false, updatable = false)
+	public Users getUsersByCreatedBy() {
+		return this.usersByCreatedBy;
+	}
+
+	public void setUsersByCreatedBy(Users usersByCreatedBy) {
+		this.usersByCreatedBy = usersByCreatedBy;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "UPDATED_BY", insertable = false, updatable = false)
+	public Users getUsersByUpdatedBy() {
+		return this.usersByUpdatedBy;
+	}
+
+	public void setUsersByUpdatedBy(Users usersByUpdatedBy) {
+		this.usersByUpdatedBy = usersByUpdatedBy;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "USER_ID", insertable = false, updatable = false)
+	public AuthorProfile getAuthorProfile() {
+		return this.authorProfile;
+	}
+
+	public void setAuthorProfile(AuthorProfile authorProfile) {
+		this.authorProfile = authorProfile;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "PROFILE_ATTRIB_CD", insertable = false, updatable = false)
+	public ProfileAttributeList getProfileAttributeList() {
+		return this.profileAttributeList;
+	}
+
+	public void setProfileAttributeList(
+			ProfileAttributeList profileAttributeList) {
+		this.profileAttributeList = profileAttributeList;
+	}
+
 }

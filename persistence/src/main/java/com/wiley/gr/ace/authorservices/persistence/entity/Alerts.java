@@ -1,5 +1,7 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
+// Generated May 26, 2015 2:39:51 PM by Hibernate Tools 3.4.0.CR1
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -7,6 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -16,107 +20,109 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "ALERTS")
 public class Alerts implements java.io.Serializable {
-    
-    private Integer alertId;
-    private String alertName;
-    private String description;
-    private Date createdDate;
-    private String createdBy;
-    private Date updatedDate;
-    private String updatedBy;
-    private Set<UserAlerts> userAlertses = new HashSet<UserAlerts>(0);
-    
-    public Alerts() {
-    }
-    
-    public Alerts(Integer alertId) {
-        this.alertId = alertId;
-    }
-    
-    public Alerts(Integer alertId, String alertName, String description,
-            Date createdDate, String createdBy, Date updatedDate,
-            String updatedBy, Set<UserAlerts> userAlertses) {
-        this.alertId = alertId;
-        this.alertName = alertName;
-        this.description = description;
-        this.createdDate = createdDate;
-        this.createdBy = createdBy;
-        this.updatedDate = updatedDate;
-        this.updatedBy = updatedBy;
-        this.userAlertses = userAlertses;
-    }
-    
-    @Id
-    @Column(name = "ALERT_ID", unique = true, nullable = false, precision = 22, scale = 0)
-    public Integer getAlertId() {
-        return this.alertId;
-    }
-    
-    public void setAlertId(Integer alertId) {
-        this.alertId = alertId;
-    }
-    
-    @Column(name = "ALERT_NAME", length = 250)
-    public String getAlertName() {
-        return this.alertName;
-    }
-    
-    public void setAlertName(String alertName) {
-        this.alertName = alertName;
-    }
-    
-    @Column(name = "DESCRIPTION", length = 250)
-    public String getDescription() {
-        return this.description;
-    }
-    
-    public void setDescription(String description) {
-        this.description = description;
-    }
-    
-    @Column(name = "CREATED_DATE")
-    public Date getCreatedDate() {
-        return this.createdDate;
-    }
-    
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-    
-    @Column(name = "CREATED_BY", length = 100)
-    public String getCreatedBy() {
-        return this.createdBy;
-    }
-    
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-    
-    @Column(name = "UPDATED_DATE")
-    public Date getUpdatedDate() {
-        return this.updatedDate;
-    }
-    
-    public void setUpdatedDate(Date updatedDate) {
-        this.updatedDate = updatedDate;
-    }
-    
-    @Column(name = "UPDATED_BY", length = 100)
-    public String getUpdatedBy() {
-        return this.updatedBy;
-    }
-    
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-    
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "alerts")
-    public Set<UserAlerts> getUserAlertses() {
-        return this.userAlertses;
-    }
-    
-    public void setUserAlertses(Set<UserAlerts> userAlertses) {
-        this.userAlertses = userAlertses;
-    }
-    
+
+	private String alertCd;
+	private Users usersByCreatedBy;
+	private Users usersByUpdatedBy;
+	private String alertName;
+	private String description;
+	private Date createdDate;
+	private Date updatedDate;
+	private Set userAlertses = new HashSet(0);
+
+	public Alerts() {
+	}
+
+	public Alerts(String alertCd) {
+		this.alertCd = alertCd;
+	}
+
+	public Alerts(String alertCd, Users usersByCreatedBy,
+			Users usersByUpdatedBy, String alertName, String description,
+			Date createdDate, Date updatedDate, Set userAlertses) {
+		this.alertCd = alertCd;
+		this.usersByCreatedBy = usersByCreatedBy;
+		this.usersByUpdatedBy = usersByUpdatedBy;
+		this.alertName = alertName;
+		this.description = description;
+		this.createdDate = createdDate;
+		this.updatedDate = updatedDate;
+		this.userAlertses = userAlertses;
+	}
+
+	@Id
+	@Column(name = "ALERT_CD", unique = true, nullable = false, length = 15)
+	public String getAlertCd() {
+		return this.alertCd;
+	}
+
+	public void setAlertCd(String alertCd) {
+		this.alertCd = alertCd;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CREATED_BY")
+	public Users getUsersByCreatedBy() {
+		return this.usersByCreatedBy;
+	}
+
+	public void setUsersByCreatedBy(Users usersByCreatedBy) {
+		this.usersByCreatedBy = usersByCreatedBy;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "UPDATED_BY")
+	public Users getUsersByUpdatedBy() {
+		return this.usersByUpdatedBy;
+	}
+
+	public void setUsersByUpdatedBy(Users usersByUpdatedBy) {
+		this.usersByUpdatedBy = usersByUpdatedBy;
+	}
+
+	@Column(name = "ALERT_NAME", length = 250)
+	public String getAlertName() {
+		return this.alertName;
+	}
+
+	public void setAlertName(String alertName) {
+		this.alertName = alertName;
+	}
+
+	@Column(name = "DESCRIPTION", length = 250)
+	public String getDescription() {
+		return this.description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	@Column(name = "CREATED_DATE")
+	public Date getCreatedDate() {
+		return this.createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	@Column(name = "UPDATED_DATE")
+	public Date getUpdatedDate() {
+		return this.updatedDate;
+	}
+
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "alerts")
+	public Set getUserAlertses() {
+		return this.userAlertses;
+	}
+
+	public void setUserAlertses(Set userAlertses) {
+		this.userAlertses = userAlertses;
+	}
+
 }

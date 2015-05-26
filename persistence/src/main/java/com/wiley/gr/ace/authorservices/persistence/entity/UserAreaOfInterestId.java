@@ -1,5 +1,7 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
+// Generated May 26, 2015 2:39:51 PM by Hibernate Tools 3.4.0.CR1
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
@@ -8,62 +10,62 @@ import javax.persistence.Embeddable;
  */
 @Embeddable
 public class UserAreaOfInterestId implements java.io.Serializable {
-    
-    private int userId;
-    private Integer areaOfInterestId;
-    
-    public UserAreaOfInterestId() {
-    }
-    
-    public UserAreaOfInterestId(int userId, Integer areaOfInterestId) {
-        this.userId = userId;
-        this.areaOfInterestId = areaOfInterestId;
-    }
-    
-    @Column(name = "USER_ID", nullable = false, precision = 22, scale = 0)
-    public int getUserId() {
-        return this.userId;
-    }
-    
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-    
-    @Column(name = "AREA_OF_INTEREST_ID", nullable = false, precision = 22, scale = 0)
-    public Integer getAreaOfInterestId() {
-        return this.areaOfInterestId;
-    }
-    
-    public void setAreaOfInterestId(Integer areaOfInterestId) {
-        this.areaOfInterestId = areaOfInterestId;
-    }
-    
-    public boolean equals(Object other) {
-        if ((this == other))
-            return true;
-        if ((other == null))
-            return false;
-        if (!(other instanceof UserAreaOfInterestId))
-            return false;
-        UserAreaOfInterestId castOther = (UserAreaOfInterestId) other;
-        
-        return (this.getUserId() == castOther.getUserId())
-                && ((this.getAreaOfInterestId() == castOther
-                        .getAreaOfInterestId()) || (this.getAreaOfInterestId() != null
-                        && castOther.getAreaOfInterestId() != null && this
-                        .getAreaOfInterestId().equals(
-                                castOther.getAreaOfInterestId())));
-    }
-    
-    public int hashCode() {
-        int result = 17;
-        
-        result = 37 * result + this.getUserId();
-        result = 37
-                * result
-                + (getAreaOfInterestId() == null ? 0 : this
-                        .getAreaOfInterestId().hashCode());
-        return result;
-    }
-    
+
+	private int userId;
+	private String areaOfInterestCd;
+
+	public UserAreaOfInterestId() {
+	}
+
+	public UserAreaOfInterestId(int userId, String areaOfInterestCd) {
+		this.userId = userId;
+		this.areaOfInterestCd = areaOfInterestCd;
+	}
+
+	@Column(name = "USER_ID", nullable = false, precision = 22, scale = 0)
+	public int getUserId() {
+		return this.userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	@Column(name = "AREA_OF_INTEREST_CD", nullable = false, length = 15)
+	public String getAreaOfInterestCd() {
+		return this.areaOfInterestCd;
+	}
+
+	public void setAreaOfInterestCd(String areaOfInterestCd) {
+		this.areaOfInterestCd = areaOfInterestCd;
+	}
+
+	public boolean equals(Object other) {
+		if ((this == other))
+			return true;
+		if ((other == null))
+			return false;
+		if (!(other instanceof UserAreaOfInterestId))
+			return false;
+		UserAreaOfInterestId castOther = (UserAreaOfInterestId) other;
+
+		return (this.getUserId() == castOther.getUserId())
+				&& ((this.getAreaOfInterestCd() == castOther
+						.getAreaOfInterestCd()) || (this.getAreaOfInterestCd() != null
+						&& castOther.getAreaOfInterestCd() != null && this
+						.getAreaOfInterestCd().equals(
+								castOther.getAreaOfInterestCd())));
+	}
+
+	public int hashCode() {
+		int result = 17;
+
+		result = 37 * result + this.getUserId();
+		result = 37
+				* result
+				+ (getAreaOfInterestCd() == null ? 0 : this
+						.getAreaOfInterestCd().hashCode());
+		return result;
+	}
+
 }

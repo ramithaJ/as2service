@@ -1,5 +1,7 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
+// Generated May 26, 2015 2:39:51 PM by Hibernate Tools 3.4.0.CR1
+
 import java.util.Date;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -17,80 +19,119 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "ADDITIONAL_PERMISSIONS")
 public class AdditionalPermissions implements java.io.Serializable {
-    
-    private AdditionalPermissionsId id;
-    private Roles roles;
-    private Permissions permissions;
-    private Character splPermissionFlg;
-    private Date permEndDt;
-    
-    public AdditionalPermissions() {
-    }
-    
-    public AdditionalPermissions(AdditionalPermissionsId id,
-            Permissions permissions) {
-        this.id = id;
-        this.permissions = permissions;
-    }
-    
-    public AdditionalPermissions(AdditionalPermissionsId id, Roles roles,
-            Permissions permissions, Character splPermissionFlg, Date permEndDt) {
-        this.id = id;
-        this.roles = roles;
-        this.permissions = permissions;
-        this.splPermissionFlg = splPermissionFlg;
-        this.permEndDt = permEndDt;
-    }
-    
-    @EmbeddedId
-    @AttributeOverrides({
-            @AttributeOverride(name = "userId", column = @Column(name = "USER_ID", nullable = false, precision = 22, scale = 0)),
-            @AttributeOverride(name = "articleId", column = @Column(name = "ARTICLE_ID", nullable = false, precision = 22, scale = 0)),
-            @AttributeOverride(name = "permissionId", column = @Column(name = "PERMISSION_ID", nullable = false, precision = 22, scale = 0)) })
-    public AdditionalPermissionsId getId() {
-        return this.id;
-    }
-    
-    public void setId(AdditionalPermissionsId id) {
-        this.id = id;
-    }
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ROLE_ID")
-    public Roles getRoles() {
-        return this.roles;
-    }
-    
-    public void setRoles(Roles roles) {
-        this.roles = roles;
-    }
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PERMISSION_ID", nullable = false, insertable = false, updatable = false)
-    public Permissions getPermissions() {
-        return this.permissions;
-    }
-    
-    public void setPermissions(Permissions permissions) {
-        this.permissions = permissions;
-    }
-    
-    @Column(name = "SPL_PERMISSION_FLG", length = 1)
-    public Character getSplPermissionFlg() {
-        return this.splPermissionFlg;
-    }
-    
-    public void setSplPermissionFlg(Character splPermissionFlg) {
-        this.splPermissionFlg = splPermissionFlg;
-    }
-    
-    @Column(name = "PERM_END_DT")
-    public Date getPermEndDt() {
-        return this.permEndDt;
-    }
-    
-    public void setPermEndDt(Date permEndDt) {
-        this.permEndDt = permEndDt;
-    }
-    
+
+	private AdditionalPermissionsId id;
+	private Roles roles;
+	private Users usersByCreatedBy;
+	private Users usersByUpdatedBy;
+	private AuthorProfile authorProfile;
+	private Permissions permissions;
+	private Date createdDate;
+	private Date updatedDate;
+
+	public AdditionalPermissions() {
+	}
+
+	public AdditionalPermissions(AdditionalPermissionsId id,
+			AuthorProfile authorProfile, Permissions permissions) {
+		this.id = id;
+		this.authorProfile = authorProfile;
+		this.permissions = permissions;
+	}
+
+	public AdditionalPermissions(AdditionalPermissionsId id, Roles roles,
+			Users usersByCreatedBy, Users usersByUpdatedBy,
+			AuthorProfile authorProfile, Permissions permissions,
+			Date createdDate, Date updatedDate) {
+		this.id = id;
+		this.roles = roles;
+		this.usersByCreatedBy = usersByCreatedBy;
+		this.usersByUpdatedBy = usersByUpdatedBy;
+		this.authorProfile = authorProfile;
+		this.permissions = permissions;
+		this.createdDate = createdDate;
+		this.updatedDate = updatedDate;
+	}
+
+	@EmbeddedId
+	@AttributeOverrides({
+			@AttributeOverride(name = "userId", column = @Column(name = "USER_ID", nullable = false, precision = 22, scale = 0)),
+			@AttributeOverride(name = "articleId", column = @Column(name = "ARTICLE_ID", nullable = false, precision = 22, scale = 0)),
+			@AttributeOverride(name = "permissionCd", column = @Column(name = "PERMISSION_CD", nullable = false, length = 25)) })
+	public AdditionalPermissionsId getId() {
+		return this.id;
+	}
+
+	public void setId(AdditionalPermissionsId id) {
+		this.id = id;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ROLE_ID")
+	public Roles getRoles() {
+		return this.roles;
+	}
+
+	public void setRoles(Roles roles) {
+		this.roles = roles;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CREATED_BY")
+	public Users getUsersByCreatedBy() {
+		return this.usersByCreatedBy;
+	}
+
+	public void setUsersByCreatedBy(Users usersByCreatedBy) {
+		this.usersByCreatedBy = usersByCreatedBy;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "UPDATED_BY")
+	public Users getUsersByUpdatedBy() {
+		return this.usersByUpdatedBy;
+	}
+
+	public void setUsersByUpdatedBy(Users usersByUpdatedBy) {
+		this.usersByUpdatedBy = usersByUpdatedBy;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "USER_ID", nullable = false, insertable = false, updatable = false)
+	public AuthorProfile getAuthorProfile() {
+		return this.authorProfile;
+	}
+
+	public void setAuthorProfile(AuthorProfile authorProfile) {
+		this.authorProfile = authorProfile;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "PERMISSION_CD", nullable = false, insertable = false, updatable = false)
+	public Permissions getPermissions() {
+		return this.permissions;
+	}
+
+	public void setPermissions(Permissions permissions) {
+		this.permissions = permissions;
+	}
+
+	@Column(name = "CREATED_DATE")
+	public Date getCreatedDate() {
+		return this.createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	@Column(name = "UPDATED_DATE")
+	public Date getUpdatedDate() {
+		return this.updatedDate;
+	}
+
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
+	}
+
 }

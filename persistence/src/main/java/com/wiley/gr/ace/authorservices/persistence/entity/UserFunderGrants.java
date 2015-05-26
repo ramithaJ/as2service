@@ -1,11 +1,12 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
+// Generated May 26, 2015 2:39:51 PM by Hibernate Tools 3.4.0.CR1
+
+import java.util.Date;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -16,52 +17,112 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "USER_FUNDER_GRANTS")
 public class UserFunderGrants implements java.io.Serializable {
-    
-    private UserFunderGrantsId id;
-    private AuthorProfile authorProfile;
-    private ResearchFunders researchFunders;
-    
-    public UserFunderGrants() {
-    }
-    
-    public UserFunderGrants(UserFunderGrantsId id, AuthorProfile authorProfile,
-            ResearchFunders researchFunders) {
-        this.id = id;
-        this.authorProfile = authorProfile;
-        this.researchFunders = researchFunders;
-    }
-    
-    @EmbeddedId
-    @AttributeOverrides({
-            @AttributeOverride(name = "userId", column = @Column(name = "USER_ID", nullable = false, precision = 22, scale = 0)),
-            @AttributeOverride(name = "rfunderId", column = @Column(name = "RFUNDER_ID", nullable = false, precision = 22, scale = 0)),
-            @AttributeOverride(name = "grantNum", column = @Column(name = "GRANT_NUM", nullable = false, length = 250)) })
-    public UserFunderGrantsId getId() {
-        return this.id;
-    }
-    
-    public void setId(UserFunderGrantsId id) {
-        this.id = id;
-    }
-    
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "USER_ID", nullable = false, insertable = false, updatable = false)
-    public AuthorProfile getAuthorProfile() {
-        return this.authorProfile;
-    }
-    
-    public void setAuthorProfile(AuthorProfile authorProfile) {
-        this.authorProfile = authorProfile;
-    }
-    
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "RFUNDER_ID", nullable = false, insertable = false, updatable = false)
-    public ResearchFunders getResearchFunders() {
-        return this.researchFunders;
-    }
-    
-    public void setResearchFunders(ResearchFunders researchFunders) {
-        this.researchFunders = researchFunders;
-    }
-    
+
+	private Integer userFunderGrantId;
+	private ResearchFunders researchFunders;
+	private Users usersByCreatedBy;
+	private Users usersByUpdatedBy;
+	private AuthorProfile authorProfile;
+	private String grantNum;
+	private Date createdDate;
+	private Date updatedDate;
+
+	public UserFunderGrants() {
+	}
+
+	public UserFunderGrants(Integer userFunderGrantId) {
+		this.userFunderGrantId = userFunderGrantId;
+	}
+
+	public UserFunderGrants(Integer userFunderGrantId,
+			ResearchFunders researchFunders, Users usersByCreatedBy,
+			Users usersByUpdatedBy, AuthorProfile authorProfile,
+			String grantNum, Date createdDate, Date updatedDate) {
+		this.userFunderGrantId = userFunderGrantId;
+		this.researchFunders = researchFunders;
+		this.usersByCreatedBy = usersByCreatedBy;
+		this.usersByUpdatedBy = usersByUpdatedBy;
+		this.authorProfile = authorProfile;
+		this.grantNum = grantNum;
+		this.createdDate = createdDate;
+		this.updatedDate = updatedDate;
+	}
+
+	@Id
+	@Column(name = "USER_FUNDER_GRANT_ID", unique = true, nullable = false, precision = 22, scale = 0)
+	public Integer getUserFunderGrantId() {
+		return this.userFunderGrantId;
+	}
+
+	public void setUserFunderGrantId(Integer userFunderGrantId) {
+		this.userFunderGrantId = userFunderGrantId;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "RESFUNDERID")
+	public ResearchFunders getResearchFunders() {
+		return this.researchFunders;
+	}
+
+	public void setResearchFunders(ResearchFunders researchFunders) {
+		this.researchFunders = researchFunders;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CREATED_BY")
+	public Users getUsersByCreatedBy() {
+		return this.usersByCreatedBy;
+	}
+
+	public void setUsersByCreatedBy(Users usersByCreatedBy) {
+		this.usersByCreatedBy = usersByCreatedBy;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "UPDATED_BY")
+	public Users getUsersByUpdatedBy() {
+		return this.usersByUpdatedBy;
+	}
+
+	public void setUsersByUpdatedBy(Users usersByUpdatedBy) {
+		this.usersByUpdatedBy = usersByUpdatedBy;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "USER_ID")
+	public AuthorProfile getAuthorProfile() {
+		return this.authorProfile;
+	}
+
+	public void setAuthorProfile(AuthorProfile authorProfile) {
+		this.authorProfile = authorProfile;
+	}
+
+	@Column(name = "GRANT_NUM", length = 250)
+	public String getGrantNum() {
+		return this.grantNum;
+	}
+
+	public void setGrantNum(String grantNum) {
+		this.grantNum = grantNum;
+	}
+
+	@Column(name = "CREATED_DATE")
+	public Date getCreatedDate() {
+		return this.createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	@Column(name = "UPDATED_DATE")
+	public Date getUpdatedDate() {
+		return this.updatedDate;
+	}
+
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
+	}
+
 }
