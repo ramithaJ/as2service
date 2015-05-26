@@ -174,7 +174,7 @@ public class OrcidServiceImpl implements OrcidService {
             LOGGER.error("Initial SessionFactory creation failed.", e);
         }
     }
-    
+
     private Addresses parseAddressesDetails(JSONObject contactDetails) {
         Addresses addresses = null;
         try {
@@ -238,7 +238,7 @@ public class OrcidServiceImpl implements OrcidService {
             LOGGER.info("orcidWork ##### ", orcidWork);
             JSONObject affiliations = (JSONObject) orcidActivities
                     .get("affiliations");
-           parseAffiliations(affiliations, user);
+            parseAffiliations(affiliations, user);
         } catch (Exception e) {
             LOGGER.error("Initial SessionFactory creation failed.", e);
         }
