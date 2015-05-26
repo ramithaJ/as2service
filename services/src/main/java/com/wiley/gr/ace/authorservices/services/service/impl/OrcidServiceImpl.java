@@ -64,7 +64,7 @@ public class OrcidServiceImpl implements OrcidService {
             /**
              * Code to map the orcid JSON to user model object
              */
-            user = parseOrcidJSONForWork(orcidMessageJSON, user);
+           parseOrcidJSONForWork(orcidMessageJSON, user);
         }
         return user;
     }
@@ -72,19 +72,18 @@ public class OrcidServiceImpl implements OrcidService {
     @Override
     public User getBio(OrcidAccessToken token) throws Exception {
 
-        User user = null;
+        User user =new User();
         String orcidMessageJSON = oricdInterfaceService.getBio(token);
         if (null != orcidMessageJSON && !orcidMessageJSON.isEmpty()) {
             /**
              * Code to map the orcid JSON to user model object
              */
-            user = parseOrcidJSON(orcidMessageJSON);
+           parseOrcidJSON(orcidMessageJSON,user);
         }
         return user;
     }
 
-    private User parseOrcidJSON(String orcidMessageJSON) {
-        User user = null;
+    private void parseOrcidJSON(String orcidMessageJSON,User user) {
         try {
             JSONObject orcidProfileJSON = (JSONObject) new JSONParser()
                     .parse(orcidMessageJSON);
@@ -101,13 +100,12 @@ public class OrcidServiceImpl implements OrcidService {
                     JSONObject personalDetailsJSON = (JSONObject) new JSONParser()
                             .parse(orcidBio.toJSONString());
                     parsePersonalDetails(personalDetailsJSON, user);
-                    user = parseContactDetails(personalDetailsJSON);
+                    parseContactDetails(personalDetailsJSON,user);
                 }
             }
         } catch (Exception e) {
             LOGGER.error("Initial SessionFactory creation failed.", e);
         }
-        return user;
     }
 
     private void parsePersonalDetails(JSONObject personalDetailsJSON, User user) {
@@ -118,16 +116,15 @@ public class OrcidServiceImpl implements OrcidService {
                 /**
                  * Code to fetch FN and LN.
                  */
-                user = parseGivenNames(personalDetails);
-                user = parseFamilyNames(personalDetails);
+              parseGivenNames(personalDetails,user);
+                parseFamilyNames(personalDetails,user);
             }
         } catch (Exception e) {
             LOGGER.error("Initial SessionFactory creation failed.", e);
         }
     }
 
-    private User parseGivenNames(JSONObject personalDetails) {
-        User user = null;
+    private void parseGivenNames(JSONObject personalDetails,User user) {
         try {
             JSONObject givenNamesJSON = (JSONObject) new JSONParser()
                     .parse(personalDetails.toJSONString());
@@ -135,7 +132,6 @@ public class OrcidServiceImpl implements OrcidService {
                     .get("given-names");
             LOGGER.info("givenNames ##### ", givenNames);
             if (null != givenNames) {
-                user = new User();
                 JSONObject givenNamesValueJSON = (JSONObject) new JSONParser()
                         .parse(givenNames.toJSONString());
                 user.setFirstName((String) givenNamesValueJSON.get("value"));
@@ -143,11 +139,9 @@ public class OrcidServiceImpl implements OrcidService {
         } catch (Exception e) {
             LOGGER.error("Initial SessionFactory creation failed.", e);
         }
-        return user;
     }
 
-    private User parseFamilyNames(JSONObject personalDetails) {
-        User user = null;
+    private void parseFamilyNames(JSONObject personalDetails,User user) {
         try {
             JSONObject familyNamesJSON = (JSONObject) new JSONParser()
                     .parse(personalDetails.toJSONString());
@@ -155,7 +149,6 @@ public class OrcidServiceImpl implements OrcidService {
                     .get("family-name");
             LOGGER.info("familyNames ##### ", familyNames);
             if (null != familyNames) {
-                user = new User();
                 JSONObject familyNamesValueJSON = (JSONObject) new JSONParser()
                         .parse(familyNames.toJSONString());
                 user.setLastName((String) familyNamesValueJSON.get("value"));
@@ -163,11 +156,9 @@ public class OrcidServiceImpl implements OrcidService {
         } catch (Exception e) {
             LOGGER.error("Initial SessionFactory creation failed.", e);
         }
-        return user;
     }
 
-    private User parseContactDetails(JSONObject personalDetailsJSON) {
-        User user = null;
+    private void parseContactDetails(JSONObject personalDetailsJSON,User user) {
         try {
             JSONObject contactDetails = (JSONObject) personalDetailsJSON
                     .get("contact-details");
@@ -176,7 +167,6 @@ public class OrcidServiceImpl implements OrcidService {
                         .parse(contactDetails.toJSONString());
                 JSONArray emailArray = (JSONArray) emailArrayJSON.get("email");
                 LOGGER.info("emailArray ##### ", emailArray);
-                user = new User();
                 user = parseEmailArray(emailArray);
                 Addresses addresses = parseAddressesDetails(contactDetails);
                 user.setAddresses(addresses);
@@ -184,7 +174,6 @@ public class OrcidServiceImpl implements OrcidService {
         } catch (Exception e) {
             LOGGER.error("Initial SessionFactory creation failed.", e);
         }
-        return user;
     }
 
     private User parseEmailArray(JSONArray emailArray) {
@@ -259,7 +248,7 @@ public class OrcidServiceImpl implements OrcidService {
         return country;
     }
 
-    private User parseOrcidJSONForWork(String orcidMessageJSON, User user) {
+    private void parseOrcidJSONForWork(String orcidMessageJSON, User user) {
         try {
             JSONObject orcidMessageJSONObject = (JSONObject) new JSONParser()
                     .parse(orcidMessageJSON);
@@ -284,7 +273,6 @@ public class OrcidServiceImpl implements OrcidService {
         } catch (Exception e) {
             LOGGER.error("Initial SessionFactory creation failed.", e);
         }
-        return user;
     }
 
     private User parseAffiliations(JSONObject affiliations, User user) {
