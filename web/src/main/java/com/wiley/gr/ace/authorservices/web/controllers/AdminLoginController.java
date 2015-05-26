@@ -54,20 +54,18 @@ public class AdminLoginController extends ASExceptionController {
     @RequestMapping(value = "/login/", method = RequestMethod.POST, produces = "application/json")
     public Service login(@Valid @RequestBody Login login) {
         boolean status = false;
-        Service serviceVO = new Service();
         
         status = adminLoginService.validateEmail(login.getEmailId());
         
         if (status) {
             
             adminLoginService.doLogin(login.getEmailId());
-            serviceVO.setStatus("success");
             
         } else {
             throw new ASException("1001",
                     "Invalid email address. Please Re-Enter");
         }
-        return serviceVO;
+        return new Service();
     }
     
     /**
