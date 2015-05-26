@@ -19,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
+import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
+import com.wiley.gr.ace.authorservices.persistence.entity.Journals;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserPreferredJournals;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserPreferredJournalsId;
 import com.wiley.gr.ace.authorservices.persistence.services.UserPreferredJournalsDAO;
@@ -78,9 +80,14 @@ public class UserPreferredJournalsDAOImpl implements UserPreferredJournalsDAO {
 		try {
 
 			UserPreferredJournals userPrefferJournals = new UserPreferredJournals();
+			Journals journals = new Journals(); 
+			journals.setJournalId(Integer.valueOf(journalId));
+			AuthorProfile authorProfile = new AuthorProfile();
+			authorProfile.setUserId(Integer.valueOf(userId));
+			
+			userPrefferJournals.setJournals(journals);
+			userPrefferJournals.setAuthorProfile(authorProfile);
 
-			userPrefferJournals.setId(new UserPreferredJournalsId(Integer
-					.parseInt(userId), Integer.parseInt(journalId)));
 			userPrefferJournals = (UserPreferredJournals) session.get(
 					UserPreferredJournals.class, userPrefferJournals.getId());
 
