@@ -23,7 +23,6 @@ import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.UserMgmt;
 import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
-import com.wiley.gr.ace.authorservices.persistence.entity.UserSecurityDetails;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 
@@ -121,10 +120,10 @@ public class UserLoginServiceImpl implements UserLoginService {
                 
                 SecurityDetailsHolder securityDetailsHolder = new SecurityDetailsHolder();
                 // check whether user has security set up or not.
-                if (authorProfile.getSecurityQuestFlg().equals('Y')) {
+                //if (authorProfile.getSecurityQuestFlg().equals('Y')) {
                     
-                    List<UserSecurityDetails> securityQuestions = userLoginServiceDAO
-                            .getSecurityQuestions(userId);
+                    List<SecurityDetails> securityQuestions = new ArrayList<SecurityDetails>();
+                    // TODO: Get Security details from ALM
                     List<SecurityDetails> securityQuestionsList = new ArrayList<SecurityDetails>();
                     for (int i = 0; i < securityQuestions.size(); i++) {
                         
@@ -138,11 +137,11 @@ public class UserLoginServiceImpl implements UserLoginService {
                     securityDetailsHolder
                             .setSecurityDetails(securityQuestionsList);
                     return securityDetailsHolder;
-                } else {
+                /*} else {
                     
                     throw new ASException("1015",
                             "User doen't have security setup");
-                }
+                } */
             } else {
                 
                 throw new ASException("1017", "Invalid user, please try again");
@@ -165,29 +164,9 @@ public class UserLoginServiceImpl implements UserLoginService {
             List<SecurityDetails> securityDetails) {
         
         boolean status = false;
-        Integer userId = userLoginServiceDAO.getUserId(emailId);
-        List<UserSecurityDetails> securityQuestionslist = userLoginServiceDAO
-                .getSecurityQuestions(userId);
         
-        for (int i = 0; i < securityDetails.size(); i++) {
-            
-            if (securityDetails
-                    .get(i)
-                    .getSecurityQuestion()
-                    .equalsIgnoreCase(
-                            securityQuestionslist.get(i).getSecurityQuestion())
-                    && securityDetails
-                            .get(i)
-                            .getSecurityAnswer()
-                            .equalsIgnoreCase(
-                                    securityQuestionslist.get(i)
-                                            .getSecurityAnswer())) {
-                status = true;
-            } else {
-                throw new ASException("1011",
-                        "Please enter valid security details.");
-            }
-        }
+        // TODO: Call external service for this.
+
         return status;
     }
     
