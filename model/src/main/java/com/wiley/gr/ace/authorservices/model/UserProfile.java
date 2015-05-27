@@ -50,11 +50,11 @@ public class UserProfile {
         this.emailForAlerts = emailForAlerts;
     }
     
-    public User getProfileInformation() {
+    public User getCustomerDetails() {
         return customerDetails;
     }
     
-    public void setProfileInformation(User customerDetails) {
+    public void setCustomerDetails(User customerDetails) {
         this.customerDetails = customerDetails;
     }
     
