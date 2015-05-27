@@ -12,20 +12,22 @@
 
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
-import com.wiley.gr.ace.authorservices.model.external.AreaOfInterests;
+import java.util.List;
+
+import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
 import com.wiley.gr.ace.authorservices.model.external.Industries;
 import com.wiley.gr.ace.authorservices.model.external.JobCategories;
 import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
 
 public interface CDMInterfaceService {
-    
-    LookUpProfile lookUpProfile(String userId);
-    
-    boolean updateProfile(LookUpProfile lookUpProfile);
-    
-    AreaOfInterests getAreaOfInterests();
-    
-    JobCategories getJobCategories();
-    
-    Industries getIndustries();
+
+	LookUpProfile lookUpProfile(String userId);
+
+	boolean updateProfile(LookUpProfile lookUpProfile);
+
+	List<ESBResponse> getAreaOfInterests();
+
+	JobCategories getJobCategories();
+
+	Industries getIndustries();
 }

@@ -10,17 +10,23 @@
  * of John Wiley & Sons.
  *******************************************************************************/
 
-package com.wiley.gr.ace.authorservices.services.service;
+package com.wiley.gr.ace.authorservices.model.external;
 
-/**
- * @author kpshiva
- *
- */
-public interface AuthorProfileExternalService {
-	
-	Object[] getAreaOfInterest();
-	
-	Object[] getJobCategories();
+public class ESBResponse {
 
-	Object[] getIndustries();
+	private Response response;
+
+	public Response getResponse() {
+		return response;
+	}
+
+	public void setResponse(Response response) {
+		this.response = response;
+	}
+
+	@Override
+	public String toString() {
+		return "AreaOfInterests [response=" + response + "]";
+	}
+
 }
