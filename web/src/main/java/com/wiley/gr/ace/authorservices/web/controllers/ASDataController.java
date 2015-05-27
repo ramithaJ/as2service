@@ -142,8 +142,10 @@ public class ASDataController {
     
     @RequestMapping(value = "/areasOfInterests/", method = RequestMethod.GET )
     public Service getAreasOfInterests() {
-        
-        return null;
+    	 Service service = new Service();
+         service.setPayload(aSDataService.getAreasOfInterests());
+         
+         return service;
     }
     
     @RequestMapping(value = "/securityQuestions/", method = RequestMethod.GET )

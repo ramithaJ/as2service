@@ -32,6 +32,8 @@ import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.State;
 import com.wiley.gr.ace.authorservices.model.Suffix;
 import com.wiley.gr.ace.authorservices.model.Title;
+import com.wiley.gr.ace.authorservices.model.external.AreaOfInterests;
+import com.wiley.gr.ace.authorservices.model.external.Docs;
 import com.wiley.gr.ace.authorservices.model.external.Industries;
 import com.wiley.gr.ace.authorservices.model.external.IndustryDocs;
 import com.wiley.gr.ace.authorservices.model.external.JobCategories;
@@ -173,8 +175,20 @@ public class ASDataServiceImpl implements ASDataService {
     
     @Override
     public List<Interests> getAreasOfInterests() {
-        // TODO Auto-generated method stub
-        return null;
+    	AreaOfInterests areaOfInterests=  cdmservice.getAreaOfInterests();
+    	List<Interests> interestslist=new ArrayList<Interests>();
+    	 Docs[] areaOfInterests2= (Docs[]) areaOfInterests.getResponse().getDocs();
+    	if(null !=areaOfInterests2)
+    		
+    		for (Docs docs : areaOfInterests2) {
+    			
+    			Interests interests=new Interests();
+    			interests.setAoeId(docs.getSUBJECT_CODE());
+    			interests.setAoeName(docs.getSUBJECT_NAME());
+    			interestslist.add(interests);
+			}
+		return interestslist;
+        
     }
     
     @Override
