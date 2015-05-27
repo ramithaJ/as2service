@@ -42,9 +42,9 @@ public class UserAccountServiceImpl implements UserAccountService {
         LookUpProfile lookupProfile = cdmservices.lookUpProfile(userId);
         User user = new User();
         user.setPrimaryEmailAddr(lookupProfile.getCustomerProfile()
-                .getProfileInformation().getPrimaryEmailAddr());
+                .getCustomerDetails().getPrimaryEmailAddr());
         user.setRecoveryEmailAddress(lookupProfile.getCustomerProfile()
-                .getProfileInformation().getRecoveryEmailAddress());
+                .getCustomerDetails().getRecoveryEmailAddress());
         return user;
         
     }
@@ -65,7 +65,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     public User getProfileInformation(String userId) {
         
         LookUpProfile lookupProfile = cdmservices.lookUpProfile(userId);
-        return lookupProfile.getCustomerProfile().getProfileInformation();
+        return lookupProfile.getCustomerProfile().getCustomerDetails();
     }
 
     @Override

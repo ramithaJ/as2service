@@ -108,7 +108,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         
         UserProfile userProfile = new UserProfile();
         LookUpProfile lookUpProfile = new LookUpProfile();
-        userProfile.setProfileInformation(emailDetails);
+        userProfile.setCustomerDetails(emailDetails);
         lookUpProfile.setCustomerProfile(userProfile);
         return cdmservices.updateProfile(lookUpProfile);
     }
@@ -124,7 +124,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         
         UserProfile userProfile = new UserProfile();
         LookUpProfile lookUpProfile = new LookUpProfile();
-        userProfile.setProfileInformation(user);
+        userProfile.setCustomerDetails(user);
         lookUpProfile.setCustomerProfile(userProfile);
         return cdmservices.updateProfile(lookUpProfile);
     }
