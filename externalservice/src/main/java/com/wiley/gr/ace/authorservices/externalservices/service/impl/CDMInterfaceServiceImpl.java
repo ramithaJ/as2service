@@ -17,6 +17,7 @@ import org.springframework.http.HttpMethod;
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
 import com.wiley.gr.ace.authorservices.model.Service;
+import com.wiley.gr.ace.authorservices.model.external.AreaOfInterests;
 import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
 
 /**
@@ -61,4 +62,12 @@ public class CDMInterfaceServiceImpl implements CDMInterfaceService {
         }
         return false;
     }
+
+	@Override
+	public AreaOfInterests getAreaOfInterests() {
+		 final String url = "http://vmesbdev.wiley.com:15200/PickList?q=*&fq=doc_type:SUBJECTCD&wt=json&rows1000000";
+		 AreaOfInterests areaOfInterests = (AreaOfInterests) StubInvokerUtil
+	                .invokeStub(url, HttpMethod.GET, "AreaOfInterests");
+	        return areaOfInterests ;
+	}
 }

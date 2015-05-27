@@ -10,16 +10,10 @@
  * of John Wiley & Sons.
  *******************************************************************************/
 
-package com.wiley.gr.ace.authorservices.externalservices.service;
+package com.wiley.gr.ace.authorservices.services.service;
 
-import com.wiley.gr.ace.authorservices.model.external.AreaOfInterests;
-import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
+public interface AuthorProfileExternalService {
+	
+	Object[] getAreaOfInterest();
 
-public interface CDMInterfaceService {
-    
-    LookUpProfile lookUpProfile(String userId);
-    
-    boolean updateProfile(LookUpProfile lookUpProfile);
-    
-    AreaOfInterests getAreaOfInterests();
 }

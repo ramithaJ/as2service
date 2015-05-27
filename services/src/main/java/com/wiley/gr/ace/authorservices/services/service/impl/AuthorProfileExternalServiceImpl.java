@@ -10,16 +10,25 @@
  * of John Wiley & Sons.
  *******************************************************************************/
 
-package com.wiley.gr.ace.authorservices.externalservices.service;
+package com.wiley.gr.ace.authorservices.services.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
 import com.wiley.gr.ace.authorservices.model.external.AreaOfInterests;
-import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
+import com.wiley.gr.ace.authorservices.services.service.AuthorProfileExternalService;
 
-public interface CDMInterfaceService {
-    
-    LookUpProfile lookUpProfile(String userId);
-    
-    boolean updateProfile(LookUpProfile lookUpProfile);
-    
-    AreaOfInterests getAreaOfInterests();
+public class AuthorProfileExternalServiceImpl implements AuthorProfileExternalService {
+ 
+	
+	@Autowired
+	CDMInterfaceService cdmservice;
+	@Override
+	public Object[] getAreaOfInterest() {
+	AreaOfInterests areaOfInterests=  cdmservice.getAreaOfInterests();
+		return areaOfInterests.getResponse().getDocs();
+	}
+
+	
+	
 }

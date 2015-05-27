@@ -10,16 +10,20 @@
  * of John Wiley & Sons.
  *******************************************************************************/
 
-package com.wiley.gr.ace.authorservices.externalservices.service;
+package com.wiley.gr.ace.authorservices.model.external;
 
-import com.wiley.gr.ace.authorservices.model.external.AreaOfInterests;
-import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
+public class Response {
 
-public interface CDMInterfaceService {
-    
-    LookUpProfile lookUpProfile(String userId);
-    
-    boolean updateProfile(LookUpProfile lookUpProfile);
-    
-    AreaOfInterests getAreaOfInterests();
+	private Object[] docs;
+
+	public Object[] getDocs() {
+		return docs;
+	}
+
+	public void setDocs(Object[] docs) {
+		this.docs = docs;
+	}
+
+	
+
 }

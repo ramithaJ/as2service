@@ -30,6 +30,7 @@ import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.Society;
+import com.wiley.gr.ace.authorservices.services.service.AuthorProfileExternalService;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
 
@@ -51,6 +52,8 @@ public class UserProfileController {
     
     @Autowired(required = true)
     LocalValidatorFactoryBean validator;
+    @Autowired
+    AuthorProfileExternalService authorProfileExternalService;
     
     @RequestMapping(value = "/affiliations/{userId}", method = RequestMethod.GET, produces = "application/json")
     public Service getAffiliationsList(@PathVariable("userId") String userId) {
@@ -139,15 +142,24 @@ public class UserProfileController {
      * @param userId
      * @return
      */
+//    @RequestMapping(value = "/interests/{userId}", method = RequestMethod.GET, produces = "application/json")
+//    public Service getMyInterests(@PathVariable("userId") String userId) {
+//        
+//        Service service = new Service();
+//        service.setPayload(userProfileService.lookUpProfile(userId)
+//                .getCustomerProfile().getInterests());
+//        
+//        return service;
+//    }
     @RequestMapping(value = "/interests/{userId}", method = RequestMethod.GET, produces = "application/json")
     public Service getMyInterests(@PathVariable("userId") String userId) {
         
         Service service = new Service();
-        service.setPayload(userProfileService.lookUpProfile(userId)
-                .getCustomerProfile().getInterests());
+        service.setPayload(authorProfileExternalService.getAreaOfInterest());
         
         return service;
     }
+    
     
     /**
      * @param userId

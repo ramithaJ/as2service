@@ -11,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.Service;
+import com.wiley.gr.ace.authorservices.model.external.AreaOfInterests;
 import com.wiley.gr.ace.authorservices.model.external.CDMAffiliation;
 import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
 
@@ -53,6 +54,10 @@ public class StubInvokerUtil {
 				response = restTemplate.exchange(uri, httpMethod,
 						requestEntity, LookUpProfile.class);
 
+			} else if (className.equals("AreaOfInterests")) {
+				requestEntity = new HttpEntity<AreaOfInterests>(requestHeaders);
+				response = restTemplate.exchange(uri, httpMethod,
+						requestEntity, AreaOfInterests.class);
 			}
 			
 			if(response != null) {

@@ -70,6 +70,7 @@ public class UserLoginDaoImpl implements UserLoginDao {
 
 		java.sql.Date.valueOf(utildate);
 		int userId = getUserId(emailId);
+		System.err.println(userId);
 
 		String hql = "from AuthorProfile where userId = :userId";
 		List<AuthorProfile> result = session.createQuery(hql)
@@ -77,6 +78,7 @@ public class UserLoginDaoImpl implements UserLoginDao {
 
 		if (null != result && result.size() > 0) {
 			authorProfile = result.get(0);
+			System.err.println(authorProfile.getTitleCd());
 		}
 
 		if (authorProfile != null) {
@@ -106,7 +108,7 @@ public class UserLoginDaoImpl implements UserLoginDao {
 		Users user = null;
 		int userId = 0;
 
-		String hql = "from Users where emailAddr = :emailId";
+		String hql = "from Users where primaryEmailAddr = :emailId";
 		List<Users> result = session.createQuery(hql)
 				.setString("emailId", emailId).list();
 
