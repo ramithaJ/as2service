@@ -152,7 +152,7 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
     @Override
     public boolean lockUser(String emailId) {
         
-        final String url = "http://demo6374909.mockable.io/user/lockUser";
+        final String url = "http://vmesbdev.wiley.com:15200/ALMService/LockUser";
         Service service = (Service) StubInvokerUtil.invokeStub(url,
                 HttpMethod.POST, "Service");
         String status = service.getStatus();
