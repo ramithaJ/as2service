@@ -17,6 +17,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
+import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
 import com.wiley.gr.ace.authorservices.model.AccessReasons;
 import com.wiley.gr.ace.authorservices.model.Country;
 import com.wiley.gr.ace.authorservices.model.Department;
@@ -31,6 +32,10 @@ import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.State;
 import com.wiley.gr.ace.authorservices.model.Suffix;
 import com.wiley.gr.ace.authorservices.model.Title;
+import com.wiley.gr.ace.authorservices.model.external.Industries;
+import com.wiley.gr.ace.authorservices.model.external.IndustryDocs;
+import com.wiley.gr.ace.authorservices.model.external.JobCategories;
+import com.wiley.gr.ace.authorservices.model.external.JobCategoryDocs;
 import com.wiley.gr.ace.authorservices.persistence.entity.LookupValues;
 import com.wiley.gr.ace.authorservices.persistence.entity.Roles;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
@@ -46,6 +51,8 @@ public class ASDataServiceImpl implements ASDataService {
     ASDataDAO aSDataDAO;
     @Autowired(required = true)
     LookUpValuesDAO lookupDAO;
+    @Autowired
+    CDMInterfaceService cdmservice;
     
     @Override
     public List<Title> getTitles() {
@@ -81,14 +88,45 @@ public class ASDataServiceImpl implements ASDataService {
     
     @Override
     public List<Industry> getIndustries() {
-        // TODO Auto-generated method stub
-        return null;
+        
+        Industry industry = null;
+        List<Industry> industryList = new ArrayList<Industry>();
+        Industries industries = cdmservice.getIndustries();
+        if(null != industries){
+            
+            IndustryDocs[] industryDocs = (IndustryDocs[]) industries.getResponse()
+                    .getDocs();
+            for (IndustryDocs industryDoc : industryDocs) {
+                
+                industry = new Industry();
+                industry.setIndustryId(industryDoc.getNAICS_CODE());
+                industry.setIndustryName(industryDoc.getNAICS_TITLE());
+                industryList.add(industry);
+            }
+            return industryList;
+        }
+        return industryList;
     }
     
     @Override
     public List<JobCategory> getJobCategories() {
-        // TODO Auto-generated method stub
-        return null;
+
+        JobCategories jobCategories = cdmservice.getJobCategories();
+        JobCategory jobCategory = null;
+        List<JobCategory> jobCategoryList = new ArrayList<JobCategory>();
+        if(null != jobCategories){
+            
+            JobCategoryDocs[] jobCategoryDocs = (JobCategoryDocs[]) jobCategories.getResponse().getDocs();
+            for (JobCategoryDocs jobCategoryDoc : jobCategoryDocs) {
+                
+                jobCategory = new JobCategory();
+                jobCategory.setJobCategoryId(jobCategoryDoc.getJOBCODE());
+                jobCategory.setJobCategoryName(jobCategoryDoc.getJOBTITLE());
+                jobCategoryList.add(jobCategory);
+            }
+            return jobCategoryList;
+        }
+        return jobCategoryList;
     }
     
     @Override

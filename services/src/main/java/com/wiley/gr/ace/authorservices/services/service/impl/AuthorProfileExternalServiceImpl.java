@@ -16,8 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
 import com.wiley.gr.ace.authorservices.model.external.AreaOfInterests;
-import com.wiley.gr.ace.authorservices.model.external.Industry;
-import com.wiley.gr.ace.authorservices.model.external.JobCategory;
+import com.wiley.gr.ace.authorservices.model.external.Industries;
+import com.wiley.gr.ace.authorservices.model.external.JobCategories;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileExternalService;
 
 /**
@@ -38,14 +38,14 @@ public class AuthorProfileExternalServiceImpl implements AuthorProfileExternalSe
     @Override
     public Object[] getJobCategories() {
         
-        JobCategory jobCategory = cdmservice.getJobCategories();
+        JobCategories jobCategory = cdmservice.getJobCategories();
         return jobCategory.getResponse().getDocs();
     }
 
     @Override
     public Object[] getIndustries() {
 
-        Industry industry = cdmservice.getIndustries();
+        Industries industry = cdmservice.getIndustries();
         return industry.getResponse().getDocs();
     }
 

@@ -18,8 +18,8 @@ import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.external.AreaOfInterests;
-import com.wiley.gr.ace.authorservices.model.external.Industry;
-import com.wiley.gr.ace.authorservices.model.external.JobCategory;
+import com.wiley.gr.ace.authorservices.model.external.Industries;
+import com.wiley.gr.ace.authorservices.model.external.JobCategories;
 import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
 
 /**
@@ -74,19 +74,19 @@ public class CDMInterfaceServiceImpl implements CDMInterfaceService {
 	}
 
     @Override
-    public JobCategory getJobCategories() {
+    public JobCategories getJobCategories() {
         
         final String url = "http://vmesbdev.wiley.com:15200/PickList?q=*&fq=doc_type:SUBJECTCD&wt=json&rows1000000";
-        JobCategory jobCategory = (JobCategory) StubInvokerUtil
+        JobCategories jobCategory = (JobCategories) StubInvokerUtil
                    .invokeStub(url, HttpMethod.GET, "JobCategory");
            return jobCategory ;
     }
 
     @Override
-    public Industry getIndustries() {
+    public Industries getIndustries() {
 
         final String url = "http://vmesbdev.wiley.com:15200/PickList?q=*&fq=doc_type:SUBJECTCD&wt=json&rows1000000";
-        Industry industry = (Industry) StubInvokerUtil
+        Industries industry = (Industries) StubInvokerUtil
                    .invokeStub(url, HttpMethod.GET, "Industry");
            return industry ;
     }
