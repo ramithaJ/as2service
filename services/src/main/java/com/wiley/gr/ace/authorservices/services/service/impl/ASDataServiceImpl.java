@@ -35,6 +35,7 @@ import com.wiley.gr.ace.authorservices.model.Suffix;
 import com.wiley.gr.ace.authorservices.model.Title;
 import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
 import com.wiley.gr.ace.authorservices.model.external.Industries;
+import com.wiley.gr.ace.authorservices.model.external.JobCategories;
 import com.wiley.gr.ace.authorservices.persistence.entity.LookupValues;
 import com.wiley.gr.ace.authorservices.persistence.entity.Roles;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
@@ -91,46 +92,43 @@ public class ASDataServiceImpl implements ASDataService {
 		Industry industry = null;
 		List<Industry> industryList = new ArrayList<Industry>();
 		Industries industries = cdmservice.getIndustries();
-		// if(null != industries){
-		//
-		// IndustryDocs[] industryDocs = (IndustryDocs[])
-		// industries.getResponse()
-		// .getDocs();
-		// for (IndustryDocs industryDoc : industryDocs) {
-		//
-		// industry = new Industry();
-		// industry.setIndustryId(industryDoc.getNAICS_CODE());
-		// industry.setIndustryName(industryDoc.getNAICS_TITLE());
-		// industryList.add(industry);
-		// }
-		// return industryList;
-		// }
+		if(null == industries){
+		    return new ArrayList<Industry>();
+		}
+		
+		List<Object> industryDocs = industries.getResponse().getDocs();
+		for (Object object : industryDocs) {
+		    
+		    LinkedHashMap<String, String> industryMap = (LinkedHashMap<String, String>) object;
+		    industry = new Industry();
+		    industry.setIndustryId(industryMap.get("NAICS_CODE"));
+	        industry.setIndustryName(industryMap.get("NAICS_TITLE"));
+	        industryList.add(industry);
+        }
+		 
 		return industryList;
 	}
 
 	@Override
 	public List<JobCategory> getJobCategories() {
 
-		// JobCategories jobCategories = cdmservice.getJobCategories();
-		// JobCategory jobCategory = null;
-		// List<JobCategory> jobCategoryList = new ArrayList<JobCategory>();
-		// if(null != jobCategories){
-		//
-		// JobCategoryDocs[] jobCategoryDocs = (JobCategoryDocs[])
-		// jobCategories.getResponse().getDocs();
-		// for (JobCategoryDocs jobCategoryDoc : jobCategoryDocs) {
-		//
-		// jobCategory = new JobCategory();
-		// jobCategory.setJobCategoryId(jobCategoryDoc.getJOBCODE());
-		// jobCategory.setJobCategoryName(jobCategoryDoc.getJOBTITLE());
-		// jobCategoryList.add(jobCategory);
-		// }
-		// return jobCategoryList;
-		// }
-		// return jobCategoryList;
-		// }
-
-		return null;
+		 JobCategories jobCategories = cdmservice.getJobCategories();
+		 JobCategory jobCategory = null;
+		 List<JobCategory> jobCategoryList = new ArrayList<JobCategory>();
+		 if(null == jobCategories){
+		     return null;
+		 }
+		 		
+		 List<Object> jobCategoryDocs = jobCategories.getResponse().getDocs();
+		 for (Object object : jobCategoryDocs) {
+		     
+		     LinkedHashMap<String, String> jobCategoryMap = (LinkedHashMap<String, String>) object;
+		     jobCategory = new JobCategory();
+	         jobCategory.setJobCategoryId(jobCategoryMap.get("JOBCODE"));
+	         jobCategory.setJobCategoryName(jobCategoryMap.get("JOBTITLE"));
+	         jobCategoryList.add(jobCategory);
+        }
+		return jobCategoryList;
 	}
 
 	@Override

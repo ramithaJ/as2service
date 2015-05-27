@@ -82,7 +82,7 @@ public class CDMInterfaceServiceImpl implements CDMInterfaceService {
     @Override
     public JobCategories getJobCategories() {
         
-        final String url = "http://vmesbdev.wiley.com:15200/PickList?q=*&fq=doc_type:SUBJECTCD&wt=json&rows1000000";
+        final String url = "http://vmesbdev.wiley.com:15200/PickList?q=*&fq=doc_type:JOBCD&wt=json&rows=1000000";
         JobCategories jobCategory = (JobCategories) StubInvokerUtil
                    .invokeStub(url, HttpMethod.GET, "JobCategory");
            return jobCategory ;
@@ -91,7 +91,7 @@ public class CDMInterfaceServiceImpl implements CDMInterfaceService {
     @Override
     public Industries getIndustries() {
 
-        final String url = "http://vmesbdev.wiley.com:15200/PickList?q=*&fq=doc_type:SUBJECTCD&wt=json&rows1000000";
+        final String url = "http://vmesbdev.wiley.com:15200/PickList?q=*&fq=doc_type:NAICSCD&wt=json&rows=1000000";
         Industries industry = (Industries) StubInvokerUtil
                    .invokeStub(url, HttpMethod.GET, "Industry");
            return industry ;
