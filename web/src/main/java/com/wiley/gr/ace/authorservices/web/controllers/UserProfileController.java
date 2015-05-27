@@ -284,4 +284,13 @@ public class UserProfileController {
         return service;
         
     }
+    
+    @RequestMapping(value = "/industries/{userId}", method = RequestMethod.GET)
+    public Service getIndustries(@PathVariable("userId") String userId) {
+        
+        Service service = new Service();
+        service.setPayload(authorProfileExternalService.getIndustries());
+        return service;
+        
+    }
 }

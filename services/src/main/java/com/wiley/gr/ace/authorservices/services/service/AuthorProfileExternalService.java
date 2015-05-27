@@ -22,4 +22,5 @@ public interface AuthorProfileExternalService {
 	
 	Object[] getJobCategories();
 
+	Object[] getIndustries();
 }

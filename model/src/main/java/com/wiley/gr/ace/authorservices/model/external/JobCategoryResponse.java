@@ -11,6 +11,10 @@
 *******************************************************************************/
 package com.wiley.gr.ace.authorservices.model.external;
 
+/**
+ * @author kpshiva
+ *
+ */
 public class JobCategoryResponse {
     
     private Object[] docs;
