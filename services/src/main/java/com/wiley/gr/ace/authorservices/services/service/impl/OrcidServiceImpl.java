@@ -260,7 +260,9 @@ public class OrcidServiceImpl implements OrcidService {
                         JSONObject affiliationJSON = (JSONObject) new JSONParser()
                                 .parse(affiliationItr.next().toJSONString());
                         affiliation = parseAffiliationJSON(affiliationJSON);
+                        if(null!=affiliation){
                         user.setAffiliation(affiliation);
+                        }
                     }
                 }
             }
@@ -285,9 +287,13 @@ public class OrcidServiceImpl implements OrcidService {
             affiliation.setStartDate((java.util.Date) affiliationJSON
                     .get("start-date"));
             organization = parseOrganization(affiliationJSON);
+            if(null!=organization){
             affiliation.setOrganization(organization);
+            }
             disambiguatedOrganization = parseDisambiguatedOrganization(affiliationJSON);
+            if(null!=disambiguatedOrganization){
             affiliation.setDisambiguatedOrganization(disambiguatedOrganization);
+            }
         } catch (Exception e) {
             LOGGER.error("Initial SessionFactory creation failed.", e);
         }
@@ -305,7 +311,9 @@ public class OrcidServiceImpl implements OrcidService {
                 organization = new Organization();
                 organization.setName((String) organizationDetails.get("name"));
                 Address address = parseAddress(organizationDetails);
+                if(null!=address){
                 organization.setAddress(address);
+                }
             }
         } catch (Exception e) {
             LOGGER.error("Initial SessionFactory creation failed.", e);
