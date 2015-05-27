@@ -13,6 +13,7 @@ import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.external.AreaOfInterests;
 import com.wiley.gr.ace.authorservices.model.external.CDMAffiliation;
+import com.wiley.gr.ace.authorservices.model.external.JobCategory;
 import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
 
 /**
@@ -58,7 +59,11 @@ public class StubInvokerUtil {
 				requestEntity = new HttpEntity<AreaOfInterests>(requestHeaders);
 				response = restTemplate.exchange(uri, httpMethod,
 						requestEntity, AreaOfInterests.class);
-			}
+			} else if (className.equals("JobCategory")) {
+                requestEntity = new HttpEntity<JobCategory>(requestHeaders);
+                response = restTemplate.exchange(uri, httpMethod,
+                        requestEntity, JobCategory.class);
+            }
 			
 			if(response != null) {
 				

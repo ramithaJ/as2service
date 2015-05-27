@@ -268,6 +268,14 @@ public class UserProfileController {
         return new Service();
     }
     
+    @RequestMapping(value = "/jobCategories/{userId}", method = RequestMethod.GET)
+    public Service getJobCategories(@PathVariable("userId") String userId) {
+        
+        Service service = new Service();
+        service.setPayload(authorProfileExternalService.getJobCategories());
+        return service;
+    }
+    
     @RequestMapping(value = "/lookUpProfile/{userId}", method = RequestMethod.GET)
     public Service lookUpProfile(@PathVariable("userId") String userId) {
         

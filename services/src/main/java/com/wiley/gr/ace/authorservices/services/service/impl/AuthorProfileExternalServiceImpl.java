@@ -16,8 +16,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
 import com.wiley.gr.ace.authorservices.model.external.AreaOfInterests;
+import com.wiley.gr.ace.authorservices.model.external.JobCategory;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileExternalService;
 
+/**
+ * @author kpshiva
+ *
+ */
 public class AuthorProfileExternalServiceImpl implements AuthorProfileExternalService {
  
 	
@@ -28,6 +33,13 @@ public class AuthorProfileExternalServiceImpl implements AuthorProfileExternalSe
 	AreaOfInterests areaOfInterests=  cdmservice.getAreaOfInterests();
 		return areaOfInterests.getResponse().getDocs();
 	}
+	
+    @Override
+    public Object[] getJobCategories() {
+        
+        JobCategory jobCategory = cdmservice.getJobCategories();
+        return jobCategory.getResponse().getDocs();
+    }
 
 	
 	

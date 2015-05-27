@@ -13,6 +13,7 @@
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
 import com.wiley.gr.ace.authorservices.model.external.AreaOfInterests;
+import com.wiley.gr.ace.authorservices.model.external.JobCategory;
 import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
 
 public interface CDMInterfaceService {
@@ -22,4 +23,6 @@ public interface CDMInterfaceService {
     boolean updateProfile(LookUpProfile lookUpProfile);
     
     AreaOfInterests getAreaOfInterests();
+    
+    JobCategory getJobCategories();
 }

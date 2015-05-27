@@ -12,8 +12,14 @@
 
 package com.wiley.gr.ace.authorservices.services.service;
 
+/**
+ * @author kpshiva
+ *
+ */
 public interface AuthorProfileExternalService {
 	
 	Object[] getAreaOfInterest();
+	
+	Object[] getJobCategories();
 
 }
