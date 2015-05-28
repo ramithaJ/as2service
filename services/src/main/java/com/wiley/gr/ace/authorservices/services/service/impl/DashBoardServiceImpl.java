@@ -24,12 +24,13 @@ import com.wiley.gr.ace.authorservices.model.DashBoard;
 import com.wiley.gr.ace.authorservices.model.DashBoardInfo;
 import com.wiley.gr.ace.authorservices.model.Interests;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
-import com.wiley.gr.ace.authorservices.model.SecurityDetails;
-import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserProfile;
 import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
+import com.wiley.gr.ace.authorservices.model.external.SecuirtyQuestionDetails;
+import com.wiley.gr.ace.authorservices.model.external.SecurityQuestion;
+import com.wiley.gr.ace.authorservices.model.external.SecurityQuestions;
 import com.wiley.gr.ace.authorservices.services.service.DashBoardService;
 
 /**
@@ -68,20 +69,24 @@ public class DashBoardServiceImpl implements DashBoardService {
 
     private DashBoardInfo getSecurityDetailsForUser(String userId,
             DashBoardInfo dashBoardInfo) throws NullPointerException {
-        SecurityDetailsHolder securityDetailsHolder = almIntefaceService
-                .getSecurityDetails(userId);
-        List<SecurityDetails> securityDetailsList = securityDetailsHolder
-                .getSecurityDetails();
-        if (null != securityDetailsList) {
-            for (SecurityDetails securityDetails : securityDetailsList) {
-                if (StringUtils.isEmpty(securityDetails.getSecurityQuestion())
-                        || StringUtils.isEmpty(securityDetails
-                                .getSecurityAnswer())) {
-                    dashBoardInfo = new DashBoardInfo();
-                    dashBoardInfo.setId("security");
-                    dashBoardInfo
-                            .setDashBoardInfoMessage("No Security Details");
-                    break;
+        SecuirtyQuestionDetails secuirtyQuestionDetails = almIntefaceService
+                .getSecurityQuestionDetails(userId);
+        if (!StringUtils.isEmpty(secuirtyQuestionDetails)) {
+            SecurityQuestions securityQuestions = secuirtyQuestionDetails
+                    .getSecurityQuestions();
+            List<SecurityQuestion> securityQuestionList = securityQuestions
+                    .getSecurityQuestion();
+            if (null != securityQuestionList) {
+                for (SecurityQuestion securityQuestion : securityQuestionList) {
+                    if (StringUtils.isEmpty(securityQuestion.getQuestion())
+                            || StringUtils
+                                    .isEmpty(securityQuestion.getAnswer())) {
+                        dashBoardInfo = new DashBoardInfo();
+                        dashBoardInfo.setId("security");
+                        dashBoardInfo
+                                .setDashBoardInfoMessage("No Security Details");
+                        break;
+                    }
                 }
             }
         }
