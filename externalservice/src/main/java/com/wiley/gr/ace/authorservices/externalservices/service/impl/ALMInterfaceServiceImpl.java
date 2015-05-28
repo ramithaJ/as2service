@@ -26,43 +26,46 @@ import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceServ
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Service;
+import com.wiley.gr.ace.authorservices.model.external.SecuirtyQuestionDetails;
 
 /**
  * @author RAVISINHA
  */
 public class ALMInterfaceServiceImpl implements ALMInterfaceService {
-    
+
     /*
      * (non-Javadoc)
+     * 
      * @see
      * com.wiley.gr.ace.authorservices.services.admin.external.ALMInterfaceService
      * #authenticateUser(java.lang.String, java.lang.String)
      */
     @Override
     public boolean authenticateAdminUser(String emailId) {
-        
+
         // TODO: Authenticate with LDAP
         final String url = "http://demo6003007.mockable.io/admin/login";
         Service service = (Service) StubInvokerUtil.invokeStub(url,
                 HttpMethod.POST, "Service");
         String status = service.getStatus();
-        
+
         if (status != null && status.equalsIgnoreCase("success")) {
-            
+
             return true;
         }
         return false;
     }
-    
+
     /*
      * (non-Javadoc)
+     * 
      * @see
      * com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService
      * #authenticateUserALM(java.lang.String, java.lang.String)
      */
     @Override
     public boolean authenticateUserALM(String emailId, String password) {
-        
+
         /*
          * final String url = "http://demo6003007.mockable.io/user/login";
          * Service service = (Service) StubInvokerUtil.invokeStub(url,
@@ -70,17 +73,18 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
          * (status != null && status.equalsIgnoreCase("success")) { return true;
          * } return false;
          */
-        
+
         if (password.equalsIgnoreCase("Password")) {
             return true;
         } else {
             return false;
         }
-        
+
     }
-    
+
     /*
      * (non-Javadoc)
+     * 
      * @see
      * com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService
      * #resetPassword(java.lang.String, java.lang.String, java.lang.String,
@@ -88,103 +92,107 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
      */
     @Override
     public boolean resetPassword(SecurityDetailsHolder securityDetailsHolder) {
-        
+
         final String url = "http://demo6003007.mockable.io/user/resetPassword";
         Service service = (Service) StubInvokerUtil.invokeStub(url,
                 HttpMethod.POST, "Service");
         String status = service.getStatus();
-        
+
         if (status != null && status.equalsIgnoreCase("success")) {
-            
+
             return true;
         }
         return false;
     }
-    
+
     /*
      * (non-Javadoc)
+     * 
      * @see
      * com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService
      * #updateUserId(java.lang.String, java.lang.String)
      */
     @Override
     public boolean updateUserId(String oldEmailId, String newEmailId) {
-        
+
         final String url = "http://demo6374909.mockable.io/user/updateUserId";
         Service service = (Service) StubInvokerUtil.invokeStub(url,
                 HttpMethod.POST, "Service");
         String status = service.getStatus();
-        
+
         if (status != null && status.equalsIgnoreCase("success")) {
-            
+
             return true;
         }
         return false;
     }
-    
+
     /*
      * (non-Javadoc)
+     * 
      * @see
      * com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService
      * #forceFulReset(java.lang.String, java.lang.String)
      */
     @Override
     public boolean forceFulReset(String emailId, String newPassword) {
-        
+
         final String url = "http://demo6374909.mockable.io/user/forceFulReset";
         Service service = (Service) StubInvokerUtil.invokeStub(url,
                 HttpMethod.POST, "Service");
         String status = service.getStatus();
-        
+
         if (status != null && status.equalsIgnoreCase("success")) {
-            
+
             return true;
         }
         return false;
     }
-    
+
     /*
      * (non-Javadoc)
+     * 
      * @see
      * com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService
      * #lockUser(java.lang.String)
      */
     @Override
     public boolean lockUser(String emailId) {
-        
+
         final String url = "http://vmesbdev.wiley.com:15200/ALMService/LockUser";
         Service service = (Service) StubInvokerUtil.invokeStub(url,
                 HttpMethod.POST, "Service");
         String status = service.getStatus();
-        
+
         if (status != null && status.equalsIgnoreCase("success")) {
-            
+
             return true;
         }
         return false;
     }
-    
+
     /*
      * (non-Javadoc)
+     * 
      * @see
      * com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService
      * #unLockUser(java.lang.String)
      */
     @Override
     public boolean unLockUser(String emailId) {
-        
+
         final String url = "http://demo6374909.mockable.io/user/unLockUser";
         Service service = (Service) StubInvokerUtil.invokeStub(url,
                 HttpMethod.POST, "Service");
         String status = service.getStatus();
-        
+
         if (status != null && status.equalsIgnoreCase("success")) {
-            
+
             return true;
         }
         return false;
     }
-    
+
     @Override
     public SecurityDetailsHolder getSecurityDetails(String emailId) {
 
@@ -238,9 +246,9 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
         Service service = (Service) StubInvokerUtil.invokeStub(url,
                 HttpMethod.POST, "Service");
         String status = service.getStatus();
-        
+
         if (status != null && status.equalsIgnoreCase("success")) {
-            
+
             return true;
         }
         return false;
@@ -248,17 +256,38 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
 
     @Override
     public boolean updateSecurityDetails(SecurityDetailsHolder securityDetails) {
-        
+
         final String url = "http://demo6374909.mockable.io/user/updateSecurityDetails";
         Service service = (Service) StubInvokerUtil.invokeStub(url,
                 HttpMethod.POST, "Service");
         String status = service.getStatus();
-        
+
         if (status != null && status.equalsIgnoreCase("success")) {
-            
+
             return true;
         }
         return false;
     }
-    
+
+    @Override
+    public SecuirtyQuestionDetails getSecurityQuestionDetails(String emailId) {
+        final String url = "http://demo7930138.mockable.io/ALMService/RetrieveSecQuestions?Email=email";
+        URI uri = null;
+        try {
+
+            uri = new URI(url);
+            RestTemplate restTemplate = new RestTemplate();
+            HttpHeaders requestHeaders = new HttpHeaders();
+            HttpEntity<SecuirtyQuestionDetails> requestEntity = new HttpEntity<SecuirtyQuestionDetails>(
+                    requestHeaders);
+            ResponseEntity<SecuirtyQuestionDetails> response = restTemplate
+                    .exchange(uri, HttpMethod.GET, requestEntity,
+                            SecuirtyQuestionDetails.class);
+            return response.getBody();
+
+        } catch (URISyntaxException e) {
+
+            throw new ASException();
+        }
+    }
 }

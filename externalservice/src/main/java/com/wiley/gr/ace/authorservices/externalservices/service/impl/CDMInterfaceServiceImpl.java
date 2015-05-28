@@ -39,7 +39,7 @@ public class CDMInterfaceServiceImpl implements CDMInterfaceService {
      */
     @Override
     public LookUpProfile lookUpProfile(String userId) {
-        final String url = "http://demo6374909.mockable.io/user/lookUpProfile";
+        final String url = "http://demo7930138.mockable.io/user/LookUpProfile";
         LookUpProfile lookupProfile = (LookUpProfile) StubInvokerUtil
                 .invokeStub(url, HttpMethod.GET, "LookUpProfile");
         return lookupProfile;
@@ -68,32 +68,32 @@ public class CDMInterfaceServiceImpl implements CDMInterfaceService {
         return false;
     }
 
-	@Override
-	public List<ESBResponse> getAreaOfInterests() {
-		 final String url = "http://vmesbdev.wiley.com:15200/PickList?q=*&fq=doc_type:SUBJECTCD&wt=json&rows1000000";
-		 ESBResponse areaOfInterests = (ESBResponse) StubInvokerUtil
-	                .invokeStub(url, HttpMethod.GET, "AreaOfInterests");
-		        List<ESBResponse> areaOfInterestslist=new ArrayList<ESBResponse>();
-		          areaOfInterestslist.add(areaOfInterests);
-		 
-	        return areaOfInterestslist ;
-	}
+    @Override
+    public List<ESBResponse> getAreaOfInterests() {
+        final String url = "http://vmesbdev.wiley.com:15200/PickList?q=*&fq=doc_type:SUBJECTCD&wt=json&rows1000000";
+        ESBResponse areaOfInterests = (ESBResponse) StubInvokerUtil.invokeStub(
+                url, HttpMethod.GET, "AreaOfInterests");
+        List<ESBResponse> areaOfInterestslist = new ArrayList<ESBResponse>();
+        areaOfInterestslist.add(areaOfInterests);
+
+        return areaOfInterestslist;
+    }
 
     @Override
     public JobCategories getJobCategories() {
-        
+
         final String url = "http://vmesbdev.wiley.com:15200/PickList?q=*&fq=doc_type:JOBCD&wt=json&rows=1000000";
-        JobCategories jobCategory = (JobCategories) StubInvokerUtil
-                   .invokeStub(url, HttpMethod.GET, "JobCategory");
-           return jobCategory ;
+        JobCategories jobCategory = (JobCategories) StubInvokerUtil.invokeStub(
+                url, HttpMethod.GET, "JobCategory");
+        return jobCategory;
     }
 
     @Override
     public Industries getIndustries() {
 
         final String url = "http://vmesbdev.wiley.com:15200/PickList?q=*&fq=doc_type:NAICSCD&wt=json&rows=1000000";
-        Industries industry = (Industries) StubInvokerUtil
-                   .invokeStub(url, HttpMethod.GET, "Industry");
-           return industry ;
+        Industries industry = (Industries) StubInvokerUtil.invokeStub(url,
+                HttpMethod.GET, "Industry");
+        return industry;
     }
 }

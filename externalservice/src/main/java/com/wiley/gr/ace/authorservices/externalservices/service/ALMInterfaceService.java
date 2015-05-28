@@ -13,12 +13,13 @@ package com.wiley.gr.ace.authorservices.externalservices.service;
 
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
+import com.wiley.gr.ace.authorservices.model.external.SecuirtyQuestionDetails;
 
 /**
  * @author RAVISINHA
  */
 public interface ALMInterfaceService {
-    
+
     /**
      * This method authenticates the user by calling the ALM LDAP Service
      * 
@@ -27,14 +28,14 @@ public interface ALMInterfaceService {
      * @return
      */
     boolean authenticateAdminUser(String emailId);
-    
+
     /**
      * @param emailId
      * @param password
      * @return
      */
     boolean authenticateUserALM(String emailId, String password);
-    
+
     /**
      * @param emailId
      * @param oldPassword
@@ -42,51 +43,53 @@ public interface ALMInterfaceService {
      * @return
      */
     boolean updatePassword(PasswordDetails passwordDetails);
-    
+
     /**
      * @param emailId
      * @param newPassword
      * @return
      */
     boolean resetPassword(SecurityDetailsHolder securityDetailsHolder);
-    
+
     /**
      * @param oldEmailId
      * @param newEmailId
      * @return
      */
     boolean updateUserId(String oldEmailId, String newEmailId);
-    
+
     /**
      * @param emailId
      * @param newPassword
      * @return
      */
     boolean forceFulReset(String emailId, String newPassword);
-    
+
     /**
      * @param emailId
      * @return
      */
     boolean lockUser(String emailId);
-    
+
     /**
      * @param emailId
      * @return
      */
     boolean unLockUser(String emailId);
-    
+
     /**
      * @param emailId
      * @return SecurityDetailsHolder
      */
     SecurityDetailsHolder getSecurityDetails(String emailId);
+
     /**
      * @param emailId
      * @return SecurityDetailsHolder
      */
     SecurityDetailsHolder getSecurityQuestions(String emailId);
-    
+
     boolean updateSecurityDetails(SecurityDetailsHolder securityDetails);
-    
+
+    SecuirtyQuestionDetails getSecurityQuestionDetails(String emailId);
 }
