@@ -55,7 +55,7 @@ public class DashBoardServiceImpl implements DashBoardService {
         LookUpProfile lookUpProfile = cdmIntefaceService.lookUpProfile(userId);
         UserProfile userProfile = lookUpProfile.getCustomerProfile();
         User user = userProfile.getCustomerDetails();
-        dashBoardInfoList = checkingDashBoardInfo(userProfile, user, userId);
+        dashBoardInfoList = checkingDashBoardInfo(userProfile, user);
         dashBoard = new DashBoard();
         if (null != dashBoardInfoList && dashBoardInfoList.isEmpty()) {
             dashBoard.setProfileMeterMessage("Profile Completed");
@@ -67,10 +67,10 @@ public class DashBoardServiceImpl implements DashBoardService {
         return dashBoard;
     }
 
-    private DashBoardInfo getSecurityDetailsForUser(String userId,
+    private DashBoardInfo getSecurityDetailsForUser(String emailId,
             DashBoardInfo dashBoardInfo) throws NullPointerException {
         SecuirtyQuestionDetails secuirtyQuestionDetails = almIntefaceService
-                .getSecurityQuestionDetails(userId);
+                .getSecurityQuestionDetails(emailId);
         if (!StringUtils.isEmpty(secuirtyQuestionDetails)) {
             SecurityQuestions securityQuestions = secuirtyQuestionDetails
                     .getSecurityQuestions();
@@ -94,10 +94,11 @@ public class DashBoardServiceImpl implements DashBoardService {
     }
 
     private List<DashBoardInfo> checkingDashBoardInfo(UserProfile userProfile,
-            User user, String userId) {
+            User user) {
         DashBoardInfo dashBoardInfo = null;
         List<DashBoardInfo> dashBoardInfoList = new ArrayList<DashBoardInfo>();
-        dashBoardInfo = getSecurityDetailsForUser(userId, dashBoardInfo);
+        dashBoardInfo = getSecurityDetailsForUser(user.getPrimaryEmailAddr(),
+                dashBoardInfo);
         if (null != dashBoardInfo) {
             dashBoardInfoList.add(dashBoardInfo);
         }
