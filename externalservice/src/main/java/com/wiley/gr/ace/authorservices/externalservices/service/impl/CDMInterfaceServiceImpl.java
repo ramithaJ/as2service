@@ -96,4 +96,14 @@ public class CDMInterfaceServiceImpl implements CDMInterfaceService {
                 HttpMethod.GET, "Industry");
         return industry;
     }
+	@Override
+	public List<ESBResponse> getCountries() {
+		final String url = "http://vmesbdev.wiley.com:15200/PickList?q=*&fq=doc_type:COUNTRYCD&wt=json&rows=1000000";
+		 ESBResponse countrycode = (ESBResponse) StubInvokerUtil
+	                .invokeStub(url, HttpMethod.GET, "AreaOfInterests");
+		        List<ESBResponse> countrycodelist=new ArrayList<ESBResponse>();
+		        countrycodelist.add(countrycode);
+		 
+	        return countrycodelist ;
+	}
 }

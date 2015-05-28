@@ -68,8 +68,11 @@ public class StubInvokerUtil {
                 requestEntity = new HttpEntity<Industries>(requestHeaders);
                 response = restTemplate.exchange(uri, httpMethod,
                         requestEntity, Industries.class);
+            }else if (className.equals("ESBResponse")) {
+				requestEntity = new HttpEntity<ESBResponse>(requestHeaders);
+				response = restTemplate.exchange(uri, httpMethod,
+						requestEntity, ESBResponse.class);
             }
-			
 			if(response != null) {
 				
 				return response.getBody();

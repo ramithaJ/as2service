@@ -30,4 +30,5 @@ public interface CDMInterfaceService {
 	JobCategories getJobCategories();
 
 	Industries getIndustries();
+	List<ESBResponse> getCountries();
 }

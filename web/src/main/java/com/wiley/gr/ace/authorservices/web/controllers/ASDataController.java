@@ -83,17 +83,23 @@ public class ASDataController {
     /**
      * @return
      */
+
+
     @RequestMapping(value = "/countries/", method = RequestMethod.GET )
-    public Service getCountries() {
+    public Service getCountries( ) {
+    	
+    	Service service= new Service();
+    	
+    	service.setPayload(aSDataService.getCountries());
         
-        return null;
+        return service;
     }
     
     /**
      * @return
      */
-    @RequestMapping(value = "/states/", method = RequestMethod.GET )
-    public Service getStates() {
+    @RequestMapping(value = "/states/{countrycode}", method = RequestMethod.GET )
+    public Service getStates(@PathVariable ("countrycode") String countrycode ) {
         
         return null;
     }

@@ -92,49 +92,70 @@ public class ASDataServiceImpl implements ASDataService {
 		Industry industry = null;
 		List<Industry> industryList = new ArrayList<Industry>();
 		Industries industries = cdmservice.getIndustries();
-		if(null == industries){
-		    return new ArrayList<Industry>();
+		if (null == industries) {
+			return new ArrayList<Industry>();
 		}
-		
+
 		List<Object> industryDocs = industries.getResponse().getDocs();
 		for (Object object : industryDocs) {
-		    
-		    LinkedHashMap<String, String> industryMap = (LinkedHashMap<String, String>) object;
-		    industry = new Industry();
-		    industry.setIndustryId(industryMap.get("NAICS_CODE"));
-	        industry.setIndustryName(industryMap.get("NAICS_TITLE"));
-	        industryList.add(industry);
-        }
-		 
+
+			LinkedHashMap<String, String> industryMap = (LinkedHashMap<String, String>) object;
+			industry = new Industry();
+			industry.setIndustryId(industryMap.get("NAICS_CODE"));
+			industry.setIndustryName(industryMap.get("NAICS_TITLE"));
+			industryList.add(industry);
+		}
+
 		return industryList;
 	}
 
 	@Override
 	public List<JobCategory> getJobCategories() {
 
-		 JobCategories jobCategories = cdmservice.getJobCategories();
-		 JobCategory jobCategory = null;
-		 List<JobCategory> jobCategoryList = new ArrayList<JobCategory>();
-		 if(null == jobCategories){
-		     return null;
-		 }
-		 		
-		 List<Object> jobCategoryDocs = jobCategories.getResponse().getDocs();
-		 for (Object object : jobCategoryDocs) {
-		     
-		     LinkedHashMap<String, String> jobCategoryMap = (LinkedHashMap<String, String>) object;
-		     jobCategory = new JobCategory();
-	         jobCategory.setJobCategoryId(jobCategoryMap.get("JOBCODE"));
-	         jobCategory.setJobCategoryName(jobCategoryMap.get("JOBTITLE"));
-	         jobCategoryList.add(jobCategory);
-        }
+		JobCategories jobCategories = cdmservice.getJobCategories();
+		JobCategory jobCategory = null;
+		List<JobCategory> jobCategoryList = new ArrayList<JobCategory>();
+		if (null == jobCategories) {
+			return null;
+		}
+
+		List<Object> jobCategoryDocs = jobCategories.getResponse().getDocs();
+		for (Object object : jobCategoryDocs) {
+
+			LinkedHashMap<String, String> jobCategoryMap = (LinkedHashMap<String, String>) object;
+			jobCategory = new JobCategory();
+			jobCategory.setJobCategoryId(jobCategoryMap.get("JOBCODE"));
+			jobCategory.setJobCategoryName(jobCategoryMap.get("JOBTITLE"));
+			jobCategoryList.add(jobCategory);
+		}
 		return jobCategoryList;
 	}
 
 	@Override
 	public List<Country> getCountries() {
-		// TODO Auto-generated method stub
-		return null;
+		List<ESBResponse> countrieslist = cdmservice.getCountries();
+		List<Country> countrylist = new ArrayList<Country>();
+		for (int i = 0; i < countrieslist.size(); i++) {
+			List<Object> externalCountrylist = countrieslist.get(i)
+					.getResponse().getDocs();
+			if (null == externalCountrylist) {
+				return null;
+			}
+			for (Object object : externalCountrylist) {
+				LinkedHashMap<String, String> countrymap = (LinkedHashMap<String, String>) object;
+				Country country = new Country();
+
+				String externalcountrymap = countrymap.get("id");
+				String[] idsplit = externalcountrymap.split("_");
+				country.setCountryCode(idsplit[1]);
+				country.setCountryName(countrymap.get("COUNTRY_NAME"));
+
+				countrylist.add(country);
+
+			}
+		}
+
+		return countrylist;
 	}
 
 	@Override
@@ -176,10 +197,11 @@ public class ASDataServiceImpl implements ASDataService {
 	@Override
 	public List<Interests> getAreasOfInterests() {
 		List<ESBResponse> areaOfInterests = cdmservice.getAreaOfInterests();
-		System.err.println();
-
 		List<Object> externalInterests = areaOfInterests.get(0).getResponse()
 				.getDocs();
+		if (null == externalInterests) {
+			return null;
+		}
 		List<Interests> returnList = new ArrayList<Interests>();
 
 		for (Object docs : externalInterests) {
