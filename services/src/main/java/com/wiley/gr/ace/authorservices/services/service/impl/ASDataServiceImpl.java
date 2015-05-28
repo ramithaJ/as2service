@@ -159,9 +159,28 @@ public class ASDataServiceImpl implements ASDataService {
 	}
 
 	@Override
-	public List<State> getStates() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<State> getStates(String countrycode) {
+		List<ESBResponse> statelistext = cdmservice.getStates();
+		List<State> modelststelist = new ArrayList<State>();
+		for (int i = 0; i < statelistext.size(); i++) {
+			List<Object> externalstatelist = statelistext.get(i).getResponse()
+					.getDocs();
+			if (null == externalstatelist) {
+				return null;
+
+			}
+			for (Object statelist : externalstatelist) {
+
+				LinkedHashMap<String, String> statemap = (LinkedHashMap<String, String>) statelist;
+
+				State state = new State();
+				state.setStateCode(statemap.get("id"));
+				state.setStateName(statemap.get("SUBDIVISION_NAME"));
+				modelststelist.add(state);
+			}
+
+		}
+		return modelststelist;
 	}
 
 	@Override
