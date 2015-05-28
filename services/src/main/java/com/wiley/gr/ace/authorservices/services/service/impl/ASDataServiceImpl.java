@@ -149,9 +149,7 @@ public class ASDataServiceImpl implements ASDataService {
 				String[] idsplit = externalcountrymap.split("_");
 				country.setCountryCode(idsplit[1]);
 				country.setCountryName(countrymap.get("COUNTRY_NAME"));
-
 				countrylist.add(country);
-
 			}
 		}
 
@@ -174,7 +172,9 @@ public class ASDataServiceImpl implements ASDataService {
 				LinkedHashMap<String, String> statemap = (LinkedHashMap<String, String>) statelist;
 
 				State state = new State();
-				state.setStateCode(statemap.get("id"));
+				String externalcountrymap = statemap.get("id");
+				String[] idsplit = externalcountrymap.split("_");
+				state.setStateCode(idsplit[2]);
 				state.setStateName(statemap.get("SUBDIVISION_NAME"));
 				modelststelist.add(state);
 			}
