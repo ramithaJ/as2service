@@ -15,17 +15,17 @@ package com.wiley.gr.ace.authorservices.model.external;
  * @author kpshiva
  *
  */
-public class Industry {
-  
-    private IndustryResponse response;
+public class JobCategories {
+    
+    private Response response;
 
-    public IndustryResponse getResponse() {
+    public Response getResponse() {
         return response;
     }
 
-    public void setResponse(IndustryResponse response) {
+    public void setResponse(Response response) {
         this.response = response;
     }
-    
+
     
 }

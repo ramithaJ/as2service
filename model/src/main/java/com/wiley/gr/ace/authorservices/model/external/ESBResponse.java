@@ -12,7 +12,7 @@
 
 package com.wiley.gr.ace.authorservices.model.external;
 
-public class AreaOfInterests {
+public class ESBResponse {
 
 	private Response response;
 

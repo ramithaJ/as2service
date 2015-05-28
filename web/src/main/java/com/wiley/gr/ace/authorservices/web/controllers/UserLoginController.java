@@ -171,8 +171,8 @@ public class UserLoginController extends ASExceptionController {
         
     }
     
-    @RequestMapping(value = "/lockUser/{emailId}", method = RequestMethod.POST)
-    public Service lockUser(@PathVariable("emailId") String emailId) {
+    @RequestMapping(value = "/lockUser", method = RequestMethod.POST)
+    public Service lockUser(@RequestBody String emailId) {
         
         Service service = new Service();
         service.setStatus("success");
@@ -181,8 +181,8 @@ public class UserLoginController extends ASExceptionController {
         
     }
     
-    @RequestMapping(value = "/unLockUser/{emailId}", method = RequestMethod.POST)
-    public Service unLockUser(@PathVariable("emailId") String emailId) {
+    @RequestMapping(value = "/unLockUser", method = RequestMethod.POST)
+    public Service unLockUser(@RequestBody String emailId) {
         
         Service service = new Service();
         service.setStatus("success");

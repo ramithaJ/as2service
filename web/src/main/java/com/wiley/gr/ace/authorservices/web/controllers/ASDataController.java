@@ -61,26 +61,45 @@ public class ASDataController {
     /**
      * @return
      */
-    @RequestMapping(value = "/industries/", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/industries/", method = RequestMethod.GET)
     public Service getIndustries() {
         
-        return null;
+        Service service = new Service();
+        service.setPayload(aSDataService.getIndustries());
+        return service;    
     }
     
     /**
      * @return
      */
-    @RequestMapping(value = "/jobCategories/", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/jobCategories/", method = RequestMethod.GET)
     public Service getJobCategories() {
         
-        return null;
+        Service service = new Service();
+        service.setPayload(aSDataService.getJobCategories());
+        return service;
     }
     
     /**
      * @return
      */
-    @RequestMapping(value = "/countries/", method = RequestMethod.GET, produces = "application/json")
-    public Service getCountries() {
+
+
+    @RequestMapping(value = "/countries/", method = RequestMethod.GET )
+    public Service getCountries( ) {
+    	
+    	Service service= new Service();
+    	
+    	service.setPayload(aSDataService.getCountries());
+        
+        return service;
+    }
+    
+    /**
+     * @return
+     */
+    @RequestMapping(value = "/states/{countrycode}", method = RequestMethod.GET )
+    public Service getStates(@PathVariable ("countrycode") String countrycode ) {
         
         return null;
     }
@@ -88,16 +107,7 @@ public class ASDataController {
     /**
      * @return
      */
-    @RequestMapping(value = "/states/", method = RequestMethod.GET, produces = "application/json")
-    public Service getStates() {
-        
-        return null;
-    }
-    
-    /**
-     * @return
-     */
-    @RequestMapping(value = "/institutions/", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/institutions/", method = RequestMethod.GET )
     public Service getInstitutions() {
         
         return null;
@@ -106,7 +116,7 @@ public class ASDataController {
     /**
      * @return
      */
-    @RequestMapping(value = "/departments/", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/departments/", method = RequestMethod.GET )
     public Service getDepartments() {
         
         return null;
@@ -115,7 +125,7 @@ public class ASDataController {
     /**
      * @return
      */
-    @RequestMapping(value = "/researchFunders/", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/researchFunders/", method = RequestMethod.GET )
     public Service getResearchFunders() {
         
         return null;
@@ -124,25 +134,27 @@ public class ASDataController {
     /**
      * @return
      */
-    @RequestMapping(value = "/articles/", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/articles/", method = RequestMethod.GET )
     public Service getArticles() {
         
         return null;
     }
     
-    @RequestMapping(value = "/societies/", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/societies/", method = RequestMethod.GET )
     public Service getSocieties() {
         
         return null;
     }
     
-    @RequestMapping(value = "/areasOfInterests/", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/areasOfInterests/", method = RequestMethod.GET )
     public Service getAreasOfInterests() {
-        
-        return null;
+    	 Service service = new Service();
+         service.setPayload(aSDataService.getAreasOfInterests());
+         
+         return service;
     }
     
-    @RequestMapping(value = "/securityQuestions/", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/securityQuestions/", method = RequestMethod.GET )
     public Service getSecurityQuestions() {
         
         Service service = new Service();
@@ -151,7 +163,7 @@ public class ASDataController {
         return service;
     }
     
-    @RequestMapping(value = "/roles/", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/roles/", method = RequestMethod.GET )
     public Service getUserRoles() {
         
         Service service = new Service();
@@ -160,7 +172,7 @@ public class ASDataController {
         return service;
     }
     
-    @RequestMapping(value = "/roles/{roleType}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/roles/{roleType}", method = RequestMethod.GET )
     public Service getAdminRoles(@PathVariable("roleType") String roleType) {
         
         Service service = new Service();
@@ -169,7 +181,7 @@ public class ASDataController {
         return service;
     }
     
-    @RequestMapping(value = "/accessReasons/", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/accessReasons/", method = RequestMethod.GET )
     public Service getAdminAccessReasons() {
         
         Service service = new Service();

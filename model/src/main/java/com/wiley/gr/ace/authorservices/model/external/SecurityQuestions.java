@@ -9,18 +9,31 @@
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
  *******************************************************************************/
+/**
+ * 
+ */
+package com.wiley.gr.ace.authorservices.model.external;
 
-package com.wiley.gr.ace.authorservices.services.service;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
- * @author kpshiva
+ * @author yugandhark
  *
  */
-public interface AuthorProfileExternalService {
-	
-	Object[] getAreaOfInterest();
-	
-	Object[] getJobCategories();
+@JsonInclude(Include.NON_NULL)
+public class SecurityQuestions {
 
-	Object[] getIndustries();
+    private List<SecurityQuestion> securityQuestion;
+
+    public List<SecurityQuestion> getSecurityQuestion() {
+        return securityQuestion;
+    }
+
+    public void setSecurityQuestion(List<SecurityQuestion> securityQuestion) {
+        this.securityQuestion = securityQuestion;
+    }
+
 }

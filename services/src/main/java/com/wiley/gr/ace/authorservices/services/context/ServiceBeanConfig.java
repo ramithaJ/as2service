@@ -16,7 +16,6 @@ import org.springframework.context.annotation.Configuration;
 
 import com.wiley.gr.ace.authorservices.services.service.ASDataService;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
-import com.wiley.gr.ace.authorservices.services.service.AuthorProfileExternalService;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 import com.wiley.gr.ace.authorservices.services.service.DashBoardService;
 import com.wiley.gr.ace.authorservices.services.service.OrcidService;
@@ -27,7 +26,6 @@ import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
 import com.wiley.gr.ace.authorservices.services.service.impl.ASDataServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.AdminLoginServiceImpl;
-import com.wiley.gr.ace.authorservices.services.service.impl.AuthorProfileExternalServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.AuthorProfileServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.DashBoardServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.OrcidServiceImpl;
@@ -94,9 +92,5 @@ public class ServiceBeanConfig {
         return new AuthorProfileServiceImpl();
     }
     
-    @Bean(name = "AuthorProfileExternalService")
-    public AuthorProfileExternalService authorProfileExternalService() {
-        
-        return new AuthorProfileExternalServiceImpl();
-    }
+  
 }

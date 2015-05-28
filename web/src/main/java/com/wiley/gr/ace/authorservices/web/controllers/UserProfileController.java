@@ -30,7 +30,6 @@ import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.Society;
-import com.wiley.gr.ace.authorservices.services.service.AuthorProfileExternalService;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
 
@@ -52,8 +51,7 @@ public class UserProfileController {
     
     @Autowired(required = true)
     LocalValidatorFactoryBean validator;
-    @Autowired
-    AuthorProfileExternalService authorProfileExternalService;
+   
     
     @RequestMapping(value = "/affiliations/{userId}", method = RequestMethod.GET, produces = "application/json")
     public Service getAffiliationsList(@PathVariable("userId") String userId) {
@@ -151,15 +149,7 @@ public class UserProfileController {
 //        
 //        return service;
 //    }
-    @RequestMapping(value = "/interests/{userId}", method = RequestMethod.GET, produces = "application/json")
-    public Service getMyInterests(@PathVariable("userId") String userId) {
-        
-        Service service = new Service();
-        service.setPayload(authorProfileExternalService.getAreaOfInterest());
-        
-        return service;
-    }
-    
+
     
     /**
      * @param userId
@@ -271,9 +261,8 @@ public class UserProfileController {
     @RequestMapping(value = "/jobCategories/{userId}", method = RequestMethod.GET)
     public Service getJobCategories(@PathVariable("userId") String userId) {
         
-        Service service = new Service();
-        service.setPayload(authorProfileExternalService.getJobCategories());
-        return service;
+       
+        return null;
     }
     
     @RequestMapping(value = "/lookUpProfile/{userId}", method = RequestMethod.GET)
@@ -289,7 +278,6 @@ public class UserProfileController {
     public Service getIndustries(@PathVariable("userId") String userId) {
         
         Service service = new Service();
-        service.setPayload(authorProfileExternalService.getIndustries());
         return service;
         
     }

@@ -219,26 +219,31 @@ public class OrcidServiceImpl implements OrcidService {
 
     private void parseOrcidJSONForWork(String orcidMessageJSON, User user) {
         try {
-            JSONObject orcidMessageJSONObject = (JSONObject) new JSONParser()
+            JSONObject orcidProfileJSON = (JSONObject) new JSONParser()
                     .parse(orcidMessageJSON);
-            JSONObject orcidMessage = (JSONObject) orcidMessageJSONObject
-                    .get("orcid-message");
-            LOGGER.info("orcidMessage ##### ", orcidMessage);
-            JSONObject orcidProfile = (JSONObject) orcidMessage
+            JSONObject orcidProfile = (JSONObject) orcidProfileJSON
                     .get("orcid-profile");
             LOGGER.info("orcidProfile ##### ", orcidProfile);
-            JSONObject orcidActivitiesJSON = (JSONObject) new JSONParser()
-                    .parse(orcidProfile.toJSONString());
-            JSONObject orcidActivities = (JSONObject) orcidActivitiesJSON
-                    .get("orcid-activities");
-            LOGGER.info("orcidActivities ##### ", orcidActivities);
-            JSONObject orcidWorkJSON = (JSONObject) new JSONParser()
-                    .parse(orcidActivities.toJSONString());
-            JSONObject orcidWork = (JSONObject) orcidWorkJSON.get("orcid-work");
-            LOGGER.info("orcidWork ##### ", orcidWork);
-            JSONObject affiliations = (JSONObject) orcidActivities
-                    .get("affiliations");
-            parseAffiliations(affiliations, user);
+            if (null != orcidProfile) {
+                JSONObject orcidActivitiesJSON = (JSONObject) new JSONParser()
+                        .parse(orcidProfile.toJSONString());
+                JSONObject orcidActivities = (JSONObject) orcidActivitiesJSON
+                        .get("orcid-activities");
+                LOGGER.info("orcidActivities ##### ", orcidActivities);
+                if (null != orcidActivities) {
+                    JSONObject orcidWorkJSON = (JSONObject) new JSONParser()
+                            .parse(orcidActivities.toJSONString());
+                    JSONObject orcidWork = (JSONObject) orcidWorkJSON
+                            .get("orcid-work");
+                    LOGGER.info("orcidWork ##### ", orcidWork);
+                    JSONObject affiliations = (JSONObject) orcidActivities
+                            .get("affiliations");
+                    LOGGER.info("affiliations ##### ", affiliations);
+                    if (null != affiliations) {
+                        parseAffiliations(affiliations, user);
+                    }
+                }
+            }
         } catch (Exception e) {
             LOGGER.error("Initial SessionFactory creation failed.", e);
         }
@@ -246,23 +251,21 @@ public class OrcidServiceImpl implements OrcidService {
 
     private void parseAffiliations(JSONObject affiliations, User user) {
         try {
-            if (null != affiliations) {
-                JSONObject affiliationArrayJSON = (JSONObject) new JSONParser()
-                        .parse(affiliations.toJSONString());
-                JSONArray affiliationArray = (JSONArray) affiliationArrayJSON
-                        .get("affiliation");
-                LOGGER.info("affiliationArray ##### ", affiliationArray);
-                if (null != affiliationArray) {
-                    Iterator<JSONObject> affiliationItr = affiliationArray
-                            .iterator();
-                    Affiliation affiliation = null;
-                    while (affiliationItr.hasNext()) {
-                        JSONObject affiliationJSON = (JSONObject) new JSONParser()
-                                .parse(affiliationItr.next().toJSONString());
-                        affiliation = parseAffiliationJSON(affiliationJSON);
-                        if(null!=affiliation){
+            JSONObject affiliationArrayJSON = (JSONObject) new JSONParser()
+                    .parse(affiliations.toJSONString());
+            JSONArray affiliationArray = (JSONArray) affiliationArrayJSON
+                    .get("affiliation");
+            LOGGER.info("affiliationArray ##### ", affiliationArray);
+            if (null != affiliationArray) {
+                Iterator<JSONObject> affiliationItr = affiliationArray
+                        .iterator();
+                Affiliation affiliation = null;
+                while (affiliationItr.hasNext()) {
+                    JSONObject affiliationJSON = (JSONObject) new JSONParser()
+                            .parse(affiliationItr.next().toJSONString());
+                    affiliation = parseAffiliationJSON(affiliationJSON);
+                    if (null != affiliation) {
                         user.setAffiliation(affiliation);
-                        }
                     }
                 }
             }
@@ -287,12 +290,13 @@ public class OrcidServiceImpl implements OrcidService {
             affiliation.setStartDate((java.util.Date) affiliationJSON
                     .get("start-date"));
             organization = parseOrganization(affiliationJSON);
-            if(null!=organization){
-            affiliation.setOrganization(organization);
+            if (null != organization) {
+                affiliation.setOrganization(organization);
             }
             disambiguatedOrganization = parseDisambiguatedOrganization(affiliationJSON);
-            if(null!=disambiguatedOrganization){
-            affiliation.setDisambiguatedOrganization(disambiguatedOrganization);
+            if (null != disambiguatedOrganization) {
+                affiliation
+                        .setDisambiguatedOrganization(disambiguatedOrganization);
             }
         } catch (Exception e) {
             LOGGER.error("Initial SessionFactory creation failed.", e);
@@ -311,8 +315,8 @@ public class OrcidServiceImpl implements OrcidService {
                 organization = new Organization();
                 organization.setName((String) organizationDetails.get("name"));
                 Address address = parseAddress(organizationDetails);
-                if(null!=address){
-                organization.setAddress(address);
+                if (null != address) {
+                    organization.setAddress(address);
                 }
             }
         } catch (Exception e) {
