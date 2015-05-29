@@ -118,10 +118,9 @@ public class UserRolesDAOImpl implements UserRolesDAO {
             
             for (Map.Entry<String, RolePermissions> entry : daoPermissionsMap
                     .entrySet()) {
-                session.delete(entry.getValue());
+                Query deleteQuery = session.createSQLQuery("delete from role_permissions where permission_cd = :permissionCd").setParameter("permissionCd", entry.getValue().getId().getPermissionCd());
+                deleteQuery.executeUpdate();
             }
-            
-            
             
             transaction.commit();
         } finally {
