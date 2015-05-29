@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.AccessReasons;
 import com.wiley.gr.ace.authorservices.model.Service;
@@ -112,8 +113,11 @@ public class ASDataController {
      */
     @RequestMapping(value = "/institutions/", method = RequestMethod.GET )
     public Service getInstitutions() {
+    	
+    	Service service = new Service();
+    	service.setPayload(aSDataService.getInstitutions());
         
-        return null;
+        return service;
     }
     
     /**
@@ -122,7 +126,10 @@ public class ASDataController {
     @RequestMapping(value = "/departments/", method = RequestMethod.GET )
     public Service getDepartments() {
         
-        return null;
+    	Service service = new Service();
+    	service.setPayload(aSDataService.getDepartments());
+        
+        return service;
     }
     
     /**
@@ -130,8 +137,10 @@ public class ASDataController {
      */
     @RequestMapping(value = "/researchFunders/", method = RequestMethod.GET )
     public Service getResearchFunders() {
+    	Service service = new Service();
+    	service.setPayload(aSDataService.getResearchFunders());
         
-        return null;
+        return service;
     }
     
     /**
@@ -146,7 +155,10 @@ public class ASDataController {
     @RequestMapping(value = "/societies/", method = RequestMethod.GET )
     public Service getSocieties() {
         
-        return null;
+    	Service service = new Service();
+    	service.setPayload(aSDataService.getSocieties());
+        
+        return service;
     }
     
     @RequestMapping(value = "/areasOfInterests/", method = RequestMethod.GET )
