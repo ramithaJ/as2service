@@ -210,19 +210,12 @@ public class OrcidServiceImpl implements OrcidService {
             country.setCountryCode((String) countryDetails.get("value"));
             List<Country> countryList = asDataService.getCountries();
             for (Country country1 : countryList) {
-                if ((country1.getCountryCode()).equalsIgnoreCase((country
+                if ((country1.getCountryCode()).startsWith((country
                         .getCountryCode()))) {
                     country.setCountryName(country1.getCountryName());
                     break;
                 }
             }
-            // country.setCountryName("INDIA"); // Need to replace
-            // with actual
-            // name once we
-            // have the
-            // service for
-            // country
-
         } catch (Exception e) {
             LOGGER.error("Initial SessionFactory creation failed.", e);
         }
