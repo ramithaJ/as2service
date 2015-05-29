@@ -995,4 +995,244 @@
     <changeSet author="gphaniraj" id="WP1-187">
         <addForeignKeyConstraint baseColumnNames="USER_ID" baseTableName="USER_WOA_ACCOUNTS" constraintName="USER_WOA_ACCOUNTS_FK" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USER_PROFILE"/>
     </changeSet>
+	<changeSet author="gphaniraj" id="WP1-188">
+<sql>
+alter table user_woa_accounts drop columN CREATED_BY;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-189">
+<sql>
+alter table user_woa_accounts drop column created_date;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-190">
+<sql>
+alter table user_woa_accounts drop column updated_by;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-191">
+<sql>
+alter table user_woa_accounts drop column updated_date;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-192">
+<sql>
+alter table user_woa_accounts drop primary key;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-193">
+<sql>
+alter table user_woa_accounts drop column woaaccnt_cd;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-194">
+<sql>
+alter table user_woa_accounts add (woa_institution_id number,woa_institution_name varchar2(250),created_date timestamp(6),created_by number,updated_date timestamp(6),updated_by number);
+</sql>
+</changeSet>
+
+<!-- <changeSet author="gphaniraj" id="WP1-195">
+<sql>
+alter table user_woa_accounts drop primary key user_woa_accounts_pk;
+</sql>
+</changeSet> 
+-->
+
+<changeSet author="gphaniraj" id="WP1-195">
+<sql>
+alter table user_woa_accounts add constraint user_woa_accounts_pk primary key (user_id,woa_institution_name);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-196">
+<sql>
+alter table USER_WOA_ACCOUNTS add foreign key(created_by) references users(user_id);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-197">
+<sql>
+alter table USER_WOA_ACCOUNTS add foreign key(updated_by) references users(user_id);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-198">
+<sql>
+alter table user_funder_grants rename to user_funders;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-199">
+<sql>
+alter table user_funders rename column user_funder_grant_id to user_funder_id;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-200">
+<sql>
+alter table user_funders drop column grant_num;
+</sql>
+</changeSet>
+
+<!--
+<changeSet author="gphaniraj" id="WP1-201">
+<sql>
+CREATE SEQUENCE USER_FUNDER_GRANTS_SEQ START WITH 1 INCREMENT BY 1 NOCACHE;
+</sql>
+</changeSet>
+-->
+
+<changeSet author="gphaniraj" id="WP1-201">
+<sql>
+CREATE TABLE USER_FUNDER_GRANTS 
+    ( 
+     FUNDER_GRANT_ID NUMBER DEFAULT USER_FUNDER_GRANTS_SEQ.NEXTVAL, 
+     USER_FUNDER_ID NUMBER , 
+     GRANT_NUM VARCHAR2 (100), 
+     CREATED_BY NUMBER , 
+     CREATED_DATE DATE , 
+     UPDATED_BY NUMBER , 
+     UPDATED_DATE DATE 
+    ) 
+;
+</sql>
+</changeSet>
+
+
+<changeSet author="gphaniraj" id="WP1-202">
+<sql>
+ALTER TABLE USER_FUNDERS rename constraint USER_FUNDER_GRANTS_PK TO USER_FUNDER_PK;
+</sql>
+</changeSet>
+
+
+
+<changeSet author="gphaniraj" id="WP1-203">
+<sql>
+ALTER TABLE USER_FUNDER_GRANTS 
+    ADD CONSTRAINT USER_FUNDER_GRANT_PK PRIMARY KEY (FUNDER_GRANT_ID) ;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-204">
+<sql>
+ALTER TABLE USER_FUNDER_GRANTS 
+    ADD CONSTRAINT USER_FUNDER_GRANTS_FK FOREIGN KEY 
+    ( 
+     USER_FUNDER_ID
+    ) 
+    REFERENCES USER_FUNDERS 
+    ( 
+     USER_FUNDER_ID
+    ) 
+;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-205">
+<sql>
+alter table USER_FUNDER_GRANTS add foreign key(created_by) references users(user_id);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-206">
+<sql>
+alter table USER_FUNDER_GRANTS add foreign key(updated_by) references users(user_id);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-207">
+<sql>
+ALTER TABLE AUTH_COAUTH_DETAILS RENAME COLUMN AUTHOR_ID TO AUTHOR_USER_ID;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-208">
+<sql>
+ALTER TABLE USER_SOCIETY_DETAILS DROP COLUMN DISCOUNT_FLG_OO_OR_OA_PRICING;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-209">
+<sql>
+CREATE SEQUENCE ADDITIONAL_PERM_SEQ START WITH 1 INCREMENT BY 1 NOCACHE;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-210">
+<sql>
+DROP TABLE ADDITIONAL_PERMISSIONS;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-211">
+<sql>
+CREATE TABLE ADDITIONAL_PERMISSIONS 
+    ( 
+     ADDITIONAL_PERMISSIONS_ID NUMBER DEFAULT ADDITIONAL_PERM_SEQ.NEXTVAL, 
+     USER_ID NUMBER,  
+     ARTICLE_ID NUMBER, 
+     JOURNAL_ID NUMBER,
+     PERMISSION_CD VARCHAR2 (25)  NOT NULL , 
+     PERM_END_DT TIMESTAMP(6) , 
+     CREATED_DATE TIMESTAMP(6) , 
+     CREATED_BY NUMBER , 
+     UPDATED_DATE TIMESTAMP(6) , 
+     UPDATED_BY NUMBER 
+    ) 
+;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-212">
+<sql>
+ALTER TABLE ADDITIONAL_PERMISSIONS 
+ADD CONSTRAINT ADDITIONAL_PERMISSIONS_PK PRIMARY KEY ( ADDITIONAL_PERMISSIONS_ID ) ;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-213">
+<sql>
+alter table ADDITIONAL_PERMISSIONS add foreign key(created_by) references users(user_id);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-214">
+<sql>
+alter table ADDITIONAL_PERMISSIONS add foreign key(updated_by) references users(user_id);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-215">
+<sql>
+ALTER TABLE ADDITIONAL_PERMISSIONS 
+    ADD CONSTRAINT "ADDITIONAL_PERMISSIONS_FK" FOREIGN KEY ("USER_ID")
+	  REFERENCES "PDBADMIN"."USERS" ("USER_ID");
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-216">
+<sql>  
+ALTER TABLE ADDITIONAL_PERMISSIONS ADD 	 CONSTRAINT "ADDITIONAL_PERMISSIONS_FK1" FOREIGN KEY ("JOURNAL_ID")
+REFERENCES "JOURNALS" ("JOURNAL_ID");
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-217">
+<sql> 
+ALTER TABLE ADDITIONAL_PERMISSIONS ADD  CONSTRAINT "ADDITIONAL_PERMISSIONS_FK3" FOREIGN KEY ("PERMISSION_CD")
+	  REFERENCES  "PERMISSIONS" ("PERMISSION_CD") ;
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-218">
+<sql>
+ALTER TABLE ROLE_PERMISSIONS ADD CONSTRAINT ROLE_PERMISSIONS_PK PRIMARY KEY (ROLE_ID,PERMISSION_CD);
+</sql>
+</changeSet>
 </databaseChangeLog>
