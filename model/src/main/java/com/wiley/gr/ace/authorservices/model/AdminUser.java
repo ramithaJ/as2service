@@ -1,5 +1,7 @@
 package com.wiley.gr.ace.authorservices.model;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -11,7 +13,7 @@ public class AdminUser {
     
     private String emailId;
     
-    private String roleId;
+    private List<String> rolesList;
     
     private String firstName;
     
@@ -31,20 +33,6 @@ public class AdminUser {
         this.emailId = emailId;
     }
     
-    /**
-     * @return
-     */
-    public String getRoleId() {
-        return roleId;
-    }
-    
-    /**
-     * @param roleId
-     */
-    public void setRoleId(String roleId) {
-        this.roleId = roleId;
-    }
-
     /**
      * @return
      */
@@ -71,6 +59,20 @@ public class AdminUser {
      */
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    /**
+     * @return
+     */
+    public List<String> getRolesList() {
+        return rolesList;
+    }
+
+    /**
+     * @param rolesList
+     */
+    public void setRolesList(List<String> rolesList) {
+        this.rolesList = rolesList;
     }
     
 }
