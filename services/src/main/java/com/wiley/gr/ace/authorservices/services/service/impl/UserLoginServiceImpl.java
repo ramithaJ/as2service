@@ -54,13 +54,12 @@ public class UserLoginServiceImpl implements UserLoginService {
                 Date currentDate = new Date();
                 Date date = userLoginServiceDAO.getLockedTime(userId);
                 Date lockedDate = new Date(date.getTime());
-                if ((currentDate.getTime() - lockedDate.getTime()) > 1800000) {
+                if ((currentDate.getTime() - lockedDate.getTime()) > 300) {
                     
                     if (authenticateUser(userId, emailId, password)) {
                         
                         userMgmt = new UserMgmt();
-                        userMgmt.setUserId(userLoginServiceDAO
-                                .getUserId(emailId) + "");
+                        userMgmt.setUserId(userId + "");
                     } else {
                         throw new ASException("1005",
                                 "Your account is locked. Please try after sometime .");
@@ -171,17 +170,6 @@ public class UserLoginServiceImpl implements UserLoginService {
     }
     
     /**
-     * @param userId
-     * @return
-     */
-    @Override
-    public boolean lockUser(int userId) {
-        
-        return userLoginServiceDAO.lockUser(userId);
-        
-    }
-    
-    /**
      * @param emailId
      * @return
      */
@@ -232,9 +220,9 @@ public class UserLoginServiceImpl implements UserLoginService {
             int count = userLoginServiceDAO.getCount(userId);
             if (count >= 2) {
                 
-                if (userLoginServiceDAO.lockUser(userId)) {
+                if (almService.lockUser(emailId)) {
                     throw new ASException("1002",
-                            "Your account is locked. Please try after sometime   .");
+                            "Your account is locked. Please try after sometime.");
                     
                 }
             } else {
