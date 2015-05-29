@@ -181,4 +181,12 @@ public class UserLoginController extends ASExceptionController {
         return service;
         
     }
+    @RequestMapping(value="resetByEmail/{emailId}" ,method= RequestMethod.POST)
+    
+    public Service resetByEmail(@PathVariable("emailId") String emailId )
+    {
+    	
+
+    	return new Service();
+    }
 }
