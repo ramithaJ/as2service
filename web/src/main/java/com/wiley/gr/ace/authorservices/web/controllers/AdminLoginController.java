@@ -63,8 +63,8 @@ public class AdminLoginController extends ASExceptionController {
 			userObj.setUserId(userId);
 			service.setPayload(userObj);
 		} else {
-			throw new ASException("1001",
-					"Invalid email address. Please Re-Enter");
+			throw new ASException("1010",
+					"You don't have access to Wiley Admin.");
 		}
 		return service;
 	}
@@ -121,4 +121,13 @@ public class AdminLoginController extends ASExceptionController {
 		return new Service();
 
 	}
+	
+	@RequestMapping(value = "/findUser/{emailId}/", method = RequestMethod.POST, produces = "application/json")
+    public Service findUser(@PathVariable("emailId") String emailId) {
+
+        Service service = new Service();
+        service.setPayload(adminLoginService.findUser(emailId));
+        return service;
+
+    }
 }
