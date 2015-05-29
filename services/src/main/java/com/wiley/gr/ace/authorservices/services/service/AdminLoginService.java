@@ -11,6 +11,7 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service;
 
+import com.wiley.gr.ace.authorservices.model.AdminUser;
 import com.wiley.gr.ace.authorservices.model.RolesAndPermissions;
 import com.wiley.gr.ace.authorservices.model.ASRolesAndPermissions;
 
@@ -58,5 +59,12 @@ public interface AdminLoginService {
      * @param rolesAndPermissions
      */
     void addOrUpdateUserRole(ASRolesAndPermissions rolesAndPermissions);
+    
+    /**
+     * This service calls the active directory to get the wiley user details
+     * @param emailId
+     * @return
+     */
+    AdminUser findUser(String emailId);
     
 }
