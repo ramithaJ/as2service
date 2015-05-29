@@ -84,8 +84,9 @@ public class AdminLoginController extends ASExceptionController {
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/json")
 	public Service createAdmin(@RequestBody AdminUser admin) {
-
-		return new Service();
+	    
+		adminLoginService.createAdmin(admin);
+	    return new Service();
 
 	}
 
