@@ -11,6 +11,11 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.services;
 
+import java.util.List;
+
+import com.wiley.gr.ace.authorservices.persistence.entity.UserRoles;
+import com.wiley.gr.ace.authorservices.persistence.entity.Users;
+
 /**
  * @author RAVISINHA
  */
@@ -31,5 +36,11 @@ public interface UserLoginDao {
      * @return
      */
     boolean doLogin(String emailId);
+    
+    /**
+     * This method creates admin user in database
+     * @param users
+     */
+    void createAdminUser(Users users, List<UserRoles> userRolesList);
     
 }
