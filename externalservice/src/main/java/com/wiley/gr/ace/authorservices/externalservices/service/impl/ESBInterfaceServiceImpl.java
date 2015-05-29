@@ -27,6 +27,8 @@ import org.springframework.web.client.RestTemplate;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
+import com.wiley.gr.ace.authorservices.model.external.ProfileInformation;
+import com.wiley.gr.ace.authorservices.model.external.Status;
 
 /**
  * @author Virtusa
@@ -136,20 +138,20 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 	}
 
 	@Override
-	public String creatUser(User user) throws Exception {
-		String status = "failure";
+	public Status creatUser(ProfileInformation profileForCreation)
+			throws Exception {
+		Status status = new Status();
 		final String url = createUserUrl;
 		URI uri = new URI(url);
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders requestHeaders = new HttpHeaders();
 
 		requestHeaders.setAccept(Arrays.asList(MediaType.TEXT_PLAIN));
-		HttpEntity<String> requestEntity = new HttpEntity<String>(
-				requestHeaders);
-		ResponseEntity<String> response = restTemplate.exchange(uri,
-				HttpMethod.POST, requestEntity, String.class);
+		HttpEntity<ProfileInformation> requestEntity = new HttpEntity<ProfileInformation>(
+				profileForCreation, requestHeaders);
+		ResponseEntity<Status> response = restTemplate.exchange(uri,
+				HttpMethod.POST, requestEntity, Status.class);
 		status = response.getBody();
-		System.out.println("status :: " + status);
 		return status;
 	}
 

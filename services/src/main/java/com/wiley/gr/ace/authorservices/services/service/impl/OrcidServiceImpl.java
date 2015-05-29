@@ -15,6 +15,7 @@
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
 import java.util.Iterator;
+import java.util.List;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -32,6 +33,7 @@ import com.wiley.gr.ace.authorservices.model.DisambiguatedOrganization;
 import com.wiley.gr.ace.authorservices.model.Organization;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.orcid.OrcidAccessToken;
+import com.wiley.gr.ace.authorservices.services.service.ASDataService;
 import com.wiley.gr.ace.authorservices.services.service.OrcidService;
 
 /**
@@ -43,6 +45,8 @@ public class OrcidServiceImpl implements OrcidService {
             .getLogger(OrcidServiceImpl.class);
     @Autowired(required = true)
     OrcidInterfaceService oricdInterfaceService;
+    @Autowired(required = true)
+    ASDataService asDataService;
 
     /*
      * (non-Javadoc)
@@ -204,13 +208,14 @@ public class OrcidServiceImpl implements OrcidService {
         try {
             country = new Country();
             country.setCountryCode((String) countryDetails.get("value"));
-            country.setCountryName("INDIA"); // Need to replace
-                                             // with actual
-                                             // name once we
-                                             // have the
-                                             // service for
-                                             // country
-
+            List<Country> countryList = asDataService.getCountries();
+            for (Country countryEntity : countryList) {
+                if ((countryEntity.getCountryCode()).startsWith((country
+                        .getCountryCode()))) {
+                    country.setCountryName(countryEntity.getCountryName());
+                    break;
+                }
+            }
         } catch (Exception e) {
             LOGGER.error("Initial SessionFactory creation failed.", e);
         }

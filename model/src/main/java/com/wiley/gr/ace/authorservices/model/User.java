@@ -66,7 +66,10 @@ public class User {
     
     private boolean searchFullName;
     
-    private String country;
+    private Country country;
+    
+    private String countryNameNE;
+    
     
     private Character termsOfUseFlg;
     
@@ -380,11 +383,11 @@ public class User {
         this.searchFullName = searchFullName;
     }
     
-    public String getCountry() {
+    public Country getCountry() {
         return country;
     }
     
-    public void setCountry(String country) {
+    public void setCountry(Country country) {
         this.country = country;
     }
     
@@ -403,5 +406,13 @@ public class User {
     public void setUserReferenceData(UserReferenceData userReferenceData) {
         this.userReferenceData = userReferenceData;
     }
+
+	public String getCountryNameNE() {
+		return countryNameNE;
+	}
+
+	public void setCountryNameNE(String countryNameNE) {
+		this.countryNameNE = countryNameNE;
+	}
     
 }

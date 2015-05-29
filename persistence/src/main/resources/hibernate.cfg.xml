@@ -91,7 +91,7 @@
             <mapping class="com.wiley.gr.ace.authorservices.persistence.entity.UserProfileAttribVisibleId"/>
             <mapping class="com.wiley.gr.ace.authorservices.persistence.entity.UserRolesId"/>
             <mapping class="com.wiley.gr.ace.authorservices.persistence.entity.UserSecondaryEmailAddr"/>
-			
+			<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog"/>
 
 	</session-factory>
 </hibernate-configuration>
