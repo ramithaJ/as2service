@@ -101,7 +101,7 @@ public class OrcidInterfaceServiceImpl implements OrcidInterfaceService {
     public String getWork(OrcidAccessToken token) throws Exception {
         
         Reference ref = new Reference("http://sandbox.orcid.org" + "/"
-                + token.getOrcid() + "/orcid-work");
+                + token.getOrcid() + "/orcid-works");
         ClientResource client = new ClientResource(ref);
         Form headers = (Form) client.getRequestAttributes().get(
                 "org.restlet.http.headers");

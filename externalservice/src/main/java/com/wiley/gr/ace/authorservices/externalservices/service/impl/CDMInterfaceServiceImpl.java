@@ -12,11 +12,17 @@
 
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.http.HttpMethod;
 
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
 import com.wiley.gr.ace.authorservices.model.Service;
+import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
+import com.wiley.gr.ace.authorservices.model.external.Industries;
+import com.wiley.gr.ace.authorservices.model.external.JobCategories;
 import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
 
 /**
@@ -33,7 +39,7 @@ public class CDMInterfaceServiceImpl implements CDMInterfaceService {
      */
     @Override
     public LookUpProfile lookUpProfile(String userId) {
-        final String url = "http://demo6374909.mockable.io/user/lookUpProfile";
+        final String url = "http://demo7930138.mockable.io/user/LookUpProfile";
         LookUpProfile lookupProfile = (LookUpProfile) StubInvokerUtil
                 .invokeStub(url, HttpMethod.GET, "LookUpProfile");
         return lookupProfile;
@@ -61,4 +67,54 @@ public class CDMInterfaceServiceImpl implements CDMInterfaceService {
         }
         return false;
     }
+
+    @Override
+    public List<ESBResponse> getAreaOfInterests() {
+        final String url = "http://vmesbdev.wiley.com:15200/PickList?q=*&fq=doc_type:SUBJECTCD&wt=json&rows1000000";
+        ESBResponse areaOfInterests = (ESBResponse) StubInvokerUtil.invokeStub(
+                url, HttpMethod.GET, "AreaOfInterests");
+        List<ESBResponse> areaOfInterestslist = new ArrayList<ESBResponse>();
+        areaOfInterestslist.add(areaOfInterests);
+
+        return areaOfInterestslist;
+    }
+
+    @Override
+    public JobCategories getJobCategories() {
+
+        final String url = "http://vmesbdev.wiley.com:15200/PickList?q=*&fq=doc_type:JOBCD&wt=json&rows=1000000";
+        JobCategories jobCategory = (JobCategories) StubInvokerUtil.invokeStub(
+                url, HttpMethod.GET, "JobCategory");
+        return jobCategory;
+    }
+
+    @Override
+    public Industries getIndustries() {
+
+        final String url = "http://vmesbdev.wiley.com:15200/PickList?q=*&fq=doc_type:NAICSCD&wt=json&rows=1000000";
+        Industries industry = (Industries) StubInvokerUtil.invokeStub(url,
+                HttpMethod.GET, "Industry");
+        return industry;
+    }
+	@Override
+	public List<ESBResponse> getCountries() {
+		final String url = "http://vmesbdev.wiley.com:15200/PickList?q=*&fq=doc_type:COUNTRYCD&wt=json&rows=1000000";
+		 ESBResponse countrycode = (ESBResponse) StubInvokerUtil
+	                .invokeStub(url, HttpMethod.GET, "AreaOfInterests");
+		        List<ESBResponse> countrycodelist=new ArrayList<ESBResponse>();
+		        countrycodelist.add(countrycode);
+		 
+	        return countrycodelist ;
+	}
+
+	@Override
+	public List<ESBResponse> getStates() {
+		final String url = "http://vmesbdev.wiley.com:15200/PickList?q=*&fq=doc_type:STATECD&wt=json&rows=1000000";
+		 ESBResponse state = (ESBResponse) StubInvokerUtil
+	                .invokeStub(url, HttpMethod.GET, "AreaOfInterests");
+		        List<ESBResponse> statelist=new ArrayList<ESBResponse>();
+		        statelist.add(state);
+		 
+	        return statelist ;
+	}
 }

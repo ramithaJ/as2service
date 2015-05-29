@@ -10,26 +10,23 @@
  * of John Wiley & Sons.
  *******************************************************************************/
 
-package com.wiley.gr.ace.authorservices.externalservices.service;
+package com.wiley.gr.ace.authorservices.model.external;
 
-import java.util.List;
+public class ESBResponse {
 
-import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
-import com.wiley.gr.ace.authorservices.model.external.Industries;
-import com.wiley.gr.ace.authorservices.model.external.JobCategories;
-import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
+	private Response response;
 
-public interface CDMInterfaceService {
+	public Response getResponse() {
+		return response;
+	}
 
-	LookUpProfile lookUpProfile(String userId);
+	public void setResponse(Response response) {
+		this.response = response;
+	}
 
-	boolean updateProfile(LookUpProfile lookUpProfile);
+	@Override
+	public String toString() {
+		return "AreaOfInterests [response=" + response + "]";
+	}
 
-	List<ESBResponse> getAreaOfInterests();
-
-	JobCategories getJobCategories();
-
-	Industries getIndustries();
-	List<ESBResponse> getCountries();
-	List<ESBResponse> getStates();
 }

@@ -11,7 +11,10 @@ import org.springframework.web.client.RestTemplate;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.Service;
+import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
 import com.wiley.gr.ace.authorservices.model.external.CDMAffiliation;
+import com.wiley.gr.ace.authorservices.model.external.Industries;
+import com.wiley.gr.ace.authorservices.model.external.JobCategories;
 import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
 
 /**
@@ -53,8 +56,23 @@ public class StubInvokerUtil {
 				response = restTemplate.exchange(uri, httpMethod,
 						requestEntity, LookUpProfile.class);
 
-			}
-			
+			} else if (className.equals("AreaOfInterests")) {
+				requestEntity = new HttpEntity<ESBResponse>(requestHeaders);
+				response = restTemplate.exchange(uri, httpMethod,
+						requestEntity, ESBResponse.class);
+			} else if (className.equals("JobCategory")) {
+                requestEntity = new HttpEntity<JobCategories>(requestHeaders);
+                response = restTemplate.exchange(uri, httpMethod,
+                        requestEntity, JobCategories.class);
+            }  else if (className.equals("Industry")) {
+                requestEntity = new HttpEntity<Industries>(requestHeaders);
+                response = restTemplate.exchange(uri, httpMethod,
+                        requestEntity, Industries.class);
+            }else if (className.equals("ESBResponse")) {
+				requestEntity = new HttpEntity<ESBResponse>(requestHeaders);
+				response = restTemplate.exchange(uri, httpMethod,
+						requestEntity, ESBResponse.class);
+            }
 			if(response != null) {
 				
 				return response.getBody();

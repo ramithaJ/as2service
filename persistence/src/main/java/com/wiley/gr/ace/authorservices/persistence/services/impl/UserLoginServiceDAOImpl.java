@@ -137,7 +137,7 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
      * #doLogin(int, java.lang.String)
      */
     @Override
-    public void doLogin(int userId, String password) {
+    public void doLogin(int userId) {
         
         Session session = null;
         Transaction transaction = null;
@@ -149,6 +149,8 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
             Users users = (Users) session.load(Users.class, userId);
             
             users.setLastLoginDate(date);
+            users.setUsersByUpdatedBy(users);
+            users.setUpdatedDate(date);
             Users updateByUser = new Users();
             updateByUser.setUserId(userId);
             users.setUsersByUpdatedBy(updateByUser);
@@ -246,7 +248,7 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
         try {
             session = con.getSessionFactory().openSession();
             Criteria criteria = session.createCriteria(Users.class);
-            criteria.add(Restrictions.eq("emailAddr", emailId));
+            criteria.add(Restrictions.eq("primaryEmailAddr", emailId));
             Users user = (Users) criteria.uniqueResult();
             if (user != null) {
                 userId = user.getUserId();

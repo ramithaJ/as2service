@@ -51,6 +51,7 @@ public class UserProfileController {
     
     @Autowired(required = true)
     LocalValidatorFactoryBean validator;
+   
     
     @RequestMapping(value = "/affiliations/{userId}", method = RequestMethod.GET, produces = "application/json")
     public Service getAffiliationsList(@PathVariable("userId") String userId) {
@@ -139,15 +140,16 @@ public class UserProfileController {
      * @param userId
      * @return
      */
-    @RequestMapping(value = "/interests/{userId}", method = RequestMethod.GET, produces = "application/json")
-    public Service getMyInterests(@PathVariable("userId") String userId) {
-        
-        Service service = new Service();
-        service.setPayload(userProfileService.lookUpProfile(userId)
-                .getCustomerProfile().getInterests());
-        
-        return service;
-    }
+//    @RequestMapping(value = "/interests/{userId}", method = RequestMethod.GET, produces = "application/json")
+//    public Service getMyInterests(@PathVariable("userId") String userId) {
+//        
+//        Service service = new Service();
+//        service.setPayload(userProfileService.lookUpProfile(userId)
+//                .getCustomerProfile().getInterests());
+//        
+//        return service;
+//    }
+
     
     /**
      * @param userId
@@ -256,11 +258,26 @@ public class UserProfileController {
         return new Service();
     }
     
+    @RequestMapping(value = "/jobCategories/{userId}", method = RequestMethod.GET)
+    public Service getJobCategories(@PathVariable("userId") String userId) {
+        
+       
+        return null;
+    }
+    
     @RequestMapping(value = "/lookUpProfile/{userId}", method = RequestMethod.GET)
     public Service lookUpProfile(@PathVariable("userId") String userId) {
         
         Service service = new Service();
         service.setPayload(userProfileService.lookUpProfile(userId));
+        return service;
+        
+    }
+    
+    @RequestMapping(value = "/industries/{userId}", method = RequestMethod.GET)
+    public Service getIndustries(@PathVariable("userId") String userId) {
+        
+        Service service = new Service();
         return service;
         
     }

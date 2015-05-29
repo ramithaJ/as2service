@@ -222,7 +222,7 @@ public class UserLoginServiceImpl implements UserLoginService {
         
         if (almService.authenticateUserALM(emailId, password)) {
             
-            userLoginServiceDAO.doLogin(userId, password);
+            userLoginServiceDAO.doLogin(userId);
             userLoginServiceDAO.unLockUser(userId);
             userLoginServiceDAO.updateCount(0, userId);
             loginStatus = true;

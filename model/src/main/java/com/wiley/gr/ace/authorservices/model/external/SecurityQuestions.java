@@ -9,27 +9,31 @@
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
  *******************************************************************************/
-
-package com.wiley.gr.ace.authorservices.externalservices.service;
+/**
+ * 
+ */
+package com.wiley.gr.ace.authorservices.model.external;
 
 import java.util.List;
 
-import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
-import com.wiley.gr.ace.authorservices.model.external.Industries;
-import com.wiley.gr.ace.authorservices.model.external.JobCategories;
-import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-public interface CDMInterfaceService {
+/**
+ * @author yugandhark
+ *
+ */
+@JsonInclude(Include.NON_NULL)
+public class SecurityQuestions {
 
-	LookUpProfile lookUpProfile(String userId);
+    private List<SecurityQuestion> securityQuestion;
 
-	boolean updateProfile(LookUpProfile lookUpProfile);
+    public List<SecurityQuestion> getSecurityQuestion() {
+        return securityQuestion;
+    }
 
-	List<ESBResponse> getAreaOfInterests();
+    public void setSecurityQuestion(List<SecurityQuestion> securityQuestion) {
+        this.securityQuestion = securityQuestion;
+    }
 
-	JobCategories getJobCategories();
-
-	Industries getIndustries();
-	List<ESBResponse> getCountries();
-	List<ESBResponse> getStates();
 }

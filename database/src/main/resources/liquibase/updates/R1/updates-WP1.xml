@@ -1,33 +1,998 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
-    <changeSet author="gphaniraj (generated)" id="1431499408656-1">
-        <createTable tableName="TT_TIME">
-            <column name="TID" type="NUMBER"/>
-            <column name="TM" type="TIMESTAMP"/>
-			</createTable>
-			 </changeSet> 
-  <!--
-  <changeSet author="gphaniraj (generated)" id="1431499408656-2">
- <loadData tableName="test_csv" file="csv/export_cs.csv">
-    <column name="TID" type="NUMERIC"/>
-    <column name="TNAME" type="STRING"/>
-</loadData>	
- </changeSet>  
- -->
-  <!-- <changeSet author="gphaniraj (generated)" id="1431499408656-3">
- <loadUpdateData tableName="test_csv" file="csv/export_cs.csv" primaryKey="tid">
-    <column name="TID" type="NUMERIC"/>
-    <column name="TNAME" type="STRING"/>
-</loadUpdateData>		
- </changeSet> 
- -->
- 
- <changeSet author="gphaniraj (generated)" id="1431499408656-4" runOnChange="true">
- <sql splitStatements="false">
- create or replace procedure test_proc as
- begin
- dbms_output.put_line('first print stmt');
- end;
- </sql>
- </changeSet> 
+    <changeSet author="gphaniraj" id="WP1-1">
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="ADDRESS_SEQUENCE" startValue="2"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-2">
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="ADMIN_TASKS_SEQ" startValue="1"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-3">
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="AFFILIATION_SEQ" startValue="1"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-4">
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="0" ordered="false" sequenceName="ALERTS_SEQ" startValue="13"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-5">
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="AREA_OF_INTEREST_SEQ" startValue="1"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-6">
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="AUDIT_SEQ" startValue="1"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-7">
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="AUTH_COAUTH_DETAILS_SEQ" startValue="10"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-8">
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="AUTH_COLLEAGUE_DETAILS_SEQ" startValue="1"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-9">
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="EMAIL_TYPE_SEQ" startValue="1"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-10">
+        <createSequence cacheSize="20" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="ISEQ$$_91998" startValue="1"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-11">
+        <createSequence cacheSize="20" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="ISEQ$$_92000" startValue="1"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-12">
+        <createSequence cacheSize="20" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="ISEQ$$_92003" startValue="1"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-13">
+        <createSequence cacheSize="20" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="ISEQ$$_92006" startValue="1"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-14">
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="JOURNAL_SEQ" startValue="103"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-15">
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="NOTIFICATIONS_SEQ" startValue="1"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-16">
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="PERMISSION_SEQ" startValue="42"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-17">
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="RESEARCH_FUNDERS_SEQ" startValue="200"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-18">
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="RESEARCH_FUNDER_GRANTS_SEQ" startValue="1"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-19">
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="RESEARCH_FUNDER_SEQ" startValue="1"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-20">
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="0" ordered="false" sequenceName="ROLE_SEQ" startValue="24"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-21">
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="SECURITY_QUEST_SEQ" startValue="8"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-22">
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="SOCIETY_SEQ" startValue="500"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-23">
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="TEST_SEQ" startValue="11"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-24">
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="USER_ADDRESSES_SEQ" startValue="1"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-25">
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="USER_FUNDER_GRANTS_SEQ" startValue="1"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-26">
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="0" ordered="false" sequenceName="USER_LOOKUP_VALUE_SEQ" startValue="26"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-27">
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="USER_PROFILE_ATTRIB_VIS_SEQ" startValue="1"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-28">
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="USER_SECONDARY_EMAIL_ADDR_SEQ" startValue="1"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-29">
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="USER_SECURITY_SEQ" startValue="15"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-30">
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="USER_SEQ" startValue="1010"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-31">
+        <createTable tableName="ACTIONS">
+            <column name="ACTION_CD" type="VARCHAR2(15)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ACTION_NAME" type="VARCHAR2(50)"/>
+            <column name="DESCRIPTION" type="VARCHAR2(100)"/>
+            <column name="CREATED_DATE" type="TIMESTAMP"/>
+            <column name="CREATED_BY" type="NUMBER"/>
+            <column name="UPDATED_DATE" type="TIMESTAMP"/>
+            <column name="UPDATED_BY" type="NUMBER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-32">
+        <createTable tableName="ADDITIONAL_PERMISSIONS">
+            <column name="USER_ID" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ROLE_ID" type="NUMBER"/>
+            <column name="ARTICLE_ID" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PERMISSION_CD" type="VARCHAR2(25)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_DATE" type="TIMESTAMP"/>
+            <column name="CREATED_BY" type="NUMBER"/>
+            <column name="UPDATED_DATE" type="TIMESTAMP"/>
+            <column name="UPDATED_BY" type="NUMBER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-33">
+        <createTable tableName="ADDRESS">
+            <column defaultValueComputed="pdbadmin.&quot;ADDRESS_SEQUENCE&quot;.&quot;NEXTVAL&quot;" name="ADDRESS_ID" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TITLE_CD" type="VARCHAR2(50)"/>
+            <column name="FIRST_NAME" type="VARCHAR2(100)"/>
+            <column name="LAST_NAME" type="VARCHAR2(100)"/>
+            <column name="SUFFIX_CD" type="VARCHAR2(50)"/>
+            <column name="ADDRESS_LINE_1" type="VARCHAR2(200)"/>
+            <column name="ADDRESS_LINE_2" type="VARCHAR2(200)"/>
+            <column name="CITY" type="VARCHAR2(200)"/>
+            <column name="STATE" type="VARCHAR2(250)"/>
+            <column name="COUNTRY_CD" type="VARCHAR2(5)"/>
+            <column name="POSTALCODE" type="VARCHAR2(50)"/>
+            <column name="PHONE" type="VARCHAR2(60)"/>
+            <column name="FAX" type="VARCHAR2(50)"/>
+            <column name="INSTITUTION_CD" type="VARCHAR2(10)"/>
+            <column name="INSTITUTION_NAME" type="VARCHAR2(100)"/>
+            <column name="DEPARTMENT_CD" type="VARCHAR2(10)"/>
+            <column name="DEPARTMENT_NAME" type="VARCHAR2(100)"/>
+            <column name="CREATED_DATE" type="TIMESTAMP"/>
+            <column name="CREATED_BY" type="NUMBER"/>
+            <column name="UPDATED_DATE" type="TIMESTAMP"/>
+            <column name="UPDATED_BY" type="NUMBER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-34">
+        <createTable tableName="ADDRESS_TYPE">
+            <column name="ADDRESS_TYPE_CD" type="VARCHAR2(15)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="VARCHAR2(50)"/>
+            <column name="DESCRIPTION" type="VARCHAR2(250)"/>
+            <column name="CREATED_BY" type="NUMBER"/>
+            <column name="CREATED_DATE" type="date"/>
+            <column name="UPDATED_BY" type="NUMBER"/>
+            <column name="UPDATED_DATE" type="date"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-35">
+        <createTable tableName="ADMIN_PROFILE">
+            <column name="ADMIN_USER_ID" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_DATE" type="TIMESTAMP"/>
+            <column name="CREATED_BY" type="NUMBER"/>
+            <column name="UPDATED_DATE" type="TIMESTAMP"/>
+            <column name="UPDATED_BY" type="NUMBER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-36">
+        <createTable tableName="ALERTS">
+            <column name="ALERT_CD" type="VARCHAR2(15)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ALERT_NAME" type="VARCHAR2(250)"/>
+            <column name="DESCRIPTION" type="VARCHAR2(250)"/>
+            <column name="CREATED_DATE" type="TIMESTAMP"/>
+            <column name="CREATED_BY" type="NUMBER"/>
+            <column name="UPDATED_DATE" type="TIMESTAMP"/>
+            <column name="UPDATED_BY" type="NUMBER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-37">
+        <createTable tableName="AREA_OF_INTEREST">
+            <column name="AREA_OF_INTEREST_CD" type="VARCHAR2(15)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="INTEREST_NAME" type="VARCHAR2(250)"/>
+            <column name="CREATED_DATE" type="TIMESTAMP"/>
+            <column name="CREATED_BY" type="NUMBER"/>
+            <column name="UPDATED_DATE" type="TIMESTAMP"/>
+            <column name="UPDATED_BY" type="NUMBER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-38">
+        <createTable tableName="AUDIT_DETAILS">
+            <column defaultValueComputed="pdbadmin.&quot;AUDIT_SEQ&quot;.&quot;NEXTVAL&quot;" name="AUDIT_ID" type="NUMBER"/>
+            <column name="OBJ_NAME" type="VARCHAR2(50)"/>
+            <column name="OBJ_ATTRIBUTE" type="VARCHAR2(50)"/>
+            <column name="ACTION_CD" type="VARCHAR2(15)"/>
+            <column name="OLD_VAL" type="VARCHAR2(250)"/>
+            <column name="NEW_VAL" type="VARCHAR2(250)"/>
+            <column name="USER_ID" type="NUMBER"/>
+            <column name="CREATED_DATE" type="TIMESTAMP"/>
+            <column name="CREATED_BY" type="NUMBER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-39">
+        <createTable tableName="AUTH_COAUTH_DETAILS">
+            <column defaultValueComputed="pdbadmin.&quot;AUTH_COAUTH_DETAILS_SEQ&quot;.&quot;NEXTVAL&quot;" name="AUTH_COAUTH_ID" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="COAUTH_TITLE" type="VARCHAR2(50)"/>
+            <column name="COAUTH_FIRST_NAME" type="VARCHAR2(50)"/>
+            <column name="COAUTH_LAST_NAME" type="VARCHAR2(50)"/>
+            <column name="COAUTH_EMAIL_ADDR" type="VARCHAR2(250)"/>
+            <column name="COAUTH_PHONE" type="VARCHAR2(15)"/>
+            <column name="AUTHOR_ID" type="NUMBER"/>
+            <column name="COAUTH_USER_ID" type="NUMBER"/>
+            <column name="COAUTH_INSTITUTION_CD" type="VARCHAR2(10)"/>
+            <column name="COAUTH_INSTITUTION_NAME" type="VARCHAR2(100)"/>
+            <column name="COAUTH_DEPARTMENT_CD" type="VARCHAR2(10)"/>
+            <column name="COAUTH_DEPT_NAME" type="VARCHAR2(100)"/>
+            <column name="CREATED_DATE" type="TIMESTAMP"/>
+            <column name="CREATED_BY" type="NUMBER"/>
+            <column name="UPDATED_DATE" type="TIMESTAMP"/>
+            <column name="UPDATED_BY" type="NUMBER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-40">
+        <createTable tableName="AUTH_COLLEAGUE_DETAILS">
+            <column defaultValueComputed="pdbadmin.&quot;AUTH_COLLEAGUE_DETAILS_SEQ&quot;.&quot;NEXTVAL&quot;" name="AUTH_COLLEAGUE_ID" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FIRST_NAME" type="VARCHAR2(50)"/>
+            <column name="LAST_NAME" type="VARCHAR2(50)"/>
+            <column name="EMAIL_ADDR" type="VARCHAR2(250)"/>
+            <column name="INVITED_AUTHOR_ID" type="NUMBER"/>
+            <column name="COLLEAGUE_USER_ID" type="NUMBER"/>
+            <column name="ASSIGNED_ARTICLE_ID" type="NUMBER"/>
+            <column name="CREATED_DATE" type="TIMESTAMP"/>
+            <column name="CREATED_BY" type="NUMBER"/>
+            <column name="UPDATED_BY" type="NUMBER"/>
+            <column name="UPDATED_DATE" type="TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-41">
+        <createTable tableName="JOURNALS">
+            <column defaultValueComputed="pdbadmin.&quot;JOURNAL_SEQ&quot;.&quot;NEXTVAL&quot;" name="JOURNAL_ID" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DH_ID" type="NUMBER"/>
+            <column name="JOU_TITLE" type="VARCHAR2(300)"/>
+            <column name="JOU_INVITED_IN_AS" type="CHAR(1)"/>
+            <column name="CREATED_BY" type="NUMBER"/>
+            <column name="CREATED_DATE" type="TIMESTAMP"/>
+            <column name="UPDATED_BY" type="NUMBER"/>
+            <column name="UPDATED_DATE" type="TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-42">
+        <createTable tableName="LOOKUP_VALUES">
+            <column defaultValueComputed="pdbadmin.&quot;USER_LOOKUP_VALUE_SEQ&quot;.&quot;NEXTVAL&quot;" name="LOOKUP_ID" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LOOKUP_KEY" type="VARCHAR2(50)"/>
+            <column name="LOOKUP_NAME" type="VARCHAR2(250)"/>
+            <column name="LOOKUP_VALUE" type="VARCHAR2(1000)"/>
+            <column name="CREATED_DATE" type="TIMESTAMP"/>
+            <column name="CREATED_BY" type="VARCHAR2(100)"/>
+            <column name="UPDATED_DATE" type="TIMESTAMP"/>
+            <column name="UPDATED_BY" type="VARCHAR2(100)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-43">
+        <createTable tableName="NOTIFICATION">
+            <column name="ID" type="VARCHAR2(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ORIG_TMPL_ID" type="VARCHAR2(255)"/>
+            <column name="SENDER_ID" type="VARCHAR2(255)"/>
+            <column name="SENDER_EMAIL" type="VARCHAR2(255)"/>
+            <column name="CONTENT" type="CLOB"/>
+            <column name="TYPE" type="VARCHAR2(25)"/>
+            <column name="SENT_ON" type="date"/>
+            <column name="UNREAD" type="CHAR(1)"/>
+            <column name="CREATED_DATE" type="TIMESTAMP"/>
+            <column name="CREATED_BY" type="NUMBER"/>
+            <column name="UPDATED_DATE" type="TIMESTAMP"/>
+            <column name="UPDATED_BY" type="NUMBER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-44">
+        <createTable tableName="NOTIFICATION_RECIPIENTS">
+            <column name="NOTIFICATION_ID" type="VARCHAR2(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="USER_ID" type="VARCHAR2(255)"/>
+            <column name="EMAIL" type="VARCHAR2(255)"/>
+            <column name="CREATED_DATE" type="TIMESTAMP"/>
+            <column name="CREATED_BY" type="NUMBER"/>
+            <column name="UPDATED_DATE" type="TIMESTAMP"/>
+            <column name="UPDATED_BY" type="NUMBER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-45">
+        <createTable tableName="PERMISSIONS">
+            <column name="PERMISSION_CD" type="VARCHAR2(25)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PERMISSION_NAME" type="VARCHAR2(250)"/>
+            <column name="PERMISSION_GROUP" type="VARCHAR2(25)"/>
+            <column name="CREATED_DATE" type="date"/>
+            <column name="CREATED_BY" type="NUMBER"/>
+            <column name="UPDATED_BY" type="NUMBER"/>
+            <column name="UPDATED_DATE" type="date"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-46">
+        <createTable tableName="PROFILE_ATTRIBUTE_LIST">
+            <column name="PROFILE_ATTRIB_CD" type="VARCHAR2(15)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJ_NAME" type="VARCHAR2(50)"/>
+            <column name="OBJ_ATTRIBUTE" type="VARCHAR2(50)"/>
+            <column name="DISPLAY_NAME" type="VARCHAR2(250)"/>
+            <column name="CREATED_DATE" type="TIMESTAMP"/>
+            <column name="CREATED_BY" type="NUMBER"/>
+            <column name="UPDATED_DATE" type="TIMESTAMP"/>
+            <column name="UPDATED_BY" type="NUMBER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-47">
+        <createTable tableName="RESEARCH_FUNDERS">
+            <column defaultValueComputed="pdbadmin.&quot;RESEARCH_FUNDER_SEQ&quot;.&quot;NEXTVAL&quot;" name="RESFUNDERID" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FUNDREF_ID" type="NUMBER"/>
+            <column name="FUNDER_NAME" type="VARCHAR2(250)"/>
+            <column name="CREATED_BY" type="NUMBER"/>
+            <column name="CREATED_DATE" type="date"/>
+            <column name="UPDATED_BY" type="NUMBER"/>
+            <column name="UPDATED_DATE" type="date"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-48">
+        <createTable tableName="ROLES">
+            <column defaultValueComputed="pdbadmin.&quot;ROLE_SEQ&quot;.&quot;NEXTVAL&quot;" name="ROLE_ID" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ROLE_NAME" type="VARCHAR2(100)"/>
+            <column name="DESCRIPTION" type="VARCHAR2(250)"/>
+            <column name="ROLE_TYPE" type="VARCHAR2(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_DATE" type="TIMESTAMP"/>
+            <column name="CREATED_BY" type="NUMBER"/>
+            <column name="UPDATED_DATE" type="TIMESTAMP"/>
+            <column name="UPDATED_BY" type="NUMBER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-49">
+        <createTable tableName="ROLE_PERMISSIONS">
+            <column name="ROLE_ID" type="NUMBER"/>
+            <column name="PERMISSION_CD" type="VARCHAR2(25)"/>
+            <column name="ROLE_LEVEL_DATA_ACCESS" type="VARCHAR2(500)"/>
+            <column name="CREATED_DATE" type="TIMESTAMP"/>
+            <column name="CREATED_BY" type="NUMBER"/>
+            <column name="UPDATED_DATE" type="TIMESTAMP"/>
+            <column name="UPDATED_BY" type="NUMBER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-50">
+        <createTable tableName="SCHEDULE">
+            <column name="ID" type="VARCHAR2(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DESCRIPTION" type="VARCHAR2(255)"/>
+            <column name="CREATED_BY" type="VARCHAR2(255)"/>
+            <column name="MODIFIED_BY" type="VARCHAR2(255)"/>
+            <column name="CREATED_ON" type="date"/>
+            <column name="LAST_MODIFIED_ON" type="date"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-51">
+        <createTable tableName="SCHEDULE_TEMPLATE">
+            <column name="SCHEDULE_ID" type="VARCHAR2(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SORT_IDX" type="NUMBER"/>
+            <column name="EMAIL_TMPL" type="VARCHAR2(255)"/>
+            <column name="ONSCREEN_TMPL" type="VARCHAR2(255)"/>
+            <column name="DELAY" type="NUMBER"/>
+            <column name="CREATED_DATE" type="TIMESTAMP"/>
+            <column name="CREATED_BY" type="NUMBER"/>
+            <column name="UPDATED_DATE" type="TIMESTAMP"/>
+            <column name="UPDATED_BY" type="NUMBER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-52">
+        <createTable tableName="TEMPLATE">
+            <column name="ID" type="VARCHAR2(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DESCRIPTION" type="VARCHAR2(255)"/>
+            <column name="TAGL1" type="VARCHAR2(255)"/>
+            <column name="TAGL2" type="VARCHAR2(255)"/>
+            <column name="BODY" type="CLOB"/>
+            <column name="CREATED_BY" type="VARCHAR2(255)"/>
+            <column name="MODIFIED_BY" type="VARCHAR2(255)"/>
+            <column name="CREATED_ON" type="date"/>
+            <column name="LAST_MODIFIED_ON" type="date"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-53">
+        <createTable tableName="USERS">
+            <column defaultValueComputed="pdbadmin.&quot;USER_SEQ&quot;.&quot;NEXTVAL&quot;" name="USER_ID" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FIRST_NAME" type="VARCHAR2(100)"/>
+            <column name="LAST_NAME" type="VARCHAR2(100)"/>
+            <column name="PRIMARY_EMAIL_ADDR" type="VARCHAR2(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="AS1_USER_ID" type="NUMBER"/>
+            <column name="INVALID_LOGIN_CNT" type="NUMBER(2, 0)"/>
+            <column name="ACCOUNT_LOCKED_TIME" type="TIMESTAMP"/>
+            <column name="LAST_LOGIN_DATE" type="TIMESTAMP"/>
+            <column name="CREATED_DATE" type="TIMESTAMP"/>
+            <column name="CREATED_BY" type="NUMBER"/>
+            <column name="UPDATED_DATE" type="TIMESTAMP"/>
+            <column name="UPDATED_BY" type="NUMBER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-54">
+        <createTable tableName="USER_ADDRESSES">
+            <column defaultValueComputed="pdbadmin.&quot;USER_ADDRESSES_SEQ&quot;.&quot;NEXTVAL&quot;" name="USER_ADDRESS_ID" type="NUMBER"/>
+            <column name="USER_ID" type="NUMBER"/>
+            <column name="ADDRESS_ID" type="NUMBER"/>
+            <column name="ADDRESS_TYPE_CD" type="VARCHAR2(30)"/>
+            <column name="CREATED_DATE" type="TIMESTAMP"/>
+            <column name="CREATED_BY" type="NUMBER"/>
+            <column name="UPDATED_DATE" type="TIMESTAMP"/>
+            <column name="UPDATED_BY" type="NUMBER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-55">
+        <createTable tableName="USER_AFFILIATIONS">
+            <column defaultValueComputed="pdbadmin.&quot;AFFILIATION_SEQ&quot;.&quot;NEXTVAL&quot;" name="AFFILIATION_ID" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="USER_ID" type="NUMBER"/>
+            <column name="INSTITUTION_CD" type="VARCHAR2(10)"/>
+            <column name="INSTITUTION_NAME" type="VARCHAR2(100)"/>
+            <column name="DEPARTMENT_CD" type="VARCHAR2(10)"/>
+            <column name="DEPARTMENT_NAME" type="VARCHAR2(100)"/>
+            <column name="TOWN_OR_CITY_NAME" type="VARCHAR2(200)"/>
+            <column name="STATE_OR_PROVINCE_NAME" type="VARCHAR2(200)"/>
+            <column name="START_DT" type="TIMESTAMP"/>
+            <column name="END_DT" type="TIMESTAMP"/>
+            <column name="CRATED_DATE" type="TIMESTAMP"/>
+            <column name="CREATED_BY" type="NUMBER"/>
+            <column name="UPDATED_DATE" type="TIMESTAMP"/>
+            <column name="UPDATED_BY" type="NUMBER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-56">
+        <createTable tableName="USER_ALERTS">
+            <column name="USER_ID" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ALERT_CD" type="VARCHAR2(15)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ON_SCREEN_FLG" type="CHAR(1)"/>
+            <column name="EMAIL_FLG" type="CHAR(1)"/>
+            <column name="CREATED_DATE" type="TIMESTAMP"/>
+            <column name="CREATED_BY" type="NUMBER"/>
+            <column name="UPDATED_DATE" type="TIMESTAMP"/>
+            <column name="UPDATED_BY" type="NUMBER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-57">
+        <createTable tableName="USER_AREA_OF_INTEREST">
+            <column name="USER_ID" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="AREA_OF_INTEREST_CD" type="VARCHAR2(15)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_DATE" type="TIMESTAMP"/>
+            <column name="CREATED_BY" type="NUMBER"/>
+            <column name="UPDATED_DATE" type="TIMESTAMP"/>
+            <column name="UPDATED_BY" type="NUMBER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-58">
+        <createTable tableName="USER_FUNDER_GRANTS">
+            <column defaultValueComputed="pdbadmin.&quot;USER_FUNDER_GRANTS_SEQ&quot;.&quot;NEXTVAL&quot;" name="USER_FUNDER_GRANT_ID" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="USER_ID" type="NUMBER"/>
+            <column name="RESFUNDERID" type="NUMBER"/>
+            <column name="GRANT_NUM" type="VARCHAR2(250)"/>
+            <column name="CREATED_DATE" type="TIMESTAMP"/>
+            <column name="CREATED_BY" type="NUMBER"/>
+            <column name="UPDATED_DATE" type="TIMESTAMP"/>
+            <column name="UPDATED_BY" type="NUMBER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-59">
+        <createTable tableName="USER_PREFERRED_JOURNALS">
+            <column name="USER_ID" type="NUMBER"/>
+            <column name="JOURNAL_ID" type="NUMBER"/>
+            <column name="CREATED_DATE" type="TIMESTAMP"/>
+            <column name="CREATED_BY" type="NUMBER"/>
+            <column name="UPDATED_DATE" type="TIMESTAMP"/>
+            <column name="UPDATED_BY" type="NUMBER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-60">
+        <createTable tableName="USER_PROFILE">
+            <column name="USER_ID" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TITLE_CD" type="VARCHAR2(50)"/>
+            <column name="MIDDLE_NAME" type="VARCHAR2(50)"/>
+            <column name="SUFFIX_CD" type="VARCHAR2(50)"/>
+            <column name="ALTERNATIVE_NAME" type="VARCHAR2(100)"/>
+            <column name="INDUSTRY_CD" type="VARCHAR2(6)"/>
+            <column name="JOB_CATEGORY_CD" type="VARCHAR2(7)"/>
+            <column name="OPT_IN_PROMOTE_FLG" type="VARCHAR2(5)"/>
+            <column name="PROFILE_PIC" type="BLOB"/>
+            <column name="IS_ACCOUNT_ACTIVE" type="CHAR(1)"/>
+            <column name="IS_ACCOUNT_VERIFIED" type="CHAR(1)"/>
+            <column name="MERGER_ACCNT_ID" type="NUMBER"/>
+            <column name="ALERT_PREF_EMAILID" type="NUMBER"/>
+            <column name="CDM_UPDSTATUS" type="CHAR(1)"/>
+            <column name="PROFILE_VISIBLE_FLG" type="CHAR(1)"/>
+            <column name="CREATED_DATE" type="TIMESTAMP"/>
+            <column name="CREATED_BY" type="NUMBER"/>
+            <column name="UPDATED_DATE" type="TIMESTAMP"/>
+            <column name="UPDATED_BY" type="NUMBER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-61">
+        <createTable tableName="USER_PROFILE_ATTRIB_VISIBLE">
+            <column name="USER_ID" type="NUMBER"/>
+            <column name="PROFILE_VISIBILITY_FLG" type="CHAR(1)"/>
+            <column name="PROFILE_ATTRIB_CD" type="VARCHAR2(15)"/>
+            <column name="CREATED_DATE" type="TIMESTAMP"/>
+            <column name="CREATED_BY" type="NUMBER"/>
+            <column name="UPDATED_DATE" type="TIMESTAMP"/>
+            <column name="UPDATED_BY" type="NUMBER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-62">
+        <createTable tableName="USER_REFERENCE_DATA">
+            <column name="USER_ID" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ECID" type="VARCHAR2(14)"/>
+            <column name="ORCID_ID" type="VARCHAR2(20)"/>
+            <column name="CREATED_DATE" type="TIMESTAMP"/>
+            <column name="CREATED_BY" type="NUMBER"/>
+            <column name="UPDATED_DATE" type="TIMESTAMP"/>
+            <column name="UPDATED_BY" type="NUMBER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-63">
+        <createTable tableName="USER_ROLES">
+            <column name="USER_ID" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ROLE_ID" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_DATE" type="TIMESTAMP"/>
+            <column name="CREATED_BY" type="NUMBER"/>
+            <column name="UPDATED_DATE" type="TIMESTAMP"/>
+            <column name="UPDATED_BY" type="NUMBER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-64">
+        <createTable tableName="USER_SECONDARY_EMAIL_ADDR">
+            <column defaultValueComputed="pdbadmin.&quot;USER_SECONDARY_EMAIL_ADDR_SEQ&quot;.&quot;NEXTVAL&quot;" name="USER_SECONDARY_EMAIL_ID" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="USER_ID" type="NUMBER"/>
+            <column name="SECONDARY_EMAIL_ADDR" type="VARCHAR2(256)"/>
+            <column name="CREATED_DATE" type="TIMESTAMP"/>
+            <column name="CREATED_BY" type="NUMBER"/>
+            <column name="UPDATED_DATE" type="TIMESTAMP"/>
+            <column name="UPDATED_BY" type="NUMBER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-65">
+        <createTable tableName="USER_SOCIETY_DETAILS">
+            <column defaultValueComputed="pdbadmin.&quot;SOCIETY_SEQ&quot;.&quot;NEXTVAL&quot;" name="SOCIETY_ID" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="USER_ID" type="NUMBER"/>
+            <column name="SOCIETY_CD" type="VARCHAR2(14)"/>
+            <column name="SOCIETY_NAME" type="VARCHAR2(1000)"/>
+            <column name="MEMBERSHIP_NO" type="VARCHAR2(50)"/>
+            <column name="PROMO_CODE" type="VARCHAR2(50)"/>
+            <column name="DISCOUNT_FLG_OO_OR_OA_PRICING" type="CHAR(2)"/>
+            <column name="START_DT" type="TIMESTAMP"/>
+            <column name="END_DT" type="TIMESTAMP"/>
+            <column name="CREATED_DATE" type="TIMESTAMP"/>
+            <column name="CREATED_BY" type="NUMBER"/>
+            <column name="UPDATED_BY" type="NUMBER"/>
+            <column name="UPDATED_DATE" type="TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-66">
+        <createTable tableName="USER_WOA_ACCOUNTS">
+            <column name="USER_ID" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="WOAACCNT_CD" type="VARCHAR2(15)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_DATE" type="TIMESTAMP"/>
+            <column name="CREATED_BY" type="NUMBER"/>
+            <column name="UPDATED_DATE" type="TIMESTAMP"/>
+            <column name="UPDATED_BY" type="NUMBER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-67">
+        <addPrimaryKey columnNames="ACTION_CD" constraintName="ACTIONS_PK" tableName="ACTIONS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-68">
+        <addPrimaryKey columnNames="USER_ID, ARTICLE_ID, PERMISSION_CD" constraintName="ADDITIONAL_PERMISSIONS_PK" tableName="ADDITIONAL_PERMISSIONS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-69">
+        <addPrimaryKey columnNames="ADDRESS_ID" constraintName="ADDRESS_PK" tableName="ADDRESS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-70">
+        <addPrimaryKey columnNames="ADDRESS_TYPE_CD" constraintName="ADDRESS_TYPE_PK" tableName="ADDRESS_TYPE"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-71">
+        <addPrimaryKey columnNames="ADMIN_USER_ID" constraintName="ADMIN_DETAILS_PK" tableName="ADMIN_PROFILE"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-72">
+        <addPrimaryKey columnNames="AFFILIATION_ID" constraintName="AFFILIATIONS_PK" tableName="USER_AFFILIATIONS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-73">
+        <addPrimaryKey columnNames="ALERT_CD" constraintName="ALERTS_PK" tableName="ALERTS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-74">
+        <addPrimaryKey columnNames="AREA_OF_INTEREST_CD" constraintName="AREA_OF_INTEREST_PK" tableName="AREA_OF_INTEREST"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-75">
+        <addPrimaryKey columnNames="USER_ID" constraintName="AUTHOR_PROFILE_PK" tableName="USER_PROFILE"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-76">
+        <addPrimaryKey columnNames="AUTH_COAUTH_ID" constraintName="AUTH_COAUTH_DETAILS_PK" tableName="AUTH_COAUTH_DETAILS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-77">
+        <addPrimaryKey columnNames="AUTH_COLLEAGUE_ID" constraintName="AUTH_COLLEAGUE_DETAILS_PK" tableName="AUTH_COLLEAGUE_DETAILS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-78">
+        <addPrimaryKey columnNames="JOURNAL_ID" constraintName="JOURNALS_PK" tableName="JOURNALS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-79">
+        <addPrimaryKey columnNames="LOOKUP_ID" constraintName="LOOKUP_VALUES_LOOKUPID" tableName="LOOKUP_VALUES"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-80">
+        <addPrimaryKey columnNames="ID" constraintName="NOTIFICATION_PK" tableName="NOTIFICATION"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-81">
+        <addPrimaryKey columnNames="NOTIFICATION_ID" constraintName="NOTIFICATION_RECIPIENTS_PK" tableName="NOTIFICATION_RECIPIENTS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-82">
+        <addPrimaryKey columnNames="PERMISSION_CD" constraintName="PERMISSIONS_PK" tableName="PERMISSIONS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-83">
+        <addPrimaryKey columnNames="PROFILE_ATTRIB_CD" constraintName="PROFILE_ATTRIBUTE_LIST_PK" tableName="PROFILE_ATTRIBUTE_LIST"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-84">
+        <addPrimaryKey columnNames="RESFUNDERID" constraintName="RESEARCH_FUNDERS_PK" tableName="RESEARCH_FUNDERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-85">
+        <addPrimaryKey columnNames="ROLE_ID" constraintName="ROLE_PK" tableName="ROLES"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-86">
+        <addPrimaryKey columnNames="ID" constraintName="SCHEDULE_PK" tableName="SCHEDULE"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-87">
+        <addPrimaryKey columnNames="SCHEDULE_ID" constraintName="SCHEDULE_TEMPLATE_PK" tableName="SCHEDULE_TEMPLATE"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-88">
+        <addPrimaryKey columnNames="ID" constraintName="TEMPLATE_PK" tableName="TEMPLATE"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-89">
+        <addPrimaryKey columnNames="USER_ID" constraintName="USERS_PK" tableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-90">
+        <addPrimaryKey columnNames="USER_ID, ALERT_CD" constraintName="USER_ALERTS_PK" tableName="USER_ALERTS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-91">
+        <addPrimaryKey columnNames="USER_ID, AREA_OF_INTEREST_CD" constraintName="USER_AREA_OF_INTEREST_PK" tableName="USER_AREA_OF_INTEREST"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-92">
+        <addPrimaryKey columnNames="USER_FUNDER_GRANT_ID" constraintName="USER_FUNDER_GRANTS_PK" tableName="USER_FUNDER_GRANTS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-93">
+        <addPrimaryKey columnNames="USER_ID" constraintName="USER_REFERENCE_DATA_PK" tableName="USER_REFERENCE_DATA"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-94">
+        <addPrimaryKey columnNames="USER_ID, ROLE_ID" constraintName="USER_ROLES_PK" tableName="USER_ROLES"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-95">
+        <addPrimaryKey columnNames="USER_SECONDARY_EMAIL_ID" constraintName="USER_SECONDARY_EMAIL_ADDR_PK" tableName="USER_SECONDARY_EMAIL_ADDR"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-96">
+        <addPrimaryKey columnNames="SOCIETY_ID" constraintName="USER_SOCIETY_DETAILS_PK" tableName="USER_SOCIETY_DETAILS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-97">
+        <addPrimaryKey columnNames="USER_ID, WOAACCNT_CD" constraintName="USER_WOA_ACCOUNTS_PK" tableName="USER_WOA_ACCOUNTS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-98">
+        <addUniqueConstraint columnNames="PRIMARY_EMAIL_ADDR" constraintName="PRIMARY_EMAIL" deferrable="false" disabled="false" initiallyDeferred="false" tableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-99">
+        <addForeignKeyConstraint baseColumnNames="USER_ID" baseTableName="ADDITIONAL_PERMISSIONS" constraintName="ADDITIONAL_PERMISSIONS_FK" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USER_PROFILE"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-100">
+        <addForeignKeyConstraint baseColumnNames="ROLE_ID" baseTableName="ADDITIONAL_PERMISSIONS" constraintName="ADDITIONAL_PERMISSIONS_FK1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ROLE_ID" referencedTableName="ROLES"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-101">
+        <addForeignKeyConstraint baseColumnNames="PERMISSION_CD" baseTableName="ADDITIONAL_PERMISSIONS" constraintName="ADDITIONAL_PERMISSIONS_FK3" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="PERMISSION_CD" referencedTableName="PERMISSIONS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-102">
+        <addForeignKeyConstraint baseColumnNames="ADMIN_USER_ID" baseTableName="ADMIN_PROFILE" constraintName="ADMIN_DETAILS_USERS_FK" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-103">
+        <addForeignKeyConstraint baseColumnNames="USER_ID" baseTableName="AUDIT_DETAILS" constraintName="AUDIT_DETAILS_FK" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-104">
+        <addForeignKeyConstraint baseColumnNames="ALERT_PREF_EMAILID" baseTableName="USER_PROFILE" constraintName="AUTHOR_PROFILE_FK2" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_SECONDARY_EMAIL_ID" referencedTableName="USER_SECONDARY_EMAIL_ADDR"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-105">
+        <addForeignKeyConstraint baseColumnNames="MERGER_ACCNT_ID" baseTableName="USER_PROFILE" constraintName="AUTHOR_PROFILE_USERS_FK" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-106">
+        <addForeignKeyConstraint baseColumnNames="COAUTH_USER_ID" baseTableName="AUTH_COAUTH_DETAILS" constraintName="AUTH_COAUTH_DET_AUTHPROF_FK" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USER_PROFILE"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-107">
+        <addForeignKeyConstraint baseColumnNames="AUTHOR_ID" baseTableName="AUTH_COAUTH_DETAILS" constraintName="AUTH_COAUTH_DET_AUTHPROF_FK1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USER_PROFILE"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-108">
+        <addForeignKeyConstraint baseColumnNames="COLLEAGUE_USER_ID" baseTableName="AUTH_COLLEAGUE_DETAILS" constraintName="AUTH_COLL_DET_AUTHPROF_FK" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USER_PROFILE"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-109">
+        <addForeignKeyConstraint baseColumnNames="INVITED_AUTHOR_ID" baseTableName="AUTH_COLLEAGUE_DETAILS" constraintName="AUTH_COLL_DET_AUTHPROF_FK1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USER_PROFILE"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-110">
+        <addForeignKeyConstraint baseColumnNames="ROLE_ID" baseTableName="ROLE_PERMISSIONS" constraintName="ROLE_PERMISSIONS_FK" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ROLE_ID" referencedTableName="ROLES"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-111">
+        <addForeignKeyConstraint baseColumnNames="PERMISSION_CD" baseTableName="ROLE_PERMISSIONS" constraintName="ROLE_PERMISSIONS_FK1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="PERMISSION_CD" referencedTableName="PERMISSIONS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-112">
+        <addForeignKeyConstraint baseColumnNames="CREATED_BY" baseTableName="ADDITIONAL_PERMISSIONS" constraintName="SYS_C0010534" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-113">
+        <addForeignKeyConstraint baseColumnNames="UPDATED_BY" baseTableName="ADDITIONAL_PERMISSIONS" constraintName="SYS_C0010535" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-114">
+        <addForeignKeyConstraint baseColumnNames="CREATED_BY" baseTableName="ADDRESS" constraintName="SYS_C0010536" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-115">
+        <addForeignKeyConstraint baseColumnNames="UPDATED_BY" baseTableName="ADDRESS" constraintName="SYS_C0010537" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-116">
+        <addForeignKeyConstraint baseColumnNames="CREATED_BY" baseTableName="ADMIN_PROFILE" constraintName="SYS_C0010539" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-117">
+        <addForeignKeyConstraint baseColumnNames="UPDATED_BY" baseTableName="ADMIN_PROFILE" constraintName="SYS_C0010540" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-118">
+        <addForeignKeyConstraint baseColumnNames="CREATED_BY" baseTableName="ALERTS" constraintName="SYS_C0010541" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-119">
+        <addForeignKeyConstraint baseColumnNames="UPDATED_BY" baseTableName="ALERTS" constraintName="SYS_C0010542" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-120">
+        <addForeignKeyConstraint baseColumnNames="CREATED_BY" baseTableName="AREA_OF_INTEREST" constraintName="SYS_C0010543" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-121">
+        <addForeignKeyConstraint baseColumnNames="UPDATED_BY" baseTableName="AREA_OF_INTEREST" constraintName="SYS_C0010544" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-122">
+        <addForeignKeyConstraint baseColumnNames="CREATED_BY" baseTableName="AUDIT_DETAILS" constraintName="SYS_C0010546" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-123">
+        <addForeignKeyConstraint baseColumnNames="CREATED_BY" baseTableName="AUTH_COAUTH_DETAILS" constraintName="SYS_C0010549" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-124">
+        <addForeignKeyConstraint baseColumnNames="UPDATED_BY" baseTableName="AUTH_COAUTH_DETAILS" constraintName="SYS_C0010550" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-125">
+        <addForeignKeyConstraint baseColumnNames="CREATED_BY" baseTableName="AUTH_COLLEAGUE_DETAILS" constraintName="SYS_C0010553" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-126">
+        <addForeignKeyConstraint baseColumnNames="UPDATED_BY" baseTableName="AUTH_COLLEAGUE_DETAILS" constraintName="SYS_C0010554" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-127">
+        <addForeignKeyConstraint baseColumnNames="CREATED_BY" baseTableName="USER_PROFILE" constraintName="SYS_C0010557" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-128">
+        <addForeignKeyConstraint baseColumnNames="UPDATED_BY" baseTableName="USER_PROFILE" constraintName="SYS_C0010558" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-129">
+        <addForeignKeyConstraint baseColumnNames="CREATED_BY" baseTableName="JOURNALS" constraintName="SYS_C0010560" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-130">
+        <addForeignKeyConstraint baseColumnNames="UPDATED_BY" baseTableName="JOURNALS" constraintName="SYS_C0010561" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-131">
+        <addForeignKeyConstraint baseColumnNames="CREATED_BY" baseTableName="PERMISSIONS" constraintName="SYS_C0010562" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-132">
+        <addForeignKeyConstraint baseColumnNames="UPDATED_BY" baseTableName="PERMISSIONS" constraintName="SYS_C0010563" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-133">
+        <addForeignKeyConstraint baseColumnNames="CREATED_BY" baseTableName="PROFILE_ATTRIBUTE_LIST" constraintName="SYS_C0010564" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-134">
+        <addForeignKeyConstraint baseColumnNames="UPDATED_BY" baseTableName="PROFILE_ATTRIBUTE_LIST" constraintName="SYS_C0010565" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-135">
+        <addForeignKeyConstraint baseColumnNames="CREATED_BY" baseTableName="RESEARCH_FUNDERS" constraintName="SYS_C0010566" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-136">
+        <addForeignKeyConstraint baseColumnNames="UPDATED_BY" baseTableName="RESEARCH_FUNDERS" constraintName="SYS_C0010567" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-137">
+        <addForeignKeyConstraint baseColumnNames="CREATED_BY" baseTableName="ROLE_PERMISSIONS" constraintName="SYS_C0010570" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-138">
+        <addForeignKeyConstraint baseColumnNames="UPDATED_BY" baseTableName="ROLE_PERMISSIONS" constraintName="SYS_C0010571" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-139">
+        <addForeignKeyConstraint baseColumnNames="CREATED_BY" baseTableName="ROLES" constraintName="SYS_C0010572" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-140">
+        <addForeignKeyConstraint baseColumnNames="UPDATED_BY" baseTableName="ROLES" constraintName="SYS_C0010573" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-141">
+        <addForeignKeyConstraint baseColumnNames="CREATED_BY" baseTableName="USER_ADDRESSES" constraintName="SYS_C0010574" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-142">
+        <addForeignKeyConstraint baseColumnNames="UPDATED_BY" baseTableName="USER_ADDRESSES" constraintName="SYS_C0010575" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-143">
+        <addForeignKeyConstraint baseColumnNames="CREATED_BY" baseTableName="USER_AFFILIATIONS" constraintName="SYS_C0010578" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-144">
+        <addForeignKeyConstraint baseColumnNames="UPDATED_BY" baseTableName="USER_AFFILIATIONS" constraintName="SYS_C0010579" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-145">
+        <addForeignKeyConstraint baseColumnNames="CREATED_BY" baseTableName="USER_ALERTS" constraintName="SYS_C0010581" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-146">
+        <addForeignKeyConstraint baseColumnNames="UPDATED_BY" baseTableName="USER_ALERTS" constraintName="SYS_C0010582" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-147">
+        <addForeignKeyConstraint baseColumnNames="CREATED_BY" baseTableName="USER_AREA_OF_INTEREST" constraintName="SYS_C0010585" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-148">
+        <addForeignKeyConstraint baseColumnNames="UPDATED_BY" baseTableName="USER_AREA_OF_INTEREST" constraintName="SYS_C0010586" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-149">
+        <addForeignKeyConstraint baseColumnNames="CREATED_BY" baseTableName="USER_FUNDER_GRANTS" constraintName="SYS_C0010589" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-150">
+        <addForeignKeyConstraint baseColumnNames="UPDATED_BY" baseTableName="USER_FUNDER_GRANTS" constraintName="SYS_C0010590" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-151">
+        <addForeignKeyConstraint baseColumnNames="CREATED_BY" baseTableName="USER_PREFERRED_JOURNALS" constraintName="SYS_C0010593" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-152">
+        <addForeignKeyConstraint baseColumnNames="UPDATED_BY" baseTableName="USER_PREFERRED_JOURNALS" constraintName="SYS_C0010594" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-153">
+        <addForeignKeyConstraint baseColumnNames="CREATED_BY" baseTableName="USER_PROFILE_ATTRIB_VISIBLE" constraintName="SYS_C0010597" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-154">
+        <addForeignKeyConstraint baseColumnNames="UPDATED_BY" baseTableName="USER_PROFILE_ATTRIB_VISIBLE" constraintName="SYS_C0010598" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-155">
+        <addForeignKeyConstraint baseColumnNames="CREATED_BY" baseTableName="USER_REFERENCE_DATA" constraintName="SYS_C0010601" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-156">
+        <addForeignKeyConstraint baseColumnNames="UPDATED_BY" baseTableName="USER_REFERENCE_DATA" constraintName="SYS_C0010602" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-157">
+        <addForeignKeyConstraint baseColumnNames="CREATED_BY" baseTableName="USER_ROLES" constraintName="SYS_C0010604" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-158">
+        <addForeignKeyConstraint baseColumnNames="UPDATED_BY" baseTableName="USER_ROLES" constraintName="SYS_C0010605" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-159">
+        <addForeignKeyConstraint baseColumnNames="CREATED_BY" baseTableName="USER_SECONDARY_EMAIL_ADDR" constraintName="SYS_C0010608" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-160">
+        <addForeignKeyConstraint baseColumnNames="UPDATED_BY" baseTableName="USER_SECONDARY_EMAIL_ADDR" constraintName="SYS_C0010609" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-161">
+        <addForeignKeyConstraint baseColumnNames="CREATED_BY" baseTableName="USER_SOCIETY_DETAILS" constraintName="SYS_C0010611" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-162">
+        <addForeignKeyConstraint baseColumnNames="UPDATED_BY" baseTableName="USER_SOCIETY_DETAILS" constraintName="SYS_C0010612" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-163">
+        <addForeignKeyConstraint baseColumnNames="CREATED_BY" baseTableName="USER_WOA_ACCOUNTS" constraintName="SYS_C0010614" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-164">
+        <addForeignKeyConstraint baseColumnNames="UPDATED_BY" baseTableName="USER_WOA_ACCOUNTS" constraintName="SYS_C0010615" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-165">
+        <addForeignKeyConstraint baseColumnNames="CREATED_BY" baseTableName="USERS" constraintName="SYS_C0010617" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-166">
+        <addForeignKeyConstraint baseColumnNames="UPDATED_BY" baseTableName="USERS" constraintName="SYS_C0010618" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-167">
+        <addForeignKeyConstraint baseColumnNames="USER_ID" baseTableName="USER_ADDRESSES" constraintName="USER_ADDRESSES_FK" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-168">
+        <addForeignKeyConstraint baseColumnNames="ADDRESS_ID" baseTableName="USER_ADDRESSES" constraintName="USER_ADDRESSES_FK1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ADDRESS_ID" referencedTableName="ADDRESS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-169">
+        <addForeignKeyConstraint baseColumnNames="ADDRESS_TYPE_CD" baseTableName="USER_ADDRESSES" constraintName="USER_ADDRESSES_FK2" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ADDRESS_TYPE_CD" referencedTableName="ADDRESS_TYPE"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-170">
+        <addForeignKeyConstraint baseColumnNames="USER_ID" baseTableName="USER_AFFILIATIONS" constraintName="USER_AFFILIATIONS_FK" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USER_PROFILE"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-171">
+        <addForeignKeyConstraint baseColumnNames="USER_ID" baseTableName="USER_ALERTS" constraintName="USER_ALERTS_AUTHOR_PROFILE_FK" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USER_PROFILE"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-172">
+        <addForeignKeyConstraint baseColumnNames="ALERT_CD" baseTableName="USER_ALERTS" constraintName="USER_ALERTS_FK" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ALERT_CD" referencedTableName="ALERTS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-173">
+        <addForeignKeyConstraint baseColumnNames="USER_ID" baseTableName="USER_AREA_OF_INTEREST" constraintName="USER_AREA_OF_INTEREST_FK" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USER_PROFILE"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-174">
+        <addForeignKeyConstraint baseColumnNames="AREA_OF_INTEREST_CD" baseTableName="USER_AREA_OF_INTEREST" constraintName="USER_AREA_OF_INTEREST_FK1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="AREA_OF_INTEREST_CD" referencedTableName="AREA_OF_INTEREST"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-175">
+        <addForeignKeyConstraint baseColumnNames="USER_ID" baseTableName="USER_FUNDER_GRANTS" constraintName="USER_FNDR_GRANTS_AUTH_PROF_FK" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USER_PROFILE"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-176">
+        <addForeignKeyConstraint baseColumnNames="RESFUNDERID" baseTableName="USER_FUNDER_GRANTS" constraintName="USER_FUNDER_DETAILS_FK1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="RESFUNDERID" referencedTableName="RESEARCH_FUNDERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-177">
+        <addForeignKeyConstraint baseColumnNames="JOURNAL_ID" baseTableName="USER_PREFERRED_JOURNALS" constraintName="USER_PREFERRED_JOURNALS_FK" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="JOURNAL_ID" referencedTableName="JOURNALS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-178">
+        <addForeignKeyConstraint baseColumnNames="USER_ID" baseTableName="USER_PREFERRED_JOURNALS" constraintName="USER_PREF_JOU_AUTH_PROFILE_FK" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USER_PROFILE"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-179">
+        <addForeignKeyConstraint baseColumnNames="PROFILE_ATTRIB_CD" baseTableName="USER_PROFILE_ATTRIB_VISIBLE" constraintName="USER_PROFILE_ATTRIB_VISIBLE_FK" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="PROFILE_ATTRIB_CD" referencedTableName="PROFILE_ATTRIBUTE_LIST"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-180">
+        <addForeignKeyConstraint baseColumnNames="USER_ID" baseTableName="USER_PROFILE" constraintName="USER_PROFILE_USERS_FK1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-181">
+        <addForeignKeyConstraint baseColumnNames="USER_ID" baseTableName="USER_PROFILE_ATTRIB_VISIBLE" constraintName="USER_PROFIL_ATTR_AUTH_PROF_FK" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USER_PROFILE"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-182">
+        <addForeignKeyConstraint baseColumnNames="USER_ID" baseTableName="USER_REFERENCE_DATA" constraintName="USER_REFERENCE_DATA_USERS_FK" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-183">
+        <addForeignKeyConstraint baseColumnNames="ROLE_ID" baseTableName="USER_ROLES" constraintName="USER_ROLES_FK" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ROLE_ID" referencedTableName="ROLES"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-184">
+        <addForeignKeyConstraint baseColumnNames="USER_ID" baseTableName="USER_ROLES" constraintName="USER_ROLES_USERS_FK" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-185">
+        <addForeignKeyConstraint baseColumnNames="USER_ID" baseTableName="USER_SECONDARY_EMAIL_ADDR" constraintName="USER_SECONDARY_EMAIL_ADDR_FK" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USERS"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-186">
+        <addForeignKeyConstraint baseColumnNames="USER_ID" baseTableName="USER_SOCIETY_DETAILS" constraintName="USER_SOCIETY_DETAILS_AUTH_FK1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USER_PROFILE"/>
+    </changeSet>
+    <changeSet author="gphaniraj" id="WP1-187">
+        <addForeignKeyConstraint baseColumnNames="USER_ID" baseTableName="USER_WOA_ACCOUNTS" constraintName="USER_WOA_ACCOUNTS_FK" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USER_PROFILE"/>
+    </changeSet>
 </databaseChangeLog>
