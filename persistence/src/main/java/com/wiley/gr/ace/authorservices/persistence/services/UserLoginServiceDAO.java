@@ -50,7 +50,7 @@ public interface UserLoginServiceDAO {
      * @param password
      * @return
      */
-    void doLogin(int userId, String password);
+    void doLogin(int userId);
     
     /**
      * @param emailId
