@@ -22,6 +22,7 @@ import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.BPMInterfaceService;
 import com.wiley.gr.ace.authorservices.model.ASRolesAndPermissions;
+import com.wiley.gr.ace.authorservices.model.AdminUser;
 import com.wiley.gr.ace.authorservices.model.PermissionSection;
 import com.wiley.gr.ace.authorservices.model.Role;
 import com.wiley.gr.ace.authorservices.model.RolesAndPermissions;
@@ -244,6 +245,15 @@ public class AdminLoginServiceImpl implements AdminLoginService {
         }
         userRolesDAO.addOrUpdateUserRoles(roles, permissionsList);
         
+    }
+
+    /* (non-Javadoc)
+     * @see com.wiley.gr.ace.authorservices.services.service.AdminLoginService#findUser(java.lang.String)
+     */
+    @Override
+    public AdminUser findUser(String emailId) {
+        
+        return almService.findUser(emailId);
     }
     
 }
