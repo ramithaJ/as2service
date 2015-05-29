@@ -125,7 +125,6 @@ public class UserAccountController {
     public Service updateSecurityDetails(@RequestBody SecurityDetailsHolder securityDetails) {
         
         Service service = new Service();
-        service.setStatus("Success");
         service.setPayload(authorProfileService.updateSecurityDetails(securityDetails));
         return service;
         
@@ -136,7 +135,6 @@ public class UserAccountController {
             @PathVariable("newEmailId") String newEmailId) {
         
         Service service = new Service();
-        service.setStatus("success");
         service.setPayload(authorProfileService.updateUserId(oldEmailId, newEmailId));
         return service;
     }
