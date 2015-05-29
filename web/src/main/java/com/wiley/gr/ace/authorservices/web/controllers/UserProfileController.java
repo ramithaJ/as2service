@@ -140,15 +140,15 @@ public class UserProfileController {
      * @param userId
      * @return
      */
-//    @RequestMapping(value = "/interests/{userId}", method = RequestMethod.GET, produces = "application/json")
-//    public Service getMyInterests(@PathVariable("userId") String userId) {
-//        
-//        Service service = new Service();
-//        service.setPayload(userProfileService.lookUpProfile(userId)
-//                .getCustomerProfile().getInterests());
-//        
-//        return service;
-//    }
+    @RequestMapping(value = "/interests/{userId}", method = RequestMethod.GET, produces = "application/json")
+    public Service getMyInterests(@PathVariable("userId") String userId) {
+        
+        Service service = new Service();
+        service.setPayload(userProfileService.lookUpProfile(userId)
+                .getCustomerProfile().getInterests());
+        
+        return service;
+    }
 
     
     /**
