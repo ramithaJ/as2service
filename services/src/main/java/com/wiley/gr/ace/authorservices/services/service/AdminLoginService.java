@@ -67,4 +67,10 @@ public interface AdminLoginService {
      */
     AdminUser findUser(String emailId);
     
+    /**
+     * This method is used to create admin user
+     * @param adminuser
+     */
+    void createAdmin(AdminUser adminuser);
+    
 }
