@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.entity.AdminDetails;
 import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserRoles;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
 
@@ -124,5 +125,24 @@ public class UserLoginDaoImpl implements UserLoginDao {
 		return userId;
 
 	}
+
+    @Override
+    public void createAdminUser(Users users, List<UserRoles> userRolesList) {
+        
+        Session session = null;
+        
+        try {
+            session = con.getSessionFactory().openSession();
+            session.saveOrUpdate(users);
+            AdminDetails adminDetails = new AdminDetails();
+            adminDetails.setAdminUserId(users.getUserId());
+        
+        } finally {
+            if(session != null) {
+                   session.flush();
+                   session.close();
+            }
+        }
+    }
 
 }
