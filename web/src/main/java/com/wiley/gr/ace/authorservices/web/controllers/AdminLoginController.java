@@ -27,6 +27,7 @@ import com.wiley.gr.ace.authorservices.model.ASRolesAndPermissions;
 import com.wiley.gr.ace.authorservices.model.AdminUser;
 import com.wiley.gr.ace.authorservices.model.Login;
 import com.wiley.gr.ace.authorservices.model.Service;
+import com.wiley.gr.ace.authorservices.model.UserMgmt;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 
 /**
@@ -54,16 +55,18 @@ public class AdminLoginController extends ASExceptionController {
 	@RequestMapping(value = "/login/", method = RequestMethod.POST, produces = "application/json")
 	public Service login(@Valid @RequestBody Login login) {
 		boolean status = false;
-
+		Service service = new Service();
 		status = adminLoginService.validateEmail(login.getEmailId());
 		if (status) {
-			adminLoginService.doLogin(login.getEmailId());
-
+			String userId = adminLoginService.doLogin(login.getEmailId());
+			UserMgmt userObj = new UserMgmt();
+			userObj.setUserId(userId);
+			service.setPayload(userObj);
 		} else {
 			throw new ASException("1001",
 					"Invalid email address. Please Re-Enter");
 		}
-		return new Service();
+		return service;
 	}
 
 	/**
