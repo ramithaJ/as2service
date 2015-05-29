@@ -208,7 +208,7 @@ public class OrcidServiceImpl implements OrcidService {
         try {
             country = new Country();
             country.setCountryCode((String) countryDetails.get("value"));
-            List<Country> countryList = asDataService.getCountries();
+            List<Country> countryList = asDataService.getCountries(10);
             for (Country countryEntity : countryList) {
                 if (countryEntity.getCountryCode().startsWith(
                         country.getCountryCode())) {

@@ -12,6 +12,7 @@
 
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
+import com.wiley.gr.ace.authorservices.model.DropDown;
 import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
 import com.wiley.gr.ace.authorservices.model.external.Industries;
 import com.wiley.gr.ace.authorservices.model.external.JobCategories;
@@ -34,4 +35,12 @@ public interface CDMInterfaceService {
     ESBResponse getCountries();
 
     ESBResponse getStates();
+    
+    DropDown getInstitutionsList();
+    
+    DropDown getDepartmentsList();
+    
+    DropDown getReasearchFunder();
+    
+    DropDown getSocietyList();
 }

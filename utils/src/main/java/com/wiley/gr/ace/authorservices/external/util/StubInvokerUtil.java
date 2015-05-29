@@ -10,9 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
+import com.wiley.gr.ace.authorservices.model.DropDown;
 import com.wiley.gr.ace.authorservices.model.Service;
-import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
 import com.wiley.gr.ace.authorservices.model.external.CDMAffiliation;
+import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
 import com.wiley.gr.ace.authorservices.model.external.Industries;
 import com.wiley.gr.ace.authorservices.model.external.JobCategories;
 import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
@@ -73,6 +74,12 @@ public class StubInvokerUtil {
 				response = restTemplate.exchange(uri, httpMethod,
 						requestEntity, ESBResponse.class);
             }
+            else if (className.equals("DropDown")) {
+				requestEntity = new HttpEntity<DropDown>(requestHeaders);
+				response = restTemplate.exchange(uri, httpMethod,
+						requestEntity, DropDown.class);
+            }
+       
 			if(response != null) {
 				
 				return response.getBody();

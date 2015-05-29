@@ -46,22 +46,22 @@ public interface ASDataService {
     /**
      * @return
      */
-    List<Industry> getIndustries();
+    List<Industry> getIndustries(Integer count);
     
     /**
      * @return
      */
-    List<JobCategory> getJobCategories();
+    List<JobCategory> getJobCategories(Integer count);
     
     /**
      * @return
      */
-    List<Country> getCountries();
+    List<Country> getCountries(Integer count);
     
     /**
      * @return
      */
-    List<State> getStates(String countrycode);
+    List<State> getStates(String countrycode ,Integer count);
     
     /**
      * @return
@@ -91,7 +91,7 @@ public interface ASDataService {
     /**
      * @return
      */
-    List<Interests> getAreasOfInterests();
+    List<Interests> getAreasOfInterests(Integer count);
     
     /**
      * @return
