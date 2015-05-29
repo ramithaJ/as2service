@@ -133,10 +133,10 @@ public class ASDataServiceImpl implements ASDataService {
 
 	@Override
 	public List<Country> getCountries() {
-		List<ESBResponse> countrieslist = cdmservice.getCountries();
+	    ESBResponse countrieslist = cdmservice.getCountries();
 		List<Country> countrylist = new ArrayList<Country>();
-		for (int i = 0; i < countrieslist.size(); i++) {
-			List<Object> externalCountrylist = countrieslist.get(i)
+	
+			List<Object> externalCountrylist = countrieslist
 					.getResponse().getDocs();
 			if (null == externalCountrylist) {
 				return null;
@@ -151,22 +151,22 @@ public class ASDataServiceImpl implements ASDataService {
 				country.setCountryName(countrymap.get("COUNTRY_NAME"));
 				countrylist.add(country);
 			}
-		}
+		
 
 		return countrylist;
 	}
 
 	@Override
 	public List<State> getStates(String countrycode) {
-		List<ESBResponse> statelistext = cdmservice.getStates();
+	    ESBResponse statelistext = cdmservice.getStates();
 		List<State> modelststelist = new ArrayList<State>();
-		for (int i = 0; i < statelistext.size(); i++) {
-			List<Object> externalstatelist = statelistext.get(i).getResponse()
+		
+			List<Object> externalstatelist = statelistext.getResponse()
 					.getDocs();
 			if (null == externalstatelist) {
 				return null;
-
 			}
+			
 			for (Object statelist : externalstatelist) {
 
 				LinkedHashMap<String, String> statemap = (LinkedHashMap<String, String>) statelist;
@@ -179,9 +179,10 @@ public class ASDataServiceImpl implements ASDataService {
 				modelststelist.add(state);
 			}
 
+			return modelststelist;
 		}
-		return modelststelist;
-	}
+		
+	
 
 	@Override
 	public List<Institution> getInstitutions() {
@@ -215,8 +216,8 @@ public class ASDataServiceImpl implements ASDataService {
 
 	@Override
 	public List<Interests> getAreasOfInterests() {
-		List<ESBResponse> areaOfInterests = cdmservice.getAreaOfInterests();
-		List<Object> externalInterests = areaOfInterests.get(0).getResponse()
+	    ESBResponse areaOfInterests = cdmservice.getAreaOfInterests();
+		List<Object> externalInterests = areaOfInterests.getResponse()
 				.getDocs();
 		if (null == externalInterests) {
 			return null;

@@ -12,9 +12,6 @@
 
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.http.HttpMethod;
 
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
@@ -69,14 +66,12 @@ public class CDMInterfaceServiceImpl implements CDMInterfaceService {
     }
 
     @Override
-    public List<ESBResponse> getAreaOfInterests() {
+    public ESBResponse getAreaOfInterests() {
         final String url = "http://vmesbdev.wiley.com:15200/PickList?q=*&fq=doc_type:SUBJECTCD&wt=json&rows1000000";
         ESBResponse areaOfInterests = (ESBResponse) StubInvokerUtil.invokeStub(
                 url, HttpMethod.GET, "AreaOfInterests");
-        List<ESBResponse> areaOfInterestslist = new ArrayList<ESBResponse>();
-        areaOfInterestslist.add(areaOfInterests);
 
-        return areaOfInterestslist;
+        return areaOfInterests;
     }
 
     @Override
@@ -97,24 +92,20 @@ public class CDMInterfaceServiceImpl implements CDMInterfaceService {
         return industry;
     }
 	@Override
-	public List<ESBResponse> getCountries() {
+	public ESBResponse getCountries() {
 		final String url = "http://vmesbdev.wiley.com:15200/PickList?q=*&fq=doc_type:COUNTRYCD&wt=json&rows=1000000";
 		 ESBResponse countrycode = (ESBResponse) StubInvokerUtil
 	                .invokeStub(url, HttpMethod.GET, "AreaOfInterests");
-		        List<ESBResponse> countrycodelist=new ArrayList<ESBResponse>();
-		        countrycodelist.add(countrycode);
 		 
-	        return countrycodelist ;
+	        return countrycode ;
 	}
 
 	@Override
-	public List<ESBResponse> getStates() {
+	public ESBResponse getStates() {
 		final String url = "http://vmesbdev.wiley.com:15200/PickList?q=*&fq=doc_type:STATECD&wt=json&rows=1000000";
 		 ESBResponse state = (ESBResponse) StubInvokerUtil
 	                .invokeStub(url, HttpMethod.GET, "AreaOfInterests");
-		        List<ESBResponse> statelist=new ArrayList<ESBResponse>();
-		        statelist.add(state);
 		 
-	        return statelist ;
+	        return state ;
 	}
 }
