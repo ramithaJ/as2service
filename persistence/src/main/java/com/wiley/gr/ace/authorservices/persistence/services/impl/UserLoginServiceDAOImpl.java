@@ -81,10 +81,8 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
                 throw new ASException("1001",
                         "Invalid email address. Please Re-Enter");
             }
-            String hql = "from AuthorProfile where userId = :userId";
-            List<AuthorProfile> result = session.createQuery(hql)
-                    .setInteger(USERID, userId).list();
-            if (result != null && result.isEmpty()) {
+            Users users = (Users) session.load(Users.class, userId);
+            if (users != null) {
                 status = true;
             }
             return status;
