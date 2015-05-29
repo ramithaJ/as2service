@@ -88,7 +88,7 @@ public class ASDataServiceImpl implements ASDataService {
 	}
 
 	@Override
-	public List<Industry> getIndustries() {
+	public List<Industry> getIndustries(Integer count) {
 
 		Industry industry = null;
 		List<Industry> industryList = new ArrayList<Industry>();
@@ -107,11 +107,11 @@ public class ASDataServiceImpl implements ASDataService {
 			industryList.add(industry);
 		}
 
-		return industryList;
+		return industryList.subList(0, count);
 	}
 
 	@Override
-	public List<JobCategory> getJobCategories() {
+	public List<JobCategory> getJobCategories(Integer count) {
 
 		JobCategories jobCategories = cdmservice.getJobCategories();
 		JobCategory jobCategory = null;
@@ -129,11 +129,13 @@ public class ASDataServiceImpl implements ASDataService {
 			jobCategory.setJobCategoryName(jobCategoryMap.get("JOBTITLE"));
 			jobCategoryList.add(jobCategory);
 		}
-		return jobCategoryList;
-	}
+
+			return jobCategoryList.subList(0, count);
+		}
+
 
 	@Override
-	public List<Country> getCountries() {
+	public List<Country> getCountries(Integer count) {
 		ESBResponse countrieslist = cdmservice.getCountries();
 		List<Country> countrylist = new ArrayList<Country>();
 
@@ -157,7 +159,7 @@ public class ASDataServiceImpl implements ASDataService {
 	}
 
 	@Override
-	public List<State> getStates(String countrycode) {
+	public List<State> getStates(String countrycode, Integer count) {
 		ESBResponse statelistext = cdmservice.getStates();
 		List<State> modelststelist = new ArrayList<State>();
 
@@ -184,17 +186,17 @@ public class ASDataServiceImpl implements ASDataService {
 	@Override
 	public List<Institution> getInstitutions() {
 
-		DropDown dropDown=cdmservice.getInstitutionsList();
-				List<Institution> listofinstitute= dropDown.getInstitutions();
-		List<Institution> institutionslist=new ArrayList<Institution>();
+		DropDown dropDown = cdmservice.getInstitutionsList();
+		List<Institution> listofinstitute = dropDown.getInstitutions();
+		List<Institution> institutionslist = new ArrayList<Institution>();
 
 		for (Institution institute : listofinstitute) {
-			
-			Institution institution=new Institution();
+
+			Institution institution = new Institution();
 			institution.setInstitutionId(institute.getInstitutionId());
 			institution.setInstitutionName(institute.getInstitutionName());
 			institutionslist.add(institution);
-		
+
 		}
 
 		return institutionslist;
@@ -202,36 +204,38 @@ public class ASDataServiceImpl implements ASDataService {
 
 	@Override
 	public List<Department> getDepartments() {
-		DropDown dropDown=cdmservice.getDepartmentsList();
-		List<Department> listofdepartment=dropDown.getDepartments();
-		List<Department> departmentlist= new ArrayList<Department>();
+		DropDown dropDown = cdmservice.getDepartmentsList();
+		List<Department> listofdepartment = dropDown.getDepartments();
+		List<Department> departmentlist = new ArrayList<Department>();
 		for (Department department : listofdepartment) {
-			
-			Department departments=new Department();
+
+			Department departments = new Department();
 			departments.setDepartmentId(department.getDepartmentId());
 			departments.setDepartmentName(department.getDepartmentName());
 			departmentlist.add(department);
-			
+
 		}
 		return departmentlist;
 	}
 
 	@Override
 	public List<ResearchFunder> getResearchFunders() {
-		DropDown dropDown=cdmservice.getReasearchFunder();
-		List<ResearchFunder> researchFunder=dropDown.getResearchFunders();
-		List<ResearchFunder> researchfunderlist=new ArrayList<ResearchFunder>();
-		System.err.println("data is"+researchFunder.get(0).getArticleAID());
-	
+		DropDown dropDown = cdmservice.getReasearchFunder();
+		List<ResearchFunder> researchFunder = dropDown.getResearchFunders();
+		List<ResearchFunder> researchfunderlist = new ArrayList<ResearchFunder>();
+		System.err.println("data is" + researchFunder.get(0).getArticleAID());
+
 		for (ResearchFunder researchFunders : researchFunder) {
-			
-			ResearchFunder resFunder=new ResearchFunder();
-			resFunder.setResearchFunderId(researchFunders.getResearchFunderId());
-			resFunder.setResearchFunderName(researchFunders.getResearchFunderName());
+
+			ResearchFunder resFunder = new ResearchFunder();
+			resFunder
+					.setResearchFunderId(researchFunders.getResearchFunderId());
+			resFunder.setResearchFunderName(researchFunders
+					.getResearchFunderName());
 			researchfunderlist.add(resFunder);
 			System.err.println(researchFunders.getArticleAID());
 		}
-		
+
 		return researchfunderlist;
 	}
 
@@ -243,14 +247,14 @@ public class ASDataServiceImpl implements ASDataService {
 
 	@Override
 	public List<Society> getSocieties() {
-		DropDown dropDown=cdmservice.getSocietyList();
-		List<Society> listofsociety=dropDown.getSociety();
-		List<Society> societylist=new ArrayList<Society>();
+		DropDown dropDown = cdmservice.getSocietyList();
+		List<Society> listofsociety = dropDown.getSociety();
+		List<Society> societylist = new ArrayList<Society>();
 		for (Society societys : listofsociety) {
-			
-			Society society=new Society();
+
+			Society society = new Society();
 			society.setSocietyId(societys.getSocietyId());
-			
+
 			society.setSocietyName(societys.getSocietyName());
 			societylist.add(society);
 		}
@@ -258,7 +262,7 @@ public class ASDataServiceImpl implements ASDataService {
 	}
 
 	@Override
-	public List<Interests> getAreasOfInterests() {
+	public List<Interests> getAreasOfInterests(Integer count) {
 		ESBResponse areaOfInterests = cdmservice.getAreaOfInterests();
 		List<Object> externalInterests = areaOfInterests.getResponse()
 				.getDocs();
@@ -274,7 +278,7 @@ public class ASDataServiceImpl implements ASDataService {
 			interests.setAoeName(interest.get("SUBJECT_NAME"));
 			returnList.add(interests);
 		}
-		return returnList;
+		return returnList.subList(0, count);
 
 	}
 

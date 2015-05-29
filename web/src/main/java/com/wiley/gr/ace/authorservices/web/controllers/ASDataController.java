@@ -17,9 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.AccessReasons;
 import com.wiley.gr.ace.authorservices.model.Service;
@@ -62,11 +62,11 @@ public class ASDataController {
     /**
      * @return
      */
-    @RequestMapping(value = "/industries/", method = RequestMethod.GET)
-    public Service getIndustries() {
+    @RequestMapping(value = "/industries/" , method = RequestMethod.GET)
+    public Service getIndustries(@RequestParam(value = "count", required = false, defaultValue = "10") Integer count) {
         
         Service service = new Service();
-        service.setPayload(aSDataService.getIndustries());
+        service.setPayload(aSDataService.getIndustries(count));
         return service;    
     }
     
@@ -74,10 +74,10 @@ public class ASDataController {
      * @return
      */
     @RequestMapping(value = "/jobCategories/", method = RequestMethod.GET)
-    public Service getJobCategories() {
+    public Service getJobCategories(@RequestParam(value = "count", required = false, defaultValue = "10") Integer count) {
         
         Service service = new Service();
-        service.setPayload(aSDataService.getJobCategories());
+        service.setPayload(aSDataService.getJobCategories(count));
         return service;
     }
     
@@ -87,11 +87,11 @@ public class ASDataController {
 
 
     @RequestMapping(value = "/countries/", method = RequestMethod.GET )
-    public Service getCountries( ) {
+    public Service getCountries(@RequestParam(value = "count", required = false, defaultValue = "10") Integer count) {
     	
     	Service service= new Service();
     	
-    	service.setPayload(aSDataService.getCountries());
+    	service.setPayload(aSDataService.getCountries(count));
         
         return service;
     }
@@ -101,9 +101,9 @@ public class ASDataController {
      */
   
     @RequestMapping(value = "/states/{countrycode}", method = RequestMethod.GET )
-    public Service getStates(@PathVariable ("countrycode") String countrycode) {
+    public Service getStates(@PathVariable ("countrycode") String countrycode,@RequestParam(value = "count", required = false, defaultValue = "10") Integer count) {
         Service service=new Service();
-        service.setPayload(aSDataService.getStates(countrycode));
+        service.setPayload(aSDataService.getStates(countrycode,count));
         
         return service;
     }
@@ -162,9 +162,9 @@ public class ASDataController {
     }
     
     @RequestMapping(value = "/areasOfInterests/", method = RequestMethod.GET )
-    public Service getAreasOfInterests() {
+    public Service getAreasOfInterests(@RequestParam(value = "count", required = false, defaultValue = "10") Integer count) {
     	 Service service = new Service();
-         service.setPayload(aSDataService.getAreasOfInterests());
+         service.setPayload(aSDataService.getAreasOfInterests(count));
          
          return service;
     }
