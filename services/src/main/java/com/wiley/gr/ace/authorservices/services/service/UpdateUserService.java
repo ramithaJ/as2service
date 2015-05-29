@@ -20,9 +20,10 @@ import com.wiley.gr.ace.authorservices.model.User;
  * @author vkumark
  */
 public interface UpdateUserService {
-    
+
     User updateOrcidProfile(String orcidId, String userId) throws Exception;
-    
-    String updateOrcidId(String orcidId, String userId) throws Exception;
-    
+
+    boolean updateOrcidId(String emailId, String orcidId, String userId)
+            throws Exception;
+
 }
