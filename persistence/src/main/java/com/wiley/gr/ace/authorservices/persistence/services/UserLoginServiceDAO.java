@@ -31,12 +31,6 @@ public interface UserLoginServiceDAO {
      * @param emailId
      * @return
      */
-    boolean lockUser(int userId);
-    
-    /**
-     * @param emailId
-     * @return
-     */
     boolean checkSecuritySetup(int userId);
     
     /**
@@ -86,7 +80,7 @@ public interface UserLoginServiceDAO {
      * @param emailId
      * @return
      */
-    boolean unLockUser(int userId);
+    void unLockUser(int userId);
     
     AuthorProfile authorProfile(int userId);
 }
