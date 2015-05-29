@@ -19,19 +19,14 @@ package com.wiley.gr.ace.authorservices.model.external;
  *
  */
 public class SecuirtyQuestionDetails {
-    private SecurityQuestion SecurityQuestion;
+    private SecurityQuestions securityQuestions;
 
-    public SecurityQuestion getSecurityQuestion ()
-    {
-        return SecurityQuestion;
+    public SecurityQuestions getSecurityQuestions() {
+        return securityQuestions;
     }
 
-    public void setSecurityQuestion (SecurityQuestion SecurityQuestion)
-    {
-        this.SecurityQuestion = SecurityQuestion;
+    public void setSecurityQuestions(SecurityQuestions securityQuestions) {
+        this.securityQuestions = securityQuestions;
     }
-
-   
-   
 
 }
