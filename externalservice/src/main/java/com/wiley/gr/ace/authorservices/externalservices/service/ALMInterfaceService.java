@@ -11,6 +11,7 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
+import com.wiley.gr.ace.authorservices.model.AdminUser;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.external.SecuirtyQuestionDetails;
@@ -89,7 +90,20 @@ public interface ALMInterfaceService {
      */
     SecurityDetailsHolder getSecurityQuestions(String emailId);
 
+    /**
+     * @param securityDetails
+     * @return
+     */
     boolean updateSecurityDetails(SecurityDetailsHolder securityDetails);
 
+    /**
+     * @param emailId
+     * @return
+     */
     SecuirtyQuestionDetails getSecurityQuestionDetails(String emailId);
+    
+    /**
+     * @param emailId
+     */
+    AdminUser findUser(String emailId);
 }
