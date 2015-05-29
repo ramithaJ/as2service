@@ -126,6 +126,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
             Role role = new Role();
             role.setRoleId(daoRoles.getRoleId() + "");
             role.setRoleName(daoRoles.getRoleName());
+            role.setRoleDescription(daoRoles.getDescription());
             if (daoRoles.getRoleType() != null
                     && daoRoles.getRoleType().equals(
                             AuthorServicesConstants.ROLE_TYPE_INTERNAL)) {
@@ -186,7 +187,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
                         .getPermissionCd() + "");
                 permissionsMap.put(roleIdString, permissionsList);
             }
-            
+                
         }
         
         Map<String, String[]> returnMap = new HashMap<String, String[]>();
