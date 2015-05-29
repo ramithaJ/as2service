@@ -30,7 +30,6 @@ import com.wiley.gr.ace.authorservices.model.UserProfile;
 import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
 import com.wiley.gr.ace.authorservices.model.external.SecuirtyQuestionDetails;
 import com.wiley.gr.ace.authorservices.model.external.SecurityQuestion;
-import com.wiley.gr.ace.authorservices.model.external.SecurityQuestions;
 import com.wiley.gr.ace.authorservices.services.service.DashBoardService;
 
 /**
@@ -72,23 +71,17 @@ public class DashBoardServiceImpl implements DashBoardService {
         SecuirtyQuestionDetails secuirtyQuestionDetails = almIntefaceService
                 .getSecurityQuestionDetails(emailId);
         if (!StringUtils.isEmpty(secuirtyQuestionDetails)) {
-            SecurityQuestions securityQuestions = secuirtyQuestionDetails
-                    .getSecurityQuestions();
-            List<SecurityQuestion> securityQuestionList = securityQuestions
+            SecurityQuestion securityQuestion = secuirtyQuestionDetails
                     .getSecurityQuestion();
-            if (null != securityQuestionList) {
-                for (SecurityQuestion securityQuestion : securityQuestionList) {
-                    if (StringUtils.isEmpty(securityQuestion.getQuestion())
-                            || StringUtils
-                                    .isEmpty(securityQuestion.getAnswer())) {
+            String[] question =securityQuestion
+                    .getQuestion();
+            if (question.length==0) {
                         dashBoardInfo = new DashBoardInfo();
                         dashBoardInfo.setId("security");
                         dashBoardInfo
                                 .setDashBoardInfoMessage("No Security Details");
-                        break;
+              
                     }
-                }
-            }
         }
         return dashBoardInfo;
     }
