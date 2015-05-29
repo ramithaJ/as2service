@@ -80,11 +80,11 @@ public class AdminLoginServiceImpl implements AdminLoginService {
      * (java.lang.String)
      */
     @Override
-    public boolean doLogin(String emailId) {
+    public String doLogin(String emailId) {
         // Call external service for password validation
         int userId = userLoginServiceDAO.getUserId(emailId);
         userLoginServiceDAO.doLogin(userId);
-        return true;
+        return userId+"";
         
     }
     
