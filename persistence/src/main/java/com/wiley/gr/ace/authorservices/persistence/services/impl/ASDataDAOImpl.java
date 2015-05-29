@@ -169,7 +169,6 @@ public class ASDataDAOImpl implements ASDataDAO {
         Session session = null;
         List<Object[]> list = new ArrayList<Object[]>();
         List<RolePermissions> returnList = new ArrayList<RolePermissions>();
-        String hql = "";
         
         try {
             
