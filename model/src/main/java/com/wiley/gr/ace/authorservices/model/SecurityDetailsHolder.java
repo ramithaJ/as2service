@@ -14,9 +14,13 @@ package com.wiley.gr.ace.authorservices.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * @author kpshiva
  */
+@JsonInclude(Include.NON_NULL)
 public class SecurityDetailsHolder {
     
     private String emailId;

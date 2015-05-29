@@ -124,7 +124,7 @@
         <profile>
             <id>dev-profile</id>        
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
                 <property>
                     <name>liquibase-assembly</name>
                 </property>

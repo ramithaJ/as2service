@@ -63,7 +63,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 			
 			addressElement.setCountrycode(user.getCountry().getCountryCode());
 			addressElement.setCountryname(user.getCountry().getCountryName());
-			addressElement.setCountrynamene(user.getCountryNameNE());
+			//addressElement.setCountrynamene(user.getCountryNameNE());
 			addressElements.add(addressElement);
 			cuAddressDetails.setAddress(addressElements);
 			

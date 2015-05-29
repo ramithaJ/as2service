@@ -14,6 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -22,24 +24,15 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  *
  */
 @JsonInclude(Include.NON_NULL)
-public class Question {
-    private String Question1;
-    private String Question2;
+public class SecurityQuestions {
+    private List<SecurityQuestion> securityQuestion;
 
-    public String getQuestion2() {
-        return Question2;
+    public List<SecurityQuestion> getSecurityQuestion() {
+        return securityQuestion;
     }
 
-    public void setQuestion2(String Question2) {
-        this.Question2 = Question2;
-    }
-
-    public String getQuestion() {
-        return Question1;
-    }
-
-    public void setQuestion(String Question1) {
-        this.Question1 = Question1;
+    public void setSecurityQuestion(List<SecurityQuestion> securityQuestion) {
+        this.securityQuestion = securityQuestion;
     }
 
 }
