@@ -30,6 +30,7 @@ import com.wiley.gr.ace.authorservices.model.UserProfile;
 import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
 import com.wiley.gr.ace.authorservices.model.external.SecuirtyQuestionDetails;
 import com.wiley.gr.ace.authorservices.model.external.SecurityQuestion;
+import com.wiley.gr.ace.authorservices.model.external.SecurityQuestions;
 import com.wiley.gr.ace.authorservices.services.service.DashBoardService;
 
 /**
@@ -51,7 +52,8 @@ public class DashBoardServiceImpl implements DashBoardService {
     public DashBoard getProfileMeter(String userId) throws NullPointerException {
         DashBoard dashBoard = null;
         List<DashBoardInfo> dashBoardInfoList;
-        LookUpProfile lookUpProfile = cdmIntefaceService.lookUpProfile(userId);
+        LookUpProfile lookUpProfile = cdmIntefaceService
+                .lookUpProfileDashboard(userId);
         UserProfile userProfile = lookUpProfile.getCustomerProfile();
         User user = userProfile.getCustomerDetails();
         dashBoardInfoList = checkingDashBoardInfo(userProfile, user);
@@ -71,17 +73,23 @@ public class DashBoardServiceImpl implements DashBoardService {
         SecuirtyQuestionDetails secuirtyQuestionDetails = almIntefaceService
                 .getSecurityQuestionDetails(emailId);
         if (!StringUtils.isEmpty(secuirtyQuestionDetails)) {
-            SecurityQuestion securityQuestion = secuirtyQuestionDetails
+            SecurityQuestions securityQuestions = secuirtyQuestionDetails
+                    .getSecurityQuestions();
+            List<SecurityQuestion> securityQuestionList = securityQuestions
                     .getSecurityQuestion();
-            String[] question =securityQuestion
-                    .getQuestion();
-            if (question.length==0) {
+            if (null != securityQuestionList) {
+                for (SecurityQuestion securityQuestion : securityQuestionList) {
+                    if (StringUtils.isEmpty(securityQuestion.getQuestion())
+                            || StringUtils
+                                    .isEmpty(securityQuestion.getAnswer())) {
                         dashBoardInfo = new DashBoardInfo();
                         dashBoardInfo.setId("security");
                         dashBoardInfo
                                 .setDashBoardInfoMessage("No Security Details");
-              
+                        break;
                     }
+                }
+            }
         }
         return dashBoardInfo;
     }

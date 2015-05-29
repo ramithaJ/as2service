@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
@@ -24,6 +25,7 @@ import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnectio
 import com.wiley.gr.ace.authorservices.persistence.entity.LookupValues;
 import com.wiley.gr.ace.authorservices.persistence.entity.Permissions;
 import com.wiley.gr.ace.authorservices.persistence.entity.RolePermissions;
+import com.wiley.gr.ace.authorservices.persistence.entity.RolePermissionsId;
 import com.wiley.gr.ace.authorservices.persistence.entity.Roles;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
 
@@ -165,8 +167,8 @@ public class ASDataDAOImpl implements ASDataDAO {
     public List<RolePermissions> getRolePermissionMappings(String roleId) {
         
         Session session = null;
-        List<RolePermissions> list = new ArrayList();
-        String hql = "";
+        List<Object[]> list = new ArrayList<Object[]>();
+        List<RolePermissions> returnList = new ArrayList<RolePermissions>();
         
         try {
             
@@ -174,13 +176,23 @@ public class ASDataDAOImpl implements ASDataDAO {
             
             if (roleId == null) {
                 
-                hql = "from RolePermissions";
-                list = session.createQuery(hql).list();
+                Query query = session.createSQLQuery("select * from role_permissions");
+                list = query.list();
                 
             } else {
-                hql = "from RolePermissions where id.roleId = :roleId";
-                list = session.createQuery(hql).setString("roleId", roleId)
-                        .list();
+                
+                Query query = session.createSQLQuery("select * from role_permissions where role_id = :roleId").setParameter("roleId", roleId);
+                list = query.list();
+            }
+            
+            for (Object[] object : list) {
+                
+                RolePermissions rolePermissions = new RolePermissions();
+                RolePermissionsId rolePermissionsId = new RolePermissionsId();
+                rolePermissionsId.setRoleId(Integer.valueOf(object[0].toString()));
+                rolePermissionsId.setPermissionCd(object[1].toString());
+                rolePermissions.setId(rolePermissionsId);
+                returnList.add(rolePermissions);
             }
             
         } finally {
@@ -190,7 +202,7 @@ public class ASDataDAOImpl implements ASDataDAO {
             }
         }
         
-        return list;
+        return returnList;
     }
     
 }

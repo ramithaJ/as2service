@@ -57,7 +57,6 @@ public class UserLoginController extends ASExceptionController {
     public Service login(@Valid @RequestBody Login login) {
         
         Service service = new Service();
-        service.setStatus("success");
         service.setPayload(userLoginService.doLogin(login.getEmailId(),
                 login.getPassword()));
         
@@ -80,7 +79,6 @@ public class UserLoginController extends ASExceptionController {
         /**
          * Service impl TODO
          */
-        service.setStatus("success");
         service.setPayload(user);
         
         return service;
@@ -98,7 +96,6 @@ public class UserLoginController extends ASExceptionController {
         
         Service service = new Service();
         service.setPayload(userLoginService.resetPassword(securityDetailsHolder));
-        service.setStatus("Success");
         return service;
         
     }
@@ -116,7 +113,6 @@ public class UserLoginController extends ASExceptionController {
         
         Service service = new Service();
         service.setPayload(authorProfileService.updatePassword(passwordDetails));
-        service.setStatus("Success");
         return service;
         
     }
@@ -133,7 +129,6 @@ public class UserLoginController extends ASExceptionController {
         
         Service service = new Service();
         service.setPayload(userLoginService.getSecurityQuestions(emailId));
-        service.setStatus("success");
         
         return service;
     }
@@ -156,7 +151,6 @@ public class UserLoginController extends ASExceptionController {
         Service service = new Service();
         service.setPayload(userLoginService.validateSecurityQuestions(emailId,
                 securityDetails.getSecurityDetails()));
-        service.setStatus("success");
         
         return service;
     }
@@ -165,7 +159,6 @@ public class UserLoginController extends ASExceptionController {
     public Service userSecurityQuestions(@PathVariable("emailId") String emailId) {
         
         Service service = new Service();
-        service.setStatus("success");
         service.setPayload(userLoginService.securityQuestions(emailId));
         return service;
         
@@ -175,7 +168,6 @@ public class UserLoginController extends ASExceptionController {
     public Service lockUser(@RequestBody String emailId) {
         
         Service service = new Service();
-        service.setStatus("success");
         service.setPayload(userLoginService.lockUser(emailId));
         return service;
         
@@ -185,7 +177,6 @@ public class UserLoginController extends ASExceptionController {
     public Service unLockUser(@RequestBody String emailId) {
         
         Service service = new Service();
-        service.setStatus("success");
         service.setPayload(userLoginService.unLockUser(emailId));
         return service;
         
