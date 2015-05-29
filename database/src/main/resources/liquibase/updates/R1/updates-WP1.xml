@@ -1239,41 +1239,42 @@ ALTER TABLE ROLE_PERMISSIONS ADD CONSTRAINT ROLE_PERMISSIONS_PK PRIMARY KEY (ROL
 <sql>
 ALTER TABLE AUDIT_DETAILS ADD CONSTRAINT AUDIT_DETAILS_PK PRIMARY KEY(AUDIT_ID);
 </sql>
-</changeset>
+</changeSet>
 
 <changeSet author="gphaniraj" id="WP1-220">
 <sql>
 ALTER TABLE AUDIT_DETAILS ADD CONSTRAINT AUDIT_DETAILS_ACD_FK FOREIGN KEY(ACTION_CD) REFERENCES ACTIONS(ACTION_CD);
 </sql>
-</changeset>
+</changeSet>
 
 <changeSet author="gphaniraj" id="WP1-221">
 <sql>
 ALTER TABLE  USER_PROFILE_ATTRIB_VISIBLE  ADD CONSTRAINT USER_PROFILE_ATTRIB_VISIBLE_PK PRIMARY KEY(USER_ID,PROFILE_ATTRIB_CD);
 </sql>
-</changeset>
+</changeSet>
 
 <changeSet author="gphaniraj" id="WP1-222">
 <sql>
 ALTER TABLE USER_WOA_ACCOUNTS DROP PRIMARY KEY;
 </sql>
-</changeset>
+</changeSet>
 
 <changeSet author="gphaniraj" id="WP1-223">
 <sql>
 ALTER TABLE USER_WOA_ACCOUNTS ADD CONSTRAINT USER_WOA_ACCOUNTS_PK PRIMARY KEY(USER_ID,WOA_INSTITUTION_ID);
 </sql>
-</changeset>
+</changeSet>
 
 <changeSet author="gphaniraj" id="WP1-224">
 <sql>
 ALTER TABLE USER_ADDRESSES ADD CONSTRAINT USER_ADDRESSES_PK PRIMARY KEY(USER_ADDRESS_ID);
 </sql>
-</changeset>
+</changeSet>
 
 <changeSet author="gphaniraj" id="WP1-225">
 <sql>
 ALTER TABLE USER_PREFFERED_JOURNALS ADD CONSTRAINT USER_PREFERRED_JOURNALS_PK  PRIMARY KEY(USER_ID,JOURNAL_ID);
 </sql>
-</changeset>
+</changeSet>
+
 </databaseChangeLog>
