@@ -51,7 +51,6 @@ public class UserRolesDAOImpl implements UserRolesDAO {
         Session session = null;
         Transaction transaction = null;
         List<Object[]> list = new ArrayList<Object[]>();
-        List<RolePermissions> returnList = new ArrayList<RolePermissions>();
         List<RolePermissions> daoPermissionsList = new ArrayList<RolePermissions>();
         
         try {
