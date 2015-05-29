@@ -11,15 +11,24 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
+import com.wiley.gr.ace.authorservices.model.InviteRecords;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserReferenceData;
+import com.wiley.gr.ace.authorservices.model.external.AddressDetails;
+import com.wiley.gr.ace.authorservices.model.external.AddressElement;
+import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
+import com.wiley.gr.ace.authorservices.model.external.CustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
+import com.wiley.gr.ace.authorservices.model.external.ProfileInformation;
+import com.wiley.gr.ace.authorservices.model.external.Status;
+import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
 import com.wiley.gr.ace.authorservices.persistence.services.RegistrationServiceDAO;
 import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
 
@@ -27,71 +36,116 @@ import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
  * @author Virtusa
  */
 public class RegistrationServiceImpl implements RegistrationService {
-    
-    @Autowired(required = true)
-    ESBInterfaceService esbInterFaceService;
-    
-    @Autowired(required = true)
-    RegistrationServiceDAO registrationServiceDAO;
-    
-    @Override
-    public String createUser(User user) throws Exception {
-        
-        String status = null;
-        if (null != user) {
-            status = esbInterFaceService.creatUser(user);
-        }
-        return status;
-    }
-    
-    @Override
-    public List<User> getUserFromFirstNameLastName(String email,
-            String firstName, String lastName) throws Exception {
-        
-        List<User> userList = null;
-        if (!StringUtils.isEmpty(firstName) && !StringUtils.isEmpty(lastName)) {
-            userList = esbInterFaceService.getUsersFromFirstNameLastName(email,
-                    firstName, lastName);
-        }
-        
-        return userList;
-    }
-    
-    @Override
-    public User checkEmailIdExists(String emailId) throws Exception {
-        User user = new User();
-        ESBUser esbUser = null;
-        if (!StringUtils.isEmpty(emailId)) {
-            esbUser = esbInterFaceService.checkEmailIdExists(emailId);
-            if (null != esbUser) {
-                UserReferenceData userRefData = new UserReferenceData();
-                userRefData.setEcid(esbUser.getEcid());
-                userRefData.setStatus(esbUser.getStatus());
-                user.setUserId(esbUser.getUserId());
-                user.setFirstName(esbUser.getFirstName());
-                user.setLastName(esbUser.getLastName());
-                user.setPrimaryEmailAddr(esbUser.getEmailId());
-                user.setCountry(esbUser.getCountry());
-                user.setUserReferenceData(userRefData);
-            } else {
-                user = null;
-            }
-        } else {
-            user = null;
-        }
-        
-        return user;
-    }
-    
-    @Override
-    public boolean searchUserByOrcidId(String orcidId) throws Exception {
-        
-        boolean isUserFound = false;
-        if (!StringUtils.isEmpty(orcidId)
-                && registrationServiceDAO.searchUserByOrcidId(orcidId)) {
-            isUserFound = true;
-        }
-        
-        return isUserFound;
-    }
+
+	@Autowired(required = true)
+	ESBInterfaceService esbInterFaceService;
+
+	@Autowired(required = true)
+	RegistrationServiceDAO registrationServiceDAO;
+
+	@Override
+	public String createUser(User user) throws Exception {
+
+		String status = null;
+		Status statusObj = null;
+		if (null != user) {
+			ProfileInformation profileInformation = new ProfileInformation();
+			CustomerProfile customerProfile = new CustomerProfile();
+			CustomerDetails customerDetails = new CustomerDetails();
+			AddressDetails cuAddressDetails = new AddressDetails();
+			List<AddressElement> addressElements = new ArrayList<AddressElement>();
+			AddressElement addressElement = new AddressElement();
+			
+			customerDetails.setFirstname(user.getFirstName());
+			customerDetails.setLastname(user.getLastName());
+			customerDetails.setPassword(user.getPassword());
+			customerDetails.setPrimaryemail(user.getPrimaryEmailAddr());
+			
+			addressElement.setCountrycode(user.getCountry().getCountryCode());
+			addressElement.setCountryname(user.getCountry().getCountryName());
+			addressElement.setCountrynamene(user.getCountryNameNE());
+			addressElements.add(addressElement);
+			cuAddressDetails.setAddress(addressElements);
+			
+			customerProfile.setCustomerdetails(customerDetails);
+			customerProfile.setAddressdetails(cuAddressDetails);
+			
+			profileInformation.setCustomerprofile(customerProfile);
+			
+			statusObj=esbInterFaceService.creatUser(profileInformation);
+		}
+		
+		if("SUCCESS".equalsIgnoreCase(statusObj.getStatus())) {
+			status = "SUCCESS";
+		} else {
+			status = "FAILURE";
+		}
+		
+		return status;
+	}
+
+	@Override
+	public List<User> getUserFromFirstNameLastName(String email,
+			String firstName, String lastName) throws Exception {
+
+		List<User> userList = null;
+		if (!StringUtils.isEmpty(firstName) && !StringUtils.isEmpty(lastName)) {
+			userList = esbInterFaceService.getUsersFromFirstNameLastName(email,
+					firstName, lastName);
+		}
+
+		return userList;
+	}
+
+	@Override
+	public User checkEmailIdExists(String emailId) throws Exception {
+		User user = new User();
+		ESBUser esbUser = null;
+		if (!StringUtils.isEmpty(emailId)) {
+			esbUser = esbInterFaceService.checkEmailIdExists(emailId);
+			if (null != esbUser) {
+				UserReferenceData userRefData = new UserReferenceData();
+				userRefData.setEcid(esbUser.getEcid());
+				userRefData.setStatus(esbUser.getStatus());
+				user.setUserId(esbUser.getUserId());
+				user.setFirstName(esbUser.getFirstName());
+				user.setLastName(esbUser.getLastName());
+				user.setPrimaryEmailAddr(esbUser.getEmailId());
+				//user.setCountry(esbUser.getCountry());
+				user.setUserReferenceData(userRefData);
+			} else {
+				user = null;
+			}
+		} else {
+			user = null;
+		}
+
+		return user;
+	}
+
+	@Override
+	public boolean searchUserByOrcidId(String orcidId) throws Exception {
+
+		boolean isUserFound = false;
+		if (!StringUtils.isEmpty(orcidId)
+				&& registrationServiceDAO.searchUserByOrcidId(orcidId)) {
+			isUserFound = true;
+		}
+
+		return isUserFound;
+	}
+
+	@Override
+	public InviteRecords searchInvitationRecord(String guid) throws Exception {
+		InviteRecords inviteRecord = new InviteRecords();
+		InviteResetpwdLog inviteRecordFromDB = null;
+		inviteRecordFromDB = registrationServiceDAO.getInvitationRecords(guid);
+		inviteRecord.setEmailAddress(inviteRecordFromDB.getEmailAddress());
+		inviteRecord.setFirstName(inviteRecordFromDB.getFirstName());
+		inviteRecord.setGuid(inviteRecordFromDB.getGuid());
+		inviteRecord.setLastName(inviteRecordFromDB.getLastName());
+		inviteRecord.setStatus(inviteRecordFromDB.getStatus());
+		inviteRecord.setUserType(inviteRecordFromDB.getUserType());
+		return inviteRecord;
+	}
 }
