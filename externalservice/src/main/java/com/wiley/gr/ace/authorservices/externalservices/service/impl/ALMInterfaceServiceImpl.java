@@ -271,10 +271,10 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
 
     @Override
     public SecuirtyQuestionDetails getSecurityQuestionDetails(String emailId) {
-        final String url = "http://demo7930138.mockable.io/ALMService/RetrieveSecQuestions?Email=email";
+       /* final String url = "http://vmesbdev.wiley.com:15200/ALMService/RetrieveSecQuestions?Email="+emailId;
         URI uri = null;
         try {
-
+           
             uri = new URI(url);
             RestTemplate restTemplate = new RestTemplate();
             HttpHeaders requestHeaders = new HttpHeaders();
@@ -283,11 +283,28 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
             ResponseEntity<SecuirtyQuestionDetails> response = restTemplate
                     .exchange(uri, HttpMethod.GET, requestEntity,
                             SecuirtyQuestionDetails.class);
+            System.err.println("==================================="+response.getBody().getSecurityQuestion());
             return response.getBody();
 
         } catch (URISyntaxException e) {
 
             throw new ASException();
         }
-    }
+    }*/
+        
+        final String url = "http://vmesbdev.wiley.com:15200/ALMService/RetrieveSecQuestions?Email="+emailId;
+        Object object = StubInvokerUtil
+                .invokeStub(url, HttpMethod.GET, "SecuirtyQuestionDetails");
+       System.err.println( object.toString());
+       SecuirtyQuestionDetails details=(SecuirtyQuestionDetails)object;
+       System.err.println(details.getSecurityQuestion());
+        return details;
 }
+      /*  String string="{  \"SecurityQuestion\":{    \"Question\":[      \"Question1\",      \"Question2\"   ]  }}";
+        Object object=string;
+        JSONObject detailsJSON = (JSONObject) new JSONParser()
+        .parse(string);
+        SecuirtyQuestionDetails details=(SecuirtyQuestionDetails)detailsJSON.clone();
+        System.out.println(details.getSecurityQuestion());
+       // return details;
+*/    }

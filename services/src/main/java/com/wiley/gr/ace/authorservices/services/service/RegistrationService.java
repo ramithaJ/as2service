@@ -13,6 +13,7 @@ package com.wiley.gr.ace.authorservices.services.service;
 
 import java.util.List;
 
+import com.wiley.gr.ace.authorservices.model.InviteRecords;
 import com.wiley.gr.ace.authorservices.model.User;
 
 /**
@@ -28,5 +29,7 @@ public interface RegistrationService {
     User checkEmailIdExists(String emailId) throws Exception;
     
     boolean searchUserByOrcidId(String orcidId) throws Exception;
+    
+    InviteRecords searchInvitationRecord(String guid) throws Exception;
     
 }

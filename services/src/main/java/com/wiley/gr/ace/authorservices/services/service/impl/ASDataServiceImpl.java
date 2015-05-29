@@ -133,10 +133,10 @@ public class ASDataServiceImpl implements ASDataService {
 
 	@Override
 	public List<Country> getCountries() {
-		List<ESBResponse> countrieslist = cdmservice.getCountries();
+	    ESBResponse countrieslist = cdmservice.getCountries();
 		List<Country> countrylist = new ArrayList<Country>();
-		for (int i = 0; i < countrieslist.size(); i++) {
-			List<Object> externalCountrylist = countrieslist.get(i)
+	
+			List<Object> externalCountrylist = countrieslist
 					.getResponse().getDocs();
 			if (null == externalCountrylist) {
 				return null;
@@ -149,20 +149,40 @@ public class ASDataServiceImpl implements ASDataService {
 				String[] idsplit = externalcountrymap.split("_");
 				country.setCountryCode(idsplit[1]);
 				country.setCountryName(countrymap.get("COUNTRY_NAME"));
-
 				countrylist.add(country);
-
 			}
-		}
+		
 
 		return countrylist;
 	}
 
 	@Override
-	public List<State> getStates() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public List<State> getStates(String countrycode) {
+	    ESBResponse statelistext = cdmservice.getStates();
+		List<State> modelststelist = new ArrayList<State>();
+		
+			List<Object> externalstatelist = statelistext.getResponse()
+					.getDocs();
+			if (null == externalstatelist) {
+				return null;
+			}
+			
+			for (Object statelist : externalstatelist) {
+
+				LinkedHashMap<String, String> statemap = (LinkedHashMap<String, String>) statelist;
+
+				State state = new State();
+				String externalcountrymap = statemap.get("id");
+				String[] idsplit = externalcountrymap.split("_");
+				state.setStateCode(idsplit[2]);
+				state.setStateName(statemap.get("SUBDIVISION_NAME"));
+				modelststelist.add(state);
+			}
+
+			return modelststelist;
+		}
+		
+	
 
 	@Override
 	public List<Institution> getInstitutions() {
@@ -196,8 +216,8 @@ public class ASDataServiceImpl implements ASDataService {
 
 	@Override
 	public List<Interests> getAreasOfInterests() {
-		List<ESBResponse> areaOfInterests = cdmservice.getAreaOfInterests();
-		List<Object> externalInterests = areaOfInterests.get(0).getResponse()
+	    ESBResponse areaOfInterests = cdmservice.getAreaOfInterests();
+		List<Object> externalInterests = areaOfInterests.getResponse()
 				.getDocs();
 		if (null == externalInterests) {
 			return null;

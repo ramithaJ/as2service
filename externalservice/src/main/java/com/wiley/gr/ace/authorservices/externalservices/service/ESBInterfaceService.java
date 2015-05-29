@@ -15,6 +15,8 @@ import java.util.List;
 
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
+import com.wiley.gr.ace.authorservices.model.external.ProfileInformation;
+import com.wiley.gr.ace.authorservices.model.external.Status;
 
 /**
  * @author Virtusa
@@ -30,6 +32,6 @@ public interface ESBInterfaceService {
     List<User> getUsersFromFirstNameLastName(String email, String firstName,
             String lastName) throws Exception;
     
-    String creatUser(User user) throws Exception;
+    Status creatUser(ProfileInformation profileForCreation) throws Exception;
     
 }

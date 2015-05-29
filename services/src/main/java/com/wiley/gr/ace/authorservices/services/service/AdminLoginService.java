@@ -33,7 +33,7 @@ public interface AdminLoginService {
      * @param emailId
      * @return
      */
-    boolean doLogin(String emailId);
+    String doLogin(String emailId);
     
     /**
      * This method requests for a wiley user to get Admin Access.

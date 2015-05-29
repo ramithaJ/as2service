@@ -12,8 +12,6 @@
 
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
-import java.util.List;
-
 import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
 import com.wiley.gr.ace.authorservices.model.external.Industries;
 import com.wiley.gr.ace.authorservices.model.external.JobCategories;
@@ -25,10 +23,11 @@ public interface CDMInterfaceService {
 
 	boolean updateProfile(LookUpProfile lookUpProfile);
 
-	List<ESBResponse> getAreaOfInterests();
+	ESBResponse getAreaOfInterests();
 
 	JobCategories getJobCategories();
 
 	Industries getIndustries();
-	List<ESBResponse> getCountries();
+	ESBResponse getCountries();
+	ESBResponse getStates();
 }

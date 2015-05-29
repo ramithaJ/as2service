@@ -15,7 +15,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
@@ -82,10 +81,8 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
                 throw new ASException("1001",
                         "Invalid email address. Please Re-Enter");
             }
-            String hql = "from AuthorProfile where userId = :userId";
-            List<AuthorProfile> result = session.createQuery(hql)
-                    .setInteger(USERID, userId).list();
-            if (result != null && result.isEmpty()) {
+            Users users = (Users) session.load(Users.class, userId);
+            if (users != null) {
                 status = true;
             }
             return status;
@@ -137,7 +134,7 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
      * #doLogin(int, java.lang.String)
      */
     @Override
-    public void doLogin(int userId, String password) {
+    public void doLogin(int userId) {
         
         Session session = null;
         Transaction transaction = null;
@@ -149,6 +146,8 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
             Users users = (Users) session.load(Users.class, userId);
             
             users.setLastLoginDate(date);
+            users.setUsersByUpdatedBy(users);
+            users.setUpdatedDate(date);
             Users updateByUser = new Users();
             updateByUser.setUserId(userId);
             users.setUsersByUpdatedBy(updateByUser);
@@ -177,53 +176,14 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
         boolean isLocked = false;
         try {
             session = con.getSessionFactory().openSession();
-            Criteria criteria = session.createCriteria(AuthorProfile.class);
+            Criteria criteria = session.createCriteria(Users.class);
             criteria.add(Restrictions.eq(USERID, userId));
-            AuthorProfile authorProfile = (AuthorProfile) criteria
-                    .uniqueResult();
-            if (null == authorProfile) {
-                return isLocked;
-            }
-            // TODO: Should change logic here
-            /*if (authorProfile.getIsAccountLocked() != null
-                    && authorProfile.getIsAccountLocked() == 'Y') {
+            Users users = (Users) criteria.uniqueResult();
+            if(users != null && users.getAccountLockedTime() != null) {
                 isLocked = true;
-            } else {
-                isLocked = false;
-            }*/
-            return isLocked;
-        } finally {
-            if (session != null) {
-                session.flush();
-                session.close();
             }
-        }
-    }
-    
-    /*
-     * (non-Javadoc)
-     * @see
-     * com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO
-     * #lockUser(int)
-     */
-    @Override
-    public boolean lockUser(int userId) {
-        
-        Session session = null;
-        Transaction transaction = null;
-        Date accountLockedTime = new Date();
-        try {
-            session = con.getSessionFactory().openSession();
-            transaction = session.beginTransaction();
-            String hql = "UPDATE AuthorProfile set isAccountLocked = :isAccountLocked, accountLockedTime = :accountLockedTime "
-                    + "WHERE" + " userId = :userId";
-            Query query = session.createQuery(hql);
-            query.setParameter("isAccountLocked", 'Y');
-            query.setParameter("accountLockedTime", accountLockedTime);
-            query.setParameter(USERID, userId);
-            query.executeUpdate();
-            transaction.commit();
-            return true;
+            
+            return isLocked;
         } finally {
             if (session != null) {
                 session.flush();
@@ -246,7 +206,7 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
         try {
             session = con.getSessionFactory().openSession();
             Criteria criteria = session.createCriteria(Users.class);
-            criteria.add(Restrictions.eq("emailAddr", emailId));
+            criteria.add(Restrictions.eq("primaryEmailAddr", emailId));
             Users user = (Users) criteria.uniqueResult();
             if (user != null) {
                 userId = user.getUserId();
@@ -298,12 +258,12 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
         try {
             session = con.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            String hql = "UPDATE AuthorProfile set invalidLoginCnt = :invalidLoginCnt "
-                    + "WHERE userId = :userId";
-            Query query = session.createQuery(hql);
-            query.setParameter("invalidLoginCnt", count);
-            query.setParameter(USERID, userId);
-            query.executeUpdate();
+            Users users = (Users) session.load(Users.class, userId);
+            users.setInvalidLoginCnt(count);
+            Users updateByUser = new Users();
+            updateByUser.setUserId(userId);
+            users.setUsersByUpdatedBy(updateByUser);
+            session.saveOrUpdate(users);
             transaction.commit();
             return true;
         } finally {
@@ -345,21 +305,21 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
      * #unLockUser(int)
      */
     @Override
-    public boolean unLockUser(int userId) {
+    public void unLockUser(int userId) {
         
         Session session = null;
         Transaction transaction = null;
         try {
             session = con.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            String hql = "UPDATE AuthorProfile set isAccountLocked = :isAccountLocked WHERE "
-                    + "userId = :userId";
-            Query query = session.createQuery(hql);
-            query.setParameter("isAccountLocked", 'N');
-            query.setParameter(USERID, userId);
-            query.executeUpdate();
+            Users users = (Users) session.load(Users.class, userId);
+            users.setAccountLockedTime(null);
+            users.setInvalidLoginCnt(0);
+            Users updateByUser = new Users();
+            updateByUser.setUserId(userId);
+            users.setUsersByUpdatedBy(updateByUser);
+            session.saveOrUpdate(users);
             transaction.commit();
-            return true;
         } finally {
             if (session != null) {
                 session.flush();

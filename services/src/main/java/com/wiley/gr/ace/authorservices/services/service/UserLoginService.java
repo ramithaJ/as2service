@@ -53,13 +53,15 @@ public interface UserLoginService {
     SecurityDetailsHolder getSecurityQuestions(String emailId);
     
     /**
-     * @param userId
+     * @param emailId
      * @return
      */
-    boolean lockUser(int userId);
-    
     boolean lockUser(String emailId);
     
+    /**
+     * @param emailId
+     * @return
+     */
     boolean unLockUser(String emailId);
     
     /**
