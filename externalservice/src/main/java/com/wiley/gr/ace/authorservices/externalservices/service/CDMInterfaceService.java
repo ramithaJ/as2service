@@ -19,15 +19,19 @@ import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
 
 public interface CDMInterfaceService {
 
-	LookUpProfile lookUpProfile(String userId);
+    LookUpProfile lookUpProfile(String userId);
 
-	boolean updateProfile(LookUpProfile lookUpProfile);
+    LookUpProfile lookUpProfileDashboard(String userId);
 
-	ESBResponse getAreaOfInterests();
+    boolean updateProfile(LookUpProfile lookUpProfile);
 
-	JobCategories getJobCategories();
+    ESBResponse getAreaOfInterests();
 
-	Industries getIndustries();
-	ESBResponse getCountries();
-	ESBResponse getStates();
+    JobCategories getJobCategories();
+
+    Industries getIndustries();
+
+    ESBResponse getCountries();
+
+    ESBResponse getStates();
 }

@@ -65,6 +65,23 @@ public class CDMInterfaceServiceImpl implements CDMInterfaceService {
         return false;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService
+     * #
+     * updateProfile(com.wiley.gr.ace.authorservices.model.external.LookUpProfile
+     * )
+     */
+    @Override
+    public LookUpProfile lookUpProfileDashboard(String userId) {
+        final String url = "http://demo7930138.mockable.io/user/LookUpProfile";
+        LookUpProfile lookupProfile = (LookUpProfile) StubInvokerUtil
+                .invokeStub(url, HttpMethod.GET, "LookUpProfile");
+        return lookupProfile;
+    }
+
     @Override
     public ESBResponse getAreaOfInterests() {
         final String url = "http://vmesbdev.wiley.com:15200/PickList?q=*&fq=doc_type:SUBJECTCD&wt=json&rows1000000";
@@ -91,21 +108,22 @@ public class CDMInterfaceServiceImpl implements CDMInterfaceService {
                 HttpMethod.GET, "Industry");
         return industry;
     }
-	@Override
-	public ESBResponse getCountries() {
-		final String url = "http://vmesbdev.wiley.com:15200/PickList?q=*&fq=doc_type:COUNTRYCD&wt=json&rows=1000000";
-		 ESBResponse countrycode = (ESBResponse) StubInvokerUtil
-	                .invokeStub(url, HttpMethod.GET, "AreaOfInterests");
-		 
-	        return countrycode ;
-	}
 
-	@Override
-	public ESBResponse getStates() {
-		final String url = "http://vmesbdev.wiley.com:15200/PickList?q=*&fq=doc_type:STATECD&wt=json&rows=1000000";
-		 ESBResponse state = (ESBResponse) StubInvokerUtil
-	                .invokeStub(url, HttpMethod.GET, "AreaOfInterests");
-		 
-	        return state ;
-	}
+    @Override
+    public ESBResponse getCountries() {
+        final String url = "http://vmesbdev.wiley.com:15200/PickList?q=*&fq=doc_type:COUNTRYCD&wt=json&rows=1000000";
+        ESBResponse countrycode = (ESBResponse) StubInvokerUtil.invokeStub(url,
+                HttpMethod.GET, "AreaOfInterests");
+
+        return countrycode;
+    }
+
+    @Override
+    public ESBResponse getStates() {
+        final String url = "http://vmesbdev.wiley.com:15200/PickList?q=*&fq=doc_type:STATECD&wt=json&rows=1000000";
+        ESBResponse state = (ESBResponse) StubInvokerUtil.invokeStub(url,
+                HttpMethod.GET, "AreaOfInterests");
+
+        return state;
+    }
 }
