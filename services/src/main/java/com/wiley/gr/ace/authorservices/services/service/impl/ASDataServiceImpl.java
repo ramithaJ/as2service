@@ -155,7 +155,7 @@ public class ASDataServiceImpl implements ASDataService {
 			countrylist.add(country);
 		}
 
-		return countrylist;
+		return countrylist.subList(0, count);
 	}
 
 	@Override
@@ -180,7 +180,7 @@ public class ASDataServiceImpl implements ASDataService {
 			modelststelist.add(state);
 		}
 
-		return modelststelist;
+		return modelststelist.subList(0, count);
 	}
 
 	@Override
