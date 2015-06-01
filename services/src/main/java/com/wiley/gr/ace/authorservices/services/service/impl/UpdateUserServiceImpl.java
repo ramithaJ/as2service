@@ -31,27 +31,26 @@ import com.wiley.gr.ace.authorservices.services.service.UpdateUserService;
  * @author vkumark
  */
 public class UpdateUserServiceImpl implements UpdateUserService {
-
+    
     private static final Logger LOGGER = LoggerFactory
             .getLogger(OrcidServiceImpl.class);
-
+    
     @Autowired(required = true)
     ESBInterfaceService esbInterfaceService;
     @Autowired
     CDMInterfaceService cdmInterfaceService;
     @Autowired(required = true)
     UpdateUserDAO userDao;
-
+    
     /*
      * (non-Javadoc)
-     * 
      * @see com.wiley.gr.ace.authorservices.services.service.UpdateUserService#
      * updateOrcidProfile(java.lang.String)
      */
     @Override
     public User updateOrcidProfile(String orcidId, String userId)
             throws Exception {
-
+        
         /**
          * Fetch Account details and Profile details from external service
          * (ESB->ORCID)
@@ -64,7 +63,7 @@ public class UpdateUserServiceImpl implements UpdateUserService {
              */
             String status = esbInterfaceService.updateALMUser(user);
             LOGGER.debug("ALM user update status :: " + status);
-
+            
             if (null != status && "success".equalsIgnoreCase(status)) {
                 /**
                  * Update the user account details with ORCID account details
@@ -75,10 +74,9 @@ public class UpdateUserServiceImpl implements UpdateUserService {
         }
         return updatedUser;
     }
-
+    
     /*
      * (non-Javadoc)
-     * 
      * @see com.wiley.gr.ace.authorservices.services.service.UpdateUserService#
      * updateOrcidId(java.lang.String,java.lang.String, java.lang.String)
      */
@@ -100,5 +98,5 @@ public class UpdateUserServiceImpl implements UpdateUserService {
         }
         return result;
     }
-
+    
 }

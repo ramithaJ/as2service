@@ -119,28 +119,25 @@ public class UserLoginServiceImpl implements UserLoginService {
                 
                 SecurityDetailsHolder securityDetailsHolder = new SecurityDetailsHolder();
                 // check whether user has security set up or not.
-                //if (authorProfile.getSecurityQuestFlg().equals('Y')) {
+                // if (authorProfile.getSecurityQuestFlg().equals('Y')) {
+                
+                List<SecurityDetails> securityQuestions = new ArrayList<SecurityDetails>();
+                // TODO: Get Security details from ALM
+                List<SecurityDetails> securityQuestionsList = new ArrayList<SecurityDetails>();
+                for (int i = 0; i < securityQuestions.size(); i++) {
                     
-                    List<SecurityDetails> securityQuestions = new ArrayList<SecurityDetails>();
-                    // TODO: Get Security details from ALM
-                    List<SecurityDetails> securityQuestionsList = new ArrayList<SecurityDetails>();
-                    for (int i = 0; i < securityQuestions.size(); i++) {
-                        
-                        SecurityDetails security = new SecurityDetails();
-                        security.setSecurityQuestionId("SecurityQuestion"
-                                + (i + 1));
-                        security.setSecurityQuestion(securityQuestions.get(i)
-                                .getSecurityQuestion());
-                        securityQuestionsList.add(security);
-                    }
-                    securityDetailsHolder
-                            .setSecurityDetails(securityQuestionsList);
-                    return securityDetailsHolder;
-                /*} else {
-                    
-                    throw new ASException("1015",
-                            "User doen't have security setup");
-                } */
+                    SecurityDetails security = new SecurityDetails();
+                    security.setSecurityQuestionId("SecurityQuestion" + (i + 1));
+                    security.setSecurityQuestion(securityQuestions.get(i)
+                            .getSecurityQuestion());
+                    securityQuestionsList.add(security);
+                }
+                securityDetailsHolder.setSecurityDetails(securityQuestionsList);
+                return securityDetailsHolder;
+                /*
+                 * } else { throw new ASException("1015",
+                 * "User doen't have security setup"); }
+                 */
             } else {
                 
                 throw new ASException("1017", "Invalid user, please try again");
@@ -165,7 +162,7 @@ public class UserLoginServiceImpl implements UserLoginService {
         boolean status = false;
         
         // TODO: Call external service for this.
-
+        
         return status;
     }
     
@@ -195,7 +192,7 @@ public class UserLoginServiceImpl implements UserLoginService {
      */
     @Override
     public void sendEmail(String userId, String templateId) {
-    	//TODO: send email service
+        // TODO: send email service
     }
     
     /**
@@ -255,16 +252,16 @@ public class UserLoginServiceImpl implements UserLoginService {
         
         return almService.getSecurityQuestions(emailId);
     }
-
+    
     @Override
     public boolean lockUser(String emailId) {
-
+        
         return almService.lockUser(emailId);
     }
-
+    
     @Override
     public boolean unLockUser(String emailId) {
-
+        
         return almService.unLockUser(emailId);
     }
 }

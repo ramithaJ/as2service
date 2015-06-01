@@ -56,7 +56,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 	ResearchFundersDAO researchFundersDAO;
 
 	@Autowired(required = true)
-	SocietyDetailsDao SocietyDetailsDao;
+	SocietyDetailsDao societyDetailsDao;
 
 	@Autowired(required = true)
 	CDMInterfaceService cdmservices;
@@ -64,7 +64,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 	@Override
 	public Affiliation[] getAffiliationsForUser(String userId) {
 		// TODO Auto-generated method stub
-		return null;
+		return new Affiliation[0];
 	}
 
 	@Override
@@ -91,7 +91,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 		List<UserFunderGrants> userFunderGrants = researchFundersDAO
 				.getResearchFunders(userId);
 		List<ResearchFunder> researchList = new ArrayList<ResearchFunder>();
-		HashSet<Integer> checkSet = new HashSet<>();
+		Set<Integer> checkSet = new HashSet<>();
 		Set<String> grantNumbers = null;
 		ResearchFunder researchFunder = null;
 		Set<UserFunderGrants> grantset = null;
@@ -144,7 +144,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 	@Override
 	public List<Society> getSocietiesForUser(String userId) {
 
-		List<UserSocietyDetails> listOfUserSocietyDetails = SocietyDetailsDao
+		List<UserSocietyDetails> listOfUserSocietyDetails = societyDetailsDao
 				.getSocietiesForUser(userId);
 		List<Society> societylist = new ArrayList<Society>();
 
@@ -169,7 +169,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 	@Override
 	public Society getSocietyDetails(String userId, String societyId) {
 		// TODO Auto-generated method stub
-		return null;
+		return new Society();
 	}
 
 	@Override
@@ -185,21 +185,21 @@ public class UserProfileServiceImpl implements UserProfileService {
 		userSocietyDetails.setPromoCode(society.getPromoCode());
 		userSocietyDetails.setStartDt(society.getStartDate());
 		userSocietyDetails.setEndDt(society.getEndDate());
-		SocietyDetailsDao.updateSociety(userSocietyDetails);
+		societyDetailsDao.updateSociety(userSocietyDetails);
 
 		return true;
 	}
 
 	@Override
 	public boolean deleteSociety(String userId, String societyId) {
-		SocietyDetailsDao.deleteSociety(userId, societyId);
+		societyDetailsDao.deleteSociety(userId, societyId);
 		return true;
 	}
 
 	@Override
 	public Interests getInterests(String userId) {
 		// TODO Auto-generated method stub
-		return null;
+		return new Interests();
 	}
 
 	@Override
@@ -217,7 +217,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 	@Override
 	public Interests[] searchInterests() {
 		// TODO Auto-generated method stub
-		return null;
+		return new Interests[0];
 	}
 
 	/**
@@ -229,7 +229,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 
 		List<AuthCoauthDetails> authCoauthDetails = authorCoAuthorDAO
 				.getCoAuthorsList(userId);
-		ArrayList<CoAuthor> coAuthorList = new ArrayList<CoAuthor>();
+		List<CoAuthor> coAuthorList = new ArrayList<CoAuthor>();
 		for (int i = 0; i < authCoauthDetails.size(); i++) {
 
 			CoAuthor coAuthor = new CoAuthor();
@@ -320,7 +320,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 	@Override
 	public String searchJournals() {
 		// TODO Auto-generated method stub
-		return null;
+		return new String();
 	}
 
 	/*
@@ -333,7 +333,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 	public Alert[] getListOfAlerts(String userId) {
 
 		List<UserAlerts> userAlerts = userAlertsDao.getListOfAlerts(userId);
-		ArrayList<Alert> alertsList = new ArrayList<Alert>();
+		List<Alert> alertsList = new ArrayList<Alert>();
 
 		for (int i = 0; i < userAlerts.size(); i++) {
 			Alert alert = new Alert();
