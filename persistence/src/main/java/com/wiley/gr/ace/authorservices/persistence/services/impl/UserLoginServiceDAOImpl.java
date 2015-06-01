@@ -19,6 +19,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
@@ -33,6 +34,12 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
     
     @Autowired(required = true)
     HibernateConnection con;
+    
+    @Value("${invalidEmail.code}")
+    private String invalidEmail;
+    
+    @Value("${invalidEmail.message}")
+    private String invalidEmailMsg;
     
     private static final String USERID = "userId";
     
@@ -78,8 +85,7 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
             boolean status = false;
             int userId = getUserId(emailId);
             if (userId == 0) {
-                throw new ASException("1001",
-                        "Invalid email address. Please Re-Enter");
+                throw new ASException(invalidEmail, invalidEmailMsg);
             }
             Users users = (Users) session.load(Users.class, userId);
             if (users != null) {

@@ -12,6 +12,7 @@
 
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
@@ -27,136 +28,143 @@ import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
  * @author RAVISINHA
  */
 public class CDMInterfaceServiceImpl implements CDMInterfaceService {
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService
-     * #lookUpProfile(java.lang.String)
-     */
+    
+    @Value("${lookupProfile.url}")
+    private String userProfile;
+    
+    @Value("${updateProfile.url}")
+    private String updateProfile;
+    
+    @Value("${lookUpProfileDashboard.url}")
+    private String lookupProfileDashboard;
+    
+    @Value("${institutions.url}")
+    private String institutions;
+    
+    @Value("${departments.url}")
+    private String departments;
+    
+    @Value("${reasearchFunders.url}")
+    private String researchFunders;
+    
+    @Value("${societies.url}")
+    private String societies;
+    
+    @Value("${areaofInterests.url}")
+    private String areaofInterests;
+    
+    @Value("${jobCategories.url}")
+    private String jobCategories;
+    
+    @Value("${industries.url}")
+    private String industries;
+    
+    @Value("${countries.url}")
+    private String countries;
+    
+    @Value("${states.url}")
+    private String states;
+    
+    private static final String STATUSS = "success";
+    
     @Override
     public LookUpProfile lookUpProfile(String userId) {
-        final String url = "http://demo6374909.mockable.io/user/lookUpProfile";
+        
         LookUpProfile lookupProfile = (LookUpProfile) StubInvokerUtil
-                .invokeStub(url, HttpMethod.GET, "LookUpProfile");
+                .invokeStub(userProfile, HttpMethod.GET, LookUpProfile.class);
         return lookupProfile;
     }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService
-     * #
-     * updateProfile(com.wiley.gr.ace.authorservices.model.external.LookUpProfile
-     * )
-     */
+    
     @Override
     public boolean updateProfile(LookUpProfile lookUpProfile) {
-        final String url = "http://demo6374909.mockable.io/user/updateProfile";
-        Service service = (Service) StubInvokerUtil.invokeStub(url,
-                HttpMethod.POST, "Service");
+        
+        Service service = (Service) StubInvokerUtil.invokeStub(updateProfile,
+                HttpMethod.POST, Service.class);
         String status = service.getStatus();
-
-        if (status != null && status.equalsIgnoreCase("success")) {
-
+        if (status != null && status.equalsIgnoreCase(STATUSS)) {
             return true;
         }
         return false;
     }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService
-     * #
-     * updateProfile(com.wiley.gr.ace.authorservices.model.external.LookUpProfile
-     * )
-     */
+    
     @Override
     public LookUpProfile lookUpProfileDashboard(String userId) {
-        final String url = "http://demo7930138.mockable.io/user/LookUpProfile";
+        
         LookUpProfile lookupProfile = (LookUpProfile) StubInvokerUtil
-                .invokeStub(url, HttpMethod.GET, "LookUpProfile");
+                .invokeStub(lookupProfileDashboard, HttpMethod.GET,
+                        LookUpProfile.class);
         return lookupProfile;
     }
-
+    
     @Override
     public ESBResponse getAreaOfInterests() {
-        final String url = "http://vmesbdev.wiley.com:15200/PickList?q=*&fq=doc_type:SUBJECTCD&wt=json&rows1000000";
+        
         ESBResponse areaOfInterests = (ESBResponse) StubInvokerUtil.invokeStub(
-                url, HttpMethod.GET, "AreaOfInterests");
-
+                areaofInterests, HttpMethod.GET, ESBResponse.class);
         return areaOfInterests;
     }
-
+    
     @Override
     public JobCategories getJobCategories() {
-
-        final String url = "http://vmesbdev.wiley.com:15200/PickList?q=*&fq=doc_type:JOBCD&wt=json&rows=1000000";
+        
         JobCategories jobCategory = (JobCategories) StubInvokerUtil.invokeStub(
-                url, HttpMethod.GET, "JobCategory");
+                jobCategories, HttpMethod.GET, JobCategories.class);
         return jobCategory;
     }
-
+    
     @Override
     public Industries getIndustries() {
-
-        final String url = "http://vmesbdev.wiley.com:15200/PickList?q=*&fq=doc_type:NAICSCD&wt=json&rows=1000000";
-        Industries industry = (Industries) StubInvokerUtil.invokeStub(url,
-                HttpMethod.GET, "Industry");
+        
+        Industries industry = (Industries) StubInvokerUtil.invokeStub(
+                industries, HttpMethod.GET, Industries.class);
         return industry;
     }
-
+    
     @Override
     public ESBResponse getCountries() {
-        final String url = "http://vmesbdev.wiley.com:15200/PickList?q=*&fq=doc_type:COUNTRYCD&wt=json&rows=1000000";
-        ESBResponse countrycode = (ESBResponse) StubInvokerUtil.invokeStub(url,
-                HttpMethod.GET, "AreaOfInterests");
-
+        
+        ESBResponse countrycode = (ESBResponse) StubInvokerUtil.invokeStub(
+                countries, HttpMethod.GET, ESBResponse.class);
         return countrycode;
     }
-
+    
     @Override
     public ESBResponse getStates() {
-        final String url = "http://vmesbdev.wiley.com:15200/PickList?q=*&fq=doc_type:STATECD&wt=json&rows=1000000";
-        ESBResponse state = (ESBResponse) StubInvokerUtil.invokeStub(url,
-                HttpMethod.GET, "AreaOfInterests");
-
+        
+        ESBResponse state = (ESBResponse) StubInvokerUtil.invokeStub(states,
+                HttpMethod.GET, ESBResponse.class);
         return state;
     }
-
-	@Override
-	public DropDown getInstitutionsList() {
-		final String url = "http://demo6003007.mockable.io/asdata/institutions";
-		DropDown dropDown = (DropDown) StubInvokerUtil
-                .invokeStub(url, HttpMethod.GET, "DropDown");
+    
+    @Override
+    public DropDown getInstitutionsList() {
+        
+        DropDown dropDown = (DropDown) StubInvokerUtil.invokeStub(institutions,
+                HttpMethod.GET, DropDown.class);
         return dropDown;
-	}
-
-	@Override 
-	public DropDown getDepartmentsList() {
-		final String url = "http://demo6003007.mockable.io/asdata/departments";
-		DropDown dropDown = (DropDown) StubInvokerUtil
-                .invokeStub(url, HttpMethod.GET, "DropDown");
+    }
+    
+    @Override
+    public DropDown getDepartmentsList() {
+        
+        DropDown dropDown = (DropDown) StubInvokerUtil.invokeStub(departments,
+                HttpMethod.GET, DropDown.class);
         return dropDown;
-	}
-
-	@Override
-	public DropDown getReasearchFunder() {
-		final String url = "http://demo6003007.mockable.io/asdata/researchFunders";
-		DropDown dropDown = (DropDown) StubInvokerUtil
-                .invokeStub(url, HttpMethod.GET, "DropDown");
+    }
+    
+    @Override
+    public DropDown getReasearchFunder() {
+        
+        DropDown dropDown = (DropDown) StubInvokerUtil.invokeStub(
+                researchFunders, HttpMethod.GET, DropDown.class);
         return dropDown;
-	}
-
-	@Override
-	public DropDown getSocietyList() {
-		final String url = "http://demo6003007.mockable.io/asdata/societies";
-		DropDown dropDown = (DropDown) StubInvokerUtil
-                .invokeStub(url, HttpMethod.GET, "DropDown");
+    }
+    
+    @Override
+    public DropDown getSocietyList() {
+        
+        DropDown dropDown = (DropDown) StubInvokerUtil.invokeStub(societies,
+                HttpMethod.GET, DropDown.class);
         return dropDown;
-	}
+    }
 }

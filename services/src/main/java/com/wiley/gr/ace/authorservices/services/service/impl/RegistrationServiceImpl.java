@@ -55,32 +55,34 @@ public class RegistrationServiceImpl implements RegistrationService {
 			AddressDetails cuAddressDetails = new AddressDetails();
 			List<AddressElement> addressElements = new ArrayList<AddressElement>();
 			AddressElement addressElement = new AddressElement();
-			
+
 			customerDetails.setFirstname(user.getFirstName());
 			customerDetails.setLastname(user.getLastName());
 			customerDetails.setPassword(user.getPassword());
 			customerDetails.setPrimaryemail(user.getPrimaryEmailAddr());
-			
+
 			addressElement.setCountrycode(user.getCountry().getCountryCode());
 			addressElement.setCountryname(user.getCountry().getCountryName());
-			//addressElement.setCountrynamene(user.getCountryNameNE());
+			// addressElement.setCountrynamene(user.getCountryNameNE());
 			addressElements.add(addressElement);
 			cuAddressDetails.setAddress(addressElements);
-			
+
 			customerProfile.setCustomerdetails(customerDetails);
 			customerProfile.setAddressdetails(cuAddressDetails);
-			
+
 			profileInformation.setCustomerprofile(customerProfile);
-			
-			statusObj=esbInterFaceService.creatUser(profileInformation);
+
+			statusObj = esbInterFaceService.creatUser(profileInformation);
 		}
-		
-		if("SUCCESS".equalsIgnoreCase(statusObj.getStatus())) {
-			status = "SUCCESS";
+		if (null != statusObj) {
+			if ("SUCCESS".equalsIgnoreCase(statusObj.getStatus())) {
+				status = "SUCCESS";
+			} else {
+				status = "FAILURE";
+			}
 		} else {
 			status = "FAILURE";
 		}
-		
 		return status;
 	}
 
@@ -111,7 +113,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 				user.setFirstName(esbUser.getFirstName());
 				user.setLastName(esbUser.getLastName());
 				user.setPrimaryEmailAddr(esbUser.getEmailId());
-				//user.setCountry(esbUser.getCountry());
+				// user.setCountry(esbUser.getCountry());
 				user.setUserReferenceData(userRefData);
 			} else {
 				user = null;

@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
@@ -35,6 +36,24 @@ public class UserLoginServiceImpl implements UserLoginService {
     UserLoginServiceDAO userLoginServiceDAO;
     @Autowired(required = true)
     ALMInterfaceService almService;
+    
+    @Value("${accountLocked.code}")
+    private String accountLocked;
+    
+    @Value("${accountLocked.message}")
+    private String accLockedMsg;
+    
+    @Value("${invalidEmail.code}")
+    private String invalidEmail;
+    
+    @Value("${invalidEmail.message}")
+    private String invalidEmailMsg;
+    
+    @Value("${invalidLogin.code}")
+    private String invalidLogin;
+    
+    @Value("${invalidLogin.message}")
+    private String invalidLoginMsg;
     
     /**
      * @param emailId
@@ -61,13 +80,11 @@ public class UserLoginServiceImpl implements UserLoginService {
                         userMgmt = new UserMgmt();
                         userMgmt.setUserId(userId + "");
                     } else {
-                        throw new ASException("1005",
-                                "Your account is locked. Please try after sometime .");
+                        throw new ASException(accountLocked, accLockedMsg);
                     }
                 } else {
                     
-                    throw new ASException("1007",
-                            "Your account is locked. Please try after sometime.");
+                    throw new ASException(accountLocked, accLockedMsg);
                 }
             } else {
                 if (authenticateUser(userId, emailId, password)) {
@@ -77,8 +94,7 @@ public class UserLoginServiceImpl implements UserLoginService {
             }
         } else {
             
-            throw new ASException("1001",
-                    "Invalid email address. Please Re-Enter");
+            throw new ASException(invalidEmail, invalidEmailMsg);
         }
         return userMgmt;
     }
@@ -119,36 +135,32 @@ public class UserLoginServiceImpl implements UserLoginService {
                 
                 SecurityDetailsHolder securityDetailsHolder = new SecurityDetailsHolder();
                 // check whether user has security set up or not.
-                //if (authorProfile.getSecurityQuestFlg().equals('Y')) {
+                // if (authorProfile.getSecurityQuestFlg().equals('Y')) {
+                
+                List<SecurityDetails> securityQuestions = new ArrayList<SecurityDetails>();
+                // TODO: Get Security details from ALM
+                List<SecurityDetails> securityQuestionsList = new ArrayList<SecurityDetails>();
+                for (int i = 0; i < securityQuestions.size(); i++) {
                     
-                    List<SecurityDetails> securityQuestions = new ArrayList<SecurityDetails>();
-                    // TODO: Get Security details from ALM
-                    List<SecurityDetails> securityQuestionsList = new ArrayList<SecurityDetails>();
-                    for (int i = 0; i < securityQuestions.size(); i++) {
-                        
-                        SecurityDetails security = new SecurityDetails();
-                        security.setSecurityQuestionId("SecurityQuestion"
-                                + (i + 1));
-                        security.setSecurityQuestion(securityQuestions.get(i)
-                                .getSecurityQuestion());
-                        securityQuestionsList.add(security);
-                    }
-                    securityDetailsHolder
-                            .setSecurityDetails(securityQuestionsList);
-                    return securityDetailsHolder;
-                /*} else {
-                    
-                    throw new ASException("1015",
-                            "User doen't have security setup");
-                } */
+                    SecurityDetails security = new SecurityDetails();
+                    security.setSecurityQuestionId("SecurityQuestion" + (i + 1));
+                    security.setSecurityQuestion(securityQuestions.get(i)
+                            .getSecurityQuestion());
+                    securityQuestionsList.add(security);
+                }
+                securityDetailsHolder.setSecurityDetails(securityQuestionsList);
+                return securityDetailsHolder;
+                /*
+                 * } else { throw new ASException("1015",
+                 * "User doen't have security setup"); }
+                 */
             } else {
                 
-                throw new ASException("1017", "Invalid user, please try again");
+                throw new ASException(invalidEmail, invalidEmailMsg);
             }
         } else {
             
-            throw new ASException("1016",
-                    "Invalid email Details, please try again");
+            throw new ASException(invalidEmail, invalidEmailMsg);
         }
         
     }
@@ -165,7 +177,7 @@ public class UserLoginServiceImpl implements UserLoginService {
         boolean status = false;
         
         // TODO: Call external service for this.
-
+        
         return status;
     }
     
@@ -195,7 +207,7 @@ public class UserLoginServiceImpl implements UserLoginService {
      */
     @Override
     public void sendEmail(String userId, String templateId) {
-    	//TODO: send email service
+        // TODO: send email service
     }
     
     /**
@@ -221,16 +233,14 @@ public class UserLoginServiceImpl implements UserLoginService {
             if (count >= 2) {
                 
                 if (almService.lockUser(emailId)) {
-                    throw new ASException("1002",
-                            "Your account is locked. Please try after sometime.");
+                    throw new ASException(accountLocked, accLockedMsg);
                     
                 }
             } else {
                 
                 count++;
                 userLoginServiceDAO.updateCount(count, userId);
-                throw new ASException("1003",
-                        "Please enter valid EmailId and Password.");
+                throw new ASException(invalidLogin, invalidLoginMsg);
             }
         }
         
@@ -255,16 +265,16 @@ public class UserLoginServiceImpl implements UserLoginService {
         
         return almService.getSecurityQuestions(emailId);
     }
-
+    
     @Override
     public boolean lockUser(String emailId) {
-
+        
         return almService.lockUser(emailId);
     }
-
+    
     @Override
     public boolean unLockUser(String emailId) {
-
+        
         return almService.unLockUser(emailId);
     }
 }
