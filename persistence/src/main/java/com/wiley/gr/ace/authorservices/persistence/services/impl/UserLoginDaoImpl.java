@@ -44,7 +44,7 @@ public class UserLoginDaoImpl implements UserLoginDao {
         Transaction txn = session.getTransaction();
         txn.begin();
         
-        AdminDetails adminDetails = (AdminDetails) session.get(
+        AdminDetails adminDetails = (AdminDetails) session.load(
                 AdminDetails.class, userId);
         
         if (null != adminDetails) {
