@@ -15,7 +15,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,7 +40,6 @@ import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
  */
 @RestController
 @RequestMapping("/admin")
-@PropertySource("classpath:exception.properties")
 public class AdminLoginController extends ASExceptionController {
 	
 
