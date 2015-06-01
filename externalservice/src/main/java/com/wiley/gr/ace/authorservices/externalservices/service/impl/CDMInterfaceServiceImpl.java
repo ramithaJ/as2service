@@ -110,7 +110,7 @@ public class CDMInterfaceServiceImpl implements CDMInterfaceService {
     public JobCategories getJobCategories() {
         
         JobCategories jobCategory = (JobCategories) StubInvokerUtil.invokeStub(
-                jobCategories, HttpMethod.GET, JobCategory.class);
+                jobCategories, HttpMethod.GET, JobCategories.class);
         return jobCategory;
     }
     
@@ -118,7 +118,7 @@ public class CDMInterfaceServiceImpl implements CDMInterfaceService {
     public Industries getIndustries() {
         
         Industries industry = (Industries) StubInvokerUtil.invokeStub(
-                industries, HttpMethod.GET, Industry.class);
+                industries, HttpMethod.GET, Industries.class);
         return industry;
     }
     

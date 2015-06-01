@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
+import com.wiley.gr.ace.authorservices.model.DropDown;
 
 /**
  * @author SarmaKumarap
@@ -46,6 +47,10 @@ public class StubInvokerUtil {
             
         }
         
+    }
+    
+    public static void main(String[] args) {
+        StubInvokerUtil.invokeStub("http://demo6003007.mockable.io/asdata/institutions", HttpMethod.GET, DropDown.class);
     }
     
 }
