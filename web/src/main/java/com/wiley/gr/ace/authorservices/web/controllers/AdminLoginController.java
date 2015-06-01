@@ -14,6 +14,8 @@ package com.wiley.gr.ace.authorservices.web.controllers;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,13 +41,20 @@ import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
  */
 @RestController
 @RequestMapping("/admin")
+@PropertySource("classpath:exception.properties")
 public class AdminLoginController extends ASExceptionController {
+	
 
 	/**
 	 * @param emailId
 	 * @param password
 	 * @return
 	 */
+	
+	@Value("${adminnotexist.code}")
+	public String errorcode;
+	@Value("${adminnotexist.message}")
+	public String errormessage;
 	@Autowired(required = true)
 	AdminLoginService adminLoginService;
 
@@ -63,8 +72,7 @@ public class AdminLoginController extends ASExceptionController {
 			userObj.setUserId(userId);
 			service.setPayload(userObj);
 		} else {
-			throw new ASException("1010",
-					"You don't have access to Wiley Admin.");
+			throw new ASException(errorcode,errormessage);
 		}
 		return service;
 	}
