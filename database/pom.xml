@@ -122,7 +122,7 @@
     
 	<!-- Liquibase Profile for Migration -->
 	<profile>
-            <id>liquibase-staging</id>
+            <id>liquibase-migration</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
                 <property>
@@ -156,7 +156,7 @@
         <profile>
             <id>dev-profile</id>        
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <activeByDefault>true</activeByDefault>
                 <property>
                     <name>liquibase-assembly</name>
                 </property>
