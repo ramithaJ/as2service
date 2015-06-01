@@ -11,16 +11,9 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
 
-import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
 import com.wiley.gr.ace.authorservices.model.AdminUser;
@@ -33,273 +26,194 @@ import com.wiley.gr.ace.authorservices.model.external.SecuirtyQuestionDetails;
  * @author RAVISINHA
  */
 public class ALMInterfaceServiceImpl implements ALMInterfaceService {
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.services.admin.external.ALMInterfaceService
-     * #authenticateUser(java.lang.String, java.lang.String)
-     */
+    
+    @Value("${lockUser.url}")
+    private String lockUser;
+    
+    @Value("${forceFulReset.url}")
+    private String forceFulReset;
+    
+    @Value("${updateUserId.url}")
+    private String updateUserId;
+    
+    @Value("${resetPassword.url}")
+    private String resetPassword;
+    
+    @Value("${authenticateAdminUser.url}")
+    private String authenticateAdminUser;
+    
+    @Value("${unLockUser.url}")
+    private String unLockUser;
+    
+    @Value("${securityDetails.url}")
+    private String securityDetails;
+    
+    @Value("${securityQuestions.url}")
+    private String securityQuestions;
+    
+    @Value("${updatePassword.url}")
+    private String updatePassword;
+    
+    @Value("${authenticateAdminUser.url}")
+    private String updateSecurityDetails;
+    
+    @Value("${findUser.url}")
+    private String findUser;
+    
+    @Value("${securityQuestionDetails.url}")
+    private String securityQuestionDetails;
+    
     @Override
     public boolean authenticateAdminUser(String emailId) {
-
-        // TODO: Authenticate with LDAP
-        final String url = "http://demo6003007.mockable.io/admin/login";
-        Service service = (Service) StubInvokerUtil.invokeStub(url,
-                HttpMethod.POST, "Service");
+        
+        Service service = (Service) StubInvokerUtil.invokeStub(
+                authenticateAdminUser, HttpMethod.POST, Service.class);
         String status = service.getStatus();
-
+        
         if (status != null && status.equalsIgnoreCase("success")) {
-
+            
             return true;
         }
         return false;
     }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService
-     * #authenticateUserALM(java.lang.String, java.lang.String)
-     */
+    
     @Override
     public boolean authenticateUserALM(String emailId, String password) {
-
-        /*
-         * final String url = "http://demo6003007.mockable.io/user/login";
-         * Service service = (Service) StubInvokerUtil.invokeStub(url,
-         * HttpMethod.POST, "Service"); String status = service.getStatus(); if
-         * (status != null && status.equalsIgnoreCase("success")) { return true;
-         * } return false;
-         */
-
+        
         if (password.equalsIgnoreCase("Password")) {
             return true;
         } else {
             return false;
         }
-
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService
-     * #resetPassword(java.lang.String, java.lang.String, java.lang.String,
-     * java.lang.String, java.lang.String, java.lang.String)
-     */
-    @Override
-    public boolean resetPassword(SecurityDetailsHolder securityDetailsHolder) {
-
-        final String url = "http://demo6003007.mockable.io/user/resetPassword";
-        Service service = (Service) StubInvokerUtil.invokeStub(url,
-                HttpMethod.POST, "Service");
-        String status = service.getStatus();
-
-        if (status != null && status.equalsIgnoreCase("success")) {
-
-            return true;
-        }
-        return false;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService
-     * #updateUserId(java.lang.String, java.lang.String)
-     */
-    @Override
-    public boolean updateUserId(String oldEmailId, String newEmailId) {
-
-        final String url = "http://demo6374909.mockable.io/user/updateUserId";
-        Service service = (Service) StubInvokerUtil.invokeStub(url,
-                HttpMethod.POST, "Service");
-        String status = service.getStatus();
-
-        if (status != null && status.equalsIgnoreCase("success")) {
-
-            return true;
-        }
-        return false;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService
-     * #forceFulReset(java.lang.String, java.lang.String)
-     */
-    @Override
-    public boolean forceFulReset(String emailId, String newPassword) {
-
-        final String url = "http://demo6374909.mockable.io/user/forceFulReset";
-        Service service = (Service) StubInvokerUtil.invokeStub(url,
-                HttpMethod.POST, "Service");
-        String status = service.getStatus();
-
-        if (status != null && status.equalsIgnoreCase("success")) {
-
-            return true;
-        }
-        return false;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService
-     * #lockUser(java.lang.String)
-     */
-    @Override
-    public boolean lockUser(String emailId) {
-
-        final String url = "http://vmesbdev.wiley.com:15200/ALMService/LockUser";
-        Service service = (Service) StubInvokerUtil.invokeStub(url,
-                HttpMethod.POST, "Service");
-        String status = service.getStatus();
-
-        if (status != null && status.equalsIgnoreCase("success")) {
-
-            return true;
-        }
-        return false;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService
-     * #unLockUser(java.lang.String)
-     */
-    @Override
-    public boolean unLockUser(String emailId) {
-
-        final String url = "http://demo6374909.mockable.io/user/unLockUser";
-        Service service = (Service) StubInvokerUtil.invokeStub(url,
-                HttpMethod.POST, "Service");
-        String status = service.getStatus();
-
-        if (status != null && status.equalsIgnoreCase("success")) {
-
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public SecurityDetailsHolder getSecurityDetails(String emailId) {
-
-        final String url = "http://demo7930138.mockable.io/user/getSecurityDetails";
-        URI uri = null;
-        try {
-
-            uri = new URI(url);
-            RestTemplate restTemplate = new RestTemplate();
-            HttpHeaders requestHeaders = new HttpHeaders();
-            HttpEntity<SecurityDetailsHolder> requestEntity = new HttpEntity<SecurityDetailsHolder>(
-                    requestHeaders);
-            ResponseEntity<SecurityDetailsHolder> response = restTemplate
-                    .exchange(uri, HttpMethod.GET, requestEntity,
-                            SecurityDetailsHolder.class);
-            return response.getBody();
-
-        } catch (URISyntaxException e) {
-
-            throw new ASException();
-        }
-    }
-
-    @Override
-    public SecurityDetailsHolder getSecurityQuestions(String emailId) {
-
-        final String url = "http://demo6374909.mockable.io/user/securityQuestions";
-        URI uri = null;
-        try {
-
-            uri = new URI(url);
-            RestTemplate restTemplate = new RestTemplate();
-            HttpHeaders requestHeaders = new HttpHeaders();
-            HttpEntity<SecurityDetailsHolder> requestEntity = new HttpEntity<SecurityDetailsHolder>(
-                    requestHeaders);
-            ResponseEntity<SecurityDetailsHolder> response = restTemplate
-                    .exchange(uri, HttpMethod.GET, requestEntity,
-                            SecurityDetailsHolder.class);
-            return response.getBody();
-
-        } catch (URISyntaxException e) {
-
-            throw new ASException();
-        }
-    }
-
-    @Override
-    public boolean updatePassword(PasswordDetails passwordDetails) {
-
-        final String url = "http://demo6374909.mockable.io/user/updatePassword";
-        Service service = (Service) StubInvokerUtil.invokeStub(url,
-                HttpMethod.POST, "Service");
-        String status = service.getStatus();
-
-        if (status != null && status.equalsIgnoreCase("success")) {
-
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean updateSecurityDetails(SecurityDetailsHolder securityDetails) {
-
-        final String url = "http://demo6374909.mockable.io/user/updateSecurityDetails";
-        Service service = (Service) StubInvokerUtil.invokeStub(url,
-                HttpMethod.POST, "Service");
-        String status = service.getStatus();
-
-        if (status != null && status.equalsIgnoreCase("success")) {
-
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public SecuirtyQuestionDetails getSecurityQuestionDetails(String emailId) {
-        final String url = "http://demo7930138.mockable.io/ALMService/RetrieveSecQuestions?Email=email";
-        URI uri = null;
-        try {
-
-            uri = new URI(url);
-            RestTemplate restTemplate = new RestTemplate();
-            HttpHeaders requestHeaders = new HttpHeaders();
-            HttpEntity<SecuirtyQuestionDetails> requestEntity = new HttpEntity<SecuirtyQuestionDetails>(
-                    requestHeaders);
-            ResponseEntity<SecuirtyQuestionDetails> response = restTemplate
-                    .exchange(uri, HttpMethod.GET, requestEntity,
-                            SecuirtyQuestionDetails.class);
-            return response.getBody();
-        } catch (URISyntaxException e) {
-
-            throw new ASException();
-        }
+        
     }
     
-    /* (non-Javadoc)
-     * @see com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService#findUser(java.lang.String)
-     */
+    @Override
+    public boolean resetPassword(SecurityDetailsHolder securityDetailsHolder) {
+        
+        Service service = (Service) StubInvokerUtil.invokeStub(resetPassword,
+                HttpMethod.POST, Service.class);
+        String status = service.getStatus();
+        
+        if (status != null && status.equalsIgnoreCase("success")) {
+            
+            return true;
+        }
+        return false;
+    }
+    
+    @Override
+    public boolean updateUserId(String oldEmailId, String newEmailId) {
+        
+        Service service = (Service) StubInvokerUtil.invokeStub(updateUserId,
+                HttpMethod.POST, Service.class);
+        String status = service.getStatus();
+        
+        if (status != null && status.equalsIgnoreCase("success")) {
+            
+            return true;
+        }
+        return false;
+    }
+    
+    @Override
+    public boolean forceFulReset(String emailId, String newPassword) {
+        
+        Service service = (Service) StubInvokerUtil.invokeStub(forceFulReset,
+                HttpMethod.POST, Service.class);
+        String status = service.getStatus();
+        
+        if (status != null && status.equalsIgnoreCase("success")) {
+            
+            return true;
+        }
+        return false;
+    }
+    
+    @Override
+    public boolean lockUser(String emailId) {
+        
+        Service service = (Service) StubInvokerUtil.invokeStub(lockUser,
+                HttpMethod.POST, Service.class);
+        String status = service.getStatus();
+        
+        if (status != null && status.equalsIgnoreCase("success")) {
+            
+            return true;
+        }
+        return false;
+    }
+    
+    @Override
+    public boolean unLockUser(String emailId) {
+        
+        Service service = (Service) StubInvokerUtil.invokeStub(unLockUser,
+                HttpMethod.POST, Service.class);
+        String status = service.getStatus();
+        
+        if (status != null && status.equalsIgnoreCase("success")) {
+            
+            return true;
+        }
+        return false;
+    }
+    
+    @Override
+    public SecurityDetailsHolder getSecurityDetails(String emailId) {
+        
+        SecurityDetailsHolder securityDetailsHolder = (SecurityDetailsHolder) StubInvokerUtil
+                .invokeStub(securityDetails, HttpMethod.GET,
+                        SecurityDetailsHolder.class);
+        return securityDetailsHolder;
+    }
+    
+    @Override
+    public SecurityDetailsHolder getSecurityQuestions(String emailId) {
+        
+        SecurityDetailsHolder securityDetailsHolder = (SecurityDetailsHolder) StubInvokerUtil
+                .invokeStub(securityQuestions, HttpMethod.GET,
+                        SecurityDetailsHolder.class);
+        return securityDetailsHolder;
+    }
+    
+    @Override
+    public boolean updatePassword(PasswordDetails passwordDetails) {
+        
+        Service service = (Service) StubInvokerUtil.invokeStub(updatePassword,
+                HttpMethod.POST, Service.class);
+        String status = service.getStatus();
+        if (status != null && status.equalsIgnoreCase("success")) {
+            return true;
+        }
+        return false;
+    }
+    
+    @Override
+    public boolean updateSecurityDetails(SecurityDetailsHolder securityDetails) {
+        
+        Service service = (Service) StubInvokerUtil.invokeStub(
+                updateSecurityDetails, HttpMethod.POST, Service.class);
+        String status = service.getStatus();
+        if (status != null && status.equalsIgnoreCase("success")) {
+            return true;
+        }
+        return false;
+    }
+    
+    @Override
+    public SecuirtyQuestionDetails getSecurityQuestionDetails(String emailId) {
+        
+        SecuirtyQuestionDetails secuirtyQuestionDetails = (SecuirtyQuestionDetails) StubInvokerUtil
+                .invokeStub(securityQuestionDetails, HttpMethod.GET,
+                        SecuirtyQuestionDetails.class);
+        return secuirtyQuestionDetails;
+    }
+    
     @Override
     public AdminUser findUser(String emailId) {
-       
-        final String url = "http://demo6003007.mockable.io/findUser/";
-        AdminUser adminUser = (AdminUser) StubInvokerUtil
-                .invokeStub(url, HttpMethod.GET, "AdminUser");
+        
+        AdminUser adminUser = (AdminUser) StubInvokerUtil.invokeStub(findUser,
+                HttpMethod.GET, AdminUser.class);
         return adminUser;
         
     }
