@@ -24,7 +24,7 @@ public class UserProfile {
     
     private User customerDetails;
     
-    private AddressDetails addressDetails;
+    private List<Addresses> addressDetails;
     
     private List<Affiliation> affiliations;
     
@@ -60,11 +60,12 @@ public class UserProfile {
     
     
 
-    public AddressDetails getAddressDetails() {
+
+    public List<Addresses> getAddressDetails() {
         return addressDetails;
     }
 
-    public void setAddressDetails(AddressDetails addressDetails) {
+    public void setAddressDetails(List<Addresses> addressDetails) {
         this.addressDetails = addressDetails;
     }
 

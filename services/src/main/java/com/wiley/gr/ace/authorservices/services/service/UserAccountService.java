@@ -13,7 +13,7 @@ package com.wiley.gr.ace.authorservices.services.service;
 
 import java.util.List;
 
-import com.wiley.gr.ace.authorservices.model.Address;
+import com.wiley.gr.ace.authorservices.model.Addresses;
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.User;
 
@@ -29,5 +29,5 @@ public interface UserAccountService {
     
     User getProfileInformation(String userId);
     
-    List<Address> getUserAddress(String userId);
+    List<Addresses> getUserAddress(String userId);
 }

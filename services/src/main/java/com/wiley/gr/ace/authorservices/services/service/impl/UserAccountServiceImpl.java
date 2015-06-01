@@ -16,7 +16,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
-import com.wiley.gr.ace.authorservices.model.Address;
+import com.wiley.gr.ace.authorservices.model.Addresses;
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
@@ -69,11 +69,10 @@ public class UserAccountServiceImpl implements UserAccountService {
     }
     
     @Override
-    public List<Address> getUserAddress(String userId) {
+    public List<Addresses> getUserAddress(String userId) {
         
         LookUpProfile lookupProfile = cdmservices.lookUpProfile(userId);
-        return lookupProfile.getCustomerProfile().getAddressDetails()
-                .getAddress();
+        return lookupProfile.getCustomerProfile().getAddressDetails();
     }
     
 }

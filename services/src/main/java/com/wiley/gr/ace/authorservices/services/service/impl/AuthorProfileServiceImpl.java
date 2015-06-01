@@ -19,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
-import com.wiley.gr.ace.authorservices.model.AddressDetails;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.Alert;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
@@ -114,11 +113,11 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     }
     
     @Override
-    public boolean updateUserAddress(AddressDetails addresses) {
+    public boolean updateUserAddress(UserProfile addresses) {
         
         UserProfile userProfile = new UserProfile();
         LookUpProfile lookUpProfile = new LookUpProfile();
-        userProfile.setAddressDetails(addresses);
+        userProfile.setAddressDetails(addresses.getAddressDetails());
         lookUpProfile.setCustomerProfile(userProfile);
         return cdmservices.updateProfile(lookUpProfile);
     }
