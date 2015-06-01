@@ -16,6 +16,7 @@ package com.wiley.gr.ace.authorservices.web.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,10 +34,10 @@ import com.wiley.gr.ace.authorservices.services.service.UpdateUserService;
 @RestController
 @RequestMapping("/user/update")
 public class UpdateUserController {
-    
+
     @Autowired(required = true)
     UpdateUserService updateUserService;
-    
+
     /**
      * @param orcidId
      * @param userId
@@ -45,7 +46,7 @@ public class UpdateUserController {
     @RequestMapping(value = "/{orcidId}/{userId}", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody Service updateUserOrcidDetails(
             @PathVariable String orcidId, @PathVariable String userId) {
-        
+
         User user = null;
         Service service = new Service();
         try {
@@ -62,7 +63,7 @@ public class UpdateUserController {
             error.setCode(-100); // Need to set proper error code this one is
                                  // dummy
             error.setMessage("Error updating user details with ORCID details");
-            
+
             service.setStatus("error");
             service.setPayload(user);
             service.setError(error);
@@ -71,37 +72,28 @@ public class UpdateUserController {
         }
         return service;
     }
-    
+
     /**
      * @param orcidId
      * @return
      */
-    @RequestMapping(value = "/orcid/{orcid}/{userId}", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/orcid/{orcidId}/{userId}", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody Service updateOrcidId(@PathVariable String orcidId,
-            @PathVariable String userId) {
-        
+            @PathVariable String userId, @RequestBody String emailId) {
+
         Service service = new Service();
-        String status = "";
-        
+
         try {
-            status = updateUserService.updateOrcidId(orcidId, userId);
-            System.out.println("status @@@@@@@@@@ " + status);
-            
-            if (null != status && status.equalsIgnoreCase("success")) {
-                service.setStatus("success");
-                service.setPayload(status);
-            } else {
-                service.setStatus("failure");
-                service.setPayload(status);
-            }
+            service.setPayload(updateUserService.updateOrcidId(emailId,
+                    orcidId, userId));
         } catch (Exception e) {
             ErrorPOJO error = new ErrorPOJO();
             error.setCode(-101); // Need to set proper error code this one is
                                  // dummy
             error.setMessage("Error updating user ORCID ID");
-            
+
             service.setStatus("error");
-            service.setPayload(status);
+            service.setPayload(service);
             service.setError(error);
             throw new ASException("-2", "Error updating user user ORCID ID", e);
         }

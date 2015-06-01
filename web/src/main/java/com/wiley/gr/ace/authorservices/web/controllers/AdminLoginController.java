@@ -63,8 +63,8 @@ public class AdminLoginController extends ASExceptionController {
 			userObj.setUserId(userId);
 			service.setPayload(userObj);
 		} else {
-			throw new ASException("1001",
-					"Invalid email address. Please Re-Enter");
+			throw new ASException("1010",
+					"You don't have access to Wiley Admin.");
 		}
 		return service;
 	}
@@ -74,18 +74,19 @@ public class AdminLoginController extends ASExceptionController {
 	 * @param password
 	 * @return
 	 */
-	@RequestMapping(value = "/requestAccess/{emailId}/", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/requestAccess/{emailId}/{accessId}/", method = RequestMethod.POST, produces = "application/json")
 	public Service requestAccess(@PathVariable("emailId") String emailId,
-			@RequestBody String password) {
+	        @PathVariable("accessId") String accessId) {
 
-		return null;
+		return new Service();
 
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/json")
 	public Service createAdmin(@RequestBody AdminUser admin) {
-
-		return null;
+	    
+		adminLoginService.createAdmin(admin);
+	    return new Service();
 
 	}
 
@@ -121,4 +122,13 @@ public class AdminLoginController extends ASExceptionController {
 		return new Service();
 
 	}
+	
+	@RequestMapping(value = "/findUser/{emailId}/", method = RequestMethod.GET, produces = "application/json")
+    public Service findUser(@PathVariable("emailId") String emailId) {
+
+        Service service = new Service();
+        service.setPayload(adminLoginService.findUser(emailId));
+        return service;
+
+    }
 }

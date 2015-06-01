@@ -20,6 +20,8 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class Address {
     
+    private String addressType;
+    
     private String title;
     
     private String firstName;
@@ -53,6 +55,14 @@ public class Address {
     private String region;
     
     
+    public String getAddressType() {
+        return addressType;
+    }
+
+    public void setAddressType(String addressType) {
+        this.addressType = addressType;
+    }
+
     public String getRegion() {
         return region;
     }

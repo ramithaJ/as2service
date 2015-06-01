@@ -22,6 +22,7 @@ import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.BPMInterfaceService;
 import com.wiley.gr.ace.authorservices.model.ASRolesAndPermissions;
+import com.wiley.gr.ace.authorservices.model.AdminUser;
 import com.wiley.gr.ace.authorservices.model.PermissionSection;
 import com.wiley.gr.ace.authorservices.model.Role;
 import com.wiley.gr.ace.authorservices.model.RolesAndPermissions;
@@ -29,6 +30,9 @@ import com.wiley.gr.ace.authorservices.model.UserPermissions;
 import com.wiley.gr.ace.authorservices.persistence.entity.Permissions;
 import com.wiley.gr.ace.authorservices.persistence.entity.RolePermissions;
 import com.wiley.gr.ace.authorservices.persistence.entity.Roles;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserRoles;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserRolesId;
+import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
@@ -243,6 +247,37 @@ public class AdminLoginServiceImpl implements AdminLoginService {
             
         }
         userRolesDAO.addOrUpdateUserRoles(roles, permissionsList);
+        
+    }
+
+    /* (non-Javadoc)
+     * @see com.wiley.gr.ace.authorservices.services.service.AdminLoginService#findUser(java.lang.String)
+     */
+    @Override
+    public AdminUser findUser(String emailId) {
+        
+        return almService.findUser(emailId);
+    }
+
+    @Override
+    public void createAdmin(AdminUser adminuser) {
+        
+        Users users = new Users();
+        List<UserRoles> rolesList = new ArrayList<UserRoles>();
+        
+        
+        for (String roleId : adminuser.getRolesList()) {
+            UserRoles userRoles = new UserRoles();
+            UserRolesId userRolesId = new UserRolesId();
+            userRolesId.setRoleId(Integer.valueOf(roleId));
+            userRoles.setId(userRolesId);
+            rolesList.add(userRoles);
+        }
+        
+        users.setPrimaryEmailAddr(adminuser.getEmailId());
+        users.setFirstName(adminuser.getFirstName());
+        users.setLastName(adminuser.getLastName());
+        userlogindao.createAdminUser(users, rolesList);
         
     }
     

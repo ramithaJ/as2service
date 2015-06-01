@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,15 +50,35 @@ public class UserRolesDAOImpl implements UserRolesDAO {
         
         Session session = null;
         Transaction transaction = null;
+        List<Object[]> list = new ArrayList<Object[]>();
+        List<RolePermissions> daoPermissionsList = new ArrayList<RolePermissions>();
+        
         try {
             session = con.getSessionFactory().openSession();
             transaction = session.beginTransaction();
             
-            session.saveOrUpdate(roles);
+            Roles daoRoles = (Roles) session.get(Roles.class, roles.getRoleId());
             
-            String hql = "from RolePermissions where id.roleId = :roleId";
-            List<RolePermissions> daoPermissionsList = session.createQuery(hql)
-                    .setInteger("roleId", roles.getRoleId()).list();
+            daoRoles.setDescription(roles.getDescription());
+            
+            session.saveOrUpdate(daoRoles);
+            
+            Query query = session.createSQLQuery("select * from role_permissions where role_id = :roleId").setParameter("roleId", roles.getRoleId().toString());
+            list = query.list();
+            
+//            String hql = "from RolePermissions where id.roleId = :roleId";
+//            List<RolePermissions> daoPermissionsList = session.createQuery(hql)
+//                    .setInteger("roleId", roles.getRoleId()).list();
+            
+            for (Object[] object : list) {
+                
+                RolePermissions rolePermissions = new RolePermissions();
+                RolePermissionsId rolePermissionsId = new RolePermissionsId();
+                rolePermissionsId.setRoleId(Integer.valueOf(object[0].toString()));
+                rolePermissionsId.setPermissionCd(object[1].toString());
+                rolePermissions.setId(rolePermissionsId);
+                daoPermissionsList.add(rolePermissions);
+            }
             
             List<Permissions> addList = new ArrayList<Permissions>();
             
@@ -96,7 +117,8 @@ public class UserRolesDAOImpl implements UserRolesDAO {
             
             for (Map.Entry<String, RolePermissions> entry : daoPermissionsMap
                     .entrySet()) {
-                session.delete(entry.getValue());
+                Query deleteQuery = session.createSQLQuery("delete from role_permissions where permission_cd = :permissionCd").setParameter("permissionCd", entry.getValue().getId().getPermissionCd());
+                deleteQuery.executeUpdate();
             }
             
             transaction.commit();

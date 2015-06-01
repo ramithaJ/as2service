@@ -58,14 +58,17 @@ public class UserProfile {
         this.customerDetails = customerDetails;
     }
     
+    
+
+
     public List<Addresses> getAddressDetails() {
         return addressDetails;
     }
-    
+
     public void setAddressDetails(List<Addresses> addressDetails) {
         this.addressDetails = addressDetails;
     }
-    
+
     public List<Affiliation> getAffiliations() {
         return affiliations;
     }

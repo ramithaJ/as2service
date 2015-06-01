@@ -19,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
-import com.wiley.gr.ace.authorservices.model.Addresses;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.Alert;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
@@ -114,9 +113,13 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     }
     
     @Override
-    public boolean updateUserAddress(Addresses addresses) {
-        // TODO Auto-generated method stub
-        return false;
+    public boolean updateUserAddress(UserProfile addresses) {
+        
+        UserProfile userProfile = new UserProfile();
+        LookUpProfile lookUpProfile = new LookUpProfile();
+        userProfile.setAddressDetails(addresses.getAddressDetails());
+        lookUpProfile.setCustomerProfile(userProfile);
+        return cdmservices.updateProfile(lookUpProfile);
     }
     
     @Override
@@ -128,10 +131,10 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         lookUpProfile.setCustomerProfile(userProfile);
         return cdmservices.updateProfile(lookUpProfile);
     }
-
+    
     @Override
     public boolean updateUserId(String oldEmailId, String newEmailId) {
-
+        
         return almService.updateUserId(oldEmailId, newEmailId);
     }
     
@@ -140,10 +143,10 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         
         return almService.updatePassword(passwordDetails);
     }
-
+    
     @Override
     public boolean updateSecurityDetails(SecurityDetailsHolder securityDetails) {
-
+        
         return almService.updateSecurityDetails(securityDetails);
     }
     

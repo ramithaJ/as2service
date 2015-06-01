@@ -67,10 +67,10 @@ public class UserAccountServiceImpl implements UserAccountService {
         LookUpProfile lookupProfile = cdmservices.lookUpProfile(userId);
         return lookupProfile.getCustomerProfile().getCustomerDetails();
     }
-
+    
     @Override
     public List<Addresses> getUserAddress(String userId) {
-
+        
         LookUpProfile lookupProfile = cdmservices.lookUpProfile(userId);
         return lookupProfile.getCustomerProfile().getAddressDetails();
     }

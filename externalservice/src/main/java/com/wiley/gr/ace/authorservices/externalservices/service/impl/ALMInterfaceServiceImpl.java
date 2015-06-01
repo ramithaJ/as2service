@@ -23,6 +23,7 @@ import org.springframework.web.client.RestTemplate;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
+import com.wiley.gr.ace.authorservices.model.AdminUser;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Service;
@@ -288,5 +289,18 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
 
             throw new ASException();
         }
+    }
+    
+    /* (non-Javadoc)
+     * @see com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService#findUser(java.lang.String)
+     */
+    @Override
+    public AdminUser findUser(String emailId) {
+       
+        final String url = "http://demo6003007.mockable.io/findUser/";
+        AdminUser adminUser = (AdminUser) StubInvokerUtil
+                .invokeStub(url, HttpMethod.GET, "AdminUser");
+        return adminUser;
+        
     }
 }

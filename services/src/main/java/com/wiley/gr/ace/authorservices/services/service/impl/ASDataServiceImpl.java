@@ -22,6 +22,7 @@ import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceServ
 import com.wiley.gr.ace.authorservices.model.AccessReasons;
 import com.wiley.gr.ace.authorservices.model.Country;
 import com.wiley.gr.ace.authorservices.model.Department;
+import com.wiley.gr.ace.authorservices.model.DropDown;
 import com.wiley.gr.ace.authorservices.model.Industry;
 import com.wiley.gr.ace.authorservices.model.Institution;
 import com.wiley.gr.ace.authorservices.model.Interests;
@@ -87,7 +88,7 @@ public class ASDataServiceImpl implements ASDataService {
 	}
 
 	@Override
-	public List<Industry> getIndustries() {
+	public List<Industry> getIndustries(Integer count) {
 
 		Industry industry = null;
 		List<Industry> industryList = new ArrayList<Industry>();
@@ -106,11 +107,11 @@ public class ASDataServiceImpl implements ASDataService {
 			industryList.add(industry);
 		}
 
-		return industryList;
+		return industryList.subList(0, count);
 	}
 
 	@Override
-	public List<JobCategory> getJobCategories() {
+	public List<JobCategory> getJobCategories(Integer count) {
 
 		JobCategories jobCategories = cdmservice.getJobCategories();
 		JobCategory jobCategory = null;
@@ -128,78 +129,114 @@ public class ASDataServiceImpl implements ASDataService {
 			jobCategory.setJobCategoryName(jobCategoryMap.get("JOBTITLE"));
 			jobCategoryList.add(jobCategory);
 		}
-		return jobCategoryList;
-	}
 
-	@Override
-	public List<Country> getCountries() {
-	    ESBResponse countrieslist = cdmservice.getCountries();
-		List<Country> countrylist = new ArrayList<Country>();
-	
-			List<Object> externalCountrylist = countrieslist
-					.getResponse().getDocs();
-			if (null == externalCountrylist) {
-				return null;
-			}
-			for (Object object : externalCountrylist) {
-				LinkedHashMap<String, String> countrymap = (LinkedHashMap<String, String>) object;
-				Country country = new Country();
-
-				String externalcountrymap = countrymap.get("id");
-				String[] idsplit = externalcountrymap.split("_");
-				country.setCountryCode(idsplit[1]);
-				country.setCountryName(countrymap.get("COUNTRY_NAME"));
-				countrylist.add(country);
-			}
-		
-
-		return countrylist;
-	}
-
-	@Override
-	public List<State> getStates(String countrycode) {
-	    ESBResponse statelistext = cdmservice.getStates();
-		List<State> modelststelist = new ArrayList<State>();
-		
-			List<Object> externalstatelist = statelistext.getResponse()
-					.getDocs();
-			if (null == externalstatelist) {
-				return null;
-			}
-			
-			for (Object statelist : externalstatelist) {
-
-				LinkedHashMap<String, String> statemap = (LinkedHashMap<String, String>) statelist;
-
-				State state = new State();
-				String externalcountrymap = statemap.get("id");
-				String[] idsplit = externalcountrymap.split("_");
-				state.setStateCode(idsplit[2]);
-				state.setStateName(statemap.get("SUBDIVISION_NAME"));
-				modelststelist.add(state);
-			}
-
-			return modelststelist;
+			return jobCategoryList.subList(0, count);
 		}
-		
-	
+
+
+	@Override
+	public List<Country> getCountries(Integer count) {
+		ESBResponse countrieslist = cdmservice.getCountries();
+		List<Country> countrylist = new ArrayList<Country>();
+
+		List<Object> externalCountrylist = countrieslist.getResponse()
+				.getDocs();
+		if (null == externalCountrylist) {
+			return null;
+		}
+		for (Object object : externalCountrylist) {
+			LinkedHashMap<String, String> countrymap = (LinkedHashMap<String, String>) object;
+			Country country = new Country();
+
+			String externalcountrymap = countrymap.get("id");
+			String[] idsplit = externalcountrymap.split("_");
+			country.setCountryCode(idsplit[1]);
+			country.setCountryName(countrymap.get("COUNTRY_NAME"));
+			countrylist.add(country);
+		}
+
+		return countrylist.subList(0, count);
+	}
+
+	@Override
+	public List<State> getStates(String countrycode, Integer count) {
+		ESBResponse statelistext = cdmservice.getStates();
+		List<State> modelststelist = new ArrayList<State>();
+
+		List<Object> externalstatelist = statelistext.getResponse().getDocs();
+		if (null == externalstatelist) {
+			return null;
+		}
+
+		for (Object statelist : externalstatelist) {
+
+			LinkedHashMap<String, String> statemap = (LinkedHashMap<String, String>) statelist;
+
+			State state = new State();
+			String externalcountrymap = statemap.get("id");
+			String[] idsplit = externalcountrymap.split("_");
+			state.setStateCode(idsplit[2]);
+			state.setStateName(statemap.get("SUBDIVISION_NAME"));
+			modelststelist.add(state);
+		}
+
+		return modelststelist.subList(0, count);
+	}
 
 	@Override
 	public List<Institution> getInstitutions() {
-		// TODO Auto-generated method stub
-		return null;
+
+		DropDown dropDown = cdmservice.getInstitutionsList();
+		List<Institution> listofinstitute = dropDown.getInstitutions();
+		List<Institution> institutionslist = new ArrayList<Institution>();
+
+		for (Institution institute : listofinstitute) {
+
+			Institution institution = new Institution();
+			institution.setInstitutionId(institute.getInstitutionId());
+			institution.setInstitutionName(institute.getInstitutionName());
+			institutionslist.add(institution);
+
+		}
+
+		return institutionslist;
 	}
 
 	@Override
 	public List<Department> getDepartments() {
-		// TODO Auto-generated method stub
-		return null;
+		DropDown dropDown = cdmservice.getDepartmentsList();
+		List<Department> listofdepartment = dropDown.getDepartments();
+		List<Department> departmentlist = new ArrayList<Department>();
+		for (Department department : listofdepartment) {
+
+			Department departments = new Department();
+			departments.setDepartmentId(department.getDepartmentId());
+			departments.setDepartmentName(department.getDepartmentName());
+			departmentlist.add(department);
+
+		}
+		return departmentlist;
 	}
 
 	@Override
 	public List<ResearchFunder> getResearchFunders() {
-		// TODO Auto-generated method stub
-		return null;
+		DropDown dropDown = cdmservice.getReasearchFunder();
+		List<ResearchFunder> researchFunder = dropDown.getResearchFunders();
+		List<ResearchFunder> researchfunderlist = new ArrayList<ResearchFunder>();
+		System.err.println("data is" + researchFunder.get(0).getArticleAID());
+
+		for (ResearchFunder researchFunders : researchFunder) {
+
+			ResearchFunder resFunder = new ResearchFunder();
+			resFunder
+					.setResearchFunderId(researchFunders.getResearchFunderId());
+			resFunder.setResearchFunderName(researchFunders
+					.getResearchFunderName());
+			researchfunderlist.add(resFunder);
+			System.err.println(researchFunders.getArticleAID());
+		}
+
+		return researchfunderlist;
 	}
 
 	// @Override
@@ -210,13 +247,23 @@ public class ASDataServiceImpl implements ASDataService {
 
 	@Override
 	public List<Society> getSocieties() {
-		// TODO Auto-generated method stub
-		return null;
+		DropDown dropDown = cdmservice.getSocietyList();
+		List<Society> listofsociety = dropDown.getSociety();
+		List<Society> societylist = new ArrayList<Society>();
+		for (Society societys : listofsociety) {
+
+			Society society = new Society();
+			society.setSocietyId(societys.getSocietyId());
+
+			society.setSocietyName(societys.getSocietyName());
+			societylist.add(society);
+		}
+		return societylist;
 	}
 
 	@Override
-	public List<Interests> getAreasOfInterests() {
-	    ESBResponse areaOfInterests = cdmservice.getAreaOfInterests();
+	public List<Interests> getAreasOfInterests(Integer count) {
+		ESBResponse areaOfInterests = cdmservice.getAreaOfInterests();
 		List<Object> externalInterests = areaOfInterests.getResponse()
 				.getDocs();
 		if (null == externalInterests) {
@@ -231,7 +278,7 @@ public class ASDataServiceImpl implements ASDataService {
 			interests.setAoeName(interest.get("SUBJECT_NAME"));
 			returnList.add(interests);
 		}
-		return returnList;
+		return returnList.subList(0, count);
 
 	}
 

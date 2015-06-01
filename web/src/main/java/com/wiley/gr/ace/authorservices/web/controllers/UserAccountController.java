@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wiley.gr.ace.authorservices.model.Addresses;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.User;
+import com.wiley.gr.ace.authorservices.model.UserProfile;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
 
@@ -105,7 +105,7 @@ public class UserAccountController {
     
     @RequestMapping(value = "/userAddresses/{userId}", method = RequestMethod.POST)
     public Service updateUserAddresses(@PathVariable("userId") String userId,
-            @RequestBody Addresses addresses) {
+            @RequestBody UserProfile addresses) {
         
         Service service = new Service();
         service.setPayload(authorProfileService.updateUserAddress(addresses));
@@ -122,10 +122,12 @@ public class UserAccountController {
      * @return
      */
     @RequestMapping(value = "/secutiryDetails/update", method = RequestMethod.POST)
-    public Service updateSecurityDetails(@RequestBody SecurityDetailsHolder securityDetails) {
+    public Service updateSecurityDetails(
+            @RequestBody SecurityDetailsHolder securityDetails) {
         
         Service service = new Service();
-        service.setPayload(authorProfileService.updateSecurityDetails(securityDetails));
+        service.setPayload(authorProfileService
+                .updateSecurityDetails(securityDetails));
         return service;
         
     }
@@ -135,7 +137,8 @@ public class UserAccountController {
             @PathVariable("newEmailId") String newEmailId) {
         
         Service service = new Service();
-        service.setPayload(authorProfileService.updateUserId(oldEmailId, newEmailId));
+        service.setPayload(authorProfileService.updateUserId(oldEmailId,
+                newEmailId));
         return service;
     }
     
