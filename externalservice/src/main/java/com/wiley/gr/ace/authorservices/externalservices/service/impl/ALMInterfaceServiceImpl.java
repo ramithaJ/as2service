@@ -63,6 +63,8 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
     @Value("${securityQuestionDetails.url}")
     private String securityQuestionDetails;
     
+    private static final String STATUSS = "success";
+    
     @Override
     public boolean authenticateAdminUser(String emailId) {
         
@@ -70,7 +72,7 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
                 authenticateAdminUser, HttpMethod.POST, Service.class);
         String status = service.getStatus();
         
-        if (status != null && status.equalsIgnoreCase("success")) {
+        if (status != null && status.equalsIgnoreCase(STATUSS)) {
             
             return true;
         }
@@ -95,7 +97,7 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
                 HttpMethod.POST, Service.class);
         String status = service.getStatus();
         
-        if (status != null && status.equalsIgnoreCase("success")) {
+        if (status != null && status.equalsIgnoreCase(STATUSS)) {
             
             return true;
         }
@@ -109,7 +111,7 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
                 HttpMethod.POST, Service.class);
         String status = service.getStatus();
         
-        if (status != null && status.equalsIgnoreCase("success")) {
+        if (status != null && status.equalsIgnoreCase(STATUSS)) {
             
             return true;
         }
@@ -123,7 +125,7 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
                 HttpMethod.POST, Service.class);
         String status = service.getStatus();
         
-        if (status != null && status.equalsIgnoreCase("success")) {
+        if (status != null && status.equalsIgnoreCase(STATUSS)) {
             
             return true;
         }
@@ -137,7 +139,7 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
                 HttpMethod.POST, Service.class);
         String status = service.getStatus();
         
-        if (status != null && status.equalsIgnoreCase("success")) {
+        if (status != null && status.equalsIgnoreCase(STATUSS)) {
             
             return true;
         }
@@ -151,7 +153,7 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
                 HttpMethod.POST, Service.class);
         String status = service.getStatus();
         
-        if (status != null && status.equalsIgnoreCase("success")) {
+        if (status != null && status.equalsIgnoreCase(STATUSS)) {
             
             return true;
         }
@@ -182,7 +184,7 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
         Service service = (Service) StubInvokerUtil.invokeStub(updatePassword,
                 HttpMethod.POST, Service.class);
         String status = service.getStatus();
-        if (status != null && status.equalsIgnoreCase("success")) {
+        if (status != null && status.equalsIgnoreCase(STATUSS)) {
             return true;
         }
         return false;
@@ -194,7 +196,7 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
         Service service = (Service) StubInvokerUtil.invokeStub(
                 updateSecurityDetails, HttpMethod.POST, Service.class);
         String status = service.getStatus();
-        if (status != null && status.equalsIgnoreCase("success")) {
+        if (status != null && status.equalsIgnoreCase(STATUSS)) {
             return true;
         }
         return false;

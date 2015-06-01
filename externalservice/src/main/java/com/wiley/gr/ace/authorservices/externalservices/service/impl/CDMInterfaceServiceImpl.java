@@ -67,6 +67,8 @@ public class CDMInterfaceServiceImpl implements CDMInterfaceService {
     @Value("${states.url}")
     private String states;
     
+    private static final String STATUSS = "success";
+    
     @Override
     public LookUpProfile lookUpProfile(String userId) {
         
@@ -81,7 +83,7 @@ public class CDMInterfaceServiceImpl implements CDMInterfaceService {
         Service service = (Service) StubInvokerUtil.invokeStub(updateProfile,
                 HttpMethod.POST, Service.class);
         String status = service.getStatus();
-        if (status != null && status.equalsIgnoreCase("success")) {
+        if (status != null && status.equalsIgnoreCase(STATUSS)) {
             return true;
         }
         return false;

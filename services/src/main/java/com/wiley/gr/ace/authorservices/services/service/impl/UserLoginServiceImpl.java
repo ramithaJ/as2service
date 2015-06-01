@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
@@ -35,6 +36,24 @@ public class UserLoginServiceImpl implements UserLoginService {
     UserLoginServiceDAO userLoginServiceDAO;
     @Autowired(required = true)
     ALMInterfaceService almService;
+    
+    @Value("${accountLocked.code}")
+    private String accountLocked;
+    
+    @Value("${accountLocked.message}")
+    private String accLockedMsg;
+    
+    @Value("${invalidEmail.code}")
+    private String invalidEmail;
+    
+    @Value("${invalidEmail.message}")
+    private String invalidEmailMsg;
+    
+    @Value("${invalidLogin.code}")
+    private String invalidLogin;
+    
+    @Value("${invalidLogin.message}")
+    private String invalidLoginMsg;
     
     /**
      * @param emailId
@@ -61,13 +80,11 @@ public class UserLoginServiceImpl implements UserLoginService {
                         userMgmt = new UserMgmt();
                         userMgmt.setUserId(userId + "");
                     } else {
-                        throw new ASException("1005",
-                                "Your account is locked. Please try after sometime .");
+                        throw new ASException(accountLocked, accLockedMsg);
                     }
                 } else {
                     
-                    throw new ASException("1007",
-                            "Your account is locked. Please try after sometime.");
+                    throw new ASException(accountLocked, accLockedMsg);
                 }
             } else {
                 if (authenticateUser(userId, emailId, password)) {
@@ -77,8 +94,7 @@ public class UserLoginServiceImpl implements UserLoginService {
             }
         } else {
             
-            throw new ASException("1001",
-                    "Invalid email address. Please Re-Enter");
+            throw new ASException(invalidEmail, invalidEmailMsg);
         }
         return userMgmt;
     }
@@ -140,12 +156,11 @@ public class UserLoginServiceImpl implements UserLoginService {
                  */
             } else {
                 
-                throw new ASException("1017", "Invalid user, please try again");
+                throw new ASException(invalidEmail, invalidEmailMsg);
             }
         } else {
             
-            throw new ASException("1016",
-                    "Invalid email Details, please try again");
+            throw new ASException(invalidEmail, invalidEmailMsg);
         }
         
     }
@@ -218,16 +233,14 @@ public class UserLoginServiceImpl implements UserLoginService {
             if (count >= 2) {
                 
                 if (almService.lockUser(emailId)) {
-                    throw new ASException("1002",
-                            "Your account is locked. Please try after sometime.");
+                    throw new ASException(accountLocked, accLockedMsg);
                     
                 }
             } else {
                 
                 count++;
                 userLoginServiceDAO.updateCount(count, userId);
-                throw new ASException("1003",
-                        "Please enter valid EmailId and Password.");
+                throw new ASException(invalidLogin, invalidLoginMsg);
             }
         }
         
