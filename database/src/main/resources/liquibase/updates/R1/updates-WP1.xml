@@ -123,7 +123,7 @@
     </changeSet>
     <changeSet author="gphaniraj" id="WP1-33">
         <createTable tableName="ADDRESS">
-            <column defaultValueComputed="pdbadmin.&quot;ADDRESS_SEQUENCE&quot;.&quot;NEXTVAL&quot;" name="ADDRESS_ID" type="NUMBER">
+            <column defaultValueComputed="&quot;ADDRESS_SEQUENCE&quot;.&quot;NEXTVAL&quot;" name="ADDRESS_ID" type="NUMBER">
                 <constraints nullable="false"/>
             </column>
             <column name="TITLE_CD" type="VARCHAR2(50)"/>
@@ -199,7 +199,7 @@
     </changeSet>
     <changeSet author="gphaniraj" id="WP1-38">
         <createTable tableName="AUDIT_DETAILS">
-            <column defaultValueComputed="pdbadmin.&quot;AUDIT_SEQ&quot;.&quot;NEXTVAL&quot;" name="AUDIT_ID" type="NUMBER"/>
+            <column defaultValueComputed="&quot;AUDIT_SEQ&quot;.&quot;NEXTVAL&quot;" name="AUDIT_ID" type="NUMBER"/>
             <column name="OBJ_NAME" type="VARCHAR2(50)"/>
             <column name="OBJ_ATTRIBUTE" type="VARCHAR2(50)"/>
             <column name="ACTION_CD" type="VARCHAR2(15)"/>
@@ -212,7 +212,7 @@
     </changeSet>
     <changeSet author="gphaniraj" id="WP1-39">
         <createTable tableName="AUTH_COAUTH_DETAILS">
-            <column defaultValueComputed="pdbadmin.&quot;AUTH_COAUTH_DETAILS_SEQ&quot;.&quot;NEXTVAL&quot;" name="AUTH_COAUTH_ID" type="NUMBER">
+            <column defaultValueComputed="&quot;AUTH_COAUTH_DETAILS_SEQ&quot;.&quot;NEXTVAL&quot;" name="AUTH_COAUTH_ID" type="NUMBER">
                 <constraints nullable="false"/>
             </column>
             <column name="COAUTH_TITLE" type="VARCHAR2(50)"/>
@@ -234,7 +234,7 @@
     </changeSet>
     <changeSet author="gphaniraj" id="WP1-40">
         <createTable tableName="AUTH_COLLEAGUE_DETAILS">
-            <column defaultValueComputed="pdbadmin.&quot;AUTH_COLLEAGUE_DETAILS_SEQ&quot;.&quot;NEXTVAL&quot;" name="AUTH_COLLEAGUE_ID" type="NUMBER">
+            <column defaultValueComputed="&quot;AUTH_COLLEAGUE_DETAILS_SEQ&quot;.&quot;NEXTVAL&quot;" name="AUTH_COLLEAGUE_ID" type="NUMBER">
                 <constraints nullable="false"/>
             </column>
             <column name="FIRST_NAME" type="VARCHAR2(50)"/>
@@ -251,7 +251,7 @@
     </changeSet>
     <changeSet author="gphaniraj" id="WP1-41">
         <createTable tableName="JOURNALS">
-            <column defaultValueComputed="pdbadmin.&quot;JOURNAL_SEQ&quot;.&quot;NEXTVAL&quot;" name="JOURNAL_ID" type="NUMBER">
+            <column defaultValueComputed="&quot;JOURNAL_SEQ&quot;.&quot;NEXTVAL&quot;" name="JOURNAL_ID" type="NUMBER">
                 <constraints nullable="false"/>
             </column>
             <column name="DH_ID" type="NUMBER"/>
@@ -265,7 +265,7 @@
     </changeSet>
     <changeSet author="gphaniraj" id="WP1-42">
         <createTable tableName="LOOKUP_VALUES">
-            <column defaultValueComputed="pdbadmin.&quot;USER_LOOKUP_VALUE_SEQ&quot;.&quot;NEXTVAL&quot;" name="LOOKUP_ID" type="NUMBER">
+            <column defaultValueComputed="&quot;USER_LOOKUP_VALUE_SEQ&quot;.&quot;NEXTVAL&quot;" name="LOOKUP_ID" type="NUMBER">
                 <constraints nullable="false"/>
             </column>
             <column name="LOOKUP_KEY" type="VARCHAR2(50)"/>
@@ -337,7 +337,7 @@
     </changeSet>
     <changeSet author="gphaniraj" id="WP1-47">
         <createTable tableName="RESEARCH_FUNDERS">
-            <column defaultValueComputed="pdbadmin.&quot;RESEARCH_FUNDER_SEQ&quot;.&quot;NEXTVAL&quot;" name="RESFUNDERID" type="NUMBER">
+            <column defaultValueComputed="&quot;RESEARCH_FUNDER_SEQ&quot;.&quot;NEXTVAL&quot;" name="RESFUNDERID" type="NUMBER">
                 <constraints nullable="false"/>
             </column>
             <column name="FUNDREF_ID" type="NUMBER"/>
@@ -350,7 +350,7 @@
     </changeSet>
     <changeSet author="gphaniraj" id="WP1-48">
         <createTable tableName="ROLES">
-            <column defaultValueComputed="pdbadmin.&quot;ROLE_SEQ&quot;.&quot;NEXTVAL&quot;" name="ROLE_ID" type="NUMBER">
+            <column defaultValueComputed="&quot;ROLE_SEQ&quot;.&quot;NEXTVAL&quot;" name="ROLE_ID" type="NUMBER">
                 <constraints nullable="false"/>
             </column>
             <column name="ROLE_NAME" type="VARCHAR2(100)"/>
@@ -419,7 +419,7 @@
     </changeSet>
     <changeSet author="gphaniraj" id="WP1-53">
         <createTable tableName="USERS">
-            <column defaultValueComputed="pdbadmin.&quot;USER_SEQ&quot;.&quot;NEXTVAL&quot;" name="USER_ID" type="NUMBER">
+            <column defaultValueComputed="&quot;USER_SEQ&quot;.&quot;NEXTVAL&quot;" name="USER_ID" type="NUMBER">
                 <constraints nullable="false"/>
             </column>
             <column name="FIRST_NAME" type="VARCHAR2(100)"/>
@@ -439,7 +439,7 @@
     </changeSet>
     <changeSet author="gphaniraj" id="WP1-54">
         <createTable tableName="USER_ADDRESSES">
-            <column defaultValueComputed="pdbadmin.&quot;USER_ADDRESSES_SEQ&quot;.&quot;NEXTVAL&quot;" name="USER_ADDRESS_ID" type="NUMBER"/>
+            <column defaultValueComputed="&quot;USER_ADDRESSES_SEQ&quot;.&quot;NEXTVAL&quot;" name="USER_ADDRESS_ID" type="NUMBER"/>
             <column name="USER_ID" type="NUMBER"/>
             <column name="ADDRESS_ID" type="NUMBER"/>
             <column name="ADDRESS_TYPE_CD" type="VARCHAR2(30)"/>
@@ -451,7 +451,7 @@
     </changeSet>
     <changeSet author="gphaniraj" id="WP1-55">
         <createTable tableName="USER_AFFILIATIONS">
-            <column defaultValueComputed="pdbadmin.&quot;AFFILIATION_SEQ&quot;.&quot;NEXTVAL&quot;" name="AFFILIATION_ID" type="NUMBER">
+            <column defaultValueComputed="&quot;AFFILIATION_SEQ&quot;.&quot;NEXTVAL&quot;" name="AFFILIATION_ID" type="NUMBER">
                 <constraints nullable="false"/>
             </column>
             <column name="USER_ID" type="NUMBER"/>
@@ -501,7 +501,7 @@
     </changeSet>
     <changeSet author="gphaniraj" id="WP1-58">
         <createTable tableName="USER_FUNDER_GRANTS">
-            <column defaultValueComputed="pdbadmin.&quot;USER_FUNDER_GRANTS_SEQ&quot;.&quot;NEXTVAL&quot;" name="USER_FUNDER_GRANT_ID" type="NUMBER">
+            <column defaultValueComputed="&quot;USER_FUNDER_GRANTS_SEQ&quot;.&quot;NEXTVAL&quot;" name="USER_FUNDER_GRANT_ID" type="NUMBER">
                 <constraints nullable="false"/>
             </column>
             <column name="USER_ID" type="NUMBER"/>
@@ -588,7 +588,7 @@
     </changeSet>
     <changeSet author="gphaniraj" id="WP1-64">
         <createTable tableName="USER_SECONDARY_EMAIL_ADDR">
-            <column defaultValueComputed="pdbadmin.&quot;USER_SECONDARY_EMAIL_ADDR_SEQ&quot;.&quot;NEXTVAL&quot;" name="USER_SECONDARY_EMAIL_ID" type="NUMBER">
+            <column defaultValueComputed="&quot;USER_SECONDARY_EMAIL_ADDR_SEQ&quot;.&quot;NEXTVAL&quot;" name="USER_SECONDARY_EMAIL_ID" type="NUMBER">
                 <constraints nullable="false"/>
             </column>
             <column name="USER_ID" type="NUMBER"/>
@@ -601,7 +601,7 @@
     </changeSet>
     <changeSet author="gphaniraj" id="WP1-65">
         <createTable tableName="USER_SOCIETY_DETAILS">
-            <column defaultValueComputed="pdbadmin.&quot;SOCIETY_SEQ&quot;.&quot;NEXTVAL&quot;" name="SOCIETY_ID" type="NUMBER">
+            <column defaultValueComputed="&quot;SOCIETY_SEQ&quot;.&quot;NEXTVAL&quot;" name="SOCIETY_ID" type="NUMBER">
                 <constraints nullable="false"/>
             </column>
             <column name="USER_ID" type="NUMBER"/>
@@ -1213,7 +1213,7 @@ alter table ADDITIONAL_PERMISSIONS add foreign key(updated_by) references users(
 <sql>
 ALTER TABLE ADDITIONAL_PERMISSIONS 
     ADD CONSTRAINT "ADDITIONAL_PERMISSIONS_FK" FOREIGN KEY ("USER_ID")
-	  REFERENCES "PDBADMIN"."USERS" ("USER_ID");
+	  REFERENCES "USERS" ("USER_ID");
 </sql>
 </changeSet>
 
