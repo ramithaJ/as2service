@@ -123,7 +123,7 @@ public class AdminLoginController extends ASExceptionController {
 
 	}
 	
-	@RequestMapping(value = "/findUser/{emailId}/", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/findUser/{emailId}/", method = RequestMethod.GET, produces = "application/json")
     public Service findUser(@PathVariable("emailId") String emailId) {
 
         Service service = new Service();
