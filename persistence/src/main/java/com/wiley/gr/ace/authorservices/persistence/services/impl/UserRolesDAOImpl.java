@@ -57,11 +57,15 @@ public class UserRolesDAOImpl implements UserRolesDAO {
             session = con.getSessionFactory().openSession();
             transaction = session.beginTransaction();
             
-            Roles daoRoles = (Roles) session.get(Roles.class, roles.getRoleId());
-            
-            daoRoles.setDescription(roles.getDescription());
-            
-            session.saveOrUpdate(daoRoles);
+            if(roles.getRoleId() != null && roles.getRoleId() != 0) {
+	            Roles daoRoles = (Roles) session.get(Roles.class, roles.getRoleId());
+	            
+	            daoRoles.setDescription(roles.getDescription());
+	            
+	            session.saveOrUpdate(daoRoles);
+            } else {
+            	session.saveOrUpdate(roles);
+            }
             
             Query query = session.createSQLQuery("select * from role_permissions where role_id = :roleId").setParameter("roleId", roles.getRoleId().toString());
             list = query.list();
