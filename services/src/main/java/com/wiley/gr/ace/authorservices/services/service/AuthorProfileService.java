@@ -14,7 +14,7 @@ package com.wiley.gr.ace.authorservices.services.service;
 
 import java.util.List;
 
-import com.wiley.gr.ace.authorservices.model.Addresses;
+import com.wiley.gr.ace.authorservices.model.AddressDetails;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.Alert;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
@@ -38,7 +38,7 @@ public interface AuthorProfileService {
     
     boolean updateEmailDetails(User emailDetails);
     
-    boolean updateUserAddress(Addresses addresses);
+    boolean updateUserAddress(AddressDetails addresses);
     
     boolean updateUserProfileInfo(User user);
     
