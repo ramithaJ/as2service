@@ -167,11 +167,8 @@ public class UserLoginServiceImpl implements UserLoginService {
     public boolean validateSecurityQuestions(String emailId,
             List<SecurityDetails> securityDetails) {
         
-        boolean status = false;
-        
         // TODO: Call external service for this.
-        
-        return status;
+        return false;
     }
     
     /**

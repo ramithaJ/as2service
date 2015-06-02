@@ -54,23 +54,22 @@ public class Address {
     
     private String region;
     
-    
     public String getAddressType() {
         return addressType;
     }
-
+    
     public void setAddressType(String addressType) {
         this.addressType = addressType;
     }
-
+    
     public String getRegion() {
         return region;
     }
-
+    
     public void setRegion(String region) {
         this.region = region;
     }
-
+    
     public String getTitle() {
         return title;
     }

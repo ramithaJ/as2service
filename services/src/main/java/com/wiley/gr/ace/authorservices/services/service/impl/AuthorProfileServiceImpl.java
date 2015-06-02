@@ -78,15 +78,15 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     
     @Override
     public boolean updateAlerts(String userId,
-            UserProfileAlerts UserProfileAlerts) {
+            UserProfileAlerts userProfileAlerts) {
         
-        userProfile.setAlerts(UserProfileAlerts.getAlertslist());
+        userProfile.setAlerts(userProfileAlerts.getAlertslist());
         lookUpProfile.setCustomerProfile(userProfile);
         return cdmservices.updateProfile(lookUpProfile);
     }
     
     @Override
-    public boolean UpdatecoAuthor(CoAuthor coAuthor) {
+    public boolean updatecoAuthor(CoAuthor coAuthor) {
         
         List<CoAuthor> list = new ArrayList<CoAuthor>();
         list.add(coAuthor);

@@ -41,87 +41,87 @@ import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 @RestController
 @RequestMapping("/admin")
 public class AdminLoginController extends ASExceptionController {
-	
-	@Value("${adminnotexist.code}")
-	public String errorcode;
-	@Value("${adminnotexist.message}")
-	public String errormessage;
-	@Autowired(required = true)
-	AdminLoginService adminLoginService;
-	@Autowired(required = true)
-	LocalValidatorFactoryBean validator;
-
-	@RequestMapping(value = "/login/", method = RequestMethod.POST )
-	public Service login(@Valid @RequestBody Login login) {
-		
-		Service service = new Service();
-		if (adminLoginService.validateEmail(login.getEmailId())) {
-			
-		    String userId = adminLoginService.doLogin(login.getEmailId());
-			UserMgmt userObj = new UserMgmt();
-			userObj.setUserId(userId);
-			service.setPayload(userObj);
-		} else {
-			throw new ASException(errorcode, errormessage);
-		}
-		return service;
-	}
-
-	@RequestMapping(value = "/requestAccess/{emailId}/{accessId}/", method = RequestMethod.POST )
-	public Service requestAccess(@PathVariable("emailId") String emailId,
-	        @PathVariable("accessId") String accessId) {
-
-		return new Service();
-
-	}
-
-	@RequestMapping(value = "/create", method = RequestMethod.POST )
-	public Service createAdmin(@RequestBody AdminUser admin) {
-	    
-		adminLoginService.createAdmin(admin);
-	    return new Service();
-
-	}
-
-	@RequestMapping(value = "/permissions/", method = RequestMethod.GET )
-	public Service getPermissions() {
-
-		Service service = new Service();
-		service.setPayload(adminLoginService.getRolesAndPermissions(null));
-		return service;
-	}
-
-	/**
-	 * @param roleId
-	 * @return
-	 */
-	@RequestMapping(value = "/permissions/{roleId}", method = RequestMethod.GET )
-	public Service getPermissionsForRole(@PathVariable("roleId") String roleId) {
-
-		Service service = new Service();
-		service.setPayload(adminLoginService.getRolesAndPermissions(roleId));
-		return service;
-	}
-
-	/**
-	 * @param rolesAndPermissions
-	 * @return
-	 */
-	@RequestMapping(value = "/permissions/", method = RequestMethod.POST )
-	public Service addOrUpdateUserRole(
-			@RequestBody ASRolesAndPermissions rolesAndPermissions) {
-
-		adminLoginService.addOrUpdateUserRole(rolesAndPermissions);
-		return new Service();
-
-	}
-	
-	@RequestMapping(value = "/findUser/{emailId}/", method = RequestMethod.GET )
+    
+    @Value("${adminnotexist.code}")
+    public String errorcode;
+    @Value("${adminnotexist.message}")
+    public String errormessage;
+    @Autowired(required = true)
+    AdminLoginService adminLoginService;
+    @Autowired(required = true)
+    LocalValidatorFactoryBean validator;
+    
+    @RequestMapping(value = "/login/", method = RequestMethod.POST)
+    public Service login(@Valid @RequestBody Login login) {
+        
+        Service service = new Service();
+        if (adminLoginService.validateEmail(login.getEmailId())) {
+            
+            String userId = adminLoginService.doLogin(login.getEmailId());
+            UserMgmt userObj = new UserMgmt();
+            userObj.setUserId(userId);
+            service.setPayload(userObj);
+        } else {
+            throw new ASException(errorcode, errormessage);
+        }
+        return service;
+    }
+    
+    @RequestMapping(value = "/requestAccess/{emailId}/{accessId}/", method = RequestMethod.POST)
+    public Service requestAccess(@PathVariable("emailId") String emailId,
+            @PathVariable("accessId") String accessId) {
+        
+        return new Service();
+        
+    }
+    
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public Service createAdmin(@RequestBody AdminUser admin) {
+        
+        adminLoginService.createAdmin(admin);
+        return new Service();
+        
+    }
+    
+    @RequestMapping(value = "/permissions/", method = RequestMethod.GET)
+    public Service getPermissions() {
+        
+        Service service = new Service();
+        service.setPayload(adminLoginService.getRolesAndPermissions(null));
+        return service;
+    }
+    
+    /**
+     * @param roleId
+     * @return
+     */
+    @RequestMapping(value = "/permissions/{roleId}", method = RequestMethod.GET)
+    public Service getPermissionsForRole(@PathVariable("roleId") String roleId) {
+        
+        Service service = new Service();
+        service.setPayload(adminLoginService.getRolesAndPermissions(roleId));
+        return service;
+    }
+    
+    /**
+     * @param rolesAndPermissions
+     * @return
+     */
+    @RequestMapping(value = "/permissions/", method = RequestMethod.POST)
+    public Service addOrUpdateUserRole(
+            @RequestBody ASRolesAndPermissions rolesAndPermissions) {
+        
+        adminLoginService.addOrUpdateUserRole(rolesAndPermissions);
+        return new Service();
+        
+    }
+    
+    @RequestMapping(value = "/findUser/{emailId}/", method = RequestMethod.GET)
     public Service findUser(@PathVariable("emailId") String emailId) {
-
+        
         Service service = new Service();
         service.setPayload(adminLoginService.findUser(emailId));
         return service;
-
+        
     }
 }
