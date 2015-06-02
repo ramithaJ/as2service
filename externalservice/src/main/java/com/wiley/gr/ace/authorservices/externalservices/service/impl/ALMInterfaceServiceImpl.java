@@ -54,7 +54,7 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
     @Value("${updatePassword.url}")
     private String updatePassword;
     
-    @Value("${authenticateAdminUser.url}")
+    @Value("${updateSecurityDetails.url}")
     private String updateSecurityDetails;
     
     @Value("${findUser.url}")
