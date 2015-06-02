@@ -297,7 +297,7 @@ public class ASDataServiceImpl implements ASDataService {
         List<Role> adminRoles = new ArrayList<Role>();
         Role adminRole = null;
         
-        if (daoRolesList != null && daoRolesList.isEmpty()) {
+        if (daoRolesList != null && !daoRolesList.isEmpty()) {
             
             for (Roles roles : daoRolesList) {
                 adminRole = new Role();
