@@ -71,7 +71,7 @@ public class UserProfileController {
             @RequestBody Affiliation affiliation) {
         affiliation.setUserId(userId);
         Service service = new Service();
-        service.setPayload(authorProfileService.updateAffiliation(affiliation));
+        authorProfileService.updateAffiliation(affiliation);
         return service;
     }
     
