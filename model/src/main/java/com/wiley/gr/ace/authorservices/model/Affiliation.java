@@ -23,13 +23,22 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class Affiliation {
     
     /** The user Id . */
+	private String affiliationId;
     private String userId;
     
     private String institutionId;
     
     private String departmentId;
     
-    private String departmentName;
+    public String getAffiliationId() {
+		return affiliationId;
+	}
+
+	public void setAffiliationId(String affiliationId) {
+		this.affiliationId = affiliationId;
+	}
+
+	private String departmentName;
     
     private String visibility;
     

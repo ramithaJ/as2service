@@ -28,6 +28,7 @@ import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserProfile;
+import com.wiley.gr.ace.authorservices.model.UserProfileAlerts;
 import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 
@@ -81,10 +82,10 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     }
     
     @Override
-    public boolean updateAlerts(String userId, List<Alert> alertsList) {
+    public boolean updateAlerts(String userId, UserProfileAlerts UserProfileAlerts) {
         UserProfile userProfile = new UserProfile();
         LookUpProfile lookUpProfile = new LookUpProfile();
-        userProfile.setAlerts(alertsList);
+        userProfile.setAlerts(UserProfileAlerts.getAlertslist());
         lookUpProfile.setCustomerProfile(userProfile);
         cdmservices.updateProfile(lookUpProfile);
         return true;

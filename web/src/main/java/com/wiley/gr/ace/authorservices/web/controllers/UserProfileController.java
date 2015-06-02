@@ -11,8 +11,6 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.web.controllers;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +23,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.model.Affiliation;
-import com.wiley.gr.ace.authorservices.model.Alert;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.Society;
+import com.wiley.gr.ace.authorservices.model.UserProfileAlerts;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
 
@@ -252,8 +250,8 @@ public class UserProfileController {
      */
     @RequestMapping(value = "/alerts/{userId}", method = RequestMethod.POST, produces = "application/json")
     public Service updateAlerts(@PathVariable("userId") String userId,
-            @RequestBody List<Alert> alertsList) {
-        authorProfileService.updateAlerts(userId, alertsList);
+            @RequestBody UserProfileAlerts userProfileAlerts) {
+        authorProfileService.updateAlerts(userId, userProfileAlerts);
         
         return new Service();
     }
