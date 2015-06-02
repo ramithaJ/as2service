@@ -134,9 +134,6 @@ public class UserLoginServiceImpl implements UserLoginService {
             if (null != authorProfile) {
                 
                 SecurityDetailsHolder securityDetailsHolder = new SecurityDetailsHolder();
-                // check whether user has security set up or not.
-                // if (authorProfile.getSecurityQuestFlg().equals('Y')) {
-                
                 List<SecurityDetails> securityQuestions = new ArrayList<SecurityDetails>();
                 // TODO: Get Security details from ALM
                 List<SecurityDetails> securityQuestionsList = new ArrayList<SecurityDetails>();
@@ -150,10 +147,6 @@ public class UserLoginServiceImpl implements UserLoginService {
                 }
                 securityDetailsHolder.setSecurityDetails(securityQuestionsList);
                 return securityDetailsHolder;
-                /*
-                 * } else { throw new ASException("1015",
-                 * "User doen't have security setup"); }
-                 */
             } else {
                 
                 throw new ASException(invalidEmail, invalidEmailMsg);
@@ -231,19 +224,15 @@ public class UserLoginServiceImpl implements UserLoginService {
             
             int count = userLoginServiceDAO.getCount(userId);
             if (count >= 2) {
-                
                 if (almService.lockUser(emailId)) {
                     throw new ASException(accountLocked, accLockedMsg);
-                    
                 }
             } else {
-                
                 count++;
                 userLoginServiceDAO.updateCount(count, userId);
                 throw new ASException(invalidLogin, invalidLoginMsg);
             }
         }
-        
         return loginStatus;
     }
     

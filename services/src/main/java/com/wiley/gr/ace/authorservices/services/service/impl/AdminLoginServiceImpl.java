@@ -66,15 +66,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
     @Override
     public boolean validateEmail(String emailId) {
         
-        boolean status = false;
-        status = userlogindao.validateEmail(emailId);
-        
-        if (status) {
-            return true;
-            
-        } else {
-            return false;
-        }
+        return userlogindao.validateEmail(emailId);
     }
     
     /*

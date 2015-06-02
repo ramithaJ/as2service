@@ -42,45 +42,32 @@ import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 @RequestMapping("/admin")
 public class AdminLoginController extends ASExceptionController {
 	
-
-	/**
-	 * @param emailId
-	 * @param password
-	 * @return
-	 */
-	
 	@Value("${adminnotexist.code}")
 	public String errorcode;
 	@Value("${adminnotexist.message}")
 	public String errormessage;
 	@Autowired(required = true)
 	AdminLoginService adminLoginService;
-
 	@Autowired(required = true)
 	LocalValidatorFactoryBean validator;
 
-	@RequestMapping(value = "/login/", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/login/", method = RequestMethod.POST )
 	public Service login(@Valid @RequestBody Login login) {
-		boolean status = false;
+		
 		Service service = new Service();
-		status = adminLoginService.validateEmail(login.getEmailId());
-		if (status) {
-			String userId = adminLoginService.doLogin(login.getEmailId());
+		if (adminLoginService.validateEmail(login.getEmailId())) {
+			
+		    String userId = adminLoginService.doLogin(login.getEmailId());
 			UserMgmt userObj = new UserMgmt();
 			userObj.setUserId(userId);
 			service.setPayload(userObj);
 		} else {
-			throw new ASException(errorcode,errormessage);
+			throw new ASException(errorcode, errormessage);
 		}
 		return service;
 	}
 
-	/**
-	 * @param emailId
-	 * @param password
-	 * @return
-	 */
-	@RequestMapping(value = "/requestAccess/{emailId}/{accessId}/", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/requestAccess/{emailId}/{accessId}/", method = RequestMethod.POST )
 	public Service requestAccess(@PathVariable("emailId") String emailId,
 	        @PathVariable("accessId") String accessId) {
 
@@ -88,7 +75,7 @@ public class AdminLoginController extends ASExceptionController {
 
 	}
 
-	@RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/create", method = RequestMethod.POST )
 	public Service createAdmin(@RequestBody AdminUser admin) {
 	    
 		adminLoginService.createAdmin(admin);
@@ -96,7 +83,7 @@ public class AdminLoginController extends ASExceptionController {
 
 	}
 
-	@RequestMapping(value = "/permissions/", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/permissions/", method = RequestMethod.GET )
 	public Service getPermissions() {
 
 		Service service = new Service();
@@ -108,7 +95,7 @@ public class AdminLoginController extends ASExceptionController {
 	 * @param roleId
 	 * @return
 	 */
-	@RequestMapping(value = "/permissions/{roleId}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/permissions/{roleId}", method = RequestMethod.GET )
 	public Service getPermissionsForRole(@PathVariable("roleId") String roleId) {
 
 		Service service = new Service();
@@ -120,7 +107,7 @@ public class AdminLoginController extends ASExceptionController {
 	 * @param rolesAndPermissions
 	 * @return
 	 */
-	@RequestMapping(value = "/permissions/", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/permissions/", method = RequestMethod.POST )
 	public Service addOrUpdateUserRole(
 			@RequestBody ASRolesAndPermissions rolesAndPermissions) {
 
@@ -129,7 +116,7 @@ public class AdminLoginController extends ASExceptionController {
 
 	}
 	
-	@RequestMapping(value = "/findUser/{emailId}/", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/findUser/{emailId}/", method = RequestMethod.GET )
     public Service findUser(@PathVariable("emailId") String emailId) {
 
         Service service = new Service();

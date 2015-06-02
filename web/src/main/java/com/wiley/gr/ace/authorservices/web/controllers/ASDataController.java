@@ -14,6 +14,7 @@ package com.wiley.gr.ace.authorservices.web.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,10 +37,11 @@ public class ASDataController {
     
     @Autowired(required = true)
     ASDataService aSDataService;
+    @Value("${noDataFound.code}")
+    private String nodataFound;
+    @Value("${noDataFound.message}")
+    private String nodataFoundmsg;
     
-    /**
-     * @return
-     */
     @RequestMapping(value = "/titles/", method = RequestMethod.GET)
     public Service getTitles() {
         
@@ -48,9 +50,6 @@ public class ASDataController {
         return service;
     }
     
-    /**
-     * @return
-     */
     @RequestMapping(value = "/suffixes/", method = RequestMethod.GET)
     public Service getSuffixes() {
         
@@ -59,117 +58,96 @@ public class ASDataController {
         return service;
     }
     
-    /**
-     * @return
-     */
-    @RequestMapping(value = "/industries/" , method = RequestMethod.GET)
-    public Service getIndustries(@RequestParam(value = "count", required = false, defaultValue = "10") Integer count) {
+    @RequestMapping(value = "/industries/", method = RequestMethod.GET)
+    public Service getIndustries(
+            @RequestParam(value = "count", required = false, defaultValue = "10") Integer count) {
         
         Service service = new Service();
         service.setPayload(aSDataService.getIndustries(count));
-        return service;    
+        return service;
     }
     
-    /**
-     * @return
-     */
     @RequestMapping(value = "/jobCategories/", method = RequestMethod.GET)
-    public Service getJobCategories(@RequestParam(value = "count", required = false, defaultValue = "10") Integer count) {
+    public Service getJobCategories(
+            @RequestParam(value = "count", required = false, defaultValue = "10") Integer count) {
         
         Service service = new Service();
         service.setPayload(aSDataService.getJobCategories(count));
         return service;
     }
     
-    /**
-     * @return
-     */
-
-
-    @RequestMapping(value = "/countries/", method = RequestMethod.GET )
-    public Service getCountries(@RequestParam(value = "count", required = false, defaultValue = "10") Integer count) {
-    	
-    	Service service= new Service();
-    	
-    	service.setPayload(aSDataService.getCountries(count));
+    @RequestMapping(value = "/countries/", method = RequestMethod.GET)
+    public Service getCountries(
+            @RequestParam(value = "count", required = false, defaultValue = "10") Integer count) {
+        
+        Service service = new Service();
+        
+        service.setPayload(aSDataService.getCountries(count));
         
         return service;
     }
     
-    /**
-     * @return
-     */
-  
-    @RequestMapping(value = "/states/{countrycode}", method = RequestMethod.GET )
-    public Service getStates(@PathVariable ("countrycode") String countrycode,@RequestParam(value = "count", required = false, defaultValue = "10") Integer count) {
-        Service service=new Service();
-        service.setPayload(aSDataService.getStates(countrycode,count));
+    @RequestMapping(value = "/states/{countrycode}", method = RequestMethod.GET)
+    public Service getStates(
+            @PathVariable("countrycode") String countrycode,
+            @RequestParam(value = "count", required = false, defaultValue = "10") Integer count) {
+        Service service = new Service();
+        service.setPayload(aSDataService.getStates(countrycode, count));
         
         return service;
     }
     
-    /**
-     * @return
-     */
-    @RequestMapping(value = "/institutions/", method = RequestMethod.GET )
+    @RequestMapping(value = "/institutions/", method = RequestMethod.GET)
     public Service getInstitutions() {
-    	
-    	Service service = new Service();
-    	service.setPayload(aSDataService.getInstitutions());
+        
+        Service service = new Service();
+        service.setPayload(aSDataService.getInstitutions());
         
         return service;
     }
     
-    /**
-     * @return
-     */
-    @RequestMapping(value = "/departments/", method = RequestMethod.GET )
+    @RequestMapping(value = "/departments/", method = RequestMethod.GET)
     public Service getDepartments() {
         
-    	Service service = new Service();
-    	service.setPayload(aSDataService.getDepartments());
+        Service service = new Service();
+        service.setPayload(aSDataService.getDepartments());
         
         return service;
     }
     
-    /**
-     * @return
-     */
-    @RequestMapping(value = "/researchFunders/", method = RequestMethod.GET )
+    @RequestMapping(value = "/researchFunders/", method = RequestMethod.GET)
     public Service getResearchFunders() {
-    	Service service = new Service();
-    	service.setPayload(aSDataService.getResearchFunders());
+        Service service = new Service();
+        service.setPayload(aSDataService.getResearchFunders());
         
         return service;
     }
     
-    /**
-     * @return
-     */
-    @RequestMapping(value = "/articles/", method = RequestMethod.GET )
+    @RequestMapping(value = "/articles/", method = RequestMethod.GET)
     public Service getArticles() {
         
         return null;
     }
     
-    @RequestMapping(value = "/societies/", method = RequestMethod.GET )
+    @RequestMapping(value = "/societies/", method = RequestMethod.GET)
     public Service getSocieties() {
         
-    	Service service = new Service();
-    	service.setPayload(aSDataService.getSocieties());
+        Service service = new Service();
+        service.setPayload(aSDataService.getSocieties());
         
         return service;
     }
     
-    @RequestMapping(value = "/areasOfInterests/", method = RequestMethod.GET )
-    public Service getAreasOfInterests(@RequestParam(value = "count", required = false, defaultValue = "10") Integer count) {
-    	 Service service = new Service();
-         service.setPayload(aSDataService.getAreasOfInterests(count));
-         
-         return service;
+    @RequestMapping(value = "/areasOfInterests/", method = RequestMethod.GET)
+    public Service getAreasOfInterests(
+            @RequestParam(value = "count", required = false, defaultValue = "10") Integer count) {
+        Service service = new Service();
+        service.setPayload(aSDataService.getAreasOfInterests(count));
+        
+        return service;
     }
     
-    @RequestMapping(value = "/securityQuestions/", method = RequestMethod.GET )
+    @RequestMapping(value = "/securityQuestions/", method = RequestMethod.GET)
     public Service getSecurityQuestions() {
         
         Service service = new Service();
@@ -178,7 +156,7 @@ public class ASDataController {
         return service;
     }
     
-    @RequestMapping(value = "/roles/", method = RequestMethod.GET )
+    @RequestMapping(value = "/roles/", method = RequestMethod.GET)
     public Service getUserRoles() {
         
         Service service = new Service();
@@ -187,7 +165,7 @@ public class ASDataController {
         return service;
     }
     
-    @RequestMapping(value = "/roles/{roleType}", method = RequestMethod.GET )
+    @RequestMapping(value = "/roles/{roleType}", method = RequestMethod.GET)
     public Service getAdminRoles(@PathVariable("roleType") String roleType) {
         
         Service service = new Service();
@@ -196,20 +174,15 @@ public class ASDataController {
         return service;
     }
     
-    @RequestMapping(value = "/accessReasons/", method = RequestMethod.GET )
+    @RequestMapping(value = "/accessReasons/", method = RequestMethod.GET)
     public Service getAdminAccessReasons() {
         
         Service service = new Service();
         List<AccessReasons> accessList = aSDataService.getAccessReasons();
-        
-        if (accessList != null && accessList.size() > 0) {
-            service.setPayload(accessList);
-            
-        } else {
-            
-            throw new ASException("1005", "No data found");
+        if (null == accessList) {
+            throw new ASException(nodataFound, nodataFoundmsg);
         }
-        
+        service.setPayload(accessList);
         return service;
     }
 }

@@ -38,64 +38,41 @@ import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
 @RequestMapping("/userprofile")
 public class UserProfileController {
     
-    /**
-     * @param userId
-     * @return
-     */
     @Autowired(required = true)
     UserProfileService userProfileService;
     @Autowired
     AuthorProfileService authorProfileService;
-    
     @Autowired(required = true)
     LocalValidatorFactoryBean validator;
-   
     
-    @RequestMapping(value = "/affiliations/{userId}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/affiliations/{userId}", method = RequestMethod.GET)
     public Service getAffiliationsList(@PathVariable("userId") String userId) {
         
         Service service = new Service();
-        
         service.setPayload(userProfileService.lookUpProfile(userId)
                 .getCustomerProfile().getAffiliations());
-        
         return service;
     }
     
-    /**
-     * @param userId
-     * @return
-     */
-    @RequestMapping(value = "/affiliations/{userId}/{affiliationId}", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/affiliations/{userId}/{affiliationId}", method = RequestMethod.POST)
     public Service updateAffiliation(@PathVariable("userId") String userId,
             @RequestBody Affiliation affiliation) {
+        
         affiliation.setUserId(userId);
         Service service = new Service();
         authorProfileService.updateAffiliation(affiliation);
         return service;
     }
     
-    /**
-     * Returns the list of all research funders added by the user.
-     * 
-     * @param userId
-     * @return
-     */
     @RequestMapping(value = "/researchFunders/{userId}", method = RequestMethod.GET)
     public Service getResearchFundersList(@PathVariable("userId") String userId) {
         
         Service service = new Service();
         service.setPayload(userProfileService.lookUpProfile(userId)
                 .getCustomerProfile().getResearchFunders());
-        
         return service;
     }
     
-    /**
-     * @param userId
-     * @param funderJson
-     * @return
-     */
     @RequestMapping(value = "/researchFunder/{userId}", method = RequestMethod.POST)
     public Service updateResearchFunder(@PathVariable("userId") String userId,
             @RequestBody ResearchFunder researchFunder) {
@@ -110,27 +87,20 @@ public class UserProfileController {
      * @param userId
      * @return
      */
-    @RequestMapping(value = "/societies/{userId}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/societies/{userId}", method = RequestMethod.GET)
     public Service getSocietiesList(@PathVariable("userId") String userId) {
         
         Service service = new Service();
         service.setPayload(userProfileService.lookUpProfile(userId)
                 .getCustomerProfile().getSocieties());
-        
         return service;
     }
     
-    /**
-     * @param userId
-     * @param societyId
-     * @return
-     */
-    @RequestMapping(value = "/societies/{userId}", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/societies/{userId}", method = RequestMethod.POST)
     public Service updateSocietyDetails(@PathVariable("userId") String userId,
             @Valid @RequestBody Society society) {
         
         authorProfileService.updateSocietyDetails(society);
-        
         return new Service();
     }
     
@@ -138,28 +108,26 @@ public class UserProfileController {
      * @param userId
      * @return
      */
-    @RequestMapping(value = "/interests/{userId}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/interests/{userId}", method = RequestMethod.GET)
     public Service getMyInterests(@PathVariable("userId") String userId) {
         
         Service service = new Service();
         service.setPayload(userProfileService.lookUpProfile(userId)
                 .getCustomerProfile().getInterests());
-        
         return service;
     }
-
     
     /**
      * @param userId
      * @param searchString
      * @return
      */
-    @RequestMapping(value = "/interests/search/{userId}", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/interests/search/{userId}", method = RequestMethod.POST)
     public Service searchInterests(
             @PathVariable("userId") String userId,
             @RequestParam(required = false, value = "searchStr") String searchString) {
         
-        return null;
+        return new Service();
     }
     
     /**
@@ -178,10 +146,6 @@ public class UserProfileController {
         return service;
     }
     
-    /**
-     * @param userId
-     * @return
-     */
     @RequestMapping(value = "/coAuthors/{userId}", method = RequestMethod.POST)
     public Service updateCoAuthors(@PathVariable String userId,
             @RequestBody CoAuthor coAuthor) {
@@ -189,6 +153,40 @@ public class UserProfileController {
         Service service = new Service();
         coAuthor.setUserId(Integer.parseInt(userId));
         service.setPayload(authorProfileService.UpdatecoAuthor(coAuthor));
+        return new Service();
+    }
+    
+    /**
+     * @param userId
+     * @return
+     */
+    
+    @RequestMapping(value = "/preferredJournals/{userId}", method = RequestMethod.GET)
+    public Service getPreferredJournals(@PathVariable("userId") String userId) {
+        
+        Service service = new Service();
+        service.setPayload(userProfileService.lookUpProfile(userId)
+                .getCustomerProfile().getPreferredJournals());
+        return service;
+    }
+    
+    /**
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "/preferredJournals/search/{userId}", method = RequestMethod.POST)
+    public Service searchPreferredJournals(@PathVariable("userId") String userId) {
+        
+        return new Service();
+    }
+    
+    /**
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "/articlesPublishedForJournals/{userId}", method = RequestMethod.GET)
+    public Service getArticlesPublishedForJournals(
+            @PathVariable("userId") String userId) {
         
         return new Service();
     }
@@ -198,69 +196,27 @@ public class UserProfileController {
      * @return
      */
     
-    @RequestMapping(value = "/preferredJournals/{userId}", method = RequestMethod.GET, produces = "application/json")
-    public Service getPreferredJournals(@PathVariable("userId") String userId) {
-        
-        Service service = new Service();
-        service.setPayload(userProfileService.lookUpProfile(userId)
-                .getCustomerProfile().getPreferredJournals());
-        
-        return service;
-    }
-    
-    /**
-     * @param userId
-     * @return
-     */
-    @RequestMapping(value = "/preferredJournals/search/{userId}", method = RequestMethod.POST, produces = "application/json")
-    public Service searchPreferredJournals(@PathVariable("userId") String userId) {
-        
-        return null;
-    }
-    
-    /**
-     * @param userId
-     * @return
-     */
-    @RequestMapping(value = "/articlesPublishedForJournals/{userId}", method = RequestMethod.GET, produces = "application/json")
-    public Service getArticlesPublishedForJournals(
-            @PathVariable("userId") String userId) {
-        
-        return null;
-    }
-    
-    /**
-     * @param userId
-     * @return
-     */
-    
-    @RequestMapping(value = "/alerts/{userId}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/alerts/{userId}", method = RequestMethod.GET)
     public Service getListOfAlerts(@PathVariable("userId") String userId) {
+        
         Service service = new Service();
         service.setPayload(userProfileService.lookUpProfile(userId)
                 .getCustomerProfile().getAlerts());
-        
         return service;
     }
     
-    /**
-     * @param userId
-     * @param alertsJson
-     * @return
-     */
-    @RequestMapping(value = "/alerts/{userId}", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/alerts/{userId}", method = RequestMethod.POST)
     public Service updateAlerts(@PathVariable("userId") String userId,
             @RequestBody UserProfileAlerts userProfileAlerts) {
-        authorProfileService.updateAlerts(userId, userProfileAlerts);
         
+        authorProfileService.updateAlerts(userId, userProfileAlerts);
         return new Service();
     }
     
     @RequestMapping(value = "/jobCategories/{userId}", method = RequestMethod.GET)
     public Service getJobCategories(@PathVariable("userId") String userId) {
         
-       
-        return null;
+        return new Service();
     }
     
     @RequestMapping(value = "/lookUpProfile/{userId}", method = RequestMethod.GET)
@@ -275,8 +231,6 @@ public class UserProfileController {
     @RequestMapping(value = "/industries/{userId}", method = RequestMethod.GET)
     public Service getIndustries(@PathVariable("userId") String userId) {
         
-        Service service = new Service();
-        return service;
-        
+        return new Service();
     }
 }

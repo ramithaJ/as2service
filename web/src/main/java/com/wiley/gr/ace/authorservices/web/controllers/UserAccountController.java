@@ -38,12 +38,6 @@ public class UserAccountController {
     @Autowired
     AuthorProfileService authorProfileService;
     
-    /**
-     * @param userId
-     * @param userDetails
-     * @param request
-     * @return
-     */
     @RequestMapping(value = "/profileInfo/{userId}", method = RequestMethod.GET)
     public Service getProfileInformation(@PathVariable("userId") String userId) {
         
@@ -63,10 +57,6 @@ public class UserAccountController {
         
     }
     
-    /**
-     * @param userId
-     * @return
-     */
     @RequestMapping(value = "/emailDetails/{userId}", method = RequestMethod.GET)
     public Service getEmailDetails(@PathVariable("userId") String userId) {
         
@@ -75,11 +65,6 @@ public class UserAccountController {
         return service;
     }
     
-    /**
-     * @param userId
-     * @param emailDetails
-     * @return
-     */
     @RequestMapping(value = "/emailDetails/{userId}", method = RequestMethod.POST)
     public Service updateEmail(@PathVariable("userId") String userId,
             @RequestBody User emailDetails) {
@@ -91,10 +76,6 @@ public class UserAccountController {
         return service;
     }
     
-    /**
-     * @param userId
-     * @return
-     */
     @RequestMapping(value = "/userAddresses/{userId}", method = RequestMethod.GET)
     public Service getUserAddresses(@PathVariable("userId") String userId) {
         
@@ -112,15 +93,6 @@ public class UserAccountController {
         return service;
     }
     
-    /**
-     * This service will update the security questions and answers at user
-     * profile level.
-     * 
-     * @param userId
-     * @param securityDetails
-     *            - it is a JSON array having security questions and answers.
-     * @return
-     */
     @RequestMapping(value = "/secutiryDetails/update", method = RequestMethod.POST)
     public Service updateSecurityDetails(
             @RequestBody SecurityDetailsHolder securityDetails) {
