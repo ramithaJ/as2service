@@ -20,10 +20,12 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.entity.AdminDetails;
 import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserRoles;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserRolesId;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
 
@@ -111,7 +113,7 @@ public class UserLoginDaoImpl implements UserLoginDao {
         List<Users> result = session.createQuery(hql)
                 .setString("emailId", emailId).list();
         
-        if (result != null && result.isEmpty()) {
+        if (result != null && !result.isEmpty()) {
             
             user = result.get(0);
             userId = user.getUserId();
@@ -129,11 +131,47 @@ public class UserLoginDaoImpl implements UserLoginDao {
         
         Session session = null;
         
+        Date date = new Date();
+        
         try {
-            session = con.getSessionFactory().openSession();
-            session.saveOrUpdate(users);
-            AdminDetails adminDetails = new AdminDetails();
-            adminDetails.setAdminUserId(users.getUserId());
+            
+            if(getUserId(users.getPrimaryEmailAddr()) != 0) {
+                throw new ASException("1020","User already exists.");
+            } else {
+            
+                session = con.getSessionFactory().openSession();
+                Transaction txn = session.getTransaction();
+                txn.begin();
+                session.save(users);
+                
+                txn.commit();
+                txn = session.getTransaction();
+                txn.begin();
+                
+                AdminDetails adminDetails = new AdminDetails();
+                adminDetails.setAdminUserId(users.getUserId());
+                adminDetails.setCreatedDate(date);
+                adminDetails.setUsersByCreatedBy(users);
+                adminDetails.setUsersByUserId(users);
+                
+                session.save(adminDetails);
+                
+                txn.commit();
+                txn = session.getTransaction();
+                txn.begin();
+                
+                //int adminRoleId = getAdminRoleId();
+                UserRoles userRoles = new UserRoles();
+                UserRolesId userRolesId = new UserRolesId();
+                userRolesId.setRoleId(6);
+                userRolesId.setUserId(users.getUserId());
+                userRoles.setId(userRolesId);
+                userRoles.setCreatedDate(date);
+                
+                session.save(userRoles);
+                
+                txn.commit();
+            }
             
         } finally {
             if (session != null) {
@@ -142,5 +180,32 @@ public class UserLoginDaoImpl implements UserLoginDao {
             }
         }
     }
+    
+    /**
+     * @return
+     */
+    /*private int getAdminRoleId() {
+        
+        Session session = con.getSessionFactory().openSession();
+        int roleId = 0;
+        Roles daoRoles = null;
+        
+        session = con.getSessionFactory().openSession();
+        
+        String hql = "from Roles where role_name = :roleName";
+        List<Roles> result = session.createQuery(hql)
+                .setString("roleName", "AOS Admin").list();
+        
+        if (result != null && result.isEmpty()) {
+            
+            daoRoles = result.get(0);
+            roleId = daoRoles.getRoleId();
+        }
+        
+        session.flush();
+        session.close();
+        
+        return roleId;
+    }*/
     
 }
