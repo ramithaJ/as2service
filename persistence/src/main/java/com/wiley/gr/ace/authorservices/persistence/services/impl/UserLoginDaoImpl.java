@@ -78,7 +78,7 @@ public class UserLoginDaoImpl implements UserLoginDao {
         List<AuthorProfile> result = session.createQuery(hql)
                 .setInteger("userId", userId).list();
         
-        if (null != result && result.isEmpty()) {
+        if (null != result && !result.isEmpty()) {
             authorProfile = result.get(0);
         }
         
