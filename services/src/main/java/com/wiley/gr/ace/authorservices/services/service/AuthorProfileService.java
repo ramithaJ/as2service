@@ -32,7 +32,7 @@ public interface AuthorProfileService {
     
     boolean updateAlerts(String userId, UserProfileAlerts userProfileAlerts);
     
-    boolean UpdatecoAuthor(CoAuthor coAuthor);
+    boolean updatecoAuthor(CoAuthor coAuthor);
     
     boolean updateEmailDetails(User emailDetails);
     

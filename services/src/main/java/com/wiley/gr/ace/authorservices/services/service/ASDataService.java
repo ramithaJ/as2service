@@ -81,7 +81,6 @@ public interface ASDataService {
     /**
      * @return
      */
-    // List<Article> getArticles();
     
     /**
      * @return

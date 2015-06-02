@@ -68,7 +68,7 @@ public class UserLoginController extends ASExceptionController {
      * @param password
      * @return
      */
-    @RequestMapping(value = "/orcid", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/orcid", method = RequestMethod.POST)
     public Service doOrcidLogin(@RequestBody String email,
             @RequestBody String password) {
         
@@ -76,11 +76,7 @@ public class UserLoginController extends ASExceptionController {
         User user = new User();
         user.setUserId(1234);
         user.setOrcidID("123");
-        /**
-         * Service impl TODO
-         */
         service.setPayload(user);
-        
         return service;
     }
     
@@ -92,10 +88,12 @@ public class UserLoginController extends ASExceptionController {
      * @return
      */
     @RequestMapping(value = "/password/reset", method = RequestMethod.POST)
-    public Service resetPassword(@RequestBody SecurityDetailsHolder securityDetailsHolder) {
+    public Service resetPassword(
+            @RequestBody SecurityDetailsHolder securityDetailsHolder) {
         
         Service service = new Service();
-        service.setPayload(userLoginService.resetPassword(securityDetailsHolder));
+        service.setPayload(userLoginService
+                .resetPassword(securityDetailsHolder));
         return service;
         
     }
@@ -181,12 +179,9 @@ public class UserLoginController extends ASExceptionController {
         return service;
         
     }
-    @RequestMapping(value="resetByEmail/{emailId}" ,method= RequestMethod.POST)
     
-    public Service resetByEmail(@PathVariable("emailId") String emailId )
-    {
-    	
-
-    	return new Service();
+    @RequestMapping(value = "resetByEmail/{emailId}", method = RequestMethod.POST)
+    public Service resetByEmail(@PathVariable("emailId") String emailId) {
+        return new Service();
     }
 }
