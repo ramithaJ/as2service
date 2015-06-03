@@ -1335,4 +1335,16 @@ ALTER TABLE PERMISSION_GROUPS ADD FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_
 </sql>
 </changeSet>
 
+<changeSet author="gphaniraj" id="WP1-233">
+<sql>
+alter table research_funders rename column fundref_id to funder_doi;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-234">
+<sql>
+alter table research_funders modify  funder_doi varchar2(50);
+</sql>
+</changeSet>
+
 </databaseChangeLog>
