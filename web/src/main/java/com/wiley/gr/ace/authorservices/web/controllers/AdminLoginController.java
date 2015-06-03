@@ -11,7 +11,7 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.web.controllers;
 
-import javax.validation.Valid;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,7 +26,6 @@ import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
 import com.wiley.gr.ace.authorservices.model.ASRolesAndPermissions;
 import com.wiley.gr.ace.authorservices.model.AdminUser;
-import com.wiley.gr.ace.authorservices.model.Login;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.UserMgmt;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
@@ -52,12 +51,13 @@ public class AdminLoginController extends ASExceptionController {
     LocalValidatorFactoryBean validator;
     
     @RequestMapping(value = "/login/", method = RequestMethod.POST)
-    public Service login(@Valid @RequestBody Login login) {
+    public Service login(HttpServletRequest request) {
         
+        String emailId = (String)request.getAttribute("emailId");
         Service service = new Service();
-        if (adminLoginService.validateEmail(login.getEmailId())) {
+        if (adminLoginService.validateEmail(emailId)) {
             
-            String userId = adminLoginService.doLogin(login.getEmailId());
+            String userId = adminLoginService.doLogin(emailId);
             UserMgmt userObj = new UserMgmt();
             userObj.setUserId(userId);
             service.setPayload(userObj);
