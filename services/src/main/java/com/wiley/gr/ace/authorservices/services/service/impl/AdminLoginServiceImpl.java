@@ -258,13 +258,13 @@ public class AdminLoginServiceImpl implements AdminLoginService {
      */
     @Override
     public AdminUser findUser(String emailId) {
-        
+    	LOGGER.info("inside findUser Method");
         return almService.findUser(emailId);
     }
 
     @Override
     public void createAdmin(AdminUser adminuser) {
-        
+    	LOGGER.info("inside createAdmin Method");
         Users users = new Users();
         List<UserRoles> rolesList = new ArrayList<UserRoles>();
         
