@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
-import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.DropDown;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
@@ -27,7 +27,7 @@ import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
 /**
  * @author RAVISINHA
  */
-public class CDMInterfaceServiceImpl implements CDMInterfaceService {
+public class UserProfilesImpl implements UserProfiles {
     
     @Value("${lookupProfile.url}")
     private String userProfile;

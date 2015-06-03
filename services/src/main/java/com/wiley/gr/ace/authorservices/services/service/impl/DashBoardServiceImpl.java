@@ -17,8 +17,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
-import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
-import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
+import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.DashBoard;
 import com.wiley.gr.ace.authorservices.model.DashBoardInfo;
@@ -40,9 +40,9 @@ import com.wiley.gr.ace.authorservices.services.service.DashBoardService;
 public class DashBoardServiceImpl implements DashBoardService {
 
     @Autowired(required = true)
-    private CDMInterfaceService cdmIntefaceService;
+    private UserProfiles cdmIntefaceService;
     @Autowired(required = true)
-    private ALMInterfaceService almIntefaceService;
+    private UserManagement almIntefaceService;
 
     /**
      * @param userId

@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
-import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.model.AdminUser;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
@@ -25,7 +25,7 @@ import com.wiley.gr.ace.authorservices.model.external.SecuirtyQuestionDetails;
 /**
  * @author RAVISINHA
  */
-public class ALMInterfaceServiceImpl implements ALMInterfaceService {
+public class UserManagementImpl implements UserManagement {
     
     @Value("${lockUser.url}")
     private String lockUser;

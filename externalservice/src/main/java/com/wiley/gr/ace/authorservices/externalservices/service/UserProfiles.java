@@ -18,7 +18,7 @@ import com.wiley.gr.ace.authorservices.model.external.Industries;
 import com.wiley.gr.ace.authorservices.model.external.JobCategories;
 import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
 
-public interface CDMInterfaceService {
+public interface UserProfiles {
 
     LookUpProfile lookUpProfile(String userId);
 

@@ -14,14 +14,14 @@ package com.wiley.gr.ace.authorservices.externalservices.context;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.BPMInterfaceService;
-import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrcidInterfaceService;
-import com.wiley.gr.ace.authorservices.externalservices.service.impl.ALMInterfaceServiceImpl;
+import com.wiley.gr.ace.authorservices.externalservices.service.impl.UserManagementImpl;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.BPMInterfaceServiceImpl;
-import com.wiley.gr.ace.authorservices.externalservices.service.impl.CDMInterfaceServiceImpl;
+import com.wiley.gr.ace.authorservices.externalservices.service.impl.UserProfilesImpl;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.ESBInterfaceServiceImpl;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.OrcidInterfaceServiceImpl;
 
@@ -29,8 +29,8 @@ import com.wiley.gr.ace.authorservices.externalservices.service.impl.OrcidInterf
 public class ExternalServiceBeanConfig {
     
     @Bean(name = "ALMExternalService")
-    public ALMInterfaceService aLMExternalService() {
-        return new ALMInterfaceServiceImpl();
+    public UserManagement aLMExternalService() {
+        return new UserManagementImpl();
     }
     
     @Bean(name = "BPMExternalService")
@@ -49,9 +49,9 @@ public class ExternalServiceBeanConfig {
     }
     
     @Bean(name = "CDMInterfaceService")
-    public CDMInterfaceService cdmInterfaceService() {
+    public UserProfiles cdmInterfaceService() {
         
-        return new CDMInterfaceServiceImpl();
+        return new UserProfilesImpl();
     }
     
 }

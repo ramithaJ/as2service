@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
-import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.BPMInterfaceService;
 import com.wiley.gr.ace.authorservices.model.ASRolesAndPermissions;
 import com.wiley.gr.ace.authorservices.model.AdminUser;
@@ -54,7 +54,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
     @Autowired(required = true)
     UserLoginServiceDAO userLoginServiceDAO;
     @Autowired(required = true)
-    ALMInterfaceService almService;
+    UserManagement almService;
     @Autowired(required = true)
     BPMInterfaceService bpmService;
     @Autowired(required = true)

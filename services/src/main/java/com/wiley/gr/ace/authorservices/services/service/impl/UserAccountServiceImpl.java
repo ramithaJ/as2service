@@ -15,7 +15,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.Addresses;
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.User;
@@ -34,7 +34,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     @Autowired(required = true)
     UserLoginServiceDAO userLoginServiceDAO;
     @Autowired
-    CDMInterfaceService cdmservices;
+    UserProfiles cdmservices;
     
     @Override
     public User getEmailDetails(String userId) {
