@@ -22,12 +22,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 import com.wiley.gr.ace.authorservices.model.external.ProfileInformation;
+import com.wiley.gr.ace.authorservices.model.external.SearchUserResult;
 import com.wiley.gr.ace.authorservices.model.external.Status;
 
 /**
@@ -35,11 +37,8 @@ import com.wiley.gr.ace.authorservices.model.external.Status;
  */
 public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 
-	@Value("${email.url}")
-	private String emailCheckUrl;
-
-	@Value("${fullname.url}")
-	private String nameCheckUrl;
+	@Value("${search-user.url}")
+	private String searchUserUrl;
 
 	@Value("${createuser.url}")
 	private String createUserUrl;
@@ -99,42 +98,50 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 	@Override
 	public ESBUser checkEmailIdExists(String emailId) throws Exception {
 		ESBUser esbUser = new ESBUser();
-		final String url = emailCheckUrl;
+		List<ESBUser> esbUserList = searchUser(emailId, "", "");
+		if(!StringUtils.isEmpty(esbUserList)) {
+			esbUser = esbUserList.get(0);
+		} else {
+			esbUser = null;
+		}
+		
+		return esbUser;
+	}
+
+	@Override
+	public List<ESBUser> getUsersFromFirstNameLastName(String firstName,
+			String lastName) throws Exception {
+		List<ESBUser> esbUserList = null;
+		
+		esbUserList = searchUser("", firstName, lastName);
+		
+		return esbUserList;
+	}
+	
+	
+	private List<ESBUser> searchUser(String email, String firstName,
+			String lastName) throws Exception {
+		List<ESBUser> esbUsersList = new ArrayList<ESBUser>();
+		SearchUserResult searchUserResult = new SearchUserResult();
+		final String url = searchUserUrl + "?Email=" + email + "&FirstName="
+				+ firstName + "&LastName=" + lastName;
 		URI uri = new URI(url);
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders requestHeaders = new HttpHeaders();
 
 		requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-		HttpEntity<ESBUser> requestEntity = new HttpEntity<ESBUser>(
+		HttpEntity<SearchUserResult> requestEntity = new HttpEntity<SearchUserResult>(
 				requestHeaders);
 
-		ResponseEntity<ESBUser> response = restTemplate.exchange(uri,
-				HttpMethod.GET, requestEntity, ESBUser.class);
+		ResponseEntity<SearchUserResult> response = restTemplate.exchange(uri,
+				HttpMethod.GET, requestEntity, SearchUserResult.class);
 		if (null != response) {
-			esbUser = response.getBody();
-			// System.err.println(esbUser.getFirstName());
+			searchUserResult = response.getBody();
+			esbUsersList = searchUserResult.getSearchUserResponse().getUserList();
 		} else
-			esbUser = null;
-		return esbUser;
-	}
-
-	@Override
-	public List<User> getUsersFromFirstNameLastName(String email,
-			String firstName, String lastName) throws Exception {
-		List<User> usersList = new ArrayList<User>();
-		final String url = nameCheckUrl;
-		URI uri = new URI(url);
-		RestTemplate restTemplate = new RestTemplate();
-		HttpHeaders requestHeaders = new HttpHeaders();
-
-		requestHeaders.setAccept(Arrays.asList(MediaType.TEXT_PLAIN));
-		HttpEntity<List<User>> requestEntity = new HttpEntity<List<User>>(
-				requestHeaders);
-		ResponseEntity<List> response = restTemplate.exchange(uri,
-				HttpMethod.GET, requestEntity, List.class);
-		usersList = response.getBody();
-
-		return usersList;
+			esbUsersList = null;
+		
+		return esbUsersList;
 	}
 
 	@Override
@@ -154,5 +161,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 		status = response.getBody();
 		return status;
 	}
+
+	
 
 }

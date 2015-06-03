@@ -18,9 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
+import com.wiley.gr.ace.authorservices.model.Country;
 import com.wiley.gr.ace.authorservices.model.InviteRecords;
 import com.wiley.gr.ace.authorservices.model.User;
-import com.wiley.gr.ace.authorservices.model.UserReferenceData;
 import com.wiley.gr.ace.authorservices.model.external.AddressDetails;
 import com.wiley.gr.ace.authorservices.model.external.AddressElement;
 import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
@@ -87,13 +87,29 @@ public class RegistrationServiceImpl implements RegistrationService {
 	}
 
 	@Override
-	public List<User> getUserFromFirstNameLastName(String email,
-			String firstName, String lastName) throws Exception {
+	public List<User> getUserFromFirstNameLastName(String firstName,
+			String lastName) throws Exception {
 
-		List<User> userList = null;
+		List<User> userList = new ArrayList<User>();
+		List<ESBUser> esbUserList = null;
 		if (!StringUtils.isEmpty(firstName) && !StringUtils.isEmpty(lastName)) {
-			userList = esbInterFaceService.getUsersFromFirstNameLastName(email,
+			esbUserList = esbInterFaceService.getUsersFromFirstNameLastName(
 					firstName, lastName);
+
+			if (!StringUtils.isEmpty(esbUserList)) {
+				for (ESBUser esbUser : esbUserList) {
+					User tempUser = new User();
+					Country tempCountry = new Country();
+					tempCountry.setCountryName(esbUser.getCountry());
+					tempUser.setFirstName(esbUser.getFirstName());
+					tempUser.setLastName(esbUser.getLastName());
+					tempUser.setPrimaryEmailAddr(esbUser.getEmailID());
+					tempUser.setCountry(tempCountry);
+					userList.add(tempUser);
+				}
+			} else {
+				userList = null;
+			}
 		}
 
 		return userList;
@@ -106,15 +122,12 @@ public class RegistrationServiceImpl implements RegistrationService {
 		if (!StringUtils.isEmpty(emailId)) {
 			esbUser = esbInterFaceService.checkEmailIdExists(emailId);
 			if (null != esbUser) {
-				UserReferenceData userRefData = new UserReferenceData();
-				userRefData.setEcid(esbUser.getEcid());
-				userRefData.setStatus(esbUser.getStatus());
-				user.setUserId(esbUser.getUserId());
+				Country countryDetails = new Country();
+				countryDetails.setCountryName(esbUser.getCountry());
 				user.setFirstName(esbUser.getFirstName());
 				user.setLastName(esbUser.getLastName());
-				user.setPrimaryEmailAddr(esbUser.getEmailId());
-				// user.setCountry(esbUser.getCountry());
-				user.setUserReferenceData(userRefData);
+				user.setPrimaryEmailAddr(esbUser.getEmailID());
+				user.setCountry(countryDetails);
 			} else {
 				user = null;
 			}
