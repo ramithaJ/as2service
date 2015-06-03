@@ -20,7 +20,9 @@ import com.wiley.gr.ace.authorservices.model.AdminUser;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Service;
+import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
 import com.wiley.gr.ace.authorservices.model.external.SecuirtyQuestionDetails;
+import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
 
 /**
  * @author RAVISINHA
@@ -29,6 +31,12 @@ public class UserManagementImpl implements UserManagement {
     
     @Value("${lockUser.url}")
     private String lockUser;
+    
+    @Value("${STATUS}")
+    private String STATUS;
+    
+    @Value("${shared.service.authenticate.url}")
+    private String sharedServiceAuthenticateUrl;
     
     @Value("${forceFulReset.url}")
     private String forceFulReset;
@@ -63,7 +71,16 @@ public class UserManagementImpl implements UserManagement {
     @Value("${securityQuestionDetails.url}")
     private String securityQuestionDetails;
     
-    private static final String STATUSS = "success";
+    
+    
+    /* (non-Javadoc)
+     * @see com.wiley.gr.ace.authorservices.externalservices.service.UserManagement#authenticateUser(com.wiley.gr.ace.authorservices.model.SharedServieRequest)
+     */
+    @Override
+    public SecurityResponse authenticateUser(SharedServieRequest sharedServieRequest) {
+
+        return (SecurityResponse) StubInvokerUtil.restServiceInvoker(sharedServiceAuthenticateUrl, sharedServieRequest, SecurityResponse.class);
+    }
     
     @Override
     public boolean authenticateAdminUser(String emailId) {
@@ -71,7 +88,7 @@ public class UserManagementImpl implements UserManagement {
         Service service = (Service) StubInvokerUtil.invokeStub(
                 authenticateAdminUser, HttpMethod.POST, Service.class);
         String status = service.getStatus();
-        if (status != null && status.equalsIgnoreCase(STATUSS)) {
+        if (status != null && status.equalsIgnoreCase(STATUS)) {
             return true;
         }
         return false;
@@ -89,7 +106,7 @@ public class UserManagementImpl implements UserManagement {
         Service service = (Service) StubInvokerUtil.invokeStub(resetPassword,
                 HttpMethod.POST, Service.class);
         String status = service.getStatus();
-        if (status != null && status.equalsIgnoreCase(STATUSS)) {
+        if (status != null && status.equalsIgnoreCase(STATUS)) {
             return true;
         }
         return false;
@@ -101,7 +118,7 @@ public class UserManagementImpl implements UserManagement {
         Service service = (Service) StubInvokerUtil.invokeStub(updateUserId,
                 HttpMethod.POST, Service.class);
         String status = service.getStatus();
-        if (status != null && status.equalsIgnoreCase(STATUSS)) {
+        if (status != null && status.equalsIgnoreCase(STATUS)) {
             return true;
         }
         return false;
@@ -113,7 +130,7 @@ public class UserManagementImpl implements UserManagement {
         Service service = (Service) StubInvokerUtil.invokeStub(forceFulReset,
                 HttpMethod.POST, Service.class);
         String status = service.getStatus();
-        if (status != null && status.equalsIgnoreCase(STATUSS)) {
+        if (status != null && status.equalsIgnoreCase(STATUS)) {
             return true;
         }
         return false;
@@ -125,7 +142,7 @@ public class UserManagementImpl implements UserManagement {
         Service service = (Service) StubInvokerUtil.invokeStub(lockUser,
                 HttpMethod.POST, Service.class);
         String status = service.getStatus();
-        if (status != null && status.equalsIgnoreCase(STATUSS)) {
+        if (status != null && status.equalsIgnoreCase(STATUS)) {
             return true;
         }
         return false;
@@ -137,7 +154,7 @@ public class UserManagementImpl implements UserManagement {
         Service service = (Service) StubInvokerUtil.invokeStub(unLockUser,
                 HttpMethod.POST, Service.class);
         String status = service.getStatus();
-        if (status != null && status.equalsIgnoreCase(STATUSS)) {
+        if (status != null && status.equalsIgnoreCase(STATUS)) {
             return true;
         }
         return false;
@@ -165,7 +182,7 @@ public class UserManagementImpl implements UserManagement {
         Service service = (Service) StubInvokerUtil.invokeStub(updatePassword,
                 HttpMethod.POST, Service.class);
         String status = service.getStatus();
-        if (status != null && status.equalsIgnoreCase(STATUSS)) {
+        if (status != null && status.equalsIgnoreCase(STATUS)) {
             return true;
         }
         return false;
@@ -177,7 +194,7 @@ public class UserManagementImpl implements UserManagement {
         Service service = (Service) StubInvokerUtil.invokeStub(
                 updateSecurityDetails, HttpMethod.POST, Service.class);
         String status = service.getStatus();
-        if (status != null && status.equalsIgnoreCase(STATUSS)) {
+        if (status != null && status.equalsIgnoreCase(STATUS)) {
             return true;
         }
         return false;
