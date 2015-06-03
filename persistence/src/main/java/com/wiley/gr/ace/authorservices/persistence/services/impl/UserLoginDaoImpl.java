@@ -18,7 +18,6 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
@@ -34,16 +33,16 @@ import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
  */
 public class UserLoginDaoImpl implements UserLoginDao {
     
-    @Autowired(required = true)
-    HibernateConnection con;
-    
+  
     @Override
     public boolean validateEmail(String emailId) {
         boolean status = false;
         int userId = getUserId(emailId);
-        
-        Session session = con.getSessionFactory().openSession();
+        Session session = HibernateConnection.getSessionFactory().openSession();
         Transaction txn = session.getTransaction();
+        try
+        {
+     
         txn.begin();
         
         AdminDetails adminDetails = (AdminDetails) session.load(
@@ -54,15 +53,22 @@ public class UserLoginDaoImpl implements UserLoginDao {
             status = true;
         }
         txn.commit();
-        session.flush();
+        }
+        finally{
+        	if (session !=null)
+        	{
+        		session.flush();
+        		session.close();
+        		
+        	}
+        }
         
-        session.close();
         return status;
     }
     
     @Override
     public boolean doLogin(String emailId) {
-        Session session = con.getSessionFactory().openSession();
+        Session session = HibernateConnection.getSessionFactory().openSession();
         
         AuthorProfile authorProfile = null;
         
@@ -73,26 +79,28 @@ public class UserLoginDaoImpl implements UserLoginDao {
         
         java.sql.Date.valueOf(utildate);
         int userId = getUserId(emailId);
-        
-        String hql = "from AuthorProfile where userId = :userId";
-        List<AuthorProfile> result = session.createQuery(hql)
-                .setInteger("userId", userId).list();
-        
-        if (null != result && !result.isEmpty()) {
-            authorProfile = result.get(0);
+        try {
+        	 String hql = "from AuthorProfile where userId = :userId";
+             List<AuthorProfile> result = session.createQuery(hql)
+                     .setInteger("userId", userId).list();
+             
+             if (null != result && !result.isEmpty()) {
+                 authorProfile = result.get(0);
+             }
+             
+             if (authorProfile != null) {
+                 Users users = new Users();
+                 users.setUserId(userId);
+                 authorProfile.setUsersByUpdatedBy(users);
+                 authorProfile.setUpdatedDate(date);
+             }
+             session.saveOrUpdate(authorProfile);
+		} 
+        finally{
+        	if(session !=null)
+        		session.flush();
+        	session.close();
         }
-        
-        if (authorProfile != null) {
-            Users users = new Users();
-            users.setUserId(userId);
-            authorProfile.setUsersByUpdatedBy(users);
-            authorProfile.setUpdatedDate(date);
-        }
-        
-        session.saveOrUpdate(authorProfile);
-        session.flush();
-        
-        session.close();
         
         return true;
     }
@@ -105,22 +113,26 @@ public class UserLoginDaoImpl implements UserLoginDao {
      */
     private int getUserId(String emailId) {
         
-        Session session = con.getSessionFactory().openSession();
+        Session session = HibernateConnection.getSessionFactory().openSession();
         Users user = null;
         int userId = 0;
-        
-        String hql = "from Users where primaryEmailAddr = :emailId";
-        List<Users> result = session.createQuery(hql)
-                .setString("emailId", emailId).list();
-        
-        if (result != null && !result.isEmpty()) {
+        try {
+        	String hql = "from Users where primaryEmailAddr = :emailId";
+            List<Users> result = session.createQuery(hql)
+                    .setString("emailId", emailId).list();
             
-            user = result.get(0);
-            userId = user.getUserId();
-        }
-        
-        session.flush();
-        session.close();
+            if (result != null && !result.isEmpty()) {
+                
+                user = result.get(0);
+                userId = user.getUserId();
+            }
+			
+		} finally{
+			
+			if(session !=null)
+        		session.flush();
+        	session.close();
+		}
         
         return userId;
         
@@ -139,7 +151,7 @@ public class UserLoginDaoImpl implements UserLoginDao {
                 throw new ASException("1020","User already exists.");
             } else {
             
-                session = con.getSessionFactory().openSession();
+                session = HibernateConnection.getSessionFactory().openSession();
                 Transaction txn = session.getTransaction();
                 txn.begin();
                 session.save(users);

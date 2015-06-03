@@ -17,8 +17,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
-import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
+import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
@@ -37,9 +37,9 @@ import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 public class AuthorProfileServiceImpl implements AuthorProfileService {
     
     @Autowired
-    CDMInterfaceService cdmservices;
+    UserProfiles cdmservices;
     @Autowired
-    ALMInterfaceService almService;
+    UserManagement almService;
     
     UserProfile userProfile = new UserProfile();
     LookUpProfile lookUpProfile = new LookUpProfile();

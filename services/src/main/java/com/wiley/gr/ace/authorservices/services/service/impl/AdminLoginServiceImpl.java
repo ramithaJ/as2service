@@ -16,10 +16,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
-import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.BPMInterfaceService;
 import com.wiley.gr.ace.authorservices.model.ASRolesAndPermissions;
 import com.wiley.gr.ace.authorservices.model.AdminUser;
@@ -43,13 +45,16 @@ import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
  * @author RAVISINHA
  */
 public class AdminLoginServiceImpl implements AdminLoginService {
+
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(AdminLoginServiceImpl.class);
     
     @Autowired(required = true)
     UserLoginDao userlogindao;
     @Autowired(required = true)
     UserLoginServiceDAO userLoginServiceDAO;
     @Autowired(required = true)
-    ALMInterfaceService almService;
+    UserManagement almService;
     @Autowired(required = true)
     BPMInterfaceService bpmService;
     @Autowired(required = true)
@@ -65,7 +70,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
     
     @Override
     public boolean validateEmail(String emailId) {
-        
+    	LOGGER.info("inside validateEmail Method");
         return userlogindao.validateEmail(emailId);
     }
     
@@ -78,6 +83,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
     @Override
     public String doLogin(String emailId) {
         // Call external service for password validation
+    	LOGGER.info("inside doLogin Method");
         int userId = userLoginServiceDAO.getUserId(emailId);
         userLoginServiceDAO.doLogin(userId);
         return userId+"";
@@ -91,13 +97,16 @@ public class AdminLoginServiceImpl implements AdminLoginService {
      */
     @Override
     public boolean requestAdminAccess(String emailId) {
-        
-        // TODO: Integrate with BPM Service
+    	 // TODO: Integrate with BPM Service
+    	LOGGER.info("inside requestAdminAccess Method");
+       
         return bpmService.createTask();
     }
     
     @Override
     public RolesAndPermissions getRolesAndPermissions(String roleId) {
+    	
+    	LOGGER.info("inside getRolesAndPermissions Method");
         RolesAndPermissions rolesAndPermissions = new RolesAndPermissions();
         
         Map<String, List<String>> permissionsMap = new HashMap<String, List<String>>();
@@ -208,6 +217,8 @@ public class AdminLoginServiceImpl implements AdminLoginService {
      */
     @Override
     public void addOrUpdateUserRole(ASRolesAndPermissions rolesAndPermissions) {
+    	
+    	LOGGER.info("inside addOrUpdateUserRole Method");
         
         Roles roles = new Roles();
         

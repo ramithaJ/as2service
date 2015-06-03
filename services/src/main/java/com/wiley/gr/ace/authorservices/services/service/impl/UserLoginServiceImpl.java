@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
-import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.UserMgmt;
@@ -35,7 +35,7 @@ public class UserLoginServiceImpl implements UserLoginService {
     @Autowired(required = true)
     UserLoginServiceDAO userLoginServiceDAO;
     @Autowired(required = true)
-    ALMInterfaceService almService;
+    UserManagement almService;
     
     @Value("${accountLocked.code}")
     private String accountLocked;

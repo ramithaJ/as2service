@@ -17,8 +17,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
-import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
-import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
+import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.DashBoard;
 import com.wiley.gr.ace.authorservices.model.DashBoardInfo;
@@ -40,9 +40,9 @@ import com.wiley.gr.ace.authorservices.services.service.DashBoardService;
 public class DashBoardServiceImpl implements DashBoardService {
 
     @Autowired(required = true)
-    private CDMInterfaceService cdmIntefaceService;
+    private UserProfiles userProfileService;
     @Autowired(required = true)
-    private ALMInterfaceService almIntefaceService;
+    private UserManagement userManagementService;
 
     /**
      * @param userId
@@ -52,7 +52,7 @@ public class DashBoardServiceImpl implements DashBoardService {
     public DashBoard getProfileMeter(String userId) throws NullPointerException {
         DashBoard dashBoard = null;
         List<DashBoardInfo> dashBoardInfoList;
-        LookUpProfile lookUpProfile = cdmIntefaceService
+        LookUpProfile lookUpProfile = userProfileService
                 .lookUpProfileDashboard(userId);
         UserProfile userProfile = lookUpProfile.getCustomerProfile();
         User user = userProfile.getCustomerDetails();
@@ -70,7 +70,7 @@ public class DashBoardServiceImpl implements DashBoardService {
 
     private DashBoardInfo getSecurityDetailsForUser(String emailId,
             DashBoardInfo dashBoardInfo) throws NullPointerException {
-        SecuirtyQuestionDetails secuirtyQuestionDetails = almIntefaceService
+        SecuirtyQuestionDetails secuirtyQuestionDetails = userManagementService
                 .getSecurityQuestionDetails(emailId);
         if (!StringUtils.isEmpty(secuirtyQuestionDetails)) {
             SecurityQuestions securityQuestions = secuirtyQuestionDetails

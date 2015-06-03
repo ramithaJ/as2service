@@ -13,7 +13,7 @@ package com.wiley.gr.ace.authorservices.services.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
 import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
 
@@ -23,7 +23,7 @@ import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
 public class UserProfileServiceImpl implements UserProfileService {
     
     @Autowired(required = true)
-    CDMInterfaceService cdmservices;
+    UserProfiles cdmservices;
     
     @Override
     public LookUpProfile lookUpProfile(String userId) {
