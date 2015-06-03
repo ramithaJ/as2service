@@ -14,6 +14,8 @@ package com.wiley.gr.ace.authorservices.services.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
@@ -38,7 +40,8 @@ import com.wiley.gr.ace.authorservices.services.service.DashBoardService;
  *
  */
 public class DashBoardServiceImpl implements DashBoardService {
-
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(DashBoardServiceImpl.class);
     @Autowired(required = true)
     private UserProfiles userProfileService;
     @Autowired(required = true)
@@ -50,6 +53,7 @@ public class DashBoardServiceImpl implements DashBoardService {
      * @return DashBoard
      */
     public DashBoard getProfileMeter(String userId) throws NullPointerException {
+        LOGGER.info("inside getProfileMeter Method of DashBoardServiceImpl");
         DashBoard dashBoard = null;
         List<DashBoardInfo> dashBoardInfoList;
         LookUpProfile lookUpProfile = userProfileService
@@ -70,6 +74,7 @@ public class DashBoardServiceImpl implements DashBoardService {
 
     private DashBoardInfo getSecurityDetailsForUser(String emailId,
             DashBoardInfo dashBoardInfo) throws NullPointerException {
+        LOGGER.info("inside getSecurityDetailsForUser Method of DashBoardServiceImpl");
         SecuirtyQuestionDetails secuirtyQuestionDetails = userManagementService
                 .getSecurityQuestionDetails(emailId);
         if (!StringUtils.isEmpty(secuirtyQuestionDetails)) {
@@ -96,6 +101,7 @@ public class DashBoardServiceImpl implements DashBoardService {
 
     private List<DashBoardInfo> checkingDashBoardInfo(UserProfile userProfile,
             User user) {
+        LOGGER.info("inside checkingDashBoardInfo Method of DashBoardServiceImpl");
         DashBoardInfo dashBoardInfo = null;
         List<DashBoardInfo> dashBoardInfoList = new ArrayList<DashBoardInfo>();
         dashBoardInfo = getSecurityDetailsForUser(user.getPrimaryEmailAddr(),
@@ -132,6 +138,7 @@ public class DashBoardServiceImpl implements DashBoardService {
 
     private DashBoardInfo getInterestsForUser(UserProfile userProfile,
             DashBoardInfo dashBoardInfo) {
+        LOGGER.info("inside getInterestsForUser Method of DashBoardServiceImpl");
         List<Interests> userInterestsList = userProfile.getInterests();
         if (null != userInterestsList && userInterestsList.isEmpty()) {
             dashBoardInfo = new DashBoardInfo();
@@ -144,6 +151,7 @@ public class DashBoardServiceImpl implements DashBoardService {
 
     private DashBoardInfo getAffiliationsForUser(UserProfile userProfile,
             DashBoardInfo dashBoardInfo) {
+        LOGGER.info("inside getAffiliationsForUser Method of DashBoardServiceImpl");
         List<Affiliation> userAffiliationsList = userProfile.getAffiliations();
         if (null != userAffiliationsList && userAffiliationsList.isEmpty()) {
             dashBoardInfo = new DashBoardInfo();
@@ -155,6 +163,7 @@ public class DashBoardServiceImpl implements DashBoardService {
 
     private DashBoardInfo getSocietiesForUser(UserProfile userProfile,
             DashBoardInfo dashBoardInfo) {
+        LOGGER.info("inside getSocietiesForUser Method of DashBoardServiceImpl");
         List<Society> societyList = userProfile.getSocieties();
         if (null != societyList && societyList.isEmpty()) {
             dashBoardInfo = new DashBoardInfo();
@@ -166,6 +175,7 @@ public class DashBoardServiceImpl implements DashBoardService {
 
     private DashBoardInfo getFundersListForUser(UserProfile userProfile,
             DashBoardInfo dashBoardInfo) {
+        LOGGER.info("inside getFundersListForUser Method of DashBoardServiceImpl");
         List<ResearchFunder> researchFundersList = userProfile
                 .getResearchFunders();
         if (null != researchFundersList && researchFundersList.isEmpty()) {
@@ -179,6 +189,7 @@ public class DashBoardServiceImpl implements DashBoardService {
 
     private DashBoardInfo getRecoveryEmailAddr(User user,
             DashBoardInfo dashBoardInfo) {
+        LOGGER.info("inside getRecoveryEmailAddr Method of DashBoardServiceImpl");
         if (StringUtils.isEmpty(user.getRecoveryEmailAddress())) {
             dashBoardInfo = new DashBoardInfo();
             dashBoardInfo.setId("email");
@@ -189,6 +200,7 @@ public class DashBoardServiceImpl implements DashBoardService {
     }
 
     private DashBoardInfo getOrcidId(User user, DashBoardInfo dashBoardInfo) {
+        LOGGER.info("inside getOrcidId Method of DashBoardServiceImpl");
         if (StringUtils.isEmpty(user.getOrcidID())) {
             dashBoardInfo = new DashBoardInfo();
             dashBoardInfo.setId("orcid");

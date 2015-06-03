@@ -19,6 +19,10 @@ public class Login {
     @NotBlank
     private String password;
     
+    private String authenticationType;
+    
+    private String appKey;
+    
     public String getEmailId() {
         return emailId;
     }
@@ -33,6 +37,22 @@ public class Login {
     
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getAuthenticationType() {
+        return authenticationType;
+    }
+
+    public void setAuthenticationType(String authenticationType) {
+        this.authenticationType = authenticationType;
+    }
+
+    public String getAppKey() {
+        return appKey;
+    }
+
+    public void setAppKey(String appKey) {
+        this.appKey = appKey;
     }
     
 }

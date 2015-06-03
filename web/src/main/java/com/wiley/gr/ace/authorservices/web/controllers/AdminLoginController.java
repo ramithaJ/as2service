@@ -29,7 +29,7 @@ import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
 import com.wiley.gr.ace.authorservices.model.ASRolesAndPermissions;
 import com.wiley.gr.ace.authorservices.model.AdminUser;
 import com.wiley.gr.ace.authorservices.model.Service;
-import com.wiley.gr.ace.authorservices.model.UserMgmt;
+import com.wiley.gr.ace.authorservices.model.UserManagement;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 
 /**
@@ -63,7 +63,7 @@ public class AdminLoginController extends ASExceptionController {
 
 			String userId = adminLoginService.doLogin(emailId);
 			LOGGER.debug(userId + "Geeting User id from dologin");
-			UserMgmt userObj = new UserMgmt();
+			UserManagement userObj = new UserManagement();
 			userObj.setUserId(userId);
 			service.setPayload(userObj);
 		} else {

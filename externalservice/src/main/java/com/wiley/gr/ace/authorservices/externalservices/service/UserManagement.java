@@ -14,13 +14,17 @@ package com.wiley.gr.ace.authorservices.externalservices.service;
 import com.wiley.gr.ace.authorservices.model.AdminUser;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
+import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
 import com.wiley.gr.ace.authorservices.model.external.SecuirtyQuestionDetails;
+import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
 
 /**
  * @author RAVISINHA
  */
 public interface UserManagement {
 
+    SecurityResponse authenticateUser(SharedServieRequest sharedServieRequest);
+                        
     /**
      * This method authenticates the user by calling the ALM LDAP Service
      * 

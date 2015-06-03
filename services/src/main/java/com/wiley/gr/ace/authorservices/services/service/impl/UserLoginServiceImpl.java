@@ -11,19 +11,17 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 
-import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
-import com.wiley.gr.ace.authorservices.model.UserMgmt;
-import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
+import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
+import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 
@@ -32,152 +30,25 @@ import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
  */
 public class UserLoginServiceImpl implements UserLoginService {
     
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(UserLoginServiceImpl.class);
+            
     @Autowired(required = true)
     UserLoginServiceDAO userLoginServiceDAO;
     @Autowired(required = true)
-    UserManagement almService;
+    UserManagement userManagement;
     
-    @Value("${accountLocked.code}")
-    private String accountLocked;
-    
-    @Value("${accountLocked.message}")
-    private String accLockedMsg;
-    
-    @Value("${invalidEmail.code}")
-    private String invalidEmail;
-    
-    @Value("${invalidEmail.message}")
-    private String invalidEmailMsg;
-    
-    @Value("${invalidLogin.code}")
-    private String invalidLogin;
-    
-    @Value("${invalidLogin.message}")
-    private String invalidLoginMsg;
-    
-    /**
-     * @param emailId
-     * @param password
-     * @return
-     */
     @Override
-    public UserMgmt doLogin(String emailId, String password) {
+    public SecurityResponse login(SharedServieRequest sharedServieRequest) {
         
-        UserMgmt userMgmt = null;
-        if (userLoginServiceDAO.validateEmailAddress(emailId)) {
-            
-            int userId = userLoginServiceDAO.getUserId(emailId);
-            
-            if (userLoginServiceDAO.isUserLocked(userId)) {
-                
-                Date currentDate = new Date();
-                Date date = userLoginServiceDAO.getLockedTime(userId);
-                Date lockedDate = new Date(date.getTime());
-                if ((currentDate.getTime() - lockedDate.getTime()) > 300) {
-                    
-                    if (authenticateUser(userId, emailId, password)) {
-                        
-                        userMgmt = new UserMgmt();
-                        userMgmt.setUserId(userId + "");
-                    } else {
-                        throw new ASException(accountLocked, accLockedMsg);
-                    }
-                } else {
-                    
-                    throw new ASException(accountLocked, accLockedMsg);
-                }
-            } else {
-                if (authenticateUser(userId, emailId, password)) {
-                    userMgmt = new UserMgmt();
-                    userMgmt.setUserId(userId + "");
-                }
-            }
-        } else {
-            
-            throw new ASException(invalidEmail, invalidEmailMsg);
-        }
-        return userMgmt;
+        LOGGER.info("In login method");
+        return userManagement.authenticateUser(sharedServieRequest);
     }
     
-    /**
-     * this method will check whether user has security setup or not.
-     * 
-     * @param userId
-     * @return
-     */
-    @Override
-    public boolean checkSecuritySetUp(int userId) {
-        
-        return userLoginServiceDAO.checkSecuritySetup(userId);
-    }
-    
-    /**
-     * this method will give list of security questions and answers based on
-     * email id.
-     * 
-     * @param emailId
-     * @return
-     */
-    @Override
-    public SecurityDetailsHolder getSecurityQuestions(String emailId) {
-        
-        // it checks whether user is exit or not in the user table
-        // if exist it will return userId
-        int userId = userLoginServiceDAO.getUserId(emailId);
-        if (userId != 0) {
-            
-            AuthorProfile authorProfile = userLoginServiceDAO
-                    .authorProfile(userId);
-            // it will check whether the user is exist in author profile table
-            // or not
-            // it means whether user is normal user or Admin user.
-            if (null != authorProfile) {
-                
-                SecurityDetailsHolder securityDetailsHolder = new SecurityDetailsHolder();
-                List<SecurityDetails> securityQuestions = new ArrayList<SecurityDetails>();
-                // TODO: Get Security details from ALM
-                List<SecurityDetails> securityQuestionsList = new ArrayList<SecurityDetails>();
-                for (int i = 0; i < securityQuestions.size(); i++) {
-                    
-                    SecurityDetails security = new SecurityDetails();
-                    security.setSecurityQuestionId("SecurityQuestion" + (i + 1));
-                    security.setSecurityQuestion(securityQuestions.get(i)
-                            .getSecurityQuestion());
-                    securityQuestionsList.add(security);
-                }
-                securityDetailsHolder.setSecurityDetails(securityQuestionsList);
-                return securityDetailsHolder;
-            } else {
-                
-                throw new ASException(invalidEmail, invalidEmailMsg);
-            }
-        } else {
-            
-            throw new ASException(invalidEmail, invalidEmailMsg);
-        }
-        
-    }
-    
-    /**
-     * @param emailId
-     * @param securityDetails
-     * @return
-     */
-    @Override
-    public boolean validateSecurityQuestions(String emailId,
-            List<SecurityDetails> securityDetails) {
-        
-        // TODO: Call external service for this.
-        return false;
-    }
-    
-    /**
-     * @param emailId
-     * @return
-     */
     @Override
     public boolean validateEmailAddress(String emailId) {
         
+        LOGGER.info("In validateEmailAddress method");
         return userLoginServiceDAO.validateEmailAddress(emailId);
     }
     
@@ -188,7 +59,8 @@ public class UserLoginServiceImpl implements UserLoginService {
     @Override
     public boolean isUserLocked(int userId) {
         
-        return userLoginServiceDAO.isUserLocked(userId);
+        LOGGER.info("In isUserLocked method");
+        return false;
     }
     
     /**
@@ -201,39 +73,6 @@ public class UserLoginServiceImpl implements UserLoginService {
     }
     
     /**
-     * @param userId
-     * @param emailId
-     * @param password
-     * @return
-     */
-    private boolean authenticateUser(int userId, String emailId, String password) {
-        
-        boolean loginStatus = false;
-        
-        if (almService.authenticateUserALM(emailId, password)) {
-            
-            userLoginServiceDAO.doLogin(userId);
-            userLoginServiceDAO.unLockUser(userId);
-            userLoginServiceDAO.updateCount(0, userId);
-            loginStatus = true;
-            
-        } else {
-            
-            int count = userLoginServiceDAO.getCount(userId);
-            if (count >= 2) {
-                if (almService.lockUser(emailId)) {
-                    throw new ASException(accountLocked, accLockedMsg);
-                }
-            } else {
-                count++;
-                userLoginServiceDAO.updateCount(count, userId);
-                throw new ASException(invalidLogin, invalidLoginMsg);
-            }
-        }
-        return loginStatus;
-    }
-    
-    /**
      * this method will reset the password at the time of login.
      * 
      * @param emailId
@@ -243,24 +82,36 @@ public class UserLoginServiceImpl implements UserLoginService {
     @Override
     public boolean resetPassword(SecurityDetailsHolder securityDetailsHolder) {
         
-        return almService.resetPassword(securityDetailsHolder);
+        LOGGER.info("In resetPassword method");
+        return userManagement.resetPassword(securityDetailsHolder);
     }
     
     @Override
     public SecurityDetailsHolder securityQuestions(String emailId) {
         
-        return almService.getSecurityQuestions(emailId);
+        LOGGER.info("In securityQuestions method");
+        return userManagement.getSecurityQuestions(emailId);
     }
     
     @Override
     public boolean lockUser(String emailId) {
         
-        return almService.lockUser(emailId);
+        LOGGER.info("In lockUser method");
+        return userManagement.lockUser(emailId);
     }
     
     @Override
     public boolean unLockUser(String emailId) {
         
-        return almService.unLockUser(emailId);
+        LOGGER.info("In unLockUser method");
+        return userManagement.unLockUser(emailId);
+    }
+    
+    @Override
+    public boolean validateSecurityQuestions(String emailId,
+            List<SecurityDetails> securityDetails) {
+        
+        LOGGER.info("In validateSecurityQuestions method");
+        return false;
     }
 }

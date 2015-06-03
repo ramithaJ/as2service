@@ -24,10 +24,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
-import com.wiley.gr.ace.authorservices.model.Login;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Service;
+import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
@@ -49,20 +49,16 @@ public class UserLoginController extends ASExceptionController {
     @Autowired
     AuthorProfileService authorProfileService;
     
+    
     /**
-     * This method will authenticate the user based on email id and password
-     * 
-     * @param login
-     *            - it is a JSON object having email id and password
-     * @return
+     * @param sharedServieRequest
+     * @return Service
      */
     @RequestMapping(value = "/login/", method = RequestMethod.POST)
-    public Service login(@Valid @RequestBody Login login) {
-        LOGGER.info("inside login method");
-        Service service = new Service();
-        service.setPayload(userLoginService.doLogin(login.getEmailId(),
-                login.getPassword()));
+    public Service login(@Valid @RequestBody SharedServieRequest sharedServieRequest) {
         
+        Service service = new Service();
+        service.setPayload(userLoginService.login(sharedServieRequest));
         return service;
     }
     
@@ -115,22 +111,6 @@ public class UserLoginController extends ASExceptionController {
         service.setPayload(authorProfileService.updatePassword(passwordDetails));
         return service;
         
-    }
-    
-    /**
-     * this method will give the security questions which are selected by the
-     * user.
-     * 
-     * @param emailId
-     * @return
-     */
-    @RequestMapping(value = "/securityQuestions/{emailId}", method = RequestMethod.GET)
-    public Service securityQuestions(@PathVariable("emailId") String emailId) {
-    	LOGGER.info("inside securityQuestions method");
-        Service service = new Service();
-        service.setPayload(userLoginService.getSecurityQuestions(emailId));
-        
-        return service;
     }
     
     /**

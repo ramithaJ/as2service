@@ -14,6 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.web.controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.util.StringUtils;
@@ -36,7 +38,8 @@ import com.wiley.gr.ace.authorservices.services.service.DashBoardService;
 @RestController
 @RequestMapping("/dashboard")
 public class DashBoardController {
-
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(DashBoardController.class);
     /** The Auto Wired for DashBoard Service . */
     @Autowired(required = true)
     private DashBoardService dashBoardService;
@@ -44,7 +47,7 @@ public class DashBoardController {
     @RequestMapping(value = "/profilemeter/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Service getProfileMeter(
             @PathVariable("userId") String userId) {
-
+        LOGGER.info("inside getProfileMeter method of DashBoardController");
         Service service = new Service();
         DashBoard dashBoard = null;
 

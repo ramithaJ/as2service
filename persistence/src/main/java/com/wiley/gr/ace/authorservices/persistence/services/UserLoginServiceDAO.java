@@ -11,76 +11,14 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.services;
 
-import java.util.Date;
-import java.util.List;
-
-import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 
 /**
  * @author kpshiva
  */
 public interface UserLoginServiceDAO {
     
-    /**
-     * @param emailId
-     * @return
-     */
-    boolean isUserLocked(int userId);
-    
-    /**
-     * @param emailId
-     * @return
-     */
-    boolean checkSecuritySetup(int userId);
-    
-    /**
-     * @param emailId
-     * @return
-     */
     boolean validateEmailAddress(String emailId);
     
-    /**
-     * @param emailId
-     * @param password
-     * @return
-     */
-    void doLogin(int userId);
-    
-    /**
-     * @param emailId
-     * @return
-     */
     Integer getUserId(String emailId);
     
-    /**
-     * @return
-     */
-    List<AuthorProfile> getUsersList();
-    
-    /**
-     * @param emailId
-     * @return
-     */
-    int getCount(int userId);
-    
-    /**
-     * @param count
-     * @param emailId
-     * @return
-     */
-    boolean updateCount(int count, int userId);
-    
-    /**
-     * @param emailId
-     * @return
-     */
-    Date getLockedTime(int userId);
-    
-    /**
-     * @param emailId
-     * @return
-     */
-    void unLockUser(int userId);
-    
-    AuthorProfile authorProfile(int userId);
 }

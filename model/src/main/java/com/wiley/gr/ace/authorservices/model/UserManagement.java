@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * @author kpshiva
  */
 @JsonInclude(Include.NON_NULL)
-public class UserMgmt {
+public class UserManagement {
     
     /** The user id. */
     private String userId;
