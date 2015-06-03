@@ -1347,4 +1347,101 @@ alter table research_funders modify  funder_doi varchar2(50);
 </sql>
 </changeSet>
 
+
+<changeSet author="gphaniraj" id="WP1-235">
+<sql>
+CREATE SEQUENCE SOCIETIES_SEQ START WITH 1 INCREMENT BY 1  NOCACHE;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-236">
+<sql>
+CREATE TABLE SOCIETIES 
+    ( 
+     SOCIETY_ID NUMBER default societies_seq.nextval  , 
+     SOCIETY_CD VARCHAR2 (15) , 
+     SOCIETY_NAME VARCHAR2 (250) , 
+     CREATED_BY NUMBER , 
+     CREATED_DATE timestamp(6) , 
+     UPDATED_BY NUMBER , 
+     UPDATED_DATE timestamp(6)
+    ) 
+;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-237">
+<sql>
+ALTER TABLE SOCIETIES ADD CONSTRAINT SOCIETIES_PK PRIMARY KEY ( SOCIETY_ID ) ;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-238">
+<sql>
+ALTER TABLE SOCIETIES ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+
+<changeSet author="gphaniraj" id="WP1-239">
+<sql>
+ALTER TABLE SOCIETIES ADD FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+
+<changeSet author="gphaniraj" id="WP1-240">
+<sql>
+DROP TABLE USER_SOCIETY_DETAILS;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-241">
+<sql>
+CREATE TABLE USER_SOCIETY_DETAILS 
+   (            USER_SOCIETY_ID  NUMBER DEFAULT SOCIETY_SEQ.NEXTVAL, 
+                USER_ID NUMBER, 
+                 SOCIETY_ID NUMBER  NOT NULL , 
+                MEMBERSHIP_NO VARCHAR2(50 BYTE), 
+                PROMO_CODE VARCHAR2(50 BYTE), 
+                START_DT TIMESTAMP (6), 
+                END_DT TIMESTAMP (6), 
+                CREATED_DATE TIMESTAMP (6), 
+                CREATED_BY NUMBER, 
+                UPDATED_BY NUMBER, 
+                UPDATED_DATE TIMESTAMP (6)
+);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-242">
+<sql>
+ALTER TABLE USER_SOCIETY_DETAILS ADD CONSTRAINT SOCIETY_DETAILS_PK PRIMARY KEY (USER_SOCIETY_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-243">
+<sql>
+ALTER TABLE USER_SOCIETY_DETAILS ADD CONSTRAINT USER_SOCIETY_DETAILS_FK FOREIGN KEY (USER_ID) REFERENCES USER_PROFILE(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-244">
+<sql>
+ALTER TABLE USER_SOCIETY_DETAILS ADD CONSTRAINT USER_SOCIETY_DETAILS_FK1  FOREIGN KEY (SOCIETY_ID) REFERENCES SOCIETIES(SOCIETY_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-245">
+<sql>
+ALTER TABLE USER_SOCIETY_DETAILS ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-246">
+<sql>
+ALTER TABLE USER_SOCIETY_DETAILS ADD FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
 </databaseChangeLog>
