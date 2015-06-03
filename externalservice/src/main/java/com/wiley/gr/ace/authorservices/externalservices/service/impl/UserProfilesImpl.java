@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
-import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.DropDown;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
@@ -27,7 +27,7 @@ import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
 /**
  * @author RAVISINHA
  */
-public class CDMInterfaceServiceImpl implements CDMInterfaceService {
+public class UserProfilesImpl implements UserProfiles {
     
     @Value("${lookupProfile.url}")
     private String userProfile;
@@ -70,9 +70,8 @@ public class CDMInterfaceServiceImpl implements CDMInterfaceService {
     @Override
     public LookUpProfile lookUpProfile(String userId) {
         
-        LookUpProfile lookupProfile = (LookUpProfile) StubInvokerUtil
+        return (LookUpProfile) StubInvokerUtil
                 .invokeStub(userProfile, HttpMethod.GET, LookUpProfile.class);
-        return lookupProfile;
     }
     
     @Override
@@ -90,81 +89,71 @@ public class CDMInterfaceServiceImpl implements CDMInterfaceService {
     @Override
     public LookUpProfile lookUpProfileDashboard(String userId) {
         
-        LookUpProfile lookupProfile = (LookUpProfile) StubInvokerUtil
+        return (LookUpProfile) StubInvokerUtil
                 .invokeStub(lookupProfileDashboard, HttpMethod.GET,
                         LookUpProfile.class);
-        return lookupProfile;
     }
     
     @Override
     public ESBResponse getAreaOfInterests() {
         
-        ESBResponse areaOfInterests = (ESBResponse) StubInvokerUtil.invokeStub(
+        return (ESBResponse) StubInvokerUtil.invokeStub(
                 areaofInterests, HttpMethod.GET, ESBResponse.class);
-        return areaOfInterests;
     }
     
     @Override
     public JobCategories getJobCategories() {
         
-        JobCategories jobCategory = (JobCategories) StubInvokerUtil.invokeStub(
+        return (JobCategories) StubInvokerUtil.invokeStub(
                 jobCategories, HttpMethod.GET, JobCategories.class);
-        return jobCategory;
     }
     
     @Override
     public Industries getIndustries() {
         
-        Industries industry = (Industries) StubInvokerUtil.invokeStub(
+        return (Industries) StubInvokerUtil.invokeStub(
                 industries, HttpMethod.GET, Industries.class);
-        return industry;
     }
     
     @Override
     public ESBResponse getCountries() {
         
-        ESBResponse countrycode = (ESBResponse) StubInvokerUtil.invokeStub(
+        return (ESBResponse) StubInvokerUtil.invokeStub(
                 countries, HttpMethod.GET, ESBResponse.class);
-        return countrycode;
     }
     
     @Override
     public ESBResponse getStates() {
         
-        ESBResponse state = (ESBResponse) StubInvokerUtil.invokeStub(states,
+        return (ESBResponse) StubInvokerUtil.invokeStub(states,
                 HttpMethod.GET, ESBResponse.class);
-        return state;
     }
     
     @Override
     public DropDown getInstitutionsList() {
         
-        DropDown dropDown = (DropDown) StubInvokerUtil.invokeStub(institutions,
+        return (DropDown) StubInvokerUtil.invokeStub(institutions,
                 HttpMethod.GET, DropDown.class);
-        return dropDown;
     }
     
     @Override
     public DropDown getDepartmentsList() {
         
-        DropDown dropDown = (DropDown) StubInvokerUtil.invokeStub(departments,
+        return (DropDown) StubInvokerUtil.invokeStub(departments,
                 HttpMethod.GET, DropDown.class);
-        return dropDown;
     }
     
     @Override
     public DropDown getReasearchFunder() {
         
-        DropDown dropDown = (DropDown) StubInvokerUtil.invokeStub(
+        return (DropDown) StubInvokerUtil.invokeStub(
                 researchFunders, HttpMethod.GET, DropDown.class);
-        return dropDown;
     }
     
     @Override
     public DropDown getSocietyList() {
         
-        DropDown dropDown = (DropDown) StubInvokerUtil.invokeStub(societies,
+        return (DropDown) StubInvokerUtil.invokeStub(societies,
                 HttpMethod.GET, DropDown.class);
-        return dropDown;
     }
 }

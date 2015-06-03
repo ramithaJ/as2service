@@ -11,6 +11,8 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.web.controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,22 +33,17 @@ import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
 @RestController
 @RequestMapping("/userAccount")
 public class UserAccountController {
-    
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(UserAccountController.class);
     @Autowired
     UserAccountService userAccountService;
     
     @Autowired
     AuthorProfileService authorProfileService;
     
-    /**
-     * @param userId
-     * @param userDetails
-     * @param request
-     * @return
-     */
     @RequestMapping(value = "/profileInfo/{userId}", method = RequestMethod.GET)
     public Service getProfileInformation(@PathVariable("userId") String userId) {
-        
+        LOGGER.info("inside getProfileInformation method");
         Service service = new Service();
         service.setPayload(userAccountService.getProfileInformation(userId));
         return service;
@@ -56,34 +53,25 @@ public class UserAccountController {
     @RequestMapping(value = "/profileInfo/{userId}", method = RequestMethod.POST)
     public Service updateProfileInformation(
             @PathVariable("userId") String userId, @RequestBody User user) {
-        
+    	 LOGGER.info("inside updateProfileInformation method");
         Service service = new Service();
         service.setPayload(authorProfileService.updateUserProfileInfo(user));
         return service;
         
     }
     
-    /**
-     * @param userId
-     * @return
-     */
     @RequestMapping(value = "/emailDetails/{userId}", method = RequestMethod.GET)
     public Service getEmailDetails(@PathVariable("userId") String userId) {
-        
+    	 LOGGER.info("inside getEmailDetails method");
         Service service = new Service();
         service.setPayload(userAccountService.getEmailDetails(userId));
         return service;
     }
     
-    /**
-     * @param userId
-     * @param emailDetails
-     * @return
-     */
     @RequestMapping(value = "/emailDetails/{userId}", method = RequestMethod.POST)
     public Service updateEmail(@PathVariable("userId") String userId,
             @RequestBody User emailDetails) {
-        
+    	 LOGGER.info("inside updateEmail method");
         Service service = new Service();
         emailDetails.setUserId(Integer.parseInt(userId));
         service.setPayload(authorProfileService
@@ -91,13 +79,9 @@ public class UserAccountController {
         return service;
     }
     
-    /**
-     * @param userId
-     * @return
-     */
     @RequestMapping(value = "/userAddresses/{userId}", method = RequestMethod.GET)
     public Service getUserAddresses(@PathVariable("userId") String userId) {
-        
+    	 LOGGER.info("inside getUserAddresses method");
         Service service = new Service();
         service.setPayload(userAccountService.getUserAddress(userId));
         return service;
@@ -106,25 +90,16 @@ public class UserAccountController {
     @RequestMapping(value = "/userAddresses/{userId}", method = RequestMethod.POST)
     public Service updateUserAddresses(@PathVariable("userId") String userId,
             @RequestBody UserProfile addresses) {
-        
+    	 LOGGER.info("inside updateUserAddresses method");
         Service service = new Service();
         service.setPayload(authorProfileService.updateUserAddress(addresses));
         return service;
     }
     
-    /**
-     * This service will update the security questions and answers at user
-     * profile level.
-     * 
-     * @param userId
-     * @param securityDetails
-     *            - it is a JSON array having security questions and answers.
-     * @return
-     */
     @RequestMapping(value = "/secutiryDetails/update", method = RequestMethod.POST)
     public Service updateSecurityDetails(
             @RequestBody SecurityDetailsHolder securityDetails) {
-        
+    	 LOGGER.info("inside updateSecurityDetails method");
         Service service = new Service();
         service.setPayload(authorProfileService
                 .updateSecurityDetails(securityDetails));
@@ -135,7 +110,7 @@ public class UserAccountController {
     @RequestMapping(value = "/updateUserId/{oldEmailId}/{newEmailId}", method = RequestMethod.POST)
     public Service updateUserId(@PathVariable("oldEmailId") String oldEmailId,
             @PathVariable("newEmailId") String newEmailId) {
-        
+    	 LOGGER.info("inside updateUserId method");
         Service service = new Service();
         service.setPayload(authorProfileService.updateUserId(oldEmailId,
                 newEmailId));

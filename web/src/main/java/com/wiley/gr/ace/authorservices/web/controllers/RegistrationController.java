@@ -61,21 +61,14 @@ public class RegistrationController {
 				service.setError(err);
 			}
 			if (user != null) {
-				if (user.getUserId() > 0) {
-					service.setStatus("FAILURE");
-					ErrorPOJO err = new ErrorPOJO();
-					err.setCode(202);
-					err.setMessage("Email address already registered");
-					service.setError(err);
-					service.setPayload(user);
-				} else {
-					service.setStatus("FAILURE");
-					ErrorPOJO err = new ErrorPOJO();
-					err.setCode(203);
-					err.setMessage("Email address exists in the system but not registered with AS 2.0");
-					service.setError(err);
-					service.setPayload(user);
-				}
+
+				service.setStatus("FAILURE");
+				ErrorPOJO err = new ErrorPOJO();
+				err.setCode(203);
+				err.setMessage("Email address exists in the system but not registered with AS 2.0");
+				service.setError(err);
+				service.setPayload(user);
+
 			} else {
 				service.setStatus("SUCCESS");
 			}
@@ -98,8 +91,8 @@ public class RegistrationController {
 		if (!StringUtils.isEmpty(guid)) {
 			try {
 				inviteRecords = rs.searchInvitationRecord(guid);
-				if(!StringUtils.isEmpty(inviteRecords)) {
-					if("PENDING".equalsIgnoreCase(inviteRecords.getStatus())){
+				if (!StringUtils.isEmpty(inviteRecords)) {
+					if ("PENDING".equalsIgnoreCase(inviteRecords.getStatus())) {
 						service.setStatus("SUCCESS");
 						service.setPayload(inviteRecords);
 					} else {
@@ -132,13 +125,11 @@ public class RegistrationController {
 		String status = null;
 		if (null != user) {
 			try {
-				user.setSearchFullName(false); // TODO: change during service
-												// integration
+
 				if (user.isSearchFullName()) {
 					List<User> usersList = null;
 					usersList = rs.getUserFromFirstNameLastName(
-							user.getPrimaryEmailAddr(), user.getFirstName(),
-							user.getLastName());
+							user.getFirstName(), user.getLastName());
 					if (null != usersList) {
 						service.setStatus("FAILURE");
 						ErrorPOJO err = new ErrorPOJO();

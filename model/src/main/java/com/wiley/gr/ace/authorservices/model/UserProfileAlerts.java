@@ -10,28 +10,20 @@
  * of John Wiley & Sons.
  *******************************************************************************/
 
-package com.wiley.gr.ace.authorservices.persistence.services;
+package com.wiley.gr.ace.authorservices.model;
 
 import java.util.List;
 
-import com.wiley.gr.ace.authorservices.persistence.entity.UserPreferredJournals;
+public class UserProfileAlerts {
+	private List<Alert> alertslist;
 
-/**
- * @author RAVISINHA
- */
-public interface UserPreferredJournalsDAO {
-    
-    /**
-     * @param userId
-     * @return
-     */
-    List<UserPreferredJournals> getPreferredJournals(String userId);
-    
-    /**
-     * @param userId
-     * @param journalId
-     * @return
-     */
-    boolean deletePreferredJournals(String userId, String journalId);
-    
+	public List<Alert> getAlertslist() {
+		return alertslist;
+	}
+
+	public void setAlertslist(List<Alert> alertslist) {
+		this.alertslist = alertslist;
+	}
+	
+
 }

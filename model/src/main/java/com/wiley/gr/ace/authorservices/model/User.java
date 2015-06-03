@@ -58,9 +58,10 @@ public class User {
     private String orcidID;
     
     /** The visible attributes. */
-    private String visibleAttributes[];
+    private String[] visibleAttributes;
     
-    private String contactId; // Need to confirm the datatype
+ // Need to confirm the datatype
+    private String contactId; 
     
     private String password;
     
@@ -69,7 +70,6 @@ public class User {
     private Country country;
     
     private String countryNameNE;
-    
     
     private Character termsOfUseFlg;
     
@@ -82,11 +82,11 @@ public class User {
     public Affiliation getAffiliation() {
         return affiliation;
     }
-
+    
     public void setAffiliation(Affiliation affiliation) {
         this.affiliation = affiliation;
     }
-
+    
     public Addresses getAddresses() {
         return addresses;
     }
@@ -406,13 +406,13 @@ public class User {
     public void setUserReferenceData(UserReferenceData userReferenceData) {
         this.userReferenceData = userReferenceData;
     }
-
-	public String getCountryNameNE() {
-		return countryNameNE;
-	}
-
-	public void setCountryNameNE(String countryNameNE) {
-		this.countryNameNE = countryNameNE;
-	}
+    
+    public String getCountryNameNE() {
+        return countryNameNE;
+    }
+    
+    public void setCountryNameNE(String countryNameNE) {
+        this.countryNameNE = countryNameNE;
+    }
     
 }

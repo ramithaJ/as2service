@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
-import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserProfile;
@@ -38,7 +38,7 @@ public class UpdateUserServiceImpl implements UpdateUserService {
     @Autowired(required = true)
     ESBInterfaceService esbInterfaceService;
     @Autowired
-    CDMInterfaceService cdmInterfaceService;
+    UserProfiles cdmInterfaceService;
     @Autowired(required = true)
     UpdateUserDAO userDao;
     

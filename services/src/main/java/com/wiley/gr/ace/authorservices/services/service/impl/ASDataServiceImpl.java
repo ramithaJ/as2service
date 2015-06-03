@@ -19,7 +19,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
-import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.AccessReasons;
 import com.wiley.gr.ace.authorservices.model.Country;
 import com.wiley.gr.ace.authorservices.model.Department;
@@ -54,7 +54,7 @@ public class ASDataServiceImpl implements ASDataService {
     @Autowired(required = true)
     LookUpValuesDAO lookupDAO;
     @Autowired
-    CDMInterfaceService cdmservice;
+    UserProfiles cdmservice;
     
     @Override
     public List<Title> getTitles() {
@@ -297,7 +297,7 @@ public class ASDataServiceImpl implements ASDataService {
         List<Role> adminRoles = new ArrayList<Role>();
         Role adminRole = null;
         
-        if (daoRolesList != null && daoRolesList.isEmpty()) {
+        if (daoRolesList != null && !daoRolesList.isEmpty()) {
             
             for (Roles roles : daoRolesList) {
                 adminRole = new Role();

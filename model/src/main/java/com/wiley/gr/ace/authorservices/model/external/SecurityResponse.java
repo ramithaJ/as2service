@@ -10,34 +10,60 @@
  * of John Wiley & Sons.
  *******************************************************************************/
 
-package com.wiley.gr.ace.authorservices.persistence.services;
-
-import java.util.List;
-
-import com.wiley.gr.ace.authorservices.persistence.entity.UserSocietyDetails;
+package com.wiley.gr.ace.authorservices.model.external;
 
 /**
- * @author RAVISINHA
+ * @author SarmaKumarap
+ *
  */
-public interface SocietyDetailsDao {
+public class SecurityResponse {
     
+    private String code;
+    
+    private String message;
+    
+    private String status;
+
     /**
-     * @param userId
      * @return
      */
-    List<UserSocietyDetails> getSocietiesForUser(String userId);
-    
+    public String getCode() {
+        return code;
+    }
+
     /**
-     * @param userId
-     * @param societyId
+     * @param code
+     */
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    /**
      * @return
      */
-    boolean deleteSociety(String userId, String societyId);
-    
+    public String getMessage() {
+        return message;
+    }
+
     /**
-     * @param userId
-     * @param society
+     * @param message
      */
-    void updateSociety(UserSocietyDetails userSocietyDetails);
-    
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    /**
+     * @return
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status
+     */
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
 }

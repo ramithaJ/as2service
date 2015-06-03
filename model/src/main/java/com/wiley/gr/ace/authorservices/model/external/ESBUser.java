@@ -11,70 +11,129 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.model.external;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class ESBUser {
-    
-    private String firstName;
-    private String lastName;
-    private String emailId;
-    private String country;
-    private String ecid;
-    private String status;
-    private int userId;
-    
-    public String getFirstName() {
-        return firstName;
-    }
-    
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-    
-    public String getLastName() {
-        return lastName;
-    }
-    
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-    
-    public String getEmailId() {
-        return emailId;
-    }
-    
-    public void setEmailId(String emailId) {
-        this.emailId = emailId;
-    }
-    
-    public String getCountry() {
-        return country;
-    }
-    
-    public void setCountry(String country) {
-        this.country = country;
-    }
-    
-    public String getEcid() {
-        return ecid;
-    }
-    
-    public void setEcid(String ecid) {
-        this.ecid = ecid;
-    }
-    
-    public String getStatus() {
-        return status;
-    }
-    
-    public void setStatus(String status) {
-        this.status = status;
-    }
-    
-    public int getUserId() {
-        return userId;
-    }
-    
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-    
+
+	@JsonProperty("Street")
+	private String street;
+
+	@JsonProperty("State")
+	private String state;
+
+	@JsonProperty("Address")
+	private String address;
+
+	@JsonProperty("Role")
+	private String role;
+
+	@JsonProperty("FirstName")
+	private String firstName;
+
+	@JsonProperty("Zip")
+	private String zip;
+
+	@JsonProperty("Country")
+	private String country;
+
+	@JsonProperty("LastName")
+	private String lastName;
+
+	@JsonProperty("ECID")
+	private String ecid;
+
+	@JsonProperty("EmailID")
+	private String emailID;
+
+	@JsonProperty("AccountIdentifier")
+	private String accountIdentifier;
+
+	public String getStreet() {
+		return street;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getZip() {
+		return zip;
+	}
+
+	public void setZip(String zip) {
+		this.zip = zip;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getEcid() {
+		return ecid;
+	}
+
+	public void setEcid(String ecid) {
+		this.ecid = ecid;
+	}
+
+	public String getEmailID() {
+		return emailID;
+	}
+
+	public void setEmailID(String emailID) {
+		this.emailID = emailID;
+	}
+
+	public String getAccountIdentifier() {
+		return accountIdentifier;
+	}
+
+	public void setAccountIdentifier(String accountIdentifier) {
+		this.accountIdentifier = accountIdentifier;
+	}
+
 }

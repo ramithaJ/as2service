@@ -51,13 +51,8 @@ public class DashBoardController {
         try {
             dashBoard = dashBoardService.getProfileMeter(userId);
             if (!StringUtils.isEmpty(dashBoard)) {
-                if (dashBoard.getDashBoardInfo().isEmpty()) {
-                    service.setStatus("SUCCESS");
-                    service.setPayload(dashBoard);
-                } else {
-                    service.setStatus("SUCCESS");
-                    service.setPayload(dashBoard);
-                }
+                service.setStatus("SUCCESS");
+                service.setPayload(dashBoard);
             }
         } catch (Exception e) {
             ErrorPOJO error = new ErrorPOJO();

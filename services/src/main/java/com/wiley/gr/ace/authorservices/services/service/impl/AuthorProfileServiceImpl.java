@@ -17,10 +17,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
-import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
+import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
-import com.wiley.gr.ace.authorservices.model.Alert;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
@@ -28,85 +27,78 @@ import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserProfile;
+import com.wiley.gr.ace.authorservices.model.UserProfileAlerts;
 import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 
+/**
+ * @author kpshiva
+ */
 public class AuthorProfileServiceImpl implements AuthorProfileService {
     
     @Autowired
-    CDMInterfaceService cdmservices;
-    
+    UserProfiles cdmservices;
     @Autowired
-    ALMInterfaceService almService;
+    UserManagement almService;
+    
+    UserProfile userProfile = new UserProfile();
+    LookUpProfile lookUpProfile = new LookUpProfile();
     
     @Override
     public boolean updateSocietyDetails(Society society) {
-        UserProfile userProfile = new UserProfile();
-        LookUpProfile lookUpProfile = new LookUpProfile();
+        
         List<Society> list = new ArrayList<Society>();
         list.add(society);
         userProfile.setSocieties(list);
         lookUpProfile.setCustomerProfile(userProfile);
-        cdmservices.updateProfile(lookUpProfile);
-        
-        return true;
+        return cdmservices.updateProfile(lookUpProfile);
     }
     
     @Override
     public boolean updateAffiliation(Affiliation affiliation) {
-        UserProfile userProfile = new UserProfile();
-        LookUpProfile lookUpProfile = new LookUpProfile();
+        
         List<Affiliation> list = new ArrayList<Affiliation>();
         list.add(affiliation);
         
         userProfile.setAffiliations(list);
         lookUpProfile.setCustomerProfile(userProfile);
-        cdmservices.updateProfile(lookUpProfile);
-        
-        return true;
+        return cdmservices.updateProfile(lookUpProfile);
     }
     
     @Override
     public boolean updateResearchFunder(String userId,
             ResearchFunder researchFunder) {
-        UserProfile userProfile = new UserProfile();
-        LookUpProfile lookUpProfile = new LookUpProfile();
+        
         List<ResearchFunder> list = new ArrayList<ResearchFunder>();
         list.add(researchFunder);
         userProfile.setResearchFunders(list);
         lookUpProfile.setCustomerProfile(userProfile);
-        cdmservices.updateProfile(lookUpProfile);
+        return cdmservices.updateProfile(lookUpProfile);
+    }
+    
+    @Override
+    public boolean updateAlerts(String userId,
+            UserProfileAlerts userProfileAlerts) {
         
-        return true;
-    }
-    
-    @Override
-    public boolean updateAlerts(String userId, List<Alert> alertsList) {
-        UserProfile userProfile = new UserProfile();
-        LookUpProfile lookUpProfile = new LookUpProfile();
-        userProfile.setAlerts(alertsList);
+        userProfile.setAlerts(userProfileAlerts.getAlertslist());
         lookUpProfile.setCustomerProfile(userProfile);
-        cdmservices.updateProfile(lookUpProfile);
-        return true;
+        return cdmservices.updateProfile(lookUpProfile);
     }
     
     @Override
-    public boolean UpdatecoAuthor(CoAuthor coAuthor) {
-        UserProfile userProfile = new UserProfile();
-        LookUpProfile lookUpProfile = new LookUpProfile();
+    public boolean updatecoAuthor(CoAuthor coAuthor) {
+        
         List<CoAuthor> list = new ArrayList<CoAuthor>();
         list.add(coAuthor);
         userProfile.setCoAuthors(list);
         lookUpProfile.setCustomerProfile(userProfile);
-        cdmservices.updateProfile(lookUpProfile);
-        return true;
+        return cdmservices.updateProfile(lookUpProfile);
+        
     }
     
     @Override
     public boolean updateEmailDetails(User emailDetails) {
         
-        UserProfile userProfile = new UserProfile();
-        LookUpProfile lookUpProfile = new LookUpProfile();
         userProfile.setCustomerDetails(emailDetails);
         lookUpProfile.setCustomerProfile(userProfile);
         return cdmservices.updateProfile(lookUpProfile);
@@ -115,8 +107,6 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     @Override
     public boolean updateUserAddress(UserProfile addresses) {
         
-        UserProfile userProfile = new UserProfile();
-        LookUpProfile lookUpProfile = new LookUpProfile();
         userProfile.setAddressDetails(addresses.getAddressDetails());
         lookUpProfile.setCustomerProfile(userProfile);
         return cdmservices.updateProfile(lookUpProfile);
@@ -125,8 +115,6 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     @Override
     public boolean updateUserProfileInfo(User user) {
         
-        UserProfile userProfile = new UserProfile();
-        LookUpProfile lookUpProfile = new LookUpProfile();
         userProfile.setCustomerDetails(user);
         lookUpProfile.setCustomerProfile(userProfile);
         return cdmservices.updateProfile(lookUpProfile);

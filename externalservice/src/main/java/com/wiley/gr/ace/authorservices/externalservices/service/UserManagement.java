@@ -19,7 +19,7 @@ import com.wiley.gr.ace.authorservices.model.external.SecuirtyQuestionDetails;
 /**
  * @author RAVISINHA
  */
-public interface ALMInterfaceService {
+public interface UserManagement {
 
     /**
      * This method authenticates the user by calling the ALM LDAP Service

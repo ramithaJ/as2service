@@ -29,7 +29,7 @@ public interface ESBInterfaceService {
     
     ESBUser checkEmailIdExists(String emailId) throws Exception;
     
-    List<User> getUsersFromFirstNameLastName(String email, String firstName,
+    List<ESBUser> getUsersFromFirstNameLastName(String firstName,
             String lastName) throws Exception;
     
     Status creatUser(ProfileInformation profileForCreation) throws Exception;

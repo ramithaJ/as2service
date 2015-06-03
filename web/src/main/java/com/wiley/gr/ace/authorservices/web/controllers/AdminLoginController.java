@@ -11,8 +11,10 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.web.controllers;
 
-import javax.validation.Valid;
+import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
@@ -26,7 +28,6 @@ import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
 import com.wiley.gr.ace.authorservices.model.ASRolesAndPermissions;
 import com.wiley.gr.ace.authorservices.model.AdminUser;
-import com.wiley.gr.ace.authorservices.model.Login;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.UserMgmt;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
@@ -41,64 +42,55 @@ import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 @RestController
 @RequestMapping("/admin")
 public class AdminLoginController extends ASExceptionController {
-	
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(AdminLoginController.class);
 
-	/**
-	 * @param emailId
-	 * @param password
-	 * @return
-	 */
-	
 	@Value("${adminnotexist.code}")
 	public String errorcode;
 	@Value("${adminnotexist.message}")
 	public String errormessage;
 	@Autowired(required = true)
 	AdminLoginService adminLoginService;
-
 	@Autowired(required = true)
 	LocalValidatorFactoryBean validator;
 
-	@RequestMapping(value = "/login/", method = RequestMethod.POST, produces = "application/json")
-	public Service login(@Valid @RequestBody Login login) {
-		boolean status = false;
+	@RequestMapping(value = "/login/", method = RequestMethod.POST)
+	public Service login(HttpServletRequest request) {
+		LOGGER.info("Inside Login Method");
+		String emailId = (String) request.getAttribute("emailId");
 		Service service = new Service();
-		status = adminLoginService.validateEmail(login.getEmailId());
-		if (status) {
-			String userId = adminLoginService.doLogin(login.getEmailId());
+		if (adminLoginService.validateEmail(emailId)) {
+
+			String userId = adminLoginService.doLogin(emailId);
+			LOGGER.debug(userId + "Geeting User id from dologin");
 			UserMgmt userObj = new UserMgmt();
 			userObj.setUserId(userId);
 			service.setPayload(userObj);
 		} else {
-			throw new ASException(errorcode,errormessage);
+			throw new ASException(errorcode, errormessage);
 		}
 		return service;
 	}
 
-	/**
-	 * @param emailId
-	 * @param password
-	 * @return
-	 */
-	@RequestMapping(value = "/requestAccess/{emailId}/{accessId}/", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/requestAccess/{emailId}/{accessId}/", method = RequestMethod.POST)
 	public Service requestAccess(@PathVariable("emailId") String emailId,
-	        @PathVariable("accessId") String accessId) {
-
+			@PathVariable("accessId") String accessId) {
+		LOGGER.info("inside requestAccess Method");
 		return new Service();
 
 	}
 
-	@RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public Service createAdmin(@RequestBody AdminUser admin) {
-	    
+		LOGGER.info("inside create Admin");
 		adminLoginService.createAdmin(admin);
-	    return new Service();
+		return new Service();
 
 	}
 
-	@RequestMapping(value = "/permissions/", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/permissions/", method = RequestMethod.GET)
 	public Service getPermissions() {
-
+		LOGGER.info("Inside Get Permission");
 		Service service = new Service();
 		service.setPayload(adminLoginService.getRolesAndPermissions(null));
 		return service;
@@ -108,9 +100,9 @@ public class AdminLoginController extends ASExceptionController {
 	 * @param roleId
 	 * @return
 	 */
-	@RequestMapping(value = "/permissions/{roleId}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/permissions/{roleId}", method = RequestMethod.GET)
 	public Service getPermissionsForRole(@PathVariable("roleId") String roleId) {
-
+		LOGGER.info("Inside Get getPermissionsForRole");
 		Service service = new Service();
 		service.setPayload(adminLoginService.getRolesAndPermissions(roleId));
 		return service;
@@ -120,21 +112,21 @@ public class AdminLoginController extends ASExceptionController {
 	 * @param rolesAndPermissions
 	 * @return
 	 */
-	@RequestMapping(value = "/permissions/", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/permissions/", method = RequestMethod.POST)
 	public Service addOrUpdateUserRole(
 			@RequestBody ASRolesAndPermissions rolesAndPermissions) {
-
+		LOGGER.info("Inside Get addOrUpdateUserRole");
 		adminLoginService.addOrUpdateUserRole(rolesAndPermissions);
 		return new Service();
 
 	}
-	
-	@RequestMapping(value = "/findUser/{emailId}/", method = RequestMethod.GET, produces = "application/json")
-    public Service findUser(@PathVariable("emailId") String emailId) {
 
-        Service service = new Service();
-        service.setPayload(adminLoginService.findUser(emailId));
-        return service;
+	@RequestMapping(value = "/findUser/{emailId}/", method = RequestMethod.GET)
+	public Service findUser(@PathVariable("emailId") String emailId) {
+		LOGGER.info("Inside Get findUser");
+		Service service = new Service();
+		service.setPayload(adminLoginService.findUser(emailId));
+		return service;
 
-    }
+	}
 }

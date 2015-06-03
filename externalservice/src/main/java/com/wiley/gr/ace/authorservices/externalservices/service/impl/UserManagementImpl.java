@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
-import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.model.AdminUser;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
@@ -25,7 +25,7 @@ import com.wiley.gr.ace.authorservices.model.external.SecuirtyQuestionDetails;
 /**
  * @author RAVISINHA
  */
-public class ALMInterfaceServiceImpl implements ALMInterfaceService {
+public class UserManagementImpl implements UserManagement {
     
     @Value("${lockUser.url}")
     private String lockUser;
@@ -54,7 +54,7 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
     @Value("${updatePassword.url}")
     private String updatePassword;
     
-    @Value("${authenticateAdminUser.url}")
+    @Value("${updateSecurityDetails.url}")
     private String updateSecurityDetails;
     
     @Value("${findUser.url}")
@@ -71,9 +71,7 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
         Service service = (Service) StubInvokerUtil.invokeStub(
                 authenticateAdminUser, HttpMethod.POST, Service.class);
         String status = service.getStatus();
-        
         if (status != null && status.equalsIgnoreCase(STATUSS)) {
-            
             return true;
         }
         return false;
@@ -82,12 +80,7 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
     @Override
     public boolean authenticateUserALM(String emailId, String password) {
         
-        if (password.equalsIgnoreCase("Password")) {
-            return true;
-        } else {
-            return false;
-        }
-        
+        return "Password".equalsIgnoreCase(password);
     }
     
     @Override
@@ -96,9 +89,7 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
         Service service = (Service) StubInvokerUtil.invokeStub(resetPassword,
                 HttpMethod.POST, Service.class);
         String status = service.getStatus();
-        
         if (status != null && status.equalsIgnoreCase(STATUSS)) {
-            
             return true;
         }
         return false;
@@ -110,9 +101,7 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
         Service service = (Service) StubInvokerUtil.invokeStub(updateUserId,
                 HttpMethod.POST, Service.class);
         String status = service.getStatus();
-        
         if (status != null && status.equalsIgnoreCase(STATUSS)) {
-            
             return true;
         }
         return false;
@@ -124,9 +113,7 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
         Service service = (Service) StubInvokerUtil.invokeStub(forceFulReset,
                 HttpMethod.POST, Service.class);
         String status = service.getStatus();
-        
         if (status != null && status.equalsIgnoreCase(STATUSS)) {
-            
             return true;
         }
         return false;
@@ -138,9 +125,7 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
         Service service = (Service) StubInvokerUtil.invokeStub(lockUser,
                 HttpMethod.POST, Service.class);
         String status = service.getStatus();
-        
         if (status != null && status.equalsIgnoreCase(STATUSS)) {
-            
             return true;
         }
         return false;
@@ -152,9 +137,7 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
         Service service = (Service) StubInvokerUtil.invokeStub(unLockUser,
                 HttpMethod.POST, Service.class);
         String status = service.getStatus();
-        
         if (status != null && status.equalsIgnoreCase(STATUSS)) {
-            
             return true;
         }
         return false;
@@ -163,19 +146,17 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
     @Override
     public SecurityDetailsHolder getSecurityDetails(String emailId) {
         
-        SecurityDetailsHolder securityDetailsHolder = (SecurityDetailsHolder) StubInvokerUtil
+        return (SecurityDetailsHolder) StubInvokerUtil
                 .invokeStub(securityDetails, HttpMethod.GET,
                         SecurityDetailsHolder.class);
-        return securityDetailsHolder;
     }
     
     @Override
     public SecurityDetailsHolder getSecurityQuestions(String emailId) {
         
-        SecurityDetailsHolder securityDetailsHolder = (SecurityDetailsHolder) StubInvokerUtil
+        return (SecurityDetailsHolder) StubInvokerUtil
                 .invokeStub(securityQuestions, HttpMethod.GET,
                         SecurityDetailsHolder.class);
-        return securityDetailsHolder;
     }
     
     @Override
@@ -205,18 +186,16 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
     @Override
     public SecuirtyQuestionDetails getSecurityQuestionDetails(String emailId) {
         
-        SecuirtyQuestionDetails secuirtyQuestionDetails = (SecuirtyQuestionDetails) StubInvokerUtil
+        return (SecuirtyQuestionDetails) StubInvokerUtil
                 .invokeStub(securityQuestionDetails, HttpMethod.GET,
                         SecuirtyQuestionDetails.class);
-        return secuirtyQuestionDetails;
     }
     
     @Override
     public AdminUser findUser(String emailId) {
         
-        AdminUser adminUser = (AdminUser) StubInvokerUtil.invokeStub(findUser,
+        return (AdminUser) StubInvokerUtil.invokeStub(findUser,
                 HttpMethod.GET, AdminUser.class);
-        return adminUser;
         
     }
 }
