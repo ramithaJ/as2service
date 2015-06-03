@@ -13,6 +13,8 @@ package com.wiley.gr.ace.authorservices.services.service.impl;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
@@ -28,51 +30,59 @@ import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
  * @author kpshiva
  */
 public class UserAccountServiceImpl implements UserAccountService {
-    
-    @Autowired(required = true)
-    UserAccountDAO userAccountDAO;
-    @Autowired(required = true)
-    UserLoginServiceDAO userLoginServiceDAO;
-    @Autowired
-    UserProfiles cdmservices;
-    
-    @Override
-    public User getEmailDetails(String userId) {
-        
-        LookUpProfile lookupProfile = cdmservices.lookUpProfile(userId);
-        User user = new User();
-        user.setPrimaryEmailAddr(lookupProfile.getCustomerProfile()
-                .getCustomerDetails().getPrimaryEmailAddr());
-        user.setRecoveryEmailAddress(lookupProfile.getCustomerProfile()
-                .getCustomerDetails().getRecoveryEmailAddress());
-        return user;
-        
-    }
-    
-    /**
-     * this method will call the DAO to update security details which are
-     * updated by user at userProfile level.
-     */
-    @Override
-    public boolean updateSecurityDetails(String userId,
-            List<SecurityDetails> securityDetails) {
-        
-        return userAccountDAO.updateSecurityDetails(Integer.parseInt(userId),
-                securityDetails);
-    }
-    
-    @Override
-    public User getProfileInformation(String userId) {
-        
-        LookUpProfile lookupProfile = cdmservices.lookUpProfile(userId);
-        return lookupProfile.getCustomerProfile().getCustomerDetails();
-    }
-    
-    @Override
-    public List<Addresses> getUserAddress(String userId) {
-        
-        LookUpProfile lookupProfile = cdmservices.lookUpProfile(userId);
-        return lookupProfile.getCustomerProfile().getAddressDetails();
-    }
-    
+
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(UserAccountServiceImpl.class);
+
+	@Autowired(required = true)
+	UserAccountDAO userAccountDAO;
+	@Autowired(required = true)
+	UserLoginServiceDAO userLoginServiceDAO;
+	@Autowired
+	UserProfiles cdmservices;
+
+	@Override
+	public User getEmailDetails(String userId) {
+
+		LOGGER.info("inside getEmailDetails Method");
+
+		LookUpProfile lookupProfile = cdmservices.lookUpProfile(userId);
+		User user = new User();
+		user.setPrimaryEmailAddr(lookupProfile.getCustomerProfile()
+				.getCustomerDetails().getPrimaryEmailAddr());
+		user.setRecoveryEmailAddress(lookupProfile.getCustomerProfile()
+				.getCustomerDetails().getRecoveryEmailAddress());
+		return user;
+
+	}
+
+	/**
+	 * this method will call the DAO to update security details which are
+	 * updated by user at userProfile level.
+	 */
+	@Override
+	public boolean updateSecurityDetails(String userId,
+			List<SecurityDetails> securityDetails) {
+
+		LOGGER.info("inside updateSecurityDetails Method");
+		return userAccountDAO.updateSecurityDetails(Integer.parseInt(userId),
+				securityDetails);
+	}
+
+	@Override
+	public User getProfileInformation(String userId) {
+
+		LOGGER.info("inside getProfileInformation Method");
+		LookUpProfile lookupProfile = cdmservices.lookUpProfile(userId);
+		return lookupProfile.getCustomerProfile().getCustomerDetails();
+	}
+
+	@Override
+	public List<Addresses> getUserAddress(String userId) {
+
+		LOGGER.info("inside getUserAddress Method");
+		LookUpProfile lookupProfile = cdmservices.lookUpProfile(userId);
+		return lookupProfile.getCustomerProfile().getAddressDetails();
+	}
+
 }

@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -31,6 +33,9 @@ import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
  * @author kpshiva
  */
 public class UserLoginServiceImpl implements UserLoginService {
+	
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(UserLoginServiceImpl.class);
     
     @Autowired(required = true)
     UserLoginServiceDAO userLoginServiceDAO;
@@ -63,6 +68,7 @@ public class UserLoginServiceImpl implements UserLoginService {
     @Override
     public UserMgmt doLogin(String emailId, String password) {
         
+    	LOGGER.info("In doLogin method");
         UserMgmt userMgmt = null;
         if (userLoginServiceDAO.validateEmailAddress(emailId)) {
             
@@ -107,7 +113,8 @@ public class UserLoginServiceImpl implements UserLoginService {
      */
     @Override
     public boolean checkSecuritySetUp(int userId) {
-        
+    	
+    	LOGGER.info("In checkSecuritySetUp method");
         return userLoginServiceDAO.checkSecuritySetup(userId);
     }
     
@@ -120,6 +127,8 @@ public class UserLoginServiceImpl implements UserLoginService {
      */
     @Override
     public SecurityDetailsHolder getSecurityQuestions(String emailId) {
+    	
+    	LOGGER.info("In getSecurityQuestions method");
         
         // it checks whether user is exit or not in the user table
         // if exist it will return userId
@@ -166,7 +175,8 @@ public class UserLoginServiceImpl implements UserLoginService {
     @Override
     public boolean validateSecurityQuestions(String emailId,
             List<SecurityDetails> securityDetails) {
-        
+    	
+    	LOGGER.info("In validateSecurityQuestions method");
         // TODO: Call external service for this.
         return false;
     }
@@ -178,6 +188,7 @@ public class UserLoginServiceImpl implements UserLoginService {
     @Override
     public boolean validateEmailAddress(String emailId) {
         
+    	LOGGER.info("In validateEmailAddress method");
         return userLoginServiceDAO.validateEmailAddress(emailId);
     }
     
@@ -208,6 +219,7 @@ public class UserLoginServiceImpl implements UserLoginService {
      */
     private boolean authenticateUser(int userId, String emailId, String password) {
         
+    	LOGGER.info("In authenticateUser method");
         boolean loginStatus = false;
         
         if (almService.authenticateUserALM(emailId, password)) {
@@ -243,24 +255,28 @@ public class UserLoginServiceImpl implements UserLoginService {
     @Override
     public boolean resetPassword(SecurityDetailsHolder securityDetailsHolder) {
         
+    	LOGGER.info("In resetPassword method");
         return almService.resetPassword(securityDetailsHolder);
     }
     
     @Override
     public SecurityDetailsHolder securityQuestions(String emailId) {
         
+    	LOGGER.info("In securityQuestions method");
         return almService.getSecurityQuestions(emailId);
     }
     
     @Override
     public boolean lockUser(String emailId) {
         
+    	LOGGER.info("In lockUser method");
         return almService.lockUser(emailId);
     }
     
     @Override
     public boolean unLockUser(String emailId) {
         
+    	LOGGER.info("In unLockUser method");
         return almService.unLockUser(emailId);
     }
 }
