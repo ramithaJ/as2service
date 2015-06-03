@@ -85,7 +85,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
         // Call external service for password validation
     	LOGGER.info("inside doLogin Method");
         int userId = userLoginServiceDAO.getUserId(emailId);
-        userLoginServiceDAO.doLogin(userId);
+        //userLoginServiceDAO.doLogin(userId);
         return userId+"";
         
     }

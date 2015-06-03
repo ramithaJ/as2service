@@ -60,7 +60,7 @@ public class UserLoginServiceImpl implements UserLoginService {
     public boolean isUserLocked(int userId) {
         
         LOGGER.info("In isUserLocked method");
-        return userLoginServiceDAO.isUserLocked(userId);
+        return false;
     }
     
     /**
