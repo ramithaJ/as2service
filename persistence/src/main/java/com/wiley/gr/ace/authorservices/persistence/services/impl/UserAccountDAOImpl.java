@@ -40,17 +40,14 @@ public class UserAccountDAOImpl implements UserAccountDAO {
     public AuthorProfile getEmailDetails(String userId) {
         
         Session session = null;
-        Transaction transaction = null;
         try {
             session = con.getSessionFactory().openSession();
-            transaction = session.beginTransaction();
             Criteria criteria = session.createCriteria(AuthorProfile.class);
             criteria.add(Restrictions.eq("userId", Integer.parseInt(userId)));
             AuthorProfile userProfile = (AuthorProfile) criteria.uniqueResult();
             if (null == userProfile) {
                 return null;
             }
-            transaction.commit();
             return userProfile;
         } finally {
             if (session != null) {

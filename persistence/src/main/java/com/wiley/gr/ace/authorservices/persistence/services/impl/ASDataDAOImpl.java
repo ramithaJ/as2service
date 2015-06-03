@@ -17,7 +17,6 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -41,15 +40,12 @@ public class ASDataDAOImpl implements ASDataDAO {
     public List<LookupValues> getDropDown(String keyName) {
         
         Session session = null;
-        Transaction transaction = null;
         List<LookupValues> lookupList = null;
         try {
             session = con.getSessionFactory().openSession();
-            transaction = session.beginTransaction();
             Criteria criteria = session.createCriteria(LookupValues.class);
             criteria.add(Restrictions.eq("lookupKey", keyName));
             lookupList = criteria.list();
-            transaction.commit();
             return lookupList;
         } finally {
             if (session != null) {
