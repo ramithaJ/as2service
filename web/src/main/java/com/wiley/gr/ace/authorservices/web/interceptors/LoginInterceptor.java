@@ -56,7 +56,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         System.out.println("Token from Authentication Service:::"+token);
         
         if(token != null && adminLoginService.validateEmail(login.getEmailId())) {
-            if(request.getCookies().length > 0) {
+            if(request.getCookies() != null && request.getCookies().length > 0) {
                 Cookie existingCookie = request.getCookies()[0];
                 existingCookie.setMaxAge(0);
                 response.addCookie(existingCookie);
