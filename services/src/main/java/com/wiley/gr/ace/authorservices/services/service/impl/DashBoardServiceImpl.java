@@ -40,9 +40,9 @@ import com.wiley.gr.ace.authorservices.services.service.DashBoardService;
 public class DashBoardServiceImpl implements DashBoardService {
 
     @Autowired(required = true)
-    private UserProfiles cdmIntefaceService;
+    private UserProfiles userProfileService;
     @Autowired(required = true)
-    private UserManagement almIntefaceService;
+    private UserManagement userManagementService;
 
     /**
      * @param userId
@@ -52,7 +52,7 @@ public class DashBoardServiceImpl implements DashBoardService {
     public DashBoard getProfileMeter(String userId) throws NullPointerException {
         DashBoard dashBoard = null;
         List<DashBoardInfo> dashBoardInfoList;
-        LookUpProfile lookUpProfile = cdmIntefaceService
+        LookUpProfile lookUpProfile = userProfileService
                 .lookUpProfileDashboard(userId);
         UserProfile userProfile = lookUpProfile.getCustomerProfile();
         User user = userProfile.getCustomerDetails();
@@ -70,7 +70,7 @@ public class DashBoardServiceImpl implements DashBoardService {
 
     private DashBoardInfo getSecurityDetailsForUser(String emailId,
             DashBoardInfo dashBoardInfo) throws NullPointerException {
-        SecuirtyQuestionDetails secuirtyQuestionDetails = almIntefaceService
+        SecuirtyQuestionDetails secuirtyQuestionDetails = userManagementService
                 .getSecurityQuestionDetails(emailId);
         if (!StringUtils.isEmpty(secuirtyQuestionDetails)) {
             SecurityQuestions securityQuestions = secuirtyQuestionDetails
