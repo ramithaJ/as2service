@@ -37,7 +37,8 @@ import com.wiley.gr.ace.authorservices.services.service.ASDataService;
 import com.wiley.gr.ace.authorservices.services.service.OrcidService;
 
 /**
- * @author vkumark
+ * @author virtusa
+ *version 1.0
  */
 public class OrcidServiceImpl implements OrcidService {
 
