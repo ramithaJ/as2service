@@ -17,7 +17,7 @@ import com.wiley.gr.ace.authorservices.persistence.entity.UserRoles;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 
 /**
- * @author RAVISINHA
+ * @author ‘Virtusa’ 
  */
 public interface UserLoginDao {
     

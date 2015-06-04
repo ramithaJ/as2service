@@ -42,7 +42,7 @@ import com.wiley.gr.ace.authorservices.persistence.services.UserRolesDAO;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 
 /**
- * @author RAVISINHA
+ * @author ‘Virtusa’ 
  */
 public class AdminLoginServiceImpl implements AdminLoginService {
 

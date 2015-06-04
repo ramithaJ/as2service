@@ -37,7 +37,7 @@ import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
  * Hit the link as
  * http://localhost:8080/author-services/admin/login/kondavinay%40gmail.com/
  * 
- * @author ravisinha
+ * @author ‘Virtusa’ 
  */
 @RestController
 @RequestMapping("/admin")

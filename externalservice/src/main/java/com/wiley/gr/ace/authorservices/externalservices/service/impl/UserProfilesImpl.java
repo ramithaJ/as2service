@@ -25,7 +25,7 @@ import com.wiley.gr.ace.authorservices.model.external.JobCategories;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 
 /**
- * @author RAVISINHA
+ * @author ‘Virtusa’ 
  */
 public class UserProfilesImpl implements UserProfiles {
     
