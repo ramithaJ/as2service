@@ -12,13 +12,10 @@
 /**
  * 
  */
-package com.wiley.gr.ace.authorservices.persistence.services.impl;
-
-import com.wiley.gr.ace.authorservices.persistence.services.DashBoardDAO;
+package com.wiley.gr.ace.authorservices.persistence.services;
 
 /**
  * @author yugandhark
  */
-public class DashBoardDAOImpl implements DashBoardDAO {
-    
+public interface DashboardDAO {
 }

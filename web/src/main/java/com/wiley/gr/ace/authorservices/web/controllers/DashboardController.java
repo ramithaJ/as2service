@@ -26,10 +26,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
-import com.wiley.gr.ace.authorservices.model.DashBoard;
+import com.wiley.gr.ace.authorservices.model.Dashboard;
 import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
 import com.wiley.gr.ace.authorservices.model.Service;
-import com.wiley.gr.ace.authorservices.services.service.DashBoardService;
+import com.wiley.gr.ace.authorservices.services.service.DashboardService;
 
 /**
  * @author yugandhark
@@ -37,32 +37,32 @@ import com.wiley.gr.ace.authorservices.services.service.DashBoardService;
  */
 @RestController
 @RequestMapping("/dashboard")
-public class DashBoardController {
+public class DashboardController {
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(DashBoardController.class);
+            .getLogger(DashboardController.class);
     /** The Auto Wired for DashBoard Service . */
     @Autowired(required = true)
-    private DashBoardService dashBoardService;
+    private DashboardService dashboardService;
 
     @RequestMapping(value = "/profilemeter/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Service getProfileMeter(
             @PathVariable("userId") String userId) {
-        LOGGER.info("inside getProfileMeter method of DashBoardController");
+        LOGGER.info("inside getProfileMeter method of DashboardController");
         Service service = new Service();
-        DashBoard dashBoard = null;
+        Dashboard dashboard = null;
 
         try {
-            dashBoard = dashBoardService.getProfileMeter(userId);
-            if (!StringUtils.isEmpty(dashBoard)) {
+            dashboard = dashboardService.getProfileMeter(userId);
+            if (!StringUtils.isEmpty(dashboard)) {
                 service.setStatus("SUCCESS");
-                service.setPayload(dashBoard);
+                service.setPayload(dashboard);
             }
         } catch (Exception e) {
             ErrorPOJO error = new ErrorPOJO();
             error.setCode(-101);
             error.setMessage("Error fetching profile meter");
             service.setStatus("ERROR");
-            service.setPayload(dashBoard);
+            service.setPayload(dashboard);
             service.setError(error);
             throw new ASException("-2", "Error fetching profile meter", e);
         }

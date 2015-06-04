@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  *
  */
 @JsonInclude(Include.NON_NULL)
-public class DashBoardInfo {
+public class DashboardInfo {
 
     /** The id. */
     private String id;

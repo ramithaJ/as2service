@@ -22,8 +22,8 @@ import org.springframework.util.StringUtils;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
-import com.wiley.gr.ace.authorservices.model.DashBoard;
-import com.wiley.gr.ace.authorservices.model.DashBoardInfo;
+import com.wiley.gr.ace.authorservices.model.Dashboard;
+import com.wiley.gr.ace.authorservices.model.DashboardInfo;
 import com.wiley.gr.ace.authorservices.model.Interests;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Society;
@@ -33,15 +33,15 @@ import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 import com.wiley.gr.ace.authorservices.model.external.SecuirtyQuestionDetails;
 import com.wiley.gr.ace.authorservices.model.external.SecurityQuestion;
 import com.wiley.gr.ace.authorservices.model.external.SecurityQuestions;
-import com.wiley.gr.ace.authorservices.services.service.DashBoardService;
+import com.wiley.gr.ace.authorservices.services.service.DashboardService;
 
 /**
  * @author yugandhark
  *
  */
-public class DashBoardServiceImpl implements DashBoardService {
+public class DashboardServiceImpl implements DashboardService {
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(DashBoardServiceImpl.class);
+            .getLogger(DashboardServiceImpl.class);
     @Autowired(required = true)
     private UserProfiles userProfileService;
     @Autowired(required = true)
@@ -52,16 +52,16 @@ public class DashBoardServiceImpl implements DashBoardService {
      *            to get the data from ExternalService
      * @return DashBoard
      */
-    public DashBoard getProfileMeter(String userId) throws NullPointerException {
+    public Dashboard getProfileMeter(String userId) throws NullPointerException {
         LOGGER.info("inside getProfileMeter Method of DashBoardServiceImpl");
-        DashBoard dashBoard = null;
-        List<DashBoardInfo> dashBoardInfoList;
-        UserProfileResponse lookUpProfile = userProfileService
-                .lookUpProfileDashboard(userId);
-        UserProfile userProfile = lookUpProfile.getCustomerProfile();
+        Dashboard dashBoard = null;
+        List<DashboardInfo> dashBoardInfoList;
+        UserProfileResponse userProfileResponse = userProfileService
+                .userProfileResponseDashboard(userId);
+        UserProfile userProfile = userProfileResponse.getCustomerProfile();
         User user = userProfile.getCustomerDetails();
-        dashBoardInfoList = checkingDashBoardInfo(userProfile, user);
-        dashBoard = new DashBoard();
+        dashBoardInfoList = checkingDashboardInfo(userProfile, user);
+        dashBoard = new Dashboard();
         if (null != dashBoardInfoList && dashBoardInfoList.isEmpty()) {
             dashBoard.setProfileMeterMessage("Profile Completed");
             dashBoard.setDashBoardInfo(dashBoardInfoList);
@@ -72,8 +72,8 @@ public class DashBoardServiceImpl implements DashBoardService {
         return dashBoard;
     }
 
-    private DashBoardInfo getSecurityDetailsForUser(String emailId,
-            DashBoardInfo dashBoardInfo) throws NullPointerException {
+    private DashboardInfo getSecurityDetailsForUser(String emailId,
+            DashboardInfo dashboardInfo) throws NullPointerException {
         LOGGER.info("inside getSecurityDetailsForUser Method of DashBoardServiceImpl");
         SecuirtyQuestionDetails secuirtyQuestionDetails = userManagementService
                 .getSecurityQuestionDetails(emailId);
@@ -87,61 +87,61 @@ public class DashBoardServiceImpl implements DashBoardService {
                     if (StringUtils.isEmpty(securityQuestion.getQuestion())
                             || StringUtils
                                     .isEmpty(securityQuestion.getAnswer())) {
-                        dashBoardInfo = new DashBoardInfo();
-                        dashBoardInfo.setId("security");
-                        dashBoardInfo
+                        dashboardInfo = new DashboardInfo();
+                        dashboardInfo.setId("security");
+                        dashboardInfo
                                 .setDashBoardInfoMessage("No Security Details");
                         break;
                     }
                 }
             }
         }
-        return dashBoardInfo;
+        return dashboardInfo;
     }
 
-    private List<DashBoardInfo> checkingDashBoardInfo(UserProfile userProfile,
+    private List<DashboardInfo> checkingDashboardInfo(UserProfile userProfile,
             User user) {
         LOGGER.info("inside checkingDashBoardInfo Method of DashBoardServiceImpl");
-        DashBoardInfo dashBoardInfo = null;
-        List<DashBoardInfo> dashBoardInfoList = new ArrayList<DashBoardInfo>();
-        dashBoardInfo = getSecurityDetailsForUser(user.getPrimaryEmailAddr(),
-                dashBoardInfo);
-        if (null != dashBoardInfo) {
-            dashBoardInfoList.add(dashBoardInfo);
+        DashboardInfo dashboardInfo = null;
+        List<DashboardInfo> dashboardInfoList = new ArrayList<DashboardInfo>();
+        dashboardInfo = getSecurityDetailsForUser(user.getPrimaryEmailAddr(),
+                dashboardInfo);
+        if (null != dashboardInfo) {
+            dashboardInfoList.add(dashboardInfo);
         }
-        dashBoardInfo = getRecoveryEmailAddr(user, dashBoardInfo);
-        if (null != dashBoardInfo) {
-            dashBoardInfoList.add(dashBoardInfo);
+        dashboardInfo = getRecoveryEmailAddr(user, dashboardInfo);
+        if (null != dashboardInfo) {
+            dashboardInfoList.add(dashboardInfo);
         }
-        dashBoardInfo = getOrcidId(user, dashBoardInfo);
-        if (null != dashBoardInfo) {
-            dashBoardInfoList.add(dashBoardInfo);
+        dashboardInfo = getOrcidId(user, dashboardInfo);
+        if (null != dashboardInfo) {
+            dashboardInfoList.add(dashboardInfo);
         }
-        dashBoardInfo = getInterestsForUser(userProfile, dashBoardInfo);
-        if (null != dashBoardInfo) {
-            dashBoardInfoList.add(dashBoardInfo);
+        dashboardInfo = getInterestsForUser(userProfile, dashboardInfo);
+        if (null != dashboardInfo) {
+            dashboardInfoList.add(dashboardInfo);
         }
-        dashBoardInfo = getAffiliationsForUser(userProfile, dashBoardInfo);
-        if (null != dashBoardInfo) {
-            dashBoardInfoList.add(dashBoardInfo);
+        dashboardInfo = getAffiliationsForUser(userProfile, dashboardInfo);
+        if (null != dashboardInfo) {
+            dashboardInfoList.add(dashboardInfo);
         }
-        dashBoardInfo = getSocietiesForUser(userProfile, dashBoardInfo);
-        if (null != dashBoardInfo) {
-            dashBoardInfoList.add(dashBoardInfo);
+        dashboardInfo = getSocietiesForUser(userProfile, dashboardInfo);
+        if (null != dashboardInfo) {
+            dashboardInfoList.add(dashboardInfo);
         }
-        dashBoardInfo = getFundersListForUser(userProfile, dashBoardInfo);
-        if (null != dashBoardInfo) {
-            dashBoardInfoList.add(dashBoardInfo);
+        dashboardInfo = getFundersListForUser(userProfile, dashboardInfo);
+        if (null != dashboardInfo) {
+            dashboardInfoList.add(dashboardInfo);
         }
-        return dashBoardInfoList;
+        return dashboardInfoList;
     }
 
-    private DashBoardInfo getInterestsForUser(UserProfile userProfile,
-            DashBoardInfo dashBoardInfo) {
+    private DashboardInfo getInterestsForUser(UserProfile userProfile,
+            DashboardInfo dashBoardInfo) {
         LOGGER.info("inside getInterestsForUser Method of DashBoardServiceImpl");
         List<Interests> userInterestsList = userProfile.getInterests();
         if (null != userInterestsList && userInterestsList.isEmpty()) {
-            dashBoardInfo = new DashBoardInfo();
+            dashBoardInfo = new DashboardInfo();
             dashBoardInfo.setId("my-interests");
             dashBoardInfo
                     .setDashBoardInfoMessage("No Areas Of Expertizes(Interests) Details");
@@ -149,63 +149,63 @@ public class DashBoardServiceImpl implements DashBoardService {
         return dashBoardInfo;
     }
 
-    private DashBoardInfo getAffiliationsForUser(UserProfile userProfile,
-            DashBoardInfo dashBoardInfo) {
+    private DashboardInfo getAffiliationsForUser(UserProfile userProfile,
+            DashboardInfo dashboardInfo) {
         LOGGER.info("inside getAffiliationsForUser Method of DashBoardServiceImpl");
         List<Affiliation> userAffiliationsList = userProfile.getAffiliations();
         if (null != userAffiliationsList && userAffiliationsList.isEmpty()) {
-            dashBoardInfo = new DashBoardInfo();
-            dashBoardInfo.setId("affiliations");
-            dashBoardInfo.setDashBoardInfoMessage("No Affiliation Details");
+            dashboardInfo = new DashboardInfo();
+            dashboardInfo.setId("affiliations");
+            dashboardInfo.setDashBoardInfoMessage("No Affiliation Details");
         }
-        return dashBoardInfo;
+        return dashboardInfo;
     }
 
-    private DashBoardInfo getSocietiesForUser(UserProfile userProfile,
-            DashBoardInfo dashBoardInfo) {
+    private DashboardInfo getSocietiesForUser(UserProfile userProfile,
+            DashboardInfo dashboardInfo) {
         LOGGER.info("inside getSocietiesForUser Method of DashBoardServiceImpl");
         List<Society> societyList = userProfile.getSocieties();
         if (null != societyList && societyList.isEmpty()) {
-            dashBoardInfo = new DashBoardInfo();
-            dashBoardInfo.setId("societies");
-            dashBoardInfo.setDashBoardInfoMessage("No Society Details");
+            dashboardInfo = new DashboardInfo();
+            dashboardInfo.setId("societies");
+            dashboardInfo.setDashBoardInfoMessage("No Society Details");
         }
-        return dashBoardInfo;
+        return dashboardInfo;
     }
 
-    private DashBoardInfo getFundersListForUser(UserProfile userProfile,
-            DashBoardInfo dashBoardInfo) {
+    private DashboardInfo getFundersListForUser(UserProfile userProfile,
+            DashboardInfo dashboardInfo) {
         LOGGER.info("inside getFundersListForUser Method of DashBoardServiceImpl");
         List<ResearchFunder> researchFundersList = userProfile
                 .getResearchFunders();
         if (null != researchFundersList && researchFundersList.isEmpty()) {
-            dashBoardInfo = new DashBoardInfo();
-            dashBoardInfo.setId("research-funder");
-            dashBoardInfo
+            dashboardInfo = new DashboardInfo();
+            dashboardInfo.setId("research-funder");
+            dashboardInfo
                     .setDashBoardInfoMessage("No Research Funders Details");
         }
-        return dashBoardInfo;
+        return dashboardInfo;
     }
 
-    private DashBoardInfo getRecoveryEmailAddr(User user,
-            DashBoardInfo dashBoardInfo) {
+    private DashboardInfo getRecoveryEmailAddr(User user,
+            DashboardInfo dashboardInfo) {
         LOGGER.info("inside getRecoveryEmailAddr Method of DashBoardServiceImpl");
         if (StringUtils.isEmpty(user.getRecoveryEmailAddress())) {
-            dashBoardInfo = new DashBoardInfo();
-            dashBoardInfo.setId("email");
-            dashBoardInfo
+            dashboardInfo = new DashboardInfo();
+            dashboardInfo.setId("email");
+            dashboardInfo
                     .setDashBoardInfoMessage("No Secondary Email(Recovery Email Addr)");
         }
-        return dashBoardInfo;
+        return dashboardInfo;
     }
 
-    private DashBoardInfo getOrcidId(User user, DashBoardInfo dashBoardInfo) {
+    private DashboardInfo getOrcidId(User user, DashboardInfo dashboardInfo) {
         LOGGER.info("inside getOrcidId Method of DashBoardServiceImpl");
         if (StringUtils.isEmpty(user.getOrcidID())) {
-            dashBoardInfo = new DashBoardInfo();
-            dashBoardInfo.setId("orcid");
-            dashBoardInfo.setDashBoardInfoMessage("No Orcid ID");
+            dashboardInfo = new DashboardInfo();
+            dashboardInfo.setId("orcid");
+            dashboardInfo.setDashBoardInfoMessage("No Orcid ID");
         }
-        return dashBoardInfo;
+        return dashboardInfo;
     }
 }

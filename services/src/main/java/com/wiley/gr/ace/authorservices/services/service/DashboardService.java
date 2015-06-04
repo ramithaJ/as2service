@@ -12,10 +12,22 @@
 /**
  * 
  */
-package com.wiley.gr.ace.authorservices.persistence.services;
+package com.wiley.gr.ace.authorservices.services.service;
+
+
+
+
+import com.wiley.gr.ace.authorservices.model.Dashboard;
+
 
 /**
  * @author yugandhark
+ *
  */
-public interface DashBoardDAO {
+public interface DashboardService {
+/**
+ * @param userId to get the data from DashboardDAO
+ * @return List
+ */
+Dashboard getProfileMeter(String userId) throws NullPointerException;
 }
