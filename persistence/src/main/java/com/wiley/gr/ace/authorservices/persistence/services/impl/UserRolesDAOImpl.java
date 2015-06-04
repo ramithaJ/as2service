@@ -22,6 +22,7 @@ import java.util.Map;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.persistence.entity.Permissions;
@@ -154,22 +155,21 @@ public class UserRolesDAOImpl implements UserRolesDAO {
 		List list = new ArrayList();
 		Session session = getSessionFactory().openSession();
 		try {
-		Query query = session.createSQLQuery(
-				"select * from roles where role_name = :rolename")
-				.setParameter("rolename", roleName);
+			Query query = session.createSQLQuery(
+					"select * from roles where role_name = :rolename")
+					.setParameter("rolename", roleName);
 
-		list = query.list();
-		if ((list==null) || !(list.isEmpty())) {
-			throw new ASException("111",
-					"Role Name Already Exist Please Enter Other Role Name");
-		}
-		}finally{
-			
-			if(session !=null)
-			{
+			list = query.list();
+			if (!StringUtils.isEmpty(list)) {
+				throw new ASException("111",
+						"Role Name Already Exist Please Enter Other Role Name");
+			}
+		} finally {
+
+			if (session != null) {
 				session.flush();
 				session.close();
-				
+
 			}
 		}
 
