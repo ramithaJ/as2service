@@ -16,7 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author sarmakumarap
+ * @author virtusa
+ *	version 1.0
  */
 public class PermissionSection {
     

@@ -31,7 +31,8 @@ import com.wiley.gr.ace.authorservices.services.service.ASDataService;
 /**
  * This controller is used to get common data in dropdown across application
  * 
- * @author SarmaKumarap
+ * @author virtusa
+ *	version 1.0
  */
 @RestController
 @RequestMapping("/asdata")

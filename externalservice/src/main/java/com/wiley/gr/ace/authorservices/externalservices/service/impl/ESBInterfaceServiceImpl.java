@@ -33,7 +33,8 @@ import com.wiley.gr.ace.authorservices.model.external.SearchUserResult;
 import com.wiley.gr.ace.authorservices.model.external.Status;
 
 /**
- * @author Virtusa
+ * @author virtusa
+ *	version 1.0
  */
 public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 

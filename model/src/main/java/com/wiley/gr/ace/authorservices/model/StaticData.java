@@ -14,7 +14,8 @@ package com.wiley.gr.ace.authorservices.model;
 /**
  * This is the generic model for all dropdowns in AS2.0
  * 
- * @author SarmaKumarap
+ * @author virtusa
+ *	version 1.0
  */
 public class StaticData {
     

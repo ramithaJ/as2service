@@ -33,7 +33,8 @@ import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
 
 /**
- * @author Virtusa
+ * @author virtusa
+ *	version 1.0
  */
 @RestController
 @RequestMapping("/registration")

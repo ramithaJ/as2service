@@ -42,7 +42,8 @@ import com.wiley.gr.ace.authorservices.persistence.services.UserRolesDAO;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 
 /**
- * @author Virtusa
+ * @author virtusa
+ *	version 1.0
  */
 public class AdminLoginServiceImpl implements AdminLoginService {
 

@@ -17,7 +17,8 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 /**
  * This is the generic errorVO returned by the service.
  * 
- * @author SarmaKumarap
+ * @author virtusa
+ *	version 1.0
  */
 @JsonInclude(Include.NON_NULL)
 public class ErrorPOJO {

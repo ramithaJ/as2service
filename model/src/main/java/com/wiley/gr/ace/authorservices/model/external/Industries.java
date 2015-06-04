@@ -12,7 +12,8 @@
 package com.wiley.gr.ace.authorservices.model.external;
 
 /**
- * @author Virtusa
+ * @author virtusa
+ *	version 1.0
  *
  */
 public class Industries {

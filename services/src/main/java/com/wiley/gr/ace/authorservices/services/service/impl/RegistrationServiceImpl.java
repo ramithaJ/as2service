@@ -33,7 +33,8 @@ import com.wiley.gr.ace.authorservices.persistence.services.RegistrationServiceD
 import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
 
 /**
- * @author Virtusa
+ * @author virtusa
+ *	version 1.0
  */
 public class RegistrationServiceImpl implements RegistrationService {
 

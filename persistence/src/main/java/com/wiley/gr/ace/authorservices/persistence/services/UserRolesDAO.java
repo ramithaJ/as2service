@@ -18,7 +18,8 @@ import com.wiley.gr.ace.authorservices.persistence.entity.Permissions;
 import com.wiley.gr.ace.authorservices.persistence.entity.Roles;
 
 /**
- * @author sarmakumarap
+ * @author virtusa
+ *	version 1.0
  */
 public interface UserRolesDAO {
     

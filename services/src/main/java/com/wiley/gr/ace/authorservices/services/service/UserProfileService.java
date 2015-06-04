@@ -14,7 +14,8 @@ package com.wiley.gr.ace.authorservices.services.service;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 
 /**
- * @author SarmaKumarap
+ * @author virtusa
+ *	version 1.0
  */
 public interface UserProfileService {
     

@@ -25,7 +25,8 @@ import com.wiley.gr.ace.authorservices.model.Service;
 /**
  * This class serves as a global exception handler for all controller classes
  * 
- * @author SarmaKumarap
+ * @author virtusa
+ *	version 1.0
  */
 @ControllerAdvice
 public class ASExceptionController {

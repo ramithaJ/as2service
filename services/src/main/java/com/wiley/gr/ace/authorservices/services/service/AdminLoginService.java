@@ -16,7 +16,8 @@ import com.wiley.gr.ace.authorservices.model.RolesAndPermissions;
 import com.wiley.gr.ace.authorservices.model.ASRolesAndPermissions;
 
 /**
- * @author Virtusa
+ * @author virtusa
+ *	version 1.0
  */
 public interface AdminLoginService {
     
