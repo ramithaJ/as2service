@@ -87,7 +87,7 @@ public class UserProfilesImpl implements UserProfiles {
     }
     
     @Override
-    public UserProfileResponse lookUpProfileDashboard(String userId) {
+    public UserProfileResponse userProfileResponseDashboard(String userId) {
         
         return (UserProfileResponse) StubInvokerUtil
                 .invokeStub(lookupProfileDashboard, HttpMethod.GET,
