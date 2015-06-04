@@ -15,8 +15,8 @@
 package com.wiley.gr.ace.authorservices.model;
 
 /**
- * @author yugandhark
- *
+ * @author virtusa
+ *version 1.0
  */
 public class DisambiguatedOrganization {
     private String disambiguatedOrganizationIdentifier;
