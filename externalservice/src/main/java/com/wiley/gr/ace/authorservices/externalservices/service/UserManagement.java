@@ -19,7 +19,7 @@ import com.wiley.gr.ace.authorservices.model.external.SecuirtyQuestionDetails;
 import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
 
 /**
- * @author RAVISINHA
+ * @author Virtusa
  */
 public interface UserManagement {
 
