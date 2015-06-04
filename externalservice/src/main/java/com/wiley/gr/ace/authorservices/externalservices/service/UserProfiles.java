@@ -24,7 +24,7 @@ public interface UserProfiles {
 
     UserProfileResponse lookUpProfileDashboard(String userId);
 
-    boolean updateProfile(UserProfileResponse lookUpProfile);
+    boolean updateProfile(UserProfileResponse userProfileResponse);
 
     ESBResponse getAreaOfInterests();
 

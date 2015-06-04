@@ -75,7 +75,7 @@ public class UserProfilesImpl implements UserProfiles {
     }
     
     @Override
-    public boolean updateProfile(UserProfileResponse lookUpProfile) {
+    public boolean updateProfile(UserProfileResponse userProfileResponse) {
         
         Service service = (Service) StubInvokerUtil.invokeStub(updateProfile,
                 HttpMethod.POST, Service.class);
