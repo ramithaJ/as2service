@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class CoAuthor {
     
     private Integer userId;
-    private String authorId;
+    private String coAuthorId;
     
     private String title;
     
@@ -38,15 +38,16 @@ public class CoAuthor {
     
     private String institutionName;
     
-    public String getAuthorId() {
-        return authorId;
-    }
+ 
+    public String getCoAuthorId() {
+		return coAuthorId;
+	}
 
-    public void setAuthorId(String authorId) {
-        this.authorId = authorId;
-    }
+	public void setCoAuthorId(String coAuthorId) {
+		this.coAuthorId = coAuthorId;
+	}
 
-    private String departmentId;
+	private String departmentId;
     
     private String departmentName;
     
