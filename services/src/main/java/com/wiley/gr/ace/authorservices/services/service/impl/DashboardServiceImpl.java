@@ -156,7 +156,8 @@ public class DashboardServiceImpl implements DashboardService {
         LOGGER.info("inside getAffiliationsForUser Method of DashboardServiceImpl");
         List<Affiliation> userAffiliationsList = userProfile.getAffiliations();
         DashboardInfo dashboardInfo = new DashboardInfo();
-        if (!StringUtils.isEmpty(userAffiliationsList) && userAffiliationsList.isEmpty()) {
+        if (!StringUtils.isEmpty(userAffiliationsList)
+                && userAffiliationsList.isEmpty()) {
             dashboardInfo.setId("affiliations");
             dashboardInfo.setDashBoardInfoMessage("No Affiliation Details");
         } else {
@@ -183,7 +184,8 @@ public class DashboardServiceImpl implements DashboardService {
         List<ResearchFunder> researchFundersList = userProfile
                 .getResearchFunders();
         DashboardInfo dashboardInfo = new DashboardInfo();
-        if (!StringUtils.isEmpty(researchFundersList) && researchFundersList.isEmpty()) {
+        if (!StringUtils.isEmpty(researchFundersList)
+                && researchFundersList.isEmpty()) {
             dashboardInfo.setId("research-funder");
             dashboardInfo
                     .setDashBoardInfoMessage("No Research Funders Details");
