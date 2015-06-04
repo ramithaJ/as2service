@@ -11,12 +11,12 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service;
 
-import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
+import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 
 /**
  * @author SarmaKumarap
  */
 public interface UserProfileService {
     
-    LookUpProfile lookUpProfile(String userId);
+    UserProfileResponse userProfileResponse(String userId);
 }

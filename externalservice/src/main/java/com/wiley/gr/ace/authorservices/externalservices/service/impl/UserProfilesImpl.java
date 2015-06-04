@@ -22,7 +22,7 @@ import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
 import com.wiley.gr.ace.authorservices.model.external.Industries;
 import com.wiley.gr.ace.authorservices.model.external.JobCategories;
-import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
+import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 
 /**
  * @author RAVISINHA
@@ -68,14 +68,14 @@ public class UserProfilesImpl implements UserProfiles {
     private static final String STATUSS = "success";
     
     @Override
-    public LookUpProfile lookUpProfile(String userId) {
+    public UserProfileResponse userProfileResponse(String userId) {
         
-        return (LookUpProfile) StubInvokerUtil
-                .invokeStub(userProfile, HttpMethod.GET, LookUpProfile.class);
+        return (UserProfileResponse) StubInvokerUtil
+                .invokeStub(userProfile, HttpMethod.GET, UserProfileResponse.class);
     }
     
     @Override
-    public boolean updateProfile(LookUpProfile lookUpProfile) {
+    public boolean updateProfile(UserProfileResponse lookUpProfile) {
         
         Service service = (Service) StubInvokerUtil.invokeStub(updateProfile,
                 HttpMethod.POST, Service.class);
@@ -87,11 +87,11 @@ public class UserProfilesImpl implements UserProfiles {
     }
     
     @Override
-    public LookUpProfile lookUpProfileDashboard(String userId) {
+    public UserProfileResponse lookUpProfileDashboard(String userId) {
         
-        return (LookUpProfile) StubInvokerUtil
+        return (UserProfileResponse) StubInvokerUtil
                 .invokeStub(lookupProfileDashboard, HttpMethod.GET,
-                        LookUpProfile.class);
+                        UserProfileResponse.class);
     }
     
     @Override

@@ -29,7 +29,7 @@ import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserProfile;
-import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
+import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 import com.wiley.gr.ace.authorservices.model.external.SecuirtyQuestionDetails;
 import com.wiley.gr.ace.authorservices.model.external.SecurityQuestion;
 import com.wiley.gr.ace.authorservices.model.external.SecurityQuestions;
@@ -56,7 +56,7 @@ public class DashBoardServiceImpl implements DashBoardService {
         LOGGER.info("inside getProfileMeter Method of DashBoardServiceImpl");
         DashBoard dashBoard = null;
         List<DashBoardInfo> dashBoardInfoList;
-        LookUpProfile lookUpProfile = userProfileService
+        UserProfileResponse lookUpProfile = userProfileService
                 .lookUpProfileDashboard(userId);
         UserProfile userProfile = lookUpProfile.getCustomerProfile();
         User user = userProfile.getCustomerDetails();

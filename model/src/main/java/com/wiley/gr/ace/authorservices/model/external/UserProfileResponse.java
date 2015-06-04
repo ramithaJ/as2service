@@ -19,7 +19,7 @@ import com.wiley.gr.ace.authorservices.model.UserProfile;
  * @author kpshiva
  */
 @JsonInclude(Include.NON_NULL)
-public class LookUpProfile {
+public class UserProfileResponse {
 
     private UserProfile customerProfile;
 

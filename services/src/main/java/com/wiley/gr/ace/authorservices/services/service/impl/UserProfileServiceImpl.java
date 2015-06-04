@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
-import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
+import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
 
 /**
@@ -28,12 +28,12 @@ public class UserProfileServiceImpl implements UserProfileService {
 			.getLogger(UserProfileServiceImpl.class);
     
     @Autowired(required = true)
-    UserProfiles cdmservices;
+    UserProfiles userProfile;
     
     @Override
-    public LookUpProfile lookUpProfile(String userId) {
+    public UserProfileResponse userProfileResponse(String userId) {
         
-    	LOGGER.info("in lookUpProfile Method");
-        return cdmservices.lookUpProfile(userId);
+    	LOGGER.info("in UserProfileResponse Method");
+        return userProfile.userProfileResponse(userId);
     }
 }
