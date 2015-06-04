@@ -17,7 +17,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
- * @author kpshiva
+ * @author Virtusa
  */
 public class PasswordDetails {
     

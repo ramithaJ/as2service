@@ -22,7 +22,7 @@ import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 
 /**
- * @author kpshiva
+ * @author Virtusa
  */
 public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
     

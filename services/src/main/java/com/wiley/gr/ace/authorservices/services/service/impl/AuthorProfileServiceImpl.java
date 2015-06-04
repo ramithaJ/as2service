@@ -34,7 +34,7 @@ import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 
 /**
- * @author kpshiva
+ * @author Virtusa
  */
 public class AuthorProfileServiceImpl implements AuthorProfileService {
 

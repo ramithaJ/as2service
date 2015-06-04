@@ -13,7 +13,7 @@ package com.wiley.gr.ace.authorservices.persistence.services;
 
 
 /**
- * @author kpshiva
+ * @author Virtusa
  */
 public interface UserLoginServiceDAO {
     

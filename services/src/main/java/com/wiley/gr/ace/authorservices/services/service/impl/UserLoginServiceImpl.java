@@ -26,7 +26,7 @@ import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 
 /**
- * @author kpshiva
+ * @author Virtusa
  */
 public class UserLoginServiceImpl implements UserLoginService {
     

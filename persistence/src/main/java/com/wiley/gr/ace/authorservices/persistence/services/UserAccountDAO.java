@@ -17,7 +17,7 @@ import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 
 /**
- * @author kpshiva
+ * @author Virtusa
  */
 public interface UserAccountDAO {
     

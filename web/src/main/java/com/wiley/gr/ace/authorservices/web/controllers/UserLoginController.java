@@ -33,7 +33,7 @@ import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 
 /**
- * @author kpshiva
+ * @author Virtusa
  */
 @RestController
 @RequestMapping("/user")

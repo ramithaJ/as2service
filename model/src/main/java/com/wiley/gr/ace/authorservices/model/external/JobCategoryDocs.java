@@ -12,7 +12,7 @@
 package com.wiley.gr.ace.authorservices.model.external;
 
 /**
- * @author kpshiva
+ * @author Virtusa
  *
  */
 public class JobCategoryDocs {

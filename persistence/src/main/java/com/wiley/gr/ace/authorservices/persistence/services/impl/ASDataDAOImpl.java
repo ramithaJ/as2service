@@ -29,7 +29,7 @@ import com.wiley.gr.ace.authorservices.persistence.entity.Roles;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
 
 /**
- * @author kpshiva
+ * @author Virtusa
  */
 public class ASDataDAOImpl implements ASDataDAO {
   

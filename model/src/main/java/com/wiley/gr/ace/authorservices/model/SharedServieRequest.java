@@ -12,7 +12,7 @@
 package com.wiley.gr.ace.authorservices.model;
 
 /**
- * @author kpshiva
+ * @author Virtusa
  *
  */
 public class SharedServieRequest {

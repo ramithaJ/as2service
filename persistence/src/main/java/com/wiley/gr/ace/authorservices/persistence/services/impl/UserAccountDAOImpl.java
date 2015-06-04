@@ -28,7 +28,7 @@ import com.wiley.gr.ace.authorservices.persistence.services.UserAccountDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 
 /**
- * @author kpshiva
+ * @author Virtusa
  */
 public class UserAccountDAOImpl implements UserAccountDAO {
     
