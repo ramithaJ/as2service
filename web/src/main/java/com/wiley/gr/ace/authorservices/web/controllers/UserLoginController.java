@@ -58,9 +58,10 @@ public class UserLoginController extends ASExceptionController {
     @RequestMapping(value = "/login/", method = RequestMethod.POST)
     public Service login(@Valid @RequestBody SharedServieRequest sharedServieRequest) {
         
-        Service service = new Service();
-        service.setPayload(userLoginService.login(sharedServieRequest));
-        return service;
+        //Service service = new Service();
+        userLoginService.login(sharedServieRequest);
+        //service.setPayload(userLoginService.login(sharedServieRequest));
+        return new Service();
     }
     
     /**
