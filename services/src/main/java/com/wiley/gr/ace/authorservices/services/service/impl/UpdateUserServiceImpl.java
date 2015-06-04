@@ -87,16 +87,16 @@ public class UpdateUserServiceImpl implements UpdateUserService {
     public boolean updateOrcidId(String emailId, String orcidId, String userId)
             throws Exception {
         boolean result = false;
-        UserProfileResponse lookUpProfile = userProfileService
+        UserProfileResponse userProfileResponse = userProfileService
                 .userProfileResponse(userId);
-        if (null != lookUpProfile) {
-            UserProfile customerProfile = lookUpProfile.getCustomerProfile();
-            User user = customerProfile.getCustomerDetails();
+        if (!StringUtils.isEmpty(userProfileResponse)) {
+            UserProfile userProfile = userProfileResponse.getCustomerProfile();
+            User user = userProfile.getCustomerDetails();
             if (StringUtils.isEmpty(user.getOrcidID())) {
                 user.setOrcidID(orcidId);
-                customerProfile.setCustomerDetails(user);
-                lookUpProfile.setCustomerProfile(customerProfile);
-                result = userProfileService.updateProfile(lookUpProfile);
+                userProfile.setCustomerDetails(user);
+                userProfileResponse .setCustomerProfile(userProfile);
+                result = userProfileService.updateProfile(userProfileResponse);
             }
         }
         return result;

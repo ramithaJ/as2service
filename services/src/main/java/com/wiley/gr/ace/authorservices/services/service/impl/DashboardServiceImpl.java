@@ -80,7 +80,7 @@ public class DashboardServiceImpl implements DashboardService {
                     .getSecurityQuestions();
             List<SecurityQuestion> securityQuestionList = securityQuestions
                     .getSecurityQuestion();
-            if (null != securityQuestionList) {
+            if (!StringUtils.isEmpty(securityQuestionList)) {
                 for (SecurityQuestion securityQuestion : securityQuestionList) {
                     if (StringUtils.isEmpty(securityQuestion.getQuestion())
                             || StringUtils
@@ -92,6 +92,8 @@ public class DashboardServiceImpl implements DashboardService {
                         dashboardInfo
                                 .setDashBoardInfoMessage("No Security Details");
                         break;
+                    } else {
+                        dashboardInfo = null;
                     }
                 }
             }
@@ -106,31 +108,31 @@ public class DashboardServiceImpl implements DashboardService {
         List<DashboardInfo> dashboardInfoList = new ArrayList<DashboardInfo>();
         dashboardInfo = getSecurityDetailsForUser(userProfile
                 .getCustomerDetails().getPrimaryEmailAddr());
-        if (null != dashboardInfo) {
+        if (!StringUtils.isEmpty(dashboardInfo)) {
             dashboardInfoList.add(dashboardInfo);
         }
         dashboardInfo = getRecoveryEmailAddr(userProfile.getCustomerDetails());
-        if (null != dashboardInfo) {
+        if (!StringUtils.isEmpty(dashboardInfo)) {
             dashboardInfoList.add(dashboardInfo);
         }
         dashboardInfo = getOrcidId(userProfile.getCustomerDetails());
-        if (null != dashboardInfo) {
+        if (!StringUtils.isEmpty(dashboardInfo)) {
             dashboardInfoList.add(dashboardInfo);
         }
         dashboardInfo = getInterestsForUser(userProfile);
-        if (null != dashboardInfo) {
+        if (!StringUtils.isEmpty(dashboardInfo)) {
             dashboardInfoList.add(dashboardInfo);
         }
         dashboardInfo = getAffiliationsForUser(userProfile);
-        if (null != dashboardInfo) {
+        if (!StringUtils.isEmpty(dashboardInfo)) {
             dashboardInfoList.add(dashboardInfo);
         }
         dashboardInfo = getSocietiesForUser(userProfile);
-        if (null != dashboardInfo) {
+        if (!StringUtils.isEmpty(dashboardInfo)) {
             dashboardInfoList.add(dashboardInfo);
         }
         dashboardInfo = getFundersListForUser(userProfile);
-        if (null != dashboardInfo) {
+        if (!StringUtils.isEmpty(dashboardInfo)) {
             dashboardInfoList.add(dashboardInfo);
         }
         return dashboardInfoList;
@@ -139,24 +141,27 @@ public class DashboardServiceImpl implements DashboardService {
     private DashboardInfo getInterestsForUser(UserProfile userProfile) {
         LOGGER.info("inside getInterestsForUser Method of DashboardServiceImpl");
         List<Interests> userInterestsList = userProfile.getInterests();
-        DashboardInfo dashBoardInfo = new DashboardInfo();
+        DashboardInfo dashboardInfo = new DashboardInfo();
         if (null != userInterestsList && userInterestsList.isEmpty()) {
-
-            dashBoardInfo.setId("my-interests");
-            dashBoardInfo
+            dashboardInfo.setId("my-interests");
+            dashboardInfo
                     .setDashBoardInfoMessage("No Areas Of Expertizes(Interests) Details");
+        } else {
+            dashboardInfo = null;
         }
-        return dashBoardInfo;
+        return dashboardInfo;
     }
 
     private DashboardInfo getAffiliationsForUser(UserProfile userProfile) {
         LOGGER.info("inside getAffiliationsForUser Method of DashboardServiceImpl");
         List<Affiliation> userAffiliationsList = userProfile.getAffiliations();
         DashboardInfo dashboardInfo = new DashboardInfo();
-        if (null != userAffiliationsList && userAffiliationsList.isEmpty()) {
-
+        if (!StringUtils.isEmpty(userAffiliationsList)
+                && userAffiliationsList.isEmpty()) {
             dashboardInfo.setId("affiliations");
             dashboardInfo.setDashBoardInfoMessage("No Affiliation Details");
+        } else {
+            dashboardInfo = null;
         }
         return dashboardInfo;
     }
@@ -165,10 +170,11 @@ public class DashboardServiceImpl implements DashboardService {
         LOGGER.info("inside getSocietiesForUser Method of DashboardServiceImpl");
         List<Society> societyList = userProfile.getSocieties();
         DashboardInfo dashboardInfo = new DashboardInfo();
-        if (null != societyList && societyList.isEmpty()) {
-
+        if (!StringUtils.isEmpty(societyList) && societyList.isEmpty()) {
             dashboardInfo.setId("societies");
             dashboardInfo.setDashBoardInfoMessage("No Society Details");
+        } else {
+            dashboardInfo = null;
         }
         return dashboardInfo;
     }
@@ -178,11 +184,13 @@ public class DashboardServiceImpl implements DashboardService {
         List<ResearchFunder> researchFundersList = userProfile
                 .getResearchFunders();
         DashboardInfo dashboardInfo = new DashboardInfo();
-        if (null != researchFundersList && researchFundersList.isEmpty()) {
-
+        if (!StringUtils.isEmpty(researchFundersList)
+                && researchFundersList.isEmpty()) {
             dashboardInfo.setId("research-funder");
             dashboardInfo
                     .setDashBoardInfoMessage("No Research Funders Details");
+        } else {
+            dashboardInfo = null;
         }
         return dashboardInfo;
     }
@@ -191,10 +199,11 @@ public class DashboardServiceImpl implements DashboardService {
         LOGGER.info("inside getRecoveryEmailAddr Method of DashboardServiceImpl");
         DashboardInfo dashboardInfo = new DashboardInfo();
         if (StringUtils.isEmpty(user.getRecoveryEmailAddress())) {
-
             dashboardInfo.setId("email");
             dashboardInfo
                     .setDashBoardInfoMessage("No Secondary Email(Recovery Email Addr)");
+        } else {
+            dashboardInfo = null;
         }
         return dashboardInfo;
     }
@@ -203,9 +212,10 @@ public class DashboardServiceImpl implements DashboardService {
         LOGGER.info("inside getOrcidId Method of DashboardServiceImpl");
         DashboardInfo dashboardInfo = new DashboardInfo();
         if (StringUtils.isEmpty(user.getOrcidID())) {
-
             dashboardInfo.setId("orcid");
             dashboardInfo.setDashBoardInfoMessage("No Orcid ID");
+        } else {
+            dashboardInfo = null;
         }
         return dashboardInfo;
     }
