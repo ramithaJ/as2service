@@ -17,7 +17,9 @@ package com.wiley.gr.ace.authorservices.externalservices.service;
 import com.wiley.gr.ace.authorservices.model.orcid.OrcidAccessToken;
 
 /**
- * @author vkumark
+ * @author virtusa
+ *  version 1.0
+ *
  */
 public interface OrcidInterfaceService {
     OrcidAccessToken getAccessToken(String authorizationCode) throws Exception;
