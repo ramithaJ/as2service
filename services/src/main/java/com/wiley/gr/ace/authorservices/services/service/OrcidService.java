@@ -19,7 +19,8 @@ import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.orcid.OrcidAccessToken;
 
 /**
- * @author vkumark
+ * @author virtusa
+ *version 1.0
  */
 public interface OrcidService {
     OrcidAccessToken getAccessToken(String authorizationCode) throws Exception;
