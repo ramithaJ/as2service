@@ -11,6 +11,8 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
+import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
+
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -21,7 +23,6 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
-import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 import com.wiley.gr.ace.authorservices.persistence.services.UserAccountDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
@@ -32,8 +33,6 @@ import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 public class UserAccountDAOImpl implements UserAccountDAO {
     
     @Autowired(required = true)
-    HibernateConnection con;
-    @Autowired(required = true)
     UserLoginServiceDAO userLoginServiceDAO;
     
     @Override
@@ -41,7 +40,7 @@ public class UserAccountDAOImpl implements UserAccountDAO {
         
         Session session = null;
         try {
-            session = con.getSessionFactory().openSession();
+            session =getSessionFactory().openSession();
             Criteria criteria = session.createCriteria(AuthorProfile.class);
             criteria.add(Restrictions.eq("userId", Integer.parseInt(userId)));
             AuthorProfile userProfile = (AuthorProfile) criteria.uniqueResult();
@@ -76,7 +75,7 @@ public class UserAccountDAOImpl implements UserAccountDAO {
         Session session = null;
         Transaction transaction = null;
         try {
-            session = con.getSessionFactory().openSession();
+            session = getSessionFactory().openSession();
             transaction = session.beginTransaction();
             String hql = "UPDATE AuthorProfile set primaryEmailAddr = :primaryEmailAddr, secondaryEmailAddr = :secondaryEmailAddr "
                     + "WHERE userId = :userId";
