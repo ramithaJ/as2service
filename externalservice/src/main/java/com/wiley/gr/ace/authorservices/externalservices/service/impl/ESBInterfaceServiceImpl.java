@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
@@ -159,7 +160,12 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 				profileForCreation, requestHeaders);
 		ResponseEntity<Status> response = restTemplate.exchange(uri,
 				HttpMethod.POST, requestEntity, Status.class);
-		status = response.getBody();
+		HttpStatus httpStatus = response.getStatusCode();
+		if(httpStatus.equals(HttpStatus.OK)) {
+			status.setStatus("SUCCESS");
+		} else {
+			status.setStatus("FAILURE");
+		}
 		return status;
 	}
 
