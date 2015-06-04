@@ -29,7 +29,8 @@ import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.services.service.UpdateUserService;
 
 /**
- * @author vkumark
+ * @author virtusa
+ *version 1.0
  */
 @RestController
 @RequestMapping("/user/update")

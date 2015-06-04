@@ -33,7 +33,8 @@ import com.wiley.gr.ace.authorservices.model.orcid.OrcidAccessToken;
 import com.wiley.gr.ace.authorservices.services.service.OrcidService;
 
 /**
- * @author vkumark
+ * @author virtusa
+ *version 1.0
  */
 @RestController
 @RequestMapping("user/orcid")
