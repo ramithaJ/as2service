@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
 import com.wiley.gr.ace.authorservices.services.service.ASDataService;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
-import com.wiley.gr.ace.authorservices.services.service.DashBoardService;
+import com.wiley.gr.ace.authorservices.services.service.DashboardService;
 import com.wiley.gr.ace.authorservices.services.service.OrcidService;
 import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
 import com.wiley.gr.ace.authorservices.services.service.UpdateUserService;
@@ -27,7 +27,7 @@ import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
 import com.wiley.gr.ace.authorservices.services.service.impl.ASDataServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.AdminLoginServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.AuthorProfileServiceImpl;
-import com.wiley.gr.ace.authorservices.services.service.impl.DashBoardServiceImpl;
+import com.wiley.gr.ace.authorservices.services.service.impl.DashboardServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.OrcidServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.RegistrationServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UpdateUserServiceImpl;
@@ -54,9 +54,9 @@ public class ServiceBeanConfig {
         return new RegistrationServiceImpl();
     }
     
-    @Bean(name = "DashBoardService")
-    public DashBoardService dashBoardService() {
-        return new DashBoardServiceImpl();
+    @Bean(name = "DashboardService")
+    public DashboardService dashboardService() {
+        return new DashboardServiceImpl();
     }
     
     @Bean(name = "UpdateUserService")
