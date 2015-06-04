@@ -80,7 +80,7 @@ public class DashboardServiceImpl implements DashboardService {
                     .getSecurityQuestions();
             List<SecurityQuestion> securityQuestionList = securityQuestions
                     .getSecurityQuestion();
-            if (null != securityQuestionList) {
+            if (!StringUtils.isEmpty(securityQuestionList)) {
                 for (SecurityQuestion securityQuestion : securityQuestionList) {
                     if (StringUtils.isEmpty(securityQuestion.getQuestion())
                             || StringUtils
@@ -108,31 +108,31 @@ public class DashboardServiceImpl implements DashboardService {
         List<DashboardInfo> dashboardInfoList = new ArrayList<DashboardInfo>();
         dashboardInfo = getSecurityDetailsForUser(userProfile
                 .getCustomerDetails().getPrimaryEmailAddr());
-        if (null != dashboardInfo) {
+        if (!StringUtils.isEmpty(dashboardInfo)) {
             dashboardInfoList.add(dashboardInfo);
         }
         dashboardInfo = getRecoveryEmailAddr(userProfile.getCustomerDetails());
-        if (null != dashboardInfo) {
+        if (!StringUtils.isEmpty(dashboardInfo)) {
             dashboardInfoList.add(dashboardInfo);
         }
         dashboardInfo = getOrcidId(userProfile.getCustomerDetails());
-        if (null != dashboardInfo) {
+        if (!StringUtils.isEmpty(dashboardInfo)) {
             dashboardInfoList.add(dashboardInfo);
         }
         dashboardInfo = getInterestsForUser(userProfile);
-        if (null != dashboardInfo) {
+        if (!StringUtils.isEmpty(dashboardInfo)) {
             dashboardInfoList.add(dashboardInfo);
         }
         dashboardInfo = getAffiliationsForUser(userProfile);
-        if (null != dashboardInfo) {
+        if (!StringUtils.isEmpty(dashboardInfo)) {
             dashboardInfoList.add(dashboardInfo);
         }
         dashboardInfo = getSocietiesForUser(userProfile);
-        if (null != dashboardInfo) {
+        if (!StringUtils.isEmpty(dashboardInfo)) {
             dashboardInfoList.add(dashboardInfo);
         }
         dashboardInfo = getFundersListForUser(userProfile);
-        if (null != dashboardInfo) {
+        if (!StringUtils.isEmpty(dashboardInfo)) {
             dashboardInfoList.add(dashboardInfo);
         }
         return dashboardInfoList;
@@ -156,7 +156,7 @@ public class DashboardServiceImpl implements DashboardService {
         LOGGER.info("inside getAffiliationsForUser Method of DashboardServiceImpl");
         List<Affiliation> userAffiliationsList = userProfile.getAffiliations();
         DashboardInfo dashboardInfo = new DashboardInfo();
-        if (null != userAffiliationsList && userAffiliationsList.isEmpty()) {
+        if (!StringUtils.isEmpty(userAffiliationsList) && userAffiliationsList.isEmpty()) {
             dashboardInfo.setId("affiliations");
             dashboardInfo.setDashBoardInfoMessage("No Affiliation Details");
         } else {
@@ -169,7 +169,7 @@ public class DashboardServiceImpl implements DashboardService {
         LOGGER.info("inside getSocietiesForUser Method of DashboardServiceImpl");
         List<Society> societyList = userProfile.getSocieties();
         DashboardInfo dashboardInfo = new DashboardInfo();
-        if (null != societyList && societyList.isEmpty()) {
+        if (!StringUtils.isEmpty(societyList) && societyList.isEmpty()) {
             dashboardInfo.setId("societies");
             dashboardInfo.setDashBoardInfoMessage("No Society Details");
         } else {
@@ -183,7 +183,7 @@ public class DashboardServiceImpl implements DashboardService {
         List<ResearchFunder> researchFundersList = userProfile
                 .getResearchFunders();
         DashboardInfo dashboardInfo = new DashboardInfo();
-        if (null != researchFundersList && researchFundersList.isEmpty()) {
+        if (!StringUtils.isEmpty(researchFundersList) && researchFundersList.isEmpty()) {
             dashboardInfo.setId("research-funder");
             dashboardInfo
                     .setDashBoardInfoMessage("No Research Funders Details");
