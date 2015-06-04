@@ -21,7 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.wiley.gr.ace.authorservices.model.User;
-import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
+import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.UpdateUserDAO;
 
@@ -47,7 +47,7 @@ public class UpdateUserDAOImpl implements UpdateUserDAO {
         /**
          * Create hibernate session
          */
-        Session session = HibernateConnection.getSessionFactory().openSession();
+        Session session =getSessionFactory().openSession();
         Transaction getTxn = null;
         Transaction updateTxn = null;
         try {
@@ -93,7 +93,7 @@ public class UpdateUserDAOImpl implements UpdateUserDAO {
         /**
          * Create hibernate session
          */
-        Session session = HibernateConnection.getSessionFactory().openSession();
+        Session session =getSessionFactory().openSession();
         Transaction txn = session.beginTransaction();
         try {
             /**

@@ -17,7 +17,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
-import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
+import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 
@@ -45,7 +45,7 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
         try {
             
             int userId = getUserId(emailId);
-            session = HibernateConnection.getSessionFactory().openSession();
+            session = getSessionFactory().openSession();
             Users users = (Users) session.load(Users.class, userId);
             if (null == users) {
                 return false;
@@ -70,7 +70,7 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
         
         Session session = null;
         try {
-            session = HibernateConnection.getSessionFactory().openSession();
+            session = getSessionFactory().openSession();
             Criteria criteria = session.createCriteria(Users.class);
             criteria.add(Restrictions.eq("primaryEmailAddr", emailId));
             Users user = (Users) criteria.uniqueResult();
