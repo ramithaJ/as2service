@@ -23,7 +23,7 @@ import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserProfile;
-import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
+import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 import com.wiley.gr.ace.authorservices.persistence.services.UpdateUserDAO;
 import com.wiley.gr.ace.authorservices.services.service.UpdateUserService;
 
@@ -84,7 +84,7 @@ public class UpdateUserServiceImpl implements UpdateUserService {
     public boolean updateOrcidId(String emailId, String orcidId, String userId)
             throws Exception {
         boolean result = false;
-        LookUpProfile lookUpProfile = cdmInterfaceService
+        UserProfileResponse lookUpProfile = cdmInterfaceService
                 .lookUpProfileDashboard(emailId);
         if (null != lookUpProfile) {
             UserProfile customerProfile = lookUpProfile.getCustomerProfile();

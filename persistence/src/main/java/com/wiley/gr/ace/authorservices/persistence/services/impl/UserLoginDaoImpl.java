@@ -20,13 +20,14 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
-import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
+import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
 import com.wiley.gr.ace.authorservices.persistence.entity.AdminDetails;
 import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserRoles;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserRolesId;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
+
 
 /**
  * @author RAVISINHA
@@ -38,7 +39,7 @@ public class UserLoginDaoImpl implements UserLoginDao {
     public boolean validateEmail(String emailId) {
         boolean status = false;
         int userId = getUserId(emailId);
-        Session session = HibernateConnection.getSessionFactory().openSession();
+        Session session = getSessionFactory().openSession();
         Transaction txn = session.getTransaction();
         try
         {
@@ -68,7 +69,7 @@ public class UserLoginDaoImpl implements UserLoginDao {
     
     @Override
     public boolean doLogin(String emailId) {
-        Session session = HibernateConnection.getSessionFactory().openSession();
+        Session session = getSessionFactory().openSession();
         
         AuthorProfile authorProfile = null;
         
@@ -113,7 +114,7 @@ public class UserLoginDaoImpl implements UserLoginDao {
      */
     private int getUserId(String emailId) {
         
-        Session session = HibernateConnection.getSessionFactory().openSession();
+        Session session = getSessionFactory().openSession();
         Users user = null;
         int userId = 0;
         try {
@@ -151,7 +152,7 @@ public class UserLoginDaoImpl implements UserLoginDao {
                 throw new ASException("1020","User already exists.");
             } else {
             
-                session = HibernateConnection.getSessionFactory().openSession();
+                session = getSessionFactory().openSession();
                 Transaction txn = session.getTransaction();
                 txn.begin();
                 session.save(users);

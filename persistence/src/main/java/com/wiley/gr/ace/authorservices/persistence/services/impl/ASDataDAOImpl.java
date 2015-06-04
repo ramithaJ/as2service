@@ -11,17 +11,16 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
+import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.entity.LookupValues;
 import com.wiley.gr.ace.authorservices.persistence.entity.Permissions;
 import com.wiley.gr.ace.authorservices.persistence.entity.RolePermissions;
@@ -33,23 +32,18 @@ import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
  * @author kpshiva
  */
 public class ASDataDAOImpl implements ASDataDAO {
-    
-    @Autowired(required = true)
-    HibernateConnection con;
+  
     
     @Override
     public List<LookupValues> getDropDown(String keyName) {
         
         Session session = null;
-        Transaction transaction = null;
         List<LookupValues> lookupList = null;
         try {
-            session = con.getSessionFactory().openSession();
-            transaction = session.beginTransaction();
+            session = getSessionFactory().openSession();
             Criteria criteria = session.createCriteria(LookupValues.class);
             criteria.add(Restrictions.eq("lookupKey", keyName));
             lookupList = criteria.list();
-            transaction.commit();
             return lookupList;
         } finally {
             if (session != null) {
@@ -74,7 +68,7 @@ public class ASDataDAOImpl implements ASDataDAO {
         
         try {
             
-            session = con.getSessionFactory().openSession();
+            session = getSessionFactory().openSession();
             
             if (roleId == null) {
                 
@@ -106,7 +100,7 @@ public class ASDataDAOImpl implements ASDataDAO {
         
         try {
             
-            session = con.getSessionFactory().openSession();
+            session =getSessionFactory().openSession();
             
             if (roleType == null) {
                 
@@ -142,7 +136,7 @@ public class ASDataDAOImpl implements ASDataDAO {
         
         try {
             
-            session = con.getSessionFactory().openSession();
+            session =getSessionFactory().openSession();
             
             String hql = "from Permissions";
             
@@ -172,7 +166,7 @@ public class ASDataDAOImpl implements ASDataDAO {
         
         try {
             
-            session = con.getSessionFactory().openSession();
+            session = getSessionFactory().openSession();
             
             if (roleId == null) {
                 

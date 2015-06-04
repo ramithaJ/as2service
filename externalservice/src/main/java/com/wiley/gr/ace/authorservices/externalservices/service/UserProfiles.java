@@ -16,15 +16,15 @@ import com.wiley.gr.ace.authorservices.model.DropDown;
 import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
 import com.wiley.gr.ace.authorservices.model.external.Industries;
 import com.wiley.gr.ace.authorservices.model.external.JobCategories;
-import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
+import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 
 public interface UserProfiles {
 
-    LookUpProfile lookUpProfile(String userId);
+    UserProfileResponse userProfileResponse(String userId);
 
-    LookUpProfile lookUpProfileDashboard(String userId);
+    UserProfileResponse lookUpProfileDashboard(String userId);
 
-    boolean updateProfile(LookUpProfile lookUpProfile);
+    boolean updateProfile(UserProfileResponse userProfileResponse);
 
     ESBResponse getAreaOfInterests();
 

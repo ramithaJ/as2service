@@ -12,6 +12,8 @@
 
 package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
+import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,9 +22,7 @@ import java.util.Map;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.entity.Permissions;
 import com.wiley.gr.ace.authorservices.persistence.entity.RolePermissions;
 import com.wiley.gr.ace.authorservices.persistence.entity.RolePermissionsId;
@@ -34,8 +34,7 @@ import com.wiley.gr.ace.authorservices.persistence.services.UserRolesDAO;
  */
 public class UserRolesDAOImpl implements UserRolesDAO {
     
-    @Autowired(required = true)
-    HibernateConnection con;
+
     
     /*
      * (non-Javadoc)
@@ -54,7 +53,7 @@ public class UserRolesDAOImpl implements UserRolesDAO {
         List<RolePermissions> daoPermissionsList = new ArrayList<RolePermissions>();
         
         try {
-            session = con.getSessionFactory().openSession();
+            session =getSessionFactory().openSession();
             transaction = session.beginTransaction();
             
             if(roles.getRoleId() != null && roles.getRoleId() != 0) {

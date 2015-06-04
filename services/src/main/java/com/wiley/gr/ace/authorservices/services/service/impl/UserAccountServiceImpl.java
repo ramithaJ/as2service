@@ -21,7 +21,7 @@ import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.Addresses;
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.User;
-import com.wiley.gr.ace.authorservices.model.external.LookUpProfile;
+import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 import com.wiley.gr.ace.authorservices.persistence.services.UserAccountDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
@@ -39,14 +39,14 @@ public class UserAccountServiceImpl implements UserAccountService {
 	@Autowired(required = true)
 	UserLoginServiceDAO userLoginServiceDAO;
 	@Autowired
-	UserProfiles cdmservices;
+	UserProfiles userProfile;
 
 	@Override
 	public User getEmailDetails(String userId) {
 
 		LOGGER.info("inside getEmailDetails Method");
 
-		LookUpProfile lookupProfile = cdmservices.lookUpProfile(userId);
+		UserProfileResponse lookupProfile = userProfile.userProfileResponse(userId);
 		User user = new User();
 		user.setPrimaryEmailAddr(lookupProfile.getCustomerProfile()
 				.getCustomerDetails().getPrimaryEmailAddr());
@@ -73,7 +73,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 	public User getProfileInformation(String userId) {
 
 		LOGGER.info("inside getProfileInformation Method");
-		LookUpProfile lookupProfile = cdmservices.lookUpProfile(userId);
+		UserProfileResponse lookupProfile = userProfile.userProfileResponse(userId);
 		return lookupProfile.getCustomerProfile().getCustomerDetails();
 	}
 
@@ -81,7 +81,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 	public List<Addresses> getUserAddress(String userId) {
 
 		LOGGER.info("inside getUserAddress Method");
-		LookUpProfile lookupProfile = cdmservices.lookUpProfile(userId);
+		UserProfileResponse lookupProfile = userProfile.userProfileResponse(userId);
 		return lookupProfile.getCustomerProfile().getAddressDetails();
 	}
 
