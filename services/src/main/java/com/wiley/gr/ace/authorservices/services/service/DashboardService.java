@@ -29,5 +29,5 @@ public interface DashboardService {
  * @param userId to get the data from DashboardDAO
  * @return List
  */
-Dashboard getProfileMeter(String userId) throws NullPointerException;
+Dashboard getProfileMeter(String userId) throws Exception;
 }

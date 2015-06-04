@@ -52,12 +52,12 @@ public class DashboardServiceImpl implements DashboardService {
      *            to get the data from ExternalService
      * @return DashBoard
      */
-    public Dashboard getProfileMeter(String userId) throws NullPointerException {
+    public Dashboard getProfileMeter(String userId) throws Exception {
         LOGGER.info("inside getProfileMeter Method of DashBoardServiceImpl");
         Dashboard dashBoard = null;
         List<DashboardInfo> dashBoardInfoList;
         UserProfileResponse userProfileResponse = userProfileService
-                .userProfileResponseDashboard(userId);
+                .userProfileResponse(userId);
         UserProfile userProfile = userProfileResponse.getCustomerProfile();
         User user = userProfile.getCustomerDetails();
         dashBoardInfoList = checkingDashboardInfo(userProfile, user);

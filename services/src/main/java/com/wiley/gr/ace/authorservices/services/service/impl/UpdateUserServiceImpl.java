@@ -38,7 +38,7 @@ public class UpdateUserServiceImpl implements UpdateUserService {
     @Autowired(required = true)
     ESBInterfaceService esbInterfaceService;
     @Autowired
-    UserProfiles cdmInterfaceService;
+    UserProfiles userProfileService;
     @Autowired(required = true)
     UpdateUserDAO userDao;
     
@@ -84,8 +84,7 @@ public class UpdateUserServiceImpl implements UpdateUserService {
     public boolean updateOrcidId(String emailId, String orcidId, String userId)
             throws Exception {
         boolean result = false;
-        UserProfileResponse lookUpProfile = cdmInterfaceService
-                .lookUpProfileDashboard(emailId);
+        UserProfileResponse lookUpProfile = userProfileService.userProfileResponse(userId);
         if (null != lookUpProfile) {
             UserProfile customerProfile = lookUpProfile.getCustomerProfile();
             User user = customerProfile.getCustomerDetails();
@@ -93,7 +92,7 @@ public class UpdateUserServiceImpl implements UpdateUserService {
                 user.setOrcidID(orcidId);
                 customerProfile.setCustomerDetails(user);
                 lookUpProfile.setCustomerProfile(customerProfile);
-                result = cdmInterfaceService.updateProfile(lookUpProfile);
+                result = userProfileService.updateProfile(lookUpProfile);
             }
         }
         return result;
