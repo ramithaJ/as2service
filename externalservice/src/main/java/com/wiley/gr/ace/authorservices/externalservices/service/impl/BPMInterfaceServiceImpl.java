@@ -14,7 +14,7 @@ package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 import com.wiley.gr.ace.authorservices.externalservices.service.BPMInterfaceService;
 
 /**
- * @author ‘Virtusa’ 
+ * @author Virtusa
  */
 public class BPMInterfaceServiceImpl implements BPMInterfaceService {
     

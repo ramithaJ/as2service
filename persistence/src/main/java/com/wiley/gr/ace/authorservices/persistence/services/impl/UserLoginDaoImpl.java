@@ -30,7 +30,7 @@ import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
 
 
 /**
- * @author ‘Virtusa’ 
+ * @author Virtusa
  */
 public class UserLoginDaoImpl implements UserLoginDao {
     

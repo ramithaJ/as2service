@@ -12,7 +12,7 @@
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
 /**
- * @author ‘Virtusa’ 
+ * @author Virtusa
  */
 public interface BPMInterfaceService {
     
