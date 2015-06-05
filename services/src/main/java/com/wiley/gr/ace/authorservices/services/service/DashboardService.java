@@ -14,19 +14,16 @@
  */
 package com.wiley.gr.ace.authorservices.services.service;
 
-
-
-
 import com.wiley.gr.ace.authorservices.model.Dashboard;
 
 /**
- * @author virtusa
- *version 1.0
+ * @author virtusa version 1.0
  */
 public interface DashboardService {
-/**
- * @param userId to get the data from DashboardDAO
- * @return List
- */
-Dashboard getProfileMeter(String userId) throws Exception;
+    /**
+     * @param userId
+     *            to get the data from DashboardDAO
+     * @return List
+     */
+    Dashboard getProfileMeter(String userId) throws Exception;
 }

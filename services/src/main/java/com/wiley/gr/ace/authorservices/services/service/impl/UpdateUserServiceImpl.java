@@ -28,8 +28,7 @@ import com.wiley.gr.ace.authorservices.persistence.services.UpdateUserDAO;
 import com.wiley.gr.ace.authorservices.services.service.UpdateUserService;
 
 /**
- * @author virtusa
- *version 1.0
+ * @author virtusa version 1.0
  */
 public class UpdateUserServiceImpl implements UpdateUserService {
 
@@ -95,7 +94,7 @@ public class UpdateUserServiceImpl implements UpdateUserService {
             if (StringUtils.isEmpty(user.getOrcidID())) {
                 user.setOrcidID(orcidId);
                 userProfile.setCustomerDetails(user);
-                userProfileResponse .setCustomerProfile(userProfile);
+                userProfileResponse.setCustomerProfile(userProfile);
                 result = userProfileService.updateProfile(userProfileResponse);
             }
         }

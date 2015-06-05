@@ -36,8 +36,7 @@ import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 import com.wiley.gr.ace.authorservices.services.service.DashboardService;
 
 /**
- * @author virtusa
- *version 1.0
+ * @author virtusa version 1.0
  */
 public class DashboardServiceImpl implements DashboardService {
     private static final Logger LOGGER = LoggerFactory

@@ -17,8 +17,7 @@ package com.wiley.gr.ace.authorservices.services.service;
 import com.wiley.gr.ace.authorservices.model.User;
 
 /**
- * @author virtusa
- *version 1.0
+ * @author virtusa version 1.0
  */
 public interface UpdateUserService {
 
