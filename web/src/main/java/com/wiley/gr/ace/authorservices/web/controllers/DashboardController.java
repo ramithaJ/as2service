@@ -41,6 +41,15 @@ public class DashboardController {
     @Autowired(required = true)
     private DashboardService dashboardService;
 
+    /**
+     * getProfileMeter(.) method is used for getting the Missed Profile
+     * Information of User by using userId and returning the Service.In that
+     * Service Every Missed Information it will show.If these method not getting
+     * any data from Service it will throw an Error.
+     * 
+     * @param userId
+     * @return service
+     */
     @RequestMapping(value = "/profilemeter/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Service getProfileMeter(
             @PathVariable("userId") String userId) {
