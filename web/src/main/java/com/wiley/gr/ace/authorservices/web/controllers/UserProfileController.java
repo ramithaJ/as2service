@@ -11,9 +11,6 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.web.controllers;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -28,10 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.model.Affiliation;
-import com.wiley.gr.ace.authorservices.model.Alert;
-import com.wiley.gr.ace.authorservices.model.Alerts;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
-import com.wiley.gr.ace.authorservices.model.EmailDetails;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.Society;
@@ -225,23 +219,9 @@ public class UserProfileController {
          
 		LOGGER.info("inside getListOfAlerts method ");
 		Service service = new Service();
-//		Alerts alerts = new Alerts();
-//		List<Alert> alertsList = new ArrayList<Alert>();
-//		EmailDetails emailDetails = new EmailDetails();
-//		Alert alert = new Alert();
-//		alert.setAlertId("123");
-//		alert.setAlertName("Test");
-//		alert.setEmail(true);
-//		alert.setOnScreen(false);
-//		alertsList.add(alert);
-//		List<String> emailsList = new ArrayList<String>();
-//		emailsList.add("test@gmail.com");
-//		emailDetails.setEmailsList(emailsList);
-//		alerts.setAlerts(alertsList);
-//		alerts.setEmailDetails(emailDetails);
+
 		service.setPayload(userProfileService.userProfileResponse(userId)
 				.getCustomerProfile().getAlerts());
-		//service.setPayload(alerts);
 		return service;
 	}
 
