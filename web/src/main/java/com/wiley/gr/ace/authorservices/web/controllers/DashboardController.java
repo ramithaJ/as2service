@@ -24,8 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.Dashboard;
 import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
 import com.wiley.gr.ace.authorservices.model.Service;
@@ -57,13 +55,12 @@ public class DashboardController {
                 service.setPayload(dashboard);
             }
         } catch (Exception e) {
+            LOGGER.error("Print Stack Trace- ", e);
             ErrorPOJO error = new ErrorPOJO();
-            error.setCode(-101);
-            error.setMessage("Error fetching profile meter");
+            error.setCode(204);
+            error.setMessage("Error Fetching Profile Meter");
             service.setStatus("ERROR");
-            service.setPayload(dashboard);
             service.setError(error);
-            throw new ASException("-2", "Error fetching profile meter", e);
         }
         return service;
 
