@@ -126,6 +126,7 @@ public class AdminLoginController extends ASExceptionController {
 	public Service findUser(@PathVariable("emailId") String emailId) {
 		LOGGER.info("Inside Get findUser");
 		Service service = new Service();
+		// check if user exists, if yes return that data
 		service.setPayload(adminLoginService.findUser(emailId));
 		return service;
 

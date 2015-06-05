@@ -44,4 +44,5 @@ public interface UserLoginDao {
      */
     void createAdminUser(Users users, List<UserRoles> userRolesList);
     
+    Users getUserDetails(String emailId);
 }

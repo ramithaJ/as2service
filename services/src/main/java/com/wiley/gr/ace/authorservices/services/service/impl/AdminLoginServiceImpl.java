@@ -19,6 +19,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
@@ -55,7 +56,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 	@Autowired(required = true)
 	UserLoginServiceDAO userLoginServiceDAO;
 	@Autowired(required = true)
-	UserManagement almService;
+	UserManagement userManagement;
 	@Autowired(required = true)
 	BPMInterfaceService bpmService;
 	@Autowired(required = true)
@@ -276,7 +277,20 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 	@Override
 	public AdminUser findUser(String emailId) {
 		LOGGER.info("inside findUser Method");
-		return almService.findUser(emailId);
+		AdminUser adminUser = new AdminUser();
+		  
+		 Users user=userlogindao.getUserDetails(emailId);
+		
+		
+		if(! StringUtils.isEmpty(user))
+		{
+			adminUser.setFirstName(user.getFirstName()); 
+			adminUser.setLastName(user.getLastName());
+		}else{
+			
+	     userManagement.findUser(emailId);
+		}
+		return adminUser;
 	}
 
 	@Override

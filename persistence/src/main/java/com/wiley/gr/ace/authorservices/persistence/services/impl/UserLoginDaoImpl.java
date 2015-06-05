@@ -20,7 +20,9 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
+
 import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
+
 import com.wiley.gr.ace.authorservices.persistence.entity.AdminDetails;
 import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserRoles;
@@ -194,7 +196,33 @@ public class UserLoginDaoImpl implements UserLoginDao {
             }
         }
     }
-    
+
+
+    @Override
+	public Users getUserDetails(String emailId) {
+		
+		
+    	  Session session = getSessionFactory().openSession();
+          Users user = null;
+          try {
+          	String hql = "from Users where primaryEmailAddr = :emailId";
+              List<Users> result = session.createQuery(hql)
+                      .setString("emailId", emailId).list();
+              if (result != null && !result.isEmpty()) {
+              user=result.get(0);
+              }
+  			
+  		} finally{
+  			
+  			if(session !=null)
+          		session.flush();
+          	session.close();
+  		}
+          
+          return user;
+    }
+
+   
     /**
      * @return
      */
@@ -221,5 +249,7 @@ public class UserLoginDaoImpl implements UserLoginDao {
         
         return roleId;
     }*/
-    
+		
+	
 }
+  
