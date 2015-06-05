@@ -92,7 +92,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
 		LOGGER.info("inside updateAlerts Method ");
 
-		userProfile.setAlerts(userProfileAlerts.getAlertslist());
+		userProfile.setAlerts(userProfileAlerts.getAlerts());
 		lookUpProfile.setCustomerProfile(userProfile);
 		return cdmservices.updateProfile(lookUpProfile);
 	}

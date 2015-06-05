@@ -12,29 +12,28 @@
 
 package com.wiley.gr.ace.authorservices.model;
 
+import java.util.List;
 
 /**
  * @author virtusa
  *
  */
-public class UserProfileAlerts {
+public class EmailDetails {
 	
-	private Alerts alerts;
+	private List<String> emailsList;
 
 	/**
 	 * @return
 	 */
-	public Alerts getAlerts() {
-		return alerts;
+	public List<String> getEmailsList() {
+		return emailsList;
 	}
 
 	/**
-	 * @param alerts
+	 * @param emailsList
 	 */
-	public void setAlerts(Alerts alerts) {
-		this.alerts = alerts;
+	public void setEmailsList(List<String> emailsList) {
+		this.emailsList = emailsList;
 	}
-
-	
 
 }
