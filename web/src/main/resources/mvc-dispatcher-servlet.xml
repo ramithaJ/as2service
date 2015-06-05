@@ -23,7 +23,7 @@
 	<context:component-scan base-package="com.wiley.gr.ace.authorservices.*" />
 
 	<context:property-placeholder
-	location="classpath:mockurls.properties,classpath:orcid.properties,classpath:userManagement.properties,classpath:exception.properties"
+	location="classpath:mockurls.properties,classpath:orcid.properties,classpath:userManagement.properties,classpath:exception.properties,classpath:persistence.exception.properties"
 	ignore-unresolvable="true" />
 	
 	<mvc:annotation-driven />

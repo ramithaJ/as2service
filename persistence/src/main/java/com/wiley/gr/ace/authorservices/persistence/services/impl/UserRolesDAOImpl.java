@@ -22,7 +22,7 @@ import java.util.Map;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.springframework.util.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.persistence.entity.Permissions;
@@ -44,6 +44,10 @@ public class UserRolesDAOImpl implements UserRolesDAO {
 	 * (com.wiley.gr.ace.authorservices.persistence.entity.UserRoles,
 	 * java.util.List)
 	 */
+	@Value("${UserRolesDAOImpl.checkRoleName.errorcode}")
+	private String errorcode;
+	@Value("${UserRolesDAOImpl.checkRoleName.errormessage}")
+	private String errormessage;
 	@Override
 	public void addOrUpdateUserRoles(Roles roles,
 			List<Permissions> permissionsList) {
@@ -160,9 +164,10 @@ public class UserRolesDAOImpl implements UserRolesDAO {
 					.setParameter("rolename", roleName);
 
 			list = query.list();
-			if (!StringUtils.isEmpty(list)) {
-				throw new ASException("111",
-						"Role Name Already Exist Please Enter Other Role Name");
+		
+			if (!(list.isEmpty())||list==null) {
+				throw new ASException(errorcode,
+						errormessage);
 			}
 		} finally {
 
