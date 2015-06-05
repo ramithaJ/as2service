@@ -26,14 +26,14 @@ import com.wiley.gr.ace.authorservices.externalservices.service.OrcidInterfaceSe
 import com.wiley.gr.ace.authorservices.model.orcid.OrcidAccessToken;
 
 /**
- * @author virtusa
- *  version 1.0
+ * @author virtusa version 1.0
  *
  */
 public class OrcidInterfaceServiceImpl implements OrcidInterfaceService {
-    
+
     /*
      * (non-Javadoc)
+     * 
      * @see com.wiley.gr.ace.authorservices.externalservices.service.
      * OrcidInterfaceService#getAccessToken(java.lang.String)
      */
@@ -60,29 +60,30 @@ public class OrcidInterfaceServiceImpl implements OrcidInterfaceService {
          * Need to change this to UI redirect URI
          */
         form.add("redirect_uri", "http://www.vinay.com:8080/orcid/index.jsp");
-        
+
         client.getContext().getParameters().add("followRedirects", "true");
         System.out.println("form.toString() ##### " + form.toString());
         System.out.println("client.toString() ##### " + client.toString());
-        
+
         Representation rep = client.post(form, MediaType.APPLICATION_JSON);
         String json = rep.getText();
         System.out.println("json ##### " + json);
         ObjectMapper objectMapper = new ObjectMapper();
         accessToken = objectMapper.readValue(json, OrcidAccessToken.class);
         return accessToken;
-        
+
     }
-    
+
     /*
      * (non-Javadoc)
+     * 
      * @see com.wiley.gr.ace.authorservices.externalservices.service.
      * OrcidInterfaceService
      * #getBio(com.wiley.gr.ace.authorservices.model.orcid.OrcidAccessToken)
      */
     @Override
     public String getBio(OrcidAccessToken token) throws Exception {
-        
+
         Reference ref = new Reference("http://sandbox.orcid.org" + "/"
                 + token.getOrcid() + "/orcid-bio");
         ClientResource client = new ClientResource(ref);
@@ -99,9 +100,10 @@ public class OrcidInterfaceServiceImpl implements OrcidInterfaceService {
         System.out.println("json ##### " + orcidMessageJSON);
         return orcidMessageJSON;
     }
+
     @Override
     public String getWork(OrcidAccessToken token) throws Exception {
-        
+
         Reference ref = new Reference("http://sandbox.orcid.org" + "/"
                 + token.getOrcid() + "/orcid-works");
         ClientResource client = new ClientResource(ref);

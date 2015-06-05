@@ -17,14 +17,13 @@ package com.wiley.gr.ace.authorservices.externalservices.service;
 import com.wiley.gr.ace.authorservices.model.orcid.OrcidAccessToken;
 
 /**
- * @author virtusa
- *  version 1.0
+ * @author virtusa version 1.0
  *
  */
 public interface OrcidInterfaceService {
     OrcidAccessToken getAccessToken(String authorizationCode) throws Exception;
-    
+
     String getBio(OrcidAccessToken accessToken) throws Exception;
-    
+
     String getWork(OrcidAccessToken token) throws Exception;
 }
