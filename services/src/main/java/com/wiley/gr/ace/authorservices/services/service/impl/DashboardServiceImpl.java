@@ -47,8 +47,15 @@ public class DashboardServiceImpl implements DashboardService {
     private UserManagement userManagementService;
 
     /**
+     * getProfileMeter(.) method is used for get the Profile Information of User
+     * say like Security Questions, Affiliations, SocietyList,
+     * FundersList,Interests from external service called UserProfileService by
+     * using userId and returning the Dashboard. In this Dashboard Every Missed
+     * Information is set with id and profileMeterMessage of DashboardInfo.If
+     * these method not getting any data from External Service it will throws an
+     * Exception.
+     * 
      * @param userId
-     *            to get the data from ExternalService
      * @return DashBoard
      */
     public Dashboard getProfileMeter(String userId) throws Exception {
@@ -68,6 +75,16 @@ public class DashboardServiceImpl implements DashboardService {
         return dashBoard;
     }
 
+    /**
+     * This getSecurityDetailsForUser(String emailId) method will call the
+     * External Service to get Security Details of user by passing emailId.If
+     * Security Questions are empty then set to the DashboardInfo otherwise not
+     * set.
+     * 
+     * @param emailId
+     * @return DashboardInfo
+     * @throws Exception
+     */
     private DashboardInfo getSecurityDetailsForUser(String emailId)
             throws Exception {
         LOGGER.info("inside getSecurityDetailsForUser Method of DashboardServiceImpl");
