@@ -34,7 +34,8 @@ import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 
 /**
- * @author kpshiva
+ * @author virtusa
+ *	version 1.0
  */
 public class AuthorProfileServiceImpl implements AuthorProfileService {
 
@@ -91,7 +92,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
 		LOGGER.info("inside updateAlerts Method ");
 
-		userProfile.setAlerts(userProfileAlerts.getAlertslist());
+		userProfile.setAlerts(userProfileAlerts.getAlerts());
 		lookUpProfile.setCustomerProfile(userProfile);
 		return cdmservices.updateProfile(lookUpProfile);
 	}

@@ -24,22 +24,26 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
+import com.wiley.gr.ace.authorservices.model.Login;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
 import com.wiley.gr.ace.authorservices.model.User;
+import com.wiley.gr.ace.authorservices.model.UserManagement;
+import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 
 /**
- * @author kpshiva
+ * @author virtusa version 1.0
  */
 @RestController
 @RequestMapping("/user")
 public class UserLoginController extends ASExceptionController {
-	private static final Logger LOGGER = LoggerFactory.getLogger(UserLoginController.class);
-	
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(UserLoginController.class);
+    
     @Autowired(required = true)
     UserLoginService userLoginService;
     
@@ -49,16 +53,32 @@ public class UserLoginController extends ASExceptionController {
     @Autowired
     AuthorProfileService authorProfileService;
     
+    @Autowired(required = true)
+    AdminLoginService adminLoginService;
     
     /**
      * @param sharedServieRequest
      * @return Service
      */
     @RequestMapping(value = "/login/", method = RequestMethod.POST)
-    public Service login(@Valid @RequestBody SharedServieRequest sharedServieRequest) {
+    public Service login(@Valid @RequestBody Login login) {
         
         Service service = new Service();
-        service.setPayload(userLoginService.login(sharedServieRequest));
+        try {
+            SharedServieRequest sharedServieRequest = new SharedServieRequest();
+            sharedServieRequest.setUserId(login.getEmailId());
+            sharedServieRequest.setPassword(login.getPassword());
+            sharedServieRequest.setAuthenticationType("LDAP");
+            sharedServieRequest.setAppKey("DAAS");
+            String userId = adminLoginService.doLogin(login.getEmailId());
+            UserManagement userObj = new UserManagement();
+            userObj.setUserId(userId);
+            service.setPayload(userObj);
+            userLoginService.login(sharedServieRequest);
+        } catch (Exception exception) {
+            LOGGER.error("Inside catch Block", exception);
+        }
+        // service.setPayload(userLoginService.login(sharedServieRequest));
         return service;
     }
     
@@ -88,7 +108,7 @@ public class UserLoginController extends ASExceptionController {
     @RequestMapping(value = "/password/reset", method = RequestMethod.POST)
     public Service resetPassword(
             @RequestBody SecurityDetailsHolder securityDetailsHolder) {
-    	 LOGGER.info("inside resetPassword method");
+        LOGGER.info("inside resetPassword method");
         Service service = new Service();
         service.setPayload(userLoginService
                 .resetPassword(securityDetailsHolder));
@@ -106,7 +126,7 @@ public class UserLoginController extends ASExceptionController {
     @RequestMapping(value = "/password/update", method = RequestMethod.POST)
     public Service updatePassword(
             @Valid @RequestBody PasswordDetails passwordDetails) {
-    	LOGGER.info("inside updatePassword method");
+        LOGGER.info("inside updatePassword method");
         Service service = new Service();
         service.setPayload(authorProfileService.updatePassword(passwordDetails));
         return service;
@@ -127,7 +147,7 @@ public class UserLoginController extends ASExceptionController {
     public Service validateSecurityQuestions(
             @PathVariable("emailId") String emailId,
             @Valid @RequestBody SecurityDetailsHolder securityDetails) {
-    	LOGGER.info("inside validateSecurityQuestions method");
+        LOGGER.info("inside validateSecurityQuestions method");
         Service service = new Service();
         service.setPayload(userLoginService.validateSecurityQuestions(emailId,
                 securityDetails.getSecurityDetails()));
@@ -137,7 +157,7 @@ public class UserLoginController extends ASExceptionController {
     
     @RequestMapping(value = "/userSecurityQuestions/{emailId}", method = RequestMethod.GET)
     public Service userSecurityQuestions(@PathVariable("emailId") String emailId) {
-    	LOGGER.info("inside userSecurityQuestions method");
+        LOGGER.info("inside userSecurityQuestions method");
         Service service = new Service();
         service.setPayload(userLoginService.securityQuestions(emailId));
         return service;
@@ -146,7 +166,7 @@ public class UserLoginController extends ASExceptionController {
     
     @RequestMapping(value = "/lockUser", method = RequestMethod.POST)
     public Service lockUser(@RequestBody String emailId) {
-    	LOGGER.info("inside lockUser method");
+        LOGGER.info("inside lockUser method");
         Service service = new Service();
         service.setPayload(userLoginService.lockUser(emailId));
         return service;
@@ -155,7 +175,7 @@ public class UserLoginController extends ASExceptionController {
     
     @RequestMapping(value = "/unLockUser", method = RequestMethod.POST)
     public Service unLockUser(@RequestBody String emailId) {
-    	LOGGER.info("inside unLockUser method");
+        LOGGER.info("inside unLockUser method");
         Service service = new Service();
         service.setPayload(userLoginService.unLockUser(emailId));
         return service;
@@ -164,7 +184,7 @@ public class UserLoginController extends ASExceptionController {
     
     @RequestMapping(value = "resetByEmail/{emailId}", method = RequestMethod.POST)
     public Service resetByEmail(@PathVariable("emailId") String emailId) {
-    	LOGGER.info("inside resetByEmail method");
+        LOGGER.info("inside resetByEmail method");
         return new Service();
     }
 }

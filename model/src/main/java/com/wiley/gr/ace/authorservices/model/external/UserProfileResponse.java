@@ -16,7 +16,8 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.wiley.gr.ace.authorservices.model.UserProfile;
 
 /**
- * @author kpshiva
+ * @author virtusa
+ *	version 1.0
  */
 @JsonInclude(Include.NON_NULL)
 public class UserProfileResponse {

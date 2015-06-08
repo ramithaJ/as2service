@@ -18,7 +18,8 @@ import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.User;
 
 /**
- * @author kpshiva
+ * @author virtusa
+ *	version 1.0
  */
 public interface UserAccountService {
     

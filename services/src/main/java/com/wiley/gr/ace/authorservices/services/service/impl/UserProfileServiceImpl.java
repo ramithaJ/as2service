@@ -20,7 +20,8 @@ import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
 
 /**
- * @author SarmaKumarap
+ * @author virtusa
+ *	version 1.0
  */
 public class UserProfileServiceImpl implements UserProfileService {
 	

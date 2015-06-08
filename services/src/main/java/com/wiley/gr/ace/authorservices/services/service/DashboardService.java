@@ -12,13 +12,21 @@
 /**
  * 
  */
-package com.wiley.gr.ace.authorservices.persistence.services.impl;
+package com.wiley.gr.ace.authorservices.services.service;
 
-import com.wiley.gr.ace.authorservices.persistence.services.DashBoardDAO;
+import com.wiley.gr.ace.authorservices.model.Dashboard;
 
 /**
- * @author yugandhark
+ * This DashboardService is for providing service for viewing the Dashboard of
+ * Corresponding Author and Co-Author.
+ * 
+ * @author virtusa version 1.0
  */
-public class DashBoardDAOImpl implements DashBoardDAO {
-    
+public interface DashboardService {
+    /**
+     * @param userId
+     *            to get the data from ESB ExternalService
+     * @return Dashboard
+     */
+    Dashboard getProfileMeter(String userId) throws Exception;
 }

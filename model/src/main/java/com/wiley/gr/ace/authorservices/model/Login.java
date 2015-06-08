@@ -6,7 +6,8 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
- * @author SarmaKumarap
+ * @author virtusa
+ *	version 1.0
  */
 public class Login {
     

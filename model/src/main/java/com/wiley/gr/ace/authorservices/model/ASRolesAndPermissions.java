@@ -18,7 +18,8 @@ import java.util.Map;
 import javax.validation.constraints.NotNull;
 
 /**
- * @author SarmaKumarap
+ * @author virtusa
+ *	version 1.0
  */
 public class ASRolesAndPermissions {
     

@@ -17,7 +17,8 @@ import com.wiley.gr.ace.authorservices.persistence.entity.UserRoles;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 
 /**
- * @author RAVISINHA
+ * @author virtusa
+ *	version 1.0
  */
 public interface UserLoginDao {
     
@@ -43,4 +44,5 @@ public interface UserLoginDao {
      */
     void createAdminUser(Users users, List<UserRoles> userRolesList);
     
+    Users getUserDetails(String emailId);
 }

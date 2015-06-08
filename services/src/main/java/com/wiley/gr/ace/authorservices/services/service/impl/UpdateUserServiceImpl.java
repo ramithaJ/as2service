@@ -28,29 +28,30 @@ import com.wiley.gr.ace.authorservices.persistence.services.UpdateUserDAO;
 import com.wiley.gr.ace.authorservices.services.service.UpdateUserService;
 
 /**
- * @author vkumark
+ * @author virtusa version 1.0
  */
 public class UpdateUserServiceImpl implements UpdateUserService {
-    
+
     private static final Logger LOGGER = LoggerFactory
             .getLogger(OrcidServiceImpl.class);
-    
+
     @Autowired(required = true)
     ESBInterfaceService esbInterfaceService;
     @Autowired
-    UserProfiles cdmInterfaceService;
+    UserProfiles userProfileService;
     @Autowired(required = true)
     UpdateUserDAO userDao;
-    
+
     /*
      * (non-Javadoc)
+     * 
      * @see com.wiley.gr.ace.authorservices.services.service.UpdateUserService#
      * updateOrcidProfile(java.lang.String)
      */
     @Override
     public User updateOrcidProfile(String orcidId, String userId)
             throws Exception {
-        
+
         /**
          * Fetch Account details and Profile details from external service
          * (ESB->ORCID)
@@ -63,7 +64,7 @@ public class UpdateUserServiceImpl implements UpdateUserService {
              */
             String status = esbInterfaceService.updateALMUser(user);
             LOGGER.debug("ALM user update status :: " + status);
-            
+
             if (null != status && "success".equalsIgnoreCase(status)) {
                 /**
                  * Update the user account details with ORCID account details
@@ -74,9 +75,10 @@ public class UpdateUserServiceImpl implements UpdateUserService {
         }
         return updatedUser;
     }
-    
+
     /*
      * (non-Javadoc)
+     * 
      * @see com.wiley.gr.ace.authorservices.services.service.UpdateUserService#
      * updateOrcidId(java.lang.String,java.lang.String, java.lang.String)
      */
@@ -84,19 +86,19 @@ public class UpdateUserServiceImpl implements UpdateUserService {
     public boolean updateOrcidId(String emailId, String orcidId, String userId)
             throws Exception {
         boolean result = false;
-        UserProfileResponse lookUpProfile = cdmInterfaceService
-                .lookUpProfileDashboard(emailId);
-        if (null != lookUpProfile) {
-            UserProfile customerProfile = lookUpProfile.getCustomerProfile();
-            User user = customerProfile.getCustomerDetails();
+        UserProfileResponse userProfileResponse = userProfileService
+                .userProfileResponse(userId);
+        if (!StringUtils.isEmpty(userProfileResponse)) {
+            UserProfile userProfile = userProfileResponse.getCustomerProfile();
+            User user = userProfile.getCustomerDetails();
             if (StringUtils.isEmpty(user.getOrcidID())) {
                 user.setOrcidID(orcidId);
-                customerProfile.setCustomerDetails(user);
-                lookUpProfile.setCustomerProfile(customerProfile);
-                result = cdmInterfaceService.updateProfile(lookUpProfile);
+                userProfile.setCustomerDetails(user);
+                userProfileResponse.setCustomerProfile(userProfile);
+                result = userProfileService.updateProfile(userProfileResponse);
             }
         }
         return result;
     }
-    
+
 }

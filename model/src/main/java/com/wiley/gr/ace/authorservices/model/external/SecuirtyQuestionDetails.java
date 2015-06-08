@@ -14,17 +14,35 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
- * @author yugandhark
- *
+ * @author virtusa version 1.0
  */
+@JsonInclude(Include.NON_NULL)
 public class SecuirtyQuestionDetails {
+
+    /** The securityQuestions. */
     private SecurityQuestions securityQuestions;
 
+    /**
+     * Gets the securityQuestions.
+     *
+     * @return the securityQuestions
+     * 
+     */
     public SecurityQuestions getSecurityQuestions() {
         return securityQuestions;
     }
 
+    /**
+     * Sets the securityQuestions.
+     *
+     * @param the
+     *            securityQuestions
+     * 
+     */
     public void setSecurityQuestions(SecurityQuestions securityQuestions) {
         this.securityQuestions = securityQuestions;
     }

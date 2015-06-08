@@ -14,25 +14,61 @@
  */
 package com.wiley.gr.ace.authorservices.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
- * @author yugandhark
- *
+ * @author virtusa version 1.0
  */
+@JsonInclude(Include.NON_NULL)
 public class Organization {
+
+    /** The name. */
     private String name;
+
+    /** The address. */
+    private Address address;
+
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     * 
+     */
     public String getName() {
         return name;
     }
+
+    /**
+     * Sets the name.
+     *
+     * @param the
+     *            name
+     * 
+     */
     public void setName(String name) {
         this.name = name;
     }
+
+    /**
+     * Gets the address.
+     *
+     * @return the address
+     * 
+     */
     public Address getAddress() {
         return address;
     }
+
+    /**
+     * Sets the address.
+     *
+     * @param the
+     *            address
+     * 
+     */
     public void setAddress(Address address) {
         this.address = address;
     }
-    private Address address;
-    
 
 }

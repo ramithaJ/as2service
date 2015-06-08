@@ -34,7 +34,8 @@ import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
 
 /**
- * @author SarmaKumarap
+ * @author virtusa
+ *	version 1.0
  */
 @RestController
 @RequestMapping("/userprofile")
@@ -218,6 +219,7 @@ public class UserProfileController {
          
 		LOGGER.info("inside getListOfAlerts method ");
 		Service service = new Service();
+
 		service.setPayload(userProfileService.userProfileResponse(userId)
 				.getCustomerProfile().getAlerts());
 		return service;

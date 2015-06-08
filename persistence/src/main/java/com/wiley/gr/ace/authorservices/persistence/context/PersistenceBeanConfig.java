@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
-import com.wiley.gr.ace.authorservices.persistence.services.DashBoardDAO;
+import com.wiley.gr.ace.authorservices.persistence.services.DashboardDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.LookUpValuesDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.RegistrationServiceDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UpdateUserDAO;
@@ -25,7 +25,7 @@ import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserRolesDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.ASDataDAOImpl;
-import com.wiley.gr.ace.authorservices.persistence.services.impl.DashBoardDAOImpl;
+import com.wiley.gr.ace.authorservices.persistence.services.impl.DashboardDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.LookupValuesDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.RegistrationServiceDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UpdateUserDAOImpl;
@@ -57,9 +57,9 @@ public class PersistenceBeanConfig {
         return new UserLoginServiceDAOImpl();
     }
     
-    @Bean(name = "DashBoardDAO")
-    public DashBoardDAO dashBoardDAO() {
-        return new DashBoardDAOImpl();
+    @Bean(name = "DashboardDAO")
+    public DashboardDAO dashboardDAO() {
+        return new DashboardDAOImpl();
     }
     
     @Bean(name = "UpdateUserDAO")

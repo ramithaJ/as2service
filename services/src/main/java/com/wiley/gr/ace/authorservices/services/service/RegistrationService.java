@@ -17,19 +17,19 @@ import com.wiley.gr.ace.authorservices.model.InviteRecords;
 import com.wiley.gr.ace.authorservices.model.User;
 
 /**
- * @author Virtusa
+ * @author virtusa version 1.0
  */
 public interface RegistrationService {
 
-	String createUser(User user) throws Exception;
+    String createUser(User user) throws Exception;
 
-	List<User> getUserFromFirstNameLastName(String firstName, String lastName)
-			throws Exception;
+    List<User> getUserFromFirstNameLastName(String firstName, String lastName)
+            throws Exception;
 
-	User checkEmailIdExists(String emailId) throws Exception;
+    User checkEmailIdExists(String emailId) throws Exception;
 
-	boolean searchUserByOrcidId(String orcidId) throws Exception;
+    boolean searchUserByOrcidId(String orcidId) throws Exception;
 
-	InviteRecords searchInvitationRecord(String guid) throws Exception;
+    InviteRecords searchInvitationRecord(String guid) throws Exception;
 
 }

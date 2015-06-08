@@ -20,52 +20,54 @@ import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
 import com.wiley.gr.ace.authorservices.persistence.services.RegistrationServiceDAO;
 
+/**
+ * @author virtusa 
+ * version 1.0
+ */
 public class RegistrationServiceDAOImpl implements RegistrationServiceDAO {
 
+    @Override
+    public List<AuthorProfile> getUserFromFirstNameLastName(String firstName,
+            String lastName) {
+        Session session = getSessionFactory().openSession();
+        String hql = "from AuthorProfile uf where uf.firstName = :firstName AND uf.lastName = :lastName";
+        List<AuthorProfile> userProfileList = session.createQuery(hql)
+                .setString("firstName", firstName)
+                .setString("lastName", lastName).list();
 
+        return userProfileList;
+    }
 
-	@Override
-	public List<AuthorProfile> getUserFromFirstNameLastName(String firstName,
-			String lastName) {
-		Session session = getSessionFactory().openSession();
-		String hql = "from AuthorProfile uf where uf.firstName = :firstName AND uf.lastName = :lastName";
-		List<AuthorProfile> userProfileList = session.createQuery(hql)
-				.setString("firstName", firstName)
-				.setString("lastName", lastName).list();
+    @Override
+    public boolean searchUserByOrcidId(String orcidId) throws Exception {
 
-		return userProfileList;
-	}
+        boolean isUserFound = false;
+        Session session = getSessionFactory().openSession();
+        String searchOrcidHql = "from AuthorProfile af where af.orcidId=:orcidId";
+        List<AuthorProfile> authorProfilesList = session
+                .createQuery(searchOrcidHql).setString("orcidId", "orcidId")
+                .list();
+        if (!StringUtils.isEmpty(authorProfilesList)) {
+            isUserFound = true;
+        }
 
-	@Override
-	public boolean searchUserByOrcidId(String orcidId) throws Exception {
+        return isUserFound;
+    }
 
-		boolean isUserFound = false;
-		Session session = getSessionFactory().openSession();
-		String searchOrcidHql = "from AuthorProfile af where af.orcidId=:orcidId";
-		List<AuthorProfile> authorProfilesList = session
-				.createQuery(searchOrcidHql).setString("orcidId", "orcidId")
-				.list();
-		if (!StringUtils.isEmpty(authorProfilesList)) {
-			isUserFound = true;
-		}
+    @Override
+    public InviteResetpwdLog getInvitationRecords(String guid) {
+        InviteResetpwdLog inviteRecord = new InviteResetpwdLog();
+        Session session = getSessionFactory().openSession();
+        String searchInviteHql = "from InviteResetpwdLog ir where ir.guid=:guid";
+        List<InviteResetpwdLog> inviteRecordList = session
+                .createQuery(searchInviteHql).setString("guid", guid).list();
+        if (!StringUtils.isEmpty(inviteRecordList)) {
+            inviteRecord = inviteRecordList.get(0);
+        } else {
+            inviteRecord = null;
+        }
 
-		return isUserFound;
-	}
-
-	@Override
-	public InviteResetpwdLog getInvitationRecords(String guid) {
-		InviteResetpwdLog inviteRecord = new InviteResetpwdLog();
-		Session session = getSessionFactory().openSession();
-		String searchInviteHql = "from InviteResetpwdLog ir where ir.guid=:guid";
-		List<InviteResetpwdLog> inviteRecordList = session
-				.createQuery(searchInviteHql).setString("guid", guid).list();
-		if (!StringUtils.isEmpty(inviteRecordList)) {
-			inviteRecord = inviteRecordList.get(0);
-		} else {
-			inviteRecord = null;
-		}
-
-		return inviteRecord;
-	}
+        return inviteRecord;
+    }
 
 }

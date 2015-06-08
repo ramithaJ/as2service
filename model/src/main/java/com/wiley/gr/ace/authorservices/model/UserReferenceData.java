@@ -2,6 +2,7 @@ package com.wiley.gr.ace.authorservices.model;
 
 /**
  * @author virtusa
+ *	version 1.0
  *
  */
 public class UserReferenceData {

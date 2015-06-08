@@ -9,13 +9,44 @@
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
  *******************************************************************************/
-/**
- * 
- */
-package com.wiley.gr.ace.authorservices.persistence.services;
+
+package com.wiley.gr.ace.authorservices.model;
+
+import java.util.List;
 
 /**
- * @author yugandhark
+ * @author virtusa
+ *
  */
-public interface DashBoardDAO {
+public class Alerts {
+	
+	private List<Alert> alertsList;
+	
+	private List<String> emailsList;
+
+	/**
+	 * @return
+	 */
+	public List<Alert> getAlertsList() {
+		return alertsList;
+	}
+
+	/**
+	 * @param alertsList
+	 */
+	public void setAlertsList(List<Alert> alertsList) {
+		this.alertsList = alertsList;
+	}
+
+	public List<String> getEmailsList() {
+		return emailsList;
+	}
+
+	public void setEmailsList(List<String> emailsList) {
+		this.emailsList = emailsList;
+	}
+
+
 }
+
+	

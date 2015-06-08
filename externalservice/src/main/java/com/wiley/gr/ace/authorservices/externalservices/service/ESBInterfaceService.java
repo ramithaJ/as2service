@@ -19,7 +19,8 @@ import com.wiley.gr.ace.authorservices.model.external.ProfileInformation;
 import com.wiley.gr.ace.authorservices.model.external.Status;
 
 /**
- * @author Virtusa
+ * @author virtusa
+ *	version 1.0
  */
 public interface ESBInterfaceService {
     

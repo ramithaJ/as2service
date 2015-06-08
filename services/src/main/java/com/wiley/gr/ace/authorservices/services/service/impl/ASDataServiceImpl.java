@@ -47,7 +47,8 @@ import com.wiley.gr.ace.authorservices.persistence.services.LookUpValuesDAO;
 import com.wiley.gr.ace.authorservices.services.service.ASDataService;
 
 /**
- * @author SarmaKumarap
+ * @author virtusa
+ *	version 1.0
  */
 public class ASDataServiceImpl implements ASDataService {
 	private static final Logger LOGGER = LoggerFactory

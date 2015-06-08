@@ -17,7 +17,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
- * @author SarmaKumarap
+ * @author virtusa
+ *	version 1.0
  */
 @JsonInclude(Include.NON_NULL)
 public class UserProfile {
@@ -38,7 +39,7 @@ public class UserProfile {
     
     private List<PreferredJournals> preferredJournals;
     
-    private List<Alert> alerts;
+    private Alerts alerts;
     
     private String emailForAlerts;
     
@@ -57,9 +58,6 @@ public class UserProfile {
     public void setCustomerDetails(User customerDetails) {
         this.customerDetails = customerDetails;
     }
-    
-    
-
 
     public List<Addresses> getAddressDetails() {
         return addressDetails;
@@ -116,13 +114,13 @@ public class UserProfile {
     public void setPreferredJournals(List<PreferredJournals> preferredJournals) {
         this.preferredJournals = preferredJournals;
     }
-    
-    public List<Alert> getAlerts() {
-        return alerts;
-    }
-    
-    public void setAlerts(List<Alert> alerts) {
-        this.alerts = alerts;
-    }
-    
+
+	public Alerts getAlerts() {
+		return alerts;
+	}
+
+	public void setAlerts(Alerts alerts) {
+		this.alerts = alerts;
+	}
+
 }

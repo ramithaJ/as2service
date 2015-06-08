@@ -12,7 +12,8 @@
 package com.wiley.gr.ace.authorservices.exception;
 
 /**
- * @author SarmaKumarap
+ * @author virtusa
+ *	version 1.0
  */
 public class ASException extends RuntimeException {
     

@@ -9,15 +9,17 @@
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
  *******************************************************************************/
-package com.wiley.gr.ace.authorservices.services.service;
+/**
+ * 
+ */
+package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
-import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
+import com.wiley.gr.ace.authorservices.persistence.services.DashboardDAO;
 
 /**
  * @author virtusa
- *	version 1.0
+ *version 1.0
  */
-public interface UserProfileService {
+public class DashboardDAOImpl implements DashboardDAO {
     
-    UserProfileResponse userProfileResponse(String userId);
 }

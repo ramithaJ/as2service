@@ -19,7 +19,8 @@ import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
 import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
 
 /**
- * @author kpshiva
+ * @author virtusa
+ *	version 1.0
  */
 public interface UserLoginService {
     
