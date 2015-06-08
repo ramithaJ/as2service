@@ -25,12 +25,27 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  */
 @JsonInclude(Include.NON_NULL)
 public class SecurityQuestions {
+
+    /** The securityQuestion. */
     private List<SecurityQuestion> securityQuestion;
 
+    /**
+     * Gets the securityQuestion.
+     *
+     * @return the securityQuestion
+     * 
+     */
     public List<SecurityQuestion> getSecurityQuestion() {
         return securityQuestion;
     }
 
+    /**
+     * Sets the securityQuestion.
+     *
+     * @param the
+     *            securityQuestion
+     * 
+     */
     public void setSecurityQuestion(List<SecurityQuestion> securityQuestion) {
         this.securityQuestion = securityQuestion;
     }
