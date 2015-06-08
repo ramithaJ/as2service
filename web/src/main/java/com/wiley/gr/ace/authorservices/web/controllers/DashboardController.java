@@ -45,10 +45,10 @@ public class DashboardController {
     private DashboardService dashboardService;
 
     /**
-     * getProfileMeter(.) method is used for getting the Missed Profile
-     * Information of User by using userId and returning the Service.In that
-     * Service Every Missed Information it will show.If these method not getting
-     * any data from Service it will throw an Error.
+     * This method is used for getting the Missed Profile Information of User by
+     * using userId and returning the Service.In that Service Every Missed
+     * Profile Information it will show.If these method not getting any data
+     * from Service it will throw an Error.
      * 
      * @param userId
      * @return service
