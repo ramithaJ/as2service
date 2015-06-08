@@ -30,6 +30,9 @@ import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.services.service.DashboardService;
 
 /**
+ * This DashboardController is for view the Dashboard of Corresponding Author
+ * and Co-Author.
+ * 
  * @author virtusa version 1.0
  */
 @RestController
