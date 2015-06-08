@@ -1444,4 +1444,71 @@ ALTER TABLE USER_SOCIETY_DETAILS ADD FOREIGN KEY(UPDATED_BY) REFERENCES USERS(US
 </sql>
 </changeSet>
 
+<changeSet author="gphaniraj" id="WP1-247">
+<sql>
+CREATE TABLE LOCKED_ACCOUNT_DETAILS 
+   (USER_ID VARCHAR2(255), 
+	INVALID_LOGIN_COUNT NUMBER DEFAULT 1,
+	LOCKED_TIME TIMESTAMP(6), 
+	APP_KEY VARCHAR2(255), 
+	CREATED_BY NUMBER, 
+	CREATED_DATE TIMESTAMP(6), 
+	UPDATED_BY NUMBER, 
+	UPDATED_DATE TIMESTAMP(6), 
+	LOGIN_ATTEMPT_TIME TIMESTAMP(6)
+	);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-248">
+<sql>
+ALTER TABLE LOCKED_ACCOUNT_DETAILS ADD CONSTRAINT LOCKED_ACCOUNT_DETAILS_PK PRIMARY KEY(USER_ID);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-249">
+<sql>
+ALTER TABLE INVITE_RESETPWD_LOG ADD TYPE VARCHAR2(50);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-250">
+<sql>
+CREATE TABLE OBJECT_TYPES(OBJECT_TYPE_ID VARCHAR2(255),OBJECT_TYPE VARCHAR2(255));
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-251">
+<sql>
+ALTER TABLE OBJECT_TYPES ADD CONSTRAINT OBJECT_TYPES_PK PRIMARY KEY(OBJECT_TYPE_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-252">
+<sql>
+ALTER TABLE ADDITIONAL_PERMISSIONS DROP COLUMN ARTICLE_ID;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-253">
+<sql>
+ALTER TABLE ADDITIONAL_PERMISSIONS DROP COLUMN JOURNAL_ID;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-254">
+<sql>
+ALTER TABLE ADDITIONAL_PERMISSIONS ADD OBJECT_ID VARCHAR2(255);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-255">
+<sql>
+ALTER TABLE ADDITIONAL_PERMISSIONS ADD OBJECT_TYPE_ID VARCHAR2(255);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-256">
+<sql>
+ALTER TABLE ADDITIONAL_PERMISSIONS ADD CONSTRAINT ADDITIONAL_PERMISSIONS_FK1 FOREIGN KEY(OBJECT_TYPE_ID) REFERENCES OBJECT_TYPES(OBJECT_TYPE_ID);
+</sql>
+</changeSet>
 </databaseChangeLog>
