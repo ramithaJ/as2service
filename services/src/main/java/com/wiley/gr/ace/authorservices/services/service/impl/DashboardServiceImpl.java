@@ -36,6 +36,9 @@ import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 import com.wiley.gr.ace.authorservices.services.service.DashboardService;
 
 /**
+ * This DashboardServiceImpl is for providing service for viewing the Dashboard
+ * of Corresponding Author and Co-Author.
+ * 
  * @author virtusa version 1.0
  */
 public class DashboardServiceImpl implements DashboardService {
@@ -47,16 +50,15 @@ public class DashboardServiceImpl implements DashboardService {
     private UserManagement userManagementService;
 
     /**
-     * getProfileMeter(.) method is used for get the Profile Information of User
-     * say like Security Questions, Affiliations, SocietyList,
-     * FundersList,Interests from external service called UserProfileService by
-     * using userId and returning the Dashboard. In this Dashboard Every Missed
-     * Information is set with id and profileMeterMessage of DashboardInfo.If
-     * these method not getting any data from External Service it will throws an
-     * Exception.
+     * This method is used for get the Profile Information of User from external
+     * service called UserProfileService by using userId and returning the
+     * Dashboard. In this Dashboard Every Missed Information is set with id and
+     * profileMeterMessage of DashboardInfo.If these method unable to call the
+     * External Service it will throws an Exception.
      * 
      * @param userId
      * @return DashBoard
+     * @throws Exception
      */
     public Dashboard getProfileMeter(String userId) throws Exception {
         LOGGER.info("inside getProfileMeter Method of DashboardServiceImpl");
@@ -76,10 +78,9 @@ public class DashboardServiceImpl implements DashboardService {
     }
 
     /**
-     * This getSecurityDetailsForUser(String emailId) method will call the
-     * External Service to get Security Details of user by passing emailId.If
-     * Security Questions are empty then set to the DashboardInfo otherwise not
-     * set.
+     * This method will call the External Service to get Security Details of
+     * user by passing emailId.If Security Questions are empty then set to the
+     * DashboardInfo otherwise not set.
      * 
      * @param emailId
      * @return DashboardInfo
@@ -117,6 +118,16 @@ public class DashboardServiceImpl implements DashboardService {
         return dashboardInfo;
     }
 
+    /**
+     * This method will check the each and every profile meter information of
+     * dashboardInfo is empty or not.If dashboardInfo object is empty then add
+     * to the list of dashboardInfoList then return otherwise if not empty then
+     * not added to the dashboardInfoList
+     * 
+     * @param userProfile
+     * @return List<DashboardInfo>
+     * @throws Exception
+     */
     private List<DashboardInfo> checkingDashboardInfo(UserProfile userProfile)
             throws Exception {
         LOGGER.info("inside checkingDashBoardInfo Method of DashboardServiceImpl");
@@ -154,6 +165,14 @@ public class DashboardServiceImpl implements DashboardService {
         return dashboardInfoList;
     }
 
+    /**
+     * This method get the AreaOfInterests for user from userProfile and checks
+     * whether user is added Interests or not.If User is not added then it show
+     * empty and set to dashboardInfo otherwise dashboardInfo null.
+     * 
+     * @param userProfile
+     * @return dashboardInfo
+     */
     private DashboardInfo getInterestsForUser(UserProfile userProfile) {
         LOGGER.info("inside getInterestsForUser Method of DashboardServiceImpl");
         List<Interests> userInterestsList = userProfile.getInterests();
@@ -168,6 +187,14 @@ public class DashboardServiceImpl implements DashboardService {
         return dashboardInfo;
     }
 
+    /**
+     * This method get the Affiliations for user from userProfile and checks
+     * whether user is added Affiliations or not.If User is not added then it
+     * show empty and set to dashboardInfo otherwise dashboardInfo null.
+     * 
+     * @param userProfile
+     * @return dashboardInfo
+     */
     private DashboardInfo getAffiliationsForUser(UserProfile userProfile) {
         LOGGER.info("inside getAffiliationsForUser Method of DashboardServiceImpl");
         List<Affiliation> userAffiliationsList = userProfile.getAffiliations();
@@ -182,6 +209,14 @@ public class DashboardServiceImpl implements DashboardService {
         return dashboardInfo;
     }
 
+    /**
+     * This method get the Societies for user from userProfile and checks
+     * whether user is added Societies or not.If User is not added then it show
+     * empty and set to dashboardInfo otherwise dashboardInfo null.
+     * 
+     * @param userProfile
+     * @return dashboardInfo
+     */
     private DashboardInfo getSocietiesForUser(UserProfile userProfile) {
         LOGGER.info("inside getSocietiesForUser Method of DashboardServiceImpl");
         List<Society> societyList = userProfile.getSocieties();
@@ -195,6 +230,14 @@ public class DashboardServiceImpl implements DashboardService {
         return dashboardInfo;
     }
 
+    /**
+     * This method get the Funders for user from userProfile and checks whether
+     * user is added Funders or not.If User is not added then it show empty and
+     * set to dashboardInfo otherwise dashboardInfo null.
+     * 
+     * @param userProfile
+     * @return dashboardInfo
+     */
     private DashboardInfo getFundersListForUser(UserProfile userProfile) {
         LOGGER.info("inside getFundersListForUser Method of DashboardServiceImpl");
         List<ResearchFunder> researchFundersList = userProfile
@@ -211,6 +254,15 @@ public class DashboardServiceImpl implements DashboardService {
         return dashboardInfo;
     }
 
+    /**
+     * This method get the RecoveryEmailAddr for user from user object and
+     * checks whether user is added RecoveryEmailAddr or not.If User is not
+     * added then it show empty and set to dashboardInfo otherwise dashboardInfo
+     * null.
+     * 
+     * @param user
+     * @return dashboardInfo
+     */
     private DashboardInfo getRecoveryEmailAddr(User user) throws Exception {
         LOGGER.info("inside getRecoveryEmailAddr Method of DashboardServiceImpl");
         DashboardInfo dashboardInfo = new DashboardInfo();
@@ -224,6 +276,14 @@ public class DashboardServiceImpl implements DashboardService {
         return dashboardInfo;
     }
 
+    /**
+     * This method get the OrcidId for user from user object and checks whether
+     * user is added OrcidId or not.If User is not added then it show empty and
+     * set to dashboardInfo otherwise dashboardInfo null.
+     * 
+     * @param user
+     * @return dashboardInfo
+     */
     private DashboardInfo getOrcidId(User user) {
         LOGGER.info("inside getOrcidId Method of DashboardServiceImpl");
         DashboardInfo dashboardInfo = new DashboardInfo();

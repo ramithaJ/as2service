@@ -17,13 +17,16 @@ package com.wiley.gr.ace.authorservices.services.service;
 import com.wiley.gr.ace.authorservices.model.Dashboard;
 
 /**
+ * This DashboardService is for providing service for viewing the Dashboard of
+ * Corresponding Author and Co-Author.
+ * 
  * @author virtusa version 1.0
  */
 public interface DashboardService {
     /**
      * @param userId
-     *            to get the data from DashboardDAO
-     * @return List
+     *            to get the data from ESB ExternalService
+     * @return Dashboard
      */
     Dashboard getProfileMeter(String userId) throws Exception;
 }
