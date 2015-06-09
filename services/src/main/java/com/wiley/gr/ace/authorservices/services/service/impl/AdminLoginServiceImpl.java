@@ -232,7 +232,9 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 		Roles roles = new Roles();
 		List<Permissions> permissionsList = new ArrayList<Permissions>();
 
-		userRolesDAO.checkRoleName(rolesAndPermissions.getRole().getRoleName());
+		if(rolesAndPermissions.getRole().getRoleId().equals("0")) {
+		    userRolesDAO.checkRoleName(rolesAndPermissions.getRole().getRoleName());
+		}
 
 		for (Map.Entry<String, String[]> entry : rolesAndPermissions
 				.getPermissionsMap().entrySet()) {
