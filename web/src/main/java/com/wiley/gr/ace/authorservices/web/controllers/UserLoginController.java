@@ -192,7 +192,7 @@ public class UserLoginController extends ASExceptionController {
     public final Service resetPassword(
             @PathVariable("guid") String guid) {
     	Service service=new Service();
-     service.setPayload(userLoginService.resetByEmail(guid)); 	
+     service.setPayload(userLoginService.resetPassword(guid)); 	
     	 
         return service;
     }

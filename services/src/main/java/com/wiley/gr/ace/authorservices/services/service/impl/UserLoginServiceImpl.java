@@ -96,7 +96,7 @@ public class UserLoginServiceImpl implements UserLoginService {
     }
 
 	@Override
-	public boolean resetByEmail(String guid) {
+	public boolean resetPassword(String guid) {
 		String emailId=userLoginServiceDAO.getEmailID(guid);
 	boolean status=userManagement.forceFulReset(emailId, "newPassword");
 		return status;
