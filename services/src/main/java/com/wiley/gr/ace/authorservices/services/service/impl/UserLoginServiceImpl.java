@@ -31,14 +31,28 @@ import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
  */
 public class UserLoginServiceImpl implements UserLoginService {
     
+    /**
+     * Logger for UserLoginServiceImpl class.
+     */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(UserLoginServiceImpl.class);
-            
+    /**
+     * Injecting UserLoginServiceDAO bean.
+     */
     @Autowired(required = true)
     UserLoginServiceDAO userLoginServiceDAO;
+    /**
+     * Injecting UserMangement bean.
+     */
     @Autowired(required = true)
     UserManagement userManagement;
     
+    /**
+     * Method to authenticate user. calling external system to authenticate user.
+     * 
+     * @param sharedServieRequest - having user information .
+     * @return status - true/false
+     */
     @Override
     public SecurityResponse login(SharedServieRequest sharedServieRequest) {
         
@@ -54,31 +68,10 @@ public class UserLoginServiceImpl implements UserLoginService {
     }
     
     /**
-     * @param userId
-     * @return
-     */
-    @Override
-    public boolean isUserLocked(int userId) {
-        
-        LOGGER.info("In isUserLocked method");
-        return false;
-    }
-    
-    /**
-     * @param userId
-     * @param template_id
-     */
-    @Override
-    public void sendEmail(String userId, String templateId) {
-        // TODO: send email service
-    }
-    
-    /**
-     * this method will reset the password at the time of login.
+     * Method to reset the password at the time of login.
      * 
-     * @param emailId
-     * @param newPassword
-     * @return
+     * @param securityDetailsHolder - having emailId, secutiryDetails and password.
+     * @return status - true/false
      */
     @Override
     public boolean resetPassword(SecurityDetailsHolder securityDetailsHolder) {
@@ -92,20 +85,6 @@ public class UserLoginServiceImpl implements UserLoginService {
         
         LOGGER.info("In securityQuestions method");
         return userManagement.getSecurityQuestions(emailId);
-    }
-    
-    @Override
-    public boolean lockUser(String emailId) {
-        
-        LOGGER.info("In lockUser method");
-        return userManagement.lockUser(emailId);
-    }
-    
-    @Override
-    public boolean unLockUser(String emailId) {
-        
-        LOGGER.info("In unLockUser method");
-        return userManagement.unLockUser(emailId);
     }
     
     @Override

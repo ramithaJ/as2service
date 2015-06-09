@@ -19,52 +19,27 @@ import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
 import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
 
 /**
- * @author virtusa
- *	version 1.0
+ * @author virtusa version 1.0
  */
 public interface UserLoginService {
-    
+
     SecurityResponse login(SharedServieRequest sharedServieRequest);
-    
+
     /**
      * @param emailId
      * @param newPassword
      * @return
      */
     boolean resetPassword(SecurityDetailsHolder securityDetailsHolder);
-    
-    /**
-     * @param emailId
-     * @return
-     */
-    boolean lockUser(String emailId);
-    
-    /**
-     * @param emailId
-     * @return
-     */
-    boolean unLockUser(String emailId);
-    
+
     /**
      * @param emailId
      * @return
      */
     boolean validateEmailAddress(String emailId);
-    
-    /**
-     * @param userId
-     * @return
-     */
-    boolean isUserLocked(int userId);
-    
-    /**
-     * @param userId
-     * @param template_id
-     */
-    void sendEmail(String userId, String templateId);
-    
+
     SecurityDetailsHolder securityQuestions(String emailId);
-    
+
     boolean validateSecurityQuestions(String emailId,
             List<SecurityDetails> securityDetails);
 }

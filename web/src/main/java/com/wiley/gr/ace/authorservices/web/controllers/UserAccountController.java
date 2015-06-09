@@ -28,22 +28,39 @@ import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
 
 /**
- * @author virtusa
- *	version 1.0
+ * @author virtusa version 1.0
  */
 @RestController
 @RequestMapping("/userAccount")
 public class UserAccountController {
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(UserAccountController.class);
-    @Autowired
-    UserAccountService userAccountService;
     
-    @Autowired
-    AuthorProfileService authorProfileService;
+    /**
+     * Logger for UserAccountController class.
+     */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(UserAccountController.class);
     
+    /**
+     * Injecting userAccountService bean.
+     */
+    @Autowired
+    private UserAccountService userAccountService;
+    
+    /**
+     * Injecting AuthorProfileService.
+     */
+    @Autowired
+    private AuthorProfileService authorProfileService;
+    
+    /**
+     * Method to get the user Account information.
+     * 
+     * @param userId
+     * @return Service - Success/Failure
+     */
     @RequestMapping(value = "/profileInfo/{userId}", method = RequestMethod.GET)
-    public Service getProfileInformation(@PathVariable("userId") String userId) {
+    public final Service getProfileInformation(
+            @PathVariable("userId") final String userId) {
         LOGGER.info("inside getProfileInformation method");
         Service service = new Service();
         service.setPayload(userAccountService.getProfileInformation(userId));
@@ -51,56 +68,104 @@ public class UserAccountController {
         
     }
     
+    /**
+     * Method to update user Account information.
+     * 
+     * @param userId
+     * @param user
+     *            - object having user Account information.
+     * @return Service - Success/Failure
+     */
     @RequestMapping(value = "/profileInfo/{userId}", method = RequestMethod.POST)
-    public Service updateProfileInformation(
-            @PathVariable("userId") String userId, @RequestBody User user) {
-    	 LOGGER.info("inside updateProfileInformation method");
+    public final Service updateProfileInformation(
+            @PathVariable("userId") final String userId,
+            @RequestBody final User user) {
+        LOGGER.info("inside updateProfileInformation method");
         Service service = new Service();
         service.setPayload(authorProfileService.updateUserProfileInfo(user));
         return service;
         
     }
     
+    /**
+     * Method to get user Email Details.
+     * 
+     * @param userId
+     * @return Service - Success/Failure
+     */
     @RequestMapping(value = "/emailDetails/{userId}", method = RequestMethod.GET)
-    public Service getEmailDetails(@PathVariable("userId") String userId) {
-    	 LOGGER.info("inside getEmailDetails method");
+    public final Service getEmailDetails(
+            @PathVariable("userId") final String userId) {
+        LOGGER.info("inside getEmailDetails method");
         Service service = new Service();
         service.setPayload(userAccountService.getEmailDetails(userId));
         return service;
     }
     
+    /**
+     * Method to update user Email Details.
+     * 
+     * @param userId
+     * @param emailDetails
+     *            - object having user Email Details.
+     * @return Service - Success/Failure
+     */
     @RequestMapping(value = "/emailDetails/{userId}", method = RequestMethod.POST)
-    public Service updateEmail(@PathVariable("userId") String userId,
-            @RequestBody User emailDetails) {
-    	 LOGGER.info("inside updateEmail method");
+    public final Service updateEmail(@PathVariable("userId") final int userId,
+            @RequestBody final User emailDetails) {
+        LOGGER.info("inside updateEmail method");
         Service service = new Service();
-        emailDetails.setUserId(Integer.parseInt(userId));
+        emailDetails.setUserId(userId);
         service.setPayload(authorProfileService
                 .updateEmailDetails(emailDetails));
         return service;
     }
     
+    /**
+     * Method to get user Address information (correspondence, shipping and
+     * Billing addresses).
+     * 
+     * @param userId
+     * @return Service - Success/Failure
+     */
     @RequestMapping(value = "/userAddresses/{userId}", method = RequestMethod.GET)
-    public Service getUserAddresses(@PathVariable("userId") String userId) {
-    	 LOGGER.info("inside getUserAddresses method");
+    public final Service getUserAddresses(
+            @PathVariable("userId") final String userId) {
+        LOGGER.info("inside getUserAddresses method");
         Service service = new Service();
         service.setPayload(userAccountService.getUserAddress(userId));
         return service;
     }
     
+    /**
+     * Method to update User Address information.
+     * 
+     * @param userId
+     * @param addresses
+     *            - object having user Address details.
+     * @return Service - Success/Failure
+     */
     @RequestMapping(value = "/userAddresses/{userId}", method = RequestMethod.POST)
-    public Service updateUserAddresses(@PathVariable("userId") String userId,
-            @RequestBody UserProfile addresses) {
-    	 LOGGER.info("inside updateUserAddresses method");
+    public final Service updateUserAddresses(
+            @PathVariable("userId") final String userId,
+            @RequestBody final UserProfile addresses) {
+        LOGGER.info("inside updateUserAddresses method");
         Service service = new Service();
         service.setPayload(authorProfileService.updateUserAddress(addresses));
         return service;
     }
     
+    /**
+     * Method to update user Security Details.
+     * 
+     * @param securityDetails
+     *            - Object having user Security questions and answers.
+     * @return Service - Success/Failure
+     */
     @RequestMapping(value = "/secutiryDetails/update", method = RequestMethod.POST)
-    public Service updateSecurityDetails(
-            @RequestBody SecurityDetailsHolder securityDetails) {
-    	 LOGGER.info("inside updateSecurityDetails method");
+    public final Service updateSecurityDetails(
+            @RequestBody final SecurityDetailsHolder securityDetails) {
+        LOGGER.info("inside updateSecurityDetails method");
         Service service = new Service();
         service.setPayload(authorProfileService
                 .updateSecurityDetails(securityDetails));
@@ -108,10 +173,18 @@ public class UserAccountController {
         
     }
     
+    /**
+     * Method to update userId.
+     * 
+     * @param oldEmailId
+     * @param newEmailId
+     * @return Service - Success/Failure
+     */
     @RequestMapping(value = "/updateUserId/{oldEmailId}/{newEmailId}", method = RequestMethod.POST)
-    public Service updateUserId(@PathVariable("oldEmailId") String oldEmailId,
-            @PathVariable("newEmailId") String newEmailId) {
-    	 LOGGER.info("inside updateUserId method");
+    public final Service updateUserId(
+            @PathVariable("oldEmailId") final String oldEmailId,
+            @PathVariable("newEmailId") final String newEmailId) {
+        LOGGER.info("inside updateUserId method");
         Service service = new Service();
         service.setPayload(authorProfileService.updateUserId(oldEmailId,
                 newEmailId));
