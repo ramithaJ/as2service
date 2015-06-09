@@ -163,7 +163,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 				systemSection.getPermissionsList().add(permission);
 
 			} else if (daoPermissions.getPermissionGroup().equalsIgnoreCase(
-					AuthorServicesConstants.PERMISSION_LEVEL_SYSTEM)
+					AuthorServicesConstants.PERMISSION_LEVEL_ADMIN)
 			/*
 			 * && daoPermissions.getPermType().equalsIgnoreCase(
 			 * AuthorServicesConstants.PERMISSION_TYPE_INTERNAL)
