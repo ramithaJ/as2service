@@ -94,4 +94,11 @@ public class UserLoginServiceImpl implements UserLoginService {
         LOGGER.info("In validateSecurityQuestions method");
         return false;
     }
+
+	@Override
+	public boolean resetByEmail(String guid) {
+		String emailId=userLoginServiceDAO.getEmailID(guid);
+	boolean status=userManagement.forceFulReset(emailId, "newPassword");
+		return status;
+	}
 }

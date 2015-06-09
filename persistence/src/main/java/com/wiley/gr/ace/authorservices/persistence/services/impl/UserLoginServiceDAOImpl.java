@@ -11,13 +11,15 @@
  */
 package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
+import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
-import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
+import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 
@@ -32,6 +34,10 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
     
     @Value("${invalidEmail.message}")
     private String invalidEmailMsg;
+    @Value("${UserLoginServiceDAOImpl.getEmailID.errorcode}")
+    private String  RecordNotExist;
+    @Value("${UserLoginServiceDAOImpl.getEmailID.errormessage}")
+    private String  RecordNotExistMessage;
     
     /*
      * (non-Javadoc)
@@ -86,4 +92,27 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
             }
         }
     }
+
+	@Override
+	public String getEmailID(String guid) {
+		Session session=null;
+		String EmailId=null;
+		try {
+			session= getSessionFactory().openSession();
+			InviteResetpwdLog inviteResetpwdLog=(InviteResetpwdLog) session.get(InviteResetpwdLog.class,guid);
+			if (null ==inviteResetpwdLog) {
+				
+				throw new ASException(RecordNotExist,RecordNotExistMessage);
+			}else {
+				 EmailId=inviteResetpwdLog.getEmailAddress();
+			}
+			
+		}finally{
+			if (session != null) {
+                session.flush();
+                session.close();
+            }
+		}
+		return EmailId;
+	}
 }

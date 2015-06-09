@@ -188,10 +188,15 @@ public class UserLoginController extends ASExceptionController {
      * @param emailId
      * @return
      */
-    @RequestMapping(value = "resetByEmail/{emailId}", method = RequestMethod.POST)
-    public final Service resetByEmail(
-            @PathVariable("emailId") final String emailId) {
-        LOGGER.info("inside resetByEmail method");
-        return new Service();
+    @RequestMapping(value = "resetPassword/{guid}", method = RequestMethod.GET)
+    public final Service resetPassword(
+            @PathVariable("guid") String guid) {
+    	Service service=new Service();
+     service.setPayload(userLoginService.resetByEmail(guid)); 	
+    	 
+        return service;
     }
+    
+  
+  
 }
