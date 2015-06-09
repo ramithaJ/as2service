@@ -279,7 +279,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 	@Override
 	public AdminUser findUser(String emailId) {
 		LOGGER.info("inside findUser Method");
-		AdminUser adminUser = new AdminUser();
+		/*AdminUser adminUser = new AdminUser();
 		  
 		 Users user=userlogindao.getUserDetails(emailId);
 		
@@ -292,7 +292,9 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 			
 	     userManagement.findUser(emailId);
 		}
-		return adminUser;
+		return adminUser;*/
+		
+		return userManagement.findUser(emailId);
 	}
 
 	@Override
