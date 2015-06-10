@@ -1511,4 +1511,59 @@ ALTER TABLE ADDITIONAL_PERMISSIONS ADD OBJECT_TYPE_ID VARCHAR2(255);
 ALTER TABLE ADDITIONAL_PERMISSIONS ADD CONSTRAINT ADDITIONAL_PERMISSIONS_FK1 FOREIGN KEY(OBJECT_TYPE_ID) REFERENCES OBJECT_TYPES(OBJECT_TYPE_ID);
 </sql>
 </changeSet>
+<changeSet author="gphaniraj" id="WP1-257">
+<sql>
+ALTER TABLE ADDRESS MODIFY FIRST_NAME VARCHAR2(100);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-258">
+<sql>
+ALTER TABLE ADDRESS MODIFY LAST_NAME VARCHAR2(100);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-259">
+<sql>
+ALTER TABLE ADDRESS MODIFY POSTALCODE VARCHAR2(20);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-260">
+<sql>
+ALTER TABLE AUTH_COLLEAGUE_DETAILS MODIFY FIRST_NAME VARCHAR2(100);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-261">
+<sql>
+ALTER TABLE AUTH_COLLEAGUE_DETAILS MODIFY LAST_NAME VARCHAR2(100);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-262">
+<sql>
+ALTER TABLE INVITE_RESETPWD_LOG MODIFY FIRST_NAME VARCHAR2(100);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-263">
+<sql>
+ALTER TABLE INVITE_RESETPWD_LOG MODIFY LAST_NAME VARCHAR2(100);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-264">
+<sql>
+ALTER TABLE USERS MODIFY FIRST_NAME VARCHAR2(100);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-265">
+<sql>
+ALTER TABLE USERS MODIFY LAST_NAME VARCHAR2(100);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-266">
+<sql>
+ALTER TABLE USERS MODIFY PRIMARY_EMAIL_ADDR VARCHAR2(100);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-267">
+<sql>
+ALTER TABLE USER_SECONDARY_EMAIL_ADDR MODIFY SECONDARY_EMAIL_ADDR VARCHAR2(100);
+</sql>
+</changeSet>
 </databaseChangeLog>
