@@ -100,12 +100,14 @@ public class RegistrationController {
                         ErrorPOJO err = new ErrorPOJO();
                         err.setCode(301);
                         err.setMessage("User Already Registered");
+                        service.setError(err);
                     }
                 } else {
                     service.setStatus("FAILURE");
                     ErrorPOJO err = new ErrorPOJO();
                     err.setCode(302);
                     err.setMessage("Invitation record does not exist");
+                    service.setError(err);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
