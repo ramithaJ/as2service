@@ -59,7 +59,7 @@ public class OrcidInterfaceServiceImpl implements OrcidInterfaceService {
         /**
          * Need to change this to UI redirect URI
          */
-        form.add("redirect_uri", "http://www.vinay.com:8080/orcid/index.jsp");
+        //form.add("redirect_uri", "http://www.vinay.com:8080/orcid/index.jsp");
 
         client.getContext().getParameters().add("followRedirects", "true");
         System.out.println("form.toString() ##### " + form.toString());
