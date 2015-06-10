@@ -33,7 +33,7 @@ import com.wiley.gr.ace.authorservices.services.service.UpdateUserService;
 public class UpdateUserServiceImpl implements UpdateUserService {
 
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(OrcidServiceImpl.class);
+            .getLogger(UpdateUserServiceImpl.class);
 
     @Autowired(required = true)
     ESBInterfaceService esbInterfaceService;
@@ -69,7 +69,7 @@ public class UpdateUserServiceImpl implements UpdateUserService {
                 /**
                  * Update the user account details with ORCID account details
                  */
-                user.setUserId(Integer.parseInt(userId));
+                user.setUserId(Integer.valueOf(userId));
                 updatedUser = userDao.updateUserWithOrcid(user);
             }
         }

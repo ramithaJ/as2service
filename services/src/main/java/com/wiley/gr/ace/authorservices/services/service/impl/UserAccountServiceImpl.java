@@ -66,7 +66,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 			List<SecurityDetails> securityDetails) {
 
 		LOGGER.info("inside updateSecurityDetails Method");
-		return userAccountDAO.updateSecurityDetails(Integer.parseInt(userId),
+		return userAccountDAO.updateSecurityDetails(Integer.valueOf(userId),
 				securityDetails);
 	}
 
