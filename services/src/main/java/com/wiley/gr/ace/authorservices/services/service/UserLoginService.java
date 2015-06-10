@@ -42,5 +42,5 @@ public interface UserLoginService {
 
     boolean validateSecurityQuestions(String emailId,
             List<SecurityDetails> securityDetails);
-    boolean resetPassword(String guid);
+    String resetPassword(String guid);
 }

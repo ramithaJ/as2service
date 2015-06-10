@@ -34,5 +34,7 @@ public class AuthorServicesConstants {
 	public static final String ROLE_TYPE_EXTERNAL = "EXTERNAL";
 	
 	public static final String ROLE_TYPE_INTERNAL = "INTERNAL";
+	public static final String INVITE_RESET_PASSWORD_STATUS = "PENDING";
+	public static final String INVITE_RESET_PASSWORD_STATUS_ClOSED = "CLOSED";
 
 }
