@@ -1,11 +1,15 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated May 26, 2015 6:09:14 PM by Hibernate Tools 3.4.0.CR1
+// Generated Jun 10, 2015 12:14:08 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -22,6 +26,7 @@ public class Actions implements java.io.Serializable {
 	private Integer createdBy;
 	private Date updatedDate;
 	private Integer updatedBy;
+	private Set<AuditDetails> auditDetailses = new HashSet<AuditDetails>(0);
 
 	public Actions() {
 	}
@@ -32,7 +37,7 @@ public class Actions implements java.io.Serializable {
 
 	public Actions(String actionCd, String actionName, String description,
 			Date createdDate, Integer createdBy, Date updatedDate,
-			Integer updatedBy) {
+			Integer updatedBy, Set<AuditDetails> auditDetailses) {
 		this.actionCd = actionCd;
 		this.actionName = actionName;
 		this.description = description;
@@ -40,6 +45,7 @@ public class Actions implements java.io.Serializable {
 		this.createdBy = createdBy;
 		this.updatedDate = updatedDate;
 		this.updatedBy = updatedBy;
+		this.auditDetailses = auditDetailses;
 	}
 
 	@Id
@@ -104,6 +110,15 @@ public class Actions implements java.io.Serializable {
 
 	public void setUpdatedBy(Integer updatedBy) {
 		this.updatedBy = updatedBy;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "actions")
+	public Set<AuditDetails> getAuditDetailses() {
+		return this.auditDetailses;
+	}
+
+	public void setAuditDetailses(Set<AuditDetails> auditDetailses) {
+		this.auditDetailses = auditDetailses;
 	}
 
 }
