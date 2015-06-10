@@ -17,6 +17,7 @@ package com.wiley.gr.ace.authorservices.web.controllers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.wiley.gr.ace.authorservices.model.Dashboard;
 import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
 import com.wiley.gr.ace.authorservices.model.Service;
@@ -38,23 +40,27 @@ import com.wiley.gr.ace.authorservices.services.service.DashboardService;
 @RestController
 @RequestMapping("/dashboard")
 public class DashboardController {
+    /** logger configured. */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DashboardController.class);
+    /** value from props file   configured. */
+    @Value("${DashboardController.getProfileMeter.code}")
+    private int getProfileMetererrorcode;
+    /** value from props file   configured. */
+    @Value("${DashboardController.getProfileMeter.message}")
+    private String getProfileMetererrormessage;
     /** The Auto Wired for DashBoard Service . */
     @Autowired(required = true)
     private DashboardService dashboardService;
 
     /**
-     * This method takes userId and return the Service.In that Service Every
-     * Missed Profile Information it will show.If these method not getting any
-     * data from Service it will throw an Error.
-     * 
+     * This method takes userId and return the Service.
      * @param userId
      * @return service
      */
     @RequestMapping(value = "/profilemeter/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Service getProfileMeter(
-            @PathVariable("userId") String userId) {
+    public final @ResponseBody  Service getProfileMeter(
+            @PathVariable("userId") final String userId) {
         LOGGER.info("inside getProfileMeter method of DashboardController");
         Service service = new Service();
         Dashboard dashboard = null;
@@ -68,8 +74,8 @@ public class DashboardController {
         } catch (Exception e) {
             LOGGER.error("Print Stack Trace- ", e);
             ErrorPOJO error = new ErrorPOJO();
-            error.setCode(204);
-            error.setMessage("Error Fetching Profile Meter");
+            error.setCode(getProfileMetererrorcode);
+            error.setMessage(getProfileMetererrormessage);
             service.setStatus("ERROR");
             service.setError(error);
         }
