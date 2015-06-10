@@ -34,141 +34,137 @@ import com.wiley.gr.ace.authorservices.model.external.SearchUserResult;
 import com.wiley.gr.ace.authorservices.model.external.Status;
 
 /**
- * @author virtusa
- *	version 1.0
+ * @author virtusa version 1.0
  */
 public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 
-	@Value("${search-user.url}")
-	private String searchUserUrl;
+    @Value("${search-user.url}")
+    private String searchUserUrl;
 
-	@Value("${createuser.url}")
-	private String createUserUrl;
+    @Value("${createuser.url}")
+    private String createUserUrl;
 
-	@Value("${fetchorciddetails.url}")
-	private String fetchOrcidDetailsUrl;
+    @Value("${fetchorciddetails.url}")
+    private String fetchOrcidDetailsUrl;
 
-	@Value("${updatealmuser.url}")
-	private String updateAlmUserUrl;
+    @Value("${updatealmuser.url}")
+    private String updateAlmUserUrl;
 
-	@Override
-	public User fetchOrcidDetails(String orcid) throws Exception {
-		User user = null;
-		final String url = fetchOrcidDetailsUrl;
-		URI uri = new URI(url);
-		RestTemplate restTemplate = new RestTemplate();
-		HttpHeaders requestHeaders = new HttpHeaders();
+    @Override
+    public User fetchOrcidDetails(String orcid) throws Exception {
+        User user = null;
+        final String url = fetchOrcidDetailsUrl;
+        URI uri = new URI(url);
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders requestHeaders = new HttpHeaders();
 
-		requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-		HttpEntity<User> requestEntity = new HttpEntity<User>(requestHeaders);
+        requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        HttpEntity<User> requestEntity = new HttpEntity<User>(requestHeaders);
 
-		ResponseEntity<User> response = restTemplate.exchange(uri,
-				HttpMethod.GET, requestEntity, User.class);
-		System.out.println("####  response #### " + response.getStatusCode());
-		System.out.println("####  response #### " + response.getBody());
+        ResponseEntity<User> response = restTemplate.exchange(uri,
+                HttpMethod.GET, requestEntity, User.class);
+        System.out.println("####  response #### " + response.getStatusCode());
+        System.out.println("####  response #### " + response.getBody());
 
-		user = response.getBody();
-		System.out.println("####  " + user.getPrimaryEmailAddr());
-		return user;
-	}
+        user = response.getBody();
+        System.out.println("####  " + user.getPrimaryEmailAddr());
+        return user;
+    }
 
-	@Override
-	public String updateALMUser(User updateUser) throws Exception {
-		String status = "failure";
-		final String url = updateAlmUserUrl;
-		URI uri = new URI(url);
-		RestTemplate restTemplate = new RestTemplate();
-		HttpHeaders requestHeaders = new HttpHeaders();
+    @Override
+    public String updateALMUser(User updateUser) throws Exception {
+        String status = "failure";
+        final String url = updateAlmUserUrl;
+        URI uri = new URI(url);
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders requestHeaders = new HttpHeaders();
 
-		requestHeaders.setAccept(Arrays.asList(MediaType.TEXT_PLAIN));
-		HttpEntity<String> requestEntity = new HttpEntity<String>(
-				requestHeaders);
-		ResponseEntity<String> response = restTemplate.exchange(uri,
-				HttpMethod.GET, requestEntity, String.class);
-		status = response.getBody();
-		System.out.println("status :: " + status);
-		return status;
-	}
+        requestHeaders.setAccept(Arrays.asList(MediaType.TEXT_PLAIN));
+        HttpEntity<String> requestEntity = new HttpEntity<String>(
+                requestHeaders);
+        ResponseEntity<String> response = restTemplate.exchange(uri,
+                HttpMethod.GET, requestEntity, String.class);
+        status = response.getBody();
+        System.out.println("status :: " + status);
+        return status;
+    }
 
-	/*
-	 * public static void main(String[] args) { ESBInterfaceServiceImpl em = new
-	 * ESBInterfaceServiceImpl(); try { // User user =
-	 * em.fetchOrcidDetails("1111"); User user = new User(); String s =
-	 * em.updateALMUser(user); } catch (Exception e) { e.printStackTrace(); } }
-	 */
+    /*
+     * public static void main(String[] args) { ESBInterfaceServiceImpl em = new
+     * ESBInterfaceServiceImpl(); try { // User user =
+     * em.fetchOrcidDetails("1111"); User user = new User(); String s =
+     * em.updateALMUser(user); } catch (Exception e) { e.printStackTrace(); } }
+     */
 
-	@Override
-	public ESBUser checkEmailIdExists(String emailId) throws Exception {
-		ESBUser esbUser = new ESBUser();
-		List<ESBUser> esbUserList = searchUser(emailId, "", "");
-		if(!StringUtils.isEmpty(esbUserList)) {
-			esbUser = esbUserList.get(0);
-		} else {
-			esbUser = null;
-		}
-		
-		return esbUser;
-	}
+    @Override
+    public ESBUser checkEmailIdExists(String emailId) throws Exception {
+        ESBUser esbUser = null;
+        List<ESBUser> esbUserList = searchUser(emailId, "", "");
+        if (!StringUtils.isEmpty(esbUserList)) {
+//            esbUser = new ESBUser();
+            esbUser = esbUserList.get(0);
+        } 
 
-	@Override
-	public List<ESBUser> getUsersFromFirstNameLastName(String firstName,
-			String lastName) throws Exception {
-		List<ESBUser> esbUserList = null;
-		
-		esbUserList = searchUser("", firstName, lastName);
-		
-		return esbUserList;
-	}
-	
-	
-	private List<ESBUser> searchUser(String email, String firstName,
-			String lastName) throws Exception {
-		List<ESBUser> esbUsersList = new ArrayList<ESBUser>();
-		SearchUserResult searchUserResult = new SearchUserResult();
-		final String url = searchUserUrl + "?Email=" + email + "&FirstName="
-				+ firstName + "&LastName=" + lastName;
-		URI uri = new URI(url);
-		RestTemplate restTemplate = new RestTemplate();
-		HttpHeaders requestHeaders = new HttpHeaders();
+        return esbUser;
+    }
 
-		requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-		HttpEntity<SearchUserResult> requestEntity = new HttpEntity<SearchUserResult>(
-				requestHeaders);
+    @Override
+    public List<ESBUser> getUsersFromFirstNameLastName(String firstName,
+            String lastName) throws Exception {
+        List<ESBUser> esbUserList = null;
 
-		ResponseEntity<SearchUserResult> response = restTemplate.exchange(uri,
-				HttpMethod.GET, requestEntity, SearchUserResult.class);
-		if (null != response) {
-			searchUserResult = response.getBody();
-			esbUsersList = searchUserResult.getSearchUserResponse().getUserList();
-		} else
-			esbUsersList = null;
-		
-		return esbUsersList;
-	}
+        esbUserList = searchUser("", firstName, lastName);
 
-	@Override
-	public Status creatUser(ProfileInformation profileForCreation)
-			throws Exception {
-		Status status = new Status();
-		final String url = createUserUrl;
-		URI uri = new URI(url);
-		RestTemplate restTemplate = new RestTemplate();
-		HttpHeaders requestHeaders = new HttpHeaders();
+        return esbUserList;
+    }
 
-		requestHeaders.setAccept(Arrays.asList(MediaType.TEXT_PLAIN));
-		HttpEntity<ProfileInformation> requestEntity = new HttpEntity<ProfileInformation>(
-				profileForCreation, requestHeaders);
-		ResponseEntity<Status> response = restTemplate.exchange(uri,
-				HttpMethod.POST, requestEntity, Status.class);
-		HttpStatus httpStatus = response.getStatusCode();
-		if(httpStatus.equals(HttpStatus.OK)) {
-			status.setStatus("SUCCESS");
-		} else {
-			status.setStatus("FAILURE");
-		}
-		return status;
-	}
+    private List<ESBUser> searchUser(String email, String firstName,
+            String lastName) throws Exception {
+        ArrayList<ESBUser> esbUsersList = null;
+        SearchUserResult searchUserResult = null;
+        final String url = searchUserUrl + "?Email=" + email + "&FirstName="
+                + firstName + "&LastName=" + lastName;
+        URI uri = new URI(url);
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders requestHeaders = new HttpHeaders();
 
-	
+        requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        HttpEntity<SearchUserResult> requestEntity = new HttpEntity<SearchUserResult>(
+                requestHeaders);
+
+        ResponseEntity<SearchUserResult> response = restTemplate.exchange(uri,
+                HttpMethod.GET, requestEntity, SearchUserResult.class);
+        if (null != response) {
+            searchUserResult=  new SearchUserResult();
+            searchUserResult = response.getBody();
+            esbUsersList = (ArrayList<ESBUser>)searchUserResult.getSearchUserResponse()
+                    .getUserList();
+        } 
+
+        return esbUsersList;
+    }
+
+    @Override
+    public Status creatUser(ProfileInformation profileForCreation)
+            throws Exception {
+        Status status = new Status();
+        final String url = createUserUrl;
+        URI uri = new URI(url);
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders requestHeaders = new HttpHeaders();
+
+        requestHeaders.setAccept(Arrays.asList(MediaType.TEXT_PLAIN));
+        HttpEntity<ProfileInformation> requestEntity = new HttpEntity<ProfileInformation>(
+                profileForCreation, requestHeaders);
+        ResponseEntity<Status> response = restTemplate.exchange(uri,
+                HttpMethod.POST, requestEntity, Status.class);
+        HttpStatus httpStatus = response.getStatusCode();
+        if (httpStatus.equals(HttpStatus.OK)) {
+            status.setStatus("SUCCESS");
+        } else {
+            status.setStatus("FAILURE");
+        }
+        return status;
+    }
 
 }
