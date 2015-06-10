@@ -59,6 +59,16 @@ public class RegistrationServiceImpl implements RegistrationService {
 			customerDetails.setFirstname(user.getFirstName());
 			customerDetails.setLastname(user.getLastName());
 			customerDetails.setPassword(user.getPassword());
+			if (!StringUtils.isEmpty(user.getInvitationGuid())) {
+				InviteResetpwdLog inviteResetpwdLog = registrationServiceDAO
+						.getInvitationRecords(user.getInvitationGuid());
+				if (inviteResetpwdLog.getEmailAddress() != user
+						.getPrimaryEmailAddr()) {
+					customerDetails.setSecondaryemail(inviteResetpwdLog
+							.getEmailAddress());
+				}
+
+			}
 			customerDetails.setPrimaryemail(user.getPrimaryEmailAddr());
 
 			addressElement.setCountrycode(user.getCountry().getCountryCode());
