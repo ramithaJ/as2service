@@ -163,4 +163,10 @@ public class RegistrationServiceImpl implements RegistrationService {
         inviteRecord.setUserType(inviteRecordFromDB.getUserType());
         return inviteRecord;
     }
+
+	@Override
+	public void assignRoleToNewUser(String emailId) {
+
+		registrationServiceDAO.assignRoleToNewRegistration(emailId);
+	}
 }

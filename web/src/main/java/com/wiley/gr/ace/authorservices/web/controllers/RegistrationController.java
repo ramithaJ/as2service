@@ -143,6 +143,7 @@ public class RegistrationController {
                 status = rs.createUser(user);
                 if (status.equalsIgnoreCase("success")) {
                     service.setStatus("SUCCESS");
+                    rs.assignRoleToNewUser(user.getPrimaryEmailAddr());
                 } else {
                     service.setStatus("FAILURE");
                     ErrorPOJO err = new ErrorPOJO();

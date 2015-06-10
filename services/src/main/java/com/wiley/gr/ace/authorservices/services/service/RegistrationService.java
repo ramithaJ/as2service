@@ -31,5 +31,7 @@ public interface RegistrationService {
     boolean searchUserByOrcidId(String orcidId) throws Exception;
 
     InviteRecords searchInvitationRecord(String guid) throws Exception;
+    
+    void assignRoleToNewUser(String emailId);
 
 }
