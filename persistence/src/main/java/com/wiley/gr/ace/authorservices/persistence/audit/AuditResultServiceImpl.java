@@ -45,7 +45,7 @@ public class AuditResultServiceImpl implements AuditResultService {
             Actions actions = new Actions();
             AuditDetails auditDetails = new AuditDetails();
             int auditSize = auditMap.size();
-            for (int j = 0; j <= auditSize; j++) {
+            for (int j = 0; j < auditSize; j++) {
                 HashMap<String, String> auditDetailsMap = auditMap.get(j);
                 if (null != auditDetailsMap && auditDetailsMap.size() > 0) {
                     if (!StringUtils.isEmpty(auditDetailsMap.get(AuthorServicesConstants.AUDIT_OBJ_NAME))) {
@@ -84,11 +84,9 @@ public class AuditResultServiceImpl implements AuditResultService {
             actions.setUpdatedDate(new Date());
             actions.setAuditDetailses(auditDetailsSet);
             session.save(actions);
-            session.flush();
-            session.clear();
-            
             transaction.commit();
         } catch (Exception e) {
+            e.printStackTrace();
             if (null != session) {
                 transaction.rollback();
             }
@@ -105,18 +103,27 @@ public class AuditResultServiceImpl implements AuditResultService {
         
         AuditResultServiceImpl auditResultServiceImpl = new AuditResultServiceImpl();
         HashMap<String, String> auditMap = new HashMap<String, String>();
-        auditMap.put("OBJ_NAME", "objet1");
-        auditMap.put("OBJ_ATTR", "objAttr");
-        auditMap.put("OLD_VAL", "oldvlaue");
-        auditMap.put("NEW_VAL", "newvalue");
+        auditMap.put(AuthorServicesConstants.AUDIT_OBJ_NAME, "shiva1");
+        auditMap.put(AuthorServicesConstants.AUDIT_OBJ_ATTR, "shiva1");
+        auditMap.put(AuthorServicesConstants.AUDIT_OLD_VAL, "shiva1");
+        auditMap.put(AuthorServicesConstants.AUDIT_NEW_VAL, "shiva1");
+        
+        HashMap<String, String> auditMap2 = new HashMap<String, String>();
+        auditMap2.put(AuthorServicesConstants.AUDIT_OBJ_NAME, "Kumar1");
+        auditMap2.put(AuthorServicesConstants.AUDIT_OBJ_ATTR, "Kuma1r");
+        auditMap2.put(AuthorServicesConstants.AUDIT_OLD_VAL, "Kumar1");
+        auditMap2.put(AuthorServicesConstants.AUDIT_NEW_VAL, "Kumar1");
         
         List<HashMap<String, String>> auditDetailsMap = new ArrayList<HashMap<String,String>>();
         auditDetailsMap.add(auditMap);
+        auditDetailsMap.add(auditMap2);
         
         HashMap<String, String> actionMap = new HashMap<String, String>();
-        actionMap.put("ACTION_CD", "actionId");
-        actionMap.put("ACTION_NAME", "actionName");
-        actionMap.put("DESCRIPTION", "discription");
-        auditResultServiceImpl.userAudit(auditDetailsMap, actionMap, new Users());
+        actionMap.put(AuthorServicesConstants.AUDIT_ACTION_CD, "punna1");
+        actionMap.put(AuthorServicesConstants.AUDIT_ACTION_NAME, "punna1");
+        actionMap.put(AuthorServicesConstants.AUDIT_DESCRIPTION, "punna1");
+        Users users = new Users(1001,"as2.app@dummy.com");
+       
+        auditResultServiceImpl.userAudit(auditDetailsMap, actionMap, users);
     }
 }

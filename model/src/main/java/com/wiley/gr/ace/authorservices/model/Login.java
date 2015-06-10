@@ -5,10 +5,14 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * @author virtusa
  *	version 1.0
  */
+@JsonInclude(Include.NON_NULL)
 public class Login {
     
     @NotNull

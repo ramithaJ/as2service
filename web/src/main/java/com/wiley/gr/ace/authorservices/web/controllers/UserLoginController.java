@@ -176,7 +176,9 @@ public class UserLoginController extends ASExceptionController {
     @RequestMapping(value = "resetPassword/{guid}", method = RequestMethod.GET)
     public final Service resetPassword(@PathVariable("guid") final String guid) {
         Service service = new Service();
-        service.setPayload(userLoginService.resetPassword(guid));
+        Login login = new Login();
+        login.setEmailId(userLoginService.resetPassword(guid));
+        service.setPayload(login);
         
         return service;
     }
