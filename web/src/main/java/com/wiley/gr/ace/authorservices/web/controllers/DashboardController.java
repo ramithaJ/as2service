@@ -43,10 +43,10 @@ public class DashboardController {
     /** logger configured. */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DashboardController.class);
-    /** value from props file   configured. */
+    /** value from props file configured. */
     @Value("${DashboardController.getProfileMeter.code}")
     private int getProfileMetererrorcode;
-    /** value from props file   configured. */
+    /** value from props file configured. */
     @Value("${DashboardController.getProfileMeter.message}")
     private String getProfileMetererrormessage;
     /** The Auto Wired for DashBoard Service . */
@@ -55,11 +55,12 @@ public class DashboardController {
 
     /**
      * This method takes userId and return the Service.
+     * 
      * @param userId
      * @return service
      */
     @RequestMapping(value = "/profilemeter/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final @ResponseBody  Service getProfileMeter(
+    public final @ResponseBody Service getProfileMeter(
             @PathVariable("userId") final String userId) {
         LOGGER.info("inside getProfileMeter method of DashboardController");
         Service service = new Service();
