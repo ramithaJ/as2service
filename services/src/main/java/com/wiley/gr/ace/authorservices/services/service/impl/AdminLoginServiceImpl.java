@@ -163,7 +163,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 				systemSection.getPermissionsList().add(permission);
 
 			} else if (daoPermissions.getPermissionGroup().equalsIgnoreCase(
-					AuthorServicesConstants.PERMISSION_LEVEL_SYSTEM)
+					AuthorServicesConstants.PERMISSION_LEVEL_ADMIN)
 			/*
 			 * && daoPermissions.getPermType().equalsIgnoreCase(
 			 * AuthorServicesConstants.PERMISSION_TYPE_INTERNAL)
@@ -232,7 +232,9 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 		Roles roles = new Roles();
 		List<Permissions> permissionsList = new ArrayList<Permissions>();
 
-		userRolesDAO.checkRoleName(rolesAndPermissions.getRole().getRoleName());
+		if(rolesAndPermissions.getRole().getRoleId().equals("0")) {
+		    userRolesDAO.checkRoleName(rolesAndPermissions.getRole().getRoleName());
+		}
 
 		for (Map.Entry<String, String[]> entry : rolesAndPermissions
 				.getPermissionsMap().entrySet()) {
@@ -277,7 +279,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 	@Override
 	public AdminUser findUser(String emailId) {
 		LOGGER.info("inside findUser Method");
-		AdminUser adminUser = new AdminUser();
+		/*AdminUser adminUser = new AdminUser();
 		  
 		 Users user=userlogindao.getUserDetails(emailId);
 		
@@ -290,7 +292,9 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 			
 	     userManagement.findUser(emailId);
 		}
-		return adminUser;
+		return adminUser;*/
+		
+		return userManagement.findUser(emailId);
 	}
 
 	@Override

@@ -212,8 +212,11 @@ public class UserManagementImpl implements UserManagement {
     @Override
     public AdminUser findUser(String emailId) {
         
-        return (AdminUser) StubInvokerUtil.invokeStub(findUser,
-                HttpMethod.GET, AdminUser.class);
+        /*return (AdminUser) StubInvokerUtil.invokeStub(findUser,
+                HttpMethod.GET, AdminUser.class);*/
+        SharedServieRequest sharedServieRequest = new SharedServieRequest();
+        sharedServieRequest.setUserId(emailId);
+        return (AdminUser) StubInvokerUtil.restServiceInvoker(findUser, sharedServieRequest, AdminUser.class);
         
     }
 }

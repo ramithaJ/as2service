@@ -22,4 +22,6 @@ public interface UserLoginServiceDAO {
     
     Integer getUserId(String emailId);
     
+    String getEmailID(String guid);
+    
 }
