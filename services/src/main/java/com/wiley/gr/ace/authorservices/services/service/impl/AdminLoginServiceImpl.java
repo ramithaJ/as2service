@@ -230,9 +230,9 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 		LOGGER.info("inside addOrUpdateUserRole Method");
 		Roles roles = new Roles();
 		List<Permissions> permissionsList = new ArrayList<Permissions>();
-
-		if(rolesAndPermissions.getRole().getRoleId().equals("0")) {
-		    userRolesDAO.checkRoleName(rolesAndPermissions.getRole().getRoleName());
+		Role role = rolesAndPermissions.getRole();
+		if(role.getRoleId().equals("0")) {
+		    userRolesDAO.checkRoleName(role.getRoleName());
 		}
 
 		for (Map.Entry<String, String[]> entry : rolesAndPermissions
@@ -253,7 +253,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 		if (rolesAndPermissions.getRole().getRoleId() != null
 				&& !rolesAndPermissions.getRole().getRoleId().trim()
 						.equals("0")) {
-			roles.setRoleId(Integer.parseInt(rolesAndPermissions.getRole()
+			roles.setRoleId(Integer.valueOf(rolesAndPermissions.getRole()
 					.getRoleId()));
 		}
 		roles.setDescription(rolesAndPermissions.getRole().getRoleDescription());
@@ -305,7 +305,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 		for (String roleId : adminuser.getRolesList()) {
 			UserRoles userRoles = new UserRoles();
 			UserRolesId userRolesId = new UserRolesId();
-			userRolesId.setRoleId(Integer.valueOf(roleId));
+			userRolesId.setRoleId(Integer.parseInt(roleId));
 			userRoles.setId(userRolesId);
 			rolesList.add(userRoles);
 		}

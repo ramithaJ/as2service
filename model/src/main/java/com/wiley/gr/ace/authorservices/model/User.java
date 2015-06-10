@@ -18,6 +18,10 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * @author virtusa
  *	version 1.0
  */
+/**
+ * @author DISHARIDE
+ *
+ */
 @JsonInclude(Include.NON_NULL)
 public class User {
     
@@ -67,6 +71,8 @@ public class User {
     private String password;
     
     private boolean searchFullName;
+    
+    private String invitationGuid;
     
     private Country country;
     
@@ -415,5 +421,13 @@ public class User {
     public void setCountryNameNE(String countryNameNE) {
         this.countryNameNE = countryNameNE;
     }
+
+	public String getInvitationGuid() {
+		return invitationGuid;
+	}
+
+	public void setInvitationGuid(String invitationGuid) {
+		this.invitationGuid = invitationGuid;
+	}
     
 }
