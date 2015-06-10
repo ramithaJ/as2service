@@ -16,12 +16,16 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
+import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
 import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
+import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 
@@ -34,6 +38,15 @@ public class UserLoginServiceImpl implements UserLoginService {
     /**
      * Logger for UserLoginServiceImpl class.
      */
+	@Value("${UserLoginServiceImpl.resetPassword.statusclosedcode}")
+	private String statusclosedcode;
+	@Value("${UserLoginServiceImpl.resetPassword.statusclosedmessage}")
+	private String statusclosedmessage;
+	
+	@Value("${UserLoginServiceImpl.resetPassword.doesntexist.code}")
+	private String recordnotexistcode;
+	@Value("${UserLoginServiceImpl.resetPassword.doesntexist.message}")
+	private String recordnotexistmessage;
     private static final Logger LOGGER = LoggerFactory
             .getLogger(UserLoginServiceImpl.class);
     /**
@@ -96,9 +109,25 @@ public class UserLoginServiceImpl implements UserLoginService {
     }
 
 	@Override
-	public boolean resetPassword(String guid) {
-		String emailId=userLoginServiceDAO.getEmailID(guid);
-	boolean status=userManagement.forceFulReset(emailId, "newPassword");
-		return status;
+	public String resetPassword(String guid) {
+		InviteResetpwdLog daoinviteResetpwdLog=	userLoginServiceDAO.getinviteResetpwdLog(guid);
+		String emailId=null;
+		
+		if (null == daoinviteResetpwdLog) {
+			throw new ASException(recordnotexistcode ,recordnotexistmessage);
+		}
+
+		if (AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS_ClOSED
+				.equalsIgnoreCase(daoinviteResetpwdLog.getStatus())) {
+			throw new ASException(statusclosedcode, statusclosedmessage);
+		}
+
+		if (AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS
+				.equalsIgnoreCase(daoinviteResetpwdLog.getStatus())) {
+			emailId = daoinviteResetpwdLog.getEmailAddress();
+		}
+		return emailId;
+
+		
 	}
 }
