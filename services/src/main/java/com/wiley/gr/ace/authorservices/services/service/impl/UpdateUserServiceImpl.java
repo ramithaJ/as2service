@@ -42,7 +42,7 @@ public class UpdateUserServiceImpl implements UpdateUserService {
         LOGGER.info("inside updateOrcidId method of UpdateUserServiceImpl");
         boolean result = false;
         UserProfileResponse userProfileResponse = userProfileService
-                .userProfileResponse(userId);
+                .getUserProfileResponse(userId);
         if (!StringUtils.isEmpty(userProfileResponse)) {
             UserProfile userProfile = userProfileResponse.getCustomerProfile();
             User user = userProfile.getCustomerDetails();

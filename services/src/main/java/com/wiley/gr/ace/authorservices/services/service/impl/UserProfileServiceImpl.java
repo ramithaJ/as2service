@@ -32,9 +32,9 @@ public class UserProfileServiceImpl implements UserProfileService {
     UserProfiles userProfile;
     
     @Override
-    public UserProfileResponse userProfileResponse(String userId) {
+    public UserProfileResponse getuserProfileResponse(String userId) {
         
     	LOGGER.info("in UserProfileResponse Method");
-        return userProfile.userProfileResponse(userId);
+        return userProfile.getUserProfileResponse(userId);
     }
 }

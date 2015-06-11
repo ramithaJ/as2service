@@ -47,7 +47,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 
 		LOGGER.info("inside getEmailDetails Method");
 
-		UserProfileResponse lookupProfile = userProfile.userProfileResponse(userId);
+		UserProfileResponse lookupProfile = userProfile.getUserProfileResponse(userId);
 		User user = new User();
 		user.setPrimaryEmailAddr(lookupProfile.getCustomerProfile()
 				.getCustomerDetails().getPrimaryEmailAddr());
@@ -74,7 +74,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 	public User getProfileInformation(String userId) {
 
 		LOGGER.info("inside getProfileInformation Method");
-		UserProfileResponse lookupProfile = userProfile.userProfileResponse(userId);
+		UserProfileResponse lookupProfile = userProfile.getUserProfileResponse(userId);
 		return lookupProfile.getCustomerProfile().getCustomerDetails();
 	}
 
@@ -82,7 +82,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 	public List<Addresses> getUserAddress(String userId) {
 
 		LOGGER.info("inside getUserAddress Method");
-		UserProfileResponse lookupProfile = userProfile.userProfileResponse(userId);
+		UserProfileResponse lookupProfile = userProfile.getUserProfileResponse(userId);
 		return lookupProfile.getCustomerProfile().getAddressDetails();
 	}
 

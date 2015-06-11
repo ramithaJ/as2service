@@ -65,7 +65,7 @@ public class DashboardServiceImpl implements DashboardService {
         Dashboard dashBoard = new Dashboard();
         List<DashboardInfo> dashBoardInfoList;
         UserProfileResponse userProfileResponse = userProfileService
-                .userProfileResponse(userId);
+                .getUserProfileResponse(userId);
         UserProfile userProfile = userProfileResponse.getCustomerProfile();
         dashBoardInfoList = checkingDashboardInfo(userProfile);
         if (StringUtils.isEmpty(dashBoardInfoList)) {

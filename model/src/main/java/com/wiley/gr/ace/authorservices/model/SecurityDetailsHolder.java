@@ -14,8 +14,13 @@ package com.wiley.gr.ace.authorservices.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author virtusa
@@ -24,11 +29,14 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class SecurityDetailsHolder {
     
+    @NotNull @NotEmpty
     private String emailId;
     
     private List<SecurityDetails> securityDetails = new ArrayList<SecurityDetails>();
     
     private String password;
+    @JsonProperty
+    private boolean isForceReset;
     
     /**
      * @return
@@ -44,6 +52,9 @@ public class SecurityDetailsHolder {
         this.securityDetails = securityDetails;
     }
 
+    /**
+     * @return
+     */
     public String getEmailId() {
         return emailId;
     }
@@ -58,6 +69,14 @@ public class SecurityDetailsHolder {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isForceReset() {
+        return isForceReset;
+    }
+
+    public void setForceReset(boolean isForceReset) {
+        this.isForceReset = isForceReset;
     }
     
     

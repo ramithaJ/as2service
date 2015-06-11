@@ -19,5 +19,5 @@ import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
  */
 public interface UserProfileService {
     
-    UserProfileResponse userProfileResponse(String userId);
+    UserProfileResponse getuserProfileResponse(String userId);
 }

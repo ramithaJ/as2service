@@ -66,7 +66,7 @@ public class UserProfilesImpl implements UserProfiles {
 	private static final String STATUSS = "success";
 
 	@Override
-	public UserProfileResponse userProfileResponse(String userId) {
+	public UserProfileResponse getUserProfileResponse(String userId) {
 
 		return (UserProfileResponse) StubInvokerUtil.invokeStub(userProfile,
 				HttpMethod.GET, UserProfileResponse.class);

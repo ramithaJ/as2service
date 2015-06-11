@@ -28,7 +28,7 @@ import com.wiley.gr.ace.authorservices.externalservices.service.impl.OrcidInterf
 @Configuration
 public class ExternalServiceBeanConfig {
     
-    @Bean(name = "ALMExternalService")
+    @Bean(name = "UserManagement")
     public UserManagement aLMExternalService() {
         return new UserManagementImpl();
     }
@@ -48,7 +48,7 @@ public class ExternalServiceBeanConfig {
         return new OrcidInterfaceServiceImpl();
     }
     
-    @Bean(name = "CDMInterfaceService")
+    @Bean(name = "UserProfiles")
     public UserProfiles cdmInterfaceService() {
         
         return new UserProfilesImpl();
