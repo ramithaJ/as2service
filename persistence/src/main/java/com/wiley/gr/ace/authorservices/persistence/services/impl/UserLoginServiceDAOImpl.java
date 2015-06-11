@@ -24,95 +24,92 @@ import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 
 /**
- * @author virtusa
- *	version 1.0
+ * @author virtusa version 1.0
  */
 public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
-    
-    @Value("${invalidEmail.code}")
-    private String invalidEmail;
-    
-    @Value("${invalidEmail.message}")
-    private String invalidEmailMsg;
-    @Value("${UserLoginServiceDAOImpl.getEmailID.errorcode}")
-    private String  RecordNotExist;
-    @Value("${UserLoginServiceDAOImpl.getEmailID.errormessage}")
-    private String  RecordNotExistMessage;
-    
-    /*
-     * (non-Javadoc)
-     * @see
-     * com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO
-     * #validateEmailAddress(java.lang.String)
-     */
-    @Override
-    public boolean validateEmailAddress(String emailId) {
-        
-        Session session = null;
-        try {
-            
-            int userId = getUserId(emailId);
-            session = getSessionFactory().openSession();
-            Users users = (Users) session.load(Users.class, userId);
-            if (null == users) {
-                return false;
-            }
-            return true;
-        } finally {
-            if (session != null) {
-                session.flush();
-                session.close();
-            }
-        }
-    }
-    
-    /*
-     * (non-Javadoc)
-     * @see
-     * com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO
-     * #getUserId(java.lang.String)
-     */
-    @Override
-    public Integer getUserId(String emailId) {
-        
-        Session session = null;
-        try {
-            session = getSessionFactory().openSession();
-            Criteria criteria = session.createCriteria(Users.class);
-            criteria.add(Restrictions.eq("primaryEmailAddr", emailId));
-            Users user = (Users) criteria.uniqueResult();
-            if (null == user) {
-                throw new ASException(invalidEmail, invalidEmailMsg);
-            }
-            return user.getUserId();
-        } finally {
-            if (session != null) {
-                session.flush();
-                session.close();
-            }
-        }
-    }
+
+	@Value("${invalidEmail.code}")
+	private String invalidEmail;
+
+	@Value("${invalidEmail.message}")
+	private String invalidEmailMsg;
+	
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO
+	 * #validateEmailAddress(java.lang.String)
+	 */
+	@Override
+	public boolean validateEmailAddress(String emailId) {
+
+		Session session = null;
+		try {
+
+			int userId = getUserId(emailId);
+			session = getSessionFactory().openSession();
+			Users users = (Users) session.load(Users.class, userId);
+			if (null == users) {
+				return false;
+			}
+			return true;
+		} finally {
+			if (session != null) {
+				session.flush();
+				session.close();
+			}
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO
+	 * #getUserId(java.lang.String)
+	 */
+	@Override
+	public Integer getUserId(String emailId) {
+
+		Session session = null;
+		try {
+			session = getSessionFactory().openSession();
+			Criteria criteria = session.createCriteria(Users.class);
+			criteria.add(Restrictions.eq("primaryEmailAddr", emailId));
+			Users user = (Users) criteria.uniqueResult();
+			if (null == user) {
+				throw new ASException(invalidEmail, invalidEmailMsg);
+			}
+			return user.getUserId();
+		} finally {
+			if (session != null) {
+				session.flush();
+				session.close();
+			}
+		}
+	}
 
 	@Override
-	public String getEmailID(String guid) {
-		Session session=null;
-		String EmailId=null;
+	public InviteResetpwdLog getinviteResetpwdLog(String guid) {
+		Session session = null;
+		InviteResetpwdLog inviteResetpwdLog =null;
 		try {
-			session= getSessionFactory().openSession();
-			InviteResetpwdLog inviteResetpwdLog=(InviteResetpwdLog) session.get(InviteResetpwdLog.class,guid);
-			if (null ==inviteResetpwdLog) {
-				
-				throw new ASException(RecordNotExist,RecordNotExistMessage);
-			}else {
-				 EmailId=inviteResetpwdLog.getEmailAddress();
-			}
+
+			session = getSessionFactory().openSession();
+			inviteResetpwdLog = (InviteResetpwdLog) session
+					.get(InviteResetpwdLog.class, guid);
+
 			
-		}finally{
+
+		} finally {
 			if (session != null) {
-                session.flush();
-                session.close();
-            }
+				session.flush();
+				session.close();
+			}
 		}
-		return EmailId;
+
+		return inviteResetpwdLog;
 	}
 }

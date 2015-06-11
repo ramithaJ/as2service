@@ -28,7 +28,6 @@ import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
-import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserManagement;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
@@ -91,22 +90,6 @@ public class UserLoginController extends ASExceptionController {
             LOGGER.error("Inside catch Block", exception);
         }
         // service.setPayload(userLoginService.login(sharedServieRequest));
-        return service;
-    }
-    
-    /**
-     * @param email
-     * @param password
-     * @return service object.
-     */
-    @RequestMapping(value = "/orcid", method = RequestMethod.POST)
-    public final Service doOrcidLogin(@RequestBody final String email,
-            @RequestBody final String password) {
-        Service service = new Service();
-        User user = new User();
-        user.setUserId(1234);
-        user.setOrcidID("123");
-        service.setPayload(user);
         return service;
     }
     
@@ -185,18 +168,30 @@ public class UserLoginController extends ASExceptionController {
     }
     
     /**
+     * Method to resetPassword.
+     * 
      * @param emailId
-     * @return
+     * @return service
      */
     @RequestMapping(value = "resetPassword/{guid}", method = RequestMethod.GET)
-    public final Service resetPassword(
-            @PathVariable("guid") String guid) {
-    	Service service=new Service();
-     service.setPayload(userLoginService.resetPassword(guid)); 	
-    	 
+    public final Service resetPassword(@PathVariable("guid") final String guid) {
+        Service service = new Service();
+        Login login = new Login();
+        login.setEmailId(userLoginService.resetPassword(guid));
+        service.setPayload(login);
+        
         return service;
     }
     
-  
-  
+    /**
+     * @param emailId
+     * @return service
+     */
+    @RequestMapping(value = "resetByEmail/{emailId}", method = RequestMethod.POST)
+    public final Service resetByEmail(
+            @PathVariable("emailId") final String emailId) {
+        
+        return new Service();
+    }
+    
 }

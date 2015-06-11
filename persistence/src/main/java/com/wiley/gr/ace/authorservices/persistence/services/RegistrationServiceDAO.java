@@ -11,20 +11,17 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.services;
 
-import java.util.List;
-
-import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
 /**
  * @author virtusa
  *version 1.0
  */
 public interface RegistrationServiceDAO {
-    List<AuthorProfile> getUserFromFirstNameLastName(String firstName,
-            String lastName);
-    
+   
     boolean searchUserByOrcidId(String orcidId) throws Exception;
     
     InviteResetpwdLog getInvitationRecords(String guid);
+    
+    void assignRoleToNewRegistration(String emaildId);
     
 }

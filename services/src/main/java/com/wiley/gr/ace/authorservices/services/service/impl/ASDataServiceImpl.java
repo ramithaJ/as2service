@@ -14,7 +14,6 @@ package com.wiley.gr.ace.authorservices.services.service.impl;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -109,7 +108,7 @@ public class ASDataServiceImpl implements ASDataService {
 		List<Object> industryDocs = industries.getResponse().getDocs();
 		for (Object object : industryDocs) {
 
-			Map<String, String> industryMap = (LinkedHashMap<String, String>) object;
+			LinkedHashMap<String, String> industryMap = (LinkedHashMap<String, String>) object;
 			industry = new Industry();
 			industry.setIndustryId(industryMap.get("NAICS_CODE"));
 			industry.setIndustryName(industryMap.get("NAICS_TITLE"));
@@ -133,7 +132,7 @@ public class ASDataServiceImpl implements ASDataService {
 		List<Object> jobCategoryDocs = jobCategories.getResponse().getDocs();
 		for (Object object : jobCategoryDocs) {
 
-			Map<String, String> jobCategoryMap = (LinkedHashMap<String, String>) object;
+			LinkedHashMap<String, String> jobCategoryMap = (LinkedHashMap<String, String>) object;
 			jobCategory = new JobCategory();
 			jobCategory.setJobCategoryId(jobCategoryMap.get("JOBCODE"));
 			jobCategory.setJobCategoryName(jobCategoryMap.get("JOBTITLE"));
@@ -156,7 +155,7 @@ public class ASDataServiceImpl implements ASDataService {
 			return countrylist;
 		}
 		for (Object object : externalCountrylist) {
-			Map<String, String> countrymap = (LinkedHashMap<String, String>) object;
+			LinkedHashMap<String, String> countrymap = (LinkedHashMap<String, String>) object;
 			Country country = new Country();
 
 			String externalcountrymap = countrymap.get("id");
@@ -183,7 +182,7 @@ public class ASDataServiceImpl implements ASDataService {
 
 		for (Object statelist : externalstatelist) {
 
-			Map<String, String> statemap = (LinkedHashMap<String, String>) statelist;
+			LinkedHashMap<String, String> statemap = (LinkedHashMap<String, String>) statelist;
 
 			State state = new State();
 			String externalcountrymap = statemap.get("id");
@@ -287,7 +286,7 @@ public class ASDataServiceImpl implements ASDataService {
 		}
 
 		for (Object docs : externalInterests) {
-			Map<String, String> interest = (LinkedHashMap<String, String>) docs;
+			LinkedHashMap<String, String> interest = (LinkedHashMap<String, String>) docs;
 			Interests interests = new Interests();
 			interests.setAoeId(interest.get("SUBJECT_CODE"));
 			interests.setAoeName(interest.get("SUBJECT_NAME"));

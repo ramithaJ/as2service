@@ -29,164 +29,225 @@ import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.services.service.ASDataService;
 
 /**
- * This controller is used to get common data in dropdown across application
- * 
- * @author virtusa
- *	version 1.0
+ * This controller is used to get common data in dropdown across application.
+ */
+
+/**
+ * * @author virtusa version 1.0
  */
 @RestController
 @RequestMapping("/asdata")
 public class ASDataController {
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(ASDataController.class);
+    /** logging configured. */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(ASDataController.class);
+    /** getting bean of asdataservice. */
+    @Autowired(required = true)
+ private ASDataService aSDataService;
+    /** getting data from props file. */
+    @Value("${noDataFound.code}")
+    private String nodataFound;
+    /** getting data from props file. */
+    @Value("${noDataFound.message}")
+    private String nodataFoundmsg;
 
-	@Autowired(required = true)
-	ASDataService aSDataService;
-	@Value("${noDataFound.code}")
-	private String nodataFound;
-	@Value("${noDataFound.message}")
-	private String nodataFoundmsg;
+    /**
+     * @return service
+     */
+    @RequestMapping(value = "/titles/", method = RequestMethod.GET)
+    public final Service getTitles() {
+        LOGGER.info("inside getTitles Method");
+        Service service = new Service();
+        service.setPayload(aSDataService.getTitles());
+        return service;
+    }
 
-	@RequestMapping(value = "/titles/", method = RequestMethod.GET)
-	public Service getTitles() {
-		LOGGER.info("inside getTitles Method");
-		Service service = new Service();
-		service.setPayload(aSDataService.getTitles());
-		return service;
-	}
+    /**
+     * @return service
+     */
+    @RequestMapping(value = "/suffixes/", method = RequestMethod.GET)
+    public final Service getSuffixes() {
+        LOGGER.info("inside getSuffixes Method");
+        Service service = new Service();
+        service.setPayload(aSDataService.getSuffixes());
+        return service;
+    }
 
-	@RequestMapping(value = "/suffixes/", method = RequestMethod.GET)
-	public Service getSuffixes() {
-		LOGGER.info("inside getSuffixes Method");
-		Service service = new Service();
-		service.setPayload(aSDataService.getSuffixes());
-		return service;
-	}
+    
+    /**
+     * @param count
+     * @return service
+     */
+    @RequestMapping(value = "/industries/", method = RequestMethod.GET)
+    public final Service getIndustries(
+            @RequestParam(value = "count", required = false, defaultValue = "10") final Integer count) {
+        LOGGER.info("inside getIndustries Method");
+        Service service = new Service();
+        service.setPayload(aSDataService.getIndustries(count));
+        return service;
+    }
 
-	@RequestMapping(value = "/industries/", method = RequestMethod.GET)
-	public Service getIndustries(
-			@RequestParam(value = "count", required = false, defaultValue = "10") Integer count) {
-		LOGGER.info("inside getIndustries Method");
-		Service service = new Service();
-		service.setPayload(aSDataService.getIndustries(count));
-		return service;
-	}
+    /**
+     * @param count
+     * @return service
+     */
+    @RequestMapping(value = "/jobCategories/", method = RequestMethod.GET)
+    public final Service getJobCategories(
+            @RequestParam(value = "count", required = false, defaultValue = "10") final Integer count) {
+        LOGGER.info("inside getJobCategories Method");
+        Service service = new Service();
+        service.setPayload(aSDataService.getJobCategories(count));
+        return service;
+    }
 
-	@RequestMapping(value = "/jobCategories/", method = RequestMethod.GET)
-	public Service getJobCategories(
-			@RequestParam(value = "count", required = false, defaultValue = "10") Integer count) {
-		LOGGER.info("inside getJobCategories Method");
-		Service service = new Service();
-		service.setPayload(aSDataService.getJobCategories(count));
-		return service;
-	}
+    /**
+     * @param count
+     * @return service
+     */
+    @RequestMapping(value = "/countries/", method = RequestMethod.GET)
+    public final Service getCountries(
+            @RequestParam(value = "count", required = false, defaultValue = "10") final Integer count) {
+        LOGGER.info("inside getCountries Method");
+        Service service = new Service();
+        service.setPayload(aSDataService.getCountries(count));
+        return service;
+    }
 
-	@RequestMapping(value = "/countries/", method = RequestMethod.GET)
-	public Service getCountries(
-			@RequestParam(value = "count", required = false, defaultValue = "10") Integer count) {
-		LOGGER.info("inside getCountries Method");
-		Service service = new Service();
-		service.setPayload(aSDataService.getCountries(count));
-		return service;
-	}
+    /**
+     * @param countrycode
+     * @param count
+     * @return service
+     */
+    @RequestMapping(value = "/states/{countrycode}", method = RequestMethod.GET)
+    public final Service getStates(
+            @PathVariable("countrycode") final String countrycode,
+            @RequestParam(value = "count", required = false, defaultValue = "10") final Integer count) {
+        LOGGER.info("inside getStates Method");
+        Service service = new Service();
+        service.setPayload(aSDataService.getStates(countrycode, count));
 
-	@RequestMapping(value = "/states/{countrycode}", method = RequestMethod.GET)
-	public Service getStates(
-			@PathVariable("countrycode") String countrycode,
-			@RequestParam(value = "count", required = false, defaultValue = "10") Integer count) {
-		LOGGER.info("inside getStates Method");
-		Service service = new Service();
-		service.setPayload(aSDataService.getStates(countrycode, count));
+        return service;
+    }
 
-		return service;
-	}
+    /**
+     * @return service
+     */
+    @RequestMapping(value = "/institutions/", method = RequestMethod.GET)
+    public final Service getInstitutions() {
+        LOGGER.info("inside getInstitutions Method");
+        Service service = new Service();
+        service.setPayload(aSDataService.getInstitutions());
 
-	@RequestMapping(value = "/institutions/", method = RequestMethod.GET)
-	public Service getInstitutions() {
-		LOGGER.info("inside getInstitutions Method");
-		Service service = new Service();
-		service.setPayload(aSDataService.getInstitutions());
+        return service;
+    }
 
-		return service;
-	}
+    /**
+     * @return service
+     */
+    @RequestMapping(value = "/departments/", method = RequestMethod.GET)
+    public final Service getDepartments() {
+        LOGGER.info("inside getDepartments Method");
+        Service service = new Service();
+        service.setPayload(aSDataService.getDepartments());
 
-	@RequestMapping(value = "/departments/", method = RequestMethod.GET)
-	public Service getDepartments() {
-		LOGGER.info("inside getDepartments Method");
-		Service service = new Service();
-		service.setPayload(aSDataService.getDepartments());
+        return service;
+    }
 
-		return service;
-	}
+    /**
+     * @return service
+     */
+    @RequestMapping(value = "/researchFunders/", method = RequestMethod.GET)
+    public final Service getResearchFunders() {
+        LOGGER.info("inside getResearchFunders Method");
+        Service service = new Service();
+        service.setPayload(aSDataService.getResearchFunders());
+        return service;
+    }
 
-	@RequestMapping(value = "/researchFunders/", method = RequestMethod.GET)
-	public Service getResearchFunders() {
-		LOGGER.info("inside getResearchFunders Method");
-		Service service = new Service();
-		service.setPayload(aSDataService.getResearchFunders());
-		return service;
-	}
+    /**
+     * @return service
+     */
+    @RequestMapping(value = "/articles/", method = RequestMethod.GET)
+    public final Service getArticles() {
+        LOGGER.info("inside getArticles Method");
+        return null;
+    }
 
-	@RequestMapping(value = "/articles/", method = RequestMethod.GET)
-	public Service getArticles() {
-		LOGGER.info("inside getArticles Method");
-		return null;
-	}
+    /**
+     * @return service
+     */
+    @RequestMapping(value = "/societies/", method = RequestMethod.GET)
+    public final Service getSocieties() {
+        LOGGER.info("inside getSocieties Method");
+        Service service = new Service();
+        service.setPayload(aSDataService.getSocieties());
 
-	@RequestMapping(value = "/societies/", method = RequestMethod.GET)
-	public Service getSocieties() {
-		LOGGER.info("inside getSocieties Method");
-		Service service = new Service();
-		service.setPayload(aSDataService.getSocieties());
+        return service;
+    }
 
-		return service;
-	}
+    /**
+     * @param count
+     * @return service
+     */
+    @RequestMapping(value = "/areasOfInterests/", method = RequestMethod.GET)
+    public final Service getAreasOfInterests(
+            @RequestParam(value = "count", required = false, defaultValue = "10") final Integer count) {
+        LOGGER.info("inside getAreasOfInterests Method");
+        Service service = new Service();
+        service.setPayload(aSDataService.getAreasOfInterests(count));
+        return service;
+    }
 
-	@RequestMapping(value = "/areasOfInterests/", method = RequestMethod.GET)
-	public Service getAreasOfInterests(
-			@RequestParam(value = "count", required = false, defaultValue = "10") Integer count) {
-		LOGGER.info("inside getAreasOfInterests Method");
-		Service service = new Service();
-		service.setPayload(aSDataService.getAreasOfInterests(count));
-		return service;
-	}
+    /**
+     * @return service
+     */
+    @RequestMapping(value = "/securityQuestions/", method = RequestMethod.GET)
+    public final Service getSecurityQuestions() {
+        LOGGER.info("inside getSecurityQuestions Method");
+        Service service = new Service();
+        service.setPayload(aSDataService.getSecurityQuestions());
 
-	@RequestMapping(value = "/securityQuestions/", method = RequestMethod.GET)
-	public Service getSecurityQuestions() {
-		LOGGER.info("inside getSecurityQuestions Method");
-		Service service = new Service();
-		service.setPayload(aSDataService.getSecurityQuestions());
+        return service;
+    }
 
-		return service;
-	}
+    /**
+     * @return service
+     */
+    @RequestMapping(value = "/roles/", method = RequestMethod.GET)
+    public final Service getUserRoles() {
+        LOGGER.info("inside getUserRoles Method");
+        Service service = new Service();
+        service.setPayload(aSDataService.getAdminRoles(null));
 
-	@RequestMapping(value = "/roles/", method = RequestMethod.GET)
-	public Service getUserRoles() {
-		LOGGER.info("inside getUserRoles Method");
-		Service service = new Service();
-		service.setPayload(aSDataService.getAdminRoles(null));
+        return service;
+    }
 
-		return service;
-	}
+    /**
+     * @param roleType
+     * @return service
+     */
+    @RequestMapping(value = "/roles/{roleType}", method = RequestMethod.GET)
+    public final Service getAdminRoles(
+            @PathVariable("roleType") final String roleType) {
+        LOGGER.info("inside getAdminRoles Method");
+        Service service = new Service();
+        service.setPayload(aSDataService.getAdminRoles(roleType));
 
-	@RequestMapping(value = "/roles/{roleType}", method = RequestMethod.GET)
-	public Service getAdminRoles(@PathVariable("roleType") String roleType) {
-		LOGGER.info("inside getAdminRoles Method");
-		Service service = new Service();
-		service.setPayload(aSDataService.getAdminRoles(roleType));
+        return service;
+    }
 
-		return service;
-	}
-
-	@RequestMapping(value = "/accessReasons/", method = RequestMethod.GET)
-	public Service getAdminAccessReasons() {
-		LOGGER.info("inside getAdminAccessReasons Method");
-		Service service = new Service();
-		List<AccessReasons> accessList = aSDataService.getAccessReasons();
-		if (null == accessList) {
-			throw new ASException(nodataFound, nodataFoundmsg);
-		}
-		service.setPayload(accessList);
-		return service;
-	}
+    /**
+     * @return service
+     */
+    @RequestMapping(value = "/accessReasons/", method = RequestMethod.GET)
+    public final Service getAdminAccessReasons() {
+        LOGGER.info("inside getAdminAccessReasons Method");
+        Service service = new Service();
+        List<AccessReasons> accessList = aSDataService.getAccessReasons();
+        if (null == accessList) {
+            throw new ASException(nodataFound, nodataFoundmsg);
+        }
+        service.setPayload(accessList);
+        return service;
+    }
 }
