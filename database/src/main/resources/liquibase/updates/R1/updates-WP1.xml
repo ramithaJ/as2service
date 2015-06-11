@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
     <changeSet author="gphaniraj" id="WP1-1">
-        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="ADDRESS_SEQUENCE" startValue="2"/>
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="ADDRESS_SEQUENCE" startValue="1"/>
     </changeSet>
     <changeSet author="gphaniraj" id="WP1-2">
         <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="ADMIN_TASKS_SEQ" startValue="1"/>
@@ -10,7 +10,7 @@
         <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="AFFILIATION_SEQ" startValue="1"/>
     </changeSet>
     <changeSet author="gphaniraj" id="WP1-4">
-        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="0" ordered="false" sequenceName="ALERTS_SEQ" startValue="13"/>
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="0" ordered="false" sequenceName="ALERTS_SEQ" startValue="1"/>
     </changeSet>
     <changeSet author="gphaniraj" id="WP1-5">
         <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="AREA_OF_INTEREST_SEQ" startValue="1"/>
@@ -19,7 +19,7 @@
         <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="AUDIT_SEQ" startValue="1"/>
     </changeSet>
     <changeSet author="gphaniraj" id="WP1-7">
-        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="AUTH_COAUTH_DETAILS_SEQ" startValue="10"/>
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="AUTH_COAUTH_DETAILS_SEQ" startValue="1"/>
     </changeSet>
     <changeSet author="gphaniraj" id="WP1-8">
         <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="AUTH_COLLEAGUE_DETAILS_SEQ" startValue="1"/>
@@ -40,16 +40,16 @@
         <createSequence cacheSize="20" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="ISEQ$$_92006" startValue="1"/>
     </changeSet>
     <changeSet author="gphaniraj" id="WP1-14">
-        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="JOURNAL_SEQ" startValue="103"/>
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="JOURNAL_SEQ" startValue="1"/>
     </changeSet>
     <changeSet author="gphaniraj" id="WP1-15">
         <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="NOTIFICATIONS_SEQ" startValue="1"/>
     </changeSet>
     <changeSet author="gphaniraj" id="WP1-16">
-        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="PERMISSION_SEQ" startValue="42"/>
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="PERMISSION_SEQ" startValue="1"/>
     </changeSet>
     <changeSet author="gphaniraj" id="WP1-17">
-        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="RESEARCH_FUNDERS_SEQ" startValue="200"/>
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="RESEARCH_FUNDERS_SEQ" startValue="1"/>
     </changeSet>
     <changeSet author="gphaniraj" id="WP1-18">
         <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="RESEARCH_FUNDER_GRANTS_SEQ" startValue="1"/>
@@ -58,16 +58,16 @@
         <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="RESEARCH_FUNDER_SEQ" startValue="1"/>
     </changeSet>
     <changeSet author="gphaniraj" id="WP1-20">
-        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="0" ordered="false" sequenceName="ROLE_SEQ" startValue="24"/>
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="0" ordered="false" sequenceName="ROLE_SEQ" startValue="1"/>
     </changeSet>
     <changeSet author="gphaniraj" id="WP1-21">
-        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="SECURITY_QUEST_SEQ" startValue="8"/>
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="SECURITY_QUEST_SEQ" startValue="1"/>
     </changeSet>
     <changeSet author="gphaniraj" id="WP1-22">
-        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="SOCIETY_SEQ" startValue="500"/>
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="SOCIETY_SEQ" startValue="1"/>
     </changeSet>
     <changeSet author="gphaniraj" id="WP1-23">
-        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="TEST_SEQ" startValue="11"/>
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="TEST_SEQ" startValue="1"/>
     </changeSet>
     <changeSet author="gphaniraj" id="WP1-24">
         <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="USER_ADDRESSES_SEQ" startValue="1"/>
@@ -76,7 +76,7 @@
         <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="USER_FUNDER_GRANTS_SEQ" startValue="1"/>
     </changeSet>
     <changeSet author="gphaniraj" id="WP1-26">
-        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="0" ordered="false" sequenceName="USER_LOOKUP_VALUE_SEQ" startValue="26"/>
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="0" ordered="false" sequenceName="USER_LOOKUP_VALUE_SEQ" startValue="1"/>
     </changeSet>
     <changeSet author="gphaniraj" id="WP1-27">
         <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="USER_PROFILE_ATTRIB_VIS_SEQ" startValue="1"/>
@@ -85,10 +85,10 @@
         <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="USER_SECONDARY_EMAIL_ADDR_SEQ" startValue="1"/>
     </changeSet>
     <changeSet author="gphaniraj" id="WP1-29">
-        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="USER_SECURITY_SEQ" startValue="15"/>
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="USER_SECURITY_SEQ" startValue="1"/>
     </changeSet>
     <changeSet author="gphaniraj" id="WP1-30">
-        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="USER_SEQ" startValue="1010"/>
+        <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="USER_SEQ" startValue="1"/>
     </changeSet>
     <changeSet author="gphaniraj" id="WP1-31">
         <createTable tableName="ACTIONS">
@@ -1564,6 +1564,306 @@ ALTER TABLE USERS MODIFY PRIMARY_EMAIL_ADDR VARCHAR2(100);
 <changeSet author="gphaniraj" id="WP1-267">
 <sql>
 ALTER TABLE USER_SECONDARY_EMAIL_ADDR MODIFY SECONDARY_EMAIL_ADDR VARCHAR2(100);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-268">
+<sql>
+ALTER TABLE JOURNALS DROP(CREATED_DATE,CREATED_BY,UPDATED_DATE,UPDATED_BY);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-269">
+<sql>
+ALTER TABLE JOURNALS ADD(CREATED_DATE TIMESTAMP(6),CREATED_BY NUMBER,UPDATED_DATE TIMESTAMP(6),UPDATED_BY NUMBER);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-270">
+<sql>
+ALTER TABLE LOCKED_ACCOUNT_DETAILS DROP(CREATED_DATE,CREATED_BY,UPDATED_DATE,UPDATED_BY);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-271">
+<sql>
+ALTER TABLE LOCKED_ACCOUNT_DETAILS ADD(CREATED_DATE TIMESTAMP(6),CREATED_BY NUMBER,UPDATED_DATE TIMESTAMP(6),UPDATED_BY NUMBER);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-272">
+<sql>
+ALTER TABLE PERMISSION_GROUPS DROP(CREATED_DATE,CREATED_BY,UPDATED_DATE,UPDATED_BY);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-273">
+<sql>
+ALTER TABLE PERMISSION_GROUPS ADD(CREATED_DATE TIMESTAMP(6),CREATED_BY NUMBER,UPDATED_DATE TIMESTAMP(6),UPDATED_BY NUMBER);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-274">
+<sql>
+ALTER TABLE RESEARCH_FUNDERS DROP(CREATED_DATE,CREATED_BY,UPDATED_DATE,UPDATED_BY);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-275">
+<sql>
+ALTER TABLE RESEARCH_FUNDERS ADD(CREATED_DATE TIMESTAMP(6),CREATED_BY NUMBER,UPDATED_DATE TIMESTAMP(6),UPDATED_BY NUMBER);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-276">
+<sql>
+ALTER TABLE SOCIETIES DROP(CREATED_DATE,CREATED_BY,UPDATED_DATE,UPDATED_BY);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-277">
+<sql>
+ALTER TABLE SOCIETIES ADD(CREATED_DATE TIMESTAMP(6),CREATED_BY NUMBER,UPDATED_DATE TIMESTAMP(6),UPDATED_BY NUMBER);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-278">
+<sql>
+ALTER TABLE USER_FUNDER_GRANTS DROP(CREATED_DATE,CREATED_BY,UPDATED_DATE,UPDATED_BY);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-279">
+<sql>
+ALTER TABLE USER_FUNDER_GRANTS ADD(CREATED_DATE TIMESTAMP(6),CREATED_BY NUMBER,UPDATED_DATE TIMESTAMP(6),UPDATED_BY NUMBER);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-280">
+<sql>
+ALTER TABLE USER_SOCIETY_DETAILS DROP(CREATED_DATE,CREATED_BY,UPDATED_DATE,UPDATED_BY);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-281">
+<sql>
+ALTER TABLE USER_SOCIETY_DETAILS ADD(CREATED_DATE TIMESTAMP(6),CREATED_BY NUMBER,UPDATED_DATE TIMESTAMP(6),UPDATED_BY NUMBER);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-282">
+<sql>
+ALTER TABLE LOCKED_ACCOUNT_DETAILS DROP(CREATED_DATE,CREATED_BY,UPDATED_DATE,UPDATED_BY);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-283">
+<sql>
+ALTER TABLE LOCKED_ACCOUNT_DETAILS ADD(CREATED_DATE TIMESTAMP(6),CREATED_BY NUMBER,UPDATED_DATE TIMESTAMP(6),UPDATED_BY NUMBER);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-284">
+<sql>
+ALTER TABLE AUTH_COLLEAGUE_DETAILS DROP(CREATED_DATE,CREATED_BY,UPDATED_DATE,UPDATED_BY);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-285">
+<sql>
+ALTER TABLE AUTH_COLLEAGUE_DETAILS ADD(CREATED_DATE TIMESTAMP(6),CREATED_BY NUMBER,UPDATED_DATE TIMESTAMP(6),UPDATED_BY NUMBER);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-286">
+<sql>
+ALTER TABLE PERMISSIONS DROP(CREATED_DATE,CREATED_BY,UPDATED_DATE,UPDATED_BY);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-287">
+<sql>
+ALTER TABLE PERMISSIONS ADD(CREATED_DATE TIMESTAMP(6),CREATED_BY NUMBER,UPDATED_DATE TIMESTAMP(6),UPDATED_BY NUMBER);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-288">
+<sql>
+ALTER TABLE USER_AFFILIATIONS RENAME COLUMN CRATED_DATE TO CREATED_DATE;
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-289">
+<sql>
+ALTER TABLE AUTH_COAUTH_DETAILS MODIFY COAUTH_FIRST_NAME VARCHAR2(100);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-290">
+<sql>
+ALTER TABLE AUTH_COAUTH_DETAILS MODIFY COAUTH_LAST_NAME VARCHAR2(100);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-291">
+<sql>
+ALTER TABLE AUTH_COAUTH_DETAILS MODIFY COAUTH_EMAIL_ADDR VARCHAR2(100);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-292">
+<sql>
+ALTER TABLE INVITE_RESETPWD_LOG MODIFY EMAIL_ADDRESS VARCHAR2(100);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-293">
+<sql>
+ALTER  TABLE NOTIFICATION_RECIPIENTS MODIFY EMAIL VARCHAR2(100);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-294">
+<sql>
+ALTER TABLE NOTIFICATION MODIFY SENDER_EMAIL VARCHAR2(100);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-295">
+<sql>
+ALTER TABLE AUTH_COLLEAGUE_DETAILS MODIFY EMAIL_ADDR VARCHAR2(100);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-296">
+<sql>
+ALTER TABLE ADDITIONAL_PERMISSIONS RENAME COLUMN OBJECT_TYPE_ID TO OBJECT_TYPE_CD;
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-297">
+<sql>
+ALTER TABLE OBJECT_TYPES RENAME COLUMN OBJECT_TYPE_ID TO OBJECT_TYPE_CD;
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-298">
+<sql>
+ALTER TABLE ADDITIONAL_PERMISSIONS MODIFY OBJECT_ID NUMBER;
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-299">
+<sql>
+ALTER TABLE AUTH_COLLEAGUE_DETAILS  ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-300">
+<sql>
+ALTER TABLE AUTH_COLLEAGUE_DETAILS ADD  FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-301">
+<sql>
+ALTER TABLE JOURNALS  ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-302">
+<sql>
+ALTER TABLE JOURNALS ADD  FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-303">
+<sql>
+ALTER TABLE LOCKED_ACCOUNT_DETAILS  ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-304">
+<sql>
+ALTER TABLE LOCKED_ACCOUNT_DETAILS ADD  FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-305">
+<sql>
+ALTER TABLE PERMISSIONS  ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-306">
+<sql>
+ALTER TABLE PERMISSIONS ADD  FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-307">
+<sql>
+ALTER TABLE PERMISSION_GROUPS  ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-308">
+<sql>
+ALTER TABLE PERMISSION_GROUPS ADD FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-309">
+<sql>
+ALTER TABLE RESEARCH_FUNDERS  ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-310">
+<sql>
+ALTER TABLE RESEARCH_FUNDERS ADD  FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-311">
+<sql>
+ALTER TABLE SOCIETIES  ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-312">
+<sql>
+ALTER TABLE SOCIETIES ADD  FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-313">
+<sql>
+ALTER TABLE USER_FUNDER_GRANTS  ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-314">
+<sql>
+ALTER TABLE USER_FUNDER_GRANTS ADD  FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-315">
+<sql>
+ALTER TABLE USER_SOCIETY_DETAILS  ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-316">
+<sql>
+ALTER TABLE USER_SOCIETY_DETAILS ADD  FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-317">
+<sql>
+ALTER TABLE ADDITIONAL_PERMISSIONS DROP(OBJECT_ID,OBJECT_TYPE_CD,CREATED_DATE,CREATED_BY,UPDATED_DATE,UPDATED_BY);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-318">
+<sql>
+ALTER TABLE ADDITIONAL_PERMISSIONS ADD(OBJECT_ID NUMBER,OBJECT_TYPE_CD VARCHAR2(15),CREATED_DATE TIMESTAMP(6),CREATED_BY NUMBER,UPDATED_DATE TIMESTAMP(6),UPDATED_BY NUMBER);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-319">
+<sql>
+ALTER TABLE OBJECT_TYPES MODIFY OBJECT_TYPE_CD VARCHAR2(15);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-320">
+<sql>
+ALTER TABLE OBJECT_TYPES MODIFY OBJECT_TYPE VARCHAR2(50);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-321">
+<sql>
+ALTER TABLE USER_PREFERRED_JOURNALS DROP(CREATED_DATE,CREATED_BY,UPDATED_DATE,UPDATED_BY);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-322">
+<sql>
+ALTER TABLE USER_PREFERRED_JOURNALS ADD(FAVORITE_JOURNAL_CNT NUMBER,CREATED_DATE TIMESTAMP(6),CREATED_BY NUMBER,UPDATED_DATE TIMESTAMP(6),UPDATED_BY NUMBER);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-323">
+<sql>
+ALTER TABLE USER_PREFERRED_JOURNALS  ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-324">
+<sql>
+ALTER TABLE USER_PREFERRED_JOURNALS ADD  FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-325">
+<sql>
+ALTER TABLE ADDITIONAL_PERMISSIONS  ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-326">
+<sql>
+ALTER TABLE ADDITIONAL_PERMISSIONS ADD  FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+<changeSet author="gphaniraj" id="WP1-327">
+<sql>
+ALTER TABLE ADDITIONAL_PERMISSIONS ADD CONSTRAINT ADDITIONAL_PERMISSIONS_FK4 FOREIGN KEY(OBJECT_TYPE_CD) REFERENCES OBJECT_TYPES(OBJECT_TYPE_CD);
 </sql>
 </changeSet>
 </databaseChangeLog>
