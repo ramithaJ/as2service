@@ -11,7 +11,6 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.audit;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -43,10 +42,11 @@ public class AuditResultServiceImpl implements AuditResultService {
             transaction = session.beginTransaction();
             
             Actions actions = new Actions();
-            AuditDetails auditDetails = new AuditDetails();
+            AuditDetails auditDetails = null;
             int auditSize = auditMap.size();
             for (int j = 0; j < auditSize; j++) {
                 HashMap<String, String> auditDetailsMap = auditMap.get(j);
+                auditDetails = new AuditDetails();
                 if (null != auditDetailsMap && auditDetailsMap.size() > 0) {
                     if (!StringUtils.isEmpty(auditDetailsMap.get(AuthorServicesConstants.AUDIT_OBJ_NAME))) {
                         auditDetails
@@ -68,6 +68,7 @@ public class AuditResultServiceImpl implements AuditResultService {
                         auditDetails.setUsersByUserId(user);
                     }
                     session.save(auditDetails);
+                    session.flush();
                     auditDetailsSet.add(auditDetails);
                 }
             }
@@ -99,7 +100,7 @@ public class AuditResultServiceImpl implements AuditResultService {
         return true;
     }
     
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         
         AuditResultServiceImpl auditResultServiceImpl = new AuditResultServiceImpl();
         HashMap<String, String> auditMap = new HashMap<String, String>();
@@ -125,5 +126,5 @@ public class AuditResultServiceImpl implements AuditResultService {
         Users users = new Users(1001,"as2.app@dummy.com");
        
         auditResultServiceImpl.userAudit(auditDetailsMap, actionMap, users);
-    }
+    }*/
 }
