@@ -145,12 +145,12 @@ public class UserLoginServiceImpl implements UserLoginService {
             throw new ASException(recordnotexistcode, recordnotexistmessage);
         }
 
-        if (AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS_ClOSED
+        else if (AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS_ClOSED
                 .equalsIgnoreCase(daoinviteResetpwdLog.getStatus())) {
             throw new ASException(statusclosedcode, statusclosedmessage);
         }
 
-        if (AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS
+        else if (AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS
                 .equalsIgnoreCase(daoinviteResetpwdLog.getStatus())) {
             emailId = daoinviteResetpwdLog.getEmailAddress();
         }
