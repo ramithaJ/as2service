@@ -14,16 +14,9 @@
  */
 package com.wiley.gr.ace.authorservices.persistence.services;
 
-import com.wiley.gr.ace.authorservices.model.User;
-
 /**
- * @author virtusa
- *version 1.0
+ * @author virtusa version 1.0
  */
 public interface UpdateUserDAO {
-    
-    User updateUserWithOrcid(User user) throws Exception;
-    
-    String updateUserOrcidId(String orcidId, String userId) throws Exception;
-    
+
 }
