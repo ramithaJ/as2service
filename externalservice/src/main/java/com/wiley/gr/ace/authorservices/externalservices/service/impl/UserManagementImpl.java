@@ -103,7 +103,6 @@ public class UserManagementImpl implements UserManagement {
     
     @Override
     public boolean resetPassword(SecurityDetailsHolder securityDetailsHolder) {
-        
         Service service = (Service) StubInvokerUtil.invokeStub(resetPassword,
                 HttpMethod.POST, Service.class);
         String status = service.getStatus();
@@ -127,7 +126,6 @@ public class UserManagementImpl implements UserManagement {
     
     @Override
     public boolean forceFulReset(String emailId, String newPassword) {
-        
         Service service = (Service) StubInvokerUtil.invokeStub(forceFulReset,
                 HttpMethod.POST, Service.class);
         String status = service.getStatus();

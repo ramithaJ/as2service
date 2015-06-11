@@ -30,23 +30,31 @@ import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 
 /**
- * @author virtusa
- *	version 1.0
+ * @author virtusa version 1.0
  */
 public class UserLoginServiceImpl implements UserLoginService {
-    
+
     /**
      * Logger for UserLoginServiceImpl class.
      */
-	@Value("${UserLoginServiceImpl.resetPassword.statusclosedcode}")
-	private String statusclosedcode;
-	@Value("${UserLoginServiceImpl.resetPassword.statusclosedmessage}")
-	private String statusclosedmessage;
-	
-	@Value("${UserLoginServiceImpl.resetPassword.doesntexist.code}")
-	private String recordnotexistcode;
-	@Value("${UserLoginServiceImpl.resetPassword.doesntexist.message}")
-	private String recordnotexistmessage;
+    @Value("${UserLoginServiceImpl.resetPassword.statusclosedcode}")
+    private String statusclosedcode;
+    @Value("${UserLoginServiceImpl.resetPassword.statusclosedmessage}")
+    private String statusclosedmessage;
+
+    @Value("${UserLoginServiceImpl.resetPassword.doesntexist.code}")
+    private String recordnotexistcode;
+    @Value("${UserLoginServiceImpl.resetPassword.doesntexist.message}")
+    private String recordnotexistmessage;
+    
+    
+    
+    @Value("${UserLoginServiceImpl.resetPassword.securityquestion.code}")
+    private String securityquestioncode;
+    
+    @Value("${UserLoginServiceImpl.resetPassword.securityquestion.message}")
+    private String securityquestionmessage;
+    
     private static final Logger LOGGER = LoggerFactory
             .getLogger(UserLoginServiceImpl.class);
     /**
@@ -59,75 +67,94 @@ public class UserLoginServiceImpl implements UserLoginService {
      */
     @Autowired(required = true)
     UserManagement userManagement;
-    
+
     /**
-     * Method to authenticate user. calling external system to authenticate user.
+     * Method to authenticate user. calling external system to authenticate
+     * user.
      * 
-     * @param sharedServieRequest - having user information .
+     * @param sharedServieRequest
+     *            - having user information .
      * @return status - true/false
      */
     @Override
     public SecurityResponse login(SharedServieRequest sharedServieRequest) {
-        
+
         LOGGER.info("In login method");
         return userManagement.authenticateUser(sharedServieRequest);
     }
-    
+
     @Override
     public boolean validateEmailAddress(String emailId) {
-        
+
         LOGGER.info("In validateEmailAddress method");
         return userLoginServiceDAO.validateEmailAddress(emailId);
     }
-    
+
     /**
      * Method to reset the password at the time of login.
      * 
-     * @param securityDetailsHolder - having emailId, secutiryDetails and password.
+     * @param securityDetailsHolder
+     *            - having emailId, secutiryDetails and password.
      * @return status - true/false
      */
     @Override
     public boolean resetPassword(SecurityDetailsHolder securityDetailsHolder) {
-        
+
+        boolean status = false;
+
         LOGGER.info("In resetPassword method");
-        return userManagement.resetPassword(securityDetailsHolder);
+
+        if (securityDetailsHolder.isForceReset()) {
+            status = userManagement.forceFulReset(
+                    securityDetailsHolder.getEmailId(),
+                    securityDetailsHolder.getPassword());
+
+        } else {
+            if (securityDetailsHolder.getSecurityDetails().isEmpty()) {
+                throw new ASException(securityquestioncode,securityquestionmessage);
+            } else {
+                status = userManagement.resetPassword(securityDetailsHolder);
+            }
+            
+        }
+        return status;
     }
-    
+
     @Override
     public SecurityDetailsHolder securityQuestions(String emailId) {
-        
+
         LOGGER.info("In securityQuestions method");
         return userManagement.getSecurityQuestions(emailId);
     }
-    
+
     @Override
     public boolean validateSecurityQuestions(String emailId,
             List<SecurityDetails> securityDetails) {
-        
+
         LOGGER.info("In validateSecurityQuestions method");
         return false;
     }
 
-	@Override
-	public String resetPassword(String guid) {
-		InviteResetpwdLog daoinviteResetpwdLog=	userLoginServiceDAO.getinviteResetpwdLog(guid);
-		String emailId=null;
-		
-		if (null == daoinviteResetpwdLog) {
-			throw new ASException(recordnotexistcode ,recordnotexistmessage);
-		}
+    @Override
+    public String resetPassword(String guid) {
+        InviteResetpwdLog daoinviteResetpwdLog = userLoginServiceDAO
+                .getinviteResetpwdLog(guid);
+        String emailId = null;
 
-		if (AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS_ClOSED
-				.equalsIgnoreCase(daoinviteResetpwdLog.getStatus())) {
-			throw new ASException(statusclosedcode, statusclosedmessage);
-		}
+        if (null == daoinviteResetpwdLog) {
+            throw new ASException(recordnotexistcode, recordnotexistmessage);
+        }
 
-		if (AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS
-				.equalsIgnoreCase(daoinviteResetpwdLog.getStatus())) {
-			emailId = daoinviteResetpwdLog.getEmailAddress();
-		}
-		return emailId;
+        if (AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS_ClOSED
+                .equalsIgnoreCase(daoinviteResetpwdLog.getStatus())) {
+            throw new ASException(statusclosedcode, statusclosedmessage);
+        }
 
-		
-	}
+        if (AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS
+                .equalsIgnoreCase(daoinviteResetpwdLog.getStatus())) {
+            emailId = daoinviteResetpwdLog.getEmailAddress();
+        }
+        return emailId;
+
+    }
 }

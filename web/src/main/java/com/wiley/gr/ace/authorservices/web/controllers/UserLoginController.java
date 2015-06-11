@@ -94,7 +94,7 @@ public class UserLoginController extends ASExceptionController {
     }
     
     /**
-     * Method to reset the password at the time of login.
+     * Method to reset the password through security questions and email.
      * 
      * @param securityDetailsHolder
      *            - it takes the email_id, security details and new password as
@@ -104,7 +104,7 @@ public class UserLoginController extends ASExceptionController {
     @RequestMapping(value = "/password/reset", method = RequestMethod.POST)
     public final Service resetPassword(
             @RequestBody final SecurityDetailsHolder securityDetailsHolder) {
-        LOGGER.info("inside resetPassword method");
+        LOGGER.info("Inside resetPassword method");
         Service service = new Service();
         service.setPayload(userLoginService
                 .resetPassword(securityDetailsHolder));

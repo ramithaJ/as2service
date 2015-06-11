@@ -87,7 +87,7 @@ public class UpdateUserServiceImpl implements UpdateUserService {
             throws Exception {
         boolean result = false;
         UserProfileResponse userProfileResponse = userProfileService
-                .userProfileResponse(userId);
+                .getUserProfileResponse(userId);
         if (!StringUtils.isEmpty(userProfileResponse)) {
             UserProfile userProfile = userProfileResponse.getCustomerProfile();
             User user = userProfile.getCustomerDetails();

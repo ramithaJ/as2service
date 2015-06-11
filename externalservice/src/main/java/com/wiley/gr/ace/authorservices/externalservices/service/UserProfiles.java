@@ -20,7 +20,7 @@ import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 
 public interface UserProfiles {
 
-    UserProfileResponse userProfileResponse(String userId);
+    UserProfileResponse getUserProfileResponse(String userId);
 
     boolean updateProfile(UserProfileResponse userProfileResponse);
 

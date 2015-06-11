@@ -55,7 +55,7 @@ public class UserProfileController {
 	public Service getAffiliationsList(@PathVariable("userId") String userId) {
 		LOGGER.info("inside getAffiliationsList method ");
 		Service service = new Service();
-		service.setPayload(userProfileService.userProfileResponse(userId)
+		service.setPayload(userProfileService.getuserProfileResponse(userId)
 				.getCustomerProfile().getAffiliations());
 		return service;
 	}
@@ -75,7 +75,7 @@ public class UserProfileController {
         
 		LOGGER.info("inside getResearchFundersList method ");
 		Service service = new Service();
-		service.setPayload(userProfileService.userProfileResponse(userId)
+		service.setPayload(userProfileService.getuserProfileResponse(userId)
 				.getCustomerProfile().getResearchFunders());
 		return service;
 	}
@@ -100,7 +100,7 @@ public class UserProfileController {
 
 		LOGGER.info("inside getSocietiesList method ");
 		Service service = new Service();
-		service.setPayload(userProfileService.userProfileResponse(userId)
+		service.setPayload(userProfileService.getuserProfileResponse(userId)
 				.getCustomerProfile().getSocieties());
 		return service;
 	}
@@ -123,7 +123,7 @@ public class UserProfileController {
 
 		LOGGER.info("inside getMyInterests method ");
 		Service service = new Service();
-		service.setPayload(userProfileService.userProfileResponse(userId)
+		service.setPayload(userProfileService.getuserProfileResponse(userId)
 				.getCustomerProfile().getInterests());
 		return service;
 	}
@@ -154,7 +154,7 @@ public class UserProfileController {
 
 		LOGGER.info("inside getCoAuthorsList method ");
 		Service service = new Service();
-		service.setPayload(userProfileService.userProfileResponse(userId)
+		service.setPayload(userProfileService.getuserProfileResponse(userId)
 				.getCustomerProfile().getCoAuthors());
 		return service;
 	}
@@ -181,7 +181,7 @@ public class UserProfileController {
 
 		LOGGER.info("inside getPreferredJournals method ");
 		Service service = new Service();
-		service.setPayload(userProfileService.userProfileResponse(userId)
+		service.setPayload(userProfileService.getuserProfileResponse(userId)
 				.getCustomerProfile().getPreferredJournals());
 		return service;
 	}
@@ -220,7 +220,7 @@ public class UserProfileController {
 		LOGGER.info("inside getListOfAlerts method ");
 		Service service = new Service();
 
-		service.setPayload(userProfileService.userProfileResponse(userId)
+		service.setPayload(userProfileService.getuserProfileResponse(userId)
 				.getCustomerProfile().getAlerts());
 		return service;
 	}
@@ -246,7 +246,7 @@ public class UserProfileController {
      
 		LOGGER.info("inside lookUpProfile method ");
 		Service service = new Service();
-		service.setPayload(userProfileService.userProfileResponse(userId));
+		service.setPayload(userProfileService.getuserProfileResponse(userId));
 		return service;
 
 	}
