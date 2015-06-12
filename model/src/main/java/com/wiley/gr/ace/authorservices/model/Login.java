@@ -28,10 +28,23 @@ public class Login {
     
     private String appKey;
     
+    private Integer userId;
+    
     public String getEmailId() {
         return emailId;
     }
     
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+
     public void setEmailId(String emailId) {
         this.emailId = emailId;
     }

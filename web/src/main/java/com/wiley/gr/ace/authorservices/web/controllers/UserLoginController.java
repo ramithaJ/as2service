@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
 import com.wiley.gr.ace.authorservices.model.Login;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
@@ -75,22 +76,18 @@ public class UserLoginController extends ASExceptionController {
     public final Service login(@Valid @RequestBody final Login login) {
         
         Service service = new Service();
-        try {
+        if(userLoginService.validateEmailAddress(login.getEmailId())){
+            
             SharedServieRequest sharedServieRequest = new SharedServieRequest();
             sharedServieRequest.setUserId(login.getEmailId());
             sharedServieRequest.setPassword(login.getPassword());
-            sharedServieRequest.setAuthenticationType("AD");
-            sharedServieRequest.setAppKey("DAAS");
-            String userId = adminLoginService.doLogin(login.getEmailId());
-            UserManagement userObj = new UserManagement();
-            userObj.setUserId(userId);
-            service.setPayload(userObj);
-            userLoginService.login(sharedServieRequest);
-        } catch (Exception exception) {
-            LOGGER.error("Inside catch Block", exception);
+            sharedServieRequest.setAuthenticationType("LDAP");
+            sharedServieRequest.setAppKey("AS");
+            service.setPayload(userLoginService.login(login, sharedServieRequest));
+            return service;
+        }else{
+            throw new ASException("invalidEmailCode","invalidEmailMessage");
         }
-        // service.setPayload(userLoginService.login(sharedServieRequest));
-        return service;
     }
     
     /**

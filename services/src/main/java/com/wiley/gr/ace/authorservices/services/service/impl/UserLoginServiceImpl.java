@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Value;
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
+import com.wiley.gr.ace.authorservices.model.Login;
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
@@ -53,6 +54,9 @@ public class UserLoginServiceImpl implements UserLoginService {
     @Value("${UserLoginServiceImpl.resetPassword.securityquestion.message}")
     private String securityquestionmessage;
 
+    @Value("${SUCCESS}")
+    private String SUCCESS;
+    
     private static final Logger LOGGER = LoggerFactory
             .getLogger(UserLoginServiceImpl.class);
     /**
@@ -75,12 +79,20 @@ public class UserLoginServiceImpl implements UserLoginService {
      * @return status - true/false
      */
     @Override
-    public SecurityResponse login(SharedServieRequest sharedServieRequest) {
+    public Login login(Login login, SharedServieRequest sharedServieRequest) {
 
         LOGGER.info("In login method");
-        return userManagement.authenticateUser(sharedServieRequest);
+        SecurityResponse securityResponse = userManagement.authenticateUser(sharedServieRequest);
+        if(SUCCESS.equals(securityResponse.getStatus())){
+           
+            Integer userId = userLoginServiceDAO.getUserId(login.getEmailId());
+            Login user = new Login();
+            user.setUserId(userId);
+            return user;
+        }else{
+            throw new ASException("invalidEmailCode","invalidEmailMessage");
+        }
     }
-
     @Override
     public boolean validateEmailAddress(String emailId) {
 
