@@ -190,5 +190,15 @@ public class UserLoginController extends ASExceptionController {
         
         return new Service();
     }
+    /**
+     * @param guid
+     * @return service.
+     */
+    @RequestMapping(value = "verifyAccount/{guid}", method = RequestMethod.POST)
+    public final Service verifyAccount(
+            @PathVariable("guid") final String guid) {
+        userLoginService.verifyAccountUpdate(guid);
+        return new Service();
+    }
     
 }

@@ -46,15 +46,13 @@ public class UserLoginServiceImpl implements UserLoginService {
     private String recordnotexistcode;
     @Value("${UserLoginServiceImpl.resetPassword.doesntexist.message}")
     private String recordnotexistmessage;
-    
-    
-    
+
     @Value("${UserLoginServiceImpl.resetPassword.securityquestion.code}")
     private String securityquestioncode;
-    
+
     @Value("${UserLoginServiceImpl.resetPassword.securityquestion.message}")
     private String securityquestionmessage;
-    
+
     private static final Logger LOGGER = LoggerFactory
             .getLogger(UserLoginServiceImpl.class);
     /**
@@ -111,11 +109,12 @@ public class UserLoginServiceImpl implements UserLoginService {
 
         } else {
             if (securityDetailsHolder.getSecurityDetails().isEmpty()) {
-                throw new ASException(securityquestioncode,securityquestionmessage);
+                throw new ASException(securityquestioncode,
+                        securityquestionmessage);
             } else {
                 status = userManagement.resetPassword(securityDetailsHolder);
             }
-            
+
         }
         return status;
     }
@@ -128,7 +127,8 @@ public class UserLoginServiceImpl implements UserLoginService {
     }
 
     @Override
-    public boolean validateSecurityQuestions(List<SecurityDetails> securityDetails) {
+    public boolean validateSecurityQuestions(
+            List<SecurityDetails> securityDetails) {
 
         LOGGER.info("In validateSecurityQuestions method");
         return true;
@@ -155,5 +155,20 @@ public class UserLoginServiceImpl implements UserLoginService {
         }
         return emailId;
 
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.wiley.gr.ace.authorservices.services.service.UserLoginService#
+     * verifyAccountUpdate(java.lang.String)
+     */
+    @Override
+    public void verifyAccountUpdate(String guid) {
+
+        InviteResetpwdLog inviteResetpwdLog = userLoginServiceDAO
+                .getinviteResetpwdLog(guid);
+        String emailId = inviteResetpwdLog.getEmailAddress();
+        userLoginServiceDAO.verifyEmailUpdate(emailId);
     }
 }

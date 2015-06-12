@@ -13,17 +13,33 @@ package com.wiley.gr.ace.authorservices.persistence.services;
 
 import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
 
-
 /**
- * @author virtusa
- *	version 1.0
+ * @author virtusa version 1.0
  */
 public interface UserLoginServiceDAO {
-    
+
+    /**
+     * @param emailId
+     * @return
+     */
     boolean validateEmailAddress(String emailId);
-    
+
+    /**
+     * @param emailId
+     * @return
+     */
     Integer getUserId(String emailId);
-    
+
+    /**
+     * @param guid
+     * @return
+     */
     InviteResetpwdLog getinviteResetpwdLog(String guid);
-    
+
+    /**
+     * @param emailId
+     * @return
+     */
+    void verifyEmailUpdate(String emailId);
+
 }

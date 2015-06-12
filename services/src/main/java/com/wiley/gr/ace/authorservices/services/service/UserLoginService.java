@@ -38,8 +38,27 @@ public interface UserLoginService {
      */
     boolean validateEmailAddress(String emailId);
 
+    /**
+     * @param emailId
+     * @return
+     */
     SecurityDetailsHolder securityQuestions(String emailId);
 
+    /**
+     * @param securityDetails
+     * @return
+     */
     boolean validateSecurityQuestions(List<SecurityDetails> securityDetails);
+
+    /**
+     * @param guid
+     * @return
+     */
     String resetPassword(String guid);
+
+    /**
+     * @param guid
+     * @return
+     */
+    void verifyAccountUpdate(String guid);
 }
