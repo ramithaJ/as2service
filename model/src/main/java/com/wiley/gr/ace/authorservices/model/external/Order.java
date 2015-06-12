@@ -15,6 +15,8 @@ package com.wiley.gr.ace.authorservices.model.external;
 
 import java.util.List;
 
+import com.wiley.gr.ace.authorservices.model.Address;
+
 /**
  * @author virtusa
  * version 1.0
@@ -40,7 +42,7 @@ public class Order {
     
     private TaxDetails taxDetails;
     
-    private List<AddressInformation> addresses;
+    private List<Address> addresses;
     
     private Customer customer;
     
@@ -118,11 +120,12 @@ public class Order {
         this.taxDetails = taxDetails;
     }
 
-    public List<AddressInformation> getAddresses() {
+
+    public List<Address> getAddresses() {
         return addresses;
     }
 
-    public void setAddresses(List<AddressInformation> addresses) {
+    public void setAddresses(List<Address> addresses) {
         this.addresses = addresses;
     }
 
