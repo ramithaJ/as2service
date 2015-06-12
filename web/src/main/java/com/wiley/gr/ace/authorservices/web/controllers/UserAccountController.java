@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiley.gr.ace.authorservices.model.Email;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.User;
@@ -180,14 +181,11 @@ public class UserAccountController {
      * @param newEmailId
      * @return Service - Success/Failure
      */
-    @RequestMapping(value = "/updateUserId/{oldEmailId}/{newEmailId}", method = RequestMethod.POST)
-    public final Service updateUserId(
-            @PathVariable("oldEmailId") final String oldEmailId,
-            @PathVariable("newEmailId") final String newEmailId) {
+    @RequestMapping(value = "/updateUserId", method = RequestMethod.POST)
+    public final Service updateUserId(@RequestBody final Email email) {
         LOGGER.info("inside updateUserId method");
         Service service = new Service();
-        service.setPayload(authorProfileService.updateUserId(oldEmailId,
-                newEmailId));
+        service.setPayload(authorProfileService.updateUserId(email));
         return service;
     }
     

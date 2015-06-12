@@ -23,6 +23,7 @@ import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
+import com.wiley.gr.ace.authorservices.model.Email;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
@@ -138,10 +139,10 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 	}
 
 	@Override
-	public boolean updateUserId(String oldEmailId, String newEmailId) {
+	public boolean updateUserId(Email email) {
 
 		LOGGER.info("inside updateUserId Method ");
-		return almService.updateUserId(oldEmailId, newEmailId);
+		return almService.updateUserId(email.getOldEmailId(), email.getNewEmailId());
 	}
 
 	@Override

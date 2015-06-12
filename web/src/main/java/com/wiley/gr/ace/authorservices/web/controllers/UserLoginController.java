@@ -139,14 +139,11 @@ public class UserLoginController extends ASExceptionController {
      *            array format.
      * @return Service object.
      */
-    @RequestMapping(value = "/securityQuestions/validate/{emailId}")
-    public final Service validateSecurityQuestions(
-            @PathVariable("emailId") final String emailId,
-            @Valid @RequestBody final SecurityDetailsHolder securityDetails) {
+    @RequestMapping(value = "/securityQuestions/validate")
+    public final Service validateSecurityQuestions(@Valid @RequestBody final SecurityDetailsHolder securityDetails) {
         LOGGER.info("inside validateSecurityQuestions method");
         Service service = new Service();
-        service.setPayload(userLoginService.validateSecurityQuestions(emailId,
-                securityDetails.getSecurityDetails()));
+        service.setPayload(userLoginService.validateSecurityQuestions(securityDetails.getSecurityDetails()));
         
         return service;
     }

@@ -128,11 +128,10 @@ public class UserLoginServiceImpl implements UserLoginService {
     }
 
     @Override
-    public boolean validateSecurityQuestions(String emailId,
-            List<SecurityDetails> securityDetails) {
+    public boolean validateSecurityQuestions(List<SecurityDetails> securityDetails) {
 
         LOGGER.info("In validateSecurityQuestions method");
-        return false;
+        return true;
     }
 
     @Override

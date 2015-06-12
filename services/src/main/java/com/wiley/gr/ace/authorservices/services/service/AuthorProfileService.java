@@ -14,6 +14,7 @@ package com.wiley.gr.ace.authorservices.services.service;
 
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
+import com.wiley.gr.ace.authorservices.model.Email;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
@@ -40,7 +41,7 @@ public interface AuthorProfileService {
     
     boolean updateUserProfileInfo(User user);
     
-    boolean updateUserId(String oldEmailId, String newEmailId);
+    boolean updateUserId(Email email);
     
     boolean updatePassword(PasswordDetails passwordDetails);
     

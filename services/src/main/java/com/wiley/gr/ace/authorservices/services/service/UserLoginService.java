@@ -40,7 +40,6 @@ public interface UserLoginService {
 
     SecurityDetailsHolder securityQuestions(String emailId);
 
-    boolean validateSecurityQuestions(String emailId,
-            List<SecurityDetails> securityDetails);
+    boolean validateSecurityQuestions(List<SecurityDetails> securityDetails);
     String resetPassword(String guid);
 }
