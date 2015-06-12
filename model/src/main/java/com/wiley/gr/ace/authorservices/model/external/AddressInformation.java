@@ -18,7 +18,7 @@ package com.wiley.gr.ace.authorservices.model.external;
  * @author virtusa
  * version 1.0
  */
-public class Address {
+public class AddressInformation {
     
     private String title;
     

@@ -15,8 +15,6 @@ package com.wiley.gr.ace.authorservices.model.external;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 /**
  * @author virtusa
  * version 1.0
@@ -42,7 +40,7 @@ public class Order {
     
     private TaxDetails taxDetails;
     
-    private List<Address> addresses;
+    private List<AddressInformation> addresses;
     
     private Customer customer;
     
@@ -120,11 +118,11 @@ public class Order {
         this.taxDetails = taxDetails;
     }
 
-    public List<Address> getAddresses() {
+    public List<AddressInformation> getAddresses() {
         return addresses;
     }
 
-    public void setAddresses(List<Address> addresses) {
+    public void setAddresses(List<AddressInformation> addresses) {
         this.addresses = addresses;
     }
 
