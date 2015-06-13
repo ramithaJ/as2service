@@ -14,6 +14,7 @@ package com.wiley.gr.ace.authorservices.externalservices.service;
 import java.util.List;
 
 import com.wiley.gr.ace.authorservices.model.User;
+import com.wiley.gr.ace.authorservices.model.external.DashboardView;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 import com.wiley.gr.ace.authorservices.model.external.ProfileInformation;
 import com.wiley.gr.ace.authorservices.model.external.Status;
@@ -35,4 +36,5 @@ public interface ESBInterfaceService {
     
     Status creatUser(ProfileInformation profileForCreation) throws Exception;
     
+    DashboardView viewDashboard(String userId);
 }

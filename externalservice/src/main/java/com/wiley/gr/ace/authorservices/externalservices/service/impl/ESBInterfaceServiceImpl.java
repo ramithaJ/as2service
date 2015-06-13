@@ -12,6 +12,7 @@
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,6 +29,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.model.User;
+import com.wiley.gr.ace.authorservices.model.external.DashboardView;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 import com.wiley.gr.ace.authorservices.model.external.ProfileInformation;
 import com.wiley.gr.ace.authorservices.model.external.SearchUserResult;
@@ -101,9 +103,9 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
         ESBUser esbUser = null;
         List<ESBUser> esbUserList = searchUser(emailId, "", "");
         if (!StringUtils.isEmpty(esbUserList)) {
-//            esbUser = new ESBUser();
+            // esbUser = new ESBUser();
             esbUser = esbUserList.get(0);
-        } 
+        }
 
         return esbUser;
     }
@@ -135,11 +137,11 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
         ResponseEntity<SearchUserResult> response = restTemplate.exchange(uri,
                 HttpMethod.GET, requestEntity, SearchUserResult.class);
         if (null != response) {
-            searchUserResult=  new SearchUserResult();
+            searchUserResult = new SearchUserResult();
             searchUserResult = response.getBody();
-            esbUsersList = (ArrayList<ESBUser>)searchUserResult.getSearchUserResponse()
-                    .getUserList();
-        } 
+            esbUsersList = (ArrayList<ESBUser>) searchUserResult
+                    .getSearchUserResponse().getUserList();
+        }
 
         return esbUsersList;
     }
@@ -165,6 +167,33 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
             status.setStatus("FAILURE");
         }
         return status;
+    }
+
+    @Override
+    public DashboardView viewDashboard(String userId) {
+        DashboardView dashboardView = null;
+        final String url = "http://demo7930138.mockable.io/dashboard/view/1000";
+        try {
+            URI uri = new URI(url);
+            RestTemplate restTemplate = new RestTemplate();
+            HttpHeaders requestHeaders = new HttpHeaders();
+
+            requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+            HttpEntity<DashboardView> requestEntity = new HttpEntity<DashboardView>(
+                    requestHeaders);
+
+            ResponseEntity<DashboardView> response = restTemplate.exchange(uri,
+                    HttpMethod.GET, requestEntity, DashboardView.class);
+            System.out.println("####  response #### "
+                    + response.getStatusCode());
+            System.out.println("####  response #### " + response.getBody());
+
+            dashboardView = response.getBody();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        return dashboardView;
+
     }
 
 }
