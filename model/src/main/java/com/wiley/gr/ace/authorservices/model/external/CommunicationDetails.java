@@ -19,39 +19,35 @@ package com.wiley.gr.ace.authorservices.model.external;
  *
  */
 public class CommunicationDetails {
-    private String body;
-
-    private String subject;
 
     private String from;
 
-    public String getBody ()
-    {
-        return body;
-    }
+    private String subject;
 
-    public void setBody (String body)
-    {
-        this.body = body;
-    }
+    private String body;
 
-    public String getSubject ()
-    {
-        return subject;
-    }
-
-    public void setSubject (String subject)
-    {
-        this.subject = subject;
-    }
-
-    public String getFrom ()
-    {
+    public String getFrom() {
         return from;
     }
 
-    public void setFrom (String from)
-    {
+    public void setFrom(String from) {
         this.from = from;
     }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
 }

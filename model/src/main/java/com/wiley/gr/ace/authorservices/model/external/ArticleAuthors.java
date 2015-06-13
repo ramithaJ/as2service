@@ -19,27 +19,24 @@ package com.wiley.gr.ace.authorservices.model.external;
  *
  */
 public class ArticleAuthors {
+
     private String lastName;
 
     private String firstName;
 
-    public String getLastName ()
-    {
+    public String getLastName() {
         return lastName;
     }
 
-    public void setLastName (String lastName)
-    {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
-    public String getFirstName ()
-    {
+    public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName (String firstName)
-    {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 }

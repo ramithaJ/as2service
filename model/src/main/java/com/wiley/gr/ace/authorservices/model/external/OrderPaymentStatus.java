@@ -19,6 +19,7 @@ package com.wiley.gr.ace.authorservices.model.external;
  *
  */
 public class OrderPaymentStatus {
+
     private String openAccessStatus;
 
     private String onlineOpenStatus;

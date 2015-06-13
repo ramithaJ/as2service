@@ -21,29 +21,37 @@ import java.util.List;
  *
  */
 public class ArticleDetails {
-    
-    private List<ArticleAuthors> articleAuthors;
-
-    private String articleDoi;
-
-    private String acceptanceDate;
-
-    private List<ArticleCoAuthors> articleCoAuthors;
-
-    private String publicationDate;
 
     private Integer articleId;
 
-    private String articleAcceptedInOO;
-
     private String articleName;
 
-    public List<ArticleAuthors> getArticleAuthors() {
-        return articleAuthors;
+    private String articleDoi;
+
+    private String publicationDate;
+
+    private String acceptanceDate;
+
+    private String articleAcceptedInOO;
+
+    private List<ArticleAuthors> articleAuthors;
+
+    private List<ArticleCoAuthors> articleCoAuthors;
+
+    public Integer getArticleId() {
+        return articleId;
     }
 
-    public void setArticleAuthors(List<ArticleAuthors> articleAuthors) {
-        this.articleAuthors = articleAuthors;
+    public void setArticleId(Integer articleId) {
+        this.articleId = articleId;
+    }
+
+    public String getArticleName() {
+        return articleName;
+    }
+
+    public void setArticleName(String articleName) {
+        this.articleName = articleName;
     }
 
     public String getArticleDoi() {
@@ -54,22 +62,6 @@ public class ArticleDetails {
         this.articleDoi = articleDoi;
     }
 
-    public String getAcceptanceDate() {
-        return acceptanceDate;
-    }
-
-    public void setAcceptanceDate(String acceptanceDate) {
-        this.acceptanceDate = acceptanceDate;
-    }
-
-    public List<ArticleCoAuthors> getArticleCoAuthors() {
-        return articleCoAuthors;
-    }
-
-    public void setArticleCoAuthors(List<ArticleCoAuthors> articleCoAuthors) {
-        this.articleCoAuthors = articleCoAuthors;
-    }
-
     public String getPublicationDate() {
         return publicationDate;
     }
@@ -78,12 +70,12 @@ public class ArticleDetails {
         this.publicationDate = publicationDate;
     }
 
-    public Integer getArticleId() {
-        return articleId;
+    public String getAcceptanceDate() {
+        return acceptanceDate;
     }
 
-    public void setArticleId(Integer articleId) {
-        this.articleId = articleId;
+    public void setAcceptanceDate(String acceptanceDate) {
+        this.acceptanceDate = acceptanceDate;
     }
 
     public String getArticleAcceptedInOO() {
@@ -94,11 +86,20 @@ public class ArticleDetails {
         this.articleAcceptedInOO = articleAcceptedInOO;
     }
 
-    public String getArticleName() {
-        return articleName;
+    public List<ArticleAuthors> getArticleAuthors() {
+        return articleAuthors;
     }
 
-    public void setArticleName(String articleName) {
-        this.articleName = articleName;
+    public void setArticleAuthors(List<ArticleAuthors> articleAuthors) {
+        this.articleAuthors = articleAuthors;
     }
+
+    public List<ArticleCoAuthors> getArticleCoAuthors() {
+        return articleCoAuthors;
+    }
+
+    public void setArticleCoAuthors(List<ArticleCoAuthors> articleCoAuthors) {
+        this.articleCoAuthors = articleCoAuthors;
+    }
+
 }

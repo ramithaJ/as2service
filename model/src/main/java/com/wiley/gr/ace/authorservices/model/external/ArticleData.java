@@ -20,33 +20,17 @@ package com.wiley.gr.ace.authorservices.model.external;
  */
 public class ArticleData {
 
-    private OrderPaymentStatus orderPaymentStatus;
-
-    private String licenseStatus;
-
     private ArticleDetails articleDetails;
 
     private JournalDetails journalDetails;
 
     private String articleUserRole;
 
+    private String licenseStatus;
+
+    private OrderPaymentStatus orderPaymentStatus;
+
     private String productionStatus;
-
-    public OrderPaymentStatus getOrderPaymentStatus() {
-        return orderPaymentStatus;
-    }
-
-    public void setOrderPaymentStatus(OrderPaymentStatus orderPaymentStatus) {
-        this.orderPaymentStatus = orderPaymentStatus;
-    }
-
-    public String getLicenseStatus() {
-        return licenseStatus;
-    }
-
-    public void setLicenseStatus(String licenseStatus) {
-        this.licenseStatus = licenseStatus;
-    }
 
     public ArticleDetails getArticleDetails() {
         return articleDetails;
@@ -70,6 +54,22 @@ public class ArticleData {
 
     public void setArticleUserRole(String articleUserRole) {
         this.articleUserRole = articleUserRole;
+    }
+
+    public String getLicenseStatus() {
+        return licenseStatus;
+    }
+
+    public void setLicenseStatus(String licenseStatus) {
+        this.licenseStatus = licenseStatus;
+    }
+
+    public OrderPaymentStatus getOrderPaymentStatus() {
+        return orderPaymentStatus;
+    }
+
+    public void setOrderPaymentStatus(OrderPaymentStatus orderPaymentStatus) {
+        this.orderPaymentStatus = orderPaymentStatus;
     }
 
     public String getProductionStatus() {

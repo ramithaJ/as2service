@@ -22,13 +22,13 @@ import java.util.List;
  */
 public class DashboardView {
 
+    private List<ArticleData> articleData;
+
     private List<ArticleReadRecord> articleReadRecord;
 
     private List<CommunicationDetails> communicationDetails;
 
     private List<ArticleCitationRecord> articleCitationRecord;
-
-    private List<ArticleData> articleData;
 
     public List<ArticleReadRecord> getArticleReadRecord() {
         return articleReadRecord;

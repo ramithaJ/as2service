@@ -19,27 +19,24 @@ package com.wiley.gr.ace.authorservices.model.external;
  *
  */
 public class ArticleCitationRecord {
+
     private String articleTitle;
 
     private String citationCount;
 
-    public String getArticleTitle ()
-    {
+    public String getArticleTitle() {
         return articleTitle;
     }
 
-    public void setArticleTitle (String articleTitle)
-    {
+    public void setArticleTitle(String articleTitle) {
         this.articleTitle = articleTitle;
     }
 
-    public String getCitationCount ()
-    {
+    public String getCitationCount() {
         return citationCount;
     }
 
-    public void setCitationCount (String citationCount)
-    {
+    public void setCitationCount(String citationCount) {
         this.citationCount = citationCount;
     }
 }
