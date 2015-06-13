@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
+import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
@@ -29,6 +30,7 @@ import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserProfile;
+import com.wiley.gr.ace.authorservices.model.external.DashboardView;
 import com.wiley.gr.ace.authorservices.model.external.SecuirtyQuestionDetails;
 import com.wiley.gr.ace.authorservices.model.external.SecurityQuestion;
 import com.wiley.gr.ace.authorservices.model.external.SecurityQuestions;
@@ -48,6 +50,8 @@ public class DashboardServiceImpl implements DashboardService {
     private UserProfiles userProfileService;
     @Autowired(required = true)
     private UserManagement userManagementService;
+    @Autowired(required = true)
+    private ESBInterfaceService esbInterfaceService;
 
     /**
      * This method is used for get the Profile Information of User from external
@@ -287,4 +291,10 @@ public class DashboardServiceImpl implements DashboardService {
         }
         return dashboardInfo;
     }
+
+    @Override
+    public DashboardView viewDashboard(String userId) throws Exception {
+        return esbInterfaceService.viewDashboard(userId);
+    }
+
 }

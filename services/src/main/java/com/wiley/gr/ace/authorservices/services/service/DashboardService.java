@@ -15,6 +15,7 @@
 package com.wiley.gr.ace.authorservices.services.service;
 
 import com.wiley.gr.ace.authorservices.model.Dashboard;
+import com.wiley.gr.ace.authorservices.model.external.DashboardView;
 
 /**
  * This DashboardService is for providing service for viewing the Dashboard of
@@ -29,4 +30,12 @@ public interface DashboardService {
      * @return Dashboard
      */
     Dashboard getProfileMeter(String userId) throws Exception;
+
+    /**
+     * @param userId
+     *            to get the data from ESB ExternalService
+     * @return DashboardView
+     */
+    DashboardView viewDashboard(String userId) throws Exception;
+
 }
