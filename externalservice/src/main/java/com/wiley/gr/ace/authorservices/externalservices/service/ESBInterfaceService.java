@@ -20,21 +20,20 @@ import com.wiley.gr.ace.authorservices.model.external.ProfileInformation;
 import com.wiley.gr.ace.authorservices.model.external.Status;
 
 /**
- * @author virtusa
- *	version 1.0
+ * @author virtusa version 1.0
  */
 public interface ESBInterfaceService {
-    
+
     User fetchOrcidDetails(String orcid) throws Exception;
-    
+
     String updateALMUser(User user) throws Exception;
-    
+
     ESBUser checkEmailIdExists(String emailId) throws Exception;
-    
+
     List<ESBUser> getUsersFromFirstNameLastName(String firstName,
             String lastName) throws Exception;
-    
+
     Status creatUser(ProfileInformation profileForCreation) throws Exception;
-    
+
     DashboardView viewDashboard(String userId);
 }
