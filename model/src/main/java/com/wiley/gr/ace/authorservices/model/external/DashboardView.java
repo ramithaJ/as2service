@@ -24,18 +24,18 @@ public class DashboardView {
 
     private List<ArticleData> articleData;
 
-    private List<ArticleReadRecord> articleReadRecord;
-
     private List<CommunicationDetails> communicationDetails;
 
     private List<ArticleCitationRecord> articleCitationRecord;
 
-    public List<ArticleReadRecord> getArticleReadRecord() {
-        return articleReadRecord;
+    private List<ArticleReadRecord> articleReadRecord;
+
+    public List<ArticleData> getArticleData() {
+        return articleData;
     }
 
-    public void setArticleReadRecord(List<ArticleReadRecord> articleReadRecord) {
-        this.articleReadRecord = articleReadRecord;
+    public void setArticleData(List<ArticleData> articleData) {
+        this.articleData = articleData;
     }
 
     public List<CommunicationDetails> getCommunicationDetails() {
@@ -56,11 +56,12 @@ public class DashboardView {
         this.articleCitationRecord = articleCitationRecord;
     }
 
-    public List<ArticleData> getArticleData() {
-        return articleData;
+    public List<ArticleReadRecord> getArticleReadRecord() {
+        return articleReadRecord;
     }
 
-    public void setArticleData(List<ArticleData> articleData) {
-        this.articleData = articleData;
+    public void setArticleReadRecord(List<ArticleReadRecord> articleReadRecord) {
+        this.articleReadRecord = articleReadRecord;
     }
+
 }
