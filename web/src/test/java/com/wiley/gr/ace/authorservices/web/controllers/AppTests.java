@@ -9,7 +9,7 @@
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
  *******************************************************************************/
-package com.wiley.gr.ace.authorservices;
+package com.wiley.gr.ace.authorservices.web.controllers;
 
 import org.junit.Before;
 import org.junit.Test;
