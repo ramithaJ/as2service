@@ -29,6 +29,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.model.User;
+import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
 import com.wiley.gr.ace.authorservices.model.external.DashboardView;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 import com.wiley.gr.ace.authorservices.model.external.ProfileInformation;
@@ -194,6 +195,38 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
         }
         return dashboardView;
 
+    }
+
+    @Override
+    public ArticleInfoDetails getArticleInfo(String emailId) {
+        ArticleInfoDetails articleInfoDetails = null;
+        final String url = "http://demo7930138.mockable.io/article/getArticleInfo/emailId";
+        try {
+            URI uri = new URI(url);
+            RestTemplate restTemplate = new RestTemplate();
+            HttpHeaders requestHeaders = new HttpHeaders();
+
+            requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+            HttpEntity<ArticleInfoDetails> requestEntity = new HttpEntity<ArticleInfoDetails>(
+                    requestHeaders);
+
+            ResponseEntity<ArticleInfoDetails> response = restTemplate
+                    .exchange(uri, HttpMethod.GET, requestEntity,
+                            ArticleInfoDetails.class);
+            System.out.println("####  response #### "
+                    + response.getStatusCode());
+            System.out.println("####  response #### " + response.getBody());
+
+            articleInfoDetails = response.getBody();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        return articleInfoDetails;
+    }
+
+    @Override
+    public boolean confirmAssociation() {
+        return false;
     }
 
 }

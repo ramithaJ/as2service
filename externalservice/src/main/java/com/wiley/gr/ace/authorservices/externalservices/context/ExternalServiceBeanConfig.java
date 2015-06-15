@@ -27,31 +27,31 @@ import com.wiley.gr.ace.authorservices.externalservices.service.impl.OrcidInterf
 
 @Configuration
 public class ExternalServiceBeanConfig {
-    
+
     @Bean(name = "UserManagement")
     public UserManagement aLMExternalService() {
         return new UserManagementImpl();
     }
-    
+
     @Bean(name = "BPMExternalService")
     public BPMInterfaceService bpmExternalService() {
         return new BPMInterfaceServiceImpl();
     }
-    
+
     @Bean(name = "ESBInterfaceService")
     public ESBInterfaceService eSBInterfaceService() {
         return new ESBInterfaceServiceImpl();
     }
-    
+
     @Bean(name = "OricdInterfaceService")
     public OrcidInterfaceService orcidInterfaceService() {
         return new OrcidInterfaceServiceImpl();
     }
-    
+
     @Bean(name = "UserProfiles")
     public UserProfiles cdmInterfaceService() {
-        
+
         return new UserProfilesImpl();
     }
-    
+
 }
