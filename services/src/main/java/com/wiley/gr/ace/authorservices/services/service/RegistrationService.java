@@ -21,17 +21,46 @@ import com.wiley.gr.ace.authorservices.model.User;
  */
 public interface RegistrationService {
 
+    /**
+     * @param user
+     * @return
+     * @throws Exception
+     */
     String createUser(User user) throws Exception;
 
+    /**
+     * @param firstName
+     * @param lastName
+     * @return
+     * @throws Exception
+     */
     List<User> getUserFromFirstNameLastName(String firstName, String lastName)
             throws Exception;
 
+    /**
+     * @param emailId
+     * @return
+     * @throws Exception
+     */
     User checkEmailIdExists(String emailId) throws Exception;
 
+    /**
+     * @param orcidId
+     * @return
+     * @throws Exception
+     */
     boolean searchUserByOrcidId(String orcidId) throws Exception;
 
+    /**
+     * @param guid
+     * @return
+     * @throws Exception
+     */
     InviteRecords searchInvitationRecord(String guid) throws Exception;
-    
+
+    /**
+     * @param emailId
+     */
     void assignRoleToNewUser(String emailId);
 
 }

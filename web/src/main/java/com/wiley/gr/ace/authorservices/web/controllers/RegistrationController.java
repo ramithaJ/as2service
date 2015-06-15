@@ -45,6 +45,10 @@ public class RegistrationController {
     @Autowired(required = true)
     RegistrationService rs;
 
+    /**
+     * @param email
+     * @return
+     */
     @RequestMapping(value = "/verify/email", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Service checkUserExists(@RequestHeader String email) {
 
@@ -83,6 +87,10 @@ public class RegistrationController {
         return service;
     }
 
+    /**
+     * @param guid
+     * @return
+     */
     @RequestMapping(value = "/invitation/{guid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Service getInvitationRecords(
             @PathVariable("guid") String guid) {
@@ -121,6 +129,10 @@ public class RegistrationController {
         return service;
     }
 
+    /**
+     * @param user
+     * @return
+     */
     @RequestMapping(value = "/register", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Service createUser(@RequestBody User user) {
         Service service = new Service();
@@ -174,6 +186,10 @@ public class RegistrationController {
         return service;
     }
 
+    /**
+     * @param orcidId
+     * @return
+     */
     @RequestMapping(value = "/search/orcid/{orcidId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Service isUserFoundWithOrcidId(
             @PathVariable("orcidId") String orcidId) {

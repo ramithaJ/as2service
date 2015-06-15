@@ -21,9 +21,25 @@ import com.wiley.gr.ace.authorservices.model.orcid.OrcidAccessToken;
  * @author virtusa version 1.0
  */
 public interface OrcidService {
+    /**
+     * @param authorizationCode
+     * @return
+     * @throws Exception
+     */
     OrcidAccessToken getAccessToken(String authorizationCode) throws Exception;
 
+    /**
+     * @param accessToken
+     * @return
+     * @throws Exception
+     */
     User getBio(OrcidAccessToken accessToken) throws Exception;
 
+    /**
+     * @param token
+     * @param user
+     * @return
+     * @throws Exception
+     */
     User getWork(OrcidAccessToken token, User user) throws Exception;
 }

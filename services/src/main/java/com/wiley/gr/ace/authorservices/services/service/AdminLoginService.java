@@ -16,11 +16,10 @@ import com.wiley.gr.ace.authorservices.model.RolesAndPermissions;
 import com.wiley.gr.ace.authorservices.model.ASRolesAndPermissions;
 
 /**
- * @author virtusa
- *	version 1.0
+ * @author virtusa version 1.0
  */
 public interface AdminLoginService {
-    
+
     /**
      * This method validates if emailId exists in the AS 2.0 database
      * 
@@ -28,7 +27,7 @@ public interface AdminLoginService {
      * @return
      */
     boolean validateEmail(String emailId);
-    
+
     /**
      * This method updates the lastLoginTime in the AS 2.0 database
      * 
@@ -36,7 +35,7 @@ public interface AdminLoginService {
      * @return
      */
     String doLogin(String emailId);
-    
+
     /**
      * This method requests for a wiley user to get Admin Access.
      * 
@@ -44,7 +43,7 @@ public interface AdminLoginService {
      * @return
      */
     boolean requestAdminAccess(String emailId);
-    
+
     /**
      * This method gets the list of all roles, the sections and permissions List
      * and the role and permissions mappings
@@ -53,25 +52,27 @@ public interface AdminLoginService {
      * @return
      */
     RolesAndPermissions getRolesAndPermissions(String roleId);
-    
+
     /**
      * This method is used to add or update user roles and permissions
      * 
      * @param rolesAndPermissions
      */
     void addOrUpdateUserRole(ASRolesAndPermissions rolesAndPermissions);
-    
+
     /**
      * This service calls the active directory to get the wiley user details
+     * 
      * @param emailId
      * @return
      */
     AdminUser findUser(String emailId);
-    
+
     /**
      * This method is used to create admin user
+     * 
      * @param adminuser
      */
     void createAdmin(AdminUser adminuser);
-    
+
 }

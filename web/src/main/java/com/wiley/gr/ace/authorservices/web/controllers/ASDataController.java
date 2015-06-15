@@ -43,7 +43,7 @@ public class ASDataController {
             .getLogger(ASDataController.class);
     /** getting bean of asdataservice. */
     @Autowired(required = true)
- private ASDataService aSDataService;
+    private ASDataService aSDataService;
     /** getting data from props file. */
     @Value("${noDataFound.code}")
     private String nodataFound;
@@ -73,7 +73,6 @@ public class ASDataController {
         return service;
     }
 
-    
     /**
      * @param count
      * @return service

@@ -14,10 +14,13 @@ package com.wiley.gr.ace.authorservices.services.service;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 
 /**
- * @author virtusa
- *	version 1.0
+ * @author virtusa version 1.0
  */
 public interface UserProfileService {
-    
+
+    /**
+     * @param userId
+     * @return
+     */
     UserProfileResponse getuserProfileResponse(String userId);
 }
