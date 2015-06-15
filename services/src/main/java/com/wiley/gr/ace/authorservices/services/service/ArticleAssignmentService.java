@@ -15,6 +15,7 @@
 package com.wiley.gr.ace.authorservices.services.service;
 
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
+import com.wiley.gr.ace.authorservices.model.external.AssociationConfirmation;
 
 /**
  * @author yugandhark
@@ -24,5 +25,5 @@ public interface ArticleAssignmentService {
 
     ArticleInfoDetails getArticleInfo(String emailId);
 
-    boolean confirmAssociation(String articleAuthId, String userId);
+    boolean associationConfirmation(AssociationConfirmation associationConfirmation);
 }

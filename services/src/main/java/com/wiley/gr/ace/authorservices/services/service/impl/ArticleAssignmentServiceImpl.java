@@ -17,7 +17,9 @@ package com.wiley.gr.ace.authorservices.services.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.SharedService;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
+import com.wiley.gr.ace.authorservices.model.external.AssociationConfirmation;
 import com.wiley.gr.ace.authorservices.services.service.ArticleAssignmentService;
 
 /**
@@ -26,17 +28,21 @@ import com.wiley.gr.ace.authorservices.services.service.ArticleAssignmentService
  */
 public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
 
-    @Autowired(required = true)
-    ESBInterfaceService esbInterfaceService;
+	@Autowired(required = true)
+	ESBInterfaceService esbInterfaceService;
 
-    @Override
-    public ArticleInfoDetails getArticleInfo(String emailId) {
-        return esbInterfaceService.getArticleInfo(emailId);
-    }
+	@Autowired(required = true)
+	SharedService sharedService;
 
-    @Override
-    public boolean confirmAssociation(String articleAuthId, String userId) {
-        return esbInterfaceService.confirmAssociation();
-    }
+	@Override
+	public ArticleInfoDetails getArticleInfo(String emailId) {
+		return esbInterfaceService.getArticleInfo(emailId);
+	}
+
+	@Override
+	public boolean associationConfirmation(
+			AssociationConfirmation associationConfirmation) {
+		return sharedService.associationConfirmation(associationConfirmation);
+	}
 
 }
