@@ -29,15 +29,13 @@ import com.wiley.gr.ace.authorservices.persistence.entity.Roles;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
 
 /**
- * @author virtusa
- *	version 1.0
+ * @author virtusa version 1.0
  */
 public class ASDataDAOImpl implements ASDataDAO {
-  
-    
+
     @Override
     public List<LookupValues> getDropDown(String keyName) {
-        
+
         Session session = null;
         List<LookupValues> lookupList = null;
         try {
@@ -53,151 +51,173 @@ public class ASDataDAOImpl implements ASDataDAO {
             }
         }
     }
-    
+
     /*
      * (non-Javadoc)
+     * 
      * @see
      * com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO#getAdminRoles
      * ()
      */
     @Override
     public List<Roles> getUserRoles(String roleId) {
-        
+
         Session session = null;
         List<Roles> list = new ArrayList();
         String hql = null;
-        
+
         try {
-            
+
             session = getSessionFactory().openSession();
-            
+
             if (roleId == null) {
-                
+
                 hql = "from Roles";
                 list = session.createQuery(hql).list();
-                
+
             } else {
                 hql = "from Roles where roleId = :roleId";
                 list = session.createQuery(hql).setString("roleId", roleId)
                         .list();
             }
-            
+
         } finally {
             if (session != null) {
                 session.flush();
                 session.close();
             }
         }
-        
+
         return list;
     }
-    
+
     @Override
     public List<Roles> getAdminRoles(String roleType) {
-        
+
         Session session = null;
         List<Roles> list = new ArrayList();
         String hql = null;
-        
         try {
-            
-            session =getSessionFactory().openSession();
-            
+
+            session = getSessionFactory().openSession();
+
             if (roleType == null) {
-                
+
                 hql = "from Roles";
                 list = session.createQuery(hql).list();
-                
+
             } else {
                 hql = "from Roles where roleType = :roleType";
                 list = session.createQuery(hql).setString("roleType", roleType)
                         .list();
             }
-            
+
         } finally {
             if (session != null) {
                 session.flush();
                 session.close();
             }
         }
-        
+
         return list;
     }
-    
+
     /*
      * (non-Javadoc)
+     * 
      * @see
      * com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO#getPermissions
      * ()
      */
     public List<Permissions> getPermissions() {
-        
+
         Session session = null;
         List<Permissions> list = new ArrayList();
-        
+
         try {
-            
-            session =getSessionFactory().openSession();
-            
+
+            session = getSessionFactory().openSession();
+
             String hql = "from Permissions";
-            
+
             list = session.createQuery(hql).list();
-            
+
         } finally {
             if (session != null) {
                 session.flush();
                 session.close();
             }
         }
-        
+
         return list;
     }
-    
+
     /*
      * (non-Javadoc)
+     * 
      * @see com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO#
      * getRolePermissionMappings()
      */
     @Override
     public List<RolePermissions> getRolePermissionMappings(String roleId) {
-        
+
         Session session = null;
         List<Object[]> list = new ArrayList<Object[]>();
         List<RolePermissions> returnList = new ArrayList<RolePermissions>();
-        
+
         try {
-            
+
             session = getSessionFactory().openSession();
-            
+
             if (roleId == null) {
-                
-                Query query = session.createSQLQuery("select * from role_permissions");
+
+                Query query = session
+                        .createSQLQuery("select * from role_permissions");
                 list = query.list();
-                
+
             } else {
-                
-                Query query = session.createSQLQuery("select * from role_permissions where role_id = :roleId").setParameter("roleId", roleId);
+
+                Query query = session
+                        .createSQLQuery(
+                                "select * from role_permissions where role_id = :roleId")
+                        .setParameter("roleId", roleId);
                 list = query.list();
             }
-            
+
             for (Object[] object : list) {
-                
+
                 RolePermissions rolePermissions = new RolePermissions();
                 RolePermissionsId rolePermissionsId = new RolePermissionsId();
-                rolePermissionsId.setRoleId(Integer.valueOf(object[0].toString()));
+                rolePermissionsId.setRoleId(Integer.valueOf(object[0]
+                        .toString()));
                 rolePermissionsId.setPermissionCd(object[1].toString());
                 rolePermissions.setId(rolePermissionsId);
                 returnList.add(rolePermissions);
             }
-            
+
         } finally {
             if (session != null) {
                 session.flush();
                 session.close();
             }
         }
-        
+
         return returnList;
     }
-    
+
+    @Override
+    public int getCount(int roleId) {
+        Session session = null;
+        List list = new ArrayList();
+        int count = 0;
+        session = getSessionFactory().openSession();
+        Query query = session
+                .createSQLQuery(
+                        "select * from ROLE_PERMISSIONS  where ROLE_ID = :roleId").setParameter("roleId", roleId);
+        list = query.list();
+        count = list.size();
+        return count;
+    }
+
+   
 }

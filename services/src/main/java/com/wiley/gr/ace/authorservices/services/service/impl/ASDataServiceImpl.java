@@ -335,6 +335,7 @@ public class ASDataServiceImpl implements ASDataService {
 								AuthorServicesConstants.ROLE_TYPE_INTERNAL)) {
 					adminRole.setAdminRole(true);
 				}
+				adminRole.setNoOfPermissions(aSDataDAO.getCount(roles.getRoleId()));
 				adminRoles.add(adminRole);
 			}
 

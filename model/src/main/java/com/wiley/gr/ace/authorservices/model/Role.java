@@ -21,7 +21,16 @@ public class Role {
     private String roleDescription;
     
     private boolean isAdminRole = false;
+    private int noOfPermissions;
     
+    public int getNoOfPermissions() {
+        return noOfPermissions;
+    }
+
+    public void setNoOfPermissions(int noOfPermissions) {
+        this.noOfPermissions = noOfPermissions;
+    }
+
     /**
      * @return
      */
