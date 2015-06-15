@@ -23,7 +23,8 @@ import com.wiley.gr.ace.authorservices.model.external.AssociationConfirmation;
  */
 public interface ArticleAssignmentService {
 
-    ArticleInfoDetails getArticleInfo(String emailId);
+	ArticleInfoDetails getArticleInfo(String emailId) throws Exception;
 
-    boolean associationConfirmation(AssociationConfirmation associationConfirmation);
+	boolean associationConfirmation(
+			AssociationConfirmation associationConfirmation) throws Exception;
 }

@@ -35,13 +35,13 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
 	SharedService sharedService;
 
 	@Override
-	public ArticleInfoDetails getArticleInfo(String emailId) {
+	public ArticleInfoDetails getArticleInfo(String emailId) throws Exception {
 		return esbInterfaceService.getArticleInfo(emailId);
 	}
 
 	@Override
 	public boolean associationConfirmation(
-			AssociationConfirmation associationConfirmation) {
+			AssociationConfirmation associationConfirmation) throws Exception {
 		return sharedService.associationConfirmation(associationConfirmation);
 	}
 
