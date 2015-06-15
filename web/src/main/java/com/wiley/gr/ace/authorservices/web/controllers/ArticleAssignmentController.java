@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
+import com.wiley.gr.ace.authorservices.model.external.AssociationConfirmation;
 import com.wiley.gr.ace.authorservices.services.service.ArticleAssignmentService;
 
 /**
@@ -37,56 +38,56 @@ import com.wiley.gr.ace.authorservices.services.service.ArticleAssignmentService
 @RequestMapping("/article")
 public class ArticleAssignmentController {
 
-    @Autowired(required = true)
-    ArticleAssignmentService articleAssignmentService;
+	@Autowired(required = true)
+	ArticleAssignmentService articleAssignmentService;
 
-    @RequestMapping(value = "/confirm/display/{emailId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final @ResponseBody Service getArticleInfo(
-            @PathVariable("emailId") final String emailId) {
-        Service service = new Service();
-        ArticleInfoDetails articleInfoDetails = null;
+	@RequestMapping(value = "/confirm/display/{emailId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public final @ResponseBody Service getArticleInfo(
+			@PathVariable("emailId") final String emailId) {
+		Service service = new Service();
+		ArticleInfoDetails articleInfoDetails = null;
 
-        try {
-            articleInfoDetails = articleAssignmentService
-                    .getArticleInfo(emailId);
-            if (!StringUtils.isEmpty(articleInfoDetails)) {
-                service.setStatus("SUCCESS");
-                service.setPayload(articleInfoDetails);
-            }
-        } catch (Exception e) {
-            ErrorPOJO error = new ErrorPOJO();
-            error.setCode(205);
-            error.setMessage("Error Fetching ArticleInfo");
-            service.setStatus("ERROR");
-            service.setError(error);
-        }
-        return service;
+		try {
+			articleInfoDetails = articleAssignmentService
+					.getArticleInfo(emailId);
+			if (!StringUtils.isEmpty(articleInfoDetails)) {
+				service.setStatus("SUCCESS");
+				service.setPayload(articleInfoDetails);
+			}
+		} catch (Exception e) {
+			ErrorPOJO error = new ErrorPOJO();
+			error.setCode(205);
+			error.setMessage("Error Fetching ArticleInfo");
+			service.setStatus("ERROR");
+			service.setError(error);
+		}
+		return service;
 
-    }
+	}
 
-    @RequestMapping(value = "/confirm/confirmassociation", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final @ResponseBody Service confirmAssociation(
-            @RequestBody String articleAuthId, @RequestBody String userId) {
-        Service service = new Service();
-        boolean confirmAssociation = false;
-        try {
-            confirmAssociation = articleAssignmentService.confirmAssociation(
-                    articleAuthId, userId);
-            if (confirmAssociation) {
-                service.setStatus("SUCCESS");
-                service.setPayload(confirmAssociation);
-            } else {
-                service.setStatus("FAILURE");
-                service.setPayload(confirmAssociation);
-            }
-        } catch (Exception e) {
-            ErrorPOJO error = new ErrorPOJO();
-            error.setCode(205);
-            error.setMessage("Error Fetching ArticleInfo");
-            service.setStatus("ERROR");
-            service.setError(error);
-        }
-        return service;
+	@RequestMapping(value = "/confirm/association", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	public final @ResponseBody Service associationConfirmation(
+			@RequestBody AssociationConfirmation associationConfirmation) {
+		Service service = new Service();
+		boolean confirmAssociation = false;
+		try {
+			confirmAssociation = articleAssignmentService
+					.associationConfirmation(associationConfirmation);
+			if (confirmAssociation) {
+				service.setStatus("SUCCESS");
+				service.setPayload(confirmAssociation);
+			} else {
+				service.setStatus("FAILURE");
+				service.setPayload(confirmAssociation);
+			}
+		} catch (Exception e) {
+			ErrorPOJO error = new ErrorPOJO();
+			error.setCode(205);
+			error.setMessage("Error Fetching ArticleInfo");
+			service.setStatus("ERROR");
+			service.setError(error);
+		}
+		return service;
 
-    }
+	}
 }
