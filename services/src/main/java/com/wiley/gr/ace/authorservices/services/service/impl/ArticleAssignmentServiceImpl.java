@@ -36,7 +36,7 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
 
     @Override
     public boolean confirmAssociation(String articleAuthId, String userId) {
-        return esbInterfaceService.confirmAssociation(articleAuthId, userId);
+        return esbInterfaceService.confirmAssociation();
     }
 
 }
