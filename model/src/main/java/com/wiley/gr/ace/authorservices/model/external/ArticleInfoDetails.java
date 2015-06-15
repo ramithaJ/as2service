@@ -14,29 +14,22 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.util.List;
+
 /**
  * @author yugandhark
  *
  */
-public class ArticleCitationRecord {
+public class ArticleInfoDetails {
 
-    private String articleTitle;
+    private List<ArticleInfo> articleInfo;
 
-    private Integer citationCount;
-
-    public String getArticleTitle() {
-        return articleTitle;
+    public List<ArticleInfo> getArticleInfo() {
+        return articleInfo;
     }
 
-    public void setArticleTitle(String articleTitle) {
-        this.articleTitle = articleTitle;
+    public void setArticleInfo(List<ArticleInfo> articleInfo) {
+        this.articleInfo = articleInfo;
     }
 
-    public Integer getCitationCount() {
-        return citationCount;
-    }
-
-    public void setCitationCount(Integer citationCount) {
-        this.citationCount = citationCount;
-    }
 }

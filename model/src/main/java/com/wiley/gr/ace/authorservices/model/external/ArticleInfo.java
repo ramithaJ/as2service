@@ -18,25 +18,36 @@ package com.wiley.gr.ace.authorservices.model.external;
  * @author yugandhark
  *
  */
-public class ArticleCitationRecord {
+public class ArticleInfo {
 
-    private String articleTitle;
+    private Integer articleAuthId;
 
-    private Integer citationCount;
+    private ArticleDetails articleDetails;
 
-    public String getArticleTitle() {
-        return articleTitle;
+    private ArticleUserRoleDetails articleUserRoleDetails;
+
+    public Integer getArticleAuthId() {
+        return articleAuthId;
     }
 
-    public void setArticleTitle(String articleTitle) {
-        this.articleTitle = articleTitle;
+    public void setArticleAuthId(Integer articleAuthId) {
+        this.articleAuthId = articleAuthId;
     }
 
-    public Integer getCitationCount() {
-        return citationCount;
+    public ArticleDetails getArticleDetails() {
+        return articleDetails;
     }
 
-    public void setCitationCount(Integer citationCount) {
-        this.citationCount = citationCount;
+    public void setArticleDetails(ArticleDetails articleDetails) {
+        this.articleDetails = articleDetails;
+    }
+
+    public ArticleUserRoleDetails getArticleUserRoleDetails() {
+        return articleUserRoleDetails;
+    }
+
+    public void setArticleUserRoleDetails(
+            ArticleUserRoleDetails articleUserRoleDetails) {
+        this.articleUserRoleDetails = articleUserRoleDetails;
     }
 }

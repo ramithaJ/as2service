@@ -22,7 +22,7 @@ public class ArticleReadRecord {
 
     private String articleTitle;
 
-    private String readCount;
+    private Integer readCount;
 
     public String getArticleTitle() {
         return articleTitle;
@@ -32,11 +32,11 @@ public class ArticleReadRecord {
         this.articleTitle = articleTitle;
     }
 
-    public String getReadCount() {
+    public Integer getReadCount() {
         return readCount;
     }
 
-    public void setReadCount(String readCount) {
+    public void setReadCount(Integer readCount) {
         this.readCount = readCount;
     }
 }
