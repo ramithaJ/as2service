@@ -25,20 +25,19 @@ import com.wiley.gr.ace.authorservices.model.external.Status;
  */
 public interface ESBInterfaceService {
 
-    User fetchOrcidDetails(String orcid) throws Exception;
+	User fetchOrcidDetails(String orcid) throws Exception;
 
-    String updateALMUser(User user) throws Exception;
+	String updateALMUser(User user) throws Exception;
 
-    ESBUser checkEmailIdExists(String emailId) throws Exception;
+	ESBUser checkEmailIdExists(String emailId) throws Exception;
 
-    List<ESBUser> getUsersFromFirstNameLastName(String firstName,
-            String lastName) throws Exception;
+	List<ESBUser> getUsersFromFirstNameLastName(String firstName,
+			String lastName) throws Exception;
 
-    Status creatUser(ProfileInformation profileForCreation) throws Exception;
+	Status creatUser(ProfileInformation profileForCreation) throws Exception;
 
-    DashboardView viewDashboard(String userId);
+	DashboardView viewDashboard(String userId);
 
-    ArticleInfoDetails getArticleInfo(String emailId);
+	ArticleInfoDetails getArticleInfo(String emailId);
 
-    boolean confirmAssociation();
 }

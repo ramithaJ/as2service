@@ -14,11 +14,13 @@ package com.wiley.gr.ace.authorservices.externalservices.context;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.wiley.gr.ace.authorservices.externalservices.service.SharedService;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.BPMInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrcidInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.impl.SharedServiceImpl;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.UserManagementImpl;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.BPMInterfaceServiceImpl;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.UserProfilesImpl;
@@ -28,30 +30,34 @@ import com.wiley.gr.ace.authorservices.externalservices.service.impl.OrcidInterf
 @Configuration
 public class ExternalServiceBeanConfig {
 
-    @Bean(name = "UserManagement")
-    public UserManagement aLMExternalService() {
-        return new UserManagementImpl();
-    }
+	@Bean(name = "UserManagement")
+	public UserManagement aLMExternalService() {
+		return new UserManagementImpl();
+	}
 
-    @Bean(name = "BPMExternalService")
-    public BPMInterfaceService bpmExternalService() {
-        return new BPMInterfaceServiceImpl();
-    }
+	@Bean(name = "BPMExternalService")
+	public BPMInterfaceService bpmExternalService() {
+		return new BPMInterfaceServiceImpl();
+	}
 
-    @Bean(name = "ESBInterfaceService")
-    public ESBInterfaceService eSBInterfaceService() {
-        return new ESBInterfaceServiceImpl();
-    }
+	@Bean(name = "ESBInterfaceService")
+	public ESBInterfaceService eSBInterfaceService() {
+		return new ESBInterfaceServiceImpl();
+	}
 
-    @Bean(name = "OricdInterfaceService")
-    public OrcidInterfaceService orcidInterfaceService() {
-        return new OrcidInterfaceServiceImpl();
-    }
+	@Bean(name = "OricdInterfaceService")
+	public OrcidInterfaceService orcidInterfaceService() {
+		return new OrcidInterfaceServiceImpl();
+	}
 
-    @Bean(name = "UserProfiles")
-    public UserProfiles cdmInterfaceService() {
+	@Bean(name = "UserProfiles")
+	public UserProfiles cdmInterfaceService() {
 
-        return new UserProfilesImpl();
-    }
+		return new UserProfilesImpl();
+	}
 
+	@Bean(name = "SharedService")
+	public SharedService sharedService() {
+		return new SharedServiceImpl();
+	}
 }
