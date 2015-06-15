@@ -12,5 +12,5 @@ import com.wiley.gr.ace.authorservices.model.external.AssociationConfirmation;
 public interface SharedService {
 
 	boolean associationConfirmation(
-			AssociationConfirmation associationConfirmation);
+			AssociationConfirmation associationConfirmation) throws Exception;
 }

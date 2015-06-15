@@ -36,8 +36,8 @@ public interface ESBInterfaceService {
 
 	Status creatUser(ProfileInformation profileForCreation) throws Exception;
 
-	DashboardView viewDashboard(String userId);
+	DashboardView viewDashboard(String userId) throws Exception;
 
-	ArticleInfoDetails getArticleInfo(String emailId);
+	ArticleInfoDetails getArticleInfo(String emailId) throws Exception;
 
 }

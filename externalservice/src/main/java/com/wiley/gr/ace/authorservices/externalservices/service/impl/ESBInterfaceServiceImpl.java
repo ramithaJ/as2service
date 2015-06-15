@@ -171,7 +171,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 	}
 
 	@Override
-	public DashboardView viewDashboard(String userId) {
+	public DashboardView viewDashboard(String userId) throws Exception {
 		DashboardView dashboardView = null;
 		final String url = "http://demo7930138.mockable.io/dashboard/view/1000";
 		try {
@@ -198,7 +198,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 	}
 
 	@Override
-	public ArticleInfoDetails getArticleInfo(String emailId) {
+	public ArticleInfoDetails getArticleInfo(String emailId) throws Exception {
 		ArticleInfoDetails articleInfoDetails = null;
 		final String url = "http://demo7930138.mockable.io/article/getArticleInfo/emailId";
 		try {
