@@ -28,21 +28,27 @@ import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
  */
 public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 
+    /**
+     * The invalidEmail code.
+     */
     @Value("${invalidEmail.code}")
     private String invalidEmail;
 
+    /**
+     * The invalidEmail message.
+     */
     @Value("${invalidEmail.message}")
     private String invalidEmailMsg;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO
-     * #validateEmailAddress(java.lang.String)
+    /**
+     * This method validates the the email Address .
+     *
+     * @param emailId
+     *            to validate the emailId.
+     * @return true, if successful.
      */
     @Override
-    public boolean validateEmailAddress(String emailId) {
+    public final boolean validateEmailAddress(final String emailId) {
 
         Session session = null;
         try {
@@ -62,15 +68,15 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
         }
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * This method gets the userId.
      * 
-     * @see
-     * com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO
-     * #getUserId(java.lang.String)
+     * @param emailId
+     *            to get the userId.
+     * @return the userId.
      */
     @Override
-    public Integer getUserId(String emailId) {
+    public final Integer getUserId(final String emailId) {
 
         Session session = null;
         try {
@@ -90,8 +96,15 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
         }
     }
 
+    /**
+     * This method gets the reset password log.
+     * 
+     * @param guid
+     *            to get InviteResetpwdLog.
+     * @return the InviteResetpwdLog.
+     */
     @Override
-    public InviteResetpwdLog getinviteResetpwdLog(String guid) {
+    public final InviteResetpwdLog getinviteResetpwdLog(final String guid) {
         Session session = null;
         InviteResetpwdLog inviteResetpwdLog = null;
         try {
@@ -110,8 +123,15 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
         return inviteResetpwdLog;
     }
 
+    /**
+     * This method verifying the updated emailId.
+     * 
+     * @param emailId
+     *            to verify the updated emailId.
+     * 
+     */
     @Override
-    public void verifyEmailUpdate(String emailId) {
+    public final void verifyEmailUpdate(final String emailId) {
         Session session = null;
         Integer userId = getUserId(emailId);
         try {

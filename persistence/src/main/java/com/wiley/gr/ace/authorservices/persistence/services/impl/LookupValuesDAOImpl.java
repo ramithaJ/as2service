@@ -22,19 +22,25 @@ import com.wiley.gr.ace.authorservices.persistence.entity.LookupValues;
 import com.wiley.gr.ace.authorservices.persistence.services.LookUpValuesDAO;
 
 /**
- * @author virtusa
- *	version 1.0
+ * @author virtusa version 1.0
  */
 public class LookupValuesDAOImpl implements LookUpValuesDAO {
-    
+
+    /**
+     * This method gets data from LOOKUP_VALUES table with a key.
+     * 
+     * @param lookupKey
+     *            to Retrieve.
+     * @return the List of LookupValues.
+     */
     @Override
-    public List<LookupValues> getLookUpData(String lookupKey) {
-        
+    public final List<LookupValues> getLookUpData(final String lookupKey) {
+
         List<LookupValues> lookupList = null;
         Session session = null;
         try {
-            session =getSessionFactory().openSession();
-            
+            session = getSessionFactory().openSession();
+
             String hql = "from LookupValues where lookupKey = :lookupKey";
             lookupList = session.createQuery(hql)
                     .setString("lookupKey", lookupKey).list();
@@ -46,5 +52,5 @@ public class LookupValuesDAOImpl implements LookUpValuesDAO {
         }
         return lookupList;
     }
-    
+
 }

@@ -23,15 +23,16 @@ import com.wiley.gr.ace.authorservices.persistence.entity.Roles;
 public interface UserRolesDAO {
 
 	/**
-	 * This method is used to add or update user roles and permissions
+	 * This method is used to add or update user roles and permissions.
 	 * 
-	 * @param userRoles
-	 * @param permissionsList
+	 * @param userRoles to add or update user roles.
+	 * @param permissionsList to add or update permissions.
 	 */
 	void addOrUpdateUserRoles(Roles userRoles, List<Permissions> permissionsList);
 
 	/**
-	 * @param roleName
+	 * This checks the role name.
+	 * @param roleName to check.
 	 */
 	void checkRoleName(String roleName);
 

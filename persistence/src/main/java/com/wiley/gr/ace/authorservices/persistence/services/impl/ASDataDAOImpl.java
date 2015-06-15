@@ -32,9 +32,15 @@ import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
  * @author virtusa version 1.0
  */
 public class ASDataDAOImpl implements ASDataDAO {
-
+    /**
+     * This method gets the List of LookupValues from AS 2.0 DB.
+     * 
+     * @param keyName
+     *            to Retrieve.
+     * @return the List of Lookup Values.
+     */
     @Override
-    public List<LookupValues> getDropDown(String keyName) {
+    public final List<LookupValues> getDropDown(final String keyName) {
 
         Session session = null;
         List<LookupValues> lookupList = null;
@@ -52,18 +58,18 @@ public class ASDataDAOImpl implements ASDataDAO {
         }
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * This method gets the List of Roles of User from AS 2.0 DB.
      * 
-     * @see
-     * com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO#getAdminRoles
-     * ()
+     * @param roleId
+     *            to Retrieve.
+     * @return the List of Roles.
      */
     @Override
-    public List<Roles> getUserRoles(String roleId) {
+    public final List<Roles> getUserRoles(final String roleId) {
 
         Session session = null;
-        List<Roles> list = new ArrayList();
+        List<Roles> list = new ArrayList<Roles>();
         String hql = null;
 
         try {
@@ -91,11 +97,18 @@ public class ASDataDAOImpl implements ASDataDAO {
         return list;
     }
 
+    /**
+     * This method gets the List of Roles of Admin from AS 2.0 DB.
+     * 
+     * @param roleType
+     *            to Retrieve.
+     * @return the List of Roles.
+     */
     @Override
-    public List<Roles> getAdminRoles(String roleType) {
+    public final List<Roles> getAdminRoles(final String roleType) {
 
         Session session = null;
-        List<Roles> list = new ArrayList();
+        List<Roles> list = new ArrayList<Roles>();
         String hql = null;
         try {
 
@@ -122,14 +135,12 @@ public class ASDataDAOImpl implements ASDataDAO {
         return list;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * This method gets all the permissions from AS 2.0 DB.
      * 
-     * @see
-     * com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO#getPermissions
-     * ()
+     * @return the List of Permissions.
      */
-    public List<Permissions> getPermissions() {
+    public final List<Permissions> getPermissions() {
 
         Session session = null;
         List<Permissions> list = new ArrayList();
@@ -152,14 +163,17 @@ public class ASDataDAOImpl implements ASDataDAO {
         return list;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * This method gets the Role Permissions Mappings for all roles from AS 2.0
+     * DB.
      * 
-     * @see com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO#
-     * getRolePermissionMappings()
+     * @param roleId
+     *            to Retrieve.
+     * @return the List of Role Permissions.
      */
     @Override
-    public List<RolePermissions> getRolePermissionMappings(String roleId) {
+    public final List<RolePermissions> getRolePermissionMappings(
+            final String roleId) {
 
         Session session = null;
         List<Object[]> list = new ArrayList<Object[]>();
@@ -205,19 +219,25 @@ public class ASDataDAOImpl implements ASDataDAO {
         return returnList;
     }
 
+    /**
+     * This method gets the count of Roles.
+     * 
+     * @param roleId
+     *            to Retrieve.
+     * @return the count
+     */
     @Override
-    public int getCount(int roleId) {
+    public final int getCount(final int roleId) {
         Session session = null;
         List list = new ArrayList();
         int count = 0;
         session = getSessionFactory().openSession();
-        Query query = session
-                .createSQLQuery(
-                        "select * from ROLE_PERMISSIONS  where ROLE_ID = :roleId").setParameter("roleId", roleId);
+        Query query = session.createSQLQuery(
+                "select * from ROLE_PERMISSIONS  where ROLE_ID = :roleId")
+                .setParameter("roleId", roleId);
         list = query.list();
         count = list.size();
         return count;
     }
 
-   
 }
