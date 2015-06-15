@@ -46,324 +46,340 @@ import com.wiley.gr.ace.authorservices.persistence.services.LookUpValuesDAO;
 import com.wiley.gr.ace.authorservices.services.service.ASDataService;
 
 /**
- * @author virtusa
- *	version 1.0
+ * @author virtusa version 1.0
  */
 public class ASDataServiceImpl implements ASDataService {
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(ASDataServiceImpl.class);
-
-	@Autowired(required = true)
-	ASDataDAO aSDataDAO;
-	@Autowired(required = true)
-	LookUpValuesDAO lookupDAO;
-	@Autowired
-	UserProfiles cdmservice;
-
-	@Override
-	public List<Title> getTitles() {
-		LOGGER.info("inside getTitles method ");
-
-		List<LookupValues> lookupList = aSDataDAO.getDropDown("TITLE");
-		List<Title> titleList = new ArrayList<Title>();
-		Title title = null;
-		for (LookupValues lookupValues : lookupList) {
-
-			title = new Title();
-			title.setTitleId(lookupValues.getLookupName());
-			title.setTitleName(lookupValues.getLookupValue());
-			titleList.add(title);
-		}
-		return titleList;
-	}
-
-	@Override
-	public List<Suffix> getSuffixes() {
-		LOGGER.info("inside getSuffixes method ");
-
-		List<LookupValues> lookupList = aSDataDAO.getDropDown("SUFFIX");
-		List<Suffix> suffixList = new ArrayList<Suffix>();
-		Suffix suffix = null;
-		for (LookupValues lookupValues : lookupList) {
-
-			suffix = new Suffix();
-			suffix.setSuffixId(lookupValues.getLookupName());
-			suffix.setSuffixName(lookupValues.getLookupValue());
-			suffixList.add(suffix);
-		}
-		return suffixList;
-	}
-
-	@Override
-	public List<Industry> getIndustries(Integer count) {
-		LOGGER.info("inside getIndustries method ");
-
-		Industry industry = null;
-		List<Industry> industryList = new ArrayList<Industry>();
-		Industries industries = cdmservice.getIndustries();
-		if (null == industries) {
-			return new ArrayList<Industry>();
-		}
-
-		List<Object> industryDocs = industries.getResponse().getDocs();
-		for (Object object : industryDocs) {
-
-			LinkedHashMap<String, String> industryMap = (LinkedHashMap<String, String>) object;
-			industry = new Industry();
-			industry.setIndustryId(industryMap.get("NAICS_CODE"));
-			industry.setIndustryName(industryMap.get("NAICS_TITLE"));
-			industryList.add(industry);
-		}
-
-		return industryList.subList(0, count);
-	}
-
-	@Override
-	public List<JobCategory> getJobCategories(Integer count) {
-
-		LOGGER.info("inside getJobCategories method ");
-		JobCategories jobCategories = cdmservice.getJobCategories();
-		JobCategory jobCategory = null;
-		List<JobCategory> jobCategoryList = new ArrayList<JobCategory>();
-		if (null == jobCategories) {
-			return jobCategoryList;
-		}
-
-		List<Object> jobCategoryDocs = jobCategories.getResponse().getDocs();
-		for (Object object : jobCategoryDocs) {
-
-			LinkedHashMap<String, String> jobCategoryMap = (LinkedHashMap<String, String>) object;
-			jobCategory = new JobCategory();
-			jobCategory.setJobCategoryId(jobCategoryMap.get("JOBCODE"));
-			jobCategory.setJobCategoryName(jobCategoryMap.get("JOBTITLE"));
-			jobCategoryList.add(jobCategory);
-		}
-
-		return jobCategoryList.subList(0, count);
-	}
-
-	@Override
-	public List<Country> getCountries(Integer count) {
-
-		LOGGER.info("inside getCountries method ");
-		ESBResponse countrieslist = cdmservice.getCountries();
-		List<Country> countrylist = new ArrayList<Country>();
-
-		List<Object> externalCountrylist = countrieslist.getResponse()
-				.getDocs();
-		if (null == externalCountrylist) {
-			return countrylist;
-		}
-		for (Object object : externalCountrylist) {
-			LinkedHashMap<String, String> countrymap = (LinkedHashMap<String, String>) object;
-			Country country = new Country();
-
-			String externalcountrymap = countrymap.get("id");
-			String[] idsplit = externalcountrymap.split("_");
-			country.setCountryCode(idsplit[1]);
-			country.setCountryName(countrymap.get("COUNTRY_NAME"));
-			countrylist.add(country);
-		}
-
-		return countrylist.subList(0, count);
-	}
-
-	@Override
-	public List<State> getStates(String countrycode, Integer count) {
-
-		LOGGER.info("inside getStates method ");
-		ESBResponse statelistext = cdmservice.getStates();
-		List<State> modelststelist = new ArrayList<State>();
-
-		List<Object> externalstatelist = statelistext.getResponse().getDocs();
-		if (null == externalstatelist) {
-			return modelststelist;
-		}
-
-		for (Object statelist : externalstatelist) {
-
-			LinkedHashMap<String, String> statemap = (LinkedHashMap<String, String>) statelist;
-
-			State state = new State();
-			String externalcountrymap = statemap.get("id");
-			String[] idsplit = externalcountrymap.split("_");
-			state.setStateCode(idsplit[2]);
-			state.setStateName(statemap.get("SUBDIVISION_NAME"));
-			modelststelist.add(state);
-		}
-
-		return modelststelist.subList(0, count);
-	}
-
-	@Override
-	public List<Institution> getInstitutions() {
-
-		LOGGER.info("inside getInstitutions method ");
-
-		DropDown dropDown = cdmservice.getInstitutionsList();
-		List<Institution> listofinstitute = dropDown.getInstitutions();
-		List<Institution> institutionslist = new ArrayList<Institution>();
-
-		for (Institution institute : listofinstitute) {
-
-			Institution institution = new Institution();
-			institution.setInstitutionId(institute.getInstitutionId());
-			institution.setInstitutionName(institute.getInstitutionName());
-			institutionslist.add(institution);
-
-		}
-
-		return institutionslist;
-	}
-
-	@Override
-	public List<Department> getDepartments() {
-
-		LOGGER.info("inside getDepartments method ");
-
-		DropDown dropDown = cdmservice.getDepartmentsList();
-		List<Department> listofdepartment = dropDown.getDepartments();
-		List<Department> departmentlist = new ArrayList<Department>();
-		for (Department department : listofdepartment) {
-
-			Department departments = new Department();
-			departments.setDepartmentId(department.getDepartmentId());
-			departments.setDepartmentName(department.getDepartmentName());
-			departmentlist.add(department);
-
-		}
-		return departmentlist;
-	}
-
-	@Override
-	public List<ResearchFunder> getResearchFunders() {
-		LOGGER.info("inside getResearchFunders method ");
-
-		DropDown dropDown = cdmservice.getReasearchFunder();
-		List<ResearchFunder> researchFunder = dropDown.getResearchFunders();
-		List<ResearchFunder> researchfunderlist = new ArrayList<ResearchFunder>();
-
-		for (ResearchFunder researchFunders : researchFunder) {
-
-			ResearchFunder resFunder = new ResearchFunder();
-			resFunder
-					.setResearchFunderId(researchFunders.getResearchFunderId());
-			resFunder.setResearchFunderName(researchFunders
-					.getResearchFunderName());
-			researchfunderlist.add(resFunder);
-		}
-
-		return researchfunderlist;
-	}
-
-	@Override
-	public List<Society> getSocieties() {
-
-		LOGGER.info("inside getSocieties method ");
-		DropDown dropDown = cdmservice.getSocietyList();
-		List<Society> listofsociety = dropDown.getSociety();
-		List<Society> societylist = new ArrayList<Society>();
-		for (Society societys : listofsociety) {
-
-			Society society = new Society();
-			society.setSocietyId(societys.getSocietyId());
-
-			society.setSocietyName(societys.getSocietyName());
-			societylist.add(society);
-		}
-		return societylist;
-	}
-
-	@Override
-	public List<Interests> getAreasOfInterests(Integer count) {
-		LOGGER.info("inside getAreasOfInterests method ");
-		ESBResponse areaOfInterests = cdmservice.getAreaOfInterests();
-		List<Object> externalInterests = areaOfInterests.getResponse()
-				.getDocs();
-		List<Interests> returnList = new ArrayList<Interests>();
-		if (null == externalInterests) {
-			return returnList;
-		}
-
-		for (Object docs : externalInterests) {
-			LinkedHashMap<String, String> interest = (LinkedHashMap<String, String>) docs;
-			Interests interests = new Interests();
-			interests.setAoeId(interest.get("SUBJECT_CODE"));
-			interests.setAoeName(interest.get("SUBJECT_NAME"));
-			returnList.add(interests);
-		}
-		return returnList.subList(0, count);
-
-	}
-
-	@Override
-	public List<SecurityDetails> getSecurityQuestions() {
-
-		LOGGER.info("inside getSecurityQuestions method ");
-
-		List<LookupValues> lookupList = aSDataDAO.getDropDown("SEQ");
-		List<SecurityDetails> securityQuestionsList = new ArrayList<SecurityDetails>();
-		SecurityDetails securityDetails = null;
-		for (LookupValues lookupValues : lookupList) {
-
-			securityDetails = new SecurityDetails();
-			securityDetails.setSecurityQuestionId(lookupValues.getLookupName());
-			securityDetails.setSecurityQuestion(lookupValues.getLookupValue());
-			securityQuestionsList.add(securityDetails);
-		}
-		return securityQuestionsList;
-	}
-
-	@Override
-	public List<Role> getAdminRoles(String roleType) {
-
-		LOGGER.info("inside getAdminRoles method ");
-
-		List<Roles> daoRolesList = aSDataDAO.getAdminRoles(roleType);
-		List<Role> adminRoles = new ArrayList<Role>();
-		Role adminRole = null;
-
-		if (daoRolesList != null && !daoRolesList.isEmpty()) {
-
-			for (Roles roles : daoRolesList) {
-				adminRole = new Role();
-				adminRole.setRoleId(roles.getRoleId() + "");
-				adminRole.setRoleName(roles.getRoleName());
-				adminRole.setRoleDescription(roles.getDescription());
-				if (roles.getRoleType() != null
-						&& roles.getRoleType().equals(
-								AuthorServicesConstants.ROLE_TYPE_INTERNAL)) {
-					adminRole.setAdminRole(true);
-				}
-				adminRole.setNoOfPermissions(aSDataDAO.getCount(roles.getRoleId()));
-				adminRoles.add(adminRole);
-			}
-
-		}
-		return adminRoles;
-	}
-
-	@Override
-	public List<AccessReasons> getAccessReasons() {
-
-		LOGGER.info("inside getAccessReasons method ");
-
-		List<LookupValues> daoList = lookupDAO
-				.getLookUpData(AuthorServicesConstants.ADM_ACC_LOOKUP_KEY);
-		List<AccessReasons> accessList = new ArrayList<AccessReasons>();
-		AccessReasons accessReason = null;
-
-		if (daoList != null) {
-
-			for (LookupValues lookupValues : daoList) {
-				accessReason = new AccessReasons();
-				accessReason.setAccessId(lookupValues.getLookupName());
-				accessReason.setAccessReason(lookupValues.getLookupValue());
-				accessList.add(accessReason);
-			}
-
-		}
-		return accessList;
-	}
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(ASDataServiceImpl.class);
+    /** getting bean of asdata dao */
+    @Autowired(required = true)
+    ASDataDAO aSDataDAO;
+    /** getting bean of lookupDAO */
+    @Autowired(required = true)
+    LookUpValuesDAO lookupDAO;
+    /** getting bean of userProfiles */
+    @Autowired
+    UserProfiles userProfiles;
+
+    /** This will call external service to get titles data */
+    @Override
+    public List<Title> getTitles() {
+        LOGGER.info("inside getTitles method ");
+
+        List<LookupValues> lookupList = aSDataDAO.getDropDown("TITLE");
+        List<Title> titleList = new ArrayList<Title>();
+        Title title = null;
+        for (LookupValues lookupValues : lookupList) {
+
+            title = new Title();
+            title.setTitleId(lookupValues.getLookupName());
+            title.setTitleName(lookupValues.getLookupValue());
+            titleList.add(title);
+        }
+        return titleList;
+    }
+
+    /** This will call external service to get Suffixes data */
+    @Override
+    public List<Suffix> getSuffixes() {
+        LOGGER.info("inside getSuffixes method ");
+
+        List<LookupValues> lookupList = aSDataDAO.getDropDown("SUFFIX");
+        List<Suffix> suffixList = new ArrayList<Suffix>();
+        Suffix suffix = null;
+        for (LookupValues lookupValues : lookupList) {
+
+            suffix = new Suffix();
+            suffix.setSuffixId(lookupValues.getLookupName());
+            suffix.setSuffixName(lookupValues.getLookupValue());
+            suffixList.add(suffix);
+        }
+        return suffixList;
+    }
+
+    /** This will call external service to get Industries data */
+    @Override
+    public List<Industry> getIndustries(Integer count) {
+        LOGGER.info("inside getIndustries method ");
+
+        Industry industry = null;
+        List<Industry> industryList = new ArrayList<Industry>();
+        Industries industries = userProfiles.getIndustries();
+        if (null == industries) {
+            return new ArrayList<Industry>();
+        }
+
+        List<Object> industryDocs = industries.getResponse().getDocs();
+        for (Object object : industryDocs) {
+
+            LinkedHashMap<String, String> industryMap = (LinkedHashMap<String, String>) object;
+            industry = new Industry();
+            industry.setIndustryId(industryMap.get("NAICS_CODE"));
+            industry.setIndustryName(industryMap.get("NAICS_TITLE"));
+            industryList.add(industry);
+        }
+
+        return industryList.subList(0, count);
+    }
+
+    /** This will call external service to get JobCategories data */
+    @Override
+    public List<JobCategory> getJobCategories(Integer count) {
+
+        LOGGER.info("inside getJobCategories method ");
+        JobCategories jobCategories = userProfiles.getJobCategories();
+        JobCategory jobCategory = null;
+        List<JobCategory> jobCategoryList = new ArrayList<JobCategory>();
+        if (null == jobCategories) {
+            return jobCategoryList;
+        }
+
+        List<Object> jobCategoryDocs = jobCategories.getResponse().getDocs();
+        for (Object object : jobCategoryDocs) {
+
+            LinkedHashMap<String, String> jobCategoryMap = (LinkedHashMap<String, String>) object;
+            jobCategory = new JobCategory();
+            jobCategory.setJobCategoryId(jobCategoryMap.get("JOBCODE"));
+            jobCategory.setJobCategoryName(jobCategoryMap.get("JOBTITLE"));
+            jobCategoryList.add(jobCategory);
+        }
+
+        return jobCategoryList.subList(0, count);
+    }
+
+    /** This will call external service to get Countries data */
+    @Override
+    public List<Country> getCountries(Integer count) {
+
+        LOGGER.info("inside getCountries method ");
+        ESBResponse countrieslist = userProfiles.getCountries();
+        List<Country> countrylist = new ArrayList<Country>();
+
+        List<Object> externalCountrylist = countrieslist.getResponse()
+                .getDocs();
+        if (null == externalCountrylist) {
+            return countrylist;
+        }
+        for (Object object : externalCountrylist) {
+            LinkedHashMap<String, String> countrymap = (LinkedHashMap<String, String>) object;
+            Country country = new Country();
+
+            String externalcountrymap = countrymap.get("id");
+            String[] idsplit = externalcountrymap.split("_");
+            country.setCountryCode(idsplit[1]);
+            country.setCountryName(countrymap.get("COUNTRY_NAME"));
+            countrylist.add(country);
+        }
+
+        return countrylist.subList(0, count);
+    }
+
+    /** This will call external service to get States data */
+    @Override
+    public List<State> getStates(String countrycode, Integer count) {
+
+        LOGGER.info("inside getStates method ");
+        ESBResponse statelistext = userProfiles.getStates();
+        List<State> modelststelist = new ArrayList<State>();
+
+        List<Object> externalstatelist = statelistext.getResponse().getDocs();
+        if (null == externalstatelist) {
+            return modelststelist;
+        }
+
+        for (Object statelist : externalstatelist) {
+
+            LinkedHashMap<String, String> statemap = (LinkedHashMap<String, String>) statelist;
+
+            State state = new State();
+            String externalcountrymap = statemap.get("id");
+            String[] idsplit = externalcountrymap.split("_");
+            state.setStateCode(idsplit[2]);
+            state.setStateName(statemap.get("SUBDIVISION_NAME"));
+            modelststelist.add(state);
+        }
+
+        return modelststelist.subList(0, count);
+    }
+
+    /** This will call external service to get Institutions data */
+    @Override
+    public List<Institution> getInstitutions() {
+
+        LOGGER.info("inside getInstitutions method ");
+
+        DropDown dropDown = userProfiles.getInstitutionsList();
+        List<Institution> listofinstitute = dropDown.getInstitutions();
+        List<Institution> institutionslist = new ArrayList<Institution>();
+
+        for (Institution institute : listofinstitute) {
+
+            Institution institution = new Institution();
+            institution.setInstitutionId(institute.getInstitutionId());
+            institution.setInstitutionName(institute.getInstitutionName());
+            institutionslist.add(institution);
+
+        }
+
+        return institutionslist;
+    }
+
+    /** This will call external service to get Departments data */
+    @Override
+    public List<Department> getDepartments() {
+
+        LOGGER.info("inside getDepartments method ");
+
+        DropDown dropDown = userProfiles.getDepartmentsList();
+        List<Department> listofdepartment = dropDown.getDepartments();
+        List<Department> departmentlist = new ArrayList<Department>();
+        for (Department department : listofdepartment) {
+
+            Department departments = new Department();
+            departments.setDepartmentId(department.getDepartmentId());
+            departments.setDepartmentName(department.getDepartmentName());
+            departmentlist.add(department);
+
+        }
+        return departmentlist;
+    }
+
+    /** This will call external service to get ResearchFunders data */
+    @Override
+    public List<ResearchFunder> getResearchFunders() {
+        LOGGER.info("inside getResearchFunders method ");
+
+        DropDown dropDown = userProfiles.getReasearchFunder();
+        List<ResearchFunder> researchFunder = dropDown.getResearchFunders();
+        List<ResearchFunder> researchfunderlist = new ArrayList<ResearchFunder>();
+
+        for (ResearchFunder researchFunders : researchFunder) {
+
+            ResearchFunder resFunder = new ResearchFunder();
+            resFunder
+                    .setResearchFunderId(researchFunders.getResearchFunderId());
+            resFunder.setResearchFunderName(researchFunders
+                    .getResearchFunderName());
+            researchfunderlist.add(resFunder);
+        }
+
+        return researchfunderlist;
+    }
+
+    /** This will call external service to get Societies data */
+    @Override
+    public List<Society> getSocieties() {
+
+        LOGGER.info("inside getSocieties method ");
+        DropDown dropDown = userProfiles.getSocietyList();
+        List<Society> listofsociety = dropDown.getSociety();
+        List<Society> societylist = new ArrayList<Society>();
+        for (Society societys : listofsociety) {
+
+            Society society = new Society();
+            society.setSocietyId(societys.getSocietyId());
+
+            society.setSocietyName(societys.getSocietyName());
+            societylist.add(society);
+        }
+        return societylist;
+    }
+
+    /** This will call external service to get AreasOfInterests data */
+    @Override
+    public List<Interests> getAreasOfInterests(Integer count) {
+        LOGGER.info("inside getAreasOfInterests method ");
+        ESBResponse areaOfInterests = userProfiles.getAreaOfInterests();
+        List<Object> externalInterests = areaOfInterests.getResponse()
+                .getDocs();
+        List<Interests> returnList = new ArrayList<Interests>();
+        if (null == externalInterests) {
+            return returnList;
+        }
+
+        for (Object docs : externalInterests) {
+            LinkedHashMap<String, String> interest = (LinkedHashMap<String, String>) docs;
+            Interests interests = new Interests();
+            interests.setAoeId(interest.get("SUBJECT_CODE"));
+            interests.setAoeName(interest.get("SUBJECT_NAME"));
+            returnList.add(interests);
+        }
+        return returnList.subList(0, count);
+
+    }
+
+    /** This will call external service to get SecurityQuestions data */
+    @Override
+    public List<SecurityDetails> getSecurityQuestions() {
+
+        LOGGER.info("inside getSecurityQuestions method ");
+
+        List<LookupValues> lookupList = aSDataDAO.getDropDown("SEQ");
+        List<SecurityDetails> securityQuestionsList = new ArrayList<SecurityDetails>();
+        SecurityDetails securityDetails = null;
+        for (LookupValues lookupValues : lookupList) {
+
+            securityDetails = new SecurityDetails();
+            securityDetails.setSecurityQuestionId(lookupValues.getLookupName());
+            securityDetails.setSecurityQuestion(lookupValues.getLookupValue());
+            securityQuestionsList.add(securityDetails);
+        }
+        return securityQuestionsList;
+    }
+
+    /** This will call dao service to get AdminRoles data */
+    @Override
+    public List<Role> getAdminRoles(String roleType) {
+
+        LOGGER.info("inside getAdminRoles method ");
+
+        List<Roles> daoRolesList = aSDataDAO.getAdminRoles(roleType);
+        List<Role> adminRoles = new ArrayList<Role>();
+        Role adminRole = null;
+
+        if (daoRolesList != null && !daoRolesList.isEmpty()) {
+
+            for (Roles roles : daoRolesList) {
+                adminRole = new Role();
+                adminRole.setRoleId(roles.getRoleId() + "");
+                adminRole.setRoleName(roles.getRoleName());
+                adminRole.setRoleDescription(roles.getDescription());
+                if (roles.getRoleType() != null
+                        && roles.getRoleType().equals(
+                                AuthorServicesConstants.ROLE_TYPE_INTERNAL)) {
+                    adminRole.setAdminRole(true);
+                }
+                adminRole.setNoOfPermissions(aSDataDAO.getCount(roles
+                        .getRoleId()));
+                adminRoles.add(adminRole);
+            }
+
+        }
+        return adminRoles;
+    }
+
+    /** This will call dao service to get AccessReasons data */
+    @Override
+    public List<AccessReasons> getAccessReasons() {
+
+        LOGGER.info("inside getAccessReasons method ");
+
+        List<LookupValues> daoList = lookupDAO
+                .getLookUpData(AuthorServicesConstants.ADM_ACC_LOOKUP_KEY);
+        List<AccessReasons> accessList = new ArrayList<AccessReasons>();
+        AccessReasons accessReason = null;
+
+        if (daoList != null) {
+
+            for (LookupValues lookupValues : daoList) {
+                accessReason = new AccessReasons();
+                accessReason.setAccessId(lookupValues.getLookupName());
+                accessReason.setAccessReason(lookupValues.getLookupValue());
+                accessList.add(accessReason);
+            }
+
+        }
+        return accessList;
+    }
 
 }

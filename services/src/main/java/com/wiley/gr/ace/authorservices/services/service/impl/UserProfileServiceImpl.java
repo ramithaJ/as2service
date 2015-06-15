@@ -27,10 +27,11 @@ public class UserProfileServiceImpl implements UserProfileService {
 	
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(UserProfileServiceImpl.class);
-    
+    /** getting bean of userprofile */
     @Autowired(required = true)
     UserProfiles userProfile;
     
+    /** for getting userprofile response */
     @Override
     public UserProfileResponse getuserProfileResponse(String userId) {
         
