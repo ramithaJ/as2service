@@ -53,4 +53,6 @@ public interface ASDataDAO {
      */
     List<RolePermissions> getRolePermissionMappings(String roleId);
     
+    int getCount(int roleId);
+    
 }
