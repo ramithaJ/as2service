@@ -64,12 +64,11 @@ public class ArticleAssignmentController {
 
     }
 
-    @RequestMapping(value = "/confirm/confirmassociation", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/confirm/confirmassociation", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     public final @ResponseBody Service confirmAssociation(
             @RequestBody String articleAuthId, @RequestBody String userId) {
         Service service = new Service();
         boolean confirmAssociation = false;
-
         try {
             confirmAssociation = articleAssignmentService.confirmAssociation(
                     articleAuthId, userId);
