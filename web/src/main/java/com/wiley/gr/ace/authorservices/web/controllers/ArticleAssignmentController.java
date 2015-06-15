@@ -69,21 +69,21 @@ public class ArticleAssignmentController {
 	public final @ResponseBody Service associationConfirmation(
 			@RequestBody AssociationConfirmation associationConfirmation) {
 		Service service = new Service();
-		boolean confirmAssociation = false;
+		boolean isAssociationconfirmed = false;
 		try {
-			confirmAssociation = articleAssignmentService
+			isAssociationconfirmed = articleAssignmentService
 					.associationConfirmation(associationConfirmation);
-			if (confirmAssociation) {
+			if (isAssociationconfirmed) {
 				service.setStatus("SUCCESS");
-				service.setPayload(confirmAssociation);
+				service.setPayload(isAssociationconfirmed);
 			} else {
 				service.setStatus("FAILURE");
-				service.setPayload(confirmAssociation);
+				service.setPayload(isAssociationconfirmed);
 			}
 		} catch (Exception e) {
 			ErrorPOJO error = new ErrorPOJO();
 			error.setCode(205);
-			error.setMessage("Error Fetching ArticleInfo");
+			error.setMessage("Error Fetching Association Confirmation");
 			service.setStatus("ERROR");
 			service.setError(error);
 		}
