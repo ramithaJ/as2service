@@ -446,4 +446,10 @@ ALTER TABLE SAVED_ORDERS ADD  FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
 </sql>
 </changeSet>
 
+<changeSet author="gphaniraj" id="WP2-62">
+<sql>
+ALTER TABLE INVITATION_LOG ADD  FOREIGN KEY(SENT_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
 </databaseChangeLog>
