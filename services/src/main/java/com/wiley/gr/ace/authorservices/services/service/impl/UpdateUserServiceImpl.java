@@ -32,10 +32,10 @@ public class UpdateUserServiceImpl implements UpdateUserService {
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(UpdateUserServiceImpl.class);
-
+/** Getting bean of userProfileService*/
     @Autowired
     UserProfiles userProfileService;
-
+ /** this method is for updating updateOrcidId by taking emailId,orcidId,userId as input  */
     @Override
     public boolean updateOrcidId(String emailId, String orcidId, String userId)
             throws Exception {

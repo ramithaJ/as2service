@@ -14,12 +14,18 @@
  */
 package com.wiley.gr.ace.authorservices.services.service;
 
-
 /**
  * @author virtusa version 1.0
  */
 public interface UpdateUserService {
 
+    /**
+     * @param emailId
+     * @param orcidId
+     * @param userId
+     * @return
+     * @throws Exception
+     */
     boolean updateOrcidId(String emailId, String orcidId, String userId)
             throws Exception;
 

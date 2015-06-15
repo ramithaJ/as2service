@@ -41,7 +41,7 @@ public class OrcidController {
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(OrcidController.class);
-
+    /* GETTING BEAN OF ORCID SERVICE */
     @Autowired(required = true)
     OrcidService orcidService;
 
@@ -120,7 +120,7 @@ public class OrcidController {
                 }
             }
         } catch (Exception e) {
-        	e.printStackTrace();
+            e.printStackTrace();
             LOGGER.error("Stack Trace-.", e);
             ErrorPOJO error = new ErrorPOJO();
             error.setCode(-101); // Need to set proper error code this one is

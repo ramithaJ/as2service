@@ -27,63 +27,70 @@ import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
 
 /**
- * @author virtusa
- *	version 1.0
+ * @author virtusa version 1.0
  */
 public class UserAccountServiceImpl implements UserAccountService {
 
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(UserAccountServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(UserAccountServiceImpl.class);
+    /** getting bean of userAccountDAO */
+    @Autowired(required = true)
+    UserAccountDAO userAccountDAO;
+    /** getting bean of userLoginServiceDAO */
+    @Autowired(required = true)
+    UserLoginServiceDAO userLoginServiceDAO;
+    /** getting bean of userProfile */
+    @Autowired
+    UserProfiles userProfile;
 
-	@Autowired(required = true)
-	UserAccountDAO userAccountDAO;
-	@Autowired(required = true)
-	UserLoginServiceDAO userLoginServiceDAO;
-	@Autowired
-	UserProfiles userProfile;
+    /** this method is for getting email Details by userId */
+    @Override
+    public User getEmailDetails(String userId) {
 
-	@Override
-	public User getEmailDetails(String userId) {
+        LOGGER.info("inside getEmailDetails Method");
 
-		LOGGER.info("inside getEmailDetails Method");
+        UserProfileResponse lookupProfile = userProfile
+                .getUserProfileResponse(userId);
+        User user = new User();
+        user.setPrimaryEmailAddr(lookupProfile.getCustomerProfile()
+                .getCustomerDetails().getPrimaryEmailAddr());
+        user.setRecoveryEmailAddress(lookupProfile.getCustomerProfile()
+                .getCustomerDetails().getRecoveryEmailAddress());
+        return user;
 
-		UserProfileResponse lookupProfile = userProfile.getUserProfileResponse(userId);
-		User user = new User();
-		user.setPrimaryEmailAddr(lookupProfile.getCustomerProfile()
-				.getCustomerDetails().getPrimaryEmailAddr());
-		user.setRecoveryEmailAddress(lookupProfile.getCustomerProfile()
-				.getCustomerDetails().getRecoveryEmailAddress());
-		return user;
+    }
 
-	}
+    /**
+     * this method will call the DAO to update security details which are
+     * updated by user at userProfile level.
+     */
+    @Override
+    public boolean updateSecurityDetails(String userId,
+            List<SecurityDetails> securityDetails) {
 
-	/**
-	 * this method will call the DAO to update security details which are
-	 * updated by user at userProfile level.
-	 */
-	@Override
-	public boolean updateSecurityDetails(String userId,
-			List<SecurityDetails> securityDetails) {
+        LOGGER.info("inside updateSecurityDetails Method");
+        return userAccountDAO.updateSecurityDetails(Integer.valueOf(userId),
+                securityDetails);
+    }
 
-		LOGGER.info("inside updateSecurityDetails Method");
-		return userAccountDAO.updateSecurityDetails(Integer.valueOf(userId),
-				securityDetails);
-	}
+    /** getting profie info by user id */
+    @Override
+    public User getProfileInformation(String userId) {
 
-	@Override
-	public User getProfileInformation(String userId) {
+        LOGGER.info("inside getProfileInformation Method");
+        UserProfileResponse lookupProfile = userProfile
+                .getUserProfileResponse(userId);
+        return lookupProfile.getCustomerProfile().getCustomerDetails();
+    }
 
-		LOGGER.info("inside getProfileInformation Method");
-		UserProfileResponse lookupProfile = userProfile.getUserProfileResponse(userId);
-		return lookupProfile.getCustomerProfile().getCustomerDetails();
-	}
+    /** getting UserAddress info by user id */
+    @Override
+    public List<Addresses> getUserAddress(String userId) {
 
-	@Override
-	public List<Addresses> getUserAddress(String userId) {
-
-		LOGGER.info("inside getUserAddress Method");
-		UserProfileResponse lookupProfile = userProfile.getUserProfileResponse(userId);
-		return lookupProfile.getCustomerProfile().getAddressDetails();
-	}
+        LOGGER.info("inside getUserAddress Method");
+        UserProfileResponse lookupProfile = userProfile
+                .getUserProfileResponse(userId);
+        return lookupProfile.getCustomerProfile().getAddressDetails();
+    }
 
 }

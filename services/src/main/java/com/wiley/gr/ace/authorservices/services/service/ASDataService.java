@@ -29,83 +29,82 @@ import com.wiley.gr.ace.authorservices.model.Suffix;
 import com.wiley.gr.ace.authorservices.model.Title;
 
 /**
- * @author virtusa
- *	version 1.0
+ * @author virtusa version 1.0
  */
 public interface ASDataService {
-    
+
     /**
      * @return
      */
     List<Title> getTitles();
-    
+
     /**
      * @return
      */
     List<Suffix> getSuffixes();
-    
+
     /**
      * @return
      */
     List<Industry> getIndustries(Integer count);
-    
+
     /**
      * @return
      */
     List<JobCategory> getJobCategories(Integer count);
-    
+
     /**
      * @return
      */
     List<Country> getCountries(Integer count);
-    
+
     /**
      * @return
      */
-    List<State> getStates(String countrycode ,Integer count);
-    
+    List<State> getStates(String countrycode, Integer count);
+
     /**
      * @return
      */
     List<Institution> getInstitutions();
-    
+
     /**
      * @return
      */
     List<Department> getDepartments();
-    
+
     /**
      * @return
      */
     List<ResearchFunder> getResearchFunders();
-    
+
     /**
      * @return
      */
-    
+
     /**
      * @return
      */
     List<Society> getSocieties();
-    
+
     /**
      * @return
      */
     List<Interests> getAreasOfInterests(Integer count);
-    
+
     /**
      * @return
      */
     List<SecurityDetails> getSecurityQuestions();
-    
+
     /**
      * @return
      */
     List<Role> getAdminRoles(String roleType);
-    
+
     /**
      * @return
      */
     List<AccessReasons> getAccessReasons();
-    
+
 }

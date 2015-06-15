@@ -40,6 +40,10 @@ public class ArticleAssignmentController {
     @Autowired(required = true)
     ArticleAssignmentService articleAssignmentService;
 
+    /**
+     * @param emailId
+     * @return
+     */
     @RequestMapping(value = "/confirm/display/{emailId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final @ResponseBody Service getArticleInfo(
             @PathVariable("emailId") final String emailId) {
@@ -64,6 +68,11 @@ public class ArticleAssignmentController {
 
     }
 
+    /**
+     * @param articleAuthId
+     * @param userId
+     * @return
+     */
     @RequestMapping(value = "/confirm/confirmassociation", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     public final @ResponseBody Service confirmAssociation(
             @RequestBody String articleAuthId, @RequestBody String userId) {

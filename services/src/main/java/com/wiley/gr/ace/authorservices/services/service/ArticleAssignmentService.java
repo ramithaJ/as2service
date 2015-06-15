@@ -22,7 +22,16 @@ import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
  */
 public interface ArticleAssignmentService {
 
+    /**
+     * @param emailId
+     * @return
+     */
     ArticleInfoDetails getArticleInfo(String emailId);
 
+    /**
+     * @param articleAuthId
+     * @param userId
+     * @return
+     */
     boolean confirmAssociation(String articleAuthId, String userId);
 }

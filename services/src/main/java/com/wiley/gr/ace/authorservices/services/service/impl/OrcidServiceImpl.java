@@ -43,24 +43,36 @@ public class OrcidServiceImpl implements OrcidService {
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(OrcidServiceImpl.class);
+    /**
+     * getting bean of oricdInterfaceService
+     */
     @Autowired(required = true)
     OrcidInterfaceService oricdInterfaceService;
+    /**
+     * getting bean of asDataService
+     */
     @Autowired(required = true)
     ASDataService asDataService;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.services.service.OrcidService#getAccessToken
-     * (java.lang.String)
+    /**
+     * This method will take authorizationCode and call external service
+     * oricdInterfaceService to authorize
      */
+
     @Override
     public OrcidAccessToken getAccessToken(String authorizationCode)
             throws Exception {
         return oricdInterfaceService.getAccessToken(authorizationCode);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.wiley.gr.ace.authorservices.services.service.OrcidService#getWork
+     * (com.wiley.gr.ace.authorservices.model.orcid.OrcidAccessToken,
+     * com.wiley.gr.ace.authorservices.model.User)
+     */
     @Override
     public User getWork(OrcidAccessToken token, User user) throws Exception {
         String orcidMessageJSON = oricdInterfaceService.getWork(token);
@@ -73,6 +85,13 @@ public class OrcidServiceImpl implements OrcidService {
         return user;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.wiley.gr.ace.authorservices.services.service.OrcidService#getBio(
+     * com.wiley.gr.ace.authorservices.model.orcid.OrcidAccessToken)
+     */
     @Override
     public User getBio(OrcidAccessToken token) throws Exception {
 
@@ -87,6 +106,10 @@ public class OrcidServiceImpl implements OrcidService {
         return user;
     }
 
+    /**
+     * @param orcidMessageJSON
+     * @param user
+     */
     private void parseOrcidJSON(String orcidMessageJSON, User user) {
         try {
             JSONObject orcidProfileJSON = (JSONObject) new JSONParser()
@@ -112,6 +135,10 @@ public class OrcidServiceImpl implements OrcidService {
         }
     }
 
+    /**
+     * @param personalDetailsJSON
+     * @param user
+     */
     private void parsePersonalDetails(JSONObject personalDetailsJSON, User user) {
         try {
             JSONObject personalDetails = (JSONObject) personalDetailsJSON
@@ -146,6 +173,10 @@ public class OrcidServiceImpl implements OrcidService {
         }
     }
 
+    /**
+     * @param personalDetailsJSON
+     * @param user
+     */
     private void parseContactDetails(JSONObject personalDetailsJSON, User user) {
         try {
             JSONObject contactDetails = (JSONObject) personalDetailsJSON
@@ -179,6 +210,10 @@ public class OrcidServiceImpl implements OrcidService {
         }
     }
 
+    /**
+     * @param contactDetails
+     * @return
+     */
     private Addresses parseAddressesDetails(JSONObject contactDetails) {
         Addresses addresses = null;
         try {
@@ -203,6 +238,10 @@ public class OrcidServiceImpl implements OrcidService {
         return addresses;
     }
 
+    /**
+     * @param countryDetails
+     * @return
+     */
     private Country parseCountryDetails(JSONObject countryDetails) {
         Country country = null;
         try {
@@ -222,6 +261,10 @@ public class OrcidServiceImpl implements OrcidService {
         return country;
     }
 
+    /**
+     * @param orcidMessageJSON
+     * @param user
+     */
     private void parseOrcidJSONForWork(String orcidMessageJSON, User user) {
         try {
             JSONObject orcidProfileJSON = (JSONObject) new JSONParser()
@@ -254,6 +297,10 @@ public class OrcidServiceImpl implements OrcidService {
         }
     }
 
+    /**
+     * @param affiliations
+     * @param user
+     */
     private void parseAffiliations(JSONObject affiliations, User user) {
         try {
             JSONObject affiliationArrayJSON = (JSONObject) new JSONParser()
@@ -279,6 +326,10 @@ public class OrcidServiceImpl implements OrcidService {
         }
     }
 
+    /**
+     * @param affiliationJSON
+     * @return
+     */
     private Affiliation parseAffiliationJSON(JSONObject affiliationJSON) {
         Affiliation affiliation = null;
         Organization organization = null;
@@ -309,6 +360,10 @@ public class OrcidServiceImpl implements OrcidService {
         return affiliation;
     }
 
+    /**
+     * @param affiliationJSON
+     * @return
+     */
     private Organization parseOrganization(JSONObject affiliationJSON) {
         Organization organization = null;
         try {
@@ -347,6 +402,10 @@ public class OrcidServiceImpl implements OrcidService {
         return address;
     }
 
+    /**
+     * @param affiliationJSON
+     * @return
+     */
     private DisambiguatedOrganization parseDisambiguatedOrganization(
             JSONObject affiliationJSON) {
         DisambiguatedOrganization disambiguatedOrganization = null;
