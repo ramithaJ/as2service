@@ -21,24 +21,92 @@ import com.wiley.gr.ace.authorservices.model.external.ProfileInformation;
 import com.wiley.gr.ace.authorservices.model.external.Status;
 
 /**
+ * The Interface ESBInterfaceService.
+ *
  * @author virtusa version 1.0
  */
 public interface ESBInterfaceService {
 
+    /**
+     * Fetch orcid details.
+     *
+     * @param orcid
+     *            the orcid
+     * @return the user
+     * @throws Exception
+     *             the exception
+     */
     User fetchOrcidDetails(String orcid) throws Exception;
 
+    /**
+     * Update alm user.
+     *
+     * @param user
+     *            the user
+     * @return the string
+     * @throws Exception
+     *             the exception
+     */
     String updateALMUser(User user) throws Exception;
 
+    /**
+     * Check email id exists.
+     *
+     * @param emailId
+     *            the email id
+     * @return the ESB user
+     * @throws Exception
+     *             the exception
+     */
     ESBUser checkEmailIdExists(String emailId) throws Exception;
 
+    /**
+     * Gets the users from first name last name.
+     *
+     * @param firstName
+     *            the first name
+     * @param lastName
+     *            the last name
+     * @return the users from first name last name
+     * @throws Exception
+     *             the exception
+     */
     List<ESBUser> getUsersFromFirstNameLastName(String firstName,
             String lastName) throws Exception;
 
+    /**
+     * Creat user.
+     *
+     * @param profileForCreation
+     *            the profile for creation
+     * @return the status
+     * @throws Exception
+     *             the exception
+     */
     Status creatUser(ProfileInformation profileForCreation) throws Exception;
 
+    /**
+     * View dashboard.
+     *
+     * @param userId
+     *            the user id
+     * @return the dashboard view
+     */
     DashboardView viewDashboard(String userId);
 
+    /**
+     * Gets the article info.
+     *
+     * @param emailId
+     *            the email id
+     * @return the article info
+     */
     ArticleInfoDetails getArticleInfo(String emailId);
 
+    /**
+     * Confirm association.
+     *
+     * @return true, if successful
+     */
     boolean confirmAssociation();
 }

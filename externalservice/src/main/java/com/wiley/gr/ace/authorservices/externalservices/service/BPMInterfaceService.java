@@ -12,14 +12,17 @@
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Interface BPMInterfaceService.
+ *
+ * @author virtusa version 1.0
  */
 public interface BPMInterfaceService {
-    
+
     /**
-     * @return
+     * Creates the task.
+     *
+     * @return true, if successful
      */
     boolean createTask();
-    
+
 }

@@ -17,13 +17,42 @@ package com.wiley.gr.ace.authorservices.externalservices.service;
 import com.wiley.gr.ace.authorservices.model.orcid.OrcidAccessToken;
 
 /**
- * @author virtusa version 1.0
+ * The Interface OrcidInterfaceService.
  *
+ * @author virtusa version 1.0
  */
 public interface OrcidInterfaceService {
+    
+    /**
+     * Gets the access token.
+     *
+     * @param authorizationCode
+     *            the authorization code
+     * @return the access token
+     * @throws Exception
+     *             the exception
+     */
     OrcidAccessToken getAccessToken(String authorizationCode) throws Exception;
 
+    /**
+     * Gets the bio.
+     *
+     * @param accessToken
+     *            the access token
+     * @return the bio
+     * @throws Exception
+     *             the exception
+     */
     String getBio(OrcidAccessToken accessToken) throws Exception;
 
+    /**
+     * Gets the work.
+     *
+     * @param token
+     *            the token
+     * @return the work
+     * @throws Exception
+     *             the exception
+     */
     String getWork(OrcidAccessToken token) throws Exception;
 }
