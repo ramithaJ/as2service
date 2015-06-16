@@ -43,45 +43,63 @@ import com.wiley.gr.ace.authorservices.persistence.services.UserRolesDAO;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 
 /**
+ * The Class AdminLoginServiceImpl.
+ *
  * @author virtusa version 1.0
  */
 public class AdminLoginServiceImpl implements AdminLoginService {
 
+    /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(AdminLoginServiceImpl.class);
 
-    /* getting bean of userlogin dao */
+    /** The userlogindao. */
     @Autowired(required = true)
-    UserLoginDao userlogindao;
-    /* getting bean of userLoginServiceDAO */
+    private UserLoginDao userlogindao;
+
+    /** The user login service dao. */
     @Autowired(required = true)
-    UserLoginServiceDAO userLoginServiceDAO;
-    /* getting bean of userManagement */
+    private UserLoginServiceDAO userLoginServiceDAO;
+
+    /** The user management. */
     @Autowired(required = true)
-    UserManagement userManagement;
-    /* getting bean of bpmService */
+    private UserManagement userManagement;
+
+    /** The bpm service. */
     @Autowired(required = true)
-    BPMInterfaceService bpmService;
-    /* getting bean of asDataDAO */
+    private BPMInterfaceService bpmService;
+
+    /** The as data dao. */
     @Autowired(required = true)
-    ASDataDAO asDataDAO;
-    /* getting bean of userRolesDAO */
+    private ASDataDAO asDataDAO;
+
+    /** The user roles dao. */
     @Autowired(required = true)
-    UserRolesDAO userRolesDAO;
+    private UserRolesDAO userRolesDAO;
 
     /**
      * This method will call take emailId as input and takes and validate
-     * against db
+     * against db.
+     *
+     * @param emailId
+     *            the email id
+     * @return true, if successful
      */
     @Override
-    public boolean validateEmail(String emailId) {
+    public final boolean validateEmail(final String emailId) {
         LOGGER.info("inside validateEmail Method");
         return userlogindao.validateEmail(emailId);
     }
 
-    /** This method will call take emailId as input and login in */
+    /**
+     * This method will call take emailId as input and login in.
+     *
+     * @param emailId
+     *            the email id
+     * @return the string
+     */
     @Override
-    public String doLogin(String emailId) {
+    public final String doLogin(final String emailId) {
         // Call external service for password validation
         LOGGER.info("inside doLogin Method");
         int userId = userLoginServiceDAO.getUserId(emailId);
@@ -92,11 +110,15 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 
     /**
      * This method will call take emailId and call external service to create
-     * task
+     * task.
+     *
+     * @param emailId
+     *            the email id
+     * @return true, if successful
      */
     @Override
-    public boolean requestAdminAccess(String emailId) {
-        // TODO: Integrate with BPM Service
+    public final boolean requestAdminAccess(final String emailId) {
+
         LOGGER.info("inside requestAdminAccess Method");
 
         return bpmService.createTask();
@@ -104,10 +126,14 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 
     /**
      * This method will call take roleId and gets all the permissions based on
-     * that id by calling dao
+     * that id by calling dao.
+     *
+     * @param roleId
+     *            the role id
+     * @return the roles and permissions
      */
     @Override
-    public RolesAndPermissions getRolesAndPermissions(String roleId) {
+    public final RolesAndPermissions getRolesAndPermissions(String roleId) {
 
         LOGGER.info("inside getRolesAndPermissions Method");
         RolesAndPermissions rolesAndPermissions = new RolesAndPermissions();
@@ -218,11 +244,14 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 
     /**
      * This method will call take rolesAndPermissions json and do addorupdate by
-     * calling dao
-     * 
+     * calling dao.
+     *
+     * @param rolesAndPermissions
+     *            the roles and permissions
      */
     @Override
-    public void addOrUpdateUserRole(ASRolesAndPermissions rolesAndPermissions) {
+    public final void addOrUpdateUserRole(
+            ASRolesAndPermissions rolesAndPermissions) {
 
         LOGGER.info("inside addOrUpdateUserRole Method");
         Roles roles = new Roles();
@@ -266,10 +295,14 @@ public class AdminLoginServiceImpl implements AdminLoginService {
     }
 
     /**
-     * This method will call take emailId and find user is existing or not
+     * This method will call take emailId and find user is existing or not.
+     *
+     * @param emailId
+     *            the email id
+     * @return the admin user
      */
     @Override
-    public AdminUser findUser(String emailId) {
+    public final AdminUser findUser(final String emailId) {
         LOGGER.info("inside findUser Method");
         /*
          * AdminUser adminUser = new AdminUser();
@@ -289,10 +322,13 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 
     /**
      * This method will take adminuser as in input and passes the data to dao
-     * for creating admin
+     * for creating admin.
+     *
+     * @param adminuser
+     *            the adminuser
      */
     @Override
-    public void createAdmin(AdminUser adminuser) {
+    public final void createAdmin(final AdminUser adminuser) {
         LOGGER.info("inside createAdmin Method");
         Users users = new Users();
         List<UserRoles> rolesList = new ArrayList<UserRoles>();

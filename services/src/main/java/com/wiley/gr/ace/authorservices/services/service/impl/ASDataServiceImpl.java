@@ -46,24 +46,35 @@ import com.wiley.gr.ace.authorservices.persistence.services.LookUpValuesDAO;
 import com.wiley.gr.ace.authorservices.services.service.ASDataService;
 
 /**
+ * The Class ASDataServiceImpl.
+ *
  * @author virtusa version 1.0
  */
 public class ASDataServiceImpl implements ASDataService {
+
+    /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(ASDataServiceImpl.class);
-    /** getting bean of asdata dao */
-    @Autowired(required = true)
-    ASDataDAO aSDataDAO;
-    /** getting bean of lookupDAO */
-    @Autowired(required = true)
-    LookUpValuesDAO lookupDAO;
-    /** getting bean of userProfiles */
-    @Autowired
-    UserProfiles userProfiles;
 
-    /** This will call external service to get titles data */
+    /** getting bean of asdata dao. */
+    @Autowired(required = true)
+    private ASDataDAO aSDataDAO;
+
+    /** getting bean of lookupDAO. */
+    @Autowired(required = true)
+    private LookUpValuesDAO lookupDAO;
+
+    /** getting bean of userProfiles. */
+    @Autowired
+    private UserProfiles userProfiles;
+
+    /**
+     * This will call external service to get titles data.
+     *
+     * @return the titles
+     */
     @Override
-    public List<Title> getTitles() {
+    public final List<Title> getTitles() {
         LOGGER.info("inside getTitles method ");
 
         List<LookupValues> lookupList = aSDataDAO.getDropDown("TITLE");
@@ -79,9 +90,13 @@ public class ASDataServiceImpl implements ASDataService {
         return titleList;
     }
 
-    /** This will call external service to get Suffixes data */
+    /**
+     * This will call external service to get Suffixes data.
+     *
+     * @return the suffixes
+     */
     @Override
-    public List<Suffix> getSuffixes() {
+    public final List<Suffix> getSuffixes() {
         LOGGER.info("inside getSuffixes method ");
 
         List<LookupValues> lookupList = aSDataDAO.getDropDown("SUFFIX");
@@ -97,9 +112,15 @@ public class ASDataServiceImpl implements ASDataService {
         return suffixList;
     }
 
-    /** This will call external service to get Industries data */
+    /**
+     * This will call external service to get Industries data.
+     *
+     * @param count
+     *            the count
+     * @return the industries
+     */
     @Override
-    public List<Industry> getIndustries(Integer count) {
+    public final List<Industry> getIndustries(final Integer count) {
         LOGGER.info("inside getIndustries method ");
 
         Industry industry = null;
@@ -122,9 +143,15 @@ public class ASDataServiceImpl implements ASDataService {
         return industryList.subList(0, count);
     }
 
-    /** This will call external service to get JobCategories data */
+    /**
+     * This will call external service to get JobCategories data.
+     *
+     * @param count
+     *            the count
+     * @return the job categories
+     */
     @Override
-    public List<JobCategory> getJobCategories(Integer count) {
+    public final List<JobCategory> getJobCategories(final Integer count) {
 
         LOGGER.info("inside getJobCategories method ");
         JobCategories jobCategories = userProfiles.getJobCategories();
@@ -147,9 +174,15 @@ public class ASDataServiceImpl implements ASDataService {
         return jobCategoryList.subList(0, count);
     }
 
-    /** This will call external service to get Countries data */
+    /**
+     * This will call external service to get Countries data.
+     *
+     * @param count
+     *            the count
+     * @return the countries
+     */
     @Override
-    public List<Country> getCountries(Integer count) {
+    public final List<Country> getCountries(final Integer count) {
 
         LOGGER.info("inside getCountries method ");
         ESBResponse countrieslist = userProfiles.getCountries();
@@ -174,9 +207,18 @@ public class ASDataServiceImpl implements ASDataService {
         return countrylist.subList(0, count);
     }
 
-    /** This will call external service to get States data */
+    /**
+     * This will call external service to get States data.
+     *
+     * @param countrycode
+     *            the countrycode
+     * @param count
+     *            the count
+     * @return the states
+     */
     @Override
-    public List<State> getStates(String countrycode, Integer count) {
+    public final List<State> getStates(final String countrycode,
+            final Integer count) {
 
         LOGGER.info("inside getStates method ");
         ESBResponse statelistext = userProfiles.getStates();
@@ -202,9 +244,13 @@ public class ASDataServiceImpl implements ASDataService {
         return modelststelist.subList(0, count);
     }
 
-    /** This will call external service to get Institutions data */
+    /**
+     * This will call external service to get Institutions data.
+     *
+     * @return the institutions
+     */
     @Override
-    public List<Institution> getInstitutions() {
+    public final List<Institution> getInstitutions() {
 
         LOGGER.info("inside getInstitutions method ");
 
@@ -224,9 +270,13 @@ public class ASDataServiceImpl implements ASDataService {
         return institutionslist;
     }
 
-    /** This will call external service to get Departments data */
+    /**
+     * This will call external service to get Departments data.
+     *
+     * @return the departments
+     */
     @Override
-    public List<Department> getDepartments() {
+    public final List<Department> getDepartments() {
 
         LOGGER.info("inside getDepartments method ");
 
@@ -244,9 +294,13 @@ public class ASDataServiceImpl implements ASDataService {
         return departmentlist;
     }
 
-    /** This will call external service to get ResearchFunders data */
+    /**
+     * This will call external service to get ResearchFunders data.
+     *
+     * @return the research funders
+     */
     @Override
-    public List<ResearchFunder> getResearchFunders() {
+    public final List<ResearchFunder> getResearchFunders() {
         LOGGER.info("inside getResearchFunders method ");
 
         DropDown dropDown = userProfiles.getReasearchFunder();
@@ -266,9 +320,13 @@ public class ASDataServiceImpl implements ASDataService {
         return researchfunderlist;
     }
 
-    /** This will call external service to get Societies data */
+    /**
+     * This will call external service to get Societies data.
+     *
+     * @return the societies
+     */
     @Override
-    public List<Society> getSocieties() {
+    public final List<Society> getSocieties() {
 
         LOGGER.info("inside getSocieties method ");
         DropDown dropDown = userProfiles.getSocietyList();
@@ -285,9 +343,15 @@ public class ASDataServiceImpl implements ASDataService {
         return societylist;
     }
 
-    /** This will call external service to get AreasOfInterests data */
+    /**
+     * This will call external service to get AreasOfInterests data.
+     *
+     * @param count
+     *            the count
+     * @return the areas of interests
+     */
     @Override
-    public List<Interests> getAreasOfInterests(Integer count) {
+    public final List<Interests> getAreasOfInterests(final Integer count) {
         LOGGER.info("inside getAreasOfInterests method ");
         ESBResponse areaOfInterests = userProfiles.getAreaOfInterests();
         List<Object> externalInterests = areaOfInterests.getResponse()
@@ -308,9 +372,13 @@ public class ASDataServiceImpl implements ASDataService {
 
     }
 
-    /** This will call external service to get SecurityQuestions data */
+    /**
+     * This will call external service to get SecurityQuestions data.
+     *
+     * @return the security questions
+     */
     @Override
-    public List<SecurityDetails> getSecurityQuestions() {
+    public final List<SecurityDetails> getSecurityQuestions() {
 
         LOGGER.info("inside getSecurityQuestions method ");
 
@@ -327,9 +395,15 @@ public class ASDataServiceImpl implements ASDataService {
         return securityQuestionsList;
     }
 
-    /** This will call dao service to get AdminRoles data */
+    /**
+     * This will call dao service to get AdminRoles data.
+     *
+     * @param roleType
+     *            the role type
+     * @return the admin roles
+     */
     @Override
-    public List<Role> getAdminRoles(String roleType) {
+    public final List<Role> getAdminRoles(String roleType) {
 
         LOGGER.info("inside getAdminRoles method ");
 
@@ -358,9 +432,13 @@ public class ASDataServiceImpl implements ASDataService {
         return adminRoles;
     }
 
-    /** This will call dao service to get AccessReasons data */
+    /**
+     * This will call dao service to get AccessReasons data.
+     *
+     * @return the access reasons
+     */
     @Override
-    public List<AccessReasons> getAccessReasons() {
+    public final List<AccessReasons> getAccessReasons() {
 
         LOGGER.info("inside getAccessReasons method ");
 

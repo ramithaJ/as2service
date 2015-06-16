@@ -21,28 +21,42 @@ import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
 import com.wiley.gr.ace.authorservices.services.service.ArticleAssignmentService;
 
 /**
- * @author yugandhark
+ * The Class ArticleAssignmentServiceImpl.
  *
+ * @author yugandhark
  */
 public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
-    /* getting bean of esbInterfaceService */
+
+    /** The esb interface service. */
     @Autowired(required = true)
-    ESBInterfaceService esbInterfaceService;
+    private ESBInterfaceService esbInterfaceService;
 
     /**
      * this method will take emailId as in input and call external service (ESb)
-     * to get article info
+     * to get article info.
+     *
+     * @param emailId
+     *            the email id
+     * @return the article info
      */
     @Override
-    public ArticleInfoDetails getArticleInfo(String emailId) {
+    public final ArticleInfoDetails getArticleInfo(final String emailId) {
         return esbInterfaceService.getArticleInfo(emailId);
     }
 
     /**
-     * this method will take emailId as in input and call external service (ESb)
+     * this method will take emailId as in input and call external service
+     * (ESb).
+     *
+     * @param articleAuthId
+     *            the article auth id
+     * @param userId
+     *            the user id
+     * @return true, if successful
      */
     @Override
-    public boolean confirmAssociation(String articleAuthId, String userId) {
+    public final boolean confirmAssociation(final String articleAuthId,
+            final String userId) {
         return esbInterfaceService.confirmAssociation();
     }
 
