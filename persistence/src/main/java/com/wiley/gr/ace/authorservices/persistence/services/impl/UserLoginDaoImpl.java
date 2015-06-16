@@ -46,28 +46,23 @@ public class UserLoginDaoImpl implements UserLoginDao {
     public final boolean validateEmail(final String emailId) {
         boolean status = false;
         int userId = getUserId(emailId);
+        if(userId == 0){
+            return status;
+        }
         Session session = getSessionFactory().openSession();
-        Transaction txn = session.getTransaction();
         try {
-
-            txn.begin();
-
             AdminDetails adminDetails = (AdminDetails) session.load(
                     AdminDetails.class, userId);
-
             if (null != adminDetails) {
 
                 status = true;
             }
-            txn.commit();
         } finally {
             if (session != null) {
                 session.flush();
                 session.close();
-
             }
         }
-
         return status;
     }
 
