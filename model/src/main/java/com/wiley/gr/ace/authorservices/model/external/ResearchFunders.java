@@ -22,8 +22,8 @@ public class ResearchFunders {
      * @param researchfunder
      *            the researchfunder to set
      */
-    public final void setResearchfunder(final ResearchFunderElement[] researchfunder) {
+    public final void setResearchfunder(
+            final ResearchFunderElement[] researchfunder) {
         this.researchfunder = researchfunder;
     }
-
 }

@@ -25,5 +25,4 @@ public class InstitutionList {
     public final void setInstitution(final String[] institution) {
         this.institution = institution;
     }
-
 }

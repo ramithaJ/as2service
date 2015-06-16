@@ -18,6 +18,9 @@ package com.wiley.gr.ace.authorservices.model.external;
  */
 public class ESBResponse {
 
+    /**
+     * attributes.
+     */
     private Response response;
 
     /**

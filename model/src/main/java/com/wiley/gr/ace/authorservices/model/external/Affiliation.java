@@ -55,5 +55,4 @@ public class Affiliation {
     public final void setName(final String name) {
         this.name = name;
     }
-
 }

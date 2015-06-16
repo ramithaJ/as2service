@@ -36,5 +36,4 @@ public class Response {
     public final void setDocs(final List<Object> docs) {
         this.docs = docs;
     }
-
 }

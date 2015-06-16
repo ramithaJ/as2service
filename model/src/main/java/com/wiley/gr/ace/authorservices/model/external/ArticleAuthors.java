@@ -35,7 +35,8 @@ public class ArticleAuthors {
     }
 
     /**
-     * @param lastName the lastName to set
+     * @param lastName
+     *            the lastName to set
      */
     public final void setLastName(final String lastName) {
         this.lastName = lastName;
@@ -49,10 +50,11 @@ public class ArticleAuthors {
     }
 
     /**
-     * @param firstName the firstName to set
+     * @param firstName
+     *            the firstName to set
      */
     public final void setFirstName(final String firstName) {
         this.firstName = firstName;
     }
-    
+
 }

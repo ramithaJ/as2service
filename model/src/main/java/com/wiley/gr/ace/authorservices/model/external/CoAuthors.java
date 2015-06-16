@@ -16,7 +16,8 @@ public class CoAuthors {
     }
 
     /**
-     * @param coauthor the coauthor to set
+     * @param coauthor
+     *            the coauthor to set
      */
     public final void setCoauthor(final CoAuthorElement[] coauthor) {
         this.coauthor = coauthor;

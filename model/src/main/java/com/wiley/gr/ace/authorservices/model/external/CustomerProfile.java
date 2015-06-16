@@ -94,7 +94,8 @@ public class CustomerProfile {
      * @param favoritejournals
      *            the favoritejournals to set
      */
-    public final void setFavoritejournals(final FavoriteJournals favoritejournals) {
+    public final void setFavoritejournals(
+            final FavoriteJournals favoritejournals) {
         this.favoritejournals = favoritejournals;
     }
 

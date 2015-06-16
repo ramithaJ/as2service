@@ -76,7 +76,8 @@ public class ResearchFunderElement {
      * @param associatedarticle
      *            the associatedarticle to set
      */
-    public final void setAssociatedarticle(final java.lang.String associatedarticle) {
+    public final void setAssociatedarticle(
+            final java.lang.String associatedarticle) {
         this.associatedarticle = associatedarticle;
     }
 
@@ -91,7 +92,8 @@ public class ResearchFunderElement {
      * @param funderassocenddate
      *            the funderassocenddate to set
      */
-    public final void setFunderassocenddate(final java.lang.String funderassocenddate) {
+    public final void setFunderassocenddate(
+            final java.lang.String funderassocenddate) {
         this.funderassocenddate = funderassocenddate;
     }
 

@@ -25,5 +25,4 @@ public class SocietyList {
     public final void setSociety(final SocietyElement[] society) {
         this.society = society;
     }
-
 }

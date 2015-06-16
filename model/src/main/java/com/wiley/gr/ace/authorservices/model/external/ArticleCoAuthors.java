@@ -56,5 +56,4 @@ public class ArticleCoAuthors {
     public final void setFirstName(final String firstName) {
         this.firstName = firstName;
     }
-
 }

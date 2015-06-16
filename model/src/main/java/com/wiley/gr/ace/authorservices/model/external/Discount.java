@@ -109,4 +109,5 @@ public class Discount {
 
     /** The other discounts. */
     private String otherDiscounts;
+    
 }

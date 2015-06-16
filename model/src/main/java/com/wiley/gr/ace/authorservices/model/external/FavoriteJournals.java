@@ -25,5 +25,4 @@ public class FavoriteJournals {
     public final void setJournal(final JournalElement[] journal) {
         this.journal = journal;
     }
-
 }
