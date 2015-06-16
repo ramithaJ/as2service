@@ -3,55 +3,119 @@
 
 package com.wiley.gr.ace.authorservices.model.external;
 
+/**
+ * The Class SocietyElement.
+ */
 public class SocietyElement {
-	private java.lang.String promocode;
 
- 	public void setPromocode(java.lang.String promocode) {
-		this.promocode = promocode;
-	}
+    /** The promocode. */
+    private java.lang.String promocode;
 
-	public java.lang.String getPromocode() {
-		return promocode;
-	}
+    /**
+     * Sets the promocode.
+     *
+     * @param promocode
+     *            the new promocode
+     */
+    public void setPromocode(java.lang.String promocode) {
+        this.promocode = promocode;
+    }
 
-	private java.lang.String enddate;
+    /**
+     * Gets the promocode.
+     *
+     * @return the promocode
+     */
+    public java.lang.String getPromocode() {
+        return promocode;
+    }
 
- 	public void setEnddate(java.lang.String enddate) {
-		this.enddate = enddate;
-	}
+    /** The enddate. */
+    private java.lang.String enddate;
 
-	public java.lang.String getEnddate() {
-		return enddate;
-	}
+    /**
+     * Sets the enddate.
+     *
+     * @param enddate
+     *            the new enddate
+     */
+    public void setEnddate(java.lang.String enddate) {
+        this.enddate = enddate;
+    }
 
-	private java.lang.String membershipno;
+    /**
+     * Gets the enddate.
+     *
+     * @return the enddate
+     */
+    public java.lang.String getEnddate() {
+        return enddate;
+    }
 
- 	public void setMembershipno(java.lang.String membershipno) {
-		this.membershipno = membershipno;
-	}
+    /** The membershipno. */
+    private java.lang.String membershipno;
 
-	public java.lang.String getMembershipno() {
-		return membershipno;
-	}
+    /**
+     * Sets the membershipno.
+     *
+     * @param membershipno
+     *            the new membershipno
+     */
+    public void setMembershipno(java.lang.String membershipno) {
+        this.membershipno = membershipno;
+    }
 
-	private java.lang.String societyname;
+    /**
+     * Gets the membershipno.
+     *
+     * @return the membershipno
+     */
+    public java.lang.String getMembershipno() {
+        return membershipno;
+    }
 
- 	public void setSocietyname(java.lang.String societyname) {
-		this.societyname = societyname;
-	}
+    /** The societyname. */
+    private java.lang.String societyname;
 
-	public java.lang.String getSocietyname() {
-		return societyname;
-	}
+    /**
+     * Sets the societyname.
+     *
+     * @param societyname
+     *            the new societyname
+     */
+    public void setSocietyname(java.lang.String societyname) {
+        this.societyname = societyname;
+    }
 
-	private java.lang.String startdate;
+    /**
+     * Gets the societyname.
+     *
+     * @return the societyname
+     */
+    public java.lang.String getSocietyname() {
+        return societyname;
+    }
 
- 	public void setStartdate(java.lang.String startdate) {
-		this.startdate = startdate;
-	}
+    /** The startdate. */
+    private java.lang.String startdate;
 
-	public java.lang.String getStartdate() {
-		return startdate;
-	}
+    /**
+     * Sets the startdate.
+     *
+     * @param startdate
+     *            the new startdate
+     */
+    public void setStartdate(java.lang.String startdate) {
+        this.startdate = startdate;
+    }
+
+    /**
+     * Gets the startdate.
+     *
+     * @return the startdate
+     */
+    public java.lang.String getStartdate() {
+        return startdate;
+    }
 
 }

@@ -18,43 +18,56 @@ import java.util.Map;
 import javax.validation.constraints.NotNull;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class ASRolesAndPermissions.
+ *
+ * @author virtusa version 1.0
  */
 public class ASRolesAndPermissions {
-    
+
+    /** The role. */
     @NotNull
     private Role role = new Role();
-    
+
+    /** The permissions map. */
     @NotNull
     private Map<String, String[]> permissionsMap = new HashMap<String, String[]>();
-    
+
     /**
-     * @return
+     * Gets the role.
+     *
+     * @return the role
      */
     public Role getRole() {
         return role;
     }
-    
+
     /**
+     * Sets the role.
+     *
      * @param role
+     *            the new role
      */
     public void setRole(Role role) {
         this.role = role;
     }
-    
+
     /**
-     * @return
+     * Gets the permissions map.
+     *
+     * @return the permissions map
      */
     public Map<String, String[]> getPermissionsMap() {
         return permissionsMap;
     }
-    
+
     /**
+     * Sets the permissions map.
+     *
      * @param permissionsMap
+     *            the permissions map
      */
     public void setPermissionsMap(Map<String, String[]> permissionsMap) {
         this.permissionsMap = permissionsMap;
     }
-    
+
 }

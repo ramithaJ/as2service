@@ -15,18 +15,19 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class Institution.
+ *
+ * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
 public class Institution {
-    
+
     /** The institution id. */
     private String institutionId;
-    
+
     /** The institution name. */
     private String institutionName;
-    
+
     /**
      * Gets the institution id.
      *
@@ -35,7 +36,7 @@ public class Institution {
     public String getInstitutionId() {
         return institutionId;
     }
-    
+
     /**
      * Sets the institution id.
      *
@@ -45,7 +46,7 @@ public class Institution {
     public void setInstitutionId(String institutionId) {
         this.institutionId = institutionId;
     }
-    
+
     /**
      * Gets the institution name.
      *
@@ -54,7 +55,7 @@ public class Institution {
     public String getInstitutionName() {
         return institutionName;
     }
-    
+
     /**
      * Sets the institution name.
      *
@@ -64,5 +65,5 @@ public class Institution {
     public void setInstitutionName(String institutionName) {
         this.institutionName = institutionName;
     }
-    
+
 }

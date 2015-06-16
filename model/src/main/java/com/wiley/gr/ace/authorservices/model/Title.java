@@ -15,18 +15,19 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class Title.
+ *
+ * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
 public class Title {
-    
+
     /** The title id. */
     private String titleId;
-    
+
     /** The title name. */
     private String titleName;
-    
+
     /**
      * Gets the title id.
      *
@@ -35,7 +36,7 @@ public class Title {
     public String getTitleId() {
         return titleId;
     }
-    
+
     /**
      * Sets the title id.
      *
@@ -45,7 +46,7 @@ public class Title {
     public void setTitleId(String titleId) {
         this.titleId = titleId;
     }
-    
+
     /**
      * Gets the title name.
      *
@@ -54,7 +55,7 @@ public class Title {
     public String getTitleName() {
         return titleName;
     }
-    
+
     /**
      * Sets the title name.
      *

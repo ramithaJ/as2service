@@ -5,15 +5,31 @@ package com.wiley.gr.ace.authorservices.model.external;
 
 import java.util.List;
 
+/**
+ * The Class AddressDetails.
+ */
 public class AddressDetails {
-	private List<AddressElement> address;
 
- 	public void setAddress(List<AddressElement> address) {
-		this.address = address;
-	}
+    /** The address. */
+    private List<AddressElement> address;
 
-	public List<AddressElement> getAddress() {
-		return address;
-	}
+    /**
+     * Sets the address.
+     *
+     * @param address
+     *            the new address
+     */
+    public void setAddress(List<AddressElement> address) {
+        this.address = address;
+    }
+
+    /**
+     * Gets the address.
+     *
+     * @return the address
+     */
+    public List<AddressElement> getAddress() {
+        return address;
+    }
 
 }

@@ -15,31 +15,53 @@
 package com.wiley.gr.ace.authorservices.model.external;
 
 /**
- * @author yugandhark
+ * The Class JournalDetails.
  *
+ * @author yugandhark
  */
 public class JournalDetails {
+
+    /** The journal id. */
     private Integer journalId;
 
+    /** The journal name. */
     private String journalName;
 
-    public Integer getJournalId ()
-    {
+    /**
+     * Gets the journal id.
+     *
+     * @return the journal id
+     */
+    public Integer getJournalId() {
         return journalId;
     }
 
-    public void setJournalId (Integer journalId)
-    {
+    /**
+     * Sets the journal id.
+     *
+     * @param journalId
+     *            the new journal id
+     */
+    public void setJournalId(Integer journalId) {
         this.journalId = journalId;
     }
 
-    public String getJournalName ()
-    {
+    /**
+     * Gets the journal name.
+     *
+     * @return the journal name
+     */
+    public String getJournalName() {
         return journalName;
     }
 
-    public void setJournalName (String journalName)
-    {
+    /**
+     * Sets the journal name.
+     *
+     * @param journalName
+     *            the new journal name
+     */
+    public void setJournalName(String journalName) {
         this.journalName = journalName;
     }
 }

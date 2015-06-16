@@ -15,57 +15,58 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class UserAccount.
+ *
+ * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
 public class UserAccount {
-    
+
     /** The title. */
     private Title title;
-    
+
     /** The suffix. */
     private Suffix suffix;
-    
+
     /** The first name. */
     private String firstName;
-    
+
     /** The middle name. */
     private String middleName;
-    
+
     /** The last name. */
     private String lastName;
-    
+
     /** The alternative name. */
     private String alternativeName;
-    
+
     /** The industry. */
     private String industry;
-    
+
     /** The job category. */
     private String jobCategory;
-    
+
     /** The orcid id. */
     private String orcidId;
-    
+
     /** The opt in flag. */
     private boolean optInFlag;
-    
+
     /** The profile visibility flag. */
     private boolean profileVisibilityFlag;
-    
+
     /** The profile visibility map. */
     private boolean profileVisibilityMap;
-    
+
     /** The email vo. */
     private String emailVO;
-    
+
     /** The sequrity vo. */
     private String sequrityVO;
-    
+
     /** The address vo. */
     private String addressVO;
-    
+
     /**
      * Gets the title.
      *
@@ -74,7 +75,7 @@ public class UserAccount {
     public Title getTitle() {
         return title;
     }
-    
+
     /**
      * Sets the title.
      *
@@ -84,7 +85,7 @@ public class UserAccount {
     public void setTitle(Title title) {
         this.title = title;
     }
-    
+
     /**
      * Gets the suffix.
      *
@@ -93,7 +94,7 @@ public class UserAccount {
     public Suffix getSuffix() {
         return suffix;
     }
-    
+
     /**
      * Sets the suffix.
      *
@@ -103,7 +104,7 @@ public class UserAccount {
     public void setSuffix(Suffix suffix) {
         this.suffix = suffix;
     }
-    
+
     /**
      * Gets the first name.
      *
@@ -112,7 +113,7 @@ public class UserAccount {
     public String getFirstName() {
         return firstName;
     }
-    
+
     /**
      * Sets the first name.
      *
@@ -122,7 +123,7 @@ public class UserAccount {
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-    
+
     /**
      * Gets the last name.
      *
@@ -131,7 +132,7 @@ public class UserAccount {
     public String getLastName() {
         return lastName;
     }
-    
+
     /**
      * Sets the last name.
      *
@@ -141,7 +142,7 @@ public class UserAccount {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-    
+
     /**
      * Gets the alternative name.
      *
@@ -150,7 +151,7 @@ public class UserAccount {
     public String getAlternativeName() {
         return alternativeName;
     }
-    
+
     /**
      * Sets the alternative name.
      *
@@ -160,7 +161,7 @@ public class UserAccount {
     public void setAlternativeName(String alternativeName) {
         this.alternativeName = alternativeName;
     }
-    
+
     /**
      * Gets the industry.
      *
@@ -169,7 +170,7 @@ public class UserAccount {
     public String getIndustry() {
         return industry;
     }
-    
+
     /**
      * Sets the industry.
      *
@@ -179,7 +180,7 @@ public class UserAccount {
     public void setIndustry(String industry) {
         this.industry = industry;
     }
-    
+
     /**
      * Gets the job category.
      *
@@ -188,7 +189,7 @@ public class UserAccount {
     public String getJobCategory() {
         return jobCategory;
     }
-    
+
     /**
      * Sets the job category.
      *
@@ -198,7 +199,7 @@ public class UserAccount {
     public void setJobCategory(String jobCategory) {
         this.jobCategory = jobCategory;
     }
-    
+
     /**
      * Gets the orcid id.
      *
@@ -207,7 +208,7 @@ public class UserAccount {
     public String getOrcidId() {
         return orcidId;
     }
-    
+
     /**
      * Sets the orcid id.
      *
@@ -217,7 +218,7 @@ public class UserAccount {
     public void setOrcidId(String orcidId) {
         this.orcidId = orcidId;
     }
-    
+
     /**
      * Checks if is opt in flag.
      *
@@ -226,7 +227,7 @@ public class UserAccount {
     public boolean isOptInFlag() {
         return optInFlag;
     }
-    
+
     /**
      * Sets the opt in flag.
      *
@@ -236,7 +237,7 @@ public class UserAccount {
     public void setOptInFlag(boolean optInFlag) {
         this.optInFlag = optInFlag;
     }
-    
+
     /**
      * Checks if is profile visibility flag.
      *
@@ -245,7 +246,7 @@ public class UserAccount {
     public boolean isProfileVisibilityFlag() {
         return profileVisibilityFlag;
     }
-    
+
     /**
      * Sets the profile visibility flag.
      *
@@ -255,7 +256,7 @@ public class UserAccount {
     public void setProfileVisibilityFlag(boolean profileVisibilityFlag) {
         this.profileVisibilityFlag = profileVisibilityFlag;
     }
-    
+
     /**
      * Checks if is profile visibility map.
      *
@@ -264,7 +265,7 @@ public class UserAccount {
     public boolean isProfileVisibilityMap() {
         return profileVisibilityMap;
     }
-    
+
     /**
      * Sets the profile visibility map.
      *
@@ -274,7 +275,7 @@ public class UserAccount {
     public void setProfileVisibilityMap(boolean profileVisibilityMap) {
         this.profileVisibilityMap = profileVisibilityMap;
     }
-    
+
     /**
      * Gets the email vo.
      *
@@ -283,7 +284,7 @@ public class UserAccount {
     public String getEmailVO() {
         return emailVO;
     }
-    
+
     /**
      * Sets the email vo.
      *
@@ -293,7 +294,7 @@ public class UserAccount {
     public void setEmailVO(String emailVO) {
         this.emailVO = emailVO;
     }
-    
+
     /**
      * Gets the sequrity vo.
      *
@@ -302,7 +303,7 @@ public class UserAccount {
     public String getSequrityVO() {
         return sequrityVO;
     }
-    
+
     /**
      * Sets the sequrity vo.
      *
@@ -312,7 +313,7 @@ public class UserAccount {
     public void setSequrityVO(String sequrityVO) {
         this.sequrityVO = sequrityVO;
     }
-    
+
     /**
      * Gets the address vo.
      *
@@ -321,7 +322,7 @@ public class UserAccount {
     public String getAddressVO() {
         return addressVO;
     }
-    
+
     /**
      * Sets the address vo.
      *
@@ -331,13 +332,24 @@ public class UserAccount {
     public void setAddressVO(String addressVO) {
         this.addressVO = addressVO;
     }
-    
+
+    /**
+     * Gets the middle name.
+     *
+     * @return the middle name
+     */
     public String getMiddleName() {
         return middleName;
     }
-    
+
+    /**
+     * Sets the middle name.
+     *
+     * @param middleName
+     *            the new middle name
+     */
     public void setMiddleName(String middleName) {
         this.middleName = middleName;
     }
-    
+
 }

@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
+ * The Class Dashboard.
+ *
  * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
@@ -30,9 +32,8 @@ public class Dashboard {
     /**
      * Sets the profileMeterMessage.
      *
-     * @param the
-     *            profileMeterMessage
-     * 
+     * @param profileMeterMessage
+     *            the new profile meter message
      */
     public void setProfileMeterMessage(String profileMeterMessage) {
         this.profileMeterMessage = profileMeterMessage;
@@ -51,9 +52,8 @@ public class Dashboard {
     /**
      * Sets the DashBoardInfo List.
      *
-     * @param the
-     *            DashBoardInfo List
-     * 
+     * @param dashBoardInfo
+     *            the new dash board info
      */
     public void setDashBoardInfo(List<DashboardInfo> dashBoardInfo) {
         this.dashBoardInfo = dashBoardInfo;

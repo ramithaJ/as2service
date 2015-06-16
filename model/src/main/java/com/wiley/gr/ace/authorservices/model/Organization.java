@@ -18,6 +18,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
+ * The Class Organization.
+ *
  * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
@@ -42,9 +44,8 @@ public class Organization {
     /**
      * Sets the name.
      *
-     * @param the
-     *            name
-     * 
+     * @param name
+     *            the new name
      */
     public void setName(String name) {
         this.name = name;
@@ -63,9 +64,8 @@ public class Organization {
     /**
      * Sets the address.
      *
-     * @param the
-     *            address
-     * 
+     * @param address
+     *            the new address
      */
     public void setAddress(Address address) {
         this.address = address;

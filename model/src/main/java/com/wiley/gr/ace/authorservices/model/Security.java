@@ -19,52 +19,81 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class Security.
+ *
+ * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
 public class Security {
-    
+
+    /** The id1. */
     @NotNull
     @NotBlank
     private int id1;
-    
+
+    /** The id2. */
     @NotNull
     @NotBlank
     private int id2;
-    
+
+    /** The security question1. */
     @NotNull
     @NotBlank
     private String securityQuestion1;
-    
+
+    /** The security question2. */
     @NotNull
     @NotBlank
     private String securityQuestion2;
-    
+
+    /** The security answer1. */
     @NotNull
     @NotBlank
     private String securityAnswer1;
-    
+
+    /** The security answer2. */
     @NotNull
     @NotBlank
     private String securityAnswer2;
-    
+
+    /**
+     * Gets the id1.
+     *
+     * @return the id1
+     */
     public int getId1() {
         return id1;
     }
-    
+
+    /**
+     * Sets the id1.
+     *
+     * @param id1
+     *            the new id1
+     */
     public void setId1(int id1) {
         this.id1 = id1;
     }
-    
+
+    /**
+     * Gets the id2.
+     *
+     * @return the id2
+     */
     public int getId2() {
         return id2;
     }
-    
+
+    /**
+     * Sets the id2.
+     *
+     * @param id2
+     *            the new id2
+     */
     public void setId2(int id2) {
         this.id2 = id2;
     }
-    
+
     /**
      * Gets the security question1.
      *
@@ -73,7 +102,7 @@ public class Security {
     public String getSecurityQuestion1() {
         return securityQuestion1;
     }
-    
+
     /**
      * Sets the security question1.
      *
@@ -83,11 +112,16 @@ public class Security {
     public void setSecurityQuestion1(String securityQuestion1) {
         this.securityQuestion1 = securityQuestion1;
     }
-    
+
+    /**
+     * Gets the security answer1.
+     *
+     * @return the security answer1
+     */
     public String getSecurityAnswer1() {
         return securityAnswer1;
     }
-    
+
     /**
      * Sets the security answer1.
      *
@@ -97,7 +131,7 @@ public class Security {
     public void setSecurityAnswer1(String securityAnswer1) {
         this.securityAnswer1 = securityAnswer1;
     }
-    
+
     /**
      * Gets the security answer2.
      *
@@ -106,7 +140,7 @@ public class Security {
     public String getSecurityAnswer2() {
         return securityAnswer2;
     }
-    
+
     /**
      * Sets the security answer2.
      *
@@ -116,13 +150,24 @@ public class Security {
     public void setSecurityAnswer2(String securityAnswer2) {
         this.securityAnswer2 = securityAnswer2;
     }
-    
+
+    /**
+     * Gets the security question2.
+     *
+     * @return the security question2
+     */
     public String getSecurityQuestion2() {
         return securityQuestion2;
     }
-    
+
+    /**
+     * Sets the security question2.
+     *
+     * @param securityQuestion2
+     *            the new security question2
+     */
     public void setSecurityQuestion2(String securityQuestion2) {
         this.securityQuestion2 = securityQuestion2;
     }
-    
+
 }

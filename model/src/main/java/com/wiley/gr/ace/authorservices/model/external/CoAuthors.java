@@ -3,15 +3,31 @@
 
 package com.wiley.gr.ace.authorservices.model.external;
 
+/**
+ * The Class CoAuthors.
+ */
 public class CoAuthors {
-	private CoAuthorElement[] coauthor;
 
- 	public void setCoauthor(CoAuthorElement[] coauthor) {
-		this.coauthor = coauthor;
-	}
+    /** The coauthor. */
+    private CoAuthorElement[] coauthor;
 
-	public CoAuthorElement[] getCoauthor() {
-		return coauthor;
-	}
+    /**
+     * Sets the coauthor.
+     *
+     * @param coauthor
+     *            the new coauthor
+     */
+    public void setCoauthor(CoAuthorElement[] coauthor) {
+        this.coauthor = coauthor;
+    }
+
+    /**
+     * Gets the coauthor.
+     *
+     * @return the coauthor
+     */
+    public CoAuthorElement[] getCoauthor() {
+        return coauthor;
+    }
 
 }

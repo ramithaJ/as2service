@@ -19,46 +19,83 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class SecurityDetails.
+ *
+ * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
 public class SecurityDetails {
-    
+
+    /** The security question id. */
     @NotNull
     @NotBlank
     private String securityQuestionId;
-    
+
+    /** The security question. */
     @NotNull
     @NotBlank
     private String securityQuestion;
-    
+
+    /** The security answer. */
     @NotNull
     @NotBlank
     private String securityAnswer;
-    
+
+    /**
+     * Gets the security question.
+     *
+     * @return the security question
+     */
     public String getSecurityQuestion() {
         return securityQuestion;
     }
-    
+
+    /**
+     * Sets the security question.
+     *
+     * @param securityQuestion
+     *            the new security question
+     */
     public void setSecurityQuestion(String securityQuestion) {
         this.securityQuestion = securityQuestion;
     }
-    
+
+    /**
+     * Gets the security answer.
+     *
+     * @return the security answer
+     */
     public String getSecurityAnswer() {
         return securityAnswer;
     }
-    
+
+    /**
+     * Sets the security answer.
+     *
+     * @param securityAnswer
+     *            the new security answer
+     */
     public void setSecurityAnswer(String securityAnswer) {
         this.securityAnswer = securityAnswer;
     }
-    
+
+    /**
+     * Gets the security question id.
+     *
+     * @return the security question id
+     */
     public String getSecurityQuestionId() {
         return securityQuestionId;
     }
-    
+
+    /**
+     * Sets the security question id.
+     *
+     * @param securityQuestionId
+     *            the new security question id
+     */
     public void setSecurityQuestionId(String securityQuestionId) {
         this.securityQuestionId = securityQuestionId;
     }
-    
+
 }

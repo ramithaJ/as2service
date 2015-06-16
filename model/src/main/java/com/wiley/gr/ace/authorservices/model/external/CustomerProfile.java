@@ -3,95 +3,207 @@
 
 package com.wiley.gr.ace.authorservices.model.external;
 
+/**
+ * The Class CustomerProfile.
+ */
 public class CustomerProfile {
-	private Alerts alerts;
 
-	private AreaOfInterest areaofinterest;
+    /** The alerts. */
+    private Alerts alerts;
 
-	private ResearchFunders researchfunders;
+    /** The areaofinterest. */
+    private AreaOfInterest areaofinterest;
 
-	private Affiliations affiliations;
+    /** The researchfunders. */
+    private ResearchFunders researchfunders;
 
-	private FavoriteJournals favoritejournals;
+    /** The affiliations. */
+    private Affiliations affiliations;
 
-	private AddressDetails addressdetails;
+    /** The favoritejournals. */
+    private FavoriteJournals favoritejournals;
 
-	private SocietyList societylist;
+    /** The addressdetails. */
+    private AddressDetails addressdetails;
 
-	private CoAuthors coauthors;
+    /** The societylist. */
+    private SocietyList societylist;
 
-	private CustomerDetails customerdetails;
+    /** The coauthors. */
+    private CoAuthors coauthors;
 
-	public void setAlerts(Alerts alerts) {
-		this.alerts = alerts;
-	}
+    /** The customerdetails. */
+    private CustomerDetails customerdetails;
 
-	public Alerts getAlerts() {
-		return alerts;
-	}
+    /**
+     * Sets the alerts.
+     *
+     * @param alerts
+     *            the new alerts
+     */
+    public void setAlerts(Alerts alerts) {
+        this.alerts = alerts;
+    }
 
-	public void setAreaofinterest(AreaOfInterest areaofinterest) {
-		this.areaofinterest = areaofinterest;
-	}
+    /**
+     * Gets the alerts.
+     *
+     * @return the alerts
+     */
+    public Alerts getAlerts() {
+        return alerts;
+    }
 
-	public AreaOfInterest getAreaofinterest() {
-		return areaofinterest;
-	}
+    /**
+     * Sets the areaofinterest.
+     *
+     * @param areaofinterest
+     *            the new areaofinterest
+     */
+    public void setAreaofinterest(AreaOfInterest areaofinterest) {
+        this.areaofinterest = areaofinterest;
+    }
 
-	public void setResearchfunders(ResearchFunders researchfunders) {
-		this.researchfunders = researchfunders;
-	}
+    /**
+     * Gets the areaofinterest.
+     *
+     * @return the areaofinterest
+     */
+    public AreaOfInterest getAreaofinterest() {
+        return areaofinterest;
+    }
 
-	public ResearchFunders getResearchfunders() {
-		return researchfunders;
-	}
+    /**
+     * Sets the researchfunders.
+     *
+     * @param researchfunders
+     *            the new researchfunders
+     */
+    public void setResearchfunders(ResearchFunders researchfunders) {
+        this.researchfunders = researchfunders;
+    }
 
-	public void setAffiliations(Affiliations affiliations) {
-		this.affiliations = affiliations;
-	}
+    /**
+     * Gets the researchfunders.
+     *
+     * @return the researchfunders
+     */
+    public ResearchFunders getResearchfunders() {
+        return researchfunders;
+    }
 
-	public Affiliations getAffiliations() {
-		return affiliations;
-	}
+    /**
+     * Sets the affiliations.
+     *
+     * @param affiliations
+     *            the new affiliations
+     */
+    public void setAffiliations(Affiliations affiliations) {
+        this.affiliations = affiliations;
+    }
 
-	public void setFavoritejournals(FavoriteJournals favoritejournals) {
-		this.favoritejournals = favoritejournals;
-	}
+    /**
+     * Gets the affiliations.
+     *
+     * @return the affiliations
+     */
+    public Affiliations getAffiliations() {
+        return affiliations;
+    }
 
-	public FavoriteJournals getFavoritejournals() {
-		return favoritejournals;
-	}
+    /**
+     * Sets the favoritejournals.
+     *
+     * @param favoritejournals
+     *            the new favoritejournals
+     */
+    public void setFavoritejournals(FavoriteJournals favoritejournals) {
+        this.favoritejournals = favoritejournals;
+    }
 
-	public void setAddressdetails(AddressDetails addressdetails) {
-		this.addressdetails = addressdetails;
-	}
+    /**
+     * Gets the favoritejournals.
+     *
+     * @return the favoritejournals
+     */
+    public FavoriteJournals getFavoritejournals() {
+        return favoritejournals;
+    }
 
-	public AddressDetails getAddressdetails() {
-		return addressdetails;
-	}
+    /**
+     * Sets the addressdetails.
+     *
+     * @param addressdetails
+     *            the new addressdetails
+     */
+    public void setAddressdetails(AddressDetails addressdetails) {
+        this.addressdetails = addressdetails;
+    }
 
-	public void setSocietylist(SocietyList societylist) {
-		this.societylist = societylist;
-	}
+    /**
+     * Gets the addressdetails.
+     *
+     * @return the addressdetails
+     */
+    public AddressDetails getAddressdetails() {
+        return addressdetails;
+    }
 
-	public SocietyList getSocietylist() {
-		return societylist;
-	}
+    /**
+     * Sets the societylist.
+     *
+     * @param societylist
+     *            the new societylist
+     */
+    public void setSocietylist(SocietyList societylist) {
+        this.societylist = societylist;
+    }
 
-	public void setCoauthors(CoAuthors coauthors) {
-		this.coauthors = coauthors;
-	}
+    /**
+     * Gets the societylist.
+     *
+     * @return the societylist
+     */
+    public SocietyList getSocietylist() {
+        return societylist;
+    }
 
-	public CoAuthors getCoauthors() {
-		return coauthors;
-	}
+    /**
+     * Sets the coauthors.
+     *
+     * @param coauthors
+     *            the new coauthors
+     */
+    public void setCoauthors(CoAuthors coauthors) {
+        this.coauthors = coauthors;
+    }
 
-	public void setCustomerdetails(CustomerDetails customerdetails) {
-		this.customerdetails = customerdetails;
-	}
+    /**
+     * Gets the coauthors.
+     *
+     * @return the coauthors
+     */
+    public CoAuthors getCoauthors() {
+        return coauthors;
+    }
 
-	public CustomerDetails getCustomerdetails() {
-		return customerdetails;
-	}
+    /**
+     * Sets the customerdetails.
+     *
+     * @param customerdetails
+     *            the new customerdetails
+     */
+    public void setCustomerdetails(CustomerDetails customerdetails) {
+        this.customerdetails = customerdetails;
+    }
+
+    /**
+     * Gets the customerdetails.
+     *
+     * @return the customerdetails
+     */
+    public CustomerDetails getCustomerdetails() {
+        return customerdetails;
+    }
 
 }

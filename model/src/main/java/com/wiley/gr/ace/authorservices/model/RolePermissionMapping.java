@@ -13,17 +13,22 @@
 package com.wiley.gr.ace.authorservices.model;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class RolePermissionMapping.
+ *
+ * @author virtusa version 1.0
  */
 public class RolePermissionMapping {
-    
+
+    /** The role id. */
     private String roleId;
-    
+
+    /** The permissions list. */
     private StringBuffer permissionsList;
-    
+
     /**
-     * @return
+     * Gets the role id.
+     *
+     * @return the role id
      */
     /**
      * @return
@@ -31,9 +36,12 @@ public class RolePermissionMapping {
     public String getRoleId() {
         return roleId;
     }
-    
+
     /**
+     * Sets the role id.
+     *
      * @param roleId
+     *            the new role id
      */
     /**
      * @param roleId
@@ -41,19 +49,24 @@ public class RolePermissionMapping {
     public void setRoleId(String roleId) {
         this.roleId = roleId;
     }
-    
+
     /**
-     * @return
+     * Gets the permissions list.
+     *
+     * @return the permissions list
      */
     public StringBuffer getPermissionsList() {
         return permissionsList;
     }
-    
+
     /**
+     * Sets the permissions list.
+     *
      * @param permissionsList
+     *            the new permissions list
      */
     public void setPermissionsList(StringBuffer permissionsList) {
         this.permissionsList = permissionsList;
     }
-    
+
 }

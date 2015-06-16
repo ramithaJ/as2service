@@ -15,27 +15,52 @@
 package com.wiley.gr.ace.authorservices.model.external;
 
 /**
- * @author yugandhark
+ * The Class ArticleReadRecord.
  *
+ * @author yugandhark
  */
 public class ArticleReadRecord {
 
+    /** The article title. */
     private String articleTitle;
 
+    /** The read count. */
     private Integer readCount;
 
+    /**
+     * Gets the article title.
+     *
+     * @return the article title
+     */
     public String getArticleTitle() {
         return articleTitle;
     }
 
+    /**
+     * Sets the article title.
+     *
+     * @param articleTitle
+     *            the new article title
+     */
     public void setArticleTitle(String articleTitle) {
         this.articleTitle = articleTitle;
     }
 
+    /**
+     * Gets the read count.
+     *
+     * @return the read count
+     */
     public Integer getReadCount() {
         return readCount;
     }
 
+    /**
+     * Sets the read count.
+     *
+     * @param readCount
+     *            the new read count
+     */
     public void setReadCount(Integer readCount) {
         this.readCount = readCount;
     }

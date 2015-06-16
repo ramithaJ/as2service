@@ -3,15 +3,31 @@
 
 package com.wiley.gr.ace.authorservices.model.external;
 
+/**
+ * The Class InstitutionList.
+ */
 public class InstitutionList {
-	private java.lang.String[] institution;
 
- 	public void setInstitution(java.lang.String[] institution) {
-		this.institution = institution;
-	}
+    /** The institution. */
+    private java.lang.String[] institution;
 
-	public java.lang.String[] getInstitution() {
-		return institution;
-	}
+    /**
+     * Sets the institution.
+     *
+     * @param institution
+     *            the new institution
+     */
+    public void setInstitution(java.lang.String[] institution) {
+        this.institution = institution;
+    }
+
+    /**
+     * Gets the institution.
+     *
+     * @return the institution
+     */
+    public java.lang.String[] getInstitution() {
+        return institution;
+    }
 
 }

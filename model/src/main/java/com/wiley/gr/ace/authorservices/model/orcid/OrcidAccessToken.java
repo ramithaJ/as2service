@@ -15,21 +15,39 @@
 package com.wiley.gr.ace.authorservices.model.orcid;
 
 /**
- * @author virtusa version 1.0
+ * The Class OrcidAccessToken.
  *
+ * @author virtusa version 1.0
  */
 public class OrcidAccessToken {
 
+    /** The name. */
     private String name;
+
+    /** The access_token. */
     private String access_token;
+
+    /** The token_type. */
     private String token_type;
+
+    /** The refresh_token. */
     private String refresh_token;
+
+    /** The expires_in. */
     private int expires_in;
+
+    /** The scope. */
     private String scope;
+
+    /** The orcid. */
     private String orcid;
+
+    /** The state. */
     private String state;
 
     /**
+     * Gets the name.
+     *
      * @return the name
      */
     public String getName() {
@@ -37,6 +55,8 @@ public class OrcidAccessToken {
     }
 
     /**
+     * Sets the name.
+     *
      * @param name
      *            the name to set
      */
@@ -45,6 +65,8 @@ public class OrcidAccessToken {
     }
 
     /**
+     * Gets the access_token.
+     *
      * @return the access_token
      */
     public String getAccess_token() {
@@ -52,6 +74,8 @@ public class OrcidAccessToken {
     }
 
     /**
+     * Sets the access_token.
+     *
      * @param access_token
      *            the access_token to set
      */
@@ -60,6 +84,8 @@ public class OrcidAccessToken {
     }
 
     /**
+     * Gets the token_type.
+     *
      * @return the token_type
      */
     public String getToken_type() {
@@ -67,6 +93,8 @@ public class OrcidAccessToken {
     }
 
     /**
+     * Sets the token_type.
+     *
      * @param token_type
      *            the token_type to set
      */
@@ -75,6 +103,8 @@ public class OrcidAccessToken {
     }
 
     /**
+     * Gets the refresh_token.
+     *
      * @return the refresh_token
      */
     public String getRefresh_token() {
@@ -82,6 +112,8 @@ public class OrcidAccessToken {
     }
 
     /**
+     * Sets the refresh_token.
+     *
      * @param refresh_token
      *            the refresh_token to set
      */
@@ -90,6 +122,8 @@ public class OrcidAccessToken {
     }
 
     /**
+     * Gets the expires_in.
+     *
      * @return the expires_in
      */
     public int getExpires_in() {
@@ -97,6 +131,8 @@ public class OrcidAccessToken {
     }
 
     /**
+     * Sets the expires_in.
+     *
      * @param expires_in
      *            the expires_in to set
      */
@@ -105,6 +141,8 @@ public class OrcidAccessToken {
     }
 
     /**
+     * Gets the scope.
+     *
      * @return the scope
      */
     public String getScope() {
@@ -112,6 +150,8 @@ public class OrcidAccessToken {
     }
 
     /**
+     * Sets the scope.
+     *
      * @param scope
      *            the scope to set
      */
@@ -120,6 +160,8 @@ public class OrcidAccessToken {
     }
 
     /**
+     * Gets the orcid.
+     *
      * @return the orcid
      */
     public String getOrcid() {
@@ -127,6 +169,8 @@ public class OrcidAccessToken {
     }
 
     /**
+     * Sets the orcid.
+     *
      * @param orcid
      *            the orcid to set
      */
@@ -135,6 +179,8 @@ public class OrcidAccessToken {
     }
 
     /**
+     * Gets the state.
+     *
      * @return the state
      */
     public String getState() {
@@ -142,6 +188,8 @@ public class OrcidAccessToken {
     }
 
     /**
+     * Sets the state.
+     *
      * @param state
      *            the state to set
      */
