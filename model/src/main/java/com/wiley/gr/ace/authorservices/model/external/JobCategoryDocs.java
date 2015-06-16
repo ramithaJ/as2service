@@ -11,6 +11,8 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.model.external;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * The Class JobCategoryDocs.
  *
@@ -21,10 +23,33 @@ public class JobCategoryDocs {
     /** The id. */
     private String id;
 
+    /** The version. */
+    @JsonProperty("_version_")
+    private String version;
+
+    /** The subJobTitle. */
+    @JsonProperty("SUBJOBTITLE")
+    private String subJobTitle;
+
+    /** The jobTitle. */
+    @JsonProperty("JOBTITLE")
+    private String jobTitle;
+
+    /** The docType. */
+    @JsonProperty("doc_type")
+    private String docType;
+
+    /** The jobCode. */
+    @JsonProperty("JOBCODE")
+    private String jobCode;
+
     /** The job definition. */
-    private String JOB_DEFINITION;
+    @JsonProperty("JOB_DEFINITION")
+    private String jobDefinition;
 
     /**
+     * Gets the id.
+     *
      * @return the id
      */
     public final String getId() {
@@ -32,6 +57,8 @@ public class JobCategoryDocs {
     }
 
     /**
+     * Sets the id.
+     *
      * @param id
      *            the id to set
      */
@@ -40,108 +67,117 @@ public class JobCategoryDocs {
     }
 
     /**
-     * @return the jOB_DEFINITION
+     * Gets the version.
+     *
+     * @return the version
      */
-    public final String getJOB_DEFINITION() {
-        return JOB_DEFINITION;
+    public final String getVersion() {
+        return version;
     }
 
     /**
-     * @param jOB_DEFINITION
-     *            the jOB_DEFINITION to set
+     * Sets the version.
+     *
+     * @param version
+     *            the new version
      */
-    public final void setJOB_DEFINITION(final String jOB_DEFINITION) {
-        JOB_DEFINITION = jOB_DEFINITION;
+    public final void setVersion(final String version) {
+        this.version = version;
     }
 
     /**
-     * @return the _version_
+     * Gets the sub job title.
+     *
+     * @return the sub job title
      */
-    public final String get_version_() {
-        return _version_;
+    public final String getSubJobTitle() {
+        return subJobTitle;
     }
 
     /**
-     * @param _version_
-     *            the _version_ to set
+     * Sets the sub job title.
+     *
+     * @param subJobTitle
+     *            the new sub job title
      */
-    public final void set_version_(final String _version_) {
-        this._version_ = _version_;
+    public final void setSubJobTitle(final String subJobTitle) {
+        this.subJobTitle = subJobTitle;
     }
 
     /**
-     * @return the sUBJOBTITLE
+     * Gets the job title.
+     *
+     * @return the job title
      */
-    public final String getSUBJOBTITLE() {
-        return SUBJOBTITLE;
+    public final String getJobTitle() {
+        return jobTitle;
     }
 
     /**
-     * @param sUBJOBTITLE
-     *            the sUBJOBTITLE to set
+     * Sets the job title.
+     *
+     * @param jobTitle
+     *            the new job title
      */
-    public final void setSUBJOBTITLE(final String sUBJOBTITLE) {
-        SUBJOBTITLE = sUBJOBTITLE;
+    public final void setJobTitle(final String jobTitle) {
+        this.jobTitle = jobTitle;
     }
 
     /**
-     * @return the jOBTITLE
+     * Gets the doc type.
+     *
+     * @return the doc type
      */
-    public final String getJOBTITLE() {
-        return JOBTITLE;
+    public final String getDocType() {
+        return docType;
     }
 
     /**
-     * @param jOBTITLE
-     *            the jOBTITLE to set
+     * Sets the doc type.
+     *
+     * @param docType
+     *            the new doc type
      */
-    public final void setJOBTITLE(final String jOBTITLE) {
-        JOBTITLE = jOBTITLE;
+    public final void setDocType(final String docType) {
+        this.docType = docType;
     }
 
     /**
-     * @return the doc_type
+     * Gets the job code.
+     *
+     * @return the job code
      */
-    public final String getDoc_type() {
-        return doc_type;
+    public final String getJobCode() {
+        return jobCode;
     }
 
     /**
-     * @param doc_type
-     *            the doc_type to set
+     * Sets the job code.
+     *
+     * @param jobCode
+     *            the new job code
      */
-    public final void setDoc_type(final String doc_type) {
-        this.doc_type = doc_type;
+    public final void setJobCode(final String jobCode) {
+        this.jobCode = jobCode;
     }
 
     /**
-     * @return the jOBCODE
+     * Gets the job definition.
+     *
+     * @return the job definition
      */
-    public final String getJOBCODE() {
-        return JOBCODE;
+    public final String getJobDefinition() {
+        return jobDefinition;
     }
 
     /**
-     * @param jOBCODE
-     *            the jOBCODE to set
+     * Sets the job definition.
+     *
+     * @param jobDefinition
+     *            the new job definition
      */
-    public final void setJOBCODE(final String jOBCODE) {
-        JOBCODE = jOBCODE;
+    public final void setJobDefinition(final String jobDefinition) {
+        this.jobDefinition = jobDefinition;
     }
-
-    /** The _version_. */
-    private String _version_;
-
-    /** The subjobtitle. */
-    private String SUBJOBTITLE;
-
-    /** The jobtitle. */
-    private String JOBTITLE;
-
-    /** The doc_type. */
-    private String doc_type;
-
-    /** The jobcode. */
-    private String JOBCODE;
 
 }

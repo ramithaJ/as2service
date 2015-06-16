@@ -11,6 +11,8 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.model.external;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * The Class IndustryDocs.
  *
@@ -21,13 +23,25 @@ public class IndustryDocs {
     /** The id. */
     private String id;
 
-    /** The _version_. */
-    private String _version_;
+    /** The version. */
+    @JsonProperty("_version_")
+    private String version;
 
     /** The naics code. */
-    private String NAICS_CODE;
+    @JsonProperty("NAICS_CODE")
+    private String naicsCode;
+
+    /** The doc_type. */
+    @JsonProperty("doc_type")
+    private String docType;
+
+    /** The naics title. */
+    @JsonProperty("NAICS_TITLE")
+    private String naicsTitle;
 
     /**
+     * Gets the id.
+     *
      * @return the id
      */
     public final String getId() {
@@ -35,6 +49,8 @@ public class IndustryDocs {
     }
 
     /**
+     * Sets the id.
+     *
      * @param id
      *            the id to set
      */
@@ -43,69 +59,79 @@ public class IndustryDocs {
     }
 
     /**
-     * @return the _version_
+     * Gets the version.
+     *
+     * @return the version
      */
-    public final String get_version_() {
-        return _version_;
+    public final String getVersion() {
+        return version;
     }
 
     /**
-     * @param _version_
-     *            the _version_ to set
+     * Sets the version.
+     *
+     * @param version
+     *            the new version
      */
-    public final void set_version_(final String _version_) {
-        this._version_ = _version_;
+    public final void setVersion(final String version) {
+        this.version = version;
     }
 
     /**
-     * @return the nAICS_CODE
+     * Gets the naics code.
+     *
+     * @return the naics code
      */
-    public final String getNAICS_CODE() {
-        return NAICS_CODE;
+    public final String getNaicsCode() {
+        return naicsCode;
     }
 
     /**
-     * @param nAICS_CODE
-     *            the nAICS_CODE to set
+     * Sets the naics code.
+     *
+     * @param naicsCode
+     *            the new naics code
      */
-    public final void setNAICS_CODE(final String nAICS_CODE) {
-        NAICS_CODE = nAICS_CODE;
+    public final void setNaicsCode(final String naicsCode) {
+        this.naicsCode = naicsCode;
     }
 
     /**
-     * @return the doc_type
+     * Gets the doc type.
+     *
+     * @return the doc type
      */
-    public final String getDoc_type() {
-        return doc_type;
+    public final String getDocType() {
+        return docType;
     }
 
     /**
-     * @param doc_type
-     *            the doc_type to set
+     * Sets the doc type.
+     *
+     * @param docType
+     *            the new doc type
      */
-    public final void setDoc_type(final String doc_type) {
-        this.doc_type = doc_type;
+    public final void setDocType(final String docType) {
+        this.docType = docType;
     }
 
     /**
-     * @return the nAICS_TITLE
+     * Gets the naics title.
+     *
+     * @return the naics title
      */
-    public final String getNAICS_TITLE() {
-        return NAICS_TITLE;
+    public final String getNaicsTitle() {
+        return naicsTitle;
     }
 
     /**
-     * @param nAICS_TITLE
-     *            the nAICS_TITLE to set
+     * Sets the naics title.
+     *
+     * @param naicsTitle
+     *            the new naics title
      */
-    public final void setNAICS_TITLE(final String nAICS_TITLE) {
-        NAICS_TITLE = nAICS_TITLE;
+    public final void setNaicsTitle(final String naicsTitle) {
+        this.naicsTitle = naicsTitle;
     }
-
-    /** The doc_type. */
-    private String doc_type;
-
-    /** The naics title. */
-    private String NAICS_TITLE;
 
 }

@@ -3,6 +3,8 @@
 
 package com.wiley.gr.ace.authorservices.model.external;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * The Class AddressElement.
  */
@@ -33,7 +35,8 @@ public class AddressElement {
     private String addresscleaningflag;
 
     /** The addr_type_ecid. */
-    private String addr_type_ecid;
+    @JsonProperty("addr_type_ecid")
+    private String addrTypeEcid;
 
     /** The addresstype. */
     private String addresstype;
@@ -77,11 +80,51 @@ public class AddressElement {
     /** The addressstartdate. */
     private String addressstartdate;
 
-    /** The countryname. */
-    private String countryname;
+    /** The countryName. */
+    @JsonProperty("countryname")
+    private String countryName;
 
-    /** The addr_type_cd. */
-    private String addr_type_cd;
+    /** The addrTypecd. */
+    @JsonProperty("addr_type_cd")
+    private String addrTypecd;
+
+    /**
+     * Gets the addrTypecd.
+     *
+     * @return the addrTypecd
+     */
+    public final String getAddrTypecd() {
+        return addrTypecd;
+    }
+
+    /**
+     * Sets the addrTypecd.
+     *
+     * @param addrTypecd
+     *            the new addrTypecd
+     */
+    public final void setAddrTypecd(final String addrTypecd) {
+        this.addrTypecd = addrTypecd;
+    }
+
+    /**
+     * Gets the addrTypeEcid.
+     *
+     * @return the addrTypeEcid
+     */
+    public final String getAddrTypeEcid() {
+        return addrTypeEcid;
+    }
+
+    /**
+     * Sets the addrTypeEcid.
+     *
+     * @param addrTypeEcid
+     *            the new addrTypeEcid
+     */
+    public final void setAddrTypeEcid(final String addrTypeEcid) {
+        this.addrTypeEcid = addrTypeEcid;
+    }
 
     /** The zipcodene. */
     private String zipcodene;
@@ -96,6 +139,8 @@ public class AddressElement {
     private String countyne;
 
     /**
+     * Gets the institutionlist.
+     *
      * @return the institutionlist
      */
     public final InstitutionList getInstitutionlist() {
@@ -103,6 +148,8 @@ public class AddressElement {
     }
 
     /**
+     * Sets the institutionlist.
+     *
      * @param institutionlist
      *            the institutionlist to set
      */
@@ -111,6 +158,8 @@ public class AddressElement {
     }
 
     /**
+     * Gets the departmentlist.
+     *
      * @return the departmentlist
      */
     public final DepartmentList getDepartmentlist() {
@@ -118,6 +167,8 @@ public class AddressElement {
     }
 
     /**
+     * Sets the departmentlist.
+     *
      * @param departmentlist
      *            the departmentlist to set
      */
@@ -126,6 +177,8 @@ public class AddressElement {
     }
 
     /**
+     * Gets the addressenddate.
+     *
      * @return the addressenddate
      */
     public final String getAddressenddate() {
@@ -133,6 +186,8 @@ public class AddressElement {
     }
 
     /**
+     * Sets the addressenddate.
+     *
      * @param addressenddate
      *            the addressenddate to set
      */
@@ -141,6 +196,8 @@ public class AddressElement {
     }
 
     /**
+     * Gets the zipcode.
+     *
      * @return the zipcode
      */
     public final String getZipcode() {
@@ -148,6 +205,8 @@ public class AddressElement {
     }
 
     /**
+     * Sets the zipcode.
+     *
      * @param zipcode
      *            the zipcode to set
      */
@@ -156,6 +215,8 @@ public class AddressElement {
     }
 
     /**
+     * Gets the province.
+     *
      * @return the province
      */
     public final String getProvince() {
@@ -163,6 +224,8 @@ public class AddressElement {
     }
 
     /**
+     * Sets the province.
+     *
      * @param province
      *            the province to set
      */
@@ -171,6 +234,8 @@ public class AddressElement {
     }
 
     /**
+     * Gets the city.
+     *
      * @return the city
      */
     public final String getCity() {
@@ -178,6 +243,8 @@ public class AddressElement {
     }
 
     /**
+     * Sets the city.
+     *
      * @param city
      *            the city to set
      */
@@ -186,6 +253,8 @@ public class AddressElement {
     }
 
     /**
+     * Gets the postbox.
+     *
      * @return the postbox
      */
     public final String getPostbox() {
@@ -193,6 +262,8 @@ public class AddressElement {
     }
 
     /**
+     * Sets the postbox.
+     *
      * @param postbox
      *            the postbox to set
      */
@@ -201,6 +272,8 @@ public class AddressElement {
     }
 
     /**
+     * Gets the addresscleaningflag.
+     *
      * @return the addresscleaningflag
      */
     public final String getAddresscleaningflag() {
@@ -208,6 +281,8 @@ public class AddressElement {
     }
 
     /**
+     * Sets the addresscleaningflag.
+     *
      * @param addresscleaningflag
      *            the addresscleaningflag to set
      */
@@ -216,21 +291,8 @@ public class AddressElement {
     }
 
     /**
-     * @return the addr_type_ecid
-     */
-    public final String getAddr_type_ecid() {
-        return addr_type_ecid;
-    }
-
-    /**
-     * @param addr_type_ecid
-     *            the addr_type_ecid to set
-     */
-    public final void setAddr_type_ecid(final String addr_type_ecid) {
-        this.addr_type_ecid = addr_type_ecid;
-    }
-
-    /**
+     * Gets the addresstype.
+     *
      * @return the addresstype
      */
     public final String getAddresstype() {
@@ -238,6 +300,8 @@ public class AddressElement {
     }
 
     /**
+     * Sets the addresstype.
+     *
      * @param addresstype
      *            the addresstype to set
      */
@@ -246,6 +310,8 @@ public class AddressElement {
     }
 
     /**
+     * Gets the addressline1.
+     *
      * @return the addressline1
      */
     public final String getAddressline1() {
@@ -253,6 +319,8 @@ public class AddressElement {
     }
 
     /**
+     * Sets the addressline1.
+     *
      * @param addressline1
      *            the addressline1 to set
      */
@@ -261,6 +329,8 @@ public class AddressElement {
     }
 
     /**
+     * Gets the addressline3.
+     *
      * @return the addressline3
      */
     public final String getAddressline3() {
@@ -268,6 +338,8 @@ public class AddressElement {
     }
 
     /**
+     * Sets the addressline3.
+     *
      * @param addressline3
      *            the addressline3 to set
      */
@@ -276,6 +348,8 @@ public class AddressElement {
     }
 
     /**
+     * Gets the addressline2.
+     *
      * @return the addressline2
      */
     public final String getAddressline2() {
@@ -283,6 +357,8 @@ public class AddressElement {
     }
 
     /**
+     * Sets the addressline2.
+     *
      * @param addressline2
      *            the addressline2 to set
      */
@@ -291,6 +367,8 @@ public class AddressElement {
     }
 
     /**
+     * Gets the countrynamene.
+     *
      * @return the countrynamene
      */
     public final String getCountrynamene() {
@@ -298,6 +376,8 @@ public class AddressElement {
     }
 
     /**
+     * Sets the countrynamene.
+     *
      * @param countrynamene
      *            the countrynamene to set
      */
@@ -306,6 +386,8 @@ public class AddressElement {
     }
 
     /**
+     * Gets the addresscleansecode.
+     *
      * @return the addresscleansecode
      */
     public final String getAddresscleansecode() {
@@ -313,6 +395,8 @@ public class AddressElement {
     }
 
     /**
+     * Sets the addresscleansecode.
+     *
      * @param addresscleansecode
      *            the addresscleansecode to set
      */
@@ -321,6 +405,8 @@ public class AddressElement {
     }
 
     /**
+     * Gets the county.
+     *
      * @return the county
      */
     public final String getCounty() {
@@ -328,6 +414,8 @@ public class AddressElement {
     }
 
     /**
+     * Sets the county.
+     *
      * @param county
      *            the county to set
      */
@@ -336,6 +424,8 @@ public class AddressElement {
     }
 
     /**
+     * Gets the state.
+     *
      * @return the state
      */
     public final String getState() {
@@ -343,6 +433,8 @@ public class AddressElement {
     }
 
     /**
+     * Sets the state.
+     *
      * @param state
      *            the state to set
      */
@@ -351,6 +443,8 @@ public class AddressElement {
     }
 
     /**
+     * Gets the addressline3ne.
+     *
      * @return the addressline3ne
      */
     public final String getAddressline3ne() {
@@ -358,6 +452,8 @@ public class AddressElement {
     }
 
     /**
+     * Sets the addressline3ne.
+     *
      * @param addressline3ne
      *            the addressline3ne to set
      */
@@ -366,6 +462,8 @@ public class AddressElement {
     }
 
     /**
+     * Gets the addressdeliveryconfidencecode.
+     *
      * @return the addressdeliveryconfidencecode
      */
     public final String getAddressdeliveryconfidencecode() {
@@ -373,6 +471,8 @@ public class AddressElement {
     }
 
     /**
+     * Sets the addressdeliveryconfidencecode.
+     *
      * @param addressdeliveryconfidencecode
      *            the addressdeliveryconfidencecode to set
      */
@@ -382,6 +482,8 @@ public class AddressElement {
     }
 
     /**
+     * Gets the addressline1ne.
+     *
      * @return the addressline1ne
      */
     public final String getAddressline1ne() {
@@ -389,6 +491,8 @@ public class AddressElement {
     }
 
     /**
+     * Sets the addressline1ne.
+     *
      * @param addressline1ne
      *            the addressline1ne to set
      */
@@ -397,6 +501,8 @@ public class AddressElement {
     }
 
     /**
+     * Gets the cityne.
+     *
      * @return the cityne
      */
     public final String getCityne() {
@@ -404,6 +510,8 @@ public class AddressElement {
     }
 
     /**
+     * Sets the cityne.
+     *
      * @param cityne
      *            the cityne to set
      */
@@ -412,6 +520,8 @@ public class AddressElement {
     }
 
     /**
+     * Gets the addressline2ne.
+     *
      * @return the addressline2ne
      */
     public final String getAddressline2ne() {
@@ -419,6 +529,8 @@ public class AddressElement {
     }
 
     /**
+     * Sets the addressline2ne.
+     *
      * @param addressline2ne
      *            the addressline2ne to set
      */
@@ -427,6 +539,8 @@ public class AddressElement {
     }
 
     /**
+     * Gets the addressstartdate.
+     *
      * @return the addressstartdate
      */
     public final String getAddressstartdate() {
@@ -434,6 +548,8 @@ public class AddressElement {
     }
 
     /**
+     * Sets the addressstartdate.
+     *
      * @param addressstartdate
      *            the addressstartdate to set
      */
@@ -442,36 +558,27 @@ public class AddressElement {
     }
 
     /**
-     * @return the countryname
+     * Gets the countryName.
+     *
+     * @return the countryName
      */
-    public final String getCountryname() {
-        return countryname;
+    public final String getCountryName() {
+        return countryName;
     }
 
     /**
-     * @param countryname
-     *            the countryname to set
+     * Sets the countryName.
+     *
+     * @param countryName
+     *            the countryName to set
      */
-    public final void setCountryname(final String countryname) {
-        this.countryname = countryname;
+    public final void setCountryName(final String countryName) {
+        this.countryName = countryName;
     }
 
     /**
-     * @return the addr_type_cd
-     */
-    public final String getAddr_type_cd() {
-        return addr_type_cd;
-    }
-
-    /**
-     * @param addr_type_cd
-     *            the addr_type_cd to set
-     */
-    public final void setAddr_type_cd(final String addr_type_cd) {
-        this.addr_type_cd = addr_type_cd;
-    }
-
-    /**
+     * Gets the zipcodene.
+     *
      * @return the zipcodene
      */
     public final String getZipcodene() {
@@ -479,6 +586,8 @@ public class AddressElement {
     }
 
     /**
+     * Sets the zipcodene.
+     *
      * @param zipcodene
      *            the zipcodene to set
      */
@@ -487,6 +596,8 @@ public class AddressElement {
     }
 
     /**
+     * Gets the statene.
+     *
      * @return the statene
      */
     public final String getStatene() {
@@ -494,6 +605,8 @@ public class AddressElement {
     }
 
     /**
+     * Sets the statene.
+     *
      * @param statene
      *            the statene to set
      */
@@ -502,6 +615,8 @@ public class AddressElement {
     }
 
     /**
+     * Gets the countrycode.
+     *
      * @return the countrycode
      */
     public final String getCountrycode() {
@@ -509,6 +624,8 @@ public class AddressElement {
     }
 
     /**
+     * Sets the countrycode.
+     *
      * @param countrycode
      *            the countrycode to set
      */
@@ -517,6 +634,8 @@ public class AddressElement {
     }
 
     /**
+     * Gets the countyne.
+     *
      * @return the countyne
      */
     public final String getCountyne() {
@@ -524,6 +643,8 @@ public class AddressElement {
     }
 
     /**
+     * Sets the countyne.
+     *
      * @param countyne
      *            the countyne to set
      */

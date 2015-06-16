@@ -12,6 +12,8 @@
 
 package com.wiley.gr.ace.authorservices.model.external;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * The Class Docs.
  */
@@ -20,13 +22,29 @@ public class Docs {
     /** The id. */
     private String id;
 
-    /** The _version_. */
-    private String _version_;
+    /** The version. */
+    @JsonProperty("_version_")
+    private String version;
 
-    /** The doc_type. */
-    private String doc_type;
+    /** The docType. */
+    @JsonProperty("doc_type")
+    private String docType;
+
+    /** The subject code. */
+    @JsonProperty("SUBJECT_CODE")
+    private String subjectCode;
+
+    /** The subject short name. */
+    @JsonProperty("SUBJECT_SHORT_NAME")
+    private String subjectShortName;
+
+    /** The subject name. */
+    @JsonProperty("SUBJECT_NAME")
+    private String subjectName;
 
     /**
+     * Gets the id.
+     *
      * @return the id
      */
     public final String getId() {
@@ -34,6 +52,8 @@ public class Docs {
     }
 
     /**
+     * Sets the id.
+     *
      * @param id
      *            the id to set
      */
@@ -42,86 +62,98 @@ public class Docs {
     }
 
     /**
-     * @return the _version_
+     * Gets the version.
+     *
+     * @return the version
      */
-    public final String get_version_() {
-        return _version_;
+    public final String getVersion() {
+        return version;
     }
 
     /**
-     * @param _version_
-     *            the _version_ to set
+     * Sets the version.
+     *
+     * @param version
+     *            the new version
      */
-    public final void set_version_(final String _version_) {
-        this._version_ = _version_;
+    public final void setVersion(final String version) {
+        this.version = version;
     }
 
     /**
-     * @return the doc_type
+     * Gets the doc type.
+     *
+     * @return the doc type
      */
-    public final String getDoc_type() {
-        return doc_type;
+    public final String getDocType() {
+        return docType;
     }
 
     /**
-     * @param doc_type
-     *            the doc_type to set
+     * Sets the doc type.
+     *
+     * @param docType
+     *            the new doc type
      */
-    public final void setDoc_type(final String doc_type) {
-        this.doc_type = doc_type;
+    public final void setDocType(final String docType) {
+        this.docType = docType;
     }
 
     /**
-     * @return the sUBJECT_CODE
+     * Gets the subject code.
+     *
+     * @return the subject code
      */
-    public final String getSUBJECT_CODE() {
-        return SUBJECT_CODE;
+    public final String getSubjectCode() {
+        return subjectCode;
     }
 
     /**
-     * @param sUBJECT_CODE
-     *            the sUBJECT_CODE to set
+     * Sets the subject code.
+     *
+     * @param subjectCode
+     *            the new subject code
      */
-    public final void setSUBJECT_CODE(final String sUBJECT_CODE) {
-        SUBJECT_CODE = sUBJECT_CODE;
+    public final void setSubjectCode(final String subjectCode) {
+        this.subjectCode = subjectCode;
     }
 
     /**
-     * @return the sUBJECT_SHORT_NAME
+     * Gets the subject short name.
+     *
+     * @return the subject short name
      */
-    public final String getSUBJECT_SHORT_NAME() {
-        return SUBJECT_SHORT_NAME;
+    public final String getSubjectShortName() {
+        return subjectShortName;
     }
 
     /**
-     * @param sUBJECT_SHORT_NAME
-     *            the sUBJECT_SHORT_NAME to set
+     * Sets the subject short name.
+     *
+     * @param subjectShortName
+     *            the new subject short name
      */
-    public final void setSUBJECT_SHORT_NAME(final String sUBJECT_SHORT_NAME) {
-        SUBJECT_SHORT_NAME = sUBJECT_SHORT_NAME;
+    public final void setSubjectShortName(final String subjectShortName) {
+        this.subjectShortName = subjectShortName;
     }
 
     /**
-     * @return the sUBJECT_NAME
+     * Gets the subject name.
+     *
+     * @return the subject name
      */
-    public final String getSUBJECT_NAME() {
-        return SUBJECT_NAME;
+    public final String getSubjectName() {
+        return subjectName;
     }
 
     /**
-     * @param sUBJECT_NAME
-     *            the sUBJECT_NAME to set
+     * Sets the subject name.
+     *
+     * @param subjectName
+     *            the new subject name
      */
-    public final void setSUBJECT_NAME(final String sUBJECT_NAME) {
-        SUBJECT_NAME = sUBJECT_NAME;
+    public final void setSubjectName(final String subjectName) {
+        this.subjectName = subjectName;
     }
 
-    /** The subject code. */
-    private String SUBJECT_CODE;
-
-    /** The subject short name. */
-    private String SUBJECT_SHORT_NAME;
-
-    /** The subject name. */
-    private String SUBJECT_NAME;
 }
