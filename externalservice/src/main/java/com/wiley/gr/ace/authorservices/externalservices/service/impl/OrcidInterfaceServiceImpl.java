@@ -27,27 +27,41 @@ import com.wiley.gr.ace.authorservices.externalservices.service.OrcidInterfaceSe
 import com.wiley.gr.ace.authorservices.model.orcid.OrcidAccessToken;
 
 /**
- * @author virtusa version 1.0
+ * The Class OrcidInterfaceServiceImpl.
  *
+ * @author virtusa version 1.0
  */
 public class OrcidInterfaceServiceImpl implements OrcidInterfaceService {
 
+    /** The orcid client id. */
     @Value("${orcid-clientid}")
     private String orcidClientId;
 
+    /** The orcid client secret. */
     @Value("${orcid-clientsecret}")
     private String orcidClientSecret;
 
+    /** The orcid grant type. */
     @Value("${orcid-granttype}")
     private String orcidGrantType;
 
+    /** The orcid url. */
     @Value("${orcid-url}")
     private String orcidUrl;
 
+    /** The orcid token url. */
     @Value("${orcid-tokenurl}")
     private String orcidTokenUrl;
 
-    /** This method is for authorizing token */
+    /**
+     * This method is for authorizing token.
+     *
+     * @param authorizationCode
+     *            the authorization code
+     * @return the access token
+     * @throws Exception
+     *             the exception
+     */
     @Override
     public OrcidAccessToken getAccessToken(String authorizationCode)
             throws Exception {
@@ -81,7 +95,15 @@ public class OrcidInterfaceServiceImpl implements OrcidInterfaceService {
 
     }
 
-    /** This method is for getting bio details based on orcid token */
+    /**
+     * This method is for getting bio details based on orcid token.
+     *
+     * @param token
+     *            the token
+     * @return the bio
+     * @throws Exception
+     *             the exception
+     */
     @Override
     public String getBio(OrcidAccessToken token) throws Exception {
 
@@ -101,7 +123,15 @@ public class OrcidInterfaceServiceImpl implements OrcidInterfaceService {
         return orcidMessageJSON;
     }
 
-    /** this method os for gettin work details */
+    /**
+     * this method os for gettin work details.
+     *
+     * @param token
+     *            the token
+     * @return the work
+     * @throws Exception
+     *             the exception
+     */
     @Override
     public String getWork(OrcidAccessToken token) throws Exception {
 
