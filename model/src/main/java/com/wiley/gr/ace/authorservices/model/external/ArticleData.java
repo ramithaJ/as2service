@@ -40,116 +40,94 @@ public class ArticleData {
     private String productionStatus;
 
     /**
-     * Gets the article details.
-     *
-     * @return the article details
+     * @return the articleDetails
      */
-    public ArticleDetails getArticleDetails() {
+    public final ArticleDetails getArticleDetails() {
         return articleDetails;
     }
 
     /**
-     * Sets the article details.
-     *
      * @param articleDetails
-     *            the new article details
+     *            the articleDetails to set
      */
-    public void setArticleDetails(ArticleDetails articleDetails) {
+    public final void setArticleDetails(final ArticleDetails articleDetails) {
         this.articleDetails = articleDetails;
     }
 
     /**
-     * Gets the journal details.
-     *
-     * @return the journal details
+     * @return the journalDetails
      */
-    public JournalDetails getJournalDetails() {
+    public final JournalDetails getJournalDetails() {
         return journalDetails;
     }
 
     /**
-     * Sets the journal details.
-     *
      * @param journalDetails
-     *            the new journal details
+     *            the journalDetails to set
      */
-    public void setJournalDetails(JournalDetails journalDetails) {
+    public final void setJournalDetails(final JournalDetails journalDetails) {
         this.journalDetails = journalDetails;
     }
 
     /**
-     * Gets the article user role.
-     *
-     * @return the article user role
+     * @return the articleUserRole
      */
-    public String getArticleUserRole() {
+    public final String getArticleUserRole() {
         return articleUserRole;
     }
 
     /**
-     * Sets the article user role.
-     *
      * @param articleUserRole
-     *            the new article user role
+     *            the articleUserRole to set
      */
-    public void setArticleUserRole(String articleUserRole) {
+    public final void setArticleUserRole(final String articleUserRole) {
         this.articleUserRole = articleUserRole;
     }
 
     /**
-     * Gets the license status.
-     *
-     * @return the license status
+     * @return the licenseStatus
      */
-    public String getLicenseStatus() {
+    public final String getLicenseStatus() {
         return licenseStatus;
     }
 
     /**
-     * Sets the license status.
-     *
      * @param licenseStatus
-     *            the new license status
+     *            the licenseStatus to set
      */
-    public void setLicenseStatus(String licenseStatus) {
+    public final void setLicenseStatus(final String licenseStatus) {
         this.licenseStatus = licenseStatus;
     }
 
     /**
-     * Gets the order payment status.
-     *
-     * @return the order payment status
+     * @return the orderPaymentStatus
      */
-    public OrderPaymentStatus getOrderPaymentStatus() {
+    public final OrderPaymentStatus getOrderPaymentStatus() {
         return orderPaymentStatus;
     }
 
     /**
-     * Sets the order payment status.
-     *
      * @param orderPaymentStatus
-     *            the new order payment status
+     *            the orderPaymentStatus to set
      */
-    public void setOrderPaymentStatus(OrderPaymentStatus orderPaymentStatus) {
+    public final void setOrderPaymentStatus(
+            final OrderPaymentStatus orderPaymentStatus) {
         this.orderPaymentStatus = orderPaymentStatus;
     }
 
     /**
-     * Gets the production status.
-     *
-     * @return the production status
+     * @return the productionStatus
      */
-    public String getProductionStatus() {
+    public final String getProductionStatus() {
         return productionStatus;
     }
 
     /**
-     * Sets the production status.
-     *
      * @param productionStatus
-     *            the new production status
+     *            the productionStatus to set
      */
-    public void setProductionStatus(String productionStatus) {
+    public final void setProductionStatus(final String productionStatus) {
         this.productionStatus = productionStatus;
     }
+
 }

@@ -28,40 +28,33 @@ public class ArticleUserRoleDetails {
     private String roleName;
 
     /**
-     * Gets the role code.
-     *
-     * @return the role code
+     * @return the roleCode
      */
-    public String getRoleCode() {
+    public final String getRoleCode() {
         return roleCode;
     }
 
     /**
-     * Sets the role code.
-     *
      * @param roleCode
-     *            the new role code
+     *            the roleCode to set
      */
-    public void setRoleCode(String roleCode) {
+    public final void setRoleCode(final String roleCode) {
         this.roleCode = roleCode;
     }
 
     /**
-     * Gets the role name.
-     *
-     * @return the role name
+     * @return the roleName
      */
-    public String getRoleName() {
+    public final String getRoleName() {
         return roleName;
     }
 
     /**
-     * Sets the role name.
-     *
      * @param roleName
-     *            the new role name
+     *            the roleName to set
      */
-    public void setRoleName(String roleName) {
+    public final void setRoleName(final String roleName) {
         this.roleName = roleName;
     }
+
 }

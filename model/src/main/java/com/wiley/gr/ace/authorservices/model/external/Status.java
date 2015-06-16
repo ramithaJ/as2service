@@ -11,21 +11,16 @@ public class Status {
     private String status;
 
     /**
-     * Gets the status.
-     *
      * @return the status
      */
-    public String getStatus() {
+    public final String getStatus() {
         return status;
     }
 
     /**
-     * Sets the status.
-     *
-     * @param status
-     *            the new status
+     * @param status the status to set
      */
-    public void setStatus(String status) {
+    public final void setStatus(final String status) {
         this.status = status;
     }
 

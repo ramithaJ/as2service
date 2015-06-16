@@ -12,22 +12,18 @@ public class Alerts {
     private AlertElement[] alert;
 
     /**
-     * Sets the alert.
-     *
-     * @param alert
-     *            the new alert
+     * @return the alert
      */
-    public void setAlert(AlertElement[] alert) {
-        this.alert = alert;
+    public final AlertElement[] getAlert() {
+        return alert;
     }
 
     /**
-     * Gets the alert.
-     *
-     * @return the alert
+     * @param alert
+     *            the alert to set
      */
-    public AlertElement[] getAlert() {
-        return alert;
+    public final void setAlert(final AlertElement[] alert) {
+        this.alert = alert;
     }
 
 }

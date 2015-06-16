@@ -32,102 +32,82 @@ public class TaxDetails {
     /** The vat exemption number. */
     private String vatExemptionNumber;
 
-    /** The country code. */
-    private String countryCode;
-
     /**
-     * Gets the tax number.
-     *
-     * @return the tax number
+     * @return the taxNumber
      */
-    public String getTaxNumber() {
+    public final String getTaxNumber() {
         return taxNumber;
     }
 
     /**
-     * Sets the tax number.
-     *
      * @param taxNumber
-     *            the new tax number
+     *            the taxNumber to set
      */
-    public void setTaxNumber(String taxNumber) {
+    public final void setTaxNumber(final String taxNumber) {
         this.taxNumber = taxNumber;
     }
 
     /**
-     * Gets the tax expiration.
-     *
-     * @return the tax expiration
+     * @return the taxExpiration
      */
-    public String getTaxExpiration() {
+    public final String getTaxExpiration() {
         return taxExpiration;
     }
 
     /**
-     * Sets the tax expiration.
-     *
      * @param taxExpiration
-     *            the new tax expiration
+     *            the taxExpiration to set
      */
-    public void setTaxExpiration(String taxExpiration) {
+    public final void setTaxExpiration(final String taxExpiration) {
         this.taxExpiration = taxExpiration;
     }
 
     /**
-     * Gets the vat id number.
-     *
-     * @return the vat id number
+     * @return the vatIdNumber
      */
-    public String getVatIdNumber() {
+    public final String getVatIdNumber() {
         return vatIdNumber;
     }
 
     /**
-     * Sets the vat id number.
-     *
      * @param vatIdNumber
-     *            the new vat id number
+     *            the vatIdNumber to set
      */
-    public void setVatIdNumber(String vatIdNumber) {
+    public final void setVatIdNumber(final String vatIdNumber) {
         this.vatIdNumber = vatIdNumber;
     }
 
     /**
-     * Gets the vat exemption number.
-     *
-     * @return the vat exemption number
+     * @return the vatExemptionNumber
      */
-    public String getVatExemptionNumber() {
+    public final String getVatExemptionNumber() {
         return vatExemptionNumber;
     }
 
     /**
-     * Sets the vat exemption number.
-     *
      * @param vatExemptionNumber
-     *            the new vat exemption number
+     *            the vatExemptionNumber to set
      */
-    public void setVatExemptionNumber(String vatExemptionNumber) {
+    public final void setVatExemptionNumber(final String vatExemptionNumber) {
         this.vatExemptionNumber = vatExemptionNumber;
     }
 
     /**
-     * Gets the country code.
-     *
-     * @return the country code
+     * @return the countryCode
      */
-    public String getCountryCode() {
+    public final String getCountryCode() {
         return countryCode;
     }
 
     /**
-     * Sets the country code.
-     *
      * @param countryCode
-     *            the new country code
+     *            the countryCode to set
      */
-    public void setCountryCode(String countryCode) {
+    public final void setCountryCode(final String countryCode) {
         this.countryCode = countryCode;
     }
+
+    /** The country code. */
+    private String countryCode;
 
 }

@@ -32,42 +32,32 @@ public class SecurityQuestion {
     private String answer;
 
     /**
-     * Gets the question.
-     *
      * @return the question
-     * 
      */
-    public String getQuestion() {
+    public final String getQuestion() {
         return question;
     }
 
     /**
-     * Sets the question.
-     *
      * @param question
-     *            the new question
+     *            the question to set
      */
-    public void setQuestion(String question) {
+    public final void setQuestion(final String question) {
         this.question = question;
     }
 
     /**
-     * Gets the answer.
-     *
      * @return the answer
-     * 
      */
-    public String getAnswer() {
+    public final String getAnswer() {
         return answer;
     }
 
     /**
-     * Sets the answer.
-     *
      * @param answer
-     *            the new answer
+     *            the answer to set
      */
-    public void setAnswer(String answer) {
+    public final void setAnswer(final String answer) {
         this.answer = answer;
     }
 

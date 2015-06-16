@@ -9,135 +9,111 @@ package com.wiley.gr.ace.authorservices.model.external;
 public class AffiliationElement {
 
     /** The institution. */
-    private java.lang.String institution;
+    private String institution;
+
+    /** The department. */
+    private String department;
+
+    /** The city. */
+    private String city;
+
+    /** The enddate. */
+    private String enddate;
+
+    /** The startdate. */
+    private String startdate;
+
+    /** The state. */
+    private String state;
 
     /**
-     * Sets the institution.
-     *
-     * @param institution
-     *            the new institution
+     * @return the institution
      */
-    public void setInstitution(java.lang.String institution) {
+    public final String getInstitution() {
+        return institution;
+    }
+
+    /**
+     * @param institution
+     *            the institution to set
+     */
+    public final void setInstitution(final String institution) {
         this.institution = institution;
     }
 
     /**
-     * Gets the institution.
-     *
-     * @return the institution
+     * @return the department
      */
-    public java.lang.String getInstitution() {
-        return institution;
+    public final String getDepartment() {
+        return department;
     }
 
-    /** The department. */
-    private java.lang.String department;
-
     /**
-     * Sets the department.
-     *
      * @param department
-     *            the new department
+     *            the department to set
      */
-    public void setDepartment(java.lang.String department) {
+    public final void setDepartment(final String department) {
         this.department = department;
     }
 
     /**
-     * Gets the department.
-     *
-     * @return the department
+     * @return the city
      */
-    public java.lang.String getDepartment() {
-        return department;
+    public final String getCity() {
+        return city;
     }
 
-    /** The city. */
-    private java.lang.String city;
-
     /**
-     * Sets the city.
-     *
      * @param city
-     *            the new city
+     *            the city to set
      */
-    public void setCity(java.lang.String city) {
+    public final void setCity(final String city) {
         this.city = city;
     }
 
     /**
-     * Gets the city.
-     *
-     * @return the city
+     * @return the enddate
      */
-    public java.lang.String getCity() {
-        return city;
+    public final String getEnddate() {
+        return enddate;
     }
 
-    /** The enddate. */
-    private java.lang.String enddate;
-
     /**
-     * Sets the enddate.
-     *
      * @param enddate
-     *            the new enddate
+     *            the enddate to set
      */
-    public void setEnddate(java.lang.String enddate) {
+    public final void setEnddate(final String enddate) {
         this.enddate = enddate;
     }
 
     /**
-     * Gets the enddate.
-     *
-     * @return the enddate
+     * @return the startdate
      */
-    public java.lang.String getEnddate() {
-        return enddate;
+    public final String getStartdate() {
+        return startdate;
     }
 
-    /** The startdate. */
-    private java.lang.String startdate;
-
     /**
-     * Sets the startdate.
-     *
      * @param startdate
-     *            the new startdate
+     *            the startdate to set
      */
-    public void setStartdate(java.lang.String startdate) {
+    public final void setStartdate(final String startdate) {
         this.startdate = startdate;
     }
 
     /**
-     * Gets the startdate.
-     *
-     * @return the startdate
-     */
-    public java.lang.String getStartdate() {
-        return startdate;
-    }
-
-    /** The state. */
-    private java.lang.String state;
-
-    /**
-     * Sets the state.
-     *
-     * @param state
-     *            the new state
-     */
-    public void setState(java.lang.String state) {
-        this.state = state;
-    }
-
-    /**
-     * Gets the state.
-     *
      * @return the state
      */
-    public java.lang.String getState() {
+    public final String getState() {
         return state;
+    }
+
+    /**
+     * @param state
+     *            the state to set
+     */
+    public final void setState(final String state) {
+        this.state = state;
     }
 
 }

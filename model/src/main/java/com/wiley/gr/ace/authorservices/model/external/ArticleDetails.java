@@ -48,154 +48,123 @@ public class ArticleDetails {
     private List<ArticleCoAuthors> articleCoAuthors;
 
     /**
-     * Gets the article id.
-     *
-     * @return the article id
+     * @return the articleId
      */
-    public Integer getArticleId() {
+    public final Integer getArticleId() {
         return articleId;
     }
 
     /**
-     * Sets the article id.
-     *
      * @param articleId
-     *            the new article id
+     *            the articleId to set
      */
-    public void setArticleId(Integer articleId) {
+    public final void setArticleId(final Integer articleId) {
         this.articleId = articleId;
     }
 
     /**
-     * Gets the article name.
-     *
-     * @return the article name
+     * @return the articleName
      */
-    public String getArticleName() {
+    public final String getArticleName() {
         return articleName;
     }
 
     /**
-     * Sets the article name.
-     *
      * @param articleName
-     *            the new article name
+     *            the articleName to set
      */
-    public void setArticleName(String articleName) {
+    public final void setArticleName(final String articleName) {
         this.articleName = articleName;
     }
 
     /**
-     * Gets the article doi.
-     *
-     * @return the article doi
+     * @return the articleDoi
      */
-    public String getArticleDoi() {
+    public final String getArticleDoi() {
         return articleDoi;
     }
 
     /**
-     * Sets the article doi.
-     *
      * @param articleDoi
-     *            the new article doi
+     *            the articleDoi to set
      */
-    public void setArticleDoi(String articleDoi) {
+    public final void setArticleDoi(final String articleDoi) {
         this.articleDoi = articleDoi;
     }
 
     /**
-     * Gets the publication date.
-     *
-     * @return the publication date
+     * @return the publicationDate
      */
-    public String getPublicationDate() {
+    public final String getPublicationDate() {
         return publicationDate;
     }
 
     /**
-     * Sets the publication date.
-     *
      * @param publicationDate
-     *            the new publication date
+     *            the publicationDate to set
      */
-    public void setPublicationDate(String publicationDate) {
+    public final void setPublicationDate(final String publicationDate) {
         this.publicationDate = publicationDate;
     }
 
     /**
-     * Gets the acceptance date.
-     *
-     * @return the acceptance date
+     * @return the acceptanceDate
      */
-    public String getAcceptanceDate() {
+    public final String getAcceptanceDate() {
         return acceptanceDate;
     }
 
     /**
-     * Sets the acceptance date.
-     *
      * @param acceptanceDate
-     *            the new acceptance date
+     *            the acceptanceDate to set
      */
-    public void setAcceptanceDate(String acceptanceDate) {
+    public final void setAcceptanceDate(final String acceptanceDate) {
         this.acceptanceDate = acceptanceDate;
     }
 
     /**
-     * Gets the article accepted in oo.
-     *
-     * @return the article accepted in oo
+     * @return the articleAcceptedInOO
      */
-    public String getArticleAcceptedInOO() {
+    public final String getArticleAcceptedInOO() {
         return articleAcceptedInOO;
     }
 
     /**
-     * Sets the article accepted in oo.
-     *
      * @param articleAcceptedInOO
-     *            the new article accepted in oo
+     *            the articleAcceptedInOO to set
      */
-    public void setArticleAcceptedInOO(String articleAcceptedInOO) {
+    public final void setArticleAcceptedInOO(final String articleAcceptedInOO) {
         this.articleAcceptedInOO = articleAcceptedInOO;
     }
 
     /**
-     * Gets the article authors.
-     *
-     * @return the article authors
+     * @return the articleAuthors
      */
-    public List<ArticleAuthors> getArticleAuthors() {
+    public final List<ArticleAuthors> getArticleAuthors() {
         return articleAuthors;
     }
 
     /**
-     * Sets the article authors.
-     *
      * @param articleAuthors
-     *            the new article authors
+     *            the articleAuthors to set
      */
-    public void setArticleAuthors(List<ArticleAuthors> articleAuthors) {
+    public final void setArticleAuthors(final List<ArticleAuthors> articleAuthors) {
         this.articleAuthors = articleAuthors;
     }
 
     /**
-     * Gets the article co authors.
-     *
-     * @return the article co authors
+     * @return the articleCoAuthors
      */
-    public List<ArticleCoAuthors> getArticleCoAuthors() {
+    public final List<ArticleCoAuthors> getArticleCoAuthors() {
         return articleCoAuthors;
     }
 
     /**
-     * Sets the article co authors.
-     *
      * @param articleCoAuthors
-     *            the new article co authors
+     *            the articleCoAuthors to set
      */
-    public void setArticleCoAuthors(List<ArticleCoAuthors> articleCoAuthors) {
+    public final void setArticleCoAuthors(
+            final List<ArticleCoAuthors> articleCoAuthors) {
         this.articleCoAuthors = articleCoAuthors;
     }
 

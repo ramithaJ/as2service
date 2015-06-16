@@ -14,21 +14,18 @@ public class SearchUserResponse {
     private List<ESBUser> userList;
 
     /**
-     * Gets the user list.
-     *
-     * @return the user list
+     * @return the userList
      */
-    public List<ESBUser> getUserList() {
+    public final List<ESBUser> getUserList() {
         return userList;
     }
 
     /**
-     * Sets the user list.
-     *
      * @param userList
-     *            the new user list
+     *            the userList to set
      */
-    public void setUserList(List<ESBUser> userList) {
+    public final void setUserList(final List<ESBUser> userList) {
         this.userList = userList;
     }
+
 }

@@ -28,40 +28,33 @@ public class ArticleCitationRecord {
     private Integer citationCount;
 
     /**
-     * Gets the article title.
-     *
-     * @return the article title
+     * @return the articleTitle
      */
-    public String getArticleTitle() {
+    public final String getArticleTitle() {
         return articleTitle;
     }
 
     /**
-     * Sets the article title.
-     *
      * @param articleTitle
-     *            the new article title
+     *            the articleTitle to set
      */
-    public void setArticleTitle(String articleTitle) {
+    public final void setArticleTitle(final String articleTitle) {
         this.articleTitle = articleTitle;
     }
 
     /**
-     * Gets the citation count.
-     *
-     * @return the citation count
+     * @return the citationCount
      */
-    public Integer getCitationCount() {
+    public final Integer getCitationCount() {
         return citationCount;
     }
 
     /**
-     * Sets the citation count.
-     *
      * @param citationCount
-     *            the new citation count
+     *            the citationCount to set
      */
-    public void setCitationCount(Integer citationCount) {
+    public final void setCitationCount(final Integer citationCount) {
         this.citationCount = citationCount;
     }
+
 }

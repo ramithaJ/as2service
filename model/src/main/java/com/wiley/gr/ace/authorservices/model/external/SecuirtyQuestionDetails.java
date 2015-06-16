@@ -29,22 +29,17 @@ public class SecuirtyQuestionDetails {
     private SecurityQuestions securityQuestions;
 
     /**
-     * Gets the securityQuestions.
-     *
      * @return the securityQuestions
-     * 
      */
-    public SecurityQuestions getSecurityQuestions() {
+    public final SecurityQuestions getSecurityQuestions() {
         return securityQuestions;
     }
 
     /**
-     * Sets the securityQuestions.
-     *
      * @param securityQuestions
-     *            the new security questions
+     *            the securityQuestions to set
      */
-    public void setSecurityQuestions(SecurityQuestions securityQuestions) {
+    public final void setSecurityQuestions(final SecurityQuestions securityQuestions) {
         this.securityQuestions = securityQuestions;
     }
 

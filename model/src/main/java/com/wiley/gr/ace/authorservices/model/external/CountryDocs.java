@@ -26,6 +26,111 @@ public class CountryDocs {
     /** The IS o_ numeri c_3. */
     private String ISO_NUMERIC_3;
 
+    /**
+     * @return the id
+     */
+    public final String getId() {
+        return id;
+    }
+
+    /**
+     * @param id
+     *            the id to set
+     */
+    public final void setId(final String id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the _version_
+     */
+    public final String get_version_() {
+        return _version_;
+    }
+
+    /**
+     * @param _version_
+     *            the _version_ to set
+     */
+    public final void set_version_(final String _version_) {
+        this._version_ = _version_;
+    }
+
+    /**
+     * @return the iSO_NUMERIC_3
+     */
+    public final String getISO_NUMERIC_3() {
+        return ISO_NUMERIC_3;
+    }
+
+    /**
+     * @param iSO_NUMERIC_3
+     *            the iSO_NUMERIC_3 to set
+     */
+    public final void setISO_NUMERIC_3(final String iSO_NUMERIC_3) {
+        ISO_NUMERIC_3 = iSO_NUMERIC_3;
+    }
+
+    /**
+     * @return the iSO_ALPHA_3
+     */
+    public final String getISO_ALPHA_3() {
+        return ISO_ALPHA_3;
+    }
+
+    /**
+     * @param iSO_ALPHA_3
+     *            the iSO_ALPHA_3 to set
+     */
+    public final void setISO_ALPHA_3(final String iSO_ALPHA_3) {
+        ISO_ALPHA_3 = iSO_ALPHA_3;
+    }
+
+    /**
+     * @return the iSO_ALPHA_2
+     */
+    public final String getISO_ALPHA_2() {
+        return ISO_ALPHA_2;
+    }
+
+    /**
+     * @param iSO_ALPHA_2
+     *            the iSO_ALPHA_2 to set
+     */
+    public final void setISO_ALPHA_2(final String iSO_ALPHA_2) {
+        ISO_ALPHA_2 = iSO_ALPHA_2;
+    }
+
+    /**
+     * @return the doc_type
+     */
+    public final String getDoc_type() {
+        return doc_type;
+    }
+
+    /**
+     * @param doc_type
+     *            the doc_type to set
+     */
+    public final void setDoc_type(final String doc_type) {
+        this.doc_type = doc_type;
+    }
+
+    /**
+     * @return the cOUNTRY_NAME
+     */
+    public final String getCOUNTRY_NAME() {
+        return COUNTRY_NAME;
+    }
+
+    /**
+     * @param cOUNTRY_NAME
+     *            the cOUNTRY_NAME to set
+     */
+    public final void setCOUNTRY_NAME(final String cOUNTRY_NAME) {
+        COUNTRY_NAME = cOUNTRY_NAME;
+    }
+
     /** The IS o_ alph a_3. */
     private String ISO_ALPHA_3;
 
@@ -37,151 +142,4 @@ public class CountryDocs {
 
     /** The country name. */
     private String COUNTRY_NAME;
-
-    /**
-     * Gets the id.
-     *
-     * @return the id
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * Sets the id.
-     *
-     * @param id
-     *            the new id
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    /**
-     * Gets the _version_.
-     *
-     * @return the _version_
-     */
-    public String get_version_() {
-        return _version_;
-    }
-
-    /**
-     * Sets the _version_.
-     *
-     * @param _version_
-     *            the new _version_
-     */
-    public void set_version_(String _version_) {
-        this._version_ = _version_;
-    }
-
-    /**
-     * Gets the checks if is o_ numeri c_3.
-     *
-     * @return the checks if is o_ numeri c_3
-     */
-    public String getISO_NUMERIC_3() {
-        return ISO_NUMERIC_3;
-    }
-
-    /**
-     * Sets the checks if is o_ numeri c_3.
-     *
-     * @param ISO_NUMERIC_3
-     *            the new checks if is o_ numeri c_3
-     */
-    public void setISO_NUMERIC_3(String ISO_NUMERIC_3) {
-        this.ISO_NUMERIC_3 = ISO_NUMERIC_3;
-    }
-
-    /**
-     * Gets the checks if is o_ alph a_3.
-     *
-     * @return the checks if is o_ alph a_3
-     */
-    public String getISO_ALPHA_3() {
-        return ISO_ALPHA_3;
-    }
-
-    /**
-     * Sets the checks if is o_ alph a_3.
-     *
-     * @param ISO_ALPHA_3
-     *            the new checks if is o_ alph a_3
-     */
-    public void setISO_ALPHA_3(String ISO_ALPHA_3) {
-        this.ISO_ALPHA_3 = ISO_ALPHA_3;
-    }
-
-    /**
-     * Gets the checks if is o_ alph a_2.
-     *
-     * @return the checks if is o_ alph a_2
-     */
-    public String getISO_ALPHA_2() {
-        return ISO_ALPHA_2;
-    }
-
-    /**
-     * Sets the checks if is o_ alph a_2.
-     *
-     * @param ISO_ALPHA_2
-     *            the new checks if is o_ alph a_2
-     */
-    public void setISO_ALPHA_2(String ISO_ALPHA_2) {
-        this.ISO_ALPHA_2 = ISO_ALPHA_2;
-    }
-
-    /**
-     * Gets the doc_type.
-     *
-     * @return the doc_type
-     */
-    public String getDoc_type() {
-        return doc_type;
-    }
-
-    /**
-     * Sets the doc_type.
-     *
-     * @param doc_type
-     *            the new doc_type
-     */
-    public void setDoc_type(String doc_type) {
-        this.doc_type = doc_type;
-    }
-
-    /**
-     * Gets the country name.
-     *
-     * @return the country name
-     */
-    public String getCOUNTRY_NAME() {
-        return COUNTRY_NAME;
-    }
-
-    /**
-     * Sets the country name.
-     *
-     * @param COUNTRY_NAME
-     *            the new country name
-     */
-    public void setCOUNTRY_NAME(String COUNTRY_NAME) {
-        this.COUNTRY_NAME = COUNTRY_NAME;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        return "ClassPojo [id = " + id + ", _version_ = " + _version_
-                + ", ISO_NUMERIC_3 = " + ISO_NUMERIC_3 + ", ISO_ALPHA_3 = "
-                + ISO_ALPHA_3 + ", ISO_ALPHA_2 = " + ISO_ALPHA_2
-                + ", doc_type = " + doc_type + ", COUNTRY_NAME = "
-                + COUNTRY_NAME + "]";
-    }
 }

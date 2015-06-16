@@ -35,153 +35,111 @@ public class StateDocs {
     /** The subdivision cd. */
     private String SUBDIVISION_CD;
 
-    /** The subdivision name. */
-    private String SUBDIVISION_NAME;
-
     /**
-     * Gets the id.
-     *
      * @return the id
      */
-    public String getId() {
+    public final String getId() {
         return id;
     }
 
     /**
-     * Sets the id.
-     *
      * @param id
-     *            the new id
+     *            the id to set
      */
-    public void setId(String id) {
+    public final void setId(final String id) {
         this.id = id;
     }
 
     /**
-     * Gets the _version_.
-     *
      * @return the _version_
      */
-    public String get_version_() {
+    public final String get_version_() {
         return _version_;
     }
 
     /**
-     * Sets the _version_.
-     *
      * @param _version_
-     *            the new _version_
+     *            the _version_ to set
      */
-    public void set_version_(String _version_) {
+    public final void set_version_(final String _version_) {
         this._version_ = _version_;
     }
 
     /**
-     * Gets the checks if is o_ alph a_3.
-     *
-     * @return the checks if is o_ alph a_3
+     * @return the iSO_ALPHA_3
      */
-    public String getISO_ALPHA_3() {
+    public final String getISO_ALPHA_3() {
         return ISO_ALPHA_3;
     }
 
     /**
-     * Sets the checks if is o_ alph a_3.
-     *
-     * @param ISO_ALPHA_3
-     *            the new checks if is o_ alph a_3
+     * @param iSO_ALPHA_3
+     *            the iSO_ALPHA_3 to set
      */
-    public void setISO_ALPHA_3(String ISO_ALPHA_3) {
-        this.ISO_ALPHA_3 = ISO_ALPHA_3;
+    public final void setISO_ALPHA_3(final String iSO_ALPHA_3) {
+        ISO_ALPHA_3 = iSO_ALPHA_3;
     }
 
     /**
-     * Gets the checks if is o_ alph a_2.
-     *
-     * @return the checks if is o_ alph a_2
+     * @return the iSO_ALPHA_2
      */
-    public String getISO_ALPHA_2() {
+    public final String getISO_ALPHA_2() {
         return ISO_ALPHA_2;
     }
 
     /**
-     * Sets the checks if is o_ alph a_2.
-     *
-     * @param ISO_ALPHA_2
-     *            the new checks if is o_ alph a_2
+     * @param iSO_ALPHA_2
+     *            the iSO_ALPHA_2 to set
      */
-    public void setISO_ALPHA_2(String ISO_ALPHA_2) {
-        this.ISO_ALPHA_2 = ISO_ALPHA_2;
+    public final void setISO_ALPHA_2(final String iSO_ALPHA_2) {
+        ISO_ALPHA_2 = iSO_ALPHA_2;
     }
 
     /**
-     * Gets the doc_type.
-     *
      * @return the doc_type
      */
-    public String getDoc_type() {
+    public final String getDoc_type() {
         return doc_type;
     }
 
     /**
-     * Sets the doc_type.
-     *
      * @param doc_type
-     *            the new doc_type
+     *            the doc_type to set
      */
-    public void setDoc_type(String doc_type) {
+    public final void setDoc_type(final String doc_type) {
         this.doc_type = doc_type;
     }
 
     /**
-     * Gets the subdivision cd.
-     *
-     * @return the subdivision cd
+     * @return the sUBDIVISION_CD
      */
-    public String getSUBDIVISION_CD() {
+    public final String getSUBDIVISION_CD() {
         return SUBDIVISION_CD;
     }
 
     /**
-     * Sets the subdivision cd.
-     *
-     * @param SUBDIVISION_CD
-     *            the new subdivision cd
+     * @param sUBDIVISION_CD
+     *            the sUBDIVISION_CD to set
      */
-    public void setSUBDIVISION_CD(String SUBDIVISION_CD) {
-        this.SUBDIVISION_CD = SUBDIVISION_CD;
+    public final void setSUBDIVISION_CD(final String sUBDIVISION_CD) {
+        SUBDIVISION_CD = sUBDIVISION_CD;
     }
 
     /**
-     * Gets the subdivision name.
-     *
-     * @return the subdivision name
+     * @return the sUBDIVISION_NAME
      */
-    public String getSUBDIVISION_NAME() {
+    public final String getSUBDIVISION_NAME() {
         return SUBDIVISION_NAME;
     }
 
     /**
-     * Sets the subdivision name.
-     *
-     * @param SUBDIVISION_NAME
-     *            the new subdivision name
+     * @param sUBDIVISION_NAME
+     *            the sUBDIVISION_NAME to set
      */
-    public void setSUBDIVISION_NAME(String SUBDIVISION_NAME) {
-        this.SUBDIVISION_NAME = SUBDIVISION_NAME;
+    public final void setSUBDIVISION_NAME(final String sUBDIVISION_NAME) {
+        SUBDIVISION_NAME = sUBDIVISION_NAME;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        return "ClassPojo [id = " + id + ", _version_ = " + _version_
-                + ", ISO_ALPHA_3 = " + ISO_ALPHA_3 + ", ISO_ALPHA_2 = "
-                + ISO_ALPHA_2 + ", doc_type = " + doc_type
-                + ", SUBDIVISION_CD = " + SUBDIVISION_CD
-                + ", SUBDIVISION_NAME = " + SUBDIVISION_NAME + "]";
-    }
+    /** The subdivision name. */
+    private String SUBDIVISION_NAME;
 }

@@ -32,85 +32,70 @@ public class DashboardView {
     /** The article citation record. */
     private List<ArticleCitationRecord> articleCitationRecord;
 
-    /** The article read record. */
-    private List<ArticleReadRecord> articleReadRecord;
-
     /**
-     * Gets the article data.
-     *
-     * @return the article data
+     * @return the articleData
      */
-    public List<ArticleData> getArticleData() {
+    public final List<ArticleData> getArticleData() {
         return articleData;
     }
 
     /**
-     * Sets the article data.
-     *
      * @param articleData
-     *            the new article data
+     *            the articleData to set
      */
-    public void setArticleData(List<ArticleData> articleData) {
+    public final void setArticleData(final List<ArticleData> articleData) {
         this.articleData = articleData;
     }
 
     /**
-     * Gets the communication details.
-     *
-     * @return the communication details
+     * @return the communicationDetails
      */
-    public List<CommunicationDetails> getCommunicationDetails() {
+    public final List<CommunicationDetails> getCommunicationDetails() {
         return communicationDetails;
     }
 
     /**
-     * Sets the communication details.
-     *
      * @param communicationDetails
-     *            the new communication details
+     *            the communicationDetails to set
      */
-    public void setCommunicationDetails(
-            List<CommunicationDetails> communicationDetails) {
+    public final void setCommunicationDetails(
+            final List<CommunicationDetails> communicationDetails) {
         this.communicationDetails = communicationDetails;
     }
 
     /**
-     * Gets the article citation record.
-     *
-     * @return the article citation record
+     * @return the articleCitationRecord
      */
-    public List<ArticleCitationRecord> getArticleCitationRecord() {
+    public final List<ArticleCitationRecord> getArticleCitationRecord() {
         return articleCitationRecord;
     }
 
     /**
-     * Sets the article citation record.
-     *
      * @param articleCitationRecord
-     *            the new article citation record
+     *            the articleCitationRecord to set
      */
-    public void setArticleCitationRecord(
-            List<ArticleCitationRecord> articleCitationRecord) {
+    public final void setArticleCitationRecord(
+            final List<ArticleCitationRecord> articleCitationRecord) {
         this.articleCitationRecord = articleCitationRecord;
     }
 
     /**
-     * Gets the article read record.
-     *
-     * @return the article read record
+     * @return the articleReadRecord
      */
-    public List<ArticleReadRecord> getArticleReadRecord() {
+    public final List<ArticleReadRecord> getArticleReadRecord() {
         return articleReadRecord;
     }
 
     /**
-     * Sets the article read record.
-     *
      * @param articleReadRecord
-     *            the new article read record
+     *            the articleReadRecord to set
      */
-    public void setArticleReadRecord(List<ArticleReadRecord> articleReadRecord) {
+    public final void setArticleReadRecord(
+            final List<ArticleReadRecord> articleReadRecord) {
         this.articleReadRecord = articleReadRecord;
     }
+
+    /** The article read record. */
+    private List<ArticleReadRecord> articleReadRecord;
 
 }

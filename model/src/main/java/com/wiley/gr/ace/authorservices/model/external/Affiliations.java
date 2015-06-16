@@ -12,22 +12,18 @@ public class Affiliations {
     private AffiliationElement[] affiliation;
 
     /**
-     * Sets the affiliation.
-     *
-     * @param affiliation
-     *            the new affiliation
+     * @return the affiliation
      */
-    public void setAffiliation(AffiliationElement[] affiliation) {
-        this.affiliation = affiliation;
+    public final AffiliationElement[] getAffiliation() {
+        return affiliation;
     }
 
     /**
-     * Gets the affiliation.
-     *
-     * @return the affiliation
+     * @param affiliation
+     *            the affiliation to set
      */
-    public AffiliationElement[] getAffiliation() {
-        return affiliation;
+    public final void setAffiliation(final AffiliationElement[] affiliation) {
+        this.affiliation = affiliation;
     }
 
 }

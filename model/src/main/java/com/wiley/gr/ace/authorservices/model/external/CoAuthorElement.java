@@ -11,177 +11,145 @@ public class CoAuthorElement {
     /** The firstname. */
     private java.lang.String firstname;
 
-    /**
-     * Sets the firstname.
-     *
-     * @param firstname
-     *            the new firstname
-     */
-    public void setFirstname(java.lang.String firstname) {
-        this.firstname = firstname;
-    }
-
-    /**
-     * Gets the firstname.
-     *
-     * @return the firstname
-     */
-    public java.lang.String getFirstname() {
-        return firstname;
-    }
-
     /** The userid. */
     private java.lang.String userid;
-
-    /**
-     * Sets the userid.
-     *
-     * @param userid
-     *            the new userid
-     */
-    public void setUserid(java.lang.String userid) {
-        this.userid = userid;
-    }
-
-    /**
-     * Gets the userid.
-     *
-     * @return the userid
-     */
-    public java.lang.String getUserid() {
-        return userid;
-    }
 
     /** The institution. */
     private java.lang.String institution;
 
-    /**
-     * Sets the institution.
-     *
-     * @param institution
-     *            the new institution
-     */
-    public void setInstitution(java.lang.String institution) {
-        this.institution = institution;
-    }
-
-    /**
-     * Gets the institution.
-     *
-     * @return the institution
-     */
-    public java.lang.String getInstitution() {
-        return institution;
-    }
-
     /** The emailid. */
     private java.lang.String emailid;
-
-    /**
-     * Sets the emailid.
-     *
-     * @param emailid
-     *            the new emailid
-     */
-    public void setEmailid(java.lang.String emailid) {
-        this.emailid = emailid;
-    }
-
-    /**
-     * Gets the emailid.
-     *
-     * @return the emailid
-     */
-    public java.lang.String getEmailid() {
-        return emailid;
-    }
 
     /** The lastname. */
     private java.lang.String lastname;
 
-    /**
-     * Sets the lastname.
-     *
-     * @param lastname
-     *            the new lastname
-     */
-    public void setLastname(java.lang.String lastname) {
-        this.lastname = lastname;
-    }
-
-    /**
-     * Gets the lastname.
-     *
-     * @return the lastname
-     */
-    public java.lang.String getLastname() {
-        return lastname;
-    }
-
     /** The department. */
     private java.lang.String department;
 
-    /**
-     * Sets the department.
-     *
-     * @param department
-     *            the new department
-     */
-    public void setDepartment(java.lang.String department) {
-        this.department = department;
-    }
-
-    /**
-     * Gets the department.
-     *
-     * @return the department
-     */
-    public java.lang.String getDepartment() {
-        return department;
-    }
-
     /** The phoneno. */
     private java.lang.String phoneno;
-
-    /**
-     * Sets the phoneno.
-     *
-     * @param phoneno
-     *            the new phoneno
-     */
-    public void setPhoneno(java.lang.String phoneno) {
-        this.phoneno = phoneno;
-    }
-
-    /**
-     * Gets the phoneno.
-     *
-     * @return the phoneno
-     */
-    public java.lang.String getPhoneno() {
-        return phoneno;
-    }
 
     /** The articleid. */
     private java.lang.String articleid;
 
     /**
-     * Sets the articleid.
-     *
-     * @param articleid
-     *            the new articleid
+     * @return the firstname
      */
-    public void setArticleid(java.lang.String articleid) {
-        this.articleid = articleid;
+    public final java.lang.String getFirstname() {
+        return firstname;
     }
 
     /**
-     * Gets the articleid.
-     *
+     * @param firstname
+     *            the firstname to set
+     */
+    public final void setFirstname(final java.lang.String firstname) {
+        this.firstname = firstname;
+    }
+
+    /**
+     * @return the userid
+     */
+    public final java.lang.String getUserid() {
+        return userid;
+    }
+
+    /**
+     * @param userid
+     *            the userid to set
+     */
+    public final void setUserid(final java.lang.String userid) {
+        this.userid = userid;
+    }
+
+    /**
+     * @return the institution
+     */
+    public final java.lang.String getInstitution() {
+        return institution;
+    }
+
+    /**
+     * @param institution
+     *            the institution to set
+     */
+    public final void setInstitution(final java.lang.String institution) {
+        this.institution = institution;
+    }
+
+    /**
+     * @return the emailid
+     */
+    public final java.lang.String getEmailid() {
+        return emailid;
+    }
+
+    /**
+     * @param emailid
+     *            the emailid to set
+     */
+    public final void setEmailid(final java.lang.String emailid) {
+        this.emailid = emailid;
+    }
+
+    /**
+     * @return the lastname
+     */
+    public final java.lang.String getLastname() {
+        return lastname;
+    }
+
+    /**
+     * @param lastname
+     *            the lastname to set
+     */
+    public final void setLastname(final java.lang.String lastname) {
+        this.lastname = lastname;
+    }
+
+    /**
+     * @return the department
+     */
+    public final java.lang.String getDepartment() {
+        return department;
+    }
+
+    /**
+     * @param department
+     *            the department to set
+     */
+    public final void setDepartment(final java.lang.String department) {
+        this.department = department;
+    }
+
+    /**
+     * @return the phoneno
+     */
+    public final java.lang.String getPhoneno() {
+        return phoneno;
+    }
+
+    /**
+     * @param phoneno
+     *            the phoneno to set
+     */
+    public final void setPhoneno(final java.lang.String phoneno) {
+        this.phoneno = phoneno;
+    }
+
+    /**
      * @return the articleid
      */
-    public java.lang.String getArticleid() {
+    public final java.lang.String getArticleid() {
         return articleid;
+    }
+
+    /**
+     * @param articleid
+     *            the articleid to set
+     */
+    public final void setArticleid(final java.lang.String articleid) {
+        this.articleid = articleid;
     }
 
 }

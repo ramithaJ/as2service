@@ -29,59 +29,47 @@ public class SecurityResponse {
     private String status;
 
     /**
-     * Gets the code.
-     *
      * @return the code
      */
-    public String getCode() {
+    public final String getCode() {
         return code;
     }
 
     /**
-     * Sets the code.
-     *
      * @param code
-     *            the new code
+     *            the code to set
      */
-    public void setCode(String code) {
+    public final void setCode(final String code) {
         this.code = code;
     }
 
     /**
-     * Gets the message.
-     *
      * @return the message
      */
-    public String getMessage() {
+    public final String getMessage() {
         return message;
     }
 
     /**
-     * Sets the message.
-     *
      * @param message
-     *            the new message
+     *            the message to set
      */
-    public void setMessage(String message) {
+    public final void setMessage(final String message) {
         this.message = message;
     }
 
     /**
-     * Gets the status.
-     *
      * @return the status
      */
-    public String getStatus() {
+    public final String getStatus() {
         return status;
     }
 
     /**
-     * Sets the status.
-     *
      * @param status
-     *            the new status
+     *            the status to set
      */
-    public void setStatus(String status) {
+    public final void setStatus(final String status) {
         this.status = status;
     }
 

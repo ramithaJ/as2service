@@ -31,59 +31,47 @@ public class CommunicationDetails {
     private String body;
 
     /**
-     * Gets the from.
-     *
      * @return the from
      */
-    public String getFrom() {
+    public final String getFrom() {
         return from;
     }
 
     /**
-     * Sets the from.
-     *
      * @param from
-     *            the new from
+     *            the from to set
      */
-    public void setFrom(String from) {
+    public final void setFrom(final String from) {
         this.from = from;
     }
 
     /**
-     * Gets the subject.
-     *
      * @return the subject
      */
-    public String getSubject() {
+    public final String getSubject() {
         return subject;
     }
 
     /**
-     * Sets the subject.
-     *
      * @param subject
-     *            the new subject
+     *            the subject to set
      */
-    public void setSubject(String subject) {
+    public final void setSubject(final String subject) {
         this.subject = subject;
     }
 
     /**
-     * Gets the body.
-     *
      * @return the body
      */
-    public String getBody() {
+    public final String getBody() {
         return body;
     }
 
     /**
-     * Sets the body.
-     *
      * @param body
-     *            the new body
+     *            the body to set
      */
-    public void setBody(String body) {
+    public final void setBody(final String body) {
         this.body = body;
     }
 

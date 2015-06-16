@@ -28,40 +28,33 @@ public class ArticleReadRecord {
     private Integer readCount;
 
     /**
-     * Gets the article title.
-     *
-     * @return the article title
+     * @return the articleTitle
      */
-    public String getArticleTitle() {
+    public final String getArticleTitle() {
         return articleTitle;
     }
 
     /**
-     * Sets the article title.
-     *
      * @param articleTitle
-     *            the new article title
+     *            the articleTitle to set
      */
-    public void setArticleTitle(String articleTitle) {
+    public final void setArticleTitle(final String articleTitle) {
         this.articleTitle = articleTitle;
     }
 
     /**
-     * Gets the read count.
-     *
-     * @return the read count
+     * @return the readCount
      */
-    public Integer getReadCount() {
+    public final Integer getReadCount() {
         return readCount;
     }
 
     /**
-     * Sets the read count.
-     *
      * @param readCount
-     *            the new read count
+     *            the readCount to set
      */
-    public void setReadCount(Integer readCount) {
+    public final void setReadCount(final Integer readCount) {
         this.readCount = readCount;
     }
+
 }

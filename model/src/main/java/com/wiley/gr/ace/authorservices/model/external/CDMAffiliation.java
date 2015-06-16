@@ -42,155 +42,123 @@ public class CDMAffiliation {
     private String affiliationId;
 
     /**
-     * Gets the affiliation id.
-     *
-     * @return the affiliation id
+     * @return the institutionId
      */
-    public String getAffiliationId() {
-        return affiliationId;
-    }
-
-    /**
-     * Sets the affiliation id.
-     *
-     * @param affiliationId
-     *            the new affiliation id
-     */
-    public void setAffiliationId(String affiliationId) {
-        this.affiliationId = affiliationId;
-    }
-
-    /**
-     * Gets the institution id.
-     *
-     * @return the institution id
-     */
-    public String getInstitutionId() {
+    public final String getInstitutionId() {
         return institutionId;
     }
 
     /**
-     * Sets the institution id.
-     *
      * @param institutionId
-     *            the new institution id
+     *            the institutionId to set
      */
-    public void setInstitutionId(String institutionId) {
+    public final void setInstitutionId(final String institutionId) {
         this.institutionId = institutionId;
     }
 
     /**
-     * Gets the institution name.
-     *
-     * @return the institution name
+     * @return the institutionName
      */
-    public String getInstitutionName() {
+    public final String getInstitutionName() {
         return institutionName;
     }
 
     /**
-     * Sets the institution name.
-     *
      * @param institutionName
-     *            the new institution name
+     *            the institutionName to set
      */
-    public void setInstitutionName(String institutionName) {
+    public final void setInstitutionName(final String institutionName) {
         this.institutionName = institutionName;
     }
 
     /**
-     * Gets the department id.
-     *
-     * @return the department id
+     * @return the departmentId
      */
-    public String getDepartmentId() {
+    public final String getDepartmentId() {
         return departmentId;
     }
 
     /**
-     * Sets the department id.
-     *
      * @param departmentId
-     *            the new department id
+     *            the departmentId to set
      */
-    public void setDepartmentId(String departmentId) {
+    public final void setDepartmentId(final String departmentId) {
         this.departmentId = departmentId;
     }
 
     /**
-     * Gets the department name.
-     *
-     * @return the department name
+     * @return the departmentName
      */
-    public String getDepartmentName() {
+    public final String getDepartmentName() {
         return departmentName;
     }
 
     /**
-     * Sets the department name.
-     *
      * @param departmentName
-     *            the new department name
+     *            the departmentName to set
      */
-    public void setDepartmentName(String departmentName) {
+    public final void setDepartmentName(final String departmentName) {
         this.departmentName = departmentName;
     }
 
     /**
-     * Gets the city.
-     *
      * @return the city
      */
-    public String getCity() {
+    public final String getCity() {
         return city;
     }
 
     /**
-     * Sets the city.
-     *
      * @param city
-     *            the new city
+     *            the city to set
      */
-    public void setCity(String city) {
+    public final void setCity(final String city) {
         this.city = city;
     }
 
     /**
-     * Gets the country code.
-     *
-     * @return the country code
+     * @return the countryCode
      */
-    public String getCountryCode() {
+    public final String getCountryCode() {
         return countryCode;
     }
 
     /**
-     * Sets the country code.
-     *
      * @param countryCode
-     *            the new country code
+     *            the countryCode to set
      */
-    public void setCountryCode(String countryCode) {
+    public final void setCountryCode(final String countryCode) {
         this.countryCode = countryCode;
     }
 
     /**
-     * Gets the country name.
-     *
-     * @return the country name
+     * @return the countryName
      */
-    public String getCountryName() {
+    public final String getCountryName() {
         return countryName;
     }
 
     /**
-     * Sets the country name.
-     *
      * @param countryName
-     *            the new country name
+     *            the countryName to set
      */
-    public void setCountryName(String countryName) {
+    public final void setCountryName(final String countryName) {
         this.countryName = countryName;
+    }
+
+    /**
+     * @return the affiliationId
+     */
+    public final String getAffiliationId() {
+        return affiliationId;
+    }
+
+    /**
+     * @param affiliationId
+     *            the affiliationId to set
+     */
+    public final void setAffiliationId(final String affiliationId) {
+        this.affiliationId = affiliationId;
     }
 
 }

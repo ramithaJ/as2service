@@ -12,22 +12,18 @@ public class DepartmentList {
     private java.lang.String[] department;
 
     /**
-     * Sets the department.
-     *
-     * @param department
-     *            the new department
+     * @return the department
      */
-    public void setDepartment(java.lang.String[] department) {
-        this.department = department;
+    public final java.lang.String[] getDepartment() {
+        return department;
     }
 
     /**
-     * Gets the department.
-     *
-     * @return the department
+     * @param department
+     *            the department to set
      */
-    public java.lang.String[] getDepartment() {
-        return department;
+    public final void setDepartment(final java.lang.String[] department) {
+        this.department = department;
     }
 
 }

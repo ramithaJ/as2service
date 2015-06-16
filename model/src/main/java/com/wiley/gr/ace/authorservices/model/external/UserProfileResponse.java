@@ -27,21 +27,17 @@ public class UserProfileResponse {
     private UserProfile customerProfile;
 
     /**
-     * Gets the customer profile.
-     *
-     * @return the customer profile
+     * @return the customerProfile
      */
-    public UserProfile getCustomerProfile() {
+    public final UserProfile getCustomerProfile() {
         return customerProfile;
     }
 
     /**
-     * Sets the customer profile.
-     *
      * @param customerProfile
-     *            the new customer profile
+     *            the customerProfile to set
      */
-    public void setCustomerProfile(UserProfile customerProfile) {
+    public final void setCustomerProfile(final UserProfile customerProfile) {
         this.customerProfile = customerProfile;
     }
 

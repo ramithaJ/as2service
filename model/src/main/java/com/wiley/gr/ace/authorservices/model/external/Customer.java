@@ -30,59 +30,47 @@ public class Customer {
     private String orderId;
 
     /**
-     * Gets the ec id.
-     *
-     * @return the ec id
+     * @return the ecId
      */
-    public String getEcId() {
+    public final String getEcId() {
         return ecId;
     }
 
     /**
-     * Sets the ec id.
-     *
      * @param ecId
-     *            the new ec id
+     *            the ecId to set
      */
-    public void setEcId(String ecId) {
+    public final void setEcId(final String ecId) {
         this.ecId = ecId;
     }
 
     /**
-     * Gets the email id.
-     *
-     * @return the email id
+     * @return the emailId
      */
-    public String getEmailId() {
+    public final String getEmailId() {
         return emailId;
     }
 
     /**
-     * Sets the email id.
-     *
      * @param emailId
-     *            the new email id
+     *            the emailId to set
      */
-    public void setEmailId(String emailId) {
+    public final void setEmailId(final String emailId) {
         this.emailId = emailId;
     }
 
     /**
-     * Gets the order id.
-     *
-     * @return the order id
+     * @return the orderId
      */
-    public String getOrderId() {
+    public final String getOrderId() {
         return orderId;
     }
 
     /**
-     * Sets the order id.
-     *
      * @param orderId
-     *            the new order id
+     *            the orderId to set
      */
-    public void setOrderId(String orderId) {
+    public final void setOrderId(final String orderId) {
         this.orderId = orderId;
     }
 

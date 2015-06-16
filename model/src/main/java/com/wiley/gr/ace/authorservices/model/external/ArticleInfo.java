@@ -31,60 +31,49 @@ public class ArticleInfo {
     private ArticleUserRoleDetails articleUserRoleDetails;
 
     /**
-     * Gets the article auth id.
-     *
-     * @return the article auth id
+     * @return the articleAuthId
      */
-    public Integer getArticleAuthId() {
+    public final Integer getArticleAuthId() {
         return articleAuthId;
     }
 
     /**
-     * Sets the article auth id.
-     *
      * @param articleAuthId
-     *            the new article auth id
+     *            the articleAuthId to set
      */
-    public void setArticleAuthId(Integer articleAuthId) {
+    public final void setArticleAuthId(final Integer articleAuthId) {
         this.articleAuthId = articleAuthId;
     }
 
     /**
-     * Gets the article details.
-     *
-     * @return the article details
+     * @return the articleDetails
      */
-    public ArticleDetails getArticleDetails() {
+    public final ArticleDetails getArticleDetails() {
         return articleDetails;
     }
 
     /**
-     * Sets the article details.
-     *
      * @param articleDetails
-     *            the new article details
+     *            the articleDetails to set
      */
-    public void setArticleDetails(ArticleDetails articleDetails) {
+    public final void setArticleDetails(final ArticleDetails articleDetails) {
         this.articleDetails = articleDetails;
     }
 
     /**
-     * Gets the article user role details.
-     *
-     * @return the article user role details
+     * @return the articleUserRoleDetails
      */
-    public ArticleUserRoleDetails getArticleUserRoleDetails() {
+    public final ArticleUserRoleDetails getArticleUserRoleDetails() {
         return articleUserRoleDetails;
     }
 
     /**
-     * Sets the article user role details.
-     *
      * @param articleUserRoleDetails
-     *            the new article user role details
+     *            the articleUserRoleDetails to set
      */
-    public void setArticleUserRoleDetails(
-            ArticleUserRoleDetails articleUserRoleDetails) {
+    public final void setArticleUserRoleDetails(
+            final ArticleUserRoleDetails articleUserRoleDetails) {
         this.articleUserRoleDetails = articleUserRoleDetails;
     }
+
 }

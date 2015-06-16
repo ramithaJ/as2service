@@ -14,22 +14,18 @@ public class AddressDetails {
     private List<AddressElement> address;
 
     /**
-     * Sets the address.
-     *
-     * @param address
-     *            the new address
+     * @return the address
      */
-    public void setAddress(final List<AddressElement> address) {
-        this.address = address;
+    public final List<AddressElement> getAddress() {
+        return address;
     }
 
     /**
-     * Gets the address.
-     *
-     * @return the address
+     * @param address
+     *            the address to set
      */
-    public List<AddressElement> getAddress() {
-        return address;
+    public final void setAddress(final List<AddressElement> address) {
+        this.address = address;
     }
 
 }

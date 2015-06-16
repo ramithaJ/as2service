@@ -27,21 +27,17 @@ public class ArticleInfoDetails {
     private List<ArticleInfo> articleInfo;
 
     /**
-     * Gets the article info.
-     *
-     * @return the article info
+     * @return the articleInfo
      */
-    public List<ArticleInfo> getArticleInfo() {
+    public final List<ArticleInfo> getArticleInfo() {
         return articleInfo;
     }
 
     /**
-     * Sets the article info.
-     *
      * @param articleInfo
-     *            the new article info
+     *            the articleInfo to set
      */
-    public void setArticleInfo(List<ArticleInfo> articleInfo) {
+    public final void setArticleInfo(final List<ArticleInfo> articleInfo) {
         this.articleInfo = articleInfo;
     }
 

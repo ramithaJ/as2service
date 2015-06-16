@@ -27,40 +27,32 @@ public class Affiliation {
     private String name;
 
     /**
-     * Gets the code.
-     *
      * @return the code
      */
-    public String getCode() {
+    public final String getCode() {
         return code;
     }
 
     /**
-     * Sets the code.
-     *
      * @param code
-     *            the new code
+     *            the code to set
      */
-    public void setCode(String code) {
+    public final void setCode(final String code) {
         this.code = code;
     }
 
     /**
-     * Gets the name.
-     *
      * @return the name
      */
-    public String getName() {
+    public final String getName() {
         return name;
     }
 
     /**
-     * Sets the name.
-     *
      * @param name
-     *            the new name
+     *            the name to set
      */
-    public void setName(String name) {
+    public final void setName(final String name) {
         this.name = name;
     }
 

@@ -12,21 +12,19 @@ public class SearchUserResult {
     private SearchUserResponse searchUserResponse;
 
     /**
-     * Gets the search user response.
-     *
-     * @return the search user response
+     * @return the searchUserResponse
      */
-    public SearchUserResponse getSearchUserResponse() {
+    public final SearchUserResponse getSearchUserResponse() {
         return searchUserResponse;
     }
 
     /**
-     * Sets the search user response.
-     *
      * @param searchUserResponse
-     *            the new search user response
+     *            the searchUserResponse to set
      */
-    public void setSearchUserResponse(SearchUserResponse searchUserResponse) {
+    public final void setSearchUserResponse(
+            final SearchUserResponse searchUserResponse) {
         this.searchUserResponse = searchUserResponse;
     }
+
 }

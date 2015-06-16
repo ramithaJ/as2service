@@ -12,22 +12,18 @@ public class SocietyList {
     private SocietyElement[] society;
 
     /**
-     * Sets the society.
-     *
-     * @param society
-     *            the new society
+     * @return the society
      */
-    public void setSociety(SocietyElement[] society) {
-        this.society = society;
+    public final SocietyElement[] getSociety() {
+        return society;
     }
 
     /**
-     * Gets the society.
-     *
-     * @return the society
+     * @param society
+     *            the society to set
      */
-    public SocietyElement[] getSociety() {
-        return society;
+    public final void setSociety(final SocietyElement[] society) {
+        this.society = society;
     }
 
 }

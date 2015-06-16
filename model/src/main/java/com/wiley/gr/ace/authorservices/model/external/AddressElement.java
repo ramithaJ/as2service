@@ -11,640 +11,524 @@ public class AddressElement {
     /** The institutionlist. */
     private InstitutionList institutionlist;
 
+    /** The departmentlist. */
+    private DepartmentList departmentlist;
+
+    /** The addressenddate. */
+    private String addressenddate;
+
+    /** The zipcode. */
+    private String zipcode;
+
+    /** The province. */
+    private String province;
+
+    /** The city. */
+    private String city;
+
+    /** The postbox. */
+    private String postbox;
+
+    /** The addresscleaningflag. */
+    private String addresscleaningflag;
+
+    /** The addr_type_ecid. */
+    private String addr_type_ecid;
+
+    /** The addresstype. */
+    private String addresstype;
+
+    /** The addressline1. */
+    private String addressline1;
+
+    /** The addressline3. */
+    private String addressline3;
+
+    /** The addressline2. */
+    private String addressline2;
+
+    /** The countrynamene. */
+    private String countrynamene;
+
+    /** The addresscleansecode. */
+    private String addresscleansecode;
+
+    /** The county. */
+    private String county;
+
+    /** The state. */
+    private String state;
+
+    /** The addressline3ne. */
+    private String addressline3ne;
+
+    /** The addressdeliveryconfidencecode. */
+    private String addressdeliveryconfidencecode;
+
+    /** The addressline1ne. */
+    private String addressline1ne;
+
+    /** The cityne. */
+    private String cityne;
+
+    /** The addressline2ne. */
+    private String addressline2ne;
+
+    /** The addressstartdate. */
+    private String addressstartdate;
+
+    /** The countryname. */
+    private String countryname;
+
+    /** The addr_type_cd. */
+    private String addr_type_cd;
+
+    /** The zipcodene. */
+    private String zipcodene;
+
+    /** The statene. */
+    private String statene;
+
+    /** The countrycode. */
+    private String countrycode;
+
+    /** The countyne. */
+    private String countyne;
+
     /**
-     * Sets the institutionlist.
-     *
-     * @param institutionlist
-     *            the new institutionlist
+     * @return the institutionlist
      */
-    public void setInstitutionlist(InstitutionList institutionlist) {
+    public final InstitutionList getInstitutionlist() {
+        return institutionlist;
+    }
+
+    /**
+     * @param institutionlist
+     *            the institutionlist to set
+     */
+    public final void setInstitutionlist(final InstitutionList institutionlist) {
         this.institutionlist = institutionlist;
     }
 
     /**
-     * Gets the institutionlist.
-     *
-     * @return the institutionlist
+     * @return the departmentlist
      */
-    public InstitutionList getInstitutionlist() {
-        return institutionlist;
+    public final DepartmentList getDepartmentlist() {
+        return departmentlist;
     }
 
-    /** The departmentlist. */
-    private DepartmentList departmentlist;
-
     /**
-     * Sets the departmentlist.
-     *
      * @param departmentlist
-     *            the new departmentlist
+     *            the departmentlist to set
      */
-    public void setDepartmentlist(DepartmentList departmentlist) {
+    public final void setDepartmentlist(final DepartmentList departmentlist) {
         this.departmentlist = departmentlist;
     }
 
     /**
-     * Gets the departmentlist.
-     *
-     * @return the departmentlist
+     * @return the addressenddate
      */
-    public DepartmentList getDepartmentlist() {
-        return departmentlist;
+    public final String getAddressenddate() {
+        return addressenddate;
     }
 
-    /** The addressenddate. */
-    private java.lang.String addressenddate;
-
     /**
-     * Sets the addressenddate.
-     *
      * @param addressenddate
-     *            the new addressenddate
+     *            the addressenddate to set
      */
-    public void setAddressenddate(java.lang.String addressenddate) {
+    public final void setAddressenddate(final String addressenddate) {
         this.addressenddate = addressenddate;
     }
 
     /**
-     * Gets the addressenddate.
-     *
-     * @return the addressenddate
+     * @return the zipcode
      */
-    public java.lang.String getAddressenddate() {
-        return addressenddate;
+    public final String getZipcode() {
+        return zipcode;
     }
 
-    /** The zipcode. */
-    private java.lang.String zipcode;
-
     /**
-     * Sets the zipcode.
-     *
      * @param zipcode
-     *            the new zipcode
+     *            the zipcode to set
      */
-    public void setZipcode(java.lang.String zipcode) {
+    public final void setZipcode(final String zipcode) {
         this.zipcode = zipcode;
     }
 
     /**
-     * Gets the zipcode.
-     *
-     * @return the zipcode
+     * @return the province
      */
-    public java.lang.String getZipcode() {
-        return zipcode;
+    public final String getProvince() {
+        return province;
     }
 
-    /** The province. */
-    private java.lang.String province;
-
     /**
-     * Sets the province.
-     *
      * @param province
-     *            the new province
+     *            the province to set
      */
-    public void setProvince(java.lang.String province) {
+    public final void setProvince(final String province) {
         this.province = province;
     }
 
     /**
-     * Gets the province.
-     *
-     * @return the province
+     * @return the city
      */
-    public java.lang.String getProvince() {
-        return province;
+    public final String getCity() {
+        return city;
     }
 
-    /** The city. */
-    private java.lang.String city;
-
     /**
-     * Sets the city.
-     *
      * @param city
-     *            the new city
+     *            the city to set
      */
-    public void setCity(java.lang.String city) {
+    public final void setCity(final String city) {
         this.city = city;
     }
 
     /**
-     * Gets the city.
-     *
-     * @return the city
+     * @return the postbox
      */
-    public java.lang.String getCity() {
-        return city;
+    public final String getPostbox() {
+        return postbox;
     }
 
-    /** The postbox. */
-    private java.lang.String postbox;
-
     /**
-     * Sets the postbox.
-     *
      * @param postbox
-     *            the new postbox
+     *            the postbox to set
      */
-    public void setPostbox(java.lang.String postbox) {
+    public final void setPostbox(final String postbox) {
         this.postbox = postbox;
     }
 
     /**
-     * Gets the postbox.
-     *
-     * @return the postbox
+     * @return the addresscleaningflag
      */
-    public java.lang.String getPostbox() {
-        return postbox;
+    public final String getAddresscleaningflag() {
+        return addresscleaningflag;
     }
 
-    /** The addresscleaningflag. */
-    private java.lang.String addresscleaningflag;
-
     /**
-     * Sets the addresscleaningflag.
-     *
      * @param addresscleaningflag
-     *            the new addresscleaningflag
+     *            the addresscleaningflag to set
      */
-    public void setAddresscleaningflag(java.lang.String addresscleaningflag) {
+    public final void setAddresscleaningflag(final String addresscleaningflag) {
         this.addresscleaningflag = addresscleaningflag;
     }
 
     /**
-     * Gets the addresscleaningflag.
-     *
-     * @return the addresscleaningflag
+     * @return the addr_type_ecid
      */
-    public java.lang.String getAddresscleaningflag() {
-        return addresscleaningflag;
+    public final String getAddr_type_ecid() {
+        return addr_type_ecid;
     }
 
-    /** The addr_type_ecid. */
-    private java.lang.String addr_type_ecid;
-
     /**
-     * Sets the addr_type_ecid.
-     *
      * @param addr_type_ecid
-     *            the new addr_type_ecid
+     *            the addr_type_ecid to set
      */
-    public void setAddr_type_ecid(java.lang.String addr_type_ecid) {
+    public final void setAddr_type_ecid(final String addr_type_ecid) {
         this.addr_type_ecid = addr_type_ecid;
     }
 
     /**
-     * Gets the addr_type_ecid.
-     *
-     * @return the addr_type_ecid
+     * @return the addresstype
      */
-    public java.lang.String getAddr_type_ecid() {
-        return addr_type_ecid;
+    public final String getAddresstype() {
+        return addresstype;
     }
 
-    /** The addresstype. */
-    private java.lang.String addresstype;
-
     /**
-     * Sets the addresstype.
-     *
      * @param addresstype
-     *            the new addresstype
+     *            the addresstype to set
      */
-    public void setAddresstype(java.lang.String addresstype) {
+    public final void setAddresstype(final String addresstype) {
         this.addresstype = addresstype;
     }
 
     /**
-     * Gets the addresstype.
-     *
-     * @return the addresstype
+     * @return the addressline1
      */
-    public java.lang.String getAddresstype() {
-        return addresstype;
+    public final String getAddressline1() {
+        return addressline1;
     }
 
-    /** The addressline1. */
-    private java.lang.String addressline1;
-
     /**
-     * Sets the addressline1.
-     *
      * @param addressline1
-     *            the new addressline1
+     *            the addressline1 to set
      */
-    public void setAddressline1(java.lang.String addressline1) {
+    public final void setAddressline1(final String addressline1) {
         this.addressline1 = addressline1;
     }
 
     /**
-     * Gets the addressline1.
-     *
-     * @return the addressline1
+     * @return the addressline3
      */
-    public java.lang.String getAddressline1() {
-        return addressline1;
+    public final String getAddressline3() {
+        return addressline3;
     }
 
-    /** The addressline3. */
-    private java.lang.String addressline3;
-
     /**
-     * Sets the addressline3.
-     *
      * @param addressline3
-     *            the new addressline3
+     *            the addressline3 to set
      */
-    public void setAddressline3(java.lang.String addressline3) {
+    public final void setAddressline3(final String addressline3) {
         this.addressline3 = addressline3;
     }
 
     /**
-     * Gets the addressline3.
-     *
-     * @return the addressline3
+     * @return the addressline2
      */
-    public java.lang.String getAddressline3() {
-        return addressline3;
+    public final String getAddressline2() {
+        return addressline2;
     }
 
-    /** The addressline2. */
-    private java.lang.String addressline2;
-
     /**
-     * Sets the addressline2.
-     *
      * @param addressline2
-     *            the new addressline2
+     *            the addressline2 to set
      */
-    public void setAddressline2(java.lang.String addressline2) {
+    public final void setAddressline2(final String addressline2) {
         this.addressline2 = addressline2;
     }
 
     /**
-     * Gets the addressline2.
-     *
-     * @return the addressline2
+     * @return the countrynamene
      */
-    public java.lang.String getAddressline2() {
-        return addressline2;
+    public final String getCountrynamene() {
+        return countrynamene;
     }
 
-    /** The countrynamene. */
-    private java.lang.String countrynamene;
-
     /**
-     * Sets the countrynamene.
-     *
      * @param countrynamene
-     *            the new countrynamene
+     *            the countrynamene to set
      */
-    public void setCountrynamene(java.lang.String countrynamene) {
+    public final void setCountrynamene(final String countrynamene) {
         this.countrynamene = countrynamene;
     }
 
     /**
-     * Gets the countrynamene.
-     *
-     * @return the countrynamene
+     * @return the addresscleansecode
      */
-    public java.lang.String getCountrynamene() {
-        return countrynamene;
+    public final String getAddresscleansecode() {
+        return addresscleansecode;
     }
 
-    /** The addresscleansecode. */
-    private java.lang.String addresscleansecode;
-
     /**
-     * Sets the addresscleansecode.
-     *
      * @param addresscleansecode
-     *            the new addresscleansecode
+     *            the addresscleansecode to set
      */
-    public void setAddresscleansecode(java.lang.String addresscleansecode) {
+    public final void setAddresscleansecode(final String addresscleansecode) {
         this.addresscleansecode = addresscleansecode;
     }
 
     /**
-     * Gets the addresscleansecode.
-     *
-     * @return the addresscleansecode
+     * @return the county
      */
-    public java.lang.String getAddresscleansecode() {
-        return addresscleansecode;
+    public final String getCounty() {
+        return county;
     }
 
-    /** The county. */
-    private java.lang.String county;
-
     /**
-     * Sets the county.
-     *
      * @param county
-     *            the new county
+     *            the county to set
      */
-    public void setCounty(java.lang.String county) {
+    public final void setCounty(final String county) {
         this.county = county;
     }
 
     /**
-     * Gets the county.
-     *
-     * @return the county
+     * @return the state
      */
-    public java.lang.String getCounty() {
-        return county;
+    public final String getState() {
+        return state;
     }
 
-    /** The state. */
-    private java.lang.String state;
-
     /**
-     * Sets the state.
-     *
      * @param state
-     *            the new state
+     *            the state to set
      */
-    public void setState(java.lang.String state) {
+    public final void setState(final String state) {
         this.state = state;
     }
 
     /**
-     * Gets the state.
-     *
-     * @return the state
+     * @return the addressline3ne
      */
-    public java.lang.String getState() {
-        return state;
+    public final String getAddressline3ne() {
+        return addressline3ne;
     }
 
-    /** The addressline3ne. */
-    private java.lang.String addressline3ne;
-
     /**
-     * Sets the addressline3ne.
-     *
      * @param addressline3ne
-     *            the new addressline3ne
+     *            the addressline3ne to set
      */
-    public void setAddressline3ne(java.lang.String addressline3ne) {
+    public final void setAddressline3ne(final String addressline3ne) {
         this.addressline3ne = addressline3ne;
     }
 
     /**
-     * Gets the addressline3ne.
-     *
-     * @return the addressline3ne
+     * @return the addressdeliveryconfidencecode
      */
-    public java.lang.String getAddressline3ne() {
-        return addressline3ne;
+    public final String getAddressdeliveryconfidencecode() {
+        return addressdeliveryconfidencecode;
     }
 
-    /** The addressdeliveryconfidencecode. */
-    private java.lang.String addressdeliveryconfidencecode;
-
     /**
-     * Sets the addressdeliveryconfidencecode.
-     *
      * @param addressdeliveryconfidencecode
-     *            the new addressdeliveryconfidencecode
+     *            the addressdeliveryconfidencecode to set
      */
-    public void setAddressdeliveryconfidencecode(
-            java.lang.String addressdeliveryconfidencecode) {
+    public final void setAddressdeliveryconfidencecode(
+            final String addressdeliveryconfidencecode) {
         this.addressdeliveryconfidencecode = addressdeliveryconfidencecode;
     }
 
     /**
-     * Gets the addressdeliveryconfidencecode.
-     *
-     * @return the addressdeliveryconfidencecode
+     * @return the addressline1ne
      */
-    public java.lang.String getAddressdeliveryconfidencecode() {
-        return addressdeliveryconfidencecode;
+    public final String getAddressline1ne() {
+        return addressline1ne;
     }
 
-    /** The addressline1ne. */
-    private java.lang.String addressline1ne;
-
     /**
-     * Sets the addressline1ne.
-     *
      * @param addressline1ne
-     *            the new addressline1ne
+     *            the addressline1ne to set
      */
-    public void setAddressline1ne(java.lang.String addressline1ne) {
+    public final void setAddressline1ne(final String addressline1ne) {
         this.addressline1ne = addressline1ne;
     }
 
     /**
-     * Gets the addressline1ne.
-     *
-     * @return the addressline1ne
+     * @return the cityne
      */
-    public java.lang.String getAddressline1ne() {
-        return addressline1ne;
+    public final String getCityne() {
+        return cityne;
     }
 
-    /** The cityne. */
-    private java.lang.String cityne;
-
     /**
-     * Sets the cityne.
-     *
      * @param cityne
-     *            the new cityne
+     *            the cityne to set
      */
-    public void setCityne(java.lang.String cityne) {
+    public final void setCityne(final String cityne) {
         this.cityne = cityne;
     }
 
     /**
-     * Gets the cityne.
-     *
-     * @return the cityne
+     * @return the addressline2ne
      */
-    public java.lang.String getCityne() {
-        return cityne;
+    public final String getAddressline2ne() {
+        return addressline2ne;
     }
 
-    /** The addressline2ne. */
-    private java.lang.String addressline2ne;
-
     /**
-     * Sets the addressline2ne.
-     *
      * @param addressline2ne
-     *            the new addressline2ne
+     *            the addressline2ne to set
      */
-    public void setAddressline2ne(java.lang.String addressline2ne) {
+    public final void setAddressline2ne(final String addressline2ne) {
         this.addressline2ne = addressline2ne;
     }
 
     /**
-     * Gets the addressline2ne.
-     *
-     * @return the addressline2ne
+     * @return the addressstartdate
      */
-    public java.lang.String getAddressline2ne() {
-        return addressline2ne;
+    public final String getAddressstartdate() {
+        return addressstartdate;
     }
 
-    /** The addressstartdate. */
-    private java.lang.String addressstartdate;
-
     /**
-     * Sets the addressstartdate.
-     *
      * @param addressstartdate
-     *            the new addressstartdate
+     *            the addressstartdate to set
      */
-    public void setAddressstartdate(java.lang.String addressstartdate) {
+    public final void setAddressstartdate(final String addressstartdate) {
         this.addressstartdate = addressstartdate;
     }
 
     /**
-     * Gets the addressstartdate.
-     *
-     * @return the addressstartdate
+     * @return the countryname
      */
-    public java.lang.String getAddressstartdate() {
-        return addressstartdate;
+    public final String getCountryname() {
+        return countryname;
     }
 
-    /** The countryname. */
-    private java.lang.String countryname;
-
     /**
-     * Sets the countryname.
-     *
      * @param countryname
-     *            the new countryname
+     *            the countryname to set
      */
-    public void setCountryname(java.lang.String countryname) {
+    public final void setCountryname(final String countryname) {
         this.countryname = countryname;
     }
 
     /**
-     * Gets the countryname.
-     *
-     * @return the countryname
+     * @return the addr_type_cd
      */
-    public java.lang.String getCountryname() {
-        return countryname;
+    public final String getAddr_type_cd() {
+        return addr_type_cd;
     }
 
-    /** The addr_type_cd. */
-    private java.lang.String addr_type_cd;
-
     /**
-     * Sets the addr_type_cd.
-     *
      * @param addr_type_cd
-     *            the new addr_type_cd
+     *            the addr_type_cd to set
      */
-    public void setAddr_type_cd(java.lang.String addr_type_cd) {
+    public final void setAddr_type_cd(final String addr_type_cd) {
         this.addr_type_cd = addr_type_cd;
     }
 
     /**
-     * Gets the addr_type_cd.
-     *
-     * @return the addr_type_cd
+     * @return the zipcodene
      */
-    public java.lang.String getAddr_type_cd() {
-        return addr_type_cd;
+    public final String getZipcodene() {
+        return zipcodene;
     }
 
-    /** The zipcodene. */
-    private java.lang.String zipcodene;
-
     /**
-     * Sets the zipcodene.
-     *
      * @param zipcodene
-     *            the new zipcodene
+     *            the zipcodene to set
      */
-    public void setZipcodene(java.lang.String zipcodene) {
+    public final void setZipcodene(final String zipcodene) {
         this.zipcodene = zipcodene;
     }
 
     /**
-     * Gets the zipcodene.
-     *
-     * @return the zipcodene
+     * @return the statene
      */
-    public java.lang.String getZipcodene() {
-        return zipcodene;
+    public final String getStatene() {
+        return statene;
     }
 
-    /** The statene. */
-    private java.lang.String statene;
-
     /**
-     * Sets the statene.
-     *
      * @param statene
-     *            the new statene
+     *            the statene to set
      */
-    public void setStatene(java.lang.String statene) {
+    public final void setStatene(final String statene) {
         this.statene = statene;
     }
 
     /**
-     * Gets the statene.
-     *
-     * @return the statene
+     * @return the countrycode
      */
-    public java.lang.String getStatene() {
-        return statene;
+    public final String getCountrycode() {
+        return countrycode;
     }
 
-    /** The countrycode. */
-    private java.lang.String countrycode;
-
     /**
-     * Sets the countrycode.
-     *
      * @param countrycode
-     *            the new countrycode
+     *            the countrycode to set
      */
-    public void setCountrycode(java.lang.String countrycode) {
+    public final void setCountrycode(final String countrycode) {
         this.countrycode = countrycode;
     }
 
     /**
-     * Gets the countrycode.
-     *
-     * @return the countrycode
-     */
-    public java.lang.String getCountrycode() {
-        return countrycode;
-    }
-
-    /** The countyne. */
-    private java.lang.String countyne;
-
-    /**
-     * Sets the countyne.
-     *
-     * @param countyne
-     *            the new countyne
-     */
-    public void setCountyne(java.lang.String countyne) {
-        this.countyne = countyne;
-    }
-
-    /**
-     * Gets the countyne.
-     *
      * @return the countyne
      */
-    public java.lang.String getCountyne() {
+    public final String getCountyne() {
         return countyne;
+    }
+
+    /**
+     * @param countyne
+     *            the countyne to set
+     */
+    public final void setCountyne(final String countyne) {
+        this.countyne = countyne;
     }
 
 }
