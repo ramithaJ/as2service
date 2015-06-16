@@ -39,23 +39,37 @@ import com.wiley.gr.ace.authorservices.services.service.OrcidService;
 @RequestMapping("user/orcid")
 public class OrcidController {
 
+    /**
+     * Logger Configured.
+     */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(OrcidController.class);
-    /* GETTING BEAN OF ORCID SERVICE */
+    /**
+     * GETTING BEAN OF ORCID SERVICE
+     */
     @Autowired(required = true)
     OrcidService orcidService;
 
+    /**
+     * orcidUrl From Props File.
+     */
     @Value("${orcid.url}")
     private String orcidUrl;
 
+    /**
+     * orcidClientId From Props File.
+     */
     @Value("${orcid-clientid}")
     private String orcidClientId;
 
+    /**
+     * orcidRedirectUrl From Props File.
+     */
     @Value("${orcid-redirect.url}")
     private String orcidRedirectUrl;
 
     /**
-     * @return ORCID URL
+     * @return service
      */
     @RequestMapping(value = "/url", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Service getOrcidURL() {
@@ -92,11 +106,12 @@ public class OrcidController {
 
     /**
      * @param authorizationCode
-     * @return
+     * @return service
      */
     @RequestMapping(value = "/profile/{type}/{authorizationCode}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Service getOrcidDetails(@PathVariable String type,
-            @PathVariable String authorizationCode) {
+    public @ResponseBody Service getOrcidDetails(
+            @PathVariable final String type,
+            @PathVariable final String authorizationCode) {
         Service service = new Service();
         User user = null;
         try {
