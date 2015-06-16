@@ -35,57 +35,109 @@ import com.wiley.gr.ace.authorservices.services.service.impl.UpdateUserServiceIm
 import com.wiley.gr.ace.authorservices.services.service.impl.UserAccountServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UserLoginServiceImpl;
 
+/**
+ * The Class ServiceBeanConfig.
+ */
 @Configuration
 public class ServiceBeanConfig {
 
+    /**
+     * Adminloginservice.
+     *
+     * @return the admin login service
+     */
     @Bean(name = "AdminLoginService")
     public AdminLoginService adminloginservice() {
         return new AdminLoginServiceImpl();
     }
 
+    /**
+     * User login service.
+     *
+     * @return the user login service
+     */
     @Bean(name = "UserLoginService")
     public UserLoginService userLoginService() {
         return new UserLoginServiceImpl();
     }
 
+    /**
+     * Registration service.
+     *
+     * @return the registration service
+     */
     @Bean(name = "RegistrationService")
     public RegistrationService registrationService() {
 
         return new RegistrationServiceImpl();
     }
 
+    /**
+     * Dashboard service.
+     *
+     * @return the dashboard service
+     */
     @Bean(name = "DashboardService")
     public DashboardService dashboardService() {
         return new DashboardServiceImpl();
     }
 
+    /**
+     * Update user service.
+     *
+     * @return the update user service
+     */
     @Bean(name = "UpdateUserService")
     public UpdateUserService updateUserService() {
         return new UpdateUserServiceImpl();
     }
 
+    /**
+     * Orcid service.
+     *
+     * @return the orcid service
+     */
     @Bean(name = "OrcidService")
     public OrcidService orcidService() {
         return new OrcidServiceImpl();
     }
 
-
+    /**
+     * User account service.
+     *
+     * @return the user account service
+     */
     @Bean(name = "UserAccountService")
     public UserAccountService userAccountService() {
         return new UserAccountServiceImpl();
     }
 
+    /**
+     * A s data service.
+     *
+     * @return the AS data service
+     */
     @Bean(name = "ASDataService")
     public ASDataService aSDataService() {
         return new ASDataServiceImpl();
     }
 
+    /**
+     * Author profile service.
+     *
+     * @return the author profile service
+     */
     @Bean(name = "AuthorProfileService")
     public AuthorProfileService authorProfileService() {
 
         return new AuthorProfileServiceImpl();
     }
 
+    /**
+     * Article assignment service.
+     *
+     * @return the article assignment service
+     */
     @Bean(name = "ArticleAssignmentService")
     public ArticleAssignmentService articleAssignmentService() {
         return new ArticleAssignmentServiceImpl();
