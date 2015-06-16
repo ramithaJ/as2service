@@ -24,20 +24,28 @@ import com.wiley.gr.ace.authorservices.model.Login;
 import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class RestServiceInvokerUtil.
  *
+ * @author virtusa version 1.0
  */
 public class RestServiceInvokerUtil {
-    
+
     /**
+     * Invoke service.
+     *
      * @param url
+     *            the url
      * @param httpMethod
+     *            the http method
      * @param className
-     * @return
+     *            the class name
+     * @param postObject
+     *            the post object
+     * @return the string
      */
-    public static String invokeService(String url, HttpMethod httpMethod,
-            String className, Object postObject) {
+    public static String invokeService(final String url,
+            final HttpMethod httpMethod, final String className,
+            final Object postObject) {
 
         try {
             RestTemplate restTemplate = new RestTemplate();
@@ -46,15 +54,18 @@ public class RestServiceInvokerUtil {
             if (className.equals("Login")) {
                 requestHeaders.setContentType(MediaType.APPLICATION_JSON);
                 JSONObject jsonObject = new JSONObject();
-                Login loginData = (Login)postObject;
+                Login loginData = (Login) postObject;
                 jsonObject.put("userId", loginData.getEmailId());
                 jsonObject.put("password", loginData.getPassword());
                 jsonObject.put("authenticationType", "AD");
                 jsonObject.put("appKey", "AS");
-                System.out.println("jsonObject:::"+jsonObject);
-                //HttpEntity requestEntity = new HttpEntity<JSONObject>(requestHeaders);
-                response = restTemplate.postForEntity(url, jsonObject, SecurityResponse.class);
-                System.out.println("Response Header:::"+response.getHeaders().getFirst("X-AS2-AUTH-TOKEN"));
+                System.out.println("jsonObject:::" + jsonObject);
+                // HttpEntity requestEntity = new
+                // HttpEntity<JSONObject>(requestHeaders);
+                response = restTemplate.postForEntity(url, jsonObject,
+                        SecurityResponse.class);
+                System.out.println("Response Header:::"
+                        + response.getHeaders().getFirst("X-AS2-AUTH-TOKEN"));
 
             }
 
@@ -71,12 +82,13 @@ public class RestServiceInvokerUtil {
         }
 
     }
-    
-//    public static void main(String[] args) {
-//        Login login = new Login();
-//        login.setEmailId("ssaraf@wiley.com");
-//        login.setPassword("Sripad1234");
-//        RestServiceInvokerUtil.invokeService("http://10.201.64.81:8080/service/v1/auth/authenticate", HttpMethod.POST, "Login", login);
-//    }
+
+    // public static void main(String[] args) {
+    // Login login = new Login();
+    // login.setEmailId("ssaraf@wiley.com");
+    // login.setPassword("Sripad1234");
+    // RestServiceInvokerUtil.invokeService("http://10.201.64.81:8080/service/v1/auth/authenticate",
+    // HttpMethod.POST, "Login", login);
+    // }
 
 }

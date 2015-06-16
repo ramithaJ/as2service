@@ -127,7 +127,7 @@ public class OrcidServiceImpl implements OrcidService {
      * @param user
      *            the user
      */
-    private void parseOrcidJSON(String orcidMessageJSON, User user) {
+    private void parseOrcidJSON(final String orcidMessageJSON, User user) {
         try {
             JSONObject orcidProfileJSON = (JSONObject) new JSONParser()
                     .parse(orcidMessageJSON);
@@ -160,7 +160,8 @@ public class OrcidServiceImpl implements OrcidService {
      * @param user
      *            the user
      */
-    private void parsePersonalDetails(JSONObject personalDetailsJSON, User user) {
+    private void parsePersonalDetails(final JSONObject personalDetailsJSON,
+            User user) {
         try {
             JSONObject personalDetails = (JSONObject) personalDetailsJSON
                     .get("personal-details");
