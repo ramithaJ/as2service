@@ -17,21 +17,29 @@ package com.wiley.gr.ace.authorservices.services.service;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
 
 /**
- * @author yugandhark
+ * The Interface ArticleAssignmentService.
  *
+ * @author yugandhark
  */
 public interface ArticleAssignmentService {
 
     /**
+     * Gets the article info.
+     *
      * @param emailId
-     * @return
+     *            the email id
+     * @return the article info
      */
     ArticleInfoDetails getArticleInfo(String emailId);
 
     /**
+     * Confirm association.
+     *
      * @param articleAuthId
+     *            the article auth id
      * @param userId
-     * @return
+     *            the user id
+     * @return true, if successful
      */
     boolean confirmAssociation(String articleAuthId, String userId);
 }

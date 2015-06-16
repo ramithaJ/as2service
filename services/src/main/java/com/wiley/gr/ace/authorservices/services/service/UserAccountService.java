@@ -18,33 +18,48 @@ import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.User;
 
 /**
+ * The Interface UserAccountService.
+ *
  * @author virtusa version 1.0
  */
 public interface UserAccountService {
 
     /**
+     * Gets the email details.
+     *
      * @param userId
-     * @return
+     *            the user id
+     * @return the email details
      */
     User getEmailDetails(String userId);
 
     /**
+     * Update security details.
+     *
      * @param userId
+     *            the user id
      * @param securityDetails
-     * @return
+     *            the security details
+     * @return true, if successful
      */
     boolean updateSecurityDetails(String userId,
             List<SecurityDetails> securityDetails);
 
     /**
+     * Gets the profile information.
+     *
      * @param userId
-     * @return
+     *            the user id
+     * @return the profile information
      */
     User getProfileInformation(String userId);
 
     /**
+     * Gets the user address.
+     *
      * @param userId
-     * @return
+     *            the user id
+     * @return the user address
      */
     List<Addresses> getUserAddress(String userId);
 }
