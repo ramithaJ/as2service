@@ -9,25 +9,21 @@ package com.wiley.gr.ace.authorservices.model.external;
 public class InstitutionList {
 
     /** The institution. */
-    private java.lang.String[] institution;
+    private String[] institution;
 
     /**
-     * Sets the institution.
-     *
-     * @param institution
-     *            the new institution
+     * @return the institution
      */
-    public void setInstitution(java.lang.String[] institution) {
-        this.institution = institution;
+    public final String[] getInstitution() {
+        return institution;
     }
 
     /**
-     * Gets the institution.
-     *
-     * @return the institution
+     * @param institution
+     *            the institution to set
      */
-    public java.lang.String[] getInstitution() {
-        return institution;
+    public final void setInstitution(final String[] institution) {
+        this.institution = institution;
     }
 
 }

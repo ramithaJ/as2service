@@ -22,21 +22,17 @@ public class Industries {
     private Response response;
 
     /**
-     * Gets the response.
-     *
      * @return the response
      */
-    public Response getResponse() {
+    public final Response getResponse() {
         return response;
     }
 
     /**
-     * Sets the response.
-     *
      * @param response
-     *            the new response
+     *            the response to set
      */
-    public void setResponse(Response response) {
+    public final void setResponse(final Response response) {
         this.response = response;
     }
 

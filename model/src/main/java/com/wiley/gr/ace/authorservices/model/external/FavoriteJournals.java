@@ -12,22 +12,18 @@ public class FavoriteJournals {
     private JournalElement[] journal;
 
     /**
-     * Sets the journal.
-     *
-     * @param journal
-     *            the new journal
+     * @return the journal
      */
-    public void setJournal(JournalElement[] journal) {
-        this.journal = journal;
+    public final JournalElement[] getJournal() {
+        return journal;
     }
 
     /**
-     * Gets the journal.
-     *
-     * @return the journal
+     * @param journal
+     *            the journal to set
      */
-    public JournalElement[] getJournal() {
-        return journal;
+    public final void setJournal(final JournalElement[] journal) {
+        this.journal = journal;
     }
 
 }

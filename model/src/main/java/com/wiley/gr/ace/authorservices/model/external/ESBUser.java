@@ -63,211 +63,167 @@ public class ESBUser {
     private String accountIdentifier;
 
     /**
-     * Gets the street.
-     *
      * @return the street
      */
-    public String getStreet() {
+    public final String getStreet() {
         return street;
     }
 
     /**
-     * Sets the street.
-     *
      * @param street
-     *            the new street
+     *            the street to set
      */
-    public void setStreet(String street) {
+    public final void setStreet(final String street) {
         this.street = street;
     }
 
     /**
-     * Gets the state.
-     *
      * @return the state
      */
-    public String getState() {
+    public final String getState() {
         return state;
     }
 
     /**
-     * Sets the state.
-     *
      * @param state
-     *            the new state
+     *            the state to set
      */
-    public void setState(String state) {
+    public final void setState(final String state) {
         this.state = state;
     }
 
     /**
-     * Gets the address.
-     *
      * @return the address
      */
-    public String getAddress() {
+    public final String getAddress() {
         return address;
     }
 
     /**
-     * Sets the address.
-     *
      * @param address
-     *            the new address
+     *            the address to set
      */
-    public void setAddress(String address) {
+    public final void setAddress(final String address) {
         this.address = address;
     }
 
     /**
-     * Gets the role.
-     *
      * @return the role
      */
-    public String getRole() {
+    public final String getRole() {
         return role;
     }
 
     /**
-     * Sets the role.
-     *
      * @param role
-     *            the new role
+     *            the role to set
      */
-    public void setRole(String role) {
+    public final void setRole(final String role) {
         this.role = role;
     }
 
     /**
-     * Gets the first name.
-     *
-     * @return the first name
+     * @return the firstName
      */
-    public String getFirstName() {
+    public final String getFirstName() {
         return firstName;
     }
 
     /**
-     * Sets the first name.
-     *
      * @param firstName
-     *            the new first name
+     *            the firstName to set
      */
-    public void setFirstName(String firstName) {
+    public final void setFirstName(final String firstName) {
         this.firstName = firstName;
     }
 
     /**
-     * Gets the zip.
-     *
      * @return the zip
      */
-    public String getZip() {
+    public final String getZip() {
         return zip;
     }
 
     /**
-     * Sets the zip.
-     *
      * @param zip
-     *            the new zip
+     *            the zip to set
      */
-    public void setZip(String zip) {
+    public final void setZip(final String zip) {
         this.zip = zip;
     }
 
     /**
-     * Gets the country.
-     *
      * @return the country
      */
-    public String getCountry() {
+    public final String getCountry() {
         return country;
     }
 
     /**
-     * Sets the country.
-     *
      * @param country
-     *            the new country
+     *            the country to set
      */
-    public void setCountry(String country) {
+    public final void setCountry(final String country) {
         this.country = country;
     }
 
     /**
-     * Gets the last name.
-     *
-     * @return the last name
+     * @return the lastName
      */
-    public String getLastName() {
+    public final String getLastName() {
         return lastName;
     }
 
     /**
-     * Sets the last name.
-     *
      * @param lastName
-     *            the new last name
+     *            the lastName to set
      */
-    public void setLastName(String lastName) {
+    public final void setLastName(final String lastName) {
         this.lastName = lastName;
     }
 
     /**
-     * Gets the ecid.
-     *
      * @return the ecid
      */
-    public String getEcid() {
+    public final String getEcid() {
         return ecid;
     }
 
     /**
-     * Sets the ecid.
-     *
      * @param ecid
-     *            the new ecid
+     *            the ecid to set
      */
-    public void setEcid(String ecid) {
+    public final void setEcid(final String ecid) {
         this.ecid = ecid;
     }
 
     /**
-     * Gets the email id.
-     *
-     * @return the email id
+     * @return the emailID
      */
-    public String getEmailID() {
+    public final String getEmailID() {
         return emailID;
     }
 
     /**
-     * Sets the email id.
-     *
      * @param emailID
-     *            the new email id
+     *            the emailID to set
      */
-    public void setEmailID(String emailID) {
+    public final void setEmailID(final String emailID) {
         this.emailID = emailID;
     }
 
     /**
-     * Gets the account identifier.
-     *
-     * @return the account identifier
+     * @return the accountIdentifier
      */
-    public String getAccountIdentifier() {
+    public final String getAccountIdentifier() {
         return accountIdentifier;
     }
 
     /**
-     * Sets the account identifier.
-     *
      * @param accountIdentifier
-     *            the new account identifier
+     *            the accountIdentifier to set
      */
-    public void setAccountIdentifier(String accountIdentifier) {
+    public final void setAccountIdentifier(final String accountIdentifier) {
         this.accountIdentifier = accountIdentifier;
     }
 

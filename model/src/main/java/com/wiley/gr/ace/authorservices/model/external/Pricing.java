@@ -23,66 +23,54 @@ public class Pricing {
     /** The product base price. */
     private String productBasePrice;
 
+    /**
+     * @return the productBasePrice
+     */
+    public final String getProductBasePrice() {
+        return productBasePrice;
+    }
+
+    /**
+     * @param productBasePrice
+     *            the productBasePrice to set
+     */
+    public final void setProductBasePrice(final String productBasePrice) {
+        this.productBasePrice = productBasePrice;
+    }
+
+    /**
+     * @return the amountToBePaid
+     */
+    public final String getAmountToBePaid() {
+        return amountToBePaid;
+    }
+
+    /**
+     * @param amountToBePaid
+     *            the amountToBePaid to set
+     */
+    public final void setAmountToBePaid(final String amountToBePaid) {
+        this.amountToBePaid = amountToBePaid;
+    }
+
+    /**
+     * @return the currency
+     */
+    public final String getCurrency() {
+        return currency;
+    }
+
+    /**
+     * @param currency
+     *            the currency to set
+     */
+    public final void setCurrency(final String currency) {
+        this.currency = currency;
+    }
+
     /** The amount to be paid. */
     private String amountToBePaid;
 
     /** The currency. */
     private String currency;
-
-    /**
-     * Gets the product base price.
-     *
-     * @return the product base price
-     */
-    public String getProductBasePrice() {
-        return productBasePrice;
-    }
-
-    /**
-     * Sets the product base price.
-     *
-     * @param productBasePrice
-     *            the new product base price
-     */
-    public void setProductBasePrice(String productBasePrice) {
-        this.productBasePrice = productBasePrice;
-    }
-
-    /**
-     * Gets the amount to be paid.
-     *
-     * @return the amount to be paid
-     */
-    public String getAmountToBePaid() {
-        return amountToBePaid;
-    }
-
-    /**
-     * Sets the amount to be paid.
-     *
-     * @param amountToBePaid
-     *            the new amount to be paid
-     */
-    public void setAmountToBePaid(String amountToBePaid) {
-        this.amountToBePaid = amountToBePaid;
-    }
-
-    /**
-     * Gets the currency.
-     *
-     * @return the currency
-     */
-    public String getCurrency() {
-        return currency;
-    }
-
-    /**
-     * Sets the currency.
-     *
-     * @param currency
-     *            the new currency
-     */
-    public void setCurrency(String currency) {
-        this.currency = currency;
-    }
 }

@@ -36,6 +36,186 @@ public class Order {
     /** The pricing. */
     private Pricing pricing;
 
+    /**
+     * @return the articleId
+     */
+    public final String getArticleId() {
+        return articleId;
+    }
+
+    /**
+     * @param articleId
+     *            the articleId to set
+     */
+    public final void setArticleId(final String articleId) {
+        this.articleId = articleId;
+    }
+
+    /**
+     * @return the journalId
+     */
+    public final String getJournalId() {
+        return journalId;
+    }
+
+    /**
+     * @param journalId
+     *            the journalId to set
+     */
+    public final void setJournalId(final String journalId) {
+        this.journalId = journalId;
+    }
+
+    /**
+     * @return the orderType
+     */
+    public final String getOrderType() {
+        return orderType;
+    }
+
+    /**
+     * @param orderType
+     *            the orderType to set
+     */
+    public final void setOrderType(final String orderType) {
+        this.orderType = orderType;
+    }
+
+    /**
+     * @return the pricing
+     */
+    public final Pricing getPricing() {
+        return pricing;
+    }
+
+    /**
+     * @param pricing
+     *            the pricing to set
+     */
+    public final void setPricing(final Pricing pricing) {
+        this.pricing = pricing;
+    }
+
+    /**
+     * @return the discount
+     */
+    public final Discount getDiscount() {
+        return discount;
+    }
+
+    /**
+     * @param discount
+     *            the discount to set
+     */
+    public final void setDiscount(final Discount discount) {
+        this.discount = discount;
+    }
+
+    /**
+     * @return the affiliation
+     */
+    public final Affiliation getAffiliation() {
+        return affiliation;
+    }
+
+    /**
+     * @param affiliation
+     *            the affiliation to set
+     */
+    public final void setAffiliation(final Affiliation affiliation) {
+        this.affiliation = affiliation;
+    }
+
+    /**
+     * @return the paymentMethod
+     */
+    public final String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    /**
+     * @param paymentMethod
+     *            the paymentMethod to set
+     */
+    public final void setPaymentMethod(final String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    /**
+     * @return the creditCard
+     */
+    public final CreditCard getCreditCard() {
+        return creditCard;
+    }
+
+    /**
+     * @param creditCard
+     *            the creditCard to set
+     */
+    public final void setCreditCard(final CreditCard creditCard) {
+        this.creditCard = creditCard;
+    }
+
+    /**
+     * @return the taxDetails
+     */
+    public final TaxDetails getTaxDetails() {
+        return taxDetails;
+    }
+
+    /**
+     * @param taxDetails
+     *            the taxDetails to set
+     */
+    public final void setTaxDetails(final TaxDetails taxDetails) {
+        this.taxDetails = taxDetails;
+    }
+
+    /**
+     * @return the addresses
+     */
+    public final List<Address> getAddresses() {
+        return addresses;
+    }
+
+    /**
+     * @param addresses
+     *            the addresses to set
+     */
+    public final void setAddresses(final List<Address> addresses) {
+        this.addresses = addresses;
+    }
+
+    /**
+     * @return the customer
+     */
+    public final Customer getCustomer() {
+        return customer;
+    }
+
+    /**
+     * @param customer
+     *            the customer to set
+     */
+    public final void setCustomer(final Customer customer) {
+        this.customer = customer;
+    }
+
+    /**
+     * @return the fundingDetails
+     */
+    public final FundingDetails getFundingDetails() {
+        return fundingDetails;
+    }
+
+    /**
+     * @param fundingDetails
+     *            the fundingDetails to set
+     */
+    public final void setFundingDetails(final FundingDetails fundingDetails) {
+        this.fundingDetails = fundingDetails;
+    }
+
     /** The discount. */
     private Discount discount;
 
@@ -59,233 +239,5 @@ public class Order {
 
     /** The funding details. */
     private FundingDetails fundingDetails;
-
-    /**
-     * Gets the article id.
-     *
-     * @return the article id
-     */
-    public String getArticleId() {
-        return articleId;
-    }
-
-    /**
-     * Sets the article id.
-     *
-     * @param articleId
-     *            the new article id
-     */
-    public void setArticleId(String articleId) {
-        this.articleId = articleId;
-    }
-
-    /**
-     * Gets the journal id.
-     *
-     * @return the journal id
-     */
-    public String getJournalId() {
-        return journalId;
-    }
-
-    /**
-     * Sets the journal id.
-     *
-     * @param journalId
-     *            the new journal id
-     */
-    public void setJournalId(String journalId) {
-        this.journalId = journalId;
-    }
-
-    /**
-     * Gets the order type.
-     *
-     * @return the order type
-     */
-    public String getOrderType() {
-        return orderType;
-    }
-
-    /**
-     * Sets the order type.
-     *
-     * @param orderType
-     *            the new order type
-     */
-    public void setOrderType(String orderType) {
-        this.orderType = orderType;
-    }
-
-    /**
-     * Gets the pricing.
-     *
-     * @return the pricing
-     */
-    public Pricing getPricing() {
-        return pricing;
-    }
-
-    /**
-     * Sets the pricing.
-     *
-     * @param pricing
-     *            the new pricing
-     */
-    public void setPricing(Pricing pricing) {
-        this.pricing = pricing;
-    }
-
-    /**
-     * Gets the discount.
-     *
-     * @return the discount
-     */
-    public Discount getDiscount() {
-        return discount;
-    }
-
-    /**
-     * Sets the discount.
-     *
-     * @param discount
-     *            the new discount
-     */
-    public void setDiscount(Discount discount) {
-        this.discount = discount;
-    }
-
-    /**
-     * Gets the affiliation.
-     *
-     * @return the affiliation
-     */
-    public Affiliation getAffiliation() {
-        return affiliation;
-    }
-
-    /**
-     * Sets the affiliation.
-     *
-     * @param affiliation
-     *            the new affiliation
-     */
-    public void setAffiliation(Affiliation affiliation) {
-        this.affiliation = affiliation;
-    }
-
-    /**
-     * Gets the payment method.
-     *
-     * @return the payment method
-     */
-    public String getPaymentMethod() {
-        return paymentMethod;
-    }
-
-    /**
-     * Sets the payment method.
-     *
-     * @param paymentMethod
-     *            the new payment method
-     */
-    public void setPaymentMethod(String paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
-
-    /**
-     * Gets the credit card.
-     *
-     * @return the credit card
-     */
-    public CreditCard getCreditCard() {
-        return creditCard;
-    }
-
-    /**
-     * Sets the credit card.
-     *
-     * @param creditCard
-     *            the new credit card
-     */
-    public void setCreditCard(CreditCard creditCard) {
-        this.creditCard = creditCard;
-    }
-
-    /**
-     * Gets the tax details.
-     *
-     * @return the tax details
-     */
-    public TaxDetails getTaxDetails() {
-        return taxDetails;
-    }
-
-    /**
-     * Sets the tax details.
-     *
-     * @param taxDetails
-     *            the new tax details
-     */
-    public void setTaxDetails(TaxDetails taxDetails) {
-        this.taxDetails = taxDetails;
-    }
-
-    /**
-     * Gets the addresses.
-     *
-     * @return the addresses
-     */
-    public List<Address> getAddresses() {
-        return addresses;
-    }
-
-    /**
-     * Sets the addresses.
-     *
-     * @param addresses
-     *            the new addresses
-     */
-    public void setAddresses(List<Address> addresses) {
-        this.addresses = addresses;
-    }
-
-    /**
-     * Gets the customer.
-     *
-     * @return the customer
-     */
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    /**
-     * Sets the customer.
-     *
-     * @param customer
-     *            the new customer
-     */
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    /**
-     * Gets the funding details.
-     *
-     * @return the funding details
-     */
-    public FundingDetails getFundingDetails() {
-        return fundingDetails;
-    }
-
-    /**
-     * Sets the funding details.
-     *
-     * @param fundingDetails
-     *            the new funding details
-     */
-    public void setFundingDetails(FundingDetails fundingDetails) {
-        this.fundingDetails = fundingDetails;
-    }
 
 }

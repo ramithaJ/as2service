@@ -24,44 +24,36 @@ public class JournalDetails {
     /** The journal id. */
     private Integer journalId;
 
-    /** The journal name. */
-    private String journalName;
-
     /**
-     * Gets the journal id.
-     *
-     * @return the journal id
+     * @return the journalId
      */
-    public Integer getJournalId() {
+    public final Integer getJournalId() {
         return journalId;
     }
 
     /**
-     * Sets the journal id.
-     *
      * @param journalId
-     *            the new journal id
+     *            the journalId to set
      */
-    public void setJournalId(Integer journalId) {
+    public final void setJournalId(final Integer journalId) {
         this.journalId = journalId;
     }
 
     /**
-     * Gets the journal name.
-     *
-     * @return the journal name
+     * @return the journalName
      */
-    public String getJournalName() {
+    public final String getJournalName() {
         return journalName;
     }
 
     /**
-     * Sets the journal name.
-     *
      * @param journalName
-     *            the new journal name
+     *            the journalName to set
      */
-    public void setJournalName(String journalName) {
+    public final void setJournalName(final String journalName) {
         this.journalName = journalName;
     }
+
+    /** The journal name. */
+    private String journalName;
 }

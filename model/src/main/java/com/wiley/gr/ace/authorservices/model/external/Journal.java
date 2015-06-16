@@ -26,6 +26,81 @@ public class Journal {
     /** The journal description. */
     private String journalDescription;
 
+    /**
+     * @return the journalTitle
+     */
+    public final String getJournalTitle() {
+        return journalTitle;
+    }
+
+    /**
+     * @param journalTitle
+     *            the journalTitle to set
+     */
+    public final void setJournalTitle(final String journalTitle) {
+        this.journalTitle = journalTitle;
+    }
+
+    /**
+     * @return the journalDescription
+     */
+    public final String getJournalDescription() {
+        return journalDescription;
+    }
+
+    /**
+     * @param journalDescription
+     *            the journalDescription to set
+     */
+    public final void setJournalDescription(final String journalDescription) {
+        this.journalDescription = journalDescription;
+    }
+
+    /**
+     * @return the articleTitile
+     */
+    public final String getArticleTitile() {
+        return articleTitile;
+    }
+
+    /**
+     * @param articleTitile
+     *            the articleTitile to set
+     */
+    public final void setArticleTitile(final String articleTitile) {
+        this.articleTitile = articleTitile;
+    }
+
+    /**
+     * @return the basePrice
+     */
+    public final String getBasePrice() {
+        return basePrice;
+    }
+
+    /**
+     * @param basePrice
+     *            the basePrice to set
+     */
+    public final void setBasePrice(final String basePrice) {
+        this.basePrice = basePrice;
+    }
+
+    /**
+     * @return the author
+     */
+    public final String getAuthor() {
+        return author;
+    }
+
+    /**
+     * @param author
+     *            the author to set
+     */
+    public final void setAuthor(final String author) {
+        this.author = author;
+    }
+
     /** The article titile. */
     private String articleTitile;
 
@@ -34,100 +109,5 @@ public class Journal {
 
     /** The author. */
     private String author;
-
-    /**
-     * Gets the journal title.
-     *
-     * @return the journal title
-     */
-    public String getJournalTitle() {
-        return journalTitle;
-    }
-
-    /**
-     * Sets the journal title.
-     *
-     * @param journalTitle
-     *            the new journal title
-     */
-    public void setJournalTitle(String journalTitle) {
-        this.journalTitle = journalTitle;
-    }
-
-    /**
-     * Gets the journal description.
-     *
-     * @return the journal description
-     */
-    public String getJournalDescription() {
-        return journalDescription;
-    }
-
-    /**
-     * Sets the journal description.
-     *
-     * @param journalDescription
-     *            the new journal description
-     */
-    public void setJournalDescription(String journalDescription) {
-        this.journalDescription = journalDescription;
-    }
-
-    /**
-     * Gets the article titile.
-     *
-     * @return the article titile
-     */
-    public String getArticleTitile() {
-        return articleTitile;
-    }
-
-    /**
-     * Sets the article titile.
-     *
-     * @param articleTitile
-     *            the new article titile
-     */
-    public void setArticleTitile(String articleTitile) {
-        this.articleTitile = articleTitile;
-    }
-
-    /**
-     * Gets the base price.
-     *
-     * @return the base price
-     */
-    public String getBasePrice() {
-        return basePrice;
-    }
-
-    /**
-     * Sets the base price.
-     *
-     * @param basePrice
-     *            the new base price
-     */
-    public void setBasePrice(String basePrice) {
-        this.basePrice = basePrice;
-    }
-
-    /**
-     * Gets the author.
-     *
-     * @return the author
-     */
-    public String getAuthor() {
-        return author;
-    }
-
-    /**
-     * Sets the author.
-     *
-     * @param author
-     *            the new author
-     */
-    public void setAuthor(String author) {
-        this.author = author;
-    }
 
 }

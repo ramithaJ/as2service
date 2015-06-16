@@ -12,22 +12,18 @@ public class ResearchFunders {
     private ResearchFunderElement[] researchfunder;
 
     /**
-     * Sets the researchfunder.
-     *
-     * @param researchfunder
-     *            the new researchfunder
+     * @return the researchfunder
      */
-    public void setResearchfunder(ResearchFunderElement[] researchfunder) {
-        this.researchfunder = researchfunder;
+    public final ResearchFunderElement[] getResearchfunder() {
+        return researchfunder;
     }
 
     /**
-     * Gets the researchfunder.
-     *
-     * @return the researchfunder
+     * @param researchfunder
+     *            the researchfunder to set
      */
-    public ResearchFunderElement[] getResearchfunder() {
-        return researchfunder;
+    public final void setResearchfunder(final ResearchFunderElement[] researchfunder) {
+        this.researchfunder = researchfunder;
     }
 
 }

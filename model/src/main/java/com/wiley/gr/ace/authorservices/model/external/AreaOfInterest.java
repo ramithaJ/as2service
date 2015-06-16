@@ -9,25 +9,21 @@ package com.wiley.gr.ace.authorservices.model.external;
 public class AreaOfInterest {
 
     /** The interest. */
-    private java.lang.String[] interest;
+    private String[] interest;
 
     /**
-     * Sets the interest.
-     *
-     * @param interest
-     *            the new interest
+     * @return the interest
      */
-    public void setInterest(java.lang.String[] interest) {
-        this.interest = interest;
+    public final String[] getInterest() {
+        return interest;
     }
 
     /**
-     * Gets the interest.
-     *
-     * @return the interest
+     * @param interest
+     *            the interest to set
      */
-    public java.lang.String[] getInterest() {
-        return interest;
+    public final void setInterest(final String[] interest) {
+        this.interest = interest;
     }
 
 }

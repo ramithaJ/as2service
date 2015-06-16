@@ -27,117 +27,85 @@ public class IndustryDocs {
     /** The naics code. */
     private String NAICS_CODE;
 
+    /**
+     * @return the id
+     */
+    public final String getId() {
+        return id;
+    }
+
+    /**
+     * @param id
+     *            the id to set
+     */
+    public final void setId(final String id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the _version_
+     */
+    public final String get_version_() {
+        return _version_;
+    }
+
+    /**
+     * @param _version_
+     *            the _version_ to set
+     */
+    public final void set_version_(final String _version_) {
+        this._version_ = _version_;
+    }
+
+    /**
+     * @return the nAICS_CODE
+     */
+    public final String getNAICS_CODE() {
+        return NAICS_CODE;
+    }
+
+    /**
+     * @param nAICS_CODE
+     *            the nAICS_CODE to set
+     */
+    public final void setNAICS_CODE(final String nAICS_CODE) {
+        NAICS_CODE = nAICS_CODE;
+    }
+
+    /**
+     * @return the doc_type
+     */
+    public final String getDoc_type() {
+        return doc_type;
+    }
+
+    /**
+     * @param doc_type
+     *            the doc_type to set
+     */
+    public final void setDoc_type(final String doc_type) {
+        this.doc_type = doc_type;
+    }
+
+    /**
+     * @return the nAICS_TITLE
+     */
+    public final String getNAICS_TITLE() {
+        return NAICS_TITLE;
+    }
+
+    /**
+     * @param nAICS_TITLE
+     *            the nAICS_TITLE to set
+     */
+    public final void setNAICS_TITLE(final String nAICS_TITLE) {
+        NAICS_TITLE = nAICS_TITLE;
+    }
+
     /** The doc_type. */
     private String doc_type;
 
     /** The naics title. */
     private String NAICS_TITLE;
-
-    /**
-     * Gets the id.
-     *
-     * @return the id
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * Sets the id.
-     *
-     * @param id
-     *            the new id
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    /**
-     * Gets the _version_.
-     *
-     * @return the _version_
-     */
-    public String get_version_() {
-        return _version_;
-    }
-
-    /**
-     * Sets the _version_.
-     *
-     * @param _version_
-     *            the new _version_
-     */
-    public void set_version_(String _version_) {
-        this._version_ = _version_;
-    }
-
-    /**
-     * Gets the naics code.
-     *
-     * @return the naics code
-     */
-    public String getNAICS_CODE() {
-        return NAICS_CODE;
-    }
-
-    /**
-     * Sets the naics code.
-     *
-     * @param NAICS_CODE
-     *            the new naics code
-     */
-    public void setNAICS_CODE(String NAICS_CODE) {
-        this.NAICS_CODE = NAICS_CODE;
-    }
-
-    /**
-     * Gets the doc_type.
-     *
-     * @return the doc_type
-     */
-    public String getDoc_type() {
-        return doc_type;
-    }
-
-    /**
-     * Sets the doc_type.
-     *
-     * @param doc_type
-     *            the new doc_type
-     */
-    public void setDoc_type(String doc_type) {
-        this.doc_type = doc_type;
-    }
-
-    /**
-     * Gets the naics title.
-     *
-     * @return the naics title
-     */
-    public String getNAICS_TITLE() {
-        return NAICS_TITLE;
-    }
-
-    /**
-     * Sets the naics title.
-     *
-     * @param NAICS_TITLE
-     *            the new naics title
-     */
-    public void setNAICS_TITLE(String NAICS_TITLE) {
-        this.NAICS_TITLE = NAICS_TITLE;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        return "ClassPojo [id = " + id + ", _version_ = " + _version_
-                + ", NAICS_CODE = " + NAICS_CODE + ", doc_type = " + doc_type
-                + ", NAICS_TITLE = " + NAICS_TITLE + "]";
-    }
 
 }

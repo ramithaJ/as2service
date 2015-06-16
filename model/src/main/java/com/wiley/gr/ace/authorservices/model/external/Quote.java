@@ -32,102 +32,83 @@ public class Quote {
     /** The tax. */
     private String tax;
 
-    /** The due amount. */
-    private String dueAmount;
-
     /**
-     * Gets the article publication charge.
-     *
-     * @return the article publication charge
+     * @return the articlePublicationCharge
      */
-    public String getArticlePublicationCharge() {
+    public final String getArticlePublicationCharge() {
         return articlePublicationCharge;
     }
 
     /**
-     * Sets the article publication charge.
-     *
      * @param articlePublicationCharge
-     *            the new article publication charge
+     *            the articlePublicationCharge to set
      */
-    public void setArticlePublicationCharge(String articlePublicationCharge) {
+    public final void setArticlePublicationCharge(
+            final String articlePublicationCharge) {
         this.articlePublicationCharge = articlePublicationCharge;
     }
 
     /**
-     * Gets the society discount.
-     *
-     * @return the society discount
+     * @return the societyDiscount
      */
-    public String getSocietyDiscount() {
+    public final String getSocietyDiscount() {
         return societyDiscount;
     }
 
     /**
-     * Sets the society discount.
-     *
      * @param societyDiscount
-     *            the new society discount
+     *            the societyDiscount to set
      */
-    public void setSocietyDiscount(String societyDiscount) {
+    public final void setSocietyDiscount(final String societyDiscount) {
         this.societyDiscount = societyDiscount;
     }
 
     /**
-     * Gets the society discount value.
-     *
-     * @return the society discount value
+     * @return the societyDiscountValue
      */
-    public String getSocietyDiscountValue() {
+    public final String getSocietyDiscountValue() {
         return societyDiscountValue;
     }
 
     /**
-     * Sets the society discount value.
-     *
      * @param societyDiscountValue
-     *            the new society discount value
+     *            the societyDiscountValue to set
      */
-    public void setSocietyDiscountValue(String societyDiscountValue) {
+    public final void setSocietyDiscountValue(final String societyDiscountValue) {
         this.societyDiscountValue = societyDiscountValue;
     }
 
     /**
-     * Gets the tax.
-     *
      * @return the tax
      */
-    public String getTax() {
+    public final String getTax() {
         return tax;
     }
 
     /**
-     * Sets the tax.
-     *
      * @param tax
-     *            the new tax
+     *            the tax to set
      */
-    public void setTax(String tax) {
+    public final void setTax(final String tax) {
         this.tax = tax;
     }
 
     /**
-     * Gets the due amount.
-     *
-     * @return the due amount
+     * @return the dueAmount
      */
-    public String getDueAmount() {
+    public final String getDueAmount() {
         return dueAmount;
     }
 
     /**
-     * Sets the due amount.
-     *
      * @param dueAmount
-     *            the new due amount
+     *            the dueAmount to set
      */
-    public void setDueAmount(String dueAmount) {
+    public final void setDueAmount(final String dueAmount) {
         this.dueAmount = dueAmount;
     }
+
+    /** The due amount. */
+    private String dueAmount;
 
 }

@@ -12,21 +12,27 @@
 
 package com.wiley.gr.ace.authorservices.model.external;
 
+/**
+ * @author virtusa
+ *
+ */
 public class ESBResponse {
 
-	private Response response;
+    private Response response;
 
-	public Response getResponse() {
-		return response;
-	}
+    /**
+     * @return the response
+     */
+    public final Response getResponse() {
+        return response;
+    }
 
-	public void setResponse(Response response) {
-		this.response = response;
-	}
-
-	@Override
-	public String toString() {
-		return "AreaOfInterests [response=" + response + "]";
-	}
+    /**
+     * @param response
+     *            the response to set
+     */
+    public final void setResponse(final Response response) {
+        this.response = response;
+    }
 
 }

@@ -23,21 +23,17 @@ public class Response {
     private List<Object> docs;
 
     /**
-     * Gets the docs.
-     *
      * @return the docs
      */
-    public List<Object> getDocs() {
+    public final List<Object> getDocs() {
         return docs;
     }
 
     /**
-     * Sets the docs.
-     *
      * @param docs
-     *            the new docs
+     *            the docs to set
      */
-    public void setDocs(List<Object> docs) {
+    public final void setDocs(final List<Object> docs) {
         this.docs = docs;
     }
 

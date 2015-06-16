@@ -28,40 +28,33 @@ public class OrderPaymentStatus {
     private String onlineOpenStatus;
 
     /**
-     * Gets the open access status.
-     *
-     * @return the open access status
+     * @return the openAccessStatus
      */
-    public String getOpenAccessStatus() {
+    public final String getOpenAccessStatus() {
         return openAccessStatus;
     }
 
     /**
-     * Sets the open access status.
-     *
      * @param openAccessStatus
-     *            the new open access status
+     *            the openAccessStatus to set
      */
-    public void setOpenAccessStatus(String openAccessStatus) {
+    public final void setOpenAccessStatus(final String openAccessStatus) {
         this.openAccessStatus = openAccessStatus;
     }
 
     /**
-     * Gets the online open status.
-     *
-     * @return the online open status
+     * @return the onlineOpenStatus
      */
-    public String getOnlineOpenStatus() {
+    public final String getOnlineOpenStatus() {
         return onlineOpenStatus;
     }
 
     /**
-     * Sets the online open status.
-     *
      * @param onlineOpenStatus
-     *            the new online open status
+     *            the onlineOpenStatus to set
      */
-    public void setOnlineOpenStatus(String onlineOpenStatus) {
+    public final void setOnlineOpenStatus(final String onlineOpenStatus) {
         this.onlineOpenStatus = onlineOpenStatus;
     }
+
 }

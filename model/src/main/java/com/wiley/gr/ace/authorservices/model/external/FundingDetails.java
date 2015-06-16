@@ -23,6 +23,66 @@ public class FundingDetails {
     /** The woa account holder. */
     private String woaAccountHolder;
 
+    /**
+     * @return the woaAccountHolder
+     */
+    public final String getWoaAccountHolder() {
+        return woaAccountHolder;
+    }
+
+    /**
+     * @param woaAccountHolder
+     *            the woaAccountHolder to set
+     */
+    public final void setWoaAccountHolder(final String woaAccountHolder) {
+        this.woaAccountHolder = woaAccountHolder;
+    }
+
+    /**
+     * @return the researchFunder
+     */
+    public final String getResearchFunder() {
+        return researchFunder;
+    }
+
+    /**
+     * @param researchFunder
+     *            the researchFunder to set
+     */
+    public final void setResearchFunder(final String researchFunder) {
+        this.researchFunder = researchFunder;
+    }
+
+    /**
+     * @return the grantNumber
+     */
+    public final String getGrantNumber() {
+        return grantNumber;
+    }
+
+    /**
+     * @param grantNumber
+     *            the grantNumber to set
+     */
+    public final void setGrantNumber(final String grantNumber) {
+        this.grantNumber = grantNumber;
+    }
+
+    /**
+     * @return the grantRecipient
+     */
+    public final String getGrantRecipient() {
+        return grantRecipient;
+    }
+
+    /**
+     * @param grantRecipient
+     *            the grantRecipient to set
+     */
+    public final void setGrantRecipient(final String grantRecipient) {
+        this.grantRecipient = grantRecipient;
+    }
+
     /** The research funder. */
     private String researchFunder;
 
@@ -31,81 +91,5 @@ public class FundingDetails {
 
     /** The grant recipient. */
     private String grantRecipient;
-
-    /**
-     * Gets the woa account holder.
-     *
-     * @return the woa account holder
-     */
-    public String getWoaAccountHolder() {
-        return woaAccountHolder;
-    }
-
-    /**
-     * Sets the woa account holder.
-     *
-     * @param woaAccountHolder
-     *            the new woa account holder
-     */
-    public void setWoaAccountHolder(String woaAccountHolder) {
-        this.woaAccountHolder = woaAccountHolder;
-    }
-
-    /**
-     * Gets the research funder.
-     *
-     * @return the research funder
-     */
-    public String getResearchFunder() {
-        return researchFunder;
-    }
-
-    /**
-     * Sets the research funder.
-     *
-     * @param researchFunder
-     *            the new research funder
-     */
-    public void setResearchFunder(String researchFunder) {
-        this.researchFunder = researchFunder;
-    }
-
-    /**
-     * Gets the grant number.
-     *
-     * @return the grant number
-     */
-    public String getGrantNumber() {
-        return grantNumber;
-    }
-
-    /**
-     * Sets the grant number.
-     *
-     * @param grantNumber
-     *            the new grant number
-     */
-    public void setGrantNumber(String grantNumber) {
-        this.grantNumber = grantNumber;
-    }
-
-    /**
-     * Gets the grant recipient.
-     *
-     * @return the grant recipient
-     */
-    public String getGrantRecipient() {
-        return grantRecipient;
-    }
-
-    /**
-     * Sets the grant recipient.
-     *
-     * @param grantRecipient
-     *            the new grant recipient
-     */
-    public void setGrantRecipient(String grantRecipient) {
-        this.grantRecipient = grantRecipient;
-    }
 
 }

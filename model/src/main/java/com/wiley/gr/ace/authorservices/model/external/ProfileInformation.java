@@ -12,22 +12,18 @@ public class ProfileInformation {
     private CustomerProfile customerprofile;
 
     /**
-     * Sets the customerprofile.
-     *
-     * @param customerprofile
-     *            the new customerprofile
+     * @return the customerprofile
      */
-    public void setCustomerprofile(CustomerProfile customerprofile) {
-        this.customerprofile = customerprofile;
+    public final CustomerProfile getCustomerprofile() {
+        return customerprofile;
     }
 
     /**
-     * Gets the customerprofile.
-     *
-     * @return the customerprofile
+     * @param customerprofile
+     *            the customerprofile to set
      */
-    public CustomerProfile getCustomerprofile() {
-        return customerprofile;
+    public final void setCustomerprofile(final CustomerProfile customerprofile) {
+        this.customerprofile = customerprofile;
     }
 
 }
