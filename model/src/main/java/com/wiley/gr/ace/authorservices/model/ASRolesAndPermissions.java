@@ -33,40 +33,33 @@ public class ASRolesAndPermissions {
     private Map<String, String[]> permissionsMap = new HashMap<String, String[]>();
 
     /**
-     * Gets the role.
-     *
      * @return the role
      */
-    public Role getRole() {
+    public final Role getRole() {
         return role;
     }
 
     /**
-     * Sets the role.
-     *
      * @param role
-     *            the new role
+     *            the role to set
      */
-    public void setRole(Role role) {
+    public final void setRole(final Role role) {
         this.role = role;
     }
 
     /**
-     * Gets the permissions map.
-     *
-     * @return the permissions map
+     * @return the permissionsMap
      */
-    public Map<String, String[]> getPermissionsMap() {
+    public final Map<String, String[]> getPermissionsMap() {
         return permissionsMap;
     }
 
     /**
-     * Sets the permissions map.
-     *
      * @param permissionsMap
-     *            the permissions map
+     *            the permissionsMap to set
      */
-    public void setPermissionsMap(Map<String, String[]> permissionsMap) {
+    public final void setPermissionsMap(
+            final Map<String, String[]> permissionsMap) {
         this.permissionsMap = permissionsMap;
     }
 

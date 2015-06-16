@@ -23,21 +23,17 @@ public class UserProfileAlerts {
     private Alerts alerts;
 
     /**
-     * Gets the alerts.
-     *
      * @return the alerts
      */
-    public Alerts getAlerts() {
+    public final Alerts getAlerts() {
         return alerts;
     }
 
     /**
-     * Sets the alerts.
-     *
      * @param alerts
-     *            the new alerts
+     *            the alerts to set
      */
-    public void setAlerts(Alerts alerts) {
+    public final void setAlerts(final Alerts alerts) {
         this.alerts = alerts;
     }
 

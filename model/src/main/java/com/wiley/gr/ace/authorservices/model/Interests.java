@@ -35,79 +35,62 @@ public class Interests {
     private String aoeName;
 
     /**
-     * Gets the user Id.
-     *
-     * @return the user Id
+     * @return the userId
      */
-    public String getUserId() {
+    public final String getUserId() {
         return userId;
     }
 
     /**
-     * Sets the user Id.
-     *
      * @param userId
-     *            the new user id
-     * @return the user Id
+     *            the userId to set
      */
-    public void setUserId(String userId) {
+    public final void setUserId(final String userId) {
         this.userId = userId;
     }
 
     /**
-     * Gets the aoe id.
-     *
-     * @return the aoe id
+     * @return the aoeId
      */
-    public String getAoeId() {
+    public final String getAoeId() {
         return aoeId;
     }
 
     /**
-     * Sets the aoe id.
-     *
      * @param aoeId
-     *            the new aoe id
+     *            the aoeId to set
      */
-    public void setAoeId(String aoeId) {
+    public final void setAoeId(final String aoeId) {
         this.aoeId = aoeId;
     }
 
     /**
-     * Gets the aoe category.
-     *
-     * @return the aoe category
+     * @return the aoeCategory
      */
-    public String getAoeCategory() {
+    public final String getAoeCategory() {
         return aoeCategory;
     }
 
     /**
-     * Sets the aoe category.
-     *
      * @param aoeCategory
-     *            the new aoe category
+     *            the aoeCategory to set
      */
-    public void setAoeCategory(String aoeCategory) {
+    public final void setAoeCategory(final String aoeCategory) {
         this.aoeCategory = aoeCategory;
     }
 
     /**
-     * Gets the aoe name.
-     *
-     * @return the aoe name
+     * @return the aoeName
      */
-    public String getAoeName() {
+    public final String getAoeName() {
         return aoeName;
     }
 
     /**
-     * Sets the aoe name.
-     *
      * @param aoeName
-     *            the new aoe name
+     *            the aoeName to set
      */
-    public void setAoeName(String aoeName) {
+    public final void setAoeName(final String aoeName) {
         this.aoeName = aoeName;
     }
 

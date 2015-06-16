@@ -24,116 +24,92 @@ public class InviteRecords {
     private String status;
 
     /**
-     * Gets the guid.
-     *
      * @return the guid
      */
-    public String getGuid() {
-        return this.guid;
+    public final String getGuid() {
+        return guid;
     }
 
     /**
-     * Sets the guid.
-     *
      * @param guid
-     *            the new guid
+     *            the guid to set
      */
-    public void setGuid(String guid) {
+    public final void setGuid(final String guid) {
         this.guid = guid;
     }
 
     /**
-     * Gets the first name.
-     *
-     * @return the first name
+     * @return the firstName
      */
-    public String getFirstName() {
-        return this.firstName;
+    public final String getFirstName() {
+        return firstName;
     }
 
     /**
-     * Sets the first name.
-     *
      * @param firstName
-     *            the new first name
+     *            the firstName to set
      */
-    public void setFirstName(String firstName) {
+    public final void setFirstName(final String firstName) {
         this.firstName = firstName;
     }
 
     /**
-     * Gets the last name.
-     *
-     * @return the last name
+     * @return the lastName
      */
-    public String getLastName() {
-        return this.lastName;
+    public final String getLastName() {
+        return lastName;
     }
 
     /**
-     * Sets the last name.
-     *
      * @param lastName
-     *            the new last name
+     *            the lastName to set
      */
-    public void setLastName(String lastName) {
+    public final void setLastName(final String lastName) {
         this.lastName = lastName;
     }
 
     /**
-     * Gets the email address.
-     *
-     * @return the email address
+     * @return the emailAddress
      */
-    public String getEmailAddress() {
-        return this.emailAddress;
+    public final String getEmailAddress() {
+        return emailAddress;
     }
 
     /**
-     * Sets the email address.
-     *
      * @param emailAddress
-     *            the new email address
+     *            the emailAddress to set
      */
-    public void setEmailAddress(String emailAddress) {
+    public final void setEmailAddress(final String emailAddress) {
         this.emailAddress = emailAddress;
     }
 
     /**
-     * Gets the user type.
-     *
-     * @return the user type
+     * @return the userType
      */
-    public String getUserType() {
-        return this.userType;
+    public final String getUserType() {
+        return userType;
     }
 
     /**
-     * Sets the user type.
-     *
      * @param userType
-     *            the new user type
+     *            the userType to set
      */
-    public void setUserType(String userType) {
+    public final void setUserType(final String userType) {
         this.userType = userType;
     }
 
     /**
-     * Gets the status.
-     *
      * @return the status
      */
-    public String getStatus() {
-        return this.status;
+    public final String getStatus() {
+        return status;
     }
 
     /**
-     * Sets the status.
-     *
      * @param status
-     *            the new status
+     *            the status to set
      */
-    public void setStatus(String status) {
+    public final void setStatus(final String status) {
         this.status = status;
     }
 

@@ -66,9 +66,9 @@ public class UserLoginController extends ASExceptionController {
     @RequestMapping(value = "/login/", method = RequestMethod.POST)
     public final Service login(@Valid @RequestBody final Login login) {
         
-        Service service = new Service();
+        final Service service = new Service();
         
-        SharedServieRequest sharedServieRequest = new SharedServieRequest();
+        final SharedServieRequest sharedServieRequest = new SharedServieRequest();
         sharedServieRequest.setUserId(login.getEmailId());
         sharedServieRequest.setPassword(login.getPassword());
         sharedServieRequest.setAuthenticationType("LDAP");
@@ -89,7 +89,7 @@ public class UserLoginController extends ASExceptionController {
     public final Service resetPassword(
             @RequestBody final SecurityDetailsHolder securityDetailsHolder) {
         LOGGER.info("Inside resetPassword method");
-        Service service = new Service();
+        final Service service = new Service();
         service.setPayload(userLoginService
                 .resetPassword(securityDetailsHolder));
         return service;
@@ -107,7 +107,7 @@ public class UserLoginController extends ASExceptionController {
     public final Service updatePassword(
             @Valid @RequestBody final PasswordDetails passwordDetails) {
         LOGGER.info("inside updatePassword method");
-        Service service = new Service();
+        final Service service = new Service();
         service.setPayload(authorProfileService.updatePassword(passwordDetails));
         return service;
         
@@ -127,7 +127,7 @@ public class UserLoginController extends ASExceptionController {
     public final Service validateSecurityQuestions(
             @Valid @RequestBody final SecurityDetailsHolder securityDetails) {
         LOGGER.info("inside validateSecurityQuestions method");
-        Service service = new Service();
+        final Service service = new Service();
         service.setPayload(userLoginService
                 .validateSecurityQuestions(securityDetails.getSecurityDetails()));
         
@@ -144,7 +144,7 @@ public class UserLoginController extends ASExceptionController {
     public final Service userSecurityQuestions(
             @PathVariable("emailId") final String emailId) {
         LOGGER.info("inside userSecurityQuestions method");
-        Service service = new Service();
+        final Service service = new Service();
         service.setPayload(userLoginService.securityQuestions(emailId));
         return service;
         
@@ -158,8 +158,8 @@ public class UserLoginController extends ASExceptionController {
      */
     @RequestMapping(value = "resetPassword/{guid}", method = RequestMethod.GET)
     public final Service resetPassword(@PathVariable("guid") final String guid) {
-        Service service = new Service();
-        Login login = new Login();
+        final Service service = new Service();
+        final Login login = new Login();
         login.setEmailId(userLoginService.resetPassword(guid));
         service.setPayload(login);
         
@@ -181,7 +181,7 @@ public class UserLoginController extends ASExceptionController {
      * @param guid
      * @return service.
      */
-    @RequestMapping(value = "verifyAccount/{guid}", method = RequestMethod.POST)
+    @RequestMapping(value = "verifyAccount/{guid}", method = RequestMethod.GET)
     public final Service verifyAccount(@PathVariable("guid") final String guid) {
         userLoginService.verifyAccountUpdate(guid);
         return new Service();

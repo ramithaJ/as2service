@@ -29,40 +29,32 @@ public class Suffix {
     private String suffixName;
 
     /**
-     * Gets the suffix id.
-     *
-     * @return the suffix id
+     * @return the suffixId
      */
-    public String getSuffixId() {
+    public final String getSuffixId() {
         return suffixId;
     }
 
     /**
-     * Sets the suffix id.
-     *
      * @param suffixId
-     *            the new suffix id
+     *            the suffixId to set
      */
-    public void setSuffixId(String suffixId) {
+    public final void setSuffixId(final String suffixId) {
         this.suffixId = suffixId;
     }
 
     /**
-     * Gets the suffix name.
-     *
-     * @return the suffix name
+     * @return the suffixName
      */
-    public String getSuffixName() {
+    public final String getSuffixName() {
         return suffixName;
     }
 
     /**
-     * Sets the suffix name.
-     *
      * @param suffixName
-     *            the new suffix name
+     *            the suffixName to set
      */
-    public void setSuffixName(String suffixName) {
+    public final void setSuffixName(final String suffixName) {
         this.suffixName = suffixName;
     }
 

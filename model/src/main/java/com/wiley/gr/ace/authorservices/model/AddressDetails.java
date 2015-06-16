@@ -22,21 +22,17 @@ public class AddressDetails {
     private List<Address> address;
 
     /**
-     * Gets the address.
-     *
      * @return the address
      */
-    public List<Address> getAddress() {
+    public final List<Address> getAddress() {
         return address;
     }
 
     /**
-     * Sets the address.
-     *
      * @param address
-     *            the new address
+     *            the address to set
      */
-    public void setAddress(List<Address> address) {
+    public final void setAddress(final List<Address> address) {
         this.address = address;
     }
 

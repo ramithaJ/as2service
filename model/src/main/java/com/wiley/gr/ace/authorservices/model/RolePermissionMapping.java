@@ -26,46 +26,32 @@ public class RolePermissionMapping {
     private StringBuffer permissionsList;
 
     /**
-     * Gets the role id.
-     *
-     * @return the role id
+     * @return the roleId
      */
-    /**
-     * @return
-     */
-    public String getRoleId() {
+    public final String getRoleId() {
         return roleId;
     }
 
     /**
-     * Sets the role id.
-     *
      * @param roleId
-     *            the new role id
+     *            the roleId to set
      */
-    /**
-     * @param roleId
-     */
-    public void setRoleId(String roleId) {
+    public final void setRoleId(final String roleId) {
         this.roleId = roleId;
     }
 
     /**
-     * Gets the permissions list.
-     *
-     * @return the permissions list
+     * @return the permissionsList
      */
-    public StringBuffer getPermissionsList() {
+    public final StringBuffer getPermissionsList() {
         return permissionsList;
     }
 
     /**
-     * Sets the permissions list.
-     *
      * @param permissionsList
-     *            the new permissions list
+     *            the permissionsList to set
      */
-    public void setPermissionsList(StringBuffer permissionsList) {
+    public final void setPermissionsList(final StringBuffer permissionsList) {
         this.permissionsList = permissionsList;
     }
 

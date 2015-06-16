@@ -25,40 +25,32 @@ public class Industry {
     private String industryName;
 
     /**
-     * Gets the industry id.
-     *
-     * @return the industry id
+     * @return the industryId
      */
-    public String getIndustryId() {
+    public final String getIndustryId() {
         return industryId;
     }
 
     /**
-     * Sets the industry id.
-     *
      * @param industryId
-     *            the new industry id
+     *            the industryId to set
      */
-    public void setIndustryId(String industryId) {
+    public final void setIndustryId(final String industryId) {
         this.industryId = industryId;
     }
 
     /**
-     * Gets the industry name.
-     *
-     * @return the industry name
+     * @return the industryName
      */
-    public String getIndustryName() {
+    public final String getIndustryName() {
         return industryName;
     }
 
     /**
-     * Sets the industry name.
-     *
      * @param industryName
-     *            the new industry name
+     *            the industryName to set
      */
-    public void setIndustryName(String industryName) {
+    public final void setIndustryName(final String industryName) {
         this.industryName = industryName;
     }
 

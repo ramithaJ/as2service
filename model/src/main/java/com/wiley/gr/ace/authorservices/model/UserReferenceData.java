@@ -14,40 +14,33 @@ public class UserReferenceData {
     private String Status;
 
     /**
-     * Gets the ecid.
-     *
      * @return the ecid
      */
-    public String getEcid() {
+    public final String getEcid() {
         return ecid;
     }
 
     /**
-     * Sets the ecid.
-     *
      * @param ecid
-     *            the new ecid
+     *            the ecid to set
      */
-    public void setEcid(String ecid) {
+    public final void setEcid(final String ecid) {
         this.ecid = ecid;
     }
 
     /**
-     * Gets the status.
-     *
      * @return the status
      */
-    public String getStatus() {
+    public final String getStatus() {
         return Status;
     }
 
     /**
-     * Sets the status.
-     *
      * @param status
-     *            the new status
+     *            the status to set
      */
-    public void setStatus(String status) {
+    public final void setStatus(final String status) {
         Status = status;
     }
+
 }

@@ -32,43 +32,33 @@ public class DashboardInfo {
     private String dashBoardInfoMessage;
 
     /**
-     * Gets the dashBoardInfoMessage.
-     *
-     * @return the dashBoardInfoMessage
-     * 
-     */
-    public String getDashBoardInfoMessage() {
-        return dashBoardInfoMessage;
-    }
-
-    /**
-     * Sets the dashBoardInfoMessage.
-     *
-     * @param dashBoardInfoMessage
-     *            the new dash board info message
-     */
-    public void setDashBoardInfoMessage(String dashBoardInfoMessage) {
-        this.dashBoardInfoMessage = dashBoardInfoMessage;
-    }
-
-    /**
-     * Gets the id.
-     *
      * @return the id
-     * 
      */
-    public String getId() {
+    public final String getId() {
         return id;
     }
 
     /**
-     * Sets the id.
-     *
      * @param id
-     *            the new id
+     *            the id to set
      */
-    public void setId(String id) {
+    public final void setId(final String id) {
         this.id = id;
+    }
+
+    /**
+     * @return the dashBoardInfoMessage
+     */
+    public final String getDashBoardInfoMessage() {
+        return dashBoardInfoMessage;
+    }
+
+    /**
+     * @param dashBoardInfoMessage
+     *            the dashBoardInfoMessage to set
+     */
+    public final void setDashBoardInfoMessage(final String dashBoardInfoMessage) {
+        this.dashBoardInfoMessage = dashBoardInfoMessage;
     }
 
 }

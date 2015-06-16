@@ -33,59 +33,47 @@ public class Service {
     private ErrorPOJO error;
 
     /**
-     * Gets the status.
-     *
      * @return the status
      */
-    public String getStatus() {
+    public final String getStatus() {
         return status;
     }
 
     /**
-     * Sets the status.
-     *
      * @param status
-     *            the new status
+     *            the status to set
      */
-    public void setStatus(String status) {
+    public final void setStatus(final String status) {
         this.status = status;
     }
 
     /**
-     * Gets the payload.
-     *
      * @return the payload
      */
-    public Object getPayload() {
+    public final Object getPayload() {
         return payload;
     }
 
     /**
-     * Sets the payload.
-     *
      * @param payload
-     *            the new payload
+     *            the payload to set
      */
-    public void setPayload(Object payload) {
+    public final void setPayload(final Object payload) {
         this.payload = payload;
     }
 
     /**
-     * Gets the error.
-     *
      * @return the error
      */
-    public ErrorPOJO getError() {
+    public final ErrorPOJO getError() {
         return error;
     }
 
     /**
-     * Sets the error.
-     *
      * @param error
-     *            the new error
+     *            the error to set
      */
-    public void setError(ErrorPOJO error) {
+    public final void setError(final ErrorPOJO error) {
         this.error = error;
     }
 

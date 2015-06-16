@@ -20,42 +20,33 @@ public class Dashboard {
     private List<DashboardInfo> dashBoardInfo;
 
     /**
-     * Gets the profileMeterMessage.
-     *
      * @return the profileMeterMessage
-     * 
      */
-    public String getProfileMeterMessage() {
+    public final String getProfileMeterMessage() {
         return profileMeterMessage;
     }
 
     /**
-     * Sets the profileMeterMessage.
-     *
      * @param profileMeterMessage
-     *            the new profile meter message
+     *            the profileMeterMessage to set
      */
-    public void setProfileMeterMessage(String profileMeterMessage) {
+    public final void setProfileMeterMessage(final String profileMeterMessage) {
         this.profileMeterMessage = profileMeterMessage;
     }
 
     /**
-     * Gets the DashBoardInfo List.
-     *
-     * @return the DashBoardInfo List
-     * 
+     * @return the dashBoardInfo
      */
-    public List<DashboardInfo> getDashBoardInfo() {
+    public final List<DashboardInfo> getDashBoardInfo() {
         return dashBoardInfo;
     }
 
     /**
-     * Sets the DashBoardInfo List.
-     *
      * @param dashBoardInfo
-     *            the new dash board info
+     *            the dashBoardInfo to set
      */
-    public void setDashBoardInfo(List<DashboardInfo> dashBoardInfo) {
+    public final void setDashBoardInfo(final List<DashboardInfo> dashBoardInfo) {
         this.dashBoardInfo = dashBoardInfo;
     }
+
 }

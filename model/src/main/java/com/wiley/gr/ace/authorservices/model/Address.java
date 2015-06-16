@@ -74,326 +74,242 @@ public class Address {
     private String region;
 
     /**
-     * Gets the address type.
-     *
-     * @return the address type
+     * @return the addressType
      */
-    public String getAddressType() {
+    public final String getAddressType() {
         return addressType;
     }
 
     /**
-     * Sets the address type.
-     *
-     * @param addressType
-     *            the new address type
+     * @param addressType the addressType to set
      */
-    public void setAddressType(String addressType) {
+    public final void setAddressType(final String addressType) {
         this.addressType = addressType;
     }
 
     /**
-     * Gets the region.
-     *
-     * @return the region
-     */
-    public String getRegion() {
-        return region;
-    }
-
-    /**
-     * Sets the region.
-     *
-     * @param region
-     *            the new region
-     */
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
-    /**
-     * Gets the title.
-     *
      * @return the title
      */
-    public String getTitle() {
+    public final String getTitle() {
         return title;
     }
 
     /**
-     * Sets the title.
-     *
-     * @param title
-     *            the new title
+     * @param title the title to set
      */
-    public void setTitle(String title) {
+    public final void setTitle(final String title) {
         this.title = title;
     }
 
     /**
-     * Gets the first name.
-     *
-     * @return the first name
+     * @return the firstName
      */
-    public String getFirstName() {
+    public final String getFirstName() {
         return firstName;
     }
 
     /**
-     * Sets the first name.
-     *
-     * @param firstName
-     *            the new first name
+     * @param firstName the firstName to set
      */
-    public void setFirstName(String firstName) {
+    public final void setFirstName(final String firstName) {
         this.firstName = firstName;
     }
 
     /**
-     * Gets the last name.
-     *
-     * @return the last name
+     * @return the lastName
      */
-    public String getLastName() {
+    public final String getLastName() {
         return lastName;
     }
 
     /**
-     * Sets the last name.
-     *
-     * @param lastName
-     *            the new last name
+     * @param lastName the lastName to set
      */
-    public void setLastName(String lastName) {
+    public final void setLastName(final String lastName) {
         this.lastName = lastName;
     }
 
     /**
-     * Gets the suffix.
-     *
      * @return the suffix
      */
-    public String getSuffix() {
+    public final String getSuffix() {
         return suffix;
     }
 
     /**
-     * Sets the suffix.
-     *
-     * @param suffix
-     *            the new suffix
+     * @param suffix the suffix to set
      */
-    public void setSuffix(String suffix) {
+    public final void setSuffix(final String suffix) {
         this.suffix = suffix;
     }
 
     /**
-     * Gets the institution.
-     *
      * @return the institution
      */
-    public String getInstitution() {
+    public final String getInstitution() {
         return institution;
     }
 
     /**
-     * Sets the institution.
-     *
-     * @param institution
-     *            the new institution
+     * @param institution the institution to set
      */
-    public void setInstitution(String institution) {
+    public final void setInstitution(final String institution) {
         this.institution = institution;
     }
 
     /**
-     * Gets the department.
-     *
      * @return the department
      */
-    public String getDepartment() {
+    public final String getDepartment() {
         return department;
     }
 
     /**
-     * Sets the department.
-     *
-     * @param department
-     *            the new department
+     * @param department the department to set
      */
-    public void setDepartment(String department) {
+    public final void setDepartment(final String department) {
         this.department = department;
     }
 
     /**
-     * Gets the address line1.
-     *
-     * @return the address line1
+     * @return the addressLine1
      */
-    public String getAddressLine1() {
+    public final String getAddressLine1() {
         return addressLine1;
     }
 
     /**
-     * Sets the address line1.
-     *
-     * @param addressLine1
-     *            the new address line1
+     * @param addressLine1 the addressLine1 to set
      */
-    public void setAddressLine1(String addressLine1) {
+    public final void setAddressLine1(final String addressLine1) {
         this.addressLine1 = addressLine1;
     }
 
     /**
-     * Gets the address line2.
-     *
-     * @return the address line2
+     * @return the addressLine2
      */
-    public String getAddressLine2() {
+    public final String getAddressLine2() {
         return addressLine2;
     }
 
     /**
-     * Sets the address line2.
-     *
-     * @param addressLine2
-     *            the new address line2
+     * @param addressLine2 the addressLine2 to set
      */
-    public void setAddressLine2(String addressLine2) {
+    public final void setAddressLine2(final String addressLine2) {
         this.addressLine2 = addressLine2;
     }
 
     /**
-     * Gets the city.
-     *
      * @return the city
      */
-    public String getCity() {
+    public final String getCity() {
         return city;
     }
 
     /**
-     * Sets the city.
-     *
-     * @param city
-     *            the new city
+     * @param city the city to set
      */
-    public void setCity(String city) {
+    public final void setCity(final String city) {
         this.city = city;
     }
 
     /**
-     * Gets the state.
-     *
      * @return the state
      */
-    public String getState() {
+    public final String getState() {
         return state;
     }
 
     /**
-     * Sets the state.
-     *
-     * @param state
-     *            the new state
+     * @param state the state to set
      */
-    public void setState(String state) {
+    public final void setState(final String state) {
         this.state = state;
     }
 
     /**
-     * Gets the post code.
-     *
-     * @return the post code
+     * @return the postCode
      */
-    public String getPostCode() {
+    public final String getPostCode() {
         return postCode;
     }
 
     /**
-     * Sets the post code.
-     *
-     * @param postCode
-     *            the new post code
+     * @param postCode the postCode to set
      */
-    public void setPostCode(String postCode) {
+    public final void setPostCode(final String postCode) {
         this.postCode = postCode;
     }
 
     /**
-     * Gets the country.
-     *
      * @return the country
      */
-    public Country getCountry() {
+    public final Country getCountry() {
         return country;
     }
 
     /**
-     * Sets the country.
-     *
-     * @param country
-     *            the new country
+     * @param country the country to set
      */
-    public void setCountry(Country country) {
+    public final void setCountry(final Country country) {
         this.country = country;
     }
 
     /**
-     * Gets the phone number.
-     *
-     * @return the phone number
+     * @return the phoneNumber
      */
-    public String getPhoneNumber() {
+    public final String getPhoneNumber() {
         return phoneNumber;
     }
 
     /**
-     * Sets the phone number.
-     *
-     * @param phoneNumber
-     *            the new phone number
+     * @param phoneNumber the phoneNumber to set
      */
-    public void setPhoneNumber(String phoneNumber) {
+    public final void setPhoneNumber(final String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
     /**
-     * Gets the fax number.
-     *
-     * @return the fax number
+     * @return the faxNumber
      */
-    public String getFaxNumber() {
+    public final String getFaxNumber() {
         return faxNumber;
     }
 
     /**
-     * Sets the fax number.
-     *
-     * @param faxNumber
-     *            the new fax number
+     * @param faxNumber the faxNumber to set
      */
-    public void setFaxNumber(String faxNumber) {
+    public final void setFaxNumber(final String faxNumber) {
         this.faxNumber = faxNumber;
     }
 
     /**
-     * Gets the address fag.
-     *
-     * @return the address fag
+     * @return the addressFag
      */
-    public Character getAddressFag() {
+    public final Character getAddressFag() {
         return addressFag;
     }
 
     /**
-     * Sets the address fag.
-     *
-     * @param addressFag
-     *            the new address fag
+     * @param addressFag the addressFag to set
      */
-    public void setAddressFag(Character addressFag) {
+    public final void setAddressFag(final Character addressFag) {
         this.addressFag = addressFag;
     }
 
+    /**
+     * @return the region
+     */
+    public final String getRegion() {
+        return region;
+    }
+
+    /**
+     * @param region the region to set
+     */
+    public final void setRegion(final String region) {
+        this.region = region;
+    }
+
+   
 }

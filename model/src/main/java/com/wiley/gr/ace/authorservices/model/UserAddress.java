@@ -65,268 +65,212 @@ public class UserAddress {
     private String faxNumber;
 
     /**
-     * Gets the title vo.
-     *
-     * @return the title vo
+     * @return the titleVO
      */
-    public String getTitleVO() {
+    public final String getTitleVO() {
         return titleVO;
     }
 
     /**
-     * Sets the title vo.
-     *
      * @param titleVO
-     *            the new title vo
+     *            the titleVO to set
      */
-    public void setTitleVO(String titleVO) {
+    public final void setTitleVO(final String titleVO) {
         this.titleVO = titleVO;
     }
 
     /**
-     * Gets the first name.
-     *
-     * @return the first name
+     * @return the firstName
      */
-    public String getFirstName() {
+    public final String getFirstName() {
         return firstName;
     }
 
     /**
-     * Sets the first name.
-     *
      * @param firstName
-     *            the new first name
+     *            the firstName to set
      */
-    public void setFirstName(String firstName) {
+    public final void setFirstName(final String firstName) {
         this.firstName = firstName;
     }
 
     /**
-     * Gets the last name.
-     *
-     * @return the last name
+     * @return the lastName
      */
-    public String getLastName() {
+    public final String getLastName() {
         return lastName;
     }
 
     /**
-     * Sets the last name.
-     *
      * @param lastName
-     *            the new last name
+     *            the lastName to set
      */
-    public void setLastName(String lastName) {
+    public final void setLastName(final String lastName) {
         this.lastName = lastName;
     }
 
     /**
-     * Gets the suffix vo.
-     *
-     * @return the suffix vo
+     * @return the suffixVO
      */
-    public String getSuffixVO() {
+    public final String getSuffixVO() {
         return suffixVO;
     }
 
     /**
-     * Sets the suffix vo.
-     *
      * @param suffixVO
-     *            the new suffix vo
+     *            the suffixVO to set
      */
-    public void setSuffixVO(String suffixVO) {
+    public final void setSuffixVO(final String suffixVO) {
         this.suffixVO = suffixVO;
     }
 
     /**
-     * Gets the institution vo.
-     *
-     * @return the institution vo
+     * @return the institutionVO
      */
-    public String getInstitutionVO() {
+    public final String getInstitutionVO() {
         return institutionVO;
     }
 
     /**
-     * Sets the institution vo.
-     *
      * @param institutionVO
-     *            the new institution vo
+     *            the institutionVO to set
      */
-    public void setInstitutionVO(String institutionVO) {
+    public final void setInstitutionVO(final String institutionVO) {
         this.institutionVO = institutionVO;
     }
 
     /**
-     * Gets the department vo.
-     *
-     * @return the department vo
+     * @return the departmentVO
      */
-    public String getDepartmentVO() {
+    public final String getDepartmentVO() {
         return departmentVO;
     }
 
     /**
-     * Sets the department vo.
-     *
      * @param departmentVO
-     *            the new department vo
+     *            the departmentVO to set
      */
-    public void setDepartmentVO(String departmentVO) {
+    public final void setDepartmentVO(final String departmentVO) {
         this.departmentVO = departmentVO;
     }
 
     /**
-     * Gets the address line1.
-     *
-     * @return the address line1
+     * @return the addressLine1
      */
-    public String getAddressLine1() {
+    public final String getAddressLine1() {
         return addressLine1;
     }
 
     /**
-     * Sets the address line1.
-     *
      * @param addressLine1
-     *            the new address line1
+     *            the addressLine1 to set
      */
-    public void setAddressLine1(String addressLine1) {
+    public final void setAddressLine1(final String addressLine1) {
         this.addressLine1 = addressLine1;
     }
 
     /**
-     * Gets the address line2.
-     *
-     * @return the address line2
+     * @return the addressLine2
      */
-    public String getAddressLine2() {
+    public final String getAddressLine2() {
         return addressLine2;
     }
 
     /**
-     * Sets the address line2.
-     *
      * @param addressLine2
-     *            the new address line2
+     *            the addressLine2 to set
      */
-    public void setAddressLine2(String addressLine2) {
+    public final void setAddressLine2(final String addressLine2) {
         this.addressLine2 = addressLine2;
     }
 
     /**
-     * Gets the city.
-     *
      * @return the city
      */
-    public String getCity() {
+    public final String getCity() {
         return city;
     }
 
     /**
-     * Sets the city.
-     *
      * @param city
-     *            the new city
+     *            the city to set
      */
-    public void setCity(String city) {
+    public final void setCity(final String city) {
         this.city = city;
     }
 
     /**
-     * Gets the state vo.
-     *
-     * @return the state vo
+     * @return the stateVO
      */
-    public String getStateVO() {
+    public final String getStateVO() {
         return stateVO;
     }
 
     /**
-     * Sets the state vo.
-     *
      * @param stateVO
-     *            the new state vo
+     *            the stateVO to set
      */
-    public void setStateVO(String stateVO) {
+    public final void setStateVO(final String stateVO) {
         this.stateVO = stateVO;
     }
 
     /**
-     * Gets the zip code.
-     *
-     * @return the zip code
+     * @return the zipCode
      */
-    public String getZipCode() {
+    public final String getZipCode() {
         return zipCode;
     }
 
     /**
-     * Sets the zip code.
-     *
      * @param zipCode
-     *            the new zip code
+     *            the zipCode to set
      */
-    public void setZipCode(String zipCode) {
+    public final void setZipCode(final String zipCode) {
         this.zipCode = zipCode;
     }
 
     /**
-     * Gets the country vo.
-     *
-     * @return the country vo
+     * @return the countryVO
      */
-    public String getCountryVO() {
+    public final String getCountryVO() {
         return countryVO;
     }
 
     /**
-     * Sets the country vo.
-     *
      * @param countryVO
-     *            the new country vo
+     *            the countryVO to set
      */
-    public void setCountryVO(String countryVO) {
+    public final void setCountryVO(final String countryVO) {
         this.countryVO = countryVO;
     }
 
     /**
-     * Gets the phone number.
-     *
-     * @return the phone number
+     * @return the phoneNumber
      */
-    public String getPhoneNumber() {
+    public final String getPhoneNumber() {
         return phoneNumber;
     }
 
     /**
-     * Sets the phone number.
-     *
      * @param phoneNumber
-     *            the new phone number
+     *            the phoneNumber to set
      */
-    public void setPhoneNumber(String phoneNumber) {
+    public final void setPhoneNumber(final String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
     /**
-     * Gets the fax number.
-     *
-     * @return the fax number
+     * @return the faxNumber
      */
-    public String getFaxNumber() {
+    public final String getFaxNumber() {
         return faxNumber;
     }
 
     /**
-     * Sets the fax number.
-     *
      * @param faxNumber
-     *            the new fax number
+     *            the faxNumber to set
      */
-    public void setFaxNumber(String faxNumber) {
+    public final void setFaxNumber(final String faxNumber) {
         this.faxNumber = faxNumber;
     }
 

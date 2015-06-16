@@ -29,40 +29,32 @@ public class Country {
     private String countryName;
 
     /**
-     * Gets the country code.
-     *
-     * @return the country code
+     * @return the countryCode
      */
-    public String getCountryCode() {
+    public final String getCountryCode() {
         return countryCode;
     }
 
     /**
-     * Sets the country code.
-     *
      * @param countryCode
-     *            the new country code
+     *            the countryCode to set
      */
-    public void setCountryCode(String countryCode) {
+    public final void setCountryCode(final String countryCode) {
         this.countryCode = countryCode;
     }
 
     /**
-     * Gets the country name.
-     *
-     * @return the country name
+     * @return the countryName
      */
-    public String getCountryName() {
+    public final String getCountryName() {
         return countryName;
     }
 
     /**
-     * Sets the country name.
-     *
      * @param countryName
-     *            the new country name
+     *            the countryName to set
      */
-    public void setCountryName(String countryName) {
+    public final void setCountryName(final String countryName) {
         this.countryName = countryName;
     }
 

@@ -46,154 +46,122 @@ public class OrcidAccessToken {
     private String state;
 
     /**
-     * Gets the name.
-     *
      * @return the name
      */
-    public String getName() {
+    public final String getName() {
         return name;
     }
 
     /**
-     * Sets the name.
-     *
      * @param name
      *            the name to set
      */
-    public void setName(String name) {
+    public final void setName(final String name) {
         this.name = name;
     }
 
     /**
-     * Gets the access_token.
-     *
      * @return the access_token
      */
-    public String getAccess_token() {
+    public final String getAccess_token() {
         return access_token;
     }
 
     /**
-     * Sets the access_token.
-     *
      * @param access_token
      *            the access_token to set
      */
-    public void setAccess_token(String access_token) {
+    public final void setAccess_token(final String access_token) {
         this.access_token = access_token;
     }
 
     /**
-     * Gets the token_type.
-     *
      * @return the token_type
      */
-    public String getToken_type() {
+    public final String getToken_type() {
         return token_type;
     }
 
     /**
-     * Sets the token_type.
-     *
      * @param token_type
      *            the token_type to set
      */
-    public void setToken_type(String token_type) {
+    public final void setToken_type(final String token_type) {
         this.token_type = token_type;
     }
 
     /**
-     * Gets the refresh_token.
-     *
      * @return the refresh_token
      */
-    public String getRefresh_token() {
+    public final String getRefresh_token() {
         return refresh_token;
     }
 
     /**
-     * Sets the refresh_token.
-     *
      * @param refresh_token
      *            the refresh_token to set
      */
-    public void setRefresh_token(String refresh_token) {
+    public final void setRefresh_token(final String refresh_token) {
         this.refresh_token = refresh_token;
     }
 
     /**
-     * Gets the expires_in.
-     *
      * @return the expires_in
      */
-    public int getExpires_in() {
+    public final int getExpires_in() {
         return expires_in;
     }
 
     /**
-     * Sets the expires_in.
-     *
      * @param expires_in
      *            the expires_in to set
      */
-    public void setExpires_in(int expires_in) {
+    public final void setExpires_in(final int expires_in) {
         this.expires_in = expires_in;
     }
 
     /**
-     * Gets the scope.
-     *
      * @return the scope
      */
-    public String getScope() {
+    public final String getScope() {
         return scope;
     }
 
     /**
-     * Sets the scope.
-     *
      * @param scope
      *            the scope to set
      */
-    public void setScope(String scope) {
+    public final void setScope(final String scope) {
         this.scope = scope;
     }
 
     /**
-     * Gets the orcid.
-     *
      * @return the orcid
      */
-    public String getOrcid() {
+    public final String getOrcid() {
         return orcid;
     }
 
     /**
-     * Sets the orcid.
-     *
      * @param orcid
      *            the orcid to set
      */
-    public void setOrcid(String orcid) {
+    public final void setOrcid(final String orcid) {
         this.orcid = orcid;
     }
 
     /**
-     * Gets the state.
-     *
      * @return the state
      */
-    public String getState() {
+    public final String getState() {
         return state;
     }
 
     /**
-     * Sets the state.
-     *
      * @param state
      *            the state to set
      */
-    public void setState(String state) {
+    public final void setState(final String state) {
         this.state = state;
     }
 

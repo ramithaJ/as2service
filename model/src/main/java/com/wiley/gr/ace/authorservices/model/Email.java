@@ -27,40 +27,32 @@ public class Email {
     private String newEmailId;
 
     /**
-     * Gets the old email id.
-     *
-     * @return the old email id
+     * @return the oldEmailId
      */
-    public String getOldEmailId() {
+    public final String getOldEmailId() {
         return oldEmailId;
     }
 
     /**
-     * Sets the old email id.
-     *
      * @param oldEmailId
-     *            the new old email id
+     *            the oldEmailId to set
      */
-    public void setOldEmailId(String oldEmailId) {
+    public final void setOldEmailId(final String oldEmailId) {
         this.oldEmailId = oldEmailId;
     }
 
     /**
-     * Gets the new email id.
-     *
-     * @return the new email id
+     * @return the newEmailId
      */
-    public String getNewEmailId() {
+    public final String getNewEmailId() {
         return newEmailId;
     }
 
     /**
-     * Sets the new email id.
-     *
      * @param newEmailId
-     *            the new new email id
+     *            the newEmailId to set
      */
-    public void setNewEmailId(String newEmailId) {
+    public final void setNewEmailId(final String newEmailId) {
         this.newEmailId = newEmailId;
     }
 

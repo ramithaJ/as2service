@@ -42,60 +42,48 @@ public class SecurityDetails {
     private String securityAnswer;
 
     /**
-     * Gets the security question.
-     *
-     * @return the security question
+     * @return the securityQuestionId
      */
-    public String getSecurityQuestion() {
-        return securityQuestion;
-    }
-
-    /**
-     * Sets the security question.
-     *
-     * @param securityQuestion
-     *            the new security question
-     */
-    public void setSecurityQuestion(String securityQuestion) {
-        this.securityQuestion = securityQuestion;
-    }
-
-    /**
-     * Gets the security answer.
-     *
-     * @return the security answer
-     */
-    public String getSecurityAnswer() {
-        return securityAnswer;
-    }
-
-    /**
-     * Sets the security answer.
-     *
-     * @param securityAnswer
-     *            the new security answer
-     */
-    public void setSecurityAnswer(String securityAnswer) {
-        this.securityAnswer = securityAnswer;
-    }
-
-    /**
-     * Gets the security question id.
-     *
-     * @return the security question id
-     */
-    public String getSecurityQuestionId() {
+    public final String getSecurityQuestionId() {
         return securityQuestionId;
     }
 
     /**
-     * Sets the security question id.
-     *
      * @param securityQuestionId
-     *            the new security question id
+     *            the securityQuestionId to set
      */
-    public void setSecurityQuestionId(String securityQuestionId) {
+    public final void setSecurityQuestionId(final String securityQuestionId) {
         this.securityQuestionId = securityQuestionId;
+    }
+
+    /**
+     * @return the securityQuestion
+     */
+    public final String getSecurityQuestion() {
+        return securityQuestion;
+    }
+
+    /**
+     * @param securityQuestion
+     *            the securityQuestion to set
+     */
+    public final void setSecurityQuestion(final String securityQuestion) {
+        this.securityQuestion = securityQuestion;
+    }
+
+    /**
+     * @return the securityAnswer
+     */
+    public final String getSecurityAnswer() {
+        return securityAnswer;
+    }
+
+    /**
+     * @param securityAnswer
+     *            the securityAnswer to set
+     */
+    public final void setSecurityAnswer(final String securityAnswer) {
+        this.securityAnswer = securityAnswer;
     }
 
 }

@@ -28,40 +28,32 @@ public class Alerts {
     private List<String> emailsList;
 
     /**
-     * Gets the alerts list.
-     *
-     * @return the alerts list
+     * @return the alertsList
      */
-    public List<Alert> getAlertsList() {
+    public final List<Alert> getAlertsList() {
         return alertsList;
     }
 
     /**
-     * Sets the alerts list.
-     *
      * @param alertsList
-     *            the new alerts list
+     *            the alertsList to set
      */
-    public void setAlertsList(List<Alert> alertsList) {
+    public final void setAlertsList(final List<Alert> alertsList) {
         this.alertsList = alertsList;
     }
 
     /**
-     * Gets the emails list.
-     *
-     * @return the emails list
+     * @return the emailsList
      */
-    public List<String> getEmailsList() {
+    public final List<String> getEmailsList() {
         return emailsList;
     }
 
     /**
-     * Sets the emails list.
-     *
      * @param emailsList
-     *            the new emails list
+     *            the emailsList to set
      */
-    public void setEmailsList(List<String> emailsList) {
+    public final void setEmailsList(final List<String> emailsList) {
         this.emailsList = emailsList;
     }
 

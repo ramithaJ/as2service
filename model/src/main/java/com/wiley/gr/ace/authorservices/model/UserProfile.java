@@ -55,193 +55,154 @@ public class UserProfile {
     private String emailForAlerts;
 
     /**
-     * Gets the email for alerts.
-     *
-     * @return the email for alerts
+     * @return the customerDetails
      */
-    public String getEmailForAlerts() {
-        return emailForAlerts;
-    }
-
-    /**
-     * Sets the email for alerts.
-     *
-     * @param emailForAlerts
-     *            the new email for alerts
-     */
-    public void setEmailForAlerts(String emailForAlerts) {
-        this.emailForAlerts = emailForAlerts;
-    }
-
-    /**
-     * Gets the customer details.
-     *
-     * @return the customer details
-     */
-    public User getCustomerDetails() {
+    public final User getCustomerDetails() {
         return customerDetails;
     }
 
     /**
-     * Sets the customer details.
-     *
      * @param customerDetails
-     *            the new customer details
+     *            the customerDetails to set
      */
-    public void setCustomerDetails(User customerDetails) {
+    public final void setCustomerDetails(final User customerDetails) {
         this.customerDetails = customerDetails;
     }
 
     /**
-     * Gets the address details.
-     *
-     * @return the address details
+     * @return the addressDetails
      */
-    public List<Addresses> getAddressDetails() {
+    public final List<Addresses> getAddressDetails() {
         return addressDetails;
     }
 
     /**
-     * Sets the address details.
-     *
      * @param addressDetails
-     *            the new address details
+     *            the addressDetails to set
      */
-    public void setAddressDetails(List<Addresses> addressDetails) {
+    public final void setAddressDetails(final List<Addresses> addressDetails) {
         this.addressDetails = addressDetails;
     }
 
     /**
-     * Gets the affiliations.
-     *
      * @return the affiliations
      */
-    public List<Affiliation> getAffiliations() {
+    public final List<Affiliation> getAffiliations() {
         return affiliations;
     }
 
     /**
-     * Sets the affiliations.
-     *
      * @param affiliations
-     *            the new affiliations
+     *            the affiliations to set
      */
-    public void setAffiliations(List<Affiliation> affiliations) {
+    public final void setAffiliations(final List<Affiliation> affiliations) {
         this.affiliations = affiliations;
     }
 
     /**
-     * Gets the research funders.
-     *
-     * @return the research funders
+     * @return the researchFunders
      */
-    public List<ResearchFunder> getResearchFunders() {
+    public final List<ResearchFunder> getResearchFunders() {
         return researchFunders;
     }
 
     /**
-     * Sets the research funders.
-     *
      * @param researchFunders
-     *            the new research funders
+     *            the researchFunders to set
      */
-    public void setResearchFunders(List<ResearchFunder> researchFunders) {
+    public final void setResearchFunders(final List<ResearchFunder> researchFunders) {
         this.researchFunders = researchFunders;
     }
 
     /**
-     * Gets the societies.
-     *
      * @return the societies
      */
-    public List<Society> getSocieties() {
+    public final List<Society> getSocieties() {
         return societies;
     }
 
     /**
-     * Sets the societies.
-     *
      * @param societies
-     *            the new societies
+     *            the societies to set
      */
-    public void setSocieties(List<Society> societies) {
+    public final void setSocieties(final List<Society> societies) {
         this.societies = societies;
     }
 
     /**
-     * Gets the interests.
-     *
      * @return the interests
      */
-    public List<Interests> getInterests() {
+    public final List<Interests> getInterests() {
         return interests;
     }
 
     /**
-     * Sets the interests.
-     *
      * @param interests
-     *            the new interests
+     *            the interests to set
      */
-    public void setInterests(List<Interests> interests) {
+    public final void setInterests(final List<Interests> interests) {
         this.interests = interests;
     }
 
     /**
-     * Gets the co authors.
-     *
-     * @return the co authors
+     * @return the coAuthors
      */
-    public List<CoAuthor> getCoAuthors() {
+    public final List<CoAuthor> getCoAuthors() {
         return coAuthors;
     }
 
     /**
-     * Sets the co authors.
-     *
      * @param coAuthors
-     *            the new co authors
+     *            the coAuthors to set
      */
-    public void setCoAuthors(List<CoAuthor> coAuthors) {
+    public final void setCoAuthors(final List<CoAuthor> coAuthors) {
         this.coAuthors = coAuthors;
     }
 
     /**
-     * Gets the preferred journals.
-     *
-     * @return the preferred journals
+     * @return the preferredJournals
      */
-    public List<PreferredJournals> getPreferredJournals() {
+    public final List<PreferredJournals> getPreferredJournals() {
         return preferredJournals;
     }
 
     /**
-     * Sets the preferred journals.
-     *
      * @param preferredJournals
-     *            the new preferred journals
+     *            the preferredJournals to set
      */
-    public void setPreferredJournals(List<PreferredJournals> preferredJournals) {
+    public final void setPreferredJournals(
+            final List<PreferredJournals> preferredJournals) {
         this.preferredJournals = preferredJournals;
     }
 
     /**
-     * Gets the alerts.
-     *
      * @return the alerts
      */
-    public Alerts getAlerts() {
+    public final Alerts getAlerts() {
         return alerts;
     }
 
     /**
-     * Sets the alerts.
-     *
      * @param alerts
-     *            the new alerts
+     *            the alerts to set
      */
-    public void setAlerts(Alerts alerts) {
+    public final void setAlerts(final Alerts alerts) {
         this.alerts = alerts;
+    }
+
+    /**
+     * @return the emailForAlerts
+     */
+    public final String getEmailForAlerts() {
+        return emailForAlerts;
+    }
+
+    /**
+     * @param emailForAlerts
+     *            the emailForAlerts to set
+     */
+    public final void setEmailForAlerts(final String emailForAlerts) {
+        this.emailForAlerts = emailForAlerts;
     }
 
 }

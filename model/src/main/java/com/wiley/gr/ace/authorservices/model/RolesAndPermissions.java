@@ -38,59 +38,47 @@ public class RolesAndPermissions {
     private Map<String, String[]> permissionsMap = new HashMap<String, String[]>();
 
     /**
-     * Gets the roles list.
-     *
-     * @return the roles list
+     * @return the rolesList
      */
-    public List<Role> getRolesList() {
+    public final List<Role> getRolesList() {
         return rolesList;
     }
 
     /**
-     * Sets the roles list.
-     *
      * @param rolesList
-     *            the new roles list
+     *            the rolesList to set
      */
-    public void setRolesList(List<Role> rolesList) {
+    public final void setRolesList(final List<Role> rolesList) {
         this.rolesList = rolesList;
     }
 
     /**
-     * Gets the sections list.
-     *
-     * @return the sections list
+     * @return the sectionsList
      */
-    public List<PermissionSection> getSectionsList() {
+    public final List<PermissionSection> getSectionsList() {
         return sectionsList;
     }
 
     /**
-     * Sets the sections list.
-     *
      * @param sectionsList
-     *            the new sections list
+     *            the sectionsList to set
      */
-    public void setSectionsList(List<PermissionSection> sectionsList) {
+    public final void setSectionsList(final List<PermissionSection> sectionsList) {
         this.sectionsList = sectionsList;
     }
 
     /**
-     * Gets the permissions map.
-     *
-     * @return the permissions map
+     * @return the permissionsMap
      */
-    public Map<String, String[]> getPermissionsMap() {
+    public final Map<String, String[]> getPermissionsMap() {
         return permissionsMap;
     }
 
     /**
-     * Sets the permissions map.
-     *
      * @param permissionsMap
-     *            the permissions map
+     *            the permissionsMap to set
      */
-    public void setPermissionsMap(Map<String, String[]> permissionsMap) {
+    public final void setPermissionsMap(final Map<String, String[]> permissionsMap) {
         this.permissionsMap = permissionsMap;
     }
 

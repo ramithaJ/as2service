@@ -31,98 +31,78 @@ public class Role {
     private int noOfPermissions;
 
     /**
-     * Gets the no of permissions.
-     *
-     * @return the no of permissions
+     * @return the roleId
      */
-    public int getNoOfPermissions() {
-        return noOfPermissions;
-    }
-
-    /**
-     * Sets the no of permissions.
-     *
-     * @param noOfPermissions
-     *            the new no of permissions
-     */
-    public void setNoOfPermissions(int noOfPermissions) {
-        this.noOfPermissions = noOfPermissions;
-    }
-
-    /**
-     * Gets the role id.
-     *
-     * @return the role id
-     */
-    public String getRoleId() {
+    public final String getRoleId() {
         return roleId;
     }
 
     /**
-     * Sets the role id.
-     *
      * @param roleId
-     *            the new role id
+     *            the roleId to set
      */
-    public void setRoleId(String roleId) {
+    public final void setRoleId(final String roleId) {
         this.roleId = roleId;
     }
 
     /**
-     * Gets the role name.
-     *
-     * @return the role name
+     * @return the roleName
      */
-    public String getRoleName() {
+    public final String getRoleName() {
         return roleName;
     }
 
     /**
-     * Sets the role name.
-     *
      * @param roleName
-     *            the new role name
+     *            the roleName to set
      */
-    public void setRoleName(String roleName) {
+    public final void setRoleName(final String roleName) {
         this.roleName = roleName;
     }
 
     /**
-     * Checks if is admin role.
-     *
-     * @return true, if is admin role
+     * @return the roleDescription
      */
-    public boolean isAdminRole() {
-        return isAdminRole;
-    }
-
-    /**
-     * Sets the admin role.
-     *
-     * @param isAdminRole
-     *            the new admin role
-     */
-    public void setAdminRole(boolean isAdminRole) {
-        this.isAdminRole = isAdminRole;
-    }
-
-    /**
-     * Gets the role description.
-     *
-     * @return the role description
-     */
-    public String getRoleDescription() {
+    public final String getRoleDescription() {
         return roleDescription;
     }
 
     /**
-     * Sets the role description.
-     *
      * @param roleDescription
-     *            the new role description
+     *            the roleDescription to set
      */
-    public void setRoleDescription(String roleDescription) {
+    public final void setRoleDescription(final String roleDescription) {
         this.roleDescription = roleDescription;
+    }
+
+    /**
+     * @return the isAdminRole
+     */
+    public final boolean isAdminRole() {
+        return isAdminRole;
+    }
+
+    /**
+     * @param isAdminRole
+     *            the isAdminRole to set
+     */
+    public final void setAdminRole(final boolean isAdminRole) {
+        this.isAdminRole = isAdminRole;
+    }
+
+    /**
+     * @return the noOfPermissions
+     */
+    public final int getNoOfPermissions() {
+        return noOfPermissions;
+    }
+
+    /**
+     * @param noOfPermissions
+     *            the noOfPermissions to set
+     */
+    public final void setNoOfPermissions(final int noOfPermissions) {
+        this.noOfPermissions = noOfPermissions;
     }
 
 }

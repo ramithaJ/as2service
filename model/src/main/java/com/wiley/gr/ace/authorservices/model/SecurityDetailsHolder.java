@@ -46,78 +46,62 @@ public class SecurityDetailsHolder {
     private boolean isForceReset;
 
     /**
-     * Gets the security details.
-     *
-     * @return the security details
+     * @return the emailId
      */
-    public List<SecurityDetails> getSecurityDetails() {
-        return securityDetails;
-    }
-
-    /**
-     * Sets the security details.
-     *
-     * @param securityDetails
-     *            the new security details
-     */
-    public void setSecurityDetails(List<SecurityDetails> securityDetails) {
-        this.securityDetails = securityDetails;
-    }
-
-    /**
-     * Gets the email id.
-     *
-     * @return the email id
-     */
-    public String getEmailId() {
+    public final String getEmailId() {
         return emailId;
     }
 
     /**
-     * Sets the email id.
-     *
      * @param emailId
-     *            the new email id
+     *            the emailId to set
      */
-    public void setEmailId(String emailId) {
+    public final void setEmailId(final String emailId) {
         this.emailId = emailId;
     }
 
     /**
-     * Gets the password.
-     *
+     * @return the securityDetails
+     */
+    public final List<SecurityDetails> getSecurityDetails() {
+        return securityDetails;
+    }
+
+    /**
+     * @param securityDetails
+     *            the securityDetails to set
+     */
+    public final void setSecurityDetails(final List<SecurityDetails> securityDetails) {
+        this.securityDetails = securityDetails;
+    }
+
+    /**
      * @return the password
      */
-    public String getPassword() {
+    public final String getPassword() {
         return password;
     }
 
     /**
-     * Sets the password.
-     *
      * @param password
-     *            the new password
+     *            the password to set
      */
-    public void setPassword(String password) {
+    public final void setPassword(final String password) {
         this.password = password;
     }
 
     /**
-     * Checks if is force reset.
-     *
-     * @return true, if is force reset
+     * @return the isForceReset
      */
-    public boolean isForceReset() {
+    public final boolean isForceReset() {
         return isForceReset;
     }
 
     /**
-     * Sets the force reset.
-     *
      * @param isForceReset
-     *            the new force reset
+     *            the isForceReset to set
      */
-    public void setForceReset(boolean isForceReset) {
+    public final void setForceReset(final boolean isForceReset) {
         this.isForceReset = isForceReset;
     }
 

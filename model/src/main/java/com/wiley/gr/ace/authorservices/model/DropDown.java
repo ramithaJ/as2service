@@ -20,90 +20,74 @@ import java.util.List;
 public class DropDown {
 
     /** The institutions. */
-    List<Institution> institutions;
+   private  List<Institution> institutions;
 
     /** The departments. */
-    List<Department> departments;
+   private  List<Department> departments;
 
     /** The research funders. */
-    List<ResearchFunder> researchFunders;
+   private  List<ResearchFunder> researchFunders;
 
     /** The society. */
-    List<Society> society;
+   private   List<Society> society;
 
     /**
-     * Gets the institutions.
-     *
      * @return the institutions
      */
-    public List<Institution> getInstitutions() {
+    public final List<Institution> getInstitutions() {
         return institutions;
     }
 
     /**
-     * Sets the institutions.
-     *
      * @param institutions
-     *            the new institutions
+     *            the institutions to set
      */
-    public void setInstitutions(List<Institution> institutions) {
+    public final void setInstitutions(final List<Institution> institutions) {
         this.institutions = institutions;
     }
 
     /**
-     * Gets the departments.
-     *
      * @return the departments
      */
-    public List<Department> getDepartments() {
+    public final List<Department> getDepartments() {
         return departments;
     }
 
     /**
-     * Sets the departments.
-     *
      * @param departments
-     *            the new departments
+     *            the departments to set
      */
-    public void setDepartments(List<Department> departments) {
+    public final void setDepartments(final List<Department> departments) {
         this.departments = departments;
     }
 
     /**
-     * Gets the research funders.
-     *
-     * @return the research funders
+     * @return the researchFunders
      */
-    public List<ResearchFunder> getResearchFunders() {
+    public final List<ResearchFunder> getResearchFunders() {
         return researchFunders;
     }
 
     /**
-     * Sets the research funders.
-     *
      * @param researchFunders
-     *            the new research funders
+     *            the researchFunders to set
      */
-    public void setResearchFunders(List<ResearchFunder> researchFunders) {
+    public final void setResearchFunders(final List<ResearchFunder> researchFunders) {
         this.researchFunders = researchFunders;
     }
 
     /**
-     * Gets the society.
-     *
      * @return the society
      */
-    public List<Society> getSociety() {
+    public final List<Society> getSociety() {
         return society;
     }
 
     /**
-     * Sets the society.
-     *
      * @param society
-     *            the new society
+     *            the society to set
      */
-    public void setSociety(List<Society> society) {
+    public final void setSociety(final List<Society> society) {
         this.society = society;
     }
 

@@ -43,79 +43,63 @@ public class PasswordDetails {
     private String newPassword;
 
     /**
-     * Gets the old password.
-     *
-     * @return the old password
+     * @return the userId
      */
-    public String getOldPassword() {
-        return oldPassword;
-    }
-
-    /**
-     * Sets the old password.
-     *
-     * @param oldPassword
-     *            the new old password
-     */
-    public void setOldPassword(String oldPassword) {
-        this.oldPassword = oldPassword;
-    }
-
-    /**
-     * Gets the new password.
-     *
-     * @return the new password
-     */
-    public String getNewPassword() {
-        return newPassword;
-    }
-
-    /**
-     * Sets the new password.
-     *
-     * @param newPassword
-     *            the new new password
-     */
-    public void setNewPassword(String newPassword) {
-        this.newPassword = newPassword;
-    }
-
-    /**
-     * Gets the user id.
-     *
-     * @return the user id
-     */
-    public String getUserId() {
+    public final String getUserId() {
         return userId;
     }
 
     /**
-     * Sets the user id.
-     *
      * @param userId
-     *            the new user id
+     *            the userId to set
      */
-    public void setUserId(String userId) {
+    public final void setUserId(final String userId) {
         this.userId = userId;
     }
 
     /**
-     * Gets the email id.
-     *
-     * @return the email id
+     * @return the emailId
      */
-    public String getEmailId() {
+    public final String getEmailId() {
         return emailId;
     }
 
     /**
-     * Sets the email id.
-     *
      * @param emailId
-     *            the new email id
+     *            the emailId to set
      */
-    public void setEmailId(String emailId) {
+    public final void setEmailId(final String emailId) {
         this.emailId = emailId;
+    }
+
+    /**
+     * @return the oldPassword
+     */
+    public final String getOldPassword() {
+        return oldPassword;
+    }
+
+    /**
+     * @param oldPassword
+     *            the oldPassword to set
+     */
+    public final void setOldPassword(final String oldPassword) {
+        this.oldPassword = oldPassword;
+    }
+
+    /**
+     * @return the newPassword
+     */
+    public final String getNewPassword() {
+        return newPassword;
+    }
+
+    /**
+     * @param newPassword
+     *            the newPassword to set
+     */
+    public final void setNewPassword(final String newPassword) {
+        this.newPassword = newPassword;
     }
 
 }

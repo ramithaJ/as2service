@@ -29,40 +29,33 @@ public class State {
     private String stateName;
 
     /**
-     * Gets the state code.
-     *
-     * @return the state code
+     * @return the stateCode
      */
-    public String getStateCode() {
+    public final String getStateCode() {
         return stateCode;
     }
 
     /**
-     * Sets the state code.
-     *
      * @param stateCode
-     *            the new state code
+     *            the stateCode to set
      */
-    public void setStateCode(String stateCode) {
+    public final void setStateCode(final String stateCode) {
         this.stateCode = stateCode;
     }
 
     /**
-     * Gets the state name.
-     *
-     * @return the state name
+     * @return the stateName
      */
-    public String getStateName() {
+    public final String getStateName() {
         return stateName;
     }
 
     /**
-     * Sets the state name.
-     *
      * @param stateName
-     *            the new state name
+     *            the stateName to set
      */
-    public void setStateName(String stateName) {
+    public final void setStateName(final String stateName) {
         this.stateName = stateName;
     }
+
 }

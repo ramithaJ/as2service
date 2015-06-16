@@ -21,42 +21,33 @@ public class UserFunder {
     private String rfunderId;
 
     /**
-     * Gets the user Id.
-     *
-     * @return the user Id
+     * @return the userId
      */
-    public String getUserId() {
+    public final String getUserId() {
         return userId;
     }
 
     /**
-     * Sets the user Id.
-     *
      * @param userId
-     *            the new user id
-     * @return the user Id
+     *            the userId to set
      */
-    public void setUserId(String userId) {
+    public final void setUserId(final String userId) {
         this.userId = userId;
     }
 
     /**
-     * Gets the funder Id.
-     *
-     * @return the funder Id
+     * @return the rfunderId
      */
-    public String getRfunderId() {
+    public final String getRfunderId() {
         return rfunderId;
     }
 
     /**
-     * Sets the funder Id.
-     *
      * @param rfunderId
-     *            the new rfunder id
-     * @return the funder Id
+     *            the rfunderId to set
      */
-    public void setRfunderId(String rfunderId) {
+    public final void setRfunderId(final String rfunderId) {
         this.rfunderId = rfunderId;
     }
+
 }
