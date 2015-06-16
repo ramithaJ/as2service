@@ -33,79 +33,61 @@ public class Alert {
     private boolean email;
 
     /**
-     * Gets the alert id.
-     *
-     * @return the alert id
+     * @return the alertId
      */
-    public String getAlertId() {
+    public final String getAlertId() {
         return alertId;
     }
 
     /**
-     * Sets the alert id.
-     *
-     * @param alertId
-     *            the new alert id
+     * @param alertId the alertId to set
      */
-    public void setAlertId(String alertId) {
+    public final void setAlertId(final String alertId) {
         this.alertId = alertId;
     }
 
     /**
-     * Gets the alert name.
-     *
-     * @return the alert name
+     * @return the alertName
      */
-    public String getAlertName() {
+    public final String getAlertName() {
         return alertName;
     }
 
     /**
-     * Sets the alert name.
-     *
-     * @param alertName
-     *            the new alert name
+     * @param alertName the alertName to set
      */
-    public void setAlertName(String alertName) {
+    public final void setAlertName(final String alertName) {
         this.alertName = alertName;
     }
 
     /**
-     * Checks if is on screen.
-     *
-     * @return true, if is on screen
+     * @return the onScreen
      */
-    public boolean isOnScreen() {
+    public final boolean isOnScreen() {
         return onScreen;
     }
 
     /**
-     * Sets the on screen.
-     *
-     * @param onScreen
-     *            the new on screen
+     * @param onScreen the onScreen to set
      */
-    public void setOnScreen(boolean onScreen) {
+    public final void setOnScreen(final boolean onScreen) {
         this.onScreen = onScreen;
     }
 
     /**
-     * Checks if is email.
-     *
-     * @return true, if is email
+     * @return the email
      */
-    public boolean isEmail() {
+    public final boolean isEmail() {
         return email;
     }
 
     /**
-     * Sets the email.
-     *
-     * @param email
-     *            the new email
+     * @param email the email to set
      */
-    public void setEmail(boolean email) {
+    public final void setEmail(final boolean email) {
         this.email = email;
     }
+
+   
 
 }

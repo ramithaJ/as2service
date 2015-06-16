@@ -37,12 +37,15 @@ import com.wiley.gr.ace.authorservices.services.service.ArticleAssignmentService
 @RequestMapping("/article")
 public class ArticleAssignmentController {
 
+    /**
+     * injected ArticleAssignmentService bean.
+     */
     @Autowired(required = true)
     ArticleAssignmentService articleAssignmentService;
 
     /**
      * @param emailId
-     * @return
+     * @return service
      */
     @RequestMapping(value = "/confirm/display/{emailId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final @ResponseBody Service getArticleInfo(
@@ -71,11 +74,12 @@ public class ArticleAssignmentController {
     /**
      * @param articleAuthId
      * @param userId
-     * @return
+     * @return service
      */
     @RequestMapping(value = "/confirm/confirmassociation", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     public final @ResponseBody Service confirmAssociation(
-            @RequestBody String articleAuthId, @RequestBody String userId) {
+            @RequestBody final String articleAuthId,
+            @RequestBody final String userId) {
         Service service = new Service();
         boolean confirmAssociation = false;
         try {

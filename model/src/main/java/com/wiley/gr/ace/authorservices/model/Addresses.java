@@ -32,59 +32,48 @@ public class Addresses {
     private Address shippingAddress;
 
     /**
-     * Gets the correspondence address.
-     *
-     * @return the correspondence address
+     * @return the correspondenceAddress
      */
-    public Address getCorrespondenceAddress() {
+    public final Address getCorrespondenceAddress() {
         return correspondenceAddress;
     }
 
     /**
-     * Sets the correspondence address.
-     *
      * @param correspondenceAddress
-     *            the new correspondence address
+     *            the correspondenceAddress to set
      */
-    public void setCorrespondenceAddress(Address correspondenceAddress) {
+    public final void setCorrespondenceAddress(
+            final Address correspondenceAddress) {
         this.correspondenceAddress = correspondenceAddress;
     }
 
     /**
-     * Gets the billing address.
-     *
-     * @return the billing address
+     * @return the billingAddress
      */
-    public Address getBillingAddress() {
+    public final Address getBillingAddress() {
         return billingAddress;
     }
 
     /**
-     * Sets the billing address.
-     *
      * @param billingAddress
-     *            the new billing address
+     *            the billingAddress to set
      */
-    public void setBillingAddress(Address billingAddress) {
+    public final void setBillingAddress(final Address billingAddress) {
         this.billingAddress = billingAddress;
     }
 
     /**
-     * Gets the shipping address.
-     *
-     * @return the shipping address
+     * @return the shippingAddress
      */
-    public Address getShippingAddress() {
+    public final Address getShippingAddress() {
         return shippingAddress;
     }
 
     /**
-     * Sets the shipping address.
-     *
      * @param shippingAddress
-     *            the new shipping address
+     *            the shippingAddress to set
      */
-    public void setShippingAddress(Address shippingAddress) {
+    public final void setShippingAddress(final Address shippingAddress) {
         this.shippingAddress = shippingAddress;
     }
 

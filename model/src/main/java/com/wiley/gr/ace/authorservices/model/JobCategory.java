@@ -25,40 +25,32 @@ public class JobCategory {
     private String jobCategoryName;
 
     /**
-     * Gets the job category id.
-     *
-     * @return the job category id
+     * @return the jobCategoryId
      */
-    public String getJobCategoryId() {
+    public final String getJobCategoryId() {
         return jobCategoryId;
     }
 
     /**
-     * Sets the job category id.
-     *
      * @param jobCategoryId
-     *            the new job category id
+     *            the jobCategoryId to set
      */
-    public void setJobCategoryId(String jobCategoryId) {
+    public final void setJobCategoryId(final String jobCategoryId) {
         this.jobCategoryId = jobCategoryId;
     }
 
     /**
-     * Gets the job category name.
-     *
-     * @return the job category name
+     * @return the jobCategoryName
      */
-    public String getJobCategoryName() {
+    public final String getJobCategoryName() {
         return jobCategoryName;
     }
 
     /**
-     * Sets the job category name.
-     *
      * @param jobCategoryName
-     *            the new job category name
+     *            the jobCategoryName to set
      */
-    public void setJobCategoryName(String jobCategoryName) {
+    public final void setJobCategoryName(final String jobCategoryName) {
         this.jobCategoryName = jobCategoryName;
     }
 

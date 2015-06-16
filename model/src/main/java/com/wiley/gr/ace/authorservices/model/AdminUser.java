@@ -26,79 +26,63 @@ public class AdminUser {
     private String lastName;
 
     /**
-     * Gets the email id.
-     *
-     * @return the email id
+     * @return the emailId
      */
-    public String getEmailId() {
+    public final String getEmailId() {
         return emailId;
     }
 
     /**
-     * Sets the email id.
-     *
      * @param emailId
-     *            the new email id
+     *            the emailId to set
      */
-    public void setEmailId(String emailId) {
+    public final void setEmailId(final String emailId) {
         this.emailId = emailId;
     }
 
     /**
-     * Gets the first name.
-     *
-     * @return the first name
+     * @return the rolesList
      */
-    public String getFirstName() {
-        return firstName;
-    }
-
-    /**
-     * Sets the first name.
-     *
-     * @param firstName
-     *            the new first name
-     */
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    /**
-     * Gets the last name.
-     *
-     * @return the last name
-     */
-    public String getLastName() {
-        return lastName;
-    }
-
-    /**
-     * Sets the last name.
-     *
-     * @param lastName
-     *            the new last name
-     */
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    /**
-     * Gets the roles list.
-     *
-     * @return the roles list
-     */
-    public List<String> getRolesList() {
+    public final List<String> getRolesList() {
         return rolesList;
     }
 
     /**
-     * Sets the roles list.
-     *
      * @param rolesList
-     *            the new roles list
+     *            the rolesList to set
      */
-    public void setRolesList(List<String> rolesList) {
+    public final void setRolesList(final List<String> rolesList) {
         this.rolesList = rolesList;
+    }
+
+    /**
+     * @return the firstName
+     */
+    public final String getFirstName() {
+        return firstName;
+    }
+
+    /**
+     * @param firstName
+     *            the firstName to set
+     */
+    public final void setFirstName(final String firstName) {
+        this.firstName = firstName;
+    }
+
+    /**
+     * @return the lastName
+     */
+    public final String getLastName() {
+        return lastName;
+    }
+
+    /**
+     * @param lastName
+     *            the lastName to set
+     */
+    public final void setLastName(final String lastName) {
+        this.lastName = lastName;
     }
 
 }

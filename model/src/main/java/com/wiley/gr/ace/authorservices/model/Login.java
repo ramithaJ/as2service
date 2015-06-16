@@ -37,98 +37,78 @@ public class Login {
     private Integer userId;
 
     /**
-     * Gets the email id.
-     *
-     * @return the email id
+     * @return the emailId
      */
-    public String getEmailId() {
+    public final String getEmailId() {
         return emailId;
     }
 
     /**
-     * Gets the user id.
-     *
-     * @return the user id
-     */
-    public Integer getUserId() {
-        return userId;
-    }
-
-    /**
-     * Sets the user id.
-     *
-     * @param userId
-     *            the new user id
-     */
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    /**
-     * Sets the email id.
-     *
      * @param emailId
-     *            the new email id
+     *            the emailId to set
      */
-    public void setEmailId(String emailId) {
+    public final void setEmailId(final String emailId) {
         this.emailId = emailId;
     }
 
     /**
-     * Gets the password.
-     *
      * @return the password
      */
-    public String getPassword() {
+    public final String getPassword() {
         return password;
     }
 
     /**
-     * Sets the password.
-     *
      * @param password
-     *            the new password
+     *            the password to set
      */
-    public void setPassword(String password) {
+    public final void setPassword(final String password) {
         this.password = password;
     }
 
     /**
-     * Gets the authentication type.
-     *
-     * @return the authentication type
+     * @return the authenticationType
      */
-    public String getAuthenticationType() {
+    public final String getAuthenticationType() {
         return authenticationType;
     }
 
     /**
-     * Sets the authentication type.
-     *
      * @param authenticationType
-     *            the new authentication type
+     *            the authenticationType to set
      */
-    public void setAuthenticationType(String authenticationType) {
+    public final void setAuthenticationType(final String authenticationType) {
         this.authenticationType = authenticationType;
     }
 
     /**
-     * Gets the app key.
-     *
-     * @return the app key
+     * @return the appKey
      */
-    public String getAppKey() {
+    public final String getAppKey() {
         return appKey;
     }
 
     /**
-     * Sets the app key.
-     *
      * @param appKey
-     *            the new app key
+     *            the appKey to set
      */
-    public void setAppKey(String appKey) {
+    public final void setAppKey(final String appKey) {
         this.appKey = appKey;
+    }
+
+    /**
+     * @return the userId
+     */
+    public final Integer getUserId() {
+        return userId;
+    }
+
+    /**
+     * @param userId
+     *            the userId to set
+     */
+    public final void setUserId(final Integer userId) {
+        this.userId = userId;
     }
 
 }

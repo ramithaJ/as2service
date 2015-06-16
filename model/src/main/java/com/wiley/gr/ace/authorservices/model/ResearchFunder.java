@@ -48,97 +48,77 @@ public class ResearchFunder {
     private Set<String> grantNumber;
 
     /**
-     * Gets the research funder id.
-     *
-     * @return the research funder id
+     * @return the researchFunderId
      */
-    public Integer getResearchFunderId() {
+    public final Integer getResearchFunderId() {
         return researchFunderId;
     }
 
     /**
-     * Sets the research funder id.
-     *
      * @param researchFunderId
-     *            the new research funder id
+     *            the researchFunderId to set
      */
-    public void setResearchFunderId(Integer researchFunderId) {
+    public final void setResearchFunderId(final Integer researchFunderId) {
         this.researchFunderId = researchFunderId;
     }
 
     /**
-     * Gets the research funder name.
-     *
-     * @return the research funder name
+     * @return the researchFunderName
      */
-    public String getResearchFunderName() {
+    public final String getResearchFunderName() {
         return researchFunderName;
     }
 
     /**
-     * Sets the research funder name.
-     *
      * @param researchFunderName
-     *            the new research funder name
+     *            the researchFunderName to set
      */
-    public void setResearchFunderName(String researchFunderName) {
+    public final void setResearchFunderName(final String researchFunderName) {
         this.researchFunderName = researchFunderName;
     }
 
     /**
-     * Gets the article aid.
-     *
-     * @return the article aid
+     * @return the articleAID
      */
-    public String getArticleAID() {
+    public final String getArticleAID() {
         return articleAID;
     }
 
     /**
-     * Sets the article aid.
-     *
      * @param articleAID
-     *            the new article aid
+     *            the articleAID to set
      */
-    public void setArticleAID(String articleAID) {
+    public final void setArticleAID(final String articleAID) {
         this.articleAID = articleAID;
     }
 
     /**
-     * Gets the article name.
-     *
-     * @return the article name
+     * @return the articleName
      */
-    public String getArticleName() {
+    public final String getArticleName() {
         return articleName;
     }
 
     /**
-     * Sets the article name.
-     *
      * @param articleName
-     *            the new article name
+     *            the articleName to set
      */
-    public void setArticleName(String articleName) {
+    public final void setArticleName(final String articleName) {
         this.articleName = articleName;
     }
 
     /**
-     * Gets the grant number.
-     *
-     * @return the grant number
+     * @return the grantNumber
      */
-    public Set<String> getGrantNumber() {
+    public final Set<String> getGrantNumber() {
         return grantNumber;
     }
 
     /**
-     * Sets the grant number.
-     *
      * @param grantNumber
-     *            the new grant number
+     *            the grantNumber to set
      */
-    public void setGrantNumber(Set<String> grantNumber) {
+    public final void setGrantNumber(final Set<String> grantNumber) {
         this.grantNumber = grantNumber;
     }
 

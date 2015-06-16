@@ -31,78 +31,62 @@ public class SharedServieRequest {
     private String appKey;
 
     /**
-     * Gets the user id.
-     *
-     * @return the user id
+     * @return the userId
      */
-    public String getUserId() {
+    public final String getUserId() {
         return userId;
     }
 
     /**
-     * Sets the user id.
-     *
      * @param userId
-     *            the new user id
+     *            the userId to set
      */
-    public void setUserId(String userId) {
+    public final void setUserId(final String userId) {
         this.userId = userId;
     }
 
     /**
-     * Gets the password.
-     *
      * @return the password
      */
-    public String getPassword() {
+    public final String getPassword() {
         return password;
     }
 
     /**
-     * Sets the password.
-     *
      * @param password
-     *            the new password
+     *            the password to set
      */
-    public void setPassword(String password) {
+    public final void setPassword(final String password) {
         this.password = password;
     }
 
     /**
-     * Gets the authentication type.
-     *
-     * @return the authentication type
+     * @return the authenticationType
      */
-    public String getAuthenticationType() {
+    public final String getAuthenticationType() {
         return authenticationType;
     }
 
     /**
-     * Sets the authentication type.
-     *
      * @param authenticationType
-     *            the new authentication type
+     *            the authenticationType to set
      */
-    public void setAuthenticationType(String authenticationType) {
+    public final void setAuthenticationType(final String authenticationType) {
         this.authenticationType = authenticationType;
     }
 
     /**
-     * Gets the app key.
-     *
-     * @return the app key
+     * @return the appKey
      */
-    public String getAppKey() {
+    public final String getAppKey() {
         return appKey;
     }
 
     /**
-     * Sets the app key.
-     *
      * @param appKey
-     *            the new app key
+     *            the appKey to set
      */
-    public void setAppKey(String appKey) {
+    public final void setAppKey(final String appKey) {
         this.appKey = appKey;
     }
 

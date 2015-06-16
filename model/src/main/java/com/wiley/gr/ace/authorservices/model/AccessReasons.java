@@ -26,41 +26,33 @@ public class AccessReasons {
     private String accessReason;
 
     /**
-     * Gets the access id.
-     *
-     * @return the access id
+     * @return the accessId
      */
-    public String getAccessId() {
+    public final String getAccessId() {
         return accessId;
     }
 
     /**
-     * Sets the access id.
-     *
-     * @param accessId
-     *            the new access id
+     * @return the accessReason
      */
-    public void setAccessId(String accessId) {
-        this.accessId = accessId;
-    }
-
-    /**
-     * Gets the access reason.
-     *
-     * @return the access reason
-     */
-    public String getAccessReason() {
+    public final String getAccessReason() {
         return accessReason;
     }
 
     /**
-     * Sets the access reason.
-     *
      * @param accessReason
-     *            the new access reason
+     *            the accessReason to set
      */
-    public void setAccessReason(String accessReason) {
+    public final void setAccessReason(final String accessReason) {
         this.accessReason = accessReason;
+    }
+
+    /**
+     * @param accessId
+     *            the accessId to set
+     */
+    public final void setAccessId(final String accessId) {
+        this.accessId = accessId;
     }
 
 }

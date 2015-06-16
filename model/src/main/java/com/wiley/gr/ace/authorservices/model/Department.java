@@ -29,40 +29,32 @@ public class Department {
     private String departmentName;
 
     /**
-     * Gets the department id.
-     *
-     * @return the department id
+     * @return the departmentId
      */
-    public String getDepartmentId() {
+    public final String getDepartmentId() {
         return departmentId;
     }
 
     /**
-     * Sets the department id.
-     *
      * @param departmentId
-     *            the new department id
+     *            the departmentId to set
      */
-    public void setDepartmentId(String departmentId) {
+    public final void setDepartmentId(final String departmentId) {
         this.departmentId = departmentId;
     }
 
     /**
-     * Gets the department name.
-     *
-     * @return the department name
+     * @return the departmentName
      */
-    public String getDepartmentName() {
+    public final String getDepartmentName() {
         return departmentName;
     }
 
     /**
-     * Sets the department name.
-     *
      * @param departmentName
-     *            the new department name
+     *            the departmentName to set
      */
-    public void setDepartmentName(String departmentName) {
+    public final void setDepartmentName(final String departmentName) {
         this.departmentName = departmentName;
     }
 

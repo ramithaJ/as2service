@@ -33,17 +33,19 @@ import com.wiley.gr.ace.authorservices.services.service.UpdateUserService;
 @RestController
 @RequestMapping("/user/update")
 public class UpdateUserController {
-/* getting bean of update user service */
+    /**
+     * getting bean of update user service
+     */
     @Autowired(required = true)
     UpdateUserService updateUserService;
 
     /**
      * @param orcidId
-     * @return
+     * @return service 
      */
     @RequestMapping(value = "/orcid/{orcidId}/{userId}", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody Service updateOrcidId(@PathVariable String orcidId,
-            @PathVariable String userId, @RequestBody String emailId) {
+    public @ResponseBody Service updateOrcidId(@PathVariable final String orcidId,
+            @PathVariable final String userId, @RequestBody final String emailId) {
 
         Service service = new Service();
 

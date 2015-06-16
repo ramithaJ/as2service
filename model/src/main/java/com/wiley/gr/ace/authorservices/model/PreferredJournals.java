@@ -29,40 +29,32 @@ public class PreferredJournals {
     private String journalTitle;
 
     /**
-     * Gets the journal id.
-     *
-     * @return the journal id
+     * @return the journalId
      */
-    public String getJournalId() {
+    public final String getJournalId() {
         return journalId;
     }
 
     /**
-     * Sets the journal id.
-     *
      * @param journalId
-     *            the new journal id
+     *            the journalId to set
      */
-    public void setJournalId(String journalId) {
+    public final void setJournalId(final String journalId) {
         this.journalId = journalId;
     }
 
     /**
-     * Gets the journal title.
-     *
-     * @return the journal title
+     * @return the journalTitle
      */
-    public String getJournalTitle() {
+    public final String getJournalTitle() {
         return journalTitle;
     }
 
     /**
-     * Sets the journal title.
-     *
      * @param journalTitle
-     *            the new journal title
+     *            the journalTitle to set
      */
-    public void setJournalTitle(String journalTitle) {
+    public final void setJournalTitle(final String journalTitle) {
         this.journalTitle = journalTitle;
     }
 

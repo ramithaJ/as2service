@@ -61,136 +61,107 @@ public class Society {
     private Date endDate;
 
     /**
-     * Gets the user Id.
-     *
-     * @return the user Id
+     * @return the userId
      */
-    public String getUserId() {
+    public final String getUserId() {
         return userId;
     }
 
     /**
-     * Sets the user Id.
-     *
      * @param userId
-     *            the new user id
-     * @return the user Id
+     *            the userId to set
      */
-    public void setUserId(String userId) {
+    public final void setUserId(final String userId) {
         this.userId = userId;
     }
 
     /**
-     * Gets the society id.
-     *
-     * @return the society id
+     * @return the societyId
      */
-    public String getSocietyId() {
+    public final String getSocietyId() {
         return societyId;
     }
 
     /**
-     * Sets the society id.
-     *
      * @param societyId
-     *            the new society id
+     *            the societyId to set
      */
-    public void setSocietyId(String societyId) {
+    public final void setSocietyId(final String societyId) {
         this.societyId = societyId;
     }
 
     /**
-     * Gets the society name.
-     *
-     * @return the society name
+     * @return the societyName
      */
-    public String getSocietyName() {
+    public final String getSocietyName() {
         return societyName;
     }
 
     /**
-     * Sets the society name.
-     *
      * @param societyName
-     *            the new society name
+     *            the societyName to set
      */
-    public void setSocietyName(String societyName) {
+    public final void setSocietyName(final String societyName) {
         this.societyName = societyName;
     }
 
     /**
-     * Gets the membership number.
-     *
-     * @return the membership number
+     * @return the membershipNumber
      */
-    public String getMembershipNumber() {
+    public final String getMembershipNumber() {
         return membershipNumber;
     }
 
     /**
-     * Sets the membership number.
-     *
      * @param membershipNumber
-     *            the new membership number
+     *            the membershipNumber to set
      */
-    public void setMembershipNumber(String membershipNumber) {
+    public final void setMembershipNumber(final String membershipNumber) {
         this.membershipNumber = membershipNumber;
     }
 
     /**
-     * Gets the promo code.
-     *
-     * @return the promo code
+     * @return the promoCode
      */
-    public String getPromoCode() {
+    public final String getPromoCode() {
         return promoCode;
     }
 
     /**
-     * Sets the promo code.
-     *
      * @param promoCode
-     *            the new promo code
+     *            the promoCode to set
      */
-    public void setPromoCode(String promoCode) {
+    public final void setPromoCode(final String promoCode) {
         this.promoCode = promoCode;
     }
 
     /**
-     * Gets the start date.
-     *
-     * @return the start date
+     * @return the startDate
      */
-    public Date getStartDate() {
+    public final Date getStartDate() {
         return startDate;
     }
 
     /**
-     * Sets the start date.
-     *
      * @param startDate
-     *            the new start date
+     *            the startDate to set
      */
-    public void setStartDate(Date startDate) {
+    public final void setStartDate(final Date startDate) {
         this.startDate = startDate;
     }
 
     /**
-     * Gets the end date.
-     *
-     * @return the end date
+     * @return the endDate
      */
-    public Date getEndDate() {
+    public final Date getEndDate() {
         return endDate;
     }
 
     /**
-     * Sets the end date.
-     *
      * @param endDate
-     *            the new end date
+     *            the endDate to set
      */
-    public void setEndDate(Date endDate) {
+    public final void setEndDate(final Date endDate) {
         this.endDate = endDate;
     }
 

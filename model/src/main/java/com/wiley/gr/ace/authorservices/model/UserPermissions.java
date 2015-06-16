@@ -29,59 +29,47 @@ public class UserPermissions {
     private boolean status = true;
 
     /**
-     * Gets the permission id.
-     *
-     * @return the permission id
+     * @return the permissionId
      */
-    public String getPermissionId() {
+    public final String getPermissionId() {
         return permissionId;
     }
 
     /**
-     * Sets the permission id.
-     *
      * @param permissionId
-     *            the new permission id
+     *            the permissionId to set
      */
-    public void setPermissionId(String permissionId) {
+    public final void setPermissionId(final String permissionId) {
         this.permissionId = permissionId;
     }
 
     /**
-     * Gets the permission name.
-     *
-     * @return the permission name
+     * @return the permissionName
      */
-    public String getPermissionName() {
+    public final String getPermissionName() {
         return permissionName;
     }
 
     /**
-     * Sets the permission name.
-     *
      * @param permissionName
-     *            the new permission name
+     *            the permissionName to set
      */
-    public void setPermissionName(String permissionName) {
+    public final void setPermissionName(final String permissionName) {
         this.permissionName = permissionName;
     }
 
     /**
-     * Checks if is status.
-     *
-     * @return true, if is status
+     * @return the status
      */
-    public boolean isStatus() {
+    public final boolean isStatus() {
         return status;
     }
 
     /**
-     * Sets the status.
-     *
      * @param status
-     *            the new status
+     *            the status to set
      */
-    public void setStatus(boolean status) {
+    public final void setStatus(final boolean status) {
         this.status = status;
     }
 

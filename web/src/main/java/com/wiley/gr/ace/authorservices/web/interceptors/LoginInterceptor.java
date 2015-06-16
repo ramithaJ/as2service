@@ -28,39 +28,45 @@ import com.wiley.gr.ace.authorservices.model.Login;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 
 /**
- * @author virtusa
- *	version 1.0
+ * @author virtusa version 1.0
  *
  */
 public class LoginInterceptor extends HandlerInterceptorAdapter {
-    
+
+    /**
+     * AdminLoginService bean.
+     */
     @Autowired(required = true)
     AdminLoginService adminLoginService;
 
-    /* (non-Javadoc)
-     * @see org.springframework.web.servlet.handler.HandlerInterceptorAdapter#preHandle(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Object)
+    /**
+     * this method will call the LDAP/AD authentication service.
      */
     @Override
     public boolean preHandle(HttpServletRequest request,
             HttpServletResponse response, Object handler) throws Exception {
-        
-        String payLoad = AuthorServicesUtil.readStream(request.getInputStream(),100);
-        
+
+        String payLoad = AuthorServicesUtil.readStream(
+                request.getInputStream(), 100);
+
         JSONObject postJSON = new JSONObject(payLoad);
-        
+
         Login login = new Login();
-        
+
         login.setEmailId(postJSON.getString("emailId"));
         login.setPassword(postJSON.getString("password"));
-        
+
         request.setAttribute("emailId", login.getEmailId());
-        
-        String token = RestServiceInvokerUtil.invokeService("http://10.201.64.81:8080/service/v1/auth/authenticate", HttpMethod.POST, "Login", login);
-        
-        System.out.println("Token from Authentication Service:::"+token);
-        
-        if(token != null && adminLoginService.validateEmail(login.getEmailId())) {
-            if(request.getCookies() != null && request.getCookies().length > 0) {
+
+        String token = RestServiceInvokerUtil.invokeService(
+                "http://10.201.64.81:8080/service/v1/auth/authenticate",
+                HttpMethod.POST, "Login", login);
+
+        System.out.println("Token from Authentication Service:::" + token);
+
+        if (token != null
+                && adminLoginService.validateEmail(login.getEmailId())) {
+            if (request.getCookies() != null && request.getCookies().length > 0) {
                 Cookie existingCookie = request.getCookies()[0];
                 existingCookie.setMaxAge(0);
                 response.addCookie(existingCookie);
@@ -69,12 +75,12 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
                 response.addCookie(cookie);
             }
         }
-        
+
         return super.preHandle(request, response, handler);
     }
 
-    /* (non-Javadoc)
-     * @see org.springframework.web.servlet.handler.HandlerInterceptorAdapter#postHandle(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Object, org.springframework.web.servlet.ModelAndView)
+    /**
+     * postHandle method.
      */
     @Override
     public void postHandle(HttpServletRequest request,

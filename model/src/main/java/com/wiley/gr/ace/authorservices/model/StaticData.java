@@ -29,7 +29,7 @@ public class StaticData {
      *
      * @return the id
      */
-    public String getId() {
+    public final String getId() {
         return id;
     }
 
@@ -37,9 +37,9 @@ public class StaticData {
      * Sets the id.
      *
      * @param id
-     *            the new id
+     *            the id to set
      */
-    public void setId(String id) {
+    public final void setId(final String id) {
         this.id = id;
     }
 
@@ -48,7 +48,7 @@ public class StaticData {
      *
      * @return the description
      */
-    public String getDescription() {
+    public final String getDescription() {
         return description;
     }
 
@@ -56,9 +56,9 @@ public class StaticData {
      * Sets the description.
      *
      * @param description
-     *            the new description
+     *            the description to set
      */
-    public void setDescription(String description) {
+    public final void setDescription(final String description) {
         this.description = description;
     }
 

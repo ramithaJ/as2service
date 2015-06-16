@@ -57,117 +57,93 @@ public class Security {
     private String securityAnswer2;
 
     /**
-     * Gets the id1.
-     *
      * @return the id1
      */
-    public int getId1() {
+    public final int getId1() {
         return id1;
     }
 
     /**
-     * Sets the id1.
-     *
      * @param id1
-     *            the new id1
+     *            the id1 to set
      */
-    public void setId1(int id1) {
+    public final void setId1(final int id1) {
         this.id1 = id1;
     }
 
     /**
-     * Gets the id2.
-     *
      * @return the id2
      */
-    public int getId2() {
+    public final int getId2() {
         return id2;
     }
 
     /**
-     * Sets the id2.
-     *
      * @param id2
-     *            the new id2
+     *            the id2 to set
      */
-    public void setId2(int id2) {
+    public final void setId2(final int id2) {
         this.id2 = id2;
     }
 
     /**
-     * Gets the security question1.
-     *
-     * @return the security question1
+     * @return the securityQuestion1
      */
-    public String getSecurityQuestion1() {
+    public final String getSecurityQuestion1() {
         return securityQuestion1;
     }
 
     /**
-     * Sets the security question1.
-     *
      * @param securityQuestion1
-     *            the new security question1
+     *            the securityQuestion1 to set
      */
-    public void setSecurityQuestion1(String securityQuestion1) {
+    public final void setSecurityQuestion1(final String securityQuestion1) {
         this.securityQuestion1 = securityQuestion1;
     }
 
     /**
-     * Gets the security answer1.
-     *
-     * @return the security answer1
+     * @return the securityQuestion2
      */
-    public String getSecurityAnswer1() {
-        return securityAnswer1;
-    }
-
-    /**
-     * Sets the security answer1.
-     *
-     * @param securityAnswer1
-     *            the new security answer1
-     */
-    public void setSecurityAnswer1(String securityAnswer1) {
-        this.securityAnswer1 = securityAnswer1;
-    }
-
-    /**
-     * Gets the security answer2.
-     *
-     * @return the security answer2
-     */
-    public String getSecurityAnswer2() {
-        return securityAnswer2;
-    }
-
-    /**
-     * Sets the security answer2.
-     *
-     * @param securityAnswer2
-     *            the new security answer2
-     */
-    public void setSecurityAnswer2(String securityAnswer2) {
-        this.securityAnswer2 = securityAnswer2;
-    }
-
-    /**
-     * Gets the security question2.
-     *
-     * @return the security question2
-     */
-    public String getSecurityQuestion2() {
+    public final String getSecurityQuestion2() {
         return securityQuestion2;
     }
 
     /**
-     * Sets the security question2.
-     *
      * @param securityQuestion2
-     *            the new security question2
+     *            the securityQuestion2 to set
      */
-    public void setSecurityQuestion2(String securityQuestion2) {
+    public final void setSecurityQuestion2(final String securityQuestion2) {
         this.securityQuestion2 = securityQuestion2;
+    }
+
+    /**
+     * @return the securityAnswer1
+     */
+    public final String getSecurityAnswer1() {
+        return securityAnswer1;
+    }
+
+    /**
+     * @param securityAnswer1
+     *            the securityAnswer1 to set
+     */
+    public final void setSecurityAnswer1(final String securityAnswer1) {
+        this.securityAnswer1 = securityAnswer1;
+    }
+
+    /**
+     * @return the securityAnswer2
+     */
+    public final String getSecurityAnswer2() {
+        return securityAnswer2;
+    }
+
+    /**
+     * @param securityAnswer2
+     *            the securityAnswer2 to set
+     */
+    public final void setSecurityAnswer2(final String securityAnswer2) {
+        this.securityAnswer2 = securityAnswer2;
     }
 
 }

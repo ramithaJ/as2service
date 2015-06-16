@@ -19,7 +19,7 @@ public class AddressDetails {
      * @param address
      *            the new address
      */
-    public void setAddress(List<AddressElement> address) {
+    public void setAddress(final List<AddressElement> address) {
         this.address = address;
     }
 

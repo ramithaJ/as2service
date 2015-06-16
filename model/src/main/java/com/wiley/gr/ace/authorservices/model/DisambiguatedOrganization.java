@@ -32,43 +32,33 @@ public class DisambiguatedOrganization {
     private String disambiguationSource;
 
     /**
-     * Gets the disambiguatedOrganizationIdentifier.
-     *
      * @return the disambiguatedOrganizationIdentifier
-     * 
      */
-    public String getDisambiguatedOrganizationIdentifier() {
+    public final String getDisambiguatedOrganizationIdentifier() {
         return disambiguatedOrganizationIdentifier;
     }
 
     /**
-     * Sets the disambiguatedOrganizationIdentifier.
-     *
      * @param disambiguatedOrganizationIdentifier
-     *            the new disambiguated organization identifier
+     *            the disambiguatedOrganizationIdentifier to set
      */
-    public void setDisambiguatedOrganizationIdentifier(
-            String disambiguatedOrganizationIdentifier) {
+    public final void setDisambiguatedOrganizationIdentifier(
+            final String disambiguatedOrganizationIdentifier) {
         this.disambiguatedOrganizationIdentifier = disambiguatedOrganizationIdentifier;
     }
 
     /**
-     * Gets the disambiguationSource.
-     *
      * @return the disambiguationSource
-     * 
      */
-    public String getDisambiguationSource() {
+    public final String getDisambiguationSource() {
         return disambiguationSource;
     }
 
     /**
-     * Sets the disambiguationSource.
-     *
      * @param disambiguationSource
-     *            the new disambiguation source
+     *            the disambiguationSource to set
      */
-    public void setDisambiguationSource(String disambiguationSource) {
+    public final void setDisambiguationSource(final String disambiguationSource) {
         this.disambiguationSource = disambiguationSource;
     }
 
