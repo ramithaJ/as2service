@@ -16,6 +16,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,11 +24,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
+import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
 import com.wiley.gr.ace.authorservices.model.Login;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
+import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
+import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 
@@ -37,25 +41,35 @@ import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 @RestController
 @RequestMapping("/user")
 public class UserLoginController extends ASExceptionController {
-    
+
     /**
      * Logger for UserLoginController class.
      */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(UserLoginController.class);
-    
+
     /**
      * injecting UserLoginService bean.
      */
     @Autowired(required = true)
     private UserLoginService userLoginService;
-    
+
     /**
      * injecting AuthorProfileService bean.
      */
     @Autowired
     private AuthorProfileService authorProfileService;
-    
+
+    /**
+     * Injecting UserLoginServiceDAO bean.
+     */
+    @Autowired(required = true)
+    private UserLoginServiceDAO userLoginServiceDAO;
+
+    /** The SUCCESS. */
+    @Value("${SUCCESS}")
+    private String SUCCESS;
+
     /**
      * Method to authenticate user.
      * 
@@ -65,18 +79,33 @@ public class UserLoginController extends ASExceptionController {
      */
     @RequestMapping(value = "/login/", method = RequestMethod.POST)
     public final Service login(@Valid @RequestBody final Login login) {
-        
+
         final Service service = new Service();
-        
+
         final SharedServieRequest sharedServieRequest = new SharedServieRequest();
         sharedServieRequest.setUserId(login.getEmailId());
         sharedServieRequest.setPassword(login.getPassword());
         sharedServieRequest.setAuthenticationType("LDAP");
         sharedServieRequest.setAppKey("AS");
-        service.setPayload(userLoginService.login(login, sharedServieRequest));
+        SecurityResponse securityResponse = userLoginService.login(login,
+                sharedServieRequest);
+        if ("LOCKED".equalsIgnoreCase(securityResponse.getStatus())) {
+            service.setStatus("FAILURE");
+            ErrorPOJO errorPOJO = new ErrorPOJO();
+            errorPOJO.setCode(Integer.parseInt(securityResponse.getCode()));
+            errorPOJO.setMessage(securityResponse.getMessage());
+            service.setError(errorPOJO);
+        }
+        if (SUCCESS.equals(securityResponse.getStatus())) {
+
+            Integer userId = userLoginServiceDAO.getUserId(login.getEmailId());
+            Login user = new Login();
+            user.setUserId(userId);
+            service.setPayload(user);
+        }
         return service;
     }
-    
+
     /**
      * Method to reset the password through security questions and email.
      * 
@@ -93,9 +122,9 @@ public class UserLoginController extends ASExceptionController {
         service.setPayload(userLoginService
                 .resetPassword(securityDetailsHolder));
         return service;
-        
+
     }
-    
+
     /**
      * this method will update the password at user profile level.
      * 
@@ -110,9 +139,9 @@ public class UserLoginController extends ASExceptionController {
         final Service service = new Service();
         service.setPayload(authorProfileService.updatePassword(passwordDetails));
         return service;
-        
+
     }
-    
+
     /**
      * this method will validate the security questions and answers to reset the
      * password at the time of login.
@@ -130,10 +159,10 @@ public class UserLoginController extends ASExceptionController {
         final Service service = new Service();
         service.setPayload(userLoginService
                 .validateSecurityQuestions(securityDetails.getSecurityDetails()));
-        
+
         return service;
     }
-    
+
     /**
      * Method to get user security questions.
      * 
@@ -147,9 +176,9 @@ public class UserLoginController extends ASExceptionController {
         final Service service = new Service();
         service.setPayload(userLoginService.securityQuestions(emailId));
         return service;
-        
+
     }
-    
+
     /**
      * Method to resetPassword.
      * 
@@ -162,10 +191,10 @@ public class UserLoginController extends ASExceptionController {
         final Login login = new Login();
         login.setEmailId(userLoginService.resetPassword(guid));
         service.setPayload(login);
-        
+
         return service;
     }
-    
+
     /**
      * @param emailId
      * @return service
@@ -173,10 +202,10 @@ public class UserLoginController extends ASExceptionController {
     @RequestMapping(value = "resetByEmail/{emailId}", method = RequestMethod.POST)
     public final Service resetByEmail(
             @PathVariable("emailId") final String emailId) {
-        
+
         return new Service();
     }
-    
+
     /**
      * @param guid
      * @return service.
@@ -186,5 +215,5 @@ public class UserLoginController extends ASExceptionController {
         userLoginService.verifyAccountUpdate(guid);
         return new Service();
     }
-    
+
 }

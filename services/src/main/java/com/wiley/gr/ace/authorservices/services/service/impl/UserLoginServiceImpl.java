@@ -63,9 +63,6 @@ public class UserLoginServiceImpl implements UserLoginService {
     @Value("${UserLoginServiceImpl.resetPassword.securityquestion.message}")
     private String securityquestionmessage;
 
-    /** The SUCCESS. */
-    @Value("${SUCCESS}")
-    private String SUCCESS;
 
     /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory
@@ -92,24 +89,11 @@ public class UserLoginServiceImpl implements UserLoginService {
      * @return status - true/false
      */
     @Override
-    public final Object login(final Login login,
+    public final SecurityResponse login(final Login login,
             final SharedServieRequest sharedServieRequest) {
 
         LOGGER.info("In login method");
-        SecurityResponse securityResponse = userManagement
-                .authenticateUser(sharedServieRequest);
-        if ("LOCKED".equalsIgnoreCase(securityResponse.getStatus())) {
-            return securityResponse;
-        }
-        if (SUCCESS.equals(securityResponse.getStatus())) {
-
-            Integer userId = userLoginServiceDAO.getUserId(login.getEmailId());
-            Login user = new Login();
-            user.setUserId(userId);
-            return user;
-        } else {
-            throw new ASException("invalidEmailCode", "invalidEmailMessage");
-        }
+        return userManagement.authenticateUser(sharedServieRequest);
     }
 
     /**

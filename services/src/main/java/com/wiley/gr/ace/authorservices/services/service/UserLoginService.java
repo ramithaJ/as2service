@@ -17,6 +17,7 @@ import com.wiley.gr.ace.authorservices.model.Login;
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
+import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
 
 /**
  * The Interface UserLoginService.
@@ -34,7 +35,7 @@ public interface UserLoginService {
      *            the shared servie request
      * @return the object
      */
-    Object login(Login login, SharedServieRequest sharedServieRequest);
+    SecurityResponse login(Login login, SharedServieRequest sharedServieRequest);
 
     /**
      * Reset password.
