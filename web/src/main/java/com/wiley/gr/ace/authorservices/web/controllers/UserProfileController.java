@@ -31,277 +31,227 @@ import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.UserProfileAlerts;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
-import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
 
 /**
- * @author virtusa version 1.0
+ * @author virtusa
+ *	version 1.0
  */
 @RestController
 @RequestMapping("/userprofile")
 public class UserProfileController {
+	
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(UserProfileController.class);
+	
+	@Autowired
+	AuthorProfileService authorProfileService;
+	@Autowired(required = true)
+	LocalValidatorFactoryBean validator;
 
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(UserProfileController.class);
+	@RequestMapping(value = "/affiliations/{userId}", method = RequestMethod.GET)
+	public Service getAffiliationsList(@PathVariable("userId") String userId) {
+		LOGGER.info("inside getAffiliationsList method ");
+		Service service = new Service();
+		service.setPayload(authorProfileService.getuserProfileResponse(userId)
+				.getCustomerProfile().getAffiliations());
+		return service;
+	}
 
-    @Autowired(required = true)
-    UserProfileService userProfileService;
-    @Autowired
-    AuthorProfileService authorProfileService;
-    @Autowired(required = true)
-    LocalValidatorFactoryBean validator;
+	@RequestMapping(value = "/affiliations/{userId}/{affiliationId}", method = RequestMethod.POST)
+	public Service updateAffiliation(@PathVariable("userId") String userId,
+			@RequestBody Affiliation affiliation) {
+		LOGGER.info("inside updateAffiliation method ");
+		affiliation.setUserId(userId);
+		Service service = new Service();
+		authorProfileService.updateAffiliation(affiliation);
+		return service;
+	}
 
-    /**
-     * @param userId
-     * @return
-     */
-    @RequestMapping(value = "/affiliations/{userId}", method = RequestMethod.GET)
-    public Service getAffiliationsList(@PathVariable("userId") String userId) {
-        LOGGER.info("inside getAffiliationsList method ");
-        Service service = new Service();
-        service.setPayload(userProfileService.getuserProfileResponse(userId)
-                .getCustomerProfile().getAffiliations());
-        return service;
-    }
+	@RequestMapping(value = "/researchFunders/{userId}", method = RequestMethod.GET)
+	public Service getResearchFundersList(@PathVariable("userId") String userId) {
+        
+		LOGGER.info("inside getResearchFundersList method ");
+		Service service = new Service();
+		service.setPayload(authorProfileService.getuserProfileResponse(userId)
+				.getCustomerProfile().getResearchFunders());
+		return service;
+	}
 
-    /**
-     * @param userId
-     * @param affiliation
-     * @return
-     */
-    @RequestMapping(value = "/affiliations/{userId}/{affiliationId}", method = RequestMethod.POST)
-    public Service updateAffiliation(@PathVariable("userId") String userId,
-            @RequestBody Affiliation affiliation) {
-        LOGGER.info("inside updateAffiliation method ");
-        affiliation.setUserId(userId);
-        Service service = new Service();
-        authorProfileService.updateAffiliation(affiliation);
-        return service;
-    }
+	@RequestMapping(value = "/researchFunder/{userId}", method = RequestMethod.POST)
+	public Service updateResearchFunder(@PathVariable("userId") String userId,
+			@RequestBody ResearchFunder researchFunder) {
 
-    /**
-     * @param userId
-     * @return
-     */
-    @RequestMapping(value = "/researchFunders/{userId}", method = RequestMethod.GET)
-    public Service getResearchFundersList(@PathVariable("userId") String userId) {
+		LOGGER.info("inside updateResearchFunder method ");
+		Service service = new Service();
+		service.setPayload(authorProfileService.updateResearchFunder(userId,
+				researchFunder));
+		return service;
+	}
 
-        LOGGER.info("inside getResearchFundersList method ");
-        Service service = new Service();
-        service.setPayload(userProfileService.getuserProfileResponse(userId)
-                .getCustomerProfile().getResearchFunders());
-        return service;
-    }
+	/**
+	 * @param userId
+	 * @return
+	 */
+	@RequestMapping(value = "/societies/{userId}", method = RequestMethod.GET)
+	public Service getSocietiesList(@PathVariable("userId") String userId) {
 
-    /**
-     * @param userId
-     * @param researchFunder
-     * @return
-     */
-    @RequestMapping(value = "/researchFunder/{userId}", method = RequestMethod.POST)
-    public Service updateResearchFunder(@PathVariable("userId") String userId,
-            @RequestBody ResearchFunder researchFunder) {
+		LOGGER.info("inside getSocietiesList method ");
+		Service service = new Service();
+		service.setPayload(authorProfileService.getuserProfileResponse(userId)
+				.getCustomerProfile().getSocieties());
+		return service;
+	}
 
-        LOGGER.info("inside updateResearchFunder method ");
-        Service service = new Service();
-        service.setPayload(authorProfileService.updateResearchFunder(userId,
-                researchFunder));
-        return service;
-    }
+	@RequestMapping(value = "/societies/{userId}", method = RequestMethod.POST)
+	public Service updateSocietyDetails(@PathVariable("userId") String userId,
+			@Valid @RequestBody Society society) {
 
-    /**
-     * @param userId
-     * @return
-     */
-    /**
-     * @param userId
-     * @return
-     */
-    @RequestMapping(value = "/societies/{userId}", method = RequestMethod.GET)
-    public Service getSocietiesList(@PathVariable("userId") String userId) {
+		LOGGER.info("inside updateSocietyDetails method ");
+		authorProfileService.updateSocietyDetails(society);
+		return new Service();
+	}
 
-        LOGGER.info("inside getSocietiesList method ");
-        Service service = new Service();
-        service.setPayload(userProfileService.getuserProfileResponse(userId)
-                .getCustomerProfile().getSocieties());
-        return service;
-    }
+	/**
+	 * @param userId
+	 * @return
+	 */
+	@RequestMapping(value = "/interests/{userId}", method = RequestMethod.GET)
+	public Service getMyInterests(@PathVariable("userId") String userId) {
 
-    /**
-     * @param userId
-     * @param society
-     * @return
-     */
-    @RequestMapping(value = "/societies/{userId}", method = RequestMethod.POST)
-    public Service updateSocietyDetails(@PathVariable("userId") String userId,
-            @Valid @RequestBody Society society) {
+		LOGGER.info("inside getMyInterests method ");
+		Service service = new Service();
+		service.setPayload(authorProfileService.getuserProfileResponse(userId)
+				.getCustomerProfile().getInterests());
+		return service;
+	}
 
-        LOGGER.info("inside updateSocietyDetails method ");
-        authorProfileService.updateSocietyDetails(society);
-        return new Service();
-    }
+	/**
+	 * @param userId
+	 * @param searchString
+	 * @return
+	 */
+	@RequestMapping(value = "/interests/search/{userId}", method = RequestMethod.POST)
+	public Service searchInterests(
+			@PathVariable("userId") String userId,
+			@RequestParam(required = false, value = "searchStr") String searchString) {
+		LOGGER.info("inside searchInterests method ");
 
-    /**
-     * @param userId
-     * @return
-     */
-    @RequestMapping(value = "/interests/{userId}", method = RequestMethod.GET)
-    public Service getMyInterests(@PathVariable("userId") String userId) {
+		return new Service();
+	}
 
-        LOGGER.info("inside getMyInterests method ");
-        Service service = new Service();
-        service.setPayload(userProfileService.getuserProfileResponse(userId)
-                .getCustomerProfile().getInterests());
-        return service;
-    }
+	/**
+	 * This service will give list of Co-authors that are tagged to the
+	 * author/user.
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	@RequestMapping(value = "/coAuthors/{userId}", method = RequestMethod.GET)
+	public Service getCoAuthorsList(@PathVariable("userId") String userId) {
 
-    /**
-     * @param userId
-     * @param searchString
-     * @return
-     */
-    @RequestMapping(value = "/interests/search/{userId}", method = RequestMethod.POST)
-    public Service searchInterests(
-            @PathVariable("userId") String userId,
-            @RequestParam(required = false, value = "searchStr") String searchString) {
-        LOGGER.info("inside searchInterests method ");
+		LOGGER.info("inside getCoAuthorsList method ");
+		Service service = new Service();
+		service.setPayload(authorProfileService.getuserProfileResponse(userId)
+				.getCustomerProfile().getCoAuthors());
+		return service;
+	}
 
-        return new Service();
-    }
+	@RequestMapping(value = "/coAuthors/{userId}", method = RequestMethod.POST)
+	public Service updateCoAuthors(@PathVariable String userId,
+			@RequestBody CoAuthor coAuthor) {
 
-    /**
-     * This service will give list of Co-authors that are tagged to the
-     * author/user.
-     * 
-     * @param userId
-     * @return
-     */
-    @RequestMapping(value = "/coAuthors/{userId}", method = RequestMethod.GET)
-    public Service getCoAuthorsList(@PathVariable("userId") String userId) {
 
-        LOGGER.info("inside getCoAuthorsList method ");
-        Service service = new Service();
-        service.setPayload(userProfileService.getuserProfileResponse(userId)
-                .getCustomerProfile().getCoAuthors());
-        return service;
-    }
+		LOGGER.info("inside updateCoAuthors method ");
+		Service service = new Service();
+		coAuthor.setUserId(Integer.parseInt(userId));
+		service.setPayload(authorProfileService.updatecoAuthor(coAuthor));
+		return new Service();
+	}
 
-    /**
-     * @param userId
-     * @param coAuthor
-     * @return
-     */
-    @RequestMapping(value = "/coAuthors/{userId}", method = RequestMethod.POST)
-    public Service updateCoAuthors(@PathVariable String userId,
-            @RequestBody CoAuthor coAuthor) {
+	/**
+	 * @param userId
+	 * @return
+	 */
 
-        LOGGER.info("inside updateCoAuthors method ");
-        Service service = new Service();
-        coAuthor.setUserId(Integer.parseInt(userId));
-        service.setPayload(authorProfileService.updatecoAuthor(coAuthor));
-        return new Service();
-    }
+	@RequestMapping(value = "/preferredJournals/{userId}", method = RequestMethod.GET)
+	public Service getPreferredJournals(@PathVariable("userId") String userId) {
 
-    /**
-     * @param userId
-     * @return
-     */
+		LOGGER.info("inside getPreferredJournals method ");
+		Service service = new Service();
+		service.setPayload(authorProfileService.getuserProfileResponse(userId)
+				.getCustomerProfile().getPreferredJournals());
+		return service;
+	}
 
-    @RequestMapping(value = "/preferredJournals/{userId}", method = RequestMethod.GET)
-    public Service getPreferredJournals(@PathVariable("userId") String userId) {
+	/**
+	 * @param userId
+	 * @return
+	 */
+	@RequestMapping(value = "/preferredJournals/search/{userId}", method = RequestMethod.POST)
+	public Service searchPreferredJournals(@PathVariable("userId") String userId) {
 
-        LOGGER.info("inside getPreferredJournals method ");
-        Service service = new Service();
-        service.setPayload(userProfileService.getuserProfileResponse(userId)
-                .getCustomerProfile().getPreferredJournals());
-        return service;
-    }
+		LOGGER.info("inside searchPreferredJournals method ");
+		return new Service();
+	}
 
-    /**
-     * @param userId
-     * @return
-     */
-    @RequestMapping(value = "/preferredJournals/search/{userId}", method = RequestMethod.POST)
-    public Service searchPreferredJournals(@PathVariable("userId") String userId) {
+	/**
+	 * @param userId
+	 * @return
+	 */
+	@RequestMapping(value = "/articlesPublishedForJournals/{userId}", method = RequestMethod.GET)
+	public Service getArticlesPublishedForJournals(
+			@PathVariable("userId") String userId) {
+    
+		LOGGER.info("inside getArticlesPublishedForJournals method ");
+		return new Service();
+	}
 
-        LOGGER.info("inside searchPreferredJournals method ");
-        return new Service();
-    }
+	/**
+	 * @param userId
+	 * @return
+	 */
 
-    /**
-     * @param userId
-     * @return
-     */
-    @RequestMapping(value = "/articlesPublishedForJournals/{userId}", method = RequestMethod.GET)
-    public Service getArticlesPublishedForJournals(
-            @PathVariable("userId") String userId) {
+	@RequestMapping(value = "/alerts/{userId}", method = RequestMethod.GET)
+	public Service getListOfAlerts(@PathVariable("userId") String userId) {
+         
+		LOGGER.info("inside getListOfAlerts method ");
+		Service service = new Service();
 
-        LOGGER.info("inside getArticlesPublishedForJournals method ");
-        return new Service();
-    }
+		service.setPayload(authorProfileService.getuserProfileResponse(userId)
+				.getCustomerProfile().getAlerts());
+		return service;
+	}
 
-    /**
-     * @param userId
-     * @return
-     */
+	@RequestMapping(value = "/alerts/{userId}", method = RequestMethod.POST)
+	public Service updateAlerts(@PathVariable("userId") String userId,
+			@RequestBody UserProfileAlerts userProfileAlerts) {
+    
+		LOGGER.info("inside updateAlerts method ");
+		authorProfileService.updateAlerts(userId, userProfileAlerts);
+		return new Service();
+	}
 
-    @RequestMapping(value = "/alerts/{userId}", method = RequestMethod.GET)
-    public Service getListOfAlerts(@PathVariable("userId") String userId) {
+	@RequestMapping(value = "/jobCategories/{userId}", method = RequestMethod.GET)
+	public Service getJobCategories(@PathVariable("userId") String userId) {
 
-        LOGGER.info("inside getListOfAlerts method ");
-        Service service = new Service();
+		LOGGER.info("inside getJobCategories method ");
+		return new Service();
+	}
 
-        service.setPayload(userProfileService.getuserProfileResponse(userId)
-                .getCustomerProfile().getAlerts());
-        return service;
-    }
+	@RequestMapping(value = "/lookUpProfile/{userId}", method = RequestMethod.GET)
+	public Service lookUpProfile(@PathVariable("userId") String userId) {
+     
+		LOGGER.info("inside lookUpProfile method ");
+		Service service = new Service();
+		service.setPayload(authorProfileService.getuserProfileResponse(userId));
+		return service;
 
-    /**
-     * @param userId
-     * @param userProfileAlerts
-     * @return
-     */
-    @RequestMapping(value = "/alerts/{userId}", method = RequestMethod.POST)
-    public Service updateAlerts(@PathVariable("userId") String userId,
-            @RequestBody UserProfileAlerts userProfileAlerts) {
+	}
 
-        LOGGER.info("inside updateAlerts method ");
-        authorProfileService.updateAlerts(userId, userProfileAlerts);
-        return new Service();
-    }
-
-    /**
-     * @param userId
-     * @return
-     */
-    @RequestMapping(value = "/jobCategories/{userId}", method = RequestMethod.GET)
-    public Service getJobCategories(@PathVariable("userId") String userId) {
-
-        LOGGER.info("inside getJobCategories method ");
-        return new Service();
-    }
-
-    /**
-     * @param userId
-     * @return
-     */
-    @RequestMapping(value = "/lookUpProfile/{userId}", method = RequestMethod.GET)
-    public Service lookUpProfile(@PathVariable("userId") String userId) {
-
-        LOGGER.info("inside lookUpProfile method ");
-        Service service = new Service();
-        service.setPayload(userProfileService.getuserProfileResponse(userId));
-        return service;
-
-    }
-
-    /**
-     * @param userId
-     * @return
-     */
-    @RequestMapping(value = "/industries/{userId}", method = RequestMethod.GET)
-    public Service getIndustries(@PathVariable("userId") String userId) {
-
-        LOGGER.info("inside getIndustries method ");
-        return new Service();
-    }
+	@RequestMapping(value = "/industries/{userId}", method = RequestMethod.GET)
+	public Service getIndustries(@PathVariable("userId") String userId) {
+         
+		LOGGER.info("inside getIndustries method ");
+		return new Service();
+	}
 }

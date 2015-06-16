@@ -38,142 +38,132 @@ import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
  * @author virtusa version 1.0
  */
 public class AuthorProfileServiceImpl implements AuthorProfileService {
-
+    
     private static final Logger LOGGER = LoggerFactory
             .getLogger(AuthorProfileServiceImpl.class);
-
-    /**
-     * getting bean of userProfiles
-     */
+    
     @Autowired
     UserProfiles userProfiles;
-    /**
-     * getting bean of userManagement
-     */
     @Autowired
     UserManagement userManagement;
-
+    
     UserProfile userProfile = new UserProfile();
     UserProfileResponse lookUpProfile = new UserProfileResponse();
-
-    /** This method will call Look up profile to get data */
+    
     @Override
     public boolean updateSocietyDetails(Society society) {
         LOGGER.info("inside updateSocietyDetails Method ");
-
+        
         List<Society> list = new ArrayList<Society>();
         list.add(society);
         userProfile.setSocieties(list);
         lookUpProfile.setCustomerProfile(userProfile);
         return userProfiles.updateProfile(lookUpProfile);
     }
-
-    /** This method will call Look up profile to get data */
+    
     @Override
     public boolean updateAffiliation(Affiliation affiliation) {
         LOGGER.info("inside updateAffiliation Method ");
-
+        
         List<Affiliation> list = new ArrayList<Affiliation>();
         list.add(affiliation);
-
+        
         userProfile.setAffiliations(list);
         lookUpProfile.setCustomerProfile(userProfile);
         return userProfiles.updateProfile(lookUpProfile);
     }
-
-    /** This method will call Look up profile to get data */
+    
     @Override
     public boolean updateResearchFunder(String userId,
             ResearchFunder researchFunder) {
-
+        
         LOGGER.info("inside updateResearchFunder Method ");
-
+        
         List<ResearchFunder> list = new ArrayList<ResearchFunder>();
         list.add(researchFunder);
         userProfile.setResearchFunders(list);
         lookUpProfile.setCustomerProfile(userProfile);
         return userProfiles.updateProfile(lookUpProfile);
     }
-
-    /** This method will call Look up profile to get data */
+    
     @Override
     public boolean updateAlerts(String userId,
             UserProfileAlerts userProfileAlerts) {
-
+        
         LOGGER.info("inside updateAlerts Method ");
-
+        
         userProfile.setAlerts(userProfileAlerts.getAlerts());
         lookUpProfile.setCustomerProfile(userProfile);
         return userProfiles.updateProfile(lookUpProfile);
     }
-
-    /** This method will call Look up profile to get data */
+    
     @Override
     public boolean updatecoAuthor(CoAuthor coAuthor) {
-
+        
         LOGGER.info("inside updatecoAuthor Method ");
-
+        
         List<CoAuthor> list = new ArrayList<CoAuthor>();
         list.add(coAuthor);
         userProfile.setCoAuthors(list);
         lookUpProfile.setCustomerProfile(userProfile);
         return userProfiles.updateProfile(lookUpProfile);
-
+        
     }
-
-    /** This method will call Look up profile to get data */
+    
     @Override
     public boolean updateEmailDetails(User emailDetails) {
-
+        
         LOGGER.info("inside updateEmailDetails Method ");
         userProfile.setCustomerDetails(emailDetails);
         lookUpProfile.setCustomerProfile(userProfile);
         return userProfiles.updateProfile(lookUpProfile);
     }
-
-    /** This method will call Look up profile to get data */
+    
     @Override
     public boolean updateUserAddress(UserProfile addresses) {
-
+        
         LOGGER.info("inside updateUserAddress Method ");
         userProfile.setAddressDetails(addresses.getAddressDetails());
         lookUpProfile.setCustomerProfile(userProfile);
         return userProfiles.updateProfile(lookUpProfile);
     }
-
-    /** This method will call Look up profile to get data */
+    
     @Override
     public boolean updateUserProfileInfo(User user) {
-
+        
         LOGGER.info("inside updateUserProfileInfo Method ");
         userProfile.setCustomerDetails(user);
         lookUpProfile.setCustomerProfile(userProfile);
         return userProfiles.updateProfile(lookUpProfile);
     }
-
-    /** This method will call Look up profile to get data */
+    
     @Override
     public boolean updateUserId(Email email) {
-
+        
         LOGGER.info("inside updateUserId Method ");
         return userManagement.updateUserId(email.getOldEmailId(),
                 email.getNewEmailId());
     }
-
-    /** This method will call Look up profile to get data */
+    
     @Override
     public boolean updatePassword(PasswordDetails passwordDetails) {
-
+        
         LOGGER.info("inside updatePassword Method ");
         return userManagement.updatePassword(passwordDetails);
     }
-
-    /** This method will call Look up profile to get data */
+    
     @Override
     public boolean updateSecurityDetails(SecurityDetailsHolder securityDetails) {
-
+        
         LOGGER.info("inside updateSecurityDetails Method ");
         return userManagement.updateSecurityDetails(securityDetails);
     }
-
+    
+    @Override
+    public UserProfileResponse getuserProfileResponse(String userId) {
+        
+        LOGGER.info("in UserProfileResponse Method");
+        return userProfiles.getUserProfileResponse(userId);
+    }
+    
 }

@@ -79,10 +79,13 @@ public class UserLoginServiceImpl implements UserLoginService {
      * @return status - true/false
      */
     @Override
-    public Login login(Login login, SharedServieRequest sharedServieRequest) {
+    public Object login(Login login, SharedServieRequest sharedServieRequest) {
 
         LOGGER.info("In login method");
         SecurityResponse securityResponse = userManagement.authenticateUser(sharedServieRequest);
+        if("LOCKED".equalsIgnoreCase(securityResponse.getStatus())){
+            return securityResponse;
+        }
         if(SUCCESS.equals(securityResponse.getStatus())){
            
             Integer userId = userLoginServiceDAO.getUserId(login.getEmailId());
@@ -93,7 +96,6 @@ public class UserLoginServiceImpl implements UserLoginService {
             throw new ASException("invalidEmailCode","invalidEmailMessage");
         }
     }
-    /**method for validating email in AS 2 db by calling dao based on emailId */
     @Override
     public boolean validateEmailAddress(String emailId) {
 
@@ -132,15 +134,12 @@ public class UserLoginServiceImpl implements UserLoginService {
         return status;
     }
 
-    /** calling external service to get security questions */
     @Override
     public SecurityDetailsHolder securityQuestions(String emailId) {
 
         LOGGER.info("In securityQuestions method");
         return userManagement.getSecurityQuestions(emailId);
     }
-/**
- * this method is for validating security questions */
 
     @Override
     public boolean validateSecurityQuestions(
@@ -149,9 +148,7 @@ public class UserLoginServiceImpl implements UserLoginService {
         LOGGER.info("In validateSecurityQuestions method");
         return true;
     }
-  
-    
-    /** For resetting the password based on guid  by calling userLoginServiceDAO*/
+
     @Override
     public String resetPassword(String guid) {
         InviteResetpwdLog daoinviteResetpwdLog = userLoginServiceDAO
@@ -175,7 +172,12 @@ public class UserLoginServiceImpl implements UserLoginService {
 
     }
 
-    /** this method is for verifying account based on guid by calling as 2 db */
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.wiley.gr.ace.authorservices.services.service.UserLoginService#
+     * verifyAccountUpdate(java.lang.String)
+     */
     @Override
     public void verifyAccountUpdate(String guid) {
 

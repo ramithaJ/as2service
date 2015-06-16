@@ -24,7 +24,6 @@ import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
 import com.wiley.gr.ace.authorservices.services.service.UpdateUserService;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
-import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
 import com.wiley.gr.ace.authorservices.services.service.impl.ASDataServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.AdminLoginServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.ArticleAssignmentServiceImpl;
@@ -35,7 +34,6 @@ import com.wiley.gr.ace.authorservices.services.service.impl.RegistrationService
 import com.wiley.gr.ace.authorservices.services.service.impl.UpdateUserServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UserAccountServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UserLoginServiceImpl;
-import com.wiley.gr.ace.authorservices.services.service.impl.UserProfileServiceImpl;
 
 @Configuration
 public class ServiceBeanConfig {
@@ -71,12 +69,6 @@ public class ServiceBeanConfig {
         return new OrcidServiceImpl();
     }
 
-    @Bean(name = "UserProfileService")
-    public UserProfileService userProfileService() {
-
-        return new UserProfileServiceImpl();
-
-    }
 
     @Bean(name = "UserAccountService")
     public UserAccountService userAccountService() {

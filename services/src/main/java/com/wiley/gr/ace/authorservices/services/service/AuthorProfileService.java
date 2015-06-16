@@ -22,75 +22,31 @@ import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserProfile;
 import com.wiley.gr.ace.authorservices.model.UserProfileAlerts;
+import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 
 public interface AuthorProfileService {
-
-    /**
-     * @param society
-     * @return
-     */
+    
     boolean updateSocietyDetails(Society society);
-
-    /**
-     * @param affiliation
-     * @return
-     */
+    
     boolean updateAffiliation(Affiliation affiliation);
-
-    /**
-     * @param userId
-     * @param researchFunder
-     * @return
-     */
+    
     boolean updateResearchFunder(String userId, ResearchFunder researchFunder);
-
-    /**
-     * @param userId
-     * @param userProfileAlerts
-     * @return
-     */
+    
     boolean updateAlerts(String userId, UserProfileAlerts userProfileAlerts);
-
-    /**
-     * @param coAuthor
-     * @return
-     */
+    
     boolean updatecoAuthor(CoAuthor coAuthor);
-
-    /**
-     * @param emailDetails
-     * @return
-     */
+    
     boolean updateEmailDetails(User emailDetails);
-
-    /**
-     * @param addresses
-     * @return
-     */
+    
     boolean updateUserAddress(UserProfile addresses);
-
-    /**
-     * @param user
-     * @return
-     */
+    
     boolean updateUserProfileInfo(User user);
-
-    /**
-     * @param email
-     * @return
-     */
+    
     boolean updateUserId(Email email);
-
-    /**
-     * @param passwordDetails
-     * @return
-     */
+    
     boolean updatePassword(PasswordDetails passwordDetails);
-
-    /**
-     * @param securityDetails
-     * @return
-     */
+    
     boolean updateSecurityDetails(SecurityDetailsHolder securityDetails);
-
+    
+    UserProfileResponse getuserProfileResponse(String userId);
 }

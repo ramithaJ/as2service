@@ -31,54 +31,55 @@ import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 public class UserProfilesImpl implements UserProfiles {
 
 	@Value("${lookupProfile.url}")
-	private String userProfile;
+	private String userProfileurl;
 
 	@Value("${updateProfile.url}")
-	private String updateProfile;
+	private String updateProfileurl;
 
 	@Value("${institutions.url}")
-	private String institutions;
+	private String institutionsurl;
 
 	@Value("${departments.url}")
-	private String departments;
+	private String departmentsurl;
 
 	@Value("${reasearchFunders.url}")
-	private String researchFunders;
+	private String researchFundersurl;
 
 	@Value("${societies.url}")
-	private String societies;
+	private String societiesurl;
 
 	@Value("${areaofInterests.url}")
-	private String areaofInterests;
+	private String areaofInterestsurl;
 
 	@Value("${jobCategories.url}")
-	private String jobCategories;
+	private String jobCategoriesurl;
 
 	@Value("${industries.url}")
-	private String industries;
+	private String industriesurl;
 
 	@Value("${countries.url}")
-	private String countries;
+	private String countriesurl;
 
 	@Value("${states.url}")
-	private String states;
-
-	private static final String STATUSS = "success";
+	private String statesurl;
+	
+	@Value("${STATUS}")
+	private String STATUS;
 
 	@Override
 	public UserProfileResponse getUserProfileResponse(String userId) {
 
-		return (UserProfileResponse) StubInvokerUtil.invokeStub(userProfile,
+		return (UserProfileResponse) StubInvokerUtil.invokeStub(userProfileurl,
 				HttpMethod.GET, UserProfileResponse.class);
 	}
 
 	@Override
 	public boolean updateProfile(UserProfileResponse userProfileResponse) {
 
-		Service service = (Service) StubInvokerUtil.invokeStub(updateProfile,
+		Service service = (Service) StubInvokerUtil.invokeStub(updateProfileurl,
 				HttpMethod.POST, Service.class);
 		String status = service.getStatus();
-		if (status != null && status.equalsIgnoreCase(STATUSS)) {
+		if (status != null && STATUS.equalsIgnoreCase(status)) {
 			return true;
 		}
 		return false;
@@ -87,63 +88,63 @@ public class UserProfilesImpl implements UserProfiles {
 	@Override
 	public ESBResponse getAreaOfInterests() {
 
-		return (ESBResponse) StubInvokerUtil.invokeStub(areaofInterests,
+		return (ESBResponse) StubInvokerUtil.invokeStub(areaofInterestsurl,
 				HttpMethod.GET, ESBResponse.class);
 	}
 
 	@Override
 	public JobCategories getJobCategories() {
 
-		return (JobCategories) StubInvokerUtil.invokeStub(jobCategories,
+		return (JobCategories) StubInvokerUtil.invokeStub(jobCategoriesurl,
 				HttpMethod.GET, JobCategories.class);
 	}
 
 	@Override
 	public Industries getIndustries() {
 
-		return (Industries) StubInvokerUtil.invokeStub(industries,
+		return (Industries) StubInvokerUtil.invokeStub(industriesurl,
 				HttpMethod.GET, Industries.class);
 	}
 
 	@Override
 	public ESBResponse getCountries() {
 
-		return (ESBResponse) StubInvokerUtil.invokeStub(countries,
+		return (ESBResponse) StubInvokerUtil.invokeStub(countriesurl,
 				HttpMethod.GET, ESBResponse.class);
 	}
 
 	@Override
 	public ESBResponse getStates() {
 
-		return (ESBResponse) StubInvokerUtil.invokeStub(states, HttpMethod.GET,
+		return (ESBResponse) StubInvokerUtil.invokeStub(statesurl, HttpMethod.GET,
 				ESBResponse.class);
 	}
 
 	@Override
 	public DropDown getInstitutionsList() {
 
-		return (DropDown) StubInvokerUtil.invokeStub(institutions,
+		return (DropDown) StubInvokerUtil.invokeStub(institutionsurl,
 				HttpMethod.GET, DropDown.class);
 	}
 
 	@Override
 	public DropDown getDepartmentsList() {
 
-		return (DropDown) StubInvokerUtil.invokeStub(departments,
+		return (DropDown) StubInvokerUtil.invokeStub(departmentsurl,
 				HttpMethod.GET, DropDown.class);
 	}
 
 	@Override
 	public DropDown getReasearchFunder() {
 
-		return (DropDown) StubInvokerUtil.invokeStub(researchFunders,
+		return (DropDown) StubInvokerUtil.invokeStub(researchFundersurl,
 				HttpMethod.GET, DropDown.class);
 	}
 
 	@Override
 	public DropDown getSocietyList() {
 
-		return (DropDown) StubInvokerUtil.invokeStub(societies, HttpMethod.GET,
+		return (DropDown) StubInvokerUtil.invokeStub(societiesurl, HttpMethod.GET,
 				DropDown.class);
 	}
 }

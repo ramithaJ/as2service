@@ -23,7 +23,7 @@ import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
  */
 public interface UserLoginService {
 
-    Login login(Login login, SharedServieRequest sharedServieRequest);
+    Object login(Login login, SharedServieRequest sharedServieRequest);
 
     /**
      * @param emailId
