@@ -15,18 +15,19 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class State.
+ *
+ * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
 public class State {
-    
+
     /** The state code. */
     private String stateCode;
-    
+
     /** The state name. */
     private String stateName;
-    
+
     /**
      * Gets the state code.
      *
@@ -35,7 +36,7 @@ public class State {
     public String getStateCode() {
         return stateCode;
     }
-    
+
     /**
      * Sets the state code.
      *
@@ -45,7 +46,7 @@ public class State {
     public void setStateCode(String stateCode) {
         this.stateCode = stateCode;
     }
-    
+
     /**
      * Gets the state name.
      *
@@ -54,7 +55,7 @@ public class State {
     public String getStateName() {
         return stateName;
     }
-    
+
     /**
      * Sets the state name.
      *

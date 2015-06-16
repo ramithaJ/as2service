@@ -3,65 +3,141 @@
 
 package com.wiley.gr.ace.authorservices.model.external;
 
+/**
+ * The Class AffiliationElement.
+ */
 public class AffiliationElement {
-	private java.lang.String institution;
 
- 	public void setInstitution(java.lang.String institution) {
-		this.institution = institution;
-	}
+    /** The institution. */
+    private java.lang.String institution;
 
-	public java.lang.String getInstitution() {
-		return institution;
-	}
+    /**
+     * Sets the institution.
+     *
+     * @param institution
+     *            the new institution
+     */
+    public void setInstitution(java.lang.String institution) {
+        this.institution = institution;
+    }
 
-	private java.lang.String department;
+    /**
+     * Gets the institution.
+     *
+     * @return the institution
+     */
+    public java.lang.String getInstitution() {
+        return institution;
+    }
 
- 	public void setDepartment(java.lang.String department) {
-		this.department = department;
-	}
+    /** The department. */
+    private java.lang.String department;
 
-	public java.lang.String getDepartment() {
-		return department;
-	}
+    /**
+     * Sets the department.
+     *
+     * @param department
+     *            the new department
+     */
+    public void setDepartment(java.lang.String department) {
+        this.department = department;
+    }
 
-	private java.lang.String city;
+    /**
+     * Gets the department.
+     *
+     * @return the department
+     */
+    public java.lang.String getDepartment() {
+        return department;
+    }
 
- 	public void setCity(java.lang.String city) {
-		this.city = city;
-	}
+    /** The city. */
+    private java.lang.String city;
 
-	public java.lang.String getCity() {
-		return city;
-	}
+    /**
+     * Sets the city.
+     *
+     * @param city
+     *            the new city
+     */
+    public void setCity(java.lang.String city) {
+        this.city = city;
+    }
 
-	private java.lang.String enddate;
+    /**
+     * Gets the city.
+     *
+     * @return the city
+     */
+    public java.lang.String getCity() {
+        return city;
+    }
 
- 	public void setEnddate(java.lang.String enddate) {
-		this.enddate = enddate;
-	}
+    /** The enddate. */
+    private java.lang.String enddate;
 
-	public java.lang.String getEnddate() {
-		return enddate;
-	}
+    /**
+     * Sets the enddate.
+     *
+     * @param enddate
+     *            the new enddate
+     */
+    public void setEnddate(java.lang.String enddate) {
+        this.enddate = enddate;
+    }
 
-	private java.lang.String startdate;
+    /**
+     * Gets the enddate.
+     *
+     * @return the enddate
+     */
+    public java.lang.String getEnddate() {
+        return enddate;
+    }
 
- 	public void setStartdate(java.lang.String startdate) {
-		this.startdate = startdate;
-	}
+    /** The startdate. */
+    private java.lang.String startdate;
 
-	public java.lang.String getStartdate() {
-		return startdate;
-	}
+    /**
+     * Sets the startdate.
+     *
+     * @param startdate
+     *            the new startdate
+     */
+    public void setStartdate(java.lang.String startdate) {
+        this.startdate = startdate;
+    }
 
-	private java.lang.String state;
+    /**
+     * Gets the startdate.
+     *
+     * @return the startdate
+     */
+    public java.lang.String getStartdate() {
+        return startdate;
+    }
 
- 	public void setState(java.lang.String state) {
-		this.state = state;
-	}
+    /** The state. */
+    private java.lang.String state;
 
-	public java.lang.String getState() {
-		return state;
-	}
+    /**
+     * Sets the state.
+     *
+     * @param state
+     *            the new state
+     */
+    public void setState(java.lang.String state) {
+        this.state = state;
+    }
+
+    /**
+     * Gets the state.
+     *
+     * @return the state
+     */
+    public java.lang.String getState() {
+        return state;
+    }
 
 }

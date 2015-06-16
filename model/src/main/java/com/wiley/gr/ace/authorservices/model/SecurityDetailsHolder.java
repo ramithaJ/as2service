@@ -23,61 +23,102 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class SecurityDetailsHolder.
+ *
+ * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
 public class SecurityDetailsHolder {
-    
-    @NotNull @NotEmpty
+
+    /** The email id. */
+    @NotNull
+    @NotEmpty
     private String emailId;
-    
+
+    /** The security details. */
     private List<SecurityDetails> securityDetails = new ArrayList<SecurityDetails>();
-    
+
+    /** The password. */
     private String password;
+
+    /** The is force reset. */
     @JsonProperty
     private boolean isForceReset;
-    
+
     /**
-     * @return
+     * Gets the security details.
+     *
+     * @return the security details
      */
     public List<SecurityDetails> getSecurityDetails() {
         return securityDetails;
     }
-    
+
     /**
+     * Sets the security details.
+     *
      * @param securityDetails
+     *            the new security details
      */
     public void setSecurityDetails(List<SecurityDetails> securityDetails) {
         this.securityDetails = securityDetails;
     }
 
     /**
-     * @return
+     * Gets the email id.
+     *
+     * @return the email id
      */
     public String getEmailId() {
         return emailId;
     }
 
+    /**
+     * Sets the email id.
+     *
+     * @param emailId
+     *            the new email id
+     */
     public void setEmailId(String emailId) {
         this.emailId = emailId;
     }
 
+    /**
+     * Gets the password.
+     *
+     * @return the password
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Sets the password.
+     *
+     * @param password
+     *            the new password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     * Checks if is force reset.
+     *
+     * @return true, if is force reset
+     */
     public boolean isForceReset() {
         return isForceReset;
     }
 
+    /**
+     * Sets the force reset.
+     *
+     * @param isForceReset
+     *            the new force reset
+     */
     public void setForceReset(boolean isForceReset) {
         this.isForceReset = isForceReset;
     }
-    
-    
+
 }

@@ -20,59 +20,78 @@ import java.util.Map;
 import javax.validation.constraints.NotNull;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class RolesAndPermissions.
+ *
+ * @author virtusa version 1.0
  */
 public class RolesAndPermissions {
-    
+
+    /** The roles list. */
     @NotNull
     private List<Role> rolesList = new ArrayList<Role>();
-    
+
+    /** The sections list. */
     private List<PermissionSection> sectionsList = new ArrayList<PermissionSection>();
-    
+
+    /** The permissions map. */
     @NotNull
     private Map<String, String[]> permissionsMap = new HashMap<String, String[]>();
-    
+
     /**
-     * @return
+     * Gets the roles list.
+     *
+     * @return the roles list
      */
     public List<Role> getRolesList() {
         return rolesList;
     }
-    
+
     /**
+     * Sets the roles list.
+     *
      * @param rolesList
+     *            the new roles list
      */
     public void setRolesList(List<Role> rolesList) {
         this.rolesList = rolesList;
     }
-    
+
     /**
-     * @return
+     * Gets the sections list.
+     *
+     * @return the sections list
      */
     public List<PermissionSection> getSectionsList() {
         return sectionsList;
     }
-    
+
     /**
+     * Sets the sections list.
+     *
      * @param sectionsList
+     *            the new sections list
      */
     public void setSectionsList(List<PermissionSection> sectionsList) {
         this.sectionsList = sectionsList;
     }
-    
+
     /**
-     * @return
+     * Gets the permissions map.
+     *
+     * @return the permissions map
      */
     public Map<String, String[]> getPermissionsMap() {
         return permissionsMap;
     }
-    
+
     /**
+     * Sets the permissions map.
+     *
      * @param permissionsMap
+     *            the permissions map
      */
     public void setPermissionsMap(Map<String, String[]> permissionsMap) {
         this.permissionsMap = permissionsMap;
     }
-    
+
 }

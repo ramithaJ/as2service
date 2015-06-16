@@ -15,18 +15,19 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class Suffix.
+ *
+ * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
 public class Suffix {
-    
+
     /** The suffix id. */
     private String suffixId;
-    
+
     /** The suffix name. */
     private String suffixName;
-    
+
     /**
      * Gets the suffix id.
      *
@@ -35,7 +36,7 @@ public class Suffix {
     public String getSuffixId() {
         return suffixId;
     }
-    
+
     /**
      * Sets the suffix id.
      *
@@ -45,7 +46,7 @@ public class Suffix {
     public void setSuffixId(String suffixId) {
         this.suffixId = suffixId;
     }
-    
+
     /**
      * Gets the suffix name.
      *
@@ -54,7 +55,7 @@ public class Suffix {
     public String getSuffixName() {
         return suffixName;
     }
-    
+
     /**
      * Sets the suffix name.
      *
@@ -64,5 +65,5 @@ public class Suffix {
     public void setSuffixName(String suffixName) {
         this.suffixName = suffixName;
     }
-    
+
 }

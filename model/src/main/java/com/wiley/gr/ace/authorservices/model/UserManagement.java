@@ -15,53 +15,54 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class UserManagement.
+ *
+ * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
 public class UserManagement {
-    
+
     /** The user id. */
     private String userId;
-    
+
     /** The primary email address. */
     private String primaryEmailAddress;
-    
+
     /** The secondary email address. */
     private String secondaryEmailAddress;
-    
+
     /** The password. */
     private String password;
-    
+
     /** The security vo. */
     private String securityVO;
-    
+
     /** The is security setup. */
     private String isSecuritySetup;
-    
+
     /** The login failure count. */
     private String loginFailureCount;
-    
+
     /** The is user locked. */
     private String isUserLocked;
-    
+
     /** The last login time. */
     private String lastLoginTime;
-    
+
     /** The session id. */
     private String sessionId;
-    
+
     /** The orcid id. */
     private String orcidID;
-    
+
     /** The ec id. */
     private String ecId;
-    
+
     /** The user vo. */
     private String userVO;
     /** The isAccountVerified. */
     private Character isAccountVerified;
-    
+
     /**
      * Gets the isAccountVerified.
      *
@@ -70,16 +71,17 @@ public class UserManagement {
     public Character getIsAccountVerified() {
         return isAccountVerified;
     }
-    
+
     /**
      * Sets the isAccountVerified.
      *
-     * @param isAccountVerifed
+     * @param isAccountVerified
+     *            the new checks if is account verified
      */
     public void setIsAccountVerified(Character isAccountVerified) {
         this.isAccountVerified = isAccountVerified;
     }
-    
+
     /**
      * Gets the orcid id.
      *
@@ -88,7 +90,7 @@ public class UserManagement {
     public String getOrcidID() {
         return orcidID;
     }
-    
+
     /**
      * Sets the orcid id.
      *
@@ -98,7 +100,7 @@ public class UserManagement {
     public void setOrcidID(String orcidID) {
         this.orcidID = orcidID;
     }
-    
+
     /**
      * Gets the user id.
      *
@@ -107,7 +109,7 @@ public class UserManagement {
     public String getUserId() {
         return userId;
     }
-    
+
     /**
      * Sets the user id.
      *
@@ -117,7 +119,7 @@ public class UserManagement {
     public void setUserId(String userId) {
         this.userId = userId;
     }
-    
+
     /**
      * Gets the primary email address.
      *
@@ -126,7 +128,7 @@ public class UserManagement {
     public String getPrimaryEmailAddress() {
         return primaryEmailAddress;
     }
-    
+
     /**
      * Sets the primary email address.
      *
@@ -136,7 +138,7 @@ public class UserManagement {
     public void setPrimaryEmailAddress(String primaryEmailAddress) {
         this.primaryEmailAddress = primaryEmailAddress;
     }
-    
+
     /**
      * Gets the secondary email address.
      *
@@ -145,7 +147,7 @@ public class UserManagement {
     public String getSecondaryEmailAddress() {
         return secondaryEmailAddress;
     }
-    
+
     /**
      * Sets the secondary email address.
      *
@@ -155,7 +157,7 @@ public class UserManagement {
     public void setSecondaryEmailAddress(String secondaryEmailAddress) {
         this.secondaryEmailAddress = secondaryEmailAddress;
     }
-    
+
     /**
      * Gets the password.
      *
@@ -164,7 +166,7 @@ public class UserManagement {
     public String getPassword() {
         return password;
     }
-    
+
     /**
      * Sets the password.
      *
@@ -174,7 +176,7 @@ public class UserManagement {
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
     /**
      * Gets the security vo.
      *
@@ -183,7 +185,7 @@ public class UserManagement {
     public String getSecurityVO() {
         return securityVO;
     }
-    
+
     /**
      * Sets the security vo.
      *
@@ -193,7 +195,7 @@ public class UserManagement {
     public void setSecurityVO(String securityVO) {
         this.securityVO = securityVO;
     }
-    
+
     /**
      * Gets the checks if is security setup.
      *
@@ -202,7 +204,7 @@ public class UserManagement {
     public String getIsSecuritySetup() {
         return isSecuritySetup;
     }
-    
+
     /**
      * Sets the checks if is security setup.
      *
@@ -212,7 +214,7 @@ public class UserManagement {
     public void setIsSecuritySetup(String isSecuritySetup) {
         this.isSecuritySetup = isSecuritySetup;
     }
-    
+
     /**
      * Gets the login failure count.
      *
@@ -221,7 +223,7 @@ public class UserManagement {
     public String getLoginFailureCount() {
         return loginFailureCount;
     }
-    
+
     /**
      * Sets the login failure count.
      *
@@ -231,7 +233,7 @@ public class UserManagement {
     public void setLoginFailureCount(String loginFailureCount) {
         this.loginFailureCount = loginFailureCount;
     }
-    
+
     /**
      * Gets the checks if is user locked.
      *
@@ -240,7 +242,7 @@ public class UserManagement {
     public String getIsUserLocked() {
         return isUserLocked;
     }
-    
+
     /**
      * Sets the checks if is user locked.
      *
@@ -250,7 +252,7 @@ public class UserManagement {
     public void setIsUserLocked(String isUserLocked) {
         this.isUserLocked = isUserLocked;
     }
-    
+
     /**
      * Gets the last login time.
      *
@@ -259,7 +261,7 @@ public class UserManagement {
     public String getLastLoginTime() {
         return lastLoginTime;
     }
-    
+
     /**
      * Sets the last login time.
      *
@@ -269,7 +271,7 @@ public class UserManagement {
     public void setLastLoginTime(String lastLoginTime) {
         this.lastLoginTime = lastLoginTime;
     }
-    
+
     /**
      * Gets the session id.
      *
@@ -278,7 +280,7 @@ public class UserManagement {
     public String getSessionId() {
         return sessionId;
     }
-    
+
     /**
      * Sets the session id.
      *
@@ -288,7 +290,7 @@ public class UserManagement {
     public void setSessionId(String sessionId) {
         this.sessionId = sessionId;
     }
-    
+
     /**
      * Gets the ec id.
      *
@@ -297,7 +299,7 @@ public class UserManagement {
     public String getEcId() {
         return ecId;
     }
-    
+
     /**
      * Sets the ec id.
      *
@@ -307,7 +309,7 @@ public class UserManagement {
     public void setEcId(String ecId) {
         this.ecId = ecId;
     }
-    
+
     /**
      * Gets the user vo.
      *
@@ -316,7 +318,7 @@ public class UserManagement {
     public String getUserVO() {
         return userVO;
     }
-    
+
     /**
      * Sets the user vo.
      *
@@ -326,5 +328,5 @@ public class UserManagement {
     public void setUserVO(String userVO) {
         this.userVO = userVO;
     }
-    
+
 }

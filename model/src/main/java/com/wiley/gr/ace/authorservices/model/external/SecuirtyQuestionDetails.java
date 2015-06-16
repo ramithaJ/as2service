@@ -18,6 +18,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
+ * The Class SecuirtyQuestionDetails.
+ *
  * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
@@ -39,9 +41,8 @@ public class SecuirtyQuestionDetails {
     /**
      * Sets the securityQuestions.
      *
-     * @param the
-     *            securityQuestions
-     * 
+     * @param securityQuestions
+     *            the new security questions
      */
     public void setSecurityQuestions(SecurityQuestions securityQuestions) {
         this.securityQuestions = securityQuestions;

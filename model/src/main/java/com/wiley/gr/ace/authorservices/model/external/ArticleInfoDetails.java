@@ -17,17 +17,30 @@ package com.wiley.gr.ace.authorservices.model.external;
 import java.util.List;
 
 /**
- * @author yugandhark
+ * The Class ArticleInfoDetails.
  *
+ * @author yugandhark
  */
 public class ArticleInfoDetails {
 
+    /** The article info. */
     private List<ArticleInfo> articleInfo;
 
+    /**
+     * Gets the article info.
+     *
+     * @return the article info
+     */
     public List<ArticleInfo> getArticleInfo() {
         return articleInfo;
     }
 
+    /**
+     * Sets the article info.
+     *
+     * @param articleInfo
+     *            the new article info
+     */
     public void setArticleInfo(List<ArticleInfo> articleInfo) {
         this.articleInfo = articleInfo;
     }

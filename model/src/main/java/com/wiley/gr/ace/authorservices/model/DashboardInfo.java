@@ -18,6 +18,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
+ * The Class DashboardInfo.
+ *
  * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
@@ -42,9 +44,8 @@ public class DashboardInfo {
     /**
      * Sets the dashBoardInfoMessage.
      *
-     * @param the
-     *            dashBoardInfoMessage
-     * 
+     * @param dashBoardInfoMessage
+     *            the new dash board info message
      */
     public void setDashBoardInfoMessage(String dashBoardInfoMessage) {
         this.dashBoardInfoMessage = dashBoardInfoMessage;
@@ -63,7 +64,7 @@ public class DashboardInfo {
     /**
      * Sets the id.
      *
-     * @param Id
+     * @param id
      *            the new id
      */
     public void setId(String id) {

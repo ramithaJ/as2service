@@ -3,15 +3,31 @@
 
 package com.wiley.gr.ace.authorservices.model.external;
 
+/**
+ * The Class FavoriteJournals.
+ */
 public class FavoriteJournals {
-	private JournalElement[] journal;
 
- 	public void setJournal(JournalElement[] journal) {
-		this.journal = journal;
-	}
+    /** The journal. */
+    private JournalElement[] journal;
 
-	public JournalElement[] getJournal() {
-		return journal;
-	}
+    /**
+     * Sets the journal.
+     *
+     * @param journal
+     *            the new journal
+     */
+    public void setJournal(JournalElement[] journal) {
+        this.journal = journal;
+    }
+
+    /**
+     * Gets the journal.
+     *
+     * @return the journal
+     */
+    public JournalElement[] getJournal() {
+        return journal;
+    }
 
 }

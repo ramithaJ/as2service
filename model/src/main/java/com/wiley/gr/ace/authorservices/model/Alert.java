@@ -14,71 +14,98 @@ package com.wiley.gr.ace.authorservices.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+/**
+ * The Class Alert.
+ */
 @JsonInclude(Include.NON_NULL)
 public class Alert {
-    
+
+    /** The alert id. */
     private String alertId;
-    
+
+    /** The alert name. */
     private String alertName;
-    
+
+    /** The on screen. */
     private boolean onScreen;
-    
+
+    /** The email. */
     private boolean email;
-    
+
     /**
-     * @return
+     * Gets the alert id.
+     *
+     * @return the alert id
      */
     public String getAlertId() {
         return alertId;
     }
-    
+
     /**
+     * Sets the alert id.
+     *
      * @param alertId
+     *            the new alert id
      */
     public void setAlertId(String alertId) {
         this.alertId = alertId;
     }
-    
+
     /**
-     * @return
+     * Gets the alert name.
+     *
+     * @return the alert name
      */
     public String getAlertName() {
         return alertName;
     }
-    
+
     /**
+     * Sets the alert name.
+     *
      * @param alertName
+     *            the new alert name
      */
     public void setAlertName(String alertName) {
         this.alertName = alertName;
     }
-    
+
     /**
-     * @return
+     * Checks if is on screen.
+     *
+     * @return true, if is on screen
      */
     public boolean isOnScreen() {
         return onScreen;
     }
-    
+
     /**
+     * Sets the on screen.
+     *
      * @param onScreen
+     *            the new on screen
      */
     public void setOnScreen(boolean onScreen) {
         this.onScreen = onScreen;
     }
-    
+
     /**
-     * @return
+     * Checks if is email.
+     *
+     * @return true, if is email
      */
     public boolean isEmail() {
         return email;
     }
-    
+
     /**
+     * Sets the email.
+     *
      * @param email
+     *            the new email
      */
     public void setEmail(boolean email) {
         this.email = email;
     }
-    
+
 }

@@ -15,38 +15,54 @@ package com.wiley.gr.ace.authorservices.model;
 import java.util.List;
 
 /**
- * @author virtusa
+ * The Class Alerts.
  *
+ * @author virtusa
  */
 public class Alerts {
-	
-	private List<Alert> alertsList;
-	
-	private List<String> emailsList;
 
-	/**
-	 * @return
-	 */
-	public List<Alert> getAlertsList() {
-		return alertsList;
-	}
+    /** The alerts list. */
+    private List<Alert> alertsList;
 
-	/**
-	 * @param alertsList
-	 */
-	public void setAlertsList(List<Alert> alertsList) {
-		this.alertsList = alertsList;
-	}
+    /** The emails list. */
+    private List<String> emailsList;
 
-	public List<String> getEmailsList() {
-		return emailsList;
-	}
+    /**
+     * Gets the alerts list.
+     *
+     * @return the alerts list
+     */
+    public List<Alert> getAlertsList() {
+        return alertsList;
+    }
 
-	public void setEmailsList(List<String> emailsList) {
-		this.emailsList = emailsList;
-	}
+    /**
+     * Sets the alerts list.
+     *
+     * @param alertsList
+     *            the new alerts list
+     */
+    public void setAlertsList(List<Alert> alertsList) {
+        this.alertsList = alertsList;
+    }
 
+    /**
+     * Gets the emails list.
+     *
+     * @return the emails list
+     */
+    public List<String> getEmailsList() {
+        return emailsList;
+    }
+
+    /**
+     * Sets the emails list.
+     *
+     * @param emailsList
+     *            the new emails list
+     */
+    public void setEmailsList(List<String> emailsList) {
+        this.emailsList = emailsList;
+    }
 
 }
-
-	

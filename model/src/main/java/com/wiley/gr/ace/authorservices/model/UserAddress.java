@@ -15,54 +15,55 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class UserAddress.
+ *
+ * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
 public class UserAddress {
-    
+
     /** The title vo. */
     private String titleVO;
-    
+
     /** The first name. */
     private String firstName;
-    
+
     /** The last name. */
     private String lastName;
-    
+
     /** The suffix vo. */
     private String suffixVO;
-    
+
     /** The institution vo. */
     private String institutionVO;
-    
+
     /** The department vo. */
     private String departmentVO;
-    
+
     /** The address line1. */
     private String addressLine1;
-    
+
     /** The address line2. */
     private String addressLine2;
-    
+
     /** The city. */
     private String city;
-    
+
     /** The state vo. */
     private String stateVO;
-    
+
     /** The zip code. */
     private String zipCode;
-    
+
     /** The country vo. */
     private String countryVO;
-    
+
     /** The phone number. */
     private String phoneNumber;
-    
+
     /** The fax number. */
     private String faxNumber;
-    
+
     /**
      * Gets the title vo.
      *
@@ -71,7 +72,7 @@ public class UserAddress {
     public String getTitleVO() {
         return titleVO;
     }
-    
+
     /**
      * Sets the title vo.
      *
@@ -81,7 +82,7 @@ public class UserAddress {
     public void setTitleVO(String titleVO) {
         this.titleVO = titleVO;
     }
-    
+
     /**
      * Gets the first name.
      *
@@ -90,7 +91,7 @@ public class UserAddress {
     public String getFirstName() {
         return firstName;
     }
-    
+
     /**
      * Sets the first name.
      *
@@ -100,7 +101,7 @@ public class UserAddress {
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-    
+
     /**
      * Gets the last name.
      *
@@ -109,7 +110,7 @@ public class UserAddress {
     public String getLastName() {
         return lastName;
     }
-    
+
     /**
      * Sets the last name.
      *
@@ -119,7 +120,7 @@ public class UserAddress {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-    
+
     /**
      * Gets the suffix vo.
      *
@@ -128,7 +129,7 @@ public class UserAddress {
     public String getSuffixVO() {
         return suffixVO;
     }
-    
+
     /**
      * Sets the suffix vo.
      *
@@ -138,7 +139,7 @@ public class UserAddress {
     public void setSuffixVO(String suffixVO) {
         this.suffixVO = suffixVO;
     }
-    
+
     /**
      * Gets the institution vo.
      *
@@ -147,7 +148,7 @@ public class UserAddress {
     public String getInstitutionVO() {
         return institutionVO;
     }
-    
+
     /**
      * Sets the institution vo.
      *
@@ -157,7 +158,7 @@ public class UserAddress {
     public void setInstitutionVO(String institutionVO) {
         this.institutionVO = institutionVO;
     }
-    
+
     /**
      * Gets the department vo.
      *
@@ -166,7 +167,7 @@ public class UserAddress {
     public String getDepartmentVO() {
         return departmentVO;
     }
-    
+
     /**
      * Sets the department vo.
      *
@@ -176,7 +177,7 @@ public class UserAddress {
     public void setDepartmentVO(String departmentVO) {
         this.departmentVO = departmentVO;
     }
-    
+
     /**
      * Gets the address line1.
      *
@@ -185,7 +186,7 @@ public class UserAddress {
     public String getAddressLine1() {
         return addressLine1;
     }
-    
+
     /**
      * Sets the address line1.
      *
@@ -195,7 +196,7 @@ public class UserAddress {
     public void setAddressLine1(String addressLine1) {
         this.addressLine1 = addressLine1;
     }
-    
+
     /**
      * Gets the address line2.
      *
@@ -204,7 +205,7 @@ public class UserAddress {
     public String getAddressLine2() {
         return addressLine2;
     }
-    
+
     /**
      * Sets the address line2.
      *
@@ -214,7 +215,7 @@ public class UserAddress {
     public void setAddressLine2(String addressLine2) {
         this.addressLine2 = addressLine2;
     }
-    
+
     /**
      * Gets the city.
      *
@@ -223,7 +224,7 @@ public class UserAddress {
     public String getCity() {
         return city;
     }
-    
+
     /**
      * Sets the city.
      *
@@ -233,7 +234,7 @@ public class UserAddress {
     public void setCity(String city) {
         this.city = city;
     }
-    
+
     /**
      * Gets the state vo.
      *
@@ -242,7 +243,7 @@ public class UserAddress {
     public String getStateVO() {
         return stateVO;
     }
-    
+
     /**
      * Sets the state vo.
      *
@@ -252,7 +253,7 @@ public class UserAddress {
     public void setStateVO(String stateVO) {
         this.stateVO = stateVO;
     }
-    
+
     /**
      * Gets the zip code.
      *
@@ -261,7 +262,7 @@ public class UserAddress {
     public String getZipCode() {
         return zipCode;
     }
-    
+
     /**
      * Sets the zip code.
      *
@@ -271,7 +272,7 @@ public class UserAddress {
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
     }
-    
+
     /**
      * Gets the country vo.
      *
@@ -280,7 +281,7 @@ public class UserAddress {
     public String getCountryVO() {
         return countryVO;
     }
-    
+
     /**
      * Sets the country vo.
      *
@@ -290,7 +291,7 @@ public class UserAddress {
     public void setCountryVO(String countryVO) {
         this.countryVO = countryVO;
     }
-    
+
     /**
      * Gets the phone number.
      *
@@ -299,7 +300,7 @@ public class UserAddress {
     public String getPhoneNumber() {
         return phoneNumber;
     }
-    
+
     /**
      * Sets the phone number.
      *
@@ -309,7 +310,7 @@ public class UserAddress {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-    
+
     /**
      * Gets the fax number.
      *
@@ -318,7 +319,7 @@ public class UserAddress {
     public String getFaxNumber() {
         return faxNumber;
     }
-    
+
     /**
      * Sets the fax number.
      *
@@ -328,5 +329,5 @@ public class UserAddress {
     public void setFaxNumber(String faxNumber) {
         this.faxNumber = faxNumber;
     }
-    
+
 }

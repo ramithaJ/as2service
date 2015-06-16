@@ -15,18 +15,19 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class Country.
+ *
+ * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
 public class Country {
-    
+
     /** The country code. */
     private String countryCode;
-    
+
     /** The country name. */
     private String countryName;
-    
+
     /**
      * Gets the country code.
      *
@@ -35,7 +36,7 @@ public class Country {
     public String getCountryCode() {
         return countryCode;
     }
-    
+
     /**
      * Sets the country code.
      *
@@ -45,7 +46,7 @@ public class Country {
     public void setCountryCode(String countryCode) {
         this.countryCode = countryCode;
     }
-    
+
     /**
      * Gets the country name.
      *
@@ -54,7 +55,7 @@ public class Country {
     public String getCountryName() {
         return countryName;
     }
-    
+
     /**
      * Sets the country name.
      *
@@ -64,5 +65,5 @@ public class Country {
     public void setCountryName(String countryName) {
         this.countryName = countryName;
     }
-    
+
 }

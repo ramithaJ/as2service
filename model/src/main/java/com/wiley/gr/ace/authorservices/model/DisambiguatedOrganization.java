@@ -18,6 +18,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
+ * The Class DisambiguatedOrganization.
+ *
  * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
@@ -42,9 +44,8 @@ public class DisambiguatedOrganization {
     /**
      * Sets the disambiguatedOrganizationIdentifier.
      *
-     * @param the
-     *            disambiguatedOrganizationIdentifier
-     * 
+     * @param disambiguatedOrganizationIdentifier
+     *            the new disambiguated organization identifier
      */
     public void setDisambiguatedOrganizationIdentifier(
             String disambiguatedOrganizationIdentifier) {
@@ -64,9 +65,8 @@ public class DisambiguatedOrganization {
     /**
      * Sets the disambiguationSource.
      *
-     * @param the
-     *            disambiguationSource
-     * 
+     * @param disambiguationSource
+     *            the new disambiguation source
      */
     public void setDisambiguationSource(String disambiguationSource) {
         this.disambiguationSource = disambiguationSource;

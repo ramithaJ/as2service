@@ -3,85 +3,185 @@
 
 package com.wiley.gr.ace.authorservices.model.external;
 
+/**
+ * The Class CoAuthorElement.
+ */
 public class CoAuthorElement {
-	private java.lang.String firstname;
 
- 	public void setFirstname(java.lang.String firstname) {
-		this.firstname = firstname;
-	}
+    /** The firstname. */
+    private java.lang.String firstname;
 
-	public java.lang.String getFirstname() {
-		return firstname;
-	}
+    /**
+     * Sets the firstname.
+     *
+     * @param firstname
+     *            the new firstname
+     */
+    public void setFirstname(java.lang.String firstname) {
+        this.firstname = firstname;
+    }
 
-	private java.lang.String userid;
+    /**
+     * Gets the firstname.
+     *
+     * @return the firstname
+     */
+    public java.lang.String getFirstname() {
+        return firstname;
+    }
 
- 	public void setUserid(java.lang.String userid) {
-		this.userid = userid;
-	}
+    /** The userid. */
+    private java.lang.String userid;
 
-	public java.lang.String getUserid() {
-		return userid;
-	}
+    /**
+     * Sets the userid.
+     *
+     * @param userid
+     *            the new userid
+     */
+    public void setUserid(java.lang.String userid) {
+        this.userid = userid;
+    }
 
-	private java.lang.String institution;
+    /**
+     * Gets the userid.
+     *
+     * @return the userid
+     */
+    public java.lang.String getUserid() {
+        return userid;
+    }
 
- 	public void setInstitution(java.lang.String institution) {
-		this.institution = institution;
-	}
+    /** The institution. */
+    private java.lang.String institution;
 
-	public java.lang.String getInstitution() {
-		return institution;
-	}
+    /**
+     * Sets the institution.
+     *
+     * @param institution
+     *            the new institution
+     */
+    public void setInstitution(java.lang.String institution) {
+        this.institution = institution;
+    }
 
-	private java.lang.String emailid;
+    /**
+     * Gets the institution.
+     *
+     * @return the institution
+     */
+    public java.lang.String getInstitution() {
+        return institution;
+    }
 
- 	public void setEmailid(java.lang.String emailid) {
-		this.emailid = emailid;
-	}
+    /** The emailid. */
+    private java.lang.String emailid;
 
-	public java.lang.String getEmailid() {
-		return emailid;
-	}
+    /**
+     * Sets the emailid.
+     *
+     * @param emailid
+     *            the new emailid
+     */
+    public void setEmailid(java.lang.String emailid) {
+        this.emailid = emailid;
+    }
 
-	private java.lang.String lastname;
+    /**
+     * Gets the emailid.
+     *
+     * @return the emailid
+     */
+    public java.lang.String getEmailid() {
+        return emailid;
+    }
 
- 	public void setLastname(java.lang.String lastname) {
-		this.lastname = lastname;
-	}
+    /** The lastname. */
+    private java.lang.String lastname;
 
-	public java.lang.String getLastname() {
-		return lastname;
-	}
+    /**
+     * Sets the lastname.
+     *
+     * @param lastname
+     *            the new lastname
+     */
+    public void setLastname(java.lang.String lastname) {
+        this.lastname = lastname;
+    }
 
-	private java.lang.String department;
+    /**
+     * Gets the lastname.
+     *
+     * @return the lastname
+     */
+    public java.lang.String getLastname() {
+        return lastname;
+    }
 
- 	public void setDepartment(java.lang.String department) {
-		this.department = department;
-	}
+    /** The department. */
+    private java.lang.String department;
 
-	public java.lang.String getDepartment() {
-		return department;
-	}
+    /**
+     * Sets the department.
+     *
+     * @param department
+     *            the new department
+     */
+    public void setDepartment(java.lang.String department) {
+        this.department = department;
+    }
 
-	private java.lang.String phoneno;
+    /**
+     * Gets the department.
+     *
+     * @return the department
+     */
+    public java.lang.String getDepartment() {
+        return department;
+    }
 
- 	public void setPhoneno(java.lang.String phoneno) {
-		this.phoneno = phoneno;
-	}
+    /** The phoneno. */
+    private java.lang.String phoneno;
 
-	public java.lang.String getPhoneno() {
-		return phoneno;
-	}
+    /**
+     * Sets the phoneno.
+     *
+     * @param phoneno
+     *            the new phoneno
+     */
+    public void setPhoneno(java.lang.String phoneno) {
+        this.phoneno = phoneno;
+    }
 
-	private java.lang.String articleid;
+    /**
+     * Gets the phoneno.
+     *
+     * @return the phoneno
+     */
+    public java.lang.String getPhoneno() {
+        return phoneno;
+    }
 
- 	public void setArticleid(java.lang.String articleid) {
-		this.articleid = articleid;
-	}
+    /** The articleid. */
+    private java.lang.String articleid;
 
-	public java.lang.String getArticleid() {
-		return articleid;
-	}
+    /**
+     * Sets the articleid.
+     *
+     * @param articleid
+     *            the new articleid
+     */
+    public void setArticleid(java.lang.String articleid) {
+        this.articleid = articleid;
+    }
+
+    /**
+     * Gets the articleid.
+     *
+     * @return the articleid
+     */
+    public java.lang.String getArticleid() {
+        return articleid;
+    }
 
 }

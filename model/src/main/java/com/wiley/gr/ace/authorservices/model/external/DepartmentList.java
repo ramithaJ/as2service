@@ -3,15 +3,31 @@
 
 package com.wiley.gr.ace.authorservices.model.external;
 
+/**
+ * The Class DepartmentList.
+ */
 public class DepartmentList {
-	private java.lang.String[] department;
 
- 	public void setDepartment(java.lang.String[] department) {
-		this.department = department;
-	}
+    /** The department. */
+    private java.lang.String[] department;
 
-	public java.lang.String[] getDepartment() {
-		return department;
-	}
+    /**
+     * Sets the department.
+     *
+     * @param department
+     *            the new department
+     */
+    public void setDepartment(java.lang.String[] department) {
+        this.department = department;
+    }
+
+    /**
+     * Gets the department.
+     *
+     * @return the department
+     */
+    public java.lang.String[] getDepartment() {
+        return department;
+    }
 
 }

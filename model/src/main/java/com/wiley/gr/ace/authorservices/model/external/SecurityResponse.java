@@ -13,55 +13,73 @@
 package com.wiley.gr.ace.authorservices.model.external;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class SecurityResponse.
  *
+ * @author virtusa version 1.0
  */
 public class SecurityResponse {
-    
+
+    /** The code. */
     private String code;
-    
+
+    /** The message. */
     private String message;
-    
+
+    /** The status. */
     private String status;
 
     /**
-     * @return
+     * Gets the code.
+     *
+     * @return the code
      */
     public String getCode() {
         return code;
     }
 
     /**
+     * Sets the code.
+     *
      * @param code
+     *            the new code
      */
     public void setCode(String code) {
         this.code = code;
     }
 
     /**
-     * @return
+     * Gets the message.
+     *
+     * @return the message
      */
     public String getMessage() {
         return message;
     }
 
     /**
+     * Sets the message.
+     *
      * @param message
+     *            the new message
      */
     public void setMessage(String message) {
         this.message = message;
     }
 
     /**
-     * @return
+     * Gets the status.
+     *
+     * @return the status
      */
     public String getStatus() {
         return status;
     }
 
     /**
+     * Sets the status.
+     *
      * @param status
+     *            the new status
      */
     public void setStatus(String status) {
         this.status = status;

@@ -3,15 +3,31 @@
 
 package com.wiley.gr.ace.authorservices.model.external;
 
+/**
+ * The Class SocietyList.
+ */
 public class SocietyList {
-	private SocietyElement[] society;
 
- 	public void setSociety(SocietyElement[] society) {
-		this.society = society;
-	}
+    /** The society. */
+    private SocietyElement[] society;
 
-	public SocietyElement[] getSociety() {
-		return society;
-	}
+    /**
+     * Sets the society.
+     *
+     * @param society
+     *            the new society
+     */
+    public void setSociety(SocietyElement[] society) {
+        this.society = society;
+    }
+
+    /**
+     * Gets the society.
+     *
+     * @return the society
+     */
+    public SocietyElement[] getSociety() {
+        return society;
+    }
 
 }

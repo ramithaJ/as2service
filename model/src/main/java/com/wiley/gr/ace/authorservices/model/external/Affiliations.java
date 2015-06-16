@@ -3,15 +3,31 @@
 
 package com.wiley.gr.ace.authorservices.model.external;
 
+/**
+ * The Class Affiliations.
+ */
 public class Affiliations {
-	private AffiliationElement[] affiliation;
 
- 	public void setAffiliation(AffiliationElement[] affiliation) {
-		this.affiliation = affiliation;
-	}
+    /** The affiliation. */
+    private AffiliationElement[] affiliation;
 
-	public AffiliationElement[] getAffiliation() {
-		return affiliation;
-	}
+    /**
+     * Sets the affiliation.
+     *
+     * @param affiliation
+     *            the new affiliation
+     */
+    public void setAffiliation(AffiliationElement[] affiliation) {
+        this.affiliation = affiliation;
+    }
+
+    /**
+     * Gets the affiliation.
+     *
+     * @return the affiliation
+     */
+    public AffiliationElement[] getAffiliation() {
+        return affiliation;
+    }
 
 }

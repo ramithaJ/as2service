@@ -1,32 +1,43 @@
 /*******************************************************************************
-* Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
-*
-* All material contained herein is proprietary to John Wiley & Sons 
+ * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
+ *
+ * All material contained herein is proprietary to John Wiley & Sons 
  * and its third party suppliers, if any. The methods, techniques and 
  * technical concepts contained herein are considered trade secrets 
  * and confidential and may be protected by intellectual property laws.  
  * Reproduction or distribution of this material, in whole or in part, 
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
-*******************************************************************************/
+ *******************************************************************************/
 package com.wiley.gr.ace.authorservices.model.external;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class Industries.
  *
+ * @author virtusa version 1.0
  */
 public class Industries {
-  
+
+    /** The response. */
     private Response response;
 
+    /**
+     * Gets the response.
+     *
+     * @return the response
+     */
     public Response getResponse() {
         return response;
     }
 
+    /**
+     * Sets the response.
+     *
+     * @param response
+     *            the new response
+     */
     public void setResponse(Response response) {
         this.response = response;
     }
 
-    
 }
