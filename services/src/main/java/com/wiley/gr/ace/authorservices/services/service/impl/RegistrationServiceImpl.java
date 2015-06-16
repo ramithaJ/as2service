@@ -33,19 +33,31 @@ import com.wiley.gr.ace.authorservices.persistence.services.RegistrationServiceD
 import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
 
 /**
+ * The Class RegistrationServiceImpl.
+ *
  * @author virtusa version 1.0
  */
 public class RegistrationServiceImpl implements RegistrationService {
 
+    /** The esb inter face service. */
     @Autowired(required = true)
-    ESBInterfaceService esbInterFaceService;
+    private ESBInterfaceService esbInterFaceService;
 
+    /** The registration service dao. */
     @Autowired(required = true)
-    RegistrationServiceDAO registrationServiceDAO;
+    private RegistrationServiceDAO registrationServiceDAO;
 
-    /** This method is for creating user */
+    /**
+     * This method is for creating user.
+     *
+     * @param user
+     *            the user
+     * @return the string
+     * @throws Exception
+     *             the exception
+     */
     @Override
-    public String createUser(User user) throws Exception {
+    public final String createUser(final User user) throws Exception {
 
         String status = null;
         Status statusObj = null;
@@ -97,10 +109,20 @@ public class RegistrationServiceImpl implements RegistrationService {
         return status;
     }
 
-    /** This is for getting details by UserFromFirstNameLastName */
+    /**
+     * This is for getting details by UserFromFirstNameLastName.
+     *
+     * @param firstName
+     *            the first name
+     * @param lastName
+     *            the last name
+     * @return the user from first name last name
+     * @throws Exception
+     *             the exception
+     */
     @Override
-    public List<User> getUserFromFirstNameLastName(String firstName,
-            String lastName) throws Exception {
+    public final List<User> getUserFromFirstNameLastName(
+            final String firstName, final String lastName) throws Exception {
 
         ArrayList<User> userList = new ArrayList<User>();
         List<ESBUser> esbUserList = null;
@@ -127,9 +149,17 @@ public class RegistrationServiceImpl implements RegistrationService {
         return userList;
     }
 
-    /** This is for checking user exists or not by taking emailId as input */
+    /**
+     * This is for checking user exists or not by taking emailId as input.
+     *
+     * @param emailId
+     *            the email id
+     * @return the user
+     * @throws Exception
+     *             the exception
+     */
     @Override
-    public User checkEmailIdExists(String emailId) throws Exception {
+    public final User checkEmailIdExists(final String emailId) throws Exception {
         User user = null;
         ESBUser esbUser = null;
         if (!StringUtils.isEmpty(emailId)) {
@@ -152,9 +182,18 @@ public class RegistrationServiceImpl implements RegistrationService {
         return user;
     }
 
-    /** This is for checking user exists or not by taking orcidId as input */
+    /**
+     * This is for checking user exists or not by taking orcidId as input.
+     *
+     * @param orcidId
+     *            the orcid id
+     * @return true, if successful
+     * @throws Exception
+     *             the exception
+     */
     @Override
-    public boolean searchUserByOrcidId(String orcidId) throws Exception {
+    public final boolean searchUserByOrcidId(final String orcidId)
+            throws Exception {
 
         boolean isUserFound = false;
         if (!StringUtils.isEmpty(orcidId)
@@ -165,9 +204,18 @@ public class RegistrationServiceImpl implements RegistrationService {
         return isUserFound;
     }
 
-    /** This is for searchInvitationRecord or not by taking guid as input */
+    /**
+     * This is for searchInvitationRecord or not by taking guid as input.
+     *
+     * @param guid
+     *            the guid
+     * @return the invite records
+     * @throws Exception
+     *             the exception
+     */
     @Override
-    public InviteRecords searchInvitationRecord(String guid) throws Exception {
+    public final InviteRecords searchInvitationRecord(final String guid)
+            throws Exception {
         InviteRecords inviteRecord = new InviteRecords();
         InviteResetpwdLog inviteRecordFromDB = null;
         inviteRecordFromDB = registrationServiceDAO.getInvitationRecords(guid);
@@ -180,9 +228,14 @@ public class RegistrationServiceImpl implements RegistrationService {
         return inviteRecord;
     }
 
-    /** This is for assignRoleToNewUser */
+    /**
+     * This is for assignRoleToNewUser.
+     *
+     * @param emailId
+     *            the email id
+     */
     @Override
-    public void assignRoleToNewUser(String emailId) {
+    public final void assignRoleToNewUser(final String emailId) {
 
         registrationServiceDAO.assignRoleToNewRegistration(emailId);
     }

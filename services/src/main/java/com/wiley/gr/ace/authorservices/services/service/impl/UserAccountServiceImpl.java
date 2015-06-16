@@ -23,29 +23,36 @@ import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 import com.wiley.gr.ace.authorservices.persistence.services.UserAccountDAO;
-import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
 
 /**
+ * The Class UserAccountServiceImpl.
+ *
  * @author virtusa version 1.0
  */
 public class UserAccountServiceImpl implements UserAccountService {
 
+    /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(UserAccountServiceImpl.class);
-    /** getting bean of userAccountDAO */
-    @Autowired(required = true)
-    UserAccountDAO userAccountDAO;
-    /** getting bean of userLoginServiceDAO */
-    @Autowired(required = true)
-    UserLoginServiceDAO userLoginServiceDAO;
-    /** getting bean of userProfile */
-    @Autowired
-    UserProfiles userProfile;
 
-    /** this method is for getting email Details by userId */
+    /** getting bean of userAccountDAO. */
+    @Autowired(required = true)
+    private UserAccountDAO userAccountDAO;
+
+    /** getting bean of userProfile. */
+    @Autowired
+    private UserProfiles userProfile;
+
+    /**
+     * this method is for getting email Details by userId.
+     *
+     * @param userId
+     *            the user id
+     * @return the email details
+     */
     @Override
-    public User getEmailDetails(String userId) {
+    public final User getEmailDetails(final String userId) {
 
         LOGGER.info("inside getEmailDetails Method");
 
@@ -63,19 +70,31 @@ public class UserAccountServiceImpl implements UserAccountService {
     /**
      * this method will call the DAO to update security details which are
      * updated by user at userProfile level.
+     *
+     * @param userId
+     *            the user id
+     * @param securityDetails
+     *            the security details
+     * @return true, if successful
      */
     @Override
-    public boolean updateSecurityDetails(String userId,
-            List<SecurityDetails> securityDetails) {
+    public final boolean updateSecurityDetails(final String userId,
+            final List<SecurityDetails> securityDetails) {
 
         LOGGER.info("inside updateSecurityDetails Method");
         return userAccountDAO.updateSecurityDetails(Integer.valueOf(userId),
                 securityDetails);
     }
 
-    /** getting profie info by user id */
+    /**
+     * getting profie info by user id.
+     *
+     * @param userId
+     *            the user id
+     * @return the profile information
+     */
     @Override
-    public User getProfileInformation(String userId) {
+    public final User getProfileInformation(final String userId) {
 
         LOGGER.info("inside getProfileInformation Method");
         UserProfileResponse lookupProfile = userProfile
@@ -83,9 +102,15 @@ public class UserAccountServiceImpl implements UserAccountService {
         return lookupProfile.getCustomerProfile().getCustomerDetails();
     }
 
-    /** getting UserAddress info by user id */
+    /**
+     * getting UserAddress info by user id.
+     *
+     * @param userId
+     *            the user id
+     * @return the user address
+     */
     @Override
-    public List<Addresses> getUserAddress(String userId) {
+    public final List<Addresses> getUserAddress(final String userId) {
 
         LOGGER.info("inside getUserAddress Method");
         UserProfileResponse lookupProfile = userProfile

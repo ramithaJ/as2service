@@ -70,7 +70,7 @@ public interface AuthorProfileService {
     boolean updateAlerts(String userId, UserProfileAlerts userProfileAlerts);
 
     /**
-     * Updateco author.
+     * Update Coauthor.
      *
      * @param coAuthor
      *            the co author
