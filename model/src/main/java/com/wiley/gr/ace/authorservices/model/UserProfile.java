@@ -110,7 +110,8 @@ public class UserProfile {
      * @param researchFunders
      *            the researchFunders to set
      */
-    public final void setResearchFunders(final List<ResearchFunder> researchFunders) {
+    public final void setResearchFunders(
+            final List<ResearchFunder> researchFunders) {
         this.researchFunders = researchFunders;
     }
 
