@@ -42,7 +42,7 @@ public class ArticleDetails {
     private String articleAcceptedInOO;
 
     /** The article authors. */
-    private List<ArticleAuthors> articleAuthors;
+    private String articleAuthorName;
 
     /** The article co authors. */
     private List<ArticleCoAuthors> articleCoAuthors;
@@ -137,22 +137,17 @@ public class ArticleDetails {
         this.articleAcceptedInOO = articleAcceptedInOO;
     }
 
-    /**
-     * @return the articleAuthors
-     */
-    public final List<ArticleAuthors> getArticleAuthors() {
-        return articleAuthors;
-    }
+    
 
-    /**
-     * @param articleAuthors
-     *            the articleAuthors to set
-     */
-    public final void setArticleAuthors(final List<ArticleAuthors> articleAuthors) {
-        this.articleAuthors = articleAuthors;
-    }
+    public String getArticleAuthorName() {
+		return articleAuthorName;
+	}
 
-    /**
+	public void setArticleAuthorName(String articleAuthorName) {
+		this.articleAuthorName = articleAuthorName;
+	}
+
+	/**
      * @return the articleCoAuthors
      */
     public final List<ArticleCoAuthors> getArticleCoAuthors() {
