@@ -29,39 +29,37 @@ import com.wiley.gr.ace.authorservices.services.service.ArticleAssignmentService
  */
 public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
 
-    /** The esb interface service. */
-    @Autowired(required = true)
-    private ESBInterfaceService esbInterfaceService;
+	/** The esb interface service. */
+	@Autowired(required = true)
+	private ESBInterfaceService esbInterfaceService;
 
-    /**
-     * this method will take emailId as in input and call external service (ESb)
-     * to get article info.
-     *
-     * @param emailId
-     *            the email id
-     * @return the article info
-     */
-    @Override
-    public final ArticleInfoDetails getArticleInfo(final String emailId) {
-        return esbInterfaceService.getArticleInfo(emailId);
-    }
+	/** The Shared service. */
+	@Autowired(required = true)
+	private SharedService sharedService;
 
-    /**
-     * this method will take emailId as in input and call external service
-     * (ESb).
-     *
-     * @param articleAuthId
-     *            the article auth id
-     * @param userId
-     *            the user id
-     * @return true, if successful
-     */
-    @Override
-    public final boolean confirmAssociation(final String articleAuthId,
-            final String userId) {
-        return esbInterfaceService.confirmAssociation();
-    }
+	/**
+	 * this method will take emailId as in input and call external service (ESb)
+	 * to get article info.
+	 *
+	 * @param emailId
+	 *            the email id
+	 * @return the article info
+	 */
+	@Override
+	public final ArticleInfoDetails getArticleInfo(final String emailId)
+			throws Exception {
+		return esbInterfaceService.getArticleInfo(emailId);
+	}
 
+	/**
+	 * Association confirmation.
+	 *
+	 * @param associationConfirmation
+	 *            the association confirmation
+	 * @return true, if successful
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Override
 	public boolean associationConfirmation(
 			AssociationConfirmation associationConfirmation) throws Exception {

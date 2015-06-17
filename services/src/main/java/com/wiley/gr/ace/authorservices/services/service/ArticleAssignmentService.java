@@ -24,23 +24,26 @@ import com.wiley.gr.ace.authorservices.model.external.AssociationConfirmation;
  */
 public interface ArticleAssignmentService {
 
-    /**
-     * Gets the article info.
-     *
-     * @param emailId
-     *            the email id
-     * @return the article info
-     */
-    ArticleInfoDetails getArticleInfo(String emailId);
+	/**
+	 * Gets the article info.
+	 *
+	 * @param emailId
+	 *            the email id
+	 * @return the article info
+	 * @throws Exception
+	 *             the exception
+	 */
+	ArticleInfoDetails getArticleInfo(String emailId) throws Exception;
 
-    /**
-     * Confirm association.
-     *
-     * @param articleAuthId
-     *            the article auth id
-     * @param userId
-     *            the user id
-     * @return true, if successful
-     */
-    boolean confirmAssociation(String articleAuthId, String userId);
+	/**
+	 * Association confirmation.
+	 *
+	 * @param associationConfirmation
+	 *            the association confirmation
+	 * @return true, if successful
+	 * @throws Exception
+	 *             the exception
+	 */
+	boolean associationConfirmation(
+			AssociationConfirmation associationConfirmation) throws Exception;
 }
