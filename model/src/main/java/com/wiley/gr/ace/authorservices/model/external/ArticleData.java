@@ -14,6 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.util.List;
+
 /**
  * @author yugandhark
  *
@@ -31,6 +33,14 @@ public class ArticleData {
     private OrderPaymentStatus orderPaymentStatus;
 
     private String productionStatus;
+    
+    private List<PriceObject> quote;
+    
+    private String societyDiscount;
+    
+    private String tax;
+    
+    private List<PriceObject> finalPrice;
 
     public ArticleDetails getArticleDetails() {
         return articleDetails;
@@ -79,4 +89,36 @@ public class ArticleData {
     public void setProductionStatus(String productionStatus) {
         this.productionStatus = productionStatus;
     }
+
+	public final List<PriceObject> getQuote() {
+		return quote;
+	}
+
+	public final void setQuote(List<PriceObject> quote) {
+		this.quote = quote;
+	}
+
+	public final String getSocietyDiscount() {
+		return societyDiscount;
+	}
+
+	public final void setSocietyDiscount(String societyDiscount) {
+		this.societyDiscount = societyDiscount;
+	}
+
+	public final String getTax() {
+		return tax;
+	}
+
+	public final void setTax(String tax) {
+		this.tax = tax;
+	}
+
+	public final List<PriceObject> getFinalPrice() {
+		return finalPrice;
+	}
+
+	public final void setFinalPrice(List<PriceObject> finalPrice) {
+		this.finalPrice = finalPrice;
+	}
 }
