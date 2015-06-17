@@ -29,9 +29,18 @@ import org.springframework.web.client.RestTemplate;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.model.User;
+import com.wiley.gr.ace.authorservices.model.external.ArticleData;
+import com.wiley.gr.ace.authorservices.model.external.ArticleDataDetails;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
+import com.wiley.gr.ace.authorservices.model.external.ArticleRecord;
+import com.wiley.gr.ace.authorservices.model.external.CommunicationDetails;
+import com.wiley.gr.ace.authorservices.model.external.CommunicationHistory;
 import com.wiley.gr.ace.authorservices.model.external.DashboardView;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
+import com.wiley.gr.ace.authorservices.model.external.License;
+import com.wiley.gr.ace.authorservices.model.external.OnlineOpen;
+import com.wiley.gr.ace.authorservices.model.external.OpenAccess;
+import com.wiley.gr.ace.authorservices.model.external.Production;
 import com.wiley.gr.ace.authorservices.model.external.ProfileInformation;
 import com.wiley.gr.ace.authorservices.model.external.SearchUserResult;
 import com.wiley.gr.ace.authorservices.model.external.Status;
@@ -283,12 +292,202 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 		return articleInfoDetails;
 	}
 
-    /* (non-Javadoc)
-     * @see com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService#confirmAssociation()
-     */
-    @Override
-    public boolean confirmAssociation() {
-        return false;
-    }
+	@Override
+	public List<ArticleData> getAllAuthorArticles(String userId)
+			throws Exception {
+		ArrayList<ArticleData> articleDataList=null;
+		ArticleDataDetails articleDataDetails = null;
+		final String url = "http://demo7930138.mockable.io/getAllAuthorArticles/userId";
+		try {
+			URI uri = new URI(url);
+			RestTemplate restTemplate = new RestTemplate();
+			HttpHeaders requestHeaders = new HttpHeaders();
+
+			requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+			HttpEntity<ArticleDataDetails> requestEntity = new HttpEntity<ArticleDataDetails>(
+					requestHeaders);
+
+			ResponseEntity<ArticleDataDetails> response = restTemplate
+					.exchange(uri, HttpMethod.GET, requestEntity,
+							ArticleDataDetails.class);
+			System.out.println("####  response #### "
+					+ response.getStatusCode());
+			System.out.println("####  response #### " + response.getBody());
+			if(null!=response){
+				articleDataDetails = new ArticleDataDetails();
+				articleDataDetails = response.getBody();
+				articleDataList = (ArrayList<ArticleData>) articleDataDetails
+						.getArticleData();
+			}
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		return articleDataList;
+	}
+
+	@Override
+	public License getLicenseStatus(Integer articleId) throws Exception {
+		License license = null;
+		final String url = "http://demo7930138.mockable.io/getLicenseStatus/articleId";
+		try {
+			URI uri = new URI(url);
+			RestTemplate restTemplate = new RestTemplate();
+			HttpHeaders requestHeaders = new HttpHeaders();
+
+			requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+			HttpEntity<License> requestEntity = new HttpEntity<License>(
+					requestHeaders);
+
+			ResponseEntity<License> response = restTemplate.exchange(uri,
+					HttpMethod.GET, requestEntity, License.class);
+			System.out.println("####  response #### "
+					+ response.getStatusCode());
+			System.out.println("####  response #### " + response.getBody());
+
+			license = response.getBody();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		return license;
+	}
+
+	@Override
+	public OpenAccess getOpenAccessStatus(Integer articleId) throws Exception {
+		OpenAccess openAccess = null;
+		final String url = "http://demo8663420.mockable.io/getOpenAccessStatus/articleId";
+		try {
+			URI uri = new URI(url);
+			RestTemplate restTemplate = new RestTemplate();
+			HttpHeaders requestHeaders = new HttpHeaders();
+
+			requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+			HttpEntity<OpenAccess> requestEntity = new HttpEntity<OpenAccess>(
+					requestHeaders);
+
+			ResponseEntity<OpenAccess> response = restTemplate.exchange(uri,
+					HttpMethod.GET, requestEntity, OpenAccess.class);
+			System.out.println("####  response #### "
+					+ response.getStatusCode());
+			System.out.println("####  response #### " + response.getBody());
+
+			openAccess = response.getBody();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		return openAccess;
+	}
+
+	@Override
+	public OnlineOpen getOnlineOpenStatus(Integer articleId) throws Exception {
+		OnlineOpen onlineOpen = null;
+		final String url = "http://demo8663420.mockable.io/getOnlineOpenStatus/articleId";
+		try {
+			URI uri = new URI(url);
+			RestTemplate restTemplate = new RestTemplate();
+			HttpHeaders requestHeaders = new HttpHeaders();
+
+			requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+			HttpEntity<OnlineOpen> requestEntity = new HttpEntity<OnlineOpen>(
+					requestHeaders);
+
+			ResponseEntity<OnlineOpen> response = restTemplate.exchange(uri,
+					HttpMethod.GET, requestEntity, OnlineOpen.class);
+			System.out.println("####  response #### "
+					+ response.getStatusCode());
+			System.out.println("####  response #### " + response.getBody());
+
+			onlineOpen = response.getBody();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		return onlineOpen;
+	}
+
+	@Override
+	public Production getProductionStatus(Integer articleId) throws Exception {
+		Production production = null;
+		final String url = "http://demo8663420.mockable.io/getProductionStatus/artilceId";
+		try {
+			URI uri = new URI(url);
+			RestTemplate restTemplate = new RestTemplate();
+			HttpHeaders requestHeaders = new HttpHeaders();
+
+			requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+			HttpEntity<Production> requestEntity = new HttpEntity<Production>(
+					requestHeaders);
+
+			ResponseEntity<Production> response = restTemplate.exchange(uri,
+					HttpMethod.GET, requestEntity, Production.class);
+			System.out.println("####  response #### "
+					+ response.getStatusCode());
+			System.out.println("####  response #### " + response.getBody());
+
+			production = response.getBody();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		return production;
+	}
+
+	@Override
+	public List<CommunicationDetails> getCommunicationDetails(String emailId)
+			throws Exception {
+		ArrayList<CommunicationDetails> communicationDetailsList = null;
+		CommunicationHistory communicationHistory = null;
+		final String url = "http://demo7930138.mockable.io/getCommunicationHistory/emailId";
+		try {
+			URI uri = new URI(url);
+			RestTemplate restTemplate = new RestTemplate();
+			HttpHeaders requestHeaders = new HttpHeaders();
+
+			requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+			HttpEntity<CommunicationHistory> requestEntity = new HttpEntity<CommunicationHistory>(
+					requestHeaders);
+
+			ResponseEntity<CommunicationHistory> response = restTemplate
+					.exchange(uri, HttpMethod.GET, requestEntity,
+							CommunicationHistory.class);
+			System.out.println("####  response #### "
+					+ response.getStatusCode());
+			System.out.println("####  response #### " + response.getBody());
+			if (null != response) {
+				communicationHistory = new CommunicationHistory();
+				communicationHistory = response.getBody();
+				communicationDetailsList = (ArrayList<CommunicationDetails>) communicationHistory
+						.getCommunicationDetails();
+				System.err.println(response.getBody().getCommunicationDetails().get(0).getBody());
+			}
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		return communicationDetailsList;
+	}
+
+	@Override
+	public ArticleRecord getArticleCitationReadRecords(String userId)
+			throws Exception {
+		ArticleRecord articleRecord = null;
+		final String url = "http://demo7930138.mockable.io/getArticleReadAndCitation/articleId";
+		try {
+			URI uri = new URI(url);
+			RestTemplate restTemplate = new RestTemplate();
+			HttpHeaders requestHeaders = new HttpHeaders();
+
+			requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+			HttpEntity<ArticleRecord> requestEntity = new HttpEntity<ArticleRecord>(
+					requestHeaders);
+
+			ResponseEntity<ArticleRecord> response = restTemplate.exchange(uri,
+					HttpMethod.GET, requestEntity, ArticleRecord.class);
+			System.out.println("####  response #### "
+					+ response.getStatusCode());
+			System.out.println("####  response #### " + response.getBody());
+
+			articleRecord = response.getBody();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		return articleRecord;
+	}
 
 }

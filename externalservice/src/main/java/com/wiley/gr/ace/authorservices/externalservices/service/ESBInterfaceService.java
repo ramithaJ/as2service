@@ -14,9 +14,16 @@ package com.wiley.gr.ace.authorservices.externalservices.service;
 import java.util.List;
 
 import com.wiley.gr.ace.authorservices.model.User;
+import com.wiley.gr.ace.authorservices.model.external.ArticleData;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
+import com.wiley.gr.ace.authorservices.model.external.ArticleRecord;
+import com.wiley.gr.ace.authorservices.model.external.CommunicationDetails;
 import com.wiley.gr.ace.authorservices.model.external.DashboardView;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
+import com.wiley.gr.ace.authorservices.model.external.License;
+import com.wiley.gr.ace.authorservices.model.external.OnlineOpen;
+import com.wiley.gr.ace.authorservices.model.external.OpenAccess;
+import com.wiley.gr.ace.authorservices.model.external.Production;
 import com.wiley.gr.ace.authorservices.model.external.ProfileInformation;
 import com.wiley.gr.ace.authorservices.model.external.Status;
 
@@ -94,14 +101,22 @@ public interface ESBInterfaceService {
      */
     DashboardView viewDashboard(String userId);
 
-    /**
-     * Gets the article info.
-     *
-     * @param emailId
-     *            the email id
-     * @return the article info
-     */
-    ArticleInfoDetails getArticleInfo(String emailId);
+	List<ArticleData> getAllAuthorArticles(String userId) throws Exception;
+
+	License getLicenseStatus(Integer articleId) throws Exception;
+
+	OpenAccess getOpenAccessStatus(Integer articleId) throws Exception;
+
+	OnlineOpen getOnlineOpenStatus(Integer articleId) throws Exception;
+
+	Production getProductionStatus(Integer articleId) throws Exception;
+
+	List<CommunicationDetails> getCommunicationDetails(String emailId)
+			throws Exception;
+
+	ArticleRecord getArticleCitationReadRecords(String userId) throws Exception;
+
+	ArticleInfoDetails getArticleInfo(String emailId) throws Exception;
 
     /**
      * Confirm association.
