@@ -117,11 +117,4 @@ public interface ESBInterfaceService {
 	ArticleRecord getArticleCitationReadRecords(String userId) throws Exception;
 
 	ArticleInfoDetails getArticleInfo(String emailId) throws Exception;
-
-    /**
-     * Confirm association.
-     *
-     * @return true, if successful
-     */
-    boolean confirmAssociation();
 }
