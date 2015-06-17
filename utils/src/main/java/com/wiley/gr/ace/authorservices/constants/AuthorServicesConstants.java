@@ -69,4 +69,10 @@ public class AuthorServicesConstants {
 
     /** The Constant AUDIT_DESCRIPTION. */
     public static final String AUDIT_DESCRIPTION = "DESCRIPTION";
+    
+    /** The Constant INVALIDEMAILCODE. */
+    public static final String INVALIDEMAILCODE = "222";
+    
+    /** The Constant INVALIDEMAILMSG. */
+    public static final String INVALIDEMAILMSG = "Invalid email address. Please Re-Enter";
 }

@@ -72,9 +72,7 @@ public class StubInvokerUtil {
     public static <T> Object restServiceInvoker(final String url,
             Object requestEntityClass, Class<T> responseEntityClass) {
 
-        try {
-            HttpHeaders requestHeaders = new HttpHeaders();
-            requestHeaders.setContentType(MediaType.APPLICATION_JSON);
+        try {     
             ResponseEntity<T> response = new RestTemplate().postForEntity(
                     new URI(url), requestEntityClass, responseEntityClass);
 
