@@ -77,30 +77,29 @@ public class ArticleAssignmentController {
      * @param userId
      * @return service
      */
-    @RequestMapping(value = "/confirm/confirmassociation", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final @ResponseBody Service confirmAssociation(
-            @RequestBody final String articleAuthId,
-            @RequestBody final String userId) {
-        Service service = new Service();
-        boolean confirmAssociation = false;
-        try {
-            confirmAssociation = articleAssignmentService.confirmAssociation(
-                    articleAuthId, userId);
-            if (confirmAssociation) {
-                service.setStatus("SUCCESS");
-                service.setPayload(confirmAssociation);
-            } else {
-                service.setStatus("FAILURE");
-                service.setPayload(confirmAssociation);
-            }
-        } catch (Exception e) {
-            ErrorPOJO error = new ErrorPOJO();
-            error.setCode(205);
-            error.setMessage("Error Fetching ArticleInfo");
-            service.setStatus("ERROR");
-            service.setError(error);
-        }
-        return service;
+    @RequestMapping(value = "/confirm/association", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final @ResponseBody Service associationConfirmation(
+                  @RequestBody AssociationConfirmation associationConfirmation) {
+           Service service = new Service();
+           boolean isAssociationconfirmed = false;
+           try {
+                  isAssociationconfirmed = articleAssignmentService
+                               .associationConfirmation(associationConfirmation);
+                  if (isAssociationconfirmed) {
+                        service.setStatus("SUCCESS");
+                        service.setPayload(isAssociationconfirmed);
+                  } else {
+                        service.setStatus("FAILURE");
+                        service.setPayload(isAssociationconfirmed);
+                  }
+           } catch (Exception e) {
+                  ErrorPOJO error = new ErrorPOJO();
+                  error.setCode(205);
+                  error.setMessage("Error Fetching Association Confirmation");
+                  service.setStatus("ERROR");
+                  service.setError(error);
+           }
+           return service;
 
-	}
+    }
 }
