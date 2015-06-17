@@ -2030,5 +2030,89 @@ ALTER TABLE SCHEDULE_TEMPLATE ADD CONSTRAINT  SCHEDULE_TEMPLATE_FK3 FOREIGN KEY(
 </sql>
 </changeSet>
 
+<changeSet author="gphaniraj" id="WP1-348">
+<sql>
+ALTER TABLE ACTIONS ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-349">
+<sql>
+ALTER TABLE ACTIONS ADD FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-350">
+<sql>
+ALTER TABLE OBJECT_TYPES ADD CREATED_DATE TIMESTAMP(6);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-351">
+<sql>
+ALTER TABLE OBJECT_TYPES ADD CREATED_BY NUMBER;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-352">
+<sql>
+ALTER TABLE OBJECT_TYPES ADD UPDATED_DATE TIMESTAMP(6);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-353">
+<sql>
+ALTER TABLE OBJECT_TYPES ADD UPDATED_BY NUMBER;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-354">
+<sql>
+ALTER TABLE OBJECT_TYPES ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-355">
+<sql>
+ALTER TABLE OBJECT_TYPES ADD FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-356">
+<sql>
+ALTER TABLE ADDRESS_TYPE ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-357">
+<sql>
+ALTER TABLE ADDRESS_TYPE ADD FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-358">
+<sql>
+ALTER TABLE LOOKUP_VALUES MODIFY CREATED_BY NUMBER;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-359">
+<sql>
+ALTER TABLE LOOKUP_VALUES MODIFY UPDATED_BY NUMBER;
+</sql>
+</changeSet>
+
+
+<changeSet author="gphaniraj" id="WP1-360">
+<sql>
+ALTER TABLE LOOKUP_VALUES ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-361">
+<sql>
+ALTER TABLE LOOKUP_VALUES ADD FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
 
 </databaseChangeLog>
