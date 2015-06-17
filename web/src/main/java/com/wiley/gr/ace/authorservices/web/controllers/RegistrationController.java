@@ -39,14 +39,25 @@ import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
 @RequestMapping("/registration")
 public class RegistrationController {
 
+    /**
+     * Logger Configured.
+     */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(RegistrationController.class);
 
+    /**
+     * Injected RegistrationService bean.
+     */
     @Autowired(required = true)
     RegistrationService rs;
 
+    /**
+     * @param email
+     * @return service
+     */
     @RequestMapping(value = "/verify/email", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Service checkUserExists(@RequestHeader String email) {
+    public @ResponseBody Service checkUserExists(
+            @RequestHeader final String email) {
 
         Service service = new Service();
         User user = null;
@@ -83,9 +94,13 @@ public class RegistrationController {
         return service;
     }
 
+    /**
+     * @param guid
+     * @return service
+     */
     @RequestMapping(value = "/invitation/{guid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Service getInvitationRecords(
-            @PathVariable("guid") String guid) {
+            @PathVariable("guid") final String guid) {
         Service service = new Service();
         InviteRecords inviteRecords = null;
         if (!StringUtils.isEmpty(guid)) {
@@ -121,8 +136,12 @@ public class RegistrationController {
         return service;
     }
 
+    /**
+     * @param user
+     * @return service
+     */
     @RequestMapping(value = "/register", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Service createUser(@RequestBody User user) {
+    public @ResponseBody Service createUser(@RequestBody final User user) {
         Service service = new Service();
         String status = null;
         if (null != user) {
@@ -174,9 +193,13 @@ public class RegistrationController {
         return service;
     }
 
+    /**
+     * @param orcidId
+     * @return service
+     */
     @RequestMapping(value = "/search/orcid/{orcidId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Service isUserFoundWithOrcidId(
-            @PathVariable("orcidId") String orcidId) {
+            @PathVariable("orcidId") final String orcidId) {
 
         Service service = new Service();
         if (!StringUtils.isEmpty(orcidId)) {

@@ -14,30 +14,46 @@
 package com.wiley.gr.ace.authorservices.model;
 
 /**
- * @author virtusa
- * version 1.0
+ * The Class Email.
+ *
+ * @author virtusa version 1.0
  */
 public class Email {
-    
+
+    /** The old email id. */
     private String oldEmailId;
-    
+
+    /** The new email id. */
     private String newEmailId;
 
-    public String getOldEmailId() {
+    /**
+     * @return the oldEmailId
+     */
+    public final String getOldEmailId() {
         return oldEmailId;
     }
 
-    public void setOldEmailId(String oldEmailId) {
+    /**
+     * @param oldEmailId
+     *            the oldEmailId to set
+     */
+    public final void setOldEmailId(final String oldEmailId) {
         this.oldEmailId = oldEmailId;
     }
 
-    public String getNewEmailId() {
+    /**
+     * @return the newEmailId
+     */
+    public final String getNewEmailId() {
         return newEmailId;
     }
 
-    public void setNewEmailId(String newEmailId) {
+    /**
+     * @param newEmailId
+     *            the newEmailId to set
+     */
+    public final void setNewEmailId(final String newEmailId) {
         this.newEmailId = newEmailId;
     }
-    
-    
+
 }

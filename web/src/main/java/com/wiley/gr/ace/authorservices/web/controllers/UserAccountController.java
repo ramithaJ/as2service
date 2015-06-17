@@ -34,25 +34,25 @@ import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
 @RestController
 @RequestMapping("/userAccount")
 public class UserAccountController {
-    
+
     /**
      * Logger for UserAccountController class.
      */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(UserAccountController.class);
-    
+
     /**
      * Injecting userAccountService bean.
      */
     @Autowired
     private UserAccountService userAccountService;
-    
+
     /**
      * Injecting AuthorProfileService.
      */
     @Autowired
     private AuthorProfileService authorProfileService;
-    
+
     /**
      * Method to get the user Account information.
      * 
@@ -66,9 +66,9 @@ public class UserAccountController {
         Service service = new Service();
         service.setPayload(userAccountService.getProfileInformation(userId));
         return service;
-        
+
     }
-    
+
     /**
      * Method to update user Account information.
      * 
@@ -85,9 +85,9 @@ public class UserAccountController {
         Service service = new Service();
         service.setPayload(authorProfileService.updateUserProfileInfo(user));
         return service;
-        
+
     }
-    
+
     /**
      * Method to get user Email Details.
      * 
@@ -102,7 +102,7 @@ public class UserAccountController {
         service.setPayload(userAccountService.getEmailDetails(userId));
         return service;
     }
-    
+
     /**
      * Method to update user Email Details.
      * 
@@ -121,7 +121,7 @@ public class UserAccountController {
                 .updateEmailDetails(emailDetails));
         return service;
     }
-    
+
     /**
      * Method to get user Address information (correspondence, shipping and
      * Billing addresses).
@@ -137,7 +137,7 @@ public class UserAccountController {
         service.setPayload(userAccountService.getUserAddress(userId));
         return service;
     }
-    
+
     /**
      * Method to update User Address information.
      * 
@@ -155,7 +155,7 @@ public class UserAccountController {
         service.setPayload(authorProfileService.updateUserAddress(addresses));
         return service;
     }
-    
+
     /**
      * Method to update user Security Details.
      * 
@@ -171,9 +171,9 @@ public class UserAccountController {
         service.setPayload(authorProfileService
                 .updateSecurityDetails(securityDetails));
         return service;
-        
+
     }
-    
+
     /**
      * Method to update userId.
      * 
@@ -188,5 +188,5 @@ public class UserAccountController {
         service.setPayload(authorProfileService.updateUserId(email));
         return service;
     }
-    
+
 }

@@ -17,32 +17,43 @@ import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 
 /**
- * @author virtusa
- *	version 1.0
+ * @author virtusa version 1.0
  */
 public interface UserAccountDAO {
-    
+
     /**
+     * This method gets the email Details from AS 2.0 DB.
+     * 
      * @param userId
-     * @return
+     *            to Retrieve.
+     * @return the AuthorProfile.
      */
     AuthorProfile getEmailDetails(String userId);
-    
+
     /**
+     * This method update the Email Details to AS 2.0 DB.
+     * 
      * @param userId
+     *            to update.
      * @param primaryEmail
+     *            to be update.
      * @param secondaryEmail
-     * @return
+     *            to be update.
+     * @return the boolean value.
      */
     boolean updateEmailDetails(String userId, String primaryEmail,
             String secondaryEmail);
-    
+
     /**
+     * This method update the SecurityDetails to AS 2.0 DB.
+     * 
      * @param userId
+     *            to update.
      * @param securityDetails
-     * @return
+     *            to be update.
+     * @return the boolean value.
      */
     boolean updateSecurityDetails(Integer userId,
             List<SecurityDetails> securityDetails);
-    
+
 }

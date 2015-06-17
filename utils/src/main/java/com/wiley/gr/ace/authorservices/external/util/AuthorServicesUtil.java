@@ -19,36 +19,37 @@ import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class AuthorServicesUtil.
  *
+ * @author virtusa version 1.0
  */
 public class AuthorServicesUtil {
-    
+
     /**
+     * Read stream.
+     *
      * @param is
+     *            the is
      * @param bufferSize
-     * @return
+     *            the buffer size
+     * @return the string
      */
-    public static String readStream(final InputStream is, final int bufferSize)
-    {
-      final char[] buffer = new char[bufferSize];
-      final StringBuilder out = new StringBuilder();
-      try (Reader in = new InputStreamReader(is, "UTF-8")) {
-        for (;;) {
-          int rsz = in.read(buffer, 0, buffer.length);
-          if (rsz < 0)
-            break;
-          out.append(buffer, 0, rsz);
+    public static String readStream(final InputStream is, final int bufferSize) {
+        final char[] buffer = new char[bufferSize];
+        final StringBuilder out = new StringBuilder();
+        try (Reader in = new InputStreamReader(is, "UTF-8")) {
+            for (;;) {
+                int rsz = in.read(buffer, 0, buffer.length);
+                if (rsz < 0)
+                    break;
+                out.append(buffer, 0, rsz);
+            }
+        } catch (UnsupportedEncodingException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
-      }
-      catch (UnsupportedEncodingException ex) {
-        ex.printStackTrace();
-      }
-      catch (IOException ex) {
-         ex.printStackTrace();
-      }
-      return out.toString();
+        return out.toString();
     }
 
 }

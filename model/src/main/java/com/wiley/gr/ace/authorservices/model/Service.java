@@ -18,58 +18,63 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * This is the generic service VO object which is returned by every service.
  * Data from the service is wrapped into this and returned.
  * 
- * @author virtusa
- *	version 1.0
+ * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
 public class Service {
-    
+
+    /** The status. */
     private String status = "SUCCESS";
-    
+
+    /** The payload. */
     private Object payload;
-    
+
+    /** The error. */
     private ErrorPOJO error;
-    
+
     /**
-     * @return
+     * @return the status
      */
-    public String getStatus() {
+    public final String getStatus() {
         return status;
     }
-    
+
     /**
      * @param status
+     *            the status to set
      */
-    public void setStatus(String status) {
+    public final void setStatus(final String status) {
         this.status = status;
     }
-    
+
     /**
-     * @return
+     * @return the payload
      */
-    public Object getPayload() {
+    public final Object getPayload() {
         return payload;
     }
-    
+
     /**
      * @param payload
+     *            the payload to set
      */
-    public void setPayload(Object payload) {
+    public final void setPayload(final Object payload) {
         this.payload = payload;
     }
-    
+
     /**
-     * @return
+     * @return the error
      */
-    public ErrorPOJO getError() {
+    public final ErrorPOJO getError() {
         return error;
     }
-    
+
     /**
      * @param error
+     *            the error to set
      */
-    public void setError(ErrorPOJO error) {
+    public final void setError(final ErrorPOJO error) {
         this.error = error;
     }
-    
+
 }

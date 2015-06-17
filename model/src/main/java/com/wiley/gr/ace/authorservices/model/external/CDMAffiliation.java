@@ -12,78 +12,153 @@
 
 package com.wiley.gr.ace.authorservices.model.external;
 
+/**
+ * The Class CDMAffiliation.
+ */
 public class CDMAffiliation {
+
+    /** The institution id. */
     private String institutionId;
+
+    /** The institution name. */
     private String institutionName;
+
+    /** The department id. */
     private String departmentId;
+
+    /** The department name. */
     private String departmentName;
+
+    /** The city. */
     private String city;
+
+    /** The country code. */
     private String countryCode;
+
+    /** The country name. */
     private String countryName;
+
+    /** The affiliation id. */
     private String affiliationId;
-    
-    public String getAffiliationId() {
-        return affiliationId;
-    }
-    
-    public void setAffiliationId(String affiliationId) {
-        this.affiliationId = affiliationId;
-    }
-    
-    public String getInstitutionId() {
+
+    /**
+     * @return the institutionId
+     */
+    public final String getInstitutionId() {
         return institutionId;
     }
-    
-    public void setInstitutionId(String institutionId) {
+
+    /**
+     * @param institutionId
+     *            the institutionId to set
+     */
+    public final void setInstitutionId(final String institutionId) {
         this.institutionId = institutionId;
     }
-    
-    public String getInstitutionName() {
+
+    /**
+     * @return the institutionName
+     */
+    public final String getInstitutionName() {
         return institutionName;
     }
-    
-    public void setInstitutionName(String institutionName) {
+
+    /**
+     * @param institutionName
+     *            the institutionName to set
+     */
+    public final void setInstitutionName(final String institutionName) {
         this.institutionName = institutionName;
     }
-    
-    public String getDepartmentId() {
+
+    /**
+     * @return the departmentId
+     */
+    public final String getDepartmentId() {
         return departmentId;
     }
-    
-    public void setDepartmentId(String departmentId) {
+
+    /**
+     * @param departmentId
+     *            the departmentId to set
+     */
+    public final void setDepartmentId(final String departmentId) {
         this.departmentId = departmentId;
     }
-    
-    public String getDepartmentName() {
+
+    /**
+     * @return the departmentName
+     */
+    public final String getDepartmentName() {
         return departmentName;
     }
-    
-    public void setDepartmentName(String departmentName) {
+
+    /**
+     * @param departmentName
+     *            the departmentName to set
+     */
+    public final void setDepartmentName(final String departmentName) {
         this.departmentName = departmentName;
     }
-    
-    public String getCity() {
+
+    /**
+     * @return the city
+     */
+    public final String getCity() {
         return city;
     }
-    
-    public void setCity(String city) {
+
+    /**
+     * @param city
+     *            the city to set
+     */
+    public final void setCity(final String city) {
         this.city = city;
     }
-    
-    public String getCountryCode() {
+
+    /**
+     * @return the countryCode
+     */
+    public final String getCountryCode() {
         return countryCode;
     }
-    
-    public void setCountryCode(String countryCode) {
+
+    /**
+     * @param countryCode
+     *            the countryCode to set
+     */
+    public final void setCountryCode(final String countryCode) {
         this.countryCode = countryCode;
     }
-    
-    public String getCountryName() {
+
+    /**
+     * @return the countryName
+     */
+    public final String getCountryName() {
         return countryName;
     }
-    
-    public void setCountryName(String countryName) {
+
+    /**
+     * @param countryName
+     *            the countryName to set
+     */
+    public final void setCountryName(final String countryName) {
         this.countryName = countryName;
     }
-    
+
+    /**
+     * @return the affiliationId
+     */
+    public final String getAffiliationId() {
+        return affiliationId;
+    }
+
+    /**
+     * @param affiliationId
+     *            the affiliationId to set
+     */
+    public final void setAffiliationId(final String affiliationId) {
+        this.affiliationId = affiliationId;
+    }
+
 }

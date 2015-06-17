@@ -37,99 +37,143 @@ import com.wiley.gr.ace.authorservices.model.external.SearchUserResult;
 import com.wiley.gr.ace.authorservices.model.external.Status;
 
 /**
+ * The Class ESBInterfaceServiceImpl.
+ *
  * @author virtusa version 1.0
  */
 public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 
-	@Value("${search-user.url}")
-	private String searchUserUrl;
+    /** The search user url. */
+    @Value("${search-user.url}")
+    private String searchUserUrl;
 
-	@Value("${createuser.url}")
-	private String createUserUrl;
+    /** The create user url. */
+    @Value("${createuser.url}")
+    private String createUserUrl;
 
-	@Value("${fetchorciddetails.url}")
-	private String fetchOrcidDetailsUrl;
+    /** The fetch orcid details url. */
+    @Value("${fetchorciddetails.url}")
+    private String fetchOrcidDetailsUrl;
 
-	@Value("${updatealmuser.url}")
-	private String updateAlmUserUrl;
+    /** The update alm user url. */
+    @Value("${updatealmuser.url}")
+    private String updateAlmUserUrl;
 
-	@Override
-	public User fetchOrcidDetails(String orcid) throws Exception {
-		User user = null;
-		final String url = fetchOrcidDetailsUrl;
-		URI uri = new URI(url);
-		RestTemplate restTemplate = new RestTemplate();
-		HttpHeaders requestHeaders = new HttpHeaders();
+    /**
+     * This method is for fetching ordid details by calling external service
+     * based on orcid.
+     *
+     * @param orcid
+     *            the orcid
+     * @return the user
+     * @throws Exception
+     *             the exception
+     */
+    @Override
+    public User fetchOrcidDetails(String orcid) throws Exception {
+        User user = null;
+        final String url = fetchOrcidDetailsUrl;
+        URI uri = new URI(url);
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders requestHeaders = new HttpHeaders();
 
 		requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 		HttpEntity<User> requestEntity = new HttpEntity<User>(requestHeaders);
 
-		ResponseEntity<User> response = restTemplate.exchange(uri,
-				HttpMethod.GET, requestEntity, User.class);
-		System.out.println("####  response #### " + response.getStatusCode());
-		System.out.println("####  response #### " + response.getBody());
+        ResponseEntity<User> response = restTemplate.exchange(uri,
+                HttpMethod.GET, requestEntity, User.class);
+        user = response.getBody();
+        return user;
+    }
 
-		user = response.getBody();
-		System.out.println("####  " + user.getPrimaryEmailAddr());
-		return user;
-	}
+    /**
+     * This for updating user data.
+     *
+     * @param updateUser
+     *            the update user
+     * @return the string
+     * @throws Exception
+     *             the exception
+     */
+    @Override
+    public String updateALMUser(User updateUser) throws Exception {
+        String status = "failure";
+        final String url = updateAlmUserUrl;
+        URI uri = new URI(url);
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders requestHeaders = new HttpHeaders();
 
-	@Override
-	public String updateALMUser(User updateUser) throws Exception {
-		String status = "failure";
-		final String url = updateAlmUserUrl;
-		URI uri = new URI(url);
-		RestTemplate restTemplate = new RestTemplate();
-		HttpHeaders requestHeaders = new HttpHeaders();
+        requestHeaders.setAccept(Arrays.asList(MediaType.TEXT_PLAIN));
+        HttpEntity<String> requestEntity = new HttpEntity<String>(
+                requestHeaders);
+        ResponseEntity<String> response = restTemplate.exchange(uri,
+                HttpMethod.GET, requestEntity, String.class);
+        status = response.getBody();
+        return status;
+    }
 
-		requestHeaders.setAccept(Arrays.asList(MediaType.TEXT_PLAIN));
-		HttpEntity<String> requestEntity = new HttpEntity<String>(
-				requestHeaders);
-		ResponseEntity<String> response = restTemplate.exchange(uri,
-				HttpMethod.GET, requestEntity, String.class);
-		status = response.getBody();
-		System.out.println("status :: " + status);
-		return status;
-	}
-
-	/*
-	 * public static void main(String[] args) { ESBInterfaceServiceImpl em = new
-	 * ESBInterfaceServiceImpl(); try { // User user =
-	 * em.fetchOrcidDetails("1111"); User user = new User(); String s =
-	 * em.updateALMUser(user); } catch (Exception e) { e.printStackTrace(); } }
-	 */
-
-	@Override
-	public ESBUser checkEmailIdExists(String emailId) throws Exception {
-		ESBUser esbUser = null;
-		List<ESBUser> esbUserList = searchUser(emailId, "", "");
-		if (!StringUtils.isEmpty(esbUserList)) {
-			// esbUser = new ESBUser();
-			esbUser = esbUserList.get(0);
-		}
-
+    /**
+     * This for checking if user exists or not.
+     *
+     * @param emailId
+     *            the email id
+     * @return the ESB user
+     * @throws Exception
+     *             the exception
+     */
+    @Override
+    public ESBUser checkEmailIdExists(String emailId) throws Exception {
+        ESBUser esbUser = null;
+        List<ESBUser> esbUserList = searchUser(emailId, "", "");
+        if (!StringUtils.isEmpty(esbUserList)) {
+            esbUser = esbUserList.get(0);
+        }
 		return esbUser;
 	}
 
-	@Override
-	public List<ESBUser> getUsersFromFirstNameLastName(String firstName,
-			String lastName) throws Exception {
-		List<ESBUser> esbUserList = null;
+    /**
+     * This method is for getting UsersFromFirstNameLastName.
+     *
+     * @param firstName
+     *            the first name
+     * @param lastName
+     *            the last name
+     * @return the users from first name last name
+     * @throws Exception
+     *             the exception
+     */
+    @Override
+    public List<ESBUser> getUsersFromFirstNameLastName(String firstName,
+            String lastName) throws Exception {
+        List<ESBUser> esbUserList = null;
 
 		esbUserList = searchUser("", firstName, lastName);
 
 		return esbUserList;
 	}
 
-	private List<ESBUser> searchUser(String email, String firstName,
-			String lastName) throws Exception {
-		ArrayList<ESBUser> esbUsersList = null;
-		SearchUserResult searchUserResult = null;
-		final String url = searchUserUrl + "?Email=" + email + "&FirstName="
-				+ firstName + "&LastName=" + lastName;
-		URI uri = new URI(url);
-		RestTemplate restTemplate = new RestTemplate();
-		HttpHeaders requestHeaders = new HttpHeaders();
+    /**
+     * This method is for searching user.
+     *
+     * @param email
+     *            the email
+     * @param firstName
+     *            the first name
+     * @param lastName
+     *            the last name
+     * @return the list
+     * @throws Exception
+     *             the exception
+     */
+    private List<ESBUser> searchUser(String email, String firstName,
+            String lastName) throws Exception {
+        ArrayList<ESBUser> esbUsersList = null;
+        SearchUserResult searchUserResult = null;
+        final String url = searchUserUrl + "?Email=" + email + "&FirstName="
+                + firstName + "&LastName=" + lastName;
+        URI uri = new URI(url);
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders requestHeaders = new HttpHeaders();
 
 		requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 		HttpEntity<SearchUserResult> requestEntity = new HttpEntity<SearchUserResult>(
@@ -147,14 +191,23 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 		return esbUsersList;
 	}
 
-	@Override
-	public Status creatUser(ProfileInformation profileForCreation)
-			throws Exception {
-		Status status = new Status();
-		final String url = createUserUrl;
-		URI uri = new URI(url);
-		RestTemplate restTemplate = new RestTemplate();
-		HttpHeaders requestHeaders = new HttpHeaders();
+    /**
+     * This method is for creating user.
+     *
+     * @param profileForCreation
+     *            the profile for creation
+     * @return the status
+     * @throws Exception
+     *             the exception
+     */
+    @Override
+    public Status creatUser(ProfileInformation profileForCreation)
+            throws Exception {
+        Status status = new Status();
+        final String url = createUserUrl;
+        URI uri = new URI(url);
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders requestHeaders = new HttpHeaders();
 
 		requestHeaders.setAccept(Arrays.asList(MediaType.TEXT_PLAIN));
 		HttpEntity<ProfileInformation> requestEntity = new HttpEntity<ProfileInformation>(
@@ -170,25 +223,28 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 		return status;
 	}
 
-	@Override
-	public DashboardView viewDashboard(String userId) throws Exception {
-		DashboardView dashboardView = null;
-		final String url = "http://demo7930138.mockable.io/dashboard/view/1000";
-		try {
-			URI uri = new URI(url);
-			RestTemplate restTemplate = new RestTemplate();
-			HttpHeaders requestHeaders = new HttpHeaders();
+    /**
+     * This method is for viewing dashboard.
+     *
+     * @param userId
+     *            the user id
+     * @return the dashboard view
+     */
+    @Override
+    public DashboardView viewDashboard(String userId) {
+        DashboardView dashboardView = null;
+        final String url = "http://demo7930138.mockable.io/dashboard/view/1000";
+        try {
+            URI uri = new URI(url);
+            RestTemplate restTemplate = new RestTemplate();
+            HttpHeaders requestHeaders = new HttpHeaders();
 
 			requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 			HttpEntity<DashboardView> requestEntity = new HttpEntity<DashboardView>(
 					requestHeaders);
 
-			ResponseEntity<DashboardView> response = restTemplate.exchange(uri,
-					HttpMethod.GET, requestEntity, DashboardView.class);
-			System.out.println("####  response #### "
-					+ response.getStatusCode());
-			System.out.println("####  response #### " + response.getBody());
-
+            ResponseEntity<DashboardView> response = restTemplate.exchange(uri,
+                    HttpMethod.GET, requestEntity, DashboardView.class);
 			dashboardView = response.getBody();
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
@@ -197,31 +253,42 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 
 	}
 
-	@Override
-	public ArticleInfoDetails getArticleInfo(String emailId) throws Exception {
-		ArticleInfoDetails articleInfoDetails = null;
-		final String url = "http://demo7930138.mockable.io/article/getArticleInfo/emailId";
-		try {
-			URI uri = new URI(url);
-			RestTemplate restTemplate = new RestTemplate();
-			HttpHeaders requestHeaders = new HttpHeaders();
+    /**
+     * This method is for getting article info based on emailId.
+     *
+     * @param emailId
+     *            the email id
+     * @return the article info
+     */
+    @Override
+    public ArticleInfoDetails getArticleInfo(String emailId) {
+        ArticleInfoDetails articleInfoDetails = null;
+        final String url = "http://demo7930138.mockable.io/article/getArticleInfo/emailId";
+        try {
+            URI uri = new URI(url);
+            RestTemplate restTemplate = new RestTemplate();
+            HttpHeaders requestHeaders = new HttpHeaders();
 
 			requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 			HttpEntity<ArticleInfoDetails> requestEntity = new HttpEntity<ArticleInfoDetails>(
 					requestHeaders);
 
-			ResponseEntity<ArticleInfoDetails> response = restTemplate
-					.exchange(uri, HttpMethod.GET, requestEntity,
-							ArticleInfoDetails.class);
-			System.out.println("####  response #### "
-					+ response.getStatusCode());
-			System.out.println("####  response #### " + response.getBody());
-
+            ResponseEntity<ArticleInfoDetails> response = restTemplate
+                    .exchange(uri, HttpMethod.GET, requestEntity,
+                            ArticleInfoDetails.class);
 			articleInfoDetails = response.getBody();
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}
 		return articleInfoDetails;
 	}
+
+    /* (non-Javadoc)
+     * @see com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService#confirmAssociation()
+     */
+    @Override
+    public boolean confirmAssociation() {
+        return false;
+    }
 
 }

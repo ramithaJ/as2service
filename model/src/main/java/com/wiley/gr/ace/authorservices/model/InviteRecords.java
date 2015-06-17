@@ -1,60 +1,116 @@
 package com.wiley.gr.ace.authorservices.model;
 
+/**
+ * The Class InviteRecords.
+ */
 public class InviteRecords {
 
-	private String guid;
-	private String firstName;
-	private String lastName;
-	private String emailAddress;
-	private String userType;
-	private String status;
+    /** The guid. */
+    private String guid;
 
-	public String getGuid() {
-		return this.guid;
-	}
+    /** The first name. */
+    private String firstName;
 
-	public void setGuid(String guid) {
-		this.guid = guid;
-	}
+    /** The last name. */
+    private String lastName;
 
-	public String getFirstName() {
-		return this.firstName;
-	}
+    /** The email address. */
+    private String emailAddress;
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    /** The user type. */
+    private String userType;
 
-	public String getLastName() {
-		return this.lastName;
-	}
+    /** The status. */
+    private String status;
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    /**
+     * @return the guid
+     */
+    public final String getGuid() {
+        return guid;
+    }
 
-	public String getEmailAddress() {
-		return this.emailAddress;
-	}
+    /**
+     * @param guid
+     *            the guid to set
+     */
+    public final void setGuid(final String guid) {
+        this.guid = guid;
+    }
 
-	public void setEmailAddress(String emailAddress) {
-		this.emailAddress = emailAddress;
-	}
+    /**
+     * @return the firstName
+     */
+    public final String getFirstName() {
+        return firstName;
+    }
 
-	public String getUserType() {
-		return this.userType;
-	}
+    /**
+     * @param firstName
+     *            the firstName to set
+     */
+    public final void setFirstName(final String firstName) {
+        this.firstName = firstName;
+    }
 
-	public void setUserType(String userType) {
-		this.userType = userType;
-	}
+    /**
+     * @return the lastName
+     */
+    public final String getLastName() {
+        return lastName;
+    }
 
-	public String getStatus() {
-		return this.status;
-	}
+    /**
+     * @param lastName
+     *            the lastName to set
+     */
+    public final void setLastName(final String lastName) {
+        this.lastName = lastName;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    /**
+     * @return the emailAddress
+     */
+    public final String getEmailAddress() {
+        return emailAddress;
+    }
+
+    /**
+     * @param emailAddress
+     *            the emailAddress to set
+     */
+    public final void setEmailAddress(final String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+    /**
+     * @return the userType
+     */
+    public final String getUserType() {
+        return userType;
+    }
+
+    /**
+     * @param userType
+     *            the userType to set
+     */
+    public final void setUserType(final String userType) {
+        this.userType = userType;
+    }
+
+    /**
+     * @return the status
+     */
+    public final String getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status
+     *            the status to set
+     */
+    public final void setStatus(final String status) {
+        this.status = status;
+    }
 
 }

@@ -12,41 +12,46 @@
 package com.wiley.gr.ace.authorservices.model;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class Industry.
+ *
+ * @author virtusa version 1.0
  */
 public class Industry {
-    
+
+    /** The industry id. */
     private String industryId;
-    
+
+    /** The industry name. */
     private String industryName;
-    
+
     /**
-     * @return
+     * @return the industryId
      */
-    public String getIndustryId() {
+    public final String getIndustryId() {
         return industryId;
     }
-    
+
     /**
      * @param industryId
+     *            the industryId to set
      */
-    public void setIndustryId(String industryId) {
+    public final void setIndustryId(final String industryId) {
         this.industryId = industryId;
     }
-    
+
     /**
-     * @return
+     * @return the industryName
      */
-    public String getIndustryName() {
+    public final String getIndustryName() {
         return industryName;
     }
-    
+
     /**
      * @param industryName
+     *            the industryName to set
      */
-    public void setIndustryName(String industryName) {
+    public final void setIndustryName(final String industryName) {
         this.industryName = industryName;
     }
-    
+
 }

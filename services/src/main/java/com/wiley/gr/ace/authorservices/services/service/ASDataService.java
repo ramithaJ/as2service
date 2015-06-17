@@ -29,83 +29,123 @@ import com.wiley.gr.ace.authorservices.model.Suffix;
 import com.wiley.gr.ace.authorservices.model.Title;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Interface ASDataService.
+ *
+ * @author virtusa version 1.0
  */
 public interface ASDataService {
-    
+
     /**
-     * @return
+     * Gets the titles.
+     *
+     * @return the titles
      */
     List<Title> getTitles();
-    
+
     /**
-     * @return
+     * Gets the suffixes.
+     *
+     * @return the suffixes
      */
     List<Suffix> getSuffixes();
-    
+
     /**
-     * @return
+     * Gets the industries.
+     *
+     * @param count
+     *            the count
+     * @return the industries
      */
     List<Industry> getIndustries(Integer count);
-    
+
     /**
-     * @return
+     * Gets the job categories.
+     *
+     * @param count
+     *            the count
+     * @return the job categories
      */
     List<JobCategory> getJobCategories(Integer count);
-    
+
     /**
-     * @return
+     * Gets the countries.
+     *
+     * @param count
+     *            the count
+     * @return the countries
      */
     List<Country> getCountries(Integer count);
-    
+
     /**
-     * @return
+     * Gets the states.
+     *
+     * @param countrycode
+     *            the countrycode
+     * @param count
+     *            the count
+     * @return the states
      */
-    List<State> getStates(String countrycode ,Integer count);
-    
+    List<State> getStates(String countrycode, Integer count);
+
     /**
-     * @return
+     * Gets the institutions.
+     *
+     * @return the institutions
      */
     List<Institution> getInstitutions();
-    
+
     /**
-     * @return
+     * Gets the departments.
+     *
+     * @return the departments
      */
     List<Department> getDepartments();
-    
+
     /**
-     * @return
+     * Gets the research funders.
+     *
+     * @return the research funders
      */
     List<ResearchFunder> getResearchFunders();
-    
+
     /**
-     * @return
+     * Gets the societies.
+     *
+     * @return the societies
      */
-    
-    /**
-     * @return
-     */
+
     List<Society> getSocieties();
-    
+
     /**
-     * @return
+     * Gets the areas of interests.
+     *
+     * @param count
+     *            the count
+     * @return the areas of interests
      */
     List<Interests> getAreasOfInterests(Integer count);
-    
+
     /**
-     * @return
+     * Gets the security questions.
+     *
+     * @return the security questions
      */
     List<SecurityDetails> getSecurityQuestions();
-    
+
     /**
-     * @return
+     * Gets the admin roles.
+     *
+     * @param roleType
+     *            the role type
+     * @return the admin roles
      */
     List<Role> getAdminRoles(String roleType);
-    
+
     /**
-     * @return
+     * Gets the access reasons.
+     *
+     * @return the access reasons
      */
     List<AccessReasons> getAccessReasons();
-    
+
 }

@@ -13,32 +13,47 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
-
 /**
- * @author virtusa
- * version 1.0
+ * The Class Country.
+ *
+ * @author virtusa version 1.0
  */
 public class Country {
-    
-    private String countryName;
 
-    private String countryCode;
-
-    public String getCountryName() {
+    /**
+     * @return the countryName
+     */
+    public final String getCountryName() {
         return countryName;
     }
 
-    public void setCountryName(String countryName) {
+    /**
+     * @param countryName
+     *            the countryName to set
+     */
+    public final void setCountryName(final String countryName) {
         this.countryName = countryName;
     }
 
-    public String getCountryCode() {
+    /**
+     * @return the countryCode
+     */
+    public final String getCountryCode() {
         return countryCode;
     }
 
-    public void setCountryCode(String countryCode) {
+    /**
+     * @param countryCode
+     *            the countryCode to set
+     */
+    public final void setCountryCode(final String countryCode) {
         this.countryCode = countryCode;
     }
-    
-    
+
+    /** The country name. */
+    private String countryName;
+
+    /** The country code. */
+    private String countryCode;
+
 }

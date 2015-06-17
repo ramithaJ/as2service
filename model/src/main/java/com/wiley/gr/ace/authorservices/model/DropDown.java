@@ -14,37 +14,81 @@ package com.wiley.gr.ace.authorservices.model;
 
 import java.util.List;
 
+/**
+ * The Class DropDown.
+ */
 public class DropDown {
 
-	List<Institution> institutions;
-	List<Department> departments;
-	List<ResearchFunder> researchFunders;
-	List<Society> society;
-	public List<Institution> getInstitutions() {
-		return institutions;
-	}
-	public void setInstitutions(List<Institution> institutions) {
-		this.institutions = institutions;
-	}
-	public List<Department> getDepartments() {
-		return departments;
-	}
-	public void setDepartments(List<Department> departments) {
-		this.departments = departments;
-	}
-	public List<ResearchFunder> getResearchFunders() {
-		return researchFunders;
-	}
-	public void setResearchFunders(List<ResearchFunder> researchFunders) {
-		this.researchFunders = researchFunders;
-	}
-	public List<Society> getSociety() {
-		return society;
-	}
-	public void setSociety(List<Society> society) {
-		this.society = society;
-	}
+    /** The institutions. */
+   private  List<Institution> institutions;
 
-	
-	
+    /** The departments. */
+   private  List<Department> departments;
+
+    /** The research funders. */
+   private  List<ResearchFunder> researchFunders;
+
+    /** The society. */
+   private   List<Society> society;
+
+    /**
+     * @return the institutions
+     */
+    public final List<Institution> getInstitutions() {
+        return institutions;
+    }
+
+    /**
+     * @param institutions
+     *            the institutions to set
+     */
+    public final void setInstitutions(final List<Institution> institutions) {
+        this.institutions = institutions;
+    }
+
+    /**
+     * @return the departments
+     */
+    public final List<Department> getDepartments() {
+        return departments;
+    }
+
+    /**
+     * @param departments
+     *            the departments to set
+     */
+    public final void setDepartments(final List<Department> departments) {
+        this.departments = departments;
+    }
+
+    /**
+     * @return the researchFunders
+     */
+    public final List<ResearchFunder> getResearchFunders() {
+        return researchFunders;
+    }
+
+    /**
+     * @param researchFunders
+     *            the researchFunders to set
+     */
+    public final void setResearchFunders(final List<ResearchFunder> researchFunders) {
+        this.researchFunders = researchFunders;
+    }
+
+    /**
+     * @return the society
+     */
+    public final List<Society> getSociety() {
+        return society;
+    }
+
+    /**
+     * @param society
+     *            the society to set
+     */
+    public final void setSociety(final List<Society> society) {
+        this.society = society;
+    }
+
 }

@@ -15,61 +15,83 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class Interests.
+ *
+ * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
 public class Interests {
-    
+
     /** The user Id . */
     private String userId;
-    
+
+    /** The aoe id. */
     private String aoeId;
-    
+
+    /** The aoe category. */
     private String aoeCategory;
-    
+
+    /** The aoe name. */
     private String aoeName;
-    
+
     /**
-     * Gets the user Id.
-     *
-     * @return the user Id
+     * @return the userId
      */
-    public String getUserId() {
+    public final String getUserId() {
         return userId;
     }
-    
+
     /**
-     * Sets the user Id.
-     *
-     * @return the user Id
+     * @param userId
+     *            the userId to set
      */
-    public void setUserId(String userId) {
+    public final void setUserId(final String userId) {
         this.userId = userId;
     }
-    
-    public String getAoeId() {
+
+    /**
+     * @return the aoeId
+     */
+    public final String getAoeId() {
         return aoeId;
     }
-    
-    public void setAoeId(String aoeId) {
+
+    /**
+     * @param aoeId
+     *            the aoeId to set
+     */
+    public final void setAoeId(final String aoeId) {
         this.aoeId = aoeId;
     }
-    
-    public String getAoeCategory() {
+
+    /**
+     * @return the aoeCategory
+     */
+    public final String getAoeCategory() {
         return aoeCategory;
     }
-    
-    public void setAoeCategory(String aoeCategory) {
+
+    /**
+     * @param aoeCategory
+     *            the aoeCategory to set
+     */
+    public final void setAoeCategory(final String aoeCategory) {
         this.aoeCategory = aoeCategory;
     }
-    
-    public String getAoeName() {
+
+    /**
+     * @return the aoeName
+     */
+    public final String getAoeName() {
         return aoeName;
     }
-    
-    public void setAoeName(String aoeName) {
+
+    /**
+     * @param aoeName
+     *            the aoeName to set
+     */
+    public final void setAoeName(final String aoeName) {
         this.aoeName = aoeName;
     }
-    
+
 }

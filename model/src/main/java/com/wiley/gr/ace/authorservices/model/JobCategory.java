@@ -12,41 +12,46 @@
 package com.wiley.gr.ace.authorservices.model;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class JobCategory.
+ *
+ * @author virtusa version 1.0
  */
 public class JobCategory {
-    
+
+    /** The job category id. */
     private String jobCategoryId;
-    
+
+    /** The job category name. */
     private String jobCategoryName;
-    
+
     /**
-     * @return
+     * @return the jobCategoryId
      */
-    public String getJobCategoryId() {
+    public final String getJobCategoryId() {
         return jobCategoryId;
     }
-    
+
     /**
      * @param jobCategoryId
+     *            the jobCategoryId to set
      */
-    public void setJobCategoryId(String jobCategoryId) {
+    public final void setJobCategoryId(final String jobCategoryId) {
         this.jobCategoryId = jobCategoryId;
     }
-    
+
     /**
-     * @return
+     * @return the jobCategoryName
      */
-    public String getJobCategoryName() {
+    public final String getJobCategoryName() {
         return jobCategoryName;
     }
-    
+
     /**
      * @param jobCategoryName
+     *            the jobCategoryName to set
      */
-    public void setJobCategoryName(String jobCategoryName) {
+    public final void setJobCategoryName(final String jobCategoryName) {
         this.jobCategoryName = jobCategoryName;
     }
-    
+
 }

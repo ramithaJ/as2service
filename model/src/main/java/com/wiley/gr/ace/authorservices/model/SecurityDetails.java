@@ -19,46 +19,71 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class SecurityDetails.
+ *
+ * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
 public class SecurityDetails {
-    
+
+    /** The security question id. */
     @NotNull
     @NotBlank
     private String securityQuestionId;
-    
+
+    /** The security question. */
     @NotNull
     @NotBlank
     private String securityQuestion;
-    
+
+    /** The security answer. */
     @NotNull
     @NotBlank
     private String securityAnswer;
-    
-    public String getSecurityQuestion() {
-        return securityQuestion;
-    }
-    
-    public void setSecurityQuestion(String securityQuestion) {
-        this.securityQuestion = securityQuestion;
-    }
-    
-    public String getSecurityAnswer() {
-        return securityAnswer;
-    }
-    
-    public void setSecurityAnswer(String securityAnswer) {
-        this.securityAnswer = securityAnswer;
-    }
-    
-    public String getSecurityQuestionId() {
+
+    /**
+     * @return the securityQuestionId
+     */
+    public final String getSecurityQuestionId() {
         return securityQuestionId;
     }
-    
-    public void setSecurityQuestionId(String securityQuestionId) {
+
+    /**
+     * @param securityQuestionId
+     *            the securityQuestionId to set
+     */
+    public final void setSecurityQuestionId(final String securityQuestionId) {
         this.securityQuestionId = securityQuestionId;
     }
-    
+
+    /**
+     * @return the securityQuestion
+     */
+    public final String getSecurityQuestion() {
+        return securityQuestion;
+    }
+
+    /**
+     * @param securityQuestion
+     *            the securityQuestion to set
+     */
+    public final void setSecurityQuestion(final String securityQuestion) {
+        this.securityQuestion = securityQuestion;
+    }
+
+    /**
+     * @return the securityAnswer
+     */
+    public final String getSecurityAnswer() {
+        return securityAnswer;
+    }
+
+    /**
+     * @param securityAnswer
+     *            the securityAnswer to set
+     */
+    public final void setSecurityAnswer(final String securityAnswer) {
+        this.securityAnswer = securityAnswer;
+    }
+
 }

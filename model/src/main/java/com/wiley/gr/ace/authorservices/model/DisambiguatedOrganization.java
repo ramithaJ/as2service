@@ -18,6 +18,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
+ * The Class DisambiguatedOrganization.
+ *
  * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
@@ -30,45 +32,33 @@ public class DisambiguatedOrganization {
     private String disambiguationSource;
 
     /**
-     * Gets the disambiguatedOrganizationIdentifier.
-     *
      * @return the disambiguatedOrganizationIdentifier
-     * 
      */
-    public String getDisambiguatedOrganizationIdentifier() {
+    public final String getDisambiguatedOrganizationIdentifier() {
         return disambiguatedOrganizationIdentifier;
     }
 
     /**
-     * Sets the disambiguatedOrganizationIdentifier.
-     *
-     * @param the
-     *            disambiguatedOrganizationIdentifier
-     * 
+     * @param disambiguatedOrganizationIdentifier
+     *            the disambiguatedOrganizationIdentifier to set
      */
-    public void setDisambiguatedOrganizationIdentifier(
-            String disambiguatedOrganizationIdentifier) {
+    public final void setDisambiguatedOrganizationIdentifier(
+            final String disambiguatedOrganizationIdentifier) {
         this.disambiguatedOrganizationIdentifier = disambiguatedOrganizationIdentifier;
     }
 
     /**
-     * Gets the disambiguationSource.
-     *
      * @return the disambiguationSource
-     * 
      */
-    public String getDisambiguationSource() {
+    public final String getDisambiguationSource() {
         return disambiguationSource;
     }
 
     /**
-     * Sets the disambiguationSource.
-     *
-     * @param the
-     *            disambiguationSource
-     * 
+     * @param disambiguationSource
+     *            the disambiguationSource to set
      */
-    public void setDisambiguationSource(String disambiguationSource) {
+    public final void setDisambiguationSource(final String disambiguationSource) {
         this.disambiguationSource = disambiguationSource;
     }
 

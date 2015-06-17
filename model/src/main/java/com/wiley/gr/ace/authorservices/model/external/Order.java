@@ -18,132 +18,226 @@ import java.util.List;
 import com.wiley.gr.ace.authorservices.model.Address;
 
 /**
- * @author virtusa
- * version 1.0
+ * The Class Order.
+ *
+ * @author virtusa version 1.0
  */
 public class Order {
-    
-    
-    private String articleId;
-    
-    private String journalId;
-    
-    private String orderType;
-    
-    private Pricing pricing;
-    
-    private Discount discount;
-    
-    private Affiliation affiliation;
-    
-    private String paymentMethod;
-    
-    private CreditCard creditCard;
-    
-    private TaxDetails taxDetails;
-    
-    private List<Address> addresses;
-    
-    private Customer customer;
-    
-    private FundingDetails fundingDetails;
 
-    public String getArticleId() {
+    /** The article id. */
+    private String articleId;
+
+    /** The journal id. */
+    private String journalId;
+
+    /** The order type. */
+    private String orderType;
+
+    /** The pricing. */
+    private Pricing pricing;
+
+    /**
+     * @return the articleId
+     */
+    public final String getArticleId() {
         return articleId;
     }
 
-    public void setArticleId(String articleId) {
+    /**
+     * @param articleId
+     *            the articleId to set
+     */
+    public final void setArticleId(final String articleId) {
         this.articleId = articleId;
     }
 
-    public String getJournalId() {
+    /**
+     * @return the journalId
+     */
+    public final String getJournalId() {
         return journalId;
     }
 
-    public void setJournalId(String journalId) {
+    /**
+     * @param journalId
+     *            the journalId to set
+     */
+    public final void setJournalId(final String journalId) {
         this.journalId = journalId;
     }
 
-    public String getOrderType() {
+    /**
+     * @return the orderType
+     */
+    public final String getOrderType() {
         return orderType;
     }
 
-    public void setOrderType(String orderType) {
+    /**
+     * @param orderType
+     *            the orderType to set
+     */
+    public final void setOrderType(final String orderType) {
         this.orderType = orderType;
     }
 
-    public Pricing getPricing() {
+    /**
+     * @return the pricing
+     */
+    public final Pricing getPricing() {
         return pricing;
     }
 
-    public void setPricing(Pricing pricing) {
+    /**
+     * @param pricing
+     *            the pricing to set
+     */
+    public final void setPricing(final Pricing pricing) {
         this.pricing = pricing;
     }
 
-    public Discount getDiscount() {
+    /**
+     * @return the discount
+     */
+    public final Discount getDiscount() {
         return discount;
     }
 
-    public void setDiscount(Discount discount) {
+    /**
+     * @param discount
+     *            the discount to set
+     */
+    public final void setDiscount(final Discount discount) {
         this.discount = discount;
     }
 
-    public Affiliation getAffiliation() {
+    /**
+     * @return the affiliation
+     */
+    public final Affiliation getAffiliation() {
         return affiliation;
     }
 
-    public void setAffiliation(Affiliation affiliation) {
+    /**
+     * @param affiliation
+     *            the affiliation to set
+     */
+    public final void setAffiliation(final Affiliation affiliation) {
         this.affiliation = affiliation;
     }
 
-    public String getPaymentMethod() {
+    /**
+     * @return the paymentMethod
+     */
+    public final String getPaymentMethod() {
         return paymentMethod;
     }
 
-    public void setPaymentMethod(String paymentMethod) {
+    /**
+     * @param paymentMethod
+     *            the paymentMethod to set
+     */
+    public final void setPaymentMethod(final String paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
 
-    public CreditCard getCreditCard() {
+    /**
+     * @return the creditCard
+     */
+    public final CreditCard getCreditCard() {
         return creditCard;
     }
 
-    public void setCreditCard(CreditCard creditCard) {
+    /**
+     * @param creditCard
+     *            the creditCard to set
+     */
+    public final void setCreditCard(final CreditCard creditCard) {
         this.creditCard = creditCard;
     }
 
-    public TaxDetails getTaxDetails() {
+    /**
+     * @return the taxDetails
+     */
+    public final TaxDetails getTaxDetails() {
         return taxDetails;
     }
 
-    public void setTaxDetails(TaxDetails taxDetails) {
+    /**
+     * @param taxDetails
+     *            the taxDetails to set
+     */
+    public final void setTaxDetails(final TaxDetails taxDetails) {
         this.taxDetails = taxDetails;
     }
 
-
-    public List<Address> getAddresses() {
+    /**
+     * @return the addresses
+     */
+    public final List<Address> getAddresses() {
         return addresses;
     }
 
-    public void setAddresses(List<Address> addresses) {
+    /**
+     * @param addresses
+     *            the addresses to set
+     */
+    public final void setAddresses(final List<Address> addresses) {
         this.addresses = addresses;
     }
 
-    public Customer getCustomer() {
+    /**
+     * @return the customer
+     */
+    public final Customer getCustomer() {
         return customer;
     }
 
-    public void setCustomer(Customer customer) {
+    /**
+     * @param customer
+     *            the customer to set
+     */
+    public final void setCustomer(final Customer customer) {
         this.customer = customer;
     }
 
-    public FundingDetails getFundingDetails() {
+    /**
+     * @return the fundingDetails
+     */
+    public final FundingDetails getFundingDetails() {
         return fundingDetails;
     }
 
-    public void setFundingDetails(FundingDetails fundingDetails) {
+    /**
+     * @param fundingDetails
+     *            the fundingDetails to set
+     */
+    public final void setFundingDetails(final FundingDetails fundingDetails) {
         this.fundingDetails = fundingDetails;
     }
-    
-    
+
+    /** The discount. */
+    private Discount discount;
+
+    /** The affiliation. */
+    private Affiliation affiliation;
+
+    /** The payment method. */
+    private String paymentMethod;
+
+    /** The credit card. */
+    private CreditCard creditCard;
+
+    /** The tax details. */
+    private TaxDetails taxDetails;
+
+    /** The addresses. */
+    private List<Address> addresses;
+
+    /** The customer. */
+    private Customer customer;
+
+    /** The funding details. */
+    private FundingDetails fundingDetails;
+
 }

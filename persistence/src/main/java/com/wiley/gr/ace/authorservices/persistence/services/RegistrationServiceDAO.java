@@ -12,16 +12,38 @@
 package com.wiley.gr.ace.authorservices.persistence.services;
 
 import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
+
 /**
- * @author virtusa
- *version 1.0
+ * @author virtusa version 1.0
  */
 public interface RegistrationServiceDAO {
-   
+
+    /**
+     * This method search the User by using orcidId.
+     * 
+     * @param orcidId
+     *            to Retrieve.
+     * @return the boolean value.
+     * @throws Exception
+     *             if unable to search.
+     */
     boolean searchUserByOrcidId(String orcidId) throws Exception;
-    
+
+    /**
+     * This method gets the Invitation Records.
+     * 
+     * @param guid
+     *            to Retrieve.
+     * @return the InviteResetpwdLog.
+     */
     InviteResetpwdLog getInvitationRecords(String guid);
-    
+
+    /**
+     * This method Assigns the Role to New Registration.
+     * 
+     * @param emaildId
+     *            to assign.
+     */
     void assignRoleToNewRegistration(String emaildId);
-    
+
 }

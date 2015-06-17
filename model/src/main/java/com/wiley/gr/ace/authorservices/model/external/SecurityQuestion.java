@@ -18,8 +18,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
- * @author virtusa version 1.0
+ * The Class SecurityQuestion.
  *
+ * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
 public class SecurityQuestion {
@@ -31,44 +32,32 @@ public class SecurityQuestion {
     private String answer;
 
     /**
-     * Gets the question.
-     *
      * @return the question
-     * 
      */
-    public String getQuestion() {
+    public final String getQuestion() {
         return question;
     }
 
     /**
-     * Sets the question.
-     *
-     * @param the
-     *            question
-     * 
+     * @param question
+     *            the question to set
      */
-    public void setQuestion(String question) {
+    public final void setQuestion(final String question) {
         this.question = question;
     }
 
     /**
-     * Gets the answer.
-     *
      * @return the answer
-     * 
      */
-    public String getAnswer() {
+    public final String getAnswer() {
         return answer;
     }
 
     /**
-     * Sets the answer.
-     *
-     * @param the
-     *            answer
-     * 
+     * @param answer
+     *            the answer to set
      */
-    public void setAnswer(String answer) {
+    public final void setAnswer(final String answer) {
         this.answer = answer;
     }
 

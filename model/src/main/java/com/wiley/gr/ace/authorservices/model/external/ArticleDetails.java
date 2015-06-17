@@ -17,90 +17,155 @@ package com.wiley.gr.ace.authorservices.model.external;
 import java.util.List;
 
 /**
- * @author yugandhark
+ * The Class ArticleDetails.
  *
+ * @author yugandhark
  */
 public class ArticleDetails {
 
-	private Integer articleId;
+    /** The article id. */
+    private Integer articleId;
 
-	private String articleName;
+    /** The article name. */
+    private String articleName;
 
-	private String articleDoi;
+    /** The article doi. */
+    private String articleDoi;
 
-	private String publicationDate;
+    /** The publication date. */
+    private String publicationDate;
 
-	private String acceptanceDate;
+    /** The acceptance date. */
+    private String acceptanceDate;
 
-	private String articleAcceptedInOO;
+    /** The article accepted in oo. */
+    private String articleAcceptedInOO;
 
-	private String articleAuthorName;
+    /** The article authors. */
+    private List<ArticleAuthors> articleAuthors;
 
-	private List<ArticleCoAuthors> articleCoAuthors;
+    /** The article co authors. */
+    private List<ArticleCoAuthors> articleCoAuthors;
 
-	public final Integer getArticleId() {
-		return articleId;
-	}
+    /**
+     * @return the articleId
+     */
+    public final Integer getArticleId() {
+        return articleId;
+    }
 
-	public final void setArticleId(Integer articleId) {
-		this.articleId = articleId;
-	}
+    /**
+     * @param articleId
+     *            the articleId to set
+     */
+    public final void setArticleId(final Integer articleId) {
+        this.articleId = articleId;
+    }
 
-	public final String getArticleName() {
-		return articleName;
-	}
+    /**
+     * @return the articleName
+     */
+    public final String getArticleName() {
+        return articleName;
+    }
 
-	public final void setArticleName(String articleName) {
-		this.articleName = articleName;
-	}
+    /**
+     * @param articleName
+     *            the articleName to set
+     */
+    public final void setArticleName(final String articleName) {
+        this.articleName = articleName;
+    }
 
-	public final String getArticleDoi() {
-		return articleDoi;
-	}
+    /**
+     * @return the articleDoi
+     */
+    public final String getArticleDoi() {
+        return articleDoi;
+    }
 
-	public final void setArticleDoi(String articleDoi) {
-		this.articleDoi = articleDoi;
-	}
+    /**
+     * @param articleDoi
+     *            the articleDoi to set
+     */
+    public final void setArticleDoi(final String articleDoi) {
+        this.articleDoi = articleDoi;
+    }
 
-	public final String getPublicationDate() {
-		return publicationDate;
-	}
+    /**
+     * @return the publicationDate
+     */
+    public final String getPublicationDate() {
+        return publicationDate;
+    }
 
-	public final void setPublicationDate(String publicationDate) {
-		this.publicationDate = publicationDate;
-	}
+    /**
+     * @param publicationDate
+     *            the publicationDate to set
+     */
+    public final void setPublicationDate(final String publicationDate) {
+        this.publicationDate = publicationDate;
+    }
 
-	public final String getAcceptanceDate() {
-		return acceptanceDate;
-	}
+    /**
+     * @return the acceptanceDate
+     */
+    public final String getAcceptanceDate() {
+        return acceptanceDate;
+    }
 
-	public final void setAcceptanceDate(String acceptanceDate) {
-		this.acceptanceDate = acceptanceDate;
-	}
+    /**
+     * @param acceptanceDate
+     *            the acceptanceDate to set
+     */
+    public final void setAcceptanceDate(final String acceptanceDate) {
+        this.acceptanceDate = acceptanceDate;
+    }
 
-	public final String getArticleAcceptedInOO() {
-		return articleAcceptedInOO;
-	}
+    /**
+     * @return the articleAcceptedInOO
+     */
+    public final String getArticleAcceptedInOO() {
+        return articleAcceptedInOO;
+    }
 
-	public final void setArticleAcceptedInOO(String articleAcceptedInOO) {
-		this.articleAcceptedInOO = articleAcceptedInOO;
-	}
+    /**
+     * @param articleAcceptedInOO
+     *            the articleAcceptedInOO to set
+     */
+    public final void setArticleAcceptedInOO(final String articleAcceptedInOO) {
+        this.articleAcceptedInOO = articleAcceptedInOO;
+    }
 
-	public final String getArticleAuthorName() {
-		return articleAuthorName;
-	}
+    /**
+     * @return the articleAuthors
+     */
+    public final List<ArticleAuthors> getArticleAuthors() {
+        return articleAuthors;
+    }
 
-	public final void setArticleAuthorName(String articleAuthorName) {
-		this.articleAuthorName = articleAuthorName;
-	}
+    /**
+     * @param articleAuthors
+     *            the articleAuthors to set
+     */
+    public final void setArticleAuthors(final List<ArticleAuthors> articleAuthors) {
+        this.articleAuthors = articleAuthors;
+    }
 
-	public final List<ArticleCoAuthors> getArticleCoAuthors() {
-		return articleCoAuthors;
-	}
+    /**
+     * @return the articleCoAuthors
+     */
+    public final List<ArticleCoAuthors> getArticleCoAuthors() {
+        return articleCoAuthors;
+    }
 
-	public final void setArticleCoAuthors(
-			List<ArticleCoAuthors> articleCoAuthors) {
-		this.articleCoAuthors = articleCoAuthors;
-	}
+    /**
+     * @param articleCoAuthors
+     *            the articleCoAuthors to set
+     */
+    public final void setArticleCoAuthors(
+            final List<ArticleCoAuthors> articleCoAuthors) {
+        this.articleCoAuthors = articleCoAuthors;
+    }
 
 }

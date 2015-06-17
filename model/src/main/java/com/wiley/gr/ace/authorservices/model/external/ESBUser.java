@@ -13,127 +13,218 @@ package com.wiley.gr.ace.authorservices.model.external;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * The Class ESBUser.
+ */
 public class ESBUser {
 
-	@JsonProperty("Street")
-	private String street;
+    /** The street. */
+    @JsonProperty("Street")
+    private String street;
 
-	@JsonProperty("State")
-	private String state;
+    /** The state. */
+    @JsonProperty("State")
+    private String state;
 
-	@JsonProperty("Address")
-	private String address;
+    /** The address. */
+    @JsonProperty("Address")
+    private String address;
 
-	@JsonProperty("Role")
-	private String role;
+    /** The role. */
+    @JsonProperty("Role")
+    private String role;
 
-	@JsonProperty("FirstName")
-	private String firstName;
+    /** The first name. */
+    @JsonProperty("FirstName")
+    private String firstName;
 
-	@JsonProperty("Zip")
-	private String zip;
+    /** The zip. */
+    @JsonProperty("Zip")
+    private String zip;
 
-	@JsonProperty("Country")
-	private String country;
+    /** The country. */
+    @JsonProperty("Country")
+    private String country;
 
-	@JsonProperty("LastName")
-	private String lastName;
+    /** The last name. */
+    @JsonProperty("LastName")
+    private String lastName;
 
-	@JsonProperty("ECID")
-	private String ecid;
+    /** The ecid. */
+    @JsonProperty("ECID")
+    private String ecid;
 
-	@JsonProperty("EmailID")
-	private String emailID;
+    /** The email id. */
+    @JsonProperty("EmailID")
+    private String emailID;
 
-	@JsonProperty("AccountIdentifier")
-	private String accountIdentifier;
+    /** The account identifier. */
+    @JsonProperty("AccountIdentifier")
+    private String accountIdentifier;
 
-	public String getStreet() {
-		return street;
-	}
+    /**
+     * @return the street
+     */
+    public final String getStreet() {
+        return street;
+    }
 
-	public void setStreet(String street) {
-		this.street = street;
-	}
+    /**
+     * @param street
+     *            the street to set
+     */
+    public final void setStreet(final String street) {
+        this.street = street;
+    }
 
-	public String getState() {
-		return state;
-	}
+    /**
+     * @return the state
+     */
+    public final String getState() {
+        return state;
+    }
 
-	public void setState(String state) {
-		this.state = state;
-	}
+    /**
+     * @param state
+     *            the state to set
+     */
+    public final void setState(final String state) {
+        this.state = state;
+    }
 
-	public String getAddress() {
-		return address;
-	}
+    /**
+     * @return the address
+     */
+    public final String getAddress() {
+        return address;
+    }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    /**
+     * @param address
+     *            the address to set
+     */
+    public final void setAddress(final String address) {
+        this.address = address;
+    }
 
-	public String getRole() {
-		return role;
-	}
+    /**
+     * @return the role
+     */
+    public final String getRole() {
+        return role;
+    }
 
-	public void setRole(String role) {
-		this.role = role;
-	}
+    /**
+     * @param role
+     *            the role to set
+     */
+    public final void setRole(final String role) {
+        this.role = role;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    /**
+     * @return the firstName
+     */
+    public final String getFirstName() {
+        return firstName;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    /**
+     * @param firstName
+     *            the firstName to set
+     */
+    public final void setFirstName(final String firstName) {
+        this.firstName = firstName;
+    }
 
-	public String getZip() {
-		return zip;
-	}
+    /**
+     * @return the zip
+     */
+    public final String getZip() {
+        return zip;
+    }
 
-	public void setZip(String zip) {
-		this.zip = zip;
-	}
+    /**
+     * @param zip
+     *            the zip to set
+     */
+    public final void setZip(final String zip) {
+        this.zip = zip;
+    }
 
-	public String getCountry() {
-		return country;
-	}
+    /**
+     * @return the country
+     */
+    public final String getCountry() {
+        return country;
+    }
 
-	public void setCountry(String country) {
-		this.country = country;
-	}
+    /**
+     * @param country
+     *            the country to set
+     */
+    public final void setCountry(final String country) {
+        this.country = country;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    /**
+     * @return the lastName
+     */
+    public final String getLastName() {
+        return lastName;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    /**
+     * @param lastName
+     *            the lastName to set
+     */
+    public final void setLastName(final String lastName) {
+        this.lastName = lastName;
+    }
 
-	public String getEcid() {
-		return ecid;
-	}
+    /**
+     * @return the ecid
+     */
+    public final String getEcid() {
+        return ecid;
+    }
 
-	public void setEcid(String ecid) {
-		this.ecid = ecid;
-	}
+    /**
+     * @param ecid
+     *            the ecid to set
+     */
+    public final void setEcid(final String ecid) {
+        this.ecid = ecid;
+    }
 
-	public String getEmailID() {
-		return emailID;
-	}
+    /**
+     * @return the emailID
+     */
+    public final String getEmailID() {
+        return emailID;
+    }
 
-	public void setEmailID(String emailID) {
-		this.emailID = emailID;
-	}
+    /**
+     * @param emailID
+     *            the emailID to set
+     */
+    public final void setEmailID(final String emailID) {
+        this.emailID = emailID;
+    }
 
-	public String getAccountIdentifier() {
-		return accountIdentifier;
-	}
+    /**
+     * @return the accountIdentifier
+     */
+    public final String getAccountIdentifier() {
+        return accountIdentifier;
+    }
 
-	public void setAccountIdentifier(String accountIdentifier) {
-		this.accountIdentifier = accountIdentifier;
-	}
+    /**
+     * @param accountIdentifier
+     *            the accountIdentifier to set
+     */
+    public final void setAccountIdentifier(final String accountIdentifier) {
+        this.accountIdentifier = accountIdentifier;
+    }
 
 }

@@ -14,38 +14,63 @@
 package com.wiley.gr.ace.authorservices.model.external;
 
 /**
- * @author virtusa
- * version 1.0
+ * The Class Pricing.
+ *
+ * @author virtusa version 1.0
  */
 public class Pricing {
-    
-    private String productBasePrice;
-    
-    private String amountToBePaid;
-    
-    private String currency;
 
-    public String getProductBasePrice() {
+    /** The product base price. */
+    private String productBasePrice;
+
+    /**
+     * @return the productBasePrice
+     */
+    public final String getProductBasePrice() {
         return productBasePrice;
     }
 
-    public void setProductBasePrice(String productBasePrice) {
+    /**
+     * @param productBasePrice
+     *            the productBasePrice to set
+     */
+    public final void setProductBasePrice(final String productBasePrice) {
         this.productBasePrice = productBasePrice;
     }
 
-    public String getAmountToBePaid() {
+    /**
+     * @return the amountToBePaid
+     */
+    public final String getAmountToBePaid() {
         return amountToBePaid;
     }
 
-    public void setAmountToBePaid(String amountToBePaid) {
+    /**
+     * @param amountToBePaid
+     *            the amountToBePaid to set
+     */
+    public final void setAmountToBePaid(final String amountToBePaid) {
         this.amountToBePaid = amountToBePaid;
     }
 
-    public String getCurrency() {
+    /**
+     * @return the currency
+     */
+    public final String getCurrency() {
         return currency;
     }
 
-    public void setCurrency(String currency) {
+    /**
+     * @param currency
+     *            the currency to set
+     */
+    public final void setCurrency(final String currency) {
         this.currency = currency;
     }
+
+    /** The amount to be paid. */
+    private String amountToBePaid;
+
+    /** The currency. */
+    private String currency;
 }

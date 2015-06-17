@@ -3,15 +3,27 @@
 
 package com.wiley.gr.ace.authorservices.model.external;
 
+/**
+ * The Class Alerts.
+ */
 public class Alerts {
-	private AlertElement[] alert;
 
- 	public void setAlert(AlertElement[] alert) {
-		this.alert = alert;
-	}
+    /** The alert. */
+    private AlertElement[] alert;
 
-	public AlertElement[] getAlert() {
-		return alert;
-	}
+    /**
+     * @return the alert
+     */
+    public final AlertElement[] getAlert() {
+        return alert;
+    }
+
+    /**
+     * @param alert
+     *            the alert to set
+     */
+    public final void setAlert(final AlertElement[] alert) {
+        this.alert = alert;
+    }
 
 }

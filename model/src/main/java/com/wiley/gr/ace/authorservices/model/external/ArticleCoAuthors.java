@@ -15,28 +15,45 @@
 package com.wiley.gr.ace.authorservices.model.external;
 
 /**
- * @author yugandhark
+ * The Class ArticleCoAuthors.
  *
+ * @author yugandhark
  */
 public class ArticleCoAuthors {
 
+    /** The last name. */
     private String lastName;
 
+    /** The first name. */
     private String firstName;
 
-    public String getLastName() {
+    /**
+     * @return the lastName
+     */
+    public final String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    /**
+     * @param lastName
+     *            the lastName to set
+     */
+    public final void setLastName(final String lastName) {
         this.lastName = lastName;
     }
 
-    public String getFirstName() {
+    /**
+     * @return the firstName
+     */
+    public final String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    /**
+     * @param firstName
+     *            the firstName to set
+     */
+    public final void setFirstName(final String firstName) {
         this.firstName = firstName;
     }
 }

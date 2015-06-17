@@ -3,15 +3,27 @@
 
 package com.wiley.gr.ace.authorservices.model.external;
 
+/**
+ * The Class AreaOfInterest.
+ */
 public class AreaOfInterest {
-	private java.lang.String[] interest;
 
- 	public void setInterest(java.lang.String[] interest) {
-		this.interest = interest;
-	}
+    /** The interest. */
+    private String[] interest;
 
-	public java.lang.String[] getInterest() {
-		return interest;
-	}
+    /**
+     * @return the interest
+     */
+    public final String[] getInterest() {
+        return interest;
+    }
+
+    /**
+     * @param interest
+     *            the interest to set
+     */
+    public final void setInterest(final String[] interest) {
+        this.interest = interest;
+    }
 
 }

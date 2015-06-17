@@ -12,84 +12,173 @@
 
 package com.wiley.gr.ace.authorservices.model.external;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+/**
+ * The Class StateDocs.
+ * 
+ * @author virtusa version 1.0
+ */
 public class StateDocs {
 
-	private String id;
+    /** The id. */
+    private String id;
 
-	private String _version_;
+    /** The _version_. */
+    @JsonProperty("_version_")
+    private String version;
 
-	private String ISO_ALPHA_3;
+    /** The IS o_ alph a_3. */
+    @JsonProperty("ISO_ALPHA_3")
+    private String isoAlpha3;
 
-	private String ISO_ALPHA_2;
+    /** The IS o_ alph a_2. */
+    @JsonProperty("ISO_ALPHA_2")
+    private String isoAlpha2;
 
-	private String doc_type;
+    /** The doc_type. */
+    @JsonProperty("doc_type")
+    private String docType;
 
-	private String SUBDIVISION_CD;
+    /** The subdivision cd. */
+    @JsonProperty("SUBDIVISION_CD")
+    private String subDivisionCd;
 
-	private String SUBDIVISION_NAME;
+    /** The subdivision name. */
+    @JsonProperty("SUBDIVISION_NAME")
+    private String subDivisionName;
 
-	public String getId() {
-		return id;
-	}
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
+    public final String getId() {
+        return id;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    /**
+     * Sets the id.
+     *
+     * @param id
+     *            the new id
+     */
+    public final void setId(final String id) {
+        this.id = id;
+    }
 
-	public String get_version_() {
-		return _version_;
-	}
+    /**
+     * Gets the version.
+     *
+     * @return the version
+     */
+    public final String getVersion() {
+        return version;
+    }
 
-	public void set_version_(String _version_) {
-		this._version_ = _version_;
-	}
+    /**
+     * Sets the version.
+     *
+     * @param version
+     *            the new version
+     */
+    public final void setVersion(final String version) {
+        this.version = version;
+    }
 
-	public String getISO_ALPHA_3() {
-		return ISO_ALPHA_3;
-	}
+    /**
+     * Gets the iso alpha3.
+     *
+     * @return the iso alpha3
+     */
+    public final String getIsoAlpha3() {
+        return isoAlpha3;
+    }
 
-	public void setISO_ALPHA_3(String ISO_ALPHA_3) {
-		this.ISO_ALPHA_3 = ISO_ALPHA_3;
-	}
+    /**
+     * Sets the iso alpha3.
+     *
+     * @param isoAlpha3
+     *            the new iso alpha3
+     */
+    public final void setIsoAlpha3(final String isoAlpha3) {
+        this.isoAlpha3 = isoAlpha3;
+    }
 
-	public String getISO_ALPHA_2() {
-		return ISO_ALPHA_2;
-	}
+    /**
+     * Gets the iso alpha2.
+     *
+     * @return the iso alpha2
+     */
+    public final String getIsoAlpha2() {
+        return isoAlpha2;
+    }
 
-	public void setISO_ALPHA_2(String ISO_ALPHA_2) {
-		this.ISO_ALPHA_2 = ISO_ALPHA_2;
-	}
+    /**
+     * Sets the iso alpha2.
+     *
+     * @param isoAlpha2
+     *            the new iso alpha2
+     */
+    public final void setIsoAlpha2(final String isoAlpha2) {
+        this.isoAlpha2 = isoAlpha2;
+    }
 
-	public String getDoc_type() {
-		return doc_type;
-	}
+    /**
+     * Gets the doc type.
+     *
+     * @return the doc type
+     */
+    public final String getDocType() {
+        return docType;
+    }
 
-	public void setDoc_type(String doc_type) {
-		this.doc_type = doc_type;
-	}
+    /**
+     * Sets the doc type.
+     *
+     * @param docType
+     *            the new doc type
+     */
+    public final void setDocType(final String docType) {
+        this.docType = docType;
+    }
 
-	public String getSUBDIVISION_CD() {
-		return SUBDIVISION_CD;
-	}
+    /**
+     * Gets the sub division cd.
+     *
+     * @return the sub division cd
+     */
+    public final String getSubDivisionCd() {
+        return subDivisionCd;
+    }
 
-	public void setSUBDIVISION_CD(String SUBDIVISION_CD) {
-		this.SUBDIVISION_CD = SUBDIVISION_CD;
-	}
+    /**
+     * Sets the sub division cd.
+     *
+     * @param subDivisionCd
+     *            the new sub division cd
+     */
+    public final void setSubDivisionCd(final String subDivisionCd) {
+        this.subDivisionCd = subDivisionCd;
+    }
 
-	public String getSUBDIVISION_NAME() {
-		return SUBDIVISION_NAME;
-	}
+    /**
+     * Gets the sub division name.
+     *
+     * @return the sub division name
+     */
+    public final String getSubDivisionName() {
+        return subDivisionName;
+    }
 
-	public void setSUBDIVISION_NAME(String SUBDIVISION_NAME) {
-		this.SUBDIVISION_NAME = SUBDIVISION_NAME;
-	}
+    /**
+     * Sets the sub division name.
+     *
+     * @param subDivisionName
+     *            the new sub division name
+     */
+    public final void setSubDivisionName(final String subDivisionName) {
+        this.subDivisionName = subDivisionName;
+    }
 
-	@Override
-	public String toString() {
-		return "ClassPojo [id = " + id + ", _version_ = " + _version_
-				+ ", ISO_ALPHA_3 = " + ISO_ALPHA_3 + ", ISO_ALPHA_2 = "
-				+ ISO_ALPHA_2 + ", doc_type = " + doc_type
-				+ ", SUBDIVISION_CD = " + SUBDIVISION_CD
-				+ ", SUBDIVISION_NAME = " + SUBDIVISION_NAME + "]";
-	}
 }

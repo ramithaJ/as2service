@@ -21,64 +21,105 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class ResearchFunder.
+ *
+ * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
 public class ResearchFunder {
-    
+
+    /** The research funder id. */
     @NotNull
     @NotBlank
     private Integer researchFunderId;
-    
+
+    /** The research funder name. */
     @NotNull
     @NotBlank
     private String researchFunderName;
-    
+
+    /** The article aid. */
     private String articleAID;
-    
+
+    /** The article name. */
     private String articleName;
-    
+
+    /** The grant number. */
     private Set<String> grantNumber;
-    
-    public Integer getResearchFunderId() {
+
+    /**
+     * @return the researchFunderId
+     */
+    public final Integer getResearchFunderId() {
         return researchFunderId;
     }
-    
-    public void setResearchFunderId(Integer researchFunderId) {
+
+    /**
+     * @param researchFunderId
+     *            the researchFunderId to set
+     */
+    public final void setResearchFunderId(final Integer researchFunderId) {
         this.researchFunderId = researchFunderId;
     }
-    
-    public String getResearchFunderName() {
+
+    /**
+     * @return the researchFunderName
+     */
+    public final String getResearchFunderName() {
         return researchFunderName;
     }
-    
-    public void setResearchFunderName(String researchFunderName) {
+
+    /**
+     * @param researchFunderName
+     *            the researchFunderName to set
+     */
+    public final void setResearchFunderName(final String researchFunderName) {
         this.researchFunderName = researchFunderName;
     }
-    
-    public String getArticleAID() {
+
+    /**
+     * @return the articleAID
+     */
+    public final String getArticleAID() {
         return articleAID;
     }
-    
-    public void setArticleAID(String articleAID) {
+
+    /**
+     * @param articleAID
+     *            the articleAID to set
+     */
+    public final void setArticleAID(final String articleAID) {
         this.articleAID = articleAID;
     }
-    
-    public String getArticleName() {
+
+    /**
+     * @return the articleName
+     */
+    public final String getArticleName() {
         return articleName;
     }
-    
-    public void setArticleName(String articleName) {
+
+    /**
+     * @param articleName
+     *            the articleName to set
+     */
+    public final void setArticleName(final String articleName) {
         this.articleName = articleName;
     }
-    
-    public Set<String> getGrantNumber() {
+
+    /**
+     * @return the grantNumber
+     */
+    public final Set<String> getGrantNumber() {
         return grantNumber;
     }
-    
-    public void setGrantNumber(Set<String> grantNumber) {
+
+    /**
+     * @param grantNumber
+     *            the grantNumber to set
+     */
+    public final void setGrantNumber(final Set<String> grantNumber) {
         this.grantNumber = grantNumber;
     }
-    
+
 }

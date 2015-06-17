@@ -17,51 +17,85 @@ package com.wiley.gr.ace.authorservices.model.external;
 import java.util.List;
 
 /**
- * @author yugandhark
+ * The Class DashboardView.
  *
+ * @author yugandhark
  */
 public class DashboardView {
 
+    /** The article data. */
     private List<ArticleData> articleData;
 
+    /** The communication details. */
     private List<CommunicationDetails> communicationDetails;
 
+    /** The article citation record. */
     private List<ArticleCitationRecord> articleCitationRecord;
 
-    private List<ArticleReadRecord> articleReadRecord;
-
-    public List<ArticleData> getArticleData() {
+    /**
+     * @return the articleData
+     */
+    public final List<ArticleData> getArticleData() {
         return articleData;
     }
 
-    public void setArticleData(List<ArticleData> articleData) {
+    /**
+     * @param articleData
+     *            the articleData to set
+     */
+    public final void setArticleData(final List<ArticleData> articleData) {
         this.articleData = articleData;
     }
 
-    public List<CommunicationDetails> getCommunicationDetails() {
+    /**
+     * @return the communicationDetails
+     */
+    public final List<CommunicationDetails> getCommunicationDetails() {
         return communicationDetails;
     }
 
-    public void setCommunicationDetails(
-            List<CommunicationDetails> communicationDetails) {
+    /**
+     * @param communicationDetails
+     *            the communicationDetails to set
+     */
+    public final void setCommunicationDetails(
+            final List<CommunicationDetails> communicationDetails) {
         this.communicationDetails = communicationDetails;
     }
 
-    public List<ArticleCitationRecord> getArticleCitationRecord() {
+    /**
+     * @return the articleCitationRecord
+     */
+    public final List<ArticleCitationRecord> getArticleCitationRecord() {
         return articleCitationRecord;
     }
 
-    public void setArticleCitationRecord(
-            List<ArticleCitationRecord> articleCitationRecord) {
+    /**
+     * @param articleCitationRecord
+     *            the articleCitationRecord to set
+     */
+    public final void setArticleCitationRecord(
+            final List<ArticleCitationRecord> articleCitationRecord) {
         this.articleCitationRecord = articleCitationRecord;
     }
 
-    public List<ArticleReadRecord> getArticleReadRecord() {
+    /**
+     * @return the articleReadRecord
+     */
+    public final List<ArticleReadRecord> getArticleReadRecord() {
         return articleReadRecord;
     }
 
-    public void setArticleReadRecord(List<ArticleReadRecord> articleReadRecord) {
+    /**
+     * @param articleReadRecord
+     *            the articleReadRecord to set
+     */
+    public final void setArticleReadRecord(
+            final List<ArticleReadRecord> articleReadRecord) {
         this.articleReadRecord = articleReadRecord;
     }
+
+    /** The article read record. */
+    private List<ArticleReadRecord> articleReadRecord;
 
 }

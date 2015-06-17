@@ -21,132 +21,148 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class Society.
+ *
+ * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
 public class Society {
-    
+
     /** The user Id . */
-    
+
     private String userId;
+
+    /** The society id. */
     @NotNull
     @NotBlank
     private String societyId;
+
+    /** The society name. */
     @NotNull
     @NotBlank
     private String societyName;
+
+    /** The membership number. */
     @NotNull
     @NotBlank
     private String membershipNumber;
+
+    /** The promo code. */
     @NotNull
     @NotBlank
     private String promoCode;
+
+    /** The start date. */
     @NotNull
     private Date startDate;
+
+    /** The end date. */
     @NotNull
     private Date endDate;
-    
+
     /**
-     * Gets the user Id.
-     *
-     * @return the user Id
+     * @return the userId
      */
-    public String getUserId() {
+    public final String getUserId() {
         return userId;
     }
-    
+
     /**
-     * Sets the user Id.
-     *
-     * @return the user Id
+     * @param userId
+     *            the userId to set
      */
-    public void setUserId(String userId) {
+    public final void setUserId(final String userId) {
         this.userId = userId;
     }
-    
+
     /**
-     * @return
+     * @return the societyId
      */
-    public String getSocietyId() {
+    public final String getSocietyId() {
         return societyId;
     }
-    
+
     /**
      * @param societyId
+     *            the societyId to set
      */
-    public void setSocietyId(String societyId) {
+    public final void setSocietyId(final String societyId) {
         this.societyId = societyId;
     }
-    
+
     /**
-     * @return
+     * @return the societyName
      */
-    public String getSocietyName() {
+    public final String getSocietyName() {
         return societyName;
     }
-    
+
     /**
      * @param societyName
+     *            the societyName to set
      */
-    public void setSocietyName(String societyName) {
+    public final void setSocietyName(final String societyName) {
         this.societyName = societyName;
     }
-    
+
     /**
-     * @return
+     * @return the membershipNumber
      */
-    public String getMembershipNumber() {
+    public final String getMembershipNumber() {
         return membershipNumber;
     }
-    
+
     /**
      * @param membershipNumber
+     *            the membershipNumber to set
      */
-    public void setMembershipNumber(String membershipNumber) {
+    public final void setMembershipNumber(final String membershipNumber) {
         this.membershipNumber = membershipNumber;
     }
-    
+
     /**
-     * @return
+     * @return the promoCode
      */
-    public String getPromoCode() {
+    public final String getPromoCode() {
         return promoCode;
     }
-    
+
     /**
      * @param promoCode
+     *            the promoCode to set
      */
-    public void setPromoCode(String promoCode) {
+    public final void setPromoCode(final String promoCode) {
         this.promoCode = promoCode;
     }
-    
+
     /**
-     * @return
+     * @return the startDate
      */
-    public Date getStartDate() {
+    public final Date getStartDate() {
         return startDate;
     }
-    
+
     /**
      * @param startDate
+     *            the startDate to set
      */
-    public void setStartDate(Date startDate) {
+    public final void setStartDate(final Date startDate) {
         this.startDate = startDate;
     }
-    
+
     /**
-     * @return
+     * @return the endDate
      */
-    public Date getEndDate() {
+    public final Date getEndDate() {
         return endDate;
     }
-    
+
     /**
      * @param endDate
+     *            the endDate to set
      */
-    public void setEndDate(Date endDate) {
+    public final void setEndDate(final Date endDate) {
         this.endDate = endDate;
     }
-    
+
 }

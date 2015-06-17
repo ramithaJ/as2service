@@ -26,19 +26,37 @@ import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 import com.wiley.gr.ace.authorservices.services.service.UpdateUserService;
 
 /**
+ * The Class UpdateUserServiceImpl.
+ *
  * @author virtusa version 1.0
  */
 public class UpdateUserServiceImpl implements UpdateUserService {
 
+    /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(UpdateUserServiceImpl.class);
 
+    /** Getting bean of userProfileService. */
     @Autowired
-    UserProfiles userProfileService;
+    private UserProfiles userProfileService;
 
+    /**
+     * this method is for updating updateOrcidId by taking
+     * emailId,orcidId,userId as input.
+     *
+     * @param emailId
+     *            the email id
+     * @param orcidId
+     *            the orcid id
+     * @param userId
+     *            the user id
+     * @return true, if successful
+     * @throws Exception
+     *             the exception
+     */
     @Override
-    public boolean updateOrcidId(String emailId, String orcidId, String userId)
-            throws Exception {
+    public final boolean updateOrcidId(final String emailId,
+            final String orcidId, final String userId) throws Exception {
         LOGGER.info("inside updateOrcidId method of UpdateUserServiceImpl");
         boolean result = false;
         UserProfileResponse userProfileResponse = userProfileService

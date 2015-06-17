@@ -14,60 +14,101 @@
 package com.wiley.gr.ace.authorservices.model.external;
 
 /**
- * @author virtusa
- * version 1.0
+ * The Class Quote.
+ *
+ * @author virtusa version 1.0
  */
 public class Quote {
- 
-    private String articlePublicationCharge;
-    
-    private String societyDiscount;
-    
-    private String societyDiscountValue;
-    
-    private String tax;
-    
-    private String dueAmount;
 
-    public String getArticlePublicationCharge() {
+    /** The article publication charge. */
+    private String articlePublicationCharge;
+
+    /** The society discount. */
+    private String societyDiscount;
+
+    /** The society discount value. */
+    private String societyDiscountValue;
+
+    /** The tax. */
+    private String tax;
+
+    /**
+     * @return the articlePublicationCharge
+     */
+    public final String getArticlePublicationCharge() {
         return articlePublicationCharge;
     }
 
-    public void setArticlePublicationCharge(String articlePublicationCharge) {
+    /**
+     * @param articlePublicationCharge
+     *            the articlePublicationCharge to set
+     */
+    public final void setArticlePublicationCharge(
+            final String articlePublicationCharge) {
         this.articlePublicationCharge = articlePublicationCharge;
     }
 
-    public String getSocietyDiscount() {
+    /**
+     * @return the societyDiscount
+     */
+    public final String getSocietyDiscount() {
         return societyDiscount;
     }
 
-    public void setSocietyDiscount(String societyDiscount) {
+    /**
+     * @param societyDiscount
+     *            the societyDiscount to set
+     */
+    public final void setSocietyDiscount(final String societyDiscount) {
         this.societyDiscount = societyDiscount;
     }
 
-    public String getSocietyDiscountValue() {
+    /**
+     * @return the societyDiscountValue
+     */
+    public final String getSocietyDiscountValue() {
         return societyDiscountValue;
     }
 
-    public void setSocietyDiscountValue(String societyDiscountValue) {
+    /**
+     * @param societyDiscountValue
+     *            the societyDiscountValue to set
+     */
+    public final void setSocietyDiscountValue(final String societyDiscountValue) {
         this.societyDiscountValue = societyDiscountValue;
     }
 
-    public String getTax() {
+    /**
+     * @return the tax
+     */
+    public final String getTax() {
         return tax;
     }
 
-    public void setTax(String tax) {
+    /**
+     * @param tax
+     *            the tax to set
+     */
+    public final void setTax(final String tax) {
         this.tax = tax;
     }
 
-    public String getDueAmount() {
+    /**
+     * @return the dueAmount
+     */
+    public final String getDueAmount() {
         return dueAmount;
     }
 
-    public void setDueAmount(String dueAmount) {
+    /**
+     * @param dueAmount
+     *            the dueAmount to set
+     */
+    public final void setDueAmount(final String dueAmount) {
         this.dueAmount = dueAmount;
     }
-    
-    
+
+    /** The due amount. */
+    private String dueAmount;
+
 }

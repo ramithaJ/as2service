@@ -16,8 +16,22 @@ import java.util.List;
 
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 
+/**
+ * The Interface AuditResultService.
+ */
 public interface AuditResultService {
-    
+
+    /**
+     * User audit.
+     *
+     * @param auditMap
+     *            the audit map
+     * @param actionMap
+     *            the action map
+     * @param user
+     *            the user
+     * @return true, if successful
+     */
     boolean userAudit(List<HashMap<String, String>> auditMap,
             HashMap<String, String> actionMap, Users user);
 }

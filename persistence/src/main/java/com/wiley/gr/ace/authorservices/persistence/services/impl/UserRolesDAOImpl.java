@@ -36,147 +36,153 @@ import com.wiley.gr.ace.authorservices.persistence.services.UserRolesDAO;
  */
 public class UserRolesDAOImpl implements UserRolesDAO {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.wiley.gr.ace.authorservices.persistence.services.UserRolesDAO#
-	 * addOrUpdateUserRoles
-	 * (com.wiley.gr.ace.authorservices.persistence.entity.UserRoles,
-	 * java.util.List)
-	 */
-	@Value("${UserRolesDAOImpl.checkRoleName.errorcode}")
-	private String errorcode;
-	@Value("${UserRolesDAOImpl.checkRoleName.errormessage}")
-	private String errormessage;
-	@Override
-	public void addOrUpdateUserRoles(Roles roles,
-			List<Permissions> permissionsList) {
+    /**
+     * The error code for checkRoleName.
+     */
+    @Value("${UserRolesDAOImpl.checkRoleName.errorcode}")
+    private String errorcode;
+    /**
+     * The error message for checkRoleName.
+     */
+    @Value("${UserRolesDAOImpl.checkRoleName.errormessage}")
+    private String errormessage;
 
-		Session session = null;
-		Transaction transaction = null;
-		List<Object[]> list = new ArrayList<Object[]>();
-		List<RolePermissions> daoPermissionsList = new ArrayList<RolePermissions>();
+    /**
+     * This method is used to add or update user roles and permissions.
+     * 
+     * @param roles
+     *            to add or update roles.
+     * @param permissionsList
+     *            to add or update permissions.
+     */
+    @Override
+    public final void addOrUpdateUserRoles(Roles roles,
+            List<Permissions> permissionsList) {
 
-		try {
-			session = getSessionFactory().openSession();
-			transaction = session.beginTransaction();
+        Session session = null;
+        Transaction transaction = null;
+        List<Object[]> list = new ArrayList<Object[]>();
+        List<RolePermissions> daoPermissionsList = new ArrayList<RolePermissions>();
 
-			if (roles.getRoleId() != null && roles.getRoleId() != 0) {
-				Roles daoRoles = (Roles) session.get(Roles.class,
-						roles.getRoleId());
+        try {
+            session = getSessionFactory().openSession();
+            transaction = session.beginTransaction();
 
-				daoRoles.setDescription(roles.getDescription());
+            if (roles.getRoleId() != null && roles.getRoleId() != 0) {
+                Roles daoRoles = (Roles) session.get(Roles.class,
+                        roles.getRoleId());
 
-				session.saveOrUpdate(daoRoles);
-			} else {
-				session.saveOrUpdate(roles);
-			}
+                daoRoles.setDescription(roles.getDescription());
 
-			Query query = session.createSQLQuery(
-					"select * from role_permissions where role_id = :roleId")
-					.setParameter("roleId", roles.getRoleId().toString());
-			list = query.list();
+                session.saveOrUpdate(daoRoles);
+            } else {
+                session.saveOrUpdate(roles);
+            }
 
-			// String hql = "from RolePermissions where id.roleId = :roleId";
-			// List<RolePermissions> daoPermissionsList =
-			// session.createQuery(hql)
-			// .setInteger("roleId", roles.getRoleId()).list();
+            Query query = session.createSQLQuery(
+                    "select * from role_permissions where role_id = :roleId")
+                    .setParameter("roleId", roles.getRoleId().toString());
+            list = query.list();
 
-			for (Object[] object : list) {
+            // String hql = "from RolePermissions where id.roleId = :roleId";
+            // List<RolePermissions> daoPermissionsList =
+            // session.createQuery(hql)
+            // .setInteger("roleId", roles.getRoleId()).list();
 
-				RolePermissions rolePermissions = new RolePermissions();
-				RolePermissionsId rolePermissionsId = new RolePermissionsId();
-				rolePermissionsId.setRoleId(Integer.valueOf(object[0]
-						.toString()));
-				rolePermissionsId.setPermissionCd(object[1].toString());
-				rolePermissions.setId(rolePermissionsId);
-				daoPermissionsList.add(rolePermissions);
-			}
+            for (Object[] object : list) {
 
-			List<Permissions> addList = new ArrayList<Permissions>();
+                RolePermissions rolePermissions = new RolePermissions();
+                RolePermissionsId rolePermissionsId = new RolePermissionsId();
+                rolePermissionsId.setRoleId(Integer.valueOf(object[0]
+                        .toString()));
+                rolePermissionsId.setPermissionCd(object[1].toString());
+                rolePermissions.setId(rolePermissionsId);
+                daoPermissionsList.add(rolePermissions);
+            }
 
-			Map<String, RolePermissions> daoPermissionsMap = new HashMap<String, RolePermissions>();
+            List<Permissions> addList = new ArrayList<Permissions>();
 
-			for (RolePermissions rolePermissions : daoPermissionsList) {
+            Map<String, RolePermissions> daoPermissionsMap = new HashMap<String, RolePermissions>();
 
-				daoPermissionsMap.put(
-						rolePermissions.getId().getPermissionCd(),
-						rolePermissions);
+            for (RolePermissions rolePermissions : daoPermissionsList) {
 
-			}
+                daoPermissionsMap.put(
+                        rolePermissions.getId().getPermissionCd(),
+                        rolePermissions);
 
-			for (Permissions permissions : permissionsList) {
+            }
 
-				if (daoPermissionsMap
-						.containsKey(permissions.getPermissionCd())) {
-					daoPermissionsMap.remove(permissions.getPermissionCd());
-				} else {
-					addList.add(permissions);
-				}
-			}
+            for (Permissions permissions : permissionsList) {
 
-			for (Permissions permissions : addList) {
+                if (daoPermissionsMap
+                        .containsKey(permissions.getPermissionCd())) {
+                    daoPermissionsMap.remove(permissions.getPermissionCd());
+                } else {
+                    addList.add(permissions);
+                }
+            }
 
-				RolePermissions rolePermissions = new RolePermissions();
-				RolePermissionsId rolePermissionsId = new RolePermissionsId();
-				rolePermissionsId.setRoleId(roles.getRoleId());
-				rolePermissionsId
-						.setPermissionCd(permissions.getPermissionCd());
+            for (Permissions permissions : addList) {
 
-				rolePermissions.setId(rolePermissionsId);
+                RolePermissions rolePermissions = new RolePermissions();
+                RolePermissionsId rolePermissionsId = new RolePermissionsId();
+                rolePermissionsId.setRoleId(roles.getRoleId());
+                rolePermissionsId
+                        .setPermissionCd(permissions.getPermissionCd());
 
-				session.saveOrUpdate(rolePermissions);
+                rolePermissions.setId(rolePermissionsId);
 
-			}
+                session.saveOrUpdate(rolePermissions);
 
-			for (Map.Entry<String, RolePermissions> entry : daoPermissionsMap
-					.entrySet()) {
-				Query deleteQuery = session
-						.createSQLQuery(
-								"delete from role_permissions where permission_cd = :permissionCd")
-						.setParameter("permissionCd",
-								entry.getValue().getId().getPermissionCd());
-				deleteQuery.executeUpdate();
-			}
+            }
 
-			transaction.commit();
-		} finally {
-			if (session != null) {
-				session.flush();
-				session.close();
-			}
-		}
+            for (Map.Entry<String, RolePermissions> entry : daoPermissionsMap
+                    .entrySet()) {
+                Query deleteQuery = session
+                        .createSQLQuery(
+                                "delete from role_permissions where permission_cd = :permissionCd")
+                        .setParameter("permissionCd",
+                                entry.getValue().getId().getPermissionCd());
+                deleteQuery.executeUpdate();
+            }
 
-	}
+            transaction.commit();
+        } finally {
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
+        }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.wiley.gr.ace.authorservices.persistence.services.UserRolesDAO#
-	 * checkRoleName(java.lang.String)
-	 */
-	public void checkRoleName(String roleName) {
-		List list = new ArrayList();
-		Session session = getSessionFactory().openSession();
-		try {
-			Query query = session.createSQLQuery(
-					"select * from roles where role_name = :rolename")
-					.setParameter("rolename", roleName);
+    }
 
-			list = query.list();
-		
-			if (!(list.isEmpty())||list==null) {
-				throw new ASException(errorcode,
-						errormessage);
-			}
-		} finally {
+    /**
+     * This checks the role name.
+     * 
+     * @param roleName
+     *            to check.
+     */
+    public final void checkRoleName(final String roleName) {
+        List list = new ArrayList();
+        Session session = getSessionFactory().openSession();
+        try {
+            Query query = session.createSQLQuery(
+                    "select * from roles where role_name = :rolename")
+                    .setParameter("rolename", roleName);
 
-			if (session != null) {
-				session.flush();
-				session.close();
+            list = query.list();
 
-			}
-		}
+            if (!(list.isEmpty()) || list == null) {
+                throw new ASException(errorcode, errormessage);
+            }
+        } finally {
 
-	}
+            if (session != null) {
+                session.flush();
+                session.close();
+
+            }
+        }
+
+    }
 }

@@ -13,42 +13,65 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
-
 /**
- * @author virtusa
- * version 1.0
+ * The Class Customer.
+ *
+ * @author virtusa version 1.0
  */
 public class Customer {
-    
+
+    /** The ec id. */
     private String ecId;
-    
+
+    /** The email id. */
     private String emailId;
-    
+
+    /** The order id. */
     private String orderId;
 
-    public String getEcId() {
+    /**
+     * @return the ecId
+     */
+    public final String getEcId() {
         return ecId;
     }
 
-    public void setEcId(String ecId) {
+    /**
+     * @param ecId
+     *            the ecId to set
+     */
+    public final void setEcId(final String ecId) {
         this.ecId = ecId;
     }
 
-    public String getEmailId() {
+    /**
+     * @return the emailId
+     */
+    public final String getEmailId() {
         return emailId;
     }
 
-    public void setEmailId(String emailId) {
+    /**
+     * @param emailId
+     *            the emailId to set
+     */
+    public final void setEmailId(final String emailId) {
         this.emailId = emailId;
     }
 
-    public String getOrderId() {
+    /**
+     * @return the orderId
+     */
+    public final String getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(String orderId) {
+    /**
+     * @param orderId
+     *            the orderId to set
+     */
+    public final void setOrderId(final String orderId) {
         this.orderId = orderId;
     }
-    
-    
+
 }

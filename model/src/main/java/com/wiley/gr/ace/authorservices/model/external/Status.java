@@ -1,20 +1,27 @@
 package com.wiley.gr.ace.authorservices.model.external;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class Status.
  *
+ * @author virtusa version 1.0
  */
 public class Status {
 
-	private String status;
+    /** The status. */
+    private String status;
 
-	public String getStatus() {
-		return status;
-	}
+    /**
+     * @return the status
+     */
+    public final String getStatus() {
+        return status;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    /**
+     * @param status the status to set
+     */
+    public final void setStatus(final String status) {
+        this.status = status;
+    }
 
 }

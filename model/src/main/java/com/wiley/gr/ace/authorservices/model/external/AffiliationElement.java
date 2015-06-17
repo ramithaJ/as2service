@@ -3,65 +3,117 @@
 
 package com.wiley.gr.ace.authorservices.model.external;
 
+/**
+ * The Class AffiliationElement.
+ */
 public class AffiliationElement {
-	private java.lang.String institution;
 
- 	public void setInstitution(java.lang.String institution) {
-		this.institution = institution;
-	}
+    /** The institution. */
+    private String institution;
 
-	public java.lang.String getInstitution() {
-		return institution;
-	}
+    /** The department. */
+    private String department;
 
-	private java.lang.String department;
+    /** The city. */
+    private String city;
 
- 	public void setDepartment(java.lang.String department) {
-		this.department = department;
-	}
+    /** The enddate. */
+    private String enddate;
 
-	public java.lang.String getDepartment() {
-		return department;
-	}
+    /** The startdate. */
+    private String startdate;
 
-	private java.lang.String city;
+    /** The state. */
+    private String state;
 
- 	public void setCity(java.lang.String city) {
-		this.city = city;
-	}
+    /**
+     * @return the institution
+     */
+    public final String getInstitution() {
+        return institution;
+    }
 
-	public java.lang.String getCity() {
-		return city;
-	}
+    /**
+     * @param institution
+     *            the institution to set
+     */
+    public final void setInstitution(final String institution) {
+        this.institution = institution;
+    }
 
-	private java.lang.String enddate;
+    /**
+     * @return the department
+     */
+    public final String getDepartment() {
+        return department;
+    }
 
- 	public void setEnddate(java.lang.String enddate) {
-		this.enddate = enddate;
-	}
+    /**
+     * @param department
+     *            the department to set
+     */
+    public final void setDepartment(final String department) {
+        this.department = department;
+    }
 
-	public java.lang.String getEnddate() {
-		return enddate;
-	}
+    /**
+     * @return the city
+     */
+    public final String getCity() {
+        return city;
+    }
 
-	private java.lang.String startdate;
+    /**
+     * @param city
+     *            the city to set
+     */
+    public final void setCity(final String city) {
+        this.city = city;
+    }
 
- 	public void setStartdate(java.lang.String startdate) {
-		this.startdate = startdate;
-	}
+    /**
+     * @return the enddate
+     */
+    public final String getEnddate() {
+        return enddate;
+    }
 
-	public java.lang.String getStartdate() {
-		return startdate;
-	}
+    /**
+     * @param enddate
+     *            the enddate to set
+     */
+    public final void setEnddate(final String enddate) {
+        this.enddate = enddate;
+    }
 
-	private java.lang.String state;
+    /**
+     * @return the startdate
+     */
+    public final String getStartdate() {
+        return startdate;
+    }
 
- 	public void setState(java.lang.String state) {
-		this.state = state;
-	}
+    /**
+     * @param startdate
+     *            the startdate to set
+     */
+    public final void setStartdate(final String startdate) {
+        this.startdate = startdate;
+    }
 
-	public java.lang.String getState() {
-		return state;
-	}
+    /**
+     * @return the state
+     */
+    public final String getState() {
+        return state;
+    }
+
+    /**
+     * @param state
+     *            the state to set
+     */
+    public final void setState(final String state) {
+        this.state = state;
+    }
 
 }

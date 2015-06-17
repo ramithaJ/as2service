@@ -18,13 +18,29 @@ import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
 import com.wiley.gr.ace.authorservices.model.external.AssociationConfirmation;
 
 /**
- * @author yugandhark
+ * The Interface ArticleAssignmentService.
  *
+ * @author yugandhark
  */
 public interface ArticleAssignmentService {
 
-	ArticleInfoDetails getArticleInfo(String emailId) throws Exception;
+    /**
+     * Gets the article info.
+     *
+     * @param emailId
+     *            the email id
+     * @return the article info
+     */
+    ArticleInfoDetails getArticleInfo(String emailId);
 
-	boolean associationConfirmation(
-			AssociationConfirmation associationConfirmation) throws Exception;
+    /**
+     * Confirm association.
+     *
+     * @param articleAuthId
+     *            the article auth id
+     * @param userId
+     *            the user id
+     * @return true, if successful
+     */
+    boolean confirmAssociation(String articleAuthId, String userId);
 }

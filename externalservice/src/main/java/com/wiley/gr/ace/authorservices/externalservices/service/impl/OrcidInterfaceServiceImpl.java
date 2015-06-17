@@ -27,113 +27,127 @@ import com.wiley.gr.ace.authorservices.externalservices.service.OrcidInterfaceSe
 import com.wiley.gr.ace.authorservices.model.orcid.OrcidAccessToken;
 
 /**
- * @author virtusa version 1.0
+ * The Class OrcidInterfaceServiceImpl.
  *
+ * @author virtusa version 1.0
  */
 public class OrcidInterfaceServiceImpl implements OrcidInterfaceService {
 
-	@Value("${orcid-clientid}")
-	private String orcidClientId;
+    /** The orcid client id. */
+    @Value("${orcid-clientid}")
+    private String orcidClientId;
 
-	@Value("${orcid-clientsecret}")
-	private String orcidClientSecret;
+    /** The orcid client secret. */
+    @Value("${orcid-clientsecret}")
+    private String orcidClientSecret;
 
-	@Value("${orcid-granttype}")
-	private String orcidGrantType;
+    /** The orcid grant type. */
+    @Value("${orcid-granttype}")
+    private String orcidGrantType;
 
-	@Value("${orcid-url}")
-	private String orcidUrl;
+    /** The orcid url. */
+    @Value("${orcid-url}")
+    private String orcidUrl;
 
-	@Value("${orcid-tokenurl}")
-	private String orcidTokenUrl;
+    /** The orcid token url. */
+    @Value("${orcid-tokenurl}")
+    private String orcidTokenUrl;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.wiley.gr.ace.authorservices.externalservices.service.
-	 * OrcidInterfaceService#getAccessToken(java.lang.String)
-	 */
-	@Override
-	public OrcidAccessToken getAccessToken(String authorizationCode)
-			throws Exception {
-		OrcidAccessToken accessToken = null;
-		Reference ref = new Reference(orcidTokenUrl);
-		if (Context.getCurrent() == null) {
-			Context.setCurrent(new Context());
-		}
-		ClientResource client = new ClientResource(ref);
-		/**
-		 * TODO : Need to fetch this values from prop files depending on
-		 * environment
-		 */
-		Form form = new Form();
-		form.add("client_id", orcidClientId);
-		form.add("client_secret", orcidClientSecret);
-		form.add("grant_type", orcidGrantType);
-		form.add("code", authorizationCode);
-		/**
-		 * Need to change this to UI redirect URI
-		 */
-		// form.add("redirect_uri",
-		// "http://www.vinay.com:8080/orcid/index.jsp");
+    /**
+     * This method is for authorizing token.
+     *
+     * @param authorizationCode
+     *            the authorization code
+     * @return the access token
+     * @throws Exception
+     *             the exception
+     */
+    @Override
+    public OrcidAccessToken getAccessToken(String authorizationCode)
+            throws Exception {
+        OrcidAccessToken accessToken = null;
+        Reference ref = new Reference(orcidTokenUrl);
+        if (Context.getCurrent() == null) {
+            Context.setCurrent(new Context());
+        }
+        ClientResource client = new ClientResource(ref);
+        /**
+         * TODO : Need to fetch this values from prop files depending on
+         * environment
+         */
+        Form form = new Form();
+        form.add("client_id", orcidClientId);
+        form.add("client_secret", orcidClientSecret);
+        form.add("grant_type", orcidGrantType);
+        form.add("code", authorizationCode);
+        /**
+         * Need to change this to UI redirect URI
+         */
+        // form.add("redirect_uri",
+        // "http://www.vinay.com:8080/orcid/index.jsp");
 
-		client.getContext().getParameters().add("followRedirects", "true");
-		System.out.println("form.toString() ##### " + form.toString());
-		System.out.println("client.toString() ##### " + client.toString());
+        client.getContext().getParameters().add("followRedirects", "true");
+        Representation rep = client.post(form, MediaType.APPLICATION_JSON);
+        String json = rep.getText();
+        ObjectMapper objectMapper = new ObjectMapper();
+        accessToken = objectMapper.readValue(json, OrcidAccessToken.class);
+        return accessToken;
 
-		Representation rep = client.post(form, MediaType.APPLICATION_JSON);
-		String json = rep.getText();
-		System.out.println("json ##### " + json);
-		ObjectMapper objectMapper = new ObjectMapper();
-		accessToken = objectMapper.readValue(json, OrcidAccessToken.class);
-		return accessToken;
+    }
 
-	}
+    /**
+     * This method is for getting bio details based on orcid token.
+     *
+     * @param token
+     *            the token
+     * @return the bio
+     * @throws Exception
+     *             the exception
+     */
+    @Override
+    public String getBio(OrcidAccessToken token) throws Exception {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.wiley.gr.ace.authorservices.externalservices.service.
-	 * OrcidInterfaceService
-	 * #getBio(com.wiley.gr.ace.authorservices.model.orcid.OrcidAccessToken)
-	 */
-	@Override
-	public String getBio(OrcidAccessToken token) throws Exception {
+        Reference ref = new Reference(orcidUrl + "/" + token.getOrcid()
+                + "/orcid-bio");
+        ClientResource client = new ClientResource(ref);
+        Form headers = (Form) client.getRequestAttributes().get(
+                "org.restlet.http.headers");
+        if (headers == null) {
+            headers = new Form();
+            client.getRequestAttributes().put("org.restlet.http.headers",
+                    headers);
+        }
+        headers.add("Authorization", "Bearer " + token.getAccess_token());
+        Representation representation = client.get(MediaType.APPLICATION_JSON);
+        String orcidMessageJSON = representation.getText();
+        return orcidMessageJSON;
+    }
 
-		Reference ref = new Reference(orcidUrl + "/" + token.getOrcid()
-				+ "/orcid-bio");
-		ClientResource client = new ClientResource(ref);
-		Form headers = (Form) client.getRequestAttributes().get(
-				"org.restlet.http.headers");
-		if (headers == null) {
-			headers = new Form();
-			client.getRequestAttributes().put("org.restlet.http.headers",
-					headers);
-		}
-		headers.add("Authorization", "Bearer " + token.getAccess_token());
-		Representation representation = client.get(MediaType.APPLICATION_JSON);
-		String orcidMessageJSON = representation.getText();
-		System.out.println("json ##### " + orcidMessageJSON);
-		return orcidMessageJSON;
-	}
+    /**
+     * this method os for gettin work details.
+     *
+     * @param token
+     *            the token
+     * @return the work
+     * @throws Exception
+     *             the exception
+     */
+    @Override
+    public String getWork(OrcidAccessToken token) throws Exception {
 
-	@Override
-	public String getWork(OrcidAccessToken token) throws Exception {
-
-		Reference ref = new Reference(orcidUrl + "/" + token.getOrcid()
-				+ "/orcid-works");
-		ClientResource client = new ClientResource(ref);
-		Form headers = (Form) client.getRequestAttributes().get(
-				"org.restlet.http.headers");
-		if (headers == null) {
-			headers = new Form();
-			client.getRequestAttributes().put("org.restlet.http.headers",
-					headers);
-		}
-		headers.add("Authorization", "Bearer " + token.getAccess_token());
-		Representation representation = client.get(MediaType.APPLICATION_JSON);
-		String orcidMessageJSON = representation.getText();
-		System.out.println("json ##### " + orcidMessageJSON);
-		return orcidMessageJSON;
-	}
+        Reference ref = new Reference(orcidUrl + "/" + token.getOrcid()
+                + "/orcid-works");
+        ClientResource client = new ClientResource(ref);
+        Form headers = (Form) client.getRequestAttributes().get(
+                "org.restlet.http.headers");
+        if (headers == null) {
+            headers = new Form();
+            client.getRequestAttributes().put("org.restlet.http.headers",
+                    headers);
+        }
+        headers.add("Authorization", "Bearer " + token.getAccess_token());
+        Representation representation = client.get(MediaType.APPLICATION_JSON);
+        String orcidMessageJSON = representation.getText();
+        return orcidMessageJSON;
+    }
 }

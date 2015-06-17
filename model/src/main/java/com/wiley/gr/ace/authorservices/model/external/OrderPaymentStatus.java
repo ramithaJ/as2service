@@ -15,28 +15,46 @@
 package com.wiley.gr.ace.authorservices.model.external;
 
 /**
- * @author yugandhark
+ * The Class OrderPaymentStatus.
  *
+ * @author yugandhark
  */
 public class OrderPaymentStatus {
 
+    /** The open access status. */
     private String openAccessStatus;
 
+    /** The online open status. */
     private String onlineOpenStatus;
 
-    public String getOpenAccessStatus() {
+    /**
+     * @return the openAccessStatus
+     */
+    public final String getOpenAccessStatus() {
         return openAccessStatus;
     }
 
-    public void setOpenAccessStatus(String openAccessStatus) {
+    /**
+     * @param openAccessStatus
+     *            the openAccessStatus to set
+     */
+    public final void setOpenAccessStatus(final String openAccessStatus) {
         this.openAccessStatus = openAccessStatus;
     }
 
-    public String getOnlineOpenStatus() {
+    /**
+     * @return the onlineOpenStatus
+     */
+    public final String getOnlineOpenStatus() {
         return onlineOpenStatus;
     }
 
-    public void setOnlineOpenStatus(String onlineOpenStatus) {
+    /**
+     * @param onlineOpenStatus
+     *            the onlineOpenStatus to set
+     */
+    public final void setOnlineOpenStatus(final String onlineOpenStatus) {
         this.onlineOpenStatus = onlineOpenStatus;
     }
+
 }

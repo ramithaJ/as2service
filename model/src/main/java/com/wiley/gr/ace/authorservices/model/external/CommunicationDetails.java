@@ -15,38 +15,63 @@
 package com.wiley.gr.ace.authorservices.model.external;
 
 /**
- * @author yugandhark
+ * The Class CommunicationDetails.
  *
+ * @author yugandhark
  */
 public class CommunicationDetails {
 
+    /** The from. */
     private String from;
 
+    /** The subject. */
     private String subject;
 
+    /** The body. */
     private String body;
 
-    public String getFrom() {
+    /**
+     * @return the from
+     */
+    public final String getFrom() {
         return from;
     }
 
-    public void setFrom(String from) {
+    /**
+     * @param from
+     *            the from to set
+     */
+    public final void setFrom(final String from) {
         this.from = from;
     }
 
-    public String getSubject() {
+    /**
+     * @return the subject
+     */
+    public final String getSubject() {
         return subject;
     }
 
-    public void setSubject(String subject) {
+    /**
+     * @param subject
+     *            the subject to set
+     */
+    public final void setSubject(final String subject) {
         this.subject = subject;
     }
 
-    public String getBody() {
+    /**
+     * @return the body
+     */
+    public final String getBody() {
         return body;
     }
 
-    public void setBody(String body) {
+    /**
+     * @param body
+     *            the body to set
+     */
+    public final void setBody(final String body) {
         this.body = body;
     }
 

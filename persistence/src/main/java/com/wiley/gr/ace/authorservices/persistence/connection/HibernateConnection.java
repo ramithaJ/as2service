@@ -17,32 +17,51 @@ import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class HibernateConnection.
+ */
 public class HibernateConnection {
-    
+
+    /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(HibernateConnection.class);
+
+    /** The Constant sessionFactory. */
     private static final SessionFactory sessionFactory = buildSessionFactory();
-    
+
+    /**
+     * Builds the session factory.
+     *
+     * @return the session factory
+     */
     private static SessionFactory buildSessionFactory() {
         try {
             Configuration configuration = new Configuration().configure();
             StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
                     .applySettings(configuration.getProperties());
             LOGGER.info("Hibernate Configuration loaded");
-            
+
             return configuration.buildSessionFactory(builder.build());
         } catch (Exception ex) {
             LOGGER.error("Initial SessionFactory creation failed.", ex);
             throw new ExceptionInInitializerError(ex);
         }
     }
-    
+
+    /**
+     * Gets the session factory.
+     *
+     * @return the session factory
+     */
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
-    
+
+    /**
+     * Shut down session factory.
+     */
     public static void shutDownSessionFactory() {
         getSessionFactory().close();
     }
-    
+
 }

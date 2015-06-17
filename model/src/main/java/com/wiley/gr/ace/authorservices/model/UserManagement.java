@@ -15,316 +15,263 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class UserManagement.
+ *
+ * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
 public class UserManagement {
-    
+
     /** The user id. */
     private String userId;
-    
+
     /** The primary email address. */
     private String primaryEmailAddress;
-    
+
     /** The secondary email address. */
     private String secondaryEmailAddress;
-    
+
     /** The password. */
     private String password;
-    
+
     /** The security vo. */
     private String securityVO;
-    
+
     /** The is security setup. */
     private String isSecuritySetup;
-    
+
     /** The login failure count. */
     private String loginFailureCount;
-    
+
     /** The is user locked. */
     private String isUserLocked;
-    
+
     /** The last login time. */
     private String lastLoginTime;
-    
+
     /** The session id. */
     private String sessionId;
-    
+
     /** The orcid id. */
     private String orcidID;
-    
+
     /** The ec id. */
     private String ecId;
-    
+
     /** The user vo. */
     private String userVO;
     /** The isAccountVerified. */
     private Character isAccountVerified;
-    
+
     /**
-     * Gets the isAccountVerified.
-     *
-     * @return the isAccountVerified
+     * @return the userId
      */
-    public Character getIsAccountVerified() {
-        return isAccountVerified;
-    }
-    
-    /**
-     * Sets the isAccountVerified.
-     *
-     * @param isAccountVerifed
-     */
-    public void setIsAccountVerified(Character isAccountVerified) {
-        this.isAccountVerified = isAccountVerified;
-    }
-    
-    /**
-     * Gets the orcid id.
-     *
-     * @return the orcid id
-     */
-    public String getOrcidID() {
-        return orcidID;
-    }
-    
-    /**
-     * Sets the orcid id.
-     *
-     * @param orcidID
-     *            the new orcid id
-     */
-    public void setOrcidID(String orcidID) {
-        this.orcidID = orcidID;
-    }
-    
-    /**
-     * Gets the user id.
-     *
-     * @return the user id
-     */
-    public String getUserId() {
+    public final String getUserId() {
         return userId;
     }
-    
+
     /**
-     * Sets the user id.
-     *
      * @param userId
-     *            the new user id
+     *            the userId to set
      */
-    public void setUserId(String userId) {
+    public final void setUserId(final String userId) {
         this.userId = userId;
     }
-    
+
     /**
-     * Gets the primary email address.
-     *
-     * @return the primary email address
+     * @return the primaryEmailAddress
      */
-    public String getPrimaryEmailAddress() {
+    public final String getPrimaryEmailAddress() {
         return primaryEmailAddress;
     }
-    
+
     /**
-     * Sets the primary email address.
-     *
      * @param primaryEmailAddress
-     *            the new primary email address
+     *            the primaryEmailAddress to set
      */
-    public void setPrimaryEmailAddress(String primaryEmailAddress) {
+    public final void setPrimaryEmailAddress(final String primaryEmailAddress) {
         this.primaryEmailAddress = primaryEmailAddress;
     }
-    
+
     /**
-     * Gets the secondary email address.
-     *
-     * @return the secondary email address
+     * @return the secondaryEmailAddress
      */
-    public String getSecondaryEmailAddress() {
+    public final String getSecondaryEmailAddress() {
         return secondaryEmailAddress;
     }
-    
+
     /**
-     * Sets the secondary email address.
-     *
      * @param secondaryEmailAddress
-     *            the new secondary email address
+     *            the secondaryEmailAddress to set
      */
-    public void setSecondaryEmailAddress(String secondaryEmailAddress) {
+    public final void setSecondaryEmailAddress(
+            final String secondaryEmailAddress) {
         this.secondaryEmailAddress = secondaryEmailAddress;
     }
-    
+
     /**
-     * Gets the password.
-     *
      * @return the password
      */
-    public String getPassword() {
+    public final String getPassword() {
         return password;
     }
-    
+
     /**
-     * Sets the password.
-     *
      * @param password
-     *            the new password
+     *            the password to set
      */
-    public void setPassword(String password) {
+    public final void setPassword(final String password) {
         this.password = password;
     }
-    
+
     /**
-     * Gets the security vo.
-     *
-     * @return the security vo
+     * @return the securityVO
      */
-    public String getSecurityVO() {
+    public final String getSecurityVO() {
         return securityVO;
     }
-    
+
     /**
-     * Sets the security vo.
-     *
      * @param securityVO
-     *            the new security vo
+     *            the securityVO to set
      */
-    public void setSecurityVO(String securityVO) {
+    public final void setSecurityVO(final String securityVO) {
         this.securityVO = securityVO;
     }
-    
+
     /**
-     * Gets the checks if is security setup.
-     *
-     * @return the checks if is security setup
+     * @return the isSecuritySetup
      */
-    public String getIsSecuritySetup() {
+    public final String getIsSecuritySetup() {
         return isSecuritySetup;
     }
-    
+
     /**
-     * Sets the checks if is security setup.
-     *
      * @param isSecuritySetup
-     *            the new checks if is security setup
+     *            the isSecuritySetup to set
      */
-    public void setIsSecuritySetup(String isSecuritySetup) {
+    public final void setIsSecuritySetup(final String isSecuritySetup) {
         this.isSecuritySetup = isSecuritySetup;
     }
-    
+
     /**
-     * Gets the login failure count.
-     *
-     * @return the login failure count
+     * @return the loginFailureCount
      */
-    public String getLoginFailureCount() {
+    public final String getLoginFailureCount() {
         return loginFailureCount;
     }
-    
+
     /**
-     * Sets the login failure count.
-     *
      * @param loginFailureCount
-     *            the new login failure count
+     *            the loginFailureCount to set
      */
-    public void setLoginFailureCount(String loginFailureCount) {
+    public final void setLoginFailureCount(final String loginFailureCount) {
         this.loginFailureCount = loginFailureCount;
     }
-    
+
     /**
-     * Gets the checks if is user locked.
-     *
-     * @return the checks if is user locked
+     * @return the isUserLocked
      */
-    public String getIsUserLocked() {
+    public final String getIsUserLocked() {
         return isUserLocked;
     }
-    
+
     /**
-     * Sets the checks if is user locked.
-     *
      * @param isUserLocked
-     *            the new checks if is user locked
+     *            the isUserLocked to set
      */
-    public void setIsUserLocked(String isUserLocked) {
+    public final void setIsUserLocked(final String isUserLocked) {
         this.isUserLocked = isUserLocked;
     }
-    
+
     /**
-     * Gets the last login time.
-     *
-     * @return the last login time
+     * @return the lastLoginTime
      */
-    public String getLastLoginTime() {
+    public final String getLastLoginTime() {
         return lastLoginTime;
     }
-    
+
     /**
-     * Sets the last login time.
-     *
      * @param lastLoginTime
-     *            the new last login time
+     *            the lastLoginTime to set
      */
-    public void setLastLoginTime(String lastLoginTime) {
+    public final void setLastLoginTime(final String lastLoginTime) {
         this.lastLoginTime = lastLoginTime;
     }
-    
+
     /**
-     * Gets the session id.
-     *
-     * @return the session id
+     * @return the sessionId
      */
-    public String getSessionId() {
+    public final String getSessionId() {
         return sessionId;
     }
-    
+
     /**
-     * Sets the session id.
-     *
      * @param sessionId
-     *            the new session id
+     *            the sessionId to set
      */
-    public void setSessionId(String sessionId) {
+    public final void setSessionId(final String sessionId) {
         this.sessionId = sessionId;
     }
-    
+
     /**
-     * Gets the ec id.
-     *
-     * @return the ec id
+     * @return the orcidID
      */
-    public String getEcId() {
+    public final String getOrcidID() {
+        return orcidID;
+    }
+
+    /**
+     * @param orcidID
+     *            the orcidID to set
+     */
+    public final void setOrcidID(final String orcidID) {
+        this.orcidID = orcidID;
+    }
+
+    /**
+     * @return the ecId
+     */
+    public final String getEcId() {
         return ecId;
     }
-    
+
     /**
-     * Sets the ec id.
-     *
      * @param ecId
-     *            the new ec id
+     *            the ecId to set
      */
-    public void setEcId(String ecId) {
+    public final void setEcId(final String ecId) {
         this.ecId = ecId;
     }
-    
+
     /**
-     * Gets the user vo.
-     *
-     * @return the user vo
+     * @return the userVO
      */
-    public String getUserVO() {
+    public final String getUserVO() {
         return userVO;
     }
-    
+
     /**
-     * Sets the user vo.
-     *
      * @param userVO
-     *            the new user vo
+     *            the userVO to set
      */
-    public void setUserVO(String userVO) {
+    public final void setUserVO(final String userVO) {
         this.userVO = userVO;
     }
-    
+
+    /**
+     * @return the isAccountVerified
+     */
+    public final Character getIsAccountVerified() {
+        return isAccountVerified;
+    }
+
+    /**
+     * @param isAccountVerified
+     *            the isAccountVerified to set
+     */
+    public final void setIsAccountVerified(final Character isAccountVerified) {
+        this.isAccountVerified = isAccountVerified;
+    }
+
 }

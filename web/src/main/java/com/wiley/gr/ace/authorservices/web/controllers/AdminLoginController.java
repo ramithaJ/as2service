@@ -41,13 +41,13 @@ import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 @RestController
 @RequestMapping("/admin")
 public class AdminLoginController extends ASExceptionController {
-   
+
     /**
      * Logger Configured.
      */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(AdminLoginController.class);
-   /** Error code From Props File. */
+    /** Error code From Props File. */
     @Value("${adminnotexist.code}")
     private String errorcode;
     /** Error message From Props File. */
@@ -57,7 +57,6 @@ public class AdminLoginController extends ASExceptionController {
     @Autowired(required = true)
     private AdminLoginService adminLoginService;
 
- 
     /**
      * @param request
      * @return service
@@ -106,7 +105,6 @@ public class AdminLoginController extends ASExceptionController {
 
     }
 
-    
     /**
      * @return service
      */

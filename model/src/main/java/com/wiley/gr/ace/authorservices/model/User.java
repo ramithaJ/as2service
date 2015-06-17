@@ -15,8 +15,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
+ * The Class User.
+ *
  * @author virtusa
- *	version 1.0
+ * 	version 1.0
  */
 /**
  * @author DISHARIDE
@@ -24,410 +26,439 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  */
 @JsonInclude(Include.NON_NULL)
 public class User {
-    
+
     /** The user id. */
     private Integer userId;
     /** The title. */
     private String title;
-    
+
     /** The first name. */
     private String firstName;
-    
+
     /** The middle name. */
     private String middleName;
-    
+
     /** The last name. */
     private String lastName;
-    
+
     /** The suffix. */
     private String suffix;
-    
+
     /** The alternate name. */
     private String alternateName;
-    
+
+    /** The primary email addr. */
     private String primaryEmailAddr;
-    
+
     /** The recovery email address. */
     private String recoveryEmailAddress;
-    
+
     /** The additional email address. */
     private String additionalEmailAddress;
-    
+
     /** The industry. */
     private String industry;
-    
+
     /** The job category. */
     private String jobCategory;
-    
+
     /** The orcid id. */
     private String orcidID;
-    
+
     /** The visible attributes. */
     private String[] visibleAttributes;
-    
- // Need to confirm the datatype
-    private String contactId; 
-    
+
+    // Need to confirm the datatype
+    /** The contact id. */
+    private String contactId;
+
+    /** The password. */
     private String password;
-    
+
+    /** The search full name. */
     private boolean searchFullName;
-    
+
+    /** The invitation guid. */
     private String invitationGuid;
-    
+
+    /** The country. */
     private Country country;
-    
+
+    /** The country name ne. */
     private String countryNameNE;
-    
+
+    /** The terms of use flg. */
     private Character termsOfUseFlg;
-    
+
+    /** The user reference data. */
     private UserReferenceData userReferenceData;
-    
+
+    /** The addresses. */
     private Addresses addresses;
-    
+
+    /** The affiliation. */
     private Affiliation affiliation;
-    
-    public Affiliation getAffiliation() {
-        return affiliation;
-    }
-    
-    public void setAffiliation(Affiliation affiliation) {
-        this.affiliation = affiliation;
-    }
-    
-    public Addresses getAddresses() {
-        return addresses;
-    }
-    
-    public void setAddresses(Addresses addresses) {
-        this.addresses = addresses;
-    }
-    
+
     /**
      * @return the userId
      */
-    public Integer getUserId() {
+    public final Integer getUserId() {
         return userId;
     }
-    
+
     /**
      * @param userId
      *            the userId to set
      */
-    public void setUserId(Integer userId) {
+    public final void setUserId(final Integer userId) {
         this.userId = userId;
     }
-    
+
     /**
-     * Gets the title.
-     *
      * @return the title
      */
-    public String getTitle() {
+    public final String getTitle() {
         return title;
     }
-    
+
     /**
-     * Sets the title.
-     *
      * @param title
-     *            the new title
+     *            the title to set
      */
-    public void setTitle(String title) {
+    public final void setTitle(final String title) {
         this.title = title;
     }
-    
+
     /**
-     * Gets the first name.
-     *
-     * @return the first name
+     * @return the firstName
      */
-    public String getFirstName() {
+    public final String getFirstName() {
         return firstName;
     }
-    
+
     /**
-     * Sets the first name.
-     *
      * @param firstName
-     *            the new first name
+     *            the firstName to set
      */
-    public void setFirstName(String firstName) {
+    public final void setFirstName(final String firstName) {
         this.firstName = firstName;
     }
-    
+
     /**
-     * Gets the middle name.
-     *
-     * @return the middle name
+     * @return the middleName
      */
-    public String getMiddleName() {
+    public final String getMiddleName() {
         return middleName;
     }
-    
+
     /**
-     * Sets the middle name.
-     *
      * @param middleName
-     *            the new middle name
+     *            the middleName to set
      */
-    public void setMiddleName(String middleName) {
+    public final void setMiddleName(final String middleName) {
         this.middleName = middleName;
     }
-    
+
     /**
-     * Gets the last name.
-     *
-     * @return the last name
+     * @return the lastName
      */
-    public String getLastName() {
+    public final String getLastName() {
         return lastName;
     }
-    
+
     /**
-     * Sets the last name.
-     *
      * @param lastName
-     *            the new last name
+     *            the lastName to set
      */
-    public void setLastName(String lastName) {
+    public final void setLastName(final String lastName) {
         this.lastName = lastName;
     }
-    
+
     /**
-     * Gets the suffix.
-     *
      * @return the suffix
      */
-    public String getSuffix() {
+    public final String getSuffix() {
         return suffix;
     }
-    
+
     /**
-     * Sets the suffix.
-     *
      * @param suffix
-     *            the new suffix
+     *            the suffix to set
      */
-    public void setSuffix(String suffix) {
+    public final void setSuffix(final String suffix) {
         this.suffix = suffix;
     }
-    
+
     /**
-     * Gets the alternate name.
-     *
-     * @return the alternate name
+     * @return the alternateName
      */
-    public String getAlternateName() {
+    public final String getAlternateName() {
         return alternateName;
     }
-    
+
     /**
-     * Sets the alternate name.
-     *
      * @param alternateName
-     *            the new alternate name
+     *            the alternateName to set
      */
-    public void setAlternateName(String alternateName) {
+    public final void setAlternateName(final String alternateName) {
         this.alternateName = alternateName;
     }
-    
-    public String getPrimaryEmailAddr() {
+
+    /**
+     * @return the primaryEmailAddr
+     */
+    public final String getPrimaryEmailAddr() {
         return primaryEmailAddr;
     }
-    
-    public void setPrimaryEmailAddr(String primaryEmailAddr) {
+
+    /**
+     * @param primaryEmailAddr
+     *            the primaryEmailAddr to set
+     */
+    public final void setPrimaryEmailAddr(final String primaryEmailAddr) {
         this.primaryEmailAddr = primaryEmailAddr;
     }
-    
+
     /**
-     * Gets the recovery email address.
-     *
-     * @return the recovery email address
+     * @return the recoveryEmailAddress
      */
-    public String getRecoveryEmailAddress() {
+    public final String getRecoveryEmailAddress() {
         return recoveryEmailAddress;
     }
-    
+
     /**
-     * Sets the recovery email address.
-     *
      * @param recoveryEmailAddress
-     *            the new recovery email address
+     *            the recoveryEmailAddress to set
      */
-    public void setRecoveryEmailAddress(String recoveryEmailAddress) {
+    public final void setRecoveryEmailAddress(final String recoveryEmailAddress) {
         this.recoveryEmailAddress = recoveryEmailAddress;
     }
-    
+
     /**
-     * Gets the additional email address.
-     *
-     * @return the additional email address
+     * @return the additionalEmailAddress
      */
-    public String getAdditionalEmailAddress() {
+    public final String getAdditionalEmailAddress() {
         return additionalEmailAddress;
     }
-    
+
     /**
-     * Sets the additional email address.
-     *
      * @param additionalEmailAddress
-     *            the new additional email address
+     *            the additionalEmailAddress to set
      */
-    public void setAdditionalEmailAddress(String additionalEmailAddress) {
+    public final void setAdditionalEmailAddress(
+            final String additionalEmailAddress) {
         this.additionalEmailAddress = additionalEmailAddress;
     }
-    
+
     /**
-     * Gets the correspondance address.
-     *
-     * @return the correspondance address
-     */
-    
-    /**
-     * Gets the industry.
-     *
      * @return the industry
      */
-    public String getIndustry() {
+    public final String getIndustry() {
         return industry;
     }
-    
+
     /**
-     * Sets the industry.
-     *
      * @param industry
-     *            the new industry
+     *            the industry to set
      */
-    public void setIndustry(String industry) {
+    public final void setIndustry(final String industry) {
         this.industry = industry;
     }
-    
+
     /**
-     * Gets the job category.
-     *
-     * @return the job category
+     * @return the jobCategory
      */
-    public String getJobCategory() {
+    public final String getJobCategory() {
         return jobCategory;
     }
-    
+
     /**
-     * Sets the job category.
-     *
      * @param jobCategory
-     *            the new job category
+     *            the jobCategory to set
      */
-    public void setJobCategory(String jobCategory) {
+    public final void setJobCategory(final String jobCategory) {
         this.jobCategory = jobCategory;
     }
-    
+
     /**
-     * Gets the orcid id.
-     *
-     * @return the orcid id
+     * @return the orcidID
      */
-    public String getOrcidID() {
+    public final String getOrcidID() {
         return orcidID;
     }
-    
+
     /**
-     * Sets the orcid id.
-     *
      * @param orcidID
-     *            the new orcid id
+     *            the orcidID to set
      */
-    public void setOrcidID(String orcidID) {
+    public final void setOrcidID(final String orcidID) {
         this.orcidID = orcidID;
     }
-    
+
     /**
-     * Gets the visible attributes.
-     *
-     * @return the visible attributes
+     * @return the visibleAttributes
      */
-    public String[] getVisibleAttributes() {
+    public final String[] getVisibleAttributes() {
         return visibleAttributes;
     }
-    
+
     /**
-     * Sets the visible attributes.
-     *
      * @param visibleAttributes
-     *            the new visible attributes
+     *            the visibleAttributes to set
      */
-    public void setVisibleAttributes(String[] visibleAttributes) {
+    public final void setVisibleAttributes(final String[] visibleAttributes) {
         this.visibleAttributes = visibleAttributes;
     }
-    
+
     /**
      * @return the contactId
      */
-    public String getContactId() {
+    public final String getContactId() {
         return contactId;
     }
-    
+
     /**
      * @param contactId
      *            the contactId to set
      */
-    public void setContactId(String contactId) {
+    public final void setContactId(final String contactId) {
         this.contactId = contactId;
     }
-    
-    public String getPassword() {
+
+    /**
+     * @return the password
+     */
+    public final String getPassword() {
         return password;
     }
-    
-    public void setPassword(String password) {
+
+    /**
+     * @param password
+     *            the password to set
+     */
+    public final void setPassword(final String password) {
         this.password = password;
     }
-    
-    public boolean isSearchFullName() {
+
+    /**
+     * @return the searchFullName
+     */
+    public final boolean isSearchFullName() {
         return searchFullName;
     }
-    
-    public void setSearchFullName(boolean searchFullName) {
+
+    /**
+     * @param searchFullName
+     *            the searchFullName to set
+     */
+    public final void setSearchFullName(final boolean searchFullName) {
         this.searchFullName = searchFullName;
     }
-    
-    public Country getCountry() {
+
+    /**
+     * @return the invitationGuid
+     */
+    public final String getInvitationGuid() {
+        return invitationGuid;
+    }
+
+    /**
+     * @param invitationGuid
+     *            the invitationGuid to set
+     */
+    public final void setInvitationGuid(final String invitationGuid) {
+        this.invitationGuid = invitationGuid;
+    }
+
+    /**
+     * @return the country
+     */
+    public final Country getCountry() {
         return country;
     }
-    
-    public void setCountry(Country country) {
+
+    /**
+     * @param country
+     *            the country to set
+     */
+    public final void setCountry(final Country country) {
         this.country = country;
     }
-    
-    public Character getTermsOfUseFlg() {
-        return termsOfUseFlg;
-    }
-    
-    public void setTermsOfUseFlg(Character termsOfUseFlg) {
-        this.termsOfUseFlg = termsOfUseFlg;
-    }
-    
-    public UserReferenceData getUserReferenceData() {
-        return userReferenceData;
-    }
-    
-    public void setUserReferenceData(UserReferenceData userReferenceData) {
-        this.userReferenceData = userReferenceData;
-    }
-    
-    public String getCountryNameNE() {
+
+    /**
+     * @return the countryNameNE
+     */
+    public final String getCountryNameNE() {
         return countryNameNE;
     }
-    
-    public void setCountryNameNE(String countryNameNE) {
+
+    /**
+     * @param countryNameNE
+     *            the countryNameNE to set
+     */
+    public final void setCountryNameNE(final String countryNameNE) {
         this.countryNameNE = countryNameNE;
     }
 
-	public String getInvitationGuid() {
-		return invitationGuid;
-	}
+    /**
+     * @return the termsOfUseFlg
+     */
+    public final Character getTermsOfUseFlg() {
+        return termsOfUseFlg;
+    }
 
-	public void setInvitationGuid(String invitationGuid) {
-		this.invitationGuid = invitationGuid;
-	}
-    
+    /**
+     * @param termsOfUseFlg
+     *            the termsOfUseFlg to set
+     */
+    public final void setTermsOfUseFlg(final Character termsOfUseFlg) {
+        this.termsOfUseFlg = termsOfUseFlg;
+    }
+
+    /**
+     * @return the userReferenceData
+     */
+    public final UserReferenceData getUserReferenceData() {
+        return userReferenceData;
+    }
+
+    /**
+     * @param userReferenceData
+     *            the userReferenceData to set
+     */
+    public final void setUserReferenceData(
+            final UserReferenceData userReferenceData) {
+        this.userReferenceData = userReferenceData;
+    }
+
+    /**
+     * @return the addresses
+     */
+    public final Addresses getAddresses() {
+        return addresses;
+    }
+
+    /**
+     * @param addresses
+     *            the addresses to set
+     */
+    public final void setAddresses(final Addresses addresses) {
+        this.addresses = addresses;
+    }
+
+    /**
+     * @return the affiliation
+     */
+    public final Affiliation getAffiliation() {
+        return affiliation;
+    }
+
+    /**
+     * @param affiliation
+     *            the affiliation to set
+     */
+    public final void setAffiliation(final Affiliation affiliation) {
+        this.affiliation = affiliation;
+    }
+
 }

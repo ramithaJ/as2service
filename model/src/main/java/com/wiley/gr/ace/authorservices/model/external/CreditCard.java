@@ -14,80 +14,136 @@
 package com.wiley.gr.ace.authorservices.model.external;
 
 /**
- * @author virtusa
- * version 1.0
+ * The Class CreditCard.
+ *
+ * @author virtusa version 1.0
  */
 public class CreditCard {
-    
-    private String tokenForCreditCard;
-    
-    private String partialCardNumber;
-    
-    private String cardExpirationDate;
-    
-    private String cardType;
-    
-    private String cardId;
-    
-    private String bankId;
-    
-    private String bankName;
 
-    public String getTokenForCreditCard() {
+    /** The token for credit card. */
+    private String tokenForCreditCard;
+
+    /** The partial card number. */
+    private String partialCardNumber;
+
+    /** The card expiration date. */
+    private String cardExpirationDate;
+
+    /** The card type. */
+    private String cardType;
+
+    /** The card id. */
+    private String cardId;
+
+    /** The bank id. */
+    private String bankId;
+
+    /**
+     * @return the tokenForCreditCard
+     */
+    public final String getTokenForCreditCard() {
         return tokenForCreditCard;
     }
 
-    public void setTokenForCreditCard(String tokenForCreditCard) {
+    /**
+     * @param tokenForCreditCard
+     *            the tokenForCreditCard to set
+     */
+    public final void setTokenForCreditCard(final String tokenForCreditCard) {
         this.tokenForCreditCard = tokenForCreditCard;
     }
 
-    public String getPartialCardNumber() {
+    /**
+     * @return the partialCardNumber
+     */
+    public final String getPartialCardNumber() {
         return partialCardNumber;
     }
 
-    public void setPartialCardNumber(String partialCardNumber) {
+    /**
+     * @param partialCardNumber
+     *            the partialCardNumber to set
+     */
+    public final void setPartialCardNumber(final String partialCardNumber) {
         this.partialCardNumber = partialCardNumber;
     }
 
-    public String getCardExpirationDate() {
+    /**
+     * @return the cardExpirationDate
+     */
+    public final String getCardExpirationDate() {
         return cardExpirationDate;
     }
 
-    public void setCardExpirationDate(String cardExpirationDate) {
+    /**
+     * @param cardExpirationDate
+     *            the cardExpirationDate to set
+     */
+    public final void setCardExpirationDate(final String cardExpirationDate) {
         this.cardExpirationDate = cardExpirationDate;
     }
 
-    public String getCardType() {
+    /**
+     * @return the cardType
+     */
+    public final String getCardType() {
         return cardType;
     }
 
-    public void setCardType(String cardType) {
+    /**
+     * @param cardType
+     *            the cardType to set
+     */
+    public final void setCardType(final String cardType) {
         this.cardType = cardType;
     }
 
-    public String getCardId() {
+    /**
+     * @return the cardId
+     */
+    public final String getCardId() {
         return cardId;
     }
 
-    public void setCardId(String cardId) {
+    /**
+     * @param cardId
+     *            the cardId to set
+     */
+    public final void setCardId(final String cardId) {
         this.cardId = cardId;
     }
 
-    public String getBankId() {
+    /**
+     * @return the bankId
+     */
+    public final String getBankId() {
         return bankId;
     }
 
-    public void setBankId(String bankId) {
+    /**
+     * @param bankId
+     *            the bankId to set
+     */
+    public final void setBankId(final String bankId) {
         this.bankId = bankId;
     }
 
-    public String getBankName() {
+    /**
+     * @return the bankName
+     */
+    public final String getBankName() {
         return bankName;
     }
 
-    public void setBankName(String bankName) {
+    /**
+     * @param bankName
+     *            the bankName to set
+     */
+    public final void setBankName(final String bankName) {
         this.bankName = bankName;
     }
-    
-    
+
+    /** The bank name. */
+    private String bankName;
+
 }

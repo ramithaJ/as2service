@@ -14,61 +14,100 @@
 package com.wiley.gr.ace.authorservices.model.external;
 
 /**
- * @author virtusa
- * version 1.0
+ * The Class Journal.
+ *
+ * @author virtusa version 1.0
  */
 public class Journal {
- 
-    private String journalTitle;
-    
-    private String journalDescription;
-    
-    private String articleTitile;
-    
-    private String basePrice;
-    
-    private String author;
 
-    public String getJournalTitle() {
+    /** The journal title. */
+    private String journalTitle;
+
+    /** The journal description. */
+    private String journalDescription;
+
+    /**
+     * @return the journalTitle
+     */
+    public final String getJournalTitle() {
         return journalTitle;
     }
 
-    public void setJournalTitle(String journalTitle) {
+    /**
+     * @param journalTitle
+     *            the journalTitle to set
+     */
+    public final void setJournalTitle(final String journalTitle) {
         this.journalTitle = journalTitle;
     }
 
-    public String getJournalDescription() {
+    /**
+     * @return the journalDescription
+     */
+    public final String getJournalDescription() {
         return journalDescription;
     }
 
-    public void setJournalDescription(String journalDescription) {
+    /**
+     * @param journalDescription
+     *            the journalDescription to set
+     */
+    public final void setJournalDescription(final String journalDescription) {
         this.journalDescription = journalDescription;
     }
 
-    public String getArticleTitile() {
+    /**
+     * @return the articleTitile
+     */
+    public final String getArticleTitile() {
         return articleTitile;
     }
 
-    public void setArticleTitile(String articleTitile) {
+    /**
+     * @param articleTitile
+     *            the articleTitile to set
+     */
+    public final void setArticleTitile(final String articleTitile) {
         this.articleTitile = articleTitile;
     }
 
-    public String getBasePrice() {
+    /**
+     * @return the basePrice
+     */
+    public final String getBasePrice() {
         return basePrice;
     }
 
-    public void setBasePrice(String basePrice) {
+    /**
+     * @param basePrice
+     *            the basePrice to set
+     */
+    public final void setBasePrice(final String basePrice) {
         this.basePrice = basePrice;
     }
 
-    public String getAuthor() {
+    /**
+     * @return the author
+     */
+    public final String getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
+    /**
+     * @param author
+     *            the author to set
+     */
+    public final void setAuthor(final String author) {
         this.author = author;
     }
-    
-    
-    
+
+    /** The article titile. */
+    private String articleTitile;
+
+    /** The base price. */
+    private String basePrice;
+
+    /** The author. */
+    private String author;
+
 }

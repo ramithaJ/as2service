@@ -23,61 +23,86 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class SecurityDetailsHolder.
+ *
+ * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
 public class SecurityDetailsHolder {
-    
-    @NotNull @NotEmpty
+
+    /** The email id. */
+    @NotNull
+    @NotEmpty
     private String emailId;
-    
+
+    /** The security details. */
     private List<SecurityDetails> securityDetails = new ArrayList<SecurityDetails>();
-    
+
+    /** The password. */
     private String password;
+
+    /** The is force reset. */
     @JsonProperty
     private boolean isForceReset;
-    
+
     /**
-     * @return
+     * @return the emailId
      */
-    public List<SecurityDetails> getSecurityDetails() {
+    public final String getEmailId() {
+        return emailId;
+    }
+
+    /**
+     * @param emailId
+     *            the emailId to set
+     */
+    public final void setEmailId(final String emailId) {
+        this.emailId = emailId;
+    }
+
+    /**
+     * @return the securityDetails
+     */
+    public final List<SecurityDetails> getSecurityDetails() {
         return securityDetails;
     }
-    
+
     /**
      * @param securityDetails
+     *            the securityDetails to set
      */
-    public void setSecurityDetails(List<SecurityDetails> securityDetails) {
+    public final void setSecurityDetails(final List<SecurityDetails> securityDetails) {
         this.securityDetails = securityDetails;
     }
 
     /**
-     * @return
+     * @return the password
      */
-    public String getEmailId() {
-        return emailId;
-    }
-
-    public void setEmailId(String emailId) {
-        this.emailId = emailId;
-    }
-
-    public String getPassword() {
+    public final String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    /**
+     * @param password
+     *            the password to set
+     */
+    public final void setPassword(final String password) {
         this.password = password;
     }
 
-    public boolean isForceReset() {
+    /**
+     * @return the isForceReset
+     */
+    public final boolean isForceReset() {
         return isForceReset;
     }
 
-    public void setForceReset(boolean isForceReset) {
+    /**
+     * @param isForceReset
+     *            the isForceReset to set
+     */
+    public final void setForceReset(final boolean isForceReset) {
         this.isForceReset = isForceReset;
     }
-    
-    
+
 }

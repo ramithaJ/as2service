@@ -13,60 +13,101 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
-
 /**
- * @author virtusa
- * version 1.0
+ * The Class Discount.
+ *
+ * @author virtusa version 1.0
  */
 public class Discount {
-   
-    private String discountValue;
-    
-    private String discountType;
-    
-    private String societyCode;
-    
-    private String promoCode;
-    
-    private String otherDiscounts;
 
-    public String getDiscountValue() {
+    /** The discount value. */
+    private String discountValue;
+
+    /** The discount type. */
+    private String discountType;
+
+    /** The society code. */
+    private String societyCode;
+
+    /**
+     * @return the discountValue
+     */
+    public final String getDiscountValue() {
         return discountValue;
     }
 
-    public void setDiscountValue(String discountValue) {
+    /**
+     * @param discountValue
+     *            the discountValue to set
+     */
+    public final void setDiscountValue(final String discountValue) {
         this.discountValue = discountValue;
     }
 
-    public String getDiscountType() {
+    /**
+     * @return the discountType
+     */
+    public final String getDiscountType() {
         return discountType;
     }
 
-    public void setDiscountType(String discountType) {
+    /**
+     * @param discountType
+     *            the discountType to set
+     */
+    public final void setDiscountType(final String discountType) {
         this.discountType = discountType;
     }
 
-    public String getSocietyCode() {
+    /**
+     * @return the societyCode
+     */
+    public final String getSocietyCode() {
         return societyCode;
     }
 
-    public void setSocietyCode(String societyCode) {
+    /**
+     * @param societyCode
+     *            the societyCode to set
+     */
+    public final void setSocietyCode(final String societyCode) {
         this.societyCode = societyCode;
     }
 
-    public String getPromoCode() {
+    /**
+     * @return the promoCode
+     */
+    public final String getPromoCode() {
         return promoCode;
     }
 
-    public void setPromoCode(String promoCode) {
+    /**
+     * @param promoCode
+     *            the promoCode to set
+     */
+    public final void setPromoCode(final String promoCode) {
         this.promoCode = promoCode;
     }
 
-    public String getOtherDiscounts() {
+    /**
+     * @return the otherDiscounts
+     */
+    public final String getOtherDiscounts() {
         return otherDiscounts;
     }
 
-    public void setOtherDiscounts(String otherDiscounts) {
+    /**
+     * @param otherDiscounts
+     *            the otherDiscounts to set
+     */
+    public final void setOtherDiscounts(final String otherDiscounts) {
         this.otherDiscounts = otherDiscounts;
     }
+
+    /** The promo code. */
+    private String promoCode;
+
+    /** The other discounts. */
+    private String otherDiscounts;
+    
 }

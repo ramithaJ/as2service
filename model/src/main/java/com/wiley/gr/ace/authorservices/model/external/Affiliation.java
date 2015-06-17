@@ -14,30 +14,45 @@
 package com.wiley.gr.ace.authorservices.model.external;
 
 /**
- * @author virtusa
- * version 1.0
+ * The Class Affiliation.
+ *
+ * @author virtusa version 1.0
  */
 public class Affiliation {
- 
+
+    /** The code. */
     private String code;
-    
+
+    /** The name. */
     private String name;
 
-    public String getCode() {
+    /**
+     * @return the code
+     */
+    public final String getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    /**
+     * @param code
+     *            the code to set
+     */
+    public final void setCode(final String code) {
         this.code = code;
     }
 
-    public String getName() {
+    /**
+     * @return the name
+     */
+    public final String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    /**
+     * @param name
+     *            the name to set
+     */
+    public final void setName(final String name) {
         this.name = name;
     }
-    
-    
 }

@@ -19,26 +19,38 @@ import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
 public interface UserLoginServiceDAO {
 
     /**
+     * This method validates the the email Address .
+     *
      * @param emailId
-     * @return
+     *            to validate the emailId.
+     * @return true, if successful.
      */
     boolean validateEmailAddress(String emailId);
 
     /**
+     * This method gets the userId.
+     * 
      * @param emailId
-     * @return
+     *            to get the userId.
+     * @return the userId.
      */
     Integer getUserId(String emailId);
 
     /**
+     * This method gets the reset password log.
+     * 
      * @param guid
-     * @return
+     *            to get InviteResetpwdLog.
+     * @return the InviteResetpwdLog.
      */
     InviteResetpwdLog getinviteResetpwdLog(String guid);
 
     /**
+     * This method verifying the updated emailId.
+     * 
      * @param emailId
-     * @return
+     *            to verify the updated emailId.
+     * 
      */
     void verifyEmailUpdate(String emailId);
 

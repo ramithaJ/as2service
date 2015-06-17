@@ -49,7 +49,10 @@ public class ASExceptionController {
         LOGGER.error("Error Trace - ", asException);
         response.setStatus("FAILURE");
         ErrorPOJO errorPojo = new ErrorPOJO();
-        errorPojo.setCode(Integer.parseInt(asException.getErrorCode()));
+        System.out.println("ErrorCode obtained:::"+asException.getErrorCode());
+        if(asException.getErrorCode() !=  null && !asException.getErrorCode().isEmpty()) {
+            errorPojo.setCode(Integer.parseInt(asException.getErrorCode()));
+        }
         errorPojo.setMessage(asException.getDescription());
         response.setError(errorPojo);
         return response;

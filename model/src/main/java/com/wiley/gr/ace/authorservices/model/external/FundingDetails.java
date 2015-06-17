@@ -14,50 +14,82 @@
 package com.wiley.gr.ace.authorservices.model.external;
 
 /**
- * @author virtusa
- * version 1.0
+ * The Class FundingDetails.
+ *
+ * @author virtusa version 1.0
  */
 public class FundingDetails {
- 
-    private String woaAccountHolder;
-    
-    private String researchFunder;
-    
-    private String grantNumber;
-    
-    private String grantRecipient;
 
-    public String getWoaAccountHolder() {
+    /** The woa account holder. */
+    private String woaAccountHolder;
+
+    /**
+     * @return the woaAccountHolder
+     */
+    public final String getWoaAccountHolder() {
         return woaAccountHolder;
     }
 
-    public void setWoaAccountHolder(String woaAccountHolder) {
+    /**
+     * @param woaAccountHolder
+     *            the woaAccountHolder to set
+     */
+    public final void setWoaAccountHolder(final String woaAccountHolder) {
         this.woaAccountHolder = woaAccountHolder;
     }
 
-    public String getResearchFunder() {
+    /**
+     * @return the researchFunder
+     */
+    public final String getResearchFunder() {
         return researchFunder;
     }
 
-    public void setResearchFunder(String researchFunder) {
+    /**
+     * @param researchFunder
+     *            the researchFunder to set
+     */
+    public final void setResearchFunder(final String researchFunder) {
         this.researchFunder = researchFunder;
     }
 
-    public String getGrantNumber() {
+    /**
+     * @return the grantNumber
+     */
+    public final String getGrantNumber() {
         return grantNumber;
     }
 
-    public void setGrantNumber(String grantNumber) {
+    /**
+     * @param grantNumber
+     *            the grantNumber to set
+     */
+    public final void setGrantNumber(final String grantNumber) {
         this.grantNumber = grantNumber;
     }
 
-    public String getGrantRecipient() {
+    /**
+     * @return the grantRecipient
+     */
+    public final String getGrantRecipient() {
         return grantRecipient;
     }
 
-    public void setGrantRecipient(String grantRecipient) {
+    /**
+     * @param grantRecipient
+     *            the grantRecipient to set
+     */
+    public final void setGrantRecipient(final String grantRecipient) {
         this.grantRecipient = grantRecipient;
     }
-    
-    
+
+    /** The research funder. */
+    private String researchFunder;
+
+    /** The grant number. */
+    private String grantNumber;
+
+    /** The grant recipient. */
+    private String grantRecipient;
+
 }

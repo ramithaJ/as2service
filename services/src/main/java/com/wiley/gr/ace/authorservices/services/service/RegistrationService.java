@@ -17,21 +17,76 @@ import com.wiley.gr.ace.authorservices.model.InviteRecords;
 import com.wiley.gr.ace.authorservices.model.User;
 
 /**
+ * The Interface RegistrationService.
+ *
  * @author virtusa version 1.0
  */
 public interface RegistrationService {
 
+    /**
+     * Creates the user.
+     *
+     * @param user
+     *            the user
+     * @return the string
+     * @throws Exception
+     *             the exception
+     */
     String createUser(User user) throws Exception;
 
+    /**
+     * Gets the user from first name last name.
+     *
+     * @param firstName
+     *            the first name
+     * @param lastName
+     *            the last name
+     * @return the user from first name last name
+     * @throws Exception
+     *             the exception
+     */
     List<User> getUserFromFirstNameLastName(String firstName, String lastName)
             throws Exception;
 
+    /**
+     * Check email id exists.
+     *
+     * @param emailId
+     *            the email id
+     * @return the user
+     * @throws Exception
+     *             the exception
+     */
     User checkEmailIdExists(String emailId) throws Exception;
 
+    /**
+     * Search user by orcid id.
+     *
+     * @param orcidId
+     *            the orcid id
+     * @return true, if successful
+     * @throws Exception
+     *             the exception
+     */
     boolean searchUserByOrcidId(String orcidId) throws Exception;
 
+    /**
+     * Search invitation record.
+     *
+     * @param guid
+     *            the guid
+     * @return the invite records
+     * @throws Exception
+     *             the exception
+     */
     InviteRecords searchInvitationRecord(String guid) throws Exception;
-    
+
+    /**
+     * Assign role to new user.
+     *
+     * @param emailId
+     *            the email id
+     */
     void assignRoleToNewUser(String emailId);
 
 }

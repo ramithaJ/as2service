@@ -23,21 +23,44 @@ import com.wiley.gr.ace.authorservices.model.external.AssociationConfirmation;
 import com.wiley.gr.ace.authorservices.services.service.ArticleAssignmentService;
 
 /**
- * @author yugandhark
+ * The Class ArticleAssignmentServiceImpl.
  *
+ * @author yugandhark
  */
 public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
 
-	@Autowired(required = true)
-	ESBInterfaceService esbInterfaceService;
+    /** The esb interface service. */
+    @Autowired(required = true)
+    private ESBInterfaceService esbInterfaceService;
 
-	@Autowired(required = true)
-	SharedService sharedService;
+    /**
+     * this method will take emailId as in input and call external service (ESb)
+     * to get article info.
+     *
+     * @param emailId
+     *            the email id
+     * @return the article info
+     */
+    @Override
+    public final ArticleInfoDetails getArticleInfo(final String emailId) {
+        return esbInterfaceService.getArticleInfo(emailId);
+    }
 
-	@Override
-	public ArticleInfoDetails getArticleInfo(String emailId) throws Exception {
-		return esbInterfaceService.getArticleInfo(emailId);
-	}
+    /**
+     * this method will take emailId as in input and call external service
+     * (ESb).
+     *
+     * @param articleAuthId
+     *            the article auth id
+     * @param userId
+     *            the user id
+     * @return true, if successful
+     */
+    @Override
+    public final boolean confirmAssociation(final String articleAuthId,
+            final String userId) {
+        return esbInterfaceService.confirmAssociation();
+    }
 
 	@Override
 	public boolean associationConfirmation(

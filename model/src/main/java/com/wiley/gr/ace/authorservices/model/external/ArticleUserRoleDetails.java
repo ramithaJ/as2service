@@ -15,28 +15,46 @@
 package com.wiley.gr.ace.authorservices.model.external;
 
 /**
- * @author yugandhark
+ * The Class ArticleUserRoleDetails.
  *
+ * @author yugandhark
  */
 public class ArticleUserRoleDetails {
 
+    /** The role code. */
     private String roleCode;
 
+    /** The role name. */
     private String roleName;
 
-    public String getRoleCode() {
+    /**
+     * @return the roleCode
+     */
+    public final String getRoleCode() {
         return roleCode;
     }
 
-    public void setRoleCode(String roleCode) {
+    /**
+     * @param roleCode
+     *            the roleCode to set
+     */
+    public final void setRoleCode(final String roleCode) {
         this.roleCode = roleCode;
     }
 
-    public String getRoleName() {
+    /**
+     * @return the roleName
+     */
+    public final String getRoleName() {
         return roleName;
     }
 
-    public void setRoleName(String roleName) {
+    /**
+     * @param roleName
+     *            the roleName to set
+     */
+    public final void setRoleName(final String roleName) {
         this.roleName = roleName;
     }
+
 }

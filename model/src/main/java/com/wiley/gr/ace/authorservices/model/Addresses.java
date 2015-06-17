@@ -15,40 +15,66 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class Addresses.
+ *
+ * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
 public class Addresses {
-    
+
+    /** The correspondence address. */
     private Address correspondenceAddress;
-    
+
+    /** The billing address. */
     private Address billingAddress;
-    
+
+    /** The shipping address. */
     private Address shippingAddress;
-    
-    public Address getCorrespondenceAddress() {
+
+    /**
+     * @return the correspondenceAddress
+     */
+    public final Address getCorrespondenceAddress() {
         return correspondenceAddress;
     }
-    
-    public void setCorrespondenceAddress(Address correspondenceAddress) {
+
+    /**
+     * @param correspondenceAddress
+     *            the correspondenceAddress to set
+     */
+    public final void setCorrespondenceAddress(
+            final Address correspondenceAddress) {
         this.correspondenceAddress = correspondenceAddress;
     }
-    
-    public Address getBillingAddress() {
+
+    /**
+     * @return the billingAddress
+     */
+    public final Address getBillingAddress() {
         return billingAddress;
     }
-    
-    public void setBillingAddress(Address billingAddress) {
+
+    /**
+     * @param billingAddress
+     *            the billingAddress to set
+     */
+    public final void setBillingAddress(final Address billingAddress) {
         this.billingAddress = billingAddress;
     }
-    
-    public Address getShippingAddress() {
+
+    /**
+     * @return the shippingAddress
+     */
+    public final Address getShippingAddress() {
         return shippingAddress;
     }
-    
-    public void setShippingAddress(Address shippingAddress) {
+
+    /**
+     * @param shippingAddress
+     *            the shippingAddress to set
+     */
+    public final void setShippingAddress(final Address shippingAddress) {
         this.shippingAddress = shippingAddress;
     }
-    
+
 }

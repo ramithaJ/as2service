@@ -17,68 +17,89 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class PasswordDetails.
+ *
+ * @author virtusa version 1.0
  */
 public class PasswordDetails {
-    
+
+    /** The user id. */
     private String userId;
-    
+
+    /** The email id. */
     @NotNull
     @NotBlank
     @Email
     private String emailId;
-    
+
+    /** The old password. */
     @NotNull
     @NotBlank
     private String oldPassword;
-    
+
+    /** The new password. */
     @NotNull
     @NotBlank
     private String newPassword;
-    
+
     /**
-     * @return
+     * @return the userId
      */
-    public String getOldPassword() {
-        return oldPassword;
-    }
-    
-    /**
-     * @param oldPassword
-     */
-    public void setOldPassword(String oldPassword) {
-        this.oldPassword = oldPassword;
-    }
-    
-    /**
-     * @return
-     */
-    public String getNewPassword() {
-        return newPassword;
-    }
-    
-    /**
-     * @param newPassword
-     */
-    public void setNewPassword(String newPassword) {
-        this.newPassword = newPassword;
-    }
-    
-    public String getUserId() {
+    public final String getUserId() {
         return userId;
     }
-    
-    public void setUserId(String userId) {
+
+    /**
+     * @param userId
+     *            the userId to set
+     */
+    public final void setUserId(final String userId) {
         this.userId = userId;
     }
 
-    public String getEmailId() {
+    /**
+     * @return the emailId
+     */
+    public final String getEmailId() {
         return emailId;
     }
 
-    public void setEmailId(String emailId) {
+    /**
+     * @param emailId
+     *            the emailId to set
+     */
+    public final void setEmailId(final String emailId) {
         this.emailId = emailId;
     }
-    
+
+    /**
+     * @return the oldPassword
+     */
+    public final String getOldPassword() {
+        return oldPassword;
+    }
+
+    /**
+     * @param oldPassword
+     *            the oldPassword to set
+     */
+    public final void setOldPassword(final String oldPassword) {
+        this.oldPassword = oldPassword;
+    }
+
+    /**
+     * @return the newPassword
+     */
+    public final String getNewPassword() {
+        return newPassword;
+    }
+
+    /**
+     * @param newPassword
+     *            the newPassword to set
+     */
+    public final void setNewPassword(final String newPassword) {
+        this.newPassword = newPassword;
+    }
+
 }

@@ -3,15 +3,27 @@
 
 package com.wiley.gr.ace.authorservices.model.external;
 
+/**
+ * The Class ProfileInformation.
+ */
 public class ProfileInformation {
-	private CustomerProfile customerprofile;
 
- 	public void setCustomerprofile(CustomerProfile customerprofile) {
-		this.customerprofile = customerprofile;
-	}
+    /** The customerprofile. */
+    private CustomerProfile customerprofile;
 
-	public CustomerProfile getCustomerprofile() {
-		return customerprofile;
-	}
+    /**
+     * @return the customerprofile
+     */
+    public final CustomerProfile getCustomerprofile() {
+        return customerprofile;
+    }
+
+    /**
+     * @param customerprofile
+     *            the customerprofile to set
+     */
+    public final void setCustomerprofile(final CustomerProfile customerprofile) {
+        this.customerprofile = customerprofile;
+    }
 
 }

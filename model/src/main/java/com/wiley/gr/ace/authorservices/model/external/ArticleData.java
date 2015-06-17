@@ -17,21 +17,28 @@ package com.wiley.gr.ace.authorservices.model.external;
 import java.util.List;
 
 /**
- * @author yugandhark
+ * The Class ArticleData.
  *
+ * @author yugandhark
  */
 public class ArticleData {
 
+    /** The article details. */
     private ArticleDetails articleDetails;
 
+    /** The journal details. */
     private JournalDetails journalDetails;
 
+    /** The article user role. */
     private String articleUserRole;
 
+    /** The license status. */
     private String licenseStatus;
 
+    /** The order payment status. */
     private OrderPaymentStatus orderPaymentStatus;
 
+    /** The production status. */
     private String productionStatus;
     
     private List<PriceObject> quote;
@@ -42,51 +49,94 @@ public class ArticleData {
     
     private List<PriceObject> finalPrice;
 
-    public ArticleDetails getArticleDetails() {
+    /**
+     * @return the articleDetails
+     */
+    public final ArticleDetails getArticleDetails() {
         return articleDetails;
     }
 
-    public void setArticleDetails(ArticleDetails articleDetails) {
+    /**
+     * @param articleDetails
+     *            the articleDetails to set
+     */
+    public final void setArticleDetails(final ArticleDetails articleDetails) {
         this.articleDetails = articleDetails;
     }
 
-    public JournalDetails getJournalDetails() {
+    /**
+     * @return the journalDetails
+     */
+    public final JournalDetails getJournalDetails() {
         return journalDetails;
     }
 
-    public void setJournalDetails(JournalDetails journalDetails) {
+    /**
+     * @param journalDetails
+     *            the journalDetails to set
+     */
+    public final void setJournalDetails(final JournalDetails journalDetails) {
         this.journalDetails = journalDetails;
     }
 
-    public String getArticleUserRole() {
+    /**
+     * @return the articleUserRole
+     */
+    public final String getArticleUserRole() {
         return articleUserRole;
     }
 
-    public void setArticleUserRole(String articleUserRole) {
+    /**
+     * @param articleUserRole
+     *            the articleUserRole to set
+     */
+    public final void setArticleUserRole(final String articleUserRole) {
         this.articleUserRole = articleUserRole;
     }
 
-    public String getLicenseStatus() {
+    /**
+     * @return the licenseStatus
+     */
+    public final String getLicenseStatus() {
         return licenseStatus;
     }
 
-    public void setLicenseStatus(String licenseStatus) {
+    /**
+     * @param licenseStatus
+     *            the licenseStatus to set
+     */
+    public final void setLicenseStatus(final String licenseStatus) {
         this.licenseStatus = licenseStatus;
     }
 
-    public OrderPaymentStatus getOrderPaymentStatus() {
+    /**
+     * @return the orderPaymentStatus
+     */
+    public final OrderPaymentStatus getOrderPaymentStatus() {
         return orderPaymentStatus;
     }
 
-    public void setOrderPaymentStatus(OrderPaymentStatus orderPaymentStatus) {
+    /**
+     * @param orderPaymentStatus
+     *            the orderPaymentStatus to set
+     */
+    public final void setOrderPaymentStatus(
+            final OrderPaymentStatus orderPaymentStatus) {
         this.orderPaymentStatus = orderPaymentStatus;
     }
 
-    public String getProductionStatus() {
+    /**
+     * @return the productionStatus
+     */
+    public final String getProductionStatus() {
         return productionStatus;
     }
 
-    public void setProductionStatus(String productionStatus) {
+    /**
+     * @param productionStatus
+     *            the productionStatus to set
+     */
+    public final void setProductionStatus(final String productionStatus) {
         this.productionStatus = productionStatus;
     }
 

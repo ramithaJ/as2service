@@ -17,17 +17,17 @@ import java.util.List;
 import com.wiley.gr.ace.authorservices.persistence.entity.LookupValues;
 
 /**
- * @author virtusa
- *	version 1.0
+ * @author virtusa version 1.0
  */
 public interface LookUpValuesDAO {
-    
+
     /**
-     * This method gets data from LOOKUP_VALUES table with a key
+     * This method gets data from LOOKUP_VALUES table with a key.
      * 
      * @param lookupKey
-     * @return
+     *            to Retrieve.
+     * @return the List of LookupValues.
      */
     List<LookupValues> getLookUpData(String lookupKey);
-    
+
 }

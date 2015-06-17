@@ -14,29 +14,52 @@ package com.wiley.gr.ace.authorservices.model;
 /**
  * This is the generic model for all dropdowns in AS2.0
  * 
- * @author virtusa
- *	version 1.0
+ * @author virtusa version 1.0
  */
 public class StaticData {
-    
+
+    /** The id. */
     private String id;
-    
+
+    /** The description. */
     private String description;
-    
-    public String getId() {
+
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
+    public final String getId() {
         return id;
     }
-    
-    public void setId(String id) {
+
+    /**
+     * Sets the id.
+     *
+     * @param id
+     *            the id to set
+     */
+    public final void setId(final String id) {
         this.id = id;
     }
-    
-    public String getDescription() {
+
+    /**
+     * Gets the description.
+     *
+     * @return the description
+     */
+    public final String getDescription() {
         return description;
     }
-    
-    public void setDescription(String description) {
+
+    /**
+     * Sets the description.
+     *
+     * @param description
+     *            the description to set
+     */
+    public final void setDescription(final String description) {
         this.description = description;
     }
-    
+
 }

@@ -15,24 +15,40 @@
 package com.wiley.gr.ace.authorservices.model.orcid;
 
 /**
- * @author virtusa version 1.0
+ * The Class OrcidAccessToken.
  *
+ * @author virtusa version 1.0
  */
 public class OrcidAccessToken {
 
+    /** The name. */
     private String name;
+
+    /** The access_token. */
     private String access_token;
+
+    /** The token_type. */
     private String token_type;
+
+    /** The refresh_token. */
     private String refresh_token;
+
+    /** The expires_in. */
     private int expires_in;
+
+    /** The scope. */
     private String scope;
+
+    /** The orcid. */
     private String orcid;
+
+    /** The state. */
     private String state;
 
     /**
      * @return the name
      */
-    public String getName() {
+    public final String getName() {
         return name;
     }
 
@@ -40,14 +56,14 @@ public class OrcidAccessToken {
      * @param name
      *            the name to set
      */
-    public void setName(String name) {
+    public final void setName(final String name) {
         this.name = name;
     }
 
     /**
      * @return the access_token
      */
-    public String getAccess_token() {
+    public final String getAccess_token() {
         return access_token;
     }
 
@@ -55,14 +71,14 @@ public class OrcidAccessToken {
      * @param access_token
      *            the access_token to set
      */
-    public void setAccess_token(String access_token) {
+    public final void setAccess_token(final String access_token) {
         this.access_token = access_token;
     }
 
     /**
      * @return the token_type
      */
-    public String getToken_type() {
+    public final String getToken_type() {
         return token_type;
     }
 
@@ -70,14 +86,14 @@ public class OrcidAccessToken {
      * @param token_type
      *            the token_type to set
      */
-    public void setToken_type(String token_type) {
+    public final void setToken_type(final String token_type) {
         this.token_type = token_type;
     }
 
     /**
      * @return the refresh_token
      */
-    public String getRefresh_token() {
+    public final String getRefresh_token() {
         return refresh_token;
     }
 
@@ -85,14 +101,14 @@ public class OrcidAccessToken {
      * @param refresh_token
      *            the refresh_token to set
      */
-    public void setRefresh_token(String refresh_token) {
+    public final void setRefresh_token(final String refresh_token) {
         this.refresh_token = refresh_token;
     }
 
     /**
      * @return the expires_in
      */
-    public int getExpires_in() {
+    public final int getExpires_in() {
         return expires_in;
     }
 
@@ -100,14 +116,14 @@ public class OrcidAccessToken {
      * @param expires_in
      *            the expires_in to set
      */
-    public void setExpires_in(int expires_in) {
+    public final void setExpires_in(final int expires_in) {
         this.expires_in = expires_in;
     }
 
     /**
      * @return the scope
      */
-    public String getScope() {
+    public final String getScope() {
         return scope;
     }
 
@@ -115,14 +131,14 @@ public class OrcidAccessToken {
      * @param scope
      *            the scope to set
      */
-    public void setScope(String scope) {
+    public final void setScope(final String scope) {
         this.scope = scope;
     }
 
     /**
      * @return the orcid
      */
-    public String getOrcid() {
+    public final String getOrcid() {
         return orcid;
     }
 
@@ -130,14 +146,14 @@ public class OrcidAccessToken {
      * @param orcid
      *            the orcid to set
      */
-    public void setOrcid(String orcid) {
+    public final void setOrcid(final String orcid) {
         this.orcid = orcid;
     }
 
     /**
      * @return the state
      */
-    public String getState() {
+    public final String getState() {
         return state;
     }
 
@@ -145,7 +161,7 @@ public class OrcidAccessToken {
      * @param state
      *            the state to set
      */
-    public void setState(String state) {
+    public final void setState(final String state) {
         this.state = state;
     }
 
