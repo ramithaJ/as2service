@@ -4,11 +4,15 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * The Class Role.
  *
  * @author virtusa version 1.0
  */
+@JsonInclude(Include.NON_NULL)
 public class Role {
 
     /** The role id. */
@@ -26,9 +30,11 @@ public class Role {
 
     /** The is admin role. */
     private boolean isAdminRole = false;
-
+   
+    @NotNull
+    @NotBlank
     /** The no of permissions. */
-    private int noOfPermissions;
+    private String noOfPermissions;
 
     /**
      * @return the roleId
@@ -93,7 +99,7 @@ public class Role {
     /**
      * @return the noOfPermissions
      */
-    public final int getNoOfPermissions() {
+    public final String getNoOfPermissions() {
         return noOfPermissions;
     }
 
@@ -101,7 +107,7 @@ public class Role {
      * @param noOfPermissions
      *            the noOfPermissions to set
      */
-    public final void setNoOfPermissions(final int noOfPermissions) {
+    public final void setNoOfPermissions(final String noOfPermissions) {
         this.noOfPermissions = noOfPermissions;
     }
 

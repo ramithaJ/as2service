@@ -410,6 +410,7 @@ public class ASDataServiceImpl implements ASDataService {
         List<Roles> daoRolesList = aSDataDAO.getAdminRoles(roleType);
         List<Role> adminRoles = new ArrayList<Role>();
         Role adminRole = null;
+       
 
         if (daoRolesList != null && !daoRolesList.isEmpty()) {
 
@@ -423,8 +424,8 @@ public class ASDataServiceImpl implements ASDataService {
                                 AuthorServicesConstants.ROLE_TYPE_INTERNAL)) {
                     adminRole.setAdminRole(true);
                 }
-                adminRole.setNoOfPermissions(aSDataDAO.getCount(roles
-                        .getRoleId()));
+                        adminRole.setNoOfPermissions(String.valueOf(aSDataDAO.getCount(roles
+                                .getRoleId())));
                 adminRoles.add(adminRole);
             }
 
