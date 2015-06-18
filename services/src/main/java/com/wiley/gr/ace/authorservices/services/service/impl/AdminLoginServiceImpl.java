@@ -177,13 +177,15 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 
             permission.setPermissionId(daoPermissions.getPermissionCd() + "");
             permission.setPermissionName(daoPermissions.getPermissionName());
+            
+            // TODO: Commenting this temporarily...Start
 
-            if (daoPermissions.getPermissionGroup().equalsIgnoreCase(
+            /*if (daoPermissions.getPermissionGroup().equalsIgnoreCase(
                     AuthorServicesConstants.PERMISSION_LEVEL_SYSTEM)
             /*
              * && daoPermissions.getPermType().equalsIgnoreCase(
              * AuthorServicesConstants.PERMISSION_TYPE_EXTERNAL)
-             */) { // TODO
+             *//*) { // TODO
                 systemSection.getPermissionsList().add(permission);
 
             } else if (daoPermissions.getPermissionGroup().equalsIgnoreCase(
@@ -191,13 +193,15 @@ public class AdminLoginServiceImpl implements AdminLoginService {
             /*
              * && daoPermissions.getPermType().equalsIgnoreCase(
              * AuthorServicesConstants.PERMISSION_TYPE_INTERNAL)
-             */) { // TODO
+             *//*) { // TODO
                 adminSection.getPermissionsList().add(permission);
 
             } else if (daoPermissions.getPermissionGroup().equalsIgnoreCase(
                     AuthorServicesConstants.PERMISSION_LEVEL_ARTICLE)) {
                 articleSection.getPermissionsList().add(permission);
-            }
+            } */
+            
+         // TODO: Commenting this temporarily...End
         }
 
         rolesAndPermissions.getSectionsList().add(adminSection);
