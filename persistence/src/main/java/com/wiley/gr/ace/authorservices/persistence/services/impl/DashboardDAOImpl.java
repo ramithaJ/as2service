@@ -14,11 +14,40 @@
  */
 package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
+import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
+
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import com.wiley.gr.ace.authorservices.persistence.entity.InvitationLog;
 import com.wiley.gr.ace.authorservices.persistence.services.DashboardDAO;
 
 /**
  * @author virtusa version 1.0
  */
 public class DashboardDAOImpl implements DashboardDAO {
+
+    @Override
+    public List<InvitationLog> getInvitationLogList(Integer userId) {
+        Session session = null;
+        Transaction txn = null;
+        try {
+            session = getSessionFactory().openSession();
+            txn = session.beginTransaction();
+            String invitationLogHql = "from InvitationLog il where il.userProfile.userId=:userId";
+            List<InvitationLog> invitationLogList = session
+                    .createQuery(invitationLogHql).setInteger("userId", userId)
+                    .list();
+            txn.commit();
+            return invitationLogList;
+        } finally {
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
+        }
+    }
 
 }

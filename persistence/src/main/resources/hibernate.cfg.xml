@@ -31,7 +31,9 @@
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.AdditionalPermissions" />
 		<mapping
-			class="com.wiley.gr.ace.authorservices.persistence.entity.AdditionalPermissionsId" />
+			class="com.wiley.gr.ace.authorservices.persistence.entity.AddressType" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.AdminProfile" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.Permissions" />
 		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Alerts" />
@@ -40,8 +42,20 @@
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.AuthColleagueDetails" />
 		<mapping
-			class="com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile" />
+			class="com.wiley.gr.ace.authorservices.persistence.entity.CoauthorRequestsOoorders" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.Databasechangelog" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.DatabasechangelogId" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.Databasechangeloglock" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.InvitationLog" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.UserProfile" />
 		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Journals" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.LockedAccountDetails" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.ResearchFunders" />
 		<mapping
@@ -50,14 +64,22 @@
 			class="com.wiley.gr.ace.authorservices.persistence.entity.RolePermissionsId" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.UserFunderGrants" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.UserFunders" />
 		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Users" />
 		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Roles" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.SavedOrders" />
+		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Schedule" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.ScheduleTemplate" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.Societies" />
+		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Template" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.UserProfileAttribVisible" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.UserReferenceData" />
-		<mapping
-			class="com.wiley.gr.ace.authorservices.persistence.entity.UserReferenceDataId" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.UserAlerts" />
 		<mapping
@@ -67,31 +89,57 @@
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.UserPreferredJournalsId" />
 		<mapping
-			class="com.wiley.gr.ace.authorservices.persistence.entity.AdminDetails" />
-		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.LookupValues" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.Notification" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.NotificationRecipients" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.ObjectTypes" />
+		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Orders" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.PermissionGroups" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.PermissionGroupsId" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.UserSocietyDetails" />
 		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Address" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.AreaOfInterest" />
-			<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.UserAffiliations"/>
-			<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.UserWoaAccounts"/>
-				<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.UserWoaAccountsId"/>
-			<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.UserRoles"/>
-			<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.UserAreaOfInterest"/>
-			<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.UserAreaOfInterestId"/>
-			
-			<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Actions"/>
-			<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.AuditDetails"/>
-			<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.AuditDetailsId"/>
-			<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.ProfileAttributeList"/>
-			<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.UserAddresses"/>
-            <mapping class="com.wiley.gr.ace.authorservices.persistence.entity.UserAddressesId"/>
-            <mapping class="com.wiley.gr.ace.authorservices.persistence.entity.UserProfileAttribVisibleId"/>
-            <mapping class="com.wiley.gr.ace.authorservices.persistence.entity.UserRolesId"/>
-            <mapping class="com.wiley.gr.ace.authorservices.persistence.entity.UserSecondaryEmailAddr"/>
-			<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog"/>
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.ArticleAuthorAssignment" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.ArticleRoles" />
+		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Articles" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.UserAffiliations" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.UserWoaAccounts" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.UserWoaAccountsId" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.UserRoles" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.UserAreaOfInterest" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.UserAreaOfInterestId" />
 
+		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Actions" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.AuditDetails" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.ProfileAttributeList" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.UserAddresses" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.UserProfileAttribVisibleId" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.UserRolesId" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.UserSecondaryEmailAddr" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.JournalAlerts" />
 	</session-factory>
 </hibernate-configuration>

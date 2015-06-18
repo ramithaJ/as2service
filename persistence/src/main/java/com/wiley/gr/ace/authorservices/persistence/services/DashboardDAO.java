@@ -14,8 +14,23 @@
  */
 package com.wiley.gr.ace.authorservices.persistence.services;
 
+import java.util.List;
+
+import com.wiley.gr.ace.authorservices.persistence.entity.InvitationLog;
+
 /**
+ * The Interface DashboardDAO.
+ *
  * @author virtusa version 1.0
  */
 public interface DashboardDAO {
+
+    /**
+     * Gets the invitation log list.
+     *
+     * @param userId
+     *            the user id
+     * @return the invitation log list
+     */
+    List<InvitationLog> getInvitationLogList(Integer userId);
 }
