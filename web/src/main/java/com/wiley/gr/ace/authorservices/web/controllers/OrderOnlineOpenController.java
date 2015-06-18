@@ -1,7 +1,5 @@
 package com.wiley.gr.ace.authorservices.web.controllers;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,133 +18,130 @@ import com.wiley.gr.ace.authorservices.model.Service;
 @RequestMapping("/onlineopen")
 public class OrderOnlineOpenController extends ASExceptionController {
 
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(OrderOnlineOpenController.class);
+    /**
+     * @param userId
+     * @param articleId
+     * @return
+     */
+    @RequestMapping(value = "/quote/", method = RequestMethod.GET)
+    public final Service getQuote(@PathVariable("userId") final String userId,
+            @PathVariable("articleId") final String articleId) {
 
-	/**
-	 * @param userId
-	 * @param articleId
-	 * @return
-	 */
-	@RequestMapping(value = "/quote/", method = RequestMethod.GET)
-	public final Service getQuote(@PathVariable("userId") final String userId,
-			@PathVariable("articleId") final String articleId) {
+        return new Service();
+    }
 
-		return new Service();
-	}
+    /**
+     * @param userId
+     * @param onlineOpenOrder
+     * @return
+     */
+    @RequestMapping(value = "/saveLater/", method = RequestMethod.POST)
+    public final Service saveOnlineOpenOrder(
+            @PathVariable("userId") final String userId,
+            @RequestBody final OnlineOpenOrder onlineOpenOrder) {
 
-	/**
-	 * @param userId
-	 * @param onlineOpenOrder
-	 * @return
-	 */
-	@RequestMapping(value = "/saveLater/", method = RequestMethod.POST)
-	public final Service saveOnlineOpenOrder(
-			@PathVariable("userId") final String userId,
-			@RequestBody final OnlineOpenOrder onlineOpenOrder) {
+        return new Service();
+    }
 
-		return new Service();
-	}
+    /**
+     * @param userId
+     * @param onlineOpenOrder
+     * @return
+     */
+    @RequestMapping(value = "/submit/", method = RequestMethod.POST)
+    public final Service submitOnlineOpenOrder(
+            @PathVariable("userId") final String userId,
+            @RequestBody final OnlineOpenOrder onlineOpenOrder) {
 
-	/**
-	 * @param userId
-	 * @param onlineOpenOrder
-	 * @return
-	 */
-	@RequestMapping(value = "/submit/", method = RequestMethod.POST)
-	public final Service submitOnlineOpenOrder(
-			@PathVariable("userId") final String userId,
-			@RequestBody final OnlineOpenOrder onlineOpenOrder) {
+        return new Service();
+    }
 
-		return new Service();
-	}
+    /**
+     * @param userId
+     * @param orderId
+     * @return
+     */
+    @RequestMapping(value = "/view/", method = RequestMethod.GET)
+    public final Service getOnlineOpenOrderDetails(
+            @PathVariable("userId") final String userId,
+            @PathVariable("orderId") final String orderId) {
 
-	/**
-	 * @param userId
-	 * @param orderId
-	 * @return
-	 */
-	@RequestMapping(value = "/view/", method = RequestMethod.GET)
-	public final Service getOnlineOpenOrderDetails(
-			@PathVariable("userId") final String userId,
-			@PathVariable("orderId") final String orderId) {
+        return new Service();
+    }
 
-		return new Service();
-	}
+    /**
+     * @param userId
+     * @param orderId
+     * @return
+     */
+    @RequestMapping(value = "/cancel/", method = RequestMethod.POST)
+    public final Service cancelOnlineOpenOrder(
+            @PathVariable("userId") final String userId,
+            @PathVariable("orderId") final String orderId) {
 
-	/**
-	 * @param userId
-	 * @param orderId
-	 * @return
-	 */
-	@RequestMapping(value = "/cancel/", method = RequestMethod.POST)
-	public final Service cancelOnlineOpenOrder(
-			@PathVariable("userId") final String userId,
-			@PathVariable("orderId") final String orderId) {
+        return new Service();
+    }
 
-		return new Service();
-	}
+    /**
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "/fundersList/", method = RequestMethod.GET)
+    public final Service getFundersList(
+            @PathVariable("userId") final String userId) {
 
-	/**
-	 * @param userId
-	 * @return
-	 */
-	@RequestMapping(value = "/fundersList/", method = RequestMethod.GET)
-	public final Service getFundersList(
-			@PathVariable("userId") final String userId) {
+        return new Service();
+    }
 
-		return new Service();
-	}
+    /**
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "/woaAccounts/", method = RequestMethod.GET)
+    public final Service getWOAAccounts(
+            @PathVariable("userId") final String userId) {
 
-	/**
-	 * @param userId
-	 * @return
-	 */
-	@RequestMapping(value = "/woaAccounts/", method = RequestMethod.GET)
-	public final Service getWOAAccounts(
-			@PathVariable("userId") final String userId) {
+        return new Service();
+    }
 
-		return new Service();
-	}
+    /**
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "/grantRecipients/", method = RequestMethod.GET)
+    public final Service getGrantRecipients(
+            @PathVariable("userId") final String userId) {
 
-	/**
-	 * @param userId
-	 * @return
-	 */
-	@RequestMapping(value = "/grantRecipients/", method = RequestMethod.GET)
-	public final Service getGrantRecipients(
-			@PathVariable("userId") final String userId) {
+        return new Service();
+    }
 
-		return new Service();
-	}
+    /**
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "/discountedSocieties/", method = RequestMethod.GET)
+    public final Service getDiscountedSocieties(
+            @PathVariable("userId") final String userId) {
 
-	/**
-	 * @param userId
-	 * @return
-	 */
-	@RequestMapping(value = "/discountedSocieties/", method = RequestMethod.GET)
-	public final Service getDiscountedSocieties(
-			@PathVariable("userId") final String userId) {
+        return new Service();
+    }
 
-		return new Service();
-	}
+    /**
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "/allOrders/", method = RequestMethod.GET)
+    public final Service getAllOrders(
+            @PathVariable("userId") final String userId) {
 
-	/**
-	 * @param userId
-	 * @return
-	 */
-	@RequestMapping(value = "/allOrders/", method = RequestMethod.GET)
-	public final Service getAllOrders(
-			@PathVariable("userId") final String userId) {
+        return new Service();
+    }
 
-		return new Service();
-	}
+    @RequestMapping(value = "/institutionDiscounts/", method = RequestMethod.GET)
+    public final Service getInstitutionDiscounts(
+            @PathVariable("userId") final String userId) {
 
-	@RequestMapping(value = "/institutionDiscounts/", method = RequestMethod.GET)
-	public final Service getInstitutionDiscounts(
-			@PathVariable("userId") final String userId) {
-
-		return new Service();
-	}
+        return new Service();
+    }
 
 }
