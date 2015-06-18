@@ -18,7 +18,7 @@ package com.wiley.gr.ace.authorservices.model.external;
  *
  * @author virtusa version 1.0
  */
-public class TaxDetails {
+public class TaxData {
 
     /** The tax number. */
     private String taxNumber;
