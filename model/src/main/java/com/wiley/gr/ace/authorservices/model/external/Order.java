@@ -159,7 +159,7 @@ public class Order {
     /**
      * @return the taxDetails
      */
-    public final TaxDetails getTaxDetails() {
+    public final TaxData getTaxDetails() {
         return taxDetails;
     }
 
@@ -167,7 +167,7 @@ public class Order {
      * @param taxDetails
      *            the taxDetails to set
      */
-    public final void setTaxDetails(final TaxDetails taxDetails) {
+    public final void setTaxDetails(final TaxData taxDetails) {
         this.taxDetails = taxDetails;
     }
 
@@ -229,7 +229,7 @@ public class Order {
     private CreditCard creditCard;
 
     /** The tax details. */
-    private TaxDetails taxDetails;
+    private TaxData taxDetails;
 
     /** The addresses. */
     private List<Address> addresses;
