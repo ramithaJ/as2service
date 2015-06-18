@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated May 26, 2015 6:09:14 PM by Hibernate Tools 3.4.0.CR1
+// Generated Jun 18, 2015 11:29:00 AM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -19,9 +19,9 @@ import javax.persistence.Table;
 public class AuthCoauthDetails implements java.io.Serializable {
 
 	private Integer authCoauthId;
-	private AuthorProfile authorProfileByAuthorId;
-	private AuthorProfile authorProfileByCoauthUserId;
+	private UserProfile userProfileByAuthorUserId;
 	private Users usersByCreatedBy;
+	private UserProfile userProfileByCoauthUserId;
 	private Users usersByUpdatedBy;
 	private String coauthTitle;
 	private String coauthFirstName;
@@ -43,17 +43,17 @@ public class AuthCoauthDetails implements java.io.Serializable {
 	}
 
 	public AuthCoauthDetails(Integer authCoauthId,
-			AuthorProfile authorProfileByAuthorId,
-			AuthorProfile authorProfileByCoauthUserId, Users usersByCreatedBy,
-			Users usersByUpdatedBy, String coauthTitle, String coauthFirstName,
-			String coauthLastName, String coauthEmailAddr, String coauthPhone,
+			UserProfile userProfileByAuthorUserId, Users usersByCreatedBy,
+			UserProfile userProfileByCoauthUserId, Users usersByUpdatedBy,
+			String coauthTitle, String coauthFirstName, String coauthLastName,
+			String coauthEmailAddr, String coauthPhone,
 			String coauthInstitutionCd, String coauthInstitutionName,
 			String coauthDepartmentCd, String coauthDeptName, Date createdDate,
 			Date updatedDate) {
 		this.authCoauthId = authCoauthId;
-		this.authorProfileByAuthorId = authorProfileByAuthorId;
-		this.authorProfileByCoauthUserId = authorProfileByCoauthUserId;
+		this.userProfileByAuthorUserId = userProfileByAuthorUserId;
 		this.usersByCreatedBy = usersByCreatedBy;
+		this.userProfileByCoauthUserId = userProfileByCoauthUserId;
 		this.usersByUpdatedBy = usersByUpdatedBy;
 		this.coauthTitle = coauthTitle;
 		this.coauthFirstName = coauthFirstName;
@@ -79,24 +79,14 @@ public class AuthCoauthDetails implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "AUTHOR_ID")
-	public AuthorProfile getAuthorProfileByAuthorId() {
-		return this.authorProfileByAuthorId;
+	@JoinColumn(name = "AUTHOR_USER_ID")
+	public UserProfile getUserProfileByAuthorUserId() {
+		return this.userProfileByAuthorUserId;
 	}
 
-	public void setAuthorProfileByAuthorId(AuthorProfile authorProfileByAuthorId) {
-		this.authorProfileByAuthorId = authorProfileByAuthorId;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "COAUTH_USER_ID")
-	public AuthorProfile getAuthorProfileByCoauthUserId() {
-		return this.authorProfileByCoauthUserId;
-	}
-
-	public void setAuthorProfileByCoauthUserId(
-			AuthorProfile authorProfileByCoauthUserId) {
-		this.authorProfileByCoauthUserId = authorProfileByCoauthUserId;
+	public void setUserProfileByAuthorUserId(
+			UserProfile userProfileByAuthorUserId) {
+		this.userProfileByAuthorUserId = userProfileByAuthorUserId;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -107,6 +97,17 @@ public class AuthCoauthDetails implements java.io.Serializable {
 
 	public void setUsersByCreatedBy(Users usersByCreatedBy) {
 		this.usersByCreatedBy = usersByCreatedBy;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "COAUTH_USER_ID")
+	public UserProfile getUserProfileByCoauthUserId() {
+		return this.userProfileByCoauthUserId;
+	}
+
+	public void setUserProfileByCoauthUserId(
+			UserProfile userProfileByCoauthUserId) {
+		this.userProfileByCoauthUserId = userProfileByCoauthUserId;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -128,7 +129,7 @@ public class AuthCoauthDetails implements java.io.Serializable {
 		this.coauthTitle = coauthTitle;
 	}
 
-	@Column(name = "COAUTH_FIRST_NAME", length = 50)
+	@Column(name = "COAUTH_FIRST_NAME", length = 100)
 	public String getCoauthFirstName() {
 		return this.coauthFirstName;
 	}
@@ -137,7 +138,7 @@ public class AuthCoauthDetails implements java.io.Serializable {
 		this.coauthFirstName = coauthFirstName;
 	}
 
-	@Column(name = "COAUTH_LAST_NAME", length = 50)
+	@Column(name = "COAUTH_LAST_NAME", length = 100)
 	public String getCoauthLastName() {
 		return this.coauthLastName;
 	}
@@ -146,7 +147,7 @@ public class AuthCoauthDetails implements java.io.Serializable {
 		this.coauthLastName = coauthLastName;
 	}
 
-	@Column(name = "COAUTH_EMAIL_ADDR", length = 250)
+	@Column(name = "COAUTH_EMAIL_ADDR", length = 100)
 	public String getCoauthEmailAddr() {
 		return this.coauthEmailAddr;
 	}

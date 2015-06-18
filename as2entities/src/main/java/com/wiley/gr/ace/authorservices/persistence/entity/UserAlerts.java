@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated May 26, 2015 6:09:14 PM by Hibernate Tools 3.4.0.CR1
+// Generated Jun 18, 2015 11:29:00 AM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.AttributeOverride;
@@ -24,7 +24,7 @@ public class UserAlerts implements java.io.Serializable {
 	private Alerts alerts;
 	private Users usersByCreatedBy;
 	private Users usersByUpdatedBy;
-	private AuthorProfile authorProfile;
+	private UserProfile userProfile;
 	private Character onScreenFlg;
 	private Character emailFlg;
 	private Date createdDate;
@@ -33,22 +33,21 @@ public class UserAlerts implements java.io.Serializable {
 	public UserAlerts() {
 	}
 
-	public UserAlerts(UserAlertsId id, Alerts alerts,
-			AuthorProfile authorProfile) {
+	public UserAlerts(UserAlertsId id, Alerts alerts, UserProfile userProfile) {
 		this.id = id;
 		this.alerts = alerts;
-		this.authorProfile = authorProfile;
+		this.userProfile = userProfile;
 	}
 
 	public UserAlerts(UserAlertsId id, Alerts alerts, Users usersByCreatedBy,
-			Users usersByUpdatedBy, AuthorProfile authorProfile,
+			Users usersByUpdatedBy, UserProfile userProfile,
 			Character onScreenFlg, Character emailFlg, Date createdDate,
 			Date updatedDate) {
 		this.id = id;
 		this.alerts = alerts;
 		this.usersByCreatedBy = usersByCreatedBy;
 		this.usersByUpdatedBy = usersByUpdatedBy;
-		this.authorProfile = authorProfile;
+		this.userProfile = userProfile;
 		this.onScreenFlg = onScreenFlg;
 		this.emailFlg = emailFlg;
 		this.createdDate = createdDate;
@@ -99,12 +98,12 @@ public class UserAlerts implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "USER_ID", nullable = false, insertable = false, updatable = false)
-	public AuthorProfile getAuthorProfile() {
-		return this.authorProfile;
+	public UserProfile getUserProfile() {
+		return this.userProfile;
 	}
 
-	public void setAuthorProfile(AuthorProfile authorProfile) {
-		this.authorProfile = authorProfile;
+	public void setUserProfile(UserProfile userProfile) {
+		this.userProfile = userProfile;
 	}
 
 	@Column(name = "ON_SCREEN_FLG", length = 1)

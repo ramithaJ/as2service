@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated May 26, 2015 6:09:14 PM by Hibernate Tools 3.4.0.CR1
+// Generated Jun 18, 2015 11:29:00 AM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import java.util.HashSet;

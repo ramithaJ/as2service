@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Jun 10, 2015 12:14:08 PM by Hibernate Tools 4.0.0
+// Generated Jun 18, 2015 11:29:00 AM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import java.util.HashSet;
@@ -9,6 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -20,12 +22,12 @@ import javax.persistence.Table;
 public class Actions implements java.io.Serializable {
 
 	private String actionCd;
+	private Users usersByCreatedBy;
+	private Users usersByUpdatedBy;
 	private String actionName;
 	private String description;
 	private Date createdDate;
-	private Integer createdBy;
 	private Date updatedDate;
-	private Integer updatedBy;
 	private Set<AuditDetails> auditDetailses = new HashSet<AuditDetails>(0);
 
 	public Actions() {
@@ -35,16 +37,16 @@ public class Actions implements java.io.Serializable {
 		this.actionCd = actionCd;
 	}
 
-	public Actions(String actionCd, String actionName, String description,
-			Date createdDate, Integer createdBy, Date updatedDate,
-			Integer updatedBy, Set<AuditDetails> auditDetailses) {
+	public Actions(String actionCd, Users usersByCreatedBy,
+			Users usersByUpdatedBy, String actionName, String description,
+			Date createdDate, Date updatedDate, Set<AuditDetails> auditDetailses) {
 		this.actionCd = actionCd;
+		this.usersByCreatedBy = usersByCreatedBy;
+		this.usersByUpdatedBy = usersByUpdatedBy;
 		this.actionName = actionName;
 		this.description = description;
 		this.createdDate = createdDate;
-		this.createdBy = createdBy;
 		this.updatedDate = updatedDate;
-		this.updatedBy = updatedBy;
 		this.auditDetailses = auditDetailses;
 	}
 
@@ -56,6 +58,26 @@ public class Actions implements java.io.Serializable {
 
 	public void setActionCd(String actionCd) {
 		this.actionCd = actionCd;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CREATED_BY")
+	public Users getUsersByCreatedBy() {
+		return this.usersByCreatedBy;
+	}
+
+	public void setUsersByCreatedBy(Users usersByCreatedBy) {
+		this.usersByCreatedBy = usersByCreatedBy;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "UPDATED_BY")
+	public Users getUsersByUpdatedBy() {
+		return this.usersByUpdatedBy;
+	}
+
+	public void setUsersByUpdatedBy(Users usersByUpdatedBy) {
+		this.usersByUpdatedBy = usersByUpdatedBy;
 	}
 
 	@Column(name = "ACTION_NAME", length = 50)
@@ -85,15 +107,6 @@ public class Actions implements java.io.Serializable {
 		this.createdDate = createdDate;
 	}
 
-	@Column(name = "CREATED_BY", precision = 22, scale = 0)
-	public Integer getCreatedBy() {
-		return this.createdBy;
-	}
-
-	public void setCreatedBy(Integer createdBy) {
-		this.createdBy = createdBy;
-	}
-
 	@Column(name = "UPDATED_DATE")
 	public Date getUpdatedDate() {
 		return this.updatedDate;
@@ -101,15 +114,6 @@ public class Actions implements java.io.Serializable {
 
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
-	}
-
-	@Column(name = "UPDATED_BY", precision = 22, scale = 0)
-	public Integer getUpdatedBy() {
-		return this.updatedBy;
-	}
-
-	public void setUpdatedBy(Integer updatedBy) {
-		this.updatedBy = updatedBy;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "actions")

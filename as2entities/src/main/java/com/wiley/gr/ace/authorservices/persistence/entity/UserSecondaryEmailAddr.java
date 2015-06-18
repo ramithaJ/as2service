@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated May 26, 2015 6:09:14 PM by Hibernate Tools 3.4.0.CR1
+// Generated Jun 18, 2015 11:29:00 AM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import java.util.HashSet;
@@ -28,7 +28,7 @@ public class UserSecondaryEmailAddr implements java.io.Serializable {
 	private String secondaryEmailAddr;
 	private Date createdDate;
 	private Date updatedDate;
-	private Set<AuthorProfile> authorProfiles = new HashSet<AuthorProfile>(0);
+	private Set<UserProfile> userProfiles = new HashSet<UserProfile>(0);
 
 	public UserSecondaryEmailAddr() {
 	}
@@ -40,7 +40,7 @@ public class UserSecondaryEmailAddr implements java.io.Serializable {
 	public UserSecondaryEmailAddr(Integer userSecondaryEmailId,
 			Users usersByCreatedBy, Users usersByUpdatedBy,
 			Users usersByUserId, String secondaryEmailAddr, Date createdDate,
-			Date updatedDate, Set<AuthorProfile> authorProfiles) {
+			Date updatedDate, Set<UserProfile> userProfiles) {
 		this.userSecondaryEmailId = userSecondaryEmailId;
 		this.usersByCreatedBy = usersByCreatedBy;
 		this.usersByUpdatedBy = usersByUpdatedBy;
@@ -48,7 +48,7 @@ public class UserSecondaryEmailAddr implements java.io.Serializable {
 		this.secondaryEmailAddr = secondaryEmailAddr;
 		this.createdDate = createdDate;
 		this.updatedDate = updatedDate;
-		this.authorProfiles = authorProfiles;
+		this.userProfiles = userProfiles;
 	}
 
 	@Id
@@ -91,7 +91,7 @@ public class UserSecondaryEmailAddr implements java.io.Serializable {
 		this.usersByUserId = usersByUserId;
 	}
 
-	@Column(name = "SECONDARY_EMAIL_ADDR", length = 256)
+	@Column(name = "SECONDARY_EMAIL_ADDR", length = 100)
 	public String getSecondaryEmailAddr() {
 		return this.secondaryEmailAddr;
 	}
@@ -119,12 +119,12 @@ public class UserSecondaryEmailAddr implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userSecondaryEmailAddr")
-	public Set<AuthorProfile> getAuthorProfiles() {
-		return this.authorProfiles;
+	public Set<UserProfile> getUserProfiles() {
+		return this.userProfiles;
 	}
 
-	public void setAuthorProfiles(Set<AuthorProfile> authorProfiles) {
-		this.authorProfiles = authorProfiles;
+	public void setUserProfiles(Set<UserProfile> userProfiles) {
+		this.userProfiles = userProfiles;
 	}
 
 }

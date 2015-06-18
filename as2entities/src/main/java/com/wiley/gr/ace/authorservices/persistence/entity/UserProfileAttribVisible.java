@@ -1,7 +1,8 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated May 26, 2015 6:09:14 PM by Hibernate Tools 3.4.0.CR1
+// Generated Jun 18, 2015 11:29:00 AM by Hibernate Tools 4.0.0
 
+import java.util.Date;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -22,36 +23,40 @@ public class UserProfileAttribVisible implements java.io.Serializable {
 	private UserProfileAttribVisibleId id;
 	private Users usersByCreatedBy;
 	private Users usersByUpdatedBy;
-	private AuthorProfile authorProfile;
+	private UserProfile userProfile;
 	private ProfileAttributeList profileAttributeList;
+	private Character profileVisibilityFlg;
+	private Date createdDate;
+	private Date updatedDate;
 
 	public UserProfileAttribVisible() {
 	}
 
-	public UserProfileAttribVisible(UserProfileAttribVisibleId id) {
+	public UserProfileAttribVisible(UserProfileAttribVisibleId id,
+			UserProfile userProfile, ProfileAttributeList profileAttributeList) {
 		this.id = id;
+		this.userProfile = userProfile;
+		this.profileAttributeList = profileAttributeList;
 	}
 
 	public UserProfileAttribVisible(UserProfileAttribVisibleId id,
 			Users usersByCreatedBy, Users usersByUpdatedBy,
-			AuthorProfile authorProfile,
-			ProfileAttributeList profileAttributeList) {
+			UserProfile userProfile, ProfileAttributeList profileAttributeList,
+			Character profileVisibilityFlg, Date createdDate, Date updatedDate) {
 		this.id = id;
 		this.usersByCreatedBy = usersByCreatedBy;
 		this.usersByUpdatedBy = usersByUpdatedBy;
-		this.authorProfile = authorProfile;
+		this.userProfile = userProfile;
 		this.profileAttributeList = profileAttributeList;
+		this.profileVisibilityFlg = profileVisibilityFlg;
+		this.createdDate = createdDate;
+		this.updatedDate = updatedDate;
 	}
 
 	@EmbeddedId
 	@AttributeOverrides({
-			@AttributeOverride(name = "userId", column = @Column(name = "USER_ID", precision = 22, scale = 0)),
-			@AttributeOverride(name = "profileVisibilityFlg", column = @Column(name = "PROFILE_VISIBILITY_FLG", length = 1)),
-			@AttributeOverride(name = "profileAttribCd", column = @Column(name = "PROFILE_ATTRIB_CD", length = 15)),
-			@AttributeOverride(name = "createdDate", column = @Column(name = "CREATED_DATE")),
-			@AttributeOverride(name = "createdBy", column = @Column(name = "CREATED_BY", precision = 22, scale = 0)),
-			@AttributeOverride(name = "updatedDate", column = @Column(name = "UPDATED_DATE")),
-			@AttributeOverride(name = "updatedBy", column = @Column(name = "UPDATED_BY", precision = 22, scale = 0)) })
+			@AttributeOverride(name = "userId", column = @Column(name = "USER_ID", nullable = false, precision = 22, scale = 0)),
+			@AttributeOverride(name = "profileAttribCd", column = @Column(name = "PROFILE_ATTRIB_CD", nullable = false, length = 15)) })
 	public UserProfileAttribVisibleId getId() {
 		return this.id;
 	}
@@ -61,7 +66,7 @@ public class UserProfileAttribVisible implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CREATED_BY", insertable = false, updatable = false)
+	@JoinColumn(name = "CREATED_BY")
 	public Users getUsersByCreatedBy() {
 		return this.usersByCreatedBy;
 	}
@@ -71,7 +76,7 @@ public class UserProfileAttribVisible implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "UPDATED_BY", insertable = false, updatable = false)
+	@JoinColumn(name = "UPDATED_BY")
 	public Users getUsersByUpdatedBy() {
 		return this.usersByUpdatedBy;
 	}
@@ -81,17 +86,17 @@ public class UserProfileAttribVisible implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USER_ID", insertable = false, updatable = false)
-	public AuthorProfile getAuthorProfile() {
-		return this.authorProfile;
+	@JoinColumn(name = "USER_ID", nullable = false, insertable = false, updatable = false)
+	public UserProfile getUserProfile() {
+		return this.userProfile;
 	}
 
-	public void setAuthorProfile(AuthorProfile authorProfile) {
-		this.authorProfile = authorProfile;
+	public void setUserProfile(UserProfile userProfile) {
+		this.userProfile = userProfile;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "PROFILE_ATTRIB_CD", insertable = false, updatable = false)
+	@JoinColumn(name = "PROFILE_ATTRIB_CD", nullable = false, insertable = false, updatable = false)
 	public ProfileAttributeList getProfileAttributeList() {
 		return this.profileAttributeList;
 	}
@@ -99,6 +104,33 @@ public class UserProfileAttribVisible implements java.io.Serializable {
 	public void setProfileAttributeList(
 			ProfileAttributeList profileAttributeList) {
 		this.profileAttributeList = profileAttributeList;
+	}
+
+	@Column(name = "PROFILE_VISIBILITY_FLG", length = 1)
+	public Character getProfileVisibilityFlg() {
+		return this.profileVisibilityFlg;
+	}
+
+	public void setProfileVisibilityFlg(Character profileVisibilityFlg) {
+		this.profileVisibilityFlg = profileVisibilityFlg;
+	}
+
+	@Column(name = "CREATED_DATE")
+	public Date getCreatedDate() {
+		return this.createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	@Column(name = "UPDATED_DATE")
+	public Date getUpdatedDate() {
+		return this.updatedDate;
+	}
+
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
 	}
 
 }
