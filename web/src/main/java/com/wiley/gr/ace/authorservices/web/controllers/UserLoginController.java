@@ -75,6 +75,12 @@ public class UserLoginController extends ASExceptionController {
 
     @Value("${LOCKED}")
     private String LOCKED;
+    
+    @Value("${AuthorServices}")
+    private String AuthorServices;
+    
+    @Value("${AuthenticationType}")
+    private String AuthenticationType;
 
     /**
      * Method to authenticate user.
@@ -91,13 +97,14 @@ public class UserLoginController extends ASExceptionController {
         final SharedServieRequest sharedServieRequest = new SharedServieRequest();
         sharedServieRequest.setUserId(login.getEmailId());
         sharedServieRequest.setPassword(login.getPassword());
-        sharedServieRequest.setAuthenticationType("LDAP");
-        sharedServieRequest.setAppKey("AS");
+        sharedServieRequest.setAuthenticationType(AuthenticationType);
+        sharedServieRequest.setAppKey(AuthorServices);
+        
         SecurityResponse securityResponse = userLoginService.login(login,
                 sharedServieRequest);
         if (LOCKED.equalsIgnoreCase(securityResponse.getStatus())
                 || FAILURE.equalsIgnoreCase(securityResponse.getStatus())) {
-            service.setStatus("FAILURE");
+            service.setStatus(FAILURE);
             ErrorPOJO errorPOJO = new ErrorPOJO();
             errorPOJO.setCode(Integer.parseInt(securityResponse.getCode()));
             errorPOJO.setMessage(securityResponse.getMessage());
