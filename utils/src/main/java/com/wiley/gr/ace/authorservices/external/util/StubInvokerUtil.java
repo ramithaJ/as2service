@@ -97,7 +97,7 @@ public class StubInvokerUtil {
      * @throws URISyntaxException 
      * @throws RestClientException 
      */
-    public static <T> Object jsonStubInvoker(final String url,
+    public static <T> Object invokeJsonStub(final String url,
     		final HttpMethod httpMethod, Class<T> responseEntityClass) throws RestClientException, URISyntaxException {
     	
     	HttpHeaders headers = new HttpHeaders();
