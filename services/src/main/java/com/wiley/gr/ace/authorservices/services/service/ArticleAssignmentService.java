@@ -20,30 +20,30 @@ import com.wiley.gr.ace.authorservices.model.external.AssociationConfirmation;
 /**
  * The Interface ArticleAssignmentService.
  *
- * @author yugandhark
+ * @author virtusa version 1.0
  */
 public interface ArticleAssignmentService {
 
-	/**
-	 * Gets the article info.
-	 *
-	 * @param emailId
-	 *            the email id
-	 * @return the article info
-	 * @throws Exception
-	 *             the exception
-	 */
-	ArticleInfoDetails getArticleInfo(String emailId) throws Exception;
+    /**
+     * Gets the article info.
+     *
+     * @param emailId
+     *            the email id
+     * @return the article info
+     * @throws Exception
+     *             the exception
+     */
+    ArticleInfoDetails getArticleInfo(String emailId) throws Exception;
 
-	/**
-	 * Association confirmation.
-	 *
-	 * @param associationConfirmation
-	 *            the association confirmation
-	 * @return true, if successful
-	 * @throws Exception
-	 *             the exception
-	 */
-	boolean associationConfirmation(
-			AssociationConfirmation associationConfirmation) throws Exception;
+    /**
+     * Association confirmation.
+     *
+     * @param associationConfirmation
+     *            the association confirmation
+     * @return true, if successful
+     * @throws Exception
+     *             the exception
+     */
+    boolean associationConfirmation(
+            AssociationConfirmation associationConfirmation) throws Exception;
 }

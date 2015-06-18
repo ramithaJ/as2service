@@ -25,45 +25,48 @@ import com.wiley.gr.ace.authorservices.services.service.ArticleAssignmentService
 /**
  * The Class ArticleAssignmentServiceImpl.
  *
- * @author yugandhark
+ * @author virtusa version 1.0
  */
 public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
 
-	/** The esb interface service. */
-	@Autowired(required = true)
-	private ESBInterfaceService esbInterfaceService;
+    /** The esb interface service. */
+    @Autowired(required = true)
+    private ESBInterfaceService esbInterfaceService;
 
-	/** The Shared service. */
-	@Autowired(required = true)
-	private SharedService sharedService;
+    /** The Shared service. */
+    @Autowired(required = true)
+    private SharedService sharedService;
 
-	/**
-	 * this method will take emailId as in input and call external service (ESb)
-	 * to get article info.
-	 *
-	 * @param emailId
-	 *            the email id
-	 * @return the article info
-	 */
-	@Override
-	public final ArticleInfoDetails getArticleInfo(final String emailId)
-			throws Exception {
-		return esbInterfaceService.getArticleInfo(emailId);
-	}
+    /**
+     * this method will take emailId as in input and call external service (ESb)
+     * to get article info.
+     *
+     * @param emailId
+     *            the email id
+     * @return the article info
+     * @throws Exception
+     *             the exception
+     */
+    @Override
+    public final ArticleInfoDetails getArticleInfo(final String emailId)
+            throws Exception {
+        return esbInterfaceService.getArticleInfo(emailId);
+    }
 
-	/**
-	 * Association confirmation.
-	 *
-	 * @param associationConfirmation
-	 *            the association confirmation
-	 * @return true, if successful
-	 * @throws Exception
-	 *             the exception
-	 */
-	@Override
-	public boolean associationConfirmation(
-			AssociationConfirmation associationConfirmation) throws Exception {
-		return sharedService.associationConfirmation(associationConfirmation);
-	}
+    /**
+     * Association confirmation.
+     *
+     * @param associationConfirmation
+     *            the association confirmation
+     * @return true, if successful
+     * @throws Exception
+     *             the exception
+     */
+    @Override
+    public final boolean associationConfirmation(
+            final AssociationConfirmation associationConfirmation)
+            throws Exception {
+        return sharedService.associationConfirmation(associationConfirmation);
+    }
 
 }

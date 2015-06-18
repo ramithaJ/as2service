@@ -56,8 +56,9 @@ public class DashboardController {
 
     /**
      * This method takes userId and return the Service.
-     * 
+     *
      * @param userId
+     *            the user id
      * @return service
      */
     @RequestMapping(value = "/profilemeter/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -87,8 +88,9 @@ public class DashboardController {
 
     /**
      * This method takes userId and return the Service.
-     * 
+     *
      * @param userId
+     *            the user id
      * @return service
      */
     @RequestMapping(value = "/view/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
