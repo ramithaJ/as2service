@@ -30,8 +30,8 @@ public class ArticleDetails {
 	/** The article id. */
 	private Integer articleId;
 
-	/** The article name. */
-	private String articleName;
+	/** The article title. */
+	private String articleTitle;
 
 	/** The article doi. */
 	private String articleDoi;
@@ -71,22 +71,22 @@ public class ArticleDetails {
 	}
 
 	/**
-	 * Gets the article name.
+	 * Gets the article title.
 	 *
-	 * @return the articleName
+	 * @return the articleTitle
 	 */
-	public final String getArticleName() {
-		return articleName;
+	public final String getArticleTitle() {
+		return articleTitle;
 	}
 
 	/**
-	 * Sets the article name.
+	 * Sets the article title.
 	 *
-	 * @param articleName
-	 *            the articleName to set
+	 * @param articleTitle
+	 *            the articleTitle to set
 	 */
-	public final void setArticleName(final String articleName) {
-		this.articleName = articleName;
+	public final void setArticleTitle(final String articleTitle) {
+		this.articleTitle = articleTitle;
 	}
 
 	/**

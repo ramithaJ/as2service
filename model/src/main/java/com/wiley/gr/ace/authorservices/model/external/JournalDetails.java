@@ -44,20 +44,20 @@ public class JournalDetails {
     }
 
     /**
-     * @return the journalName
+     * @return the journalTitle
      */
-    public final String getJournalName() {
-        return journalName;
+    public final String getJournalTitle() {
+        return journalTitle;
     }
 
     /**
-     * @param journalName
-     *            the journalName to set
+     * @param journalTitle
+     *            the journalTitle to set
      */
-    public final void setJournalName(final String journalName) {
-        this.journalName = journalName;
+    public final void setJournalTitle(final String journalTitle) {
+        this.journalTitle = journalTitle;
     }
 
-    /** The journal name. */
-	private String journalName;
+    /** The journal title. */
+	private String journalTitle;
 }
