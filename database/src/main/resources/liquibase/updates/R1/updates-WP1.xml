@@ -2114,5 +2114,46 @@ ALTER TABLE LOOKUP_VALUES ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
 ALTER TABLE LOOKUP_VALUES ADD FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
 </sql>
 </changeSet>
+<changeSet author="gphaniraj" id="WP1-362">
+<sql>
+ALTER TABLE ADDRESS_TYPE MODIFY CREATED_DATE TIMESTAMP(6);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-363">
+<sql>
+ALTER TABLE ADDRESS_TYPE MODIFY UPDATED_DATE TIMESTAMP(6);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-364">
+<sql>
+ALTER TABLE ALERTS MODIFY CREATED_DATE TIMESTAMP(6);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-365">
+<sql>
+ALTER TABLE ALERTS MODIFY UPDATED_DATE TIMESTAMP(6);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-366">
+<sql>
+ALTER TABLE AUDIT_DETAILS MODIFY CREATED_DATE TIMESTAMP(6);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-367">
+<sql>
+ALTER TABLE JOURNALS MODIFY CREATED_DATE TIMESTAMP(6);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-368">
+<sql>
+ALTER TABLE JOURNALS MODIFY UPDATED_DATE TIMESTAMP(6);
+</sql>
+</changeSet>
 
 </databaseChangeLog>
