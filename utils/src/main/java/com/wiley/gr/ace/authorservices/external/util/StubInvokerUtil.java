@@ -8,6 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
@@ -87,5 +88,29 @@ public class StubInvokerUtil {
         }
 
     }
+    
+    /**
+     * @param url
+     * @param requestEntityClass
+     * @param responseEntityClass
+     * @return
+     * @throws URISyntaxException 
+     * @throws RestClientException 
+     */
+    public static <T> Object jsonStubInvoker(final String url,
+    		final HttpMethod httpMethod, Class<T> responseEntityClass) throws RestClientException, URISyntaxException {
+    	
+    	HttpHeaders headers = new HttpHeaders();
 
+        headers.set("JsonStub-User-Key", "a9e83397-57c3-4eab-a6de-642f9be1b0dc");
+        headers.set("JsonStub-Project-Key",
+                     "349f8b22-1848-4017-af43-bbdb814db50a");
+
+        HttpEntity<String> entity = new HttpEntity<String>("parameters",
+                     headers);
+        ResponseEntity<T> response = new RestTemplate().exchange(new URI(url), httpMethod, entity, responseEntityClass);
+        
+    	return response.getBody();
+    }
+    
 }
