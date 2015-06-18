@@ -73,6 +73,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
                 } else {
                     Cookie cookie = new Cookie("AUTH_TOKEN", token);
                     cookie.setMaxAge(21600);
+                    cookie.setHttpOnly(false);
                     response.addCookie(cookie);
                 }
             }
