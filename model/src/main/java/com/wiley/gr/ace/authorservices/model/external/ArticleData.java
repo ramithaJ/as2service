@@ -16,11 +16,15 @@ package com.wiley.gr.ace.authorservices.model.external;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * The Class ArticleData.
  *
- * @author yugandhark
+ * @author virtusa version 1.0
  */
+@JsonInclude(Include.NON_NULL)
 public class ArticleData {
 
     /** The article details. */
@@ -40,16 +44,22 @@ public class ArticleData {
 
     /** The production status. */
     private String productionStatus;
-    
+
+    /** The quote. */
     private List<PriceObject> quote;
-    
+
+    /** The society discount. */
     private String societyDiscount;
-    
+
+    /** The tax. */
     private String tax;
-    
+
+    /** The final price. */
     private List<PriceObject> finalPrice;
 
     /**
+     * Gets the article details.
+     *
      * @return the articleDetails
      */
     public final ArticleDetails getArticleDetails() {
@@ -57,6 +67,8 @@ public class ArticleData {
     }
 
     /**
+     * Sets the article details.
+     *
      * @param articleDetails
      *            the articleDetails to set
      */
@@ -65,6 +77,8 @@ public class ArticleData {
     }
 
     /**
+     * Gets the journal details.
+     *
      * @return the journalDetails
      */
     public final JournalDetails getJournalDetails() {
@@ -72,6 +86,8 @@ public class ArticleData {
     }
 
     /**
+     * Sets the journal details.
+     *
      * @param journalDetails
      *            the journalDetails to set
      */
@@ -80,6 +96,8 @@ public class ArticleData {
     }
 
     /**
+     * Gets the article user role.
+     *
      * @return the articleUserRole
      */
     public final String getArticleUserRole() {
@@ -87,6 +105,8 @@ public class ArticleData {
     }
 
     /**
+     * Sets the article user role.
+     *
      * @param articleUserRole
      *            the articleUserRole to set
      */
@@ -95,6 +115,8 @@ public class ArticleData {
     }
 
     /**
+     * Gets the license status.
+     *
      * @return the licenseStatus
      */
     public final String getLicenseStatus() {
@@ -102,6 +124,8 @@ public class ArticleData {
     }
 
     /**
+     * Sets the license status.
+     *
      * @param licenseStatus
      *            the licenseStatus to set
      */
@@ -110,6 +134,8 @@ public class ArticleData {
     }
 
     /**
+     * Gets the order payment status.
+     *
      * @return the orderPaymentStatus
      */
     public final OrderPaymentStatus getOrderPaymentStatus() {
@@ -117,6 +143,8 @@ public class ArticleData {
     }
 
     /**
+     * Sets the order payment status.
+     *
      * @param orderPaymentStatus
      *            the orderPaymentStatus to set
      */
@@ -126,6 +154,8 @@ public class ArticleData {
     }
 
     /**
+     * Gets the production status.
+     *
      * @return the productionStatus
      */
     public final String getProductionStatus() {
@@ -133,6 +163,8 @@ public class ArticleData {
     }
 
     /**
+     * Sets the production status.
+     *
      * @param productionStatus
      *            the productionStatus to set
      */
@@ -140,35 +172,79 @@ public class ArticleData {
         this.productionStatus = productionStatus;
     }
 
-	public final List<PriceObject> getQuote() {
-		return quote;
-	}
+    /**
+     * Gets the quote.
+     *
+     * @return the quote
+     */
+    public final List<PriceObject> getQuote() {
+        return quote;
+    }
 
-	public final void setQuote(List<PriceObject> quote) {
-		this.quote = quote;
-	}
+    /**
+     * Sets the quote.
+     *
+     * @param quote
+     *            the new quote
+     */
+    public final void setQuote(final List<PriceObject> quote) {
+        this.quote = quote;
+    }
 
-	public final String getSocietyDiscount() {
-		return societyDiscount;
-	}
+    /**
+     * Gets the society discount.
+     *
+     * @return the society discount
+     */
+    public final String getSocietyDiscount() {
+        return societyDiscount;
+    }
 
-	public final void setSocietyDiscount(String societyDiscount) {
-		this.societyDiscount = societyDiscount;
-	}
+    /**
+     * Sets the society discount.
+     *
+     * @param societyDiscount
+     *            the new society discount
+     */
+    public final void setSocietyDiscount(final String societyDiscount) {
+        this.societyDiscount = societyDiscount;
+    }
 
-	public final String getTax() {
-		return tax;
-	}
+    /**
+     * Gets the tax.
+     *
+     * @return the tax
+     */
+    public final String getTax() {
+        return tax;
+    }
 
-	public final void setTax(String tax) {
-		this.tax = tax;
-	}
+    /**
+     * Sets the tax.
+     *
+     * @param tax
+     *            the new tax
+     */
+    public final void setTax(final String tax) {
+        this.tax = tax;
+    }
 
-	public final List<PriceObject> getFinalPrice() {
-		return finalPrice;
-	}
+    /**
+     * Gets the final price.
+     *
+     * @return the final price
+     */
+    public final List<PriceObject> getFinalPrice() {
+        return finalPrice;
+    }
 
-	public final void setFinalPrice(List<PriceObject> finalPrice) {
-		this.finalPrice = finalPrice;
-	}
+    /**
+     * Sets the final price.
+     *
+     * @param finalPrice
+     *            the new final price
+     */
+    public final void setFinalPrice(final List<PriceObject> finalPrice) {
+        this.finalPrice = finalPrice;
+    }
 }

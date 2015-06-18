@@ -16,11 +16,15 @@ package com.wiley.gr.ace.authorservices.model.external;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * The Class DashboardView.
  *
- * @author yugandhark
+ * @author virtusa version 1.0
  */
+@JsonInclude(Include.NON_NULL)
 public class DashboardView {
 
     /** The article data. */
@@ -31,6 +35,9 @@ public class DashboardView {
 
     /** The article citation record. */
     private List<ArticleCitationRecord> articleCitationRecord;
+
+    /** The article read record. */
+    private List<ArticleReadRecord> articleReadRecord;
 
     /**
      * @return the articleData
@@ -94,8 +101,5 @@ public class DashboardView {
             final List<ArticleReadRecord> articleReadRecord) {
         this.articleReadRecord = articleReadRecord;
     }
-
-    /** The article read record. */
-    private List<ArticleReadRecord> articleReadRecord;
 
 }

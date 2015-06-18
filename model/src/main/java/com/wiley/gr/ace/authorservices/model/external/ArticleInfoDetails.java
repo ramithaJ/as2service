@@ -16,11 +16,15 @@ package com.wiley.gr.ace.authorservices.model.external;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * The Class ArticleInfoDetails.
  *
- * @author yugandhark
+ * @author virtusa version 1.0
  */
+@JsonInclude(Include.NON_NULL)
 public class ArticleInfoDetails {
 
     /** The article info. */
