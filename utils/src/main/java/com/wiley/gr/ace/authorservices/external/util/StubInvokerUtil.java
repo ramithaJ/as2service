@@ -73,7 +73,7 @@ public class StubInvokerUtil {
     public static <T> Object restServiceInvoker(final String url,
             Object requestEntityClass, Class<T> responseEntityClass) {
 
-        try {     
+        try {
             ResponseEntity<T> response = new RestTemplate().postForEntity(
                     new URI(url), requestEntityClass, responseEntityClass);
 
@@ -88,29 +88,40 @@ public class StubInvokerUtil {
         }
 
     }
-    
+
     /**
      * @param url
      * @param requestEntityClass
      * @param responseEntityClass
      * @return
-     * @throws URISyntaxException 
-     * @throws RestClientException 
+     * @throws URISyntaxException
+     * @throws RestClientException
      */
     public static <T> Object invokeJsonStub(final String url,
-    		final HttpMethod httpMethod, Class<T> responseEntityClass) throws RestClientException, URISyntaxException {
-    	
-    	HttpHeaders headers = new HttpHeaders();
+            final HttpMethod httpMethod, Class<T> responseEntityClass) {
+
+        HttpHeaders headers = new HttpHeaders();
 
         headers.set("JsonStub-User-Key", "a9e83397-57c3-4eab-a6de-642f9be1b0dc");
         headers.set("JsonStub-Project-Key",
-                     "349f8b22-1848-4017-af43-bbdb814db50a");
+                "349f8b22-1848-4017-af43-bbdb814db50a");
+        try {
+            HttpEntity<String> entity = new HttpEntity<String>("parameters",
+                    headers);
 
-        HttpEntity<String> entity = new HttpEntity<String>("parameters",
-                     headers);
-        ResponseEntity<T> response = new RestTemplate().exchange(new URI(url), httpMethod, entity, responseEntityClass);
-        
-    	return response.getBody();
+            ResponseEntity<T> response = new RestTemplate().exchange(new URI(
+                    url), httpMethod, entity, responseEntityClass);
+
+            if (response != null) {
+                return response.getBody();
+            } else {
+                return null;
+            }
+        } catch (URISyntaxException e) {
+
+            throw new ASException("122", "unable to connect external service");
+
+        }
+
     }
-    
 }

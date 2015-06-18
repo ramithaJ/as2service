@@ -16,16 +16,22 @@ package com.wiley.gr.ace.authorservices.model.external;
 import java.util.List;
 
 import com.wiley.gr.ace.authorservices.model.Address;
+import com.wiley.gr.ace.authorservices.model.Amount;
 
 /**
  * The Class Order.
  *
  * @author virtusa version 1.0
  */
-public class Order {
+public class OrderData {
 
     /** The article id. */
     private String articleId;
+    /** The final amount. */
+    private Amount finalAmount;
+
+    /** The amount payable. */
+    private Amount amountPayable;
 
     /** The journal id. */
     private String journalId;
@@ -34,7 +40,28 @@ public class Order {
     private String orderType;
 
     /** The pricing. */
-    private Pricing pricing;
+    private PricingData pricing;
+
+    /** The discount. */
+    private DiscountData discount;
+
+    /** The affiliation. */
+    private AffiliationData affiliation;
+
+    /** The payment method. */
+    private String paymentMethod;
+
+    /** The tax details. */
+    private TaxData taxDetails;
+
+    /** The addresses. */
+    private List<Address> addresses;
+
+    /** The customer. */
+    private Customer customer;
+
+    /** The funding details. */
+    private FundingDetails fundingDetails;
 
     /**
      * @return the articleId
@@ -84,7 +111,7 @@ public class Order {
     /**
      * @return the pricing
      */
-    public final Pricing getPricing() {
+    public final PricingData getPricing() {
         return pricing;
     }
 
@@ -92,14 +119,14 @@ public class Order {
      * @param pricing
      *            the pricing to set
      */
-    public final void setPricing(final Pricing pricing) {
+    public final void setPricing(final PricingData pricing) {
         this.pricing = pricing;
     }
 
     /**
      * @return the discount
      */
-    public final Discount getDiscount() {
+    public final DiscountData getDiscount() {
         return discount;
     }
 
@@ -107,14 +134,14 @@ public class Order {
      * @param discount
      *            the discount to set
      */
-    public final void setDiscount(final Discount discount) {
+    public final void setDiscount(final DiscountData discount) {
         this.discount = discount;
     }
 
     /**
      * @return the affiliation
      */
-    public final Affiliation getAffiliation() {
+    public final AffiliationData getAffiliation() {
         return affiliation;
     }
 
@@ -122,7 +149,7 @@ public class Order {
      * @param affiliation
      *            the affiliation to set
      */
-    public final void setAffiliation(final Affiliation affiliation) {
+    public final void setAffiliation(final AffiliationData affiliation) {
         this.affiliation = affiliation;
     }
 
@@ -139,21 +166,6 @@ public class Order {
      */
     public final void setPaymentMethod(final String paymentMethod) {
         this.paymentMethod = paymentMethod;
-    }
-
-    /**
-     * @return the creditCard
-     */
-    public final CreditCard getCreditCard() {
-        return creditCard;
-    }
-
-    /**
-     * @param creditCard
-     *            the creditCard to set
-     */
-    public final void setCreditCard(final CreditCard creditCard) {
-        this.creditCard = creditCard;
     }
 
     /**
@@ -215,29 +227,5 @@ public class Order {
     public final void setFundingDetails(final FundingDetails fundingDetails) {
         this.fundingDetails = fundingDetails;
     }
-
-    /** The discount. */
-    private Discount discount;
-
-    /** The affiliation. */
-    private Affiliation affiliation;
-
-    /** The payment method. */
-    private String paymentMethod;
-
-    /** The credit card. */
-    private CreditCard creditCard;
-
-    /** The tax details. */
-    private TaxData taxDetails;
-
-    /** The addresses. */
-    private List<Address> addresses;
-
-    /** The customer. */
-    private Customer customer;
-
-    /** The funding details. */
-    private FundingDetails fundingDetails;
 
 }

@@ -18,7 +18,7 @@ package com.wiley.gr.ace.authorservices.model.external;
  *
  * @author virtusa version 1.0
  */
-public class Pricing {
+public class PricingData {
 
     /** The product base price. */
     private String productBasePrice;

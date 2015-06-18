@@ -12,7 +12,11 @@
 
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
+import com.wiley.gr.ace.authorservices.model.external.OrderData;
 import com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService;
 
 /**
@@ -20,6 +24,10 @@ import com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService;
  *
  */
 public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
+
+    /** Getting Bean Of Order Service */
+    @Autowired(required = true)
+    private OrderService orderservice;
 
     /**
      * This method will take userId and orderId as input and calls external
@@ -29,7 +37,9 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     public OnlineOpenOrder getOnlineOpenOrderDetails(final String userId,
             final String orderId) {
         OnlineOpenOrder onlineOpenOrder = new OnlineOpenOrder();
-        
+        OrderData order = orderservice.getOrderDetails(userId, orderId);
+           onlineOpenOrder.setArticleId(order.getArticleId());
+           //onlineOpenOrder.setAmountPayable(order.geta);
         return onlineOpenOrder;
     }
 

@@ -14,12 +14,14 @@ package com.wiley.gr.ace.authorservices.externalservices.context;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
 import com.wiley.gr.ace.authorservices.externalservices.service.SharedService;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.BPMInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrcidInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.impl.OrderServiceImpl;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.SharedServiceImpl;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.UserManagementImpl;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.BPMInterfaceServiceImpl;
@@ -33,64 +35,74 @@ import com.wiley.gr.ace.authorservices.externalservices.service.impl.OrcidInterf
 @Configuration
 public class ExternalServiceBeanConfig {
 
-	/**
-	 * A lm external service.
-	 *
-	 * @return the user management
-	 */
-	@Bean(name = "UserManagement")
-	public UserManagement aLMExternalService() {
-		return new UserManagementImpl();
-	}
+    /**
+     * A lm external service.
+     *
+     * @return the user management
+     */
+    @Bean(name = "UserManagement")
+    public UserManagement aLMExternalService() {
+        return new UserManagementImpl();
+    }
 
-	/**
-	 * Bpm external service.
-	 *
-	 * @return the BPM interface service
-	 */
-	@Bean(name = "BPMExternalService")
-	public BPMInterfaceService bpmExternalService() {
-		return new BPMInterfaceServiceImpl();
-	}
+    /**
+     * Bpm external service.
+     *
+     * @return the BPM interface service
+     */
+    @Bean(name = "BPMExternalService")
+    public BPMInterfaceService bpmExternalService() {
+        return new BPMInterfaceServiceImpl();
+    }
 
-	/**
-	 * E sb interface service.
-	 *
-	 * @return the ESB interface service
-	 */
-	@Bean(name = "ESBInterfaceService")
-	public ESBInterfaceService eSBInterfaceService() {
-		return new ESBInterfaceServiceImpl();
-	}
+    /**
+     * E sb interface service.
+     *
+     * @return the ESB interface service
+     */
+    @Bean(name = "ESBInterfaceService")
+    public ESBInterfaceService eSBInterfaceService() {
+        return new ESBInterfaceServiceImpl();
+    }
 
-	/**
-	 * Orcid interface service.
-	 *
-	 * @return the orcid interface service
-	 */
-	@Bean(name = "OricdInterfaceService")
-	public OrcidInterfaceService orcidInterfaceService() {
-		return new OrcidInterfaceServiceImpl();
-	}
+    /**
+     * Orcid interface service.
+     *
+     * @return the orcid interface service
+     */
+    @Bean(name = "OricdInterfaceService")
+    public OrcidInterfaceService orcidInterfaceService() {
+        return new OrcidInterfaceServiceImpl();
+    }
 
-	/**
-	 * Cdm interface service.
-	 *
-	 * @return the user profiles
-	 */
-	@Bean(name = "UserProfiles")
-	public UserProfiles cdmInterfaceService() {
+    /**
+     * Cdm interface service.
+     *
+     * @return the user profiles
+     */
+    @Bean(name = "UserProfiles")
+    public UserProfiles cdmInterfaceService() {
 
-		return new UserProfilesImpl();
-	}
+        return new UserProfilesImpl();
+    }
 
-	/**
-	 * Shared service.
-	 *
-	 * @return the shared service
-	 */
-	@Bean(name = "SharedService")
-	public SharedService sharedService() {
-		return new SharedServiceImpl();
-	}
+    /**
+     * Shared service.
+     *
+     * @return the shared service
+     */
+    @Bean(name = "SharedService")
+    public SharedService sharedService() {
+        return new SharedServiceImpl();
+    }
+
+    /**
+     * Order service.
+     *
+     * @return the Order service
+     */
+    @Bean(name = "OrderService")
+    public OrderService orderService() {
+        return new OrderServiceImpl();
+    }
 }
