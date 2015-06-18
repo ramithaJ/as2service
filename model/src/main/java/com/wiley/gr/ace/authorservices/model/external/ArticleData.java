@@ -14,8 +14,6 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -27,224 +25,137 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class ArticleData {
 
-    /** The article details. */
-    private ArticleDetails articleDetails;
+	/** The article details. */
+	private ArticleDetails articleDetails;
 
-    /** The journal details. */
-    private JournalDetails journalDetails;
+	/** The journal details. */
+	private JournalDetails journalDetails;
 
-    /** The article user role. */
-    private String articleUserRole;
+	/** The article user role. */
+	private String articleUserRole;
 
-    /** The license status. */
-    private String licenseStatus;
+	/** The license status. */
+	private String licenseStatus;
 
-    /** The order payment status. */
-    private OrderPaymentStatus orderPaymentStatus;
+	/** The order payment status. */
+	private OrderPaymentStatus orderPaymentStatus;
 
-    /** The production status. */
-    private String productionStatus;
+	/** The production status. */
+	private String productionStatus;
 
-    /** The quote. */
-    private List<PriceObject> quote;
+	/**
+	 * Gets the article details.
+	 *
+	 * @return the articleDetails
+	 */
+	public final ArticleDetails getArticleDetails() {
+		return articleDetails;
+	}
 
-    /** The society discount. */
-    private String societyDiscount;
+	/**
+	 * Sets the article details.
+	 *
+	 * @param articleDetails
+	 *            the articleDetails to set
+	 */
+	public final void setArticleDetails(final ArticleDetails articleDetails) {
+		this.articleDetails = articleDetails;
+	}
 
-    /** The tax. */
-    private String tax;
+	/**
+	 * Gets the journal details.
+	 *
+	 * @return the journalDetails
+	 */
+	public final JournalDetails getJournalDetails() {
+		return journalDetails;
+	}
 
-    /** The final price. */
-    private List<PriceObject> finalPrice;
+	/**
+	 * Sets the journal details.
+	 *
+	 * @param journalDetails
+	 *            the journalDetails to set
+	 */
+	public final void setJournalDetails(final JournalDetails journalDetails) {
+		this.journalDetails = journalDetails;
+	}
 
-    /**
-     * Gets the article details.
-     *
-     * @return the articleDetails
-     */
-    public final ArticleDetails getArticleDetails() {
-        return articleDetails;
-    }
+	/**
+	 * Gets the article user role.
+	 *
+	 * @return the articleUserRole
+	 */
+	public final String getArticleUserRole() {
+		return articleUserRole;
+	}
 
-    /**
-     * Sets the article details.
-     *
-     * @param articleDetails
-     *            the articleDetails to set
-     */
-    public final void setArticleDetails(final ArticleDetails articleDetails) {
-        this.articleDetails = articleDetails;
-    }
+	/**
+	 * Sets the article user role.
+	 *
+	 * @param articleUserRole
+	 *            the articleUserRole to set
+	 */
+	public final void setArticleUserRole(final String articleUserRole) {
+		this.articleUserRole = articleUserRole;
+	}
 
-    /**
-     * Gets the journal details.
-     *
-     * @return the journalDetails
-     */
-    public final JournalDetails getJournalDetails() {
-        return journalDetails;
-    }
+	/**
+	 * Gets the license status.
+	 *
+	 * @return the licenseStatus
+	 */
+	public final String getLicenseStatus() {
+		return licenseStatus;
+	}
 
-    /**
-     * Sets the journal details.
-     *
-     * @param journalDetails
-     *            the journalDetails to set
-     */
-    public final void setJournalDetails(final JournalDetails journalDetails) {
-        this.journalDetails = journalDetails;
-    }
+	/**
+	 * Sets the license status.
+	 *
+	 * @param licenseStatus
+	 *            the licenseStatus to set
+	 */
+	public final void setLicenseStatus(final String licenseStatus) {
+		this.licenseStatus = licenseStatus;
+	}
 
-    /**
-     * Gets the article user role.
-     *
-     * @return the articleUserRole
-     */
-    public final String getArticleUserRole() {
-        return articleUserRole;
-    }
+	/**
+	 * Gets the order payment status.
+	 *
+	 * @return the orderPaymentStatus
+	 */
+	public final OrderPaymentStatus getOrderPaymentStatus() {
+		return orderPaymentStatus;
+	}
 
-    /**
-     * Sets the article user role.
-     *
-     * @param articleUserRole
-     *            the articleUserRole to set
-     */
-    public final void setArticleUserRole(final String articleUserRole) {
-        this.articleUserRole = articleUserRole;
-    }
+	/**
+	 * Sets the order payment status.
+	 *
+	 * @param orderPaymentStatus
+	 *            the orderPaymentStatus to set
+	 */
+	public final void setOrderPaymentStatus(
+			final OrderPaymentStatus orderPaymentStatus) {
+		this.orderPaymentStatus = orderPaymentStatus;
+	}
 
-    /**
-     * Gets the license status.
-     *
-     * @return the licenseStatus
-     */
-    public final String getLicenseStatus() {
-        return licenseStatus;
-    }
+	/**
+	 * Gets the production status.
+	 *
+	 * @return the productionStatus
+	 */
+	public final String getProductionStatus() {
+		return productionStatus;
+	}
 
-    /**
-     * Sets the license status.
-     *
-     * @param licenseStatus
-     *            the licenseStatus to set
-     */
-    public final void setLicenseStatus(final String licenseStatus) {
-        this.licenseStatus = licenseStatus;
-    }
+	/**
+	 * Sets the production status.
+	 *
+	 * @param productionStatus
+	 *            the productionStatus to set
+	 */
+	public final void setProductionStatus(final String productionStatus) {
+		this.productionStatus = productionStatus;
+	}
 
-    /**
-     * Gets the order payment status.
-     *
-     * @return the orderPaymentStatus
-     */
-    public final OrderPaymentStatus getOrderPaymentStatus() {
-        return orderPaymentStatus;
-    }
-
-    /**
-     * Sets the order payment status.
-     *
-     * @param orderPaymentStatus
-     *            the orderPaymentStatus to set
-     */
-    public final void setOrderPaymentStatus(
-            final OrderPaymentStatus orderPaymentStatus) {
-        this.orderPaymentStatus = orderPaymentStatus;
-    }
-
-    /**
-     * Gets the production status.
-     *
-     * @return the productionStatus
-     */
-    public final String getProductionStatus() {
-        return productionStatus;
-    }
-
-    /**
-     * Sets the production status.
-     *
-     * @param productionStatus
-     *            the productionStatus to set
-     */
-    public final void setProductionStatus(final String productionStatus) {
-        this.productionStatus = productionStatus;
-    }
-
-    /**
-     * Gets the quote.
-     *
-     * @return the quote
-     */
-    public final List<PriceObject> getQuote() {
-        return quote;
-    }
-
-    /**
-     * Sets the quote.
-     *
-     * @param quote
-     *            the new quote
-     */
-    public final void setQuote(final List<PriceObject> quote) {
-        this.quote = quote;
-    }
-
-    /**
-     * Gets the society discount.
-     *
-     * @return the society discount
-     */
-    public final String getSocietyDiscount() {
-        return societyDiscount;
-    }
-
-    /**
-     * Sets the society discount.
-     *
-     * @param societyDiscount
-     *            the new society discount
-     */
-    public final void setSocietyDiscount(final String societyDiscount) {
-        this.societyDiscount = societyDiscount;
-    }
-
-    /**
-     * Gets the tax.
-     *
-     * @return the tax
-     */
-    public final String getTax() {
-        return tax;
-    }
-
-    /**
-     * Sets the tax.
-     *
-     * @param tax
-     *            the new tax
-     */
-    public final void setTax(final String tax) {
-        this.tax = tax;
-    }
-
-    /**
-     * Gets the final price.
-     *
-     * @return the final price
-     */
-    public final List<PriceObject> getFinalPrice() {
-        return finalPrice;
-    }
-
-    /**
-     * Sets the final price.
-     *
-     * @param finalPrice
-     *            the new final price
-     */
-    public final void setFinalPrice(final List<PriceObject> finalPrice) {
-        this.finalPrice = finalPrice;
-    }
 }

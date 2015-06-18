@@ -59,5 +59,5 @@ public class JournalDetails {
     }
 
     /** The journal name. */
-    private String journalName;
+	private String journalName;
 }
