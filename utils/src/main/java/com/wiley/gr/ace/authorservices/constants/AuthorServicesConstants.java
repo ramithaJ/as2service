@@ -75,4 +75,11 @@ public class AuthorServicesConstants {
     
     /** The Constant INVALIDEMAILMSG. */
     public static final String INVALIDEMAILMSG = "Invalid email address. Please Re-Enter";
+    
+    /** The Constant SERVERERRORCODE. */
+    public static final String SERVERERRORCODE = "2013";
+    
+    /** The Constant SERVERERRORMESSAGE. */
+    public static final String SERVERERRORMESSAGE = "Unable to process your request. Please try after some time..";
+    
 }

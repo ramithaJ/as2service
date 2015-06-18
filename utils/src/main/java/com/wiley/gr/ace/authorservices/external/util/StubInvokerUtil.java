@@ -3,6 +3,7 @@ package com.wiley.gr.ace.authorservices.external.util;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -10,8 +11,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
-import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
 
 /**
  * The Class StubInvokerUtil.
@@ -35,7 +36,7 @@ public class StubInvokerUtil {
      */
     public static <T> Object invokeStub(final String url,
             final HttpMethod httpMethod, Class<T> clazz) {
-
+        
         try {
             HttpHeaders requestHeaders = new HttpHeaders();
             requestHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -77,12 +78,12 @@ public class StubInvokerUtil {
                     new URI(url), requestEntityClass, responseEntityClass);
 
             if (null == response) {
-                return new SecurityResponse();
+                throw new ASException(AuthorServicesConstants.SERVERERRORCODE, AuthorServicesConstants.SERVERERRORMESSAGE);
             }
             return response.getBody();
-        } catch (URISyntaxException e) {
+        } catch (Exception e) {
 
-            throw new ASException();
+            throw new ASException(AuthorServicesConstants.SERVERERRORCODE, AuthorServicesConstants.SERVERERRORMESSAGE);
 
         }
 

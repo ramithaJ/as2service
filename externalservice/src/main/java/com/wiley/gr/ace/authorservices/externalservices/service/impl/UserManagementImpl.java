@@ -97,7 +97,7 @@ public class UserManagementImpl implements UserManagement {
     @Override
     public SecurityResponse authenticateUser(
             SharedServieRequest sharedServieRequest) {
-
+        System.err.println("hai");
         return (SecurityResponse) StubInvokerUtil.restServiceInvoker(
                 sharedServiceAuthenticateUrl, sharedServieRequest,
                 SecurityResponse.class);
