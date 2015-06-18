@@ -25,70 +25,48 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class CommunicationDetails {
 
-    /** The from. */
-    private String from;
-
-    /** The subject. */
-    private String subject;
-
-    /** The body. */
-    private String body;
-
-    /**
-     * Gets the from.
-     *
-     * @return the from
-     */
-    public final String getFrom() {
-        return from;
+    private Integer userId;
+    private Integer inviationId;
+    private String emailId;
+    private Integer articleId;
+    private String sentDate;
+    private Integer sentBy;
+    public final Integer getUserId() {
+        return userId;
     }
-
-    /**
-     * Sets the from.
-     *
-     * @param from
-     *            the from to set
-     */
-    public final void setFrom(final String from) {
-        this.from = from;
+    public final void setUserId(Integer userId) {
+        this.userId = userId;
     }
-
-    /**
-     * Gets the subject.
-     *
-     * @return the subject
-     */
-    public final String getSubject() {
-        return subject;
+    public final Integer getInviationId() {
+        return inviationId;
     }
-
-    /**
-     * Sets the subject.
-     *
-     * @param subject
-     *            the subject to set
-     */
-    public final void setSubject(final String subject) {
-        this.subject = subject;
+    public final void setInviationId(Integer inviationId) {
+        this.inviationId = inviationId;
     }
-
-    /**
-     * Gets the body.
-     *
-     * @return the body
-     */
-    public final String getBody() {
-        return body;
+    public final String getEmailId() {
+        return emailId;
     }
-
-    /**
-     * Sets the body.
-     *
-     * @param body
-     *            the body to set
-     */
-    public final void setBody(final String body) {
-        this.body = body;
+    public final void setEmailId(String emailId) {
+        this.emailId = emailId;
     }
+    public final Integer getArticleId() {
+        return articleId;
+    }
+    public final void setArticleId(Integer articleId) {
+        this.articleId = articleId;
+    }
+    public final String getSentDate() {
+        return sentDate;
+    }
+    public final void setSentDate(String sentDate) {
+        this.sentDate = sentDate;
+    }
+    public final Integer getSentBy() {
+        return sentBy;
+    }
+    public final void setSentBy(Integer sentBy) {
+        this.sentBy = sentBy;
+    }
+    
 
 }
