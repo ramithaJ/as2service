@@ -11,21 +11,32 @@ import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.external.AssociationConfirmation;
 
 /**
- * @author yugandhark
+ * The Class SharedServiceImpl.
  *
+ * @author virtusa version 1.0
  */
 public class SharedServiceImpl implements SharedService {
 
-	@Override
-	public boolean associationConfirmation(
-			AssociationConfirmation associationConfirmation) throws Exception {
-		final String url = "http://demo7930138.mockable.io/article/associationconfirmation";
-		Service service = (Service) StubInvokerUtil.invokeStub(url,
-				HttpMethod.PUT, Service.class);
-		String status = service.getStatus();
-		if (status != null && status.equalsIgnoreCase("SUCCESS")) {
-			return true;
-		}
-		return false;
-	}
+    /**
+     * Association confirmation.
+     *
+     * @param associationConfirmation
+     *            the association confirmation
+     * @return true, if successful
+     * @throws Exception
+     *             the exception
+     */
+    @Override
+    public final boolean associationConfirmation(
+            final AssociationConfirmation associationConfirmation)
+            throws Exception {
+        final String url = "http://demo7930138.mockable.io/article/associationconfirmation";
+        Service service = (Service) StubInvokerUtil.invokeStub(url,
+                HttpMethod.PUT, Service.class);
+        String status = service.getStatus();
+        if (null != status && status.equalsIgnoreCase("SUCCESS")) {
+            return true;
+        }
+        return false;
+    }
 }

@@ -18,7 +18,6 @@ import com.wiley.gr.ace.authorservices.model.external.ArticleData;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
 import com.wiley.gr.ace.authorservices.model.external.ArticleRecord;
 import com.wiley.gr.ace.authorservices.model.external.CommunicationDetails;
-import com.wiley.gr.ace.authorservices.model.external.DashboardView;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 import com.wiley.gr.ace.authorservices.model.external.License;
 import com.wiley.gr.ace.authorservices.model.external.OnlineOpen;
@@ -93,28 +92,91 @@ public interface ESBInterfaceService {
     Status creatUser(ProfileInformation profileForCreation) throws Exception;
 
     /**
-     * View dashboard.
+     * Gets the all author articles.
      *
      * @param userId
      *            the user id
-     * @return the dashboard view
+     * @return the all author articles
+     * @throws Exception
+     *             the exception
      */
-    DashboardView viewDashboard(String userId);
+    List<ArticleData> getAllAuthorArticles(String userId) throws Exception;
 
-	List<ArticleData> getAllAuthorArticles(String userId) throws Exception;
+    /**
+     * Gets the license status.
+     *
+     * @param articleId
+     *            the article id
+     * @return the license status
+     * @throws Exception
+     *             the exception
+     */
+    License getLicenseStatus(Integer articleId) throws Exception;
 
-	License getLicenseStatus(Integer articleId) throws Exception;
+    /**
+     * Gets the open access status.
+     *
+     * @param articleId
+     *            the article id
+     * @return the open access status
+     * @throws Exception
+     *             the exception
+     */
+    OpenAccess getOpenAccessStatus(Integer articleId) throws Exception;
 
-	OpenAccess getOpenAccessStatus(Integer articleId) throws Exception;
+    /**
+     * Gets the online open status.
+     *
+     * @param articleId
+     *            the article id
+     * @return the online open status
+     * @throws Exception
+     *             the exception
+     */
+    OnlineOpen getOnlineOpenStatus(Integer articleId) throws Exception;
 
-	OnlineOpen getOnlineOpenStatus(Integer articleId) throws Exception;
+    /**
+     * Gets the production status.
+     *
+     * @param articleId
+     *            the article id
+     * @return the production status
+     * @throws Exception
+     *             the exception
+     */
+    Production getProductionStatus(Integer articleId) throws Exception;
 
-	Production getProductionStatus(Integer articleId) throws Exception;
+    /**
+     * Gets the communication details.
+     *
+     * @param emailId
+     *            the email id
+     * @return the communication details
+     * @throws Exception
+     *             the exception
+     */
+    List<CommunicationDetails> getCommunicationDetails(String emailId)
+            throws Exception;
 
-	List<CommunicationDetails> getCommunicationDetails(String emailId)
-			throws Exception;
+    /**
+     * Gets the article citation read records.
+     *
+     * @param userId
+     *            the user id
+     * @return the article citation read records
+     * @throws Exception
+     *             the exception
+     */
+    ArticleRecord getArticleCitationReadRecords(String userId) throws Exception;
 
-	ArticleRecord getArticleCitationReadRecords(String userId) throws Exception;
-
-	ArticleInfoDetails getArticleInfo(String emailId) throws Exception;
+    /**
+     * Gets the article info.
+     *
+     * @param emailId
+     *            the email id
+     * @return the article info
+     * @throws Exception
+     *             the exception
+     */
+    ArticleInfoDetails getArticleInfo(String emailId) throws Exception;
 }

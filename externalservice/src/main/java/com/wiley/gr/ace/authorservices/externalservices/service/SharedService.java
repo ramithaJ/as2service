@@ -6,11 +6,21 @@ package com.wiley.gr.ace.authorservices.externalservices.service;
 import com.wiley.gr.ace.authorservices.model.external.AssociationConfirmation;
 
 /**
- * @author yugandhark
+ * The Interface SharedService.
  *
+ * @author virtusa version 1.0
  */
 public interface SharedService {
 
-	boolean associationConfirmation(
-			AssociationConfirmation associationConfirmation) throws Exception;
+    /**
+     * Association confirmation.
+     *
+     * @param associationConfirmation
+     *            the association confirmation
+     * @return true, if successful
+     * @throws Exception
+     *             the exception
+     */
+    boolean associationConfirmation(
+            AssociationConfirmation associationConfirmation) throws Exception;
 }

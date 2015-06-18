@@ -33,57 +33,62 @@ import com.wiley.gr.ace.authorservices.externalservices.service.impl.OrcidInterf
 @Configuration
 public class ExternalServiceBeanConfig {
 
-    /**
-     * A lm external service.
-     *
-     * @return the user management
-     */
-    @Bean(name = "UserManagement")
-    public UserManagement aLMExternalService() {
-        return new UserManagementImpl();
-    }
+	/**
+	 * A lm external service.
+	 *
+	 * @return the user management
+	 */
+	@Bean(name = "UserManagement")
+	public UserManagement aLMExternalService() {
+		return new UserManagementImpl();
+	}
 
-    /**
-     * Bpm external service.
-     *
-     * @return the BPM interface service
-     */
-    @Bean(name = "BPMExternalService")
-    public BPMInterfaceService bpmExternalService() {
-        return new BPMInterfaceServiceImpl();
-    }
+	/**
+	 * Bpm external service.
+	 *
+	 * @return the BPM interface service
+	 */
+	@Bean(name = "BPMExternalService")
+	public BPMInterfaceService bpmExternalService() {
+		return new BPMInterfaceServiceImpl();
+	}
 
-    /**
-     * E sb interface service.
-     *
-     * @return the ESB interface service
-     */
-    @Bean(name = "ESBInterfaceService")
-    public ESBInterfaceService eSBInterfaceService() {
-        return new ESBInterfaceServiceImpl();
-    }
+	/**
+	 * E sb interface service.
+	 *
+	 * @return the ESB interface service
+	 */
+	@Bean(name = "ESBInterfaceService")
+	public ESBInterfaceService eSBInterfaceService() {
+		return new ESBInterfaceServiceImpl();
+	}
 
-    /**
-     * Orcid interface service.
-     *
-     * @return the orcid interface service
-     */
-    @Bean(name = "OricdInterfaceService")
-    public OrcidInterfaceService orcidInterfaceService() {
-        return new OrcidInterfaceServiceImpl();
-    }
+	/**
+	 * Orcid interface service.
+	 *
+	 * @return the orcid interface service
+	 */
+	@Bean(name = "OricdInterfaceService")
+	public OrcidInterfaceService orcidInterfaceService() {
+		return new OrcidInterfaceServiceImpl();
+	}
 
-    /**
-     * Cdm interface service.
-     *
-     * @return the user profiles
-     */
-    @Bean(name = "UserProfiles")
-    public UserProfiles cdmInterfaceService() {
+	/**
+	 * Cdm interface service.
+	 *
+	 * @return the user profiles
+	 */
+	@Bean(name = "UserProfiles")
+	public UserProfiles cdmInterfaceService() {
 
 		return new UserProfilesImpl();
 	}
 
+	/**
+	 * Shared service.
+	 *
+	 * @return the shared service
+	 */
 	@Bean(name = "SharedService")
 	public SharedService sharedService() {
 		return new SharedServiceImpl();
