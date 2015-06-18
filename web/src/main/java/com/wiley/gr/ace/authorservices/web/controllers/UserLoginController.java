@@ -70,6 +70,12 @@ public class UserLoginController extends ASExceptionController {
     @Value("${SUCCESS}")
     private String SUCCESS;
 
+    @Value("${FAILURE}")
+    private String FAILURE;
+
+    @Value("${LOCKED}")
+    private String LOCKED;
+
     /**
      * Method to authenticate user.
      * 
@@ -89,14 +95,14 @@ public class UserLoginController extends ASExceptionController {
         sharedServieRequest.setAppKey("AS");
         SecurityResponse securityResponse = userLoginService.login(login,
                 sharedServieRequest);
-        if ("LOCKED".equalsIgnoreCase(securityResponse.getStatus())) {
+        if (LOCKED.equalsIgnoreCase(securityResponse.getStatus())
+                || FAILURE.equalsIgnoreCase(securityResponse.getStatus())) {
             service.setStatus("FAILURE");
             ErrorPOJO errorPOJO = new ErrorPOJO();
             errorPOJO.setCode(Integer.parseInt(securityResponse.getCode()));
             errorPOJO.setMessage(securityResponse.getMessage());
             service.setError(errorPOJO);
-        }
-        if (SUCCESS.equals(securityResponse.getStatus())) {
+        } else if (SUCCESS.equals(securityResponse.getStatus())) {
 
             Integer userId = userLoginServiceDAO.getUserId(login.getEmailId());
             Login user = new Login();
