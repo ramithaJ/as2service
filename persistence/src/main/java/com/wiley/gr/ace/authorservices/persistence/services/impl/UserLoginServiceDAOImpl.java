@@ -18,7 +18,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
-import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
@@ -137,8 +137,8 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
         try {
             session = getSessionFactory().openSession();
             session.beginTransaction();
-            AuthorProfile authorProfile = new AuthorProfile();
-            authorProfile = (AuthorProfile) session.get(AuthorProfile.class,
+            UserProfile authorProfile = new UserProfile();
+            authorProfile = (UserProfile) session.get(UserProfile.class,
                     userId);
             authorProfile.setIsAccountVerified('Y');
             session.update(authorProfile);
