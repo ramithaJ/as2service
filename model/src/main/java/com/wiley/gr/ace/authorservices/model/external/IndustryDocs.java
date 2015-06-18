@@ -1,87 +1,137 @@
 /*******************************************************************************
-* Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
-*
-* All material contained herein is proprietary to John Wiley & Sons 
+ * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
+ *
+ * All material contained herein is proprietary to John Wiley & Sons 
  * and its third party suppliers, if any. The methods, techniques and 
  * technical concepts contained herein are considered trade secrets 
  * and confidential and may be protected by intellectual property laws.  
  * Reproduction or distribution of this material, in whole or in part, 
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
-*******************************************************************************/
+ *******************************************************************************/
 package com.wiley.gr.ace.authorservices.model.external;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
- * @author virtusa
- *	version 1.0
+ * The Class IndustryDocs.
  *
+ * @author virtusa version 1.0
  */
 public class IndustryDocs {
-    
+
+    /** The id. */
     private String id;
 
-    private String _version_;
+    /** The version. */
+    @JsonProperty("_version_")
+    private String version;
 
-    private String NAICS_CODE;
+    /** The naics code. */
+    @JsonProperty("NAICS_CODE")
+    private String naicsCode;
 
-    private String doc_type;
+    /** The doc_type. */
+    @JsonProperty("doc_type")
+    private String docType;
 
-    private String NAICS_TITLE;
+    /** The naics title. */
+    @JsonProperty("NAICS_TITLE")
+    private String naicsTitle;
 
-    public String getId ()
-    {
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
+    public final String getId() {
         return id;
     }
 
-    public void setId (String id)
-    {
+    /**
+     * Sets the id.
+     *
+     * @param id
+     *            the id to set
+     */
+    public final void setId(final String id) {
         this.id = id;
     }
 
-    public String get_version_ ()
-    {
-        return _version_;
+    /**
+     * Gets the version.
+     *
+     * @return the version
+     */
+    public final String getVersion() {
+        return version;
     }
 
-    public void set_version_ (String _version_)
-    {
-        this._version_ = _version_;
+    /**
+     * Sets the version.
+     *
+     * @param version
+     *            the new version
+     */
+    public final void setVersion(final String version) {
+        this.version = version;
     }
 
-    public String getNAICS_CODE ()
-    {
-        return NAICS_CODE;
+    /**
+     * Gets the naics code.
+     *
+     * @return the naics code
+     */
+    public final String getNaicsCode() {
+        return naicsCode;
     }
 
-    public void setNAICS_CODE (String NAICS_CODE)
-    {
-        this.NAICS_CODE = NAICS_CODE;
+    /**
+     * Sets the naics code.
+     *
+     * @param naicsCode
+     *            the new naics code
+     */
+    public final void setNaicsCode(final String naicsCode) {
+        this.naicsCode = naicsCode;
     }
 
-    public String getDoc_type ()
-    {
-        return doc_type;
+    /**
+     * Gets the doc type.
+     *
+     * @return the doc type
+     */
+    public final String getDocType() {
+        return docType;
     }
 
-    public void setDoc_type (String doc_type)
-    {
-        this.doc_type = doc_type;
+    /**
+     * Sets the doc type.
+     *
+     * @param docType
+     *            the new doc type
+     */
+    public final void setDocType(final String docType) {
+        this.docType = docType;
     }
 
-    public String getNAICS_TITLE ()
-    {
-        return NAICS_TITLE;
+    /**
+     * Gets the naics title.
+     *
+     * @return the naics title
+     */
+    public final String getNaicsTitle() {
+        return naicsTitle;
     }
 
-    public void setNAICS_TITLE (String NAICS_TITLE)
-    {
-        this.NAICS_TITLE = NAICS_TITLE;
-    }
-
-    @Override
-    public String toString()
-    {
-        return "ClassPojo [id = "+id+", _version_ = "+_version_+", NAICS_CODE = "+NAICS_CODE+", doc_type = "+doc_type+", NAICS_TITLE = "+NAICS_TITLE+"]";
+    /**
+     * Sets the naics title.
+     *
+     * @param naicsTitle
+     *            the new naics title
+     */
+    public final void setNaicsTitle(final String naicsTitle) {
+        this.naicsTitle = naicsTitle;
     }
 
 }

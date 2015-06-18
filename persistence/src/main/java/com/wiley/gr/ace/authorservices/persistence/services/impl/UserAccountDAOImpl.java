@@ -20,28 +20,29 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
 import com.wiley.gr.ace.authorservices.persistence.services.UserAccountDAO;
-import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 
 /**
- * @author virtusa
- *	version 1.0
+ * @author virtusa version 1.0
  */
 public class UserAccountDAOImpl implements UserAccountDAO {
-    
-    @Autowired(required = true)
-    UserLoginServiceDAO userLoginServiceDAO;
-    
+
+    /**
+     * This method gets the email Details from AS 2.0 DB.
+     * 
+     * @param userId
+     *            to Retrieve.
+     * @return the AuthorProfile.
+     */
     @Override
-    public AuthorProfile getEmailDetails(String userId) {
-        
+    public final AuthorProfile getEmailDetails(final String userId) {
+
         Session session = null;
         try {
-            session =getSessionFactory().openSession();
+            session = getSessionFactory().openSession();
             Criteria criteria = session.createCriteria(AuthorProfile.class);
             criteria.add(Restrictions.eq("userId", Integer.parseInt(userId)));
             AuthorProfile userProfile = (AuthorProfile) criteria.uniqueResult();
@@ -56,23 +57,40 @@ public class UserAccountDAOImpl implements UserAccountDAO {
             }
         }
     }
-    
+
     /**
-     * this method is used for updating the security details in DB by using
-     * userId and security Question unique id.
+     * This method update the SecurityDetails to AS 2.0 DB.
+     * 
+     * @param userId
+     *            to update.
+     * @param securityDetails
+     *            to be update.
+     * @return the boolean value.
      */
     @Override
-    public boolean updateSecurityDetails(Integer userId,
-            List<SecurityDetails> securityDetails) {
-        
-        // TODO: This is not required now, security details are maintained by ALM
+    public final boolean updateSecurityDetails(final Integer userId,
+            final List<SecurityDetails> securityDetails) {
+
+        // TODO: This is not required now, security details are maintained by
+        // ALM
         return true;
     }
-    
+
+    /**
+     * This method update the Email Details to AS 2.0 DB.
+     * 
+     * @param userId
+     *            to update.
+     * @param primaryEmail
+     *            to be update.
+     * @param secondaryEmail
+     *            to be update.
+     * @return the boolean value.
+     */
     @Override
-    public boolean updateEmailDetails(String userId, String primaryEmail,
-            String secondaryEmail) {
-        
+    public final boolean updateEmailDetails(final String userId,
+            final String primaryEmail, final String secondaryEmail) {
+
         Session session = null;
         Transaction transaction = null;
         try {

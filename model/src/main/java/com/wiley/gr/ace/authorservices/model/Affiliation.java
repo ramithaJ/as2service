@@ -17,211 +17,286 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class Affiliation.
+ *
+ * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
 public class Affiliation {
-    
+
     /** The user Id . */
-	private String affiliationId;
+    private String affiliationId;
+
+    /** The user id. */
     private String userId;
-    
+
+    /** The institution id. */
     private String institutionId;
-    
+
+    /** The department id. */
     private String departmentId;
-    
+
+    /**
+     * Gets the affiliation id.
+     *
+     * @return the affiliation id
+     */
     public String getAffiliationId() {
-		return affiliationId;
-	}
+        return affiliationId;
+    }
 
-	public void setAffiliationId(String affiliationId) {
-		this.affiliationId = affiliationId;
-	}
+    /**
+     * Sets the affiliation id.
+     *
+     * @param affiliationId
+     *            the new affiliation id
+     */
+    public void setAffiliationId(final String affiliationId) {
+        this.affiliationId = affiliationId;
+    }
 
-	private String departmentName;
-    
+    /** The department name. */
+    private String departmentName;
+
+    /** The visibility. */
     private String visibility;
-    
+
+    /** The type. */
     private String type;
-    
+
+    /** The role title. */
     private String roleTitle;
-    
+
+    /** The city. */
     private String city;
-    
+
+    /** The state code. */
     private String stateCode;
-    
+
+    /** The country code. */
     private String countryCode;
-    
+
+    /** The start date. */
     private Date startDate;
-    
+
+    /** The end date. */
     private Date endDate;
-    
+
+    /** The organization. */
     private Organization organization;
-    
+
+    /** The disambiguated organization. */
     private DisambiguatedOrganization disambiguatedOrganization;
-    public DisambiguatedOrganization getDisambiguatedOrganization() {
-        return disambiguatedOrganization;
+
+    /**
+     * @return the userId
+     */
+    public final String getUserId() {
+        return userId;
     }
 
-    public void setDisambiguatedOrganization(
-            DisambiguatedOrganization disambiguatedOrganization) {
-        this.disambiguatedOrganization = disambiguatedOrganization;
+    /**
+     * @param userId
+     *            the userId to set
+     */
+    public final void setUserId(final String userId) {
+        this.userId = userId;
     }
 
-    public Organization getOrganization() {
-        return organization;
+    /**
+     * @return the institutionId
+     */
+    public final String getInstitutionId() {
+        return institutionId;
     }
 
-    public void setOrganization(Organization organization) {
-        this.organization = organization;
+    /**
+     * @param institutionId
+     *            the institutionId to set
+     */
+    public final void setInstitutionId(final String institutionId) {
+        this.institutionId = institutionId;
     }
 
-    public String getVisibility() {
-        return visibility;
+    /**
+     * @return the departmentId
+     */
+    public final String getDepartmentId() {
+        return departmentId;
     }
 
-    public void setVisibility(String visibility) {
-        this.visibility = visibility;
+    /**
+     * @param departmentId
+     *            the departmentId to set
+     */
+    public final void setDepartmentId(final String departmentId) {
+        this.departmentId = departmentId;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getRoleTitle() {
-        return roleTitle;
-    }
-
-    public void setRoleTitle(String roleTitle) {
-        this.roleTitle = roleTitle;
-    }
-
-    public String getDepartmentName() {
+    /**
+     * @return the departmentName
+     */
+    public final String getDepartmentName() {
         return departmentName;
     }
 
-    public void setDepartmentName(String departmentName) {
+    /**
+     * @param departmentName
+     *            the departmentName to set
+     */
+    public final void setDepartmentName(final String departmentName) {
         this.departmentName = departmentName;
     }
+
     /**
-     * Gets the user Id.
-     *
-     * @return the user Id
+     * @return the visibility
      */
-    public String getUserId() {
-        return userId;
+    public final String getVisibility() {
+        return visibility;
     }
-    
+
     /**
-     * Sets the user Id.
-     *
-     * @return the user Id
+     * @param visibility
+     *            the visibility to set
      */
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public final void setVisibility(final String visibility) {
+        this.visibility = visibility;
     }
-    
+
     /**
-     * @return
+     * @return the type
      */
-    public String getInstitutionId() {
-        return institutionId;
+    public final String getType() {
+        return type;
     }
-    
+
     /**
-     * @param institutionId
+     * @param type
+     *            the type to set
      */
-    public void setInstitutionId(String institutionId) {
-        this.institutionId = institutionId;
+    public final void setType(final String type) {
+        this.type = type;
     }
-    
+
     /**
-     * @return
+     * @return the roleTitle
      */
-    public String getDepartmentId() {
-        return departmentId;
+    public final String getRoleTitle() {
+        return roleTitle;
     }
-    
+
     /**
-     * @param departmentId
+     * @param roleTitle
+     *            the roleTitle to set
      */
-    public void setDepartmentId(String departmentId) {
-        this.departmentId = departmentId;
+    public final void setRoleTitle(final String roleTitle) {
+        this.roleTitle = roleTitle;
     }
-    
+
     /**
-     * @return
+     * @return the city
      */
-    public String getCity() {
+    public final String getCity() {
         return city;
     }
-    
+
     /**
      * @param city
+     *            the city to set
      */
-    public void setCity(String city) {
+    public final void setCity(final String city) {
         this.city = city;
     }
-    
+
     /**
-     * @return
+     * @return the stateCode
      */
-    public String getStateCode() {
+    public final String getStateCode() {
         return stateCode;
     }
-    
+
     /**
      * @param stateCode
+     *            the stateCode to set
      */
-    public void setStateCode(String stateCode) {
+    public final void setStateCode(final String stateCode) {
         this.stateCode = stateCode;
     }
-    
+
     /**
-     * @return
+     * @return the countryCode
      */
-    public String getCountryCode() {
+    public final String getCountryCode() {
         return countryCode;
     }
-    
+
     /**
      * @param countryCode
+     *            the countryCode to set
      */
-    public void setCountryCode(String countryCode) {
+    public final void setCountryCode(final String countryCode) {
         this.countryCode = countryCode;
     }
-    
+
     /**
-     * @return
+     * @return the startDate
      */
-    public Date getStartDate() {
+    public final Date getStartDate() {
         return startDate;
     }
-    
+
     /**
      * @param startDate
+     *            the startDate to set
      */
-    public void setStartDate(Date startDate) {
+    public final void setStartDate(final Date startDate) {
         this.startDate = startDate;
     }
-    
+
     /**
-     * @return
+     * @return the endDate
      */
-    public Date getEndDate() {
+    public final Date getEndDate() {
         return endDate;
     }
-    
+
     /**
      * @param endDate
+     *            the endDate to set
      */
-    public void setEndDate(Date endDate) {
+    public final void setEndDate(final Date endDate) {
         this.endDate = endDate;
     }
-    
+
+    /**
+     * @return the organization
+     */
+    public final Organization getOrganization() {
+        return organization;
+    }
+
+    /**
+     * @param organization
+     *            the organization to set
+     */
+    public final void setOrganization(final Organization organization) {
+        this.organization = organization;
+    }
+
+    /**
+     * @return the disambiguatedOrganization
+     */
+    public final DisambiguatedOrganization getDisambiguatedOrganization() {
+        return disambiguatedOrganization;
+    }
+
+    /**
+     * @param disambiguatedOrganization
+     *            the disambiguatedOrganization to set
+     */
+    public final void setDisambiguatedOrganization(
+            final DisambiguatedOrganization disambiguatedOrganization) {
+        this.disambiguatedOrganization = disambiguatedOrganization;
+    }
+
 }

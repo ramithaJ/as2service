@@ -17,32 +17,47 @@ import com.wiley.gr.ace.authorservices.persistence.entity.UserRoles;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 
 /**
- * @author virtusa
- *	version 1.0
+ * @author virtusa version 1.0
  */
 public interface UserLoginDao {
-    
+
     /**
-     * Checks if emailId exists in USER_PROFILE in AS2.0 database
+     * Checks if emailId exists in USER_PROFILE in AS2.0 database.
      * 
      * @param emailId
+     *            to validate.
+     * @return the boolean value.
      */
+
     boolean validateEmail(String emailId);
-    
+
     /**
      * Updates the LAST_LOGIN_TIME, UPDATED_BY, UPDATED_DATE columns of
-     * USER_PROFILE table
+     * USER_PROFILE table.
      * 
      * @param emailId
-     * @return
+     *            to Login.
+     * @return the boolean value.
      */
     boolean doLogin(String emailId);
-    
+
     /**
-     * This method creates admin user in database
+     * This method creates admin user in database.
+     * 
      * @param users
+     *            to create Admin User.
+     * @param userRolesList
+     *            to create Admin User.
      */
+
     void createAdminUser(Users users, List<UserRoles> userRolesList);
-    
+
+    /**
+     * This method gets the User Details.
+     * 
+     * @param emailId
+     *            to get the User Details.
+     * @return the Users.
+     */
     Users getUserDetails(String emailId);
 }

@@ -17,110 +17,193 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class UserProfile.
+ *
+ * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
 public class UserProfile {
-    
+
+    /** The customer details. */
     private User customerDetails;
-    
+
+    /** The address details. */
     private List<Addresses> addressDetails;
-    
+
+    /** The affiliations. */
     private List<Affiliation> affiliations;
-    
+
+    /** The research funders. */
     private List<ResearchFunder> researchFunders;
-    
+
+    /** The societies. */
     private List<Society> societies;
-    
+
+    /** The interests. */
     private List<Interests> interests;
-    
+
+    /** The co authors. */
     private List<CoAuthor> coAuthors;
-    
+
+    /** The preferred journals. */
     private List<PreferredJournals> preferredJournals;
-    
+
+    /** The alerts. */
     private Alerts alerts;
-    
+
+    /** The email for alerts. */
     private String emailForAlerts;
-    
-    public String getEmailForAlerts() {
-        return emailForAlerts;
-    }
-    
-    public void setEmailForAlerts(String emailForAlerts) {
-        this.emailForAlerts = emailForAlerts;
-    }
-    
-    public User getCustomerDetails() {
+
+    /**
+     * @return the customerDetails
+     */
+    public final User getCustomerDetails() {
         return customerDetails;
     }
-    
-    public void setCustomerDetails(User customerDetails) {
+
+    /**
+     * @param customerDetails
+     *            the customerDetails to set
+     */
+    public final void setCustomerDetails(final User customerDetails) {
         this.customerDetails = customerDetails;
     }
 
-    public List<Addresses> getAddressDetails() {
+    /**
+     * @return the addressDetails
+     */
+    public final List<Addresses> getAddressDetails() {
         return addressDetails;
     }
 
-    public void setAddressDetails(List<Addresses> addressDetails) {
+    /**
+     * @param addressDetails
+     *            the addressDetails to set
+     */
+    public final void setAddressDetails(final List<Addresses> addressDetails) {
         this.addressDetails = addressDetails;
     }
 
-    public List<Affiliation> getAffiliations() {
+    /**
+     * @return the affiliations
+     */
+    public final List<Affiliation> getAffiliations() {
         return affiliations;
     }
-    
-    public void setAffiliations(List<Affiliation> affiliations) {
+
+    /**
+     * @param affiliations
+     *            the affiliations to set
+     */
+    public final void setAffiliations(final List<Affiliation> affiliations) {
         this.affiliations = affiliations;
     }
-    
-    public List<ResearchFunder> getResearchFunders() {
+
+    /**
+     * @return the researchFunders
+     */
+    public final List<ResearchFunder> getResearchFunders() {
         return researchFunders;
     }
-    
-    public void setResearchFunders(List<ResearchFunder> researchFunders) {
+
+    /**
+     * @param researchFunders
+     *            the researchFunders to set
+     */
+    public final void setResearchFunders(
+            final List<ResearchFunder> researchFunders) {
         this.researchFunders = researchFunders;
     }
-    
-    public List<Society> getSocieties() {
+
+    /**
+     * @return the societies
+     */
+    public final List<Society> getSocieties() {
         return societies;
     }
-    
-    public void setSocieties(List<Society> societies) {
+
+    /**
+     * @param societies
+     *            the societies to set
+     */
+    public final void setSocieties(final List<Society> societies) {
         this.societies = societies;
     }
-    
-    public List<Interests> getInterests() {
+
+    /**
+     * @return the interests
+     */
+    public final List<Interests> getInterests() {
         return interests;
     }
-    
-    public void setInterests(List<Interests> interests) {
+
+    /**
+     * @param interests
+     *            the interests to set
+     */
+    public final void setInterests(final List<Interests> interests) {
         this.interests = interests;
     }
-    
-    public List<CoAuthor> getCoAuthors() {
+
+    /**
+     * @return the coAuthors
+     */
+    public final List<CoAuthor> getCoAuthors() {
         return coAuthors;
     }
-    
-    public void setCoAuthors(List<CoAuthor> coAuthors) {
+
+    /**
+     * @param coAuthors
+     *            the coAuthors to set
+     */
+    public final void setCoAuthors(final List<CoAuthor> coAuthors) {
         this.coAuthors = coAuthors;
     }
-    
-    public List<PreferredJournals> getPreferredJournals() {
+
+    /**
+     * @return the preferredJournals
+     */
+    public final List<PreferredJournals> getPreferredJournals() {
         return preferredJournals;
     }
-    
-    public void setPreferredJournals(List<PreferredJournals> preferredJournals) {
+
+    /**
+     * @param preferredJournals
+     *            the preferredJournals to set
+     */
+    public final void setPreferredJournals(
+            final List<PreferredJournals> preferredJournals) {
         this.preferredJournals = preferredJournals;
     }
 
-	public Alerts getAlerts() {
-		return alerts;
-	}
+    /**
+     * @return the alerts
+     */
+    public final Alerts getAlerts() {
+        return alerts;
+    }
 
-	public void setAlerts(Alerts alerts) {
-		this.alerts = alerts;
-	}
+    /**
+     * @param alerts
+     *            the alerts to set
+     */
+    public final void setAlerts(final Alerts alerts) {
+        this.alerts = alerts;
+    }
+
+    /**
+     * @return the emailForAlerts
+     */
+    public final String getEmailForAlerts() {
+        return emailForAlerts;
+    }
+
+    /**
+     * @param emailForAlerts
+     *            the emailForAlerts to set
+     */
+    public final void setEmailForAlerts(final String emailForAlerts) {
+        this.emailForAlerts = emailForAlerts;
+    }
 
 }

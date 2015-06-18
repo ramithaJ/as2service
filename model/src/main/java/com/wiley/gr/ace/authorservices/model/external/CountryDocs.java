@@ -12,97 +12,173 @@
 
 package com.wiley.gr.ace.authorservices.model.external;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+/**
+ * The Class CountryDocs.
+ * 
+ * @author virtusa version 1.0
+ */
 public class CountryDocs {
 
-	    private String id;
+    /** The id. */
+    private String id;
 
-	    private String _version_;
+    /** The version. */
+    @JsonProperty("_version_")
+    private String version;
 
-	    private String ISO_NUMERIC_3;
+    /** The isoNumeric3. */
+    @JsonProperty("ISO_NUMERIC_3")
+    private String isoNumeric3;
 
-	    private String ISO_ALPHA_3;
+    /** The isoAlpha3. */
+    @JsonProperty("ISO_ALPHA_3")
+    private String isoAlpha3;
 
-	    private String ISO_ALPHA_2;
+    /** The IS isoAlpha2. */
+    @JsonProperty("ISO_ALPHA_2")
+    private String isoAlpha2;
 
-	    private String doc_type;
+    /** The docType. */
+    @JsonProperty("doc_type")
+    private String docType;
 
-	    private String COUNTRY_NAME;
+    /** The country name. */
+    @JsonProperty("COUNTRY_NAME")
+    private String countryName;
 
-	    public String getId ()
-	    {
-	        return id;
-	    }
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
+    public final String getId() {
+        return id;
+    }
 
-	    public void setId (String id)
-	    {
-	        this.id = id;
-	    }
+    /**
+     * Sets the id.
+     *
+     * @param id
+     *            the new id
+     */
+    public final void setId(final String id) {
+        this.id = id;
+    }
 
-	    public String get_version_ ()
-	    {
-	        return _version_;
-	    }
+    /**
+     * Gets the version.
+     *
+     * @return the version
+     */
+    public final String getVersion() {
+        return version;
+    }
 
-	    public void set_version_ (String _version_)
-	    {
-	        this._version_ = _version_;
-	    }
+    /**
+     * Sets the version.
+     *
+     * @param version
+     *            the new version
+     */
+    public final void setVersion(final String version) {
+        this.version = version;
+    }
 
-	    public String getISO_NUMERIC_3 ()
-	    {
-	        return ISO_NUMERIC_3;
-	    }
+    /**
+     * Gets the iso numeric3.
+     *
+     * @return the iso numeric3
+     */
+    public final String getIsoNumeric3() {
+        return isoNumeric3;
+    }
 
-	    public void setISO_NUMERIC_3 (String ISO_NUMERIC_3)
-	    {
-	        this.ISO_NUMERIC_3 = ISO_NUMERIC_3;
-	    }
+    /**
+     * Sets the iso numeric3.
+     *
+     * @param isoNumeric3
+     *            the new iso numeric3
+     */
+    public final void setIsoNumeric3(final String isoNumeric3) {
+        this.isoNumeric3 = isoNumeric3;
+    }
 
-	    public String getISO_ALPHA_3 ()
-	    {
-	        return ISO_ALPHA_3;
-	    }
+    /**
+     * Gets the iso alpha3.
+     *
+     * @return the iso alpha3
+     */
+    public final String getIsoAlpha3() {
+        return isoAlpha3;
+    }
 
-	    public void setISO_ALPHA_3 (String ISO_ALPHA_3)
-	    {
-	        this.ISO_ALPHA_3 = ISO_ALPHA_3;
-	    }
+    /**
+     * Sets the iso alpha3.
+     *
+     * @param isoAlpha3
+     *            the new iso alpha3
+     */
+    public final void setIsoAlpha3(final String isoAlpha3) {
+        this.isoAlpha3 = isoAlpha3;
+    }
 
-	    public String getISO_ALPHA_2 ()
-	    {
-	        return ISO_ALPHA_2;
-	    }
+    /**
+     * Gets the iso alpha2.
+     *
+     * @return the iso alpha2
+     */
+    public final String getIsoAlpha2() {
+        return isoAlpha2;
+    }
 
-	    public void setISO_ALPHA_2 (String ISO_ALPHA_2)
-	    {
-	        this.ISO_ALPHA_2 = ISO_ALPHA_2;
-	    }
+    /**
+     * Sets the iso alpha2.
+     *
+     * @param isoAlpha2
+     *            the new iso alpha2
+     */
+    public final void setIsoAlpha2(final String isoAlpha2) {
+        this.isoAlpha2 = isoAlpha2;
+    }
 
-	    public String getDoc_type ()
-	    {
-	        return doc_type;
-	    }
+    /**
+     * Gets the doc type.
+     *
+     * @return the doc type
+     */
+    public final String getDocType() {
+        return docType;
+    }
 
-	    public void setDoc_type (String doc_type)
-	    {
-	        this.doc_type = doc_type;
-	    }
+    /**
+     * Sets the doc type.
+     *
+     * @param docType
+     *            the new doc type
+     */
+    public final void setDocType(final String docType) {
+        this.docType = docType;
+    }
 
-	    public String getCOUNTRY_NAME ()
-	    {
-	        return COUNTRY_NAME;
-	    }
+    /**
+     * Gets the country name.
+     *
+     * @return the country name
+     */
+    public final String getCountryName() {
+        return countryName;
+    }
 
-	    public void setCOUNTRY_NAME (String COUNTRY_NAME)
-	    {
-	        this.COUNTRY_NAME = COUNTRY_NAME;
-	    }
+    /**
+     * Sets the country name.
+     *
+     * @param countryName
+     *            the new country name
+     */
+    public final void setCountryName(final String countryName) {
+        this.countryName = countryName;
+    }
 
-	    @Override
-	    public String toString()
-	    {
-	        return "ClassPojo [id = "+id+", _version_ = "+_version_+", ISO_NUMERIC_3 = "+ISO_NUMERIC_3+", ISO_ALPHA_3 = "+ISO_ALPHA_3+", ISO_ALPHA_2 = "+ISO_ALPHA_2+", doc_type = "+doc_type+", COUNTRY_NAME = "+COUNTRY_NAME+"]";
-	    }
-	}
-				
-
+}

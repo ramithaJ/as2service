@@ -14,71 +14,80 @@ package com.wiley.gr.ace.authorservices.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+/**
+ * The Class Alert.
+ */
 @JsonInclude(Include.NON_NULL)
 public class Alert {
-    
+
+    /** The alert id. */
     private String alertId;
-    
+
+    /** The alert name. */
     private String alertName;
-    
+
+    /** The on screen. */
     private boolean onScreen;
-    
+
+    /** The email. */
     private boolean email;
-    
+
     /**
-     * @return
+     * @return the alertId
      */
-    public String getAlertId() {
+    public final String getAlertId() {
         return alertId;
     }
-    
+
     /**
-     * @param alertId
+     * @param alertId the alertId to set
      */
-    public void setAlertId(String alertId) {
+    public final void setAlertId(final String alertId) {
         this.alertId = alertId;
     }
-    
+
     /**
-     * @return
+     * @return the alertName
      */
-    public String getAlertName() {
+    public final String getAlertName() {
         return alertName;
     }
-    
+
     /**
-     * @param alertName
+     * @param alertName the alertName to set
      */
-    public void setAlertName(String alertName) {
+    public final void setAlertName(final String alertName) {
         this.alertName = alertName;
     }
-    
+
     /**
-     * @return
+     * @return the onScreen
      */
-    public boolean isOnScreen() {
+    public final boolean isOnScreen() {
         return onScreen;
     }
-    
+
     /**
-     * @param onScreen
+     * @param onScreen the onScreen to set
      */
-    public void setOnScreen(boolean onScreen) {
+    public final void setOnScreen(final boolean onScreen) {
         this.onScreen = onScreen;
     }
-    
+
     /**
-     * @return
+     * @return the email
      */
-    public boolean isEmail() {
+    public final boolean isEmail() {
         return email;
     }
-    
+
     /**
-     * @param email
+     * @param email the email to set
      */
-    public void setEmail(boolean email) {
+    public final void setEmail(final boolean email) {
         this.email = email;
     }
-    
+
+   
+
 }

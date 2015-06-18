@@ -15,42 +15,47 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class PreferredJournals.
+ *
+ * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
 public class PreferredJournals {
-    
+
+    /** The journal id. */
     private String journalId;
-    
+
+    /** The journal title. */
     private String journalTitle;
-    
+
     /**
-     * @return
+     * @return the journalId
      */
-    public String getJournalId() {
+    public final String getJournalId() {
         return journalId;
     }
-    
+
     /**
      * @param journalId
+     *            the journalId to set
      */
-    public void setJournalId(String journalId) {
+    public final void setJournalId(final String journalId) {
         this.journalId = journalId;
     }
-    
+
     /**
-     * @return
+     * @return the journalTitle
      */
-    public String getJournalTitle() {
+    public final String getJournalTitle() {
         return journalTitle;
     }
-    
+
     /**
      * @param journalTitle
+     *            the journalTitle to set
      */
-    public void setJournalTitle(String journalTitle) {
+    public final void setJournalTitle(final String journalTitle) {
         this.journalTitle = journalTitle;
     }
-    
+
 }

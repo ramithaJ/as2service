@@ -13,57 +13,64 @@
 package com.wiley.gr.ace.authorservices.model;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class UserPermissions.
+ *
+ * @author virtusa version 1.0
  */
 public class UserPermissions {
-    
+
+    /** The permission id. */
     private String permissionId;
-    
+
+    /** The permission name. */
     private String permissionName;
-    
+
+    /** The status. */
     private boolean status = true;
-    
+
     /**
-     * @return
+     * @return the permissionId
      */
-    public String getPermissionId() {
+    public final String getPermissionId() {
         return permissionId;
     }
-    
+
     /**
      * @param permissionId
+     *            the permissionId to set
      */
-    public void setPermissionId(String permissionId) {
+    public final void setPermissionId(final String permissionId) {
         this.permissionId = permissionId;
     }
-    
+
     /**
-     * @return
+     * @return the permissionName
      */
-    public String getPermissionName() {
+    public final String getPermissionName() {
         return permissionName;
     }
-    
+
     /**
      * @param permissionName
+     *            the permissionName to set
      */
-    public void setPermissionName(String permissionName) {
+    public final void setPermissionName(final String permissionName) {
         this.permissionName = permissionName;
     }
-    
+
     /**
-     * @return
+     * @return the status
      */
-    public boolean isStatus() {
+    public final boolean isStatus() {
         return status;
     }
-    
+
     /**
      * @param status
+     *            the status to set
      */
-    public void setStatus(boolean status) {
+    public final void setStatus(final boolean status) {
         this.status = status;
     }
-    
+
 }

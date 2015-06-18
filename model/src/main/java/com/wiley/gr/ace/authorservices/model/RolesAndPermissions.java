@@ -20,59 +20,66 @@ import java.util.Map;
 import javax.validation.constraints.NotNull;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class RolesAndPermissions.
+ *
+ * @author virtusa version 1.0
  */
 public class RolesAndPermissions {
-    
+
+    /** The roles list. */
     @NotNull
     private List<Role> rolesList = new ArrayList<Role>();
-    
+
+    /** The sections list. */
     private List<PermissionSection> sectionsList = new ArrayList<PermissionSection>();
-    
+
+    /** The permissions map. */
     @NotNull
     private Map<String, String[]> permissionsMap = new HashMap<String, String[]>();
-    
+
     /**
-     * @return
+     * @return the rolesList
      */
-    public List<Role> getRolesList() {
+    public final List<Role> getRolesList() {
         return rolesList;
     }
-    
+
     /**
      * @param rolesList
+     *            the rolesList to set
      */
-    public void setRolesList(List<Role> rolesList) {
+    public final void setRolesList(final List<Role> rolesList) {
         this.rolesList = rolesList;
     }
-    
+
     /**
-     * @return
+     * @return the sectionsList
      */
-    public List<PermissionSection> getSectionsList() {
+    public final List<PermissionSection> getSectionsList() {
         return sectionsList;
     }
-    
+
     /**
      * @param sectionsList
+     *            the sectionsList to set
      */
-    public void setSectionsList(List<PermissionSection> sectionsList) {
+    public final void setSectionsList(final List<PermissionSection> sectionsList) {
         this.sectionsList = sectionsList;
     }
-    
+
     /**
-     * @return
+     * @return the permissionsMap
      */
-    public Map<String, String[]> getPermissionsMap() {
+    public final Map<String, String[]> getPermissionsMap() {
         return permissionsMap;
     }
-    
+
     /**
      * @param permissionsMap
+     *            the permissionsMap to set
      */
-    public void setPermissionsMap(Map<String, String[]> permissionsMap) {
+    public final void setPermissionsMap(final Map<String, String[]> permissionsMap) {
         this.permissionsMap = permissionsMap;
     }
-    
+
 }

@@ -16,41 +16,46 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class PermissionSection.
+ *
+ * @author virtusa version 1.0
  */
 public class PermissionSection {
-    
+
+    /** The section name. */
     private String sectionName;
-    
+
+    /** The permissions list. */
     private List<UserPermissions> permissionsList = new ArrayList<UserPermissions>();
-    
+
     /**
-     * @return
+     * @return the sectionName
      */
-    public String getSectionName() {
+    public final String getSectionName() {
         return sectionName;
     }
-    
+
     /**
      * @param sectionName
+     *            the sectionName to set
      */
-    public void setSectionName(String sectionName) {
+    public final void setSectionName(final String sectionName) {
         this.sectionName = sectionName;
     }
-    
+
     /**
-     * @return
+     * @return the permissionsList
      */
-    public List<UserPermissions> getPermissionsList() {
+    public final List<UserPermissions> getPermissionsList() {
         return permissionsList;
     }
-    
+
     /**
      * @param permissionsList
+     *            the permissionsList to set
      */
-    public void setPermissionsList(List<UserPermissions> permissionsList) {
+    public final void setPermissionsList(final List<UserPermissions> permissionsList) {
         this.permissionsList = permissionsList;
     }
-    
+
 }

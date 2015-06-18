@@ -3,15 +3,27 @@
 
 package com.wiley.gr.ace.authorservices.model.external;
 
+/**
+ * The Class ResearchFunders.
+ */
 public class ResearchFunders {
-	private ResearchFunderElement[] researchfunder;
 
- 	public void setResearchfunder(ResearchFunderElement[] researchfunder) {
-		this.researchfunder = researchfunder;
-	}
+    /** The researchfunder. */
+    private ResearchFunderElement[] researchfunder;
 
-	public ResearchFunderElement[] getResearchfunder() {
-		return researchfunder;
-	}
+    /**
+     * @return the researchfunder
+     */
+    public final ResearchFunderElement[] getResearchfunder() {
+        return researchfunder;
+    }
 
+    /**
+     * @param researchfunder
+     *            the researchfunder to set
+     */
+    public final void setResearchfunder(
+            final ResearchFunderElement[] researchfunder) {
+        this.researchfunder = researchfunder;
+    }
 }

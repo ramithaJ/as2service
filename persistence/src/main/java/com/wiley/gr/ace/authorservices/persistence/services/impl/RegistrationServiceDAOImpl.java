@@ -32,63 +32,86 @@ import com.wiley.gr.ace.authorservices.persistence.services.RegistrationServiceD
  */
 public class RegistrationServiceDAOImpl implements RegistrationServiceDAO {
 
-	@Override
-	public boolean searchUserByOrcidId(String orcidId) throws Exception {
+    /**
+     * This method search the User by using orcidId.
+     * 
+     * @param orcidId
+     *            to Retrieve.
+     * @return the boolean value.
+     * @throws Exception
+     *             if unable to search.
+     */
+    @Override
+    public final boolean searchUserByOrcidId(final String orcidId)
+            throws Exception {
 
-		boolean isUserFound = false;
-		Session session = getSessionFactory().openSession();
-		String searchOrcidHql = "from AuthorProfile af where af.orcidId=:orcidId";
-		List<AuthorProfile> authorProfilesList = session
-				.createQuery(searchOrcidHql).setString("orcidId", "orcidId")
-				.list();
-		if (!StringUtils.isEmpty(authorProfilesList)) {
-			isUserFound = true;
-		}
+        boolean isUserFound = false;
+        Session session = getSessionFactory().openSession();
+        String searchOrcidHql = "from AuthorProfile af where af.orcidId=:orcidId";
+        List<AuthorProfile> authorProfilesList = session
+                .createQuery(searchOrcidHql).setString("orcidId", "orcidId")
+                .list();
+        if (!StringUtils.isEmpty(authorProfilesList)) {
+            isUserFound = true;
+        }
 
-		return isUserFound;
-	}
+        return isUserFound;
+    }
 
-	@Override
-	public InviteResetpwdLog getInvitationRecords(String guid) {
-		InviteResetpwdLog inviteRecord = new InviteResetpwdLog();
-		Session session = getSessionFactory().openSession();
-		String searchInviteHql = "from InviteResetpwdLog ir where ir.guid=:guid";
-		List<InviteResetpwdLog> inviteRecordList = session
-				.createQuery(searchInviteHql).setString("guid", guid).list();
-		if (!StringUtils.isEmpty(inviteRecordList)) {
-			inviteRecord = inviteRecordList.get(0);
-		} else {
-			inviteRecord = null;
-		}
+    /**
+     * This method gets the Invitation Records.
+     * 
+     * @param guid
+     *            to Retrieve.
+     * @return the InviteResetpwdLog.
+     */
+    @Override
+    public final InviteResetpwdLog getInvitationRecords(final String guid) {
+        InviteResetpwdLog inviteRecord = new InviteResetpwdLog();
+        Session session = getSessionFactory().openSession();
+        String searchInviteHql = "from InviteResetpwdLog ir where ir.guid=:guid";
+        List<InviteResetpwdLog> inviteRecordList = session
+                .createQuery(searchInviteHql).setString("guid", guid).list();
+        if (!StringUtils.isEmpty(inviteRecordList)) {
+            inviteRecord = inviteRecordList.get(0);
+        } else {
+            inviteRecord = null;
+        }
 
-		return inviteRecord;
-	}
+        return inviteRecord;
+    }
 
-	@Override
-	public void assignRoleToNewRegistration(String emaildId) {
+    /**
+     * This method Assigns the Role to New Registration.
+     * 
+     * @param emaildId
+     *            to assign.
+     */
+    @Override
+    public final void assignRoleToNewRegistration(final String emaildId) {
 
-		Session session = null;
-		try {
-			session = getSessionFactory().openSession();
-			Users userEntity = (Users) session.createCriteria(Users.class)
-					.add(Restrictions.eq("primaryEmailAddr", emaildId))
-					.uniqueResult();
+        Session session = null;
+        try {
+            session = getSessionFactory().openSession();
+            Users userEntity = (Users) session.createCriteria(Users.class)
+                    .add(Restrictions.eq("primaryEmailAddr", emaildId))
+                    .uniqueResult();
 
-			UserRoles userRolesEntity = new UserRoles();
-			UserRolesId userRolesId = new UserRolesId();
-			userRolesId.setRoleId(1);
-			userRolesId.setUserId(userEntity.getUserId());
-			userRolesEntity.setId(userRolesId);
+            UserRoles userRolesEntity = new UserRoles();
+            UserRolesId userRolesId = new UserRolesId();
+            userRolesId.setRoleId(1);
+            userRolesId.setUserId(userEntity.getUserId());
+            userRolesEntity.setId(userRolesId);
 
-			Transaction txn = session.beginTransaction();
-			session.save(userRolesEntity);
-			txn.commit();
-		} finally {
-			if (session != null) {
-				session.flush();
-				session.close();
-			}
-		}
+            Transaction txn = session.beginTransaction();
+            session.save(userRolesEntity);
+            txn.commit();
+        } finally {
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
+        }
 
-	}
+    }
 }

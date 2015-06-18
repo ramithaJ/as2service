@@ -3,65 +3,120 @@
 
 package com.wiley.gr.ace.authorservices.model.external;
 
+/**
+ * The Class ResearchFunderElement.
+ */
 public class ResearchFunderElement {
-	private java.lang.String funderrefid;
 
- 	public void setFunderrefid(java.lang.String funderrefid) {
-		this.funderrefid = funderrefid;
-	}
+    /** The funderrefid. */
+    private java.lang.String funderrefid;
 
-	public java.lang.String getFunderrefid() {
-		return funderrefid;
-	}
+    /** The grantno. */
+    private java.lang.String grantno;
 
-	private java.lang.String grantno;
+    /** The fundername. */
+    private java.lang.String fundername;
 
- 	public void setGrantno(java.lang.String grantno) {
-		this.grantno = grantno;
-	}
+    /** The associatedarticle. */
+    private java.lang.String associatedarticle;
 
-	public java.lang.String getGrantno() {
-		return grantno;
-	}
+    /**
+     * @return the funderrefid
+     */
+    public final java.lang.String getFunderrefid() {
+        return funderrefid;
+    }
 
-	private java.lang.String fundername;
+    /**
+     * @param funderrefid
+     *            the funderrefid to set
+     */
+    public final void setFunderrefid(final java.lang.String funderrefid) {
+        this.funderrefid = funderrefid;
+    }
 
- 	public void setFundername(java.lang.String fundername) {
-		this.fundername = fundername;
-	}
+    /**
+     * @return the grantno
+     */
+    public final java.lang.String getGrantno() {
+        return grantno;
+    }
 
-	public java.lang.String getFundername() {
-		return fundername;
-	}
+    /**
+     * @param grantno
+     *            the grantno to set
+     */
+    public final void setGrantno(final java.lang.String grantno) {
+        this.grantno = grantno;
+    }
 
-	private java.lang.String associatedarticle;
+    /**
+     * @return the fundername
+     */
+    public final java.lang.String getFundername() {
+        return fundername;
+    }
 
- 	public void setAssociatedarticle(java.lang.String associatedarticle) {
-		this.associatedarticle = associatedarticle;
-	}
+    /**
+     * @param fundername
+     *            the fundername to set
+     */
+    public final void setFundername(final java.lang.String fundername) {
+        this.fundername = fundername;
+    }
 
-	public java.lang.String getAssociatedarticle() {
-		return associatedarticle;
-	}
+    /**
+     * @return the associatedarticle
+     */
+    public final java.lang.String getAssociatedarticle() {
+        return associatedarticle;
+    }
 
-	private java.lang.String funderassocenddate;
+    /**
+     * @param associatedarticle
+     *            the associatedarticle to set
+     */
+    public final void setAssociatedarticle(
+            final java.lang.String associatedarticle) {
+        this.associatedarticle = associatedarticle;
+    }
 
- 	public void setFunderassocenddate(java.lang.String funderassocenddate) {
-		this.funderassocenddate = funderassocenddate;
-	}
+    /**
+     * @return the funderassocenddate
+     */
+    public final java.lang.String getFunderassocenddate() {
+        return funderassocenddate;
+    }
 
-	public java.lang.String getFunderassocenddate() {
-		return funderassocenddate;
-	}
+    /**
+     * @param funderassocenddate
+     *            the funderassocenddate to set
+     */
+    public final void setFunderassocenddate(
+            final java.lang.String funderassocenddate) {
+        this.funderassocenddate = funderassocenddate;
+    }
 
-	private java.lang.String funderassocstartdate;
+    /**
+     * @return the funderassocstartdate
+     */
+    public final java.lang.String getFunderassocstartdate() {
+        return funderassocstartdate;
+    }
 
- 	public void setFunderassocstartdate(java.lang.String funderassocstartdate) {
-		this.funderassocstartdate = funderassocstartdate;
-	}
+    /**
+     * @param funderassocstartdate
+     *            the funderassocstartdate to set
+     */
+    public final void setFunderassocstartdate(
+            final java.lang.String funderassocstartdate) {
+        this.funderassocstartdate = funderassocstartdate;
+    }
 
-	public java.lang.String getFunderassocstartdate() {
-		return funderassocstartdate;
-	}
+    /** The funderassocenddate. */
+    private java.lang.String funderassocenddate;
+
+    /** The funderassocstartdate. */
+    private java.lang.String funderassocstartdate;
 
 }

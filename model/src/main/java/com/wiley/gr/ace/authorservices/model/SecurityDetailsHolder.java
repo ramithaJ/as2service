@@ -14,51 +14,95 @@ package com.wiley.gr.ace.authorservices.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class SecurityDetailsHolder.
+ *
+ * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
 public class SecurityDetailsHolder {
-    
-    private String emailId;
-    
-    private List<SecurityDetails> securityDetails = new ArrayList<SecurityDetails>();
-    
-    private String password;
-    
-    /**
-     * @return
-     */
-    public List<SecurityDetails> getSecurityDetails() {
-        return securityDetails;
-    }
-    
-    /**
-     * @param securityDetails
-     */
-    public void setSecurityDetails(List<SecurityDetails> securityDetails) {
-        this.securityDetails = securityDetails;
-    }
 
-    public String getEmailId() {
+    /** The email id. */
+    @NotNull
+    @NotEmpty
+    private String emailId;
+
+    /** The security details. */
+    private List<SecurityDetails> securityDetails = new ArrayList<SecurityDetails>();
+
+    /** The password. */
+    private String password;
+
+    /** The is force reset. */
+    @JsonProperty
+    private boolean isForceReset;
+
+    /**
+     * @return the emailId
+     */
+    public final String getEmailId() {
         return emailId;
     }
 
-    public void setEmailId(String emailId) {
+    /**
+     * @param emailId
+     *            the emailId to set
+     */
+    public final void setEmailId(final String emailId) {
         this.emailId = emailId;
     }
 
-    public String getPassword() {
+    /**
+     * @return the securityDetails
+     */
+    public final List<SecurityDetails> getSecurityDetails() {
+        return securityDetails;
+    }
+
+    /**
+     * @param securityDetails
+     *            the securityDetails to set
+     */
+    public final void setSecurityDetails(final List<SecurityDetails> securityDetails) {
+        this.securityDetails = securityDetails;
+    }
+
+    /**
+     * @return the password
+     */
+    public final String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    /**
+     * @param password
+     *            the password to set
+     */
+    public final void setPassword(final String password) {
         this.password = password;
     }
-    
-    
+
+    /**
+     * @return the isForceReset
+     */
+    public final boolean isForceReset() {
+        return isForceReset;
+    }
+
+    /**
+     * @param isForceReset
+     *            the isForceReset to set
+     */
+    public final void setForceReset(final boolean isForceReset) {
+        this.isForceReset = isForceReset;
+    }
+
 }

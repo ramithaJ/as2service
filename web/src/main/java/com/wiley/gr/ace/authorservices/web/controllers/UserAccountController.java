@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiley.gr.ace.authorservices.model.Email;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.User;
@@ -33,25 +34,25 @@ import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
 @RestController
 @RequestMapping("/userAccount")
 public class UserAccountController {
-    
+
     /**
      * Logger for UserAccountController class.
      */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(UserAccountController.class);
-    
+
     /**
      * Injecting userAccountService bean.
      */
     @Autowired
     private UserAccountService userAccountService;
-    
+
     /**
      * Injecting AuthorProfileService.
      */
     @Autowired
     private AuthorProfileService authorProfileService;
-    
+
     /**
      * Method to get the user Account information.
      * 
@@ -65,9 +66,9 @@ public class UserAccountController {
         Service service = new Service();
         service.setPayload(userAccountService.getProfileInformation(userId));
         return service;
-        
+
     }
-    
+
     /**
      * Method to update user Account information.
      * 
@@ -84,9 +85,9 @@ public class UserAccountController {
         Service service = new Service();
         service.setPayload(authorProfileService.updateUserProfileInfo(user));
         return service;
-        
+
     }
-    
+
     /**
      * Method to get user Email Details.
      * 
@@ -101,7 +102,7 @@ public class UserAccountController {
         service.setPayload(userAccountService.getEmailDetails(userId));
         return service;
     }
-    
+
     /**
      * Method to update user Email Details.
      * 
@@ -120,7 +121,7 @@ public class UserAccountController {
                 .updateEmailDetails(emailDetails));
         return service;
     }
-    
+
     /**
      * Method to get user Address information (correspondence, shipping and
      * Billing addresses).
@@ -136,7 +137,7 @@ public class UserAccountController {
         service.setPayload(userAccountService.getUserAddress(userId));
         return service;
     }
-    
+
     /**
      * Method to update User Address information.
      * 
@@ -154,7 +155,7 @@ public class UserAccountController {
         service.setPayload(authorProfileService.updateUserAddress(addresses));
         return service;
     }
-    
+
     /**
      * Method to update user Security Details.
      * 
@@ -170,9 +171,9 @@ public class UserAccountController {
         service.setPayload(authorProfileService
                 .updateSecurityDetails(securityDetails));
         return service;
-        
+
     }
-    
+
     /**
      * Method to update userId.
      * 
@@ -180,15 +181,12 @@ public class UserAccountController {
      * @param newEmailId
      * @return Service - Success/Failure
      */
-    @RequestMapping(value = "/updateUserId/{oldEmailId}/{newEmailId}", method = RequestMethod.POST)
-    public final Service updateUserId(
-            @PathVariable("oldEmailId") final String oldEmailId,
-            @PathVariable("newEmailId") final String newEmailId) {
+    @RequestMapping(value = "/updateUserId", method = RequestMethod.POST)
+    public final Service updateUserId(@RequestBody final Email email) {
         LOGGER.info("inside updateUserId method");
         Service service = new Service();
-        service.setPayload(authorProfileService.updateUserId(oldEmailId,
-                newEmailId));
+        service.setPayload(authorProfileService.updateUserId(email));
         return service;
     }
-    
+
 }

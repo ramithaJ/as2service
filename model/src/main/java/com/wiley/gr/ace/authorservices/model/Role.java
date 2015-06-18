@@ -4,78 +4,111 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
- * @author virtusa
- *	version 1.0
+ * The Class Role.
+ *
+ * @author virtusa version 1.0
  */
+@JsonInclude(Include.NON_NULL)
 public class Role {
-    
+
+    /** The role id. */
     private String roleId;
-    
+
+    /** The role name. */
     @NotNull
     @NotBlank
     private String roleName;
-    
+
+    /** The role description. */
     @NotNull
     @NotBlank
     private String roleDescription;
-    
+
+    /** The is admin role. */
     private boolean isAdminRole = false;
-    
+   
+    @NotNull
+    @NotBlank
+    /** The no of permissions. */
+    private String noOfPermissions;
+
     /**
-     * @return
+     * @return the roleId
      */
-    public String getRoleId() {
+    public final String getRoleId() {
         return roleId;
     }
-    
+
     /**
      * @param roleId
+     *            the roleId to set
      */
-    public void setRoleId(String roleId) {
+    public final void setRoleId(final String roleId) {
         this.roleId = roleId;
     }
-    
+
     /**
-     * @return
+     * @return the roleName
      */
-    public String getRoleName() {
+    public final String getRoleName() {
         return roleName;
     }
-    
+
     /**
      * @param roleName
+     *            the roleName to set
      */
-    public void setRoleName(String roleName) {
+    public final void setRoleName(final String roleName) {
         this.roleName = roleName;
     }
-    
+
     /**
-     * @return
+     * @return the roleDescription
      */
-    public boolean isAdminRole() {
-        return isAdminRole;
-    }
-    
-    /**
-     * @param isAdminRole
-     */
-    public void setAdminRole(boolean isAdminRole) {
-        this.isAdminRole = isAdminRole;
-    }
-    
-    /**
-     * @return
-     */
-    public String getRoleDescription() {
+    public final String getRoleDescription() {
         return roleDescription;
     }
-    
+
     /**
      * @param roleDescription
+     *            the roleDescription to set
      */
-    public void setRoleDescription(String roleDescription) {
+    public final void setRoleDescription(final String roleDescription) {
         this.roleDescription = roleDescription;
     }
-    
+
+    /**
+     * @return the isAdminRole
+     */
+    public final boolean isAdminRole() {
+        return isAdminRole;
+    }
+
+    /**
+     * @param isAdminRole
+     *            the isAdminRole to set
+     */
+    public final void setAdminRole(final boolean isAdminRole) {
+        this.isAdminRole = isAdminRole;
+    }
+
+    /**
+     * @return the noOfPermissions
+     */
+    public final String getNoOfPermissions() {
+        return noOfPermissions;
+    }
+
+    /**
+     * @param noOfPermissions
+     *            the noOfPermissions to set
+     */
+    public final void setNoOfPermissions(final String noOfPermissions) {
+        this.noOfPermissions = noOfPermissions;
+    }
+
 }

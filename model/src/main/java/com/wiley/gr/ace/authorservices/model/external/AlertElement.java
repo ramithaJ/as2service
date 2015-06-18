@@ -3,25 +3,45 @@
 
 package com.wiley.gr.ace.authorservices.model.external;
 
+/**
+ * The Class AlertElement.
+ */
 public class AlertElement {
-	private java.lang.String alertid;
 
- 	public void setAlertid(java.lang.String alertid) {
-		this.alertid = alertid;
-	}
+    /** The alertid. */
+    private String alertid;
 
-	public java.lang.String getAlertid() {
-		return alertid;
-	}
+    /** The type. */
+    private String type;
 
-	private java.lang.String type;
+    /**
+     * @return the alertid
+     */
+    public final String getAlertid() {
+        return alertid;
+    }
 
- 	public void setType(java.lang.String type) {
-		this.type = type;
-	}
+    /**
+     * @param alertid
+     *            the alertid to set
+     */
+    public final void setAlertid(final String alertid) {
+        this.alertid = alertid;
+    }
 
-	public java.lang.String getType() {
-		return type;
-	}
+    /**
+     * @return the type
+     */
+    public final String getType() {
+        return type;
+    }
+
+    /**
+     * @param type
+     *            the type to set
+     */
+    public final void setType(final String type) {
+        this.type = type;
+    }
 
 }

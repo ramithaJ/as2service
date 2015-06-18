@@ -3,145 +3,261 @@
 
 package com.wiley.gr.ace.authorservices.model.external;
 
+/**
+ * The Class CustomerDetails.
+ */
 public class CustomerDetails {
-	private String alternativename;
 
-	private String secondaryemail;
+    /** The alternativename. */
+    private String alternativename;
 
-	private String lastname;
+    /** The secondaryemail. */
+    private String secondaryemail;
 
-	private String optinflag;
+    /** The lastname. */
+    private String lastname;
 
-	private String password;
+    /** The optinflag. */
+    private String optinflag;
 
-	private String suffix;
+    /** The password. */
+    private String password;
 
-	private String nickname;
+    /** The suffix. */
+    private String suffix;
 
-	private String firstname;
+    /**
+     * @return the alternativename
+     */
+    public final String getAlternativename() {
+        return alternativename;
+    }
 
-	private String orcid;
+    /**
+     * @param alternativename
+     *            the alternativename to set
+     */
+    public final void setAlternativename(final String alternativename) {
+        this.alternativename = alternativename;
+    }
 
-	private String accountidentifier;
+    /**
+     * @return the secondaryemail
+     */
+    public final String getSecondaryemail() {
+        return secondaryemail;
+    }
 
-	private String primaryemail;
+    /**
+     * @param secondaryemail
+     *            the secondaryemail to set
+     */
+    public final void setSecondaryemail(final String secondaryemail) {
+        this.secondaryemail = secondaryemail;
+    }
 
-	private String ecid;
+    /**
+     * @return the lastname
+     */
+    public final String getLastname() {
+        return lastname;
+    }
 
-	private String middlename;
+    /**
+     * @param lastname
+     *            the lastname to set
+     */
+    public final void setLastname(final String lastname) {
+        this.lastname = lastname;
+    }
 
-	private String userrole;
+    /**
+     * @return the optinflag
+     */
+    public final String getOptinflag() {
+        return optinflag;
+    }
 
-	public void setAlternativename(java.lang.String alternativename) {
-		this.alternativename = alternativename;
-	}
+    /**
+     * @param optinflag
+     *            the optinflag to set
+     */
+    public final void setOptinflag(final String optinflag) {
+        this.optinflag = optinflag;
+    }
 
-	public String getAlternativename() {
-		return alternativename;
-	}
+    /**
+     * @return the password
+     */
+    public final String getPassword() {
+        return password;
+    }
 
-	public void setSecondaryemail(java.lang.String secondaryemail) {
-		this.secondaryemail = secondaryemail;
-	}
+    /**
+     * @param password
+     *            the password to set
+     */
+    public final void setPassword(final String password) {
+        this.password = password;
+    }
 
-	public String getSecondaryemail() {
-		return secondaryemail;
-	}
+    /**
+     * @return the suffix
+     */
+    public final String getSuffix() {
+        return suffix;
+    }
 
-	public void setLastname(java.lang.String lastname) {
-		this.lastname = lastname;
-	}
+    /**
+     * @param suffix
+     *            the suffix to set
+     */
+    public final void setSuffix(final String suffix) {
+        this.suffix = suffix;
+    }
 
-	public String getLastname() {
-		return lastname;
-	}
+    /**
+     * @return the nickname
+     */
+    public final String getNickname() {
+        return nickname;
+    }
 
-	public void setOptinflag(java.lang.String optinflag) {
-		this.optinflag = optinflag;
-	}
+    /**
+     * @param nickname
+     *            the nickname to set
+     */
+    public final void setNickname(final String nickname) {
+        this.nickname = nickname;
+    }
 
-	public String getOptinflag() {
-		return optinflag;
-	}
+    /**
+     * @return the firstname
+     */
+    public final String getFirstname() {
+        return firstname;
+    }
 
-	public void setPassword(java.lang.String password) {
-		this.password = password;
-	}
+    /**
+     * @param firstname
+     *            the firstname to set
+     */
+    public final void setFirstname(final String firstname) {
+        this.firstname = firstname;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    /**
+     * @return the orcid
+     */
+    public final String getOrcid() {
+        return orcid;
+    }
 
-	public void setSuffix(String suffix) {
-		this.suffix = suffix;
-	}
+    /**
+     * @param orcid
+     *            the orcid to set
+     */
+    public final void setOrcid(final String orcid) {
+        this.orcid = orcid;
+    }
 
-	public String getSuffix() {
-		return suffix;
-	}
+    /**
+     * @return the accountidentifier
+     */
+    public final String getAccountidentifier() {
+        return accountidentifier;
+    }
 
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
-	}
+    /**
+     * @param accountidentifier
+     *            the accountidentifier to set
+     */
+    public final void setAccountidentifier(final String accountidentifier) {
+        this.accountidentifier = accountidentifier;
+    }
 
-	public String getNickname() {
-		return nickname;
-	}
+    /**
+     * @return the primaryemail
+     */
+    public final String getPrimaryemail() {
+        return primaryemail;
+    }
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
-	}
+    /**
+     * @param primaryemail
+     *            the primaryemail to set
+     */
+    public final void setPrimaryemail(final String primaryemail) {
+        this.primaryemail = primaryemail;
+    }
 
-	public String getFirstname() {
-		return firstname;
-	}
+    /**
+     * @return the ecid
+     */
+    public final String getEcid() {
+        return ecid;
+    }
 
-	public void setOrcid(String orcid) {
-		this.orcid = orcid;
-	}
+    /**
+     * @param ecid
+     *            the ecid to set
+     */
+    public final void setEcid(final String ecid) {
+        this.ecid = ecid;
+    }
 
-	public String getOrcid() {
-		return orcid;
-	}
+    /**
+     * @return the middlename
+     */
+    public final String getMiddlename() {
+        return middlename;
+    }
 
-	public void setAccountidentifier(String accountidentifier) {
-		this.accountidentifier = accountidentifier;
-	}
+    /**
+     * @param middlename
+     *            the middlename to set
+     */
+    public final void setMiddlename(final String middlename) {
+        this.middlename = middlename;
+    }
 
-	public String getAccountidentifier() {
-		return accountidentifier;
-	}
+    /**
+     * @return the userrole
+     */
+    public final String getUserrole() {
+        return userrole;
+    }
 
-	public void setPrimaryemail(String primaryemail) {
-		this.primaryemail = primaryemail;
-	}
+    /**
+     * @param userrole
+     *            the userrole to set
+     */
+    public final void setUserrole(final String userrole) {
+        this.userrole = userrole;
+    }
 
-	public String getPrimaryemail() {
-		return primaryemail;
-	}
+    /** The nickname. */
+    private String nickname;
 
-	public void setEcid(String ecid) {
-		this.ecid = ecid;
-	}
+    /** The firstname. */
+    private String firstname;
 
-	public String getEcid() {
-		return ecid;
-	}
+    /** The orcid. */
+    private String orcid;
 
-	public void setMiddlename(String middlename) {
-		this.middlename = middlename;
-	}
+    /** The accountidentifier. */
+    private String accountidentifier;
 
-	public String getMiddlename() {
-		return middlename;
-	}
+    /** The primaryemail. */
+    private String primaryemail;
 
-	public void setUserrole(String userrole) {
-		this.userrole = userrole;
-	}
+    /** The ecid. */
+    private String ecid;
 
-	public String getUserrole() {
-		return userrole;
-	}
+    /** The middlename. */
+    private String middlename;
+
+    /** The userrole. */
+    private String userrole;
 
 }

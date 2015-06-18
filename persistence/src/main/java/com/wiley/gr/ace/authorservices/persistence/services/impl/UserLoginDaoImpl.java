@@ -30,165 +30,180 @@ import com.wiley.gr.ace.authorservices.persistence.entity.UserRolesId;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
 
-
 /**
- * @author virtusa
- *	version 1.0
+ * @author virtusa version 1.0
  */
 public class UserLoginDaoImpl implements UserLoginDao {
-    
-  
+
+    /**
+     * Checks if emailId exists in USER_PROFILE in AS2.0 database.
+     * 
+     * @param emailId
+     *            to validate.
+     * @return the boolean value.
+     */
     @Override
-    public boolean validateEmail(String emailId) {
+    public final boolean validateEmail(final String emailId) {
         boolean status = false;
         int userId = getUserId(emailId);
+        if(userId == 0){
+            return status;
+        }
         Session session = getSessionFactory().openSession();
-        Transaction txn = session.getTransaction();
-        try
-        {
-     
-        txn.begin();
-        
-        AdminDetails adminDetails = (AdminDetails) session.load(
-                AdminDetails.class, userId);
-        
-        if (null != adminDetails) {
-            
-            status = true;
+        try {
+            AdminDetails adminDetails = (AdminDetails) session.load(
+                    AdminDetails.class, userId);
+            if (null != adminDetails) {
+
+                status = true;
+            }
+        } finally {
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
         }
-        txn.commit();
-        }
-        finally{
-        	if (session !=null)
-        	{
-        		session.flush();
-        		session.close();
-        		
-        	}
-        }
-        
         return status;
     }
-    
+
+    /**
+     * Updates the LAST_LOGIN_TIME, UPDATED_BY, UPDATED_DATE columns of
+     * USER_PROFILE table.
+     * 
+     * @param emailId
+     *            to Login.
+     * @return the boolean value.
+     */
     @Override
-    public boolean doLogin(String emailId) {
+    public final boolean doLogin(final String emailId) {
         Session session = getSessionFactory().openSession();
-        
+
         AuthorProfile authorProfile = null;
-        
+
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         Date date = new Date();
-        
+
         String utildate = dateFormat.format(date);
-        
+
         java.sql.Date.valueOf(utildate);
         int userId = getUserId(emailId);
         try {
-        	 String hql = "from AuthorProfile where userId = :userId";
-             List<AuthorProfile> result = session.createQuery(hql)
-                     .setInteger("userId", userId).list();
-             
-             if (null != result && !result.isEmpty()) {
-                 authorProfile = result.get(0);
-             }
-             
-             if (authorProfile != null) {
-                 Users users = new Users();
-                 users.setUserId(userId);
-                 authorProfile.setUsersByUpdatedBy(users);
-                 authorProfile.setUpdatedDate(date);
-             }
-             session.saveOrUpdate(authorProfile);
-		} 
-        finally{
-        	if(session !=null)
-        		session.flush();
-        	session.close();
+            String hql = "from AuthorProfile where userId = :userId";
+            List<AuthorProfile> result = session.createQuery(hql)
+                    .setInteger("userId", userId).list();
+
+            if (null != result && !result.isEmpty()) {
+                authorProfile = result.get(0);
+            }
+
+            if (authorProfile != null) {
+                Users users = new Users();
+                users.setUserId(userId);
+                authorProfile.setUsersByUpdatedBy(users);
+                authorProfile.setUpdatedDate(date);
+            }
+            session.saveOrUpdate(authorProfile);
+        } finally {
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
         }
-        
+
         return true;
     }
-    
+
     /**
-     * Method to get UserId using emailId
+     * Method to get UserId using emailId.
      * 
      * @param emailId
-     * @return
+     *            to get userId.
+     * @return the Integer value.
      */
-    private int getUserId(String emailId) {
-        
+    private final int getUserId(final String emailId) {
+
         Session session = getSessionFactory().openSession();
         Users user = null;
         int userId = 0;
         try {
-        	String hql = "from Users where primaryEmailAddr = :emailId";
+            String hql = "from Users where primaryEmailAddr = :emailId";
             List<Users> result = session.createQuery(hql)
                     .setString("emailId", emailId).list();
-            
+
             if (result != null && !result.isEmpty()) {
-                
+
                 user = result.get(0);
                 userId = user.getUserId();
             }
-			
-		} finally{
-			
-			if(session !=null)
-        		session.flush();
-        	session.close();
-		}
-        
+
+        } finally {
+
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
+        }
+
         return userId;
-        
+
     }
-    
+
+    /**
+     * This method creates admin user in database.
+     * 
+     * @param users
+     *            to create Admin User.
+     * @param userRolesList
+     *            to create Admin User.
+     */
     @Override
-    public void createAdminUser(Users users, List<UserRoles> userRolesList) {
-        
+    public final void createAdminUser(final Users users,
+            final List<UserRoles> userRolesList) {
+
         Session session = null;
-        
+
         Date date = new Date();
-        
+
         try {
-            
-            if(getUserId(users.getPrimaryEmailAddr()) != 0) {
-                throw new ASException("1020","User already exists.");
+
+            if (getUserId(users.getPrimaryEmailAddr()) != 0) {
+                throw new ASException("1020", "User already exists.");
             } else {
-            
+
                 session = getSessionFactory().openSession();
                 Transaction txn = session.getTransaction();
                 txn.begin();
                 session.save(users);
-                
+
                 txn.commit();
                 txn = session.getTransaction();
                 txn.begin();
-                
+
                 AdminDetails adminDetails = new AdminDetails();
                 adminDetails.setAdminUserId(users.getUserId());
                 adminDetails.setCreatedDate(date);
                 adminDetails.setUsersByCreatedBy(users);
                 adminDetails.setUsersByUserId(users);
-                
+
                 session.save(adminDetails);
-                
+
                 txn.commit();
                 txn = session.getTransaction();
                 txn.begin();
-                
-                //int adminRoleId = getAdminRoleId();
+
+                // int adminRoleId = getAdminRoleId();
                 UserRoles userRoles = new UserRoles();
                 UserRolesId userRolesId = new UserRolesId();
                 userRolesId.setRoleId(6);
                 userRolesId.setUserId(users.getUserId());
                 userRoles.setId(userRolesId);
                 userRoles.setCreatedDate(date);
-                
+
                 session.save(userRoles);
-                
+
                 txn.commit();
             }
-            
+
         } finally {
             if (session != null) {
                 session.flush();
@@ -197,59 +212,58 @@ public class UserLoginDaoImpl implements UserLoginDao {
         }
     }
 
-
+    /**
+     * This method gets the User Details.
+     * 
+     * @param emailId
+     *            to get the User Details.
+     * @return the Users.
+     */
     @Override
-	public Users getUserDetails(String emailId) {
-		
-		
-    	  Session session = getSessionFactory().openSession();
-          Users user = null;
-          try {
-          	String hql = "from Users where primaryEmailAddr = :emailId";
-              List<Users> result = session.createQuery(hql)
-                      .setString("emailId", emailId).list();
-              if (result != null && !result.isEmpty()) {
-              user=result.get(0);
-              }
-  			
-  		} finally{
-  			
-  			if(session !=null)
-          		session.flush();
-          	session.close();
-  		}
-          
-          return user;
+    public final Users getUserDetails(final String emailId) {
+
+        Session session = getSessionFactory().openSession();
+        Users user = null;
+        try {
+            String hql = "from Users where primaryEmailAddr = :emailId";
+            List<Users> result = session.createQuery(hql)
+                    .setString("emailId", emailId).list();
+            if (result != null && !result.isEmpty()) {
+                user = result.get(0);
+            }
+
+        } finally {
+
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
+        }
+
+        return user;
     }
 
-   
     /**
      * @return
      */
-    /*private int getAdminRoleId() {
-        
-        Session session = con.getSessionFactory().openSession();
-        int roleId = 0;
-        Roles daoRoles = null;
-        
-        session = con.getSessionFactory().openSession();
-        
-        String hql = "from Roles where role_name = :roleName";
-        List<Roles> result = session.createQuery(hql)
-                .setString("roleName", "AOS Admin").list();
-        
-        if (result != null && result.isEmpty()) {
-            
-            daoRoles = result.get(0);
-            roleId = daoRoles.getRoleId();
-        }
-        
-        session.flush();
-        session.close();
-        
-        return roleId;
-    }*/
-		
-	
+    /*
+     * private int getAdminRoleId() {
+     * 
+     * Session session = con.getSessionFactory().openSession(); int roleId = 0;
+     * Roles daoRoles = null;
+     * 
+     * session = con.getSessionFactory().openSession();
+     * 
+     * String hql = "from Roles where role_name = :roleName"; List<Roles> result
+     * = session.createQuery(hql) .setString("roleName", "AOS Admin").list();
+     * 
+     * if (result != null && result.isEmpty()) {
+     * 
+     * daoRoles = result.get(0); roleId = daoRoles.getRoleId(); }
+     * 
+     * session.flush(); session.close();
+     * 
+     * return roleId; }
+     */
+
 }
-  

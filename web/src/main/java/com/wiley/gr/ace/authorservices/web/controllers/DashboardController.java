@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wiley.gr.ace.authorservices.model.Dashboard;
 import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
 import com.wiley.gr.ace.authorservices.model.Service;
+import com.wiley.gr.ace.authorservices.model.external.DashboardView;
 import com.wiley.gr.ace.authorservices.services.service.DashboardService;
 
 /**
@@ -83,4 +84,34 @@ public class DashboardController {
         return service;
 
     }
+
+    /**
+     * This method takes userId and return the Service.
+     * 
+     * @param userId
+     * @return service
+     */
+    @RequestMapping(value = "/view/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final @ResponseBody Service getAllAuthorArticles(
+            @PathVariable("userId") final String userId) {
+        LOGGER.info("inside viewallauthorarticles method of DashboardController");
+        Service service = new Service();
+        DashboardView dashboardView = null;
+        try {
+            dashboardView = dashboardService.viewDashboard(userId);
+            if (!StringUtils.isEmpty(dashboardView)) {
+                service.setStatus("SUCCESS");
+                service.setPayload(dashboardView);
+            }
+        } catch (Exception e) {
+            LOGGER.error("Print Stack Trace- ", e);
+            ErrorPOJO error = new ErrorPOJO();
+            error.setCode(201);
+            error.setMessage("Error Fetching To View All Author Articles");
+            service.setStatus("ERROR");
+            service.setError(error);
+        }
+        return service;
+    }
+
 }

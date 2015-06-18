@@ -16,19 +16,28 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.wiley.gr.ace.authorservices.model.UserProfile;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class UserProfileResponse.
+ *
+ * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
 public class UserProfileResponse {
 
+    /** The customer profile. */
     private UserProfile customerProfile;
 
-    public UserProfile getCustomerProfile() {
+    /**
+     * @return the customerProfile
+     */
+    public final UserProfile getCustomerProfile() {
         return customerProfile;
     }
 
-    public void setCustomerProfile(UserProfile customerProfile) {
+    /**
+     * @param customerProfile
+     *            the customerProfile to set
+     */
+    public final void setCustomerProfile(final UserProfile customerProfile) {
         this.customerProfile = customerProfile;
     }
 

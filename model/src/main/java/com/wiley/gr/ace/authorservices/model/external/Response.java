@@ -14,21 +14,26 @@ package com.wiley.gr.ace.authorservices.model.external;
 
 import java.util.List;
 
+/**
+ * The Class Response.
+ */
 public class Response {
 
-	private List<Object> docs;
+    /** The docs. */
+    private List<Object> docs;
 
-	public List<Object> getDocs() {
-		return docs;
-	}
+    /**
+     * @return the docs
+     */
+    public final List<Object> getDocs() {
+        return docs;
+    }
 
-	public void setDocs(List<Object> docs) {
-		this.docs = docs;
-	}
-
-
-
-	
-	
-
+    /**
+     * @param docs
+     *            the docs to set
+     */
+    public final void setDocs(final List<Object> docs) {
+        this.docs = docs;
+    }
 }

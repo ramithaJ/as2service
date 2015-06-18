@@ -9,55 +9,106 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class Login.
+ *
+ * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
 public class Login {
-    
+
+    /** The email id. */
     @NotNull
     @NotBlank
     @Email
     private String emailId;
-    
+
+    /** The password. */
     @NotNull
     @NotBlank
     private String password;
-    
+
+    /** The authentication type. */
     private String authenticationType;
-    
+
+    /** The app key. */
     private String appKey;
-    
-    public String getEmailId() {
+
+    /** The user id. */
+    private Integer userId;
+
+    /**
+     * @return the emailId
+     */
+    public final String getEmailId() {
         return emailId;
     }
-    
-    public void setEmailId(String emailId) {
+
+    /**
+     * @param emailId
+     *            the emailId to set
+     */
+    public final void setEmailId(final String emailId) {
         this.emailId = emailId;
     }
-    
-    public String getPassword() {
+
+    /**
+     * @return the password
+     */
+    public final String getPassword() {
         return password;
     }
-    
-    public void setPassword(String password) {
+
+    /**
+     * @param password
+     *            the password to set
+     */
+    public final void setPassword(final String password) {
         this.password = password;
     }
 
-    public String getAuthenticationType() {
+    /**
+     * @return the authenticationType
+     */
+    public final String getAuthenticationType() {
         return authenticationType;
     }
 
-    public void setAuthenticationType(String authenticationType) {
+    /**
+     * @param authenticationType
+     *            the authenticationType to set
+     */
+    public final void setAuthenticationType(final String authenticationType) {
         this.authenticationType = authenticationType;
     }
 
-    public String getAppKey() {
+    /**
+     * @return the appKey
+     */
+    public final String getAppKey() {
         return appKey;
     }
 
-    public void setAppKey(String appKey) {
+    /**
+     * @param appKey
+     *            the appKey to set
+     */
+    public final void setAppKey(final String appKey) {
         this.appKey = appKey;
     }
-    
+
+    /**
+     * @return the userId
+     */
+    public final Integer getUserId() {
+        return userId;
+    }
+
+    /**
+     * @param userId
+     *            the userId to set
+     */
+    public final void setUserId(final Integer userId) {
+        this.userId = userId;
+    }
+
 }

@@ -43,278 +43,309 @@ import com.wiley.gr.ace.authorservices.persistence.services.UserRolesDAO;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 
 /**
+ * The Class AdminLoginServiceImpl.
+ *
  * @author virtusa version 1.0
  */
 public class AdminLoginServiceImpl implements AdminLoginService {
 
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(AdminLoginServiceImpl.class);
+    /** The Constant LOGGER. */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(AdminLoginServiceImpl.class);
 
-	@Autowired(required = true)
-	UserLoginDao userlogindao;
-	@Autowired(required = true)
-	UserLoginServiceDAO userLoginServiceDAO;
-	@Autowired(required = true)
-	UserManagement userManagement;
-	@Autowired(required = true)
-	BPMInterfaceService bpmService;
-	@Autowired(required = true)
-	ASDataDAO asDataDAO;
-	@Autowired(required = true)
-	UserRolesDAO userRolesDAO;
+    /** The userlogindao. */
+    @Autowired(required = true)
+    private UserLoginDao userlogindao;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.wiley.gr.ace.authorservices.services.admin.AdminLoginService#
-	 * validateEmail(java.lang.String)
-	 */
+    /** The user login service dao. */
+    @Autowired(required = true)
+    private UserLoginServiceDAO userLoginServiceDAO;
 
-	@Override
-	public boolean validateEmail(String emailId) {
-		LOGGER.info("inside validateEmail Method");
-		return userlogindao.validateEmail(emailId);
-	}
+    /** The user management. */
+    @Autowired(required = true)
+    private UserManagement userManagement;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.wiley.gr.ace.authorservices.services.service.AdminLoginService#doLogin
-	 * (java.lang.String)
-	 */
-	@Override
-	public String doLogin(String emailId) {
-		// Call external service for password validation
-		LOGGER.info("inside doLogin Method");
-		int userId = userLoginServiceDAO.getUserId(emailId);
-		// userLoginServiceDAO.doLogin(userId);
-		return userId + "";
+    /** The bpm service. */
+    @Autowired(required = true)
+    private BPMInterfaceService bpmService;
 
-	}
+    /** The as data dao. */
+    @Autowired(required = true)
+    private ASDataDAO asDataDAO;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.wiley.gr.ace.authorservices.services.service.AdminLoginService#
-	 * requestAdminAccess(java.lang.String)
-	 */
-	@Override
-	public boolean requestAdminAccess(String emailId) {
-		// TODO: Integrate with BPM Service
-		LOGGER.info("inside requestAdminAccess Method");
+    /** The user roles dao. */
+    @Autowired(required = true)
+    private UserRolesDAO userRolesDAO;
 
-		return bpmService.createTask();
-	}
+    /**
+     * This method will call take emailId as input and takes and validate
+     * against db.
+     *
+     * @param emailId
+     *            the email id
+     * @return true, if successful
+     */
+    @Override
+    public final boolean validateEmail(final String emailId) {
+        LOGGER.info("inside validateEmail Method");
+        return userlogindao.validateEmail(emailId);
+    }
 
-	@Override
-	public RolesAndPermissions getRolesAndPermissions(String roleId) {
+    /**
+     * This method will call take emailId as input and login in.
+     *
+     * @param emailId
+     *            the email id
+     * @return the string
+     */
+    @Override
+    public final String doLogin(final String emailId) {
+        // Call external service for password validation
+        LOGGER.info("inside doLogin Method");
+        int userId = userLoginServiceDAO.getUserId(emailId);
+        // userLoginServiceDAO.doLogin(userId);
+        return userId + "";
 
-		LOGGER.info("inside getRolesAndPermissions Method");
-		RolesAndPermissions rolesAndPermissions = new RolesAndPermissions();
+    }
 
-		Map<String, List<String>> permissionsMap = new HashMap<String, List<String>>();
+    /**
+     * This method will call take emailId and call external service to create
+     * task.
+     *
+     * @param emailId
+     *            the email id
+     * @return true, if successful
+     */
+    @Override
+    public final boolean requestAdminAccess(final String emailId) {
 
-		PermissionSection systemSection = new PermissionSection();
-		PermissionSection articleSection = new PermissionSection();
-		PermissionSection adminSection = new PermissionSection();
+        LOGGER.info("inside requestAdminAccess Method");
 
-		systemSection
-				.setSectionName(AuthorServicesConstants.PERMISSION_LEVEL_SYSTEM);
-		articleSection
-				.setSectionName(AuthorServicesConstants.PERMISSION_LEVEL_ARTICLE);
-		adminSection
-				.setSectionName(AuthorServicesConstants.PERMISSION_LEVEL_ADMIN);
+        return bpmService.createTask();
+    }
 
-		// if(roleId == null || roleId.equals("")) {
+    /**
+     * This method will call take roleId and gets all the permissions based on
+     * that id by calling dao.
+     *
+     * @param roleId
+     *            the role id
+     * @return the roles and permissions
+     */
+    @Override
+    public final RolesAndPermissions getRolesAndPermissions(String roleId) {
 
-		List<Roles> daoRolesList = asDataDAO.getUserRoles(roleId);
+        LOGGER.info("inside getRolesAndPermissions Method");
+        RolesAndPermissions rolesAndPermissions = new RolesAndPermissions();
 
-		for (Roles daoRoles : daoRolesList) {
+        Map<String, List<String>> permissionsMap = new HashMap<String, List<String>>();
 
-			Role role = new Role();
-			role.setRoleId(daoRoles.getRoleId() + "");
-			role.setRoleName(daoRoles.getRoleName());
-			role.setRoleDescription(daoRoles.getDescription());
-			if (daoRoles.getRoleType() != null
-					&& daoRoles.getRoleType().equals(
-							AuthorServicesConstants.ROLE_TYPE_INTERNAL)) {
-				role.setAdminRole(true);
-			}
-			rolesAndPermissions.getRolesList().add(role);
-		}
+        PermissionSection systemSection = new PermissionSection();
+        PermissionSection articleSection = new PermissionSection();
+        PermissionSection adminSection = new PermissionSection();
 
-		List<Permissions> daoPermissionsList = asDataDAO.getPermissions();
+        systemSection
+                .setSectionName(AuthorServicesConstants.PERMISSION_LEVEL_SYSTEM);
+        articleSection
+                .setSectionName(AuthorServicesConstants.PERMISSION_LEVEL_ARTICLE);
+        adminSection
+                .setSectionName(AuthorServicesConstants.PERMISSION_LEVEL_ADMIN);
 
-		for (Permissions daoPermissions : daoPermissionsList) {
+        // if(roleId == null || roleId.equals("")) {
 
-			UserPermissions permission = new UserPermissions();
+        List<Roles> daoRolesList = asDataDAO.getUserRoles(roleId);
 
-			permission.setPermissionId(daoPermissions.getPermissionCd() + "");
-			permission.setPermissionName(daoPermissions.getPermissionName());
+        for (Roles daoRoles : daoRolesList) {
 
-			if (daoPermissions.getPermissionGroup().equalsIgnoreCase(
-					AuthorServicesConstants.PERMISSION_LEVEL_SYSTEM)
-			/*
-			 * && daoPermissions.getPermType().equalsIgnoreCase(
-			 * AuthorServicesConstants.PERMISSION_TYPE_EXTERNAL)
-			 */) { // TODO
-				systemSection.getPermissionsList().add(permission);
+            Role role = new Role();
+            role.setRoleId(daoRoles.getRoleId() + "");
+            role.setRoleName(daoRoles.getRoleName());
+            role.setRoleDescription(daoRoles.getDescription());
+            if (daoRoles.getRoleType() != null
+                    && daoRoles.getRoleType().equals(
+                            AuthorServicesConstants.ROLE_TYPE_INTERNAL)) {
+                role.setAdminRole(true);
+            }
+            rolesAndPermissions.getRolesList().add(role);
+        }
 
-			} else if (daoPermissions.getPermissionGroup().equalsIgnoreCase(
-					AuthorServicesConstants.PERMISSION_LEVEL_ADMIN)
-			/*
-			 * && daoPermissions.getPermType().equalsIgnoreCase(
-			 * AuthorServicesConstants.PERMISSION_TYPE_INTERNAL)
-			 */) { // TODO
-				adminSection.getPermissionsList().add(permission);
+        List<Permissions> daoPermissionsList = asDataDAO.getPermissions();
 
-			} else if (daoPermissions.getPermissionGroup().equalsIgnoreCase(
-					AuthorServicesConstants.PERMISSION_LEVEL_ARTICLE)) {
-				articleSection.getPermissionsList().add(permission);
-			}
-		}
+        for (Permissions daoPermissions : daoPermissionsList) {
 
-		rolesAndPermissions.getSectionsList().add(adminSection);
-		rolesAndPermissions.getSectionsList().add(articleSection);
-		rolesAndPermissions.getSectionsList().add(systemSection);
+            UserPermissions permission = new UserPermissions();
 
-		List<RolePermissions> daoPermissionMappings = asDataDAO
-				.getRolePermissionMappings(roleId);
+            permission.setPermissionId(daoPermissions.getPermissionCd() + "");
+            permission.setPermissionName(daoPermissions.getPermissionName());
 
-		for (RolePermissions daoRolePermissions : daoPermissionMappings) {
+            if (daoPermissions.getPermissionGroup().equalsIgnoreCase(
+                    AuthorServicesConstants.PERMISSION_LEVEL_SYSTEM)
+            /*
+             * && daoPermissions.getPermType().equalsIgnoreCase(
+             * AuthorServicesConstants.PERMISSION_TYPE_EXTERNAL)
+             */) { // TODO
+                systemSection.getPermissionsList().add(permission);
 
-			String roleIdString = daoRolePermissions.getId().getRoleId() + "";
-			if (permissionsMap.containsKey(roleIdString)) {
-				List<String> permissionsList = permissionsMap.get(roleIdString);
-				if (permissionsList == null) {
-					permissionsList = new ArrayList<String>();
-					permissionsMap.put(roleIdString, permissionsList);
-				}
-				permissionsList.add(daoRolePermissions.getId()
-						.getPermissionCd() + "");
+            } else if (daoPermissions.getPermissionGroup().equalsIgnoreCase(
+                    AuthorServicesConstants.PERMISSION_LEVEL_ADMIN)
+            /*
+             * && daoPermissions.getPermType().equalsIgnoreCase(
+             * AuthorServicesConstants.PERMISSION_TYPE_INTERNAL)
+             */) { // TODO
+                adminSection.getPermissionsList().add(permission);
 
-			} else {
-				List<String> permissionsList = new ArrayList<String>();
-				permissionsList.add(daoRolePermissions.getId()
-						.getPermissionCd() + "");
-				permissionsMap.put(roleIdString, permissionsList);
-			}
+            } else if (daoPermissions.getPermissionGroup().equalsIgnoreCase(
+                    AuthorServicesConstants.PERMISSION_LEVEL_ARTICLE)) {
+                articleSection.getPermissionsList().add(permission);
+            }
+        }
 
-		}
+        rolesAndPermissions.getSectionsList().add(adminSection);
+        rolesAndPermissions.getSectionsList().add(articleSection);
+        rolesAndPermissions.getSectionsList().add(systemSection);
 
-		Map<String, String[]> returnMap = new HashMap<String, String[]>();
+        List<RolePermissions> daoPermissionMappings = asDataDAO
+                .getRolePermissionMappings(roleId);
 
-		for (Map.Entry<String, List<String>> entry : permissionsMap.entrySet()) {
+        for (RolePermissions daoRolePermissions : daoPermissionMappings) {
 
-			returnMap.put(
-					entry.getKey(),
-					entry.getValue().toArray(
-							new String[entry.getValue().size()]));
-		}
-		rolesAndPermissions.setPermissionsMap(returnMap);
-		// }
-		return rolesAndPermissions;
-	}
+            String roleIdString = daoRolePermissions.getId().getRoleId() + "";
+            if (permissionsMap.containsKey(roleIdString)) {
+                List<String> permissionsList = permissionsMap.get(roleIdString);
+                if (permissionsList == null) {
+                    permissionsList = new ArrayList<String>();
+                    permissionsMap.put(roleIdString, permissionsList);
+                }
+                permissionsList.add(daoRolePermissions.getId()
+                        .getPermissionCd() + "");
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.wiley.gr.ace.authorservices.services.service.AdminLoginService#
-	 * addOrUpdateUserRole
-	 * (com.wiley.gr.ace.authorservices.model.RolesAndPermissions)
-	 */
-	@Override
-	public void addOrUpdateUserRole(ASRolesAndPermissions rolesAndPermissions) {
+            } else {
+                List<String> permissionsList = new ArrayList<String>();
+                permissionsList.add(daoRolePermissions.getId()
+                        .getPermissionCd() + "");
+                permissionsMap.put(roleIdString, permissionsList);
+            }
 
-		LOGGER.info("inside addOrUpdateUserRole Method");
-		Roles roles = new Roles();
-		List<Permissions> permissionsList = new ArrayList<Permissions>();
-		Role role = rolesAndPermissions.getRole();
-		if(role.getRoleId().equals("0")) {
-		    userRolesDAO.checkRoleName(role.getRoleName());
-		}
+        }
 
-		for (Map.Entry<String, String[]> entry : rolesAndPermissions
-				.getPermissionsMap().entrySet()) {
-			for (String permissionId : entry.getValue()) {
+        Map<String, String[]> returnMap = new HashMap<String, String[]>();
 
-				Permissions permissions = new Permissions();
-				permissions.setPermissionCd(permissionId);
-				permissionsList.add(permissions);
-			}
+        for (Map.Entry<String, List<String>> entry : permissionsMap.entrySet()) {
 
-		}
+            returnMap.put(
+                    entry.getKey(),
+                    entry.getValue().toArray(
+                            new String[entry.getValue().size()]));
+        }
+        rolesAndPermissions.setPermissionsMap(returnMap);
+        // }
+        return rolesAndPermissions;
+    }
 
-		if (permissionsList.isEmpty()) {
-			throw new ASException("1111",
-					"Please select atleast one permission");
-		}
-		if (rolesAndPermissions.getRole().getRoleId() != null
-				&& !rolesAndPermissions.getRole().getRoleId().trim()
-						.equals("0")) {
-			roles.setRoleId(Integer.valueOf(rolesAndPermissions.getRole()
-					.getRoleId()));
-		}
-		roles.setDescription(rolesAndPermissions.getRole().getRoleDescription());
-		roles.setRoleName(rolesAndPermissions.getRole().getRoleName());
-		if (rolesAndPermissions.getRole().isAdminRole()) {
-			roles.setRoleType(AuthorServicesConstants.ROLE_TYPE_INTERNAL);
-		} else {
-			roles.setRoleType(AuthorServicesConstants.ROLE_TYPE_EXTERNAL);
-		}
+    /**
+     * This method will call take rolesAndPermissions json and do addorupdate by
+     * calling dao.
+     *
+     * @param rolesAndPermissions
+     *            the roles and permissions
+     */
+    @Override
+    public final void addOrUpdateUserRole(
+            ASRolesAndPermissions rolesAndPermissions) {
 
-		userRolesDAO.addOrUpdateUserRoles(roles, permissionsList);
+        LOGGER.info("inside addOrUpdateUserRole Method");
+        Roles roles = new Roles();
+        List<Permissions> permissionsList = new ArrayList<Permissions>();
+        Role role = rolesAndPermissions.getRole();
+        if (role.getRoleId().equals("0")) {
+            userRolesDAO.checkRoleName(role.getRoleName());
+        }
 
-	}
+        for (Map.Entry<String, String[]> entry : rolesAndPermissions
+                .getPermissionsMap().entrySet()) {
+            for (String permissionId : entry.getValue()) {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.wiley.gr.ace.authorservices.services.service.AdminLoginService#findUser
-	 * (java.lang.String)
-	 */
-	@Override
-	public AdminUser findUser(String emailId) {
-		LOGGER.info("inside findUser Method");
-		/*AdminUser adminUser = new AdminUser();
-		  
-		 Users user=userlogindao.getUserDetails(emailId);
-		
-		
-		if(! StringUtils.isEmpty(user))
-		{
-			adminUser.setFirstName(user.getFirstName()); 
-			adminUser.setLastName(user.getLastName());
-		}else{
-			
-	     userManagement.findUser(emailId);
-		}
-		return adminUser;*/
-		
-		return userManagement.findUser(emailId);
-	}
+                Permissions permissions = new Permissions();
+                permissions.setPermissionCd(permissionId);
+                permissionsList.add(permissions);
+            }
 
-	@Override
-	public void createAdmin(AdminUser adminuser) {
-		LOGGER.info("inside createAdmin Method");
-		Users users = new Users();
-		List<UserRoles> rolesList = new ArrayList<UserRoles>();
+        }
 
-		for (String roleId : adminuser.getRolesList()) {
-			UserRoles userRoles = new UserRoles();
-			UserRolesId userRolesId = new UserRolesId();
-			userRolesId.setRoleId(Integer.parseInt(roleId));
-			userRoles.setId(userRolesId);
-			rolesList.add(userRoles);
-		}
+        if (permissionsList.isEmpty()) {
+            throw new ASException("1111",
+                    "Please select atleast one permission");
+        }
+        if (rolesAndPermissions.getRole().getRoleId() != null
+                && !rolesAndPermissions.getRole().getRoleId().trim()
+                        .equals("0")) {
+            roles.setRoleId(Integer.valueOf(rolesAndPermissions.getRole()
+                    .getRoleId()));
+        }
+        roles.setDescription(rolesAndPermissions.getRole().getRoleDescription());
+        roles.setRoleName(rolesAndPermissions.getRole().getRoleName());
+        if (rolesAndPermissions.getRole().isAdminRole()) {
+            roles.setRoleType(AuthorServicesConstants.ROLE_TYPE_INTERNAL);
+        } else {
+            roles.setRoleType(AuthorServicesConstants.ROLE_TYPE_EXTERNAL);
+        }
 
-		users.setPrimaryEmailAddr(adminuser.getEmailId());
-		users.setFirstName(adminuser.getFirstName());
-		users.setLastName(adminuser.getLastName());
-		userlogindao.createAdminUser(users, rolesList);
+        userRolesDAO.addOrUpdateUserRoles(roles, permissionsList);
 
-	}
+    }
+
+    /**
+     * This method will call take emailId and find user is existing or not.
+     *
+     * @param emailId
+     *            the email id
+     * @return the admin user
+     */
+    @Override
+    public final AdminUser findUser(final String emailId) {
+        LOGGER.info("inside findUser Method");
+        /*
+         * AdminUser adminUser = new AdminUser();
+         * 
+         * Users user=userlogindao.getUserDetails(emailId);
+         * 
+         * 
+         * if(! StringUtils.isEmpty(user)) {
+         * adminUser.setFirstName(user.getFirstName());
+         * adminUser.setLastName(user.getLastName()); }else{
+         * 
+         * userManagement.findUser(emailId); } return adminUser;
+         */
+
+        return userManagement.findUser(emailId);
+    }
+
+    /**
+     * This method will take adminuser as in input and passes the data to dao
+     * for creating admin.
+     *
+     * @param adminuser
+     *            the adminuser
+     */
+    @Override
+    public final void createAdmin(final AdminUser adminuser) {
+        LOGGER.info("inside createAdmin Method");
+        Users users = new Users();
+        List<UserRoles> rolesList = new ArrayList<UserRoles>();
+
+        for (String roleId : adminuser.getRolesList()) {
+            UserRoles userRoles = new UserRoles();
+            UserRolesId userRolesId = new UserRolesId();
+            userRolesId.setRoleId(Integer.parseInt(roleId));
+            userRoles.setId(userRolesId);
+            rolesList.add(userRoles);
+        }
+
+        users.setPrimaryEmailAddr(adminuser.getEmailId());
+        users.setFirstName(adminuser.getFirstName());
+        users.setLastName(adminuser.getLastName());
+        userlogindao.createAdminUser(users, rolesList);
+
+    }
 
 }

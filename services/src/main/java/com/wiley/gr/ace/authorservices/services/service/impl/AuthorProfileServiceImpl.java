@@ -23,6 +23,7 @@ import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
+import com.wiley.gr.ace.authorservices.model.Email;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
@@ -34,128 +35,233 @@ import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class AuthorProfileServiceImpl.
+ *
+ * @author virtusa version 1.0
  */
 public class AuthorProfileServiceImpl implements AuthorProfileService {
 
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(AuthorProfileServiceImpl.class);
+    /** The Constant LOGGER. */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(AuthorProfileServiceImpl.class);
 
-	@Autowired
-	UserProfiles cdmservices;
-	@Autowired
-	UserManagement almService;
+    /** The user profiles. */
+    @Autowired
+    private UserProfiles userProfiles;
 
-	UserProfile userProfile = new UserProfile();
-	UserProfileResponse lookUpProfile = new UserProfileResponse();
+    /** The user management. */
+    @Autowired
+    private UserManagement userManagement;
 
-	@Override
-	public boolean updateSocietyDetails(Society society) {
-		LOGGER.info("inside updateSocietyDetails Method ");
+    /** The user profile. */
+    private UserProfile userProfile = new UserProfile();
 
-		List<Society> list = new ArrayList<Society>();
-		list.add(society);
-		userProfile.setSocieties(list);
-		lookUpProfile.setCustomerProfile(userProfile);
-		return cdmservices.updateProfile(lookUpProfile);
-	}
+    /** The look up profile. */
+    private UserProfileResponse lookUpProfile = new UserProfileResponse();
 
-	@Override
-	public boolean updateAffiliation(Affiliation affiliation) {
-		LOGGER.info("inside updateAffiliation Method ");
+    /**
+     * Update society details.
+     *
+     * @param society
+     *            the society
+     * @return true, if successful
+     */
+    @Override
+    public final boolean updateSocietyDetails(final Society society) {
+        LOGGER.info("inside updateSocietyDetails Method ");
 
-		List<Affiliation> list = new ArrayList<Affiliation>();
-		list.add(affiliation);
+        List<Society> list = new ArrayList<Society>();
+        list.add(society);
+        userProfile.setSocieties(list);
+        lookUpProfile.setCustomerProfile(userProfile);
+        return userProfiles.updateProfile(lookUpProfile);
+    }
 
-		userProfile.setAffiliations(list);
-		lookUpProfile.setCustomerProfile(userProfile);
-		return cdmservices.updateProfile(lookUpProfile);
-	}
+    /**
+     * Update affiliation.
+     *
+     * @param affiliation
+     *            the affiliation
+     * @return true, if successful
+     */
+    @Override
+    public final boolean updateAffiliation(final Affiliation affiliation) {
+        LOGGER.info("inside updateAffiliation Method ");
 
-	@Override
-	public boolean updateResearchFunder(String userId,
-			ResearchFunder researchFunder) {
+        List<Affiliation> list = new ArrayList<Affiliation>();
+        list.add(affiliation);
 
-		LOGGER.info("inside updateResearchFunder Method ");
+        userProfile.setAffiliations(list);
+        lookUpProfile.setCustomerProfile(userProfile);
+        return userProfiles.updateProfile(lookUpProfile);
+    }
 
-		List<ResearchFunder> list = new ArrayList<ResearchFunder>();
-		list.add(researchFunder);
-		userProfile.setResearchFunders(list);
-		lookUpProfile.setCustomerProfile(userProfile);
-		return cdmservices.updateProfile(lookUpProfile);
-	}
+    /**
+     * Update research funder.
+     *
+     * @param userId
+     *            the user id
+     * @param researchFunder
+     *            the research funder
+     * @return true, if successful
+     */
+    @Override
+    public final boolean updateResearchFunder(final String userId,
+            final ResearchFunder researchFunder) {
 
-	@Override
-	public boolean updateAlerts(String userId,
-			UserProfileAlerts userProfileAlerts) {
+        LOGGER.info("inside updateResearchFunder Method ");
 
-		LOGGER.info("inside updateAlerts Method ");
+        List<ResearchFunder> list = new ArrayList<ResearchFunder>();
+        list.add(researchFunder);
+        userProfile.setResearchFunders(list);
+        lookUpProfile.setCustomerProfile(userProfile);
+        return userProfiles.updateProfile(lookUpProfile);
+    }
 
-		userProfile.setAlerts(userProfileAlerts.getAlerts());
-		lookUpProfile.setCustomerProfile(userProfile);
-		return cdmservices.updateProfile(lookUpProfile);
-	}
+    /**
+     * Update alerts.
+     *
+     * @param userId
+     *            the user id
+     * @param userProfileAlerts
+     *            the user profile alerts
+     * @return true, if successful
+     */
+    @Override
+    public final boolean updateAlerts(final String userId,
+            final UserProfileAlerts userProfileAlerts) {
 
-	@Override
-	public boolean updatecoAuthor(CoAuthor coAuthor) {
+        LOGGER.info("inside updateAlerts Method ");
 
-		LOGGER.info("inside updatecoAuthor Method ");
+        userProfile.setAlerts(userProfileAlerts.getAlerts());
+        lookUpProfile.setCustomerProfile(userProfile);
+        return userProfiles.updateProfile(lookUpProfile);
+    }
 
-		List<CoAuthor> list = new ArrayList<CoAuthor>();
-		list.add(coAuthor);
-		userProfile.setCoAuthors(list);
-		lookUpProfile.setCustomerProfile(userProfile);
-		return cdmservices.updateProfile(lookUpProfile);
+    /**
+     * Update Coauthor.
+     *
+     * @param coAuthor
+     *            the co author
+     * @return true, if successful
+     */
+    @Override
+    public final boolean updatecoAuthor(final CoAuthor coAuthor) {
 
-	}
+        LOGGER.info("inside updatecoAuthor Method ");
 
-	@Override
-	public boolean updateEmailDetails(User emailDetails) {
+        List<CoAuthor> list = new ArrayList<CoAuthor>();
+        list.add(coAuthor);
+        userProfile.setCoAuthors(list);
+        lookUpProfile.setCustomerProfile(userProfile);
+        return userProfiles.updateProfile(lookUpProfile);
 
-		LOGGER.info("inside updateEmailDetails Method ");
-		userProfile.setCustomerDetails(emailDetails);
-		lookUpProfile.setCustomerProfile(userProfile);
-		return cdmservices.updateProfile(lookUpProfile);
-	}
+    }
 
-	@Override
-	public boolean updateUserAddress(UserProfile addresses) {
+    /**
+     * Update email details.
+     *
+     * @param emailDetails
+     *            the email details
+     * @return true, if successful
+     */
+    @Override
+    public final boolean updateEmailDetails(final User emailDetails) {
 
-		LOGGER.info("inside updateUserAddress Method ");
-		userProfile.setAddressDetails(addresses.getAddressDetails());
-		lookUpProfile.setCustomerProfile(userProfile);
-		return cdmservices.updateProfile(lookUpProfile);
-	}
+        LOGGER.info("inside updateEmailDetails Method ");
+        userProfile.setCustomerDetails(emailDetails);
+        lookUpProfile.setCustomerProfile(userProfile);
+        return userProfiles.updateProfile(lookUpProfile);
+    }
 
-	@Override
-	public boolean updateUserProfileInfo(User user) {
+    /**
+     * Update user address.
+     *
+     * @param addresses
+     *            the addresses
+     * @return true, if successful
+     */
+    @Override
+    public final boolean updateUserAddress(final UserProfile addresses) {
 
-		LOGGER.info("inside updateUserProfileInfo Method ");
-		userProfile.setCustomerDetails(user);
-		lookUpProfile.setCustomerProfile(userProfile);
-		return cdmservices.updateProfile(lookUpProfile);
-	}
+        LOGGER.info("inside updateUserAddress Method ");
+        userProfile.setAddressDetails(addresses.getAddressDetails());
+        lookUpProfile.setCustomerProfile(userProfile);
+        return userProfiles.updateProfile(lookUpProfile);
+    }
 
-	@Override
-	public boolean updateUserId(String oldEmailId, String newEmailId) {
+    /**
+     * Update user profile info.
+     *
+     * @param user
+     *            the user
+     * @return true, if successful
+     */
+    @Override
+    public final boolean updateUserProfileInfo(final User user) {
 
-		LOGGER.info("inside updateUserId Method ");
-		return almService.updateUserId(oldEmailId, newEmailId);
-	}
+        LOGGER.info("inside updateUserProfileInfo Method ");
+        userProfile.setCustomerDetails(user);
+        lookUpProfile.setCustomerProfile(userProfile);
+        return userProfiles.updateProfile(lookUpProfile);
+    }
 
-	@Override
-	public boolean updatePassword(PasswordDetails passwordDetails) {
+    /**
+     * Update user id.
+     *
+     * @param email
+     *            the email
+     * @return true, if successful
+     */
+    @Override
+    public final boolean updateUserId(final Email email) {
 
-		LOGGER.info("inside updatePassword Method ");
-		return almService.updatePassword(passwordDetails);
-	}
+        LOGGER.info("inside updateUserId Method ");
+        return userManagement.updateUserId(email.getOldEmailId(),
+                email.getNewEmailId());
+    }
 
-	@Override
-	public boolean updateSecurityDetails(SecurityDetailsHolder securityDetails) {
+    /**
+     * Update password.
+     *
+     * @param passwordDetails
+     *            the password details
+     * @return true, if successful
+     */
+    @Override
+    public final boolean updatePassword(final PasswordDetails passwordDetails) {
 
-		LOGGER.info("inside updateSecurityDetails Method ");
-		return almService.updateSecurityDetails(securityDetails);
-	}
+        LOGGER.info("inside updatePassword Method ");
+        return userManagement.updatePassword(passwordDetails);
+    }
+
+    /**
+     * Update security details.
+     *
+     * @param securityDetails
+     *            the security details
+     * @return true, if successful
+     */
+    @Override
+    public final boolean updateSecurityDetails(
+            final SecurityDetailsHolder securityDetails) {
+
+        LOGGER.info("inside updateSecurityDetails Method ");
+        return userManagement.updateSecurityDetails(securityDetails);
+    }
+
+    /**
+     * Gets the user profile response.
+     *
+     * @param userId
+     *            the user id
+     * @return the user profile response
+     */
+    @Override
+    public final UserProfileResponse getuserProfileResponse(final String userId) {
+
+        LOGGER.info("in UserProfileResponse Method");
+        return userProfiles.getUserProfileResponse(userId);
+    }
 
 }

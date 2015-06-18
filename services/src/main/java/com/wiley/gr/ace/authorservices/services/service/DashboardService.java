@@ -15,6 +15,7 @@
 package com.wiley.gr.ace.authorservices.services.service;
 
 import com.wiley.gr.ace.authorservices.model.Dashboard;
+import com.wiley.gr.ace.authorservices.model.external.DashboardView;
 
 /**
  * This DashboardService is for providing service for viewing the Dashboard of
@@ -23,10 +24,27 @@ import com.wiley.gr.ace.authorservices.model.Dashboard;
  * @author virtusa version 1.0
  */
 public interface DashboardService {
+
     /**
+     * Gets the profile meter.
+     *
      * @param userId
      *            to get the data from ESB ExternalService
      * @return Dashboard
+     * @throws Exception
+     *             the exception
      */
     Dashboard getProfileMeter(String userId) throws Exception;
+
+    /**
+     * View dashboard.
+     *
+     * @param userId
+     *            to get the data from ESB ExternalService
+     * @return DashboardView
+     * @throws Exception
+     *             the exception
+     */
+    DashboardView viewDashboard(String userId) throws Exception;
+
 }

@@ -13,41 +13,46 @@
 package com.wiley.gr.ace.authorservices.model;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class AccessReasons.
+ *
+ * @author virtusa version 1.0
  */
 public class AccessReasons {
-    
+
+    /** The access id. */
     private String accessId;
-    
+
+    /** The access reason. */
     private String accessReason;
-    
+
     /**
-     * @return
+     * @return the accessId
      */
-    public String getAccessId() {
+    public final String getAccessId() {
         return accessId;
     }
-    
+
     /**
-     * @param accessId
+     * @return the accessReason
      */
-    public void setAccessId(String accessId) {
-        this.accessId = accessId;
-    }
-    
-    /**
-     * @return
-     */
-    public String getAccessReason() {
+    public final String getAccessReason() {
         return accessReason;
     }
-    
+
     /**
      * @param accessReason
+     *            the accessReason to set
      */
-    public void setAccessReason(String accessReason) {
+    public final void setAccessReason(final String accessReason) {
         this.accessReason = accessReason;
     }
-    
+
+    /**
+     * @param accessId
+     *            the accessId to set
+     */
+    public final void setAccessId(final String accessId) {
+        this.accessId = accessId;
+    }
+
 }

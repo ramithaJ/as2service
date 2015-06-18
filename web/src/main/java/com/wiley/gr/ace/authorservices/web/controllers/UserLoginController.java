@@ -16,6 +16,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,13 +24,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
+import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
 import com.wiley.gr.ace.authorservices.model.Login;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
-import com.wiley.gr.ace.authorservices.model.UserManagement;
-import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
+import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
+import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 
@@ -39,31 +41,41 @@ import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 @RestController
 @RequestMapping("/user")
 public class UserLoginController extends ASExceptionController {
-    
+
     /**
      * Logger for UserLoginController class.
      */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(UserLoginController.class);
-    
+
     /**
      * injecting UserLoginService bean.
      */
     @Autowired(required = true)
     private UserLoginService userLoginService;
-    
+
     /**
      * injecting AuthorProfileService bean.
      */
     @Autowired
     private AuthorProfileService authorProfileService;
-    
+
     /**
-     * injecting AdminLoginService bean.
+     * Injecting UserLoginServiceDAO bean.
      */
     @Autowired(required = true)
-    private AdminLoginService adminLoginService;
-    
+    private UserLoginServiceDAO userLoginServiceDAO;
+
+    /** The SUCCESS. */
+    @Value("${SUCCESS}")
+    private String SUCCESS;
+
+    @Value("${FAILURE}")
+    private String FAILURE;
+
+    @Value("${LOCKED}")
+    private String LOCKED;
+
     /**
      * Method to authenticate user.
      * 
@@ -73,28 +85,35 @@ public class UserLoginController extends ASExceptionController {
      */
     @RequestMapping(value = "/login/", method = RequestMethod.POST)
     public final Service login(@Valid @RequestBody final Login login) {
-        
-        Service service = new Service();
-        try {
-            SharedServieRequest sharedServieRequest = new SharedServieRequest();
-            sharedServieRequest.setUserId(login.getEmailId());
-            sharedServieRequest.setPassword(login.getPassword());
-            sharedServieRequest.setAuthenticationType("AD");
-            sharedServieRequest.setAppKey("DAAS");
-            String userId = adminLoginService.doLogin(login.getEmailId());
-            UserManagement userObj = new UserManagement();
-            userObj.setUserId(userId);
-            service.setPayload(userObj);
-            userLoginService.login(sharedServieRequest);
-        } catch (Exception exception) {
-            LOGGER.error("Inside catch Block", exception);
+
+        final Service service = new Service();
+
+        final SharedServieRequest sharedServieRequest = new SharedServieRequest();
+        sharedServieRequest.setUserId(login.getEmailId());
+        sharedServieRequest.setPassword(login.getPassword());
+        sharedServieRequest.setAuthenticationType("LDAP");
+        sharedServieRequest.setAppKey("AS");
+        SecurityResponse securityResponse = userLoginService.login(login,
+                sharedServieRequest);
+        if (LOCKED.equalsIgnoreCase(securityResponse.getStatus())
+                || FAILURE.equalsIgnoreCase(securityResponse.getStatus())) {
+            service.setStatus("FAILURE");
+            ErrorPOJO errorPOJO = new ErrorPOJO();
+            errorPOJO.setCode(Integer.parseInt(securityResponse.getCode()));
+            errorPOJO.setMessage(securityResponse.getMessage());
+            service.setError(errorPOJO);
+        } else if (SUCCESS.equals(securityResponse.getStatus())) {
+
+            Integer userId = userLoginServiceDAO.getUserId(login.getEmailId());
+            Login user = new Login();
+            user.setUserId(userId);
+            service.setPayload(user);
         }
-        // service.setPayload(userLoginService.login(sharedServieRequest));
         return service;
     }
-    
+
     /**
-     * Method to reset the password at the time of login.
+     * Method to reset the password through security questions and email.
      * 
      * @param securityDetailsHolder
      *            - it takes the email_id, security details and new password as
@@ -104,14 +123,14 @@ public class UserLoginController extends ASExceptionController {
     @RequestMapping(value = "/password/reset", method = RequestMethod.POST)
     public final Service resetPassword(
             @RequestBody final SecurityDetailsHolder securityDetailsHolder) {
-        LOGGER.info("inside resetPassword method");
-        Service service = new Service();
+        LOGGER.info("Inside resetPassword method");
+        final Service service = new Service();
         service.setPayload(userLoginService
                 .resetPassword(securityDetailsHolder));
         return service;
-        
+
     }
-    
+
     /**
      * this method will update the password at user profile level.
      * 
@@ -123,12 +142,12 @@ public class UserLoginController extends ASExceptionController {
     public final Service updatePassword(
             @Valid @RequestBody final PasswordDetails passwordDetails) {
         LOGGER.info("inside updatePassword method");
-        Service service = new Service();
+        final Service service = new Service();
         service.setPayload(authorProfileService.updatePassword(passwordDetails));
         return service;
-        
+
     }
-    
+
     /**
      * this method will validate the security questions and answers to reset the
      * password at the time of login.
@@ -139,18 +158,17 @@ public class UserLoginController extends ASExceptionController {
      *            array format.
      * @return Service object.
      */
-    @RequestMapping(value = "/securityQuestions/validate/{emailId}")
+    @RequestMapping(value = "/securityQuestions/validate")
     public final Service validateSecurityQuestions(
-            @PathVariable("emailId") final String emailId,
             @Valid @RequestBody final SecurityDetailsHolder securityDetails) {
         LOGGER.info("inside validateSecurityQuestions method");
-        Service service = new Service();
-        service.setPayload(userLoginService.validateSecurityQuestions(emailId,
-                securityDetails.getSecurityDetails()));
-        
+        final Service service = new Service();
+        service.setPayload(userLoginService
+                .validateSecurityQuestions(securityDetails.getSecurityDetails()));
+
         return service;
     }
-    
+
     /**
      * Method to get user security questions.
      * 
@@ -161,12 +179,12 @@ public class UserLoginController extends ASExceptionController {
     public final Service userSecurityQuestions(
             @PathVariable("emailId") final String emailId) {
         LOGGER.info("inside userSecurityQuestions method");
-        Service service = new Service();
+        final Service service = new Service();
         service.setPayload(userLoginService.securityQuestions(emailId));
         return service;
-        
+
     }
-    
+
     /**
      * Method to resetPassword.
      * 
@@ -175,14 +193,14 @@ public class UserLoginController extends ASExceptionController {
      */
     @RequestMapping(value = "resetPassword/{guid}", method = RequestMethod.GET)
     public final Service resetPassword(@PathVariable("guid") final String guid) {
-        Service service = new Service();
-        Login login = new Login();
+        final Service service = new Service();
+        final Login login = new Login();
         login.setEmailId(userLoginService.resetPassword(guid));
         service.setPayload(login);
-        
+
         return service;
     }
-    
+
     /**
      * @param emailId
      * @return service
@@ -190,8 +208,18 @@ public class UserLoginController extends ASExceptionController {
     @RequestMapping(value = "resetByEmail/{emailId}", method = RequestMethod.POST)
     public final Service resetByEmail(
             @PathVariable("emailId") final String emailId) {
-        
+
         return new Service();
     }
-    
+
+    /**
+     * @param guid
+     * @return service.
+     */
+    @RequestMapping(value = "verifyAccount/{guid}", method = RequestMethod.GET)
+    public final Service verifyAccount(@PathVariable("guid") final String guid) {
+        userLoginService.verifyAccountUpdate(guid);
+        return new Service();
+    }
+
 }

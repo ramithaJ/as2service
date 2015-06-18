@@ -3,25 +3,45 @@
 
 package com.wiley.gr.ace.authorservices.model.external;
 
+/**
+ * The Class JournalElement.
+ */
 public class JournalElement {
-	private java.lang.String journaltitle;
 
- 	public void setJournaltitle(java.lang.String journaltitle) {
-		this.journaltitle = journaltitle;
-	}
+    /** The journaltitle. */
+    private String journaltitle;
 
-	public java.lang.String getJournaltitle() {
-		return journaltitle;
-	}
+    /** The journalid. */
+    private String journalid;
 
-	private java.lang.String journalid;
+    /**
+     * @return the journaltitle
+     */
+    public final String getJournaltitle() {
+        return journaltitle;
+    }
 
- 	public void setJournalid(java.lang.String journalid) {
-		this.journalid = journalid;
-	}
+    /**
+     * @param journaltitle
+     *            the journaltitle to set
+     */
+    public final void setJournaltitle(final String journaltitle) {
+        this.journaltitle = journaltitle;
+    }
 
-	public java.lang.String getJournalid() {
-		return journalid;
-	}
+    /**
+     * @return the journalid
+     */
+    public final String getJournalid() {
+        return journalid;
+    }
+
+    /**
+     * @param journalid
+     *            the journalid to set
+     */
+    public final void setJournalid(final String journalid) {
+        this.journalid = journalid;
+    }
 
 }

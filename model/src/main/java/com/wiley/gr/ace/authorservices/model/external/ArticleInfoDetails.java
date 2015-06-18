@@ -9,15 +9,36 @@
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
  *******************************************************************************/
-package com.wiley.gr.ace.authorservices.services.service;
+/**
+ * 
+ */
+package com.wiley.gr.ace.authorservices.model.external;
 
-import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
+import java.util.List;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class ArticleInfoDetails.
+ *
+ * @author yugandhark
  */
-public interface UserProfileService {
-    
-    UserProfileResponse userProfileResponse(String userId);
+public class ArticleInfoDetails {
+
+    /** The article info. */
+    private List<ArticleInfo> articleInfo;
+
+    /**
+     * @return the articleInfo
+     */
+    public final List<ArticleInfo> getArticleInfo() {
+        return articleInfo;
+    }
+
+    /**
+     * @param articleInfo
+     *            the articleInfo to set
+     */
+    public final void setArticleInfo(final List<ArticleInfo> articleInfo) {
+        this.articleInfo = articleInfo;
+    }
+
 }

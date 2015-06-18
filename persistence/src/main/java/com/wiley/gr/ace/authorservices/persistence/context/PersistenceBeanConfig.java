@@ -34,57 +34,112 @@ import com.wiley.gr.ace.authorservices.persistence.services.impl.UserLoginDaoImp
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserLoginServiceDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserRolesDAOImpl;
 
+/**
+ * The Class PersistenceBeanConfig.
+ *
+ * @author virtusa version 1.0
+ */
 @Configuration
 public class PersistenceBeanConfig {
-    
+
+    /**
+     * This method Creates the HibernateConnection.
+     *
+     * @return the HibernateConnection
+     */
     @Bean(name = "HibernateConnection")
     public HibernateConnection hibernateConnection() {
         return new HibernateConnection();
     }
-    
+
+    /**
+     * This method Creates userLoginDao.
+     *
+     * @return the UserLoginDaoImpl.
+     */
     @Bean(name = "AdminLoginDao")
     public UserLoginDao userlogindao() {
         return new UserLoginDaoImpl();
     }
-    
+
+    /**
+     * This method Creates registrationServiceDAO.
+     *
+     * @return the RegistrationServiceDAOImpl.
+     */
     @Bean(name = "RegistrationServiceDAO")
     public RegistrationServiceDAO registrationServiceDAO() {
         return new RegistrationServiceDAOImpl();
     }
-    
+
+    /**
+     * This method Creates userLoginServiceDAO.
+     *
+     * @return the UserLoginServiceDAOImpl.
+     */
     @Bean(name = "UserLoginServiceDAO")
     public UserLoginServiceDAO userLoginServiceDAO() {
         return new UserLoginServiceDAOImpl();
     }
-    
+
+    /**
+     * This method Creates the DashboardDAO.
+     *
+     * @return the DashboardDAOImpl.
+     */
     @Bean(name = "DashboardDAO")
     public DashboardDAO dashboardDAO() {
         return new DashboardDAOImpl();
     }
-    
+
+    /**
+     * This method Creates the UpdateUserDAO.
+     *
+     * @return the UpdateUserDAOImpl.
+     */
     @Bean(name = "UpdateUserDAO")
     public UpdateUserDAO updateUserDAO() {
         return new UpdateUserDAOImpl();
     }
-    
+
+    /**
+     * This method Creates UserAccountDAO.
+     *
+     * @return the UserAccountDAOImpl.
+     */
     @Bean(name = "UserAccountDAO")
     public UserAccountDAO userAccountDAO() {
         return new UserAccountDAOImpl();
     }
-    
+
+    /**
+     * This method Creates ASDataDAO.
+     *
+     * @return the ASDataDAOImpl
+     */
     @Bean(name = "ASDataDAO")
     public ASDataDAO aSDataDAO() {
         return new ASDataDAOImpl();
     }
-    
+
+    /**
+     * This method Creates LookUpValuesDAO.
+     *
+     * @return the LookUpValuesDAOImpl.
+     */
     @Bean(name = "LookUpValuesDAO")
     public LookUpValuesDAO lookupValuesDAO() {
         return new LookupValuesDAOImpl();
     }
-    
+
+    /**
+     * This method Creates UserRolesDAO.
+     *
+     * @return the UserRolesDAOImpl.
+     */
     @Bean(name = "UserRolesDAO")
     public UserRolesDAO userRolesDAO() {
         return new UserRolesDAOImpl();
-        
+
     }
 }

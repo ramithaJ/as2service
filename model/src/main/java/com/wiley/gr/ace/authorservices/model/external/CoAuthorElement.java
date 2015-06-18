@@ -3,85 +3,153 @@
 
 package com.wiley.gr.ace.authorservices.model.external;
 
+/**
+ * The Class CoAuthorElement.
+ */
 public class CoAuthorElement {
-	private java.lang.String firstname;
 
- 	public void setFirstname(java.lang.String firstname) {
-		this.firstname = firstname;
-	}
+    /** The firstname. */
+    private java.lang.String firstname;
 
-	public java.lang.String getFirstname() {
-		return firstname;
-	}
+    /** The userid. */
+    private java.lang.String userid;
 
-	private java.lang.String userid;
+    /** The institution. */
+    private java.lang.String institution;
 
- 	public void setUserid(java.lang.String userid) {
-		this.userid = userid;
-	}
+    /** The emailid. */
+    private java.lang.String emailid;
 
-	public java.lang.String getUserid() {
-		return userid;
-	}
+    /** The lastname. */
+    private java.lang.String lastname;
 
-	private java.lang.String institution;
+    /** The department. */
+    private java.lang.String department;
 
- 	public void setInstitution(java.lang.String institution) {
-		this.institution = institution;
-	}
+    /** The phoneno. */
+    private java.lang.String phoneno;
 
-	public java.lang.String getInstitution() {
-		return institution;
-	}
+    /** The articleid. */
+    private java.lang.String articleid;
 
-	private java.lang.String emailid;
+    /**
+     * @return the firstname
+     */
+    public final java.lang.String getFirstname() {
+        return firstname;
+    }
 
- 	public void setEmailid(java.lang.String emailid) {
-		this.emailid = emailid;
-	}
+    /**
+     * @param firstname
+     *            the firstname to set
+     */
+    public final void setFirstname(final java.lang.String firstname) {
+        this.firstname = firstname;
+    }
 
-	public java.lang.String getEmailid() {
-		return emailid;
-	}
+    /**
+     * @return the userid
+     */
+    public final java.lang.String getUserid() {
+        return userid;
+    }
 
-	private java.lang.String lastname;
+    /**
+     * @param userid
+     *            the userid to set
+     */
+    public final void setUserid(final java.lang.String userid) {
+        this.userid = userid;
+    }
 
- 	public void setLastname(java.lang.String lastname) {
-		this.lastname = lastname;
-	}
+    /**
+     * @return the institution
+     */
+    public final java.lang.String getInstitution() {
+        return institution;
+    }
 
-	public java.lang.String getLastname() {
-		return lastname;
-	}
+    /**
+     * @param institution
+     *            the institution to set
+     */
+    public final void setInstitution(final java.lang.String institution) {
+        this.institution = institution;
+    }
 
-	private java.lang.String department;
+    /**
+     * @return the emailid
+     */
+    public final java.lang.String getEmailid() {
+        return emailid;
+    }
 
- 	public void setDepartment(java.lang.String department) {
-		this.department = department;
-	}
+    /**
+     * @param emailid
+     *            the emailid to set
+     */
+    public final void setEmailid(final java.lang.String emailid) {
+        this.emailid = emailid;
+    }
 
-	public java.lang.String getDepartment() {
-		return department;
-	}
+    /**
+     * @return the lastname
+     */
+    public final java.lang.String getLastname() {
+        return lastname;
+    }
 
-	private java.lang.String phoneno;
+    /**
+     * @param lastname
+     *            the lastname to set
+     */
+    public final void setLastname(final java.lang.String lastname) {
+        this.lastname = lastname;
+    }
 
- 	public void setPhoneno(java.lang.String phoneno) {
-		this.phoneno = phoneno;
-	}
+    /**
+     * @return the department
+     */
+    public final java.lang.String getDepartment() {
+        return department;
+    }
 
-	public java.lang.String getPhoneno() {
-		return phoneno;
-	}
+    /**
+     * @param department
+     *            the department to set
+     */
+    public final void setDepartment(final java.lang.String department) {
+        this.department = department;
+    }
 
-	private java.lang.String articleid;
+    /**
+     * @return the phoneno
+     */
+    public final java.lang.String getPhoneno() {
+        return phoneno;
+    }
 
- 	public void setArticleid(java.lang.String articleid) {
-		this.articleid = articleid;
-	}
+    /**
+     * @param phoneno
+     *            the phoneno to set
+     */
+    public final void setPhoneno(final java.lang.String phoneno) {
+        this.phoneno = phoneno;
+    }
 
-	public java.lang.String getArticleid() {
-		return articleid;
-	}
+    /**
+     * @return the articleid
+     */
+    public final java.lang.String getArticleid() {
+        return articleid;
+    }
+
+    /**
+     * @param articleid
+     *            the articleid to set
+     */
+    public final void setArticleid(final java.lang.String articleid) {
+        this.articleid = articleid;
+    }
 
 }

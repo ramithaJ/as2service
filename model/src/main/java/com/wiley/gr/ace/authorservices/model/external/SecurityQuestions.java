@@ -20,8 +20,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
- * @author virtusa version 1.0
+ * The Class SecurityQuestions.
  *
+ * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
 public class SecurityQuestions {
@@ -30,23 +31,18 @@ public class SecurityQuestions {
     private List<SecurityQuestion> securityQuestion;
 
     /**
-     * Gets the securityQuestion.
-     *
      * @return the securityQuestion
-     * 
      */
-    public List<SecurityQuestion> getSecurityQuestion() {
+    public final List<SecurityQuestion> getSecurityQuestion() {
         return securityQuestion;
     }
 
     /**
-     * Sets the securityQuestion.
-     *
-     * @param the
-     *            securityQuestion
-     * 
+     * @param securityQuestion
+     *            the securityQuestion to set
      */
-    public void setSecurityQuestion(List<SecurityQuestion> securityQuestion) {
+    public final void setSecurityQuestion(
+            final List<SecurityQuestion> securityQuestion) {
         this.securityQuestion = securityQuestion;
     }
 

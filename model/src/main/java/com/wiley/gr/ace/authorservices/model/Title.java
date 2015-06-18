@@ -15,53 +15,47 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class Title.
+ *
+ * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
 public class Title {
-    
+
     /** The title id. */
     private String titleId;
-    
+
     /** The title name. */
     private String titleName;
-    
+
     /**
-     * Gets the title id.
-     *
-     * @return the title id
+     * @return the titleId
      */
-    public String getTitleId() {
+    public final String getTitleId() {
         return titleId;
     }
-    
+
     /**
-     * Sets the title id.
-     *
      * @param titleId
-     *            the new title id
+     *            the titleId to set
      */
-    public void setTitleId(String titleId) {
+    public final void setTitleId(final String titleId) {
         this.titleId = titleId;
     }
-    
+
     /**
-     * Gets the title name.
-     *
-     * @return the title name
+     * @return the titleName
      */
-    public String getTitleName() {
+    public final String getTitleName() {
         return titleName;
     }
-    
+
     /**
-     * Sets the title name.
-     *
      * @param titleName
-     *            the new title name
+     *            the titleName to set
      */
-    public void setTitleName(String titleName) {
+    public final void setTitleName(final String titleName) {
         this.titleName = titleName;
     }
+
 }

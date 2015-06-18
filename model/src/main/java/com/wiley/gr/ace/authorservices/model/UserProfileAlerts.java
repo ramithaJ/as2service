@@ -12,29 +12,29 @@
 
 package com.wiley.gr.ace.authorservices.model;
 
-
 /**
- * @author virtusa
+ * The Class UserProfileAlerts.
  *
+ * @author virtusa
  */
 public class UserProfileAlerts {
-	
-	private Alerts alerts;
 
-	/**
-	 * @return
-	 */
-	public Alerts getAlerts() {
-		return alerts;
-	}
+    /** The alerts. */
+    private Alerts alerts;
 
-	/**
-	 * @param alerts
-	 */
-	public void setAlerts(Alerts alerts) {
-		this.alerts = alerts;
-	}
+    /**
+     * @return the alerts
+     */
+    public final Alerts getAlerts() {
+        return alerts;
+    }
 
-	
+    /**
+     * @param alerts
+     *            the alerts to set
+     */
+    public final void setAlerts(final Alerts alerts) {
+        this.alerts = alerts;
+    }
 
 }
