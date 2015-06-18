@@ -20,7 +20,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.util.StringUtils;
 
-import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserRoles;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserRolesId;
@@ -48,7 +48,7 @@ public class RegistrationServiceDAOImpl implements RegistrationServiceDAO {
         boolean isUserFound = false;
         Session session = getSessionFactory().openSession();
         String searchOrcidHql = "from AuthorProfile af where af.orcidId=:orcidId";
-        List<AuthorProfile> authorProfilesList = session
+        List<UserProfile> authorProfilesList = session
                 .createQuery(searchOrcidHql).setString("orcidId", "orcidId")
                 .list();
         if (!StringUtils.isEmpty(authorProfilesList)) {
