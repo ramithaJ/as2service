@@ -14,10 +14,7 @@
  */
 package com.wiley.gr.ace.authorservices.services.service;
 
-import java.util.List;
-
 import com.wiley.gr.ace.authorservices.model.Dashboard;
-import com.wiley.gr.ace.authorservices.model.external.CommunicationDetails;
 import com.wiley.gr.ace.authorservices.model.external.DashboardView;
 
 /**
@@ -57,5 +54,5 @@ public interface DashboardService {
      *            the user id
      * @return the communication history
      */
-    List<CommunicationDetails> getCommunicationDetailsList(String userId);
+    //List<CommunicationDetails> getCommunicationDetailsList(String userId);
 }
