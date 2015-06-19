@@ -13,6 +13,10 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.util.List;
+
+import com.wiley.gr.ace.authorservices.model.Grants;
+
 /**
  * The Class FundingDetails.
  *
@@ -20,76 +24,48 @@ package com.wiley.gr.ace.authorservices.model.external;
  */
 public class FundingDetails {
 
-    /** The woa account holder. */
-    private String woaAccountHolder;
+    /** The woa account id. */
+    private String woaAccountId;
 
-    /**
-     * @return the woaAccountHolder
-     */
-    public final String getWoaAccountHolder() {
-        return woaAccountHolder;
+    /** The funder id. */
+    private String funderId;
+
+    /** The research funder id. */
+    private String researchFunderId;
+
+    /** The grants. */
+    private List<Grants> grants;
+
+    public final String getWoaAccountId() {
+        return woaAccountId;
     }
 
-    /**
-     * @param woaAccountHolder
-     *            the woaAccountHolder to set
-     */
-    public final void setWoaAccountHolder(final String woaAccountHolder) {
-        this.woaAccountHolder = woaAccountHolder;
+    public final void setWoaAccountId(String woaAccountId) {
+        this.woaAccountId = woaAccountId;
     }
 
-    /**
-     * @return the researchFunder
-     */
-    public final String getResearchFunder() {
-        return researchFunder;
+    public final String getFunderId() {
+        return funderId;
     }
 
-    /**
-     * @param researchFunder
-     *            the researchFunder to set
-     */
-    public final void setResearchFunder(final String researchFunder) {
-        this.researchFunder = researchFunder;
+    public final void setFunderId(String funderId) {
+        this.funderId = funderId;
     }
 
-    /**
-     * @return the grantNumber
-     */
-    public final String getGrantNumber() {
-        return grantNumber;
+    public final String getResearchFunderId() {
+        return researchFunderId;
     }
 
-    /**
-     * @param grantNumber
-     *            the grantNumber to set
-     */
-    public final void setGrantNumber(final String grantNumber) {
-        this.grantNumber = grantNumber;
+    public final void setResearchFunderId(String researchFunderId) {
+        this.researchFunderId = researchFunderId;
     }
 
-    /**
-     * @return the grantRecipient
-     */
-    public final String getGrantRecipient() {
-        return grantRecipient;
+    public final List<Grants> getGrants() {
+        return grants;
     }
 
-    /**
-     * @param grantRecipient
-     *            the grantRecipient to set
-     */
-    public final void setGrantRecipient(final String grantRecipient) {
-        this.grantRecipient = grantRecipient;
+    public final void setGrants(List<Grants> grants) {
+        this.grants = grants;
     }
-
-    /** The research funder. */
-    private String researchFunder;
-
-    /** The grant number. */
-    private String grantNumber;
-
-    /** The grant recipient. */
-    private String grantRecipient;
 
 }

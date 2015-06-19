@@ -20,94 +20,48 @@ package com.wiley.gr.ace.authorservices.model.external;
  */
 public class DiscountData {
 
-    /** The discount value. */
-    private String discountValue;
+    /** The institution id. */
+    private String institutionId;
 
-    /** The discount type. */
-    private String discountType;
+    /** The society id. */
+    private String societyId;
 
-    /** The society code. */
-    private String societyCode;
-
-    /**
-     * @return the discountValue
-     */
-    public final String getDiscountValue() {
-        return discountValue;
-    }
-
-    /**
-     * @param discountValue
-     *            the discountValue to set
-     */
-    public final void setDiscountValue(final String discountValue) {
-        this.discountValue = discountValue;
-    }
-
-    /**
-     * @return the discountType
-     */
-    public final String getDiscountType() {
-        return discountType;
-    }
-
-    /**
-     * @param discountType
-     *            the discountType to set
-     */
-    public final void setDiscountType(final String discountType) {
-        this.discountType = discountType;
-    }
-
-    /**
-     * @return the societyCode
-     */
-    public final String getSocietyCode() {
-        return societyCode;
-    }
-
-    /**
-     * @param societyCode
-     *            the societyCode to set
-     */
-    public final void setSocietyCode(final String societyCode) {
-        this.societyCode = societyCode;
-    }
-
-    /**
-     * @return the promoCode
-     */
-    public final String getPromoCode() {
-        return promoCode;
-    }
-
-    /**
-     * @param promoCode
-     *            the promoCode to set
-     */
-    public final void setPromoCode(final String promoCode) {
-        this.promoCode = promoCode;
-    }
-
-    /**
-     * @return the otherDiscounts
-     */
-    public final String getOtherDiscounts() {
-        return otherDiscounts;
-    }
-
-    /**
-     * @param otherDiscounts
-     *            the otherDiscounts to set
-     */
-    public final void setOtherDiscounts(final String otherDiscounts) {
-        this.otherDiscounts = otherDiscounts;
-    }
+    /** The other discounts. */
+    private String otherDiscounts;
 
     /** The promo code. */
     private String promoCode;
 
-    /** The other discounts. */
-    private String otherDiscounts;
-    
+    public final String getInstitutionId() {
+        return institutionId;
+    }
+
+    public final void setInstitutionId(String institutionId) {
+        this.institutionId = institutionId;
+    }
+
+    public final String getSocietyId() {
+        return societyId;
+    }
+
+    public final void setSocietyId(String societyId) {
+        this.societyId = societyId;
+    }
+
+    public final String getOtherDiscounts() {
+        return otherDiscounts;
+    }
+
+    public final void setOtherDiscounts(String otherDiscounts) {
+        this.otherDiscounts = otherDiscounts;
+    }
+
+    public final String getPromoCode() {
+        return promoCode;
+    }
+
+    public final void setPromoCode(String promoCode) {
+        this.promoCode = promoCode;
+    }
+
 }
