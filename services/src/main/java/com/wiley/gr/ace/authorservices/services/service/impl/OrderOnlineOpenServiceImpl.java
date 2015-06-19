@@ -83,13 +83,11 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                 .getVatExemptionNumber());
         taxDetails.setVatIdNumber(orderData.getTaxDetails().getVatIdNumber());
         onlineOpenOrder.setTaxDetails(taxDetails);
-        Address address= new Address();
-        List<com.wiley.gr.ace.authorservices.model.external.AddressDetails> listofexternaladdress=new ArrayList<com.wiley.gr.ace.authorservices.model.external.AddressDetails>();
-        address.setAddressLine1(orderData.getAddresses().get(0).getAddressLine1());
-        AddressDetails addressDetails=new AddressDetails();
+        Address address = new Address();
+        address.setAddressLine1(orderData.getAddresses().get(0)
+                .getAddressLine1());
+        AddressDetails addressDetails = new AddressDetails();
         addressDetails.setAddress(null);
-       List<AddressDetails> listAddressDetails= new ArrayList<AddressDetails>();
-      
 
         return onlineOpenOrder;
     }
