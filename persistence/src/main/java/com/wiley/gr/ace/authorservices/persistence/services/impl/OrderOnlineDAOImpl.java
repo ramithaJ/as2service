@@ -18,6 +18,7 @@ import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateCo
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
@@ -71,7 +72,8 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
         Session session = null;
         try {
             session = getSessionFactory().openSession();
-            return (Articles) session.get(Articles.class, Integer.parseInt(articleId));
+            return (Articles) session.get(Articles.class,
+                    Integer.parseInt(articleId));
         } finally {
             if (session != null) {
                 session.flush();
@@ -89,7 +91,8 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
         Session session = null;
         try {
             session = getSessionFactory().openSession();
-            return (Journals) session.get(Journals.class, Integer.parseInt(journalId));
+            return (Journals) session.get(Journals.class,
+                    Integer.parseInt(journalId));
         } finally {
             if (session != null) {
                 session.flush();
@@ -140,7 +143,7 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
             criteria.add(Restrictions.eq(
                     "articleAuthorAssignment.articleAuthId", aritcleAuthId));
             return (Orders) criteria.uniqueResult();
-            
+
         } finally {
             if (session != null) {
                 session.flush();
@@ -161,9 +164,11 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
             criteria.createAlias("articleAuthorAssignment.userProfile",
                     "userProfile");
             criteria.add(Restrictions.eq("userProfile.userId", userId));
-            List<ArticleAuthorAssignment> lisArticleAuthorAssignments = (List<ArticleAuthorAssignment>) criteria
+            criteria.setFetchMode("orderses", FetchMode.JOIN);
+            criteria.setFetchMode("articles", FetchMode.JOIN);
+            List<ArticleAuthorAssignment> listArticleAuthorAssignments = (List<ArticleAuthorAssignment>) criteria
                     .list();
-            return lisArticleAuthorAssignments;
+            return listArticleAuthorAssignments;
 
         } finally {
             if (session != null) {
@@ -173,5 +178,4 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
         }
 
     }
-
 }
