@@ -13,6 +13,8 @@
  */
 package com.wiley.gr.ace.authorservices.persistence.services;
 
+import java.util.List;
+
 import com.wiley.gr.ace.authorservices.persistence.entity.ArticleAuthorAssignment;
 import com.wiley.gr.ace.authorservices.persistence.entity.Articles;
 import com.wiley.gr.ace.authorservices.persistence.entity.Journals;
@@ -58,4 +60,9 @@ public interface OrderOnlineDAO {
      */
     Orders getOrder(String aritcleAuthId);
 
+   /**
+ * @param userId
+ * @return
+ */
+List<ArticleAuthorAssignment>  getArticleAuthId(Integer userId);
 }
