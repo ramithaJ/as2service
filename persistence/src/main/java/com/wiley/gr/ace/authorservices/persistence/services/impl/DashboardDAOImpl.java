@@ -25,12 +25,22 @@ import com.wiley.gr.ace.authorservices.persistence.entity.InvitationLog;
 import com.wiley.gr.ace.authorservices.persistence.services.DashboardDAO;
 
 /**
+ * The Class DashboardDAOImpl.
+ * 
  * @author virtusa version 1.0
  */
 public class DashboardDAOImpl implements DashboardDAO {
 
+    /**
+     * Gets the invitation log list.
+     *
+     * @param userId
+     *            the user id
+     * @return the invitation log list
+     */
     @Override
-    public List<InvitationLog> getInvitationLogList(Integer userId) {
+    public List<InvitationLog> getInvitationLogList(Integer userId)
+            throws Exception {
         Session session = null;
         Transaction txn = null;
         try {
@@ -45,7 +55,6 @@ public class DashboardDAOImpl implements DashboardDAO {
         } finally {
             if (session != null) {
                 session.flush();
-                session.close();
             }
         }
     }

@@ -31,6 +31,8 @@ public interface DashboardDAO {
      * @param userId
      *            the user id
      * @return the invitation log list
+     * @throws Exception
+     *             the exception
      */
-    List<InvitationLog> getInvitationLogList(Integer userId);
+    List<InvitationLog> getInvitationLogList(Integer userId) throws Exception;
 }
