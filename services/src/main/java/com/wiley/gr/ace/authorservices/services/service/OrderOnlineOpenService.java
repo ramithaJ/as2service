@@ -16,6 +16,6 @@ public interface OrderOnlineOpenService {
 	 */
 	OnlineOpenOrder getOnlineOpenOrderDetails(String userId, String orderId);
 	
-	
+	boolean getQuote(String userId, String articleId);
 
 }

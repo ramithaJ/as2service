@@ -27,10 +27,10 @@ public class OrderOnlineOpenController extends ASExceptionController {
      * @param articleId
      * @return
      */
-    @RequestMapping(value = "/quote/", method = RequestMethod.GET)
+    @RequestMapping(value = "/quote/{userId}/{articleId}", method = RequestMethod.GET)
     public final Service getQuote(@PathVariable("userId") final String userId,
             @PathVariable("articleId") final String articleId) {
-
+        orderOnlineOpenService.getQuote(userId, articleId);
         return new Service();
     }
 

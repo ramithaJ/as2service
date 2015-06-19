@@ -6,6 +6,7 @@ import java.sql.Clob;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -87,7 +88,7 @@ public class Articles implements java.io.Serializable {
 		this.articleId = articleId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "JOURNAL_ID")
 	public Journals getJournals() {
 		return this.journals;
@@ -97,7 +98,7 @@ public class Articles implements java.io.Serializable {
 		this.journals = journals;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CREATED_BY")
 	public Users getUsersByCreatedBy() {
 		return this.usersByCreatedBy;
@@ -107,7 +108,7 @@ public class Articles implements java.io.Serializable {
 		this.usersByCreatedBy = usersByCreatedBy;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "UPDATED_BY")
 	public Users getUsersByUpdatedBy() {
 		return this.usersByUpdatedBy;
@@ -210,7 +211,7 @@ public class Articles implements java.io.Serializable {
 		this.lastUpdatedInAsFromMaster = lastUpdatedInAsFromMaster;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "articles")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "articles")
 	public Set<InvitationLog> getInvitationLogs() {
 		return this.invitationLogs;
 	}
@@ -219,7 +220,7 @@ public class Articles implements java.io.Serializable {
 		this.invitationLogs = invitationLogs;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "articles")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "articles")
 	public Set<ArticleAuthorAssignment> getArticleAuthorAssignments() {
 		return this.articleAuthorAssignments;
 	}
@@ -229,7 +230,7 @@ public class Articles implements java.io.Serializable {
 		this.articleAuthorAssignments = articleAuthorAssignments;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "articles")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "articles")
 	public Set<SavedOrders> getSavedOrderses() {
 		return this.savedOrderses;
 	}

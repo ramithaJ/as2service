@@ -18,6 +18,7 @@ import org.springframework.http.HttpMethod;
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
 import com.wiley.gr.ace.authorservices.model.external.OrderData;
+import com.wiley.gr.ace.authorservices.model.external.PDHLookup;
 
 /**
  * 
@@ -34,5 +35,32 @@ public class OrderServiceImpl implements OrderService {
 
         return (OrderData) StubInvokerUtil.invokeJsonStub(orderserviceurl, HttpMethod.POST, OrderData.class);
 
+    }
+    
+    /**
+     * Method to call PDHLookup external service.
+     */
+    @Override
+    public PDHLookup isOnlineOpen(final Integer DHId) {
+     
+        return (PDHLookup) StubInvokerUtil.invokeJsonStub("http://jsonstub.com/pdh/lookupjournal", HttpMethod.POST, PDHLookup.class);
+    }
+
+    @Override
+    public PDHLookup articleTitle(Integer DHId) {
+
+        return (PDHLookup) StubInvokerUtil.invokeJsonStub("http://jsonstub.com/pdh/lookuparticle", HttpMethod.POST, PDHLookup.class);
+    }
+
+    @Override
+    public PDHLookup journalTitile(Integer DHId) {
+        
+        return (PDHLookup) StubInvokerUtil.invokeJsonStub("http://jsonstub.com/pdh/lookupjournal", HttpMethod.POST, PDHLookup.class);
+    }
+
+    @Override
+    public boolean getQuote() {
+        // TODO Auto-generated method stub
+        return false;
     }
 }

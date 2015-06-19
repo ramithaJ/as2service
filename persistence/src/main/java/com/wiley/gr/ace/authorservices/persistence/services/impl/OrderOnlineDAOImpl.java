@@ -21,6 +21,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
+import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.persistence.entity.ArticleAuthorAssignment;
 import com.wiley.gr.ace.authorservices.persistence.entity.Articles;
 import com.wiley.gr.ace.authorservices.persistence.entity.Journals;
@@ -53,7 +54,11 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
                     Integer.parseInt(articleId)));
             criteria.add(Restrictions.eq("userProfile.userId",
                     Integer.parseInt(userId)));
-            return (ArticleAuthorAssignment) criteria.uniqueResult();
+            ArticleAuthorAssignment articleAuthorAssignment = (ArticleAuthorAssignment) criteria.uniqueResult();
+            if(null == articleAuthorAssignment) {
+                throw new ASException("803", "Article Assignment Details not found");
+            }
+            return articleAuthorAssignment;
         } finally {
             if (session != null) {
                 session.flush();
@@ -70,10 +75,12 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
 
         Session session = null;
         try {
-
             session = getSessionFactory().openSession();
-            return (Articles) session.get(Articles.class,
-                    Integer.parseInt(articleId));
+            Articles articles = (Articles) session.get(Articles.class, Integer.parseInt(articleId));
+            if(null == articles) {
+                throw new ASException("804", "no Article details found");
+            }
+            return articles;
         } finally {
             if (session != null) {
                 session.flush();
@@ -90,10 +97,12 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
 
         Session session = null;
         try {
-
             session = getSessionFactory().openSession();
-            return (Journals) session.get(Journals.class,
-                    Integer.parseInt(journalId));
+            Journals journals = (Journals) session.get(Journals.class, Integer.parseInt(journalId));
+            if(null == journals){
+                throw new ASException("805", "no Jounal details found");
+            }
+            return journals;
         } finally {
             if (session != null) {
                 session.flush();
@@ -120,7 +129,11 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
                     Integer.parseInt(articleId)));
             criteria.add(Restrictions.eq("userProfile.userId",
                     Integer.parseInt(userId)));
-            return (SavedOrders) criteria.uniqueResult();
+            SavedOrders savedOrders = (SavedOrders) criteria.uniqueResult();
+            if(null == savedOrders) {
+                throw new ASException("802", "No saved orders");
+            }
+            return savedOrders;
         } finally {
             if (session != null) {
                 session.flush();
@@ -133,7 +146,7 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
      * Method to get orders.
      */
     @Override
-    public final Orders getOrder(final String aritcleAuthId) {
+    public final Orders getOrder(final Integer aritcleAuthId) {
 
         Session session = null;
         try {
@@ -142,11 +155,12 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
             criteria.createAlias("orders.articleAuthorAssignment",
                     "articleAuthorAssignment");
             criteria.add(Restrictions.eq(
-                    "articleAuthorAssignment.articleAuthId",
-                    Integer.parseInt(aritcleAuthId)));
+                    "articleAuthorAssignment.articleAuthId", aritcleAuthId));
             Orders orders = (Orders) criteria.uniqueResult();
-            System.out.println(orders.getOrderId());
-            return null;
+            if(null == orders) {
+                throw new ASException("801", "Order details not found");
+            }
+            return orders;
         } finally {
             if (session != null) {
                 session.flush();

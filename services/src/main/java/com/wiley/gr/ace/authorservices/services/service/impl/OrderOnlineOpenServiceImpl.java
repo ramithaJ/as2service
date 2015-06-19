@@ -26,6 +26,12 @@ import com.wiley.gr.ace.authorservices.model.FunderDetails;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.TaxDetails;
 import com.wiley.gr.ace.authorservices.model.external.OrderData;
+import com.wiley.gr.ace.authorservices.model.external.PDHLookup;
+import com.wiley.gr.ace.authorservices.persistence.entity.ArticleAuthorAssignment;
+import com.wiley.gr.ace.authorservices.persistence.entity.Articles;
+import com.wiley.gr.ace.authorservices.persistence.entity.Orders;
+import com.wiley.gr.ace.authorservices.persistence.entity.SavedOrders;
+import com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO;
 import com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService;
 
 /**
@@ -37,6 +43,10 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     /** Getting Bean Of Order Service */
     @Autowired(required = true)
     private OrderService orderservice;
+    
+    /** Getting Bean Of OrderOnlineDAO Service */
+    @Autowired(required = true)
+    private OrderOnlineDAO orderOnlineDAO;
 
     /**
      * This method will take userId and orderId as input and calls external
@@ -91,4 +101,51 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
         return onlineOpenOrder;
     }
+
+    @Override
+    public boolean getQuote(String userId, String articleId) {
+
+        Articles articles = orderOnlineDAO.getArticleDetails(articleId);
+        //journalId
+        Integer journalId = articles.getJournals().getJournalId();
+        System.err.println(journalId);
+        //jounalDHID
+        Integer jounalDHID = articles.getJournals().getDhId();
+        System.err.println(jounalDHID);
+        //articleDHId
+        Integer articleDHId = articles.getDhId();
+        System.err.println(articleDHId);
+        //isOnlineOpen 
+        
+        
+        
+        
+        
+        PDHLookup pdhLookup = orderservice.isOnlineOpen(jounalDHID);
+        System.err.println(pdhLookup.getPdmSalesModel());
+        
+        ArticleAuthorAssignment articleAuthorAssignment = orderOnlineDAO.getAritcleAssignmentDetails(userId, articleId);
+        //Article author role
+        String role = articleAuthorAssignment.getArticleRoles().getArticleRoleCd();
+        System.err.println(role);
+        //ArtilcleAuthroId
+        Integer aritcleAuthId = articleAuthorAssignment.getArticleAuthId();
+        System.err.println(aritcleAuthId);
+        //articleTitle
+        PDHLookup articleTitle = orderservice.articleTitle(articleDHId);
+        System.err.println(articleTitle.getTitle());
+        //jornalTitle
+        PDHLookup jornalTitle = orderservice.journalTitile(jounalDHID);
+        System.err.println(jornalTitle.getTitle());
+        
+        Orders orders = orderOnlineDAO.getOrder(aritcleAuthId);
+        Integer orderId = orders.getOrderId();
+        System.err.println(orderId);
+        
+        SavedOrders savedOrders = orderOnlineDAO.getSavedOrders(articleId, userId);
+        Integer savedOrderId = savedOrders.getOrderId();
+        System.err.println(savedOrderId);
+        return false;
+    }
+    
 }

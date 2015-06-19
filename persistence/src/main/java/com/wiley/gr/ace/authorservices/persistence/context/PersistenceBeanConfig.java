@@ -18,6 +18,7 @@ import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnectio
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.DashboardDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.LookUpValuesDAO;
+import com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.RegistrationServiceDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UpdateUserDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserAccountDAO;
@@ -27,6 +28,7 @@ import com.wiley.gr.ace.authorservices.persistence.services.UserRolesDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.ASDataDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.DashboardDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.LookupValuesDAOImpl;
+import com.wiley.gr.ace.authorservices.persistence.services.impl.OrderOnlineDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.RegistrationServiceDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UpdateUserDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserAccountDAOImpl;
@@ -140,6 +142,16 @@ public class PersistenceBeanConfig {
     @Bean(name = "UserRolesDAO")
     public UserRolesDAO userRolesDAO() {
         return new UserRolesDAOImpl();
-
     }
+    
+    /**
+     * This method Creates UserRolesDAO.
+     *
+     * @return the UserRolesDAOImpl.
+     */
+    @Bean(name = "OrderOnlineDAO")
+    public OrderOnlineDAO orderOnlineDAO() {
+        return new OrderOnlineDAOImpl();
+    }
+    
 }

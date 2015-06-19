@@ -58,11 +58,11 @@ public interface OrderOnlineDAO {
      * @param aritcleAuthId
      * @return
      */
-    Orders getOrder(String aritcleAuthId);
+    Orders getOrder(Integer aritcleAuthId);
 
-   /**
- * @param userId
- * @return
- */
-List<ArticleAuthorAssignment>  getArticleAuthId(Integer userId);
+    /**
+     * @param userId
+     * @return
+     */
+    List<ArticleAuthorAssignment> getArticleAuthId(Integer userId);
 }
