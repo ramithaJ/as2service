@@ -18,6 +18,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.wiley.gr.ace.authorservices.model.CommunicationDetails;
 
 /**
  * The Class DashboardView.
