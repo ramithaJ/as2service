@@ -13,7 +13,7 @@
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
 import com.wiley.gr.ace.authorservices.model.external.OrderData;
-import com.wiley.gr.ace.authorservices.model.external.PDHLookup;
+import com.wiley.gr.ace.authorservices.model.external.PdhLookup;
 
 /**
  *  
@@ -29,11 +29,9 @@ public interface OrderService {
      */
     OrderData getOrderDetails(String userId, String orderId);
     
-    PDHLookup isOnlineOpen(Integer DHId);
+    PdhLookup pdhLookUp(Integer DHId);
     
-    PDHLookup articleTitle(Integer DHId);
-    
-    PDHLookup journalTitile(Integer DHId);
+    PdhLookup pdhLookUpArticle(Integer DHId);
     
     boolean getQuote();
 }

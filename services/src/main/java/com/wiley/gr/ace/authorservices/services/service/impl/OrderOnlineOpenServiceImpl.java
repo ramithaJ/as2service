@@ -27,7 +27,7 @@ import com.wiley.gr.ace.authorservices.model.FunderDetails;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.TaxDetails;
 import com.wiley.gr.ace.authorservices.model.external.OrderData;
-import com.wiley.gr.ace.authorservices.model.external.PDHLookup;
+import com.wiley.gr.ace.authorservices.model.external.PdhLookup;
 import com.wiley.gr.ace.authorservices.persistence.entity.ArticleAuthorAssignment;
 import com.wiley.gr.ace.authorservices.persistence.entity.Articles;
 import com.wiley.gr.ace.authorservices.persistence.entity.Orders;
@@ -103,65 +103,45 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         return onlineOpenOrder;
     }
 
+    /**
+     * Method to get quote.
+     */
     @Override
     public boolean getQuote(String userId, String articleId) {
 
+        // Article details having userId and articleId
         Articles articles = orderOnlineDAO.getArticleDetails(articleId);
-        //journalId
-        Integer journalId = articles.getJournals().getJournalId();
-        System.err.println(journalId);
-        //jounalDHID
-        Integer jounalDHID = articles.getJournals().getDhId();
-        System.err.println(jounalDHID);
-        //articleDHId
-        Integer articleDHId = articles.getDhId();
-        System.err.println(articleDHId);
-        //isOnlineOpen 
-        
-        PDHLookup pdhLookup = orderservice.isOnlineOpen(jounalDHID);
-        System.err.println(pdhLookup.getPdmSalesModel());
-        
-        if(pdhLookup.getPdmSalesModel().equalsIgnoreCase("OO")){
-            
-            ArticleAuthorAssignment articleAuthorAssignment = orderOnlineDAO.getAritcleAssignmentDetails(userId, articleId);
-            if(articleAuthorAssignment == null) {
-                throw new ASException("", "Article is not yet Accepted");
-            }
-            //Article author role
-            String role = articleAuthorAssignment.getArticleRoles().getArticleRoleCd();
-            System.err.println(role);
-            //ArtilcleAuthroId
-            Integer aritcleAuthId = articleAuthorAssignment.getArticleAuthId();
-            System.err.println(aritcleAuthId);
-            
-            if(articleAuthorAssignment.getArticleRoles().getArticleRoleCd().equalsIgnoreCase("0001")) {
-                
-                SavedOrders savedOrders = orderOnlineDAO.getSavedOrders(articleId, userId);
-                if(null != savedOrders) {
-                    throw new ASException("", "Order already exists for this Article");
-                }
-                Integer savedOrderId = savedOrders.getOrderId();
-                System.err.println(savedOrderId);
-                
-                Orders orders = orderOnlineDAO.getOrder(articleAuthorAssignment.getArticleAuthId());
-                if(orders != null) {
-                    throw new ASException("", "Order already submitted for this Article");
-                }
-                Integer orderId = orders.getOrderId();
-                System.err.println(orderId);
-                    
-            }
+        if(null == articles){
+            throw new ASException("801", "");
         }
         
-        //articleTitle
-        PDHLookup articleTitle = orderservice.articleTitle(articleDHId);
-        System.err.println(articleTitle.getTitle());
-        //jornalTitle
-        PDHLookup jornalTitle = orderservice.journalTitile(jounalDHID);
-        System.err.println(jornalTitle.getTitle());
-        
-        
-        
+        PdhLookup pdhLookup = orderservice.pdhLookUp(articles.getJournals().getDhId());
+        // check article is onlineOpen article or not.
+        if(pdhLookup.getPdmSalesModel().equalsIgnoreCase("OO")){
+            
+            // Article Author Assignment table details having userId and articleId.
+            ArticleAuthorAssignment articleAuthorAssignment = orderOnlineDAO.getAritcleAssignmentDetails(userId, articleId);
+            if(articleAuthorAssignment == null) {
+                throw new ASException("802", "Article is not yet Accepted");
+            }
+            // check user is corresponding author or not.
+            if(articleAuthorAssignment.getArticleRoles().getArticleRoleCd().equalsIgnoreCase("0001")) {
+                
+                // check is there any saved orders for this article.
+                SavedOrders savedOrders = orderOnlineDAO.getSavedOrders(articleId, userId);
+                if(null != savedOrders) {
+                    throw new ASException("803", "Order already exists for this Article");
+                }
+                //check is there any placed orders for this article.
+                Orders orders = orderOnlineDAO.getOrder(articleAuthorAssignment.getArticleAuthId());
+                if(orders != null) {
+                    throw new ASException("804", "Order already submitted for this Article");
+                }
+                // calling external service for article and journal titles.
+                orderservice.pdhLookUpArticle(articles.getDhId());
+                orderservice.pdhLookUp(articles.getJournals().getDhId());                    
+            }
+        }
         
         return false;
     }
