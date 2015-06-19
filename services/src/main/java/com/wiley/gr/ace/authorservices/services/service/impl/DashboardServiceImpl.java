@@ -31,15 +31,12 @@ import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserProfile;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
-import com.wiley.gr.ace.authorservices.model.external.CommunicationDetails;
 import com.wiley.gr.ace.authorservices.model.external.DashboardView;
 import com.wiley.gr.ace.authorservices.model.external.OrderPaymentStatus;
 import com.wiley.gr.ace.authorservices.model.external.SecuirtyQuestionDetails;
 import com.wiley.gr.ace.authorservices.model.external.SecurityQuestion;
 import com.wiley.gr.ace.authorservices.model.external.SecurityQuestions;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
-import com.wiley.gr.ace.authorservices.persistence.entity.InvitationLog;
-import com.wiley.gr.ace.authorservices.persistence.services.DashboardDAO;
 import com.wiley.gr.ace.authorservices.services.service.DashboardService;
 
 /**
@@ -67,8 +64,8 @@ public class DashboardServiceImpl implements DashboardService {
     private ESBInterfaceService esbInterfaceService;
 
     /** The dashboard service. */
-    @Autowired(required = true)
-    private DashboardDAO dashboardDAO;
+//    @Autowired(required = true)
+//    private DashboardDAO dashboardDAO;
 
     /**
      * This method is used for get the Profile Information of User from external
@@ -338,8 +335,8 @@ public class DashboardServiceImpl implements DashboardService {
             throws Exception {
         DashboardView dashboardView = new DashboardView();
         dashboardView.setArticleData(getArticleDataDetails(userId));
-        dashboardView
-                .setCommunicationDetails(getCommunicationDetailsList(userId));
+//        dashboardView
+//                .setCommunicationDetails(getCommunicationDetailsList(userId));
         dashboardView.setArticleCitationRecord(esbInterfaceService
                 .getArticleCitationReadRecords(userId)
                 .getArticleCitationRecord());
@@ -413,7 +410,7 @@ public class DashboardServiceImpl implements DashboardService {
         return orderPaymentStatus;
     }
 
-    @Override
+    /*@Override
     public List<CommunicationDetails> getCommunicationDetailsList(String userId) {
         List<InvitationLog> invitationLogList = dashboardDAO
                 .getInvitationLogList(Integer.parseInt(userId));
@@ -433,6 +430,6 @@ public class DashboardServiceImpl implements DashboardService {
             communicationDetailsList.add(communicationDetails);
         }
         return communicationDetailsList;
-    }
+    } */
 
 }
