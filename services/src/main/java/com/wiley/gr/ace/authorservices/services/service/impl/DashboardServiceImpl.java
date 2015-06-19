@@ -23,6 +23,7 @@ import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceServ
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
+import com.wiley.gr.ace.authorservices.model.CommunicationDetails;
 import com.wiley.gr.ace.authorservices.model.Dashboard;
 import com.wiley.gr.ace.authorservices.model.DashboardInfo;
 import com.wiley.gr.ace.authorservices.model.Interests;
@@ -37,6 +38,8 @@ import com.wiley.gr.ace.authorservices.model.external.SecuirtyQuestionDetails;
 import com.wiley.gr.ace.authorservices.model.external.SecurityQuestion;
 import com.wiley.gr.ace.authorservices.model.external.SecurityQuestions;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
+import com.wiley.gr.ace.authorservices.persistence.entity.InvitationLog;
+import com.wiley.gr.ace.authorservices.persistence.services.DashboardDAO;
 import com.wiley.gr.ace.authorservices.services.service.DashboardService;
 
 /**
@@ -63,9 +66,9 @@ public class DashboardServiceImpl implements DashboardService {
     @Autowired(required = true)
     private ESBInterfaceService esbInterfaceService;
 
-    /** The dashboard service. */
-//    @Autowired(required = true)
-//    private DashboardDAO dashboardDAO;
+    /** The dashboardDAO. */
+    @Autowired(required = true)
+    private DashboardDAO dashboardDAO;
 
     /**
      * This method is used for get the Profile Information of User from external
@@ -335,8 +338,8 @@ public class DashboardServiceImpl implements DashboardService {
             throws Exception {
         DashboardView dashboardView = new DashboardView();
         dashboardView.setArticleData(getArticleDataDetails(userId));
-//        dashboardView
-//                .setCommunicationDetails(getCommunicationDetailsList(userId));
+        dashboardView
+                .setCommunicationDetails(getCommunicationDetailsList(userId));
         dashboardView.setArticleCitationRecord(esbInterfaceService
                 .getArticleCitationReadRecords(userId)
                 .getArticleCitationRecord());
@@ -410,26 +413,38 @@ public class DashboardServiceImpl implements DashboardService {
         return orderPaymentStatus;
     }
 
-    /*@Override
-    public List<CommunicationDetails> getCommunicationDetailsList(String userId) {
+    /**
+     * Gets the communication details.
+     *
+     * @param userId
+     *            the user id
+     * @return the communication details
+     */
+    @Override
+    public List<CommunicationDetails> getCommunicationDetailsList(String userId)
+            throws Exception {
+        List<CommunicationDetails> communicationDetailsList = null;
         List<InvitationLog> invitationLogList = dashboardDAO
                 .getInvitationLogList(Integer.parseInt(userId));
-        List<CommunicationDetails> communicationDetailsList = new ArrayList<CommunicationDetails>();
-        for (InvitationLog invitationLog : invitationLogList) {
-            CommunicationDetails communicationDetails = new CommunicationDetails();
-            communicationDetails.setUserId(invitationLog.getUserProfile()
-                    .getUserId());
-            communicationDetails
-                    .setInviationId(invitationLog.getInvitationId());
-            communicationDetails.setEmailId(invitationLog.getEmailAddr());
-            communicationDetails.setArticleId(invitationLog.getArticles()
-                    .getArticleId());
-            communicationDetails.setSentDate(invitationLog.getSentDate()
-                    .toString());
-            communicationDetails.setSentBy(invitationLog.getArticles().getUserIdSignLicense());
-            communicationDetailsList.add(communicationDetails);
+        if (!StringUtils.isEmpty(invitationLogList)) {
+            communicationDetailsList = new ArrayList<CommunicationDetails>();
+            for (InvitationLog invitationLog : invitationLogList) {
+                CommunicationDetails communicationDetails = new CommunicationDetails();
+                communicationDetails.setUserId(invitationLog.getUserProfile()
+                        .getUserId());
+                communicationDetails.setInviationId(invitationLog
+                        .getInvitationId());
+                communicationDetails.setEmailId(invitationLog.getEmailAddr());
+                communicationDetails.setArticleId(invitationLog.getArticles()
+                        .getArticleId());
+                communicationDetails.setSentDate(invitationLog.getSentDate()
+                        .toString());
+                communicationDetails.setSentBy(invitationLog.getArticles()
+                        .getUserIdSignLicense());
+                communicationDetailsList.add(communicationDetails);
+            }
         }
         return communicationDetailsList;
-    } */
+    }
 
 }

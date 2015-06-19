@@ -14,6 +14,9 @@
  */
 package com.wiley.gr.ace.authorservices.services.service;
 
+import java.util.List;
+
+import com.wiley.gr.ace.authorservices.model.CommunicationDetails;
 import com.wiley.gr.ace.authorservices.model.Dashboard;
 import com.wiley.gr.ace.authorservices.model.external.DashboardView;
 
@@ -48,11 +51,12 @@ public interface DashboardService {
     DashboardView viewDashboard(String userId) throws Exception;
 
     /**
-     * Gets the communication history.
+     * Gets the communication details.
      *
      * @param userId
      *            the user id
-     * @return the communication history
+     * @return the communication details
      */
-    //List<CommunicationDetails> getCommunicationDetailsList(String userId);
+    List<CommunicationDetails> getCommunicationDetailsList(String userId)
+            throws Exception;
 }
