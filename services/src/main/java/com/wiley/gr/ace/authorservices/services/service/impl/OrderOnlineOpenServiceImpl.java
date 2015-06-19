@@ -19,8 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
-import com.wiley.gr.ace.authorservices.model.Address;
-import com.wiley.gr.ace.authorservices.model.AddressDetails;
 import com.wiley.gr.ace.authorservices.model.Amount;
 import com.wiley.gr.ace.authorservices.model.Discounts;
 import com.wiley.gr.ace.authorservices.model.FunderDetails;
@@ -60,47 +58,53 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             final String orderId) {
         OnlineOpenOrder onlineOpenOrder = new OnlineOpenOrder();
         OrderData orderData = orderservice.getOrderDetails(userId, orderId);
-        onlineOpenOrder.setArticleId(orderData.getArticleId());
-        onlineOpenOrder.setArticleId(orderData.getArticleId());
-        onlineOpenOrder.setJournalId(orderData.getJournalId());
-        onlineOpenOrder.setPaymentMethod(orderData.getPaymentMethod());
-        onlineOpenOrder.setTaxPercentage(orderData.getTaxPercentage());
+        onlineOpenOrder.setArticleId(orderData.getArticle().getDHID());
+        // Should check the below one
+        // onlineOpenOrder.setJournalId(orderData.getArticle().getJournal().get);
+        onlineOpenOrder.setPaymentMethod(orderData.getPayment()
+                .getPaymentMethod());
+        // need to calculate this
+        // onlineOpenOrder.setTaxPercentage(orderData.);
         Discounts discounts = new Discounts();
-        discounts.setInstitutionId(orderData.getDiscountData()
-                .getInstitutionId());
-        discounts.setOtherDiscounts(orderData.getDiscountData()
-                .getOtherDiscounts());
-        discounts.setPromoCode(orderData.getDiscountData().getPromoCode());
-        discounts.setSocietyId(orderData.getDiscountData().getSocietyId());
+        discounts.setInstitutionId(orderData.getPricing().getDiscounts()
+                .getDiscount().getAffiliationData().getName());
+        // Need to check this
+        // discounts.setOtherDiscounts(orderData.getDiscountData().getOtherDiscounts());
+        discounts.setPromoCode(orderData.getPricing().getDiscounts()
+                .getDiscount().getPromoCode());
+        discounts.setSocietyId(orderData.getPricing().getDiscounts()
+                .getDiscount().getSocietyData().getName());
         onlineOpenOrder.setDiscounts(discounts);
         Amount amount = new Amount();
-        amount.setAmount(orderData.getAmountPayable().getAmount());
-        amount.setAmount(orderData.getAmountPayable().getCurrency());
+        amount.setAmount(orderData.getPricing().getAmountToBePaid().toString());
+        amount.setAmount(orderData.getPricing().getCurrency());
         onlineOpenOrder.setAmountPayable(amount);
         FunderDetails funderDetails = new FunderDetails();
         List<FunderDetails> listoffunderdetails = new ArrayList<FunderDetails>();
-        funderDetails.setFunderId(orderData.getFundingDetails().getFunderId());
-        funderDetails.setResearchFunderId(orderData.getFundingDetails()
-                .getResearchFunderId());
-        funderDetails.setWoaAccountId(orderData.getFundingDetails()
-                .getWoaAccountId());
+        // Currently not getting this data from stub
+        // funderDetails.setFunderId(orderData.getFundingDetails().getFunderId());
+        // funderDetails.setResearchFunderId(orderData.getFundingDetails()
+        // .getResearchFunderId());
+        funderDetails
+                .setWoaAccountId(orderData.getWoaAccountHolder().getName());
         listoffunderdetails.add(funderDetails);
         onlineOpenOrder.setFunderDetails(listoffunderdetails);
         TaxDetails taxDetails = new TaxDetails();
         taxDetails.setCountryCode(orderData.getTaxDetails().getCountryCode());
         taxDetails.setTaxCodeExpiryDate(orderData.getTaxDetails()
-                .getTaxCodeExpiryDate());
+                .getTaxExpiration());
         taxDetails.setTaxExemptionNumber(orderData.getTaxDetails()
-                .getTaxExemptionNumber());
+                .getTaxNumber());
         taxDetails.setVatExemptionNumber(orderData.getTaxDetails()
                 .getVatExemptionNumber());
         taxDetails.setVatIdNumber(orderData.getTaxDetails().getVatIdNumber());
         onlineOpenOrder.setTaxDetails(taxDetails);
-        Address address = new Address();
-        address.setAddressLine1(orderData.getAddresses().get(0)
-                .getAddressLine1());
-        AddressDetails addressDetails = new AddressDetails();
-        addressDetails.setAddress(null);
+        // TODO: Update Address details
+        // Address address = new Address();
+        // address.setAddressLine1(orderData.getAddresses().get(0)
+        // .getAddressLine1());
+        // AddressDetails addressDetails = new AddressDetails();
+        // addressDetails.setAddress(null);
 
         return onlineOpenOrder;
     }
