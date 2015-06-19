@@ -16,8 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
+import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
 import com.wiley.gr.ace.authorservices.model.Amount;
 import com.wiley.gr.ace.authorservices.model.ArticleDetails;
@@ -30,7 +32,10 @@ import com.wiley.gr.ace.authorservices.model.Prices;
 import com.wiley.gr.ace.authorservices.model.QuoteDetail;
 import com.wiley.gr.ace.authorservices.model.QuoteDetails;
 import com.wiley.gr.ace.authorservices.model.TaxDetails;
+import com.wiley.gr.ace.authorservices.model.external.ArticleData;
 import com.wiley.gr.ace.authorservices.model.external.OrderData;
+import com.wiley.gr.ace.authorservices.model.external.OrderRequest;
+import com.wiley.gr.ace.authorservices.model.external.OrderResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhLookup;
 import com.wiley.gr.ace.authorservices.model.external.Quote;
 import com.wiley.gr.ace.authorservices.persistence.entity.ArticleAuthorAssignment;
@@ -212,5 +217,42 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         return lisofOrderDetails;
 
     }
+
+
+	@Override
+	public OrderResponse submitOnlineOpenOrder(String userId,
+			OnlineOpenOrder onlineOpenOrder) {
+		
+		OrderRequest orderRequest = new OrderRequest();
+		// TODO All the below hardcoded values need to changed once proper data is provided.
+		orderRequest.setApplicationKey("Key134");
+		orderRequest.setCorrelationID("1234");
+		OrderData orderData = getOrderDataForOnlineOpenOrder(onlineOpenOrder);
+		orderRequest.setOrderData(orderData);
+		orderRequest.setUserID("user001");
+		
+		OrderResponse orderResponse = (OrderResponse) StubInvokerUtil.invokeJsonStub("http://jsonstub.com/createOrder", HttpMethod.POST, OrderResponse.class);
+		
+		return orderResponse;
+	}
+
+	
+	/**
+	 * This method returns the data of the requested Order.
+	 * @param onlineOpenOrder
+	 * @return OrderData
+	 */
+	private OrderData getOrderDataForOnlineOpenOrder(OnlineOpenOrder onlineOpenOrder){
+		OrderData orderData = null;
+		
+		// TODO need to populate from OnlineOpenOrder object
+		if(onlineOpenOrder!=null){
+			orderData = new OrderData();
+			orderData.setArticle(new ArticleData());
+		}
+		
+		return orderData;
+		
+	}
 
 }

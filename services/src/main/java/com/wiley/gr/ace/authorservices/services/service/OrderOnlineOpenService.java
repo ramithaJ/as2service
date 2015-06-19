@@ -5,6 +5,7 @@ import java.util.List;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.OrderDetails;
 import com.wiley.gr.ace.authorservices.model.QuoteDetails;
+import com.wiley.gr.ace.authorservices.model.external.OrderResponse;
 
 
 /**
@@ -31,5 +32,11 @@ public interface OrderOnlineOpenService {
      * @return
      */
     List<OrderDetails> getAllOrders(Integer userId,String type);
+
+	/**
+	 * @param userId
+	 * @param onlineOpenOrder
+	 */
+	OrderResponse submitOnlineOpenOrder(String userId, OnlineOpenOrder onlineOpenOrder);
 
 }
