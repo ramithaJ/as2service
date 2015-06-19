@@ -198,7 +198,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             orderDetails.setArticleId(articleAuthorAssignment.getArticles()
                     .getArticleId().toString());
             orderDetails.setPrice("0.0");
-            // orderDetails.setArticleTitle(orderservice.articleTitle(articleAuthorAssignment.getArticles().getDhId()));
+            PdhLookup pdhLookup = orderservice.pdhLookUp(articleAuthorAssignment.getArticles().getDhId());
+            orderDetails.setArticleTitle(pdhLookup.getTitle());
             for (Orders orders : articleAuthorAssignment.getOrderses()) {
                 orderDetails.setOrderDate(orders.getUpdatedDate().toString());
                 orderDetails.setStatus(orders.getOrderStatus());
