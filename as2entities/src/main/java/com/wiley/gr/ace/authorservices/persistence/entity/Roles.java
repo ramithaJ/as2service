@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated May 26, 2015 6:09:14 PM by Hibernate Tools 3.4.0.CR1
+// Generated Jun 18, 2015 9:45:04 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import java.util.HashSet;
@@ -36,8 +36,6 @@ public class Roles implements java.io.Serializable {
 	private Set<UserRoles> userRoleses = new HashSet<UserRoles>(0);
 	private Set<RolePermissions> rolePermissionses = new HashSet<RolePermissions>(
 			0);
-	private Set<AdditionalPermissions> additionalPermissionses = new HashSet<AdditionalPermissions>(
-			0);
 
 	public Roles() {
 	}
@@ -50,8 +48,7 @@ public class Roles implements java.io.Serializable {
 	public Roles(Integer roleId, Users usersByCreatedBy,
 			Users usersByUpdatedBy, String roleName, String description,
 			String roleType, Date createdDate, Date updatedDate,
-			Set<UserRoles> userRoleses, Set<RolePermissions> rolePermissionses,
-			Set<AdditionalPermissions> additionalPermissionses) {
+			Set<UserRoles> userRoleses, Set<RolePermissions> rolePermissionses) {
 		this.roleId = roleId;
 		this.usersByCreatedBy = usersByCreatedBy;
 		this.usersByUpdatedBy = usersByUpdatedBy;
@@ -62,7 +59,6 @@ public class Roles implements java.io.Serializable {
 		this.updatedDate = updatedDate;
 		this.userRoleses = userRoleses;
 		this.rolePermissionses = rolePermissionses;
-		this.additionalPermissionses = additionalPermissionses;
 	}
 
 	@Id
@@ -158,16 +154,6 @@ public class Roles implements java.io.Serializable {
 
 	public void setRolePermissionses(Set<RolePermissions> rolePermissionses) {
 		this.rolePermissionses = rolePermissionses;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "roles")
-	public Set<AdditionalPermissions> getAdditionalPermissionses() {
-		return this.additionalPermissionses;
-	}
-
-	public void setAdditionalPermissionses(
-			Set<AdditionalPermissions> additionalPermissionses) {
-		this.additionalPermissionses = additionalPermissionses;
 	}
 
 }
