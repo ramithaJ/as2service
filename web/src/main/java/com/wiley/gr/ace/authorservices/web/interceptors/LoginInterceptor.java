@@ -72,6 +72,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
                     response.addCookie(existingCookie);
                 } else {
                     Cookie cookie = new Cookie("AUTH_TOKEN", token);
+                    cookie.setHttpOnly(false);
+                    cookie.setMaxAge(21600);
                     response.addCookie(cookie);
                 }
             }
