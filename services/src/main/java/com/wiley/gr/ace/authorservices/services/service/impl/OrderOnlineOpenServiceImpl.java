@@ -49,7 +49,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     /** Getting Bean Of Order Service */
     @Autowired(required = true)
     private OrderService orderservice;
-    
+
     /** Getting Bean Of OrderOnlineDAO Service */
     @Autowired(required = true)
     private OrderOnlineDAO orderOnlineDAO;
@@ -122,45 +122,56 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
         // Article details having userId and articleId
         Articles articles = orderOnlineDAO.getArticleDetails(articleId);
-        if(null == articles){
+        if (null == articles) {
             throw new ASException("801", "");
         }
-        
-        PdhLookup pdhLookup = orderservice.pdhLookUp(articles.getJournals().getDhId());
+
+        PdhLookup pdhLookup = orderservice.pdhLookUp(articles.getJournals()
+                .getDhId());
         QuoteDetails quoteDetails = null;
         // check article is onlineOpen article or not.
-        if(pdhLookup.getPdmSalesModel().equalsIgnoreCase("OO")){
-            
-            // Article Author Assignment table details having userId and articleId.
-            ArticleAuthorAssignment articleAuthorAssignment = orderOnlineDAO.getAritcleAssignmentDetails(userId, articleId);
-            if(articleAuthorAssignment == null) {
+        if (pdhLookup.getPdmSalesModel().equalsIgnoreCase("OO")) {
+
+            // Article Author Assignment table details having userId and
+            // articleId.
+            ArticleAuthorAssignment articleAuthorAssignment = orderOnlineDAO
+                    .getAritcleAssignmentDetails(userId, articleId);
+            if (articleAuthorAssignment == null) {
                 throw new ASException("802", "Article is not yet Accepted");
             }
             // check user is corresponding author or not.
-            if(articleAuthorAssignment.getArticleRoles().getArticleRoleCd().equalsIgnoreCase("0001")) {
-                
+            if (articleAuthorAssignment.getArticleRoles().getArticleRoleCd()
+                    .equalsIgnoreCase("0001")) {
+
                 // check is there any saved orders for this article.
-                SavedOrders savedOrders = orderOnlineDAO.getSavedOrders(articleId, userId);
-                if(null != savedOrders) {
-                    throw new ASException("803", "Order already exists for this Article");
+                SavedOrders savedOrders = orderOnlineDAO.getSavedOrders(
+                        articleId, userId);
+                if (null != savedOrders) {
+                    throw new ASException("803",
+                            "Order already exists for this Article");
                 }
-                //check is there any placed orders for this article.
-                Orders orders = orderOnlineDAO.getOrder(articleAuthorAssignment.getArticleAuthId());
-                if(orders != null) {
-                    throw new ASException("804", "Order already submitted for this Article");
+                // check is there any placed orders for this article.
+                Orders orders = orderOnlineDAO.getOrder(articleAuthorAssignment
+                        .getArticleAuthId());
+                if (orders != null) {
+                    throw new ASException("804",
+                            "Order already submitted for this Article");
                 }
                 // calling external service for article and journal titles.
                 Quote quote = orderservice.getQuote(articleId);
-                
+
                 quoteDetails = new QuoteDetails();
                 ArticleDetails articleDetails = new ArticleDetails();
                 articleDetails.setArticleAID(articleId);
-                articleDetails.setArticleTitle(orderservice.pdhLookUpArticle(articles.getDhId()).getTitle());
+                articleDetails.setArticleTitle(orderservice.pdhLookUpArticle(
+                        articles.getDhId()).getTitle());
                 quoteDetails.setArticleDetails(articleDetails);
                 quoteDetails.setAuthorName("shiva");
                 JournalDetails journalDetails = new JournalDetails();
-                journalDetails.setJournalId(String.valueOf(articles.getJournals().getJournalId()));
-                journalDetails.setJournalTitle(orderservice.pdhLookUp(articles.getJournals().getDhId()).getTitle());
+                journalDetails.setJournalId(String.valueOf(articles
+                        .getJournals().getJournalId()));
+                journalDetails.setJournalTitle(orderservice.pdhLookUp(
+                        articles.getJournals().getDhId()).getTitle());
                 quoteDetails.setJournalDetails(journalDetails);
                 QuoteDetail quoteDetail = new QuoteDetail();
                 List<Prices> prices = new ArrayList<Prices>();
@@ -177,8 +188,25 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
     @Override
     public List<OrderDetails> getAllOrders(Integer userId) {
-        // TODO Auto-generated method stub
-        return null;
+        List<ArticleAuthorAssignment> articleAuthorAssignmentList = orderOnlineDAO
+                .getArticleAuthId(userId);
+        OrderDetails orderDetails = null;
+        List<OrderDetails> lisofOrderDetails = new ArrayList<OrderDetails>();
+
+        for (ArticleAuthorAssignment articleAuthorAssignment : articleAuthorAssignmentList) {
+            orderDetails = new OrderDetails();
+            orderDetails.setArticleId(articleAuthorAssignment.getArticles()
+                    .getArticleId().toString());
+            orderDetails.setPrice("0.0");
+            // orderDetails.setArticleTitle(orderservice.articleTitle(articleAuthorAssignment.getArticles().getDhId()));
+            for (Orders orders : articleAuthorAssignment.getOrderses()) {
+                orderDetails.setOrderDate(orders.getUpdatedDate().toString());
+                orderDetails.setStatus(orders.getOrderStatus());
+            }
+            lisofOrderDetails.add(orderDetails);
+        }
+        return lisofOrderDetails;
+
     }
-    
+
 }
