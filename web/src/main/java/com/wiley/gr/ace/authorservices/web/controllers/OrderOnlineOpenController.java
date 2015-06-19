@@ -139,14 +139,24 @@ public class OrderOnlineOpenController extends ASExceptionController {
     public final Service getAllOrders(
             @PathVariable("userId") final String userId) {
 
-        return new Service();
+        Service service = new Service();
+        service.setPayload(orderOnlineOpenService.getAllOrders(Integer
+                .parseInt(userId)));
+        return service;
     }
 
+    /**
+     * Gets the institution discounts.
+     *
+     * @param userId
+     *            the user id
+     * @return the institution discounts
+     */
     @RequestMapping(value = "/institutionDiscounts/", method = RequestMethod.GET)
     public final Service getInstitutionDiscounts(
             @PathVariable("userId") final String userId) {
 
         return new Service();
     }
-
+    
 }
