@@ -33,8 +33,6 @@ import com.wiley.gr.ace.authorservices.model.external.ArticleData;
 import com.wiley.gr.ace.authorservices.model.external.ArticleDataDetails;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
 import com.wiley.gr.ace.authorservices.model.external.ArticleRecord;
-import com.wiley.gr.ace.authorservices.model.external.CommunicationDetails;
-import com.wiley.gr.ace.authorservices.model.external.CommunicationHistory;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 import com.wiley.gr.ace.authorservices.model.external.License;
 import com.wiley.gr.ace.authorservices.model.external.OnlineOpen;
@@ -446,48 +444,6 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
             e.printStackTrace();
         }
         return production;
-    }
-
-    /**
-     * Gets the communication details.
-     *
-     * @param emailId
-     *            the email id
-     * @return the communication details
-     * @throws Exception
-     *             the exception
-     */
-    @Override
-    public final List<CommunicationDetails> getCommunicationDetails(
-            final String emailId) throws Exception {
-        ArrayList<CommunicationDetails> communicationDetailsList = null;
-        CommunicationHistory communicationHistory = null;
-        final String url = "http://demo7930138.mockable.io/getCommunicationHistory/emailId";
-        try {
-            URI uri = new URI(url);
-            RestTemplate restTemplate = new RestTemplate();
-            HttpHeaders requestHeaders = new HttpHeaders();
-
-            requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-            HttpEntity<CommunicationHistory> requestEntity = new HttpEntity<CommunicationHistory>(
-                    requestHeaders);
-
-            ResponseEntity<CommunicationHistory> response = restTemplate
-                    .exchange(uri, HttpMethod.GET, requestEntity,
-                            CommunicationHistory.class);
-            System.out.println("####  response #### "
-                    + response.getStatusCode());
-            System.out.println("####  response #### " + response.getBody());
-            if (null != response) {
-                communicationHistory = new CommunicationHistory();
-                communicationHistory = response.getBody();
-                communicationDetailsList = (ArrayList<CommunicationDetails>) communicationHistory
-                        .getCommunicationDetails();
-            }
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-        return communicationDetailsList;
     }
 
     /**

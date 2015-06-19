@@ -17,7 +17,6 @@ import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
 import com.wiley.gr.ace.authorservices.model.external.ArticleRecord;
-import com.wiley.gr.ace.authorservices.model.external.CommunicationDetails;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 import com.wiley.gr.ace.authorservices.model.external.License;
 import com.wiley.gr.ace.authorservices.model.external.OnlineOpen;
@@ -145,18 +144,6 @@ public interface ESBInterfaceService {
      *             the exception
      */
     Production getProductionStatus(Integer articleId) throws Exception;
-
-    /**
-     * Gets the communication details.
-     *
-     * @param emailId
-     *            the email id
-     * @return the communication details
-     * @throws Exception
-     *             the exception
-     */
-    List<CommunicationDetails> getCommunicationDetails(String emailId)
-            throws Exception;
 
     /**
      * Gets the article citation read records.
