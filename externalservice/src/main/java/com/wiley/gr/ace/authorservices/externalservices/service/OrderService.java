@@ -14,6 +14,7 @@ package com.wiley.gr.ace.authorservices.externalservices.service;
 
 import com.wiley.gr.ace.authorservices.model.external.OrderData;
 import com.wiley.gr.ace.authorservices.model.external.PdhLookup;
+import com.wiley.gr.ace.authorservices.model.external.Quote;
 
 /**
  *  
@@ -25,13 +26,25 @@ public interface OrderService {
     /**
      * @param userId
      * @param orderId
-     * @return
+     * @return OrderData
      */
     OrderData getOrderDetails(String userId, String orderId);
     
+    /**
+     * @param DHId
+     * @return PdhLookup
+     */
     PdhLookup pdhLookUp(Integer DHId);
     
+    /**
+     * @param DHId
+     * @return PdhLookup
+     */
     PdhLookup pdhLookUpArticle(Integer DHId);
     
-    boolean getQuote();
+    /**
+     * @param articleId
+     * @return Quote
+     */
+    Quote getQuote(String articleId);
 }

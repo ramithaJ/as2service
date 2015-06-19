@@ -20,95 +20,181 @@ package com.wiley.gr.ace.authorservices.model.external;
  */
 public class Quote {
 
-    /** The article publication charge. */
-    private String articlePublicationCharge;
+    private String articlePubCharge;
 
-    /** The society discount. */
-    private String societyDiscount;
+    private String responseCode;
 
-    /** The society discount value. */
-    private String societyDiscountValue;
+    private AddressOnFile addressOnFile;
 
-    /** The tax. */
-    private String tax;
+    private String quoteType;
+
+    private String responseDescription;
+
+    private String paymentStatus;
+
+    private String requestType;
+
+    private String quoteStatus;
+
+    private String articleID;
+
+    private String currency;
+
+    private Discount discount;
 
     /**
-     * @return the articlePublicationCharge
+     * @return the articlePubCharge
      */
-    public final String getArticlePublicationCharge() {
-        return articlePublicationCharge;
+    public final String getArticlePubCharge() {
+        return articlePubCharge;
     }
 
     /**
-     * @param articlePublicationCharge
-     *            the articlePublicationCharge to set
+     * @param articlePubCharge the articlePubCharge to set
      */
-    public final void setArticlePublicationCharge(
-            final String articlePublicationCharge) {
-        this.articlePublicationCharge = articlePublicationCharge;
+    public final void setArticlePubCharge(String articlePubCharge) {
+        this.articlePubCharge = articlePubCharge;
     }
 
     /**
-     * @return the societyDiscount
+     * @return the responseCode
      */
-    public final String getSocietyDiscount() {
-        return societyDiscount;
+    public final String getResponseCode() {
+        return responseCode;
     }
 
     /**
-     * @param societyDiscount
-     *            the societyDiscount to set
+     * @param responseCode the responseCode to set
      */
-    public final void setSocietyDiscount(final String societyDiscount) {
-        this.societyDiscount = societyDiscount;
+    public final void setResponseCode(String responseCode) {
+        this.responseCode = responseCode;
     }
 
     /**
-     * @return the societyDiscountValue
+     * @return the addressOnFile
      */
-    public final String getSocietyDiscountValue() {
-        return societyDiscountValue;
+    public final AddressOnFile getAddressOnFile() {
+        return addressOnFile;
     }
 
     /**
-     * @param societyDiscountValue
-     *            the societyDiscountValue to set
+     * @param addressOnFile the addressOnFile to set
      */
-    public final void setSocietyDiscountValue(final String societyDiscountValue) {
-        this.societyDiscountValue = societyDiscountValue;
+    public final void setAddressOnFile(AddressOnFile addressOnFile) {
+        this.addressOnFile = addressOnFile;
     }
 
     /**
-     * @return the tax
+     * @return the quoteType
      */
-    public final String getTax() {
-        return tax;
+    public final String getQuoteType() {
+        return quoteType;
     }
 
     /**
-     * @param tax
-     *            the tax to set
+     * @param quoteType the quoteType to set
      */
-    public final void setTax(final String tax) {
-        this.tax = tax;
+    public final void setQuoteType(String quoteType) {
+        this.quoteType = quoteType;
     }
 
     /**
-     * @return the dueAmount
+     * @return the responseDescription
      */
-    public final String getDueAmount() {
-        return dueAmount;
+    public final String getResponseDescription() {
+        return responseDescription;
     }
 
     /**
-     * @param dueAmount
-     *            the dueAmount to set
+     * @param responseDescription the responseDescription to set
      */
-    public final void setDueAmount(final String dueAmount) {
-        this.dueAmount = dueAmount;
+    public final void setResponseDescription(String responseDescription) {
+        this.responseDescription = responseDescription;
     }
 
-    /** The due amount. */
-    private String dueAmount;
+    /**
+     * @return the paymentStatus
+     */
+    public final String getPaymentStatus() {
+        return paymentStatus;
+    }
 
+    /**
+     * @param paymentStatus the paymentStatus to set
+     */
+    public final void setPaymentStatus(String paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
+
+    /**
+     * @return the requestType
+     */
+    public final String getRequestType() {
+        return requestType;
+    }
+
+    /**
+     * @param requestType the requestType to set
+     */
+    public final void setRequestType(String requestType) {
+        this.requestType = requestType;
+    }
+
+    /**
+     * @return the quoteStatus
+     */
+    public final String getQuoteStatus() {
+        return quoteStatus;
+    }
+
+    /**
+     * @param quoteStatus the quoteStatus to set
+     */
+    public final void setQuoteStatus(String quoteStatus) {
+        this.quoteStatus = quoteStatus;
+    }
+
+    /**
+     * @return the articleID
+     */
+    public final String getArticleID() {
+        return articleID;
+    }
+
+    /**
+     * @param articleID the articleID to set
+     */
+    public final void setArticleID(String articleID) {
+        this.articleID = articleID;
+    }
+
+    /**
+     * @return the currency
+     */
+    public final String getCurrency() {
+        return currency;
+    }
+
+    /**
+     * @param currency the currency to set
+     */
+    public final void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    /**
+     * @return the discount
+     */
+    public final Discount getDiscount() {
+        return discount;
+    }
+
+    /**
+     * @param discount the discount to set
+     */
+    public final void setDiscount(Discount discount) {
+        this.discount = discount;
+    }
+
+    
 }

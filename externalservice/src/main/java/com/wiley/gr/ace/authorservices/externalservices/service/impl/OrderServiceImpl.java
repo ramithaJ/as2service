@@ -19,6 +19,7 @@ import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
 import com.wiley.gr.ace.authorservices.model.external.OrderData;
 import com.wiley.gr.ace.authorservices.model.external.PdhLookup;
+import com.wiley.gr.ace.authorservices.model.external.Quote;
 
 /**
  * 
@@ -28,10 +29,19 @@ public class OrderServiceImpl implements OrderService {
 
     @Value("${orderservice.url}")
     private String orderserviceurl;
+    
+    @Value("${quote.url}")
+    private String quoteurl;
 
+    @Value("${lookupjournal.url}")
+    private String lookupjournalurl;
+    
+    @Value("${lookuparticle.url}")
+    private String lookuparticleurl;
+    
     /**Calling Stub  */
     @Override
-    public OrderData getOrderDetails(String userId, String orderId) {
+    public final OrderData getOrderDetails(String userId, String orderId) {
 
         return (OrderData) StubInvokerUtil.invokeJsonStub(orderserviceurl, HttpMethod.POST, OrderData.class);
 
@@ -41,20 +51,21 @@ public class OrderServiceImpl implements OrderService {
      * Method to call PDHLookup external service.
      */
     @Override
-    public PdhLookup pdhLookUp(final Integer DHId) {
+    public final PdhLookup pdhLookUp(final Integer DHId) {
      
-        return (PdhLookup) StubInvokerUtil.invokeJsonStub("http://jsonstub.com/pdh/lookupjournal", HttpMethod.POST, PdhLookup.class);
+        return (PdhLookup) StubInvokerUtil.invokeJsonStub(lookupjournalurl, HttpMethod.POST, PdhLookup.class);
     }
 
     @Override
-    public PdhLookup pdhLookUpArticle(Integer DHId) {
+    public final PdhLookup pdhLookUpArticle(final Integer DHId) {
 
-        return (PdhLookup) StubInvokerUtil.invokeJsonStub("http://jsonstub.com/pdh/lookuparticle", HttpMethod.POST, PdhLookup.class);
+        return (PdhLookup) StubInvokerUtil.invokeJsonStub(lookuparticleurl, HttpMethod.POST, PdhLookup.class);
     }
 
     @Override
-    public boolean getQuote() {
-        // TODO Auto-generated method stub
-        return false;
+    public final Quote getQuote(final String articleId) {
+
+        return (Quote) StubInvokerUtil.invokeJsonStub(quoteurl, HttpMethod.POST, Quote.class);
     }
+
 }

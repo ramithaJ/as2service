@@ -28,6 +28,7 @@ import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.TaxDetails;
 import com.wiley.gr.ace.authorservices.model.external.OrderData;
 import com.wiley.gr.ace.authorservices.model.external.PdhLookup;
+import com.wiley.gr.ace.authorservices.model.external.Quote;
 import com.wiley.gr.ace.authorservices.persistence.entity.ArticleAuthorAssignment;
 import com.wiley.gr.ace.authorservices.persistence.entity.Articles;
 import com.wiley.gr.ace.authorservices.persistence.entity.Orders;
@@ -139,7 +140,9 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                 }
                 // calling external service for article and journal titles.
                 orderservice.pdhLookUpArticle(articles.getDhId());
-                orderservice.pdhLookUp(articles.getJournals().getDhId());                    
+                orderservice.pdhLookUp(articles.getJournals().getDhId()); 
+                Quote quote = orderservice.getQuote(articleId);
+                
             }
         }
         
