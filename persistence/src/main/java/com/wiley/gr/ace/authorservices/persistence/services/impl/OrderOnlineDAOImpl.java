@@ -36,8 +36,8 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
      * Method to get ArticleAssigmentDetails tabel object.
      */
     @Override
-    public ArticleAuthorAssignment getAritcleAssignmentDetails(String userId,
-            String articleId) {
+    public final ArticleAuthorAssignment getAritcleAssignmentDetails(final String userId,
+            final String articleId) {
 
         Session session = null;
         try {
@@ -45,8 +45,9 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
             Criteria criteria = session.createCriteria(
                     ArticleAuthorAssignment.class, "articleAuthorAssignment");
             criteria.createAlias("articleAuthorAssignment.articles", "articles");
-            criteria.add(Restrictions.eq("articles.articleId",
-                    Integer.parseInt(articleId)));
+            criteria.createAlias("articleAuthorAssignment.userProfile", "userProfile");
+            criteria.add(Restrictions.eq("articles.articleId", Integer.parseInt(articleId)));
+            criteria.add(Restrictions.eq("userProfile.userId", Integer.parseInt(userId)));
             return (ArticleAuthorAssignment) criteria.uniqueResult();
         } finally {
             if (session != null) {
@@ -60,14 +61,13 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
      * Method to get ArticleDetails table object.
      */
     @Override
-    public Articles getArticleDetails(String articleId) {
+    public final Articles getArticleDetails(final String articleId) {
 
         Session session = null;
         try {
 
             session = getSessionFactory().openSession();
-            return (Articles) session.get(Articles.class, articleId);
-
+            return (Articles) session.get(Articles.class, Integer.parseInt(articleId));
         } finally {
             if (session != null) {
                 session.flush();
@@ -80,16 +80,13 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
      * Method to get Journal Details table object.
      */
     @Override
-    public Journals getJournalDetails(String journalId) {
+    public final Journals getJournalDetails(final String journalId) {
 
         Session session = null;
         try {
 
             session = getSessionFactory().openSession();
-            Journals articles = (Journals) session.get(Journals.class,
-                    journalId);
-            return articles;
-
+            return (Journals) session.get(Journals.class, Integer.parseInt(journalId));
         } finally {
             if (session != null) {
                 session.flush();
@@ -98,21 +95,56 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
         }
     }
 
+    /**
+     * Method to get savedOrders.
+     */
     @Override
-    public SavedOrders getSavedOrders(String articleId, String userId) {
-        // TODO Auto-generated method stub
-        return null;
+    public final SavedOrders getSavedOrders(final String articleId, final String userId) {
+
+        Session session = null;
+        try {
+            session = getSessionFactory().openSession();
+            Criteria criteria = session.createCriteria(SavedOrders.class,
+                    "savedOrders");
+            criteria.createAlias("savedOrders.articles", "articles");
+            criteria.createAlias("savedOrders.userProfile", "userProfile");
+            criteria.add(Restrictions.eq("articles.articleId",
+                    Integer.parseInt(articleId)));
+            criteria.add(Restrictions.eq("userProfile.userId",
+                    Integer.parseInt(userId)));
+            return (SavedOrders) criteria.uniqueResult();
+        } finally {
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
+        }
     }
 
+    /**
+     * Method to get orders.
+     */
     @Override
-    public Orders getOrder(String aritcleAuthId) {
-        // TODO Auto-generated method stub
-        return null;
+    public final Orders getOrder(final String aritcleAuthId) {
+
+        Session session = null;
+        try {
+            session = getSessionFactory().openSession();
+            Criteria criteria = session.createCriteria(Orders.class, "orders");
+            criteria.createAlias("orders.articleAuthorAssignment",
+                    "articleAuthorAssignment");
+            criteria.add(Restrictions.eq(
+                    "articleAuthorAssignment.articleAuthId",
+                    Integer.parseInt(aritcleAuthId)));
+            Orders orders = (Orders) criteria.uniqueResult();
+            System.out.println(orders.getOrderId());
+            return null;
+        } finally {
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
+        }
     }
 
-    public static void main(String[] args) {
-
-        OrderOnlineDAOImpl orderOnlineDAOImpl = new OrderOnlineDAOImpl();
-        orderOnlineDAOImpl.getAritcleAssignmentDetails("8011047", "1111");
-    }
 }
