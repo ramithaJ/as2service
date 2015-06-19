@@ -13,10 +13,8 @@
  */
 package com.wiley.gr.ace.authorservices.model;
 
-import com.wiley.gr.ace.authorservices.model.external.ArticleDetails;
-import com.wiley.gr.ace.authorservices.model.external.JournalDetails;
 
-public class Quote {
+public class QuoteDetails {
 
     private ArticleDetails articleDetails;
 

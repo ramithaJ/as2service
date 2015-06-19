@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.OrderDetails;
+import com.wiley.gr.ace.authorservices.model.QuoteDetails;
 
 
 /**
@@ -24,7 +25,7 @@ public interface OrderOnlineOpenService {
 	 * @param articleId
 	 * @return
 	 */
-	boolean getQuote(String userId, String articleId);
+	QuoteDetails getQuote(String userId, String articleId);
 	/**
      * @param userId
      * @return

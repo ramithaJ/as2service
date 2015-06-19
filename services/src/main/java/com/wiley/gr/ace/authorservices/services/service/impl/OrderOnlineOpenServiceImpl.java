@@ -20,10 +20,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
 import com.wiley.gr.ace.authorservices.model.Amount;
+import com.wiley.gr.ace.authorservices.model.ArticleDetails;
 import com.wiley.gr.ace.authorservices.model.Discounts;
 import com.wiley.gr.ace.authorservices.model.FunderDetails;
+import com.wiley.gr.ace.authorservices.model.JournalDetails;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.OrderDetails;
+import com.wiley.gr.ace.authorservices.model.Prices;
+import com.wiley.gr.ace.authorservices.model.QuoteDetail;
+import com.wiley.gr.ace.authorservices.model.QuoteDetails;
 import com.wiley.gr.ace.authorservices.model.TaxDetails;
 import com.wiley.gr.ace.authorservices.model.external.OrderData;
 import com.wiley.gr.ace.authorservices.model.external.PdhLookup;
@@ -113,7 +118,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * Method to get quote.
      */
     @Override
-    public boolean getQuote(String userId, String articleId) {
+    public QuoteDetails getQuote(String userId, String articleId) {
 
         // Article details having userId and articleId
         Articles articles = orderOnlineDAO.getArticleDetails(articleId);
@@ -122,6 +127,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         }
         
         PdhLookup pdhLookup = orderservice.pdhLookUp(articles.getJournals().getDhId());
+        QuoteDetails quoteDetails = null;
         // check article is onlineOpen article or not.
         if(pdhLookup.getPdmSalesModel().equalsIgnoreCase("OO")){
             
@@ -144,37 +150,35 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                     throw new ASException("804", "Order already submitted for this Article");
                 }
                 // calling external service for article and journal titles.
-                orderservice.pdhLookUpArticle(articles.getDhId());
-                orderservice.pdhLookUp(articles.getJournals().getDhId()); 
                 Quote quote = orderservice.getQuote(articleId);
                 
+                quoteDetails = new QuoteDetails();
+                ArticleDetails articleDetails = new ArticleDetails();
+                articleDetails.setArticleAID(articleId);
+                articleDetails.setArticleTitle(orderservice.pdhLookUpArticle(articles.getDhId()).getTitle());
+                quoteDetails.setArticleDetails(articleDetails);
+                quoteDetails.setAuthorName("shiva");
+                JournalDetails journalDetails = new JournalDetails();
+                journalDetails.setJournalId(String.valueOf(articles.getJournals().getJournalId()));
+                journalDetails.setJournalTitle(orderservice.pdhLookUp(articles.getJournals().getDhId()).getTitle());
+                quoteDetails.setJournalDetails(journalDetails);
+                QuoteDetail quoteDetail = new QuoteDetail();
+                List<Prices> prices = new ArrayList<Prices>();
+                Prices price = new Prices();
+                price.setCurrency(quote.getCurrency());
+                price.setPrice(quote.getArticlePubCharge());
+                prices.add(price);
+                quoteDetail.setPrices(prices);
+                quoteDetails.setQuoteDetail(quoteDetail);
             }
         }
-        
-        return false;
+        return quoteDetails;
     }
-    
+
     @Override
     public List<OrderDetails> getAllOrders(Integer userId) {
-        List<ArticleAuthorAssignment> articleAuthorAssignmentList = orderOnlineDAO
-                .getArticleAuthId(userId);
-        OrderDetails orderDetails = null;
-        List<OrderDetails> lisofOrderDetails=new ArrayList<OrderDetails>();
-        
-        for (ArticleAuthorAssignment articleAuthorAssignment : articleAuthorAssignmentList) {
-            orderDetails = new OrderDetails();
-            orderDetails.setArticleId(articleAuthorAssignment.getArticles()
-                   .getArticleId().toString());
-            orderDetails.setPrice("0.0");
-          // orderDetails.setArticleTitle(orderservice.articleTitle(articleAuthorAssignment.getArticles().getDhId()));
-            for (Orders orders : articleAuthorAssignment.getOrderses()) {
-                orderDetails.setOrderDate(orders.getUpdatedDate().toString());
-                orderDetails.setStatus(orders.getOrderStatus());
-            }
-            lisofOrderDetails.add(orderDetails);
-        }
-        return lisofOrderDetails;
-
+        // TODO Auto-generated method stub
+        return null;
     }
     
 }
