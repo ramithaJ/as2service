@@ -12,10 +12,19 @@
 
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
+import com.wiley.gr.ace.authorservices.model.Address;
+import com.wiley.gr.ace.authorservices.model.AddressDetails;
+import com.wiley.gr.ace.authorservices.model.Amount;
+import com.wiley.gr.ace.authorservices.model.Discounts;
+import com.wiley.gr.ace.authorservices.model.FunderDetails;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
+import com.wiley.gr.ace.authorservices.model.TaxDetails;
 import com.wiley.gr.ace.authorservices.model.external.OrderData;
 import com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService;
 
@@ -37,10 +46,49 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     public OnlineOpenOrder getOnlineOpenOrderDetails(final String userId,
             final String orderId) {
         OnlineOpenOrder onlineOpenOrder = new OnlineOpenOrder();
-        OrderData order = orderservice.getOrderDetails(userId, orderId);
-           onlineOpenOrder.setArticleId(order.getArticleId());
-           //onlineOpenOrder.setAmountPayable(order.geta);
+        OrderData orderData = orderservice.getOrderDetails(userId, orderId);
+        onlineOpenOrder.setArticleId(orderData.getArticleId());
+        onlineOpenOrder.setArticleId(orderData.getArticleId());
+        onlineOpenOrder.setJournalId(orderData.getJournalId());
+        onlineOpenOrder.setPaymentMethod(orderData.getPaymentMethod());
+        onlineOpenOrder.setTaxPercentage(orderData.getTaxPercentage());
+        Discounts discounts = new Discounts();
+        discounts.setInstitutionId(orderData.getDiscountData()
+                .getInstitutionId());
+        discounts.setOtherDiscounts(orderData.getDiscountData()
+                .getOtherDiscounts());
+        discounts.setPromoCode(orderData.getDiscountData().getPromoCode());
+        discounts.setSocietyId(orderData.getDiscountData().getSocietyId());
+        onlineOpenOrder.setDiscounts(discounts);
+        Amount amount = new Amount();
+        amount.setAmount(orderData.getAmountPayable().getAmount());
+        amount.setAmount(orderData.getAmountPayable().getCurrency());
+        onlineOpenOrder.setAmountPayable(amount);
+        FunderDetails funderDetails = new FunderDetails();
+        List<FunderDetails> listoffunderdetails = new ArrayList<FunderDetails>();
+        funderDetails.setFunderId(orderData.getFundingDetails().getFunderId());
+        funderDetails.setResearchFunderId(orderData.getFundingDetails()
+                .getResearchFunderId());
+        funderDetails.setWoaAccountId(orderData.getFundingDetails()
+                .getWoaAccountId());
+        listoffunderdetails.add(funderDetails);
+        onlineOpenOrder.setFunderDetails(listoffunderdetails);
+        TaxDetails taxDetails = new TaxDetails();
+        taxDetails.setCountryCode(orderData.getTaxDetails().getCountryCode());
+        taxDetails.setTaxCodeExpiryDate(orderData.getTaxDetails()
+                .getTaxCodeExpiryDate());
+        taxDetails.setTaxExemptionNumber(orderData.getTaxDetails()
+                .getTaxExemptionNumber());
+        taxDetails.setVatExemptionNumber(orderData.getTaxDetails()
+                .getVatExemptionNumber());
+        taxDetails.setVatIdNumber(orderData.getTaxDetails().getVatIdNumber());
+        onlineOpenOrder.setTaxDetails(taxDetails);
+        Address address = new Address();
+        address.setAddressLine1(orderData.getAddresses().get(0)
+                .getAddressLine1());
+        AddressDetails addressDetails = new AddressDetails();
+        addressDetails.setAddress(null);
+
         return onlineOpenOrder;
     }
-
 }

@@ -20,6 +20,7 @@ import com.wiley.gr.ace.authorservices.services.service.ArticleAssignmentService
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 import com.wiley.gr.ace.authorservices.services.service.DashboardService;
 import com.wiley.gr.ace.authorservices.services.service.OrcidService;
+import com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService;
 import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
 import com.wiley.gr.ace.authorservices.services.service.UpdateUserService;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
@@ -30,6 +31,7 @@ import com.wiley.gr.ace.authorservices.services.service.impl.ArticleAssignmentSe
 import com.wiley.gr.ace.authorservices.services.service.impl.AuthorProfileServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.DashboardServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.OrcidServiceImpl;
+import com.wiley.gr.ace.authorservices.services.service.impl.OrderOnlineOpenServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.RegistrationServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UpdateUserServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UserAccountServiceImpl;
@@ -142,5 +144,13 @@ public class ServiceBeanConfig {
     public ArticleAssignmentService articleAssignmentService() {
         return new ArticleAssignmentServiceImpl();
     }
-
+    /**
+     * Order online open service.
+     *
+     * @return the order online open service
+     */
+    @Bean(name = "OrderOnlineOpenService")
+    public OrderOnlineOpenService orderOnlineOpenService() {
+        return new OrderOnlineOpenServiceImpl();
+    }
 }

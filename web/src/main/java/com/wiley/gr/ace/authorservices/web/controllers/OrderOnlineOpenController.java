@@ -1,5 +1,6 @@
 package com.wiley.gr.ace.authorservices.web.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.Service;
+import com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService;
 
 /**
  * @author virtusa version1.0
@@ -18,6 +20,8 @@ import com.wiley.gr.ace.authorservices.model.Service;
 @RequestMapping("/onlineopen")
 public class OrderOnlineOpenController extends ASExceptionController {
 
+    @Autowired(required=true)
+    private  OrderOnlineOpenService orderOnlineOpenService;
     /**
      * @param userId
      * @param articleId
@@ -65,7 +69,8 @@ public class OrderOnlineOpenController extends ASExceptionController {
     public final Service getOnlineOpenOrderDetails(
             @PathVariable("userId") final String userId,
             @PathVariable("orderId") final String orderId) {
-
+        orderOnlineOpenService.getOnlineOpenOrderDetails(userId, orderId);
+        
         return new Service();
     }
 

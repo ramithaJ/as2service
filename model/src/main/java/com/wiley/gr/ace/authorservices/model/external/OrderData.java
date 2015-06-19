@@ -16,7 +16,6 @@ package com.wiley.gr.ace.authorservices.model.external;
 import java.util.List;
 
 import com.wiley.gr.ace.authorservices.model.Address;
-import com.wiley.gr.ace.authorservices.model.Amount;
 
 /**
  * The Class Order.
@@ -28,10 +27,10 @@ public class OrderData {
     /** The article id. */
     private String articleId;
     /** The final amount. */
-    private Amount finalAmount;
+    private AmountData finalAmount;
 
     /** The amount payable. */
-    private Amount amountPayable;
+    private AmountData amountPayable;
 
     /** The journal id. */
     private String journalId;
@@ -43,7 +42,7 @@ public class OrderData {
     private PricingData pricing;
 
     /** The discount. */
-    private DiscountData discount;
+    private DiscountData discountData;
 
     /** The affiliation. */
     private AffiliationData affiliation;
@@ -62,6 +61,65 @@ public class OrderData {
 
     /** The funding details. */
     private FundingDetails fundingDetails;
+
+    /**
+     * @return
+     */
+    public final DiscountData getDiscountData() {
+        return discountData;
+    }
+
+    /**
+     * @param discountData
+     */
+    public final void setDiscountData(DiscountData discountData) {
+        this.discountData = discountData;
+    }
+
+    /**
+     * @return
+     */
+    public final String getTaxPercentage() {
+        return taxPercentage;
+    }
+
+    /**
+     * @param taxPercentage
+     */
+    public final void setTaxPercentage(String taxPercentage) {
+        this.taxPercentage = taxPercentage;
+    }
+
+    /** The tax percentage. */
+    private String taxPercentage;
+
+    /**
+     * @return
+     */
+    public final AmountData getFinalAmount() {
+        return finalAmount;
+    }
+
+    /**
+     * @param finalAmount
+     */
+    public final void setFinalAmount(AmountData finalAmount) {
+        this.finalAmount = finalAmount;
+    }
+
+    /**
+     * @return
+     */
+    public final AmountData getAmountPayable() {
+        return amountPayable;
+    }
+
+    /**
+     * @param amountPayable
+     */
+    public final void setAmountPayable(AmountData amountPayable) {
+        this.amountPayable = amountPayable;
+    }
 
     /**
      * @return the articleId
@@ -121,21 +179,6 @@ public class OrderData {
      */
     public final void setPricing(final PricingData pricing) {
         this.pricing = pricing;
-    }
-
-    /**
-     * @return the discount
-     */
-    public final DiscountData getDiscount() {
-        return discount;
-    }
-
-    /**
-     * @param discount
-     *            the discount to set
-     */
-    public final void setDiscount(final DiscountData discount) {
-        this.discount = discount;
     }
 
     /**
@@ -227,33 +270,5 @@ public class OrderData {
     public final void setFundingDetails(final FundingDetails fundingDetails) {
         this.fundingDetails = fundingDetails;
     }
-
-	/**
-	 * @return
-	 */
-	public Amount getFinalAmount() {
-		return finalAmount;
-	}
-
-	/**
-	 * @param finalAmount
-	 */
-	public void setFinalAmount(Amount finalAmount) {
-		this.finalAmount = finalAmount;
-	}
-
-	/**
-	 * @return
-	 */
-	public Amount getAmountPayable() {
-		return amountPayable;
-	}
-
-	/**
-	 * @param amountPayable
-	 */
-	public void setAmountPayable(Amount amountPayable) {
-		this.amountPayable = amountPayable;
-	}
 
 }

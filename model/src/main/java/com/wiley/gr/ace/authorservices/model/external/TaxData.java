@@ -20,11 +20,11 @@ package com.wiley.gr.ace.authorservices.model.external;
  */
 public class TaxData {
 
-    /** The tax number. */
-    private String taxNumber;
+    /** The tax exemption number. */
+    private String taxExemptionNumber;
 
-    /** The tax expiration. */
-    private String taxExpiration;
+    /** The tax code expiry date. */
+    private String taxCodeExpiryDate;
 
     /** The vat id number. */
     private String vatIdNumber;
@@ -32,82 +32,47 @@ public class TaxData {
     /** The vat exemption number. */
     private String vatExemptionNumber;
 
-    /**
-     * @return the taxNumber
-     */
-    public final String getTaxNumber() {
-        return taxNumber;
+    /** The tax country code. */
+    private String countryCode;
+
+    public final String getTaxExemptionNumber() {
+        return taxExemptionNumber;
     }
 
-    /**
-     * @param taxNumber
-     *            the taxNumber to set
-     */
-    public final void setTaxNumber(final String taxNumber) {
-        this.taxNumber = taxNumber;
+    public final void setTaxExemptionNumber(String taxExemptionNumber) {
+        this.taxExemptionNumber = taxExemptionNumber;
     }
 
-    /**
-     * @return the taxExpiration
-     */
-    public final String getTaxExpiration() {
-        return taxExpiration;
+    public final String getTaxCodeExpiryDate() {
+        return taxCodeExpiryDate;
     }
 
-    /**
-     * @param taxExpiration
-     *            the taxExpiration to set
-     */
-    public final void setTaxExpiration(final String taxExpiration) {
-        this.taxExpiration = taxExpiration;
+    public final void setTaxCodeExpiryDate(String taxCodeExpiryDate) {
+        this.taxCodeExpiryDate = taxCodeExpiryDate;
     }
 
-    /**
-     * @return the vatIdNumber
-     */
     public final String getVatIdNumber() {
         return vatIdNumber;
     }
 
-    /**
-     * @param vatIdNumber
-     *            the vatIdNumber to set
-     */
-    public final void setVatIdNumber(final String vatIdNumber) {
+    public final void setVatIdNumber(String vatIdNumber) {
         this.vatIdNumber = vatIdNumber;
     }
 
-    /**
-     * @return the vatExemptionNumber
-     */
     public final String getVatExemptionNumber() {
         return vatExemptionNumber;
     }
 
-    /**
-     * @param vatExemptionNumber
-     *            the vatExemptionNumber to set
-     */
-    public final void setVatExemptionNumber(final String vatExemptionNumber) {
+    public final void setVatExemptionNumber(String vatExemptionNumber) {
         this.vatExemptionNumber = vatExemptionNumber;
     }
 
-    /**
-     * @return the countryCode
-     */
     public final String getCountryCode() {
         return countryCode;
     }
 
-    /**
-     * @param countryCode
-     *            the countryCode to set
-     */
-    public final void setCountryCode(final String countryCode) {
+    public final void setCountryCode(String countryCode) {
         this.countryCode = countryCode;
     }
-
-    /** The country code. */
-    private String countryCode;
 
 }
