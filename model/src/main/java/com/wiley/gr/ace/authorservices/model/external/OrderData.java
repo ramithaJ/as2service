@@ -228,4 +228,32 @@ public class OrderData {
         this.fundingDetails = fundingDetails;
     }
 
+	/**
+	 * @return
+	 */
+	public Amount getFinalAmount() {
+		return finalAmount;
+	}
+
+	/**
+	 * @param finalAmount
+	 */
+	public void setFinalAmount(Amount finalAmount) {
+		this.finalAmount = finalAmount;
+	}
+
+	/**
+	 * @return
+	 */
+	public Amount getAmountPayable() {
+		return amountPayable;
+	}
+
+	/**
+	 * @param amountPayable
+	 */
+	public void setAmountPayable(Amount amountPayable) {
+		this.amountPayable = amountPayable;
+	}
+
 }
