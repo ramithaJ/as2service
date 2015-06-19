@@ -336,6 +336,7 @@ public class DashboardServiceImpl implements DashboardService {
     @Override
     public final DashboardView viewDashboard(final String userId)
             throws Exception {
+        LOGGER.info("inside viewDashboard Method of DashboardServiceImpl");
         DashboardView dashboardView = new DashboardView();
         dashboardView.setArticleData(getArticleDataDetails(userId));
         dashboardView
@@ -359,6 +360,7 @@ public class DashboardServiceImpl implements DashboardService {
      */
     private final List<ArticleData> getArticleDataDetails(final String userId)
             throws Exception {
+        LOGGER.info("inside getArticleDataDetails Method of DashboardServiceImpl");
         List<ArticleData> articleDataList = esbInterfaceService
                 .getAllAuthorArticles(userId);
         List<ArticleData> articleDataStatusList = new ArrayList<ArticleData>();
@@ -381,6 +383,7 @@ public class DashboardServiceImpl implements DashboardService {
      */
     private final ArticleData getArticlesStatus(final ArticleData articleData)
             throws Exception {
+        LOGGER.info("inside getArticlesStatus Method of DashboardServiceImpl");
         articleData.setLicenseStatus(esbInterfaceService.getLicenseStatus(
                 articleData.getArticleDetails().getArticleId())
                 .getLicenseStatus());
@@ -405,6 +408,7 @@ public class DashboardServiceImpl implements DashboardService {
      */
     private final OrderPaymentStatus getOrderPaymentStatusForArticle(
             final Integer articleId) throws Exception {
+        LOGGER.info("inside getOrderPaymentStatusForArticle Method of DashboardServiceImpl");
         OrderPaymentStatus orderPaymentStatus = new OrderPaymentStatus();
         orderPaymentStatus.setOpenAccessStatus(esbInterfaceService
                 .getOpenAccessStatus(articleId).getOpenAccessStatus());
@@ -423,6 +427,7 @@ public class DashboardServiceImpl implements DashboardService {
     @Override
     public List<CommunicationDetails> getCommunicationDetailsList(String userId)
             throws Exception {
+        LOGGER.info("inside getCommunicationDetailsList Method of DashboardServiceImpl");
         List<CommunicationDetails> communicationDetailsList = null;
         List<InvitationLog> invitationLogList = dashboardDAO
                 .getInvitationLogList(Integer.parseInt(userId));
