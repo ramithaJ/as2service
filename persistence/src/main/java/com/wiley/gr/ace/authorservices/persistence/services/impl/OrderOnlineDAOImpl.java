@@ -15,6 +15,8 @@ package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
 import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
 
+import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
@@ -36,8 +38,8 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
      * Method to get ArticleAssigmentDetails tabel object.
      */
     @Override
-    public final ArticleAuthorAssignment getAritcleAssignmentDetails(final String userId,
-            final String articleId) {
+    public final ArticleAuthorAssignment getAritcleAssignmentDetails(
+            final String userId, final String articleId) {
 
         Session session = null;
         try {
@@ -45,9 +47,12 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
             Criteria criteria = session.createCriteria(
                     ArticleAuthorAssignment.class, "articleAuthorAssignment");
             criteria.createAlias("articleAuthorAssignment.articles", "articles");
-            criteria.createAlias("articleAuthorAssignment.userProfile", "userProfile");
-            criteria.add(Restrictions.eq("articles.articleId", Integer.parseInt(articleId)));
-            criteria.add(Restrictions.eq("userProfile.userId", Integer.parseInt(userId)));
+            criteria.createAlias("articleAuthorAssignment.userProfile",
+                    "userProfile");
+            criteria.add(Restrictions.eq("articles.articleId",
+                    Integer.parseInt(articleId)));
+            criteria.add(Restrictions.eq("userProfile.userId",
+                    Integer.parseInt(userId)));
             return (ArticleAuthorAssignment) criteria.uniqueResult();
         } finally {
             if (session != null) {
@@ -67,7 +72,8 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
         try {
 
             session = getSessionFactory().openSession();
-            return (Articles) session.get(Articles.class, Integer.parseInt(articleId));
+            return (Articles) session.get(Articles.class,
+                    Integer.parseInt(articleId));
         } finally {
             if (session != null) {
                 session.flush();
@@ -86,7 +92,8 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
         try {
 
             session = getSessionFactory().openSession();
-            return (Journals) session.get(Journals.class, Integer.parseInt(journalId));
+            return (Journals) session.get(Journals.class,
+                    Integer.parseInt(journalId));
         } finally {
             if (session != null) {
                 session.flush();
@@ -99,7 +106,8 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
      * Method to get savedOrders.
      */
     @Override
-    public final SavedOrders getSavedOrders(final String articleId, final String userId) {
+    public final SavedOrders getSavedOrders(final String articleId,
+            final String userId) {
 
         Session session = null;
         try {
@@ -145,6 +153,31 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
                 session.close();
             }
         }
+    }
+
+    /** For Getting List Of ArticleAuthId */
+    @Override
+    public List<ArticleAuthorAssignment> getArticleAuthId(Integer userId) {
+
+        Session session = null;
+        try {
+            session = getSessionFactory().openSession();
+            Criteria criteria = session.createCriteria(
+                    ArticleAuthorAssignment.class, "articleAuthorAssignment");
+            criteria.createAlias("articleAuthorAssignment.userProfile",
+                    "userProfile");
+            criteria.add(Restrictions.eq("userProfile.userId", userId));
+            List<ArticleAuthorAssignment> lisArticleAuthorAssignments = (List<ArticleAuthorAssignment>) criteria
+                    .list();
+            return lisArticleAuthorAssignments;
+
+        } finally {
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
+        }
+
     }
 
 }
