@@ -14,54 +14,119 @@
 package com.wiley.gr.ace.authorservices.model.external;
 
 /**
- * The Class Discount.
+ * The Class DiscountData.
  *
  * @author virtusa version 1.0
  */
 public class DiscountData {
 
-    /** The institution id. */
-    private String institutionId;
+	private Double discountValue;
+	private String discountTypeCode;
+	private String discountTypeName;
+	private SocietyData societyData;
+	private String promoCode;
+	private AffiliationData affiliationData;
 
-    /** The society id. */
-    private String societyId;
+	/**
+	 * 
+	 * @return The discountValue
+	 */
+	public Double getDiscountValue() {
+		return discountValue;
+	}
 
-    /** The other discounts. */
-    private String otherDiscounts;
+	/**
+	 * 
+	 * @param discountValue
+	 *            The discountValue
+	 */
+	public void setDiscountValue(Double discountValue) {
+		this.discountValue = discountValue;
+	}
 
-    /** The promo code. */
-    private String promoCode;
+	/**
+	 * 
+	 * @return The discountTypeCode
+	 */
+	public String getDiscountTypeCode() {
+		return discountTypeCode;
+	}
 
-    public final String getInstitutionId() {
-        return institutionId;
-    }
+	/**
+	 * 
+	 * @param discountTypeCode
+	 *            The discountTypeCode
+	 */
+	public void setDiscountTypeCode(String discountTypeCode) {
+		this.discountTypeCode = discountTypeCode;
+	}
 
-    public final void setInstitutionId(String institutionId) {
-        this.institutionId = institutionId;
-    }
+	/**
+	 * 
+	 * @return The discountTypeName
+	 */
+	public String getDiscountTypeName() {
+		return discountTypeName;
+	}
 
-    public final String getSocietyId() {
-        return societyId;
-    }
+	/**
+	 * 
+	 * @param discountTypeName
+	 *            The discountTypeName
+	 */
+	public void setDiscountTypeName(String discountTypeName) {
+		this.discountTypeName = discountTypeName;
+	}
 
-    public final void setSocietyId(String societyId) {
-        this.societyId = societyId;
-    }
+	/**
+	 * 
+	 * @return The societyData
+	 */
+	public SocietyData getSocietyData() {
+		return societyData;
+	}
 
-    public final String getOtherDiscounts() {
-        return otherDiscounts;
-    }
+	/**
+	 * 
+	 * @param societyData
+	 *            The societyData
+	 */
+	public void setSocietyData(SocietyData societyData) {
+		this.societyData = societyData;
+	}
 
-    public final void setOtherDiscounts(String otherDiscounts) {
-        this.otherDiscounts = otherDiscounts;
-    }
+	/**
+	 * 
+	 * @return The promoCode
+	 */
+	public String getPromoCode() {
+		return promoCode;
+	}
 
-    public final String getPromoCode() {
-        return promoCode;
-    }
+	/**
+	 * 
+	 * @param promoCode
+	 *            The promoCode
+	 */
+	public void setPromoCode(String promoCode) {
+		this.promoCode = promoCode;
+	}
 
-    public final void setPromoCode(String promoCode) {
-        this.promoCode = promoCode;
-    }
+	/**
+	 * 
+	 * @return The affiliationData
+	 */
+	public AffiliationData getAffiliationData() {
+		return affiliationData;
+	}
+
+	/**
+	 * 
+	 * @param affiliationData
+	 *            The affiliationData
+	 */
+	public void setAffiliationData(AffiliationData affiliationData) {
+		this.affiliationData = affiliationData;
+	}
 
 }

@@ -13,262 +13,335 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
-import java.util.List;
-
-import com.wiley.gr.ace.authorservices.model.Address;
-
 /**
- * The Class Order.
+ * The Class OrderData.
  *
  * @author virtusa version 1.0
  */
 public class OrderData {
 
-    /** The article id. */
-    private String articleId;
-    /** The final amount. */
-    private AmountData finalAmount;
+	private String ooUniqueId;
+	private String orderStatusCode;
+	private String orderSource;
+	private String orderType;
+	private String orderSubType;
+	private String orderDate;
+	private String referenceOoUniqueId;
+	private String enteredBy;
+	private String specialNotes;
+	private String poNumber;
+	private ArticleData articleData;
+	private Customer customer;
+	private WoaAccountHolder woaAccountHolder;
+	private PricingData pricingData;
+	private Payment payment;
+	private TaxData taxData;
+	private ContactAddress contactAddress;
+	private BillingAddress billingAddress;
 
-    /** The amount payable. */
-    private AmountData amountPayable;
+	/**
+	 * 
+	 * @return The ooUniqueId
+	 */
+	public String getOoUniqueId() {
+		return ooUniqueId;
+	}
 
-    /** The journal id. */
-    private String journalId;
+	/**
+	 * 
+	 * @param ooUniqueId
+	 *            The ooUniqueId
+	 */
+	public void setOoUniqueId(String ooUniqueId) {
+		this.ooUniqueId = ooUniqueId;
+	}
 
-    /** The order type. */
-    private String orderType;
+	/**
+	 * 
+	 * @return The orderStatusCode
+	 */
+	public String getOrderStatusCode() {
+		return orderStatusCode;
+	}
 
-    /** The pricing. */
-    private PricingData pricing;
+	/**
+	 * 
+	 * @param orderStatusCode
+	 *            The orderStatusCode
+	 */
+	public void setOrderStatusCode(String orderStatusCode) {
+		this.orderStatusCode = orderStatusCode;
+	}
 
-    /** The discount. */
-    private DiscountData discountData;
+	/**
+	 * 
+	 * @return The orderSource
+	 */
+	public String getOrderSource() {
+		return orderSource;
+	}
 
-    /** The affiliation. */
-    private AffiliationData affiliation;
+	/**
+	 * 
+	 * @param orderSource
+	 *            The orderSource
+	 */
+	public void setOrderSource(String orderSource) {
+		this.orderSource = orderSource;
+	}
 
-    /** The payment method. */
-    private String paymentMethod;
+	/**
+	 * 
+	 * @return The orderType
+	 */
+	public String getOrderType() {
+		return orderType;
+	}
 
-    /** The tax details. */
-    private TaxData taxDetails;
+	/**
+	 * 
+	 * @param orderType
+	 *            The orderType
+	 */
+	public void setOrderType(String orderType) {
+		this.orderType = orderType;
+	}
 
-    /** The addresses. */
-    private List<Address> addresses;
+	/**
+	 * 
+	 * @return The orderSubType
+	 */
+	public String getOrderSubType() {
+		return orderSubType;
+	}
 
-    /** The customer. */
-    private Customer customer;
+	/**
+	 * 
+	 * @param orderSubType
+	 *            The orderSubType
+	 */
+	public void setOrderSubType(String orderSubType) {
+		this.orderSubType = orderSubType;
+	}
 
-    /** The funding details. */
-    private FundingDetails fundingDetails;
+	/**
+	 * 
+	 * @return The orderDate
+	 */
+	public String getOrderDate() {
+		return orderDate;
+	}
 
-    /**
-     * @return
-     */
-    public final DiscountData getDiscountData() {
-        return discountData;
-    }
+	/**
+	 * 
+	 * @param orderDate
+	 *            The orderDate
+	 */
+	public void setOrderDate(String orderDate) {
+		this.orderDate = orderDate;
+	}
 
-    /**
-     * @param discountData
-     */
-    public final void setDiscountData(DiscountData discountData) {
-        this.discountData = discountData;
-    }
+	/**
+	 * 
+	 * @return The referenceOoUniqueId
+	 */
+	public String getReferenceOoUniqueId() {
+		return referenceOoUniqueId;
+	}
 
-    /**
-     * @return
-     */
-    public final String getTaxPercentage() {
-        return taxPercentage;
-    }
+	/**
+	 * 
+	 * @param referenceOoUniqueId
+	 *            The referenceOoUniqueId
+	 */
+	public void setReferenceOoUniqueId(String referenceOoUniqueId) {
+		this.referenceOoUniqueId = referenceOoUniqueId;
+	}
 
-    /**
-     * @param taxPercentage
-     */
-    public final void setTaxPercentage(String taxPercentage) {
-        this.taxPercentage = taxPercentage;
-    }
+	/**
+	 * 
+	 * @return The enteredBy
+	 */
+	public String getEnteredBy() {
+		return enteredBy;
+	}
 
-    /** The tax percentage. */
-    private String taxPercentage;
+	/**
+	 * 
+	 * @param enteredBy
+	 *            The enteredBy
+	 */
+	public void setEnteredBy(String enteredBy) {
+		this.enteredBy = enteredBy;
+	}
 
-    /**
-     * @return
-     */
-    public final AmountData getFinalAmount() {
-        return finalAmount;
-    }
+	/**
+	 * 
+	 * @return The specialNotes
+	 */
+	public String getSpecialNotes() {
+		return specialNotes;
+	}
 
-    /**
-     * @param finalAmount
-     */
-    public final void setFinalAmount(AmountData finalAmount) {
-        this.finalAmount = finalAmount;
-    }
+	/**
+	 * 
+	 * @param specialNotes
+	 *            The specialNotes
+	 */
+	public void setSpecialNotes(String specialNotes) {
+		this.specialNotes = specialNotes;
+	}
 
-    /**
-     * @return
-     */
-    public final AmountData getAmountPayable() {
-        return amountPayable;
-    }
+	/**
+	 * 
+	 * @return The poNumber
+	 */
+	public String getPoNumber() {
+		return poNumber;
+	}
 
-    /**
-     * @param amountPayable
-     */
-    public final void setAmountPayable(AmountData amountPayable) {
-        this.amountPayable = amountPayable;
-    }
+	/**
+	 * 
+	 * @param poNumber
+	 *            The poNumber
+	 */
+	public void setPoNumber(String poNumber) {
+		this.poNumber = poNumber;
+	}
 
-    /**
-     * @return the articleId
-     */
-    public final String getArticleId() {
-        return articleId;
-    }
+	/**
+	 * 
+	 * @return The articleData
+	 */
+	public ArticleData getArticle() {
+		return articleData;
+	}
 
-    /**
-     * @param articleId
-     *            the articleId to set
-     */
-    public final void setArticleId(final String articleId) {
-        this.articleId = articleId;
-    }
+	/**
+	 * 
+	 * @param articleData
+	 *            The articleData
+	 */
+	public void setArticle(ArticleData articleData) {
+		this.articleData = articleData;
+	}
 
-    /**
-     * @return the journalId
-     */
-    public final String getJournalId() {
-        return journalId;
-    }
+	/**
+	 * 
+	 * @return The customer
+	 */
+	public Customer getCustomer() {
+		return customer;
+	}
 
-    /**
-     * @param journalId
-     *            the journalId to set
-     */
-    public final void setJournalId(final String journalId) {
-        this.journalId = journalId;
-    }
+	/**
+	 * 
+	 * @param customer
+	 *            The customer
+	 */
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
 
-    /**
-     * @return the orderType
-     */
-    public final String getOrderType() {
-        return orderType;
-    }
+	/**
+	 * 
+	 * @return The woaAccountHolder
+	 */
+	public WoaAccountHolder getWoaAccountHolder() {
+		return woaAccountHolder;
+	}
 
-    /**
-     * @param orderType
-     *            the orderType to set
-     */
-    public final void setOrderType(final String orderType) {
-        this.orderType = orderType;
-    }
+	/**
+	 * 
+	 * @param woaAccountHolder
+	 *            The woaAccountHolder
+	 */
+	public void setWoaAccountHolder(WoaAccountHolder woaAccountHolder) {
+		this.woaAccountHolder = woaAccountHolder;
+	}
 
-    /**
-     * @return the pricing
-     */
-    public final PricingData getPricing() {
-        return pricing;
-    }
+	/**
+	 * 
+	 * @return The pricingData
+	 */
+	public PricingData getPricing() {
+		return pricingData;
+	}
 
-    /**
-     * @param pricing
-     *            the pricing to set
-     */
-    public final void setPricing(final PricingData pricing) {
-        this.pricing = pricing;
-    }
+	/**
+	 * 
+	 * @param pricingData
+	 *            The pricingData
+	 */
+	public void setPricing(PricingData pricingData) {
+		this.pricingData = pricingData;
+	}
 
-    /**
-     * @return the affiliation
-     */
-    public final AffiliationData getAffiliation() {
-        return affiliation;
-    }
+	/**
+	 * 
+	 * @return The payment
+	 */
+	public Payment getPayment() {
+		return payment;
+	}
 
-    /**
-     * @param affiliation
-     *            the affiliation to set
-     */
-    public final void setAffiliation(final AffiliationData affiliation) {
-        this.affiliation = affiliation;
-    }
+	/**
+	 * 
+	 * @param payment
+	 *            The payment
+	 */
+	public void setPayment(Payment payment) {
+		this.payment = payment;
+	}
 
-    /**
-     * @return the paymentMethod
-     */
-    public final String getPaymentMethod() {
-        return paymentMethod;
-    }
+	/**
+	 * 
+	 * @return The taxData
+	 */
+	public TaxData getTaxDetails() {
+		return taxData;
+	}
 
-    /**
-     * @param paymentMethod
-     *            the paymentMethod to set
-     */
-    public final void setPaymentMethod(final String paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
+	/**
+	 * 
+	 * @param taxData
+	 *            The taxData
+	 */
+	public void setTaxDetails(TaxData taxData) {
+		this.taxData = taxData;
+	}
 
-    /**
-     * @return the taxDetails
-     */
-    public final TaxData getTaxDetails() {
-        return taxDetails;
-    }
+	/**
+	 * 
+	 * @return The contactAddress
+	 */
+	public ContactAddress getContactAddress() {
+		return contactAddress;
+	}
 
-    /**
-     * @param taxDetails
-     *            the taxDetails to set
-     */
-    public final void setTaxDetails(final TaxData taxDetails) {
-        this.taxDetails = taxDetails;
-    }
+	/**
+	 * 
+	 * @param contactAddress
+	 *            The contactAddress
+	 */
+	public void setContactAddress(ContactAddress contactAddress) {
+		this.contactAddress = contactAddress;
+	}
 
-    /**
-     * @return the addresses
-     */
-    public final List<Address> getAddresses() {
-        return addresses;
-    }
+	/**
+	 * 
+	 * @return The billingAddress
+	 */
+	public BillingAddress getBillingAddress() {
+		return billingAddress;
+	}
 
-    /**
-     * @param addresses
-     *            the addresses to set
-     */
-    public final void setAddresses(final List<Address> addresses) {
-        this.addresses = addresses;
-    }
-
-    /**
-     * @return the customer
-     */
-    public final Customer getCustomer() {
-        return customer;
-    }
-
-    /**
-     * @param customer
-     *            the customer to set
-     */
-    public final void setCustomer(final Customer customer) {
-        this.customer = customer;
-    }
-
-    /**
-     * @return the fundingDetails
-     */
-    public final FundingDetails getFundingDetails() {
-        return fundingDetails;
-    }
-
-    /**
-     * @param fundingDetails
-     *            the fundingDetails to set
-     */
-    public final void setFundingDetails(final FundingDetails fundingDetails) {
-        this.fundingDetails = fundingDetails;
-    }
-
+	/**
+	 * 
+	 * @param billingAddress
+	 *            The billingAddress
+	 */
+	public void setBillingAddress(BillingAddress billingAddress) {
+		this.billingAddress = billingAddress;
+	}
 }

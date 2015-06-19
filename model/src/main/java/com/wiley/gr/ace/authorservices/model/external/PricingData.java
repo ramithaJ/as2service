@@ -20,57 +20,76 @@ package com.wiley.gr.ace.authorservices.model.external;
  */
 public class PricingData {
 
-    /** The product base price. */
-    private String productBasePrice;
+	private Double productBasePrice;
+	private Double amountToBePaid;
+	private String currency;
+	private Discounts discounts;
 
-    /**
-     * @return the productBasePrice
-     */
-    public final String getProductBasePrice() {
-        return productBasePrice;
-    }
+	/**
+	 * 
+	 * @return The productBasePrice
+	 */
+	public Double getProductBasePrice() {
+		return productBasePrice;
+	}
 
-    /**
-     * @param productBasePrice
-     *            the productBasePrice to set
-     */
-    public final void setProductBasePrice(final String productBasePrice) {
-        this.productBasePrice = productBasePrice;
-    }
+	/**
+	 * 
+	 * @param productBasePrice
+	 *            The productBasePrice
+	 */
+	public void setProductBasePrice(Double productBasePrice) {
+		this.productBasePrice = productBasePrice;
+	}
 
-    /**
-     * @return the amountToBePaid
-     */
-    public final String getAmountToBePaid() {
-        return amountToBePaid;
-    }
+	/**
+	 * 
+	 * @return The amountToBePaid
+	 */
+	public Double getAmountToBePaid() {
+		return amountToBePaid;
+	}
 
-    /**
-     * @param amountToBePaid
-     *            the amountToBePaid to set
-     */
-    public final void setAmountToBePaid(final String amountToBePaid) {
-        this.amountToBePaid = amountToBePaid;
-    }
+	/**
+	 * 
+	 * @param amountToBePaid
+	 *            The amountToBePaid
+	 */
+	public void setAmountToBePaid(Double amountToBePaid) {
+		this.amountToBePaid = amountToBePaid;
+	}
 
-    /**
-     * @return the currency
-     */
-    public final String getCurrency() {
-        return currency;
-    }
+	/**
+	 * 
+	 * @return The currency
+	 */
+	public String getCurrency() {
+		return currency;
+	}
 
-    /**
-     * @param currency
-     *            the currency to set
-     */
-    public final void setCurrency(final String currency) {
-        this.currency = currency;
-    }
+	/**
+	 * 
+	 * @param currency
+	 *            The currency
+	 */
+	public void setCurrency(String currency) {
+		this.currency = currency;
+	}
 
-    /** The amount to be paid. */
-    private String amountToBePaid;
+	/**
+	 * 
+	 * @return The discounts
+	 */
+	public Discounts getDiscounts() {
+		return discounts;
+	}
 
-    /** The currency. */
-    private String currency;
+	/**
+	 * 
+	 * @param discounts
+	 *            The discounts
+	 */
+	public void setDiscounts(Discounts discounts) {
+		this.discounts = discounts;
+	}
 }

@@ -24,138 +24,154 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  */
 @JsonInclude(Include.NON_NULL)
 public class ArticleData {
-
-	/** The article details. */
+	private Journal journal;
+	private String DHID;
+	private String aidECORE;
+	private String articleTitle;
+	private String authors;
 	private ArticleDetails articleDetails;
-
-	/** The journal details. */
-	private JournalDetails journalDetails;
-
-	/** The article user role. */
-	private String articleUserRole;
-
-	/** The license status. */
 	private String licenseStatus;
-
-	/** The order payment status. */
 	private OrderPaymentStatus orderPaymentStatus;
-
-	/** The production status. */
 	private String productionStatus;
 
 	/**
-	 * Gets the article details.
-	 *
+	 * 
+	 * @return The journal
+	 */
+	public Journal getJournal() {
+		return journal;
+	}
+
+	/**
+	 * 
+	 * @param journal
+	 *            The journal
+	 */
+	public void setJournal(Journal journal) {
+		this.journal = journal;
+	}
+
+	/**
+	 * 
+	 * @return The DHID
+	 */
+	public String getDHID() {
+		return DHID;
+	}
+
+	/**
+	 * 
+	 * @param DHID
+	 *            The DH_ID
+	 */
+	public void setDHID(String DHID) {
+		this.DHID = DHID;
+	}
+
+	/**
+	 * 
+	 * @return The aidECORE
+	 */
+	public String getAidECORE() {
+		return aidECORE;
+	}
+
+	/**
+	 * 
+	 * @param aidECORE
+	 *            The aidECORE
+	 */
+	public void setAidECORE(String aidECORE) {
+		this.aidECORE = aidECORE;
+	}
+
+	/**
+	 * 
+	 * @return The articleTitle
+	 */
+	public String getArticleTitle() {
+		return articleTitle;
+	}
+
+	/**
+	 * 
+	 * @param articleTitle
+	 *            The articleTitle
+	 */
+	public void setArticleTitle(String articleTitle) {
+		this.articleTitle = articleTitle;
+	}
+
+	/**
+	 * 
+	 * @return The authors
+	 */
+	public String getAuthors() {
+		return authors;
+	}
+
+	/**
+	 * 
+	 * @param authors
+	 *            The authors
+	 */
+	public void setAuthors(String authors) {
+		this.authors = authors;
+	}
+
+	/**
 	 * @return the articleDetails
 	 */
-	public final ArticleDetails getArticleDetails() {
+	public ArticleDetails getArticleDetails() {
 		return articleDetails;
 	}
 
 	/**
-	 * Sets the article details.
-	 *
-	 * @param articleDetails
-	 *            the articleDetails to set
+	 * @param articleDetails the articleDetails to set
 	 */
-	public final void setArticleDetails(final ArticleDetails articleDetails) {
+	public void setArticleDetails(ArticleDetails articleDetails) {
 		this.articleDetails = articleDetails;
 	}
 
 	/**
-	 * Gets the journal details.
-	 *
-	 * @return the journalDetails
-	 */
-	public final JournalDetails getJournalDetails() {
-		return journalDetails;
-	}
-
-	/**
-	 * Sets the journal details.
-	 *
-	 * @param journalDetails
-	 *            the journalDetails to set
-	 */
-	public final void setJournalDetails(final JournalDetails journalDetails) {
-		this.journalDetails = journalDetails;
-	}
-
-	/**
-	 * Gets the article user role.
-	 *
-	 * @return the articleUserRole
-	 */
-	public final String getArticleUserRole() {
-		return articleUserRole;
-	}
-
-	/**
-	 * Sets the article user role.
-	 *
-	 * @param articleUserRole
-	 *            the articleUserRole to set
-	 */
-	public final void setArticleUserRole(final String articleUserRole) {
-		this.articleUserRole = articleUserRole;
-	}
-
-	/**
-	 * Gets the license status.
-	 *
 	 * @return the licenseStatus
 	 */
-	public final String getLicenseStatus() {
+	public String getLicenseStatus() {
 		return licenseStatus;
 	}
 
 	/**
-	 * Sets the license status.
-	 *
-	 * @param licenseStatus
-	 *            the licenseStatus to set
+	 * @param licenseStatus the licenseStatus to set
 	 */
-	public final void setLicenseStatus(final String licenseStatus) {
+	public void setLicenseStatus(String licenseStatus) {
 		this.licenseStatus = licenseStatus;
 	}
 
 	/**
-	 * Gets the order payment status.
-	 *
 	 * @return the orderPaymentStatus
 	 */
-	public final OrderPaymentStatus getOrderPaymentStatus() {
+	public OrderPaymentStatus getOrderPaymentStatus() {
 		return orderPaymentStatus;
 	}
 
 	/**
-	 * Sets the order payment status.
-	 *
-	 * @param orderPaymentStatus
-	 *            the orderPaymentStatus to set
+	 * @param orderPaymentStatus the orderPaymentStatus to set
 	 */
-	public final void setOrderPaymentStatus(
-			final OrderPaymentStatus orderPaymentStatus) {
+	public void setOrderPaymentStatus(OrderPaymentStatus orderPaymentStatus) {
 		this.orderPaymentStatus = orderPaymentStatus;
 	}
 
 	/**
-	 * Gets the production status.
-	 *
 	 * @return the productionStatus
 	 */
-	public final String getProductionStatus() {
+	public String getProductionStatus() {
 		return productionStatus;
 	}
 
 	/**
-	 * Sets the production status.
-	 *
-	 * @param productionStatus
-	 *            the productionStatus to set
+	 * @param productionStatus the productionStatus to set
 	 */
-	public final void setProductionStatus(final String productionStatus) {
+	public void setProductionStatus(String productionStatus) {
 		this.productionStatus = productionStatus;
 	}
-
 }
