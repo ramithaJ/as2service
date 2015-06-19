@@ -187,9 +187,9 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     }
 
     @Override
-    public List<OrderDetails> getAllOrders(Integer userId) {
+    public List<OrderDetails> getAllOrders(Integer userId ,String type) {
         List<ArticleAuthorAssignment> articleAuthorAssignmentList = orderOnlineDAO
-                .getArticleAuthId(userId);
+                .getArticleAuthId(userId ,type);
         OrderDetails orderDetails = null;
         List<OrderDetails> lisofOrderDetails = new ArrayList<OrderDetails>();
 
@@ -206,6 +206,9 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             }
             lisofOrderDetails.add(orderDetails);
         }
+        
+       
+        
         return lisofOrderDetails;
 
     }

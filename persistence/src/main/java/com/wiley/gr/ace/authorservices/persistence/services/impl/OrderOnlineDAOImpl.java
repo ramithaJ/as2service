@@ -154,9 +154,12 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
 
     /** For Getting List Of ArticleAuthId */
     @Override
-    public List<ArticleAuthorAssignment> getArticleAuthId(Integer userId) {
+    public List<ArticleAuthorAssignment> getArticleAuthId(Integer userId,
+            String type) {
 
         Session session = null;
+        List<ArticleAuthorAssignment> listArticleAuthorAssignments = null;
+        System.err.println(type);
         try {
             session = getSessionFactory().openSession();
             Criteria criteria = session.createCriteria(
@@ -164,18 +167,22 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
             criteria.createAlias("articleAuthorAssignment.userProfile",
                     "userProfile");
             criteria.add(Restrictions.eq("userProfile.userId", userId));
-            criteria.setFetchMode("orderses", FetchMode.JOIN);
-            criteria.setFetchMode("articles", FetchMode.JOIN);
-            List<ArticleAuthorAssignment> listArticleAuthorAssignments = (List<ArticleAuthorAssignment>) criteria
+            if (type == null) {
+                criteria.setFetchMode("orderses", FetchMode.JOIN);
+                criteria.setFetchMode("articles", FetchMode.JOIN);
+            } else {
+                criteria.createAlias("articleAuthorAssignment.orderses",
+                        "orderses");
+                criteria.add(Restrictions.eq("orderses.ooOaFlg", type));
+            }
+            listArticleAuthorAssignments = (List<ArticleAuthorAssignment>) criteria
                     .list();
-            return listArticleAuthorAssignments;
-
         } finally {
             if (session != null) {
                 session.flush();
                 session.close();
             }
         }
-
+        return listArticleAuthorAssignments;
     }
 }

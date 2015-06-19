@@ -64,5 +64,5 @@ public interface OrderOnlineDAO {
      * @param userId
      * @return
      */
-    List<ArticleAuthorAssignment> getArticleAuthId(Integer userId);
+    List<ArticleAuthorAssignment> getArticleAuthId(Integer userId,String type);
 }

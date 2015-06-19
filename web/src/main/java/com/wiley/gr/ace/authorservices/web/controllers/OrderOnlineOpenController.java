@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
@@ -20,8 +21,9 @@ import com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService;
 @RequestMapping("/onlineopen")
 public class OrderOnlineOpenController extends ASExceptionController {
 
-    @Autowired(required=true)
-    private  OrderOnlineOpenService orderOnlineOpenService;
+    @Autowired(required = true)
+    private OrderOnlineOpenService orderOnlineOpenService;
+
     /**
      * @param userId
      * @param articleId
@@ -70,7 +72,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
             @PathVariable("userId") final String userId,
             @PathVariable("orderId") final String orderId) {
         orderOnlineOpenService.getOnlineOpenOrderDetails(userId, orderId);
-        
+
         return new Service();
     }
 
@@ -135,13 +137,15 @@ public class OrderOnlineOpenController extends ASExceptionController {
      * @param userId
      * @return
      */
-    @RequestMapping(value = "/allOrders/{userId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/allOrders/{userId}/", method = RequestMethod.GET)
     public final Service getAllOrders(
-            @PathVariable("userId") final String userId) {
-
+            @PathVariable("userId") final String userId,
+            @RequestParam(value = "type", required = false) String type,
+            @RequestParam(value = "sdate", required = false) String sdate,
+            @RequestParam(value = "edate", required = false) String edate) {
         Service service = new Service();
-        service.setPayload(orderOnlineOpenService.getAllOrders(Integer
-                .parseInt(userId)));
+        service.setPayload(orderOnlineOpenService.getAllOrders(
+                Integer.parseInt(userId), type));
         return service;
     }
 
@@ -158,5 +162,5 @@ public class OrderOnlineOpenController extends ASExceptionController {
 
         return new Service();
     }
-    
+
 }
