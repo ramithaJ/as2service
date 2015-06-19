@@ -25,6 +25,7 @@ import com.wiley.gr.ace.authorservices.model.Amount;
 import com.wiley.gr.ace.authorservices.model.Discounts;
 import com.wiley.gr.ace.authorservices.model.FunderDetails;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
+import com.wiley.gr.ace.authorservices.model.OrderDetails;
 import com.wiley.gr.ace.authorservices.model.TaxDetails;
 import com.wiley.gr.ace.authorservices.model.external.OrderData;
 import com.wiley.gr.ace.authorservices.model.external.PdhLookup;
@@ -147,6 +148,29 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         }
         
         return false;
+    }
+    
+    @Override
+    public List<OrderDetails> getAllOrders(Integer userId) {
+        List<ArticleAuthorAssignment> articleAuthorAssignmentList = orderOnlineDAO
+                .getArticleAuthId(userId);
+        OrderDetails orderDetails = null;
+        List<OrderDetails> lisofOrderDetails=new ArrayList<OrderDetails>();
+        
+        for (ArticleAuthorAssignment articleAuthorAssignment : articleAuthorAssignmentList) {
+            orderDetails = new OrderDetails();
+            orderDetails.setArticleId(articleAuthorAssignment.getArticles()
+                   .getArticleId().toString());
+            orderDetails.setPrice("0.0");
+          // orderDetails.setArticleTitle(orderservice.articleTitle(articleAuthorAssignment.getArticles().getDhId()));
+            for (Orders orders : articleAuthorAssignment.getOrderses()) {
+                orderDetails.setOrderDate(orders.getUpdatedDate().toString());
+                orderDetails.setStatus(orders.getOrderStatus());
+            }
+            lisofOrderDetails.add(orderDetails);
+        }
+        return lisofOrderDetails;
+
     }
     
 }
