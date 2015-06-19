@@ -1,6 +1,9 @@
 package com.wiley.gr.ace.authorservices.services.service;
 
+import java.util.List;
+
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
+import com.wiley.gr.ace.authorservices.model.OrderDetails;
 
 
 /**
@@ -16,6 +19,16 @@ public interface OrderOnlineOpenService {
 	 */
 	OnlineOpenOrder getOnlineOpenOrderDetails(String userId, String orderId);
 	
+	/**
+	 * @param userId
+	 * @param articleId
+	 * @return
+	 */
 	boolean getQuote(String userId, String articleId);
+	/**
+     * @param userId
+     * @return
+     */
+    List<OrderDetails> getAllOrders(Integer userId);
 
 }
