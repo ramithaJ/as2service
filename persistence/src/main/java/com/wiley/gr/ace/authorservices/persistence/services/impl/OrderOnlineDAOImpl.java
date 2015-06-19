@@ -21,7 +21,6 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
-import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.persistence.entity.ArticleAuthorAssignment;
 import com.wiley.gr.ace.authorservices.persistence.entity.Articles;
 import com.wiley.gr.ace.authorservices.persistence.entity.Journals;
@@ -54,11 +53,7 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
                     Integer.parseInt(articleId)));
             criteria.add(Restrictions.eq("userProfile.userId",
                     Integer.parseInt(userId)));
-            ArticleAuthorAssignment articleAuthorAssignment = (ArticleAuthorAssignment) criteria.uniqueResult();
-            if(null == articleAuthorAssignment) {
-                throw new ASException("803", "Article Assignment Details not found");
-            }
-            return articleAuthorAssignment;
+            return (ArticleAuthorAssignment) criteria.uniqueResult();
         } finally {
             if (session != null) {
                 session.flush();
@@ -76,11 +71,7 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
         Session session = null;
         try {
             session = getSessionFactory().openSession();
-            Articles articles = (Articles) session.get(Articles.class, Integer.parseInt(articleId));
-            if(null == articles) {
-                throw new ASException("804", "no Article details found");
-            }
-            return articles;
+            return (Articles) session.get(Articles.class, Integer.parseInt(articleId));
         } finally {
             if (session != null) {
                 session.flush();
@@ -98,11 +89,7 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
         Session session = null;
         try {
             session = getSessionFactory().openSession();
-            Journals journals = (Journals) session.get(Journals.class, Integer.parseInt(journalId));
-            if(null == journals){
-                throw new ASException("805", "no Jounal details found");
-            }
-            return journals;
+            return (Journals) session.get(Journals.class, Integer.parseInt(journalId));
         } finally {
             if (session != null) {
                 session.flush();
@@ -129,11 +116,7 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
                     Integer.parseInt(articleId)));
             criteria.add(Restrictions.eq("userProfile.userId",
                     Integer.parseInt(userId)));
-            SavedOrders savedOrders = (SavedOrders) criteria.uniqueResult();
-            if(null == savedOrders) {
-                throw new ASException("802", "No saved orders");
-            }
-            return savedOrders;
+            return (SavedOrders) criteria.uniqueResult();
         } finally {
             if (session != null) {
                 session.flush();
@@ -156,11 +139,8 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
                     "articleAuthorAssignment");
             criteria.add(Restrictions.eq(
                     "articleAuthorAssignment.articleAuthId", aritcleAuthId));
-            Orders orders = (Orders) criteria.uniqueResult();
-            if(null == orders) {
-                throw new ASException("801", "Order details not found");
-            }
-            return orders;
+            return (Orders) criteria.uniqueResult();
+            
         } finally {
             if (session != null) {
                 session.flush();

@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
 import com.wiley.gr.ace.authorservices.model.Address;
 import com.wiley.gr.ace.authorservices.model.AddressDetails;
@@ -117,20 +118,41 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         System.err.println(articleDHId);
         //isOnlineOpen 
         
-        
-        
-        
-        
         PDHLookup pdhLookup = orderservice.isOnlineOpen(jounalDHID);
         System.err.println(pdhLookup.getPdmSalesModel());
         
-        ArticleAuthorAssignment articleAuthorAssignment = orderOnlineDAO.getAritcleAssignmentDetails(userId, articleId);
-        //Article author role
-        String role = articleAuthorAssignment.getArticleRoles().getArticleRoleCd();
-        System.err.println(role);
-        //ArtilcleAuthroId
-        Integer aritcleAuthId = articleAuthorAssignment.getArticleAuthId();
-        System.err.println(aritcleAuthId);
+        if(pdhLookup.getPdmSalesModel().equalsIgnoreCase("OO")){
+            
+            ArticleAuthorAssignment articleAuthorAssignment = orderOnlineDAO.getAritcleAssignmentDetails(userId, articleId);
+            if(articleAuthorAssignment == null) {
+                throw new ASException("", "Article is not yet Accepted");
+            }
+            //Article author role
+            String role = articleAuthorAssignment.getArticleRoles().getArticleRoleCd();
+            System.err.println(role);
+            //ArtilcleAuthroId
+            Integer aritcleAuthId = articleAuthorAssignment.getArticleAuthId();
+            System.err.println(aritcleAuthId);
+            
+            if(articleAuthorAssignment.getArticleRoles().getArticleRoleCd().equalsIgnoreCase("0001")) {
+                
+                SavedOrders savedOrders = orderOnlineDAO.getSavedOrders(articleId, userId);
+                if(null != savedOrders) {
+                    throw new ASException("", "Order already exists for this Article");
+                }
+                Integer savedOrderId = savedOrders.getOrderId();
+                System.err.println(savedOrderId);
+                
+                Orders orders = orderOnlineDAO.getOrder(articleAuthorAssignment.getArticleAuthId());
+                if(orders != null) {
+                    throw new ASException("", "Order already submitted for this Article");
+                }
+                Integer orderId = orders.getOrderId();
+                System.err.println(orderId);
+                    
+            }
+        }
+        
         //articleTitle
         PDHLookup articleTitle = orderservice.articleTitle(articleDHId);
         System.err.println(articleTitle.getTitle());
@@ -138,13 +160,9 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         PDHLookup jornalTitle = orderservice.journalTitile(jounalDHID);
         System.err.println(jornalTitle.getTitle());
         
-        Orders orders = orderOnlineDAO.getOrder(aritcleAuthId);
-        Integer orderId = orders.getOrderId();
-        System.err.println(orderId);
         
-        SavedOrders savedOrders = orderOnlineDAO.getSavedOrders(articleId, userId);
-        Integer savedOrderId = savedOrders.getOrderId();
-        System.err.println(savedOrderId);
+        
+        
         return false;
     }
     
