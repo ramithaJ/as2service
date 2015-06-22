@@ -32,8 +32,9 @@ public class OrderOnlineOpenController extends ASExceptionController {
     @RequestMapping(value = "/quote/{userId}/{articleId}", method = RequestMethod.GET)
     public final Service getQuote(@PathVariable("userId") final String userId,
             @PathVariable("articleId") final String articleId) {
-        orderOnlineOpenService.getQuote(userId, articleId);
-        return new Service();
+    	Service service  = new Service();
+    	service.setPayload(orderOnlineOpenService.getQuote(userId, articleId));
+        return service;
     }
 
     /**
