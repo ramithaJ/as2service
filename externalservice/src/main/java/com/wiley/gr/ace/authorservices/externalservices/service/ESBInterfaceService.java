@@ -16,7 +16,6 @@ import java.util.List;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
-import com.wiley.gr.ace.authorservices.model.external.ArticleRecord;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 import com.wiley.gr.ace.authorservices.model.external.License;
 import com.wiley.gr.ace.authorservices.model.external.OnlineOpen;
@@ -99,7 +98,7 @@ public interface ESBInterfaceService {
      * @throws Exception
      *             the exception
      */
-    List<ArticleData> getAllAuthorArticles(String userId) throws Exception;
+    List<ArticleData> getAllAuthorArticles(Integer userId) throws Exception;
 
     /**
      * Gets the license status.
@@ -144,17 +143,6 @@ public interface ESBInterfaceService {
      *             the exception
      */
     Production getProductionStatus(Integer articleId) throws Exception;
-
-    /**
-     * Gets the article citation read records.
-     *
-     * @param userId
-     *            the user id
-     * @return the article citation read records
-     * @throws Exception
-     *             the exception
-     */
-    ArticleRecord getArticleCitationReadRecords(String userId) throws Exception;
 
     /**
      * Gets the article info.
