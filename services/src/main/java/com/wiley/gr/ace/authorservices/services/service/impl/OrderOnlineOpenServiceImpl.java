@@ -128,7 +128,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         // Article details having userId and articleId
         Articles articles = orderOnlineDAO.getArticleDetails(articleId);
         if (null == articles) {
-            throw new ASException("801", "");
+            throw new ASException("801", "Article Not found in system. Please try after sometime..");
         }
 
         PdhLookup pdhLookup = orderservice.pdhLookUp(articles.getJournals()
@@ -145,7 +145,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                 throw new ASException("802", "Article is not yet Accepted");
             }
             // check user is corresponding author or not.
-            if (articleAuthorAssignment.getArticleRoles().getArticleRoleCd()
+            if (articleAuthorAssignment.getArticleRoles() != null && articleAuthorAssignment.getArticleRoles().getArticleRoleCd()
                     .equalsIgnoreCase("0001")) {
 
                 // check is there any saved orders for this article.
@@ -253,6 +253,26 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 		
 		return orderData;
 		
+	}
+
+	/* (non-Javadoc)
+	 * @see com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService#retrieveDiscountedWOAFunderList(java.lang.String, java.lang.String)
+	 */
+	@Override
+	public List<String> retrieveDiscountedWOAFunderList(String userId,
+			String DHID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService#retrieveSocietyDiscountListForJournal(java.lang.String, java.lang.String)
+	 */
+	@Override
+	public List<String> retrieveSocietyDiscountListForJournal(String userId,
+			String DHID) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
