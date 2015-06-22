@@ -331,9 +331,6 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 	        SavedOrders savedOrders = new SavedOrders();
 	        try {
 	            savedOrders.setOrderObject(mapper.writeValueAsString(order));
-
-	            System.err
-	                    .println("in service " + mapper.writeValueAsString(order));
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
