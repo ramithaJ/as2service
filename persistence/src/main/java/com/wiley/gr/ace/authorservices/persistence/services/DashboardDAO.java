@@ -16,6 +16,7 @@ package com.wiley.gr.ace.authorservices.persistence.services;
 
 import java.util.List;
 
+import com.wiley.gr.ace.authorservices.persistence.entity.ArticleAuthorAssignment;
 import com.wiley.gr.ace.authorservices.persistence.entity.InvitationLog;
 
 /**
@@ -24,6 +25,15 @@ import com.wiley.gr.ace.authorservices.persistence.entity.InvitationLog;
  * @author virtusa version 1.0
  */
 public interface DashboardDAO {
+
+    /**
+     * Gets the article author roles.
+     *
+     * @param userId
+     *            the user id
+     * @return the article author roles
+     */
+    ArticleAuthorAssignment getArticleAuthorRoles(Integer userId);
 
     /**
      * Gets the invitation log list.
