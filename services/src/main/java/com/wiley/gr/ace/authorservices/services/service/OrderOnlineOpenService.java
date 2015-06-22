@@ -52,5 +52,11 @@ public interface OrderOnlineOpenService {
 	 * @param onlineOpenOrder
 	 */
 	List<String> retrieveSocietyDiscountListForJournal(String userId, String DHID);
+	
+	/**
+	 * @param order
+	 * @return
+	 */
+	String saveLaterOrder(OnlineOpenOrder order);
 
 }
