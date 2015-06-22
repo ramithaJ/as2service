@@ -38,5 +38,19 @@ public interface OrderOnlineOpenService {
 	 * @param onlineOpenOrder
 	 */
 	OrderResponse submitOnlineOpenOrder(String userId, OnlineOpenOrder onlineOpenOrder);
+	
+	
+	/**
+	 * @param userId
+	 * @param onlineOpenOrder
+	 */
+	List<String> retrieveDiscountedWOAFunderList(String userId, String DHID);
+	
+	
+	/**
+	 * @param userId
+	 * @param onlineOpenOrder
+	 */
+	List<String> retrieveSocietyDiscountListForJournal(String userId, String DHID);
 
 }
