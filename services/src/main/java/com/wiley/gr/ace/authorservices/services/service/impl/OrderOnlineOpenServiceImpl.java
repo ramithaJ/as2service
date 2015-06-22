@@ -276,18 +276,41 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 		
 	}
 
-	/* (non-Javadoc)
-	 * @see com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService#retrieveDiscountedWOAFunderList(java.lang.String, java.lang.String)
+	/**
+	 * This method returns the Discounted WOA Funder List
+	 * 
+	 * @param userId
+	 * @param DHID
+	 * @return List<String>
+	 * 
 	 */
 	@Override
 	public List<String> retrieveDiscountedWOAFunderList(String userId,
 			String DHID) {
-		// TODO Auto-generated method stub
+		
+		List<String> woaFunderList = null;
+		PdhLookup pdhLookUpArticle = null;
+		String journalId = null;
+		
+		if(userId != null && DHID != null){
+			pdhLookUpArticle = orderservice.pdhLookUpArticle(Integer.parseInt(DHID));
+			
+			journalId = pdhLookUpArticle.getJournalId();
+			
+		}
+				
 		return null;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService#retrieveSocietyDiscountListForJournal(java.lang.String, java.lang.String)
+
+	/**
+	 * This method returns the List of Societies which provide Society discounts
+	 * for the journal
+	 * 
+	 * @param userId
+	 * @param DHID
+	 * @return List<String>
+	 * 
 	 */
 	@Override
 	public List<String> retrieveSocietyDiscountListForJournal(String userId,
