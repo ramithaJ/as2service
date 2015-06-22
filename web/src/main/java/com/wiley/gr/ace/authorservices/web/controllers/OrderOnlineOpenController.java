@@ -46,8 +46,13 @@ public class OrderOnlineOpenController extends ASExceptionController {
     public final Service saveOnlineOpenOrder(
             @PathVariable("userId") final String userId,
             @RequestBody final OnlineOpenOrder onlineOpenOrder) {
+    	
+    	Service service = new Service();
+    	
+    	// TODO: Get orderId from below method and return in payload
+    	orderOnlineOpenService.saveLaterOrder(onlineOpenOrder);
 
-        return new Service();
+        return service;
     }
 
     /**
