@@ -98,7 +98,8 @@ public class RegistrationController {
      * @param guid
      * @return service
      */
-    @RequestMapping(value = "/invitation/{guid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/invitation/{guid}", method = RequestMethod.GET, 
+    		produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Service getInvitationRecords(
             @PathVariable("guid") final String guid) {
         Service service = new Service();
@@ -197,7 +198,8 @@ public class RegistrationController {
      * @param orcidId
      * @return service
      */
-    @RequestMapping(value = "/search/orcid/{orcidId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/search/orcid/{orcidId}", method = RequestMethod.GET, 
+    		produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Service isUserFoundWithOrcidId(
             @PathVariable("orcidId") final String orcidId) {
 

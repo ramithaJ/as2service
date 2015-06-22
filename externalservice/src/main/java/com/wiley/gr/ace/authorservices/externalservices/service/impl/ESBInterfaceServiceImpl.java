@@ -283,8 +283,9 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
         return articleInfoDetails;
     }
 
-    /* (non-Javadoc)
-     * @see com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService#confirmAssociation()
+    /**
+     * This method is used to confirmAssociation.
+     * @return the article info
      */
     @Override
     public boolean confirmAssociation() {

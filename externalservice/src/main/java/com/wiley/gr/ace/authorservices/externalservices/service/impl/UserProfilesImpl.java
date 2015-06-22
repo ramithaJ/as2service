@@ -26,216 +26,207 @@ import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 
 /**
  * The Class UserProfilesImpl.
- *
- * @author virtusa version 1.0
+ * 
+ * @author virtusa 
+ * version 1.0
  */
 public class UserProfilesImpl implements UserProfiles {
 
-    /** The user profileurl. */
-    @Value("${lookupProfile.url}")
-    private String userProfileurl;
+	/** The user profileurl. */
+	@Value("${lookupProfile.url}")
+	private String userProfileurl;
 
-    /** The update profileurl. */
-    @Value("${updateProfile.url}")
-    private String updateProfileurl;
+	/** The update profileurl. */
+	@Value("${updateProfile.url}")
+	private String updateProfileurl;
 
-    /** The institutionsurl. */
-    @Value("${institutions.url}")
-    private String institutionsurl;
+	/** The institutionsurl. */
+	@Value("${institutions.url}")
+	private String institutionsurl;
 
-    /** The departmentsurl. */
-    @Value("${departments.url}")
-    private String departmentsurl;
+	/** The departmentsurl. */
+	@Value("${departments.url}")
+	private String departmentsurl;
 
-    /** The research fundersurl. */
-    @Value("${reasearchFunders.url}")
-    private String researchFundersurl;
+	/** The research fundersurl. */
+	@Value("${reasearchFunders.url}")
+	private String researchFundersurl;
 
-    /** The societiesurl. */
-    @Value("${societies.url}")
-    private String societiesurl;
+	/** The societiesurl. */
+	@Value("${societies.url}")
+	private String societiesurl;
 
-    /** The areaof interestsurl. */
-    @Value("${areaofInterests.url}")
-    private String areaofInterestsurl;
+	/** The areaof interestsurl. */
+	@Value("${areaofInterests.url}")
+	private String areaofInterestsurl;
 
-    /** The job categoriesurl. */
-    @Value("${jobCategories.url}")
-    private String jobCategoriesurl;
+	/** The job categoriesurl. */
+	@Value("${jobCategories.url}")
+	private String jobCategoriesurl;
 
-    /** The industriesurl. */
-    @Value("${industries.url}")
-    private String industriesurl;
+	/** The industriesurl. */
+	@Value("${industries.url}")
+	private String industriesurl;
 
-    /** The countriesurl. */
-    @Value("${countries.url}")
-    private String countriesurl;
+	/** The countriesurl. */
+	@Value("${countries.url}")
+	private String countriesurl;
 
-    /** The statesurl. */
-    @Value("${states.url}")
-    private String statesurl;
+	/** The statesurl. */
+	@Value("${states.url}")
+	private String statesurl;
 
-    /** The status. */
-    @Value("${STATUS}")
-    private String STATUS;
+	/** The status. */
+	@Value("${STATUS}")
+	private String STATUS;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles
-     * #getUserProfileResponse(java.lang.String)
-     */
-    @Override
-    public UserProfileResponse getUserProfileResponse(String userId) {
+	/**
+	 * This method is used for getting userProfile response.
+	 * 
+	 * @param userId
+	 * @return UserProfileResponse
+	 * 
+	 */
+	@Override
+	public UserProfileResponse getUserProfileResponse(final String userId) {
 
-        return (UserProfileResponse) StubInvokerUtil.invokeStub(userProfileurl,
-                HttpMethod.GET, UserProfileResponse.class);
-    }
+		return (UserProfileResponse) StubInvokerUtil.invokeStub(userProfileurl,
+				HttpMethod.GET, UserProfileResponse.class);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles
-     * #updateProfile
-     * (com.wiley.gr.ace.authorservices.model.external.UserProfileResponse)
-     */
-    @Override
-    public boolean updateProfile(UserProfileResponse userProfileResponse) {
+	/**
+	 * This method is used for getting userProfile response.
+	 * 
+	 * @param userId
+	 * @return UserProfileResponse
+	 * 
+	 */
+	@Override
+	public boolean updateProfile(final UserProfileResponse userProfileResponse) {
 
-        Service service = (Service) StubInvokerUtil.invokeStub(
-                updateProfileurl, HttpMethod.POST, Service.class);
-        String status = service.getStatus();
-        if (status != null && STATUS.equalsIgnoreCase(status)) {
-            return true;
-        }
-        return false;
-    }
+		Service service = (Service) StubInvokerUtil.invokeStub(
+				updateProfileurl, HttpMethod.POST, Service.class);
+		String status = service.getStatus();
+		if (status != null && STATUS.equalsIgnoreCase(status)) {
+			return true;
+		}
+		return false;
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles
-     * #getAreaOfInterests()
-     */
-    @Override
-    public ESBResponse getAreaOfInterests() {
+	/**
+	 * This method is used for getting area of interest.
+	 * 
+	 * @return ESBResponse
+	 * 
+	 */
+	@Override
+	public ESBResponse getAreaOfInterests() {
 
-        return (ESBResponse) StubInvokerUtil.invokeStub(areaofInterestsurl,
-                HttpMethod.GET, ESBResponse.class);
-    }
+		return (ESBResponse) StubInvokerUtil.invokeStub(areaofInterestsurl,
+				HttpMethod.GET, ESBResponse.class);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles
-     * #getJobCategories()
-     */
-    @Override
-    public JobCategories getJobCategories() {
+	/**
+	 * This method is used for getting job categories.
+	 * 
+	 * @return JobCategories
+	 * 
+	 */
+	@Override
+	public JobCategories getJobCategories() {
 
-        return (JobCategories) StubInvokerUtil.invokeStub(jobCategoriesurl,
-                HttpMethod.GET, JobCategories.class);
-    }
+		return (JobCategories) StubInvokerUtil.invokeStub(jobCategoriesurl,
+				HttpMethod.GET, JobCategories.class);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles
-     * #getIndustries()
-     */
-    @Override
-    public Industries getIndustries() {
+	/**
+	 * This method is used for getting industries.
+	 * 
+	 * @return Industries
+	 * 
+	 */
+	@Override
+	public Industries getIndustries() {
 
-        return (Industries) StubInvokerUtil.invokeStub(industriesurl,
-                HttpMethod.GET, Industries.class);
-    }
+		return (Industries) StubInvokerUtil.invokeStub(industriesurl,
+				HttpMethod.GET, Industries.class);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles
-     * #getCountries()
-     */
-    @Override
-    public ESBResponse getCountries() {
+	/**
+	 * This method is used for getting countries.
+	 * 
+	 * @return ESBResponse
+	 * 
+	 */
+	@Override
+	public ESBResponse getCountries() {
 
-        return (ESBResponse) StubInvokerUtil.invokeStub(countriesurl,
-                HttpMethod.GET, ESBResponse.class);
-    }
+		return (ESBResponse) StubInvokerUtil.invokeStub(countriesurl,
+				HttpMethod.GET, ESBResponse.class);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles
-     * #getStates()
-     */
-    @Override
-    public ESBResponse getStates() {
+	/**
+	 * This method is used for getting states.
+	 * 
+	 * @return ESBResponse
+	 * 
+	 */
+	@Override
+	public ESBResponse getStates() {
 
-        return (ESBResponse) StubInvokerUtil.invokeStub(statesurl,
-                HttpMethod.GET, ESBResponse.class);
-    }
+		return (ESBResponse) StubInvokerUtil.invokeStub(statesurl,
+				HttpMethod.GET, ESBResponse.class);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles
-     * #getInstitutionsList()
-     */
-    @Override
-    public DropDown getInstitutionsList() {
+	/**
+	 * This method is used for getting institution list.
+	 * 
+	 * @return DropDown
+	 * 
+	 */
+	@Override
+	public DropDown getInstitutionsList() {
 
-        return (DropDown) StubInvokerUtil.invokeStub(institutionsurl,
-                HttpMethod.GET, DropDown.class);
-    }
+		return (DropDown) StubInvokerUtil.invokeStub(institutionsurl,
+				HttpMethod.GET, DropDown.class);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles
-     * #getDepartmentsList()
-     */
-    @Override
-    public DropDown getDepartmentsList() {
+	/**
+	 * This method is used for getting department list.
+	 * 
+	 * @return DropDown
+	 * 
+	 */
+	@Override
+	public DropDown getDepartmentsList() {
 
-        return (DropDown) StubInvokerUtil.invokeStub(departmentsurl,
-                HttpMethod.GET, DropDown.class);
-    }
+		return (DropDown) StubInvokerUtil.invokeStub(departmentsurl,
+				HttpMethod.GET, DropDown.class);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles
-     * #getReasearchFunder()
-     */
-    @Override
-    public DropDown getReasearchFunder() {
+	/**
+	 * This method is used for getting research funders.
+	 * 
+	 * @return DropDown
+	 * 
+	 */
+	@Override
+	public DropDown getReasearchFunder() {
 
-        return (DropDown) StubInvokerUtil.invokeStub(researchFundersurl,
-                HttpMethod.GET, DropDown.class);
-    }
+		return (DropDown) StubInvokerUtil.invokeStub(researchFundersurl,
+				HttpMethod.GET, DropDown.class);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles
-     * #getSocietyList()
-     */
-    @Override
-    public DropDown getSocietyList() {
+	/**
+	 * This method is used for getting society list.
+	 * 
+	 * @return DropDown
+	 * 
+	 */
+	@Override
+	public DropDown getSocietyList() {
 
-        return (DropDown) StubInvokerUtil.invokeStub(societiesurl,
-                HttpMethod.GET, DropDown.class);
-    }
+		return (DropDown) StubInvokerUtil.invokeStub(societiesurl,
+				HttpMethod.GET, DropDown.class);
+	}
 }

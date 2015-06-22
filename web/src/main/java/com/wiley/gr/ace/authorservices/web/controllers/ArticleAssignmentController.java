@@ -47,7 +47,8 @@ public class ArticleAssignmentController {
      * @param emailId
      * @return service
      */
-    @RequestMapping(value = "/confirm/display/{emailId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/confirm/display/{emailId}", method = RequestMethod.GET,
+    		produces = MediaType.APPLICATION_JSON_VALUE)
     public final @ResponseBody Service getArticleInfo(
             @PathVariable("emailId") final String emailId) {
         Service service = new Service();
@@ -76,7 +77,8 @@ public class ArticleAssignmentController {
      * @param userId
      * @return service
      */
-    @RequestMapping(value = "/confirm/confirmassociation", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/confirm/confirmassociation", method = RequestMethod.PUT,
+    		produces = MediaType.APPLICATION_JSON_VALUE)
     public final @ResponseBody Service confirmAssociation(
             @RequestBody final String articleAuthId,
             @RequestBody final String userId) {

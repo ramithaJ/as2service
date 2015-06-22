@@ -84,7 +84,7 @@ public class OrcidServiceImpl implements OrcidService {
      *             the exception
      */
     @Override
-    public final User getWork(final OrcidAccessToken token, User user)
+    public final User getWork(final OrcidAccessToken token, final User user)
             throws Exception {
         String orcidMessageJSON = oricdInterfaceService.getWork(token);
         if (null != orcidMessageJSON && !orcidMessageJSON.isEmpty()) {
@@ -127,7 +127,7 @@ public class OrcidServiceImpl implements OrcidService {
      * @param user
      *            the user
      */
-    private void parseOrcidJSON(final String orcidMessageJSON, User user) {
+    private void parseOrcidJSON(final String orcidMessageJSON, final User user) {
         try {
             JSONObject orcidProfileJSON = (JSONObject) new JSONParser()
                     .parse(orcidMessageJSON);
@@ -161,7 +161,7 @@ public class OrcidServiceImpl implements OrcidService {
      *            the user
      */
     private void parsePersonalDetails(final JSONObject personalDetailsJSON,
-            User user) {
+            final User user) {
         try {
             JSONObject personalDetails = (JSONObject) personalDetailsJSON
                     .get("personal-details");
@@ -204,7 +204,7 @@ public class OrcidServiceImpl implements OrcidService {
      *            the user
      */
     private void parseContactDetails(final JSONObject personalDetailsJSON,
-            User user) {
+            final User user) {
         try {
             JSONObject contactDetails = (JSONObject) personalDetailsJSON
                     .get("contact-details");
@@ -302,7 +302,7 @@ public class OrcidServiceImpl implements OrcidService {
      * @param user
      *            the user
      */
-    private void parseOrcidJSONForWork(final String orcidMessageJSON, User user) {
+    private void parseOrcidJSONForWork(final String orcidMessageJSON, final User user) {
         try {
             JSONObject orcidProfileJSON = (JSONObject) new JSONParser()
                     .parse(orcidMessageJSON);
@@ -342,7 +342,7 @@ public class OrcidServiceImpl implements OrcidService {
      * @param user
      *            the user
      */
-    private void parseAffiliations(final JSONObject affiliations, User user) {
+    private void parseAffiliations(final JSONObject affiliations, final User user) {
         try {
             JSONObject affiliationArrayJSON = (JSONObject) new JSONParser()
                     .parse(affiliations.toJSONString());

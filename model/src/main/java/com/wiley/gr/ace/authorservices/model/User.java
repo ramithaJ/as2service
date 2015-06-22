@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * The Class User.
  *
  * @author virtusa
- * 	version 1.0
+ * version 1.0
  */
 /**
  * @author DISHARIDE

@@ -34,10 +34,10 @@ import com.wiley.gr.ace.authorservices.services.service.UpdateUserService;
 @RequestMapping("/user/update")
 public class UpdateUserController {
     /**
-     * getting bean of update user service
+     * getting bean of update user service.
      */
     @Autowired(required = true)
-    UpdateUserService updateUserService;
+    private UpdateUserService updateUserService;
 
     /**
      * @param orcidId

@@ -19,7 +19,7 @@ import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
 
 /**
  * @author virtusa
- *	version 1.0
+ * version 1.0
  */
 @Configuration
 public class ExceptionBeanConfig {
@@ -28,7 +28,7 @@ public class ExceptionBeanConfig {
      * @return
      */
     @Bean(name = "asException")
-    public ASException getASException() {
+    public final ASException getASException() {
         return new ASException();
     }
     
@@ -36,7 +36,7 @@ public class ExceptionBeanConfig {
      * @return
      */
     @Bean(name = "asExceptionController")
-    public ASExceptionController getASExceptionController() {
+    public final ASExceptionController getASExceptionController() {
         return new ASExceptionController();
     }
     

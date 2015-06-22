@@ -403,7 +403,7 @@ public class ASDataServiceImpl implements ASDataService {
      * @return the admin roles
      */
     @Override
-    public final List<Role> getAdminRoles(String roleType) {
+    public final List<Role> getAdminRoles(final String roleType) {
 
         LOGGER.info("inside getAdminRoles method ");
 

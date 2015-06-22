@@ -29,7 +29,8 @@ import com.wiley.gr.ace.authorservices.model.Login;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 
 /**
- * @author virtusa version 1.0
+ * @author virtusa 
+ * version 1.0
  *
  */
 public class LoginInterceptor extends HandlerInterceptorAdapter {
@@ -44,8 +45,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
      * this method will call the LDAP/AD authentication service.
      */
     @Override
-    public boolean preHandle(HttpServletRequest request,
-            HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(final HttpServletRequest request,
+            final HttpServletResponse response, final Object handler) throws Exception {
 
         String payLoad = AuthorServicesUtil.readStream(
                 request.getInputStream(), 100);
@@ -93,9 +94,9 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
      * postHandle method.
      */
     @Override
-    public void postHandle(HttpServletRequest request,
-            HttpServletResponse response, Object handler,
-            ModelAndView modelAndView) throws Exception {
+    public void postHandle(final HttpServletRequest request,
+            final HttpServletResponse response,final Object handler,
+            final ModelAndView modelAndView) throws Exception {
         // TODO Auto-generated method stub
         System.out.println("Inside postHandle of LoginInterceptor");
         super.postHandle(request, response, handler, modelAndView);
