@@ -32,7 +32,6 @@ import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
 import com.wiley.gr.ace.authorservices.model.external.ArticleDataDetails;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
-import com.wiley.gr.ace.authorservices.model.external.ArticleRecord;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 import com.wiley.gr.ace.authorservices.model.external.License;
 import com.wiley.gr.ace.authorservices.model.external.OnlineOpen;
@@ -270,11 +269,11 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      *             the exception
      */
     @Override
-    public final List<ArticleData> getAllAuthorArticles(final String userId)
+    public final List<ArticleData> getAllAuthorArticles(final Integer articleId)
             throws Exception {
         ArrayList<ArticleData> articleDataList = null;
         ArticleDataDetails articleDataDetails = null;
-        final String url = "http://demo7930138.mockable.io/getAllAuthorArticles/userId";
+        final String url = "http://demo7930138.mockable.io/getAllAuthorArticles/articleId";
         try {
             URI uri = new URI(url);
             RestTemplate restTemplate = new RestTemplate();
@@ -444,42 +443,6 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
             e.printStackTrace();
         }
         return production;
-    }
-
-    /**
-     * Gets the article citation read records.
-     *
-     * @param userId
-     *            the user id
-     * @return the article citation read records
-     * @throws Exception
-     *             the exception
-     */
-    @Override
-    public final ArticleRecord getArticleCitationReadRecords(final String userId)
-            throws Exception {
-        ArticleRecord articleRecord = null;
-        final String url = "http://demo7930138.mockable.io/getArticleReadAndCitation/articleId";
-        try {
-            URI uri = new URI(url);
-            RestTemplate restTemplate = new RestTemplate();
-            HttpHeaders requestHeaders = new HttpHeaders();
-
-            requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-            HttpEntity<ArticleRecord> requestEntity = new HttpEntity<ArticleRecord>(
-                    requestHeaders);
-
-            ResponseEntity<ArticleRecord> response = restTemplate.exchange(uri,
-                    HttpMethod.GET, requestEntity, ArticleRecord.class);
-            System.out.println("####  response #### "
-                    + response.getStatusCode());
-            System.out.println("####  response #### " + response.getBody());
-
-            articleRecord = response.getBody();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-        return articleRecord;
     }
 
 }

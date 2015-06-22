@@ -58,7 +58,7 @@ public class CommunicationDetails {
      * @param userId
      *            the new user id
      */
-    public final void setUserId(Integer userId) {
+    public final void setUserId(final Integer userId) {
         this.userId = userId;
     }
 
@@ -77,7 +77,7 @@ public class CommunicationDetails {
      * @param inviationId
      *            the new inviation id
      */
-    public final void setInviationId(Integer inviationId) {
+    public final void setInviationId(final Integer inviationId) {
         this.inviationId = inviationId;
     }
 
@@ -96,7 +96,7 @@ public class CommunicationDetails {
      * @param emailId
      *            the new email id
      */
-    public final void setEmailId(String emailId) {
+    public final void setEmailId(final String emailId) {
         this.emailId = emailId;
     }
 
@@ -115,7 +115,7 @@ public class CommunicationDetails {
      * @param articleId
      *            the new article id
      */
-    public final void setArticleId(Integer articleId) {
+    public final void setArticleId(final Integer articleId) {
         this.articleId = articleId;
     }
 
@@ -134,7 +134,7 @@ public class CommunicationDetails {
      * @param sentDate
      *            the new sent date
      */
-    public final void setSentDate(String sentDate) {
+    public final void setSentDate(final String sentDate) {
         this.sentDate = sentDate;
     }
 
@@ -153,7 +153,7 @@ public class CommunicationDetails {
      * @param sentBy
      *            the new sent by
      */
-    public final void setSentBy(Integer sentBy) {
+    public final void setSentBy(final Integer sentBy) {
         this.sentBy = sentBy;
     }
 

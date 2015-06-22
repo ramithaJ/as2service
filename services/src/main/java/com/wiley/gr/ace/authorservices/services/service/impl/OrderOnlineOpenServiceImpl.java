@@ -255,4 +255,24 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService#retrieveDiscountedWOAFunderList(java.lang.String, java.lang.String)
+	 */
+	@Override
+	public List<String> retrieveDiscountedWOAFunderList(String userId,
+			String DHID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService#retrieveSocietyDiscountListForJournal(java.lang.String, java.lang.String)
+	 */
+	@Override
+	public List<String> retrieveSocietyDiscountListForJournal(String userId,
+			String DHID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

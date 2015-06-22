@@ -21,6 +21,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.wiley.gr.ace.authorservices.persistence.entity.ArticleAuthorAssignment;
 import com.wiley.gr.ace.authorservices.persistence.entity.InvitationLog;
 import com.wiley.gr.ace.authorservices.persistence.services.DashboardDAO;
 
@@ -37,9 +38,11 @@ public class DashboardDAOImpl implements DashboardDAO {
      * @param userId
      *            the user id
      * @return the invitation log list
+     * @throws Exception
+     *             the exception
      */
     @Override
-    public List<InvitationLog> getInvitationLogList(Integer userId)
+    public final List<InvitationLog> getInvitationLogList(final Integer userId)
             throws Exception {
         Session session = null;
         Transaction txn = null;
@@ -52,6 +55,26 @@ public class DashboardDAOImpl implements DashboardDAO {
                     .list();
             txn.commit();
             return invitationLogList;
+        } finally {
+            if (session != null) {
+                session.flush();
+            }
+        }
+    }
+
+    @Override
+    public final ArticleAuthorAssignment getArticleAuthorRoles(final Integer userId) {
+        Session session = null;
+        Transaction txn = null;
+        try {
+            session = getSessionFactory().openSession();
+            txn = session.beginTransaction();
+            String articleAuthorAssignmentHql = "from ArticleAuthorAssignment aaa where aaa.userProfile.userId=:userId";
+            ArticleAuthorAssignment articleAuthorAssignment = (ArticleAuthorAssignment) session
+                    .createQuery(articleAuthorAssignmentHql).setInteger("userId", userId)
+                    .uniqueResult();
+            txn.commit();
+            return articleAuthorAssignment;
         } finally {
             if (session != null) {
                 session.flush();
