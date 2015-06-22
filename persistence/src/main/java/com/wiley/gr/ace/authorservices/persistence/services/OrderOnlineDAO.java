@@ -65,4 +65,10 @@ public interface OrderOnlineDAO {
      * @return
      */
     List<ArticleAuthorAssignment> getArticleAuthId(Integer userId,String type);
+    
+    /**
+     * @param order
+     * @return
+     */
+    String saveLaterOrder(String order);
 }
