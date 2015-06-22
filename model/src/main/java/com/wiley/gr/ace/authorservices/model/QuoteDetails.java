@@ -13,6 +13,8 @@
  */
 package com.wiley.gr.ace.authorservices.model;
 
+import java.util.List;
+
 
 public class QuoteDetails {
 
@@ -23,6 +25,10 @@ public class QuoteDetails {
     private JournalDetails journalDetails;
 
     private String authorName;
+    
+    private List<AddressDetails> addressDetails;
+    
+    private List<FunderDetails> funderDetails;
 
     /**
      * @return the articleDetails
@@ -79,6 +85,34 @@ public class QuoteDetails {
     public final void setAuthorName(String authorName) {
         this.authorName = authorName;
     }
+
+	/**
+	 * @return
+	 */
+	public List<AddressDetails> getAddressDetails() {
+		return addressDetails;
+	}
+
+	/**
+	 * @param addressDetails
+	 */
+	public void setAddressDetails(List<AddressDetails> addressDetails) {
+		this.addressDetails = addressDetails;
+	}
+
+	/**
+	 * @return
+	 */
+	public List<FunderDetails> getFunderDetails() {
+		return funderDetails;
+	}
+
+	/**
+	 * @param funderDetails
+	 */
+	public void setFunderDetails(List<FunderDetails> funderDetails) {
+		this.funderDetails = funderDetails;
+	}
 
     
 }
