@@ -195,4 +195,22 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
 		
 		return null;
 	}
+
+	@Override
+	public void saveOrUpdateOrder(Orders orders) {
+		
+		Session session = null;
+        try {
+            session = getSessionFactory().openSession();
+            session.getTransaction().begin();
+            session.saveOrUpdate(orders);
+            session.getTransaction().commit();
+        } finally {
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
+        }
+		
+	}
 }
