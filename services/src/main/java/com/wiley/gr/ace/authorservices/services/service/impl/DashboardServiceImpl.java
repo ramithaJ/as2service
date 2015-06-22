@@ -358,6 +358,7 @@ public class DashboardServiceImpl implements DashboardService {
     @Override
     public List<ArticleData> getArticleAuthorData(String userId)
             throws Exception {
+        LOGGER.info("inside getArticleAuthorData Method of DashboardServiceImpl");
         List<ArticleData> articleData = null;
         ArticleAuthorAssignment articleAuthorAssignment = dashboardDAO
                 .getArticleAuthorRoles(Integer.parseInt(userId));
