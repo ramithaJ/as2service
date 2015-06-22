@@ -356,7 +356,7 @@ public class DashboardServiceImpl implements DashboardService {
      *             the exception
      */
     @Override
-    public List<ArticleData> getArticleAuthorData(String userId)
+    public final List<ArticleData> getArticleAuthorData(final String userId)
             throws Exception {
         LOGGER.info("inside getArticleAuthorData Method of DashboardServiceImpl");
         List<ArticleData> articleData = null;
@@ -393,7 +393,7 @@ public class DashboardServiceImpl implements DashboardService {
         List<ArticleData> articleDataStatusList = new ArrayList<ArticleData>();
         if (!StringUtils.isEmpty(articleDataList)) {
             for (ArticleData articleData : articleDataList) {
-                articleData.setAuthors(articleUserRole);
+                articleData.setArticleUserRole(articleUserRole);
                 articleDataStatusList.add(getArticlesStatus(articleData));
             }
         }
