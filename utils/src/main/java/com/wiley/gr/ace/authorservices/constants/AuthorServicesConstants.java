@@ -75,4 +75,10 @@ public class AuthorServicesConstants {
     
     /** The Constant INVALIDEMAILMSG. */
     public static final String INVALIDEMAILMSG = "Invalid email address. Please Re-Enter";
+    
+    /** The Constant for OrderStatus. */
+    public static final String ORDER_STATUS_SUBMIT = "Submitted";
+    
+    /** The Constant for OO_OA_FLAG. */
+    public static final String OO_OA_FLAG_OO = "OO";
 }
