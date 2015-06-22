@@ -57,6 +57,6 @@ public interface OrderOnlineOpenService {
 	 * @param order
 	 * @return
 	 */
-	String saveLaterOrder(OnlineOpenOrder order);
+	void saveLaterOrder(OnlineOpenOrder order,String userId);
 
 }

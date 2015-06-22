@@ -4,12 +4,17 @@ package com.wiley.gr.ace.authorservices.persistence.entity;
 
 import java.sql.Clob;
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,7 +31,7 @@ public class SavedOrders implements java.io.Serializable {
 	private Users usersByUpdatedBy;
 	private UserProfile userProfile;
 	private Articles articles;
-	private Clob orderObject;
+	private String orderObject;
 	private Date createdDate;
 	private Date updatedDate;
 
@@ -37,21 +42,11 @@ public class SavedOrders implements java.io.Serializable {
 		this.orderId = orderId;
 	}
 
-	public SavedOrders(Integer orderId, Users usersByCreatedBy,
-			Users usersByUpdatedBy, UserProfile userProfile, Articles articles,
-			Clob orderObject, Date createdDate, Date updatedDate) {
-		this.orderId = orderId;
-		this.usersByCreatedBy = usersByCreatedBy;
-		this.usersByUpdatedBy = usersByUpdatedBy;
-		this.userProfile = userProfile;
-		this.articles = articles;
-		this.orderObject = orderObject;
-		this.createdDate = createdDate;
-		this.updatedDate = updatedDate;
-	}
-
+	
 	@Id
 	@Column(name = "ORDER_ID", unique = true, nullable = false, precision = 22, scale = 0)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="SAVED_ORDERS_SEQ")
+    @SequenceGenerator(name="SAVED_ORDERS_SEQ",sequenceName="SAVED_ORDERS_SEQ",allocationSize=1)
 	public Integer getOrderId() {
 		return this.orderId;
 	}
@@ -99,13 +94,13 @@ public class SavedOrders implements java.io.Serializable {
 	public void setArticles(Articles articles) {
 		this.articles = articles;
 	}
-
+	@Lob
 	@Column(name = "ORDER_OBJECT")
-	public Clob getOrderObject() {
+	public String getOrderObject() {
 		return this.orderObject;
 	}
 
-	public void setOrderObject(Clob orderObject) {
+	public void setOrderObject(String orderObject) {
 		this.orderObject = orderObject;
 	}
 

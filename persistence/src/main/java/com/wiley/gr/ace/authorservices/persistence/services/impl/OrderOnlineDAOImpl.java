@@ -189,12 +189,22 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
 	/* (non-Javadoc)
 	 * @see com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO#saveLaterOrder(java.lang.String)
 	 */
-	@Override
-	public String saveLaterOrder(String order) {
-		
-		
-		return null;
-	}
+    @Override
+    public void saveLaterOrder(SavedOrders savedOrders) {
+        Session session = null;
+        try {
+            session = getSessionFactory().openSession();
+            session.beginTransaction();
+            session.saveOrUpdate(savedOrders);
+            session.getTransaction().commit();
+        } finally {
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
+        }
+
+    }
 
 	@Override
 	public void saveOrUpdateOrder(Orders orders) {

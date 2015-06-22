@@ -32,8 +32,8 @@ public class OrderOnlineOpenController extends ASExceptionController {
     @RequestMapping(value = "/quote/{userId}/{articleId}", method = RequestMethod.GET)
     public final Service getQuote(@PathVariable("userId") final String userId,
             @PathVariable("articleId") final String articleId) {
-    	Service service  = new Service();
-    	service.setPayload(orderOnlineOpenService.getQuote(userId, articleId));
+        Service service = new Service();
+        service.setPayload(orderOnlineOpenService.getQuote(userId, articleId));
         return service;
     }
 
@@ -42,15 +42,15 @@ public class OrderOnlineOpenController extends ASExceptionController {
      * @param onlineOpenOrder
      * @return
      */
-    @RequestMapping(value = "/saveLater/", method = RequestMethod.POST)
+    @RequestMapping(value = "/saveLater/{userId}/", method = RequestMethod.POST)
     public final Service saveOnlineOpenOrder(
             @PathVariable("userId") final String userId,
-            @RequestBody final OnlineOpenOrder onlineOpenOrder) {
-    	
-    	Service service = new Service();
-    	
-    	// TODO: Get orderId from below method and return in payload
-    	orderOnlineOpenService.saveLaterOrder(onlineOpenOrder);
+            @RequestBody OnlineOpenOrder onlineOpenOrder) {
+
+        Service service = new Service();
+
+        // TODO: Get orderId from below method and return in payload
+        orderOnlineOpenService.saveLaterOrder(onlineOpenOrder, userId);
 
         return service;
     }
@@ -64,11 +64,12 @@ public class OrderOnlineOpenController extends ASExceptionController {
     public final Service submitOnlineOpenOrder(
             @PathVariable("userId") final String userId,
             @RequestBody final OnlineOpenOrder onlineOpenOrder) {
-    	
-    	Service service = new Service();
-    	// TODO Need to create Internal Model and set it to the payload
-    	service.setPayload(orderOnlineOpenService.submitOnlineOpenOrder(userId, onlineOpenOrder));
-    	
+
+        Service service = new Service();
+        // TODO Need to create Internal Model and set it to the payload
+        service.setPayload(orderOnlineOpenService.submitOnlineOpenOrder(userId,
+                onlineOpenOrder));
+
         return service;
     }
 

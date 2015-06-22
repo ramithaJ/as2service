@@ -70,7 +70,7 @@ public interface OrderOnlineDAO {
      * @param order
      * @return
      */
-    String saveLaterOrder(String order);
+    void saveLaterOrder(SavedOrders savedOrders);
     
     /**
      * This method saves or updates the order submitted
