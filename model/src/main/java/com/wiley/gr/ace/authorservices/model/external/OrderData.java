@@ -37,7 +37,7 @@ public class OrderData {
 	private Payment payment;
 	private TaxData taxData;
 	private ContactAddress contactAddress;
-	private BillingAddress billingAddress;
+	private ContactAddress billingAddress;
 
 	/**
 	 * 
@@ -332,7 +332,7 @@ public class OrderData {
 	 * 
 	 * @return The billingAddress
 	 */
-	public BillingAddress getBillingAddress() {
+	public ContactAddress getBillingAddress() {
 		return billingAddress;
 	}
 
@@ -341,7 +341,7 @@ public class OrderData {
 	 * @param billingAddress
 	 *            The billingAddress
 	 */
-	public void setBillingAddress(BillingAddress billingAddress) {
+	public void setBillingAddress(ContactAddress billingAddress) {
 		this.billingAddress = billingAddress;
 	}
 }
