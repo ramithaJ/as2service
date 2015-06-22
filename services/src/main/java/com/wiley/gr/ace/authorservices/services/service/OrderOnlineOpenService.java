@@ -6,6 +6,7 @@ import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.OrderDetails;
 import com.wiley.gr.ace.authorservices.model.QuoteDetails;
 import com.wiley.gr.ace.authorservices.model.external.OrderResponse;
+import com.wiley.gr.ace.authorservices.model.external.WOAFunder;
 
 
 /**
@@ -44,7 +45,7 @@ public interface OrderOnlineOpenService {
 	 * @param userId
 	 * @param onlineOpenOrder
 	 */
-	List<String> retrieveDiscountedWOAFunderList(String userId, String DHID);
+	List<WOAFunder> retrieveDiscountedWOAFunderList(String userId, String DHID);
 	
 	
 	/**

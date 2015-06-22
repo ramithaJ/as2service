@@ -39,8 +39,10 @@ import com.wiley.gr.ace.authorservices.model.external.ArticleData;
 import com.wiley.gr.ace.authorservices.model.external.OrderData;
 import com.wiley.gr.ace.authorservices.model.external.OrderRequest;
 import com.wiley.gr.ace.authorservices.model.external.OrderResponse;
+import com.wiley.gr.ace.authorservices.model.external.PdhArticleResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhLookup;
 import com.wiley.gr.ace.authorservices.model.external.Quote;
+import com.wiley.gr.ace.authorservices.model.external.WOAFunder;
 import com.wiley.gr.ace.authorservices.persistence.entity.ArticleAuthorAssignment;
 import com.wiley.gr.ace.authorservices.persistence.entity.Articles;
 import com.wiley.gr.ace.authorservices.persistence.entity.Orders;
@@ -287,21 +289,19 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 	 * 
 	 */
 	@Override
-	public List<String> retrieveDiscountedWOAFunderList(String userId,
+	public List<WOAFunder> retrieveDiscountedWOAFunderList(String userId,
 			String DHID) {
 		
-		List<String> woaFunderList = null;
-		PdhLookup pdhLookUpArticle = null;
-		String journalId = null;
+	List<WOAFunder> woaFunderList = null;
 		
 		if(userId != null && DHID != null){
-			pdhLookUpArticle = orderservice.pdhLookUpArticle(Integer.parseInt(DHID));
-			
-			journalId = pdhLookUpArticle.getJournalId();
+			PdhArticleResponse pdhArticleResponse = orderservice.pdhLookUpArticle(Integer.parseInt(DHID));
+				
+			woaFunderList = pdhArticleResponse.getWOAFunders().getWOAFunder();
 			
 		}
 				
-		return null;
+		return woaFunderList;
 	}
 
 

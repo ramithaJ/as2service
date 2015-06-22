@@ -18,6 +18,7 @@ import org.springframework.http.HttpMethod;
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
 import com.wiley.gr.ace.authorservices.model.external.OrderData;
+import com.wiley.gr.ace.authorservices.model.external.PdhArticleResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhLookup;
 import com.wiley.gr.ace.authorservices.model.external.Quote;
 
@@ -57,9 +58,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public final PdhLookup pdhLookUpArticle(final Integer DHId) {
+    public final PdhArticleResponse pdhLookUpArticle(final Integer DHId) {
 
-        return (PdhLookup) StubInvokerUtil.invokeJsonStub(lookuparticleurl, HttpMethod.POST, PdhLookup.class);
+        return (PdhArticleResponse) StubInvokerUtil.invokeJsonStub(lookuparticleurl, HttpMethod.POST, PdhArticleResponse.class);
     }
 
     @Override

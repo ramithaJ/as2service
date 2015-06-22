@@ -13,6 +13,7 @@
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
 import com.wiley.gr.ace.authorservices.model.external.OrderData;
+import com.wiley.gr.ace.authorservices.model.external.PdhArticleResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhLookup;
 import com.wiley.gr.ace.authorservices.model.external.Quote;
 
@@ -38,9 +39,9 @@ public interface OrderService {
     
     /**
      * @param DHId
-     * @return PdhLookup
+     * @return PdhArticleResponse
      */
-    PdhLookup pdhLookUpArticle(Integer DHId);
+    PdhArticleResponse pdhLookUpArticle(Integer DHId);
     
     /**
      * @param articleId
