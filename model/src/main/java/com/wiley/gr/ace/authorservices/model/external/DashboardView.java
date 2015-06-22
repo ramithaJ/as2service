@@ -34,12 +34,6 @@ public class DashboardView {
     /** The communication details. */
     private List<CommunicationDetails> communicationDetails;
 
-    /** The article citation record. */
-    private List<ArticleCitationRecord> articleCitationRecord;
-
-    /** The article read record. */
-    private List<ArticleReadRecord> articleReadRecord;
-
     /**
      * @return the articleData
      */
@@ -69,38 +63,6 @@ public class DashboardView {
     public final void setCommunicationDetails(
             final List<CommunicationDetails> communicationDetails) {
         this.communicationDetails = communicationDetails;
-    }
-
-    /**
-     * @return the articleCitationRecord
-     */
-    public final List<ArticleCitationRecord> getArticleCitationRecord() {
-        return articleCitationRecord;
-    }
-
-    /**
-     * @param articleCitationRecord
-     *            the articleCitationRecord to set
-     */
-    public final void setArticleCitationRecord(
-            final List<ArticleCitationRecord> articleCitationRecord) {
-        this.articleCitationRecord = articleCitationRecord;
-    }
-
-    /**
-     * @return the articleReadRecord
-     */
-    public final List<ArticleReadRecord> getArticleReadRecord() {
-        return articleReadRecord;
-    }
-
-    /**
-     * @param articleReadRecord
-     *            the articleReadRecord to set
-     */
-    public final void setArticleReadRecord(
-            final List<ArticleReadRecord> articleReadRecord) {
-        this.articleReadRecord = articleReadRecord;
     }
 
 }
