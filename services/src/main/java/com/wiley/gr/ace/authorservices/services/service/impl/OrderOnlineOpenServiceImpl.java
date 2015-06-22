@@ -13,11 +13,13 @@
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
@@ -42,6 +44,7 @@ import com.wiley.gr.ace.authorservices.persistence.entity.ArticleAuthorAssignmen
 import com.wiley.gr.ace.authorservices.persistence.entity.Articles;
 import com.wiley.gr.ace.authorservices.persistence.entity.Orders;
 import com.wiley.gr.ace.authorservices.persistence.entity.SavedOrders;
+import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO;
 import com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService;
 
@@ -237,6 +240,20 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 		
 		OrderResponse orderResponse = (OrderResponse) StubInvokerUtil.invokeJsonStub("http://jsonstub.com/createOrder", HttpMethod.POST, OrderResponse.class);
 		
+		Orders orders = new Orders();
+		ArticleAuthorAssignment articleAuthorAssignment = new ArticleAuthorAssignment();
+		// TODO: Set proper ArticleAuthId
+		articleAuthorAssignment.setArticleAuthId(8);
+		orders.setArticleAuthorAssignment(articleAuthorAssignment);
+		orders.setOrderType("");
+		orders.setOoOaFlg(AuthorServicesConstants.OO_OA_FLAG_OO);
+		orders.setOrderStatus(AuthorServicesConstants.ORDER_STATUS_SUBMIT);
+		orders.setDownstreamappOrderId(Integer.parseInt(orderResponse.getOoUniqueId()));
+		Users users = new Users();
+		users.setUserId(Integer.parseInt(userId));
+		orders.setUsersByCreatedBy(users);
+		orders.setCreatedDate(new Date());
+		orderOnlineDAO.saveOrUpdateOrder(orders);
 		return orderResponse;
 	}
 
@@ -289,5 +306,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 		
 		return orderOnlineDAO.saveLaterOrder(orderStr);
 	}
+	
+	
 
 }
