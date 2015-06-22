@@ -18,47 +18,39 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
- * The Class QuoteRequest.
+ * @author virtusa
  *
- * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
-public class QuoteRequest {
+public class Article {
 
-    private Article article;
+    private String journalPrintISSN;
 
-    private String requestCreatedTimestamp;
+    private String articleID;
 
-    private String requestType;
+    private String journalElectronicISSN;
 
-    public Article getArticle ()
-    {
-        return article;
+    public String getJournalPrintISSN() {
+        return journalPrintISSN;
     }
 
-    public void setArticle (Article article)
-    {
-        this.article = article;
+    public void setJournalPrintISSN(String journalPrintISSN) {
+        this.journalPrintISSN = journalPrintISSN;
     }
 
-    public String getRequestCreatedTimestamp ()
-    {
-        return requestCreatedTimestamp;
+    public String getArticleID() {
+        return articleID;
     }
 
-    public void setRequestCreatedTimestamp (String requestCreatedTimestamp)
-    {
-        this.requestCreatedTimestamp = requestCreatedTimestamp;
+    public void setArticleID(String articleID) {
+        this.articleID = articleID;
     }
 
-    public String getRequestType ()
-    {
-        return requestType;
+    public String getJournalElectronicISSN() {
+        return journalElectronicISSN;
     }
 
-    public void setRequestType (String requestType)
-    {
-        this.requestType = requestType;
+    public void setJournalElectronicISSN(String journalElectronicISSN) {
+        this.journalElectronicISSN = journalElectronicISSN;
     }
-
 }
