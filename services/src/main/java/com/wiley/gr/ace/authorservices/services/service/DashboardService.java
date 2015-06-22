@@ -18,6 +18,7 @@ import java.util.List;
 
 import com.wiley.gr.ace.authorservices.model.CommunicationDetails;
 import com.wiley.gr.ace.authorservices.model.Dashboard;
+import com.wiley.gr.ace.authorservices.model.external.ArticleData;
 import com.wiley.gr.ace.authorservices.model.external.DashboardView;
 
 /**
@@ -56,7 +57,20 @@ public interface DashboardService {
      * @param userId
      *            the user id
      * @return the communication details
+     * @throws Exception
+     *             the exception
      */
     List<CommunicationDetails> getCommunicationDetailsList(String userId)
             throws Exception;
+
+    /**
+     * Gets the article author data.
+     *
+     * @param userId
+     *            the user id
+     * @return the article author data
+     * @throws Exception
+     *             the exception
+     */
+    List<ArticleData> getArticleAuthorData(String userId) throws Exception;
 }

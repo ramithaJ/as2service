@@ -13,6 +13,7 @@ package com.wiley.gr.ace.authorservices.services.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +39,7 @@ import com.wiley.gr.ace.authorservices.model.external.SecuirtyQuestionDetails;
 import com.wiley.gr.ace.authorservices.model.external.SecurityQuestion;
 import com.wiley.gr.ace.authorservices.model.external.SecurityQuestions;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
+import com.wiley.gr.ace.authorservices.persistence.entity.ArticleAuthorAssignment;
 import com.wiley.gr.ace.authorservices.persistence.entity.InvitationLog;
 import com.wiley.gr.ace.authorservices.persistence.services.DashboardDAO;
 import com.wiley.gr.ace.authorservices.services.service.DashboardService;
@@ -338,15 +340,39 @@ public class DashboardServiceImpl implements DashboardService {
             throws Exception {
         LOGGER.info("inside viewDashboard Method of DashboardServiceImpl");
         DashboardView dashboardView = new DashboardView();
-        dashboardView.setArticleData(getArticleDataDetails(userId));
+        dashboardView.setArticleData(getArticleAuthorData(userId));
         dashboardView
                 .setCommunicationDetails(getCommunicationDetailsList(userId));
-        dashboardView.setArticleCitationRecord(esbInterfaceService
-                .getArticleCitationReadRecords(userId)
-                .getArticleCitationRecord());
-        dashboardView.setArticleReadRecord(esbInterfaceService
-                .getArticleCitationReadRecords(userId).getArticleReadRecord());
         return dashboardView;
+    }
+
+    /**
+     * Gets the article author data.
+     *
+     * @param userId
+     *            the user id
+     * @return the article author data
+     * @throws Exception
+     *             the exception
+     */
+    @Override
+    public List<ArticleData> getArticleAuthorData(String userId)
+            throws Exception {
+        List<ArticleData> articleData = null;
+        ArticleAuthorAssignment articleAuthorAssignment = dashboardDAO
+                .getArticleAuthorRoles(Integer.parseInt(userId));
+        if (!StringUtils.isEmpty(articleAuthorAssignment)) {
+            Set<ArticleAuthorAssignment> getArticleAuthorRoleSet = articleAuthorAssignment
+                    .getArticleRoles().getArticleAuthorAssignments();
+            for (ArticleAuthorAssignment articleAuthorAssmnt : getArticleAuthorRoleSet) {
+                String articleAuthorRole = articleAuthorAssmnt
+                        .getArticleRoles().getArticleRoleName();
+                Integer articleId = articleAuthorAssmnt.getArticles().getDhId();
+                articleData = getArticleDataDetails(articleId,
+                        articleAuthorRole);
+            }
+        }
+        return articleData;
     }
 
     /**
@@ -358,14 +384,16 @@ public class DashboardServiceImpl implements DashboardService {
      * @throws Exception
      *             the exception
      */
-    private final List<ArticleData> getArticleDataDetails(final String userId)
+    private final List<ArticleData> getArticleDataDetails(
+            final Integer articleId, final String articleUserRole)
             throws Exception {
         LOGGER.info("inside getArticleDataDetails Method of DashboardServiceImpl");
         List<ArticleData> articleDataList = esbInterfaceService
-                .getAllAuthorArticles(userId);
+                .getAllAuthorArticles(articleId);
         List<ArticleData> articleDataStatusList = new ArrayList<ArticleData>();
         if (!StringUtils.isEmpty(articleDataList)) {
             for (ArticleData articleData : articleDataList) {
+                articleData.setAuthors(articleUserRole);
                 articleDataStatusList.add(getArticlesStatus(articleData));
             }
         }
