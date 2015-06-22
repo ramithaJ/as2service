@@ -24,154 +24,225 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  */
 @JsonInclude(Include.NON_NULL)
 public class ArticleData {
-	private Journal journal;
-	private String DHID;
-	private String aidECORE;
-	private String articleTitle;
-	private String authors;
-	private ArticleDetails articleDetails;
-	private String licenseStatus;
-	private OrderPaymentStatus orderPaymentStatus;
-	private String productionStatus;
 
-	/**
-	 * 
-	 * @return The journal
-	 */
-	public Journal getJournal() {
-		return journal;
-	}
+    /** The article user role. */
+    private String articleUserRole;
 
-	/**
-	 * 
-	 * @param journal
-	 *            The journal
-	 */
-	public void setJournal(Journal journal) {
-		this.journal = journal;
-	}
+    /** The journal. */
+    private Journal journal;
 
-	/**
-	 * 
-	 * @return The DHID
-	 */
-	public String getDHID() {
-		return DHID;
-	}
+    /** The dhid. */
+    private String DHID;
 
-	/**
-	 * 
-	 * @param DHID
-	 *            The DH_ID
-	 */
-	public void setDHID(String DHID) {
-		this.DHID = DHID;
-	}
+    /** The aid ecore. */
+    private String aidECORE;
 
-	/**
-	 * 
-	 * @return The aidECORE
-	 */
-	public String getAidECORE() {
-		return aidECORE;
-	}
+    /** The article title. */
+    private String articleTitle;
 
-	/**
-	 * 
-	 * @param aidECORE
-	 *            The aidECORE
-	 */
-	public void setAidECORE(String aidECORE) {
-		this.aidECORE = aidECORE;
-	}
+    /** The authors. */
+    private String authors;
 
-	/**
-	 * 
-	 * @return The articleTitle
-	 */
-	public String getArticleTitle() {
-		return articleTitle;
-	}
+    /** The article details. */
+    private ArticleDetails articleDetails;
 
-	/**
-	 * 
-	 * @param articleTitle
-	 *            The articleTitle
-	 */
-	public void setArticleTitle(String articleTitle) {
-		this.articleTitle = articleTitle;
-	}
+    /** The license status. */
+    private String licenseStatus;
 
-	/**
-	 * 
-	 * @return The authors
-	 */
-	public String getAuthors() {
-		return authors;
-	}
+    /** The order payment status. */
+    private OrderPaymentStatus orderPaymentStatus;
 
-	/**
-	 * 
-	 * @param authors
-	 *            The authors
-	 */
-	public void setAuthors(String authors) {
-		this.authors = authors;
-	}
+    /** The production status. */
+    private String productionStatus;
 
-	/**
-	 * @return the articleDetails
-	 */
-	public ArticleDetails getArticleDetails() {
-		return articleDetails;
-	}
+    /**
+     * Gets the article user role.
+     *
+     * @return the article user role
+     */
+    public final String getArticleUserRole() {
+        return articleUserRole;
+    }
 
-	/**
-	 * @param articleDetails the articleDetails to set
-	 */
-	public void setArticleDetails(ArticleDetails articleDetails) {
-		this.articleDetails = articleDetails;
-	}
+    /**
+     * Sets the article user role.
+     *
+     * @param articleUserRole
+     *            the new article user role
+     */
+    public final void setArticleUserRole(final String articleUserRole) {
+        this.articleUserRole = articleUserRole;
+    }
 
-	/**
-	 * @return the licenseStatus
-	 */
-	public String getLicenseStatus() {
-		return licenseStatus;
-	}
+    /**
+     * Gets the journal.
+     *
+     * @return The journal
+     */
+    public final Journal getJournal() {
+        return journal;
+    }
 
-	/**
-	 * @param licenseStatus the licenseStatus to set
-	 */
-	public void setLicenseStatus(String licenseStatus) {
-		this.licenseStatus = licenseStatus;
-	}
+    /**
+     * Sets the journal.
+     *
+     * @param journal
+     *            The journal
+     */
+    public final void setJournal(final Journal journal) {
+        this.journal = journal;
+    }
 
-	/**
-	 * @return the orderPaymentStatus
-	 */
-	public OrderPaymentStatus getOrderPaymentStatus() {
-		return orderPaymentStatus;
-	}
+    /**
+     * Gets the dhid.
+     *
+     * @return The DHID
+     */
+    public final String getDHID() {
+        return DHID;
+    }
 
-	/**
-	 * @param orderPaymentStatus the orderPaymentStatus to set
-	 */
-	public void setOrderPaymentStatus(OrderPaymentStatus orderPaymentStatus) {
-		this.orderPaymentStatus = orderPaymentStatus;
-	}
+    /**
+     * Sets the dhid.
+     *
+     * @param DHID
+     *            The DH_ID
+     */
+    public final void setDHID(final String DHID) {
+        this.DHID = DHID;
+    }
 
-	/**
-	 * @return the productionStatus
-	 */
-	public String getProductionStatus() {
-		return productionStatus;
-	}
+    /**
+     * Gets the aid ecore.
+     *
+     * @return The aidECORE
+     */
+    public final String getAidECORE() {
+        return aidECORE;
+    }
 
-	/**
-	 * @param productionStatus the productionStatus to set
-	 */
-	public void setProductionStatus(String productionStatus) {
-		this.productionStatus = productionStatus;
-	}
+    /**
+     * Sets the aid ecore.
+     *
+     * @param aidECORE
+     *            The aidECORE
+     */
+    public final void setAidECORE(final String aidECORE) {
+        this.aidECORE = aidECORE;
+    }
+
+    /**
+     * Gets the article title.
+     *
+     * @return The articleTitle
+     */
+    public final String getArticleTitle() {
+        return articleTitle;
+    }
+
+    /**
+     * Sets the article title.
+     *
+     * @param articleTitle
+     *            The articleTitle
+     */
+    public final void setArticleTitle(final String articleTitle) {
+        this.articleTitle = articleTitle;
+    }
+
+    /**
+     * Gets the authors.
+     *
+     * @return The authors
+     */
+    public final String getAuthors() {
+        return authors;
+    }
+
+    /**
+     * Sets the authors.
+     *
+     * @param authors
+     *            The authors
+     */
+    public final void setAuthors(final String authors) {
+        this.authors = authors;
+    }
+
+    /**
+     * Gets the article details.
+     *
+     * @return the articleDetails
+     */
+    public final ArticleDetails getArticleDetails() {
+        return articleDetails;
+    }
+
+    /**
+     * Sets the article details.
+     *
+     * @param articleDetails
+     *            the articleDetails to set
+     */
+    public final void setArticleDetails(final ArticleDetails articleDetails) {
+        this.articleDetails = articleDetails;
+    }
+
+    /**
+     * Gets the license status.
+     *
+     * @return the licenseStatus
+     */
+    public final String getLicenseStatus() {
+        return licenseStatus;
+    }
+
+    /**
+     * Sets the license status.
+     *
+     * @param licenseStatus
+     *            the licenseStatus to set
+     */
+    public final void setLicenseStatus(final String licenseStatus) {
+        this.licenseStatus = licenseStatus;
+    }
+
+    /**
+     * Gets the order payment status.
+     *
+     * @return the orderPaymentStatus
+     */
+    public final OrderPaymentStatus getOrderPaymentStatus() {
+        return orderPaymentStatus;
+    }
+
+    /**
+     * Sets the order payment status.
+     *
+     * @param orderPaymentStatus
+     *            the orderPaymentStatus to set
+     */
+    public final void setOrderPaymentStatus(
+            final OrderPaymentStatus orderPaymentStatus) {
+        this.orderPaymentStatus = orderPaymentStatus;
+    }
+
+    /**
+     * Gets the production status.
+     *
+     * @return the productionStatus
+     */
+    public final String getProductionStatus() {
+        return productionStatus;
+    }
+
+    /**
+     * Sets the production status.
+     *
+     * @param productionStatus
+     *            the productionStatus to set
+     */
+    public final void setProductionStatus(final String productionStatus) {
+        this.productionStatus = productionStatus;
+    }
 }
