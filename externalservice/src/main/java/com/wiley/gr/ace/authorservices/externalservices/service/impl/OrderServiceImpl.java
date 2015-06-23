@@ -19,7 +19,7 @@ import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
 import com.wiley.gr.ace.authorservices.model.external.OrderData;
 import com.wiley.gr.ace.authorservices.model.external.PdhArticleResponse;
-import com.wiley.gr.ace.authorservices.model.external.PdhLookup;
+import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
 import com.wiley.gr.ace.authorservices.model.external.Quote;
 
 /**
@@ -52,9 +52,9 @@ public class OrderServiceImpl implements OrderService {
      * Method to call PDHLookup external service.
      */
     @Override
-    public final PdhLookup pdhLookUp(final Integer DHId) {
+    public final PdhJournalResponse pdhLookUpJournal(final Integer DHId) {
      
-        return (PdhLookup) StubInvokerUtil.invokeJsonStub(lookupjournalurl, HttpMethod.POST, PdhLookup.class);
+        return (PdhJournalResponse) StubInvokerUtil.invokeJsonStub(lookupjournalurl, HttpMethod.POST, PdhJournalResponse.class);
     }
 
     @Override
