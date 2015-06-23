@@ -334,8 +334,6 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
-
-	        mapper.toString();
 	        Articles articles = new Articles();
 	        articles.setArticleId(Integer.parseInt(order.getArticleId()));
 	        savedOrders.setArticles(articles);
