@@ -1,54 +1,37 @@
 package com.wiley.gr.ace.authorservices.model;
 
-import com.wiley.gr.ace.authorservices.model.external.ArticleDetails;
-import com.wiley.gr.ace.authorservices.model.external.JournalDetails;
-import com.wiley.gr.ace.authorservices.model.external.QuoteDetails;
+import com.wiley.gr.ace.authorservices.model.external.ArticleData;
+import com.wiley.gr.ace.authorservices.model.external.Quote;
+import com.wiley.gr.ace.authorservices.model.external.TaxResponse;
 
 public class OpenAccessPaymentData {
 
-	private ArticleDetails articleDetails;
-	private JournalDetails journalDetails;
-	private QuoteDetails quoteDetails;
-	private Address billingAddressOnFile;
-	private TaxDetails taxDetails;
+	private ArticleData articleData;
+	private Quote quote;
+	private TaxResponse taxResponse;
 
-	public final ArticleDetails getArticleDetails() {
-		return articleDetails;
+	public final ArticleData getArticleData() {
+		return articleData;
 	}
 
-	public final void setArticleDetails(final ArticleDetails articleDetails) {
-		this.articleDetails = articleDetails;
+	public final void setArticleData(final ArticleData articleData) {
+		this.articleData = articleData;
 	}
 
-	public final JournalDetails getJournalDetails() {
-		return journalDetails;
+	public final Quote getQuote() {
+		return quote;
 	}
 
-	public final void setJournalDetails(final JournalDetails journalDetails) {
-		this.journalDetails = journalDetails;
+	public final void setQuote(final Quote quote) {
+		this.quote = quote;
 	}
 
-	public final QuoteDetails getQuoteDetails() {
-		return quoteDetails;
+	public final TaxResponse getTaxResponse() {
+		return taxResponse;
 	}
 
-	public final void setQuoteDetails(final QuoteDetails quoteDetails) {
-		this.quoteDetails = quoteDetails;
+	public final void setTaxResponse(final TaxResponse taxResponse) {
+		this.taxResponse = taxResponse;
 	}
 
-	public final Address getBillingAddressOnFile() {
-		return billingAddressOnFile;
-	}
-
-	public final void setBillingAddressOnFile(final Address billingAddressOnFile) {
-		this.billingAddressOnFile = billingAddressOnFile;
-	}
-
-	public final TaxDetails getTaxDetails() {
-		return taxDetails;
-	}
-
-	public final void setTaxDetails(final TaxDetails taxDetails) {
-		this.taxDetails = taxDetails;
-	}
 }
