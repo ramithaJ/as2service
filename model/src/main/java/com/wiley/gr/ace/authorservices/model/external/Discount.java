@@ -15,10 +15,19 @@ package com.wiley.gr.ace.authorservices.model.external;
 
 public class Discount {
 
+    /**
+     * This field holds the value of discountType
+     */
     private String discountType;
 
+    /**
+     * This field holds the value of discountPercent
+     */
     private String discountPercent;
 
+    /**
+     * This field holds the value of discountAmount
+     */
     private String discountAmount;
 
     /**

@@ -15,68 +15,164 @@ package com.wiley.gr.ace.authorservices.model.external;
 
 public class AddressOnFile {
 
+    /**
+     * This field holds the value of billingStreetLine1
+     */
     private String billingStreetLine1;
 
+    /**
+     * This field holds the value of billingEmail
+     */
     private String billingEmail;
 
+    /**
+     * This field holds the value of contactPhoneNumber
+     */
     private String contactPhoneNumber;
 
+    /**
+     * This field holds the value of vatId
+     */
     private String vatId;
 
+    /**
+     * This field holds the value of billingZipPostalCode
+     */
     private String billingZipPostalCode;
 
+    /**
+     * This field holds the value of taxExemptionExpiryDate
+     */
     private String taxExemptionExpiryDate;
 
+    /**
+     * This field holds the value of billingPhoneNumber
+     */
     private String billingPhoneNumber;
 
+    /**
+     * This field holds the value of contactStateProv
+     */
     private String contactStateProv;
 
+    /**
+     * This field holds the value of taxExemption
+     */
     private String taxExemption;
 
+    /**
+     * This field holds the value of billingCity
+     */
     private String billingCity;
 
+    /**
+     * This field holds the value of contactInstitution
+     */
     private String contactInstitution;
 
+    /**
+     * This field holds the value of billingCountry
+     */
     private String billingCountry;
 
+    /**
+     * This field holds the value of contactCountry
+     */
     private String contactCountry;
 
+    /**
+     * This field holds the value of contactEmail
+     */
     private String contactEmail;
 
+    /**
+     * This field holds the value of billingInstitution
+     */
     private String billingInstitution;
 
+    /**
+     * This field holds the value of billingStreetLine2
+     */
     private String billingStreetLine2;
 
+    /**
+     * This field holds the value of billingStreetLine3
+     */
     private String billingStreetLine3;
 
+    /**
+     * This field holds the value of contactCity
+     */
     private String contactCity;
 
+    /**
+     * This field holds the value of billingCustomerNameExt
+     */
     private String billingCustomerNameExt;
 
+    /**
+     * This field holds the value of contactStreetLine3
+     */
     private String contactStreetLine3;
 
+    /**
+     * This field holds the value of accountIDPart2
+     */
     private String accountIDPart2;
 
+    /**
+     * This field holds the value of accountIDPart1
+     */
     private String accountIDPart1;
 
+    /**
+     * This field holds the value of contactStreetLine1
+     */
     private String contactStreetLine1;
 
+    /**
+     * This field holds the value of contactDepartment
+     */
     private String contactDepartment;
 
+    /**
+     * This field holds the value of contactStreetLine2
+     */
     private String contactStreetLine2;
 
+    /**
+     * This field holds the value of billingDepartment
+     */
     private String billingDepartment;
 
+    /**
+     * This field holds the value of contactName
+     */
     private String contactName;
 
+    /**
+     * This field holds the value of contactZipPostalCode
+     */
     private String contactZipPostalCode;
 
+    /**
+     * This field holds the value of billingStateProv
+     */
     private String billingStateProv;
 
+    /**
+     * This field holds the value of vatExemptionNumber
+     */
     private String vatExemptionNumber;
 
+    /**
+     * This field holds the value of ECID
+     */
     private String ECID;
 
+    /**
+     * This field holds the value of billingCustomerName
+     */
     private String billingCustomerName;
 
     /**

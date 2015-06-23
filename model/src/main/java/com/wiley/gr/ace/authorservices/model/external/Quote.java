@@ -20,26 +20,59 @@ package com.wiley.gr.ace.authorservices.model.external;
  */
 public class Quote {
 
+    /**
+     * This field holds the value of articlePubCharge
+     */
     private String articlePubCharge;
 
+    /**
+     * This field holds the value of responseCode
+     */
     private String responseCode;
 
+    /**
+     * This field holds the value of addressOnFile
+     */
     private AddressOnFile addressOnFile;
 
+    /**
+     * This field holds the value of quoteType
+     */
     private String quoteType;
 
+    /**
+     * This field holds the value of responseDescription
+     */
     private String responseDescription;
 
+    /**
+     * This field holds the value of paymentStatus
+     */
     private String paymentStatus;
 
+    /**
+     * This field holds the value of requestType
+     */
     private String requestType;
 
+    /**
+     * This field holds the value of quoteStatus
+     */
     private String quoteStatus;
 
+    /**
+     * This field holds the value of articleID
+     */
     private String articleID;
 
+    /**
+     * This field holds the value of currency
+     */
     private String currency;
 
+    /**
+     * This field holds the value of discount
+     */
     private Discount discount;
 
     /**

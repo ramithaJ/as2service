@@ -18,16 +18,34 @@ import java.util.List;
 
 public class QuoteDetails {
 
+    /**
+     * This field holds the value of articleDetails
+     */
     private ArticleDetails articleDetails;
 
+    /**
+     * This field holds the value of quoteDetail
+     */
     private QuoteDetail quoteDetail;
 
+    /**
+     * This field holds the value of journalDetails
+     */
     private JournalDetails journalDetails;
 
+    /**
+     * This field holds the value of authorName
+     */
     private String authorName;
     
+    /**
+     * This field holds the value of addressDetails
+     */
     private List<AddressDetails> addressDetails;
     
+    /**
+     * This field holds the value of funderDetails
+     */
     private List<FunderDetails> funderDetails;
 
     /**
