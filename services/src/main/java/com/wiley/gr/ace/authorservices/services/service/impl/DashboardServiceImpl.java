@@ -39,8 +39,8 @@ import com.wiley.gr.ace.authorservices.model.external.SecuirtyQuestionDetails;
 import com.wiley.gr.ace.authorservices.model.external.SecurityQuestion;
 import com.wiley.gr.ace.authorservices.model.external.SecurityQuestions;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
-import com.wiley.gr.ace.authorservices.persistence.entity.ArticleAuthorAssignment;
 import com.wiley.gr.ace.authorservices.persistence.entity.InvitationLog;
+import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
 import com.wiley.gr.ace.authorservices.persistence.services.DashboardDAO;
 import com.wiley.gr.ace.authorservices.services.service.DashboardService;
 
@@ -360,14 +360,14 @@ public class DashboardServiceImpl implements DashboardService {
             throws Exception {
         LOGGER.info("inside getArticleAuthorData Method of DashboardServiceImpl");
         List<ArticleData> articleData = null;
-        Set<ArticleAuthorAssignment> getArticleAuthorRoleSet = dashboardDAO
+        Set<ProductPersonRelations> getArticleAuthorRoleSet = dashboardDAO
                 .getArticleAuthorRoles(Integer.parseInt(userId))
-                .getArticleRoles().getArticleAuthorAssignments();
+                .getProductRoles().getProductPersonRelationses();
         if (!StringUtils.isEmpty(getArticleAuthorRoleSet)) {
-            for (ArticleAuthorAssignment articleAuthorAssmnt : getArticleAuthorRoleSet) {
-                String articleAuthorRole = articleAuthorAssmnt
-                        .getArticleRoles().getArticleRoleName();
-                Integer articleId = articleAuthorAssmnt.getArticles().getDhId();
+            for (ProductPersonRelations productPersonRelations : getArticleAuthorRoleSet) {
+                String articleAuthorRole = productPersonRelations
+                        .getProductRoles().getProductRoleName();
+                Integer articleId = productPersonRelations.getProducts().getDhId();
                 articleData = getArticleDataDetails(articleId,
                         articleAuthorRole);
             }
