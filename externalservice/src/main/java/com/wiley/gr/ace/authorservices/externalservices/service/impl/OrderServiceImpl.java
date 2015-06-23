@@ -17,6 +17,7 @@ import org.springframework.http.HttpMethod;
 
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
+import com.wiley.gr.ace.authorservices.model.external.DiscountedSocietyResponse;
 import com.wiley.gr.ace.authorservices.model.external.OrderData;
 import com.wiley.gr.ace.authorservices.model.external.PdhArticleResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
@@ -40,6 +41,9 @@ public class OrderServiceImpl implements OrderService {
     @Value("${lookuparticle.url}")
     private String lookuparticleurl;
     
+    @Value("${discountedSocieties.url}")
+    private String discountedSocietiesurl;
+    
     /**Calling Stub  */
     @Override
     public final OrderData getOrderDetails(String userId, String orderId) {
@@ -49,7 +53,7 @@ public class OrderServiceImpl implements OrderService {
     }
     
     /**
-     * Method to call PDHLookup external service.
+     * Method to call PDHLookupJournal external service.
      */
     @Override
     public final PdhJournalResponse pdhLookUpJournal(final Integer DHId) {
@@ -57,16 +61,33 @@ public class OrderServiceImpl implements OrderService {
         return (PdhJournalResponse) StubInvokerUtil.invokeJsonStub(lookupjournalurl, HttpMethod.POST, PdhJournalResponse.class);
     }
 
+    /**
+     * Method to call PDHLookupArticle external service.
+     */
     @Override
     public final PdhArticleResponse pdhLookUpArticle(final Integer DHId) {
 
         return (PdhArticleResponse) StubInvokerUtil.invokeJsonStub(lookuparticleurl, HttpMethod.POST, PdhArticleResponse.class);
     }
 
+    /**
+     * Method to call getQuote external service.
+     */
     @Override
     public final Quote getQuote(final String articleId) {
 
         return (Quote) StubInvokerUtil.invokeJsonStub(quoteurl, HttpMethod.POST, Quote.class);
     }
+
+	
+    /**
+     * Method to call getDiscountedSocietiesForJournal external service.
+     */
+	@Override
+	public DiscountedSocietyResponse getDiscountedSocietiesForJournal(
+			String journalId) {
+		
+		return (DiscountedSocietyResponse)StubInvokerUtil.invokeJsonStub(discountedSocietiesurl, HttpMethod.GET, DiscountedSocietyResponse.class);
+	}
 
 }

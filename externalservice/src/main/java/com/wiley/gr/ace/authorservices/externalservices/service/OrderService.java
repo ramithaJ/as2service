@@ -12,6 +12,7 @@
 
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
+import com.wiley.gr.ace.authorservices.model.external.DiscountedSocietyResponse;
 import com.wiley.gr.ace.authorservices.model.external.OrderData;
 import com.wiley.gr.ace.authorservices.model.external.PdhArticleResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
@@ -48,4 +49,11 @@ public interface OrderService {
      * @return Quote
      */
     Quote getQuote(String articleId);
+    
+    
+    /**
+     * @param DHId
+     * @return PdhArticleResponse
+     */
+    DiscountedSocietyResponse getDiscountedSocietiesForJournal(String journalId);
 }
