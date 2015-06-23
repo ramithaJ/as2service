@@ -40,7 +40,7 @@ import com.wiley.gr.ace.authorservices.model.external.OrderData;
 import com.wiley.gr.ace.authorservices.model.external.OrderRequest;
 import com.wiley.gr.ace.authorservices.model.external.OrderResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhArticleResponse;
-import com.wiley.gr.ace.authorservices.model.external.PdhLookup;
+import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
 import com.wiley.gr.ace.authorservices.model.external.Quote;
 import com.wiley.gr.ace.authorservices.model.external.WOAFunder;
 import com.wiley.gr.ace.authorservices.persistence.entity.ArticleAuthorAssignment;
@@ -138,7 +138,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             throw new ASException("801", "Article Not found in system. Please try after sometime..");
         }
 
-        PdhLookup pdhLookup = orderservice.pdhLookUp(articles.getJournals()
+        PdhJournalResponse pdhLookup = orderservice.pdhLookUpJournal(articles.getJournals()
                 .getDhId());
         QuoteDetails quoteDetails = null;
         // check article is onlineOpen article or not.
@@ -182,7 +182,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                 JournalDetails journalDetails = new JournalDetails();
                 journalDetails.setJournalId(String.valueOf(articles
                         .getJournals().getJournalId()));
-                journalDetails.setJournalTitle(orderservice.pdhLookUp(
+                journalDetails.setJournalTitle(orderservice.pdhLookUpJournal(
                         articles.getJournals().getDhId()).getTitle());
                 quoteDetails.setJournalDetails(journalDetails);
                 QuoteDetail quoteDetail = new QuoteDetail();
@@ -214,7 +214,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             orderDetails.setArticleId(articleAuthorAssignment.getArticles()
                     .getArticleId().toString());
             orderDetails.setPrice("0.0");
-            PdhLookup pdhLookup = orderservice.pdhLookUp(articleAuthorAssignment.getArticles().getDhId());
+            PdhJournalResponse pdhLookup = orderservice.pdhLookUpJournal(articleAuthorAssignment.getArticles().getDhId());
             orderDetails.setArticleTitle(pdhLookup.getTitle());
             for (Orders orders : articleAuthorAssignment.getOrderses()) {
                 orderDetails.setOrderDate(orders.getUpdatedDate().toString());

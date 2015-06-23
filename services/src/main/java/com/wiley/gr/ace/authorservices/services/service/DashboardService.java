@@ -18,8 +18,8 @@ import java.util.List;
 
 import com.wiley.gr.ace.authorservices.model.CommunicationDetails;
 import com.wiley.gr.ace.authorservices.model.Dashboard;
+import com.wiley.gr.ace.authorservices.model.DashboardView;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
-import com.wiley.gr.ace.authorservices.model.external.DashboardView;
 
 /**
  * This DashboardService is for providing service for viewing the Dashboard of
