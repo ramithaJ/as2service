@@ -21,8 +21,8 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import com.wiley.gr.ace.authorservices.persistence.entity.ArticleAuthorAssignment;
 import com.wiley.gr.ace.authorservices.persistence.entity.InvitationLog;
+import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
 import com.wiley.gr.ace.authorservices.persistence.services.DashboardDAO;
 
 /**
@@ -63,18 +63,19 @@ public class DashboardDAOImpl implements DashboardDAO {
     }
 
     @Override
-    public final ArticleAuthorAssignment getArticleAuthorRoles(final Integer userId) {
+    public final ProductPersonRelations getArticleAuthorRoles(
+            final Integer userId) {
         Session session = null;
         Transaction txn = null;
         try {
             session = getSessionFactory().openSession();
             txn = session.beginTransaction();
             String articleAuthorAssignmentHql = "from ArticleAuthorAssignment aaa where aaa.userProfile.userId=:userId";
-            ArticleAuthorAssignment articleAuthorAssignment = (ArticleAuthorAssignment) session
-                    .createQuery(articleAuthorAssignmentHql).setInteger("userId", userId)
-                    .uniqueResult();
+            ProductPersonRelations productPersonRelations = (ProductPersonRelations) session
+                    .createQuery(articleAuthorAssignmentHql)
+                    .setInteger("userId", userId).uniqueResult();
             txn.commit();
-            return articleAuthorAssignment;
+            return productPersonRelations;
         } finally {
             if (session != null) {
                 session.flush();

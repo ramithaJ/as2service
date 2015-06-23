@@ -16,8 +16,8 @@ package com.wiley.gr.ace.authorservices.persistence.services;
 
 import java.util.List;
 
-import com.wiley.gr.ace.authorservices.persistence.entity.ArticleAuthorAssignment;
 import com.wiley.gr.ace.authorservices.persistence.entity.InvitationLog;
+import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
 
 /**
  * The Interface DashboardDAO.
@@ -33,7 +33,7 @@ public interface DashboardDAO {
      *            the user id
      * @return the article author roles
      */
-    ArticleAuthorAssignment getArticleAuthorRoles(Integer userId);
+    ProductPersonRelations getArticleAuthorRoles(Integer userId);
 
     /**
      * Gets the invitation log list.
