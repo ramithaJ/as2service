@@ -5,6 +5,7 @@ import java.util.List;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.OrderDetails;
 import com.wiley.gr.ace.authorservices.model.QuoteDetails;
+import com.wiley.gr.ace.authorservices.model.external.DiscountedSociety;
 import com.wiley.gr.ace.authorservices.model.external.OrderResponse;
 import com.wiley.gr.ace.authorservices.model.external.WOAFunder;
 
@@ -52,7 +53,7 @@ public interface OrderOnlineOpenService {
 	 * @param userId
 	 * @param onlineOpenOrder
 	 */
-	List<String> retrieveSocietyDiscountListForJournal(String userId, String DHID);
+	List<DiscountedSociety> retrieveSocietyDiscountListForJournal(String userId, String journalId);
 	
 	/**
 	 * @param order
