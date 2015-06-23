@@ -20,9 +20,14 @@ import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 import com.wiley.gr.ace.authorservices.model.external.License;
 import com.wiley.gr.ace.authorservices.model.external.OnlineOpen;
 import com.wiley.gr.ace.authorservices.model.external.OpenAccess;
+import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
 import com.wiley.gr.ace.authorservices.model.external.Production;
 import com.wiley.gr.ace.authorservices.model.external.ProfileInformation;
+import com.wiley.gr.ace.authorservices.model.external.Quote;
+import com.wiley.gr.ace.authorservices.model.external.QuoteRequest;
 import com.wiley.gr.ace.authorservices.model.external.Status;
+import com.wiley.gr.ace.authorservices.model.external.TaxRequest;
+import com.wiley.gr.ace.authorservices.model.external.TaxResponse;
 
 /**
  * The Interface ESBInterfaceService.
@@ -154,4 +159,14 @@ public interface ESBInterfaceService {
      *             the exception
      */
     ArticleInfoDetails getArticleInfo(String emailId) throws Exception;
+    
+    //WP2A
+    
+    Quote getQuote(QuoteRequest quoteRequest) throws Exception;
+    
+    ArticleData pdhGetArticle(String articleId);
+    
+    PdhJournalResponse pdhJournalLookUp(String journalId);
+    
+    TaxResponse getTaxInfo(TaxRequest taxRequest) throws Exception;
 }

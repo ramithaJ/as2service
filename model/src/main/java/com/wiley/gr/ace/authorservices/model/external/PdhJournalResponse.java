@@ -14,6 +14,8 @@ public class PdhJournalResponse {
 	private String discountsAllowed;
 	private String additionalDiscountAllowed;
 	private String discountReason;
+	private String journalPrintISSN;
+	private String journalElectronicISSN;
 
 	/**
 	 * 
@@ -28,7 +30,7 @@ public class PdhJournalResponse {
 	 * @param journalId
 	 *            The journalId
 	 */
-	public void setJournalId(String journalId) {
+	public void setJournalId(final String journalId) {
 		this.journalId = journalId;
 	}
 
@@ -45,7 +47,7 @@ public class PdhJournalResponse {
 	 * @param title
 	 *            The title
 	 */
-	public void setTitle(String title) {
+	public void setTitle(final String title) {
 		this.title = title;
 	}
 
@@ -62,7 +64,7 @@ public class PdhJournalResponse {
 	 * @param pdmSalesModel
 	 *            The pdmSalesModel
 	 */
-	public void setPdmSalesModel(String pdmSalesModel) {
+	public void setPdmSalesModel(final String pdmSalesModel) {
 		this.pdmSalesModel = pdmSalesModel;
 	}
 
@@ -79,7 +81,7 @@ public class PdhJournalResponse {
 	 * @param discountsAllowed
 	 *            The discountsAllowed
 	 */
-	public void setDiscountsAllowed(String discountsAllowed) {
+	public void setDiscountsAllowed(final String discountsAllowed) {
 		this.discountsAllowed = discountsAllowed;
 	}
 
@@ -96,7 +98,7 @@ public class PdhJournalResponse {
 	 * @param additionalDiscountAllowed
 	 *            The additionalDiscountAllowed
 	 */
-	public void setAdditionalDiscountAllowed(String additionalDiscountAllowed) {
+	public void setAdditionalDiscountAllowed(final String additionalDiscountAllowed) {
 		this.additionalDiscountAllowed = additionalDiscountAllowed;
 	}
 
@@ -113,8 +115,24 @@ public class PdhJournalResponse {
 	 * @param discountReason
 	 *            The discountReason
 	 */
-	public void setDiscountReason(String discountReason) {
+	public void setDiscountReason(final String discountReason) {
 		this.discountReason = discountReason;
+	}
+
+	public final String getJournalPrintISSN() {
+		return journalPrintISSN;
+	}
+
+	public final void setJournalPrintISSN(final String journalPrintISSN) {
+		this.journalPrintISSN = journalPrintISSN;
+	}
+
+	public final String getJournalElectronicISSN() {
+		return journalElectronicISSN;
+	}
+
+	public final void setJournalElectronicISSN(final String journalElectronicISSN) {
+		this.journalElectronicISSN = journalElectronicISSN;
 	}
 
 }
