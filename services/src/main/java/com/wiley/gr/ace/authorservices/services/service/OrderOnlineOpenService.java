@@ -39,7 +39,7 @@ public interface OrderOnlineOpenService {
 	 * @param userId
 	 * @param onlineOpenOrder
 	 */
-	OrderResponse submitOnlineOpenOrder(String userId, OnlineOpenOrder onlineOpenOrder);
+	OrderResponse submitOnlineOpenOrder(String userId, OnlineOpenOrder onlineOpenOrder, String orderTypeFlag);
 	
 	
 	/**

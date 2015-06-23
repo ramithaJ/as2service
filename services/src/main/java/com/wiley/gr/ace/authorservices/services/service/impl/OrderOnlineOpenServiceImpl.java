@@ -244,7 +244,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 	 */
 	@Override
 	public OrderResponse submitOnlineOpenOrder(String userId,
-			OnlineOpenOrder onlineOpenOrder) {
+			OnlineOpenOrder onlineOpenOrder, String orderTypeFlag) {
 
 		OrderRequest orderRequest = new OrderRequest();
 		// TODO All the below hardcoded values need to changed once proper data
@@ -266,10 +266,12 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 		articleAuthorAssignment.setArticleAuthId(8);
 		// orders.setArticleAuthorAssignment(articleAuthorAssignment);
 		orders.setOrderType("");
-		orders.setOoOaFlg(AuthorServicesConstants.OO_OA_FLAG_OO);
+		orders.setOoOaFlg(orderTypeFlag);
 		orders.setOrderStatus(AuthorServicesConstants.ORDER_STATUS_SUBMIT);
-		orders.setDownstreamappOrderId(Integer.parseInt(orderResponse
-				.getOoUniqueId()));
+		if ("OO".equalsIgnoreCase(orderTypeFlag)) {
+			orders.setDownstreamappOrderId(Integer.parseInt(orderResponse
+					.getOoUniqueId()));
+		}
 		Users users = new Users();
 		users.setUserId(Integer.parseInt(userId));
 		orders.setUsersByCreatedBy(users);
