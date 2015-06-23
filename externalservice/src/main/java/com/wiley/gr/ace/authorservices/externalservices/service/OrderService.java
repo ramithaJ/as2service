@@ -14,6 +14,7 @@ package com.wiley.gr.ace.authorservices.externalservices.service;
 
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSocietyResponse;
 import com.wiley.gr.ace.authorservices.model.external.OrderData;
+import com.wiley.gr.ace.authorservices.model.external.OrderResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhArticleResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
 import com.wiley.gr.ace.authorservices.model.external.Quote;
@@ -31,6 +32,11 @@ public interface OrderService {
      * @return OrderData
      */
     OrderData getOrderDetails(String userId, String orderId);
+    
+    /**
+     * @return OrderData
+     */
+    OrderResponse submitOnlineOpenOrder(OrderData orderData);
     
     /**
      * @param DHId

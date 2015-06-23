@@ -246,7 +246,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 	public OrderResponse submitOnlineOpenOrder(String userId,
 			OnlineOpenOrder onlineOpenOrder, String orderTypeFlag) {
 
-OrderResponse orderResponse = null;
+		OrderResponse orderResponse = null;
 		
 		if(userId !=null && onlineOpenOrder != null){
 			OrderRequest orderRequest = new OrderRequest();

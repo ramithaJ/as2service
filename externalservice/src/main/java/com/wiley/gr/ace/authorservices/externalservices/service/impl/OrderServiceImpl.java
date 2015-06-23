@@ -19,6 +19,7 @@ import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSocietyResponse;
 import com.wiley.gr.ace.authorservices.model.external.OrderData;
+import com.wiley.gr.ace.authorservices.model.external.OrderResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhArticleResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
 import com.wiley.gr.ace.authorservices.model.external.Quote;
@@ -50,6 +51,14 @@ public class OrderServiceImpl implements OrderService {
 
         return (OrderData) StubInvokerUtil.invokeJsonStub(orderserviceurl, HttpMethod.POST, OrderData.class);
 
+    }
+    
+    /**Calling Stub  */
+    @Override
+    public final OrderResponse submitOnlineOpenOrder(OrderData orderData) {
+
+        return (OrderResponse) StubInvokerUtil.invokeJsonStub(orderserviceurl, HttpMethod.POST, OrderResponse.class);
+    
     }
     
     /**
