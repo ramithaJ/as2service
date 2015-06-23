@@ -248,7 +248,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 		ArticleAuthorAssignment articleAuthorAssignment = new ArticleAuthorAssignment();
 		// TODO: Set proper ArticleAuthId
 		articleAuthorAssignment.setArticleAuthId(8);
-		orders.setArticleAuthorAssignment(articleAuthorAssignment);
+//		orders.setArticleAuthorAssignment(articleAuthorAssignment);
 		orders.setOrderType("");
 		orders.setOoOaFlg(AuthorServicesConstants.OO_OA_FLAG_OO);
 		orders.setOrderStatus(AuthorServicesConstants.ORDER_STATUS_SUBMIT);
