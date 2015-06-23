@@ -2,16 +2,18 @@ package com.wiley.gr.ace.authorservices.persistence.entity;
 
 // Generated Jun 23, 2015 2:35:20 PM by Hibernate Tools 4.0.0
 
-import java.sql.Clob;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -54,6 +56,8 @@ public class SavedOrders implements java.io.Serializable {
 
     @Id
     @Column(name = "ORDER_ID", unique = true, nullable = false, precision = 22, scale = 0)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SAVED_ORDERS_SEQ")
+    @SequenceGenerator(name = "SAVED_ORDERS_SEQ", sequenceName = "SAVED_ORDERS_SEQ", allocationSize = 1)
     public Integer getOrderId() {
         return this.orderId;
     }
