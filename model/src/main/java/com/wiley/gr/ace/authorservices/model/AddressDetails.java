@@ -11,29 +11,49 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.model;
 
-import java.util.List;
 
 /**
  * The Class AddressDetails.
  */
 public class AddressDetails {
 
-    /** The address. */
-    private List<Address> address;
+    /**
+     * This field holds the value of billingAddress
+     */
+    private Address billingAddress;
+    
+    /**
+     * This field holds the value of shippingAddress
+     */
+    private Address shippingAddress;
 
     /**
-     * @return the address
+     * @return the billingAddress
      */
-    public final List<Address> getAddress() {
-        return address;
+    public final Address getBillingAddress() {
+        return billingAddress;
     }
 
     /**
-     * @param address
-     *            the address to set
+     * @param billingAddress the billingAddress to set
      */
-    public final void setAddress(final List<Address> address) {
-        this.address = address;
+    public final void setBillingAddress(Address billingAddress) {
+        this.billingAddress = billingAddress;
     }
 
+    /**
+     * @return the shippingAddress
+     */
+    public final Address getShippingAddress() {
+        return shippingAddress;
+    }
+
+    /**
+     * @param shippingAddress the shippingAddress to set
+     */
+    public final void setShippingAddress(Address shippingAddress) {
+        this.shippingAddress = shippingAddress;
+    }
+
+    
 }

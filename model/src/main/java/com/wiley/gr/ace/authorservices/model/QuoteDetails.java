@@ -41,12 +41,22 @@ public class QuoteDetails {
     /**
      * This field holds the value of addressDetails
      */
-    private List<AddressDetails> addressDetails;
+    private AddressDetails addressDetails;
     
     /**
      * This field holds the value of funderDetails
      */
     private List<FunderDetails> funderDetails;
+    
+    /**
+     * This field holds the value of discountsAllowed
+     */
+    private String discountsAllowed;
+
+    /**
+     * This field holds the value of additionalDiscountAllowed
+     */
+    private String additionalDiscountAllowed;
 
     /**
      * @return the articleDetails
@@ -104,33 +114,61 @@ public class QuoteDetails {
         this.authorName = authorName;
     }
 
-	/**
-	 * @return
-	 */
-	public List<AddressDetails> getAddressDetails() {
-		return addressDetails;
-	}
 
-	/**
-	 * @param addressDetails
-	 */
-	public void setAddressDetails(List<AddressDetails> addressDetails) {
-		this.addressDetails = addressDetails;
-	}
+    /**
+     * @return the addressDetails
+     */
+    public final AddressDetails getAddressDetails() {
+        return addressDetails;
+    }
 
-	/**
-	 * @return
-	 */
-	public List<FunderDetails> getFunderDetails() {
-		return funderDetails;
-	}
+    /**
+     * @param addressDetails the addressDetails to set
+     */
+    public final void setAddressDetails(AddressDetails addressDetails) {
+        this.addressDetails = addressDetails;
+    }
 
-	/**
-	 * @param funderDetails
-	 */
-	public void setFunderDetails(List<FunderDetails> funderDetails) {
-		this.funderDetails = funderDetails;
-	}
+    /**
+     * @return the funderDetails
+     */
+    public final List<FunderDetails> getFunderDetails() {
+        return funderDetails;
+    }
 
+    /**
+     * @param funderDetails the funderDetails to set
+     */
+    public final void setFunderDetails(List<FunderDetails> funderDetails) {
+        this.funderDetails = funderDetails;
+    }
+
+    /**
+     * @return the discountsAllowed
+     */
+    public final String getDiscountsAllowed() {
+        return discountsAllowed;
+    }
+
+    /**
+     * @param discountsAllowed the discountsAllowed to set
+     */
+    public final void setDiscountsAllowed(String discountsAllowed) {
+        this.discountsAllowed = discountsAllowed;
+    }
+
+    /**
+     * @return the additionalDiscountAllowed
+     */
+    public final String getAdditionalDiscountAllowed() {
+        return additionalDiscountAllowed;
+    }
+
+    /**
+     * @param additionalDiscountAllowed the additionalDiscountAllowed to set
+     */
+    public final void setAdditionalDiscountAllowed(String additionalDiscountAllowed) {
+        this.additionalDiscountAllowed = additionalDiscountAllowed;
+    }
     
 }

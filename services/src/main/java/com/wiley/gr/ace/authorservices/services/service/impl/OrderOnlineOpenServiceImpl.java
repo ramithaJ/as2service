@@ -24,6 +24,8 @@ import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
+import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
+import com.wiley.gr.ace.authorservices.model.AddressDetails;
 import com.wiley.gr.ace.authorservices.model.Amount;
 import com.wiley.gr.ace.authorservices.model.ArticleDetails;
 import com.wiley.gr.ace.authorservices.model.Discounts;
@@ -31,8 +33,6 @@ import com.wiley.gr.ace.authorservices.model.FunderDetails;
 import com.wiley.gr.ace.authorservices.model.JournalDetails;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.OrderDetails;
-import com.wiley.gr.ace.authorservices.model.Prices;
-import com.wiley.gr.ace.authorservices.model.QuoteDetail;
 import com.wiley.gr.ace.authorservices.model.QuoteDetails;
 import com.wiley.gr.ace.authorservices.model.TaxDetails;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
@@ -43,11 +43,11 @@ import com.wiley.gr.ace.authorservices.model.external.OrderRequest;
 import com.wiley.gr.ace.authorservices.model.external.OrderResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhArticleResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
-import com.wiley.gr.ace.authorservices.model.external.Quote;
+import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 import com.wiley.gr.ace.authorservices.model.external.WOAFunder;
-import com.wiley.gr.ace.authorservices.persistence.entity.ArticleAuthorAssignment;
 import com.wiley.gr.ace.authorservices.persistence.entity.Articles;
 import com.wiley.gr.ace.authorservices.persistence.entity.Orders;
+import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
 import com.wiley.gr.ace.authorservices.persistence.entity.SavedOrders;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
@@ -67,6 +67,10 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 	/** Getting Bean Of OrderOnlineDAO Service */
 	@Autowired(required = true)
 	private OrderOnlineDAO orderOnlineDAO;
+	
+	/** The user profiles. */
+    @Autowired
+    private UserProfiles userProfiles;
 
 	/**
 	 * This method will take userId and orderId as input and calls external
@@ -129,110 +133,129 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 	}
 
 	/**
-	 * Method to get quote.
-	 */
-	@Override
-	public QuoteDetails getQuote(String userId, String articleId,
-			String pdmSalesFlag) {
+     * Method to get quote.
+     */
+    @Override
+    public QuoteDetails getQuote(String userId, String articleId,
+            String pdmSalesFlag) {
 
-		// Article details having userId and articleId
-		Articles articles = orderOnlineDAO.getArticleDetails(articleId);
-		if (null == articles) {
-			throw new ASException("801",
-					"Article Not found in system. Please try after sometime..");
-		}
+        // Article details having userId and articleId
+        Articles articles = orderOnlineDAO.getArticleDetails(articleId);
+        if (null == articles) {
+            throw new ASException("801",
+                    "Article Not found in system. Please try after sometime..");
+        }
 
-		PdhJournalResponse pdhLookup = orderservice.pdhLookUpJournal(articles
-				.getJournalId());
-		QuoteDetails quoteDetails = null;
-		// check article is onlineOpen article or not.
-		if (pdmSalesFlag.equalsIgnoreCase(pdhLookup.getPdmSalesModel())) {
+        PdhJournalResponse pdhLookup = orderservice.pdhLookUpJournal(articles
+                .getJournalId());
+        QuoteDetails quoteDetails = null;
+        // check article is onlineOpen article or not.
+        if (pdmSalesFlag.equalsIgnoreCase(pdhLookup.getPdmSalesModel())) {
 
-			// Article Author Assignment table details having userId and
-			// articleId.
-			ArticleAuthorAssignment articleAuthorAssignment = orderOnlineDAO
-					.getAritcleAssignmentDetails(userId, articleId);
-			if (articleAuthorAssignment == null) {
-				throw new ASException("802", "Article is not yet Accepted");
-			}
-			// check user is corresponding author or not.
-			if (articleAuthorAssignment.getArticleRoles() != null
-					&& articleAuthorAssignment.getArticleRoles()
-							.getArticleRoleCd().equalsIgnoreCase("0001")) {
+            // Article Author Assignment table details having userId and
+            // articleId.
+            ProductPersonRelations productPersonRelations = orderOnlineDAO
+                    .getAritcleAssignmentDetails(userId, articleId);
+            if (productPersonRelations == null) {
+                throw new ASException("802", "Article is not yet Accepted");
+            }
+            // check user is corresponding author or not.
+            if (productPersonRelations.getProductRoles() != null
+                    && productPersonRelations.getProductRoles()
+                            .getProductRoleCd().equalsIgnoreCase("0001")) {
 
-				// check is there any saved orders for this article.
-				SavedOrders savedOrders = orderOnlineDAO.getSavedOrders(
-						articleId, userId);
-				if (null != savedOrders) {
-					throw new ASException("803",
-							"Order already exists for this Article");
-				}
-				// check is there any placed orders for this article.
-				Orders orders = orderOnlineDAO.getOrder(articleAuthorAssignment
-						.getArticleAuthId());
-				if (orders != null) {
-					throw new ASException("804",
-							"Order already submitted for this Article");
-				}
-				// calling external service for article and journal titles.
-				Quote quote = orderservice.getQuote(articleId);
+                // check is there any saved orders for this article.
+                SavedOrders savedOrders = orderOnlineDAO.getSavedOrders(
+                        articleId, userId);
+                if (null != savedOrders) {
+                    throw new ASException("803",
+                            "Order already exists for this Article");
+                }
+                // check is there any placed orders for this article.
+                Orders orders = orderOnlineDAO.getOrder(productPersonRelations
+                        .getProdRelationId());
+                if (orders != null) {
+                    throw new ASException("804",
+                            "Order already submitted for this Article");
+                }
+                /*calling external service for article and journal titles.
+                Quote quote = orderservice.getQuote(articleId);*/
 
-				quoteDetails = new QuoteDetails();
-				ArticleDetails articleDetails = new ArticleDetails();
-				articleDetails.setArticleAID(articleId);
-				articleDetails.setArticleTitle(orderservice.pdhLookUpArticle(
-						articles.getDhId()).getTitle());
-				quoteDetails.setArticleDetails(articleDetails);
-				quoteDetails.setAuthorName("shiva");
-				JournalDetails journalDetails = new JournalDetails();
-				journalDetails.setJournalId(String.valueOf(articles
-						.getJournalId()));
-				journalDetails.setJournalTitle(orderservice.pdhLookUpJournal(
-						articles.getJournalId()).getTitle());
-				quoteDetails.setJournalDetails(journalDetails);
-				QuoteDetail quoteDetail = new QuoteDetail();
-				List<Prices> prices = new ArrayList<Prices>();
-				Prices price = new Prices();
-				price.setCurrency(quote.getCurrency());
-				price.setPrice(quote.getArticlePubCharge());
-				prices.add(price);
-				quoteDetail.setPrices(prices);
-				quoteDetails.setQuoteDetail(quoteDetail);
+                quoteDetails = new QuoteDetails();
+                //Article details (ArticleId and ArticleTitle)
+                PdhArticleResponse pdhArticleResponse = orderservice.pdhLookUpArticle(articles.getDhId());
+                ArticleDetails articleDetails = new ArticleDetails();
+                articleDetails.setArticleAID(articleId);
+                articleDetails.setArticleTitle(pdhArticleResponse.getTitle());
+                quoteDetails.setArticleDetails(articleDetails);
+                //Author Name
+                quoteDetails.setAuthorName("shiva");
+                //Journal details (JornalId and jornalTitle)
+                JournalDetails journalDetails = new JournalDetails();
+                journalDetails.setJournalId(String.valueOf(articles
+                        .getJournalId()));
+                journalDetails.setJournalTitle(pdhLookup.getTitle());
+                quoteDetails.setJournalDetails(journalDetails);
+                
+                // TODO : basic price
+                /*QuoteDetail quoteDetail = new QuoteDetail();
+                List<Prices> prices = new ArrayList<Prices>();
+                Prices price = new Prices();
+                price.setCurrency(quote.getCurrency());
+                price.setPrice(quote.getArticlePubCharge());
+                prices.add(price);
+                quoteDetail.setPrices(prices);
+                quoteDetails.setQuoteDetail(quoteDetail);*/
+                
+                // values of DiscountsAllowed and AdditionalDiscountAllowed
+                quoteDetails.setDiscountsAllowed(pdhLookup.getDiscountsAllowed());
+                quoteDetails.setAdditionalDiscountAllowed(pdhLookup.getAdditionalDiscountAllowed());
+                // userProfile object form userProfile service for society details and addressDetails
+                UserProfileResponse userProfileResponse = userProfiles.getUserProfileResponse(userId);
+                userProfileResponse.getCustomerProfile().getSocieties();
+                //billing and contact addresses
+                AddressDetails addressDetails = new AddressDetails();
+                addressDetails.setBillingAddress(userProfileResponse.getCustomerProfile().getAddressDetails().get(1).getBillingAddress());
+                addressDetails.setShippingAddress(userProfileResponse.getCustomerProfile().getAddressDetails().get(2).getShippingAddress());
+                quoteDetails.setAddressDetails(addressDetails);
+                // funder details / WOA funder details
+                pdhArticleResponse.getWOAFunders().getWOAFunder();
+                
+            } else {
+                throw new ASException("805",
+                        "You don't have permissions to make article as online open");
+            }
+        } else {
+            throw new ASException("806",
+                    "It's not an Online open journal article");
+        }
+        return quoteDetails;
+    }
 
-				// TODO: Get affiliated funder details from article pdh lookup
-				// TODO: Get society details from profile
-				// TODO: Get address details from profile
-			}
-		}
-		return quoteDetails;
-	}
+    @Override
+    public List<OrderDetails> getAllOrders(Integer userId, String type) {
+        List<ProductPersonRelations> articleAuthorAssignmentList = orderOnlineDAO
+                .getArticleAuthId(userId, type);
+        OrderDetails orderDetails = null;
+        List<OrderDetails> lisofOrderDetails = new ArrayList<OrderDetails>();
 
-	@Override
-	public List<OrderDetails> getAllOrders(Integer userId, String type) {
-		List<ArticleAuthorAssignment> articleAuthorAssignmentList = orderOnlineDAO
-				.getArticleAuthId(userId, type);
-		OrderDetails orderDetails = null;
-		List<OrderDetails> lisofOrderDetails = new ArrayList<OrderDetails>();
+        for (ProductPersonRelations articleAuthorAssignment : articleAuthorAssignmentList) {
+            orderDetails = new OrderDetails();
+            orderDetails.setArticleId(articleAuthorAssignment.getProdRelationId().toString());
+            orderDetails.setPrice("0.0");
+            PdhJournalResponse pdhLookup = orderservice
+                    .pdhLookUpJournal(articleAuthorAssignment.getProducts().getDhId());
+            orderDetails.setArticleTitle(pdhLookup.getTitle());
+            /*for (Orders orders : articleAuthorAssignment.getOrderses()) {
+                orderDetails.setOrderDate(orders.getUpdatedDate().toString());
+                orderDetails.setStatus(orders.getOrderStatus());
+            }*/
+            lisofOrderDetails.add(orderDetails);
+        }
 
-		for (ArticleAuthorAssignment articleAuthorAssignment : articleAuthorAssignmentList) {
-			orderDetails = new OrderDetails();
-			orderDetails.setArticleId(articleAuthorAssignment.getArticles()
-					.getArticleId().toString());
-			orderDetails.setPrice("0.0");
-			PdhJournalResponse pdhLookup = orderservice
-					.pdhLookUpJournal(articleAuthorAssignment.getArticles()
-							.getDhId());
-			orderDetails.setArticleTitle(pdhLookup.getTitle());
-			for (Orders orders : articleAuthorAssignment.getOrderses()) {
-				orderDetails.setOrderDate(orders.getUpdatedDate().toString());
-				orderDetails.setStatus(orders.getOrderStatus());
-			}
-			lisofOrderDetails.add(orderDetails);
-		}
+        return lisofOrderDetails;
 
-		return lisofOrderDetails;
-
-	}
+    }
 
 	/**
 	 * This method submits the online open order and returns the order response

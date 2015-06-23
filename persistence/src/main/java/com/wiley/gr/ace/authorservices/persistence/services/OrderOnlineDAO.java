@@ -15,10 +15,10 @@ package com.wiley.gr.ace.authorservices.persistence.services;
 
 import java.util.List;
 
-import com.wiley.gr.ace.authorservices.persistence.entity.ArticleAuthorAssignment;
 import com.wiley.gr.ace.authorservices.persistence.entity.Articles;
-import com.wiley.gr.ace.authorservices.persistence.entity.Journals;
+import com.wiley.gr.ace.authorservices.persistence.entity.JournalConfiguration;
 import com.wiley.gr.ace.authorservices.persistence.entity.Orders;
+import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
 import com.wiley.gr.ace.authorservices.persistence.entity.SavedOrders;
 
 /**
@@ -32,7 +32,7 @@ public interface OrderOnlineDAO {
      * @param articleId
      * @return
      */
-    ArticleAuthorAssignment getAritcleAssignmentDetails(String userId,
+    ProductPersonRelations getAritcleAssignmentDetails(String userId,
             String articleId);
 
     /**
@@ -45,7 +45,7 @@ public interface OrderOnlineDAO {
      * @param journalId
      * @return
      */
-    Journals getJournalDetails(String journalId);
+    JournalConfiguration getJournalDetails(String journalId);
 
     /**
      * @param articleId
@@ -64,7 +64,7 @@ public interface OrderOnlineDAO {
      * @param userId
      * @return
      */
-    List<ArticleAuthorAssignment> getArticleAuthId(Integer userId,String type);
+    List<ProductPersonRelations> getArticleAuthId(Integer userId,String type);
     
     /**
      * @param order

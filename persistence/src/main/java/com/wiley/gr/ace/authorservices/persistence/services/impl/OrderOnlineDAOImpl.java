@@ -22,10 +22,10 @@ import org.hibernate.FetchMode;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
-import com.wiley.gr.ace.authorservices.persistence.entity.ArticleAuthorAssignment;
 import com.wiley.gr.ace.authorservices.persistence.entity.Articles;
-import com.wiley.gr.ace.authorservices.persistence.entity.Journals;
+import com.wiley.gr.ace.authorservices.persistence.entity.JournalConfiguration;
 import com.wiley.gr.ace.authorservices.persistence.entity.Orders;
+import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
 import com.wiley.gr.ace.authorservices.persistence.entity.SavedOrders;
 import com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO;
 
@@ -39,14 +39,14 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
      * Method to get ArticleAssigmentDetails tabel object.
      */
     @Override
-    public final ArticleAuthorAssignment getAritcleAssignmentDetails(
+    public final ProductPersonRelations getAritcleAssignmentDetails(
             final String userId, final String articleId) {
 
         Session session = null;
         try {
             session = getSessionFactory().openSession();
             Criteria criteria = session.createCriteria(
-                    ArticleAuthorAssignment.class, "articleAuthorAssignment");
+                    ProductPersonRelations.class, "articleAuthorAssignment");
             criteria.createAlias("articleAuthorAssignment.articles", "articles");
             criteria.createAlias("articleAuthorAssignment.userProfile",
                     "userProfile");
@@ -54,7 +54,7 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
                     Integer.parseInt(articleId)));
             criteria.add(Restrictions.eq("userProfile.userId",
                     Integer.parseInt(userId)));
-            return (ArticleAuthorAssignment) criteria.uniqueResult();
+            return (ProductPersonRelations) criteria.uniqueResult();
         } finally {
             if (session != null) {
                 session.flush();
@@ -86,12 +86,12 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
      * Method to get Journal Details table object.
      */
     @Override
-    public final Journals getJournalDetails(final String journalId) {
+    public final JournalConfiguration getJournalDetails(final String journalId) {
 
         Session session = null;
         try {
             session = getSessionFactory().openSession();
-            return (Journals) session.get(Journals.class,
+            return (JournalConfiguration) session.get(JournalConfiguration.class,
                     Integer.parseInt(journalId));
         } finally {
             if (session != null) {
@@ -154,16 +154,16 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
 
     /** For Getting List Of ArticleAuthId */
     @Override
-    public List<ArticleAuthorAssignment> getArticleAuthId(Integer userId,
+    public List<ProductPersonRelations> getArticleAuthId(Integer userId,
             String type) {
 
         Session session = null;
-        List<ArticleAuthorAssignment> listArticleAuthorAssignments = null;
+        List<ProductPersonRelations> listArticleAuthorAssignments = null;
         System.err.println(type);
         try {
             session = getSessionFactory().openSession();
             Criteria criteria = session.createCriteria(
-                    ArticleAuthorAssignment.class, "articleAuthorAssignment");
+                    ProductPersonRelations.class, "articleAuthorAssignment");
             criteria.createAlias("articleAuthorAssignment.userProfile",
                     "userProfile");
             criteria.add(Restrictions.eq("userProfile.userId", userId));
@@ -175,7 +175,7 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
                         "orderses");
                 criteria.add(Restrictions.eq("orderses.ooOaFlg", type));
             }
-            listArticleAuthorAssignments = (List<ArticleAuthorAssignment>) criteria
+            listArticleAuthorAssignments = (List<ProductPersonRelations>) criteria
                     .list();
         } finally {
             if (session != null) {
