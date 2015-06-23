@@ -1,21 +1,17 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Jun 18, 2015 9:45:04 PM by Hibernate Tools 4.0.0
+// Generated Jun 23, 2015 2:35:20 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -63,8 +59,6 @@ public class Roles implements java.io.Serializable {
 
 	@Id
 	@Column(name = "ROLE_ID", unique = true, nullable = false, precision = 22, scale = 0)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="ROLE_SEQ")
-	@SequenceGenerator(name="ROLE_SEQ",sequenceName="ROLE_SEQ",allocationSize=1)
 	public Integer getRoleId() {
 		return this.roleId;
 	}

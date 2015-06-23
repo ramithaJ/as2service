@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Jun 18, 2015 11:29:00 AM by Hibernate Tools 4.0.0
+// Generated Jun 23, 2015 2:35:20 PM by Hibernate Tools 4.0.0
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -12,14 +12,14 @@ import javax.persistence.Embeddable;
 public class UserWoaAccountsId implements java.io.Serializable {
 
 	private int userId;
-	private Integer woaInstitutionId;
+	private String woaInstitutionCd;
 
 	public UserWoaAccountsId() {
 	}
 
-	public UserWoaAccountsId(int userId, Integer woaInstitutionId) {
+	public UserWoaAccountsId(int userId, String woaInstitutionCd) {
 		this.userId = userId;
-		this.woaInstitutionId = woaInstitutionId;
+		this.woaInstitutionCd = woaInstitutionCd;
 	}
 
 	@Column(name = "USER_ID", nullable = false, precision = 22, scale = 0)
@@ -31,13 +31,13 @@ public class UserWoaAccountsId implements java.io.Serializable {
 		this.userId = userId;
 	}
 
-	@Column(name = "WOA_INSTITUTION_ID", nullable = false, precision = 22, scale = 0)
-	public Integer getWoaInstitutionId() {
-		return this.woaInstitutionId;
+	@Column(name = "WOA_INSTITUTION_CD", nullable = false, length = 15)
+	public String getWoaInstitutionCd() {
+		return this.woaInstitutionCd;
 	}
 
-	public void setWoaInstitutionId(Integer woaInstitutionId) {
-		this.woaInstitutionId = woaInstitutionId;
+	public void setWoaInstitutionCd(String woaInstitutionCd) {
+		this.woaInstitutionCd = woaInstitutionCd;
 	}
 
 	public boolean equals(Object other) {
@@ -50,11 +50,11 @@ public class UserWoaAccountsId implements java.io.Serializable {
 		UserWoaAccountsId castOther = (UserWoaAccountsId) other;
 
 		return (this.getUserId() == castOther.getUserId())
-				&& ((this.getWoaInstitutionId() == castOther
-						.getWoaInstitutionId()) || (this.getWoaInstitutionId() != null
-						&& castOther.getWoaInstitutionId() != null && this
-						.getWoaInstitutionId().equals(
-								castOther.getWoaInstitutionId())));
+				&& ((this.getWoaInstitutionCd() == castOther
+						.getWoaInstitutionCd()) || (this.getWoaInstitutionCd() != null
+						&& castOther.getWoaInstitutionCd() != null && this
+						.getWoaInstitutionCd().equals(
+								castOther.getWoaInstitutionCd())));
 	}
 
 	public int hashCode() {
@@ -63,8 +63,8 @@ public class UserWoaAccountsId implements java.io.Serializable {
 		result = 37 * result + this.getUserId();
 		result = 37
 				* result
-				+ (getWoaInstitutionId() == null ? 0 : this
-						.getWoaInstitutionId().hashCode());
+				+ (getWoaInstitutionCd() == null ? 0 : this
+						.getWoaInstitutionCd().hashCode());
 		return result;
 	}
 

@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Jun 18, 2015 11:29:00 AM by Hibernate Tools 4.0.0
+// Generated Jun 23, 2015 2:35:20 PM by Hibernate Tools 4.0.0
 
 import java.sql.Clob;
 import java.util.Date;

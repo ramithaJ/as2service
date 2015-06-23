@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Jun 18, 2015 11:29:00 AM by Hibernate Tools 4.0.0
+// Generated Jun 23, 2015 2:35:20 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 
@@ -58,7 +58,6 @@ public class AuditDetails implements java.io.Serializable {
 		this.createdDate = createdDate;
 	}
 
-	
 	@Id
 	@Column(name = "AUDIT_ID", unique = true, nullable = false, precision = 22, scale = 0)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="AUDIT_SEQ")

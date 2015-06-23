@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Jun 18, 2015 11:29:00 AM by Hibernate Tools 4.0.0
+// Generated Jun 23, 2015 2:35:20 PM by Hibernate Tools 4.0.0
 
 import java.sql.Blob;
 import java.util.Date;
@@ -65,13 +65,13 @@ public class UserProfile implements java.io.Serializable {
 	private Set<AuthCoauthDetails> authCoauthDetailsesForAuthorUserId = new HashSet<AuthCoauthDetails>(
 			0);
 	private Set<UserAlerts> userAlertses = new HashSet<UserAlerts>(0);
-	private Set<AuthColleagueDetails> authColleagueDetailsesForColleagueUserId = new HashSet<AuthColleagueDetails>(
-			0);
-	private Set<UserWoaAccounts> userWoaAccountses = new HashSet<UserWoaAccounts>(
-			0);
 	private Set<UserPreferredJournals> userPreferredJournalses = new HashSet<UserPreferredJournals>(
 			0);
-	private Set<ArticleAuthorAssignment> articleAuthorAssignments = new HashSet<ArticleAuthorAssignment>(
+	private Set<AuthColleagueDetails> authColleagueDetailsesForColleagueUserId = new HashSet<AuthColleagueDetails>(
+			0);
+	private Set<ProductPersonRelations> productPersonRelationses = new HashSet<ProductPersonRelations>(
+			0);
+	private Set<UserWoaAccounts> userWoaAccountses = new HashSet<UserWoaAccounts>(
 			0);
 
 	public UserProfile() {
@@ -100,10 +100,10 @@ public class UserProfile implements java.io.Serializable {
 			Set<SavedOrders> savedOrderses,
 			Set<AuthCoauthDetails> authCoauthDetailsesForAuthorUserId,
 			Set<UserAlerts> userAlertses,
-			Set<AuthColleagueDetails> authColleagueDetailsesForColleagueUserId,
-			Set<UserWoaAccounts> userWoaAccountses,
 			Set<UserPreferredJournals> userPreferredJournalses,
-			Set<ArticleAuthorAssignment> articleAuthorAssignments) {
+			Set<AuthColleagueDetails> authColleagueDetailsesForColleagueUserId,
+			Set<ProductPersonRelations> productPersonRelationses,
+			Set<UserWoaAccounts> userWoaAccountses) {
 		this.usersByCreatedBy = usersByCreatedBy;
 		this.usersByUpdatedBy = usersByUpdatedBy;
 		this.usersByMergerAccntId = usersByMergerAccntId;
@@ -134,10 +134,10 @@ public class UserProfile implements java.io.Serializable {
 		this.savedOrderses = savedOrderses;
 		this.authCoauthDetailsesForAuthorUserId = authCoauthDetailsesForAuthorUserId;
 		this.userAlertses = userAlertses;
-		this.authColleagueDetailsesForColleagueUserId = authColleagueDetailsesForColleagueUserId;
-		this.userWoaAccountses = userWoaAccountses;
 		this.userPreferredJournalses = userPreferredJournalses;
-		this.articleAuthorAssignments = articleAuthorAssignments;
+		this.authColleagueDetailsesForColleagueUserId = authColleagueDetailsesForColleagueUserId;
+		this.productPersonRelationses = productPersonRelationses;
+		this.userWoaAccountses = userWoaAccountses;
 	}
 
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "usersByUserId"))
@@ -434,6 +434,16 @@ public class UserProfile implements java.io.Serializable {
 		this.userAlertses = userAlertses;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userProfile")
+	public Set<UserPreferredJournals> getUserPreferredJournalses() {
+		return this.userPreferredJournalses;
+	}
+
+	public void setUserPreferredJournalses(
+			Set<UserPreferredJournals> userPreferredJournalses) {
+		this.userPreferredJournalses = userPreferredJournalses;
+	}
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userProfileByColleagueUserId")
 	public Set<AuthColleagueDetails> getAuthColleagueDetailsesForColleagueUserId() {
 		return this.authColleagueDetailsesForColleagueUserId;
@@ -445,32 +455,22 @@ public class UserProfile implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userProfile")
+	public Set<ProductPersonRelations> getProductPersonRelationses() {
+		return this.productPersonRelationses;
+	}
+
+	public void setProductPersonRelationses(
+			Set<ProductPersonRelations> productPersonRelationses) {
+		this.productPersonRelationses = productPersonRelationses;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userProfile")
 	public Set<UserWoaAccounts> getUserWoaAccountses() {
 		return this.userWoaAccountses;
 	}
 
 	public void setUserWoaAccountses(Set<UserWoaAccounts> userWoaAccountses) {
 		this.userWoaAccountses = userWoaAccountses;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userProfile")
-	public Set<UserPreferredJournals> getUserPreferredJournalses() {
-		return this.userPreferredJournalses;
-	}
-
-	public void setUserPreferredJournalses(
-			Set<UserPreferredJournals> userPreferredJournalses) {
-		this.userPreferredJournalses = userPreferredJournalses;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userProfile")
-	public Set<ArticleAuthorAssignment> getArticleAuthorAssignments() {
-		return this.articleAuthorAssignments;
-	}
-
-	public void setArticleAuthorAssignments(
-			Set<ArticleAuthorAssignment> articleAuthorAssignments) {
-		this.articleAuthorAssignments = articleAuthorAssignments;
 	}
 
 }

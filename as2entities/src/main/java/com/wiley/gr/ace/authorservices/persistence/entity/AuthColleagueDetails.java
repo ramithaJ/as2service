@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Jun 18, 2015 11:29:00 AM by Hibernate Tools 4.0.0
+// Generated Jun 23, 2015 2:35:20 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -21,8 +21,8 @@ public class AuthColleagueDetails implements java.io.Serializable {
 	private Integer authColleagueId;
 	private UserProfile userProfileByColleagueUserId;
 	private Users usersByCreatedBy;
-	private Users usersByUpdatedBy;
 	private UserProfile userProfileByInvitedAuthorId;
+	private Users usersByUpdatedBy;
 	private String firstName;
 	private String lastName;
 	private String emailAddr;
@@ -39,14 +39,14 @@ public class AuthColleagueDetails implements java.io.Serializable {
 
 	public AuthColleagueDetails(Integer authColleagueId,
 			UserProfile userProfileByColleagueUserId, Users usersByCreatedBy,
-			Users usersByUpdatedBy, UserProfile userProfileByInvitedAuthorId,
+			UserProfile userProfileByInvitedAuthorId, Users usersByUpdatedBy,
 			String firstName, String lastName, String emailAddr,
 			Integer assignedArticleId, Date createdDate, Date updatedDate) {
 		this.authColleagueId = authColleagueId;
 		this.userProfileByColleagueUserId = userProfileByColleagueUserId;
 		this.usersByCreatedBy = usersByCreatedBy;
-		this.usersByUpdatedBy = usersByUpdatedBy;
 		this.userProfileByInvitedAuthorId = userProfileByInvitedAuthorId;
+		this.usersByUpdatedBy = usersByUpdatedBy;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.emailAddr = emailAddr;
@@ -87,16 +87,6 @@ public class AuthColleagueDetails implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "UPDATED_BY")
-	public Users getUsersByUpdatedBy() {
-		return this.usersByUpdatedBy;
-	}
-
-	public void setUsersByUpdatedBy(Users usersByUpdatedBy) {
-		this.usersByUpdatedBy = usersByUpdatedBy;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "INVITED_AUTHOR_ID")
 	public UserProfile getUserProfileByInvitedAuthorId() {
 		return this.userProfileByInvitedAuthorId;
@@ -105,6 +95,16 @@ public class AuthColleagueDetails implements java.io.Serializable {
 	public void setUserProfileByInvitedAuthorId(
 			UserProfile userProfileByInvitedAuthorId) {
 		this.userProfileByInvitedAuthorId = userProfileByInvitedAuthorId;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "UPDATED_BY")
+	public Users getUsersByUpdatedBy() {
+		return this.usersByUpdatedBy;
+	}
+
+	public void setUsersByUpdatedBy(Users usersByUpdatedBy) {
+		this.usersByUpdatedBy = usersByUpdatedBy;
 	}
 
 	@Column(name = "FIRST_NAME", length = 100)

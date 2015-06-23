@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Jun 18, 2015 11:29:00 AM by Hibernate Tools 4.0.0
+// Generated Jun 23, 2015 2:35:20 PM by Hibernate Tools 4.0.0
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +20,7 @@ import org.hibernate.annotations.Parameter;
 @Table(name = "NOTIFICATION_RECIPIENTS")
 public class NotificationRecipients implements java.io.Serializable {
 
-	private String notificationId;
+	private Integer notificationId;
 	private Notification notification;
 	private String userId;
 	private String email;
@@ -42,12 +42,12 @@ public class NotificationRecipients implements java.io.Serializable {
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "notification"))
 	@Id
 	@GeneratedValue(generator = "generator")
-	@Column(name = "NOTIFICATION_ID", unique = true, nullable = false)
-	public String getNotificationId() {
+	@Column(name = "NOTIFICATION_ID", unique = true, nullable = false, precision = 22, scale = 0)
+	public Integer getNotificationId() {
 		return this.notificationId;
 	}
 
-	public void setNotificationId(String notificationId) {
+	public void setNotificationId(Integer notificationId) {
 		this.notificationId = notificationId;
 	}
 

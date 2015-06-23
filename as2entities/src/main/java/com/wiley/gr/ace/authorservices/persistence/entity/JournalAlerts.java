@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Jun 18, 2015 11:29:00 AM by Hibernate Tools 4.0.0
+// Generated Jun 23, 2015 2:35:20 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -21,10 +21,10 @@ import javax.persistence.TemporalType;
 public class JournalAlerts implements java.io.Serializable {
 
 	private Integer jouAlertId;
-	private Journals journals;
 	private Alerts alerts;
 	private Users usersByCreatedBy;
 	private Users usersByUpdatedBy;
+	private Integer journalId;
 	private Character alertCdFlg;
 	private Date createdDate;
 	private Date updatedDate;
@@ -36,14 +36,14 @@ public class JournalAlerts implements java.io.Serializable {
 		this.jouAlertId = jouAlertId;
 	}
 
-	public JournalAlerts(Integer jouAlertId, Journals journals, Alerts alerts,
-			Users usersByCreatedBy, Users usersByUpdatedBy,
+	public JournalAlerts(Integer jouAlertId, Alerts alerts,
+			Users usersByCreatedBy, Users usersByUpdatedBy, Integer journalId,
 			Character alertCdFlg, Date createdDate, Date updatedDate) {
 		this.jouAlertId = jouAlertId;
-		this.journals = journals;
 		this.alerts = alerts;
 		this.usersByCreatedBy = usersByCreatedBy;
 		this.usersByUpdatedBy = usersByUpdatedBy;
+		this.journalId = journalId;
 		this.alertCdFlg = alertCdFlg;
 		this.createdDate = createdDate;
 		this.updatedDate = updatedDate;
@@ -57,16 +57,6 @@ public class JournalAlerts implements java.io.Serializable {
 
 	public void setJouAlertId(Integer jouAlertId) {
 		this.jouAlertId = jouAlertId;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "JOURNAL_ID")
-	public Journals getJournals() {
-		return this.journals;
-	}
-
-	public void setJournals(Journals journals) {
-		this.journals = journals;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -97,6 +87,15 @@ public class JournalAlerts implements java.io.Serializable {
 
 	public void setUsersByUpdatedBy(Users usersByUpdatedBy) {
 		this.usersByUpdatedBy = usersByUpdatedBy;
+	}
+
+	@Column(name = "JOURNAL_ID", precision = 22, scale = 0)
+	public Integer getJournalId() {
+		return this.journalId;
+	}
+
+	public void setJournalId(Integer journalId) {
+		this.journalId = journalId;
 	}
 
 	@Column(name = "ALERT_CD_FLG", length = 1)

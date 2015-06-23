@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Jun 18, 2015 11:29:00 AM by Hibernate Tools 4.0.0
+// Generated Jun 23, 2015 2:35:20 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 
@@ -27,7 +27,7 @@ public class Orders implements java.io.Serializable {
 	private Integer orderId;
 	private Users usersByCreatedBy;
 	private Users usersByUpdatedBy;
-	private ArticleAuthorAssignment articleAuthorAssignment;
+	private Integer articleAuthId;
 	private String orderType;
 	private String ooOaFlg;
 	private String orderStatus;
@@ -43,14 +43,13 @@ public class Orders implements java.io.Serializable {
 	}
 
 	public Orders(Integer orderId, Users usersByCreatedBy,
-			Users usersByUpdatedBy,
-			ArticleAuthorAssignment articleAuthorAssignment, String orderType,
+			Users usersByUpdatedBy, Integer articleAuthId, String orderType,
 			String ooOaFlg, String orderStatus, Integer downstreamappOrderId,
 			Date createdDate, Date updatedDate) {
 		this.orderId = orderId;
 		this.usersByCreatedBy = usersByCreatedBy;
 		this.usersByUpdatedBy = usersByUpdatedBy;
-		this.articleAuthorAssignment = articleAuthorAssignment;
+		this.articleAuthId = articleAuthId;
 		this.orderType = orderType;
 		this.ooOaFlg = ooOaFlg;
 		this.orderStatus = orderStatus;
@@ -62,7 +61,7 @@ public class Orders implements java.io.Serializable {
 	@Id
 	@Column(name = "ORDER_ID", unique = true, nullable = false, precision = 22, scale = 0)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="ORDERS_SEQ")
-	@SequenceGenerator(name="ORDERS_SEQ",sequenceName="ORDERS_SEQ",allocationSize=1)
+    @SequenceGenerator(name="ORDERS_SEQ",sequenceName="ORDERS_SEQ",allocationSize=1)
 	public Integer getOrderId() {
 		return this.orderId;
 	}
@@ -91,15 +90,13 @@ public class Orders implements java.io.Serializable {
 		this.usersByUpdatedBy = usersByUpdatedBy;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ARTICLE_AUTH_ID")
-	public ArticleAuthorAssignment getArticleAuthorAssignment() {
-		return this.articleAuthorAssignment;
+	@Column(name = "ARTICLE_AUTH_ID", precision = 22, scale = 0)
+	public Integer getArticleAuthId() {
+		return this.articleAuthId;
 	}
 
-	public void setArticleAuthorAssignment(
-			ArticleAuthorAssignment articleAuthorAssignment) {
-		this.articleAuthorAssignment = articleAuthorAssignment;
+	public void setArticleAuthId(Integer articleAuthId) {
+		this.articleAuthId = articleAuthId;
 	}
 
 	@Column(name = "ORDER_TYPE", length = 15)

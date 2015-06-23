@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Jun 18, 2015 11:29:00 AM by Hibernate Tools 4.0.0
+// Generated Jun 23, 2015 2:35:20 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.AttributeOverride;
@@ -51,7 +51,7 @@ public class UserWoaAccounts implements java.io.Serializable {
 	@EmbeddedId
 	@AttributeOverrides({
 			@AttributeOverride(name = "userId", column = @Column(name = "USER_ID", nullable = false, precision = 22, scale = 0)),
-			@AttributeOverride(name = "woaInstitutionId", column = @Column(name = "WOA_INSTITUTION_ID", nullable = false, precision = 22, scale = 0)) })
+			@AttributeOverride(name = "woaInstitutionCd", column = @Column(name = "WOA_INSTITUTION_CD", nullable = false, length = 15)) })
 	public UserWoaAccountsId getId() {
 		return this.id;
 	}

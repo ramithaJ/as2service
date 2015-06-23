@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Jun 18, 2015 11:29:00 AM by Hibernate Tools 4.0.0
+// Generated Jun 23, 2015 2:35:20 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.AttributeOverride;
@@ -21,34 +21,32 @@ import javax.persistence.Table;
 public class UserPreferredJournals implements java.io.Serializable {
 
 	private UserPreferredJournalsId id;
-	private Journals journals;
 	private Users usersByCreatedBy;
 	private Users usersByUpdatedBy;
 	private UserProfile userProfile;
-	private Integer favoriteJournalCnt;
+	private Products products;
 	private Date createdDate;
 	private Date updatedDate;
 
 	public UserPreferredJournals() {
 	}
 
-	public UserPreferredJournals(UserPreferredJournalsId id, Journals journals,
-			UserProfile userProfile) {
+	public UserPreferredJournals(UserPreferredJournalsId id,
+			UserProfile userProfile, Products products) {
 		this.id = id;
-		this.journals = journals;
 		this.userProfile = userProfile;
+		this.products = products;
 	}
 
-	public UserPreferredJournals(UserPreferredJournalsId id, Journals journals,
+	public UserPreferredJournals(UserPreferredJournalsId id,
 			Users usersByCreatedBy, Users usersByUpdatedBy,
-			UserProfile userProfile, Integer favoriteJournalCnt,
-			Date createdDate, Date updatedDate) {
+			UserProfile userProfile, Products products, Date createdDate,
+			Date updatedDate) {
 		this.id = id;
-		this.journals = journals;
 		this.usersByCreatedBy = usersByCreatedBy;
 		this.usersByUpdatedBy = usersByUpdatedBy;
 		this.userProfile = userProfile;
-		this.favoriteJournalCnt = favoriteJournalCnt;
+		this.products = products;
 		this.createdDate = createdDate;
 		this.updatedDate = updatedDate;
 	}
@@ -56,23 +54,13 @@ public class UserPreferredJournals implements java.io.Serializable {
 	@EmbeddedId
 	@AttributeOverrides({
 			@AttributeOverride(name = "userId", column = @Column(name = "USER_ID", nullable = false, precision = 22, scale = 0)),
-			@AttributeOverride(name = "journalId", column = @Column(name = "JOURNAL_ID", nullable = false, precision = 22, scale = 0)) })
+			@AttributeOverride(name = "dhId", column = @Column(name = "DH_ID", nullable = false, precision = 22, scale = 0)) })
 	public UserPreferredJournalsId getId() {
 		return this.id;
 	}
 
 	public void setId(UserPreferredJournalsId id) {
 		this.id = id;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "JOURNAL_ID", nullable = false, insertable = false, updatable = false)
-	public Journals getJournals() {
-		return this.journals;
-	}
-
-	public void setJournals(Journals journals) {
-		this.journals = journals;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -105,13 +93,14 @@ public class UserPreferredJournals implements java.io.Serializable {
 		this.userProfile = userProfile;
 	}
 
-	@Column(name = "FAVORITE_JOURNAL_CNT", precision = 22, scale = 0)
-	public Integer getFavoriteJournalCnt() {
-		return this.favoriteJournalCnt;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "DH_ID", nullable = false, insertable = false, updatable = false)
+	public Products getProducts() {
+		return this.products;
 	}
 
-	public void setFavoriteJournalCnt(Integer favoriteJournalCnt) {
-		this.favoriteJournalCnt = favoriteJournalCnt;
+	public void setProducts(Products products) {
+		this.products = products;
 	}
 
 	@Column(name = "CREATED_DATE")

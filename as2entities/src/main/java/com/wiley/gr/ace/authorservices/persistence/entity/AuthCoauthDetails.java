@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Jun 18, 2015 11:29:00 AM by Hibernate Tools 4.0.0
+// Generated Jun 23, 2015 2:35:20 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -20,8 +20,8 @@ public class AuthCoauthDetails implements java.io.Serializable {
 
 	private Integer authCoauthId;
 	private UserProfile userProfileByAuthorUserId;
-	private Users usersByCreatedBy;
 	private UserProfile userProfileByCoauthUserId;
+	private Users usersByCreatedBy;
 	private Users usersByUpdatedBy;
 	private String coauthTitle;
 	private String coauthFirstName;
@@ -43,17 +43,17 @@ public class AuthCoauthDetails implements java.io.Serializable {
 	}
 
 	public AuthCoauthDetails(Integer authCoauthId,
-			UserProfile userProfileByAuthorUserId, Users usersByCreatedBy,
-			UserProfile userProfileByCoauthUserId, Users usersByUpdatedBy,
-			String coauthTitle, String coauthFirstName, String coauthLastName,
-			String coauthEmailAddr, String coauthPhone,
+			UserProfile userProfileByAuthorUserId,
+			UserProfile userProfileByCoauthUserId, Users usersByCreatedBy,
+			Users usersByUpdatedBy, String coauthTitle, String coauthFirstName,
+			String coauthLastName, String coauthEmailAddr, String coauthPhone,
 			String coauthInstitutionCd, String coauthInstitutionName,
 			String coauthDepartmentCd, String coauthDeptName, Date createdDate,
 			Date updatedDate) {
 		this.authCoauthId = authCoauthId;
 		this.userProfileByAuthorUserId = userProfileByAuthorUserId;
-		this.usersByCreatedBy = usersByCreatedBy;
 		this.userProfileByCoauthUserId = userProfileByCoauthUserId;
+		this.usersByCreatedBy = usersByCreatedBy;
 		this.usersByUpdatedBy = usersByUpdatedBy;
 		this.coauthTitle = coauthTitle;
 		this.coauthFirstName = coauthFirstName;
@@ -90,16 +90,6 @@ public class AuthCoauthDetails implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CREATED_BY")
-	public Users getUsersByCreatedBy() {
-		return this.usersByCreatedBy;
-	}
-
-	public void setUsersByCreatedBy(Users usersByCreatedBy) {
-		this.usersByCreatedBy = usersByCreatedBy;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "COAUTH_USER_ID")
 	public UserProfile getUserProfileByCoauthUserId() {
 		return this.userProfileByCoauthUserId;
@@ -108,6 +98,16 @@ public class AuthCoauthDetails implements java.io.Serializable {
 	public void setUserProfileByCoauthUserId(
 			UserProfile userProfileByCoauthUserId) {
 		this.userProfileByCoauthUserId = userProfileByCoauthUserId;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CREATED_BY")
+	public Users getUsersByCreatedBy() {
+		return this.usersByCreatedBy;
+	}
+
+	public void setUsersByCreatedBy(Users usersByCreatedBy) {
+		this.usersByCreatedBy = usersByCreatedBy;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

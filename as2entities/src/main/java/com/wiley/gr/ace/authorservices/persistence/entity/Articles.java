@@ -1,12 +1,11 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Jun 18, 2015 11:29:00 AM by Hibernate Tools 4.0.0
+// Generated Jun 23, 2015 2:35:20 PM by Hibernate Tools 4.0.0
 
 import java.sql.Clob;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,10 +25,10 @@ import javax.persistence.TemporalType;
 public class Articles implements java.io.Serializable {
 
 	private Integer articleId;
-	private Journals journals;
 	private Users usersByCreatedBy;
 	private Users usersByUpdatedBy;
 	private Integer dhId;
+	private Integer journalId;
 	private Character prodTrkPathArticle;
 	private String publicationStatus;
 	private Clob notes;
@@ -40,8 +39,6 @@ public class Articles implements java.io.Serializable {
 	private Date updatedDate;
 	private Date lastUpdatedInAsFromMaster;
 	private Set<InvitationLog> invitationLogs = new HashSet<InvitationLog>(0);
-	private Set<ArticleAuthorAssignment> articleAuthorAssignments = new HashSet<ArticleAuthorAssignment>(
-			0);
 	private Set<SavedOrders> savedOrderses = new HashSet<SavedOrders>(0);
 
 	public Articles() {
@@ -51,19 +48,18 @@ public class Articles implements java.io.Serializable {
 		this.articleId = articleId;
 	}
 
-	public Articles(Integer articleId, Journals journals,
-			Users usersByCreatedBy, Users usersByUpdatedBy, Integer dhId,
+	public Articles(Integer articleId, Users usersByCreatedBy,
+			Users usersByUpdatedBy, Integer dhId, Integer journalId,
 			Character prodTrkPathArticle, String publicationStatus, Clob notes,
 			Character resetLicenseFlg, Character licenseVerificationFlg,
 			Integer userIdSignLicense, Date createdDate, Date updatedDate,
 			Date lastUpdatedInAsFromMaster, Set<InvitationLog> invitationLogs,
-			Set<ArticleAuthorAssignment> articleAuthorAssignments,
 			Set<SavedOrders> savedOrderses) {
 		this.articleId = articleId;
-		this.journals = journals;
 		this.usersByCreatedBy = usersByCreatedBy;
 		this.usersByUpdatedBy = usersByUpdatedBy;
 		this.dhId = dhId;
+		this.journalId = journalId;
 		this.prodTrkPathArticle = prodTrkPathArticle;
 		this.publicationStatus = publicationStatus;
 		this.notes = notes;
@@ -74,7 +70,6 @@ public class Articles implements java.io.Serializable {
 		this.updatedDate = updatedDate;
 		this.lastUpdatedInAsFromMaster = lastUpdatedInAsFromMaster;
 		this.invitationLogs = invitationLogs;
-		this.articleAuthorAssignments = articleAuthorAssignments;
 		this.savedOrderses = savedOrderses;
 	}
 
@@ -88,17 +83,7 @@ public class Articles implements java.io.Serializable {
 		this.articleId = articleId;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "JOURNAL_ID")
-	public Journals getJournals() {
-		return this.journals;
-	}
-
-	public void setJournals(Journals journals) {
-		this.journals = journals;
-	}
-
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CREATED_BY")
 	public Users getUsersByCreatedBy() {
 		return this.usersByCreatedBy;
@@ -108,7 +93,7 @@ public class Articles implements java.io.Serializable {
 		this.usersByCreatedBy = usersByCreatedBy;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "UPDATED_BY")
 	public Users getUsersByUpdatedBy() {
 		return this.usersByUpdatedBy;
@@ -125,6 +110,15 @@ public class Articles implements java.io.Serializable {
 
 	public void setDhId(Integer dhId) {
 		this.dhId = dhId;
+	}
+
+	@Column(name = "JOURNAL_ID", precision = 22, scale = 0)
+	public Integer getJournalId() {
+		return this.journalId;
+	}
+
+	public void setJournalId(Integer journalId) {
+		this.journalId = journalId;
 	}
 
 	@Column(name = "PROD_TRK_PATH_ARTICLE", length = 1)
@@ -211,7 +205,7 @@ public class Articles implements java.io.Serializable {
 		this.lastUpdatedInAsFromMaster = lastUpdatedInAsFromMaster;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "articles")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "articles")
 	public Set<InvitationLog> getInvitationLogs() {
 		return this.invitationLogs;
 	}
@@ -220,17 +214,7 @@ public class Articles implements java.io.Serializable {
 		this.invitationLogs = invitationLogs;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "articles")
-	public Set<ArticleAuthorAssignment> getArticleAuthorAssignments() {
-		return this.articleAuthorAssignments;
-	}
-
-	public void setArticleAuthorAssignments(
-			Set<ArticleAuthorAssignment> articleAuthorAssignments) {
-		this.articleAuthorAssignments = articleAuthorAssignments;
-	}
-
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "articles")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "articles")
 	public Set<SavedOrders> getSavedOrderses() {
 		return this.savedOrderses;
 	}

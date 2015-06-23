@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Jun 18, 2015 11:29:00 AM by Hibernate Tools 4.0.0
+// Generated Jun 23, 2015 2:35:20 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -23,7 +23,7 @@ public class CoauthorRequestsOoorders implements java.io.Serializable {
 	private Integer requestId;
 	private Users usersByCreatedBy;
 	private Users usersByUpdatedBy;
-	private ArticleAuthorAssignment articleAuthorAssignment;
+	private Integer articleAuthId;
 	private Date createdDate;
 	private Date updatedDate;
 
@@ -35,13 +35,12 @@ public class CoauthorRequestsOoorders implements java.io.Serializable {
 	}
 
 	public CoauthorRequestsOoorders(Integer requestId, Users usersByCreatedBy,
-			Users usersByUpdatedBy,
-			ArticleAuthorAssignment articleAuthorAssignment, Date createdDate,
+			Users usersByUpdatedBy, Integer articleAuthId, Date createdDate,
 			Date updatedDate) {
 		this.requestId = requestId;
 		this.usersByCreatedBy = usersByCreatedBy;
 		this.usersByUpdatedBy = usersByUpdatedBy;
-		this.articleAuthorAssignment = articleAuthorAssignment;
+		this.articleAuthId = articleAuthId;
 		this.createdDate = createdDate;
 		this.updatedDate = updatedDate;
 	}
@@ -76,15 +75,13 @@ public class CoauthorRequestsOoorders implements java.io.Serializable {
 		this.usersByUpdatedBy = usersByUpdatedBy;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ARTICLE_AUTH_ID")
-	public ArticleAuthorAssignment getArticleAuthorAssignment() {
-		return this.articleAuthorAssignment;
+	@Column(name = "ARTICLE_AUTH_ID", precision = 22, scale = 0)
+	public Integer getArticleAuthId() {
+		return this.articleAuthId;
 	}
 
-	public void setArticleAuthorAssignment(
-			ArticleAuthorAssignment articleAuthorAssignment) {
-		this.articleAuthorAssignment = articleAuthorAssignment;
+	public void setArticleAuthId(Integer articleAuthId) {
+		this.articleAuthId = articleAuthId;
 	}
 
 	@Temporal(TemporalType.DATE)

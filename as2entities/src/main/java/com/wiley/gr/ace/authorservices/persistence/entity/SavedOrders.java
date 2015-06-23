@@ -1,7 +1,8 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Jun 18, 2015 11:29:00 AM by Hibernate Tools 4.0.0
+// Generated Jun 23, 2015 2:35:20 PM by Hibernate Tools 4.0.0
 
+import java.sql.Clob;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -39,6 +40,19 @@ public class SavedOrders implements java.io.Serializable {
 
     public SavedOrders(Integer orderId) {
         this.orderId = orderId;
+    }
+
+    public SavedOrders(Integer orderId, Users usersByCreatedBy,
+            Users usersByUpdatedBy, UserProfile userProfile, Articles articles,
+            String orderObject, Date createdDate, Date updatedDate) {
+        this.orderId = orderId;
+        this.usersByCreatedBy = usersByCreatedBy;
+        this.usersByUpdatedBy = usersByUpdatedBy;
+        this.userProfile = userProfile;
+        this.articles = articles;
+        this.orderObject = orderObject;
+        this.createdDate = createdDate;
+        this.updatedDate = updatedDate;
     }
 
     @Id

@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Jun 18, 2015 11:29:00 AM by Hibernate Tools 4.0.0
+// Generated Jun 23, 2015 2:35:20 PM by Hibernate Tools 4.0.0
 
 import java.sql.Clob;
 import java.util.Date;
@@ -22,7 +22,7 @@ import javax.persistence.TemporalType;
 @Table(name = "NOTIFICATION")
 public class Notification implements java.io.Serializable {
 
-	private String id;
+	private Integer id;
 	private Template template;
 	private String appId;
 	private String senderId;
@@ -36,11 +36,11 @@ public class Notification implements java.io.Serializable {
 	public Notification() {
 	}
 
-	public Notification(String id) {
+	public Notification(Integer id) {
 		this.id = id;
 	}
 
-	public Notification(String id, Template template, String appId,
+	public Notification(Integer id, Template template, String appId,
 			String senderId, String senderEmail, Clob content, String type,
 			Date sentOn, Character unread,
 			NotificationRecipients notificationRecipients) {
@@ -57,12 +57,12 @@ public class Notification implements java.io.Serializable {
 	}
 
 	@Id
-	@Column(name = "ID", unique = true, nullable = false)
-	public String getId() {
+	@Column(name = "ID", unique = true, nullable = false, precision = 22, scale = 0)
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Jun 18, 2015 11:29:00 AM by Hibernate Tools 4.0.0
+// Generated Jun 23, 2015 2:35:20 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.AttributeOverride;
@@ -21,8 +21,8 @@ import javax.persistence.Table;
 public class RolePermissions implements java.io.Serializable {
 
 	private RolePermissionsId id;
-	private Roles roles;
 	private Users usersByCreatedBy;
+	private Roles roles;
 	private Users usersByUpdatedBy;
 	private Permissions permissions;
 	private String roleLevelDataAccess;
@@ -39,13 +39,12 @@ public class RolePermissions implements java.io.Serializable {
 		this.permissions = permissions;
 	}
 
-	public RolePermissions(RolePermissionsId id, Roles roles,
-			Users usersByCreatedBy, Users usersByUpdatedBy,
-			Permissions permissions, String roleLevelDataAccess,
-			Date createdDate, Date updatedDate) {
+	public RolePermissions(RolePermissionsId id, Users usersByCreatedBy,
+			Roles roles, Users usersByUpdatedBy, Permissions permissions,
+			String roleLevelDataAccess, Date createdDate, Date updatedDate) {
 		this.id = id;
-		this.roles = roles;
 		this.usersByCreatedBy = usersByCreatedBy;
+		this.roles = roles;
 		this.usersByUpdatedBy = usersByUpdatedBy;
 		this.permissions = permissions;
 		this.roleLevelDataAccess = roleLevelDataAccess;
@@ -66,16 +65,6 @@ public class RolePermissions implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ROLE_ID", nullable = false, insertable = false, updatable = false)
-	public Roles getRoles() {
-		return this.roles;
-	}
-
-	public void setRoles(Roles roles) {
-		this.roles = roles;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CREATED_BY")
 	public Users getUsersByCreatedBy() {
 		return this.usersByCreatedBy;
@@ -83,6 +72,16 @@ public class RolePermissions implements java.io.Serializable {
 
 	public void setUsersByCreatedBy(Users usersByCreatedBy) {
 		this.usersByCreatedBy = usersByCreatedBy;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ROLE_ID", nullable = false, insertable = false, updatable = false)
+	public Roles getRoles() {
+		return this.roles;
+	}
+
+	public void setRoles(Roles roles) {
+		this.roles = roles;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

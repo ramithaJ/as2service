@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Jun 18, 2015 11:29:00 AM by Hibernate Tools 4.0.0
+// Generated Jun 23, 2015 2:35:20 PM by Hibernate Tools 4.0.0
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -12,14 +12,14 @@ import javax.persistence.Embeddable;
 public class UserPreferredJournalsId implements java.io.Serializable {
 
 	private Integer userId;
-	private int journalId;
+	private int dhId;
 
 	public UserPreferredJournalsId() {
 	}
 
-	public UserPreferredJournalsId(Integer userId, int journalId) {
+	public UserPreferredJournalsId(Integer userId, int dhId) {
 		this.userId = userId;
-		this.journalId = journalId;
+		this.dhId = dhId;
 	}
 
 	@Column(name = "USER_ID", nullable = false, precision = 22, scale = 0)
@@ -31,13 +31,13 @@ public class UserPreferredJournalsId implements java.io.Serializable {
 		this.userId = userId;
 	}
 
-	@Column(name = "JOURNAL_ID", nullable = false, precision = 22, scale = 0)
-	public int getJournalId() {
-		return this.journalId;
+	@Column(name = "DH_ID", nullable = false, precision = 22, scale = 0)
+	public int getDhId() {
+		return this.dhId;
 	}
 
-	public void setJournalId(int journalId) {
-		this.journalId = journalId;
+	public void setDhId(int dhId) {
+		this.dhId = dhId;
 	}
 
 	public boolean equals(Object other) {
@@ -52,7 +52,7 @@ public class UserPreferredJournalsId implements java.io.Serializable {
 		return ((this.getUserId() == castOther.getUserId()) || (this
 				.getUserId() != null && castOther.getUserId() != null && this
 				.getUserId().equals(castOther.getUserId())))
-				&& (this.getJournalId() == castOther.getJournalId());
+				&& (this.getDhId() == castOther.getDhId());
 	}
 
 	public int hashCode() {
@@ -60,7 +60,7 @@ public class UserPreferredJournalsId implements java.io.Serializable {
 
 		result = 37 * result
 				+ (getUserId() == null ? 0 : this.getUserId().hashCode());
-		result = 37 * result + this.getJournalId();
+		result = 37 * result + this.getDhId();
 		return result;
 	}
 
