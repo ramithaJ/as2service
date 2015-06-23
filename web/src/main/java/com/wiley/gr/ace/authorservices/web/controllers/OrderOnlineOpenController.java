@@ -68,7 +68,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
         Service service = new Service();
         // TODO Need to create Internal Model and set it to the payload
         service.setPayload(orderOnlineOpenService.submitOnlineOpenOrder(userId,
-                onlineOpenOrder));
+                onlineOpenOrder, "OO"));
 
         return service;
     }
