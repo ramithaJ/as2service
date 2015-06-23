@@ -246,37 +246,42 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 	public OrderResponse submitOnlineOpenOrder(String userId,
 			OnlineOpenOrder onlineOpenOrder, String orderTypeFlag) {
 
-		OrderRequest orderRequest = new OrderRequest();
-		// TODO All the below hardcoded values need to changed once proper data
-		// is provided.
-		orderRequest.setApplicationKey("Key134");
-		orderRequest.setCorrelationID("1234");
-		OrderData orderData = getOrderDataForOnlineOpenOrder(onlineOpenOrder);
-		orderRequest.setOrderData(orderData);
-		orderRequest.setUserID("user001");
-
-		// TODO: Need to be modified
-		OrderResponse orderResponse = (OrderResponse) StubInvokerUtil
+OrderResponse orderResponse = null;
+		
+		if(userId !=null && onlineOpenOrder != null){
+			OrderRequest orderRequest = new OrderRequest();
+			// TODO All the below hardcoded values need to changed once proper data
+			// is provided.
+			orderRequest.setApplicationKey("Key134");
+			orderRequest.setCorrelationID("1234");
+			OrderData orderData = getOrderDataForOnlineOpenOrder(onlineOpenOrder);
+			orderRequest.setOrderData(orderData);
+			orderRequest.setUserID("user001");
+			
+			orderResponse = orderservice.submitOnlineOpenOrder(orderData);
+			
+			/*OrderResponse orderResponse = (OrderResponse) StubInvokerUtil
 				.invokeJsonStub("http://jsonstub.com/createOrder",
-						HttpMethod.POST, OrderResponse.class);
-
-		Orders orders = new Orders();
-		ArticleAuthorAssignment articleAuthorAssignment = new ArticleAuthorAssignment();
-		// TODO: Set proper ArticleAuthId
-		articleAuthorAssignment.setArticleAuthId(8);
-		// orders.setArticleAuthorAssignment(articleAuthorAssignment);
-		orders.setOrderType("");
-		orders.setOoOaFlg(orderTypeFlag);
-		orders.setOrderStatus(AuthorServicesConstants.ORDER_STATUS_SUBMIT);
-		if ("OO".equalsIgnoreCase(orderTypeFlag)) {
-			orders.setDownstreamappOrderId(Integer.parseInt(orderResponse
+						HttpMethod.POST, OrderResponse.class);*/
+			
+			Orders orders = new Orders();
+			//ProductPersonRelations articleAuthorAssignment = new ProductPersonRelations();
+			// TODO: Set proper ArticleAuthId
+			//articleAuthorAssignment.set(8);
+			// orders.setArticleAuthorAssignment(articleAuthorAssignment);
+			orders.setOrderType("");
+			orders.setOoOaFlg(orderTypeFlag);
+			orders.setOrderStatus(AuthorServicesConstants.ORDER_STATUS_SUBMIT);
+			if ("OO".equalsIgnoreCase(orderTypeFlag)) {
+				orders.setDownstreamappOrderId(Integer.parseInt(orderResponse
 					.getOoUniqueId()));
+			}			
+			Users users = new Users();
+			users.setUserId(Integer.parseInt(userId));
+			orders.setUsersByCreatedBy(users);
+			orders.setCreatedDate(new Date());
+			orderOnlineDAO.saveOrUpdateOrder(orders);
 		}
-		Users users = new Users();
-		users.setUserId(Integer.parseInt(userId));
-		orders.setUsersByCreatedBy(users);
-		orders.setCreatedDate(new Date());
-		orderOnlineDAO.saveOrUpdateOrder(orders);
 		return orderResponse;
 	}
 
@@ -338,22 +343,24 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 	public List<DiscountedSociety> retrieveSocietyDiscountListForJournal(
 			String userId, String journalId) {
 		// TODO: Request object needs to be developed once provided with
-		// structure.
+				// structure.
 
-		List<DiscountedSociety> discountedSocietyListForJournal = null;
-
-		DiscountedSocietyResponse discountedSocietiesResponse = orderservice
-				.getDiscountedSocietiesForJournal(journalId);
-
-		// TODO: Need to be removed
-		discountedSocietiesResponse = (DiscountedSocietyResponse) StubInvokerUtil
-				.invokeJsonStub("http://jsonstub.com/discountedSocieties",
-						HttpMethod.GET, DiscountedSocietyResponse.class);
-
-		if (discountedSocietiesResponse != null) {
-			discountedSocietyListForJournal = discountedSocietiesResponse
-					.getSocieties();
-		}
+				List<DiscountedSociety> discountedSocietyListForJournal = null;
+				
+				if(userId != null && journalId != null){
+					DiscountedSocietyResponse discountedSocietiesResponse = orderservice
+							.getDiscountedSocietiesForJournal(journalId);
+					
+					// TODO: Need to be removed
+					discountedSocietiesResponse = (DiscountedSocietyResponse) StubInvokerUtil
+							.invokeJsonStub("http://jsonstub.com/discountedSocieties",
+									HttpMethod.GET, DiscountedSocietyResponse.class);
+					
+					if (discountedSocietiesResponse != null) {
+						discountedSocietyListForJournal = discountedSocietiesResponse
+								.getSocieties();
+					}
+				}
 
 		return discountedSocietyListForJournal;
 	}
@@ -387,5 +394,33 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 		savedOrders.setCreatedDate(new Date());
 		orderOnlineDAO.saveLaterOrder(savedOrders);
 	}
+	
+	
+	/**
+	 * This method checks if additional discount is available for the journal.
+	 * 
+ 	 * @param userId
+	 * @param journalId
+	 * @return boolean
+	 * 
+	 */
+	@Override
+	public boolean isAdditionDiscountAvailableForJournal(String userId,
+			String journalId) {
+		boolean isAdditionDiscountAvailable = false;
+		// Need confirmation on DHID or journal id.
+			
+		
+		// TODO: Need to create a request object when provided.
+		
+		if(userId != null && journalId != null){
+			// TODO: Need to check if journalId or DHId should be passed
+			PdhJournalResponse pdhLookupJournal = orderservice.pdhLookUpJournal(Integer.parseInt(journalId));
+			isAdditionDiscountAvailable = Boolean.getBoolean(pdhLookupJournal.getAdditionalDiscountAllowed());
+		}
+		
+		return isAdditionDiscountAvailable;
+	}
+
 
 }
