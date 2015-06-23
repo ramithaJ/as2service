@@ -2,7 +2,6 @@ package com.wiley.gr.ace.authorservices.persistence.entity;
 
 // Generated Jun 18, 2015 11:29:00 AM by Hibernate Tools 4.0.0
 
-import java.sql.Clob;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -26,102 +25,103 @@ import javax.persistence.TemporalType;
 @Table(name = "SAVED_ORDERS")
 public class SavedOrders implements java.io.Serializable {
 
-	private Integer orderId;
-	private Users usersByCreatedBy;
-	private Users usersByUpdatedBy;
-	private UserProfile userProfile;
-	private Articles articles;
-	private String orderObject;
-	private Date createdDate;
-	private Date updatedDate;
+    private Integer orderId;
+    private Users usersByCreatedBy;
+    private Users usersByUpdatedBy;
+    private UserProfile userProfile;
+    private Articles articles;
+    private String orderObject;
+    private Date createdDate;
+    private Date updatedDate;
 
-	public SavedOrders() {
-	}
+    public SavedOrders() {
+    }
 
-	public SavedOrders(Integer orderId) {
-		this.orderId = orderId;
-	}
+    public SavedOrders(Integer orderId) {
+        this.orderId = orderId;
+    }
 
-	
-	@Id
-	@Column(name = "ORDER_ID", unique = true, nullable = false, precision = 22, scale = 0)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="SAVED_ORDERS_SEQ")
-    @SequenceGenerator(name="SAVED_ORDERS_SEQ",sequenceName="SAVED_ORDERS_SEQ",allocationSize=1)
-	public Integer getOrderId() {
-		return this.orderId;
-	}
+    @Id
+    @Column(name = "ORDER_ID", unique = true, nullable = false, precision = 22, scale = 0)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SAVED_ORDERS_SEQ")
+    @SequenceGenerator(name = "SAVED_ORDERS_SEQ", sequenceName = "SAVED_ORDERS_SEQ", allocationSize = 1)
+    public Integer getOrderId() {
+        return this.orderId;
+    }
 
-	public void setOrderId(Integer orderId) {
-		this.orderId = orderId;
-	}
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
+    }
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CREATED_BY")
-	public Users getUsersByCreatedBy() {
-		return this.usersByCreatedBy;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CREATED_BY")
+    public Users getUsersByCreatedBy() {
+        return this.usersByCreatedBy;
+    }
 
-	public void setUsersByCreatedBy(Users usersByCreatedBy) {
-		this.usersByCreatedBy = usersByCreatedBy;
-	}
+    public void setUsersByCreatedBy(Users usersByCreatedBy) {
+        this.usersByCreatedBy = usersByCreatedBy;
+    }
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "UPDATED_BY")
-	public Users getUsersByUpdatedBy() {
-		return this.usersByUpdatedBy;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "UPDATED_BY")
+    public Users getUsersByUpdatedBy() {
+        return this.usersByUpdatedBy;
+    }
 
-	public void setUsersByUpdatedBy(Users usersByUpdatedBy) {
-		this.usersByUpdatedBy = usersByUpdatedBy;
-	}
+    public void setUsersByUpdatedBy(Users usersByUpdatedBy) {
+        this.usersByUpdatedBy = usersByUpdatedBy;
+    }
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USER_ID")
-	public UserProfile getUserProfile() {
-		return this.userProfile;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "USER_ID")
+    public UserProfile getUserProfile() {
+        return this.userProfile;
+    }
 
-	public void setUserProfile(UserProfile userProfile) {
-		this.userProfile = userProfile;
-	}
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
+    }
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ARTICLE_ID")
-	public Articles getArticles() {
-		return this.articles;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ARTICLE_ID")
+    public Articles getArticles() {
+        return this.articles;
+    }
 
-	public void setArticles(Articles articles) {
-		this.articles = articles;
-	}
-	@Lob
-	@Column(name = "ORDER_OBJECT")
-	public String getOrderObject() {
-		return this.orderObject;
-	}
+    public void setArticles(Articles articles) {
+        this.articles = articles;
+    }
 
-	public void setOrderObject(String orderObject) {
-		this.orderObject = orderObject;
-	}
+    @Lob
+    @Column(name = "ORDER_OBJECT")
+    public String getOrderObject() {
+        return this.orderObject;
+    }
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "CREATED_DATE", length = 7)
-	public Date getCreatedDate() {
-		return this.createdDate;
-	}
+    @Lob
+    public void setOrderObject(String orderObject) {
+        this.orderObject = orderObject;
+    }
 
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
+    @Temporal(TemporalType.DATE)
+    @Column(name = "CREATED_DATE", length = 7)
+    public Date getCreatedDate() {
+        return this.createdDate;
+    }
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "UPDATED_DATE", length = 7)
-	public Date getUpdatedDate() {
-		return this.updatedDate;
-	}
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
 
-	public void setUpdatedDate(Date updatedDate) {
-		this.updatedDate = updatedDate;
-	}
+    @Temporal(TemporalType.DATE)
+    @Column(name = "UPDATED_DATE", length = 7)
+    public Date getUpdatedDate() {
+        return this.updatedDate;
+    }
+
+    public void setUpdatedDate(Date updatedDate) {
+        this.updatedDate = updatedDate;
+    }
 
 }
