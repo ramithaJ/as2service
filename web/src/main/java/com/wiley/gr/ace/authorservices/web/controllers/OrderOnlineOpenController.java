@@ -33,7 +33,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
     public final Service getQuote(@PathVariable("userId") final String userId,
             @PathVariable("articleId") final String articleId) {
         Service service = new Service();
-        service.setPayload(orderOnlineOpenService.getQuote(userId, articleId));
+        service.setPayload(orderOnlineOpenService.getQuote(userId, articleId, "OO"));
         return service;
     }
 

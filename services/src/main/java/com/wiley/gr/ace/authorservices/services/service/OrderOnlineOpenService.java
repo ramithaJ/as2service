@@ -27,7 +27,7 @@ public interface OrderOnlineOpenService {
 	 * @param articleId
 	 * @return
 	 */
-	QuoteDetails getQuote(String userId, String articleId);
+	QuoteDetails getQuote(String userId, String articleId, String pdmSalesFlag);
 	/**
      * @param userId
      * @return
