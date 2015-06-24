@@ -32,7 +32,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Value("${orderservice.url}")
     private String orderserviceurl;
-    
+    @Value("${orderservice.url.view}")
+    private String orderserviceurlview;
     @Value("${quote.url}")
     private String quoteurl;
 
@@ -49,7 +50,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public final OrderData getOrderDetails(String userId, String orderId) {
 
-        return (OrderData) StubInvokerUtil.invokeJsonStub(orderserviceurl, HttpMethod.POST, OrderData.class);
+        return (OrderData) StubInvokerUtil.invokeJsonStub(orderserviceurlview, HttpMethod.POST, OrderData.class);
 
     }
     

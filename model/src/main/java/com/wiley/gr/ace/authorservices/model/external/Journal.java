@@ -15,6 +15,7 @@ package com.wiley.gr.ace.authorservices.model.external;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * The Class Journal.
@@ -24,6 +25,10 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class Journal {
 
+    /** The dh id. */
+    @JsonProperty("DH_ID")
+    private String dhId;
+    
     /** The journal title. */
     private String journalTitle;
 
@@ -31,6 +36,8 @@ public class Journal {
     private String journalDescription;
 
     /**
+     * Gets the journal title.
+     *
      * @return the journalTitle
      */
     public final String getJournalTitle() {
@@ -38,14 +45,17 @@ public class Journal {
     }
 
     /**
-     * @param journalTitle
-     *            the journalTitle to set
+     * Sets the journal title.
+     *
+     * @param journalTitle            the journalTitle to set
      */
     public final void setJournalTitle(final String journalTitle) {
         this.journalTitle = journalTitle;
     }
 
     /**
+     * Gets the journal description.
+     *
      * @return the journalDescription
      */
     public final String getJournalDescription() {
@@ -53,14 +63,17 @@ public class Journal {
     }
 
     /**
-     * @param journalDescription
-     *            the journalDescription to set
+     * Sets the journal description.
+     *
+     * @param journalDescription            the journalDescription to set
      */
     public final void setJournalDescription(final String journalDescription) {
         this.journalDescription = journalDescription;
     }
 
     /**
+     * Gets the article titile.
+     *
      * @return the articleTitile
      */
     public final String getArticleTitile() {
@@ -68,14 +81,17 @@ public class Journal {
     }
 
     /**
-     * @param articleTitile
-     *            the articleTitile to set
+     * Sets the article titile.
+     *
+     * @param articleTitile            the articleTitile to set
      */
     public final void setArticleTitile(final String articleTitile) {
         this.articleTitile = articleTitile;
     }
 
     /**
+     * Gets the base price.
+     *
      * @return the basePrice
      */
     public final String getBasePrice() {
@@ -83,14 +99,17 @@ public class Journal {
     }
 
     /**
-     * @param basePrice
-     *            the basePrice to set
+     * Sets the base price.
+     *
+     * @param basePrice            the basePrice to set
      */
     public final void setBasePrice(final String basePrice) {
         this.basePrice = basePrice;
     }
 
     /**
+     * Gets the author.
+     *
      * @return the author
      */
     public final String getAuthor() {
@@ -98,8 +117,9 @@ public class Journal {
     }
 
     /**
-     * @param author
-     *            the author to set
+     * Sets the author.
+     *
+     * @param author            the author to set
      */
     public final void setAuthor(final String author) {
         this.author = author;
@@ -113,5 +133,23 @@ public class Journal {
 
     /** The author. */
     private String author;
+
+    /**
+     * Gets the dh id.
+     *
+     * @return the dh id
+     */
+    public final String getDhId() {
+        return dhId;
+    }
+
+    /**
+     * Sets the dh id.
+     *
+     * @param dhId the new dh id
+     */
+    public final void setDhId(String dhId) {
+        this.dhId = dhId;
+    }
 
 }

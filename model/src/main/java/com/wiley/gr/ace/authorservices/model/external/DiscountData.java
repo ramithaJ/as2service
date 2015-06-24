@@ -20,113 +20,131 @@ package com.wiley.gr.ace.authorservices.model.external;
  */
 public class DiscountData {
 
-	private Double discountValue;
-	private String discountTypeCode;
-	private String discountTypeName;
-	private SocietyData societyData;
-	private String promoCode;
-	private AffiliationData affiliationData;
+    /** The discount value. */
+    private Double discountValue;
 
-	/**
-	 * 
-	 * @return The discountValue
-	 */
-	public Double getDiscountValue() {
-		return discountValue;
-	}
+    /** The discount type code. */
+    private String discountTypeCode;
 
-	/**
-	 * 
-	 * @param discountValue
-	 *            The discountValue
-	 */
-	public void setDiscountValue(Double discountValue) {
-		this.discountValue = discountValue;
-	}
+    /** The discount type name. */
+    private String discountTypeName;
 
-	/**
-	 * 
-	 * @return The discountTypeCode
-	 */
-	public String getDiscountTypeCode() {
-		return discountTypeCode;
-	}
+    /** The society data. */
+    private SocietyData societyData;
 
-	/**
-	 * 
-	 * @param discountTypeCode
-	 *            The discountTypeCode
-	 */
-	public void setDiscountTypeCode(String discountTypeCode) {
-		this.discountTypeCode = discountTypeCode;
-	}
+    /** The promo code. */
+    private String promoCode;
 
-	/**
-	 * 
-	 * @return The discountTypeName
-	 */
-	public String getDiscountTypeName() {
-		return discountTypeName;
-	}
+    /** The affiliation data. */
+    private AffiliationData affiliationData;
 
-	/**
-	 * 
-	 * @param discountTypeName
-	 *            The discountTypeName
-	 */
-	public void setDiscountTypeName(String discountTypeName) {
-		this.discountTypeName = discountTypeName;
-	}
+    /**
+     * Gets the discount value.
+     *
+     * @return The discountValue
+     */
+    public Double getDiscountValue() {
+        return discountValue;
+    }
 
-	/**
-	 * 
-	 * @return The societyData
-	 */
-	public SocietyData getSocietyData() {
-		return societyData;
-	}
+    /**
+     * Sets the discount value.
+     *
+     * @param discountValue
+     *            The discountValue
+     */
+    public void setDiscountValue(Double discountValue) {
+        this.discountValue = discountValue;
+    }
 
-	/**
-	 * 
-	 * @param societyData
-	 *            The societyData
-	 */
-	public void setSocietyData(SocietyData societyData) {
-		this.societyData = societyData;
-	}
+    /**
+     * Gets the discount type code.
+     *
+     * @return The discountTypeCode
+     */
+    public String getDiscountTypeCode() {
+        return discountTypeCode;
+    }
 
-	/**
-	 * 
-	 * @return The promoCode
-	 */
-	public String getPromoCode() {
-		return promoCode;
-	}
+    /**
+     * Sets the discount type code.
+     *
+     * @param discountTypeCode
+     */
+    public void setDiscountTypeCode(String discountTypeCode) {
+        this.discountTypeCode = discountTypeCode;
+    }
 
-	/**
-	 * 
-	 * @param promoCode
-	 *            The promoCode
-	 */
-	public void setPromoCode(String promoCode) {
-		this.promoCode = promoCode;
-	}
+    /**
+     * Gets the discount type name.
+     *
+     * @return The discountTypeName
+     */
+    public String getDiscountTypeName() {
+        return discountTypeName;
+    }
 
-	/**
-	 * 
-	 * @return The affiliationData
-	 */
-	public AffiliationData getAffiliationData() {
-		return affiliationData;
-	}
+    /**
+     * Sets the discount type name.
+     *
+     * @param discountTypeName
+     */
+    public void setDiscountTypeName(String discountTypeName) {
+        this.discountTypeName = discountTypeName;
+    }
 
-	/**
-	 * 
-	 * @param affiliationData
-	 *            The affiliationData
-	 */
-	public void setAffiliationData(AffiliationData affiliationData) {
-		this.affiliationData = affiliationData;
-	}
+    /**
+     * Gets the society data.
+     *
+     * @return The societyData
+     */
+    public SocietyData getSocietyData() {
+        return societyData;
+    }
+
+    /**
+     * Sets the society data.
+     *
+     * @param societyData
+     */
+    public void setSocietyData(SocietyData societyData) {
+        this.societyData = societyData;
+    }
+
+    /**
+     * Gets the promo code.
+     *
+     * @return The promoCode
+     */
+    public String getPromoCode() {
+        return promoCode;
+    }
+
+    /**
+     * Sets the promo code.
+     *
+     * @param promoCode
+     */
+    public void setPromoCode(String promoCode) {
+        this.promoCode = promoCode;
+    }
+
+    /**
+     * Gets the affiliation data.
+     *
+     * @return The affiliationData
+     */
+    public AffiliationData getAffiliationData() {
+        return affiliationData;
+    }
+
+    /**
+     * Sets the affiliation data.
+     *
+     * @param affiliationData
+     */
+    public void setAffiliationData(AffiliationData affiliationData) {
+        this.affiliationData = affiliationData;
+    }
 
 }

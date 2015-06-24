@@ -25,12 +25,19 @@ import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
+import com.wiley.gr.ace.authorservices.model.Address;
 import com.wiley.gr.ace.authorservices.model.AddressDetails;
+import com.wiley.gr.ace.authorservices.model.Amount;
 import com.wiley.gr.ace.authorservices.model.ArticleDetails;
+import com.wiley.gr.ace.authorservices.model.Country;
+import com.wiley.gr.ace.authorservices.model.Discounts;
 import com.wiley.gr.ace.authorservices.model.JournalDetails;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.OrderDetails;
+import com.wiley.gr.ace.authorservices.model.Prices;
+import com.wiley.gr.ace.authorservices.model.QuoteDetail;
 import com.wiley.gr.ace.authorservices.model.QuoteDetails;
+import com.wiley.gr.ace.authorservices.model.TaxDetails;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSociety;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSocietyResponse;
@@ -77,7 +84,64 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 			final String orderId) {
 		OnlineOpenOrder onlineOpenOrder = new OnlineOpenOrder();
 		OrderData orderData = orderservice.getOrderDetails(userId, orderId);
-		 
+		 ArticleDetails articleDetails= new ArticleDetails();
+		 List<ArticleDetails> articleDetailsList=new ArrayList<ArticleDetails>();
+		 articleDetails.setArticleAID(orderData.getArticle().getAidECORE());
+		 articleDetails.setArticleTitle(orderData.getArticle().getArticleTitle());
+		 articleDetailsList.add(articleDetails);
+		 onlineOpenOrder.setArticleDetails(articleDetailsList);
+		 JournalDetails journalDetails=new JournalDetails();
+		 List<JournalDetails> journalDetailsList=new ArrayList<JournalDetails>();
+		 journalDetails.setJournalId(orderData.getArticle().getJournal().getDhId());
+		 journalDetails.setJournalTitle(orderData.getArticle().getJournal().getJournalTitle());
+		 journalDetailsList.add(journalDetails);
+		 onlineOpenOrder.setJournalDetails(journalDetailsList);
+		/* onlineOpenOrder.setAuthorName(orderData.getWoaAccountHolder().getName());*/
+		 QuoteDetail quoteDetail=new QuoteDetail();
+		 Prices prices=new Prices();
+		 List<Prices> pricesList=new ArrayList<Prices>();
+		 prices.setCurrency(orderData.getPricing().getCurrency());
+		 prices.setPrice(orderData.getPricing().getProductBasePrice().toString());
+		 pricesList.add(prices);
+		 quoteDetail.setPrices(pricesList);
+		 onlineOpenOrder.setQuoteDetail(quoteDetail);
+		/* FunderDetails funderDetails=new FunderDetails();
+		 funderDetails.setResearchFunderId(orderData.getWoaAccountHolder().getName());
+		 funderDetails.setWoaAccountId(orderData.getWoaAccountHolder().getCode());
+		 List<FunderDetails> funderDetailsList=new ArrayList<FunderDetails>();
+		 funderDetailsList.add(funderDetails);
+		 onlineOpenOrder.setFunderDetails(funderDetailsList);*/
+		 Discounts discounts=new Discounts();
+		 List<Discounts> discountsList=new ArrayList<Discounts>();
+		 discounts.setSocietyId(orderData.getPricing().getDiscounts().getDiscount().getSocietyData().getCode());
+		 discounts.setPromoCode(orderData.getPricing().getDiscounts().getDiscount().getPromoCode());
+		 discountsList.add(discounts);
+		 onlineOpenOrder.setDiscountDetails(discountsList);
+		 onlineOpenOrder.setPaymentMethod(orderData.getPayment().getPaymentMethod());
+		 TaxDetails taxDetails=new TaxDetails();
+		 taxDetails.setCountryCode(orderData.getTaxDetails().getCountryCode());
+		 taxDetails.setTaxExemptionNumber(orderData.getTaxDetails().getVatExemptionNumber());
+		 taxDetails.setTaxCodeExpiryDate(orderData.getTaxDetails().getTaxExpiration());
+		 onlineOpenOrder.setTaxDetails(taxDetails);
+		 Amount amount=new Amount();
+		 amount.setAmount(orderData.getPricing().getAmountToBePaid().toString());
+		 amount.setCurrency(orderData.getPricing().getCurrency());
+		 onlineOpenOrder.setAmountPayable(amount);
+		 onlineOpenOrder.setPaymentMethod(orderData.getPayment().getPaymentMethod());
+		Address address= new Address();
+		address.setFirstName(orderData.getContactAddress().getName());
+		address.setLastName(orderData.getContactAddress().getName());
+		address.setDepartment(orderData.getContactAddress().getDepartment());
+		address.setAddressLine1(orderData.getContactAddress().getAdditionalStreet());
+		address.setAddressLine2(orderData.getContactAddress().getAdditionalStreet());
+		address.setCity(orderData.getContactAddress().getCity());
+		address.setState(orderData.getContactAddress().getState());
+		Country country=new Country();
+		country.setCountryName(orderData.getContactAddress().getCountry());
+		address.setCountry(country);
+		address.setPostCode(orderData.getContactAddress().getZip());
+		address.setPhoneNumber(orderData.getContactAddress().getPhoneNumber());
+		
 		return onlineOpenOrder;
 	}
 
