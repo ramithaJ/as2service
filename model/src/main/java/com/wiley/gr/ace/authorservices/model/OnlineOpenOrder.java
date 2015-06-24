@@ -27,11 +27,11 @@ public class OnlineOpenOrder {
     /** The address details. */
     private List<AddressDetails> addressDetails;
 
-    /** The journal id. */
-    private String journalId;
+    /** The journal details. */
+    private List<JournalDetails> journalDetails;
 
-    /** The discounts. */
-    private Discounts discounts;
+    /** The discount details. */
+    private List<Discounts> discountDetails;
 
     /** The tax percentage. */
     private String taxPercentage;
@@ -44,11 +44,23 @@ public class OnlineOpenOrder {
 
     /** The payment method. */
     private String paymentMethod;
-
-    /** The article id. */
+    
     private String articleId;
 
-   
+    /** The article id. */
+    private List<ArticleDetails> articleDetails;
+
+    /** The author name. */
+    private String authorName;
+    
+    /** The quote detail. */
+    private QuoteDetail quoteDetail;
+    
+    /** The discounts applicable. */
+    private String discountsApplicable;
+    
+    /** The billing same as correspondence address. */
+    private boolean billingSameAsCorrespondenceAddress;
 
     /**
      * Gets the final amount.
@@ -62,7 +74,8 @@ public class OnlineOpenOrder {
     /**
      * Sets the final amount.
      *
-     * @param finalAmount the new final amount
+     * @param finalAmount
+     *            the new final amount
      */
     public final void setFinalAmount(final Amount finalAmount) {
         this.finalAmount = finalAmount;
@@ -80,7 +93,8 @@ public class OnlineOpenOrder {
     /**
      * Sets the amount payable.
      *
-     * @param amountPayable the new amount payable
+     * @param amountPayable
+     *            the new amount payable
      */
     public final void setAmountPayable(final Amount amountPayable) {
         this.amountPayable = amountPayable;
@@ -98,46 +112,12 @@ public class OnlineOpenOrder {
     /**
      * Sets the address details.
      *
-     * @param addressDetails the new address details
+     * @param addressDetails
+     *            the new address details
      */
-    public final void setAddressDetails(final List<AddressDetails> addressDetails) {
+    public final void setAddressDetails(
+            final List<AddressDetails> addressDetails) {
         this.addressDetails = addressDetails;
-    }
-
-    /**
-     * Gets the journal id.
-     *
-     * @return the journal id
-     */
-    public final String getJournalId() {
-        return journalId;
-    }
-
-    /**
-     * Sets the journal id.
-     *
-     * @param journalId the new journal id
-     */
-    public final void setJournalId(final String journalId) {
-        this.journalId = journalId;
-    }
-
-    /**
-     * Gets the discounts.
-     *
-     * @return the discounts
-     */
-    public final Discounts getDiscounts() {
-        return discounts;
-    }
-
-    /**
-     * Sets the discounts.
-     *
-     * @param discounts the new discounts
-     */
-    public final void setDiscounts(final Discounts discounts) {
-        this.discounts = discounts;
     }
 
     /**
@@ -152,7 +132,8 @@ public class OnlineOpenOrder {
     /**
      * Sets the tax percentage.
      *
-     * @param taxPercentage the new tax percentage
+     * @param taxPercentage
+     *            the new tax percentage
      */
     public final void setTaxPercentage(final String taxPercentage) {
         this.taxPercentage = taxPercentage;
@@ -170,7 +151,8 @@ public class OnlineOpenOrder {
     /**
      * Sets the funder details.
      *
-     * @param funderDetails the new funder details
+     * @param funderDetails
+     *            the new funder details
      */
     public final void setFunderDetails(final List<FunderDetails> funderDetails) {
         this.funderDetails = funderDetails;
@@ -188,7 +170,8 @@ public class OnlineOpenOrder {
     /**
      * Sets the tax details.
      *
-     * @param taxDetails the new tax details
+     * @param taxDetails
+     *            the new tax details
      */
     public final void setTaxDetails(final TaxDetails taxDetails) {
         this.taxDetails = taxDetails;
@@ -206,28 +189,148 @@ public class OnlineOpenOrder {
     /**
      * Sets the payment method.
      *
-     * @param paymentMethod the new payment method
+     * @param paymentMethod
+     *            the new payment method
      */
     public final void setPaymentMethod(final String paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
 
     /**
-     * Gets the article id.
+     * Gets the article details.
      *
-     * @return the article id
+     * @return the article details
      */
+    public final List<ArticleDetails> getArticleDetails() {
+        return articleDetails;
+    }
+
+    /**
+     * Sets the article details.
+     *
+     * @param articleDetails
+     *            the new article details
+     */
+    public final void setArticleDetails(final List<ArticleDetails> articleDetails) {
+        this.articleDetails = articleDetails;
+    }
+
+    /**
+     * Gets the journal details.
+     *
+     * @return the journal details
+     */
+    public final List<JournalDetails> getJournalDetails() {
+        return journalDetails;
+    }
+
+    /**
+     * Sets the journal details.
+     *
+     * @param journalDetails
+     *            the new journal details
+     */
+    public final void setJournalDetails(final List<JournalDetails> journalDetails) {
+        this.journalDetails = journalDetails;
+    }
+
+    /**
+     * Gets the discount details.
+     *
+     * @return the discount details
+     */
+    public final List<Discounts> getDiscountDetails() {
+        return discountDetails;
+    }
+
+    /**
+     * Gets the author name.
+     *
+     * @return the author name
+     */
+    public final String getAuthorName() {
+        return authorName;
+    }
+
+    /**
+     * Gets the quote detail.
+     *
+     * @return the quote detail
+     */
+    public final QuoteDetail getQuoteDetail() {
+        return quoteDetail;
+    }
+
+    /**
+     * Gets the discounts applicable.
+     *
+     * @return the discounts applicable
+     */
+    public final String getDiscountsApplicable() {
+        return discountsApplicable;
+    }
+
+    /**
+     * Checks if is billing same as correspondence address.
+     *
+     * @return true, if is billing same as correspondence address
+     */
+    public final boolean isBillingSameAsCorrespondenceAddress() {
+        return billingSameAsCorrespondenceAddress;
+    }
+
+    /**
+     * Sets the discount details.
+     *
+     * @param discountDetails the new discount details
+     */
+    public final void setDiscountDetails(final List<Discounts> discountDetails) {
+        this.discountDetails = discountDetails;
+    }
+
     public final String getArticleId() {
         return articleId;
     }
 
-    /**
-     * Sets the article id.
-     *
-     * @param articleId the new article id
-     */
-    public final void setArticleId(final String articleId) {
+    public final void setArticleId(String articleId) {
         this.articleId = articleId;
+    }
+
+    /**
+     * Sets the author name.
+     *
+     * @param authorName the new author name
+     */
+    public final void setAuthorName(final String authorName) {
+        this.authorName = authorName;
+    }
+
+    /**
+     * Sets the quote detail.
+     *
+     * @param quoteDetail the new quote detail
+     */
+    public final void setQuoteDetail(final QuoteDetail quoteDetail) {
+        this.quoteDetail = quoteDetail;
+    }
+
+    /**
+     * Sets the discounts applicable.
+     *
+     * @param discountsApplicable the new discounts applicable
+     */
+    public final void setDiscountsApplicable(final String discountsApplicable) {
+        this.discountsApplicable = discountsApplicable;
+    }
+
+    /**
+     * Sets the billing same as correspondence address.
+     *
+     * @param billingSameAsCorrespondenceAddress the new billing same as correspondence address
+     */
+    public final void setBillingSameAsCorrespondenceAddress(
+            final boolean billingSameAsCorrespondenceAddress) {
+        this.billingSameAsCorrespondenceAddress = billingSameAsCorrespondenceAddress;
     }
 
 }

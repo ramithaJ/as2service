@@ -26,15 +26,11 @@ import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.AddressDetails;
-import com.wiley.gr.ace.authorservices.model.Amount;
 import com.wiley.gr.ace.authorservices.model.ArticleDetails;
-import com.wiley.gr.ace.authorservices.model.Discounts;
-import com.wiley.gr.ace.authorservices.model.FunderDetails;
 import com.wiley.gr.ace.authorservices.model.JournalDetails;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.OrderDetails;
 import com.wiley.gr.ace.authorservices.model.QuoteDetails;
-import com.wiley.gr.ace.authorservices.model.TaxDetails;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSociety;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSocietyResponse;
@@ -81,54 +77,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 			final String orderId) {
 		OnlineOpenOrder onlineOpenOrder = new OnlineOpenOrder();
 		OrderData orderData = orderservice.getOrderDetails(userId, orderId);
-		onlineOpenOrder.setArticleId(orderData.getArticle().getDHID());
-		// Should check the below one
-		// onlineOpenOrder.setJournalId(orderData.getArticle().getJournal().get);
-		onlineOpenOrder.setPaymentMethod(orderData.getPayment()
-				.getPaymentMethod());
-		// need to calculate this
-		// onlineOpenOrder.setTaxPercentage(orderData.);
-		Discounts discounts = new Discounts();
-		discounts.setInstitutionId(orderData.getPricing().getDiscounts()
-				.getDiscount().getAffiliationData().getName());
-		// Need to check this
-		// discounts.setOtherDiscounts(orderData.getDiscountData().getOtherDiscounts());
-		discounts.setPromoCode(orderData.getPricing().getDiscounts()
-				.getDiscount().getPromoCode());
-		discounts.setSocietyId(orderData.getPricing().getDiscounts()
-				.getDiscount().getSocietyData().getName());
-		onlineOpenOrder.setDiscounts(discounts);
-		Amount amount = new Amount();
-		amount.setAmount(orderData.getPricing().getAmountToBePaid().toString());
-		amount.setAmount(orderData.getPricing().getCurrency());
-		onlineOpenOrder.setAmountPayable(amount);
-		FunderDetails funderDetails = new FunderDetails();
-		List<FunderDetails> listoffunderdetails = new ArrayList<FunderDetails>();
-		// Currently not getting this data from stub
-		// funderDetails.setFunderId(orderData.getFundingDetails().getFunderId());
-		// funderDetails.setResearchFunderId(orderData.getFundingDetails()
-		// .getResearchFunderId());
-		funderDetails
-				.setWoaAccountId(orderData.getWoaAccountHolder().getName());
-		listoffunderdetails.add(funderDetails);
-		onlineOpenOrder.setFunderDetails(listoffunderdetails);
-		TaxDetails taxDetails = new TaxDetails();
-		taxDetails.setCountryCode(orderData.getTaxDetails().getCountryCode());
-		taxDetails.setTaxCodeExpiryDate(orderData.getTaxDetails()
-				.getTaxExpiration());
-		taxDetails.setTaxExemptionNumber(orderData.getTaxDetails()
-				.getTaxNumber());
-		taxDetails.setVatExemptionNumber(orderData.getTaxDetails()
-				.getVatExemptionNumber());
-		taxDetails.setVatIdNumber(orderData.getTaxDetails().getVatIdNumber());
-		onlineOpenOrder.setTaxDetails(taxDetails);
-		// TODO: Update Address details
-		// Address address = new Address();
-		// address.setAddressLine1(orderData.getAddresses().get(0)
-		// .getAddressLine1());
-		// AddressDetails addressDetails = new AddressDetails();
-		// addressDetails.setAddress(null);
-
+		 
 		return onlineOpenOrder;
 	}
 
