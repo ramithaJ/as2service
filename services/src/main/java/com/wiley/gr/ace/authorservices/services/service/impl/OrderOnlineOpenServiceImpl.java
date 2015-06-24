@@ -32,6 +32,7 @@ import com.wiley.gr.ace.authorservices.model.ArticleDetails;
 import com.wiley.gr.ace.authorservices.model.Country;
 import com.wiley.gr.ace.authorservices.model.Discounts;
 import com.wiley.gr.ace.authorservices.model.FunderDetails;
+import com.wiley.gr.ace.authorservices.model.Institution;
 import com.wiley.gr.ace.authorservices.model.JournalDetails;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.OrderDetails;
@@ -45,6 +46,7 @@ import com.wiley.gr.ace.authorservices.model.WOAAccounts;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSociety;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSocietyResponse;
+import com.wiley.gr.ace.authorservices.model.external.Institute;
 import com.wiley.gr.ace.authorservices.model.external.InstitutionDiscounts;
 import com.wiley.gr.ace.authorservices.model.external.OrderData;
 import com.wiley.gr.ace.authorservices.model.external.OrderDataList;
@@ -575,9 +577,20 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * @return
      */
     @Override
-    public InstitutionDiscounts getInstitutionDiscounts() {
+    public List<Institution> getInstitutionDiscounts() {
 
-        return orderservice.getInstitutionDiscounts();
+        InstitutionDiscounts institutionDiscounts = orderservice
+                .getInstitutionDiscounts();
+        List<Institute> istituteList = institutionDiscounts.getInstitute();
+        List<Institution> institutionList = new ArrayList<Institution>();
+        Institution institution = null;
+        for (Institute institute : istituteList) {
+            institution = new Institution();
+            institution.setInstitutionId(institute.getInstituteCode());
+            institution.setInstitutionName(institute.getInstituteName());
+            institutionList.add(institution);
+        }
+        return institutionList;
     }
 
     /**
