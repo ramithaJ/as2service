@@ -21,13 +21,16 @@ import com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService;
 @RequestMapping("/onlineopen")
 public class OrderOnlineOpenController extends ASExceptionController {
 
+    /**
+     * This field holds the value of orderOnlineOpenService
+     */
     @Autowired(required = true)
     private OrderOnlineOpenService orderOnlineOpenService;
 
     /**
      * @param userId
      * @param articleId
-     * @return
+     * @return service
      */
     @RequestMapping(value = "/quote/{userId}/{articleId}", method = RequestMethod.GET)
     public final Service getQuote(@PathVariable("userId") final String userId,
@@ -41,7 +44,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
     /**
      * @param userId
      * @param onlineOpenOrder
-     * @return
+     * @return service
      */
     @RequestMapping(value = "/saveLater/{userId}/", method = RequestMethod.POST)
     public final Service saveOnlineOpenOrder(
@@ -59,7 +62,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
     /**
      * @param userId
      * @param onlineOpenOrder
-     * @return
+     * @return service
      */
     @RequestMapping(value = "/submit/{userId}/", method = RequestMethod.POST)
     public final Service submitOnlineOpenOrder(
@@ -77,7 +80,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
     /**
      * @param userId
      * @param orderId
-     * @return
+     * @return service
      */
     @RequestMapping(value = "/view/{userId}/{orderId}/", method = RequestMethod.GET)
     public final Service getOnlineOpenOrderDetails(
@@ -92,7 +95,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
     /**
      * @param userId
      * @param orderId
-     * @return
+     * @return service
      */
     @RequestMapping(value = "/cancel/", method = RequestMethod.POST)
     public final Service cancelOnlineOpenOrder(
@@ -104,60 +107,55 @@ public class OrderOnlineOpenController extends ASExceptionController {
 
     /**
      * @param userId
-     * @return
+     * @return service
      */
     @RequestMapping(value = "/fundersList/", method = RequestMethod.GET)
-    public final Service getFundersList(
-            @PathVariable("userId") final String userId) {
+    public final Service getFundersList() {
 
         Service service = new Service();
-        service.setPayload(orderOnlineOpenService.getFundersList(userId));
+        service.setPayload(orderOnlineOpenService.getFundersList());
         return service;
     }
 
     /**
      * @param userId
-     * @return
+     * @return service
      */
     @RequestMapping(value = "/woaAccounts/", method = RequestMethod.GET)
-    public final Service getWOAAccounts(
-            @PathVariable("userId") final String userId) {
+    public final Service getWOAAccounts() {
 
         Service service = new Service();
-        service.setPayload(orderOnlineOpenService.getWOAAccounts(userId));
+        service.setPayload(orderOnlineOpenService.getWOAAccounts());
         return service;
     }
 
     /**
      * @param userId
-     * @return
+     * @return service
      */
     @RequestMapping(value = "/grantRecipients/", method = RequestMethod.GET)
-    public final Service getGrantRecipients(
-            @PathVariable("userId") final String userId) {
+    public final Service getGrantRecipients() {
 
         Service service = new Service();
-        // service.setPayload(orderOnlineOpenService.getGrantRecipients(userId));
+        // service.setPayload(orderOnlineOpenService.getGrantRecipients());
         return service;
     }
 
     /**
      * @param userId
-     * @return
+     * @return service
      */
     @RequestMapping(value = "/discountedSocieties/", method = RequestMethod.GET)
-    public final Service getDiscountedSocieties(
-            @PathVariable("userId") final String userId) {
+    public final Service getDiscountedSocieties() {
 
         Service service = new Service();
-        service.setPayload(orderOnlineOpenService
-                .getDiscountedSocieties(userId));
+        service.setPayload(orderOnlineOpenService.getDiscountedSocieties());
         return service;
     }
 
     /**
      * @param userId
-     * @return
+     * @return service
      */
     @RequestMapping(value = "/allOrders/{userId}/", method = RequestMethod.GET)
     public final Service getAllOrders(
@@ -176,15 +174,13 @@ public class OrderOnlineOpenController extends ASExceptionController {
      *
      * @param userId
      *            the user id
-     * @return the institution discounts
+     * @return service
      */
     @RequestMapping(value = "/institutionDiscounts/", method = RequestMethod.GET)
-    public final Service getInstitutionDiscounts(
-            @PathVariable("userId") final String userId) {
+    public final Service getInstitutionDiscounts() {
 
         Service service = new Service();
-        service.setPayload(orderOnlineOpenService
-                .getInstitutionDiscounts(userId));
+        service.setPayload(orderOnlineOpenService.getInstitutionDiscounts());
         return service;
     }
 

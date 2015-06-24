@@ -75,29 +75,29 @@ public interface OrderOnlineOpenService {
      * @param userId
      * @return
      */
-    PdhArticleResponse getWOAAccounts(String userId);
+    PdhArticleResponse getWOAAccounts();
 
     /**
      * @param userId
      */
-    void getGrantRecipients(String userId);
-
-    /**
-     * @param userId
-     * @return
-     */
-    SocietyMemberDiscount getDiscountedSocieties(String userId);
+    void getGrantRecipients();
 
     /**
      * @param userId
      * @return
      */
-    InstitutionDiscounts getInstitutionDiscounts(String userId);
+    SocietyMemberDiscount getDiscountedSocieties();
 
     /**
      * @param userId
      * @return
      */
-    PdhArticleResponse getFundersList(String userId);
+    InstitutionDiscounts getInstitutionDiscounts();
+
+    /**
+     * @param userId
+     * @return
+     */
+    PdhArticleResponse getFundersList();
 
 }
