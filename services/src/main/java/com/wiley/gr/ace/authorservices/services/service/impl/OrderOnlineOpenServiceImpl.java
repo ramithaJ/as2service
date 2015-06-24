@@ -122,8 +122,10 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         quoteDetail.setPrices(pricesList);
         onlineOpenOrder.setQuoteDetail(quoteDetail);
         FunderDetails funderDetails = new FunderDetails();
-        funderDetails.setResearchFunderId(orderData.getWoaAccountHolder()
-                .getName());
+        /*
+         * funderDetails.setResearchFunderId(orderData.getWoaAccountHolder()
+         * .getName());
+         */
         funderDetails
                 .setWoaAccountId(orderData.getWoaAccountHolder().getCode());
         List<FunderDetails> funderDetailsList = new ArrayList<FunderDetails>();
