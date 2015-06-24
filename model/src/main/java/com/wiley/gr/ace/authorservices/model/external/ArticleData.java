@@ -56,7 +56,50 @@ public class ArticleData {
 
     /** The production status. */
     private String productionStatus;
-    
+
+    /** The publication. */
+    private Publication publication;
+
+    /**
+     * Gets the publication.
+     *
+     * @return the publication
+     */
+    public final Publication getPublication() {
+        return publication;
+    }
+
+    /**
+     * Sets the publication.
+     *
+     * @param publication
+     *            the new publication
+     */
+    public final void setPublication(final Publication publication) {
+        this.publication = publication;
+    }
+
+    /** The order. */
+    private OrderData order;
+
+    /**
+     * Gets the order.
+     *
+     * @return the order
+     */
+    public final OrderData getOrder() {
+        return order;
+    }
+
+    /**
+     * Sets the order.
+     *
+     * @param order
+     *            the new order
+     */
+    public final void setOrder(final OrderData order) {
+        this.order = order;
+    }
 
     /**
      * Gets the article user role.

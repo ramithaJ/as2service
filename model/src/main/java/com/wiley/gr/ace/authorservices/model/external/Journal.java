@@ -41,6 +41,28 @@ public class Journal {
     /** The electronic issn. */
     private String electronicIssn;
 
+    /** The journal doi. */
+    private String journalDoi;
+
+    /**
+     * Gets the journal doi.
+     *
+     * @return the journal doi
+     */
+    public final String getJournalDoi() {
+        return journalDoi;
+    }
+
+    /**
+     * Sets the journal doi.
+     *
+     * @param journalDoi
+     *            the new journal doi
+     */
+    public final void setJournalDoi(final String journalDoi) {
+        this.journalDoi = journalDoi;
+    }
+
     /**
      * Gets the journal title.
      *
@@ -141,7 +163,7 @@ public class Journal {
      * @param dhId
      *            the new dh id
      */
-    public final void setDhId(String dhId) {
+    public final void setDhId(final String dhId) {
         this.dhId = dhId;
     }
 
@@ -175,27 +197,31 @@ public class Journal {
     /**
      * Sets the journal code abbreviation.
      *
-     * @param journalCodeAbbreviation the new journal code abbreviation
+     * @param journalCodeAbbreviation
+     *            the new journal code abbreviation
      */
-    public final void setJournalCodeAbbreviation(String journalCodeAbbreviation) {
+    public final void setJournalCodeAbbreviation(
+            final String journalCodeAbbreviation) {
         this.journalCodeAbbreviation = journalCodeAbbreviation;
     }
 
     /**
      * Sets the issn.
      *
-     * @param issn the new issn
+     * @param issn
+     *            the new issn
      */
-    public final void setIssn(String issn) {
+    public final void setIssn(final String issn) {
         this.issn = issn;
     }
 
     /**
      * Sets the electronic issn.
      *
-     * @param electronicIssn the new electronic issn
+     * @param electronicIssn
+     *            the new electronic issn
      */
-    public final void setElectronicIssn(String electronicIssn) {
+    public final void setElectronicIssn(final String electronicIssn) {
         this.electronicIssn = electronicIssn;
     }
 
