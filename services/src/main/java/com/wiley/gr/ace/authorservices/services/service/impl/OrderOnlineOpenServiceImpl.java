@@ -43,6 +43,7 @@ import com.wiley.gr.ace.authorservices.model.external.ArticleData;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSociety;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSocietyResponse;
 import com.wiley.gr.ace.authorservices.model.external.OrderData;
+import com.wiley.gr.ace.authorservices.model.external.OrderDataList;
 import com.wiley.gr.ace.authorservices.model.external.OrderRequest;
 import com.wiley.gr.ace.authorservices.model.external.OrderResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhArticleResponse;
@@ -64,98 +65,115 @@ import com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService;
  */
 public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
-	/** Getting Bean Of Order Service */
-	@Autowired(required = true)
-	private OrderService orderservice;
+    /** Getting Bean Of Order Service */
+    @Autowired(required = true)
+    private OrderService orderservice;
 
-	/** Getting Bean Of OrderOnlineDAO Service */
-	@Autowired(required = true)
-	private OrderOnlineDAO orderOnlineDAO;
-	
-	/** The user profiles. */
+    /** Getting Bean Of OrderOnlineDAO Service */
+    @Autowired(required = true)
+    private OrderOnlineDAO orderOnlineDAO;
+
+    /** The user profiles. */
     @Autowired
     private UserProfiles userProfiles;
 
-	/**
-	 * This method will take userId and orderId as input and calls external
-	 * service to get details of Online order details
-	 */
-	@Override
-	public OnlineOpenOrder getOnlineOpenOrderDetails(final String userId,
-			final String orderId) {
-		OnlineOpenOrder onlineOpenOrder = new OnlineOpenOrder();
-		OrderData orderData = orderservice.getOrderDetails(userId, orderId);
-		System.err.println(orderData.getEnteredBy());
-		System.err.println(orderData.getOoUniqueId());
-		 ArticleDetails articleDetails= new ArticleDetails();
-		 List<ArticleDetails> articleDetailsList=new ArrayList<ArticleDetails>();
-		articleDetails.setArticleAID(orderData.getArticle().getAidECORE());
-		 articleDetails.setArticleTitle(orderData.getArticle().getArticleTitle());
-		 articleDetailsList.add(articleDetails);
-		 onlineOpenOrder.setArticleDetails(articleDetailsList);
-		 JournalDetails journalDetails=new JournalDetails();
-		 List<JournalDetails> journalDetailsList=new ArrayList<JournalDetails>();
-		 journalDetails.setJournalId(orderData.getArticle().getJournal().getDhId());
-		 journalDetails.setJournalTitle(orderData.getArticle().getJournal().getJournalTitle());
-		 journalDetailsList.add(journalDetails);
-		 onlineOpenOrder.setJournalDetails(journalDetailsList);
-		 onlineOpenOrder.setAuthorName(orderData.getWoaAccountHolder().getName());
-		 QuoteDetail quoteDetail=new QuoteDetail();
-		 Prices prices=new Prices();
-		 List<Prices> pricesList=new ArrayList<Prices>();
-		prices.setCurrency(orderData.getPricing().getCurrency());
-		 prices.setPrice(orderData.getPricing().getProductBasePrice().toString());
-		 pricesList.add(prices);
-		 quoteDetail.setPrices(pricesList);
-		 onlineOpenOrder.setQuoteDetail(quoteDetail);
-		 FunderDetails funderDetails=new FunderDetails();
-		 funderDetails.setResearchFunderId(orderData.getWoaAccountHolder().getName());
-		 funderDetails.setWoaAccountId(orderData.getWoaAccountHolder().getCode());
-		 List<FunderDetails> funderDetailsList=new ArrayList<FunderDetails>();
-		 funderDetailsList.add(funderDetails);
-		 onlineOpenOrder.setFunderDetails(funderDetailsList);
-		 Discounts discounts=new Discounts();
-		 List<Discounts> discountsList=new ArrayList<Discounts>();
-		 discounts.setSocietyId(orderData.getPricing().getDiscounts().getDiscount().getSocietyData().getCode());
-		 discounts.setPromoCode(orderData.getPricing().getDiscounts().getDiscount().getPromoCode());
-		 discountsList.add(discounts);
-		 onlineOpenOrder.setDiscountDetails(discountsList);
-		 onlineOpenOrder.setPaymentMethod(orderData.getPayment().getPaymentMethod());
-		 TaxDetails taxDetails=new TaxDetails();
-		 taxDetails.setCountryCode(orderData.getTaxDetails().getCountryCode());
-		 taxDetails.setTaxExemptionNumber(orderData.getTaxDetails().getVatExemptionNumber());
-		 taxDetails.setTaxCodeExpiryDate(orderData.getTaxDetails().getTaxExpiration());
-		 onlineOpenOrder.setTaxDetails(taxDetails);
-		 Amount amount=new Amount();
-		 amount.setAmount(orderData.getPricing().getAmountToBePaid().toString());
-		 amount.setCurrency(orderData.getPricing().getCurrency());
-		 onlineOpenOrder.setAmountPayable(amount);
-		 onlineOpenOrder.setPaymentMethod(orderData.getPayment().getPaymentMethod());
-		Address address= new Address();
-		address.setFirstName(orderData.getContactAddress().getName());
-		address.setLastName(orderData.getContactAddress().getName());
-		address.setDepartment(orderData.getContactAddress().getDepartment());
-		address.setAddressLine1(orderData.getContactAddress().getAdditionalStreet());
-		address.setAddressLine2(orderData.getContactAddress().getAdditionalStreet());
-		address.setCity(orderData.getContactAddress().getCity());
-		address.setState(orderData.getContactAddress().getState());
-		Country country=new Country();
-		country.setCountryName(orderData.getContactAddress().getCountry());
-		address.setCountry(country);
-		address.setPostCode(orderData.getContactAddress().getZip());
-		address.setPhoneNumber(orderData.getContactAddress().getPhoneNumber());
-		AddressDetails addressDetails= new AddressDetails();
-		addressDetails.setBillingAddress(address);
-		addressDetails.setShippingAddress(address);
-	     List<AddressDetails> addressDetailsList=new ArrayList<AddressDetails>();
-	     addressDetailsList.add(addressDetails);
-	     onlineOpenOrder.setAddressDetails(addressDetailsList);
-	     
-		
-		return onlineOpenOrder;
-	}
+    /**
+     * This method will take userId and orderId as input and calls external
+     * service to get details of Online order details
+     */
+    @Override
+    public OnlineOpenOrder getOnlineOpenOrderDetails(final String userId,
+            final String orderId) {
+        OnlineOpenOrder onlineOpenOrder = new OnlineOpenOrder();
+        OrderData orderData = new OrderData();
+        OrderDataList orderDataList = orderservice.getOrderDetails(userId,
+                orderId);
+        orderData = orderDataList.getOrderDatas().get(0);
 
-	/**
+        System.err.println(orderData.getEnteredBy());
+        System.err.println(orderData.getOoUniqueId());
+        ArticleDetails articleDetails = new ArticleDetails();
+        List<ArticleDetails> articleDetailsList = new ArrayList<ArticleDetails>();
+        articleDetails.setArticleAID(orderData.getArticle().getAidECORE());
+        articleDetails
+                .setArticleTitle(orderData.getArticle().getArticleTitle());
+        articleDetailsList.add(articleDetails);
+        onlineOpenOrder.setArticleDetails(articleDetailsList);
+        JournalDetails journalDetails = new JournalDetails();
+        List<JournalDetails> journalDetailsList = new ArrayList<JournalDetails>();
+        journalDetails.setJournalId(orderData.getArticle().getJournal()
+                .getDhId());
+        journalDetails.setJournalTitle(orderData.getArticle().getJournal()
+                .getJournalTitle());
+        journalDetailsList.add(journalDetails);
+        onlineOpenOrder.setJournalDetails(journalDetailsList);
+        onlineOpenOrder
+                .setAuthorName(orderData.getWoaAccountHolder().getName());
+        QuoteDetail quoteDetail = new QuoteDetail();
+        Prices prices = new Prices();
+        List<Prices> pricesList = new ArrayList<Prices>();
+        prices.setCurrency(orderData.getPricing().getCurrency());
+        prices.setPrice(orderData.getPricing().getProductBasePrice().toString());
+        pricesList.add(prices);
+        quoteDetail.setPrices(pricesList);
+        onlineOpenOrder.setQuoteDetail(quoteDetail);
+        FunderDetails funderDetails = new FunderDetails();
+        funderDetails.setResearchFunderId(orderData.getWoaAccountHolder()
+                .getName());
+        funderDetails
+                .setWoaAccountId(orderData.getWoaAccountHolder().getCode());
+        List<FunderDetails> funderDetailsList = new ArrayList<FunderDetails>();
+        funderDetailsList.add(funderDetails);
+        onlineOpenOrder.setFunderDetails(funderDetailsList);
+        Discounts discounts = new Discounts();
+        List<Discounts> discountsList = new ArrayList<Discounts>();
+        discounts.setSocietyId(orderData.getPricing().getDiscounts()
+                .getDiscount().getSocietyData().getCode());
+        discounts.setPromoCode(orderData.getPricing().getDiscounts()
+                .getDiscount().getPromoCode());
+        discountsList.add(discounts);
+        onlineOpenOrder.setDiscountDetails(discountsList);
+        onlineOpenOrder.setPaymentMethod(orderData.getPayment()
+                .getPaymentMethod());
+        TaxDetails taxDetails = new TaxDetails();
+        taxDetails.setCountryCode(orderData.getTaxDetails().getCountryCode());
+        taxDetails.setTaxExemptionNumber(orderData.getTaxDetails()
+                .getVatExemptionNumber());
+        taxDetails.setTaxCodeExpiryDate(orderData.getTaxDetails()
+                .getTaxExpiration());
+        onlineOpenOrder.setTaxDetails(taxDetails);
+        Amount amount = new Amount();
+        amount.setAmount(orderData.getPricing().getAmountToBePaid().toString());
+        amount.setCurrency(orderData.getPricing().getCurrency());
+        onlineOpenOrder.setAmountPayable(amount);
+        onlineOpenOrder.setPaymentMethod(orderData.getPayment()
+                .getPaymentMethod());
+        Address address = new Address();
+        address.setFirstName(orderData.getContactAddress().getName());
+        address.setLastName(orderData.getContactAddress().getName());
+        address.setDepartment(orderData.getContactAddress().getDepartment());
+        address.setAddressLine1(orderData.getContactAddress()
+                .getAdditionalStreet());
+        address.setAddressLine2(orderData.getContactAddress()
+                .getAdditionalStreet());
+        address.setCity(orderData.getContactAddress().getCity());
+        address.setState(orderData.getContactAddress().getState());
+        Country country = new Country();
+        country.setCountryName(orderData.getContactAddress().getCountry());
+        address.setCountry(country);
+        address.setPostCode(orderData.getContactAddress().getZip());
+        address.setPhoneNumber(orderData.getContactAddress().getPhoneNumber());
+        AddressDetails addressDetails = new AddressDetails();
+        addressDetails.setBillingAddress(address);
+        addressDetails.setShippingAddress(address);
+        List<AddressDetails> addressDetailsList = new ArrayList<AddressDetails>();
+        addressDetailsList.add(addressDetails);
+        onlineOpenOrder.setAddressDetails(addressDetailsList);
+
+        return onlineOpenOrder;
+    }
+
+    /**
      * Method to get quote.
      */
     @Override
@@ -201,49 +219,60 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                     throw new ASException("804",
                             "Order already submitted for this Article");
                 }
-                /*calling external service for article and journal titles.
-                Quote quote = orderservice.getQuote(articleId);*/
+                /*
+                 * calling external service for article and journal titles.
+                 * Quote quote = orderservice.getQuote(articleId);
+                 */
 
                 quoteDetails = new QuoteDetails();
-                //Article details (ArticleId and ArticleTitle)
-                PdhArticleResponse pdhArticleResponse = orderservice.pdhLookUpArticle(articles.getDhId());
+                // Article details (ArticleId and ArticleTitle)
+                PdhArticleResponse pdhArticleResponse = orderservice
+                        .pdhLookUpArticle(articles.getDhId());
                 ArticleDetails articleDetails = new ArticleDetails();
                 articleDetails.setArticleAID(articleId);
                 articleDetails.setArticleTitle(pdhArticleResponse.getTitle());
                 quoteDetails.setArticleDetails(articleDetails);
-                //Author Name
+                // Author Name
                 quoteDetails.setAuthorName("shiva");
-                //Journal details (JornalId and jornalTitle)
+                // Journal details (JornalId and jornalTitle)
                 JournalDetails journalDetails = new JournalDetails();
                 journalDetails.setJournalId(String.valueOf(articles
                         .getJournalId()));
                 journalDetails.setJournalTitle(pdhLookup.getTitle());
                 quoteDetails.setJournalDetails(journalDetails);
-                
+
                 // TODO : basic price
-                /*QuoteDetail quoteDetail = new QuoteDetail();
-                List<Prices> prices = new ArrayList<Prices>();
-                Prices price = new Prices();
-                price.setCurrency(quote.getCurrency());
-                price.setPrice(quote.getArticlePubCharge());
-                prices.add(price);
-                quoteDetail.setPrices(prices);
-                quoteDetails.setQuoteDetail(quoteDetail);*/
-                
+                /*
+                 * QuoteDetail quoteDetail = new QuoteDetail(); List<Prices>
+                 * prices = new ArrayList<Prices>(); Prices price = new
+                 * Prices(); price.setCurrency(quote.getCurrency());
+                 * price.setPrice(quote.getArticlePubCharge());
+                 * prices.add(price); quoteDetail.setPrices(prices);
+                 * quoteDetails.setQuoteDetail(quoteDetail);
+                 */
+
                 // values of DiscountsAllowed and AdditionalDiscountAllowed
-                quoteDetails.setDiscountsAllowed(pdhLookup.getDiscountsAllowed());
-                quoteDetails.setAdditionalDiscountAllowed(pdhLookup.getAdditionalDiscountAllowed());
-                // userProfile object form userProfile service for society details and addressDetails
-                UserProfileResponse userProfileResponse = userProfiles.getUserProfileResponse(userId);
+                quoteDetails.setDiscountsAllowed(pdhLookup
+                        .getDiscountsAllowed());
+                quoteDetails.setAdditionalDiscountAllowed(pdhLookup
+                        .getAdditionalDiscountAllowed());
+                // userProfile object form userProfile service for society
+                // details and addressDetails
+                UserProfileResponse userProfileResponse = userProfiles
+                        .getUserProfileResponse(userId);
                 userProfileResponse.getCustomerProfile().getSocieties();
-                //billing and contact addresses
+                // billing and contact addresses
                 AddressDetails addressDetails = new AddressDetails();
-                addressDetails.setBillingAddress(userProfileResponse.getCustomerProfile().getAddressDetails().get(1).getBillingAddress());
-                addressDetails.setShippingAddress(userProfileResponse.getCustomerProfile().getAddressDetails().get(2).getShippingAddress());
+                addressDetails.setBillingAddress(userProfileResponse
+                        .getCustomerProfile().getAddressDetails().get(1)
+                        .getBillingAddress());
+                addressDetails.setShippingAddress(userProfileResponse
+                        .getCustomerProfile().getAddressDetails().get(2)
+                        .getShippingAddress());
                 quoteDetails.setAddressDetails(addressDetails);
                 // funder details / WOA funder details
                 pdhArticleResponse.getWOAFunders().getWOAFunder();
-                
+
             } else {
                 throw new ASException("805",
                         "You don't have permissions to make article as online open");
@@ -264,15 +293,18 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
         for (ProductPersonRelations articleAuthorAssignment : articleAuthorAssignmentList) {
             orderDetails = new OrderDetails();
-            orderDetails.setArticleId(articleAuthorAssignment.getProdRelationId().toString());
+            orderDetails.setArticleId(articleAuthorAssignment
+                    .getProdRelationId().toString());
             orderDetails.setPrice("0.0");
             PdhJournalResponse pdhLookup = orderservice
-                    .pdhLookUpJournal(articleAuthorAssignment.getProducts().getDhId());
+                    .pdhLookUpJournal(articleAuthorAssignment.getProducts()
+                            .getDhId());
             orderDetails.setArticleTitle(pdhLookup.getTitle());
-            /*for (Orders orders : articleAuthorAssignment.getOrderses()) {
-                orderDetails.setOrderDate(orders.getUpdatedDate().toString());
-                orderDetails.setStatus(orders.getOrderStatus());
-            }*/
+            /*
+             * for (Orders orders : articleAuthorAssignment.getOrderses()) {
+             * orderDetails.setOrderDate(orders.getUpdatedDate().toString());
+             * orderDetails.setStatus(orders.getOrderStatus()); }
+             */
             lisofOrderDetails.add(orderDetails);
         }
 
@@ -280,193 +312,196 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
     }
 
-	/**
-	 * This method submits the online open order and returns the order response
-	 * 
-	 * @param userId
-	 * @param onlineOpenOrder
-	 * @return OrderResponse
-	 * 
-	 */
-	@Override
-	public OrderResponse submitOnlineOpenOrder(String userId,
-			OnlineOpenOrder onlineOpenOrder, String orderTypeFlag) {
+    /**
+     * This method submits the online open order and returns the order response
+     * 
+     * @param userId
+     * @param onlineOpenOrder
+     * @return OrderResponse
+     * 
+     */
+    @Override
+    public OrderResponse submitOnlineOpenOrder(String userId,
+            OnlineOpenOrder onlineOpenOrder, String orderTypeFlag) {
 
-		OrderResponse orderResponse = null;
-		
-		if(userId !=null && onlineOpenOrder != null){
-			OrderRequest orderRequest = new OrderRequest();
-			// TODO All the below hardcoded values need to changed once proper data
-			// is provided.
-			orderRequest.setApplicationKey("Key134");
-			orderRequest.setCorrelationID("1234");
-			OrderData orderData = getOrderDataForOnlineOpenOrder(onlineOpenOrder);
-			orderRequest.setOrderData(orderData);
-			orderRequest.setUserID("user001");
-			
-			orderResponse = orderservice.submitOnlineOpenOrder(orderData);
-			
-			/*OrderResponse orderResponse = (OrderResponse) StubInvokerUtil
-				.invokeJsonStub("http://jsonstub.com/createOrder",
-						HttpMethod.POST, OrderResponse.class);*/
-			
-			Orders orders = new Orders();
-			//ProductPersonRelations articleAuthorAssignment = new ProductPersonRelations();
-			// TODO: Set proper ArticleAuthId
-			//articleAuthorAssignment.set(8);
-			// orders.setArticleAuthorAssignment(articleAuthorAssignment);
-			orders.setOrderType("");
-			orders.setOoOaFlg(orderTypeFlag);
-			orders.setOrderStatus(AuthorServicesConstants.ORDER_STATUS_SUBMIT);
-			if ("OO".equalsIgnoreCase(orderTypeFlag)) {
-				orders.setDownstreamappOrderId(Integer.parseInt(orderResponse
-					.getOoUniqueId()));
-			}			
-			Users users = new Users();
-			users.setUserId(Integer.parseInt(userId));
-			orders.setUsersByCreatedBy(users);
-			orders.setCreatedDate(new Date());
-			orderOnlineDAO.saveOrUpdateOrder(orders);
-		}
-		return orderResponse;
-	}
+        OrderResponse orderResponse = null;
 
-	/**
-	 * This method returns the data of the requested Order.
-	 * 
-	 * @param onlineOpenOrder
-	 * @return OrderData
-	 */
-	private OrderData getOrderDataForOnlineOpenOrder(
-			OnlineOpenOrder onlineOpenOrder) {
-		OrderData orderData = null;
+        if (userId != null && onlineOpenOrder != null) {
+            OrderRequest orderRequest = new OrderRequest();
+            // TODO All the below hardcoded values need to changed once proper
+            // data
+            // is provided.
+            orderRequest.setApplicationKey("Key134");
+            orderRequest.setCorrelationID("1234");
+            OrderData orderData = getOrderDataForOnlineOpenOrder(onlineOpenOrder);
+            orderRequest.setOrderData(orderData);
+            orderRequest.setUserID("user001");
 
-		// TODO need to populate from OnlineOpenOrder object
-		if (onlineOpenOrder != null) {
-			orderData = new OrderData();
-			orderData.setArticle(new ArticleData());
-		}
+            orderResponse = orderservice.submitOnlineOpenOrder(orderData);
 
-		return orderData;
+            /*
+             * OrderResponse orderResponse = (OrderResponse) StubInvokerUtil
+             * .invokeJsonStub("http://jsonstub.com/createOrder",
+             * HttpMethod.POST, OrderResponse.class);
+             */
 
-	}
+            Orders orders = new Orders();
+            // ProductPersonRelations articleAuthorAssignment = new
+            // ProductPersonRelations();
+            // TODO: Set proper ArticleAuthId
+            // articleAuthorAssignment.set(8);
+            // orders.setArticleAuthorAssignment(articleAuthorAssignment);
+            orders.setOrderType("");
+            orders.setOoOaFlg(orderTypeFlag);
+            orders.setOrderStatus(AuthorServicesConstants.ORDER_STATUS_SUBMIT);
+            if ("OO".equalsIgnoreCase(orderTypeFlag)) {
+                orders.setDownstreamappOrderId(Integer.parseInt(orderResponse
+                        .getOoUniqueId()));
+            }
+            Users users = new Users();
+            users.setUserId(Integer.parseInt(userId));
+            orders.setUsersByCreatedBy(users);
+            orders.setCreatedDate(new Date());
+            orderOnlineDAO.saveOrUpdateOrder(orders);
+        }
+        return orderResponse;
+    }
 
-	/**
-	 * This method returns the Discounted WOA Funder List
-	 * 
-	 * @param userId
-	 * @param DHID
-	 * @return List<String>
-	 * 
-	 */
-	@Override
-	public List<WOAFunder> retrieveDiscountedWOAFunderList(String userId,
-			String DHID) {
+    /**
+     * This method returns the data of the requested Order.
+     * 
+     * @param onlineOpenOrder
+     * @return OrderData
+     */
+    private OrderData getOrderDataForOnlineOpenOrder(
+            OnlineOpenOrder onlineOpenOrder) {
+        OrderData orderData = null;
 
-		List<WOAFunder> woaFunderList = null;
+        // TODO need to populate from OnlineOpenOrder object
+        if (onlineOpenOrder != null) {
+            orderData = new OrderData();
+            orderData.setArticle(new ArticleData());
+        }
 
-		if (userId != null && DHID != null) {
-			PdhArticleResponse pdhArticleResponse = orderservice
-					.pdhLookUpArticle(Integer.parseInt(DHID));
+        return orderData;
 
-			woaFunderList = pdhArticleResponse.getWOAFunders().getWOAFunder();
+    }
 
-		}
+    /**
+     * This method returns the Discounted WOA Funder List
+     * 
+     * @param userId
+     * @param DHID
+     * @return List<String>
+     * 
+     */
+    @Override
+    public List<WOAFunder> retrieveDiscountedWOAFunderList(String userId,
+            String DHID) {
 
-		return woaFunderList;
-	}
+        List<WOAFunder> woaFunderList = null;
 
-	/**
-	 * This method returns the List of Societies which provide Society discounts
-	 * for the journal
-	 * 
-	 * @param userId
-	 * @param journalId
-	 * @return List<DiscountedSociety>
-	 * 
-	 */
-	@Override
-	public List<DiscountedSociety> retrieveSocietyDiscountListForJournal(
-			String userId, String journalId) {
-		// TODO: Request object needs to be developed once provided with
-				// structure.
+        if (userId != null && DHID != null) {
+            PdhArticleResponse pdhArticleResponse = orderservice
+                    .pdhLookUpArticle(Integer.parseInt(DHID));
 
-				List<DiscountedSociety> discountedSocietyListForJournal = null;
-				
-				if(userId != null && journalId != null){
-					DiscountedSocietyResponse discountedSocietiesResponse = orderservice
-							.getDiscountedSocietiesForJournal(journalId);
-					
-					// TODO: Need to be removed
-					discountedSocietiesResponse = (DiscountedSocietyResponse) StubInvokerUtil
-							.invokeJsonStub("http://jsonstub.com/discountedSocieties",
-									HttpMethod.GET, DiscountedSocietyResponse.class);
-					
-					if (discountedSocietiesResponse != null) {
-						discountedSocietyListForJournal = discountedSocietiesResponse
-								.getSocieties();
-					}
-				}
+            woaFunderList = pdhArticleResponse.getWOAFunders().getWOAFunder();
 
-		return discountedSocietyListForJournal;
-	}
+        }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService
-	 * #saveLaterOrder(com.wiley.gr.ace.authorservices.model.OnlineOpenOrder)
-	 */
-	@Override
-	public void saveLaterOrder(OnlineOpenOrder order, String userId) {
+        return woaFunderList;
+    }
 
-		ObjectMapper mapper = new ObjectMapper();
-		SavedOrders savedOrders = new SavedOrders();
-		try {
-			savedOrders.setOrderObject(mapper.writeValueAsString(order));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		Articles articles = new Articles();
-		articles.setArticleId(Integer.parseInt(order.getArticleId()));
-		savedOrders.setArticles(articles);
-		UserProfile userProfile = new UserProfile();
-		userProfile.setUserId(Integer.parseInt(userId));
-		savedOrders.setUserProfile(userProfile);
-		Users users = new Users();
-		users.setUserId(Integer.parseInt(userId));
-		savedOrders.setUsersByCreatedBy(users);
-		savedOrders.setCreatedDate(new Date());
-		orderOnlineDAO.saveLaterOrder(savedOrders);
-	}
-	
-	
-	/**
-	 * This method checks if additional discount is available for the journal.
-	 * 
- 	 * @param userId
-	 * @param journalId
-	 * @return boolean
-	 * 
-	 */
-	@Override
-	public boolean isAdditionDiscountAvailableForJournal(String userId,
-			String journalId) {
-		boolean isAdditionDiscountAvailable = false;
-		// Need confirmation on DHID or journal id.
-			
-		
-		// TODO: Need to create a request object when provided.
-		
-		if(userId != null && journalId != null){
-			// TODO: Need to check if journalId or DHId should be passed
-			PdhJournalResponse pdhLookupJournal = orderservice.pdhLookUpJournal(Integer.parseInt(journalId));
-			isAdditionDiscountAvailable = Boolean.getBoolean(pdhLookupJournal.getAdditionalDiscountAllowed());
-		}
-		
-		return isAdditionDiscountAvailable;
-	}
+    /**
+     * This method returns the List of Societies which provide Society discounts
+     * for the journal
+     * 
+     * @param userId
+     * @param journalId
+     * @return List<DiscountedSociety>
+     * 
+     */
+    @Override
+    public List<DiscountedSociety> retrieveSocietyDiscountListForJournal(
+            String userId, String journalId) {
+        // TODO: Request object needs to be developed once provided with
+        // structure.
 
+        List<DiscountedSociety> discountedSocietyListForJournal = null;
+
+        if (userId != null && journalId != null) {
+            DiscountedSocietyResponse discountedSocietiesResponse = orderservice
+                    .getDiscountedSocietiesForJournal(journalId);
+
+            // TODO: Need to be removed
+            discountedSocietiesResponse = (DiscountedSocietyResponse) StubInvokerUtil
+                    .invokeJsonStub("http://jsonstub.com/discountedSocieties",
+                            HttpMethod.GET, DiscountedSocietyResponse.class);
+
+            if (discountedSocietiesResponse != null) {
+                discountedSocietyListForJournal = discountedSocietiesResponse
+                        .getSocieties();
+            }
+        }
+
+        return discountedSocietyListForJournal;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService
+     * #saveLaterOrder(com.wiley.gr.ace.authorservices.model.OnlineOpenOrder)
+     */
+    @Override
+    public void saveLaterOrder(OnlineOpenOrder order, String userId) {
+
+        ObjectMapper mapper = new ObjectMapper();
+        SavedOrders savedOrders = new SavedOrders();
+        try {
+            savedOrders.setOrderObject(mapper.writeValueAsString(order));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Articles articles = new Articles();
+        articles.setArticleId(Integer.parseInt(order.getArticleId()));
+        savedOrders.setArticles(articles);
+        UserProfile userProfile = new UserProfile();
+        userProfile.setUserId(Integer.parseInt(userId));
+        savedOrders.setUserProfile(userProfile);
+        Users users = new Users();
+        users.setUserId(Integer.parseInt(userId));
+        savedOrders.setUsersByCreatedBy(users);
+        savedOrders.setCreatedDate(new Date());
+        orderOnlineDAO.saveLaterOrder(savedOrders);
+    }
+
+    /**
+     * This method checks if additional discount is available for the journal.
+     * 
+     * @param userId
+     * @param journalId
+     * @return boolean
+     * 
+     */
+    @Override
+    public boolean isAdditionDiscountAvailableForJournal(String userId,
+            String journalId) {
+        boolean isAdditionDiscountAvailable = false;
+        // Need confirmation on DHID or journal id.
+
+        // TODO: Need to create a request object when provided.
+
+        if (userId != null && journalId != null) {
+            // TODO: Need to check if journalId or DHId should be passed
+            PdhJournalResponse pdhLookupJournal = orderservice
+                    .pdhLookUpJournal(Integer.parseInt(journalId));
+            isAdditionDiscountAvailable = Boolean.getBoolean(pdhLookupJournal
+                    .getAdditionalDiscountAllowed());
+        }
+
+        return isAdditionDiscountAvailable;
+    }
 
 }

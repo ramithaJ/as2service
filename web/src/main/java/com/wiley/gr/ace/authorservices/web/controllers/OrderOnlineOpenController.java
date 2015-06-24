@@ -33,7 +33,8 @@ public class OrderOnlineOpenController extends ASExceptionController {
     public final Service getQuote(@PathVariable("userId") final String userId,
             @PathVariable("articleId") final String articleId) {
         Service service = new Service();
-        service.setPayload(orderOnlineOpenService.getQuote(userId, articleId, "OO"));
+        service.setPayload(orderOnlineOpenService.getQuote(userId, articleId,
+                "OO"));
         return service;
     }
 
@@ -82,9 +83,10 @@ public class OrderOnlineOpenController extends ASExceptionController {
     public final Service getOnlineOpenOrderDetails(
             @PathVariable("userId") final String userId,
             @PathVariable("orderId") final String orderId) {
-        orderOnlineOpenService.getOnlineOpenOrderDetails(userId, orderId);
-
-        return new Service();
+        Service service = new Service();
+        service.setPayload(orderOnlineOpenService.getOnlineOpenOrderDetails(
+                userId, orderId));
+        return service;
     }
 
     /**

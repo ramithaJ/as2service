@@ -12,7 +12,6 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
-import com.wiley.gr.ace.authorservices.model.external.OrderData;
 import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
 
 /**
@@ -126,10 +125,4 @@ public class StubInvokerUtil {
 
     }
 
-    public static void main(String[] args) {
-        OrderData order = (OrderData) StubInvokerUtil.invokeJsonStub(
-                "http://jsonstub.com/viewOrder", HttpMethod.POST,
-                OrderData.class);
-        System.out.println("Order::" + order.getEnteredBy());
-    }
 }

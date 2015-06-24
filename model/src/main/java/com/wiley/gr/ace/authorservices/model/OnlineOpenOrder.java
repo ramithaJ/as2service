@@ -13,9 +13,13 @@ package com.wiley.gr.ace.authorservices.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * The Class OnlineOpenOrder.
  */
+@JsonInclude(Include.NON_NULL)
 public class OnlineOpenOrder {
 
     /** The final amount. */
@@ -44,7 +48,7 @@ public class OnlineOpenOrder {
 
     /** The payment method. */
     private String paymentMethod;
-    
+
     private String articleId;
 
     /** The article id. */
@@ -52,13 +56,13 @@ public class OnlineOpenOrder {
 
     /** The author name. */
     private String authorName;
-    
+
     /** The quote detail. */
     private QuoteDetail quoteDetail;
-    
+
     /** The discounts applicable. */
     private String discountsApplicable;
-    
+
     /** The billing same as correspondence address. */
     private boolean billingSameAsCorrespondenceAddress;
 
@@ -211,7 +215,8 @@ public class OnlineOpenOrder {
      * @param articleDetails
      *            the new article details
      */
-    public final void setArticleDetails(final List<ArticleDetails> articleDetails) {
+    public final void setArticleDetails(
+            final List<ArticleDetails> articleDetails) {
         this.articleDetails = articleDetails;
     }
 
@@ -230,7 +235,8 @@ public class OnlineOpenOrder {
      * @param journalDetails
      *            the new journal details
      */
-    public final void setJournalDetails(final List<JournalDetails> journalDetails) {
+    public final void setJournalDetails(
+            final List<JournalDetails> journalDetails) {
         this.journalDetails = journalDetails;
     }
 
@@ -282,7 +288,8 @@ public class OnlineOpenOrder {
     /**
      * Sets the discount details.
      *
-     * @param discountDetails the new discount details
+     * @param discountDetails
+     *            the new discount details
      */
     public final void setDiscountDetails(final List<Discounts> discountDetails) {
         this.discountDetails = discountDetails;
@@ -299,7 +306,8 @@ public class OnlineOpenOrder {
     /**
      * Sets the author name.
      *
-     * @param authorName the new author name
+     * @param authorName
+     *            the new author name
      */
     public final void setAuthorName(final String authorName) {
         this.authorName = authorName;
@@ -308,7 +316,8 @@ public class OnlineOpenOrder {
     /**
      * Sets the quote detail.
      *
-     * @param quoteDetail the new quote detail
+     * @param quoteDetail
+     *            the new quote detail
      */
     public final void setQuoteDetail(final QuoteDetail quoteDetail) {
         this.quoteDetail = quoteDetail;
@@ -317,7 +326,8 @@ public class OnlineOpenOrder {
     /**
      * Sets the discounts applicable.
      *
-     * @param discountsApplicable the new discounts applicable
+     * @param discountsApplicable
+     *            the new discounts applicable
      */
     public final void setDiscountsApplicable(final String discountsApplicable) {
         this.discountsApplicable = discountsApplicable;
@@ -326,7 +336,8 @@ public class OnlineOpenOrder {
     /**
      * Sets the billing same as correspondence address.
      *
-     * @param billingSameAsCorrespondenceAddress the new billing same as correspondence address
+     * @param billingSameAsCorrespondenceAddress
+     *            the new billing same as correspondence address
      */
     public final void setBillingSameAsCorrespondenceAddress(
             final boolean billingSameAsCorrespondenceAddress) {

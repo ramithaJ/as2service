@@ -19,6 +19,7 @@ import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSocietyResponse;
 import com.wiley.gr.ace.authorservices.model.external.OrderData;
+import com.wiley.gr.ace.authorservices.model.external.OrderDataList;
 import com.wiley.gr.ace.authorservices.model.external.OrderResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhArticleResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
@@ -39,36 +40,39 @@ public class OrderServiceImpl implements OrderService {
 
     @Value("${lookupjournal.url}")
     private String lookupjournalurl;
-    
+
     @Value("${lookuparticle.url}")
     private String lookuparticleurl;
-    
+
     @Value("${discountedSocieties.url}")
     private String discountedSocietiesurl;
-    
-    /**Calling Stub  */
-    @Override
-    public final OrderData getOrderDetails(String userId, String orderId) {
 
-        return (OrderData) StubInvokerUtil.invokeJsonStub(orderserviceurlview, HttpMethod.POST, OrderData.class);
+    /** Calling Stub */
+    @Override
+    public final OrderDataList getOrderDetails(String userId, String orderId) {
+
+        return (OrderDataList) StubInvokerUtil.invokeJsonStub(
+                orderserviceurlview, HttpMethod.POST, OrderDataList.class);
 
     }
-    
-    /**Calling Stub  */
+
+    /** Calling Stub */
     @Override
     public final OrderResponse submitOnlineOpenOrder(OrderData orderData) {
 
-        return (OrderResponse) StubInvokerUtil.invokeJsonStub(orderserviceurl, HttpMethod.POST, OrderResponse.class);
-    
+        return (OrderResponse) StubInvokerUtil.invokeJsonStub(orderserviceurl,
+                HttpMethod.POST, OrderResponse.class);
+
     }
-    
+
     /**
      * Method to call PDHLookupJournal external service.
      */
     @Override
     public final PdhJournalResponse pdhLookUpJournal(final Integer DHId) {
-     
-        return (PdhJournalResponse) StubInvokerUtil.invokeJsonStub(lookupjournalurl, HttpMethod.POST, PdhJournalResponse.class);
+
+        return (PdhJournalResponse) StubInvokerUtil.invokeJsonStub(
+                lookupjournalurl, HttpMethod.POST, PdhJournalResponse.class);
     }
 
     /**
@@ -77,7 +81,8 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public final PdhArticleResponse pdhLookUpArticle(final Integer DHId) {
 
-        return (PdhArticleResponse) StubInvokerUtil.invokeJsonStub(lookuparticleurl, HttpMethod.POST, PdhArticleResponse.class);
+        return (PdhArticleResponse) StubInvokerUtil.invokeJsonStub(
+                lookuparticleurl, HttpMethod.POST, PdhArticleResponse.class);
     }
 
     /**
@@ -86,18 +91,20 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public final Quote getQuote(final String articleId) {
 
-        return (Quote) StubInvokerUtil.invokeJsonStub(quoteurl, HttpMethod.POST, Quote.class);
+        return (Quote) StubInvokerUtil.invokeJsonStub(quoteurl,
+                HttpMethod.POST, Quote.class);
     }
 
-	
     /**
      * Method to call getDiscountedSocietiesForJournal external service.
      */
-	@Override
-	public DiscountedSocietyResponse getDiscountedSocietiesForJournal(
-			String journalId) {
-		
-		return (DiscountedSocietyResponse)StubInvokerUtil.invokeJsonStub(discountedSocietiesurl, HttpMethod.GET, DiscountedSocietyResponse.class);
-	}
+    @Override
+    public DiscountedSocietyResponse getDiscountedSocietiesForJournal(
+            String journalId) {
+
+        return (DiscountedSocietyResponse) StubInvokerUtil.invokeJsonStub(
+                discountedSocietiesurl, HttpMethod.GET,
+                DiscountedSocietyResponse.class);
+    }
 
 }
