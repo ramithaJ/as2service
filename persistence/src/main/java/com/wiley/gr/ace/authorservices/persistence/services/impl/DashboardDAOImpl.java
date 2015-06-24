@@ -49,8 +49,8 @@ public class DashboardDAOImpl implements DashboardDAO {
         try {
             session = getSessionFactory().openSession();
             txn = session.beginTransaction();
-            String invitationLogHql = "from InvitationLog il where il.userProfile.userId=:userId";
-            List<InvitationLog> invitationLogList = session
+            final String invitationLogHql = "from InvitationLog il where il.userProfile.userId=:userId";
+            final List<InvitationLog> invitationLogList = session
                     .createQuery(invitationLogHql).setInteger("userId", userId)
                     .list();
             txn.commit();
@@ -58,6 +58,7 @@ public class DashboardDAOImpl implements DashboardDAO {
         } finally {
             if (session != null) {
                 session.flush();
+                session.close();
             }
         }
     }
@@ -70,8 +71,8 @@ public class DashboardDAOImpl implements DashboardDAO {
         try {
             session = getSessionFactory().openSession();
             txn = session.beginTransaction();
-            String articleAuthorAssignmentHql = "from ArticleAuthorAssignment aaa where aaa.userProfile.userId=:userId";
-            ProductPersonRelations productPersonRelations = (ProductPersonRelations) session
+            final String articleAuthorAssignmentHql = "from ProductPersonRelations ppr where ppr.userProfile.userId=:userId";
+            final ProductPersonRelations productPersonRelations = (ProductPersonRelations) session
                     .createQuery(articleAuthorAssignmentHql)
                     .setInteger("userId", userId).uniqueResult();
             txn.commit();
@@ -79,6 +80,7 @@ public class DashboardDAOImpl implements DashboardDAO {
         } finally {
             if (session != null) {
                 session.flush();
+                session.close();
             }
         }
     }
