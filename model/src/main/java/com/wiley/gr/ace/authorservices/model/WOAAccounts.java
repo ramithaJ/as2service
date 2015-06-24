@@ -13,6 +13,10 @@
  */
 package com.wiley.gr.ace.authorservices.model;
 
+/**
+ * @author virtusa version1.0
+ *
+ */
 public class WOAAccounts {
 
     /**

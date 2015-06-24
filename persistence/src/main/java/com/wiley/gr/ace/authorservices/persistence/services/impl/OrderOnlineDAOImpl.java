@@ -52,8 +52,10 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
                     Integer.parseInt(articleId)));
             criteria.add(Restrictions.eq("userProfile.userId",
                     Integer.parseInt(userId)));
-            ProductPersonRelations productPersonRelations = (ProductPersonRelations) criteria.uniqueResult();
-            System.err.println(productPersonRelations.getProductRoles().getProductRoleCd());
+            ProductPersonRelations productPersonRelations = (ProductPersonRelations) criteria
+                    .uniqueResult();
+            System.err.println(productPersonRelations.getProductRoles()
+                    .getProductRoleCd());
             return null;
         } finally {
             if (session != null) {
@@ -116,8 +118,8 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
 
     /** For Getting List Of ArticleAuthId */
     @Override
-    public List<ProductPersonRelations> getArticleAuthId(Integer userId,
-            String type) {
+    public List<ProductPersonRelations> getArticleAuthId(final Integer userId,
+            final String type) {
 
         Session session = null;
         List<ProductPersonRelations> listArticleAuthorAssignments = null;
@@ -137,8 +139,7 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
                         "orderses");
                 criteria.add(Restrictions.eq("orderses.ooOaFlg", type));
             }
-            listArticleAuthorAssignments = (List<ProductPersonRelations>) criteria
-                    .list();
+            listArticleAuthorAssignments = criteria.list();
         } finally {
             if (session != null) {
                 session.flush();
@@ -148,11 +149,14 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
         return listArticleAuthorAssignments;
     }
 
-	/* (non-Javadoc)
-	 * @see com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO#saveLaterOrder(java.lang.String)
-	 */
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO#
+     * saveLaterOrder(java.lang.String)
+     */
     @Override
-    public void saveLaterOrder(SavedOrders savedOrders) {
+    public void saveLaterOrder(final SavedOrders savedOrders) {
         Session session = null;
         try {
             session = getSessionFactory().openSession();
@@ -168,10 +172,10 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
 
     }
 
-	@Override
-	public void saveOrUpdateOrder(Orders orders) {
-		
-		Session session = null;
+    @Override
+    public void saveOrUpdateOrder(final Orders orders) {
+
+        Session session = null;
         try {
             session = getSessionFactory().openSession();
             session.getTransaction().begin();
@@ -183,7 +187,7 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
                 session.close();
             }
         }
-		
+
 	}
 	
 	
@@ -223,11 +227,36 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
 	}
 	
 	
-	
-	public static void main(String[] args) {
-        
-	    OrderOnlineDAOImpl a = new OrderOnlineDAOImpl();
-	    a.getAritcleAssignmentDetails("8011047", "1111");
+    public static void main(final String[] args) {
+
+        OrderOnlineDAOImpl a = new OrderOnlineDAOImpl();
+        a.getGrantRecipients("1");
+    }
+
+    @Override
+    public void getGrantRecipients(final String articleId) {
+
+        Session session = null;
+        try {
+            session = getSessionFactory().openSession();
+            Criteria criteria = session.createCriteria(
+                    ProductPersonRelations.class, "productPersonRelations");
+            criteria.createAlias("productPersonRelations.products", "products");
+            criteria.createAlias("productPersonRelations.productRoles",
+                    "productRoles");
+            criteria.add(Restrictions.eq("products.dhId",
+                    Integer.parseInt(articleId)));
+            criteria.add(Restrictions.eq("productRoles.productRoleCd", "0002"));
+            ProductPersonRelations productPersonRelations = (ProductPersonRelations) criteria
+                    .uniqueResult();
+            System.err.println(productPersonRelations.getUsersByCreatedBy()
+                    .getUserId());
+        } finally {
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
+        }
     }
 
 

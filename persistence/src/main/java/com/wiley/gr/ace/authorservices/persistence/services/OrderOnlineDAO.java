@@ -57,18 +57,24 @@ public interface OrderOnlineDAO {
      * @param userId
      * @return
      */
-    List<ProductPersonRelations> getArticleAuthId(Integer userId,String type);
-    
+    List<ProductPersonRelations> getArticleAuthId(Integer userId, String type);
+
     /**
      * @param order
      * @return
      */
     void saveLaterOrder(SavedOrders savedOrders);
-    
+
     /**
      * This method saves or updates the order submitted
+     * 
      * @param orders
      * @return
      */
     void saveOrUpdateOrder(Orders orders);
+
+    /**
+     * @param ArticleId
+     */
+    void getGrantRecipients(String articleId);
 }
