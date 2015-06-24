@@ -103,7 +103,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         List<ArticleDetails> articleDetailsList = new ArrayList<ArticleDetails>();
         articleDetails.setArticleAID(orderData.getArticle().getAidECORE());
         articleDetails
-                .setArticleTitle(orderData.getArticle().getArticleTitle());
+        .setArticleTitle(orderData.getArticle().getArticleTitle());
         articleDetailsList.add(articleDetails);
         onlineOpenOrder.setArticleDetails(articleDetailsList);
         JournalDetails journalDetails = new JournalDetails();
@@ -115,7 +115,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         journalDetailsList.add(journalDetails);
         onlineOpenOrder.setJournalDetails(journalDetailsList);
         onlineOpenOrder
-                .setAuthorName(orderData.getWoaAccountHolder().getName());
+        .setAuthorName(orderData.getWoaAccountHolder().getName());
         QuoteDetail quoteDetail = new QuoteDetail();
         Prices prices = new Prices();
         List<Prices> pricesList = new ArrayList<Prices>();
@@ -130,7 +130,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
          * .getName());
          */
         funderDetails
-                .setWoaAccountId(orderData.getWoaAccountHolder().getCode());
+        .setWoaAccountId(orderData.getWoaAccountHolder().getCode());
         List<FunderDetails> funderDetailsList = new ArrayList<FunderDetails>();
         funderDetailsList.add(funderDetails);
         onlineOpenOrder.setFunderDetails(funderDetailsList);
@@ -213,7 +213,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             // check user is corresponding author or not.
             if (productPersonRelations.getProductRoles() != null
                     && productPersonRelations.getProductRoles()
-                            .getProductRoleCd().equalsIgnoreCase("0001")) {
+                    .getProductRoleCd().equalsIgnoreCase("0001")) {
 
                 // check is there any saved orders for this article.
                 SavedOrders savedOrders = orderOnlineDAO.getSavedOrders(
@@ -270,7 +270,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                         .getFirstName()
                         + " "
                         + userProfileResponse.getCustomerProfile()
-                                .getCustomerDetails().getLastName());
+                        .getCustomerDetails().getLastName());
                 // GrantRecipients(coAuthors)
                 userProfileResponse.getCustomerProfile().getCoAuthors();
                 // Societies
@@ -296,6 +296,9 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         return quoteDetails;
     }
 
+    /**
+     * Method to get All Orders.
+     */
     @Override
     public List<OrderDetails> getAllOrders(final Integer userId,
             final String type) {
@@ -460,12 +463,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         return discountedSocietyListForJournal;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService
-     * #saveLaterOrder(com.wiley.gr.ace.authorservices.model.OnlineOpenOrder)
+    /**
+     * Method to save orders.
      */
     @Override
     public void saveLaterOrder(final OnlineOpenOrder order, final String userId) {
@@ -603,6 +602,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
         WileyOpenAccessFunders wileyOpenAccessFunders = orderservice
                 .getWoaAcounts();
+        System.err.println(wileyOpenAccessFunders.getWOAFunders()
+                .getWOAFunder().size());
         List<WOAAccount> woaAccountList = wileyOpenAccessFunders
                 .getWOAFunders().getWOAFunder().get(0).getWOAAccounts()
                 .getWOAAccount();

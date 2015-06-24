@@ -145,7 +145,7 @@ public class OrderServiceImpl implements OrderService {
             final String journalId) {
 
         return (DiscountedSocietyResponse) StubInvokerUtil.invokeJsonStub(
-                discountedSocietiesurl, HttpMethod.GET,
+                discountedSocietiesurl, HttpMethod.POST,
                 DiscountedSocietyResponse.class);
     }
 
@@ -156,7 +156,7 @@ public class OrderServiceImpl implements OrderService {
     public WileyOpenAccessFunders getWoaAcounts() {
 
         return (WileyOpenAccessFunders) StubInvokerUtil.invokeJsonStub(
-                woaAccountsurl, HttpMethod.GET, WileyOpenAccessFunders.class);
+                woaAccountsurl, HttpMethod.POST, WileyOpenAccessFunders.class);
     }
 
     /**
@@ -166,7 +166,7 @@ public class OrderServiceImpl implements OrderService {
     public SocietyMemberDiscount getSocietyMemberDiscount() {
 
         return (SocietyMemberDiscount) StubInvokerUtil.invokeJsonStub(
-                SocietyMemberDiscountsurl, HttpMethod.GET,
+                SocietyMemberDiscountsurl, HttpMethod.POST,
                 SocietyMemberDiscount.class);
     }
 
@@ -174,7 +174,7 @@ public class OrderServiceImpl implements OrderService {
     public InstitutionDiscounts getInstitutionDiscounts() {
 
         return (InstitutionDiscounts) StubInvokerUtil.invokeJsonStub(
-                institutionDiscountsurl, HttpMethod.GET,
+                institutionDiscountsurl, HttpMethod.POST,
                 InstitutionDiscounts.class);
     }
 
