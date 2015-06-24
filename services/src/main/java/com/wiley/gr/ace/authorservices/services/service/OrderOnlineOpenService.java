@@ -40,11 +40,11 @@ public interface OrderOnlineOpenService {
     List<OrderDetails> getAllOrders(Integer userId, String type);
 
     /**
-     * @param userId
-     * @param onlineOpenOrder
-     */
-    OrderResponse submitOnlineOpenOrder(String userId,
-            OnlineOpenOrder onlineOpenOrder, String orderTypeFlag);
+	 * @param userId
+	 * @param onlineOpenOrder
+	 * @throws Exception 
+	 */
+	OrderResponse submitOnlineOpenOrder(String userId, String orderId, String orderTypeFlag) throws Exception;
 
     /**
      * @param userId

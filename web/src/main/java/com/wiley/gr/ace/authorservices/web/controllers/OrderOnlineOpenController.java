@@ -62,17 +62,18 @@ public class OrderOnlineOpenController extends ASExceptionController {
     /**
      * @param userId
      * @param onlineOpenOrder
-     * @return service
+     * @return
+     * @throws Exception 
      */
-    @RequestMapping(value = "/submit/{userId}/", method = RequestMethod.POST)
+    @RequestMapping(value = "/submit/{userId}/{orderId}", method = RequestMethod.POST)
     public final Service submitOnlineOpenOrder(
             @PathVariable("userId") final String userId,
-            @RequestBody final OnlineOpenOrder onlineOpenOrder) {
+            @PathVariable("orderId") final String orderId) throws Exception {
 
         Service service = new Service();
         // TODO Need to create Internal Model and set it to the payload
         service.setPayload(orderOnlineOpenService.submitOnlineOpenOrder(userId,
-                onlineOpenOrder, "OO"));
+        		orderId, "OO"));
 
         return service;
     }

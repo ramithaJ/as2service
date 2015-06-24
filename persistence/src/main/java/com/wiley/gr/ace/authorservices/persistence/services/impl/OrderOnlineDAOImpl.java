@@ -186,9 +186,49 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
 		
 	}
 	
+	
+	/**
+	 * This method returns the SavedOrder details for the corresponding orderId.
+	 * 
+	 * @param orderId
+	 * @param userId
+	 * @return SavedOrders
+	 * 
+	 */
+	@Override
+	public SavedOrders getSavedOrdersForTheOrderId(String orderId, String userId) {
+		Session session = null;
+		SavedOrders savedOrder = null; 
+		try {
+				session = getSessionFactory().openSession();
+				Criteria criteria = session.createCriteria(SavedOrders.class,
+						"savedOrders");
+				criteria.createAlias("savedOrders.userProfile", "userProfile");
+				criteria.add(Restrictions.eq("savedOrders.orderId",
+						Integer.parseInt(orderId)));
+				criteria.add(Restrictions.eq("userProfile.userId",
+						Integer.parseInt(userId)));
+				
+				savedOrder = (SavedOrders) criteria.uniqueResult();
+				 
+			} finally {
+				if (session != null) {
+					session.flush();
+					session.close();
+				}
+			}
+		
+		return savedOrder;
+			
+	}
+	
+	
+	
 	public static void main(String[] args) {
         
 	    OrderOnlineDAOImpl a = new OrderOnlineDAOImpl();
 	    a.getAritcleAssignmentDetails("8011047", "1111");
     }
+
+
 }

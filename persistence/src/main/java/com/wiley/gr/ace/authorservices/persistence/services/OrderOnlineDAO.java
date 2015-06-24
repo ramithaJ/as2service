@@ -39,6 +39,13 @@ public interface OrderOnlineDAO {
      * @return
      */
     SavedOrders getSavedOrders(String articleId, String userId);
+    
+    /**
+     * @param orderId
+     * @param userId
+     * @return SavedOrders
+     */
+    SavedOrders getSavedOrdersForTheOrderId(String orderId, String userId);
 
     /**
      * @param aritcleAuthId

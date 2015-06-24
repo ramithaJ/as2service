@@ -14,8 +14,11 @@ package com.wiley.gr.ace.authorservices.services.service.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 
@@ -44,6 +47,8 @@ import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.TaxDetails;
 import com.wiley.gr.ace.authorservices.model.WOAAccounts;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
+import com.wiley.gr.ace.authorservices.model.external.ContactAddress;
+import com.wiley.gr.ace.authorservices.model.external.Customer;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSociety;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSocietyResponse;
 import com.wiley.gr.ace.authorservices.model.external.Institute;
@@ -52,14 +57,18 @@ import com.wiley.gr.ace.authorservices.model.external.OrderData;
 import com.wiley.gr.ace.authorservices.model.external.OrderDataList;
 import com.wiley.gr.ace.authorservices.model.external.OrderRequest;
 import com.wiley.gr.ace.authorservices.model.external.OrderResponse;
+import com.wiley.gr.ace.authorservices.model.external.Payment;
 import com.wiley.gr.ace.authorservices.model.external.PdhArticleResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
+import com.wiley.gr.ace.authorservices.model.external.PricingData;
 import com.wiley.gr.ace.authorservices.model.external.ResearchFunderElement;
 import com.wiley.gr.ace.authorservices.model.external.Societies;
+import com.wiley.gr.ace.authorservices.model.external.TaxData;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 import com.wiley.gr.ace.authorservices.model.external.WOAAccount;
 import com.wiley.gr.ace.authorservices.model.external.WOAFunder;
 import com.wiley.gr.ace.authorservices.model.external.WileyOpenAccessFunders;
+import com.wiley.gr.ace.authorservices.model.external.WoaAccountHolder;
 import com.wiley.gr.ace.authorservices.persistence.entity.Articles;
 import com.wiley.gr.ace.authorservices.persistence.entity.Orders;
 import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
@@ -174,7 +183,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         address.setPhoneNumber(orderData.getContactAddress().getPhoneNumber());
         AddressDetails addressDetails = new AddressDetails();
         addressDetails.setBillingAddress(address);
-        addressDetails.setShippingAddress(address);
+        addressDetails.setContactAddress(address);
         List<AddressDetails> addressDetailsList = new ArrayList<AddressDetails>();
         addressDetailsList.add(addressDetails);
         onlineOpenOrder.setAddressDetails(addressDetailsList);
@@ -280,9 +289,9 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                 addressDetails.setBillingAddress(userProfileResponse
                         .getCustomerProfile().getAddressDetails().get(1)
                         .getBillingAddress());
-                addressDetails.setShippingAddress(userProfileResponse
+                addressDetails.setContactAddress(userProfileResponse
                         .getCustomerProfile().getAddressDetails().get(2)
-                        .getShippingAddress());
+                        .getCorrespondenceAddress());
                 quoteDetails.setAddressDetails(addressDetails);
 
             } else {
@@ -331,74 +340,137 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * @param userId
      * @param onlineOpenOrder
      * @return OrderResponse
+     * @throws Exception 
      * 
      */
     @Override
     public OrderResponse submitOnlineOpenOrder(final String userId,
-            final OnlineOpenOrder onlineOpenOrder, final String orderTypeFlag) {
+            final String orderId, final String orderTypeFlag) throws Exception {
 
-        OrderResponse orderResponse = null;
-
-        if (userId != null && onlineOpenOrder != null) {
-            OrderRequest orderRequest = new OrderRequest();
-            // TODO All the below hardcoded values need to changed once proper
-            // data
-            // is provided.
-            orderRequest.setApplicationKey("Key134");
-            orderRequest.setCorrelationID("1234");
-            OrderData orderData = getOrderDataForOnlineOpenOrder(onlineOpenOrder);
-            orderRequest.setOrderData(orderData);
-            orderRequest.setUserID("user001");
-
-            orderResponse = orderservice.submitOnlineOpenOrder(orderData);
-
-            /*
-             * OrderResponse orderResponse = (OrderResponse) StubInvokerUtil
-             * .invokeJsonStub("http://jsonstub.com/createOrder",
-             * HttpMethod.POST, OrderResponse.class);
-             */
-
-            Orders orders = new Orders();
-            // ProductPersonRelations articleAuthorAssignment = new
-            // ProductPersonRelations();
-            // TODO: Set proper ArticleAuthId
-            // articleAuthorAssignment.set(8);
-            // orders.setArticleAuthorAssignment(articleAuthorAssignment);
-            orders.setOrderType("");
-            orders.setOoOaFlg(orderTypeFlag);
-            orders.setOrderStatus(AuthorServicesConstants.ORDER_STATUS_SUBMIT);
-            if ("OO".equalsIgnoreCase(orderTypeFlag)) {
-                orders.setDownstreamappOrderId(Integer.parseInt(orderResponse
-                        .getOoUniqueId()));
-            }
-            Users users = new Users();
-            users.setUserId(Integer.parseInt(userId));
-            orders.setUsersByCreatedBy(users);
-            orders.setCreatedDate(new Date());
-            orderOnlineDAO.saveOrUpdateOrder(orders);
-        }
-        return orderResponse;
+OrderResponse orderResponse = null;
+		
+		if(userId !=null && orderId != null){
+			OrderRequest orderRequest = new OrderRequest();
+			// TODO All the below hardcoded values need to changed once proper data
+			// is provided.
+			orderRequest.setApplicationKey("Key134");
+			orderRequest.setCorrelationID("1234");
+			OrderData orderData = null;
+			try {
+				orderData = getOrderDataForOnlineOpenOrder(orderId, userId);
+			} catch (Exception e) {
+				throw new Exception(e.getMessage());
+			}
+			// need to be changed
+			//OrderData orderData = new OrderData();
+			orderRequest.setOrderData(orderData);
+			orderRequest.setUserID("user001");
+			
+			//orderResponse = orderservice.submitOnlineOpenOrder(orderData);
+			
+			orderResponse = (OrderResponse) StubInvokerUtil
+				.invokeJsonStub("http://jsonstub.com/createOrder",
+						HttpMethod.POST, OrderResponse.class);
+			
+			Orders orders = new Orders();
+			orders.setOrderType("");
+			orders.setOoOaFlg(orderTypeFlag);
+			orders.setOrderStatus(AuthorServicesConstants.ORDER_STATUS_SUBMIT);
+			orders.setDownstreamappOrderId(Integer.parseInt(orderResponse
+					.getOoUniqueId()));
+			Users users = new Users();
+			users.setUserId(Integer.parseInt(userId));
+			orders.setUsersByCreatedBy(users);
+			orders.setCreatedDate(new Date());
+			orderOnlineDAO.saveOrUpdateOrder(orders);
+		}
+		return orderResponse;
     }
 
     /**
-     * This method returns the data of the requested Order.
-     * 
-     * @param onlineOpenOrder
-     * @return OrderData
-     */
-    private OrderData getOrderDataForOnlineOpenOrder(
-            final OnlineOpenOrder onlineOpenOrder) {
-        OrderData orderData = null;
+	 * This method returns the data of the requested Order.
+	 * 
+	 * @param onlineOpenOrder
+	 * @return OrderData
+	 * @throws Exception 
+	 */
+	private OrderData getOrderDataForOnlineOpenOrder(
+			String orderId, String userId) throws Exception {
+		OrderData orderData = null;
+		SavedOrders savedOrder = null;
+		String orderDataObject = null;
+		OnlineOpenOrder onlineOpenOrder = null;
 
-        // TODO need to populate from OnlineOpenOrder object
-        if (onlineOpenOrder != null) {
-            orderData = new OrderData();
-            orderData.setArticle(new ArticleData());
-        }
+		if (orderId != null) {
+			savedOrder = orderOnlineDAO.getSavedOrdersForTheOrderId(orderId, userId);
+			orderDataObject = savedOrder.getOrderObject();
+			JSONObject object = (JSONObject) new JSONParser().parse(orderDataObject);
+			onlineOpenOrder = new ObjectMapper().readValue(object.toJSONString(), OnlineOpenOrder.class);
+			
+			orderData = new OrderData();
+			// TODO: Need to check Article data
+			orderData.setArticle(new ArticleData());
+			List<AddressDetails> bAddress = onlineOpenOrder.getAddressDetails();
+			
+			for (Iterator<AddressDetails> iterator = bAddress.iterator(); iterator.hasNext();) {
+				AddressDetails addressDetails = (AddressDetails) iterator.next();
+				
+				// TODO: Need to Check the types
+				if("illingAddress".equals(addressDetails.getBillingAddress().getAddressType())){
+					ContactAddress billingAddress = new ContactAddress();
+					// TODO: Need to set remaining objects
+					billingAddress.setName(addressDetails.getBillingAddress().getFirstName()+addressDetails.getBillingAddress().getLastName());
+					billingAddress.setOrg(addressDetails.getBillingAddress().getInstitution());
+					
+					orderData.setBillingAddress(billingAddress);
+				} else if ("contactAddress".equals(addressDetails.getBillingAddress().getAddressType())){
+					ContactAddress contactAddress = new ContactAddress();
+					// TODO: Need to set remaining objects
+					contactAddress.setName(addressDetails.getContactAddress().getFirstName()+addressDetails.getBillingAddress().getLastName());
+					contactAddress.setOrg(addressDetails.getContactAddress().getInstitution());
+					orderData.setContactAddress(contactAddress);
+				}
+			}
+			
+			TaxData taxData = new TaxData();
+			taxData.setCountryCode(onlineOpenOrder.getTaxDetails().getCountryCode());
+			taxData.setTaxExpiration(onlineOpenOrder.getTaxDetails().getTaxCodeExpiryDate());
+			taxData.setTaxNumber(onlineOpenOrder.getTaxDetails().getTaxExemptionNumber());
+			taxData.setVatExemptionNumber(onlineOpenOrder.getTaxDetails().getVatExemptionNumber());
+			taxData.setVatIdNumber(onlineOpenOrder.getTaxDetails().getVatIdNumber());
+			orderData.setTaxDetails(taxData);
+			
+			PricingData pricingData = new PricingData();
+			String amountToBePaidValue = onlineOpenOrder.getFinalAmount().getAmount();
+			pricingData.setAmountToBePaid((amountToBePaidValue != null && !"".equals(amountToBePaidValue.trim())) ? Double.parseDouble(amountToBePaidValue):null);
+			pricingData.setCurrency(onlineOpenOrder.getFinalAmount().getCurrency());
+			orderData.setPricing(pricingData);
+			
+			Payment payment = new Payment();
+			payment.setPaymentMethod(onlineOpenOrder.getPaymentMethod());
+			orderData.setPayment(payment);
+			
+			// TODO: Need to check WOAAccountHolder
+			orderData.setWoaAccountHolder(new WoaAccountHolder());
+			
+			orderData.setSpecialNotes("");
+			orderData.setCustomer(new Customer());
+			orderData.setEnteredBy("");
+			orderData.setOoUniqueId("");
+			orderData.setOrderDate("");
+			orderData.setOrderSource("");
+			orderData.setOrderStatusCode("");
+			orderData.setOrderSubType("");
+			orderData.setOrderType("");
+			orderData.setPoNumber("");
+			orderData.setReferenceOoUniqueId("");
+			
+		}
 
-        return orderData;
+		return orderData;
 
-    }
+	}
+
 
     /**
      * This method returns the Discounted WOA Funder List
