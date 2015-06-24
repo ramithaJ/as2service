@@ -42,8 +42,8 @@ public class OpenAccessController {
 		return service;
 	}
 	
-	@RequestMapping(value = "/pay", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Service getOpenAccessQuote(
+	@RequestMapping(value = "/pay", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Service payOpenAccess(
 			@RequestParam("userId") String userId,
 			@RequestBody OnlineOpenOrder onlineOpenOrder) {
 		Service service = new Service();
@@ -53,7 +53,7 @@ public class OpenAccessController {
 		return service;
 	}
 	
-	@RequestMapping(value = "/saveforlater", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/saveforlater", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Service saveForLater(
 			@RequestParam("userId") String userId,
 			@RequestBody OnlineOpenOrder onlineOpenOrder) {
