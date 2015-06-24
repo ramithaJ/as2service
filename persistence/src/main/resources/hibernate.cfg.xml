@@ -137,5 +137,23 @@
 			class="com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.JournalAlerts" />
+			<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.Products" />
+				<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.ProductTypes" />
+				<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.ProductRoles" />
+				<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.ProductRelations" />
+				<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.ProductPublicationStatuses" />
+			<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations" />
+			<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.PublicationStatuses" />
+			<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.JournalConfiguration" />
+			<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.JournalSetupStates" />
 	</session-factory>
 </hibernate-configuration>

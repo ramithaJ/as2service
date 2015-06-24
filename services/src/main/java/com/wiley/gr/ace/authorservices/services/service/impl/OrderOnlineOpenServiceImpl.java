@@ -105,7 +105,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 		 pricesList.add(prices);
 		 quoteDetail.setPrices(pricesList);
 		 onlineOpenOrder.setQuoteDetail(quoteDetail);
-		/* FunderDetails funderDetails=new FunderDetails();
+		 /*FunderDetails funderDetails=new FunderDetails();
 		 funderDetails.setResearchFunderId(orderData.getWoaAccountHolder().getName());
 		 funderDetails.setWoaAccountId(orderData.getWoaAccountHolder().getCode());
 		 List<FunderDetails> funderDetailsList=new ArrayList<FunderDetails>();
@@ -141,6 +141,13 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 		address.setCountry(country);
 		address.setPostCode(orderData.getContactAddress().getZip());
 		address.setPhoneNumber(orderData.getContactAddress().getPhoneNumber());
+		AddressDetails addressDetails= new AddressDetails();
+		addressDetails.setBillingAddress(address);
+		addressDetails.setShippingAddress(address);
+	     List<AddressDetails> addressDetailsList=new ArrayList<AddressDetails>();
+	     addressDetailsList.add(addressDetails);
+	     onlineOpenOrder.setAddressDetails(addressDetailsList);
+	     
 		
 		return onlineOpenOrder;
 	}
