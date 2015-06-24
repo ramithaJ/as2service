@@ -16,6 +16,7 @@ import java.util.List;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
+import com.wiley.gr.ace.authorservices.model.external.ConfirmArticleData;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 import com.wiley.gr.ace.authorservices.model.external.License;
 import com.wiley.gr.ace.authorservices.model.external.OnlineOpen;
@@ -159,14 +160,58 @@ public interface ESBInterfaceService {
      *             the exception
      */
     ArticleInfoDetails getArticleInfo(String emailId) throws Exception;
-    
-    //WP2A
-    
+
+    /**
+     * Gets the article confirmation data.
+     *
+     * @param emailId
+     *            the email id
+     * @return the article confirmation data
+     * @throws Exception
+     *             the exception
+     */
+    ConfirmArticleData getArticleConfirmationData(String emailId)
+            throws Exception;
+
+    // WP2A
+
+    /**
+     * Gets the quote.
+     *
+     * @param quoteRequest
+     *            the quote request
+     * @return the quote
+     * @throws Exception
+     *             the exception
+     */
     Quote getQuote(QuoteRequest quoteRequest) throws Exception;
-    
+
+    /**
+     * Pdh get article.
+     *
+     * @param articleId
+     *            the article id
+     * @return the article data
+     */
     ArticleData pdhGetArticle(String articleId);
-    
+
+    /**
+     * Pdh journal look up.
+     *
+     * @param journalId
+     *            the journal id
+     * @return the pdh journal response
+     */
     PdhJournalResponse pdhJournalLookUp(String journalId);
-    
+
+    /**
+     * Gets the tax info.
+     *
+     * @param taxRequest
+     *            the tax request
+     * @return the tax info
+     * @throws Exception
+     *             the exception
+     */
     TaxResponse getTaxInfo(TaxRequest taxRequest) throws Exception;
 }
