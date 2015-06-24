@@ -5,10 +5,11 @@ import java.util.List;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.OrderDetails;
 import com.wiley.gr.ace.authorservices.model.QuoteDetails;
+import com.wiley.gr.ace.authorservices.model.ResearchFunder;
+import com.wiley.gr.ace.authorservices.model.WOAAccounts;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSociety;
 import com.wiley.gr.ace.authorservices.model.external.InstitutionDiscounts;
 import com.wiley.gr.ace.authorservices.model.external.OrderResponse;
-import com.wiley.gr.ace.authorservices.model.external.PdhArticleResponse;
 import com.wiley.gr.ace.authorservices.model.external.SocietyMemberDiscount;
 import com.wiley.gr.ace.authorservices.model.external.WOAFunder;
 
@@ -75,7 +76,7 @@ public interface OrderOnlineOpenService {
      * @param userId
      * @return
      */
-    PdhArticleResponse getWOAAccounts();
+    List<WOAAccounts> getWOAAccounts();
 
     /**
      * @param userId
@@ -98,6 +99,6 @@ public interface OrderOnlineOpenService {
      * @param userId
      * @return
      */
-    PdhArticleResponse getFundersList();
+    List<ResearchFunder> getFundersList();
 
 }

@@ -38,7 +38,9 @@ import com.wiley.gr.ace.authorservices.model.OrderDetails;
 import com.wiley.gr.ace.authorservices.model.Prices;
 import com.wiley.gr.ace.authorservices.model.QuoteDetail;
 import com.wiley.gr.ace.authorservices.model.QuoteDetails;
+import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.TaxDetails;
+import com.wiley.gr.ace.authorservices.model.WOAAccounts;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSociety;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSocietyResponse;
@@ -49,9 +51,12 @@ import com.wiley.gr.ace.authorservices.model.external.OrderRequest;
 import com.wiley.gr.ace.authorservices.model.external.OrderResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhArticleResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
+import com.wiley.gr.ace.authorservices.model.external.ResearchFunderElement;
 import com.wiley.gr.ace.authorservices.model.external.SocietyMemberDiscount;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
+import com.wiley.gr.ace.authorservices.model.external.WOAAccount;
 import com.wiley.gr.ace.authorservices.model.external.WOAFunder;
+import com.wiley.gr.ace.authorservices.model.external.WileyOpenAccessFunders;
 import com.wiley.gr.ace.authorservices.persistence.entity.Articles;
 import com.wiley.gr.ace.authorservices.persistence.entity.Orders;
 import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
@@ -513,9 +518,22 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * @return
      */
     @Override
-    public PdhArticleResponse getWOAAccounts() {
+    public List<WOAAccounts> getWOAAccounts() {
 
-        return orderservice.getWoaAcounts();
+        WileyOpenAccessFunders wileyOpenAccessFunders = orderservice
+                .getWoaAcounts();
+        List<WOAAccount> woaAccountList = wileyOpenAccessFunders
+                .getWOAFunders().getWOAFunder().get(0).getWOAAccounts()
+                .getWOAAccount();
+        List<WOAAccounts> woaAccountsList = new ArrayList<WOAAccounts>();
+        WOAAccounts woaAccounts = null;
+        for (WOAAccount woaAccount : woaAccountList) {
+            woaAccounts = new WOAAccounts();
+            woaAccounts.setCode(woaAccount.getId());
+            woaAccounts.setName(woaAccount.getName());
+            woaAccountsList.add(woaAccounts);
+        }
+        return woaAccountsList;
     }
 
     /**
@@ -555,9 +573,29 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * @return
      */
     @Override
-    public PdhArticleResponse getFundersList() {
+    public List<ResearchFunder> getFundersList() {
 
-        return orderservice.getWoaAcounts();
+        WileyOpenAccessFunders wileyOpenAccessFunders = orderservice
+                .getWoaAcounts();
+        List<WOAAccount> woaAccountList = wileyOpenAccessFunders
+                .getWOAFunders().getWOAFunder().get(0).getWOAAccounts()
+                .getWOAAccount();
+        List<ResearchFunder> researchFunderList = new ArrayList<ResearchFunder>();
+        ResearchFunder researchFunder = null;
+        for (WOAAccount woaAccount : woaAccountList) {
+
+            List<ResearchFunderElement> researchFunderElementList = woaAccount
+                    .getResearchFunders().getResearchfunder();
+            for (ResearchFunderElement researchFunderElement : researchFunderElementList) {
+                researchFunder = new ResearchFunder();
+                researchFunder.setResearchFunderId(Integer
+                        .parseInt(researchFunderElement.getFunderrefid()));
+                researchFunder.setResearchFunderName(researchFunderElement
+                        .getFundername());
+                researchFunderList.add(researchFunder);
+            }
+        }
+        return researchFunderList;
     }
 
 }

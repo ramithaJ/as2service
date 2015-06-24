@@ -26,6 +26,7 @@ import com.wiley.gr.ace.authorservices.model.external.PdhArticleResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
 import com.wiley.gr.ace.authorservices.model.external.Quote;
 import com.wiley.gr.ace.authorservices.model.external.SocietyMemberDiscount;
+import com.wiley.gr.ace.authorservices.model.external.WileyOpenAccessFunders;
 
 /**
  * 
@@ -152,10 +153,10 @@ public class OrderServiceImpl implements OrderService {
      * Method to get WOA Accounts
      */
     @Override
-    public PdhArticleResponse getWoaAcounts() {
+    public WileyOpenAccessFunders getWoaAcounts() {
 
-        return (PdhArticleResponse) StubInvokerUtil.invokeJsonStub(
-                woaAccountsurl, HttpMethod.GET, PdhArticleResponse.class);
+        return (WileyOpenAccessFunders) StubInvokerUtil.invokeJsonStub(
+                woaAccountsurl, HttpMethod.GET, WileyOpenAccessFunders.class);
     }
 
     /**

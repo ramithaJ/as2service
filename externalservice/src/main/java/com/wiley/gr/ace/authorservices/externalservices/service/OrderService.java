@@ -21,6 +21,7 @@ import com.wiley.gr.ace.authorservices.model.external.PdhArticleResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
 import com.wiley.gr.ace.authorservices.model.external.Quote;
 import com.wiley.gr.ace.authorservices.model.external.SocietyMemberDiscount;
+import com.wiley.gr.ace.authorservices.model.external.WileyOpenAccessFunders;
 
 /**
  * 
@@ -68,7 +69,7 @@ public interface OrderService {
     /**
      * @return PdhArticleResponse
      */
-    PdhArticleResponse getWoaAcounts();
+    WileyOpenAccessFunders getWoaAcounts();
 
     /**
      * @return SocietyMemberDiscount
