@@ -13,13 +13,20 @@
  */
 package com.wiley.gr.ace.authorservices.model;
 
+/**
+ * The Class ArticleDetails.
+ */
 public class ArticleDetails {
 
+    /** The article title. */
     private String articleTitle;
 
+    /** The article aid. */
     private String articleAID;
 
     /**
+     * Gets the article title.
+     *
      * @return the articleTitle
      */
     public final String getArticleTitle() {
@@ -27,6 +34,8 @@ public class ArticleDetails {
     }
 
     /**
+     * Sets the article title.
+     *
      * @param articleTitle the articleTitle to set
      */
     public final void setArticleTitle(String articleTitle) {
@@ -34,6 +43,8 @@ public class ArticleDetails {
     }
 
     /**
+     * Gets the article aid.
+     *
      * @return the articleAID
      */
     public final String getArticleAID() {
@@ -41,6 +52,8 @@ public class ArticleDetails {
     }
 
     /**
+     * Sets the article aid.
+     *
      * @param articleAID the articleAID to set
      */
     public final void setArticleAID(String articleAID) {
