@@ -15,8 +15,6 @@ package com.wiley.gr.ace.authorservices.persistence.services;
 
 import java.util.List;
 
-import com.wiley.gr.ace.authorservices.persistence.entity.Articles;
-import com.wiley.gr.ace.authorservices.persistence.entity.JournalConfiguration;
 import com.wiley.gr.ace.authorservices.persistence.entity.Orders;
 import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
 import com.wiley.gr.ace.authorservices.persistence.entity.SavedOrders;
@@ -34,18 +32,6 @@ public interface OrderOnlineDAO {
      */
     ProductPersonRelations getAritcleAssignmentDetails(String userId,
             String articleId);
-
-    /**
-     * @param articleId
-     * @return
-     */
-    Articles getArticleDetails(String articleId);
-
-    /**
-     * @param journalId
-     * @return
-     */
-    JournalConfiguration getJournalDetails(String journalId);
 
     /**
      * @param articleId

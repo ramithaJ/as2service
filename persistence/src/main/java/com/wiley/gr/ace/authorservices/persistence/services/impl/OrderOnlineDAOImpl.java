@@ -22,8 +22,6 @@ import org.hibernate.FetchMode;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
-import com.wiley.gr.ace.authorservices.persistence.entity.Articles;
-import com.wiley.gr.ace.authorservices.persistence.entity.JournalConfiguration;
 import com.wiley.gr.ace.authorservices.persistence.entity.Orders;
 import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
 import com.wiley.gr.ace.authorservices.persistence.entity.SavedOrders;
@@ -36,7 +34,7 @@ import com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO;
 public class OrderOnlineDAOImpl implements OrderOnlineDAO {
 
     /**
-     * Method to get ArticleAssigmentDetails tabel object.
+     * Method to get ArticleAssigmentDetails table object.
      */
     @Override
     public final ProductPersonRelations getAritcleAssignmentDetails(
@@ -46,53 +44,17 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
         try {
             session = getSessionFactory().openSession();
             Criteria criteria = session.createCriteria(
-                    ProductPersonRelations.class, "articleAuthorAssignment");
-            criteria.createAlias("articleAuthorAssignment.articles", "articles");
-            criteria.createAlias("articleAuthorAssignment.userProfile",
+                    ProductPersonRelations.class, "productPersonRelations");
+            criteria.createAlias("productPersonRelations.products", "products");
+            criteria.createAlias("productPersonRelations.userProfile",
                     "userProfile");
-            criteria.add(Restrictions.eq("articles.articleId",
+            criteria.add(Restrictions.eq("products.dhId",
                     Integer.parseInt(articleId)));
             criteria.add(Restrictions.eq("userProfile.userId",
                     Integer.parseInt(userId)));
-            return (ProductPersonRelations) criteria.uniqueResult();
-        } finally {
-            if (session != null) {
-                session.flush();
-                session.close();
-            }
-        }
-    }
-
-    /**
-     * Method to get ArticleDetails table object.
-     */
-    @Override
-    public final Articles getArticleDetails(final String articleId) {
-
-        Session session = null;
-        try {
-            session = getSessionFactory().openSession();
-            return (Articles) session.get(Articles.class,
-                    Integer.parseInt(articleId));
-        } finally {
-            if (session != null) {
-                session.flush();
-                session.close();
-            }
-        }
-    }
-
-    /**
-     * Method to get Journal Details table object.
-     */
-    @Override
-    public final JournalConfiguration getJournalDetails(final String journalId) {
-
-        Session session = null;
-        try {
-            session = getSessionFactory().openSession();
-            return (JournalConfiguration) session.get(JournalConfiguration.class,
-                    Integer.parseInt(journalId));
+            ProductPersonRelations productPersonRelations = (ProductPersonRelations) criteria.uniqueResult();
+            System.err.println(productPersonRelations.getProductRoles().getProductRoleCd());
+            return null;
         } finally {
             if (session != null) {
                 session.flush();
@@ -223,4 +185,10 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
         }
 		
 	}
+	
+	public static void main(String[] args) {
+        
+	    OrderOnlineDAOImpl a = new OrderOnlineDAOImpl();
+	    a.getAritcleAssignmentDetails("8011047", "1111");
+    }
 }

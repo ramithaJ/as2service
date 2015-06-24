@@ -13,12 +13,14 @@
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSocietyResponse;
+import com.wiley.gr.ace.authorservices.model.external.InstitutionDiscounts;
 import com.wiley.gr.ace.authorservices.model.external.OrderData;
 import com.wiley.gr.ace.authorservices.model.external.OrderDataList;
 import com.wiley.gr.ace.authorservices.model.external.OrderResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhArticleResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
 import com.wiley.gr.ace.authorservices.model.external.Quote;
+import com.wiley.gr.ace.authorservices.model.external.SocietyMemberDiscount;
 
 /**
  * 
@@ -62,4 +64,19 @@ public interface OrderService {
      * @return PdhArticleResponse
      */
     DiscountedSocietyResponse getDiscountedSocietiesForJournal(String journalId);
+
+    /**
+     * @return PdhArticleResponse
+     */
+    PdhArticleResponse getWoaAcounts();
+
+    /**
+     * @return SocietyMemberDiscount
+     */
+    SocietyMemberDiscount getSocietyMemberDiscount();
+
+    /**
+     * @return InstitutionDiscounts
+     */
+    InstitutionDiscounts getInstitutionDiscounts();
 }

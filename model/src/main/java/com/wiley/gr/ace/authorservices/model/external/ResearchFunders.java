@@ -3,18 +3,20 @@
 
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.util.List;
+
 /**
  * The Class ResearchFunders.
  */
 public class ResearchFunders {
 
     /** The researchfunder. */
-    private ResearchFunderElement[] researchfunder;
+    private List<ResearchFunderElement> researchfunder;
 
     /**
      * @return the researchfunder
      */
-    public final ResearchFunderElement[] getResearchfunder() {
+    public final List<ResearchFunderElement> getResearchfunder() {
         return researchfunder;
     }
 
@@ -23,7 +25,8 @@ public class ResearchFunders {
      *            the researchfunder to set
      */
     public final void setResearchfunder(
-            final ResearchFunderElement[] researchfunder) {
+            final List<ResearchFunderElement> researchfunder) {
         this.researchfunder = researchfunder;
     }
+
 }

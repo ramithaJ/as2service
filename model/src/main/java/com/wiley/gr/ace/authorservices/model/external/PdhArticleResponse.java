@@ -1,64 +1,93 @@
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.util.List;
+
+import com.wiley.gr.ace.authorservices.model.Prices;
+
 /**
  * @author virtusa version1.0
  *
  */
 public class PdhArticleResponse {
 
-	private String articleId;
-	private String title;
-	private WOAFunders woaFunders;
+    /**
+     * This field holds the value of title
+     */
+    private String title;
 
-	/**
-	 * 
-	 * @return The articleId
-	 */
-	public String getArticleId() {
-		return articleId;
-	}
+    /**
+     * This field holds the value of WOAFunders
+     */
+    private WOAFunders WOAFunders;
 
-	/**
-	 * 
-	 * @param articleId
-	 *            The articleId
-	 */
-	public void setArticleId(String articleId) {
-		this.articleId = articleId;
-	}
+    /**
+     * This field holds the value of prices
+     */
+    private List<Prices> prices;
 
-	/**
-	 * 
-	 * @return The title
-	 */
-	public String getTitle() {
-		return title;
-	}
+    /**
+     * This field holds the value of articleId
+     */
+    private String articleId;
 
-	/**
-	 * 
-	 * @param title
-	 *            The title
-	 */
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    /**
+     * @return the title
+     */
+    public final String getTitle() {
+        return title;
+    }
 
-	/**
-	 * 
-	 * @return The WOAFunders
-	 */
-	public WOAFunders getWOAFunders() {
-		return woaFunders;
-	}
+    /**
+     * @param title
+     *            the title to set
+     */
+    public final void setTitle(final String title) {
+        this.title = title;
+    }
 
-	/**
-	 * 
-	 * @param WOAFunders
-	 *            The WOAFunders
-	 */
-	public void setWOAFunders(WOAFunders woaFunders) {
-		this.woaFunders = woaFunders;
-	}
+    /**
+     * @return the wOAFunders
+     */
+    public final WOAFunders getWOAFunders() {
+        return WOAFunders;
+    }
+
+    /**
+     * @param wOAFunders
+     *            the wOAFunders to set
+     */
+    public final void setWOAFunders(final WOAFunders wOAFunders) {
+        WOAFunders = wOAFunders;
+    }
+
+    /**
+     * @return the prices
+     */
+    public final List<Prices> getPrices() {
+        return prices;
+    }
+
+    /**
+     * @param prices
+     *            the prices to set
+     */
+    public final void setPrices(final List<Prices> prices) {
+        this.prices = prices;
+    }
+
+    /**
+     * @return the articleId
+     */
+    public final String getArticleId() {
+        return articleId;
+    }
+
+    /**
+     * @param articleId
+     *            the articleId to set
+     */
+    public final void setArticleId(final String articleId) {
+        this.articleId = articleId;
+    }
 
 }

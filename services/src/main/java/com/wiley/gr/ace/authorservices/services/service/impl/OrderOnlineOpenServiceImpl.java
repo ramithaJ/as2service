@@ -42,12 +42,14 @@ import com.wiley.gr.ace.authorservices.model.TaxDetails;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSociety;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSocietyResponse;
+import com.wiley.gr.ace.authorservices.model.external.InstitutionDiscounts;
 import com.wiley.gr.ace.authorservices.model.external.OrderData;
 import com.wiley.gr.ace.authorservices.model.external.OrderDataList;
 import com.wiley.gr.ace.authorservices.model.external.OrderRequest;
 import com.wiley.gr.ace.authorservices.model.external.OrderResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhArticleResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
+import com.wiley.gr.ace.authorservices.model.external.SocietyMemberDiscount;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 import com.wiley.gr.ace.authorservices.model.external.WOAFunder;
 import com.wiley.gr.ace.authorservices.persistence.entity.Articles;
@@ -177,11 +179,12 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * Method to get quote.
      */
     @Override
-    public QuoteDetails getQuote(String userId, String articleId,
-            String pdmSalesFlag) {
+    public QuoteDetails getQuote(final String userId, final String articleId,
+            final String pdmSalesFlag) {
 
         // Article details having userId and articleId
-        Articles articles = orderOnlineDAO.getArticleDetails(articleId);
+        // Articles articles = orderOnlineDAO.getArticleDetails(articleId);
+        Articles articles = null;
         if (null == articles) {
             throw new ASException("801",
                     "Article Not found in system. Please try after sometime..");
@@ -241,15 +244,9 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                 journalDetails.setJournalTitle(pdhLookup.getTitle());
                 quoteDetails.setJournalDetails(journalDetails);
 
-                // TODO : basic price
-                /*
-                 * QuoteDetail quoteDetail = new QuoteDetail(); List<Prices>
-                 * prices = new ArrayList<Prices>(); Prices price = new
-                 * Prices(); price.setCurrency(quote.getCurrency());
-                 * price.setPrice(quote.getArticlePubCharge());
-                 * prices.add(price); quoteDetail.setPrices(prices);
-                 * quoteDetails.setQuoteDetail(quoteDetail);
-                 */
+                // prices in 3 type of currencies
+                QuoteDetail quoteDetail = new QuoteDetail();
+                quoteDetail.setPrices(pdhArticleResponse.getPrices());
 
                 // values of DiscountsAllowed and AdditionalDiscountAllowed
                 quoteDetails.setDiscountsAllowed(pdhLookup
@@ -260,6 +257,16 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                 // details and addressDetails
                 UserProfileResponse userProfileResponse = userProfiles
                         .getUserProfileResponse(userId);
+                // First and LastName of author
+                quoteDetails.setAuthorName(userProfileResponse
+                        .getCustomerProfile().getCustomerDetails()
+                        .getFirstName()
+                        + " "
+                        + userProfileResponse.getCustomerProfile()
+                                .getCustomerDetails().getLastName());
+                // GrantRecipients(coAuthors)
+                userProfileResponse.getCustomerProfile().getCoAuthors();
+                // Societies
                 userProfileResponse.getCustomerProfile().getSocieties();
                 // billing and contact addresses
                 AddressDetails addressDetails = new AddressDetails();
@@ -270,8 +277,6 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                         .getCustomerProfile().getAddressDetails().get(2)
                         .getShippingAddress());
                 quoteDetails.setAddressDetails(addressDetails);
-                // funder details / WOA funder details
-                pdhArticleResponse.getWOAFunders().getWOAFunder();
 
             } else {
                 throw new ASException("805",
@@ -285,7 +290,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     }
 
     @Override
-    public List<OrderDetails> getAllOrders(Integer userId, String type) {
+    public List<OrderDetails> getAllOrders(final Integer userId,
+            final String type) {
         List<ProductPersonRelations> articleAuthorAssignmentList = orderOnlineDAO
                 .getArticleAuthId(userId, type);
         OrderDetails orderDetails = null;
@@ -321,8 +327,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * 
      */
     @Override
-    public OrderResponse submitOnlineOpenOrder(String userId,
-            OnlineOpenOrder onlineOpenOrder, String orderTypeFlag) {
+    public OrderResponse submitOnlineOpenOrder(final String userId,
+            final OnlineOpenOrder onlineOpenOrder, final String orderTypeFlag) {
 
         OrderResponse orderResponse = null;
 
@@ -374,7 +380,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * @return OrderData
      */
     private OrderData getOrderDataForOnlineOpenOrder(
-            OnlineOpenOrder onlineOpenOrder) {
+            final OnlineOpenOrder onlineOpenOrder) {
         OrderData orderData = null;
 
         // TODO need to populate from OnlineOpenOrder object
@@ -396,8 +402,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * 
      */
     @Override
-    public List<WOAFunder> retrieveDiscountedWOAFunderList(String userId,
-            String DHID) {
+    public List<WOAFunder> retrieveDiscountedWOAFunderList(final String userId,
+            final String DHID) {
 
         List<WOAFunder> woaFunderList = null;
 
@@ -423,7 +429,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      */
     @Override
     public List<DiscountedSociety> retrieveSocietyDiscountListForJournal(
-            String userId, String journalId) {
+            final String userId, final String journalId) {
         // TODO: Request object needs to be developed once provided with
         // structure.
 
@@ -455,7 +461,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * #saveLaterOrder(com.wiley.gr.ace.authorservices.model.OnlineOpenOrder)
      */
     @Override
-    public void saveLaterOrder(OnlineOpenOrder order, String userId) {
+    public void saveLaterOrder(final OnlineOpenOrder order, final String userId) {
 
         ObjectMapper mapper = new ObjectMapper();
         SavedOrders savedOrders = new SavedOrders();
@@ -486,8 +492,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * 
      */
     @Override
-    public boolean isAdditionDiscountAvailableForJournal(String userId,
-            String journalId) {
+    public boolean isAdditionDiscountAvailableForJournal(final String userId,
+            final String journalId) {
         boolean isAdditionDiscountAvailable = false;
         // Need confirmation on DHID or journal id.
 
@@ -502,6 +508,59 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         }
 
         return isAdditionDiscountAvailable;
+    }
+
+    /**
+     * Method to get WOA accounts.
+     * 
+     * @return
+     */
+    @Override
+    public PdhArticleResponse getWOAAccounts(final String userId) {
+
+        return orderservice.getWoaAcounts();
+    }
+
+    /**
+     * Method to get Grant Recipients.
+     */
+    @Override
+    public void getGrantRecipients(final String userId) {
+        // TODO Auto-generated method stub
+
+    }
+
+    /**
+     * Method to get Discounted Societies.
+     * 
+     * @return
+     */
+    @Override
+    public SocietyMemberDiscount getDiscountedSocieties(final String userId) {
+
+        return orderservice.getSocietyMemberDiscount();
+    }
+
+    /**
+     * Method to get Institutional discounts.
+     * 
+     * @return
+     */
+    @Override
+    public InstitutionDiscounts getInstitutionDiscounts(final String userId) {
+
+        return orderservice.getInstitutionDiscounts();
+    }
+
+    /**
+     * Method to get Funders list.
+     * 
+     * @return
+     */
+    @Override
+    public PdhArticleResponse getFundersList(final String userId) {
+
+        return orderservice.getWoaAcounts();
     }
 
 }

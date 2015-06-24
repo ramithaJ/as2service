@@ -1,0 +1,58 @@
+/**
+ * ****************************************************************************
+ * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
+ * <p/>
+ * All material contained herein is proprietary to John Wiley & Sons
+ * and its third party suppliers, if any. The methods, techniques and
+ * technical concepts contained herein are considered trade secrets
+ * and confidential and may be protected by intellectual property laws.
+ * Reproduction or distribution of this material, in whole or in part,
+ * is strictly forbidden except by express prior written permission
+ * of John Wiley & Sons.
+ * *****************************************************************************
+ */
+package com.wiley.gr.ace.authorservices.model.external;
+
+public class Institute {
+
+    /**
+     * This field holds the value of instituteName
+     */
+    private String instituteName;
+
+    /**
+     * This field holds the value of instituteCode
+     */
+    private String instituteCode;
+
+    /**
+     * @return the instituteName
+     */
+    public final String getInstituteName() {
+        return instituteName;
+    }
+
+    /**
+     * @param instituteName
+     *            the instituteName to set
+     */
+    public final void setInstituteName(final String instituteName) {
+        this.instituteName = instituteName;
+    }
+
+    /**
+     * @return the instituteCode
+     */
+    public final String getInstituteCode() {
+        return instituteCode;
+    }
+
+    /**
+     * @param instituteCode
+     *            the instituteCode to set
+     */
+    public final void setInstituteCode(final String instituteCode) {
+        this.instituteCode = instituteCode;
+    }
+
+}

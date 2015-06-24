@@ -9,36 +9,36 @@ package com.wiley.gr.ace.authorservices.model.external;
 public class ResearchFunderElement {
 
     /** The funderrefid. */
-    private java.lang.String funderrefid;
+    private String funderRefId;
 
     /** The grantno. */
-    private java.lang.String grantno;
+    private String grantno;
 
     /** The fundername. */
-    private java.lang.String fundername;
+    private String funderName;
 
     /** The associatedarticle. */
-    private java.lang.String associatedarticle;
+    private String associatedarticle;
 
     /**
      * @return the funderrefid
      */
-    public final java.lang.String getFunderrefid() {
-        return funderrefid;
+    public final String getFunderrefid() {
+        return funderRefId;
     }
 
     /**
      * @param funderrefid
      *            the funderrefid to set
      */
-    public final void setFunderrefid(final java.lang.String funderrefid) {
-        this.funderrefid = funderrefid;
+    public final void setFunderrefid(final String funderrefid) {
+        this.funderRefId = funderrefid;
     }
 
     /**
      * @return the grantno
      */
-    public final java.lang.String getGrantno() {
+    public final String getGrantno() {
         return grantno;
     }
 
@@ -46,29 +46,29 @@ public class ResearchFunderElement {
      * @param grantno
      *            the grantno to set
      */
-    public final void setGrantno(final java.lang.String grantno) {
+    public final void setGrantno(final String grantno) {
         this.grantno = grantno;
     }
 
     /**
      * @return the fundername
      */
-    public final java.lang.String getFundername() {
-        return fundername;
+    public final String getFundername() {
+        return funderName;
     }
 
     /**
      * @param fundername
      *            the fundername to set
      */
-    public final void setFundername(final java.lang.String fundername) {
-        this.fundername = fundername;
+    public final void setFundername(final String fundername) {
+        this.funderName = fundername;
     }
 
     /**
      * @return the associatedarticle
      */
-    public final java.lang.String getAssociatedarticle() {
+    public final String getAssociatedarticle() {
         return associatedarticle;
     }
 
@@ -76,15 +76,14 @@ public class ResearchFunderElement {
      * @param associatedarticle
      *            the associatedarticle to set
      */
-    public final void setAssociatedarticle(
-            final java.lang.String associatedarticle) {
+    public final void setAssociatedarticle(final String associatedarticle) {
         this.associatedarticle = associatedarticle;
     }
 
     /**
      * @return the funderassocenddate
      */
-    public final java.lang.String getFunderassocenddate() {
+    public final String getFunderassocenddate() {
         return funderassocenddate;
     }
 
@@ -92,15 +91,14 @@ public class ResearchFunderElement {
      * @param funderassocenddate
      *            the funderassocenddate to set
      */
-    public final void setFunderassocenddate(
-            final java.lang.String funderassocenddate) {
+    public final void setFunderassocenddate(final String funderassocenddate) {
         this.funderassocenddate = funderassocenddate;
     }
 
     /**
      * @return the funderassocstartdate
      */
-    public final java.lang.String getFunderassocstartdate() {
+    public final String getFunderassocstartdate() {
         return funderassocstartdate;
     }
 
@@ -108,15 +106,14 @@ public class ResearchFunderElement {
      * @param funderassocstartdate
      *            the funderassocstartdate to set
      */
-    public final void setFunderassocstartdate(
-            final java.lang.String funderassocstartdate) {
+    public final void setFunderassocstartdate(final String funderassocstartdate) {
         this.funderassocstartdate = funderassocstartdate;
     }
 
     /** The funderassocenddate. */
-    private java.lang.String funderassocenddate;
+    private String funderassocenddate;
 
     /** The funderassocstartdate. */
-    private java.lang.String funderassocstartdate;
+    private String funderassocstartdate;
 
 }
