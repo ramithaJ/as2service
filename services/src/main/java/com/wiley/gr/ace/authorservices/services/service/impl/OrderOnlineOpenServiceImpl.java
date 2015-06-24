@@ -91,14 +91,11 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         OrderDataList orderDataList = orderservice.getOrderDetails(userId,
                 orderId);
         orderData = orderDataList.getOrderDatas().get(0);
-
-        System.err.println(orderData.getEnteredBy());
-        System.err.println(orderData.getOoUniqueId());
         ArticleDetails articleDetails = new ArticleDetails();
         List<ArticleDetails> articleDetailsList = new ArrayList<ArticleDetails>();
         articleDetails.setArticleAID(orderData.getArticle().getAidECORE());
         articleDetails
-        .setArticleTitle(orderData.getArticle().getArticleTitle());
+                .setArticleTitle(orderData.getArticle().getArticleTitle());
         articleDetailsList.add(articleDetails);
         onlineOpenOrder.setArticleDetails(articleDetailsList);
         JournalDetails journalDetails = new JournalDetails();
@@ -110,7 +107,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         journalDetailsList.add(journalDetails);
         onlineOpenOrder.setJournalDetails(journalDetailsList);
         onlineOpenOrder
-        .setAuthorName(orderData.getWoaAccountHolder().getName());
+                .setAuthorName(orderData.getWoaAccountHolder().getName());
         QuoteDetail quoteDetail = new QuoteDetail();
         Prices prices = new Prices();
         List<Prices> pricesList = new ArrayList<Prices>();
@@ -123,7 +120,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         funderDetails.setResearchFunderId(orderData.getWoaAccountHolder()
                 .getName());
         funderDetails
-        .setWoaAccountId(orderData.getWoaAccountHolder().getCode());
+                .setWoaAccountId(orderData.getWoaAccountHolder().getCode());
         List<FunderDetails> funderDetailsList = new ArrayList<FunderDetails>();
         funderDetailsList.add(funderDetails);
         onlineOpenOrder.setFunderDetails(funderDetailsList);
@@ -206,7 +203,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             // check user is corresponding author or not.
             if (productPersonRelations.getProductRoles() != null
                     && productPersonRelations.getProductRoles()
-                    .getProductRoleCd().equalsIgnoreCase("0001")) {
+                            .getProductRoleCd().equalsIgnoreCase("0001")) {
 
                 // check is there any saved orders for this article.
                 SavedOrders savedOrders = orderOnlineDAO.getSavedOrders(
@@ -263,7 +260,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                         .getFirstName()
                         + " "
                         + userProfileResponse.getCustomerProfile()
-                        .getCustomerDetails().getLastName());
+                                .getCustomerDetails().getLastName());
                 // GrantRecipients(coAuthors)
                 userProfileResponse.getCustomerProfile().getCoAuthors();
                 // Societies
