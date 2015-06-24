@@ -13,6 +13,8 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * The Class OrderData.
  *
@@ -30,11 +32,14 @@ public class OrderData {
 	private String enteredBy;
 	private String specialNotes;
 	private String poNumber;
+	@JsonProperty("article")
 	private ArticleData articleData;
 	private Customer customer;
 	private WoaAccountHolder woaAccountHolder;
+	@JsonProperty("pricing")
 	private PricingData pricingData;
 	private Payment payment;
+	@JsonProperty("taxDetails")
 	private TaxData taxData;
 	private ContactAddress contactAddress;
 	private ContactAddress billingAddress;
@@ -52,7 +57,7 @@ public class OrderData {
 	 * @param ooUniqueId
 	 *            The ooUniqueId
 	 */
-	public void setOoUniqueId(String ooUniqueId) {
+	public void setOoUniqueId(final String ooUniqueId) {
 		this.ooUniqueId = ooUniqueId;
 	}
 
@@ -69,7 +74,7 @@ public class OrderData {
 	 * @param orderStatusCode
 	 *            The orderStatusCode
 	 */
-	public void setOrderStatusCode(String orderStatusCode) {
+	public void setOrderStatusCode(final String orderStatusCode) {
 		this.orderStatusCode = orderStatusCode;
 	}
 
@@ -86,7 +91,7 @@ public class OrderData {
 	 * @param orderSource
 	 *            The orderSource
 	 */
-	public void setOrderSource(String orderSource) {
+	public void setOrderSource(final String orderSource) {
 		this.orderSource = orderSource;
 	}
 
@@ -103,7 +108,7 @@ public class OrderData {
 	 * @param orderType
 	 *            The orderType
 	 */
-	public void setOrderType(String orderType) {
+	public void setOrderType(final String orderType) {
 		this.orderType = orderType;
 	}
 
@@ -120,7 +125,7 @@ public class OrderData {
 	 * @param orderSubType
 	 *            The orderSubType
 	 */
-	public void setOrderSubType(String orderSubType) {
+	public void setOrderSubType(final String orderSubType) {
 		this.orderSubType = orderSubType;
 	}
 
@@ -137,7 +142,7 @@ public class OrderData {
 	 * @param orderDate
 	 *            The orderDate
 	 */
-	public void setOrderDate(String orderDate) {
+	public void setOrderDate(final String orderDate) {
 		this.orderDate = orderDate;
 	}
 
@@ -154,7 +159,7 @@ public class OrderData {
 	 * @param referenceOoUniqueId
 	 *            The referenceOoUniqueId
 	 */
-	public void setReferenceOoUniqueId(String referenceOoUniqueId) {
+	public void setReferenceOoUniqueId(final String referenceOoUniqueId) {
 		this.referenceOoUniqueId = referenceOoUniqueId;
 	}
 
@@ -171,7 +176,7 @@ public class OrderData {
 	 * @param enteredBy
 	 *            The enteredBy
 	 */
-	public void setEnteredBy(String enteredBy) {
+	public void setEnteredBy(final String enteredBy) {
 		this.enteredBy = enteredBy;
 	}
 
@@ -188,7 +193,7 @@ public class OrderData {
 	 * @param specialNotes
 	 *            The specialNotes
 	 */
-	public void setSpecialNotes(String specialNotes) {
+	public void setSpecialNotes(final String specialNotes) {
 		this.specialNotes = specialNotes;
 	}
 
@@ -205,7 +210,7 @@ public class OrderData {
 	 * @param poNumber
 	 *            The poNumber
 	 */
-	public void setPoNumber(String poNumber) {
+	public void setPoNumber(final String poNumber) {
 		this.poNumber = poNumber;
 	}
 
@@ -222,7 +227,7 @@ public class OrderData {
 	 * @param articleData
 	 *            The articleData
 	 */
-	public void setArticle(ArticleData articleData) {
+	public void setArticle(final ArticleData articleData) {
 		this.articleData = articleData;
 	}
 
@@ -239,7 +244,7 @@ public class OrderData {
 	 * @param customer
 	 *            The customer
 	 */
-	public void setCustomer(Customer customer) {
+	public void setCustomer(final Customer customer) {
 		this.customer = customer;
 	}
 
@@ -256,7 +261,7 @@ public class OrderData {
 	 * @param woaAccountHolder
 	 *            The woaAccountHolder
 	 */
-	public void setWoaAccountHolder(WoaAccountHolder woaAccountHolder) {
+	public void setWoaAccountHolder(final WoaAccountHolder woaAccountHolder) {
 		this.woaAccountHolder = woaAccountHolder;
 	}
 
@@ -273,7 +278,7 @@ public class OrderData {
 	 * @param pricingData
 	 *            The pricingData
 	 */
-	public void setPricing(PricingData pricingData) {
+	public void setPricing(final PricingData pricingData) {
 		this.pricingData = pricingData;
 	}
 
@@ -290,7 +295,7 @@ public class OrderData {
 	 * @param payment
 	 *            The payment
 	 */
-	public void setPayment(Payment payment) {
+	public void setPayment(final Payment payment) {
 		this.payment = payment;
 	}
 
@@ -307,7 +312,7 @@ public class OrderData {
 	 * @param taxData
 	 *            The taxData
 	 */
-	public void setTaxDetails(TaxData taxData) {
+	public void setTaxDetails(final TaxData taxData) {
 		this.taxData = taxData;
 	}
 
@@ -324,7 +329,7 @@ public class OrderData {
 	 * @param contactAddress
 	 *            The contactAddress
 	 */
-	public void setContactAddress(ContactAddress contactAddress) {
+	public void setContactAddress(final ContactAddress contactAddress) {
 		this.contactAddress = contactAddress;
 	}
 
@@ -341,7 +346,7 @@ public class OrderData {
 	 * @param billingAddress
 	 *            The billingAddress
 	 */
-	public void setBillingAddress(ContactAddress billingAddress) {
+	public void setBillingAddress(final ContactAddress billingAddress) {
 		this.billingAddress = billingAddress;
 	}
 }

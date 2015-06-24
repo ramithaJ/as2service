@@ -31,6 +31,7 @@ import com.wiley.gr.ace.authorservices.model.Amount;
 import com.wiley.gr.ace.authorservices.model.ArticleDetails;
 import com.wiley.gr.ace.authorservices.model.Country;
 import com.wiley.gr.ace.authorservices.model.Discounts;
+import com.wiley.gr.ace.authorservices.model.FunderDetails;
 import com.wiley.gr.ace.authorservices.model.JournalDetails;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.OrderDetails;
@@ -84,9 +85,11 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 			final String orderId) {
 		OnlineOpenOrder onlineOpenOrder = new OnlineOpenOrder();
 		OrderData orderData = orderservice.getOrderDetails(userId, orderId);
+		System.err.println(orderData.getEnteredBy());
+		System.err.println(orderData.getOoUniqueId());
 		 ArticleDetails articleDetails= new ArticleDetails();
 		 List<ArticleDetails> articleDetailsList=new ArrayList<ArticleDetails>();
-		 articleDetails.setArticleAID(orderData.getArticle().getAidECORE());
+		articleDetails.setArticleAID(orderData.getArticle().getAidECORE());
 		 articleDetails.setArticleTitle(orderData.getArticle().getArticleTitle());
 		 articleDetailsList.add(articleDetails);
 		 onlineOpenOrder.setArticleDetails(articleDetailsList);
@@ -96,21 +99,21 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 		 journalDetails.setJournalTitle(orderData.getArticle().getJournal().getJournalTitle());
 		 journalDetailsList.add(journalDetails);
 		 onlineOpenOrder.setJournalDetails(journalDetailsList);
-		/* onlineOpenOrder.setAuthorName(orderData.getWoaAccountHolder().getName());*/
+		 onlineOpenOrder.setAuthorName(orderData.getWoaAccountHolder().getName());
 		 QuoteDetail quoteDetail=new QuoteDetail();
 		 Prices prices=new Prices();
 		 List<Prices> pricesList=new ArrayList<Prices>();
-		 prices.setCurrency(orderData.getPricing().getCurrency());
+		prices.setCurrency(orderData.getPricing().getCurrency());
 		 prices.setPrice(orderData.getPricing().getProductBasePrice().toString());
 		 pricesList.add(prices);
 		 quoteDetail.setPrices(pricesList);
 		 onlineOpenOrder.setQuoteDetail(quoteDetail);
-		 /*FunderDetails funderDetails=new FunderDetails();
+		 FunderDetails funderDetails=new FunderDetails();
 		 funderDetails.setResearchFunderId(orderData.getWoaAccountHolder().getName());
 		 funderDetails.setWoaAccountId(orderData.getWoaAccountHolder().getCode());
 		 List<FunderDetails> funderDetailsList=new ArrayList<FunderDetails>();
 		 funderDetailsList.add(funderDetails);
-		 onlineOpenOrder.setFunderDetails(funderDetailsList);*/
+		 onlineOpenOrder.setFunderDetails(funderDetailsList);
 		 Discounts discounts=new Discounts();
 		 List<Discounts> discountsList=new ArrayList<Discounts>();
 		 discounts.setSocietyId(orderData.getPricing().getDiscounts().getDiscount().getSocietyData().getCode());

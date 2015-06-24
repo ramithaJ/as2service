@@ -28,12 +28,18 @@ public class Journal {
     /** The dh id. */
     @JsonProperty("DH_ID")
     private String dhId;
-    
+
     /** The journal title. */
     private String journalTitle;
 
-    /** The journal description. */
-    private String journalDescription;
+    /** The journal code abbreviation. */
+    private String journalCodeAbbreviation;
+
+    /** The issn. */
+    private String issn;
+
+    /** The electronic issn. */
+    private String electronicIssn;
 
     /**
      * Gets the journal title.
@@ -47,28 +53,11 @@ public class Journal {
     /**
      * Sets the journal title.
      *
-     * @param journalTitle            the journalTitle to set
+     * @param journalTitle
+     *            the journalTitle to set
      */
     public final void setJournalTitle(final String journalTitle) {
         this.journalTitle = journalTitle;
-    }
-
-    /**
-     * Gets the journal description.
-     *
-     * @return the journalDescription
-     */
-    public final String getJournalDescription() {
-        return journalDescription;
-    }
-
-    /**
-     * Sets the journal description.
-     *
-     * @param journalDescription            the journalDescription to set
-     */
-    public final void setJournalDescription(final String journalDescription) {
-        this.journalDescription = journalDescription;
     }
 
     /**
@@ -83,7 +72,8 @@ public class Journal {
     /**
      * Sets the article titile.
      *
-     * @param articleTitile            the articleTitile to set
+     * @param articleTitile
+     *            the articleTitile to set
      */
     public final void setArticleTitile(final String articleTitile) {
         this.articleTitile = articleTitile;
@@ -101,7 +91,8 @@ public class Journal {
     /**
      * Sets the base price.
      *
-     * @param basePrice            the basePrice to set
+     * @param basePrice
+     *            the basePrice to set
      */
     public final void setBasePrice(final String basePrice) {
         this.basePrice = basePrice;
@@ -119,7 +110,8 @@ public class Journal {
     /**
      * Sets the author.
      *
-     * @param author            the author to set
+     * @param author
+     *            the author to set
      */
     public final void setAuthor(final String author) {
         this.author = author;
@@ -146,10 +138,65 @@ public class Journal {
     /**
      * Sets the dh id.
      *
-     * @param dhId the new dh id
+     * @param dhId
+     *            the new dh id
      */
     public final void setDhId(String dhId) {
         this.dhId = dhId;
+    }
+
+    /**
+     * Gets the journal code abbreviation.
+     *
+     * @return the journal code abbreviation
+     */
+    public final String getJournalCodeAbbreviation() {
+        return journalCodeAbbreviation;
+    }
+
+    /**
+     * Gets the issn.
+     *
+     * @return the issn
+     */
+    public final String getIssn() {
+        return issn;
+    }
+
+    /**
+     * Gets the electronic issn.
+     *
+     * @return the electronic issn
+     */
+    public final String getElectronicIssn() {
+        return electronicIssn;
+    }
+
+    /**
+     * Sets the journal code abbreviation.
+     *
+     * @param journalCodeAbbreviation the new journal code abbreviation
+     */
+    public final void setJournalCodeAbbreviation(String journalCodeAbbreviation) {
+        this.journalCodeAbbreviation = journalCodeAbbreviation;
+    }
+
+    /**
+     * Sets the issn.
+     *
+     * @param issn the new issn
+     */
+    public final void setIssn(String issn) {
+        this.issn = issn;
+    }
+
+    /**
+     * Sets the electronic issn.
+     *
+     * @param electronicIssn the new electronic issn
+     */
+    public final void setElectronicIssn(String electronicIssn) {
+        this.electronicIssn = electronicIssn;
     }
 
 }

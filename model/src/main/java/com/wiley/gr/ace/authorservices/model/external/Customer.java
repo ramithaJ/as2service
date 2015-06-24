@@ -20,58 +20,69 @@ package com.wiley.gr.ace.authorservices.model.external;
  */
 public class Customer {
 
-    /** The ec id. */
-    private String ecId;
-
-    /** The email id. */
-    private String emailId;
-
-    /** The order id. */
-    private String orderId;
+    /** The e core customer account id part1. */
+    private String eCoreCustomerAccountIdPart1;
+    
+    /** The e core customer account id part2. */
+    private String eCoreCustomerAccountIdPart2;
+    
+    /** The author id. */
+    private String authorId;
 
     /**
-     * @return the ecId
+     * Gets the e core customer account id part1.
+     *
+     * @return the e core customer account id part1
      */
-    public final String getEcId() {
-        return ecId;
+    public final String geteCoreCustomerAccountIdPart1() {
+        return eCoreCustomerAccountIdPart1;
     }
 
     /**
-     * @param ecId
-     *            the ecId to set
+     * Gets the e core customer account id part2.
+     *
+     * @return the e core customer account id part2
      */
-    public final void setEcId(final String ecId) {
-        this.ecId = ecId;
+    public final String geteCoreCustomerAccountIdPart2() {
+        return eCoreCustomerAccountIdPart2;
     }
 
     /**
-     * @return the emailId
+     * Gets the author id.
+     *
+     * @return the author id
      */
-    public final String getEmailId() {
-        return emailId;
+    public final String getAuthorId() {
+        return authorId;
     }
 
     /**
-     * @param emailId
-     *            the emailId to set
+     * Sets the e core customer account id part1.
+     *
+     * @param eCoreCustomerAccountIdPart1 the new e core customer account id part1
      */
-    public final void setEmailId(final String emailId) {
-        this.emailId = emailId;
+    public final void seteCoreCustomerAccountIdPart1(
+            final String eCoreCustomerAccountIdPart1) {
+        this.eCoreCustomerAccountIdPart1 = eCoreCustomerAccountIdPart1;
     }
 
     /**
-     * @return the orderId
+     * Sets the e core customer account id part2.
+     *
+     * @param eCoreCustomerAccountIdPart2 the new e core customer account id part2
      */
-    public final String getOrderId() {
-        return orderId;
+    public final void seteCoreCustomerAccountIdPart2(
+            final String eCoreCustomerAccountIdPart2) {
+        this.eCoreCustomerAccountIdPart2 = eCoreCustomerAccountIdPart2;
     }
 
     /**
-     * @param orderId
-     *            the orderId to set
+     * Sets the author id.
+     *
+     * @param authorId the new author id
      */
-    public final void setOrderId(final String orderId) {
-        this.orderId = orderId;
+    public final void setAuthorId(final String authorId) {
+        this.authorId = authorId;
     }
 
 }

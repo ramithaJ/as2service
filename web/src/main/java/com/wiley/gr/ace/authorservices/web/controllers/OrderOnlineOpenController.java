@@ -78,7 +78,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
      * @param orderId
      * @return
      */
-    @RequestMapping(value = "/view/", method = RequestMethod.GET)
+    @RequestMapping(value = "/view/{userId}/{orderId}/", method = RequestMethod.GET)
     public final Service getOnlineOpenOrderDetails(
             @PathVariable("userId") final String userId,
             @PathVariable("orderId") final String orderId) {

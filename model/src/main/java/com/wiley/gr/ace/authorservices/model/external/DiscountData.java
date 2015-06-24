@@ -13,6 +13,8 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * The Class DiscountData.
  *
@@ -30,12 +32,14 @@ public class DiscountData {
     private String discountTypeName;
 
     /** The society data. */
+    @JsonProperty("society")
     private SocietyData societyData;
 
     /** The promo code. */
     private String promoCode;
 
     /** The affiliation data. */
+    @JsonProperty("affiliation")
     private AffiliationData affiliationData;
 
     /**
@@ -53,7 +57,7 @@ public class DiscountData {
      * @param discountValue
      *            The discountValue
      */
-    public void setDiscountValue(Double discountValue) {
+    public void setDiscountValue(final Double discountValue) {
         this.discountValue = discountValue;
     }
 
@@ -71,7 +75,7 @@ public class DiscountData {
      *
      * @param discountTypeCode
      */
-    public void setDiscountTypeCode(String discountTypeCode) {
+    public void setDiscountTypeCode(final String discountTypeCode) {
         this.discountTypeCode = discountTypeCode;
     }
 
@@ -89,7 +93,7 @@ public class DiscountData {
      *
      * @param discountTypeName
      */
-    public void setDiscountTypeName(String discountTypeName) {
+    public void setDiscountTypeName(final String discountTypeName) {
         this.discountTypeName = discountTypeName;
     }
 
@@ -107,7 +111,7 @@ public class DiscountData {
      *
      * @param societyData
      */
-    public void setSocietyData(SocietyData societyData) {
+    public void setSocietyData(final SocietyData societyData) {
         this.societyData = societyData;
     }
 
@@ -125,7 +129,7 @@ public class DiscountData {
      *
      * @param promoCode
      */
-    public void setPromoCode(String promoCode) {
+    public void setPromoCode(final String promoCode) {
         this.promoCode = promoCode;
     }
 
@@ -143,7 +147,7 @@ public class DiscountData {
      *
      * @param affiliationData
      */
-    public void setAffiliationData(AffiliationData affiliationData) {
+    public void setAffiliationData(final AffiliationData affiliationData) {
         this.affiliationData = affiliationData;
     }
 

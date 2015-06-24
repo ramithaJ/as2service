@@ -16,6 +16,7 @@ package com.wiley.gr.ace.authorservices.model.external;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * The Class ArticleData.
@@ -32,6 +33,7 @@ public class ArticleData {
     private Journal journal;
 
     /** The dhid. */
+    @JsonProperty("DH_ID")
     private String DHID;
 
     /** The aid ecore. */
@@ -54,6 +56,7 @@ public class ArticleData {
 
     /** The production status. */
     private String productionStatus;
+    
 
     /**
      * Gets the article user role.
