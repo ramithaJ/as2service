@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
  *
- * All material contained herein is proprietary to John Wiley & Sons 
- * and its third party suppliers, if any. The methods, techniques and 
- * technical concepts contained herein are considered trade secrets 
- * and confidential and may be protected by intellectual property laws.  
- * Reproduction or distribution of this material, in whole or in part, 
- * is strictly forbidden except by express prior written permission 
+ * All material contained herein is proprietary to John Wiley & Sons
+ * and its third party suppliers, if any. The methods, techniques and
+ * technical concepts contained herein are considered trade secrets
+ * and confidential and may be protected by intellectual property laws.
+ * Reproduction or distribution of this material, in whole or in part,
+ * is strictly forbidden except by express prior written permission
  * of John Wiley & Sons.
  *******************************************************************************/
 
@@ -36,7 +36,7 @@ public interface AuthorProfileService {
      *            the society
      * @return true, if successful
      */
-    boolean updateSocietyDetails(Society society);
+    boolean updateSocietyDetails(int userId,Society society);
 
     /**
      * Update affiliation.
@@ -45,7 +45,7 @@ public interface AuthorProfileService {
      *            the affiliation
      * @return true, if successful
      */
-    boolean updateAffiliation(Affiliation affiliation);
+    boolean updateAffiliation(int userId,Affiliation affiliation);
 
     /**
      * Update research funder.
@@ -56,7 +56,7 @@ public interface AuthorProfileService {
      *            the research funder
      * @return true, if successful
      */
-    boolean updateResearchFunder(String userId, ResearchFunder researchFunder);
+    boolean updateResearchFunder(int userId, ResearchFunder researchFunder);
 
     /**
      * Update alerts.
@@ -67,7 +67,7 @@ public interface AuthorProfileService {
      *            the user profile alerts
      * @return true, if successful
      */
-    boolean updateAlerts(String userId, UserProfileAlerts userProfileAlerts);
+    boolean updateAlerts(int userId, UserProfileAlerts userProfileAlerts);
 
     /**
      * Update Coauthor.
@@ -76,7 +76,7 @@ public interface AuthorProfileService {
      *            the co author
      * @return true, if successful
      */
-    boolean updatecoAuthor(CoAuthor coAuthor);
+    boolean updatecoAuthor(int userId,CoAuthor coAuthor);
 
     /**
      * Update email details.
@@ -85,7 +85,7 @@ public interface AuthorProfileService {
      *            the email details
      * @return true, if successful
      */
-    boolean updateEmailDetails(User emailDetails);
+    boolean updateEmailDetails(int userId,User emailDetails);
 
     /**
      * Update user address.
@@ -94,7 +94,7 @@ public interface AuthorProfileService {
      *            the addresses
      * @return true, if successful
      */
-    boolean updateUserAddress(UserProfile addresses);
+    boolean updateUserAddress(int userId,UserProfile addresses);
 
     /**
      * Update user profile info.
@@ -103,7 +103,7 @@ public interface AuthorProfileService {
      *            the user
      * @return true, if successful
      */
-    boolean updateUserProfileInfo(User user);
+    boolean updateUserProfileInfo(int userId,User user);
 
     /**
      * Update user id.
@@ -139,5 +139,5 @@ public interface AuthorProfileService {
      *            the user id
      * @return the user profile response
      */
-    UserProfileResponse getuserProfileResponse(String userId);
+    UserProfileResponse getuserProfileResponse(int userId);
 }

@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
  *
- * All material contained herein is proprietary to John Wiley & Sons 
- * and its third party suppliers, if any. The methods, techniques and 
- * technical concepts contained herein are considered trade secrets 
- * and confidential and may be protected by intellectual property laws.  
- * Reproduction or distribution of this material, in whole or in part, 
- * is strictly forbidden except by express prior written permission 
+ * All material contained herein is proprietary to John Wiley & Sons
+ * and its third party suppliers, if any. The methods, techniques and
+ * technical concepts contained herein are considered trade secrets
+ * and confidential and may be protected by intellectual property laws.
+ * Reproduction or distribution of this material, in whole or in part,
+ * is strictly forbidden except by express prior written permission
  * of John Wiley & Sons.
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
@@ -70,17 +70,18 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      *             the exception
      */
     @Override
-    public User fetchOrcidDetails(String orcid) throws Exception {
+    public User fetchOrcidDetails(final String orcid) throws Exception {
         User user = null;
         final String url = fetchOrcidDetailsUrl;
-        URI uri = new URI(url);
-        RestTemplate restTemplate = new RestTemplate();
-        HttpHeaders requestHeaders = new HttpHeaders();
+        final URI uri = new URI(url);
+        final RestTemplate restTemplate = new RestTemplate();
+        final HttpHeaders requestHeaders = new HttpHeaders();
 
         requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-        HttpEntity<User> requestEntity = new HttpEntity<User>(requestHeaders);
+        final HttpEntity<User> requestEntity = new HttpEntity<User>(
+                requestHeaders);
 
-        ResponseEntity<User> response = restTemplate.exchange(uri,
+        final ResponseEntity<User> response = restTemplate.exchange(uri,
                 HttpMethod.GET, requestEntity, User.class);
         user = response.getBody();
         return user;
@@ -96,17 +97,17 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      *             the exception
      */
     @Override
-    public String updateALMUser(User updateUser) throws Exception {
+    public String updateALMUser(final User updateUser) throws Exception {
         String status = "failure";
         final String url = updateAlmUserUrl;
-        URI uri = new URI(url);
-        RestTemplate restTemplate = new RestTemplate();
-        HttpHeaders requestHeaders = new HttpHeaders();
+        final URI uri = new URI(url);
+        final RestTemplate restTemplate = new RestTemplate();
+        final HttpHeaders requestHeaders = new HttpHeaders();
 
         requestHeaders.setAccept(Arrays.asList(MediaType.TEXT_PLAIN));
-        HttpEntity<String> requestEntity = new HttpEntity<String>(
+        final HttpEntity<String> requestEntity = new HttpEntity<String>(
                 requestHeaders);
-        ResponseEntity<String> response = restTemplate.exchange(uri,
+        final ResponseEntity<String> response = restTemplate.exchange(uri,
                 HttpMethod.GET, requestEntity, String.class);
         status = response.getBody();
         return status;
@@ -122,9 +123,9 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      *             the exception
      */
     @Override
-    public ESBUser checkEmailIdExists(String emailId) throws Exception {
+    public ESBUser checkEmailIdExists(final String emailId) throws Exception {
         ESBUser esbUser = null;
-        List<ESBUser> esbUserList = searchUser(emailId, "", "");
+        final List<ESBUser> esbUserList = searchUser(emailId, "", "");
         if (!StringUtils.isEmpty(esbUserList)) {
             esbUser = esbUserList.get(0);
         }
@@ -143,8 +144,8 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      *             the exception
      */
     @Override
-    public List<ESBUser> getUsersFromFirstNameLastName(String firstName,
-            String lastName) throws Exception {
+    public List<ESBUser> getUsersFromFirstNameLastName(final String firstName,
+            final String lastName) throws Exception {
         List<ESBUser> esbUserList = null;
 
         esbUserList = searchUser("", firstName, lastName);
@@ -165,22 +166,23 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      * @throws Exception
      *             the exception
      */
-    private List<ESBUser> searchUser(String email, String firstName,
-            String lastName) throws Exception {
+    private List<ESBUser> searchUser(final String email,
+            final String firstName, final String lastName) throws Exception {
         ArrayList<ESBUser> esbUsersList = null;
         SearchUserResult searchUserResult = null;
         final String url = searchUserUrl + "?Email=" + email + "&FirstName="
                 + firstName + "&LastName=" + lastName;
-        URI uri = new URI(url);
-        RestTemplate restTemplate = new RestTemplate();
-        HttpHeaders requestHeaders = new HttpHeaders();
+        final URI uri = new URI(url);
+        final RestTemplate restTemplate = new RestTemplate();
+        final HttpHeaders requestHeaders = new HttpHeaders();
 
         requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-        HttpEntity<SearchUserResult> requestEntity = new HttpEntity<SearchUserResult>(
+        final HttpEntity<SearchUserResult> requestEntity = new HttpEntity<SearchUserResult>(
                 requestHeaders);
 
-        ResponseEntity<SearchUserResult> response = restTemplate.exchange(uri,
-                HttpMethod.GET, requestEntity, SearchUserResult.class);
+        final ResponseEntity<SearchUserResult> response = restTemplate
+                .exchange(uri, HttpMethod.GET, requestEntity,
+                        SearchUserResult.class);
         if (null != response) {
             searchUserResult = new SearchUserResult();
             searchUserResult = response.getBody();
@@ -201,20 +203,20 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      *             the exception
      */
     @Override
-    public Status creatUser(ProfileInformation profileForCreation)
+    public Status creatUser(final ProfileInformation profileForCreation)
             throws Exception {
-        Status status = new Status();
+        final Status status = new Status();
         final String url = createUserUrl;
-        URI uri = new URI(url);
-        RestTemplate restTemplate = new RestTemplate();
-        HttpHeaders requestHeaders = new HttpHeaders();
+        final URI uri = new URI(url);
+        final RestTemplate restTemplate = new RestTemplate();
+        final HttpHeaders requestHeaders = new HttpHeaders();
 
         requestHeaders.setAccept(Arrays.asList(MediaType.TEXT_PLAIN));
-        HttpEntity<ProfileInformation> requestEntity = new HttpEntity<ProfileInformation>(
+        final HttpEntity<ProfileInformation> requestEntity = new HttpEntity<ProfileInformation>(
                 profileForCreation, requestHeaders);
-        ResponseEntity<Status> response = restTemplate.exchange(uri,
+        final ResponseEntity<Status> response = restTemplate.exchange(uri,
                 HttpMethod.POST, requestEntity, Status.class);
-        HttpStatus httpStatus = response.getStatusCode();
+        final HttpStatus httpStatus = response.getStatusCode();
         if (httpStatus.equals(HttpStatus.OK)) {
             status.setStatus("SUCCESS");
         } else {
@@ -231,20 +233,21 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      * @return the dashboard view
      */
     @Override
-    public DashboardView viewDashboard(String userId) {
+    public DashboardView viewDashboard(final int userId) {
         DashboardView dashboardView = null;
         final String url = "http://demo7930138.mockable.io/dashboard/view/1000";
         try {
-            URI uri = new URI(url);
-            RestTemplate restTemplate = new RestTemplate();
-            HttpHeaders requestHeaders = new HttpHeaders();
+            final URI uri = new URI(url);
+            final RestTemplate restTemplate = new RestTemplate();
+            final HttpHeaders requestHeaders = new HttpHeaders();
 
             requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-            HttpEntity<DashboardView> requestEntity = new HttpEntity<DashboardView>(
+            final HttpEntity<DashboardView> requestEntity = new HttpEntity<DashboardView>(
                     requestHeaders);
 
-            ResponseEntity<DashboardView> response = restTemplate.exchange(uri,
-                    HttpMethod.GET, requestEntity, DashboardView.class);
+            final ResponseEntity<DashboardView> response = restTemplate
+                    .exchange(uri, HttpMethod.GET, requestEntity,
+                            DashboardView.class);
             dashboardView = response.getBody();
         } catch (URISyntaxException e) {
             e.printStackTrace();
@@ -261,19 +264,19 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      * @return the article info
      */
     @Override
-    public ArticleInfoDetails getArticleInfo(String emailId) {
+    public ArticleInfoDetails getArticleInfo(final String emailId) {
         ArticleInfoDetails articleInfoDetails = null;
         final String url = "http://demo7930138.mockable.io/article/getArticleInfo/emailId";
         try {
-            URI uri = new URI(url);
-            RestTemplate restTemplate = new RestTemplate();
-            HttpHeaders requestHeaders = new HttpHeaders();
+            final URI uri = new URI(url);
+            final RestTemplate restTemplate = new RestTemplate();
+            final HttpHeaders requestHeaders = new HttpHeaders();
 
             requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-            HttpEntity<ArticleInfoDetails> requestEntity = new HttpEntity<ArticleInfoDetails>(
+            final HttpEntity<ArticleInfoDetails> requestEntity = new HttpEntity<ArticleInfoDetails>(
                     requestHeaders);
 
-            ResponseEntity<ArticleInfoDetails> response = restTemplate
+            final ResponseEntity<ArticleInfoDetails> response = restTemplate
                     .exchange(uri, HttpMethod.GET, requestEntity,
                             ArticleInfoDetails.class);
             articleInfoDetails = response.getBody();
@@ -285,6 +288,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 
     /**
      * This method is used to confirmAssociation.
+     * 
      * @return the article info
      */
     @Override

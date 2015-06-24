@@ -1,15 +1,17 @@
 /*******************************************************************************
  * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
  *
- * All material contained herein is proprietary to John Wiley & Sons 
- * and its third party suppliers, if any. The methods, techniques and 
- * technical concepts contained herein are considered trade secrets 
- * and confidential and may be protected by intellectual property laws.  
- * Reproduction or distribution of this material, in whole or in part, 
- * is strictly forbidden except by express prior written permission 
+ * All material contained herein is proprietary to John Wiley & Sons
+ * and its third party suppliers, if any. The methods, techniques and
+ * technical concepts contained herein are considered trade secrets
+ * and confidential and may be protected by intellectual property laws.
+ * Reproduction or distribution of this material, in whole or in part,
+ * is strictly forbidden except by express prior written permission
  * of John Wiley & Sons.
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.model;
+
+import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -18,7 +20,12 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * The Class Alert.
  */
 @JsonInclude(Include.NON_NULL)
-public class Alert {
+public class Alert implements Serializable {
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
     /** The alert id. */
     private String alertId;
@@ -40,7 +47,8 @@ public class Alert {
     }
 
     /**
-     * @param alertId the alertId to set
+     * @param alertId
+     *            the alertId to set
      */
     public final void setAlertId(final String alertId) {
         this.alertId = alertId;
@@ -54,7 +62,8 @@ public class Alert {
     }
 
     /**
-     * @param alertName the alertName to set
+     * @param alertName
+     *            the alertName to set
      */
     public final void setAlertName(final String alertName) {
         this.alertName = alertName;
@@ -68,7 +77,8 @@ public class Alert {
     }
 
     /**
-     * @param onScreen the onScreen to set
+     * @param onScreen
+     *            the onScreen to set
      */
     public final void setOnScreen(final boolean onScreen) {
         this.onScreen = onScreen;
@@ -82,12 +92,11 @@ public class Alert {
     }
 
     /**
-     * @param email the email to set
+     * @param email
+     *            the email to set
      */
     public final void setEmail(final boolean email) {
         this.email = email;
     }
-
-   
 
 }

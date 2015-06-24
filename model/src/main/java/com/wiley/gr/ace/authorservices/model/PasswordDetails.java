@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
  *
- * All material contained herein is proprietary to John Wiley & Sons 
- * and its third party suppliers, if any. The methods, techniques and 
- * technical concepts contained herein are considered trade secrets 
- * and confidential and may be protected by intellectual property laws.  
- * Reproduction or distribution of this material, in whole or in part, 
- * is strictly forbidden except by express prior written permission 
+ * All material contained herein is proprietary to John Wiley & Sons
+ * and its third party suppliers, if any. The methods, techniques and
+ * technical concepts contained herein are considered trade secrets
+ * and confidential and may be protected by intellectual property laws.
+ * Reproduction or distribution of this material, in whole or in part,
+ * is strictly forbidden except by express prior written permission
  * of John Wiley & Sons.
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.model;
@@ -24,7 +24,7 @@ import org.hibernate.validator.constraints.NotBlank;
 public class PasswordDetails {
 
     /** The user id. */
-    private String userId;
+    private int userId;
 
     /** The email id. */
     @NotNull
@@ -45,7 +45,7 @@ public class PasswordDetails {
     /**
      * @return the userId
      */
-    public final String getUserId() {
+    public final int getUserId() {
         return userId;
     }
 
@@ -53,7 +53,7 @@ public class PasswordDetails {
      * @param userId
      *            the userId to set
      */
-    public final void setUserId(final String userId) {
+    public final void setUserId(final int userId) {
         this.userId = userId;
     }
 
