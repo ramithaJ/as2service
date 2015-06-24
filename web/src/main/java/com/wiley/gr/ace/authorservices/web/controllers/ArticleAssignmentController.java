@@ -28,11 +28,13 @@ import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
 import com.wiley.gr.ace.authorservices.model.external.AssociationConfirmation;
+import com.wiley.gr.ace.authorservices.model.external.ConfirmArticleData;
 import com.wiley.gr.ace.authorservices.services.service.ArticleAssignmentService;
 
 /**
- * @author yugandhark
+ * The Class ArticleAssignmentController.
  *
+ * @author virtusa version 1.0
  */
 @RestController
 @RequestMapping("/article")
@@ -45,61 +47,97 @@ public class ArticleAssignmentController {
     ArticleAssignmentService articleAssignmentService;
 
     /**
+     * Gets the article info.
+     *
      * @param emailId
+     *            the email id
      * @return service
      */
     @RequestMapping(value = "/confirm/display/{emailId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final @ResponseBody Service getArticleInfo(
             @PathVariable("emailId") final String emailId) {
-        Service service = new Service();
+        final Service service = new Service();
         ArticleInfoDetails articleInfoDetails = null;
 
-		try {
-			articleInfoDetails = articleAssignmentService
-					.getArticleInfo(emailId);
-			if (!StringUtils.isEmpty(articleInfoDetails)) {
-				service.setStatus("SUCCESS");
-				service.setPayload(articleInfoDetails);
-			}
-		} catch (Exception e) {
-			ErrorPOJO error = new ErrorPOJO();
-			error.setCode(205);
-			error.setMessage("Error Fetching ArticleInfo");
-			service.setStatus("ERROR");
-			service.setError(error);
-		}
-		return service;
+        try {
+            articleInfoDetails = articleAssignmentService
+                    .getArticleInfo(emailId);
+            if (!StringUtils.isEmpty(articleInfoDetails)) {
+                service.setStatus("SUCCESS");
+                service.setPayload(articleInfoDetails);
+            }
+        } catch (final Exception e) {
+            final ErrorPOJO error = new ErrorPOJO();
+            error.setCode(205);
+            error.setMessage("Error Fetching ArticleInfo");
+            service.setStatus("ERROR");
+            service.setError(error);
+        }
+        return service;
 
-	}
+    }
 
     /**
-     * @param articleAuthId
-     * @param userId
+     * Association confirmation.
+     *
+     * @param associationConfirmation
+     *            the association confirmation
      * @return service
      */
     @RequestMapping(value = "/confirm/association", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     public final @ResponseBody Service associationConfirmation(
-                  @RequestBody AssociationConfirmation associationConfirmation) {
-           Service service = new Service();
-           boolean isAssociationconfirmed = false;
-           try {
-                  isAssociationconfirmed = articleAssignmentService
-                               .associationConfirmation(associationConfirmation);
-                  if (isAssociationconfirmed) {
-                        service.setStatus("SUCCESS");
-                        service.setPayload(isAssociationconfirmed);
-                  } else {
-                        service.setStatus("FAILURE");
-                        service.setPayload(isAssociationconfirmed);
-                  }
-           } catch (Exception e) {
-                  ErrorPOJO error = new ErrorPOJO();
-                  error.setCode(205);
-                  error.setMessage("Error Fetching Association Confirmation");
-                  service.setStatus("ERROR");
-                  service.setError(error);
-           }
-           return service;
+            @RequestBody final AssociationConfirmation associationConfirmation) {
+        final Service service = new Service();
+        boolean isAssociationconfirmed = false;
+        try {
+            isAssociationconfirmed = articleAssignmentService
+                    .associationConfirmation(associationConfirmation);
+            if (isAssociationconfirmed) {
+                service.setStatus("SUCCESS");
+                service.setPayload(isAssociationconfirmed);
+            } else {
+                service.setStatus("FAILURE");
+                service.setPayload(isAssociationconfirmed);
+            }
+        } catch (final Exception e) {
+            final ErrorPOJO error = new ErrorPOJO();
+            error.setCode(205);
+            error.setMessage("Error Fetching Association Confirmation");
+            service.setStatus("ERROR");
+            service.setError(error);
+        }
+        return service;
+
+    }
+
+    /**
+     * Gets the confirmation article data.
+     *
+     * @param emailId
+     *            the email id
+     * @return the confirmation article data
+     */
+    @RequestMapping(value = "/confirmation/{emailId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final @ResponseBody Service getConfirmationArticleData(
+            @PathVariable("emailId") final String emailId) {
+        final Service service = new Service();
+        ConfirmArticleData confirmArticleData = null;
+
+        try {
+            confirmArticleData = articleAssignmentService
+                    .getArticleConfirmationData(emailId);
+            if (!StringUtils.isEmpty(confirmArticleData)) {
+                service.setStatus("SUCCESS");
+                service.setPayload(confirmArticleData);
+            }
+        } catch (final Exception e) {
+            final ErrorPOJO error = new ErrorPOJO();
+            error.setCode(205);
+            error.setMessage("Error Fetching Confrim Article Data");
+            service.setStatus("ERROR");
+            service.setError(error);
+        }
+        return service;
 
     }
 }
