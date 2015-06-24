@@ -20,6 +20,7 @@ import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceServ
 import com.wiley.gr.ace.authorservices.externalservices.service.SharedService;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
 import com.wiley.gr.ace.authorservices.model.external.AssociationConfirmation;
+import com.wiley.gr.ace.authorservices.model.external.ConfirmArticleData;
 import com.wiley.gr.ace.authorservices.services.service.ArticleAssignmentService;
 
 /**
@@ -67,6 +68,21 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
             final AssociationConfirmation associationConfirmation)
             throws Exception {
         return sharedService.associationConfirmation(associationConfirmation);
+    }
+
+    /**
+     * Gets the article confirmation data.
+     *
+     * @param emailId
+     *            the email id
+     * @return the article confirmation data
+     * @throws Exception
+     *             the exception
+     */
+    @Override
+    public final ConfirmArticleData getArticleConfirmationData(
+            final String emailId) throws Exception {
+        return esbInterfaceService.getArticleConfirmationData(emailId);
     }
 
 }

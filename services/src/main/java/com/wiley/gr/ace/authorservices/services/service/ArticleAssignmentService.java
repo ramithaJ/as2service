@@ -16,6 +16,7 @@ package com.wiley.gr.ace.authorservices.services.service;
 
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
 import com.wiley.gr.ace.authorservices.model.external.AssociationConfirmation;
+import com.wiley.gr.ace.authorservices.model.external.ConfirmArticleData;
 
 /**
  * The Interface ArticleAssignmentService.
@@ -46,4 +47,17 @@ public interface ArticleAssignmentService {
      */
     boolean associationConfirmation(
             AssociationConfirmation associationConfirmation) throws Exception;
+
+    /**
+     * Gets the article confirmation data.
+     *
+     * @param emailId
+     *            the email id
+     * @return the article confirmation data
+     * @throws Exception
+     *             the exception
+     */
+    ConfirmArticleData getArticleConfirmationData(String emailId)
+            throws Exception;
+
 }
