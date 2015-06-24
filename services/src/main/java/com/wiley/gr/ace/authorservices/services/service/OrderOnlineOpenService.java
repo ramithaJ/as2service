@@ -6,11 +6,11 @@ import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.OrderDetails;
 import com.wiley.gr.ace.authorservices.model.QuoteDetails;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
+import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.WOAAccounts;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSociety;
 import com.wiley.gr.ace.authorservices.model.external.InstitutionDiscounts;
 import com.wiley.gr.ace.authorservices.model.external.OrderResponse;
-import com.wiley.gr.ace.authorservices.model.external.SocietyMemberDiscount;
 import com.wiley.gr.ace.authorservices.model.external.WOAFunder;
 
 /**
@@ -87,7 +87,7 @@ public interface OrderOnlineOpenService {
      * @param userId
      * @return
      */
-    SocietyMemberDiscount getDiscountedSocieties();
+    List<Society> getDiscountedSocieties();
 
     /**
      * @param userId

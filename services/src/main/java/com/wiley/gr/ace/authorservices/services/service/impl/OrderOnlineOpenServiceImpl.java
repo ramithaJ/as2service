@@ -39,6 +39,7 @@ import com.wiley.gr.ace.authorservices.model.Prices;
 import com.wiley.gr.ace.authorservices.model.QuoteDetail;
 import com.wiley.gr.ace.authorservices.model.QuoteDetails;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
+import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.TaxDetails;
 import com.wiley.gr.ace.authorservices.model.WOAAccounts;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
@@ -52,7 +53,7 @@ import com.wiley.gr.ace.authorservices.model.external.OrderResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhArticleResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
 import com.wiley.gr.ace.authorservices.model.external.ResearchFunderElement;
-import com.wiley.gr.ace.authorservices.model.external.SocietyMemberDiscount;
+import com.wiley.gr.ace.authorservices.model.external.Societies;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 import com.wiley.gr.ace.authorservices.model.external.WOAAccount;
 import com.wiley.gr.ace.authorservices.model.external.WOAFunder;
@@ -553,9 +554,19 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * @return
      */
     @Override
-    public SocietyMemberDiscount getDiscountedSocieties() {
+    public List<Society> getDiscountedSocieties() {
 
-        return orderservice.getSocietyMemberDiscount();
+        List<Societies> societiesList = orderservice.getSocietyMemberDiscount()
+                .getSocieties();
+        List<Society> societyList = new ArrayList<Society>();
+        Society society = null;
+        for (Societies societies : societiesList) {
+            society = new Society();
+            society.setSocietyId(societies.getSocietyId());
+            society.setSocietyName(societies.getSocietyName());
+            societyList.add(society);
+        }
+        return societyList;
     }
 
     /**
