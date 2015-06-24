@@ -11,17 +11,20 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
  * The Class AddressDetails.
  */
+@JsonInclude(Include.NON_NULL)
 public class AddressDetails {
 
     /**
      * This field holds the value of billingAddress
      */
     private Address billingAddress;
-    
+
     /**
      * This field holds the value of shippingAddress
      */
@@ -35,7 +38,8 @@ public class AddressDetails {
     }
 
     /**
-     * @param billingAddress the billingAddress to set
+     * @param billingAddress
+     *            the billingAddress to set
      */
     public final void setBillingAddress(Address billingAddress) {
         this.billingAddress = billingAddress;
@@ -49,11 +53,11 @@ public class AddressDetails {
     }
 
     /**
-     * @param shippingAddress the shippingAddress to set
+     * @param shippingAddress
+     *            the shippingAddress to set
      */
     public final void setShippingAddress(Address shippingAddress) {
         this.shippingAddress = shippingAddress;
     }
 
-    
 }

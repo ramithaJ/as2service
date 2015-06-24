@@ -13,6 +13,10 @@
  */
 package com.wiley.gr.ace.authorservices.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonInclude(Include.NON_NULL)
 public class JournalDetails {
 
     private String journalId;
@@ -27,7 +31,8 @@ public class JournalDetails {
     }
 
     /**
-     * @param journalId the journalId to set
+     * @param journalId
+     *            the journalId to set
      */
     public final void setJournalId(String journalId) {
         this.journalId = journalId;
@@ -41,11 +46,11 @@ public class JournalDetails {
     }
 
     /**
-     * @param journalTitle the journalTitle to set
+     * @param journalTitle
+     *            the journalTitle to set
      */
     public final void setJournalTitle(String journalTitle) {
         this.journalTitle = journalTitle;
     }
-    
-    
+
 }

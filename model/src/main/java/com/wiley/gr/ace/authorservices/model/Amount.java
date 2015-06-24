@@ -12,9 +12,13 @@
 
 package com.wiley.gr.ace.authorservices.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * The Class Amount.
  */
+@JsonInclude(Include.NON_NULL)
 public class Amount {
 
     /** The amount. */
@@ -35,7 +39,8 @@ public class Amount {
     /**
      * Sets the amount.
      *
-     * @param amount the new amount
+     * @param amount
+     *            the new amount
      */
     public final void setAmount(final String amount) {
         this.amount = amount;
@@ -53,7 +58,8 @@ public class Amount {
     /**
      * Sets the currency.
      *
-     * @param currency the new currency
+     * @param currency
+     *            the new currency
      */
     public final void setCurrency(final String currency) {
         this.currency = currency;

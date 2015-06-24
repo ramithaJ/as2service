@@ -13,9 +13,13 @@
  */
 package com.wiley.gr.ace.authorservices.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * The Class ArticleDetails.
  */
+@JsonInclude(Include.NON_NULL)
 public class ArticleDetails {
 
     /** The article title. */
@@ -36,7 +40,8 @@ public class ArticleDetails {
     /**
      * Sets the article title.
      *
-     * @param articleTitle the articleTitle to set
+     * @param articleTitle
+     *            the articleTitle to set
      */
     public final void setArticleTitle(String articleTitle) {
         this.articleTitle = articleTitle;
@@ -54,11 +59,11 @@ public class ArticleDetails {
     /**
      * Sets the article aid.
      *
-     * @param articleAID the articleAID to set
+     * @param articleAID
+     *            the articleAID to set
      */
     public final void setArticleAID(String articleAID) {
         this.articleAID = articleAID;
     }
 
-    
 }

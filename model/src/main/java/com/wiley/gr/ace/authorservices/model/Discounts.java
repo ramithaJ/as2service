@@ -12,9 +12,13 @@
 
 package com.wiley.gr.ace.authorservices.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * The Class Discounts.
  */
+@JsonInclude(Include.NON_NULL)
 public class Discounts {
 
     /** The institution id. */
@@ -41,7 +45,8 @@ public class Discounts {
     /**
      * Sets the institution id.
      *
-     * @param institutionId the new institution id
+     * @param institutionId
+     *            the new institution id
      */
     public final void setInstitutionId(final String institutionId) {
         this.institutionId = institutionId;
@@ -59,7 +64,8 @@ public class Discounts {
     /**
      * Sets the society id.
      *
-     * @param societyId the new society id
+     * @param societyId
+     *            the new society id
      */
     public final void setSocietyId(final String societyId) {
         this.societyId = societyId;
@@ -77,7 +83,8 @@ public class Discounts {
     /**
      * Sets the other discounts.
      *
-     * @param otherDiscounts the new other discounts
+     * @param otherDiscounts
+     *            the new other discounts
      */
     public final void setOtherDiscounts(final String otherDiscounts) {
         this.otherDiscounts = otherDiscounts;
@@ -95,7 +102,8 @@ public class Discounts {
     /**
      * Sets the promo code.
      *
-     * @param promoCode the new promo code
+     * @param promoCode
+     *            the new promo code
      */
     public final void setPromoCode(final String promoCode) {
         this.promoCode = promoCode;

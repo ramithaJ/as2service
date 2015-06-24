@@ -14,9 +14,13 @@ package com.wiley.gr.ace.authorservices.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * The Class FunderDetails.
  */
+@JsonInclude(Include.NON_NULL)
 public class FunderDetails {
 
     /** The woa account id. */
@@ -43,7 +47,8 @@ public class FunderDetails {
     /**
      * Sets the woa account id.
      *
-     * @param woaAccountId the new woa account id
+     * @param woaAccountId
+     *            the new woa account id
      */
     public final void setWoaAccountId(final String woaAccountId) {
         this.woaAccountId = woaAccountId;
@@ -61,7 +66,8 @@ public class FunderDetails {
     /**
      * Sets the funder id.
      *
-     * @param funderId the new funder id
+     * @param funderId
+     *            the new funder id
      */
     public final void setFunderId(final String funderId) {
         this.funderId = funderId;
@@ -79,7 +85,8 @@ public class FunderDetails {
     /**
      * Sets the research funder id.
      *
-     * @param researchFunderId the new research funder id
+     * @param researchFunderId
+     *            the new research funder id
      */
     public final void setResearchFunderId(final String researchFunderId) {
         this.researchFunderId = researchFunderId;
@@ -97,7 +104,8 @@ public class FunderDetails {
     /**
      * Sets the grants.
      *
-     * @param grants the new grants
+     * @param grants
+     *            the new grants
      */
     public final void setGrants(final List<Grants> grants) {
         this.grants = grants;
