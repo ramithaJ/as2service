@@ -54,7 +54,6 @@
 			class="com.wiley.gr.ace.authorservices.persistence.entity.InvitationLog" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.UserProfile" />
-		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Journals" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.LockedAccountDetails" />
 		<mapping
@@ -107,10 +106,6 @@
 		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Address" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.AreaOfInterest" />
-		<mapping
-			class="com.wiley.gr.ace.authorservices.persistence.entity.ArticleAuthorAssignment" />
-		<mapping
-			class="com.wiley.gr.ace.authorservices.persistence.entity.ArticleRoles" />
 		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Articles" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.UserAffiliations" />
