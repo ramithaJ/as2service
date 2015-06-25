@@ -96,7 +96,7 @@ public class UserManagementImpl implements UserManagement {
      */
     @Override
     public SecurityResponse authenticateUser(
-            SharedServieRequest sharedServieRequest) {
+            final SharedServieRequest sharedServieRequest) {
         return (SecurityResponse) StubInvokerUtil.restServiceInvoker(
                 sharedServiceAuthenticateUrl, sharedServieRequest,
                 SecurityResponse.class);
@@ -111,7 +111,7 @@ public class UserManagementImpl implements UserManagement {
      * @return true, if successful
      */
     @Override
-    public boolean authenticateAdminUser(String emailId) {
+    public boolean authenticateAdminUser(final String emailId) {
 
         Service service = (Service) StubInvokerUtil.invokeStub(
                 authenticateAdminUser, HttpMethod.POST, Service.class);
@@ -132,7 +132,7 @@ public class UserManagementImpl implements UserManagement {
      * @return true, if successful
      */
     @Override
-    public boolean authenticateUserALM(String emailId, String password) {
+    public boolean authenticateUserALM(final String emailId, final String password) {
 
         return "Password".equalsIgnoreCase(password);
     }
@@ -145,7 +145,7 @@ public class UserManagementImpl implements UserManagement {
      * @return true, if successful
      */
     @Override
-    public boolean resetPassword(SecurityDetailsHolder securityDetailsHolder) {
+    public boolean resetPassword(final SecurityDetailsHolder securityDetailsHolder) {
         Service service = (Service) StubInvokerUtil.invokeStub(resetPassword,
                 HttpMethod.POST, Service.class);
         String status = service.getStatus();
@@ -165,7 +165,7 @@ public class UserManagementImpl implements UserManagement {
      * @return true, if successful
      */
     @Override
-    public boolean updateUserId(String oldEmailId, String newEmailId) {
+    public boolean updateUserId(final String oldEmailId, final String newEmailId) {
 
         Service service = (Service) StubInvokerUtil.invokeStub(updateUserId,
                 HttpMethod.POST, Service.class);
@@ -186,7 +186,7 @@ public class UserManagementImpl implements UserManagement {
      * @return true, if successful
      */
     @Override
-    public boolean forceFulReset(String emailId, String newPassword) {
+    public boolean forceFulReset(final String emailId, final String newPassword) {
         Service service = (Service) StubInvokerUtil.invokeStub(forceFulReset,
                 HttpMethod.POST, Service.class);
         String status = service.getStatus();
@@ -204,7 +204,7 @@ public class UserManagementImpl implements UserManagement {
      * @return true, if successful
      */
     @Override
-    public boolean lockUser(String emailId) {
+    public boolean lockUser(final String emailId) {
 
         Service service = (Service) StubInvokerUtil.invokeStub(lockUser,
                 HttpMethod.POST, Service.class);
@@ -223,7 +223,7 @@ public class UserManagementImpl implements UserManagement {
      * @return true, if successful
      */
     @Override
-    public boolean unLockUser(String emailId) {
+    public boolean unLockUser(final String emailId) {
 
         Service service = (Service) StubInvokerUtil.invokeStub(unLockUser,
                 HttpMethod.POST, Service.class);
@@ -242,7 +242,7 @@ public class UserManagementImpl implements UserManagement {
      * @return the security details
      */
     @Override
-    public SecurityDetailsHolder getSecurityDetails(String emailId) {
+    public SecurityDetailsHolder getSecurityDetails(final String emailId) {
 
         return (SecurityDetailsHolder) StubInvokerUtil.invokeStub(
                 securityDetails, HttpMethod.GET, SecurityDetailsHolder.class);
@@ -256,7 +256,7 @@ public class UserManagementImpl implements UserManagement {
      * @return the security questions
      */
     @Override
-    public SecurityDetailsHolder getSecurityQuestions(String emailId) {
+    public SecurityDetailsHolder getSecurityQuestions(final String emailId) {
 
         return (SecurityDetailsHolder) StubInvokerUtil.invokeStub(
                 securityQuestions, HttpMethod.GET, SecurityDetailsHolder.class);
@@ -270,7 +270,7 @@ public class UserManagementImpl implements UserManagement {
      * @return true, if successful
      */
     @Override
-    public boolean updatePassword(PasswordDetails passwordDetails) {
+    public boolean updatePassword(final PasswordDetails passwordDetails) {
 
         Service service = (Service) StubInvokerUtil.invokeStub(updatePassword,
                 HttpMethod.POST, Service.class);
@@ -289,7 +289,7 @@ public class UserManagementImpl implements UserManagement {
      * @return true, if successful
      */
     @Override
-    public boolean updateSecurityDetails(SecurityDetailsHolder securityDetails) {
+    public boolean updateSecurityDetails(final SecurityDetailsHolder securityDetails) {
 
         Service service = (Service) StubInvokerUtil.invokeStub(
                 updateSecurityDetails, HttpMethod.POST, Service.class);
@@ -308,7 +308,7 @@ public class UserManagementImpl implements UserManagement {
      * @return the security question details
      */
     @Override
-    public SecuirtyQuestionDetails getSecurityQuestionDetails(String emailId) {
+    public SecuirtyQuestionDetails getSecurityQuestionDetails(final String emailId) {
 
         return (SecuirtyQuestionDetails) StubInvokerUtil.invokeStub(
                 securityQuestionDetails, HttpMethod.GET,
@@ -323,7 +323,7 @@ public class UserManagementImpl implements UserManagement {
      * @return the admin user
      */
     @Override
-    public AdminUser findUser(String emailId) {
+    public AdminUser findUser(final String emailId) {
 
         /*
          * return (AdminUser) StubInvokerUtil.invokeStub(findUser,

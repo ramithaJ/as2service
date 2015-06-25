@@ -16,7 +16,8 @@ import com.wiley.gr.ace.authorservices.exception.ASException;
 /**
  * The Class StubInvokerUtil.
  *
- * @author virtusa version 1.0
+ * @author virtusa 
+ * version 1.0
  */
 public class StubInvokerUtil {
 
@@ -34,7 +35,7 @@ public class StubInvokerUtil {
      * @return Object
      */
     public static <T> Object invokeStub(final String url,
-            final HttpMethod httpMethod, Class<T> clazz) {
+            final HttpMethod httpMethod,final Class<T> clazz) {
         
         try {
             HttpHeaders requestHeaders = new HttpHeaders();
@@ -70,7 +71,7 @@ public class StubInvokerUtil {
      * @return Object
      */
     public static <T> Object restServiceInvoker(final String url,
-            Object requestEntityClass, Class<T> responseEntityClass) {
+            final Object requestEntityClass,final Class<T> responseEntityClass) {
 
         try {     
             ResponseEntity<T> response = new RestTemplate().postForEntity(

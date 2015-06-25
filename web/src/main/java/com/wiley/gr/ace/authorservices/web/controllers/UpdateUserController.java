@@ -1,16 +1,16 @@
 /*******************************************************************************
  * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
  *
- * All material contained herein is proprietary to John Wiley & Sons 
- * and its third party suppliers, if any. The methods, techniques and 
- * technical concepts contained herein are considered trade secrets 
- * and confidential and may be protected by intellectual property laws.  
- * Reproduction or distribution of this material, in whole or in part, 
- * is strictly forbidden except by express prior written permission 
+ * All material contained herein is proprietary to John Wiley & Sons
+ * and its third party suppliers, if any. The methods, techniques and
+ * technical concepts contained herein are considered trade secrets
+ * and confidential and may be protected by intellectual property laws.
+ * Reproduction or distribution of this material, in whole or in part,
+ * is strictly forbidden except by express prior written permission
  * of John Wiley & Sons.
  *******************************************************************************/
 /**
- * 
+ *
  */
 package com.wiley.gr.ace.authorservices.web.controllers;
 
@@ -34,28 +34,29 @@ import com.wiley.gr.ace.authorservices.services.service.UpdateUserService;
 @RequestMapping("/user/update")
 public class UpdateUserController {
     /**
-     * getting bean of update user service
+     * getting bean of update user service.
      */
     @Autowired(required = true)
-    UpdateUserService updateUserService;
+    private UpdateUserService updateUserService;
 
     /**
      * @param orcidId
-     * @return service 
+     * @return service
      */
     @RequestMapping(value = "/orcid/{orcidId}/{userId}", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody Service updateOrcidId(@PathVariable final String orcidId,
-            @PathVariable final String userId, @RequestBody final String emailId) {
+    public @ResponseBody Service updateOrcidId(
+            @PathVariable final String orcidId, @PathVariable final int userId,
+            @RequestBody final String emailId) {
 
-        Service service = new Service();
+        final Service service = new Service();
 
         try {
             service.setPayload(updateUserService.updateOrcidId(emailId,
                     orcidId, userId));
-        } catch (Exception e) {
-            ErrorPOJO error = new ErrorPOJO();
+        } catch (final Exception e) {
+            final ErrorPOJO error = new ErrorPOJO();
             error.setCode(-101); // Need to set proper error code this one is
-                                 // dummy
+            // dummy
             error.setMessage("Error updating user ORCID ID");
 
             service.setStatus("error");

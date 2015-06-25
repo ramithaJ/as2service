@@ -18,21 +18,26 @@ import com.wiley.gr.ace.authorservices.persistence.entity.Permissions;
 import com.wiley.gr.ace.authorservices.persistence.entity.Roles;
 
 /**
- * @author virtusa version 1.0
+ * @author virtusa 
+ * version 1.0
  */
 public interface UserRolesDAO {
 
 	/**
 	 * This method is used to add or update user roles and permissions.
 	 * 
-	 * @param userRoles to add or update user roles.
-	 * @param permissionsList to add or update permissions.
+	 * @param userRoles
+	 *            to add or update user roles.
+	 * @param permissionsList
+	 *            to add or update permissions.
 	 */
 	void addOrUpdateUserRoles(Roles userRoles, List<Permissions> permissionsList);
 
 	/**
 	 * This checks the role name.
-	 * @param roleName to check.
+	 * 
+	 * @param roleName
+	 *            to check.
 	 */
 	void checkRoleName(String roleName);
 

@@ -12,7 +12,7 @@
 package com.wiley.gr.ace.authorservices.model;
 
 /**
- * This is the generic model for all dropdowns in AS2.0
+ * This is the generic model for all dropdowns in AS2.0.
  * 
  * @author virtusa version 1.0
  */

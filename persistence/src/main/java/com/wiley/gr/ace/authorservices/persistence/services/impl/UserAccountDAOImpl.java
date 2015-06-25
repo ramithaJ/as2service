@@ -96,7 +96,8 @@ public class UserAccountDAOImpl implements UserAccountDAO {
         try {
             session = getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            String hql = "UPDATE AuthorProfile set primaryEmailAddr = :primaryEmailAddr, secondaryEmailAddr = :secondaryEmailAddr "
+            String hql = "UPDATE AuthorProfile set primaryEmailAddr ="
+            		+ " :primaryEmailAddr, secondaryEmailAddr = :secondaryEmailAddr "
                     + "WHERE userId = :userId";
             Query query = session.createQuery(hql);
             query.setParameter("primaryEmailAddr", primaryEmail);

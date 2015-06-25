@@ -63,7 +63,7 @@ public class OrcidInterfaceServiceImpl implements OrcidInterfaceService {
      *             the exception
      */
     @Override
-    public OrcidAccessToken getAccessToken(String authorizationCode)
+    public OrcidAccessToken getAccessToken(final String authorizationCode)
             throws Exception {
         OrcidAccessToken accessToken = null;
         Reference ref = new Reference(orcidTokenUrl);
@@ -105,7 +105,7 @@ public class OrcidInterfaceServiceImpl implements OrcidInterfaceService {
      *             the exception
      */
     @Override
-    public String getBio(OrcidAccessToken token) throws Exception {
+    public String getBio(final OrcidAccessToken token) throws Exception {
 
         Reference ref = new Reference(orcidUrl + "/" + token.getOrcid()
                 + "/orcid-bio");
@@ -133,7 +133,7 @@ public class OrcidInterfaceServiceImpl implements OrcidInterfaceService {
      *             the exception
      */
     @Override
-    public String getWork(OrcidAccessToken token) throws Exception {
+    public String getWork(final OrcidAccessToken token) throws Exception {
 
         Reference ref = new Reference(orcidUrl + "/" + token.getOrcid()
                 + "/orcid-works");

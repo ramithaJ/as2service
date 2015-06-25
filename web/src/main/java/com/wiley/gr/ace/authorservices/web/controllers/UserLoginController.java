@@ -36,7 +36,8 @@ import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 
 /**
- * @author virtusa version 1.0
+ * @author virtusa 
+ * version 1.0
  */
 @RestController
 @RequestMapping("/user")

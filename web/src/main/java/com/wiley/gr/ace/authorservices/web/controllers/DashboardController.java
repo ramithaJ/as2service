@@ -1,16 +1,16 @@
 /*******************************************************************************
  * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
  *
- * All material contained herein is proprietary to John Wiley & Sons 
- * and its third party suppliers, if any. The methods, techniques and 
- * technical concepts contained herein are considered trade secrets 
- * and confidential and may be protected by intellectual property laws.  
- * Reproduction or distribution of this material, in whole or in part, 
- * is strictly forbidden except by express prior written permission 
+ * All material contained herein is proprietary to John Wiley & Sons
+ * and its third party suppliers, if any. The methods, techniques and
+ * technical concepts contained herein are considered trade secrets
+ * and confidential and may be protected by intellectual property laws.
+ * Reproduction or distribution of this material, in whole or in part,
+ * is strictly forbidden except by express prior written permission
  * of John Wiley & Sons.
  *******************************************************************************/
 /**
- * 
+ *
  */
 package com.wiley.gr.ace.authorservices.web.controllers;
 
@@ -35,7 +35,7 @@ import com.wiley.gr.ace.authorservices.services.service.DashboardService;
 /**
  * This DashboardController is for view the Dashboard of Corresponding Author
  * and Co-Author.
- * 
+ *
  * @author virtusa version 1.0
  */
 @RestController
@@ -56,15 +56,16 @@ public class DashboardController {
 
     /**
      * This method takes userId and return the Service.
-     * 
+     *
      * @param userId
      * @return service
      */
     @RequestMapping(value = "/profilemeter/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final @ResponseBody Service getProfileMeter(
-            @PathVariable("userId") final String userId) {
-        LOGGER.info("inside getProfileMeter method of DashboardController");
-        Service service = new Service();
+            @PathVariable("userId") final int userId) {
+        DashboardController.LOGGER
+        .info("inside getProfileMeter method of DashboardController");
+        final Service service = new Service();
         Dashboard dashboard = null;
 
         try {
@@ -73,9 +74,9 @@ public class DashboardController {
                 service.setStatus("SUCCESS");
                 service.setPayload(dashboard);
             }
-        } catch (Exception e) {
-            LOGGER.error("Print Stack Trace- ", e);
-            ErrorPOJO error = new ErrorPOJO();
+        } catch (final Exception e) {
+            DashboardController.LOGGER.error("Print Stack Trace- ", e);
+            final ErrorPOJO error = new ErrorPOJO();
             error.setCode(getProfileMetererrorcode);
             error.setMessage(getProfileMetererrormessage);
             service.setStatus("ERROR");
@@ -87,15 +88,16 @@ public class DashboardController {
 
     /**
      * This method takes userId and return the Service.
-     * 
+     *
      * @param userId
      * @return service
      */
     @RequestMapping(value = "/view/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final @ResponseBody Service getAllAuthorArticles(
-            @PathVariable("userId") final String userId) {
-        LOGGER.info("inside viewallauthorarticles method of DashboardController");
-        Service service = new Service();
+            @PathVariable("userId") final int userId) {
+        DashboardController.LOGGER
+        .info("inside viewallauthorarticles method of DashboardController");
+        final Service service = new Service();
         DashboardView dashboardView = null;
         try {
             dashboardView = dashboardService.viewDashboard(userId);
@@ -103,9 +105,9 @@ public class DashboardController {
                 service.setStatus("SUCCESS");
                 service.setPayload(dashboardView);
             }
-        } catch (Exception e) {
-            LOGGER.error("Print Stack Trace- ", e);
-            ErrorPOJO error = new ErrorPOJO();
+        } catch (final Exception e) {
+            DashboardController.LOGGER.error("Print Stack Trace- ", e);
+            final ErrorPOJO error = new ErrorPOJO();
             error.setCode(201);
             error.setMessage("Error Fetching To View All Author Articles");
             service.setStatus("ERROR");

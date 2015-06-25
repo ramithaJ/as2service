@@ -56,8 +56,8 @@ public class UserRolesDAOImpl implements UserRolesDAO {
      *            to add or update permissions.
      */
     @Override
-    public final void addOrUpdateUserRoles(Roles roles,
-            List<Permissions> permissionsList) {
+    public final void addOrUpdateUserRoles(final Roles roles,
+            final List<Permissions> permissionsList) {
 
         Session session = null;
         Transaction transaction = null;

@@ -1,15 +1,17 @@
 /*******************************************************************************
  * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
  *
- * All material contained herein is proprietary to John Wiley & Sons 
- * and its third party suppliers, if any. The methods, techniques and 
- * technical concepts contained herein are considered trade secrets 
- * and confidential and may be protected by intellectual property laws.  
- * Reproduction or distribution of this material, in whole or in part, 
- * is strictly forbidden except by express prior written permission 
+ * All material contained herein is proprietary to John Wiley & Sons
+ * and its third party suppliers, if any. The methods, techniques and
+ * technical concepts contained herein are considered trade secrets
+ * and confidential and may be protected by intellectual property laws.
+ * Reproduction or distribution of this material, in whole or in part,
+ * is strictly forbidden except by express prior written permission
  * of John Wiley & Sons.
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.model;
+
+import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -20,7 +22,12 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
-public class Address {
+public class Address implements Serializable {
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
     /** The address type. */
     private String addressType;
@@ -81,7 +88,8 @@ public class Address {
     }
 
     /**
-     * @param addressType the addressType to set
+     * @param addressType
+     *            the addressType to set
      */
     public final void setAddressType(final String addressType) {
         this.addressType = addressType;
@@ -95,7 +103,8 @@ public class Address {
     }
 
     /**
-     * @param title the title to set
+     * @param title
+     *            the title to set
      */
     public final void setTitle(final String title) {
         this.title = title;
@@ -109,7 +118,8 @@ public class Address {
     }
 
     /**
-     * @param firstName the firstName to set
+     * @param firstName
+     *            the firstName to set
      */
     public final void setFirstName(final String firstName) {
         this.firstName = firstName;
@@ -123,7 +133,8 @@ public class Address {
     }
 
     /**
-     * @param lastName the lastName to set
+     * @param lastName
+     *            the lastName to set
      */
     public final void setLastName(final String lastName) {
         this.lastName = lastName;
@@ -137,7 +148,8 @@ public class Address {
     }
 
     /**
-     * @param suffix the suffix to set
+     * @param suffix
+     *            the suffix to set
      */
     public final void setSuffix(final String suffix) {
         this.suffix = suffix;
@@ -151,7 +163,8 @@ public class Address {
     }
 
     /**
-     * @param institution the institution to set
+     * @param institution
+     *            the institution to set
      */
     public final void setInstitution(final String institution) {
         this.institution = institution;
@@ -165,7 +178,8 @@ public class Address {
     }
 
     /**
-     * @param department the department to set
+     * @param department
+     *            the department to set
      */
     public final void setDepartment(final String department) {
         this.department = department;
@@ -179,7 +193,8 @@ public class Address {
     }
 
     /**
-     * @param addressLine1 the addressLine1 to set
+     * @param addressLine1
+     *            the addressLine1 to set
      */
     public final void setAddressLine1(final String addressLine1) {
         this.addressLine1 = addressLine1;
@@ -193,7 +208,8 @@ public class Address {
     }
 
     /**
-     * @param addressLine2 the addressLine2 to set
+     * @param addressLine2
+     *            the addressLine2 to set
      */
     public final void setAddressLine2(final String addressLine2) {
         this.addressLine2 = addressLine2;
@@ -207,7 +223,8 @@ public class Address {
     }
 
     /**
-     * @param city the city to set
+     * @param city
+     *            the city to set
      */
     public final void setCity(final String city) {
         this.city = city;
@@ -221,7 +238,8 @@ public class Address {
     }
 
     /**
-     * @param state the state to set
+     * @param state
+     *            the state to set
      */
     public final void setState(final String state) {
         this.state = state;
@@ -235,7 +253,8 @@ public class Address {
     }
 
     /**
-     * @param postCode the postCode to set
+     * @param postCode
+     *            the postCode to set
      */
     public final void setPostCode(final String postCode) {
         this.postCode = postCode;
@@ -249,7 +268,8 @@ public class Address {
     }
 
     /**
-     * @param country the country to set
+     * @param country
+     *            the country to set
      */
     public final void setCountry(final Country country) {
         this.country = country;
@@ -263,7 +283,8 @@ public class Address {
     }
 
     /**
-     * @param phoneNumber the phoneNumber to set
+     * @param phoneNumber
+     *            the phoneNumber to set
      */
     public final void setPhoneNumber(final String phoneNumber) {
         this.phoneNumber = phoneNumber;
@@ -277,7 +298,8 @@ public class Address {
     }
 
     /**
-     * @param faxNumber the faxNumber to set
+     * @param faxNumber
+     *            the faxNumber to set
      */
     public final void setFaxNumber(final String faxNumber) {
         this.faxNumber = faxNumber;
@@ -291,7 +313,8 @@ public class Address {
     }
 
     /**
-     * @param addressFag the addressFag to set
+     * @param addressFag
+     *            the addressFag to set
      */
     public final void setAddressFag(final Character addressFag) {
         this.addressFag = addressFag;
@@ -305,11 +328,11 @@ public class Address {
     }
 
     /**
-     * @param region the region to set
+     * @param region
+     *            the region to set
      */
     public final void setRegion(final String region) {
         this.region = region;
     }
 
-   
 }

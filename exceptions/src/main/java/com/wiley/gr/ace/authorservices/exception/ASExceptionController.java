@@ -23,25 +23,29 @@ import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
 import com.wiley.gr.ace.authorservices.model.Service;
 
 /**
- * This class serves as a global exception handler for all controller classes
+ * This class serves as a global exception handler for all controller classes.
  * 
  * @author virtusa
- *	version 1.0
+ * version 1.0
  */
 @ControllerAdvice
 public class ASExceptionController {
     
+    /**
+     * Logger.
+     */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(ASExceptionController.class);
     
     /**
+     * This method is used to handle ASException.
      * @param asException
      * @return
      */
     @ExceptionHandler(ASException.class)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public Service handleASException(ASException asException) {
+    public Service handleASException(final ASException asException) {
         
         LOGGER.info("Inside ASException Controller");
         
@@ -59,14 +63,16 @@ public class ASExceptionController {
         
     }
     
+    
     /**
-     * @param asException
+     * This method is used to handle Exception.
+     * @param exception
      * @return
      */
     @ExceptionHandler(Exception.class)
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
-    public Service handleException(Exception exception) {
+    public Service handleException(final Exception exception) {
         
         LOGGER.info("Inside ASException Controller");
         

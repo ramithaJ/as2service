@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
  *
- * All material contained herein is proprietary to John Wiley & Sons 
- * and its third party suppliers, if any. The methods, techniques and 
- * technical concepts contained herein are considered trade secrets 
- * and confidential and may be protected by intellectual property laws.  
- * Reproduction or distribution of this material, in whole or in part, 
- * is strictly forbidden except by express prior written permission 
+ * All material contained herein is proprietary to John Wiley & Sons
+ * and its third party suppliers, if any. The methods, techniques and
+ * technical concepts contained herein are considered trade secrets
+ * and confidential and may be protected by intellectual property laws.
+ * Reproduction or distribution of this material, in whole or in part,
+ * is strictly forbidden except by express prior written permission
  * of John Wiley & Sons.
  *******************************************************************************/
 
@@ -54,10 +54,10 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     private UserManagement userManagement;
 
     /** The user profile. */
-    private UserProfile userProfile = new UserProfile();
+    private final UserProfile userProfile = new UserProfile();
 
     /** The look up profile. */
-    private UserProfileResponse lookUpProfile = new UserProfileResponse();
+    private final UserProfileResponse lookUpProfile = new UserProfileResponse();
 
     /**
      * Update society details.
@@ -67,14 +67,16 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @return true, if successful
      */
     @Override
-    public final boolean updateSocietyDetails(final Society society) {
-        LOGGER.info("inside updateSocietyDetails Method ");
+    public final boolean updateSocietyDetails(final int userId,
+            final Society society) {
+        AuthorProfileServiceImpl.LOGGER
+                .info("inside updateSocietyDetails Method ");
 
-        List<Society> list = new ArrayList<Society>();
+        final List<Society> list = new ArrayList<Society>();
         list.add(society);
         userProfile.setSocieties(list);
         lookUpProfile.setCustomerProfile(userProfile);
-        return userProfiles.updateProfile(lookUpProfile);
+        return null != userProfiles.updateProfile(userId, lookUpProfile);
     }
 
     /**
@@ -85,15 +87,17 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @return true, if successful
      */
     @Override
-    public final boolean updateAffiliation(final Affiliation affiliation) {
-        LOGGER.info("inside updateAffiliation Method ");
+    public final boolean updateAffiliation(final int userId,
+            final Affiliation affiliation) {
+        AuthorProfileServiceImpl.LOGGER
+                .info("inside updateAffiliation Method ");
 
-        List<Affiliation> list = new ArrayList<Affiliation>();
+        final List<Affiliation> list = new ArrayList<Affiliation>();
         list.add(affiliation);
 
         userProfile.setAffiliations(list);
         lookUpProfile.setCustomerProfile(userProfile);
-        return userProfiles.updateProfile(lookUpProfile);
+        return null != userProfiles.updateProfile(userId, lookUpProfile);
     }
 
     /**
@@ -106,16 +110,17 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @return true, if successful
      */
     @Override
-    public final boolean updateResearchFunder(final String userId,
+    public final boolean updateResearchFunder(final int userId,
             final ResearchFunder researchFunder) {
 
-        LOGGER.info("inside updateResearchFunder Method ");
+        AuthorProfileServiceImpl.LOGGER
+                .info("inside updateResearchFunder Method ");
 
-        List<ResearchFunder> list = new ArrayList<ResearchFunder>();
+        final List<ResearchFunder> list = new ArrayList<ResearchFunder>();
         list.add(researchFunder);
         userProfile.setResearchFunders(list);
         lookUpProfile.setCustomerProfile(userProfile);
-        return userProfiles.updateProfile(lookUpProfile);
+        return null != userProfiles.updateProfile(userId, lookUpProfile);
     }
 
     /**
@@ -128,14 +133,14 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @return true, if successful
      */
     @Override
-    public final boolean updateAlerts(final String userId,
+    public final boolean updateAlerts(final int userId,
             final UserProfileAlerts userProfileAlerts) {
 
-        LOGGER.info("inside updateAlerts Method ");
+        AuthorProfileServiceImpl.LOGGER.info("inside updateAlerts Method ");
 
         userProfile.setAlerts(userProfileAlerts.getAlerts());
         lookUpProfile.setCustomerProfile(userProfile);
-        return userProfiles.updateProfile(lookUpProfile);
+        return null != userProfiles.updateProfile(userId, lookUpProfile);
     }
 
     /**
@@ -146,15 +151,16 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @return true, if successful
      */
     @Override
-    public final boolean updatecoAuthor(final CoAuthor coAuthor) {
+    public final boolean updatecoAuthor(final int userId,
+            final CoAuthor coAuthor) {
 
-        LOGGER.info("inside updatecoAuthor Method ");
+        AuthorProfileServiceImpl.LOGGER.info("inside updatecoAuthor Method ");
 
-        List<CoAuthor> list = new ArrayList<CoAuthor>();
+        final List<CoAuthor> list = new ArrayList<CoAuthor>();
         list.add(coAuthor);
         userProfile.setCoAuthors(list);
         lookUpProfile.setCustomerProfile(userProfile);
-        return userProfiles.updateProfile(lookUpProfile);
+        return null != userProfiles.updateProfile(userId, lookUpProfile);
 
     }
 
@@ -166,12 +172,14 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @return true, if successful
      */
     @Override
-    public final boolean updateEmailDetails(final User emailDetails) {
+    public final boolean updateEmailDetails(final int userId,
+            final User emailDetails) {
 
-        LOGGER.info("inside updateEmailDetails Method ");
+        AuthorProfileServiceImpl.LOGGER
+                .info("inside updateEmailDetails Method ");
         userProfile.setCustomerDetails(emailDetails);
         lookUpProfile.setCustomerProfile(userProfile);
-        return userProfiles.updateProfile(lookUpProfile);
+        return null != userProfiles.updateProfile(userId, lookUpProfile);
     }
 
     /**
@@ -179,15 +187,18 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      *
      * @param addresses
      *            the addresses
+     * @param userId
      * @return true, if successful
      */
     @Override
-    public final boolean updateUserAddress(final UserProfile addresses) {
+    public final boolean updateUserAddress(final int userId,
+            final UserProfile addresses) {
 
-        LOGGER.info("inside updateUserAddress Method ");
+        AuthorProfileServiceImpl.LOGGER
+                .info("inside updateUserAddress Method ");
         userProfile.setAddressDetails(addresses.getAddressDetails());
         lookUpProfile.setCustomerProfile(userProfile);
-        return userProfiles.updateProfile(lookUpProfile);
+        return null != userProfiles.updateProfile(userId, lookUpProfile);
     }
 
     /**
@@ -198,12 +209,13 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @return true, if successful
      */
     @Override
-    public final boolean updateUserProfileInfo(final User user) {
+    public final boolean updateUserProfileInfo(final int userId, final User user) {
 
-        LOGGER.info("inside updateUserProfileInfo Method ");
+        AuthorProfileServiceImpl.LOGGER
+                .info("inside updateUserProfileInfo Method ");
         userProfile.setCustomerDetails(user);
         lookUpProfile.setCustomerProfile(userProfile);
-        return userProfiles.updateProfile(lookUpProfile);
+        return null != userProfiles.updateProfile(userId, lookUpProfile);
     }
 
     /**
@@ -216,7 +228,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     @Override
     public final boolean updateUserId(final Email email) {
 
-        LOGGER.info("inside updateUserId Method ");
+        AuthorProfileServiceImpl.LOGGER.info("inside updateUserId Method ");
         return userManagement.updateUserId(email.getOldEmailId(),
                 email.getNewEmailId());
     }
@@ -231,7 +243,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     @Override
     public final boolean updatePassword(final PasswordDetails passwordDetails) {
 
-        LOGGER.info("inside updatePassword Method ");
+        AuthorProfileServiceImpl.LOGGER.info("inside updatePassword Method ");
         return userManagement.updatePassword(passwordDetails);
     }
 
@@ -246,7 +258,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     public final boolean updateSecurityDetails(
             final SecurityDetailsHolder securityDetails) {
 
-        LOGGER.info("inside updateSecurityDetails Method ");
+        AuthorProfileServiceImpl.LOGGER
+                .info("inside updateSecurityDetails Method ");
         return userManagement.updateSecurityDetails(securityDetails);
     }
 
@@ -258,9 +271,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @return the user profile response
      */
     @Override
-    public final UserProfileResponse getuserProfileResponse(final String userId) {
-
-        LOGGER.info("in UserProfileResponse Method");
+    public final UserProfileResponse getuserProfileResponse(final int userId) {
+        AuthorProfileServiceImpl.LOGGER.info("in UserProfileResponse Method");
         return userProfiles.getUserProfileResponse(userId);
     }
 

@@ -1,16 +1,16 @@
 /*******************************************************************************
  * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
  *
- * All material contained herein is proprietary to John Wiley & Sons 
- * and its third party suppliers, if any. The methods, techniques and 
- * technical concepts contained herein are considered trade secrets 
- * and confidential and may be protected by intellectual property laws.  
- * Reproduction or distribution of this material, in whole or in part, 
- * is strictly forbidden except by express prior written permission 
+ * All material contained herein is proprietary to John Wiley & Sons
+ * and its third party suppliers, if any. The methods, techniques and
+ * technical concepts contained herein are considered trade secrets
+ * and confidential and may be protected by intellectual property laws.
+ * Reproduction or distribution of this material, in whole or in part,
+ * is strictly forbidden except by express prior written permission
  * of John Wiley & Sons.
  *******************************************************************************/
 /**
- * 
+ *
  */
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
@@ -56,19 +56,22 @@ public class UpdateUserServiceImpl implements UpdateUserService {
      */
     @Override
     public final boolean updateOrcidId(final String emailId,
-            final String orcidId, final String userId) throws Exception {
-        LOGGER.info("inside updateOrcidId method of UpdateUserServiceImpl");
+            final String orcidId, final int userId) throws Exception {
+        UpdateUserServiceImpl.LOGGER
+        .info("inside updateOrcidId method of UpdateUserServiceImpl");
         boolean result = false;
-        UserProfileResponse userProfileResponse = userProfileService
+        final UserProfileResponse userProfileResponse = userProfileService
                 .getUserProfileResponse(userId);
         if (!StringUtils.isEmpty(userProfileResponse)) {
-            UserProfile userProfile = userProfileResponse.getCustomerProfile();
-            User user = userProfile.getCustomerDetails();
+            final UserProfile userProfile = userProfileResponse
+                    .getCustomerProfile();
+            final User user = userProfile.getCustomerDetails();
             if (StringUtils.isEmpty(user.getOrcidID())) {
                 user.setOrcidID(orcidId);
                 userProfile.setCustomerDetails(user);
                 userProfileResponse.setCustomerProfile(userProfile);
-                result = userProfileService.updateProfile(userProfileResponse);
+                result = null != userProfileService.updateProfile(userId,
+                        userProfileResponse);
             }
         }
         return result;

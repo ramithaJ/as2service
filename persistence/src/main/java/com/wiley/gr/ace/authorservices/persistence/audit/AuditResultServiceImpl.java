@@ -43,8 +43,8 @@ public class AuditResultServiceImpl implements AuditResultService {
      * @return true, if successful
      */
     @Override
-    public final boolean userAudit(List<HashMap<String, String>> auditMap,
-            HashMap<String, String> actionMap, Users user) {
+    public final boolean userAudit(final List<HashMap<String, String>> auditMap,
+            final HashMap<String, String> actionMap, final Users user) {
 
         Session session = null;
         Transaction transaction = null;

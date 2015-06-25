@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
  *
- * All material contained herein is proprietary to John Wiley & Sons 
- * and its third party suppliers, if any. The methods, techniques and 
- * technical concepts contained herein are considered trade secrets 
- * and confidential and may be protected by intellectual property laws.  
- * Reproduction or distribution of this material, in whole or in part, 
- * is strictly forbidden except by express prior written permission 
+ * All material contained herein is proprietary to John Wiley & Sons
+ * and its third party suppliers, if any. The methods, techniques and
+ * technical concepts contained herein are considered trade secrets
+ * and confidential and may be protected by intellectual property laws.
+ * Reproduction or distribution of this material, in whole or in part,
+ * is strictly forbidden except by express prior written permission
  * of John Wiley & Sons.
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service;
@@ -31,7 +31,7 @@ public interface UserAccountService {
      *            the user id
      * @return the email details
      */
-    User getEmailDetails(String userId);
+    User getEmailDetails(int userId);
 
     /**
      * Update security details.
@@ -42,7 +42,7 @@ public interface UserAccountService {
      *            the security details
      * @return true, if successful
      */
-    boolean updateSecurityDetails(String userId,
+    boolean updateSecurityDetails(int userId,
             List<SecurityDetails> securityDetails);
 
     /**
@@ -52,7 +52,7 @@ public interface UserAccountService {
      *            the user id
      * @return the profile information
      */
-    User getProfileInformation(String userId);
+    User getProfileInformation(int userId);
 
     /**
      * Gets the user address.
@@ -61,5 +61,5 @@ public interface UserAccountService {
      *            the user id
      * @return the user address
      */
-    List<Addresses> getUserAddress(String userId);
+    List<Addresses> getUserAddress(int userId);
 }

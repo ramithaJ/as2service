@@ -1,16 +1,17 @@
 /*******************************************************************************
  * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
  *
- * All material contained herein is proprietary to John Wiley & Sons 
- * and its third party suppliers, if any. The methods, techniques and 
- * technical concepts contained herein are considered trade secrets 
- * and confidential and may be protected by intellectual property laws.  
- * Reproduction or distribution of this material, in whole or in part, 
- * is strictly forbidden except by express prior written permission 
+ * All material contained herein is proprietary to John Wiley & Sons
+ * and its third party suppliers, if any. The methods, techniques and
+ * technical concepts contained herein are considered trade secrets
+ * and confidential and may be protected by intellectual property laws.
+ * Reproduction or distribution of this material, in whole or in part,
+ * is strictly forbidden except by express prior written permission
  * of John Wiley & Sons.
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,13 +23,18 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
-public class Affiliation {
+public class Affiliation implements Serializable {
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
     /** The user Id . */
     private String affiliationId;
 
     /** The user id. */
-    private String userId;
+    private int userId;
 
     /** The institution id. */
     private String institutionId;
@@ -91,7 +97,7 @@ public class Affiliation {
     /**
      * @return the userId
      */
-    public final String getUserId() {
+    public final int getUserId() {
         return userId;
     }
 
@@ -99,7 +105,7 @@ public class Affiliation {
      * @param userId
      *            the userId to set
      */
-    public final void setUserId(final String userId) {
+    public final void setUserId(final int userId) {
         this.userId = userId;
     }
 

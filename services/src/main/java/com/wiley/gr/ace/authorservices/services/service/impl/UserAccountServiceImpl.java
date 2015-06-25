@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
  *
- * All material contained herein is proprietary to John Wiley & Sons 
- * and its third party suppliers, if any. The methods, techniques and 
- * technical concepts contained herein are considered trade secrets 
- * and confidential and may be protected by intellectual property laws.  
- * Reproduction or distribution of this material, in whole or in part, 
- * is strictly forbidden except by express prior written permission 
+ * All material contained herein is proprietary to John Wiley & Sons
+ * and its third party suppliers, if any. The methods, techniques and
+ * technical concepts contained herein are considered trade secrets
+ * and confidential and may be protected by intellectual property laws.
+ * Reproduction or distribution of this material, in whole or in part,
+ * is strictly forbidden except by express prior written permission
  * of John Wiley & Sons.
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service.impl;
@@ -52,13 +52,13 @@ public class UserAccountServiceImpl implements UserAccountService {
      * @return the email details
      */
     @Override
-    public final User getEmailDetails(final String userId) {
+    public final User getEmailDetails(final int userId) {
 
-        LOGGER.info("inside getEmailDetails Method");
+        UserAccountServiceImpl.LOGGER.info("inside getEmailDetails Method");
 
-        UserProfileResponse lookupProfile = userProfile
+        final UserProfileResponse lookupProfile = userProfile
                 .getUserProfileResponse(userId);
-        User user = new User();
+        final User user = new User();
         user.setPrimaryEmailAddr(lookupProfile.getCustomerProfile()
                 .getCustomerDetails().getPrimaryEmailAddr());
         user.setRecoveryEmailAddress(lookupProfile.getCustomerProfile()
@@ -78,10 +78,11 @@ public class UserAccountServiceImpl implements UserAccountService {
      * @return true, if successful
      */
     @Override
-    public final boolean updateSecurityDetails(final String userId,
+    public final boolean updateSecurityDetails(final int userId,
             final List<SecurityDetails> securityDetails) {
 
-        LOGGER.info("inside updateSecurityDetails Method");
+        UserAccountServiceImpl.LOGGER
+        .info("inside updateSecurityDetails Method");
         return userAccountDAO.updateSecurityDetails(Integer.valueOf(userId),
                 securityDetails);
     }
@@ -94,10 +95,11 @@ public class UserAccountServiceImpl implements UserAccountService {
      * @return the profile information
      */
     @Override
-    public final User getProfileInformation(final String userId) {
+    public final User getProfileInformation(final int userId) {
 
-        LOGGER.info("inside getProfileInformation Method");
-        UserProfileResponse lookupProfile = userProfile
+        UserAccountServiceImpl.LOGGER
+        .info("inside getProfileInformation Method");
+        final UserProfileResponse lookupProfile = userProfile
                 .getUserProfileResponse(userId);
         return lookupProfile.getCustomerProfile().getCustomerDetails();
     }
@@ -110,10 +112,10 @@ public class UserAccountServiceImpl implements UserAccountService {
      * @return the user address
      */
     @Override
-    public final List<Addresses> getUserAddress(final String userId) {
+    public final List<Addresses> getUserAddress(final int userId) {
 
-        LOGGER.info("inside getUserAddress Method");
-        UserProfileResponse lookupProfile = userProfile
+        UserAccountServiceImpl.LOGGER.info("inside getUserAddress Method");
+        final UserProfileResponse lookupProfile = userProfile
                 .getUserProfileResponse(userId);
         return lookupProfile.getCustomerProfile().getAddressDetails();
     }
