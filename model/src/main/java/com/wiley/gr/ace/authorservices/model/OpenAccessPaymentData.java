@@ -2,24 +2,24 @@ package com.wiley.gr.ace.authorservices.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.wiley.gr.ace.authorservices.model.external.TaxResponse;
 
 @JsonInclude(Include.NON_NULL)
 public class OpenAccessPaymentData {
 
 	private ArticleDetails articleDetails;;
 	private JournalDetails journalDetails;
-	private Address addressOnFile;
+	private AddressDetails addressOnFile;
 	private TaxDetails taxDetails;
 	private QuoteData quoteData;
-	private TaxResponse taxResponse;
+	private Amount taxAmount;
 	private Amount amountPayable;
+	private String authorName;
 
-	public final Address getAddressOnFile() {
+	public final AddressDetails getAddressOnFile() {
 		return addressOnFile;
 	}
 
-	public final void setAddressOnFile(Address addressOnFile) {
+	public final void setAddressOnFile(AddressDetails addressOnFile) {
 		this.addressOnFile = addressOnFile;
 	}
 
@@ -47,8 +47,6 @@ public class OpenAccessPaymentData {
 		this.authorName = authorName;
 	}
 
-	private String authorName;
-
 	public final ArticleDetails getArticleDetails() {
 		return articleDetails;
 	}
@@ -65,21 +63,20 @@ public class OpenAccessPaymentData {
 		this.journalDetails = journalDetails;
 	}
 
-
-	public final TaxResponse getTaxResponse() {
-		return taxResponse;
-	}
-
-	public final void setTaxResponse(final TaxResponse taxResponse) {
-		this.taxResponse = taxResponse;
-	}
-
 	public final Amount getAmountPayable() {
 		return amountPayable;
 	}
 
 	public final void setAmountPayable(final Amount amountPayable) {
 		this.amountPayable = amountPayable;
+	}
+
+	public final Amount getTaxAmount() {
+		return taxAmount;
+	}
+
+	public final void setTaxAmount(Amount taxAmount) {
+		this.taxAmount = taxAmount;
 	}
 
 }
