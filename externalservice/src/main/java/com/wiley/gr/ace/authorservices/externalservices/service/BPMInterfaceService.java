@@ -11,6 +11,8 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
+import com.wiley.gr.ace.authorservices.model.AssociationConfirmation;
+
 /**
  * The Interface BPMInterfaceService.
  *
@@ -24,5 +26,17 @@ public interface BPMInterfaceService {
      * @return true, if successful
      */
     boolean createTask();
+
+    /**
+     * Finish task.
+     *
+     * @param associationConfirmation
+     *            the association confirmation
+     * @return true, if successful
+     * @throws Exception
+     *             the exception
+     */
+    boolean finishTask(AssociationConfirmation associationConfirmation)
+            throws Exception;
 
 }
