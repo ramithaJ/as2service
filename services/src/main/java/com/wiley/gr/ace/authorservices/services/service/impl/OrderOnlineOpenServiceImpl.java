@@ -112,7 +112,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         List<ArticleDetails> articleDetailsList = new ArrayList<ArticleDetails>();
         articleDetails.setArticleAID(orderData.getArticle().getAidECORE());
         articleDetails
-        .setArticleTitle(orderData.getArticle().getArticleTitle());
+                .setArticleTitle(orderData.getArticle().getArticleTitle());
         articleDetailsList.add(articleDetails);
         onlineOpenOrder.setArticleDetails(articleDetailsList);
         JournalDetails journalDetails = new JournalDetails();
@@ -124,7 +124,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         journalDetailsList.add(journalDetails);
         onlineOpenOrder.setJournalDetails(journalDetailsList);
         onlineOpenOrder
-        .setAuthorName(orderData.getWoaAccountHolder().getName());
+                .setAuthorName(orderData.getWoaAccountHolder().getName());
         QuoteDetail quoteDetail = new QuoteDetail();
         Prices prices = new Prices();
         List<Prices> pricesList = new ArrayList<Prices>();
@@ -139,7 +139,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
          * .getName());
          */
         funderDetails
-        .setWoaAccountId(orderData.getWoaAccountHolder().getCode());
+                .setWoaAccountId(orderData.getWoaAccountHolder().getCode());
         List<FunderDetails> funderDetailsList = new ArrayList<FunderDetails>();
         funderDetailsList.add(funderDetails);
         onlineOpenOrder.setFunderDetails(funderDetailsList);
@@ -166,26 +166,50 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         onlineOpenOrder.setAmountPayable(amount);
         onlineOpenOrder.setPaymentMethod(orderData.getPayment()
                 .getPaymentMethod());
-        Address address = new Address();
-        address.setFirstName(orderData.getContactAddress().getName());
-        address.setLastName(orderData.getContactAddress().getName());
-        address.setDepartment(orderData.getContactAddress().getDepartment());
-        address.setAddressLine1(orderData.getContactAddress()
+        Address contactAddress = new Address();
+        contactAddress.setFirstName(orderData.getContactAddress().getName());
+        contactAddress.setLastName(orderData.getContactAddress().getName());
+        contactAddress.setDepartment(orderData.getContactAddress()
+                .getDepartment());
+        contactAddress.setAddressLine1(orderData.getContactAddress()
                 .getAdditionalStreet());
-        address.setAddressLine2(orderData.getContactAddress()
+        contactAddress.setAddressLine2(orderData.getContactAddress()
                 .getAdditionalStreet());
-        address.setCity(orderData.getContactAddress().getCity());
-        address.setState(orderData.getContactAddress().getState());
+        contactAddress.setCity(orderData.getContactAddress().getCity());
+        contactAddress.setState(orderData.getContactAddress().getState());
         Country country = new Country();
         country.setCountryName(orderData.getContactAddress().getCountry());
-        address.setCountry(country);
-        address.setPostCode(orderData.getContactAddress().getZip());
-        address.setPhoneNumber(orderData.getContactAddress().getPhoneNumber());
+        contactAddress.setCountry(country);
+        contactAddress.setPostCode(orderData.getContactAddress().getZip());
+        contactAddress.setPhoneNumber(orderData.getContactAddress()
+                .getPhoneNumber());
+        contactAddress.setEmailId(orderData.getContactAddress().getEmail());
         AddressDetails addressDetails = new AddressDetails();
-        addressDetails.setBillingAddress(address);
-        addressDetails.setContactAddress(address);
-        onlineOpenOrder.setAddressDetails(addressDetails);
+        addressDetails.setBillingAddress(contactAddress);
 
+        Address billingAddress = new Address();
+        billingAddress.setFirstName(orderData.getBillingAddress().getName());
+        billingAddress.setLastName(orderData.getBillingAddress().getName());
+        billingAddress.setDepartment(orderData.getBillingAddress()
+                .getDepartment());
+        billingAddress.setAddressLine1(orderData.getBillingAddress()
+                .getAdditionalStreet());
+        billingAddress.setAddressLine2(orderData.getBillingAddress()
+                .getAdditionalStreet());
+        billingAddress.setCity(orderData.getBillingAddress().getCity());
+        billingAddress.setState(orderData.getBillingAddress().getState());
+        Country countryBilling = new Country();
+        countryBilling.setCountryName(orderData.getBillingAddress()
+                .getCountry());
+        billingAddress.setCountry(countryBilling);
+        billingAddress.setPostCode(orderData.getBillingAddress().getZip());
+        billingAddress.setPhoneNumber(orderData.getBillingAddress()
+                .getPhoneNumber());
+        billingAddress.setEmailId(orderData.getBillingAddress().getEmail());
+
+        addressDetails.setContactAddress(contactAddress);
+        addressDetails.setBillingAddress(billingAddress);
+        onlineOpenOrder.setAddressDetails(addressDetails);
         return onlineOpenOrder;
     }
 
@@ -220,7 +244,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             // check user is corresponding author or not.
             if (productPersonRelations.getProductRoles() != null
                     && productPersonRelations.getProductRoles()
-                    .getProductRoleCd().equalsIgnoreCase("0001")) {
+                            .getProductRoleCd().equalsIgnoreCase("0001")) {
 
                 // check is there any saved orders for this article.
                 SavedOrders savedOrders = orderOnlineDAO.getSavedOrders(
@@ -277,7 +301,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                         .getFirstName()
                         + " "
                         + userProfileResponse.getCustomerProfile()
-                        .getCustomerDetails().getLastName());
+                                .getCustomerDetails().getLastName());
                 // GrantRecipients(coAuthors)
                 userProfileResponse.getCustomerProfile().getCoAuthors();
                 // Societies
@@ -341,135 +365,154 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * @param userId
      * @param onlineOpenOrder
      * @return OrderResponse
-     * @throws Exception 
+     * @throws Exception
      * 
      */
     @Override
     public OrderResponse submitOnlineOpenOrder(final String userId,
             final String orderId, final String orderTypeFlag) throws Exception {
 
-OrderResponse orderResponse = null;
-		
-		if(userId !=null && orderId != null){
-			OrderRequest orderRequest = new OrderRequest();
-			// TODO All the below hardcoded values need to changed once proper data
-			// is provided.
-			orderRequest.setApplicationKey("Key134");
-			orderRequest.setCorrelationID("1234");
-			OrderData orderData = null;
-			try {
-				orderData = getOrderDataForOnlineOpenOrder(orderId, userId);
-			} catch (Exception e) {
-				throw new Exception(e.getMessage());
-			}
-			// need to be changed
-			//OrderData orderData = new OrderData();
-			orderRequest.setOrderData(orderData);
-			orderRequest.setUserID("user001");
-			
-			//orderResponse = orderservice.submitOnlineOpenOrder(orderData);
-			
-			orderResponse = (OrderResponse) StubInvokerUtil
-				.invokeJsonStub("http://jsonstub.com/createOrder",
-						HttpMethod.POST, OrderResponse.class);
-			
-			Orders orders = new Orders();
-			orders.setOrderType("");
-			orders.setOoOaFlg(orderTypeFlag);
-			orders.setOrderStatus(AuthorServicesConstants.ORDER_STATUS_SUBMIT);
-			orders.setDownstreamappOrderId(Integer.parseInt(orderResponse
-					.getOoUniqueId()));
-			Users users = new Users();
-			users.setUserId(Integer.parseInt(userId));
-			orders.setUsersByCreatedBy(users);
-			orders.setCreatedDate(new Date());
-			orderOnlineDAO.saveOrUpdateOrder(orders);
-		}
-		return orderResponse;
+        OrderResponse orderResponse = null;
+
+        if (userId != null && orderId != null) {
+            OrderRequest orderRequest = new OrderRequest();
+            // TODO All the below hardcoded values need to changed once proper
+            // data
+            // is provided.
+            orderRequest.setApplicationKey("Key134");
+            orderRequest.setCorrelationID("1234");
+            OrderData orderData = null;
+            try {
+                orderData = getOrderDataForOnlineOpenOrder(orderId, userId);
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+            // need to be changed
+            // OrderData orderData = new OrderData();
+            orderRequest.setOrderData(orderData);
+            orderRequest.setUserID("user001");
+
+            // orderResponse = orderservice.submitOnlineOpenOrder(orderData);
+
+            orderResponse = (OrderResponse) StubInvokerUtil.invokeJsonStub(
+                    "http://jsonstub.com/createOrder", HttpMethod.POST,
+                    OrderResponse.class);
+
+            Orders orders = new Orders();
+            orders.setOrderType("");
+            orders.setOoOaFlg(orderTypeFlag);
+            orders.setOrderStatus(AuthorServicesConstants.ORDER_STATUS_SUBMIT);
+            orders.setDownstreamappOrderId(Integer.parseInt(orderResponse
+                    .getOoUniqueId()));
+            Users users = new Users();
+            users.setUserId(Integer.parseInt(userId));
+            orders.setUsersByCreatedBy(users);
+            orders.setCreatedDate(new Date());
+            orderOnlineDAO.saveOrUpdateOrder(orders);
+        }
+        return orderResponse;
     }
 
     /**
-	 * This method returns the data of the requested Order.
-	 * 
-	 * @param onlineOpenOrder
-	 * @return OrderData
-	 * @throws Exception 
-	 */
-	private OrderData getOrderDataForOnlineOpenOrder(
-			String orderId, String userId) throws Exception {
-		OrderData orderData = null;
-		SavedOrders savedOrder = null;
-		String orderDataObject = null;
-		OnlineOpenOrder onlineOpenOrder = null;
+     * This method returns the data of the requested Order.
+     * 
+     * @param onlineOpenOrder
+     * @return OrderData
+     * @throws Exception
+     */
+    private OrderData getOrderDataForOnlineOpenOrder(String orderId,
+            String userId) throws Exception {
+        OrderData orderData = null;
+        SavedOrders savedOrder = null;
+        String orderDataObject = null;
+        OnlineOpenOrder onlineOpenOrder = null;
 
-		if (orderId != null) {
-			savedOrder = orderOnlineDAO.getSavedOrdersForTheOrderId(orderId, userId);
-			orderDataObject = savedOrder.getOrderObject();
-			JSONObject object = (JSONObject) new JSONParser().parse(orderDataObject);
-			onlineOpenOrder = new ObjectMapper().readValue(object.toJSONString(), OnlineOpenOrder.class);
-			
-			orderData = new OrderData();
-			// TODO: Need to check Article data
-			orderData.setArticle(new ArticleData());
-			AddressDetails address = onlineOpenOrder.getAddressDetails();
-			
-				// TODO: Need to Check the types
-				if("illingAddress".equals(address.getBillingAddress().getAddressType())){
-					ContactAddress billingAddress = new ContactAddress();
-					// TODO: Need to set remaining objects
-					billingAddress.setName(address.getBillingAddress().getFirstName()+address.getBillingAddress().getLastName());
-					billingAddress.setOrg(address.getBillingAddress().getInstitution());
-					
-					orderData.setBillingAddress(billingAddress);
-				} else if ("contactAddress".equals(address.getBillingAddress().getAddressType())){
-					ContactAddress contactAddress = new ContactAddress();
-					// TODO: Need to set remaining objects
-					contactAddress.setName(address.getContactAddress().getFirstName()+address.getBillingAddress().getLastName());
-					contactAddress.setOrg(address.getContactAddress().getInstitution());
-					orderData.setContactAddress(contactAddress);
-				}
-			
-			TaxData taxData = new TaxData();
-			taxData.setCountryCode(onlineOpenOrder.getTaxDetails().getCountryCode());
-			taxData.setTaxExpiration(onlineOpenOrder.getTaxDetails().getTaxCodeExpiryDate());
-			taxData.setTaxNumber(onlineOpenOrder.getTaxDetails().getTaxExemptionNumber());
-			taxData.setVatExemptionNumber(onlineOpenOrder.getTaxDetails().getVatExemptionNumber());
-			taxData.setVatIdNumber(onlineOpenOrder.getTaxDetails().getVatIdNumber());
-			orderData.setTaxDetails(taxData);
-			
-			PricingData pricingData = new PricingData();
-			String amountToBePaidValue = onlineOpenOrder.getFinalAmount().getAmount();
-			if(amountToBePaidValue != null && !"".equals(amountToBePaidValue.trim())) {
-				Double.parseDouble(amountToBePaidValue);
-			}
-			pricingData.setCurrency(onlineOpenOrder.getFinalAmount().getCurrency());
-			orderData.setPricing(pricingData);
-			
-			Payment payment = new Payment();
-			payment.setPaymentMethod(onlineOpenOrder.getPaymentMethod());
-			orderData.setPayment(payment);
-			
-			// TODO: Need to check WOAAccountHolder
-			orderData.setWoaAccountHolder(new WoaAccountHolder());
-			
-			orderData.setSpecialNotes("");
-			orderData.setCustomer(new Customer());
-			orderData.setEnteredBy("");
-			orderData.setOoUniqueId("");
-			orderData.setOrderDate("");
-			orderData.setOrderSource("");
-			orderData.setOrderStatusCode("");
-			orderData.setOrderSubType("");
-			orderData.setOrderType("");
-			orderData.setPoNumber("");
-			orderData.setReferenceOoUniqueId("");
-			
-		}
+        if (orderId != null) {
+            savedOrder = orderOnlineDAO.getSavedOrdersForTheOrderId(orderId,
+                    userId);
+            orderDataObject = savedOrder.getOrderObject();
+            JSONObject object = (JSONObject) new JSONParser()
+                    .parse(orderDataObject);
+            onlineOpenOrder = new ObjectMapper().readValue(
+                    object.toJSONString(), OnlineOpenOrder.class);
 
-		return orderData;
+            orderData = new OrderData();
+            // TODO: Need to check Article data
+            orderData.setArticle(new ArticleData());
+            AddressDetails address = onlineOpenOrder.getAddressDetails();
 
-	}
+            // TODO: Need to Check the types
+            if ("illingAddress".equals(address.getBillingAddress()
+                    .getAddressType())) {
+                ContactAddress billingAddress = new ContactAddress();
+                // TODO: Need to set remaining objects
+                billingAddress.setName(address.getBillingAddress()
+                        .getFirstName()
+                        + address.getBillingAddress().getLastName());
+                billingAddress.setOrg(address.getBillingAddress()
+                        .getInstitution());
 
+                orderData.setBillingAddress(billingAddress);
+            } else if ("contactAddress".equals(address.getBillingAddress()
+                    .getAddressType())) {
+                ContactAddress contactAddress = new ContactAddress();
+                // TODO: Need to set remaining objects
+                contactAddress.setName(address.getContactAddress()
+                        .getFirstName()
+                        + address.getBillingAddress().getLastName());
+                contactAddress.setOrg(address.getContactAddress()
+                        .getInstitution());
+                orderData.setContactAddress(contactAddress);
+            }
+
+            TaxData taxData = new TaxData();
+            taxData.setCountryCode(onlineOpenOrder.getTaxDetails()
+                    .getCountryCode());
+            taxData.setTaxExpiration(onlineOpenOrder.getTaxDetails()
+                    .getTaxCodeExpiryDate());
+            taxData.setTaxNumber(onlineOpenOrder.getTaxDetails()
+                    .getTaxExemptionNumber());
+            taxData.setVatExemptionNumber(onlineOpenOrder.getTaxDetails()
+                    .getVatExemptionNumber());
+            taxData.setVatIdNumber(onlineOpenOrder.getTaxDetails()
+                    .getVatIdNumber());
+            orderData.setTaxDetails(taxData);
+
+            PricingData pricingData = new PricingData();
+            String amountToBePaidValue = onlineOpenOrder.getFinalAmount()
+                    .getAmount();
+            if (amountToBePaidValue != null
+                    && !"".equals(amountToBePaidValue.trim())) {
+                Double.parseDouble(amountToBePaidValue);
+            }
+            pricingData.setCurrency(onlineOpenOrder.getFinalAmount()
+                    .getCurrency());
+            orderData.setPricing(pricingData);
+
+            Payment payment = new Payment();
+            payment.setPaymentMethod(onlineOpenOrder.getPaymentMethod());
+            orderData.setPayment(payment);
+
+            // TODO: Need to check WOAAccountHolder
+            orderData.setWoaAccountHolder(new WoaAccountHolder());
+
+            orderData.setSpecialNotes("");
+            orderData.setCustomer(new Customer());
+            orderData.setEnteredBy("");
+            orderData.setOoUniqueId("");
+            orderData.setOrderDate("");
+            orderData.setOrderSource("");
+            orderData.setOrderStatusCode("");
+            orderData.setOrderSubType("");
+            orderData.setOrderType("");
+            orderData.setPoNumber("");
+            orderData.setReferenceOoUniqueId("");
+
+        }
+
+        return orderData;
+
+    }
 
     /**
      * This method returns the Discounted WOA Funder List
