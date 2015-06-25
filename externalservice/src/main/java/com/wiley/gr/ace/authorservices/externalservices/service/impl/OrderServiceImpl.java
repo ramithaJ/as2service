@@ -25,6 +25,7 @@ import com.wiley.gr.ace.authorservices.model.external.OrderResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhArticleResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
 import com.wiley.gr.ace.authorservices.model.external.Quote;
+import com.wiley.gr.ace.authorservices.model.external.QuoteRequest;
 import com.wiley.gr.ace.authorservices.model.external.SocietyMemberDiscount;
 import com.wiley.gr.ace.authorservices.model.external.WileyOpenAccessFunders;
 
@@ -131,7 +132,7 @@ public class OrderServiceImpl implements OrderService {
      * Method to call getQuote external service.
      */
     @Override
-    public final Quote getQuote(final String articleId) {
+    public final Quote getQuote(final QuoteRequest quoteRequest) {
 
         return (Quote) StubInvokerUtil.invokeJsonStub(quoteurl,
                 HttpMethod.POST, Quote.class);
