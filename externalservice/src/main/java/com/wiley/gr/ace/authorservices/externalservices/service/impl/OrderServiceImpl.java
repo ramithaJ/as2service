@@ -12,11 +12,14 @@
 
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
+import com.wiley.gr.ace.authorservices.model.FunderDetails;
 import com.wiley.gr.ace.authorservices.model.TaxDetails;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSocietyResponse;
 import com.wiley.gr.ace.authorservices.model.external.InstitutionDiscounts;
@@ -95,6 +98,12 @@ public class OrderServiceImpl implements OrderService {
      */
     @Value("${validateTaxDetails.url}")
     private String validateTaxDetailsurl;
+    
+    /**
+     * This field holds the value of validateFunderDetailsurl
+     */
+    @Value("${validateFunderDetails.url}")
+    private String validateFunderDetailsurl;
 
     /** Calling Stub */
     @Override
@@ -194,6 +203,15 @@ public class OrderServiceImpl implements OrderService {
 
 		return StubInvokerUtil.invokeJsonStub(
 				validateTaxDetailsurl, HttpMethod.POST,
+                Object.class);
+	}
+
+	
+	@Override
+	public Object validateFunderDetails(String userId, List<FunderDetails> funderDetailsList) {
+		
+		return StubInvokerUtil.invokeJsonStub(
+				validateFunderDetailsurl, HttpMethod.POST,
                 Object.class);
 	}
 }

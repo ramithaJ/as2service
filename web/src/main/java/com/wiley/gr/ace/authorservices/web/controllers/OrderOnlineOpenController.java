@@ -1,5 +1,7 @@
 package com.wiley.gr.ace.authorservices.web.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
+import com.wiley.gr.ace.authorservices.model.FunderDetails;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.TaxDetails;
@@ -208,6 +211,25 @@ public class OrderOnlineOpenController extends ASExceptionController {
 
         return new Service();
     }
+    
+    
+    /**
+     * @param userId
+     * @param onlineOpenOrder
+     * @return
+     * @throws Exception 
+     */
+    @RequestMapping(value = "/validate/funderDetails/{userId}/", method = RequestMethod.POST)
+    public final Service validateFunderDetails(
+            @PathVariable("userId") final String userId,
+            @RequestBody final List<FunderDetails> funderDetailsList){
+
+        onlineOpenAuthorValidatorService.validateFunderDetails(userId, funderDetailsList);
+
+        return new Service();
+    }
+    
+    
     
     
 

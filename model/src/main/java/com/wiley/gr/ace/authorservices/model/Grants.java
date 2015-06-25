@@ -14,12 +14,16 @@ package com.wiley.gr.ace.authorservices.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * The Class Grants.
  */
 public class Grants {
 
     /** The grant number. */
+	@JsonInclude(Include.NON_NULL)
     private String grantNumber = "";
 
     /** The recipients list. */
