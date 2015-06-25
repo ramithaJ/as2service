@@ -102,9 +102,9 @@ public class AdminLoginServiceImpl implements AdminLoginService {
     public final String doLogin(final String emailId) {
         // Call external service for password validation
         LOGGER.info("inside doLogin Method");
-        int userId = userLoginServiceDAO.getUserId(emailId);
+        Users users = userLoginServiceDAO.getUserId(emailId);
         // userLoginServiceDAO.doLogin(userId);
-        return userId + "";
+        return users.getUserId() + "";
 
     }
 
@@ -133,7 +133,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
      * @return the roles and permissions
      */
     @Override
-    public final RolesAndPermissions getRolesAndPermissions(String roleId) {
+    public final RolesAndPermissions getRolesAndPermissions(final String roleId) {
 
         LOGGER.info("inside getRolesAndPermissions Method");
         RolesAndPermissions rolesAndPermissions = new RolesAndPermissions();
@@ -177,31 +177,34 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 
             permission.setPermissionId(daoPermissions.getPermissionCd() + "");
             permission.setPermissionName(daoPermissions.getPermissionName());
-            
+
             // TODO: Commenting this temporarily...Start
 
-            /*if (daoPermissions.getPermissionGroup().equalsIgnoreCase(
-                    AuthorServicesConstants.PERMISSION_LEVEL_SYSTEM)
             /*
-             * && daoPermissions.getPermType().equalsIgnoreCase(
+             * if (daoPermissions.getPermissionGroup().equalsIgnoreCase(
+             * AuthorServicesConstants.PERMISSION_LEVEL_SYSTEM) /* &&
+             * daoPermissions.getPermType().equalsIgnoreCase(
              * AuthorServicesConstants.PERMISSION_TYPE_EXTERNAL)
-             *//*) { // TODO
-                systemSection.getPermissionsList().add(permission);
-
-            } else if (daoPermissions.getPermissionGroup().equalsIgnoreCase(
-                    AuthorServicesConstants.PERMISSION_LEVEL_ADMIN)
-            /*
-             * && daoPermissions.getPermType().equalsIgnoreCase(
+             *//*
+             * ) { // TODO
+             * systemSection.getPermissionsList().add(permission);
+             * 
+             * } else if
+             * (daoPermissions.getPermissionGroup().equalsIgnoreCase(
+             * AuthorServicesConstants.PERMISSION_LEVEL_ADMIN) /* &&
+             * daoPermissions.getPermType().equalsIgnoreCase(
              * AuthorServicesConstants.PERMISSION_TYPE_INTERNAL)
-             *//*) { // TODO
-                adminSection.getPermissionsList().add(permission);
+             *//*
+             * ) { // TODO
+             * adminSection.getPermissionsList().add(permission);
+             * 
+             * } else if
+             * (daoPermissions.getPermissionGroup().equalsIgnoreCase(
+             * AuthorServicesConstants.PERMISSION_LEVEL_ARTICLE)) {
+             * articleSection.getPermissionsList().add(permission); }
+             */
 
-            } else if (daoPermissions.getPermissionGroup().equalsIgnoreCase(
-                    AuthorServicesConstants.PERMISSION_LEVEL_ARTICLE)) {
-                articleSection.getPermissionsList().add(permission);
-            } */
-            
-         // TODO: Commenting this temporarily...End
+            // TODO: Commenting this temporarily...End
         }
 
         rolesAndPermissions.getSectionsList().add(adminSection);
@@ -255,7 +258,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
      */
     @Override
     public final void addOrUpdateUserRole(
-            ASRolesAndPermissions rolesAndPermissions) {
+            final ASRolesAndPermissions rolesAndPermissions) {
 
         LOGGER.info("inside addOrUpdateUserRole Method");
         Roles roles = new Roles();

@@ -12,14 +12,15 @@
 package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
 import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
-import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 
@@ -53,9 +54,9 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
         Session session = null;
         try {
 
-            int userId = getUserId(emailId);
+            Users user = getUserId(emailId);
             session = getSessionFactory().openSession();
-            Users users = (Users) session.load(Users.class, userId);
+            Users users = (Users) session.load(Users.class, user.getUserId());
             if (null == users) {
                 return false;
             }
@@ -76,7 +77,7 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
      * @return the userId.
      */
     @Override
-    public final Integer getUserId(final String emailId) {
+    public final Users getUserId(final String emailId) {
 
         Session session = null;
         try {
@@ -87,7 +88,7 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
             if (null == user) {
                 throw new ASException(invalidEmail, invalidEmailMsg);
             }
-            return user.getUserId();
+            return user;
         } finally {
             if (session != null) {
                 session.flush();
@@ -133,13 +134,13 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
     @Override
     public final void verifyEmailUpdate(final String emailId) {
         Session session = null;
-        Integer userId = getUserId(emailId);
+        Users users = getUserId(emailId);
         try {
             session = getSessionFactory().openSession();
             session.beginTransaction();
             UserProfile authorProfile = new UserProfile();
             authorProfile = (UserProfile) session.get(UserProfile.class,
-                    userId);
+                    users.getUserId());
             authorProfile.setIsAccountVerified('Y');
             session.update(authorProfile);
             session.getTransaction().commit();
