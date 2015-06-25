@@ -188,53 +188,47 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
             }
         }
 
-	}
-	
-	
-	/**
-	 * This method returns the SavedOrder details for the corresponding orderId.
-	 * 
-	 * @param orderId
-	 * @param userId
-	 * @return SavedOrders
-	 * 
-	 */
-	@Override
-	public SavedOrders getSavedOrdersForTheOrderId(String orderId, String userId) {
-		Session session = null;
-		SavedOrders savedOrder = null; 
-		try {
-				session = getSessionFactory().openSession();
-				Criteria criteria = session.createCriteria(SavedOrders.class,
-						"savedOrders");
-				criteria.createAlias("savedOrders.userProfile", "userProfile");
-				criteria.add(Restrictions.eq("savedOrders.orderId",
-						Integer.parseInt(orderId)));
-				criteria.add(Restrictions.eq("userProfile.userId",
-						Integer.parseInt(userId)));
-				
-				savedOrder = (SavedOrders) criteria.uniqueResult();
-				 
-			} finally {
-				if (session != null) {
-					session.flush();
-					session.close();
-				}
-			}
-		
-		return savedOrder;
-			
-	}
-	
-	
-    public static void main(final String[] args) {
+    }
 
-        OrderOnlineDAOImpl a = new OrderOnlineDAOImpl();
-        a.getGrantRecipients("1");
+    /**
+     * This method returns the SavedOrder details for the corresponding orderId.
+     * 
+     * @param orderId
+     * @param userId
+     * @return SavedOrders
+     * 
+     */
+    @Override
+    public SavedOrders getSavedOrdersForTheOrderId(final String orderId,
+            final String userId) {
+        Session session = null;
+        SavedOrders savedOrder = null;
+        try {
+            session = getSessionFactory().openSession();
+            Criteria criteria = session.createCriteria(SavedOrders.class,
+                    "savedOrders");
+            criteria.createAlias("savedOrders.userProfile", "userProfile");
+            criteria.add(Restrictions.eq("savedOrders.orderId",
+                    Integer.parseInt(orderId)));
+            criteria.add(Restrictions.eq("userProfile.userId",
+                    Integer.parseInt(userId)));
+
+            savedOrder = (SavedOrders) criteria.uniqueResult();
+
+        } finally {
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
+        }
+
+        return savedOrder;
+
     }
 
     @Override
-    public void getGrantRecipients(final String articleId) {
+    public List<ProductPersonRelations> getGrantRecipients(
+            final String articleId) {
 
         Session session = null;
         try {
@@ -247,10 +241,9 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
             criteria.add(Restrictions.eq("products.dhId",
                     Integer.parseInt(articleId)));
             criteria.add(Restrictions.eq("productRoles.productRoleCd", "0002"));
-            ProductPersonRelations productPersonRelations = (ProductPersonRelations) criteria
-                    .uniqueResult();
-            System.err.println(productPersonRelations.getUsersByCreatedBy()
-                    .getUserId());
+            criteria.setFetchMode("userProfile", FetchMode.JOIN);
+            criteria.setFetchMode("userProfile.usersByUserId", FetchMode.JOIN);
+            return criteria.list();
         } finally {
             if (session != null) {
                 session.flush();
@@ -258,6 +251,5 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
             }
         }
     }
-
 
 }

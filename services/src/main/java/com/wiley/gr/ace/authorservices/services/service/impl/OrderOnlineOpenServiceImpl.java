@@ -34,6 +34,8 @@ import com.wiley.gr.ace.authorservices.model.ArticleDetails;
 import com.wiley.gr.ace.authorservices.model.Country;
 import com.wiley.gr.ace.authorservices.model.Discounts;
 import com.wiley.gr.ace.authorservices.model.FunderDetails;
+import com.wiley.gr.ace.authorservices.model.FundingOrganizations;
+import com.wiley.gr.ace.authorservices.model.GrantRecipients;
 import com.wiley.gr.ace.authorservices.model.Institution;
 import com.wiley.gr.ace.authorservices.model.JournalDetails;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
@@ -41,7 +43,6 @@ import com.wiley.gr.ace.authorservices.model.OrderDetails;
 import com.wiley.gr.ace.authorservices.model.Prices;
 import com.wiley.gr.ace.authorservices.model.QuoteDetail;
 import com.wiley.gr.ace.authorservices.model.QuoteDetails;
-import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.TaxDetails;
 import com.wiley.gr.ace.authorservices.model.WOAAccounts;
@@ -112,7 +113,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         List<ArticleDetails> articleDetailsList = new ArrayList<ArticleDetails>();
         articleDetails.setArticleAID(orderData.getArticle().getAidECORE());
         articleDetails
-                .setArticleTitle(orderData.getArticle().getArticleTitle());
+        .setArticleTitle(orderData.getArticle().getArticleTitle());
         articleDetailsList.add(articleDetails);
         onlineOpenOrder.setArticleDetails(articleDetailsList);
         JournalDetails journalDetails = new JournalDetails();
@@ -124,7 +125,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         journalDetailsList.add(journalDetails);
         onlineOpenOrder.setJournalDetails(journalDetailsList);
         onlineOpenOrder
-                .setAuthorName(orderData.getWoaAccountHolder().getName());
+        .setAuthorName(orderData.getWoaAccountHolder().getName());
         QuoteDetail quoteDetail = new QuoteDetail();
         Prices prices = new Prices();
         List<Prices> pricesList = new ArrayList<Prices>();
@@ -139,7 +140,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
          * .getName());
          */
         funderDetails
-                .setWoaAccountId(orderData.getWoaAccountHolder().getCode());
+        .setWoaAccountId(orderData.getWoaAccountHolder().getCode());
         List<FunderDetails> funderDetailsList = new ArrayList<FunderDetails>();
         funderDetailsList.add(funderDetails);
         onlineOpenOrder.setFunderDetails(funderDetailsList);
@@ -244,7 +245,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             // check user is corresponding author or not.
             if (productPersonRelations.getProductRoles() != null
                     && productPersonRelations.getProductRoles()
-                            .getProductRoleCd().equalsIgnoreCase("0001")) {
+                    .getProductRoleCd().equalsIgnoreCase("0001")) {
 
                 // check is there any saved orders for this article.
                 SavedOrders savedOrders = orderOnlineDAO.getSavedOrders(
@@ -301,7 +302,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                         .getFirstName()
                         + " "
                         + userProfileResponse.getCustomerProfile()
-                                .getCustomerDetails().getLastName());
+                        .getCustomerDetails().getLastName());
                 // GrantRecipients(coAuthors)
                 userProfileResponse.getCustomerProfile().getCoAuthors();
                 // Societies
@@ -420,8 +421,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * @return OrderData
      * @throws Exception
      */
-    private OrderData getOrderDataForOnlineOpenOrder(String orderId,
-            String userId) throws Exception {
+    private OrderData getOrderDataForOnlineOpenOrder(final String orderId,
+            final String userId) throws Exception {
         OrderData orderData = null;
         SavedOrders savedOrder = null;
         String orderDataObject = null;
@@ -432,7 +433,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                     userId);
             orderDataObject = savedOrder.getOrderObject();
             JSONObject object = (JSONObject) new JSONParser()
-                    .parse(orderDataObject);
+            .parse(orderDataObject);
             onlineOpenOrder = new ObjectMapper().readValue(
                     object.toJSONString(), OnlineOpenOrder.class);
 
@@ -638,7 +639,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         WileyOpenAccessFunders wileyOpenAccessFunders = orderservice
                 .getWoaAcounts();
         List<WOAAccount> woaAccountList = wileyOpenAccessFunders
-                .getWOAFunders().getWOAFunder().get(0).getWOAAccounts()
+                .getWoaFunders().getWOAFunder().get(0).getWOAAccounts()
                 .getWOAAccount();
         List<WOAAccounts> woaAccountsList = new ArrayList<WOAAccounts>();
         WOAAccounts woaAccounts = null;
@@ -653,11 +654,26 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
     /**
      * Method to get Grant Recipients.
+     * 
+     * @return
      */
     @Override
-    public void getGrantRecipients() {
-        // TODO Auto-generated method stub
+    public List<GrantRecipients> getGrantRecipients(final String articleId) {
 
+        List<ProductPersonRelations> productPersonRelationsList = orderOnlineDAO
+                .getGrantRecipients(articleId);
+        List<GrantRecipients> grantRecipientsList = new ArrayList<GrantRecipients>();
+        GrantRecipients grantRecipients = null;
+        for (ProductPersonRelations productPersonRelations : productPersonRelationsList) {
+            Users users = productPersonRelations.getUserProfile()
+                    .getUsersByUserId();
+            grantRecipients = new GrantRecipients();
+            grantRecipients.setCode(users.getUserId() + "");
+            grantRecipients.setName(users.getFirstName() + " "
+                    + users.getLastName());
+            grantRecipientsList.add(grantRecipients);
+        }
+        return grantRecipientsList;
     }
 
     /**
@@ -709,31 +725,28 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * @return
      */
     @Override
-    public List<ResearchFunder> getFundersList() {
+    public List<FundingOrganizations> getFundersList() {
 
         WileyOpenAccessFunders wileyOpenAccessFunders = orderservice
                 .getWoaAcounts();
-        System.err.println(wileyOpenAccessFunders.getWOAFunders()
-                .getWOAFunder().size());
         List<WOAAccount> woaAccountList = wileyOpenAccessFunders
-                .getWOAFunders().getWOAFunder().get(0).getWOAAccounts()
+                .getWoaFunders().getWOAFunder().get(0).getWOAAccounts()
                 .getWOAAccount();
-        List<ResearchFunder> researchFunderList = new ArrayList<ResearchFunder>();
-        ResearchFunder researchFunder = null;
+        List<FundingOrganizations> fundingOrganizationsList = new ArrayList<FundingOrganizations>();
+        FundingOrganizations fundingOrganizations = null;
         for (WOAAccount woaAccount : woaAccountList) {
-
             List<ResearchFunderElement> researchFunderElementList = woaAccount
                     .getResearchFunders().getResearchfunder();
             for (ResearchFunderElement researchFunderElement : researchFunderElementList) {
-                researchFunder = new ResearchFunder();
-                researchFunder.setResearchFunderId(Integer
-                        .parseInt(researchFunderElement.getFunderrefid()));
-                researchFunder.setResearchFunderName(researchFunderElement
-                        .getFundername());
-                researchFunderList.add(researchFunder);
+                fundingOrganizations = new FundingOrganizations();
+                fundingOrganizations.setFunderRefId(researchFunderElement
+                        .getFunderRefId());
+                fundingOrganizations.setFunderName(researchFunderElement
+                        .getFunderName());
+                fundingOrganizationsList.add(fundingOrganizations);
             }
         }
-        return researchFunderList;
+        return fundingOrganizationsList;
     }
 
 }

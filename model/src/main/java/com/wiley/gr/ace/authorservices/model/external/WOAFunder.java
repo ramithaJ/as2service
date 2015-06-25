@@ -73,4 +73,15 @@ public class WOAFunder {
         this.woaAccounts = woaAccounts;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "WOAFunder [id=" + id + ", name=" + name + ", woaAccounts="
+                + woaAccounts + "]";
+    }
+
 }

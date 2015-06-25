@@ -120,20 +120,30 @@ public class WOAAccount {
     }
 
     /**
-     * 
-     * @return The ResearchFunders
+     * @return the researchFunders
      */
-    public ResearchFunders getResearchFunders() {
+    public final ResearchFunders getResearchFunders() {
         return researchFunders;
     }
 
     /**
-     * 
      * @param researchFunders
-     *            The ResearchFunders
+     *            the researchFunders to set
      */
-    public void setResearchFunders(final ResearchFunders researchFunders) {
+    public final void setResearchFunders(final ResearchFunders researchFunders) {
         this.researchFunders = researchFunders;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "WOAAccount [id=" + id + ", code=" + code + ", name=" + name
+                + ", dealType=" + dealType + ", currency=" + currency
+                + ", researchFunders=" + researchFunders + "]";
     }
 
 }

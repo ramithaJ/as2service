@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
+import com.wiley.gr.ace.authorservices.model.external.WileyOpenAccessFunders;
 
 /**
  * The Class StubInvokerUtil.
@@ -35,7 +36,7 @@ public class StubInvokerUtil {
      * @return Object
      */
     public static <T> Object invokeStub(final String url,
-            final HttpMethod httpMethod, Class<T> clazz) {
+            final HttpMethod httpMethod, final Class<T> clazz) {
 
         try {
             HttpHeaders requestHeaders = new HttpHeaders();
@@ -71,7 +72,7 @@ public class StubInvokerUtil {
      * @return Object
      */
     public static <T> Object restServiceInvoker(final String url,
-            Object requestEntityClass, Class<T> responseEntityClass) {
+            final Object requestEntityClass, final Class<T> responseEntityClass) {
 
         try {
             ResponseEntity<T> response = new RestTemplate().postForEntity(
@@ -98,7 +99,7 @@ public class StubInvokerUtil {
      * @throws RestClientException
      */
     public static <T> Object invokeJsonStub(final String url,
-            final HttpMethod httpMethod, Class<T> responseEntityClass) {
+            final HttpMethod httpMethod, final Class<T> responseEntityClass) {
 
         HttpHeaders headers = new HttpHeaders();
 
@@ -123,6 +124,14 @@ public class StubInvokerUtil {
 
         }
 
+    }
+
+    public static void main(final String[] args) {
+        WileyOpenAccessFunders wileyOpenAccessFunders = (WileyOpenAccessFunders) StubInvokerUtil
+                .invokeJsonStub("http://jsonstub.com/woaFunders",
+                        HttpMethod.POST, WileyOpenAccessFunders.class);
+        System.out.println("wileyOpenAccessFunders obtained:::"
+                + wileyOpenAccessFunders);
     }
 
 }

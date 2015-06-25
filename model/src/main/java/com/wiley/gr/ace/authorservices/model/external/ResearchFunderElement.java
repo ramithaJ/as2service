@@ -11,109 +11,46 @@ public class ResearchFunderElement {
     /** The funderrefid. */
     private String funderRefId;
 
-    /** The grantno. */
-    private String grantno;
-
     /** The fundername. */
     private String funderName;
 
-    /** The associatedarticle. */
-    private String associatedarticle;
-
     /**
-     * @return the funderrefid
+     * @return the funderRefId
      */
-    public final String getFunderrefid() {
+    public final String getFunderRefId() {
         return funderRefId;
     }
 
     /**
-     * @param funderrefid
-     *            the funderrefid to set
+     * @param funderRefId
+     *            the funderRefId to set
      */
-    public final void setFunderrefid(final String funderrefid) {
-        this.funderRefId = funderrefid;
+    public final void setFunderRefId(final String funderRefId) {
+        this.funderRefId = funderRefId;
     }
 
     /**
-     * @return the grantno
+     * @return the funderName
      */
-    public final String getGrantno() {
-        return grantno;
-    }
-
-    /**
-     * @param grantno
-     *            the grantno to set
-     */
-    public final void setGrantno(final String grantno) {
-        this.grantno = grantno;
-    }
-
-    /**
-     * @return the fundername
-     */
-    public final String getFundername() {
+    public final String getFunderName() {
         return funderName;
     }
 
     /**
-     * @param fundername
-     *            the fundername to set
+     * @param funderName
+     *            the funderName to set
      */
-    public final void setFundername(final String fundername) {
-        this.funderName = fundername;
+    public final void setFunderName(final String funderName) {
+        this.funderName = funderName;
     }
 
     /**
-     * @return the associatedarticle
+     * toSting method
      */
-    public final String getAssociatedarticle() {
-        return associatedarticle;
+    @Override
+    public String toString() {
+        return "ResearchFunderElement [funderRefId=" + funderRefId
+                + ", funderName=" + funderName + "]";
     }
-
-    /**
-     * @param associatedarticle
-     *            the associatedarticle to set
-     */
-    public final void setAssociatedarticle(final String associatedarticle) {
-        this.associatedarticle = associatedarticle;
-    }
-
-    /**
-     * @return the funderassocenddate
-     */
-    public final String getFunderassocenddate() {
-        return funderassocenddate;
-    }
-
-    /**
-     * @param funderassocenddate
-     *            the funderassocenddate to set
-     */
-    public final void setFunderassocenddate(final String funderassocenddate) {
-        this.funderassocenddate = funderassocenddate;
-    }
-
-    /**
-     * @return the funderassocstartdate
-     */
-    public final String getFunderassocstartdate() {
-        return funderassocstartdate;
-    }
-
-    /**
-     * @param funderassocstartdate
-     *            the funderassocstartdate to set
-     */
-    public final void setFunderassocstartdate(final String funderassocstartdate) {
-        this.funderassocstartdate = funderassocstartdate;
-    }
-
-    /** The funderassocenddate. */
-    private String funderassocenddate;
-
-    /** The funderassocstartdate. */
-    private String funderassocstartdate;
 
 }

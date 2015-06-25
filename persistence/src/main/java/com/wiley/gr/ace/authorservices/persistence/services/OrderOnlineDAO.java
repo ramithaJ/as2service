@@ -39,7 +39,7 @@ public interface OrderOnlineDAO {
      * @return
      */
     SavedOrders getSavedOrders(String articleId, String userId);
-    
+
     /**
      * @param orderId
      * @param userId
@@ -75,6 +75,7 @@ public interface OrderOnlineDAO {
 
     /**
      * @param ArticleId
+     * @return
      */
-    void getGrantRecipients(String articleId);
+    List<ProductPersonRelations> getGrantRecipients(String articleId);
 }
