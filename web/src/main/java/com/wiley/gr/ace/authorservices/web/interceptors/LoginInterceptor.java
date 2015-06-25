@@ -58,7 +58,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         try {
 
             token = RestServiceInvokerUtil.invokeService(
-                    "http://10.201.64.81:8080/service/v1/auth/authenticate",
+                    "http://10.201.32.151:8090/service/v1/auth/authenticate",
                     HttpMethod.POST, "Login", login);
             System.out.println("Token from Authentication Service:::" + token);
             if (token != null
