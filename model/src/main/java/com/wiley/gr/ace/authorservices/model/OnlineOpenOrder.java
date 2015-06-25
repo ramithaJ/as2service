@@ -29,7 +29,7 @@ public class OnlineOpenOrder {
     private Amount amountPayable;
 
     /** The address details. */
-    private List<AddressDetails> addressDetails;
+    private AddressDetails addressDetails;
 
     /** The journal details. */
     private List<JournalDetails> journalDetails;
@@ -109,7 +109,7 @@ public class OnlineOpenOrder {
      *
      * @return the address details
      */
-    public final List<AddressDetails> getAddressDetails() {
+    public final AddressDetails getAddressDetails() {
         return addressDetails;
     }
 
@@ -119,8 +119,7 @@ public class OnlineOpenOrder {
      * @param addressDetails
      *            the new address details
      */
-    public final void setAddressDetails(
-            final List<AddressDetails> addressDetails) {
+    public final void setAddressDetails(final AddressDetails addressDetails) {
         this.addressDetails = addressDetails;
     }
 
