@@ -19,6 +19,7 @@ import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 import com.wiley.gr.ace.authorservices.services.service.ArticleAssignmentService;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 import com.wiley.gr.ace.authorservices.services.service.DashboardService;
+import com.wiley.gr.ace.authorservices.services.service.OnlineOpenAuthorValidatorService;
 import com.wiley.gr.ace.authorservices.services.service.OpenAccessService;
 import com.wiley.gr.ace.authorservices.services.service.OrcidService;
 import com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService;
@@ -31,6 +32,7 @@ import com.wiley.gr.ace.authorservices.services.service.impl.AdminLoginServiceIm
 import com.wiley.gr.ace.authorservices.services.service.impl.ArticleAssignmentServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.AuthorProfileServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.DashboardServiceImpl;
+import com.wiley.gr.ace.authorservices.services.service.impl.OnlineOpenAuthorValidatorServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.OpenAccessServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.OrcidServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.OrderOnlineOpenServiceImpl;
@@ -160,5 +162,14 @@ public class ServiceBeanConfig {
 	@Bean(name="OpenAccessService")
 	public OpenAccessService openAccessService() {
 		return new OpenAccessServiceImpl();
+	}
+	
+	/**
+	 * Online Open Author Validator Service
+	 * @return OnlineOpenAuthorValidatorService
+	 */
+	@Bean(name = "OnlineOpenAuthorValidatorService")
+	public OnlineOpenAuthorValidatorService onlineOpenAuthorValidatorService() {
+		return new OnlineOpenAuthorValidatorServiceImpl();
 	}
 }
