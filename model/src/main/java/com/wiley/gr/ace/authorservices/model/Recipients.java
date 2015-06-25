@@ -18,7 +18,7 @@ package com.wiley.gr.ace.authorservices.model;
 public class Recipients {
 
     /** The recipient id. */
-    private String recipientId;
+    private String recipientId = "";
 
     /**
      * Gets the recipient id.
@@ -32,7 +32,8 @@ public class Recipients {
     /**
      * Sets the recipient id.
      *
-     * @param recipientId the new recipient id
+     * @param recipientId
+     *            the new recipient id
      */
     public final void setRecipientId(final String recipientId) {
         this.recipientId = recipientId;

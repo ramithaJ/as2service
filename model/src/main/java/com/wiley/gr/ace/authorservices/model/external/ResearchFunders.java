@@ -32,4 +32,14 @@ public class ResearchFunders {
         this.researchfunder = researchfunder;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "ResearchFunders [researchfunder=" + researchfunder + "]";
+    }
+
 }

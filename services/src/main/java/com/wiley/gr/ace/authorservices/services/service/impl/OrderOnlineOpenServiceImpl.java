@@ -34,6 +34,9 @@ import com.wiley.gr.ace.authorservices.model.ArticleDetails;
 import com.wiley.gr.ace.authorservices.model.Country;
 import com.wiley.gr.ace.authorservices.model.Discounts;
 import com.wiley.gr.ace.authorservices.model.FunderDetails;
+import com.wiley.gr.ace.authorservices.model.FundingOrganizations;
+import com.wiley.gr.ace.authorservices.model.GrantRecipients;
+import com.wiley.gr.ace.authorservices.model.Grants;
 import com.wiley.gr.ace.authorservices.model.Institution;
 import com.wiley.gr.ace.authorservices.model.JournalDetails;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
@@ -41,7 +44,7 @@ import com.wiley.gr.ace.authorservices.model.OrderDetails;
 import com.wiley.gr.ace.authorservices.model.Prices;
 import com.wiley.gr.ace.authorservices.model.QuoteDetail;
 import com.wiley.gr.ace.authorservices.model.QuoteDetails;
-import com.wiley.gr.ace.authorservices.model.ResearchFunder;
+import com.wiley.gr.ace.authorservices.model.Recipients;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.TaxDetails;
 import com.wiley.gr.ace.authorservices.model.WOAAccounts;
@@ -140,6 +143,14 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
          */
         funderDetails
                 .setWoaAccountId(orderData.getWoaAccountHolder().getCode());
+        List<Grants> grantsList = new ArrayList<Grants>();
+        Grants grants = new Grants();
+        Recipients recipients = new Recipients();
+        List<Recipients> recipentsList = new ArrayList<Recipients>();
+        recipentsList.add(recipients);
+        grants.setRecipientsList(recipentsList);
+        grantsList.add(grants);
+        funderDetails.setGrants(grantsList);
         List<FunderDetails> funderDetailsList = new ArrayList<FunderDetails>();
         funderDetailsList.add(funderDetails);
         onlineOpenOrder.setFunderDetails(funderDetailsList);
@@ -164,6 +175,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         amount.setAmount(orderData.getPricing().getAmountToBePaid().toString());
         amount.setCurrency(orderData.getPricing().getCurrency());
         onlineOpenOrder.setAmountPayable(amount);
+        Amount finalAmount = new Amount();
+        onlineOpenOrder.setFinalAmount(finalAmount);
         onlineOpenOrder.setPaymentMethod(orderData.getPayment()
                 .getPaymentMethod());
         Address contactAddress = new Address();
@@ -420,8 +433,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * @return OrderData
      * @throws Exception
      */
-    private OrderData getOrderDataForOnlineOpenOrder(String orderId,
-            String userId) throws Exception {
+    private OrderData getOrderDataForOnlineOpenOrder(final String orderId,
+            final String userId) throws Exception {
         OrderData orderData = null;
         SavedOrders savedOrder = null;
         String orderDataObject = null;
@@ -638,7 +651,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         WileyOpenAccessFunders wileyOpenAccessFunders = orderservice
                 .getWoaAcounts();
         List<WOAAccount> woaAccountList = wileyOpenAccessFunders
-                .getWOAFunders().getWOAFunder().get(0).getWOAAccounts()
+                .getWoaFunders().getWOAFunder().get(0).getWOAAccounts()
                 .getWOAAccount();
         List<WOAAccounts> woaAccountsList = new ArrayList<WOAAccounts>();
         WOAAccounts woaAccounts = null;
@@ -653,11 +666,26 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
     /**
      * Method to get Grant Recipients.
+     * 
+     * @return
      */
     @Override
-    public void getGrantRecipients() {
-        // TODO Auto-generated method stub
+    public List<GrantRecipients> getGrantRecipients(final String articleId) {
 
+        List<ProductPersonRelations> productPersonRelationsList = orderOnlineDAO
+                .getGrantRecipients(articleId);
+        List<GrantRecipients> grantRecipientsList = new ArrayList<GrantRecipients>();
+        GrantRecipients grantRecipients = null;
+        for (ProductPersonRelations productPersonRelations : productPersonRelationsList) {
+            Users users = productPersonRelations.getUserProfile()
+                    .getUsersByUserId();
+            grantRecipients = new GrantRecipients();
+            grantRecipients.setCode(users.getUserId() + "");
+            grantRecipients.setName(users.getFirstName() + " "
+                    + users.getLastName());
+            grantRecipientsList.add(grantRecipients);
+        }
+        return grantRecipientsList;
     }
 
     /**
@@ -709,31 +737,28 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * @return
      */
     @Override
-    public List<ResearchFunder> getFundersList() {
+    public List<FundingOrganizations> getFundersList() {
 
         WileyOpenAccessFunders wileyOpenAccessFunders = orderservice
                 .getWoaAcounts();
-        System.err.println(wileyOpenAccessFunders.getWOAFunders()
-                .getWOAFunder().size());
         List<WOAAccount> woaAccountList = wileyOpenAccessFunders
-                .getWOAFunders().getWOAFunder().get(0).getWOAAccounts()
+                .getWoaFunders().getWOAFunder().get(0).getWOAAccounts()
                 .getWOAAccount();
-        List<ResearchFunder> researchFunderList = new ArrayList<ResearchFunder>();
-        ResearchFunder researchFunder = null;
+        List<FundingOrganizations> fundingOrganizationsList = new ArrayList<FundingOrganizations>();
+        FundingOrganizations fundingOrganizations = null;
         for (WOAAccount woaAccount : woaAccountList) {
-
             List<ResearchFunderElement> researchFunderElementList = woaAccount
                     .getResearchFunders().getResearchfunder();
             for (ResearchFunderElement researchFunderElement : researchFunderElementList) {
-                researchFunder = new ResearchFunder();
-                researchFunder.setResearchFunderId(Integer
-                        .parseInt(researchFunderElement.getFunderrefid()));
-                researchFunder.setResearchFunderName(researchFunderElement
-                        .getFundername());
-                researchFunderList.add(researchFunder);
+                fundingOrganizations = new FundingOrganizations();
+                fundingOrganizations.setFunderRefId(researchFunderElement
+                        .getFunderRefId());
+                fundingOrganizations.setFunderName(researchFunderElement
+                        .getFunderName());
+                fundingOrganizationsList.add(fundingOrganizations);
             }
         }
-        return researchFunderList;
+        return fundingOrganizationsList;
     }
 
 }

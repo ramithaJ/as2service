@@ -11,41 +11,52 @@
  * of John Wiley & Sons.
  * *****************************************************************************
  */
-package com.wiley.gr.ace.authorservices.model.external;
+package com.wiley.gr.ace.authorservices.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-public class WileyOpenAccessFunders {
-
-    /**
-     * This field holds the value of WOAFunders
-     */
-    @JsonProperty("WOAFunders")
-    private WOAFunders woaFunders;
+/**
+ * @author virtusa version1.0
+ *
+ */
+public class GrantRecipients {
 
     /**
-     * @return the woaFunders
+     * This field holds the value of name
      */
-    public final WOAFunders getWoaFunders() {
-        return woaFunders;
+    private String name;
+
+    /**
+     * This field holds the value of code
+     */
+    private String code;
+
+    /**
+     * @return the name
+     */
+    public final String getName() {
+        return name;
     }
 
     /**
-     * @param woaFunders
-     *            the woaFunders to set
+     * @param name
+     *            the name to set
      */
-    public final void setWoaFunders(final WOAFunders woaFunders) {
-        this.woaFunders = woaFunders;
+    public final void setName(final String name) {
+        this.name = name;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#toString()
+    /**
+     * @return the code
      */
-    @Override
-    public String toString() {
-        return "WileyOpenAccessFunders [woaFunders=" + woaFunders + "]";
+    public final String getCode() {
+        return code;
+    }
+
+    /**
+     * @param code
+     *            the code to set
+     */
+    public final void setCode(final String code) {
+        this.code = code;
     }
 
 }

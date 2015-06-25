@@ -2,11 +2,12 @@ package com.wiley.gr.ace.authorservices.services.service;
 
 import java.util.List;
 
+import com.wiley.gr.ace.authorservices.model.FundingOrganizations;
+import com.wiley.gr.ace.authorservices.model.GrantRecipients;
 import com.wiley.gr.ace.authorservices.model.Institution;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.OrderDetails;
 import com.wiley.gr.ace.authorservices.model.QuoteDetails;
-import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.WOAAccounts;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSociety;
@@ -40,11 +41,12 @@ public interface OrderOnlineOpenService {
     List<OrderDetails> getAllOrders(Integer userId, String type);
 
     /**
-	 * @param userId
-	 * @param onlineOpenOrder
-	 * @throws Exception 
-	 */
-	OrderResponse submitOnlineOpenOrder(String userId, String orderId, String orderTypeFlag) throws Exception;
+     * @param userId
+     * @param onlineOpenOrder
+     * @throws Exception
+     */
+    OrderResponse submitOnlineOpenOrder(String userId, String orderId,
+            String orderTypeFlag) throws Exception;
 
     /**
      * @param userId
@@ -80,8 +82,9 @@ public interface OrderOnlineOpenService {
 
     /**
      * @param userId
+     * @return
      */
-    void getGrantRecipients();
+    List<GrantRecipients> getGrantRecipients(String articleId);
 
     /**
      * @param userId
@@ -99,6 +102,6 @@ public interface OrderOnlineOpenService {
      * @param userId
      * @return
      */
-    List<ResearchFunder> getFundersList();
+    List<FundingOrganizations> getFundersList();
 
 }

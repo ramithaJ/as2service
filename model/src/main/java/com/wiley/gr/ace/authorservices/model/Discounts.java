@@ -22,16 +22,16 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class Discounts {
 
     /** The institution id. */
-    private String institutionId;
+    private String institutionId = "";
 
     /** The society id. */
-    private String societyId;
+    private String societyId = "";
 
     /** The other discounts. */
-    private String otherDiscounts;
+    private String otherDiscounts = "";
 
     /** The promo code. */
-    private String promoCode;
+    private String promoCode = "";
 
     /**
      * Gets the institution id.

@@ -22,10 +22,10 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class Amount {
 
     /** The amount. */
-    private String amount;
+    private String amount = "";
 
     /** The currency. */
-    private String currency;
+    private String currency = "";
 
     /**
      * Gets the amount.

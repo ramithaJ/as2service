@@ -27,10 +27,10 @@ public class FunderDetails {
     private String woaAccountId;
 
     /** The funder id. */
-    private String funderId;
+    private String funderId = "";
 
     /** The research funder id. */
-    private String researchFunderId;
+    private String researchFunderId = "";
 
     /** The grants. */
     private List<Grants> grants;

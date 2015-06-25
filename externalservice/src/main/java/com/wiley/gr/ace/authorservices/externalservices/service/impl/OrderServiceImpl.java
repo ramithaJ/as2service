@@ -179,4 +179,7 @@ public class OrderServiceImpl implements OrderService {
                 InstitutionDiscounts.class);
     }
 
+    public static void main(final String[] args) {
+
+    }
 }

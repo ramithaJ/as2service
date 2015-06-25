@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class Country {
 
     /** The country code. */
-    private String countryCode;
+    private String countryCode = "";
 
     /** The country name. */
     private String countryName;
