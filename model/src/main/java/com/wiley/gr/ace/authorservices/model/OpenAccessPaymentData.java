@@ -14,6 +14,7 @@ public class OpenAccessPaymentData {
 	private Amount taxAmount;
 	private Amount amountPayable;
 	private String authorName;
+	private DiscountDetail discountDetail;
 
 	public final AddressDetails getAddressOnFile() {
 		return addressOnFile;
@@ -77,6 +78,14 @@ public class OpenAccessPaymentData {
 
 	public final void setTaxAmount(Amount taxAmount) {
 		this.taxAmount = taxAmount;
+	}
+
+	public final DiscountDetail getDiscountDetail() {
+		return discountDetail;
+	}
+
+	public final void setDiscountDetail(DiscountDetail discountDetail) {
+		this.discountDetail = discountDetail;
 	}
 
 }

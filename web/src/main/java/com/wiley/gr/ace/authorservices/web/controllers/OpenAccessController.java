@@ -12,43 +12,47 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
-import com.wiley.gr.ace.authorservices.model.QuoteDetails;
+import com.wiley.gr.ace.authorservices.model.OpenAccessPaymentData;
 import com.wiley.gr.ace.authorservices.model.Service;
+import com.wiley.gr.ace.authorservices.services.service.OpenAccessService;
 import com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService;
 
 @RestController
 @RequestMapping("/openaccess")
 public class OpenAccessController {
 
-	@Autowired(required=true)
+	@Autowired(required = true)
 	OrderOnlineOpenService orderOnlineOpenService;
+
+	@Autowired(required = true)
+	OpenAccessService openAccessService;
 
 	@RequestMapping(value = "/getQuote", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Service getOpenAccessQuote(
-			@RequestParam("userId") String userId,
-			@RequestParam("articleId") String articleId) {
+			@RequestParam("articleId") String articleId,
+			@RequestParam("journalId") String journalId) {
 		Service service = new Service();
-		QuoteDetails quoteDetails = new QuoteDetails();
-		
-		try{
-			quoteDetails = orderOnlineOpenService.getQuote(userId, articleId, "OA");
-			if(!StringUtils.isEmpty(quoteDetails)){
+		OpenAccessPaymentData openAccessPaymentData = new OpenAccessPaymentData();
+
+		try {
+			openAccessPaymentData = openAccessService.getOpenAccessDetails(articleId, journalId);
+			if (!StringUtils.isEmpty(openAccessPaymentData)) {
 				service.setStatus("SUCCESS");
-				service.setPayload(quoteDetails);
+				service.setPayload(openAccessPaymentData);
 			}
-		} catch(Exception e){
+		} catch (Exception e) {
 			service.setStatus("ERROR");
 		}
 
 		return service;
 	}
-	
+
 	@RequestMapping(value = "/pay", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Service payOpenAccess(
 			@RequestParam("userId") String userId,
 			@RequestParam("orderId") String orderId) {
 		Service service = new Service();
-		
+
 		try {
 			orderOnlineOpenService.submitOnlineOpenOrder(userId, orderId, "OA");
 			service.setStatus("SUCCESS");
@@ -62,17 +66,16 @@ public class OpenAccessController {
 
 		return service;
 	}
-	
+
 	@RequestMapping(value = "/saveforlater", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Service saveForLater(
 			@RequestParam("userId") String userId,
 			@RequestBody OnlineOpenOrder onlineOpenOrder) {
 		Service service = new Service();
-		
+
 		orderOnlineOpenService.saveLaterOrder(onlineOpenOrder, userId);
 
 		return service;
 	}
-	
-	
+
 }

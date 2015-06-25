@@ -8,6 +8,7 @@ import com.wiley.gr.ace.authorservices.model.AddressDetails;
 import com.wiley.gr.ace.authorservices.model.Amount;
 import com.wiley.gr.ace.authorservices.model.ArticleDetails;
 import com.wiley.gr.ace.authorservices.model.Country;
+import com.wiley.gr.ace.authorservices.model.DiscountDetail;
 import com.wiley.gr.ace.authorservices.model.JournalDetails;
 import com.wiley.gr.ace.authorservices.model.OpenAccessPaymentData;
 import com.wiley.gr.ace.authorservices.model.QuoteData;
@@ -19,7 +20,7 @@ import com.wiley.gr.ace.authorservices.model.external.Quote;
 import com.wiley.gr.ace.authorservices.model.external.QuoteRequest;
 import com.wiley.gr.ace.authorservices.services.service.OpenAccessService;
 
-public class OpenAccessServiceImple implements OpenAccessService {
+public class OpenAccessServiceImpl implements OpenAccessService {
 
 	@Autowired(required = true)
 	OrderService orderService;
@@ -53,6 +54,10 @@ public class OpenAccessServiceImple implements OpenAccessService {
 		quoteData.setPaymentStatus(quote.getPaymentStatus());
 		quoteData.setQuoteStatus(quote.getQuoteStatus());
 
+		DiscountDetail discountDetail = new DiscountDetail();
+		discountDetail.setDiscountType(quote.getDiscount().getDiscountType());
+		discountDetail.setDiscountAmount(quote.getDiscount().getDiscountAmount());
+		discountDetail.setDiscountPercent(quote.getDiscount().getDiscountPercent());
 		Amount taxAmount = new Amount();
 		// Still need to do tax calculation from service
 		String finalAmount = Integer.toString(Integer.parseInt(quote
@@ -131,6 +136,7 @@ public class OpenAccessServiceImple implements OpenAccessService {
 		openAccessPaymentData.setAddressOnFile(addressDetails);
 		openAccessPaymentData.setTaxDetails(taxDetails);
 		openAccessPaymentData.setTaxAmount(taxAmount);
+		openAccessPaymentData.setDiscountDetail(discountDetail);
 		return openAccessPaymentData;
 	}
 
