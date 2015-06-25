@@ -14,8 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.services.service;
 
+import com.wiley.gr.ace.authorservices.model.AssociationConfirmation;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
-import com.wiley.gr.ace.authorservices.model.external.AssociationConfirmation;
 import com.wiley.gr.ace.authorservices.model.external.ConfirmArticleData;
 
 /**
