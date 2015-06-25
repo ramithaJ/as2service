@@ -14,7 +14,6 @@ package com.wiley.gr.ace.authorservices.services.service.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import org.json.simple.JSONObject;
@@ -99,6 +98,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     /**
      * This method will take userId and orderId as input and calls external
      * service to get details of Online order details
+     * 
      */
     @Override
     public OnlineOpenOrder getOnlineOpenOrderDetails(final String userId,
