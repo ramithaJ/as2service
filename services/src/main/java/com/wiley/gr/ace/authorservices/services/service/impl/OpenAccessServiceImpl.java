@@ -20,11 +20,19 @@ import com.wiley.gr.ace.authorservices.model.external.Quote;
 import com.wiley.gr.ace.authorservices.model.external.QuoteRequest;
 import com.wiley.gr.ace.authorservices.services.service.OpenAccessService;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class OpenAccessServiceImpl.
+ */
 public class OpenAccessServiceImpl implements OpenAccessService {
 
+	/** The order service. */
 	@Autowired(required = true)
 	OrderService orderService;
 
+	/* (non-Javadoc)
+	 * @see com.wiley.gr.ace.authorservices.services.service.OpenAccessService#getOpenAccessDetails(java.lang.String, java.lang.String)
+	 */
 	@Override
 	public OpenAccessPaymentData getOpenAccessDetails(final String articleId,
 			final String journalId) throws Exception {
