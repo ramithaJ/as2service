@@ -5,12 +5,15 @@ package com.wiley.gr.ace.authorservices.model.external;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * The Class ResearchFunders.
  */
 public class ResearchFunders {
 
     /** The researchfunder. */
+    @JsonProperty("ResearchFunder")
     private List<ResearchFunderElement> researchfunder;
 
     /**

@@ -13,11 +13,14 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class WileyOpenAccessFunders {
 
     /**
      * This field holds the value of WOAFunders
      */
+    @JsonProperty("WOAFunders")
     private WOAFunders WOAFunders;
 
     /**
