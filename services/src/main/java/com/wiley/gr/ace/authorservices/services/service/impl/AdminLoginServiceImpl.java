@@ -99,12 +99,10 @@ public class AdminLoginServiceImpl implements AdminLoginService {
      * @return the string
      */
     @Override
-    public final String doLogin(final String emailId) {
+    public final Users doLogin(final String emailId) {
         // Call external service for password validation
         LOGGER.info("inside doLogin Method");
-        Users users = userLoginServiceDAO.getUserId(emailId);
-        // userLoginServiceDAO.doLogin(userId);
-        return users.getUserId() + "";
+        return userLoginServiceDAO.getUserId(emailId);
 
     }
 
@@ -145,11 +143,11 @@ public class AdminLoginServiceImpl implements AdminLoginService {
         PermissionSection adminSection = new PermissionSection();
 
         systemSection
-                .setSectionName(AuthorServicesConstants.PERMISSION_LEVEL_SYSTEM);
+        .setSectionName(AuthorServicesConstants.PERMISSION_LEVEL_SYSTEM);
         articleSection
-                .setSectionName(AuthorServicesConstants.PERMISSION_LEVEL_ARTICLE);
+        .setSectionName(AuthorServicesConstants.PERMISSION_LEVEL_ARTICLE);
         adminSection
-                .setSectionName(AuthorServicesConstants.PERMISSION_LEVEL_ADMIN);
+        .setSectionName(AuthorServicesConstants.PERMISSION_LEVEL_ADMIN);
 
         // if(roleId == null || roleId.equals("")) {
 
@@ -186,23 +184,23 @@ public class AdminLoginServiceImpl implements AdminLoginService {
              * daoPermissions.getPermType().equalsIgnoreCase(
              * AuthorServicesConstants.PERMISSION_TYPE_EXTERNAL)
              *//*
-             * ) { // TODO
-             * systemSection.getPermissionsList().add(permission);
-             * 
-             * } else if
-             * (daoPermissions.getPermissionGroup().equalsIgnoreCase(
-             * AuthorServicesConstants.PERMISSION_LEVEL_ADMIN) /* &&
-             * daoPermissions.getPermType().equalsIgnoreCase(
-             * AuthorServicesConstants.PERMISSION_TYPE_INTERNAL)
-             *//*
-             * ) { // TODO
-             * adminSection.getPermissionsList().add(permission);
-             * 
-             * } else if
-             * (daoPermissions.getPermissionGroup().equalsIgnoreCase(
-             * AuthorServicesConstants.PERMISSION_LEVEL_ARTICLE)) {
-             * articleSection.getPermissionsList().add(permission); }
-             */
+                * ) { // TODO
+                * systemSection.getPermissionsList().add(permission);
+                * 
+                * } else if
+                * (daoPermissions.getPermissionGroup().equalsIgnoreCase(
+                * AuthorServicesConstants.PERMISSION_LEVEL_ADMIN) /* &&
+                * daoPermissions.getPermType().equalsIgnoreCase(
+                * AuthorServicesConstants.PERMISSION_TYPE_INTERNAL)
+                *//*
+                   * ) { // TODO
+                   * adminSection.getPermissionsList().add(permission);
+                   * 
+                   * } else if
+                   * (daoPermissions.getPermissionGroup().equalsIgnoreCase(
+                   * AuthorServicesConstants.PERMISSION_LEVEL_ARTICLE)) {
+                   * articleSection.getPermissionsList().add(permission); }
+                   */
 
             // TODO: Commenting this temporarily...End
         }
@@ -285,7 +283,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
         }
         if (rolesAndPermissions.getRole().getRoleId() != null
                 && !rolesAndPermissions.getRole().getRoleId().trim()
-                        .equals("0")) {
+                .equals("0")) {
             roles.setRoleId(Integer.valueOf(rolesAndPermissions.getRole()
                     .getRoleId()));
         }
