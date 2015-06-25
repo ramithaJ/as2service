@@ -16,16 +16,31 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * The Class OrderDataList.
+ */
 public class OrderDataList {
 
+    /** The order datas. */
     @JsonProperty("Order")
     private List<OrderData> orderDatas;
 
+    /**
+     * Gets the order datas.
+     *
+     * @return the order datas
+     */
     public final List<OrderData> getOrderDatas() {
         return orderDatas;
     }
 
-    public final void setOrderDatas(List<OrderData> orderDatas) {
+    /**
+     * Sets the order datas.
+     *
+     * @param orderDatas
+     *            the new order datas
+     */
+    public final void setOrderDatas(final List<OrderData> orderDatas) {
         this.orderDatas = orderDatas;
     }
 
