@@ -17,6 +17,7 @@ import org.springframework.http.HttpMethod;
 
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
+import com.wiley.gr.ace.authorservices.model.TaxDetails;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSocietyResponse;
 import com.wiley.gr.ace.authorservices.model.external.InstitutionDiscounts;
 import com.wiley.gr.ace.authorservices.model.external.OrderData;
@@ -82,12 +83,18 @@ public class OrderServiceImpl implements OrderService {
      */
     @Value("${woaAccounts.url}")
     private String woaAccountsurl;
-
+    
     /**
      * This field holds the value of institutionDiscountsurl
      */
     @Value("${institutionDiscounts.url}")
     private String institutionDiscountsurl;
+    
+    /**
+     * This field holds the value of discountedSocietiesurl
+     */
+    @Value("${validateTaxDetails.url}")
+    private String validateTaxDetailsurl;
 
     /** Calling Stub */
     @Override
@@ -179,7 +186,14 @@ public class OrderServiceImpl implements OrderService {
                 InstitutionDiscounts.class);
     }
 
-    public static void main(final String[] args) {
+	/**
+	 * Method to validate Tax Details
+	 */
+	@Override
+	public Object validateTaxDetails(String userId, TaxDetails taxDetails) {
 
-    }
+		return StubInvokerUtil.invokeJsonStub(
+				validateTaxDetailsurl, HttpMethod.POST,
+                Object.class);
+	}
 }

@@ -12,6 +12,7 @@
 
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
+import com.wiley.gr.ace.authorservices.model.TaxDetails;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSocietyResponse;
 import com.wiley.gr.ace.authorservices.model.external.InstitutionDiscounts;
 import com.wiley.gr.ace.authorservices.model.external.OrderData;
@@ -81,5 +82,11 @@ public interface OrderService {
      * @return InstitutionDiscounts
      */
     InstitutionDiscounts getInstitutionDiscounts();
+    
+    /******************* Validations *******************/
+    /**
+	 * @return Object
+     */
+    Object validateTaxDetails(String userId, TaxDetails taxDetails) ;
 
 }

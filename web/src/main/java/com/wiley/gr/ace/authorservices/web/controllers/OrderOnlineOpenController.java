@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.Service;
+import com.wiley.gr.ace.authorservices.model.TaxDetails;
+import com.wiley.gr.ace.authorservices.services.service.OnlineOpenAuthorValidatorService;
 import com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService;
 
 /**
@@ -26,6 +28,12 @@ public class OrderOnlineOpenController extends ASExceptionController {
      */
     @Autowired(required = true)
     private OrderOnlineOpenService orderOnlineOpenService;
+    
+    /**
+     * This field holds the value of nlineOpenAuthorValidatorService
+     */
+    @Autowired(required = true)
+    private OnlineOpenAuthorValidatorService onlineOpenAuthorValidatorService;
 
     /**
      * @param userId
@@ -184,5 +192,23 @@ public class OrderOnlineOpenController extends ASExceptionController {
         service.setPayload(orderOnlineOpenService.getInstitutionDiscounts());
         return service;
     }
+    
+    /**
+     * @param userId
+     * @param onlineOpenOrder
+     * @return
+     * @throws Exception 
+     */
+    @RequestMapping(value = "/validate/taxDetails/{userId}/", method = RequestMethod.POST)
+    public final Service validateTaxDetails(
+            @PathVariable("userId") final String userId,
+            @RequestBody final TaxDetails taxDetails){
+
+        onlineOpenAuthorValidatorService.validateTaxDetails(userId, taxDetails);
+
+        return new Service();
+    }
+    
+    
 
 }
