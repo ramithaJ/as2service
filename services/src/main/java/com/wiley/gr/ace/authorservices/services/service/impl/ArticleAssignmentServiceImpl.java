@@ -16,10 +16,10 @@ package com.wiley.gr.ace.authorservices.services.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.wiley.gr.ace.authorservices.externalservices.service.BPMInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
-import com.wiley.gr.ace.authorservices.externalservices.service.SharedService;
+import com.wiley.gr.ace.authorservices.model.AssociationConfirmation;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
-import com.wiley.gr.ace.authorservices.model.external.AssociationConfirmation;
 import com.wiley.gr.ace.authorservices.model.external.ConfirmArticleData;
 import com.wiley.gr.ace.authorservices.services.service.ArticleAssignmentService;
 
@@ -36,7 +36,7 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
 
     /** The Shared service. */
     @Autowired(required = true)
-    private SharedService sharedService;
+    private BPMInterfaceService bpmInterfaceService;
 
     /**
      * this method will take emailId as in input and call external service (ESb)
@@ -67,7 +67,7 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
     public final boolean associationConfirmation(
             final AssociationConfirmation associationConfirmation)
             throws Exception {
-        return sharedService.associationConfirmation(associationConfirmation);
+        return bpmInterfaceService.finishTask(associationConfirmation);
     }
 
     /**
