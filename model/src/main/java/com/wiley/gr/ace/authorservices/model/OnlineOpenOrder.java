@@ -38,7 +38,7 @@ public class OnlineOpenOrder {
     private List<Discounts> discountDetails;
 
     /** The tax percentage. */
-    private String taxPercentage;
+    private String taxPercentage = "0.00";
 
     /** The funder details. */
     private List<FunderDetails> funderDetails;

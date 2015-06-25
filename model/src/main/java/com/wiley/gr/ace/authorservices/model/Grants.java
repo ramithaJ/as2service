@@ -20,7 +20,7 @@ import java.util.List;
 public class Grants {
 
     /** The grant number. */
-    private String grantNumber;
+    private String grantNumber = "";
 
     /** The recipients list. */
     private List<Recipients> recipientsList;
@@ -37,7 +37,8 @@ public class Grants {
     /**
      * Sets the grant number.
      *
-     * @param grantNumber the new grant number
+     * @param grantNumber
+     *            the new grant number
      */
     public final void setGrantNumber(final String grantNumber) {
         this.grantNumber = grantNumber;
@@ -55,7 +56,8 @@ public class Grants {
     /**
      * Sets the recipients list.
      *
-     * @param recipientsList the new recipients list
+     * @param recipientsList
+     *            the new recipients list
      */
     public final void setRecipientsList(final List<Recipients> recipientsList) {
         this.recipientsList = recipientsList;

@@ -36,6 +36,7 @@ import com.wiley.gr.ace.authorservices.model.Discounts;
 import com.wiley.gr.ace.authorservices.model.FunderDetails;
 import com.wiley.gr.ace.authorservices.model.FundingOrganizations;
 import com.wiley.gr.ace.authorservices.model.GrantRecipients;
+import com.wiley.gr.ace.authorservices.model.Grants;
 import com.wiley.gr.ace.authorservices.model.Institution;
 import com.wiley.gr.ace.authorservices.model.JournalDetails;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
@@ -43,6 +44,7 @@ import com.wiley.gr.ace.authorservices.model.OrderDetails;
 import com.wiley.gr.ace.authorservices.model.Prices;
 import com.wiley.gr.ace.authorservices.model.QuoteDetail;
 import com.wiley.gr.ace.authorservices.model.QuoteDetails;
+import com.wiley.gr.ace.authorservices.model.Recipients;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.TaxDetails;
 import com.wiley.gr.ace.authorservices.model.WOAAccounts;
@@ -113,7 +115,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         List<ArticleDetails> articleDetailsList = new ArrayList<ArticleDetails>();
         articleDetails.setArticleAID(orderData.getArticle().getAidECORE());
         articleDetails
-        .setArticleTitle(orderData.getArticle().getArticleTitle());
+                .setArticleTitle(orderData.getArticle().getArticleTitle());
         articleDetailsList.add(articleDetails);
         onlineOpenOrder.setArticleDetails(articleDetailsList);
         JournalDetails journalDetails = new JournalDetails();
@@ -125,7 +127,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         journalDetailsList.add(journalDetails);
         onlineOpenOrder.setJournalDetails(journalDetailsList);
         onlineOpenOrder
-        .setAuthorName(orderData.getWoaAccountHolder().getName());
+                .setAuthorName(orderData.getWoaAccountHolder().getName());
         QuoteDetail quoteDetail = new QuoteDetail();
         Prices prices = new Prices();
         List<Prices> pricesList = new ArrayList<Prices>();
@@ -140,7 +142,15 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
          * .getName());
          */
         funderDetails
-        .setWoaAccountId(orderData.getWoaAccountHolder().getCode());
+                .setWoaAccountId(orderData.getWoaAccountHolder().getCode());
+        List<Grants> grantsList = new ArrayList<Grants>();
+        Grants grants = new Grants();
+        Recipients recipients = new Recipients();
+        List<Recipients> recipentsList = new ArrayList<Recipients>();
+        recipentsList.add(recipients);
+        grants.setRecipientsList(recipentsList);
+        grantsList.add(grants);
+        funderDetails.setGrants(grantsList);
         List<FunderDetails> funderDetailsList = new ArrayList<FunderDetails>();
         funderDetailsList.add(funderDetails);
         onlineOpenOrder.setFunderDetails(funderDetailsList);
@@ -165,6 +175,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         amount.setAmount(orderData.getPricing().getAmountToBePaid().toString());
         amount.setCurrency(orderData.getPricing().getCurrency());
         onlineOpenOrder.setAmountPayable(amount);
+        Amount finalAmount = new Amount();
+        onlineOpenOrder.setFinalAmount(finalAmount);
         onlineOpenOrder.setPaymentMethod(orderData.getPayment()
                 .getPaymentMethod());
         Address contactAddress = new Address();
@@ -245,7 +257,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             // check user is corresponding author or not.
             if (productPersonRelations.getProductRoles() != null
                     && productPersonRelations.getProductRoles()
-                    .getProductRoleCd().equalsIgnoreCase("0001")) {
+                            .getProductRoleCd().equalsIgnoreCase("0001")) {
 
                 // check is there any saved orders for this article.
                 SavedOrders savedOrders = orderOnlineDAO.getSavedOrders(
@@ -302,7 +314,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                         .getFirstName()
                         + " "
                         + userProfileResponse.getCustomerProfile()
-                        .getCustomerDetails().getLastName());
+                                .getCustomerDetails().getLastName());
                 // GrantRecipients(coAuthors)
                 userProfileResponse.getCustomerProfile().getCoAuthors();
                 // Societies
@@ -433,7 +445,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                     userId);
             orderDataObject = savedOrder.getOrderObject();
             JSONObject object = (JSONObject) new JSONParser()
-            .parse(orderDataObject);
+                    .parse(orderDataObject);
             onlineOpenOrder = new ObjectMapper().readValue(
                     object.toJSONString(), OnlineOpenOrder.class);
 
