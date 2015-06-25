@@ -1,0 +1,1094 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+<changeSet author="gphaniraj" id="WP2A-1">
+<sql>
+CREATE SEQUENCE ARTICLES_SEQ START WITH 1 INCREMENT BY 1 NOCACHE;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-2">
+<sql>
+CREATE SEQUENCE JOURNAL_ALERTS_SEQ START WITH 1 INCREMENT BY 1 NOCACHE;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-3">
+<sql>
+CREATE SEQUENCE ARTICLE_AUTHOR_ASSIGNMENT_SEQ START WITH 1 INCREMENT BY 1 NOCACHE;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-4">
+<sql>
+CREATE SEQUENCE SAVED_ORDERS_SEQ START WITH 1 INCREMENT BY 1 NOCACHE;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-5">
+<sql>
+CREATE SEQUENCE ORDERS_SEQ START WITH 1 INCREMENT BY 1 NOCACHE;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-6">
+<sql>
+CREATE SEQUENCE INVITATION_LOG_SEQ START WITH 1 INCREMENT BY 1 NOCACHE;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-7">
+<sql>
+CREATE SEQUENCE COAUTHOR_REQUESTS_OOORDERS_SEQ START WITH 1 INCREMENT BY 1 NOCACHE;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-8">
+<sql>
+CREATE TABLE ARTICLES
+(
+ARTICLE_ID NUMBER DEFAULT ARTICLES_SEQ.NEXTVAL,
+DH_ID NUMBER,
+JOURNAL_ID NUMBER,
+PROD_TRK_PATH_ARTICLE CHAR(1),
+PUBLICATION_STATUS VARCHAR2(50),
+NOTES CLOB,
+RESET_LICENSE_FLG CHAR(1),
+LICENSE_VERIFICATION_FLG CHAR(1),
+USER_ID_SIGN_LICENSE NUMBER,
+CREATED_DATE DATE,
+CREATED_BY NUMBER,
+UPDATED_DATE DATE,
+LAST_UPDATED_IN_AS_FROM_MASTER DATE,
+UPDATED_BY NUMBER
+);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-9">
+<sql>
+ALTER TABLE ARTICLES ADD CONSTRAINT ARTICLES_PK PRIMARY KEY(ARTICLE_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-10">
+<sql>
+ALTER TABLE ARTICLES ADD CONSTRAINT ARTICLES_FK FOREIGN KEY(JOURNAL_ID) REFERENCES JOURNALS(JOURNAL_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-11">
+<sql>
+CREATE TABLE ARTICLE_ROLES
+(ARTICLE_ROLE_CD VARCHAR2(15),
+ARTICLE_ROLE_NAME VARCHAR2(100),
+DESCRIPTION VARCHAR2(250),
+CREATED_BY NUMBER,
+CREATED_DATE DATE,
+UPDATED_BY NUMBER,
+UPDATED_DATE DATE
+);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-12">
+<sql>
+ALTER TABLE ARTICLE_ROLES ADD CONSTRAINT ARTICLE_ROLES_PK PRIMARY KEY(ARTICLE_ROLE_CD);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-13">
+<sql>
+ALTER TABLE JOURNALS DROP (JOU_TITLE,JOU_INVITED_IN_AS,CREATED_BY,CREATED_DATE,UPDATED_BY,UPDATED_DATE);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-14">
+<sql>
+ALTER TABLE JOURNALS ADD (SETUP_STATE_IN_AS VARCHAR2(100),NICKNAME VARCHAR2(250),TITLE_DISP_OOO VARCHAR2(250),DISCONTINUED CHAR(1),INVITED_IN_AS CHAR(1),INVITED_IN_AS_START_DATE DATE,INVITED_IN_AS_END_DATE DATE,DISP_FOR_OO_ORDERING CHAR(1),PROD_TRK_PATH CHAR(1),PER_FREE_ACCESS_TO_ART_TO_COAU CHAR(1),ALLW_COAU_SEE_ART_PRD_STAGES CHAR(1),PER_COAU_TO_SUBS_REVIEW_PROOFS CHAR(1),ALLOW_TO_ADD_COLLEAGUES CHAR(1),ALLOW_ARTICLES_PRD_NONPRD_PATH CHAR(1),COLLEC_A_CONFLI_OF_INTRST_FORM CHAR(1),COAUTH_RECEIVE_INVITATION CHAR(1),DISP_OR_EMAIL_MRKTNG_TO_USR CHAR(1),DISP_OR_EMAIL_SURVEY_TO_USR CHAR(1),PER_FREE_ACCESS_ART_TO_CORAU CHAR(1),CREATED_DATE DATE,CREATED_BY NUMBER,UPDATED_DATE DATE,UPDATED_BY NUMBER);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-15">
+<sql>
+CREATE TABLE JOURNAL_ALERTS
+(
+JOU_ALERT_ID NUMBER DEFAULT JOURNAL_ALERTS_SEQ.NEXTVAL,
+JOURNAL_ID NUMBER,
+ALERT_CD VARCHAR2(15),
+ALERT_CD_FLG CHAR(1),
+CREATED_BY NUMBER,
+CREATED_DATE DATE,
+UPDATED_BY NUMBER,
+UPDATED_DATE DATE
+);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-16">
+<sql>
+ALTER TABLE JOURNAL_ALERTS ADD CONSTRAINT JOURNAL_ALERTS_PK PRIMARY KEY(JOU_ALERT_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-17">
+<sql>
+ALTER TABLE JOURNAL_ALERTS ADD CONSTRAINT JOURNAL_ALERTS_FK FOREIGN KEY(JOURNAL_ID) REFERENCES JOURNALS(JOURNAL_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-18">
+<sql>
+ALTER TABLE JOURNAL_ALERTS ADD CONSTRAINT JOURNAL_ALERTS_FK2 FOREIGN KEY(ALERT_CD) REFERENCES ALERTS(ALERT_CD);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-19">
+<sql>
+CREATE TABLE ARTICLE_AUTHOR_ASSIGNMENT
+(
+ARTICLE_AUTH_ID NUMBER DEFAULT ARTICLE_AUTHOR_ASSIGNMENT_SEQ.NEXTVAL,
+USER_ID NUMBER,
+EMAIL_ADDR VARCHAR2(250),
+ARTICLE_ID NUMBER,
+ARTICLE_ROLE_CD VARCHAR2(15),
+DATE_ACTIVATED DATE,
+CREATED_BY NUMBER,
+UPDATED_DATE DATE,
+UPDATED_BY NUMBER
+);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-20">
+<sql>
+ALTER TABLE ARTICLE_AUTHOR_ASSIGNMENT ADD CONSTRAINT ARTICLE_AUTHOR_ASSIGNMENT_PK PRIMARY KEY(ARTICLE_AUTH_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-21">
+<sql>
+ALTER TABLE ARTICLE_AUTHOR_ASSIGNMENT ADD CONSTRAINT ARTICLE_AUTHOR_ASSIGNMENT_FK FOREIGN KEY(USER_ID) REFERENCES USER_PROFILE(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-22">
+<sql>
+ALTER TABLE ARTICLE_AUTHOR_ASSIGNMENT ADD CONSTRAINT ARTICLE_AUTHOR_ASSIGNMENT_FK2 FOREIGN KEY(ARTICLE_ID) REFERENCES ARTICLES(ARTICLE_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-23">
+<sql>
+ALTER TABLE ARTICLE_AUTHOR_ASSIGNMENT ADD CONSTRAINT ARTICLE_AUTHOR_ASSIGNMENT_FK3 FOREIGN KEY(ARTICLE_ROLE_CD) REFERENCES ARTICLE_ROLES(ARTICLE_ROLE_CD);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-24">
+<sql>
+ALTER TABLE ARTICLES  ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-25">
+<sql>
+ALTER TABLE ARTICLES ADD  FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-26">
+<sql>
+ALTER TABLE ARTICLE_ROLES  ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-27">
+<sql>
+ALTER TABLE ARTICLE_ROLES ADD  FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-28">
+<sql>
+ALTER TABLE JOURNALS  ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-29">
+<sql>
+ALTER TABLE JOURNALS ADD  FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-30">
+<sql>
+ALTER TABLE JOURNAL_ALERTS  ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-31">
+<sql>
+ALTER TABLE JOURNAL_ALERTS ADD  FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-32">
+<sql>
+ALTER TABLE ARTICLE_AUTHOR_ASSIGNMENT  ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-33">
+<sql>
+ALTER TABLE ARTICLE_AUTHOR_ASSIGNMENT ADD  FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-34">
+<sql>
+CREATE TABLE SAVED_ORDERS
+(
+ORDER_ID NUMBER DEFAULT SAVED_ORDERS_SEQ.NEXTVAL,
+ARTICLE_ID NUMBER,
+USER_ID NUMBER,
+ORDER_OBJECT CLOB,
+CREATED_DATE DATE,
+CREATED_BY NUMBER,
+UPDATED_DATE DATE,
+UPDATED_BY NUMBER
+);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-35">
+<sql>
+ALTER TABLE SAVED_ORDERS ADD CONSTRAINT SAVED_ORDERS_PK PRIMARY KEY(ORDER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-36">
+<sql>
+ALTER TABLE SAVED_ORDERS ADD CONSTRAINT SAVED_ORDERS_FK FOREIGN KEY(USER_ID) REFERENCES USER_PROFILE(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-37">
+<sql>
+ALTER TABLE SAVED_ORDERS ADD CONSTRAINT SAVED_ORDERS_FK2 FOREIGN KEY(ARTICLE_ID) REFERENCES ARTICLES(ARTICLE_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-38">
+<sql>
+CREATE TABLE ORDERS(
+ORDER_ID NUMBER DEFAULT ORDERS_SEQ.NEXTVAL ,
+ARTICLE_AUTH_ID NUMBER,
+ORDER_TYPE VARCHAR2(15),
+OO_OA_FLG CHAR(2),
+ORDER_STATUS VARCHAR2(25),
+DOWNSTREAMAPP_ORDER_ID NUMBER,
+CREATED_DATE DATE,
+CREATED_BY NUMBER,
+UPDATED_DATE DATE,
+UPDATED_BY NUMBER
+);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-39">
+<sql>
+ALTER TABLE ORDERS ADD CONSTRAINT ORDERS_PK PRIMARY KEY(ORDER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-40">
+<sql>
+ALTER TABLE ORDERS ADD CONSTRAINT ORDERS_FK FOREIGN KEY(ARTICLE_AUTH_ID) REFERENCES ARTICLE_AUTHOR_ASSIGNMENT(ARTICLE_AUTH_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-41">
+<sql>
+CREATE TABLE INVITATION_LOG
+(INVITATION_ID NUMBER DEFAULT INVITATION_LOG_SEQ.NEXTVAL,
+USER_ID NUMBER,
+EMAIL_ADDR VARCHAR2(250),
+ARTICLE_ID NUMBER,
+SENT_DATE DATE,
+SENT_BY NUMBER);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-42">
+<sql>
+ALTER TABLE INVITATION_LOG ADD CONSTRAINT INVITATION_LOG_PK PRIMARY KEY(INVITATION_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-43">
+<sql>
+ALTER TABLE INVITATION_LOG ADD CONSTRAINT INVITATION_LOG_FK FOREIGN KEY(USER_ID) REFERENCES USER_PROFILE(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-44">
+<sql>
+ALTER TABLE INVITATION_LOG ADD CONSTRAINT INVITATION_LOG_FK2 FOREIGN KEY(ARTICLE_ID) REFERENCES ARTICLES(ARTICLE_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-45">
+<sql>
+CREATE TABLE COAUTHOR_REQUESTS_OOORDERS
+(
+REQUEST_ID NUMBER DEFAULT COAUTHOR_REQUESTS_OOORDERS_SEQ.NEXTVAL,
+ARTICLE_AUTH_ID NUMBER,
+CREATED_DATE DATE,
+CREATED_BY NUMBER,
+UPDATED_DATE DATE,
+UPDATED_BY NUMBER
+);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-46">
+<sql>
+ALTER TABLE COAUTHOR_REQUESTS_OOORDERS ADD CONSTRAINT COAUTHOR_REQUESTED_OOORDERS_PK PRIMARY KEY(REQUEST_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-47">
+<sql>
+ALTER TABLE COAUTHOR_REQUESTS_OOORDERS ADD CONSTRAINT COAUTHOR_REQUESTS_OOORDERS_FK FOREIGN KEY(ARTICLE_AUTH_ID) REFERENCES ARTICLE_AUTHOR_ASSIGNMENT(ARTICLE_AUTH_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-48">
+<sql>
+ALTER TABLE AUDIT_DETAILS DROP (OLD_VAL,NEW_VAL,CREATED_DATE,CREATED_BY);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-49">
+<sql>
+ALTER TABLE AUDIT_DETAILS ADD (OBJECT_ID NUMBER,OBJECT_TYPE_CD VARCHAR2(15),OLD_VAL VARCHAR2(250),NEW_VAL VARCHAR2(250),CREATED_DATE DATE,CREATED_BY NUMBER);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-50">
+<sql>
+ALTER TABLE AUDIT_DETAILS ADD CONSTRAINT AUDIT_DETAILS_FK3 FOREIGN KEY(OBJECT_TYPE_CD) REFERENCES OBJECT_TYPES(OBJECT_TYPE_CD);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-51">
+<sql>
+ALTER TABLE ALERTS DROP(CREATED_DATE,CREATED_BY,UPDATED_DATE,UPDATED_BY);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-52">
+<sql>
+ALTER TABLE ALERTS ADD(ALERT_TYPE VARCHAR2(15),CREATED_DATE DATE,CREATED_BY NUMBER,UPDATED_DATE DATE,UPDATED_BY NUMBER);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-53">
+<sql>
+ALTER TABLE ALERTS ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-54">
+<sql>
+ALTER TABLE ALERTS ADD  FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-55">
+<sql>
+ALTER TABLE AUDIT_DETAILS  ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-56">
+<sql>
+ALTER TABLE COAUTHOR_REQUESTS_OOORDERS  ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-57">
+<sql>
+ALTER TABLE COAUTHOR_REQUESTS_OOORDERS ADD  FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-58">
+<sql>
+ALTER TABLE ORDERS  ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-59">
+<sql>
+ALTER TABLE ORDERS ADD  FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-60">
+<sql>
+ALTER TABLE SAVED_ORDERS  ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-61">
+<sql>
+ALTER TABLE SAVED_ORDERS ADD  FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-62">
+<sql>
+ALTER TABLE INVITATION_LOG ADD  FOREIGN KEY(SENT_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-63">
+<sql>
+ALTER TABLE JOURNAL_ALERTS DROP CONSTRAINT JOURNAL_ALERTS_FK;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-64">
+<sql>
+ALTER TABLE ARTICLES DROP CONSTRAINT ARTICLES_FK;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-65">
+<sql>
+ALTER TABLE USER_PREFERRED_JOURNALS DROP CONSTRAINT USER_PREFERRED_JOURNALS_FK;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-66">
+<sql>
+ALTER TABLE ORDERS DROP CONSTRAINT ORDERS_FK;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-67">
+<sql>
+ALTER TABLE COAUTHOR_REQUESTS_OOORDERS DROP CONSTRAINT COAUTHOR_REQUESTS_OOORDERS_FK;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-68">
+<sql>
+DROP TABLE USER_PREFERRED_JOURNALS;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-69">
+<sql>
+DROP TABLE ARTICLE_AUTHOR_ASSIGNMENT;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-70">
+<sql>
+DROP TABLE ARTICLE_ROLES;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-71">
+<sql>
+DROP TABLE JOURNALS;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-72">
+<sql>
+DROP SEQUENCE ARTICLES_SEQ;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-73">
+<sql>
+DROP SEQUENCE JOURNAL_SEQ;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-74">
+<sql>
+CREATE SEQUENCE PRODUCTS_SEQ START WITH 1 INCREMENT BY 1  NOCACHE;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-75">
+<sql>
+CREATE SEQUENCE PROD_PUBLICATION_STATUSES_SEQ START WITH 1 INCREMENT BY 1  NOCACHE;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-76">
+<sql>
+CREATE SEQUENCE PROD_PERSON_RELATIONS_SEQ START WITH 1 INCREMENT BY 1  NOCACHE;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-77">
+<sql>
+CREATE TABLE PRODUCTS 
+    ( 
+     DH_ID NUMBER DEFAULT PRODUCTS_SEQ.NEXTVAL, 
+     DH_TYPE_CD VARCHAR2 (15), 
+     CREATED_DATE TIMESTAMP(6), 
+     CREATED_BY NUMBER , 
+     UPDATED_DATE TIMESTAMP(6), 
+     UPDATED_BY NUMBER 
+    ) 
+;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-78">
+<sql>
+
+ALTER TABLE PRODUCTS 
+ADD CONSTRAINT PRODUCTS_PK PRIMARY KEY ( DH_ID ) ;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-79">
+<sql>
+
+CREATE TABLE PRODUCT_PERSON_RELATIONS 
+    ( 
+     PROD_RELATION_ID NUMBER DEFAULT PROD_PERSON_RELATIONS_SEQ.NEXTVAL, 
+     USER_ID NUMBER, 
+     EMAIL_ADDR VARCHAR2 (100) , 
+     DH_ID NUMBER  NOT NULL , 
+     PRODUCT_ROLE_CD VARCHAR2 (15)   , 
+     DATE_ACTIVATED TIMESTAMP(6), 
+     CREATED_BY NUMBER , 
+     UPDATED_DATE TIMESTAMP(6) , 
+     UPDATED_BY NUMBER 
+    );
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-80">
+<sql>
+
+ALTER TABLE PRODUCT_PERSON_RELATIONS 
+ADD CONSTRAINT PRODUCT_PERSON_RELATION_PK PRIMARY KEY ( PROD_RELATION_ID ) ;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-81">
+<sql>
+
+CREATE TABLE PRODUCT_PUBLICATION_STATUSES 
+    ( 
+     PRODUCT_PUB_ID NUMBER DEFAULT PROD_PUBLICATION_STATUSES_SEQ.NEXTVAL, 
+     DH_ID NUMBER  NOT NULL , 
+     PUBLICATION_STATUS_CD VARCHAR2 (15), 
+     PUBLICATION_STATUS_DATE TIMESTAMP(6) , 
+     CREATED_DATE TIMESTAMP(6) , 
+     CREATED_BY NUMBER , 
+     UPDATED_DATE TIMESTAMP(6) , 
+     UPDATED_BY NUMBER 
+    );
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-82">
+<sql>
+
+ALTER TABLE PRODUCT_PUBLICATION_STATUSES 
+ADD CONSTRAINT PRODUCT_PUBLICATION_STATUS_PK PRIMARY KEY ( PRODUCT_PUB_ID ) ;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-83">
+<sql>
+
+CREATE TABLE PRODUCT_RELATIONS 
+    ( 
+     DH_TYPE_REL_CD VARCHAR2 (15), 
+     PARENT_DH_ID NUMBER , 
+     CHILD_DH_ID NUMBER, 
+     CREATED_DATE TIMESTAMP(6) , 
+     CREATED_BY NUMBER , 
+     UPDATED_DATE TIMESTAMP(6) , 
+     UPDATED_BY NUMBER 
+    );
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-84">
+<sql>
+
+ALTER TABLE PRODUCT_RELATIONS 
+ADD CONSTRAINT PRODUCT_RELATIONS_PK PRIMARY KEY ( DH_TYPE_REL_CD ) ;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-85">
+<sql>
+
+CREATE TABLE PRODUCT_ROLES 
+    ( 
+     PRODUCT_ROLE_CD VARCHAR2 (15), 
+     PRODUCT_ROLE_NAME VARCHAR2 (100) , 
+     DESCRIPTION VARCHAR2 (250) , 
+	 CREATED_DATE TIMESTAMP(6) ,
+     CREATED_BY NUMBER ,  
+	 UPDATED_DATE TIMESTAMP(6),
+     UPDATED_BY NUMBER 
+    );
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-86">
+<sql>
+
+
+ALTER TABLE PRODUCT_ROLES 
+ADD CONSTRAINT PRODUCT_ROLES_PK PRIMARY KEY (PRODUCT_ROLE_CD) ;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-87">
+<sql>
+
+
+CREATE TABLE PRODUCT_TYPES 
+    ( 
+     DH_TYPE_CD VARCHAR2 (15), 
+     DH_TYPE_NAME VARCHAR2 (25) , 
+     CREATED_DATE TIMESTAMP(6) , 
+     CREATED_BY NUMBER , 
+     UPDATED_DATE TIMESTAMP(6) , 
+     UPDATED_BY NUMBER 
+    );
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-88">
+<sql>
+
+ALTER TABLE PRODUCT_TYPES 
+ADD CONSTRAINT PRODUCT_TYPE_PK PRIMARY KEY ( DH_TYPE_CD ) ;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-89">
+<sql>
+CREATE TABLE PUBLICATION_STATUSES
+(
+PUBLICATION_STATUS_CD VARCHAR2(15),
+PUBLICATION_STATUS_NAME VARCHAR2(250),
+CREATED_DATE DATE,
+CREATED_BY NUMBER,
+UPDATED_DATE DATE,
+UPDATED_BY NUMBER
+);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-90">
+<sql>
+ALTER TABLE PUBLICATION_STATUSES ADD CONSTRAINT PUBLICATION_STATUSES_PK PRIMARY KEY(PUBLICATION_STATUS_CD);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-91">
+<sql>
+	
+	
+CREATE TABLE JOURNAL_CONFIGURATION 
+    ( 
+     DH_ID NUMBER,  
+     SETUP_STATE_CD_IN_AS VARCHAR2 (15), 
+     NICKNAME VARCHAR2 (250) , 
+     TITLE_DISP_OOO VARCHAR2 (250) , 
+     INVITED_IN_AS CHAR (1) , 
+     INVITED_IN_AS_START_DATE TIMESTAMP(6) , 
+     INVITED_IN_AS_END_DATE TIMESTAMP(6) , 
+     DISP_FOR_OO_ORDERING CHAR (1) , 
+     PROD_TRK_PATH CHAR (1) , 
+     COAU_CAN_HAVE_FREE_ACC_ART CHAR (1) , 
+     COAU_CAN_SEE_ART_PROD_STAGES CHAR (1) , 
+     COAU_CAN_SUBST_REVIEW_PROOFS CHAR (1) , 
+     COLLG_CAN_VIEW_ART_WOL CHAR (1) , 
+     ART_CAN_HAVE_PRD_NONPRD_PATH CHAR (1) , 
+     CAN_COLL_CONFL_INTRST_FORMS CHAR (1) , 
+     COAU_RECEIVE_INVITATION CHAR (1) , 
+     DISP_OR_EMAIL_MRKTNG_TO_USR CHAR (1) , 
+     DISP_OR_EMAIL_SURVEY_TO_USR CHAR (1) , 
+     CORRAU_CAN_HAVE_FREE_ACC_ART CHAR (1) , 
+     CREATED_DATE TIMESTAMP(6) , 
+     CREATED_BY NUMBER , 
+     UPDATED_DATE TIMESTAMP(6) , 
+     UPDATED_BY NUMBER 
+    );
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-92">
+<sql>
+
+ALTER TABLE JOURNAL_CONFIGURATION 
+ADD CONSTRAINT JOURNALS_PK PRIMARY KEY (DH_ID ) ;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-93">
+<sql>
+	
+CREATE TABLE USER_PREFERRED_JOURNALS 
+    ( 
+     USER_ID NUMBER, 
+     DH_ID NUMBER, 
+     CREATED_DATE TIMESTAMP(6) , 
+     CREATED_BY NUMBER , 
+     UPDATED_DATE TIMESTAMP(6) , 
+     UPDATED_BY NUMBER 
+    ) 
+;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-94">
+<sql>
+
+ALTER TABLE USER_PREFERRED_JOURNALS 
+ADD CONSTRAINT USER_PREFERRED_JOURNALS_PK PRIMARY KEY ( USER_ID, DH_ID ) ;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-95">
+<sql>
+
+CREATE TABLE JOURNAL_SETUP_STATES 
+    ( 
+     SETUP_STATE_CD VARCHAR2 (15)  NOT NULL , 
+     SETUP_STATE_NAME VARCHAR2 (250) , 
+     CREATED_DATE TIMESTAMP(6) , 
+     CREATED_BY NUMBER , 
+     UPDATED_DATE TIMESTAMP(6) , 
+     UPDATED_BY NUMBER 
+    );
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-96">
+<sql>
+
+ALTER TABLE JOURNAL_SETUP_STATES 
+ADD CONSTRAINT JOURNAL_SETUP_STATES_PK PRIMARY KEY ( SETUP_STATE_CD ) ;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-97">
+<sql>
+		
+ALTER TABLE JOURNAL_CONFIGURATION 
+    ADD CONSTRAINT JOURNAL_CONFIGURATION_FK FOREIGN KEY 
+    ( 
+     DH_ID
+    ) 
+    REFERENCES PRODUCTS 
+    ( 
+     DH_ID
+    );
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-98">
+<sql>
+
+ALTER TABLE PRODUCTS 
+    ADD CONSTRAINT PRODUCTS_FK FOREIGN KEY 
+    ( 
+     DH_TYPE_CD
+    ) 
+    REFERENCES PRODUCT_TYPES 
+    ( 
+     DH_TYPE_CD
+    );
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-99">
+<sql>
+
+ALTER TABLE PRODUCT_RELATIONS 
+    ADD CONSTRAINT PRODUCT_RELATIONS_FK FOREIGN KEY 
+    ( 
+     PARENT_DH_ID
+    ) 
+    REFERENCES PRODUCTS 
+    ( 
+     DH_ID
+    );
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-100">
+<sql>
+
+ALTER TABLE PRODUCT_RELATIONS 
+    ADD CONSTRAINT PRODUCT_RELATIONS_FK1 FOREIGN KEY 
+    ( 
+     CHILD_DH_ID
+    ) 
+    REFERENCES PRODUCTS 
+    ( 
+     DH_ID
+    );
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-101">
+<sql>
+
+ALTER TABLE USER_PREFERRED_JOURNALS 
+    ADD CONSTRAINT USER_PREFERRED_JOURNALS_FK FOREIGN KEY 
+    ( 
+     USER_ID
+    ) 
+    REFERENCES USER_PROFILE 
+    ( 
+     USER_ID
+    );
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-102">
+<sql>
+
+ALTER TABLE USER_PREFERRED_JOURNALS 
+    ADD CONSTRAINT USER_PREFERRED_JOURNALS_FK1 FOREIGN KEY 
+    ( 
+     DH_ID
+    ) 
+    REFERENCES PRODUCTS 
+    ( 
+     DH_ID
+    );
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-103">
+<sql>
+
+ALTER TABLE JOURNAL_CONFIGURATION 
+    ADD CONSTRAINT JOURNAL_CONFIGURATION_FK1 FOREIGN KEY 
+    ( 
+     SETUP_STATE_CD_IN_AS
+    ) 
+    REFERENCES JOURNAL_SETUP_STATES 
+    ( 
+     SETUP_STATE_CD
+    );
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-104">
+<sql>
+
+ALTER TABLE PRODUCT_PERSON_RELATIONS 
+    ADD CONSTRAINT PRODUCT_PERSON_RELATION_FK FOREIGN KEY 
+    ( 
+     USER_ID
+    ) 
+    REFERENCES USER_PROFILE 
+    ( 
+     USER_ID
+    );
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-105">
+<sql>
+
+ALTER TABLE PRODUCT_PERSON_RELATIONS 
+    ADD CONSTRAINT PRODUCT_PERSON_RELATIONS_FK1 FOREIGN KEY 
+    ( 
+     DH_ID
+    ) 
+    REFERENCES PRODUCTS 
+    ( 
+     DH_ID
+    );
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-106">
+<sql>
+
+ALTER TABLE PRODUCT_PERSON_RELATIONS 
+    ADD CONSTRAINT PRODUCT_PERSON_RELATIONS_FK2 FOREIGN KEY 
+    ( 
+     PRODUCT_ROLE_CD
+    ) 
+    REFERENCES PRODUCT_ROLES 
+    ( 
+     PRODUCT_ROLE_CD
+    );
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-107">
+<sql>
+
+ALTER TABLE PRODUCT_PUBLICATION_STATUSES 
+    ADD CONSTRAINT PRODUCT_PUBL_STATUSES_FK FOREIGN KEY 
+    ( 
+     DH_ID
+    ) 
+    REFERENCES PRODUCTS 
+    ( 
+     DH_ID
+    );
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-108">
+<sql>
+
+ALTER TABLE PRODUCT_PUBLICATION_STATUSES 
+    ADD CONSTRAINT PRODUCT_PUBL_STATUSES_FK1 FOREIGN KEY 
+    ( 
+     PUBLICATION_STATUS_CD
+    ) 
+    REFERENCES PUBLICATION_STATUSES 
+    ( 
+     PUBLICATION_STATUS_CD
+    );
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-109">
+<sql>
+ALTER TABLE PRODUCTS ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-110">
+<sql>
+ALTER TABLE PRODUCTS ADD FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-111">
+<sql>
+ALTER TABLE PRODUCT_PERSON_RELATIONS ADD FOREIGN KEY (CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-112">
+<sql>
+ALTER TABLE PRODUCT_PERSON_RELATIONS ADD FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-113">
+<sql>
+ALTER TABLE PRODUCT_PUBLICATION_STATUSES ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-114">
+<sql>
+ALTER TABLE PRODUCT_PUBLICATION_STATUSES ADD FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-115">
+<sql>
+ALTER TABLE PRODUCT_RELATIONS ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-116">
+<sql>
+ALTER TABLE PRODUCT_RELATIONS ADD FOREIGN KEY (UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-117">
+<sql>
+ALTER TABLE PRODUCT_ROLES ADD FOREIGN KEY (CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-118">
+<sql>
+ALTER TABLE PRODUCT_ROLES ADD FOREIGN KEY (UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-119">
+<sql>
+ALTER TABLE PRODUCT_TYPES ADD FOREIGN KEY (CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-120">
+<sql>
+ALTER TABLE PRODUCT_TYPES ADD FOREIGN KEY (UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-121">
+<sql>
+ALTER TABLE PUBLICATION_STATUSES ADD FOREIGN KEY (CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-122">
+<sql>
+ALTER TABLE PUBLICATION_STATUSES ADD FOREIGN KEY (UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-123">
+<sql>
+ALTER TABLE JOURNAL_CONFIGURATION ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-124">
+<sql>
+ALTER TABLE JOURNAL_CONFIGURATION ADD FOREIGN KEY (UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-125">
+<sql>
+ALTER TABLE USER_PREFERRED_JOURNALS ADD FOREIGN KEY (CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-126">
+<sql>
+ALTER TABLE USER_PREFERRED_JOURNALS ADD FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-127">
+<sql>
+ALTER TABLE JOURNAL_SETUP_STATES ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-128">
+<sql>
+ALTER TABLE JOURNAL_SETUP_STATES ADD FOREIGN KEY (UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+</databaseChangeLog>
