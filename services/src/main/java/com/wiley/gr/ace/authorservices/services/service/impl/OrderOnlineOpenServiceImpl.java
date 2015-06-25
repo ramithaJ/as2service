@@ -184,9 +184,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         AddressDetails addressDetails = new AddressDetails();
         addressDetails.setBillingAddress(address);
         addressDetails.setContactAddress(address);
-        List<AddressDetails> addressDetailsList = new ArrayList<AddressDetails>();
-        addressDetailsList.add(addressDetails);
-        onlineOpenOrder.setAddressDetails(addressDetailsList);
+        onlineOpenOrder.setAddressDetails(addressDetails);
 
         return onlineOpenOrder;
     }
@@ -413,27 +411,23 @@ OrderResponse orderResponse = null;
 			orderData = new OrderData();
 			// TODO: Need to check Article data
 			orderData.setArticle(new ArticleData());
-			List<AddressDetails> bAddress = onlineOpenOrder.getAddressDetails();
+			AddressDetails address = onlineOpenOrder.getAddressDetails();
 			
-			for (Iterator<AddressDetails> iterator = bAddress.iterator(); iterator.hasNext();) {
-				AddressDetails addressDetails = (AddressDetails) iterator.next();
-				
 				// TODO: Need to Check the types
-				if("illingAddress".equals(addressDetails.getBillingAddress().getAddressType())){
+				if("illingAddress".equals(address.getBillingAddress().getAddressType())){
 					ContactAddress billingAddress = new ContactAddress();
 					// TODO: Need to set remaining objects
-					billingAddress.setName(addressDetails.getBillingAddress().getFirstName()+addressDetails.getBillingAddress().getLastName());
-					billingAddress.setOrg(addressDetails.getBillingAddress().getInstitution());
+					billingAddress.setName(address.getBillingAddress().getFirstName()+address.getBillingAddress().getLastName());
+					billingAddress.setOrg(address.getBillingAddress().getInstitution());
 					
 					orderData.setBillingAddress(billingAddress);
-				} else if ("contactAddress".equals(addressDetails.getBillingAddress().getAddressType())){
+				} else if ("contactAddress".equals(address.getBillingAddress().getAddressType())){
 					ContactAddress contactAddress = new ContactAddress();
 					// TODO: Need to set remaining objects
-					contactAddress.setName(addressDetails.getContactAddress().getFirstName()+addressDetails.getBillingAddress().getLastName());
-					contactAddress.setOrg(addressDetails.getContactAddress().getInstitution());
+					contactAddress.setName(address.getContactAddress().getFirstName()+address.getBillingAddress().getLastName());
+					contactAddress.setOrg(address.getContactAddress().getInstitution());
 					orderData.setContactAddress(contactAddress);
 				}
-			}
 			
 			TaxData taxData = new TaxData();
 			taxData.setCountryCode(onlineOpenOrder.getTaxDetails().getCountryCode());
