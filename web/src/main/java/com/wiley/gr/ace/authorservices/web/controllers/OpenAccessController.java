@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.QuoteDetails;
 import com.wiley.gr.ace.authorservices.model.Service;
@@ -45,10 +46,19 @@ public class OpenAccessController {
 	@RequestMapping(value = "/pay", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Service payOpenAccess(
 			@RequestParam("userId") String userId,
-			@RequestBody OnlineOpenOrder onlineOpenOrder) {
+			@RequestParam("orderId") String orderId) {
 		Service service = new Service();
 		
-		//orderOnlineOpenService.submitOnlineOpenOrder(userId, onlineOpenOrder, "OA");
+		try {
+			orderOnlineOpenService.submitOnlineOpenOrder(userId, orderId, "OA");
+			service.setStatus("SUCCESS");
+		} catch (Exception e) {
+			service.setStatus("ERROR");
+			ErrorPOJO err = new ErrorPOJO();
+			err.setCode(609);
+			err.setMessage("Submit payment unsuccessful");
+			service.setError(err);
+		}
 
 		return service;
 	}

@@ -20,7 +20,10 @@ import com.wiley.gr.ace.authorservices.model.external.OrderResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhArticleResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
 import com.wiley.gr.ace.authorservices.model.external.Quote;
+import com.wiley.gr.ace.authorservices.model.external.QuoteRequest;
 import com.wiley.gr.ace.authorservices.model.external.SocietyMemberDiscount;
+import com.wiley.gr.ace.authorservices.model.external.TaxRequest;
+import com.wiley.gr.ace.authorservices.model.external.TaxResponse;
 import com.wiley.gr.ace.authorservices.model.external.WileyOpenAccessFunders;
 
 /**
@@ -58,7 +61,7 @@ public interface OrderService {
      * @param articleId
      * @return Quote
      */
-    Quote getQuote(String articleId);
+    Quote getQuote(QuoteRequest quoteRequest);
 
     /**
      * @param DHId
@@ -80,4 +83,5 @@ public interface OrderService {
      * @return InstitutionDiscounts
      */
     InstitutionDiscounts getInstitutionDiscounts();
+    
 }
