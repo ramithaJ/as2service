@@ -1566,19 +1566,76 @@ ALTER TABLE PRODUCT_RELATIONS DROP PRIMARY KEY;
 </sql>
 </changeSet>
 
+
 <changeSet author="gphaniraj" id="WP2A-180">
 <sql>
-ALTER TABLE PRODUCT_RELATIONS ADD CONSTRAINT PRODUCT_RELATIONS_PK PRIMARY KEY(DH_REL_ID);
+DROP  TABLE PRODUCT_RELATIONS;
 </sql>
 </changeSet>
 
 <changeSet author="gphaniraj" id="WP2A-181">
 <sql>
-DROP TABLE USER_SOCIETY_DETAILS;
+CREATE SEQUENCE PRODUCT_RELATIONS_SEQ START WITH 1 INCREMENT BY 1 NOCACHE;
 </sql>
 </changeSet>
 
 <changeSet author="gphaniraj" id="WP2A-182">
+<sql>
+CREATE TABLE PRODUCT_RELATIONS
+(
+DH_REL_ID NUMBER DEFAULT PRODUCT_RELATIONS_SEQ.NEXTVAL,
+DH_TYPE_REL_CD VARCHAR2 (15)
+PARENT_DH_ID NUMBER
+CHILD_DH_ID NUMBER
+CREATED_DATE DATE
+CREATED_BY NUMBER
+UPDATED_DATE DATE
+UPDATED_BY NUMBER
+)
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-183">
+<sql>
+ALTER TABLE PRODUCT_RELATIONS ADD CONSTRAINT PRODUCT_RELATIONS_PK PRIMARY KEY(DH_REL_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-184">
+<sql>
+ALTER TABLE PRODUCT_RELATIONS 
+    ADD CONSTRAINT PRODUCT_RELATIONS_FK FOREIGN KEY 
+    ( 
+     PARENT_DH_ID
+    ) 
+    REFERENCES PRODUCTS 
+    ( 
+     DH_ID
+    );
+	</sql>
+</changeSet>
+	
+	<changeSet author="gphaniraj" id="WP2A-185">
+<sql>
+	ALTER TABLE PRODUCT_RELATIONS 
+    ADD CONSTRAINT PRODUCT_RELATIONS_FK1 FOREIGN KEY 
+    ( 
+     CHILD_DH_ID
+    ) 
+    REFERENCES PRODUCTS 
+    ( 
+     DH_ID
+    );
+	</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-186">
+<sql>
+DROP TABLE USER_SOCIETY_DETAILS;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-187">
 <sql>
 CREATE TABLE USER_SOCIETY_DETAILS
 (
@@ -1598,81 +1655,93 @@ UPDATED_BY NUMBER
 </sql>
 </changeSet>
 
-<changeSet author="gphaniraj" id="WP2A-183">
+<changeSet author="gphaniraj" id="WP2A-188">
 <sql>
 ALTER TABLE USER_SOCIETY_DETAILS ADD CONSTRAINT USER_SOCIETY_DETAILS_PK PRIMARY KEY(USER_SOCIETY_ID);
 </sql>
 </changeSet>
 
-<changeSet author="gphaniraj" id="WP2A-184">
+<changeSet author="gphaniraj" id="WP2A-189">
 <sql>
 ALTER TABLE USER_SOCIETY_DETAILS ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
 </sql>
 </changeSet>
 
-<changeSet author="gphaniraj" id="WP2A-185">
+<changeSet author="gphaniraj" id="WP2A-190">
 <sql>
 ALTER TABLE USER_SOCIETY_DETAILS ADD FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
 </sql>
 </changeSet>
 
-<changeSet author="gphaniraj" id="WP2A-186">
+<changeSet author="gphaniraj" id="WP2A-191">
 <sql>
 ALTER TABLE WPG_RESPONSE_DETAILS ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
 </sql>
 </changeSet>
 
-<changeSet author="gphaniraj" id="WP2A-187">
+<changeSet author="gphaniraj" id="WP2A-192">
 <sql>
 ALTER TABLE WPG_RESPONSE_DETAILS ADD FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
 </sql>
 </changeSet>
 
-<changeSet author="gphaniraj" id="WP2A-188">
+<changeSet author="gphaniraj" id="WP2A-193">
 <sql>
 ALTER TABLE SAVED_ORDERS MODIFY CREATED_DATE TIMESTAMP(6);
 </sql>
 </changeSet>
 
-<changeSet author="gphaniraj" id="WP2A-189">
+<changeSet author="gphaniraj" id="WP2A-194">
 <sql>
 ALTER TABLE SAVED_ORDERS MODIFY UPDATED_DATE TIMESTAMP(6);
 </sql>
 </changeSet>
 
-<changeSet author="gphaniraj" id="WP2A-190">
+<changeSet author="gphaniraj" id="WP2A-195">
 <sql>
 ALTER TABLE ALERTS MODIFY CREATED_DATE TIMESTAMP(6);
 </sql>
 </changeSet>
 
-<changeSet author="gphaniraj" id="WP2A-191">
+<changeSet author="gphaniraj" id="WP2A-196">
 <sql>
 ALTER TABLE ALERTS MODIFY UPDATED_DATE TIMESTAMP(6);
 </sql>
 </changeSet>
 
-<changeSet author="gphaniraj" id="WP2A-192">
+<changeSet author="gphaniraj" id="WP2A-197">
 <sql>
 ALTER TABLE AUDIT_DETAILS MODIFY CREATED_DATE TIMESTAMP(6);
 </sql>
 </changeSet>
 
-<changeSet author="gphaniraj" id="WP2A-193">
+<changeSet author="gphaniraj" id="WP2A-198">
 <sql>
 ALTER TABLE AUDIT_DETAILS MODIFY UPDATED_DATE TIMESTAMP(6);
 </sql>
 </changeSet>
 
-<changeSet author="gphaniraj" id="WP2A-194">
+<changeSet author="gphaniraj" id="WP2A-199">
 <sql>
 ALTER TABLE JOURNAL_ALERTS_CONFIGURATION MODIFY CREATED_DATE TIMESTAMP(6);
 </sql>
 </changeSet>
 
-<changeSet author="gphaniraj" id="WP2A-195">
+<changeSet author="gphaniraj" id="WP2A-200">
 <sql>
 ALTER TABLE JOURNAL_ALERTS_CONFIGURATION MODIFY UPDATED_DATE TIMESTAMP(6);
 </sql>
 </changeSet>
+<changeSet author="gphaniraj" id="WP2A-201">
+<sql>
+ALTER TABLE PRODUCT_RELATIONS ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2A-202">
+<sql>
+ALTER TABLE PRODUCT_RELATIONS ADD FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
 </databaseChangeLog>
