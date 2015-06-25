@@ -73,7 +73,12 @@ public class Address {
     /** The region. */
     private String region;
 
+    /** The email id. */
+    private String emailId;
+
     /**
+     * Gets the address type.
+     *
      * @return the addressType
      */
     public final String getAddressType() {
@@ -81,13 +86,18 @@ public class Address {
     }
 
     /**
-     * @param addressType the addressType to set
+     * Sets the address type.
+     *
+     * @param addressType
+     *            the addressType to set
      */
     public final void setAddressType(final String addressType) {
         this.addressType = addressType;
     }
 
     /**
+     * Gets the title.
+     *
      * @return the title
      */
     public final String getTitle() {
@@ -95,13 +105,18 @@ public class Address {
     }
 
     /**
-     * @param title the title to set
+     * Sets the title.
+     *
+     * @param title
+     *            the title to set
      */
     public final void setTitle(final String title) {
         this.title = title;
     }
 
     /**
+     * Gets the first name.
+     *
      * @return the firstName
      */
     public final String getFirstName() {
@@ -109,13 +124,18 @@ public class Address {
     }
 
     /**
-     * @param firstName the firstName to set
+     * Sets the first name.
+     *
+     * @param firstName
+     *            the firstName to set
      */
     public final void setFirstName(final String firstName) {
         this.firstName = firstName;
     }
 
     /**
+     * Gets the last name.
+     *
      * @return the lastName
      */
     public final String getLastName() {
@@ -123,13 +143,18 @@ public class Address {
     }
 
     /**
-     * @param lastName the lastName to set
+     * Sets the last name.
+     *
+     * @param lastName
+     *            the lastName to set
      */
     public final void setLastName(final String lastName) {
         this.lastName = lastName;
     }
 
     /**
+     * Gets the suffix.
+     *
      * @return the suffix
      */
     public final String getSuffix() {
@@ -137,13 +162,18 @@ public class Address {
     }
 
     /**
-     * @param suffix the suffix to set
+     * Sets the suffix.
+     *
+     * @param suffix
+     *            the suffix to set
      */
     public final void setSuffix(final String suffix) {
         this.suffix = suffix;
     }
 
     /**
+     * Gets the institution.
+     *
      * @return the institution
      */
     public final String getInstitution() {
@@ -151,13 +181,18 @@ public class Address {
     }
 
     /**
-     * @param institution the institution to set
+     * Sets the institution.
+     *
+     * @param institution
+     *            the institution to set
      */
     public final void setInstitution(final String institution) {
         this.institution = institution;
     }
 
     /**
+     * Gets the department.
+     *
      * @return the department
      */
     public final String getDepartment() {
@@ -165,13 +200,18 @@ public class Address {
     }
 
     /**
-     * @param department the department to set
+     * Sets the department.
+     *
+     * @param department
+     *            the department to set
      */
     public final void setDepartment(final String department) {
         this.department = department;
     }
 
     /**
+     * Gets the address line1.
+     *
      * @return the addressLine1
      */
     public final String getAddressLine1() {
@@ -179,13 +219,18 @@ public class Address {
     }
 
     /**
-     * @param addressLine1 the addressLine1 to set
+     * Sets the address line1.
+     *
+     * @param addressLine1
+     *            the addressLine1 to set
      */
     public final void setAddressLine1(final String addressLine1) {
         this.addressLine1 = addressLine1;
     }
 
     /**
+     * Gets the address line2.
+     *
      * @return the addressLine2
      */
     public final String getAddressLine2() {
@@ -193,13 +238,18 @@ public class Address {
     }
 
     /**
-     * @param addressLine2 the addressLine2 to set
+     * Sets the address line2.
+     *
+     * @param addressLine2
+     *            the addressLine2 to set
      */
     public final void setAddressLine2(final String addressLine2) {
         this.addressLine2 = addressLine2;
     }
 
     /**
+     * Gets the city.
+     *
      * @return the city
      */
     public final String getCity() {
@@ -207,13 +257,18 @@ public class Address {
     }
 
     /**
-     * @param city the city to set
+     * Sets the city.
+     *
+     * @param city
+     *            the city to set
      */
     public final void setCity(final String city) {
         this.city = city;
     }
 
     /**
+     * Gets the state.
+     *
      * @return the state
      */
     public final String getState() {
@@ -221,13 +276,18 @@ public class Address {
     }
 
     /**
-     * @param state the state to set
+     * Sets the state.
+     *
+     * @param state
+     *            the state to set
      */
     public final void setState(final String state) {
         this.state = state;
     }
 
     /**
+     * Gets the post code.
+     *
      * @return the postCode
      */
     public final String getPostCode() {
@@ -235,13 +295,18 @@ public class Address {
     }
 
     /**
-     * @param postCode the postCode to set
+     * Sets the post code.
+     *
+     * @param postCode
+     *            the postCode to set
      */
     public final void setPostCode(final String postCode) {
         this.postCode = postCode;
     }
 
     /**
+     * Gets the country.
+     *
      * @return the country
      */
     public final Country getCountry() {
@@ -249,13 +314,18 @@ public class Address {
     }
 
     /**
-     * @param country the country to set
+     * Sets the country.
+     *
+     * @param country
+     *            the country to set
      */
     public final void setCountry(final Country country) {
         this.country = country;
     }
 
     /**
+     * Gets the phone number.
+     *
      * @return the phoneNumber
      */
     public final String getPhoneNumber() {
@@ -263,13 +333,18 @@ public class Address {
     }
 
     /**
-     * @param phoneNumber the phoneNumber to set
+     * Sets the phone number.
+     *
+     * @param phoneNumber
+     *            the phoneNumber to set
      */
     public final void setPhoneNumber(final String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
     /**
+     * Gets the fax number.
+     *
      * @return the faxNumber
      */
     public final String getFaxNumber() {
@@ -277,13 +352,37 @@ public class Address {
     }
 
     /**
-     * @param faxNumber the faxNumber to set
+     * Gets the email id.
+     *
+     * @return the email id
+     */
+    public final String getEmailId() {
+        return emailId;
+    }
+
+    /**
+     * Sets the email id.
+     *
+     * @param emailId
+     *            the new email id
+     */
+    public final void setEmailId(final String emailId) {
+        this.emailId = emailId;
+    }
+
+    /**
+     * Sets the fax number.
+     *
+     * @param faxNumber
+     *            the faxNumber to set
      */
     public final void setFaxNumber(final String faxNumber) {
         this.faxNumber = faxNumber;
     }
 
     /**
+     * Gets the address fag.
+     *
      * @return the addressFag
      */
     public final Character getAddressFag() {
@@ -291,13 +390,18 @@ public class Address {
     }
 
     /**
-     * @param addressFag the addressFag to set
+     * Sets the address fag.
+     *
+     * @param addressFag
+     *            the addressFag to set
      */
     public final void setAddressFag(final Character addressFag) {
         this.addressFag = addressFag;
     }
 
     /**
+     * Gets the region.
+     *
      * @return the region
      */
     public final String getRegion() {
@@ -305,11 +409,13 @@ public class Address {
     }
 
     /**
-     * @param region the region to set
+     * Sets the region.
+     *
+     * @param region
+     *            the region to set
      */
     public final void setRegion(final String region) {
         this.region = region;
     }
 
-   
 }

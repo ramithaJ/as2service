@@ -63,6 +63,13 @@ public class DashboardDAOImpl implements DashboardDAO {
         }
     }
 
+    /**
+     * Gets the article author roles.
+     *
+     * @param userId
+     *            the user id
+     * @return the article author roles
+     */
     @Override
     public final ProductPersonRelations getArticleAuthorRoles(
             final Integer userId) {
