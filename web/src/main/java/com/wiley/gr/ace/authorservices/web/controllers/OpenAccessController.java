@@ -48,7 +48,7 @@ public class OpenAccessController {
 			@RequestBody OnlineOpenOrder onlineOpenOrder) {
 		Service service = new Service();
 		
-		orderOnlineOpenService.submitOnlineOpenOrder(userId, onlineOpenOrder, "OA");
+		//orderOnlineOpenService.submitOnlineOpenOrder(userId, onlineOpenOrder, "OA");
 
 		return service;
 	}

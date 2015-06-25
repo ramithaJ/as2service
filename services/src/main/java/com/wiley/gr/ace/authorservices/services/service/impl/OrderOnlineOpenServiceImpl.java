@@ -445,7 +445,9 @@ OrderResponse orderResponse = null;
 			
 			PricingData pricingData = new PricingData();
 			String amountToBePaidValue = onlineOpenOrder.getFinalAmount().getAmount();
-			pricingData.setAmountToBePaid((amountToBePaidValue != null && !"".equals(amountToBePaidValue.trim())) ? Double.parseDouble(amountToBePaidValue):null);
+			if(amountToBePaidValue != null && !"".equals(amountToBePaidValue.trim())) {
+				Double.parseDouble(amountToBePaidValue);
+			}
 			pricingData.setCurrency(onlineOpenOrder.getFinalAmount().getCurrency());
 			orderData.setPricing(pricingData);
 			
