@@ -52,7 +52,7 @@ public interface OrderOnlineDAO {
      * @param aritcleAuthId
      * @return
      */
-    Orders getOrder(Integer aritcleAuthId);
+    Orders getOrder(String articleId, String userId);
 
     /**
      * @param userId

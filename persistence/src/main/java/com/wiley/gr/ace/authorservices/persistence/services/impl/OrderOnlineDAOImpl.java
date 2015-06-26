@@ -53,11 +53,7 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
                     Integer.parseInt(articleId)));
             criteria.add(Restrictions.eq("userProfile.userId",
                     Integer.parseInt(userId)));
-            ProductPersonRelations productPersonRelations = (ProductPersonRelations) criteria
-                    .uniqueResult();
-            System.err.println(productPersonRelations.getProductRoles()
-                    .getProductRoleCd());
-            return null;
+            return (ProductPersonRelations) criteria.uniqueResult();
         } finally {
             if (session != null) {
                 session.flush();
@@ -78,11 +74,11 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
             session = getSessionFactory().openSession();
             Criteria criteria = session.createCriteria(SavedOrders.class,
                     "savedOrders");
-            criteria.createAlias("savedOrders.articles", "articles");
-            criteria.createAlias("savedOrders.userProfile", "userProfile");
-            criteria.add(Restrictions.eq("articles.articleId",
+            criteria.createAlias("savedOrders.products", "products");
+            criteria.createAlias("savedOrders.usersByUserId", "usersByUserId");
+            criteria.add(Restrictions.eq("products.dhId",
                     Integer.parseInt(articleId)));
-            criteria.add(Restrictions.eq("userProfile.userId",
+            criteria.add(Restrictions.eq("usersByUserId.userId",
                     Integer.parseInt(userId)));
             return (SavedOrders) criteria.uniqueResult();
         } finally {
@@ -97,16 +93,18 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
      * Method to get orders.
      */
     @Override
-    public final Orders getOrder(final Integer aritcleAuthId) {
+    public final Orders getOrder(final String articleId, final String userId) {
 
         Session session = null;
         try {
             session = getSessionFactory().openSession();
             Criteria criteria = session.createCriteria(Orders.class, "orders");
-            criteria.createAlias("orders.articleAuthorAssignment",
-                    "articleAuthorAssignment");
-            criteria.add(Restrictions.eq(
-                    "articleAuthorAssignment.articleAuthId", aritcleAuthId));
+            criteria.createAlias("orders.usersByUserId", "usersByUserId");
+            criteria.createAlias("orders.products", "products");
+            criteria.add(Restrictions.eq("usersByUserId.userId",
+                    Integer.parseInt(articleId)));
+            criteria.add(Restrictions.eq("products.dhId",
+                    Integer.parseInt(articleId)));
             return (Orders) criteria.uniqueResult();
 
         } finally {

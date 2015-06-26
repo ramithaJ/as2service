@@ -74,6 +74,7 @@ import com.wiley.gr.ace.authorservices.model.external.WoaAccountHolder;
 import com.wiley.gr.ace.authorservices.persistence.entity.OrderTypes;
 import com.wiley.gr.ace.authorservices.persistence.entity.Orders;
 import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
+import com.wiley.gr.ace.authorservices.persistence.entity.ProductRelations;
 import com.wiley.gr.ace.authorservices.persistence.entity.SavedOrders;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO;
@@ -116,7 +117,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         List<ArticleDetails> articleDetailsList = new ArrayList<ArticleDetails>();
         articleDetails.setArticleAID(orderData.getArticle().getAidECORE());
         articleDetails
-                .setArticleTitle(orderData.getArticle().getArticleTitle());
+        .setArticleTitle(orderData.getArticle().getArticleTitle());
         articleDetailsList.add(articleDetails);
         onlineOpenOrder.setArticleDetails(articleDetailsList);
         JournalDetails journalDetails = new JournalDetails();
@@ -128,7 +129,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         journalDetailsList.add(journalDetails);
         onlineOpenOrder.setJournalDetails(journalDetailsList);
         onlineOpenOrder
-                .setAuthorName(orderData.getWoaAccountHolder().getName());
+        .setAuthorName(orderData.getWoaAccountHolder().getName());
         QuoteDetail quoteDetail = new QuoteDetail();
         Prices prices = new Prices();
         List<Prices> pricesList = new ArrayList<Prices>();
@@ -143,7 +144,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
          * .getName());
          */
         funderDetails
-                .setWoaAccountId(orderData.getWoaAccountHolder().getCode());
+        .setWoaAccountId(orderData.getWoaAccountHolder().getCode());
         List<Grants> grantsList = new ArrayList<Grants>();
         Grants grants = new Grants();
         Recipients recipients = new Recipients();
@@ -234,14 +235,21 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     public QuoteDetails getQuote(final String userId, final String articleId,
             final String pdmSalesFlag) {
 
-        PdhJournalResponse pdhLookup = orderservice.pdhLookUpJournal(11);// jornal
-        // dhid
+        ProductRelations productRelations = orderOnlineDAO
+                .getProductRelations(articleId);
+        if (null == productRelations) {
+            throw new ASException("", "");
+        }
+        // Calling PdhLookUpJornal service with jornalDhId
+        PdhJournalResponse pdhLookup = orderservice
+                .pdhLookUpJournal(productRelations.getProductsByParentDhId()
+                        .getDhId());
+        // UI OnLoad object for OrderOnlineOpen order.
         QuoteDetails quoteDetails = null;
         // check article is onlineOpen article or not.
         if (pdmSalesFlag.equalsIgnoreCase(pdhLookup.getPdmSalesModel())) {
 
-            // Article Author Assignment table details having userId and
-            // articleId.
+            // DB call to get ProductPersonRelations object.
             ProductPersonRelations productPersonRelations = orderOnlineDAO
                     .getProductPersonRelations(userId, articleId);
             if (productPersonRelations == null) {
@@ -260,36 +268,33 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                             "Order already exists for this Article");
                 }
                 // check is there any placed orders for this article.
-                Orders orders = orderOnlineDAO.getOrder(productPersonRelations
-                        .getProdRelationId());
+                Orders orders = orderOnlineDAO.getOrder(articleId, userId);
                 if (orders != null) {
                     throw new ASException("804",
                             "Order already submitted for this Article");
                 }
-                /*
-                 * calling external service for article and journal titles.
-                 * Quote quote = orderservice.getQuote(articleId);
-                 */
-
                 quoteDetails = new QuoteDetails();
-                // Article details (ArticleId and ArticleTitle)
+                // calling PdhLookupArticle service with article DhId for
+                // article title.
                 PdhArticleResponse pdhArticleResponse = orderservice
-                        .pdhLookUpArticle(11);// article dhid
+                        .pdhLookUpArticle(productPersonRelations.getProducts()
+                                .getDhId());
+                // Article details (ArticleId and Article title)
                 ArticleDetails articleDetails = new ArticleDetails();
                 articleDetails.setArticleAID(articleId);
                 articleDetails.setArticleTitle(pdhArticleResponse.getTitle());
                 quoteDetails.setArticleDetails(articleDetails);
-                // Author Name
-                quoteDetails.setAuthorName("shiva");
                 // Journal details (JornalId and jornalTitle)
                 JournalDetails journalDetails = new JournalDetails();
-                journalDetails.setJournalId("");// jornal dhid
+                journalDetails.setJournalId(productRelations
+                        .getProductsByParentDhId().getDhId() + "");
                 journalDetails.setJournalTitle(pdhLookup.getTitle());
                 quoteDetails.setJournalDetails(journalDetails);
 
                 // prices in 3 type of currencies
                 QuoteDetail quoteDetail = new QuoteDetail();
                 quoteDetail.setPrices(pdhArticleResponse.getPrices());
+                quoteDetails.setQuoteDetail(quoteDetail);
 
                 // values of DiscountsAllowed and AdditionalDiscountAllowed
                 quoteDetails.setDiscountsAllowed(pdhLookup
@@ -317,7 +322,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                         .getCustomerProfile().getAddressDetails().get(1)
                         .getBillingAddress());
                 addressDetails.setContactAddress(userProfileResponse
-                        .getCustomerProfile().getAddressDetails().get(2)
+                        .getCustomerProfile().getAddressDetails().get(0)
                         .getCorrespondenceAddress());
                 quoteDetails.setAddressDetails(addressDetails);
 
@@ -436,7 +441,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                     userId);
             orderDataObject = savedOrder.getOrderObject();
             JSONObject object = (JSONObject) new JSONParser()
-                    .parse(orderDataObject);
+            .parse(orderDataObject);
             onlineOpenOrder = new ObjectMapper().readValue(
                     object.toJSONString(), OnlineOpenOrder.class);
 
