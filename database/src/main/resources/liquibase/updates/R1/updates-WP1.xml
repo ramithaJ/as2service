@@ -2156,4 +2156,16 @@ ALTER TABLE JOURNALS MODIFY UPDATED_DATE TIMESTAMP(6);
 </sql>
 </changeSet>
 
+<changeSet author="gphaniraj" id="WP1-369">
+<sql>
+ALTER TABLE USER_WOA_ACCOUNTS RENAME COLUMN WOA_INSTITUTION_ID TO WO_INSTITUTION_CD;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-370">
+<sql>
+ALTER TABLE USER_WOA_ACCOUNTS MODIFY WOA_INSTITUTION_CD VARCHAR2(15);
+</sql>
+</changeSet>
+
 </databaseChangeLog>
