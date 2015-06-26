@@ -172,6 +172,9 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                 .getVatExemptionNumber());
         taxDetails.setTaxCodeExpiryDate(orderData.getTaxDetails()
                 .getTaxExpiration());
+        taxDetails.setVatExemptionNumber(orderData.getTaxDetails()
+                .getVatExemptionNumber());
+        taxDetails.setVatIdNumber(orderData.getTaxDetails().getVatIdNumber());
         onlineOpenOrder.setTaxDetails(taxDetails);
         Amount amount = new Amount();
         amount.setAmount(orderData.getPricing().getAmountToBePaid().toString());
