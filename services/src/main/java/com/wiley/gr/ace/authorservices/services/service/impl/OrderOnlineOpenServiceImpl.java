@@ -72,6 +72,7 @@ import com.wiley.gr.ace.authorservices.model.external.WOAFunder;
 import com.wiley.gr.ace.authorservices.model.external.WileyOpenAccessFunders;
 import com.wiley.gr.ace.authorservices.model.external.WoaAccountHolder;
 import com.wiley.gr.ace.authorservices.persistence.entity.Articles;
+import com.wiley.gr.ace.authorservices.persistence.entity.OrderTypes;
 import com.wiley.gr.ace.authorservices.persistence.entity.Orders;
 import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
 import com.wiley.gr.ace.authorservices.persistence.entity.SavedOrders;
@@ -414,11 +415,10 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                     OrderResponse.class);
 
             Orders orders = new Orders();
-            orders.setOrderType("");
-            orders.setOoOaFlg(orderTypeFlag);
+            orders.setOrderTypes(new OrderTypes());
+            //orders.setOoOaFlg(orderTypeFlag);
             orders.setOrderStatus(AuthorServicesConstants.ORDER_STATUS_SUBMIT);
-            orders.setDownstreamappOrderId(Integer.parseInt(orderResponse
-                    .getOoUniqueId()));
+            //orders.setDownstreamappOrderId(Integer.parseInt(orderResponse.getOoUniqueId()));
             Users users = new Users();
             users.setUserId(Integer.parseInt(userId));
             orders.setUsersByCreatedBy(users);
