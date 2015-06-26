@@ -85,14 +85,15 @@ public class DashboardServiceImpl implements DashboardService {
      * @throws Exception
      *             the exception
      */
+    @Override
     public final Dashboard getProfileMeter(final String userId)
             throws Exception {
         LOGGER.info("inside getProfileMeter Method of DashboardServiceImpl");
-        Dashboard dashBoard = new Dashboard();
+        final Dashboard dashBoard = new Dashboard();
         List<DashboardInfo> dashBoardInfoList;
-        UserProfileResponse userProfileResponse = userProfileService
+        final UserProfileResponse userProfileResponse = userProfileService
                 .getUserProfileResponse(userId);
-        UserProfile userProfile = userProfileResponse.getCustomerProfile();
+        final UserProfile userProfile = userProfileResponse.getCustomerProfile();
         dashBoardInfoList = checkingDashboardInfo(userProfile);
         if (StringUtils.isEmpty(dashBoardInfoList)) {
             dashBoard.setProfileMeterMessage("Profile Completed");
@@ -117,16 +118,16 @@ public class DashboardServiceImpl implements DashboardService {
     private final DashboardInfo getSecurityDetailsForUser(final String emailId)
             throws Exception {
         LOGGER.info("inside getSecurityDetailsForUser Method of DashboardServiceImpl");
-        SecuirtyQuestionDetails secuirtyQuestionDetails = userManagementService
+        final SecuirtyQuestionDetails secuirtyQuestionDetails = userManagementService
                 .getSecurityQuestionDetails(emailId);
         DashboardInfo dashboardInfo = null;
         if (!StringUtils.isEmpty(secuirtyQuestionDetails)) {
-            SecurityQuestions securityQuestions = secuirtyQuestionDetails
+            final SecurityQuestions securityQuestions = secuirtyQuestionDetails
                     .getSecurityQuestions();
-            List<SecurityQuestion> securityQuestionList = securityQuestions
+            final List<SecurityQuestion> securityQuestionList = securityQuestions
                     .getSecurityQuestion();
             if (!StringUtils.isEmpty(securityQuestionList)) {
-                for (SecurityQuestion securityQuestion : securityQuestionList) {
+                for (final SecurityQuestion securityQuestion : securityQuestionList) {
                     if (StringUtils.isEmpty(securityQuestion.getQuestion())
                             || StringUtils
                                     .isEmpty(securityQuestion.getAnswer())) {
@@ -155,7 +156,7 @@ public class DashboardServiceImpl implements DashboardService {
             final UserProfile userProfile) throws Exception {
         LOGGER.info("inside checkingDashBoardInfo Method of DashboardServiceImpl");
         DashboardInfo dashboardInfo = null;
-        List<DashboardInfo> dashboardInfoList = new ArrayList<DashboardInfo>();
+        final List<DashboardInfo> dashboardInfoList = new ArrayList<DashboardInfo>();
         dashboardInfo = getSecurityDetailsForUser(userProfile
                 .getCustomerDetails().getPrimaryEmailAddr());
         if (!StringUtils.isEmpty(dashboardInfo)) {
@@ -200,7 +201,7 @@ public class DashboardServiceImpl implements DashboardService {
     private final DashboardInfo getInterestsForUser(
             final UserProfile userProfile) {
         LOGGER.info("inside getInterestsForUser Method of DashboardServiceImpl");
-        List<Interests> userInterestsList = userProfile.getInterests();
+        final List<Interests> userInterestsList = userProfile.getInterests();
         DashboardInfo dashboardInfo = null;
         if (null != userInterestsList && userInterestsList.isEmpty()) {
             dashboardInfo = new DashboardInfo();
@@ -223,7 +224,7 @@ public class DashboardServiceImpl implements DashboardService {
     private final DashboardInfo getAffiliationsForUser(
             final UserProfile userProfile) {
         LOGGER.info("inside getAffiliationsForUser Method of DashboardServiceImpl");
-        List<Affiliation> userAffiliationsList = userProfile.getAffiliations();
+        final List<Affiliation> userAffiliationsList = userProfile.getAffiliations();
         DashboardInfo dashboardInfo = null;
         if (!StringUtils.isEmpty(userAffiliationsList)
                 && userAffiliationsList.isEmpty()) {
@@ -246,7 +247,7 @@ public class DashboardServiceImpl implements DashboardService {
     private final DashboardInfo getSocietiesForUser(
             final UserProfile userProfile) {
         LOGGER.info("inside getSocietiesForUser Method of DashboardServiceImpl");
-        List<Society> societyList = userProfile.getSocieties();
+        final List<Society> societyList = userProfile.getSocieties();
         DashboardInfo dashboardInfo = null;
         if (!StringUtils.isEmpty(societyList) && societyList.isEmpty()) {
             dashboardInfo = new DashboardInfo();
@@ -268,7 +269,7 @@ public class DashboardServiceImpl implements DashboardService {
     private final DashboardInfo getFundersListForUser(
             final UserProfile userProfile) {
         LOGGER.info("inside getFundersListForUser Method of DashboardServiceImpl");
-        List<ResearchFunder> researchFundersList = userProfile
+        final List<ResearchFunder> researchFundersList = userProfile
                 .getResearchFunders();
         DashboardInfo dashboardInfo = null;
         if (!StringUtils.isEmpty(researchFundersList)
@@ -339,7 +340,7 @@ public class DashboardServiceImpl implements DashboardService {
     public final DashboardView viewDashboard(final String userId)
             throws Exception {
         LOGGER.info("inside viewDashboard Method of DashboardServiceImpl");
-        DashboardView dashboardView = new DashboardView();
+        final DashboardView dashboardView = new DashboardView();
         dashboardView.setArticleData(getArticleAuthorData(userId));
         dashboardView
                 .setCommunicationDetails(getCommunicationDetailsList(userId));
@@ -360,14 +361,14 @@ public class DashboardServiceImpl implements DashboardService {
             throws Exception {
         LOGGER.info("inside getArticleAuthorData Method of DashboardServiceImpl");
         List<ArticleData> articleData = null;
-        Set<ProductPersonRelations> getArticleAuthorRoleSet = dashboardDAO
+        final Set<ProductPersonRelations> getArticleAuthorRoleSet = dashboardDAO
                 .getArticleAuthorRoles(Integer.parseInt(userId))
                 .getProductRoles().getProductPersonRelationses();
         if (!StringUtils.isEmpty(getArticleAuthorRoleSet)) {
-            for (ProductPersonRelations productPersonRelations : getArticleAuthorRoleSet) {
-                String articleAuthorRole = productPersonRelations
+            for (final ProductPersonRelations productPersonRelations : getArticleAuthorRoleSet) {
+                final String articleAuthorRole = productPersonRelations
                         .getProductRoles().getProductRoleName();
-                Integer articleId = productPersonRelations.getProducts().getDhId();
+                final Integer articleId = productPersonRelations.getProducts().getDhId();
                 articleData = getArticleDataDetails(articleId,
                         articleAuthorRole);
             }
@@ -388,11 +389,11 @@ public class DashboardServiceImpl implements DashboardService {
             final Integer articleId, final String articleUserRole)
             throws Exception {
         LOGGER.info("inside getArticleDataDetails Method of DashboardServiceImpl");
-        List<ArticleData> articleDataList = esbInterfaceService
+        final List<ArticleData> articleDataList = esbInterfaceService
                 .getAllAuthorArticles(articleId);
-        List<ArticleData> articleDataStatusList = new ArrayList<ArticleData>();
+        final List<ArticleData> articleDataStatusList = new ArrayList<ArticleData>();
         if (!StringUtils.isEmpty(articleDataList)) {
-            for (ArticleData articleData : articleDataList) {
+            for (final ArticleData articleData : articleDataList) {
                 articleData.setArticleUserRole(articleUserRole);
                 articleDataStatusList.add(getArticlesStatus(articleData));
             }
@@ -437,7 +438,7 @@ public class DashboardServiceImpl implements DashboardService {
     private final OrderPaymentStatus getOrderPaymentStatusForArticle(
             final Integer articleId) throws Exception {
         LOGGER.info("inside getOrderPaymentStatusForArticle Method of DashboardServiceImpl");
-        OrderPaymentStatus orderPaymentStatus = new OrderPaymentStatus();
+        final OrderPaymentStatus orderPaymentStatus = new OrderPaymentStatus();
         orderPaymentStatus.setOpenAccessStatus(esbInterfaceService
                 .getOpenAccessStatus(articleId).getOpenAccessStatus());
         orderPaymentStatus.setOnlineOpenStatus(esbInterfaceService
@@ -453,27 +454,25 @@ public class DashboardServiceImpl implements DashboardService {
      * @return the communication details
      */
     @Override
-    public List<CommunicationDetails> getCommunicationDetailsList(String userId)
+    public List<CommunicationDetails> getCommunicationDetailsList(final String userId)
             throws Exception {
         LOGGER.info("inside getCommunicationDetailsList Method of DashboardServiceImpl");
         List<CommunicationDetails> communicationDetailsList = null;
-        List<InvitationLog> invitationLogList = dashboardDAO
+        final List<InvitationLog> invitationLogList = dashboardDAO
                 .getInvitationLogList(Integer.parseInt(userId));
         if (!StringUtils.isEmpty(invitationLogList)) {
             communicationDetailsList = new ArrayList<CommunicationDetails>();
-            for (InvitationLog invitationLog : invitationLogList) {
-                CommunicationDetails communicationDetails = new CommunicationDetails();
+            for (final InvitationLog invitationLog : invitationLogList) {
+                final CommunicationDetails communicationDetails = new CommunicationDetails();
                 communicationDetails.setUserId(invitationLog.getUserProfile()
                         .getUserId());
                 communicationDetails.setInviationId(invitationLog
                         .getInvitationId());
                 communicationDetails.setEmailId(invitationLog.getEmailAddr());
-                communicationDetails.setArticleId(invitationLog.getArticles()
-                        .getArticleId());
+                communicationDetails.setArticleId(invitationLog.getArticleId());
                 communicationDetails.setSentDate(invitationLog.getSentDate()
                         .toString());
-                communicationDetails.setSentBy(invitationLog.getArticles()
-                        .getUserIdSignLicense());
+                communicationDetails.setSentBy(invitationLog.getUsers().getAs1UserId());
                 communicationDetailsList.add(communicationDetails);
             }
         }
