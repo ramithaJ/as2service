@@ -38,7 +38,7 @@ public interface OrderOnlineOpenService {
      * @param userId
      * @return
      */
-    List<OrderDetails> getAllOrders(Integer userId, String type);
+    List<OrderDetails> getAllOrders(String orderId);
 
     /**
      * @param userId

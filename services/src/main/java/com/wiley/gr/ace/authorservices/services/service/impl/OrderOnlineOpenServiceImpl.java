@@ -117,7 +117,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         List<ArticleDetails> articleDetailsList = new ArrayList<ArticleDetails>();
         articleDetails.setArticleAID(orderData.getArticle().getAidECORE());
         articleDetails
-        .setArticleTitle(orderData.getArticle().getArticleTitle());
+                .setArticleTitle(orderData.getArticle().getArticleTitle());
         articleDetailsList.add(articleDetails);
         onlineOpenOrder.setArticleDetails(articleDetailsList);
         JournalDetails journalDetails = new JournalDetails();
@@ -129,7 +129,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         journalDetailsList.add(journalDetails);
         onlineOpenOrder.setJournalDetails(journalDetailsList);
         onlineOpenOrder
-        .setAuthorName(orderData.getWoaAccountHolder().getName());
+                .setAuthorName(orderData.getWoaAccountHolder().getName());
         QuoteDetail quoteDetail = new QuoteDetail();
         Prices prices = new Prices();
         List<Prices> pricesList = new ArrayList<Prices>();
@@ -144,7 +144,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
          * .getName());
          */
         funderDetails
-        .setWoaAccountId(orderData.getWoaAccountHolder().getCode());
+                .setWoaAccountId(orderData.getWoaAccountHolder().getCode());
         List<Grants> grantsList = new ArrayList<Grants>();
         Grants grants = new Grants();
         Recipients recipients = new Recipients();
@@ -343,32 +343,20 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     /**
      * Method to get All Orders.
      */
-    @Override
-    public List<OrderDetails> getAllOrders(final Integer userId,
-            final String type) {
-        List<ProductPersonRelations> articleAuthorAssignmentList = orderOnlineDAO
-                .getArticleAuthId(userId, type);
-        OrderDetails orderDetails = null;
-        List<OrderDetails> lisofOrderDetails = new ArrayList<OrderDetails>();
-
-        for (ProductPersonRelations articleAuthorAssignment : articleAuthorAssignmentList) {
-            orderDetails = new OrderDetails();
-            orderDetails.setArticleId(articleAuthorAssignment
-                    .getProdRelationId().toString());
-            orderDetails.setPrice("0.0");
-            PdhJournalResponse pdhLookup = orderservice
-                    .pdhLookUpJournal(articleAuthorAssignment.getProducts()
-                            .getDhId());
-            orderDetails.setArticleTitle(pdhLookup.getTitle());
-            /*
-             * for (Orders orders : articleAuthorAssignment.getOrderses()) {
-             * orderDetails.setOrderDate(orders.getUpdatedDate().toString());
-             * orderDetails.setStatus(orders.getOrderStatus()); }
-             */
-            lisofOrderDetails.add(orderDetails);
-        }
-
-        return lisofOrderDetails;
+    public List<OrderDetails> getAllOrders(final String orderId) {
+        OrderDetails orderDetails = new OrderDetails();
+        List<OrderDetails> orderDetailsList = new ArrayList<OrderDetails>();
+        OrderData orderData = new OrderData();
+        OrderDataList orderDataList = orderservice.getAllOrders(orderId);
+        orderData = orderDataList.getOrderDatas().get(0);
+        orderDetails.setArticleId(orderData.getArticle().getDHID());
+        orderDetails.setArticleTitle(orderData.getArticle().getArticleTitle());
+        orderDetails.setOrderDate(orderData.getOrderDate());
+        orderDetails.setPrice(orderData.getPricing().getAmountToBePaid()
+                .toString());
+        orderDetails.setStatus(orderData.getOrderStatusCode());
+        orderDetailsList.add(orderDetails);
+        return orderDetailsList;
 
     }
 
@@ -444,7 +432,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                     userId);
             orderDataObject = savedOrder.getOrderObject();
             JSONObject object = (JSONObject) new JSONParser()
-            .parse(orderDataObject);
+                    .parse(orderDataObject);
             onlineOpenOrder = new ObjectMapper().readValue(
                     object.toJSONString(), OnlineOpenOrder.class);
 

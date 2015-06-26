@@ -86,19 +86,19 @@ public class OrderServiceImpl implements OrderService {
      */
     @Value("${woaAccounts.url}")
     private String woaAccountsurl;
-    
+
     /**
      * This field holds the value of institutionDiscountsurl
      */
     @Value("${institutionDiscounts.url}")
     private String institutionDiscountsurl;
-    
+
     /**
      * This field holds the value of discountedSocietiesurl
      */
     @Value("${validateTaxDetails.url}")
     private String validateTaxDetailsurl;
-    
+
     /**
      * This field holds the value of validateFunderDetailsurl
      */
@@ -195,23 +195,28 @@ public class OrderServiceImpl implements OrderService {
                 InstitutionDiscounts.class);
     }
 
-	/**
-	 * Method to validate Tax Details
-	 */
-	@Override
-	public Object validateTaxDetails(String userId, TaxDetails taxDetails) {
+    /**
+     * Method to validate Tax Details
+     */
+    @Override
+    public Object validateTaxDetails(String userId, TaxDetails taxDetails) {
 
-		return StubInvokerUtil.invokeJsonStub(
-				validateTaxDetailsurl, HttpMethod.POST,
-                Object.class);
-	}
+        return StubInvokerUtil.invokeJsonStub(validateTaxDetailsurl,
+                HttpMethod.POST, Object.class);
+    }
 
-	
-	@Override
-	public Object validateFunderDetails(String userId, List<FunderDetails> funderDetailsList) {
-		
-		return StubInvokerUtil.invokeJsonStub(
-				validateFunderDetailsurl, HttpMethod.POST,
-                Object.class);
-	}
+    @Override
+    public Object validateFunderDetails(String userId,
+            List<FunderDetails> funderDetailsList) {
+
+        return StubInvokerUtil.invokeJsonStub(validateFunderDetailsurl,
+                HttpMethod.POST, Object.class);
+    }
+
+    /** @param orderId */
+    @Override
+    public OrderDataList getAllOrders(String orderId) {
+        return (OrderDataList) StubInvokerUtil.invokeJsonStub(
+                orderserviceurlview, HttpMethod.POST, OrderDataList.class);
+    }
 }

@@ -22,17 +22,21 @@ import com.wiley.gr.ace.authorservices.services.service.SaveArticleData;
  */
 public class SaveArticleDataImpl implements SaveArticleData {
 
-	/** The Constant LOGGER. */
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(SaveArticleDataImpl.class);
+    /** The Constant LOGGER. */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(SaveArticleDataImpl.class);
 
-	/* (non-Javadoc)
-	 * @see com.wiley.gr.ace.authorservices.services.service.SaveArticleData#parseArticleEvent(java.lang.String)
-	 */
-	@Override
-	public void parseArticleEvent(String articleEvent) throws Exception {
-		// TODO Auto-generated method stub
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.wiley.gr.ace.authorservices.services.service.SaveArticleData#
+     * parseArticleEvent(java.lang.String)
+     */
+    @Override
+    public void parseArticleEvent(String articleEvent) throws Exception {
+        // TODO Auto-generated method stub
+        LOGGER.info("");
 
-	}
+    }
 
 }

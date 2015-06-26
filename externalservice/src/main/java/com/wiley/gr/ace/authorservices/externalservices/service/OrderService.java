@@ -35,67 +35,73 @@ import com.wiley.gr.ace.authorservices.model.external.WileyOpenAccessFunders;
 
 public interface OrderService {
 
-	/**
-	 * @param userId
-	 * @param orderId
-	 * @return OrderData
-	 */
-	OrderDataList getOrderDetails(String userId, String orderId);
+    /**
+     * @param userId
+     * @param orderId
+     * @return OrderData
+     */
+    OrderDataList getOrderDetails(String userId, String orderId);
 
-	/**
-	 * @return OrderData
-	 */
-	OrderResponse submitOnlineOpenOrder(OrderData orderData);
+    /**
+     * @return OrderData
+     */
+    OrderResponse submitOnlineOpenOrder(OrderData orderData);
 
-	/**
-	 * @param DHId
-	 * @return PdhJournalResponse
-	 */
-	PdhJournalResponse pdhLookUpJournal(Integer DHId);
+    /**
+     * @param DHId
+     * @return PdhJournalResponse
+     */
+    PdhJournalResponse pdhLookUpJournal(Integer DHId);
 
-	/**
-	 * @param DHId
-	 * @return PdhArticleResponse
-	 */
-	PdhArticleResponse pdhLookUpArticle(Integer DHId);
+    /**
+     * @param DHId
+     * @return PdhArticleResponse
+     */
+    PdhArticleResponse pdhLookUpArticle(Integer DHId);
 
-	/**
-	 * @param articleId
-	 * @return Quote
-	 */
-	Quote getQuote(QuoteRequest quoteRequest);
+    /**
+     * @param articleId
+     * @return Quote
+     */
+    Quote getQuote(QuoteRequest quoteRequest);
 
-	/**
-	 * @param DHId
-	 * @return PdhArticleResponse
-	 */
-	DiscountedSocietyResponse getDiscountedSocietiesForJournal(String journalId);
+    /**
+     * @param DHId
+     * @return PdhArticleResponse
+     */
+    DiscountedSocietyResponse getDiscountedSocietiesForJournal(String journalId);
 
-	/**
-	 * @return PdhArticleResponse
-	 */
-	WileyOpenAccessFunders getWoaAcounts();
+    /**
+     * @return PdhArticleResponse
+     */
+    WileyOpenAccessFunders getWoaAcounts();
 
-	/**
-	 * @return SocietyMemberDiscount
-	 */
-	SocietyMemberDiscount getSocietyMemberDiscount();
+    /**
+     * @return SocietyMemberDiscount
+     */
+    SocietyMemberDiscount getSocietyMemberDiscount();
 
-	/**
-	 * @return InstitutionDiscounts
-	 */
-	InstitutionDiscounts getInstitutionDiscounts();
+    /**
+     * @return InstitutionDiscounts
+     */
+    InstitutionDiscounts getInstitutionDiscounts();
 
-	/******************* Validations *******************/
-	/**
-	 * @return Object
-	 */
-	Object validateTaxDetails(String userId, TaxDetails taxDetails);
+    /******************* Validations *******************/
+    /**
+     * @return Object
+     */
+    Object validateTaxDetails(String userId, TaxDetails taxDetails);
 
-	/**
-	 * @return Object
-	 */
-	Object validateFunderDetails(String userId,
-			List<FunderDetails> funderDetailsList);
+    /**
+     * @return Object
+     */
+    Object validateFunderDetails(String userId,
+            List<FunderDetails> funderDetailsList);
+
+    /**
+     * @param orderId
+     * @return
+     */
+    OrderDataList getAllOrders(String orderId);
 
 }

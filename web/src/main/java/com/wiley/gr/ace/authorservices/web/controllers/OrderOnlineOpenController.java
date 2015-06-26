@@ -31,7 +31,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
      */
     @Autowired(required = true)
     private OrderOnlineOpenService orderOnlineOpenService;
-    
+
     /**
      * This field holds the value of nlineOpenAuthorValidatorService
      */
@@ -169,15 +169,14 @@ public class OrderOnlineOpenController extends ASExceptionController {
      * @param userId
      * @return service
      */
-    @RequestMapping(value = "/allOrders/{userId}/", method = RequestMethod.GET)
+    @RequestMapping(value = "/allOrders/{orderId}/", method = RequestMethod.GET)
     public final Service getAllOrders(
-            @PathVariable("userId") final String userId,
+            @PathVariable("orderId") final String orderId,
             @RequestParam(value = "type", required = false) final String type,
             @RequestParam(value = "sdate", required = false) final String sdate,
             @RequestParam(value = "edate", required = false) final String edate) {
         Service service = new Service();
-        service.setPayload(orderOnlineOpenService.getAllOrders(
-                Integer.parseInt(userId), type));
+        service.setPayload(orderOnlineOpenService.getAllOrders(orderId));
         return service;
     }
 
@@ -195,42 +194,38 @@ public class OrderOnlineOpenController extends ASExceptionController {
         service.setPayload(orderOnlineOpenService.getInstitutionDiscounts());
         return service;
     }
-    
+
     /**
      * @param userId
      * @param onlineOpenOrder
      * @return
-     * @throws Exception 
+     * @throws Exception
      */
     @RequestMapping(value = "/validate/taxDetails/{userId}/", method = RequestMethod.POST)
     public final Service validateTaxDetails(
             @PathVariable("userId") final String userId,
-            @RequestBody final TaxDetails taxDetails){
+            @RequestBody final TaxDetails taxDetails) {
 
         onlineOpenAuthorValidatorService.validateTaxDetails(userId, taxDetails);
 
         return new Service();
     }
-    
-    
+
     /**
      * @param userId
      * @param onlineOpenOrder
      * @return
-     * @throws Exception 
+     * @throws Exception
      */
     @RequestMapping(value = "/validate/funderDetails/{userId}/", method = RequestMethod.POST)
     public final Service validateFunderDetails(
             @PathVariable("userId") final String userId,
-            @RequestBody final List<FunderDetails> funderDetailsList){
+            @RequestBody final List<FunderDetails> funderDetailsList) {
 
-        onlineOpenAuthorValidatorService.validateFunderDetails(userId, funderDetailsList);
+        onlineOpenAuthorValidatorService.validateFunderDetails(userId,
+                funderDetailsList);
 
         return new Service();
     }
-    
-    
-    
-    
 
 }
