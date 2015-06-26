@@ -75,6 +75,7 @@ import com.wiley.gr.ace.authorservices.persistence.entity.OrderTypes;
 import com.wiley.gr.ace.authorservices.persistence.entity.Orders;
 import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
 import com.wiley.gr.ace.authorservices.persistence.entity.ProductRelations;
+import com.wiley.gr.ace.authorservices.persistence.entity.Products;
 import com.wiley.gr.ace.authorservices.persistence.entity.SavedOrders;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO;
@@ -167,7 +168,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         onlineOpenOrder.setPaymentMethod(orderData.getPayment()
                 .getPaymentMethod());
         TaxDetails taxDetails = new TaxDetails();
-        taxDetails.setCountryCode(orderData.getTaxDetails().getCountryCode());
+        taxDetails
+        .setTaxCountryCode(orderData.getTaxDetails().getCountryCode());
         taxDetails.setTaxExemptionNumber(orderData.getTaxDetails()
                 .getVatExemptionNumber());
         taxDetails.setTaxCodeExpiryDate(orderData.getTaxDetails()
@@ -261,7 +263,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             // check user is corresponding author or not.
             if (productPersonRelations.getProductRoles() != null
                     && productPersonRelations.getProductRoles()
-                            .getProductRoleCd().equalsIgnoreCase("0001")) {
+                    .getProductRoleCd().equalsIgnoreCase("0001")) {
 
                 // check is there any saved orders for this article.
                 SavedOrders savedOrders = orderOnlineDAO.getSavedOrders(
@@ -314,7 +316,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                         .getFirstName()
                         + " "
                         + userProfileResponse.getCustomerProfile()
-                                .getCustomerDetails().getLastName());
+                        .getCustomerDetails().getLastName());
                 // GrantRecipients(coAuthors)
                 userProfileResponse.getCustomerProfile().getCoAuthors();
                 // Societies
@@ -343,18 +345,23 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     /**
      * Method to get All Orders.
      */
+    @Override
     public List<OrderDetails> getAllOrders(final String orderId) {
         OrderDetails orderDetails = new OrderDetails();
         List<OrderDetails> orderDetailsList = new ArrayList<OrderDetails>();
-        OrderData orderData = new OrderData();
+        // OrderData orderData = new OrderData();
         OrderDataList orderDataList = orderservice.getAllOrders(orderId);
-        orderData = orderDataList.getOrderDatas().get(0);
-        orderDetails.setArticleId(orderData.getArticle().getDHID());
-        orderDetails.setArticleTitle(orderData.getArticle().getArticleTitle());
-        orderDetails.setOrderDate(orderData.getOrderDate());
-        orderDetails.setPrice(orderData.getPricing().getAmountToBePaid()
-                .toString());
-        orderDetails.setStatus(orderData.getOrderStatusCode());
+        // orderData = orderDataList.getOrderDatas().get(0);
+        for (OrderData orderData : orderDataList.getOrderDatas()) {
+            orderDetails.setArticleId(orderData.getArticle().getDHID());
+            orderDetails.setArticleTitle(orderData.getArticle()
+                    .getArticleTitle());
+            orderDetails.setOrderDate(orderData.getOrderDate());
+            orderDetails.setPrice(orderData.getPricing().getAmountToBePaid()
+                    .toString());
+            orderDetails.setStatus(orderData.getOrderStatusCode());
+        }
+
         orderDetailsList.add(orderDetails);
         return orderDetailsList;
 
@@ -467,7 +474,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
             TaxData taxData = new TaxData();
             taxData.setCountryCode(onlineOpenOrder.getTaxDetails()
-                    .getCountryCode());
+                    .getTaxCountryCode());
             taxData.setTaxExpiration(onlineOpenOrder.getTaxDetails()
                     .getTaxCodeExpiryDate());
             taxData.setTaxNumber(onlineOpenOrder.getTaxDetails()
@@ -576,9 +583,12 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
     /**
      * Method to save orders.
+     * 
+     * @return
      */
     @Override
-    public void saveLaterOrder(final OnlineOpenOrder order, final String userId) {
+    public Integer saveLaterOrder(final OnlineOpenOrder order,
+            final String userId) {
 
         ObjectMapper mapper = new ObjectMapper();
         SavedOrders savedOrders = new SavedOrders();
@@ -587,18 +597,18 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        /*
-         * Articles articles = new Articles();
-         * articles.setArticleId(Integer.parseInt(order.getArticleId()));
-         * savedOrders.setArticles(articles); UserProfile userProfile = new
-         * UserProfile(); userProfile.setUserId(Integer.parseInt(userId));
-         * savedOrders.setUserProfile(userProfile);
-         */
+
+        Products products = new Products();
+        products.setDhId(Integer.parseInt(order.getArticleDetails().get(0)
+                .getArticleAID()));
+        savedOrders.setProducts(products);
+
         Users users = new Users();
         users.setUserId(Integer.parseInt(userId));
+        savedOrders.setUsersByUserId(users);
         savedOrders.setUsersByCreatedBy(users);
         savedOrders.setCreatedDate(new Date());
-        orderOnlineDAO.saveLaterOrder(savedOrders);
+        return orderOnlineDAO.saveLaterOrder(savedOrders);
     }
 
     /**

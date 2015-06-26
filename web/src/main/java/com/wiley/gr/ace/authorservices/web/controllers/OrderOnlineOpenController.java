@@ -63,10 +63,8 @@ public class OrderOnlineOpenController extends ASExceptionController {
             @RequestBody final OnlineOpenOrder onlineOpenOrder) {
 
         Service service = new Service();
-
-        // TODO: Get orderId from below method and return in payload
-        orderOnlineOpenService.saveLaterOrder(onlineOpenOrder, userId);
-
+        service.setPayload(orderOnlineOpenService.saveLaterOrder(
+                onlineOpenOrder, userId));
         return service;
     }
 

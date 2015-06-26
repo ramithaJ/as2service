@@ -64,7 +64,7 @@ public interface OrderOnlineDAO {
      * @param order
      * @return
      */
-    void saveLaterOrder(SavedOrders savedOrders);
+    Integer saveLaterOrder(SavedOrders savedOrders);
 
     /**
      * This method saves or updates the order submitted

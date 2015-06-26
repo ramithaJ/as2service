@@ -49,8 +49,6 @@ public class OnlineOpenOrder {
     /** The payment method. */
     private String paymentMethod;
 
-    private String articleId;
-
     /** The article id. */
     private List<ArticleDetails> articleDetails;
 
@@ -292,14 +290,6 @@ public class OnlineOpenOrder {
      */
     public final void setDiscountDetails(final List<Discounts> discountDetails) {
         this.discountDetails = discountDetails;
-    }
-
-    public final String getArticleId() {
-        return articleId;
-    }
-
-    public final void setArticleId(String articleId) {
-        this.articleId = articleId;
     }
 
     /**
