@@ -33,6 +33,28 @@ public class Discounts {
     /** The promo code. */
     private String promoCode = "";
 
+    /** The original funder. */
+    private String originalFunder = "";
+
+    /**
+     * Gets the original funder.
+     *
+     * @return the original funder
+     */
+    public final String getOriginalFunder() {
+        return originalFunder;
+    }
+
+    /**
+     * Sets the original funder.
+     *
+     * @param originalFunder
+     *            the new original funder
+     */
+    public final void setOriginalFunder(String originalFunder) {
+        this.originalFunder = originalFunder;
+    }
+
     /**
      * Gets the institution id.
      *
