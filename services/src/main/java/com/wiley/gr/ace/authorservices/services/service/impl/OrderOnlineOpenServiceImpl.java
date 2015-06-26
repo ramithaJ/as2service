@@ -71,12 +71,10 @@ import com.wiley.gr.ace.authorservices.model.external.WOAAccount;
 import com.wiley.gr.ace.authorservices.model.external.WOAFunder;
 import com.wiley.gr.ace.authorservices.model.external.WileyOpenAccessFunders;
 import com.wiley.gr.ace.authorservices.model.external.WoaAccountHolder;
-import com.wiley.gr.ace.authorservices.persistence.entity.Articles;
 import com.wiley.gr.ace.authorservices.persistence.entity.OrderTypes;
 import com.wiley.gr.ace.authorservices.persistence.entity.Orders;
 import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
 import com.wiley.gr.ace.authorservices.persistence.entity.SavedOrders;
-import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO;
 import com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService;
@@ -236,16 +234,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     public QuoteDetails getQuote(final String userId, final String articleId,
             final String pdmSalesFlag) {
 
-        // Article details having userId and articleId
-        // Articles articles = orderOnlineDAO.getArticleDetails(articleId);
-        Articles articles = null;
-        if (null == articles) {
-            throw new ASException("801",
-                    "Article Not found in system. Please try after sometime..");
-        }
-
-        PdhJournalResponse pdhLookup = orderservice.pdhLookUpJournal(articles
-                .getJournalId());
+        PdhJournalResponse pdhLookup = orderservice.pdhLookUpJournal(11);// jornal
+        // dhid
         QuoteDetails quoteDetails = null;
         // check article is onlineOpen article or not.
         if (pdmSalesFlag.equalsIgnoreCase(pdhLookup.getPdmSalesModel())) {
@@ -253,7 +243,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             // Article Author Assignment table details having userId and
             // articleId.
             ProductPersonRelations productPersonRelations = orderOnlineDAO
-                    .getAritcleAssignmentDetails(userId, articleId);
+                    .getProductPersonRelations(userId, articleId);
             if (productPersonRelations == null) {
                 throw new ASException("802", "Article is not yet Accepted");
             }
@@ -284,7 +274,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                 quoteDetails = new QuoteDetails();
                 // Article details (ArticleId and ArticleTitle)
                 PdhArticleResponse pdhArticleResponse = orderservice
-                        .pdhLookUpArticle(articles.getDhId());
+                        .pdhLookUpArticle(11);// article dhid
                 ArticleDetails articleDetails = new ArticleDetails();
                 articleDetails.setArticleAID(articleId);
                 articleDetails.setArticleTitle(pdhArticleResponse.getTitle());
@@ -293,8 +283,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                 quoteDetails.setAuthorName("shiva");
                 // Journal details (JornalId and jornalTitle)
                 JournalDetails journalDetails = new JournalDetails();
-                journalDetails.setJournalId(String.valueOf(articles
-                        .getJournalId()));
+                journalDetails.setJournalId("");// jornal dhid
                 journalDetails.setJournalTitle(pdhLookup.getTitle());
                 quoteDetails.setJournalDetails(journalDetails);
 
@@ -416,9 +405,9 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
             Orders orders = new Orders();
             orders.setOrderTypes(new OrderTypes());
-            //orders.setOoOaFlg(orderTypeFlag);
+            // orders.setOoOaFlg(orderTypeFlag);
             orders.setOrderStatus(AuthorServicesConstants.ORDER_STATUS_SUBMIT);
-            //orders.setDownstreamappOrderId(Integer.parseInt(orderResponse.getOoUniqueId()));
+            // orders.setDownstreamappOrderId(Integer.parseInt(orderResponse.getOoUniqueId()));
             Users users = new Users();
             users.setUserId(Integer.parseInt(userId));
             orders.setUsersByCreatedBy(users);
@@ -602,12 +591,13 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Articles articles = new Articles();
-        articles.setArticleId(Integer.parseInt(order.getArticleId()));
-        savedOrders.setArticles(articles);
-        UserProfile userProfile = new UserProfile();
-        userProfile.setUserId(Integer.parseInt(userId));
-        savedOrders.setUserProfile(userProfile);
+        /*
+         * Articles articles = new Articles();
+         * articles.setArticleId(Integer.parseInt(order.getArticleId()));
+         * savedOrders.setArticles(articles); UserProfile userProfile = new
+         * UserProfile(); userProfile.setUserId(Integer.parseInt(userId));
+         * savedOrders.setUserProfile(userProfile);
+         */
         Users users = new Users();
         users.setUserId(Integer.parseInt(userId));
         savedOrders.setUsersByCreatedBy(users);

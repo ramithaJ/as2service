@@ -24,6 +24,7 @@ import org.hibernate.criterion.Restrictions;
 
 import com.wiley.gr.ace.authorservices.persistence.entity.Orders;
 import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
+import com.wiley.gr.ace.authorservices.persistence.entity.ProductRelations;
 import com.wiley.gr.ace.authorservices.persistence.entity.SavedOrders;
 import com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO;
 
@@ -37,7 +38,7 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
      * Method to get ArticleAssigmentDetails table object.
      */
     @Override
-    public final ProductPersonRelations getAritcleAssignmentDetails(
+    public final ProductPersonRelations getProductPersonRelations(
             final String userId, final String articleId) {
 
         Session session = null;
@@ -250,6 +251,28 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
                 session.close();
             }
         }
+    }
+
+    @Override
+    public ProductRelations getProductRelations(final String articleDhId) {
+
+        Session session = null;
+        try {
+            session = getSessionFactory().openSession();
+            Criteria criteria = session.createCriteria(ProductRelations.class,
+                    "productRelations");
+            criteria.createAlias("productRelations.productsByChildDhId",
+                    "productsByChildDhId");
+            criteria.add(Restrictions.eq("productsByChildDhId.dhId",
+                    Integer.parseInt(articleDhId)));
+            return (ProductRelations) criteria.uniqueResult();
+        } finally {
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
+        }
+
     }
 
 }

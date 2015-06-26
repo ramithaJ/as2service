@@ -17,6 +17,7 @@ import java.util.List;
 
 import com.wiley.gr.ace.authorservices.persistence.entity.Orders;
 import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
+import com.wiley.gr.ace.authorservices.persistence.entity.ProductRelations;
 import com.wiley.gr.ace.authorservices.persistence.entity.SavedOrders;
 
 /**
@@ -30,7 +31,7 @@ public interface OrderOnlineDAO {
      * @param articleId
      * @return
      */
-    ProductPersonRelations getAritcleAssignmentDetails(String userId,
+    ProductPersonRelations getProductPersonRelations(String userId,
             String articleId);
 
     /**
@@ -78,4 +79,11 @@ public interface OrderOnlineDAO {
      * @return
      */
     List<ProductPersonRelations> getGrantRecipients(String articleId);
+
+    /**
+     * @param articleDhId
+     * @return
+     */
+    ProductRelations getProductRelations(String articleDhId);
+
 }
