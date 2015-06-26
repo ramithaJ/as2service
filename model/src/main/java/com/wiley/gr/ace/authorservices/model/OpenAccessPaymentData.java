@@ -12,31 +12,22 @@ public class OpenAccessPaymentData {
 
 	/** The article details. */
 	private ArticleDetails articleDetails;;
-	
+
 	/** The journal details. */
 	private JournalDetails journalDetails;
-	
+
 	/** The address on file. */
 	private AddressDetails addressOnFile;
-	
-	/** The tax details. */
-	private TaxDetails taxDetails;
-	
+
 	/** The quote data. */
 	private QuoteData quoteData;
-	
-	/** The tax amount. */
-	private Amount taxAmount;
-	
-	/** The tax percentage. */
-	private String taxPercentage;
-	
+
 	/** The amount payable. */
 	private Amount amountPayable;
-	
+
 	/** The author name. */
 	private String authorName;
-	
+
 	/** The discount detail. */
 	private DiscountDetail discountDetail;
 
@@ -52,28 +43,11 @@ public class OpenAccessPaymentData {
 	/**
 	 * Sets the address on file.
 	 *
-	 * @param addressOnFile the new address on file
+	 * @param addressOnFile
+	 *            the new address on file
 	 */
 	public final void setAddressOnFile(AddressDetails addressOnFile) {
 		this.addressOnFile = addressOnFile;
-	}
-
-	/**
-	 * Gets the tax details.
-	 *
-	 * @return the tax details
-	 */
-	public final TaxDetails getTaxDetails() {
-		return taxDetails;
-	}
-
-	/**
-	 * Sets the tax details.
-	 *
-	 * @param taxDetails the new tax details
-	 */
-	public final void setTaxDetails(TaxDetails taxDetails) {
-		this.taxDetails = taxDetails;
 	}
 
 	/**
@@ -88,7 +62,8 @@ public class OpenAccessPaymentData {
 	/**
 	 * Sets the quote data.
 	 *
-	 * @param quoteData the new quote data
+	 * @param quoteData
+	 *            the new quote data
 	 */
 	public final void setQuoteData(QuoteData quoteData) {
 		this.quoteData = quoteData;
@@ -106,7 +81,8 @@ public class OpenAccessPaymentData {
 	/**
 	 * Sets the author name.
 	 *
-	 * @param authorName the new author name
+	 * @param authorName
+	 *            the new author name
 	 */
 	public final void setAuthorName(String authorName) {
 		this.authorName = authorName;
@@ -124,7 +100,8 @@ public class OpenAccessPaymentData {
 	/**
 	 * Sets the article details.
 	 *
-	 * @param articleDetails the new article details
+	 * @param articleDetails
+	 *            the new article details
 	 */
 	public final void setArticleDetails(ArticleDetails articleDetails) {
 		this.articleDetails = articleDetails;
@@ -142,7 +119,8 @@ public class OpenAccessPaymentData {
 	/**
 	 * Sets the journal details.
 	 *
-	 * @param journalDetails the new journal details
+	 * @param journalDetails
+	 *            the new journal details
 	 */
 	public final void setJournalDetails(JournalDetails journalDetails) {
 		this.journalDetails = journalDetails;
@@ -160,46 +138,11 @@ public class OpenAccessPaymentData {
 	/**
 	 * Sets the amount payable.
 	 *
-	 * @param amountPayable the new amount payable
+	 * @param amountPayable
+	 *            the new amount payable
 	 */
 	public final void setAmountPayable(final Amount amountPayable) {
 		this.amountPayable = amountPayable;
-	}
-
-	/**
-	 * Gets the tax amount.
-	 *
-	 * @return the tax amount
-	 */
-	public final Amount getTaxAmount() {
-		return taxAmount;
-	}
-
-	/**
-	 * Sets the tax amount.
-	 *
-	 * @param taxAmount the new tax amount
-	 */
-	public final void setTaxAmount(Amount taxAmount) {
-		this.taxAmount = taxAmount;
-	}
-
-	/**
-	 * Gets the tax percentage.
-	 *
-	 * @return the tax percentage
-	 */
-	public final String getTaxPercentage() {
-		return taxPercentage;
-	}
-
-	/**
-	 * Sets the tax percentage.
-	 *
-	 * @param taxPercentage the new tax percentage
-	 */
-	public final void setTaxPercentage(String taxPercentage) {
-		this.taxPercentage = taxPercentage;
 	}
 
 	/**
@@ -214,7 +157,8 @@ public class OpenAccessPaymentData {
 	/**
 	 * Sets the discount detail.
 	 *
-	 * @param discountDetail the new discount detail
+	 * @param discountDetail
+	 *            the new discount detail
 	 */
 	public final void setDiscountDetail(DiscountDetail discountDetail) {
 		this.discountDetail = discountDetail;

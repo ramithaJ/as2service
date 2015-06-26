@@ -7,13 +7,7 @@ public class QuoteData {
 
 	/** The article pub charge. */
 	private String articlePubCharge;
-	
-	/** The payment status. */
-	private String paymentStatus;
-	
-	/** The quote status. */
-	private String quoteStatus;
-	
+
 	/** The currency. */
 	private String currency;
 
@@ -29,46 +23,11 @@ public class QuoteData {
 	/**
 	 * Sets the article pub charge.
 	 *
-	 * @param articlePubCharge the new article pub charge
+	 * @param articlePubCharge
+	 *            the new article pub charge
 	 */
 	public final void setArticlePubCharge(String articlePubCharge) {
 		this.articlePubCharge = articlePubCharge;
-	}
-
-	/**
-	 * Gets the payment status.
-	 *
-	 * @return the payment status
-	 */
-	public final String getPaymentStatus() {
-		return paymentStatus;
-	}
-
-	/**
-	 * Sets the payment status.
-	 *
-	 * @param paymentStatus the new payment status
-	 */
-	public final void setPaymentStatus(String paymentStatus) {
-		this.paymentStatus = paymentStatus;
-	}
-
-	/**
-	 * Gets the quote status.
-	 *
-	 * @return the quote status
-	 */
-	public final String getQuoteStatus() {
-		return quoteStatus;
-	}
-
-	/**
-	 * Sets the quote status.
-	 *
-	 * @param quoteStatus the new quote status
-	 */
-	public final void setQuoteStatus(String quoteStatus) {
-		this.quoteStatus = quoteStatus;
 	}
 
 	/**
@@ -83,7 +42,8 @@ public class QuoteData {
 	/**
 	 * Sets the currency.
 	 *
-	 * @param currency the new currency
+	 * @param currency
+	 *            the new currency
 	 */
 	public final void setCurrency(String currency) {
 		this.currency = currency;
