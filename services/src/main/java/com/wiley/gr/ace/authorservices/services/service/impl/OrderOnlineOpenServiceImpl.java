@@ -346,15 +346,19 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     public List<OrderDetails> getAllOrders(final String orderId) {
         OrderDetails orderDetails = new OrderDetails();
         List<OrderDetails> orderDetailsList = new ArrayList<OrderDetails>();
-        OrderData orderData = new OrderData();
+        // OrderData orderData = new OrderData();
         OrderDataList orderDataList = orderservice.getAllOrders(orderId);
-        orderData = orderDataList.getOrderDatas().get(0);
-        orderDetails.setArticleId(orderData.getArticle().getDHID());
-        orderDetails.setArticleTitle(orderData.getArticle().getArticleTitle());
-        orderDetails.setOrderDate(orderData.getOrderDate());
-        orderDetails.setPrice(orderData.getPricing().getAmountToBePaid()
-                .toString());
-        orderDetails.setStatus(orderData.getOrderStatusCode());
+        // orderData = orderDataList.getOrderDatas().get(0);
+        for (OrderData orderData : orderDataList.getOrderDatas()) {
+            orderDetails.setArticleId(orderData.getArticle().getDHID());
+            orderDetails.setArticleTitle(orderData.getArticle()
+                    .getArticleTitle());
+            orderDetails.setOrderDate(orderData.getOrderDate());
+            orderDetails.setPrice(orderData.getPricing().getAmountToBePaid()
+                    .toString());
+            orderDetails.setStatus(orderData.getOrderStatusCode());
+        }
+
         orderDetailsList.add(orderDetails);
         return orderDetailsList;
 
