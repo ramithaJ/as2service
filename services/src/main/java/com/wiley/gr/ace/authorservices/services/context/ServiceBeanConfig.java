@@ -24,6 +24,7 @@ import com.wiley.gr.ace.authorservices.services.service.OpenAccessService;
 import com.wiley.gr.ace.authorservices.services.service.OrcidService;
 import com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService;
 import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
+import com.wiley.gr.ace.authorservices.services.service.SaveArticleData;
 import com.wiley.gr.ace.authorservices.services.service.UpdateUserService;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
@@ -37,6 +38,7 @@ import com.wiley.gr.ace.authorservices.services.service.impl.OpenAccessServiceIm
 import com.wiley.gr.ace.authorservices.services.service.impl.OrcidServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.OrderOnlineOpenServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.RegistrationServiceImpl;
+import com.wiley.gr.ace.authorservices.services.service.impl.SaveArticleDataImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UpdateUserServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UserAccountServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UserLoginServiceImpl;
@@ -159,17 +161,28 @@ public class ServiceBeanConfig {
 		return new OrderOnlineOpenServiceImpl();
 	}
 
-	@Bean(name="OpenAccessService")
+	@Bean(name = "OpenAccessService")
 	public OpenAccessService openAccessService() {
 		return new OpenAccessServiceImpl();
 	}
-	
+
 	/**
 	 * Online Open Author Validator Service
+	 * 
 	 * @return OnlineOpenAuthorValidatorService
 	 */
 	@Bean(name = "OnlineOpenAuthorValidatorService")
 	public OnlineOpenAuthorValidatorService onlineOpenAuthorValidatorService() {
 		return new OnlineOpenAuthorValidatorServiceImpl();
+	}
+
+	/**
+	 * SaveArticleData
+	 * 
+	 * @return
+	 */
+	@Bean(name = "SaveArticleData")
+	public SaveArticleData saveArticleData() {
+		return new SaveArticleDataImpl();
 	}
 }
