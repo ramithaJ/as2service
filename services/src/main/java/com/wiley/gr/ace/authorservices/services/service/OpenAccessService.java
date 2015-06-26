@@ -16,5 +16,5 @@ public interface OpenAccessService {
 	 * @return the open access details
 	 * @throws Exception the exception
 	 */
-	OpenAccessPaymentData getOpenAccessDetails(String articleId, String journalId) throws Exception;
+	OpenAccessPaymentData getOpenAccessDetails(String userId, String articleId, String journalId) throws Exception;
 }
