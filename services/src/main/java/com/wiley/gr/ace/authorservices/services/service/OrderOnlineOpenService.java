@@ -72,7 +72,7 @@ public interface OrderOnlineOpenService {
      * @param order
      * @return
      */
-    void saveLaterOrder(OnlineOpenOrder order, String userId);
+    Integer saveLaterOrder(OnlineOpenOrder order, String userId);
 
     /**
      * @param userId

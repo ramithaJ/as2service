@@ -18,6 +18,10 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 /**
  * The Class TaxDetails.
  */
+/**
+ * @author kpshiva
+ *
+ */
 @JsonInclude(Include.NON_NULL)
 public class TaxDetails {
 
@@ -34,67 +38,81 @@ public class TaxDetails {
     private String vatExemptionNumber;
 
     /** The tax country code. */
-    private String countryCode;
+    private String taxCountryCode;
 
     /**
-     * Gets the tax exemption number.
-     *
-     * @return the tax exemption number
+     * @return the taxExemptionNumber
      */
     public final String getTaxExemptionNumber() {
         return taxExemptionNumber;
     }
 
     /**
-     * Sets the tax exemption number.
-     *
      * @param taxExemptionNumber
-     *            the new tax exemption number
+     *            the taxExemptionNumber to set
      */
     public final void setTaxExemptionNumber(final String taxExemptionNumber) {
         this.taxExemptionNumber = taxExemptionNumber;
     }
 
     /**
-     * Gets the tax code expiry date.
-     *
-     * @return the tax code expiry date
+     * @return the taxCodeExpiryDate
      */
     public final String getTaxCodeExpiryDate() {
         return taxCodeExpiryDate;
     }
 
     /**
-     * Sets the tax code expiry date.
-     *
      * @param taxCodeExpiryDate
-     *            the new tax code expiry date
+     *            the taxCodeExpiryDate to set
      */
     public final void setTaxCodeExpiryDate(final String taxCodeExpiryDate) {
         this.taxCodeExpiryDate = taxCodeExpiryDate;
     }
 
+    /**
+     * @return the vatIdNumber
+     */
     public final String getVatIdNumber() {
         return vatIdNumber;
     }
 
+    /**
+     * @param vatIdNumber
+     *            the vatIdNumber to set
+     */
     public final void setVatIdNumber(final String vatIdNumber) {
         this.vatIdNumber = vatIdNumber;
     }
 
+    /**
+     * @return the vatExemptionNumber
+     */
     public final String getVatExemptionNumber() {
         return vatExemptionNumber;
     }
 
+    /**
+     * @param vatExemptionNumber
+     *            the vatExemptionNumber to set
+     */
     public final void setVatExemptionNumber(final String vatExemptionNumber) {
         this.vatExemptionNumber = vatExemptionNumber;
     }
 
-    public final String getCountryCode() {
-        return countryCode;
+    /**
+     * @return the taxCountryCode
+     */
+    public final String getTaxCountryCode() {
+        return taxCountryCode;
     }
 
-    public final void setCountryCode(final String countryCode) {
-        this.countryCode = countryCode;
+    /**
+     * @param taxCountryCode
+     *            the taxCountryCode to set
+     */
+    public final void setTaxCountryCode(final String taxCountryCode) {
+        this.taxCountryCode = taxCountryCode;
     }
+
 }
