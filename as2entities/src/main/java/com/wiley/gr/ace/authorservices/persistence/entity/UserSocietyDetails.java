@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Jun 23, 2015 2:35:20 PM by Hibernate Tools 4.0.0
+// Generated Jun 26, 2015 10:24:59 AM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -19,10 +19,11 @@ import javax.persistence.Table;
 public class UserSocietyDetails implements java.io.Serializable {
 
 	private Integer userSocietyId;
-	private Societies societies;
 	private Users usersByCreatedBy;
 	private Users usersByUpdatedBy;
-	private UserProfile userProfile;
+	private Integer userId;
+	private String societyCd;
+	private String societyName;
 	private String membershipNo;
 	private String promoCode;
 	private Date startDt;
@@ -33,20 +34,20 @@ public class UserSocietyDetails implements java.io.Serializable {
 	public UserSocietyDetails() {
 	}
 
-	public UserSocietyDetails(Integer userSocietyId, Societies societies) {
+	public UserSocietyDetails(Integer userSocietyId) {
 		this.userSocietyId = userSocietyId;
-		this.societies = societies;
 	}
 
-	public UserSocietyDetails(Integer userSocietyId, Societies societies,
-			Users usersByCreatedBy, Users usersByUpdatedBy,
-			UserProfile userProfile, String membershipNo, String promoCode,
+	public UserSocietyDetails(Integer userSocietyId, Users usersByCreatedBy,
+			Users usersByUpdatedBy, Integer userId, String societyCd,
+			String societyName, String membershipNo, String promoCode,
 			Date startDt, Date endDt, Date createdDate, Date updatedDate) {
 		this.userSocietyId = userSocietyId;
-		this.societies = societies;
 		this.usersByCreatedBy = usersByCreatedBy;
 		this.usersByUpdatedBy = usersByUpdatedBy;
-		this.userProfile = userProfile;
+		this.userId = userId;
+		this.societyCd = societyCd;
+		this.societyName = societyName;
 		this.membershipNo = membershipNo;
 		this.promoCode = promoCode;
 		this.startDt = startDt;
@@ -63,16 +64,6 @@ public class UserSocietyDetails implements java.io.Serializable {
 
 	public void setUserSocietyId(Integer userSocietyId) {
 		this.userSocietyId = userSocietyId;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "SOCIETY_ID", nullable = false)
-	public Societies getSocieties() {
-		return this.societies;
-	}
-
-	public void setSocieties(Societies societies) {
-		this.societies = societies;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -95,14 +86,31 @@ public class UserSocietyDetails implements java.io.Serializable {
 		this.usersByUpdatedBy = usersByUpdatedBy;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USER_ID")
-	public UserProfile getUserProfile() {
-		return this.userProfile;
+	@Column(name = "USER_ID", precision = 22, scale = 0)
+	public Integer getUserId() {
+		return this.userId;
 	}
 
-	public void setUserProfile(UserProfile userProfile) {
-		this.userProfile = userProfile;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+	@Column(name = "SOCIETY_CD", length = 15)
+	public String getSocietyCd() {
+		return this.societyCd;
+	}
+
+	public void setSocietyCd(String societyCd) {
+		this.societyCd = societyCd;
+	}
+
+	@Column(name = "SOCIETY_NAME", length = 500)
+	public String getSocietyName() {
+		return this.societyName;
+	}
+
+	public void setSocietyName(String societyName) {
+		this.societyName = societyName;
 	}
 
 	@Column(name = "MEMBERSHIP_NO", length = 50)

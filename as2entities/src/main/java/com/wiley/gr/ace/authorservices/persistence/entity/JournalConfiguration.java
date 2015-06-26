@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Jun 23, 2015 2:35:20 PM by Hibernate Tools 4.0.0
+// Generated Jun 26, 2015 10:24:59 AM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -35,13 +35,13 @@ public class JournalConfiguration implements java.io.Serializable {
 	private Date invitedInAsEndDate;
 	private Character dispForOoOrdering;
 	private Character prodTrkPath;
-	private Character coauCanHaveFreeAccArt;
-	private Character coauCanSeeArtProdStages;
-	private Character coauCanSubstReviewProofs;
+	private Character coauthCanHaveFreeAccArt;
+	private Character coauthCanSeeArtProdStages;
+	private Character coauthCanSubstReviewProofs;
 	private Character collgCanViewArtWol;
 	private Character artCanHavePrdNonprdPath;
 	private Character canCollConflIntrstForms;
-	private Character coauReceiveInvitation;
+	private Character coauthReceiveInvitation;
 	private Character dispOrEmailMrktngToUsr;
 	private Character dispOrEmailSurveyToUsr;
 	private Character corrauCanHaveFreeAccArt;
@@ -60,10 +60,12 @@ public class JournalConfiguration implements java.io.Serializable {
 			String nickname, String titleDispOoo, Character invitedInAs,
 			Date invitedInAsStartDate, Date invitedInAsEndDate,
 			Character dispForOoOrdering, Character prodTrkPath,
-			Character coauCanHaveFreeAccArt, Character coauCanSeeArtProdStages,
-			Character coauCanSubstReviewProofs, Character collgCanViewArtWol,
+			Character coauthCanHaveFreeAccArt,
+			Character coauthCanSeeArtProdStages,
+			Character coauthCanSubstReviewProofs, Character collgCanViewArtWol,
 			Character artCanHavePrdNonprdPath,
-			Character canCollConflIntrstForms, Character coauReceiveInvitation,
+			Character canCollConflIntrstForms,
+			Character coauthReceiveInvitation,
 			Character dispOrEmailMrktngToUsr, Character dispOrEmailSurveyToUsr,
 			Character corrauCanHaveFreeAccArt, Date createdDate,
 			Date updatedDate) {
@@ -78,13 +80,13 @@ public class JournalConfiguration implements java.io.Serializable {
 		this.invitedInAsEndDate = invitedInAsEndDate;
 		this.dispForOoOrdering = dispForOoOrdering;
 		this.prodTrkPath = prodTrkPath;
-		this.coauCanHaveFreeAccArt = coauCanHaveFreeAccArt;
-		this.coauCanSeeArtProdStages = coauCanSeeArtProdStages;
-		this.coauCanSubstReviewProofs = coauCanSubstReviewProofs;
+		this.coauthCanHaveFreeAccArt = coauthCanHaveFreeAccArt;
+		this.coauthCanSeeArtProdStages = coauthCanSeeArtProdStages;
+		this.coauthCanSubstReviewProofs = coauthCanSubstReviewProofs;
 		this.collgCanViewArtWol = collgCanViewArtWol;
 		this.artCanHavePrdNonprdPath = artCanHavePrdNonprdPath;
 		this.canCollConflIntrstForms = canCollConflIntrstForms;
-		this.coauReceiveInvitation = coauReceiveInvitation;
+		this.coauthReceiveInvitation = coauthReceiveInvitation;
 		this.dispOrEmailMrktngToUsr = dispOrEmailMrktngToUsr;
 		this.dispOrEmailSurveyToUsr = dispOrEmailSurveyToUsr;
 		this.corrauCanHaveFreeAccArt = corrauCanHaveFreeAccArt;
@@ -207,31 +209,32 @@ public class JournalConfiguration implements java.io.Serializable {
 		this.prodTrkPath = prodTrkPath;
 	}
 
-	@Column(name = "COAU_CAN_HAVE_FREE_ACC_ART", length = 1)
-	public Character getCoauCanHaveFreeAccArt() {
-		return this.coauCanHaveFreeAccArt;
+	@Column(name = "COAUTH_CAN_HAVE_FREE_ACC_ART", length = 1)
+	public Character getCoauthCanHaveFreeAccArt() {
+		return this.coauthCanHaveFreeAccArt;
 	}
 
-	public void setCoauCanHaveFreeAccArt(Character coauCanHaveFreeAccArt) {
-		this.coauCanHaveFreeAccArt = coauCanHaveFreeAccArt;
+	public void setCoauthCanHaveFreeAccArt(Character coauthCanHaveFreeAccArt) {
+		this.coauthCanHaveFreeAccArt = coauthCanHaveFreeAccArt;
 	}
 
-	@Column(name = "COAU_CAN_SEE_ART_PROD_STAGES", length = 1)
-	public Character getCoauCanSeeArtProdStages() {
-		return this.coauCanSeeArtProdStages;
+	@Column(name = "COAUTH_CAN_SEE_ART_PROD_STAGES", length = 1)
+	public Character getCoauthCanSeeArtProdStages() {
+		return this.coauthCanSeeArtProdStages;
 	}
 
-	public void setCoauCanSeeArtProdStages(Character coauCanSeeArtProdStages) {
-		this.coauCanSeeArtProdStages = coauCanSeeArtProdStages;
+	public void setCoauthCanSeeArtProdStages(Character coauthCanSeeArtProdStages) {
+		this.coauthCanSeeArtProdStages = coauthCanSeeArtProdStages;
 	}
 
-	@Column(name = "COAU_CAN_SUBST_REVIEW_PROOFS", length = 1)
-	public Character getCoauCanSubstReviewProofs() {
-		return this.coauCanSubstReviewProofs;
+	@Column(name = "COAUTH_CAN_SUBST_REVIEW_PROOFS", length = 1)
+	public Character getCoauthCanSubstReviewProofs() {
+		return this.coauthCanSubstReviewProofs;
 	}
 
-	public void setCoauCanSubstReviewProofs(Character coauCanSubstReviewProofs) {
-		this.coauCanSubstReviewProofs = coauCanSubstReviewProofs;
+	public void setCoauthCanSubstReviewProofs(
+			Character coauthCanSubstReviewProofs) {
+		this.coauthCanSubstReviewProofs = coauthCanSubstReviewProofs;
 	}
 
 	@Column(name = "COLLG_CAN_VIEW_ART_WOL", length = 1)
@@ -261,13 +264,13 @@ public class JournalConfiguration implements java.io.Serializable {
 		this.canCollConflIntrstForms = canCollConflIntrstForms;
 	}
 
-	@Column(name = "COAU_RECEIVE_INVITATION", length = 1)
-	public Character getCoauReceiveInvitation() {
-		return this.coauReceiveInvitation;
+	@Column(name = "COAUTH_RECEIVE_INVITATION", length = 1)
+	public Character getCoauthReceiveInvitation() {
+		return this.coauthReceiveInvitation;
 	}
 
-	public void setCoauReceiveInvitation(Character coauReceiveInvitation) {
-		this.coauReceiveInvitation = coauReceiveInvitation;
+	public void setCoauthReceiveInvitation(Character coauthReceiveInvitation) {
+		this.coauthReceiveInvitation = coauthReceiveInvitation;
 	}
 
 	@Column(name = "DISP_OR_EMAIL_MRKTNG_TO_USR", length = 1)

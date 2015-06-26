@@ -1,17 +1,14 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Jun 23, 2015 2:35:20 PM by Hibernate Tools 4.0.0
+// Generated Jun 26, 2015 10:24:59 AM by Hibernate Tools 4.0.0
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -28,8 +25,6 @@ public class Societies implements java.io.Serializable {
 	private String societyName;
 	private Date createdDate;
 	private Date updatedDate;
-	private Set<UserSocietyDetails> userSocietyDetailses = new HashSet<UserSocietyDetails>(
-			0);
 
 	public Societies() {
 	}
@@ -40,8 +35,7 @@ public class Societies implements java.io.Serializable {
 
 	public Societies(Integer societyId, Users usersByCreatedBy,
 			Users usersByUpdatedBy, String societyCd, String societyName,
-			Date createdDate, Date updatedDate,
-			Set<UserSocietyDetails> userSocietyDetailses) {
+			Date createdDate, Date updatedDate) {
 		this.societyId = societyId;
 		this.usersByCreatedBy = usersByCreatedBy;
 		this.usersByUpdatedBy = usersByUpdatedBy;
@@ -49,7 +43,6 @@ public class Societies implements java.io.Serializable {
 		this.societyName = societyName;
 		this.createdDate = createdDate;
 		this.updatedDate = updatedDate;
-		this.userSocietyDetailses = userSocietyDetailses;
 	}
 
 	@Id
@@ -116,16 +109,6 @@ public class Societies implements java.io.Serializable {
 
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "societies")
-	public Set<UserSocietyDetails> getUserSocietyDetailses() {
-		return this.userSocietyDetailses;
-	}
-
-	public void setUserSocietyDetailses(
-			Set<UserSocietyDetails> userSocietyDetailses) {
-		this.userSocietyDetailses = userSocietyDetailses;
 	}
 
 }

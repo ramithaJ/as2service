@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Jun 23, 2015 2:35:20 PM by Hibernate Tools 4.0.0
+// Generated Jun 26, 2015 10:24:59 AM by Hibernate Tools 4.0.0
 
 import java.sql.Blob;
 import java.util.Date;
@@ -51,8 +51,6 @@ public class UserProfile implements java.io.Serializable {
 			0);
 	private Set<UserAffiliations> userAffiliationses = new HashSet<UserAffiliations>(
 			0);
-	private Set<UserSocietyDetails> userSocietyDetailses = new HashSet<UserSocietyDetails>(
-			0);
 	private Set<AuthColleagueDetails> authColleagueDetailsesForInvitedAuthorId = new HashSet<AuthColleagueDetails>(
 			0);
 	private Set<InvitationLog> invitationLogs = new HashSet<InvitationLog>(0);
@@ -61,7 +59,6 @@ public class UserProfile implements java.io.Serializable {
 	private Set<UserFunders> userFunderses = new HashSet<UserFunders>(0);
 	private Set<UserProfileAttribVisible> userProfileAttribVisibles = new HashSet<UserProfileAttribVisible>(
 			0);
-	private Set<SavedOrders> savedOrderses = new HashSet<SavedOrders>(0);
 	private Set<AuthCoauthDetails> authCoauthDetailsesForAuthorUserId = new HashSet<AuthCoauthDetails>(
 			0);
 	private Set<UserAlerts> userAlertses = new HashSet<UserAlerts>(0);
@@ -91,13 +88,11 @@ public class UserProfile implements java.io.Serializable {
 			Character profileVisibleFlg, Date createdDate, Date updatedDate,
 			Set<UserAreaOfInterest> userAreaOfInterests,
 			Set<UserAffiliations> userAffiliationses,
-			Set<UserSocietyDetails> userSocietyDetailses,
 			Set<AuthColleagueDetails> authColleagueDetailsesForInvitedAuthorId,
 			Set<InvitationLog> invitationLogs,
 			Set<AuthCoauthDetails> authCoauthDetailsesForCoauthUserId,
 			Set<UserFunders> userFunderses,
 			Set<UserProfileAttribVisible> userProfileAttribVisibles,
-			Set<SavedOrders> savedOrderses,
 			Set<AuthCoauthDetails> authCoauthDetailsesForAuthorUserId,
 			Set<UserAlerts> userAlertses,
 			Set<UserPreferredJournals> userPreferredJournalses,
@@ -125,13 +120,11 @@ public class UserProfile implements java.io.Serializable {
 		this.updatedDate = updatedDate;
 		this.userAreaOfInterests = userAreaOfInterests;
 		this.userAffiliationses = userAffiliationses;
-		this.userSocietyDetailses = userSocietyDetailses;
 		this.authColleagueDetailsesForInvitedAuthorId = authColleagueDetailsesForInvitedAuthorId;
 		this.invitationLogs = invitationLogs;
 		this.authCoauthDetailsesForCoauthUserId = authCoauthDetailsesForCoauthUserId;
 		this.userFunderses = userFunderses;
 		this.userProfileAttribVisibles = userProfileAttribVisibles;
-		this.savedOrderses = savedOrderses;
 		this.authCoauthDetailsesForAuthorUserId = authCoauthDetailsesForAuthorUserId;
 		this.userAlertses = userAlertses;
 		this.userPreferredJournalses = userPreferredJournalses;
@@ -348,16 +341,6 @@ public class UserProfile implements java.io.Serializable {
 		this.userAffiliationses = userAffiliationses;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userProfile")
-	public Set<UserSocietyDetails> getUserSocietyDetailses() {
-		return this.userSocietyDetailses;
-	}
-
-	public void setUserSocietyDetailses(
-			Set<UserSocietyDetails> userSocietyDetailses) {
-		this.userSocietyDetailses = userSocietyDetailses;
-	}
-
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userProfileByInvitedAuthorId")
 	public Set<AuthColleagueDetails> getAuthColleagueDetailsesForInvitedAuthorId() {
 		return this.authColleagueDetailsesForInvitedAuthorId;
@@ -404,15 +387,6 @@ public class UserProfile implements java.io.Serializable {
 	public void setUserProfileAttribVisibles(
 			Set<UserProfileAttribVisible> userProfileAttribVisibles) {
 		this.userProfileAttribVisibles = userProfileAttribVisibles;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userProfile")
-	public Set<SavedOrders> getSavedOrderses() {
-		return this.savedOrderses;
-	}
-
-	public void setSavedOrderses(Set<SavedOrders> savedOrderses) {
-		this.savedOrderses = savedOrderses;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userProfileByAuthorUserId")

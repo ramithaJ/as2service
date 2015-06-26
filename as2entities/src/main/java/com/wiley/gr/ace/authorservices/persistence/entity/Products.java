@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Jun 23, 2015 2:35:20 PM by Hibernate Tools 4.0.0
+// Generated Jun 26, 2015 10:24:59 AM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import java.util.HashSet;
@@ -23,22 +23,29 @@ import javax.persistence.Table;
 public class Products implements java.io.Serializable {
 
 	private Integer dhId;
-	private ProductTypes productTypes;
 	private Users usersByCreatedBy;
 	private Users usersByUpdatedBy;
+	private String dhTypeCd;
 	private Date createdDate;
 	private Date updatedDate;
 	private JournalConfiguration journalConfiguration;
 	private Set<ProductRelations> productRelationsesForParentDhId = new HashSet<ProductRelations>(
 			0);
+	private Set<JournalAlertsConfiguration> journalAlertsConfigurations = new HashSet<JournalAlertsConfiguration>(
+			0);
 	private Set<ProductPersonRelations> productPersonRelationses = new HashSet<ProductPersonRelations>(
 			0);
+	private Set<CoauthorRequestsOoorders> coauthorRequestsOoorderses = new HashSet<CoauthorRequestsOoorders>(
+			0);
+	private Set<SavedOrders> savedOrderses = new HashSet<SavedOrders>(0);
+	private Set<Orders> orderses = new HashSet<Orders>(0);
 	private Set<UserPreferredJournals> userPreferredJournalses = new HashSet<UserPreferredJournals>(
 			0);
 	private Set<ProductPublicationStatuses> productPublicationStatuseses = new HashSet<ProductPublicationStatuses>(
 			0);
 	private Set<ProductRelations> productRelationsesForChildDhId = new HashSet<ProductRelations>(
 			0);
+	private ArticleConfiguration articleConfiguration;
 
 	public Products() {
 	}
@@ -47,26 +54,35 @@ public class Products implements java.io.Serializable {
 		this.dhId = dhId;
 	}
 
-	public Products(Integer dhId, ProductTypes productTypes,
-			Users usersByCreatedBy, Users usersByUpdatedBy, Date createdDate,
+	public Products(Integer dhId, Users usersByCreatedBy,
+			Users usersByUpdatedBy, String dhTypeCd, Date createdDate,
 			Date updatedDate, JournalConfiguration journalConfiguration,
 			Set<ProductRelations> productRelationsesForParentDhId,
+			Set<JournalAlertsConfiguration> journalAlertsConfigurations,
 			Set<ProductPersonRelations> productPersonRelationses,
+			Set<CoauthorRequestsOoorders> coauthorRequestsOoorderses,
+			Set<SavedOrders> savedOrderses, Set<Orders> orderses,
 			Set<UserPreferredJournals> userPreferredJournalses,
 			Set<ProductPublicationStatuses> productPublicationStatuseses,
-			Set<ProductRelations> productRelationsesForChildDhId) {
+			Set<ProductRelations> productRelationsesForChildDhId,
+			ArticleConfiguration articleConfiguration) {
 		this.dhId = dhId;
-		this.productTypes = productTypes;
 		this.usersByCreatedBy = usersByCreatedBy;
 		this.usersByUpdatedBy = usersByUpdatedBy;
+		this.dhTypeCd = dhTypeCd;
 		this.createdDate = createdDate;
 		this.updatedDate = updatedDate;
 		this.journalConfiguration = journalConfiguration;
 		this.productRelationsesForParentDhId = productRelationsesForParentDhId;
+		this.journalAlertsConfigurations = journalAlertsConfigurations;
 		this.productPersonRelationses = productPersonRelationses;
+		this.coauthorRequestsOoorderses = coauthorRequestsOoorderses;
+		this.savedOrderses = savedOrderses;
+		this.orderses = orderses;
 		this.userPreferredJournalses = userPreferredJournalses;
 		this.productPublicationStatuseses = productPublicationStatuseses;
 		this.productRelationsesForChildDhId = productRelationsesForChildDhId;
+		this.articleConfiguration = articleConfiguration;
 	}
 
 	@Id
@@ -77,16 +93,6 @@ public class Products implements java.io.Serializable {
 
 	public void setDhId(Integer dhId) {
 		this.dhId = dhId;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "DH_TYPE_CD")
-	public ProductTypes getProductTypes() {
-		return this.productTypes;
-	}
-
-	public void setProductTypes(ProductTypes productTypes) {
-		this.productTypes = productTypes;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -107,6 +113,15 @@ public class Products implements java.io.Serializable {
 
 	public void setUsersByUpdatedBy(Users usersByUpdatedBy) {
 		this.usersByUpdatedBy = usersByUpdatedBy;
+	}
+
+	@Column(name = "DH_TYPE_CD", length = 15)
+	public String getDhTypeCd() {
+		return this.dhTypeCd;
+	}
+
+	public void setDhTypeCd(String dhTypeCd) {
+		this.dhTypeCd = dhTypeCd;
 	}
 
 	@Column(name = "CREATED_DATE")
@@ -148,6 +163,16 @@ public class Products implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "products")
+	public Set<JournalAlertsConfiguration> getJournalAlertsConfigurations() {
+		return this.journalAlertsConfigurations;
+	}
+
+	public void setJournalAlertsConfigurations(
+			Set<JournalAlertsConfiguration> journalAlertsConfigurations) {
+		this.journalAlertsConfigurations = journalAlertsConfigurations;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "products")
 	public Set<ProductPersonRelations> getProductPersonRelationses() {
 		return this.productPersonRelationses;
 	}
@@ -155,6 +180,34 @@ public class Products implements java.io.Serializable {
 	public void setProductPersonRelationses(
 			Set<ProductPersonRelations> productPersonRelationses) {
 		this.productPersonRelationses = productPersonRelationses;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "products")
+	public Set<CoauthorRequestsOoorders> getCoauthorRequestsOoorderses() {
+		return this.coauthorRequestsOoorderses;
+	}
+
+	public void setCoauthorRequestsOoorderses(
+			Set<CoauthorRequestsOoorders> coauthorRequestsOoorderses) {
+		this.coauthorRequestsOoorderses = coauthorRequestsOoorderses;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "products")
+	public Set<SavedOrders> getSavedOrderses() {
+		return this.savedOrderses;
+	}
+
+	public void setSavedOrderses(Set<SavedOrders> savedOrderses) {
+		this.savedOrderses = savedOrderses;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "products")
+	public Set<Orders> getOrderses() {
+		return this.orderses;
+	}
+
+	public void setOrderses(Set<Orders> orderses) {
+		this.orderses = orderses;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "products")
@@ -185,6 +238,16 @@ public class Products implements java.io.Serializable {
 	public void setProductRelationsesForChildDhId(
 			Set<ProductRelations> productRelationsesForChildDhId) {
 		this.productRelationsesForChildDhId = productRelationsesForChildDhId;
+	}
+
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "products")
+	public ArticleConfiguration getArticleConfiguration() {
+		return this.articleConfiguration;
+	}
+
+	public void setArticleConfiguration(
+			ArticleConfiguration articleConfiguration) {
+		this.articleConfiguration = articleConfiguration;
 	}
 
 }

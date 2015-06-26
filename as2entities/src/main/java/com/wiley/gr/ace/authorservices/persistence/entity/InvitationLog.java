@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Jun 23, 2015 2:35:20 PM by Hibernate Tools 4.0.0
+// Generated Jun 26, 2015 10:24:59 AM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -23,8 +23,8 @@ public class InvitationLog implements java.io.Serializable {
 	private Integer invitationId;
 	private UserProfile userProfile;
 	private Users users;
-	private Articles articles;
 	private String emailAddr;
+	private Integer articleId;
 	private Date sentDate;
 
 	public InvitationLog() {
@@ -35,12 +35,12 @@ public class InvitationLog implements java.io.Serializable {
 	}
 
 	public InvitationLog(Integer invitationId, UserProfile userProfile,
-			Users users, Articles articles, String emailAddr, Date sentDate) {
+			Users users, String emailAddr, Integer articleId, Date sentDate) {
 		this.invitationId = invitationId;
 		this.userProfile = userProfile;
 		this.users = users;
-		this.articles = articles;
 		this.emailAddr = emailAddr;
+		this.articleId = articleId;
 		this.sentDate = sentDate;
 	}
 
@@ -74,16 +74,6 @@ public class InvitationLog implements java.io.Serializable {
 		this.users = users;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ARTICLE_ID")
-	public Articles getArticles() {
-		return this.articles;
-	}
-
-	public void setArticles(Articles articles) {
-		this.articles = articles;
-	}
-
 	@Column(name = "EMAIL_ADDR", length = 250)
 	public String getEmailAddr() {
 		return this.emailAddr;
@@ -91,6 +81,15 @@ public class InvitationLog implements java.io.Serializable {
 
 	public void setEmailAddr(String emailAddr) {
 		this.emailAddr = emailAddr;
+	}
+
+	@Column(name = "ARTICLE_ID", precision = 22, scale = 0)
+	public Integer getArticleId() {
+		return this.articleId;
+	}
+
+	public void setArticleId(Integer articleId) {
+		this.articleId = articleId;
 	}
 
 	@Temporal(TemporalType.DATE)
