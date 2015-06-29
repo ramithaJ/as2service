@@ -119,7 +119,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         List<ArticleDetails> articleDetailsList = new ArrayList<ArticleDetails>();
         articleDetails.setArticleAID(orderData.getArticle().getAidECORE());
         articleDetails
-        .setArticleTitle(orderData.getArticle().getArticleTitle());
+                .setArticleTitle(orderData.getArticle().getArticleTitle());
         articleDetailsList.add(articleDetails);
         onlineOpenOrder.setArticleDetails(articleDetailsList);
         JournalDetails journalDetails = new JournalDetails();
@@ -131,7 +131,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         journalDetailsList.add(journalDetails);
         onlineOpenOrder.setJournalDetails(journalDetailsList);
         onlineOpenOrder
-        .setAuthorName(orderData.getWoaAccountHolder().getName());
+                .setAuthorName(orderData.getWoaAccountHolder().getName());
         QuoteDetail quoteDetail = new QuoteDetail();
         Prices prices = new Prices();
         List<Prices> pricesList = new ArrayList<Prices>();
@@ -146,7 +146,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
          * .getName());
          */
         funderDetails
-        .setWoaAccountId(orderData.getWoaAccountHolder().getCode());
+                .setWoaAccountId(orderData.getWoaAccountHolder().getCode());
         List<Grants> grantsList = new ArrayList<Grants>();
         Grants grants = new Grants();
         Recipients recipients = new Recipients();
@@ -170,7 +170,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                 .getPaymentMethod());
         TaxDetails taxDetails = new TaxDetails();
         taxDetails
-        .setTaxCountryCode(orderData.getTaxDetails().getCountryCode());
+                .setTaxCountryCode(orderData.getTaxDetails().getCountryCode());
         taxDetails.setTaxExemptionNumber(orderData.getTaxDetails()
                 .getVatExemptionNumber());
         taxDetails.setTaxCodeExpiryDate(orderData.getTaxDetails()
@@ -265,7 +265,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             // check user is corresponding author or not.
             if (productPersonRelations.getProductRoles() != null
                     && productPersonRelations.getProductRoles()
-                    .getProductRoleCd().equalsIgnoreCase("0001")) {
+                            .getProductRoleCd().equalsIgnoreCase("0001")) {
 
                 // check is there any saved orders for this article.
                 SavedOrders savedOrders = orderOnlineDAO.getSavedOrders(
@@ -318,7 +318,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                         .getFirstName()
                         + " "
                         + userProfileResponse.getCustomerProfile()
-                        .getCustomerDetails().getLastName());
+                                .getCustomerDetails().getLastName());
                 // GrantRecipients(coAuthors)
                 userProfileResponse.getCustomerProfile().getCoAuthors();
                 // Societies
@@ -441,7 +441,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                     userId);
             orderDataObject = savedOrder.getOrderObject();
             JSONObject object = (JSONObject) new JSONParser()
-            .parse(orderDataObject);
+                    .parse(orderDataObject);
             onlineOpenOrder = new ObjectMapper().readValue(
                     object.toJSONString(), OnlineOpenOrder.class);
 
@@ -767,105 +767,106 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     }
 
     /**
-	 * This method send the WOAFunder with the correct WOA Account to the OO
-	 * app.
-	 * 
-	 * @param woaFunder
-	 */
-	@Override
-	public void processWOAAccount(WOAFunder woaFunder) {
-		List<WOAAccount> woaAccountList = null;
+     * This method send the WOAFunder with the correct WOA Account to the OO
+     * app.
+     * 
+     * @param woaFunder
+     */
+    @Override
+    public void processWOAAccount(WOAFunder woaFunder) {
+        List<WOAAccount> woaAccountList = null;
 
-		if (woaFunder != null) {
+        if (woaFunder != null) {
 
-			woaAccountList = woaFunder.getWOAAccounts().getWOAAccount();
+            woaAccountList = woaFunder.getWOAAccounts().getWOAAccount();
 
-			if (woaAccountList != null) {
+            if (woaAccountList != null) {
 
-				/*
-				 * If Selected WOA Institution has multiple WOA Accounts, send
-				 * the Non Restricted WOA Accounts list to the admin to select
-				 * the correct WOA Account.
-				 */
-				List<WOAAccount> nonRestrictedWOAAccountList = null;
-				nonRestrictedWOAAccountList = retrieveNonRestrictedWOAAccountList(
-						nonRestrictedWOAAccountList, woaAccountList);
+                /*
+                 * If Selected WOA Institution has multiple WOA Accounts, send
+                 * the Non Restricted WOA Accounts list to the admin to select
+                 * the correct WOA Account.
+                 */
+                List<WOAAccount> nonRestrictedWOAAccountList = null;
+                nonRestrictedWOAAccountList = retrieveNonRestrictedWOAAccountList(
+                        nonRestrictedWOAAccountList, woaAccountList);
 
-				if (nonRestrictedWOAAccountList != null
-						&& nonRestrictedWOAAccountList.size() > 0) {
-					orderservice
-							.sendNonRestrictedWOAAccountListToAdmin(nonRestrictedWOAAccountList);
-				} else {
+                if (nonRestrictedWOAAccountList != null
+                        && nonRestrictedWOAAccountList.size() > 0) {
+                    orderservice
+                            .sendNonRestrictedWOAAccountListToAdmin(nonRestrictedWOAAccountList);
+                } /*
+                   * else {
+                   * 
+                   * // TODO: Need to consume BPM service }
+                   */
+            }
 
-					// TODO: Need to consume BPM service
-				}
-			}
+        }
+    }
 
-		}
-	}
+    /**
+     * This method returns the non restricted WOA Acounts
+     * 
+     * @param woaAccountList
+     * @param woaAccountList2
+     * @return
+     */
+    private List<WOAAccount> retrieveNonRestrictedWOAAccountList(
+            List<WOAAccount> nonRestrictedWOAAccountList,
+            List<WOAAccount> woaAccountList) {
 
-	/**
-	 * This method returns the non restricted WOA Acounts
-	 * 
-	 * @param woaAccountList
-	 * @param woaAccountList2
-	 * @return
-	 */
-	private List<WOAAccount> retrieveNonRestrictedWOAAccountList(
-			List<WOAAccount> nonRestrictedWOAAccountList,
-			List<WOAAccount> woaAccountList) {
+        if (woaAccountList != null) {
+            nonRestrictedWOAAccountList = new ArrayList<WOAAccount>();
 
-		if (woaAccountList != null) {
-			nonRestrictedWOAAccountList = new ArrayList<WOAAccount>();
+            for (Iterator<WOAAccount> iterator = woaAccountList.iterator(); iterator
+                    .hasNext();) {
+                WOAAccount woaAccount = (WOAAccount) iterator.next();
 
-			for (Iterator<WOAAccount> iterator = woaAccountList.iterator(); iterator
-					.hasNext();) {
-				WOAAccount woaAccount = (WOAAccount) iterator.next();
+                if (woaAccount.getResearchFunders().getResearchfunder()
+                        .isEmpty()) {
+                    nonRestrictedWOAAccountList.add(woaAccount);
+                }
 
-				if (woaAccount.getResearchFunders().getResearchfunder()
-						.isEmpty()) {
-					nonRestrictedWOAAccountList.add(woaAccount);
-				}
+            }
 
-			}
+        }
 
-		}
+        return nonRestrictedWOAAccountList;
+    }
 
-		return nonRestrictedWOAAccountList;
-	}
+    /**
+     * Method to retrieve all the corresponding Accounts of the account Holder
+     * 
+     * @param name
+     * @return woaAccountList
+     * 
+     */
+    @Override
+    public List<WOAAccount> processAllRestrictedFunderWOAAccounts(String name) {
+        WOAFunder currentWoaFunder = null;
+        List<WOAAccount> woaAccountList = null;
 
-	/**
-	 * Method to retrieve all the corresponding Accounts of the account Holder
-	 * 
-	 * @param name
-	 * @return woaAccountList
-	 * 
-	 */
-	@Override
-	public List<WOAAccount> processAllRestrictedFunderWOAAccounts(String name) {
-		WOAFunder currentWoaFunder = null;
-		List<WOAAccount> woaAccountList = null;
+        WileyOpenAccessFunders wileyOpenAccessFunders = orderservice
+                .getWoaAcounts();
 
-		WileyOpenAccessFunders wileyOpenAccessFunders = orderservice
-				.getWoaAcounts();
+        List<WOAFunder> funder = wileyOpenAccessFunders.getWoaFunders()
+                .getWOAFunder();
 
-		List<WOAFunder> funder = wileyOpenAccessFunders.getWoaFunders()
-				.getWOAFunder();
+        for (Iterator<WOAFunder> iterator = funder.iterator(); iterator
+                .hasNext();) {
+            WOAFunder woaFunder = (WOAFunder) iterator.next();
 
-		for (Iterator<WOAFunder> iterator = funder.iterator(); iterator
-				.hasNext();) {
-			WOAFunder woaFunder = (WOAFunder) iterator.next();
+            if (name.equals(woaFunder.getName())) {
 
-			if (name.equals(woaFunder.getName())) {
+                currentWoaFunder = woaFunder;
+                break;
+            }
+        }
 
-				currentWoaFunder = woaFunder;
-				break;
-			}
-		}
+        woaAccountList = currentWoaFunder.getWOAAccounts().getWOAAccount();
 
-		woaAccountList = currentWoaFunder.getWOAAccounts().getWOAAccount();
-
-		return woaAccountList;
-	}
+        return woaAccountList;
+    }
 
 }
