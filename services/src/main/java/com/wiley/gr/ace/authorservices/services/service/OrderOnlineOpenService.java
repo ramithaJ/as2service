@@ -12,6 +12,7 @@ import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.WOAAccounts;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSociety;
 import com.wiley.gr.ace.authorservices.model.external.OrderResponse;
+import com.wiley.gr.ace.authorservices.model.external.WOAAccount;
 import com.wiley.gr.ace.authorservices.model.external.WOAFunder;
 
 /**
@@ -103,5 +104,16 @@ public interface OrderOnlineOpenService {
      * @return
      */
     List<FundingOrganizations> getFundersList();
+    
+	/**
+	 * @param userId
+	 * @param woaFunder
+	 */
+	void processWOAAccount(WOAFunder woaFunder);
+
+	/**
+	 * @param name
+	 */
+	List<WOAAccount> processAllRestrictedFunderWOAAccounts(String name);
 
 }
