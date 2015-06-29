@@ -219,7 +219,7 @@ public class UserProfilesImpl implements UserProfiles {
     }
 
     /**
-     * This method is used for getting userProfile response.
+     * This method is used for getting userProfile response and put the updated userProfile object into Redis cache.
      *
      * @param userId
      * @return UserProfileResponse
@@ -232,8 +232,19 @@ public class UserProfilesImpl implements UserProfiles {
                 updateProfileurl, HttpMethod.POST, Service.class);
         final String status = service.getStatus();
         if (status != null && STATUS.equalsIgnoreCase(status)) {
-            return userProfileResponse;
+            return getUserProfile();
         }
+
         return null;
+    }
+
+    /**
+     * This method is used for getting userProfile response.
+     * @return UserProfileResponse
+     */
+    private UserProfileResponse getUserProfile() {
+        return (UserProfileResponse) StubInvokerUtil
+                .invokeStub(userProfileurl, HttpMethod.GET,
+                        UserProfileResponse.class);
     }
 }
