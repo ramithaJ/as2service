@@ -32,7 +32,8 @@ public interface OrderOnlineOpenService {
      * @param articleId
      * @return
      */
-    QuoteDetails getQuote(String userId, String articleId, String pdmSalesFlag);
+    QuoteDetails initiateOnline(String userId, String articleId,
+            String pdmSalesFlag);
 
     /**
      * @param userId
@@ -103,16 +104,16 @@ public interface OrderOnlineOpenService {
      * @return
      */
     List<FundingOrganizations> getFundersList();
-    
-	/**
-	 * @param userId
-	 * @param woaFunder
-	 */
-	void processWOAAccount(WOAFunder woaFunder);
 
-	/**
-	 * @param name
-	 */
-	List<String> processAllRestrictedFunderWOAAccounts(String name);
+    /**
+     * @param userId
+     * @param woaFunder
+     */
+    void processWOAAccount(WOAFunder woaFunder);
+
+    /**
+     * @param name
+     */
+    List<String> processAllRestrictedFunderWOAAccounts(String name);
 
 }

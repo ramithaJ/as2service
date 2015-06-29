@@ -3,6 +3,7 @@ package com.wiley.gr.ace.authorservices.web.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,6 +41,12 @@ public class OrderOnlineOpenController extends ASExceptionController {
     private OnlineOpenAuthorValidatorService onlineOpenAuthorValidatorService;
 
     /**
+     * This field holds the value of onlineOpen
+     */
+    @Value("${OnlineOpen}")
+    private String onlineOpen;
+
+    /**
      * @param userId
      * @param articleId
      * @return service
@@ -48,8 +55,8 @@ public class OrderOnlineOpenController extends ASExceptionController {
     public final Service getQuote(@PathVariable("userId") final String userId,
             @PathVariable("articleId") final String articleId) {
         Service service = new Service();
-        service.setPayload(orderOnlineOpenService.getQuote(userId, articleId,
-                "OO"));
+        service.setPayload(orderOnlineOpenService.initiateOnline(userId,
+                articleId, onlineOpen));
         return service;
     }
 
@@ -226,36 +233,35 @@ public class OrderOnlineOpenController extends ASExceptionController {
 
         return new Service();
     }
-    
-    
+
     /**
      * @param userId
      * @param onlineOpenOrder
      * @return
-     * @throws Exception 
+     * @throws Exception
      */
     @RequestMapping(value = "/woaFunder/{name}", method = RequestMethod.POST)
     public final Service processAllRestrictedFunderWOAAccounts(
-            @RequestBody final String name){
-    	
-    	Service service = new Service();
-    	service.setPayload(orderOnlineOpenService.processAllRestrictedFunderWOAAccounts(name));
-    	
+            @RequestBody final String name) {
+
+        Service service = new Service();
+        service.setPayload(orderOnlineOpenService
+                .processAllRestrictedFunderWOAAccounts(name));
+
         return service;
     }
-    
+
     /**
      * @param userId
      * @param onlineOpenOrder
      * @return
-     * @throws Exception 
+     * @throws Exception
      */
     @RequestMapping(value = "/woaFunder/", method = RequestMethod.POST)
     public final Service validateAndProcessWOAAccount(
-            @RequestBody final WOAFunder woaFunder){
-    	
-    	orderOnlineOpenService.processWOAAccount(woaFunder);
+            @RequestBody final WOAFunder woaFunder) {
 
+        orderOnlineOpenService.processWOAAccount(woaFunder);
 
         return new Service();
     }

@@ -21,6 +21,7 @@ import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.wiley.gr.ace.authorservices.persistence.entity.Orders;
 import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
@@ -33,6 +34,12 @@ import com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO;
  *
  */
 public class OrderOnlineDAOImpl implements OrderOnlineDAO {
+
+    /**
+     * This field holds the value of coAuthorId
+     */
+    @Value("${coAuthorId}")
+    private String coAuthorId;
 
     /**
      * Method to get ArticleAssigmentDetails table object.
@@ -240,7 +247,8 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
                     "productRoles");
             criteria.add(Restrictions.eq("products.dhId",
                     Integer.parseInt(articleId)));
-            criteria.add(Restrictions.eq("productRoles.productRoleCd", "0002"));
+            criteria.add(Restrictions.eq("productRoles.productRoleCd",
+                    coAuthorId));
             criteria.setFetchMode("userProfile", FetchMode.JOIN);
             criteria.setFetchMode("userProfile.usersByUserId", FetchMode.JOIN);
             return criteria.list();

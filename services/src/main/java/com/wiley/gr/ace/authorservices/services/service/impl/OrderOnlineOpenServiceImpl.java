@@ -20,6 +20,7 @@ import java.util.List;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -99,6 +100,45 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     /** The user profiles. */
     @Autowired
     private UserProfiles userProfiles;
+
+    @Value("${CorrespondingAuthorId}")
+    private String correspondingAuthorId;
+
+    @Value("${articleDetails.code}")
+    private String articleDetailsCode;
+
+    @Value("${articleDetails.message}")
+    private String articleDetailsMessage;
+
+    @Value("${articleAcceptance.code}")
+    private String articleAcceptanceCode;
+
+    @Value("${articleAcceptance.message}")
+    private String articleAcceptanceMessage;
+
+    @Value("${savedOrder.code}")
+    private String savedOrderCode;
+
+    @Value("${savedOrder.message}")
+    private String savedOrderMessage;
+
+    @Value("${orderExistence.code}")
+    private String orderExistenceCode;
+
+    @Value("${orderExistence.message}")
+    private String orderExistenceMessage;
+
+    @Value("${OnlineOpen.code}")
+    private String onlineOpenCode;
+
+    @Value("${OnlineOpen.message}")
+    private String onlineOpenMessage;
+
+    @Value("${OnlineOpenJournal.code}")
+    private String onlineOpenJournalCode;
+
+    @Value("${OnlineOpenJournal.message}")
+    private String OnlineOpenJournalMessage;
 
     /**
      * This method will take userId and orderId as input and calls external
@@ -239,13 +279,13 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * Method to get quote.
      */
     @Override
-    public QuoteDetails getQuote(final String userId, final String articleId,
-            final String pdmSalesFlag) {
+    public QuoteDetails initiateOnline(final String userId,
+            final String articleId, final String pdmSalesFlag) {
 
         ProductRelations productRelations = orderOnlineDAO
                 .getProductRelations(articleId);
         if (null == productRelations) {
-            throw new ASException("", "");
+            throw new ASException(articleDetailsCode, articleDetailsMessage);
         }
         // Calling PdhLookUpJornal service with jornalDhId
         PdhJournalResponse pdhLookup = orderservice
@@ -260,25 +300,26 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             ProductPersonRelations productPersonRelations = orderOnlineDAO
                     .getProductPersonRelations(userId, articleId);
             if (productPersonRelations == null) {
-                throw new ASException("802", "Article is not yet Accepted");
+                throw new ASException(articleAcceptanceCode,
+                        articleAcceptanceMessage);
             }
             // check user is corresponding author or not.
             if (productPersonRelations.getProductRoles() != null
                     && productPersonRelations.getProductRoles()
-                            .getProductRoleCd().equalsIgnoreCase("0001")) {
+                            .getProductRoleCd()
+                            .equalsIgnoreCase(correspondingAuthorId)) {
 
                 // check is there any saved orders for this article.
                 SavedOrders savedOrders = orderOnlineDAO.getSavedOrders(
                         articleId, userId);
                 if (null != savedOrders) {
-                    throw new ASException("803",
-                            "Order already exists for this Article");
+                    throw new ASException(savedOrderCode, savedOrderMessage);
                 }
                 // check is there any placed orders for this article.
                 Orders orders = orderOnlineDAO.getOrder(articleId, userId);
                 if (orders != null) {
-                    throw new ASException("804",
-                            "Order already submitted for this Article");
+                    throw new ASException(orderExistenceCode,
+                            orderExistenceMessage);
                 }
                 quoteDetails = new QuoteDetails();
                 // calling PdhLookupArticle service with article DhId for
@@ -334,12 +375,11 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                 quoteDetails.setAddressDetails(addressDetails);
 
             } else {
-                throw new ASException("805",
-                        "You don't have permissions to make article as online open");
+                throw new ASException(onlineOpenCode, onlineOpenMessage);
             }
         } else {
-            throw new ASException("806",
-                    "It's not an Online open journal article");
+            throw new ASException(onlineOpenJournalCode,
+                    OnlineOpenJournalMessage);
         }
         return quoteDetails;
     }
@@ -767,113 +807,115 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     }
 
     /**
-	 * This method send the WOAFunder with the correct WOA Account to the OO
-	 * app.
-	 * 
-	 * @param woaFunder
-	 */
-	@Override
-	public void processWOAAccount(WOAFunder woaFunder) {
-		List<WOAAccount> woaAccountList = null;
+     * This method send the WOAFunder with the correct WOA Account to the OO
+     * app.
+     * 
+     * @param woaFunder
+     */
+    @Override
+    public void processWOAAccount(final WOAFunder woaFunder) {
+        List<WOAAccount> woaAccountList = null;
 
-		if (woaFunder != null) {
+        if (woaFunder != null) {
 
-			woaAccountList = woaFunder.getWOAAccounts().getWOAAccount();
+            woaAccountList = woaFunder.getWOAAccounts().getWOAAccount();
 
-			if (woaAccountList != null) {
+            if (woaAccountList != null) {
 
-				/*
-				 * If Selected WOA Institution has multiple WOA Accounts, send
-				 * the Non Restricted WOA Accounts list to the admin to select
-				 * the correct WOA Account.
-				 */
-				List<WOAAccount> nonRestrictedWOAAccountList = null;
-				nonRestrictedWOAAccountList = retrieveNonRestrictedWOAAccountList(
-						nonRestrictedWOAAccountList, woaAccountList);
+                /*
+                 * If Selected WOA Institution has multiple WOA Accounts, send
+                 * the Non Restricted WOA Accounts list to the admin to select
+                 * the correct WOA Account.
+                 */
+                List<WOAAccount> nonRestrictedWOAAccountList = null;
+                nonRestrictedWOAAccountList = retrieveNonRestrictedWOAAccountList(
+                        nonRestrictedWOAAccountList, woaAccountList);
 
-				if (nonRestrictedWOAAccountList != null
-						&& nonRestrictedWOAAccountList.size() > 0) {
-					orderservice
-							.sendNonRestrictedWOAAccountListToAdmin(nonRestrictedWOAAccountList);
-				} /*else {
+                if (nonRestrictedWOAAccountList != null
+                        && nonRestrictedWOAAccountList.size() > 0) {
+                    orderservice
+                    .sendNonRestrictedWOAAccountListToAdmin(nonRestrictedWOAAccountList);
+                } /*
+                 * else {
+                 * 
+                 * // TODO: Need to consume BPM service }
+                 */
+            }
 
-					// TODO: Need to consume BPM service
-				}*/
-			}
+        }
+    }
 
-		}
-	}
+    /**
+     * This method returns the non restricted WOA Acounts
+     * 
+     * @param woaAccountList
+     * @param woaAccountList2
+     * @return
+     */
+    private List<WOAAccount> retrieveNonRestrictedWOAAccountList(
+            List<WOAAccount> nonRestrictedWOAAccountList,
+            final List<WOAAccount> woaAccountList) {
 
-	/**
-	 * This method returns the non restricted WOA Acounts
-	 * 
-	 * @param woaAccountList
-	 * @param woaAccountList2
-	 * @return
-	 */
-	private List<WOAAccount> retrieveNonRestrictedWOAAccountList(
-			List<WOAAccount> nonRestrictedWOAAccountList,
-			List<WOAAccount> woaAccountList) {
+        if (woaAccountList != null) {
+            nonRestrictedWOAAccountList = new ArrayList<WOAAccount>();
 
-		if (woaAccountList != null) {
-			nonRestrictedWOAAccountList = new ArrayList<WOAAccount>();
+            for (Iterator<WOAAccount> iterator = woaAccountList.iterator(); iterator
+                    .hasNext();) {
+                WOAAccount woaAccount = iterator.next();
 
-			for (Iterator<WOAAccount> iterator = woaAccountList.iterator(); iterator
-					.hasNext();) {
-				WOAAccount woaAccount = (WOAAccount) iterator.next();
+                if (woaAccount.getResearchFunders().getResearchfunder()
+                        .isEmpty()) {
+                    nonRestrictedWOAAccountList.add(woaAccount);
+                }
 
-				if (woaAccount.getResearchFunders().getResearchfunder()
-						.isEmpty()) {
-					nonRestrictedWOAAccountList.add(woaAccount);
-				}
+            }
 
-			}
+        }
 
-		}
+        return nonRestrictedWOAAccountList;
+    }
 
-		return nonRestrictedWOAAccountList;
-	}
+    /**
+     * Method to retrieve all the corresponding Accounts of the account Holder
+     * 
+     * @param name
+     * @return woaAccountNameList
+     * 
+     */
+    @Override
+    public List<String> processAllRestrictedFunderWOAAccounts(final String name) {
+        WOAFunder currentWoaFunder = null;
+        List<WOAAccount> woaAccountList = null;
+        List<String> woaAccountNameList = null;
+        WileyOpenAccessFunders wileyOpenAccessFunders = orderservice
+                .getWoaAcounts();
 
-	/**
-	 * Method to retrieve all the corresponding Accounts of the account Holder
-	 * 
-	 * @param name
-	 * @return woaAccountNameList
-	 * 
-	 */
-	@Override
-	public List<String> processAllRestrictedFunderWOAAccounts(String name) {
-		WOAFunder currentWoaFunder = null;
-		List<WOAAccount> woaAccountList = null;
-		List<String> woaAccountNameList = null;
-		WileyOpenAccessFunders wileyOpenAccessFunders = orderservice
-				.getWoaAcounts();
+        List<WOAFunder> funder = wileyOpenAccessFunders.getWoaFunders()
+                .getWOAFunder();
 
-		List<WOAFunder> funder = wileyOpenAccessFunders.getWoaFunders()
-				.getWOAFunder();
+        for (Iterator<WOAFunder> iterator = funder.iterator(); iterator
+                .hasNext();) {
+            WOAFunder woaFunder = iterator.next();
 
-		for (Iterator<WOAFunder> iterator = funder.iterator(); iterator
-				.hasNext();) {
-			WOAFunder woaFunder = (WOAFunder) iterator.next();
+            if (name.equals(woaFunder.getName())) {
 
-			if (name.equals(woaFunder.getName())) {
+                currentWoaFunder = woaFunder;
+                break;
+            }
+        }
 
-				currentWoaFunder = woaFunder;
-				break;
-			}
-		}
+        woaAccountList = currentWoaFunder.getWOAAccounts().getWOAAccount();
+        woaAccountNameList = new ArrayList<String>();
 
-		woaAccountList = currentWoaFunder.getWOAAccounts().getWOAAccount();
-		woaAccountNameList = new ArrayList<String>();
-		
-		for (Iterator<WOAAccount> iterator = woaAccountList.iterator(); iterator.hasNext();) {
-			WOAAccount woaAccount = (WOAAccount) iterator.next();
-			
-			woaAccountNameList.add(woaAccount.getName());
-			
-		}
+        for (Iterator<WOAAccount> iterator = woaAccountList.iterator(); iterator
+                .hasNext();) {
+            WOAAccount woaAccount = iterator.next();
 
-		return woaAccountNameList;
-	}
+            woaAccountNameList.add(woaAccount.getName());
+
+        }
+
+        return woaAccountNameList;
+    }
 
 }
