@@ -169,7 +169,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                 .getPaymentMethod());
         TaxDetails taxDetails = new TaxDetails();
         taxDetails
-        .setTaxCountryCode(orderData.getTaxDetails().getCountryCode());
+                .setTaxCountryCode(orderData.getTaxDetails().getCountryCode());
         taxDetails.setTaxExemptionNumber(orderData.getTaxDetails()
                 .getVatExemptionNumber());
         taxDetails.setTaxCodeExpiryDate(orderData.getTaxDetails()
@@ -226,10 +226,11 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         billingAddress.setPhoneNumber(orderData.getBillingAddress()
                 .getPhoneNumber());
         billingAddress.setEmailId(orderData.getBillingAddress().getEmail());
-
         addressDetails.setContactAddress(contactAddress);
         addressDetails.setBillingAddress(billingAddress);
         onlineOpenOrder.setAddressDetails(addressDetails);
+        Amount taxAmount = new Amount();
+        onlineOpenOrder.setTaxAmount(taxAmount);
         return onlineOpenOrder;
     }
 
@@ -263,7 +264,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             // check user is corresponding author or not.
             if (productPersonRelations.getProductRoles() != null
                     && productPersonRelations.getProductRoles()
-                    .getProductRoleCd().equalsIgnoreCase("0001")) {
+                            .getProductRoleCd().equalsIgnoreCase("0001")) {
 
                 // check is there any saved orders for this article.
                 SavedOrders savedOrders = orderOnlineDAO.getSavedOrders(
@@ -316,7 +317,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                         .getFirstName()
                         + " "
                         + userProfileResponse.getCustomerProfile()
-                        .getCustomerDetails().getLastName());
+                                .getCustomerDetails().getLastName());
                 // GrantRecipients(coAuthors)
                 userProfileResponse.getCustomerProfile().getCoAuthors();
                 // Societies

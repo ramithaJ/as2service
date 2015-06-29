@@ -64,6 +64,12 @@ public class OnlineOpenOrder {
     /** The billing same as correspondence address. */
     private boolean billingSameAsCorrespondenceAddress;
 
+    /** The is licence signed. */
+    private boolean isLicenceSigned;
+
+    /** The tax amount. */
+    private Amount taxAmount;
+
     /**
      * Gets the final amount.
      *
@@ -331,6 +337,44 @@ public class OnlineOpenOrder {
     public final void setBillingSameAsCorrespondenceAddress(
             final boolean billingSameAsCorrespondenceAddress) {
         this.billingSameAsCorrespondenceAddress = billingSameAsCorrespondenceAddress;
+    }
+
+    /**
+     * Checks if is licence signed.
+     *
+     * @return true, if is licence signed
+     */
+    public final boolean isLicenceSigned() {
+        return isLicenceSigned;
+    }
+
+    /**
+     * Gets the tax amount.
+     *
+     * @return the tax amount
+     */
+    public final Amount getTaxAmount() {
+        return taxAmount;
+    }
+
+    /**
+     * Sets the licence signed.
+     *
+     * @param isLicenceSigned
+     *            the new licence signed
+     */
+    public final void setLicenceSigned(final boolean isLicenceSigned) {
+        this.isLicenceSigned = isLicenceSigned;
+    }
+
+    /**
+     * Sets the tax amount.
+     *
+     * @param taxAmount
+     *            the new tax amount
+     */
+    public final void setTaxAmount(final Amount taxAmount) {
+        this.taxAmount = taxAmount;
     }
 
 }
