@@ -30,6 +30,14 @@ public interface OnlineOpenAuthorValidatorService {
 	 */
 	void validateFunderDetails(String userId, List<FunderDetails> funderDetailsList);
 	
+	/**
+	 * Method to validate for restricted Account
+	 * 
+	 * @param woaAccount
+	 */
+	
+	
+	
 	
 
 }
