@@ -767,106 +767,113 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     }
 
     /**
-     * This method send the WOAFunder with the correct WOA Account to the OO
-     * app.
-     * 
-     * @param woaFunder
-     */
-    @Override
-    public void processWOAAccount(WOAFunder woaFunder) {
-        List<WOAAccount> woaAccountList = null;
+	 * This method send the WOAFunder with the correct WOA Account to the OO
+	 * app.
+	 * 
+	 * @param woaFunder
+	 */
+	@Override
+	public void processWOAAccount(WOAFunder woaFunder) {
+		List<WOAAccount> woaAccountList = null;
 
-        if (woaFunder != null) {
+		if (woaFunder != null) {
 
-            woaAccountList = woaFunder.getWOAAccounts().getWOAAccount();
+			woaAccountList = woaFunder.getWOAAccounts().getWOAAccount();
 
-            if (woaAccountList != null) {
+			if (woaAccountList != null) {
 
-                /*
-                 * If Selected WOA Institution has multiple WOA Accounts, send
-                 * the Non Restricted WOA Accounts list to the admin to select
-                 * the correct WOA Account.
-                 */
-                List<WOAAccount> nonRestrictedWOAAccountList = null;
-                nonRestrictedWOAAccountList = retrieveNonRestrictedWOAAccountList(
-                        nonRestrictedWOAAccountList, woaAccountList);
+				/*
+				 * If Selected WOA Institution has multiple WOA Accounts, send
+				 * the Non Restricted WOA Accounts list to the admin to select
+				 * the correct WOA Account.
+				 */
+				List<WOAAccount> nonRestrictedWOAAccountList = null;
+				nonRestrictedWOAAccountList = retrieveNonRestrictedWOAAccountList(
+						nonRestrictedWOAAccountList, woaAccountList);
 
-                if (nonRestrictedWOAAccountList != null
-                        && nonRestrictedWOAAccountList.size() > 0) {
-                    orderservice
-                            .sendNonRestrictedWOAAccountListToAdmin(nonRestrictedWOAAccountList);
-                } /*
-                   * else {
-                   * 
-                   * // TODO: Need to consume BPM service }
-                   */
-            }
+				if (nonRestrictedWOAAccountList != null
+						&& nonRestrictedWOAAccountList.size() > 0) {
+					orderservice
+							.sendNonRestrictedWOAAccountListToAdmin(nonRestrictedWOAAccountList);
+				} /*else {
 
-        }
-    }
+					// TODO: Need to consume BPM service
+				}*/
+			}
 
-    /**
-     * This method returns the non restricted WOA Acounts
-     * 
-     * @param woaAccountList
-     * @param woaAccountList2
-     * @return
-     */
-    private List<WOAAccount> retrieveNonRestrictedWOAAccountList(
-            List<WOAAccount> nonRestrictedWOAAccountList,
-            List<WOAAccount> woaAccountList) {
+		}
+	}
 
-        if (woaAccountList != null) {
-            nonRestrictedWOAAccountList = new ArrayList<WOAAccount>();
+	/**
+	 * This method returns the non restricted WOA Acounts
+	 * 
+	 * @param woaAccountList
+	 * @param woaAccountList2
+	 * @return
+	 */
+	private List<WOAAccount> retrieveNonRestrictedWOAAccountList(
+			List<WOAAccount> nonRestrictedWOAAccountList,
+			List<WOAAccount> woaAccountList) {
 
-            for (Iterator<WOAAccount> iterator = woaAccountList.iterator(); iterator
-                    .hasNext();) {
-                WOAAccount woaAccount = (WOAAccount) iterator.next();
+		if (woaAccountList != null) {
+			nonRestrictedWOAAccountList = new ArrayList<WOAAccount>();
 
-                if (woaAccount.getResearchFunders().getResearchfunder()
-                        .isEmpty()) {
-                    nonRestrictedWOAAccountList.add(woaAccount);
-                }
+			for (Iterator<WOAAccount> iterator = woaAccountList.iterator(); iterator
+					.hasNext();) {
+				WOAAccount woaAccount = (WOAAccount) iterator.next();
 
-            }
+				if (woaAccount.getResearchFunders().getResearchfunder()
+						.isEmpty()) {
+					nonRestrictedWOAAccountList.add(woaAccount);
+				}
 
-        }
+			}
 
-        return nonRestrictedWOAAccountList;
-    }
+		}
 
-    /**
-     * Method to retrieve all the corresponding Accounts of the account Holder
-     * 
-     * @param name
-     * @return woaAccountList
-     * 
-     */
-    @Override
-    public List<WOAAccount> processAllRestrictedFunderWOAAccounts(String name) {
-        WOAFunder currentWoaFunder = null;
-        List<WOAAccount> woaAccountList = null;
+		return nonRestrictedWOAAccountList;
+	}
 
-        WileyOpenAccessFunders wileyOpenAccessFunders = orderservice
-                .getWoaAcounts();
+	/**
+	 * Method to retrieve all the corresponding Accounts of the account Holder
+	 * 
+	 * @param name
+	 * @return woaAccountNameList
+	 * 
+	 */
+	@Override
+	public List<String> processAllRestrictedFunderWOAAccounts(String name) {
+		WOAFunder currentWoaFunder = null;
+		List<WOAAccount> woaAccountList = null;
+		List<String> woaAccountNameList = null;
+		WileyOpenAccessFunders wileyOpenAccessFunders = orderservice
+				.getWoaAcounts();
 
-        List<WOAFunder> funder = wileyOpenAccessFunders.getWoaFunders()
-                .getWOAFunder();
+		List<WOAFunder> funder = wileyOpenAccessFunders.getWoaFunders()
+				.getWOAFunder();
 
-        for (Iterator<WOAFunder> iterator = funder.iterator(); iterator
-                .hasNext();) {
-            WOAFunder woaFunder = (WOAFunder) iterator.next();
+		for (Iterator<WOAFunder> iterator = funder.iterator(); iterator
+				.hasNext();) {
+			WOAFunder woaFunder = (WOAFunder) iterator.next();
 
-            if (name.equals(woaFunder.getName())) {
+			if (name.equals(woaFunder.getName())) {
 
-                currentWoaFunder = woaFunder;
-                break;
-            }
-        }
+				currentWoaFunder = woaFunder;
+				break;
+			}
+		}
 
-        woaAccountList = currentWoaFunder.getWOAAccounts().getWOAAccount();
+		woaAccountList = currentWoaFunder.getWOAAccounts().getWOAAccount();
+		woaAccountNameList = new ArrayList<String>();
+		
+		for (Iterator<WOAAccount> iterator = woaAccountList.iterator(); iterator.hasNext();) {
+			WOAAccount woaAccount = (WOAAccount) iterator.next();
+			
+			woaAccountNameList.add(woaAccount.getName());
+			
+		}
 
-        return woaAccountList;
-    }
+		return woaAccountNameList;
+	}
 
 }

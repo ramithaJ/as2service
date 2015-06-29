@@ -12,7 +12,6 @@ import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.WOAAccounts;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSociety;
 import com.wiley.gr.ace.authorservices.model.external.OrderResponse;
-import com.wiley.gr.ace.authorservices.model.external.WOAAccount;
 import com.wiley.gr.ace.authorservices.model.external.WOAFunder;
 
 /**
@@ -114,6 +113,6 @@ public interface OrderOnlineOpenService {
 	/**
 	 * @param name
 	 */
-	List<WOAAccount> processAllRestrictedFunderWOAAccounts(String name);
+	List<String> processAllRestrictedFunderWOAAccounts(String name);
 
 }
