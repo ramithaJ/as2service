@@ -30,6 +30,26 @@ public class WOAAccounts {
     private String name;
 
     /**
+     * This field holds the value of allRestricted
+     */
+    private boolean allRestricted;
+
+    /**
+     * @return the allRestricted
+     */
+    public final boolean isAllRestricted() {
+        return allRestricted;
+    }
+
+    /**
+     * @param allRestricted
+     *            the allRestricted to set
+     */
+    public final void setAllRestricted(final boolean allRestricted) {
+        this.allRestricted = allRestricted;
+    }
+
+    /**
      * @return the code
      */
     public final String getCode() {

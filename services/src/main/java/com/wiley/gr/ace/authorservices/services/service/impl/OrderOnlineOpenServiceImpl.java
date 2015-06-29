@@ -118,7 +118,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         List<ArticleDetails> articleDetailsList = new ArrayList<ArticleDetails>();
         articleDetails.setArticleAID(orderData.getArticle().getAidECORE());
         articleDetails
-                .setArticleTitle(orderData.getArticle().getArticleTitle());
+        .setArticleTitle(orderData.getArticle().getArticleTitle());
         articleDetailsList.add(articleDetails);
         onlineOpenOrder.setArticleDetails(articleDetailsList);
         JournalDetails journalDetails = new JournalDetails();
@@ -130,7 +130,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         journalDetailsList.add(journalDetails);
         onlineOpenOrder.setJournalDetails(journalDetailsList);
         onlineOpenOrder
-                .setAuthorName(orderData.getWoaAccountHolder().getName());
+        .setAuthorName(orderData.getWoaAccountHolder().getName());
         QuoteDetail quoteDetail = new QuoteDetail();
         Prices prices = new Prices();
         List<Prices> pricesList = new ArrayList<Prices>();
@@ -145,7 +145,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
          * .getName());
          */
         funderDetails
-                .setWoaAccountId(orderData.getWoaAccountHolder().getCode());
+        .setWoaAccountId(orderData.getWoaAccountHolder().getCode());
         List<Grants> grantsList = new ArrayList<Grants>();
         Grants grants = new Grants();
         Recipients recipients = new Recipients();
@@ -169,7 +169,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                 .getPaymentMethod());
         TaxDetails taxDetails = new TaxDetails();
         taxDetails
-                .setTaxCountryCode(orderData.getTaxDetails().getCountryCode());
+        .setTaxCountryCode(orderData.getTaxDetails().getCountryCode());
         taxDetails.setTaxExemptionNumber(orderData.getTaxDetails()
                 .getVatExemptionNumber());
         taxDetails.setTaxCodeExpiryDate(orderData.getTaxDetails()
@@ -264,7 +264,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             // check user is corresponding author or not.
             if (productPersonRelations.getProductRoles() != null
                     && productPersonRelations.getProductRoles()
-                            .getProductRoleCd().equalsIgnoreCase("0001")) {
+                    .getProductRoleCd().equalsIgnoreCase("0001")) {
 
                 // check is there any saved orders for this article.
                 SavedOrders savedOrders = orderOnlineDAO.getSavedOrders(
@@ -317,7 +317,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                         .getFirstName()
                         + " "
                         + userProfileResponse.getCustomerProfile()
-                                .getCustomerDetails().getLastName());
+                        .getCustomerDetails().getLastName());
                 // GrantRecipients(coAuthors)
                 userProfileResponse.getCustomerProfile().getCoAuthors();
                 // Societies
@@ -440,7 +440,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                     userId);
             orderDataObject = savedOrder.getOrderObject();
             JSONObject object = (JSONObject) new JSONParser()
-                    .parse(orderDataObject);
+            .parse(orderDataObject);
             onlineOpenOrder = new ObjectMapper().readValue(
                     object.toJSONString(), OnlineOpenOrder.class);
 
@@ -658,6 +658,11 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             woaAccounts = new WOAAccounts();
             woaAccounts.setCode(woaAccount.getId());
             woaAccounts.setName(woaAccount.getName());
+            if (null == woaAccount.getResearchFunders()) {
+                woaAccounts.setAllRestricted(false);
+            } else {
+                woaAccounts.setAllRestricted(true);
+            }
             woaAccountsList.add(woaAccounts);
         }
         return woaAccountsList;
