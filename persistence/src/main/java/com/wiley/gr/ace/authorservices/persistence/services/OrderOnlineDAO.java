@@ -15,6 +15,7 @@ package com.wiley.gr.ace.authorservices.persistence.services;
 
 import java.util.List;
 
+import com.wiley.gr.ace.authorservices.model.PaymentDetails;
 import com.wiley.gr.ace.authorservices.persistence.entity.Orders;
 import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
 import com.wiley.gr.ace.authorservices.persistence.entity.ProductRelations;
@@ -86,4 +87,9 @@ public interface OrderOnlineDAO {
      */
     ProductRelations getProductRelations(String articleDhId);
 
+    /**
+     * @param paymentDetails
+     * @return
+     */
+    boolean updatePaymentDetails(PaymentDetails paymentDetails);
 }

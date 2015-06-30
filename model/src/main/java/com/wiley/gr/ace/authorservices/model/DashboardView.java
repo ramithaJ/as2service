@@ -31,9 +31,6 @@ public class DashboardView {
     /** The article data. */
     private List<ArticleData> articleData;
 
-    /** The communication details. */
-    private List<CommunicationDetails> communicationDetails;
-
     /**
      * @return the articleData
      */
@@ -47,22 +44,6 @@ public class DashboardView {
      */
     public final void setArticleData(final List<ArticleData> articleData) {
         this.articleData = articleData;
-    }
-
-    /**
-     * @return the communicationDetails
-     */
-    public final List<CommunicationDetails> getCommunicationDetails() {
-        return communicationDetails;
-    }
-
-    /**
-     * @param communicationDetails
-     *            the communicationDetails to set
-     */
-    public final void setCommunicationDetails(
-            final List<CommunicationDetails> communicationDetails) {
-        this.communicationDetails = communicationDetails;
     }
 
 }

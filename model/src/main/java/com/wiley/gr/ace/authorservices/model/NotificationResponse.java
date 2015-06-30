@@ -18,25 +18,15 @@ package com.wiley.gr.ace.authorservices.model;
 public class NotificationResponse {
 
     /** The http status. */
-    private String httpStatus;
+    // @JsonProperty("status")
+    private String status;
 
-    /**
-     * Gets the http status.
-     *
-     * @return the http status
-     */
-    public final String getHttpStatus() {
-        return httpStatus;
+    public final String getStatus() {
+        return status;
     }
 
-    /**
-     * Sets the http status.
-     *
-     * @param httpStatus
-     *            the new http status
-     */
-    public final void setHttpStatus(String httpStatus) {
-        this.httpStatus = httpStatus;
+    public final void setStatus(String status) {
+        this.status = status;
     }
 
 }

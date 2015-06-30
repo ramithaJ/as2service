@@ -26,6 +26,7 @@ import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
 import com.wiley.gr.ace.authorservices.model.external.Quote;
 import com.wiley.gr.ace.authorservices.model.external.QuoteRequest;
 import com.wiley.gr.ace.authorservices.model.external.SocietyMemberDiscount;
+import com.wiley.gr.ace.authorservices.model.external.WOAAccount;
 import com.wiley.gr.ace.authorservices.model.external.WileyOpenAccessFunders;
 
 /**
@@ -69,7 +70,7 @@ public interface OrderService {
      * @param DHId
      * @return PdhArticleResponse
      */
-    DiscountedSocietyResponse getDiscountedSocietiesForJournal(String journalId);
+    DiscountedSocietyResponse getDiscountedSocietiesForJournal(String DHID);
 
     /**
      * @return PdhArticleResponse
@@ -97,11 +98,21 @@ public interface OrderService {
      */
     Object validateFunderDetails(String userId,
             List<FunderDetails> funderDetailsList);
-
+    
+    
     /**
      * @param orderId
      * @return
      */
     OrderDataList getAllOrders(String orderId);
+    
+	/**
+	 * This method send the non restricted WOA Account List to the admin
+	 * 
+	 * @param nonRestrictedWOAAccountList
+	 * @return 
+	 */
+	Object sendNonRestrictedWOAAccountListToAdmin(
+			List<WOAAccount> nonRestrictedWOAAccountList);
 
 }

@@ -31,6 +31,7 @@ import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
 import com.wiley.gr.ace.authorservices.model.external.Quote;
 import com.wiley.gr.ace.authorservices.model.external.QuoteRequest;
 import com.wiley.gr.ace.authorservices.model.external.SocietyMemberDiscount;
+import com.wiley.gr.ace.authorservices.model.external.WOAAccount;
 import com.wiley.gr.ace.authorservices.model.external.WileyOpenAccessFunders;
 
 /**
@@ -159,7 +160,7 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public DiscountedSocietyResponse getDiscountedSocietiesForJournal(
-            final String journalId) {
+            final String DHID) {
 
         return (DiscountedSocietyResponse) StubInvokerUtil.invokeJsonStub(
                 discountedSocietiesurl, HttpMethod.GET,
@@ -219,4 +220,12 @@ public class OrderServiceImpl implements OrderService {
         return (OrderDataList) StubInvokerUtil.invokeJsonStub(
                 orderserviceurlview, HttpMethod.POST, OrderDataList.class);
     }
+
+	
+	@Override
+	public Object sendNonRestrictedWOAAccountListToAdmin(
+			List<WOAAccount> nonRestrictedWOAAccountList) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -12,19 +12,24 @@
 
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
+import org.springframework.beans.factory.annotation.Value;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
-import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.Address;
@@ -98,6 +103,58 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     /** The user profiles. */
     @Autowired
     private UserProfiles userProfiles;
+
+    @Value("${CorrespondingAuthorId}")
+    private String correspondingAuthorId;
+
+    @Value("${articleDetails.code}")
+    private String articleDetailsCode;
+
+    @Value("${articleDetails.message}")
+    private String articleDetailsMessage;
+
+    @Value("${articleAcceptance.code}")
+    private String articleAcceptanceCode;
+
+    @Value("${articleAcceptance.message}")
+    private String articleAcceptanceMessage;
+
+    @Value("${savedOrder.code}")
+    private String savedOrderCode;
+
+    @Value("${savedOrder.message}")
+    private String savedOrderMessage;
+
+    @Value("${orderExistence.code}")
+    private String orderExistenceCode;
+
+    @Value("${orderExistence.message}")
+    private String orderExistenceMessage;
+
+    @Value("${OnlineOpen.code}")
+    private String onlineOpenCode;
+
+    @Value("${OnlineOpen.message}")
+    private String onlineOpenMessage;
+
+    @Value("${OnlineOpenJournal.code}")
+    private String onlineOpenJournalCode;
+
+    @Value("${OnlineOpenJournal.message}")
+    private String OnlineOpenJournalMessage;
+
+    @Value("${JsonProcessingException}")
+    private String jsonProcessingExceptionCode;
+    
+    @Value("${OnlineOpenProperties.applicationKey}")
+    private String applicationKey;
+    
+    @Value("${OnlineOpenProperties.correlationId}")
+    private String correlationId;
+    
+    @Value("${OnlineOpenProperties.userId}")
+    private String userId;
+    
 
     /**
      * This method will take userId and orderId as input and calls external
@@ -238,13 +295,13 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * Method to get quote.
      */
     @Override
-    public QuoteDetails getQuote(final String userId, final String articleId,
-            final String pdmSalesFlag) {
+    public QuoteDetails initiateOnline(final String userId,
+            final String articleId, final String pdmSalesFlag) {
 
         ProductRelations productRelations = orderOnlineDAO
                 .getProductRelations(articleId);
         if (null == productRelations) {
-            throw new ASException("", "");
+            throw new ASException(articleDetailsCode, articleDetailsMessage);
         }
         // Calling PdhLookUpJornal service with jornalDhId
         PdhJournalResponse pdhLookup = orderservice
@@ -259,25 +316,26 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             ProductPersonRelations productPersonRelations = orderOnlineDAO
                     .getProductPersonRelations(userId, articleId);
             if (productPersonRelations == null) {
-                throw new ASException("802", "Article is not yet Accepted");
+                throw new ASException(articleAcceptanceCode,
+                        articleAcceptanceMessage);
             }
             // check user is corresponding author or not.
             if (productPersonRelations.getProductRoles() != null
                     && productPersonRelations.getProductRoles()
-                    .getProductRoleCd().equalsIgnoreCase("0001")) {
+                    .getProductRoleCd()
+                    .equalsIgnoreCase(correspondingAuthorId)) {
 
                 // check is there any saved orders for this article.
                 SavedOrders savedOrders = orderOnlineDAO.getSavedOrders(
                         articleId, userId);
                 if (null != savedOrders) {
-                    throw new ASException("803",
-                            "Order already exists for this Article");
+                    throw new ASException(savedOrderCode, savedOrderMessage);
                 }
                 // check is there any placed orders for this article.
                 Orders orders = orderOnlineDAO.getOrder(articleId, userId);
                 if (orders != null) {
-                    throw new ASException("804",
-                            "Order already submitted for this Article");
+                    throw new ASException(orderExistenceCode,
+                            orderExistenceMessage);
                 }
                 quoteDetails = new QuoteDetails();
                 // calling PdhLookupArticle service with article DhId for
@@ -333,12 +391,11 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                 quoteDetails.setAddressDetails(addressDetails);
 
             } else {
-                throw new ASException("805",
-                        "You don't have permissions to make article as online open");
+                throw new ASException(onlineOpenCode, onlineOpenMessage);
             }
         } else {
-            throw new ASException("806",
-                    "It's not an Online open journal article");
+            throw new ASException(onlineOpenJournalCode,
+                    OnlineOpenJournalMessage);
         }
         return quoteDetails;
     }
@@ -379,33 +436,22 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      */
     @Override
     public OrderResponse submitOnlineOpenOrder(final String userId,
-            final String orderId, final String orderTypeFlag) throws Exception {
+            final String orderId, final String orderTypeFlag) {
 
         OrderResponse orderResponse = null;
 
-        if (userId != null && orderId != null) {
             OrderRequest orderRequest = new OrderRequest();
             // TODO All the below hardcoded values need to changed once proper
             // data
             // is provided.
-            orderRequest.setApplicationKey("Key134");
-            orderRequest.setCorrelationID("1234");
+            orderRequest.setApplicationKey(applicationKey);
+            orderRequest.setCorrelationID(correlationId);
             OrderData orderData = null;
-            try {
-                orderData = getOrderDataForOnlineOpenOrder(orderId, userId);
-            } catch (Exception e) {
-                throw new Exception(e.getMessage());
-            }
-            // need to be changed
-            // OrderData orderData = new OrderData();
+            orderData = getOrderDataForOnlineOpenOrder(orderId, userId);
             orderRequest.setOrderData(orderData);
-            orderRequest.setUserID("user001");
+            orderRequest.setUserID(userId);
 
-            // orderResponse = orderservice.submitOnlineOpenOrder(orderData);
-
-            orderResponse = (OrderResponse) StubInvokerUtil.invokeJsonStub(
-                    "http://jsonstub.com/createOrder", HttpMethod.POST,
-                    OrderResponse.class);
+            orderResponse = orderservice.submitOnlineOpenOrder(orderData);
 
             Orders orders = new Orders();
             orders.setOrderTypes(new OrderTypes());
@@ -417,7 +463,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             orders.setUsersByCreatedBy(users);
             orders.setCreatedDate(new Date());
             orderOnlineDAO.saveOrUpdateOrder(orders);
-        }
+            
         return orderResponse;
     }
 
@@ -429,7 +475,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * @throws Exception
      */
     private OrderData getOrderDataForOnlineOpenOrder(final String orderId,
-            final String userId) throws Exception {
+            final String userId) {
         OrderData orderData = null;
         SavedOrders savedOrder = null;
         String orderDataObject = null;
@@ -439,10 +485,20 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             savedOrder = orderOnlineDAO.getSavedOrdersForTheOrderId(orderId,
                     userId);
             orderDataObject = savedOrder.getOrderObject();
-            JSONObject object = (JSONObject) new JSONParser()
-            .parse(orderDataObject);
-            onlineOpenOrder = new ObjectMapper().readValue(
-                    object.toJSONString(), OnlineOpenOrder.class);
+            try {
+				JSONObject object = (JSONObject) new JSONParser()
+				.parse(orderDataObject);
+				onlineOpenOrder = new ObjectMapper().readValue(
+				        object.toJSONString(), OnlineOpenOrder.class);
+			} catch (JsonParseException e) {
+				throw new ASException("700", e.getMessage());
+			} catch (JsonMappingException e) {
+				throw new ASException("701", e.getMessage());
+			} catch (ParseException e) {
+				throw new ASException("702", e.getMessage());
+			} catch (IOException e) {
+				throw new ASException("703", e.getMessage());
+			}
 
             orderData = new OrderData();
             // TODO: Need to check Article data
@@ -450,7 +506,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             AddressDetails address = onlineOpenOrder.getAddressDetails();
 
             // TODO: Need to Check the types
-            if ("illingAddress".equals(address.getBillingAddress()
+            if (AuthorServicesConstants.BILLING_ADDRESS_TYPE.equals(address.getBillingAddress()
                     .getAddressType())) {
                 ContactAddress billingAddress = new ContactAddress();
                 // TODO: Need to set remaining objects
@@ -461,7 +517,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                         .getInstitution());
 
                 orderData.setBillingAddress(billingAddress);
-            } else if ("contactAddress".equals(address.getBillingAddress()
+            } else if (AuthorServicesConstants.CONTACT_ADDRESS_TYPE.equals(address.getBillingAddress()
                     .getAddressType())) {
                 ContactAddress contactAddress = new ContactAddress();
                 // TODO: Need to set remaining objects
@@ -500,15 +556,18 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             Payment payment = new Payment();
             payment.setPaymentMethod(onlineOpenOrder.getPaymentMethod());
             orderData.setPayment(payment);
+            
+            WoaAccountHolder woaAccountHolder = new WoaAccountHolder();
+            
+            woaAccountHolder.setCode(onlineOpenOrder.getFunderDetails().get(0).getWoaAccountId());
 
-            // TODO: Need to check WOAAccountHolder
-            orderData.setWoaAccountHolder(new WoaAccountHolder());
+            orderData.setWoaAccountHolder(woaAccountHolder);
 
             orderData.setSpecialNotes("");
             orderData.setCustomer(new Customer());
             orderData.setEnteredBy("");
             orderData.setOoUniqueId("");
-            orderData.setOrderDate("");
+            orderData.setOrderDate(new Date().toString());
             orderData.setOrderSource("");
             orderData.setOrderStatusCode("");
             orderData.setOrderSubType("");
@@ -536,13 +595,11 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
         List<WOAFunder> woaFunderList = null;
 
-        if (userId != null && DHID != null) {
             PdhArticleResponse pdhArticleResponse = orderservice
                     .pdhLookUpArticle(Integer.parseInt(DHID));
 
             woaFunderList = pdhArticleResponse.getWOAFunders().getWOAFunder();
 
-        }
 
         return woaFunderList;
     }
@@ -558,27 +615,16 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      */
     @Override
     public List<DiscountedSociety> retrieveSocietyDiscountListForJournal(
-            final String userId, final String journalId) {
-        // TODO: Request object needs to be developed once provided with
-        // structure.
+            final String userId, final String DHID) {
+    	List<DiscountedSociety> discountedSocietyListForJournal = null;
 
-        List<DiscountedSociety> discountedSocietyListForJournal = null;
-
-        if (userId != null && journalId != null) {
             DiscountedSocietyResponse discountedSocietiesResponse = orderservice
-                    .getDiscountedSocietiesForJournal(journalId);
-
-            // TODO: Need to be removed
-            discountedSocietiesResponse = (DiscountedSocietyResponse) StubInvokerUtil
-                    .invokeJsonStub("http://jsonstub.com/discountedSocieties",
-                            HttpMethod.GET, DiscountedSocietyResponse.class);
+                    .getDiscountedSocietiesForJournal(DHID);
 
             if (discountedSocietiesResponse != null) {
                 discountedSocietyListForJournal = discountedSocietiesResponse
                         .getSocieties();
             }
-        }
-
         return discountedSocietyListForJournal;
     }
 
@@ -595,10 +641,9 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         SavedOrders savedOrders = new SavedOrders();
         try {
             savedOrders.setOrderObject(mapper.writeValueAsString(order));
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (JsonProcessingException e) {
+            throw new ASException("jsonProcessingExceptionCode", e.getMessage());
         }
-
         Products products = new Products();
         products.setDhId(Integer.parseInt(order.getArticleDetails().get(0)
                 .getArticleAID()));
@@ -622,19 +667,17 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      */
     @Override
     public boolean isAdditionDiscountAvailableForJournal(final String userId,
-            final String journalId) {
+            final String DHID) {
         boolean isAdditionDiscountAvailable = false;
         // Need confirmation on DHID or journal id.
 
         // TODO: Need to create a request object when provided.
 
-        if (userId != null && journalId != null) {
-            // TODO: Need to check if journalId or DHId should be passed
+         // TODO: Need to check if journalId or DHId should be passed
             PdhJournalResponse pdhLookupJournal = orderservice
-                    .pdhLookUpJournal(Integer.parseInt(journalId));
+                    .pdhLookUpJournal(Integer.parseInt(DHID));
             isAdditionDiscountAvailable = Boolean.getBoolean(pdhLookupJournal
                     .getAdditionalDiscountAllowed());
-        }
 
         return isAdditionDiscountAvailable;
     }
@@ -649,21 +692,25 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
         WileyOpenAccessFunders wileyOpenAccessFunders = orderservice
                 .getWoaAcounts();
-        List<WOAAccount> woaAccountList = wileyOpenAccessFunders
-                .getWoaFunders().getWOAFunder().get(0).getWOAAccounts()
-                .getWOAAccount();
+        List<WOAFunder> woaFundersList = wileyOpenAccessFunders.getWoaFunders()
+                .getWOAFunder();
         List<WOAAccounts> woaAccountsList = new ArrayList<WOAAccounts>();
         WOAAccounts woaAccounts = null;
-        for (WOAAccount woaAccount : woaAccountList) {
-            woaAccounts = new WOAAccounts();
-            woaAccounts.setCode(woaAccount.getId());
-            woaAccounts.setName(woaAccount.getName());
-            if (null == woaAccount.getResearchFunders()) {
-                woaAccounts.setAllRestricted(false);
-            } else {
-                woaAccounts.setAllRestricted(true);
+        for (WOAFunder woaFunder : woaFundersList) {
+
+            List<WOAAccount> woaAccountList = woaFunder.getWOAAccounts()
+                    .getWOAAccount();
+            for (WOAAccount woaAccount : woaAccountList) {
+                woaAccounts = new WOAAccounts();
+                woaAccounts.setCode(woaAccount.getId());
+                woaAccounts.setName(woaAccount.getName());
+                if (null == woaAccount.getResearchFunders()) {
+                    woaAccounts.setAllRestricted(false);
+                } else {
+                    woaAccounts.setAllRestricted(true);
+                }
+                woaAccountsList.add(woaAccounts);
             }
-            woaAccountsList.add(woaAccounts);
         }
         return woaAccountsList;
     }
@@ -763,6 +810,115 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             }
         }
         return fundingOrganizationsList;
+    }
+
+    /**
+     * This method send the WOAFunder with the correct WOA Account to the OO
+     * app.
+     * 
+     * @param woaFunder
+     */
+    @Override
+    public void processWOAAccount(final WOAFunder woaFunder) {
+        List<WOAAccount> woaAccountList = null;
+
+            woaAccountList = woaFunder.getWOAAccounts().getWOAAccount();
+
+            if (woaAccountList != null) {
+
+                /*
+                 * If Selected WOA Institution has multiple WOA Accounts, send
+                 * the Non Restricted WOA Accounts list to the admin to select
+                 * the correct WOA Account.
+                 */
+                List<WOAAccount> nonRestrictedWOAAccountList = null;
+                nonRestrictedWOAAccountList = retrieveNonRestrictedWOAAccountList(
+                        nonRestrictedWOAAccountList, woaAccountList);
+
+                if (nonRestrictedWOAAccountList != null
+                        && nonRestrictedWOAAccountList.size() > 0) {
+                    orderservice
+                    .sendNonRestrictedWOAAccountListToAdmin(nonRestrictedWOAAccountList);
+                } /*
+                 * else {
+                 * 
+                 * // TODO: Need to consume BPM service }
+                 */
+            }
+
+    }
+
+    /**
+     * This method returns the non restricted WOA Acounts
+     * 
+     * @param woaAccountList
+     * @param woaAccountList2
+     * @return
+     */
+    private List<WOAAccount> retrieveNonRestrictedWOAAccountList(
+            List<WOAAccount> nonRestrictedWOAAccountList,
+            final List<WOAAccount> woaAccountList) {
+
+        if (woaAccountList != null) {
+            nonRestrictedWOAAccountList = new ArrayList<WOAAccount>();
+
+            for (Iterator<WOAAccount> iterator = woaAccountList.iterator(); iterator
+                    .hasNext();) {
+                WOAAccount woaAccount = iterator.next();
+
+                if (woaAccount.getResearchFunders().getResearchfunder()
+                        .isEmpty()) {
+                    nonRestrictedWOAAccountList.add(woaAccount);
+                }
+
+            }
+
+        }
+
+        return nonRestrictedWOAAccountList;
+    }
+
+    /**
+     * Method to retrieve all the corresponding Accounts of the account Holder
+     * 
+     * @param name
+     * @return woaAccountNameList
+     * 
+     */
+    @Override
+    public List<String> processAllRestrictedFunderWOAAccounts(final String name) {
+        WOAFunder currentWoaFunder = null;
+        List<WOAAccount> woaAccountList = null;
+        List<String> woaAccountNameList = null;
+        WileyOpenAccessFunders wileyOpenAccessFunders = orderservice
+                .getWoaAcounts();
+
+        List<WOAFunder> funder = wileyOpenAccessFunders.getWoaFunders()
+                .getWOAFunder();
+
+        for (Iterator<WOAFunder> iterator = funder.iterator(); iterator
+                .hasNext();) {
+            WOAFunder woaFunder = iterator.next();
+
+            if (name.equals(woaFunder.getName())) {
+
+                currentWoaFunder = woaFunder;
+                break;
+            }
+        }
+
+        woaAccountList = currentWoaFunder.getWOAAccounts().getWOAAccount();
+        woaAccountNameList = new ArrayList<String>();
+
+        for (Iterator<WOAAccount> iterator = woaAccountList.iterator(); iterator
+                .hasNext();) {
+            WOAAccount woaAccount = iterator.next();
+
+            woaAccountNameList.add(woaAccount.getName());
+
+        }
+
+        return woaAccountNameList;
     }
 
 }

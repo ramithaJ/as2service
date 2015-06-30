@@ -81,4 +81,32 @@ public class AuthorServicesConstants {
     
     /** The Constant for OO_OA_FLAG. */
     public static final String OO_OA_FLAG_OO = "OO";
+    
+    /** The Constant for BPM_SOURCE_APP. */
+    public static final String BPM_SOURCE_APP = "sourceApp";
+    
+    /** The Constant for BPM_LONG_DATE. */
+    public static final String BPM_LONG_DATE = "long";
+    
+    /** The Constant for BPM_USERID. */
+    public static final String BPM_USERID = "userId";
+    
+    /** The Constant for BPM_SIGNATURE. */
+    public static final String BPM_SIGNATURE = "signature";
+    
+    /** The Constant for BPM_SALT. */
+    public static final String BPM_SALT = "salt";
+    
+    /** The Constant for BPM_SIGNATURE. */
+    public static final String BILLING_ADDRESS_TYPE = "billingAddress";
+    
+    /** The Constant for BPM_SALT. */
+    public static final String CONTACT_ADDRESS_TYPE = "contactAddress";
+    
+    /** The Constant for BPM_SIGNATURE. */
+    public static final String COUNTRY_USA = "USA";
+    
+    /** The Constant for BPM_SALT. */
+    public static final String COUNTRY_CANADA = "CANADA";
+    
 }

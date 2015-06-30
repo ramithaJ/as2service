@@ -32,7 +32,8 @@ public interface OrderOnlineOpenService {
      * @param articleId
      * @return
      */
-    QuoteDetails getQuote(String userId, String articleId, String pdmSalesFlag);
+    QuoteDetails initiateOnline(String userId, String articleId,
+            String pdmSalesFlag);
 
     /**
      * @param userId
@@ -59,14 +60,14 @@ public interface OrderOnlineOpenService {
      * @param onlineOpenOrder
      */
     List<DiscountedSociety> retrieveSocietyDiscountListForJournal(
-            String userId, String journalId);
+            String userId, String DHID);
 
     /**
      * @param userId
      * @param journalId
      */
     boolean isAdditionDiscountAvailableForJournal(String userId,
-            String journalId);
+            String DHID);
 
     /**
      * @param order
@@ -103,5 +104,16 @@ public interface OrderOnlineOpenService {
      * @return
      */
     List<FundingOrganizations> getFundersList();
+
+    /**
+     * @param userId
+     * @param woaFunder
+     */
+    void processWOAAccount(WOAFunder woaFunder);
+
+    /**
+     * @param name
+     */
+    List<String> processAllRestrictedFunderWOAAccounts(String name);
 
 }

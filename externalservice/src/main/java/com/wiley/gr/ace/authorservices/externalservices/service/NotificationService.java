@@ -15,8 +15,18 @@ package com.wiley.gr.ace.authorservices.externalservices.service;
 import com.wiley.gr.ace.authorservices.model.NotificationResponse;
 import com.wiley.gr.ace.authorservices.model.external.NotificationRequest;
 
+/**
+ * The Interface NotificationService.
+ */
 public interface NotificationService {
 
+    /**
+     * Send notification.
+     *
+     * @param notificationRequest
+     *            the notification request
+     * @return the notification response
+     */
     NotificationResponse sendNotification(
             NotificationRequest notificationRequest);
 

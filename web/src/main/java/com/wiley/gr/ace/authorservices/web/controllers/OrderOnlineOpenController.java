@@ -3,6 +3,7 @@ package com.wiley.gr.ace.authorservices.web.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,11 +11,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
 import com.wiley.gr.ace.authorservices.model.FunderDetails;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.TaxDetails;
+import com.wiley.gr.ace.authorservices.model.external.WOAFunder;
 import com.wiley.gr.ace.authorservices.services.service.OnlineOpenAuthorValidatorService;
 import com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService;
 
@@ -39,6 +42,12 @@ public class OrderOnlineOpenController extends ASExceptionController {
     private OnlineOpenAuthorValidatorService onlineOpenAuthorValidatorService;
 
     /**
+     * This field holds the value of onlineOpen
+     */
+    @Value("${OnlineOpen}")
+    private String onlineOpen;
+
+    /**
      * @param userId
      * @param articleId
      * @return service
@@ -47,8 +56,8 @@ public class OrderOnlineOpenController extends ASExceptionController {
     public final Service getQuote(@PathVariable("userId") final String userId,
             @PathVariable("articleId") final String articleId) {
         Service service = new Service();
-        service.setPayload(orderOnlineOpenService.getQuote(userId, articleId,
-                "OO"));
+        service.setPayload(orderOnlineOpenService.initiateOnline(userId,
+                articleId, onlineOpen));
         return service;
     }
 
@@ -72,17 +81,21 @@ public class OrderOnlineOpenController extends ASExceptionController {
      * @param userId
      * @param onlineOpenOrder
      * @return
-     * @throws Exception
+     * 
      */
-    @RequestMapping(value = "/submit/{userId}/{orderId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/submit/{userId}/{orderId}/", method = RequestMethod.POST)
     public final Service submitOnlineOpenOrder(
             @PathVariable("userId") final String userId,
-            @PathVariable("orderId") final String orderId) throws Exception {
+            @PathVariable("orderId") final String orderId) {
 
         Service service = new Service();
-        // TODO Need to create Internal Model and set it to the payload
-        service.setPayload(orderOnlineOpenService.submitOnlineOpenOrder(userId,
-                orderId, "OO"));
+        
+        try {
+			orderOnlineOpenService.submitOnlineOpenOrder(userId,
+			        orderId, "OO");
+		} catch (Exception e) {
+			throw new ASException("704", e.getMessage());
+		}
 
         return service;
     }
@@ -225,5 +238,56 @@ public class OrderOnlineOpenController extends ASExceptionController {
 
         return new Service();
     }
+
+    /**
+     * @param userId
+     * @param onlineOpenOrder
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/woaFunder/{name}", method = RequestMethod.POST)
+    public final Service processAllRestrictedFunderWOAAccounts(
+            @RequestBody final String name) {
+
+        Service service = new Service();
+        service.setPayload(orderOnlineOpenService
+                .processAllRestrictedFunderWOAAccounts(name));
+
+        return service;
+    }
+
+    /**
+     * @param userId
+     * @param onlineOpenOrder
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/woaFunder/", method = RequestMethod.POST)
+    public final Service validateAndProcessWOAAccount(
+            @RequestBody final WOAFunder woaFunder) {
+
+        orderOnlineOpenService.processWOAAccount(woaFunder);
+
+        return new Service();
+    }
+    
+    
+    /**
+     * @param userId
+     * @param onlineOpenOrder
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/next/preview/", method = RequestMethod.POST)
+    public final Service processAndValidateNext(
+            @RequestBody final OnlineOpenOrder onlineOpenOrder) {
+
+    	onlineOpenAuthorValidatorService.processAndValidateNext(onlineOpenOrder);
+
+        return new Service();
+    }
+    
+    
+    
 
 }

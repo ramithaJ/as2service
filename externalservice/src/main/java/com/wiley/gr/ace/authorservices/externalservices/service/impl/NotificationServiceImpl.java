@@ -19,12 +19,21 @@ import com.wiley.gr.ace.authorservices.externalservices.service.NotificationServ
 import com.wiley.gr.ace.authorservices.model.NotificationResponse;
 import com.wiley.gr.ace.authorservices.model.external.NotificationRequest;
 
+/**
+ * The Class NotificationServiceImpl.
+ */
 public class NotificationServiceImpl implements NotificationService {
 
     /** The Notification user. */
     @Value("${notification.url}")
     private String notificationurl;
 
+    /**
+     * (non-Javadoc)
+     * 
+     * @param notificationRequest
+     *            This method will call external notification service
+     */
     @Override
     public NotificationResponse sendNotification(
             NotificationRequest notificationRequest) {

@@ -6,6 +6,7 @@ package com.wiley.gr.ace.authorservices.services.service;
 import java.util.List;
 
 import com.wiley.gr.ace.authorservices.model.FunderDetails;
+import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.TaxDetails;
 
 /**
@@ -29,6 +30,14 @@ public interface OnlineOpenAuthorValidatorService {
 	 * @param funderDetails
 	 */
 	void validateFunderDetails(String userId, List<FunderDetails> funderDetailsList);
+
+	/**
+	 * @param onlineOpenOrder
+	 */
+	void processAndValidateNext(OnlineOpenOrder onlineOpenOrder);
+	
+
+	
 	
 	
 

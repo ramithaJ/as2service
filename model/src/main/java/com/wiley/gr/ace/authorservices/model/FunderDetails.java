@@ -32,8 +32,11 @@ public class FunderDetails {
     /** The research funder id. */
     private String researchFunderId = "";
 
+    /** The funder name. */
+    private String researchFunderName = "";
+
     /** The grants. */
-    
+
     private List<Grants> grants;
 
     /**
@@ -110,6 +113,14 @@ public class FunderDetails {
      */
     public final void setGrants(final List<Grants> grants) {
         this.grants = grants;
+    }
+
+    public final String getResearchFunderName() {
+        return researchFunderName;
+    }
+
+    public final void setResearchFunderName(final String researchFunderName) {
+        this.researchFunderName = researchFunderName;
     }
 
 }
