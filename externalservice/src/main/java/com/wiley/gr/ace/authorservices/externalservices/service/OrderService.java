@@ -70,7 +70,7 @@ public interface OrderService {
      * @param DHId
      * @return PdhArticleResponse
      */
-    DiscountedSocietyResponse getDiscountedSocietiesForJournal(String journalId);
+    DiscountedSocietyResponse getDiscountedSocietiesForJournal(String DHID);
 
     /**
      * @return PdhArticleResponse

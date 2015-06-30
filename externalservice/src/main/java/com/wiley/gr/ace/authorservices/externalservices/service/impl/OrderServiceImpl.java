@@ -160,7 +160,7 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public DiscountedSocietyResponse getDiscountedSocietiesForJournal(
-            final String journalId) {
+            final String DHID) {
 
         return (DiscountedSocietyResponse) StubInvokerUtil.invokeJsonStub(
                 discountedSocietiesurl, HttpMethod.GET,

@@ -23,7 +23,6 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpMethod;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -31,7 +30,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
-import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.Address;
@@ -510,7 +508,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             AddressDetails address = onlineOpenOrder.getAddressDetails();
 
             // TODO: Need to Check the types
-            if ("billingAddress".equals(address.getBillingAddress()
+            if (AuthorServicesConstants.BILLING_ADDRESS_TYPE.equals(address.getBillingAddress()
                     .getAddressType())) {
                 ContactAddress billingAddress = new ContactAddress();
                 // TODO: Need to set remaining objects
@@ -521,7 +519,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                         .getInstitution());
 
                 orderData.setBillingAddress(billingAddress);
-            } else if ("contactAddress".equals(address.getBillingAddress()
+            } else if (AuthorServicesConstants.CONTACT_ADDRESS_TYPE.equals(address.getBillingAddress()
                     .getAddressType())) {
                 ContactAddress contactAddress = new ContactAddress();
                 // TODO: Need to set remaining objects
@@ -619,25 +617,16 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      */
     @Override
     public List<DiscountedSociety> retrieveSocietyDiscountListForJournal(
-            final String userId, final String journalId) {
-        // TODO: Request object needs to be developed once provided with
-        // structure.
-
-        List<DiscountedSociety> discountedSocietyListForJournal = null;
+            final String userId, final String DHID) {
+    	List<DiscountedSociety> discountedSocietyListForJournal = null;
 
             DiscountedSocietyResponse discountedSocietiesResponse = orderservice
-                    .getDiscountedSocietiesForJournal(journalId);
-
-            // TODO: Need to be removed
-            discountedSocietiesResponse = (DiscountedSocietyResponse) StubInvokerUtil
-                    .invokeJsonStub("http://jsonstub.com/discountedSocieties",
-                            HttpMethod.GET, DiscountedSocietyResponse.class);
+                    .getDiscountedSocietiesForJournal(DHID);
 
             if (discountedSocietiesResponse != null) {
                 discountedSocietyListForJournal = discountedSocietiesResponse
                         .getSocieties();
             }
-
         return discountedSocietyListForJournal;
     }
 
@@ -680,7 +669,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      */
     @Override
     public boolean isAdditionDiscountAvailableForJournal(final String userId,
-            final String journalId) {
+            final String DHID) {
         boolean isAdditionDiscountAvailable = false;
         // Need confirmation on DHID or journal id.
 
@@ -688,7 +677,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
          // TODO: Need to check if journalId or DHId should be passed
             PdhJournalResponse pdhLookupJournal = orderservice
-                    .pdhLookUpJournal(Integer.parseInt(journalId));
+                    .pdhLookUpJournal(Integer.parseInt(DHID));
             isAdditionDiscountAvailable = Boolean.getBoolean(pdhLookupJournal
                     .getAdditionalDiscountAllowed());
 

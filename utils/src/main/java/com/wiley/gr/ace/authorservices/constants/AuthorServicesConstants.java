@@ -97,5 +97,12 @@ public class AuthorServicesConstants {
     /** The Constant for BPM_SALT. */
     public static final String BPM_SALT = "salt";
     
+    /** The Constant for BPM_SIGNATURE. */
+    public static final String BILLING_ADDRESS_TYPE = "billingAddress";
+    
+    /** The Constant for BPM_SALT. */
+    public static final String CONTACT_ADDRESS_TYPE = "contactAddress";
+    
+    
     
 }
