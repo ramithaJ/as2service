@@ -60,14 +60,14 @@ public interface OrderOnlineOpenService {
      * @param onlineOpenOrder
      */
     List<DiscountedSociety> retrieveSocietyDiscountListForJournal(
-            String userId, String journalId);
+            String userId, String DHID);
 
     /**
      * @param userId
      * @param journalId
      */
     boolean isAdditionDiscountAvailableForJournal(String userId,
-            String journalId);
+            String DHID);
 
     /**
      * @param order
