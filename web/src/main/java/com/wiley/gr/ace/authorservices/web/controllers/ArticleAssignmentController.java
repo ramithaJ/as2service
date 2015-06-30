@@ -117,7 +117,7 @@ public class ArticleAssignmentController {
      *            the email id
      * @return the confirmation article data
      */
-    @RequestMapping(value = "/confirmation/{emailId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/confirm/view/{emailId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final @ResponseBody Service getConfirmationArticleData(
             @PathVariable("emailId") final String emailId) {
         final Service service = new Service();

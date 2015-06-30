@@ -14,6 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.web.controllers;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiley.gr.ace.authorservices.model.CommunicationDetails;
 import com.wiley.gr.ace.authorservices.model.Dashboard;
 import com.wiley.gr.ace.authorservices.model.DashboardView;
 import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
@@ -65,7 +68,7 @@ public class DashboardController {
     public final @ResponseBody Service getProfileMeter(
             @PathVariable("userId") final String userId) {
         LOGGER.info("inside getProfileMeter method of DashboardController");
-        Service service = new Service();
+        final Service service = new Service();
         Dashboard dashboard = null;
 
         try {
@@ -74,9 +77,9 @@ public class DashboardController {
                 service.setStatus("SUCCESS");
                 service.setPayload(dashboard);
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             LOGGER.error("Print Stack Trace- ", e);
-            ErrorPOJO error = new ErrorPOJO();
+            final ErrorPOJO error = new ErrorPOJO();
             error.setCode(getProfileMetererrorcode);
             error.setMessage(getProfileMetererrormessage);
             service.setStatus("ERROR");
@@ -97,7 +100,7 @@ public class DashboardController {
     public final @ResponseBody Service getAllAuthorArticles(
             @PathVariable("userId") final String userId) {
         LOGGER.info("inside viewallauthorarticles method of DashboardController");
-        Service service = new Service();
+        final Service service = new Service();
         DashboardView dashboardView = null;
         try {
             dashboardView = dashboardService.viewDashboard(userId);
@@ -105,9 +108,33 @@ public class DashboardController {
                 service.setStatus("SUCCESS");
                 service.setPayload(dashboardView);
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             LOGGER.error("Print Stack Trace- ", e);
-            ErrorPOJO error = new ErrorPOJO();
+            final ErrorPOJO error = new ErrorPOJO();
+            error.setCode(201);
+            error.setMessage("Error Fetching To View All Author Articles");
+            service.setStatus("ERROR");
+            service.setError(error);
+        }
+        return service;
+    }
+
+    @RequestMapping(value = "/communication/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final @ResponseBody Service getCommunicationHistory(
+            @PathVariable("userId") final String userId) {
+        LOGGER.info("inside getCommunicationHistory method of DashboardController");
+        final Service service = new Service();
+        List<CommunicationDetails> communicationDetailsList = null;
+        try {
+            communicationDetailsList = dashboardService
+                    .getCommunicationDetailsList(userId);
+            if (!StringUtils.isEmpty(communicationDetailsList)) {
+                service.setStatus("SUCCESS");
+                service.setPayload(communicationDetailsList);
+            }
+        } catch (final Exception e) {
+            LOGGER.error("Print Stack Trace- ", e);
+            final ErrorPOJO error = new ErrorPOJO();
             error.setCode(201);
             error.setMessage("Error Fetching To View All Author Articles");
             service.setStatus("ERROR");
