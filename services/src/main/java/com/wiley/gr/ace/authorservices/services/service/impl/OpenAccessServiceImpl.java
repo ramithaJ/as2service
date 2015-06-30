@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
+import com.wiley.gr.ace.authorservices.externalservices.service.ValidationService;
+import com.wiley.gr.ace.authorservices.model.Address;
 import com.wiley.gr.ace.authorservices.model.AddressDetails;
 import com.wiley.gr.ace.authorservices.model.Amount;
 import com.wiley.gr.ace.authorservices.model.ArticleDetails;
@@ -11,6 +13,8 @@ import com.wiley.gr.ace.authorservices.model.DiscountDetail;
 import com.wiley.gr.ace.authorservices.model.JournalDetails;
 import com.wiley.gr.ace.authorservices.model.OpenAccessPaymentData;
 import com.wiley.gr.ace.authorservices.model.QuoteData;
+import com.wiley.gr.ace.authorservices.model.external.AddressValidationMultiReq;
+import com.wiley.gr.ace.authorservices.model.external.AddressValidationRequest;
 import com.wiley.gr.ace.authorservices.model.external.Article;
 import com.wiley.gr.ace.authorservices.model.external.PdhArticleResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
@@ -30,6 +34,9 @@ public class OpenAccessServiceImpl implements OpenAccessService {
 
 	@Autowired
 	private UserProfiles userProfiles;
+	
+	@Autowired(required=true)
+	private ValidationService validationService;
 
 	/*
 	 * (non-Javadoc)
@@ -97,6 +104,24 @@ public class OpenAccessServiceImpl implements OpenAccessService {
 		openAccessPaymentData.setAddressOnFile(addressDetails);
 		openAccessPaymentData.setDiscountDetail(discountDetail);
 		return openAccessPaymentData;
+	}
+
+	@Override
+	public boolean validateAddress(Address address) throws Exception {
+		AddressValidationRequest addressValidationRequest = new AddressValidationRequest();
+		AddressValidationMultiReq addressValidationMultiReq = new AddressValidationMultiReq();
+		addressValidationMultiReq.setStreet1(address.getAddressLine1());
+		addressValidationMultiReq.setStreet2(address.getAddressLine2());
+		addressValidationMultiReq.setLocality1(address.getCity());
+		addressValidationMultiReq.setPostCode(address.getPostCode());
+		addressValidationMultiReq.setProvince1(address.getState());
+		addressValidationMultiReq.setCountryName(address.getCountry().getCountryName());
+		addressValidationMultiReq.setOrganization1(address.getInstitution());
+		addressValidationMultiReq.setOrganizationDepartment1(address.getDepartment());
+		
+		addressValidationRequest.setAddressValidationMultiReq(addressValidationMultiReq);
+		
+		return validationService.validateAddress(addressValidationRequest);
 	}
 
 }

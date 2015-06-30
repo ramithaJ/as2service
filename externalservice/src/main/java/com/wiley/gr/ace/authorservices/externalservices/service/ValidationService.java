@@ -4,5 +4,5 @@ import com.wiley.gr.ace.authorservices.model.external.AddressValidationRequest;
 
 public interface ValidationService {
 
-	String validateAddress(AddressValidationRequest addressValidationRequest) throws Exception;
+	boolean validateAddress(AddressValidationRequest addressValidationRequest) throws Exception;
 }
