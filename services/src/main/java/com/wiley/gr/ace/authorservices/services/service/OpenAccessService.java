@@ -1,5 +1,6 @@
 package com.wiley.gr.ace.authorservices.services.service;
 
+import com.wiley.gr.ace.authorservices.model.Address;
 import com.wiley.gr.ace.authorservices.model.OpenAccessPaymentData;
 
 // TODO: Auto-generated Javadoc
@@ -17,4 +18,5 @@ public interface OpenAccessService {
 	 * @throws Exception the exception
 	 */
 	OpenAccessPaymentData getOpenAccessDetails(String userId, String articleId, String journalId) throws Exception;
+	boolean validateAddress(Address address) throws Exception;
 }
