@@ -93,7 +93,8 @@ public class DashboardServiceImpl implements DashboardService {
         List<DashboardInfo> dashBoardInfoList;
         final UserProfileResponse userProfileResponse = userProfileService
                 .getUserProfileResponse(userId);
-        final UserProfile userProfile = userProfileResponse.getCustomerProfile();
+        final UserProfile userProfile = userProfileResponse
+                .getCustomerProfile();
         dashBoardInfoList = checkingDashboardInfo(userProfile);
         if (StringUtils.isEmpty(dashBoardInfoList)) {
             dashBoard.setProfileMeterMessage("Profile Completed");
@@ -224,7 +225,8 @@ public class DashboardServiceImpl implements DashboardService {
     private final DashboardInfo getAffiliationsForUser(
             final UserProfile userProfile) {
         LOGGER.info("inside getAffiliationsForUser Method of DashboardServiceImpl");
-        final List<Affiliation> userAffiliationsList = userProfile.getAffiliations();
+        final List<Affiliation> userAffiliationsList = userProfile
+                .getAffiliations();
         DashboardInfo dashboardInfo = null;
         if (!StringUtils.isEmpty(userAffiliationsList)
                 && userAffiliationsList.isEmpty()) {
@@ -342,8 +344,6 @@ public class DashboardServiceImpl implements DashboardService {
         LOGGER.info("inside viewDashboard Method of DashboardServiceImpl");
         final DashboardView dashboardView = new DashboardView();
         dashboardView.setArticleData(getArticleAuthorData(userId));
-        dashboardView
-                .setCommunicationDetails(getCommunicationDetailsList(userId));
         return dashboardView;
     }
 
@@ -368,7 +368,8 @@ public class DashboardServiceImpl implements DashboardService {
             for (final ProductPersonRelations productPersonRelations : getArticleAuthorRoleSet) {
                 final String articleAuthorRole = productPersonRelations
                         .getProductRoles().getProductRoleName();
-                final Integer articleId = productPersonRelations.getProducts().getDhId();
+                final Integer articleId = productPersonRelations.getProducts()
+                        .getDhId();
                 articleData = getArticleDataDetails(articleId,
                         articleAuthorRole);
             }
@@ -454,8 +455,8 @@ public class DashboardServiceImpl implements DashboardService {
      * @return the communication details
      */
     @Override
-    public List<CommunicationDetails> getCommunicationDetailsList(final String userId)
-            throws Exception {
+    public List<CommunicationDetails> getCommunicationDetailsList(
+            final String userId) throws Exception {
         LOGGER.info("inside getCommunicationDetailsList Method of DashboardServiceImpl");
         List<CommunicationDetails> communicationDetailsList = null;
         final List<InvitationLog> invitationLogList = dashboardDAO
@@ -472,7 +473,6 @@ public class DashboardServiceImpl implements DashboardService {
                 communicationDetails.setArticleId(invitationLog.getArticleId());
                 communicationDetails.setSentDate(invitationLog.getSentDate()
                         .toString());
-                communicationDetails.setSentBy(invitationLog.getUsers().getAs1UserId());
                 communicationDetailsList.add(communicationDetails);
             }
         }
