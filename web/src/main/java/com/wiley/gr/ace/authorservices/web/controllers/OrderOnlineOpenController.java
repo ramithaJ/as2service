@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
 import com.wiley.gr.ace.authorservices.model.FunderDetails;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
@@ -80,17 +81,21 @@ public class OrderOnlineOpenController extends ASExceptionController {
      * @param userId
      * @param onlineOpenOrder
      * @return
-     * @throws Exception
+     * 
      */
     @RequestMapping(value = "/submit/{userId}/{orderId}", method = RequestMethod.POST)
     public final Service submitOnlineOpenOrder(
             @PathVariable("userId") final String userId,
-            @PathVariable("orderId") final String orderId) throws Exception {
+            @PathVariable("orderId") final String orderId) {
 
         Service service = new Service();
-        // TODO Need to create Internal Model and set it to the payload
-        service.setPayload(orderOnlineOpenService.submitOnlineOpenOrder(userId,
-                orderId, "OO"));
+        
+        try {
+			orderOnlineOpenService.submitOnlineOpenOrder(userId,
+			        orderId, "OO");
+		} catch (Exception e) {
+			throw new ASException("704", e.getMessage());
+		}
 
         return service;
     }

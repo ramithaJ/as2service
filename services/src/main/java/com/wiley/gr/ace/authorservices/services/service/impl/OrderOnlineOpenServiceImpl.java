@@ -12,6 +12,7 @@
 
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -19,11 +20,14 @@ import java.util.List;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
@@ -143,6 +147,16 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
     @Value("${JsonProcessingException}")
     private String jsonProcessingExceptionCode;
+    
+    @Value("${OnlineOpenProperties.applicationKey}")
+    private String applicationKey;
+    
+    @Value("${OnlineOpenProperties.correlationId}")
+    private String correlationId;
+    
+    @Value("${OnlineOpenProperties.userId}")
+    private String userId;
+    
 
     /**
      * This method will take userId and orderId as input and calls external
@@ -424,33 +438,24 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      */
     @Override
     public OrderResponse submitOnlineOpenOrder(final String userId,
-            final String orderId, final String orderTypeFlag) throws Exception {
+            final String orderId, final String orderTypeFlag) {
 
         OrderResponse orderResponse = null;
 
-        if (userId != null && orderId != null) {
             OrderRequest orderRequest = new OrderRequest();
             // TODO All the below hardcoded values need to changed once proper
             // data
             // is provided.
-            orderRequest.setApplicationKey("Key134");
-            orderRequest.setCorrelationID("1234");
+            orderRequest.setApplicationKey(applicationKey);
+            orderRequest.setCorrelationID(correlationId);
             OrderData orderData = null;
-            try {
-                orderData = getOrderDataForOnlineOpenOrder(orderId, userId);
-            } catch (Exception e) {
-                throw new Exception(e.getMessage());
-            }
+            orderData = getOrderDataForOnlineOpenOrder(orderId, userId);
             // need to be changed
             // OrderData orderData = new OrderData();
             orderRequest.setOrderData(orderData);
-            orderRequest.setUserID("user001");
+            orderRequest.setUserID(userId);
 
-            // orderResponse = orderservice.submitOnlineOpenOrder(orderData);
-
-            orderResponse = (OrderResponse) StubInvokerUtil.invokeJsonStub(
-                    "http://jsonstub.com/createOrder", HttpMethod.POST,
-                    OrderResponse.class);
+            orderResponse = orderservice.submitOnlineOpenOrder(orderData);
 
             Orders orders = new Orders();
             orders.setOrderTypes(new OrderTypes());
@@ -462,7 +467,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             orders.setUsersByCreatedBy(users);
             orders.setCreatedDate(new Date());
             orderOnlineDAO.saveOrUpdateOrder(orders);
-        }
+            
         return orderResponse;
     }
 
@@ -474,7 +479,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * @throws Exception
      */
     private OrderData getOrderDataForOnlineOpenOrder(final String orderId,
-            final String userId) throws Exception {
+            final String userId) {
         OrderData orderData = null;
         SavedOrders savedOrder = null;
         String orderDataObject = null;
@@ -484,10 +489,20 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             savedOrder = orderOnlineDAO.getSavedOrdersForTheOrderId(orderId,
                     userId);
             orderDataObject = savedOrder.getOrderObject();
-            JSONObject object = (JSONObject) new JSONParser()
-            .parse(orderDataObject);
-            onlineOpenOrder = new ObjectMapper().readValue(
-                    object.toJSONString(), OnlineOpenOrder.class);
+            try {
+				JSONObject object = (JSONObject) new JSONParser()
+				.parse(orderDataObject);
+				onlineOpenOrder = new ObjectMapper().readValue(
+				        object.toJSONString(), OnlineOpenOrder.class);
+			} catch (JsonParseException e) {
+				throw new ASException("700", e.getMessage());
+			} catch (JsonMappingException e) {
+				throw new ASException("701", e.getMessage());
+			} catch (ParseException e) {
+				throw new ASException("702", e.getMessage());
+			} catch (IOException e) {
+				throw new ASException("703", e.getMessage());
+			}
 
             orderData = new OrderData();
             // TODO: Need to check Article data
@@ -495,7 +510,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             AddressDetails address = onlineOpenOrder.getAddressDetails();
 
             // TODO: Need to Check the types
-            if ("illingAddress".equals(address.getBillingAddress()
+            if ("billingAddress".equals(address.getBillingAddress()
                     .getAddressType())) {
                 ContactAddress billingAddress = new ContactAddress();
                 // TODO: Need to set remaining objects
@@ -545,15 +560,18 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             Payment payment = new Payment();
             payment.setPaymentMethod(onlineOpenOrder.getPaymentMethod());
             orderData.setPayment(payment);
+            
+            WoaAccountHolder woaAccountHolder = new WoaAccountHolder();
+            
+            woaAccountHolder.setCode(onlineOpenOrder.getFunderDetails().get(0).getWoaAccountId());
 
-            // TODO: Need to check WOAAccountHolder
-            orderData.setWoaAccountHolder(new WoaAccountHolder());
+            orderData.setWoaAccountHolder(woaAccountHolder);
 
             orderData.setSpecialNotes("");
             orderData.setCustomer(new Customer());
             orderData.setEnteredBy("");
             orderData.setOoUniqueId("");
-            orderData.setOrderDate("");
+            orderData.setOrderDate(new Date().toString());
             orderData.setOrderSource("");
             orderData.setOrderStatusCode("");
             orderData.setOrderSubType("");
@@ -581,13 +599,11 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
         List<WOAFunder> woaFunderList = null;
 
-        if (userId != null && DHID != null) {
             PdhArticleResponse pdhArticleResponse = orderservice
                     .pdhLookUpArticle(Integer.parseInt(DHID));
 
             woaFunderList = pdhArticleResponse.getWOAFunders().getWOAFunder();
 
-        }
 
         return woaFunderList;
     }
@@ -609,7 +625,6 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
         List<DiscountedSociety> discountedSocietyListForJournal = null;
 
-        if (userId != null && journalId != null) {
             DiscountedSocietyResponse discountedSocietiesResponse = orderservice
                     .getDiscountedSocietiesForJournal(journalId);
 
@@ -622,7 +637,6 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                 discountedSocietyListForJournal = discountedSocietiesResponse
                         .getSocieties();
             }
-        }
 
         return discountedSocietyListForJournal;
     }
@@ -672,13 +686,11 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
         // TODO: Need to create a request object when provided.
 
-        if (userId != null && journalId != null) {
-            // TODO: Need to check if journalId or DHId should be passed
+         // TODO: Need to check if journalId or DHId should be passed
             PdhJournalResponse pdhLookupJournal = orderservice
                     .pdhLookUpJournal(Integer.parseInt(journalId));
             isAdditionDiscountAvailable = Boolean.getBoolean(pdhLookupJournal
                     .getAdditionalDiscountAllowed());
-        }
 
         return isAdditionDiscountAvailable;
     }
@@ -823,8 +835,6 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     public void processWOAAccount(final WOAFunder woaFunder) {
         List<WOAAccount> woaAccountList = null;
 
-        if (woaFunder != null) {
-
             woaAccountList = woaFunder.getWOAAccounts().getWOAAccount();
 
             if (woaAccountList != null) {
@@ -849,7 +859,6 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                  */
             }
 
-        }
     }
 
     /**
