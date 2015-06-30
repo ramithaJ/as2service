@@ -103,6 +103,10 @@ public class AuthorServicesConstants {
     /** The Constant for BPM_SALT. */
     public static final String CONTACT_ADDRESS_TYPE = "contactAddress";
     
+    /** The Constant for BPM_SIGNATURE. */
+    public static final String COUNTRY_USA = "USA";
     
+    /** The Constant for BPM_SALT. */
+    public static final String COUNTRY_CANADA = "CANADA";
     
 }

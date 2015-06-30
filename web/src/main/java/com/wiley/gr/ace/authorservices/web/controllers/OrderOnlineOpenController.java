@@ -83,7 +83,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
      * @return
      * 
      */
-    @RequestMapping(value = "/submit/{userId}/{orderId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/submit/{userId}/{orderId}/", method = RequestMethod.POST)
     public final Service submitOnlineOpenOrder(
             @PathVariable("userId") final String userId,
             @PathVariable("orderId") final String orderId) {
@@ -270,5 +270,24 @@ public class OrderOnlineOpenController extends ASExceptionController {
 
         return new Service();
     }
+    
+    
+    /**
+     * @param userId
+     * @param onlineOpenOrder
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/next/preview/", method = RequestMethod.POST)
+    public final Service processAndValidateNext(
+            @RequestBody final OnlineOpenOrder onlineOpenOrder) {
+
+    	onlineOpenAuthorValidatorService.processAndValidateNext(onlineOpenOrder);
+
+        return new Service();
+    }
+    
+    
+    
 
 }

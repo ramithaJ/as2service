@@ -448,8 +448,6 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             orderRequest.setCorrelationID(correlationId);
             OrderData orderData = null;
             orderData = getOrderDataForOnlineOpenOrder(orderId, userId);
-            // need to be changed
-            // OrderData orderData = new OrderData();
             orderRequest.setOrderData(orderData);
             orderRequest.setUserID(userId);
 
