@@ -15,6 +15,7 @@ import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
 import com.wiley.gr.ace.authorservices.model.FunderDetails;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
+import com.wiley.gr.ace.authorservices.model.PaymentDetails;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.TaxDetails;
 import com.wiley.gr.ace.authorservices.model.external.WOAFunder;
@@ -89,13 +90,12 @@ public class OrderOnlineOpenController extends ASExceptionController {
             @PathVariable("orderId") final String orderId) {
 
         Service service = new Service();
-        
+
         try {
-			orderOnlineOpenService.submitOnlineOpenOrder(userId,
-			        orderId, "OO");
-		} catch (Exception e) {
-			throw new ASException("704", e.getMessage());
-		}
+            orderOnlineOpenService.submitOnlineOpenOrder(userId, orderId, "OO");
+        } catch (Exception e) {
+            throw new ASException("704", e.getMessage());
+        }
 
         return service;
     }
@@ -270,8 +270,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
 
         return new Service();
     }
-    
-    
+
     /**
      * @param userId
      * @param onlineOpenOrder
@@ -282,12 +281,32 @@ public class OrderOnlineOpenController extends ASExceptionController {
     public final Service processAndValidateNext(
             @RequestBody final OnlineOpenOrder onlineOpenOrder) {
 
-    	onlineOpenAuthorValidatorService.processAndValidateNext(onlineOpenOrder);
+        onlineOpenAuthorValidatorService
+                .processAndValidateNext(onlineOpenOrder);
 
         return new Service();
     }
-    
-    
-    
+
+    /**
+     * @param paymentDetails
+     * @return service
+     */
+    @RequestMapping(value = "/paymentDetails", method = RequestMethod.POST)
+    public final Service updatePaymentDetails(
+            @RequestBody final PaymentDetails paymentDetails) {
+        Service service = new Service();
+        service.setPayload(orderOnlineOpenService
+                .updatePaymentDetails(paymentDetails));
+        return service;
+
+    }
+
+    @RequestMapping(value = "/wpg/config", method = RequestMethod.GET)
+    public final Service getWPGConfiguration() {
+
+        Service service = new Service();
+        service.setPayload(orderOnlineOpenService.getWPGConfiguration());
+        return service;
+    }
 
 }

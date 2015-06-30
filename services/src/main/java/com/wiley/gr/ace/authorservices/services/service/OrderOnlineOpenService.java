@@ -7,12 +7,14 @@ import com.wiley.gr.ace.authorservices.model.GrantRecipients;
 import com.wiley.gr.ace.authorservices.model.Institution;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.OrderDetails;
+import com.wiley.gr.ace.authorservices.model.PaymentDetails;
 import com.wiley.gr.ace.authorservices.model.QuoteDetails;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.WOAAccounts;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSociety;
 import com.wiley.gr.ace.authorservices.model.external.OrderResponse;
 import com.wiley.gr.ace.authorservices.model.external.WOAFunder;
+import com.wiley.gr.ace.authorservices.model.external.WPGConfiguration;
 
 /**
  * @author virtusa version 1.0
@@ -66,8 +68,7 @@ public interface OrderOnlineOpenService {
      * @param userId
      * @param journalId
      */
-    boolean isAdditionDiscountAvailableForJournal(String userId,
-            String DHID);
+    boolean isAdditionDiscountAvailableForJournal(String userId, String DHID);
 
     /**
      * @param order
@@ -116,4 +117,14 @@ public interface OrderOnlineOpenService {
      */
     List<String> processAllRestrictedFunderWOAAccounts(String name);
 
+    /**
+     * @param paymentDetails
+     * @return
+     */
+    boolean updatePaymentDetails(PaymentDetails paymentDetails);
+
+    /**
+     * @return
+     */
+    WPGConfiguration getWPGConfiguration();
 }

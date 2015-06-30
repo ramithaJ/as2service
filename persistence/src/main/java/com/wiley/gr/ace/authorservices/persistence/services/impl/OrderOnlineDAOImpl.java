@@ -334,6 +334,6 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
             }
         }
 
-        return false;
+        return true;
     }
 }

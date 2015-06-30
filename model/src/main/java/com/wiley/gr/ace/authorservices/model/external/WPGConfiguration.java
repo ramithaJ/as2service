@@ -15,7 +15,7 @@ package com.wiley.gr.ace.authorservices.model.external;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class WPG {
+public class WPGConfiguration {
 
     /**
      * This field holds the value of acquirerId

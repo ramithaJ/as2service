@@ -46,6 +46,7 @@ import com.wiley.gr.ace.authorservices.model.Institution;
 import com.wiley.gr.ace.authorservices.model.JournalDetails;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.OrderDetails;
+import com.wiley.gr.ace.authorservices.model.PaymentDetails;
 import com.wiley.gr.ace.authorservices.model.Prices;
 import com.wiley.gr.ace.authorservices.model.QuoteDetail;
 import com.wiley.gr.ace.authorservices.model.QuoteDetails;
@@ -74,6 +75,7 @@ import com.wiley.gr.ace.authorservices.model.external.TaxData;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 import com.wiley.gr.ace.authorservices.model.external.WOAAccount;
 import com.wiley.gr.ace.authorservices.model.external.WOAFunder;
+import com.wiley.gr.ace.authorservices.model.external.WPGConfiguration;
 import com.wiley.gr.ace.authorservices.model.external.WileyOpenAccessFunders;
 import com.wiley.gr.ace.authorservices.model.external.WoaAccountHolder;
 import com.wiley.gr.ace.authorservices.persistence.entity.OrderTypes;
@@ -104,57 +106,150 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     @Autowired
     private UserProfiles userProfiles;
 
+    /**
+     * This field holds the value of correspondingAuthorId
+     */
     @Value("${CorrespondingAuthorId}")
     private String correspondingAuthorId;
 
+    /**
+     * This field holds the value of articleDetailsCode
+     */
     @Value("${articleDetails.code}")
     private String articleDetailsCode;
 
+    /**
+     * This field holds the value of articleDetailsMessage
+     */
     @Value("${articleDetails.message}")
     private String articleDetailsMessage;
 
+    /**
+     * This field holds the value of articleAcceptanceCode
+     */
     @Value("${articleAcceptance.code}")
     private String articleAcceptanceCode;
 
+    /**
+     * This field holds the value of articleAcceptanceMessage
+     */
     @Value("${articleAcceptance.message}")
     private String articleAcceptanceMessage;
 
+    /**
+     * This field holds the value of savedOrderCode
+     */
     @Value("${savedOrder.code}")
     private String savedOrderCode;
 
+    /**
+     * This field holds the value of savedOrderMessage
+     */
     @Value("${savedOrder.message}")
     private String savedOrderMessage;
 
+    /**
+     * This field holds the value of orderExistenceCode
+     */
     @Value("${orderExistence.code}")
     private String orderExistenceCode;
 
+    /**
+     * This field holds the value of orderExistenceMessage
+     */
     @Value("${orderExistence.message}")
     private String orderExistenceMessage;
 
+    /**
+     * This field holds the value of onlineOpenCode
+     */
     @Value("${OnlineOpen.code}")
     private String onlineOpenCode;
 
+    /**
+     * This field holds the value of onlineOpenMessage
+     */
     @Value("${OnlineOpen.message}")
     private String onlineOpenMessage;
 
+    /**
+     * This field holds the value of onlineOpenJournalCode
+     */
     @Value("${OnlineOpenJournal.code}")
     private String onlineOpenJournalCode;
 
+    /**
+     * This field holds the value of OnlineOpenJournalMessage
+     */
     @Value("${OnlineOpenJournal.message}")
     private String OnlineOpenJournalMessage;
 
+    /**
+     * This field holds the value of jsonProcessingExceptionCode
+     */
     @Value("${JsonProcessingException}")
     private String jsonProcessingExceptionCode;
-    
+
+    /**
+     * This field holds the value of applicationKey
+     */
     @Value("${OnlineOpenProperties.applicationKey}")
     private String applicationKey;
-    
+
+    /**
+     * This field holds the value of correlationId
+     */
     @Value("${OnlineOpenProperties.correlationId}")
     private String correlationId;
-    
+
+    /**
+     * This field holds the value of userId
+     */
     @Value("${OnlineOpenProperties.userId}")
     private String userId;
-    
+    // WPG Configuration property values
+
+    @Value("$acquirerId}")
+    private String acquirerId;
+
+    @Value("$wpgTimeStmap}")
+    private String wpgTimeStmap;
+
+    @Value("$wpgVendorId}")
+    private String wpgVendorId;
+
+    @Value("$wpgTransId}")
+    private String wpgTransId;
+
+    @Value("$wpgMethod}")
+    private String wpgMethod;
+
+    @Value("$wpgDescription}")
+    private String wpgDescription;
+
+    @Value("$wpgValue}")
+    private String wpgValue;
+
+    @Value("$wpgCurrency}")
+    private String wpgCurrency;
+
+    @Value("$wpgRegion}")
+    private String wpgRegion;
+
+    @Value("$wpgAddress}")
+    private String wpgAddress;
+
+    @Value("$wpgPostCode}")
+    private String wpgPostCode;
+
+    @Value("$wpgCountryCode}")
+    private String wpgCountryCode;
+
+    @Value("$wpgAllowAVSFail}")
+    private String wpgAllowAVSFail;
+
+    @Value("$wpgSecurity}")
+    private String wpgSecurity;
 
     /**
      * This method will take userId and orderId as input and calls external
@@ -440,30 +535,30 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
         OrderResponse orderResponse = null;
 
-            OrderRequest orderRequest = new OrderRequest();
-            // TODO All the below hardcoded values need to changed once proper
-            // data
-            // is provided.
-            orderRequest.setApplicationKey(applicationKey);
-            orderRequest.setCorrelationID(correlationId);
-            OrderData orderData = null;
-            orderData = getOrderDataForOnlineOpenOrder(orderId, userId);
-            orderRequest.setOrderData(orderData);
-            orderRequest.setUserID(userId);
+        OrderRequest orderRequest = new OrderRequest();
+        // TODO All the below hardcoded values need to changed once proper
+        // data
+        // is provided.
+        orderRequest.setApplicationKey(applicationKey);
+        orderRequest.setCorrelationID(correlationId);
+        OrderData orderData = null;
+        orderData = getOrderDataForOnlineOpenOrder(orderId, userId);
+        orderRequest.setOrderData(orderData);
+        orderRequest.setUserID(userId);
 
-            orderResponse = orderservice.submitOnlineOpenOrder(orderData);
+        orderResponse = orderservice.submitOnlineOpenOrder(orderData);
 
-            Orders orders = new Orders();
-            orders.setOrderTypes(new OrderTypes());
-            // orders.setOoOaFlg(orderTypeFlag);
-            orders.setOrderStatus(AuthorServicesConstants.ORDER_STATUS_SUBMIT);
-            // orders.setDownstreamappOrderId(Integer.parseInt(orderResponse.getOoUniqueId()));
-            Users users = new Users();
-            users.setUserId(Integer.parseInt(userId));
-            orders.setUsersByCreatedBy(users);
-            orders.setCreatedDate(new Date());
-            orderOnlineDAO.saveOrUpdateOrder(orders);
-            
+        Orders orders = new Orders();
+        orders.setOrderTypes(new OrderTypes());
+        // orders.setOoOaFlg(orderTypeFlag);
+        orders.setOrderStatus(AuthorServicesConstants.ORDER_STATUS_SUBMIT);
+        // orders.setDownstreamappOrderId(Integer.parseInt(orderResponse.getOoUniqueId()));
+        Users users = new Users();
+        users.setUserId(Integer.parseInt(userId));
+        orders.setUsersByCreatedBy(users);
+        orders.setCreatedDate(new Date());
+        orderOnlineDAO.saveOrUpdateOrder(orders);
+
         return orderResponse;
     }
 
@@ -486,19 +581,19 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                     userId);
             orderDataObject = savedOrder.getOrderObject();
             try {
-				JSONObject object = (JSONObject) new JSONParser()
-				.parse(orderDataObject);
-				onlineOpenOrder = new ObjectMapper().readValue(
-				        object.toJSONString(), OnlineOpenOrder.class);
-			} catch (JsonParseException e) {
-				throw new ASException("700", e.getMessage());
-			} catch (JsonMappingException e) {
-				throw new ASException("701", e.getMessage());
-			} catch (ParseException e) {
-				throw new ASException("702", e.getMessage());
-			} catch (IOException e) {
-				throw new ASException("703", e.getMessage());
-			}
+                JSONObject object = (JSONObject) new JSONParser()
+                .parse(orderDataObject);
+                onlineOpenOrder = new ObjectMapper().readValue(
+                        object.toJSONString(), OnlineOpenOrder.class);
+            } catch (JsonParseException e) {
+                throw new ASException("700", e.getMessage());
+            } catch (JsonMappingException e) {
+                throw new ASException("701", e.getMessage());
+            } catch (ParseException e) {
+                throw new ASException("702", e.getMessage());
+            } catch (IOException e) {
+                throw new ASException("703", e.getMessage());
+            }
 
             orderData = new OrderData();
             // TODO: Need to check Article data
@@ -506,8 +601,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             AddressDetails address = onlineOpenOrder.getAddressDetails();
 
             // TODO: Need to Check the types
-            if (AuthorServicesConstants.BILLING_ADDRESS_TYPE.equals(address.getBillingAddress()
-                    .getAddressType())) {
+            if (AuthorServicesConstants.BILLING_ADDRESS_TYPE.equals(address
+                    .getBillingAddress().getAddressType())) {
                 ContactAddress billingAddress = new ContactAddress();
                 // TODO: Need to set remaining objects
                 billingAddress.setName(address.getBillingAddress()
@@ -517,8 +612,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                         .getInstitution());
 
                 orderData.setBillingAddress(billingAddress);
-            } else if (AuthorServicesConstants.CONTACT_ADDRESS_TYPE.equals(address.getBillingAddress()
-                    .getAddressType())) {
+            } else if (AuthorServicesConstants.CONTACT_ADDRESS_TYPE
+                    .equals(address.getBillingAddress().getAddressType())) {
                 ContactAddress contactAddress = new ContactAddress();
                 // TODO: Need to set remaining objects
                 contactAddress.setName(address.getContactAddress()
@@ -556,10 +651,11 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             Payment payment = new Payment();
             payment.setPaymentMethod(onlineOpenOrder.getPaymentMethod());
             orderData.setPayment(payment);
-            
+
             WoaAccountHolder woaAccountHolder = new WoaAccountHolder();
-            
-            woaAccountHolder.setCode(onlineOpenOrder.getFunderDetails().get(0).getWoaAccountId());
+
+            woaAccountHolder.setCode(onlineOpenOrder.getFunderDetails().get(0)
+                    .getWoaAccountId());
 
             orderData.setWoaAccountHolder(woaAccountHolder);
 
@@ -595,11 +691,10 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
         List<WOAFunder> woaFunderList = null;
 
-            PdhArticleResponse pdhArticleResponse = orderservice
-                    .pdhLookUpArticle(Integer.parseInt(DHID));
+        PdhArticleResponse pdhArticleResponse = orderservice
+                .pdhLookUpArticle(Integer.parseInt(DHID));
 
-            woaFunderList = pdhArticleResponse.getWOAFunders().getWOAFunder();
-
+        woaFunderList = pdhArticleResponse.getWOAFunders().getWOAFunder();
 
         return woaFunderList;
     }
@@ -616,15 +711,15 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     @Override
     public List<DiscountedSociety> retrieveSocietyDiscountListForJournal(
             final String userId, final String DHID) {
-    	List<DiscountedSociety> discountedSocietyListForJournal = null;
+        List<DiscountedSociety> discountedSocietyListForJournal = null;
 
-            DiscountedSocietyResponse discountedSocietiesResponse = orderservice
-                    .getDiscountedSocietiesForJournal(DHID);
+        DiscountedSocietyResponse discountedSocietiesResponse = orderservice
+                .getDiscountedSocietiesForJournal(DHID);
 
-            if (discountedSocietiesResponse != null) {
-                discountedSocietyListForJournal = discountedSocietiesResponse
-                        .getSocieties();
-            }
+        if (discountedSocietiesResponse != null) {
+            discountedSocietyListForJournal = discountedSocietiesResponse
+                    .getSocieties();
+        }
         return discountedSocietyListForJournal;
     }
 
@@ -673,11 +768,11 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
         // TODO: Need to create a request object when provided.
 
-         // TODO: Need to check if journalId or DHId should be passed
-            PdhJournalResponse pdhLookupJournal = orderservice
-                    .pdhLookUpJournal(Integer.parseInt(DHID));
-            isAdditionDiscountAvailable = Boolean.getBoolean(pdhLookupJournal
-                    .getAdditionalDiscountAllowed());
+        // TODO: Need to check if journalId or DHId should be passed
+        PdhJournalResponse pdhLookupJournal = orderservice
+                .pdhLookUpJournal(Integer.parseInt(DHID));
+        isAdditionDiscountAvailable = Boolean.getBoolean(pdhLookupJournal
+                .getAdditionalDiscountAllowed());
 
         return isAdditionDiscountAvailable;
     }
@@ -822,29 +917,29 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     public void processWOAAccount(final WOAFunder woaFunder) {
         List<WOAAccount> woaAccountList = null;
 
-            woaAccountList = woaFunder.getWOAAccounts().getWOAAccount();
+        woaAccountList = woaFunder.getWOAAccounts().getWOAAccount();
 
-            if (woaAccountList != null) {
+        if (woaAccountList != null) {
 
-                /*
-                 * If Selected WOA Institution has multiple WOA Accounts, send
-                 * the Non Restricted WOA Accounts list to the admin to select
-                 * the correct WOA Account.
-                 */
-                List<WOAAccount> nonRestrictedWOAAccountList = null;
-                nonRestrictedWOAAccountList = retrieveNonRestrictedWOAAccountList(
-                        nonRestrictedWOAAccountList, woaAccountList);
+            /*
+             * If Selected WOA Institution has multiple WOA Accounts, send the
+             * Non Restricted WOA Accounts list to the admin to select the
+             * correct WOA Account.
+             */
+            List<WOAAccount> nonRestrictedWOAAccountList = null;
+            nonRestrictedWOAAccountList = retrieveNonRestrictedWOAAccountList(
+                    nonRestrictedWOAAccountList, woaAccountList);
 
-                if (nonRestrictedWOAAccountList != null
-                        && nonRestrictedWOAAccountList.size() > 0) {
-                    orderservice
-                    .sendNonRestrictedWOAAccountListToAdmin(nonRestrictedWOAAccountList);
-                } /*
-                 * else {
-                 * 
-                 * // TODO: Need to consume BPM service }
-                 */
-            }
+            if (nonRestrictedWOAAccountList != null
+                    && nonRestrictedWOAAccountList.size() > 0) {
+                orderservice
+                .sendNonRestrictedWOAAccountListToAdmin(nonRestrictedWOAAccountList);
+            } /*
+             * else {
+             * 
+             * // TODO: Need to consume BPM service }
+             */
+        }
 
     }
 
@@ -919,6 +1014,37 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         }
 
         return woaAccountNameList;
+    }
+
+    /**
+     * Method to update Payment Details.
+     */
+    @Override
+    public boolean updatePaymentDetails(final PaymentDetails paymentDetails) {
+
+        return orderOnlineDAO.updatePaymentDetails(paymentDetails);
+    }
+
+    @Override
+    public WPGConfiguration getWPGConfiguration() {
+
+        WPGConfiguration wpgConfiguration = new WPGConfiguration();
+        wpgConfiguration.setAcquirerId(acquirerId);
+        wpgConfiguration.setWpgAddress(wpgAddress);
+        wpgConfiguration.setWpgAllowAVSFail(wpgAllowAVSFail);
+        wpgConfiguration.setWpgCountryCode(wpgCountryCode);
+        wpgConfiguration.setWpgCurrency(wpgCurrency);
+        wpgConfiguration.setWpgDescription(wpgDescription);
+        wpgConfiguration.setWpgMethod(wpgMethod);
+        wpgConfiguration.setWpgPostCode(wpgPostCode);
+        wpgConfiguration.setWpgRegion(wpgRegion);
+        wpgConfiguration.setWpgSecurity(wpgSecurity);
+        wpgConfiguration.setWpgTimeStmap(wpgTimeStmap);
+        wpgConfiguration.setWpgTransId(wpgTransId);
+        wpgConfiguration.setWpgValue(wpgValue);
+        wpgConfiguration.setWpgVendorId(wpgVendorId);
+
+        return wpgConfiguration;
     }
 
 }
