@@ -16,11 +16,6 @@ package com.wiley.gr.ace.authorservices.model.external;
 public class Societies {
 
     /**
-     * This field holds the value of societyId
-     */
-    private String societyId;
-
-    /**
      * This field holds the value of value
      */
     private String value;
@@ -34,21 +29,6 @@ public class Societies {
      * This field holds the value of societyName
      */
     private String societyName;
-
-    /**
-     * @return the societyId
-     */
-    public final String getSocietyId() {
-        return societyId;
-    }
-
-    /**
-     * @param societyId
-     *            the societyId to set
-     */
-    public final void setSocietyId(final String societyId) {
-        this.societyId = societyId;
-    }
 
     /**
      * @return the value
