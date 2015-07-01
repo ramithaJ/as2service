@@ -27,7 +27,7 @@ public class GrantRecipients {
     /**
      * This field holds the value of code
      */
-    private String code;
+    private Integer code;
 
     /**
      * @return the name
@@ -47,7 +47,7 @@ public class GrantRecipients {
     /**
      * @return the code
      */
-    public final String getCode() {
+    public final Integer getCode() {
         return code;
     }
 
@@ -55,7 +55,7 @@ public class GrantRecipients {
      * @param code
      *            the code to set
      */
-    public final void setCode(final String code) {
+    public final void setCode(final Integer code) {
         this.code = code;
     }
 

@@ -156,11 +156,12 @@ public class OrderOnlineOpenController extends ASExceptionController {
      * @param userId
      * @return service
      */
-    @RequestMapping(value = "/grantRecipients/", method = RequestMethod.GET)
-    public final Service getGrantRecipients() {
+    @RequestMapping(value = "/grantRecipients/{articleId}", method = RequestMethod.GET)
+    public final Service getGrantRecipients(
+            @PathVariable("articleId") final String articleId) {
 
         Service service = new Service();
-        service.setPayload(orderOnlineOpenService.getGrantRecipients("1"));
+        service.setPayload(orderOnlineOpenService.getGrantRecipients(articleId));
         return service;
     }
 
