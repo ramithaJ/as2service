@@ -187,8 +187,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     /**
      * This field holds the value of jsonProcessingExceptionCode
      */
-    @Value("${JsonProcessingException}")
-    private String jsonProcessingExceptionCode;
+   /* @Value("${JsonProcessingException}")
+    private String jsonProcessingExceptionCode;*/
 
     /**
      * This field holds the value of applicationKey
@@ -205,8 +205,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     /**
      * This field holds the value of userId
      */
-    @Value("${OnlineOpenProperties.userId}")
-    private String userId;
+    /*@Value("${OnlineOpenProperties.userId}")
+    private String userId;*/
     // WPG Configuration property values
 
     @Value("$acquirerId}")

@@ -15,7 +15,6 @@ import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
 import com.wiley.gr.ace.authorservices.model.FunderDetails;
 import com.wiley.gr.ace.authorservices.model.Grants;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
-import com.wiley.gr.ace.authorservices.model.Prices;
 import com.wiley.gr.ace.authorservices.model.TaxDetails;
 import com.wiley.gr.ace.authorservices.model.external.DiscountRequest;
 import com.wiley.gr.ace.authorservices.services.service.OnlineOpenAuthorValidatorService;
@@ -130,7 +129,7 @@ public class OnlineOpenAuthorValidatorServiceImpl implements
 		 */
 		validateTaxDetails(userId, onlineOpenOrder.getTaxDetails());
 		
-		List<Prices> pricesList = onlineOpenOrder.getQuoteDetail().getPrices();
+//		List<Prices> pricesList = onlineOpenOrder.getQuoteDetail().getPrices();
 		
 		// TODO : Need to be iterated and retrieve correct price 
 		/*for (Iterator<Prices> iterator = pricesList.iterator(); iterator.hasNext();) {
@@ -138,7 +137,7 @@ public class OnlineOpenAuthorValidatorServiceImpl implements
 			
 		}*/
 		
-		Double apcPrice = Double.parseDouble(pricesList.get(0).getPrice());
+//		Double apcPrice = Double.parseDouble(pricesList.get(0).getPrice());
 		
 		DiscountRequest discountRequest = new DiscountRequest();
 		discountRequest.setCountry(onlineOpenOrder.getAddressDetails().getBillingAddress().getCountry().getCountryName());
