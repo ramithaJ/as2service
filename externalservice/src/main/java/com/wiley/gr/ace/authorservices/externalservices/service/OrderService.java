@@ -14,8 +14,6 @@ package com.wiley.gr.ace.authorservices.externalservices.service;
 
 import java.util.List;
 
-import com.wiley.gr.ace.authorservices.model.FunderDetails;
-import com.wiley.gr.ace.authorservices.model.TaxDetails;
 import com.wiley.gr.ace.authorservices.model.external.DiscountRequest;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSocietyResponse;
 import com.wiley.gr.ace.authorservices.model.external.InstitutionDiscounts;
@@ -89,18 +87,6 @@ public interface OrderService {
      */
     InstitutionDiscounts getInstitutionDiscounts();
 
-    /******************* Validations *******************/
-    /**
-     * @return Object
-     */
-    Object validateTaxDetails(String userId, TaxDetails taxDetails);
-
-    /**
-     * @return Object
-     */
-    Object validateFunderDetails(String userId,
-            List<FunderDetails> funderDetailsList);
-    
     
     /**
      * @param orderId

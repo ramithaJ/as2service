@@ -19,8 +19,6 @@ import org.springframework.http.HttpMethod;
 
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
-import com.wiley.gr.ace.authorservices.model.FunderDetails;
-import com.wiley.gr.ace.authorservices.model.TaxDetails;
 import com.wiley.gr.ace.authorservices.model.external.DiscountRequest;
 import com.wiley.gr.ace.authorservices.model.external.DiscountResponse;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSocietyResponse;
@@ -98,18 +96,6 @@ public class OrderServiceImpl implements OrderService {
     @Value("${institutionDiscounts.url}")
     private String institutionDiscountsurl;
 
-    /**
-     * This field holds the value of validateTaxDetailsurl
-     */
-    @Value("${validateTaxDetails.url}")
-    private String validateTaxDetailsurl;
-
-    /**
-     * This field holds the value of validateFunderDetailsurl
-     */
-    @Value("${validateFunderDetails.url}")
-    private String validateFunderDetailsurl;
-    
     /**
      * This field holds the value of gettaxurl
      */
@@ -211,24 +197,6 @@ public class OrderServiceImpl implements OrderService {
         return (InstitutionDiscounts) StubInvokerUtil.invokeJsonStub(
                 institutionDiscountsurl, HttpMethod.POST,
                 InstitutionDiscounts.class);
-    }
-
-    /**
-     * Method to validate Tax Details
-     */
-    @Override
-    public Object validateTaxDetails(String userId, TaxDetails taxDetails) {
-
-        return StubInvokerUtil.invokeJsonStub(validateTaxDetailsurl,
-                HttpMethod.POST, Object.class);
-    }
-
-    @Override
-    public Object validateFunderDetails(String userId,
-            List<FunderDetails> funderDetailsList) {
-
-        return StubInvokerUtil.invokeJsonStub(validateFunderDetailsurl,
-                HttpMethod.POST, Object.class);
     }
 
     /** @param orderId */

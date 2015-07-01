@@ -8,7 +8,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
@@ -47,9 +46,6 @@ public class OnlineOpenAuthorValidatorServiceImpl implements
     @Autowired(required = true)
     private ValidationService validationService;
     
-    @Value("${OnlineOpenProperties.userId}")
-    private String userId;
-
     /**
      * This method validates the tax details
      * 
@@ -58,10 +54,9 @@ public class OnlineOpenAuthorValidatorServiceImpl implements
      * 
      */
     @Override
-    public void validateTaxDetails(final String userId,
-            final TaxDetails taxDetails) {
+    public void validateTaxDetails(final TaxDetails taxDetails) {
 
-        if (userId != null && taxDetails != null) {
+        if (taxDetails != null) {
 
             // TODO: Error codes and messages must be changed accordingly
             if (!AuthorServicesConstants.COUNTRY_USA.equalsIgnoreCase(taxDetails.getTaxCountryCode())
@@ -83,8 +78,6 @@ public class OnlineOpenAuthorValidatorServiceImpl implements
                         "Tax Code Expiry Date cannot be entered without Tax Exemption Number");
             }
 
-            orderService.validateTaxDetails(userId, taxDetails);
-
         } else {
             throw new ASException("903", "No Tax details available");
         }
@@ -99,10 +92,9 @@ public class OnlineOpenAuthorValidatorServiceImpl implements
      * 
      */
     @Override
-    public void validateFunderDetails(final String userId,
-            final List<FunderDetails> funderDetailsList) {
+    public void validateFunderDetails(final List<FunderDetails> funderDetailsList) {
 
-        if (userId != null && funderDetailsList != null
+        if (funderDetailsList != null
                 && !funderDetailsList.isEmpty()) {
             // TODO: Error codes and messages must be changed accordingly
 
@@ -120,8 +112,6 @@ public class OnlineOpenAuthorValidatorServiceImpl implements
                 }
             }
 
-            orderService.validateFunderDetails(userId, funderDetailsList);
-
         } else {
             throw new ASException("905", "No Funder Details available");
         }
@@ -134,17 +124,17 @@ public class OnlineOpenAuthorValidatorServiceImpl implements
      * 
      */
 	@Override
-	public OnlineOpenOrder processAndValidateNext(OnlineOpenOrder onlineOpenOrder) {
+	public OnlineOpenOrder processAndValidateNext(OnlineOpenOrder onlineOpenOrder, String userId) {
 		
 		/*
 		 *  Validate Funder Details
 		 */
-		validateFunderDetails(userId, onlineOpenOrder.getFunderDetails());
+		validateFunderDetails(onlineOpenOrder.getFunderDetails());
 		
 		/*
 		 * Validate validateTaxDetails
 		 */
-		validateTaxDetails(userId, onlineOpenOrder.getTaxDetails());
+		validateTaxDetails(onlineOpenOrder.getTaxDetails());
 		
 		/*
 		 * Validate Address Details

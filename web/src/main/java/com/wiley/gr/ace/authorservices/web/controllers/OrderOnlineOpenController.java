@@ -148,8 +148,6 @@ public class OrderOnlineOpenController extends ASExceptionController {
     }
 
     /**
-     * @param userId
-     * @param orderId
      * @return service
      */
     @RequestMapping(value = "/cancel/", method = RequestMethod.POST)
@@ -161,7 +159,6 @@ public class OrderOnlineOpenController extends ASExceptionController {
     }
 
     /**
-     * @param userId
      * @return service
      */
     @RequestMapping(value = "/fundersList/", method = RequestMethod.GET)
@@ -173,7 +170,6 @@ public class OrderOnlineOpenController extends ASExceptionController {
     }
 
     /**
-     * @param userId
      * @return service
      */
     @RequestMapping(value = "/woaAccounts/", method = RequestMethod.GET)
@@ -185,7 +181,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
     }
 
     /**
-     * @param userId
+     * @param articleId
      * @return service
      */
     @RequestMapping(value = "/grantRecipients/{articleId}", method = RequestMethod.GET)
@@ -198,7 +194,6 @@ public class OrderOnlineOpenController extends ASExceptionController {
     }
 
     /**
-     * @param userId
      * @return service
      */
     @RequestMapping(value = "/discountedSocieties/", method = RequestMethod.GET)
@@ -210,7 +205,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
     }
 
     /**
-     * @param userId
+     * @param orderId
      * @return service
      */
     @RequestMapping(value = "/allOrders/{orderId}/", method = RequestMethod.GET)
@@ -227,8 +222,6 @@ public class OrderOnlineOpenController extends ASExceptionController {
     /**
      * Gets the institution discounts.
      *
-     * @param userId
-     *            the user id
      * @return service
      */
     @RequestMapping(value = "/institutionDiscounts/", method = RequestMethod.GET)
@@ -240,33 +233,27 @@ public class OrderOnlineOpenController extends ASExceptionController {
     }
 
     /**
-     * @param userId
      * @param onlineOpenOrder
-     * @return
-     * @throws Exception
+     * @return Service
      */
     @RequestMapping(value = "/validate/taxDetails/{userId}/", method = RequestMethod.POST)
     public final Service validateTaxDetails(
-            @PathVariable("userId") final String userId,
             @RequestBody final TaxDetails taxDetails) {
 
-        onlineOpenAuthorValidatorService.validateTaxDetails(userId, taxDetails);
+        onlineOpenAuthorValidatorService.validateTaxDetails(taxDetails);
 
         return new Service();
     }
 
     /**
-     * @param userId
      * @param onlineOpenOrder
-     * @return
-     * @throws Exception
+     * @return Service
      */
-    @RequestMapping(value = "/validate/funderDetails/{userId}/", method = RequestMethod.POST)
+    @RequestMapping(value = "/validate/funderDetails/", method = RequestMethod.POST)
     public final Service validateFunderDetails(
-            @PathVariable("userId") final String userId,
             @RequestBody final List<FunderDetails> funderDetailsList) {
 
-        onlineOpenAuthorValidatorService.validateFunderDetails(userId,
+        onlineOpenAuthorValidatorService.validateFunderDetails(
                 funderDetailsList);
 
         return new Service();
@@ -309,13 +296,14 @@ public class OrderOnlineOpenController extends ASExceptionController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/woaFunder/{name}", method = RequestMethod.POST)
+    @RequestMapping(value = "/woaFunder/{id}", method = RequestMethod.GET)
     public final Service processAllRestrictedFunderWOAAccounts(
-            @RequestBody final String name) {
+    		@PathVariable("id") final String id){
+           
 
         Service service = new Service();
         service.setPayload(orderOnlineOpenService
-                .processAllRestrictedFunderWOAAccounts(name));
+                .processAllRestrictedFunderWOAAccounts(id));
 
         return service;
     }
@@ -338,16 +326,16 @@ public class OrderOnlineOpenController extends ASExceptionController {
     /**
      * @param userId
      * @param onlineOpenOrder
-     * @return
-     * @throws Exception
+     * @return Service 
      */
-    @RequestMapping(value = "/next/preview/", method = RequestMethod.POST)
+    @RequestMapping(value = "/next/preview/{userId}", method = RequestMethod.POST)
     public final Service processAndValidateNext(
+			@PathVariable("userId") final String userId,
             @RequestBody final OnlineOpenOrder onlineOpenOrder) {
 
         Service service = new Service();
     	service.setPayload(onlineOpenAuthorValidatorService
-                .processAndValidateNext(onlineOpenOrder));
+                .processAndValidateNext(onlineOpenOrder, userId));
 
         return service;
     }

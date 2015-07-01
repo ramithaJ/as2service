@@ -55,20 +55,20 @@ public interface OrderOnlineOpenService {
      * @param userId
      * @param onlineOpenOrder
      */
-    List<WOAFunder> retrieveDiscountedWOAFunderList(String userId, String DHID);
+    List<WOAFunder> retrieveDiscountedWOAFunderList(String DHID);
 
     /**
      * @param userId
      * @param onlineOpenOrder
      */
     List<DiscountedSociety> retrieveSocietyDiscountListForJournal(
-            String userId, String DHID);
+            String DHID);
 
     /**
      * @param userId
      * @param journalId
      */
-    boolean isAdditionDiscountAvailableForJournal(String userId, String DHID);
+    boolean isAdditionDiscountAvailableForJournal(String DHID);
 
     /**
      * @param order
@@ -115,7 +115,7 @@ public interface OrderOnlineOpenService {
     /**
      * @param name
      */
-    List<String> processAllRestrictedFunderWOAAccounts(String name);
+    List<String> processAllRestrictedFunderWOAAccounts(String id);
 
     /**
      * @param paymentDetails

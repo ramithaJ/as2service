@@ -1,11 +1,10 @@
 package com.wiley.gr.ace.authorservices.external.util;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.http.Header;
@@ -13,17 +12,15 @@ import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicHeader;
 import org.springframework.beans.factory.annotation.Value;
 
+import com.wiley.bpm.authentication.WileyBPMAuthenticationUtils;
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
-
-//import com.wiley.bpm.authentication.WileyBPMAuthenticationUtils;
 
 
 /**
@@ -36,8 +33,8 @@ public class TaskServicesUtil {
 	@Value("${bpmservice.url}")
 	private static String bpmserviceurl;
 
-/*	@Value("${bpmservice.key}")
-	private static String key;*/
+	@Value("${bpmservice.key}")
+	private static String key;
 
 	@Value("${bpmservice.userId}")
 	private static String userId;
@@ -74,15 +71,21 @@ public class TaskServicesUtil {
 
 		String saltString = null;
 		String encodedParamString = null;
-		// Date currentDate = null;
-		// Long date = null;
+		Date currentDate = null;
+		Long date = null;
 		String generatedSignature = null;
+		Integer statusCode = null;
+		String  status = null;
+		
+		HttpClient client = null;
+		HttpUriRequest request = null;
+		HttpResponse response = null;
 		
 		try {
 			encodedParamString = URLEncoder.encode(paramString, "UTF-8");
 
 		} catch (UnsupportedEncodingException e) {
-			throw new ASException();
+			throw new ASException("3000",e.getMessage());
 		}
 
 		StringBuilder decodedParamString = new StringBuilder();
@@ -95,21 +98,17 @@ public class TaskServicesUtil {
 
 		String url = bpmserviceurl + "?" + decodedParamString.toString();
 
-		HttpPost post = new HttpPost(url);
-		
-		
-		//TODO: Needs to be uncommented once jar is added to nexus
-		/*try {
+		try {
 			saltString = WileyBPMAuthenticationUtils.getSalt();
 		} catch (RuntimeException e) {
 			throw new ASException();
 		}
 
-		Date currentDate = new Date();
-		Long date = currentDate.getTime();
-		String generatedSignature = WileyBPMAuthenticationUtils
-				.generateSignature(key, saltString, "POST", payLoadString,
-						userId, date);*/
+		currentDate = new Date();
+		date = currentDate.getTime();
+		generatedSignature = WileyBPMAuthenticationUtils
+				.generateSignature(key, saltString, "POST", encodedParamString,
+						userId, date);
 
 		List<Header> headers = new ArrayList<Header>();
 		headers.add(new BasicHeader(HttpHeaders.ACCEPT, httpHeaderAcceptValue));
@@ -117,44 +116,34 @@ public class TaskServicesUtil {
 				httpHeaderContentTypeValue));
 		headers.add(new BasicHeader(AuthorServicesConstants.BPM_SOURCE_APP,
 				sourceAppValue));
-		//TODO: Needs to be uncommented once jar is added to nexus
-		//headers.add(new BasicHeader(AuthorServicesConstants.BPM_LONG_DATE, date.toString()));
+		headers.add(new BasicHeader(AuthorServicesConstants.BPM_LONG_DATE, date.toString()));
 		headers.add(new BasicHeader(AuthorServicesConstants.BPM_USERID, userId));
 		headers.add(new BasicHeader(AuthorServicesConstants.BPM_SIGNATURE,
 				generatedSignature));
 		headers.add(new BasicHeader(AuthorServicesConstants.BPM_SALT,
 				saltString));
 
-		HttpClient client = HttpClients.custom().setDefaultHeaders(headers)
+		client = HttpClients.custom().setDefaultHeaders(headers)
 				.build();
-		HttpUriRequest request = RequestBuilder.post(url).build();
+		request = RequestBuilder.post(url).build();
 
-		StringBuffer result;
+		
 		try {
-			HttpResponse response = client.execute(request);
-			System.out.println("\nSending 'POST' request to URL : " + url);
-			System.out.println("Post parameters : " + post.getEntity());
-			System.out.println("Response Code : "
-					+ response.getStatusLine().getStatusCode());
-
-			BufferedReader rd = new BufferedReader(new InputStreamReader(response
-					.getEntity().getContent()));
-
-			result = new StringBuffer();
-			String line = "";
-			while ((line = rd.readLine()) != null) {
-				result.append(line);
-			}
+			response = client.execute(request);
 		} catch (ClientProtocolException e) {
-			throw new ASException();
-		} catch (UnsupportedOperationException e) {
-			throw new ASException();
+			throw new ASException("2000",e.getMessage());
 		} catch (IOException e) {
-			throw new ASException();
+			throw new ASException("2001",e.getMessage());
+		}
+		statusCode = response.getStatusLine().getStatusCode();
+		
+		if(statusCode == 200){
+			status=AuthorServicesConstants.BPM_CALL_SUCCESS_STATUS;
+		} else {
+			throw new ASException(statusCode.toString(), response.getStatusLine().getReasonPhrase());
 		}
 
-		System.out.println(result.toString());
-		return result.toString();
+		return status;
 	}
-
+	
 }

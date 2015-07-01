@@ -23,19 +23,20 @@ public interface OnlineOpenAuthorValidatorService {
 	  * @param userId
 	  * @param taxDetails
 	  */
-	 void validateTaxDetails(String userId, TaxDetails taxDetails);
+	 void validateTaxDetails(TaxDetails taxDetails);
 
 	/**
 	 * @param userId
 	 * @param funderDetails
 	 */
-	void validateFunderDetails(String userId, List<FunderDetails> funderDetailsList);
+	void validateFunderDetails(List<FunderDetails> funderDetailsList);
 
 	/**
 	 * @param onlineOpenOrder
+	 * @param userId
 	 * @return onlineOpenOrder
 	 */
-	OnlineOpenOrder processAndValidateNext(OnlineOpenOrder onlineOpenOrder);
+	OnlineOpenOrder processAndValidateNext(OnlineOpenOrder onlineOpenOrder, String userId);
 	
 
 	
