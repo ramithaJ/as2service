@@ -53,6 +53,7 @@ import com.wiley.gr.ace.authorservices.model.QuoteDetail;
 import com.wiley.gr.ace.authorservices.model.QuoteDetails;
 import com.wiley.gr.ace.authorservices.model.Recipients;
 import com.wiley.gr.ace.authorservices.model.Society;
+import com.wiley.gr.ace.authorservices.model.SocietyDiscounts;
 import com.wiley.gr.ace.authorservices.model.TaxDetails;
 import com.wiley.gr.ace.authorservices.model.WOAAccountFunders;
 import com.wiley.gr.ace.authorservices.model.WOAAccountHolders;
@@ -845,12 +846,13 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * @return
      */
     @Override
-    public List<Society> getDiscountedSocieties() {
+    public SocietyDiscounts getDiscountedSocieties() {
 
         SocietyMemberDiscount societyMemberDiscount = orderservice
                 .getSocietyMemberDiscount();
         List<Societies> societiesList = societyMemberDiscount.getPayload()
                 .getSocieties();
+        SocietyDiscounts societyDiscounts = new SocietyDiscounts();
         List<Society> societyList = new ArrayList<Society>();
         Society society = null;
         for (Societies societies : societiesList) {
@@ -858,7 +860,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             society.setSocietyName(societies.getSocietyName());
             societyList.add(society);
         }
-        return societyList;
+        societyDiscounts.setSocieties(societyList);
+        return societyDiscounts;
     }
 
     /**

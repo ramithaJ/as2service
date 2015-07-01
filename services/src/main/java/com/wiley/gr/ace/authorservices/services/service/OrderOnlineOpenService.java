@@ -9,7 +9,7 @@ import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.OrderDetails;
 import com.wiley.gr.ace.authorservices.model.PaymentDetails;
 import com.wiley.gr.ace.authorservices.model.QuoteDetails;
-import com.wiley.gr.ace.authorservices.model.Society;
+import com.wiley.gr.ace.authorservices.model.SocietyDiscounts;
 import com.wiley.gr.ace.authorservices.model.WOAAccountHolders;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSociety;
 import com.wiley.gr.ace.authorservices.model.external.OrderResponse;
@@ -91,7 +91,7 @@ public interface OrderOnlineOpenService {
      * @param userId
      * @return
      */
-    List<Society> getDiscountedSocieties();
+    SocietyDiscounts getDiscountedSocieties();
 
     /**
      * @param userId
