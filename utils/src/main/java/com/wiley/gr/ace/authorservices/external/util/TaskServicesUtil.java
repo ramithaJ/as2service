@@ -36,8 +36,8 @@ public class TaskServicesUtil {
 	@Value("${bpmservice.url}")
 	private static String bpmserviceurl;
 
-	@Value("${bpmservice.key}")
-	private static String key;
+/*	@Value("${bpmservice.key}")
+	private static String key;*/
 
 	@Value("${bpmservice.userId}")
 	private static String userId;
