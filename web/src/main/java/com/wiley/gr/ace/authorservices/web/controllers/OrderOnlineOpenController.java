@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
+import com.wiley.gr.ace.authorservices.model.AddressDetails;
 import com.wiley.gr.ace.authorservices.model.FunderDetails;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.PaymentDetails;
@@ -20,6 +21,7 @@ import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.TaxDetails;
 import com.wiley.gr.ace.authorservices.model.external.WOAFunder;
 import com.wiley.gr.ace.authorservices.services.service.OnlineOpenAuthorValidatorService;
+import com.wiley.gr.ace.authorservices.services.service.OpenAccessService;
 import com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService;
 
 /**
@@ -35,12 +37,42 @@ public class OrderOnlineOpenController extends ASExceptionController {
      */
     @Autowired(required = true)
     private OrderOnlineOpenService orderOnlineOpenService;
+    
+    /**
+     * This field holds the value of OpenAccessService
+     */
+    @Autowired(required = true)
+    private OpenAccessService openAccessService;
 
     /**
      * This field holds the value of nlineOpenAuthorValidatorService
      */
     @Autowired(required = true)
     private OnlineOpenAuthorValidatorService onlineOpenAuthorValidatorService;
+    
+    /**
+     * This field holds the value of invalidContactAddressCode
+     */
+    @Value("${contactAddress.code}")
+    private String invalidContactAddressCode;
+
+    /**
+     * This field holds the value of invalidContactAddressMessage
+     */
+    @Value("${contactAddress.message}")
+    private String invalidContactAddressMessage;
+    
+    /**
+     * This field holds the value of invalidBillingAddressCode
+     */
+    @Value("${billingAddress.code}")
+    private String invalidBillingAddressCode;
+
+    /**
+     * This field holds the value of invalidBillingAddressMessage
+     */
+    @Value("${billingAddress.message}")
+    private String invalidBillingAddressMessage;
 
     /**
      * This field holds the value of onlineOpen
@@ -236,6 +268,37 @@ public class OrderOnlineOpenController extends ASExceptionController {
 
         onlineOpenAuthorValidatorService.validateFunderDetails(userId,
                 funderDetailsList);
+
+        return new Service();
+    }
+    
+    /**
+     * @param userId
+     * @param onlineOpenOrder
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/validate/address/{userId}/", method = RequestMethod.POST)
+    public final Service validateAddressDetails(
+            @PathVariable("userId") final String userId,
+            @RequestBody final AddressDetails addressDetails) {
+    	
+        if(addressDetails.getContactAddress() != null) {
+        	try {
+				openAccessService.validateAddress(addressDetails.getContactAddress());
+			} catch (Exception e) {
+				throw new ASException(invalidContactAddressCode, invalidContactAddressMessage);
+			}
+        }
+        
+        if(addressDetails.getBillingAddress() != null) {
+        	try {
+				openAccessService.validateAddress(addressDetails.getBillingAddress());
+			} catch (Exception e) {
+				throw new ASException(invalidBillingAddressCode, invalidBillingAddressMessage);
+			}
+        }
+    	
 
         return new Service();
     }
