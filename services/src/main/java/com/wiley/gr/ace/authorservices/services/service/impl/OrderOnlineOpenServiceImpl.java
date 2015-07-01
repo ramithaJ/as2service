@@ -43,6 +43,7 @@ import com.wiley.gr.ace.authorservices.model.FundingOrganizations;
 import com.wiley.gr.ace.authorservices.model.GrantRecipients;
 import com.wiley.gr.ace.authorservices.model.Grants;
 import com.wiley.gr.ace.authorservices.model.Institution;
+import com.wiley.gr.ace.authorservices.model.InstitutionalDiscounts;
 import com.wiley.gr.ace.authorservices.model.JournalDetails;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.OrderDetails;
@@ -866,11 +867,13 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * @return
      */
     @Override
-    public List<Institution> getInstitutionDiscounts() {
+    public InstitutionalDiscounts getInstitutionDiscounts() {
 
         InstitutionDiscounts institutionDiscounts = orderservice
                 .getInstitutionDiscounts();
-        List<Institute> istituteList = institutionDiscounts.getInstitute();
+        List<Institute> istituteList = institutionDiscounts.getPayLoad()
+                .getInstituteList();
+        InstitutionalDiscounts institutionalDiscounts = new InstitutionalDiscounts();
         List<Institution> institutionList = new ArrayList<Institution>();
         Institution institution = null;
         for (Institute institute : istituteList) {
@@ -879,7 +882,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             institution.setInstitutionName(institute.getInstituteName());
             institutionList.add(institution);
         }
-        return institutionList;
+        institutionalDiscounts.setInstituteList(institutionList);
+        return institutionalDiscounts;
     }
 
     /**

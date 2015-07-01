@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.wiley.gr.ace.authorservices.model.FundingOrganizations;
 import com.wiley.gr.ace.authorservices.model.GrantRecipients;
-import com.wiley.gr.ace.authorservices.model.Institution;
+import com.wiley.gr.ace.authorservices.model.InstitutionalDiscounts;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.OrderDetails;
 import com.wiley.gr.ace.authorservices.model.PaymentDetails;
@@ -97,7 +97,7 @@ public interface OrderOnlineOpenService {
      * @param userId
      * @return
      */
-    List<Institution> getInstitutionDiscounts();
+    InstitutionalDiscounts getInstitutionDiscounts();
 
     /**
      * @param userId

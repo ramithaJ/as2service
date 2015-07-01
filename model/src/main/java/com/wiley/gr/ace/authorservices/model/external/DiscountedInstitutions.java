@@ -13,46 +13,27 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
 
-public class InstitutionDiscounts {
-
-    /**
-     * This field holds the value of status
-     */
-    private String status;
-
-    @JsonProperty("payload")
-    private DiscountedInstitutions payLoad;
+public class DiscountedInstitutions {
 
     /**
-     * @return the payLoad
+     * This field holds the value of institute
      */
-    public final DiscountedInstitutions getPayLoad() {
-        return payLoad;
+    private List<Institute> instituteList;
+
+    /**
+     * @return the instituteList
+     */
+    public final List<Institute> getInstituteList() {
+        return instituteList;
     }
 
     /**
-     * @param payLoad
-     *            the payLoad to set
+     * @param instituteList
+     *            the instituteList to set
      */
-    public final void setPayLoad(final DiscountedInstitutions payLoad) {
-        this.payLoad = payLoad;
+    public final void setInstituteList(final List<Institute> instituteList) {
+        this.instituteList = instituteList;
     }
-
-    /**
-     * @return the status
-     */
-    public final String getStatus() {
-        return status;
-    }
-
-    /**
-     * @param status
-     *            the status to set
-     */
-    public final void setStatus(final String status) {
-        this.status = status;
-    }
-
 }
