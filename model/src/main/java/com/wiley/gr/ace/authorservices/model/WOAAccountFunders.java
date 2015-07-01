@@ -17,17 +17,17 @@ package com.wiley.gr.ace.authorservices.model;
  * @author virtusa version1.0
  *
  */
-public class WOAAccounts {
+public class WOAAccountFunders {
 
     /**
-     * This field holds the value of woaAccountId
+     * This field holds the value of woaFunderId
      */
-    private String woaAccountId;
+    private String woaFunderId;
 
     /**
-     * This field holds the value of woaAccountName
+     * This field holds the value of woaFunderName
      */
-    private String woaAccountName;
+    private String woaFunderName;
 
     /**
      * This field holds the value of allRestricted
@@ -50,33 +50,33 @@ public class WOAAccounts {
     }
 
     /**
-     * @return the woaAccountId
+     * @return the woaFunderId
      */
-    public final String getWoaAccountId() {
-        return woaAccountId;
+    public final String getWoaFunderId() {
+        return woaFunderId;
     }
 
     /**
-     * @param woaAccountId
-     *            the woaAccountId to set
+     * @param woaFunderId
+     *            the woaFunderId to set
      */
-    public final void setWoaAccountId(final String woaAccountId) {
-        this.woaAccountId = woaAccountId;
+    public final void setWoaFunderId(final String woaFunderId) {
+        this.woaFunderId = woaFunderId;
     }
 
     /**
-     * @return the woaAccountName
+     * @return the woaFunderName
      */
-    public final String getWoaAccountName() {
-        return woaAccountName;
+    public final String getWoaFunderName() {
+        return woaFunderName;
     }
 
     /**
-     * @param woaAccountName
-     *            the woaAccountName to set
+     * @param woaFunderName
+     *            the woaFunderName to set
      */
-    public final void setWoaAccountName(final String woaAccountName) {
-        this.woaAccountName = woaAccountName;
+    public final void setWoaFunderName(final String woaFunderName) {
+        this.woaFunderName = woaFunderName;
     }
 
 }

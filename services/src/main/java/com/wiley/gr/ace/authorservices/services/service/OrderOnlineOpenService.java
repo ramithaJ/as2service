@@ -61,8 +61,7 @@ public interface OrderOnlineOpenService {
      * @param userId
      * @param onlineOpenOrder
      */
-    List<DiscountedSociety> retrieveSocietyDiscountListForJournal(
-            String DHID);
+    List<DiscountedSociety> retrieveSocietyDiscountListForJournal(String DHID);
 
     /**
      * @param userId
@@ -80,7 +79,7 @@ public interface OrderOnlineOpenService {
      * @param userId
      * @return
      */
-    WOAAccountHolders getWOAAccounts();
+    WOAAccountHolders getWOAFunders();
 
     /**
      * @param userId

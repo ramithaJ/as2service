@@ -37,7 +37,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
      */
     @Autowired(required = true)
     private OrderOnlineOpenService orderOnlineOpenService;
-    
+
     /**
      * This field holds the value of OpenAccessService
      */
@@ -49,7 +49,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
      */
     @Autowired(required = true)
     private OnlineOpenAuthorValidatorService onlineOpenAuthorValidatorService;
-    
+
     /**
      * This field holds the value of invalidContactAddressCode
      */
@@ -61,7 +61,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
      */
     @Value("${contactAddress.message}")
     private String invalidContactAddressMessage;
-    
+
     /**
      * This field holds the value of invalidBillingAddressCode
      */
@@ -170,13 +170,14 @@ public class OrderOnlineOpenController extends ASExceptionController {
     }
 
     /**
+     * @param userId
      * @return service
      */
-    @RequestMapping(value = "/woaAccounts/", method = RequestMethod.GET)
-    public final Service getWOAAccounts() {
+    @RequestMapping(value = "/woaFunders/", method = RequestMethod.GET)
+    public final Service getWOAFunders() {
 
         Service service = new Service();
-        service.setPayload(orderOnlineOpenService.getWOAAccounts());
+        service.setPayload(orderOnlineOpenService.getWOAFunders());
         return service;
     }
 
@@ -253,12 +254,12 @@ public class OrderOnlineOpenController extends ASExceptionController {
     public final Service validateFunderDetails(
             @RequestBody final List<FunderDetails> funderDetailsList) {
 
-        onlineOpenAuthorValidatorService.validateFunderDetails(
-                funderDetailsList);
+        onlineOpenAuthorValidatorService
+                .validateFunderDetails(funderDetailsList);
 
         return new Service();
     }
-    
+
     /**
      * @param userId
      * @param onlineOpenOrder
@@ -269,23 +270,26 @@ public class OrderOnlineOpenController extends ASExceptionController {
     public final Service validateAddressDetails(
             @PathVariable("userId") final String userId,
             @RequestBody final AddressDetails addressDetails) {
-    	
-        if(addressDetails.getContactAddress() != null) {
-        	try {
-				openAccessService.validateAddress(addressDetails.getContactAddress());
-			} catch (Exception e) {
-				throw new ASException(invalidContactAddressCode, invalidContactAddressMessage);
-			}
+
+        if (addressDetails.getContactAddress() != null) {
+            try {
+                openAccessService.validateAddress(addressDetails
+                        .getContactAddress());
+            } catch (Exception e) {
+                throw new ASException(invalidContactAddressCode,
+                        invalidContactAddressMessage);
+            }
         }
-        
-        if(addressDetails.getBillingAddress() != null) {
-        	try {
-				openAccessService.validateAddress(addressDetails.getBillingAddress());
-			} catch (Exception e) {
-				throw new ASException(invalidBillingAddressCode, invalidBillingAddressMessage);
-			}
+
+        if (addressDetails.getBillingAddress() != null) {
+            try {
+                openAccessService.validateAddress(addressDetails
+                        .getBillingAddress());
+            } catch (Exception e) {
+                throw new ASException(invalidBillingAddressCode,
+                        invalidBillingAddressMessage);
+            }
         }
-    	
 
         return new Service();
     }
@@ -298,8 +302,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
      */
     @RequestMapping(value = "/woaFunder/{id}", method = RequestMethod.GET)
     public final Service processAllRestrictedFunderWOAAccounts(
-    		@PathVariable("id") final String id){
-           
+            @PathVariable("id") final String id) {
 
         Service service = new Service();
         service.setPayload(orderOnlineOpenService
@@ -326,15 +329,15 @@ public class OrderOnlineOpenController extends ASExceptionController {
     /**
      * @param userId
      * @param onlineOpenOrder
-     * @return Service 
+     * @return Service
      */
     @RequestMapping(value = "/next/preview/{userId}", method = RequestMethod.POST)
     public final Service processAndValidateNext(
-			@PathVariable("userId") final String userId,
+            @PathVariable("userId") final String userId,
             @RequestBody final OnlineOpenOrder onlineOpenOrder) {
 
         Service service = new Service();
-    	service.setPayload(onlineOpenAuthorValidatorService
+        service.setPayload(onlineOpenAuthorValidatorService
                 .processAndValidateNext(onlineOpenOrder, userId));
 
         return service;

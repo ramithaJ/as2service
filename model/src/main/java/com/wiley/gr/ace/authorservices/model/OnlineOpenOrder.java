@@ -69,9 +69,29 @@ public class OnlineOpenOrder {
 
     /** The tax amount. */
     private Amount taxAmount;
-    
+
     /** The order Id */
     private String orderId;
+
+    /**
+     * This field holds the value of licenseSignedStatus
+     */
+    private String licenseSignedStatus = "false";
+
+    /**
+     * @return the licenseSignedStatus
+     */
+    public final String getLicenseSignedStatus() {
+        return licenseSignedStatus;
+    }
+
+    /**
+     * @param licenseSignedStatus
+     *            the licenseSignedStatus to set
+     */
+    public final void setLicenseSignedStatus(final String licenseSignedStatus) {
+        this.licenseSignedStatus = licenseSignedStatus;
+    }
 
     /**
      * Gets the final amount.
@@ -380,20 +400,19 @@ public class OnlineOpenOrder {
         this.taxAmount = taxAmount;
     }
 
-	/**
-	 * @return the orderId
-	 */
-	public String getOrderId() {
-		return orderId;
-	}
+    /**
+     * @return the orderId
+     */
+    public String getOrderId() {
+        return orderId;
+    }
 
-	/**
-	 * @param orderId the orderId to set
-	 */
-	public void setOrderId(String orderId) {
-		this.orderId = orderId;
-	}
-    
-    
+    /**
+     * @param orderId
+     *            the orderId to set
+     */
+    public void setOrderId(final String orderId) {
+        this.orderId = orderId;
+    }
 
 }
