@@ -21,6 +21,8 @@ import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
 import com.wiley.gr.ace.authorservices.model.FunderDetails;
 import com.wiley.gr.ace.authorservices.model.TaxDetails;
+import com.wiley.gr.ace.authorservices.model.external.DiscountRequest;
+import com.wiley.gr.ace.authorservices.model.external.DiscountResponse;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSocietyResponse;
 import com.wiley.gr.ace.authorservices.model.external.InstitutionDiscounts;
 import com.wiley.gr.ace.authorservices.model.external.OrderData;
@@ -31,6 +33,8 @@ import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
 import com.wiley.gr.ace.authorservices.model.external.Quote;
 import com.wiley.gr.ace.authorservices.model.external.QuoteRequest;
 import com.wiley.gr.ace.authorservices.model.external.SocietyMemberDiscount;
+import com.wiley.gr.ace.authorservices.model.external.TaxRequest;
+import com.wiley.gr.ace.authorservices.model.external.TaxResponse;
 import com.wiley.gr.ace.authorservices.model.external.WOAAccount;
 import com.wiley.gr.ace.authorservices.model.external.WileyOpenAccessFunders;
 
@@ -95,7 +99,7 @@ public class OrderServiceImpl implements OrderService {
     private String institutionDiscountsurl;
 
     /**
-     * This field holds the value of discountedSocietiesurl
+     * This field holds the value of validateTaxDetailsurl
      */
     @Value("${validateTaxDetails.url}")
     private String validateTaxDetailsurl;
@@ -105,6 +109,19 @@ public class OrderServiceImpl implements OrderService {
      */
     @Value("${validateFunderDetails.url}")
     private String validateFunderDetailsurl;
+    
+    /**
+     * This field holds the value of gettaxurl
+     */
+    @Value("${gettax.url}")
+    private String gettaxurl;
+    
+    /**
+     * This field holds the value of getdiscountsurl
+     */
+    @Value("${getdiscounts.url}")
+    private String getdiscountsurl;
+
 
     /** Calling Stub */
     @Override
@@ -227,5 +244,24 @@ public class OrderServiceImpl implements OrderService {
 			List<WOAAccount> nonRestrictedWOAAccountList) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	
+	@Override
+	public String getDiscounts(DiscountRequest discountRequest) {
+		
+		DiscountResponse response = (DiscountResponse) StubInvokerUtil.invokeJsonStub(
+				getdiscountsurl, HttpMethod.POST, DiscountResponse.class);
+		
+		return response.getDiscountValue();
+	}
+
+
+	@Override
+	public String getTaxAmount(TaxRequest taxRequest) {
+		TaxResponse response = (TaxResponse) StubInvokerUtil.invokeJsonStub(
+				gettaxurl, HttpMethod.POST, TaxResponse.class);
+		
+		return response.getItem().get(0).getDiscountedLineAmount();
 	}
 }

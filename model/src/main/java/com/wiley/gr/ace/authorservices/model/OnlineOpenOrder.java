@@ -69,6 +69,9 @@ public class OnlineOpenOrder {
 
     /** The tax amount. */
     private Amount taxAmount;
+    
+    /** The order Id */
+    private String orderId;
 
     /**
      * Gets the final amount.
@@ -376,5 +379,21 @@ public class OnlineOpenOrder {
     public final void setTaxAmount(final Amount taxAmount) {
         this.taxAmount = taxAmount;
     }
+
+	/**
+	 * @return the orderId
+	 */
+	public String getOrderId() {
+		return orderId;
+	}
+
+	/**
+	 * @param orderId the orderId to set
+	 */
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
+	}
+    
+    
 
 }

@@ -3,6 +3,7 @@
  */
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -12,12 +13,20 @@ import org.springframework.beans.factory.annotation.Value;
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
+import com.wiley.gr.ace.authorservices.externalservices.service.ValidationService;
+import com.wiley.gr.ace.authorservices.model.Amount;
 import com.wiley.gr.ace.authorservices.model.FunderDetails;
 import com.wiley.gr.ace.authorservices.model.Grants;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
+import com.wiley.gr.ace.authorservices.model.Prices;
 import com.wiley.gr.ace.authorservices.model.TaxDetails;
+import com.wiley.gr.ace.authorservices.model.external.AddressValidationMultiReq;
+import com.wiley.gr.ace.authorservices.model.external.AddressValidationRequest;
 import com.wiley.gr.ace.authorservices.model.external.DiscountRequest;
+import com.wiley.gr.ace.authorservices.model.external.Item;
+import com.wiley.gr.ace.authorservices.model.external.TaxRequest;
 import com.wiley.gr.ace.authorservices.services.service.OnlineOpenAuthorValidatorService;
+import com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService;
 
 /**
  * 
@@ -28,7 +37,15 @@ public class OnlineOpenAuthorValidatorServiceImpl implements
 
     /** Getting Bean Of Order Service */
     @Autowired(required = true)
-    private OrderService orderservice;
+    private OrderService orderService;
+    
+    /** Getting Bean Of Order Service */
+    @Autowired(required = true)
+    private OrderOnlineOpenService orderOnlineOpenService;
+    
+    /** Getting Bean Of Order Service */
+    @Autowired(required = true)
+    private ValidationService validationService;
     
     @Value("${OnlineOpenProperties.userId}")
     private String userId;
@@ -66,7 +83,7 @@ public class OnlineOpenAuthorValidatorServiceImpl implements
                         "Tax Code Expiry Date cannot be entered without Tax Exemption Number");
             }
 
-            orderservice.validateTaxDetails(userId, taxDetails);
+            orderService.validateTaxDetails(userId, taxDetails);
 
         } else {
             throw new ASException("903", "No Tax details available");
@@ -103,7 +120,7 @@ public class OnlineOpenAuthorValidatorServiceImpl implements
                 }
             }
 
-            orderservice.validateFunderDetails(userId, funderDetailsList);
+            orderService.validateFunderDetails(userId, funderDetailsList);
 
         } else {
             throw new ASException("905", "No Funder Details available");
@@ -117,7 +134,7 @@ public class OnlineOpenAuthorValidatorServiceImpl implements
      * 
      */
 	@Override
-	public void processAndValidateNext(OnlineOpenOrder onlineOpenOrder) {
+	public OnlineOpenOrder processAndValidateNext(OnlineOpenOrder onlineOpenOrder) {
 		
 		/*
 		 *  Validate Funder Details
@@ -129,24 +146,77 @@ public class OnlineOpenAuthorValidatorServiceImpl implements
 		 */
 		validateTaxDetails(userId, onlineOpenOrder.getTaxDetails());
 		
-//		List<Prices> pricesList = onlineOpenOrder.getQuoteDetail().getPrices();
+		/*
+		 * Validate Address Details
+		 */
+		AddressValidationRequest addressValidationRequest = new AddressValidationRequest();
 		
-		// TODO : Need to be iterated and retrieve correct price 
-		/*for (Iterator<Prices> iterator = pricesList.iterator(); iterator.hasNext();) {
-			Prices prices = (Prices) iterator.next();
-			
-		}*/
+		AddressValidationMultiReq addressValidationMultiReq = new AddressValidationMultiReq();
 		
-//		Double apcPrice = Double.parseDouble(pricesList.get(0).getPrice());
+		addressValidationMultiReq.setStreet1(onlineOpenOrder.getAddressDetails().getBillingAddress().getAddressLine1());
+		addressValidationMultiReq.setStreet2(onlineOpenOrder.getAddressDetails().getBillingAddress().getAddressLine2());
+		addressValidationMultiReq.setCountryName(onlineOpenOrder.getAddressDetails().getBillingAddress().getCountry().getCountryName());
+		addressValidationMultiReq.setLocality1(onlineOpenOrder.getAddressDetails().getBillingAddress().getCity());
+		addressValidationMultiReq.setPostCode(onlineOpenOrder.getAddressDetails().getBillingAddress().getPostCode());
+		addressValidationMultiReq.setProvince1(onlineOpenOrder.getAddressDetails().getBillingAddress().getState());
+		addressValidationMultiReq.setOrganization1(onlineOpenOrder.getAddressDetails().getBillingAddress().getInstitution());
+		addressValidationMultiReq.setOrganizationDepartment1(onlineOpenOrder.getAddressDetails().getBillingAddress().getDepartment());
+		
+		addressValidationRequest.setAddressValidationMultiReq(addressValidationMultiReq);
+		
+		boolean isValidAddress = validationService.validateAddress(addressValidationRequest);
+		
+		 // TODO: Error codes and messages must be changed accordingly
+		if(!isValidAddress){
+			throw new ASException("906", "Invalid Address");
+		}
+		
+		List<Prices> pricesList = onlineOpenOrder.getQuoteDetail().getPrices();
+		
+		// TODO : Need to check if multiple prices are received and iterate if multiple   
+		Double apcPrice = Double.parseDouble(pricesList.get(0).getPrice());
 		
 		DiscountRequest discountRequest = new DiscountRequest();
 		discountRequest.setCountry(onlineOpenOrder.getAddressDetails().getBillingAddress().getCountry().getCountryName());
 		discountRequest.setInstitution(onlineOpenOrder.getAddressDetails().getBillingAddress().getInstitution());
-		// TODO: Need to set the actual values
-		discountRequest.setJrnlArcn("jrnlArcn");
-		discountRequest.setOtherPromoCode("otherPromoCode");
-		discountRequest.setSociety("SocietyName");
-		discountRequest.setSocietyPromocode("societyPromocode");
+		// TODO: Need to check whether values need to be populated
+		discountRequest.setJrnlArcn("");
+		discountRequest.setOtherPromoCode("");
+		discountRequest.setSociety(onlineOpenOrder.getDiscountDetails().get(0).getSocietyId());
+		discountRequest.setSocietyPromocode(onlineOpenOrder.getDiscountDetails().get(0).getPromoCode());
+		
+		Double discountPrice = Double.parseDouble(orderService.getDiscounts(discountRequest));
+		
+		TaxRequest taxRequest = new TaxRequest();
+		List<Item> itemList = new ArrayList<Item>();
+		taxRequest.setTaxExemptionExpiryDate(onlineOpenOrder.getTaxDetails().getTaxCodeExpiryDate());
+		taxRequest.setTaxExemption(onlineOpenOrder.getTaxDetails().getTaxExemptionNumber());
+		taxRequest.setVatId(onlineOpenOrder.getTaxDetails().getVatExemptionNumber());
+		taxRequest.setCityName(onlineOpenOrder.getAddressDetails().getBillingAddress().getCity());
+		taxRequest.setCountry(onlineOpenOrder.getAddressDetails().getBillingAddress().getCountry().getCountryName());
+		taxRequest.setStateProv(onlineOpenOrder.getAddressDetails().getBillingAddress().getState());
+		taxRequest.setZipPostalCode(onlineOpenOrder.getAddressDetails().getBillingAddress().getPostCode());
+		taxRequest.setItem(itemList);
+		
+		Double taxAmount = Double.parseDouble(orderService.getTaxAmount(taxRequest));
+		
+		Double discountedAPC = apcPrice - discountPrice;
+		
+		Double finalAmount = discountedAPC + taxAmount;
+		
+		Double taxPercentage = (taxAmount/discountedAPC) * 100;
+		
+		Amount finAmount = new Amount();
+		finAmount.setAmount(finalAmount.toString());
+		
+		onlineOpenOrder.setFinalAmount(finAmount);
+		onlineOpenOrder.setTaxPercentage(taxPercentage.toString());
+		
+		Integer orderId = orderOnlineOpenService.saveLaterOrder(onlineOpenOrder, userId);
+		
+		onlineOpenOrder.setOrderId(orderId.toString());
+		
+		return onlineOpenOrder;
 		
 	}
     

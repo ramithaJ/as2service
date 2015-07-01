@@ -282,10 +282,11 @@ public class OrderOnlineOpenController extends ASExceptionController {
     public final Service processAndValidateNext(
             @RequestBody final OnlineOpenOrder onlineOpenOrder) {
 
-        onlineOpenAuthorValidatorService
-                .processAndValidateNext(onlineOpenOrder);
+        Service service = new Service();
+    	service.setPayload(onlineOpenAuthorValidatorService
+                .processAndValidateNext(onlineOpenOrder));
 
-        return new Service();
+        return service;
     }
 
     /**

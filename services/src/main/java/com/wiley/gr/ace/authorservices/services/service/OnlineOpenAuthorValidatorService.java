@@ -33,8 +33,9 @@ public interface OnlineOpenAuthorValidatorService {
 
 	/**
 	 * @param onlineOpenOrder
+	 * @return onlineOpenOrder
 	 */
-	void processAndValidateNext(OnlineOpenOrder onlineOpenOrder);
+	OnlineOpenOrder processAndValidateNext(OnlineOpenOrder onlineOpenOrder);
 	
 
 	
