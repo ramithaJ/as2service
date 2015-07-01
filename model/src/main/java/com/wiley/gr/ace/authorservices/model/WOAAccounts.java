@@ -20,14 +20,14 @@ package com.wiley.gr.ace.authorservices.model;
 public class WOAAccounts {
 
     /**
-     * This field holds the value of code
+     * This field holds the value of woaAccountId
      */
-    private String code;
+    private String woaAccountId;
 
     /**
-     * This field holds the value of name
+     * This field holds the value of woaAccountName
      */
-    private String name;
+    private String woaAccountName;
 
     /**
      * This field holds the value of allRestricted
@@ -50,33 +50,33 @@ public class WOAAccounts {
     }
 
     /**
-     * @return the code
+     * @return the woaAccountId
      */
-    public final String getCode() {
-        return code;
+    public final String getWoaAccountId() {
+        return woaAccountId;
     }
 
     /**
-     * @param code
-     *            the code to set
+     * @param woaAccountId
+     *            the woaAccountId to set
      */
-    public final void setCode(final String code) {
-        this.code = code;
+    public final void setWoaAccountId(final String woaAccountId) {
+        this.woaAccountId = woaAccountId;
     }
 
     /**
-     * @return the name
+     * @return the woaAccountName
      */
-    public final String getName() {
-        return name;
+    public final String getWoaAccountName() {
+        return woaAccountName;
     }
 
     /**
-     * @param name
-     *            the name to set
+     * @param woaAccountName
+     *            the woaAccountName to set
      */
-    public final void setName(final String name) {
-        this.name = name;
+    public final void setWoaAccountName(final String woaAccountName) {
+        this.woaAccountName = woaAccountName;
     }
 
 }
