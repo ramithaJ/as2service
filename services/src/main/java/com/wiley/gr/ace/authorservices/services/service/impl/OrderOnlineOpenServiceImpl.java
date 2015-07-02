@@ -220,46 +220,46 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      */
     // WPG Configuration property values
 
-    @Value("$acquirerId}")
+    @Value("${acquirerId}")
     private String acquirerId;
 
-    @Value("$wpgTimeStmap}")
+    @Value("${wpgTimeStmap}")
     private String wpgTimeStmap;
 
-    @Value("$wpgVendorId}")
+    @Value("${wpgVendorId}")
     private String wpgVendorId;
 
-    @Value("$wpgTransId}")
+    @Value("${wpgTransId}")
     private String wpgTransId;
 
-    @Value("$wpgMethod}")
+    @Value("${wpgMethod}")
     private String wpgMethod;
 
-    @Value("$wpgDescription}")
+    @Value("${wpgDescription}")
     private String wpgDescription;
 
-    @Value("$wpgValue}")
+    @Value("${wpgValue}")
     private String wpgValue;
 
-    @Value("$wpgCurrency}")
+    @Value("${wpgCurrency}")
     private String wpgCurrency;
 
-    @Value("$wpgRegion}")
+    @Value("${wpgRegion}")
     private String wpgRegion;
 
-    @Value("$wpgAddress}")
+    @Value("${wpgAddress}")
     private String wpgAddress;
 
-    @Value("$wpgPostCode}")
+    @Value("${wpgPostCode}")
     private String wpgPostCode;
 
-    @Value("$wpgCountryCode}")
+    @Value("${wpgCountryCode}")
     private String wpgCountryCode;
 
-    @Value("$wpgAllowAVSFail}")
+    @Value("${wpgAllowAVSFail}")
     private String wpgAllowAVSFail;
 
-    @Value("$wpgSecurity}")
+    @Value("${wpgSecurity}")
     private String wpgSecurity;
 
     /**
@@ -281,7 +281,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         List<ArticleDetails> articleDetailsList = new ArrayList<ArticleDetails>();
         articleDetails.setArticleAID(orderData.getArticle().getAidECORE());
         articleDetails
-        .setArticleTitle(orderData.getArticle().getArticleTitle());
+                .setArticleTitle(orderData.getArticle().getArticleTitle());
         articleDetailsList.add(articleDetails);
         onlineOpenOrder.setArticleDetails(articleDetailsList);
         JournalDetails journalDetails = new JournalDetails();
@@ -293,7 +293,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         journalDetailsList.add(journalDetails);
         onlineOpenOrder.setJournalDetails(journalDetailsList);
         onlineOpenOrder
-        .setAuthorName(orderData.getWoaAccountHolder().getName());
+                .setAuthorName(orderData.getWoaAccountHolder().getName());
         QuoteDetail quoteDetail = new QuoteDetail();
         Prices prices = new Prices();
         List<Prices> pricesList = new ArrayList<Prices>();
@@ -308,7 +308,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
          * .getName());
          */
         funderDetails
-        .setWoaAccountId(orderData.getWoaAccountHolder().getCode());
+                .setWoaAccountId(orderData.getWoaAccountHolder().getCode());
         List<Grants> grantsList = new ArrayList<Grants>();
         Grants grants = new Grants();
         Recipients recipients = new Recipients();
@@ -332,7 +332,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                 .getPaymentMethod());
         TaxDetails taxDetails = new TaxDetails();
         taxDetails
-        .setTaxCountryCode(orderData.getTaxDetails().getCountryCode());
+                .setTaxCountryCode(orderData.getTaxDetails().getCountryCode());
         taxDetails.setTaxExemptionNumber(orderData.getTaxDetails()
                 .getVatExemptionNumber());
         taxDetails.setTaxCodeExpiryDate(orderData.getTaxDetails()
@@ -428,8 +428,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             // check user is corresponding author or not.
             if (productPersonRelations.getProductRoles() != null
                     && productPersonRelations.getProductRoles()
-                    .getProductRoleCd()
-                    .equalsIgnoreCase(correspondingAuthorId)) {
+                            .getProductRoleCd()
+                            .equalsIgnoreCase(correspondingAuthorId)) {
 
                 // check is there any saved orders for this article.
                 SavedOrders savedOrders = orderOnlineDAO.getSavedOrders(
@@ -481,7 +481,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                         .getFirstName()
                         + " "
                         + userProfileResponse.getCustomerProfile()
-                        .getCustomerDetails().getLastName());
+                                .getCustomerDetails().getLastName());
                 // GrantRecipients(coAuthors)
                 userProfileResponse.getCustomerProfile().getCoAuthors();
                 // Societies
@@ -593,7 +593,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             orderDataObject = savedOrder.getOrderObject();
             try {
                 JSONObject object = (JSONObject) new JSONParser()
-                .parse(orderDataObject);
+                        .parse(orderDataObject);
                 onlineOpenOrder = new ObjectMapper().readValue(
                         object.toJSONString(), OnlineOpenOrder.class);
             } catch (JsonParseException e) {
@@ -952,12 +952,12 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             if (nonRestrictedWOAAccountList != null
                     && nonRestrictedWOAAccountList.size() > 0) {
                 orderservice
-                .sendNonRestrictedWOAAccountListToAdmin(nonRestrictedWOAAccountList);
+                        .sendNonRestrictedWOAAccountListToAdmin(nonRestrictedWOAAccountList);
             } /*
-             * else {
-             * 
-             * // TODO: Need to consume BPM service }
-             */
+               * else {
+               * 
+               * // TODO: Need to consume BPM service }
+               */
         }
 
     }

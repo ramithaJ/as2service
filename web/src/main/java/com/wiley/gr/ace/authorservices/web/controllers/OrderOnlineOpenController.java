@@ -112,8 +112,8 @@ public class OrderOnlineOpenController extends ASExceptionController {
 
     /**
      * @param userId
-     * @param onlineOpenOrder
-     * @return
+     * @param orderId
+     * @return service
      * 
      */
     @RequestMapping(value = "/submit/{userId}/{orderId}/", method = RequestMethod.POST)
@@ -148,6 +148,8 @@ public class OrderOnlineOpenController extends ASExceptionController {
     }
 
     /**
+     * @param userId
+     * @param orderId
      * @return service
      */
     @RequestMapping(value = "/cancel/", method = RequestMethod.POST)
@@ -170,7 +172,8 @@ public class OrderOnlineOpenController extends ASExceptionController {
     }
 
     /**
-     * @return
+     * @param funderId
+     * @return service
      */
     @RequestMapping(value = "/subFundersList/{funderId}/", method = RequestMethod.GET)
     public final Service getSubFundersList(
@@ -182,7 +185,6 @@ public class OrderOnlineOpenController extends ASExceptionController {
     }
 
     /**
-     * @param userId
      * @return service
      */
     @RequestMapping(value = "/woaFunders/", method = RequestMethod.GET)
@@ -219,6 +221,9 @@ public class OrderOnlineOpenController extends ASExceptionController {
 
     /**
      * @param orderId
+     * @param type
+     * @param sdate
+     * @param edate
      * @return service
      */
     @RequestMapping(value = "/allOrders/{orderId}/", method = RequestMethod.GET)
@@ -246,8 +251,8 @@ public class OrderOnlineOpenController extends ASExceptionController {
     }
 
     /**
-     * @param onlineOpenOrder
-     * @return Service
+     * @param taxDetails
+     * @return service
      */
     @RequestMapping(value = "/validate/taxDetails/{userId}/", method = RequestMethod.POST)
     public final Service validateTaxDetails(
@@ -259,24 +264,23 @@ public class OrderOnlineOpenController extends ASExceptionController {
     }
 
     /**
-     * @param onlineOpenOrder
-     * @return Service
+     * @param funderDetailsList
+     * @return service
      */
     @RequestMapping(value = "/validate/funderDetails/", method = RequestMethod.POST)
     public final Service validateFunderDetails(
             @RequestBody final List<FunderDetails> funderDetailsList) {
 
         onlineOpenAuthorValidatorService
-        .validateFunderDetails(funderDetailsList);
+                .validateFunderDetails(funderDetailsList);
 
         return new Service();
     }
 
     /**
      * @param userId
-     * @param onlineOpenOrder
-     * @return
-     * @throws Exception
+     * @param addressDetails
+     * @return service
      */
     @RequestMapping(value = "/validate/address/{userId}/", method = RequestMethod.POST)
     public final Service validateAddressDetails(
@@ -307,10 +311,8 @@ public class OrderOnlineOpenController extends ASExceptionController {
     }
 
     /**
-     * @param userId
-     * @param onlineOpenOrder
-     * @return
-     * @throws Exception
+     * @param id
+     * @return service
      */
     @RequestMapping(value = "/woaFunder/{id}", method = RequestMethod.GET)
     public final Service processAllRestrictedFunderWOAAccounts(
@@ -324,10 +326,8 @@ public class OrderOnlineOpenController extends ASExceptionController {
     }
 
     /**
-     * @param userId
-     * @param onlineOpenOrder
-     * @return
-     * @throws Exception
+     * @param woaFunder
+     * @return service
      */
     @RequestMapping(value = "/woaFunder/", method = RequestMethod.POST)
     public final Service validateAndProcessWOAAccount(
@@ -369,6 +369,9 @@ public class OrderOnlineOpenController extends ASExceptionController {
 
     }
 
+    /**
+     * @return service
+     */
     @RequestMapping(value = "/wpg/config", method = RequestMethod.GET)
     public final Service getWPGConfiguration() {
 
