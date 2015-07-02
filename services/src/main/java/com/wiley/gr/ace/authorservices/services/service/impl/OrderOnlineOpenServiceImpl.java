@@ -274,20 +274,16 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                 orderId);
         orderData = orderDataList.getOrderDatas().get(0);
         ArticleDetails articleDetails = new ArticleDetails();
-        List<ArticleDetails> articleDetailsList = new ArrayList<ArticleDetails>();
         articleDetails.setArticleAID(orderData.getArticle().getAidECORE());
         articleDetails
                 .setArticleTitle(orderData.getArticle().getArticleTitle());
-        articleDetailsList.add(articleDetails);
-        onlineOpenOrder.setArticleDetails(articleDetailsList);
+        onlineOpenOrder.setArticleDetails(articleDetails);
         JournalDetails journalDetails = new JournalDetails();
-        List<JournalDetails> journalDetailsList = new ArrayList<JournalDetails>();
         journalDetails.setJournalId(orderData.getArticle().getJournal()
                 .getDhId());
         journalDetails.setJournalTitle(orderData.getArticle().getJournal()
                 .getJournalTitle());
-        journalDetailsList.add(journalDetails);
-        onlineOpenOrder.setJournalDetails(journalDetailsList);
+        onlineOpenOrder.setJournalDetails(journalDetails);
         onlineOpenOrder
                 .setAuthorName(orderData.getWoaAccountHolder().getName());
         QuoteDetail quoteDetail = new QuoteDetail();
@@ -746,8 +742,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             throw new ASException("jsonProcessingExceptionCode", e.getMessage());
         }
         Products products = new Products();
-        products.setDhId(Integer.parseInt(order.getArticleDetails().get(0)
-                .getArticleAID()));
+        products.setDhId(Integer.parseInt(order.getArticleDetails().getArticleAID()));
         savedOrders.setProducts(products);
 
         Users users = new Users();
