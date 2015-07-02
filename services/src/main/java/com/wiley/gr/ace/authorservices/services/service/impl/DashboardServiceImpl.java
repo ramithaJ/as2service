@@ -362,7 +362,7 @@ public class DashboardServiceImpl implements DashboardService {
         LOGGER.info("inside getArticleAuthorData Method of DashboardServiceImpl");
         List<ArticleData> articleData = null;
         final List<ProductPersonRelations> productPersonRelationsList = dashboardDAO
-                .getProductPersonRelations(Integer.parseInt(userId));
+                .getProductPersonRelations(userId);
         if (!StringUtils.isEmpty(productPersonRelationsList)) {
             for (final ProductPersonRelations productPersonRelations : productPersonRelationsList) {
                 final String articleAuthorRole = productPersonRelations
@@ -457,7 +457,7 @@ public class DashboardServiceImpl implements DashboardService {
         LOGGER.info("inside getCommunicationDetailsList Method of DashboardServiceImpl");
         List<CommunicationDetails> communicationDetailsList = null;
         final List<InvitationLog> invitationLogList = dashboardDAO
-                .getInvitationLogList(Integer.parseInt(userId));
+                .getInvitationLogList(userId);
         if (!StringUtils.isEmpty(invitationLogList)) {
             communicationDetailsList = new ArrayList<CommunicationDetails>();
             for (final InvitationLog invitationLog : invitationLogList) {
@@ -490,7 +490,7 @@ public class DashboardServiceImpl implements DashboardService {
             throws Exception {
         DashboardView dashboardView = null;
         final List<ProductPersonRelations> productPersonRelationsList = dashboardDAO
-                .getProductPersonRelations(Integer.parseInt(userId));
+                .getProductPersonRelations(userId);
         if (!StringUtils.isEmpty(productPersonRelationsList)) {
             for (final ProductPersonRelations productPersonRelations : productPersonRelationsList) {
                 final String articleAuthorRole = productPersonRelations
@@ -546,7 +546,7 @@ public class DashboardServiceImpl implements DashboardService {
             throws Exception {
         DashboardView dashboardView = null;
         final List<ProductPersonRelations> productPersonRelationsList = dashboardDAO
-                .getProductPersonRelations(Integer.parseInt(userId));
+                .getProductPersonRelations(userId);
         if (!StringUtils.isEmpty(productPersonRelationsList)) {
             for (final ProductPersonRelations productPersonRelations : productPersonRelationsList) {
                 final String articleAuthorRole = productPersonRelations
