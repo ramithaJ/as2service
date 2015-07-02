@@ -25,6 +25,7 @@ import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
 import com.wiley.gr.ace.authorservices.model.external.Quote;
 import com.wiley.gr.ace.authorservices.model.external.QuoteRequest;
 import com.wiley.gr.ace.authorservices.model.external.SocietyMemberDiscount;
+import com.wiley.gr.ace.authorservices.model.external.SubFunderDetails;
 import com.wiley.gr.ace.authorservices.model.external.TaxRequest;
 import com.wiley.gr.ace.authorservices.model.external.WOAAccount;
 import com.wiley.gr.ace.authorservices.model.external.WileyOpenAccessFunders;
@@ -87,31 +88,35 @@ public interface OrderService {
      */
     InstitutionDiscounts getInstitutionDiscounts();
 
-    
     /**
      * @param orderId
      * @return
      */
     OrderDataList getAllOrders(String orderId);
-    
-	/**
-	 * This method send the non restricted WOA Account List to the admin
-	 * 
-	 * @param nonRestrictedWOAAccountList
-	 * @return 
-	 */
-	Object sendNonRestrictedWOAAccountListToAdmin(
-			List<WOAAccount> nonRestrictedWOAAccountList);
 
-	/**
-	 * @param discountRequest
-	 */
-	String getDiscounts(DiscountRequest discountRequest);
+    /**
+     * This method send the non restricted WOA Account List to the admin
+     * 
+     * @param nonRestrictedWOAAccountList
+     * @return
+     */
+    Object sendNonRestrictedWOAAccountListToAdmin(
+            List<WOAAccount> nonRestrictedWOAAccountList);
 
-	/**
-	 * @param taxRequest
-	 * @return
-	 */
-	String getTaxAmount(TaxRequest taxRequest);
+    /**
+     * @param discountRequest
+     */
+    String getDiscounts(DiscountRequest discountRequest);
 
+    /**
+     * @param taxRequest
+     * @return
+     */
+    String getTaxAmount(TaxRequest taxRequest);
+
+    /**
+     * @param funderId
+     * @return
+     */
+    SubFunderDetails getSubFundersList(String funderId);
 }

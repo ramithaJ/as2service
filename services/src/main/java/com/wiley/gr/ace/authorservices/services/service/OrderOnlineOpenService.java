@@ -10,6 +10,7 @@ import com.wiley.gr.ace.authorservices.model.OrderDetails;
 import com.wiley.gr.ace.authorservices.model.PaymentDetails;
 import com.wiley.gr.ace.authorservices.model.QuoteDetails;
 import com.wiley.gr.ace.authorservices.model.SocietyDiscounts;
+import com.wiley.gr.ace.authorservices.model.SubFunderResponse;
 import com.wiley.gr.ace.authorservices.model.WOAAccountHolders;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSociety;
 import com.wiley.gr.ace.authorservices.model.external.OrderResponse;
@@ -104,12 +105,12 @@ public interface OrderOnlineOpenService {
      * @return
      */
     List<FundingOrganizations> getFundersList();
-    
+
     /**
      * @param funderId
      * @return
      */
-    List<FundingOrganizations> getSubFundersList(String funderId);
+    SubFunderResponse getSubFundersList(String funderId);
 
     /**
      * @param userId

@@ -31,6 +31,7 @@ import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
 import com.wiley.gr.ace.authorservices.model.external.Quote;
 import com.wiley.gr.ace.authorservices.model.external.QuoteRequest;
 import com.wiley.gr.ace.authorservices.model.external.SocietyMemberDiscount;
+import com.wiley.gr.ace.authorservices.model.external.SubFunderDetails;
 import com.wiley.gr.ace.authorservices.model.external.TaxRequest;
 import com.wiley.gr.ace.authorservices.model.external.TaxResponse;
 import com.wiley.gr.ace.authorservices.model.external.WOAAccount;
@@ -101,13 +102,18 @@ public class OrderServiceImpl implements OrderService {
      */
     @Value("${gettax.url}")
     private String gettaxurl;
-    
+
     /**
      * This field holds the value of getdiscountsurl
      */
     @Value("${getdiscounts.url}")
     private String getdiscountsurl;
 
+    /**
+     * This field holds the value of subFundersurl
+     */
+    @Value("${subFunders.url}")
+    private String subFundersurl;
 
     /** Calling Stub */
     @Override
@@ -201,35 +207,40 @@ public class OrderServiceImpl implements OrderService {
 
     /** @param orderId */
     @Override
-    public OrderDataList getAllOrders(String orderId) {
+    public OrderDataList getAllOrders(final String orderId) {
         return (OrderDataList) StubInvokerUtil.invokeJsonStub(
                 orderserviceurlview, HttpMethod.POST, OrderDataList.class);
     }
 
-	
-	@Override
-	public Object sendNonRestrictedWOAAccountListToAdmin(
-			List<WOAAccount> nonRestrictedWOAAccountList) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public Object sendNonRestrictedWOAAccountListToAdmin(
+            final List<WOAAccount> nonRestrictedWOAAccountList) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	
-	@Override
-	public String getDiscounts(DiscountRequest discountRequest) {
-		
-		DiscountResponse response = (DiscountResponse) StubInvokerUtil.invokeJsonStub(
-				getdiscountsurl, HttpMethod.POST, DiscountResponse.class);
-		
-		return response.getDiscountValue();
-	}
+    @Override
+    public String getDiscounts(final DiscountRequest discountRequest) {
 
+        DiscountResponse response = (DiscountResponse) StubInvokerUtil
+                .invokeJsonStub(getdiscountsurl, HttpMethod.POST,
+                        DiscountResponse.class);
 
-	@Override
-	public String getTaxAmount(TaxRequest taxRequest) {
-		TaxResponse response = (TaxResponse) StubInvokerUtil.invokeJsonStub(
-				gettaxurl, HttpMethod.POST, TaxResponse.class);
-		
-		return response.getItem().get(0).getDiscountedLineAmount();
-	}
+        return response.getDiscountValue();
+    }
+
+    @Override
+    public String getTaxAmount(final TaxRequest taxRequest) {
+        TaxResponse response = (TaxResponse) StubInvokerUtil.invokeJsonStub(
+                gettaxurl, HttpMethod.POST, TaxResponse.class);
+
+        return response.getItem().get(0).getDiscountedLineAmount();
+    }
+
+    @Override
+    public SubFunderDetails getSubFundersList(final String funderId) {
+
+        return (SubFunderDetails) StubInvokerUtil.invokeJsonStub(subFundersurl,
+                HttpMethod.POST, SubFunderDetails.class);
+    }
 }

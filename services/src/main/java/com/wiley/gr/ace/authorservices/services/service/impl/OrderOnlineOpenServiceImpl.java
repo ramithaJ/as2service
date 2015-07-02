@@ -54,6 +54,8 @@ import com.wiley.gr.ace.authorservices.model.QuoteDetails;
 import com.wiley.gr.ace.authorservices.model.Recipients;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.SocietyDiscounts;
+import com.wiley.gr.ace.authorservices.model.SubFunderResponse;
+import com.wiley.gr.ace.authorservices.model.SubFundersList;
 import com.wiley.gr.ace.authorservices.model.TaxDetails;
 import com.wiley.gr.ace.authorservices.model.WOAAccountFunders;
 import com.wiley.gr.ace.authorservices.model.WOAAccountHolders;
@@ -75,6 +77,8 @@ import com.wiley.gr.ace.authorservices.model.external.PricingData;
 import com.wiley.gr.ace.authorservices.model.external.ResearchFunderElement;
 import com.wiley.gr.ace.authorservices.model.external.Societies;
 import com.wiley.gr.ace.authorservices.model.external.SocietyMemberDiscount;
+import com.wiley.gr.ace.authorservices.model.external.SubFunderDetails;
+import com.wiley.gr.ace.authorservices.model.external.SubFunders;
 import com.wiley.gr.ace.authorservices.model.external.TaxData;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 import com.wiley.gr.ace.authorservices.model.external.WOAAccount;
@@ -277,7 +281,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         List<ArticleDetails> articleDetailsList = new ArrayList<ArticleDetails>();
         articleDetails.setArticleAID(orderData.getArticle().getAidECORE());
         articleDetails
-                .setArticleTitle(orderData.getArticle().getArticleTitle());
+        .setArticleTitle(orderData.getArticle().getArticleTitle());
         articleDetailsList.add(articleDetails);
         onlineOpenOrder.setArticleDetails(articleDetailsList);
         JournalDetails journalDetails = new JournalDetails();
@@ -289,7 +293,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         journalDetailsList.add(journalDetails);
         onlineOpenOrder.setJournalDetails(journalDetailsList);
         onlineOpenOrder
-                .setAuthorName(orderData.getWoaAccountHolder().getName());
+        .setAuthorName(orderData.getWoaAccountHolder().getName());
         QuoteDetail quoteDetail = new QuoteDetail();
         Prices prices = new Prices();
         List<Prices> pricesList = new ArrayList<Prices>();
@@ -304,7 +308,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
          * .getName());
          */
         funderDetails
-                .setWoaAccountId(orderData.getWoaAccountHolder().getCode());
+        .setWoaAccountId(orderData.getWoaAccountHolder().getCode());
         List<Grants> grantsList = new ArrayList<Grants>();
         Grants grants = new Grants();
         Recipients recipients = new Recipients();
@@ -328,7 +332,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                 .getPaymentMethod());
         TaxDetails taxDetails = new TaxDetails();
         taxDetails
-                .setTaxCountryCode(orderData.getTaxDetails().getCountryCode());
+        .setTaxCountryCode(orderData.getTaxDetails().getCountryCode());
         taxDetails.setTaxExemptionNumber(orderData.getTaxDetails()
                 .getVatExemptionNumber());
         taxDetails.setTaxCodeExpiryDate(orderData.getTaxDetails()
@@ -424,8 +428,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             // check user is corresponding author or not.
             if (productPersonRelations.getProductRoles() != null
                     && productPersonRelations.getProductRoles()
-                            .getProductRoleCd()
-                            .equalsIgnoreCase(correspondingAuthorId)) {
+                    .getProductRoleCd()
+                    .equalsIgnoreCase(correspondingAuthorId)) {
 
                 // check is there any saved orders for this article.
                 SavedOrders savedOrders = orderOnlineDAO.getSavedOrders(
@@ -477,7 +481,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                         .getFirstName()
                         + " "
                         + userProfileResponse.getCustomerProfile()
-                                .getCustomerDetails().getLastName());
+                        .getCustomerDetails().getLastName());
                 // GrantRecipients(coAuthors)
                 userProfileResponse.getCustomerProfile().getCoAuthors();
                 // Societies
@@ -589,7 +593,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             orderDataObject = savedOrder.getOrderObject();
             try {
                 JSONObject object = (JSONObject) new JSONParser()
-                        .parse(orderDataObject);
+                .parse(orderDataObject);
                 onlineOpenOrder = new ObjectMapper().readValue(
                         object.toJSONString(), OnlineOpenOrder.class);
             } catch (JsonParseException e) {
@@ -948,12 +952,12 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             if (nonRestrictedWOAAccountList != null
                     && nonRestrictedWOAAccountList.size() > 0) {
                 orderservice
-                        .sendNonRestrictedWOAAccountListToAdmin(nonRestrictedWOAAccountList);
+                .sendNonRestrictedWOAAccountListToAdmin(nonRestrictedWOAAccountList);
             } /*
-               * else {
-               * 
-               * // TODO: Need to consume BPM service }
-               */
+             * else {
+             * 
+             * // TODO: Need to consume BPM service }
+             */
         }
 
     }
@@ -1069,10 +1073,26 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         return wpgConfiguration;
     }
 
-	@Override
-	public List<FundingOrganizations> getSubFundersList(String funderId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    /**
+     * Method to get Sub Funders List.
+     */
+    @Override
+    public SubFunderResponse getSubFundersList(final String funderId) {
+
+        SubFunderDetails subFunderDetails = orderservice
+                .getSubFundersList(funderId);
+        List<SubFunders> subFundersList = subFunderDetails.getSubFunders();
+        SubFunderResponse subFunderResponse = new SubFunderResponse();
+        List<SubFundersList> subFunderList = new ArrayList<SubFundersList>();
+        SubFundersList subFunder = null;
+        for (SubFunders subFunders : subFundersList) {
+            subFunder = new SubFundersList();
+            subFunder.setFunderId(subFunders.getFunderId());
+            subFunder.setFunderName(subFunders.getFunderName());
+            subFunderList.add(subFunder);
+        }
+        subFunderResponse.setSubFunders(subFunderList);
+        return subFunderResponse;
+    }
 
 }
