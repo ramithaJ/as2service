@@ -168,6 +168,20 @@ public class OrderOnlineOpenController extends ASExceptionController {
         service.setPayload(orderOnlineOpenService.getFundersList());
         return service;
     }
+    
+    
+    
+    /**
+     * @return
+     */
+    @RequestMapping(value = "/subFundersList/{funderId}/", method = RequestMethod.GET)
+    public final Service getSubFundersList(@PathVariable("funderId") final String funderId) {
+
+        Service service = new Service();
+        service.setPayload(orderOnlineOpenService.getFundersList());
+        return service;
+    }
+
 
     /**
      * @param userId
