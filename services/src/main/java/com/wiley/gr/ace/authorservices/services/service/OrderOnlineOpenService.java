@@ -104,6 +104,12 @@ public interface OrderOnlineOpenService {
      * @return
      */
     List<FundingOrganizations> getFundersList();
+    
+    /**
+     * @param funderId
+     * @return
+     */
+    List<FundingOrganizations> getSubFundersList(String funderId);
 
     /**
      * @param userId
