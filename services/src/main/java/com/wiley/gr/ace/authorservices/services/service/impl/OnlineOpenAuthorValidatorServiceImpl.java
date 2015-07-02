@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
-import com.wiley.gr.ace.authorservices.externalservices.service.ValidationService;
 import com.wiley.gr.ace.authorservices.model.Amount;
 import com.wiley.gr.ace.authorservices.model.FunderDetails;
 import com.wiley.gr.ace.authorservices.model.Grants;
@@ -42,9 +41,9 @@ public class OnlineOpenAuthorValidatorServiceImpl implements
     @Autowired(required = true)
     private OrderOnlineOpenService orderOnlineOpenService;
     
-    /** Getting Bean Of Order Service */
+    /** Getting Bean Of Order Service *//*
     @Autowired(required = true)
-    private ValidationService validationService;
+    private ValidationService validationService;*/
     
     /**
      * This method validates the tax details
@@ -125,7 +124,7 @@ public class OnlineOpenAuthorValidatorServiceImpl implements
      * 
      */
 	@Override
-	public OnlineOpenOrder processAndValidateNext(OnlineOpenOrder onlineOpenOrder, String userId) {
+	public OnlineOpenOrder processAndValidateNext(final OnlineOpenOrder onlineOpenOrder, final String userId) {
 		
 		System.out.println(onlineOpenOrder);
 		
