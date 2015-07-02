@@ -1,7 +1,9 @@
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
+import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.externalservices.service.ValidationService;
@@ -20,6 +22,10 @@ import com.wiley.gr.ace.authorservices.model.external.PdhArticleResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
 import com.wiley.gr.ace.authorservices.model.external.QuoteRequest;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
+import com.wiley.gr.ace.authorservices.persistence.entity.Orders;
+import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
+import com.wiley.gr.ace.authorservices.persistence.entity.SavedOrders;
+import com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO;
 import com.wiley.gr.ace.authorservices.services.service.OpenAccessService;
 
 // TODO: Auto-generated Javadoc
@@ -28,15 +34,60 @@ import com.wiley.gr.ace.authorservices.services.service.OpenAccessService;
  */
 public class OpenAccessServiceImpl implements OpenAccessService {
 
-    /** The order service. */
-    @Autowired(required = true)
-    OrderService orderService;
+	/** The order service. */
+	@Autowired(required = true)
+	OrderService orderService;
 
 	@Autowired
 	private UserProfiles userProfiles;
-	
-	@Autowired(required=true)
+
+	@Autowired(required = true)
 	private ValidationService validationService;
+
+	@Autowired(required = true)
+	private OrderOnlineDAO orderOnlineDAO;
+
+	/**
+	 * This field holds the value of articleAcceptanceCode
+	 */
+	@Value("${articleAcceptance.code}")
+	private String articleAcceptanceCode;
+
+	/**
+	 * This field holds the value of articleAcceptanceMessage
+	 */
+	@Value("${articleAcceptance.message}")
+	private String articleAcceptanceMessage;
+
+	/**
+	 * This field holds the value of savedOrderCode
+	 */
+	@Value("${savedOrder.code}")
+	private String savedOrderCode;
+
+	/**
+	 * This field holds the value of savedOrderMessage
+	 */
+	@Value("${savedOrder.message}")
+	private String savedOrderMessage;
+
+	/**
+	 * This field holds the value of orderExistenceCode
+	 */
+	@Value("${orderExistence.code}")
+	private String orderExistenceCode;
+
+	/**
+	 * This field holds the value of orderExistenceMessage
+	 */
+	@Value("${orderExistence.message}")
+	private String orderExistenceMessage;
+
+	/**
+	 * This field holds the value of correspondingAuthorId
+	 */
+	@Value("${CorrespondingAuthorId}")
+	private String correspondingAuthorId;
 
 	/*
 	 * (non-Javadoc)
@@ -48,61 +99,85 @@ public class OpenAccessServiceImpl implements OpenAccessService {
 	public OpenAccessPaymentData getOpenAccessDetails(String userId,
 			final String articleId, final String journalId) throws Exception {
 
-        ArticleDetails articleDetails = new ArticleDetails();
-        JournalDetails journalDetails = new JournalDetails();
-        PdhArticleResponse pdhArticleResponse = orderService
-                .pdhLookUpArticle(Integer.parseInt(articleId));
-        articleDetails.setArticleAID(pdhArticleResponse.getArticleId());
+		ArticleDetails articleDetails = new ArticleDetails();
+		JournalDetails journalDetails = new JournalDetails();
+		OpenAccessPaymentData openAccessPaymentData = null;
+		PdhArticleResponse pdhArticleResponse = orderService
+				.pdhLookUpArticle(Integer.parseInt(articleId));
 
-		PdhJournalResponse pdhJournalResponse = orderService
-				.pdhLookUpJournal(Integer.parseInt(journalId));
-		journalDetails.setJournalId(pdhJournalResponse.getJournalId());
-		journalDetails
-				.setJournalTitle(pdhJournalResponse.getJournalPrintISSN());
-		Article article = new Article();
-		article.setArticleID(pdhArticleResponse.getArticleId());
-		article.setJournalElectronicISSN(pdhJournalResponse
-				.getJournalElectronicISSN());
-		article.setJournalPrintISSN(pdhJournalResponse.getJournalPrintISSN());
-		QuoteRequest quoteRequest = new QuoteRequest();
-		quoteRequest.setArticle(article);
-		QuoteData quoteData = new QuoteData();
-		quoteData.setArticlePubCharge(pdhArticleResponse.getPrices().get(0)
-				.getPrice());
-		quoteData.setCurrency(pdhArticleResponse.getPrices().get(0)
-				.getCurrency());
+		ProductPersonRelations articleAssignmentData = orderOnlineDAO
+				.getProductPersonRelations(userId, articleId);
+		if (articleAssignmentData == null) {
+			throw new ASException(articleAcceptanceCode,
+					articleAcceptanceMessage);
+		}
+		if (articleAssignmentData.getProductRoles() != null
+				&& articleAssignmentData.getProductRoles().getProductRoleCd()
+						.equalsIgnoreCase(correspondingAuthorId)) {
 
-		DiscountDetail discountDetail = new DiscountDetail();
-		discountDetail.setDiscountType("Society");
-		discountDetail.setDiscountAmount("10");
-		discountDetail.setDiscountPercent("1.5");
-		String finalAmount = Integer.toString(Integer
-				.parseInt(pdhArticleResponse.getPrices().get(0).getPrice())
-				- Integer.parseInt("10"));
+			SavedOrders savedOrders = orderOnlineDAO.getSavedOrders(articleId,
+					userId);
+			if (null != savedOrders) {
+				throw new ASException(savedOrderCode, savedOrderMessage);
+			}
+			Orders ecistingOrders = orderOnlineDAO.getOrder(articleId, userId);
+			if (ecistingOrders != null) {
+				throw new ASException(orderExistenceCode, orderExistenceMessage);
+			}
 
-        Amount amountPayable = new Amount();
+			articleDetails.setArticleAID(pdhArticleResponse.getArticleId());
 
-        amountPayable.setAmount(finalAmount);
+			PdhJournalResponse pdhJournalResponse = orderService
+					.pdhLookUpJournal(Integer.parseInt(journalId));
+			journalDetails.setJournalId(pdhJournalResponse.getJournalId());
+			journalDetails.setJournalTitle(pdhJournalResponse
+					.getJournalPrintISSN());
+			Article article = new Article();
+			article.setArticleID(pdhArticleResponse.getArticleId());
+			article.setJournalElectronicISSN(pdhJournalResponse
+					.getJournalElectronicISSN());
+			article.setJournalPrintISSN(pdhJournalResponse
+					.getJournalPrintISSN());
+			QuoteRequest quoteRequest = new QuoteRequest();
+			quoteRequest.setArticle(article);
+			QuoteData quoteData = new QuoteData();
+			quoteData.setArticlePubCharge(pdhArticleResponse.getPrices().get(0)
+					.getPrice());
+			quoteData.setCurrency(pdhArticleResponse.getPrices().get(0)
+					.getCurrency());
 
-		UserProfileResponse userProfileResponse = userProfiles
-				.getUserProfileResponse(userId);
+			DiscountDetail discountDetail = new DiscountDetail();
+			discountDetail.setDiscountType("Society");
+			discountDetail.setDiscountAmount("10");
+			discountDetail.setDiscountPercent("1.5");
+			String finalAmount = Integer.toString(Integer
+					.parseInt(pdhArticleResponse.getPrices().get(0).getPrice())
+					- Integer.parseInt("10"));
 
-		AddressDetails addressDetails = new AddressDetails();
-		addressDetails.setBillingAddress(userProfileResponse
-				.getCustomerProfile().getAddressDetails().get(1)
-				.getBillingAddress());
-		addressDetails.setContactAddress(userProfileResponse
-				.getCustomerProfile().getAddressDetails().get(0)
-				.getCorrespondenceAddress());
+			Amount amountPayable = new Amount();
 
-		OpenAccessPaymentData openAccessPaymentData = new OpenAccessPaymentData();
-		openAccessPaymentData.setAuthorName("Dishari");
-		openAccessPaymentData.setAmountPayable(amountPayable);
-		openAccessPaymentData.setArticleDetails(articleDetails);
-		openAccessPaymentData.setJournalDetails(journalDetails);
-		openAccessPaymentData.setQuoteData(quoteData);
-		openAccessPaymentData.setAddressOnFile(addressDetails);
-		openAccessPaymentData.setDiscountDetail(discountDetail);
+			amountPayable.setAmount(finalAmount);
+
+			UserProfileResponse userProfileResponse = userProfiles
+					.getUserProfileResponse(userId);
+
+			AddressDetails addressDetails = new AddressDetails();
+			addressDetails.setBillingAddress(userProfileResponse
+					.getCustomerProfile().getAddressDetails().get(1)
+					.getBillingAddress());
+			addressDetails.setContactAddress(userProfileResponse
+					.getCustomerProfile().getAddressDetails().get(0)
+					.getCorrespondenceAddress());
+
+			openAccessPaymentData = new OpenAccessPaymentData();
+			openAccessPaymentData.setAuthorName("Dishari");
+			openAccessPaymentData.setAmountPayable(amountPayable);
+			openAccessPaymentData.setArticleDetails(articleDetails);
+			openAccessPaymentData.setJournalDetails(journalDetails);
+			openAccessPaymentData.setQuoteData(quoteData);
+			openAccessPaymentData.setAddressOnFile(addressDetails);
+			openAccessPaymentData.setDiscountDetail(discountDetail);
+		}
 		return openAccessPaymentData;
 	}
 
@@ -115,12 +190,15 @@ public class OpenAccessServiceImpl implements OpenAccessService {
 		addressValidationMultiReq.setLocality1(address.getCity());
 		addressValidationMultiReq.setPostCode(address.getPostCode());
 		addressValidationMultiReq.setProvince1(address.getState());
-		addressValidationMultiReq.setCountryName(address.getCountry().getCountryName());
+		addressValidationMultiReq.setCountryName(address.getCountry()
+				.getCountryName());
 		addressValidationMultiReq.setOrganization1(address.getInstitution());
-		addressValidationMultiReq.setOrganizationDepartment1(address.getDepartment());
-		
-		addressValidationRequest.setAddressValidationMultiReq(addressValidationMultiReq);
-		
+		addressValidationMultiReq.setOrganizationDepartment1(address
+				.getDepartment());
+
+		addressValidationRequest
+				.setAddressValidationMultiReq(addressValidationMultiReq);
+
 		return validationService.validateAddress(addressValidationRequest);
 	}
 
