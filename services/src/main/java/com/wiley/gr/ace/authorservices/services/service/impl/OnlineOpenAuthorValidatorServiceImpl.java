@@ -162,12 +162,12 @@ public class OnlineOpenAuthorValidatorServiceImpl implements
 		
 		addressValidationRequest.setAddressValidationMultiReq(addressValidationMultiReq);
 		
-		boolean isValidAddress = validationService.validateAddress(addressValidationRequest);
+		/*boolean isValidAddress = validationService.validateAddress(addressValidationRequest);
 		
 		 // TODO: Error codes and messages must be changed accordingly
 		if(!isValidAddress){
 			throw new ASException("906", "Invalid Address");
-		}
+		}*/
 		
 		List<Prices> pricesList = onlineOpenOrder.getQuoteDetail().getPrices();
 		

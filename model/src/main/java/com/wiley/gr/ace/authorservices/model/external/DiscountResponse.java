@@ -1,86 +1,34 @@
 package com.wiley.gr.ace.authorservices.model.external;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class DiscountResponse {
 
-	private String discoUntTypeName;
-	private String discountTypeCode;
-	private String valueType;
-	private String discountValue;
+	@JsonProperty("Discount")
+	private DiscountResponseObject discountResponseObject;
 
 	/**
-	 * 
-	 * @return The discoUntTypeName
+	 * @return the discountResponseObject
 	 */
-	public String getDiscoUntTypeName() {
-		return discoUntTypeName;
+	public DiscountResponseObject getDiscountResponseObject() {
+		return discountResponseObject;
 	}
 
 	/**
-	 * 
-	 * @param discoUntTypeName
-	 *            The disco untTypeName
+	 * @param discountResponseObject the discountResponseObject to set
 	 */
-	public void setDiscoUntTypeName(String discoUntTypeName) {
-		this.discoUntTypeName = discoUntTypeName;
-	}
-
-	/**
-	 * 
-	 * @return The discountTypeCode
-	 */
-	public String getDiscountTypeCode() {
-		return discountTypeCode;
-	}
-
-	/**
-	 * 
-	 * @param discountTypeCode
-	 *            The discountTypeCode
-	 */
-	public void setDiscountTypeCode(String discountTypeCode) {
-		this.discountTypeCode = discountTypeCode;
-	}
-
-	/**
-	 * 
-	 * @return The valueType
-	 */
-	public String getValueType() {
-		return valueType;
-	}
-
-	/**
-	 * 
-	 * @param valueType
-	 *            The valueType
-	 */
-	public void setValueType(String valueType) {
-		this.valueType = valueType;
-	}
-
-	/**
-	 * 
-	 * @return The discountValue
-	 */
-	public String getDiscountValue() {
-		return discountValue;
-	}
-
-	/**
-	 * 
-	 * @param discountValue
-	 *            The discountValue
-	 */
-	public void setDiscountValue(String discountValue) {
-		this.discountValue = discountValue;
+	public void setDiscountResponseObject(
+			DiscountResponseObject discountResponseObject) {
+		this.discountResponseObject = discountResponseObject;
 	}
 
 	@Override
 	public String toString() {
-		return "DiscountResponse [discoUntTypeName=" + discoUntTypeName
-				+ ", discountTypeCode=" + discountTypeCode + ", valueType="
-				+ valueType + ", discountValue=" + discountValue + "]";
+		return "DiscountResponse [discountResponseObject="
+				+ discountResponseObject + "]";
 	}
+	
+	
+
 
 }

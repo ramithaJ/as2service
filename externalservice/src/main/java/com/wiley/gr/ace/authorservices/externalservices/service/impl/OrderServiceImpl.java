@@ -218,16 +218,16 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public String getDiscounts(DiscountRequest discountRequest) {
 		
-		DiscountResponse response = (DiscountResponse) StubInvokerUtil.restServiceInvoker(
+		DiscountResponse response = (DiscountResponse) StubInvokerUtil.invokeJsonStub(
 				getdiscountsurl, HttpMethod.POST, DiscountResponse.class);
 		
-		return response.getDiscountValue();
+		return response.getDiscountResponseObject().getDiscountAmount();
 	}
 
 
 	@Override
 	public String getTaxAmount(TaxRequest taxRequest) {
-		TaxResponse response = (TaxResponse) StubInvokerUtil.restServiceInvoker(
+		TaxResponse response = (TaxResponse) StubInvokerUtil.invokeJsonStub(
 				gettaxurl, HttpMethod.POST, TaxResponse.class);
 		
 		return response.getItem().get(0).getDiscountedLineAmount();
