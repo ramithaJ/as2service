@@ -1069,4 +1069,10 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         return wpgConfiguration;
     }
 
+	@Override
+	public List<FundingOrganizations> getSubFundersList(String funderId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
