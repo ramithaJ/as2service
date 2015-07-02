@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.wiley.gr.ace.authorservices.services.service.ASDataService;
+import com.wiley.gr.ace.authorservices.services.service.AdditionalPermissionService;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 import com.wiley.gr.ace.authorservices.services.service.ArticleAssignmentService;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
@@ -29,6 +30,7 @@ import com.wiley.gr.ace.authorservices.services.service.UpdateUserService;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 import com.wiley.gr.ace.authorservices.services.service.impl.ASDataServiceImpl;
+import com.wiley.gr.ace.authorservices.services.service.impl.AdditionalPermissionServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.AdminLoginServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.ArticleAssignmentServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.AuthorProfileServiceImpl;
@@ -184,5 +186,13 @@ public class ServiceBeanConfig {
 	@Bean(name = "SaveArticleData")
 	public SaveArticleData saveArticleData() {
 		return new SaveArticleDataImpl();
+	}
+	
+	/**
+	 * @return
+	 */
+	@Bean(name = "AdditionalPermissionService")
+	public AdditionalPermissionService additionalPermissionService() {
+		return new AdditionalPermissionServiceImpl();
 	}
 }
