@@ -22,7 +22,7 @@ import com.wiley.gr.ace.authorservices.model.external.License;
 import com.wiley.gr.ace.authorservices.model.external.OnlineOpen;
 import com.wiley.gr.ace.authorservices.model.external.OpenAccess;
 import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
-import com.wiley.gr.ace.authorservices.model.external.Production;
+import com.wiley.gr.ace.authorservices.model.external.ProductionData;
 import com.wiley.gr.ace.authorservices.model.external.ProfileInformation;
 import com.wiley.gr.ace.authorservices.model.external.Quote;
 import com.wiley.gr.ace.authorservices.model.external.QuoteRequest;
@@ -98,13 +98,13 @@ public interface ESBInterfaceService {
     /**
      * Gets the all author articles.
      *
-     * @param userId
-     *            the user id
+     * @param articleId
+     *            the article id
      * @return the all author articles
      * @throws Exception
      *             the exception
      */
-    List<ArticleData> getAllAuthorArticles(Integer userId) throws Exception;
+    ArticleData getAuthorArticle(Integer articleId) throws Exception;
 
     /**
      * Gets the license status.
@@ -140,15 +140,15 @@ public interface ESBInterfaceService {
     OnlineOpen getOnlineOpenStatus(Integer articleId) throws Exception;
 
     /**
-     * Gets the production status.
+     * Gets the production data.
      *
      * @param articleId
      *            the article id
-     * @return the production status
+     * @return the production data
      * @throws Exception
      *             the exception
      */
-    Production getProductionStatus(Integer articleId) throws Exception;
+    ProductionData getProductionData(Integer articleId) throws Exception;
 
     /**
      * Gets the article info.

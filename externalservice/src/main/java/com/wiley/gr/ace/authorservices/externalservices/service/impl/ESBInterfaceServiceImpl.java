@@ -31,7 +31,6 @@ import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
-import com.wiley.gr.ace.authorservices.model.external.ArticleDataDetails;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
 import com.wiley.gr.ace.authorservices.model.external.ConfirmArticleData;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
@@ -39,7 +38,7 @@ import com.wiley.gr.ace.authorservices.model.external.License;
 import com.wiley.gr.ace.authorservices.model.external.OnlineOpen;
 import com.wiley.gr.ace.authorservices.model.external.OpenAccess;
 import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
-import com.wiley.gr.ace.authorservices.model.external.Production;
+import com.wiley.gr.ace.authorservices.model.external.ProductionData;
 import com.wiley.gr.ace.authorservices.model.external.ProfileInformation;
 import com.wiley.gr.ace.authorservices.model.external.Quote;
 import com.wiley.gr.ace.authorservices.model.external.QuoteRequest;
@@ -269,19 +268,18 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
     }
 
     /**
-     * Gets the all author articles.
+     * Gets the author article.
      *
      * @param userId
      *            the user id
-     * @return the all author articles
+     * @return the author article
      * @throws Exception
      *             the exception
      */
     @Override
-    public final List<ArticleData> getAllAuthorArticles(final Integer articleId)
+    public final ArticleData getAuthorArticle(final Integer articleId)
             throws Exception {
-        ArrayList<ArticleData> articleDataList = null;
-        ArticleDataDetails articleDataDetails = null;
+        ArticleData articleData = null;
         final String url = "http://demo7930138.mockable.io/getAllAuthorArticles/articleId";
         try {
             final URI uri = new URI(url);
@@ -289,24 +287,19 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
             final HttpHeaders requestHeaders = new HttpHeaders();
 
             requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-            final HttpEntity<ArticleDataDetails> requestEntity = new HttpEntity<ArticleDataDetails>(
+            final HttpEntity<ArticleData> requestEntity = new HttpEntity<ArticleData>(
                     requestHeaders);
 
-            final ResponseEntity<ArticleDataDetails> response = restTemplate
-                    .exchange(uri, HttpMethod.GET, requestEntity,
-                            ArticleDataDetails.class);
+            final ResponseEntity<ArticleData> response = restTemplate.exchange(
+                    uri, HttpMethod.GET, requestEntity, ArticleData.class);
             System.out.println("####  response #### "
                     + response.getStatusCode());
             System.out.println("####  response #### " + response.getBody());
-            if (null != response) {
-                articleDataDetails = new ArticleDataDetails();
-                articleDataDetails = response.getBody();
-                articleDataList = articleDataDetails.getArticleData();
-            }
+            articleData = response.getBody();
         } catch (final URISyntaxException e) {
             e.printStackTrace();
         }
-        return articleDataList;
+        return articleData;
     }
 
     /**
@@ -418,18 +411,18 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
     }
 
     /**
-     * Gets the production status.
+     * Gets the production data.
      *
      * @param articleId
      *            the article id
-     * @return the production status
+     * @return the production data
      * @throws Exception
      *             the exception
      */
     @Override
-    public final Production getProductionStatus(final Integer articleId)
+    public final ProductionData getProductionData(final Integer articleId)
             throws Exception {
-        Production production = null;
+        ProductionData productionData = null;
         final String url = "http://demo8663420.mockable.io/getProductionStatus/artilceId";
         try {
             final URI uri = new URI(url);
@@ -437,20 +430,20 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
             final HttpHeaders requestHeaders = new HttpHeaders();
 
             requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-            final HttpEntity<Production> requestEntity = new HttpEntity<Production>(
+            final HttpEntity<ProductionData> requestEntity = new HttpEntity<ProductionData>(
                     requestHeaders);
 
-            final ResponseEntity<Production> response = restTemplate.exchange(
-                    uri, HttpMethod.GET, requestEntity, Production.class);
+            final ResponseEntity<ProductionData> response = restTemplate
+                    .exchange(uri, HttpMethod.GET, requestEntity,
+                            ProductionData.class);
             System.out.println("####  response #### "
                     + response.getStatusCode());
             System.out.println("####  response #### " + response.getBody());
-
-            production = response.getBody();
+            productionData = response.getBody();
         } catch (final URISyntaxException e) {
             e.printStackTrace();
         }
-        return production;
+        return productionData;
     }
 
     @Override

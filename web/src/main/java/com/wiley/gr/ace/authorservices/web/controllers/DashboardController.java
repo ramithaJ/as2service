@@ -119,6 +119,13 @@ public class DashboardController {
         return service;
     }
 
+    /**
+     * Gets the communication history.
+     *
+     * @param userId
+     *            the user id
+     * @return the communication history
+     */
     @RequestMapping(value = "/communication/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final @ResponseBody Service getCommunicationHistory(
             @PathVariable("userId") final String userId) {
@@ -136,10 +143,72 @@ public class DashboardController {
             LOGGER.error("Print Stack Trace- ", e);
             final ErrorPOJO error = new ErrorPOJO();
             error.setCode(201);
-            error.setMessage("Error Fetching To View All Author Articles");
+            error.setMessage("Error Fetching To Get Communication History");
             service.setStatus("ERROR");
             service.setError(error);
         }
         return service;
     }
+
+    /**
+     * Gets the production details.
+     *
+     * @param userId
+     *            the user id
+     * @return the production details
+     */
+    @RequestMapping(value = "/production/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final @ResponseBody Service getProductionDetails(
+            @PathVariable("userId") final String userId) {
+        LOGGER.info("inside getProductionDetails method of DashboardController");
+        final Service service = new Service();
+        DashboardView dashboardView = null;
+        try {
+            dashboardView = dashboardService.getProductionDetails(userId);
+            if (!StringUtils.isEmpty(dashboardView)) {
+                service.setStatus("SUCCESS");
+                service.setPayload(dashboardView);
+            }
+        } catch (final Exception e) {
+            LOGGER.error("Print Stack Trace- ", e);
+            final ErrorPOJO error = new ErrorPOJO();
+            error.setCode(201);
+            error.setMessage("Error Fetching To Get Production Articles Details");
+            service.setStatus("ERROR");
+            service.setError(error);
+        }
+        return service;
+    }
+
+    /**
+     * Gets the published article details.
+     *
+     * @param userId
+     *            the user id
+     * @return the published article details
+     */
+    @RequestMapping(value = "/published/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final @ResponseBody Service getPublishedArticleDetails(
+            @PathVariable("userId") final String userId) {
+        LOGGER.info("inside getPublishedArticleDetails method of DashboardController");
+        final Service service = new Service();
+        DashboardView dashboardView = null;
+        try {
+            System.err.println("1");
+            dashboardView = dashboardService.getPublishedArticleDetails(userId);
+            if (!StringUtils.isEmpty(dashboardView)) {
+                service.setStatus("SUCCESS");
+                service.setPayload(dashboardView);
+            }
+        } catch (final Exception e) {
+            LOGGER.error("Print Stack Trace- ", e);
+            final ErrorPOJO error = new ErrorPOJO();
+            error.setCode(201);
+            error.setMessage("Error Fetching To Get Published ArticleDetails");
+            service.setStatus("ERROR");
+            service.setError(error);
+        }
+        return service;
+    }
+
 }

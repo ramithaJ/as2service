@@ -19,6 +19,7 @@ import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceServ
 import com.wiley.gr.ace.authorservices.externalservices.service.NotificationService;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrcidInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
+import com.wiley.gr.ace.authorservices.externalservices.service.PermissionService;
 import com.wiley.gr.ace.authorservices.externalservices.service.SharedService;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
@@ -28,6 +29,7 @@ import com.wiley.gr.ace.authorservices.externalservices.service.impl.ESBInterfac
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.NotificationServiceImpl;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.OrcidInterfaceServiceImpl;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.OrderServiceImpl;
+import com.wiley.gr.ace.authorservices.externalservices.service.impl.PermissionServiceImpl;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.SharedServiceImpl;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.UserManagementImpl;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.UserProfilesImpl;
@@ -128,5 +130,13 @@ public class ExternalServiceBeanConfig {
 	@Bean(name = "ValidationService")
 	public ValidationService validationService() {
 		return new ValidationServiceImpl();
+	}
+	
+	/**
+	 * @return
+	 */
+	@Bean(name = "PermissionService")
+	public PermissionService permissionService() {
+		return new PermissionServiceImpl();
 	}
 }

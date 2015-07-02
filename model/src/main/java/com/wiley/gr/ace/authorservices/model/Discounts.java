@@ -35,8 +35,40 @@ public class Discounts {
 
     /** The original funder. */
     private String originalFunder = "";
-
+    
+    private String institutionName = "";
+    
+    private String societyName = "";
+    
     /**
+	 * @return the institutionName
+	 */
+	public String getInstitutionName() {
+		return institutionName;
+	}
+
+	/**
+	 * @param institutionName the institutionName to set
+	 */
+	public void setInstitutionName(String institutionName) {
+		this.institutionName = institutionName;
+	}
+
+	/**
+	 * @return the societyName
+	 */
+	public String getSocietyName() {
+		return societyName;
+	}
+
+	/**
+	 * @param societyName the societyName to set
+	 */
+	public void setSocietyName(String societyName) {
+		this.societyName = societyName;
+	}
+
+	/**
      * Gets the original funder.
      *
      * @return the original funder

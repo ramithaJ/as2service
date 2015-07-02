@@ -54,8 +54,8 @@ public class ArticleData {
     /** The order payment status. */
     private OrderPaymentStatus orderPaymentStatus;
 
-    /** The production status. */
-    private String productionStatus;
+    /** The production. */
+    private Production production;
 
     /** The publication. */
     private Publication publication;
@@ -274,21 +274,21 @@ public class ArticleData {
     }
 
     /**
-     * Gets the production status.
+     * Gets the production.
      *
-     * @return the productionStatus
+     * @return the production
      */
-    public final String getProductionStatus() {
-        return productionStatus;
+    public final Production getProduction() {
+        return production;
     }
 
     /**
-     * Sets the production status.
+     * Sets the production.
      *
-     * @param productionStatus
-     *            the productionStatus to set
+     * @param production
+     *            the production to set
      */
-    public final void setProductionStatus(final String productionStatus) {
-        this.productionStatus = productionStatus;
+    public final void setProduction(final Production production) {
+        this.production = production;
     }
 }

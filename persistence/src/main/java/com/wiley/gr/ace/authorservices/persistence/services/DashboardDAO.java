@@ -18,6 +18,7 @@ import java.util.List;
 
 import com.wiley.gr.ace.authorservices.persistence.entity.InvitationLog;
 import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
+import com.wiley.gr.ace.authorservices.persistence.entity.ProductPublicationStatuses;
 
 /**
  * The Interface DashboardDAO.
@@ -27,13 +28,13 @@ import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations
 public interface DashboardDAO {
 
     /**
-     * Gets the article author roles.
+     * Gets the product person relations.
      *
      * @param userId
      *            the user id
-     * @return the article author roles
+     * @return the product person relations
      */
-    ProductPersonRelations getArticleAuthorRoles(Integer userId);
+    List<ProductPersonRelations> getProductPersonRelations(String userId);
 
     /**
      * Gets the invitation log list.
@@ -44,5 +45,17 @@ public interface DashboardDAO {
      * @throws Exception
      *             the exception
      */
-    List<InvitationLog> getInvitationLogList(Integer userId) throws Exception;
+    List<InvitationLog> getInvitationLogList(String userId) throws Exception;
+
+    /**
+     * Gets the published article details.
+     *
+     * @param dhId
+     *            the dh id
+     * @return the published article details
+     * @throws Exception
+     *             the exception
+     */
+    ProductPublicationStatuses getPublishedArticleDetails(Integer dhId)
+            throws Exception;
 }
