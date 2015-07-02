@@ -516,6 +516,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             orderDetails.setPrice(orderData.getPricing().getAmountToBePaid()
                     .toString());
             orderDetails.setStatus(orderData.getOrderStatusCode());
+            orderDetails.setOrderId(orderData.getOoUniqueId());
         }
 
         orderDetailsList.add(orderDetails);
