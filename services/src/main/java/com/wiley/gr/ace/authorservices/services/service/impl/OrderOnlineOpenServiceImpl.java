@@ -542,7 +542,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         orderRequest.setApplicationKey(applicationKey);
         orderRequest.setCorrelationID(correlationId);
         OrderData orderData = null;
-        orderData = getOrderDataForOnlineOpenOrder(orderId, userId);
+        orderData = getOrderDataForOnlineOpenOrder(orderId);
         orderRequest.setOrderData(orderData);
         orderRequest.setUserID(userId);
 
@@ -575,8 +575,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * @return OrderData
      * @throws Exception
      */
-    private OrderData getOrderDataForOnlineOpenOrder(final String orderId,
-            final String userId) {
+    private OrderData getOrderDataForOnlineOpenOrder(final String orderId) {
         OrderData orderData = null;
         SavedOrders savedOrder = null;
         String orderDataObject = null;
