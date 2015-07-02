@@ -31,6 +31,12 @@ public class OpenAccessPaymentData {
 	/** The discount detail. */
 	private DiscountDetail discountDetail;
 
+	/** The tax amount. */
+	private String taxAmount;
+
+	/** The tax details. */
+	private TaxDetails taxDetails;
+
 	/**
 	 * Gets the address on file.
 	 *
@@ -162,6 +168,42 @@ public class OpenAccessPaymentData {
 	 */
 	public final void setDiscountDetail(DiscountDetail discountDetail) {
 		this.discountDetail = discountDetail;
+	}
+
+	/**
+	 * Gets the tax amount.
+	 *
+	 * @return the tax amount
+	 */
+	public final String getTaxAmount() {
+		return taxAmount;
+	}
+
+	/**
+	 * Sets the tax amount.
+	 *
+	 * @param taxAmount the new tax amount
+	 */
+	public final void setTaxAmount(String taxAmount) {
+		this.taxAmount = taxAmount;
+	}
+
+	/**
+	 * Gets the tax details.
+	 *
+	 * @return the tax details
+	 */
+	public final TaxDetails getTaxDetails() {
+		return taxDetails;
+	}
+
+	/**
+	 * Sets the tax details.
+	 *
+	 * @param taxDetails the new tax details
+	 */
+	public final void setTaxDetails(TaxDetails taxDetails) {
+		this.taxDetails = taxDetails;
 	}
 
 }
