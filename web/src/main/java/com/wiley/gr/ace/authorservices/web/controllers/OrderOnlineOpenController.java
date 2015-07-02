@@ -96,7 +96,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
      * @param articleId
      * @return service
      */
-    @RequestMapping(value = "/quote/{userId}/{articleId}/", method = RequestMethod.GET)
+    @RequestMapping(value = "/initiateOnline/{userId}/{articleId}/", method = RequestMethod.GET)
     public final Service initiateOnline(@PathVariable("userId") final String userId,
             @PathVariable("articleId") final String articleId) {
         Service service = new Service();
