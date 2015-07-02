@@ -97,6 +97,9 @@ public class AuthorServicesConstants {
     /** The Constant for BPM_SALT. */
     public static final String BPM_SALT = "salt";
     
+    /** The Constant for BPM_CALL_SUCCESS_STATUS. */
+    public static final String BPM_CALL_SUCCESS_STATUS = "SUCCESS";
+    
     /** The Constant for BPM_SIGNATURE. */
     public static final String BILLING_ADDRESS_TYPE = "billingAddress";
     
@@ -108,5 +111,7 @@ public class AuthorServicesConstants {
     
     /** The Constant for BPM_SALT. */
     public static final String COUNTRY_CANADA = "CANADA";
+    
+    
     
 }

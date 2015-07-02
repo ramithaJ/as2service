@@ -13,49 +13,27 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
-/**
- * @author virtusa version1.0
- */
-public class SocietyMemberDiscount {
+import java.util.List;
+
+public class DiscountedInstitutions {
 
     /**
-     * This field holds the value of status
+     * This field holds the value of institute
      */
-    private String status;
+    private List<Institute> instituteList;
 
     /**
-     * This field holds the value of payload
+     * @return the instituteList
      */
-    private PayLoad payload;
-
-    /**
-     * @return the status
-     */
-    public final String getStatus() {
-        return status;
+    public final List<Institute> getInstituteList() {
+        return instituteList;
     }
 
     /**
-     * @param status
-     *            the status to set
+     * @param instituteList
+     *            the instituteList to set
      */
-    public final void setStatus(final String status) {
-        this.status = status;
+    public final void setInstituteList(final List<Institute> instituteList) {
+        this.instituteList = instituteList;
     }
-
-    /**
-     * @return the payload
-     */
-    public final PayLoad getPayload() {
-        return payload;
-    }
-
-    /**
-     * @param payload
-     *            the payload to set
-     */
-    public final void setPayload(final PayLoad payload) {
-        this.payload = payload;
-    }
-
 }

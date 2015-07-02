@@ -47,6 +47,13 @@
 			<artifactId>httpcore</artifactId>
 			<version>4.4.1</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.bpm</groupId>
+			<artifactId>WileyBPMTAIClient</artifactId>
+			<version>1.01.01</version>
+		</dependency>
+		
 	    <dependency>
 				<groupId>com.wiley.gr.ace</groupId>
 				<artifactId>model</artifactId>

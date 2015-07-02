@@ -11,51 +11,34 @@
  * of John Wiley & Sons.
  * *****************************************************************************
  */
-package com.wiley.gr.ace.authorservices.model.external;
+package com.wiley.gr.ace.authorservices.model;
+
+import java.util.List;
 
 /**
  * @author virtusa version1.0
+ *
  */
-public class SocietyMemberDiscount {
+public class InstitutionalDiscounts {
 
     /**
-     * This field holds the value of status
+     * This field holds the value of instituteList
      */
-    private String status;
+    private List<Institution> instituteList;
 
     /**
-     * This field holds the value of payload
+     * @return the instituteList
      */
-    private PayLoad payload;
-
-    /**
-     * @return the status
-     */
-    public final String getStatus() {
-        return status;
+    public final List<Institution> getInstituteList() {
+        return instituteList;
     }
 
     /**
-     * @param status
-     *            the status to set
+     * @param instituteList
+     *            the instituteList to set
      */
-    public final void setStatus(final String status) {
-        this.status = status;
-    }
-
-    /**
-     * @return the payload
-     */
-    public final PayLoad getPayload() {
-        return payload;
-    }
-
-    /**
-     * @param payload
-     *            the payload to set
-     */
-    public final void setPayload(final PayLoad payload) {
-        this.payload = payload;
+    public final void setInstituteList(final List<Institution> instituteList) {
+        this.instituteList = instituteList;
     }
 
 }

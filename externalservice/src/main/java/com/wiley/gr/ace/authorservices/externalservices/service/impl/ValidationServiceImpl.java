@@ -15,7 +15,7 @@ public class ValidationServiceImpl implements ValidationService {
 
 	@Override
 	public boolean validateAddress(
-			AddressValidationRequest addressValidationRequest) throws Exception {
+			AddressValidationRequest addressValidationRequest) {
 		boolean isValid = false;
 		AddressValidationResponse addressValidationResponse = (AddressValidationResponse) StubInvokerUtil
 				.restServiceInvoker(addressDoctorUrl, addressValidationRequest,

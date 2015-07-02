@@ -13,6 +13,9 @@ public class ResearchFunderElement {
 
     /** The fundername. */
     private String funderName;
+    
+    /** The doi. */
+    private String doi;
 
     /**
      * @return the funderRefId
@@ -43,14 +46,31 @@ public class ResearchFunderElement {
     public final void setFunderName(final String funderName) {
         this.funderName = funderName;
     }
+    
 
     /**
-     * toSting method
-     */
-    @Override
-    public String toString() {
-        return "ResearchFunderElement [funderRefId=" + funderRefId
-                + ", funderName=" + funderName + "]";
-    }
+	 * @return the doi
+	 */
+	public String getDoi() {
+		return doi;
+	}
+
+	/**
+	 * @param doi the doi to set
+	 */
+	public void setDoi(String doi) {
+		this.doi = doi;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ResearchFunderElement [funderRefId=" + funderRefId
+				+ ", funderName=" + funderName + ", doi=" + doi + "]";
+	}
+
+
 
 }

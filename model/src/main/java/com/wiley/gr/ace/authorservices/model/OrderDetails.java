@@ -31,8 +31,29 @@ public class OrderDetails {
     
     /** The price. */
     private String price;
+    
+    /**
+     * the orderId.
+     */
+    private String orderId;
+    
+    
 
     /**
+	 * @return the orderId
+	 */
+	public String getOrderId() {
+		return orderId;
+	}
+
+	/**
+	 * @param orderId the orderId to set
+	 */
+	public void setOrderId(final String orderId) {
+		this.orderId = orderId;
+	}
+
+	/**
      * Gets the status.
      *
      * @return the status

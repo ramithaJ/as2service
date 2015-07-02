@@ -13,50 +13,29 @@
  */
 package com.wiley.gr.ace.authorservices.model;
 
+import java.util.List;
+
 /**
  * @author virtusa version1.0
  *
  */
-public class GrantRecipients {
+public class SocietyDiscounts {
+
+    private List<Society> societies;
 
     /**
-     * This field holds the value of name
+     * @return the societies
      */
-    private String name;
-
-    /**
-     * This field holds the value of code
-     */
-    private Integer code;
-
-    /**
-     * @return the name
-     */
-    public final String getName() {
-        return name;
+    public final List<Society> getSocieties() {
+        return societies;
     }
 
     /**
-     * @param name
-     *            the name to set
+     * @param societies
+     *            the societies to set
      */
-    public final void setName(final String name) {
-        this.name = name;
-    }
-
-    /**
-     * @return the code
-     */
-    public final Integer getCode() {
-        return code;
-    }
-
-    /**
-     * @param code
-     *            the code to set
-     */
-    public final void setCode(final Integer code) {
-        this.code = code;
+    public final void setSocieties(final List<Society> societies) {
+        this.societies = societies;
     }
 
 }

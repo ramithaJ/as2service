@@ -4,13 +4,13 @@ import java.util.List;
 
 import com.wiley.gr.ace.authorservices.model.FundingOrganizations;
 import com.wiley.gr.ace.authorservices.model.GrantRecipients;
-import com.wiley.gr.ace.authorservices.model.Institution;
+import com.wiley.gr.ace.authorservices.model.InstitutionalDiscounts;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.OrderDetails;
 import com.wiley.gr.ace.authorservices.model.PaymentDetails;
 import com.wiley.gr.ace.authorservices.model.QuoteDetails;
-import com.wiley.gr.ace.authorservices.model.Society;
-import com.wiley.gr.ace.authorservices.model.WOAAccounts;
+import com.wiley.gr.ace.authorservices.model.SocietyDiscounts;
+import com.wiley.gr.ace.authorservices.model.WOAAccountHolders;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSociety;
 import com.wiley.gr.ace.authorservices.model.external.OrderResponse;
 import com.wiley.gr.ace.authorservices.model.external.WOAFunder;
@@ -55,20 +55,19 @@ public interface OrderOnlineOpenService {
      * @param userId
      * @param onlineOpenOrder
      */
-    List<WOAFunder> retrieveDiscountedWOAFunderList(String userId, String DHID);
+    List<WOAFunder> retrieveDiscountedWOAFunderList(String DHID);
 
     /**
      * @param userId
      * @param onlineOpenOrder
      */
-    List<DiscountedSociety> retrieveSocietyDiscountListForJournal(
-            String userId, String DHID);
+    List<DiscountedSociety> retrieveSocietyDiscountListForJournal(String DHID);
 
     /**
      * @param userId
      * @param journalId
      */
-    boolean isAdditionDiscountAvailableForJournal(String userId, String DHID);
+    boolean isAdditionDiscountAvailableForJournal(String DHID);
 
     /**
      * @param order
@@ -80,7 +79,7 @@ public interface OrderOnlineOpenService {
      * @param userId
      * @return
      */
-    List<WOAAccounts> getWOAAccounts();
+    WOAAccountHolders getWOAFunders();
 
     /**
      * @param userId
@@ -92,19 +91,25 @@ public interface OrderOnlineOpenService {
      * @param userId
      * @return
      */
-    List<Society> getDiscountedSocieties();
+    SocietyDiscounts getDiscountedSocieties();
 
     /**
      * @param userId
      * @return
      */
-    List<Institution> getInstitutionDiscounts();
+    InstitutionalDiscounts getInstitutionDiscounts();
 
     /**
      * @param userId
      * @return
      */
     List<FundingOrganizations> getFundersList();
+    
+    /**
+     * @param funderId
+     * @return
+     */
+    List<FundingOrganizations> getSubFundersList(String funderId);
 
     /**
      * @param userId
@@ -115,7 +120,7 @@ public interface OrderOnlineOpenService {
     /**
      * @param name
      */
-    List<String> processAllRestrictedFunderWOAAccounts(String name);
+    List<String> processAllRestrictedFunderWOAAccounts(String id);
 
     /**
      * @param paymentDetails

@@ -14,8 +14,7 @@ package com.wiley.gr.ace.authorservices.externalservices.service;
 
 import java.util.List;
 
-import com.wiley.gr.ace.authorservices.model.FunderDetails;
-import com.wiley.gr.ace.authorservices.model.TaxDetails;
+import com.wiley.gr.ace.authorservices.model.external.DiscountRequest;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSocietyResponse;
 import com.wiley.gr.ace.authorservices.model.external.InstitutionDiscounts;
 import com.wiley.gr.ace.authorservices.model.external.OrderData;
@@ -26,6 +25,7 @@ import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
 import com.wiley.gr.ace.authorservices.model.external.Quote;
 import com.wiley.gr.ace.authorservices.model.external.QuoteRequest;
 import com.wiley.gr.ace.authorservices.model.external.SocietyMemberDiscount;
+import com.wiley.gr.ace.authorservices.model.external.TaxRequest;
 import com.wiley.gr.ace.authorservices.model.external.WOAAccount;
 import com.wiley.gr.ace.authorservices.model.external.WileyOpenAccessFunders;
 
@@ -87,18 +87,6 @@ public interface OrderService {
      */
     InstitutionDiscounts getInstitutionDiscounts();
 
-    /******************* Validations *******************/
-    /**
-     * @return Object
-     */
-    Object validateTaxDetails(String userId, TaxDetails taxDetails);
-
-    /**
-     * @return Object
-     */
-    Object validateFunderDetails(String userId,
-            List<FunderDetails> funderDetailsList);
-    
     
     /**
      * @param orderId
@@ -114,5 +102,16 @@ public interface OrderService {
 	 */
 	Object sendNonRestrictedWOAAccountListToAdmin(
 			List<WOAAccount> nonRestrictedWOAAccountList);
+
+	/**
+	 * @param discountRequest
+	 */
+	String getDiscounts(DiscountRequest discountRequest);
+
+	/**
+	 * @param taxRequest
+	 * @return
+	 */
+	String getTaxAmount(TaxRequest taxRequest);
 
 }

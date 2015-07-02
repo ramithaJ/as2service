@@ -17,17 +17,17 @@ package com.wiley.gr.ace.authorservices.model;
  * @author virtusa version1.0
  *
  */
-public class WOAAccounts {
+public class WOAAccountFunders {
 
     /**
-     * This field holds the value of code
+     * This field holds the value of woaFunderId
      */
-    private String code;
+    private String woaFunderId;
 
     /**
-     * This field holds the value of name
+     * This field holds the value of woaFunderName
      */
-    private String name;
+    private String woaFunderName;
 
     /**
      * This field holds the value of allRestricted
@@ -50,33 +50,33 @@ public class WOAAccounts {
     }
 
     /**
-     * @return the code
+     * @return the woaFunderId
      */
-    public final String getCode() {
-        return code;
+    public final String getWoaFunderId() {
+        return woaFunderId;
     }
 
     /**
-     * @param code
-     *            the code to set
+     * @param woaFunderId
+     *            the woaFunderId to set
      */
-    public final void setCode(final String code) {
-        this.code = code;
+    public final void setWoaFunderId(final String woaFunderId) {
+        this.woaFunderId = woaFunderId;
     }
 
     /**
-     * @return the name
+     * @return the woaFunderName
      */
-    public final String getName() {
-        return name;
+    public final String getWoaFunderName() {
+        return woaFunderName;
     }
 
     /**
-     * @param name
-     *            the name to set
+     * @param woaFunderName
+     *            the woaFunderName to set
      */
-    public final void setName(final String name) {
-        this.name = name;
+    public final void setWoaFunderName(final String woaFunderName) {
+        this.woaFunderName = woaFunderName;
     }
 
 }

@@ -159,11 +159,12 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
         return listArticleAuthorAssignments;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * This method save the order
      * 
-     * @see com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO#
-     * saveLaterOrder(java.lang.String)
+     * @param savedOrders
+     * @return orderId
+     *
      */
     @Override
     public Integer saveLaterOrder(final SavedOrders savedOrders) {

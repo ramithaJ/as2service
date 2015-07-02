@@ -32,7 +32,7 @@ public class OnlineOpenOrder {
     private AddressDetails addressDetails;
 
     /** The journal details. */
-    private List<JournalDetails> journalDetails;
+    private JournalDetails journalDetails;
 
     /** The discount details. */
     private List<Discounts> discountDetails;
@@ -50,7 +50,7 @@ public class OnlineOpenOrder {
     private String paymentMethod;
 
     /** The article id. */
-    private List<ArticleDetails> articleDetails;
+    private ArticleDetails articleDetails;
 
     /** The author name. */
     private String authorName;
@@ -69,6 +69,29 @@ public class OnlineOpenOrder {
 
     /** The tax amount. */
     private Amount taxAmount;
+
+    /** The order Id */
+    private String orderId;
+
+    /**
+     * This field holds the value of licenseSignedStatus
+     */
+    private String licenseSignedStatus = "false";
+
+    /**
+     * @return the licenseSignedStatus
+     */
+    public final String getLicenseSignedStatus() {
+        return licenseSignedStatus;
+    }
+
+    /**
+     * @param licenseSignedStatus
+     *            the licenseSignedStatus to set
+     */
+    public final void setLicenseSignedStatus(final String licenseSignedStatus) {
+        this.licenseSignedStatus = licenseSignedStatus;
+    }
 
     /**
      * Gets the final amount.
@@ -208,7 +231,7 @@ public class OnlineOpenOrder {
      *
      * @return the article details
      */
-    public final List<ArticleDetails> getArticleDetails() {
+    public final ArticleDetails getArticleDetails() {
         return articleDetails;
     }
 
@@ -219,7 +242,7 @@ public class OnlineOpenOrder {
      *            the new article details
      */
     public final void setArticleDetails(
-            final List<ArticleDetails> articleDetails) {
+            final ArticleDetails articleDetails) {
         this.articleDetails = articleDetails;
     }
 
@@ -228,7 +251,7 @@ public class OnlineOpenOrder {
      *
      * @return the journal details
      */
-    public final List<JournalDetails> getJournalDetails() {
+    public final JournalDetails getJournalDetails() {
         return journalDetails;
     }
 
@@ -239,7 +262,7 @@ public class OnlineOpenOrder {
      *            the new journal details
      */
     public final void setJournalDetails(
-            final List<JournalDetails> journalDetails) {
+            final JournalDetails journalDetails) {
         this.journalDetails = journalDetails;
     }
 
@@ -375,6 +398,21 @@ public class OnlineOpenOrder {
      */
     public final void setTaxAmount(final Amount taxAmount) {
         this.taxAmount = taxAmount;
+    }
+
+    /**
+     * @return the orderId
+     */
+    public String getOrderId() {
+        return orderId;
+    }
+
+    /**
+     * @param orderId
+     *            the orderId to set
+     */
+    public void setOrderId(final String orderId) {
+        this.orderId = orderId;
     }
 
 }
