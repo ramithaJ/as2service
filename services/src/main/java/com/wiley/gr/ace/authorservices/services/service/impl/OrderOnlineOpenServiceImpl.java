@@ -1063,21 +1063,23 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
         woaAccountList = currentWoaFunder.getWOAAccounts().getWOAAccount();
         woaAccountNameList = new ArrayList<String>();
-
-        for (Iterator<WOAAccount> iterator = woaAccountList.iterator(); iterator
-                .hasNext();) {
-            WOAAccount woaAccount = iterator.next();
-
-            List<ResearchFunderElement> researchfunderList = woaAccount
-                    .getResearchFunders().getResearchfunder();
-
-            for (Iterator<ResearchFunderElement> iterator2 = researchfunderList
-                    .iterator(); iterator2.hasNext();) {
-                ResearchFunderElement researchFunderElement = iterator2.next();
-
-                woaAccountNameList.add(researchFunderElement.getDoi());
-            }
-
+        
+        if(woaAccountList != null && !woaAccountList.isEmpty()){
+        	for (Iterator<WOAAccount> iterator = woaAccountList.iterator(); iterator
+        			.hasNext();) {
+        		WOAAccount woaAccount = iterator.next();
+        		
+        		List<ResearchFunderElement> researchfunderList = woaAccount
+        				.getResearchFunders().getResearchfunder();
+        		
+        		for (Iterator<ResearchFunderElement> iterator2 = researchfunderList
+        				.iterator(); iterator2.hasNext();) {
+        			ResearchFunderElement researchFunderElement = iterator2.next();
+        			
+        			woaAccountNameList.add(researchFunderElement.getDoi());
+        		}
+        		
+        	}
         }
 
         return woaAccountNameList;
