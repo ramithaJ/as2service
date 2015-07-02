@@ -85,8 +85,8 @@ public class OrderOnlineOpenController extends ASExceptionController {
      * @param articleId
      * @return service
      */
-    @RequestMapping(value = "/quote/{userId}/{articleId}", method = RequestMethod.GET)
-    public final Service getQuote(@PathVariable("userId") final String userId,
+    @RequestMapping(value = "/quote/{userId}/{articleId}/", method = RequestMethod.GET)
+    public final Service initiateOnline(@PathVariable("userId") final String userId,
             @PathVariable("articleId") final String articleId) {
         Service service = new Service();
         service.setPayload(orderOnlineOpenService.initiateOnline(userId,
@@ -199,7 +199,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
      * @param articleId
      * @return service
      */
-    @RequestMapping(value = "/grantRecipients/{articleId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/grantRecipients/{articleId}/", method = RequestMethod.GET)
     public final Service getGrantRecipients(
             @PathVariable("articleId") final String articleId) {
 
@@ -371,7 +371,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
 
     }
 
-    @RequestMapping(value = "/wpg/config", method = RequestMethod.GET)
+    @RequestMapping(value = "/wpg/config/", method = RequestMethod.GET)
     public final Service getWPGConfiguration() {
 
         Service service = new Service();
