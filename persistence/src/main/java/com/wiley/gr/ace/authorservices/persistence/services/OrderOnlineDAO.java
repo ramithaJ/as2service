@@ -44,10 +44,9 @@ public interface OrderOnlineDAO {
 
     /**
      * @param orderId
-     * @param userId
      * @return SavedOrders
      */
-    SavedOrders getSavedOrdersForTheOrderId(String orderId, String userId);
+    SavedOrders getSavedOrdersForTheOrderId(String orderId);
 
     /**
      * @param aritcleAuthId
@@ -68,14 +67,6 @@ public interface OrderOnlineDAO {
     Integer saveLaterOrder(SavedOrders savedOrders);
 
     /**
-     * This method saves or updates the order submitted
-     * 
-     * @param orders
-     * @return
-     */
-    void saveOrUpdateOrder(Orders orders);
-
-    /**
      * @param ArticleId
      * @return
      */
@@ -92,4 +83,15 @@ public interface OrderOnlineDAO {
      * @return
      */
     boolean updatePaymentDetails(PaymentDetails paymentDetails);
+
+	/**
+	 * @param orderId
+	 */
+	void deleteSavedOrderPostOrderSubmission(Integer orderId);
+
+	/**
+	 * This method submits the saved order
+	 * @param orders
+	 */
+	void saveOrder(Orders orders);
 }

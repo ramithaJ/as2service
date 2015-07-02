@@ -7,13 +7,10 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -57,10 +54,10 @@ public class Orders implements java.io.Serializable {
         this.orderReference = orderReference;
     }
 
+    // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ORDERS_SEQ")
+    // @SequenceGenerator(name = "ORDERS_SEQ", sequenceName = "ORDERS_SEQ", allocationSize = 1)
     @Id
     @Column(name = "ORDER_ID", unique = true, nullable = false, precision = 22, scale = 0)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ORDERS_SEQ")
-    @SequenceGenerator(name = "ORDERS_SEQ", sequenceName = "ORDERS_SEQ", allocationSize = 1)
     public Integer getOrderId() {
         return this.orderId;
     }

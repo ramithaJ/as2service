@@ -19,11 +19,13 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Value;
 
+import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.PaymentDetails;
 import com.wiley.gr.ace.authorservices.persistence.entity.Orders;
 import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
@@ -185,20 +187,27 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
     }
 
     @Override
-    public void saveOrUpdateOrder(final Orders orders) {
+    public void saveOrder(final Orders orders) {
 
         Session session = null;
-        try {
-            session = getSessionFactory().openSession();
-            session.getTransaction().begin();
-            session.saveOrUpdate(orders);
-            session.getTransaction().commit();
-        } finally {
-            if (session != null) {
-                session.flush();
-                session.close();
-            }
-        }
+        
+            try {
+				session = getSessionFactory().openSession();
+				session.getTransaction().begin();
+				session.save(orders);
+				//saveOrUpdate(orders);
+				session.getTransaction().commit();
+			} catch (HibernateException e) {
+				e.printStackTrace();
+				throw new ASException("704", e.getMessage());
+				
+			}finally {
+	            if (session != null) {
+	                session.flush();
+	                session.close();
+	            }
+	        }
+        
 
     }
 
@@ -211,19 +220,15 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
      * 
      */
     @Override
-    public SavedOrders getSavedOrdersForTheOrderId(final String orderId,
-            final String userId) {
+    public SavedOrders getSavedOrdersForTheOrderId(final String orderId) {
         Session session = null;
         SavedOrders savedOrder = null;
         try {
             session = getSessionFactory().openSession();
             Criteria criteria = session.createCriteria(SavedOrders.class,
                     "savedOrders");
-            criteria.createAlias("savedOrders.userProfile", "userProfile");
             criteria.add(Restrictions.eq("savedOrders.orderId",
                     Integer.parseInt(orderId)));
-            criteria.add(Restrictions.eq("userProfile.userId",
-                    Integer.parseInt(userId)));
 
             savedOrder = (SavedOrders) criteria.uniqueResult();
 
@@ -235,6 +240,35 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
         }
 
         return savedOrder;
+
+    }
+    
+    
+    /**
+     * This method returns the SavedOrder details for the corresponding orderId.
+     * 
+     * @param orderId
+     * @param userId
+     * @return SavedOrders
+     * 
+     */
+    @Override
+    public void deleteSavedOrderPostOrderSubmission(final Integer orderId) {
+        Session session = null;
+        SavedOrders savedOrder = null;
+        
+        try{
+        	session = getSessionFactory().openSession();
+        	session.getTransaction().begin();
+        	savedOrder = (SavedOrders) session.load(SavedOrders.class, orderId);
+        	session.delete(savedOrder);
+        	session.getTransaction().commit();
+        } finally {
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
+        }
 
     }
 
@@ -337,4 +371,6 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
 
         return true;
     }
+
+	
 }

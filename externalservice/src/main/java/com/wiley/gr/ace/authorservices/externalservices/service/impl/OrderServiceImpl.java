@@ -45,8 +45,8 @@ public class OrderServiceImpl implements OrderService {
     /**
      * This field holds the value of orderserviceurl
      */
-    @Value("${orderservice.url}")
-    private String orderserviceurl;
+    @Value("${createorder.url}")
+    private String createorderurl;
 
     /**
      * This field holds the value of orderserviceurlview
@@ -123,7 +123,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public final OrderResponse submitOnlineOpenOrder(final OrderData orderData) {
 
-        return (OrderResponse) StubInvokerUtil.invokeJsonStub(orderserviceurl,
+        return (OrderResponse) StubInvokerUtil.invokeJsonStub(createorderurl,
                 HttpMethod.POST, OrderResponse.class);
 
     }

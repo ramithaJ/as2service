@@ -82,7 +82,6 @@ import com.wiley.gr.ace.authorservices.model.external.WOAFunder;
 import com.wiley.gr.ace.authorservices.model.external.WPGConfiguration;
 import com.wiley.gr.ace.authorservices.model.external.WileyOpenAccessFunders;
 import com.wiley.gr.ace.authorservices.model.external.WoaAccountHolder;
-import com.wiley.gr.ace.authorservices.persistence.entity.OrderTypes;
 import com.wiley.gr.ace.authorservices.persistence.entity.Orders;
 import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
 import com.wiley.gr.ace.authorservices.persistence.entity.ProductRelations;
@@ -540,9 +539,6 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         OrderResponse orderResponse = null;
 
         OrderRequest orderRequest = new OrderRequest();
-        // TODO All the below hardcoded values need to changed once proper
-        // data
-        // is provided.
         orderRequest.setApplicationKey(applicationKey);
         orderRequest.setCorrelationID(correlationId);
         OrderData orderData = null;
@@ -553,15 +549,21 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         orderResponse = orderservice.submitOnlineOpenOrder(orderData);
 
         Orders orders = new Orders();
-        orders.setOrderTypes(new OrderTypes());
+        //orders.setOrderTypes(new OrderTypes());
         // orders.setOoOaFlg(orderTypeFlag);
+        orders.setOrderId(Integer.parseInt(orderId));
         orders.setOrderStatus(AuthorServicesConstants.ORDER_STATUS_SUBMIT);
+        Products products = new Products(Integer.parseInt(orderData.getArticle().getDHID()));
+        orders.setProducts(products);
         // orders.setDownstreamappOrderId(Integer.parseInt(orderResponse.getOoUniqueId()));
         Users users = new Users();
         users.setUserId(Integer.parseInt(userId));
         orders.setUsersByCreatedBy(users);
+        orders.setUsersByUserId(users);
         orders.setCreatedDate(new Date());
-        orderOnlineDAO.saveOrUpdateOrder(orders);
+        orderOnlineDAO.saveOrder(orders);
+        
+        orderOnlineDAO.deleteSavedOrderPostOrderSubmission(orders.getOrderId());
 
         return orderResponse;
     }
@@ -581,8 +583,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         OnlineOpenOrder onlineOpenOrder = null;
 
         if (orderId != null) {
-            savedOrder = orderOnlineDAO.getSavedOrdersForTheOrderId(orderId,
-                    userId);
+            savedOrder = orderOnlineDAO.getSavedOrdersForTheOrderId(orderId);
             orderDataObject = savedOrder.getOrderObject();
             try {
                 JSONObject object = (JSONObject) new JSONParser()
@@ -601,12 +602,12 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
             orderData = new OrderData();
             // TODO: Need to check Article data
-            orderData.setArticle(new ArticleData());
+            ArticleData articleData = new ArticleData();
+            articleData.setDHID(savedOrder.getProducts().getDhId().toString());
+            orderData.setArticle(articleData);
             AddressDetails address = onlineOpenOrder.getAddressDetails();
 
             // TODO: Need to Check the types
-            if (AuthorServicesConstants.BILLING_ADDRESS_TYPE.equals(address
-                    .getBillingAddress().getAddressType())) {
                 ContactAddress billingAddress = new ContactAddress();
                 // TODO: Need to set remaining objects
                 billingAddress.setName(address.getBillingAddress()
@@ -616,8 +617,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                         .getInstitution());
 
                 orderData.setBillingAddress(billingAddress);
-            } else if (AuthorServicesConstants.CONTACT_ADDRESS_TYPE
-                    .equals(address.getBillingAddress().getAddressType())) {
+                
                 ContactAddress contactAddress = new ContactAddress();
                 // TODO: Need to set remaining objects
                 contactAddress.setName(address.getContactAddress()
@@ -626,7 +626,6 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                 contactAddress.setOrg(address.getContactAddress()
                         .getInstitution());
                 orderData.setContactAddress(contactAddress);
-            }
 
             TaxData taxData = new TaxData();
             taxData.setCountryCode(onlineOpenOrder.getTaxDetails()

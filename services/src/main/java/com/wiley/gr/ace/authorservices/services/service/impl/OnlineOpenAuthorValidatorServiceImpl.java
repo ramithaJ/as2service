@@ -126,8 +126,6 @@ public class OnlineOpenAuthorValidatorServiceImpl implements
 	@Override
 	public OnlineOpenOrder processAndValidateNext(final OnlineOpenOrder onlineOpenOrder, final String userId) {
 		
-		System.out.println(onlineOpenOrder);
-		
 		/*
 		 *  Validate Funder Details
 		 */
