@@ -34,7 +34,7 @@ public interface DashboardDAO {
      *            the user id
      * @return the product person relations
      */
-    List<ProductPersonRelations> getProductPersonRelations(Integer userId);
+    List<ProductPersonRelations> getProductPersonRelations(String userId);
 
     /**
      * Gets the invitation log list.
@@ -45,7 +45,7 @@ public interface DashboardDAO {
      * @throws Exception
      *             the exception
      */
-    List<InvitationLog> getInvitationLogList(Integer userId) throws Exception;
+    List<InvitationLog> getInvitationLogList(String userId) throws Exception;
 
     /**
      * Gets the published article details.

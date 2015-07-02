@@ -43,7 +43,7 @@ public class DashboardDAOImpl implements DashboardDAO {
      *             the exception
      */
     @Override
-    public final List<InvitationLog> getInvitationLogList(final Integer userId)
+    public final List<InvitationLog> getInvitationLogList(final String userId)
             throws Exception {
         Session session = null;
         Transaction txn = null;
@@ -52,8 +52,8 @@ public class DashboardDAOImpl implements DashboardDAO {
             txn = session.beginTransaction();
             final String invitationLogHql = "from InvitationLog il where il.userProfile.userId=:userId";
             final List<InvitationLog> invitationLogList = session
-                    .createQuery(invitationLogHql).setInteger("userId", userId)
-                    .list();
+                    .createQuery(invitationLogHql)
+                    .setInteger("userId", Integer.parseInt(userId)).list();
             txn.commit();
             return invitationLogList;
         } finally {
@@ -73,7 +73,7 @@ public class DashboardDAOImpl implements DashboardDAO {
      */
     @Override
     public final List<ProductPersonRelations> getProductPersonRelations(
-            final Integer userId) {
+            final String userId) {
         Session session = null;
         Transaction txn = null;
         try {
@@ -82,7 +82,7 @@ public class DashboardDAOImpl implements DashboardDAO {
             final String productPersonRelationsHql = "from ProductPersonRelations ppr where ppr.userProfile.userId=:userId";
             final List<ProductPersonRelations> productPersonRelationsList = session
                     .createQuery(productPersonRelationsHql)
-                    .setInteger("userId", userId).list();
+                    .setInteger("userId", Integer.parseInt(userId)).list();
             txn.commit();
             return productPersonRelationsList;
         } finally {
