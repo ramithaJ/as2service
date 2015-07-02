@@ -13,6 +13,10 @@
  */
 package com.wiley.gr.ace.authorservices.model;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -26,6 +30,7 @@ public class ArticleDetails {
     private String articleTitle;
 
     /** The article aid. */
+    @NotNull @NotBlank
     private String articleAID;
 
     /**
