@@ -23,6 +23,7 @@ import org.hibernate.Transaction;
 
 import com.wiley.gr.ace.authorservices.persistence.entity.InvitationLog;
 import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
+import com.wiley.gr.ace.authorservices.persistence.entity.ProductPublicationStatuses;
 import com.wiley.gr.ace.authorservices.persistence.services.DashboardDAO;
 
 /**
@@ -64,26 +65,57 @@ public class DashboardDAOImpl implements DashboardDAO {
     }
 
     /**
-     * Gets the article author roles.
+     * Gets the product person relations.
      *
      * @param userId
      *            the user id
-     * @return the article author roles
+     * @return the product person relations
      */
     @Override
-    public final ProductPersonRelations getArticleAuthorRoles(
+    public final List<ProductPersonRelations> getProductPersonRelations(
             final Integer userId) {
         Session session = null;
         Transaction txn = null;
         try {
             session = getSessionFactory().openSession();
             txn = session.beginTransaction();
-            final String articleAuthorAssignmentHql = "from ProductPersonRelations ppr where ppr.userProfile.userId=:userId";
-            final ProductPersonRelations productPersonRelations = (ProductPersonRelations) session
-                    .createQuery(articleAuthorAssignmentHql)
-                    .setInteger("userId", userId).uniqueResult();
+            final String productPersonRelationsHql = "from ProductPersonRelations ppr where ppr.userProfile.userId=:userId";
+            final List<ProductPersonRelations> productPersonRelationsList = session
+                    .createQuery(productPersonRelationsHql)
+                    .setInteger("userId", userId).list();
             txn.commit();
-            return productPersonRelations;
+            return productPersonRelationsList;
+        } finally {
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
+        }
+    }
+
+    /**
+     * Gets the published article details.
+     *
+     * @param dhId
+     *            the dh id
+     * @return the published article details
+     * @throws Exception
+     *             the exception
+     */
+    @Override
+    public final ProductPublicationStatuses getPublishedArticleDetails(
+            final Integer dhId) throws Exception {
+        Session session = null;
+        Transaction txn = null;
+        try {
+            session = getSessionFactory().openSession();
+            txn = session.beginTransaction();
+            final String productPublicationStatusesHql = "from ProductPublicationStatuses pps where pps.products.dhId=:dhId";
+            final ProductPublicationStatuses productPublicationStatuses = (ProductPublicationStatuses) session
+                    .createQuery(productPublicationStatusesHql)
+                    .setInteger("dhId", dhId).uniqueResult();
+            txn.commit();
+            return productPublicationStatuses;
         } finally {
             if (session != null) {
                 session.flush();

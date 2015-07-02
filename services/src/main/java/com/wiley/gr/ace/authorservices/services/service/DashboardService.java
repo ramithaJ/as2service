@@ -73,4 +73,26 @@ public interface DashboardService {
      *             the exception
      */
     List<ArticleData> getArticleAuthorData(String userId) throws Exception;
+
+    /**
+     * Gets the production details.
+     *
+     * @param userId
+     *            the user id
+     * @return the production details
+     * @throws Exception
+     *             the exception
+     */
+    DashboardView getProductionDetails(String userId) throws Exception;
+
+    /**
+     * Gets the published article details.
+     *
+     * @param userId
+     *            the user id
+     * @return the published article details
+     * @throws Exception
+     *             the exception
+     */
+    DashboardView getPublishedArticleDetails(String userId) throws Exception;
 }
