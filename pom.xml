@@ -37,6 +37,7 @@
 		<module>exceptions</module>
 		<module>externalservice</module>
 		<module>as2entities</module>
+		<module>autocomplete</module>
 	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
