@@ -59,9 +59,10 @@ public class OnlineOpenAuthorValidatorServiceImpl implements
         if (taxDetails != null) {
 
             // TODO: Error codes and messages must be changed accordingly
-            if (!AuthorServicesConstants.COUNTRY_USA.equalsIgnoreCase(taxDetails.getTaxCountryCode())
-                    || !AuthorServicesConstants.COUNTRY_CANADA.equalsIgnoreCase(taxDetails
-                            .getTaxCountryCode())) {
+        	
+            if (!(AuthorServicesConstants.COUNTRY_USA.equalsIgnoreCase(taxDetails.getTaxCountryCode())
+                    || AuthorServicesConstants.COUNTRY_CANADA.equalsIgnoreCase(taxDetails
+                            .getTaxCountryCode()))) {
                 throw new ASException("900",
                         "User must belong to USA or CANADA only to enter Tax Exemption Number");
             }
@@ -126,6 +127,8 @@ public class OnlineOpenAuthorValidatorServiceImpl implements
 	@Override
 	public OnlineOpenOrder processAndValidateNext(OnlineOpenOrder onlineOpenOrder, String userId) {
 		
+		System.out.println(onlineOpenOrder);
+		
 		/*
 		 *  Validate Funder Details
 		 */
@@ -139,18 +142,23 @@ public class OnlineOpenAuthorValidatorServiceImpl implements
 		/*
 		 * Validate Address Details
 		 */
+		
+		
 		AddressValidationRequest addressValidationRequest = new AddressValidationRequest();
 		
 		AddressValidationMultiReq addressValidationMultiReq = new AddressValidationMultiReq();
 		
-		addressValidationMultiReq.setStreet1(onlineOpenOrder.getAddressDetails().getBillingAddress().getAddressLine1());
-		addressValidationMultiReq.setStreet2(onlineOpenOrder.getAddressDetails().getBillingAddress().getAddressLine2());
-		addressValidationMultiReq.setCountryName(onlineOpenOrder.getAddressDetails().getBillingAddress().getCountry().getCountryName());
-		addressValidationMultiReq.setLocality1(onlineOpenOrder.getAddressDetails().getBillingAddress().getCity());
-		addressValidationMultiReq.setPostCode(onlineOpenOrder.getAddressDetails().getBillingAddress().getPostCode());
-		addressValidationMultiReq.setProvince1(onlineOpenOrder.getAddressDetails().getBillingAddress().getState());
-		addressValidationMultiReq.setOrganization1(onlineOpenOrder.getAddressDetails().getBillingAddress().getInstitution());
-		addressValidationMultiReq.setOrganizationDepartment1(onlineOpenOrder.getAddressDetails().getBillingAddress().getDepartment());
+		if(onlineOpenOrder.getAddressDetails().getBillingAddress() != null){
+			addressValidationMultiReq.setStreet1(onlineOpenOrder.getAddressDetails().getBillingAddress().getAddressLine1());
+			addressValidationMultiReq.setStreet2(onlineOpenOrder.getAddressDetails().getBillingAddress().getAddressLine2());
+			addressValidationMultiReq.setCountryName(onlineOpenOrder.getAddressDetails().getBillingAddress().getCountry().getCountryName());
+			addressValidationMultiReq.setLocality1(onlineOpenOrder.getAddressDetails().getBillingAddress().getCity());
+			addressValidationMultiReq.setPostCode(onlineOpenOrder.getAddressDetails().getBillingAddress().getPostCode());
+			addressValidationMultiReq.setProvince1(onlineOpenOrder.getAddressDetails().getBillingAddress().getState());
+			addressValidationMultiReq.setOrganization1(onlineOpenOrder.getAddressDetails().getBillingAddress().getInstitution());
+			addressValidationMultiReq.setOrganizationDepartment1(onlineOpenOrder.getAddressDetails().getBillingAddress().getDepartment());
+		}
+		
 		
 		addressValidationRequest.setAddressValidationMultiReq(addressValidationMultiReq);
 		

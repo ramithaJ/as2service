@@ -314,7 +314,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/woaFunder/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/woaFunder/{id}/", method = RequestMethod.GET)
     public final Service processAllRestrictedFunderWOAAccounts(
             @PathVariable("id") final String id) {
 
@@ -345,7 +345,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
      * @param onlineOpenOrder
      * @return Service
      */
-    @RequestMapping(value = "/next/preview/{userId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/preview/{userId}/", method = RequestMethod.POST)
     public final Service processAndValidateNext(
             @PathVariable("userId") final String userId,
             @RequestBody final OnlineOpenOrder onlineOpenOrder) {

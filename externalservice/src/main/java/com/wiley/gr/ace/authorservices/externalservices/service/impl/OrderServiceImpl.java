@@ -218,7 +218,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public String getDiscounts(DiscountRequest discountRequest) {
 		
-		DiscountResponse response = (DiscountResponse) StubInvokerUtil.invokeJsonStub(
+		DiscountResponse response = (DiscountResponse) StubInvokerUtil.restServiceInvoker(
 				getdiscountsurl, HttpMethod.POST, DiscountResponse.class);
 		
 		return response.getDiscountValue();
@@ -227,7 +227,7 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public String getTaxAmount(TaxRequest taxRequest) {
-		TaxResponse response = (TaxResponse) StubInvokerUtil.invokeJsonStub(
+		TaxResponse response = (TaxResponse) StubInvokerUtil.restServiceInvoker(
 				gettaxurl, HttpMethod.POST, TaxResponse.class);
 		
 		return response.getItem().get(0).getDiscountedLineAmount();
