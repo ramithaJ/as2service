@@ -14,8 +14,6 @@
  */
 package com.wiley.gr.ace.authorservices.web.controllers;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +26,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wiley.gr.ace.authorservices.model.CommunicationDetails;
 import com.wiley.gr.ace.authorservices.model.Dashboard;
 import com.wiley.gr.ace.authorservices.model.DashboardView;
+import com.wiley.gr.ace.authorservices.model.EmailCommunicationHistory;
 import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.services.service.DashboardService;
@@ -120,24 +118,24 @@ public class DashboardController {
     }
 
     /**
-     * Gets the communication history.
+     * Gets the email communication history.
      *
      * @param userId
      *            the user id
-     * @return the communication history
+     * @return the email communication history
      */
     @RequestMapping(value = "/communication/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final @ResponseBody Service getCommunicationHistory(
+    public final @ResponseBody Service getEmailCommunicationHistory(
             @PathVariable("userId") final String userId) {
         LOGGER.info("inside getCommunicationHistory method of DashboardController");
         final Service service = new Service();
-        List<CommunicationDetails> communicationDetailsList = null;
+        EmailCommunicationHistory emailCommunicationHistory = null;
         try {
-            communicationDetailsList = dashboardService
-                    .getCommunicationDetailsList(userId);
-            if (!StringUtils.isEmpty(communicationDetailsList)) {
+            emailCommunicationHistory = dashboardService
+                    .getEmailCommunicationHistory(userId);
+            if (!StringUtils.isEmpty(emailCommunicationHistory)) {
                 service.setStatus("SUCCESS");
-                service.setPayload(communicationDetailsList);
+                service.setPayload(emailCommunicationHistory);
             }
         } catch (final Exception e) {
             LOGGER.error("Print Stack Trace- ", e);
