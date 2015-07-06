@@ -54,11 +54,11 @@
 	<profiles>
         <!-- Liquibase profiles -->
         <profile>
-            <id>liquibase-local</id>
+            <id>liquibase-dev</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
                 <property>
-                    <name>liquibase-local</name>
+                    <name>liquibase-dev</name>
                 </property>
             </activation>
             <build>
@@ -72,8 +72,6 @@
                             <phase>process-resources</phase>
                             <configuration>
                      <propertyFile>src/main/resources/properties/liquibase-dev.properties</propertyFile>
-					<username>phani_liqui</username>
-					<password>phani_liqui</password>
 					<changeLogFile>src/main/resources/liquibase/dbchangelog-master.xml</changeLogFile>
 					<promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
                             </configuration>
@@ -91,7 +89,7 @@
 	<profile>
             <id>liquibase-staging</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
                 <property>
                     <name>liquibase-staging</name>
                 </property>
