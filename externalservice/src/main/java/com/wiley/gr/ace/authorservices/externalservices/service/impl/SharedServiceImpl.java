@@ -9,7 +9,6 @@ import org.springframework.http.HttpMethod;
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.SharedService;
 import com.wiley.gr.ace.authorservices.model.Service;
-import com.wiley.gr.ace.authorservices.model.external.Quote;
 
 // TODO: Auto-generated Javadoc
 /**
