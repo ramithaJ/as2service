@@ -111,6 +111,7 @@ public class TokenAuthenticationService {
         } else {
             cookie.setValue(tokenAuthentication.getToken());
         }
+        cookie.setPath(request.getContextPath());
         cookie.setMaxAge(authenticationCookieMaxAge);
         cookie.setHttpOnly(false);
         response.addCookie(cookie);

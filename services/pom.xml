@@ -10,59 +10,59 @@
 <!-- of John Wiley & Sons. -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>com.wiley.gr.ace</groupId>
-		<artifactId>as2.0</artifactId>
-		<version>2.0.0-SNAPSHOT</version>
-	</parent>
-	<dependencies>
-		<dependency>
-			<groupId>com.wiley.gr.ace</groupId>
-			<artifactId>model</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>com.wiley.gr.ace</groupId>
-			<artifactId>persistence</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
+    <parent>
+        <groupId>com.wiley.gr.ace</groupId>
+        <artifactId>as2.0</artifactId>
+        <version>2.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>as2-services</artifactId>
+    <packaging>jar</packaging>
+    <version>1.0.0-SNAPSHOT</version>
+
+    <dependencies>
+        <dependency>
             <groupId>com.wiley.gr.ace</groupId>
-            <artifactId>as2entities</artifactId>
+            <artifactId>as2-model</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.wiley.gr.ace</groupId>
+            <artifactId>as2-persistence</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.wiley.gr.ace</groupId>
+            <artifactId>as2-entities</artifactId>
             <version>2.0.0-SNAPSHOT</version>
         </dependency>
-		<dependency>
-			<groupId>com.wiley.gr.ace</groupId>
-			<artifactId>externalservice</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>com.wiley.gr.ace</groupId>
-			<artifactId>autocomplete</artifactId>
-			<version>2.0.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>com.wiley.gr.ace</groupId>
-			<artifactId>exceptions</artifactId>
-			<version>2.0.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>com.wiley.gr.ace</groupId>
-			<artifactId>utils</artifactId>
-			<version>2.0.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.ws</groupId>
-			<artifactId>spring-ws-security</artifactId>
-		</dependency>
-	</dependencies>
-	
-	<artifactId>services</artifactId>
-	<packaging>jar</packaging>
-	<version>1.0.0-SNAPSHOT</version>
-	
-	
+        <dependency>
+            <groupId>com.wiley.gr.ace</groupId>
+            <artifactId>as2-externalservice</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.wiley.gr.ace</groupId>
+            <artifactId>as2-autocomplete</artifactId>
+            <version>2.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.wiley.gr.ace</groupId>
+            <artifactId>as2-exceptions</artifactId>
+            <version>2.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.wiley.gr.ace</groupId>
+            <artifactId>as2-utils</artifactId>
+            <version>2.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.ws</groupId>
+            <artifactId>spring-ws-security</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>

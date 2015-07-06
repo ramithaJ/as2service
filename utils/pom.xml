@@ -19,23 +19,21 @@
         <version>2.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>utils</artifactId>
+    <artifactId>as2-utils</artifactId>
     <packaging>jar</packaging>
     <version>2.0.0-SNAPSHOT</version>
-    <dependencies>
-	    
-	    <dependency>
-				<groupId>com.wiley.gr.ace</groupId>
-				<artifactId>model</artifactId>
-				<version>1.0.0-SNAPSHOT</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>com.wiley.gr.ace</groupId>
-			<artifactId>exceptions</artifactId>
-			<version>2.0.0-SNAPSHOT</version>
-		</dependency>
-	</dependencies>
 
-    
+    <dependencies>
+        <dependency>
+            <groupId>com.wiley.gr.ace</groupId>
+            <artifactId>as2-model</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.wiley.gr.ace</groupId>
+            <artifactId>as2-exceptions</artifactId>
+            <version>2.0.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
 </project>
