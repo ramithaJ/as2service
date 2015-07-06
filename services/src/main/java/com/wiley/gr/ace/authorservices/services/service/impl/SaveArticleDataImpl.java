@@ -78,6 +78,7 @@ public class SaveArticleDataImpl implements SaveArticleData {
 					LOGGER.info("Processing lookup resonse...");
 				}
 			} catch (Exception e) {
+				LOGGER.error("Error while calling author look-up service ...");
 				e.printStackTrace();
 			}
 
