@@ -12,7 +12,6 @@
 package com.wiley.gr.ace.authorservices.autocomplete.service.impl;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -24,118 +23,138 @@ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import redis.clients.jedis.Jedis;
 
 import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteService;
+import com.wiley.gr.ace.authorservices.persistence.services.UserAutocomplete;
 
 /**
- * @author virtusa version 1.0
+ * AutocompleteService provides auto suggestions.
+ *
+ * @author virtusa
+ * @version 1.0
  */
 public class AutocompleteServiceImpl implements AutocompleteService {
 
-	@Autowired
-	private JedisConnectionFactory jedisConnectionFactory;
+    /** The jedis connection factory. */
+    @Autowired
+    private JedisConnectionFactory jedisConnectionFactory;
 
-	@Override
-	public List<String> getAutocompleteData(String key, String phrase,
-	        Integer count) {
-		final Jedis redis = new Jedis(jedisConnectionFactory.getShardInfo());
-		if (null == phrase) {
-			redis.close();
-			return Collections.emptyList();
-		}
-		final int prefixLength = phrase.length();
+    /** The user autocomplete. */
+    @Autowired
+    private UserAutocomplete userAutocomplete;
 
-		Long start = redis.zrank(key, phrase);
-		if (start == null) {
-			phrase = phrase + "*";
-			start = redis.zrank(key, phrase);
-			if (start == null) {
-				redis.close();
-				return null;
-			}
-		}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteService
+     * #getAutocompleteData(java.lang.String, java.lang.String,
+     * java.lang.Integer)
+     */
+    @Override
+    public List<String> getAutocompleteData(String key, String phrase,
+            Integer count) {
+        final Jedis redis = new Jedis(jedisConnectionFactory.getShardInfo());
+        if (null == phrase) {
+            redis.close();
+            return Collections.emptyList();
+        }
 
-		if (start < 0 || prefixLength == 0) {
-			redis.close();
-			return Collections.emptyList();
-		}
-		final List<String> results = new ArrayList<String>();
-		final int found = 0, rangeLength = 50;
-		int maxNeeded = count;
-		while (found < maxNeeded) {
-			final Set<String> rangeResults = redis.zrange(key, start, start
-			        + rangeLength - 1);
-			start += rangeLength;
-			if (rangeResults.isEmpty()) {
-				break;
-			}
-			for (final String entry : rangeResults) {
-				final int minLength = Math.min(entry.length(), prefixLength);
-				if (!entry.substring(0, minLength).equalsIgnoreCase(
-				        phrase.substring(0, minLength))) {
-					maxNeeded = results.size();
-					break;
-				}
-				if (entry.endsWith("*") && results.size() < maxNeeded) {
-					results.add(entry.substring(0, entry.length() - 1));
-				}
-			}
-		}
-		redis.close();
-		return results;
-	}
+        final int prefixLength = phrase.length();
+        Long start = redis.zrank(key, phrase);
+        if (start == null) {
+            phrase = phrase + "*";
+            start = redis.zrank(key, phrase);
+            if (start == null) {
+                redis.close();
+                return null;
+            }
+        }
 
-	@Override
-	public boolean setAutocompleteData(String key, URL dataPath, Boolean clear)
-	        throws IOException {
-		final Jedis redis = new Jedis(jedisConnectionFactory.getShardInfo());
+        if (start < 0 || prefixLength == 0) {
+            redis.close();
+            return Collections.emptyList();
+        }
 
-		final List<String> wordsList = new ArrayList<String>();
-		wordsList.add("a");
-		wordsList.add("an");
-		wordsList.add("ant");
-		wordsList.add("ante");
-		wordsList.add("antel");
-		wordsList.add("antelo");
-		wordsList.add("antelop");
-		wordsList.add("antelope");
-		wordsList.add("bat");
-		wordsList.add("bet");
-		wordsList.add("best");
-		wordsList.add("cat");
-		wordsList.add("cot");
+        final List<String> results = new ArrayList<String>();
+        final int found = 0, rangeLength = 50;
+        int maxNeeded = count;
+        while (found < maxNeeded) {
+            final Set<String> rangeResults = redis.zrange(key, start, start
+                    + rangeLength - 1);
+            start += rangeLength;
+            if (rangeResults.isEmpty()) {
+                break;
+            }
+            for (final String entry : rangeResults) {
+                final int minLength = Math.min(entry.length(), prefixLength);
+                if (!entry.substring(0, minLength).equalsIgnoreCase(
+                        phrase.substring(0, minLength))) {
+                    maxNeeded = results.size();
+                    break;
+                }
+                if (entry.endsWith("*") && results.size() < maxNeeded) {
+                    results.add(entry.substring(0, entry.length() - 1));
+                }
+            }
+        }
 
-		for (final String word : wordsList) {
-			addWord(word, redis, key);
-		}
+        redis.close();
+        return results;
+    }
 
-		/*
-		 * final InputStreamReader inputStreamReader = new InputStreamReader(
-		 * dataPath.openStream()); final BufferedReader reader = new
-		 * BufferedReader(inputStreamReader); String word; while ((word =
-		 * reader.readLine()) != null) { word = word.trim(); // Add the word if
-		 * the word does not start with # if (!word.isEmpty() &&
-		 * !word.startsWith("#")) { addWord(word, redis, key); } }
-		 * reader.close();
-		 */
-		redis.close();
-		return true;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteService
+     * #setAutocompleteData(java.lang.String, java.lang.Boolean)
+     */
+    @Override
+    public boolean setAutocompleteData(String key, Boolean clear)
+            throws IOException {
+        final Jedis redis = new Jedis(jedisConnectionFactory.getShardInfo());
+        final List<String> societyList = userAutocomplete.getSocietyDetails();
+        for (final String word : societyList) {
+            if (null != word) {
+                addWord(word, redis, key);
+            }
+        }
+        redis.close();
+        return true;
+    }
 
-	private void addWord(final String word, final Jedis redis,
-	        final String redisKey) {
-		// Add all the possible prefixes of the given word and also the given
-		// word with a * suffix.
-		redis.zadd(redisKey, 0, word + "*");
-		for (int index = 1, total = word.length(); index < total; index++) {
-			redis.zadd(redisKey, 0, word.substring(0, index));
-		}
-	}
+    /**
+     * Adds the word.
+     *
+     * @param word
+     *            the word
+     * @param redis
+     *            the redis
+     * @param redisKey
+     *            the redis key
+     */
+    private void addWord(final String word, final Jedis redis,
+            final String redisKey) {
+        // Add all the possible prefixes of the given word and also the given
+        // word with a * suffix.
+        redis.zadd(redisKey, 0, word + "*");
+        for (int index = 1, total = word.length(); index < total; index++) {
+            redis.zadd(redisKey, 0, word.substring(0, index));
+        }
+    }
 
-	@Override
-	public boolean flush(String key) {
-		final Jedis redis = new Jedis(jedisConnectionFactory.getShardInfo());
-		redis.del(key);
-		redis.close();
-		return true;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteService
+     * #flush(java.lang.String)
+     */
+    @Override
+    public boolean flush(String key) {
+        final Jedis redis = new Jedis(jedisConnectionFactory.getShardInfo());
+        redis.del(key);
+        redis.close();
+        return true;
+    }
 
 }

@@ -12,7 +12,6 @@
 package com.wiley.gr.ace.authorservices.autocomplete.service;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.List;
 
 /**
@@ -22,34 +21,33 @@ import java.util.List;
  */
 public interface AutocompleteService {
 
-	/**
-	 * This service will fetch the auto complete data related to the phrase from
-	 * redis cache.
-	 *
-	 * @param key
-	 * @param phrase
-	 * @return List of string values
-	 */
-	List<String> getAutocompleteData(String key, String phrase, Integer count);
+    /**
+     * This service will fetch the auto complete data related to the phrase from
+     * redis cache.
+     *
+     * @param key
+     * @param phrase
+     * @return List of string values
+     */
+    List<String> getAutocompleteData(String key, String phrase, Integer count);
 
-	/**
-	 * This service will set the auto complete data in redis cache.
-	 *
-	 * @param key
-	 * @param dataPath
-	 * @param clear
-	 * @param populate
-	 * @return status
-	 */
-	boolean setAutocompleteData(String key, URL dataPath, Boolean count)
-	        throws IOException;
+    /**
+     * This service will set the auto complete data in redis cache.
+     *
+     * @param key
+     * @param dataPath
+     * @param clear
+     * @param populate
+     * @return status
+     */
+    boolean setAutocompleteData(String key, Boolean count) throws IOException;
 
-	/**
-	 * This service will delete the data related to the key from redis.
-	 *
-	 * @param key
-	 * @return status
-	 */
-	boolean flush(String key);
+    /**
+     * This service will delete the data related to the key from redis.
+     *
+     * @param key
+     * @return status
+     */
+    boolean flush(String key);
 
 }

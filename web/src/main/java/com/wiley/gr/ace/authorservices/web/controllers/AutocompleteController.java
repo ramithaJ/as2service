@@ -12,7 +12,6 @@
 package com.wiley.gr.ace.authorservices.web.controllers;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -36,80 +35,79 @@ import com.wiley.gr.ace.authorservices.model.Service;
 @RequestMapping("/autocomplete")
 public class AutocompleteController extends ASExceptionController {
 
-	/**
-	 * Logger Configured.
-	 */
-	private static final Logger LOGGER = LoggerFactory
-	        .getLogger(AutocompleteController.class);
+    /**
+     * Logger Configured.
+     */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(AutocompleteController.class);
 
-	@Autowired(required = true)
-	private AutocompleteService autoCompleteService;
+    @Autowired(required = true)
+    private AutocompleteService autoCompleteService;
 
-	/**
-	 * @param autocomplete
-	 * @return status
-	 * @throws IOException
-	 */
-	@RequestMapping(value = "/", method = RequestMethod.PUT)
-	@ResponseBody
-	public final Service setAutocompleteData(
-	        @RequestBody Autocomplete autocomplete) throws IOException {
-		AutocompleteController.LOGGER.info("Inside set data Method");
+    /**
+     * @param autocomplete
+     * @return status
+     * @throws IOException
+     */
+    @RequestMapping(value = "/", method = RequestMethod.PUT)
+    @ResponseBody
+    public final Service setAutocompleteData(
+            @RequestBody Autocomplete autocomplete) throws IOException {
+        AutocompleteController.LOGGER.info("Inside set data Method");
 
-		final String key = autocomplete.getKey();
-		final URL dataPath = autocomplete.getDataPath();
-		final Boolean clear = autocomplete.isClear();
+        final String key = autocomplete.getKey();
+        final Boolean clear = autocomplete.isClear();
 
-		if (null != key && null != dataPath && null != clear) {
-			autoCompleteService.setAutocompleteData(key, dataPath, clear);
-			return new Service();
-		}
-		return null;
+        if (null != key && null != clear) {
+            autoCompleteService.setAutocompleteData(key, clear);
+            return new Service();
+        }
+        return null;
 
-	}
+    }
 
-	/**
-	 * @param autocomplete
-	 * @return List
-	 */
-	@RequestMapping(value = "/", method = RequestMethod.POST)
-	@ResponseBody
-	public final Service getAutocompleteData(
-	        @RequestBody Autocomplete autocomplete) {
-		AutocompleteController.LOGGER.info("Inside get data Method");
+    /**
+     * @param autocomplete
+     * @return List
+     */
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @ResponseBody
+    public final Service getAutocompleteData(
+            @RequestBody Autocomplete autocomplete) {
+        AutocompleteController.LOGGER.info("Inside get data Method");
 
-		final String key = autocomplete.getKey();
-		final String phrase = autocomplete.getPhrase();
-		Service service;
-		final Integer count = autocomplete.getCount();
-		if (null != key && null != phrase && null != count) {
-			final List<String> autocompleteData = autoCompleteService
-			        .getAutocompleteData(autocomplete.getKey(), phrase, count);
-			service = new Service();
-			service.setPayload(autocompleteData);
-			return service;
-		}
-		return null;
+        final String key = autocomplete.getKey();
+        final String phrase = autocomplete.getPhrase();
+        Service service;
+        final Integer count = autocomplete.getCount();
+        if (null != key && null != phrase && null != count) {
+            final List<String> autocompleteData = autoCompleteService
+                    .getAutocompleteData(autocomplete.getKey(), phrase, count);
+            service = new Service();
+            service.setPayload(autocompleteData);
+            return service;
+        }
+        return null;
 
-	}
+    }
 
-	/**
-	 * @param autocomplete
-	 * @return status
-	 */
-	@RequestMapping(value = "/clear", method = RequestMethod.POST)
-	@ResponseBody
-	public final Service flushData(@RequestBody Autocomplete autocomplete)
-	        throws IOException {
-		AutocompleteController.LOGGER.info("Inside flush data Method");
+    /**
+     * @param autocomplete
+     * @return status
+     */
+    @RequestMapping(value = "/clear", method = RequestMethod.POST)
+    @ResponseBody
+    public final Service flushData(@RequestBody Autocomplete autocomplete)
+            throws IOException {
+        AutocompleteController.LOGGER.info("Inside flush data Method");
 
-		final String key = autocomplete.getKey();
-		if (null != key) {
-			autoCompleteService.flush(autocomplete.getKey());
-			return new Service();
-		}
-		return null;
+        final String key = autocomplete.getKey();
+        if (null != key) {
+            autoCompleteService.flush(autocomplete.getKey());
+            return new Service();
+        }
+        return null;
 
-	}
+    }
 
 }
