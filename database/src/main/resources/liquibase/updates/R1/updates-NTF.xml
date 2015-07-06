@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+<changeSet author="gphaniraj" id="NTF-1">
+<sql>
+  CREATE SEQUENCE  NOTIFICATION_SEQ  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 NOCACHE;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="NTF-2">
+<sql>
+  CREATE TABLE NOTIFICATION(ID NUMBER DEFAULT NOTIFICATION_SEQ.NEXTVAL, APP_ID VARCHAR2(25), ORIG_TMPL_ID VARCHAR2(255), SENDER_ID VARCHAR2(255), SENDER_EMAIL VARCHAR2(255), CONTENT CLOB, TYPE VARCHAR2(25), SENT_ON DATE, UNREAD CHAR(1));
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="NTF-3">
+<sql>
+  CREATE TABLE NOTIFICATION_RECIPIENTS (NOTIFICATION_ID NUMBER, USER_ID VARCHAR2(255), EMAIL VARCHAR2(255));
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="NTF-4">
+<sql>
+  CREATE TABLE SCHEDULE (ID VARCHAR2(255), APP_ID VARCHAR2(25), DESCRIPTION VARCHAR2(255), CREATED_BY VARCHAR2(255), MODIFIED_BY VARCHAR2(255), CREATED_ON DATE, LAST_MODIFIED_ON DATE);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="NTF-5">
+<sql>
+  CREATE TABLE SCHEDULE_TEMPLATE (SCHEDULE_ID VARCHAR2(255), EMAIL_TMPL VARCHAR2(255), ONSCREEN_TMPL VARCHAR2(255), DELAY NUMBER);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="NTF-6">
+<sql>
+  CREATE TABLE TEMPLATE(ID VARCHAR2(255), APP_ID VARCHAR2(25), DESCRIPTION VARCHAR2(255), TAGL1 VARCHAR2(255), TAGL2 VARCHAR2(255), BODY CLOB, CREATED_BY VARCHAR2(255), MODIFIED_BY VARCHAR2(255), CREATED_ON DATE, LAST_MODIFIED_ON DATE);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="NTF-7">
+<sql>
+  ALTER TABLE NOTIFICATION MODIFY (ID NOT NULL ENABLE);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="NTF-8">
+<sql>
+  ALTER TABLE NOTIFICATION ADD CONSTRAINT NOTIFICATION_PK PRIMARY KEY (ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="NTF-9">
+<sql>
+  ALTER TABLE NOTIFICATION_RECIPIENTS MODIFY (NOTIFICATION_ID NOT NULL ENABLE);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="NTF-10">
+<sql>
+  ALTER TABLE NOTIFICATION_RECIPIENTS ADD CONSTRAINT NOTIFICATION_RECIPIENTS_PK PRIMARY KEY (NOTIFICATION_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="NTF-11">
+<sql>
+  ALTER TABLE SCHEDULE MODIFY (ID NOT NULL ENABLE);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="NTF-12">
+<sql>
+  ALTER TABLE SCHEDULE ADD CONSTRAINT SCHEDULE_PK PRIMARY KEY (ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="NTF-13">
+<sql>
+  ALTER TABLE SCHEDULE_TEMPLATE MODIFY (SCHEDULE_ID NOT NULL ENABLE);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="NTF-14">
+<sql>
+  ALTER TABLE SCHEDULE_TEMPLATE ADD CONSTRAINT SCHEDULE_TEMPLATE_PK PRIMARY KEY (SCHEDULE_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="NTF-15">
+<sql>
+  ALTER TABLE TEMPLATE MODIFY (ID NOT NULL ENABLE);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="NTF-16">
+<sql>
+  ALTER TABLE TEMPLATE ADD CONSTRAINT TEMPLATE_PK PRIMARY KEY (ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="NTF-17">
+<sql>
+  ALTER TABLE NOTIFICATION ADD CONSTRAINT NOTIFICATION_FK FOREIGN KEY (ORIG_TMPL_ID) REFERENCES TEMPLATE (ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="NTF-18">
+<sql>
+  ALTER TABLE NOTIFICATION_RECIPIENTS ADD CONSTRAINT NOTIFICATION_RECIPIENTS_FK FOREIGN KEY (NOTIFICATION_ID) REFERENCES NOTIFICATION (ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="NTF-19">
+<sql>
+  ALTER TABLE SCHEDULE_TEMPLATE ADD CONSTRAINT SCHEDULE_TEMPLATE_FK FOREIGN KEY (EMAIL_TMPL) REFERENCES TEMPLATE (ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="NTF-20">
+<sql>
+  ALTER TABLE SCHEDULE_TEMPLATE ADD CONSTRAINT SCHEDULE_TEMPLATE_FK2 FOREIGN KEY (SCHEDULE_ID) REFERENCES SCHEDULE (ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="NTF-21">
+<sql>
+  ALTER TABLE SCHEDULE_TEMPLATE ADD CONSTRAINT SCHEDULE_TEMPLATE_FK3 FOREIGN KEY (ONSCREEN_TMPL) REFERENCES TEMPLATE (ID);
+</sql>
+</changeSet>
+</databaseChangeLog>
+
+
