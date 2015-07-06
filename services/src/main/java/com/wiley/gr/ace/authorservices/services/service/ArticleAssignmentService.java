@@ -25,39 +25,48 @@ import com.wiley.gr.ace.authorservices.model.external.ConfirmArticleData;
  */
 public interface ArticleAssignmentService {
 
-    /**
-     * Gets the article info.
-     *
-     * @param emailId
-     *            the email id
-     * @return the article info
-     * @throws Exception
-     *             the exception
-     */
-    ArticleInfoDetails getArticleInfo(String emailId) throws Exception;
+	/**
+	 * Gets the article info.
+	 *
+	 * @param emailId
+	 *            the email id
+	 * @return the article info
+	 * @throws Exception
+	 *             the exception
+	 */
+	ArticleInfoDetails getArticleInfo(String emailId) throws Exception;
 
-    /**
-     * Association confirmation.
-     *
-     * @param associationConfirmation
-     *            the association confirmation
-     * @return true, if successful
-     * @throws Exception
-     *             the exception
-     */
-    boolean associationConfirmation(
-            AssociationConfirmation associationConfirmation) throws Exception;
+	/**
+	 * Association confirmation.
+	 *
+	 * @param associationConfirmation
+	 *            the association confirmation
+	 * @return true, if successful
+	 * @throws Exception
+	 *             the exception
+	 */
+	boolean associationConfirmation(
+			AssociationConfirmation associationConfirmation) throws Exception;
 
-    /**
-     * Gets the article confirmation data.
-     *
-     * @param emailId
-     *            the email id
-     * @return the article confirmation data
-     * @throws Exception
-     *             the exception
-     */
-    ConfirmArticleData getArticleConfirmationData(String emailId)
-            throws Exception;
+	/**
+	 * Gets the article confirmation data.
+	 *
+	 * @param emailId
+	 *            the email id
+	 * @return the article confirmation data
+	 * @throws Exception
+	 *             the exception
+	 */
+	ConfirmArticleData getArticleConfirmationData(String emailId)
+			throws Exception;
+
+	/**
+	 * Check if article invited.
+	 *
+	 * @param dhId the dh id
+	 * @return true, if successful
+	 * @throws Exception the exception
+	 */
+	boolean checkIfArticleInvited(Integer dhId) throws Exception;
 
 }
