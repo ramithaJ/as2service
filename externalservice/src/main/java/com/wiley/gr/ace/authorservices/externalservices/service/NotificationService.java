@@ -12,6 +12,7 @@
 
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
+import com.wiley.gr.ace.authorservices.model.NotificationHistory;
 import com.wiley.gr.ace.authorservices.model.NotificationResponse;
 import com.wiley.gr.ace.authorservices.model.external.NotificationRequest;
 
@@ -29,5 +30,16 @@ public interface NotificationService {
      */
     NotificationResponse sendNotification(
             NotificationRequest notificationRequest);
+
+    /**
+     * Gets the notification history.
+     *
+     * @param userId
+     *            the user id
+     * @return the notification history
+     * @throws Exception
+     *             the exception
+     */
+    NotificationHistory getNotificationHistory(String userId) throws Exception;
 
 }
