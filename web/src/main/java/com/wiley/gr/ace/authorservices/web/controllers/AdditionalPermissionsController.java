@@ -43,7 +43,7 @@ public class AdditionalPermissionsController {
 	 * @return service
 	 */
 	@RequestMapping(value = "/asdata/additionalPermissions/{userId}/", method = RequestMethod.GET)
-	private Service getAdditionalPermissions(@PathVariable("userId") final String userId) {
+	public Service getAdditionalPermissions(@PathVariable("userId") final String userId) {
 		
 		Service service = new Service();
 		service.setPayload(additionalPermissionService.getAdditionalPermissions(userId));
@@ -55,7 +55,7 @@ public class AdditionalPermissionsController {
 	 * @return service
 	 */
 	@RequestMapping(value = "/additionalpermissions/request/", method = RequestMethod.POST)
-	private Service updateAdditionalPermissions(@RequestBody @Valid final AdditionalPermissions additionalPermissions) {
+	public Service updateAdditionalPermissions(@RequestBody @Valid final AdditionalPermissions additionalPermissions) {
 		
 		Service service = new Service();
 		additionalPermissionService.updateAdditionalPermissions(additionalPermissions);

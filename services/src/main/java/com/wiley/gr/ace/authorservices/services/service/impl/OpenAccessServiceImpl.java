@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Value;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
-import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.externalservices.service.ValidationService;
 import com.wiley.gr.ace.authorservices.model.Address;
 import com.wiley.gr.ace.authorservices.model.AddressDetails;
@@ -44,9 +43,6 @@ public class OpenAccessServiceImpl implements OpenAccessService {
 	/** The order service. */
 	@Autowired(required = true)
 	OrderService orderService;
-
-	@Autowired
-	private UserProfiles userProfiles;
 
 	@Autowired(required = true)
 	private ValidationService validationService;
