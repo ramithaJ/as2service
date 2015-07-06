@@ -20,7 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.SharedService;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.event.EventData;
 import com.wiley.gr.ace.authorservices.services.service.SaveArticleData;
@@ -40,7 +40,7 @@ public class SaveArticleDataImpl implements SaveArticleData {
 	 */
 	/** The esb interface service. */
 	@Autowired(required = true)
-	private ESBInterfaceService esbInterfaceService;
+	private SharedService sharedService;
 
 	/*
 	 * (non-Javadoc)
@@ -65,18 +65,22 @@ public class SaveArticleDataImpl implements SaveArticleData {
 			LOGGER.debug("Parsed article name :: "
 					+ eventData.getArticleInfo().getArticleName());
 			/**
-			 * Call Author lookup service Pri Email, FN and LN.
+			 * Call Author lookup service Primary Email, FN and LN.
 			 */
 			LOGGER.info("Calling author lookup service Pri Email, FN and LN ..");
 			String firstName = eventData.getCorrespondingAuthor().getFullName();
 			String lastName = eventData.getCorrespondingAuthor().getFullName();
 			String email = eventData.getCorrespondingAuthor().getEmail();
-
-			Service service = esbInterfaceService.authorLookup(firstName,
-					lastName, email);
-			if (null != service) {
-				LOGGER.info("Processing lookup resonse...");
+			try {
+				Service service = sharedService.authorLookup(firstName,
+						lastName, email);
+				if (null != service) {
+					LOGGER.info("Processing lookup resonse...");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
+
 		}
 
 	}

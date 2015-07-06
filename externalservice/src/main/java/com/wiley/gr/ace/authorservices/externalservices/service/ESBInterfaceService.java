@@ -13,7 +13,6 @@ package com.wiley.gr.ace.authorservices.externalservices.service;
 
 import java.util.List;
 
-import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
@@ -217,19 +216,4 @@ public interface ESBInterfaceService {
 	 */
 	TaxResponse getTaxInfo(TaxRequest taxRequest) throws Exception;
 
-	/**
-	 * Author lookup.
-	 *
-	 * @param firstName
-	 *            the first name
-	 * @param lastName
-	 *            the last name
-	 * @param email
-	 *            the email
-	 * @return the service
-	 * @throws Exception
-	 *             the exception
-	 */
-	Service authorLookup(String firstName, String lastName, String email)
-			throws Exception;
 }

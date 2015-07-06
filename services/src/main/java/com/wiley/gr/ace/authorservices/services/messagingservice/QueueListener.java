@@ -37,8 +37,9 @@ public class QueueListener implements MessageListener {
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(QueueListener.class);
 
-	/*@Autowired(required = true)
-	private SaveArticleData saveArticleData;*/
+	/*
+	 * @Autowired(required = true) private SaveArticleData saveArticleData;
+	 */
 
 	/*
 	 * (non-Javadoc)
@@ -88,21 +89,22 @@ public class QueueListener implements MessageListener {
 					+ "<art:email>matt4@cedrusco.com</art:email>"
 					+ "<art:registeredInd>false</art:registeredInd>"
 					+ "</even:coAuthorList>" + "</even:eventData>";
-			
+
 			SaveArticleData saveArticleData = new SaveArticleDataImpl();
 			saveArticleData.parseArticleEvent(articleEvent);
 
-		} /*catch (JMSException jmsExp) {
-			LOGGER.error("JMS exception :: " + jmsExp.getMessage());
-			jmsExp.printStackTrace();
-		} */catch (Exception e) {
+		} /*
+		 * catch (JMSException jmsExp) { LOGGER.error("JMS exception :: " +
+		 * jmsExp.getMessage()); jmsExp.printStackTrace(); }
+		 */catch (Exception e) {
 			LOGGER.error("Exception :: " + e.getMessage());
 			e.printStackTrace();
 		}
 
 	}
+
 	public static void main(String[] args) {
-		
+
 		QueueListener ql = new QueueListener();
 		ql.onMessage(null);
 	}

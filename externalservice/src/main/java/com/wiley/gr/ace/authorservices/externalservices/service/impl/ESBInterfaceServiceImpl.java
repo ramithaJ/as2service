@@ -29,7 +29,6 @@ import org.springframework.web.client.RestTemplate;
 
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
-import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
@@ -504,12 +503,6 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 			e.printStackTrace();
 		}
 		return confirmArticleData;
-	}
-
-	public final Service authorLookup(String firstName, String lastName,
-			String email) throws Exception {
-
-		return null;
 	}
 
 }
