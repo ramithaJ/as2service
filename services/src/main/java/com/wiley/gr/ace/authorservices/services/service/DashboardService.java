@@ -16,11 +16,12 @@ package com.wiley.gr.ace.authorservices.services.service;
 
 import java.util.List;
 
-import com.wiley.gr.ace.authorservices.model.CommunicationDetails;
 import com.wiley.gr.ace.authorservices.model.Dashboard;
 import com.wiley.gr.ace.authorservices.model.DashboardView;
+import com.wiley.gr.ace.authorservices.model.EmailCommunicationHistory;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
 
+// TODO: Auto-generated Javadoc
 /**
  * This DashboardService is for providing service for viewing the Dashboard of
  * Corresponding Author and Co-Author.
@@ -51,16 +52,15 @@ public interface DashboardService {
      */
     DashboardView viewDashboard(String userId) throws Exception;
 
+    
     /**
-     * Gets the communication details.
+     * Gets the email communication history.
      *
-     * @param userId
-     *            the user id
-     * @return the communication details
-     * @throws Exception
-     *             the exception
+     * @param userId the user id
+     * @return the email communication history
+     * @throws Exception the exception
      */
-    List<CommunicationDetails> getCommunicationDetailsList(String userId)
+    EmailCommunicationHistory getEmailCommunicationHistory(String userId)
             throws Exception;
 
     /**

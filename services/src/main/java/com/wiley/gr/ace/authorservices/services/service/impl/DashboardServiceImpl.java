@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.NotificationService;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
@@ -27,6 +28,7 @@ import com.wiley.gr.ace.authorservices.model.CommunicationDetails;
 import com.wiley.gr.ace.authorservices.model.Dashboard;
 import com.wiley.gr.ace.authorservices.model.DashboardInfo;
 import com.wiley.gr.ace.authorservices.model.DashboardView;
+import com.wiley.gr.ace.authorservices.model.EmailCommunicationHistory;
 import com.wiley.gr.ace.authorservices.model.Interests;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Society;
@@ -71,6 +73,10 @@ public class DashboardServiceImpl implements DashboardService {
     /** The dashboardDAO. */
     @Autowired(required = true)
     private DashboardDAO dashboardDAO;
+
+    /** The notificationService. */
+    @Autowired(required = true)
+    private NotificationService notificationService;
 
     /**
      * This method is used for get the Profile Information of User from external
@@ -452,9 +458,10 @@ public class DashboardServiceImpl implements DashboardService {
      *             the exception
      */
     @Override
-    public final List<CommunicationDetails> getCommunicationDetailsList(
+    public final EmailCommunicationHistory getEmailCommunicationHistory(
             final String userId) throws Exception {
         LOGGER.info("inside getCommunicationDetailsList Method of DashboardServiceImpl");
+        final EmailCommunicationHistory emailCommunicationHistory = new EmailCommunicationHistory();
         List<CommunicationDetails> communicationDetailsList = null;
         final List<InvitationLog> invitationLogList = dashboardDAO
                 .getInvitationLogList(userId);
@@ -473,7 +480,11 @@ public class DashboardServiceImpl implements DashboardService {
                 communicationDetailsList.add(communicationDetails);
             }
         }
-        return communicationDetailsList;
+        emailCommunicationHistory
+                .setInvitationCommunicationDetails(communicationDetailsList);
+        emailCommunicationHistory.setNotifications(notificationService
+                .getNotificationHistory(userId).getNotifications());
+        return emailCommunicationHistory;
     }
 
     /**
