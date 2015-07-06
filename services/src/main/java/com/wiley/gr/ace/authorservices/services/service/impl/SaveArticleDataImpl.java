@@ -11,9 +11,18 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
+import java.io.StringReader;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
+import com.wiley.gr.ace.authorservices.model.Service;
+import com.wiley.gr.ace.authorservices.model.event.EventData;
 import com.wiley.gr.ace.authorservices.services.service.SaveArticleData;
 
 // TODO: Auto-generated Javadoc
@@ -22,21 +31,53 @@ import com.wiley.gr.ace.authorservices.services.service.SaveArticleData;
  */
 public class SaveArticleDataImpl implements SaveArticleData {
 
-    /** The Constant LOGGER. */
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(SaveArticleDataImpl.class);
+	/** The Constant LOGGER. */
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(SaveArticleDataImpl.class);
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.wiley.gr.ace.authorservices.services.service.SaveArticleData#
-     * parseArticleEvent(java.lang.String)
-     */
-    @Override
-    public void parseArticleEvent(String articleEvent) throws Exception {
-        // TODO Auto-generated method stub
-        LOGGER.info("");
+	/*
+	 * @Autowired(required = true) private SaveArticleData saveArticleData;
+	 */
+	/** The esb interface service. */
+	@Autowired(required = true)
+	private ESBInterfaceService esbInterfaceService;
 
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.wiley.gr.ace.authorservices.services.service.SaveArticleData#
+	 * parseArticleEvent(java.lang.String)
+	 */
+	@Override
+	public void parseArticleEvent(String articleEvent) throws Exception {
 
+		LOGGER.info("Parsing article event ...");
+		if (null != articleEvent && articleEvent.trim().length() > 0) {
+
+			StringReader reader = new StringReader(articleEvent);
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			dbf.setNamespaceAware(true);
+
+			JAXBContext eventDataContext = JAXBContext
+					.newInstance(EventData.class);
+			EventData eventData = (EventData) eventDataContext
+					.createUnmarshaller().unmarshal(reader);
+			LOGGER.debug("Parsed article name :: "
+					+ eventData.getArticleInfo().getArticleName());
+			/**
+			 * Call Author lookup service Pri Email, FN and LN.
+			 */
+			LOGGER.info("Calling author lookup service Pri Email, FN and LN ..");
+			String firstName = eventData.getCorrespondingAuthor().getFullName();
+			String lastName = eventData.getCorrespondingAuthor().getFullName();
+			String email = eventData.getCorrespondingAuthor().getEmail();
+
+			Service service = esbInterfaceService.authorLookup(firstName,
+					lastName, email);
+			if (null != service) {
+				LOGGER.info("Processing lookup resonse...");
+			}
+		}
+
+	}
 }

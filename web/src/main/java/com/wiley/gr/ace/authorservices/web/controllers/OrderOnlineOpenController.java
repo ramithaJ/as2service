@@ -343,7 +343,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
      * @throws Exception
      */
     @RequestMapping(value = "/woaFunder/", method = RequestMethod.POST)
-    public final Service validateAndProcessWOAAccount(
+    public final Service processAndValidateWOAAccount(
             @RequestBody final WOAFunder woaFunder) {
 
         orderOnlineOpenService.processWOAAccount(woaFunder);

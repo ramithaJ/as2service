@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.BPMInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
 import com.wiley.gr.ace.authorservices.model.AssociationConfirmation;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
 import com.wiley.gr.ace.authorservices.model.external.ConfirmArticleData;
@@ -30,59 +31,72 @@ import com.wiley.gr.ace.authorservices.services.service.ArticleAssignmentService
  */
 public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
 
-    /** The esb interface service. */
-    @Autowired(required = true)
-    private ESBInterfaceService esbInterfaceService;
+	/** The esb interface service. */
+	@Autowired(required = true)
+	private ESBInterfaceService esbInterfaceService;
 
-    /** The Shared service. */
-    @Autowired(required = true)
-    private BPMInterfaceService bpmInterfaceService;
+	/** The Shared service. */
+	@Autowired(required = true)
+	private BPMInterfaceService bpmInterfaceService;
 
-    /**
-     * this method will take emailId as in input and call external service (ESb)
-     * to get article info.
-     *
-     * @param emailId
-     *            the email id
-     * @return the article info
-     * @throws Exception
-     *             the exception
-     */
-    @Override
-    public final ArticleInfoDetails getArticleInfo(final String emailId)
-            throws Exception {
-        return esbInterfaceService.getArticleInfo(emailId);
-    }
+	@Autowired(required = true)
+	private OrderService orderService;
 
-    /**
-     * Association confirmation.
-     *
-     * @param associationConfirmation
-     *            the association confirmation
-     * @return true, if successful
-     * @throws Exception
-     *             the exception
-     */
-    @Override
-    public final boolean associationConfirmation(
-            final AssociationConfirmation associationConfirmation)
-            throws Exception {
-        return bpmInterfaceService.finishTask(associationConfirmation);
-    }
+	/**
+	 * this method will take emailId as in input and call external service (ESb)
+	 * to get article info.
+	 *
+	 * @param emailId
+	 *            the email id
+	 * @return the article info
+	 * @throws Exception
+	 *             the exception
+	 */
+	@Override
+	public final ArticleInfoDetails getArticleInfo(final String emailId)
+			throws Exception {
+		return esbInterfaceService.getArticleInfo(emailId);
+	}
 
-    /**
-     * Gets the article confirmation data.
-     *
-     * @param emailId
-     *            the email id
-     * @return the article confirmation data
-     * @throws Exception
-     *             the exception
-     */
-    @Override
-    public final ConfirmArticleData getArticleConfirmationData(
-            final String emailId) throws Exception {
-        return esbInterfaceService.getArticleConfirmationData(emailId);
-    }
+	/**
+	 * Association confirmation.
+	 *
+	 * @param associationConfirmation
+	 *            the association confirmation
+	 * @return true, if successful
+	 * @throws Exception
+	 *             the exception
+	 */
+	@Override
+	public final boolean associationConfirmation(
+			final AssociationConfirmation associationConfirmation)
+			throws Exception {
+		return bpmInterfaceService.finishTask(associationConfirmation);
+	}
+
+	/**
+	 * Gets the article confirmation data.
+	 *
+	 * @param emailId
+	 *            the email id
+	 * @return the article confirmation data
+	 * @throws Exception
+	 *             the exception
+	 */
+	@Override
+	public final ConfirmArticleData getArticleConfirmationData(
+			final String emailId) throws Exception {
+		return esbInterfaceService.getArticleConfirmationData(emailId);
+	}
+
+	@Override
+	public boolean checkIfArticleInvited(Integer dhId) throws Exception {
+		boolean isArticleInvited = false;
+		if ("Y".equalsIgnoreCase(orderService.pdhLookUpArticle(dhId)
+				.getIsArticleInvited())) {
+			isArticleInvited = true;
+		}
+		return isArticleInvited;
+	}
 
 }
