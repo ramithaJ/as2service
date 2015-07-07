@@ -82,7 +82,7 @@ public interface OrderOnlineDAO {
      * @param paymentDetails
      * @return
      */
-    boolean updatePaymentDetails(PaymentDetails paymentDetails);
+    void updatePaymentDetails(PaymentDetails paymentDetails);
 
 	/**
 	 * @param orderId

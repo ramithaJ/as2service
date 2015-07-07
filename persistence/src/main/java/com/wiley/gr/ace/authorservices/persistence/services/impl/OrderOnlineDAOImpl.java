@@ -329,7 +329,7 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
      * 
      */
     @Override
-    public boolean updatePaymentDetails(final PaymentDetails paymentDetails) {
+    public void updatePaymentDetails(final PaymentDetails paymentDetails) {
 
         Session session = null;
       
@@ -377,13 +377,7 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
 	                session.close();
 	            }
 	        }
-
-         
         
-        
-        
-        
-        return true;
     }
 
 	

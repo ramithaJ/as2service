@@ -126,7 +126,7 @@ public interface OrderOnlineOpenService {
      * @param paymentDetails
      * @return
      */
-    boolean updatePaymentDetails(PaymentDetails paymentDetails);
+    void updatePaymentDetails(PaymentDetails paymentDetails);
 
     /**
      * @return

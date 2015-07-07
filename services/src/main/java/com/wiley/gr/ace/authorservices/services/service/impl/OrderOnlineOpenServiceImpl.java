@@ -1032,9 +1032,9 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * Method to update Payment Details.
      */
     @Override
-    public boolean updatePaymentDetails(final PaymentDetails paymentDetails) {
+    public void updatePaymentDetails(final PaymentDetails paymentDetails) {
 
-        return orderOnlineDAO.updatePaymentDetails(paymentDetails);
+        orderOnlineDAO.updatePaymentDetails(paymentDetails);
     }
 
     /**
