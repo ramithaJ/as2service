@@ -599,7 +599,6 @@ public class DashboardServiceImpl implements DashboardService {
     private final DashboardView getPublicationArticleStatus(
             final String articleAuthorRole, final Integer dhId)
             throws Exception {
-        System.err.println("4");
         final DashboardView dashboardView = new DashboardView();
         final ArticleData articleData = esbInterfaceService
                 .getAuthorArticle(dhId);
