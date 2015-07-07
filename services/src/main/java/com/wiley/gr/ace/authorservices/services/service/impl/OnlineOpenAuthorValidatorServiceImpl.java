@@ -203,6 +203,7 @@ public class OnlineOpenAuthorValidatorServiceImpl implements
 		
 		Amount finAmount = new Amount();
 		finAmount.setAmount(finalAmount.toString());
+		finAmount.setCurrency(onlineOpenOrder.getAmountPayable().getCurrency());
 		
 		onlineOpenOrder.setFinalAmount(finAmount);
 		onlineOpenOrder.setTaxPercentage(taxPercentage.toString());

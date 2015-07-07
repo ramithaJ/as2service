@@ -194,11 +194,10 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
 				session = getSessionFactory().openSession();
 				session.getTransaction().begin();
 				session.save(orders);
-				//saveOrUpdate(orders);
 				session.getTransaction().commit();
 			} catch (HibernateException e) {
+				session.getTransaction().rollback();
 				throw new ASException("704", e.getMessage());
-				
 			}finally {
 	            if (session != null) {
 	                session.flush();
@@ -369,6 +368,7 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
 				session.getTransaction().commit();
 				
 			} catch (HibernateException e) {
+				session.getTransaction().rollback();
 				throw new ASException("704", e.getMessage());
 			} finally {
 	            if (session != null) {

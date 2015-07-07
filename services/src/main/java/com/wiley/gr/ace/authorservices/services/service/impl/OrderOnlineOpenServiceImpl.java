@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.json.simple.JSONObject;
@@ -218,9 +219,6 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 	@Value("${wpgVendorId}")
 	private String wpgVendorId;
 
-	// @Value("{$wpgTransId}")
-	// private String wpgTransId;
-
 	@Value("${wpgMethod}")
 	private String wpgMethod;
 
@@ -235,6 +233,16 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
 	@Value("${wpgAllowAVSFail}")
 	private String wpgAllowAVSFail;
+	
+	@Value("${wpgRegion}")
+	private String wpgRegion;
+	
+	/**
+	 * Min value for Transaction id
+	 */
+	private static final int MIN_VALUE = 1;
+	
+	
 
 	/**
 	 * This method will take userId and orderId as input and calls external
@@ -560,9 +568,9 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 		OrderData orderData = null;
 		SavedOrders savedOrder = null;
 		OnlineOpenOrder onlineOpenOrder = null;
-		
+
 		savedOrder = orderOnlineDAO.getSavedOrdersForTheOrderId(orderId);
-		
+
 		onlineOpenOrder = getOrderDetails(null, savedOrder);
 		orderData = new OrderData();
 
@@ -1005,40 +1013,48 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
 	/**
 	 * Method to retrieve Wiley Payment Gateway configuration details.
+	 * 
 	 * @param orderId
 	 * @return wpgConfiguration
 	 * 
 	 */
 	@Override
-    public WPGConfiguration getWPGConfiguration(final String orderId) {
+	public WPGConfiguration getWPGConfiguration(final String orderId) {
 
-        WPGConfiguration wpgConfiguration = new WPGConfiguration();
+		WPGConfiguration wpgConfiguration = new WPGConfiguration();
 
-        wpgConfiguration.setAcquirerId(acquirerId);
-        wpgConfiguration = getAddressAndCurrencyDetailsForOrderId(orderId, wpgConfiguration);
-        wpgConfiguration.setWpgAllowAVSFail(wpgAllowAVSFail);
-        wpgConfiguration.setWpgCountryCode(wpgCountryCode);
-        wpgConfiguration.setWpgDescription(wpgDescription);
-        wpgConfiguration.setWpgMethod(wpgMethod);
-        Long wpgTimeStmp = new Date().getTime();
-        wpgConfiguration.setWpgTimeStmap(wpgTimeStmp.toString());
-        Double wpgTransactionId = Math.random();
-        String wpgTransId = wpgTransactionId.toString();
-        wpgConfiguration.setWpgTransId(wpgTransId);
-        wpgConfiguration.setWpgValue(wpgValue);
-        wpgConfiguration.setWpgVendorId(wpgVendorId);
+		wpgConfiguration.setAcquirerId(acquirerId);
+		wpgConfiguration = getAddressAndCurrencyDetailsForOrderId(orderId,
+				wpgConfiguration);
+		wpgConfiguration.setWpgAllowAVSFail(wpgAllowAVSFail);
+		wpgConfiguration.setWpgRegion(wpgRegion);
+		wpgConfiguration.setWpgCountryCode(wpgCountryCode);
+		wpgConfiguration.setWpgDescription(wpgDescription);
+		wpgConfiguration.setWpgMethod(wpgMethod);
+		Long wpgTimeStmp = new Date().getTime();
+		wpgConfiguration.setWpgTimeStmap(wpgTimeStmp.toString());
 
-        StringBuilder securityStringBuilder = new StringBuilder();
-        securityStringBuilder.append(wpgTimeStmp.toString())
-                .append(wpgVendorId).append(wpgTransId).append(wpgMethod)
-                .append(wpgDescription).append(wpgConfiguration.getWpgRegion()).append(wpgConfiguration.getWpgAddress())
-                .append(wpgConfiguration.getWpgPostCode()).append(wpgCountryCode).append(wpgAllowAVSFail);
-                
-        wpgConfiguration.setWpgSecurity(DigestUtils
-                .md5Hex(securityStringBuilder.toString()));
+		Integer intWpgTransId = generateRandomTransactionId(
+				MIN_VALUE, Integer.MAX_VALUE);
+		String wpgTransId = intWpgTransId.toString();
 
-        return wpgConfiguration;
-    }
+		wpgConfiguration.setWpgTransId(wpgTransId);
+		wpgConfiguration.setWpgValue(wpgValue);
+		wpgConfiguration.setWpgVendorId(wpgVendorId);
+
+		StringBuilder securityStringBuilder = new StringBuilder();
+		securityStringBuilder.append(wpgTimeStmp.toString())
+				.append(wpgVendorId).append(wpgTransId).append(wpgMethod)
+				.append(wpgDescription).append(wpgRegion)
+				.append(wpgConfiguration.getWpgAddress())
+				.append(wpgConfiguration.getWpgPostCode())
+				.append(wpgCountryCode).append(wpgAllowAVSFail);
+
+		wpgConfiguration.setWpgSecurity(DigestUtils
+				.md5Hex(securityStringBuilder.toString()));
+
+		return wpgConfiguration;
+	}
 
 	/**
 	 * This method returns the Address And Currency Details of the requested
@@ -1058,8 +1074,9 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 					.getBillingAddress().getAddressLine1());
 			wpgConfiguration.setWpgPostCode(onlineOpenOrder.getAddressDetails()
 					.getBillingAddress().getPostCode());
-			wpgConfiguration.setWpgRegion(onlineOpenOrder.getAddressDetails()
-					.getBillingAddress().getRegion());
+			/*String region = onlineOpenOrder.getAddressDetails()
+					.getBillingAddress().getRegion();
+			wpgConfiguration.setWpgRegion(region != null ? region : "");*/
 			wpgConfiguration.setWpgCurrency(onlineOpenOrder.getFinalAmount()
 					.getCurrency());
 		}
@@ -1067,30 +1084,32 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 		return wpgConfiguration;
 
 	}
-	
+
 	/**
 	 * This method returns the Online Open Order details
+	 * 
 	 * @param orderId
 	 * @param savedOrder
 	 * @return onlineOpenOrder
 	 */
-	private OnlineOpenOrder getOrderDetails(String orderId, SavedOrders savedOrder){
+	private OnlineOpenOrder getOrderDetails(String orderId,
+			SavedOrders savedOrder) {
 		String orderDataObject = null;
 		OnlineOpenOrder onlineOpenOrder = null;
 		boolean flag = false;
-		
+
 		if (orderId != null && savedOrder == null) {
 			savedOrder = orderOnlineDAO.getSavedOrdersForTheOrderId(orderId);
 			flag = true;
-		} else if (orderId == null && savedOrder != null){
+		} else if (orderId == null && savedOrder != null) {
 			flag = true;
 		}
-			
-		if(flag){
+
+		if (flag && savedOrder != null) {
 			orderDataObject = savedOrder.getOrderObject();
 			try {
 				JSONObject object = (JSONObject) new JSONParser()
-				.parse(orderDataObject);
+						.parse(orderDataObject);
 				onlineOpenOrder = new ObjectMapper().readValue(
 						object.toJSONString(), OnlineOpenOrder.class);
 			} catch (JsonParseException e) {
@@ -1103,9 +1122,23 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 				throw new ASException("703", e.getMessage());
 			}
 		}
-		
+
 		return onlineOpenOrder;
-		
+
+	}
+
+	/**
+	 * This method generates a random transaction id
+	 * 
+	 * @param min
+	 * @param max
+	 * @return transactionId
+	 */
+	private static Integer generateRandomTransactionId(int min, int max) {
+		Random rand = new Random();
+		int value = max - min;
+		Integer transactionId = rand.nextInt(value + 1) + min;
+		return transactionId;
 	}
 
 	@Override
