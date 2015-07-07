@@ -371,7 +371,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
      * @param paymentDetails
      * @return service
      */
-    @RequestMapping(value = "/paymentDetails", method = RequestMethod.POST)
+    @RequestMapping(value = "/paymentDetails/", method = RequestMethod.POST)
     public final Service updatePaymentDetails(
             @RequestBody final PaymentDetails paymentDetails) {
         Service service = new Service();

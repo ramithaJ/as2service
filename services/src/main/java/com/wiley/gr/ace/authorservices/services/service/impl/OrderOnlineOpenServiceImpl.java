@@ -212,7 +212,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * WPG Configuration property values
      */
 
-    @Value("${acquirerId}")
+    @Value("${wpgAcquirerId}")
     private String acquirerId;
 
     // @Value("{$wpgTimeStmap}")
@@ -1058,8 +1058,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         wpgConfiguration.setWpgRegion(wpgRegion);
         Long wpgTimeStmp = new Date().getTime();
         wpgConfiguration.setWpgTimeStmap(wpgTimeStmp.toString());
-        // TODO: Need to change the WPG Transaction id once logic is confirmed.
-        String wpgTransId = "";
+        Double wpgTransactionId = Math.random();
+        String wpgTransId = wpgTransactionId.toString();
         wpgConfiguration.setWpgTransId(wpgTransId);
         wpgConfiguration.setWpgValue(wpgValue);
         wpgConfiguration.setWpgVendorId(wpgVendorId);
