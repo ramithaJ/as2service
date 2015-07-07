@@ -1,6 +1,7 @@
 package com.wiley.gr.ace.authorservices.web.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -15,7 +16,7 @@ public class ArticleUtilController {
 	private ArticleAssignmentService articleAssignmentService;
 	
 	@RequestMapping(value="/getinvitestatus/{dhId}")
-	public @ResponseBody Service getArticleInvitationStatus(Integer dhId){
+	public @ResponseBody Service getArticleInvitationStatus(@PathVariable("dhId") Integer dhId){
 		Service service = new Service();
 		try{
 			if(articleAssignmentService.checkIfArticleInvited(dhId)){
