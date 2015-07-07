@@ -80,9 +80,8 @@ public interface OrderOnlineDAO {
 
     /**
      * @param paymentDetails
-     * @return
      */
-    void updatePaymentDetails(PaymentDetails paymentDetails);
+    void savePaymentDetails(PaymentDetails paymentDetails);
 
 	/**
 	 * @param orderId

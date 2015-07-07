@@ -328,7 +328,7 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
      * 
      */
     @Override
-    public void updatePaymentDetails(final PaymentDetails paymentDetails) {
+    public void savePaymentDetails(final PaymentDetails paymentDetails) {
 
         Session session = null;
       

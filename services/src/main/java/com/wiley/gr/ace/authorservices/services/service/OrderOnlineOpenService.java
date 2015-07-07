@@ -126,10 +126,11 @@ public interface OrderOnlineOpenService {
      * @param paymentDetails
      * @return
      */
-    void updatePaymentDetails(PaymentDetails paymentDetails);
+    void savePaymentDetails(PaymentDetails paymentDetails);
 
     /**
+     * @param orderId 
      * @return
      */
-    WPGConfiguration getWPGConfiguration();
+    WPGConfiguration getWPGConfiguration(String orderId);
 }

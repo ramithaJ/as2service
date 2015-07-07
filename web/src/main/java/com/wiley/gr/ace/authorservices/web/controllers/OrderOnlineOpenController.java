@@ -371,20 +371,21 @@ public class OrderOnlineOpenController extends ASExceptionController {
      * @param paymentDetails
      * @return service
      */
-    @RequestMapping(value = "/paymentDetails/", method = RequestMethod.POST)
-    public final Service updatePaymentDetails(
+    @RequestMapping(value = "/paymentDetails/save/", method = RequestMethod.POST)
+    public final Service savePaymentDetails(
             @RequestBody final PaymentDetails paymentDetails) {
         orderOnlineOpenService
-                .updatePaymentDetails(paymentDetails);
+                .savePaymentDetails(paymentDetails);
         return new Service();
 
     }
 
-    @RequestMapping(value = "/wpg/config/", method = RequestMethod.GET)
-    public final Service getWPGConfiguration() {
+    @RequestMapping(value = "/wpg/config/{orderId}", method = RequestMethod.GET)
+    public final Service getWPGConfiguration(
+    		 @PathVariable("orderId") final String orderId) {
 
         Service service = new Service();
-        service.setPayload(orderOnlineOpenService.getWPGConfiguration());
+        service.setPayload(orderOnlineOpenService.getWPGConfiguration(orderId));
         return service;
     }
 
