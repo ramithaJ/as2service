@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated May 26, 2015 6:09:14 PM by Hibernate Tools 3.4.0.CR1
+// Generated Jul 7, 2015 5:39:57 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -194,7 +194,7 @@ public class Address implements java.io.Serializable {
 		this.countryCd = countryCd;
 	}
 
-	@Column(name = "POSTALCODE", length = 50)
+	@Column(name = "POSTALCODE", length = 20)
 	public String getPostalcode() {
 		return this.postalcode;
 	}

@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated May 26, 2015 6:09:14 PM by Hibernate Tools 3.4.0.CR1
+// Generated Jul 7, 2015 5:39:57 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -27,1019 +27,1250 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "USERS", uniqueConstraints = @UniqueConstraint(columnNames = "PRIMARY_EMAIL_ADDR"))
 public class Users implements java.io.Serializable {
 
-	private Integer userId;
-	private Users usersByCreatedBy;
-	private Users usersByUpdatedBy;
-	private String firstName;
-	private String lastName;
-	private String primaryEmailAddr;
-	private Integer as1UserId;
-	private Integer invalidLoginCnt;
-	private Date accountLockedTime;
-	private Date lastLoginDate;
-	private Date createdDate;
-	private Date updatedDate;
-	private Set<AuditDetails> auditDetailsesForUserId = new HashSet<AuditDetails>(
-			0);
-	private Set<UserSecondaryEmailAddr> userSecondaryEmailAddrsForUpdatedBy = new HashSet<UserSecondaryEmailAddr>(
-			0);
-	private Set<AdditionalPermissions> additionalPermissionsesForUpdatedBy = new HashSet<AdditionalPermissions>(
-			0);
-	private Set<UserRoles> userRolesesForCreatedBy = new HashSet<UserRoles>(0);
-	private Set<AuditDetails> auditDetailsesForCreatedBy = new HashSet<AuditDetails>(
-			0);
-	private Set<UserSecondaryEmailAddr> userSecondaryEmailAddrsForCreatedBy = new HashSet<UserSecondaryEmailAddr>(
-			0);
-	private Set<UserAffiliations> userAffiliationsesForUpdatedBy = new HashSet<UserAffiliations>(
-			0);
-	private Set<UserAlerts> userAlertsesForUpdatedBy = new HashSet<UserAlerts>(
-			0);
-	private Set<UserSocietyDetails> userSocietyDetailsesForUpdatedBy = new HashSet<UserSocietyDetails>(
-			0);
-	private Set<AdditionalPermissions> additionalPermissionsesForCreatedBy = new HashSet<AdditionalPermissions>(
-			0);
-	private Set<RolePermissions> rolePermissionsesForUpdatedBy = new HashSet<RolePermissions>(
-			0);
-	private Set<RolePermissions> rolePermissionsesForCreatedBy = new HashSet<RolePermissions>(
-			0);
-	private Set<UserRoles> userRolesesForUpdatedBy = new HashSet<UserRoles>(0);
-	private Set<AuthorProfile> authorProfilesForMergerAccntId = new HashSet<AuthorProfile>(
-			0);
-	private Set<UserReferenceData> userReferenceDatasForCreatedBy = new HashSet<UserReferenceData>(
-			0);
-	private Set<AdminDetails> adminDetailsesForUpdatedBy = new HashSet<AdminDetails>(
-			0);
-	private Set<UserAffiliations> userAffiliationsesForCreatedBy = new HashSet<UserAffiliations>(
-			0);
-	private Set<UserAlerts> userAlertsesForCreatedBy = new HashSet<UserAlerts>(
-			0);
-	private Set<UserSocietyDetails> userSocietyDetailsesForCreatedBy = new HashSet<UserSocietyDetails>(
-			0);
-	private Set<Alerts> alertsesForUpdatedBy = new HashSet<Alerts>(0);
-	private Set<Alerts> alertsesForCreatedBy = new HashSet<Alerts>(0);
-	private Set<AuthCoauthDetails> authCoauthDetailsesForUpdatedBy = new HashSet<AuthCoauthDetails>(
-			0);
-	private Set<AuthCoauthDetails> authCoauthDetailsesForCreatedBy = new HashSet<AuthCoauthDetails>(
-			0);
-	private Set<UserReferenceData> userReferenceDatasForUpdatedBy = new HashSet<UserReferenceData>(
-			0);
-	private Set<UserAreaOfInterest> userAreaOfInterestsForCreatedBy = new HashSet<UserAreaOfInterest>(
-			0);
-	private Set<UserAddresses> userAddressesesForUserId = new HashSet<UserAddresses>(
-			0);
-	private Set<UserPreferredJournals> userPreferredJournalsesForUpdatedBy = new HashSet<UserPreferredJournals>(
-			0);
-	private Set<UserReferenceData> userReferenceDatasForUserId = new HashSet<UserReferenceData>(
-			0);
-	private Set<UserPreferredJournals> userPreferredJournalsesForCreatedBy = new HashSet<UserPreferredJournals>(
-			0);
-	private Set<Journals> journalsesForCreatedBy = new HashSet<Journals>(0);
-	private Set<UserProfileAttribVisible> userProfileAttribVisiblesForUpdatedBy = new HashSet<UserProfileAttribVisible>(
-			0);
-	private Set<UserProfileAttribVisible> userProfileAttribVisiblesForCreatedBy = new HashSet<UserProfileAttribVisible>(
-			0);
-	private Set<Roles> rolesesForUpdatedBy = new HashSet<Roles>(0);
-	private Set<UserAddresses> userAddressesesForUpdatedBy = new HashSet<UserAddresses>(
-			0);
-	private Set<Roles> rolesesForCreatedBy = new HashSet<Roles>(0);
-	private Set<UserAddresses> userAddressesesForCreatedBy = new HashSet<UserAddresses>(
-			0);
-	private Set<Address> addressesForUpdatedBy = new HashSet<Address>(0);
-	private Set<Address> addressesForCreatedBy = new HashSet<Address>(0);
-	private Set<Journals> journalsesForUpdatedBy = new HashSet<Journals>(0);
-	private Set<Users> usersesForCreatedBy = new HashSet<Users>(0);
-	private Set<AuthorProfile> authorProfilesForUpdatedBy = new HashSet<AuthorProfile>(
-			0);
-	private Set<AuthorProfile> authorProfilesForCreatedBy = new HashSet<AuthorProfile>(
-			0);
-	private Set<Users> usersesForUpdatedBy = new HashSet<Users>(0);
-	private Set<UserAreaOfInterest> userAreaOfInterestsForUpdatedBy = new HashSet<UserAreaOfInterest>(
-			0);
-	private Set<AuthColleagueDetails> authColleagueDetailsesForCreatedBy = new HashSet<AuthColleagueDetails>(
-			0);
-	private Set<AreaOfInterest> areaOfInterestsForUpdatedBy = new HashSet<AreaOfInterest>(
-			0);
-	private Set<AreaOfInterest> areaOfInterestsForCreatedBy = new HashSet<AreaOfInterest>(
-			0);
-	private AdminDetails adminDetailsByUserId;
-	private AuthorProfile authorProfileByUserId;
-	private Set<Permissions> permissionsesForCreatedBy = new HashSet<Permissions>(
-			0);
-	private Set<ResearchFunders> researchFundersesForCreatedBy = new HashSet<ResearchFunders>(
-			0);
-	private Set<AdminDetails> adminDetailsesForCreatedBy = new HashSet<AdminDetails>(
-			0);
-	private Set<UserWoaAccounts> userWoaAccountsesForUpdatedBy = new HashSet<UserWoaAccounts>(
-			0);
-	private Set<UserWoaAccounts> userWoaAccountsesForCreatedBy = new HashSet<UserWoaAccounts>(
-			0);
-	private Set<AuthColleagueDetails> authColleagueDetailsesForUpdatedBy = new HashSet<AuthColleagueDetails>(
-			0);
-	private Set<UserFunderGrants> userFunderGrantsesForUpdatedBy = new HashSet<UserFunderGrants>(
-			0);
-	private Set<UserFunderGrants> userFunderGrantsesForCreatedBy = new HashSet<UserFunderGrants>(
-			0);
-	private Set<Permissions> permissionsesForUpdatedBy = new HashSet<Permissions>(
-			0);
-	private Set<ResearchFunders> researchFundersesForUpdatedBy = new HashSet<ResearchFunders>(
-			0);
-	private Set<UserSecondaryEmailAddr> userSecondaryEmailAddrsForUserId = new HashSet<UserSecondaryEmailAddr>(
-			0);
-	private Set<ProfileAttributeList> profileAttributeListsForUpdatedBy = new HashSet<ProfileAttributeList>(
-			0);
-	private Set<UserRoles> userRolesesForUserId = new HashSet<UserRoles>(0);
-	private Set<ProfileAttributeList> profileAttributeListsForCreatedBy = new HashSet<ProfileAttributeList>(
-			0);
-
-	public Users() {
-	}
-
-	public Users(Integer userId, String primaryEmailAddr) {
-		this.userId = userId;
-		this.primaryEmailAddr = primaryEmailAddr;
-	}
-
-	public Users(
-			Integer userId,
-			Users usersByCreatedBy,
-			Users usersByUpdatedBy,
-			String firstName,
-			String lastName,
-			String primaryEmailAddr,
-			Integer as1UserId,
-			Integer invalidLoginCnt,
-			Date accountLockedTime,
-			Date lastLoginDate,
-			Date createdDate,
-			Date updatedDate,
-			Set<AuditDetails> auditDetailsesForUserId,
-			Set<UserSecondaryEmailAddr> userSecondaryEmailAddrsForUpdatedBy,
-			Set<AdditionalPermissions> additionalPermissionsesForUpdatedBy,
-			Set<UserRoles> userRolesesForCreatedBy,
-			Set<AuditDetails> auditDetailsesForCreatedBy,
-			Set<UserSecondaryEmailAddr> userSecondaryEmailAddrsForCreatedBy,
-			Set<UserAffiliations> userAffiliationsesForUpdatedBy,
-			Set<UserAlerts> userAlertsesForUpdatedBy,
-			Set<UserSocietyDetails> userSocietyDetailsesForUpdatedBy,
-			Set<AdditionalPermissions> additionalPermissionsesForCreatedBy,
-			Set<RolePermissions> rolePermissionsesForUpdatedBy,
-			Set<RolePermissions> rolePermissionsesForCreatedBy,
-			Set<UserRoles> userRolesesForUpdatedBy,
-			Set<AuthorProfile> authorProfilesForMergerAccntId,
-			Set<UserReferenceData> userReferenceDatasForCreatedBy,
-			Set<AdminDetails> adminDetailsesForUpdatedBy,
-			Set<UserAffiliations> userAffiliationsesForCreatedBy,
-			Set<UserAlerts> userAlertsesForCreatedBy,
-			Set<UserSocietyDetails> userSocietyDetailsesForCreatedBy,
-			Set<Alerts> alertsesForUpdatedBy,
-			Set<Alerts> alertsesForCreatedBy,
-			Set<AuthCoauthDetails> authCoauthDetailsesForUpdatedBy,
-			Set<AuthCoauthDetails> authCoauthDetailsesForCreatedBy,
-			Set<UserReferenceData> userReferenceDatasForUpdatedBy,
-			Set<UserAreaOfInterest> userAreaOfInterestsForCreatedBy,
-			Set<UserAddresses> userAddressesesForUserId,
-			Set<UserPreferredJournals> userPreferredJournalsesForUpdatedBy,
-			Set<UserReferenceData> userReferenceDatasForUserId,
-			Set<UserPreferredJournals> userPreferredJournalsesForCreatedBy,
-			Set<Journals> journalsesForCreatedBy,
-			Set<UserProfileAttribVisible> userProfileAttribVisiblesForUpdatedBy,
-			Set<UserProfileAttribVisible> userProfileAttribVisiblesForCreatedBy,
-			Set<Roles> rolesesForUpdatedBy,
-			Set<UserAddresses> userAddressesesForUpdatedBy,
-			Set<Roles> rolesesForCreatedBy,
-			Set<UserAddresses> userAddressesesForCreatedBy,
-			Set<Address> addressesForUpdatedBy,
-			Set<Address> addressesForCreatedBy,
-			Set<Journals> journalsesForUpdatedBy,
-			Set<Users> usersesForCreatedBy,
-			Set<AuthorProfile> authorProfilesForUpdatedBy,
-			Set<AuthorProfile> authorProfilesForCreatedBy,
-			Set<Users> usersesForUpdatedBy,
-			Set<UserAreaOfInterest> userAreaOfInterestsForUpdatedBy,
-			Set<AuthColleagueDetails> authColleagueDetailsesForCreatedBy,
-			Set<AreaOfInterest> areaOfInterestsForUpdatedBy,
-			Set<AreaOfInterest> areaOfInterestsForCreatedBy,
-			AdminDetails adminDetailsByUserId,
-			AuthorProfile authorProfileByUserId,
-			Set<Permissions> permissionsesForCreatedBy,
-			Set<ResearchFunders> researchFundersesForCreatedBy,
-			Set<AdminDetails> adminDetailsesForCreatedBy,
-			Set<UserWoaAccounts> userWoaAccountsesForUpdatedBy,
-			Set<UserWoaAccounts> userWoaAccountsesForCreatedBy,
-			Set<AuthColleagueDetails> authColleagueDetailsesForUpdatedBy,
-			Set<UserFunderGrants> userFunderGrantsesForUpdatedBy,
-			Set<UserFunderGrants> userFunderGrantsesForCreatedBy,
-			Set<Permissions> permissionsesForUpdatedBy,
-			Set<ResearchFunders> researchFundersesForUpdatedBy,
-			Set<UserSecondaryEmailAddr> userSecondaryEmailAddrsForUserId,
-			Set<ProfileAttributeList> profileAttributeListsForUpdatedBy,
-			Set<UserRoles> userRolesesForUserId,
-			Set<ProfileAttributeList> profileAttributeListsForCreatedBy) {
-		this.userId = userId;
-		this.usersByCreatedBy = usersByCreatedBy;
-		this.usersByUpdatedBy = usersByUpdatedBy;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.primaryEmailAddr = primaryEmailAddr;
-		this.as1UserId = as1UserId;
-		this.invalidLoginCnt = invalidLoginCnt;
-		this.accountLockedTime = accountLockedTime;
-		this.lastLoginDate = lastLoginDate;
-		this.createdDate = createdDate;
-		this.updatedDate = updatedDate;
-		this.auditDetailsesForUserId = auditDetailsesForUserId;
-		this.userSecondaryEmailAddrsForUpdatedBy = userSecondaryEmailAddrsForUpdatedBy;
-		this.additionalPermissionsesForUpdatedBy = additionalPermissionsesForUpdatedBy;
-		this.userRolesesForCreatedBy = userRolesesForCreatedBy;
-		this.auditDetailsesForCreatedBy = auditDetailsesForCreatedBy;
-		this.userSecondaryEmailAddrsForCreatedBy = userSecondaryEmailAddrsForCreatedBy;
-		this.userAffiliationsesForUpdatedBy = userAffiliationsesForUpdatedBy;
-		this.userAlertsesForUpdatedBy = userAlertsesForUpdatedBy;
-		this.userSocietyDetailsesForUpdatedBy = userSocietyDetailsesForUpdatedBy;
-		this.additionalPermissionsesForCreatedBy = additionalPermissionsesForCreatedBy;
-		this.rolePermissionsesForUpdatedBy = rolePermissionsesForUpdatedBy;
-		this.rolePermissionsesForCreatedBy = rolePermissionsesForCreatedBy;
-		this.userRolesesForUpdatedBy = userRolesesForUpdatedBy;
-		this.authorProfilesForMergerAccntId = authorProfilesForMergerAccntId;
-		this.userReferenceDatasForCreatedBy = userReferenceDatasForCreatedBy;
-		this.adminDetailsesForUpdatedBy = adminDetailsesForUpdatedBy;
-		this.userAffiliationsesForCreatedBy = userAffiliationsesForCreatedBy;
-		this.userAlertsesForCreatedBy = userAlertsesForCreatedBy;
-		this.userSocietyDetailsesForCreatedBy = userSocietyDetailsesForCreatedBy;
-		this.alertsesForUpdatedBy = alertsesForUpdatedBy;
-		this.alertsesForCreatedBy = alertsesForCreatedBy;
-		this.authCoauthDetailsesForUpdatedBy = authCoauthDetailsesForUpdatedBy;
-		this.authCoauthDetailsesForCreatedBy = authCoauthDetailsesForCreatedBy;
-		this.userReferenceDatasForUpdatedBy = userReferenceDatasForUpdatedBy;
-		this.userAreaOfInterestsForCreatedBy = userAreaOfInterestsForCreatedBy;
-		this.userAddressesesForUserId = userAddressesesForUserId;
-		this.userPreferredJournalsesForUpdatedBy = userPreferredJournalsesForUpdatedBy;
-		this.userReferenceDatasForUserId = userReferenceDatasForUserId;
-		this.userPreferredJournalsesForCreatedBy = userPreferredJournalsesForCreatedBy;
-		this.journalsesForCreatedBy = journalsesForCreatedBy;
-		this.userProfileAttribVisiblesForUpdatedBy = userProfileAttribVisiblesForUpdatedBy;
-		this.userProfileAttribVisiblesForCreatedBy = userProfileAttribVisiblesForCreatedBy;
-		this.rolesesForUpdatedBy = rolesesForUpdatedBy;
-		this.userAddressesesForUpdatedBy = userAddressesesForUpdatedBy;
-		this.rolesesForCreatedBy = rolesesForCreatedBy;
-		this.userAddressesesForCreatedBy = userAddressesesForCreatedBy;
-		this.addressesForUpdatedBy = addressesForUpdatedBy;
-		this.addressesForCreatedBy = addressesForCreatedBy;
-		this.journalsesForUpdatedBy = journalsesForUpdatedBy;
-		this.usersesForCreatedBy = usersesForCreatedBy;
-		this.authorProfilesForUpdatedBy = authorProfilesForUpdatedBy;
-		this.authorProfilesForCreatedBy = authorProfilesForCreatedBy;
-		this.usersesForUpdatedBy = usersesForUpdatedBy;
-		this.userAreaOfInterestsForUpdatedBy = userAreaOfInterestsForUpdatedBy;
-		this.authColleagueDetailsesForCreatedBy = authColleagueDetailsesForCreatedBy;
-		this.areaOfInterestsForUpdatedBy = areaOfInterestsForUpdatedBy;
-		this.areaOfInterestsForCreatedBy = areaOfInterestsForCreatedBy;
-		this.adminDetailsByUserId = adminDetailsByUserId;
-		this.authorProfileByUserId = authorProfileByUserId;
-		this.permissionsesForCreatedBy = permissionsesForCreatedBy;
-		this.researchFundersesForCreatedBy = researchFundersesForCreatedBy;
-		this.adminDetailsesForCreatedBy = adminDetailsesForCreatedBy;
-		this.userWoaAccountsesForUpdatedBy = userWoaAccountsesForUpdatedBy;
-		this.userWoaAccountsesForCreatedBy = userWoaAccountsesForCreatedBy;
-		this.authColleagueDetailsesForUpdatedBy = authColleagueDetailsesForUpdatedBy;
-		this.userFunderGrantsesForUpdatedBy = userFunderGrantsesForUpdatedBy;
-		this.userFunderGrantsesForCreatedBy = userFunderGrantsesForCreatedBy;
-		this.permissionsesForUpdatedBy = permissionsesForUpdatedBy;
-		this.researchFundersesForUpdatedBy = researchFundersesForUpdatedBy;
-		this.userSecondaryEmailAddrsForUserId = userSecondaryEmailAddrsForUserId;
-		this.profileAttributeListsForUpdatedBy = profileAttributeListsForUpdatedBy;
-		this.userRolesesForUserId = userRolesesForUserId;
-		this.profileAttributeListsForCreatedBy = profileAttributeListsForCreatedBy;
-	}
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="USER_SEQ")
-    @SequenceGenerator(name="USER_SEQ",sequenceName="USER_SEQ",allocationSize=1)
-	@Column(name = "USER_ID", unique = true, nullable = false, precision = 22, scale = 0)
-	public Integer getUserId() {
-		return this.userId;
-	}
-
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CREATED_BY")
-	public Users getUsersByCreatedBy() {
-		return this.usersByCreatedBy;
-	}
-
-	public void setUsersByCreatedBy(Users usersByCreatedBy) {
-		this.usersByCreatedBy = usersByCreatedBy;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "UPDATED_BY")
-	public Users getUsersByUpdatedBy() {
-		return this.usersByUpdatedBy;
-	}
-
-	public void setUsersByUpdatedBy(Users usersByUpdatedBy) {
-		this.usersByUpdatedBy = usersByUpdatedBy;
-	}
-
-	@Column(name = "FIRST_NAME", length = 100)
-	public String getFirstName() {
-		return this.firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	@Column(name = "LAST_NAME", length = 100)
-	public String getLastName() {
-		return this.lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	@Column(name = "PRIMARY_EMAIL_ADDR", unique = true, nullable = false, length = 256)
-	public String getPrimaryEmailAddr() {
-		return this.primaryEmailAddr;
-	}
-
-	public void setPrimaryEmailAddr(String primaryEmailAddr) {
-		this.primaryEmailAddr = primaryEmailAddr;
-	}
-
-	@Column(name = "AS1_USER_ID", precision = 22, scale = 0)
-	public Integer getAs1UserId() {
-		return this.as1UserId;
-	}
-
-	public void setAs1UserId(Integer as1UserId) {
-		this.as1UserId = as1UserId;
-	}
-
-	@Column(name = "INVALID_LOGIN_CNT", precision = 2, scale = 0)
-	public Integer getInvalidLoginCnt() {
-		return this.invalidLoginCnt;
-	}
-
-	public void setInvalidLoginCnt(Integer invalidLoginCnt) {
-		this.invalidLoginCnt = invalidLoginCnt;
-	}
-
-	@Column(name = "ACCOUNT_LOCKED_TIME")
-	public Date getAccountLockedTime() {
-		return this.accountLockedTime;
-	}
-
-	public void setAccountLockedTime(Date accountLockedTime) {
-		this.accountLockedTime = accountLockedTime;
-	}
-
-	@Column(name = "LAST_LOGIN_DATE")
-	public Date getLastLoginDate() {
-		return this.lastLoginDate;
-	}
-
-	public void setLastLoginDate(Date lastLoginDate) {
-		this.lastLoginDate = lastLoginDate;
-	}
-
-	@Column(name = "CREATED_DATE")
-	public Date getCreatedDate() {
-		return this.createdDate;
-	}
-
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	@Column(name = "UPDATED_DATE")
-	public Date getUpdatedDate() {
-		return this.updatedDate;
-	}
-
-	public void setUpdatedDate(Date updatedDate) {
-		this.updatedDate = updatedDate;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUserId")
-	public Set<AuditDetails> getAuditDetailsesForUserId() {
-		return this.auditDetailsesForUserId;
-	}
-
-	public void setAuditDetailsesForUserId(
-			Set<AuditDetails> auditDetailsesForUserId) {
-		this.auditDetailsesForUserId = auditDetailsesForUserId;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
-	public Set<UserSecondaryEmailAddr> getUserSecondaryEmailAddrsForUpdatedBy() {
-		return this.userSecondaryEmailAddrsForUpdatedBy;
-	}
-
-	public void setUserSecondaryEmailAddrsForUpdatedBy(
-			Set<UserSecondaryEmailAddr> userSecondaryEmailAddrsForUpdatedBy) {
-		this.userSecondaryEmailAddrsForUpdatedBy = userSecondaryEmailAddrsForUpdatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
-	public Set<AdditionalPermissions> getAdditionalPermissionsesForUpdatedBy() {
-		return this.additionalPermissionsesForUpdatedBy;
-	}
-
-	public void setAdditionalPermissionsesForUpdatedBy(
-			Set<AdditionalPermissions> additionalPermissionsesForUpdatedBy) {
-		this.additionalPermissionsesForUpdatedBy = additionalPermissionsesForUpdatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
-	public Set<UserRoles> getUserRolesesForCreatedBy() {
-		return this.userRolesesForCreatedBy;
-	}
-
-	public void setUserRolesesForCreatedBy(
-			Set<UserRoles> userRolesesForCreatedBy) {
-		this.userRolesesForCreatedBy = userRolesesForCreatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
-	public Set<AuditDetails> getAuditDetailsesForCreatedBy() {
-		return this.auditDetailsesForCreatedBy;
-	}
-
-	public void setAuditDetailsesForCreatedBy(
-			Set<AuditDetails> auditDetailsesForCreatedBy) {
-		this.auditDetailsesForCreatedBy = auditDetailsesForCreatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
-	public Set<UserSecondaryEmailAddr> getUserSecondaryEmailAddrsForCreatedBy() {
-		return this.userSecondaryEmailAddrsForCreatedBy;
-	}
-
-	public void setUserSecondaryEmailAddrsForCreatedBy(
-			Set<UserSecondaryEmailAddr> userSecondaryEmailAddrsForCreatedBy) {
-		this.userSecondaryEmailAddrsForCreatedBy = userSecondaryEmailAddrsForCreatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
-	public Set<UserAffiliations> getUserAffiliationsesForUpdatedBy() {
-		return this.userAffiliationsesForUpdatedBy;
-	}
-
-	public void setUserAffiliationsesForUpdatedBy(
-			Set<UserAffiliations> userAffiliationsesForUpdatedBy) {
-		this.userAffiliationsesForUpdatedBy = userAffiliationsesForUpdatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
-	public Set<UserAlerts> getUserAlertsesForUpdatedBy() {
-		return this.userAlertsesForUpdatedBy;
-	}
-
-	public void setUserAlertsesForUpdatedBy(
-			Set<UserAlerts> userAlertsesForUpdatedBy) {
-		this.userAlertsesForUpdatedBy = userAlertsesForUpdatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
-	public Set<UserSocietyDetails> getUserSocietyDetailsesForUpdatedBy() {
-		return this.userSocietyDetailsesForUpdatedBy;
-	}
-
-	public void setUserSocietyDetailsesForUpdatedBy(
-			Set<UserSocietyDetails> userSocietyDetailsesForUpdatedBy) {
-		this.userSocietyDetailsesForUpdatedBy = userSocietyDetailsesForUpdatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
-	public Set<AdditionalPermissions> getAdditionalPermissionsesForCreatedBy() {
-		return this.additionalPermissionsesForCreatedBy;
-	}
-
-	public void setAdditionalPermissionsesForCreatedBy(
-			Set<AdditionalPermissions> additionalPermissionsesForCreatedBy) {
-		this.additionalPermissionsesForCreatedBy = additionalPermissionsesForCreatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
-	public Set<RolePermissions> getRolePermissionsesForUpdatedBy() {
-		return this.rolePermissionsesForUpdatedBy;
-	}
-
-	public void setRolePermissionsesForUpdatedBy(
-			Set<RolePermissions> rolePermissionsesForUpdatedBy) {
-		this.rolePermissionsesForUpdatedBy = rolePermissionsesForUpdatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
-	public Set<RolePermissions> getRolePermissionsesForCreatedBy() {
-		return this.rolePermissionsesForCreatedBy;
-	}
-
-	public void setRolePermissionsesForCreatedBy(
-			Set<RolePermissions> rolePermissionsesForCreatedBy) {
-		this.rolePermissionsesForCreatedBy = rolePermissionsesForCreatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
-	public Set<UserRoles> getUserRolesesForUpdatedBy() {
-		return this.userRolesesForUpdatedBy;
-	}
-
-	public void setUserRolesesForUpdatedBy(
-			Set<UserRoles> userRolesesForUpdatedBy) {
-		this.userRolesesForUpdatedBy = userRolesesForUpdatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByMergerAccntId")
-	public Set<AuthorProfile> getAuthorProfilesForMergerAccntId() {
-		return this.authorProfilesForMergerAccntId;
-	}
-
-	public void setAuthorProfilesForMergerAccntId(
-			Set<AuthorProfile> authorProfilesForMergerAccntId) {
-		this.authorProfilesForMergerAccntId = authorProfilesForMergerAccntId;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
-	public Set<UserReferenceData> getUserReferenceDatasForCreatedBy() {
-		return this.userReferenceDatasForCreatedBy;
-	}
-
-	public void setUserReferenceDatasForCreatedBy(
-			Set<UserReferenceData> userReferenceDatasForCreatedBy) {
-		this.userReferenceDatasForCreatedBy = userReferenceDatasForCreatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
-	public Set<AdminDetails> getAdminDetailsesForUpdatedBy() {
-		return this.adminDetailsesForUpdatedBy;
-	}
-
-	public void setAdminDetailsesForUpdatedBy(
-			Set<AdminDetails> adminDetailsesForUpdatedBy) {
-		this.adminDetailsesForUpdatedBy = adminDetailsesForUpdatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
-	public Set<UserAffiliations> getUserAffiliationsesForCreatedBy() {
-		return this.userAffiliationsesForCreatedBy;
-	}
-
-	public void setUserAffiliationsesForCreatedBy(
-			Set<UserAffiliations> userAffiliationsesForCreatedBy) {
-		this.userAffiliationsesForCreatedBy = userAffiliationsesForCreatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
-	public Set<UserAlerts> getUserAlertsesForCreatedBy() {
-		return this.userAlertsesForCreatedBy;
-	}
-
-	public void setUserAlertsesForCreatedBy(
-			Set<UserAlerts> userAlertsesForCreatedBy) {
-		this.userAlertsesForCreatedBy = userAlertsesForCreatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
-	public Set<UserSocietyDetails> getUserSocietyDetailsesForCreatedBy() {
-		return this.userSocietyDetailsesForCreatedBy;
-	}
-
-	public void setUserSocietyDetailsesForCreatedBy(
-			Set<UserSocietyDetails> userSocietyDetailsesForCreatedBy) {
-		this.userSocietyDetailsesForCreatedBy = userSocietyDetailsesForCreatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
-	public Set<Alerts> getAlertsesForUpdatedBy() {
-		return this.alertsesForUpdatedBy;
-	}
-
-	public void setAlertsesForUpdatedBy(Set<Alerts> alertsesForUpdatedBy) {
-		this.alertsesForUpdatedBy = alertsesForUpdatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
-	public Set<Alerts> getAlertsesForCreatedBy() {
-		return this.alertsesForCreatedBy;
-	}
-
-	public void setAlertsesForCreatedBy(Set<Alerts> alertsesForCreatedBy) {
-		this.alertsesForCreatedBy = alertsesForCreatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
-	public Set<AuthCoauthDetails> getAuthCoauthDetailsesForUpdatedBy() {
-		return this.authCoauthDetailsesForUpdatedBy;
-	}
-
-	public void setAuthCoauthDetailsesForUpdatedBy(
-			Set<AuthCoauthDetails> authCoauthDetailsesForUpdatedBy) {
-		this.authCoauthDetailsesForUpdatedBy = authCoauthDetailsesForUpdatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
-	public Set<AuthCoauthDetails> getAuthCoauthDetailsesForCreatedBy() {
-		return this.authCoauthDetailsesForCreatedBy;
-	}
-
-	public void setAuthCoauthDetailsesForCreatedBy(
-			Set<AuthCoauthDetails> authCoauthDetailsesForCreatedBy) {
-		this.authCoauthDetailsesForCreatedBy = authCoauthDetailsesForCreatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
-	public Set<UserReferenceData> getUserReferenceDatasForUpdatedBy() {
-		return this.userReferenceDatasForUpdatedBy;
-	}
-
-	public void setUserReferenceDatasForUpdatedBy(
-			Set<UserReferenceData> userReferenceDatasForUpdatedBy) {
-		this.userReferenceDatasForUpdatedBy = userReferenceDatasForUpdatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
-	public Set<UserAreaOfInterest> getUserAreaOfInterestsForCreatedBy() {
-		return this.userAreaOfInterestsForCreatedBy;
-	}
-
-	public void setUserAreaOfInterestsForCreatedBy(
-			Set<UserAreaOfInterest> userAreaOfInterestsForCreatedBy) {
-		this.userAreaOfInterestsForCreatedBy = userAreaOfInterestsForCreatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUserId")
-	public Set<UserAddresses> getUserAddressesesForUserId() {
-		return this.userAddressesesForUserId;
-	}
-
-	public void setUserAddressesesForUserId(
-			Set<UserAddresses> userAddressesesForUserId) {
-		this.userAddressesesForUserId = userAddressesesForUserId;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
-	public Set<UserPreferredJournals> getUserPreferredJournalsesForUpdatedBy() {
-		return this.userPreferredJournalsesForUpdatedBy;
-	}
-
-	public void setUserPreferredJournalsesForUpdatedBy(
-			Set<UserPreferredJournals> userPreferredJournalsesForUpdatedBy) {
-		this.userPreferredJournalsesForUpdatedBy = userPreferredJournalsesForUpdatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUserId")
-	public Set<UserReferenceData> getUserReferenceDatasForUserId() {
-		return this.userReferenceDatasForUserId;
-	}
-
-	public void setUserReferenceDatasForUserId(
-			Set<UserReferenceData> userReferenceDatasForUserId) {
-		this.userReferenceDatasForUserId = userReferenceDatasForUserId;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
-	public Set<UserPreferredJournals> getUserPreferredJournalsesForCreatedBy() {
-		return this.userPreferredJournalsesForCreatedBy;
-	}
-
-	public void setUserPreferredJournalsesForCreatedBy(
-			Set<UserPreferredJournals> userPreferredJournalsesForCreatedBy) {
-		this.userPreferredJournalsesForCreatedBy = userPreferredJournalsesForCreatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
-	public Set<Journals> getJournalsesForCreatedBy() {
-		return this.journalsesForCreatedBy;
-	}
-
-	public void setJournalsesForCreatedBy(Set<Journals> journalsesForCreatedBy) {
-		this.journalsesForCreatedBy = journalsesForCreatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
-	public Set<UserProfileAttribVisible> getUserProfileAttribVisiblesForUpdatedBy() {
-		return this.userProfileAttribVisiblesForUpdatedBy;
-	}
-
-	public void setUserProfileAttribVisiblesForUpdatedBy(
-			Set<UserProfileAttribVisible> userProfileAttribVisiblesForUpdatedBy) {
-		this.userProfileAttribVisiblesForUpdatedBy = userProfileAttribVisiblesForUpdatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
-	public Set<UserProfileAttribVisible> getUserProfileAttribVisiblesForCreatedBy() {
-		return this.userProfileAttribVisiblesForCreatedBy;
-	}
-
-	public void setUserProfileAttribVisiblesForCreatedBy(
-			Set<UserProfileAttribVisible> userProfileAttribVisiblesForCreatedBy) {
-		this.userProfileAttribVisiblesForCreatedBy = userProfileAttribVisiblesForCreatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
-	public Set<Roles> getRolesesForUpdatedBy() {
-		return this.rolesesForUpdatedBy;
-	}
-
-	public void setRolesesForUpdatedBy(Set<Roles> rolesesForUpdatedBy) {
-		this.rolesesForUpdatedBy = rolesesForUpdatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
-	public Set<UserAddresses> getUserAddressesesForUpdatedBy() {
-		return this.userAddressesesForUpdatedBy;
-	}
-
-	public void setUserAddressesesForUpdatedBy(
-			Set<UserAddresses> userAddressesesForUpdatedBy) {
-		this.userAddressesesForUpdatedBy = userAddressesesForUpdatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
-	public Set<Roles> getRolesesForCreatedBy() {
-		return this.rolesesForCreatedBy;
-	}
-
-	public void setRolesesForCreatedBy(Set<Roles> rolesesForCreatedBy) {
-		this.rolesesForCreatedBy = rolesesForCreatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
-	public Set<UserAddresses> getUserAddressesesForCreatedBy() {
-		return this.userAddressesesForCreatedBy;
-	}
-
-	public void setUserAddressesesForCreatedBy(
-			Set<UserAddresses> userAddressesesForCreatedBy) {
-		this.userAddressesesForCreatedBy = userAddressesesForCreatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
-	public Set<Address> getAddressesForUpdatedBy() {
-		return this.addressesForUpdatedBy;
-	}
-
-	public void setAddressesForUpdatedBy(Set<Address> addressesForUpdatedBy) {
-		this.addressesForUpdatedBy = addressesForUpdatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
-	public Set<Address> getAddressesForCreatedBy() {
-		return this.addressesForCreatedBy;
-	}
-
-	public void setAddressesForCreatedBy(Set<Address> addressesForCreatedBy) {
-		this.addressesForCreatedBy = addressesForCreatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
-	public Set<Journals> getJournalsesForUpdatedBy() {
-		return this.journalsesForUpdatedBy;
-	}
-
-	public void setJournalsesForUpdatedBy(Set<Journals> journalsesForUpdatedBy) {
-		this.journalsesForUpdatedBy = journalsesForUpdatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
-	public Set<Users> getUsersesForCreatedBy() {
-		return this.usersesForCreatedBy;
-	}
-
-	public void setUsersesForCreatedBy(Set<Users> usersesForCreatedBy) {
-		this.usersesForCreatedBy = usersesForCreatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
-	public Set<AuthorProfile> getAuthorProfilesForUpdatedBy() {
-		return this.authorProfilesForUpdatedBy;
-	}
-
-	public void setAuthorProfilesForUpdatedBy(
-			Set<AuthorProfile> authorProfilesForUpdatedBy) {
-		this.authorProfilesForUpdatedBy = authorProfilesForUpdatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
-	public Set<AuthorProfile> getAuthorProfilesForCreatedBy() {
-		return this.authorProfilesForCreatedBy;
-	}
-
-	public void setAuthorProfilesForCreatedBy(
-			Set<AuthorProfile> authorProfilesForCreatedBy) {
-		this.authorProfilesForCreatedBy = authorProfilesForCreatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
-	public Set<Users> getUsersesForUpdatedBy() {
-		return this.usersesForUpdatedBy;
-	}
-
-	public void setUsersesForUpdatedBy(Set<Users> usersesForUpdatedBy) {
-		this.usersesForUpdatedBy = usersesForUpdatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
-	public Set<UserAreaOfInterest> getUserAreaOfInterestsForUpdatedBy() {
-		return this.userAreaOfInterestsForUpdatedBy;
-	}
-
-	public void setUserAreaOfInterestsForUpdatedBy(
-			Set<UserAreaOfInterest> userAreaOfInterestsForUpdatedBy) {
-		this.userAreaOfInterestsForUpdatedBy = userAreaOfInterestsForUpdatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
-	public Set<AuthColleagueDetails> getAuthColleagueDetailsesForCreatedBy() {
-		return this.authColleagueDetailsesForCreatedBy;
-	}
-
-	public void setAuthColleagueDetailsesForCreatedBy(
-			Set<AuthColleagueDetails> authColleagueDetailsesForCreatedBy) {
-		this.authColleagueDetailsesForCreatedBy = authColleagueDetailsesForCreatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
-	public Set<AreaOfInterest> getAreaOfInterestsForUpdatedBy() {
-		return this.areaOfInterestsForUpdatedBy;
-	}
-
-	public void setAreaOfInterestsForUpdatedBy(
-			Set<AreaOfInterest> areaOfInterestsForUpdatedBy) {
-		this.areaOfInterestsForUpdatedBy = areaOfInterestsForUpdatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
-	public Set<AreaOfInterest> getAreaOfInterestsForCreatedBy() {
-		return this.areaOfInterestsForCreatedBy;
-	}
-
-	public void setAreaOfInterestsForCreatedBy(
-			Set<AreaOfInterest> areaOfInterestsForCreatedBy) {
-		this.areaOfInterestsForCreatedBy = areaOfInterestsForCreatedBy;
-	}
-
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "usersByUserId")
-	public AdminDetails getAdminDetailsByUserId() {
-		return this.adminDetailsByUserId;
-	}
-
-	public void setAdminDetailsByUserId(AdminDetails adminDetailsByUserId) {
-		this.adminDetailsByUserId = adminDetailsByUserId;
-	}
-
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "usersByUserId")
-	public AuthorProfile getAuthorProfileByUserId() {
-		return this.authorProfileByUserId;
-	}
-
-	public void setAuthorProfileByUserId(AuthorProfile authorProfileByUserId) {
-		this.authorProfileByUserId = authorProfileByUserId;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
-	public Set<Permissions> getPermissionsesForCreatedBy() {
-		return this.permissionsesForCreatedBy;
-	}
-
-	public void setPermissionsesForCreatedBy(
-			Set<Permissions> permissionsesForCreatedBy) {
-		this.permissionsesForCreatedBy = permissionsesForCreatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
-	public Set<ResearchFunders> getResearchFundersesForCreatedBy() {
-		return this.researchFundersesForCreatedBy;
-	}
-
-	public void setResearchFundersesForCreatedBy(
-			Set<ResearchFunders> researchFundersesForCreatedBy) {
-		this.researchFundersesForCreatedBy = researchFundersesForCreatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
-	public Set<AdminDetails> getAdminDetailsesForCreatedBy() {
-		return this.adminDetailsesForCreatedBy;
-	}
-
-	public void setAdminDetailsesForCreatedBy(
-			Set<AdminDetails> adminDetailsesForCreatedBy) {
-		this.adminDetailsesForCreatedBy = adminDetailsesForCreatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
-	public Set<UserWoaAccounts> getUserWoaAccountsesForUpdatedBy() {
-		return this.userWoaAccountsesForUpdatedBy;
-	}
-
-	public void setUserWoaAccountsesForUpdatedBy(
-			Set<UserWoaAccounts> userWoaAccountsesForUpdatedBy) {
-		this.userWoaAccountsesForUpdatedBy = userWoaAccountsesForUpdatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
-	public Set<UserWoaAccounts> getUserWoaAccountsesForCreatedBy() {
-		return this.userWoaAccountsesForCreatedBy;
-	}
-
-	public void setUserWoaAccountsesForCreatedBy(
-			Set<UserWoaAccounts> userWoaAccountsesForCreatedBy) {
-		this.userWoaAccountsesForCreatedBy = userWoaAccountsesForCreatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
-	public Set<AuthColleagueDetails> getAuthColleagueDetailsesForUpdatedBy() {
-		return this.authColleagueDetailsesForUpdatedBy;
-	}
-
-	public void setAuthColleagueDetailsesForUpdatedBy(
-			Set<AuthColleagueDetails> authColleagueDetailsesForUpdatedBy) {
-		this.authColleagueDetailsesForUpdatedBy = authColleagueDetailsesForUpdatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
-	public Set<UserFunderGrants> getUserFunderGrantsesForUpdatedBy() {
-		return this.userFunderGrantsesForUpdatedBy;
-	}
-
-	public void setUserFunderGrantsesForUpdatedBy(
-			Set<UserFunderGrants> userFunderGrantsesForUpdatedBy) {
-		this.userFunderGrantsesForUpdatedBy = userFunderGrantsesForUpdatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
-	public Set<UserFunderGrants> getUserFunderGrantsesForCreatedBy() {
-		return this.userFunderGrantsesForCreatedBy;
-	}
-
-	public void setUserFunderGrantsesForCreatedBy(
-			Set<UserFunderGrants> userFunderGrantsesForCreatedBy) {
-		this.userFunderGrantsesForCreatedBy = userFunderGrantsesForCreatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
-	public Set<Permissions> getPermissionsesForUpdatedBy() {
-		return this.permissionsesForUpdatedBy;
-	}
-
-	public void setPermissionsesForUpdatedBy(
-			Set<Permissions> permissionsesForUpdatedBy) {
-		this.permissionsesForUpdatedBy = permissionsesForUpdatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
-	public Set<ResearchFunders> getResearchFundersesForUpdatedBy() {
-		return this.researchFundersesForUpdatedBy;
-	}
-
-	public void setResearchFundersesForUpdatedBy(
-			Set<ResearchFunders> researchFundersesForUpdatedBy) {
-		this.researchFundersesForUpdatedBy = researchFundersesForUpdatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUserId")
-	public Set<UserSecondaryEmailAddr> getUserSecondaryEmailAddrsForUserId() {
-		return this.userSecondaryEmailAddrsForUserId;
-	}
-
-	public void setUserSecondaryEmailAddrsForUserId(
-			Set<UserSecondaryEmailAddr> userSecondaryEmailAddrsForUserId) {
-		this.userSecondaryEmailAddrsForUserId = userSecondaryEmailAddrsForUserId;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
-	public Set<ProfileAttributeList> getProfileAttributeListsForUpdatedBy() {
-		return this.profileAttributeListsForUpdatedBy;
-	}
-
-	public void setProfileAttributeListsForUpdatedBy(
-			Set<ProfileAttributeList> profileAttributeListsForUpdatedBy) {
-		this.profileAttributeListsForUpdatedBy = profileAttributeListsForUpdatedBy;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUserId")
-	public Set<UserRoles> getUserRolesesForUserId() {
-		return this.userRolesesForUserId;
-	}
-
-	public void setUserRolesesForUserId(Set<UserRoles> userRolesesForUserId) {
-		this.userRolesesForUserId = userRolesesForUserId;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
-	public Set<ProfileAttributeList> getProfileAttributeListsForCreatedBy() {
-		return this.profileAttributeListsForCreatedBy;
-	}
-
-	public void setProfileAttributeListsForCreatedBy(
-			Set<ProfileAttributeList> profileAttributeListsForCreatedBy) {
-		this.profileAttributeListsForCreatedBy = profileAttributeListsForCreatedBy;
-	}
+    private Integer userId;
+    private Users usersByCreatedBy;
+    private Users usersByUpdatedBy;
+    private String firstName;
+    private String lastName;
+    private String primaryEmailAddr;
+    private Integer as1UserId;
+    private Integer invalidLoginCnt;
+    private Date accountLockedTime;
+    private Date lastLoginDate;
+    private Date createdDate;
+    private Date updatedDate;
+    private Set<AuditDetails> auditDetailsesForUserId = new HashSet<AuditDetails>(
+            0);
+    private Set<AuthColleagueDetails> authColleagueDetailsesForCreatedBy = new HashSet<AuthColleagueDetails>(
+            0);
+    private Set<LockedAccountDetails> lockedAccountDetailsesForCreatedBy = new HashSet<LockedAccountDetails>(
+            0);
+    private Set<UserAlerts> userAlertsesForUpdatedBy = new HashSet<UserAlerts>(
+            0);
+    private Set<UserWoaAccounts> userWoaAccountsesForCreatedBy = new HashSet<UserWoaAccounts>(
+            0);
+    private Set<Journals> journalsesForUpdatedBy = new HashSet<Journals>(0);
+    private Set<UserAlerts> userAlertsesForCreatedBy = new HashSet<UserAlerts>(
+            0);
+    private Set<Journals> journalsesForCreatedBy = new HashSet<Journals>(0);
+    private Set<AuthColleagueDetails> authColleagueDetailsesForUpdatedBy = new HashSet<AuthColleagueDetails>(
+            0);
+    private Set<AdditionalPermissions> additionalPermissionsesForUserId = new HashSet<AdditionalPermissions>(
+            0);
+    private Set<AdminProfile> adminProfilesForCreatedBy = new HashSet<AdminProfile>(
+            0);
+    private Set<Address> addressesForUpdatedBy = new HashSet<Address>(0);
+    private Set<Address> addressesForCreatedBy = new HashSet<Address>(0);
+    private Set<Users> usersesForUpdatedBy = new HashSet<Users>(0);
+    private Set<Users> usersesForCreatedBy = new HashSet<Users>(0);
+    private Set<UserAddresses> userAddressesesForUpdatedBy = new HashSet<UserAddresses>(
+            0);
+    private Set<UserProfile> userProfilesForMergerAccntId = new HashSet<UserProfile>(
+            0);
+    private Set<UserAddresses> userAddressesesForCreatedBy = new HashSet<UserAddresses>(
+            0);
+    private Set<Roles> rolesesForUpdatedBy = new HashSet<Roles>(0);
+    private Set<Roles> rolesesForCreatedBy = new HashSet<Roles>(0);
+    private Set<UserAffiliations> userAffiliationsesForUpdatedBy = new HashSet<UserAffiliations>(
+            0);
+    private Set<UserAffiliations> userAffiliationsesForCreatedBy = new HashSet<UserAffiliations>(
+            0);
+    private Set<UserAddresses> userAddressesesForUserId = new HashSet<UserAddresses>(
+            0);
+    private Set<UserFunders> userFundersesForUpdatedBy = new HashSet<UserFunders>(
+            0);
+    private UserReferenceData userReferenceDataByUserId;
+    private Set<AuthCoauthDetails> authCoauthDetailsesForCreatedBy = new HashSet<AuthCoauthDetails>(
+            0);
+    private Set<Alerts> alertsesForUpdatedBy = new HashSet<Alerts>(0);
+    private Set<ObjectTypes> objectTypesesForUpdatedBy = new HashSet<ObjectTypes>(
+            0);
+    private Set<UserAreaOfInterest> userAreaOfInterestsForUpdatedBy = new HashSet<UserAreaOfInterest>(
+            0);
+    private Set<Alerts> alertsesForCreatedBy = new HashSet<Alerts>(0);
+    private Set<ObjectTypes> objectTypesesForCreatedBy = new HashSet<ObjectTypes>(
+            0);
+    private Set<UserAreaOfInterest> userAreaOfInterestsForCreatedBy = new HashSet<UserAreaOfInterest>(
+            0);
+    private Set<Actions> actionsesForUpdatedBy = new HashSet<Actions>(0);
+    private Set<AdminProfile> adminProfilesForUpdatedBy = new HashSet<AdminProfile>(
+            0);
+    private Set<Actions> actionsesForCreatedBy = new HashSet<Actions>(0);
+    private Set<LockedAccountDetails> lockedAccountDetailsesForUpdatedBy = new HashSet<LockedAccountDetails>(
+            0);
+    private Set<UserWoaAccounts> userWoaAccountsesForUpdatedBy = new HashSet<UserWoaAccounts>(
+            0);
+    private Set<AuditDetails> auditDetailsesForCreatedBy = new HashSet<AuditDetails>(
+            0);
+    private Set<LookupValues> lookupValuesesForUpdatedBy = new HashSet<LookupValues>(
+            0);
+    private Set<LookupValues> lookupValuesesForCreatedBy = new HashSet<LookupValues>(
+            0);
+    private Set<UserFunders> userFundersesForCreatedBy = new HashSet<UserFunders>(
+            0);
+    private Set<AddressType> addressTypesForUpdatedBy = new HashSet<AddressType>(
+            0);
+    private Set<AreaOfInterest> areaOfInterestsForUpdatedBy = new HashSet<AreaOfInterest>(
+            0);
+    private Set<AddressType> addressTypesForCreatedBy = new HashSet<AddressType>(
+            0);
+    private Set<AreaOfInterest> areaOfInterestsForCreatedBy = new HashSet<AreaOfInterest>(
+            0);
+    private Set<UserFunderGrants> userFunderGrantsesForUpdatedBy = new HashSet<UserFunderGrants>(
+            0);
+    private Set<UserFunderGrants> userFunderGrantsesForCreatedBy = new HashSet<UserFunderGrants>(
+            0);
+    private Set<Societies> societiesesForUpdatedBy = new HashSet<Societies>(0);
+    private Set<UserProfile> userProfilesForUpdatedBy = new HashSet<UserProfile>(
+            0);
+    private Set<PermissionGroups> permissionGroupsesForCreatedBy = new HashSet<PermissionGroups>(
+            0);
+    private Set<UserProfileAttribVisible> userProfileAttribVisiblesForCreatedBy = new HashSet<UserProfileAttribVisible>(
+            0);
+    private Set<Permissions> permissionsesForUpdatedBy = new HashSet<Permissions>(
+            0);
+    private Set<Permissions> permissionsesForCreatedBy = new HashSet<Permissions>(
+            0);
+    private Set<AuthCoauthDetails> authCoauthDetailsesForUpdatedBy = new HashSet<AuthCoauthDetails>(
+            0);
+    private Set<Societies> societiesesForCreatedBy = new HashSet<Societies>(0);
+    private Set<UserProfile> userProfilesForCreatedBy = new HashSet<UserProfile>(
+            0);
+    private Set<ResearchFunders> researchFundersesForUpdatedBy = new HashSet<ResearchFunders>(
+            0);
+    private Set<ResearchFunders> researchFundersesForCreatedBy = new HashSet<ResearchFunders>(
+            0);
+    private AdminProfile adminProfileByUserId;
+    private Set<PermissionGroups> permissionGroupsesForUpdatedBy = new HashSet<PermissionGroups>(
+            0);
+    private Set<UserProfileAttribVisible> userProfileAttribVisiblesForUpdatedBy = new HashSet<UserProfileAttribVisible>(
+            0);
+    private Set<RolePermissions> rolePermissionsesForUpdatedBy = new HashSet<RolePermissions>(
+            0);
+    private UserProfile userProfileByUserId;
+    private Set<RolePermissions> rolePermissionsesForCreatedBy = new HashSet<RolePermissions>(
+            0);
+    private Set<UserRoles> userRolesesForUpdatedBy = new HashSet<UserRoles>(0);
+    private Set<UserRoles> userRolesesForCreatedBy = new HashSet<UserRoles>(0);
+    private Set<UserReferenceData> userReferenceDatasForUpdatedBy = new HashSet<UserReferenceData>(
+            0);
+    private Set<UserSecondaryEmailAddr> userSecondaryEmailAddrsForUpdatedBy = new HashSet<UserSecondaryEmailAddr>(
+            0);
+    private Set<UserSecondaryEmailAddr> userSecondaryEmailAddrsForCreatedBy = new HashSet<UserSecondaryEmailAddr>(
+            0);
+    private Set<ProfileAttributeList> profileAttributeListsForCreatedBy = new HashSet<ProfileAttributeList>(
+            0);
+    private Set<UserPreferredJournals> userPreferredJournalsesForUpdatedBy = new HashSet<UserPreferredJournals>(
+            0);
+    private Set<UserSecondaryEmailAddr> userSecondaryEmailAddrsForUserId = new HashSet<UserSecondaryEmailAddr>(
+            0);
+    private Set<UserPreferredJournals> userPreferredJournalsesForCreatedBy = new HashSet<UserPreferredJournals>(
+            0);
+    private Set<UserSocietyDetails> userSocietyDetailsesForUpdatedBy = new HashSet<UserSocietyDetails>(
+            0);
+    private Set<UserSocietyDetails> userSocietyDetailsesForCreatedBy = new HashSet<UserSocietyDetails>(
+            0);
+    private Set<UserReferenceData> userReferenceDatasForCreatedBy = new HashSet<UserReferenceData>(
+            0);
+    private Set<UserRoles> userRolesesForUserId = new HashSet<UserRoles>(0);
+    private Set<AdditionalPermissions> additionalPermissionsesForUpdatedBy = new HashSet<AdditionalPermissions>(
+            0);
+    private Set<AdditionalPermissions> additionalPermissionsesForCreatedBy = new HashSet<AdditionalPermissions>(
+            0);
+    private Set<ProfileAttributeList> profileAttributeListsForUpdatedBy = new HashSet<ProfileAttributeList>(
+            0);
+
+    public Users() {
+    }
+
+    public Users(Integer userId, String primaryEmailAddr) {
+        this.userId = userId;
+        this.primaryEmailAddr = primaryEmailAddr;
+    }
+
+    public Users(
+            Integer userId,
+            Users usersByCreatedBy,
+            Users usersByUpdatedBy,
+            String firstName,
+            String lastName,
+            String primaryEmailAddr,
+            Integer as1UserId,
+            Integer invalidLoginCnt,
+            Date accountLockedTime,
+            Date lastLoginDate,
+            Date createdDate,
+            Date updatedDate,
+            Set<AuditDetails> auditDetailsesForUserId,
+            Set<AuthColleagueDetails> authColleagueDetailsesForCreatedBy,
+            Set<LockedAccountDetails> lockedAccountDetailsesForCreatedBy,
+            Set<UserAlerts> userAlertsesForUpdatedBy,
+            Set<UserWoaAccounts> userWoaAccountsesForCreatedBy,
+            Set<Journals> journalsesForUpdatedBy,
+            Set<UserAlerts> userAlertsesForCreatedBy,
+            Set<Journals> journalsesForCreatedBy,
+            Set<AuthColleagueDetails> authColleagueDetailsesForUpdatedBy,
+            Set<AdditionalPermissions> additionalPermissionsesForUserId,
+            Set<AdminProfile> adminProfilesForCreatedBy,
+            Set<Address> addressesForUpdatedBy,
+            Set<Address> addressesForCreatedBy,
+            Set<Users> usersesForUpdatedBy,
+            Set<Users> usersesForCreatedBy,
+            Set<UserAddresses> userAddressesesForUpdatedBy,
+            Set<UserProfile> userProfilesForMergerAccntId,
+            Set<UserAddresses> userAddressesesForCreatedBy,
+            Set<Roles> rolesesForUpdatedBy,
+            Set<Roles> rolesesForCreatedBy,
+            Set<UserAffiliations> userAffiliationsesForUpdatedBy,
+            Set<UserAffiliations> userAffiliationsesForCreatedBy,
+            Set<UserAddresses> userAddressesesForUserId,
+            Set<UserFunders> userFundersesForUpdatedBy,
+            UserReferenceData userReferenceDataByUserId,
+            Set<AuthCoauthDetails> authCoauthDetailsesForCreatedBy,
+            Set<Alerts> alertsesForUpdatedBy,
+            Set<ObjectTypes> objectTypesesForUpdatedBy,
+            Set<UserAreaOfInterest> userAreaOfInterestsForUpdatedBy,
+            Set<Alerts> alertsesForCreatedBy,
+            Set<ObjectTypes> objectTypesesForCreatedBy,
+            Set<UserAreaOfInterest> userAreaOfInterestsForCreatedBy,
+            Set<Actions> actionsesForUpdatedBy,
+            Set<AdminProfile> adminProfilesForUpdatedBy,
+            Set<Actions> actionsesForCreatedBy,
+            Set<LockedAccountDetails> lockedAccountDetailsesForUpdatedBy,
+            Set<UserWoaAccounts> userWoaAccountsesForUpdatedBy,
+            Set<AuditDetails> auditDetailsesForCreatedBy,
+            Set<LookupValues> lookupValuesesForUpdatedBy,
+            Set<LookupValues> lookupValuesesForCreatedBy,
+            Set<UserFunders> userFundersesForCreatedBy,
+            Set<AddressType> addressTypesForUpdatedBy,
+            Set<AreaOfInterest> areaOfInterestsForUpdatedBy,
+            Set<AddressType> addressTypesForCreatedBy,
+            Set<AreaOfInterest> areaOfInterestsForCreatedBy,
+            Set<UserFunderGrants> userFunderGrantsesForUpdatedBy,
+            Set<UserFunderGrants> userFunderGrantsesForCreatedBy,
+            Set<Societies> societiesesForUpdatedBy,
+            Set<UserProfile> userProfilesForUpdatedBy,
+            Set<PermissionGroups> permissionGroupsesForCreatedBy,
+            Set<UserProfileAttribVisible> userProfileAttribVisiblesForCreatedBy,
+            Set<Permissions> permissionsesForUpdatedBy,
+            Set<Permissions> permissionsesForCreatedBy,
+            Set<AuthCoauthDetails> authCoauthDetailsesForUpdatedBy,
+            Set<Societies> societiesesForCreatedBy,
+            Set<UserProfile> userProfilesForCreatedBy,
+            Set<ResearchFunders> researchFundersesForUpdatedBy,
+            Set<ResearchFunders> researchFundersesForCreatedBy,
+            AdminProfile adminProfileByUserId,
+            Set<PermissionGroups> permissionGroupsesForUpdatedBy,
+            Set<UserProfileAttribVisible> userProfileAttribVisiblesForUpdatedBy,
+            Set<RolePermissions> rolePermissionsesForUpdatedBy,
+            UserProfile userProfileByUserId,
+            Set<RolePermissions> rolePermissionsesForCreatedBy,
+            Set<UserRoles> userRolesesForUpdatedBy,
+            Set<UserRoles> userRolesesForCreatedBy,
+            Set<UserReferenceData> userReferenceDatasForUpdatedBy,
+            Set<UserSecondaryEmailAddr> userSecondaryEmailAddrsForUpdatedBy,
+            Set<UserSecondaryEmailAddr> userSecondaryEmailAddrsForCreatedBy,
+            Set<ProfileAttributeList> profileAttributeListsForCreatedBy,
+            Set<UserPreferredJournals> userPreferredJournalsesForUpdatedBy,
+            Set<UserSecondaryEmailAddr> userSecondaryEmailAddrsForUserId,
+            Set<UserPreferredJournals> userPreferredJournalsesForCreatedBy,
+            Set<UserSocietyDetails> userSocietyDetailsesForUpdatedBy,
+            Set<UserSocietyDetails> userSocietyDetailsesForCreatedBy,
+            Set<UserReferenceData> userReferenceDatasForCreatedBy,
+            Set<UserRoles> userRolesesForUserId,
+            Set<AdditionalPermissions> additionalPermissionsesForUpdatedBy,
+            Set<AdditionalPermissions> additionalPermissionsesForCreatedBy,
+            Set<ProfileAttributeList> profileAttributeListsForUpdatedBy) {
+        this.userId = userId;
+        this.usersByCreatedBy = usersByCreatedBy;
+        this.usersByUpdatedBy = usersByUpdatedBy;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.primaryEmailAddr = primaryEmailAddr;
+        this.as1UserId = as1UserId;
+        this.invalidLoginCnt = invalidLoginCnt;
+        this.accountLockedTime = accountLockedTime;
+        this.lastLoginDate = lastLoginDate;
+        this.createdDate = createdDate;
+        this.updatedDate = updatedDate;
+        this.auditDetailsesForUserId = auditDetailsesForUserId;
+        this.authColleagueDetailsesForCreatedBy = authColleagueDetailsesForCreatedBy;
+        this.lockedAccountDetailsesForCreatedBy = lockedAccountDetailsesForCreatedBy;
+        this.userAlertsesForUpdatedBy = userAlertsesForUpdatedBy;
+        this.userWoaAccountsesForCreatedBy = userWoaAccountsesForCreatedBy;
+        this.journalsesForUpdatedBy = journalsesForUpdatedBy;
+        this.userAlertsesForCreatedBy = userAlertsesForCreatedBy;
+        this.journalsesForCreatedBy = journalsesForCreatedBy;
+        this.authColleagueDetailsesForUpdatedBy = authColleagueDetailsesForUpdatedBy;
+        this.additionalPermissionsesForUserId = additionalPermissionsesForUserId;
+        this.adminProfilesForCreatedBy = adminProfilesForCreatedBy;
+        this.addressesForUpdatedBy = addressesForUpdatedBy;
+        this.addressesForCreatedBy = addressesForCreatedBy;
+        this.usersesForUpdatedBy = usersesForUpdatedBy;
+        this.usersesForCreatedBy = usersesForCreatedBy;
+        this.userAddressesesForUpdatedBy = userAddressesesForUpdatedBy;
+        this.userProfilesForMergerAccntId = userProfilesForMergerAccntId;
+        this.userAddressesesForCreatedBy = userAddressesesForCreatedBy;
+        this.rolesesForUpdatedBy = rolesesForUpdatedBy;
+        this.rolesesForCreatedBy = rolesesForCreatedBy;
+        this.userAffiliationsesForUpdatedBy = userAffiliationsesForUpdatedBy;
+        this.userAffiliationsesForCreatedBy = userAffiliationsesForCreatedBy;
+        this.userAddressesesForUserId = userAddressesesForUserId;
+        this.userFundersesForUpdatedBy = userFundersesForUpdatedBy;
+        this.userReferenceDataByUserId = userReferenceDataByUserId;
+        this.authCoauthDetailsesForCreatedBy = authCoauthDetailsesForCreatedBy;
+        this.alertsesForUpdatedBy = alertsesForUpdatedBy;
+        this.objectTypesesForUpdatedBy = objectTypesesForUpdatedBy;
+        this.userAreaOfInterestsForUpdatedBy = userAreaOfInterestsForUpdatedBy;
+        this.alertsesForCreatedBy = alertsesForCreatedBy;
+        this.objectTypesesForCreatedBy = objectTypesesForCreatedBy;
+        this.userAreaOfInterestsForCreatedBy = userAreaOfInterestsForCreatedBy;
+        this.actionsesForUpdatedBy = actionsesForUpdatedBy;
+        this.adminProfilesForUpdatedBy = adminProfilesForUpdatedBy;
+        this.actionsesForCreatedBy = actionsesForCreatedBy;
+        this.lockedAccountDetailsesForUpdatedBy = lockedAccountDetailsesForUpdatedBy;
+        this.userWoaAccountsesForUpdatedBy = userWoaAccountsesForUpdatedBy;
+        this.auditDetailsesForCreatedBy = auditDetailsesForCreatedBy;
+        this.lookupValuesesForUpdatedBy = lookupValuesesForUpdatedBy;
+        this.lookupValuesesForCreatedBy = lookupValuesesForCreatedBy;
+        this.userFundersesForCreatedBy = userFundersesForCreatedBy;
+        this.addressTypesForUpdatedBy = addressTypesForUpdatedBy;
+        this.areaOfInterestsForUpdatedBy = areaOfInterestsForUpdatedBy;
+        this.addressTypesForCreatedBy = addressTypesForCreatedBy;
+        this.areaOfInterestsForCreatedBy = areaOfInterestsForCreatedBy;
+        this.userFunderGrantsesForUpdatedBy = userFunderGrantsesForUpdatedBy;
+        this.userFunderGrantsesForCreatedBy = userFunderGrantsesForCreatedBy;
+        this.societiesesForUpdatedBy = societiesesForUpdatedBy;
+        this.userProfilesForUpdatedBy = userProfilesForUpdatedBy;
+        this.permissionGroupsesForCreatedBy = permissionGroupsesForCreatedBy;
+        this.userProfileAttribVisiblesForCreatedBy = userProfileAttribVisiblesForCreatedBy;
+        this.permissionsesForUpdatedBy = permissionsesForUpdatedBy;
+        this.permissionsesForCreatedBy = permissionsesForCreatedBy;
+        this.authCoauthDetailsesForUpdatedBy = authCoauthDetailsesForUpdatedBy;
+        this.societiesesForCreatedBy = societiesesForCreatedBy;
+        this.userProfilesForCreatedBy = userProfilesForCreatedBy;
+        this.researchFundersesForUpdatedBy = researchFundersesForUpdatedBy;
+        this.researchFundersesForCreatedBy = researchFundersesForCreatedBy;
+        this.adminProfileByUserId = adminProfileByUserId;
+        this.permissionGroupsesForUpdatedBy = permissionGroupsesForUpdatedBy;
+        this.userProfileAttribVisiblesForUpdatedBy = userProfileAttribVisiblesForUpdatedBy;
+        this.rolePermissionsesForUpdatedBy = rolePermissionsesForUpdatedBy;
+        this.userProfileByUserId = userProfileByUserId;
+        this.rolePermissionsesForCreatedBy = rolePermissionsesForCreatedBy;
+        this.userRolesesForUpdatedBy = userRolesesForUpdatedBy;
+        this.userRolesesForCreatedBy = userRolesesForCreatedBy;
+        this.userReferenceDatasForUpdatedBy = userReferenceDatasForUpdatedBy;
+        this.userSecondaryEmailAddrsForUpdatedBy = userSecondaryEmailAddrsForUpdatedBy;
+        this.userSecondaryEmailAddrsForCreatedBy = userSecondaryEmailAddrsForCreatedBy;
+        this.profileAttributeListsForCreatedBy = profileAttributeListsForCreatedBy;
+        this.userPreferredJournalsesForUpdatedBy = userPreferredJournalsesForUpdatedBy;
+        this.userSecondaryEmailAddrsForUserId = userSecondaryEmailAddrsForUserId;
+        this.userPreferredJournalsesForCreatedBy = userPreferredJournalsesForCreatedBy;
+        this.userSocietyDetailsesForUpdatedBy = userSocietyDetailsesForUpdatedBy;
+        this.userSocietyDetailsesForCreatedBy = userSocietyDetailsesForCreatedBy;
+        this.userReferenceDatasForCreatedBy = userReferenceDatasForCreatedBy;
+        this.userRolesesForUserId = userRolesesForUserId;
+        this.additionalPermissionsesForUpdatedBy = additionalPermissionsesForUpdatedBy;
+        this.additionalPermissionsesForCreatedBy = additionalPermissionsesForCreatedBy;
+        this.profileAttributeListsForUpdatedBy = profileAttributeListsForUpdatedBy;
+    }
+
+    @Id
+    @Column(name = "USER_ID", unique = true, nullable = false, precision = 22, scale = 0)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_SEQ")
+    @SequenceGenerator(name = "USER_SEQ", sequenceName = "USER_SEQ", allocationSize = 1)
+    public Integer getUserId() {
+        return this.userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CREATED_BY")
+    public Users getUsersByCreatedBy() {
+        return this.usersByCreatedBy;
+    }
+
+    public void setUsersByCreatedBy(Users usersByCreatedBy) {
+        this.usersByCreatedBy = usersByCreatedBy;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "UPDATED_BY")
+    public Users getUsersByUpdatedBy() {
+        return this.usersByUpdatedBy;
+    }
+
+    public void setUsersByUpdatedBy(Users usersByUpdatedBy) {
+        this.usersByUpdatedBy = usersByUpdatedBy;
+    }
+
+    @Column(name = "FIRST_NAME", length = 100)
+    public String getFirstName() {
+        return this.firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    @Column(name = "LAST_NAME", length = 100)
+    public String getLastName() {
+        return this.lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    @Column(name = "PRIMARY_EMAIL_ADDR", unique = true, nullable = false, length = 100)
+    public String getPrimaryEmailAddr() {
+        return this.primaryEmailAddr;
+    }
+
+    public void setPrimaryEmailAddr(String primaryEmailAddr) {
+        this.primaryEmailAddr = primaryEmailAddr;
+    }
+
+    @Column(name = "AS1_USER_ID", precision = 22, scale = 0)
+    public Integer getAs1UserId() {
+        return this.as1UserId;
+    }
+
+    public void setAs1UserId(Integer as1UserId) {
+        this.as1UserId = as1UserId;
+    }
+
+    @Column(name = "INVALID_LOGIN_CNT", precision = 2, scale = 0)
+    public Integer getInvalidLoginCnt() {
+        return this.invalidLoginCnt;
+    }
+
+    public void setInvalidLoginCnt(Integer invalidLoginCnt) {
+        this.invalidLoginCnt = invalidLoginCnt;
+    }
+
+    @Column(name = "ACCOUNT_LOCKED_TIME")
+    public Date getAccountLockedTime() {
+        return this.accountLockedTime;
+    }
+
+    public void setAccountLockedTime(Date accountLockedTime) {
+        this.accountLockedTime = accountLockedTime;
+    }
+
+    @Column(name = "LAST_LOGIN_DATE")
+    public Date getLastLoginDate() {
+        return this.lastLoginDate;
+    }
+
+    public void setLastLoginDate(Date lastLoginDate) {
+        this.lastLoginDate = lastLoginDate;
+    }
+
+    @Column(name = "CREATED_DATE")
+    public Date getCreatedDate() {
+        return this.createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    @Column(name = "UPDATED_DATE")
+    public Date getUpdatedDate() {
+        return this.updatedDate;
+    }
+
+    public void setUpdatedDate(Date updatedDate) {
+        this.updatedDate = updatedDate;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUserId")
+    public Set<AuditDetails> getAuditDetailsesForUserId() {
+        return this.auditDetailsesForUserId;
+    }
+
+    public void setAuditDetailsesForUserId(
+            Set<AuditDetails> auditDetailsesForUserId) {
+        this.auditDetailsesForUserId = auditDetailsesForUserId;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<AuthColleagueDetails> getAuthColleagueDetailsesForCreatedBy() {
+        return this.authColleagueDetailsesForCreatedBy;
+    }
+
+    public void setAuthColleagueDetailsesForCreatedBy(
+            Set<AuthColleagueDetails> authColleagueDetailsesForCreatedBy) {
+        this.authColleagueDetailsesForCreatedBy = authColleagueDetailsesForCreatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<LockedAccountDetails> getLockedAccountDetailsesForCreatedBy() {
+        return this.lockedAccountDetailsesForCreatedBy;
+    }
+
+    public void setLockedAccountDetailsesForCreatedBy(
+            Set<LockedAccountDetails> lockedAccountDetailsesForCreatedBy) {
+        this.lockedAccountDetailsesForCreatedBy = lockedAccountDetailsesForCreatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
+    public Set<UserAlerts> getUserAlertsesForUpdatedBy() {
+        return this.userAlertsesForUpdatedBy;
+    }
+
+    public void setUserAlertsesForUpdatedBy(
+            Set<UserAlerts> userAlertsesForUpdatedBy) {
+        this.userAlertsesForUpdatedBy = userAlertsesForUpdatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<UserWoaAccounts> getUserWoaAccountsesForCreatedBy() {
+        return this.userWoaAccountsesForCreatedBy;
+    }
+
+    public void setUserWoaAccountsesForCreatedBy(
+            Set<UserWoaAccounts> userWoaAccountsesForCreatedBy) {
+        this.userWoaAccountsesForCreatedBy = userWoaAccountsesForCreatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
+    public Set<Journals> getJournalsesForUpdatedBy() {
+        return this.journalsesForUpdatedBy;
+    }
+
+    public void setJournalsesForUpdatedBy(Set<Journals> journalsesForUpdatedBy) {
+        this.journalsesForUpdatedBy = journalsesForUpdatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<UserAlerts> getUserAlertsesForCreatedBy() {
+        return this.userAlertsesForCreatedBy;
+    }
+
+    public void setUserAlertsesForCreatedBy(
+            Set<UserAlerts> userAlertsesForCreatedBy) {
+        this.userAlertsesForCreatedBy = userAlertsesForCreatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<Journals> getJournalsesForCreatedBy() {
+        return this.journalsesForCreatedBy;
+    }
+
+    public void setJournalsesForCreatedBy(Set<Journals> journalsesForCreatedBy) {
+        this.journalsesForCreatedBy = journalsesForCreatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
+    public Set<AuthColleagueDetails> getAuthColleagueDetailsesForUpdatedBy() {
+        return this.authColleagueDetailsesForUpdatedBy;
+    }
+
+    public void setAuthColleagueDetailsesForUpdatedBy(
+            Set<AuthColleagueDetails> authColleagueDetailsesForUpdatedBy) {
+        this.authColleagueDetailsesForUpdatedBy = authColleagueDetailsesForUpdatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUserId")
+    public Set<AdditionalPermissions> getAdditionalPermissionsesForUserId() {
+        return this.additionalPermissionsesForUserId;
+    }
+
+    public void setAdditionalPermissionsesForUserId(
+            Set<AdditionalPermissions> additionalPermissionsesForUserId) {
+        this.additionalPermissionsesForUserId = additionalPermissionsesForUserId;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<AdminProfile> getAdminProfilesForCreatedBy() {
+        return this.adminProfilesForCreatedBy;
+    }
+
+    public void setAdminProfilesForCreatedBy(
+            Set<AdminProfile> adminProfilesForCreatedBy) {
+        this.adminProfilesForCreatedBy = adminProfilesForCreatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
+    public Set<Address> getAddressesForUpdatedBy() {
+        return this.addressesForUpdatedBy;
+    }
+
+    public void setAddressesForUpdatedBy(Set<Address> addressesForUpdatedBy) {
+        this.addressesForUpdatedBy = addressesForUpdatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<Address> getAddressesForCreatedBy() {
+        return this.addressesForCreatedBy;
+    }
+
+    public void setAddressesForCreatedBy(Set<Address> addressesForCreatedBy) {
+        this.addressesForCreatedBy = addressesForCreatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
+    public Set<Users> getUsersesForUpdatedBy() {
+        return this.usersesForUpdatedBy;
+    }
+
+    public void setUsersesForUpdatedBy(Set<Users> usersesForUpdatedBy) {
+        this.usersesForUpdatedBy = usersesForUpdatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<Users> getUsersesForCreatedBy() {
+        return this.usersesForCreatedBy;
+    }
+
+    public void setUsersesForCreatedBy(Set<Users> usersesForCreatedBy) {
+        this.usersesForCreatedBy = usersesForCreatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
+    public Set<UserAddresses> getUserAddressesesForUpdatedBy() {
+        return this.userAddressesesForUpdatedBy;
+    }
+
+    public void setUserAddressesesForUpdatedBy(
+            Set<UserAddresses> userAddressesesForUpdatedBy) {
+        this.userAddressesesForUpdatedBy = userAddressesesForUpdatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByMergerAccntId")
+    public Set<UserProfile> getUserProfilesForMergerAccntId() {
+        return this.userProfilesForMergerAccntId;
+    }
+
+    public void setUserProfilesForMergerAccntId(
+            Set<UserProfile> userProfilesForMergerAccntId) {
+        this.userProfilesForMergerAccntId = userProfilesForMergerAccntId;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<UserAddresses> getUserAddressesesForCreatedBy() {
+        return this.userAddressesesForCreatedBy;
+    }
+
+    public void setUserAddressesesForCreatedBy(
+            Set<UserAddresses> userAddressesesForCreatedBy) {
+        this.userAddressesesForCreatedBy = userAddressesesForCreatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
+    public Set<Roles> getRolesesForUpdatedBy() {
+        return this.rolesesForUpdatedBy;
+    }
+
+    public void setRolesesForUpdatedBy(Set<Roles> rolesesForUpdatedBy) {
+        this.rolesesForUpdatedBy = rolesesForUpdatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<Roles> getRolesesForCreatedBy() {
+        return this.rolesesForCreatedBy;
+    }
+
+    public void setRolesesForCreatedBy(Set<Roles> rolesesForCreatedBy) {
+        this.rolesesForCreatedBy = rolesesForCreatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
+    public Set<UserAffiliations> getUserAffiliationsesForUpdatedBy() {
+        return this.userAffiliationsesForUpdatedBy;
+    }
+
+    public void setUserAffiliationsesForUpdatedBy(
+            Set<UserAffiliations> userAffiliationsesForUpdatedBy) {
+        this.userAffiliationsesForUpdatedBy = userAffiliationsesForUpdatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<UserAffiliations> getUserAffiliationsesForCreatedBy() {
+        return this.userAffiliationsesForCreatedBy;
+    }
+
+    public void setUserAffiliationsesForCreatedBy(
+            Set<UserAffiliations> userAffiliationsesForCreatedBy) {
+        this.userAffiliationsesForCreatedBy = userAffiliationsesForCreatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUserId")
+    public Set<UserAddresses> getUserAddressesesForUserId() {
+        return this.userAddressesesForUserId;
+    }
+
+    public void setUserAddressesesForUserId(
+            Set<UserAddresses> userAddressesesForUserId) {
+        this.userAddressesesForUserId = userAddressesesForUserId;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
+    public Set<UserFunders> getUserFundersesForUpdatedBy() {
+        return this.userFundersesForUpdatedBy;
+    }
+
+    public void setUserFundersesForUpdatedBy(
+            Set<UserFunders> userFundersesForUpdatedBy) {
+        this.userFundersesForUpdatedBy = userFundersesForUpdatedBy;
+    }
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "usersByUserId")
+    public UserReferenceData getUserReferenceDataByUserId() {
+        return this.userReferenceDataByUserId;
+    }
+
+    public void setUserReferenceDataByUserId(
+            UserReferenceData userReferenceDataByUserId) {
+        this.userReferenceDataByUserId = userReferenceDataByUserId;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<AuthCoauthDetails> getAuthCoauthDetailsesForCreatedBy() {
+        return this.authCoauthDetailsesForCreatedBy;
+    }
+
+    public void setAuthCoauthDetailsesForCreatedBy(
+            Set<AuthCoauthDetails> authCoauthDetailsesForCreatedBy) {
+        this.authCoauthDetailsesForCreatedBy = authCoauthDetailsesForCreatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
+    public Set<Alerts> getAlertsesForUpdatedBy() {
+        return this.alertsesForUpdatedBy;
+    }
+
+    public void setAlertsesForUpdatedBy(Set<Alerts> alertsesForUpdatedBy) {
+        this.alertsesForUpdatedBy = alertsesForUpdatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
+    public Set<ObjectTypes> getObjectTypesesForUpdatedBy() {
+        return this.objectTypesesForUpdatedBy;
+    }
+
+    public void setObjectTypesesForUpdatedBy(
+            Set<ObjectTypes> objectTypesesForUpdatedBy) {
+        this.objectTypesesForUpdatedBy = objectTypesesForUpdatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
+    public Set<UserAreaOfInterest> getUserAreaOfInterestsForUpdatedBy() {
+        return this.userAreaOfInterestsForUpdatedBy;
+    }
+
+    public void setUserAreaOfInterestsForUpdatedBy(
+            Set<UserAreaOfInterest> userAreaOfInterestsForUpdatedBy) {
+        this.userAreaOfInterestsForUpdatedBy = userAreaOfInterestsForUpdatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<Alerts> getAlertsesForCreatedBy() {
+        return this.alertsesForCreatedBy;
+    }
+
+    public void setAlertsesForCreatedBy(Set<Alerts> alertsesForCreatedBy) {
+        this.alertsesForCreatedBy = alertsesForCreatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<ObjectTypes> getObjectTypesesForCreatedBy() {
+        return this.objectTypesesForCreatedBy;
+    }
+
+    public void setObjectTypesesForCreatedBy(
+            Set<ObjectTypes> objectTypesesForCreatedBy) {
+        this.objectTypesesForCreatedBy = objectTypesesForCreatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<UserAreaOfInterest> getUserAreaOfInterestsForCreatedBy() {
+        return this.userAreaOfInterestsForCreatedBy;
+    }
+
+    public void setUserAreaOfInterestsForCreatedBy(
+            Set<UserAreaOfInterest> userAreaOfInterestsForCreatedBy) {
+        this.userAreaOfInterestsForCreatedBy = userAreaOfInterestsForCreatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
+    public Set<Actions> getActionsesForUpdatedBy() {
+        return this.actionsesForUpdatedBy;
+    }
+
+    public void setActionsesForUpdatedBy(Set<Actions> actionsesForUpdatedBy) {
+        this.actionsesForUpdatedBy = actionsesForUpdatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
+    public Set<AdminProfile> getAdminProfilesForUpdatedBy() {
+        return this.adminProfilesForUpdatedBy;
+    }
+
+    public void setAdminProfilesForUpdatedBy(
+            Set<AdminProfile> adminProfilesForUpdatedBy) {
+        this.adminProfilesForUpdatedBy = adminProfilesForUpdatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<Actions> getActionsesForCreatedBy() {
+        return this.actionsesForCreatedBy;
+    }
+
+    public void setActionsesForCreatedBy(Set<Actions> actionsesForCreatedBy) {
+        this.actionsesForCreatedBy = actionsesForCreatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
+    public Set<LockedAccountDetails> getLockedAccountDetailsesForUpdatedBy() {
+        return this.lockedAccountDetailsesForUpdatedBy;
+    }
+
+    public void setLockedAccountDetailsesForUpdatedBy(
+            Set<LockedAccountDetails> lockedAccountDetailsesForUpdatedBy) {
+        this.lockedAccountDetailsesForUpdatedBy = lockedAccountDetailsesForUpdatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
+    public Set<UserWoaAccounts> getUserWoaAccountsesForUpdatedBy() {
+        return this.userWoaAccountsesForUpdatedBy;
+    }
+
+    public void setUserWoaAccountsesForUpdatedBy(
+            Set<UserWoaAccounts> userWoaAccountsesForUpdatedBy) {
+        this.userWoaAccountsesForUpdatedBy = userWoaAccountsesForUpdatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<AuditDetails> getAuditDetailsesForCreatedBy() {
+        return this.auditDetailsesForCreatedBy;
+    }
+
+    public void setAuditDetailsesForCreatedBy(
+            Set<AuditDetails> auditDetailsesForCreatedBy) {
+        this.auditDetailsesForCreatedBy = auditDetailsesForCreatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
+    public Set<LookupValues> getLookupValuesesForUpdatedBy() {
+        return this.lookupValuesesForUpdatedBy;
+    }
+
+    public void setLookupValuesesForUpdatedBy(
+            Set<LookupValues> lookupValuesesForUpdatedBy) {
+        this.lookupValuesesForUpdatedBy = lookupValuesesForUpdatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<LookupValues> getLookupValuesesForCreatedBy() {
+        return this.lookupValuesesForCreatedBy;
+    }
+
+    public void setLookupValuesesForCreatedBy(
+            Set<LookupValues> lookupValuesesForCreatedBy) {
+        this.lookupValuesesForCreatedBy = lookupValuesesForCreatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<UserFunders> getUserFundersesForCreatedBy() {
+        return this.userFundersesForCreatedBy;
+    }
+
+    public void setUserFundersesForCreatedBy(
+            Set<UserFunders> userFundersesForCreatedBy) {
+        this.userFundersesForCreatedBy = userFundersesForCreatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
+    public Set<AddressType> getAddressTypesForUpdatedBy() {
+        return this.addressTypesForUpdatedBy;
+    }
+
+    public void setAddressTypesForUpdatedBy(
+            Set<AddressType> addressTypesForUpdatedBy) {
+        this.addressTypesForUpdatedBy = addressTypesForUpdatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
+    public Set<AreaOfInterest> getAreaOfInterestsForUpdatedBy() {
+        return this.areaOfInterestsForUpdatedBy;
+    }
+
+    public void setAreaOfInterestsForUpdatedBy(
+            Set<AreaOfInterest> areaOfInterestsForUpdatedBy) {
+        this.areaOfInterestsForUpdatedBy = areaOfInterestsForUpdatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<AddressType> getAddressTypesForCreatedBy() {
+        return this.addressTypesForCreatedBy;
+    }
+
+    public void setAddressTypesForCreatedBy(
+            Set<AddressType> addressTypesForCreatedBy) {
+        this.addressTypesForCreatedBy = addressTypesForCreatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<AreaOfInterest> getAreaOfInterestsForCreatedBy() {
+        return this.areaOfInterestsForCreatedBy;
+    }
+
+    public void setAreaOfInterestsForCreatedBy(
+            Set<AreaOfInterest> areaOfInterestsForCreatedBy) {
+        this.areaOfInterestsForCreatedBy = areaOfInterestsForCreatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
+    public Set<UserFunderGrants> getUserFunderGrantsesForUpdatedBy() {
+        return this.userFunderGrantsesForUpdatedBy;
+    }
+
+    public void setUserFunderGrantsesForUpdatedBy(
+            Set<UserFunderGrants> userFunderGrantsesForUpdatedBy) {
+        this.userFunderGrantsesForUpdatedBy = userFunderGrantsesForUpdatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<UserFunderGrants> getUserFunderGrantsesForCreatedBy() {
+        return this.userFunderGrantsesForCreatedBy;
+    }
+
+    public void setUserFunderGrantsesForCreatedBy(
+            Set<UserFunderGrants> userFunderGrantsesForCreatedBy) {
+        this.userFunderGrantsesForCreatedBy = userFunderGrantsesForCreatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
+    public Set<Societies> getSocietiesesForUpdatedBy() {
+        return this.societiesesForUpdatedBy;
+    }
+
+    public void setSocietiesesForUpdatedBy(
+            Set<Societies> societiesesForUpdatedBy) {
+        this.societiesesForUpdatedBy = societiesesForUpdatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
+    public Set<UserProfile> getUserProfilesForUpdatedBy() {
+        return this.userProfilesForUpdatedBy;
+    }
+
+    public void setUserProfilesForUpdatedBy(
+            Set<UserProfile> userProfilesForUpdatedBy) {
+        this.userProfilesForUpdatedBy = userProfilesForUpdatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<PermissionGroups> getPermissionGroupsesForCreatedBy() {
+        return this.permissionGroupsesForCreatedBy;
+    }
+
+    public void setPermissionGroupsesForCreatedBy(
+            Set<PermissionGroups> permissionGroupsesForCreatedBy) {
+        this.permissionGroupsesForCreatedBy = permissionGroupsesForCreatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<UserProfileAttribVisible> getUserProfileAttribVisiblesForCreatedBy() {
+        return this.userProfileAttribVisiblesForCreatedBy;
+    }
+
+    public void setUserProfileAttribVisiblesForCreatedBy(
+            Set<UserProfileAttribVisible> userProfileAttribVisiblesForCreatedBy) {
+        this.userProfileAttribVisiblesForCreatedBy = userProfileAttribVisiblesForCreatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
+    public Set<Permissions> getPermissionsesForUpdatedBy() {
+        return this.permissionsesForUpdatedBy;
+    }
+
+    public void setPermissionsesForUpdatedBy(
+            Set<Permissions> permissionsesForUpdatedBy) {
+        this.permissionsesForUpdatedBy = permissionsesForUpdatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<Permissions> getPermissionsesForCreatedBy() {
+        return this.permissionsesForCreatedBy;
+    }
+
+    public void setPermissionsesForCreatedBy(
+            Set<Permissions> permissionsesForCreatedBy) {
+        this.permissionsesForCreatedBy = permissionsesForCreatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
+    public Set<AuthCoauthDetails> getAuthCoauthDetailsesForUpdatedBy() {
+        return this.authCoauthDetailsesForUpdatedBy;
+    }
+
+    public void setAuthCoauthDetailsesForUpdatedBy(
+            Set<AuthCoauthDetails> authCoauthDetailsesForUpdatedBy) {
+        this.authCoauthDetailsesForUpdatedBy = authCoauthDetailsesForUpdatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<Societies> getSocietiesesForCreatedBy() {
+        return this.societiesesForCreatedBy;
+    }
+
+    public void setSocietiesesForCreatedBy(
+            Set<Societies> societiesesForCreatedBy) {
+        this.societiesesForCreatedBy = societiesesForCreatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<UserProfile> getUserProfilesForCreatedBy() {
+        return this.userProfilesForCreatedBy;
+    }
+
+    public void setUserProfilesForCreatedBy(
+            Set<UserProfile> userProfilesForCreatedBy) {
+        this.userProfilesForCreatedBy = userProfilesForCreatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
+    public Set<ResearchFunders> getResearchFundersesForUpdatedBy() {
+        return this.researchFundersesForUpdatedBy;
+    }
+
+    public void setResearchFundersesForUpdatedBy(
+            Set<ResearchFunders> researchFundersesForUpdatedBy) {
+        this.researchFundersesForUpdatedBy = researchFundersesForUpdatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<ResearchFunders> getResearchFundersesForCreatedBy() {
+        return this.researchFundersesForCreatedBy;
+    }
+
+    public void setResearchFundersesForCreatedBy(
+            Set<ResearchFunders> researchFundersesForCreatedBy) {
+        this.researchFundersesForCreatedBy = researchFundersesForCreatedBy;
+    }
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "usersByUserId")
+    public AdminProfile getAdminProfileByUserId() {
+        return this.adminProfileByUserId;
+    }
+
+    public void setAdminProfileByUserId(AdminProfile adminProfileByUserId) {
+        this.adminProfileByUserId = adminProfileByUserId;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
+    public Set<PermissionGroups> getPermissionGroupsesForUpdatedBy() {
+        return this.permissionGroupsesForUpdatedBy;
+    }
+
+    public void setPermissionGroupsesForUpdatedBy(
+            Set<PermissionGroups> permissionGroupsesForUpdatedBy) {
+        this.permissionGroupsesForUpdatedBy = permissionGroupsesForUpdatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
+    public Set<UserProfileAttribVisible> getUserProfileAttribVisiblesForUpdatedBy() {
+        return this.userProfileAttribVisiblesForUpdatedBy;
+    }
+
+    public void setUserProfileAttribVisiblesForUpdatedBy(
+            Set<UserProfileAttribVisible> userProfileAttribVisiblesForUpdatedBy) {
+        this.userProfileAttribVisiblesForUpdatedBy = userProfileAttribVisiblesForUpdatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
+    public Set<RolePermissions> getRolePermissionsesForUpdatedBy() {
+        return this.rolePermissionsesForUpdatedBy;
+    }
+
+    public void setRolePermissionsesForUpdatedBy(
+            Set<RolePermissions> rolePermissionsesForUpdatedBy) {
+        this.rolePermissionsesForUpdatedBy = rolePermissionsesForUpdatedBy;
+    }
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "usersByUserId")
+    public UserProfile getUserProfileByUserId() {
+        return this.userProfileByUserId;
+    }
+
+    public void setUserProfileByUserId(UserProfile userProfileByUserId) {
+        this.userProfileByUserId = userProfileByUserId;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<RolePermissions> getRolePermissionsesForCreatedBy() {
+        return this.rolePermissionsesForCreatedBy;
+    }
+
+    public void setRolePermissionsesForCreatedBy(
+            Set<RolePermissions> rolePermissionsesForCreatedBy) {
+        this.rolePermissionsesForCreatedBy = rolePermissionsesForCreatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
+    public Set<UserRoles> getUserRolesesForUpdatedBy() {
+        return this.userRolesesForUpdatedBy;
+    }
+
+    public void setUserRolesesForUpdatedBy(
+            Set<UserRoles> userRolesesForUpdatedBy) {
+        this.userRolesesForUpdatedBy = userRolesesForUpdatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<UserRoles> getUserRolesesForCreatedBy() {
+        return this.userRolesesForCreatedBy;
+    }
+
+    public void setUserRolesesForCreatedBy(
+            Set<UserRoles> userRolesesForCreatedBy) {
+        this.userRolesesForCreatedBy = userRolesesForCreatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
+    public Set<UserReferenceData> getUserReferenceDatasForUpdatedBy() {
+        return this.userReferenceDatasForUpdatedBy;
+    }
+
+    public void setUserReferenceDatasForUpdatedBy(
+            Set<UserReferenceData> userReferenceDatasForUpdatedBy) {
+        this.userReferenceDatasForUpdatedBy = userReferenceDatasForUpdatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
+    public Set<UserSecondaryEmailAddr> getUserSecondaryEmailAddrsForUpdatedBy() {
+        return this.userSecondaryEmailAddrsForUpdatedBy;
+    }
+
+    public void setUserSecondaryEmailAddrsForUpdatedBy(
+            Set<UserSecondaryEmailAddr> userSecondaryEmailAddrsForUpdatedBy) {
+        this.userSecondaryEmailAddrsForUpdatedBy = userSecondaryEmailAddrsForUpdatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<UserSecondaryEmailAddr> getUserSecondaryEmailAddrsForCreatedBy() {
+        return this.userSecondaryEmailAddrsForCreatedBy;
+    }
+
+    public void setUserSecondaryEmailAddrsForCreatedBy(
+            Set<UserSecondaryEmailAddr> userSecondaryEmailAddrsForCreatedBy) {
+        this.userSecondaryEmailAddrsForCreatedBy = userSecondaryEmailAddrsForCreatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<ProfileAttributeList> getProfileAttributeListsForCreatedBy() {
+        return this.profileAttributeListsForCreatedBy;
+    }
+
+    public void setProfileAttributeListsForCreatedBy(
+            Set<ProfileAttributeList> profileAttributeListsForCreatedBy) {
+        this.profileAttributeListsForCreatedBy = profileAttributeListsForCreatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
+    public Set<UserPreferredJournals> getUserPreferredJournalsesForUpdatedBy() {
+        return this.userPreferredJournalsesForUpdatedBy;
+    }
+
+    public void setUserPreferredJournalsesForUpdatedBy(
+            Set<UserPreferredJournals> userPreferredJournalsesForUpdatedBy) {
+        this.userPreferredJournalsesForUpdatedBy = userPreferredJournalsesForUpdatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUserId")
+    public Set<UserSecondaryEmailAddr> getUserSecondaryEmailAddrsForUserId() {
+        return this.userSecondaryEmailAddrsForUserId;
+    }
+
+    public void setUserSecondaryEmailAddrsForUserId(
+            Set<UserSecondaryEmailAddr> userSecondaryEmailAddrsForUserId) {
+        this.userSecondaryEmailAddrsForUserId = userSecondaryEmailAddrsForUserId;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<UserPreferredJournals> getUserPreferredJournalsesForCreatedBy() {
+        return this.userPreferredJournalsesForCreatedBy;
+    }
+
+    public void setUserPreferredJournalsesForCreatedBy(
+            Set<UserPreferredJournals> userPreferredJournalsesForCreatedBy) {
+        this.userPreferredJournalsesForCreatedBy = userPreferredJournalsesForCreatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
+    public Set<UserSocietyDetails> getUserSocietyDetailsesForUpdatedBy() {
+        return this.userSocietyDetailsesForUpdatedBy;
+    }
+
+    public void setUserSocietyDetailsesForUpdatedBy(
+            Set<UserSocietyDetails> userSocietyDetailsesForUpdatedBy) {
+        this.userSocietyDetailsesForUpdatedBy = userSocietyDetailsesForUpdatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<UserSocietyDetails> getUserSocietyDetailsesForCreatedBy() {
+        return this.userSocietyDetailsesForCreatedBy;
+    }
+
+    public void setUserSocietyDetailsesForCreatedBy(
+            Set<UserSocietyDetails> userSocietyDetailsesForCreatedBy) {
+        this.userSocietyDetailsesForCreatedBy = userSocietyDetailsesForCreatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<UserReferenceData> getUserReferenceDatasForCreatedBy() {
+        return this.userReferenceDatasForCreatedBy;
+    }
+
+    public void setUserReferenceDatasForCreatedBy(
+            Set<UserReferenceData> userReferenceDatasForCreatedBy) {
+        this.userReferenceDatasForCreatedBy = userReferenceDatasForCreatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUserId")
+    public Set<UserRoles> getUserRolesesForUserId() {
+        return this.userRolesesForUserId;
+    }
+
+    public void setUserRolesesForUserId(Set<UserRoles> userRolesesForUserId) {
+        this.userRolesesForUserId = userRolesesForUserId;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
+    public Set<AdditionalPermissions> getAdditionalPermissionsesForUpdatedBy() {
+        return this.additionalPermissionsesForUpdatedBy;
+    }
+
+    public void setAdditionalPermissionsesForUpdatedBy(
+            Set<AdditionalPermissions> additionalPermissionsesForUpdatedBy) {
+        this.additionalPermissionsesForUpdatedBy = additionalPermissionsesForUpdatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<AdditionalPermissions> getAdditionalPermissionsesForCreatedBy() {
+        return this.additionalPermissionsesForCreatedBy;
+    }
+
+    public void setAdditionalPermissionsesForCreatedBy(
+            Set<AdditionalPermissions> additionalPermissionsesForCreatedBy) {
+        this.additionalPermissionsesForCreatedBy = additionalPermissionsesForCreatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
+    public Set<ProfileAttributeList> getProfileAttributeListsForUpdatedBy() {
+        return this.profileAttributeListsForUpdatedBy;
+    }
+
+    public void setProfileAttributeListsForUpdatedBy(
+            Set<ProfileAttributeList> profileAttributeListsForUpdatedBy) {
+        this.profileAttributeListsForUpdatedBy = profileAttributeListsForUpdatedBy;
+    }
 
 }

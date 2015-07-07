@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated May 26, 2015 6:09:14 PM by Hibernate Tools 3.4.0.CR1
+// Generated Jul 7, 2015 5:39:57 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -18,11 +18,10 @@ import javax.persistence.Table;
 @Table(name = "USER_FUNDER_GRANTS")
 public class UserFunderGrants implements java.io.Serializable {
 
-	private Integer userFunderGrantId;
-	private ResearchFunders researchFunders;
+	private Integer funderGrantId;
 	private Users usersByCreatedBy;
 	private Users usersByUpdatedBy;
-	private AuthorProfile authorProfile;
+	private UserFunders userFunders;
 	private String grantNum;
 	private Date createdDate;
 	private Date updatedDate;
@@ -30,42 +29,30 @@ public class UserFunderGrants implements java.io.Serializable {
 	public UserFunderGrants() {
 	}
 
-	public UserFunderGrants(Integer userFunderGrantId) {
-		this.userFunderGrantId = userFunderGrantId;
+	public UserFunderGrants(Integer funderGrantId) {
+		this.funderGrantId = funderGrantId;
 	}
 
-	public UserFunderGrants(Integer userFunderGrantId,
-			ResearchFunders researchFunders, Users usersByCreatedBy,
-			Users usersByUpdatedBy, AuthorProfile authorProfile,
-			String grantNum, Date createdDate, Date updatedDate) {
-		this.userFunderGrantId = userFunderGrantId;
-		this.researchFunders = researchFunders;
+	public UserFunderGrants(Integer funderGrantId, Users usersByCreatedBy,
+			Users usersByUpdatedBy, UserFunders userFunders, String grantNum,
+			Date createdDate, Date updatedDate) {
+		this.funderGrantId = funderGrantId;
 		this.usersByCreatedBy = usersByCreatedBy;
 		this.usersByUpdatedBy = usersByUpdatedBy;
-		this.authorProfile = authorProfile;
+		this.userFunders = userFunders;
 		this.grantNum = grantNum;
 		this.createdDate = createdDate;
 		this.updatedDate = updatedDate;
 	}
 
 	@Id
-	@Column(name = "USER_FUNDER_GRANT_ID", unique = true, nullable = false, precision = 22, scale = 0)
-	public Integer getUserFunderGrantId() {
-		return this.userFunderGrantId;
+	@Column(name = "FUNDER_GRANT_ID", unique = true, nullable = false, precision = 22, scale = 0)
+	public Integer getFunderGrantId() {
+		return this.funderGrantId;
 	}
 
-	public void setUserFunderGrantId(Integer userFunderGrantId) {
-		this.userFunderGrantId = userFunderGrantId;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "RESFUNDERID")
-	public ResearchFunders getResearchFunders() {
-		return this.researchFunders;
-	}
-
-	public void setResearchFunders(ResearchFunders researchFunders) {
-		this.researchFunders = researchFunders;
+	public void setFunderGrantId(Integer funderGrantId) {
+		this.funderGrantId = funderGrantId;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -89,16 +76,16 @@ public class UserFunderGrants implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USER_ID")
-	public AuthorProfile getAuthorProfile() {
-		return this.authorProfile;
+	@JoinColumn(name = "USER_FUNDER_ID")
+	public UserFunders getUserFunders() {
+		return this.userFunders;
 	}
 
-	public void setAuthorProfile(AuthorProfile authorProfile) {
-		this.authorProfile = authorProfile;
+	public void setUserFunders(UserFunders userFunders) {
+		this.userFunders = userFunders;
 	}
 
-	@Column(name = "GRANT_NUM", length = 250)
+	@Column(name = "GRANT_NUM", length = 100)
 	public String getGrantNum() {
 		return this.grantNum;
 	}

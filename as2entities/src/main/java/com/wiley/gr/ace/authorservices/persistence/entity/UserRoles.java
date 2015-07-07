@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated May 26, 2015 6:09:14 PM by Hibernate Tools 3.4.0.CR1
+// Generated Jul 7, 2015 5:39:57 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import javax.persistence.AttributeOverride;
@@ -21,8 +21,8 @@ import javax.persistence.Table;
 public class UserRoles implements java.io.Serializable {
 
 	private UserRolesId id;
-	private Roles roles;
 	private Users usersByCreatedBy;
+	private Roles roles;
 	private Users usersByUpdatedBy;
 	private Users usersByUserId;
 	private Date createdDate;
@@ -37,12 +37,12 @@ public class UserRoles implements java.io.Serializable {
 		this.usersByUserId = usersByUserId;
 	}
 
-	public UserRoles(UserRolesId id, Roles roles, Users usersByCreatedBy,
+	public UserRoles(UserRolesId id, Users usersByCreatedBy, Roles roles,
 			Users usersByUpdatedBy, Users usersByUserId, Date createdDate,
 			Date updatedDate) {
 		this.id = id;
-		this.roles = roles;
 		this.usersByCreatedBy = usersByCreatedBy;
+		this.roles = roles;
 		this.usersByUpdatedBy = usersByUpdatedBy;
 		this.usersByUserId = usersByUserId;
 		this.createdDate = createdDate;
@@ -62,16 +62,6 @@ public class UserRoles implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ROLE_ID", nullable = false, insertable = false, updatable = false)
-	public Roles getRoles() {
-		return this.roles;
-	}
-
-	public void setRoles(Roles roles) {
-		this.roles = roles;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CREATED_BY")
 	public Users getUsersByCreatedBy() {
 		return this.usersByCreatedBy;
@@ -79,6 +69,16 @@ public class UserRoles implements java.io.Serializable {
 
 	public void setUsersByCreatedBy(Users usersByCreatedBy) {
 		this.usersByCreatedBy = usersByCreatedBy;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ROLE_ID", nullable = false, insertable = false, updatable = false)
+	public Roles getRoles() {
+		return this.roles;
+	}
+
+	public void setRoles(Roles roles) {
+		this.roles = roles;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
