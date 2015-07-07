@@ -5,4 +5,5 @@ import com.wiley.gr.ace.authorservices.model.external.AddressValidationRequest;
 public interface ValidationService {
 
 	boolean validateAddress(AddressValidationRequest addressValidationRequest) ;
+	boolean vatValidation(String countriCode, String taxVatRegNum);
 }
