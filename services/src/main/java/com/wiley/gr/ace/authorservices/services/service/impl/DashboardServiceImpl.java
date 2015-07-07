@@ -362,8 +362,7 @@ public class DashboardServiceImpl implements DashboardService {
      * @throws Exception
      *             the exception
      */
-    @Override
-    public final List<ArticleData> getArticleAuthorData(final String userId)
+    private final List<ArticleData> getArticleAuthorData(final String userId)
             throws Exception {
         LOGGER.info("inside getArticleAuthorData Method of DashboardServiceImpl");
         List<ArticleData> articleData = null;
@@ -462,6 +461,24 @@ public class DashboardServiceImpl implements DashboardService {
             final String userId) throws Exception {
         LOGGER.info("inside getCommunicationDetailsList Method of DashboardServiceImpl");
         final EmailCommunicationHistory emailCommunicationHistory = new EmailCommunicationHistory();
+        emailCommunicationHistory
+                .setInvitationCommunicationDetails(getInvitationLogsList(userId));
+        emailCommunicationHistory.setNotifications(notificationService
+                .getNotificationHistory(userId).getNotifications());
+        return emailCommunicationHistory;
+    }
+
+    /**
+     * Gets the invitation logs list.
+     *
+     * @param userId
+     *            the user id
+     * @return the invitation logs list
+     * @throws Exception
+     *             the exception
+     */
+    private final List<CommunicationDetails> getInvitationLogsList(
+            final String userId) throws Exception {
         List<CommunicationDetails> communicationDetailsList = null;
         final List<InvitationLog> invitationLogList = dashboardDAO
                 .getInvitationLogList(userId);
@@ -480,11 +497,7 @@ public class DashboardServiceImpl implements DashboardService {
                 communicationDetailsList.add(communicationDetails);
             }
         }
-        emailCommunicationHistory
-                .setInvitationCommunicationDetails(communicationDetailsList);
-        emailCommunicationHistory.setNotifications(notificationService
-                .getNotificationHistory(userId).getNotifications());
-        return emailCommunicationHistory;
+        return communicationDetailsList;
     }
 
     /**
@@ -585,7 +598,6 @@ public class DashboardServiceImpl implements DashboardService {
     private final DashboardView getPublicationArticleStatus(
             final String articleAuthorRole, final Integer dhId)
             throws Exception {
-        System.err.println("4");
         final DashboardView dashboardView = new DashboardView();
         final ArticleData articleData = esbInterfaceService
                 .getAuthorArticle(dhId);

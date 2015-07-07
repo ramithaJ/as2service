@@ -212,43 +212,43 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * WPG Configuration property values
      */
 
-    @Value("$acquirerId}")
+    @Value("${acquirerId}")
     private String acquirerId;
 
-    // @Value("$wpgTimeStmap}")
+    // @Value("{$wpgTimeStmap}")
     // private String wpgTimeStmap;
 
-    @Value("$wpgVendorId}")
+    @Value("${wpgVendorId}")
     private String wpgVendorId;
 
-    @Value("$wpgTransId}")
-    private String wpgTransId;
+    // @Value("{$wpgTransId}")
+    // private String wpgTransId;
 
-    @Value("$wpgMethod}")
+    @Value("${wpgMethod}")
     private String wpgMethod;
 
-    @Value("$wpgDescription}")
+    @Value("${wpgDescription}")
     private String wpgDescription;
 
-    @Value("$wpgValue}")
+    @Value("${wpgValue}")
     private String wpgValue;
 
-    @Value("$wpgCurrency}")
+    @Value("${wpgCurrency}")
     private String wpgCurrency;
 
-    @Value("$wpgRegion}")
+    @Value("${wpgRegion}")
     private String wpgRegion;
 
-    @Value("$wpgAddress}")
+    @Value("${wpgAddress}")
     private String wpgAddress;
 
-    @Value("$wpgPostCode}")
+    @Value("${wpgPostCode}")
     private String wpgPostCode;
 
-    @Value("$wpgCountryCode}")
+    @Value("${wpgCountryCode}")
     private String wpgCountryCode;
 
-    @Value("$wpgAllowAVSFail}")
+    @Value("${wpgAllowAVSFail}")
     private String wpgAllowAVSFail;
 
     // @Value("$wpgSecurity}")
@@ -1037,11 +1037,15 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         return orderOnlineDAO.updatePaymentDetails(paymentDetails);
     }
 
+    /**
+     * Method to retrieve Wiley Payment Gateway configuration
+     * details.
+     * 
+     */
     @Override
     public WPGConfiguration getWPGConfiguration() {
 
         WPGConfiguration wpgConfiguration = new WPGConfiguration();
-        StringBuilder securityStringBuilder = new StringBuilder();
 
         wpgConfiguration.setAcquirerId(acquirerId);
         wpgConfiguration.setWpgAddress(wpgAddress);
@@ -1054,10 +1058,13 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         wpgConfiguration.setWpgRegion(wpgRegion);
         Long wpgTimeStmp = new Date().getTime();
         wpgConfiguration.setWpgTimeStmap(wpgTimeStmp.toString());
+        // TODO: Need to change the WPG Transaction id once logic is confirmed.
+        String wpgTransId = "";
         wpgConfiguration.setWpgTransId(wpgTransId);
         wpgConfiguration.setWpgValue(wpgValue);
         wpgConfiguration.setWpgVendorId(wpgVendorId);
 
+        StringBuilder securityStringBuilder = new StringBuilder();
         securityStringBuilder.append(wpgTimeStmp.toString())
                 .append(wpgVendorId).append(wpgTransId).append(wpgMethod)
                 .append(wpgDescription).append(wpgRegion).append(wpgAddress)
@@ -1071,7 +1078,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     }
 
     @Override
-    public List<FundingOrganizations> getSubFundersList(String funderId) {
+    public List<FundingOrganizations> getSubFundersList(final String funderId) {
         // TODO Auto-generated method stub
         return null;
     }

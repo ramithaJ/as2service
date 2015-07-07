@@ -192,7 +192,6 @@ public class DashboardController {
         final Service service = new Service();
         DashboardView dashboardView = null;
         try {
-            System.err.println("1");
             dashboardView = dashboardService.getPublishedArticleDetails(userId);
             if (!StringUtils.isEmpty(dashboardView)) {
                 service.setStatus("SUCCESS");
