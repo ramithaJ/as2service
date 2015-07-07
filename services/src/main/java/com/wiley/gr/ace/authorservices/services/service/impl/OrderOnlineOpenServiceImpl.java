@@ -212,43 +212,43 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * WPG Configuration property values
      */
 
-    @Value("$acquirerId}")
+    @Value("${acquirerId}")
     private String acquirerId;
 
-    // @Value("$wpgTimeStmap}")
+    // @Value("{$wpgTimeStmap}")
     // private String wpgTimeStmap;
 
-    @Value("$wpgVendorId}")
+    @Value("${wpgVendorId}")
     private String wpgVendorId;
 
-    // @Value("$wpgTransId}")
+    // @Value("{$wpgTransId}")
     // private String wpgTransId;
 
-    @Value("$wpgMethod}")
+    @Value("${wpgMethod}")
     private String wpgMethod;
 
-    @Value("$wpgDescription}")
+    @Value("${wpgDescription}")
     private String wpgDescription;
 
-    @Value("$wpgValue}")
+    @Value("${wpgValue}")
     private String wpgValue;
 
-    @Value("$wpgCurrency}")
+    @Value("${wpgCurrency}")
     private String wpgCurrency;
 
-    @Value("$wpgRegion}")
+    @Value("${wpgRegion}")
     private String wpgRegion;
 
-    @Value("$wpgAddress}")
+    @Value("${wpgAddress}")
     private String wpgAddress;
 
-    @Value("$wpgPostCode}")
+    @Value("${wpgPostCode}")
     private String wpgPostCode;
 
-    @Value("$wpgCountryCode}")
+    @Value("${wpgCountryCode}")
     private String wpgCountryCode;
 
-    @Value("$wpgAllowAVSFail}")
+    @Value("${wpgAllowAVSFail}")
     private String wpgAllowAVSFail;
 
     // @Value("$wpgSecurity}")
@@ -1078,7 +1078,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     }
 
     @Override
-    public List<FundingOrganizations> getSubFundersList(String funderId) {
+    public List<FundingOrganizations> getSubFundersList(final String funderId) {
         // TODO Auto-generated method stub
         return null;
     }
