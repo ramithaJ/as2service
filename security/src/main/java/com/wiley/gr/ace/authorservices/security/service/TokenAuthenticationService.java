@@ -108,12 +108,12 @@ public class TokenAuthenticationService {
         if (null == cookie) {
             cookie = new Cookie(authenticationCookieName,
                     tokenAuthentication.getToken());
+            cookie.setPath(request.getContextPath());
+            cookie.setHttpOnly(false);
         } else {
             cookie.setValue(tokenAuthentication.getToken());
         }
-        cookie.setPath(request.getContextPath());
         cookie.setMaxAge(authenticationCookieMaxAge);
-        cookie.setHttpOnly(false);
         response.addCookie(cookie);
     }
 
