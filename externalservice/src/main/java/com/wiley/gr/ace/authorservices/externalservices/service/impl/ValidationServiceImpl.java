@@ -17,6 +17,9 @@ public class ValidationServiceImpl implements ValidationService {
 	@Value("$addressdoctor.url")
 	String addressDoctorUrl;
 
+	@Value("$vatidvalidation.url")
+	String vatValidationUrl;
+
 	@Override
 	public boolean validateAddress(
 			AddressValidationRequest addressValidationRequest) {
@@ -44,9 +47,8 @@ public class ValidationServiceImpl implements ValidationService {
 	@Override
 	public boolean vatValidation(String countriCode, String taxVatRegNum) {
 		boolean isValid = false;
-		String vatUrl = "http://vmesbdev.wiley.com:8091/VATIDVALIDATION?"
-				+ "countryCode=" + countriCode + "&taxRegistrationNumber="
-				+ taxVatRegNum;
+		String vatUrl = vatValidationUrl + "countryCode=" + countriCode
+				+ "&taxRegistrationNumber=" + taxVatRegNum;
 
 		VatIdValidationResponse vatIdValidationResponse = (VatIdValidationResponse) StubInvokerUtil
 				.restGetServiceInvoker(vatUrl, VatIdValidationResponse.class);
