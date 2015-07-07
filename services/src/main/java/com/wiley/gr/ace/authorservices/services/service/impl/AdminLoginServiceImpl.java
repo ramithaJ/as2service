@@ -178,26 +178,27 @@ public class AdminLoginServiceImpl implements AdminLoginService {
             permission.setPermissionId(daoPermissions.getPermissionCd() + "");
             permission.setPermissionName(daoPermissions.getPermissionName());
 
-            if (daoPermissions.getPermissionGroup().equalsIgnoreCase(
+            /** Temporary Commenting for fixing compilation issue as per new entity generated*/
+           /* if (daoPermissions.getPermissionGroup().equalsIgnoreCase(
                     AuthorServicesConstants.PERMISSION_LEVEL_SYSTEM)
-            /*
+            
              * && daoPermissions.getPermType().equalsIgnoreCase(
              * AuthorServicesConstants.PERMISSION_TYPE_EXTERNAL)
-             */) { // TODO
+             ) { // TODO
                 systemSection.getPermissionsList().add(permission);
 
             } else if (daoPermissions.getPermissionGroup().equalsIgnoreCase(
                     AuthorServicesConstants.PERMISSION_LEVEL_ADMIN)
-            /*
+            
              * && daoPermissions.getPermType().equalsIgnoreCase(
              * AuthorServicesConstants.PERMISSION_TYPE_INTERNAL)
-             */) { // TODO
+             ) { // TODO
                 adminSection.getPermissionsList().add(permission);
 
             } else if (daoPermissions.getPermissionGroup().equalsIgnoreCase(
                     AuthorServicesConstants.PERMISSION_LEVEL_ARTICLE)) {
                 articleSection.getPermissionsList().add(permission);
-            }
+            }*/
         }
 
         rolesAndPermissions.getSectionsList().add(adminSection);

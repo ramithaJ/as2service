@@ -11,6 +11,8 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
+import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,11 +22,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
-
-import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
-
-import com.wiley.gr.ace.authorservices.persistence.entity.AdminDetails;
-import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
+import com.wiley.gr.ace.authorservices.persistence.entity.AdminProfile;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserRoles;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserRolesId;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
@@ -52,8 +51,8 @@ public class UserLoginDaoImpl implements UserLoginDao {
         }
         Session session = getSessionFactory().openSession();
         try {
-            AdminDetails adminDetails = (AdminDetails) session.load(
-                    AdminDetails.class, userId);
+            AdminProfile adminDetails = (AdminProfile) session.load(
+                    AdminProfile.class, userId);
             if (null != adminDetails) {
 
                 status = true;
@@ -79,7 +78,7 @@ public class UserLoginDaoImpl implements UserLoginDao {
     public final boolean doLogin(final String emailId) {
         Session session = getSessionFactory().openSession();
 
-        AuthorProfile authorProfile = null;
+        UserProfile authorProfile = null;
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         Date date = new Date();
@@ -90,7 +89,7 @@ public class UserLoginDaoImpl implements UserLoginDao {
         int userId = getUserId(emailId);
         try {
             String hql = "from AuthorProfile where userId = :userId";
-            List<AuthorProfile> result = session.createQuery(hql)
+            List<UserProfile> result = session.createQuery(hql)
                     .setInteger("userId", userId).list();
 
             if (null != result && !result.isEmpty()) {
@@ -180,7 +179,7 @@ public class UserLoginDaoImpl implements UserLoginDao {
                 txn = session.getTransaction();
                 txn.begin();
 
-                AdminDetails adminDetails = new AdminDetails();
+                AdminProfile adminDetails = new AdminProfile();
                 adminDetails.setAdminUserId(users.getUserId());
                 adminDetails.setCreatedDate(date);
                 adminDetails.setUsersByCreatedBy(users);

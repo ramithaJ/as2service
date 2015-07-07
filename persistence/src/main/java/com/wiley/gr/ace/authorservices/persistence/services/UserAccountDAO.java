@@ -14,7 +14,7 @@ package com.wiley.gr.ace.authorservices.persistence.services;
 import java.util.List;
 
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
-import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
 
 /**
  * @author virtusa version 1.0
@@ -28,7 +28,7 @@ public interface UserAccountDAO {
      *            to Retrieve.
      * @return the AuthorProfile.
      */
-    AuthorProfile getEmailDetails(String userId);
+    UserProfile getEmailDetails(String userId);
 
     /**
      * This method update the Email Details to AS 2.0 DB.

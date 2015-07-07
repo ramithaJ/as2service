@@ -22,7 +22,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
-import com.wiley.gr.ace.authorservices.persistence.entity.AuthorProfile;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
 import com.wiley.gr.ace.authorservices.persistence.services.UserAccountDAO;
 
 /**
@@ -38,14 +38,14 @@ public class UserAccountDAOImpl implements UserAccountDAO {
      * @return the AuthorProfile.
      */
     @Override
-    public final AuthorProfile getEmailDetails(final String userId) {
+    public final UserProfile getEmailDetails(final String userId) {
 
         Session session = null;
         try {
             session = getSessionFactory().openSession();
-            Criteria criteria = session.createCriteria(AuthorProfile.class);
+            Criteria criteria = session.createCriteria(UserProfile.class);
             criteria.add(Restrictions.eq("userId", Integer.parseInt(userId)));
-            AuthorProfile userProfile = (AuthorProfile) criteria.uniqueResult();
+            UserProfile userProfile = (UserProfile) criteria.uniqueResult();
             if (null == userProfile) {
                 return null;
             }
