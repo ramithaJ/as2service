@@ -31,6 +31,9 @@ public class TokenAuthenticationProvider implements AuthenticationProvider {
         if (null == authentication) {
             return null;
         }
+        if (null == tokenAuthenticationService) {
+            return null;
+        }
         final String principal = authentication.getPrincipal().toString();
         final String credentials = authentication.getCredentials().toString();
         return tokenAuthenticationService.authenticate(principal, credentials);

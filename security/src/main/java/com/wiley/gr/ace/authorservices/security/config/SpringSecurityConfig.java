@@ -53,43 +53,48 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http.exceptionHandling()
-        .and()
-        .anonymous()
-        .and()
-        .servletApi()
-        .and()
-        .authorizeRequests()
+                .and()
+                .anonymous()
+                .and()
+                .servletApi()
+                .and()
+                .authorizeRequests()
 
-        // Allow anonymous resource requests
-        .antMatchers("/")
-        .permitAll()
-        .antMatchers("/favicon.ico")
+                // Allow anonymous resource requests
+                .antMatchers("/")
+                .permitAll()
 
-        .permitAll()
-        .antMatchers("**/*.html")
-        .permitAll()
-        .antMatchers("**/*.css")
-        .permitAll()
-        .antMatchers("**/*.js")
-        .permitAll()
-        .antMatchers(HttpMethod.POST, "/authenticate")
-        .permitAll()
-        .anyRequest()
-        .authenticated()
+                .antMatchers("/favicon.ico")
+                .permitAll()
 
-        .and()
-        .addFilterBefore(
-                new StatelessLoginFilter("/authenticate",
-                        tokenAuthenticationService,
-                        authenticationManager()),
+                .antMatchers("**/*.html")
+                .permitAll()
+
+                .antMatchers("**/*.css")
+                .permitAll()
+
+                .antMatchers("**/*.js")
+                .permitAll()
+
+                .antMatchers(HttpMethod.POST, "/authenticate")
+                .permitAll()
+
+                .anyRequest()
+                .permitAll()
+
+                .and()
+                .addFilterBefore(
+                        new StatelessLoginFilter("/authenticate",
+                                tokenAuthenticationService,
+                                authenticationManager()),
                         UsernamePasswordAuthenticationFilter.class)
 
-                        // Custom Token based authentication based on the
-                        // header previously given to the client
-                        .addFilterBefore(
-                                new StatelessAuthenticationFilter(
-                                        tokenAuthenticationService),
-                                        UsernamePasswordAuthenticationFilter.class);
+                // Custom Token based authentication based on the
+                // header previously given to the client
+                .addFilterBefore(
+                        new StatelessAuthenticationFilter(
+                                tokenAuthenticationService),
+                        UsernamePasswordAuthenticationFilter.class);
     }
 
     /*
@@ -103,9 +108,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(
             final AuthenticationManagerBuilder authenticationManagerBuilder)
-                    throws Exception {
+            throws Exception {
         authenticationManagerBuilder
-        .authenticationProvider(tokenAuthenticationProvider);
+                .authenticationProvider(tokenAuthenticationProvider);
     }
 
     /*

@@ -15,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.google.gson.Gson;
 import com.wiley.gr.ace.authorservices.security.TokenAuthentication;
 import com.wiley.gr.ace.authorservices.security.service.TokenAuthenticationService;
 
@@ -24,12 +25,6 @@ import com.wiley.gr.ace.authorservices.security.service.TokenAuthenticationServi
  */
 public class StatelessLoginFilter extends
         AbstractAuthenticationProcessingFilter {
-
-    /** The Constant USERNAME. */
-    private static final String USERNAME = "username";
-
-    /** The Constant PASSWORD. */
-    private static final String PASSWORD = "password";
 
     /** The token authentication service. */
     private final TokenAuthenticationService tokenAuthenticationService;
@@ -64,14 +59,10 @@ public class StatelessLoginFilter extends
     public Authentication attemptAuthentication(
             final HttpServletRequest request, final HttpServletResponse response)
             throws AuthenticationException, IOException, ServletException {
-
-        final String username = request
-                .getParameter(StatelessLoginFilter.USERNAME);
-        final String password = request
-                .getParameter(StatelessLoginFilter.PASSWORD);
-
+        final UsernameAndPassword unp = new Gson().fromJson(
+                request.getReader(), UsernameAndPassword.class);
         final UsernamePasswordAuthenticationToken loginToken = new UsernamePasswordAuthenticationToken(
-                username, password);
+                unp.getUsername(), unp.getPassword());
         return getAuthenticationManager().authenticate(loginToken);
     }
 
@@ -99,5 +90,49 @@ public class StatelessLoginFilter extends
         // Add the authentication to the Security context
         SecurityContextHolder.getContext().setAuthentication(
                 tokenAuthentication);
+    }
+
+    public class UsernameAndPassword {
+        private String username;
+        private String password;
+
+        public UsernameAndPassword() {
+        }
+
+        public UsernameAndPassword(final String username, final String password) {
+            this.username = username;
+            this.password = password;
+        }
+
+        /**
+         * @return the username
+         */
+        public final String getUsername() {
+            return username;
+        }
+
+        /**
+         * @param username
+         *            the username to set
+         */
+        public final void setUsername(final String username) {
+            this.username = username;
+        }
+
+        /**
+         * @return the password
+         */
+        public final String getPassword() {
+            return password;
+        }
+
+        /**
+         * @param password
+         *            the password to set
+         */
+        public final void setPassword(final String password) {
+            this.password = password;
+        }
+
     }
 }
