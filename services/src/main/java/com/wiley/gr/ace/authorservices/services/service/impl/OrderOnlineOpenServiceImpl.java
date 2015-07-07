@@ -563,7 +563,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 		
 		savedOrder = orderOnlineDAO.getSavedOrdersForTheOrderId(orderId);
 		
-		onlineOpenOrder = getOrderDetails(orderId);
+		onlineOpenOrder = getOrderDetails(null, savedOrder);
 		orderData = new OrderData();
 
 		if (onlineOpenOrder != null) {
@@ -741,7 +741,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 	/**
 	 * Method to get WOA accounts.
 	 * 
-	 * @return
+	 * @return woaAccountHolders
 	 */
 	@Override
 	public WOAAccountHolders getWOAFunders() {
@@ -1051,7 +1051,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 	private WPGConfiguration getAddressAndCurrencyDetailsForOrderId(
 			final String orderId, WPGConfiguration wpgConfiguration) {
 		OnlineOpenOrder onlineOpenOrder = null;
-		onlineOpenOrder = getOrderDetails(orderId);
+		onlineOpenOrder = getOrderDetails(orderId, null);
 
 		if (onlineOpenOrder != null) {
 			wpgConfiguration.setWpgAddress(onlineOpenOrder.getAddressDetails()
@@ -1071,19 +1071,26 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 	/**
 	 * This method returns the Online Open Order details
 	 * @param orderId
+	 * @param savedOrder
 	 * @return onlineOpenOrder
 	 */
-	private OnlineOpenOrder getOrderDetails(final String orderId){
-		SavedOrders savedOrder = null;
+	private OnlineOpenOrder getOrderDetails(String orderId, SavedOrders savedOrder){
 		String orderDataObject = null;
 		OnlineOpenOrder onlineOpenOrder = null;
+		boolean flag = false;
 		
-		if (orderId != null) {
+		if (orderId != null && savedOrder == null) {
 			savedOrder = orderOnlineDAO.getSavedOrdersForTheOrderId(orderId);
+			flag = true;
+		} else if (orderId == null && savedOrder != null){
+			flag = true;
+		}
+			
+		if(flag){
 			orderDataObject = savedOrder.getOrderObject();
 			try {
 				JSONObject object = (JSONObject) new JSONParser()
-						.parse(orderDataObject);
+				.parse(orderDataObject);
 				onlineOpenOrder = new ObjectMapper().readValue(
 						object.toJSONString(), OnlineOpenOrder.class);
 			} catch (JsonParseException e) {
@@ -1095,7 +1102,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 			} catch (IOException e) {
 				throw new ASException("703", e.getMessage());
 			}
-		}	
+		}
 		
 		return onlineOpenOrder;
 		
