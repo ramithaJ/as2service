@@ -97,7 +97,8 @@ public class OrderOnlineOpenController extends ASExceptionController {
      * @return service
      */
     @RequestMapping(value = "/initiateOnline/{userId}/{articleId}/", method = RequestMethod.GET)
-    public final Service initiateOnline(@PathVariable("userId") final String userId,
+    public final Service initiateOnline(
+            @PathVariable("userId") final String userId,
             @PathVariable("articleId") final String articleId) {
         Service service = new Service();
         service.setPayload(orderOnlineOpenService.initiateOnline(userId,
@@ -179,20 +180,18 @@ public class OrderOnlineOpenController extends ASExceptionController {
         service.setPayload(orderOnlineOpenService.getFundersList());
         return service;
     }
-    
-    
-    
+
     /**
      * @return
      */
     @RequestMapping(value = "/subFundersList/{funderId}/", method = RequestMethod.GET)
-    public final Service getSubFundersList(@PathVariable("funderId") final String funderId) {
+    public final Service getSubFundersList(
+            @PathVariable("funderId") final String funderId) {
 
         Service service = new Service();
         service.setPayload(orderOnlineOpenService.getFundersList());
         return service;
     }
-
 
     /**
      * @param userId
