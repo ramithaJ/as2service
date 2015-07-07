@@ -12,17 +12,8 @@
 
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.Arrays;
-
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
 
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.NotificationService;
@@ -38,6 +29,10 @@ public class NotificationServiceImpl implements NotificationService {
     /** The Notification user. */
     @Value("${notification.url}")
     private String notificationurl;
+
+    /** The Notification History. */
+    @Value("${notificationHistory.url}")
+    private String notificationHistoryUrl;
 
     /**
      * (non-Javadoc)
@@ -66,28 +61,8 @@ public class NotificationServiceImpl implements NotificationService {
     @Override
     public final NotificationHistory getNotificationHistory(final String userId)
             throws Exception {
-        NotificationHistory notificationHistory = null;
-        final String url = "http://localhost:8080/notification-template/v1/notifications/"
-                + "111" + "?from=&to=&type=email&offset=&limit=&unreadFlag=";
-        try {
-            final URI uri = new URI(url);
-            final RestTemplate restTemplate = new RestTemplate();
-            final HttpHeaders requestHeaders = new HttpHeaders();
-
-            requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-            final HttpEntity<NotificationHistory> requestEntity = new HttpEntity<NotificationHistory>(
-                    requestHeaders);
-
-            final ResponseEntity<NotificationHistory> response = restTemplate
-                    .exchange(uri, HttpMethod.GET, requestEntity,
-                            NotificationHistory.class);
-            System.out.println("####  response #### "
-                    + response.getStatusCode());
-            System.out.println("####  response #### " + response.getBody());
-            notificationHistory = response.getBody();
-        } catch (final URISyntaxException e) {
-            e.printStackTrace();
-        }
-        return notificationHistory;
+        return (NotificationHistory) StubInvokerUtil.invokeStub(
+                notificationHistoryUrl, HttpMethod.GET,
+                NotificationHistory.class);
     }
 }
