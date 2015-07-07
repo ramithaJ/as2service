@@ -69,24 +69,31 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
     @Value("${updatealmuser.url}")
     private String updateAlmUserUrl;
 
+    /** The article info details url. */
     @Value("${articleInfoDetails.url}")
     private String articleInfoDetailsUrl;
 
+    /** The article data url. */
     @Value("${articleData.url}")
     private String articleDataUrl;
 
+    /** The license status url. */
     @Value("${licenseStatus.url}")
     private String licenseStatusUrl;
 
+    /** The open access status url. */
     @Value("${openAccessStatus.url}")
     private String openAccessStatusUrl;
 
+    /** The online open status url. */
     @Value("${onlineOpenStatus.url}")
     private String onlineOpenStatusUrl;
 
+    /** The production status url. */
     @Value("${productionStatus.url}")
     private String productionStatusUrl;
 
+    /** The confirm article data url. */
     @Value("${confirmArticleData.url}")
     private String confirmArticleDataUrl;
 
@@ -274,8 +281,8 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
     /**
      * Gets the author article.
      *
-     * @param userId
-     *            the user id
+     * @param articleId
+     *            the article id
      * @return the author article
      * @throws Exception
      *             the exception
@@ -351,12 +358,26 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
                 HttpMethod.GET, ProductionData.class);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService
+     * #getQuote(com.wiley.gr.ace.authorservices.model.external.QuoteRequest)
+     */
     @Override
     public Quote getQuote(final QuoteRequest quoteRequest) throws Exception {
         return (Quote) StubInvokerUtil.invokeJsonStub(
                 "http://jsonstub.com/getQuote", HttpMethod.POST, Quote.class);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService
+     * #getTaxInfo(com.wiley.gr.ace.authorservices.model.external.TaxRequest)
+     */
     @Override
     public TaxResponse getTaxInfo(final TaxRequest taxRequest) throws Exception {
         return (TaxResponse) StubInvokerUtil.invokeJsonStub(
@@ -364,12 +385,26 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
                 TaxResponse.class);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService
+     * #pdhGetArticle(java.lang.String)
+     */
     @Override
     public ArticleData pdhGetArticle(final String articleId) {
         return (ArticleData) StubInvokerUtil.invokeJsonStub(
                 "http://google.com", HttpMethod.POST, ArticleData.class);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService
+     * #pdhJournalLookUp(java.lang.String)
+     */
     @Override
     public PdhJournalResponse pdhJournalLookUp(final String journalId) {
         return (PdhJournalResponse) StubInvokerUtil.invokeJsonStub(
