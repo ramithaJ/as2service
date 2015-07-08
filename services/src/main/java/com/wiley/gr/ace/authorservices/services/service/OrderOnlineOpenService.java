@@ -2,6 +2,8 @@ package com.wiley.gr.ace.authorservices.services.service;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
+
 import com.wiley.gr.ace.authorservices.model.FundingOrganizations;
 import com.wiley.gr.ace.authorservices.model.GrantRecipients;
 import com.wiley.gr.ace.authorservices.model.InstitutionalDiscounts;
@@ -104,7 +106,7 @@ public interface OrderOnlineOpenService {
      * @return
      */
     List<FundingOrganizations> getFundersList();
-    
+
     /**
      * @param funderId
      * @return
@@ -129,8 +131,14 @@ public interface OrderOnlineOpenService {
     void savePaymentDetails(PaymentDetails paymentDetails);
 
     /**
-     * @param orderId 
+     * @param orderId
      * @return
      */
     WPGConfiguration getWPGConfiguration(String orderId);
+
+    /**
+     * @param ooUniqueId
+     * @return
+     */
+    ResponseEntity<byte[]> getPdf(String ooUniqueId);
 }
