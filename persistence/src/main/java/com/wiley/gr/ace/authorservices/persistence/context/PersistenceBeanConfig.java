@@ -21,6 +21,7 @@ import com.wiley.gr.ace.authorservices.persistence.services.LookUpValuesDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.RegistrationServiceDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.SaveArticleDAO;
+import com.wiley.gr.ace.authorservices.persistence.services.SaveJournalInfoDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UpdateUserDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserAccountDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
@@ -32,13 +33,13 @@ import com.wiley.gr.ace.authorservices.persistence.services.impl.LookupValuesDAO
 import com.wiley.gr.ace.authorservices.persistence.services.impl.OrderOnlineDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.RegistrationServiceDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.SaveArticleDAOImpl;
+import com.wiley.gr.ace.authorservices.persistence.services.impl.SaveJournalInfoDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UpdateUserDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserAccountDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserLoginDaoImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserLoginServiceDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserRolesDAOImpl;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class PersistenceBeanConfig.
  *
@@ -146,7 +147,7 @@ public class PersistenceBeanConfig {
     public UserRolesDAO userRolesDAO() {
         return new UserRolesDAOImpl();
     }
-    
+
     /**
      * This method Creates UserRolesDAO.
      *
@@ -156,7 +157,7 @@ public class PersistenceBeanConfig {
     public OrderOnlineDAO orderOnlineDAO() {
         return new OrderOnlineDAOImpl();
     }
-    
+
     /**
      * Save article dao.
      *
@@ -166,6 +167,14 @@ public class PersistenceBeanConfig {
     public SaveArticleDAO saveArticleDAO() {
         return new SaveArticleDAOImpl();
     }
-    
-    
+
+    /**
+     * Journal info type dao.
+     *
+     * @return the journal info type dao
+     */
+    @Bean(name = "SaveJournalInfoDAO")
+    public SaveJournalInfoDAO saveJournalInfoDAO() {
+        return new SaveJournalInfoDAOImpl();
+    }
 }
