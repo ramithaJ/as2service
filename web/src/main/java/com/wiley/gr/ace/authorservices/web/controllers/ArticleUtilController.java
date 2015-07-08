@@ -4,22 +4,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.services.service.ArticleAssignmentService;
 
+@RestController
 @RequestMapping(value = "/articleutil")
 public class ArticleUtilController {
 
 	@Autowired(required = true)
 	private ArticleAssignmentService articleAssignmentService;
-	
-	@RequestMapping(value="/getinvitestatus/{dhId}")
-	public @ResponseBody Service getArticleInvitationStatus(@PathVariable("dhId") Integer dhId){
+
+	@RequestMapping(value = "/getinvitestatus/{dhId}")
+	public @ResponseBody Service getArticleInvitationStatus(
+			@PathVariable("dhId") Integer dhId) {
 		Service service = new Service();
-		try{
-			if(articleAssignmentService.checkIfArticleInvited(dhId)){
+		try {
+			if (articleAssignmentService.checkIfArticleInvited(dhId)) {
 				service.setStatus("SUCCESS");
 			} else {
 				service.setStatus("FAILURE");
@@ -35,7 +38,7 @@ public class ArticleUtilController {
 			err.setMessage("Fetching article status encounter exception");
 			service.setError(err);
 		}
-		
+
 		return service;
 	}
 }
