@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Jun 26, 2015 10:24:59 AM by Hibernate Tools 4.0.0
+// Generated Jul 8, 2015 3:59:02 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -24,8 +24,8 @@ import org.hibernate.annotations.Parameter;
 public class OrderReference implements java.io.Serializable {
 
 	private Integer orderId;
-	private Users usersByCreatedBy;
 	private Orders orders;
+	private Users usersByCreatedBy;
 	private Users usersByUpdatedBy;
 	private Integer oouniqueId;
 	private Integer ecoreSubscriptionNum;
@@ -40,12 +40,12 @@ public class OrderReference implements java.io.Serializable {
 		this.orders = orders;
 	}
 
-	public OrderReference(Users usersByCreatedBy, Orders orders,
+	public OrderReference(Orders orders, Users usersByCreatedBy,
 			Users usersByUpdatedBy, Integer oouniqueId,
 			Integer ecoreSubscriptionNum, Integer ecoreSequenceNum,
 			Date createdDate, Date updatedDate) {
-		this.usersByCreatedBy = usersByCreatedBy;
 		this.orders = orders;
+		this.usersByCreatedBy = usersByCreatedBy;
 		this.usersByUpdatedBy = usersByUpdatedBy;
 		this.oouniqueId = oouniqueId;
 		this.ecoreSubscriptionNum = ecoreSubscriptionNum;
@@ -66,16 +66,6 @@ public class OrderReference implements java.io.Serializable {
 		this.orderId = orderId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CREATED_BY")
-	public Users getUsersByCreatedBy() {
-		return this.usersByCreatedBy;
-	}
-
-	public void setUsersByCreatedBy(Users usersByCreatedBy) {
-		this.usersByCreatedBy = usersByCreatedBy;
-	}
-
 	@OneToOne(fetch = FetchType.LAZY)
 	@PrimaryKeyJoinColumn
 	public Orders getOrders() {
@@ -84,6 +74,16 @@ public class OrderReference implements java.io.Serializable {
 
 	public void setOrders(Orders orders) {
 		this.orders = orders;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CREATED_BY")
+	public Users getUsersByCreatedBy() {
+		return this.usersByCreatedBy;
+	}
+
+	public void setUsersByCreatedBy(Users usersByCreatedBy) {
+		this.usersByCreatedBy = usersByCreatedBy;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

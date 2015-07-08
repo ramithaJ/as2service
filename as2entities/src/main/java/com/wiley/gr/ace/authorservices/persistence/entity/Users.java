@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Jun 26, 2015 10:24:59 AM by Hibernate Tools 4.0.0
+// Generated Jul 8, 2015 3:59:02 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import java.util.HashSet;
@@ -112,6 +112,8 @@ public class Users implements java.io.Serializable {
             0);
     private Set<ProductRelations> productRelationsesForCreatedBy = new HashSet<ProductRelations>(
             0);
+    private Set<SocietyJournals> societyJournalsesForCreatedBy = new HashSet<SocietyJournals>(
+            0);
     private Set<ProductPersonRelations> productPersonRelationsesForCreatedBy = new HashSet<ProductPersonRelations>(
             0);
     private Set<Products> productsesForUpdatedBy = new HashSet<Products>(0);
@@ -124,6 +126,7 @@ public class Users implements java.io.Serializable {
     private Set<Permissions> permissionsesForUpdatedBy = new HashSet<Permissions>(
             0);
     private Set<Products> productsesForCreatedBy = new HashSet<Products>(0);
+    private Set<InvitationLog> invitationLogs = new HashSet<InvitationLog>(0);
     private Set<UserProfileAttribVisible> userProfileAttribVisiblesForCreatedBy = new HashSet<UserProfileAttribVisible>(
             0);
     private Set<AuthColleagueDetails> authColleagueDetailsesForUpdatedBy = new HashSet<AuthColleagueDetails>(
@@ -142,7 +145,15 @@ public class Users implements java.io.Serializable {
             0);
     private Set<UserProfileAttribVisible> userProfileAttribVisiblesForUpdatedBy = new HashSet<UserProfileAttribVisible>(
             0);
+    private Set<DiscountDetails> discountDetailsesForCreatedBy = new HashSet<DiscountDetails>(
+            0);
+    private Set<DiscountDetails> discountDetailsesForUpdatedBy = new HashSet<DiscountDetails>(
+            0);
+    private Set<InviteResetpwdLog> inviteResetpwdLogsForUpdatedBy = new HashSet<InviteResetpwdLog>(
+            0);
     private UserProfile userProfileByUserId;
+    private Set<InviteResetpwdLog> inviteResetpwdLogsForCreatedBy = new HashSet<InviteResetpwdLog>(
+            0);
     private Set<JournalConfiguration> journalConfigurationsForCreatedBy = new HashSet<JournalConfiguration>(
             0);
     private Set<AdditionalPermissions> additionalPermissionsesForCreatedBy = new HashSet<AdditionalPermissions>(
@@ -159,7 +170,10 @@ public class Users implements java.io.Serializable {
     private Set<UserSecondaryEmailAddr> userSecondaryEmailAddrsForUserId = new HashSet<UserSecondaryEmailAddr>(
             0);
     private Set<Societies> societiesesForCreatedBy = new HashSet<Societies>(0);
+    private Set<AuditDetails> auditDetailses = new HashSet<AuditDetails>(0);
     private Set<ResearchFunders> researchFundersesForUpdatedBy = new HashSet<ResearchFunders>(
+            0);
+    private Set<SocietyJournals> societyJournalsesForUpdatedBy = new HashSet<SocietyJournals>(
             0);
     private Set<ProductPersonRelations> productPersonRelationsesForUpdatedBy = new HashSet<ProductPersonRelations>(
             0);
@@ -171,8 +185,6 @@ public class Users implements java.io.Serializable {
     private Set<UserWoaAccounts> userWoaAccountsesForCreatedBy = new HashSet<UserWoaAccounts>(
             0);
     private Set<UserFunderGrants> userFunderGrantsesForCreatedBy = new HashSet<UserFunderGrants>(
-            0);
-    private Set<AuditDetails> auditDetailsesForUserId = new HashSet<AuditDetails>(
             0);
     private Set<SavedOrders> savedOrdersesForUserId = new HashSet<SavedOrders>(
             0);
@@ -204,8 +216,6 @@ public class Users implements java.io.Serializable {
     private Set<Alerts> alertsesForCreatedBy = new HashSet<Alerts>(0);
     private Set<AuthCoauthDetails> authCoauthDetailsesForCreatedBy = new HashSet<AuthCoauthDetails>(
             0);
-    private Set<AuditDetails> auditDetailsesForCreatedBy = new HashSet<AuditDetails>(
-            0);
     private Set<Alerts> alertsesForUpdatedBy = new HashSet<Alerts>(0);
     private Set<AdminProfile> adminProfilesForUpdatedBy = new HashSet<AdminProfile>(
             0);
@@ -213,7 +223,6 @@ public class Users implements java.io.Serializable {
             0);
     private Set<AreaOfInterest> areaOfInterestsForCreatedBy = new HashSet<AreaOfInterest>(
             0);
-    private Set<InvitationLog> invitationLogs = new HashSet<InvitationLog>(0);
     private Set<SavedOrders> savedOrdersesForUpdatedBy = new HashSet<SavedOrders>(
             0);
     private Set<UserProfile> userProfilesForUpdatedBy = new HashSet<UserProfile>(
@@ -317,6 +326,7 @@ public class Users implements java.io.Serializable {
             Set<ProductRelations> productRelationsesForUpdatedBy,
             Set<AddressType> addressTypesForCreatedBy,
             Set<ProductRelations> productRelationsesForCreatedBy,
+            Set<SocietyJournals> societyJournalsesForCreatedBy,
             Set<ProductPersonRelations> productPersonRelationsesForCreatedBy,
             Set<Products> productsesForUpdatedBy,
             Set<ResearchFunders> researchFundersesForCreatedBy,
@@ -324,6 +334,7 @@ public class Users implements java.io.Serializable {
             Set<PermissionGroups> permissionGroupsesForCreatedBy,
             Set<Permissions> permissionsesForUpdatedBy,
             Set<Products> productsesForCreatedBy,
+            Set<InvitationLog> invitationLogs,
             Set<UserProfileAttribVisible> userProfileAttribVisiblesForCreatedBy,
             Set<AuthColleagueDetails> authColleagueDetailsesForUpdatedBy,
             Set<OrderAuthorsQuery> orderAuthorsQueriesForUpdatedBy,
@@ -333,7 +344,11 @@ public class Users implements java.io.Serializable {
             Set<LockedAccountDetails> lockedAccountDetailsesForUpdatedBy,
             Set<LockedAccountDetails> lockedAccountDetailsesForCreatedBy,
             Set<UserProfileAttribVisible> userProfileAttribVisiblesForUpdatedBy,
+            Set<DiscountDetails> discountDetailsesForCreatedBy,
+            Set<DiscountDetails> discountDetailsesForUpdatedBy,
+            Set<InviteResetpwdLog> inviteResetpwdLogsForUpdatedBy,
             UserProfile userProfileByUserId,
+            Set<InviteResetpwdLog> inviteResetpwdLogsForCreatedBy,
             Set<JournalConfiguration> journalConfigurationsForCreatedBy,
             Set<AdditionalPermissions> additionalPermissionsesForCreatedBy,
             Set<ProductPublicationStatuses> productPublicationStatusesesForUpdatedBy,
@@ -343,14 +358,15 @@ public class Users implements java.io.Serializable {
             Set<Societies> societiesesForUpdatedBy,
             Set<UserSecondaryEmailAddr> userSecondaryEmailAddrsForUserId,
             Set<Societies> societiesesForCreatedBy,
+            Set<AuditDetails> auditDetailses,
             Set<ResearchFunders> researchFundersesForUpdatedBy,
+            Set<SocietyJournals> societyJournalsesForUpdatedBy,
             Set<ProductPersonRelations> productPersonRelationsesForUpdatedBy,
             Set<UserRoles> userRolesesForUserId,
             Set<UserWoaAccounts> userWoaAccountsesForUpdatedBy,
             Set<UserFunderGrants> userFunderGrantsesForUpdatedBy,
             Set<UserWoaAccounts> userWoaAccountsesForCreatedBy,
             Set<UserFunderGrants> userFunderGrantsesForCreatedBy,
-            Set<AuditDetails> auditDetailsesForUserId,
             Set<SavedOrders> savedOrdersesForUserId,
             Set<AdminProfile> adminProfilesForCreatedBy,
             Set<PublicationStatuses> publicationStatusesesForCreatedBy,
@@ -367,12 +383,10 @@ public class Users implements java.io.Serializable {
             Set<JournalConfiguration> journalConfigurationsForUpdatedBy,
             Set<Orders> ordersesForUserId, Set<Alerts> alertsesForCreatedBy,
             Set<AuthCoauthDetails> authCoauthDetailsesForCreatedBy,
-            Set<AuditDetails> auditDetailsesForCreatedBy,
             Set<Alerts> alertsesForUpdatedBy,
             Set<AdminProfile> adminProfilesForUpdatedBy,
             Set<AreaOfInterest> areaOfInterestsForUpdatedBy,
             Set<AreaOfInterest> areaOfInterestsForCreatedBy,
-            Set<InvitationLog> invitationLogs,
             Set<SavedOrders> savedOrdersesForUpdatedBy,
             Set<UserProfile> userProfilesForUpdatedBy,
             Set<AuthCoauthDetails> authCoauthDetailsesForUpdatedBy,
@@ -448,6 +462,7 @@ public class Users implements java.io.Serializable {
         this.productRelationsesForUpdatedBy = productRelationsesForUpdatedBy;
         this.addressTypesForCreatedBy = addressTypesForCreatedBy;
         this.productRelationsesForCreatedBy = productRelationsesForCreatedBy;
+        this.societyJournalsesForCreatedBy = societyJournalsesForCreatedBy;
         this.productPersonRelationsesForCreatedBy = productPersonRelationsesForCreatedBy;
         this.productsesForUpdatedBy = productsesForUpdatedBy;
         this.researchFundersesForCreatedBy = researchFundersesForCreatedBy;
@@ -455,6 +470,7 @@ public class Users implements java.io.Serializable {
         this.permissionGroupsesForCreatedBy = permissionGroupsesForCreatedBy;
         this.permissionsesForUpdatedBy = permissionsesForUpdatedBy;
         this.productsesForCreatedBy = productsesForCreatedBy;
+        this.invitationLogs = invitationLogs;
         this.userProfileAttribVisiblesForCreatedBy = userProfileAttribVisiblesForCreatedBy;
         this.authColleagueDetailsesForUpdatedBy = authColleagueDetailsesForUpdatedBy;
         this.orderAuthorsQueriesForUpdatedBy = orderAuthorsQueriesForUpdatedBy;
@@ -464,7 +480,11 @@ public class Users implements java.io.Serializable {
         this.lockedAccountDetailsesForUpdatedBy = lockedAccountDetailsesForUpdatedBy;
         this.lockedAccountDetailsesForCreatedBy = lockedAccountDetailsesForCreatedBy;
         this.userProfileAttribVisiblesForUpdatedBy = userProfileAttribVisiblesForUpdatedBy;
+        this.discountDetailsesForCreatedBy = discountDetailsesForCreatedBy;
+        this.discountDetailsesForUpdatedBy = discountDetailsesForUpdatedBy;
+        this.inviteResetpwdLogsForUpdatedBy = inviteResetpwdLogsForUpdatedBy;
         this.userProfileByUserId = userProfileByUserId;
+        this.inviteResetpwdLogsForCreatedBy = inviteResetpwdLogsForCreatedBy;
         this.journalConfigurationsForCreatedBy = journalConfigurationsForCreatedBy;
         this.additionalPermissionsesForCreatedBy = additionalPermissionsesForCreatedBy;
         this.productPublicationStatusesesForUpdatedBy = productPublicationStatusesesForUpdatedBy;
@@ -474,14 +494,15 @@ public class Users implements java.io.Serializable {
         this.societiesesForUpdatedBy = societiesesForUpdatedBy;
         this.userSecondaryEmailAddrsForUserId = userSecondaryEmailAddrsForUserId;
         this.societiesesForCreatedBy = societiesesForCreatedBy;
+        this.auditDetailses = auditDetailses;
         this.researchFundersesForUpdatedBy = researchFundersesForUpdatedBy;
+        this.societyJournalsesForUpdatedBy = societyJournalsesForUpdatedBy;
         this.productPersonRelationsesForUpdatedBy = productPersonRelationsesForUpdatedBy;
         this.userRolesesForUserId = userRolesesForUserId;
         this.userWoaAccountsesForUpdatedBy = userWoaAccountsesForUpdatedBy;
         this.userFunderGrantsesForUpdatedBy = userFunderGrantsesForUpdatedBy;
         this.userWoaAccountsesForCreatedBy = userWoaAccountsesForCreatedBy;
         this.userFunderGrantsesForCreatedBy = userFunderGrantsesForCreatedBy;
-        this.auditDetailsesForUserId = auditDetailsesForUserId;
         this.savedOrdersesForUserId = savedOrdersesForUserId;
         this.adminProfilesForCreatedBy = adminProfilesForCreatedBy;
         this.publicationStatusesesForCreatedBy = publicationStatusesesForCreatedBy;
@@ -499,12 +520,10 @@ public class Users implements java.io.Serializable {
         this.ordersesForUserId = ordersesForUserId;
         this.alertsesForCreatedBy = alertsesForCreatedBy;
         this.authCoauthDetailsesForCreatedBy = authCoauthDetailsesForCreatedBy;
-        this.auditDetailsesForCreatedBy = auditDetailsesForCreatedBy;
         this.alertsesForUpdatedBy = alertsesForUpdatedBy;
         this.adminProfilesForUpdatedBy = adminProfilesForUpdatedBy;
         this.areaOfInterestsForUpdatedBy = areaOfInterestsForUpdatedBy;
         this.areaOfInterestsForCreatedBy = areaOfInterestsForCreatedBy;
-        this.invitationLogs = invitationLogs;
         this.savedOrdersesForUpdatedBy = savedOrdersesForUpdatedBy;
         this.userProfilesForUpdatedBy = userProfilesForUpdatedBy;
         this.authCoauthDetailsesForUpdatedBy = authCoauthDetailsesForUpdatedBy;
@@ -1038,6 +1057,16 @@ public class Users implements java.io.Serializable {
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<SocietyJournals> getSocietyJournalsesForCreatedBy() {
+        return this.societyJournalsesForCreatedBy;
+    }
+
+    public void setSocietyJournalsesForCreatedBy(
+            Set<SocietyJournals> societyJournalsesForCreatedBy) {
+        this.societyJournalsesForCreatedBy = societyJournalsesForCreatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
     public Set<ProductPersonRelations> getProductPersonRelationsesForCreatedBy() {
         return this.productPersonRelationsesForCreatedBy;
     }
@@ -1103,6 +1132,15 @@ public class Users implements java.io.Serializable {
 
     public void setProductsesForCreatedBy(Set<Products> productsesForCreatedBy) {
         this.productsesForCreatedBy = productsesForCreatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
+    public Set<InvitationLog> getInvitationLogs() {
+        return this.invitationLogs;
+    }
+
+    public void setInvitationLogs(Set<InvitationLog> invitationLogs) {
+        this.invitationLogs = invitationLogs;
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
@@ -1195,6 +1233,36 @@ public class Users implements java.io.Serializable {
         this.userProfileAttribVisiblesForUpdatedBy = userProfileAttribVisiblesForUpdatedBy;
     }
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<DiscountDetails> getDiscountDetailsesForCreatedBy() {
+        return this.discountDetailsesForCreatedBy;
+    }
+
+    public void setDiscountDetailsesForCreatedBy(
+            Set<DiscountDetails> discountDetailsesForCreatedBy) {
+        this.discountDetailsesForCreatedBy = discountDetailsesForCreatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
+    public Set<DiscountDetails> getDiscountDetailsesForUpdatedBy() {
+        return this.discountDetailsesForUpdatedBy;
+    }
+
+    public void setDiscountDetailsesForUpdatedBy(
+            Set<DiscountDetails> discountDetailsesForUpdatedBy) {
+        this.discountDetailsesForUpdatedBy = discountDetailsesForUpdatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
+    public Set<InviteResetpwdLog> getInviteResetpwdLogsForUpdatedBy() {
+        return this.inviteResetpwdLogsForUpdatedBy;
+    }
+
+    public void setInviteResetpwdLogsForUpdatedBy(
+            Set<InviteResetpwdLog> inviteResetpwdLogsForUpdatedBy) {
+        this.inviteResetpwdLogsForUpdatedBy = inviteResetpwdLogsForUpdatedBy;
+    }
+
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "usersByUserId")
     public UserProfile getUserProfileByUserId() {
         return this.userProfileByUserId;
@@ -1202,6 +1270,16 @@ public class Users implements java.io.Serializable {
 
     public void setUserProfileByUserId(UserProfile userProfileByUserId) {
         this.userProfileByUserId = userProfileByUserId;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
+    public Set<InviteResetpwdLog> getInviteResetpwdLogsForCreatedBy() {
+        return this.inviteResetpwdLogsForCreatedBy;
+    }
+
+    public void setInviteResetpwdLogsForCreatedBy(
+            Set<InviteResetpwdLog> inviteResetpwdLogsForCreatedBy) {
+        this.inviteResetpwdLogsForCreatedBy = inviteResetpwdLogsForCreatedBy;
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
@@ -1294,6 +1372,15 @@ public class Users implements java.io.Serializable {
         this.societiesesForCreatedBy = societiesesForCreatedBy;
     }
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
+    public Set<AuditDetails> getAuditDetailses() {
+        return this.auditDetailses;
+    }
+
+    public void setAuditDetailses(Set<AuditDetails> auditDetailses) {
+        this.auditDetailses = auditDetailses;
+    }
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
     public Set<ResearchFunders> getResearchFundersesForUpdatedBy() {
         return this.researchFundersesForUpdatedBy;
@@ -1302,6 +1389,16 @@ public class Users implements java.io.Serializable {
     public void setResearchFundersesForUpdatedBy(
             Set<ResearchFunders> researchFundersesForUpdatedBy) {
         this.researchFundersesForUpdatedBy = researchFundersesForUpdatedBy;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
+    public Set<SocietyJournals> getSocietyJournalsesForUpdatedBy() {
+        return this.societyJournalsesForUpdatedBy;
+    }
+
+    public void setSocietyJournalsesForUpdatedBy(
+            Set<SocietyJournals> societyJournalsesForUpdatedBy) {
+        this.societyJournalsesForUpdatedBy = societyJournalsesForUpdatedBy;
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
@@ -1361,16 +1458,6 @@ public class Users implements java.io.Serializable {
     public void setUserFunderGrantsesForCreatedBy(
             Set<UserFunderGrants> userFunderGrantsesForCreatedBy) {
         this.userFunderGrantsesForCreatedBy = userFunderGrantsesForCreatedBy;
-    }
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUserId")
-    public Set<AuditDetails> getAuditDetailsesForUserId() {
-        return this.auditDetailsesForUserId;
-    }
-
-    public void setAuditDetailsesForUserId(
-            Set<AuditDetails> auditDetailsesForUserId) {
-        this.auditDetailsesForUserId = auditDetailsesForUserId;
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUserId")
@@ -1539,16 +1626,6 @@ public class Users implements java.io.Serializable {
         this.authCoauthDetailsesForCreatedBy = authCoauthDetailsesForCreatedBy;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByCreatedBy")
-    public Set<AuditDetails> getAuditDetailsesForCreatedBy() {
-        return this.auditDetailsesForCreatedBy;
-    }
-
-    public void setAuditDetailsesForCreatedBy(
-            Set<AuditDetails> auditDetailsesForCreatedBy) {
-        this.auditDetailsesForCreatedBy = auditDetailsesForCreatedBy;
-    }
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")
     public Set<Alerts> getAlertsesForUpdatedBy() {
         return this.alertsesForUpdatedBy;
@@ -1586,15 +1663,6 @@ public class Users implements java.io.Serializable {
     public void setAreaOfInterestsForCreatedBy(
             Set<AreaOfInterest> areaOfInterestsForCreatedBy) {
         this.areaOfInterestsForCreatedBy = areaOfInterestsForCreatedBy;
-    }
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
-    public Set<InvitationLog> getInvitationLogs() {
-        return this.invitationLogs;
-    }
-
-    public void setInvitationLogs(Set<InvitationLog> invitationLogs) {
-        this.invitationLogs = invitationLogs;
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "usersByUpdatedBy")

@@ -31,7 +31,6 @@ import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations
 import com.wiley.gr.ace.authorservices.persistence.entity.ProductRelations;
 import com.wiley.gr.ace.authorservices.persistence.entity.SavedOrders;
 import com.wiley.gr.ace.authorservices.persistence.entity.WpgResponseDetails;
-import com.wiley.gr.ace.authorservices.persistence.entity.WpgResponseDetailsId;
 import com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO;
 
 /**
@@ -189,22 +188,21 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
     public void saveOrder(final Orders orders) {
 
         Session session = null;
-        
-            try {
-				session = getSessionFactory().openSession();
-				session.getTransaction().begin();
-				session.save(orders);
-				session.getTransaction().commit();
-			} catch (HibernateException e) {
-				session.getTransaction().rollback();
-				throw new ASException("704", e.getMessage());
-			}finally {
-	            if (session != null) {
-	                session.flush();
-	                session.close();
-	            }
-	        }
-        
+
+        try {
+            session = getSessionFactory().openSession();
+            session.getTransaction().begin();
+            session.save(orders);
+            session.getTransaction().commit();
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            throw new ASException("704", e.getMessage());
+        } finally {
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
+        }
 
     }
 
@@ -239,8 +237,7 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
         return savedOrder;
 
     }
-    
-    
+
     /**
      * This method returns the SavedOrder details for the corresponding orderId.
      * 
@@ -253,13 +250,13 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
     public void deleteSavedOrderPostOrderSubmission(final Integer orderId) {
         Session session = null;
         SavedOrders savedOrder = null;
-        
-        try{
-        	session = getSessionFactory().openSession();
-        	session.getTransaction().begin();
-        	savedOrder = (SavedOrders) session.load(SavedOrders.class, orderId);
-        	session.delete(savedOrder);
-        	session.getTransaction().commit();
+
+        try {
+            session = getSessionFactory().openSession();
+            session.getTransaction().begin();
+            savedOrder = (SavedOrders) session.load(SavedOrders.class, orderId);
+            session.delete(savedOrder);
+            session.getTransaction().commit();
         } finally {
             if (session != null) {
                 session.flush();
@@ -318,7 +315,6 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
 
     }
 
-    
     /**
      * Method to updated payment details
      * 
@@ -330,54 +326,51 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
     public void savePaymentDetails(final PaymentDetails paymentDetails) {
 
         Session session = null;
-      
-            try {
-				session = getSessionFactory().openSession();
-				session.getTransaction().begin();
-				WpgResponseDetailsId wpgResponseDetailsId = new WpgResponseDetailsId();
-				WpgResponseDetails wpgResponseDetails = new WpgResponseDetails();
 
-				wpgResponseDetailsId.setAcquirerBank(paymentDetails
-				        .getAcquirerBank());
-				wpgResponseDetailsId.setAcquirerId(paymentDetails.getAcquirerId());
-				wpgResponseDetailsId.setAvsAddressResult(paymentDetails
-				        .getAvsAddressResult());
-				wpgResponseDetailsId.setAvsPostResult(paymentDetails
-				        .getAvsPostResult());
-				wpgResponseDetailsId.setBankId(paymentDetails.getBankId());
-				wpgResponseDetailsId.setBankName(paymentDetails.getBankName());
-				wpgResponseDetailsId.setCardExpiry(paymentDetails.getCardExpiry());
-				wpgResponseDetailsId.setCscResult(paymentDetails.getCscResult());
-				wpgResponseDetailsId.setMaskedCardNumber(paymentDetails
-				        .getMaskedCardNumber());
-				wpgResponseDetailsId.setMerchantId(paymentDetails.getMerchantId());
-				wpgResponseDetailsId.setMerchantResponse(paymentDetails
-				        .getMerchantResponse());
-				wpgResponseDetailsId.setOperation(paymentDetails.getOperation());
-				wpgResponseDetailsId.setReturnCode(paymentDetails.getReturnCode());
-				wpgResponseDetailsId.setReturnMessage(paymentDetails
-				        .getReturnMessage());
-				wpgResponseDetailsId.setSecurity(paymentDetails.getSecurity());
-				wpgResponseDetailsId.setToken(paymentDetails.getToken());
-				wpgResponseDetailsId.setTransId(paymentDetails.getTransId());
-				wpgResponseDetailsId.setTransTimestamp(paymentDetails
-				        .getTransTimeStamp());
-				wpgResponseDetailsId.setVendorId(paymentDetails.getVendorId());
-				wpgResponseDetails.setId(wpgResponseDetailsId);
-				session.save(wpgResponseDetails);
-				session.getTransaction().commit();
-				
-			} catch (HibernateException e) {
-				session.getTransaction().rollback();
-				throw new ASException("704", e.getMessage());
-			} finally {
-	            if (session != null) {
-	                session.flush();
-	                session.close();
-	            }
-	        }
-        
+        try {
+            session = getSessionFactory().openSession();
+            session.getTransaction().begin();
+            WpgResponseDetails wpgResponseDetails = new WpgResponseDetails();
+
+            wpgResponseDetails
+                    .setAcquirerBank(paymentDetails.getAcquirerBank());
+            wpgResponseDetails.setAcquirerId(paymentDetails.getAcquirerId());
+            wpgResponseDetails.setAvsAddressResult(paymentDetails
+                    .getAvsAddressResult());
+            wpgResponseDetails.setAvsPostResult(paymentDetails
+                    .getAvsPostResult());
+            wpgResponseDetails.setBankId(paymentDetails.getBankId());
+            wpgResponseDetails.setBankName(paymentDetails.getBankName());
+            wpgResponseDetails.setCardExpiry(paymentDetails.getCardExpiry());
+            wpgResponseDetails.setCscResult(paymentDetails.getCscResult());
+            wpgResponseDetails.setMaskedCardNumber(paymentDetails
+                    .getMaskedCardNumber());
+            wpgResponseDetails.setMerchantId(paymentDetails.getMerchantId());
+            wpgResponseDetails.setMerchantResponse(paymentDetails
+                    .getMerchantResponse());
+            wpgResponseDetails.setOperation(paymentDetails.getOperation());
+            wpgResponseDetails.setReturnCode(paymentDetails.getReturnCode());
+            wpgResponseDetails.setReturnMessage(paymentDetails
+                    .getReturnMessage());
+            wpgResponseDetails.setSecurity(paymentDetails.getSecurity());
+            wpgResponseDetails.setToken(paymentDetails.getToken());
+            wpgResponseDetails.setTransId(paymentDetails.getTransId());
+            wpgResponseDetails.setTransTimestamp(paymentDetails
+                    .getTransTimeStamp());
+            wpgResponseDetails.setVendorId(paymentDetails.getVendorId());
+            session.save(wpgResponseDetails);
+            session.getTransaction().commit();
+
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            throw new ASException("704", e.getMessage());
+        } finally {
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
+        }
+
     }
 
-	
 }

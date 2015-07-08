@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Jun 26, 2015 10:24:59 AM by Hibernate Tools 4.0.0
+// Generated Jul 8, 2015 3:59:02 PM by Hibernate Tools 4.0.0
 
 import java.sql.Blob;
 import java.util.Date;
@@ -51,6 +51,8 @@ public class UserProfile implements java.io.Serializable {
 			0);
 	private Set<UserAffiliations> userAffiliationses = new HashSet<UserAffiliations>(
 			0);
+	private Set<UserSocietyDetails> userSocietyDetailses = new HashSet<UserSocietyDetails>(
+			0);
 	private Set<AuthColleagueDetails> authColleagueDetailsesForInvitedAuthorId = new HashSet<AuthColleagueDetails>(
 			0);
 	private Set<InvitationLog> invitationLogs = new HashSet<InvitationLog>(0);
@@ -88,6 +90,7 @@ public class UserProfile implements java.io.Serializable {
 			Character profileVisibleFlg, Date createdDate, Date updatedDate,
 			Set<UserAreaOfInterest> userAreaOfInterests,
 			Set<UserAffiliations> userAffiliationses,
+			Set<UserSocietyDetails> userSocietyDetailses,
 			Set<AuthColleagueDetails> authColleagueDetailsesForInvitedAuthorId,
 			Set<InvitationLog> invitationLogs,
 			Set<AuthCoauthDetails> authCoauthDetailsesForCoauthUserId,
@@ -120,6 +123,7 @@ public class UserProfile implements java.io.Serializable {
 		this.updatedDate = updatedDate;
 		this.userAreaOfInterests = userAreaOfInterests;
 		this.userAffiliationses = userAffiliationses;
+		this.userSocietyDetailses = userSocietyDetailses;
 		this.authColleagueDetailsesForInvitedAuthorId = authColleagueDetailsesForInvitedAuthorId;
 		this.invitationLogs = invitationLogs;
 		this.authCoauthDetailsesForCoauthUserId = authCoauthDetailsesForCoauthUserId;
@@ -339,6 +343,16 @@ public class UserProfile implements java.io.Serializable {
 
 	public void setUserAffiliationses(Set<UserAffiliations> userAffiliationses) {
 		this.userAffiliationses = userAffiliationses;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userProfile")
+	public Set<UserSocietyDetails> getUserSocietyDetailses() {
+		return this.userSocietyDetailses;
+	}
+
+	public void setUserSocietyDetailses(
+			Set<UserSocietyDetails> userSocietyDetailses) {
+		this.userSocietyDetailses = userSocietyDetailses;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userProfileByInvitedAuthorId")

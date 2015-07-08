@@ -1,14 +1,17 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Jun 26, 2015 10:24:59 AM by Hibernate Tools 4.0.0
+// Generated Jul 8, 2015 3:59:02 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -18,41 +21,42 @@ import javax.persistence.Table;
 @Table(name = "SOCIETIES")
 public class Societies implements java.io.Serializable {
 
-	private Integer societyId;
+	private String societyCd;
 	private Users usersByCreatedBy;
 	private Users usersByUpdatedBy;
-	private String societyCd;
 	private String societyName;
 	private Date createdDate;
 	private Date updatedDate;
+	private Set<SocietyJournals> societyJournalses = new HashSet<SocietyJournals>(
+			0);
 
 	public Societies() {
 	}
 
-	public Societies(Integer societyId) {
-		this.societyId = societyId;
+	public Societies(String societyCd) {
+		this.societyCd = societyCd;
 	}
 
-	public Societies(Integer societyId, Users usersByCreatedBy,
-			Users usersByUpdatedBy, String societyCd, String societyName,
-			Date createdDate, Date updatedDate) {
-		this.societyId = societyId;
+	public Societies(String societyCd, Users usersByCreatedBy,
+			Users usersByUpdatedBy, String societyName, Date createdDate,
+			Date updatedDate, Set<SocietyJournals> societyJournalses) {
+		this.societyCd = societyCd;
 		this.usersByCreatedBy = usersByCreatedBy;
 		this.usersByUpdatedBy = usersByUpdatedBy;
-		this.societyCd = societyCd;
 		this.societyName = societyName;
 		this.createdDate = createdDate;
 		this.updatedDate = updatedDate;
+		this.societyJournalses = societyJournalses;
 	}
 
 	@Id
-	@Column(name = "SOCIETY_ID", unique = true, nullable = false, precision = 22, scale = 0)
-	public Integer getSocietyId() {
-		return this.societyId;
+	@Column(name = "SOCIETY_CD", unique = true, nullable = false, length = 15)
+	public String getSocietyCd() {
+		return this.societyCd;
 	}
 
-	public void setSocietyId(Integer societyId) {
-		this.societyId = societyId;
+	public void setSocietyCd(String societyCd) {
+		this.societyCd = societyCd;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -73,15 +77,6 @@ public class Societies implements java.io.Serializable {
 
 	public void setUsersByUpdatedBy(Users usersByUpdatedBy) {
 		this.usersByUpdatedBy = usersByUpdatedBy;
-	}
-
-	@Column(name = "SOCIETY_CD", length = 15)
-	public String getSocietyCd() {
-		return this.societyCd;
-	}
-
-	public void setSocietyCd(String societyCd) {
-		this.societyCd = societyCd;
 	}
 
 	@Column(name = "SOCIETY_NAME", length = 250)
@@ -109,6 +104,15 @@ public class Societies implements java.io.Serializable {
 
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "societies")
+	public Set<SocietyJournals> getSocietyJournalses() {
+		return this.societyJournalses;
+	}
+
+	public void setSocietyJournalses(Set<SocietyJournals> societyJournalses) {
+		this.societyJournalses = societyJournalses;
 	}
 
 }

@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Jun 26, 2015 10:24:59 AM by Hibernate Tools 4.0.0
+// Generated Jul 8, 2015 3:59:02 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -21,7 +21,7 @@ public class UserSocietyDetails implements java.io.Serializable {
 	private Integer userSocietyId;
 	private Users usersByCreatedBy;
 	private Users usersByUpdatedBy;
-	private Integer userId;
+	private UserProfile userProfile;
 	private String societyCd;
 	private String societyName;
 	private String membershipNo;
@@ -39,13 +39,13 @@ public class UserSocietyDetails implements java.io.Serializable {
 	}
 
 	public UserSocietyDetails(Integer userSocietyId, Users usersByCreatedBy,
-			Users usersByUpdatedBy, Integer userId, String societyCd,
+			Users usersByUpdatedBy, UserProfile userProfile, String societyCd,
 			String societyName, String membershipNo, String promoCode,
 			Date startDt, Date endDt, Date createdDate, Date updatedDate) {
 		this.userSocietyId = userSocietyId;
 		this.usersByCreatedBy = usersByCreatedBy;
 		this.usersByUpdatedBy = usersByUpdatedBy;
-		this.userId = userId;
+		this.userProfile = userProfile;
 		this.societyCd = societyCd;
 		this.societyName = societyName;
 		this.membershipNo = membershipNo;
@@ -86,13 +86,14 @@ public class UserSocietyDetails implements java.io.Serializable {
 		this.usersByUpdatedBy = usersByUpdatedBy;
 	}
 
-	@Column(name = "USER_ID", precision = 22, scale = 0)
-	public Integer getUserId() {
-		return this.userId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "USER_ID")
+	public UserProfile getUserProfile() {
+		return this.userProfile;
 	}
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
+	public void setUserProfile(UserProfile userProfile) {
+		this.userProfile = userProfile;
 	}
 
 	@Column(name = "SOCIETY_CD", length = 15)

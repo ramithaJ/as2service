@@ -491,7 +491,8 @@ public class DashboardServiceImpl implements DashboardService {
                 communicationDetails.setInviationId(invitationLog
                         .getInvitationId());
                 communicationDetails.setEmailId(invitationLog.getEmailAddr());
-                communicationDetails.setArticleId(invitationLog.getArticleId());
+                communicationDetails.setArticleId(invitationLog.getProducts()
+                        .getDhId());
                 communicationDetails.setSentDate(invitationLog.getSentDate()
                         .toString());
                 communicationDetailsList.add(communicationDetails);

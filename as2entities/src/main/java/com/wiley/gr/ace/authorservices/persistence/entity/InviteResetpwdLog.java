@@ -1,10 +1,14 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Jun 26, 2015 10:24:59 AM by Hibernate Tools 4.0.0
+// Generated Jul 8, 2015 3:59:02 PM by Hibernate Tools 4.0.0
 
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -14,6 +18,9 @@ import javax.persistence.Table;
 @Table(name = "INVITE_RESETPWD_LOG")
 public class InviteResetpwdLog implements java.io.Serializable {
 
+	private Integer logId;
+	private Users usersByCreatedBy;
+	private Users usersByUpdatedBy;
 	private String guid;
 	private String firstName;
 	private String lastName;
@@ -21,17 +28,24 @@ public class InviteResetpwdLog implements java.io.Serializable {
 	private String userType;
 	private String status;
 	private String type;
+	private Date createdDate;
+	private Date updatedDate;
 
 	public InviteResetpwdLog() {
 	}
 
-	public InviteResetpwdLog(String guid, String emailAddress) {
-		this.guid = guid;
+	public InviteResetpwdLog(Integer logId, String emailAddress) {
+		this.logId = logId;
 		this.emailAddress = emailAddress;
 	}
 
-	public InviteResetpwdLog(String guid, String firstName, String lastName,
-			String emailAddress, String userType, String status, String type) {
+	public InviteResetpwdLog(Integer logId, Users usersByCreatedBy,
+			Users usersByUpdatedBy, String guid, String firstName,
+			String lastName, String emailAddress, String userType,
+			String status, String type, Date createdDate, Date updatedDate) {
+		this.logId = logId;
+		this.usersByCreatedBy = usersByCreatedBy;
+		this.usersByUpdatedBy = usersByUpdatedBy;
 		this.guid = guid;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -39,10 +53,41 @@ public class InviteResetpwdLog implements java.io.Serializable {
 		this.userType = userType;
 		this.status = status;
 		this.type = type;
+		this.createdDate = createdDate;
+		this.updatedDate = updatedDate;
 	}
 
 	@Id
-	@Column(name = "GUID", unique = true, nullable = false, length = 200)
+	@Column(name = "LOG_ID", unique = true, nullable = false, precision = 22, scale = 0)
+	public Integer getLogId() {
+		return this.logId;
+	}
+
+	public void setLogId(Integer logId) {
+		this.logId = logId;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CREATED_BY")
+	public Users getUsersByCreatedBy() {
+		return this.usersByCreatedBy;
+	}
+
+	public void setUsersByCreatedBy(Users usersByCreatedBy) {
+		this.usersByCreatedBy = usersByCreatedBy;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "UPDATED_BY")
+	public Users getUsersByUpdatedBy() {
+		return this.usersByUpdatedBy;
+	}
+
+	public void setUsersByUpdatedBy(Users usersByUpdatedBy) {
+		this.usersByUpdatedBy = usersByUpdatedBy;
+	}
+
+	@Column(name = "GUID", length = 200)
 	public String getGuid() {
 		return this.guid;
 	}
@@ -103,6 +148,24 @@ public class InviteResetpwdLog implements java.io.Serializable {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	@Column(name = "CREATED_DATE")
+	public Date getCreatedDate() {
+		return this.createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	@Column(name = "UPDATED_DATE")
+	public Date getUpdatedDate() {
+		return this.updatedDate;
+	}
+
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
 	}
 
 }

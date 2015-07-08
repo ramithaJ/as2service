@@ -85,8 +85,8 @@ public class AuditResultServiceImpl implements AuditResultService {
                     }
                     auditDetails.setCreatedDate(new Date());
                     if (null != user) {
-                        auditDetails.setUsersByCreatedBy(user);
-                        auditDetails.setUsersByUserId(user);
+                        auditDetails.setUsers(user);
+
                     }
                     session.save(auditDetails);
                     session.flush();

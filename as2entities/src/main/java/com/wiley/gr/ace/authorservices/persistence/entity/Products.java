@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Jun 26, 2015 10:24:59 AM by Hibernate Tools 4.0.0
+// Generated Jul 8, 2015 3:59:02 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import java.util.HashSet;
@@ -28,17 +28,20 @@ public class Products implements java.io.Serializable {
 	private String dhTypeCd;
 	private Date createdDate;
 	private Date updatedDate;
-	private JournalConfiguration journalConfiguration;
-	private Set<ProductRelations> productRelationsesForParentDhId = new HashSet<ProductRelations>(
-			0);
+	private Set<InvitationLog> invitationLogs = new HashSet<InvitationLog>(0);
 	private Set<JournalAlertsConfiguration> journalAlertsConfigurations = new HashSet<JournalAlertsConfiguration>(
-			0);
-	private Set<ProductPersonRelations> productPersonRelationses = new HashSet<ProductPersonRelations>(
 			0);
 	private Set<CoauthorRequestsOoorders> coauthorRequestsOoorderses = new HashSet<CoauthorRequestsOoorders>(
 			0);
 	private Set<SavedOrders> savedOrderses = new HashSet<SavedOrders>(0);
 	private Set<Orders> orderses = new HashSet<Orders>(0);
+	private Set<SocietyJournals> societyJournalses = new HashSet<SocietyJournals>(
+			0);
+	private JournalConfiguration journalConfiguration;
+	private Set<ProductRelations> productRelationsesForParentDhId = new HashSet<ProductRelations>(
+			0);
+	private Set<ProductPersonRelations> productPersonRelationses = new HashSet<ProductPersonRelations>(
+			0);
 	private Set<UserPreferredJournals> userPreferredJournalses = new HashSet<UserPreferredJournals>(
 			0);
 	private Set<ProductPublicationStatuses> productPublicationStatuseses = new HashSet<ProductPublicationStatuses>(
@@ -56,12 +59,14 @@ public class Products implements java.io.Serializable {
 
 	public Products(Integer dhId, Users usersByCreatedBy,
 			Users usersByUpdatedBy, String dhTypeCd, Date createdDate,
-			Date updatedDate, JournalConfiguration journalConfiguration,
-			Set<ProductRelations> productRelationsesForParentDhId,
+			Date updatedDate, Set<InvitationLog> invitationLogs,
 			Set<JournalAlertsConfiguration> journalAlertsConfigurations,
-			Set<ProductPersonRelations> productPersonRelationses,
 			Set<CoauthorRequestsOoorders> coauthorRequestsOoorderses,
 			Set<SavedOrders> savedOrderses, Set<Orders> orderses,
+			Set<SocietyJournals> societyJournalses,
+			JournalConfiguration journalConfiguration,
+			Set<ProductRelations> productRelationsesForParentDhId,
+			Set<ProductPersonRelations> productPersonRelationses,
 			Set<UserPreferredJournals> userPreferredJournalses,
 			Set<ProductPublicationStatuses> productPublicationStatuseses,
 			Set<ProductRelations> productRelationsesForChildDhId,
@@ -72,13 +77,15 @@ public class Products implements java.io.Serializable {
 		this.dhTypeCd = dhTypeCd;
 		this.createdDate = createdDate;
 		this.updatedDate = updatedDate;
-		this.journalConfiguration = journalConfiguration;
-		this.productRelationsesForParentDhId = productRelationsesForParentDhId;
+		this.invitationLogs = invitationLogs;
 		this.journalAlertsConfigurations = journalAlertsConfigurations;
-		this.productPersonRelationses = productPersonRelationses;
 		this.coauthorRequestsOoorderses = coauthorRequestsOoorderses;
 		this.savedOrderses = savedOrderses;
 		this.orderses = orderses;
+		this.societyJournalses = societyJournalses;
+		this.journalConfiguration = journalConfiguration;
+		this.productRelationsesForParentDhId = productRelationsesForParentDhId;
+		this.productPersonRelationses = productPersonRelationses;
 		this.userPreferredJournalses = userPreferredJournalses;
 		this.productPublicationStatuseses = productPublicationStatuseses;
 		this.productRelationsesForChildDhId = productRelationsesForChildDhId;
@@ -142,24 +149,13 @@ public class Products implements java.io.Serializable {
 		this.updatedDate = updatedDate;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "products")
-	public JournalConfiguration getJournalConfiguration() {
-		return this.journalConfiguration;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "products")
+	public Set<InvitationLog> getInvitationLogs() {
+		return this.invitationLogs;
 	}
 
-	public void setJournalConfiguration(
-			JournalConfiguration journalConfiguration) {
-		this.journalConfiguration = journalConfiguration;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "productsByParentDhId")
-	public Set<ProductRelations> getProductRelationsesForParentDhId() {
-		return this.productRelationsesForParentDhId;
-	}
-
-	public void setProductRelationsesForParentDhId(
-			Set<ProductRelations> productRelationsesForParentDhId) {
-		this.productRelationsesForParentDhId = productRelationsesForParentDhId;
+	public void setInvitationLogs(Set<InvitationLog> invitationLogs) {
+		this.invitationLogs = invitationLogs;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "products")
@@ -170,16 +166,6 @@ public class Products implements java.io.Serializable {
 	public void setJournalAlertsConfigurations(
 			Set<JournalAlertsConfiguration> journalAlertsConfigurations) {
 		this.journalAlertsConfigurations = journalAlertsConfigurations;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "products")
-	public Set<ProductPersonRelations> getProductPersonRelationses() {
-		return this.productPersonRelationses;
-	}
-
-	public void setProductPersonRelationses(
-			Set<ProductPersonRelations> productPersonRelationses) {
-		this.productPersonRelationses = productPersonRelationses;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "products")
@@ -208,6 +194,45 @@ public class Products implements java.io.Serializable {
 
 	public void setOrderses(Set<Orders> orderses) {
 		this.orderses = orderses;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "products")
+	public Set<SocietyJournals> getSocietyJournalses() {
+		return this.societyJournalses;
+	}
+
+	public void setSocietyJournalses(Set<SocietyJournals> societyJournalses) {
+		this.societyJournalses = societyJournalses;
+	}
+
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "products")
+	public JournalConfiguration getJournalConfiguration() {
+		return this.journalConfiguration;
+	}
+
+	public void setJournalConfiguration(
+			JournalConfiguration journalConfiguration) {
+		this.journalConfiguration = journalConfiguration;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "productsByParentDhId")
+	public Set<ProductRelations> getProductRelationsesForParentDhId() {
+		return this.productRelationsesForParentDhId;
+	}
+
+	public void setProductRelationsesForParentDhId(
+			Set<ProductRelations> productRelationsesForParentDhId) {
+		this.productRelationsesForParentDhId = productRelationsesForParentDhId;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "products")
+	public Set<ProductPersonRelations> getProductPersonRelationses() {
+		return this.productPersonRelationses;
+	}
+
+	public void setProductPersonRelationses(
+			Set<ProductPersonRelations> productPersonRelationses) {
+		this.productPersonRelationses = productPersonRelationses;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "products")
