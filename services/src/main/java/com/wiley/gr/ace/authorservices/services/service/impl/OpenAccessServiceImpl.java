@@ -292,4 +292,11 @@ public class OpenAccessServiceImpl implements OpenAccessService {
 		return validationService.validateAddress(addressValidationRequest);
 	}
 
+	@Override
+	public boolean validateVatTaxDetails(String countryCode, String vatTaxRegNum)
+			throws Exception {
+		
+		return validationService.vatValidation(countryCode, vatTaxRegNum);
+	}
+
 }

@@ -19,4 +19,5 @@ public interface OpenAccessService {
 	 */
 	OpenAccessPaymentData getOpenAccessDetails(String userId, String articleId, String journalId) throws Exception;
 	boolean validateAddress(Address address) throws Exception;
+	boolean validateVatTaxDetails(String countryCode, String vatTaxRegNum) throws Exception;
 }

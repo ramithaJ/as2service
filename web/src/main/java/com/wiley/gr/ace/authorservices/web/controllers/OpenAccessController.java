@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiley.gr.ace.authorservices.model.Address;
 import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.OpenAccessPaymentData;
@@ -93,5 +94,54 @@ public class OpenAccessController {
 		service.setPayload(onlineOpenOrder);
 		return service;
 	}
-	
+
+	@RequestMapping(value = "/validate/address", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Service validateAddress(@RequestBody Address address) {
+		Service service = new Service();
+		try {
+			if (openAccessService.validateAddress(address)) {
+				service.setStatus("SUCCESS");
+			} else {
+				service.setStatus("FAILURE");
+				ErrorPOJO err = new ErrorPOJO();
+				err.setCode(199);
+				err.setMessage("Address is not valid");
+				service.setError(err);
+			}
+		} catch (Exception e) {
+			service.setStatus("ERROR");
+			ErrorPOJO err = new ErrorPOJO();
+			err.setCode(198);
+			err.setMessage("Address doctor service encountered exception");
+			service.setError(err);
+		}
+		return null;
+	}
+
+	@RequestMapping(value = "/validate/vat", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Service validateVatTaxDetails(
+			@RequestParam("countryCD") String countryCode,
+			@RequestParam("vat") String vatTaxRegNum) {
+		Service service = new Service();
+		try {
+			if (openAccessService.validateVatTaxDetails(countryCode,
+					vatTaxRegNum)) {
+				service.setStatus("SUCCESS");
+			} else {
+				service.setStatus("FAILURE");
+				ErrorPOJO err = new ErrorPOJO();
+				err.setCode(199);
+				err.setMessage("Vat/Tax details is not valid");
+				service.setError(err);
+			}
+		} catch (Exception e) {
+			service.setStatus("ERROR");
+			ErrorPOJO err = new ErrorPOJO();
+			err.setCode(198);
+			err.setMessage("Vat/Tax details validation service encountered exception");
+			service.setError(err);
+		}
+		return null;
+	}
+
 }
