@@ -17,6 +17,7 @@ import org.springframework.context.annotation.Configuration;
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.DashboardDAO;
+import com.wiley.gr.ace.authorservices.persistence.services.InvitationStartDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.LookUpValuesDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.RegistrationServiceDAO;
@@ -29,6 +30,7 @@ import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserRolesDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.ASDataDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.DashboardDAOImpl;
+import com.wiley.gr.ace.authorservices.persistence.services.impl.InvitationStartDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.LookupValuesDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.OrderOnlineDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.RegistrationServiceDAOImpl;
@@ -176,5 +178,9 @@ public class PersistenceBeanConfig {
     @Bean(name = "SaveJournalInfoDAO")
     public SaveJournalInfoDAO saveJournalInfoDAO() {
         return new SaveJournalInfoDAOImpl();
+    }
+    @Bean(name = "InvitationStartDAO")
+    public InvitationStartDAO InvitationStartDAO() {
+        return new InvitationStartDAOImpl();
     }
 }
