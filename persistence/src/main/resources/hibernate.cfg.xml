@@ -64,6 +64,8 @@
 			class="com.wiley.gr.ace.authorservices.persistence.entity.LookupValues" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.UserSocietyDetails" />
+				<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.Societies" />
 		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Address" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.AreaOfInterest" />
@@ -100,11 +102,11 @@
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.AdminProfile" />
 		<mapping
-			class="com.wiley.gr.ace.authorservices.persistence.entity.DatabaseChangelog" />
+			class="com.wiley.gr.ace.authorservices.persistence.entity.Databasechangelog" />
 		<mapping
-			class="com.wiley.gr.ace.authorservices.persistence.entity.DatabaseChangelogId" />
+			class="com.wiley.gr.ace.authorservices.persistence.entity.DatabasechangelogId" />
 		<mapping
-			class="com.wiley.gr.ace.authorservices.persistence.entity.DatabaseChangeloglock" />
+			class="com.wiley.gr.ace.authorservices.persistence.entity.Databasechangeloglock" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.LockedAccountDetails" />
 		<mapping
