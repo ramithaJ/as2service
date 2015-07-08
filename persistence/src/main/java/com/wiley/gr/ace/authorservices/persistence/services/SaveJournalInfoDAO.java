@@ -21,7 +21,7 @@ import com.wiley.gr.ace.authorservices.persistence.entity.JournalConfiguration;
  *
  * @author virtusa version 1.0
  */
-public interface JournalInfoDAO {
+public interface SaveJournalInfoDAO {
 
     /**
      * Gets the journal id.

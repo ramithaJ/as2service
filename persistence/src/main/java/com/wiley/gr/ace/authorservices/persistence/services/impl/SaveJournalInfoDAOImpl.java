@@ -20,14 +20,14 @@ import org.hibernate.Session;
 import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.persistence.entity.JournalConfiguration;
-import com.wiley.gr.ace.authorservices.persistence.services.JournalInfoDAO;
+import com.wiley.gr.ace.authorservices.persistence.services.SaveJournalInfoDAO;
 
 /**
  * The Class JournalInfoDAOImpl.
  *
  * @author virtusa version 1.0
  */
-public class JournalInfoDAOImpl implements JournalInfoDAO {
+public class SaveJournalInfoDAOImpl implements SaveJournalInfoDAO {
 
     /**
      * Gets the journal id.
