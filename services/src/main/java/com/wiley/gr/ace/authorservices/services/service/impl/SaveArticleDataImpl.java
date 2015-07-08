@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.wiley.gr.ace.authorservices.externalservices.service.SharedService;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.event.EventData;
+import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
 import com.wiley.gr.ace.authorservices.persistence.services.SaveArticleDAO;
 import com.wiley.gr.ace.authorservices.services.service.SaveArticleData;
 
@@ -100,9 +101,16 @@ public class SaveArticleDataImpl implements SaveArticleData {
 			 */
 			if (insertInLogTable) {
 				LOGGER.info("Insert the record in INVITE_RESETPWD_LOG table ...");
-				boolean status = saveArticleDAO.saveArticleInvitation(
-						firstName, lastName, email, role);
-				LOGGER.debug("Saved status :: "+status);
+
+				InviteResetpwdLog invite = new InviteResetpwdLog();
+				invite.setFirstName(firstName);
+				invite.setLastName(lastName);
+				invite.setEmailAddress(email);
+				invite.setUserType(role);
+
+				boolean status = saveArticleDAO.saveArticleInvitation(invite);
+
+				LOGGER.debug("Saved status :: " + status);
 			}
 
 		}
