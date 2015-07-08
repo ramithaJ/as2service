@@ -513,7 +513,12 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                     .toString());
             orderDetails.setStatus(orderData.getOrderStatusCode());
             orderDetails.setOrderId(orderData.getOoUniqueId());
-            orderDetails.setOrderType(orderData.getOrderType());
+            String type = orderData.getOrderType();
+            if ("AUTHOR_PAID".equalsIgnoreCase(type)) {
+                orderDetails.setOrderType("OO");
+            } else {
+                orderDetails.setOrderType("OA");
+            }
         }
 
         orderDetailsList.add(orderDetails);
