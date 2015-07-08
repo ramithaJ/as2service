@@ -26,7 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.wiley.gr.ace.authorservices.model.event.JournalInfo;
 import com.wiley.gr.ace.authorservices.persistence.entity.JournalConfiguration;
 import com.wiley.gr.ace.authorservices.persistence.entity.JournalSetupStates;
-import com.wiley.gr.ace.authorservices.persistence.services.JournalInfoDAO;
+import com.wiley.gr.ace.authorservices.persistence.services.SaveJournalInfoDAO;
 import com.wiley.gr.ace.authorservices.services.service.SaveJournalInfoService;
 
 /**
@@ -38,7 +38,7 @@ public class SaveJournalInfoServiceImpl implements SaveJournalInfoService {
 
     /** The journal info dao. */
     @Autowired(required = true)
-    JournalInfoDAO journalInfoDAO;
+    SaveJournalInfoDAO saveJournalInfoDAO;
 
     /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory
@@ -71,7 +71,7 @@ public class SaveJournalInfoServiceImpl implements SaveJournalInfoService {
                     .createUnmarshaller().unmarshal(reader);
 
             final JournalConfiguration journalConfiguration = new JournalConfiguration();
-            final Integer dhId = journalInfoDAO.getJournalId(journalInfo
+            final Integer dhId = saveJournalInfoDAO.getJournalId(journalInfo
                     .getJournalID());
             if (dhId != Integer.parseInt(journalInfo.getJournalID())) {
                 journalConfiguration.setDhId(Integer.parseInt(journalInfo
@@ -84,7 +84,7 @@ public class SaveJournalInfoServiceImpl implements SaveJournalInfoService {
                 journalConfiguration.setTitleDispOoo(journalInfo
                         .getRevenueModel());
 
-                result = journalInfoDAO.saveJournalInfo(journalConfiguration);
+                result = saveJournalInfoDAO.saveJournalInfo(journalConfiguration);
                 System.err.println(" Journal Info Type Event " + result);
             }
         }
