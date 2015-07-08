@@ -240,9 +240,6 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     @Value("${wpgDescription}")
     private String wpgDescription;
 
-    @Value("${wpgValue}")
-    private String wpgValue;
-
     @Value("${wpgCountryCode}")
     private String wpgCountryCode;
 
