@@ -130,6 +130,7 @@ public class TaskServicesUtil {
 		
 		try {
 			response = client.execute(request);
+			System.out.println(response);
 		} catch (ClientProtocolException e) {
 			throw new ASException("2000",e.getMessage());
 		} catch (IOException e) {
@@ -144,6 +145,14 @@ public class TaskServicesUtil {
 		}
 
 		return status;
+	}
+	
+	public static void main(String[] args) {
+		
+		String paramString = "{\"requestorEmail\":\"jpujari@ex.com\",\"justifications\":[\"need access for admin\", \"need online order access\"], \"requestorId\":\"john\"}";
+		
+		
+		System.out.println(TaskServicesUtil.invokeTaskService(paramString));
 	}
 	
 }

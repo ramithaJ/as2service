@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.wiley.gr.ace.authorservices.externalservices.service.SharedService;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.event.EventData;
+import com.wiley.gr.ace.authorservices.persistence.services.SaveArticleDAO;
 import com.wiley.gr.ace.authorservices.services.service.SaveArticleData;
 
 // TODO: Auto-generated Javadoc
@@ -35,12 +36,13 @@ public class SaveArticleDataImpl implements SaveArticleData {
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(SaveArticleDataImpl.class);
 
-	/*
-	 * @Autowired(required = true) private SaveArticleData saveArticleData;
-	 */
-	/** The esb interface service. */
+	/** The shared services interface service. */
 	@Autowired(required = true)
 	private SharedService sharedService;
+
+	/** The save article service dao. */
+	@Autowired(required = true)
+	private SaveArticleDAO saveArticleDAO;
 
 	/*
 	 * (non-Javadoc)
@@ -71,15 +73,36 @@ public class SaveArticleDataImpl implements SaveArticleData {
 			String firstName = eventData.getCorrespondingAuthor().getFullName();
 			String lastName = eventData.getCorrespondingAuthor().getFullName();
 			String email = eventData.getCorrespondingAuthor().getEmail();
+			/**
+			 * We should get below role from prop file.
+			 */
+			String role = "AUTHOR";
+			boolean insertInLogTable = true;
 			try {
 				Service service = sharedService.authorLookup(firstName,
 						lastName, email);
 				if (null != service) {
 					LOGGER.info("Processing lookup resonse...");
+					if (null != service.getPayload()) {
+						/*
+						 * TODO Need to implement complete logic.
+						 */
+						insertInLogTable = false;
+
+					}
 				}
 			} catch (Exception e) {
 				LOGGER.error("Error while calling author look-up service ...");
 				e.printStackTrace();
+			}
+			/*
+			 * TODO This insert we have to repeat for co-author
+			 */
+			if (insertInLogTable) {
+				LOGGER.info("Insert the record in INVITE_RESETPWD_LOG table ...");
+				boolean status = saveArticleDAO.saveArticleInvitation(
+						firstName, lastName, email, role);
+				LOGGER.debug("Saved status :: "+status);
 			}
 
 		}

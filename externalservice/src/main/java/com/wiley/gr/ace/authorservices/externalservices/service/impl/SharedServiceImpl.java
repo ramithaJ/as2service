@@ -18,7 +18,7 @@ import com.wiley.gr.ace.authorservices.model.Service;
  */
 public class SharedServiceImpl implements SharedService {
 
-	@Value("${authenticateAdminUser.url}")
+	@Value("${authorLookup.url}")
 	private String authorLookupUrl;
 
 	/*
@@ -30,7 +30,8 @@ public class SharedServiceImpl implements SharedService {
 	 */
 	public final Service authorLookup(String firstName, String lastName,
 			String email) throws Exception {
-		return (Service) StubInvokerUtil.invokeStub(authorLookupUrl, HttpMethod.GET, Service.class);
+		return (Service) StubInvokerUtil.invokeStub(authorLookupUrl,
+				HttpMethod.GET, Service.class);
 
 	}
 
