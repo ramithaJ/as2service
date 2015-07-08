@@ -16,7 +16,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class JournalInfo.
  */
@@ -24,50 +23,95 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "even:journalInfo")
 public class JournalInfo {
 
-	/** The journal id. */
-	@XmlElement(name = "art:journalID")
-	private String journalID;
+    /** The journal id. */
+    @XmlElement(name = "art:journalID")
+    private String journalID;
 
-	/** The journal name. */
-	@XmlElement(name = "art:journalName")
-	private String journalName;
+    /** The journal name. */
+    @XmlElement(name = "art:journalName")
+    private String journalName;
 
-	/**
-	 * Gets the journal id.
-	 *
-	 * @return the journalID
-	 */
-	public String getJournalID() {
-		return journalID;
-	}
+    /** The journal setup state. */
+    @XmlElement(name = "art:journalSetupState")
+    private String journalSetupState;
 
-	/**
-	 * Sets the journal id.
-	 *
-	 * @param journalID
-	 *            the journalID to set
-	 */
-	public void setJournalID(String journalID) {
-		this.journalID = journalID;
-	}
+    /**
+     * Sets the revenue model.
+     *
+     * @param revenueModel
+     *            the new revenue model
+     */
+    public final void setRevenueModel(final String revenueModel) {
+        this.revenueModel = revenueModel;
+    }
 
-	/**
-	 * Gets the journal name.
-	 *
-	 * @return the journalName
-	 */
-	public String getJournalName() {
-		return journalName;
-	}
+    /** The revenue model. */
+    @XmlElement(name = "art:revenueModel")
+    private String revenueModel;
 
-	/**
-	 * Sets the journal name.
-	 *
-	 * @param journalName
-	 *            the journalName to set
-	 */
-	public void setJournalName(String journalName) {
-		this.journalName = journalName;
-	}
+    /**
+     * Gets the journal id.
+     *
+     * @return the journalID
+     */
+    public String getJournalID() {
+        return journalID;
+    }
 
+    /**
+     * Sets the journal id.
+     *
+     * @param journalID
+     *            the journalID to set
+     */
+    public void setJournalID(final String journalID) {
+        this.journalID = journalID;
+    }
+
+    /**
+     * Gets the journal name.
+     *
+     * @return the journalName
+     */
+    public String getJournalName() {
+        return journalName;
+    }
+
+    /**
+     * Sets the journal name.
+     *
+     * @param journalName
+     *            the journalName to set
+     */
+    public void setJournalName(final String journalName) {
+        this.journalName = journalName;
+    }
+
+    /**
+     * Gets the journal setup state.
+     *
+     * @return the journal setup state
+     */
+    public final String getJournalSetupState() {
+        return journalSetupState;
+    }
+
+    /**
+     * Sets the journal setup state.
+     *
+     * @param journalSetupState
+     *            the new journal setup state
+     */
+    public final void setJournalSetupState(final String journalSetupState) {
+        this.journalSetupState = journalSetupState;
+    }
+
+    /**
+     * Gets the revenue model.
+     *
+     * @return the revenue model
+     */
+    public final String getRevenueModel() {
+        return revenueModel;
+    }
 }
