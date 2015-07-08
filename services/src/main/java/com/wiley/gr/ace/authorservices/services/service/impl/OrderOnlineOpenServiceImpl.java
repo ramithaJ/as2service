@@ -230,6 +230,9 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
     @Value("${wpgVendorId}")
     private String wpgVendorId;
+    
+    @Value("${wpgVendorPassword}")
+    private String wpgVendorPassword;
 
     @Value("${wpgMethod}")
     private String wpgMethod;
@@ -1066,7 +1069,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                 .append(wpgCountryCode).append(wpgAllowAVSFail);
 
         wpgConfiguration.setWpgSecurity(DigestUtils
-                .md5Hex(securityStringBuilder.toString()));
+                .md5Hex(securityStringBuilder.toString())+wpgVendorPassword);
 
         return wpgConfiguration;
     }
