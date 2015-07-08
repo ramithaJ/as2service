@@ -1057,7 +1057,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         String wpgTransId = intWpgTransId.toString();
 
         wpgConfiguration.setWpgTransId(wpgTransId);
-        wpgConfiguration.setWpgValue(wpgValue);
+        // wpgValue is not required for WPG_VALIDATE
+        //wpgConfiguration.setWpgValue(wpgValue);
         wpgConfiguration.setWpgVendorId(wpgVendorId);
 
         StringBuilder securityStringBuilder = new StringBuilder();
@@ -1097,8 +1098,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
              * .getBillingAddress().getRegion();
              * wpgConfiguration.setWpgRegion(region != null ? region : "");
              */
-            wpgConfiguration.setWpgCurrency(onlineOpenOrder.getFinalAmount()
-                    .getCurrency());
+            // Below line is commented since currency is not required for WPG_VALIDATE
+            //wpgConfiguration.setWpgCurrency(onlineOpenOrder.getFinalAmount().getCurrency());
         }
 
         return wpgConfiguration;
