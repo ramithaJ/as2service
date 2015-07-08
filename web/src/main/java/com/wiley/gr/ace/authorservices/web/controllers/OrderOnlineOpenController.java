@@ -15,6 +15,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -374,19 +375,30 @@ public class OrderOnlineOpenController extends ASExceptionController {
     @RequestMapping(value = "/paymentDetails/save/", method = RequestMethod.POST)
     public final Service savePaymentDetails(
             @RequestBody final PaymentDetails paymentDetails) {
-        orderOnlineOpenService
-                .savePaymentDetails(paymentDetails);
+        orderOnlineOpenService.savePaymentDetails(paymentDetails);
         return new Service();
 
     }
 
     @RequestMapping(value = "/wpg/config/{orderId}", method = RequestMethod.GET)
     public final Service getWPGConfiguration(
-    		 @PathVariable("orderId") final String orderId) {
+            @PathVariable("orderId") final String orderId) {
 
         Service service = new Service();
         service.setPayload(orderOnlineOpenService.getWPGConfiguration(orderId));
         return service;
     }
 
+    /**
+     * This method will generate pdf
+     * 
+     * @param ooUniqueId
+     * @return
+     */
+    @RequestMapping(value = "/pdf/{ooUniqueId}/", method = RequestMethod.GET)
+    public ResponseEntity<byte[]> getPDF(
+            @PathVariable("ooUniqueId") final String ooUniqueId) {
+        return orderOnlineOpenService.getPdf(ooUniqueId);
+
+    }
 }
