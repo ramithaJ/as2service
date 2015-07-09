@@ -37,7 +37,7 @@ public class ExternalServiceBeanConfig {
      * @return the user management
      */
     @Bean(name = "UserManagement")
-    public final UserManagement aLMExternalService() {
+    public UserManagement aLMExternalService() {
         return new UserManagementImpl();
     }
 
@@ -47,7 +47,7 @@ public class ExternalServiceBeanConfig {
      * @return the BPM interface service
      */
     @Bean(name = "BPMExternalService")
-    public final BPMInterfaceService bpmExternalService() {
+    public BPMInterfaceService bpmExternalService() {
         return new BPMInterfaceServiceImpl();
     }
 
@@ -57,7 +57,7 @@ public class ExternalServiceBeanConfig {
      * @return the ESB interface service
      */
     @Bean(name = "ESBInterfaceService")
-    public final ESBInterfaceService eSBInterfaceService() {
+    public ESBInterfaceService eSBInterfaceService() {
         return new ESBInterfaceServiceImpl();
     }
 
@@ -67,7 +67,7 @@ public class ExternalServiceBeanConfig {
      * @return the orcid interface service
      */
     @Bean(name = "OricdInterfaceService")
-    public final OrcidInterfaceService orcidInterfaceService() {
+    public OrcidInterfaceService orcidInterfaceService() {
         return new OrcidInterfaceServiceImpl();
     }
 
@@ -77,7 +77,7 @@ public class ExternalServiceBeanConfig {
      * @return the user profiles
      */
     @Bean(name = "UserProfiles")
-    public final UserProfiles cdmInterfaceService() {
+    public UserProfiles cdmInterfaceService() {
 
         return new UserProfilesImpl();
     }
