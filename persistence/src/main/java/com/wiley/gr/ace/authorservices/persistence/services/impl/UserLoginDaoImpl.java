@@ -30,8 +30,9 @@ import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
 
 /**
- * @author virtusa 
- * version 1.0
+ * The Class UserLoginDaoImpl.
+ *
+ * @author virtusa version 1.0
  */
 public class UserLoginDaoImpl implements UserLoginDao {
 
@@ -46,7 +47,7 @@ public class UserLoginDaoImpl implements UserLoginDao {
     public final boolean validateEmail(final String emailId) {
         boolean status = false;
         int userId = getUserId(emailId);
-        if(userId == 0){
+        if (userId == 0) {
             return status;
         }
         Session session = getSessionFactory().openSession();

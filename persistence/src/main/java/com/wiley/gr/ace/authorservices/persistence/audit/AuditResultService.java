@@ -18,6 +18,8 @@ import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 
 /**
  * The Interface AuditResultService.
+ * 
+ * @author virtusa version 1.0
  */
 public interface AuditResultService {
 

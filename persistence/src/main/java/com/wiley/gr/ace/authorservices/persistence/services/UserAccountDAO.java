@@ -17,6 +17,8 @@ import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
 
 /**
+ * The Interface UserAccountDAO.
+ *
  * @author virtusa version 1.0
  */
 public interface UserAccountDAO {

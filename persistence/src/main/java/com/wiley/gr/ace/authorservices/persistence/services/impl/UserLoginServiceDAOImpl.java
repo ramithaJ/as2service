@@ -1,4 +1,4 @@
-/*
+/*******************************************************************************
  * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
  *
  * All material contained herein is proprietary to John Wiley & Sons 
@@ -8,7 +8,7 @@
  * Reproduction or distribution of this material, in whole or in part, 
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
- */
+ *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
 import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
@@ -24,6 +24,8 @@ import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 
 /**
+ * The Class UserLoginServiceDAOImpl.
+ *
  * @author virtusa version 1.0
  */
 public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
@@ -138,8 +140,8 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
             session = getSessionFactory().openSession();
             session.beginTransaction();
             UserProfile authorProfile = new UserProfile();
-            authorProfile = (UserProfile) session.get(UserProfile.class,
-                    userId);
+            authorProfile = (UserProfile) session
+                    .get(UserProfile.class, userId);
             authorProfile.setIsAccountVerified('Y');
             session.update(authorProfile);
             session.getTransaction().commit();

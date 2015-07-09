@@ -17,6 +17,8 @@ import java.util.List;
 import com.wiley.gr.ace.authorservices.persistence.entity.LookupValues;
 
 /**
+ * The Interface LookUpValuesDAO.
+ *
  * @author virtusa version 1.0
  */
 public interface LookUpValuesDAO {

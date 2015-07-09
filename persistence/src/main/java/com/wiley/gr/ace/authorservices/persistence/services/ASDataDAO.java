@@ -19,6 +19,8 @@ import com.wiley.gr.ace.authorservices.persistence.entity.RolePermissions;
 import com.wiley.gr.ace.authorservices.persistence.entity.Roles;
 
 /**
+ * The Interface ASDataDAO.
+ *
  * @author virtusa version 1.0
  */
 public interface ASDataDAO {

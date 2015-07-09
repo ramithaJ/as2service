@@ -26,6 +26,8 @@ import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
 import com.wiley.gr.ace.authorservices.persistence.services.UserAccountDAO;
 
 /**
+ * The Class UserAccountDAOImpl.
+ *
  * @author virtusa version 1.0
  */
 public class UserAccountDAOImpl implements UserAccountDAO {
@@ -71,8 +73,6 @@ public class UserAccountDAOImpl implements UserAccountDAO {
     public final boolean updateSecurityDetails(final Integer userId,
             final List<SecurityDetails> securityDetails) {
 
-        // TODO: This is not required now, security details are maintained by
-        // ALM
         return true;
     }
 
@@ -97,7 +97,7 @@ public class UserAccountDAOImpl implements UserAccountDAO {
             session = getSessionFactory().openSession();
             transaction = session.beginTransaction();
             String hql = "UPDATE AuthorProfile set primaryEmailAddr ="
-            		+ " :primaryEmailAddr, secondaryEmailAddr = :secondaryEmailAddr "
+                    + " :primaryEmailAddr, secondaryEmailAddr = :secondaryEmailAddr "
                     + "WHERE userId = :userId";
             Query query = session.createQuery(hql);
             query.setParameter("primaryEmailAddr", primaryEmail);

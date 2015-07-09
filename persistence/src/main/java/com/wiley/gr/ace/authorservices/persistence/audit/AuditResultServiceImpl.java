@@ -29,6 +29,8 @@ import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 
 /**
  * The Class AuditResultServiceImpl.
+ * 
+ * @author virtusa version 1.0
  */
 public class AuditResultServiceImpl implements AuditResultService {
     /**
@@ -43,7 +45,8 @@ public class AuditResultServiceImpl implements AuditResultService {
      * @return true, if successful
      */
     @Override
-    public final boolean userAudit(final List<HashMap<String, String>> auditMap,
+    public final boolean userAudit(
+            final List<HashMap<String, String>> auditMap,
             final HashMap<String, String> actionMap, final Users user) {
 
         Session session = null;

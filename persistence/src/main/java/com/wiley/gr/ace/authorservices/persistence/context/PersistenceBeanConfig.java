@@ -153,5 +153,4 @@ public class PersistenceBeanConfig {
     public UserAutocomplete userAutocomplete() {
         return new UserAutocompleteImpl();
     }
-
 }

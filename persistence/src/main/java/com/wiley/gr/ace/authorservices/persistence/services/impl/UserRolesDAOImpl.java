@@ -32,6 +32,8 @@ import com.wiley.gr.ace.authorservices.persistence.entity.Roles;
 import com.wiley.gr.ace.authorservices.persistence.services.UserRolesDAO;
 
 /**
+ * The Class UserRolesDAOImpl.
+ *
  * @author virtusa version 1.0
  */
 public class UserRolesDAOImpl implements UserRolesDAO {
