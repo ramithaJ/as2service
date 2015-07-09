@@ -20,6 +20,8 @@ import org.hibernate.Session;
 import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.persistence.entity.ArticleConfiguration;
+import com.wiley.gr.ace.authorservices.persistence.entity.ProductRelations;
+import com.wiley.gr.ace.authorservices.persistence.entity.Products;
 import com.wiley.gr.ace.authorservices.persistence.services.SaveArticleInfoDAO;
 
 /**
@@ -81,5 +83,41 @@ public class SaveArticleInfoDAOImpl implements SaveArticleInfoDAO {
             }
         }
 
+    }
+    
+    @Override
+	public boolean saveProductDetails(Products products) {
+		Session session = null;
+		boolean isSaved = false;
+		try{
+			session = getSessionFactory().openSession();
+			session.getTransaction().begin();
+			session.save(products);
+			session.getTransaction().commit();
+			isSaved = true;
+		}finally{
+			if(null != session){
+				session.flush();
+				session.close();
+			}
+		}
+		return isSaved;
+	}
+
+    @Override
+    public void saveProductRelation(ProductRelations productRelations) {
+
+        Session session = null;
+        try{
+            session = getSessionFactory().openSession();
+            session.getTransaction().begin();
+            session.save(productRelations);
+            session.getTransaction().commit();
+        }finally{
+            if(null != session){
+                session.flush();
+                session.close();
+            }
+        }
     }
 }

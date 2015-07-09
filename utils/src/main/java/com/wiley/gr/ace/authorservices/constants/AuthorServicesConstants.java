@@ -112,6 +112,12 @@ public class AuthorServicesConstants {
     /** The Constant for BPM_SALT. */
     public static final String COUNTRY_CANADA = "CANADA";
     
+    /** The Constant AUTHOR_ROLE_CD. */
+    public static final String AUTHOR_ROLE_CD = "101";
+    
+    /** The Constant COAUTHOR_ROLE_CD. */
+    public static final String COAUTHOR_ROLE_CD = "102";
+    
     
     
 }

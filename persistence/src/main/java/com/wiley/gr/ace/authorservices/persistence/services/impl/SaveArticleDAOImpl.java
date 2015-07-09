@@ -60,4 +60,5 @@ public class SaveArticleDAOImpl implements SaveArticleDAO {
 		}
 		return false;
 	}
+
 }

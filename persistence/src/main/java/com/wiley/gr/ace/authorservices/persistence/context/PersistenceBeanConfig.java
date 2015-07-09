@@ -22,6 +22,7 @@ import com.wiley.gr.ace.authorservices.persistence.services.LookUpValuesDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.RegistrationServiceDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.SaveArticleDAO;
+import com.wiley.gr.ace.authorservices.persistence.services.SaveArticleInfoDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.SaveJournalInfoDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UpdateUserDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserAccountDAO;
@@ -35,6 +36,7 @@ import com.wiley.gr.ace.authorservices.persistence.services.impl.LookupValuesDAO
 import com.wiley.gr.ace.authorservices.persistence.services.impl.OrderOnlineDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.RegistrationServiceDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.SaveArticleDAOImpl;
+import com.wiley.gr.ace.authorservices.persistence.services.impl.SaveArticleInfoDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.SaveJournalInfoDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UpdateUserDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserAccountDAOImpl;
@@ -179,6 +181,22 @@ public class PersistenceBeanConfig {
     public SaveJournalInfoDAO saveJournalInfoDAO() {
         return new SaveJournalInfoDAOImpl();
     }
+
+    /**
+     * Save article info dao.
+     *
+     * @return the save article info dao
+     */
+    @Bean(name = "SaveArticleInfoDAO")
+    public SaveArticleInfoDAO saveArticleInfoDAO() {
+        return new SaveArticleInfoDAOImpl();
+    }
+
+    /**
+     * Invitation start dao.
+     *
+     * @return the invitation start dao
+     */
     @Bean(name = "InvitationStartDAO")
     public InvitationStartDAO InvitationStartDAO() {
         return new InvitationStartDAOImpl();
