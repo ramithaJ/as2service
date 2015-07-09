@@ -57,10 +57,8 @@ public class RestServiceInvokerUtil {
             final Object postObject) throws ASException, RestClientException,
             URISyntaxException {
 
-        RestTemplate restTemplate = new RestTemplate();
-
         ResponseEntity<SecurityResponse> response = null;
-        if (className.equals("Login")) {
+        if ("Login".equals(className)) {
             JSONObject jsonObject = new JSONObject();
             Login loginData = (Login) postObject;
             jsonObject.put("userId", loginData.getEmailId());
@@ -68,8 +66,8 @@ public class RestServiceInvokerUtil {
             jsonObject.put("authenticationType", "AD");
             jsonObject.put("appKey", "AS");
 
-            response = restTemplate.postForEntity(new URI(url), jsonObject,
-                    SecurityResponse.class);
+            response = new RestTemplate().postForEntity(new URI(url),
+                    jsonObject, SecurityResponse.class);
             System.err.println(response.getBody().getStatus());
         }
 

@@ -47,7 +47,7 @@ public class AuthorServicesConstants {
     public static final String INVITE_RESET_PASSWORD_STATUS = "PENDING";
 
     /** The Constant INVITE_RESET_PASSWORD_STATUS_ClOSED. */
-    public static final String INVITE_RESET_PASSWORD_STATUS_ClOSED = "CLOSED";
+    public static final String INVITE_RESET_PASSWORD_STATUS_CLOSED = "CLOSED";
 
     /** The Constant AUDIT_OBJ_NAME. */
     public static final String AUDIT_OBJ_NAME = "OBJ_NAME";
@@ -69,17 +69,17 @@ public class AuthorServicesConstants {
 
     /** The Constant AUDIT_DESCRIPTION. */
     public static final String AUDIT_DESCRIPTION = "DESCRIPTION";
-    
+
     /** The Constant INVALIDEMAILCODE. */
     public static final String INVALIDEMAILCODE = "222";
-    
+
     /** The Constant INVALIDEMAILMSG. */
     public static final String INVALIDEMAILMSG = "Invalid email address. Please Re-Enter";
-    
+
     /** The Constant SERVERERRORCODE. */
     public static final String SERVERERRORCODE = "2013";
-    
+
     /** The Constant SERVERERRORMESSAGE. */
     public static final String SERVERERRORMESSAGE = "Unable to process your request. Please try after some time..";
-    
+
 }

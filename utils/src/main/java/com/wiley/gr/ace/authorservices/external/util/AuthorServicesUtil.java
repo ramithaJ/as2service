@@ -40,8 +40,9 @@ public class AuthorServicesUtil {
         try (Reader in = new InputStreamReader(is, "UTF-8")) {
             for (;;) {
                 int rsz = in.read(buffer, 0, buffer.length);
-                if (rsz < 0)
+                if (rsz < 0) {
                     break;
+                }
                 out.append(buffer, 0, rsz);
             }
         } catch (UnsupportedEncodingException ex) {

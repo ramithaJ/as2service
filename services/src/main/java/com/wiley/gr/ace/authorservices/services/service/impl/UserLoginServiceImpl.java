@@ -185,7 +185,7 @@ public class UserLoginServiceImpl implements UserLoginService {
 
         if (null == daoinviteResetpwdLog) {
             throw new ASException(recordnotexistcode, recordnotexistmessage);
-        } else if (AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS_ClOSED
+        } else if (AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS_CLOSED
                 .equalsIgnoreCase(daoinviteResetpwdLog.getStatus())) {
             throw new ASException(statusclosedcode, statusclosedmessage);
         } else if (AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS
