@@ -1064,10 +1064,10 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                 .append(wpgDescription).append(wpgRegion)
                 .append(wpgConfiguration.getWpgAddress())
                 .append(wpgConfiguration.getWpgPostCode())
-                .append(wpgCountryCode).append(wpgAllowAVSFail);
+                .append(wpgCountryCode).append(wpgAllowAVSFail).append(wpgVendorPassword);
 
         wpgConfiguration.setWpgSecurity(DigestUtils
-                .md5Hex(securityStringBuilder.toString()) + wpgVendorPassword);
+                .md5Hex(securityStringBuilder.toString()));
 
         return wpgConfiguration;
     }
