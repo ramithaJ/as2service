@@ -80,10 +80,6 @@ public class UserProfilesImpl implements UserProfiles {
     @Value("${states.url}")
     private String statesurl;
 
-    /** The status. */
-    @Value("${STATUS}")
-    private String status;
-
     /**
      * This method is used for getting area of interest.
      *
@@ -201,7 +197,8 @@ public class UserProfilesImpl implements UserProfiles {
                 HttpMethod.GET, ESBResponse.class);
     }
 
-    /** This method is used for getting userProfile response.
+    /**
+     * This method is used for getting userProfile response.
      *
      * @param userId
      *            the user id
@@ -218,8 +215,9 @@ public class UserProfilesImpl implements UserProfiles {
         return response;
     }
 
-     /** This method is used for getting userProfile response and put the
-     * updated userProfile object into Redis cache.
+    /**
+     * This method is used for getting userProfile response and put the updated
+     * userProfile object into Redis cache.
      *
      * @param userId
      *            the user id
@@ -243,11 +241,11 @@ public class UserProfilesImpl implements UserProfiles {
 
     /**
      * This method is used for getting userProfile response.
+     * 
      * @return UserProfileResponse
      */
     private final UserProfileResponse getUserProfile() {
-        return (UserProfileResponse) StubInvokerUtil
-                .invokeStub(userProfileurl, HttpMethod.GET,
-                        UserProfileResponse.class);
+        return (UserProfileResponse) StubInvokerUtil.invokeStub(userProfileurl,
+                HttpMethod.GET, UserProfileResponse.class);
     }
 }
