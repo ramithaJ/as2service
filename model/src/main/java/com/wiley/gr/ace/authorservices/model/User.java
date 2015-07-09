@@ -19,19 +19,12 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 /**
  * The Class User.
  *
- * @author virtusa
- * version 1.0
- */
-/**
- * @author DISHARIDE
- *
+ * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
 public class User implements Serializable {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
     /** The user id. */
     private Integer userId;
@@ -69,12 +62,11 @@ public class User implements Serializable {
     private String jobCategory;
 
     /** The orcid id. */
-    private String orcidID;
+    private String orcidId;
 
     /** The visible attributes. */
     private String[] visibleAttributes;
 
-    // Need to confirm the datatype
     /** The contact id. */
     private String contactId;
 
@@ -106,6 +98,8 @@ public class User implements Serializable {
     private Affiliation affiliation;
 
     /**
+     * Gets the user id.
+     *
      * @return the userId
      */
     public final Integer getUserId() {
@@ -113,6 +107,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Sets the user id.
+     *
      * @param userId
      *            the userId to set
      */
@@ -121,6 +117,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Gets the title.
+     *
      * @return the title
      */
     public final String getTitle() {
@@ -128,6 +126,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Sets the title.
+     *
      * @param title
      *            the title to set
      */
@@ -136,6 +136,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Gets the first name.
+     *
      * @return the firstName
      */
     public final String getFirstName() {
@@ -143,6 +145,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Sets the first name.
+     *
      * @param firstName
      *            the firstName to set
      */
@@ -151,6 +155,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Gets the middle name.
+     *
      * @return the middleName
      */
     public final String getMiddleName() {
@@ -158,6 +164,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Sets the middle name.
+     *
      * @param middleName
      *            the middleName to set
      */
@@ -166,6 +174,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Gets the last name.
+     *
      * @return the lastName
      */
     public final String getLastName() {
@@ -173,6 +183,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Sets the last name.
+     *
      * @param lastName
      *            the lastName to set
      */
@@ -181,6 +193,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Gets the suffix.
+     *
      * @return the suffix
      */
     public final String getSuffix() {
@@ -188,6 +202,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Sets the suffix.
+     *
      * @param suffix
      *            the suffix to set
      */
@@ -196,6 +212,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Gets the alternate name.
+     *
      * @return the alternateName
      */
     public final String getAlternateName() {
@@ -203,6 +221,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Sets the alternate name.
+     *
      * @param alternateName
      *            the alternateName to set
      */
@@ -211,6 +231,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Gets the primary email addr.
+     *
      * @return the primaryEmailAddr
      */
     public final String getPrimaryEmailAddr() {
@@ -218,6 +240,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Sets the primary email addr.
+     *
      * @param primaryEmailAddr
      *            the primaryEmailAddr to set
      */
@@ -226,6 +250,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Gets the recovery email address.
+     *
      * @return the recoveryEmailAddress
      */
     public final String getRecoveryEmailAddress() {
@@ -233,6 +259,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Sets the recovery email address.
+     *
      * @param recoveryEmailAddress
      *            the recoveryEmailAddress to set
      */
@@ -241,6 +269,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Gets the additional email address.
+     *
      * @return the additionalEmailAddress
      */
     public final String getAdditionalEmailAddress() {
@@ -248,6 +278,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Sets the additional email address.
+     *
      * @param additionalEmailAddress
      *            the additionalEmailAddress to set
      */
@@ -257,6 +289,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Gets the industry.
+     *
      * @return the industry
      */
     public final String getIndustry() {
@@ -264,6 +298,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Sets the industry.
+     *
      * @param industry
      *            the industry to set
      */
@@ -272,6 +308,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Gets the job category.
+     *
      * @return the jobCategory
      */
     public final String getJobCategory() {
@@ -279,6 +317,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Sets the job category.
+     *
      * @param jobCategory
      *            the jobCategory to set
      */
@@ -287,21 +327,27 @@ public class User implements Serializable {
     }
 
     /**
-     * @return the orcidID
+     * Gets the orcid id.
+     *
+     * @return the orcidId
      */
-    public final String getOrcidID() {
-        return orcidID;
+    public final String getOrcidId() {
+        return orcidId;
     }
 
     /**
-     * @param orcidID
-     *            the orcidID to set
+     * Sets the orcid id.
+     *
+     * @param orcidId
+     *            the orcidId to set
      */
-    public final void setOrcidID(final String orcidID) {
-        this.orcidID = orcidID;
+    public final void setOrcidId(final String orcidId) {
+        this.orcidId = orcidId;
     }
 
     /**
+     * Gets the visible attributes.
+     *
      * @return the visibleAttributes
      */
     public final String[] getVisibleAttributes() {
@@ -309,6 +355,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Sets the visible attributes.
+     *
      * @param visibleAttributes
      *            the visibleAttributes to set
      */
@@ -317,6 +365,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Gets the contact id.
+     *
      * @return the contactId
      */
     public final String getContactId() {
@@ -324,6 +374,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Sets the contact id.
+     *
      * @param contactId
      *            the contactId to set
      */
@@ -332,6 +384,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Gets the password.
+     *
      * @return the password
      */
     public final String getPassword() {
@@ -339,6 +393,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Sets the password.
+     *
      * @param password
      *            the password to set
      */
@@ -347,6 +403,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Checks if is search full name.
+     *
      * @return the searchFullName
      */
     public final boolean isSearchFullName() {
@@ -354,6 +412,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Sets the search full name.
+     *
      * @param searchFullName
      *            the searchFullName to set
      */
@@ -362,6 +422,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Gets the invitation guid.
+     *
      * @return the invitationGuid
      */
     public final String getInvitationGuid() {
@@ -369,6 +431,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Sets the invitation guid.
+     *
      * @param invitationGuid
      *            the invitationGuid to set
      */
@@ -377,6 +441,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Gets the country.
+     *
      * @return the country
      */
     public final Country getCountry() {
@@ -384,6 +450,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Sets the country.
+     *
      * @param country
      *            the country to set
      */
@@ -392,6 +460,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Gets the country name ne.
+     *
      * @return the countryNameNE
      */
     public final String getCountryNameNE() {
@@ -399,6 +469,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Sets the country name ne.
+     *
      * @param countryNameNE
      *            the countryNameNE to set
      */
@@ -407,6 +479,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Gets the terms of use flg.
+     *
      * @return the termsOfUseFlg
      */
     public final Character getTermsOfUseFlg() {
@@ -414,6 +488,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Sets the terms of use flg.
+     *
      * @param termsOfUseFlg
      *            the termsOfUseFlg to set
      */
@@ -422,6 +498,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Gets the user reference data.
+     *
      * @return the userReferenceData
      */
     public final UserReferenceData getUserReferenceData() {
@@ -429,6 +507,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Sets the user reference data.
+     *
      * @param userReferenceData
      *            the userReferenceData to set
      */
@@ -438,6 +518,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Gets the addresses.
+     *
      * @return the addresses
      */
     public final Addresses getAddresses() {
@@ -445,6 +527,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Sets the addresses.
+     *
      * @param addresses
      *            the addresses to set
      */
@@ -453,6 +537,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Gets the affiliation.
+     *
      * @return the affiliation
      */
     public final Affiliation getAffiliation() {
@@ -460,6 +546,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Sets the affiliation.
+     *
      * @param affiliation
      *            the affiliation to set
      */
