@@ -14,6 +14,7 @@ package com.wiley.gr.ace.authorservices.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class UserManagement.
  *
@@ -64,6 +65,8 @@ public class UserManagement {
     private Character isAccountVerified;
 
     /**
+     * Gets the user id.
+     *
      * @return the userId
      */
     public final String getUserId() {
@@ -71,14 +74,17 @@ public class UserManagement {
     }
 
     /**
-     * @param userId
-     *            the userId to set
+     * Sets the user id.
+     *
+     * @param userId            the userId to set
      */
     public final void setUserId(final String userId) {
         this.userId = userId;
     }
 
     /**
+     * Gets the primary email address.
+     *
      * @return the primaryEmailAddress
      */
     public final String getPrimaryEmailAddress() {
@@ -86,14 +92,17 @@ public class UserManagement {
     }
 
     /**
-     * @param primaryEmailAddress
-     *            the primaryEmailAddress to set
+     * Sets the primary email address.
+     *
+     * @param primaryEmailAddress            the primaryEmailAddress to set
      */
     public final void setPrimaryEmailAddress(final String primaryEmailAddress) {
         this.primaryEmailAddress = primaryEmailAddress;
     }
 
     /**
+     * Gets the secondary email address.
+     *
      * @return the secondaryEmailAddress
      */
     public final String getSecondaryEmailAddress() {
@@ -101,8 +110,9 @@ public class UserManagement {
     }
 
     /**
-     * @param secondaryEmailAddress
-     *            the secondaryEmailAddress to set
+     * Sets the secondary email address.
+     *
+     * @param secondaryEmailAddress            the secondaryEmailAddress to set
      */
     public final void setSecondaryEmailAddress(
             final String secondaryEmailAddress) {
@@ -110,6 +120,8 @@ public class UserManagement {
     }
 
     /**
+     * Gets the password.
+     *
      * @return the password
      */
     public final String getPassword() {
@@ -117,14 +129,17 @@ public class UserManagement {
     }
 
     /**
-     * @param password
-     *            the password to set
+     * Sets the password.
+     *
+     * @param password            the password to set
      */
     public final void setPassword(final String password) {
         this.password = password;
     }
 
     /**
+     * Gets the security vo.
+     *
      * @return the securityVO
      */
     public final String getSecurityVO() {
@@ -132,14 +147,17 @@ public class UserManagement {
     }
 
     /**
-     * @param securityVO
-     *            the securityVO to set
+     * Sets the security vo.
+     *
+     * @param securityVO            the securityVO to set
      */
     public final void setSecurityVO(final String securityVO) {
         this.securityVO = securityVO;
     }
 
     /**
+     * Gets the checks if is security setup.
+     *
      * @return the isSecuritySetup
      */
     public final String getIsSecuritySetup() {
@@ -147,14 +165,17 @@ public class UserManagement {
     }
 
     /**
-     * @param isSecuritySetup
-     *            the isSecuritySetup to set
+     * Sets the checks if is security setup.
+     *
+     * @param isSecuritySetup            the isSecuritySetup to set
      */
     public final void setIsSecuritySetup(final String isSecuritySetup) {
         this.isSecuritySetup = isSecuritySetup;
     }
 
     /**
+     * Gets the login failure count.
+     *
      * @return the loginFailureCount
      */
     public final String getLoginFailureCount() {
@@ -162,14 +183,17 @@ public class UserManagement {
     }
 
     /**
-     * @param loginFailureCount
-     *            the loginFailureCount to set
+     * Sets the login failure count.
+     *
+     * @param loginFailureCount            the loginFailureCount to set
      */
     public final void setLoginFailureCount(final String loginFailureCount) {
         this.loginFailureCount = loginFailureCount;
     }
 
     /**
+     * Gets the checks if is user locked.
+     *
      * @return the isUserLocked
      */
     public final String getIsUserLocked() {
@@ -177,14 +201,17 @@ public class UserManagement {
     }
 
     /**
-     * @param isUserLocked
-     *            the isUserLocked to set
+     * Sets the checks if is user locked.
+     *
+     * @param isUserLocked            the isUserLocked to set
      */
     public final void setIsUserLocked(final String isUserLocked) {
         this.isUserLocked = isUserLocked;
     }
 
     /**
+     * Gets the last login time.
+     *
      * @return the lastLoginTime
      */
     public final String getLastLoginTime() {
@@ -192,14 +219,17 @@ public class UserManagement {
     }
 
     /**
-     * @param lastLoginTime
-     *            the lastLoginTime to set
+     * Sets the last login time.
+     *
+     * @param lastLoginTime            the lastLoginTime to set
      */
     public final void setLastLoginTime(final String lastLoginTime) {
         this.lastLoginTime = lastLoginTime;
     }
 
     /**
+     * Gets the session id.
+     *
      * @return the sessionId
      */
     public final String getSessionId() {
@@ -207,14 +237,17 @@ public class UserManagement {
     }
 
     /**
-     * @param sessionId
-     *            the sessionId to set
+     * Sets the session id.
+     *
+     * @param sessionId            the sessionId to set
      */
     public final void setSessionId(final String sessionId) {
         this.sessionId = sessionId;
     }
 
     /**
+     * Gets the orcid id.
+     *
      * @return the orcidID
      */
     public final String getOrcidID() {
@@ -222,14 +255,17 @@ public class UserManagement {
     }
 
     /**
-     * @param orcidID
-     *            the orcidID to set
+     * Sets the orcid id.
+     *
+     * @param orcidID            the orcidID to set
      */
     public final void setOrcidID(final String orcidID) {
         this.orcidID = orcidID;
     }
 
     /**
+     * Gets the ec id.
+     *
      * @return the ecId
      */
     public final String getEcId() {
@@ -237,14 +273,17 @@ public class UserManagement {
     }
 
     /**
-     * @param ecId
-     *            the ecId to set
+     * Sets the ec id.
+     *
+     * @param ecId            the ecId to set
      */
     public final void setEcId(final String ecId) {
         this.ecId = ecId;
     }
 
     /**
+     * Gets the user vo.
+     *
      * @return the userVO
      */
     public final String getUserVO() {
@@ -252,14 +291,17 @@ public class UserManagement {
     }
 
     /**
-     * @param userVO
-     *            the userVO to set
+     * Sets the user vo.
+     *
+     * @param userVO            the userVO to set
      */
     public final void setUserVO(final String userVO) {
         this.userVO = userVO;
     }
 
     /**
+     * Gets the checks if is account verified.
+     *
      * @return the isAccountVerified
      */
     public final Character getIsAccountVerified() {
@@ -267,8 +309,9 @@ public class UserManagement {
     }
 
     /**
-     * @param isAccountVerified
-     *            the isAccountVerified to set
+     * Sets the checks if is account verified.
+     *
+     * @param isAccountVerified            the isAccountVerified to set
      */
     public final void setIsAccountVerified(final Character isAccountVerified) {
         this.isAccountVerified = isAccountVerified;
