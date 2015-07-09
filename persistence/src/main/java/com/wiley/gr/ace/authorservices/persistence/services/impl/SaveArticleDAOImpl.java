@@ -38,12 +38,13 @@ public class SaveArticleDAOImpl implements SaveArticleDAO {
 	 * java.lang.String, java.lang.String)
 	 */
 	@Override
-	public boolean saveArticleInvitation(InviteResetpwdLog invite) throws Exception {
+	public boolean saveArticleInvitation(InviteResetpwdLog invite)
+			throws Exception {
 		Session session = null;
 		try {
 			session = getSessionFactory().openSession();
 			session.getTransaction().begin();
-			// session.save(invite);
+			session.save(invite);
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			if (session != null) {
