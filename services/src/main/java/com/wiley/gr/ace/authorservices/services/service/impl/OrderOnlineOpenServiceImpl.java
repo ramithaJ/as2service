@@ -230,7 +230,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
     @Value("${wpgVendorId}")
     private String wpgVendorId;
-    
+
     @Value("${wpgVendorPassword}")
     private String wpgVendorPassword;
 
@@ -515,9 +515,9 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             orderDetails.setOrderId(orderData.getOoUniqueId());
             String type = orderData.getOrderType();
             if ("AUTHOR_PAID".equalsIgnoreCase(type)) {
-                orderDetails.setOrderType("OO");
+                orderDetails.setOrderType("onlineopen");
             } else {
-                orderDetails.setOrderType("OA");
+                orderDetails.setOrderType("openaccess");
             }
         }
 
@@ -1055,7 +1055,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
         wpgConfiguration.setWpgTransId(wpgTransId);
         // wpgValue is not required for WPG_VALIDATE
-        //wpgConfiguration.setWpgValue(wpgValue);
+        // wpgConfiguration.setWpgValue(wpgValue);
         wpgConfiguration.setWpgVendorId(wpgVendorId);
 
         StringBuilder securityStringBuilder = new StringBuilder();
@@ -1067,7 +1067,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                 .append(wpgCountryCode).append(wpgAllowAVSFail);
 
         wpgConfiguration.setWpgSecurity(DigestUtils
-                .md5Hex(securityStringBuilder.toString())+wpgVendorPassword);
+                .md5Hex(securityStringBuilder.toString()) + wpgVendorPassword);
 
         return wpgConfiguration;
     }
@@ -1095,8 +1095,9 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
              * .getBillingAddress().getRegion();
              * wpgConfiguration.setWpgRegion(region != null ? region : "");
              */
-            // Below line is commented since currency is not required for WPG_VALIDATE
-            //wpgConfiguration.setWpgCurrency(onlineOpenOrder.getFinalAmount().getCurrency());
+            // Below line is commented since currency is not required for
+            // WPG_VALIDATE
+            // wpgConfiguration.setWpgCurrency(onlineOpenOrder.getFinalAmount().getCurrency());
         }
 
         return wpgConfiguration;
