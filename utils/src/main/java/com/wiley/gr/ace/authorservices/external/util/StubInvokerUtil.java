@@ -16,8 +16,7 @@ import com.wiley.gr.ace.authorservices.exception.ASException;
 /**
  * The Class StubInvokerUtil.
  *
- * @author virtusa 
- * version 1.0
+ * @author virtusa version 1.0
  */
 public class StubInvokerUtil {
 
@@ -35,8 +34,8 @@ public class StubInvokerUtil {
      * @return Object
      */
     public static <T> Object invokeStub(final String url,
-            final HttpMethod httpMethod,final Class<T> clazz) {
-        
+            final HttpMethod httpMethod, final Class<T> clazz) {
+
         try {
             HttpHeaders requestHeaders = new HttpHeaders();
             requestHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -71,19 +70,21 @@ public class StubInvokerUtil {
      * @return Object
      */
     public static <T> Object restServiceInvoker(final String url,
-            final Object requestEntityClass,final Class<T> responseEntityClass) {
+            final Object requestEntityClass, final Class<T> responseEntityClass) {
 
-        try {     
+        try {
             ResponseEntity<T> response = new RestTemplate().postForEntity(
                     new URI(url), requestEntityClass, responseEntityClass);
 
             if (null == response) {
-                throw new ASException(AuthorServicesConstants.SERVERERRORCODE, AuthorServicesConstants.SERVERERRORMESSAGE);
+                throw new ASException(AuthorServicesConstants.SERVERERRORCODE,
+                        AuthorServicesConstants.SERVERERRORMESSAGE);
             }
             return response.getBody();
         } catch (Exception e) {
 
-            throw new ASException(AuthorServicesConstants.SERVERERRORCODE, AuthorServicesConstants.SERVERERRORMESSAGE);
+            throw new ASException(AuthorServicesConstants.SERVERERRORCODE,
+                    AuthorServicesConstants.SERVERERRORMESSAGE);
 
         }
 

@@ -29,8 +29,7 @@ import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
 /**
  * The Class RestServiceInvokerUtil.
  *
- * @author virtusa 
- * version 1.0
+ * @author virtusa version 1.0
  */
 public class RestServiceInvokerUtil {
 
@@ -46,37 +45,42 @@ public class RestServiceInvokerUtil {
      * @param postObject
      *            the post object
      * @return the string
-     * @throws URISyntaxException 
-     * @throws RestClientException 
+     * @throws ASException
+     *             the AS exception
+     * @throws RestClientException
+     *             the rest client exception
+     * @throws URISyntaxException
+     *             the URI syntax exception
      */
     public static String invokeService(final String url,
             final HttpMethod httpMethod, final String className,
-            final Object postObject) throws ASException, RestClientException, URISyntaxException {
+            final Object postObject) throws ASException, RestClientException,
+            URISyntaxException {
 
-        
         RestTemplate restTemplate = new RestTemplate();
-        
+
         ResponseEntity<SecurityResponse> response = null;
-        if (className.equals("Login")) {               
+        if (className.equals("Login")) {
             JSONObject jsonObject = new JSONObject();
             Login loginData = (Login) postObject;
             jsonObject.put("userId", loginData.getEmailId());
             jsonObject.put("password", loginData.getPassword());
             jsonObject.put("authenticationType", "AD");
-            jsonObject.put("appKey", "AS");         
-        
+            jsonObject.put("appKey", "AS");
+
             response = restTemplate.postForEntity(new URI(url), jsonObject,
                     SecurityResponse.class);
             System.err.println(response.getBody().getStatus());
         }
 
         if (response != null) {
-            if("FAILURE".equalsIgnoreCase(response.getBody().getStatus())){
-                throw new ASException(AuthorServicesConstants.INVALIDEMAILCODE, AuthorServicesConstants.INVALIDEMAILMSG);
-            }else{
+            if ("FAILURE".equalsIgnoreCase(response.getBody().getStatus())) {
+                throw new ASException(AuthorServicesConstants.INVALIDEMAILCODE,
+                        AuthorServicesConstants.INVALIDEMAILMSG);
+            } else {
                 return response.getHeaders().getFirst("X-AS2-AUTH-TOKEN");
             }
-            
+
         } else {
             return null;
         }
