@@ -14,9 +14,10 @@ package com.wiley.gr.ace.authorservices.model.external;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Docs.
+ * 
+ * @author virtusa version 1.0
  */
 public class Docs {
 
