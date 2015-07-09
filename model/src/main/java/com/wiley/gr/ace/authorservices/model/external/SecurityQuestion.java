@@ -32,6 +32,8 @@ public class SecurityQuestion {
     private String answer;
 
     /**
+     * Gets the question.
+     *
      * @return the question
      */
     public final String getQuestion() {
@@ -39,6 +41,8 @@ public class SecurityQuestion {
     }
 
     /**
+     * Sets the question.
+     *
      * @param question
      *            the question to set
      */
@@ -47,6 +51,8 @@ public class SecurityQuestion {
     }
 
     /**
+     * Gets the answer.
+     *
      * @return the answer
      */
     public final String getAnswer() {
@@ -54,6 +60,8 @@ public class SecurityQuestion {
     }
 
     /**
+     * Sets the answer.
+     *
      * @param answer
      *            the answer to set
      */

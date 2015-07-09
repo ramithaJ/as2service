@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * The Class ArticleDetails.
  *
- * @author yugandhark
+ * @author virtusa version 1.0
  */
 public class ArticleDetails {
 
@@ -48,6 +48,8 @@ public class ArticleDetails {
     private List<ArticleCoAuthors> articleCoAuthors;
 
     /**
+     * Gets the article id.
+     *
      * @return the articleId
      */
     public final Integer getArticleId() {
@@ -55,6 +57,8 @@ public class ArticleDetails {
     }
 
     /**
+     * Sets the article id.
+     *
      * @param articleId
      *            the articleId to set
      */
@@ -63,6 +67,8 @@ public class ArticleDetails {
     }
 
     /**
+     * Gets the article name.
+     *
      * @return the articleName
      */
     public final String getArticleName() {
@@ -70,6 +76,8 @@ public class ArticleDetails {
     }
 
     /**
+     * Sets the article name.
+     *
      * @param articleName
      *            the articleName to set
      */
@@ -78,6 +86,8 @@ public class ArticleDetails {
     }
 
     /**
+     * Gets the article doi.
+     *
      * @return the articleDoi
      */
     public final String getArticleDoi() {
@@ -85,6 +95,8 @@ public class ArticleDetails {
     }
 
     /**
+     * Sets the article doi.
+     *
      * @param articleDoi
      *            the articleDoi to set
      */
@@ -93,6 +105,8 @@ public class ArticleDetails {
     }
 
     /**
+     * Gets the publication date.
+     *
      * @return the publicationDate
      */
     public final String getPublicationDate() {
@@ -100,6 +114,8 @@ public class ArticleDetails {
     }
 
     /**
+     * Sets the publication date.
+     *
      * @param publicationDate
      *            the publicationDate to set
      */
@@ -108,6 +124,8 @@ public class ArticleDetails {
     }
 
     /**
+     * Gets the acceptance date.
+     *
      * @return the acceptanceDate
      */
     public final String getAcceptanceDate() {
@@ -115,6 +133,8 @@ public class ArticleDetails {
     }
 
     /**
+     * Sets the acceptance date.
+     *
      * @param acceptanceDate
      *            the acceptanceDate to set
      */
@@ -123,6 +143,8 @@ public class ArticleDetails {
     }
 
     /**
+     * Gets the article accepted in oo.
+     *
      * @return the articleAcceptedInOO
      */
     public final String getArticleAcceptedInOO() {
@@ -130,6 +152,8 @@ public class ArticleDetails {
     }
 
     /**
+     * Sets the article accepted in oo.
+     *
      * @param articleAcceptedInOO
      *            the articleAcceptedInOO to set
      */
@@ -138,6 +162,8 @@ public class ArticleDetails {
     }
 
     /**
+     * Gets the article authors.
+     *
      * @return the articleAuthors
      */
     public final List<ArticleAuthors> getArticleAuthors() {
@@ -145,14 +171,19 @@ public class ArticleDetails {
     }
 
     /**
+     * Sets the article authors.
+     *
      * @param articleAuthors
      *            the articleAuthors to set
      */
-    public final void setArticleAuthors(final List<ArticleAuthors> articleAuthors) {
+    public final void setArticleAuthors(
+            final List<ArticleAuthors> articleAuthors) {
         this.articleAuthors = articleAuthors;
     }
 
     /**
+     * Gets the article co authors.
+     *
      * @return the articleCoAuthors
      */
     public final List<ArticleCoAuthors> getArticleCoAuthors() {
@@ -160,6 +191,8 @@ public class ArticleDetails {
     }
 
     /**
+     * Sets the article co authors.
+     *
      * @param articleCoAuthors
      *            the articleCoAuthors to set
      */

@@ -1,7 +1,20 @@
+/*******************************************************************************
+ * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
+ *
+ * All material contained herein is proprietary to John Wiley & Sons
+ * and its third party suppliers, if any. The methods, techniques and
+ * technical concepts contained herein are considered trade secrets
+ * and confidential and may be protected by intellectual property laws.
+ * Reproduction or distribution of this material, in whole or in part,
+ * is strictly forbidden except by express prior written permission
+ * of John Wiley & Sons.
+ *******************************************************************************/
 package com.wiley.gr.ace.authorservices.model;
 
 /**
  * The Class InviteRecords.
+ * 
+ * @author virtusa version 1.0
  */
 public class InviteRecords {
 
@@ -24,6 +37,8 @@ public class InviteRecords {
     private String status;
 
     /**
+     * Gets the guid.
+     *
      * @return the guid
      */
     public final String getGuid() {
@@ -31,6 +46,8 @@ public class InviteRecords {
     }
 
     /**
+     * Sets the guid.
+     *
      * @param guid
      *            the guid to set
      */
@@ -39,6 +56,8 @@ public class InviteRecords {
     }
 
     /**
+     * Gets the first name.
+     *
      * @return the firstName
      */
     public final String getFirstName() {
@@ -46,6 +65,8 @@ public class InviteRecords {
     }
 
     /**
+     * Sets the first name.
+     *
      * @param firstName
      *            the firstName to set
      */
@@ -54,6 +75,8 @@ public class InviteRecords {
     }
 
     /**
+     * Gets the last name.
+     *
      * @return the lastName
      */
     public final String getLastName() {
@@ -61,6 +84,8 @@ public class InviteRecords {
     }
 
     /**
+     * Sets the last name.
+     *
      * @param lastName
      *            the lastName to set
      */
@@ -69,6 +94,8 @@ public class InviteRecords {
     }
 
     /**
+     * Gets the email address.
+     *
      * @return the emailAddress
      */
     public final String getEmailAddress() {
@@ -76,6 +103,8 @@ public class InviteRecords {
     }
 
     /**
+     * Sets the email address.
+     *
      * @param emailAddress
      *            the emailAddress to set
      */
@@ -84,6 +113,8 @@ public class InviteRecords {
     }
 
     /**
+     * Gets the user type.
+     *
      * @return the userType
      */
     public final String getUserType() {
@@ -91,6 +122,8 @@ public class InviteRecords {
     }
 
     /**
+     * Sets the user type.
+     *
      * @param userType
      *            the userType to set
      */
@@ -99,6 +132,8 @@ public class InviteRecords {
     }
 
     /**
+     * Gets the status.
+     *
      * @return the status
      */
     public final String getStatus() {
@@ -106,6 +141,8 @@ public class InviteRecords {
     }
 
     /**
+     * Sets the status.
+     *
      * @param status
      *            the status to set
      */

@@ -29,6 +29,8 @@ public class PermissionSection {
     private List<UserPermissions> permissionsList = new ArrayList<UserPermissions>();
 
     /**
+     * Gets the section name.
+     *
      * @return the sectionName
      */
     public final String getSectionName() {
@@ -36,6 +38,8 @@ public class PermissionSection {
     }
 
     /**
+     * Sets the section name.
+     *
      * @param sectionName
      *            the sectionName to set
      */
@@ -44,6 +48,8 @@ public class PermissionSection {
     }
 
     /**
+     * Gets the permissions list.
+     *
      * @return the permissionsList
      */
     public final List<UserPermissions> getPermissionsList() {
@@ -51,10 +57,13 @@ public class PermissionSection {
     }
 
     /**
+     * Sets the permissions list.
+     *
      * @param permissionsList
      *            the permissionsList to set
      */
-    public final void setPermissionsList(final List<UserPermissions> permissionsList) {
+    public final void setPermissionsList(
+            final List<UserPermissions> permissionsList) {
         this.permissionsList = permissionsList;
     }
 

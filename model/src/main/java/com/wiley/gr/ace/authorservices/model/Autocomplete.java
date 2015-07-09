@@ -20,117 +20,121 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 /**
  * The Class User.
  *
- * @author virtusa
- * version 1.0
+ * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
 public class Autocomplete implements Serializable {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
-    
-    /**
-     * The Key
-     */
+
+    /** The Key. */
     private String key;
-    
-    /**
-     * The phrase
-     */
+
+    /** The phrase. */
     private String phrase;
-    
-    /**
-     * The count
-     */
+
+    /** The count. */
     private int count;
-    
-    /**
-     * The dataPath
-     */
+
+    /** The dataPath. */
     private URL dataPath;
-    
-    /**
-     * The clear
-     */
+
+    /** The clear. */
     private Boolean clear;
 
-	/**
-	 * @return
-	 */
-	public String getKey() {
-		return key;
-	}
+    /**
+     * Gets the key.
+     *
+     * @return the key
+     */
+    public final String getKey() {
+        return key;
+    }
 
-	/**
-	 * @param key
-	 */
-	public void setKey(String key) {
-		this.key = key;
-	}
+    /**
+     * Sets the key.
+     *
+     * @param key
+     *            the new key
+     */
+    public final void setKey(final String key) {
+        this.key = key;
+    }
 
-	/**
-	 * @return
-	 */
-	public String getPhrase() {
-		return phrase;
-	}
+    /**
+     * Gets the phrase.
+     *
+     * @return the phrase
+     */
+    public final String getPhrase() {
+        return phrase;
+    }
 
-	/**
-	 * @param phrase
-	 */
-	public void setPhrase(String phrase) {
-		this.phrase = phrase;
-	}
+    /**
+     * Sets the phrase.
+     *
+     * @param phrase
+     *            the new phrase
+     */
+    public final void setPhrase(final String phrase) {
+        this.phrase = phrase;
+    }
 
-	/**
-	 * @return
-	 */
-	public Integer getCount() {
-		return count;
-	}
+    /**
+     * Gets the count.
+     *
+     * @return the count
+     */
+    public final Integer getCount() {
+        return count;
+    }
 
-	/**
-	 * @param count
-	 */
-	public void setCount(Integer count) {
-		this.count = count;
-	}
+    /**
+     * Sets the count.
+     *
+     * @param count
+     *            the new count
+     */
+    public final void setCount(final Integer count) {
+        this.count = count;
+    }
 
-	/**
-	 * @return
-	 */
-	public URL getDataPath() {
-		return dataPath;
-	}
+    /**
+     * Gets the data path.
+     *
+     * @return the data path
+     */
+    public final URL getDataPath() {
+        return dataPath;
+    }
 
-	/**
-	 * @param dataPath
-	 */
-	public void setDataPath(URL dataPath) {
-		this.dataPath = dataPath;
-	}
+    /**
+     * Sets the data path.
+     *
+     * @param dataPath
+     *            the new data path
+     */
+    public final void setDataPath(final URL dataPath) {
+        this.dataPath = dataPath;
+    }
 
-	/**
-	 * @return
-	 */
-	public Boolean isClear() {
-		return clear;
-	}
+    /**
+     * Checks if is clear.
+     *
+     * @return the boolean
+     */
+    public final Boolean isClear() {
+        return clear;
+    }
 
-	/**
-	 * @param clear
-	 */
-	public void setClear(Boolean clear) {
-		this.clear = clear;
-	}
-
-	/**
-	 * @return
-	 */
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-    
+    /**
+     * Sets the clear.
+     *
+     * @param clear
+     *            the new clear
+     */
+    public final void setClear(final Boolean clear) {
+        this.clear = clear;
+    }
 }

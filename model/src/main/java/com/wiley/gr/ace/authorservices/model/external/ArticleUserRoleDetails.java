@@ -14,6 +14,7 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ArticleUserRoleDetails.
  *
@@ -28,6 +29,8 @@ public class ArticleUserRoleDetails {
     private String roleName;
 
     /**
+     * Gets the role code.
+     *
      * @return the roleCode
      */
     public final String getRoleCode() {
@@ -35,14 +38,17 @@ public class ArticleUserRoleDetails {
     }
 
     /**
-     * @param roleCode
-     *            the roleCode to set
+     * Sets the role code.
+     *
+     * @param roleCode            the roleCode to set
      */
     public final void setRoleCode(final String roleCode) {
         this.roleCode = roleCode;
     }
 
     /**
+     * Gets the role name.
+     *
      * @return the roleName
      */
     public final String getRoleName() {
@@ -50,8 +56,9 @@ public class ArticleUserRoleDetails {
     }
 
     /**
-     * @param roleName
-     *            the roleName to set
+     * Sets the role name.
+     *
+     * @param roleName            the roleName to set
      */
     public final void setRoleName(final String roleName) {
         this.roleName = roleName;

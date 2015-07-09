@@ -1,3 +1,14 @@
+/*******************************************************************************
+ * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
+ *
+ * All material contained herein is proprietary to John Wiley & Sons
+ * and its third party suppliers, if any. The methods, techniques and
+ * technical concepts contained herein are considered trade secrets
+ * and confidential and may be protected by intellectual property laws.
+ * Reproduction or distribution of this material, in whole or in part,
+ * is strictly forbidden except by express prior written permission
+ * of John Wiley & Sons.
+ *******************************************************************************/
 package com.wiley.gr.ace.authorservices.model;
 
 import java.util.List;
@@ -26,6 +37,8 @@ public class AdminUser {
     private String lastName;
 
     /**
+     * Gets the email id.
+     *
      * @return the emailId
      */
     public final String getEmailId() {
@@ -33,6 +46,8 @@ public class AdminUser {
     }
 
     /**
+     * Sets the email id.
+     *
      * @param emailId
      *            the emailId to set
      */
@@ -41,6 +56,8 @@ public class AdminUser {
     }
 
     /**
+     * Gets the roles list.
+     *
      * @return the rolesList
      */
     public final List<String> getRolesList() {
@@ -48,6 +65,8 @@ public class AdminUser {
     }
 
     /**
+     * Sets the roles list.
+     *
      * @param rolesList
      *            the rolesList to set
      */
@@ -56,6 +75,8 @@ public class AdminUser {
     }
 
     /**
+     * Gets the first name.
+     *
      * @return the firstName
      */
     public final String getFirstName() {
@@ -63,6 +84,8 @@ public class AdminUser {
     }
 
     /**
+     * Sets the first name.
+     *
      * @param firstName
      *            the firstName to set
      */
@@ -71,6 +94,8 @@ public class AdminUser {
     }
 
     /**
+     * Gets the last name.
+     *
      * @return the lastName
      */
     public final String getLastName() {
@@ -78,6 +103,8 @@ public class AdminUser {
     }
 
     /**
+     * Sets the last name.
+     *
      * @param lastName
      *            the lastName to set
      */

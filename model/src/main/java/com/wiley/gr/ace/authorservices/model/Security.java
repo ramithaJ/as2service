@@ -57,6 +57,8 @@ public class Security {
     private String securityAnswer2;
 
     /**
+     * Gets the id1.
+     *
      * @return the id1
      */
     public final int getId1() {
@@ -64,6 +66,8 @@ public class Security {
     }
 
     /**
+     * Sets the id1.
+     *
      * @param id1
      *            the id1 to set
      */
@@ -72,6 +76,8 @@ public class Security {
     }
 
     /**
+     * Gets the id2.
+     *
      * @return the id2
      */
     public final int getId2() {
@@ -79,6 +85,8 @@ public class Security {
     }
 
     /**
+     * Sets the id2.
+     *
      * @param id2
      *            the id2 to set
      */
@@ -87,6 +95,8 @@ public class Security {
     }
 
     /**
+     * Gets the security question1.
+     *
      * @return the securityQuestion1
      */
     public final String getSecurityQuestion1() {
@@ -94,6 +104,8 @@ public class Security {
     }
 
     /**
+     * Sets the security question1.
+     *
      * @param securityQuestion1
      *            the securityQuestion1 to set
      */
@@ -102,6 +114,8 @@ public class Security {
     }
 
     /**
+     * Gets the security question2.
+     *
      * @return the securityQuestion2
      */
     public final String getSecurityQuestion2() {
@@ -109,6 +123,8 @@ public class Security {
     }
 
     /**
+     * Sets the security question2.
+     *
      * @param securityQuestion2
      *            the securityQuestion2 to set
      */
@@ -117,6 +133,8 @@ public class Security {
     }
 
     /**
+     * Gets the security answer1.
+     *
      * @return the securityAnswer1
      */
     public final String getSecurityAnswer1() {
@@ -124,6 +142,8 @@ public class Security {
     }
 
     /**
+     * Sets the security answer1.
+     *
      * @param securityAnswer1
      *            the securityAnswer1 to set
      */
@@ -132,6 +152,8 @@ public class Security {
     }
 
     /**
+     * Gets the security answer2.
+     *
      * @return the securityAnswer2
      */
     public final String getSecurityAnswer2() {
@@ -139,6 +161,8 @@ public class Security {
     }
 
     /**
+     * Sets the security answer2.
+     *
      * @param securityAnswer2
      *            the securityAnswer2 to set
      */

@@ -14,10 +14,11 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+
 /**
  * The Class ArticleData.
  *
- * @author yugandhark
+ * @author virtusa version 1.0
  */
 public class ArticleData {
 
@@ -40,6 +41,8 @@ public class ArticleData {
     private String productionStatus;
 
     /**
+     * Gets the article details.
+     *
      * @return the articleDetails
      */
     public final ArticleDetails getArticleDetails() {
@@ -47,14 +50,17 @@ public class ArticleData {
     }
 
     /**
-     * @param articleDetails
-     *            the articleDetails to set
+     * Sets the article details.
+     *
+     * @param articleDetails            the articleDetails to set
      */
     public final void setArticleDetails(final ArticleDetails articleDetails) {
         this.articleDetails = articleDetails;
     }
 
     /**
+     * Gets the journal details.
+     *
      * @return the journalDetails
      */
     public final JournalDetails getJournalDetails() {
@@ -62,14 +68,17 @@ public class ArticleData {
     }
 
     /**
-     * @param journalDetails
-     *            the journalDetails to set
+     * Sets the journal details.
+     *
+     * @param journalDetails            the journalDetails to set
      */
     public final void setJournalDetails(final JournalDetails journalDetails) {
         this.journalDetails = journalDetails;
     }
 
     /**
+     * Gets the article user role.
+     *
      * @return the articleUserRole
      */
     public final String getArticleUserRole() {
@@ -77,14 +86,17 @@ public class ArticleData {
     }
 
     /**
-     * @param articleUserRole
-     *            the articleUserRole to set
+     * Sets the article user role.
+     *
+     * @param articleUserRole            the articleUserRole to set
      */
     public final void setArticleUserRole(final String articleUserRole) {
         this.articleUserRole = articleUserRole;
     }
 
     /**
+     * Gets the license status.
+     *
      * @return the licenseStatus
      */
     public final String getLicenseStatus() {
@@ -92,14 +104,17 @@ public class ArticleData {
     }
 
     /**
-     * @param licenseStatus
-     *            the licenseStatus to set
+     * Sets the license status.
+     *
+     * @param licenseStatus            the licenseStatus to set
      */
     public final void setLicenseStatus(final String licenseStatus) {
         this.licenseStatus = licenseStatus;
     }
 
     /**
+     * Gets the order payment status.
+     *
      * @return the orderPaymentStatus
      */
     public final OrderPaymentStatus getOrderPaymentStatus() {
@@ -107,8 +122,9 @@ public class ArticleData {
     }
 
     /**
-     * @param orderPaymentStatus
-     *            the orderPaymentStatus to set
+     * Sets the order payment status.
+     *
+     * @param orderPaymentStatus            the orderPaymentStatus to set
      */
     public final void setOrderPaymentStatus(
             final OrderPaymentStatus orderPaymentStatus) {
@@ -116,6 +132,8 @@ public class ArticleData {
     }
 
     /**
+     * Gets the production status.
+     *
      * @return the productionStatus
      */
     public final String getProductionStatus() {
@@ -123,8 +141,9 @@ public class ArticleData {
     }
 
     /**
-     * @param productionStatus
-     *            the productionStatus to set
+     * Sets the production status.
+     *
+     * @param productionStatus            the productionStatus to set
      */
     public final void setProductionStatus(final String productionStatus) {
         this.productionStatus = productionStatus;

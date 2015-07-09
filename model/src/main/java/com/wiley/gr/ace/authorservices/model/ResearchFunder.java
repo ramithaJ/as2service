@@ -29,9 +29,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class ResearchFunder implements Serializable {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
     /** The research funder id. */
@@ -54,6 +52,8 @@ public class ResearchFunder implements Serializable {
     private Set<String> grantNumber;
 
     /**
+     * Gets the research funder id.
+     *
      * @return the researchFunderId
      */
     public final Integer getResearchFunderId() {
@@ -61,6 +61,8 @@ public class ResearchFunder implements Serializable {
     }
 
     /**
+     * Sets the research funder id.
+     *
      * @param researchFunderId
      *            the researchFunderId to set
      */
@@ -69,6 +71,8 @@ public class ResearchFunder implements Serializable {
     }
 
     /**
+     * Gets the research funder name.
+     *
      * @return the researchFunderName
      */
     public final String getResearchFunderName() {
@@ -76,6 +80,8 @@ public class ResearchFunder implements Serializable {
     }
 
     /**
+     * Sets the research funder name.
+     *
      * @param researchFunderName
      *            the researchFunderName to set
      */
@@ -84,6 +90,8 @@ public class ResearchFunder implements Serializable {
     }
 
     /**
+     * Gets the article aid.
+     *
      * @return the articleAID
      */
     public final String getArticleAID() {
@@ -91,6 +99,8 @@ public class ResearchFunder implements Serializable {
     }
 
     /**
+     * Sets the article aid.
+     *
      * @param articleAID
      *            the articleAID to set
      */
@@ -99,6 +109,8 @@ public class ResearchFunder implements Serializable {
     }
 
     /**
+     * Gets the article name.
+     *
      * @return the articleName
      */
     public final String getArticleName() {
@@ -106,6 +118,8 @@ public class ResearchFunder implements Serializable {
     }
 
     /**
+     * Sets the article name.
+     *
      * @param articleName
      *            the articleName to set
      */
@@ -114,6 +128,8 @@ public class ResearchFunder implements Serializable {
     }
 
     /**
+     * Gets the grant number.
+     *
      * @return the grantNumber
      */
     public final Set<String> getGrantNumber() {
@@ -121,6 +137,8 @@ public class ResearchFunder implements Serializable {
     }
 
     /**
+     * Sets the grant number.
+     *
      * @param grantNumber
      *            the grantNumber to set
      */

@@ -29,6 +29,8 @@ public class Suffix {
     private String suffixName;
 
     /**
+     * Gets the suffix id.
+     *
      * @return the suffixId
      */
     public final String getSuffixId() {
@@ -36,6 +38,8 @@ public class Suffix {
     }
 
     /**
+     * Sets the suffix id.
+     *
      * @param suffixId
      *            the suffixId to set
      */
@@ -44,6 +48,8 @@ public class Suffix {
     }
 
     /**
+     * Gets the suffix name.
+     *
      * @return the suffixName
      */
     public final String getSuffixName() {
@@ -51,6 +57,8 @@ public class Suffix {
     }
 
     /**
+     * Sets the suffix name.
+     *
      * @param suffixName
      *            the suffixName to set
      */

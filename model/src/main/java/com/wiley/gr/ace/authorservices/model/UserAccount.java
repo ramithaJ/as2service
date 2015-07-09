@@ -68,6 +68,8 @@ public class UserAccount {
     private String addressVO;
 
     /**
+     * Gets the title.
+     *
      * @return the title
      */
     public final Title getTitle() {
@@ -75,6 +77,8 @@ public class UserAccount {
     }
 
     /**
+     * Sets the title.
+     *
      * @param title
      *            the title to set
      */
@@ -83,6 +87,8 @@ public class UserAccount {
     }
 
     /**
+     * Gets the suffix.
+     *
      * @return the suffix
      */
     public final Suffix getSuffix() {
@@ -90,6 +96,8 @@ public class UserAccount {
     }
 
     /**
+     * Sets the suffix.
+     *
      * @param suffix
      *            the suffix to set
      */
@@ -98,6 +106,8 @@ public class UserAccount {
     }
 
     /**
+     * Gets the first name.
+     *
      * @return the firstName
      */
     public final String getFirstName() {
@@ -105,6 +115,8 @@ public class UserAccount {
     }
 
     /**
+     * Sets the first name.
+     *
      * @param firstName
      *            the firstName to set
      */
@@ -113,6 +125,8 @@ public class UserAccount {
     }
 
     /**
+     * Gets the middle name.
+     *
      * @return the middleName
      */
     public final String getMiddleName() {
@@ -120,6 +134,8 @@ public class UserAccount {
     }
 
     /**
+     * Sets the middle name.
+     *
      * @param middleName
      *            the middleName to set
      */
@@ -128,6 +144,8 @@ public class UserAccount {
     }
 
     /**
+     * Gets the last name.
+     *
      * @return the lastName
      */
     public final String getLastName() {
@@ -135,6 +153,8 @@ public class UserAccount {
     }
 
     /**
+     * Sets the last name.
+     *
      * @param lastName
      *            the lastName to set
      */
@@ -143,6 +163,8 @@ public class UserAccount {
     }
 
     /**
+     * Gets the alternative name.
+     *
      * @return the alternativeName
      */
     public final String getAlternativeName() {
@@ -150,6 +172,8 @@ public class UserAccount {
     }
 
     /**
+     * Sets the alternative name.
+     *
      * @param alternativeName
      *            the alternativeName to set
      */
@@ -158,6 +182,8 @@ public class UserAccount {
     }
 
     /**
+     * Gets the industry.
+     *
      * @return the industry
      */
     public final String getIndustry() {
@@ -165,6 +191,8 @@ public class UserAccount {
     }
 
     /**
+     * Sets the industry.
+     *
      * @param industry
      *            the industry to set
      */
@@ -173,6 +201,8 @@ public class UserAccount {
     }
 
     /**
+     * Gets the job category.
+     *
      * @return the jobCategory
      */
     public final String getJobCategory() {
@@ -180,6 +210,8 @@ public class UserAccount {
     }
 
     /**
+     * Sets the job category.
+     *
      * @param jobCategory
      *            the jobCategory to set
      */
@@ -188,6 +220,8 @@ public class UserAccount {
     }
 
     /**
+     * Gets the orcid id.
+     *
      * @return the orcidId
      */
     public final String getOrcidId() {
@@ -195,6 +229,8 @@ public class UserAccount {
     }
 
     /**
+     * Sets the orcid id.
+     *
      * @param orcidId
      *            the orcidId to set
      */
@@ -203,6 +239,8 @@ public class UserAccount {
     }
 
     /**
+     * Checks if is opt in flag.
+     *
      * @return the optInFlag
      */
     public final boolean isOptInFlag() {
@@ -210,6 +248,8 @@ public class UserAccount {
     }
 
     /**
+     * Sets the opt in flag.
+     *
      * @param optInFlag
      *            the optInFlag to set
      */
@@ -218,6 +258,8 @@ public class UserAccount {
     }
 
     /**
+     * Checks if is profile visibility flag.
+     *
      * @return the profileVisibilityFlag
      */
     public final boolean isProfileVisibilityFlag() {
@@ -225,14 +267,19 @@ public class UserAccount {
     }
 
     /**
+     * Sets the profile visibility flag.
+     *
      * @param profileVisibilityFlag
      *            the profileVisibilityFlag to set
      */
-    public final void setProfileVisibilityFlag(final boolean profileVisibilityFlag) {
+    public final void setProfileVisibilityFlag(
+            final boolean profileVisibilityFlag) {
         this.profileVisibilityFlag = profileVisibilityFlag;
     }
 
     /**
+     * Checks if is profile visibility map.
+     *
      * @return the profileVisibilityMap
      */
     public final boolean isProfileVisibilityMap() {
@@ -240,6 +287,8 @@ public class UserAccount {
     }
 
     /**
+     * Sets the profile visibility map.
+     *
      * @param profileVisibilityMap
      *            the profileVisibilityMap to set
      */
@@ -248,6 +297,8 @@ public class UserAccount {
     }
 
     /**
+     * Gets the email vo.
+     *
      * @return the emailVO
      */
     public final String getEmailVO() {
@@ -255,6 +306,8 @@ public class UserAccount {
     }
 
     /**
+     * Sets the email vo.
+     *
      * @param emailVO
      *            the emailVO to set
      */
@@ -263,6 +316,8 @@ public class UserAccount {
     }
 
     /**
+     * Gets the sequrity vo.
+     *
      * @return the sequrityVO
      */
     public final String getSequrityVO() {
@@ -270,6 +325,8 @@ public class UserAccount {
     }
 
     /**
+     * Sets the sequrity vo.
+     *
      * @param sequrityVO
      *            the sequrityVO to set
      */
@@ -278,6 +335,8 @@ public class UserAccount {
     }
 
     /**
+     * Gets the address vo.
+     *
      * @return the addressVO
      */
     public final String getAddressVO() {
@@ -285,6 +344,8 @@ public class UserAccount {
     }
 
     /**
+     * Sets the address vo.
+     *
      * @param addressVO
      *            the addressVO to set
      */

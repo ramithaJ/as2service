@@ -30,6 +30,8 @@ public class Customer {
     private String orderId;
 
     /**
+     * Gets the ec id.
+     *
      * @return the ecId
      */
     public final String getEcId() {
@@ -37,6 +39,8 @@ public class Customer {
     }
 
     /**
+     * Sets the ec id.
+     *
      * @param ecId
      *            the ecId to set
      */
@@ -45,6 +49,8 @@ public class Customer {
     }
 
     /**
+     * Gets the email id.
+     *
      * @return the emailId
      */
     public final String getEmailId() {
@@ -52,6 +58,8 @@ public class Customer {
     }
 
     /**
+     * Sets the email id.
+     *
      * @param emailId
      *            the emailId to set
      */
@@ -60,6 +68,8 @@ public class Customer {
     }
 
     /**
+     * Gets the order id.
+     *
      * @return the orderId
      */
     public final String getOrderId() {
@@ -67,6 +77,8 @@ public class Customer {
     }
 
     /**
+     * Sets the order id.
+     *
      * @param orderId
      *            the orderId to set
      */

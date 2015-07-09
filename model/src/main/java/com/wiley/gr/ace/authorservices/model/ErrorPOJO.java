@@ -29,6 +29,8 @@ public class ErrorPOJO {
     private String message;
 
     /**
+     * Gets the code.
+     *
      * @return the code
      */
     public final int getCode() {
@@ -36,6 +38,8 @@ public class ErrorPOJO {
     }
 
     /**
+     * Sets the code.
+     *
      * @param code
      *            the code to set
      */
@@ -44,6 +48,8 @@ public class ErrorPOJO {
     }
 
     /**
+     * Gets the message.
+     *
      * @return the message
      */
     public final String getMessage() {
@@ -51,6 +57,8 @@ public class ErrorPOJO {
     }
 
     /**
+     * Sets the message.
+     *
      * @param message
      *            the message to set
      */

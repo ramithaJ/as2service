@@ -17,7 +17,7 @@ package com.wiley.gr.ace.authorservices.model.external;
 /**
  * The Class JournalDetails.
  *
- * @author yugandhark
+ * @author virtusa version 1.0
  */
 public class JournalDetails {
 
@@ -25,6 +25,8 @@ public class JournalDetails {
     private Integer journalId;
 
     /**
+     * Gets the journal id.
+     *
      * @return the journalId
      */
     public final Integer getJournalId() {
@@ -32,6 +34,8 @@ public class JournalDetails {
     }
 
     /**
+     * Sets the journal id.
+     *
      * @param journalId
      *            the journalId to set
      */
@@ -40,6 +44,8 @@ public class JournalDetails {
     }
 
     /**
+     * Gets the journal name.
+     *
      * @return the journalName
      */
     public final String getJournalName() {
@@ -47,6 +53,8 @@ public class JournalDetails {
     }
 
     /**
+     * Sets the journal name.
+     *
      * @param journalName
      *            the journalName to set
      */

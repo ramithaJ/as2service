@@ -24,6 +24,8 @@ public class FundingDetails {
     private String woaAccountHolder;
 
     /**
+     * Gets the woa account holder.
+     *
      * @return the woaAccountHolder
      */
     public final String getWoaAccountHolder() {
@@ -31,6 +33,8 @@ public class FundingDetails {
     }
 
     /**
+     * Sets the woa account holder.
+     *
      * @param woaAccountHolder
      *            the woaAccountHolder to set
      */
@@ -39,6 +43,8 @@ public class FundingDetails {
     }
 
     /**
+     * Gets the research funder.
+     *
      * @return the researchFunder
      */
     public final String getResearchFunder() {
@@ -46,6 +52,8 @@ public class FundingDetails {
     }
 
     /**
+     * Sets the research funder.
+     *
      * @param researchFunder
      *            the researchFunder to set
      */
@@ -54,6 +62,8 @@ public class FundingDetails {
     }
 
     /**
+     * Gets the grant number.
+     *
      * @return the grantNumber
      */
     public final String getGrantNumber() {
@@ -61,6 +71,8 @@ public class FundingDetails {
     }
 
     /**
+     * Sets the grant number.
+     *
      * @param grantNumber
      *            the grantNumber to set
      */
@@ -69,6 +81,8 @@ public class FundingDetails {
     }
 
     /**
+     * Gets the grant recipient.
+     *
      * @return the grantRecipient
      */
     public final String getGrantRecipient() {
@@ -76,6 +90,8 @@ public class FundingDetails {
     }
 
     /**
+     * Sets the grant recipient.
+     *
      * @param grantRecipient
      *            the grantRecipient to set
      */

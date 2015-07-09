@@ -21,6 +21,8 @@ public class UserFunder {
     private String rfunderId;
 
     /**
+     * Gets the user id.
+     *
      * @return the userId
      */
     public final String getUserId() {
@@ -28,6 +30,8 @@ public class UserFunder {
     }
 
     /**
+     * Sets the user id.
+     *
      * @param userId
      *            the userId to set
      */
@@ -36,6 +40,8 @@ public class UserFunder {
     }
 
     /**
+     * Gets the rfunder id.
+     *
      * @return the rfunderId
      */
     public final String getRfunderId() {
@@ -43,6 +49,8 @@ public class UserFunder {
     }
 
     /**
+     * Sets the rfunder id.
+     *
      * @param rfunderId
      *            the rfunderId to set
      */

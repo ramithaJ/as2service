@@ -18,13 +18,11 @@ import java.util.List;
 /**
  * The Class Alerts.
  *
- * @author virtusa
+ * @author virtusa version 1.0
  */
 public class Alerts implements Serializable {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
     /** The alerts list. */
@@ -34,6 +32,8 @@ public class Alerts implements Serializable {
     private List<String> emailsList;
 
     /**
+     * Gets the alerts list.
+     *
      * @return the alertsList
      */
     public final List<Alert> getAlertsList() {
@@ -41,6 +41,8 @@ public class Alerts implements Serializable {
     }
 
     /**
+     * Sets the alerts list.
+     *
      * @param alertsList
      *            the alertsList to set
      */
@@ -49,6 +51,8 @@ public class Alerts implements Serializable {
     }
 
     /**
+     * Gets the emails list.
+     *
      * @return the emailsList
      */
     public final List<String> getEmailsList() {
@@ -56,6 +60,8 @@ public class Alerts implements Serializable {
     }
 
     /**
+     * Sets the emails list.
+     *
      * @param emailsList
      *            the emailsList to set
      */

@@ -38,6 +38,8 @@ public class RolesAndPermissions {
     private Map<String, String[]> permissionsMap = new HashMap<String, String[]>();
 
     /**
+     * Gets the roles list.
+     *
      * @return the rolesList
      */
     public final List<Role> getRolesList() {
@@ -45,6 +47,8 @@ public class RolesAndPermissions {
     }
 
     /**
+     * Sets the roles list.
+     *
      * @param rolesList
      *            the rolesList to set
      */
@@ -53,6 +57,8 @@ public class RolesAndPermissions {
     }
 
     /**
+     * Gets the sections list.
+     *
      * @return the sectionsList
      */
     public final List<PermissionSection> getSectionsList() {
@@ -60,6 +66,8 @@ public class RolesAndPermissions {
     }
 
     /**
+     * Sets the sections list.
+     *
      * @param sectionsList
      *            the sectionsList to set
      */
@@ -68,6 +76,8 @@ public class RolesAndPermissions {
     }
 
     /**
+     * Gets the permissions map.
+     *
      * @return the permissionsMap
      */
     public final Map<String, String[]> getPermissionsMap() {
@@ -75,10 +85,13 @@ public class RolesAndPermissions {
     }
 
     /**
+     * Sets the permissions map.
+     *
      * @param permissionsMap
      *            the permissionsMap to set
      */
-    public final void setPermissionsMap(final Map<String, String[]> permissionsMap) {
+    public final void setPermissionsMap(
+            final Map<String, String[]> permissionsMap) {
         this.permissionsMap = permissionsMap;
     }
 

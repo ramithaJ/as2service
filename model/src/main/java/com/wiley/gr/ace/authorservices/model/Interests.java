@@ -24,9 +24,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class Interests implements Serializable {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
     /** The user Id . */
@@ -42,6 +40,8 @@ public class Interests implements Serializable {
     private String aoeName;
 
     /**
+     * Gets the user id.
+     *
      * @return the userId
      */
     public final String getUserId() {
@@ -49,6 +49,8 @@ public class Interests implements Serializable {
     }
 
     /**
+     * Sets the user id.
+     *
      * @param userId
      *            the userId to set
      */
@@ -57,6 +59,8 @@ public class Interests implements Serializable {
     }
 
     /**
+     * Gets the aoe id.
+     *
      * @return the aoeId
      */
     public final String getAoeId() {
@@ -64,6 +68,8 @@ public class Interests implements Serializable {
     }
 
     /**
+     * Sets the aoe id.
+     *
      * @param aoeId
      *            the aoeId to set
      */
@@ -72,6 +78,8 @@ public class Interests implements Serializable {
     }
 
     /**
+     * Gets the aoe category.
+     *
      * @return the aoeCategory
      */
     public final String getAoeCategory() {
@@ -79,6 +87,8 @@ public class Interests implements Serializable {
     }
 
     /**
+     * Sets the aoe category.
+     *
      * @param aoeCategory
      *            the aoeCategory to set
      */
@@ -87,6 +97,8 @@ public class Interests implements Serializable {
     }
 
     /**
+     * Gets the aoe name.
+     *
      * @return the aoeName
      */
     public final String getAoeName() {
@@ -94,6 +106,8 @@ public class Interests implements Serializable {
     }
 
     /**
+     * Sets the aoe name.
+     *
      * @param aoeName
      *            the aoeName to set
      */

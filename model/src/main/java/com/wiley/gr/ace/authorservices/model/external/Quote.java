@@ -33,6 +33,8 @@ public class Quote {
     private String tax;
 
     /**
+     * Gets the article publication charge.
+     *
      * @return the articlePublicationCharge
      */
     public final String getArticlePublicationCharge() {
@@ -40,6 +42,8 @@ public class Quote {
     }
 
     /**
+     * Sets the article publication charge.
+     *
      * @param articlePublicationCharge
      *            the articlePublicationCharge to set
      */
@@ -49,6 +53,8 @@ public class Quote {
     }
 
     /**
+     * Gets the society discount.
+     *
      * @return the societyDiscount
      */
     public final String getSocietyDiscount() {
@@ -56,6 +62,8 @@ public class Quote {
     }
 
     /**
+     * Sets the society discount.
+     *
      * @param societyDiscount
      *            the societyDiscount to set
      */
@@ -64,6 +72,8 @@ public class Quote {
     }
 
     /**
+     * Gets the society discount value.
+     *
      * @return the societyDiscountValue
      */
     public final String getSocietyDiscountValue() {
@@ -71,6 +81,8 @@ public class Quote {
     }
 
     /**
+     * Sets the society discount value.
+     *
      * @param societyDiscountValue
      *            the societyDiscountValue to set
      */
@@ -79,6 +91,8 @@ public class Quote {
     }
 
     /**
+     * Gets the tax.
+     *
      * @return the tax
      */
     public final String getTax() {
@@ -86,6 +100,8 @@ public class Quote {
     }
 
     /**
+     * Sets the tax.
+     *
      * @param tax
      *            the tax to set
      */
@@ -94,6 +110,8 @@ public class Quote {
     }
 
     /**
+     * Gets the due amount.
+     *
      * @return the dueAmount
      */
     public final String getDueAmount() {
@@ -101,6 +119,8 @@ public class Quote {
     }
 
     /**
+     * Sets the due amount.
+     *
      * @param dueAmount
      *            the dueAmount to set
      */

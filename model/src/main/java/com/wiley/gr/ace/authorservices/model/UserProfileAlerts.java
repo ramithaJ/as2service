@@ -15,7 +15,7 @@ package com.wiley.gr.ace.authorservices.model;
 /**
  * The Class UserProfileAlerts.
  *
- * @author virtusa
+ * @author virtusa version 1.0
  */
 public class UserProfileAlerts {
 
@@ -23,6 +23,8 @@ public class UserProfileAlerts {
     private Alerts alerts;
 
     /**
+     * Gets the alerts.
+     *
      * @return the alerts
      */
     public final Alerts getAlerts() {
@@ -30,6 +32,8 @@ public class UserProfileAlerts {
     }
 
     /**
+     * Sets the alerts.
+     *
      * @param alerts
      *            the alerts to set
      */

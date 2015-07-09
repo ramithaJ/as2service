@@ -14,6 +14,7 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ArticleReadRecord.
  *
@@ -28,6 +29,8 @@ public class ArticleReadRecord {
     private Integer readCount;
 
     /**
+     * Gets the article title.
+     *
      * @return the articleTitle
      */
     public final String getArticleTitle() {
@@ -35,14 +38,17 @@ public class ArticleReadRecord {
     }
 
     /**
-     * @param articleTitle
-     *            the articleTitle to set
+     * Sets the article title.
+     *
+     * @param articleTitle            the articleTitle to set
      */
     public final void setArticleTitle(final String articleTitle) {
         this.articleTitle = articleTitle;
     }
 
     /**
+     * Gets the read count.
+     *
      * @return the readCount
      */
     public final Integer getReadCount() {
@@ -50,8 +56,9 @@ public class ArticleReadRecord {
     }
 
     /**
-     * @param readCount
-     *            the readCount to set
+     * Sets the read count.
+     *
+     * @param readCount            the readCount to set
      */
     public final void setReadCount(final Integer readCount) {
         this.readCount = readCount;

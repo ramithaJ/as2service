@@ -29,6 +29,8 @@ public class State {
     private String stateName;
 
     /**
+     * Gets the state code.
+     *
      * @return the stateCode
      */
     public final String getStateCode() {
@@ -36,6 +38,8 @@ public class State {
     }
 
     /**
+     * Sets the state code.
+     *
      * @param stateCode
      *            the stateCode to set
      */
@@ -44,6 +48,8 @@ public class State {
     }
 
     /**
+     * Gets the state name.
+     *
      * @return the stateName
      */
     public final String getStateName() {
@@ -51,6 +57,8 @@ public class State {
     }
 
     /**
+     * Sets the state name.
+     *
      * @param stateName
      *            the stateName to set
      */

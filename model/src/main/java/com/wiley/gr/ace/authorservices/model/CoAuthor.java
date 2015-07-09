@@ -24,9 +24,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class CoAuthor implements Serializable {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
     /** The user id. */
@@ -57,6 +55,8 @@ public class CoAuthor implements Serializable {
     private String institutionName;
 
     /**
+     * Gets the user id.
+     *
      * @return the userId
      */
     public final Integer getUserId() {
@@ -64,6 +64,8 @@ public class CoAuthor implements Serializable {
     }
 
     /**
+     * Sets the user id.
+     *
      * @param userId
      *            the userId to set
      */
@@ -72,6 +74,8 @@ public class CoAuthor implements Serializable {
     }
 
     /**
+     * Gets the co author id.
+     *
      * @return the coAuthorId
      */
     public final String getCoAuthorId() {
@@ -79,6 +83,8 @@ public class CoAuthor implements Serializable {
     }
 
     /**
+     * Sets the co author id.
+     *
      * @param coAuthorId
      *            the coAuthorId to set
      */
@@ -87,6 +93,8 @@ public class CoAuthor implements Serializable {
     }
 
     /**
+     * Gets the title.
+     *
      * @return the title
      */
     public final String getTitle() {
@@ -94,6 +102,8 @@ public class CoAuthor implements Serializable {
     }
 
     /**
+     * Sets the title.
+     *
      * @param title
      *            the title to set
      */
@@ -102,6 +112,8 @@ public class CoAuthor implements Serializable {
     }
 
     /**
+     * Gets the first name.
+     *
      * @return the firstName
      */
     public final String getFirstName() {
@@ -109,6 +121,8 @@ public class CoAuthor implements Serializable {
     }
 
     /**
+     * Sets the first name.
+     *
      * @param firstName
      *            the firstName to set
      */
@@ -117,6 +131,8 @@ public class CoAuthor implements Serializable {
     }
 
     /**
+     * Gets the last name.
+     *
      * @return the lastName
      */
     public final String getLastName() {
@@ -124,6 +140,8 @@ public class CoAuthor implements Serializable {
     }
 
     /**
+     * Sets the last name.
+     *
      * @param lastName
      *            the lastName to set
      */
@@ -132,6 +150,8 @@ public class CoAuthor implements Serializable {
     }
 
     /**
+     * Gets the email id.
+     *
      * @return the emailId
      */
     public final String getEmailId() {
@@ -139,6 +159,8 @@ public class CoAuthor implements Serializable {
     }
 
     /**
+     * Sets the email id.
+     *
      * @param emailId
      *            the emailId to set
      */
@@ -147,6 +169,8 @@ public class CoAuthor implements Serializable {
     }
 
     /**
+     * Gets the phone.
+     *
      * @return the phone
      */
     public final String getPhone() {
@@ -154,6 +178,8 @@ public class CoAuthor implements Serializable {
     }
 
     /**
+     * Sets the phone.
+     *
      * @param phone
      *            the phone to set
      */
@@ -162,6 +188,8 @@ public class CoAuthor implements Serializable {
     }
 
     /**
+     * Gets the institution id.
+     *
      * @return the institutionId
      */
     public final String getInstitutionId() {
@@ -169,6 +197,8 @@ public class CoAuthor implements Serializable {
     }
 
     /**
+     * Sets the institution id.
+     *
      * @param institutionId
      *            the institutionId to set
      */
@@ -177,6 +207,8 @@ public class CoAuthor implements Serializable {
     }
 
     /**
+     * Gets the institution name.
+     *
      * @return the institutionName
      */
     public final String getInstitutionName() {
@@ -184,6 +216,8 @@ public class CoAuthor implements Serializable {
     }
 
     /**
+     * Sets the institution name.
+     *
      * @param institutionName
      *            the institutionName to set
      */

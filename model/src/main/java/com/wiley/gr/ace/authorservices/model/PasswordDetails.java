@@ -43,6 +43,8 @@ public class PasswordDetails {
     private String newPassword;
 
     /**
+     * Gets the user id.
+     *
      * @return the userId
      */
     public final int getUserId() {
@@ -50,6 +52,8 @@ public class PasswordDetails {
     }
 
     /**
+     * Sets the user id.
+     *
      * @param userId
      *            the userId to set
      */
@@ -58,6 +62,8 @@ public class PasswordDetails {
     }
 
     /**
+     * Gets the email id.
+     *
      * @return the emailId
      */
     public final String getEmailId() {
@@ -65,6 +71,8 @@ public class PasswordDetails {
     }
 
     /**
+     * Sets the email id.
+     *
      * @param emailId
      *            the emailId to set
      */
@@ -73,6 +81,8 @@ public class PasswordDetails {
     }
 
     /**
+     * Gets the old password.
+     *
      * @return the oldPassword
      */
     public final String getOldPassword() {
@@ -80,6 +90,8 @@ public class PasswordDetails {
     }
 
     /**
+     * Sets the old password.
+     *
      * @param oldPassword
      *            the oldPassword to set
      */
@@ -88,6 +100,8 @@ public class PasswordDetails {
     }
 
     /**
+     * Gets the new password.
+     *
      * @return the newPassword
      */
     public final String getNewPassword() {
@@ -95,6 +109,8 @@ public class PasswordDetails {
     }
 
     /**
+     * Sets the new password.
+     *
      * @param newPassword
      *            the newPassword to set
      */

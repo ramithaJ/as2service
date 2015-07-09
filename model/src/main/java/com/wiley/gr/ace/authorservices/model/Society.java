@@ -29,9 +29,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class Society implements Serializable {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
     /** The user Id . */
@@ -67,6 +65,8 @@ public class Society implements Serializable {
     private Date endDate;
 
     /**
+     * Gets the user id.
+     *
      * @return the userId
      */
     public final String getUserId() {
@@ -74,6 +74,8 @@ public class Society implements Serializable {
     }
 
     /**
+     * Sets the user id.
+     *
      * @param userId
      *            the userId to set
      */
@@ -82,6 +84,8 @@ public class Society implements Serializable {
     }
 
     /**
+     * Gets the society id.
+     *
      * @return the societyId
      */
     public final String getSocietyId() {
@@ -89,6 +93,8 @@ public class Society implements Serializable {
     }
 
     /**
+     * Sets the society id.
+     *
      * @param societyId
      *            the societyId to set
      */
@@ -97,6 +103,8 @@ public class Society implements Serializable {
     }
 
     /**
+     * Gets the society name.
+     *
      * @return the societyName
      */
     public final String getSocietyName() {
@@ -104,6 +112,8 @@ public class Society implements Serializable {
     }
 
     /**
+     * Sets the society name.
+     *
      * @param societyName
      *            the societyName to set
      */
@@ -112,6 +122,8 @@ public class Society implements Serializable {
     }
 
     /**
+     * Gets the membership number.
+     *
      * @return the membershipNumber
      */
     public final String getMembershipNumber() {
@@ -119,6 +131,8 @@ public class Society implements Serializable {
     }
 
     /**
+     * Sets the membership number.
+     *
      * @param membershipNumber
      *            the membershipNumber to set
      */
@@ -127,6 +141,8 @@ public class Society implements Serializable {
     }
 
     /**
+     * Gets the promo code.
+     *
      * @return the promoCode
      */
     public final String getPromoCode() {
@@ -134,6 +150,8 @@ public class Society implements Serializable {
     }
 
     /**
+     * Sets the promo code.
+     *
      * @param promoCode
      *            the promoCode to set
      */
@@ -142,6 +160,8 @@ public class Society implements Serializable {
     }
 
     /**
+     * Gets the start date.
+     *
      * @return the startDate
      */
     public final Date getStartDate() {
@@ -149,6 +169,8 @@ public class Society implements Serializable {
     }
 
     /**
+     * Sets the start date.
+     *
      * @param startDate
      *            the startDate to set
      */
@@ -157,6 +179,8 @@ public class Society implements Serializable {
     }
 
     /**
+     * Gets the end date.
+     *
      * @return the endDate
      */
     public final Date getEndDate() {
@@ -164,6 +188,8 @@ public class Society implements Serializable {
     }
 
     /**
+     * Sets the end date.
+     *
      * @param endDate
      *            the endDate to set
      */

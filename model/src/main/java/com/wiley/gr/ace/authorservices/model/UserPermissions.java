@@ -29,6 +29,8 @@ public class UserPermissions {
     private boolean status = true;
 
     /**
+     * Gets the permission id.
+     *
      * @return the permissionId
      */
     public final String getPermissionId() {
@@ -36,6 +38,8 @@ public class UserPermissions {
     }
 
     /**
+     * Sets the permission id.
+     *
      * @param permissionId
      *            the permissionId to set
      */
@@ -44,6 +48,8 @@ public class UserPermissions {
     }
 
     /**
+     * Gets the permission name.
+     *
      * @return the permissionName
      */
     public final String getPermissionName() {
@@ -51,6 +57,8 @@ public class UserPermissions {
     }
 
     /**
+     * Sets the permission name.
+     *
      * @param permissionName
      *            the permissionName to set
      */
@@ -59,6 +67,8 @@ public class UserPermissions {
     }
 
     /**
+     * Checks if is status.
+     *
      * @return the status
      */
     public final boolean isStatus() {
@@ -66,6 +76,8 @@ public class UserPermissions {
     }
 
     /**
+     * Sets the status.
+     *
      * @param status
      *            the status to set
      */

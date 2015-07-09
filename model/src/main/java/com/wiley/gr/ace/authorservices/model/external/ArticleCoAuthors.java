@@ -17,7 +17,7 @@ package com.wiley.gr.ace.authorservices.model.external;
 /**
  * The Class ArticleCoAuthors.
  *
- * @author yugandhark
+ * @author virtusa version 1.0
  */
 public class ArticleCoAuthors {
 
@@ -28,6 +28,8 @@ public class ArticleCoAuthors {
     private String firstName;
 
     /**
+     * Gets the last name.
+     *
      * @return the lastName
      */
     public final String getLastName() {
@@ -35,6 +37,8 @@ public class ArticleCoAuthors {
     }
 
     /**
+     * Sets the last name.
+     *
      * @param lastName
      *            the lastName to set
      */
@@ -43,6 +47,8 @@ public class ArticleCoAuthors {
     }
 
     /**
+     * Gets the first name.
+     *
      * @return the firstName
      */
     public final String getFirstName() {
@@ -50,6 +56,8 @@ public class ArticleCoAuthors {
     }
 
     /**
+     * Sets the first name.
+     *
      * @param firstName
      *            the firstName to set
      */

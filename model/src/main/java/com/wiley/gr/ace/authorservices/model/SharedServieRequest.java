@@ -31,6 +31,8 @@ public class SharedServieRequest {
     private String appKey;
 
     /**
+     * Gets the user id.
+     *
      * @return the userId
      */
     public final String getUserId() {
@@ -38,6 +40,8 @@ public class SharedServieRequest {
     }
 
     /**
+     * Sets the user id.
+     *
      * @param userId
      *            the userId to set
      */
@@ -46,6 +50,8 @@ public class SharedServieRequest {
     }
 
     /**
+     * Gets the password.
+     *
      * @return the password
      */
     public final String getPassword() {
@@ -53,6 +59,8 @@ public class SharedServieRequest {
     }
 
     /**
+     * Sets the password.
+     *
      * @param password
      *            the password to set
      */
@@ -61,6 +69,8 @@ public class SharedServieRequest {
     }
 
     /**
+     * Gets the authentication type.
+     *
      * @return the authenticationType
      */
     public final String getAuthenticationType() {
@@ -68,6 +78,8 @@ public class SharedServieRequest {
     }
 
     /**
+     * Sets the authentication type.
+     *
      * @param authenticationType
      *            the authenticationType to set
      */
@@ -76,6 +88,8 @@ public class SharedServieRequest {
     }
 
     /**
+     * Gets the app key.
+     *
      * @return the appKey
      */
     public final String getAppKey() {
@@ -83,6 +97,8 @@ public class SharedServieRequest {
     }
 
     /**
+     * Sets the app key.
+     *
      * @param appKey
      *            the appKey to set
      */

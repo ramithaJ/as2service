@@ -33,6 +33,8 @@ public class Service {
     private ErrorPOJO error;
 
     /**
+     * Gets the status.
+     *
      * @return the status
      */
     public final String getStatus() {
@@ -40,6 +42,8 @@ public class Service {
     }
 
     /**
+     * Sets the status.
+     *
      * @param status
      *            the status to set
      */
@@ -48,6 +52,8 @@ public class Service {
     }
 
     /**
+     * Gets the payload.
+     *
      * @return the payload
      */
     public final Object getPayload() {
@@ -55,6 +61,8 @@ public class Service {
     }
 
     /**
+     * Sets the payload.
+     *
      * @param payload
      *            the payload to set
      */
@@ -63,6 +71,8 @@ public class Service {
     }
 
     /**
+     * Gets the error.
+     *
      * @return the error
      */
     public final ErrorPOJO getError() {
@@ -70,6 +80,8 @@ public class Service {
     }
 
     /**
+     * Sets the error.
+     *
      * @param error
      *            the error to set
      */

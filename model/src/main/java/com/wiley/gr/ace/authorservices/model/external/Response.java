@@ -16,6 +16,8 @@ import java.util.List;
 
 /**
  * The Class Response.
+ * 
+ * @author virtusa version 1.0
  */
 public class Response {
 
@@ -23,6 +25,8 @@ public class Response {
     private List<Object> docs;
 
     /**
+     * Gets the docs.
+     *
      * @return the docs
      */
     public final List<Object> getDocs() {
@@ -30,6 +34,8 @@ public class Response {
     }
 
     /**
+     * Sets the docs.
+     *
      * @param docs
      *            the docs to set
      */

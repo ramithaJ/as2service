@@ -32,6 +32,8 @@ public class Organization {
     private Address address;
 
     /**
+     * Gets the name.
+     *
      * @return the name
      */
     public final String getName() {
@@ -39,6 +41,8 @@ public class Organization {
     }
 
     /**
+     * Sets the name.
+     *
      * @param name
      *            the name to set
      */
@@ -47,6 +51,8 @@ public class Organization {
     }
 
     /**
+     * Gets the address.
+     *
      * @return the address
      */
     public final Address getAddress() {
@@ -54,6 +60,8 @@ public class Organization {
     }
 
     /**
+     * Sets the address.
+     *
      * @param address
      *            the address to set
      */

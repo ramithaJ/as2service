@@ -1,5 +1,4 @@
-/**
- * ****************************************************************************
+/*** ****************************************************************************
  * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
  * <p/>
  * All material contained herein is proprietary to John Wiley & Sons
@@ -9,8 +8,7 @@
  * Reproduction or distribution of this material, in whole or in part,
  * is strictly forbidden except by express prior written permission
  * of John Wiley & Sons.
- * *****************************************************************************
- */
+ * ******************************************************************************/
 package com.wiley.gr.ace.authorservices.model.external;
 
 /**
@@ -24,6 +22,8 @@ public class Pricing {
     private String productBasePrice;
 
     /**
+     * Gets the product base price.
+     *
      * @return the productBasePrice
      */
     public final String getProductBasePrice() {
@@ -31,6 +31,8 @@ public class Pricing {
     }
 
     /**
+     * Sets the product base price.
+     *
      * @param productBasePrice
      *            the productBasePrice to set
      */
@@ -39,6 +41,8 @@ public class Pricing {
     }
 
     /**
+     * Gets the amount to be paid.
+     *
      * @return the amountToBePaid
      */
     public final String getAmountToBePaid() {
@@ -46,6 +50,8 @@ public class Pricing {
     }
 
     /**
+     * Sets the amount to be paid.
+     *
      * @param amountToBePaid
      *            the amountToBePaid to set
      */
@@ -54,6 +60,8 @@ public class Pricing {
     }
 
     /**
+     * Gets the currency.
+     *
      * @return the currency
      */
     public final String getCurrency() {
@@ -61,6 +69,8 @@ public class Pricing {
     }
 
     /**
+     * Sets the currency.
+     *
      * @param currency
      *            the currency to set
      */

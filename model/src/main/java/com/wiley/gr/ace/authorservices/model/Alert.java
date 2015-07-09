@@ -18,13 +18,13 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
  * The Class Alert.
+ * 
+ * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
 public class Alert implements Serializable {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
     /** The alert id. */
@@ -40,6 +40,8 @@ public class Alert implements Serializable {
     private boolean email;
 
     /**
+     * Gets the alert id.
+     *
      * @return the alertId
      */
     public final String getAlertId() {
@@ -47,6 +49,8 @@ public class Alert implements Serializable {
     }
 
     /**
+     * Sets the alert id.
+     *
      * @param alertId
      *            the alertId to set
      */
@@ -55,6 +59,8 @@ public class Alert implements Serializable {
     }
 
     /**
+     * Gets the alert name.
+     *
      * @return the alertName
      */
     public final String getAlertName() {
@@ -62,6 +68,8 @@ public class Alert implements Serializable {
     }
 
     /**
+     * Sets the alert name.
+     *
      * @param alertName
      *            the alertName to set
      */
@@ -70,6 +78,8 @@ public class Alert implements Serializable {
     }
 
     /**
+     * Checks if is on screen.
+     *
      * @return the onScreen
      */
     public final boolean isOnScreen() {
@@ -77,6 +87,8 @@ public class Alert implements Serializable {
     }
 
     /**
+     * Sets the on screen.
+     *
      * @param onScreen
      *            the onScreen to set
      */
@@ -85,6 +97,8 @@ public class Alert implements Serializable {
     }
 
     /**
+     * Checks if is email.
+     *
      * @return the email
      */
     public final boolean isEmail() {
@@ -92,6 +106,8 @@ public class Alert implements Serializable {
     }
 
     /**
+     * Sets the email.
+     *
      * @param email
      *            the email to set
      */

@@ -29,6 +29,8 @@ public class Institution {
     private String institutionName;
 
     /**
+     * Gets the institution id.
+     *
      * @return the institutionId
      */
     public final String getInstitutionId() {
@@ -36,6 +38,8 @@ public class Institution {
     }
 
     /**
+     * Sets the institution id.
+     *
      * @param institutionId
      *            the institutionId to set
      */
@@ -44,6 +48,8 @@ public class Institution {
     }
 
     /**
+     * Gets the institution name.
+     *
      * @return the institutionName
      */
     public final String getInstitutionName() {
@@ -51,6 +57,8 @@ public class Institution {
     }
 
     /**
+     * Sets the institution name.
+     *
      * @param institutionName
      *            the institutionName to set
      */

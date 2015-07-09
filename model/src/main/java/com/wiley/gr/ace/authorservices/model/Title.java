@@ -29,6 +29,8 @@ public class Title {
     private String titleName;
 
     /**
+     * Gets the title id.
+     *
      * @return the titleId
      */
     public final String getTitleId() {
@@ -36,6 +38,8 @@ public class Title {
     }
 
     /**
+     * Sets the title id.
+     *
      * @param titleId
      *            the titleId to set
      */
@@ -44,6 +48,8 @@ public class Title {
     }
 
     /**
+     * Gets the title name.
+     *
      * @return the titleName
      */
     public final String getTitleName() {
@@ -51,6 +57,8 @@ public class Title {
     }
 
     /**
+     * Sets the title name.
+     *
      * @param titleName
      *            the titleName to set
      */

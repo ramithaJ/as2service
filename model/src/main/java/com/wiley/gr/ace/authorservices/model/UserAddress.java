@@ -65,6 +65,8 @@ public class UserAddress {
     private String faxNumber;
 
     /**
+     * Gets the title vo.
+     *
      * @return the titleVO
      */
     public final String getTitleVO() {
@@ -72,6 +74,8 @@ public class UserAddress {
     }
 
     /**
+     * Sets the title vo.
+     *
      * @param titleVO
      *            the titleVO to set
      */
@@ -80,6 +84,8 @@ public class UserAddress {
     }
 
     /**
+     * Gets the first name.
+     *
      * @return the firstName
      */
     public final String getFirstName() {
@@ -87,6 +93,8 @@ public class UserAddress {
     }
 
     /**
+     * Sets the first name.
+     *
      * @param firstName
      *            the firstName to set
      */
@@ -95,6 +103,8 @@ public class UserAddress {
     }
 
     /**
+     * Gets the last name.
+     *
      * @return the lastName
      */
     public final String getLastName() {
@@ -102,6 +112,8 @@ public class UserAddress {
     }
 
     /**
+     * Sets the last name.
+     *
      * @param lastName
      *            the lastName to set
      */
@@ -110,6 +122,8 @@ public class UserAddress {
     }
 
     /**
+     * Gets the suffix vo.
+     *
      * @return the suffixVO
      */
     public final String getSuffixVO() {
@@ -117,6 +131,8 @@ public class UserAddress {
     }
 
     /**
+     * Sets the suffix vo.
+     *
      * @param suffixVO
      *            the suffixVO to set
      */
@@ -125,6 +141,8 @@ public class UserAddress {
     }
 
     /**
+     * Gets the institution vo.
+     *
      * @return the institutionVO
      */
     public final String getInstitutionVO() {
@@ -132,6 +150,8 @@ public class UserAddress {
     }
 
     /**
+     * Sets the institution vo.
+     *
      * @param institutionVO
      *            the institutionVO to set
      */
@@ -140,6 +160,8 @@ public class UserAddress {
     }
 
     /**
+     * Gets the department vo.
+     *
      * @return the departmentVO
      */
     public final String getDepartmentVO() {
@@ -147,6 +169,8 @@ public class UserAddress {
     }
 
     /**
+     * Sets the department vo.
+     *
      * @param departmentVO
      *            the departmentVO to set
      */
@@ -155,6 +179,8 @@ public class UserAddress {
     }
 
     /**
+     * Gets the address line1.
+     *
      * @return the addressLine1
      */
     public final String getAddressLine1() {
@@ -162,6 +188,8 @@ public class UserAddress {
     }
 
     /**
+     * Sets the address line1.
+     *
      * @param addressLine1
      *            the addressLine1 to set
      */
@@ -170,6 +198,8 @@ public class UserAddress {
     }
 
     /**
+     * Gets the address line2.
+     *
      * @return the addressLine2
      */
     public final String getAddressLine2() {
@@ -177,6 +207,8 @@ public class UserAddress {
     }
 
     /**
+     * Sets the address line2.
+     *
      * @param addressLine2
      *            the addressLine2 to set
      */
@@ -185,6 +217,8 @@ public class UserAddress {
     }
 
     /**
+     * Gets the city.
+     *
      * @return the city
      */
     public final String getCity() {
@@ -192,6 +226,8 @@ public class UserAddress {
     }
 
     /**
+     * Sets the city.
+     *
      * @param city
      *            the city to set
      */
@@ -200,6 +236,8 @@ public class UserAddress {
     }
 
     /**
+     * Gets the state vo.
+     *
      * @return the stateVO
      */
     public final String getStateVO() {
@@ -207,6 +245,8 @@ public class UserAddress {
     }
 
     /**
+     * Sets the state vo.
+     *
      * @param stateVO
      *            the stateVO to set
      */
@@ -215,6 +255,8 @@ public class UserAddress {
     }
 
     /**
+     * Gets the zip code.
+     *
      * @return the zipCode
      */
     public final String getZipCode() {
@@ -222,6 +264,8 @@ public class UserAddress {
     }
 
     /**
+     * Sets the zip code.
+     *
      * @param zipCode
      *            the zipCode to set
      */
@@ -230,6 +274,8 @@ public class UserAddress {
     }
 
     /**
+     * Gets the country vo.
+     *
      * @return the countryVO
      */
     public final String getCountryVO() {
@@ -237,6 +283,8 @@ public class UserAddress {
     }
 
     /**
+     * Sets the country vo.
+     *
      * @param countryVO
      *            the countryVO to set
      */
@@ -245,6 +293,8 @@ public class UserAddress {
     }
 
     /**
+     * Gets the phone number.
+     *
      * @return the phoneNumber
      */
     public final String getPhoneNumber() {
@@ -252,6 +302,8 @@ public class UserAddress {
     }
 
     /**
+     * Sets the phone number.
+     *
      * @param phoneNumber
      *            the phoneNumber to set
      */
@@ -260,6 +312,8 @@ public class UserAddress {
     }
 
     /**
+     * Gets the fax number.
+     *
      * @return the faxNumber
      */
     public final String getFaxNumber() {
@@ -267,6 +321,8 @@ public class UserAddress {
     }
 
     /**
+     * Sets the fax number.
+     *
      * @param faxNumber
      *            the faxNumber to set
      */

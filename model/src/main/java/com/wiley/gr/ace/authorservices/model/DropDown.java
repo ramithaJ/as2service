@@ -16,22 +16,26 @@ import java.util.List;
 
 /**
  * The Class DropDown.
+ * 
+ * @author virtusa version 1.0
  */
 public class DropDown {
 
     /** The institutions. */
-   private  List<Institution> institutions;
+    private List<Institution> institutions;
 
     /** The departments. */
-   private  List<Department> departments;
+    private List<Department> departments;
 
     /** The research funders. */
-   private  List<ResearchFunder> researchFunders;
+    private List<ResearchFunder> researchFunders;
 
     /** The society. */
-   private   List<Society> society;
+    private List<Society> society;
 
     /**
+     * Gets the institutions.
+     *
      * @return the institutions
      */
     public final List<Institution> getInstitutions() {
@@ -39,6 +43,8 @@ public class DropDown {
     }
 
     /**
+     * Sets the institutions.
+     *
      * @param institutions
      *            the institutions to set
      */
@@ -47,6 +53,8 @@ public class DropDown {
     }
 
     /**
+     * Gets the departments.
+     *
      * @return the departments
      */
     public final List<Department> getDepartments() {
@@ -54,6 +62,8 @@ public class DropDown {
     }
 
     /**
+     * Sets the departments.
+     *
      * @param departments
      *            the departments to set
      */
@@ -62,6 +72,8 @@ public class DropDown {
     }
 
     /**
+     * Gets the research funders.
+     *
      * @return the researchFunders
      */
     public final List<ResearchFunder> getResearchFunders() {
@@ -69,14 +81,19 @@ public class DropDown {
     }
 
     /**
+     * Sets the research funders.
+     *
      * @param researchFunders
      *            the researchFunders to set
      */
-    public final void setResearchFunders(final List<ResearchFunder> researchFunders) {
+    public final void setResearchFunders(
+            final List<ResearchFunder> researchFunders) {
         this.researchFunders = researchFunders;
     }
 
     /**
+     * Gets the society.
+     *
      * @return the society
      */
     public final List<Society> getSociety() {
@@ -84,6 +101,8 @@ public class DropDown {
     }
 
     /**
+     * Sets the society.
+     *
      * @param society
      *            the society to set
      */

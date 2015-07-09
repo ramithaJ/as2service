@@ -27,6 +27,8 @@ public class Email {
     private String newEmailId;
 
     /**
+     * Gets the old email id.
+     *
      * @return the oldEmailId
      */
     public final String getOldEmailId() {
@@ -34,6 +36,8 @@ public class Email {
     }
 
     /**
+     * Sets the old email id.
+     *
      * @param oldEmailId
      *            the oldEmailId to set
      */
@@ -42,6 +46,8 @@ public class Email {
     }
 
     /**
+     * Gets the new email id.
+     *
      * @return the newEmailId
      */
     public final String getNewEmailId() {
@@ -49,6 +55,8 @@ public class Email {
     }
 
     /**
+     * Sets the new email id.
+     *
      * @param newEmailId
      *            the newEmailId to set
      */

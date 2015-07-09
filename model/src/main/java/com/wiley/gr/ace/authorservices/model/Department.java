@@ -29,6 +29,8 @@ public class Department {
     private String departmentName;
 
     /**
+     * Gets the department id.
+     *
      * @return the departmentId
      */
     public final String getDepartmentId() {
@@ -36,6 +38,8 @@ public class Department {
     }
 
     /**
+     * Sets the department id.
+     *
      * @param departmentId
      *            the departmentId to set
      */
@@ -44,6 +48,8 @@ public class Department {
     }
 
     /**
+     * Gets the department name.
+     *
      * @return the departmentName
      */
     public final String getDepartmentName() {
@@ -51,6 +57,8 @@ public class Department {
     }
 
     /**
+     * Sets the department name.
+     *
      * @param departmentName
      *            the departmentName to set
      */

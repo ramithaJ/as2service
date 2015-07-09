@@ -24,9 +24,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class Address implements Serializable {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
     /** The address type. */
@@ -81,6 +79,8 @@ public class Address implements Serializable {
     private String region;
 
     /**
+     * Gets the address type.
+     *
      * @return the addressType
      */
     public final String getAddressType() {
@@ -88,6 +88,8 @@ public class Address implements Serializable {
     }
 
     /**
+     * Sets the address type.
+     *
      * @param addressType
      *            the addressType to set
      */
@@ -96,6 +98,8 @@ public class Address implements Serializable {
     }
 
     /**
+     * Gets the title.
+     *
      * @return the title
      */
     public final String getTitle() {
@@ -103,6 +107,8 @@ public class Address implements Serializable {
     }
 
     /**
+     * Sets the title.
+     *
      * @param title
      *            the title to set
      */
@@ -111,6 +117,8 @@ public class Address implements Serializable {
     }
 
     /**
+     * Gets the first name.
+     *
      * @return the firstName
      */
     public final String getFirstName() {
@@ -118,6 +126,8 @@ public class Address implements Serializable {
     }
 
     /**
+     * Sets the first name.
+     *
      * @param firstName
      *            the firstName to set
      */
@@ -126,6 +136,8 @@ public class Address implements Serializable {
     }
 
     /**
+     * Gets the last name.
+     *
      * @return the lastName
      */
     public final String getLastName() {
@@ -133,6 +145,8 @@ public class Address implements Serializable {
     }
 
     /**
+     * Sets the last name.
+     *
      * @param lastName
      *            the lastName to set
      */
@@ -141,6 +155,8 @@ public class Address implements Serializable {
     }
 
     /**
+     * Gets the suffix.
+     *
      * @return the suffix
      */
     public final String getSuffix() {
@@ -148,6 +164,8 @@ public class Address implements Serializable {
     }
 
     /**
+     * Sets the suffix.
+     *
      * @param suffix
      *            the suffix to set
      */
@@ -156,6 +174,8 @@ public class Address implements Serializable {
     }
 
     /**
+     * Gets the institution.
+     *
      * @return the institution
      */
     public final String getInstitution() {
@@ -163,6 +183,8 @@ public class Address implements Serializable {
     }
 
     /**
+     * Sets the institution.
+     *
      * @param institution
      *            the institution to set
      */
@@ -171,6 +193,8 @@ public class Address implements Serializable {
     }
 
     /**
+     * Gets the department.
+     *
      * @return the department
      */
     public final String getDepartment() {
@@ -178,6 +202,8 @@ public class Address implements Serializable {
     }
 
     /**
+     * Sets the department.
+     *
      * @param department
      *            the department to set
      */
@@ -186,6 +212,8 @@ public class Address implements Serializable {
     }
 
     /**
+     * Gets the address line1.
+     *
      * @return the addressLine1
      */
     public final String getAddressLine1() {
@@ -193,6 +221,8 @@ public class Address implements Serializable {
     }
 
     /**
+     * Sets the address line1.
+     *
      * @param addressLine1
      *            the addressLine1 to set
      */
@@ -201,6 +231,8 @@ public class Address implements Serializable {
     }
 
     /**
+     * Gets the address line2.
+     *
      * @return the addressLine2
      */
     public final String getAddressLine2() {
@@ -208,6 +240,8 @@ public class Address implements Serializable {
     }
 
     /**
+     * Sets the address line2.
+     *
      * @param addressLine2
      *            the addressLine2 to set
      */
@@ -216,6 +250,8 @@ public class Address implements Serializable {
     }
 
     /**
+     * Gets the city.
+     *
      * @return the city
      */
     public final String getCity() {
@@ -223,6 +259,8 @@ public class Address implements Serializable {
     }
 
     /**
+     * Sets the city.
+     *
      * @param city
      *            the city to set
      */
@@ -231,6 +269,8 @@ public class Address implements Serializable {
     }
 
     /**
+     * Gets the state.
+     *
      * @return the state
      */
     public final String getState() {
@@ -238,6 +278,8 @@ public class Address implements Serializable {
     }
 
     /**
+     * Sets the state.
+     *
      * @param state
      *            the state to set
      */
@@ -246,6 +288,8 @@ public class Address implements Serializable {
     }
 
     /**
+     * Gets the post code.
+     *
      * @return the postCode
      */
     public final String getPostCode() {
@@ -253,6 +297,8 @@ public class Address implements Serializable {
     }
 
     /**
+     * Sets the post code.
+     *
      * @param postCode
      *            the postCode to set
      */
@@ -261,6 +307,8 @@ public class Address implements Serializable {
     }
 
     /**
+     * Gets the country.
+     *
      * @return the country
      */
     public final Country getCountry() {
@@ -268,6 +316,8 @@ public class Address implements Serializable {
     }
 
     /**
+     * Sets the country.
+     *
      * @param country
      *            the country to set
      */
@@ -276,6 +326,8 @@ public class Address implements Serializable {
     }
 
     /**
+     * Gets the phone number.
+     *
      * @return the phoneNumber
      */
     public final String getPhoneNumber() {
@@ -283,6 +335,8 @@ public class Address implements Serializable {
     }
 
     /**
+     * Sets the phone number.
+     *
      * @param phoneNumber
      *            the phoneNumber to set
      */
@@ -291,6 +345,8 @@ public class Address implements Serializable {
     }
 
     /**
+     * Gets the fax number.
+     *
      * @return the faxNumber
      */
     public final String getFaxNumber() {
@@ -298,6 +354,8 @@ public class Address implements Serializable {
     }
 
     /**
+     * Sets the fax number.
+     *
      * @param faxNumber
      *            the faxNumber to set
      */
@@ -306,6 +364,8 @@ public class Address implements Serializable {
     }
 
     /**
+     * Gets the address fag.
+     *
      * @return the addressFag
      */
     public final Character getAddressFag() {
@@ -313,6 +373,8 @@ public class Address implements Serializable {
     }
 
     /**
+     * Sets the address fag.
+     *
      * @param addressFag
      *            the addressFag to set
      */
@@ -321,6 +383,8 @@ public class Address implements Serializable {
     }
 
     /**
+     * Gets the region.
+     *
      * @return the region
      */
     public final String getRegion() {
@@ -328,6 +392,8 @@ public class Address implements Serializable {
     }
 
     /**
+     * Sets the region.
+     *
      * @param region
      *            the region to set
      */

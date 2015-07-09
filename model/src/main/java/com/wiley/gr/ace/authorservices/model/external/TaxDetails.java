@@ -33,6 +33,8 @@ public class TaxDetails {
     private String vatExemptionNumber;
 
     /**
+     * Gets the tax number.
+     *
      * @return the taxNumber
      */
     public final String getTaxNumber() {
@@ -40,6 +42,8 @@ public class TaxDetails {
     }
 
     /**
+     * Sets the tax number.
+     *
      * @param taxNumber
      *            the taxNumber to set
      */
@@ -48,6 +52,8 @@ public class TaxDetails {
     }
 
     /**
+     * Gets the tax expiration.
+     *
      * @return the taxExpiration
      */
     public final String getTaxExpiration() {
@@ -55,6 +61,8 @@ public class TaxDetails {
     }
 
     /**
+     * Sets the tax expiration.
+     *
      * @param taxExpiration
      *            the taxExpiration to set
      */
@@ -63,6 +71,8 @@ public class TaxDetails {
     }
 
     /**
+     * Gets the vat id number.
+     *
      * @return the vatIdNumber
      */
     public final String getVatIdNumber() {
@@ -70,6 +80,8 @@ public class TaxDetails {
     }
 
     /**
+     * Sets the vat id number.
+     *
      * @param vatIdNumber
      *            the vatIdNumber to set
      */
@@ -78,6 +90,8 @@ public class TaxDetails {
     }
 
     /**
+     * Gets the vat exemption number.
+     *
      * @return the vatExemptionNumber
      */
     public final String getVatExemptionNumber() {
@@ -85,6 +99,8 @@ public class TaxDetails {
     }
 
     /**
+     * Sets the vat exemption number.
+     *
      * @param vatExemptionNumber
      *            the vatExemptionNumber to set
      */
@@ -93,6 +109,8 @@ public class TaxDetails {
     }
 
     /**
+     * Gets the country code.
+     *
      * @return the countryCode
      */
     public final String getCountryCode() {
@@ -100,6 +118,8 @@ public class TaxDetails {
     }
 
     /**
+     * Sets the country code.
+     *
      * @param countryCode
      *            the countryCode to set
      */

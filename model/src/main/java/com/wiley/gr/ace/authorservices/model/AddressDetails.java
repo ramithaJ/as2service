@@ -15,6 +15,8 @@ import java.util.List;
 
 /**
  * The Class AddressDetails.
+ * 
+ * @author virtusa version 1.0
  */
 public class AddressDetails {
 
@@ -22,6 +24,8 @@ public class AddressDetails {
     private List<Address> address;
 
     /**
+     * Gets the address.
+     *
      * @return the address
      */
     public final List<Address> getAddress() {
@@ -29,6 +33,8 @@ public class AddressDetails {
     }
 
     /**
+     * Sets the address.
+     *
      * @param address
      *            the address to set
      */

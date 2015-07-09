@@ -14,27 +14,36 @@
  */
 package com.wiley.gr.ace.authorservices.model.orcid;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * The Class OrcidAccessToken.
  *
  * @author virtusa version 1.0
  */
+@JsonInclude(Include.NON_NULL)
 public class OrcidAccessToken {
 
     /** The name. */
     private String name;
 
-    /** The access_token. */
-    private String access_token;
+    /** The access token. */
+    @JsonProperty("access_token")
+    private String accessToken;
 
-    /** The token_type. */
-    private String token_type;
+    /** The token type. */
+    @JsonProperty("token_type")
+    private String tokenType;
 
-    /** The refresh_token. */
-    private String refresh_token;
+    /** The refresh token. */
+    @JsonProperty("refresh_token")
+    private String refreshToken;
 
-    /** The expires_in. */
-    private int expires_in;
+    /** The expires in. */
+    @JsonProperty("expires_in")
+    private int expiresIn;
 
     /** The scope. */
     private String scope;
@@ -46,6 +55,8 @@ public class OrcidAccessToken {
     private String state;
 
     /**
+     * Gets the name.
+     *
      * @return the name
      */
     public final String getName() {
@@ -53,74 +64,94 @@ public class OrcidAccessToken {
     }
 
     /**
+     * Sets the name.
+     *
      * @param name
-     *            the name to set
+     *            the new name
      */
     public final void setName(final String name) {
         this.name = name;
     }
 
     /**
-     * @return the access_token
+     * Gets the access token.
+     *
+     * @return the access token
      */
-    public final String getAccess_token() {
-        return access_token;
+    public final String getAccessToken() {
+        return accessToken;
     }
 
     /**
-     * @param access_token
-     *            the access_token to set
+     * Sets the access token.
+     *
+     * @param accessToken
+     *            the new access token
      */
-    public final void setAccess_token(final String access_token) {
-        this.access_token = access_token;
+    public final void setAccessToken(final String accessToken) {
+        this.accessToken = accessToken;
     }
 
     /**
-     * @return the token_type
+     * Gets the token type.
+     *
+     * @return the token type
      */
-    public final String getToken_type() {
-        return token_type;
+    public final String getTokenType() {
+        return tokenType;
     }
 
     /**
-     * @param token_type
-     *            the token_type to set
+     * Sets the token type.
+     *
+     * @param tokenType
+     *            the new token type
      */
-    public final void setToken_type(final String token_type) {
-        this.token_type = token_type;
+    public final void setTokenType(final String tokenType) {
+        this.tokenType = tokenType;
     }
 
     /**
-     * @return the refresh_token
+     * Gets the refresh token.
+     *
+     * @return the refresh token
      */
-    public final String getRefresh_token() {
-        return refresh_token;
+    public final String getRefreshToken() {
+        return refreshToken;
     }
 
     /**
-     * @param refresh_token
-     *            the refresh_token to set
+     * Sets the refresh token.
+     *
+     * @param refreshToken
+     *            the new refresh token
      */
-    public final void setRefresh_token(final String refresh_token) {
-        this.refresh_token = refresh_token;
+    public final void setRefreshToken(final String refreshToken) {
+        this.refreshToken = refreshToken;
     }
 
     /**
-     * @return the expires_in
+     * Gets the expires in.
+     *
+     * @return the expires in
      */
-    public final int getExpires_in() {
-        return expires_in;
+    public final int getExpiresIn() {
+        return expiresIn;
     }
 
     /**
-     * @param expires_in
-     *            the expires_in to set
+     * Sets the expires in.
+     *
+     * @param expiresIn
+     *            the new expires in
      */
-    public final void setExpires_in(final int expires_in) {
-        this.expires_in = expires_in;
+    public final void setExpiresIn(final int expiresIn) {
+        this.expiresIn = expiresIn;
     }
 
     /**
+     * Gets the scope.
+     *
      * @return the scope
      */
     public final String getScope() {
@@ -128,14 +159,18 @@ public class OrcidAccessToken {
     }
 
     /**
+     * Sets the scope.
+     *
      * @param scope
-     *            the scope to set
+     *            the new scope
      */
     public final void setScope(final String scope) {
         this.scope = scope;
     }
 
     /**
+     * Gets the orcid.
+     *
      * @return the orcid
      */
     public final String getOrcid() {
@@ -143,14 +178,18 @@ public class OrcidAccessToken {
     }
 
     /**
+     * Sets the orcid.
+     *
      * @param orcid
-     *            the orcid to set
+     *            the new orcid
      */
     public final void setOrcid(final String orcid) {
         this.orcid = orcid;
     }
 
     /**
+     * Gets the state.
+     *
      * @return the state
      */
     public final String getState() {
@@ -158,8 +197,10 @@ public class OrcidAccessToken {
     }
 
     /**
+     * Sets the state.
+     *
      * @param state
-     *            the state to set
+     *            the new state
      */
     public final void setState(final String state) {
         this.state = state;

@@ -17,7 +17,7 @@ package com.wiley.gr.ace.authorservices.model.external;
 /**
  * The Class CommunicationDetails.
  *
- * @author yugandhark
+ * @author virtusa version 1.0
  */
 public class CommunicationDetails {
 
@@ -31,6 +31,8 @@ public class CommunicationDetails {
     private String body;
 
     /**
+     * Gets the from.
+     *
      * @return the from
      */
     public final String getFrom() {
@@ -38,6 +40,8 @@ public class CommunicationDetails {
     }
 
     /**
+     * Sets the from.
+     *
      * @param from
      *            the from to set
      */
@@ -46,6 +50,8 @@ public class CommunicationDetails {
     }
 
     /**
+     * Gets the subject.
+     *
      * @return the subject
      */
     public final String getSubject() {
@@ -53,6 +59,8 @@ public class CommunicationDetails {
     }
 
     /**
+     * Sets the subject.
+     *
      * @param subject
      *            the subject to set
      */
@@ -61,6 +69,8 @@ public class CommunicationDetails {
     }
 
     /**
+     * Gets the body.
+     *
      * @return the body
      */
     public final String getBody() {
@@ -68,6 +78,8 @@ public class CommunicationDetails {
     }
 
     /**
+     * Sets the body.
+     *
      * @param body
      *            the body to set
      */

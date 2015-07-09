@@ -14,10 +14,11 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+
 /**
  * The Class ArticleCitationRecord.
  *
- * @author yugandhark
+ * @author virtusa version 1.0
  */
 public class ArticleCitationRecord {
 
@@ -28,6 +29,8 @@ public class ArticleCitationRecord {
     private Integer citationCount;
 
     /**
+     * Gets the article title.
+     *
      * @return the articleTitle
      */
     public final String getArticleTitle() {
@@ -35,14 +38,17 @@ public class ArticleCitationRecord {
     }
 
     /**
-     * @param articleTitle
-     *            the articleTitle to set
+     * Sets the article title.
+     *
+     * @param articleTitle            the articleTitle to set
      */
     public final void setArticleTitle(final String articleTitle) {
         this.articleTitle = articleTitle;
     }
 
     /**
+     * Gets the citation count.
+     *
      * @return the citationCount
      */
     public final Integer getCitationCount() {
@@ -50,8 +56,9 @@ public class ArticleCitationRecord {
     }
 
     /**
-     * @param citationCount
-     *            the citationCount to set
+     * Sets the citation count.
+     *
+     * @param citationCount            the citationCount to set
      */
     public final void setCitationCount(final Integer citationCount) {
         this.citationCount = citationCount;

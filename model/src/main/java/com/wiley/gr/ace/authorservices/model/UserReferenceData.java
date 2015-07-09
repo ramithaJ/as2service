@@ -10,10 +10,12 @@ public class UserReferenceData {
     /** The ecid. */
     private String ecid;
 
-    /** The Status. */
-    private String Status;
+    /** The status. */
+    private String status;
 
     /**
+     * Gets the ecid.
+     *
      * @return the ecid
      */
     public final String getEcid() {
@@ -21,6 +23,8 @@ public class UserReferenceData {
     }
 
     /**
+     * Sets the ecid.
+     *
      * @param ecid
      *            the ecid to set
      */
@@ -29,18 +33,22 @@ public class UserReferenceData {
     }
 
     /**
+     * Gets the status.
+     *
      * @return the status
      */
     public final String getStatus() {
-        return Status;
+        return status;
     }
 
     /**
+     * Sets the status.
+     *
      * @param status
      *            the status to set
      */
     public final void setStatus(final String status) {
-        Status = status;
+        this.status = status;
     }
 
 }

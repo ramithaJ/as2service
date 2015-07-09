@@ -25,14 +25,14 @@ import com.wiley.gr.ace.authorservices.model.UserProfile;
 @JsonInclude(Include.NON_NULL)
 public class UserProfileResponse implements Serializable {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
     /** The customer profile. */
     private UserProfile customerProfile;
 
     /**
+     * Gets the customer profile.
+     *
      * @return the customerProfile
      */
     public final UserProfile getCustomerProfile() {
@@ -40,6 +40,8 @@ public class UserProfileResponse implements Serializable {
     }
 
     /**
+     * Sets the customer profile.
+     *
      * @param customerProfile
      *            the customerProfile to set
      */

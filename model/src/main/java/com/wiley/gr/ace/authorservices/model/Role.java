@@ -30,13 +30,16 @@ public class Role {
 
     /** The is admin role. */
     private boolean isAdminRole = false;
-   
+
+    /** The no of permissions. */
     @NotNull
     @NotBlank
     /** The no of permissions. */
     private String noOfPermissions;
 
     /**
+     * Gets the role id.
+     *
      * @return the roleId
      */
     public final String getRoleId() {
@@ -44,6 +47,8 @@ public class Role {
     }
 
     /**
+     * Sets the role id.
+     *
      * @param roleId
      *            the roleId to set
      */
@@ -52,6 +57,8 @@ public class Role {
     }
 
     /**
+     * Gets the role name.
+     *
      * @return the roleName
      */
     public final String getRoleName() {
@@ -59,6 +66,8 @@ public class Role {
     }
 
     /**
+     * Sets the role name.
+     *
      * @param roleName
      *            the roleName to set
      */
@@ -67,6 +76,8 @@ public class Role {
     }
 
     /**
+     * Gets the role description.
+     *
      * @return the roleDescription
      */
     public final String getRoleDescription() {
@@ -74,6 +85,8 @@ public class Role {
     }
 
     /**
+     * Sets the role description.
+     *
      * @param roleDescription
      *            the roleDescription to set
      */
@@ -82,6 +95,8 @@ public class Role {
     }
 
     /**
+     * Checks if is admin role.
+     *
      * @return the isAdminRole
      */
     public final boolean isAdminRole() {
@@ -89,6 +104,8 @@ public class Role {
     }
 
     /**
+     * Sets the admin role.
+     *
      * @param isAdminRole
      *            the isAdminRole to set
      */
@@ -97,6 +114,8 @@ public class Role {
     }
 
     /**
+     * Gets the no of permissions.
+     *
      * @return the noOfPermissions
      */
     public final String getNoOfPermissions() {
@@ -104,6 +123,8 @@ public class Role {
     }
 
     /**
+     * Sets the no of permissions.
+     *
      * @param noOfPermissions
      *            the noOfPermissions to set
      */

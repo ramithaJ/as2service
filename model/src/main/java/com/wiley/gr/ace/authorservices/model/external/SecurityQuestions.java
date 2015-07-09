@@ -31,6 +31,8 @@ public class SecurityQuestions {
     private List<SecurityQuestion> securityQuestion;
 
     /**
+     * Gets the security question.
+     *
      * @return the securityQuestion
      */
     public final List<SecurityQuestion> getSecurityQuestion() {
@@ -38,6 +40,8 @@ public class SecurityQuestions {
     }
 
     /**
+     * Sets the security question.
+     *
      * @param securityQuestion
      *            the securityQuestion to set
      */

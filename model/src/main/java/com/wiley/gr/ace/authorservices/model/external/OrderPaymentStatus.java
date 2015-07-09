@@ -17,7 +17,7 @@ package com.wiley.gr.ace.authorservices.model.external;
 /**
  * The Class OrderPaymentStatus.
  *
- * @author yugandhark
+ * @author virtusa version 1.0
  */
 public class OrderPaymentStatus {
 
@@ -28,6 +28,8 @@ public class OrderPaymentStatus {
     private String onlineOpenStatus;
 
     /**
+     * Gets the open access status.
+     *
      * @return the openAccessStatus
      */
     public final String getOpenAccessStatus() {
@@ -35,6 +37,8 @@ public class OrderPaymentStatus {
     }
 
     /**
+     * Sets the open access status.
+     *
      * @param openAccessStatus
      *            the openAccessStatus to set
      */
@@ -43,6 +47,8 @@ public class OrderPaymentStatus {
     }
 
     /**
+     * Gets the online open status.
+     *
      * @return the onlineOpenStatus
      */
     public final String getOnlineOpenStatus() {
@@ -50,6 +56,8 @@ public class OrderPaymentStatus {
     }
 
     /**
+     * Sets the online open status.
+     *
      * @param onlineOpenStatus
      *            the onlineOpenStatus to set
      */

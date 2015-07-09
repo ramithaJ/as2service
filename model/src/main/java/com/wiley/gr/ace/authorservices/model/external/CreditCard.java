@@ -39,6 +39,8 @@ public class CreditCard {
     private String bankId;
 
     /**
+     * Gets the token for credit card.
+     *
      * @return the tokenForCreditCard
      */
     public final String getTokenForCreditCard() {
@@ -46,6 +48,8 @@ public class CreditCard {
     }
 
     /**
+     * Sets the token for credit card.
+     *
      * @param tokenForCreditCard
      *            the tokenForCreditCard to set
      */
@@ -54,6 +58,8 @@ public class CreditCard {
     }
 
     /**
+     * Gets the partial card number.
+     *
      * @return the partialCardNumber
      */
     public final String getPartialCardNumber() {
@@ -61,6 +67,8 @@ public class CreditCard {
     }
 
     /**
+     * Sets the partial card number.
+     *
      * @param partialCardNumber
      *            the partialCardNumber to set
      */
@@ -69,6 +77,8 @@ public class CreditCard {
     }
 
     /**
+     * Gets the card expiration date.
+     *
      * @return the cardExpirationDate
      */
     public final String getCardExpirationDate() {
@@ -76,6 +86,8 @@ public class CreditCard {
     }
 
     /**
+     * Sets the card expiration date.
+     *
      * @param cardExpirationDate
      *            the cardExpirationDate to set
      */
@@ -84,6 +96,8 @@ public class CreditCard {
     }
 
     /**
+     * Gets the card type.
+     *
      * @return the cardType
      */
     public final String getCardType() {
@@ -91,6 +105,8 @@ public class CreditCard {
     }
 
     /**
+     * Sets the card type.
+     *
      * @param cardType
      *            the cardType to set
      */
@@ -99,6 +115,8 @@ public class CreditCard {
     }
 
     /**
+     * Gets the card id.
+     *
      * @return the cardId
      */
     public final String getCardId() {
@@ -106,6 +124,8 @@ public class CreditCard {
     }
 
     /**
+     * Sets the card id.
+     *
      * @param cardId
      *            the cardId to set
      */
@@ -114,6 +134,8 @@ public class CreditCard {
     }
 
     /**
+     * Gets the bank id.
+     *
      * @return the bankId
      */
     public final String getBankId() {
@@ -121,6 +143,8 @@ public class CreditCard {
     }
 
     /**
+     * Sets the bank id.
+     *
      * @param bankId
      *            the bankId to set
      */
@@ -129,6 +153,8 @@ public class CreditCard {
     }
 
     /**
+     * Gets the bank name.
+     *
      * @return the bankName
      */
     public final String getBankName() {
@@ -136,6 +162,8 @@ public class CreditCard {
     }
 
     /**
+     * Sets the bank name.
+     *
      * @param bankName
      *            the bankName to set
      */

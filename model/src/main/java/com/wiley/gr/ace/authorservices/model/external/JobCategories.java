@@ -22,6 +22,8 @@ public class JobCategories {
     private Response response;
 
     /**
+     * Gets the response.
+     *
      * @return the response
      */
     public final Response getResponse() {
@@ -29,6 +31,8 @@ public class JobCategories {
     }
 
     /**
+     * Sets the response.
+     *
      * @param response
      *            the response to set
      */

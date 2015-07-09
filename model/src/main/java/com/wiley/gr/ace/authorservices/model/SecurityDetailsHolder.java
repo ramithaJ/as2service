@@ -46,6 +46,8 @@ public class SecurityDetailsHolder {
     private boolean isForceReset;
 
     /**
+     * Gets the email id.
+     *
      * @return the emailId
      */
     public final String getEmailId() {
@@ -53,6 +55,8 @@ public class SecurityDetailsHolder {
     }
 
     /**
+     * Sets the email id.
+     *
      * @param emailId
      *            the emailId to set
      */
@@ -61,6 +65,8 @@ public class SecurityDetailsHolder {
     }
 
     /**
+     * Gets the security details.
+     *
      * @return the securityDetails
      */
     public final List<SecurityDetails> getSecurityDetails() {
@@ -68,14 +74,19 @@ public class SecurityDetailsHolder {
     }
 
     /**
+     * Sets the security details.
+     *
      * @param securityDetails
      *            the securityDetails to set
      */
-    public final void setSecurityDetails(final List<SecurityDetails> securityDetails) {
+    public final void setSecurityDetails(
+            final List<SecurityDetails> securityDetails) {
         this.securityDetails = securityDetails;
     }
 
     /**
+     * Gets the password.
+     *
      * @return the password
      */
     public final String getPassword() {
@@ -83,6 +94,8 @@ public class SecurityDetailsHolder {
     }
 
     /**
+     * Sets the password.
+     *
      * @param password
      *            the password to set
      */
@@ -91,6 +104,8 @@ public class SecurityDetailsHolder {
     }
 
     /**
+     * Checks if is force reset.
+     *
      * @return the isForceReset
      */
     public final boolean isForceReset() {
@@ -98,6 +113,8 @@ public class SecurityDetailsHolder {
     }
 
     /**
+     * Sets the force reset.
+     *
      * @param isForceReset
      *            the isForceReset to set
      */

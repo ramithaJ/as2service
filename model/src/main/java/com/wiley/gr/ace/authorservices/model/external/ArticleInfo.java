@@ -17,7 +17,7 @@ package com.wiley.gr.ace.authorservices.model.external;
 /**
  * The Class ArticleInfo.
  *
- * @author yugandhark
+ * @author virtusa version 1.0
  */
 public class ArticleInfo {
 
@@ -31,6 +31,8 @@ public class ArticleInfo {
     private ArticleUserRoleDetails articleUserRoleDetails;
 
     /**
+     * Gets the article auth id.
+     *
      * @return the articleAuthId
      */
     public final Integer getArticleAuthId() {
@@ -38,6 +40,8 @@ public class ArticleInfo {
     }
 
     /**
+     * Sets the article auth id.
+     *
      * @param articleAuthId
      *            the articleAuthId to set
      */
@@ -46,6 +50,8 @@ public class ArticleInfo {
     }
 
     /**
+     * Gets the article details.
+     *
      * @return the articleDetails
      */
     public final ArticleDetails getArticleDetails() {
@@ -53,6 +59,8 @@ public class ArticleInfo {
     }
 
     /**
+     * Sets the article details.
+     *
      * @param articleDetails
      *            the articleDetails to set
      */
@@ -61,6 +69,8 @@ public class ArticleInfo {
     }
 
     /**
+     * Gets the article user role details.
+     *
      * @return the articleUserRoleDetails
      */
     public final ArticleUserRoleDetails getArticleUserRoleDetails() {
@@ -68,6 +78,8 @@ public class ArticleInfo {
     }
 
     /**
+     * Sets the article user role details.
+     *
      * @param articleUserRoleDetails
      *            the articleUserRoleDetails to set
      */

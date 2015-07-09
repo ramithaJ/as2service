@@ -30,6 +30,8 @@ public class Discount {
     private String societyCode;
 
     /**
+     * Gets the discount value.
+     *
      * @return the discountValue
      */
     public final String getDiscountValue() {
@@ -37,6 +39,8 @@ public class Discount {
     }
 
     /**
+     * Sets the discount value.
+     *
      * @param discountValue
      *            the discountValue to set
      */
@@ -45,6 +49,8 @@ public class Discount {
     }
 
     /**
+     * Gets the discount type.
+     *
      * @return the discountType
      */
     public final String getDiscountType() {
@@ -52,6 +58,8 @@ public class Discount {
     }
 
     /**
+     * Sets the discount type.
+     *
      * @param discountType
      *            the discountType to set
      */
@@ -60,6 +68,8 @@ public class Discount {
     }
 
     /**
+     * Gets the society code.
+     *
      * @return the societyCode
      */
     public final String getSocietyCode() {
@@ -67,6 +77,8 @@ public class Discount {
     }
 
     /**
+     * Sets the society code.
+     *
      * @param societyCode
      *            the societyCode to set
      */
@@ -75,6 +87,8 @@ public class Discount {
     }
 
     /**
+     * Gets the promo code.
+     *
      * @return the promoCode
      */
     public final String getPromoCode() {
@@ -82,6 +96,8 @@ public class Discount {
     }
 
     /**
+     * Sets the promo code.
+     *
      * @param promoCode
      *            the promoCode to set
      */
@@ -90,6 +106,8 @@ public class Discount {
     }
 
     /**
+     * Gets the other discounts.
+     *
      * @return the otherDiscounts
      */
     public final String getOtherDiscounts() {
@@ -97,6 +115,8 @@ public class Discount {
     }
 
     /**
+     * Sets the other discounts.
+     *
      * @param otherDiscounts
      *            the otherDiscounts to set
      */
@@ -109,5 +129,5 @@ public class Discount {
 
     /** The other discounts. */
     private String otherDiscounts;
-    
+
 }

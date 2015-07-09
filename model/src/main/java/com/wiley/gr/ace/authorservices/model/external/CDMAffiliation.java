@@ -42,6 +42,8 @@ public class CDMAffiliation {
     private String affiliationId;
 
     /**
+     * Gets the institution id.
+     *
      * @return the institutionId
      */
     public final String getInstitutionId() {
@@ -49,6 +51,8 @@ public class CDMAffiliation {
     }
 
     /**
+     * Sets the institution id.
+     *
      * @param institutionId
      *            the institutionId to set
      */
@@ -57,6 +61,8 @@ public class CDMAffiliation {
     }
 
     /**
+     * Gets the institution name.
+     *
      * @return the institutionName
      */
     public final String getInstitutionName() {
@@ -64,6 +70,8 @@ public class CDMAffiliation {
     }
 
     /**
+     * Sets the institution name.
+     *
      * @param institutionName
      *            the institutionName to set
      */
@@ -72,6 +80,8 @@ public class CDMAffiliation {
     }
 
     /**
+     * Gets the department id.
+     *
      * @return the departmentId
      */
     public final String getDepartmentId() {
@@ -79,6 +89,8 @@ public class CDMAffiliation {
     }
 
     /**
+     * Sets the department id.
+     *
      * @param departmentId
      *            the departmentId to set
      */
@@ -87,6 +99,8 @@ public class CDMAffiliation {
     }
 
     /**
+     * Gets the department name.
+     *
      * @return the departmentName
      */
     public final String getDepartmentName() {
@@ -94,6 +108,8 @@ public class CDMAffiliation {
     }
 
     /**
+     * Sets the department name.
+     *
      * @param departmentName
      *            the departmentName to set
      */
@@ -102,6 +118,8 @@ public class CDMAffiliation {
     }
 
     /**
+     * Gets the city.
+     *
      * @return the city
      */
     public final String getCity() {
@@ -109,6 +127,8 @@ public class CDMAffiliation {
     }
 
     /**
+     * Sets the city.
+     *
      * @param city
      *            the city to set
      */
@@ -117,6 +137,8 @@ public class CDMAffiliation {
     }
 
     /**
+     * Gets the country code.
+     *
      * @return the countryCode
      */
     public final String getCountryCode() {
@@ -124,6 +146,8 @@ public class CDMAffiliation {
     }
 
     /**
+     * Sets the country code.
+     *
      * @param countryCode
      *            the countryCode to set
      */
@@ -132,6 +156,8 @@ public class CDMAffiliation {
     }
 
     /**
+     * Gets the country name.
+     *
      * @return the countryName
      */
     public final String getCountryName() {
@@ -139,6 +165,8 @@ public class CDMAffiliation {
     }
 
     /**
+     * Sets the country name.
+     *
      * @param countryName
      *            the countryName to set
      */
@@ -147,6 +175,8 @@ public class CDMAffiliation {
     }
 
     /**
+     * Gets the affiliation id.
+     *
      * @return the affiliationId
      */
     public final String getAffiliationId() {
@@ -154,6 +184,8 @@ public class CDMAffiliation {
     }
 
     /**
+     * Sets the affiliation id.
+     *
      * @param affiliationId
      *            the affiliationId to set
      */

@@ -29,6 +29,8 @@ public class SecuirtyQuestionDetails {
     private SecurityQuestions securityQuestions;
 
     /**
+     * Gets the security questions.
+     *
      * @return the securityQuestions
      */
     public final SecurityQuestions getSecurityQuestions() {
@@ -36,10 +38,13 @@ public class SecuirtyQuestionDetails {
     }
 
     /**
+     * Sets the security questions.
+     *
      * @param securityQuestions
      *            the securityQuestions to set
      */
-    public final void setSecurityQuestions(final SecurityQuestions securityQuestions) {
+    public final void setSecurityQuestions(
+            final SecurityQuestions securityQuestions) {
         this.securityQuestions = securityQuestions;
     }
 

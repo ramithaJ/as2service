@@ -14,7 +14,6 @@ package com.wiley.gr.ace.authorservices.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class UserManagement.
  *
@@ -76,7 +75,8 @@ public class UserManagement {
     /**
      * Sets the user id.
      *
-     * @param userId            the userId to set
+     * @param userId
+     *            the userId to set
      */
     public final void setUserId(final String userId) {
         this.userId = userId;
@@ -94,7 +94,8 @@ public class UserManagement {
     /**
      * Sets the primary email address.
      *
-     * @param primaryEmailAddress            the primaryEmailAddress to set
+     * @param primaryEmailAddress
+     *            the primaryEmailAddress to set
      */
     public final void setPrimaryEmailAddress(final String primaryEmailAddress) {
         this.primaryEmailAddress = primaryEmailAddress;
@@ -112,7 +113,8 @@ public class UserManagement {
     /**
      * Sets the secondary email address.
      *
-     * @param secondaryEmailAddress            the secondaryEmailAddress to set
+     * @param secondaryEmailAddress
+     *            the secondaryEmailAddress to set
      */
     public final void setSecondaryEmailAddress(
             final String secondaryEmailAddress) {
@@ -131,7 +133,8 @@ public class UserManagement {
     /**
      * Sets the password.
      *
-     * @param password            the password to set
+     * @param password
+     *            the password to set
      */
     public final void setPassword(final String password) {
         this.password = password;
@@ -149,7 +152,8 @@ public class UserManagement {
     /**
      * Sets the security vo.
      *
-     * @param securityVO            the securityVO to set
+     * @param securityVO
+     *            the securityVO to set
      */
     public final void setSecurityVO(final String securityVO) {
         this.securityVO = securityVO;
@@ -167,7 +171,8 @@ public class UserManagement {
     /**
      * Sets the checks if is security setup.
      *
-     * @param isSecuritySetup            the isSecuritySetup to set
+     * @param isSecuritySetup
+     *            the isSecuritySetup to set
      */
     public final void setIsSecuritySetup(final String isSecuritySetup) {
         this.isSecuritySetup = isSecuritySetup;
@@ -185,7 +190,8 @@ public class UserManagement {
     /**
      * Sets the login failure count.
      *
-     * @param loginFailureCount            the loginFailureCount to set
+     * @param loginFailureCount
+     *            the loginFailureCount to set
      */
     public final void setLoginFailureCount(final String loginFailureCount) {
         this.loginFailureCount = loginFailureCount;
@@ -203,7 +209,8 @@ public class UserManagement {
     /**
      * Sets the checks if is user locked.
      *
-     * @param isUserLocked            the isUserLocked to set
+     * @param isUserLocked
+     *            the isUserLocked to set
      */
     public final void setIsUserLocked(final String isUserLocked) {
         this.isUserLocked = isUserLocked;
@@ -221,7 +228,8 @@ public class UserManagement {
     /**
      * Sets the last login time.
      *
-     * @param lastLoginTime            the lastLoginTime to set
+     * @param lastLoginTime
+     *            the lastLoginTime to set
      */
     public final void setLastLoginTime(final String lastLoginTime) {
         this.lastLoginTime = lastLoginTime;
@@ -239,7 +247,8 @@ public class UserManagement {
     /**
      * Sets the session id.
      *
-     * @param sessionId            the sessionId to set
+     * @param sessionId
+     *            the sessionId to set
      */
     public final void setSessionId(final String sessionId) {
         this.sessionId = sessionId;
@@ -257,7 +266,8 @@ public class UserManagement {
     /**
      * Sets the orcid id.
      *
-     * @param orcidID            the orcidID to set
+     * @param orcidID
+     *            the orcidID to set
      */
     public final void setOrcidID(final String orcidID) {
         this.orcidID = orcidID;
@@ -275,7 +285,8 @@ public class UserManagement {
     /**
      * Sets the ec id.
      *
-     * @param ecId            the ecId to set
+     * @param ecId
+     *            the ecId to set
      */
     public final void setEcId(final String ecId) {
         this.ecId = ecId;
@@ -293,7 +304,8 @@ public class UserManagement {
     /**
      * Sets the user vo.
      *
-     * @param userVO            the userVO to set
+     * @param userVO
+     *            the userVO to set
      */
     public final void setUserVO(final String userVO) {
         this.userVO = userVO;
@@ -311,7 +323,8 @@ public class UserManagement {
     /**
      * Sets the checks if is account verified.
      *
-     * @param isAccountVerified            the isAccountVerified to set
+     * @param isAccountVerified
+     *            the isAccountVerified to set
      */
     public final void setIsAccountVerified(final Character isAccountVerified) {
         this.isAccountVerified = isAccountVerified;

@@ -25,9 +25,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class Affiliation implements Serializable {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
     /** The user Id . */
@@ -95,6 +93,8 @@ public class Affiliation implements Serializable {
     private DisambiguatedOrganization disambiguatedOrganization;
 
     /**
+     * Gets the user id.
+     *
      * @return the userId
      */
     public final int getUserId() {
@@ -102,6 +102,8 @@ public class Affiliation implements Serializable {
     }
 
     /**
+     * Sets the user id.
+     *
      * @param userId
      *            the userId to set
      */
@@ -110,6 +112,8 @@ public class Affiliation implements Serializable {
     }
 
     /**
+     * Gets the institution id.
+     *
      * @return the institutionId
      */
     public final String getInstitutionId() {
@@ -117,6 +121,8 @@ public class Affiliation implements Serializable {
     }
 
     /**
+     * Sets the institution id.
+     *
      * @param institutionId
      *            the institutionId to set
      */
@@ -125,6 +131,8 @@ public class Affiliation implements Serializable {
     }
 
     /**
+     * Gets the department id.
+     *
      * @return the departmentId
      */
     public final String getDepartmentId() {
@@ -132,6 +140,8 @@ public class Affiliation implements Serializable {
     }
 
     /**
+     * Sets the department id.
+     *
      * @param departmentId
      *            the departmentId to set
      */
@@ -140,6 +150,8 @@ public class Affiliation implements Serializable {
     }
 
     /**
+     * Gets the department name.
+     *
      * @return the departmentName
      */
     public final String getDepartmentName() {
@@ -147,6 +159,8 @@ public class Affiliation implements Serializable {
     }
 
     /**
+     * Sets the department name.
+     *
      * @param departmentName
      *            the departmentName to set
      */
@@ -155,6 +169,8 @@ public class Affiliation implements Serializable {
     }
 
     /**
+     * Gets the visibility.
+     *
      * @return the visibility
      */
     public final String getVisibility() {
@@ -162,6 +178,8 @@ public class Affiliation implements Serializable {
     }
 
     /**
+     * Sets the visibility.
+     *
      * @param visibility
      *            the visibility to set
      */
@@ -170,6 +188,8 @@ public class Affiliation implements Serializable {
     }
 
     /**
+     * Gets the type.
+     *
      * @return the type
      */
     public final String getType() {
@@ -177,6 +197,8 @@ public class Affiliation implements Serializable {
     }
 
     /**
+     * Sets the type.
+     *
      * @param type
      *            the type to set
      */
@@ -185,6 +207,8 @@ public class Affiliation implements Serializable {
     }
 
     /**
+     * Gets the role title.
+     *
      * @return the roleTitle
      */
     public final String getRoleTitle() {
@@ -192,6 +216,8 @@ public class Affiliation implements Serializable {
     }
 
     /**
+     * Sets the role title.
+     *
      * @param roleTitle
      *            the roleTitle to set
      */
@@ -200,6 +226,8 @@ public class Affiliation implements Serializable {
     }
 
     /**
+     * Gets the city.
+     *
      * @return the city
      */
     public final String getCity() {
@@ -207,6 +235,8 @@ public class Affiliation implements Serializable {
     }
 
     /**
+     * Sets the city.
+     *
      * @param city
      *            the city to set
      */
@@ -215,6 +245,8 @@ public class Affiliation implements Serializable {
     }
 
     /**
+     * Gets the state code.
+     *
      * @return the stateCode
      */
     public final String getStateCode() {
@@ -222,6 +254,8 @@ public class Affiliation implements Serializable {
     }
 
     /**
+     * Sets the state code.
+     *
      * @param stateCode
      *            the stateCode to set
      */
@@ -230,6 +264,8 @@ public class Affiliation implements Serializable {
     }
 
     /**
+     * Gets the country code.
+     *
      * @return the countryCode
      */
     public final String getCountryCode() {
@@ -237,6 +273,8 @@ public class Affiliation implements Serializable {
     }
 
     /**
+     * Sets the country code.
+     *
      * @param countryCode
      *            the countryCode to set
      */
@@ -245,6 +283,8 @@ public class Affiliation implements Serializable {
     }
 
     /**
+     * Gets the start date.
+     *
      * @return the startDate
      */
     public final Date getStartDate() {
@@ -252,6 +292,8 @@ public class Affiliation implements Serializable {
     }
 
     /**
+     * Sets the start date.
+     *
      * @param startDate
      *            the startDate to set
      */
@@ -260,6 +302,8 @@ public class Affiliation implements Serializable {
     }
 
     /**
+     * Gets the end date.
+     *
      * @return the endDate
      */
     public final Date getEndDate() {
@@ -267,6 +311,8 @@ public class Affiliation implements Serializable {
     }
 
     /**
+     * Sets the end date.
+     *
      * @param endDate
      *            the endDate to set
      */
@@ -275,6 +321,8 @@ public class Affiliation implements Serializable {
     }
 
     /**
+     * Gets the organization.
+     *
      * @return the organization
      */
     public final Organization getOrganization() {
@@ -282,6 +330,8 @@ public class Affiliation implements Serializable {
     }
 
     /**
+     * Sets the organization.
+     *
      * @param organization
      *            the organization to set
      */
@@ -290,6 +340,8 @@ public class Affiliation implements Serializable {
     }
 
     /**
+     * Gets the disambiguated organization.
+     *
      * @return the disambiguatedOrganization
      */
     public final DisambiguatedOrganization getDisambiguatedOrganization() {
@@ -297,6 +349,8 @@ public class Affiliation implements Serializable {
     }
 
     /**
+     * Sets the disambiguated organization.
+     *
      * @param disambiguatedOrganization
      *            the disambiguatedOrganization to set
      */

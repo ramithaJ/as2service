@@ -24,9 +24,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class Country implements Serializable {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
     /** The country code. */
@@ -36,6 +34,8 @@ public class Country implements Serializable {
     private String countryName;
 
     /**
+     * Gets the country code.
+     *
      * @return the countryCode
      */
     public final String getCountryCode() {
@@ -43,6 +43,8 @@ public class Country implements Serializable {
     }
 
     /**
+     * Sets the country code.
+     *
      * @param countryCode
      *            the countryCode to set
      */
@@ -51,6 +53,8 @@ public class Country implements Serializable {
     }
 
     /**
+     * Gets the country name.
+     *
      * @return the countryName
      */
     public final String getCountryName() {
@@ -58,6 +62,8 @@ public class Country implements Serializable {
     }
 
     /**
+     * Sets the country name.
+     *
      * @param countryName
      *            the countryName to set
      */

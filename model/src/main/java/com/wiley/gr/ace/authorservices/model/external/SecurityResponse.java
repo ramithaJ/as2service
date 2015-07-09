@@ -29,6 +29,8 @@ public class SecurityResponse {
     private String status;
 
     /**
+     * Gets the code.
+     *
      * @return the code
      */
     public final String getCode() {
@@ -36,6 +38,8 @@ public class SecurityResponse {
     }
 
     /**
+     * Sets the code.
+     *
      * @param code
      *            the code to set
      */
@@ -44,6 +48,8 @@ public class SecurityResponse {
     }
 
     /**
+     * Gets the message.
+     *
      * @return the message
      */
     public final String getMessage() {
@@ -51,6 +57,8 @@ public class SecurityResponse {
     }
 
     /**
+     * Sets the message.
+     *
      * @param message
      *            the message to set
      */
@@ -59,6 +67,8 @@ public class SecurityResponse {
     }
 
     /**
+     * Gets the status.
+     *
      * @return the status
      */
     public final String getStatus() {
@@ -66,6 +76,8 @@ public class SecurityResponse {
     }
 
     /**
+     * Sets the status.
+     *
      * @param status
      *            the status to set
      */

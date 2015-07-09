@@ -33,6 +33,8 @@ public class ASRolesAndPermissions {
     private Map<String, String[]> permissionsMap = new HashMap<String, String[]>();
 
     /**
+     * Gets the role.
+     *
      * @return the role
      */
     public final Role getRole() {
@@ -40,6 +42,8 @@ public class ASRolesAndPermissions {
     }
 
     /**
+     * Sets the role.
+     *
      * @param role
      *            the role to set
      */
@@ -48,6 +52,8 @@ public class ASRolesAndPermissions {
     }
 
     /**
+     * Gets the permissions map.
+     *
      * @return the permissionsMap
      */
     public final Map<String, String[]> getPermissionsMap() {
@@ -55,6 +61,8 @@ public class ASRolesAndPermissions {
     }
 
     /**
+     * Sets the permissions map.
+     *
      * @param permissionsMap
      *            the permissionsMap to set
      */

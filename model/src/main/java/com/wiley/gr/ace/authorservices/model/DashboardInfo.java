@@ -32,6 +32,8 @@ public class DashboardInfo {
     private String dashBoardInfoMessage;
 
     /**
+     * Gets the id.
+     *
      * @return the id
      */
     public final String getId() {
@@ -39,6 +41,8 @@ public class DashboardInfo {
     }
 
     /**
+     * Sets the id.
+     *
      * @param id
      *            the id to set
      */
@@ -47,6 +51,8 @@ public class DashboardInfo {
     }
 
     /**
+     * Gets the dash board info message.
+     *
      * @return the dashBoardInfoMessage
      */
     public final String getDashBoardInfoMessage() {
@@ -54,6 +60,8 @@ public class DashboardInfo {
     }
 
     /**
+     * Sets the dash board info message.
+     *
      * @param dashBoardInfoMessage
      *            the dashBoardInfoMessage to set
      */

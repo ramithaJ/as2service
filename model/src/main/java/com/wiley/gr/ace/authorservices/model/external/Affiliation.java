@@ -27,6 +27,8 @@ public class Affiliation {
     private String name;
 
     /**
+     * Gets the code.
+     *
      * @return the code
      */
     public final String getCode() {
@@ -34,6 +36,8 @@ public class Affiliation {
     }
 
     /**
+     * Sets the code.
+     *
      * @param code
      *            the code to set
      */
@@ -42,6 +46,8 @@ public class Affiliation {
     }
 
     /**
+     * Gets the name.
+     *
      * @return the name
      */
     public final String getName() {
@@ -49,6 +55,8 @@ public class Affiliation {
     }
 
     /**
+     * Sets the name.
+     *
      * @param name
      *            the name to set
      */

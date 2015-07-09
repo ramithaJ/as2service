@@ -26,6 +26,8 @@ public class AccessReasons {
     private String accessReason;
 
     /**
+     * Gets the access id.
+     *
      * @return the accessId
      */
     public final String getAccessId() {
@@ -33,6 +35,8 @@ public class AccessReasons {
     }
 
     /**
+     * Gets the access reason.
+     *
      * @return the accessReason
      */
     public final String getAccessReason() {
@@ -40,6 +44,8 @@ public class AccessReasons {
     }
 
     /**
+     * Sets the access reason.
+     *
      * @param accessReason
      *            the accessReason to set
      */
@@ -48,6 +54,8 @@ public class AccessReasons {
     }
 
     /**
+     * Sets the access id.
+     *
      * @param accessId
      *            the accessId to set
      */

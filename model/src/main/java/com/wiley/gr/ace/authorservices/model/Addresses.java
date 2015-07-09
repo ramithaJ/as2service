@@ -24,9 +24,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class Addresses implements Serializable {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
     /** The correspondence address. */
@@ -39,6 +37,8 @@ public class Addresses implements Serializable {
     private Address shippingAddress;
 
     /**
+     * Gets the correspondence address.
+     *
      * @return the correspondenceAddress
      */
     public final Address getCorrespondenceAddress() {
@@ -46,6 +46,8 @@ public class Addresses implements Serializable {
     }
 
     /**
+     * Sets the correspondence address.
+     *
      * @param correspondenceAddress
      *            the correspondenceAddress to set
      */
@@ -55,6 +57,8 @@ public class Addresses implements Serializable {
     }
 
     /**
+     * Gets the billing address.
+     *
      * @return the billingAddress
      */
     public final Address getBillingAddress() {
@@ -62,6 +66,8 @@ public class Addresses implements Serializable {
     }
 
     /**
+     * Sets the billing address.
+     *
      * @param billingAddress
      *            the billingAddress to set
      */
@@ -70,6 +76,8 @@ public class Addresses implements Serializable {
     }
 
     /**
+     * Gets the shipping address.
+     *
      * @return the shippingAddress
      */
     public final Address getShippingAddress() {
@@ -77,6 +85,8 @@ public class Addresses implements Serializable {
     }
 
     /**
+     * Sets the shipping address.
+     *
      * @param shippingAddress
      *            the shippingAddress to set
      */

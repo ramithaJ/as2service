@@ -9,9 +9,7 @@
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
  *******************************************************************************/
-/**
- * 
- */
+
 package com.wiley.gr.ace.authorservices.model.external;
 
 import java.util.List;
@@ -19,7 +17,7 @@ import java.util.List;
 /**
  * The Class DashboardView.
  *
- * @author yugandhark
+ * @author virtusa version 1.0
  */
 public class DashboardView {
 
@@ -33,6 +31,8 @@ public class DashboardView {
     private List<ArticleCitationRecord> articleCitationRecord;
 
     /**
+     * Gets the article data.
+     *
      * @return the articleData
      */
     public final List<ArticleData> getArticleData() {
@@ -40,6 +40,8 @@ public class DashboardView {
     }
 
     /**
+     * Sets the article data.
+     *
      * @param articleData
      *            the articleData to set
      */
@@ -48,6 +50,8 @@ public class DashboardView {
     }
 
     /**
+     * Gets the communication details.
+     *
      * @return the communicationDetails
      */
     public final List<CommunicationDetails> getCommunicationDetails() {
@@ -55,6 +59,8 @@ public class DashboardView {
     }
 
     /**
+     * Sets the communication details.
+     *
      * @param communicationDetails
      *            the communicationDetails to set
      */
@@ -64,6 +70,8 @@ public class DashboardView {
     }
 
     /**
+     * Gets the article citation record.
+     *
      * @return the articleCitationRecord
      */
     public final List<ArticleCitationRecord> getArticleCitationRecord() {
@@ -71,6 +79,8 @@ public class DashboardView {
     }
 
     /**
+     * Sets the article citation record.
+     *
      * @param articleCitationRecord
      *            the articleCitationRecord to set
      */
@@ -80,6 +90,8 @@ public class DashboardView {
     }
 
     /**
+     * Gets the article read record.
+     *
      * @return the articleReadRecord
      */
     public final List<ArticleReadRecord> getArticleReadRecord() {
@@ -87,6 +99,8 @@ public class DashboardView {
     }
 
     /**
+     * Sets the article read record.
+     *
      * @param articleReadRecord
      *            the articleReadRecord to set
      */

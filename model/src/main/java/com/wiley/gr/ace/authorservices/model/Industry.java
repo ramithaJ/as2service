@@ -25,6 +25,8 @@ public class Industry {
     private String industryName;
 
     /**
+     * Gets the industry id.
+     *
      * @return the industryId
      */
     public final String getIndustryId() {
@@ -32,6 +34,8 @@ public class Industry {
     }
 
     /**
+     * Sets the industry id.
+     *
      * @param industryId
      *            the industryId to set
      */
@@ -40,6 +44,8 @@ public class Industry {
     }
 
     /**
+     * Gets the industry name.
+     *
      * @return the industryName
      */
     public final String getIndustryName() {
@@ -47,6 +53,8 @@ public class Industry {
     }
 
     /**
+     * Sets the industry name.
+     *
      * @param industryName
      *            the industryName to set
      */

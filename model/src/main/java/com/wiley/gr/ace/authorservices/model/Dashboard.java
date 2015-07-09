@@ -20,6 +20,8 @@ public class Dashboard {
     private List<DashboardInfo> dashBoardInfo;
 
     /**
+     * Gets the profile meter message.
+     *
      * @return the profileMeterMessage
      */
     public final String getProfileMeterMessage() {
@@ -27,6 +29,8 @@ public class Dashboard {
     }
 
     /**
+     * Sets the profile meter message.
+     *
      * @param profileMeterMessage
      *            the profileMeterMessage to set
      */
@@ -35,6 +39,8 @@ public class Dashboard {
     }
 
     /**
+     * Gets the dash board info.
+     *
      * @return the dashBoardInfo
      */
     public final List<DashboardInfo> getDashBoardInfo() {
@@ -42,6 +48,8 @@ public class Dashboard {
     }
 
     /**
+     * Sets the dash board info.
+     *
      * @param dashBoardInfo
      *            the dashBoardInfo to set
      */

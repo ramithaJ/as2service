@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * The Class ArticleInfoDetails.
  *
- * @author yugandhark
+ * @author virtusa version 1.0
  */
 public class ArticleInfoDetails {
 
@@ -27,6 +27,8 @@ public class ArticleInfoDetails {
     private List<ArticleInfo> articleInfo;
 
     /**
+     * Gets the article info.
+     *
      * @return the articleInfo
      */
     public final List<ArticleInfo> getArticleInfo() {
@@ -34,6 +36,8 @@ public class ArticleInfoDetails {
     }
 
     /**
+     * Sets the article info.
+     *
      * @param articleInfo
      *            the articleInfo to set
      */

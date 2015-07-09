@@ -11,6 +11,7 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.model.external;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class Industries.
  *
@@ -22,6 +23,8 @@ public class Industries {
     private Response response;
 
     /**
+     * Gets the response.
+     *
      * @return the response
      */
     public final Response getResponse() {
@@ -29,8 +32,9 @@ public class Industries {
     }
 
     /**
-     * @param response
-     *            the response to set
+     * Sets the response.
+     *
+     * @param response            the response to set
      */
     public final void setResponse(final Response response) {
         this.response = response;

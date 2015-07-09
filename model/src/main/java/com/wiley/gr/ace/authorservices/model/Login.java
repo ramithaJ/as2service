@@ -1,3 +1,14 @@
+/*******************************************************************************
+ * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
+ *
+ * All material contained herein is proprietary to John Wiley & Sons
+ * and its third party suppliers, if any. The methods, techniques and
+ * technical concepts contained herein are considered trade secrets
+ * and confidential and may be protected by intellectual property laws.
+ * Reproduction or distribution of this material, in whole or in part,
+ * is strictly forbidden except by express prior written permission
+ * of John Wiley & Sons.
+ *******************************************************************************/
 package com.wiley.gr.ace.authorservices.model;
 
 import javax.validation.constraints.NotNull;
@@ -37,6 +48,8 @@ public class Login {
     private Integer userId;
 
     /**
+     * Gets the email id.
+     *
      * @return the emailId
      */
     public final String getEmailId() {
@@ -44,6 +57,8 @@ public class Login {
     }
 
     /**
+     * Sets the email id.
+     *
      * @param emailId
      *            the emailId to set
      */
@@ -52,6 +67,8 @@ public class Login {
     }
 
     /**
+     * Gets the password.
+     *
      * @return the password
      */
     public final String getPassword() {
@@ -59,6 +76,8 @@ public class Login {
     }
 
     /**
+     * Sets the password.
+     *
      * @param password
      *            the password to set
      */
@@ -67,6 +86,8 @@ public class Login {
     }
 
     /**
+     * Gets the authentication type.
+     *
      * @return the authenticationType
      */
     public final String getAuthenticationType() {
@@ -74,6 +95,8 @@ public class Login {
     }
 
     /**
+     * Sets the authentication type.
+     *
      * @param authenticationType
      *            the authenticationType to set
      */
@@ -82,6 +105,8 @@ public class Login {
     }
 
     /**
+     * Gets the app key.
+     *
      * @return the appKey
      */
     public final String getAppKey() {
@@ -89,6 +114,8 @@ public class Login {
     }
 
     /**
+     * Sets the app key.
+     *
      * @param appKey
      *            the appKey to set
      */
@@ -97,6 +124,8 @@ public class Login {
     }
 
     /**
+     * Gets the user id.
+     *
      * @return the userId
      */
     public final Integer getUserId() {
@@ -104,6 +133,8 @@ public class Login {
     }
 
     /**
+     * Sets the user id.
+     *
      * @param userId
      *            the userId to set
      */

@@ -24,10 +24,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class PreferredJournals implements Serializable {
 
-    /**
-     * r
-     *
-     */
+    /** r. */
     private static final long serialVersionUID = 1L;
 
     /** The journal id. */
@@ -37,6 +34,8 @@ public class PreferredJournals implements Serializable {
     private String journalTitle;
 
     /**
+     * Gets the journal id.
+     *
      * @return the journalId
      */
     public final String getJournalId() {
@@ -44,6 +43,8 @@ public class PreferredJournals implements Serializable {
     }
 
     /**
+     * Sets the journal id.
+     *
      * @param journalId
      *            the journalId to set
      */
@@ -52,6 +53,8 @@ public class PreferredJournals implements Serializable {
     }
 
     /**
+     * Gets the journal title.
+     *
      * @return the journalTitle
      */
     public final String getJournalTitle() {
@@ -59,6 +62,8 @@ public class PreferredJournals implements Serializable {
     }
 
     /**
+     * Sets the journal title.
+     *
      * @param journalTitle
      *            the journalTitle to set
      */

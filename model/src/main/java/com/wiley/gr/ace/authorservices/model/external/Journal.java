@@ -27,6 +27,8 @@ public class Journal {
     private String journalDescription;
 
     /**
+     * Gets the journal title.
+     *
      * @return the journalTitle
      */
     public final String getJournalTitle() {
@@ -34,6 +36,8 @@ public class Journal {
     }
 
     /**
+     * Sets the journal title.
+     *
      * @param journalTitle
      *            the journalTitle to set
      */
@@ -42,6 +46,8 @@ public class Journal {
     }
 
     /**
+     * Gets the journal description.
+     *
      * @return the journalDescription
      */
     public final String getJournalDescription() {
@@ -49,6 +55,8 @@ public class Journal {
     }
 
     /**
+     * Sets the journal description.
+     *
      * @param journalDescription
      *            the journalDescription to set
      */
@@ -57,6 +65,8 @@ public class Journal {
     }
 
     /**
+     * Gets the article titile.
+     *
      * @return the articleTitile
      */
     public final String getArticleTitile() {
@@ -64,6 +74,8 @@ public class Journal {
     }
 
     /**
+     * Sets the article titile.
+     *
      * @param articleTitile
      *            the articleTitile to set
      */
@@ -72,6 +84,8 @@ public class Journal {
     }
 
     /**
+     * Gets the base price.
+     *
      * @return the basePrice
      */
     public final String getBasePrice() {
@@ -79,6 +93,8 @@ public class Journal {
     }
 
     /**
+     * Sets the base price.
+     *
      * @param basePrice
      *            the basePrice to set
      */
@@ -87,6 +103,8 @@ public class Journal {
     }
 
     /**
+     * Gets the author.
+     *
      * @return the author
      */
     public final String getAuthor() {
@@ -94,6 +112,8 @@ public class Journal {
     }
 
     /**
+     * Sets the author.
+     *
      * @param author
      *            the author to set
      */

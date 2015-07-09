@@ -25,6 +25,8 @@ public class JobCategory {
     private String jobCategoryName;
 
     /**
+     * Gets the job category id.
+     *
      * @return the jobCategoryId
      */
     public final String getJobCategoryId() {
@@ -32,6 +34,8 @@ public class JobCategory {
     }
 
     /**
+     * Sets the job category id.
+     *
      * @param jobCategoryId
      *            the jobCategoryId to set
      */
@@ -40,6 +44,8 @@ public class JobCategory {
     }
 
     /**
+     * Gets the job category name.
+     *
      * @return the jobCategoryName
      */
     public final String getJobCategoryName() {
@@ -47,6 +53,8 @@ public class JobCategory {
     }
 
     /**
+     * Sets the job category name.
+     *
      * @param jobCategoryName
      *            the jobCategoryName to set
      */

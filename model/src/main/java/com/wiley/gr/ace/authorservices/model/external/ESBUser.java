@@ -15,6 +15,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * The Class ESBUser.
+ * 
+ * @author virtusa version 1.0
  */
 public class ESBUser {
 
@@ -63,6 +65,8 @@ public class ESBUser {
     private String accountIdentifier;
 
     /**
+     * Gets the street.
+     *
      * @return the street
      */
     public final String getStreet() {
@@ -70,6 +74,8 @@ public class ESBUser {
     }
 
     /**
+     * Sets the street.
+     *
      * @param street
      *            the street to set
      */
@@ -78,6 +84,8 @@ public class ESBUser {
     }
 
     /**
+     * Gets the state.
+     *
      * @return the state
      */
     public final String getState() {
@@ -85,6 +93,8 @@ public class ESBUser {
     }
 
     /**
+     * Sets the state.
+     *
      * @param state
      *            the state to set
      */
@@ -93,6 +103,8 @@ public class ESBUser {
     }
 
     /**
+     * Gets the address.
+     *
      * @return the address
      */
     public final String getAddress() {
@@ -100,6 +112,8 @@ public class ESBUser {
     }
 
     /**
+     * Sets the address.
+     *
      * @param address
      *            the address to set
      */
@@ -108,6 +122,8 @@ public class ESBUser {
     }
 
     /**
+     * Gets the role.
+     *
      * @return the role
      */
     public final String getRole() {
@@ -115,6 +131,8 @@ public class ESBUser {
     }
 
     /**
+     * Sets the role.
+     *
      * @param role
      *            the role to set
      */
@@ -123,6 +141,8 @@ public class ESBUser {
     }
 
     /**
+     * Gets the first name.
+     *
      * @return the firstName
      */
     public final String getFirstName() {
@@ -130,6 +150,8 @@ public class ESBUser {
     }
 
     /**
+     * Sets the first name.
+     *
      * @param firstName
      *            the firstName to set
      */
@@ -138,6 +160,8 @@ public class ESBUser {
     }
 
     /**
+     * Gets the zip.
+     *
      * @return the zip
      */
     public final String getZip() {
@@ -145,6 +169,8 @@ public class ESBUser {
     }
 
     /**
+     * Sets the zip.
+     *
      * @param zip
      *            the zip to set
      */
@@ -153,6 +179,8 @@ public class ESBUser {
     }
 
     /**
+     * Gets the country.
+     *
      * @return the country
      */
     public final String getCountry() {
@@ -160,6 +188,8 @@ public class ESBUser {
     }
 
     /**
+     * Sets the country.
+     *
      * @param country
      *            the country to set
      */
@@ -168,6 +198,8 @@ public class ESBUser {
     }
 
     /**
+     * Gets the last name.
+     *
      * @return the lastName
      */
     public final String getLastName() {
@@ -175,6 +207,8 @@ public class ESBUser {
     }
 
     /**
+     * Sets the last name.
+     *
      * @param lastName
      *            the lastName to set
      */
@@ -183,6 +217,8 @@ public class ESBUser {
     }
 
     /**
+     * Gets the ecid.
+     *
      * @return the ecid
      */
     public final String getEcid() {
@@ -190,6 +226,8 @@ public class ESBUser {
     }
 
     /**
+     * Sets the ecid.
+     *
      * @param ecid
      *            the ecid to set
      */
@@ -198,6 +236,8 @@ public class ESBUser {
     }
 
     /**
+     * Gets the email id.
+     *
      * @return the emailID
      */
     public final String getEmailID() {
@@ -205,6 +245,8 @@ public class ESBUser {
     }
 
     /**
+     * Sets the email id.
+     *
      * @param emailID
      *            the emailID to set
      */
@@ -213,6 +255,8 @@ public class ESBUser {
     }
 
     /**
+     * Gets the account identifier.
+     *
      * @return the accountIdentifier
      */
     public final String getAccountIdentifier() {
@@ -220,6 +264,8 @@ public class ESBUser {
     }
 
     /**
+     * Sets the account identifier.
+     *
      * @param accountIdentifier
      *            the accountIdentifier to set
      */

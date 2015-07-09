@@ -32,6 +32,8 @@ public class DisambiguatedOrganization {
     private String disambiguationSource;
 
     /**
+     * Gets the disambiguated organization identifier.
+     *
      * @return the disambiguatedOrganizationIdentifier
      */
     public final String getDisambiguatedOrganizationIdentifier() {
@@ -39,6 +41,8 @@ public class DisambiguatedOrganization {
     }
 
     /**
+     * Sets the disambiguated organization identifier.
+     *
      * @param disambiguatedOrganizationIdentifier
      *            the disambiguatedOrganizationIdentifier to set
      */
@@ -48,6 +52,8 @@ public class DisambiguatedOrganization {
     }
 
     /**
+     * Gets the disambiguation source.
+     *
      * @return the disambiguationSource
      */
     public final String getDisambiguationSource() {
@@ -55,6 +61,8 @@ public class DisambiguatedOrganization {
     }
 
     /**
+     * Sets the disambiguation source.
+     *
      * @param disambiguationSource
      *            the disambiguationSource to set
      */

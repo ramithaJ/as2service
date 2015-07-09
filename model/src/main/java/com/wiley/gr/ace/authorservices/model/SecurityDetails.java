@@ -42,6 +42,8 @@ public class SecurityDetails {
     private String securityAnswer;
 
     /**
+     * Gets the security question id.
+     *
      * @return the securityQuestionId
      */
     public final String getSecurityQuestionId() {
@@ -49,6 +51,8 @@ public class SecurityDetails {
     }
 
     /**
+     * Sets the security question id.
+     *
      * @param securityQuestionId
      *            the securityQuestionId to set
      */
@@ -57,6 +61,8 @@ public class SecurityDetails {
     }
 
     /**
+     * Gets the security question.
+     *
      * @return the securityQuestion
      */
     public final String getSecurityQuestion() {
@@ -64,6 +70,8 @@ public class SecurityDetails {
     }
 
     /**
+     * Sets the security question.
+     *
      * @param securityQuestion
      *            the securityQuestion to set
      */
@@ -72,6 +80,8 @@ public class SecurityDetails {
     }
 
     /**
+     * Gets the security answer.
+     *
      * @return the securityAnswer
      */
     public final String getSecurityAnswer() {
@@ -79,6 +89,8 @@ public class SecurityDetails {
     }
 
     /**
+     * Sets the security answer.
+     *
      * @param securityAnswer
      *            the securityAnswer to set
      */

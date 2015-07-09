@@ -17,6 +17,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class UserProfile.
  *
@@ -25,9 +26,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class UserProfile implements Serializable {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
     /** The customer details. */
@@ -61,6 +60,8 @@ public class UserProfile implements Serializable {
     private String emailForAlerts;
 
     /**
+     * Gets the customer details.
+     *
      * @return the customerDetails
      */
     public final User getCustomerDetails() {
@@ -68,14 +69,17 @@ public class UserProfile implements Serializable {
     }
 
     /**
-     * @param customerDetails
-     *            the customerDetails to set
+     * Sets the customer details.
+     *
+     * @param customerDetails            the customerDetails to set
      */
     public final void setCustomerDetails(final User customerDetails) {
         this.customerDetails = customerDetails;
     }
 
     /**
+     * Gets the address details.
+     *
      * @return the addressDetails
      */
     public final List<Addresses> getAddressDetails() {
@@ -83,14 +87,17 @@ public class UserProfile implements Serializable {
     }
 
     /**
-     * @param addressDetails
-     *            the addressDetails to set
+     * Sets the address details.
+     *
+     * @param addressDetails            the addressDetails to set
      */
     public final void setAddressDetails(final List<Addresses> addressDetails) {
         this.addressDetails = addressDetails;
     }
 
     /**
+     * Gets the affiliations.
+     *
      * @return the affiliations
      */
     public final List<Affiliation> getAffiliations() {
@@ -98,14 +105,17 @@ public class UserProfile implements Serializable {
     }
 
     /**
-     * @param affiliations
-     *            the affiliations to set
+     * Sets the affiliations.
+     *
+     * @param affiliations            the affiliations to set
      */
     public final void setAffiliations(final List<Affiliation> affiliations) {
         this.affiliations = affiliations;
     }
 
     /**
+     * Gets the research funders.
+     *
      * @return the researchFunders
      */
     public final List<ResearchFunder> getResearchFunders() {
@@ -113,8 +123,9 @@ public class UserProfile implements Serializable {
     }
 
     /**
-     * @param researchFunders
-     *            the researchFunders to set
+     * Sets the research funders.
+     *
+     * @param researchFunders            the researchFunders to set
      */
     public final void setResearchFunders(
             final List<ResearchFunder> researchFunders) {
@@ -122,6 +133,8 @@ public class UserProfile implements Serializable {
     }
 
     /**
+     * Gets the societies.
+     *
      * @return the societies
      */
     public final List<Society> getSocieties() {
@@ -129,14 +142,17 @@ public class UserProfile implements Serializable {
     }
 
     /**
-     * @param societies
-     *            the societies to set
+     * Sets the societies.
+     *
+     * @param societies            the societies to set
      */
     public final void setSocieties(final List<Society> societies) {
         this.societies = societies;
     }
 
     /**
+     * Gets the interests.
+     *
      * @return the interests
      */
     public final List<Interests> getInterests() {
@@ -144,14 +160,17 @@ public class UserProfile implements Serializable {
     }
 
     /**
-     * @param interests
-     *            the interests to set
+     * Sets the interests.
+     *
+     * @param interests            the interests to set
      */
     public final void setInterests(final List<Interests> interests) {
         this.interests = interests;
     }
 
     /**
+     * Gets the co authors.
+     *
      * @return the coAuthors
      */
     public final List<CoAuthor> getCoAuthors() {
@@ -159,14 +178,17 @@ public class UserProfile implements Serializable {
     }
 
     /**
-     * @param coAuthors
-     *            the coAuthors to set
+     * Sets the co authors.
+     *
+     * @param coAuthors            the coAuthors to set
      */
     public final void setCoAuthors(final List<CoAuthor> coAuthors) {
         this.coAuthors = coAuthors;
     }
 
     /**
+     * Gets the preferred journals.
+     *
      * @return the preferredJournals
      */
     public final List<PreferredJournals> getPreferredJournals() {
@@ -174,8 +196,9 @@ public class UserProfile implements Serializable {
     }
 
     /**
-     * @param preferredJournals
-     *            the preferredJournals to set
+     * Sets the preferred journals.
+     *
+     * @param preferredJournals            the preferredJournals to set
      */
     public final void setPreferredJournals(
             final List<PreferredJournals> preferredJournals) {
@@ -183,6 +206,8 @@ public class UserProfile implements Serializable {
     }
 
     /**
+     * Gets the alerts.
+     *
      * @return the alerts
      */
     public final Alerts getAlerts() {
@@ -190,14 +215,17 @@ public class UserProfile implements Serializable {
     }
 
     /**
-     * @param alerts
-     *            the alerts to set
+     * Sets the alerts.
+     *
+     * @param alerts            the alerts to set
      */
     public final void setAlerts(final Alerts alerts) {
         this.alerts = alerts;
     }
 
     /**
+     * Gets the email for alerts.
+     *
      * @return the emailForAlerts
      */
     public final String getEmailForAlerts() {
@@ -205,8 +233,9 @@ public class UserProfile implements Serializable {
     }
 
     /**
-     * @param emailForAlerts
-     *            the emailForAlerts to set
+     * Sets the email for alerts.
+     *
+     * @param emailForAlerts            the emailForAlerts to set
      */
     public final void setEmailForAlerts(final String emailForAlerts) {
         this.emailForAlerts = emailForAlerts;

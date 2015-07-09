@@ -13,8 +13,9 @@
 package com.wiley.gr.ace.authorservices.model.external;
 
 /**
- * @author virtusa
+ * The Class ESBResponse.
  *
+ * @author virtusa
  */
 public class ESBResponse {
 
@@ -24,6 +25,8 @@ public class ESBResponse {
     private Response response;
 
     /**
+     * Gets the response.
+     *
      * @return the response
      */
     public final Response getResponse() {
@@ -31,6 +34,8 @@ public class ESBResponse {
     }
 
     /**
+     * Sets the response.
+     *
      * @param response
      *            the response to set
      */

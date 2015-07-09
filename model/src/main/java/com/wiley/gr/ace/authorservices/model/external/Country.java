@@ -21,6 +21,8 @@ package com.wiley.gr.ace.authorservices.model.external;
 public class Country {
 
     /**
+     * Gets the country name.
+     *
      * @return the countryName
      */
     public final String getCountryName() {
@@ -28,6 +30,8 @@ public class Country {
     }
 
     /**
+     * Sets the country name.
+     *
      * @param countryName
      *            the countryName to set
      */
@@ -36,6 +40,8 @@ public class Country {
     }
 
     /**
+     * Gets the country code.
+     *
      * @return the countryCode
      */
     public final String getCountryCode() {
@@ -43,6 +49,8 @@ public class Country {
     }
 
     /**
+     * Sets the country code.
+     *
      * @param countryCode
      *            the countryCode to set
      */
