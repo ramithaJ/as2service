@@ -82,7 +82,7 @@ public class UserProfilesImpl implements UserProfiles {
 
     /** The status. */
     @Value("${STATUS}")
-    private String STATUS;
+    private String status;
 
     /**
      * This method is used for getting area of interest.
@@ -91,7 +91,7 @@ public class UserProfilesImpl implements UserProfiles {
      *
      */
     @Override
-    public ESBResponse getAreaOfInterests() {
+    public final ESBResponse getAreaOfInterests() {
 
         return (ESBResponse) StubInvokerUtil.invokeStub(areaofInterestsurl,
                 HttpMethod.GET, ESBResponse.class);
@@ -104,7 +104,7 @@ public class UserProfilesImpl implements UserProfiles {
      *
      */
     @Override
-    public ESBResponse getCountries() {
+    public final ESBResponse getCountries() {
 
         return (ESBResponse) StubInvokerUtil.invokeStub(countriesurl,
                 HttpMethod.GET, ESBResponse.class);
@@ -117,7 +117,7 @@ public class UserProfilesImpl implements UserProfiles {
      *
      */
     @Override
-    public DropDown getDepartmentsList() {
+    public final DropDown getDepartmentsList() {
 
         return (DropDown) StubInvokerUtil.invokeStub(departmentsurl,
                 HttpMethod.GET, DropDown.class);
@@ -130,7 +130,7 @@ public class UserProfilesImpl implements UserProfiles {
      *
      */
     @Override
-    public Industries getIndustries() {
+    public final Industries getIndustries() {
 
         return (Industries) StubInvokerUtil.invokeStub(industriesurl,
                 HttpMethod.GET, Industries.class);
@@ -143,7 +143,7 @@ public class UserProfilesImpl implements UserProfiles {
      *
      */
     @Override
-    public DropDown getInstitutionsList() {
+    public final DropDown getInstitutionsList() {
 
         return (DropDown) StubInvokerUtil.invokeStub(institutionsurl,
                 HttpMethod.GET, DropDown.class);
@@ -156,7 +156,7 @@ public class UserProfilesImpl implements UserProfiles {
      *
      */
     @Override
-    public JobCategories getJobCategories() {
+    public final JobCategories getJobCategories() {
 
         return (JobCategories) StubInvokerUtil.invokeStub(jobCategoriesurl,
                 HttpMethod.GET, JobCategories.class);
@@ -169,7 +169,7 @@ public class UserProfilesImpl implements UserProfiles {
      *
      */
     @Override
-    public DropDown getReasearchFunder() {
+    public final DropDown getReasearchFunder() {
 
         return (DropDown) StubInvokerUtil.invokeStub(researchFundersurl,
                 HttpMethod.GET, DropDown.class);
@@ -182,7 +182,7 @@ public class UserProfilesImpl implements UserProfiles {
      *
      */
     @Override
-    public DropDown getSocietyList() {
+    public final DropDown getSocietyList() {
 
         return (DropDown) StubInvokerUtil.invokeStub(societiesurl,
                 HttpMethod.GET, DropDown.class);
@@ -195,21 +195,21 @@ public class UserProfilesImpl implements UserProfiles {
      *
      */
     @Override
-    public ESBResponse getStates() {
+    public final ESBResponse getStates() {
 
         return (ESBResponse) StubInvokerUtil.invokeStub(statesurl,
                 HttpMethod.GET, ESBResponse.class);
     }
 
-    /**
-     * This method is used for getting userProfile response.
+    /** This method is used for getting userProfile response.
      *
      * @param userId
+     *            the user id
      * @return UserProfileResponse
      */
     @Override
     @Cacheable(value = "userProfile", key = "#userId")
-    public UserProfileResponse getUserProfileResponse(final int userId) {
+    public final UserProfileResponse getUserProfileResponse(final int userId) {
 
         final UserProfileResponse response = (UserProfileResponse) StubInvokerUtil
                 .invokeStub(userProfileurl, HttpMethod.GET,
@@ -218,20 +218,23 @@ public class UserProfilesImpl implements UserProfiles {
         return response;
     }
 
-    /**
-     * This method is used for getting userProfile response and put the updated userProfile object into Redis cache.
+     /** This method is used for getting userProfile response and put the
+     * updated userProfile object into Redis cache.
      *
      * @param userId
+     *            the user id
+     * @param userProfileResponse
+     *            the user profile response
      * @return UserProfileResponse
      */
     @Override
     @CachePut(value = "userProfile", key = "#userId")
-    public UserProfileResponse updateProfile(final int userId,
+    public final UserProfileResponse updateProfile(final int userId,
             final UserProfileResponse userProfileResponse) {
         final Service service = (Service) StubInvokerUtil.invokeStub(
                 updateProfileurl, HttpMethod.POST, Service.class);
         final String status = service.getStatus();
-        if (status != null && STATUS.equalsIgnoreCase(status)) {
+        if (status != null && status.equalsIgnoreCase(status)) {
             return getUserProfile();
         }
 
@@ -242,7 +245,7 @@ public class UserProfilesImpl implements UserProfiles {
      * This method is used for getting userProfile response.
      * @return UserProfileResponse
      */
-    private UserProfileResponse getUserProfile() {
+    private final UserProfileResponse getUserProfile() {
         return (UserProfileResponse) StubInvokerUtil
                 .invokeStub(userProfileurl, HttpMethod.GET,
                         UserProfileResponse.class);

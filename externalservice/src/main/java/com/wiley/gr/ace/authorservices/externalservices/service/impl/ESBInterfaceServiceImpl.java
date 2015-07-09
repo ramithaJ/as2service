@@ -70,7 +70,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      *             the exception
      */
     @Override
-    public User fetchOrcidDetails(final String orcid) throws Exception {
+    public final User fetchOrcidDetails(final String orcid) throws Exception {
         User user = null;
         final String url = fetchOrcidDetailsUrl;
         final URI uri = new URI(url);
@@ -97,7 +97,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      *             the exception
      */
     @Override
-    public String updateALMUser(final User updateUser) throws Exception {
+    public final String updateALMUser(final User updateUser) throws Exception {
         String status = "failure";
         final String url = updateAlmUserUrl;
         final URI uri = new URI(url);
@@ -123,7 +123,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      *             the exception
      */
     @Override
-    public ESBUser checkEmailIdExists(final String emailId) throws Exception {
+    public final ESBUser checkEmailIdExists(final String emailId) throws Exception {
         ESBUser esbUser = null;
         final List<ESBUser> esbUserList = searchUser(emailId, "", "");
         if (!StringUtils.isEmpty(esbUserList)) {
@@ -144,7 +144,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      *             the exception
      */
     @Override
-    public List<ESBUser> getUsersFromFirstNameLastName(final String firstName,
+    public final List<ESBUser> getUsersFromFirstNameLastName(final String firstName,
             final String lastName) throws Exception {
         List<ESBUser> esbUserList = null;
 
@@ -166,7 +166,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      * @throws Exception
      *             the exception
      */
-    private List<ESBUser> searchUser(final String email,
+    private final List<ESBUser> searchUser(final String email,
             final String firstName, final String lastName) throws Exception {
         ArrayList<ESBUser> esbUsersList = null;
         SearchUserResult searchUserResult = null;
@@ -203,7 +203,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      *             the exception
      */
     @Override
-    public Status creatUser(final ProfileInformation profileForCreation)
+    public final Status creatUser(final ProfileInformation profileForCreation)
             throws Exception {
         final Status status = new Status();
         final String url = createUserUrl;
@@ -233,7 +233,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      * @return the dashboard view
      */
     @Override
-    public DashboardView viewDashboard(final int userId) {
+    public final DashboardView viewDashboard(final int userId) {
         DashboardView dashboardView = null;
         final String url = "http://demo7930138.mockable.io/dashboard/view/1000";
         try {
@@ -264,7 +264,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      * @return the article info
      */
     @Override
-    public ArticleInfoDetails getArticleInfo(final String emailId) {
+    public final ArticleInfoDetails getArticleInfo(final String emailId) {
         ArticleInfoDetails articleInfoDetails = null;
         final String url = "http://demo7930138.mockable.io/article/getArticleInfo/emailId";
         try {
@@ -292,7 +292,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      * @return the article info
      */
     @Override
-    public boolean confirmAssociation() {
+    public final boolean confirmAssociation() {
         return false;
     }
 

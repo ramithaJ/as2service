@@ -37,15 +37,17 @@ public class ASExceptionController {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(ASExceptionController.class);
     
-    /**
-     * This method is used to handle ASException.
+     /** This method is used to handle ASException.
+     *
      * @param asException
-     * @return
+     *            the as exception
+     * @return the service
+     * @return.
      */
     @ExceptionHandler(ASException.class)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public Service handleASException(final ASException asException) {
+    public final Service handleASException(final ASException asException) {
         
         LOGGER.info("Inside ASException Controller");
         
@@ -53,8 +55,7 @@ public class ASExceptionController {
         LOGGER.error("Error Trace - ", asException);
         response.setStatus("FAILURE");
         ErrorPOJO errorPojo = new ErrorPOJO();
-        System.out.println("ErrorCode obtained:::"+asException.getErrorCode());
-        if(asException.getErrorCode() !=  null && !asException.getErrorCode().isEmpty()) {
+        if (asException.getErrorCode() != null && !asException.getErrorCode().isEmpty()) {
             errorPojo.setCode(Integer.parseInt(asException.getErrorCode()));
         }
         errorPojo.setMessage(asException.getDescription());
@@ -64,15 +65,16 @@ public class ASExceptionController {
     }
     
     
-    /**
-     * This method is used to handle Exception.
+   /** This method is used to handle Exception.
+     *
      * @param exception
-     * @return
+     *            the exception
+     * @return the service
      */
     @ExceptionHandler(Exception.class)
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
-    public Service handleException(final Exception exception) {
+    public final Service handleException(final Exception exception) {
         
         LOGGER.info("Inside ASException Controller");
         

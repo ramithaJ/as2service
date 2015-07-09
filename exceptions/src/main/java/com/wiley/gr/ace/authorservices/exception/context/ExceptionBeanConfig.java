@@ -18,24 +18,28 @@ import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
 
 /**
+ * The Class ExceptionBeanConfig.
+ *
  * @author virtusa version 1.0
  */
 @Configuration
 public class ExceptionBeanConfig {
 
-    /**
-     * @return
+     /** Gets the AS exception.
+     *
+     * @return the AS exception
      */
     @Bean(name = "asException")
-    public ASException getASException() {
+    public final ASException getASException() {
         return new ASException();
     }
 
-    /**
-     * @return
+     /** Gets the AS exception controller.
+     *
+     * @return the AS exception controller
      */
     @Bean(name = "asExceptionController")
-    public ASExceptionController getASExceptionController() {
+    public final ASExceptionController getASExceptionController() {
         return new ASExceptionController();
     }
 

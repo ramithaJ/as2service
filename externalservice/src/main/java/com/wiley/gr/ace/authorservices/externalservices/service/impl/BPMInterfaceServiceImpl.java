@@ -14,16 +14,18 @@ package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 import com.wiley.gr.ace.authorservices.externalservices.service.BPMInterfaceService;
 
 /**
+ * The Class BPMInterfaceServiceImpl.
+ *
  * @author virtusa version 1.0
  */
 public class BPMInterfaceServiceImpl implements BPMInterfaceService {
 
-	/**
-	 * This method used to createTask.
-	 * @return
-	 */
-	@Override
-    public boolean createTask() {
+     /** This method used to createTask.
+     *
+     * @return true, if successful
+     */
+    @Override
+    public final boolean createTask() {
         // TODO Auto-generated method stub
         return true;
     }
