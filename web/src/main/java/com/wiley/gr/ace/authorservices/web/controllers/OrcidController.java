@@ -18,9 +18,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
@@ -43,10 +45,10 @@ public class OrcidController {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(OrcidController.class);
     /**
-     * GETTING BEAN OF ORCID SERVICE.
+     * GETTING BEAN OF ORCID SERVICE
      */
     @Autowired(required = true)
-    private OrcidService orcidService;
+    OrcidService orcidService;
 
     /**
      * orcidUrl From Props File.
@@ -67,23 +69,17 @@ public class OrcidController {
     private String orcidRedirectUrl;
 
     /**
-     * the value of noDataFoundCode.
-     */
-    @Value("${noDataFound.code}")
-    private int noDataFoundCode;
-
-    /**
      * @return service
      */
-    @RequestMapping(value = "/url", method = RequestMethod.GET)
-    public final Service getOrcidURL() {
+    @RequestMapping(value = "/url", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Service getOrcidURL() {
         Service service = new Service();
 
         try {
             /**
              * Depending on the environment the ORCID URL changes
              */
-            String env = "DEV"; // Need to fetch this from prop file
+            String env = "DEV";// Need to fetch this from prop file
             String url = "";
             if (null != env) {
                 url = "https://"
@@ -92,13 +88,13 @@ public class OrcidController {
                         + orcidClientId
                         + "&response_type=code&scope=/authenticate&redirect_uri="
                         + orcidRedirectUrl;
+                service.setStatus("SUCCESS");
                 service.setPayload(url);
             }
         } catch (Exception e) {
             ErrorPOJO error = new ErrorPOJO();
-            error.setCode(noDataFoundCode); // Need to set proper error code
-                                            // this one is
-            // dummy
+            error.setCode(-101); // Need to set proper error code this one is
+                                 // dummy
             error.setMessage("Error while fetching ORCID URL");
 
             service.setStatus("error");
@@ -109,14 +105,12 @@ public class OrcidController {
     }
 
     /**
-     * @param type
-     *            - the request value
      * @param authorizationCode
-     *            - the request value
      * @return service
      */
-    @RequestMapping(value = "/profile/{type}/{authorizationCode}", method = RequestMethod.GET)
-    public final Service getOrcidDetails(@PathVariable final String type,
+    @RequestMapping(value = "/profile/{type}/{authorizationCode}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Service getOrcidDetails(
+            @PathVariable final String type,
             @PathVariable final String authorizationCode) {
         Service service = new Service();
         User user = null;
@@ -127,15 +121,16 @@ public class OrcidController {
                         .getAccessToken(authorizationCode);
                 if (null != accessToken) {
                     System.out.println("accessToken.getAccess_token() --->"
-                            + accessToken.getAccess_token());
+                            + accessToken.getAccessToken());
                     System.out.println("accessToken.getOrcid() ---> "
                             + accessToken.getOrcid());
                     if (null != type) {
                         user = orcidService.getBio(accessToken);
-                        if ("userupdate".equalsIgnoreCase(type)) {
+                        if (type.equalsIgnoreCase("userupdate")) {
                             orcidService.getWork(accessToken, user);
                         }
                     }
+                    service.setStatus("SUCCESS");
                     service.setPayload(user);
                 }
             }
@@ -143,9 +138,8 @@ public class OrcidController {
             e.printStackTrace();
             LOGGER.error("Stack Trace-.", e);
             ErrorPOJO error = new ErrorPOJO();
-            error.setCode(noDataFoundCode); // Need to set proper error code
-                                            // this one is
-            // dummy
+            error.setCode(-101); // Need to set proper error code this one is
+                                 // dummy
             error.setMessage("Error while fetching ORCID details");
 
             service.setStatus("error");
