@@ -55,6 +55,8 @@ public class OrcidServiceImpl implements OrcidService {
     @Autowired(required = true)
     private ASDataService asDataService;
 
+    private static final int COUNT = 10;
+
     /**
      * This method will take authorizationCode and call external service
      * oricdInterfaceService to authorize.
@@ -280,7 +282,7 @@ public class OrcidServiceImpl implements OrcidService {
         try {
             country = new Country();
             country.setCountryCode((String) countryDetails.get("value"));
-            List<Country> countryList = asDataService.getCountries(10);
+            List<Country> countryList = asDataService.getCountries(COUNT);
             for (Country countryEntity : countryList) {
                 if (countryEntity.getCountryCode().startsWith(
                         country.getCountryCode())) {

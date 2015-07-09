@@ -124,7 +124,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     public final List<User> getUserFromFirstNameLastName(
             final String firstName, final String lastName) throws Exception {
 
-        ArrayList<User> userList = new ArrayList<User>();
+        ArrayList<User> userList = null;
         List<ESBUser> esbUserList = null;
         if (!StringUtils.isEmpty(firstName) && !StringUtils.isEmpty(lastName)) {
             esbUserList = esbInterFaceService.getUsersFromFirstNameLastName(
@@ -132,6 +132,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 
             if (!StringUtils.isEmpty(esbUserList)) {
                 for (final ESBUser esbUser : esbUserList) {
+                    userList = new ArrayList<User>();
                     final User tempUser = new User();
                     final Country tempCountry = new Country();
                     tempCountry.setCountryName(esbUser.getCountry());
@@ -141,8 +142,6 @@ public class RegistrationServiceImpl implements RegistrationService {
                     tempUser.setCountry(tempCountry);
                     userList.add(tempUser);
                 }
-            } else {
-                userList = null;
             }
         }
 
@@ -172,13 +171,8 @@ public class RegistrationServiceImpl implements RegistrationService {
                 user.setLastName(esbUser.getLastName());
                 user.setPrimaryEmailAddr(esbUser.getEmailID());
                 user.setCountry(countryDetails);
-            } else {
-                user = null;
             }
-        } else {
-            user = null;
         }
-
         return user;
     }
 

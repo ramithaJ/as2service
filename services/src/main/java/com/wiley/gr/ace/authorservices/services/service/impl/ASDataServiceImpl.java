@@ -410,7 +410,6 @@ public class ASDataServiceImpl implements ASDataService {
         List<Roles> daoRolesList = aSDataDAO.getAdminRoles(roleType);
         List<Role> adminRoles = new ArrayList<Role>();
         Role adminRole = null;
-       
 
         if (daoRolesList != null && !daoRolesList.isEmpty()) {
 
@@ -420,12 +419,12 @@ public class ASDataServiceImpl implements ASDataService {
                 adminRole.setRoleName(roles.getRoleName());
                 adminRole.setRoleDescription(roles.getDescription());
                 if (roles.getRoleType() != null
-                        && roles.getRoleType().equals(
-                                AuthorServicesConstants.ROLE_TYPE_INTERNAL)) {
+                        && AuthorServicesConstants.ROLE_TYPE_INTERNAL
+                                .equals(roles.getRoleType())) {
                     adminRole.setAdminRole(true);
                 }
-                        adminRole.setNoOfPermissions(String.valueOf(aSDataDAO.getCount(roles
-                                .getRoleId())));
+                adminRole.setNoOfPermissions(String.valueOf(aSDataDAO
+                        .getCount(roles.getRoleId())));
                 adminRoles.add(adminRole);
             }
 

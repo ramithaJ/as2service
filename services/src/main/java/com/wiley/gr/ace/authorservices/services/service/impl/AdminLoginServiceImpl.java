@@ -162,8 +162,8 @@ public class AdminLoginServiceImpl implements AdminLoginService {
             role.setRoleName(daoRoles.getRoleName());
             role.setRoleDescription(daoRoles.getDescription());
             if (daoRoles.getRoleType() != null
-                    && daoRoles.getRoleType().equals(
-                            AuthorServicesConstants.ROLE_TYPE_INTERNAL)) {
+                    && AuthorServicesConstants.ROLE_TYPE_INTERNAL
+                            .equals(daoRoles.getRoleType())) {
                 role.setAdminRole(true);
             }
             rolesAndPermissions.getRolesList().add(role);
@@ -178,32 +178,36 @@ public class AdminLoginServiceImpl implements AdminLoginService {
             permission.setPermissionId(daoPermissions.getPermissionCd() + "");
             permission.setPermissionName(daoPermissions.getPermissionName());
 
-            /** Temporary Commenting for fixing compilation issue as per new entity generated*/
-           /* if (daoPermissions.getPermissionGroup().equalsIgnoreCase(
-                    AuthorServicesConstants.PERMISSION_LEVEL_SYSTEM)
-            
+            /**
+             * Temporary Commenting for fixing compilation issue as per new
+             * entity generated
+             */
+            /*
+             * if (daoPermissions.getPermissionGroup().equalsIgnoreCase(
+             * AuthorServicesConstants.PERMISSION_LEVEL_SYSTEM)
+             * 
              * && daoPermissions.getPermType().equalsIgnoreCase(
-             * AuthorServicesConstants.PERMISSION_TYPE_EXTERNAL)
-             ) { // TODO
-                systemSection.getPermissionsList().add(permission);
-
-            } else if (daoPermissions.getPermissionGroup().equalsIgnoreCase(
-                    AuthorServicesConstants.PERMISSION_LEVEL_ADMIN)
-            
+             * AuthorServicesConstants.PERMISSION_TYPE_EXTERNAL) ) { // TODO
+             * systemSection.getPermissionsList().add(permission);
+             * 
+             * } else if (daoPermissions.getPermissionGroup().equalsIgnoreCase(
+             * AuthorServicesConstants.PERMISSION_LEVEL_ADMIN)
+             * 
              * && daoPermissions.getPermType().equalsIgnoreCase(
-             * AuthorServicesConstants.PERMISSION_TYPE_INTERNAL)
-             ) { // TODO
-                adminSection.getPermissionsList().add(permission);
-
-            } else if (daoPermissions.getPermissionGroup().equalsIgnoreCase(
-                    AuthorServicesConstants.PERMISSION_LEVEL_ARTICLE)) {
-                articleSection.getPermissionsList().add(permission);
-            }*/
+             * AuthorServicesConstants.PERMISSION_TYPE_INTERNAL) ) { // TODO
+             * adminSection.getPermissionsList().add(permission);
+             * 
+             * } else if (daoPermissions.getPermissionGroup().equalsIgnoreCase(
+             * AuthorServicesConstants.PERMISSION_LEVEL_ARTICLE)) {
+             * articleSection.getPermissionsList().add(permission); }
+             */
         }
 
-        rolesAndPermissions.getSectionsList().add(adminSection);
-        rolesAndPermissions.getSectionsList().add(articleSection);
-        rolesAndPermissions.getSectionsList().add(systemSection);
+        List<PermissionSection> permissionSectionsList = rolesAndPermissions
+                .getSectionsList();
+        permissionSectionsList.add(adminSection);
+        permissionSectionsList.add(articleSection);
+        permissionSectionsList.add(systemSection);
 
         List<RolePermissions> daoPermissionMappings = asDataDAO
                 .getRolePermissionMappings(roleId);
@@ -258,7 +262,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
         Roles roles = new Roles();
         List<Permissions> permissionsList = new ArrayList<Permissions>();
         Role role = rolesAndPermissions.getRole();
-        if (role.getRoleId().equals("0")) {
+        if ("0".equals(role.getRoleId())) {
             userRolesDAO.checkRoleName(role.getRoleName());
         }
 
@@ -277,15 +281,13 @@ public class AdminLoginServiceImpl implements AdminLoginService {
             throw new ASException("1111",
                     "Please select atleast one permission");
         }
-        if (rolesAndPermissions.getRole().getRoleId() != null
-                && !rolesAndPermissions.getRole().getRoleId().trim()
-                        .equals("0")) {
-            roles.setRoleId(Integer.valueOf(rolesAndPermissions.getRole()
-                    .getRoleId()));
+        final String roleId = role.getRoleId();
+        if (roleId != null && !"0".trim().equals(roleId)) {
+            roles.setRoleId(Integer.valueOf(roleId));
         }
-        roles.setDescription(rolesAndPermissions.getRole().getRoleDescription());
-        roles.setRoleName(rolesAndPermissions.getRole().getRoleName());
-        if (rolesAndPermissions.getRole().isAdminRole()) {
+        roles.setDescription(role.getRoleDescription());
+        roles.setRoleName(role.getRoleName());
+        if (role.isAdminRole()) {
             roles.setRoleType(AuthorServicesConstants.ROLE_TYPE_INTERNAL);
         } else {
             roles.setRoleType(AuthorServicesConstants.ROLE_TYPE_EXTERNAL);
