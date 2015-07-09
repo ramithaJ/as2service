@@ -63,7 +63,6 @@ public class UserLoginServiceImpl implements UserLoginService {
     @Value("${UserLoginServiceImpl.resetPassword.securityquestion.message}")
     private String securityquestionmessage;
 
-
     /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(UserLoginServiceImpl.class);

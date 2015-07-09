@@ -36,7 +36,7 @@ import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 
 /**
  * The Class AuthorProfileServiceImpl.
- *
+ * 
  * @author virtusa version 1.0
  */
 public class AuthorProfileServiceImpl implements AuthorProfileService {
@@ -62,6 +62,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     /**
      * Update society details.
      *
+     * @param userId
+     *            the user id
      * @param society
      *            the society
      * @return true, if successful
@@ -82,6 +84,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     /**
      * Update affiliation.
      *
+     * @param userId
+     *            the user id
      * @param affiliation
      *            the affiliation
      * @return true, if successful
@@ -146,6 +150,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     /**
      * Update Coauthor.
      *
+     * @param userId
+     *            the user id
      * @param coAuthor
      *            the co author
      * @return true, if successful
@@ -167,6 +173,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     /**
      * Update email details.
      *
+     * @param userId
+     *            the user id
      * @param emailDetails
      *            the email details
      * @return true, if successful
@@ -185,9 +193,10 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     /**
      * Update user address.
      *
+     * @param userId
+     *            the user id
      * @param addresses
      *            the addresses
-     * @param userId
      * @return true, if successful
      */
     @Override
@@ -204,6 +213,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     /**
      * Update user profile info.
      *
+     * @param userId
+     *            the user id
      * @param user
      *            the user
      * @return true, if successful

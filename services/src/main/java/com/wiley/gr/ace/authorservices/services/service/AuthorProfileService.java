@@ -32,20 +32,24 @@ public interface AuthorProfileService {
     /**
      * Update society details.
      *
+     * @param userId
+     *            the user id
      * @param society
      *            the society
      * @return true, if successful
      */
-    boolean updateSocietyDetails(int userId,Society society);
+    boolean updateSocietyDetails(int userId, Society society);
 
     /**
      * Update affiliation.
      *
+     * @param userId
+     *            the user id
      * @param affiliation
      *            the affiliation
      * @return true, if successful
      */
-    boolean updateAffiliation(int userId,Affiliation affiliation);
+    boolean updateAffiliation(int userId, Affiliation affiliation);
 
     /**
      * Update research funder.
@@ -72,38 +76,46 @@ public interface AuthorProfileService {
     /**
      * Update Coauthor.
      *
+     * @param userId
+     *            the user id
      * @param coAuthor
      *            the co author
      * @return true, if successful
      */
-    boolean updatecoAuthor(int userId,CoAuthor coAuthor);
+    boolean updatecoAuthor(int userId, CoAuthor coAuthor);
 
     /**
      * Update email details.
      *
+     * @param userId
+     *            the user id
      * @param emailDetails
      *            the email details
      * @return true, if successful
      */
-    boolean updateEmailDetails(int userId,User emailDetails);
+    boolean updateEmailDetails(int userId, User emailDetails);
 
     /**
      * Update user address.
      *
+     * @param userId
+     *            the user id
      * @param addresses
      *            the addresses
      * @return true, if successful
      */
-    boolean updateUserAddress(int userId,UserProfile addresses);
+    boolean updateUserAddress(int userId, UserProfile addresses);
 
     /**
      * Update user profile info.
      *
+     * @param userId
+     *            the user id
      * @param user
      *            the user
      * @return true, if successful
      */
-    boolean updateUserProfileInfo(int userId,User user);
+    boolean updateUserProfileInfo(int userId, User user);
 
     /**
      * Update user id.
