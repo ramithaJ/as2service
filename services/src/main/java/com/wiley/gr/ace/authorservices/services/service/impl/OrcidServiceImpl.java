@@ -225,7 +225,7 @@ public class OrcidServiceImpl implements OrcidService {
                         if (isPrimary) {
                             user.setPrimaryEmailAddr((String) emailJSON
                                     .get("value"));
-                            user.setOrcidID((String) emailJSON.get("source"));
+                            user.setOrcidId((String) emailJSON.get("source"));
                         }
                     }
                 }
@@ -302,7 +302,8 @@ public class OrcidServiceImpl implements OrcidService {
      * @param user
      *            the user
      */
-    private void parseOrcidJSONForWork(final String orcidMessageJSON, final User user) {
+    private void parseOrcidJSONForWork(final String orcidMessageJSON,
+            final User user) {
         try {
             JSONObject orcidProfileJSON = (JSONObject) new JSONParser()
                     .parse(orcidMessageJSON);
@@ -342,7 +343,8 @@ public class OrcidServiceImpl implements OrcidService {
      * @param user
      *            the user
      */
-    private void parseAffiliations(final JSONObject affiliations, final User user) {
+    private void parseAffiliations(final JSONObject affiliations,
+            final User user) {
         try {
             JSONObject affiliationArrayJSON = (JSONObject) new JSONParser()
                     .parse(affiliations.toJSONString());

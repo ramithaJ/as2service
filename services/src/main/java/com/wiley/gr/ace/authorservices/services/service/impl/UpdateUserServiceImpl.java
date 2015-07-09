@@ -58,7 +58,7 @@ public class UpdateUserServiceImpl implements UpdateUserService {
     public final boolean updateOrcidId(final String emailId,
             final String orcidId, final int userId) throws Exception {
         UpdateUserServiceImpl.LOGGER
-        .info("inside updateOrcidId method of UpdateUserServiceImpl");
+                .info("inside updateOrcidId method of UpdateUserServiceImpl");
         boolean result = false;
         final UserProfileResponse userProfileResponse = userProfileService
                 .getUserProfileResponse(userId);
@@ -66,8 +66,8 @@ public class UpdateUserServiceImpl implements UpdateUserService {
             final UserProfile userProfile = userProfileResponse
                     .getCustomerProfile();
             final User user = userProfile.getCustomerDetails();
-            if (StringUtils.isEmpty(user.getOrcidID())) {
-                user.setOrcidID(orcidId);
+            if (StringUtils.isEmpty(user.getOrcidId())) {
+                user.setOrcidId(orcidId);
                 userProfile.setCustomerDetails(user);
                 userProfileResponse.setCustomerProfile(userProfile);
                 result = null != userProfileService.updateProfile(userId,
