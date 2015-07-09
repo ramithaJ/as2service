@@ -18,12 +18,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.MediaType;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.model.Dashboard;
@@ -44,34 +42,43 @@ public class DashboardController {
     /** logger configured. */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DashboardController.class);
+
     /** value from props file configured. */
     @Value("${DashboardController.getProfileMeter.code}")
     private int getProfileMetererrorcode;
+
     /** value from props file configured. */
     @Value("${DashboardController.getProfileMeter.message}")
     private String getProfileMetererrormessage;
+
     /** The Auto Wired for DashBoard Service . */
     @Autowired(required = true)
     private DashboardService dashboardService;
 
     /**
+     * the value of noDataFoundCode.
+     */
+    @Value("${noDataFound.code}")
+    private int noDataFoundCode;
+
+    /**
      * This method takes userId and return the Service.
      *
      * @param userId
+     *            - The request value
      * @return service
      */
-    @RequestMapping(value = "/profilemeter/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final @ResponseBody Service getProfileMeter(
+    @RequestMapping(value = "/profilemeter/{userId}", method = RequestMethod.GET)
+    public final Service getProfileMeter(
             @PathVariable("userId") final int userId) {
         DashboardController.LOGGER
-        .info("inside getProfileMeter method of DashboardController");
+                .info("inside getProfileMeter method of DashboardController");
         final Service service = new Service();
         Dashboard dashboard = null;
 
         try {
             dashboard = dashboardService.getProfileMeter(userId);
             if (!StringUtils.isEmpty(dashboard)) {
-                service.setStatus("SUCCESS");
                 service.setPayload(dashboard);
             }
         } catch (final Exception e) {
@@ -90,25 +97,25 @@ public class DashboardController {
      * This method takes userId and return the Service.
      *
      * @param userId
+     *            - The request value
      * @return service
      */
-    @RequestMapping(value = "/view/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final @ResponseBody Service getAllAuthorArticles(
+    @RequestMapping(value = "/view/{userId}", method = RequestMethod.GET)
+    public final Service getAllAuthorArticles(
             @PathVariable("userId") final int userId) {
         DashboardController.LOGGER
-        .info("inside viewallauthorarticles method of DashboardController");
+                .info("inside viewallauthorarticles method of DashboardController");
         final Service service = new Service();
         DashboardView dashboardView = null;
         try {
             dashboardView = dashboardService.viewDashboard(userId);
             if (!StringUtils.isEmpty(dashboardView)) {
-                service.setStatus("SUCCESS");
                 service.setPayload(dashboardView);
             }
         } catch (final Exception e) {
             DashboardController.LOGGER.error("Print Stack Trace- ", e);
             final ErrorPOJO error = new ErrorPOJO();
-            error.setCode(201);
+            error.setCode(noDataFoundCode);
             error.setMessage("Error Fetching To View All Author Articles");
             service.setStatus("ERROR");
             service.setError(error);

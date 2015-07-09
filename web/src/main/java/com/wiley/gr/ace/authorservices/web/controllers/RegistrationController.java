@@ -16,14 +16,13 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
@@ -49,15 +48,21 @@ public class RegistrationController {
      * Injected RegistrationService bean.
      */
     @Autowired(required = true)
-    RegistrationService rs;
+    private RegistrationService rs;
+
+    /**
+     * the value of noDataFoundCode.
+     */
+    @Value("${noDataFound.code}")
+    private int noDataFoundCode;
 
     /**
      * @param email
+     *            - The request value
      * @return service
      */
-    @RequestMapping(value = "/verify/email", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Service checkUserExists(
-            @RequestHeader final String email) {
+    @RequestMapping(value = "/verify/email", method = RequestMethod.GET)
+    public final Service checkUserExists(@RequestHeader final String email) {
 
         Service service = new Service();
         User user = null;
@@ -66,7 +71,7 @@ public class RegistrationController {
                 user = rs.checkEmailIdExists(email);
             } else {
                 ErrorPOJO err = new ErrorPOJO();
-                err.setCode(201);
+                err.setCode(noDataFoundCode);
                 err.setMessage("Email is null or empty");
                 service.setStatus("FAILURE");
                 service.setError(err);
@@ -75,7 +80,7 @@ public class RegistrationController {
 
                 service.setStatus("FAILURE");
                 ErrorPOJO err = new ErrorPOJO();
-                err.setCode(203);
+                err.setCode(noDataFoundCode);
                 err.setMessage("Email address exists in the system but not registered with AS 2.0");
                 service.setError(err);
                 service.setPayload(user);
@@ -86,7 +91,7 @@ public class RegistrationController {
         } catch (Exception e) {
             LOGGER.error("Print Stack Trace- ", e);
             ErrorPOJO err = new ErrorPOJO();
-            err.setCode(204);
+            err.setCode(noDataFoundCode);
             err.setMessage("searching user encountered exception");
             service.setStatus("ERROR");
             service.setError(err);
@@ -96,11 +101,11 @@ public class RegistrationController {
 
     /**
      * @param guid
+     *            - The request value
      * @return service
      */
-    @RequestMapping(value = "/invitation/{guid}", method = RequestMethod.GET, 
-    		produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Service getInvitationRecords(
+    @RequestMapping(value = "/invitation/{guid}", method = RequestMethod.GET)
+    public final Service getInvitationRecords(
             @PathVariable("guid") final String guid) {
         Service service = new Service();
         InviteRecords inviteRecords = null;
@@ -109,19 +114,18 @@ public class RegistrationController {
                 inviteRecords = rs.searchInvitationRecord(guid);
                 if (!StringUtils.isEmpty(inviteRecords)) {
                     if ("PENDING".equalsIgnoreCase(inviteRecords.getStatus())) {
-                        service.setStatus("SUCCESS");
                         service.setPayload(inviteRecords);
                     } else {
                         service.setStatus("FAILURE");
                         ErrorPOJO err = new ErrorPOJO();
-                        err.setCode(301);
+                        err.setCode(noDataFoundCode);
                         err.setMessage("User Already Registered");
                         service.setError(err);
                     }
                 } else {
                     service.setStatus("FAILURE");
                     ErrorPOJO err = new ErrorPOJO();
-                    err.setCode(302);
+                    err.setCode(noDataFoundCode);
                     err.setMessage("Invitation record does not exist");
                     service.setError(err);
                 }
@@ -129,7 +133,7 @@ public class RegistrationController {
                 e.printStackTrace();
                 service.setStatus("ERROR");
                 ErrorPOJO err = new ErrorPOJO();
-                err.setCode(303);
+                err.setCode(noDataFoundCode);
                 err.setMessage("Accessing invitation records encountered exception");
                 service.setError(err);
             }
@@ -139,10 +143,11 @@ public class RegistrationController {
 
     /**
      * @param user
+     *            - The request value
      * @return service
      */
-    @RequestMapping(value = "/register", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Service createUser(@RequestBody final User user) {
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public final Service createUser(@RequestBody final User user) {
         Service service = new Service();
         String status = null;
         if (null != user) {
@@ -155,7 +160,7 @@ public class RegistrationController {
                     if (null != usersList) {
                         service.setStatus("FAILURE");
                         ErrorPOJO err = new ErrorPOJO();
-                        err.setCode(205);
+                        err.setCode(noDataFoundCode);
                         err.setMessage("First Name and Last Name already exists");
                         service.setError(err);
                         service.setPayload(usersList);
@@ -163,13 +168,12 @@ public class RegistrationController {
                     }
                 }
                 status = rs.createUser(user);
-                if (status.equalsIgnoreCase("success")) {
-                    service.setStatus("SUCCESS");
+                if ("success".equalsIgnoreCase(status)) {
                     rs.assignRoleToNewUser(user.getPrimaryEmailAddr());
                 } else {
                     service.setStatus("FAILURE");
                     ErrorPOJO err = new ErrorPOJO();
-                    err.setCode(208);
+                    err.setCode(noDataFoundCode);
                     err.setMessage("Creating user failed");
                     service.setError(err);
                 }
@@ -177,7 +181,7 @@ public class RegistrationController {
 
                 LOGGER.error("Stack Trace", e);
                 ErrorPOJO err = new ErrorPOJO();
-                err.setCode(204);
+                err.setCode(noDataFoundCode);
                 err.setMessage("searching user encountered exception");
                 service.setStatus("ERROR");
                 service.setError(err);
@@ -185,7 +189,7 @@ public class RegistrationController {
 
         } else {
             ErrorPOJO err = new ErrorPOJO();
-            err.setCode(207);
+            err.setCode(noDataFoundCode);
             err.setMessage("User object is empty");
             service.setStatus("FAILURE");
             service.setError(err);
@@ -196,11 +200,11 @@ public class RegistrationController {
 
     /**
      * @param orcidId
+     *            - The request value
      * @return service
      */
-    @RequestMapping(value = "/search/orcid/{orcidId}", method = RequestMethod.GET, 
-    		produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Service isUserFoundWithOrcidId(
+    @RequestMapping(value = "/search/orcid/{orcidId}", method = RequestMethod.GET)
+    public final Service isUserFoundWithOrcidId(
             @PathVariable("orcidId") final String orcidId) {
 
         Service service = new Service();
@@ -209,7 +213,7 @@ public class RegistrationController {
                 if (rs.searchUserByOrcidId(orcidId)) {
                     service.setStatus("FAILURE");
                     ErrorPOJO err = new ErrorPOJO();
-                    err.setCode(214);
+                    err.setCode(noDataFoundCode);
                     err.setMessage("User already exists with the same ORCID Id");
                     service.setError(err);
                 } else {
@@ -218,14 +222,14 @@ public class RegistrationController {
             } catch (Exception e) {
                 service.setStatus("FAILURE");
                 ErrorPOJO err = new ErrorPOJO();
-                err.setCode(215);
+                err.setCode(noDataFoundCode);
                 err.setMessage("Searching user with ORCID Id encountered exception");
                 service.setError(err);
             }
         } else {
             service.setStatus("FAILURE");
             ErrorPOJO err = new ErrorPOJO();
-            err.setCode(216);
+            err.setCode(noDataFoundCode);
             err.setMessage("Please enter ORCID Id");
             service.setError(err);
         }

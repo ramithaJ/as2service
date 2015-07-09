@@ -57,13 +57,14 @@ public class UserAccountController {
      * Method to get the user Account information.
      *
      * @param userId
+     *            - The request value
      * @return Service - Success/Failure
      */
     @RequestMapping(value = "/profileInfo/{userId}", method = RequestMethod.GET)
     public final Service getProfileInformation(
             @PathVariable("userId") final int userId) {
         UserAccountController.LOGGER
-        .info("inside getProfileInformation method");
+                .info("inside getProfileInformation method");
         final Service service = new Service();
         service.setPayload(userAccountService.getProfileInformation(userId));
         return service;
@@ -74,6 +75,7 @@ public class UserAccountController {
      * Method to update user Account information.
      *
      * @param userId
+     *            - The request value
      * @param user
      *            - object having user Account information.
      * @return Service - Success/Failure
@@ -83,7 +85,7 @@ public class UserAccountController {
             @PathVariable("userId") final int userId,
             @RequestBody final User user) {
         UserAccountController.LOGGER
-        .info("inside updateProfileInformation method");
+                .info("inside updateProfileInformation method");
         final Service service = new Service();
         service.setPayload(authorProfileService.updateUserProfileInfo(userId,
                 user));
@@ -95,6 +97,7 @@ public class UserAccountController {
      * Method to get user Email Details.
      *
      * @param userId
+     *            - The request value
      * @return Service - Success/Failure
      */
     @RequestMapping(value = "/emailDetails/{userId}", method = RequestMethod.GET)
@@ -110,6 +113,7 @@ public class UserAccountController {
      * Method to update user Email Details.
      *
      * @param userId
+     *            - The request value
      * @param emailDetails
      *            - object having user Email Details.
      * @return Service - Success/Failure
@@ -130,6 +134,7 @@ public class UserAccountController {
      * Billing addresses).
      *
      * @param userId
+     *            - The request value
      * @return Service - Success/Failure
      */
     @RequestMapping(value = "/userAddresses/{userId}", method = RequestMethod.GET)
@@ -145,6 +150,7 @@ public class UserAccountController {
      * Method to update User Address information.
      *
      * @param userId
+     *            - The request value
      * @param addresses
      *            - object having user Address details.
      * @return Service - Success/Failure
@@ -171,7 +177,7 @@ public class UserAccountController {
     public final Service updateSecurityDetails(
             @RequestBody final SecurityDetailsHolder securityDetails) {
         UserAccountController.LOGGER
-        .info("inside updateSecurityDetails method");
+                .info("inside updateSecurityDetails method");
         final Service service = new Service();
         service.setPayload(authorProfileService
                 .updateSecurityDetails(securityDetails));
@@ -180,11 +186,9 @@ public class UserAccountController {
     }
 
     /**
-     * Method to update userId.
-     *
-     * @param oldEmailId
-     * @param newEmailId
-     * @return Service - Success/Failure
+     * @param email
+     *            - The request value
+     * @return service
      */
     @RequestMapping(value = "/updateUserId", method = RequestMethod.POST)
     public final Service updateUserId(@RequestBody final Email email) {

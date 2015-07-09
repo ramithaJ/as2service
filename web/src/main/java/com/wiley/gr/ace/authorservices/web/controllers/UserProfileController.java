@@ -16,7 +16,6 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,21 +48,18 @@ public class UserProfileController {
      * AuthorProfileService bean.
      */
     @Autowired
-    AuthorProfileService authorProfileService;
-    /**
-     * LocalValidatorFactoryBean.
-     */
-    @Autowired(required = true)
-    LocalValidatorFactoryBean validator;
+    private AuthorProfileService authorProfileService;
 
     /**
      * @param userId
+     *            - The request value
      * @return service
      */
     @RequestMapping(value = "/affiliations/{userId}", method = RequestMethod.GET)
-    public Service getAffiliationsList(@PathVariable("userId") final int userId) {
+    public final Service getAffiliationsList(
+            @PathVariable("userId") final int userId) {
         UserProfileController.LOGGER.info("inside getAffiliationsList method ");
-        final Service service = new Service();
+        Service service = new Service();
         service.setPayload(authorProfileService.getuserProfileResponse(userId)
                 .getCustomerProfile().getAffiliations());
         return service;
@@ -71,30 +67,34 @@ public class UserProfileController {
 
     /**
      * @param userId
+     *            - The request value
      * @param affiliation
+     *            - The request value
      * @return service
      */
     @RequestMapping(value = "/affiliations/{userId}/{affiliationId}", method = RequestMethod.POST)
-    public Service updateAffiliation(@PathVariable("userId") final int userId,
+    public final Service updateAffiliation(
+            @PathVariable("userId") final int userId,
             @RequestBody final Affiliation affiliation) {
         UserProfileController.LOGGER.info("inside updateAffiliation method ");
         affiliation.setUserId(userId);
-        final Service service = new Service();
+        Service service = new Service();
         authorProfileService.updateAffiliation(userId, affiliation);
         return service;
     }
 
     /**
      * @param userId
+     *            - The request value
      * @return service
      */
     @RequestMapping(value = "/researchFunders/{userId}", method = RequestMethod.GET)
-    public Service getResearchFundersList(
+    public final Service getResearchFundersList(
             @PathVariable("userId") final int userId) {
 
         UserProfileController.LOGGER
                 .info("inside getResearchFundersList method ");
-        final Service service = new Service();
+        Service service = new Service();
         service.setPayload(authorProfileService.getuserProfileResponse(userId)
                 .getCustomerProfile().getResearchFunders());
         return service;
@@ -102,17 +102,19 @@ public class UserProfileController {
 
     /**
      * @param userId
+     *            - The request value
      * @param researchFunder
+     *            - The request value
      * @return service
      */
     @RequestMapping(value = "/researchFunder/{userId}", method = RequestMethod.POST)
-    public Service updateResearchFunder(
+    public final Service updateResearchFunder(
             @PathVariable("userId") final int userId,
             @RequestBody final ResearchFunder researchFunder) {
 
         UserProfileController.LOGGER
                 .info("inside updateResearchFunder method ");
-        final Service service = new Service();
+        Service service = new Service();
         service.setPayload(authorProfileService.updateResearchFunder(userId,
                 researchFunder));
         return service;
@@ -120,13 +122,15 @@ public class UserProfileController {
 
     /**
      * @param userId
+     *            - The request value
      * @return service
      */
     @RequestMapping(value = "/societies/{userId}", method = RequestMethod.GET)
-    public Service getSocietiesList(@PathVariable("userId") final int userId) {
+    public final Service getSocietiesList(
+            @PathVariable("userId") final int userId) {
 
         UserProfileController.LOGGER.info("inside getSocietiesList method ");
-        final Service service = new Service();
+        Service service = new Service();
         service.setPayload(authorProfileService.getuserProfileResponse(userId)
                 .getCustomerProfile().getSocieties());
         return service;
@@ -134,11 +138,13 @@ public class UserProfileController {
 
     /**
      * @param userId
+     *            - The request value
      * @param society
+     *            - The request value
      * @return service
      */
     @RequestMapping(value = "/societies/{userId}", method = RequestMethod.POST)
-    public Service updateSocietyDetails(
+    public final Service updateSocietyDetails(
             @PathVariable("userId") final int userId,
             @Valid @RequestBody final Society society) {
 
@@ -150,13 +156,14 @@ public class UserProfileController {
 
     /**
      * @param userId
+     *            - The request value
      * @return service
      */
     @RequestMapping(value = "/interests/{userId}", method = RequestMethod.GET)
-    public Service getMyInterests(@PathVariable("userId") final int userId) {
+    public final Service getMyInterests(@PathVariable("userId") final int userId) {
 
         UserProfileController.LOGGER.info("inside getMyInterests method ");
-        final Service service = new Service();
+        Service service = new Service();
         service.setPayload(authorProfileService.getuserProfileResponse(userId)
                 .getCustomerProfile().getInterests());
         return service;
@@ -164,11 +171,13 @@ public class UserProfileController {
 
     /**
      * @param userId
+     *            - The request value
      * @param searchString
+     *            - The request value
      * @return service
      */
     @RequestMapping(value = "/interests/search/{userId}", method = RequestMethod.POST)
-    public Service searchInterests(
+    public final Service searchInterests(
             @PathVariable("userId") final String userId,
             @RequestParam(required = false, value = "searchStr") final String searchString) {
         UserProfileController.LOGGER.info("inside searchInterests method ");
@@ -181,13 +190,15 @@ public class UserProfileController {
      * author/user.
      *
      * @param userId
+     *            - The request value
      * @return service
      */
     @RequestMapping(value = "/coAuthors/{userId}", method = RequestMethod.GET)
-    public Service getCoAuthorsList(@PathVariable("userId") final int userId) {
+    public final Service getCoAuthorsList(
+            @PathVariable("userId") final int userId) {
 
         UserProfileController.LOGGER.info("inside getCoAuthorsList method ");
-        final Service service = new Service();
+        Service service = new Service();
         service.setPayload(authorProfileService.getuserProfileResponse(userId)
                 .getCustomerProfile().getCoAuthors());
         return service;
@@ -195,15 +206,17 @@ public class UserProfileController {
 
     /**
      * @param userId
+     *            - The request value
      * @param coAuthor
+     *            - The request value
      * @return service
      */
     @RequestMapping(value = "/coAuthors/{userId}", method = RequestMethod.POST)
-    public Service updateCoAuthors(@PathVariable final int userId,
+    public final Service updateCoAuthors(@PathVariable final int userId,
             @RequestBody final CoAuthor coAuthor) {
 
         UserProfileController.LOGGER.info("inside updateCoAuthors method ");
-        final Service service = new Service();
+        Service service = new Service();
         coAuthor.setUserId(userId);
         service.setPayload(authorProfileService
                 .updatecoAuthor(userId, coAuthor));
@@ -212,15 +225,17 @@ public class UserProfileController {
 
     /**
      * @param userId
+     *            - The request value
      * @return service
      */
 
     @RequestMapping(value = "/preferredJournals/{userId}", method = RequestMethod.GET)
-    public Service getPreferredJournals(@PathVariable("userId") final int userId) {
+    public final Service getPreferredJournals(
+            @PathVariable("userId") final int userId) {
 
         UserProfileController.LOGGER
                 .info("inside getPreferredJournals method ");
-        final Service service = new Service();
+        Service service = new Service();
         service.setPayload(authorProfileService.getuserProfileResponse(userId)
                 .getCustomerProfile().getPreferredJournals());
         return service;
@@ -228,10 +243,11 @@ public class UserProfileController {
 
     /**
      * @param userId
+     *            - The request value
      * @return service
      */
     @RequestMapping(value = "/preferredJournals/search/{userId}", method = RequestMethod.POST)
-    public Service searchPreferredJournals(
+    public final Service searchPreferredJournals(
             @PathVariable("userId") final String userId) {
 
         UserProfileController.LOGGER
@@ -241,10 +257,11 @@ public class UserProfileController {
 
     /**
      * @param userId
+     *            - The request value
      * @return service
      */
     @RequestMapping(value = "/articlesPublishedForJournals/{userId}", method = RequestMethod.GET)
-    public Service getArticlesPublishedForJournals(
+    public final Service getArticlesPublishedForJournals(
             @PathVariable("userId") final String userId) {
 
         UserProfileController.LOGGER
@@ -254,14 +271,16 @@ public class UserProfileController {
 
     /**
      * @param userId
+     *            - The request value
      * @return service
      */
 
     @RequestMapping(value = "/alerts/{userId}", method = RequestMethod.GET)
-    public Service getListOfAlerts(@PathVariable("userId") final int userId) {
+    public final Service getListOfAlerts(
+            @PathVariable("userId") final int userId) {
 
         UserProfileController.LOGGER.info("inside getListOfAlerts method ");
-        final Service service = new Service();
+        Service service = new Service();
 
         service.setPayload(authorProfileService.getuserProfileResponse(userId)
                 .getCustomerProfile().getAlerts());
@@ -270,11 +289,13 @@ public class UserProfileController {
 
     /**
      * @param userId
+     *            - The request value
      * @param userProfileAlerts
+     *            - The request value
      * @return service
      */
     @RequestMapping(value = "/alerts/{userId}", method = RequestMethod.POST)
-    public Service updateAlerts(@PathVariable("userId") final int userId,
+    public final Service updateAlerts(@PathVariable("userId") final int userId,
             @RequestBody final UserProfileAlerts userProfileAlerts) {
 
         UserProfileController.LOGGER.info("inside updateAlerts method ");
@@ -284,10 +305,12 @@ public class UserProfileController {
 
     /**
      * @param userId
+     *            - The request value
      * @return service
      */
     @RequestMapping(value = "/jobCategories/{userId}", method = RequestMethod.GET)
-    public Service getJobCategories(@PathVariable("userId") final String userId) {
+    public final Service getJobCategories(
+            @PathVariable("userId") final String userId) {
 
         UserProfileController.LOGGER.info("inside getJobCategories method ");
         return new Service();
@@ -295,13 +318,14 @@ public class UserProfileController {
 
     /**
      * @param userId
+     *            - The request value
      * @return service
      */
     @RequestMapping(value = "/lookUpProfile/{userId}", method = RequestMethod.GET)
-    public Service lookUpProfile(@PathVariable("userId") final int userId) {
+    public final Service lookUpProfile(@PathVariable("userId") final int userId) {
 
         UserProfileController.LOGGER.info("inside lookUpProfile method ");
-        final Service service = new Service();
+        Service service = new Service();
         service.setPayload(authorProfileService.getuserProfileResponse(userId));
         return service;
 
@@ -309,10 +333,12 @@ public class UserProfileController {
 
     /**
      * @param userId
+     *            - The request value
      * @return service
      */
     @RequestMapping(value = "/industries/{userId}", method = RequestMethod.GET)
-    public Service getIndustries(@PathVariable("userId") final String userId) {
+    public final Service getIndustries(
+            @PathVariable("userId") final String userId) {
 
         UserProfileController.LOGGER.info("inside getIndustries method ");
         return new Service();

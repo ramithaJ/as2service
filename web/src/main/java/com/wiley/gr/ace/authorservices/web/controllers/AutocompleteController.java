@@ -41,18 +41,23 @@ public class AutocompleteController extends ASExceptionController {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(AutocompleteController.class);
 
+    /**
+     * injecting autoCompleteService bean.
+     */
     @Autowired(required = true)
     private AutocompleteService autoCompleteService;
 
     /**
      * @param autocomplete
+     *            - The request value
      * @return status
      * @throws IOException
+     *             - IOException
      */
     @RequestMapping(value = "/", method = RequestMethod.PUT)
     @ResponseBody
     public final Service setAutocompleteData(
-            @RequestBody Autocomplete autocomplete) throws IOException {
+            @RequestBody final Autocomplete autocomplete) throws IOException {
         AutocompleteController.LOGGER.info("Inside set data Method");
 
         final String key = autocomplete.getKey();
@@ -68,12 +73,13 @@ public class AutocompleteController extends ASExceptionController {
 
     /**
      * @param autocomplete
+     *            - The request value
      * @return List
      */
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @ResponseBody
     public final Service getAutocompleteData(
-            @RequestBody Autocomplete autocomplete) {
+            @RequestBody final Autocomplete autocomplete) {
         AutocompleteController.LOGGER.info("Inside get data Method");
 
         final String key = autocomplete.getKey();
@@ -93,17 +99,20 @@ public class AutocompleteController extends ASExceptionController {
 
     /**
      * @param autocomplete
+     *            - The request value
      * @return status
+     * @throws IOException
+     *             - IOException
      */
     @RequestMapping(value = "/clear", method = RequestMethod.POST)
     @ResponseBody
-    public final Service flushData(@RequestBody Autocomplete autocomplete)
+    public final Service flushData(@RequestBody final Autocomplete autocomplete)
             throws IOException {
         AutocompleteController.LOGGER.info("Inside flush data Method");
 
         final String key = autocomplete.getKey();
         if (null != key) {
-            autoCompleteService.flush(autocomplete.getKey());
+            autoCompleteService.flush(key);
             return new Service();
         }
         return null;

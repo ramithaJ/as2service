@@ -15,11 +15,11 @@
 package com.wiley.gr.ace.authorservices.web.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
@@ -40,13 +40,23 @@ public class UpdateUserController {
     private UpdateUserService updateUserService;
 
     /**
+     * the value of noDataFoundCode.
+     */
+    @Value("${noDataFound.code}")
+    private int noDataFoundCode;
+
+    /**
      * @param orcidId
+     *            - The request value
+     * @param userId
+     *            - The request value
+     * @param emailId
+     *            - The request value
      * @return service
      */
-    @RequestMapping(value = "/orcid/{orcidId}/{userId}", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody Service updateOrcidId(
-            @PathVariable final String orcidId, @PathVariable final int userId,
-            @RequestBody final String emailId) {
+    @RequestMapping(value = "/orcid/{orcidId}/{userId}", method = RequestMethod.POST)
+    public final Service updateOrcidId(@PathVariable final String orcidId,
+            @PathVariable final int userId, @RequestBody final String emailId) {
 
         final Service service = new Service();
 
@@ -55,7 +65,8 @@ public class UpdateUserController {
                     orcidId, userId));
         } catch (final Exception e) {
             final ErrorPOJO error = new ErrorPOJO();
-            error.setCode(-101); // Need to set proper error code this one is
+            error.setCode(noDataFoundCode); // Need to set proper error code
+                                            // this one is
             // dummy
             error.setMessage("Error updating user ORCID ID");
 

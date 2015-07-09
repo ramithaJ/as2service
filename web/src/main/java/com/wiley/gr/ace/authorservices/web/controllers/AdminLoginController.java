@@ -59,6 +59,7 @@ public class AdminLoginController extends ASExceptionController {
 
     /**
      * @param request
+     *            the request
      * @return service
      */
     @RequestMapping(value = "/login/", method = RequestMethod.POST)
@@ -81,7 +82,9 @@ public class AdminLoginController extends ASExceptionController {
 
     /**
      * @param emailId
+     *            - the request value
      * @param accessId
+     *            - the request value
      * @return service
      */
     @RequestMapping(value = "/requestAccess/{emailId}/{accessId}/", method = RequestMethod.POST)
@@ -95,6 +98,7 @@ public class AdminLoginController extends ASExceptionController {
 
     /**
      * @param admin
+     *            - the request value
      * @return service
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -118,6 +122,7 @@ public class AdminLoginController extends ASExceptionController {
 
     /**
      * @param roleId
+     *            - the request value
      * @return service
      */
     @RequestMapping(value = "/permissions/{roleId}", method = RequestMethod.GET)
@@ -131,6 +136,7 @@ public class AdminLoginController extends ASExceptionController {
 
     /**
      * @param rolesAndPermissions
+     *            - the request value
      * @return service
      */
     @RequestMapping(value = "/permissions/", method = RequestMethod.POST)
@@ -144,6 +150,7 @@ public class AdminLoginController extends ASExceptionController {
 
     /**
      * @param emailId
+     *            - the request value
      * @return service
      */
     @RequestMapping(value = "/findUser/{emailId}/", method = RequestMethod.GET)

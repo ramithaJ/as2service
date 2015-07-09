@@ -29,8 +29,7 @@ import com.wiley.gr.ace.authorservices.model.Login;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 
 /**
- * @author virtusa 
- * version 1.0
+ * @author virtusa version 1.0
  *
  */
 public class LoginInterceptor extends HandlerInterceptorAdapter {
@@ -39,17 +38,38 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
      * AdminLoginService bean.
      */
     @Autowired(required = true)
-    AdminLoginService adminLoginService;
+    private AdminLoginService adminLoginService;
+
+    /**
+     * This field holds the value of maxSize.
+     */
+    private static final int MAXSISE = 21600;
+
+    /**
+     * This field holds the value of bufferSize.
+     */
+    private static final int BUFFERSIZE = 100;
 
     /**
      * this method will call the LDAP/AD authentication service.
+     * 
+     * @param request
+     *            - The request value
+     * @param response
+     *            - The request value
+     * @param handler
+     *            - The request value
+     * @throws Exception
+     *             - Exception
+     * @return boolean value
      */
     @Override
-    public boolean preHandle(final HttpServletRequest request,
-            final HttpServletResponse response, final Object handler) throws Exception {
+    public final boolean preHandle(final HttpServletRequest request,
+            final HttpServletResponse response, final Object handler)
+            throws Exception {
 
         String payLoad = AuthorServicesUtil.readStream(
-                request.getInputStream(), 100);
+                request.getInputStream(), BUFFERSIZE);
         String token = "";
         JSONObject postJSON = new JSONObject(payLoad);
         Login login = new Login();
@@ -62,7 +82,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
                     "http://10.201.32.151:8090/service/v1/auth/authenticate",
                     HttpMethod.POST, "Login", login);
             System.out.println("Token from Authentication Service:::" + token);
-            if (token != null
+            if (null != token
                     && adminLoginService.validateEmail(login.getEmailId())) {
 
                 if (request.getCookies() != null
@@ -73,7 +93,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
                     response.addCookie(existingCookie);
                 } else {
                     Cookie cookie = new Cookie("AUTH_TOKEN", token);
-                    cookie.setMaxAge(21600);
+                    cookie.setMaxAge(MAXSISE);
                     cookie.setHttpOnly(false);
                     response.addCookie(cookie);
                 }
@@ -92,10 +112,21 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
     /**
      * postHandle method.
+     * 
+     * @param request
+     *            - The request value
+     * @param response
+     *            - The request value
+     * @param handler
+     *            - The request value
+     * @param modelAndView
+     *            - The request value
+     * @throws Exception
+     *             - Exception
      */
     @Override
-    public void postHandle(final HttpServletRequest request,
-            final HttpServletResponse response,final Object handler,
+    public final void postHandle(final HttpServletRequest request,
+            final HttpServletResponse response, final Object handler,
             final ModelAndView modelAndView) throws Exception {
         // TODO Auto-generated method stub
         System.out.println("Inside postHandle of LoginInterceptor");
