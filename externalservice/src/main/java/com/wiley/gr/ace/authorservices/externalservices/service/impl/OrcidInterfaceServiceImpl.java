@@ -117,7 +117,7 @@ public class OrcidInterfaceServiceImpl implements OrcidInterfaceService {
             client.getRequestAttributes().put("org.restlet.http.headers",
                     headers);
         }
-        headers.add("Authorization", "Bearer " + token.getAccess_token());
+        headers.add("Authorization", "Bearer " + token.getAccessToken());
         Representation representation = client.get(MediaType.APPLICATION_JSON);
         String orcidMessageJSON = representation.getText();
         return orcidMessageJSON;
@@ -145,7 +145,7 @@ public class OrcidInterfaceServiceImpl implements OrcidInterfaceService {
             client.getRequestAttributes().put("org.restlet.http.headers",
                     headers);
         }
-        headers.add("Authorization", "Bearer " + token.getAccess_token());
+        headers.add("Authorization", "Bearer " + token.getAccessToken());
         Representation representation = client.get(MediaType.APPLICATION_JSON);
         String orcidMessageJSON = representation.getText();
         return orcidMessageJSON;
