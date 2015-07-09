@@ -45,7 +45,7 @@ public class NotificationServiceImpl implements NotificationService {
             final NotificationRequest notificationRequest) {
 
         return (NotificationResponse) StubInvokerUtil.restServiceInvoker(
-                notificationurl, NotificationRequest.class,
+                notificationurl, notificationRequest,
                 NotificationResponse.class);
     }
 
