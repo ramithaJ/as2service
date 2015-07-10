@@ -1,3 +1,17 @@
+/*******************************************************************************
+ * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
+ *
+ * All material contained herein is proprietary to John Wiley & Sons 
+ * and its third party suppliers, if any. The methods, techniques and 
+ * technical concepts contained herein are considered trade secrets 
+ * and confidential and may be protected by intellectual property laws.  
+ * Reproduction or distribution of this material, in whole or in part, 
+ * is strictly forbidden except by express prior written permission 
+ * of John Wiley & Sons.
+ *******************************************************************************/
+/**
+ * 
+ */
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
 import java.util.ArrayList;
@@ -20,6 +34,7 @@ import com.wiley.gr.ace.authorservices.model.JournalDetails;
 import com.wiley.gr.ace.authorservices.model.OpenAccessPaymentData;
 import com.wiley.gr.ace.authorservices.model.QuoteData;
 import com.wiley.gr.ace.authorservices.model.TaxDetails;
+import com.wiley.gr.ace.authorservices.model.external.AddressOnFile;
 import com.wiley.gr.ace.authorservices.model.external.AddressValidationMultiReq;
 import com.wiley.gr.ace.authorservices.model.external.AddressValidationRequest;
 import com.wiley.gr.ace.authorservices.model.external.Article;
@@ -37,15 +52,16 @@ import com.wiley.gr.ace.authorservices.persistence.entity.SavedOrders;
 import com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO;
 import com.wiley.gr.ace.authorservices.services.service.OpenAccessService;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class OpenAccessServiceImpl.
+ * 
+ * @author virtusa version 1.0
  */
 public class OpenAccessServiceImpl implements OpenAccessService {
 
     /** The order service. */
     @Autowired(required = true)
-    OrderService orderService;
+    private OrderService orderService;
 
     /** The validation service. */
     @Autowired(required = true)
@@ -83,15 +99,23 @@ public class OpenAccessServiceImpl implements OpenAccessService {
     @Value("${CorrespondingAuthorId}")
     private String correspondingAuthorId;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.wiley.gr.ace.authorservices.services.service.OpenAccessService#
-     * getOpenAccessDetails(java.lang.String, java.lang.String)
+    /**
+     * Gets the open access details.
+     *
+     * @param userId
+     *            the user id
+     * @param articleId
+     *            the article id
+     * @param journalId
+     *            the journal id
+     * @return the open access details
+     * @throws Exception
+     *             the exception
      */
     @Override
-    public OpenAccessPaymentData getOpenAccessDetails(final String userId,
-            final String articleId, final String journalId) throws Exception {
+    public final OpenAccessPaymentData getOpenAccessDetails(
+            final String userId, final String articleId, final String journalId)
+                    throws Exception {
 
         OpenAccessPaymentData openAccessPaymentData = null;
 
@@ -102,18 +126,20 @@ public class OpenAccessServiceImpl implements OpenAccessService {
                     articleAcceptanceMessage);
         }
 
-        final ProductRoles productRoles = articleAssignmentData.getProductRoles();
+        final ProductRoles productRoles = articleAssignmentData
+                .getProductRoles();
 
         if (!StringUtils.isEmpty(productRoles)
                 && productRoles.getProductRoleCd().equalsIgnoreCase(
                         correspondingAuthorId)) {
 
-            final SavedOrders savedOrders = orderOnlineDAO.getSavedOrders(articleId,
-                    userId);
+            final SavedOrders savedOrders = orderOnlineDAO.getSavedOrders(
+                    articleId, userId);
             if (null != savedOrders) {
                 throw new ASException(savedOrderCode, savedOrderMessage);
             }
-            final Orders existingOrders = orderOnlineDAO.getOrder(articleId, userId);
+            final Orders existingOrders = orderOnlineDAO.getOrder(articleId,
+                    userId);
             if (existingOrders != null) {
                 throw new ASException(orderExistenceCode, orderExistenceMessage);
             }
@@ -193,59 +219,11 @@ public class OpenAccessServiceImpl implements OpenAccessService {
 
             final AddressDetails addressDetails = new AddressDetails();
 
-            final Address contactAddressOnFile = new Address();
-            contactAddressOnFile.setAddressLine1(quoteResponse
-                    .getAddressOnFile().getContactStreetLine1());
-            contactAddressOnFile.setAddressLine2(quoteResponse
-                    .getAddressOnFile().getContactStreetLine2());
-            contactAddressOnFile.setAddressType("CONTACT");
-            contactAddressOnFile.setCity(quoteResponse.getAddressOnFile()
-                    .getContactCity());
-            final Country contactCountry = new Country();
-            contactCountry.setCountryCode(quoteResponse.getAddressOnFile()
-                    .getContactCountry());
-            contactAddressOnFile.setCountry(contactCountry);
-            contactAddressOnFile.setDepartment(quoteResponse.getAddressOnFile()
-                    .getContactDepartment());
-            contactAddressOnFile.setEmailId(quoteResponse.getAddressOnFile()
-                    .getContactEmail());
-            contactAddressOnFile.setFirstName(quoteResponse.getAddressOnFile()
-                    .getContactName());
-            contactAddressOnFile.setInstitution(quoteResponse
-                    .getAddressOnFile().getContactInstitution());
-            contactAddressOnFile.setPhoneNumber(quoteResponse
-                    .getAddressOnFile().getContactPhoneNumber());
-            contactAddressOnFile.setPostCode(quoteResponse.getAddressOnFile()
-                    .getContactZipPostalCode());
-            contactAddressOnFile.setState(quoteResponse.getAddressOnFile()
-                    .getContactStateProv());
+            final Address contactAddressOnFile = getContactAddressFromQuoteResponse(quoteResponse
+                    .getAddressOnFile());
 
-            final Address billingAddressOnFile = new Address();
-            billingAddressOnFile.setAddressLine1(quoteResponse
-                    .getAddressOnFile().getBillingStreetLine1());
-            billingAddressOnFile.setAddressLine2(quoteResponse
-                    .getAddressOnFile().getBillingStreetLine2());
-            billingAddressOnFile.setAddressType("CONTACT");
-            billingAddressOnFile.setCity(quoteResponse.getAddressOnFile()
-                    .getBillingCity());
-            final Country billingCountry = new Country();
-            billingCountry.setCountryCode(quoteResponse.getAddressOnFile()
-                    .getBillingCountry());
-            billingAddressOnFile.setCountry(billingCountry);
-            billingAddressOnFile.setDepartment(quoteResponse.getAddressOnFile()
-                    .getBillingDepartment());
-            billingAddressOnFile.setEmailId(quoteResponse.getAddressOnFile()
-                    .getBillingEmail());
-            billingAddressOnFile.setFirstName(quoteResponse.getAddressOnFile()
-                    .getBillingCustomerName());
-            billingAddressOnFile.setInstitution(quoteResponse
-                    .getAddressOnFile().getBillingInstitution());
-            billingAddressOnFile.setPhoneNumber(quoteResponse
-                    .getAddressOnFile().getBillingPhoneNumber());
-            billingAddressOnFile.setPostCode(quoteResponse.getAddressOnFile()
-                    .getBillingZipPostalCode());
-            billingAddressOnFile.setState(quoteResponse.getAddressOnFile()
-                    .getBillingStateProv());
+            final Address billingAddressOnFile = getBillingAddressFromQuoteResponse(quoteResponse
+                    .getAddressOnFile());
 
             addressDetails.setBillingAddress(billingAddressOnFile);
             addressDetails.setContactAddress(contactAddressOnFile);
@@ -264,14 +242,74 @@ public class OpenAccessServiceImpl implements OpenAccessService {
         return openAccessPaymentData;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.wiley.gr.ace.authorservices.services.service.OpenAccessService#
-     * validateAddress(com.wiley.gr.ace.authorservices.model.Address)
+    /**
+     * Gets the billing address from quote response.
+     *
+     * @param addressOnFile
+     *            the address on file
+     * @return the billing address from quote response
+     */
+    private Address getBillingAddressFromQuoteResponse(
+            final AddressOnFile addressOnFile) {
+        final Address address = new Address();
+        address.setAddressLine1(addressOnFile.getBillingStreetLine1());
+        address.setAddressLine2(addressOnFile.getBillingStreetLine2());
+        address.setAddressType("BILLING");
+        address.setCity(addressOnFile.getBillingCity());
+        final Country billingCountry = new Country();
+        billingCountry.setCountryCode(addressOnFile.getBillingCountry());
+        address.setCountry(billingCountry);
+        address.setDepartment(addressOnFile.getBillingDepartment());
+        address.setEmailId(addressOnFile.getBillingEmail());
+        address.setFirstName(addressOnFile.getBillingCustomerName());
+        address.setInstitution(addressOnFile.getBillingInstitution());
+        address.setPhoneNumber(addressOnFile.getBillingPhoneNumber());
+        address.setPostCode(addressOnFile.getBillingZipPostalCode());
+        address.setState(addressOnFile.getBillingStateProv());
+        return address;
+
+    }
+
+    /**
+     * Gets the contact address from quote response.
+     *
+     * @param addressOnFile
+     *            the address on file
+     * @return the contact address from quote response
+     */
+    private Address getContactAddressFromQuoteResponse(
+            final AddressOnFile addressOnFile) {
+        final Address address = new Address();
+        address.setAddressLine1(addressOnFile.getContactStreetLine1());
+        address.setAddressLine2(addressOnFile.getContactStreetLine2());
+        address.setAddressType("CONTACT");
+        address.setCity(addressOnFile.getContactCity());
+        final Country billingCountry = new Country();
+        billingCountry.setCountryCode(addressOnFile.getContactCountry());
+        address.setCountry(billingCountry);
+        address.setDepartment(addressOnFile.getContactDepartment());
+        address.setEmailId(addressOnFile.getContactEmail());
+        address.setFirstName(addressOnFile.getContactName());
+        address.setInstitution(addressOnFile.getContactInstitution());
+        address.setPhoneNumber(addressOnFile.getContactPhoneNumber());
+        address.setPostCode(addressOnFile.getContactZipPostalCode());
+        address.setState(addressOnFile.getContactStateProv());
+        return address;
+
+    }
+
+    /**
+     * Validate address.
+     *
+     * @param address
+     *            the address
+     * @return true, if successful
+     * @throws Exception
+     *             the exception
      */
     @Override
-    public boolean validateAddress(final Address address) throws Exception {
+    public final boolean validateAddress(final Address address)
+            throws Exception {
         final AddressValidationRequest addressValidationRequest = new AddressValidationRequest();
         final AddressValidationMultiReq addressValidationMultiReq = new AddressValidationMultiReq();
         addressValidationMultiReq.setStreet1(address.getAddressLine1());
@@ -286,20 +324,25 @@ public class OpenAccessServiceImpl implements OpenAccessService {
                 .getDepartment());
 
         addressValidationRequest
-                .setAddressValidationMultiReq(addressValidationMultiReq);
+        .setAddressValidationMultiReq(addressValidationMultiReq);
 
         return validationService.validateAddress(addressValidationRequest);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.wiley.gr.ace.authorservices.services.service.OpenAccessService#
-     * validateVatTaxDetails(java.lang.String, java.lang.String)
+    /**
+     * Validate vat tax details.
+     *
+     * @param countryCode
+     *            the country code
+     * @param vatTaxRegNum
+     *            the vat tax reg num
+     * @return true, if successful
+     * @throws Exception
+     *             the exception
      */
     @Override
-    public boolean validateVatTaxDetails(final String countryCode, final String vatTaxRegNum)
-            throws Exception {
+    public final boolean validateVatTaxDetails(final String countryCode,
+            final String vatTaxRegNum) throws Exception {
 
         return validationService.vatValidation(countryCode, vatTaxRegNum);
     }
