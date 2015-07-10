@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Value;
 import com.wiley.bpm.authentication.WileyBPMAuthenticationUtils;
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
+import com.wiley.gr.ace.authorservices.model.external.TaskServiceRequest;
 
 /**
  * The Class TaskServicesUtil.
@@ -56,15 +57,13 @@ public class TaskServicesUtil {
 	@Value("${bpmservice.sourceAppValue}")
 	private static String sourceAppValue;
 
-	/**
-	 * Method invokes BPM service returns the status
-	 * 
-	 * @param paramString
-	 * @param userId
-	 * @return status
-	 * 
-	 */
-	public static String invokeTaskService(String paramString, String userId) {
+    /**
+     * Method invokes BPM service and returns the status
+     * @param taskServiceRequest
+     * @param userId
+     * @return status
+     */
+	public static String invokeTaskService(TaskServiceRequest taskServiceRequest, String userId) {
 
 		String saltString = null;
 		String encodedParamString = null;
@@ -80,7 +79,7 @@ public class TaskServicesUtil {
 		HttpResponse response = null;
 
 		try {
-			encodedParamString = URLEncoder.encode(paramString, "UTF-8");
+			encodedParamString = URLEncoder.encode(taskServiceRequest.toString(), "UTF-8");
 
 		} catch (UnsupportedEncodingException e) {
 			throw new ASException("3000", e.getMessage());
