@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.json.simple.JSONObject;
@@ -273,7 +272,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     /**
      * Min value for Transaction id
      */
-    private static final int MIN_VALUE = 1;
+    //private static final int MIN_VALUE = 1;
 
     /**
      * This method will take userId and orderId as input and calls external
@@ -1211,13 +1210,13 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      *            - the request value
      * @return transactionId
      */
-    private final static Integer generateRandomTransactionId(final int min,
-            final int max) {
-        Random rand = new Random();
-        int value = max - min;
-        Integer transactionId = rand.nextInt(value + 1) + min;
-        return transactionId;
-    }
+//    private final static Integer generateRandomTransactionId(final int min,
+//            final int max) {
+//        Random rand = new Random();
+//        int value = max - min;
+//        Integer transactionId = rand.nextInt(value + 1) + min;
+//        return transactionId;
+//    }
 
     /**
      * This method will generate pdf
