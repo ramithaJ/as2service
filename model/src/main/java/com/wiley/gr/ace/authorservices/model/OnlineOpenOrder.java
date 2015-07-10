@@ -74,6 +74,46 @@ public class OnlineOpenOrder {
     private String orderId;
 
     /**
+     * This field holds the value of orderEditable.
+     */
+    private String orderEditable = "true";
+
+    /**
+     * This field holds the value of invoiceAvailable.
+     */
+    private String invoiceAvailable = "false";
+
+    /**
+     * @return the orderEditable
+     */
+    public final String getOrderEditable() {
+        return orderEditable;
+    }
+
+    /**
+     * @param orderEditable
+     *            the orderEditable to set
+     */
+    public final void setOrderEditable(final String orderEditable) {
+        this.orderEditable = orderEditable;
+    }
+
+    /**
+     * @return the invoiceAvailable
+     */
+    public final String getInvoiceAvailable() {
+        return invoiceAvailable;
+    }
+
+    /**
+     * @param invoiceAvailable
+     *            the invoiceAvailable to set
+     */
+    public final void setInvoiceAvailable(final String invoiceAvailable) {
+        this.invoiceAvailable = invoiceAvailable;
+    }
+
+    /**
      * This field holds the value of licenseSignedStatus
      */
     private String licenseSignedStatus = "false";
@@ -241,8 +281,7 @@ public class OnlineOpenOrder {
      * @param articleDetails
      *            the new article details
      */
-    public final void setArticleDetails(
-            final ArticleDetails articleDetails) {
+    public final void setArticleDetails(final ArticleDetails articleDetails) {
         this.articleDetails = articleDetails;
     }
 
@@ -261,8 +300,7 @@ public class OnlineOpenOrder {
      * @param journalDetails
      *            the new journal details
      */
-    public final void setJournalDetails(
-            final JournalDetails journalDetails) {
+    public final void setJournalDetails(final JournalDetails journalDetails) {
         this.journalDetails = journalDetails;
     }
 
