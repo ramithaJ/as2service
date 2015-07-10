@@ -82,8 +82,8 @@ public class OrderServiceImpl implements OrderService {
     /**
      * This field holds the value of SocietyMemberDiscountsurl.
      */
-    @Value("${SocietyMemberDiscounts.url}")
-    private String SocietyMemberDiscountsurl;
+    @Value("${societyMemberDiscounts.url}")
+    private String societyMemberDiscountsurl;
 
     /**
      * This field holds the value of woaAccountsurl.
@@ -189,19 +189,17 @@ public class OrderServiceImpl implements OrderService {
      * Method to get society Member discounts
      */
     @Override
-    public SocietyMemberDiscount getSocietyMemberDiscount() {
+    public SocietyMemberDiscount getSocietyMemberDiscount(String DHID) {
 
-        return (SocietyMemberDiscount) StubInvokerUtil.invokeJsonStub(
-                SocietyMemberDiscountsurl, HttpMethod.POST,
-                SocietyMemberDiscount.class);
+    	return (SocietyMemberDiscount) StubInvokerUtil.restGetServiceInvoker(
+				societyMemberDiscountsurl + DHID, SocietyMemberDiscount.class);
     }
 
     @Override
-    public InstitutionDiscounts getInstitutionDiscounts() {
+    public InstitutionDiscounts getInstitutionDiscounts(String DHID) {
 
-        return (InstitutionDiscounts) StubInvokerUtil.invokeJsonStub(
-                institutionDiscountsurl, HttpMethod.POST,
-                InstitutionDiscounts.class);
+    	return (InstitutionDiscounts) StubInvokerUtil.restGetServiceInvoker(
+				institutionDiscountsurl + DHID, InstitutionDiscounts.class);
     }
 
     /** @param orderId */
@@ -221,10 +219,9 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public String getDiscounts(final DiscountRequest discountRequest) {
 
-        DiscountResponse response = (DiscountResponse) StubInvokerUtil
-                .invokeJsonStub(getdiscountsurl, HttpMethod.POST,
-                        DiscountResponse.class);
-
+    	DiscountResponse response = (DiscountResponse) StubInvokerUtil.restServiceInvoker(
+				getdiscountsurl, discountRequest, DiscountResponse.class);
+    	
         return response.getDiscountResponseObject().getDiscountAmount();
     }
 

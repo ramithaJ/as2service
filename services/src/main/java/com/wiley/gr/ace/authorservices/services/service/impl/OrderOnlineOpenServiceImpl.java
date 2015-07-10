@@ -866,10 +866,10 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * @return SocietyDiscounts
      */
     @Override
-    public final SocietyDiscounts getDiscountedSocieties() {
+    public final SocietyDiscounts getDiscountedSocieties(final String DHID) {
 
         SocietyMemberDiscount societyMemberDiscount = orderservice
-                .getSocietyMemberDiscount();
+                .getSocietyMemberDiscount(DHID);
         List<Societies> societiesList = societyMemberDiscount.getPayload()
                 .getSocieties();
         SocietyDiscounts societyDiscounts = new SocietyDiscounts();
@@ -890,10 +890,10 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * @return InstitutionalDiscounts
      */
     @Override
-    public final InstitutionalDiscounts getInstitutionDiscounts() {
+    public final InstitutionalDiscounts getInstitutionDiscounts(final String DHID) {
 
         InstitutionDiscounts institutionDiscounts = orderservice
-                .getInstitutionDiscounts();
+                .getInstitutionDiscounts(DHID);
         List<Institute> istituteList = institutionDiscounts.getPayLoad()
                 .getInstituteList();
         InstitutionalDiscounts institutionalDiscounts = new InstitutionalDiscounts();

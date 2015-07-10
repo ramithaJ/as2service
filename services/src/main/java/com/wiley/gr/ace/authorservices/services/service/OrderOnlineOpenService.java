@@ -93,13 +93,13 @@ public interface OrderOnlineOpenService {
      * @param userId
      * @return
      */
-    SocietyDiscounts getDiscountedSocieties();
+    SocietyDiscounts getDiscountedSocieties(String DHID);
 
     /**
      * @param userId
      * @return
      */
-    InstitutionalDiscounts getInstitutionDiscounts();
+    InstitutionalDiscounts getInstitutionDiscounts(String DHID);
 
     /**
      * @param userId

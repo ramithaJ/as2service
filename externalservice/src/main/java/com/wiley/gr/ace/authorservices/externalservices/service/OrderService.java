@@ -81,12 +81,12 @@ public interface OrderService {
     /**
      * @return SocietyMemberDiscount
      */
-    SocietyMemberDiscount getSocietyMemberDiscount();
+    SocietyMemberDiscount getSocietyMemberDiscount(String DHID);
 
     /**
      * @return InstitutionDiscounts
      */
-    InstitutionDiscounts getInstitutionDiscounts();
+    InstitutionDiscounts getInstitutionDiscounts(String DHID);
 
     /**
      * @param orderId

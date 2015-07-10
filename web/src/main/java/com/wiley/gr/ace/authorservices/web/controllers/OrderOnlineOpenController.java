@@ -238,11 +238,12 @@ public class OrderOnlineOpenController extends ASExceptionController {
     /**
      * @return service
      */
-    @RequestMapping(value = "/discountedSocieties/", method = RequestMethod.GET)
-    public final Service getDiscountedSocieties() {
+    @RequestMapping(value = "/discountedSocieties/{dhId}/", method = RequestMethod.GET)
+    public final Service getDiscountedSocieties(
+    		@PathVariable("dhId") final String dhId) {
 
         Service service = new Service();
-        service.setPayload(orderOnlineOpenService.getDiscountedSocieties());
+        service.setPayload(orderOnlineOpenService.getDiscountedSocieties(dhId));
         return service;
     }
 
@@ -273,11 +274,12 @@ public class OrderOnlineOpenController extends ASExceptionController {
      *
      * @return service
      */
-    @RequestMapping(value = "/institutionDiscounts/", method = RequestMethod.GET)
-    public final Service getInstitutionDiscounts() {
+    @RequestMapping(value = "/institutionDiscounts/{dhId}/", method = RequestMethod.GET)
+    public final Service getInstitutionDiscounts(
+    		@PathVariable("dhId") final String dhId) {
 
         Service service = new Service();
-        service.setPayload(orderOnlineOpenService.getInstitutionDiscounts());
+        service.setPayload(orderOnlineOpenService.getInstitutionDiscounts(dhId));
         return service;
     }
 
