@@ -143,7 +143,8 @@ public class OrderOnlineOpenController extends ASExceptionController {
         Service service = new Service();
 
         try {
-            orderOnlineOpenService.submitOnlineOpenOrder(userId, orderId, "OO");
+            orderOnlineOpenService.submitOnlineOpenOrder(userId, orderId,
+                    onlineOpen);
         } catch (Exception e) {
             throw new ASException("704", e.getMessage());
         }
