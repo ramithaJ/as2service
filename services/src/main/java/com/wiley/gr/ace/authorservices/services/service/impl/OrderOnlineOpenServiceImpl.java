@@ -1096,19 +1096,21 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         wpgConfiguration.setWpgMethod(wpgMethod);
         Long wpgTimeStmp = new Date().getTime();
         wpgConfiguration.setWpgTimeStmap(wpgTimeStmp.toString());
+        
+        // Commented the below code - to fix on Monday 7/13
 
-        Integer intWpgTransId = generateRandomTransactionId(MIN_VALUE,
-                Integer.MAX_VALUE);
-        String wpgTransId = intWpgTransId.toString();
+//        Integer intWpgTransId = generateRandomTransactionId(MIN_VALUE,
+//                Integer.MAX_VALUE);
+//        String wpgTransId = intWpgTransId.toString();
 
-        wpgConfiguration.setWpgTransId(wpgTransId);
+        wpgConfiguration.setWpgTransId(orderId);
         // wpgValue is not required for WPG_VALIDATE
         // wpgConfiguration.setWpgValue(wpgValue);
         wpgConfiguration.setWpgVendorId(wpgVendorId);
 
         StringBuilder securityStringBuilder = new StringBuilder();
         securityStringBuilder.append(wpgTimeStmp.toString())
-                .append(wpgVendorId).append(wpgTransId).append(wpgMethod)
+                .append(wpgVendorId).append(orderId).append(wpgMethod)
                 .append(wpgDescription).append(wpgRegion)
                 .append(wpgConfiguration.getWpgAddress())
                 .append(wpgConfiguration.getWpgPostCode())
