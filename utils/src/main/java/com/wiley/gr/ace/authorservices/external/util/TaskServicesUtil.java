@@ -22,7 +22,6 @@ import com.wiley.bpm.authentication.WileyBPMAuthenticationUtils;
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 
-
 /**
  * The Class TaskServicesUtil.
  *
@@ -35,9 +34,6 @@ public class TaskServicesUtil {
 
 	@Value("${bpmservice.key}")
 	private static String key;
-
-	@Value("${bpmservice.userId}")
-	private static String userId;
 
 	@Value("${bpmservice.action}")
 	private static String action;
@@ -64,10 +60,11 @@ public class TaskServicesUtil {
 	 * Method invokes BPM service returns the status
 	 * 
 	 * @param paramString
+	 * @param userId
 	 * @return status
 	 * 
 	 */
-	public static String invokeTaskService(String paramString) {
+	public static String invokeTaskService(String paramString, String userId) {
 
 		String saltString = null;
 		String encodedParamString = null;
@@ -75,17 +72,18 @@ public class TaskServicesUtil {
 		Long date = null;
 		String generatedSignature = null;
 		Integer statusCode = null;
-		String  status = null;
-		
+		String status = null;
+		String payLoadString = null;
+
 		HttpClient client = null;
 		HttpUriRequest request = null;
 		HttpResponse response = null;
-		
+
 		try {
 			encodedParamString = URLEncoder.encode(paramString, "UTF-8");
 
 		} catch (UnsupportedEncodingException e) {
-			throw new ASException("3000",e.getMessage());
+			throw new ASException("3000", e.getMessage());
 		}
 
 		StringBuilder decodedParamString = new StringBuilder();
@@ -96,7 +94,9 @@ public class TaskServicesUtil {
 				.append("params=").append(encodedParamString).append("&")
 				.append("parts=").append(parts);
 
-		String url = bpmserviceurl + "?" + decodedParamString.toString();
+		payLoadString = decodedParamString.toString();
+
+		String url = bpmserviceurl + "?" + payLoadString;
 
 		try {
 			saltString = WileyBPMAuthenticationUtils.getSalt();
@@ -106,9 +106,8 @@ public class TaskServicesUtil {
 
 		currentDate = new Date();
 		date = currentDate.getTime();
-		generatedSignature = WileyBPMAuthenticationUtils
-				.generateSignature(key, saltString, "POST", encodedParamString,
-						userId, date);
+		generatedSignature = WileyBPMAuthenticationUtils.generateSignature(key,
+				saltString, "POST", payLoadString, userId, date);
 
 		List<Header> headers = new ArrayList<Header>();
 		headers.add(new BasicHeader(HttpHeaders.ACCEPT, httpHeaderAcceptValue));
@@ -116,43 +115,34 @@ public class TaskServicesUtil {
 				httpHeaderContentTypeValue));
 		headers.add(new BasicHeader(AuthorServicesConstants.BPM_SOURCE_APP,
 				sourceAppValue));
-		headers.add(new BasicHeader(AuthorServicesConstants.BPM_LONG_DATE, date.toString()));
+		headers.add(new BasicHeader(AuthorServicesConstants.BPM_LONG_DATE, date
+				.toString()));
 		headers.add(new BasicHeader(AuthorServicesConstants.BPM_USERID, userId));
 		headers.add(new BasicHeader(AuthorServicesConstants.BPM_SIGNATURE,
 				generatedSignature));
 		headers.add(new BasicHeader(AuthorServicesConstants.BPM_SALT,
 				saltString));
 
-		client = HttpClients.custom().setDefaultHeaders(headers)
-				.build();
+		client = HttpClients.custom().setDefaultHeaders(headers).build();
 		request = RequestBuilder.post(url).build();
 
-		
 		try {
 			response = client.execute(request);
-			System.out.println(response);
 		} catch (ClientProtocolException e) {
-			throw new ASException("2000",e.getMessage());
+			throw new ASException("2000", e.getMessage());
 		} catch (IOException e) {
-			throw new ASException("2001",e.getMessage());
+			throw new ASException("2001", e.getMessage());
 		}
 		statusCode = response.getStatusLine().getStatusCode();
-		
-		if(statusCode == 200){
-			status=AuthorServicesConstants.BPM_CALL_SUCCESS_STATUS;
+
+		if (statusCode == 200) {
+			status = AuthorServicesConstants.BPM_CALL_SUCCESS_STATUS;
 		} else {
-			throw new ASException(statusCode.toString(), response.getStatusLine().getReasonPhrase());
+			throw new ASException(statusCode.toString(), response
+					.getStatusLine().getReasonPhrase());
 		}
 
 		return status;
 	}
-	
-	public static void main(String[] args) {
-		
-		String paramString = "{\"requestorEmail\":\"jpujari@ex.com\",\"justifications\":[\"need access for admin\", \"need online order access\"], \"requestorId\":\"john\"}";
-		
-		
-		System.out.println(TaskServicesUtil.invokeTaskService(paramString));
-	}
-	
+
 }

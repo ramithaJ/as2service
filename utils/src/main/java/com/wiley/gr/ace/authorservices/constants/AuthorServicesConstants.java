@@ -86,7 +86,7 @@ public class AuthorServicesConstants {
     public static final String BPM_SOURCE_APP = "sourceApp";
     
     /** The Constant for BPM_LONG_DATE. */
-    public static final String BPM_LONG_DATE = "long";
+    public static final String BPM_LONG_DATE = "longDate";
     
     /** The Constant for BPM_USERID. */
     public static final String BPM_USERID = "userId";
