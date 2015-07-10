@@ -41,17 +41,21 @@ public class AutocompleteServiceImpl implements AutocompleteService {
     @Autowired
     private UserAutocomplete userAutocomplete;
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Method to get Auto complete data.
      * 
-     * @see
-     * com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteService
-     * #getAutocompleteData(java.lang.String, java.lang.String,
-     * java.lang.Integer)
+     * @param key
+     *            - the request value
+     * @param phrase
+     *            - the request value
+     * @param count
+     *            - the request value
+     * @return List
+     * 
      */
     @Override
-    public List<String> getAutocompleteData(String key, String phrase,
-            Integer count) {
+    public final List<String> getAutocompleteData(final String key,
+            String phrase, final Integer count) {
         final Jedis redis = new Jedis(jedisConnectionFactory.getShardInfo());
         if (null == phrase) {
             redis.close();
@@ -101,16 +105,20 @@ public class AutocompleteServiceImpl implements AutocompleteService {
         return results;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Method to set Auto complete data.
      * 
-     * @see
-     * com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteService
-     * #setAutocompleteData(java.lang.String, java.lang.Boolean)
+     * @param key
+     *            - the request value
+     * @param clear
+     *            - the request value
+     * @return boolean
+     * @throws IOException
+     *             - exception
      */
     @Override
-    public boolean setAutocompleteData(String key, Boolean clear)
-            throws IOException {
+    public final boolean setAutocompleteData(final String key,
+            final Boolean clear) throws IOException {
         final Jedis redis = new Jedis(jedisConnectionFactory.getShardInfo());
         final List<String> societyList = userAutocomplete.getSocietyDetails();
         for (final String word : societyList) {
@@ -131,6 +139,7 @@ public class AutocompleteServiceImpl implements AutocompleteService {
      *            the redis
      * @param redisKey
      *            the redis key
+     * 
      */
     private void addWord(final String word, final Jedis redis,
             final String redisKey) {
@@ -142,15 +151,15 @@ public class AutocompleteServiceImpl implements AutocompleteService {
         }
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Method to fulush.
      * 
-     * @see
-     * com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteService
-     * #flush(java.lang.String)
+     * @param key
+     *            - the request value
+     * @return boolean
      */
     @Override
-    public boolean flush(String key) {
+    public final boolean flush(final String key) {
         final Jedis redis = new Jedis(jedisConnectionFactory.getShardInfo());
         redis.del(key);
         redis.close();
