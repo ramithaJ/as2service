@@ -32,33 +32,37 @@ import com.wiley.gr.ace.authorservices.services.service.AdditionalPermissionServ
 @RequestMapping("/v1")
 public class AdditionalPermissionsController {
 
-	/**
-	 * This field holds the value of additionalPermissionService
-	 */
-	@Autowired(required = true)
+    /**
+     * This field holds the value of additionalPermissionService.
+     */
+    @Autowired(required = true)
     private AdditionalPermissionService additionalPermissionService;
-	
-	/**
-	 * @param userId
-	 * @return service
-	 */
-	@RequestMapping(value = "/asdata/additionalPermissions/{userId}/", method = RequestMethod.GET)
-	public Service getAdditionalPermissions(@PathVariable("userId") final String userId) {
-		
-		Service service = new Service();
-		service.setPayload(additionalPermissionService.getAdditionalPermissions(userId));
-		return service;
-	}
-	
-	/**
-	 * @param additionalPermissions
-	 * @return service
-	 */
-	@RequestMapping(value = "/additionalpermissions/request/", method = RequestMethod.POST)
-	public Service updateAdditionalPermissions(@RequestBody @Valid final AdditionalPermissions additionalPermissions) {
-		
-		Service service = new Service();
-		additionalPermissionService.updateAdditionalPermissions(additionalPermissions);
-		return service;
-	}
+
+    /**
+     * @param userId
+     * @return service
+     */
+    @RequestMapping(value = "/asdata/additionalPermissions/{userId}/", method = RequestMethod.GET)
+    public Service getAdditionalPermissions(
+            @PathVariable("userId") final String userId) {
+
+        Service service = new Service();
+        service.setPayload(additionalPermissionService
+                .getAdditionalPermissions(userId));
+        return service;
+    }
+
+    /**
+     * @param additionalPermissions
+     * @return service
+     */
+    @RequestMapping(value = "/additionalpermissions/request/", method = RequestMethod.POST)
+    public Service updateAdditionalPermissions(
+            @RequestBody @Valid final AdditionalPermissions additionalPermissions) {
+
+        Service service = new Service();
+        additionalPermissionService
+                .updateAdditionalPermissions(additionalPermissions);
+        return service;
+    }
 }
