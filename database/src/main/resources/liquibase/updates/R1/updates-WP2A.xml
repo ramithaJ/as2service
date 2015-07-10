@@ -2131,4 +2131,10 @@ ALTER TABLE INVITE_RESETPWD_LOG ADD FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USE
 </sql>
 </changeSet>
 
+<changeSet author="gphaniraj" id="WP2A-251">
+<sql>
+ALTER TABLE SAVED_ORDERS ADD CONSTRAINT SAVED_ORDERS_UK UNIQUE(DH_ID);
+</sql>
+</changeSet>
+
 </databaseChangeLog>
