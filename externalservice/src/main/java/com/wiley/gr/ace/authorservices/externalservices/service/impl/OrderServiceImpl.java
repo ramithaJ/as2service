@@ -19,6 +19,7 @@ import org.springframework.http.HttpMethod;
 
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
+import com.wiley.gr.ace.authorservices.model.external.CancelOrderRequest;
 import com.wiley.gr.ace.authorservices.model.external.DiscountRequest;
 import com.wiley.gr.ace.authorservices.model.external.DiscountResponse;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSocietyResponse;
@@ -42,190 +43,204 @@ import com.wiley.gr.ace.authorservices.model.external.WileyOpenAccessFunders;
  */
 public class OrderServiceImpl implements OrderService {
 
-	/**
-	 * This field holds the value of orderserviceurl
-	 */
-	@Value("${createorder.url}")
-	private String createorderurl;
+    /**
+     * This field holds the value of orderserviceurl.
+     */
+    @Value("${createorder.url}")
+    private String createorderurl;
 
-	/**
-	 * This field holds the value of orderserviceurlview
-	 */
-	@Value("${orderservice.url.view}")
-	private String orderserviceurlview;
+    /**
+     * This field holds the value of orderserviceurlview.
+     */
+    @Value("${orderservice.url.view}")
+    private String orderserviceurlview;
 
-	/**
-	 * This field holds the value of quoteurl
-	 */
-	@Value("${quote.url}")
-	private String quoteurl;
+    /**
+     * This field holds the value of quoteurl.
+     */
+    @Value("${quote.url}")
+    private String quoteurl;
 
-	/**
-	 * This field holds the value of lookupjournalurl
-	 */
-	@Value("${lookupjournal.url}")
-	private String lookupjournalurl;
+    /**
+     * This field holds the value of lookupjournalurl.
+     */
+    @Value("${lookupjournal.url}")
+    private String lookupjournalurl;
 
-	/**
-	 * This field holds the value of lookuparticleurl
-	 */
-	@Value("${lookuparticle.url}")
-	private String lookuparticleurl;
+    /**
+     * This field holds the value of lookuparticleurl.
+     */
+    @Value("${lookuparticle.url}")
+    private String lookuparticleurl;
 
-	/**
-	 * This field holds the value of discountedSocietiesurl
-	 */
-	@Value("${discountedSocieties.url}")
-	private String discountedSocietiesurl;
+    /**
+     * This field holds the value of discountedSocietiesurl.
+     */
+    @Value("${discountedSocieties.url}")
+    private String discountedSocietiesurl;
 
-	/**
-	 * This field holds the value of SocietyMemberDiscountsurl
-	 */
-	@Value("${SocietyMemberDiscounts.url}")
-	private String SocietyMemberDiscountsurl;
+    /**
+     * This field holds the value of SocietyMemberDiscountsurl.
+     */
+    @Value("${SocietyMemberDiscounts.url}")
+    private String SocietyMemberDiscountsurl;
 
-	/**
-	 * This field holds the value of woaAccountsurl
-	 */
-	@Value("${woaAccounts.url}")
-	private String woaAccountsurl;
+    /**
+     * This field holds the value of woaAccountsurl.
+     */
+    @Value("${woaAccounts.url}")
+    private String woaAccountsurl;
 
-	/**
-	 * This field holds the value of institutionDiscountsurl
-	 */
-	@Value("${institutionDiscounts.url}")
-	private String institutionDiscountsurl;
+    /**
+     * This field holds the value of institutionDiscountsurl.
+     */
+    @Value("${institutionDiscounts.url}")
+    private String institutionDiscountsurl;
 
-	/**
-	 * This field holds the value of gettaxurl
-	 */
-	@Value("${gettax.url}")
-	private String gettaxurl;
+    /**
+     * This field holds the value of gettaxurl.
+     */
+    @Value("${gettax.url}")
+    private String gettaxurl;
 
-	/**
-	 * This field holds the value of getdiscountsurl
-	 */
-	@Value("${getdiscounts.url}")
-	private String getdiscountsurl;
+    /**
+     * This field holds the value of getdiscountsurl.
+     */
+    @Value("${getdiscounts.url}")
+    private String getdiscountsurl;
 
-	/** Calling Stub */
-	@Override
-	public final OrderDataList getOrderDetails(final String userId,
-			final String orderId) {
+    /**
+     * This field holds the value of cancelOrderUrl.
+     */
+    @Value("${cancelOrder.url}")
+    private String cancelOrderUrl;
 
-		return (OrderDataList) StubInvokerUtil.invokeJsonStub(
-				orderserviceurlview, HttpMethod.POST, OrderDataList.class);
+    /** Calling Stub */
+    @Override
+    public final OrderDataList getOrderDetails(final String userId,
+            final String orderId) {
 
-	}
+        return (OrderDataList) StubInvokerUtil.invokeJsonStub(
+                orderserviceurlview, HttpMethod.POST, OrderDataList.class);
 
-	/** Calling Stub */
-	@Override
-	public final OrderResponse submitOnlineOpenOrder(final OrderData orderData) {
+    }
 
-		return (OrderResponse) StubInvokerUtil.restServiceInvoker(
-				createorderurl, orderData, OrderResponse.class);
-	}
+    /** Calling Stub */
+    @Override
+    public final OrderResponse submitOnlineOpenOrder(final OrderData orderData) {
 
-	/**
-	 * Method to call PDHLookupJournal external service.
-	 */
-	@Override
-	public final PdhJournalResponse pdhLookUpJournal(final Integer DHId) {
+        return (OrderResponse) StubInvokerUtil.restServiceInvoker(
+                createorderurl, orderData, OrderResponse.class);
+    }
 
-		return (PdhJournalResponse) StubInvokerUtil.invokeJsonStub(
-				lookupjournalurl, HttpMethod.POST, PdhJournalResponse.class);
-	}
+    /**
+     * Method to call PDHLookupJournal external service.
+     */
+    @Override
+    public final PdhJournalResponse pdhLookUpJournal(final Integer DHId) {
 
-	/**
-	 * Method to call PDHLookupArticle external service.
-	 */
-	@Override
-	public final PdhArticleResponse pdhLookUpArticle(final Integer DHId) {
+        return (PdhJournalResponse) StubInvokerUtil.invokeJsonStub(
+                lookupjournalurl, HttpMethod.POST, PdhJournalResponse.class);
+    }
 
-		return (PdhArticleResponse) StubInvokerUtil.invokeJsonStub(
-				lookuparticleurl, HttpMethod.POST, PdhArticleResponse.class);
-	}
+    /**
+     * Method to call PDHLookupArticle external service.
+     */
+    @Override
+    public final PdhArticleResponse pdhLookUpArticle(final Integer DHId) {
 
-	/**
-	 * Method to call getQuote external service.
-	 */
-	@Override
-	public final Quote getQuote(final QuoteRequest quoteRequest) {
+        return (PdhArticleResponse) StubInvokerUtil.invokeJsonStub(
+                lookuparticleurl, HttpMethod.POST, PdhArticleResponse.class);
+    }
 
-		return (Quote) StubInvokerUtil.invokeJsonStub(quoteurl,
-				HttpMethod.POST, Quote.class);
-	}
+    /**
+     * Method to call getQuote external service.
+     */
+    @Override
+    public final Quote getQuote(final QuoteRequest quoteRequest) {
 
-	/**
-	 * Method to call getDiscountedSocietiesForJournal external service.
-	 */
-	@Override
-	public DiscountedSocietyResponse getDiscountedSocietiesForJournal(
-			final String DHID) {
+        return (Quote) StubInvokerUtil.invokeJsonStub(quoteurl,
+                HttpMethod.POST, Quote.class);
+    }
 
-		return (DiscountedSocietyResponse) StubInvokerUtil.invokeJsonStub(
-				discountedSocietiesurl, HttpMethod.GET,
-				DiscountedSocietyResponse.class);
-	}
+    /**
+     * Method to call getDiscountedSocietiesForJournal external service.
+     */
+    @Override
+    public DiscountedSocietyResponse getDiscountedSocietiesForJournal(
+            final String DHID) {
 
-	/**
-	 * Method to get WOA Accounts
-	 */
-	@Override
-	public WileyOpenAccessFunders getWoaAcounts() {
+        return (DiscountedSocietyResponse) StubInvokerUtil.invokeJsonStub(
+                discountedSocietiesurl, HttpMethod.GET,
+                DiscountedSocietyResponse.class);
+    }
 
-		return (WileyOpenAccessFunders) StubInvokerUtil.invokeJsonStub(
-				woaAccountsurl, HttpMethod.POST, WileyOpenAccessFunders.class);
-	}
+    /**
+     * Method to get WOA Accounts
+     */
+    @Override
+    public WileyOpenAccessFunders getWoaAcounts() {
 
-	/**
-	 * Method to get society Member discounts
-	 */
-	@Override
-	public SocietyMemberDiscount getSocietyMemberDiscount() {
+        return (WileyOpenAccessFunders) StubInvokerUtil.invokeJsonStub(
+                woaAccountsurl, HttpMethod.POST, WileyOpenAccessFunders.class);
+    }
 
-		return (SocietyMemberDiscount) StubInvokerUtil.invokeJsonStub(
-				SocietyMemberDiscountsurl, HttpMethod.POST,
-				SocietyMemberDiscount.class);
-	}
+    /**
+     * Method to get society Member discounts
+     */
+    @Override
+    public SocietyMemberDiscount getSocietyMemberDiscount() {
 
-	@Override
-	public InstitutionDiscounts getInstitutionDiscounts() {
+        return (SocietyMemberDiscount) StubInvokerUtil.invokeJsonStub(
+                SocietyMemberDiscountsurl, HttpMethod.POST,
+                SocietyMemberDiscount.class);
+    }
 
-		return (InstitutionDiscounts) StubInvokerUtil.invokeJsonStub(
-				institutionDiscountsurl, HttpMethod.POST,
-				InstitutionDiscounts.class);
-	}
+    @Override
+    public InstitutionDiscounts getInstitutionDiscounts() {
 
-	/** @param orderId */
-	@Override
-	public OrderDataList getAllOrders(final String orderId) {
-		return (OrderDataList) StubInvokerUtil.invokeJsonStub(
-				orderserviceurlview, HttpMethod.POST, OrderDataList.class);
-	}
+        return (InstitutionDiscounts) StubInvokerUtil.invokeJsonStub(
+                institutionDiscountsurl, HttpMethod.POST,
+                InstitutionDiscounts.class);
+    }
 
-	@Override
-	public Object sendNonRestrictedWOAAccountListToAdmin(
-			final List<WOAAccount> nonRestrictedWOAAccountList) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    /** @param orderId */
+    @Override
+    public OrderDataList getAllOrders(final String orderId) {
+        return (OrderDataList) StubInvokerUtil.invokeJsonStub(
+                orderserviceurlview, HttpMethod.POST, OrderDataList.class);
+    }
 
-	@Override
-	public String getDiscounts(final DiscountRequest discountRequest) {
+    @Override
+    public Object sendNonRestrictedWOAAccountListToAdmin(
+            final List<WOAAccount> nonRestrictedWOAAccountList) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-		DiscountResponse response = (DiscountResponse) StubInvokerUtil
-				.invokeJsonStub(getdiscountsurl, HttpMethod.POST,
-						DiscountResponse.class);
+    @Override
+    public String getDiscounts(final DiscountRequest discountRequest) {
 
-		return response.getDiscountResponseObject().getDiscountAmount();
-	}
+        DiscountResponse response = (DiscountResponse) StubInvokerUtil
+                .invokeJsonStub(getdiscountsurl, HttpMethod.POST,
+                        DiscountResponse.class);
 
-	@Override
-	public String getTaxAmount(final TaxRequest taxRequest) {
-		TaxResponse response = (TaxResponse) StubInvokerUtil.invokeJsonStub(
-				gettaxurl, HttpMethod.POST, TaxResponse.class);
+        return response.getDiscountResponseObject().getDiscountAmount();
+    }
 
-		return response.getItem().get(0).getDiscountedLineAmount();
-	}
+    @Override
+    public String getTaxAmount(final TaxRequest taxRequest) {
+        TaxResponse response = (TaxResponse) StubInvokerUtil.invokeJsonStub(
+                gettaxurl, HttpMethod.POST, TaxResponse.class);
+
+        return response.getItem().get(0).getDiscountedLineAmount();
+    }
+
+    @Override
+    public OrderResponse cancelOnlineOpenOrder(
+            final CancelOrderRequest cancelOrderRequest) {
+
+        return (OrderResponse) StubInvokerUtil.restServiceInvoker(
+                cancelOrderUrl, cancelOrderRequest, OrderResponse.class);
+    }
 }

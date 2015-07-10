@@ -141,4 +141,11 @@ public interface OrderOnlineOpenService {
      * @return
      */
     ResponseEntity<byte[]> getPdf(String ooUniqueId);
+
+    /**
+     * @param userId
+     * @param orderId
+     * @return
+     */
+    OrderResponse cancelOnlineOpenOrder(String userId, String orderId);
 }

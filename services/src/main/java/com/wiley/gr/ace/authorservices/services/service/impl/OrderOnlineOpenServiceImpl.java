@@ -68,6 +68,7 @@ import com.wiley.gr.ace.authorservices.model.TaxDetails;
 import com.wiley.gr.ace.authorservices.model.WOAAccountFunders;
 import com.wiley.gr.ace.authorservices.model.WOAAccountHolders;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
+import com.wiley.gr.ace.authorservices.model.external.CancelOrderRequest;
 import com.wiley.gr.ace.authorservices.model.external.ContactAddress;
 import com.wiley.gr.ace.authorservices.model.external.Customer;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSociety;
@@ -124,85 +125,85 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     private UserProfiles userProfiles;
 
     /**
-     * This field holds the value of correspondingAuthorId
+     * This field holds the value of correspondingAuthorId.
      */
     @Value("${CorrespondingAuthorId}")
     private String correspondingAuthorId;
 
     /**
-     * This field holds the value of articleDetailsCode
+     * This field holds the value of articleDetailsCode.
      */
     @Value("${articleDetails.code}")
     private String articleDetailsCode;
 
     /**
-     * This field holds the value of articleDetailsMessage
+     * This field holds the value of articleDetailsMessage.
      */
     @Value("${articleDetails.message}")
     private String articleDetailsMessage;
 
     /**
-     * This field holds the value of articleAcceptanceCode
+     * This field holds the value of articleAcceptanceCode.
      */
     @Value("${articleAcceptance.code}")
     private String articleAcceptanceCode;
 
     /**
-     * This field holds the value of articleAcceptanceMessage
+     * This field holds the value of articleAcceptanceMessage.
      */
     @Value("${articleAcceptance.message}")
     private String articleAcceptanceMessage;
 
     /**
-     * This field holds the value of savedOrderCode
+     * This field holds the value of savedOrderCode.
      */
     @Value("${savedOrder.code}")
     private String savedOrderCode;
 
     /**
-     * This field holds the value of savedOrderMessage
+     * This field holds the value of savedOrderMessage.
      */
     @Value("${savedOrder.message}")
     private String savedOrderMessage;
 
     /**
-     * This field holds the value of orderExistenceCode
+     * This field holds the value of orderExistenceCode.
      */
     @Value("${orderExistence.code}")
     private String orderExistenceCode;
 
     /**
-     * This field holds the value of orderExistenceMessage
+     * This field holds the value of orderExistenceMessage.
      */
     @Value("${orderExistence.message}")
     private String orderExistenceMessage;
 
     /**
-     * This field holds the value of onlineOpenCode
+     * This field holds the value of onlineOpenCode.
      */
     @Value("${OnlineOpen.code}")
     private String onlineOpenCode;
 
     /**
-     * This field holds the value of onlineOpenMessage
+     * This field holds the value of onlineOpenMessage.
      */
     @Value("${OnlineOpen.message}")
     private String onlineOpenMessage;
 
     /**
-     * This field holds the value of onlineOpenJournalCode
+     * This field holds the value of onlineOpenJournalCode.
      */
     @Value("${OnlineOpenJournal.code}")
     private String onlineOpenJournalCode;
 
     /**
-     * This field holds the value of OnlineOpenJournalMessage
+     * This field holds the value of OnlineOpenJournalMessage.
      */
     @Value("${OnlineOpenJournal.message}")
     private String OnlineOpenJournalMessage;
 
     /**
-     * This field holds the value of jsonProcessingExceptionCode
+     * This field holds the value of jsonProcessingExceptionCode.
      */
     /*
      * @Value("${JsonProcessingException}") private String
@@ -210,13 +211,13 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      */
 
     /**
-     * This field holds the value of applicationKey
+     * This field holds the value of applicationKey.
      */
     @Value("${OnlineOpenProperties.applicationKey}")
     private String applicationKey;
 
     /**
-     * This field holds the value of correlationId
+     * This field holds the value of correlationId.
      */
     @Value("${OnlineOpenProperties.correlationId}")
     private String correlationId;
@@ -249,6 +250,30 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     @Value("${wpgRegion}")
     private String wpgRegion;
 
+    // Cancel order request values from property file
+    /**
+     * This field holds the value of cancelOrderCorrelationID.
+     */
+    @Value("${cancelOrder.CorrelationID}")
+    private String cancelOrderCorrelationID;
+
+    /**
+     * This field holds the value of cancelOrderApplicationKey.
+     */
+    @Value("${cancelOrder.ApplicationKey}")
+    private String cancelOrderApplicationKey;
+
+    /**
+     * This field holds the value of cancelOrderUserID.
+     */
+    @Value("${cancelOrder.UserID}")
+    private String cancelOrderUserID;
+
+    /**
+     * This field holds the value of cancelOrderCancelReasonCode.
+     */
+    @Value("${cancelOrder.cancelReasonCode}")
+    private String cancelOrderCancelReasonCode;
     /**
      * Min value for Transaction id
      */
@@ -1064,7 +1089,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                 .append(wpgDescription).append(wpgRegion)
                 .append(wpgConfiguration.getWpgAddress())
                 .append(wpgConfiguration.getWpgPostCode())
-                .append(wpgCountryCode).append(wpgAllowAVSFail).append(wpgVendorPassword);
+                .append(wpgCountryCode).append(wpgAllowAVSFail)
+                .append(wpgVendorPassword);
 
         wpgConfiguration.setWpgSecurity(DigestUtils
                 .md5Hex(securityStringBuilder.toString()));
@@ -1081,7 +1107,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * 
      */
     private WPGConfiguration getAddressAndCurrencyDetailsForOrderId(
-            final String orderId, WPGConfiguration wpgConfiguration) {
+            final String orderId, final WPGConfiguration wpgConfiguration) {
         OnlineOpenOrder onlineOpenOrder = null;
         onlineOpenOrder = getOrderDetails(orderId, null);
 
@@ -1111,7 +1137,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * @param savedOrder
      * @return onlineOpenOrder
      */
-    private OnlineOpenOrder getOrderDetails(String orderId,
+    private OnlineOpenOrder getOrderDetails(final String orderId,
             SavedOrders savedOrder) {
         String orderDataObject = null;
         OnlineOpenOrder onlineOpenOrder = null;
@@ -1153,7 +1179,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * @param max
      * @return transactionId
      */
-    private static Integer generateRandomTransactionId(int min, int max) {
+    private static Integer generateRandomTransactionId(final int min,
+            final int max) {
         Random rand = new Random();
         int value = max - min;
         Integer transactionId = rand.nextInt(value + 1) + min;
@@ -1172,7 +1199,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * @param ooUniqueId
      * */
     @Override
-    public ResponseEntity<byte[]> getPdf(String ooUniqueId) {
+    public ResponseEntity<byte[]> getPdf(final String ooUniqueId) {
 
         Document document = new Document();
         HttpHeaders headers = new HttpHeaders();
@@ -1200,6 +1227,28 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
         return response;
 
+    }
+
+    /**
+     * @param userId
+     *            - the request value
+     * @param orderId
+     *            - the request value
+     * @return OrderResponse
+     */
+    @Override
+    public OrderResponse cancelOnlineOpenOrder(final String userId,
+            final String orderId) {
+        CancelOrderRequest cancelOrderRequest = new CancelOrderRequest();
+        cancelOrderRequest.setApplicationKey(cancelOrderApplicationKey);
+        cancelOrderRequest.setAsID(Integer.parseInt(userId));
+        cancelOrderRequest.setCancelReasonCode(cancelOrderCancelReasonCode);
+        cancelOrderRequest.setCorrelationID(Integer
+                .parseInt(cancelOrderCorrelationID));
+        cancelOrderRequest.setOoUniqueId(Integer.parseInt(orderId));
+        cancelOrderRequest.setUserId(Integer.parseInt(cancelOrderUserID));
+
+        return orderservice.cancelOnlineOpenOrder(cancelOrderRequest);
     }
 
 }

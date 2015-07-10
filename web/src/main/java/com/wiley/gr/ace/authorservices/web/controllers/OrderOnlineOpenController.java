@@ -175,11 +175,12 @@ public class OrderOnlineOpenController extends ASExceptionController {
      *            - the request value
      * @return service
      */
-    @RequestMapping(value = "/cancel/", method = RequestMethod.POST)
+    @RequestMapping(value = "/cancel/{userId}/{orderId}/", method = RequestMethod.POST)
     public final Service cancelOnlineOpenOrder(
             @PathVariable("userId") final String userId,
             @PathVariable("orderId") final String orderId) {
 
+        orderOnlineOpenService.cancelOnlineOpenOrder(userId, orderId);
         return new Service();
     }
 
