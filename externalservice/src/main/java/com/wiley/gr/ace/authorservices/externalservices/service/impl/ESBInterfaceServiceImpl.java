@@ -158,7 +158,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      * @throws Exception
      *             the exception
      */
-    private final List<ESBUser> searchUser(final String email,
+    private List<ESBUser> searchUser(final String email,
             final String firstName, final String lastName) throws Exception {
         ArrayList<ESBUser> esbUsersList = null;
         SearchUserResult searchUserResult = null;

@@ -241,7 +241,7 @@ public class UserProfilesImpl implements UserProfiles {
      * 
      * @return UserProfileResponse
      */
-    private final UserProfileResponse getUserProfile() {
+    private UserProfileResponse getUserProfile() {
         return (UserProfileResponse) StubInvokerUtil.invokeStub(userProfileurl,
                 HttpMethod.GET, UserProfileResponse.class);
     }
