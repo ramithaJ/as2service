@@ -115,10 +115,10 @@ public class UserRolesDAOImpl implements UserRolesDAO {
             }
 
             for (Permissions permissions : permissionsList) {
+                String permissons = permissions.getPermissionCd();
 
-                if (daoPermissionsMap
-                        .containsKey(permissions.getPermissionCd())) {
-                    daoPermissionsMap.remove(permissions.getPermissionCd());
+                if (daoPermissionsMap.containsKey(permissons)) {
+                    daoPermissionsMap.remove(permissons);
                 } else {
                     addList.add(permissions);
                 }
