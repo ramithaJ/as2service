@@ -11,6 +11,8 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.web.controllers;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -87,12 +89,15 @@ public class AdminLoginController extends ASExceptionController {
      * @param accessId
      * @return service
      */
-    @RequestMapping(value = "/requestAccess/{emailId}/{accessId}/", method = RequestMethod.POST)
+    @RequestMapping(value = "/requestAccess/{emailId}/", method = RequestMethod.POST)
     public final Service requestAccess(
             @PathVariable("emailId") final String emailId,
-            @PathVariable("accessId") final String accessId) {
+            @RequestBody final List<String> accessId) {
         LOGGER.info("inside requestAccess Method");
-        return new Service();
+        Service service = new Service();
+        service.setPayload(adminLoginService.requestAdminAccess(accessId,
+                emailId));
+        return service;
 
     }
 

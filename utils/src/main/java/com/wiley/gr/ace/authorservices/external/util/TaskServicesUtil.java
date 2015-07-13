@@ -30,118 +30,121 @@ import com.wiley.gr.ace.authorservices.model.external.TaskServiceRequest;
  */
 public class TaskServicesUtil {
 
-	@Value("${bpmservice.url}")
-	private static String bpmserviceurl;
+    @Value("${bpmservice.url}")
+    private static String bpmserviceurl;
 
-	@Value("${bpmservice.key}")
-	private static String key;
+    @Value("${bpmservice.key}")
+    private static String key;
 
-	@Value("${bpmservice.action}")
-	private static String action;
+    @Value("${bpmservice.action}")
+    private static String action;
 
-	@Value("${bpmservice.bpdId}")
-	private static String bpId;
+    @Value("${bpmservice.bpdId}")
+    private static String bpId;
 
-	@Value("${bpmservice.processAppId}")
-	private static String processAppId;
+    @Value("${bpmservice.processAppId}")
+    private static String processAppId;
 
-	@Value("${bpmservice.parts}")
-	private static String parts;
+    @Value("${bpmservice.parts}")
+    private static String parts;
 
-	@Value("${bpmservice.httpHeaderAcceptValue}")
-	private static String httpHeaderAcceptValue;
+    @Value("${bpmservice.httpHeaderAcceptValue}")
+    private static String httpHeaderAcceptValue;
 
-	@Value("${bpmservice.httpHeaderContentTypeValue}")
-	private static String httpHeaderContentTypeValue;
+    @Value("${bpmservice.httpHeaderContentTypeValue}")
+    private static String httpHeaderContentTypeValue;
 
-	@Value("${bpmservice.sourceAppValue}")
-	private static String sourceAppValue;
+    @Value("${bpmservice.sourceAppValue}")
+    private static String sourceAppValue;
 
     /**
      * Method invokes BPM service and returns the status
+     * 
      * @param taskServiceRequest
      * @param userId
      * @return status
      */
-	public static String invokeTaskService(TaskServiceRequest taskServiceRequest, String userId) {
+    public static String invokeTaskService(
+            final TaskServiceRequest taskServiceRequest, final String userId) {
 
-		String saltString = null;
-		String encodedParamString = null;
-		Date currentDate = null;
-		Long date = null;
-		String generatedSignature = null;
-		Integer statusCode = null;
-		String status = null;
-		String payLoadString = null;
+        String saltString = null;
+        String encodedParamString = null;
+        Date currentDate = null;
+        Long date = null;
+        String generatedSignature = null;
+        Integer statusCode = null;
+        String status = null;
+        String payLoadString = null;
 
-		HttpClient client = null;
-		HttpUriRequest request = null;
-		HttpResponse response = null;
+        HttpClient client = null;
+        HttpUriRequest request = null;
+        HttpResponse response = null;
 
-		try {
-			encodedParamString = URLEncoder.encode(taskServiceRequest.toString(), "UTF-8");
+        try {
+            encodedParamString = URLEncoder.encode(
+                    taskServiceRequest.toString(), "UTF-8");
 
-		} catch (UnsupportedEncodingException e) {
-			throw new ASException("3000", e.getMessage());
-		}
+        } catch (UnsupportedEncodingException e) {
+            throw new ASException("3000", e.getMessage());
+        }
 
-		StringBuilder decodedParamString = new StringBuilder();
+        StringBuilder decodedParamString = new StringBuilder();
 
-		decodedParamString.append("action=").append(action).append("&")
-				.append("bpdId=").append(bpId).append("&")
-				.append("processAppId=").append(processAppId).append("&")
-				.append("params=").append(encodedParamString).append("&")
-				.append("parts=").append(parts);
+        decodedParamString.append("action=").append(action).append("&")
+                .append("bpdId=").append(bpId).append("&")
+                .append("processAppId=").append(processAppId).append("&")
+                .append("params=").append(encodedParamString).append("&")
+                .append("parts=").append(parts);
 
-		payLoadString = decodedParamString.toString();
+        payLoadString = decodedParamString.toString();
 
-		String url = bpmserviceurl + "?" + payLoadString;
+        String url = bpmserviceurl + "?" + payLoadString;
 
-		try {
-			saltString = WileyBPMAuthenticationUtils.getSalt();
-		} catch (RuntimeException e) {
-			throw new ASException();
-		}
+        try {
+            saltString = WileyBPMAuthenticationUtils.getSalt();
+        } catch (RuntimeException e) {
+            throw new ASException();
+        }
 
-		currentDate = new Date();
-		date = currentDate.getTime();
-		generatedSignature = WileyBPMAuthenticationUtils.generateSignature(key,
-				saltString, "POST", payLoadString, userId, date);
+        currentDate = new Date();
+        date = currentDate.getTime();
+        generatedSignature = WileyBPMAuthenticationUtils.generateSignature(key,
+                saltString, "POST", payLoadString, userId, date);
 
-		List<Header> headers = new ArrayList<Header>();
-		headers.add(new BasicHeader(HttpHeaders.ACCEPT, httpHeaderAcceptValue));
-		headers.add(new BasicHeader(HttpHeaders.CONTENT_TYPE,
-				httpHeaderContentTypeValue));
-		headers.add(new BasicHeader(AuthorServicesConstants.BPM_SOURCE_APP,
-				sourceAppValue));
-		headers.add(new BasicHeader(AuthorServicesConstants.BPM_LONG_DATE, date
-				.toString()));
-		headers.add(new BasicHeader(AuthorServicesConstants.BPM_USERID, userId));
-		headers.add(new BasicHeader(AuthorServicesConstants.BPM_SIGNATURE,
-				generatedSignature));
-		headers.add(new BasicHeader(AuthorServicesConstants.BPM_SALT,
-				saltString));
+        List<Header> headers = new ArrayList<Header>();
+        headers.add(new BasicHeader(HttpHeaders.ACCEPT, httpHeaderAcceptValue));
+        headers.add(new BasicHeader(HttpHeaders.CONTENT_TYPE,
+                httpHeaderContentTypeValue));
+        headers.add(new BasicHeader(AuthorServicesConstants.BPM_SOURCE_APP,
+                sourceAppValue));
+        headers.add(new BasicHeader(AuthorServicesConstants.BPM_LONG_DATE, date
+                .toString()));
+        headers.add(new BasicHeader(AuthorServicesConstants.BPM_USERID, userId));
+        headers.add(new BasicHeader(AuthorServicesConstants.BPM_SIGNATURE,
+                generatedSignature));
+        headers.add(new BasicHeader(AuthorServicesConstants.BPM_SALT,
+                saltString));
 
-		client = HttpClients.custom().setDefaultHeaders(headers).build();
-		request = RequestBuilder.post(url).build();
+        client = HttpClients.custom().setDefaultHeaders(headers).build();
+        request = RequestBuilder.post(url).build();
 
-		try {
-			response = client.execute(request);
-		} catch (ClientProtocolException e) {
-			throw new ASException("2000", e.getMessage());
-		} catch (IOException e) {
-			throw new ASException("2001", e.getMessage());
-		}
-		statusCode = response.getStatusLine().getStatusCode();
+        try {
+            response = client.execute(request);
+        } catch (ClientProtocolException e) {
+            throw new ASException("2000", e.getMessage());
+        } catch (IOException e) {
+            throw new ASException("2001", e.getMessage());
+        }
+        statusCode = response.getStatusLine().getStatusCode();
 
-		if (statusCode == 200) {
-			status = AuthorServicesConstants.BPM_CALL_SUCCESS_STATUS;
-		} else {
-			throw new ASException(statusCode.toString(), response
-					.getStatusLine().getReasonPhrase());
-		}
+        if (statusCode == 200) {
+            status = AuthorServicesConstants.BPM_CALL_SUCCESS_STATUS;
+        } else {
+            throw new ASException(statusCode.toString(), response
+                    .getStatusLine().getReasonPhrase());
+        }
 
-		return status;
-	}
+        return status;
+    }
 
 }
