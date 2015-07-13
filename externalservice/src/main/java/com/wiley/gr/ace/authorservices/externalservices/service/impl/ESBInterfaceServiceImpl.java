@@ -71,8 +71,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      */
     @Override
     public final User fetchOrcidDetails(final String orcid) throws Exception {
-        final String url = fetchOrcidDetailsUrl;
-        final URI uri = new URI(url);
+        final URI uri = new URI(fetchOrcidDetailsUrl);
         final RestTemplate restTemplate = new RestTemplate();
         final HttpHeaders requestHeaders = new HttpHeaders();
 
@@ -96,8 +95,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      */
     @Override
     public final String updateALMUser(final User updateUser) throws Exception {
-        final String url = updateAlmUserUrl;
-        final URI uri = new URI(url);
+        final URI uri = new URI(updateAlmUserUrl);
         final RestTemplate restTemplate = new RestTemplate();
         final HttpHeaders requestHeaders = new HttpHeaders();
 
@@ -200,8 +198,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
     public final Status creatUser(final ProfileInformation profileForCreation)
             throws Exception {
         final Status status = new Status();
-        final String url = createUserUrl;
-        final URI uri = new URI(url);
+        final URI uri = new URI(createUserUrl);
         final RestTemplate restTemplate = new RestTemplate();
         final HttpHeaders requestHeaders = new HttpHeaders();
 
