@@ -81,5 +81,8 @@ public class AuthorServicesConstants {
 
     /** The Constant SERVERERRORMESSAGE. */
     public static final String SERVERERRORMESSAGE = "Unable to process your request. Please try after some time..";
-
+      /**  FOR ROLES */
+    public static final int ROLEID=10;
+    
+    
 }
