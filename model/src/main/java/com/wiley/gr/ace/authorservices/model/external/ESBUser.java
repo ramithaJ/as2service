@@ -58,7 +58,7 @@ public class ESBUser {
 
     /** The email id. */
     @JsonProperty("EmailID")
-    private String emailID;
+    private String emailId;
 
     /** The account identifier. */
     @JsonProperty("AccountIdentifier")
@@ -238,20 +238,20 @@ public class ESBUser {
     /**
      * Gets the email id.
      *
-     * @return the emailID
+     * @return the email id
      */
-    public final String getEmailID() {
-        return emailID;
+    public final String getEmailId() {
+        return emailId;
     }
 
     /**
      * Sets the email id.
      *
-     * @param emailID
-     *            the emailID to set
+     * @param emailId
+     *            the new email id
      */
-    public final void setEmailID(final String emailID) {
-        this.emailID = emailID;
+    public final void setEmailId(final String emailId) {
+        this.emailId = emailId;
     }
 
     /**

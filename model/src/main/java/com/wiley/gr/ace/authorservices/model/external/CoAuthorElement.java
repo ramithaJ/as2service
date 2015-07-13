@@ -19,66 +19,60 @@ package com.wiley.gr.ace.authorservices.model.external;
  */
 public class CoAuthorElement {
 
-    /** The firstname. */
-    private java.lang.String firstname;
+    /** The first name. */
+    private String firstName;
 
-    /** The userid. */
-    private java.lang.String userid;
+    /** The user id. */
+    private String userId;
 
     /** The institution. */
-    private java.lang.String institution;
+    private String institution;
 
-    /** The emailid. */
-    private java.lang.String emailid;
+    /** The email id. */
+    private String emailId;
 
-    /** The lastname. */
-    private java.lang.String lastname;
+    /** The last name. */
+    private String lastName;
 
     /** The department. */
-    private java.lang.String department;
-
-    /** The phoneno. */
-    private java.lang.String phoneno;
-
-    /** The articleid. */
-    private java.lang.String articleid;
+    private String department;
 
     /**
-     * Gets the firstname.
+     * Gets the first name.
      *
-     * @return the firstname
+     * @return the first name
      */
-    public final java.lang.String getFirstname() {
-        return firstname;
+    public final String getFirstName() {
+        return firstName;
     }
 
     /**
-     * Sets the firstname.
+     * Sets the first name.
      *
-     * @param firstname
-     *            the firstname to set
+     * @param firstName
+     *            the new first name
      */
-    public final void setFirstname(final java.lang.String firstname) {
-        this.firstname = firstname;
+    public final void setFirstName(final String firstName) {
+        this.firstName = firstName;
     }
 
     /**
-     * Gets the userid.
+     * Gets the user id.
      *
-     * @return the userid
+     * @return the user id
      */
-    public final java.lang.String getUserid() {
-        return userid;
+    public final String getUserId() {
+        return userId;
     }
 
     /**
-     * Sets the userid.
+     * Sets the user id.
      *
-     * @param userid
-     *            the userid to set
+     * @param userId
+     *            the new user id
      */
-    public final void setUserid(final java.lang.String userid) {
-        this.userid = userid;
+    public final void setUserId(final String userId) {
+        this.userId = userId;
     }
 
     /**
@@ -86,7 +80,7 @@ public class CoAuthorElement {
      *
      * @return the institution
      */
-    public final java.lang.String getInstitution() {
+    public final String getInstitution() {
         return institution;
     }
 
@@ -94,48 +88,48 @@ public class CoAuthorElement {
      * Sets the institution.
      *
      * @param institution
-     *            the institution to set
+     *            the new institution
      */
-    public final void setInstitution(final java.lang.String institution) {
+    public final void setInstitution(final String institution) {
         this.institution = institution;
     }
 
     /**
-     * Gets the emailid.
+     * Gets the email id.
      *
-     * @return the emailid
+     * @return the email id
      */
-    public final java.lang.String getEmailid() {
-        return emailid;
+    public final String getEmailId() {
+        return emailId;
     }
 
     /**
-     * Sets the emailid.
+     * Sets the email id.
      *
-     * @param emailid
-     *            the emailid to set
+     * @param emailId
+     *            the new email id
      */
-    public final void setEmailid(final java.lang.String emailid) {
-        this.emailid = emailid;
+    public final void setEmailId(final String emailId) {
+        this.emailId = emailId;
     }
 
     /**
-     * Gets the lastname.
+     * Gets the last name.
      *
-     * @return the lastname
+     * @return the last name
      */
-    public final java.lang.String getLastname() {
-        return lastname;
+    public final String getLastName() {
+        return lastName;
     }
 
     /**
-     * Sets the lastname.
+     * Sets the last name.
      *
-     * @param lastname
-     *            the lastname to set
+     * @param lastName
+     *            the new last name
      */
-    public final void setLastname(final java.lang.String lastname) {
-        this.lastname = lastname;
+    public final void setLastName(final String lastName) {
+        this.lastName = lastName;
     }
 
     /**
@@ -143,7 +137,7 @@ public class CoAuthorElement {
      *
      * @return the department
      */
-    public final java.lang.String getDepartment() {
+    public final String getDepartment() {
         return department;
     }
 
@@ -151,48 +145,54 @@ public class CoAuthorElement {
      * Sets the department.
      *
      * @param department
-     *            the department to set
+     *            the new department
      */
-    public final void setDepartment(final java.lang.String department) {
+    public final void setDepartment(final String department) {
         this.department = department;
     }
 
     /**
-     * Gets the phoneno.
+     * Gets the phone no.
      *
-     * @return the phoneno
+     * @return the phone no
      */
-    public final java.lang.String getPhoneno() {
-        return phoneno;
+    public final String getPhoneNo() {
+        return phoneNo;
     }
 
     /**
-     * Sets the phoneno.
+     * Sets the phone no.
      *
-     * @param phoneno
-     *            the phoneno to set
+     * @param phoneNo
+     *            the new phone no
      */
-    public final void setPhoneno(final java.lang.String phoneno) {
-        this.phoneno = phoneno;
+    public final void setPhoneNo(final String phoneNo) {
+        this.phoneNo = phoneNo;
     }
 
     /**
-     * Gets the articleid.
+     * Gets the article id.
      *
-     * @return the articleid
+     * @return the article id
      */
-    public final java.lang.String getArticleid() {
-        return articleid;
+    public final String getArticleId() {
+        return articleId;
     }
 
     /**
-     * Sets the articleid.
+     * Sets the article id.
      *
-     * @param articleid
-     *            the articleid to set
+     * @param articleId
+     *            the new article id
      */
-    public final void setArticleid(final java.lang.String articleid) {
-        this.articleid = articleid;
+    public final void setArticleId(final String articleId) {
+        this.articleId = articleId;
     }
+
+    /** The phone no. */
+    private String phoneNo;
+
+    /** The article id. */
+    private String articleId;
 
 }
