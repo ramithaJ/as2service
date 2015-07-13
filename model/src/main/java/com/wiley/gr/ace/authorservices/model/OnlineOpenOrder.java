@@ -70,7 +70,7 @@ public class OnlineOpenOrder {
     /** The tax amount. */
     private Amount taxAmount;
 
-    /** The order Id */
+    /** The order Id. */
     private String orderId;
 
     /**
@@ -83,7 +83,12 @@ public class OnlineOpenOrder {
      */
     private String invoiceAvailable = "false";
 
+    /** The discount detail. */
+    private DiscountDetail discountDetail;
+
     /**
+     * Gets the order editable.
+     *
      * @return the orderEditable
      */
     public final String getOrderEditable() {
@@ -91,6 +96,8 @@ public class OnlineOpenOrder {
     }
 
     /**
+     * Sets the order editable.
+     *
      * @param orderEditable
      *            the orderEditable to set
      */
@@ -99,6 +106,8 @@ public class OnlineOpenOrder {
     }
 
     /**
+     * Gets the invoice available.
+     *
      * @return the invoiceAvailable
      */
     public final String getInvoiceAvailable() {
@@ -106,6 +115,8 @@ public class OnlineOpenOrder {
     }
 
     /**
+     * Sets the invoice available.
+     *
      * @param invoiceAvailable
      *            the invoiceAvailable to set
      */
@@ -113,12 +124,12 @@ public class OnlineOpenOrder {
         this.invoiceAvailable = invoiceAvailable;
     }
 
-    /**
-     * This field holds the value of licenseSignedStatus
-     */
+    /** This field holds the value of licenseSignedStatus. */
     private String licenseSignedStatus = "false";
 
     /**
+     * Gets the license signed status.
+     *
      * @return the licenseSignedStatus
      */
     public final String getLicenseSignedStatus() {
@@ -126,6 +137,8 @@ public class OnlineOpenOrder {
     }
 
     /**
+     * Sets the license signed status.
+     *
      * @param licenseSignedStatus
      *            the licenseSignedStatus to set
      */
@@ -341,6 +354,25 @@ public class OnlineOpenOrder {
     }
 
     /**
+     * Gets the discount detail.
+     *
+     * @return the discount detail
+     */
+    public final DiscountDetail getDiscountDetail() {
+        return discountDetail;
+    }
+
+    /**
+     * Sets the discount detail.
+     *
+     * @param discountDetail
+     *            the new discount detail
+     */
+    public final void setDiscountDetail(DiscountDetail discountDetail) {
+        this.discountDetail = discountDetail;
+    }
+
+    /**
      * Checks if is billing same as correspondence address.
      *
      * @return true, if is billing same as correspondence address
@@ -439,6 +471,8 @@ public class OnlineOpenOrder {
     }
 
     /**
+     * Gets the order id.
+     *
      * @return the orderId
      */
     public String getOrderId() {
@@ -446,6 +480,8 @@ public class OnlineOpenOrder {
     }
 
     /**
+     * Sets the order id.
+     *
      * @param orderId
      *            the orderId to set
      */

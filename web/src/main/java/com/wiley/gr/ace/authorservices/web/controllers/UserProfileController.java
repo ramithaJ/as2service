@@ -11,6 +11,8 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.web.controllers;
 
+import java.io.File;
+
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
@@ -312,5 +315,32 @@ public class UserProfileController {
 
         LOGGER.info("inside getIndustries method ");
         return new Service();
+    }
+
+    @RequestMapping(value = "/uploadimage/{image}/", method = RequestMethod.GET)
+    public Service profilePicture(@PathVariable("image") File image) {
+        Service service = new Service();
+
+        File file = new File("image");
+        if (file.exists()) {
+
+            double bytes = file.length();
+            double kilobytes = (bytes / 1024);
+            double megabytes = (kilobytes / 1024);
+            System.err.println(megabytes);
+            {
+                if (megabytes < 1) {
+                    service.setPayload("image uploaded successfully.......");
+                } else if (megabytes > 1) {
+
+                    throw new ASException("1818",
+                            "please select file not more than 1 mb");
+                }
+            }
+        } else {
+            throw new ASException("1819", "file doesnt exist");
+
+        }
+        return service;
     }
 }
