@@ -105,8 +105,9 @@ public class TaskServiceImpl implements TaskService {
         HttpResponse response = null;
 
         try {
+        	String requestString = taskServiceRequest.toString();
             encodedParamString = URLEncoder.encode(
-                    taskServiceRequest.toString(), "UTF-8");
+            		requestString, "UTF-8");
 
         } catch (UnsupportedEncodingException e) {
             throw new ASException("3000", e.getMessage());
@@ -150,7 +151,11 @@ public class TaskServiceImpl implements TaskService {
                 saltString));
 
         client = HttpClients.custom().setDefaultHeaders(headers).build();
-        request = RequestBuilder.post(url).build();
+        try {
+			request = RequestBuilder.post(url).build();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 
         try {
             response = client.execute(request);
