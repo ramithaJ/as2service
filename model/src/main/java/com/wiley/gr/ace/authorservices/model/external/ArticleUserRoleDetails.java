@@ -14,11 +14,10 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ArticleUserRoleDetails.
  *
- * @author yugandhark
+ * @author virtusa version 1.0
  */
 public class ArticleUserRoleDetails {
 
@@ -40,7 +39,8 @@ public class ArticleUserRoleDetails {
     /**
      * Sets the role code.
      *
-     * @param roleCode            the roleCode to set
+     * @param roleCode
+     *            the roleCode to set
      */
     public final void setRoleCode(final String roleCode) {
         this.roleCode = roleCode;
@@ -58,7 +58,8 @@ public class ArticleUserRoleDetails {
     /**
      * Sets the role name.
      *
-     * @param roleName            the roleName to set
+     * @param roleName
+     *            the roleName to set
      */
     public final void setRoleName(final String roleName) {
         this.roleName = roleName;

@@ -69,13 +69,13 @@ public class UserRolesDAOImpl implements UserRolesDAO {
         try {
             session = getSessionFactory().openSession();
             transaction = session.beginTransaction();
+            Integer roles1 = roles.getRoleId();
 
-            if (roles.getRoleId() != null && roles.getRoleId() != 0) {
+            if (roles1 != null && roles1 != 0) {
                 Roles daoRoles = (Roles) session.get(Roles.class,
                         roles.getRoleId());
 
                 daoRoles.setDescription(roles.getDescription());
-
                 session.saveOrUpdate(daoRoles);
             } else {
                 session.saveOrUpdate(roles);
@@ -95,7 +95,7 @@ public class UserRolesDAOImpl implements UserRolesDAO {
 
                 RolePermissions rolePermissions = new RolePermissions();
                 RolePermissionsId rolePermissionsId = new RolePermissionsId();
-                rolePermissionsId.setRoleId(Integer.valueOf(object[0]
+                rolePermissionsId.setRoleId(Integer.parseInt(object[0]
                         .toString()));
                 rolePermissionsId.setPermissionCd(object[1].toString());
                 rolePermissions.setId(rolePermissionsId);
@@ -174,7 +174,7 @@ public class UserRolesDAOImpl implements UserRolesDAO {
 
             list = query.list();
 
-            if (!(list.isEmpty()) || list == null) {
+            if (!(list.isEmpty())) {
                 throw new ASException(errorcode, errormessage);
             }
         } finally {

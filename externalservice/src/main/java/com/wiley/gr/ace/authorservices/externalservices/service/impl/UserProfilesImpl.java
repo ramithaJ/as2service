@@ -208,11 +208,8 @@ public class UserProfilesImpl implements UserProfiles {
     @Cacheable(value = "userProfile", key = "#userId")
     public final UserProfileResponse getUserProfileResponse(final int userId) {
 
-        final UserProfileResponse response = (UserProfileResponse) StubInvokerUtil
-                .invokeStub(userProfileurl, HttpMethod.GET,
-                        UserProfileResponse.class);
-
-        return response;
+        return (UserProfileResponse) StubInvokerUtil.invokeStub(userProfileurl,
+                HttpMethod.GET, UserProfileResponse.class);
     }
 
     /**

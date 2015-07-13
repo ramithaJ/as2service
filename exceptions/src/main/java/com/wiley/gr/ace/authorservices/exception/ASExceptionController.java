@@ -55,8 +55,9 @@ public class ASExceptionController {
         LOGGER.error("Error Trace - ", asException);
         response.setStatus("FAILURE");
         ErrorPOJO errorPojo = new ErrorPOJO();
-        if (asException.getErrorCode() != null && !asException.getErrorCode().isEmpty()) {
-            errorPojo.setCode(Integer.parseInt(asException.getErrorCode()));
+        String errorCode = asException.getErrorCode(); 
+        if (errorCode != null && !errorCode.isEmpty()) {
+            errorPojo.setCode(Integer.parseInt(errorCode));
         }
         errorPojo.setMessage(asException.getDescription());
         response.setError(errorPojo);

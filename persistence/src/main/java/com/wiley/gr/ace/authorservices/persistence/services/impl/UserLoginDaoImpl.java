@@ -21,6 +21,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.persistence.entity.AdminProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
@@ -195,7 +196,7 @@ public class UserLoginDaoImpl implements UserLoginDao {
                 // int adminRoleId = getAdminRoleId();
                 UserRoles userRoles = new UserRoles();
                 UserRolesId userRolesId = new UserRolesId();
-                userRolesId.setRoleId(6);
+                userRolesId.setRoleId(AuthorServicesConstants.ROLEID);
                 userRolesId.setUserId(users.getUserId());
                 userRoles.setId(userRolesId);
                 userRoles.setCreatedDate(date);
