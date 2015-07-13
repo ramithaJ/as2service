@@ -2192,7 +2192,7 @@ DROP TABLE SCHEDULE_TEMPLATE CASCADE CONSTRAINTS;
 </sql>
 </changeSet>
 
-<changeSet author="gphaniraj" id="WP1-374">
+<changeSet author="gphaniraj" id="WP1-375">
 <sql>
 DROP TABLE TEMPLATE CASCADE CONSTRAINTS;
 </sql>
