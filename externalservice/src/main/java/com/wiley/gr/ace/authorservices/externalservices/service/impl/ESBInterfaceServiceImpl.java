@@ -71,7 +71,6 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      */
     @Override
     public final User fetchOrcidDetails(final String orcid) throws Exception {
-        User user = null;
         final String url = fetchOrcidDetailsUrl;
         final URI uri = new URI(url);
         final RestTemplate restTemplate = new RestTemplate();
@@ -83,8 +82,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 
         final ResponseEntity<User> response = restTemplate.exchange(uri,
                 HttpMethod.GET, requestEntity, User.class);
-        user = response.getBody();
-        return user;
+        return response.getBody();
     }
 
     /**
@@ -98,7 +96,6 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      */
     @Override
     public final String updateALMUser(final User updateUser) throws Exception {
-        String status = "failure";
         final String url = updateAlmUserUrl;
         final URI uri = new URI(url);
         final RestTemplate restTemplate = new RestTemplate();
@@ -109,8 +106,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
                 requestHeaders);
         final ResponseEntity<String> response = restTemplate.exchange(uri,
                 HttpMethod.GET, requestEntity, String.class);
-        status = response.getBody();
-        return status;
+        return response.getBody();
     }
 
     /**
@@ -123,7 +119,8 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      *             the exception
      */
     @Override
-    public final ESBUser checkEmailIdExists(final String emailId) throws Exception {
+    public final ESBUser checkEmailIdExists(final String emailId)
+            throws Exception {
         ESBUser esbUser = null;
         final List<ESBUser> esbUserList = searchUser(emailId, "", "");
         if (!StringUtils.isEmpty(esbUserList)) {
@@ -144,13 +141,10 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      *             the exception
      */
     @Override
-    public final List<ESBUser> getUsersFromFirstNameLastName(final String firstName,
-            final String lastName) throws Exception {
-        List<ESBUser> esbUserList = null;
+    public final List<ESBUser> getUsersFromFirstNameLastName(
+            final String firstName, final String lastName) throws Exception {
 
-        esbUserList = searchUser("", firstName, lastName);
-
-        return esbUserList;
+        return searchUser("", firstName, lastName);
     }
 
     /**
