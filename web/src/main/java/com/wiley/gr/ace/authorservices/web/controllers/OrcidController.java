@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -79,18 +80,16 @@ public class OrcidController {
             /**
              * Depending on the environment the ORCID URL changes
              */
-            String env = "DEV";// Need to fetch this from prop file
+            // String env = "DEV";// Need to fetch this from prop file
             String url = "";
-            if (null != env) {
-                url = "https://"
-                        + orcidUrl
-                        + "/oauth/authorize?client_id="
-                        + orcidClientId
-                        + "&response_type=code&scope=/authenticate&redirect_uri="
-                        + orcidRedirectUrl;
-                service.setStatus("SUCCESS");
-                service.setPayload(url);
-            }
+            // if (!StringUtils.isEmpty(env)) {
+            url = "https://" + orcidUrl + "/oauth/authorize?client_id="
+                    + orcidClientId
+                    + "&response_type=code&scope=/authenticate&redirect_uri="
+                    + orcidRedirectUrl;
+            service.setStatus("SUCCESS");
+            service.setPayload(url);
+            // }
         } catch (Exception e) {
             ErrorPOJO error = new ErrorPOJO();
             error.setCode(-101); // Need to set proper error code this one is
@@ -126,7 +125,7 @@ public class OrcidController {
                             + accessToken.getOrcid());
                     if (null != type) {
                         user = orcidService.getBio(accessToken);
-                        if (type.equalsIgnoreCase("userupdate")) {
+                        if ("userupdate".equalsIgnoreCase(type)) {
                             orcidService.getWork(accessToken, user);
                         }
                     }

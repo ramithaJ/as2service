@@ -55,6 +55,7 @@ public class OrcidServiceImpl implements OrcidService {
     @Autowired(required = true)
     private ASDataService asDataService;
 
+    /** The Constant COUNT. */
     private static final int COUNT = 10;
 
     /**

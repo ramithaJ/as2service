@@ -14,6 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
+import java.util.Map;
+
 import org.restlet.Context;
 import org.restlet.data.Form;
 import org.restlet.data.MediaType;
@@ -66,16 +68,16 @@ public class OrcidInterfaceServiceImpl implements OrcidInterfaceService {
     public final OrcidAccessToken getAccessToken(final String authorizationCode)
             throws Exception {
         OrcidAccessToken accessToken = null;
-        Reference ref = new Reference(orcidTokenUrl);
+        final Reference ref = new Reference(orcidTokenUrl);
         if (Context.getCurrent() == null) {
             Context.setCurrent(new Context());
         }
-        ClientResource client = new ClientResource(ref);
+        final ClientResource client = new ClientResource(ref);
         /**
          * TODO : Need to fetch this values from prop files depending on
          * environment
          */
-        Form form = new Form();
+        final Form form = new Form();
         form.add("client_id", orcidClientId);
         form.add("client_secret", orcidClientSecret);
         form.add("grant_type", orcidGrantType);
@@ -87,9 +89,10 @@ public class OrcidInterfaceServiceImpl implements OrcidInterfaceService {
         // "http://www.vinay.com:8080/orcid/index.jsp");
 
         client.getContext().getParameters().add("followRedirects", "true");
-        Representation rep = client.post(form, MediaType.APPLICATION_JSON);
-        String json = rep.getText();
-        ObjectMapper objectMapper = new ObjectMapper();
+        final Representation rep = client
+                .post(form, MediaType.APPLICATION_JSON);
+        final String json = rep.getText();
+        final ObjectMapper objectMapper = new ObjectMapper();
         accessToken = objectMapper.readValue(json, OrcidAccessToken.class);
         return accessToken;
 
@@ -107,19 +110,19 @@ public class OrcidInterfaceServiceImpl implements OrcidInterfaceService {
     @Override
     public final String getBio(final OrcidAccessToken token) throws Exception {
 
-        Reference ref = new Reference(orcidUrl + "/" + token.getOrcid()
+        final Reference ref = new Reference(orcidUrl + "/" + token.getOrcid()
                 + "/orcid-bio");
-        ClientResource client = new ClientResource(ref);
-        Form headers = (Form) client.getRequestAttributes().get(
-                "org.restlet.http.headers");
+        final ClientResource client = new ClientResource(ref);
+        Map<String, Object> reqAttributes = client.getRequestAttributes();
+        Form headers = (Form) reqAttributes.get("org.restlet.http.headers");
         if (headers == null) {
             headers = new Form();
-            client.getRequestAttributes().put("org.restlet.http.headers",
-                    headers);
+            reqAttributes.put("org.restlet.http.headers", headers);
         }
         headers.add("Authorization", "Bearer " + token.getAccessToken());
-        Representation representation = client.get(MediaType.APPLICATION_JSON);
-        String orcidMessageJSON = representation.getText();
+        final Representation representation = client
+                .get(MediaType.APPLICATION_JSON);
+        final String orcidMessageJSON = representation.getText();
         return orcidMessageJSON;
     }
 
@@ -135,19 +138,19 @@ public class OrcidInterfaceServiceImpl implements OrcidInterfaceService {
     @Override
     public final String getWork(final OrcidAccessToken token) throws Exception {
 
-        Reference ref = new Reference(orcidUrl + "/" + token.getOrcid()
+        final Reference ref = new Reference(orcidUrl + "/" + token.getOrcid()
                 + "/orcid-works");
-        ClientResource client = new ClientResource(ref);
-        Form headers = (Form) client.getRequestAttributes().get(
-                "org.restlet.http.headers");
+        final ClientResource client = new ClientResource(ref);
+        Map<String, Object> reqAttributes = client.getRequestAttributes();
+        Form headers = (Form) reqAttributes.get("org.restlet.http.headers");
         if (headers == null) {
             headers = new Form();
-            client.getRequestAttributes().put("org.restlet.http.headers",
-                    headers);
+            reqAttributes.put("org.restlet.http.headers", headers);
         }
         headers.add("Authorization", "Bearer " + token.getAccessToken());
-        Representation representation = client.get(MediaType.APPLICATION_JSON);
-        String orcidMessageJSON = representation.getText();
+        final Representation representation = client
+                .get(MediaType.APPLICATION_JSON);
+        final String orcidMessageJSON = representation.getText();
         return orcidMessageJSON;
     }
 }
