@@ -59,10 +59,11 @@ public class UserAccountServiceImpl implements UserAccountService {
         final UserProfileResponse lookupProfile = userProfile
                 .getUserProfileResponse(userId);
         final User user = new User();
-        user.setPrimaryEmailAddr(lookupProfile.getCustomerProfile()
-                .getCustomerDetails().getPrimaryEmailAddr());
-        user.setRecoveryEmailAddress(lookupProfile.getCustomerProfile()
-                .getCustomerDetails().getRecoveryEmailAddress());
+        
+        final User customerDetails = lookupProfile.getCustomerProfile()
+                .getCustomerDetails();
+        user.setPrimaryEmailAddr(customerDetails.getPrimaryEmailAddr());
+        user.setRecoveryEmailAddress(customerDetails.getRecoveryEmailAddress());
         return user;
 
     }

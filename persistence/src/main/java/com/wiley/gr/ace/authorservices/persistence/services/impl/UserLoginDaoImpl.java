@@ -97,7 +97,6 @@ public class UserLoginDaoImpl implements UserLoginDao {
             if (null != result && !result.isEmpty()) {
                 authorProfile = result.get(0);
             }
-
             if (authorProfile != null) {
                 Users users = new Users();
                 users.setUserId(userId);
