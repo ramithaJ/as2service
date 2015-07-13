@@ -18,8 +18,8 @@ import com.wiley.gr.ace.authorservices.model.external.CancelOrderRequest;
 import com.wiley.gr.ace.authorservices.model.external.DiscountRequest;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSocietyResponse;
 import com.wiley.gr.ace.authorservices.model.external.InstitutionDiscounts;
-import com.wiley.gr.ace.authorservices.model.external.OrderData;
 import com.wiley.gr.ace.authorservices.model.external.OrderDataList;
+import com.wiley.gr.ace.authorservices.model.external.OrderRequest;
 import com.wiley.gr.ace.authorservices.model.external.OrderResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhArticleResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
@@ -47,7 +47,7 @@ public interface OrderService {
     /**
      * @return OrderData
      */
-    OrderResponse submitOnlineOpenOrder(OrderData orderData);
+    OrderResponse submitOnlineOpenOrder(OrderRequest orderRequest);
 
     /**
      * @param DHId

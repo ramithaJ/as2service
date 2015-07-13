@@ -584,7 +584,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         orderRequest.setOrderData(orderData);
         orderRequest.setUserID(userId);
 
-        orderResponse = orderservice.submitOnlineOpenOrder(orderData);
+        orderResponse = orderservice.submitOnlineOpenOrder(orderRequest);
 
         Orders orders = new Orders();
         // orders.setOrderTypes(new OrderTypes());

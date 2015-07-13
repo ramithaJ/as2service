@@ -24,8 +24,8 @@ import com.wiley.gr.ace.authorservices.model.external.DiscountRequest;
 import com.wiley.gr.ace.authorservices.model.external.DiscountResponse;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSocietyResponse;
 import com.wiley.gr.ace.authorservices.model.external.InstitutionDiscounts;
-import com.wiley.gr.ace.authorservices.model.external.OrderData;
 import com.wiley.gr.ace.authorservices.model.external.OrderDataList;
+import com.wiley.gr.ace.authorservices.model.external.OrderRequest;
 import com.wiley.gr.ace.authorservices.model.external.OrderResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhArticleResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
@@ -127,10 +127,10 @@ public class OrderServiceImpl implements OrderService {
 
     /** Calling Stub */
     @Override
-    public final OrderResponse submitOnlineOpenOrder(final OrderData orderData) {
+    public final OrderResponse submitOnlineOpenOrder(final OrderRequest orderRequest) {
 
         return (OrderResponse) StubInvokerUtil.restServiceInvoker(
-                createorderurl, orderData, OrderResponse.class);
+                createorderurl, orderRequest, OrderResponse.class);
     }
 
     /**
