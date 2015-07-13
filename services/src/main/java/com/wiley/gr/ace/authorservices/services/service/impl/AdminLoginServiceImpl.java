@@ -22,7 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
-import com.wiley.gr.ace.authorservices.external.util.TaskServicesUtil;
+import com.wiley.gr.ace.authorservices.externalservices.service.TaskService;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.model.ASRolesAndPermissions;
 import com.wiley.gr.ace.authorservices.model.AdminUser;
@@ -73,6 +73,10 @@ public class AdminLoginServiceImpl implements AdminLoginService {
     /** The user roles dao. */
     @Autowired(required = true)
     private UserRolesDAO userRolesDAO;
+    
+    /** The user roles dao. */
+    @Autowired(required = true)
+    private TaskService taskService;
 
     /**
      * This method will call take emailId as input and takes and validate
@@ -121,9 +125,10 @@ public class AdminLoginServiceImpl implements AdminLoginService {
         TaskServiceRequest taskServiceRequest = new TaskServiceRequest();
         taskServiceRequest.setRequestorEmail(emailId);
         taskServiceRequest.setJustifications(accessId);
-        taskServiceRequest.setRequestorId(userId);
+        taskServiceRequest.setRequestorId("john");
         System.err.println(taskServiceRequest.toString());
-        return TaskServicesUtil.invokeTaskService(taskServiceRequest, userId);
+        String status = taskService.invokeTaskService(taskServiceRequest, userId);
+        return status;
     }
 
     /**
