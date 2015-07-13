@@ -16,9 +16,9 @@ package com.wiley.gr.ace.authorservices.services.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.wiley.gr.ace.authorservices.externalservices.service.BPMInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
+import com.wiley.gr.ace.authorservices.externalservices.service.TaskService;
 import com.wiley.gr.ace.authorservices.model.AssociationConfirmation;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
 import com.wiley.gr.ace.authorservices.model.external.ConfirmArticleData;
@@ -37,7 +37,7 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
 
 	/** The Shared service. */
 	@Autowired(required = true)
-	private BPMInterfaceService bpmInterfaceService;
+	private TaskService bpmInterfaceService;
 
 	@Autowired(required = true)
 	private OrderService orderService;
