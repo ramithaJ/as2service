@@ -2137,25 +2137,25 @@ ALTER TABLE SAVED_ORDERS ADD CONSTRAINT SAVED_ORDERS_UK UNIQUE(DH_ID);
 </sql>
 </changeSet>
 
-<changeSet author="gphaniraj" id="WP1-252">
+<changeSet author="gphaniraj" id="WP2A-252">
 <sql>
 DROP TABLE ORDER_AUTHORS_QUERY;
 </sql>
 </changeSet>
 
-<changeSet author="gphaniraj" id="WP1-253">
+<changeSet author="gphaniraj" id="WP2A-253">
 <sql>
 DROP TABLE ORDER_ARTICLE_QUERY;
 </sql>
 </changeSet>
 
-<changeSet author="gphaniraj" id="WP1-254">
+<changeSet author="gphaniraj" id="WP2A-254">
 <sql>
 ALTER TABLE WPG_RESPONSE_DETAILS RENAME COLUMN ACQUIRER_BANK TO ACQUIRER_NAME;
 </sql>
 </changeSet>
 
-<changeSet author="gphaniraj" id="WP1-255">
+<changeSet author="gphaniraj" id="WP2A-255">
 <sql>
 CREATE SEQUENCE PAYMENTS_TRANSACTION_SEQ START WITH 1 INCREMENT BY 1 NOCACHE;
 </sql>
