@@ -138,7 +138,7 @@ public class RegistrationServiceImpl implements RegistrationService {
                     tempCountry.setCountryName(esbUser.getCountry());
                     tempUser.setFirstName(esbUser.getFirstName());
                     tempUser.setLastName(esbUser.getLastName());
-                    tempUser.setPrimaryEmailAddr(esbUser.getEmailID());
+                    tempUser.setPrimaryEmailAddr(esbUser.getEmailId());
                     tempUser.setCountry(tempCountry);
                     userList.add(tempUser);
                 }
@@ -169,7 +169,7 @@ public class RegistrationServiceImpl implements RegistrationService {
                 countryDetails.setCountryName(esbUser.getCountry());
                 user.setFirstName(esbUser.getFirstName());
                 user.setLastName(esbUser.getLastName());
-                user.setPrimaryEmailAddr(esbUser.getEmailID());
+                user.setPrimaryEmailAddr(esbUser.getEmailId());
                 user.setCountry(countryDetails);
             }
         }
