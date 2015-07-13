@@ -229,7 +229,7 @@ public class UserProfilesImpl implements UserProfiles {
         final Service service = (Service) StubInvokerUtil.invokeStub(
                 updateProfileurl, HttpMethod.POST, Service.class);
         final String status = service.getStatus();
-        if (status != null && status.equalsIgnoreCase(status)) {
+        if (status != null && "success".equalsIgnoreCase(status)) {
             return getUserProfile();
         }
 
