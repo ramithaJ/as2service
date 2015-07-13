@@ -323,23 +323,17 @@ public class UserProfileController {
 
         File file = new File("image");
         if (file.exists()) {
-
             double bytes = file.length();
-            double kilobytes = (bytes / 1024);
-            double megabytes = (kilobytes / 1024);
-            System.err.println(megabytes);
-            {
-                if (megabytes < 1) {
-                    service.setPayload("image uploaded successfully.......");
-                } else if (megabytes > 1) {
-
-                    throw new ASException("1818",
-                            "please select file not more than 1 mb");
-                }
+            double kilobytes = bytes / 1024;
+            double megabytes = kilobytes / 1024;
+            if (megabytes < 1) {
+                service.setPayload("image uploaded successfully.......");
+            } else if (megabytes > 1) {
+                throw new ASException("1818",
+                        "please select file not more than 1 mb");
             }
         } else {
             throw new ASException("1819", "file doesnt exist");
-
         }
         return service;
     }
