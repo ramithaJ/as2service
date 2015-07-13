@@ -14,6 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.web.controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
@@ -36,6 +38,10 @@ import com.wiley.gr.ace.authorservices.services.service.ArticleAssignmentService
 @RequestMapping("/article")
 public class ArticleAssignmentController {
 
+    /** logger configured. */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(ArticleAssignmentController.class);
+    
     /**
      * injected ArticleAssignmentService bean.
      */
@@ -99,6 +105,7 @@ public class ArticleAssignmentController {
                 service.setPayload(confirmAssociation);
             }
         } catch (Exception e) {
+            LOGGER.error("Print Stack Trace- ", e);
             ErrorPOJO error = new ErrorPOJO();
             error.setCode(noDataFoundCode);
             error.setMessage("Error Fetching ArticleInfo");

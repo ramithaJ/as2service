@@ -77,7 +77,6 @@ public class RegistrationController {
                 service.setError(err);
             }
             if (user != null) {
-
                 service.setStatus("FAILURE");
                 ErrorPOJO err = new ErrorPOJO();
                 err.setCode(noDataFoundCode);
@@ -220,6 +219,7 @@ public class RegistrationController {
                     service.setStatus("SUCCESS");
                 }
             } catch (Exception e) {
+                LOGGER.error("Print Stack Trace- ", e);
                 service.setStatus("FAILURE");
                 ErrorPOJO err = new ErrorPOJO();
                 err.setCode(noDataFoundCode);

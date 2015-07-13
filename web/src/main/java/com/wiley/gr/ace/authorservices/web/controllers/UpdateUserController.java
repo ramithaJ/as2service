@@ -14,6 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.web.controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,24 +30,30 @@ import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.services.service.UpdateUserService;
 
 /**
+ * The Class UpdateUserController.
+ *
  * @author virtusa version 1.0
  */
 @RestController
 @RequestMapping("/user/update")
 public class UpdateUserController {
+
+    /** logger configured. */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(UpdateUserController.class);
     /**
      * getting bean of update user service.
      */
     @Autowired(required = true)
     private UpdateUserService updateUserService;
 
-    /**
-     * the value of noDataFoundCode.
-     */
-    @Value("${noDataFound.code}")
-    private int noDataFoundCode;
+    /** The no orcid update code. */
+    @Value("${noOrcidUpdate.code}")
+    private int noOrcidUpdateCode;
 
     /**
+     * Update orcid id.
+     *
      * @param orcidId
      *            - The request value
      * @param userId
@@ -57,19 +65,15 @@ public class UpdateUserController {
     @RequestMapping(value = "/orcid/{orcidId}/{userId}", method = RequestMethod.POST)
     public final Service updateOrcidId(@PathVariable final String orcidId,
             @PathVariable final int userId, @RequestBody final String emailId) {
-
         final Service service = new Service();
-
         try {
             service.setPayload(updateUserService.updateOrcidId(emailId,
                     orcidId, userId));
         } catch (final Exception e) {
+            LOGGER.error("Print Stack Trace- ", e);
             final ErrorPOJO error = new ErrorPOJO();
-            error.setCode(noDataFoundCode); // Need to set proper error code
-                                            // this one is
-            // dummy
+            error.setCode(noOrcidUpdateCode);
             error.setMessage("Error updating user ORCID ID");
-
             service.setStatus("error");
             service.setPayload(service);
             service.setError(error);
