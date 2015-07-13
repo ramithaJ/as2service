@@ -8,28 +8,28 @@ package com.wiley.gr.ace.authorservices.model;
 public class UserReferenceData {
 
     /** The ecid. */
-    private String ecid;
+    private String ecId;
 
     /** The status. */
     private String status;
 
     /**
-     * Gets the ecid.
+     * Gets the ec id.
      *
-     * @return the ecid
+     * @return the ecId
      */
-    public final String getEcid() {
-        return ecid;
+    public final String getEcId() {
+        return ecId;
     }
 
     /**
-     * Sets the ecid.
+     * Sets the ec id.
      *
-     * @param ecid
-     *            the ecid to set
+     * @param ecId
+     *            the ecId to set
      */
-    public final void setEcid(final String ecid) {
-        this.ecid = ecid;
+    public final void setEcId(final String ecId) {
+        this.ecId = ecId;
     }
 
     /**

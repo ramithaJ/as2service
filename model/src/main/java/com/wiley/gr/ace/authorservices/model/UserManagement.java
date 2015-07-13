@@ -53,7 +53,7 @@ public class UserManagement {
     private String sessionId;
 
     /** The orcid id. */
-    private String orcidID;
+    private String orcidId;
 
     /** The ec id. */
     private String ecId;
@@ -257,20 +257,20 @@ public class UserManagement {
     /**
      * Gets the orcid id.
      *
-     * @return the orcidID
+     * @return the orcidId
      */
-    public final String getOrcidID() {
-        return orcidID;
+    public final String getOrcidId() {
+        return orcidId;
     }
 
     /**
      * Sets the orcid id.
      *
-     * @param orcidID
-     *            the orcidID to set
+     * @param orcidId
+     *            the orcidId to set
      */
-    public final void setOrcidID(final String orcidID) {
-        this.orcidID = orcidID;
+    public final void setOrcidId(final String orcidId) {
+        this.orcidId = orcidId;
     }
 
     /**
@@ -329,5 +329,4 @@ public class UserManagement {
     public final void setIsAccountVerified(final Character isAccountVerified) {
         this.isAccountVerified = isAccountVerified;
     }
-
 }
