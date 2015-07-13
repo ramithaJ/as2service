@@ -2168,4 +2168,34 @@ ALTER TABLE USER_WOA_ACCOUNTS MODIFY WOA_INSTITUTION_CD VARCHAR2(15);
 </sql>
 </changeSet>
 
+<changeSet author="gphaniraj" id="WP1-371">
+<sql>
+DROP TABLE NOTIFICATION CASCADE CONSTRAINTS;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-372">
+<sql>
+DROP TABLE NOTIFICATION_RECIPIENTS CASCADE CONSTRAINTS;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-373">
+<sql>
+DROP TABLE SCHEDULE CASCADE CONSTRAINTS;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-374">
+<sql>
+DROP TABLE SCHEDULE_TEMPLATE CASCADE CONSTRAINTS;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-374">
+<sql>
+DROP TABLE TEMPLATE CASCADE CONSTRAINTS;
+</sql>
+</changeSet>
+
 </databaseChangeLog>
