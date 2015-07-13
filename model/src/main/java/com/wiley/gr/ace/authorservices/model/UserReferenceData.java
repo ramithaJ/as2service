@@ -1,11 +1,16 @@
 package com.wiley.gr.ace.authorservices.model;
 
+import java.io.Serializable;
+
 /**
  * The Class UserReferenceData.
  *
  * @author virtusa version 1.0
  */
-public class UserReferenceData {
+public class UserReferenceData implements Serializable {
+
+    /** The Constant serialVersionUID. */
+    private static final long serialVersionUID = 1L;
 
     /** The ecid. */
     private String ecId;
