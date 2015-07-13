@@ -10,11 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService;
@@ -23,7 +23,8 @@ import com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService;
  * @author kalyancj
  *
  */
-@Controller
+@RestController
+@RequestMapping("/payment")
 public class PaymentServiceController {
 	
     /**
@@ -39,7 +40,7 @@ public class PaymentServiceController {
      *            - the request value
      * @return service
      */
-    @RequestMapping(value = "/payment/wpg/config/{orderId}/", method = RequestMethod.GET)
+    @RequestMapping(value = "/wpg/config/{orderId}/", method = RequestMethod.GET)
     public final Service getWPGConfiguration(
             @PathVariable("orderId") final String orderId) {
 
@@ -54,7 +55,7 @@ public class PaymentServiceController {
      *            - the request value
      * @return service
      */
-    @RequestMapping(value = "/payment/wpg/details/", method = RequestMethod.POST)
+    @RequestMapping(value = "/wpg/details/", method = RequestMethod.POST)
     public final HttpServletResponse redirectWpgResponse(
     		@RequestBody final UrlEncodedFormEntity form, HttpServletResponse response) {
 
