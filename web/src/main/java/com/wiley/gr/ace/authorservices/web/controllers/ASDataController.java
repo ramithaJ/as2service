@@ -52,6 +52,8 @@ public class ASDataController {
     private String nodataFoundmsg;
 
     /**
+     * Method to getTitiles.
+     * 
      * @return service
      */
     @RequestMapping(value = "/titles/", method = RequestMethod.GET)
@@ -63,6 +65,8 @@ public class ASDataController {
     }
 
     /**
+     * Method to suffixes.
+     * 
      * @return service
      */
     @RequestMapping(value = "/suffixes/", method = RequestMethod.GET)
@@ -74,6 +78,8 @@ public class ASDataController {
     }
 
     /**
+     * Method to industries.
+     * 
      * @param count
      *            - The request value
      * @return service
@@ -88,6 +94,8 @@ public class ASDataController {
     }
 
     /**
+     * Method to jobCategories.
+     * 
      * @param count
      *            - The request value
      * @return service
@@ -102,6 +110,8 @@ public class ASDataController {
     }
 
     /**
+     * Method to countries.
+     * 
      * @param count
      *            - The request value
      * @return service
@@ -116,6 +126,8 @@ public class ASDataController {
     }
 
     /**
+     * Method to states.
+     * 
      * @param countrycode
      *            - The request value
      * @param count
@@ -134,6 +146,8 @@ public class ASDataController {
     }
 
     /**
+     * Method to institutions.
+     * 
      * @return service
      */
     @RequestMapping(value = "/institutions/", method = RequestMethod.GET)
@@ -146,6 +160,8 @@ public class ASDataController {
     }
 
     /**
+     * Method to departments.
+     * 
      * @return service
      */
     @RequestMapping(value = "/departments/", method = RequestMethod.GET)
@@ -158,6 +174,8 @@ public class ASDataController {
     }
 
     /**
+     * Method to researchFunders.
+     * 
      * @return service
      */
     @RequestMapping(value = "/researchFunders/", method = RequestMethod.GET)
@@ -169,6 +187,8 @@ public class ASDataController {
     }
 
     /**
+     * Method to articles.
+     * 
      * @return service
      */
     @RequestMapping(value = "/articles/", method = RequestMethod.GET)
@@ -178,6 +198,8 @@ public class ASDataController {
     }
 
     /**
+     * Method to societies.
+     * 
      * @return service
      */
     @RequestMapping(value = "/societies/", method = RequestMethod.GET)
@@ -190,6 +212,8 @@ public class ASDataController {
     }
 
     /**
+     * Method to areaOfInterests.
+     * 
      * @param count
      *            - The request value
      * @return service
@@ -204,6 +228,8 @@ public class ASDataController {
     }
 
     /**
+     * Method to secutityQuestions.
+     * 
      * @return service
      */
     @RequestMapping(value = "/securityQuestions/", method = RequestMethod.GET)
@@ -216,6 +242,8 @@ public class ASDataController {
     }
 
     /**
+     * Method to userRoles.
+     * 
      * @return service
      */
     @RequestMapping(value = "/roles/", method = RequestMethod.GET)
@@ -228,6 +256,8 @@ public class ASDataController {
     }
 
     /**
+     * Method to adminRoles.
+     * 
      * @param roleType
      *            - The request value
      * @return service
@@ -243,6 +273,8 @@ public class ASDataController {
     }
 
     /**
+     * Method to adminAccessReasons.
+     * 
      * @return service
      */
     @RequestMapping(value = "/accessReasons/", method = RequestMethod.GET)
