@@ -142,6 +142,7 @@ public class ASDataDAOImpl implements ASDataDAO {
      * 
      * @return the List of Permissions.
      */
+    @Override
     public final List<Permissions> getPermissions() {
 
         Session session = null;
@@ -204,7 +205,7 @@ public class ASDataDAOImpl implements ASDataDAO {
 
                 RolePermissions rolePermissions = new RolePermissions();
                 RolePermissionsId rolePermissionsId = new RolePermissionsId();
-                rolePermissionsId.setRoleId(Integer.valueOf(object[0]
+                rolePermissionsId.setRoleId(Integer.parseInt(object[0]
                         .toString()));
                 rolePermissionsId.setPermissionCd(object[1].toString());
                 rolePermissions.setId(rolePermissionsId);

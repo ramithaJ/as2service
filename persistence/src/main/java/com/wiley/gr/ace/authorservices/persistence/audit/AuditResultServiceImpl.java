@@ -51,18 +51,22 @@ public class AuditResultServiceImpl implements AuditResultService {
 
         Session session = null;
         Transaction transaction = null;
-
+        // auditDetailsSet HashSet
         Set<AuditDetails> auditDetailsSet = new HashSet<AuditDetails>();
         try {
+            // Hibernate Connection
             session = HibernateConnection.getSessionFactory().openSession();
+            // begin Transaction
             transaction = session.beginTransaction();
-
+            // creating Actions class object.
             Actions actions = new Actions();
+            // creating AuditDetails object
             AuditDetails auditDetails = null;
             int auditSize = auditMap.size();
             for (int j = 0; j < auditSize; j++) {
                 HashMap<String, String> auditDetailsMap = auditMap.get(j);
                 auditDetails = new AuditDetails();
+                // auditDetailsMap null check
                 if (null != auditDetailsMap && auditDetailsMap.size() > 0) {
                     if (!StringUtils.isEmpty(auditDetailsMap
                             .get(AuthorServicesConstants.AUDIT_OBJ_NAME))) {
@@ -89,6 +93,7 @@ public class AuditResultServiceImpl implements AuditResultService {
                         auditDetails.setUsersByCreatedBy(user);
                         auditDetails.setUsersByUserId(user);
                     }
+                    // saving the auditDetails object.
                     session.save(auditDetails);
                     session.flush();
                     auditDetailsSet.add(auditDetails);
@@ -112,11 +117,14 @@ public class AuditResultServiceImpl implements AuditResultService {
             actions.setCreatedDate(new Date());
             actions.setUpdatedDate(new Date());
             actions.setAuditDetailses(auditDetailsSet);
+            // saving the actions class object.
             session.save(actions);
+            // committ the transaction
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
             if (null != session) {
+                // rollback the trasaction
                 transaction.rollback();
             }
         } finally {

@@ -34,10 +34,6 @@ public class ASException extends RuntimeException {
      * This field holds the value of description.
      */
     private String description;
-    /**
-     * This field holds the value of msgPart.
-     */
-    private Object[] msgPart;
 
     /**
      * Instantiates a new AS exception.
@@ -95,19 +91,6 @@ public class ASException extends RuntimeException {
     /**
      * Instantiates a new AS exception.
      *
-     * @param errorCode
-     *            the error code
-     * @param msgPart
-     *            the msg part
-     */
-    public ASException(final String errorCode, final Object[] msgPart) {
-        this.errorCode = errorCode;
-        this.msgPart = msgPart;
-    }
-
-    /**
-     * Instantiates a new AS exception.
-     *
      * @param t
      *            the t
      */
@@ -139,25 +122,6 @@ public class ASException extends RuntimeException {
      */
     public final void setErrorCode(final String errorCode) {
         this.errorCode = errorCode;
-    }
-
-    /**
-     * Gets the msg part.
-     *
-     * @return msgPart
-     */
-    public final Object[] getMsgPart() {
-        return msgPart;
-    }
-
-    /**
-     * Sets the msg part.
-     *
-     * @param msgPart
-     *            the new msg part
-     */
-    public final void setMsgPart(final Object[] msgPart) {
-        this.msgPart = msgPart;
     }
 
     /**

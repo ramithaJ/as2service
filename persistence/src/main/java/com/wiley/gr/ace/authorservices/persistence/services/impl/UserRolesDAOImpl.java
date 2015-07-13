@@ -95,7 +95,7 @@ public class UserRolesDAOImpl implements UserRolesDAO {
 
                 RolePermissions rolePermissions = new RolePermissions();
                 RolePermissionsId rolePermissionsId = new RolePermissionsId();
-                rolePermissionsId.setRoleId(Integer.parseInt(object[0]
+                rolePermissionsId.setRoleId(Integer.valueOf(object[0]
                         .toString()));
                 rolePermissionsId.setPermissionCd(object[1].toString());
                 rolePermissions.setId(rolePermissionsId);
@@ -164,6 +164,7 @@ public class UserRolesDAOImpl implements UserRolesDAO {
      * @param roleName
      *            to check.
      */
+    @Override
     public final void checkRoleName(final String roleName) {
         List list = new ArrayList();
         Session session = getSessionFactory().openSession();

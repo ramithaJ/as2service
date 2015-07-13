@@ -46,7 +46,7 @@ public class UserAccountDAOImpl implements UserAccountDAO {
         try {
             session = getSessionFactory().openSession();
             Criteria criteria = session.createCriteria(UserProfile.class);
-            criteria.add(Restrictions.eq("userId", Integer.parseInt(userId)));
+            criteria.add(Restrictions.eq("userId", String.valueOf(userId)));
             UserProfile userProfile = (UserProfile) criteria.uniqueResult();
             if (null == userProfile) {
                 return null;
