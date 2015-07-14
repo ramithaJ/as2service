@@ -418,12 +418,11 @@ public class DashboardServiceImpl implements DashboardService {
     private final ArticleData getArticlesStatus(final ArticleData articleData)
             throws Exception {
         LOGGER.info("inside getArticlesStatus Method of DashboardServiceImpl");
+        Integer articleId = articleData.getArticleDetails().getArticleId();
         articleData.setLicenseStatus(esbInterfaceService.getLicenseStatus(
-                articleData.getArticleDetails().getArticleId())
-                .getLicenseStatus());
+                articleId).getLicenseStatus());
         articleData
-                .setOrderPaymentStatus(getOrderPaymentStatusForArticle(articleData
-                        .getArticleDetails().getArticleId()));
+                .setOrderPaymentStatus(getOrderPaymentStatusForArticle(articleId));
         return articleData;
     }
 
@@ -479,6 +478,7 @@ public class DashboardServiceImpl implements DashboardService {
      */
     private final List<CommunicationDetails> getInvitationLogsList(
             final String userId) throws Exception {
+        LOGGER.info("inside getInvitationLogsList Method of DashboardServiceImpl");
         List<CommunicationDetails> communicationDetailsList = null;
         final List<InvitationLog> invitationLogList = dashboardDAO
                 .getInvitationLogList(userId);
@@ -513,6 +513,7 @@ public class DashboardServiceImpl implements DashboardService {
     @Override
     public final DashboardView getProductionDetails(final String userId)
             throws Exception {
+        LOGGER.info("inside getProductionDetails Method of DashboardServiceImpl");
         DashboardView dashboardView = null;
         final List<ProductPersonRelations> productPersonRelationsList = dashboardDAO
                 .getProductPersonRelations(userId);
@@ -543,6 +544,7 @@ public class DashboardServiceImpl implements DashboardService {
     private final DashboardView getProductionDetailsForArticles(
             final String articleAuthorRole, final Integer articleId)
             throws Exception {
+        LOGGER.info("inside getProductionDetailsForArticles Method of DashboardServiceImpl");
         final List<ArticleData> articleDataListforProduction = new ArrayList<ArticleData>();
         final DashboardView dashboardView = new DashboardView();
         final ArticleData articleData = esbInterfaceService
@@ -569,6 +571,7 @@ public class DashboardServiceImpl implements DashboardService {
     @Override
     public final DashboardView getPublishedArticleDetails(final String userId)
             throws Exception {
+        LOGGER.info("inside getPublishedArticleDetails Method of DashboardServiceImpl");
         DashboardView dashboardView = null;
         final List<ProductPersonRelations> productPersonRelationsList = dashboardDAO
                 .getProductPersonRelations(userId);
@@ -599,6 +602,7 @@ public class DashboardServiceImpl implements DashboardService {
     private final DashboardView getPublicationArticleStatus(
             final String articleAuthorRole, final Integer dhId)
             throws Exception {
+        LOGGER.info("inside getPublicationArticleStatus Method of DashboardServiceImpl");
         final DashboardView dashboardView = new DashboardView();
         final ArticleData articleData = esbInterfaceService
                 .getAuthorArticle(dhId);

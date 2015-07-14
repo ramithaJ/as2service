@@ -39,6 +39,7 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
     @Autowired(required = true)
     private TaskService bpmInterfaceService;
 
+    /** The order service. */
     @Autowired(required = true)
     private OrderService orderService;
 
@@ -89,8 +90,18 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
         return esbInterfaceService.viewAssignedArticle(emailId);
     }
 
+    /**
+     * Check if article invited.
+     *
+     * @param dhId
+     *            the dh id
+     * @return true, if successful
+     * @throws Exception
+     *             the exception
+     */
     @Override
-    public boolean checkIfArticleInvited(Integer dhId) throws Exception {
+    public final boolean checkIfArticleInvited(final Integer dhId)
+            throws Exception {
         boolean isArticleInvited = false;
         if ("Y".equalsIgnoreCase(orderService.pdhLookUpArticle(dhId)
                 .getIsArticleInvited())) {
