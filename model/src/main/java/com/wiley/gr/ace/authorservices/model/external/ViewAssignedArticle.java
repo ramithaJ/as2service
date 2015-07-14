@@ -9,34 +9,42 @@
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
  *******************************************************************************/
-package com.wiley.gr.ace.authorservices.externalservices.service;
+/**
+ * 
+ */
+package com.wiley.gr.ace.authorservices.model.external;
 
-import com.wiley.gr.ace.authorservices.model.AssociationConfirmation;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
- * The Interface BPMInterfaceService.
+ * The Class ViewAssignedArticle.
  *
  * @author virtusa version 1.0
  */
-public interface BPMInterfaceService {
+@JsonInclude(Include.NON_NULL)
+public class ViewAssignedArticle {
+
+    /** The article data. */
+    private ArticleData articleData;
 
     /**
-     * Creates the task.
+     * Gets the article data.
      *
-     * @return true, if successful
+     * @return the article data
      */
-    boolean createTask();
+    public final ArticleData getArticleData() {
+        return articleData;
+    }
 
     /**
-     * Finish task.
+     * Sets the article data.
      *
-     * @param associationConfirmation
-     *            the association confirmation
-     * @return true, if successful
-     * @throws Exception
-     *             the exception
+     * @param articleData
+     *            the new article data
      */
-    boolean finishTask(AssociationConfirmation associationConfirmation)
-            throws Exception;
+    public final void setArticleData(final ArticleData articleData) {
+        this.articleData = articleData;
+    }
 
 }

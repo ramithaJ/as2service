@@ -12,39 +12,24 @@
 /**
  * 
  */
-package com.wiley.gr.ace.authorservices.model.external;
+package com.wiley.gr.ace.authorservices.persistence.services;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
 
 /**
- * The Class ConfirmArticleData.
+ * The Interface SaveProductPersonRelationDAO.
  *
  * @author virtusa version 1.0
  */
-@JsonInclude(Include.NON_NULL)
-public class ConfirmArticleData {
-
-    /** The article data. */
-    private ArticleData articleData;
+public interface SaveProductPersonRelationDAO {
 
     /**
-     * Gets the article data.
+     * Save product person relation.
      *
-     * @return the article data
+     * @param productPersonRelations
+     *            the product person relations
+     * @return true, if successful
      */
-    public final ArticleData getArticleData() {
-        return articleData;
-    }
-
-    /**
-     * Sets the article data.
-     *
-     * @param articleData
-     *            the new article data
-     */
-    public final void setArticleData(final ArticleData articleData) {
-        this.articleData = articleData;
-    }
-
+    boolean saveProductPersonRelation(
+            ProductPersonRelations productPersonRelations);
 }

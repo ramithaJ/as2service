@@ -70,15 +70,66 @@ public class OnlineOpenOrder {
     /** The tax amount. */
     private Amount taxAmount;
 
-    /** The order Id */
+    /** The order Id. */
     private String orderId;
 
     /**
-     * This field holds the value of licenseSignedStatus
+     * This field holds the value of orderEditable.
      */
+    private String orderEditable = "true";
+
+    /**
+     * This field holds the value of invoiceAvailable.
+     */
+    private String invoiceAvailable = "false";
+
+    /** The discount detail. */
+    private DiscountDetail discountDetail;
+
+    /**
+     * Gets the order editable.
+     *
+     * @return the orderEditable
+     */
+    public final String getOrderEditable() {
+        return orderEditable;
+    }
+
+    /**
+     * Sets the order editable.
+     *
+     * @param orderEditable
+     *            the orderEditable to set
+     */
+    public final void setOrderEditable(final String orderEditable) {
+        this.orderEditable = orderEditable;
+    }
+
+    /**
+     * Gets the invoice available.
+     *
+     * @return the invoiceAvailable
+     */
+    public final String getInvoiceAvailable() {
+        return invoiceAvailable;
+    }
+
+    /**
+     * Sets the invoice available.
+     *
+     * @param invoiceAvailable
+     *            the invoiceAvailable to set
+     */
+    public final void setInvoiceAvailable(final String invoiceAvailable) {
+        this.invoiceAvailable = invoiceAvailable;
+    }
+
+    /** This field holds the value of licenseSignedStatus. */
     private String licenseSignedStatus = "false";
 
     /**
+     * Gets the license signed status.
+     *
      * @return the licenseSignedStatus
      */
     public final String getLicenseSignedStatus() {
@@ -86,6 +137,8 @@ public class OnlineOpenOrder {
     }
 
     /**
+     * Sets the license signed status.
+     *
      * @param licenseSignedStatus
      *            the licenseSignedStatus to set
      */
@@ -241,8 +294,7 @@ public class OnlineOpenOrder {
      * @param articleDetails
      *            the new article details
      */
-    public final void setArticleDetails(
-            final ArticleDetails articleDetails) {
+    public final void setArticleDetails(final ArticleDetails articleDetails) {
         this.articleDetails = articleDetails;
     }
 
@@ -261,8 +313,7 @@ public class OnlineOpenOrder {
      * @param journalDetails
      *            the new journal details
      */
-    public final void setJournalDetails(
-            final JournalDetails journalDetails) {
+    public final void setJournalDetails(final JournalDetails journalDetails) {
         this.journalDetails = journalDetails;
     }
 
@@ -300,6 +351,25 @@ public class OnlineOpenOrder {
      */
     public final String getDiscountsApplicable() {
         return discountsApplicable;
+    }
+
+    /**
+     * Gets the discount detail.
+     *
+     * @return the discount detail
+     */
+    public final DiscountDetail getDiscountDetail() {
+        return discountDetail;
+    }
+
+    /**
+     * Sets the discount detail.
+     *
+     * @param discountDetail
+     *            the new discount detail
+     */
+    public final void setDiscountDetail(DiscountDetail discountDetail) {
+        this.discountDetail = discountDetail;
     }
 
     /**
@@ -401,6 +471,8 @@ public class OnlineOpenOrder {
     }
 
     /**
+     * Gets the order id.
+     *
      * @return the orderId
      */
     public String getOrderId() {
@@ -408,6 +480,8 @@ public class OnlineOpenOrder {
     }
 
     /**
+     * Sets the order id.
+     *
      * @param orderId
      *            the orderId to set
      */

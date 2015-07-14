@@ -29,6 +29,11 @@ public class Societies {
      * This field holds the value of societyName
      */
     private String societyName;
+    
+    /**
+     * This field holds the value of societyCode
+     */
+    private String societyCode;
 
     /**
      * @return the value
@@ -74,5 +79,21 @@ public class Societies {
     public final void setSocietyName(final String societyName) {
         this.societyName = societyName;
     }
+
+	/**
+	 * @return the societyCode
+	 */
+	public String getSocietyCode() {
+		return societyCode;
+	}
+
+	/**
+	 * @param societyCode the societyCode to set
+	 */
+	public void setSocietyCode(String societyCode) {
+		this.societyCode = societyCode;
+	}
+    
+    
 
 }

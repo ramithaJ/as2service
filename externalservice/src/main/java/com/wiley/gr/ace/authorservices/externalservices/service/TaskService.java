@@ -9,37 +9,43 @@
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
  *******************************************************************************/
-/**
- * 
- */
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
-import com.wiley.gr.ace.authorservices.model.external.AddressValidationRequest;
+import com.wiley.gr.ace.authorservices.model.AssociationConfirmation;
+import com.wiley.gr.ace.authorservices.model.external.TaskServiceRequest;
 
 /**
- * The Interface ValidationService.
- * 
+ * The Interface BPMInterfaceService.
+ *
  * @author virtusa version 1.0
  */
-public interface ValidationService {
+public interface TaskService {
 
     /**
-     * Validate address.
+     * Creates the task.
      *
-     * @param addressValidationRequest
-     *            the address validation request
      * @return true, if successful
      */
-    boolean validateAddress(AddressValidationRequest addressValidationRequest);
+    boolean createTask();
 
     /**
-     * Vat validation.
+     * Finish task.
      *
-     * @param countryCode
-     *            the countri code
-     * @param taxVatRegNum
-     *            the tax vat reg num
+     * @param associationConfirmation
+     *            the association confirmation
      * @return true, if successful
+     * @throws Exception
+     *             the exception
      */
-    boolean vatValidation(String countryCode, String taxVatRegNum);
+    boolean finishTask(AssociationConfirmation associationConfirmation)
+            throws Exception;
+
+	/**
+	 * @param taskServiceRequest
+	 * @param userId
+	 * @return status
+	 */
+	String invokeTaskService(TaskServiceRequest taskServiceRequest,
+			String userId);
+
 }

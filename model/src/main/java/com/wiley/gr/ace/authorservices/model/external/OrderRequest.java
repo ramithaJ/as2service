@@ -1,5 +1,7 @@
 package com.wiley.gr.ace.authorservices.model.external;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 /**
  * @author virtusa version1.0
@@ -9,6 +11,7 @@ public class OrderRequest
 {
     private String applicationKey;
 
+    @JsonProperty("Order")
     private OrderData orderData;
 
     private String userID;

@@ -28,7 +28,6 @@ import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
 import com.wiley.gr.ace.authorservices.model.AddressDetails;
 import com.wiley.gr.ace.authorservices.model.FunderDetails;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
-import com.wiley.gr.ace.authorservices.model.PaymentDetails;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.TaxDetails;
 import com.wiley.gr.ace.authorservices.model.external.WOAFunder;
@@ -45,56 +44,58 @@ import com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService;
 public class OrderOnlineOpenController extends ASExceptionController {
 
     /**
-     * This field holds the value of orderOnlineOpenService
+     * This field holds the value of orderOnlineOpenService.
      */
     @Autowired(required = true)
     private OrderOnlineOpenService orderOnlineOpenService;
 
     /**
-     * This field holds the value of OpenAccessService
+     * This field holds the value of OpenAccessService.
      */
     @Autowired(required = true)
     private OpenAccessService openAccessService;
 
     /**
-     * This field holds the value of nlineOpenAuthorValidatorService
+     * This field holds the value of nlineOpenAuthorValidatorService.
      */
     @Autowired(required = true)
     private OnlineOpenAuthorValidatorService onlineOpenAuthorValidatorService;
 
     /**
-     * This field holds the value of invalidContactAddressCode
+     * This field holds the value of invalidContactAddressCode.
      */
     @Value("${contactAddress.code}")
     private String invalidContactAddressCode;
 
     /**
-     * This field holds the value of invalidContactAddressMessage
+     * This field holds the value of invalidContactAddressMessage.
      */
     @Value("${contactAddress.message}")
     private String invalidContactAddressMessage;
 
     /**
-     * This field holds the value of invalidBillingAddressCode
+     * This field holds the value of invalidBillingAddressCode.
      */
     @Value("${billingAddress.code}")
     private String invalidBillingAddressCode;
 
     /**
-     * This field holds the value of invalidBillingAddressMessage
+     * This field holds the value of invalidBillingAddressMessage.
      */
     @Value("${billingAddress.message}")
     private String invalidBillingAddressMessage;
 
     /**
-     * This field holds the value of onlineOpen
+     * This field holds the value of onlineOpen.
      */
     @Value("${OnlineOpen}")
     private String onlineOpen;
 
     /**
      * @param userId
+     *            - the request value
      * @param articleId
+     *            - the request value
      * @return service
      */
     @RequestMapping(value = "/initiateOnline/{userId}/{articleId}/", method = RequestMethod.GET)
@@ -109,7 +110,9 @@ public class OrderOnlineOpenController extends ASExceptionController {
 
     /**
      * @param userId
+     *            - the request value
      * @param onlineOpenOrder
+     *            - the request value
      * @return service
      */
     @RequestMapping(value = "/saveLater/{userId}/", method = RequestMethod.POST)
@@ -125,8 +128,10 @@ public class OrderOnlineOpenController extends ASExceptionController {
 
     /**
      * @param userId
-     * @param onlineOpenOrder
-     * @return
+     *            - the request value
+     * @param orderId
+     *            - the request value
+     * @return service
      * 
      */
     @RequestMapping(value = "/submit/{userId}/{orderId}/", method = RequestMethod.POST)
@@ -137,7 +142,8 @@ public class OrderOnlineOpenController extends ASExceptionController {
         Service service = new Service();
 
         try {
-            orderOnlineOpenService.submitOnlineOpenOrder(userId, orderId, "OO");
+            orderOnlineOpenService.submitOnlineOpenOrder(userId, orderId,
+                    onlineOpen);
         } catch (Exception e) {
             throw new ASException("704", e.getMessage());
         }
@@ -147,7 +153,9 @@ public class OrderOnlineOpenController extends ASExceptionController {
 
     /**
      * @param userId
+     *            - the request value
      * @param orderId
+     *            - the request value
      * @return service
      */
     @RequestMapping(value = "/view/{userId}/{orderId}/", method = RequestMethod.GET)
@@ -161,13 +169,18 @@ public class OrderOnlineOpenController extends ASExceptionController {
     }
 
     /**
+     * @param userId
+     *            - the request value
+     * @param orderId
+     *            - the request value
      * @return service
      */
-    @RequestMapping(value = "/cancel/", method = RequestMethod.POST)
+    @RequestMapping(value = "/cancel/{userId}/{orderId}/", method = RequestMethod.POST)
     public final Service cancelOnlineOpenOrder(
             @PathVariable("userId") final String userId,
             @PathVariable("orderId") final String orderId) {
 
+        orderOnlineOpenService.cancelOnlineOpenOrder(userId, orderId);
         return new Service();
     }
 
@@ -183,7 +196,9 @@ public class OrderOnlineOpenController extends ASExceptionController {
     }
 
     /**
-     * @return
+     * @param funderId
+     *            - the request value
+     * @return service
      */
     @RequestMapping(value = "/subFundersList/{funderId}/", method = RequestMethod.GET)
     public final Service getSubFundersList(
@@ -195,7 +210,6 @@ public class OrderOnlineOpenController extends ASExceptionController {
     }
 
     /**
-     * @param userId
      * @return service
      */
     @RequestMapping(value = "/woaFunders/", method = RequestMethod.GET)
@@ -208,6 +222,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
 
     /**
      * @param articleId
+     *            - the request value
      * @return service
      */
     @RequestMapping(value = "/grantRecipients/{articleId}/", method = RequestMethod.GET)
@@ -222,16 +237,24 @@ public class OrderOnlineOpenController extends ASExceptionController {
     /**
      * @return service
      */
-    @RequestMapping(value = "/discountedSocieties/", method = RequestMethod.GET)
-    public final Service getDiscountedSocieties() {
+    @RequestMapping(value = "/discountedSocieties/{dhId}/", method = RequestMethod.GET)
+    public final Service getDiscountedSocieties(
+    		@PathVariable("dhId") final String dhId) {
 
         Service service = new Service();
-        service.setPayload(orderOnlineOpenService.getDiscountedSocieties());
+        service.setPayload(orderOnlineOpenService.getDiscountedSocieties(dhId));
         return service;
     }
 
     /**
      * @param orderId
+     *            - the request value
+     * @param type
+     *            - the request value
+     * @param sdate
+     *            - the request value
+     * @param edate
+     *            - the request value
      * @return service
      */
     @RequestMapping(value = "/allOrders/{orderId}/", method = RequestMethod.GET)
@@ -250,16 +273,18 @@ public class OrderOnlineOpenController extends ASExceptionController {
      *
      * @return service
      */
-    @RequestMapping(value = "/institutionDiscounts/", method = RequestMethod.GET)
-    public final Service getInstitutionDiscounts() {
+    @RequestMapping(value = "/institutionDiscounts/{dhId}/", method = RequestMethod.GET)
+    public final Service getInstitutionDiscounts(
+    		@PathVariable("dhId") final String dhId) {
 
         Service service = new Service();
-        service.setPayload(orderOnlineOpenService.getInstitutionDiscounts());
+        service.setPayload(orderOnlineOpenService.getInstitutionDiscounts(dhId));
         return service;
     }
 
     /**
-     * @param onlineOpenOrder
+     * @param taxDetails
+     *            - the request value
      * @return Service
      */
     @RequestMapping(value = "/validate/taxDetails/{userId}/", method = RequestMethod.POST)
@@ -272,7 +297,8 @@ public class OrderOnlineOpenController extends ASExceptionController {
     }
 
     /**
-     * @param onlineOpenOrder
+     * @param funderDetailsList
+     *            - the request value
      * @return Service
      */
     @RequestMapping(value = "/validate/funderDetails/", method = RequestMethod.POST)
@@ -287,9 +313,10 @@ public class OrderOnlineOpenController extends ASExceptionController {
 
     /**
      * @param userId
-     * @param onlineOpenOrder
-     * @return
-     * @throws Exception
+     *            - the request value
+     * @param addressDetails
+     *            - the request value
+     * @return service
      */
     @RequestMapping(value = "/validate/address/{userId}/", method = RequestMethod.POST)
     public final Service validateAddressDetails(
@@ -320,10 +347,9 @@ public class OrderOnlineOpenController extends ASExceptionController {
     }
 
     /**
-     * @param userId
-     * @param onlineOpenOrder
-     * @return
-     * @throws Exception
+     * @param id
+     *            - the request value
+     * @return service
      */
     @RequestMapping(value = "/woaFunder/{id}/", method = RequestMethod.GET)
     public final Service processAllRestrictedFunderWOAAccounts(
@@ -337,10 +363,9 @@ public class OrderOnlineOpenController extends ASExceptionController {
     }
 
     /**
-     * @param userId
-     * @param onlineOpenOrder
-     * @return
-     * @throws Exception
+     * @param woaFunder
+     *            - the request value
+     * @return service
      */
     @RequestMapping(value = "/woaFunder/", method = RequestMethod.POST)
     public final Service processAndValidateWOAAccount(
@@ -353,7 +378,9 @@ public class OrderOnlineOpenController extends ASExceptionController {
 
     /**
      * @param userId
+     *            - the request value
      * @param onlineOpenOrder
+     *            - the request value
      * @return Service
      */
     @RequestMapping(value = "/preview/{userId}/", method = RequestMethod.POST)
@@ -370,33 +397,40 @@ public class OrderOnlineOpenController extends ASExceptionController {
 
     /**
      * @param paymentDetails
+     *            - the request value
      * @return service
      */
-    @RequestMapping(value = "/paymentDetails/save/", method = RequestMethod.POST)
+/*    @RequestMapping(value = "/paymentDetails/save/", method = RequestMethod.POST)
     public final Service savePaymentDetails(
             @RequestBody final PaymentDetails paymentDetails) {
         orderOnlineOpenService.savePaymentDetails(paymentDetails);
         return new Service();
 
-    }
+    }*/
 
-    @RequestMapping(value = "/wpg/config/{orderId}", method = RequestMethod.GET)
+    /**
+     * @param orderId
+     *            - the request value
+     * @return service
+     */
+    /*@RequestMapping(value = "/wpg/config/{orderId}", method = RequestMethod.GET)
     public final Service getWPGConfiguration(
             @PathVariable("orderId") final String orderId) {
 
         Service service = new Service();
         service.setPayload(orderOnlineOpenService.getWPGConfiguration(orderId));
         return service;
-    }
+    }*/
 
     /**
-     * This method will generate pdf
+     * This method will generate PDF.
      * 
      * @param ooUniqueId
-     * @return
+     *            - the request value
+     * @return service
      */
     @RequestMapping(value = "/pdf/{ooUniqueId}/", method = RequestMethod.GET)
-    public ResponseEntity<byte[]> getPDF(
+    public final ResponseEntity<byte[]> getPDF(
             @PathVariable("ooUniqueId") final String ooUniqueId) {
         return orderOnlineOpenService.getPdf(ooUniqueId);
 

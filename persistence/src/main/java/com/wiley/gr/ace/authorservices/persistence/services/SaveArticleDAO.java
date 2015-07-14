@@ -35,4 +35,5 @@ public interface SaveArticleDAO {
 	 *             the exception
 	 */
 	boolean saveArticleInvitation(InviteResetpwdLog invite) throws Exception;
+	
 }

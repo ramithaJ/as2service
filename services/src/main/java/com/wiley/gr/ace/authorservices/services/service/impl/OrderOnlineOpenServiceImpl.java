@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.json.simple.JSONObject;
@@ -68,6 +67,7 @@ import com.wiley.gr.ace.authorservices.model.TaxDetails;
 import com.wiley.gr.ace.authorservices.model.WOAAccountFunders;
 import com.wiley.gr.ace.authorservices.model.WOAAccountHolders;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
+import com.wiley.gr.ace.authorservices.model.external.CancelOrderRequest;
 import com.wiley.gr.ace.authorservices.model.external.ContactAddress;
 import com.wiley.gr.ace.authorservices.model.external.Customer;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSociety;
@@ -105,10 +105,6 @@ import com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService;
  * @author virtusa version 1.0
  *
  */
-/**
- * @author RAVISINHA
- *
- */
 public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
     /** Getting Bean Of Order Service */
@@ -124,85 +120,85 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     private UserProfiles userProfiles;
 
     /**
-     * This field holds the value of correspondingAuthorId
+     * This field holds the value of correspondingAuthorId.
      */
     @Value("${CorrespondingAuthorId}")
     private String correspondingAuthorId;
 
     /**
-     * This field holds the value of articleDetailsCode
+     * This field holds the value of articleDetailsCode.
      */
     @Value("${articleDetails.code}")
     private String articleDetailsCode;
 
     /**
-     * This field holds the value of articleDetailsMessage
+     * This field holds the value of articleDetailsMessage.
      */
     @Value("${articleDetails.message}")
     private String articleDetailsMessage;
 
     /**
-     * This field holds the value of articleAcceptanceCode
+     * This field holds the value of articleAcceptanceCode.
      */
     @Value("${articleAcceptance.code}")
     private String articleAcceptanceCode;
 
     /**
-     * This field holds the value of articleAcceptanceMessage
+     * This field holds the value of articleAcceptanceMessage.
      */
     @Value("${articleAcceptance.message}")
     private String articleAcceptanceMessage;
 
     /**
-     * This field holds the value of savedOrderCode
+     * This field holds the value of savedOrderCode.
      */
     @Value("${savedOrder.code}")
     private String savedOrderCode;
 
     /**
-     * This field holds the value of savedOrderMessage
+     * This field holds the value of savedOrderMessage.
      */
     @Value("${savedOrder.message}")
     private String savedOrderMessage;
 
     /**
-     * This field holds the value of orderExistenceCode
+     * This field holds the value of orderExistenceCode.
      */
     @Value("${orderExistence.code}")
     private String orderExistenceCode;
 
     /**
-     * This field holds the value of orderExistenceMessage
+     * This field holds the value of orderExistenceMessage.
      */
     @Value("${orderExistence.message}")
     private String orderExistenceMessage;
 
     /**
-     * This field holds the value of onlineOpenCode
+     * This field holds the value of onlineOpenCode.
      */
     @Value("${OnlineOpen.code}")
     private String onlineOpenCode;
 
     /**
-     * This field holds the value of onlineOpenMessage
+     * This field holds the value of onlineOpenMessage.
      */
     @Value("${OnlineOpen.message}")
     private String onlineOpenMessage;
 
     /**
-     * This field holds the value of onlineOpenJournalCode
+     * This field holds the value of onlineOpenJournalCode.
      */
     @Value("${OnlineOpenJournal.code}")
     private String onlineOpenJournalCode;
 
     /**
-     * This field holds the value of OnlineOpenJournalMessage
+     * This field holds the value of OnlineOpenJournalMessage.
      */
     @Value("${OnlineOpenJournal.message}")
     private String OnlineOpenJournalMessage;
 
     /**
-     * This field holds the value of jsonProcessingExceptionCode
+     * This field holds the value of jsonProcessingExceptionCode.
      */
     /*
      * @Value("${JsonProcessingException}") private String
@@ -210,13 +206,13 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      */
 
     /**
-     * This field holds the value of applicationKey
+     * This field holds the value of applicationKey.
      */
     @Value("${OnlineOpenProperties.applicationKey}")
     private String applicationKey;
 
     /**
-     * This field holds the value of correlationId
+     * This field holds the value of correlationId.
      */
     @Value("${OnlineOpenProperties.correlationId}")
     private String correlationId;
@@ -249,20 +245,47 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     @Value("${wpgRegion}")
     private String wpgRegion;
 
+    // Cancel order request values from property file
+    /**
+     * This field holds the value of cancelOrderCorrelationID.
+     */
+    @Value("${cancelOrder.CorrelationID}")
+    private String cancelOrderCorrelationID;
+
+    /**
+     * This field holds the value of cancelOrderApplicationKey.
+     */
+    @Value("${cancelOrder.ApplicationKey}")
+    private String cancelOrderApplicationKey;
+
+    /**
+     * This field holds the value of cancelOrderUserID.
+     */
+    @Value("${cancelOrder.UserID}")
+    private String cancelOrderUserID;
+
+    /**
+     * This field holds the value of cancelOrderCancelReasonCode.
+     */
+    @Value("${cancelOrder.cancelReasonCode}")
+    private String cancelOrderCancelReasonCode;
     /**
      * Min value for Transaction id
      */
-    private static final int MIN_VALUE = 1;
+    //private static final int MIN_VALUE = 1;
 
     /**
      * This method will take userId and orderId as input and calls external
      * service to get details of Online order details
      * 
      * @param userId
+     *            - the request value
      * @param orderId
+     *            - the request value
+     * @return OnlineOpenOrder
      */
     @Override
-    public OnlineOpenOrder getOnlineOpenOrderDetails(final String userId,
+    public final OnlineOpenOrder getOnlineOpenOrderDetails(final String userId,
             final String orderId) {
         OnlineOpenOrder onlineOpenOrder = new OnlineOpenOrder();
         OrderData orderData = new OrderData();
@@ -387,9 +410,17 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
     /**
      * Method to get quote.
+     * 
+     * @param userId
+     *            - the request value
+     * @param articleId
+     *            - the request value
+     * @param pdmSalesFlag
+     *            - the request value
+     * @return QuoteDetails
      */
     @Override
-    public QuoteDetails initiateOnline(final String userId,
+    public final QuoteDetails initiateOnline(final String userId,
             final String articleId, final String pdmSalesFlag) {
 
         ProductRelations productRelations = orderOnlineDAO
@@ -498,9 +529,10 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * Method to get All Orders.
      * 
      * @param orderId
+     * @return list
      */
     @Override
-    public List<OrderDetails> getAllOrders(final String orderId) {
+    public final List<OrderDetails> getAllOrders(final String orderId) {
         OrderDetails orderDetails = new OrderDetails();
         List<OrderDetails> orderDetailsList = new ArrayList<OrderDetails>();
         OrderDataList orderDataList = orderservice.getAllOrders(orderId);
@@ -530,13 +562,16 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * This method submits the online open order and returns the order response
      * 
      * @param userId
-     * @param onlineOpenOrder
+     *            - the request value
+     * @param orderId
+     *            - the request value
+     * @param orderTypeFlag
+     *            - the request value
      * @return OrderResponse
-     * @throws Exception
      * 
      */
     @Override
-    public OrderResponse submitOnlineOpenOrder(final String userId,
+    public final OrderResponse submitOnlineOpenOrder(final String userId,
             final String orderId, final String orderTypeFlag) {
 
         OrderResponse orderResponse = null;
@@ -549,7 +584,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         orderRequest.setOrderData(orderData);
         orderRequest.setUserID(userId);
 
-        orderResponse = orderservice.submitOnlineOpenOrder(orderData);
+        orderResponse = orderservice.submitOnlineOpenOrder(orderRequest);
 
         Orders orders = new Orders();
         // orders.setOrderTypes(new OrderTypes());
@@ -575,11 +610,11 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     /**
      * This method returns the data of the requested Order.
      * 
-     * @param onlineOpenOrder
-     * @return OrderData
-     * @throws Exception
+     * @param orderId
+     *            - the request value
+     * @return orderData
      */
-    private OrderData getOrderDataForOnlineOpenOrder(final String orderId) {
+    private final OrderData getOrderDataForOnlineOpenOrder(final String orderId) {
         OrderData orderData = null;
         SavedOrders savedOrder = null;
         OnlineOpenOrder onlineOpenOrder = null;
@@ -666,13 +701,13 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     /**
      * This method returns the Discounted WOA Funder List
      * 
-     * @param userId
      * @param DHID
-     * @return List<String>
-     * 
+     *            - the request value
+     * @return List
      */
     @Override
-    public List<WOAFunder> retrieveDiscountedWOAFunderList(final String DHID) {
+    public final List<WOAFunder> retrieveDiscountedWOAFunderList(
+            final String DHID) {
 
         List<WOAFunder> woaFunderList = null;
 
@@ -688,13 +723,12 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * This method returns the List of Societies which provide Society discounts
      * for the journal
      * 
-     * @param userId
-     * @param journalId
-     * @return List<DiscountedSociety>
-     * 
+     * @param DHid
+     *            - the request value
+     * @return List
      */
     @Override
-    public List<DiscountedSociety> retrieveSocietyDiscountListForJournal(
+    public final List<DiscountedSociety> retrieveSocietyDiscountListForJournal(
             final String DHID) {
         List<DiscountedSociety> discountedSocietyListForJournal = null;
 
@@ -711,10 +745,14 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     /**
      * Method to save orders.
      * 
-     * @return
+     * @param order
+     *            - the request value
+     * @param userId
+     *            - the request value
+     * @return integer
      */
     @Override
-    public Integer saveLaterOrder(final OnlineOpenOrder order,
+    public final Integer saveLaterOrder(final OnlineOpenOrder order,
             final String userId) {
 
         ObjectMapper mapper = new ObjectMapper();
@@ -740,13 +778,13 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     /**
      * This method checks if additional discount is available for the journal.
      * 
-     * @param userId
-     * @param journalId
+     * @param DHid
+     *            - the request value
      * @return boolean
      * 
      */
     @Override
-    public boolean isAdditionDiscountAvailableForJournal(final String DHID) {
+    public final boolean isAdditionDiscountAvailableForJournal(final String DHID) {
         boolean isAdditionDiscountAvailable = false;
         // Need confirmation on DHID or journal id.
 
@@ -767,7 +805,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * @return woaAccountHolders
      */
     @Override
-    public WOAAccountHolders getWOAFunders() {
+    public final WOAAccountHolders getWOAFunders() {
 
         WileyOpenAccessFunders wileyOpenAccessFunders = orderservice
                 .getWoaAcounts();
@@ -798,10 +836,12 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     /**
      * Method to get Grant Recipients.
      * 
-     * @return
+     * @param articleId
+     *            - the request value
+     * @return list
      */
     @Override
-    public List<GrantRecipients> getGrantRecipients(final String articleId) {
+    public final List<GrantRecipients> getGrantRecipients(final String articleId) {
 
         List<ProductPersonRelations> productPersonRelationsList = orderOnlineDAO
                 .getGrantRecipients(articleId);
@@ -822,13 +862,13 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     /**
      * Method to get Discounted Societies.
      * 
-     * @return
+     * @return SocietyDiscounts
      */
     @Override
-    public SocietyDiscounts getDiscountedSocieties() {
+    public final SocietyDiscounts getDiscountedSocieties(final String DHID) {
 
         SocietyMemberDiscount societyMemberDiscount = orderservice
-                .getSocietyMemberDiscount();
+                .getSocietyMemberDiscount(DHID);
         List<Societies> societiesList = societyMemberDiscount.getPayload()
                 .getSocieties();
         SocietyDiscounts societyDiscounts = new SocietyDiscounts();
@@ -846,13 +886,13 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     /**
      * Method to get Institutional discounts.
      * 
-     * @return
+     * @return InstitutionalDiscounts
      */
     @Override
-    public InstitutionalDiscounts getInstitutionDiscounts() {
+    public final InstitutionalDiscounts getInstitutionDiscounts(final String DHID) {
 
         InstitutionDiscounts institutionDiscounts = orderservice
-                .getInstitutionDiscounts();
+                .getInstitutionDiscounts(DHID);
         List<Institute> istituteList = institutionDiscounts.getPayLoad()
                 .getInstituteList();
         InstitutionalDiscounts institutionalDiscounts = new InstitutionalDiscounts();
@@ -871,10 +911,10 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     /**
      * Method to get Funders list.
      * 
-     * @return
+     * @return list
      */
     @Override
-    public List<FundingOrganizations> getFundersList() {
+    public final List<FundingOrganizations> getFundersList() {
 
         WileyOpenAccessFunders wileyOpenAccessFunders = orderservice
                 .getWoaAcounts();
@@ -908,7 +948,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * @param woaFunder
      */
     @Override
-    public void processWOAAccount(final WOAFunder woaFunder) {
+    public final void processWOAAccount(final WOAFunder woaFunder) {
         List<WOAAccount> woaAccountList = null;
 
         woaAccountList = woaFunder.getWOAAccounts().getWOAAccount();
@@ -940,11 +980,13 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     /**
      * This method returns the non restricted WOA Acounts
      * 
+     * @param nonRestrictedWOAAccountList
+     *            - the request value
      * @param woaAccountList
-     * @param woaAccountList2
-     * @return
+     *            - the request value
+     * @return list
      */
-    private List<WOAAccount> retrieveNonRestrictedWOAAccountList(
+    private final List<WOAAccount> retrieveNonRestrictedWOAAccountList(
             List<WOAAccount> nonRestrictedWOAAccountList,
             final List<WOAAccount> woaAccountList) {
 
@@ -970,12 +1012,14 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     /**
      * Method to retrieve all the corresponding Accounts of the account Holder
      * 
-     * @param name
-     * @return woaAccountNameList
+     * @param id
+     *            - the request value
+     * @return list
      * 
      */
     @Override
-    public List<String> processAllRestrictedFunderWOAAccounts(final String id) {
+    public final List<String> processAllRestrictedFunderWOAAccounts(
+            final String id) {
         WOAFunder currentWoaFunder = null;
         List<WOAAccount> woaAccountList = null;
         List<String> woaAccountNameList = null;
@@ -1019,9 +1063,12 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
     /**
      * Method to update Payment Details.
+     * 
+     * @param paymentDetails
+     *            - the request value
      */
     @Override
-    public void savePaymentDetails(final PaymentDetails paymentDetails) {
+    public final void savePaymentDetails(final PaymentDetails paymentDetails) {
 
         orderOnlineDAO.savePaymentDetails(paymentDetails);
     }
@@ -1030,11 +1077,11 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * Method to retrieve Wiley Payment Gateway configuration details.
      * 
      * @param orderId
+     *            - the request value
      * @return wpgConfiguration
-     * 
      */
     @Override
-    public WPGConfiguration getWPGConfiguration(final String orderId) {
+    public final WPGConfiguration getWPGConfiguration(final String orderId) {
 
         WPGConfiguration wpgConfiguration = new WPGConfiguration();
 
@@ -1048,26 +1095,29 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         wpgConfiguration.setWpgMethod(wpgMethod);
         Long wpgTimeStmp = new Date().getTime();
         wpgConfiguration.setWpgTimeStmap(wpgTimeStmp.toString());
+        
+        // Commented the below code - to fix on Monday 7/13
 
-        Integer intWpgTransId = generateRandomTransactionId(MIN_VALUE,
-                Integer.MAX_VALUE);
-        String wpgTransId = intWpgTransId.toString();
+//        Integer intWpgTransId = generateRandomTransactionId(MIN_VALUE,
+//                Integer.MAX_VALUE);
+//        String wpgTransId = intWpgTransId.toString();
 
-        wpgConfiguration.setWpgTransId(wpgTransId);
+        wpgConfiguration.setWpgTransId(orderId);
         // wpgValue is not required for WPG_VALIDATE
         // wpgConfiguration.setWpgValue(wpgValue);
         wpgConfiguration.setWpgVendorId(wpgVendorId);
 
         StringBuilder securityStringBuilder = new StringBuilder();
         securityStringBuilder.append(wpgTimeStmp.toString())
-                .append(wpgVendorId).append(wpgTransId).append(wpgMethod)
+                .append(wpgVendorId).append(orderId).append(wpgMethod)
                 .append(wpgDescription).append(wpgRegion)
                 .append(wpgConfiguration.getWpgAddress())
                 .append(wpgConfiguration.getWpgPostCode())
-                .append(wpgCountryCode).append(wpgAllowAVSFail);
+                .append(wpgCountryCode).append(wpgAllowAVSFail)
+                .append(wpgVendorPassword);
 
         wpgConfiguration.setWpgSecurity(DigestUtils
-                .md5Hex(securityStringBuilder.toString()) + wpgVendorPassword);
+                .md5Hex(securityStringBuilder.toString()));
 
         return wpgConfiguration;
     }
@@ -1077,11 +1127,14 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * Order.
      * 
      * @param orderId
-     * @return wpgConfiguration
+     *            - the request value
+     * @param wpgConfiguration
+     *            - the request value
+     * @return WpgConfiguration
      * 
      */
-    private WPGConfiguration getAddressAndCurrencyDetailsForOrderId(
-            final String orderId, WPGConfiguration wpgConfiguration) {
+    private final WPGConfiguration getAddressAndCurrencyDetailsForOrderId(
+            final String orderId, final WPGConfiguration wpgConfiguration) {
         OnlineOpenOrder onlineOpenOrder = null;
         onlineOpenOrder = getOrderDetails(orderId, null);
 
@@ -1108,10 +1161,12 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * This method returns the Online Open Order details
      * 
      * @param orderId
+     *            - the request value
      * @param savedOrder
+     *            - the request value
      * @return onlineOpenOrder
      */
-    private OnlineOpenOrder getOrderDetails(String orderId,
+    private final OnlineOpenOrder getOrderDetails(final String orderId,
             SavedOrders savedOrder) {
         String orderDataObject = null;
         OnlineOpenOrder onlineOpenOrder = null;
@@ -1150,21 +1205,18 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * This method generates a random transaction id
      * 
      * @param min
+     *            - the request value
      * @param max
+     *            - the request value
      * @return transactionId
      */
-    private static Integer generateRandomTransactionId(int min, int max) {
-        Random rand = new Random();
-        int value = max - min;
-        Integer transactionId = rand.nextInt(value + 1) + min;
-        return transactionId;
-    }
-
-    @Override
-    public List<FundingOrganizations> getSubFundersList(final String funderId) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+//    private final static Integer generateRandomTransactionId(final int min,
+//            final int max) {
+//        Random rand = new Random();
+//        int value = max - min;
+//        Integer transactionId = rand.nextInt(value + 1) + min;
+//        return transactionId;
+//    }
 
     /**
      * This method will generate pdf
@@ -1172,7 +1224,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * @param ooUniqueId
      * */
     @Override
-    public ResponseEntity<byte[]> getPdf(String ooUniqueId) {
+    public ResponseEntity<byte[]> getPdf(final String ooUniqueId) {
 
         Document document = new Document();
         HttpHeaders headers = new HttpHeaders();
@@ -1200,6 +1252,28 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
         return response;
 
+    }
+
+    /**
+     * @param userId
+     *            - the request value
+     * @param orderId
+     *            - the request value
+     * @return OrderResponse
+     */
+    @Override
+    public OrderResponse cancelOnlineOpenOrder(final String userId,
+            final String orderId) {
+        CancelOrderRequest cancelOrderRequest = new CancelOrderRequest();
+        cancelOrderRequest.setApplicationKey(cancelOrderApplicationKey);
+        cancelOrderRequest.setAsID(Integer.parseInt(userId));
+        cancelOrderRequest.setCancelReasonCode(cancelOrderCancelReasonCode);
+        cancelOrderRequest.setCorrelationID(Integer
+                .parseInt(cancelOrderCorrelationID));
+        cancelOrderRequest.setOoUniqueId(Integer.parseInt(orderId));
+        cancelOrderRequest.setUserId(Integer.parseInt(cancelOrderUserID));
+
+        return orderservice.cancelOnlineOpenOrder(cancelOrderRequest);
     }
 
 }

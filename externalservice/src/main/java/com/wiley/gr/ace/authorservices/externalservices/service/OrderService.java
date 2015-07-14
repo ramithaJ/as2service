@@ -14,11 +14,12 @@ package com.wiley.gr.ace.authorservices.externalservices.service;
 
 import java.util.List;
 
+import com.wiley.gr.ace.authorservices.model.external.CancelOrderRequest;
 import com.wiley.gr.ace.authorservices.model.external.DiscountRequest;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSocietyResponse;
 import com.wiley.gr.ace.authorservices.model.external.InstitutionDiscounts;
-import com.wiley.gr.ace.authorservices.model.external.OrderData;
 import com.wiley.gr.ace.authorservices.model.external.OrderDataList;
+import com.wiley.gr.ace.authorservices.model.external.OrderRequest;
 import com.wiley.gr.ace.authorservices.model.external.OrderResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhArticleResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
@@ -46,7 +47,7 @@ public interface OrderService {
     /**
      * @return OrderData
      */
-    OrderResponse submitOnlineOpenOrder(OrderData orderData);
+    OrderResponse submitOnlineOpenOrder(OrderRequest orderRequest);
 
     /**
      * @param DHId
@@ -80,38 +81,43 @@ public interface OrderService {
     /**
      * @return SocietyMemberDiscount
      */
-    SocietyMemberDiscount getSocietyMemberDiscount();
+    SocietyMemberDiscount getSocietyMemberDiscount(String DHID);
 
     /**
      * @return InstitutionDiscounts
      */
-    InstitutionDiscounts getInstitutionDiscounts();
+    InstitutionDiscounts getInstitutionDiscounts(String DHID);
 
-    
     /**
      * @param orderId
      * @return
      */
     OrderDataList getAllOrders(String orderId);
-    
-	/**
-	 * This method send the non restricted WOA Account List to the admin
-	 * 
-	 * @param nonRestrictedWOAAccountList
-	 * @return 
-	 */
-	Object sendNonRestrictedWOAAccountListToAdmin(
-			List<WOAAccount> nonRestrictedWOAAccountList);
 
-	/**
-	 * @param discountRequest
-	 */
-	String getDiscounts(DiscountRequest discountRequest);
+    /**
+     * This method send the non restricted WOA Account List to the admin
+     * 
+     * @param nonRestrictedWOAAccountList
+     * @return
+     */
+    Object sendNonRestrictedWOAAccountListToAdmin(
+            List<WOAAccount> nonRestrictedWOAAccountList);
 
-	/**
-	 * @param taxRequest
-	 * @return
-	 */
-	String getTaxAmount(TaxRequest taxRequest);
+    /**
+     * @param discountRequest
+     */
+    String getDiscounts(DiscountRequest discountRequest);
+
+    /**
+     * @param taxRequest
+     * @return
+     */
+    String getTaxAmount(TaxRequest taxRequest);
+
+    /**
+     * @param cancelOrderRequest
+     * @return
+     */
+    OrderResponse cancelOnlineOpenOrder(CancelOrderRequest cancelOrderRequest);
 
 }

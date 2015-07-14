@@ -11,6 +11,8 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service;
 
+import java.util.List;
+
 import com.wiley.gr.ace.authorservices.model.ASRolesAndPermissions;
 import com.wiley.gr.ace.authorservices.model.AdminUser;
 import com.wiley.gr.ace.authorservices.model.RolesAndPermissions;
@@ -48,7 +50,7 @@ public interface AdminLoginService {
      *            the email id
      * @return true, if successful
      */
-    boolean requestAdminAccess(String emailId);
+    String requestAdminAccess(List<String> accessId, String emailId);
 
     /**
      * This method gets the list of all roles, the sections and permissions List

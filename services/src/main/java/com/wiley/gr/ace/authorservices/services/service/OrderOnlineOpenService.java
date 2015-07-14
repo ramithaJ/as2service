@@ -93,25 +93,19 @@ public interface OrderOnlineOpenService {
      * @param userId
      * @return
      */
-    SocietyDiscounts getDiscountedSocieties();
+    SocietyDiscounts getDiscountedSocieties(String DHID);
 
     /**
      * @param userId
      * @return
      */
-    InstitutionalDiscounts getInstitutionDiscounts();
+    InstitutionalDiscounts getInstitutionDiscounts(String DHID);
 
     /**
      * @param userId
      * @return
      */
     List<FundingOrganizations> getFundersList();
-
-    /**
-     * @param funderId
-     * @return
-     */
-    List<FundingOrganizations> getSubFundersList(String funderId);
 
     /**
      * @param userId
@@ -141,4 +135,11 @@ public interface OrderOnlineOpenService {
      * @return
      */
     ResponseEntity<byte[]> getPdf(String ooUniqueId);
+
+    /**
+     * @param userId
+     * @param orderId
+     * @return
+     */
+    OrderResponse cancelOnlineOpenOrder(String userId, String orderId);
 }

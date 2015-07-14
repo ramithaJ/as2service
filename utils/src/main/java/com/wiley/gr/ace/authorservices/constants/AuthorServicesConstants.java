@@ -86,7 +86,7 @@ public class AuthorServicesConstants {
     public static final String BPM_SOURCE_APP = "sourceApp";
     
     /** The Constant for BPM_LONG_DATE. */
-    public static final String BPM_LONG_DATE = "long";
+    public static final String BPM_LONG_DATE = "longDate";
     
     /** The Constant for BPM_USERID. */
     public static final String BPM_USERID = "userId";
@@ -111,6 +111,12 @@ public class AuthorServicesConstants {
     
     /** The Constant for BPM_SALT. */
     public static final String COUNTRY_CANADA = "CANADA";
+    
+    /** The Constant AUTHOR_ROLE_CD. */
+    public static final String AUTHOR_ROLE_CD = "101";
+    
+    /** The Constant COAUTHOR_ROLE_CD. */
+    public static final String COAUTHOR_ROLE_CD = "102";
     
     
     

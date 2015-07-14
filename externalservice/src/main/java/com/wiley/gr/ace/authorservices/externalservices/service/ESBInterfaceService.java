@@ -16,7 +16,7 @@ import java.util.List;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
-import com.wiley.gr.ace.authorservices.model.external.ConfirmArticleData;
+import com.wiley.gr.ace.authorservices.model.external.ViewAssignedArticle;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 import com.wiley.gr.ace.authorservices.model.external.License;
 import com.wiley.gr.ace.authorservices.model.external.OnlineOpen;
@@ -163,15 +163,15 @@ public interface ESBInterfaceService {
 	ArticleInfoDetails getArticleInfo(String emailId) throws Exception;
 
 	/**
-	 * Gets the article confirmation data.
-	 *
-	 * @param emailId
-	 *            the email id
-	 * @return the article confirmation data
-	 * @throws Exception
-	 *             the exception
-	 */
-	ConfirmArticleData getArticleConfirmationData(String emailId)
+     * View assigned article.
+     *
+     * @param emailId
+     *            the email id
+     * @return the view assigned article
+     * @throws Exception
+     *             the exception
+     */
+	ViewAssignedArticle viewAssignedArticle(String emailId)
 			throws Exception;
 
 	// WP2A

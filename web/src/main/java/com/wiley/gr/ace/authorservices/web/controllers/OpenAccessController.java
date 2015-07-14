@@ -23,125 +23,121 @@ import com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService;
 @RequestMapping("/openaccess")
 public class OpenAccessController {
 
-	@Autowired(required = true)
-	OrderOnlineOpenService orderOnlineOpenService;
+    @Autowired(required = true)
+    OrderOnlineOpenService orderOnlineOpenService;
 
-	@Autowired(required = true)
-	OpenAccessService openAccessService;
+    @Autowired(required = true)
+    OpenAccessService openAccessService;
 
-	@RequestMapping(value = "/getQuote", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Service getOpenAccessQuote(
-			@RequestParam("userId") String userId,
-			@RequestParam("articleId") String articleId,
-			@RequestParam("journalId") String journalId) {
-		Service service = new Service();
-		OpenAccessPaymentData openAccessPaymentData = new OpenAccessPaymentData();
+    @RequestMapping(value = "/getQuote", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Service getOpenAccessQuote(
+            @RequestParam("userId") String userId,
+            @RequestParam("articleId") String articleId,
+            @RequestParam("journalId") String journalId) {
+        Service service = new Service();
+        OpenAccessPaymentData openAccessPaymentData = new OpenAccessPaymentData();
 
-		try {
-			openAccessPaymentData = openAccessService.getOpenAccessDetails(
-					userId, articleId, journalId);
-			if (!StringUtils.isEmpty(openAccessPaymentData)) {
-				service.setStatus("SUCCESS");
-				service.setPayload(openAccessPaymentData);
-			}
-		} catch (Exception e) {
-			service.setStatus("ERROR");
-		}
+        try {
+            openAccessPaymentData = openAccessService.getOpenAccessDetails(
+                    userId, articleId, journalId);
+            if (!StringUtils.isEmpty(openAccessPaymentData)) {
+                service.setStatus("SUCCESS");
+                service.setPayload(openAccessPaymentData);
+            }
+        } catch (Exception e) {
+            service.setStatus("ERROR");
+        }
 
-		return service;
-	}
+        return service;
+    }
 
-	@RequestMapping(value = "/pay", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Service payOpenAccess(
-			@RequestParam("userId") String userId,
-			@RequestParam("orderId") String orderId) {
-		Service service = new Service();
+    @RequestMapping(value = "/pay", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Service payOpenAccess(
+            @RequestParam("userId") String userId,
+            @RequestParam("orderId") String orderId) {
+        Service service = new Service();
 
-		try {
-			orderOnlineOpenService.submitOnlineOpenOrder(userId, orderId, "OA");
-			service.setStatus("SUCCESS");
-		} catch (Exception e) {
-			service.setStatus("ERROR");
-			ErrorPOJO err = new ErrorPOJO();
-			err.setCode(609);
-			err.setMessage("Submit payment unsuccessful");
-			service.setError(err);
-		}
+        try {
+            orderOnlineOpenService.submitOnlineOpenOrder(userId, orderId, "OA");
+            service.setStatus("SUCCESS");
+        } catch (Exception e) {
+            service.setStatus("ERROR");
+            ErrorPOJO err = new ErrorPOJO();
+            err.setCode(609);
+            err.setMessage("Submit payment unsuccessful");
+            service.setError(err);
+        }
 
-		return service;
-	}
+        return service;
+    }
 
-	@RequestMapping(value = "/saveforlater", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Service saveForLater(
-			@RequestParam("userId") String userId,
-			@RequestBody OnlineOpenOrder onlineOpenOrder) {
-		Service service = new Service();
+    @RequestMapping(value = "/saveforlater", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Service saveForLater(
+            @RequestParam("userId") String userId,
+            @RequestBody OnlineOpenOrder onlineOpenOrder) {
+        Service service = new Service();
 
-		orderOnlineOpenService.saveLaterOrder(onlineOpenOrder, userId);
+        orderOnlineOpenService.saveLaterOrder(onlineOpenOrder, userId);
 
-		return service;
-	}
+        return service;
+    }
 
-	@RequestMapping(value = "/view/{userId}/{orderId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Service viewOpenAccess(
-			@PathVariable("userId") String userId,
-			@PathVariable("orderId") String orderId) {
-		Service service = new Service();
-		// TODO integrate will actual service
-		OnlineOpenOrder onlineOpenOrder = orderOnlineOpenService
-				.getOnlineOpenOrderDetails(userId, orderId);
-		onlineOpenOrder.setFunderDetails(null);
-		service.setPayload(onlineOpenOrder);
-		return service;
-	}
+    @RequestMapping(value = "/view/{userId}/{orderId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Service viewOpenAccess(
+            @PathVariable("userId") String userId,
+            @PathVariable("orderId") String orderId) {
+        Service service = new Service();
+        service.setPayload(openAccessService.viewOpenAccess(userId, orderId));
+        return service;
+    }
 
-	@RequestMapping(value = "/validate/address", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Service validateAddress(@RequestBody Address address) {
-		Service service = new Service();
-		try {
-			if (openAccessService.validateAddress(address)) {
-				service.setStatus("SUCCESS");
-			} else {
-				service.setStatus("FAILURE");
-				ErrorPOJO err = new ErrorPOJO();
-				err.setCode(199);
-				err.setMessage("Address is not valid");
-				service.setError(err);
-			}
-		} catch (Exception e) {
-			service.setStatus("ERROR");
-			ErrorPOJO err = new ErrorPOJO();
-			err.setCode(198);
-			err.setMessage("Address doctor service encountered exception");
-			service.setError(err);
-		}
-		return null;
-	}
+    @RequestMapping(value = "/validate/address", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Service validateAddress(@RequestBody Address address) {
+        Service service = new Service();
+        try {
+            if (openAccessService.validateAddress(address)) {
+                service.setStatus("SUCCESS");
+            } else {
+                service.setStatus("FAILURE");
+                ErrorPOJO err = new ErrorPOJO();
+                err.setCode(199);
+                err.setMessage("Address is not valid");
+                service.setError(err);
+            }
+        } catch (Exception e) {
+            service.setStatus("ERROR");
+            ErrorPOJO err = new ErrorPOJO();
+            err.setCode(198);
+            err.setMessage("Address doctor service encountered exception");
+            service.setError(err);
+        }
+        return null;
+    }
 
-	@RequestMapping(value = "/validate/vat", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Service validateVatTaxDetails(
-			@RequestParam("countryCD") String countryCode,
-			@RequestParam("vat") String vatTaxRegNum) {
-		Service service = new Service();
-		try {
-			if (openAccessService.validateVatTaxDetails(countryCode,
-					vatTaxRegNum)) {
-				service.setStatus("SUCCESS");
-			} else {
-				service.setStatus("FAILURE");
-				ErrorPOJO err = new ErrorPOJO();
-				err.setCode(199);
-				err.setMessage("Vat/Tax details is not valid");
-				service.setError(err);
-			}
-		} catch (Exception e) {
-			service.setStatus("ERROR");
-			ErrorPOJO err = new ErrorPOJO();
-			err.setCode(198);
-			err.setMessage("Vat/Tax details validation service encountered exception");
-			service.setError(err);
-		}
-		return null;
-	}
+    @RequestMapping(value = "/validate/vat", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Service validateVatTaxDetails(
+            @RequestParam("countryCD") String countryCode,
+            @RequestParam("vat") String vatTaxRegNum) {
+        Service service = new Service();
+        try {
+            if (openAccessService.validateVatTaxDetails(countryCode,
+                    vatTaxRegNum)) {
+                service.setStatus("SUCCESS");
+            } else {
+                service.setStatus("FAILURE");
+                ErrorPOJO err = new ErrorPOJO();
+                err.setCode(199);
+                err.setMessage("Vat/Tax details is not valid");
+                service.setError(err);
+            }
+        } catch (Exception e) {
+            service.setStatus("ERROR");
+            ErrorPOJO err = new ErrorPOJO();
+            err.setCode(198);
+            err.setMessage("Vat/Tax details validation service encountered exception");
+            service.setError(err);
+        }
+        return null;
+    }
 
 }

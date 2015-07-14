@@ -31,7 +31,7 @@ import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceServ
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
-import com.wiley.gr.ace.authorservices.model.external.ConfirmArticleData;
+import com.wiley.gr.ace.authorservices.model.external.ViewAssignedArticle;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 import com.wiley.gr.ace.authorservices.model.external.License;
 import com.wiley.gr.ace.authorservices.model.external.OnlineOpen;
@@ -93,9 +93,8 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
     @Value("${productionStatus.url}")
     private String productionStatusUrl;
 
-    /** The confirm article data url. */
-    @Value("${confirmArticleData.url}")
-    private String confirmArticleDataUrl;
+    @Value("${viewAssignedArticle.url}")
+    private String viewAssignedArticleUrl;
 
     /**
      * This method is for fetching ordid details by calling external service
@@ -413,20 +412,20 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
     }
 
     /**
-     * Gets the article confirmation data.
+     * View assigned article.
      *
      * @param emailId
      *            the email id
-     * @return the article confirmation data
+     * @return the view assigned article
      * @throws Exception
      *             the exception
      */
     @Override
-    public final ConfirmArticleData getArticleConfirmationData(
-            final String emailId) throws Exception {
-        return (ConfirmArticleData) StubInvokerUtil
-                .invokeStub(confirmArticleDataUrl, HttpMethod.GET,
-                        ConfirmArticleData.class);
+    public final ViewAssignedArticle viewAssignedArticle(final String emailId)
+            throws Exception {
+        return (ViewAssignedArticle) StubInvokerUtil.invokeStub(
+                viewAssignedArticleUrl, HttpMethod.GET,
+                ViewAssignedArticle.class);
     }
 
 }
