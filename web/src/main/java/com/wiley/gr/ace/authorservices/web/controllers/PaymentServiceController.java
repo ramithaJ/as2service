@@ -11,6 +11,7 @@ import org.apache.http.HttpStatus;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,10 +58,11 @@ public class PaymentServiceController {
      * @return service
      */
     @RequestMapping(value = "/wpg/details/", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public final HttpServletResponse redirectWpgResponse(
-    		@RequestBody final UrlEncodedFormEntity form, HttpServletResponse response) {
+    public void redirectWpgResponse(
+    		@RequestBody final MultiValueMap<String, String> form, HttpServletResponse response) {
 
     	String url = "http://authorservicesdev.wiley.com/landing.html#onlineopen/confirmation";
+    	
     	try {
 			response.sendRedirect(url);
 		} catch (IOException e) {
@@ -68,11 +70,7 @@ public class PaymentServiceController {
 		}
     	
     	response.setStatus(HttpStatus.SC_MOVED_PERMANENTLY);
-    	return response;
     	
-       /* Service service = new Service();
-        service.setPayload(orderOnlineOpenService.getWPGConfiguration(orderId));
-        return service;*/
     }
 
 }
