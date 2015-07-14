@@ -18,12 +18,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
- * The Class ConfirmArticleData.
+ * The Class ViewAssignedArticle.
  *
  * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
-public class ConfirmArticleData {
+public class ViewAssignedArticle {
 
     /** The article data. */
     private ArticleData articleData;
