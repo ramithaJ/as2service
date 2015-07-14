@@ -87,9 +87,7 @@ public class OpenAccessController {
             @PathVariable("userId") String userId,
             @PathVariable("orderId") String orderId) {
         Service service = new Service();
-        OnlineOpenOrder onlineOpenOrder = openAccessService.viewOpenAccess(
-                userId, orderId);
-        service.setPayload(onlineOpenOrder);
+        service.setPayload(openAccessService.viewOpenAccess(userId, orderId));
         return service;
     }
 
