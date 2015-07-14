@@ -20,6 +20,8 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.wiley.gr.ace.authorservices.persistence.entity.InvitationLog;
 import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
@@ -33,6 +35,10 @@ import com.wiley.gr.ace.authorservices.persistence.services.DashboardDAO;
  */
 public class DashboardDAOImpl implements DashboardDAO {
 
+    /** The Constant LOGGER. */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(DashboardDAOImpl.class);
+
     /**
      * Gets the invitation log list.
      *
@@ -45,6 +51,7 @@ public class DashboardDAOImpl implements DashboardDAO {
     @Override
     public final List<InvitationLog> getInvitationLogList(final String userId)
             throws Exception {
+        LOGGER.info("inside getInvitationLogList Method of DashboardDAOImpl");
         Session session = null;
         Transaction txn = null;
         try {
@@ -74,6 +81,7 @@ public class DashboardDAOImpl implements DashboardDAO {
     @Override
     public final List<ProductPersonRelations> getProductPersonRelations(
             final String userId) {
+        LOGGER.info("inside getProductPersonRelations Method of DashboardDAOImpl");
         Session session = null;
         Transaction txn = null;
         try {
@@ -105,6 +113,7 @@ public class DashboardDAOImpl implements DashboardDAO {
     @Override
     public final ProductPublicationStatuses getPublishedArticleDetails(
             final Integer dhId) throws Exception {
+        LOGGER.info("inside getPublishedArticleDetails Method of DashboardDAOImpl");
         Session session = null;
         Transaction txn = null;
         try {
