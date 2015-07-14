@@ -14,14 +14,15 @@
  */
 package com.wiley.gr.ace.authorservices.web.controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.model.AssociationConfirmation;
@@ -40,11 +41,38 @@ import com.wiley.gr.ace.authorservices.services.service.ArticleAssignmentService
 @RequestMapping("/article")
 public class ArticleAssignmentController {
 
+    /** logger configured. */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(ArticleAssignmentController.class);
     /**
      * injected ArticleAssignmentService bean.
      */
     @Autowired(required = true)
-    ArticleAssignmentService articleAssignmentService;
+    private ArticleAssignmentService articleAssignmentService;
+
+    /** The get article info error code. */
+    @Value("${ArticleAssignmentController.getArticleInfo.code}")
+    private int getArticleInfoErrorCode;
+
+    /** The get article info message. */
+    @Value("${ArticleAssignmentController.getArticleInfo.message}")
+    private String getArticleInfoErrorMessage;
+
+    /** The association confirmation error code. */
+    @Value("${ArticleAssignmentController.associationConfirmation.code}")
+    private int associationConfirmationErrorCode;
+
+    /** The association confirmation message. */
+    @Value("${ArticleAssignmentController.associationConfirmation.message}")
+    private String associationConfirmationErrorMessage;
+
+    /** The view assigned article error code. */
+    @Value("${ArticleAssignmentController.viewAssignedArticle.code}")
+    private int viewAssignedArticleErrorCode;
+
+    /** The view assigned article message. */
+    @Value("${ArticleAssignmentController.viewAssignedArticle.message}")
+    private String viewAssignedArticleErrorMessage;
 
     /**
      * Gets the article info.
@@ -53,9 +81,10 @@ public class ArticleAssignmentController {
      *            the email id
      * @return service
      */
-    @RequestMapping(value = "/confirm/display/{emailId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final @ResponseBody Service getArticleInfo(
+    @RequestMapping(value = "/confirm/display/{emailId}", method = RequestMethod.GET)
+    public final Service getArticleInfo(
             @PathVariable("emailId") final String emailId) {
+        LOGGER.info("inside getArticleInfo method of ArticleAssignmentController");
         final Service service = new Service();
         ArticleInfoDetails articleInfoDetails = null;
 
@@ -67,9 +96,10 @@ public class ArticleAssignmentController {
                 service.setPayload(articleInfoDetails);
             }
         } catch (final Exception e) {
+            LOGGER.error("Print Stack Trace- ", e);
             final ErrorPOJO error = new ErrorPOJO();
-            error.setCode(205);
-            error.setMessage("Error Fetching ArticleInfo");
+            error.setCode(getArticleInfoErrorCode);
+            error.setMessage(getArticleInfoErrorMessage);
             service.setStatus("ERROR");
             service.setError(error);
         }
@@ -84,9 +114,10 @@ public class ArticleAssignmentController {
      *            the association confirmation
      * @return service
      */
-    @RequestMapping(value = "/confirm/association", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final @ResponseBody Service associationConfirmation(
+    @RequestMapping(value = "/confirm/association", method = RequestMethod.PUT)
+    public final Service associationConfirmation(
             @RequestBody final AssociationConfirmation associationConfirmation) {
+        LOGGER.info("inside associationConfirmation method of ArticleAssignmentController");
         final Service service = new Service();
         boolean isAssociationconfirmed = false;
         try {
@@ -100,9 +131,10 @@ public class ArticleAssignmentController {
                 service.setPayload(isAssociationconfirmed);
             }
         } catch (final Exception e) {
+            LOGGER.error("Print Stack Trace- ", e);
             final ErrorPOJO error = new ErrorPOJO();
-            error.setCode(205);
-            error.setMessage("Error Fetching Association Confirmation");
+            error.setCode(associationConfirmationErrorCode);
+            error.setMessage(associationConfirmationErrorMessage);
             service.setStatus("ERROR");
             service.setError(error);
         }
@@ -117,9 +149,10 @@ public class ArticleAssignmentController {
      *            the email id
      * @return the confirmation article data
      */
-    @RequestMapping(value = "/confirm/view/{emailId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final @ResponseBody Service viewAssignedArticle(
+    @RequestMapping(value = "/confirm/view/{emailId}", method = RequestMethod.GET)
+    public final Service viewAssignedArticle(
             @PathVariable("emailId") final String emailId) {
+        LOGGER.info("inside viewAssignedArticle method of ArticleAssignmentController");
         final Service service = new Service();
         ViewAssignedArticle viewAssignedArticle = null;
 
@@ -132,8 +165,8 @@ public class ArticleAssignmentController {
             }
         } catch (final Exception e) {
             final ErrorPOJO error = new ErrorPOJO();
-            error.setCode(205);
-            error.setMessage("Error Fetching Confrim Article Data");
+            error.setCode(viewAssignedArticleErrorCode);
+            error.setMessage(viewAssignedArticleErrorMessage);
             service.setStatus("ERROR");
             service.setError(error);
         }
