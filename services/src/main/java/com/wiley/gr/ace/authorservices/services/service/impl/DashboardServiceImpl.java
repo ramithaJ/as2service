@@ -122,7 +122,7 @@ public class DashboardServiceImpl implements DashboardService {
      * @throws Exception
      *             the exception
      */
-    private final DashboardInfo getSecurityDetailsForUser(final String emailId)
+    private DashboardInfo getSecurityDetailsForUser(final String emailId)
             throws Exception {
         LOGGER.info("inside getSecurityDetailsForUser Method of DashboardServiceImpl");
         final SecuirtyQuestionDetails secuirtyQuestionDetails = userManagementService
@@ -159,7 +159,7 @@ public class DashboardServiceImpl implements DashboardService {
      * @throws Exception
      *             the exception
      */
-    private final List<DashboardInfo> checkingDashboardInfo(
+    private List<DashboardInfo> checkingDashboardInfo(
             final UserProfile userProfile) throws Exception {
         LOGGER.info("inside checkingDashBoardInfo Method of DashboardServiceImpl");
         DashboardInfo dashboardInfo = null;
@@ -205,8 +205,7 @@ public class DashboardServiceImpl implements DashboardService {
      *            the user profile
      * @return dashboardInfo
      */
-    private final DashboardInfo getInterestsForUser(
-            final UserProfile userProfile) {
+    private DashboardInfo getInterestsForUser(final UserProfile userProfile) {
         LOGGER.info("inside getInterestsForUser Method of DashboardServiceImpl");
         final List<Interests> userInterestsList = userProfile.getInterests();
         DashboardInfo dashboardInfo = null;
@@ -228,8 +227,7 @@ public class DashboardServiceImpl implements DashboardService {
      *            the user profile
      * @return dashboardInfo
      */
-    private final DashboardInfo getAffiliationsForUser(
-            final UserProfile userProfile) {
+    private DashboardInfo getAffiliationsForUser(final UserProfile userProfile) {
         LOGGER.info("inside getAffiliationsForUser Method of DashboardServiceImpl");
         final List<Affiliation> userAffiliationsList = userProfile
                 .getAffiliations();
@@ -252,8 +250,7 @@ public class DashboardServiceImpl implements DashboardService {
      *            the user profile
      * @return dashboardInfo
      */
-    private final DashboardInfo getSocietiesForUser(
-            final UserProfile userProfile) {
+    private DashboardInfo getSocietiesForUser(final UserProfile userProfile) {
         LOGGER.info("inside getSocietiesForUser Method of DashboardServiceImpl");
         final List<Society> societyList = userProfile.getSocieties();
         DashboardInfo dashboardInfo = null;
@@ -274,8 +271,7 @@ public class DashboardServiceImpl implements DashboardService {
      *            the user profile
      * @return dashboardInfo
      */
-    private final DashboardInfo getFundersListForUser(
-            final UserProfile userProfile) {
+    private DashboardInfo getFundersListForUser(final UserProfile userProfile) {
         LOGGER.info("inside getFundersListForUser Method of DashboardServiceImpl");
         final List<ResearchFunder> researchFundersList = userProfile
                 .getResearchFunders();
@@ -302,7 +298,7 @@ public class DashboardServiceImpl implements DashboardService {
      * @throws Exception
      *             the exception
      */
-    private final DashboardInfo getRecoveryEmailAddr(final User user)
+    private DashboardInfo getRecoveryEmailAddr(final User user)
             throws Exception {
         LOGGER.info("inside getRecoveryEmailAddr Method of DashboardServiceImpl");
         DashboardInfo dashboardInfo = null;
@@ -324,7 +320,7 @@ public class DashboardServiceImpl implements DashboardService {
      *            the user
      * @return dashboardInfo
      */
-    private final DashboardInfo getOrcidId(final User user) {
+    private DashboardInfo getOrcidId(final User user) {
         LOGGER.info("inside getOrcidId Method of DashboardServiceImpl");
         DashboardInfo dashboardInfo = null;
         if (StringUtils.isEmpty(user.getOrcidID())) {
@@ -362,7 +358,7 @@ public class DashboardServiceImpl implements DashboardService {
      * @throws Exception
      *             the exception
      */
-    private final List<ArticleData> getArticleAuthorData(final String userId)
+    private List<ArticleData> getArticleAuthorData(final String userId)
             throws Exception {
         LOGGER.info("inside getArticleAuthorData Method of DashboardServiceImpl");
         List<ArticleData> articleData = null;
@@ -392,9 +388,8 @@ public class DashboardServiceImpl implements DashboardService {
      * @throws Exception
      *             the exception
      */
-    private final List<ArticleData> getArticleDataDetails(
-            final Integer articleId, final String articleUserRole)
-            throws Exception {
+    private List<ArticleData> getArticleDataDetails(final Integer articleId,
+            final String articleUserRole) throws Exception {
         LOGGER.info("inside getArticleDataDetails Method of DashboardServiceImpl");
         final ArticleData articleData = esbInterfaceService
                 .getAuthorArticle(articleId);
@@ -415,7 +410,7 @@ public class DashboardServiceImpl implements DashboardService {
      * @throws Exception
      *             the exception
      */
-    private final ArticleData getArticlesStatus(final ArticleData articleData)
+    private ArticleData getArticlesStatus(final ArticleData articleData)
             throws Exception {
         LOGGER.info("inside getArticlesStatus Method of DashboardServiceImpl");
         Integer articleId = articleData.getArticleDetails().getArticleId();
@@ -435,7 +430,7 @@ public class DashboardServiceImpl implements DashboardService {
      * @throws Exception
      *             the exception
      */
-    private final OrderPaymentStatus getOrderPaymentStatusForArticle(
+    private OrderPaymentStatus getOrderPaymentStatusForArticle(
             final Integer articleId) throws Exception {
         LOGGER.info("inside getOrderPaymentStatusForArticle Method of DashboardServiceImpl");
         final OrderPaymentStatus orderPaymentStatus = new OrderPaymentStatus();
@@ -476,8 +471,8 @@ public class DashboardServiceImpl implements DashboardService {
      * @throws Exception
      *             the exception
      */
-    private final List<CommunicationDetails> getInvitationLogsList(
-            final String userId) throws Exception {
+    private List<CommunicationDetails> getInvitationLogsList(final String userId)
+            throws Exception {
         LOGGER.info("inside getInvitationLogsList Method of DashboardServiceImpl");
         List<CommunicationDetails> communicationDetailsList = null;
         final List<InvitationLog> invitationLogList = dashboardDAO
@@ -541,7 +536,7 @@ public class DashboardServiceImpl implements DashboardService {
      * @throws Exception
      *             the exception
      */
-    private final DashboardView getProductionDetailsForArticles(
+    private DashboardView getProductionDetailsForArticles(
             final String articleAuthorRole, final Integer articleId)
             throws Exception {
         LOGGER.info("inside getProductionDetailsForArticles Method of DashboardServiceImpl");
@@ -599,7 +594,7 @@ public class DashboardServiceImpl implements DashboardService {
      * @throws Exception
      *             the exception
      */
-    private final DashboardView getPublicationArticleStatus(
+    private DashboardView getPublicationArticleStatus(
             final String articleAuthorRole, final Integer dhId)
             throws Exception {
         LOGGER.info("inside getPublicationArticleStatus Method of DashboardServiceImpl");
