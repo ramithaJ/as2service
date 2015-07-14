@@ -23,31 +23,31 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The Class InvitationStartReciever.
+ * The Class InvitationCeaseReciever.
  * 
  * @author virtusa version 1.0
  */
-public class InvitationStartReciever {
+public class InvitationCeaseReciever {
 
     /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(InvitationStartReciever.class);
+            .getLogger(InvitationCeaseReciever.class);
 
     /**
      * Queue receiver.
      */
     public final void queueReceiver() {
         try {
-            LOGGER.info("Inside queueReceiver of InvitationStartReciever");
+            LOGGER.info("Inside queuReciever of InvitationCeaseReciever");
             InitialContext initCtx = new InitialContext();
-            QueueConnectionFactory queueConnFactory = (QueueConnectionFactory) initCtx
+            QueueConnectionFactory ceaseQueueConnFactory = (QueueConnectionFactory) initCtx
                     .lookup("myQueueConnectionFactory");
-            QueueConnection queueConn = queueConnFactory
+            QueueConnection ceaseQueueConn = ceaseQueueConnFactory
                     .createQueueConnection();
-            queueConn.start();
+            ceaseQueueConn.start();
 
-            QueueSession queueSession = queueConn.createQueueSession(false,
-                    Session.AUTO_ACKNOWLEDGE);
+            QueueSession queueSession = ceaseQueueConn.createQueueSession(
+                    false, Session.AUTO_ACKNOWLEDGE);
 
             Queue queue = (Queue) initCtx.lookup("myQueue");
 

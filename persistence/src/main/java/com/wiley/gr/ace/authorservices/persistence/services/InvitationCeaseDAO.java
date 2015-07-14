@@ -9,23 +9,24 @@
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
  *******************************************************************************/
-package com.wiley.gr.ace.authorservices.services.service;
+
+package com.wiley.gr.ace.authorservices.persistence.services;
 
 /**
- * The Interface SaveInvitationStartEventService.
+ * The Interface InvitationCeaseDAO.
  * 
  * @author virtusa version 1.0
  */
-public interface SaveInvitationStartEventService {
+public interface InvitationCeaseDAO {
 
     /**
-     * Parses the invitation start event.
+     * Update invite reset pwd log.
      *
-     * @param invitationStartEventData
-     *            the invitation start event data
+     * @param email
+     *            the email
+     * @return true, if successful
      * @throws Exception
      *             the exception
      */
-    void parseInvitationStartEvent(String invitationStartEventData)
-            throws Exception;
+    boolean updateInviteResetPWDLog(String email) throws Exception;
 }
