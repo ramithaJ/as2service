@@ -21,7 +21,7 @@ import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
 import com.wiley.gr.ace.authorservices.externalservices.service.TaskService;
 import com.wiley.gr.ace.authorservices.model.AssociationConfirmation;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
-import com.wiley.gr.ace.authorservices.model.external.ConfirmArticleData;
+import com.wiley.gr.ace.authorservices.model.external.ViewAssignedArticle;
 import com.wiley.gr.ace.authorservices.services.service.ArticleAssignmentService;
 
 /**
@@ -31,72 +31,72 @@ import com.wiley.gr.ace.authorservices.services.service.ArticleAssignmentService
  */
 public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
 
-	/** The esb interface service. */
-	@Autowired(required = true)
-	private ESBInterfaceService esbInterfaceService;
+    /** The esb interface service. */
+    @Autowired(required = true)
+    private ESBInterfaceService esbInterfaceService;
 
-	/** The Shared service. */
-	@Autowired(required = true)
-	private TaskService bpmInterfaceService;
+    /** The Shared service. */
+    @Autowired(required = true)
+    private TaskService bpmInterfaceService;
 
-	@Autowired(required = true)
-	private OrderService orderService;
+    @Autowired(required = true)
+    private OrderService orderService;
 
-	/**
-	 * this method will take emailId as in input and call external service (ESb)
-	 * to get article info.
-	 *
-	 * @param emailId
-	 *            the email id
-	 * @return the article info
-	 * @throws Exception
-	 *             the exception
-	 */
-	@Override
-	public final ArticleInfoDetails getArticleInfo(final String emailId)
-			throws Exception {
-		return esbInterfaceService.getArticleInfo(emailId);
-	}
+    /**
+     * this method will take emailId as in input and call external service (ESb)
+     * to get article info.
+     *
+     * @param emailId
+     *            the email id
+     * @return the article info
+     * @throws Exception
+     *             the exception
+     */
+    @Override
+    public final ArticleInfoDetails getArticleInfo(final String emailId)
+            throws Exception {
+        return esbInterfaceService.getArticleInfo(emailId);
+    }
 
-	/**
-	 * Association confirmation.
-	 *
-	 * @param associationConfirmation
-	 *            the association confirmation
-	 * @return true, if successful
-	 * @throws Exception
-	 *             the exception
-	 */
-	@Override
-	public final boolean associationConfirmation(
-			final AssociationConfirmation associationConfirmation)
-			throws Exception {
-		return bpmInterfaceService.finishTask(associationConfirmation);
-	}
+    /**
+     * Association confirmation.
+     *
+     * @param associationConfirmation
+     *            the association confirmation
+     * @return true, if successful
+     * @throws Exception
+     *             the exception
+     */
+    @Override
+    public final boolean associationConfirmation(
+            final AssociationConfirmation associationConfirmation)
+            throws Exception {
+        return bpmInterfaceService.finishTask(associationConfirmation);
+    }
 
-	/**
-	 * Gets the article confirmation data.
-	 *
-	 * @param emailId
-	 *            the email id
-	 * @return the article confirmation data
-	 * @throws Exception
-	 *             the exception
-	 */
-	@Override
-	public final ConfirmArticleData getArticleConfirmationData(
-			final String emailId) throws Exception {
-		return esbInterfaceService.getArticleConfirmationData(emailId);
-	}
+    /**
+     * View assigned article.
+     *
+     * @param emailId
+     *            the email id
+     * @return the view assigned article
+     * @throws Exception
+     *             the exception
+     */
+    @Override
+    public final ViewAssignedArticle viewAssignedArticle(final String emailId)
+            throws Exception {
+        return esbInterfaceService.viewAssignedArticle(emailId);
+    }
 
-	@Override
-	public boolean checkIfArticleInvited(Integer dhId) throws Exception {
-		boolean isArticleInvited = false;
-		if ("Y".equalsIgnoreCase(orderService.pdhLookUpArticle(dhId)
-				.getIsArticleInvited())) {
-			isArticleInvited = true;
-		}
-		return isArticleInvited;
-	}
+    @Override
+    public boolean checkIfArticleInvited(Integer dhId) throws Exception {
+        boolean isArticleInvited = false;
+        if ("Y".equalsIgnoreCase(orderService.pdhLookUpArticle(dhId)
+                .getIsArticleInvited())) {
+            isArticleInvited = true;
+        }
+        return isArticleInvited;
+    }
 
 }
