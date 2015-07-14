@@ -34,7 +34,7 @@ public class ArticleData {
 
     /** The dhid. */
     @JsonProperty("DH_ID")
-    private String DHID;
+    private String dhId;
 
     /** The aid ecore. */
     private String aidECORE;
@@ -92,6 +92,25 @@ public class ArticleData {
     }
 
     /**
+     * Gets the dh id.
+     *
+     * @return the dh id
+     */
+    public final String getDhId() {
+        return dhId;
+    }
+
+    /**
+     * Sets the dh id.
+     *
+     * @param dhId
+     *            the new dh id
+     */
+    public final void setDhId(final String dhId) {
+        this.dhId = dhId;
+    }
+
+    /**
      * Sets the order.
      *
      * @param order
@@ -137,25 +156,6 @@ public class ArticleData {
      */
     public final void setJournal(final Journal journal) {
         this.journal = journal;
-    }
-
-    /**
-     * Gets the dhid.
-     *
-     * @return The DHID
-     */
-    public final String getDHID() {
-        return DHID;
-    }
-
-    /**
-     * Sets the dhid.
-     *
-     * @param DHID
-     *            The DH_ID
-     */
-    public final void setDHID(final String DHID) {
-        this.DHID = DHID;
     }
 
     /**
