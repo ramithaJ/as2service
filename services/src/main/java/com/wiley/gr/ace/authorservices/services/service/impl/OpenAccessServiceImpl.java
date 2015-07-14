@@ -368,6 +368,10 @@ public class OpenAccessServiceImpl implements OpenAccessService {
                 .getOnlineOpenOrderDetails(userId, orderId);
         onlineOpenOrder.setFunderDetails(null);
         DiscountDetail discountDetail = new DiscountDetail();
+        // TODO we have to call discount service to get discount details
+        discountDetail.setDiscountAmount("12.33");
+        discountDetail.setDiscountPercent("20");
+        discountDetail.setDiscountType("special");
         onlineOpenOrder.setDiscountDetail(discountDetail);
         return onlineOpenOrder;
     }
