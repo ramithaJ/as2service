@@ -12,20 +12,20 @@
 package com.wiley.gr.ace.authorservices.services.service;
 
 /**
- * The Interface SaveInvitationStartEventService.
+ * The Interface SaveInvitationCeaseEventService.
  * 
  * @author virtusa version 1.0
  */
-public interface SaveInvitationStartEventService {
+public interface SaveInvitationCeaseEventService {
 
     /**
-     * Parses the invitation start event.
+     * Parses the invitation cease event.
      *
-     * @param invitationStartEventData
-     *            the invitation start event data
+     * @param invitationCeaseEventData
+     *            the invitation cease event data
      * @throws Exception
      *             the exception
      */
-    void parseInvitationStartEvent(String invitationStartEventData)
+    void parseInvitationCeaseEvent(String invitationCeaseEventData)
             throws Exception;
 }

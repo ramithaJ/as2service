@@ -1,3 +1,5 @@
+package com.wiley.gr.ace.authorservices.model.event;
+
 /*******************************************************************************
  * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
  *
@@ -10,17 +12,15 @@
  * of John Wiley & Sons.
  *******************************************************************************/
 
-package com.wiley.gr.ace.authorservices.model.event;
-
 /**
- * The Class InvitationStartEventData.
+ * The Class InvitationCeaseEventData.
  * 
  * @author virtusa version 1.0
  */
-public class InvitationStartEventData {
+public class InvitationCeaseEventData {
 
     /** The article id. */
-    private String articleId;
+    private String articleID;
 
     /** The email. */
     private String email;
@@ -31,45 +31,26 @@ public class InvitationStartEventData {
     /** The user id. */
     private String userID;
 
-    /** The notification id. */
-    private String notificationId;
-
-    /**
-     * Gets the notification id.
-     *
-     * @return the notification id
-     */
-    public final String getNotificationId() {
-        return notificationId;
-    }
-
-    /**
-     * Sets the notification id.
-     *
-     * @param notificationId
-     *            the new notification id
-     */
-    public final void setNotificationId(final String notificationId) {
-        this.notificationId = notificationId;
-    }
+    /** The persistent invitation ind. */
+    private boolean persistentInvitationInd;
 
     /**
      * Gets the article id.
      *
      * @return the article id
      */
-    public final String getArticleId() {
-        return articleId;
+    public final String getArticleID() {
+        return articleID;
     }
 
     /**
      * Sets the article id.
      *
-     * @param articleId
+     * @param articleID
      *            the new article id
      */
-    public final void setArticleId(final String articleId) {
-        this.articleId = articleId;
+    public final void setArticleID(final String articleID) {
+        this.articleID = articleID;
     }
 
     /**
@@ -129,4 +110,23 @@ public class InvitationStartEventData {
         this.userID = userID;
     }
 
+    /**
+     * Gets the persistent invitation ind.
+     *
+     * @return the persistent invitation ind
+     */
+    public final boolean getPersistentInvitationInd() {
+        return persistentInvitationInd;
+    }
+
+    /**
+     * Sets the persistent invitation ind.
+     *
+     * @param persistentInvitationInd
+     *            the new persistent invitation ind
+     */
+    public final void setPersistentInvitationInd(
+            final boolean persistentInvitationInd) {
+        this.persistentInvitationInd = persistentInvitationInd;
+    }
 }
