@@ -93,4 +93,10 @@ public interface OrderOnlineDAO {
 	 * @param orders
 	 */
 	void saveOrder(Orders orders);
+
+	/**
+	 * @param orderId
+	 * @return
+	 */
+	String retrieveOrderType(Integer orderId);
 }

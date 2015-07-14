@@ -396,33 +396,6 @@ public class OrderOnlineOpenController extends ASExceptionController {
     }
 
     /**
-     * @param paymentDetails
-     *            - the request value
-     * @return service
-     */
-/*    @RequestMapping(value = "/paymentDetails/save/", method = RequestMethod.POST)
-    public final Service savePaymentDetails(
-            @RequestBody final PaymentDetails paymentDetails) {
-        orderOnlineOpenService.savePaymentDetails(paymentDetails);
-        return new Service();
-
-    }*/
-
-    /**
-     * @param orderId
-     *            - the request value
-     * @return service
-     */
-    /*@RequestMapping(value = "/wpg/config/{orderId}", method = RequestMethod.GET)
-    public final Service getWPGConfiguration(
-            @PathVariable("orderId") final String orderId) {
-
-        Service service = new Service();
-        service.setPayload(orderOnlineOpenService.getWPGConfiguration(orderId));
-        return service;
-    }*/
-
-    /**
      * This method will generate PDF.
      * 
      * @param ooUniqueId

@@ -118,6 +118,12 @@ public class AuthorServicesConstants {
     /** The Constant COAUTHOR_ROLE_CD. */
     public static final String COAUTHOR_ROLE_CD = "102";
     
+    /** The Constant ONLINE_OPEN. */
+    public static final String ONLINE_OPEN = "ONLINE OPEN";
+    
+    /** The Constant OPEN_ACCESS. */
+    public static final String OPEN_ACCESS = "OPEN ACCESS";
+    
     
     
 }

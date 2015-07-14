@@ -379,4 +379,34 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
 
 	}
 
+	/**
+	 * Method returns the order type for the corresponding order id
+	 * @param orderId
+	 * @return orderType 
+	 * 
+	 */
+	@Override
+	public String retrieveOrderType(Integer orderId) {
+		Session session = null;
+		Orders order = null;
+		String orderType = null;
+		
+		
+			try {
+				session = getSessionFactory().openSession();
+				order = (Orders) session.load(Orders.class, orderId);
+				orderType = order.getOrderTypes().getOrderTypeName();
+				
+			} finally {
+				if (session != null) {
+					session.flush();
+					session.close();
+				}
+				
+			} 
+			
+		
+		return orderType;
+	}
+
 }

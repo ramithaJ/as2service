@@ -3,13 +3,13 @@ package com.wiley.gr.ace.authorservices.services.service;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 
 import com.wiley.gr.ace.authorservices.model.FundingOrganizations;
 import com.wiley.gr.ace.authorservices.model.GrantRecipients;
 import com.wiley.gr.ace.authorservices.model.InstitutionalDiscounts;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.OrderDetails;
-import com.wiley.gr.ace.authorservices.model.PaymentDetails;
 import com.wiley.gr.ace.authorservices.model.QuoteDetails;
 import com.wiley.gr.ace.authorservices.model.SocietyDiscounts;
 import com.wiley.gr.ace.authorservices.model.WOAAccountHolders;
@@ -122,7 +122,7 @@ public interface OrderOnlineOpenService {
      * @param paymentDetails
      * @return
      */
-    void savePaymentDetails(PaymentDetails paymentDetails);
+    void savePaymentDetails(final MultiValueMap<String, String> form);
 
     /**
      * @param orderId
@@ -142,4 +142,9 @@ public interface OrderOnlineOpenService {
      * @return
      */
     OrderResponse cancelOnlineOpenOrder(String userId, String orderId);
+
+	/**
+	 * @param parseInt
+	 */
+	String getOrderType(final Integer orderId);
 }
