@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.model.Address;
-import com.wiley.gr.ace.authorservices.model.DiscountDetail;
 import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.OpenAccessPaymentData;
@@ -88,12 +87,8 @@ public class OpenAccessController {
             @PathVariable("userId") String userId,
             @PathVariable("orderId") String orderId) {
         Service service = new Service();
-        // TODO integrate will actual service
-        OnlineOpenOrder onlineOpenOrder = orderOnlineOpenService
-                .getOnlineOpenOrderDetails(userId, orderId);
-        onlineOpenOrder.setFunderDetails(null);
-        DiscountDetail discountDetail = new DiscountDetail();
-        onlineOpenOrder.setDiscountDetail(discountDetail);
+        OnlineOpenOrder onlineOpenOrder = openAccessService.viewOpenAccess(
+                userId, orderId);
         service.setPayload(onlineOpenOrder);
         return service;
     }

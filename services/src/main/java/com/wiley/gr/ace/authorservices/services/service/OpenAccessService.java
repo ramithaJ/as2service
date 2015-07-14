@@ -15,6 +15,7 @@
 package com.wiley.gr.ace.authorservices.services.service;
 
 import com.wiley.gr.ace.authorservices.model.Address;
+import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.OpenAccessPaymentData;
 
 /**
@@ -64,4 +65,11 @@ public interface OpenAccessService {
      */
     boolean validateVatTaxDetails(String countryCode, String vatTaxRegNum)
             throws Exception;
+
+    /**
+     * @param userId
+     * @param orderId
+     * @return
+     */
+    OnlineOpenOrder viewOpenAccess(final String userId, final String orderId);
 }

@@ -8,7 +8,6 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.http.HttpStatus;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.util.MultiValueMap;
@@ -28,15 +27,13 @@ import com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService;
 @RestController
 @RequestMapping("/payment")
 public class PaymentServiceController {
-	
+
     /**
      * This field holds the value of orderOnlineOpenService.
      */
     @Autowired(required = true)
     private OrderOnlineOpenService orderOnlineOpenService;
-    
-    
-    
+
     /**
      * @param orderId
      *            - the request value
@@ -50,8 +47,7 @@ public class PaymentServiceController {
         service.setPayload(orderOnlineOpenService.getWPGConfiguration(orderId));
         return service;
     }
-    
-    
+
     /**
      * @param orderId
      *            - the request value
@@ -59,18 +55,19 @@ public class PaymentServiceController {
      */
     @RequestMapping(value = "/wpg/details/", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public void redirectWpgResponse(
-    		@RequestBody final MultiValueMap<String, String> form, HttpServletResponse response) {
+            @RequestBody final MultiValueMap<String, String> form,
+            HttpServletResponse response) {
 
-    	String url = "http://authorservicesdev.wiley.com/landing.html#onlineopen/confirmation";
-    	
-    	try {
-			response.sendRedirect(url);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-    	
-    	response.setStatus(HttpStatus.SC_MOVED_PERMANENTLY);
-    	
+        String url = "http://authorservicesdev.wiley.com/landing.html#onlineopen/confirmation";
+
+        try {
+            response.sendRedirect(url);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        response.setStatus(HttpStatus.SC_MOVED_PERMANENTLY);
+
     }
 
 }

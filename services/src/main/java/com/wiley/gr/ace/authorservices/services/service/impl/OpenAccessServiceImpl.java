@@ -31,6 +31,7 @@ import com.wiley.gr.ace.authorservices.model.ArticleDetails;
 import com.wiley.gr.ace.authorservices.model.Country;
 import com.wiley.gr.ace.authorservices.model.DiscountDetail;
 import com.wiley.gr.ace.authorservices.model.JournalDetails;
+import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.OpenAccessPaymentData;
 import com.wiley.gr.ace.authorservices.model.QuoteData;
 import com.wiley.gr.ace.authorservices.model.TaxDetails;
@@ -51,6 +52,7 @@ import com.wiley.gr.ace.authorservices.persistence.entity.ProductRoles;
 import com.wiley.gr.ace.authorservices.persistence.entity.SavedOrders;
 import com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO;
 import com.wiley.gr.ace.authorservices.services.service.OpenAccessService;
+import com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService;
 
 /**
  * The Class OpenAccessServiceImpl.
@@ -70,6 +72,12 @@ public class OpenAccessServiceImpl implements OpenAccessService {
     /** The order online dao. */
     @Autowired(required = true)
     private OrderOnlineDAO orderOnlineDAO;
+    /**
+     * This is for getting of online open service because same ui for onlineopen
+     * and open access
+     */
+    @Autowired(required = true)
+    OrderOnlineOpenService orderOnlineOpenService;
 
     /** This field holds the value of articleAcceptanceCode. */
     @Value("${articleAcceptance.code}")
@@ -115,7 +123,7 @@ public class OpenAccessServiceImpl implements OpenAccessService {
     @Override
     public final OpenAccessPaymentData getOpenAccessDetails(
             final String userId, final String articleId, final String journalId)
-                    throws Exception {
+            throws Exception {
 
         OpenAccessPaymentData openAccessPaymentData = null;
 
@@ -324,7 +332,7 @@ public class OpenAccessServiceImpl implements OpenAccessService {
                 .getDepartment());
 
         addressValidationRequest
-        .setAddressValidationMultiReq(addressValidationMultiReq);
+                .setAddressValidationMultiReq(addressValidationMultiReq);
 
         return validationService.validateAddress(addressValidationRequest);
     }
@@ -345,6 +353,23 @@ public class OpenAccessServiceImpl implements OpenAccessService {
             final String vatTaxRegNum) throws Exception {
 
         return validationService.vatValidation(countryCode, vatTaxRegNum);
+    }
+
+    /**
+     * This method is for view open access as oa and oo are almost same so we
+     * are using same method of oo but with few changes
+     * 
+     * @param userId
+     * @param orderId
+     * */
+    @Override
+    public OnlineOpenOrder viewOpenAccess(String userId, String orderId) {
+        OnlineOpenOrder onlineOpenOrder = orderOnlineOpenService
+                .getOnlineOpenOrderDetails(userId, orderId);
+        onlineOpenOrder.setFunderDetails(null);
+        DiscountDetail discountDetail = new DiscountDetail();
+        onlineOpenOrder.setDiscountDetail(discountDetail);
+        return onlineOpenOrder;
     }
 
 }
