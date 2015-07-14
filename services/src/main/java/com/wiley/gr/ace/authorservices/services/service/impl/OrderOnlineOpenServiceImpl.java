@@ -540,7 +540,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 		List<OrderDetails> orderDetailsList = new ArrayList<OrderDetails>();
 		OrderDataList orderDataList = orderservice.getAllOrders(orderId);
 		for (OrderData orderData : orderDataList.getOrderDatas()) {
-			orderDetails.setArticleId(orderData.getArticle().getDHID());
+			orderDetails.setArticleId(orderData.getArticle().getDhId());
 			orderDetails.setArticleTitle(orderData.getArticle()
 					.getArticleTitle());
 			orderDetails.setOrderDate(orderData.getOrderDate());
@@ -595,7 +595,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 		orders.setOrderId(Integer.parseInt(orderId));
 		orders.setOrderStatus(AuthorServicesConstants.ORDER_STATUS_SUBMIT);
 		Products products = new Products(Integer.parseInt(orderData
-				.getArticle().getDHID()));
+				.getArticle().getDhId()));
 		orders.setProducts(products);
 		// orders.setDownstreamappOrderId(Integer.parseInt(orderResponse.getOoUniqueId()));
 		Users users = new Users();
@@ -629,7 +629,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
 		if (onlineOpenOrder != null) {
 			ArticleData articleData = new ArticleData();
-			articleData.setDHID(savedOrder.getProducts().getDhId().toString());
+			articleData.setDhId(savedOrder.getProducts().getDhId().toString());
 			orderData.setArticle(articleData);
 			AddressDetails address = onlineOpenOrder.getAddressDetails();
 
