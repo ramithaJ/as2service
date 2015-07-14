@@ -28,7 +28,7 @@ import com.wiley.gr.ace.authorservices.model.AssociationConfirmation;
 import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
-import com.wiley.gr.ace.authorservices.model.external.ConfirmArticleData;
+import com.wiley.gr.ace.authorservices.model.external.ViewAssignedArticle;
 import com.wiley.gr.ace.authorservices.services.service.ArticleAssignmentService;
 
 /**
@@ -118,17 +118,17 @@ public class ArticleAssignmentController {
      * @return the confirmation article data
      */
     @RequestMapping(value = "/confirm/view/{emailId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final @ResponseBody Service getConfirmationArticleData(
+    public final @ResponseBody Service viewAssignedArticle(
             @PathVariable("emailId") final String emailId) {
         final Service service = new Service();
-        ConfirmArticleData confirmArticleData = null;
+        ViewAssignedArticle viewAssignedArticle = null;
 
         try {
-            confirmArticleData = articleAssignmentService
-                    .getArticleConfirmationData(emailId);
-            if (!StringUtils.isEmpty(confirmArticleData)) {
+            viewAssignedArticle = articleAssignmentService
+                    .viewAssignedArticle(emailId);
+            if (!StringUtils.isEmpty(viewAssignedArticle)) {
                 service.setStatus("SUCCESS");
-                service.setPayload(confirmArticleData);
+                service.setPayload(viewAssignedArticle);
             }
         } catch (final Exception e) {
             final ErrorPOJO error = new ErrorPOJO();
