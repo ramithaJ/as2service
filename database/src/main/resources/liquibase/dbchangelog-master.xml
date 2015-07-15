@@ -3,5 +3,4 @@
 <!--<include file="updates/R1/updates-WP1.xml" relativeToChangelogFile="true"/> -->
  <include file="updates/R1/updates-WP2A.xml" relativeToChangelogFile="true"/> 
 <!--<include file="updates/R1/updates-NTF.xml" relativeToChangelogFile="true"/> -->
-<include file="updates/R1/updates-pp.xml"/>
 </databaseChangeLog> 
