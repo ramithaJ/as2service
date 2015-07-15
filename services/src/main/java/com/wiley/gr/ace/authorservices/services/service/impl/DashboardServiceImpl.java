@@ -30,12 +30,14 @@ import com.wiley.gr.ace.authorservices.model.DashboardInfo;
 import com.wiley.gr.ace.authorservices.model.DashboardView;
 import com.wiley.gr.ace.authorservices.model.EmailCommunicationHistory;
 import com.wiley.gr.ace.authorservices.model.Interests;
+import com.wiley.gr.ace.authorservices.model.NotificationHistory;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserProfile;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
 import com.wiley.gr.ace.authorservices.model.external.OrderPaymentStatus;
+import com.wiley.gr.ace.authorservices.model.external.Production;
 import com.wiley.gr.ace.authorservices.model.external.Publication;
 import com.wiley.gr.ace.authorservices.model.external.SecuirtyQuestionDetails;
 import com.wiley.gr.ace.authorservices.model.external.SecurityQuestion;
@@ -414,8 +416,11 @@ public class DashboardServiceImpl implements DashboardService {
             throws Exception {
         LOGGER.info("inside getArticlesStatus Method of DashboardServiceImpl");
         Integer articleId = articleData.getArticleDetails().getArticleId();
-        articleData.setLicenseStatus(esbInterfaceService.getLicenseStatus(
-                articleId).getLicenseStatus());
+        final String licenseStatus = esbInterfaceService.getLicenseStatus(
+                articleId).getLicenseStatus();
+        if (!StringUtils.isEmpty(licenseStatus)) {
+            articleData.setLicenseStatus(licenseStatus);
+        }
         articleData
                 .setOrderPaymentStatus(getOrderPaymentStatusForArticle(articleId));
         return articleData;
@@ -434,10 +439,16 @@ public class DashboardServiceImpl implements DashboardService {
             final Integer articleId) throws Exception {
         LOGGER.info("inside getOrderPaymentStatusForArticle Method of DashboardServiceImpl");
         final OrderPaymentStatus orderPaymentStatus = new OrderPaymentStatus();
-        orderPaymentStatus.setOpenAccessStatus(esbInterfaceService
-                .getOpenAccessStatus(articleId).getOpenAccessStatus());
-        orderPaymentStatus.setOnlineOpenStatus(esbInterfaceService
-                .getOnlineOpenStatus(articleId).getOnlineOpenStatus());
+        final String openAccessStatus = esbInterfaceService
+                .getOpenAccessStatus(articleId).getOpenAccessStatus();
+        if (!StringUtils.isEmpty(openAccessStatus)) {
+            orderPaymentStatus.setOpenAccessStatus(openAccessStatus);
+        }
+        final String onlineOpenStatus = esbInterfaceService
+                .getOnlineOpenStatus(articleId).getOnlineOpenStatus();
+        if (!StringUtils.isEmpty(onlineOpenStatus)) {
+            orderPaymentStatus.setOnlineOpenStatus(onlineOpenStatus);
+        }
         return orderPaymentStatus;
     }
 
@@ -457,8 +468,12 @@ public class DashboardServiceImpl implements DashboardService {
         final EmailCommunicationHistory emailCommunicationHistory = new EmailCommunicationHistory();
         emailCommunicationHistory
                 .setInvitationCommunicationDetails(getInvitationLogsList(userId));
-        emailCommunicationHistory.setNotifications(notificationService
-                .getNotificationHistory(userId).getNotifications());
+        final NotificationHistory notificationsHistory = notificationService
+                .getNotificationHistory(userId);
+        if (!StringUtils.isEmpty(notificationsHistory)) {
+            emailCommunicationHistory.setNotifications(notificationsHistory
+                    .getNotifications());
+        }
         return emailCommunicationHistory;
     }
 
@@ -480,20 +495,43 @@ public class DashboardServiceImpl implements DashboardService {
         if (!StringUtils.isEmpty(invitationLogList)) {
             communicationDetailsList = new ArrayList<CommunicationDetails>();
             for (final InvitationLog invitationLog : invitationLogList) {
-                final CommunicationDetails communicationDetails = new CommunicationDetails();
-                communicationDetails.setUserId(invitationLog.getUserProfile()
-                        .getUserId());
-                communicationDetails.setInviationId(invitationLog
-                        .getInvitationId());
-                communicationDetails.setEmailId(invitationLog.getEmailAddr());
-                communicationDetails.setArticleId(invitationLog.getProducts()
-                        .getDhId());
-                communicationDetails.setSentDate(invitationLog.getSentDate()
-                        .toString());
+                final CommunicationDetails communicationDetails = checkCommunicationDetails(invitationLog);
                 communicationDetailsList.add(communicationDetails);
             }
         }
         return communicationDetailsList;
+    }
+
+    /**
+     * Check communication details.
+     *
+     * @param invitationLog
+     *            the invitation log
+     * @return the communication details
+     */
+    private CommunicationDetails checkCommunicationDetails(
+            final InvitationLog invitationLog) {
+        final CommunicationDetails communicationDetails = new CommunicationDetails();
+        if (!StringUtils.isEmpty(invitationLog.getUserProfile().getUserId())) {
+            communicationDetails.setUserId(invitationLog.getUserProfile()
+                    .getUserId());
+        }
+        if (!StringUtils.isEmpty(invitationLog.getInvitationId())) {
+            communicationDetails
+                    .setInviationId(invitationLog.getInvitationId());
+        }
+        if (!StringUtils.isEmpty(invitationLog.getEmailAddr())) {
+            communicationDetails.setEmailId(invitationLog.getEmailAddr());
+        }
+        if (!StringUtils.isEmpty(invitationLog.getProducts().getDhId())) {
+            communicationDetails.setArticleId(invitationLog.getProducts()
+                    .getDhId());
+        }
+        if (!StringUtils.isEmpty(invitationLog.getSentDate().toString())) {
+            communicationDetails.setSentDate(invitationLog.getSentDate()
+                    .toString());
+        }
+        return communicationDetails;
     }
 
     /**
@@ -546,8 +584,11 @@ public class DashboardServiceImpl implements DashboardService {
                 .getAuthorArticle(articleId);
         if (!StringUtils.isEmpty(articleData)) {
             articleData.setArticleUserRole(articleAuthorRole);
-            articleData.setProduction(esbInterfaceService.getProductionData(
-                    articleId).getProduction());
+            final Production production = esbInterfaceService
+                    .getProductionData(articleId).getProduction();
+            if (!StringUtils.isEmpty(production)) {
+                articleData.setProduction(production);
+            }
             articleDataListforProduction.add(articleData);
         }
         dashboardView.setArticleData(articleDataListforProduction);
@@ -605,9 +646,12 @@ public class DashboardServiceImpl implements DashboardService {
         if (!StringUtils.isEmpty(articleData)) {
             articleData.setArticleUserRole(articleAuthorRole);
             final Publication publication = new Publication();
-            publication.setPublicationStatus(dashboardDAO
+            final String publicationStatusName = dashboardDAO
                     .getPublishedArticleDetails(dhId).getPublicationStatuses()
-                    .getPublicationStatusName());
+                    .getPublicationStatusName();
+            if (!StringUtils.isEmpty(publicationStatusName)) {
+                publication.setPublicationStatus(publicationStatusName);
+            }
             articleData.setPublication(publication);
             articleDataListforPublication.add(articleData);
         }
