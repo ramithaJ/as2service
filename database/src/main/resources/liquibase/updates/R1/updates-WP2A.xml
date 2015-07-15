@@ -2161,4 +2161,12 @@ CREATE SEQUENCE PAYMENTS_TRANSACTION_SEQ START WITH 1 INCREMENT BY 1 NOCACHE;
 </sql>
 </changeSet>
 
+<changeSet author="gphaniraj" id="AOI-1">
+    <loadData file="updates/csv/aoi_codes.csv"
+            tableName="AOI_TST">
+        <column name="AREA_OF_INTEREST_CD" type="string"/>
+		 <column name="INTEREST_NAME" type="string"/>
+    </loadData>
+</changeSet>
+
 </databaseChangeLog>
