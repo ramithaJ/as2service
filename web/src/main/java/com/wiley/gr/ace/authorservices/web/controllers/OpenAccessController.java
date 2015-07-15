@@ -19,16 +19,32 @@ import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.services.service.OpenAccessService;
 import com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService;
 
+/**
+ * The Class OpenAccessController.
+ */
 @RestController
 @RequestMapping("/openaccess")
 public class OpenAccessController {
 
+    /** The order online open service. */
     @Autowired(required = true)
     OrderOnlineOpenService orderOnlineOpenService;
 
+    /** The open access service. */
     @Autowired(required = true)
     OpenAccessService openAccessService;
 
+    /**
+     * Gets the open access quote.
+     *
+     * @param userId
+     *            the user id
+     * @param articleId
+     *            the article id
+     * @param journalId
+     *            the journal id
+     * @return the open access quote
+     */
     @RequestMapping(value = "/getQuote", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Service getOpenAccessQuote(
             @RequestParam("userId") String userId,
@@ -51,6 +67,15 @@ public class OpenAccessController {
         return service;
     }
 
+    /**
+     * Pay open access.
+     *
+     * @param userId
+     *            the user id
+     * @param orderId
+     *            the order id
+     * @return the service
+     */
     @RequestMapping(value = "/pay", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Service payOpenAccess(
             @RequestParam("userId") String userId,
@@ -71,6 +96,15 @@ public class OpenAccessController {
         return service;
     }
 
+    /**
+     * Save for later.
+     *
+     * @param userId
+     *            the user id
+     * @param onlineOpenOrder
+     *            the online open order
+     * @return the service
+     */
     @RequestMapping(value = "/saveforlater", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Service saveForLater(
             @RequestParam("userId") String userId,
@@ -82,6 +116,15 @@ public class OpenAccessController {
         return service;
     }
 
+    /**
+     * View open access.
+     *
+     * @param userId
+     *            the user id
+     * @param orderId
+     *            the order id
+     * @return the service
+     */
     @RequestMapping(value = "/view/{userId}/{orderId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Service viewOpenAccess(
             @PathVariable("userId") String userId,
@@ -91,6 +134,13 @@ public class OpenAccessController {
         return service;
     }
 
+    /**
+     * Validate address.
+     *
+     * @param address
+     *            the address
+     * @return the service
+     */
     @RequestMapping(value = "/validate/address", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Service validateAddress(@RequestBody Address address) {
         Service service = new Service();
@@ -114,6 +164,15 @@ public class OpenAccessController {
         return null;
     }
 
+    /**
+     * Validate vat tax details.
+     *
+     * @param countryCode
+     *            the country code
+     * @param vatTaxRegNum
+     *            the vat tax reg num
+     * @return the service
+     */
     @RequestMapping(value = "/validate/vat", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Service validateVatTaxDetails(
             @RequestParam("countryCD") String countryCode,
