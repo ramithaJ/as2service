@@ -118,7 +118,7 @@ public class TaskServiceImpl implements TaskService {
         decodedParamString.append("action=").append(action).append("&")
                 .append("bpdId=").append(bpId).append("&")
                 .append("processAppId=").append(processAppId).append("&")
-                .append("params=").append(encodedParamString).append("&")
+                /*.append("params=")*/.append(encodedParamString).append("&")
                 .append("parts=").append(parts);
 
         payLoadString = decodedParamString.toString();
