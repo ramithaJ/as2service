@@ -239,7 +239,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
      */
     @RequestMapping(value = "/discountedSocieties/{dhId}/", method = RequestMethod.GET)
     public final Service getDiscountedSocieties(
-    		@PathVariable("dhId") final String dhId) {
+            @PathVariable("dhId") final String dhId) {
 
         Service service = new Service();
         service.setPayload(orderOnlineOpenService.getDiscountedSocieties(dhId));
@@ -275,7 +275,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
      */
     @RequestMapping(value = "/institutionDiscounts/{dhId}/", method = RequestMethod.GET)
     public final Service getInstitutionDiscounts(
-    		@PathVariable("dhId") final String dhId) {
+            @PathVariable("dhId") final String dhId) {
 
         Service service = new Service();
         service.setPayload(orderOnlineOpenService.getInstitutionDiscounts(dhId));
@@ -402,10 +402,13 @@ public class OrderOnlineOpenController extends ASExceptionController {
      *            - the request value
      * @return service
      */
-    @RequestMapping(value = "/pdf/{ooUniqueId}/", method = RequestMethod.GET)
+    @RequestMapping(value = "/invoice/{ooUniqueId}/{articleID}/", method = RequestMethod.GET)
     public final ResponseEntity<byte[]> getPDF(
-            @PathVariable("ooUniqueId") final String ooUniqueId) {
-        return orderOnlineOpenService.getPdf(ooUniqueId);
+            @PathVariable("ooUniqueId") final String ooUniqueId,
+            @PathVariable("articleID") final String articleID) {
+
+        return orderOnlineOpenService.getInvoice(ooUniqueId, articleID);
 
     }
+
 }
