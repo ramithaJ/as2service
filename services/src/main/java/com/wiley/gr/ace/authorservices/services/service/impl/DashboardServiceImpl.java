@@ -45,6 +45,7 @@ import com.wiley.gr.ace.authorservices.model.external.SecurityQuestions;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 import com.wiley.gr.ace.authorservices.persistence.entity.InvitationLog;
 import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
+import com.wiley.gr.ace.authorservices.persistence.entity.PublicationStatuses;
 import com.wiley.gr.ace.authorservices.persistence.services.DashboardDAO;
 import com.wiley.gr.ace.authorservices.services.service.DashboardService;
 
@@ -495,43 +496,20 @@ public class DashboardServiceImpl implements DashboardService {
         if (!StringUtils.isEmpty(invitationLogList)) {
             communicationDetailsList = new ArrayList<CommunicationDetails>();
             for (final InvitationLog invitationLog : invitationLogList) {
-                final CommunicationDetails communicationDetails = checkCommunicationDetails(invitationLog);
+                final CommunicationDetails communicationDetails = new CommunicationDetails();
+                communicationDetails.setUserId(invitationLog.getUserProfile()
+                        .getUserId());
+                communicationDetails.setInviationId(invitationLog
+                        .getInvitationId());
+                communicationDetails.setEmailId(invitationLog.getEmailAddr());
+                communicationDetails.setArticleId(invitationLog.getProducts()
+                        .getDhId());
+                communicationDetails.setSentDate(invitationLog.getSentDate()
+                        .toString());
                 communicationDetailsList.add(communicationDetails);
             }
         }
         return communicationDetailsList;
-    }
-
-    /**
-     * Check communication details.
-     *
-     * @param invitationLog
-     *            the invitation log
-     * @return the communication details
-     */
-    private CommunicationDetails checkCommunicationDetails(
-            final InvitationLog invitationLog) {
-        final CommunicationDetails communicationDetails = new CommunicationDetails();
-        if (!StringUtils.isEmpty(invitationLog.getUserProfile().getUserId())) {
-            communicationDetails.setUserId(invitationLog.getUserProfile()
-                    .getUserId());
-        }
-        if (!StringUtils.isEmpty(invitationLog.getInvitationId())) {
-            communicationDetails
-                    .setInviationId(invitationLog.getInvitationId());
-        }
-        if (!StringUtils.isEmpty(invitationLog.getEmailAddr())) {
-            communicationDetails.setEmailId(invitationLog.getEmailAddr());
-        }
-        if (!StringUtils.isEmpty(invitationLog.getProducts().getDhId())) {
-            communicationDetails.setArticleId(invitationLog.getProducts()
-                    .getDhId());
-        }
-        if (!StringUtils.isEmpty(invitationLog.getSentDate().toString())) {
-            communicationDetails.setSentDate(invitationLog.getSentDate()
-                    .toString());
-        }
-        return communicationDetails;
     }
 
     /**
@@ -646,11 +624,13 @@ public class DashboardServiceImpl implements DashboardService {
         if (!StringUtils.isEmpty(articleData)) {
             articleData.setArticleUserRole(articleAuthorRole);
             final Publication publication = new Publication();
-            final String publicationStatusName = dashboardDAO
-                    .getPublishedArticleDetails(dhId).getPublicationStatuses()
-                    .getPublicationStatusName();
-            if (!StringUtils.isEmpty(publicationStatusName)) {
-                publication.setPublicationStatus(publicationStatusName);
+            final PublicationStatuses publicationStatuses = dashboardDAO
+                    .getPublishedArticleDetails(dhId).getPublicationStatuses();
+            if (!StringUtils.isEmpty(publicationStatuses)) {
+                publication.setPublicationStatus(publicationStatuses
+                        .getPublicationStatusName());
+                publication.setModifiedDate(publicationStatuses
+                        .getUpdatedDate().toString());
             }
             articleData.setPublication(publication);
             articleDataListforPublication.add(articleData);
