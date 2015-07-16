@@ -30,7 +30,6 @@ import com.wiley.gr.ace.authorservices.model.FunderDetails;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.TaxDetails;
-import com.wiley.gr.ace.authorservices.model.external.WOAFunder;
 import com.wiley.gr.ace.authorservices.services.service.OnlineOpenAuthorValidatorService;
 import com.wiley.gr.ace.authorservices.services.service.OpenAccessService;
 import com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService;
@@ -360,20 +359,6 @@ public class OrderOnlineOpenController extends ASExceptionController {
                 .processAllRestrictedFunderWOAAccounts(id));
 
         return service;
-    }
-
-    /**
-     * @param woaFunder
-     *            - the request value
-     * @return service
-     */
-    @RequestMapping(value = "/woaFunder/", method = RequestMethod.POST)
-    public final Service processAndValidateWOAAccount(
-            @RequestBody final WOAFunder woaFunder) {
-
-        orderOnlineOpenService.processWOAAccount(woaFunder);
-
-        return new Service();
     }
 
     /**

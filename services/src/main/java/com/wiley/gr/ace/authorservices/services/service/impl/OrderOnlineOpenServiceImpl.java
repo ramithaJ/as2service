@@ -695,10 +695,10 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             payment.setPaymentMethod(onlineOpenOrder.getPaymentMethod());
             orderData.setPayment(payment);
 
-            WoaAccountHolder woaAccountHolder = new WoaAccountHolder();
+            WoaAccountHolder woaAccountHolder = processWOAAccount(onlineOpenOrder);
 
-            woaAccountHolder.setCode(onlineOpenOrder.getFunderDetails().get(0)
-                    .getWoaAccountId());
+            /*woaAccountHolder.setCode(onlineOpenOrder.getFunderDetails().get(0)
+                    .getWoaAccountId());*/
 
             orderData.setWoaAccountHolder(woaAccountHolder);
 
@@ -719,6 +719,58 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         return orderData;
 
     }
+    
+    /**
+	 * This method send the WOAFunder with the correct WOA Account to the OO
+	 * app.
+	 * @param onlineOpenOrder
+	 * @return onlineOpenOrder
+	 */
+	private WoaAccountHolder processWOAAccount(OnlineOpenOrder onlineOpenOrder) {
+		
+		WoaAccountHolder woaAccountHolder = null;
+		List<WOAAccount> woaAccountList = onlineOpenOrder.getWoaFunder().getWOAAccounts().getWOAAccount();
+		List<WOAAccount> nonRestrictedWOAAccountList = null;
+		List<WOAAccount> restrictedWOAAccountList = null;
+		
+		List<FunderDetails> funderDetailsList = onlineOpenOrder.getFunderDetails();
+
+		if (woaAccountList != null) {
+			woaAccountHolder = new WoaAccountHolder();
+			
+			if(woaAccountList.size() == 1){
+				woaAccountHolder.setCode(funderDetailsList.get(0).getWoaAccountId());
+				
+			} else if (woaAccountList.size() == 2){
+				
+				nonRestrictedWOAAccountList = retrieveNonRestrictedWOAAccountList(
+						nonRestrictedWOAAccountList, woaAccountList);
+				
+				restrictedWOAAccountList = retrieveRestrictedWOAAccountList(
+						restrictedWOAAccountList, woaAccountList);
+				
+			}
+
+			/*
+			 * If Selected WOA Institution has multiple WOA Accounts, send the
+			 * Non Restricted WOA Accounts list to the admin to select the
+			 * correct WOA Account.
+			 */
+
+			if (nonRestrictedWOAAccountList != null
+					&& nonRestrictedWOAAccountList.size() > 0) {
+				orderservice
+						.sendNonRestrictedWOAAccountListToAdmin(nonRestrictedWOAAccountList);
+			} /*
+			 * else {
+			 * 
+			 * // TODO: Need to consume BPM service }
+			 */
+		}
+		return woaAccountHolder;
+
+	}
+    
 
     /**
      * This method returns the Discounted WOA Funder List.
@@ -968,43 +1020,6 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     }
 
     /**
-     * This method send the WOAFunder with the correct WOA Account to the OO
-     * app.
-     *
-     * @param woaFunder
-     *            the woa funder
-     */
-    @Override
-    public final void processWOAAccount(final WOAFunder woaFunder) {
-        List<WOAAccount> woaAccountList = null;
-
-        woaAccountList = woaFunder.getWOAAccounts().getWOAAccount();
-
-        if (woaAccountList != null) {
-
-            /*
-             * If Selected WOA Institution has multiple WOA Accounts, send the
-             * Non Restricted WOA Accounts list to the admin to select the
-             * correct WOA Account.
-             */
-            List<WOAAccount> nonRestrictedWOAAccountList = null;
-            nonRestrictedWOAAccountList = retrieveNonRestrictedWOAAccountList(
-                    nonRestrictedWOAAccountList, woaAccountList);
-
-            if (nonRestrictedWOAAccountList != null
-                    && nonRestrictedWOAAccountList.size() > 0) {
-                orderservice
-                        .sendNonRestrictedWOAAccountListToAdmin(nonRestrictedWOAAccountList);
-            } /*
-               * else {
-               * 
-               * // TODO: Need to consume BPM service }
-               */
-        }
-
-    }
-
-    /**
      * This method returns the non restricted WOA Acounts.
      *
      * @param nonRestrictedWOAAccountList
@@ -1035,6 +1050,40 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
         return nonRestrictedWOAAccountList;
     }
+    
+	/**
+	 * This method returns the restricted WOA Acounts
+	 * 
+	 * @param nonRestrictedWOAAccountList
+	 *            - the request value
+	 * @param woaAccountList
+	 *            - the request value
+	 * @return list
+	 */
+	private final List<WOAAccount> retrieveRestrictedWOAAccountList(
+			List<WOAAccount> restrictedWOAAccountList,
+			final List<WOAAccount> woaAccountList) {
+
+		if (woaAccountList != null) {
+			restrictedWOAAccountList = new ArrayList<WOAAccount>();
+
+			for (Iterator<WOAAccount> iterator = woaAccountList.iterator(); iterator
+					.hasNext();) {
+				WOAAccount woaAccount = iterator.next();
+
+				if (!(woaAccount.getResearchFunders().getResearchfunder()
+						.isEmpty())) {
+					restrictedWOAAccountList.add(woaAccount);
+				}
+
+			}
+
+		}
+
+		return restrictedWOAAccountList;
+	}
+    
+    
 
     /**
      * Method to retrieve all the corresponding Accounts of the account Holder.
@@ -1316,8 +1365,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         HttpHeaders headers = new HttpHeaders();
         byte[] contents = null;
         ResponseEntity<byte[]> response = null;
-        // TODO to call respective service to get Actual data for time being we
-        // are hardcoding
+
         Invoice invoice = new Invoice();
         invoice.setRequestType("GET_INVOCIE");
         invoice.setRequestCreatedTimestamp("2014-12-12 10:12:12");

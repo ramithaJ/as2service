@@ -156,14 +156,6 @@ public interface OrderOnlineOpenService {
     List<FundingOrganizations> getFundersList();
 
     /**
-     * Process woa account.
-     *
-     * @param woaFunder
-     *            the woa funder
-     */
-    void processWOAAccount(WOAFunder woaFunder);
-
-    /**
      * Process all restricted funder woa accounts.
      *
      * @param id

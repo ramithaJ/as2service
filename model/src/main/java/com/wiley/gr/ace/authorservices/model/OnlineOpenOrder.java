@@ -15,6 +15,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.wiley.gr.ace.authorservices.model.external.WOAFunder;
 
 /**
  * The Class OnlineOpenOrder.
@@ -72,6 +73,9 @@ public class OnlineOpenOrder {
 
     /** The order Id. */
     private String orderId;
+    
+    /** The WOA Funder */
+    private WOAFunder woaFunder;
 
     /**
      * This field holds the value of orderEditable.
@@ -488,5 +492,20 @@ public class OnlineOpenOrder {
     public void setOrderId(final String orderId) {
         this.orderId = orderId;
     }
+
+	/**
+	 * @return the woaFunder
+	 */
+	public WOAFunder getWoaFunder() {
+		return woaFunder;
+	}
+
+	/**
+	 * @param woaFunder the woaFunder to set
+	 */
+	public void setWoaFunder(WOAFunder woaFunder) {
+		this.woaFunder = woaFunder;
+	}
+
 
 }
