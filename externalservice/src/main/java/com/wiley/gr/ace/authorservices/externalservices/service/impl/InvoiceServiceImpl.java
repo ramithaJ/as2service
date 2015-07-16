@@ -30,13 +30,12 @@ public class InvoiceServiceImpl implements InvoiceService {
     /**
      * @param invoice
      *            This method will take invoice as an input an call external
-     *            sertvice to get invoice
+     *            service to get invoice
      * */
     @Override
     public byte[] getInvoice(Invoice invoice) {
-        byte[] bytearray = (byte[]) StubInvokerUtil.getFile(invoiceUrl,
-                invoice, byte[].class);
-        return bytearray;
+        return (byte[]) StubInvokerUtil.getFile(invoiceUrl, invoice,
+                byte[].class);
 
     }
 }
