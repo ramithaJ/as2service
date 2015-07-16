@@ -1316,7 +1316,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         HttpHeaders headers = new HttpHeaders();
         byte[] contents = null;
         ResponseEntity<byte[]> response = null;
-
+        // TODO to call respective service to get Actual data for time being we
+        // are hardcoding
         Invoice invoice = new Invoice();
         invoice.setRequestType("GET_INVOCIE");
         invoice.setRequestCreatedTimestamp("2014-12-12 10:12:12");
