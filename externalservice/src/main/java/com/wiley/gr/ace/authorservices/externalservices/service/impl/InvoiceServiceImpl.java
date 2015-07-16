@@ -20,6 +20,8 @@ import com.wiley.gr.ace.authorservices.model.external.Invoice;
 
 /**
  * The Class InvoiceServiceImpl.
+ * 
+ * @author virtusa version 1.0
  */
 public class InvoiceServiceImpl implements InvoiceService {
 
@@ -28,12 +30,16 @@ public class InvoiceServiceImpl implements InvoiceService {
     private String invoiceUrl;
 
     /**
-     * @param invoice
-     *            This method will take invoice as an input an call external
+     * Gets the invoice.
+     *
+     * @param invoice            
+     * This method will take invoice as an input an call external
      *            service to get invoice
-     * */
+     * @return the invoice
+     */
     @Override
-    public byte[] getInvoice(Invoice invoice) {
+    public final byte[] getInvoice(final Invoice invoice) {
+        
         return (byte[]) StubInvokerUtil.getFile(invoiceUrl, invoice,
                 byte[].class);
 

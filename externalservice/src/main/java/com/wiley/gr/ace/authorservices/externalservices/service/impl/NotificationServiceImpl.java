@@ -23,6 +23,8 @@ import com.wiley.gr.ace.authorservices.model.external.NotificationRequest;
 
 /**
  * The Class NotificationServiceImpl.
+ * 
+ * @author virtusa version 1.0
  */
 public class NotificationServiceImpl implements NotificationService {
 
@@ -35,13 +37,13 @@ public class NotificationServiceImpl implements NotificationService {
     private String notificationHistoryUrl;
 
     /**
-     * (non-Javadoc)
      * 
      * @param notificationRequest
-     *            This method will call external notification service
+     *            This method will call external notification service.
+     *      @return sendNotification.
      */
     @Override
-    public NotificationResponse sendNotification(
+    public final NotificationResponse sendNotification(
             final NotificationRequest notificationRequest) {
 
         return (NotificationResponse) StubInvokerUtil.restServiceInvoker(

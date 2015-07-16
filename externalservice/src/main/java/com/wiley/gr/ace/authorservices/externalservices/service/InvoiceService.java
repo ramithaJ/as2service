@@ -12,26 +12,20 @@
 
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import com.wiley.gr.ace.authorservices.model.external.Invoice;
 
 /**
  * The Interface InvoiceService.
+ * 
+ * @author virtusa version 1.0
  */
 public interface InvoiceService {
 
     /**
      * Gets the invoice.
      *
-     * @param invoice
-     *            the invoice
+     * @param invoice the invoice
      * @return the invoice
-     * @throws FileNotFoundException
-     * @throws Exception
-     * @throws IOException
-     *             Signals that an I/O exception has occurred.
      */
     byte[] getInvoice(Invoice invoice);
 

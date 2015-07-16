@@ -45,50 +45,58 @@ import com.wiley.gr.ace.authorservices.model.external.TaskServiceRequest;
  * @author virtusa version 1.0
  */
 public class TaskServiceImpl implements TaskService {
-	
+
+    /** The bpmserviceurl. */
     @Value("${bpmservice.url}")
     private String bpmserviceurl;
 
+    /** The key. */
     @Value("${bpmservice.key}")
     private String key;
 
+    /** The action. */
     @Value("${bpmservice.action}")
     private String action;
 
+    /** The bp id. */
     @Value("${bpmservice.bpdId}")
     private String bpId;
 
+    /** The process app id. */
     @Value("${bpmservice.processAppId}")
     private String processAppId;
 
+    /** The parts. */
     @Value("${bpmservice.parts}")
     private String parts;
 
+    /** The http header accept value. */
     @Value("${bpmservice.httpHeaderAcceptValue}")
     private String httpHeaderAcceptValue;
 
+    /** The http header content type value. */
     @Value("${bpmservice.httpHeaderContentTypeValue}")
     private String httpHeaderContentTypeValue;
 
+    /** The source app value. */
     @Value("${bpmservice.sourceAppValue}")
     private String sourceAppValue;
-	
-	
 
+    /**This method is for creating task. */
     @Override
-    public boolean createTask() {
+    public final boolean createTask() {
         // TODO Auto-generated method stub
         return true;
     }
-    
+
     /**
-     * Method invokes BPM service and returns the status
-     * 
-     * @param taskServiceRequest
-     * @param userId
+     * Method invokes BPM service and returns the status.
+     *
+     * @param taskServiceRequest the task service request
+     * @param userId the user id
      * @return status
      */
-    public String invokeTaskService(
+    public final String invokeTaskService(
             final TaskServiceRequest taskServiceRequest, final String userId) {
 
         String saltString = null;
@@ -105,9 +113,8 @@ public class TaskServiceImpl implements TaskService {
         HttpResponse response = null;
 
         try {
-        	String requestString = taskServiceRequest.toString();
-            encodedParamString = URLEncoder.encode(
-            		requestString, "UTF-8");
+            String requestString = taskServiceRequest.toString();
+            encodedParamString = URLEncoder.encode(requestString, "UTF-8");
 
         } catch (UnsupportedEncodingException e) {
             throw new ASException("3000", e.getMessage());
@@ -152,10 +159,10 @@ public class TaskServiceImpl implements TaskService {
 
         client = HttpClients.custom().setDefaultHeaders(headers).build();
         try {
-			request = RequestBuilder.post(url).build();
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
+            request = RequestBuilder.post(url).build();
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
 
         try {
             response = client.execute(request);
@@ -176,7 +183,6 @@ public class TaskServiceImpl implements TaskService {
         return status;
     }
 
-    
     /**
      * Finish task.
      *
@@ -190,6 +196,7 @@ public class TaskServiceImpl implements TaskService {
     public final boolean finishTask(
             final AssociationConfirmation associationConfirmation)
             throws Exception {
+        boolean flag = false;
         final String url = "http://demo7930138.mockable.io/rest/bpm/wle/v1/task/"
                 + associationConfirmation.getTaskId()
                 + "55?action="
@@ -197,11 +204,13 @@ public class TaskServiceImpl implements TaskService {
                 + "&parts=all";
         final Service service = (Service) StubInvokerUtil.invokeStub(url,
                 HttpMethod.PUT, Service.class);
-        final String status = service.getStatus();
-        if (null != status && status.equalsIgnoreCase("SUCCESS")) {
-            return true;
+        if (service != null
+                && AuthorServicesConstants.BPM_CALL_SUCCESS_STATUS
+                        .equals(service.getStatus())) {
+            flag = true;
         }
-        return false;
+
+        return flag;
     }
 
 }
