@@ -120,5 +120,11 @@ public interface OrderService {
      */
     OrderResponse cancelOnlineOpenOrder(CancelOrderRequest cancelOrderRequest);
 
+	/**
+	 * @param funderId
+	 * @return doi
+	 */
+	String getResearchFunderDOI(String funderId);
+
 
 }

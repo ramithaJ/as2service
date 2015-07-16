@@ -240,4 +240,11 @@ public class OrderServiceImpl implements OrderService {
         return (OrderResponse) StubInvokerUtil.restServiceInvoker(
                 cancelOrderUrl, cancelOrderRequest, OrderResponse.class);
     }
+
+	
+	@Override
+	public String getResearchFunderDOI(String funderId) {
+		// TODO Need to retrieve the DOI from the Cache
+		return "1234";
+	}
 }
