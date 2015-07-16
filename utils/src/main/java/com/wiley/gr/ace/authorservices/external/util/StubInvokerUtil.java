@@ -77,13 +77,9 @@ public class StubInvokerUtil {
     public static <T> Object restServiceInvoker(final String url,
             final Object requestEntityClass, final Class<T> responseEntityClass) {
 
-        System.err.println("in Stub invoker ................");
-
         try {
             ResponseEntity<T> response = new RestTemplate().postForEntity(
                     new URI(url), requestEntityClass, responseEntityClass);
-
-            System.err.println("after tryyy in stub..........");
 
             if (null == response) {
                 return new SecurityResponse();
@@ -187,7 +183,6 @@ public class StubInvokerUtil {
     public static <T> Object getFile(final String url,
             final Object requestEntityClass, final Class<T> responseEntityClass) {
 
-        System.err.println("in Stub invoker ................");
         RestTemplate template = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_OCTET_STREAM));

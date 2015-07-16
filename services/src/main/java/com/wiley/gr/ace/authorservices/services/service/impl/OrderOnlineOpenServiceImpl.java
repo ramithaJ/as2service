@@ -1321,14 +1321,12 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         invoice.setRequestType("GET_INVOCIE");
         invoice.setRequestCreatedTimestamp("2014-12-12 10:12:12");
         Article article = new Article();
-        article.setArticleID("BCS-05");
+        article.setArticleID(articleID);
         article.setJournalPrintISSN("0008543X");
         invoice.setArticle(article);
-        System.err.println(invoice.getRequestType());
-
         headers.setContentType(MediaType.parseMediaType("application/pdf"));
-        String filename = "Invoice.pdf";
-        headers.setContentDispositionFormData(filename, filename);
+        headers.setContentDispositionFormData(AuthorServicesConstants.PDF_NAME,
+                AuthorServicesConstants.PDF_NAME);
         headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
         contents = invoiceservice.getInvoice(invoice);
         response = new ResponseEntity<byte[]>(contents, headers, HttpStatus.OK);
