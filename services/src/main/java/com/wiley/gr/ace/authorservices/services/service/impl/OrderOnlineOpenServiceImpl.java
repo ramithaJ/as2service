@@ -777,6 +777,10 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 				if (selectedWOAAccount != null) {
 					woaAccountHolder.setCode(selectedWOAAccount.getCode());
 					woaAccountHolder.setName(selectedWOAAccount.getName());
+				} else {
+					
+					woaAccountHolder.setCode(nonRestrictedWOAAccountList.get(0).getCode());
+					woaAccountHolder.setName(nonRestrictedWOAAccountList.get(0).getName());
 				}
 
 			}
