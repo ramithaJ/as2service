@@ -203,7 +203,7 @@ public class StubInvokerUtil {
             }
             return response.getBody();
         } catch (Exception e) {
-            throw new ASException("1111", "Some issue with generating Pdf");
+            throw new ASException();
 
         }
 
