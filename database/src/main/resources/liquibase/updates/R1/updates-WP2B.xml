@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+<changeSet author="gphaniraj" id="WP2B-1">
+<sql>
+CREATE SEQUENCE SAVED_LICENSE_SEQ START WITH 1 INCREMENT BY 1  NOCACHE;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-2">
+<sql>
+CREATE SEQUENCE REJECTED_LICENSE_SEQ START WITH 1 INCREMENT BY 1  NOCACHE;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-3">
+<sql>
+CREATE TABLE OWNERSHIP_TYPES 
+    ( 
+     TYPE_CD VARCHAR2 (25)   , 
+     TYPE_NAME VARCHAR2 (250) , 
+     CREATED_DATE TIMESTAMP(6) , 
+     CREATED_BY NUMBER , 
+     UPDATED_DATE TIMESTAMP(6) , 
+     UPDATED_BY NUMBER 
+    );
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-4">
+<sql>
+ALTER TABLE OWNERSHIP_TYPES ADD CONSTRAINT OWNERSHIP_TYPES_PK PRIMARY KEY (TYPE_CD) ;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-5">
+<sql>
+	CREATE TABLE US_GOV_OWNERSHIP_TYPES 
+    ( 
+     USGOV_TYPE_CD VARCHAR2 (50)  , 
+     USGOV_TYPE_NAME VARCHAR2 (250) , 
+     CREATED_DATE TIMESTAMP(6) , 
+     CREATED_BY NUMBER , 
+     UPDATED_DATE TIMESTAMP(6) , 
+     UPDATED_BY NUMBER 
+    );
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-6">
+<sql>
+ALTER TABLE US_GOV_OWNERSHIP_TYPES ADD CONSTRAINT US_GOV_OWNERSHIP_TYPES_PK PRIMARY KEY (USGOV_TYPE_CD) ;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-7">
+<sql>
+	CREATE TABLE SAVED_LICENSES 
+    ( 
+     LICENSE_ID NUMBER  default SAVED_LICENSE_SEQ.nextval, 
+     USER_ID NUMBER   , 
+     DH_ID NUMBER   , 
+     LICENSE_OBJECT CLOB CONSTRAINT SAVED_LICENSES_CHK CHECK(LICENSE_OBJECT IS JSON) , 
+     CREATED_DATE TIMESTAMP(6) , 
+     CREATED_BY NUMBER , 
+     UPDATED_DATE TIMESTAMP(6) , 
+     UPDATED_BY NUMBER 
+    );
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-8">
+<sql>
+ALTER TABLE SAVED_LICENSES ADD CONSTRAINT SAVED_LICENSES_PK PRIMARY KEY (LICENSE_ID) ;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-9">
+<sql>
+CREATE TABLE LICENSE_REJECTION_REASONS 
+    ( 
+     REASON_CD VARCHAR2 (15)  NOT NULL , 
+     REASON_TEXT VARCHAR2 (2500) , 
+     CREATED_DATE TIMESTAMP(6) , 
+     CREATED_BY NUMBER , 
+     UPDATED_DATE TIMESTAMP(6) , 
+     UPDATED_BY NUMBER 
+    );
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-10">
+<sql>
+ALTER TABLE LICENSE_REJECTION_REASONS ADD CONSTRAINT LICENSE_REJECTION_REASONS_PK PRIMARY KEY (REASON_CD) ;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-11">
+<sql>	
+CREATE TABLE REJECTED_LICENSE_DETAILS 
+    ( 
+     REJECTED_ID NUMBER default REJECTED_LICENSE_SEQ.nextval, 
+     DH_ID NUMBER, 
+     REJECTION_REASON_CD VARCHAR2(15), 
+     CREATED_DATE TIMESTAMP(6) , 
+     CREATED_BY NUMBER , 
+     UPDATED_DATE TIMESTAMP(6) , 
+     UPDATED_BY NUMBER 
+    );
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-12">
+<sql>
+ALTER TABLE REJECTED_LICENSE_DETAILS ADD CONSTRAINT REJECTED_LICENSE_DETAILS_PK PRIMARY KEY (REJECTED_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-13">
+<sql>
+ALTER TABLE REJECTED_LICENSE_DETAILS 
+    ADD CONSTRAINT REJECTED_LICENSE_DETAILS_FK1 FOREIGN KEY 
+    ( 
+     REJECTION_REASON_CD
+    ) 
+    REFERENCES LICENSE_REJECTION_REASONS 
+    ( 
+     REASON_CD
+    );
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-14">
+<sql>
+ALTER TABLE REJECTED_LICENSE_DETAILS 
+    ADD CONSTRAINT REJECTED_LICENSE_DETAILS_FK2 FOREIGN KEY 
+    ( 
+     DH_ID
+    ) 
+    REFERENCES PRODUCTS 
+    ( 
+     DH_ID
+    );
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-15">
+<sql>
+ALTER TABLE SAVED_LICENSES 
+    ADD CONSTRAINT SAVED_LICENSES_FK1 FOREIGN KEY 
+    ( 
+     USER_ID
+    ) 
+    REFERENCES USERS 
+    ( 
+     USER_ID
+    );
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-16">
+<sql>
+ALTER TABLE SAVED_LICENSES 
+    ADD CONSTRAINT SAVED_LICENSES_FK2 FOREIGN KEY 
+    ( 
+     DH_ID
+    ) 
+    REFERENCES PRODUCTS 
+    ( 
+     DH_ID
+    );
+</sql>
+</changeSet>
+
+</databaseChangeLog>
+
