@@ -75,14 +75,15 @@ public class StubInvokerUtil {
         try {
             ResponseEntity<T> response = new RestTemplate().postForEntity(
                     new URI(url), requestEntityClass, responseEntityClass);
-
-            if (null == response) {
-                throw new ASException(AuthorServicesConstants.SERVERERRORCODE,
-                        AuthorServicesConstants.SERVERERRORMESSAGE);
-            }
             return response.getBody();
         } catch (Exception e) {
-
+            
+            if (AuthorServicesConstants.UNAUTHORIZEDMSG.equalsIgnoreCase(e.getMessage())) {
+                throw new ASException(AuthorServicesConstants.UNAUTHORIZEDCODE, e.getMessage());
+            }
+            if (AuthorServicesConstants.LOCKEDMSG.equalsIgnoreCase(e.getMessage())) {
+                throw new ASException(AuthorServicesConstants.LOCKEDCODE, e.getMessage());
+            }
             throw new ASException(AuthorServicesConstants.SERVERERRORCODE,
                     AuthorServicesConstants.SERVERERRORMESSAGE);
 
