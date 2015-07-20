@@ -84,7 +84,7 @@ public class UserManagementImpl implements UserManagement {
     private String securityQuestionDetails;
 
     /**
-     * This field holds the value of success
+     * This field holds the value of success.
      */
     @Value("${STATUS}")
     private String success;
