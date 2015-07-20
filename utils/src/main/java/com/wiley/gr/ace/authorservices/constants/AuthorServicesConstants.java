@@ -81,28 +81,20 @@ public class AuthorServicesConstants {
 
     /** The Constant SERVERERRORMESSAGE. */
     public static final String SERVERERRORMESSAGE = "Unable to process your request. Please try after some time..";
-      /**  FOR ROLES */
-    public static final int ROLEID=10;
-    
-    /**
-     * UNAUTHORIZEDCODE
-     */
+
+    /** FOR ROLES. */
+    public static final int ROLEID = 10;
+
+    /** UNAUTHORIZEDCODE. */
     public static final String UNAUTHORIZEDCODE = "2015";
-    
-    /**
-     * UNAUTHORIZEDMSG
-     */
-    public static final String UNAUTHORIZEDMSG  = "401 Unauthorized";
-    
-    /**
-     * LOCKEDCODE
-     */
+
+    /** UNAUTHORIZEDMSG. */
+    public static final String UNAUTHORIZEDMSG = "401 Unauthorized";
+
+    /** LOCKEDCODE. */
     public static final String LOCKEDCODE = "2016";
-    
-    /**
-     * LOCKEDMSG
-     */
+
+    /** LOCKEDMSG. */
     public static final String LOCKEDMSG = "423 Locked";
-    
-    
+
 }
