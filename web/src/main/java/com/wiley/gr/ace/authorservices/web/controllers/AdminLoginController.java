@@ -28,7 +28,9 @@ import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
 import com.wiley.gr.ace.authorservices.model.ASRolesAndPermissions;
 import com.wiley.gr.ace.authorservices.model.AdminUser;
 import com.wiley.gr.ace.authorservices.model.Service;
+import com.wiley.gr.ace.authorservices.model.UserLogin;
 import com.wiley.gr.ace.authorservices.model.UserManagement;
+import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 
 /**
@@ -69,11 +71,13 @@ public class AdminLoginController extends ASExceptionController {
         Service service = new Service();
         if (adminLoginService.validateEmail(emailId)) {
 
-            String userId = adminLoginService.doLogin(emailId);
-            LOGGER.debug(userId + "Geeting User id from dologin");
-            UserManagement userObj = new UserManagement();
-            userObj.setUserId(userId);
-            service.setPayload(userObj);
+            Users users = adminLoginService.doLogin(emailId);
+            LOGGER.debug(users.getUserId() + "Geeting User id from dologin");
+            UserLogin userLogin = new UserLogin();
+            userLogin.setUserId(users.getUserId());
+            userLogin.setFirstName(users.getFirstName());
+            userLogin.setLastName(users.getLastName());
+            service.setPayload(userLogin);
         } else {
             throw new ASException(errorcode, errormessage);
         }

@@ -84,5 +84,25 @@ public class AuthorServicesConstants {
       /**  FOR ROLES */
     public static final int ROLEID=10;
     
+    /**
+     * UNAUTHORIZEDCODE
+     */
+    public static final String UNAUTHORIZEDCODE = "2015";
+    
+    /**
+     * UNAUTHORIZEDMSG
+     */
+    public static final String UNAUTHORIZEDMSG  = "401 Unauthorized";
+    
+    /**
+     * LOCKEDCODE
+     */
+    public static final String LOCKEDCODE = "2016";
+    
+    /**
+     * LOCKEDMSG
+     */
+    public static final String LOCKEDMSG = "423 Locked";
+    
     
 }
