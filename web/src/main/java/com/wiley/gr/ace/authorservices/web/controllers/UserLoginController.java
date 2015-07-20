@@ -30,7 +30,9 @@ import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
+import com.wiley.gr.ace.authorservices.model.UserLogin;
 import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
+import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
@@ -125,9 +127,11 @@ public class UserLoginController extends ASExceptionController {
             service.setError(errorPOJO);
         } else if (success.equals(securityResponse.getStatus())) {
 
-            Integer userId = userLoginServiceDAO.getUserId(login.getEmailId());
-            Login user = new Login();
-            user.setUserId(userId);
+            Users users = userLoginServiceDAO.getUserId(login.getEmailId());
+            UserLogin user = new UserLogin();
+            user.setUserId(users.getUserId());
+            user.setFirstName(users.getFirstName());
+            user.setLastName(users.getLastName());
             service.setPayload(user);
         }
         return service;

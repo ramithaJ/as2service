@@ -99,12 +99,10 @@ public class AdminLoginServiceImpl implements AdminLoginService {
      * @return the string
      */
     @Override
-    public final String doLogin(final String emailId) {
+    public final Users doLogin(final String emailId) {
         // Call external service for password validation
         LOGGER.info("inside doLogin Method");
-        int userId = userLoginServiceDAO.getUserId(emailId);
-        // userLoginServiceDAO.doLogin(userId);
-        return userId + "";
+        return userLoginServiceDAO.getUserId(emailId);
 
     }
 
