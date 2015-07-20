@@ -33,4 +33,14 @@ public class WOAFunders {
     public void setWOAFunder(final List<WOAFunder> woaFunder) {
         this.woaFunder = woaFunder;
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "WOAFunders [woaFunder=" + woaFunder + "]";
+    }
 }

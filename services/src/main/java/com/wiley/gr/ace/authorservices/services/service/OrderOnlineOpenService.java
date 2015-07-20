@@ -1,104 +1,216 @@
 package com.wiley.gr.ace.authorservices.services.service;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
-import com.wiley.gr.ace.authorservices.model.Institution;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
+
+import com.wiley.gr.ace.authorservices.model.FundingOrganizations;
+import com.wiley.gr.ace.authorservices.model.GrantRecipients;
+import com.wiley.gr.ace.authorservices.model.InstitutionalDiscounts;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.OrderDetails;
 import com.wiley.gr.ace.authorservices.model.QuoteDetails;
-import com.wiley.gr.ace.authorservices.model.ResearchFunder;
-import com.wiley.gr.ace.authorservices.model.Society;
-import com.wiley.gr.ace.authorservices.model.WOAAccounts;
+import com.wiley.gr.ace.authorservices.model.SocietyDiscounts;
+import com.wiley.gr.ace.authorservices.model.WOAAccountHolders;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSociety;
 import com.wiley.gr.ace.authorservices.model.external.OrderResponse;
 import com.wiley.gr.ace.authorservices.model.external.WOAFunder;
+import com.wiley.gr.ace.authorservices.model.external.WPGConfiguration;
 
 /**
- * @author virtusa version 1.0
+ * The Interface OrderOnlineOpenService.
  *
+ * @author virtusa version 1.0
  */
 public interface OrderOnlineOpenService {
 
     /**
+     * Gets the online open order details.
+     *
      * @param userId
+     *            the user id
      * @param orderId
-     * @return
+     *            the order id
+     * @return the online open order details
      */
     OnlineOpenOrder getOnlineOpenOrderDetails(String userId, String orderId);
 
     /**
+     * Initiate online.
+     *
      * @param userId
+     *            the user id
      * @param articleId
-     * @return
+     *            the article id
+     * @param pdmSalesFlag
+     *            the pdm sales flag
+     * @return the quote details
      */
-    QuoteDetails getQuote(String userId, String articleId, String pdmSalesFlag);
+    QuoteDetails initiateOnline(String userId, String articleId,
+            String pdmSalesFlag);
 
     /**
+     * Gets the all orders.
+     *
+     * @param orderId
+     *            the order id
+     * @return the all orders
+     */
+    List<OrderDetails> getAllOrders(String orderId);
+
+    /**
+     * Submit online open order.
+     *
      * @param userId
-     * @return
+     *            the user id
+     * @param orderId
+     *            the order id
+     * @param orderTypeFlag
+     *            the order type flag
+     * @return the order response
+     * @throws Exception
+     *             the exception
      */
-    List<OrderDetails> getAllOrders(Integer userId, String type);
+    OrderResponse submitOnlineOpenOrder(String userId, String orderId,
+            String orderTypeFlag) throws Exception;
 
     /**
-	 * @param userId
-	 * @param onlineOpenOrder
-	 * @throws Exception 
-	 */
-	OrderResponse submitOnlineOpenOrder(String userId, String orderId, String orderTypeFlag) throws Exception;
-
-    /**
-     * @param userId
-     * @param onlineOpenOrder
+     * Retrieve discounted woa funder list.
+     *
+     * @param DHID
+     *            the dhid
+     * @return the list
      */
-    List<WOAFunder> retrieveDiscountedWOAFunderList(String userId, String DHID);
+    List<WOAFunder> retrieveDiscountedWOAFunderList(String DHID);
 
     /**
-     * @param userId
-     * @param onlineOpenOrder
+     * Retrieve society discount list for journal.
+     *
+     * @param DHID
+     *            the dhid
+     * @return the list
      */
-    List<DiscountedSociety> retrieveSocietyDiscountListForJournal(
-            String userId, String journalId);
+    List<DiscountedSociety> retrieveSocietyDiscountListForJournal(String DHID);
 
     /**
-     * @param userId
-     * @param journalId
+     * Checks if is addition discount available for journal.
+     *
+     * @param DHID
+     *            the dhid
+     * @return true, if is addition discount available for journal
      */
-    boolean isAdditionDiscountAvailableForJournal(String userId,
-            String journalId);
+    boolean isAdditionDiscountAvailableForJournal(String DHID);
 
     /**
+     * Save later order.
+     *
      * @param order
-     * @return
+     *            the order
+     * @param userId
+     *            the user id
+     * @return the integer
      */
-    void saveLaterOrder(OnlineOpenOrder order, String userId);
+    Integer saveLaterOrder(OnlineOpenOrder order, String userId);
 
     /**
-     * @param userId
-     * @return
+     * Gets the WOA funders.
+     *
+     * @return the WOA funders
      */
-    List<WOAAccounts> getWOAAccounts();
+    WOAAccountHolders getWOAFunders();
 
     /**
-     * @param userId
+     * Gets the grant recipients.
+     *
+     * @param articleId
+     *            the article id
+     * @return the grant recipients
      */
-    void getGrantRecipients();
+    List<GrantRecipients> getGrantRecipients(String articleId);
 
     /**
-     * @param userId
-     * @return
+     * Gets the discounted societies.
+     *
+     * @param DHID
+     *            the dhid
+     * @return the discounted societies
      */
-    List<Society> getDiscountedSocieties();
+    SocietyDiscounts getDiscountedSocieties(String DHID);
 
     /**
-     * @param userId
-     * @return
+     * Gets the institution discounts.
+     *
+     * @param DHID
+     *            the dhid
+     * @return the institution discounts
      */
-    List<Institution> getInstitutionDiscounts();
+    InstitutionalDiscounts getInstitutionDiscounts(String DHID);
 
     /**
-     * @param userId
-     * @return
+     * Gets the funders list.
+     *
+     * @return the funders list
      */
-    List<ResearchFunder> getFundersList();
+    List<FundingOrganizations> getFundersList();
 
+    /**
+     * Process all restricted funder woa accounts.
+     *
+     * @param id
+     *            the id
+     * @return the list
+     */
+    List<String> processAllRestrictedFunderWOAAccounts(String id);
+
+    /**
+     * Save payment details.
+     *
+     * @param form
+     *            the form
+     */
+    void savePaymentDetails(final MultiValueMap<String, String> form);
+
+    /**
+     * Gets the WPG configuration.
+     *
+     * @param orderId
+     *            the order id
+     * @return the WPG configuration
+     */
+    WPGConfiguration getWPGConfiguration(String orderId);
+
+    /**
+     * Cancel online open order.
+     *
+     * @param userId
+     *            the user id
+     * @param orderId
+     *            the order id
+     * @return the order response
+     */
+    OrderResponse cancelOnlineOpenOrder(String userId, String orderId);
+
+    /**
+     * Gets the order type.
+     *
+     * @param orderId
+     *            the order id
+     * @return the order type
+     */
+    String getOrderType(final Integer orderId);
+
+    /**
+     * Pdf.
+     *
+     * @param ooUniqueId
+     *            the oo unique id
+     * @param articleID
+     *            the article id
+     * @return the file
+     * @throws Exception
+     * @throws FileNotFoundException
+     */
+    ResponseEntity<byte[]> getInvoice(String ooUniqueId, String articleID);
 }

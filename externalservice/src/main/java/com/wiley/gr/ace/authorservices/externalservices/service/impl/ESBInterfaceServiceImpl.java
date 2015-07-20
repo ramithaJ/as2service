@@ -12,7 +12,6 @@
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -31,15 +30,14 @@ import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
-import com.wiley.gr.ace.authorservices.model.external.ArticleDataDetails;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
-import com.wiley.gr.ace.authorservices.model.external.ConfirmArticleData;
+import com.wiley.gr.ace.authorservices.model.external.ViewAssignedArticle;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 import com.wiley.gr.ace.authorservices.model.external.License;
 import com.wiley.gr.ace.authorservices.model.external.OnlineOpen;
 import com.wiley.gr.ace.authorservices.model.external.OpenAccess;
 import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
-import com.wiley.gr.ace.authorservices.model.external.Production;
+import com.wiley.gr.ace.authorservices.model.external.ProductionData;
 import com.wiley.gr.ace.authorservices.model.external.ProfileInformation;
 import com.wiley.gr.ace.authorservices.model.external.Quote;
 import com.wiley.gr.ace.authorservices.model.external.QuoteRequest;
@@ -70,6 +68,33 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
     /** The update alm user url. */
     @Value("${updatealmuser.url}")
     private String updateAlmUserUrl;
+
+    /** The article info details url. */
+    @Value("${articleInfoDetails.url}")
+    private String articleInfoDetailsUrl;
+
+    /** The article data url. */
+    @Value("${articleData.url}")
+    private String articleDataUrl;
+
+    /** The license status url. */
+    @Value("${licenseStatus.url}")
+    private String licenseStatusUrl;
+
+    /** The open access status url. */
+    @Value("${openAccessStatus.url}")
+    private String openAccessStatusUrl;
+
+    /** The online open status url. */
+    @Value("${onlineOpenStatus.url}")
+    private String onlineOpenStatusUrl;
+
+    /** The production status url. */
+    @Value("${productionStatus.url}")
+    private String productionStatusUrl;
+
+    @Value("${viewAssignedArticle.url}")
+    private String viewAssignedArticleUrl;
 
     /**
      * This method is for fetching ordid details by calling external service
@@ -247,66 +272,25 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      */
     @Override
     public final ArticleInfoDetails getArticleInfo(final String emailId) {
-        ArticleInfoDetails articleInfoDetails = null;
-        final String url = "http://demo7930138.mockable.io/article/getArticleInfo/emailId";
-        try {
-            final URI uri = new URI(url);
-            final RestTemplate restTemplate = new RestTemplate();
-            final HttpHeaders requestHeaders = new HttpHeaders();
-
-            requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-            final HttpEntity<ArticleInfoDetails> requestEntity = new HttpEntity<ArticleInfoDetails>(
-                    requestHeaders);
-
-            final ResponseEntity<ArticleInfoDetails> response = restTemplate
-                    .exchange(uri, HttpMethod.GET, requestEntity,
-                            ArticleInfoDetails.class);
-            articleInfoDetails = response.getBody();
-        } catch (final URISyntaxException e) {
-            e.printStackTrace();
-        }
-        return articleInfoDetails;
+        return (ArticleInfoDetails) StubInvokerUtil
+                .invokeStub(articleInfoDetailsUrl, HttpMethod.GET,
+                        ArticleInfoDetails.class);
     }
 
     /**
-     * Gets the all author articles.
+     * Gets the author article.
      *
-     * @param userId
-     *            the user id
-     * @return the all author articles
+     * @param articleId
+     *            the article id
+     * @return the author article
      * @throws Exception
      *             the exception
      */
     @Override
-    public final List<ArticleData> getAllAuthorArticles(final Integer articleId)
+    public final ArticleData getAuthorArticle(final Integer articleId)
             throws Exception {
-        ArrayList<ArticleData> articleDataList = null;
-        ArticleDataDetails articleDataDetails = null;
-        final String url = "http://demo7930138.mockable.io/getAllAuthorArticles/articleId";
-        try {
-            final URI uri = new URI(url);
-            final RestTemplate restTemplate = new RestTemplate();
-            final HttpHeaders requestHeaders = new HttpHeaders();
-
-            requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-            final HttpEntity<ArticleDataDetails> requestEntity = new HttpEntity<ArticleDataDetails>(
-                    requestHeaders);
-
-            final ResponseEntity<ArticleDataDetails> response = restTemplate
-                    .exchange(uri, HttpMethod.GET, requestEntity,
-                            ArticleDataDetails.class);
-            System.out.println("####  response #### "
-                    + response.getStatusCode());
-            System.out.println("####  response #### " + response.getBody());
-            if (null != response) {
-                articleDataDetails = new ArticleDataDetails();
-                articleDataDetails = response.getBody();
-                articleDataList = articleDataDetails.getArticleData();
-            }
-        } catch (final URISyntaxException e) {
-            e.printStackTrace();
-        }
-        return articleDataList;
+        return (ArticleData) StubInvokerUtil.invokeStub(articleDataUrl,
+                HttpMethod.GET, ArticleData.class);
     }
 
     /**
@@ -321,28 +305,8 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
     @Override
     public final License getLicenseStatus(final Integer articleId)
             throws Exception {
-        License license = null;
-        final String url = "http://demo7930138.mockable.io/getLicenseStatus/articleId";
-        try {
-            final URI uri = new URI(url);
-            final RestTemplate restTemplate = new RestTemplate();
-            final HttpHeaders requestHeaders = new HttpHeaders();
-
-            requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-            final HttpEntity<License> requestEntity = new HttpEntity<License>(
-                    requestHeaders);
-
-            final ResponseEntity<License> response = restTemplate.exchange(uri,
-                    HttpMethod.GET, requestEntity, License.class);
-            System.out.println("####  response #### "
-                    + response.getStatusCode());
-            System.out.println("####  response #### " + response.getBody());
-
-            license = response.getBody();
-        } catch (final URISyntaxException e) {
-            e.printStackTrace();
-        }
-        return license;
+        return (License) StubInvokerUtil.invokeStub(licenseStatusUrl,
+                HttpMethod.GET, License.class);
     }
 
     /**
@@ -357,28 +321,8 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
     @Override
     public final OpenAccess getOpenAccessStatus(final Integer articleId)
             throws Exception {
-        OpenAccess openAccess = null;
-        final String url = "http://demo8663420.mockable.io/getOpenAccessStatus/articleId";
-        try {
-            final URI uri = new URI(url);
-            final RestTemplate restTemplate = new RestTemplate();
-            final HttpHeaders requestHeaders = new HttpHeaders();
-
-            requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-            final HttpEntity<OpenAccess> requestEntity = new HttpEntity<OpenAccess>(
-                    requestHeaders);
-
-            final ResponseEntity<OpenAccess> response = restTemplate.exchange(
-                    uri, HttpMethod.GET, requestEntity, OpenAccess.class);
-            System.out.println("####  response #### "
-                    + response.getStatusCode());
-            System.out.println("####  response #### " + response.getBody());
-
-            openAccess = response.getBody();
-        } catch (final URISyntaxException e) {
-            e.printStackTrace();
-        }
-        return openAccess;
+        return (OpenAccess) StubInvokerUtil.invokeStub(openAccessStatusUrl,
+                HttpMethod.GET, OpenAccess.class);
     }
 
     /**
@@ -393,72 +337,46 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
     @Override
     public final OnlineOpen getOnlineOpenStatus(final Integer articleId)
             throws Exception {
-        OnlineOpen onlineOpen = null;
-        final String url = "http://demo8663420.mockable.io/getOnlineOpenStatus/articleId";
-        try {
-            final URI uri = new URI(url);
-            final RestTemplate restTemplate = new RestTemplate();
-            final HttpHeaders requestHeaders = new HttpHeaders();
-
-            requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-            final HttpEntity<OnlineOpen> requestEntity = new HttpEntity<OnlineOpen>(
-                    requestHeaders);
-
-            final ResponseEntity<OnlineOpen> response = restTemplate.exchange(
-                    uri, HttpMethod.GET, requestEntity, OnlineOpen.class);
-            System.out.println("####  response #### "
-                    + response.getStatusCode());
-            System.out.println("####  response #### " + response.getBody());
-
-            onlineOpen = response.getBody();
-        } catch (final URISyntaxException e) {
-            e.printStackTrace();
-        }
-        return onlineOpen;
+        return (OnlineOpen) StubInvokerUtil.invokeStub(onlineOpenStatusUrl,
+                HttpMethod.GET, OnlineOpen.class);
     }
 
     /**
-     * Gets the production status.
+     * Gets the production data.
      *
      * @param articleId
      *            the article id
-     * @return the production status
+     * @return the production data
      * @throws Exception
      *             the exception
      */
     @Override
-    public final Production getProductionStatus(final Integer articleId)
+    public final ProductionData getProductionData(final Integer articleId)
             throws Exception {
-        Production production = null;
-        final String url = "http://demo8663420.mockable.io/getProductionStatus/artilceId";
-        try {
-            final URI uri = new URI(url);
-            final RestTemplate restTemplate = new RestTemplate();
-            final HttpHeaders requestHeaders = new HttpHeaders();
-
-            requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-            final HttpEntity<Production> requestEntity = new HttpEntity<Production>(
-                    requestHeaders);
-
-            final ResponseEntity<Production> response = restTemplate.exchange(
-                    uri, HttpMethod.GET, requestEntity, Production.class);
-            System.out.println("####  response #### "
-                    + response.getStatusCode());
-            System.out.println("####  response #### " + response.getBody());
-
-            production = response.getBody();
-        } catch (final URISyntaxException e) {
-            e.printStackTrace();
-        }
-        return production;
+        return (ProductionData) StubInvokerUtil.invokeStub(productionStatusUrl,
+                HttpMethod.GET, ProductionData.class);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService
+     * #getQuote(com.wiley.gr.ace.authorservices.model.external.QuoteRequest)
+     */
     @Override
     public Quote getQuote(final QuoteRequest quoteRequest) throws Exception {
         return (Quote) StubInvokerUtil.invokeJsonStub(
                 "http://jsonstub.com/getQuote", HttpMethod.POST, Quote.class);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService
+     * #getTaxInfo(com.wiley.gr.ace.authorservices.model.external.TaxRequest)
+     */
     @Override
     public TaxResponse getTaxInfo(final TaxRequest taxRequest) throws Exception {
         return (TaxResponse) StubInvokerUtil.invokeJsonStub(
@@ -466,12 +384,26 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
                 TaxResponse.class);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService
+     * #pdhGetArticle(java.lang.String)
+     */
     @Override
     public ArticleData pdhGetArticle(final String articleId) {
         return (ArticleData) StubInvokerUtil.invokeJsonStub(
                 "http://google.com", HttpMethod.POST, ArticleData.class);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService
+     * #pdhJournalLookUp(java.lang.String)
+     */
     @Override
     public PdhJournalResponse pdhJournalLookUp(final String journalId) {
         return (PdhJournalResponse) StubInvokerUtil.invokeJsonStub(
@@ -480,36 +412,20 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
     }
 
     /**
-     * Gets the article confirmation data.
+     * View assigned article.
      *
      * @param emailId
      *            the email id
-     * @return the article confirmation data
+     * @return the view assigned article
      * @throws Exception
      *             the exception
      */
     @Override
-    public final ConfirmArticleData getArticleConfirmationData(
-            final String emailId) throws Exception {
-        ConfirmArticleData confirmArticleData = null;
-        final String url = "http://demo7930138.mockable.io/getArticleInfo/confirmation/emailId";
-        try {
-            final URI uri = new URI(url);
-            final RestTemplate restTemplate = new RestTemplate();
-            final HttpHeaders requestHeaders = new HttpHeaders();
-
-            requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-            final HttpEntity<ConfirmArticleData> requestEntity = new HttpEntity<ConfirmArticleData>(
-                    requestHeaders);
-
-            final ResponseEntity<ConfirmArticleData> response = restTemplate
-                    .exchange(uri, HttpMethod.GET, requestEntity,
-                            ConfirmArticleData.class);
-            confirmArticleData = response.getBody();
-        } catch (final URISyntaxException e) {
-            e.printStackTrace();
-        }
-        return confirmArticleData;
+    public final ViewAssignedArticle viewAssignedArticle(final String emailId)
+            throws Exception {
+        return (ViewAssignedArticle) StubInvokerUtil.invokeStub(
+                viewAssignedArticleUrl, HttpMethod.GET,
+                ViewAssignedArticle.class);
     }
 
 }

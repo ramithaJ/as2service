@@ -14,12 +14,9 @@
  */
 package com.wiley.gr.ace.authorservices.services.service;
 
-import java.util.List;
-
-import com.wiley.gr.ace.authorservices.model.CommunicationDetails;
 import com.wiley.gr.ace.authorservices.model.Dashboard;
 import com.wiley.gr.ace.authorservices.model.DashboardView;
-import com.wiley.gr.ace.authorservices.model.external.ArticleData;
+import com.wiley.gr.ace.authorservices.model.EmailCommunicationHistory;
 
 /**
  * This DashboardService is for providing service for viewing the Dashboard of
@@ -52,25 +49,36 @@ public interface DashboardService {
     DashboardView viewDashboard(String userId) throws Exception;
 
     /**
-     * Gets the communication details.
+     * Gets the email communication history.
      *
      * @param userId
      *            the user id
-     * @return the communication details
+     * @return the email communication history
      * @throws Exception
      *             the exception
      */
-    List<CommunicationDetails> getCommunicationDetailsList(String userId)
+    EmailCommunicationHistory getEmailCommunicationHistory(String userId)
             throws Exception;
 
     /**
-     * Gets the article author data.
+     * Gets the production details.
      *
      * @param userId
      *            the user id
-     * @return the article author data
+     * @return the production details
      * @throws Exception
      *             the exception
      */
-    List<ArticleData> getArticleAuthorData(String userId) throws Exception;
+    DashboardView getProductionDetails(String userId) throws Exception;
+
+    /**
+     * Gets the published article details.
+     *
+     * @param userId
+     *            the user id
+     * @return the published article details
+     * @throws Exception
+     *             the exception
+     */
+    DashboardView getPublishedArticleDetails(String userId) throws Exception;
 }

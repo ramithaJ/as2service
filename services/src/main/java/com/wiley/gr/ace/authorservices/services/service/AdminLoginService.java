@@ -11,9 +11,12 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service;
 
+import java.util.List;
+
+import com.wiley.gr.ace.authorservices.model.ASRolesAndPermissions;
 import com.wiley.gr.ace.authorservices.model.AdminUser;
 import com.wiley.gr.ace.authorservices.model.RolesAndPermissions;
-import com.wiley.gr.ace.authorservices.model.ASRolesAndPermissions;
+import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 
 /**
  * The Interface AdminLoginService.
@@ -38,7 +41,7 @@ public interface AdminLoginService {
      *            the email id
      * @return the string
      */
-    String doLogin(String emailId);
+    Users doLogin(String emailId);
 
     /**
      * This method requests for a wiley user to get Admin Access.
@@ -47,7 +50,7 @@ public interface AdminLoginService {
      *            the email id
      * @return true, if successful
      */
-    boolean requestAdminAccess(String emailId);
+    String requestAdminAccess(List<String> accessId, String emailId);
 
     /**
      * This method gets the list of all roles, the sections and permissions List

@@ -14,9 +14,9 @@
  */
 package com.wiley.gr.ace.authorservices.services.service;
 
+import com.wiley.gr.ace.authorservices.model.AssociationConfirmation;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
-import com.wiley.gr.ace.authorservices.model.external.AssociationConfirmation;
-import com.wiley.gr.ace.authorservices.model.external.ConfirmArticleData;
+import com.wiley.gr.ace.authorservices.model.external.ViewAssignedArticle;
 
 /**
  * The Interface ArticleAssignmentService.
@@ -49,15 +49,25 @@ public interface ArticleAssignmentService {
             AssociationConfirmation associationConfirmation) throws Exception;
 
     /**
-     * Gets the article confirmation data.
+     * View assigned article.
      *
      * @param emailId
      *            the email id
-     * @return the article confirmation data
+     * @return the view assigned article
      * @throws Exception
      *             the exception
      */
-    ConfirmArticleData getArticleConfirmationData(String emailId)
-            throws Exception;
+    ViewAssignedArticle viewAssignedArticle(String emailId) throws Exception;
+
+    /**
+     * Check if article invited.
+     *
+     * @param dhId
+     *            the dh id
+     * @return true, if successful
+     * @throws Exception
+     *             the exception
+     */
+    boolean checkIfArticleInvited(Integer dhId) throws Exception;
 
 }

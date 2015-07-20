@@ -69,16 +69,62 @@ public class AuthorServicesConstants {
 
     /** The Constant AUDIT_DESCRIPTION. */
     public static final String AUDIT_DESCRIPTION = "DESCRIPTION";
-    
+
     /** The Constant INVALIDEMAILCODE. */
     public static final String INVALIDEMAILCODE = "222";
-    
+
     /** The Constant INVALIDEMAILMSG. */
     public static final String INVALIDEMAILMSG = "Invalid email address. Please Re-Enter";
-    
+
     /** The Constant for OrderStatus. */
     public static final String ORDER_STATUS_SUBMIT = "Submitted";
-    
+
     /** The Constant for OO_OA_FLAG. */
     public static final String OO_OA_FLAG_OO = "OO";
+
+    /** The Constant for BPM_SOURCE_APP. */
+    public static final String BPM_SOURCE_APP = "sourceApp";
+
+    /** The Constant for BPM_LONG_DATE. */
+    public static final String BPM_LONG_DATE = "longDate";
+
+    /** The Constant for BPM_USERID. */
+    public static final String BPM_USERID = "userId";
+
+    /** The Constant for BPM_SIGNATURE. */
+    public static final String BPM_SIGNATURE = "signature";
+
+    /** The Constant for BPM_SALT. */
+    public static final String BPM_SALT = "salt";
+
+    /** The Constant for BPM_CALL_SUCCESS_STATUS. */
+    public static final String BPM_CALL_SUCCESS_STATUS = "SUCCESS";
+
+    /** The Constant for BPM_SIGNATURE. */
+    public static final String BILLING_ADDRESS_TYPE = "billingAddress";
+
+    /** The Constant for BPM_SALT. */
+    public static final String CONTACT_ADDRESS_TYPE = "contactAddress";
+
+    /** The Constant for BPM_SIGNATURE. */
+    public static final String COUNTRY_USA = "USA";
+
+    /** The Constant for BPM_SALT. */
+    public static final String COUNTRY_CANADA = "CANADA";
+
+    /** The Constant AUTHOR_ROLE_CD. */
+    public static final String AUTHOR_ROLE_CD = "101";
+
+    /** The Constant COAUTHOR_ROLE_CD. */
+    public static final String COAUTHOR_ROLE_CD = "102";
+
+    /** The Constant ONLINE_OPEN. */
+    public static final String ONLINE_OPEN = "ONLINE OPEN";
+
+    /** The Constant OPEN_ACCESS. */
+    public static final String OPEN_ACCESS = "OPEN ACCESS";
+
+    /** The Constant PDF_NAME. */
+    public static final String PDF_NAME = "Invoice.pdf";
+
 }

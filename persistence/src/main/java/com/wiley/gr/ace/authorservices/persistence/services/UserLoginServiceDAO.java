@@ -12,6 +12,7 @@
 package com.wiley.gr.ace.authorservices.persistence.services;
 
 import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
+import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 
 /**
  * @author virtusa version 1.0
@@ -34,7 +35,7 @@ public interface UserLoginServiceDAO {
      *            to get the userId.
      * @return the userId.
      */
-    Integer getUserId(String emailId);
+    Users getUserId(String emailId);
 
     /**
      * This method gets the reset password log.

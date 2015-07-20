@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Jun 23, 2015 2:35:20 PM by Hibernate Tools 4.0.0
+// Generated Jul 8, 2015 3:59:02 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import java.util.HashSet;
@@ -24,12 +24,13 @@ public class Alerts implements java.io.Serializable {
 	private String alertCd;
 	private Users usersByCreatedBy;
 	private Users usersByUpdatedBy;
+	private AlertTypes alertTypes;
 	private String alertName;
 	private String description;
-	private String alertType;
 	private Date createdDate;
 	private Date updatedDate;
-	private Set<JournalAlerts> journalAlertses = new HashSet<JournalAlerts>(0);
+	private Set<JournalAlertsConfiguration> journalAlertsConfigurations = new HashSet<JournalAlertsConfiguration>(
+			0);
 	private Set<UserAlerts> userAlertses = new HashSet<UserAlerts>(0);
 
 	public Alerts() {
@@ -40,18 +41,19 @@ public class Alerts implements java.io.Serializable {
 	}
 
 	public Alerts(String alertCd, Users usersByCreatedBy,
-			Users usersByUpdatedBy, String alertName, String description,
-			String alertType, Date createdDate, Date updatedDate,
-			Set<JournalAlerts> journalAlertses, Set<UserAlerts> userAlertses) {
+			Users usersByUpdatedBy, AlertTypes alertTypes, String alertName,
+			String description, Date createdDate, Date updatedDate,
+			Set<JournalAlertsConfiguration> journalAlertsConfigurations,
+			Set<UserAlerts> userAlertses) {
 		this.alertCd = alertCd;
 		this.usersByCreatedBy = usersByCreatedBy;
 		this.usersByUpdatedBy = usersByUpdatedBy;
+		this.alertTypes = alertTypes;
 		this.alertName = alertName;
 		this.description = description;
-		this.alertType = alertType;
 		this.createdDate = createdDate;
 		this.updatedDate = updatedDate;
-		this.journalAlertses = journalAlertses;
+		this.journalAlertsConfigurations = journalAlertsConfigurations;
 		this.userAlertses = userAlertses;
 	}
 
@@ -85,6 +87,16 @@ public class Alerts implements java.io.Serializable {
 		this.usersByUpdatedBy = usersByUpdatedBy;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ALERT_TYPE_CD")
+	public AlertTypes getAlertTypes() {
+		return this.alertTypes;
+	}
+
+	public void setAlertTypes(AlertTypes alertTypes) {
+		this.alertTypes = alertTypes;
+	}
+
 	@Column(name = "ALERT_NAME", length = 250)
 	public String getAlertName() {
 		return this.alertName;
@@ -101,15 +113,6 @@ public class Alerts implements java.io.Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	@Column(name = "ALERT_TYPE", length = 15)
-	public String getAlertType() {
-		return this.alertType;
-	}
-
-	public void setAlertType(String alertType) {
-		this.alertType = alertType;
 	}
 
 	@Column(name = "CREATED_DATE")
@@ -131,12 +134,13 @@ public class Alerts implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "alerts")
-	public Set<JournalAlerts> getJournalAlertses() {
-		return this.journalAlertses;
+	public Set<JournalAlertsConfiguration> getJournalAlertsConfigurations() {
+		return this.journalAlertsConfigurations;
 	}
 
-	public void setJournalAlertses(Set<JournalAlerts> journalAlertses) {
-		this.journalAlertses = journalAlertses;
+	public void setJournalAlertsConfigurations(
+			Set<JournalAlertsConfiguration> journalAlertsConfigurations) {
+		this.journalAlertsConfigurations = journalAlertsConfigurations;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "alerts")

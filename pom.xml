@@ -45,6 +45,17 @@
 	</parent>
 	<dependencies>
 		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5</version><!--$NO-MVN-MAN-VER$-->
+			</dependency>
+	
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+			<version>4.4.1</version>
+		</dependency> 
+		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>4.3.8.Final</version>
@@ -127,6 +138,12 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itextpdf</artifactId>
+			<version>5.0.6</version>
+		</dependency>
+
+		<dependency>
 			<groupId>hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
 			<version>1.8.0.10</version>
@@ -150,6 +167,12 @@
 			<version>1.1</version>
 		</dependency>
 		<!-- End -->
+		<!-- JMS dependency -->
+		<dependency>
+			<groupId>javax.jms</groupId>
+			<artifactId>jms-api</artifactId>
+			<version>1.1-rev-1</version>
+		</dependency>
 	</dependencies>
 
 	<repositories>

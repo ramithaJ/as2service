@@ -11,52 +11,34 @@
  * of John Wiley & Sons.
  * *****************************************************************************
  */
-package com.wiley.gr.ace.authorservices.model;
+package com.wiley.gr.ace.authorservices.model.external;
+
+import java.util.List;
 
 /**
  * @author virtusa version1.0
  *
  */
-public class WOAAccounts {
+public class PayLoad {
 
     /**
-     * This field holds the value of code
+     * This field holds the value of societies
      */
-    private String code;
+    private List<Societies> societies;
 
     /**
-     * This field holds the value of name
+     * @return the societies
      */
-    private String name;
-
-    /**
-     * @return the code
-     */
-    public final String getCode() {
-        return code;
+    public final List<Societies> getSocieties() {
+        return societies;
     }
 
     /**
-     * @param code
-     *            the code to set
+     * @param societies
+     *            the societies to set
      */
-    public final void setCode(final String code) {
-        this.code = code;
-    }
-
-    /**
-     * @return the name
-     */
-    public final String getName() {
-        return name;
-    }
-
-    /**
-     * @param name
-     *            the name to set
-     */
-    public final void setName(final String name) {
-        this.name = name;
+    public final void setSocieties(final List<Societies> societies) {
+        this.societies = societies;
     }
 
 }

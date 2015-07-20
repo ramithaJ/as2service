@@ -9,42 +9,23 @@
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
  *******************************************************************************/
+package com.wiley.gr.ace.authorservices.services.service;
+
 /**
+ * The Interface SaveInvitationStartEventService.
  * 
- */
-package com.wiley.gr.ace.authorservices.model.external;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
-/**
- * The Class ConfirmArticleData.
- *
  * @author virtusa version 1.0
  */
-@JsonInclude(Include.NON_NULL)
-public class ConfirmArticleData {
-
-    /** The article data. */
-    private ArticleData articleData;
+public interface SaveInvitationStartEventService {
 
     /**
-     * Gets the article data.
+     * Parses the invitation start event.
      *
-     * @return the article data
+     * @param invitationStartEventData
+     *            the invitation start event data
+     * @throws Exception
+     *             the exception
      */
-    public final ArticleData getArticleData() {
-        return articleData;
-    }
-
-    /**
-     * Sets the article data.
-     *
-     * @param articleData
-     *            the new article data
-     */
-    public final void setArticleData(final ArticleData articleData) {
-        this.articleData = articleData;
-    }
-
+    void parseInvitationStartEvent(String invitationStartEventData)
+            throws Exception;
 }

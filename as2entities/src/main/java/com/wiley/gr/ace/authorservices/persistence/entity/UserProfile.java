@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Jun 23, 2015 2:35:20 PM by Hibernate Tools 4.0.0
+// Generated Jul 8, 2015 3:59:02 PM by Hibernate Tools 4.0.0
 
 import java.sql.Blob;
 import java.util.Date;
@@ -61,7 +61,6 @@ public class UserProfile implements java.io.Serializable {
 	private Set<UserFunders> userFunderses = new HashSet<UserFunders>(0);
 	private Set<UserProfileAttribVisible> userProfileAttribVisibles = new HashSet<UserProfileAttribVisible>(
 			0);
-	private Set<SavedOrders> savedOrderses = new HashSet<SavedOrders>(0);
 	private Set<AuthCoauthDetails> authCoauthDetailsesForAuthorUserId = new HashSet<AuthCoauthDetails>(
 			0);
 	private Set<UserAlerts> userAlertses = new HashSet<UserAlerts>(0);
@@ -97,7 +96,6 @@ public class UserProfile implements java.io.Serializable {
 			Set<AuthCoauthDetails> authCoauthDetailsesForCoauthUserId,
 			Set<UserFunders> userFunderses,
 			Set<UserProfileAttribVisible> userProfileAttribVisibles,
-			Set<SavedOrders> savedOrderses,
 			Set<AuthCoauthDetails> authCoauthDetailsesForAuthorUserId,
 			Set<UserAlerts> userAlertses,
 			Set<UserPreferredJournals> userPreferredJournalses,
@@ -131,7 +129,6 @@ public class UserProfile implements java.io.Serializable {
 		this.authCoauthDetailsesForCoauthUserId = authCoauthDetailsesForCoauthUserId;
 		this.userFunderses = userFunderses;
 		this.userProfileAttribVisibles = userProfileAttribVisibles;
-		this.savedOrderses = savedOrderses;
 		this.authCoauthDetailsesForAuthorUserId = authCoauthDetailsesForAuthorUserId;
 		this.userAlertses = userAlertses;
 		this.userPreferredJournalses = userPreferredJournalses;
@@ -404,15 +401,6 @@ public class UserProfile implements java.io.Serializable {
 	public void setUserProfileAttribVisibles(
 			Set<UserProfileAttribVisible> userProfileAttribVisibles) {
 		this.userProfileAttribVisibles = userProfileAttribVisibles;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userProfile")
-	public Set<SavedOrders> getSavedOrderses() {
-		return this.savedOrderses;
-	}
-
-	public void setSavedOrderses(Set<SavedOrders> savedOrderses) {
-		this.savedOrderses = savedOrderses;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userProfileByAuthorUserId")

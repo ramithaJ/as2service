@@ -17,6 +17,9 @@ public class Production {
     /** The production status. */
     private String productionStatus;
 
+    /** The production status date. */
+    private String productionStatusDate;
+
     /**
      * Gets the production status.
      *
@@ -34,6 +37,25 @@ public class Production {
      */
     public final void setProductionStatus(final String productionStatus) {
         this.productionStatus = productionStatus;
+    }
+
+    /**
+     * Gets the production status date.
+     *
+     * @return the production status date
+     */
+    public final String getProductionStatusDate() {
+        return productionStatusDate;
+    }
+
+    /**
+     * Sets the production status date.
+     *
+     * @param productionStatusDate
+     *            the new production status date
+     */
+    public final void setProductionStatusDate(final String productionStatusDate) {
+        this.productionStatusDate = productionStatusDate;
     }
 
 }

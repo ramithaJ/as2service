@@ -15,16 +15,23 @@ package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
 import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Value;
 
+import com.wiley.gr.ace.authorservices.exception.ASException;
+import com.wiley.gr.ace.authorservices.model.PaymentDetails;
 import com.wiley.gr.ace.authorservices.persistence.entity.Orders;
 import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
+import com.wiley.gr.ace.authorservices.persistence.entity.ProductRelations;
 import com.wiley.gr.ace.authorservices.persistence.entity.SavedOrders;
+import com.wiley.gr.ace.authorservices.persistence.entity.WpgResponseDetails;
 import com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO;
 
 /**
@@ -33,164 +40,176 @@ import com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO;
  */
 public class OrderOnlineDAOImpl implements OrderOnlineDAO {
 
-    /**
-     * Method to get ArticleAssigmentDetails table object.
-     */
-    @Override
-    public final ProductPersonRelations getAritcleAssignmentDetails(
-            final String userId, final String articleId) {
+	/**
+	 * This field holds the value of coAuthorId
+	 */
+	@Value("${coAuthorId}")
+	private String coAuthorId;
 
-        Session session = null;
-        try {
-            session = getSessionFactory().openSession();
-            Criteria criteria = session.createCriteria(
-                    ProductPersonRelations.class, "productPersonRelations");
-            criteria.createAlias("productPersonRelations.products", "products");
-            criteria.createAlias("productPersonRelations.userProfile",
-                    "userProfile");
-            criteria.add(Restrictions.eq("products.dhId",
-                    Integer.parseInt(articleId)));
-            criteria.add(Restrictions.eq("userProfile.userId",
-                    Integer.parseInt(userId)));
-            ProductPersonRelations productPersonRelations = (ProductPersonRelations) criteria
-                    .uniqueResult();
-            System.err.println(productPersonRelations.getProductRoles()
-                    .getProductRoleCd());
-            return null;
-        } finally {
-            if (session != null) {
-                session.flush();
-                session.close();
-            }
-        }
-    }
+	@Value("${CorrespondingAuthorId}")
+	private String CorrespondingAuthorId;
 
-    /**
-     * Method to get savedOrders.
-     */
-    @Override
-    public final SavedOrders getSavedOrders(final String articleId,
-            final String userId) {
+	/**
+	 * Method to get ArticleAssigmentDetails table object.
+	 */
+	@Override
+	public final ProductPersonRelations getProductPersonRelations(
+			final String userId, final String articleId) {
 
-        Session session = null;
-        try {
-            session = getSessionFactory().openSession();
-            Criteria criteria = session.createCriteria(SavedOrders.class,
-                    "savedOrders");
-            criteria.createAlias("savedOrders.articles", "articles");
-            criteria.createAlias("savedOrders.userProfile", "userProfile");
-            criteria.add(Restrictions.eq("articles.articleId",
-                    Integer.parseInt(articleId)));
-            criteria.add(Restrictions.eq("userProfile.userId",
-                    Integer.parseInt(userId)));
-            return (SavedOrders) criteria.uniqueResult();
-        } finally {
-            if (session != null) {
-                session.flush();
-                session.close();
-            }
-        }
-    }
+		Session session = null;
+		try {
+			session = getSessionFactory().openSession();
+			Criteria criteria = session.createCriteria(
+					ProductPersonRelations.class, "productPersonRelations");
+			criteria.createAlias("productPersonRelations.products", "products");
+			criteria.createAlias("productPersonRelations.userProfile",
+					"userProfile");
+			criteria.add(Restrictions.eq("products.dhId",
+					Integer.parseInt(articleId)));
+			criteria.add(Restrictions.eq("userProfile.userId",
+					Integer.parseInt(userId)));
+			return (ProductPersonRelations) criteria.uniqueResult();
+		} finally {
+			if (session != null) {
+				session.flush();
+				session.close();
+			}
+		}
+	}
 
-    /**
-     * Method to get orders.
-     */
-    @Override
-    public final Orders getOrder(final Integer aritcleAuthId) {
+	/**
+	 * Method to get savedOrders.
+	 */
+	@Override
+	public final SavedOrders getSavedOrders(final String articleId,
+			final String userId) {
 
-        Session session = null;
-        try {
-            session = getSessionFactory().openSession();
-            Criteria criteria = session.createCriteria(Orders.class, "orders");
-            criteria.createAlias("orders.articleAuthorAssignment",
-                    "articleAuthorAssignment");
-            criteria.add(Restrictions.eq(
-                    "articleAuthorAssignment.articleAuthId", aritcleAuthId));
-            return (Orders) criteria.uniqueResult();
+		Session session = null;
+		try {
+			session = getSessionFactory().openSession();
+			Criteria criteria = session.createCriteria(SavedOrders.class,
+					"savedOrders");
+			criteria.createAlias("savedOrders.products", "products");
+			criteria.createAlias("savedOrders.usersByUserId", "usersByUserId");
+			criteria.add(Restrictions.eq("products.dhId",
+					Integer.parseInt(articleId)));
+			criteria.add(Restrictions.eq("usersByUserId.userId",
+					Integer.parseInt(userId)));
+			return (SavedOrders) criteria.uniqueResult();
+		} finally {
+			if (session != null) {
+				session.flush();
+				session.close();
+			}
+		}
+	}
 
-        } finally {
-            if (session != null) {
-                session.flush();
-                session.close();
-            }
-        }
-    }
+	/**
+	 * Method to get orders.
+	 */
+	@Override
+	public final Orders getOrder(final String articleId, final String userId) {
 
-    /** For Getting List Of ArticleAuthId */
-    @Override
-    public List<ProductPersonRelations> getArticleAuthId(final Integer userId,
-            final String type) {
+		Session session = null;
+		try {
+			session = getSessionFactory().openSession();
+			Criteria criteria = session.createCriteria(Orders.class, "orders");
+			criteria.createAlias("orders.usersByUserId", "usersByUserId");
+			criteria.createAlias("orders.products", "products");
+			criteria.add(Restrictions.eq("usersByUserId.userId",
+					Integer.parseInt(articleId)));
+			criteria.add(Restrictions.eq("products.dhId",
+					Integer.parseInt(articleId)));
+			return (Orders) criteria.uniqueResult();
 
-        Session session = null;
-        List<ProductPersonRelations> listArticleAuthorAssignments = null;
-        System.err.println(type);
-        try {
-            session = getSessionFactory().openSession();
-            Criteria criteria = session.createCriteria(
-                    ProductPersonRelations.class, "articleAuthorAssignment");
-            criteria.createAlias("articleAuthorAssignment.userProfile",
-                    "userProfile");
-            criteria.add(Restrictions.eq("userProfile.userId", userId));
-            if (type == null) {
-                criteria.setFetchMode("orderses", FetchMode.JOIN);
-                criteria.setFetchMode("articles", FetchMode.JOIN);
-            } else {
-                criteria.createAlias("articleAuthorAssignment.orderses",
-                        "orderses");
-                criteria.add(Restrictions.eq("orderses.ooOaFlg", type));
-            }
-            listArticleAuthorAssignments = criteria.list();
-        } finally {
-            if (session != null) {
-                session.flush();
-                session.close();
-            }
-        }
-        return listArticleAuthorAssignments;
-    }
+		} finally {
+			if (session != null) {
+				session.flush();
+				session.close();
+			}
+		}
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO#
-     * saveLaterOrder(java.lang.String)
-     */
-    @Override
-    public void saveLaterOrder(final SavedOrders savedOrders) {
-        Session session = null;
-        try {
-            session = getSessionFactory().openSession();
-            session.beginTransaction();
-            session.saveOrUpdate(savedOrders);
-            session.getTransaction().commit();
-        } finally {
-            if (session != null) {
-                session.flush();
-                session.close();
-            }
-        }
+	/** For Getting List Of ArticleAuthId */
+	@Override
+	public List<ProductPersonRelations> getArticleAuthId(final Integer userId,
+			final String type) {
 
-    }
+		Session session = null;
+		List<ProductPersonRelations> listArticleAuthorAssignments = null;
+		System.err.println(type);
+		try {
+			session = getSessionFactory().openSession();
+			Criteria criteria = session.createCriteria(
+					ProductPersonRelations.class, "articleAuthorAssignment");
+			criteria.createAlias("articleAuthorAssignment.userProfile",
+					"userProfile");
+			criteria.add(Restrictions.eq("userProfile.userId", userId));
+			if (type == null) {
+				criteria.setFetchMode("orderses", FetchMode.JOIN);
+				criteria.setFetchMode("articles", FetchMode.JOIN);
+			} else {
+				criteria.createAlias("articleAuthorAssignment.orderses",
+						"orderses");
+				criteria.add(Restrictions.eq("orderses.ooOaFlg", type));
+			}
+			listArticleAuthorAssignments = criteria.list();
+		} finally {
+			if (session != null) {
+				session.flush();
+				session.close();
+			}
+		}
+		return listArticleAuthorAssignments;
+	}
 
-    @Override
-    public void saveOrUpdateOrder(final Orders orders) {
-
-        Session session = null;
-        try {
-            session = getSessionFactory().openSession();
-            session.getTransaction().begin();
-            session.saveOrUpdate(orders);
-            session.getTransaction().commit();
-        } finally {
-            if (session != null) {
-                session.flush();
-                session.close();
-            }
-        }
+	/**
+	 * This method save the order
+	 * 
+	 * @param savedOrders
+	 * @return orderId
+	 *
+	 */
+	@Override
+	public Integer saveLaterOrder(final SavedOrders savedOrders) {
+		Session session = null;
+		try {
+			session = getSessionFactory().openSession();
+			session.beginTransaction();
+			session.saveOrUpdate(savedOrders);
+			session.getTransaction().commit();
+			return savedOrders.getOrderId();
+		} finally {
+			if (session != null) {
+				session.flush();
+				session.close();
+			}
+		}
 
 	}
-	
-	
+
+	@Override
+	public void saveOrder(final Orders orders) {
+
+		Session session = null;
+
+		try {
+			session = getSessionFactory().openSession();
+			session.getTransaction().begin();
+			session.save(orders);
+			session.getTransaction().commit();
+		} catch (HibernateException e) {
+			session.getTransaction().rollback();
+			throw new ASException("704", e.getMessage());
+		} finally {
+			if (session != null) {
+				session.flush();
+				session.close();
+			}
+		}
+
+	}
+
 	/**
 	 * This method returns the SavedOrder details for the corresponding orderId.
 	 * 
@@ -200,64 +219,194 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
 	 * 
 	 */
 	@Override
-	public SavedOrders getSavedOrdersForTheOrderId(String orderId, String userId) {
+	public SavedOrders getSavedOrdersForTheOrderId(final String orderId) {
 		Session session = null;
-		SavedOrders savedOrder = null; 
+		SavedOrders savedOrder = null;
 		try {
+			session = getSessionFactory().openSession();
+			Criteria criteria = session.createCriteria(SavedOrders.class,
+					"savedOrders");
+			criteria.add(Restrictions.eq("savedOrders.orderId",
+					Integer.parseInt(orderId)));
+
+			savedOrder = (SavedOrders) criteria.uniqueResult();
+
+		} finally {
+			if (session != null) {
+				session.flush();
+				session.close();
+			}
+		}
+
+		return savedOrder;
+
+	}
+
+	/**
+	 * This method returns the SavedOrder details for the corresponding orderId.
+	 * 
+	 * @param orderId
+	 * @param userId
+	 * @return SavedOrders
+	 * 
+	 */
+	@Override
+	public void deleteSavedOrderPostOrderSubmission(final Integer orderId) {
+		Session session = null;
+		SavedOrders savedOrder = null;
+
+		try {
+			session = getSessionFactory().openSession();
+			session.getTransaction().begin();
+			savedOrder = (SavedOrders) session.load(SavedOrders.class, orderId);
+			session.delete(savedOrder);
+			session.getTransaction().commit();
+		} finally {
+			if (session != null) {
+				session.flush();
+				session.close();
+			}
+		}
+
+	}
+
+	@Override
+	public List<ProductPersonRelations> getGrantRecipients(
+			final String articleId) {
+
+		Session session = null;
+		List list = new ArrayList();
+		list.add(coAuthorId);
+		list.add(CorrespondingAuthorId);
+		try {
+			session = getSessionFactory().openSession();
+			Criteria criteria = session.createCriteria(
+					ProductPersonRelations.class, "productPersonRelations");
+			criteria.createAlias("productPersonRelations.products", "products");
+			criteria.createAlias("productPersonRelations.productRoles",
+					"productRoles");
+			criteria.add(Restrictions.eq("products.dhId",
+					Integer.parseInt(articleId)));
+			criteria.add(Restrictions.in("productRoles.productRoleCd", list));
+			criteria.setFetchMode("userProfile", FetchMode.JOIN);
+			criteria.setFetchMode("userProfile.usersByUserId", FetchMode.JOIN);
+			return criteria.list();
+		} finally {
+			if (session != null) {
+				session.flush();
+				session.close();
+			}
+		}
+	}
+
+	@Override
+	public ProductRelations getProductRelations(final String articleDhId) {
+
+		Session session = null;
+		try {
+			session = getSessionFactory().openSession();
+			Criteria criteria = session.createCriteria(ProductRelations.class,
+					"productRelations");
+			criteria.createAlias("productRelations.productsByChildDhId",
+					"productsByChildDhId");
+			criteria.add(Restrictions.eq("productsByChildDhId.dhId",
+					Integer.parseInt(articleDhId)));
+			return (ProductRelations) criteria.uniqueResult();
+		} finally {
+			if (session != null) {
+				session.flush();
+				session.close();
+			}
+		}
+
+	}
+
+	/**
+	 * Method to updated payment details
+	 * 
+	 * @param paymentDetails
+	 * @return boolean
+	 * 
+	 */
+	@Override
+	public void savePaymentDetails(final PaymentDetails paymentDetails) {
+
+		Session session = null;
+
+		try {
+			session = getSessionFactory().openSession();
+			session.getTransaction().begin();
+			WpgResponseDetails wpgResponseDetails = new WpgResponseDetails();
+
+			wpgResponseDetails
+					.setAcquirerBank(paymentDetails.getAcquirerBank());
+			wpgResponseDetails.setAcquirerId(paymentDetails.getAcquirerId());
+			wpgResponseDetails.setAvsAddressResult(paymentDetails
+					.getAvsAddressResult());
+			wpgResponseDetails.setAvsPostResult(paymentDetails
+					.getAvsPostResult());
+			wpgResponseDetails.setBankId(paymentDetails.getBankId());
+			wpgResponseDetails.setBankName(paymentDetails.getBankName());
+			wpgResponseDetails.setCardExpiry(paymentDetails.getCardExpiry());
+			wpgResponseDetails.setCscResult(paymentDetails.getCscResult());
+			wpgResponseDetails.setMaskedCardNumber(paymentDetails
+					.getMaskedCardNumber());
+			wpgResponseDetails.setMerchantId(paymentDetails.getMerchantId());
+			wpgResponseDetails.setMerchantResponse(paymentDetails
+					.getMerchantResponse());
+			wpgResponseDetails.setOperation(paymentDetails.getOperation());
+			wpgResponseDetails.setReturnCode(paymentDetails.getReturnCode());
+			wpgResponseDetails.setReturnMessage(paymentDetails
+					.getReturnMessage());
+			wpgResponseDetails.setSecurity(paymentDetails.getSecurity());
+			wpgResponseDetails.setToken(paymentDetails.getToken());
+			wpgResponseDetails.setTransId(paymentDetails.getTransId());
+			wpgResponseDetails.setTransTimestamp(paymentDetails
+					.getTransTimeStamp());
+			wpgResponseDetails.setVendorId(paymentDetails.getVendorId());
+			session.save(wpgResponseDetails);
+			session.getTransaction().commit();
+
+		} catch (HibernateException e) {
+			session.getTransaction().rollback();
+			throw new ASException("704", e.getMessage());
+		} finally {
+			if (session != null) {
+				session.flush();
+				session.close();
+			}
+		}
+
+	}
+
+	/**
+	 * Method returns the order type for the corresponding order id
+	 * @param orderId
+	 * @return orderType 
+	 * 
+	 */
+	@Override
+	public String retrieveOrderType(Integer orderId) {
+		Session session = null;
+		Orders order = null;
+		String orderType = null;
+		
+		
+			try {
 				session = getSessionFactory().openSession();
-				Criteria criteria = session.createCriteria(SavedOrders.class,
-						"savedOrders");
-				criteria.createAlias("savedOrders.userProfile", "userProfile");
-				criteria.add(Restrictions.eq("savedOrders.orderId",
-						Integer.parseInt(orderId)));
-				criteria.add(Restrictions.eq("userProfile.userId",
-						Integer.parseInt(userId)));
+				order = (Orders) session.load(Orders.class, orderId);
+				orderType = order.getOrderTypes().getOrderTypeName();
 				
-				savedOrder = (SavedOrders) criteria.uniqueResult();
-				 
 			} finally {
 				if (session != null) {
 					session.flush();
 					session.close();
 				}
-			}
-		
-		return savedOrder;
+				
+			} 
 			
+		
+		return orderType;
 	}
-	
-	
-    public static void main(final String[] args) {
-
-        OrderOnlineDAOImpl a = new OrderOnlineDAOImpl();
-        a.getGrantRecipients("1");
-    }
-
-    @Override
-    public void getGrantRecipients(final String articleId) {
-
-        Session session = null;
-        try {
-            session = getSessionFactory().openSession();
-            Criteria criteria = session.createCriteria(
-                    ProductPersonRelations.class, "productPersonRelations");
-            criteria.createAlias("productPersonRelations.products", "products");
-            criteria.createAlias("productPersonRelations.productRoles",
-                    "productRoles");
-            criteria.add(Restrictions.eq("products.dhId",
-                    Integer.parseInt(articleId)));
-            criteria.add(Restrictions.eq("productRoles.productRoleCd", "0002"));
-            ProductPersonRelations productPersonRelations = (ProductPersonRelations) criteria
-                    .uniqueResult();
-            System.err.println(productPersonRelations.getUsersByCreatedBy()
-                    .getUserId());
-        } finally {
-            if (session != null) {
-                session.flush();
-                session.close();
-            }
-        }
-    }
-
 
 }

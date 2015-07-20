@@ -21,21 +21,31 @@ public class WileyOpenAccessFunders {
      * This field holds the value of WOAFunders
      */
     @JsonProperty("WOAFunders")
-    private WOAFunders WOAFunders;
+    private WOAFunders woaFunders;
 
     /**
-     * @return the wOAFunders
+     * @return the woaFunders
      */
-    public final WOAFunders getWOAFunders() {
-        return WOAFunders;
+    public final WOAFunders getWoaFunders() {
+        return woaFunders;
     }
 
     /**
-     * @param wOAFunders
-     *            the wOAFunders to set
+     * @param woaFunders
+     *            the woaFunders to set
      */
-    public final void setWOAFunders(final WOAFunders wOAFunders) {
-        WOAFunders = wOAFunders;
+    public final void setWoaFunders(final WOAFunders woaFunders) {
+        this.woaFunders = woaFunders;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "WileyOpenAccessFunders [woaFunders=" + woaFunders + "]";
     }
 
 }

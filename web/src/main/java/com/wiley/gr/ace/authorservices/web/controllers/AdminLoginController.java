@@ -11,6 +11,8 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.web.controllers;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -28,7 +30,8 @@ import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
 import com.wiley.gr.ace.authorservices.model.ASRolesAndPermissions;
 import com.wiley.gr.ace.authorservices.model.AdminUser;
 import com.wiley.gr.ace.authorservices.model.Service;
-import com.wiley.gr.ace.authorservices.model.UserManagement;
+import com.wiley.gr.ace.authorservices.model.UserLogin;
+import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 
 /**
@@ -68,11 +71,13 @@ public class AdminLoginController extends ASExceptionController {
         Service service = new Service();
         if (adminLoginService.validateEmail(emailId)) {
 
-            String userId = adminLoginService.doLogin(emailId);
-            LOGGER.debug(userId + "Geeting User id from dologin");
-            UserManagement userObj = new UserManagement();
-            userObj.setUserId(userId);
-            service.setPayload(userObj);
+            Users users = adminLoginService.doLogin(emailId);
+            LOGGER.debug(users.getUserId() + "Geeting User id from dologin");
+            UserLogin userLogin = new UserLogin();
+            userLogin.setUserId(users.getUserId());
+            userLogin.setFirstName(users.getFirstName());
+            userLogin.setLastName(users.getLastName());
+            service.setPayload(userLogin);
         } else {
             throw new ASException(errorcode, errormessage);
         }
@@ -84,12 +89,15 @@ public class AdminLoginController extends ASExceptionController {
      * @param accessId
      * @return service
      */
-    @RequestMapping(value = "/requestAccess/{emailId}/{accessId}/", method = RequestMethod.POST)
+    @RequestMapping(value = "/requestAccess/{emailId}/", method = RequestMethod.POST)
     public final Service requestAccess(
             @PathVariable("emailId") final String emailId,
-            @PathVariable("accessId") final String accessId) {
+            @RequestBody final List<String> accessId) {
         LOGGER.info("inside requestAccess Method");
-        return new Service();
+        Service service = new Service();
+        service.setPayload(adminLoginService.requestAdminAccess(accessId,
+                emailId));
+        return service;
 
     }
 

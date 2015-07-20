@@ -16,13 +16,13 @@ import java.util.List;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
-import com.wiley.gr.ace.authorservices.model.external.ConfirmArticleData;
+import com.wiley.gr.ace.authorservices.model.external.ViewAssignedArticle;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 import com.wiley.gr.ace.authorservices.model.external.License;
 import com.wiley.gr.ace.authorservices.model.external.OnlineOpen;
 import com.wiley.gr.ace.authorservices.model.external.OpenAccess;
 import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
-import com.wiley.gr.ace.authorservices.model.external.Production;
+import com.wiley.gr.ace.authorservices.model.external.ProductionData;
 import com.wiley.gr.ace.authorservices.model.external.ProfileInformation;
 import com.wiley.gr.ace.authorservices.model.external.Quote;
 import com.wiley.gr.ace.authorservices.model.external.QuoteRequest;
@@ -30,6 +30,7 @@ import com.wiley.gr.ace.authorservices.model.external.Status;
 import com.wiley.gr.ace.authorservices.model.external.TaxRequest;
 import com.wiley.gr.ace.authorservices.model.external.TaxResponse;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Interface ESBInterfaceService.
  *
@@ -37,181 +38,182 @@ import com.wiley.gr.ace.authorservices.model.external.TaxResponse;
  */
 public interface ESBInterfaceService {
 
-    /**
-     * Fetch orcid details.
-     *
-     * @param orcid
-     *            the orcid
-     * @return the user
-     * @throws Exception
-     *             the exception
-     */
-    User fetchOrcidDetails(String orcid) throws Exception;
+	/**
+	 * Fetch orcid details.
+	 *
+	 * @param orcid
+	 *            the orcid
+	 * @return the user
+	 * @throws Exception
+	 *             the exception
+	 */
+	User fetchOrcidDetails(String orcid) throws Exception;
 
-    /**
-     * Update alm user.
-     *
-     * @param user
-     *            the user
-     * @return the string
-     * @throws Exception
-     *             the exception
-     */
-    String updateALMUser(User user) throws Exception;
+	/**
+	 * Update alm user.
+	 *
+	 * @param user
+	 *            the user
+	 * @return the string
+	 * @throws Exception
+	 *             the exception
+	 */
+	String updateALMUser(User user) throws Exception;
 
-    /**
-     * Check email id exists.
+	/**
+	 * Check email id exists.
+	 *
+	 * @param emailId
+	 *            the email id
+	 * @return the ESB user
+	 * @throws Exception
+	 *             the exception
+	 */
+	ESBUser checkEmailIdExists(String emailId) throws Exception;
+
+	/**
+	 * Gets the users from first name last name.
+	 *
+	 * @param firstName
+	 *            the first name
+	 * @param lastName
+	 *            the last name
+	 * @return the users from first name last name
+	 * @throws Exception
+	 *             the exception
+	 */
+	List<ESBUser> getUsersFromFirstNameLastName(String firstName,
+			String lastName) throws Exception;
+
+	/**
+	 * Creat user.
+	 *
+	 * @param profileForCreation
+	 *            the profile for creation
+	 * @return the status
+	 * @throws Exception
+	 *             the exception
+	 */
+	Status creatUser(ProfileInformation profileForCreation) throws Exception;
+
+	/**
+	 * Gets the all author articles.
+	 *
+	 * @param articleId
+	 *            the article id
+	 * @return the all author articles
+	 * @throws Exception
+	 *             the exception
+	 */
+	ArticleData getAuthorArticle(Integer articleId) throws Exception;
+
+	/**
+	 * Gets the license status.
+	 *
+	 * @param articleId
+	 *            the article id
+	 * @return the license status
+	 * @throws Exception
+	 *             the exception
+	 */
+	License getLicenseStatus(Integer articleId) throws Exception;
+
+	/**
+	 * Gets the open access status.
+	 *
+	 * @param articleId
+	 *            the article id
+	 * @return the open access status
+	 * @throws Exception
+	 *             the exception
+	 */
+	OpenAccess getOpenAccessStatus(Integer articleId) throws Exception;
+
+	/**
+	 * Gets the online open status.
+	 *
+	 * @param articleId
+	 *            the article id
+	 * @return the online open status
+	 * @throws Exception
+	 *             the exception
+	 */
+	OnlineOpen getOnlineOpenStatus(Integer articleId) throws Exception;
+
+	/**
+	 * Gets the production data.
+	 *
+	 * @param articleId
+	 *            the article id
+	 * @return the production data
+	 * @throws Exception
+	 *             the exception
+	 */
+	ProductionData getProductionData(Integer articleId) throws Exception;
+
+	/**
+	 * Gets the article info.
+	 *
+	 * @param emailId
+	 *            the email id
+	 * @return the article info
+	 * @throws Exception
+	 *             the exception
+	 */
+	ArticleInfoDetails getArticleInfo(String emailId) throws Exception;
+
+	/**
+     * View assigned article.
      *
      * @param emailId
      *            the email id
-     * @return the ESB user
+     * @return the view assigned article
      * @throws Exception
      *             the exception
      */
-    ESBUser checkEmailIdExists(String emailId) throws Exception;
+	ViewAssignedArticle viewAssignedArticle(String emailId)
+			throws Exception;
 
-    /**
-     * Gets the users from first name last name.
-     *
-     * @param firstName
-     *            the first name
-     * @param lastName
-     *            the last name
-     * @return the users from first name last name
-     * @throws Exception
-     *             the exception
-     */
-    List<ESBUser> getUsersFromFirstNameLastName(String firstName,
-            String lastName) throws Exception;
+	// WP2A
 
-    /**
-     * Creat user.
-     *
-     * @param profileForCreation
-     *            the profile for creation
-     * @return the status
-     * @throws Exception
-     *             the exception
-     */
-    Status creatUser(ProfileInformation profileForCreation) throws Exception;
+	/**
+	 * Gets the quote.
+	 *
+	 * @param quoteRequest
+	 *            the quote request
+	 * @return the quote
+	 * @throws Exception
+	 *             the exception
+	 */
+	Quote getQuote(QuoteRequest quoteRequest) throws Exception;
 
-    /**
-     * Gets the all author articles.
-     *
-     * @param userId
-     *            the user id
-     * @return the all author articles
-     * @throws Exception
-     *             the exception
-     */
-    List<ArticleData> getAllAuthorArticles(Integer userId) throws Exception;
+	/**
+	 * Pdh get article.
+	 *
+	 * @param articleId
+	 *            the article id
+	 * @return the article data
+	 */
+	ArticleData pdhGetArticle(String articleId);
 
-    /**
-     * Gets the license status.
-     *
-     * @param articleId
-     *            the article id
-     * @return the license status
-     * @throws Exception
-     *             the exception
-     */
-    License getLicenseStatus(Integer articleId) throws Exception;
+	/**
+	 * Pdh journal look up.
+	 *
+	 * @param journalId
+	 *            the journal id
+	 * @return the pdh journal response
+	 */
+	PdhJournalResponse pdhJournalLookUp(String journalId);
 
-    /**
-     * Gets the open access status.
-     *
-     * @param articleId
-     *            the article id
-     * @return the open access status
-     * @throws Exception
-     *             the exception
-     */
-    OpenAccess getOpenAccessStatus(Integer articleId) throws Exception;
+	/**
+	 * Gets the tax info.
+	 *
+	 * @param taxRequest
+	 *            the tax request
+	 * @return the tax info
+	 * @throws Exception
+	 *             the exception
+	 */
+	TaxResponse getTaxInfo(TaxRequest taxRequest) throws Exception;
 
-    /**
-     * Gets the online open status.
-     *
-     * @param articleId
-     *            the article id
-     * @return the online open status
-     * @throws Exception
-     *             the exception
-     */
-    OnlineOpen getOnlineOpenStatus(Integer articleId) throws Exception;
-
-    /**
-     * Gets the production status.
-     *
-     * @param articleId
-     *            the article id
-     * @return the production status
-     * @throws Exception
-     *             the exception
-     */
-    Production getProductionStatus(Integer articleId) throws Exception;
-
-    /**
-     * Gets the article info.
-     *
-     * @param emailId
-     *            the email id
-     * @return the article info
-     * @throws Exception
-     *             the exception
-     */
-    ArticleInfoDetails getArticleInfo(String emailId) throws Exception;
-
-    /**
-     * Gets the article confirmation data.
-     *
-     * @param emailId
-     *            the email id
-     * @return the article confirmation data
-     * @throws Exception
-     *             the exception
-     */
-    ConfirmArticleData getArticleConfirmationData(String emailId)
-            throws Exception;
-
-    // WP2A
-
-    /**
-     * Gets the quote.
-     *
-     * @param quoteRequest
-     *            the quote request
-     * @return the quote
-     * @throws Exception
-     *             the exception
-     */
-    Quote getQuote(QuoteRequest quoteRequest) throws Exception;
-
-    /**
-     * Pdh get article.
-     *
-     * @param articleId
-     *            the article id
-     * @return the article data
-     */
-    ArticleData pdhGetArticle(String articleId);
-
-    /**
-     * Pdh journal look up.
-     *
-     * @param journalId
-     *            the journal id
-     * @return the pdh journal response
-     */
-    PdhJournalResponse pdhJournalLookUp(String journalId);
-
-    /**
-     * Gets the tax info.
-     *
-     * @param taxRequest
-     *            the tax request
-     * @return the tax info
-     * @throws Exception
-     *             the exception
-     */
-    TaxResponse getTaxInfo(TaxRequest taxRequest) throws Exception;
 }

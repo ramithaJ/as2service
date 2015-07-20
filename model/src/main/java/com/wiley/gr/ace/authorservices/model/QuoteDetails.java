@@ -15,7 +15,14 @@ package com.wiley.gr.ace.authorservices.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+/**
+ * @author virtusa version1.0
+ *
+ */
+@JsonInclude(Include.NON_NULL)
 public class QuoteDetails {
 
     /**
@@ -37,17 +44,17 @@ public class QuoteDetails {
      * This field holds the value of authorName
      */
     private String authorName;
-    
+
     /**
      * This field holds the value of addressDetails
      */
     private AddressDetails addressDetails;
-    
+
     /**
      * This field holds the value of funderDetails
      */
     private List<FunderDetails> funderDetails;
-    
+
     /**
      * This field holds the value of discountsAllowed
      */
@@ -66,9 +73,10 @@ public class QuoteDetails {
     }
 
     /**
-     * @param articleDetails the articleDetails to set
+     * @param articleDetails
+     *            the articleDetails to set
      */
-    public final void setArticleDetails(ArticleDetails articleDetails) {
+    public final void setArticleDetails(final ArticleDetails articleDetails) {
         this.articleDetails = articleDetails;
     }
 
@@ -80,9 +88,10 @@ public class QuoteDetails {
     }
 
     /**
-     * @param quoteDetail the quoteDetail to set
+     * @param quoteDetail
+     *            the quoteDetail to set
      */
-    public final void setQuoteDetail(QuoteDetail quoteDetail) {
+    public final void setQuoteDetail(final QuoteDetail quoteDetail) {
         this.quoteDetail = quoteDetail;
     }
 
@@ -94,9 +103,10 @@ public class QuoteDetails {
     }
 
     /**
-     * @param journalDetails the journalDetails to set
+     * @param journalDetails
+     *            the journalDetails to set
      */
-    public final void setJournalDetails(JournalDetails journalDetails) {
+    public final void setJournalDetails(final JournalDetails journalDetails) {
         this.journalDetails = journalDetails;
     }
 
@@ -108,12 +118,12 @@ public class QuoteDetails {
     }
 
     /**
-     * @param authorName the authorName to set
+     * @param authorName
+     *            the authorName to set
      */
-    public final void setAuthorName(String authorName) {
+    public final void setAuthorName(final String authorName) {
         this.authorName = authorName;
     }
-
 
     /**
      * @return the addressDetails
@@ -123,9 +133,10 @@ public class QuoteDetails {
     }
 
     /**
-     * @param addressDetails the addressDetails to set
+     * @param addressDetails
+     *            the addressDetails to set
      */
-    public final void setAddressDetails(AddressDetails addressDetails) {
+    public final void setAddressDetails(final AddressDetails addressDetails) {
         this.addressDetails = addressDetails;
     }
 
@@ -137,9 +148,10 @@ public class QuoteDetails {
     }
 
     /**
-     * @param funderDetails the funderDetails to set
+     * @param funderDetails
+     *            the funderDetails to set
      */
-    public final void setFunderDetails(List<FunderDetails> funderDetails) {
+    public final void setFunderDetails(final List<FunderDetails> funderDetails) {
         this.funderDetails = funderDetails;
     }
 
@@ -151,9 +163,10 @@ public class QuoteDetails {
     }
 
     /**
-     * @param discountsAllowed the discountsAllowed to set
+     * @param discountsAllowed
+     *            the discountsAllowed to set
      */
-    public final void setDiscountsAllowed(String discountsAllowed) {
+    public final void setDiscountsAllowed(final String discountsAllowed) {
         this.discountsAllowed = discountsAllowed;
     }
 
@@ -165,10 +178,12 @@ public class QuoteDetails {
     }
 
     /**
-     * @param additionalDiscountAllowed the additionalDiscountAllowed to set
+     * @param additionalDiscountAllowed
+     *            the additionalDiscountAllowed to set
      */
-    public final void setAdditionalDiscountAllowed(String additionalDiscountAllowed) {
+    public final void setAdditionalDiscountAllowed(
+            final String additionalDiscountAllowed) {
         this.additionalDiscountAllowed = additionalDiscountAllowed;
     }
-    
+
 }

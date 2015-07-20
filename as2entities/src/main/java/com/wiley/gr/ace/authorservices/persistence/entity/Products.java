@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Jun 23, 2015 2:35:20 PM by Hibernate Tools 4.0.0
+// Generated Jul 8, 2015 3:59:02 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import java.util.HashSet;
@@ -23,11 +23,20 @@ import javax.persistence.Table;
 public class Products implements java.io.Serializable {
 
 	private Integer dhId;
-	private ProductTypes productTypes;
 	private Users usersByCreatedBy;
 	private Users usersByUpdatedBy;
+	private String dhTypeCd;
 	private Date createdDate;
 	private Date updatedDate;
+	private Set<InvitationLog> invitationLogs = new HashSet<InvitationLog>(0);
+	private Set<JournalAlertsConfiguration> journalAlertsConfigurations = new HashSet<JournalAlertsConfiguration>(
+			0);
+	private Set<CoauthorRequestsOoorders> coauthorRequestsOoorderses = new HashSet<CoauthorRequestsOoorders>(
+			0);
+	private Set<SavedOrders> savedOrderses = new HashSet<SavedOrders>(0);
+	private Set<Orders> orderses = new HashSet<Orders>(0);
+	private Set<SocietyJournals> societyJournalses = new HashSet<SocietyJournals>(
+			0);
 	private JournalConfiguration journalConfiguration;
 	private Set<ProductRelations> productRelationsesForParentDhId = new HashSet<ProductRelations>(
 			0);
@@ -39,6 +48,7 @@ public class Products implements java.io.Serializable {
 			0);
 	private Set<ProductRelations> productRelationsesForChildDhId = new HashSet<ProductRelations>(
 			0);
+	private ArticleConfiguration articleConfiguration;
 
 	public Products() {
 	}
@@ -47,26 +57,39 @@ public class Products implements java.io.Serializable {
 		this.dhId = dhId;
 	}
 
-	public Products(Integer dhId, ProductTypes productTypes,
-			Users usersByCreatedBy, Users usersByUpdatedBy, Date createdDate,
-			Date updatedDate, JournalConfiguration journalConfiguration,
+	public Products(Integer dhId, Users usersByCreatedBy,
+			Users usersByUpdatedBy, String dhTypeCd, Date createdDate,
+			Date updatedDate, Set<InvitationLog> invitationLogs,
+			Set<JournalAlertsConfiguration> journalAlertsConfigurations,
+			Set<CoauthorRequestsOoorders> coauthorRequestsOoorderses,
+			Set<SavedOrders> savedOrderses, Set<Orders> orderses,
+			Set<SocietyJournals> societyJournalses,
+			JournalConfiguration journalConfiguration,
 			Set<ProductRelations> productRelationsesForParentDhId,
 			Set<ProductPersonRelations> productPersonRelationses,
 			Set<UserPreferredJournals> userPreferredJournalses,
 			Set<ProductPublicationStatuses> productPublicationStatuseses,
-			Set<ProductRelations> productRelationsesForChildDhId) {
+			Set<ProductRelations> productRelationsesForChildDhId,
+			ArticleConfiguration articleConfiguration) {
 		this.dhId = dhId;
-		this.productTypes = productTypes;
 		this.usersByCreatedBy = usersByCreatedBy;
 		this.usersByUpdatedBy = usersByUpdatedBy;
+		this.dhTypeCd = dhTypeCd;
 		this.createdDate = createdDate;
 		this.updatedDate = updatedDate;
+		this.invitationLogs = invitationLogs;
+		this.journalAlertsConfigurations = journalAlertsConfigurations;
+		this.coauthorRequestsOoorderses = coauthorRequestsOoorderses;
+		this.savedOrderses = savedOrderses;
+		this.orderses = orderses;
+		this.societyJournalses = societyJournalses;
 		this.journalConfiguration = journalConfiguration;
 		this.productRelationsesForParentDhId = productRelationsesForParentDhId;
 		this.productPersonRelationses = productPersonRelationses;
 		this.userPreferredJournalses = userPreferredJournalses;
 		this.productPublicationStatuseses = productPublicationStatuseses;
 		this.productRelationsesForChildDhId = productRelationsesForChildDhId;
+		this.articleConfiguration = articleConfiguration;
 	}
 
 	@Id
@@ -77,16 +100,6 @@ public class Products implements java.io.Serializable {
 
 	public void setDhId(Integer dhId) {
 		this.dhId = dhId;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "DH_TYPE_CD")
-	public ProductTypes getProductTypes() {
-		return this.productTypes;
-	}
-
-	public void setProductTypes(ProductTypes productTypes) {
-		this.productTypes = productTypes;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -109,6 +122,15 @@ public class Products implements java.io.Serializable {
 		this.usersByUpdatedBy = usersByUpdatedBy;
 	}
 
+	@Column(name = "DH_TYPE_CD", length = 15)
+	public String getDhTypeCd() {
+		return this.dhTypeCd;
+	}
+
+	public void setDhTypeCd(String dhTypeCd) {
+		this.dhTypeCd = dhTypeCd;
+	}
+
 	@Column(name = "CREATED_DATE")
 	public Date getCreatedDate() {
 		return this.createdDate;
@@ -125,6 +147,62 @@ public class Products implements java.io.Serializable {
 
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "products")
+	public Set<InvitationLog> getInvitationLogs() {
+		return this.invitationLogs;
+	}
+
+	public void setInvitationLogs(Set<InvitationLog> invitationLogs) {
+		this.invitationLogs = invitationLogs;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "products")
+	public Set<JournalAlertsConfiguration> getJournalAlertsConfigurations() {
+		return this.journalAlertsConfigurations;
+	}
+
+	public void setJournalAlertsConfigurations(
+			Set<JournalAlertsConfiguration> journalAlertsConfigurations) {
+		this.journalAlertsConfigurations = journalAlertsConfigurations;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "products")
+	public Set<CoauthorRequestsOoorders> getCoauthorRequestsOoorderses() {
+		return this.coauthorRequestsOoorderses;
+	}
+
+	public void setCoauthorRequestsOoorderses(
+			Set<CoauthorRequestsOoorders> coauthorRequestsOoorderses) {
+		this.coauthorRequestsOoorderses = coauthorRequestsOoorderses;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "products")
+	public Set<SavedOrders> getSavedOrderses() {
+		return this.savedOrderses;
+	}
+
+	public void setSavedOrderses(Set<SavedOrders> savedOrderses) {
+		this.savedOrderses = savedOrderses;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "products")
+	public Set<Orders> getOrderses() {
+		return this.orderses;
+	}
+
+	public void setOrderses(Set<Orders> orderses) {
+		this.orderses = orderses;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "products")
+	public Set<SocietyJournals> getSocietyJournalses() {
+		return this.societyJournalses;
+	}
+
+	public void setSocietyJournalses(Set<SocietyJournals> societyJournalses) {
+		this.societyJournalses = societyJournalses;
 	}
 
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "products")
@@ -185,6 +263,16 @@ public class Products implements java.io.Serializable {
 	public void setProductRelationsesForChildDhId(
 			Set<ProductRelations> productRelationsesForChildDhId) {
 		this.productRelationsesForChildDhId = productRelationsesForChildDhId;
+	}
+
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "products")
+	public ArticleConfiguration getArticleConfiguration() {
+		return this.articleConfiguration;
+	}
+
+	public void setArticleConfiguration(
+			ArticleConfiguration articleConfiguration) {
+		this.articleConfiguration = articleConfiguration;
 	}
 
 }

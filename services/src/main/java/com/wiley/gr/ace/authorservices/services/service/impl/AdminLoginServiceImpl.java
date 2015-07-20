@@ -22,7 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
-import com.wiley.gr.ace.authorservices.externalservices.service.BPMInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.TaskService;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.model.ASRolesAndPermissions;
 import com.wiley.gr.ace.authorservices.model.AdminUser;
@@ -30,6 +30,7 @@ import com.wiley.gr.ace.authorservices.model.PermissionSection;
 import com.wiley.gr.ace.authorservices.model.Role;
 import com.wiley.gr.ace.authorservices.model.RolesAndPermissions;
 import com.wiley.gr.ace.authorservices.model.UserPermissions;
+import com.wiley.gr.ace.authorservices.model.external.TaskServiceRequest;
 import com.wiley.gr.ace.authorservices.persistence.entity.Permissions;
 import com.wiley.gr.ace.authorservices.persistence.entity.RolePermissions;
 import com.wiley.gr.ace.authorservices.persistence.entity.Roles;
@@ -65,10 +66,6 @@ public class AdminLoginServiceImpl implements AdminLoginService {
     @Autowired(required = true)
     private UserManagement userManagement;
 
-    /** The bpm service. */
-    @Autowired(required = true)
-    private BPMInterfaceService bpmService;
-
     /** The as data dao. */
     @Autowired(required = true)
     private ASDataDAO asDataDAO;
@@ -76,6 +73,10 @@ public class AdminLoginServiceImpl implements AdminLoginService {
     /** The user roles dao. */
     @Autowired(required = true)
     private UserRolesDAO userRolesDAO;
+    
+    /** The user roles dao. */
+    @Autowired(required = true)
+    private TaskService taskService;
 
     /**
      * This method will call take emailId as input and takes and validate
@@ -99,12 +100,10 @@ public class AdminLoginServiceImpl implements AdminLoginService {
      * @return the string
      */
     @Override
-    public final String doLogin(final String emailId) {
+    public final Users doLogin(final String emailId) {
         // Call external service for password validation
         LOGGER.info("inside doLogin Method");
-        int userId = userLoginServiceDAO.getUserId(emailId);
-        // userLoginServiceDAO.doLogin(userId);
-        return userId + "";
+        return userLoginServiceDAO.getUserId(emailId);
 
     }
 
@@ -117,11 +116,19 @@ public class AdminLoginServiceImpl implements AdminLoginService {
      * @return true, if successful
      */
     @Override
-    public final boolean requestAdminAccess(final String emailId) {
+    public final String requestAdminAccess(final List<String> accessId,
+            final String emailId) {
 
         LOGGER.info("inside requestAdminAccess Method");
-
-        return bpmService.createTask();
+        final String userId = emailId.substring(0, emailId.indexOf('@'));
+        System.err.println(userId);
+        TaskServiceRequest taskServiceRequest = new TaskServiceRequest();
+        taskServiceRequest.setRequestorEmail(emailId);
+        taskServiceRequest.setJustifications(accessId);
+        taskServiceRequest.setRequestorId("john");
+        System.err.println(taskServiceRequest.toString());
+        String status = taskService.invokeTaskService(taskServiceRequest, "skpalli");
+        return status;
     }
 
     /**
@@ -133,7 +140,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
      * @return the roles and permissions
      */
     @Override
-    public final RolesAndPermissions getRolesAndPermissions(String roleId) {
+    public final RolesAndPermissions getRolesAndPermissions(final String roleId) {
 
         LOGGER.info("inside getRolesAndPermissions Method");
         RolesAndPermissions rolesAndPermissions = new RolesAndPermissions();
@@ -177,31 +184,34 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 
             permission.setPermissionId(daoPermissions.getPermissionCd() + "");
             permission.setPermissionName(daoPermissions.getPermissionName());
-            
+
             // TODO: Commenting this temporarily...Start
 
-            /*if (daoPermissions.getPermissionGroup().equalsIgnoreCase(
-                    AuthorServicesConstants.PERMISSION_LEVEL_SYSTEM)
             /*
-             * && daoPermissions.getPermType().equalsIgnoreCase(
+             * if (daoPermissions.getPermissionGroup().equalsIgnoreCase(
+             * AuthorServicesConstants.PERMISSION_LEVEL_SYSTEM) /* &&
+             * daoPermissions.getPermType().equalsIgnoreCase(
              * AuthorServicesConstants.PERMISSION_TYPE_EXTERNAL)
-             *//*) { // TODO
-                systemSection.getPermissionsList().add(permission);
+             *//*
+                * ) { // TODO
+                * systemSection.getPermissionsList().add(permission);
+                * 
+                * } else if
+                * (daoPermissions.getPermissionGroup().equalsIgnoreCase(
+                * AuthorServicesConstants.PERMISSION_LEVEL_ADMIN) /* &&
+                * daoPermissions.getPermType().equalsIgnoreCase(
+                * AuthorServicesConstants.PERMISSION_TYPE_INTERNAL)
+                *//*
+                   * ) { // TODO
+                   * adminSection.getPermissionsList().add(permission);
+                   * 
+                   * } else if
+                   * (daoPermissions.getPermissionGroup().equalsIgnoreCase(
+                   * AuthorServicesConstants.PERMISSION_LEVEL_ARTICLE)) {
+                   * articleSection.getPermissionsList().add(permission); }
+                   */
 
-            } else if (daoPermissions.getPermissionGroup().equalsIgnoreCase(
-                    AuthorServicesConstants.PERMISSION_LEVEL_ADMIN)
-            /*
-             * && daoPermissions.getPermType().equalsIgnoreCase(
-             * AuthorServicesConstants.PERMISSION_TYPE_INTERNAL)
-             *//*) { // TODO
-                adminSection.getPermissionsList().add(permission);
-
-            } else if (daoPermissions.getPermissionGroup().equalsIgnoreCase(
-                    AuthorServicesConstants.PERMISSION_LEVEL_ARTICLE)) {
-                articleSection.getPermissionsList().add(permission);
-            } */
-            
-         // TODO: Commenting this temporarily...End
+            // TODO: Commenting this temporarily...End
         }
 
         rolesAndPermissions.getSectionsList().add(adminSection);
@@ -255,7 +265,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
      */
     @Override
     public final void addOrUpdateUserRole(
-            ASRolesAndPermissions rolesAndPermissions) {
+            final ASRolesAndPermissions rolesAndPermissions) {
 
         LOGGER.info("inside addOrUpdateUserRole Method");
         Roles roles = new Roles();

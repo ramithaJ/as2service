@@ -9,19 +9,24 @@
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
  *******************************************************************************/
-package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
-import com.wiley.gr.ace.authorservices.externalservices.service.BPMInterfaceService;
+package com.wiley.gr.ace.authorservices.externalservices.service;
+
+import com.wiley.gr.ace.authorservices.model.external.Invoice;
 
 /**
+ * The Interface InvoiceService.
+ * 
  * @author virtusa version 1.0
  */
-public class BPMInterfaceServiceImpl implements BPMInterfaceService {
+public interface InvoiceService {
 
-    @Override
-    public boolean createTask() {
-        // TODO Auto-generated method stub
-        return true;
-    }
+    /**
+     * Gets the invoice.
+     *
+     * @param invoice the invoice
+     * @return the invoice
+     */
+    byte[] getInvoice(Invoice invoice);
 
 }

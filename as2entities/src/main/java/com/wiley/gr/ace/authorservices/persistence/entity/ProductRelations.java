@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Jun 23, 2015 2:35:20 PM by Hibernate Tools 4.0.0
+// Generated Jul 8, 2015 3:59:02 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -18,41 +18,44 @@ import javax.persistence.Table;
 @Table(name = "PRODUCT_RELATIONS")
 public class ProductRelations implements java.io.Serializable {
 
-	private String dhTypeRelCd;
+	private Integer dhRelId;
 	private Products productsByChildDhId;
 	private Users usersByCreatedBy;
 	private Users usersByUpdatedBy;
 	private Products productsByParentDhId;
+	private String dhTypeRelCd;
 	private Date createdDate;
 	private Date updatedDate;
 
 	public ProductRelations() {
 	}
 
-	public ProductRelations(String dhTypeRelCd) {
-		this.dhTypeRelCd = dhTypeRelCd;
+	public ProductRelations(Integer dhRelId) {
+		this.dhRelId = dhRelId;
 	}
 
-	public ProductRelations(String dhTypeRelCd, Products productsByChildDhId,
+	public ProductRelations(Integer dhRelId, Products productsByChildDhId,
 			Users usersByCreatedBy, Users usersByUpdatedBy,
-			Products productsByParentDhId, Date createdDate, Date updatedDate) {
-		this.dhTypeRelCd = dhTypeRelCd;
+			Products productsByParentDhId, String dhTypeRelCd,
+			Date createdDate, Date updatedDate) {
+		this.dhRelId = dhRelId;
 		this.productsByChildDhId = productsByChildDhId;
 		this.usersByCreatedBy = usersByCreatedBy;
 		this.usersByUpdatedBy = usersByUpdatedBy;
 		this.productsByParentDhId = productsByParentDhId;
+		this.dhTypeRelCd = dhTypeRelCd;
 		this.createdDate = createdDate;
 		this.updatedDate = updatedDate;
 	}
 
 	@Id
-	@Column(name = "DH_TYPE_REL_CD", unique = true, nullable = false, length = 15)
-	public String getDhTypeRelCd() {
-		return this.dhTypeRelCd;
+	@Column(name = "DH_REL_ID", unique = true, nullable = false, precision = 22, scale = 0)
+	public Integer getDhRelId() {
+		return this.dhRelId;
 	}
 
-	public void setDhTypeRelCd(String dhTypeRelCd) {
-		this.dhTypeRelCd = dhTypeRelCd;
+	public void setDhRelId(Integer dhRelId) {
+		this.dhRelId = dhRelId;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -93,6 +96,15 @@ public class ProductRelations implements java.io.Serializable {
 
 	public void setProductsByParentDhId(Products productsByParentDhId) {
 		this.productsByParentDhId = productsByParentDhId;
+	}
+
+	@Column(name = "DH_TYPE_REL_CD", length = 15)
+	public String getDhTypeRelCd() {
+		return this.dhTypeRelCd;
+	}
+
+	public void setDhTypeRelCd(String dhTypeRelCd) {
+		this.dhTypeRelCd = dhTypeRelCd;
 	}
 
 	@Column(name = "CREATED_DATE")

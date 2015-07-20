@@ -15,6 +15,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.wiley.gr.ace.authorservices.model.external.WOAFunder;
 
 /**
  * The Class OnlineOpenOrder.
@@ -32,13 +33,13 @@ public class OnlineOpenOrder {
     private AddressDetails addressDetails;
 
     /** The journal details. */
-    private List<JournalDetails> journalDetails;
+    private JournalDetails journalDetails;
 
     /** The discount details. */
     private List<Discounts> discountDetails;
 
     /** The tax percentage. */
-    private String taxPercentage;
+    private String taxPercentage = "0.00";
 
     /** The funder details. */
     private List<FunderDetails> funderDetails;
@@ -49,10 +50,8 @@ public class OnlineOpenOrder {
     /** The payment method. */
     private String paymentMethod;
 
-    private String articleId;
-
     /** The article id. */
-    private List<ArticleDetails> articleDetails;
+    private ArticleDetails articleDetails;
 
     /** The author name. */
     private String authorName;
@@ -65,6 +64,91 @@ public class OnlineOpenOrder {
 
     /** The billing same as correspondence address. */
     private boolean billingSameAsCorrespondenceAddress;
+
+    /** The is licence signed. */
+    private boolean isLicenceSigned;
+
+    /** The tax amount. */
+    private Amount taxAmount;
+
+    /** The order Id. */
+    private String orderId;
+    
+    /** The WOA Funder */
+    private WOAFunder woaFunder;
+
+    /**
+     * This field holds the value of orderEditable.
+     */
+    private String orderEditable = "true";
+
+    /**
+     * This field holds the value of invoiceAvailable.
+     */
+    private String invoiceAvailable = "false";
+
+    /** The discount detail. */
+    private DiscountDetail discountDetail;
+
+    /**
+     * Gets the order editable.
+     *
+     * @return the orderEditable
+     */
+    public final String getOrderEditable() {
+        return orderEditable;
+    }
+
+    /**
+     * Sets the order editable.
+     *
+     * @param orderEditable
+     *            the orderEditable to set
+     */
+    public final void setOrderEditable(final String orderEditable) {
+        this.orderEditable = orderEditable;
+    }
+
+    /**
+     * Gets the invoice available.
+     *
+     * @return the invoiceAvailable
+     */
+    public final String getInvoiceAvailable() {
+        return invoiceAvailable;
+    }
+
+    /**
+     * Sets the invoice available.
+     *
+     * @param invoiceAvailable
+     *            the invoiceAvailable to set
+     */
+    public final void setInvoiceAvailable(final String invoiceAvailable) {
+        this.invoiceAvailable = invoiceAvailable;
+    }
+
+    /** This field holds the value of licenseSignedStatus. */
+    private String licenseSignedStatus = "false";
+
+    /**
+     * Gets the license signed status.
+     *
+     * @return the licenseSignedStatus
+     */
+    public final String getLicenseSignedStatus() {
+        return licenseSignedStatus;
+    }
+
+    /**
+     * Sets the license signed status.
+     *
+     * @param licenseSignedStatus
+     *            the licenseSignedStatus to set
+     */
+    public final void setLicenseSignedStatus(final String licenseSignedStatus) {
+        this.licenseSignedStatus = licenseSignedStatus;
+    }
 
     /**
      * Gets the final amount.
@@ -204,7 +288,7 @@ public class OnlineOpenOrder {
      *
      * @return the article details
      */
-    public final List<ArticleDetails> getArticleDetails() {
+    public final ArticleDetails getArticleDetails() {
         return articleDetails;
     }
 
@@ -214,8 +298,7 @@ public class OnlineOpenOrder {
      * @param articleDetails
      *            the new article details
      */
-    public final void setArticleDetails(
-            final List<ArticleDetails> articleDetails) {
+    public final void setArticleDetails(final ArticleDetails articleDetails) {
         this.articleDetails = articleDetails;
     }
 
@@ -224,7 +307,7 @@ public class OnlineOpenOrder {
      *
      * @return the journal details
      */
-    public final List<JournalDetails> getJournalDetails() {
+    public final JournalDetails getJournalDetails() {
         return journalDetails;
     }
 
@@ -234,8 +317,7 @@ public class OnlineOpenOrder {
      * @param journalDetails
      *            the new journal details
      */
-    public final void setJournalDetails(
-            final List<JournalDetails> journalDetails) {
+    public final void setJournalDetails(final JournalDetails journalDetails) {
         this.journalDetails = journalDetails;
     }
 
@@ -276,6 +358,25 @@ public class OnlineOpenOrder {
     }
 
     /**
+     * Gets the discount detail.
+     *
+     * @return the discount detail
+     */
+    public final DiscountDetail getDiscountDetail() {
+        return discountDetail;
+    }
+
+    /**
+     * Sets the discount detail.
+     *
+     * @param discountDetail
+     *            the new discount detail
+     */
+    public final void setDiscountDetail(DiscountDetail discountDetail) {
+        this.discountDetail = discountDetail;
+    }
+
+    /**
      * Checks if is billing same as correspondence address.
      *
      * @return true, if is billing same as correspondence address
@@ -292,14 +393,6 @@ public class OnlineOpenOrder {
      */
     public final void setDiscountDetails(final List<Discounts> discountDetails) {
         this.discountDetails = discountDetails;
-    }
-
-    public final String getArticleId() {
-        return articleId;
-    }
-
-    public final void setArticleId(String articleId) {
-        this.articleId = articleId;
     }
 
     /**
@@ -342,5 +435,77 @@ public class OnlineOpenOrder {
             final boolean billingSameAsCorrespondenceAddress) {
         this.billingSameAsCorrespondenceAddress = billingSameAsCorrespondenceAddress;
     }
+
+    /**
+     * Checks if is licence signed.
+     *
+     * @return true, if is licence signed
+     */
+    public final boolean isLicenceSigned() {
+        return isLicenceSigned;
+    }
+
+    /**
+     * Gets the tax amount.
+     *
+     * @return the tax amount
+     */
+    public final Amount getTaxAmount() {
+        return taxAmount;
+    }
+
+    /**
+     * Sets the licence signed.
+     *
+     * @param isLicenceSigned
+     *            the new licence signed
+     */
+    public final void setLicenceSigned(final boolean isLicenceSigned) {
+        this.isLicenceSigned = isLicenceSigned;
+    }
+
+    /**
+     * Sets the tax amount.
+     *
+     * @param taxAmount
+     *            the new tax amount
+     */
+    public final void setTaxAmount(final Amount taxAmount) {
+        this.taxAmount = taxAmount;
+    }
+
+    /**
+     * Gets the order id.
+     *
+     * @return the orderId
+     */
+    public String getOrderId() {
+        return orderId;
+    }
+
+    /**
+     * Sets the order id.
+     *
+     * @param orderId
+     *            the orderId to set
+     */
+    public void setOrderId(final String orderId) {
+        this.orderId = orderId;
+    }
+
+	/**
+	 * @return the woaFunder
+	 */
+	public WOAFunder getWoaFunder() {
+		return woaFunder;
+	}
+
+	/**
+	 * @param woaFunder the woaFunder to set
+	 */
+	public void setWoaFunder(WOAFunder woaFunder) {
+		this.woaFunder = woaFunder;
+	}
+
 
 }

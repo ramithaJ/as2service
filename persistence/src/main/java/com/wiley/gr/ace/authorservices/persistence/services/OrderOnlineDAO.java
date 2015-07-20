@@ -15,8 +15,10 @@ package com.wiley.gr.ace.authorservices.persistence.services;
 
 import java.util.List;
 
+import com.wiley.gr.ace.authorservices.model.PaymentDetails;
 import com.wiley.gr.ace.authorservices.persistence.entity.Orders;
 import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
+import com.wiley.gr.ace.authorservices.persistence.entity.ProductRelations;
 import com.wiley.gr.ace.authorservices.persistence.entity.SavedOrders;
 
 /**
@@ -30,7 +32,7 @@ public interface OrderOnlineDAO {
      * @param articleId
      * @return
      */
-    ProductPersonRelations getAritcleAssignmentDetails(String userId,
+    ProductPersonRelations getProductPersonRelations(String userId,
             String articleId);
 
     /**
@@ -39,19 +41,18 @@ public interface OrderOnlineDAO {
      * @return
      */
     SavedOrders getSavedOrders(String articleId, String userId);
-    
+
     /**
      * @param orderId
-     * @param userId
      * @return SavedOrders
      */
-    SavedOrders getSavedOrdersForTheOrderId(String orderId, String userId);
+    SavedOrders getSavedOrdersForTheOrderId(String orderId);
 
     /**
      * @param aritcleAuthId
      * @return
      */
-    Orders getOrder(Integer aritcleAuthId);
+    Orders getOrder(String articleId, String userId);
 
     /**
      * @param userId
@@ -63,18 +64,39 @@ public interface OrderOnlineDAO {
      * @param order
      * @return
      */
-    void saveLaterOrder(SavedOrders savedOrders);
-
-    /**
-     * This method saves or updates the order submitted
-     * 
-     * @param orders
-     * @return
-     */
-    void saveOrUpdateOrder(Orders orders);
+    Integer saveLaterOrder(SavedOrders savedOrders);
 
     /**
      * @param ArticleId
+     * @return
      */
-    void getGrantRecipients(String articleId);
+    List<ProductPersonRelations> getGrantRecipients(String articleId);
+
+    /**
+     * @param articleDhId
+     * @return
+     */
+    ProductRelations getProductRelations(String articleDhId);
+
+    /**
+     * @param paymentDetails
+     */
+    void savePaymentDetails(PaymentDetails paymentDetails);
+
+	/**
+	 * @param orderId
+	 */
+	void deleteSavedOrderPostOrderSubmission(Integer orderId);
+
+	/**
+	 * This method submits the saved order
+	 * @param orders
+	 */
+	void saveOrder(Orders orders);
+
+	/**
+	 * @param orderId
+	 * @return
+	 */
+	String retrieveOrderType(Integer orderId);
 }

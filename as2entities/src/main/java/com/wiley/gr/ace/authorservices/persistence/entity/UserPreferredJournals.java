@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Jun 23, 2015 2:35:20 PM by Hibernate Tools 4.0.0
+// Generated Jul 8, 2015 3:59:02 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.AttributeOverride;
@@ -23,30 +23,29 @@ public class UserPreferredJournals implements java.io.Serializable {
 	private UserPreferredJournalsId id;
 	private Users usersByCreatedBy;
 	private Users usersByUpdatedBy;
-	private UserProfile userProfile;
 	private Products products;
+	private UserProfile userProfile;
 	private Date createdDate;
 	private Date updatedDate;
 
 	public UserPreferredJournals() {
 	}
 
-	public UserPreferredJournals(UserPreferredJournalsId id,
-			UserProfile userProfile, Products products) {
+	public UserPreferredJournals(UserPreferredJournalsId id, Products products,
+			UserProfile userProfile) {
 		this.id = id;
-		this.userProfile = userProfile;
 		this.products = products;
+		this.userProfile = userProfile;
 	}
 
 	public UserPreferredJournals(UserPreferredJournalsId id,
-			Users usersByCreatedBy, Users usersByUpdatedBy,
-			UserProfile userProfile, Products products, Date createdDate,
-			Date updatedDate) {
+			Users usersByCreatedBy, Users usersByUpdatedBy, Products products,
+			UserProfile userProfile, Date createdDate, Date updatedDate) {
 		this.id = id;
 		this.usersByCreatedBy = usersByCreatedBy;
 		this.usersByUpdatedBy = usersByUpdatedBy;
-		this.userProfile = userProfile;
 		this.products = products;
+		this.userProfile = userProfile;
 		this.createdDate = createdDate;
 		this.updatedDate = updatedDate;
 	}
@@ -84,16 +83,6 @@ public class UserPreferredJournals implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USER_ID", nullable = false, insertable = false, updatable = false)
-	public UserProfile getUserProfile() {
-		return this.userProfile;
-	}
-
-	public void setUserProfile(UserProfile userProfile) {
-		this.userProfile = userProfile;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "DH_ID", nullable = false, insertable = false, updatable = false)
 	public Products getProducts() {
 		return this.products;
@@ -101,6 +90,16 @@ public class UserPreferredJournals implements java.io.Serializable {
 
 	public void setProducts(Products products) {
 		this.products = products;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "USER_ID", nullable = false, insertable = false, updatable = false)
+	public UserProfile getUserProfile() {
+		return this.userProfile;
+	}
+
+	public void setUserProfile(UserProfile userProfile) {
+		this.userProfile = userProfile;
 	}
 
 	@Column(name = "CREATED_DATE")

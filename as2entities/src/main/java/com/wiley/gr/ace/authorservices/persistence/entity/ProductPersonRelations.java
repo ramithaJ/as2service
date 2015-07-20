@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Jun 23, 2015 2:35:20 PM by Hibernate Tools 4.0.0
+// Generated Jul 8, 2015 3:59:02 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -21,8 +21,8 @@ public class ProductPersonRelations implements java.io.Serializable {
 	private Integer prodRelationId;
 	private Users usersByCreatedBy;
 	private Users usersByUpdatedBy;
-	private UserProfile userProfile;
 	private Products products;
+	private UserProfile userProfile;
 	private ProductRoles productRoles;
 	private String emailAddr;
 	private Date dateActivated;
@@ -37,15 +37,14 @@ public class ProductPersonRelations implements java.io.Serializable {
 	}
 
 	public ProductPersonRelations(Integer prodRelationId,
-			Users usersByCreatedBy, Users usersByUpdatedBy,
-			UserProfile userProfile, Products products,
-			ProductRoles productRoles, String emailAddr, Date dateActivated,
-			Date updatedDate) {
+			Users usersByCreatedBy, Users usersByUpdatedBy, Products products,
+			UserProfile userProfile, ProductRoles productRoles,
+			String emailAddr, Date dateActivated, Date updatedDate) {
 		this.prodRelationId = prodRelationId;
 		this.usersByCreatedBy = usersByCreatedBy;
 		this.usersByUpdatedBy = usersByUpdatedBy;
-		this.userProfile = userProfile;
 		this.products = products;
+		this.userProfile = userProfile;
 		this.productRoles = productRoles;
 		this.emailAddr = emailAddr;
 		this.dateActivated = dateActivated;
@@ -83,16 +82,6 @@ public class ProductPersonRelations implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USER_ID")
-	public UserProfile getUserProfile() {
-		return this.userProfile;
-	}
-
-	public void setUserProfile(UserProfile userProfile) {
-		this.userProfile = userProfile;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "DH_ID", nullable = false)
 	public Products getProducts() {
 		return this.products;
@@ -100,6 +89,16 @@ public class ProductPersonRelations implements java.io.Serializable {
 
 	public void setProducts(Products products) {
 		this.products = products;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "USER_ID")
+	public UserProfile getUserProfile() {
+		return this.userProfile;
+	}
+
+	public void setUserProfile(UserProfile userProfile) {
+		this.userProfile = userProfile;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

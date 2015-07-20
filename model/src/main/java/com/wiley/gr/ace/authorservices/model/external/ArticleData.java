@@ -34,7 +34,7 @@ public class ArticleData {
 
     /** The dhid. */
     @JsonProperty("DH_ID")
-    private String DHID;
+    private String dhId;
 
     /** The aid ecore. */
     private String aidECORE;
@@ -54,8 +54,8 @@ public class ArticleData {
     /** The order payment status. */
     private OrderPaymentStatus orderPaymentStatus;
 
-    /** The production status. */
-    private String productionStatus;
+    /** The production. */
+    private Production production;
 
     /** The publication. */
     private Publication publication;
@@ -89,6 +89,25 @@ public class ArticleData {
      */
     public final OrderData getOrder() {
         return order;
+    }
+
+    /**
+     * Gets the dh id.
+     *
+     * @return the dh id
+     */
+    public final String getDhId() {
+        return dhId;
+    }
+
+    /**
+     * Sets the dh id.
+     *
+     * @param dhId
+     *            the new dh id
+     */
+    public final void setDhId(final String dhId) {
+        this.dhId = dhId;
     }
 
     /**
@@ -137,25 +156,6 @@ public class ArticleData {
      */
     public final void setJournal(final Journal journal) {
         this.journal = journal;
-    }
-
-    /**
-     * Gets the dhid.
-     *
-     * @return The DHID
-     */
-    public final String getDHID() {
-        return DHID;
-    }
-
-    /**
-     * Sets the dhid.
-     *
-     * @param DHID
-     *            The DH_ID
-     */
-    public final void setDHID(final String DHID) {
-        this.DHID = DHID;
     }
 
     /**
@@ -274,21 +274,21 @@ public class ArticleData {
     }
 
     /**
-     * Gets the production status.
+     * Gets the production.
      *
-     * @return the productionStatus
+     * @return the production
      */
-    public final String getProductionStatus() {
-        return productionStatus;
+    public final Production getProduction() {
+        return production;
     }
 
     /**
-     * Sets the production status.
+     * Sets the production.
      *
-     * @param productionStatus
-     *            the productionStatus to set
+     * @param production
+     *            the production to set
      */
-    public final void setProductionStatus(final String productionStatus) {
-        this.productionStatus = productionStatus;
+    public final void setProduction(final Production production) {
+        this.production = production;
     }
 }

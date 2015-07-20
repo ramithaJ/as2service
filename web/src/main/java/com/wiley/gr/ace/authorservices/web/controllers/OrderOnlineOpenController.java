@@ -1,6 +1,21 @@
+/*******************************************************************************
+ * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
+ *
+ * All material contained herein is proprietary to John Wiley & Sons 
+ * and its third party suppliers, if any. The methods, techniques and 
+ * technical concepts contained herein are considered trade secrets 
+ * and confidential and may be protected by intellectual property laws.  
+ * Reproduction or distribution of this material, in whole or in part, 
+ * is strictly forbidden except by express prior written permission 
+ * of John Wiley & Sons.
+ *******************************************************************************/
 package com.wiley.gr.ace.authorservices.web.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,9 +23,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
+import com.wiley.gr.ace.authorservices.model.AddressDetails;
+import com.wiley.gr.ace.authorservices.model.FunderDetails;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.Service;
+import com.wiley.gr.ace.authorservices.model.TaxDetails;
+import com.wiley.gr.ace.authorservices.services.service.OnlineOpenAuthorValidatorService;
+import com.wiley.gr.ace.authorservices.services.service.OpenAccessService;
 import com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService;
 
 /**
@@ -22,28 +43,75 @@ import com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService;
 public class OrderOnlineOpenController extends ASExceptionController {
 
     /**
-     * This field holds the value of orderOnlineOpenService
+     * This field holds the value of orderOnlineOpenService.
      */
     @Autowired(required = true)
     private OrderOnlineOpenService orderOnlineOpenService;
 
     /**
+     * This field holds the value of OpenAccessService.
+     */
+    @Autowired(required = true)
+    private OpenAccessService openAccessService;
+
+    /**
+     * This field holds the value of nlineOpenAuthorValidatorService.
+     */
+    @Autowired(required = true)
+    private OnlineOpenAuthorValidatorService onlineOpenAuthorValidatorService;
+
+    /**
+     * This field holds the value of invalidContactAddressCode.
+     */
+    @Value("${contactAddress.code}")
+    private String invalidContactAddressCode;
+
+    /**
+     * This field holds the value of invalidContactAddressMessage.
+     */
+    @Value("${contactAddress.message}")
+    private String invalidContactAddressMessage;
+
+    /**
+     * This field holds the value of invalidBillingAddressCode.
+     */
+    @Value("${billingAddress.code}")
+    private String invalidBillingAddressCode;
+
+    /**
+     * This field holds the value of invalidBillingAddressMessage.
+     */
+    @Value("${billingAddress.message}")
+    private String invalidBillingAddressMessage;
+
+    /**
+     * This field holds the value of onlineOpen.
+     */
+    @Value("${OnlineOpen}")
+    private String onlineOpen;
+
+    /**
      * @param userId
+     *            - the request value
      * @param articleId
+     *            - the request value
      * @return service
      */
-    @RequestMapping(value = "/quote/{userId}/{articleId}", method = RequestMethod.GET)
-    public final Service getQuote(@PathVariable("userId") final String userId,
+    @RequestMapping(value = "/initiateOnline/{userId}/{articleId}/", method = RequestMethod.GET)
+    public final Service initiateOnline(
+            @PathVariable("userId") final String userId,
             @PathVariable("articleId") final String articleId) {
         Service service = new Service();
-        service.setPayload(orderOnlineOpenService.getQuote(userId, articleId,
-                "OO"));
+        service.setPayload(orderOnlineOpenService.initiateOnline(userId,
+                articleId, onlineOpen));
         return service;
     }
 
     /**
      * @param userId
+     *            - the request value
      * @param onlineOpenOrder
+     *            - the request value
      * @return service
      */
     @RequestMapping(value = "/saveLater/{userId}/", method = RequestMethod.POST)
@@ -52,35 +120,41 @@ public class OrderOnlineOpenController extends ASExceptionController {
             @RequestBody final OnlineOpenOrder onlineOpenOrder) {
 
         Service service = new Service();
-
-        // TODO: Get orderId from below method and return in payload
-        orderOnlineOpenService.saveLaterOrder(onlineOpenOrder, userId);
-
+        service.setPayload(orderOnlineOpenService.saveLaterOrder(
+                onlineOpenOrder, userId));
         return service;
     }
 
     /**
      * @param userId
-     * @param onlineOpenOrder
-     * @return
-     * @throws Exception 
+     *            - the request value
+     * @param orderId
+     *            - the request value
+     * @return service
+     * 
      */
-    @RequestMapping(value = "/submit/{userId}/{orderId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/submit/{userId}/{orderId}/", method = RequestMethod.POST)
     public final Service submitOnlineOpenOrder(
             @PathVariable("userId") final String userId,
-            @PathVariable("orderId") final String orderId) throws Exception {
+            @PathVariable("orderId") final String orderId) {
 
         Service service = new Service();
-        // TODO Need to create Internal Model and set it to the payload
-        service.setPayload(orderOnlineOpenService.submitOnlineOpenOrder(userId,
-        		orderId, "OO"));
+
+        try {
+            orderOnlineOpenService.submitOnlineOpenOrder(userId, orderId,
+                    onlineOpen);
+        } catch (Exception e) {
+            throw new ASException("704", e.getMessage());
+        }
 
         return service;
     }
 
     /**
      * @param userId
+     *            - the request value
      * @param orderId
+     *            - the request value
      * @return service
      */
     @RequestMapping(value = "/view/{userId}/{orderId}/", method = RequestMethod.GET)
@@ -95,19 +169,21 @@ public class OrderOnlineOpenController extends ASExceptionController {
 
     /**
      * @param userId
+     *            - the request value
      * @param orderId
+     *            - the request value
      * @return service
      */
-    @RequestMapping(value = "/cancel/", method = RequestMethod.POST)
+    @RequestMapping(value = "/cancel/{userId}/{orderId}/", method = RequestMethod.POST)
     public final Service cancelOnlineOpenOrder(
             @PathVariable("userId") final String userId,
             @PathVariable("orderId") final String orderId) {
 
+        orderOnlineOpenService.cancelOnlineOpenOrder(userId, orderId);
         return new Service();
     }
 
     /**
-     * @param userId
      * @return service
      */
     @RequestMapping(value = "/fundersList/", method = RequestMethod.GET)
@@ -119,70 +195,205 @@ public class OrderOnlineOpenController extends ASExceptionController {
     }
 
     /**
-     * @param userId
+     * @param funderId
+     *            - the request value
      * @return service
      */
-    @RequestMapping(value = "/woaAccounts/", method = RequestMethod.GET)
-    public final Service getWOAAccounts() {
+    @RequestMapping(value = "/subFundersList/{funderId}/", method = RequestMethod.GET)
+    public final Service getSubFundersList(
+            @PathVariable("funderId") final String funderId) {
 
         Service service = new Service();
-        service.setPayload(orderOnlineOpenService.getWOAAccounts());
+        service.setPayload(orderOnlineOpenService.getFundersList());
         return service;
     }
 
     /**
-     * @param userId
      * @return service
      */
-    @RequestMapping(value = "/grantRecipients/", method = RequestMethod.GET)
-    public final Service getGrantRecipients() {
+    @RequestMapping(value = "/woaFunders/", method = RequestMethod.GET)
+    public final Service getWOAFunders() {
 
         Service service = new Service();
-        // service.setPayload(orderOnlineOpenService.getGrantRecipients());
+        service.setPayload(orderOnlineOpenService.getWOAFunders());
         return service;
     }
 
     /**
-     * @param userId
+     * @param articleId
+     *            - the request value
      * @return service
      */
-    @RequestMapping(value = "/discountedSocieties/", method = RequestMethod.GET)
-    public final Service getDiscountedSocieties() {
+    @RequestMapping(value = "/grantRecipients/{articleId}/", method = RequestMethod.GET)
+    public final Service getGrantRecipients(
+            @PathVariable("articleId") final String articleId) {
 
         Service service = new Service();
-        service.setPayload(orderOnlineOpenService.getDiscountedSocieties());
+        service.setPayload(orderOnlineOpenService.getGrantRecipients(articleId));
         return service;
     }
 
     /**
-     * @param userId
      * @return service
      */
-    @RequestMapping(value = "/allOrders/{userId}/", method = RequestMethod.GET)
+    @RequestMapping(value = "/discountedSocieties/{dhId}/", method = RequestMethod.GET)
+    public final Service getDiscountedSocieties(
+            @PathVariable("dhId") final String dhId) {
+
+        Service service = new Service();
+        service.setPayload(orderOnlineOpenService.getDiscountedSocieties(dhId));
+        return service;
+    }
+
+    /**
+     * @param orderId
+     *            - the request value
+     * @param type
+     *            - the request value
+     * @param sdate
+     *            - the request value
+     * @param edate
+     *            - the request value
+     * @return service
+     */
+    @RequestMapping(value = "/allOrders/{orderId}/", method = RequestMethod.GET)
     public final Service getAllOrders(
-            @PathVariable("userId") final String userId,
+            @PathVariable("orderId") final String orderId,
             @RequestParam(value = "type", required = false) final String type,
             @RequestParam(value = "sdate", required = false) final String sdate,
             @RequestParam(value = "edate", required = false) final String edate) {
         Service service = new Service();
-        service.setPayload(orderOnlineOpenService.getAllOrders(
-                Integer.parseInt(userId), type));
+        service.setPayload(orderOnlineOpenService.getAllOrders(orderId));
         return service;
     }
 
     /**
      * Gets the institution discounts.
      *
-     * @param userId
-     *            the user id
      * @return service
      */
-    @RequestMapping(value = "/institutionDiscounts/", method = RequestMethod.GET)
-    public final Service getInstitutionDiscounts() {
+    @RequestMapping(value = "/institutionDiscounts/{dhId}/", method = RequestMethod.GET)
+    public final Service getInstitutionDiscounts(
+            @PathVariable("dhId") final String dhId) {
 
         Service service = new Service();
-        service.setPayload(orderOnlineOpenService.getInstitutionDiscounts());
+        service.setPayload(orderOnlineOpenService.getInstitutionDiscounts(dhId));
         return service;
+    }
+
+    /**
+     * @param taxDetails
+     *            - the request value
+     * @return Service
+     */
+    @RequestMapping(value = "/validate/taxDetails/{userId}/", method = RequestMethod.POST)
+    public final Service validateTaxDetails(
+            @RequestBody final TaxDetails taxDetails) {
+
+        onlineOpenAuthorValidatorService.validateTaxDetails(taxDetails);
+
+        return new Service();
+    }
+
+    /**
+     * @param funderDetailsList
+     *            - the request value
+     * @return Service
+     */
+    @RequestMapping(value = "/validate/funderDetails/", method = RequestMethod.POST)
+    public final Service validateFunderDetails(
+            @RequestBody final List<FunderDetails> funderDetailsList) {
+
+        onlineOpenAuthorValidatorService
+                .validateFunderDetails(funderDetailsList);
+
+        return new Service();
+    }
+
+    /**
+     * @param userId
+     *            - the request value
+     * @param addressDetails
+     *            - the request value
+     * @return service
+     */
+    @RequestMapping(value = "/validate/address/{userId}/", method = RequestMethod.POST)
+    public final Service validateAddressDetails(
+            @PathVariable("userId") final String userId,
+            @RequestBody final AddressDetails addressDetails) {
+
+        if (addressDetails.getContactAddress() != null) {
+            try {
+                openAccessService.validateAddress(addressDetails
+                        .getContactAddress());
+            } catch (Exception e) {
+                throw new ASException(invalidContactAddressCode,
+                        invalidContactAddressMessage);
+            }
+        }
+
+        if (addressDetails.getBillingAddress() != null) {
+            try {
+                openAccessService.validateAddress(addressDetails
+                        .getBillingAddress());
+            } catch (Exception e) {
+                throw new ASException(invalidBillingAddressCode,
+                        invalidBillingAddressMessage);
+            }
+        }
+
+        return new Service();
+    }
+
+    /**
+     * @param id
+     *            - the request value
+     * @return service
+     */
+    @RequestMapping(value = "/woaFunder/{id}/", method = RequestMethod.GET)
+    public final Service processAllRestrictedFunderWOAAccounts(
+            @PathVariable("id") final String id) {
+
+        Service service = new Service();
+        service.setPayload(orderOnlineOpenService
+                .processAllRestrictedFunderWOAAccounts(id));
+
+        return service;
+    }
+
+    /**
+     * @param userId
+     *            - the request value
+     * @param onlineOpenOrder
+     *            - the request value
+     * @return Service
+     */
+    @RequestMapping(value = "/preview/{userId}/", method = RequestMethod.POST)
+    public final Service processAndValidateNext(
+            @PathVariable("userId") final String userId,
+            @RequestBody final OnlineOpenOrder onlineOpenOrder) {
+
+        Service service = new Service();
+        service.setPayload(onlineOpenAuthorValidatorService
+                .processAndValidateNext(onlineOpenOrder, userId));
+
+        return service;
+    }
+
+    /**
+     * This method will generate PDF.
+     * 
+     * @param ooUniqueId
+     *            - the request value
+     * @return service
+     */
+    @RequestMapping(value = "/invoice/{ooUniqueId}/{articleID}/", method = RequestMethod.GET)
+    public final ResponseEntity<byte[]> getPDF(
+            @PathVariable("ooUniqueId") final String ooUniqueId,
+            @PathVariable("articleID") final String articleID) {
+
+        return orderOnlineOpenService.getInvoice(ooUniqueId, articleID);
+
     }
 
 }

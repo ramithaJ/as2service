@@ -98,6 +98,14 @@
 			class="com.wiley.gr.ace.authorservices.persistence.entity.ObjectTypes" />
 		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Orders" />
 		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.OrderAuthorsQuery" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.OrderArticleQuery" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.OrderReference" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.OrderTypes" />
+		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.PermissionGroups" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.PermissionGroupsId" />
@@ -106,7 +114,7 @@
 		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Address" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.AreaOfInterest" />
-		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Articles" />
+
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.UserAffiliations" />
 		<mapping
@@ -136,24 +144,34 @@
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog" />
 		<mapping
-			class="com.wiley.gr.ace.authorservices.persistence.entity.JournalAlerts" />
-			<mapping
-			class="com.wiley.gr.ace.authorservices.persistence.entity.Products" />
-				<mapping
-			class="com.wiley.gr.ace.authorservices.persistence.entity.ProductTypes" />
-				<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.JournalAlertsConfiguration" />
+		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Products" />
+
+		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.ProductRoles" />
-				<mapping
+		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.ProductRelations" />
-				<mapping
+		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.ProductPublicationStatuses" />
-			<mapping
+		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations" />
-			<mapping
+		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.PublicationStatuses" />
-			<mapping
+		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.JournalConfiguration" />
-			<mapping
+		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.JournalSetupStates" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.AlertTypes" />
+
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.ArticleConfiguration" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.WpgResponseDetails" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.DiscountDetails" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.SocietyJournals" />
+
 	</session-factory>
 </hibernate-configuration>

@@ -3,7 +3,8 @@
  */
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
-import com.wiley.gr.ace.authorservices.model.external.AssociationConfirmation;
+import com.wiley.gr.ace.authorservices.model.Service;
+import com.wiley.gr.ace.authorservices.model.external.ProductPersonRelationObject;
 
 /**
  * The Interface SharedService.
@@ -13,14 +14,21 @@ import com.wiley.gr.ace.authorservices.model.external.AssociationConfirmation;
 public interface SharedService {
 
     /**
-     * Association confirmation.
+     * Author lookup.
      *
-     * @param associationConfirmation
-     *            the association confirmation
-     * @return true, if successful
+     * @param firstName
+     *            the first name
+     * @param lastName
+     *            the last name
+     * @param email
+     *            the email
+     * @return the service
      * @throws Exception
      *             the exception
      */
-    boolean associationConfirmation(
-            AssociationConfirmation associationConfirmation) throws Exception;
+    Service authorLookup(String firstName, String lastName, String email)
+            throws Exception;
+
+    Service saveProductPersonRelation(
+            ProductPersonRelationObject productPersonRelationObject);
 }

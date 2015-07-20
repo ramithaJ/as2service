@@ -9,20 +9,26 @@
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
  *******************************************************************************/
-package com.wiley.gr.ace.authorservices.externalservices.service;
+/**
+ * 
+ */
+package com.wiley.gr.ace.authorservices.services.service;
 
 /**
- * The Interface BPMInterfaceService.
+ * The Interface SaveJournalInfoService.
  *
  * @author virtusa version 1.0
  */
-public interface BPMInterfaceService {
+public interface SaveJournalInfoService {
 
     /**
-     * Creates the task.
+     * Parses the journal info type event.
      *
-     * @return true, if successful
+     * @param journalInfoTypeEvent
+     *            the journal info type event
+     * @throws Exception
+     *             the exception
      */
-    boolean createTask();
-
+    void parseJournalInfoTypeEvent(String journalInfoTypeEvent)
+            throws Exception;
 }
