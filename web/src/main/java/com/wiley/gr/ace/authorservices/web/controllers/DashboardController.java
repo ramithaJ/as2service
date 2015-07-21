@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.Dashboard;
 import com.wiley.gr.ace.authorservices.model.DashboardView;
 import com.wiley.gr.ace.authorservices.model.EmailCommunicationHistory;
@@ -58,7 +59,7 @@ public class DashboardController {
 
     /** value from props file configured. */
     @Value("${DashboardController.getAllAuthorArticles.code}")
-    private int getAllAuthorArticlesErrorCode;
+    private String getAllAuthorArticlesErrorCode;
 
     /** value from props file configured. */
     @Value("${DashboardController.getAllAuthorArticles.message}")
@@ -66,7 +67,7 @@ public class DashboardController {
 
     /** value from props file configured. */
     @Value("${DashboardController.getEmailCommunicationHistory.code}")
-    private int getEmailCommunicationHistoryErrorCode;
+    private String getEmailCommunicationHistoryErrorCode;
 
     /** value from props file configured. */
     @Value("${DashboardController.getEmailCommunicationHistory.message}")
@@ -74,7 +75,7 @@ public class DashboardController {
 
     /** value from props file configured. */
     @Value("${DashboardController.getProductionDetails.code}")
-    private int getProductionDetailsErrorCode;
+    private String getProductionDetailsErrorCode;
 
     /** value from props file configured. */
     @Value("${DashboardController.getProductionDetails.message}")
@@ -82,7 +83,7 @@ public class DashboardController {
 
     /** value from props file configured. */
     @Value("${DashboardController.getPublishedArticleDetails.code}")
-    private int getPublishedArticleDetailsErrorCode;
+    private String getPublishedArticleDetailsErrorCode;
 
     /** value from props file configured. */
     @Value("${DashboardController.getPublishedArticleDetails.message}")
@@ -156,11 +157,8 @@ public class DashboardController {
                 }
             } catch (final Exception e) {
                 LOGGER.error("Print Stack Trace- ", e);
-                final ErrorPOJO error = new ErrorPOJO();
-                error.setCode(getAllAuthorArticlesErrorCode);
-                error.setMessage(getAllAuthorArticlesErrorMessage);
-                service.setStatus("ERROR");
-                service.setError(error);
+                throw new ASException(getAllAuthorArticlesErrorCode,
+                        getAllAuthorArticlesErrorMessage);
             }
         } else {
             LOGGER.info("input Parameter userId is Not Found");
@@ -199,11 +197,8 @@ public class DashboardController {
                 }
             } catch (final Exception e) {
                 LOGGER.error("Print Stack Trace- ", e);
-                final ErrorPOJO error = new ErrorPOJO();
-                error.setCode(getEmailCommunicationHistoryErrorCode);
-                error.setMessage(getEmailCommunicationHistoryErrorMessage);
-                service.setStatus("ERROR");
-                service.setError(error);
+                throw new ASException(getEmailCommunicationHistoryErrorCode,
+                        getEmailCommunicationHistoryErrorMessage);
             }
         } else {
             LOGGER.info("input Parameter userId is Not Found");
@@ -241,11 +236,8 @@ public class DashboardController {
                 }
             } catch (final Exception e) {
                 LOGGER.error("Print Stack Trace- ", e);
-                final ErrorPOJO error = new ErrorPOJO();
-                error.setCode(getProductionDetailsErrorCode);
-                error.setMessage(getProductionDetailsErrorMessage);
-                service.setStatus("ERROR");
-                service.setError(error);
+                throw new ASException(getProductionDetailsErrorCode,
+                        getProductionDetailsErrorMessage);
             }
         } else {
             LOGGER.info("input Parameter userId is Not Found");
@@ -284,11 +276,8 @@ public class DashboardController {
                 }
             } catch (final Exception e) {
                 LOGGER.error("Print Stack Trace- ", e);
-                final ErrorPOJO error = new ErrorPOJO();
-                error.setCode(getPublishedArticleDetailsErrorCode);
-                error.setMessage(getPublishedArticleDetailsErrorMessage);
-                service.setStatus("ERROR");
-                service.setError(error);
+                throw new ASException(getPublishedArticleDetailsErrorCode,
+                        getPublishedArticleDetailsErrorMessage);
             }
         } else {
             LOGGER.info("input Parameter userId is Not Found");

@@ -25,8 +25,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.AssociationConfirmation;
-import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
 import com.wiley.gr.ace.authorservices.model.external.ViewAssignedArticle;
@@ -52,7 +52,7 @@ public class ArticleAssignmentController {
 
     /** The get article info error code. */
     @Value("${ArticleAssignmentController.getArticleInfo.code}")
-    private int getArticleInfoErrorCode;
+    private String getArticleInfoErrorCode;
 
     /** The get article info message. */
     @Value("${ArticleAssignmentController.getArticleInfo.message}")
@@ -60,7 +60,7 @@ public class ArticleAssignmentController {
 
     /** The association confirmation error code. */
     @Value("${ArticleAssignmentController.associationConfirmation.code}")
-    private int associationConfirmationErrorCode;
+    private String associationConfirmationErrorCode;
 
     /** The association confirmation message. */
     @Value("${ArticleAssignmentController.associationConfirmation.message}")
@@ -68,11 +68,19 @@ public class ArticleAssignmentController {
 
     /** The view assigned article error code. */
     @Value("${ArticleAssignmentController.viewAssignedArticle.code}")
-    private int viewAssignedArticleErrorCode;
+    private String viewAssignedArticleErrorCode;
 
     /** The view assigned article message. */
     @Value("${ArticleAssignmentController.viewAssignedArticle.message}")
     private String viewAssignedArticleErrorMessage;
+
+    /** The no data found. */
+    @Value("${noDataFound.message}")
+    private String noDataFound;
+
+    /** The input parameter not found. */
+    @Value("${inputParameterNotFound.message}")
+    private String inputParameterNotFound;
 
     /**
      * Gets the article info.
@@ -87,21 +95,29 @@ public class ArticleAssignmentController {
         LOGGER.info("inside getArticleInfo method of ArticleAssignmentController");
         final Service service = new Service();
         ArticleInfoDetails articleInfoDetails = null;
-
-        try {
-            articleInfoDetails = articleAssignmentService
-                    .getArticleInfo(emailId);
-            if (!StringUtils.isEmpty(articleInfoDetails)) {
-                service.setStatus("SUCCESS");
-                service.setPayload(articleInfoDetails);
+        if (!StringUtils.isEmpty(emailId)) {
+            LOGGER.info("input parameter emailId is found to Get Article Info");
+            try {
+                articleInfoDetails = articleAssignmentService
+                        .getArticleInfo(emailId);
+                if (!StringUtils.isEmpty(articleInfoDetails)) {
+                    LOGGER.info("Article Info Details Found");
+                    service.setStatus("SUCCESS");
+                    service.setPayload(articleInfoDetails);
+                } else {
+                    LOGGER.info("Article Info Details Not Found");
+                    service.setStatus("SUCCESS");
+                    service.setPayload(noDataFound);
+                }
+            } catch (final Exception e) {
+                LOGGER.error("Print Stack Trace- ", e);
+                throw new ASException(getArticleInfoErrorCode,
+                        getArticleInfoErrorMessage);
             }
-        } catch (final Exception e) {
-            LOGGER.error("Print Stack Trace- ", e);
-            final ErrorPOJO error = new ErrorPOJO();
-            error.setCode(getArticleInfoErrorCode);
-            error.setMessage(getArticleInfoErrorMessage);
-            service.setStatus("ERROR");
-            service.setError(error);
+        } else {
+            LOGGER.info("input Parameter emailId is Not Found");
+            service.setStatus("FAILURE");
+            service.setPayload(inputParameterNotFound);
         }
         return service;
 
@@ -119,24 +135,30 @@ public class ArticleAssignmentController {
             @RequestBody final AssociationConfirmation associationConfirmation) {
         LOGGER.info("inside associationConfirmation method of ArticleAssignmentController");
         final Service service = new Service();
-        boolean isAssociationconfirmed = false;
-        try {
-            isAssociationconfirmed = articleAssignmentService
-                    .associationConfirmation(associationConfirmation);
-            if (isAssociationconfirmed) {
-                service.setStatus("SUCCESS");
-                service.setPayload(isAssociationconfirmed);
-            } else {
-                service.setStatus("FAILURE");
-                service.setPayload(isAssociationconfirmed);
+        if (!StringUtils.isEmpty(associationConfirmation)) {
+            LOGGER.info("input parameter associationConfirmation is found to Confirm the Association");
+            boolean isAssociationconfirmed = false;
+            try {
+                isAssociationconfirmed = articleAssignmentService
+                        .associationConfirmation(associationConfirmation);
+                if (isAssociationconfirmed) {
+                    LOGGER.info(" Article Association is Confirmed");
+                    service.setStatus("SUCCESS");
+                    service.setPayload(isAssociationconfirmed);
+                } else {
+                    LOGGER.info(" Article Association is Not Confirmed");
+                    service.setStatus("FAILURE");
+                    service.setPayload(isAssociationconfirmed);
+                }
+            } catch (final Exception e) {
+                LOGGER.error("Print Stack Trace- ", e);
+                throw new ASException(associationConfirmationErrorCode,
+                        associationConfirmationErrorMessage);
             }
-        } catch (final Exception e) {
-            LOGGER.error("Print Stack Trace- ", e);
-            final ErrorPOJO error = new ErrorPOJO();
-            error.setCode(associationConfirmationErrorCode);
-            error.setMessage(associationConfirmationErrorMessage);
-            service.setStatus("ERROR");
-            service.setError(error);
+        } else {
+            LOGGER.info("input Parameters are Not Found");
+            service.setStatus("FAILURE");
+            service.setPayload(inputParameterNotFound);
         }
         return service;
 
@@ -155,20 +177,29 @@ public class ArticleAssignmentController {
         LOGGER.info("inside viewAssignedArticle method of ArticleAssignmentController");
         final Service service = new Service();
         ViewAssignedArticle viewAssignedArticle = null;
-
-        try {
-            viewAssignedArticle = articleAssignmentService
-                    .viewAssignedArticle(emailId);
-            if (!StringUtils.isEmpty(viewAssignedArticle)) {
-                service.setStatus("SUCCESS");
-                service.setPayload(viewAssignedArticle);
+        if (!StringUtils.isEmpty(emailId)) {
+            LOGGER.info("input parameter emailId is found to Get View Assigned Article");
+            try {
+                viewAssignedArticle = articleAssignmentService
+                        .viewAssignedArticle(emailId);
+                if (!StringUtils.isEmpty(viewAssignedArticle)) {
+                    LOGGER.info(" View Assigned Article Data Found");
+                    service.setStatus("SUCCESS");
+                    service.setPayload(viewAssignedArticle);
+                } else {
+                    LOGGER.info(" View Assigned Article Data Not Found");
+                    service.setStatus("SUCCESS");
+                    service.setPayload(noDataFound);
+                }
+            } catch (final Exception e) {
+                LOGGER.error("Print Stack Trace- ", e);
+                throw new ASException(viewAssignedArticleErrorCode,
+                        viewAssignedArticleErrorMessage);
             }
-        } catch (final Exception e) {
-            final ErrorPOJO error = new ErrorPOJO();
-            error.setCode(viewAssignedArticleErrorCode);
-            error.setMessage(viewAssignedArticleErrorMessage);
-            service.setStatus("ERROR");
-            service.setError(error);
+        } else {
+            LOGGER.info("input Parameter emailId is Not Found");
+            service.setStatus("FAILURE");
+            service.setPayload(inputParameterNotFound);
         }
         return service;
 
