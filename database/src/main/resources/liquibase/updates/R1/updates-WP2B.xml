@@ -172,5 +172,48 @@ ALTER TABLE SAVED_LICENSES
 </sql>
 </changeSet>
 
+<changeSet author="gphaniraj" id="WP2B-17">
+<sql>
+Create sequence license_upload_seq start with 1 nocache;
+</sql>
+</changeSet>
+
+
+<changeSet author="gphaniraj" id="WP2B-18">
+<sql>
+CREATE TABLE LICENSE_UPLOAD_DETAILS 
+    ( 
+     UPLOAD_ID NUMBER default license_upload_seq.nextval, 
+     LICENSE_ID NUMBER  
+     LICENSE_FILE BLOB , 
+     CREATED_DATE TIMESTAMP(6), 
+     CREATED_BY NUMBER ,
+     UPDATED_DATE TIMESTAMP(6), 
+     UPDATED_BY NUMBER 
+    );
+</sql>
+</changeSet>
+
+
+<changeSet author="gphaniraj" id="WP2B-19">
+<sql>
+ALTER TABLE LICENSE_UPLOAD_DETAILS ADD CONSTRAINT LICENSE_UPLOAD_DETAILS_PK PRIMARY KEY (UPLOAD_ID) ;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-20">
+<sql>
+ALTER TABLE LICENSE_UPLOAD_DETAILS 
+    ADD CONSTRAINT LICENSE_UPLOAD_DETAILS_FK FOREIGN KEY 
+    ( 
+     LICENSE_ID
+    ) 
+    REFERENCES SAVED_LICENSES 
+    ( 
+     LICENSE_ID
+    );
+</sql>
+</changeSet>
+
 </databaseChangeLog>
 
