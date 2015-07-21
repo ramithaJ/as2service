@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
+import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService;
 
@@ -29,7 +30,7 @@ import com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService;
  */
 @RestController
 @RequestMapping("/payment")
-public class PaymentServiceController {
+public class PaymentServiceController extends ASExceptionController {
 
 	/**
 	 * This field holds the value of orderOnlineOpenService.
