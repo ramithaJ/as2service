@@ -14,6 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
@@ -30,6 +32,10 @@ import com.wiley.gr.ace.authorservices.services.service.ArticleAssignmentService
  * @author virtusa version 1.0
  */
 public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
+
+    /** logger configured. */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(ArticleAssignmentServiceImpl.class);
 
     /** The esb interface service. */
     @Autowired(required = true)
@@ -56,6 +62,7 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
     @Override
     public final ArticleInfoDetails getArticleInfo(final String emailId)
             throws Exception {
+        LOGGER.info("inside getArticleInfo method of ArticleAssignmentServiceImpl");
         return esbInterfaceService.getArticleInfo(emailId);
     }
 
@@ -72,6 +79,7 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
     public final boolean associationConfirmation(
             final AssociationConfirmation associationConfirmation)
             throws Exception {
+        LOGGER.info("inside associationConfirmation method of ArticleAssignmentServiceImpl");
         return bpmInterfaceService.finishTask(associationConfirmation);
     }
 
@@ -87,6 +95,7 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
     @Override
     public final ViewAssignedArticle viewAssignedArticle(final String emailId)
             throws Exception {
+        LOGGER.info("inside viewAssignedArticle method of ArticleAssignmentServiceImpl");
         return esbInterfaceService.viewAssignedArticle(emailId);
     }
 
@@ -102,6 +111,7 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
     @Override
     public final boolean checkIfArticleInvited(final Integer dhId)
             throws Exception {
+        LOGGER.info("inside checkIfArticleInvited method of ArticleAssignmentServiceImpl");
         boolean isArticleInvited = false;
         if ("Y".equalsIgnoreCase(orderService.pdhLookUpArticle(dhId)
                 .getIsArticleInvited())) {

@@ -364,20 +364,24 @@ public class DashboardServiceImpl implements DashboardService {
     private List<ArticleData> getArticleAuthorData(final String userId)
             throws Exception {
         LOGGER.info("inside getArticleAuthorData Method of DashboardServiceImpl");
-        List<ArticleData> articleData = null;
+        List<ArticleData> articleDataList = new ArrayList<ArticleData>();
+        ArticleData articleData = null;
         final List<ProductPersonRelations> productPersonRelationsList = dashboardDAO
                 .getProductPersonRelations(userId);
         if (!StringUtils.isEmpty(productPersonRelationsList)) {
+            LOGGER.info("ProductPersonRelations data found");
+            String articleAuthorRole = null;
+            Integer articleId;
             for (final ProductPersonRelations productPersonRelations : productPersonRelationsList) {
-                final String articleAuthorRole = productPersonRelations
-                        .getProductRoles().getProductRoleName();
-                final Integer articleId = productPersonRelations.getProducts()
-                        .getDhId();
+                articleAuthorRole = productPersonRelations.getProductRoles()
+                        .getProductRoleName();
+                articleId = productPersonRelations.getProducts().getDhId();
                 articleData = getArticleDataDetails(articleId,
                         articleAuthorRole);
+                articleDataList.add(articleData);
             }
         }
-        return articleData;
+        return articleDataList;
     }
 
     /**
@@ -391,39 +395,23 @@ public class DashboardServiceImpl implements DashboardService {
      * @throws Exception
      *             the exception
      */
-    private List<ArticleData> getArticleDataDetails(final Integer articleId,
+    private ArticleData getArticleDataDetails(final Integer articleId,
             final String articleUserRole) throws Exception {
         LOGGER.info("inside getArticleDataDetails Method of DashboardServiceImpl");
         final ArticleData articleData = esbInterfaceService
                 .getAuthorArticle(articleId);
-        final List<ArticleData> articleDataStatusList = new ArrayList<ArticleData>();
         if (!StringUtils.isEmpty(articleData)) {
+            LOGGER.info("Article Data is Found");
             articleData.setArticleUserRole(articleUserRole);
-            articleDataStatusList.add(getArticlesStatus(articleData));
+            final String licenseStatus = esbInterfaceService.getLicenseStatus(
+                    articleId).getLicenseStatus();
+            if (!StringUtils.isEmpty(licenseStatus)) {
+                LOGGER.info("License Status is Found");
+                articleData.setLicenseStatus(licenseStatus);
+            }
+            articleData
+                    .setOrderPaymentStatus(getOrderPaymentStatusForArticle(articleId));
         }
-        return articleDataStatusList;
-    }
-
-    /**
-     * Gets the articles status.
-     *
-     * @param articleData
-     *            the article data
-     * @return the articles status
-     * @throws Exception
-     *             the exception
-     */
-    private ArticleData getArticlesStatus(final ArticleData articleData)
-            throws Exception {
-        LOGGER.info("inside getArticlesStatus Method of DashboardServiceImpl");
-        Integer articleId = articleData.getArticleDetails().getArticleId();
-        final String licenseStatus = esbInterfaceService.getLicenseStatus(
-                articleId).getLicenseStatus();
-        if (!StringUtils.isEmpty(licenseStatus)) {
-            articleData.setLicenseStatus(licenseStatus);
-        }
-        articleData
-                .setOrderPaymentStatus(getOrderPaymentStatusForArticle(articleId));
         return articleData;
     }
 
@@ -443,11 +431,13 @@ public class DashboardServiceImpl implements DashboardService {
         final String openAccessStatus = esbInterfaceService
                 .getOpenAccessStatus(articleId).getOpenAccessStatus();
         if (!StringUtils.isEmpty(openAccessStatus)) {
+            LOGGER.info("Open Access Status is Found");
             orderPaymentStatus.setOpenAccessStatus(openAccessStatus);
         }
         final String onlineOpenStatus = esbInterfaceService
                 .getOnlineOpenStatus(articleId).getOnlineOpenStatus();
         if (!StringUtils.isEmpty(onlineOpenStatus)) {
+            LOGGER.info("Open Order Status is Found");
             orderPaymentStatus.setOnlineOpenStatus(onlineOpenStatus);
         }
         return orderPaymentStatus;
@@ -472,6 +462,7 @@ public class DashboardServiceImpl implements DashboardService {
         final NotificationHistory notificationsHistory = notificationService
                 .getNotificationHistory(userId);
         if (!StringUtils.isEmpty(notificationsHistory)) {
+            LOGGER.info("Notification History Found");
             emailCommunicationHistory.setNotifications(notificationsHistory
                     .getNotifications());
         }
@@ -494,6 +485,7 @@ public class DashboardServiceImpl implements DashboardService {
         final List<InvitationLog> invitationLogList = dashboardDAO
                 .getInvitationLogList(userId);
         if (!StringUtils.isEmpty(invitationLogList)) {
+            LOGGER.info("Invitation Logs  Found");
             communicationDetailsList = new ArrayList<CommunicationDetails>();
             for (final InvitationLog invitationLog : invitationLogList) {
                 final CommunicationDetails communicationDetails = new CommunicationDetails();
@@ -526,17 +518,24 @@ public class DashboardServiceImpl implements DashboardService {
             throws Exception {
         LOGGER.info("inside getProductionDetails Method of DashboardServiceImpl");
         DashboardView dashboardView = null;
+        List<ArticleData> articleDataListForProduction = new ArrayList<ArticleData>();
+        ArticleData articleData = null;
         final List<ProductPersonRelations> productPersonRelationsList = dashboardDAO
                 .getProductPersonRelations(userId);
         if (!StringUtils.isEmpty(productPersonRelationsList)) {
+            LOGGER.info("ProductPersonRelations data found");
+            String articleAuthorRole = null;
+            Integer articleId;
             for (final ProductPersonRelations productPersonRelations : productPersonRelationsList) {
-                final String articleAuthorRole = productPersonRelations
-                        .getProductRoles().getProductRoleName();
-                final Integer articleId = productPersonRelations.getProducts()
-                        .getDhId();
-                dashboardView = getProductionDetailsForArticles(
+                articleAuthorRole = productPersonRelations.getProductRoles()
+                        .getProductRoleName();
+                articleId = productPersonRelations.getProducts().getDhId();
+                articleData = getProductionDetailsForArticles(
                         articleAuthorRole, articleId);
+                articleDataListForProduction.add(articleData);
             }
+            dashboardView = new DashboardView();
+            dashboardView.setArticleData(articleDataListForProduction);
         }
         return dashboardView;
     }
@@ -552,25 +551,23 @@ public class DashboardServiceImpl implements DashboardService {
      * @throws Exception
      *             the exception
      */
-    private DashboardView getProductionDetailsForArticles(
+    private ArticleData getProductionDetailsForArticles(
             final String articleAuthorRole, final Integer articleId)
             throws Exception {
         LOGGER.info("inside getProductionDetailsForArticles Method of DashboardServiceImpl");
-        final List<ArticleData> articleDataListforProduction = new ArrayList<ArticleData>();
-        final DashboardView dashboardView = new DashboardView();
         final ArticleData articleData = esbInterfaceService
                 .getAuthorArticle(articleId);
         if (!StringUtils.isEmpty(articleData)) {
+            LOGGER.info("Article Data is Found");
             articleData.setArticleUserRole(articleAuthorRole);
             final Production production = esbInterfaceService
                     .getProductionData(articleId).getProduction();
             if (!StringUtils.isEmpty(production)) {
+                LOGGER.info("Production Data is Found");
                 articleData.setProduction(production);
             }
-            articleDataListforProduction.add(articleData);
         }
-        dashboardView.setArticleData(articleDataListforProduction);
-        return dashboardView;
+        return articleData;
     }
 
     /**
@@ -587,17 +584,24 @@ public class DashboardServiceImpl implements DashboardService {
             throws Exception {
         LOGGER.info("inside getPublishedArticleDetails Method of DashboardServiceImpl");
         DashboardView dashboardView = null;
+        ArticleData articleData = null;
+        List<ArticleData> articleDataListforPublication = new ArrayList<ArticleData>();
         final List<ProductPersonRelations> productPersonRelationsList = dashboardDAO
                 .getProductPersonRelations(userId);
         if (!StringUtils.isEmpty(productPersonRelationsList)) {
+            LOGGER.info("ProductPersonRelations Data is Found");
+            String articleAuthorRole = null;
+            Integer articleId;
             for (final ProductPersonRelations productPersonRelations : productPersonRelationsList) {
-                final String articleAuthorRole = productPersonRelations
-                        .getProductRoles().getProductRoleName();
-                final Integer articleId = productPersonRelations.getProducts()
-                        .getDhId();
-                dashboardView = getPublicationArticleStatus(articleAuthorRole,
+                articleAuthorRole = productPersonRelations.getProductRoles()
+                        .getProductRoleName();
+                articleId = productPersonRelations.getProducts().getDhId();
+                articleData = getPublicationArticleStatus(articleAuthorRole,
                         articleId);
+                articleDataListforPublication.add(articleData);
             }
+            dashboardView = new DashboardView();
+            dashboardView.setArticleData(articleDataListforPublication);
         }
         return dashboardView;
     }
@@ -613,29 +617,27 @@ public class DashboardServiceImpl implements DashboardService {
      * @throws Exception
      *             the exception
      */
-    private DashboardView getPublicationArticleStatus(
+    private ArticleData getPublicationArticleStatus(
             final String articleAuthorRole, final Integer dhId)
             throws Exception {
         LOGGER.info("inside getPublicationArticleStatus Method of DashboardServiceImpl");
-        final DashboardView dashboardView = new DashboardView();
         final ArticleData articleData = esbInterfaceService
                 .getAuthorArticle(dhId);
-        final List<ArticleData> articleDataListforPublication = new ArrayList<ArticleData>();
         if (!StringUtils.isEmpty(articleData)) {
+            LOGGER.info("Article Data is Found");
             articleData.setArticleUserRole(articleAuthorRole);
             final Publication publication = new Publication();
             final PublicationStatuses publicationStatuses = dashboardDAO
                     .getPublishedArticleDetails(dhId).getPublicationStatuses();
             if (!StringUtils.isEmpty(publicationStatuses)) {
+                LOGGER.info("Publication Statuses Data is Found");
                 publication.setPublicationStatus(publicationStatuses
                         .getPublicationStatusName());
                 publication.setModifiedDate(publicationStatuses
                         .getUpdatedDate().toString());
             }
             articleData.setPublication(publication);
-            articleDataListforPublication.add(articleData);
         }
-        dashboardView.setArticleData(articleDataListforPublication);
-        return dashboardView;
+        return articleData;
     }
 }
