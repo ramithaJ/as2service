@@ -41,8 +41,10 @@ import com.wiley.gr.ace.authorservices.model.external.Industries;
 import com.wiley.gr.ace.authorservices.model.external.JobCategories;
 import com.wiley.gr.ace.authorservices.persistence.entity.LookupValues;
 import com.wiley.gr.ace.authorservices.persistence.entity.Roles;
+import com.wiley.gr.ace.authorservices.persistence.entity.Societies;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.LookUpValuesDAO;
+import com.wiley.gr.ace.authorservices.persistence.services.SocietyDao;
 import com.wiley.gr.ace.authorservices.services.service.ASDataService;
 
 /**
@@ -67,6 +69,10 @@ public class ASDataServiceImpl implements ASDataService {
     /** getting bean of userProfiles. */
     @Autowired
     private UserProfiles userProfiles;
+
+    /** getting bean of societyDao. */
+    @Autowired(required = true)
+    private SocietyDao societyDao;
 
     /**
      * This will call external service to get titles data.
@@ -318,26 +324,23 @@ public class ASDataServiceImpl implements ASDataService {
     }
 
     /**
-     * This will call external service to get Societies data.
+     * This will call Dao service to get Societies data.
      *
      * @return the societies
      */
     @Override
     public final List<Society> getSocieties() {
+        List<Societies> SocietyListDao = societyDao.getSociety();
+        List<Society> societyList = new ArrayList<Society>();
 
-        LOGGER.info("inside getSocieties method ");
-        DropDown dropDown = userProfiles.getSocietyList();
-        List<Society> listofsociety = dropDown.getSociety();
-        List<Society> societylist = new ArrayList<Society>();
-        for (Society societys : listofsociety) {
-
+        for (Societies societies : SocietyListDao) {
             Society society = new Society();
-            society.setSocietyId(societys.getSocietyId());
-
-            society.setSocietyName(societys.getSocietyName());
-            societylist.add(society);
+            society.setSocietyName(societies.getSocietyName());
+            society.setSocietyId(societies.getSocietyCd());
+            societyList.add(society);
         }
-        return societylist;
+        return societyList;
+
     }
 
     /**

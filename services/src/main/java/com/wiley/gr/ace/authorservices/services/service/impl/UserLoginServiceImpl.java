@@ -63,6 +63,14 @@ public class UserLoginServiceImpl implements UserLoginService {
     @Value("${UserLoginServiceImpl.resetPassword.securityquestion.message}")
     private String securityquestionmessage;
 
+    /** The account verified code. */
+    @Value("${accountVerifiedCode}")
+    private String accountVerifiedCode;
+
+    /** The account verified message. */
+    @Value("${accountVerifiedMessage}")
+    private String accountVerifiedMessage;
+
     /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(UserLoginServiceImpl.class);
@@ -207,7 +215,22 @@ public class UserLoginServiceImpl implements UserLoginService {
 
         InviteResetpwdLog inviteResetpwdLog = userLoginServiceDAO
                 .getinviteResetpwdLog(guid);
-        String emailId = inviteResetpwdLog.getEmailAddress();
-        userLoginServiceDAO.verifyEmailUpdate(emailId);
+
+        if (null == inviteResetpwdLog) {
+            throw new ASException(recordnotexistcode, recordnotexistmessage);
+        } else if (AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS_CLOSED
+                .equalsIgnoreCase(inviteResetpwdLog.getStatus())) {
+            throw new ASException(statusclosedcode, statusclosedmessage);
+        } else if (AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS
+                .equalsIgnoreCase(inviteResetpwdLog.getStatus())
+                && inviteResetpwdLog
+                        .getType()
+                        .equalsIgnoreCase(
+                                AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS_TYPE)) {
+            userLoginServiceDAO.getUserId(inviteResetpwdLog.getEmailAddress());
+        } else {
+            throw new ASException(accountVerifiedCode, accountVerifiedMessage);
+        }
+
     }
 }

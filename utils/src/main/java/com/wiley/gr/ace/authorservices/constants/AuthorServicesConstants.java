@@ -96,5 +96,8 @@ public class AuthorServicesConstants {
 
     /** LOCKEDMSG. */
     public static final String LOCKEDMSG = "423 Locked";
+    
+    /** The Constant INVITE_RESET_PASSWORD_STATUS_TYPE. */
+    public static final String  INVITE_RESET_PASSWORD_STATUS_TYPE="verifyAccount";
 
 }
