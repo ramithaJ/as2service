@@ -17,6 +17,7 @@ import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
 import com.wiley.gr.ace.authorservices.model.external.SecuirtyQuestionDetails;
 import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
+import com.wiley.gr.ace.authorservices.model.external.UserEmailDetails;
 import com.wiley.gr.ace.authorservices.model.external.lookup.SecurityQuestions;
 
 /**
@@ -82,7 +83,7 @@ public interface UserManagement {
      *            the new email id
      * @return true, if successful
      */
-    boolean updateUserId(String oldEmailId, String newEmailId);
+    boolean updateUserId(UserEmailDetails userEmailDetails);
 
     /**
      * Force ful reset.

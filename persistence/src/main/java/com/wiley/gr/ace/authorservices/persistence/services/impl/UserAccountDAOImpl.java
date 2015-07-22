@@ -104,12 +104,13 @@ public class UserAccountDAOImpl implements UserAccountDAO {
             query.setParameter("secondaryEmailAddr", secondaryEmail);
             query.setParameter("userId", Integer.parseInt(userId));
             transaction.commit();
-            return true;
+
         } finally {
             if (session != null) {
                 session.flush();
                 session.close();
             }
         }
+        return true;
     }
 }

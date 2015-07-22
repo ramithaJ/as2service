@@ -11,24 +11,55 @@
  * of John Wiley & Sons.
  * *****************************************************************************
  */
-package com.wiley.gr.ace.authorservices.model;
+package com.wiley.gr.ace.authorservices.model.external;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * The Class Email.
+ * @author Virtusa version1.0
  *
- * @author virtusa version 1.0
  */
-public class Email {
+public class UserSecurityAttributes {
 
     /**
      * This field holds the value of existingEmail
      */
+    @JsonProperty("ExistingEmail")
     private String existingEmail;
 
     /**
      * This field holds the value of newEmail
      */
+    @JsonProperty("NewEmail")
     private String newEmail;
+
+    /**
+     * This field holds the value of sourceSystem
+     */
+    @JsonProperty("SourceSystem")
+    private String sourceSystem;
+
+    /**
+     * This field holds the value of authenticationObject
+     */
+    @JsonProperty("AuthenticationObject")
+    private AuthenticationObject authenticationObject;
+
+    /**
+     * @return the authenticationObject
+     */
+    public final AuthenticationObject getAuthenticationObject() {
+        return authenticationObject;
+    }
+
+    /**
+     * @param authenticationObject
+     *            the authenticationObject to set
+     */
+    public final void setAuthenticationObject(
+            final AuthenticationObject authenticationObject) {
+        this.authenticationObject = authenticationObject;
+    }
 
     /**
      * @return the existingEmail
@@ -60,4 +91,18 @@ public class Email {
         this.newEmail = newEmail;
     }
 
+    /**
+     * @return the sourceSystem
+     */
+    public final String getSourceSystem() {
+        return sourceSystem;
+    }
+
+    /**
+     * @param sourceSystem
+     *            the sourceSystem to set
+     */
+    public final void setSourceSystem(final String sourceSystem) {
+        this.sourceSystem = sourceSystem;
+    }
 }
