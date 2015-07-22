@@ -56,10 +56,6 @@ public class UserProfilesImpl implements UserProfiles {
     @Value("${reasearchFunders.url}")
     private String researchFundersurl;
 
-    /** The societiesurl. */
-    @Value("${societies.url}")
-    private String societiesurl;
-
     /** The areaof interestsurl. */
     @Value("${areaofInterests.url}")
     private String areaofInterestsurl;
@@ -168,19 +164,6 @@ public class UserProfilesImpl implements UserProfiles {
     public final DropDown getReasearchFunder() {
 
         return (DropDown) StubInvokerUtil.invokeStub(researchFundersurl,
-                HttpMethod.GET, DropDown.class);
-    }
-
-    /**
-     * This method is used for getting society list.
-     *
-     * @return DropDown
-     *
-     */
-    @Override
-    public final DropDown getSocietyList() {
-
-        return (DropDown) StubInvokerUtil.invokeStub(societiesurl,
                 HttpMethod.GET, DropDown.class);
     }
 
