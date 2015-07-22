@@ -17,67 +17,71 @@ import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
 import com.wiley.gr.ace.authorservices.model.external.Industries;
 import com.wiley.gr.ace.authorservices.model.external.JobCategories;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
+import com.wiley.gr.ace.authorservices.model.external.lookup.LookupCustomerProfile;
 
 /**
  * The Interface UserProfiles.
  */
 public interface UserProfiles {
 
-     /** Gets the area of interests.
+    /**
+     * Gets the area of interests.
      *
      * @return the area of interests
      */
     ESBResponse getAreaOfInterests();
 
-     /** Gets the countries.
+    /**
+     * Gets the countries.
      *
      * @return the countries
      */
     ESBResponse getCountries();
 
-     /** Gets the departments list.
+    /**
+     * Gets the departments list.
      *
      * @return the departments list
      */
     DropDown getDepartmentsList();
 
-     /** Gets the industries.
+    /**
+     * Gets the industries.
      *
      * @return the industries
      */
     Industries getIndustries();
 
-     /** Gets the institutions list.
+    /**
+     * Gets the institutions list.
      *
      * @return the institutions list
      */
     DropDown getInstitutionsList();
 
-    /** Gets the job categories.
+    /**
+     * Gets the job categories.
      *
      * @return the job categories
      */
     JobCategories getJobCategories();
 
-    /** Gets the reasearch funder.
+    /**
+     * Gets the reasearch funder.
      *
      * @return the reasearch funder
      */
     DropDown getReasearchFunder();
 
-     /** Gets the society list.
-     *
-     * @return the society list
-     */
-    DropDown getSocietyList();
-
-    /** Gets the states.
+    /**
+     * Gets the states.
      *
      * @return the states
      */
     ESBResponse getStates();
 
-    /** Gets the user profile response.
+    /**
+     * Gets the user profile response.
      *
      * @param userId
      *            the user id
@@ -85,7 +89,8 @@ public interface UserProfiles {
      */
     UserProfileResponse getUserProfileResponse(int userId);
 
-    /** Update profile.
+    /**
+     * Update profile.
      *
      * @param userId
      *            the user id
@@ -95,4 +100,6 @@ public interface UserProfiles {
      */
     UserProfileResponse updateProfile(int userId,
             UserProfileResponse userProfileResponse);
+    
+    LookupCustomerProfile getLookupCustomerProfile(String userId);
 }

@@ -12,6 +12,8 @@
 
 package com.wiley.gr.ace.authorservices.services.service;
 
+import java.io.File;
+
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.Email;
@@ -152,4 +154,6 @@ public interface AuthorProfileService {
      * @return the user profile response
      */
     UserProfileResponse getuserProfileResponse(int userId);
+
+   void uploadImage(File image,String userId);
 }

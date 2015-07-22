@@ -14,6 +14,7 @@ package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 
+import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.model.AdminUser;
@@ -21,8 +22,12 @@ import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
+import com.wiley.gr.ace.authorservices.model.external.ErrorPayLoad;
+import com.wiley.gr.ace.authorservices.model.external.ResponseStatus;
 import com.wiley.gr.ace.authorservices.model.external.SecuirtyQuestionDetails;
 import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
+import com.wiley.gr.ace.authorservices.model.external.UserEmailDetails;
+import com.wiley.gr.ace.authorservices.model.external.lookup.SecurityQuestions;
 
 /**
  * The Class UserManagementImpl.
@@ -45,7 +50,7 @@ public class UserManagementImpl implements UserManagement {
 
     /** The update user id. */
     @Value("${updateUserId.url}")
-    private String updateUserId;
+    private String updateUserIdurl;
 
     /** The reset password. */
     @Value("${resetPassword.url}")
@@ -83,11 +88,17 @@ public class UserManagementImpl implements UserManagement {
     @Value("${securityQuestionDetails.url}")
     private String securityQuestionDetails;
 
+    /** The security questions. */
+    @Value("${securityQuestions.url}")
+    private String securityQuestionsList;
     /**
      * This field holds the value of success.
      */
     @Value("${STATUS}")
     private String success;
+
+    @Value("${FAILURE}")
+    private String failure;
 
     /**
      * This method is for authentacing by calling shared services.
@@ -115,9 +126,9 @@ public class UserManagementImpl implements UserManagement {
     @Override
     public final boolean authenticateAdminUser(final String emailId) {
 
-        Service service = (Service) StubInvokerUtil.invokeStub(
+        final Service service = (Service) StubInvokerUtil.invokeStub(
                 authenticateAdminUser, HttpMethod.POST, Service.class);
-        String status = service.getStatus();
+        final String status = service.getStatus();
         if (status != null && success.equalsIgnoreCase(status)) {
             return true;
         }
@@ -150,9 +161,9 @@ public class UserManagementImpl implements UserManagement {
     @Override
     public final boolean resetPassword(
             final SecurityDetailsHolder securityDetailsHolder) {
-        Service service = (Service) StubInvokerUtil.invokeStub(resetPassword,
-                HttpMethod.POST, Service.class);
-        String status = service.getStatus();
+        final Service service = (Service) StubInvokerUtil.invokeStub(
+                resetPassword, HttpMethod.POST, Service.class);
+        final String status = service.getStatus();
         if (status != null && success.equalsIgnoreCase(status)) {
             return true;
         }
@@ -169,16 +180,21 @@ public class UserManagementImpl implements UserManagement {
      * @return true, if successful
      */
     @Override
-    public final boolean updateUserId(final String oldEmailId,
-            final String newEmailId) {
+    public final boolean updateUserId(final UserEmailDetails userEmailDetails) {
 
-        Service service = (Service) StubInvokerUtil.invokeStub(updateUserId,
-                HttpMethod.POST, Service.class);
-        String status = service.getStatus();
-        if (status != null && success.equalsIgnoreCase(status)) {
-            return true;
+        ResponseStatus responseStatus = (ResponseStatus) StubInvokerUtil
+                .restServiceInvoker(updateUserIdurl, userEmailDetails,
+                        ResponseStatus.class);
+        boolean status = false;
+        if (success.equalsIgnoreCase(responseStatus.getStatus())) {
+            status = true;
         }
-        return false;
+        if (failure.equalsIgnoreCase(responseStatus.getStatus())) {
+            ErrorPayLoad errorPayLoad = responseStatus.getError();
+            throw new ASException(errorPayLoad.getErrorCode(),
+                    errorPayLoad.getErrorMessage());
+        }
+        return status;
     }
 
     /**
@@ -193,9 +209,9 @@ public class UserManagementImpl implements UserManagement {
     @Override
     public final boolean forceFulReset(final String emailId,
             final String newPassword) {
-        Service service = (Service) StubInvokerUtil.invokeStub(forceFulReset,
-                HttpMethod.POST, Service.class);
-        String status = service.getStatus();
+        final Service service = (Service) StubInvokerUtil.invokeStub(
+                forceFulReset, HttpMethod.POST, Service.class);
+        final String status = service.getStatus();
         if (status != null && success.equalsIgnoreCase(status)) {
             return true;
         }
@@ -212,9 +228,9 @@ public class UserManagementImpl implements UserManagement {
     @Override
     public final boolean lockUser(final String emailId) {
 
-        Service service = (Service) StubInvokerUtil.invokeStub(lockUser,
+        final Service service = (Service) StubInvokerUtil.invokeStub(lockUser,
                 HttpMethod.POST, Service.class);
-        String status = service.getStatus();
+        final String status = service.getStatus();
         if (status != null && success.equalsIgnoreCase(status)) {
             return true;
         }
@@ -231,9 +247,9 @@ public class UserManagementImpl implements UserManagement {
     @Override
     public final boolean unLockUser(final String emailId) {
 
-        Service service = (Service) StubInvokerUtil.invokeStub(unLockUser,
-                HttpMethod.POST, Service.class);
-        String status = service.getStatus();
+        final Service service = (Service) StubInvokerUtil.invokeStub(
+                unLockUser, HttpMethod.POST, Service.class);
+        final String status = service.getStatus();
         if (status != null && success.equalsIgnoreCase(status)) {
             return true;
         }
@@ -278,9 +294,9 @@ public class UserManagementImpl implements UserManagement {
     @Override
     public final boolean updatePassword(final PasswordDetails passwordDetails) {
 
-        Service service = (Service) StubInvokerUtil.invokeStub(updatePassword,
-                HttpMethod.POST, Service.class);
-        String status = service.getStatus();
+        final Service service = (Service) StubInvokerUtil.invokeStub(
+                updatePassword, HttpMethod.POST, Service.class);
+        final String status = service.getStatus();
         if (status != null && success.equalsIgnoreCase(status)) {
             return true;
         }
@@ -298,9 +314,9 @@ public class UserManagementImpl implements UserManagement {
     public final boolean updateSecurityDetails(
             final SecurityDetailsHolder securityDetails) {
 
-        Service service = (Service) StubInvokerUtil.invokeStub(
+        final Service service = (Service) StubInvokerUtil.invokeStub(
                 updateSecurityDetails, HttpMethod.POST, Service.class);
-        String status = service.getStatus();
+        final String status = service.getStatus();
         if (status != null && success.equalsIgnoreCase(status)) {
             return true;
         }
@@ -337,10 +353,24 @@ public class UserManagementImpl implements UserManagement {
          * return (AdminUser) StubInvokerUtil.invokeStub(findUser,
          * HttpMethod.GET, AdminUser.class);
          */
-        SharedServieRequest sharedServieRequest = new SharedServieRequest();
+        final SharedServieRequest sharedServieRequest = new SharedServieRequest();
         sharedServieRequest.setUserId(emailId);
         return (AdminUser) StubInvokerUtil.restServiceInvoker(findUser,
                 sharedServieRequest, AdminUser.class);
 
+    }
+
+    /**
+     * Gets the security questions list.
+     *
+     * @param emailId
+     *            the email id
+     * @return the security questions list
+     */
+    @Override
+    public SecurityQuestions getSecurityQuestionsList(final String emailId) {
+        return (SecurityQuestions) StubInvokerUtil.invokeStub(
+                securityQuestionsList + emailId, HttpMethod.GET,
+                SecurityQuestions.class);
     }
 }

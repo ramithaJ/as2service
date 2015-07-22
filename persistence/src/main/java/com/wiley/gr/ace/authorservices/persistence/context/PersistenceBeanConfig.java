@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
+import com.wiley.gr.ace.authorservices.persistence.services.AuthorProfileDao;
 import com.wiley.gr.ace.authorservices.persistence.services.DashboardDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.LookUpValuesDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.RegistrationServiceDAO;
@@ -27,6 +28,7 @@ import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserRolesDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.ASDataDAOImpl;
+import com.wiley.gr.ace.authorservices.persistence.services.impl.AuthorProfileDaoImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.DashboardDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.LookupValuesDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.RegistrationServiceDAOImpl;
@@ -165,4 +167,15 @@ public class PersistenceBeanConfig {
     public SocietyDao societyDao() {
         return new SocietyDaoImpl();
     }
+    /**
+     * AuthorProfile dao.
+     *
+     * @return the Author profile dao
+     */
+    @Bean(name = "AuthorProfileDao")
+    public AuthorProfileDao authorProfileDao()
+    {
+        return new AuthorProfileDaoImpl();
+    }
+   
 }

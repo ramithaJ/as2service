@@ -17,6 +17,8 @@ import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
 import com.wiley.gr.ace.authorservices.model.external.SecuirtyQuestionDetails;
 import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
+import com.wiley.gr.ace.authorservices.model.external.UserEmailDetails;
+import com.wiley.gr.ace.authorservices.model.external.lookup.SecurityQuestions;
 
 /**
  * The Interface UserManagement.
@@ -81,7 +83,7 @@ public interface UserManagement {
      *            the new email id
      * @return true, if successful
      */
-    boolean updateUserId(String oldEmailId, String newEmailId);
+    boolean updateUserId(UserEmailDetails userEmailDetails);
 
     /**
      * Force ful reset.
@@ -156,4 +158,13 @@ public interface UserManagement {
      * @return the admin user
      */
     AdminUser findUser(String emailId);
+
+    /**
+     * Gets the security questions list.
+     *
+     * @param emailId
+     *            the email id
+     * @return the security questions list
+     */
+    SecurityQuestions getSecurityQuestionsList(String emailId);
 }

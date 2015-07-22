@@ -27,6 +27,7 @@ import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
 import com.wiley.gr.ace.authorservices.model.external.Industries;
 import com.wiley.gr.ace.authorservices.model.external.JobCategories;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
+import com.wiley.gr.ace.authorservices.model.external.lookup.LookupCustomerProfile;
 
 /**
  * The Class UserProfilesImpl.
@@ -55,10 +56,6 @@ public class UserProfilesImpl implements UserProfiles {
     /** The research fundersurl. */
     @Value("${reasearchFunders.url}")
     private String researchFundersurl;
-
-    /** The societiesurl. */
-    @Value("${societies.url}")
-    private String societiesurl;
 
     /** The areaof interestsurl. */
     @Value("${areaofInterests.url}")
@@ -172,19 +169,6 @@ public class UserProfilesImpl implements UserProfiles {
     }
 
     /**
-     * This method is used for getting society list.
-     *
-     * @return DropDown
-     *
-     */
-    @Override
-    public final DropDown getSocietyList() {
-
-        return (DropDown) StubInvokerUtil.invokeStub(societiesurl,
-                HttpMethod.GET, DropDown.class);
-    }
-
-    /**
      * This method is used for getting states.
      *
      * @return ESBResponse
@@ -244,5 +228,19 @@ public class UserProfilesImpl implements UserProfiles {
     private UserProfileResponse getUserProfile() {
         return (UserProfileResponse) StubInvokerUtil.invokeStub(userProfileurl,
                 HttpMethod.GET, UserProfileResponse.class);
+    }
+
+    /**
+     * Gets the lookup customer profile.
+     *
+     * @param userId
+     *            the user id
+     * @return the lookup customer profile
+     */
+    @Override
+    public LookupCustomerProfile getLookupCustomerProfile(final String userId) {
+        return (LookupCustomerProfile) StubInvokerUtil.invokeStub(
+                userProfileurl + userId + "&ECID=", HttpMethod.GET,
+                UserProfileResponse.class);
     }
 }

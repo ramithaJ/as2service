@@ -12,6 +12,8 @@
 
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +33,11 @@ import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserProfile;
 import com.wiley.gr.ace.authorservices.model.UserProfileAlerts;
+import com.wiley.gr.ace.authorservices.model.external.AuthenticationObject;
+import com.wiley.gr.ace.authorservices.model.external.UserEmailDetails;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
+import com.wiley.gr.ace.authorservices.model.external.UserSecurityAttributes;
+import com.wiley.gr.ace.authorservices.persistence.services.AuthorProfileDao;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 
 /**
@@ -52,6 +58,9 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     /** The user management. */
     @Autowired
     private UserManagement userManagement;
+
+    @Autowired
+    private AuthorProfileDao authorProfileDao;
 
     /** The user profile. */
     private final UserProfile userProfile = new UserProfile();
@@ -240,8 +249,20 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     public final boolean updateUserId(final Email email) {
 
         AuthorProfileServiceImpl.LOGGER.info("inside updateUserId Method ");
-        return userManagement.updateUserId(email.getOldEmailId(),
-                email.getNewEmailId());
+
+        UserEmailDetails userEmailDetails = new UserEmailDetails();
+        UserSecurityAttributes userSecurityAttributes = new UserSecurityAttributes();
+        userSecurityAttributes.setExistingEmail(email.getExistingEmail());
+        userSecurityAttributes.setNewEmail(email.getNewEmail());
+        AuthenticationObject authenticationObject = new AuthenticationObject();
+        authenticationObject.setAuthusername("as2admin");
+        authenticationObject.setAuthpassword("hgdJbhjrnfY9KFs3KPpddQ==");
+        userSecurityAttributes.setAuthenticationObject(authenticationObject);
+        userSecurityAttributes.setSourceSystem("AS");
+        userEmailDetails
+                .setUpdateUserSecurityAttributes(userSecurityAttributes);
+
+        return userManagement.updateUserId(userEmailDetails);
     }
 
     /**
@@ -285,6 +306,20 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     public final UserProfileResponse getuserProfileResponse(final int userId) {
         AuthorProfileServiceImpl.LOGGER.info("in UserProfileResponse Method");
         return userProfiles.getUserProfileResponse(userId);
+    }
+
+    @Override
+    public void uploadImage(File image, String userId) {
+
+        byte[] imageData = new byte[(int) image.length()];
+        try {
+            FileInputStream fileInputStream = new FileInputStream(image);
+            fileInputStream.read(imageData);
+            fileInputStream.close();
+            authorProfileDao.saveProfilePicture(imageData, userId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
