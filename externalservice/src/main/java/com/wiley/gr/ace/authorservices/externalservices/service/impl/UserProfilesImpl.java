@@ -27,6 +27,7 @@ import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
 import com.wiley.gr.ace.authorservices.model.external.Industries;
 import com.wiley.gr.ace.authorservices.model.external.JobCategories;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
+import com.wiley.gr.ace.authorservices.model.external.lookup.LookupCustomerProfile;
 
 /**
  * The Class UserProfilesImpl.
@@ -227,5 +228,19 @@ public class UserProfilesImpl implements UserProfiles {
     private UserProfileResponse getUserProfile() {
         return (UserProfileResponse) StubInvokerUtil.invokeStub(userProfileurl,
                 HttpMethod.GET, UserProfileResponse.class);
+    }
+
+    /**
+     * Gets the lookup customer profile.
+     *
+     * @param userId
+     *            the user id
+     * @return the lookup customer profile
+     */
+    @Override
+    public LookupCustomerProfile getLookupCustomerProfile(final String userId) {
+        return (LookupCustomerProfile) StubInvokerUtil.invokeStub(
+                userProfileurl + userId + "&ECID=", HttpMethod.GET,
+                UserProfileResponse.class);
     }
 }

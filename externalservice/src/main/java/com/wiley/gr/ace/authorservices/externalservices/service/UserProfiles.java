@@ -17,6 +17,7 @@ import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
 import com.wiley.gr.ace.authorservices.model.external.Industries;
 import com.wiley.gr.ace.authorservices.model.external.JobCategories;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
+import com.wiley.gr.ace.authorservices.model.external.lookup.LookupCustomerProfile;
 
 /**
  * The Interface UserProfiles.
@@ -99,4 +100,6 @@ public interface UserProfiles {
      */
     UserProfileResponse updateProfile(int userId,
             UserProfileResponse userProfileResponse);
+    
+    LookupCustomerProfile getLookupCustomerProfile(String userId);
 }
