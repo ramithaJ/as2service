@@ -49,7 +49,7 @@ public class UpdateUserController {
 
     /** The no orcid update code. */
     @Value("${noOrcidUpdate.code}")
-    private int noOrcidUpdateCode;
+    private String noOrcidUpdateCode;
 
     /**
      * Update orcid id.

@@ -122,7 +122,7 @@ public class UserLoginController extends ASExceptionController {
         if (locked.equalsIgnoreCase(status) || failure.equalsIgnoreCase(status)) {
             service.setStatus(failure);
             ErrorPOJO errorPOJO = new ErrorPOJO();
-            errorPOJO.setCode(Integer.parseInt(securityResponse.getCode()));
+            errorPOJO.setCode(securityResponse.getCode());
             errorPOJO.setMessage(securityResponse.getMessage());
             service.setError(errorPOJO);
         } else if (success.equals(securityResponse.getStatus())) {

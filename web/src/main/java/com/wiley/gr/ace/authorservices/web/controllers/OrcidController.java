@@ -68,11 +68,11 @@ public class OrcidController {
 
     /** The no orcid url code. */
     @Value("${noOrcidURL.code}")
-    private int noOrcidURLCode;
+    private String noOrcidURLCode;
 
     /** The no orcid data code. */
     @Value("${noOrcidData.code}")
-    private int noOrcidDataCode;
+    private String noOrcidDataCode;
 
     /**
      * Gets the orcid url.

@@ -45,7 +45,7 @@ public class DashboardController {
 
     /** value from props file configured. */
     @Value("${DashboardController.getProfileMeter.code}")
-    private int getProfileMetererrorcode;
+    private String getProfileMetererrorcode;
 
     /** value from props file configured. */
     @Value("${DashboardController.getProfileMeter.message}")
@@ -59,7 +59,7 @@ public class DashboardController {
      * the value of noDataFoundCode.
      */
     @Value("${noDataFound.code}")
-    private int noDataFoundCode;
+    private String noDataFoundCode;
 
     /**
      * This method takes userId and return the Service.

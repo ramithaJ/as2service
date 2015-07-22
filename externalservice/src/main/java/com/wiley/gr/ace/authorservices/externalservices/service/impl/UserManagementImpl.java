@@ -14,7 +14,7 @@ package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 
-import com.wiley.gr.ace.authorservices.exception.ASException;
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.model.AdminUser;
@@ -191,7 +191,7 @@ public class UserManagementImpl implements UserManagement {
         }
         if (failure.equalsIgnoreCase(responseStatus.getStatus())) {
             ErrorPayLoad errorPayLoad = responseStatus.getError();
-            throw new ASException(errorPayLoad.getErrorCode(),
+            throw new UserException(errorPayLoad.getErrorCode(),
                     errorPayLoad.getErrorMessage());
         }
         return status;

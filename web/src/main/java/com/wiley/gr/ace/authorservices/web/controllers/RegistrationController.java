@@ -54,7 +54,7 @@ public class RegistrationController {
      * the value of noDataFoundCode.
      */
     @Value("${noDataFound.code}")
-    private int noDataFoundCode;
+    private String noDataFoundCode;
 
     /**
      * @param email

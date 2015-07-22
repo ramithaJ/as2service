@@ -25,19 +25,19 @@ import com.wiley.gr.ace.authorservices.model.Service;
 /**
  * This class serves as a global exception handler for all controller classes.
  * 
- * @author virtusa
- * version 1.0
+ * @author virtusa version 1.0
  */
 @ControllerAdvice
 public class ASExceptionController {
-    
+
     /**
      * Logger.
      */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(ASExceptionController.class);
-    
-     /** This method is used to handle ASException.
+
+    /**
+     * This method is used to handle ASException.
      *
      * @param asException
      *            the as exception
@@ -48,25 +48,25 @@ public class ASExceptionController {
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     public final Service handleASException(final ASException asException) {
-        
+
         LOGGER.info("Inside ASException Controller");
-        
+
         Service response = new Service();
         LOGGER.error("Error Trace - ", asException);
         response.setStatus("FAILURE");
         ErrorPOJO errorPojo = new ErrorPOJO();
-        String errorCode = asException.getErrorCode(); 
+        String errorCode = asException.getErrorCode();
         if (errorCode != null && !errorCode.isEmpty()) {
-            errorPojo.setCode(Integer.parseInt(errorCode));
+            errorPojo.setCode(errorCode);
         }
         errorPojo.setMessage(asException.getDescription());
         response.setError(errorPojo);
         return response;
-        
+
     }
-    
-    
-   /** This method is used to handle Exception.
+
+    /**
+     * This method is used to handle Exception.
      *
      * @param exception
      *            the exception
@@ -76,40 +76,40 @@ public class ASExceptionController {
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public final Service handleException(final Exception exception) {
-        
+
         LOGGER.info("Inside ASException Controller");
-        
+
         Service response = new Service();
         LOGGER.error("Initial SessionFactory creation failed.", exception);
         response.setStatus("FAILURE");
         ErrorPOJO errorPojo = new ErrorPOJO();
-        errorPojo.setCode(-1);
+        errorPojo.setCode("-1");
         errorPojo.setMessage(exception.getMessage());
         response.setError(errorPojo);
-        
+
         return response;
-        
+
     }
-    
+
     @ExceptionHandler(UserException.class)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     public final Service handleUserException(final UserException userException) {
-        
+
         LOGGER.info("Inside ASException Controller");
-        
+        System.err.println("*************************************************");
         Service response = new Service();
         LOGGER.error("Error Trace - ", userException);
         response.setStatus("FAILURE");
         ErrorPOJO errorPojo = new ErrorPOJO();
-        String errorCode = userException.getErrorCode(); 
+        String errorCode = userException.getErrorCode();
         if (errorCode != null && !errorCode.isEmpty()) {
-            errorPojo.setCode(Integer.parseInt(errorCode));
+            errorPojo.setCode(errorCode);
         }
         errorPojo.setMessage(userException.getDescription());
         response.setError(errorPojo);
         return response;
-        
+
     }
-    
+
 }

@@ -41,7 +41,7 @@ public class ArticleAssignmentController {
     /** logger configured. */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(ArticleAssignmentController.class);
-    
+
     /**
      * injected ArticleAssignmentService bean.
      */
@@ -52,7 +52,7 @@ public class ArticleAssignmentController {
      * the value of noDataFoundCode.
      */
     @Value("${noDataFound.code}")
-    private int noDataFoundCode;
+    private String noDataFoundCode;
 
     /**
      * @param emailId
