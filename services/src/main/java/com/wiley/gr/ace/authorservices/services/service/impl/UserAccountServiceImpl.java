@@ -58,8 +58,8 @@ public class UserAccountServiceImpl implements UserAccountService {
 
         final UserProfileResponse lookupProfile = userProfile
                 .getUserProfileResponse(userId);
-        final User user = new User();
-        
+        User user = new User();
+
         final User customerDetails = lookupProfile.getCustomerProfile()
                 .getCustomerDetails();
         user.setPrimaryEmailAddr(customerDetails.getPrimaryEmailAddr());
@@ -83,7 +83,7 @@ public class UserAccountServiceImpl implements UserAccountService {
             final List<SecurityDetails> securityDetails) {
 
         UserAccountServiceImpl.LOGGER
-        .info("inside updateSecurityDetails Method");
+                .info("inside updateSecurityDetails Method");
         return userAccountDAO.updateSecurityDetails(Integer.valueOf(userId),
                 securityDetails);
     }
@@ -99,7 +99,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     public final User getProfileInformation(final int userId) {
 
         UserAccountServiceImpl.LOGGER
-        .info("inside getProfileInformation Method");
+                .info("inside getProfileInformation Method");
         final UserProfileResponse lookupProfile = userProfile
                 .getUserProfileResponse(userId);
         return lookupProfile.getCustomerProfile().getCustomerDetails();

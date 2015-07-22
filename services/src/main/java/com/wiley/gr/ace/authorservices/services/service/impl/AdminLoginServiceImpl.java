@@ -134,13 +134,13 @@ public class AdminLoginServiceImpl implements AdminLoginService {
     public final RolesAndPermissions getRolesAndPermissions(final String roleId) {
 
         LOGGER.info("inside getRolesAndPermissions Method");
-        final RolesAndPermissions rolesAndPermissions = new RolesAndPermissions();
+        RolesAndPermissions rolesAndPermissions = new RolesAndPermissions();
 
-        final Map<String, List<String>> permissionsMap = new HashMap<String, List<String>>();
+        Map<String, List<String>> permissionsMap = new HashMap<String, List<String>>();
 
-        final PermissionSection systemSection = new PermissionSection();
-        final PermissionSection articleSection = new PermissionSection();
-        final PermissionSection adminSection = new PermissionSection();
+        PermissionSection systemSection = new PermissionSection();
+        PermissionSection articleSection = new PermissionSection();
+        PermissionSection adminSection = new PermissionSection();
 
         systemSection
                 .setSectionName(AuthorServicesConstants.PERMISSION_LEVEL_SYSTEM);
@@ -169,9 +169,9 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 
         final List<Permissions> daoPermissionsList = asDataDAO.getPermissions();
 
-        for (final Permissions daoPermissions : daoPermissionsList) {
+        for (Permissions daoPermissions : daoPermissionsList) {
 
-            final UserPermissions permission = new UserPermissions();
+            UserPermissions permission = new UserPermissions();
 
             permission.setPermissionId(daoPermissions.getPermissionCd() + "");
             permission.setPermissionName(daoPermissions.getPermissionName());
@@ -210,7 +210,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
         final List<RolePermissions> daoPermissionMappings = asDataDAO
                 .getRolePermissionMappings(roleId);
 
-        for (final RolePermissions daoRolePermissions : daoPermissionMappings) {
+        for (RolePermissions daoRolePermissions : daoPermissionMappings) {
 
             final String roleIdString = daoRolePermissions.getId().getRoleId()
                     + "";
@@ -224,7 +224,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
                         .getPermissionCd() + "");
 
             } else {
-                final List<String> permissionsList = new ArrayList<String>();
+                List<String> permissionsList = new ArrayList<String>();
                 permissionsList.add(daoRolePermissions.getId()
                         .getPermissionCd() + "");
                 permissionsMap.put(roleIdString, permissionsList);
@@ -232,10 +232,9 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 
         }
 
-        final Map<String, String[]> returnMap = new HashMap<String, String[]>();
+        Map<String, String[]> returnMap = new HashMap<String, String[]>();
 
-        for (final Map.Entry<String, List<String>> entry : permissionsMap
-                .entrySet()) {
+        for (Map.Entry<String, List<String>> entry : permissionsMap.entrySet()) {
 
             returnMap.put(
                     entry.getKey(),
@@ -259,18 +258,18 @@ public class AdminLoginServiceImpl implements AdminLoginService {
             final ASRolesAndPermissions rolesAndPermissions) {
 
         LOGGER.info("inside addOrUpdateUserRole Method");
-        final Roles roles = new Roles();
-        final List<Permissions> permissionsList = new ArrayList<Permissions>();
-        final Role role = rolesAndPermissions.getRole();
+        Roles roles = new Roles();
+        List<Permissions> permissionsList = new ArrayList<Permissions>();
+        Role role = rolesAndPermissions.getRole();
         if ("0".equals(role.getRoleId())) {
             userRolesDAO.checkRoleName(role.getRoleName());
         }
 
-        for (final Map.Entry<String, String[]> entry : rolesAndPermissions
+        for (Map.Entry<String, String[]> entry : rolesAndPermissions
                 .getPermissionsMap().entrySet()) {
-            for (final String permissionId : entry.getValue()) {
+            for (String permissionId : entry.getValue()) {
 
-                final Permissions permissions = new Permissions();
+                Permissions permissions = new Permissions();
                 permissions.setPermissionCd(permissionId);
                 permissionsList.add(permissions);
             }
@@ -333,12 +332,12 @@ public class AdminLoginServiceImpl implements AdminLoginService {
     @Override
     public final void createAdmin(final AdminUser adminuser) {
         LOGGER.info("inside createAdmin Method");
-        final Users users = new Users();
-        final List<UserRoles> rolesList = new ArrayList<UserRoles>();
+        Users users = new Users();
+        List<UserRoles> rolesList = new ArrayList<UserRoles>();
 
-        for (final String roleId : adminuser.getRolesList()) {
-            final UserRoles userRoles = new UserRoles();
-            final UserRolesId userRolesId = new UserRolesId();
+        for (String roleId : adminuser.getRolesList()) {
+            UserRoles userRoles = new UserRoles();
+            UserRolesId userRolesId = new UserRolesId();
             userRolesId.setRoleId(Integer.parseInt(roleId));
             userRoles.setId(userRolesId);
             rolesList.add(userRoles);
