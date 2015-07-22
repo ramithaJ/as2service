@@ -13,7 +13,6 @@ package com.wiley.gr.ace.authorservices.autocomplete.service.impl;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -43,7 +42,7 @@ public class AutocompleteServiceImpl implements AutocompleteService {
 
     /**
      * Method to get Auto complete data.
-     * 
+     *
      * @param key
      *            - the request value
      * @param phrase
@@ -51,22 +50,21 @@ public class AutocompleteServiceImpl implements AutocompleteService {
      * @param count
      *            - the request value
      * @return List
-     * 
+     *
      */
     @Override
     public final List<String> getAutocompleteData(final String key,
-            String phrase, final Integer count) {
+            final String phrase, final Integer count) {
         final Jedis redis = new Jedis(jedisConnectionFactory.getShardInfo());
         if (null == phrase) {
             redis.close();
-            return Collections.emptyList();
+            return new ArrayList<>();
         }
 
         final int prefixLength = phrase.length();
         Long start = redis.zrank(key, phrase);
         if (start == null) {
-            phrase = phrase + "*";
-            start = redis.zrank(key, phrase);
+            start = redis.zrank(key, phrase + "*");
             if (start == null) {
                 redis.close();
                 return null;
@@ -75,7 +73,7 @@ public class AutocompleteServiceImpl implements AutocompleteService {
 
         if (start < 0 || prefixLength == 0) {
             redis.close();
-            return Collections.emptyList();
+            return new ArrayList<>();
         }
 
         final List<String> results = new ArrayList<String>();
@@ -107,7 +105,7 @@ public class AutocompleteServiceImpl implements AutocompleteService {
 
     /**
      * Method to set Auto complete data.
-     * 
+     *
      * @param key
      *            - the request value
      * @param clear
@@ -139,7 +137,7 @@ public class AutocompleteServiceImpl implements AutocompleteService {
      *            the redis
      * @param redisKey
      *            the redis key
-     * 
+     *
      */
     private void addWord(final String word, final Jedis redis,
             final String redisKey) {
@@ -153,7 +151,7 @@ public class AutocompleteServiceImpl implements AutocompleteService {
 
     /**
      * Method to fulush.
-     * 
+     *
      * @param key
      *            - the request value
      * @return boolean
