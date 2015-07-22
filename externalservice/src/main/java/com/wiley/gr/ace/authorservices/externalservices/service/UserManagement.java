@@ -12,9 +12,10 @@
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
 import com.wiley.gr.ace.authorservices.model.AdminUser;
-import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
+import com.wiley.gr.ace.authorservices.model.external.PasswordRequest;
+import com.wiley.gr.ace.authorservices.model.external.PasswordResetRequest;
 import com.wiley.gr.ace.authorservices.model.external.SecuirtyQuestionDetails;
 import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
 import com.wiley.gr.ace.authorservices.model.external.UserEmailDetails;
@@ -63,7 +64,7 @@ public interface UserManagement {
      *            the password details
      * @return true, if successful
      */
-    boolean updatePassword(PasswordDetails passwordDetails);
+    boolean updatePassword(PasswordRequest passwordRequest);
 
     /**
      * Reset password.
@@ -72,7 +73,7 @@ public interface UserManagement {
      *            the security details holder
      * @return true, if successful
      */
-    boolean resetPassword(SecurityDetailsHolder securityDetailsHolder);
+    boolean resetPassword(PasswordResetRequest passwordResetRequest);
 
     /**
      * Update user id.

@@ -18,11 +18,12 @@ import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.model.AdminUser;
-import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
 import com.wiley.gr.ace.authorservices.model.external.ErrorPayLoad;
+import com.wiley.gr.ace.authorservices.model.external.PasswordRequest;
+import com.wiley.gr.ace.authorservices.model.external.PasswordResetRequest;
 import com.wiley.gr.ace.authorservices.model.external.ResponseStatus;
 import com.wiley.gr.ace.authorservices.model.external.SecuirtyQuestionDetails;
 import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
@@ -54,7 +55,7 @@ public class UserManagementImpl implements UserManagement {
 
     /** The reset password. */
     @Value("${resetPassword.url}")
-    private String resetPassword;
+    private String resetPasswordurl;
 
     /** The authenticate admin user. */
     @Value("${authenticateAdminUser.url}")
@@ -74,7 +75,7 @@ public class UserManagementImpl implements UserManagement {
 
     /** The update password. */
     @Value("${updatePassword.url}")
-    private String updatePassword;
+    private String updatePasswordurl;
 
     /** The update security details. */
     @Value("${updateSecurityDetails.url}")
@@ -160,14 +161,21 @@ public class UserManagementImpl implements UserManagement {
      */
     @Override
     public final boolean resetPassword(
-            final SecurityDetailsHolder securityDetailsHolder) {
-        final Service service = (Service) StubInvokerUtil.invokeStub(
-                resetPassword, HttpMethod.POST, Service.class);
-        final String status = service.getStatus();
-        if (status != null && success.equalsIgnoreCase(status)) {
-            return true;
+            final PasswordResetRequest passwordResetRequest) {
+
+        ResponseStatus responseStatus = (ResponseStatus) StubInvokerUtil
+                .restServiceInvoker(resetPasswordurl, passwordResetRequest,
+                        ResponseStatus.class);
+        boolean status = false;
+        if (success.equalsIgnoreCase(responseStatus.getStatus())) {
+            status = true;
         }
-        return false;
+        if (failure.equalsIgnoreCase(responseStatus.getStatus())) {
+            ErrorPayLoad errorPayLoad = responseStatus.getError();
+            throw new UserException(errorPayLoad.getErrorCode(),
+                    errorPayLoad.getErrorMessage());
+        }
+        return status;
     }
 
     /**
@@ -292,15 +300,21 @@ public class UserManagementImpl implements UserManagement {
      * @return true, if successful
      */
     @Override
-    public final boolean updatePassword(final PasswordDetails passwordDetails) {
+    public final boolean updatePassword(final PasswordRequest passwordRequest) {
 
-        final Service service = (Service) StubInvokerUtil.invokeStub(
-                updatePassword, HttpMethod.POST, Service.class);
-        final String status = service.getStatus();
-        if (status != null && success.equalsIgnoreCase(status)) {
-            return true;
+        ResponseStatus responseStatus = (ResponseStatus) StubInvokerUtil
+                .restServiceInvoker(updatePasswordurl, passwordRequest,
+                        ResponseStatus.class);
+        boolean status = false;
+        if (success.equalsIgnoreCase(responseStatus.getStatus())) {
+            status = true;
         }
-        return false;
+        if (failure.equalsIgnoreCase(responseStatus.getStatus())) {
+            ErrorPayLoad errorPayLoad = responseStatus.getError();
+            throw new UserException(errorPayLoad.getErrorCode(),
+                    errorPayLoad.getErrorMessage());
+        }
+        return status;
     }
 
     /**

@@ -11,6 +11,7 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -25,7 +26,13 @@ import com.wiley.gr.ace.authorservices.model.Login;
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
+import com.wiley.gr.ace.authorservices.model.external.AuthenticationObject;
+import com.wiley.gr.ace.authorservices.model.external.PasswordReset;
+import com.wiley.gr.ace.authorservices.model.external.PasswordResetRequest;
 import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
+import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestions;
+import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsEntry;
+import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsMap;
 import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
@@ -142,7 +149,51 @@ public class UserLoginServiceImpl implements UserLoginService {
                 throw new ASException(securityquestioncode,
                         securityquestionmessage);
             } else {
-                status = userManagement.resetPassword(securityDetailsHolder);
+
+                PasswordResetRequest passwordResetRequest = new PasswordResetRequest();
+
+                PasswordReset passwordReset = new PasswordReset();
+                passwordReset.setExistingEmail(securityDetailsHolder
+                        .getEmailId());
+                passwordReset.setNewPassword(securityDetailsHolder
+                        .getPassword());
+                passwordReset
+                        .setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
+
+                UserSecurityQuestions userSecurityQuestions = new UserSecurityQuestions();
+                UserSecurityQuestionsMap userSecurityQuestionsMap = new UserSecurityQuestionsMap();
+                List<UserSecurityQuestionsEntry> userSecurityQuestionsEntriesList = new ArrayList<UserSecurityQuestionsEntry>();
+                UserSecurityQuestionsEntry userSecurityQuestionsEntry = null;
+
+                List<SecurityDetails> securityDetailsList = securityDetailsHolder
+                        .getSecurityDetails();
+                for (SecurityDetails securityDetails : securityDetailsList) {
+
+                    userSecurityQuestionsEntry = new UserSecurityQuestionsEntry();
+                    userSecurityQuestionsEntry.setKey(securityDetails
+                            .getSecurityQuestion());
+                    userSecurityQuestionsEntry.setText(securityDetails
+                            .getSecurityAnswer());
+                    userSecurityQuestionsEntriesList
+                            .add(userSecurityQuestionsEntry);
+                }
+                userSecurityQuestionsMap
+                        .setEntry(userSecurityQuestionsEntriesList);
+                userSecurityQuestions
+                        .setUserSecurityQuestionsMap(userSecurityQuestionsMap);
+
+                passwordReset.setUserSecurityQuestions(userSecurityQuestions);
+
+                AuthenticationObject authenticationObject = new AuthenticationObject();
+                authenticationObject
+                        .setAuthusername(AuthorServicesConstants.AUTHUSERNAME);
+                authenticationObject
+                        .setAuthpassword(AuthorServicesConstants.AUTHPASSWORD);
+
+                passwordReset.setAuthenticationObject(authenticationObject);
+                passwordResetRequest
+                        .setUpdateUserSecurityAttributes(passwordReset);
+                status = userManagement.resetPassword(passwordResetRequest);
             }
 
         }

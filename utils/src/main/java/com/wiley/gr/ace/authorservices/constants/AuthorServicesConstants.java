@@ -96,8 +96,23 @@ public class AuthorServicesConstants {
 
     /** LOCKEDMSG. */
     public static final String LOCKEDMSG = "423 Locked";
-    
+
     /** The Constant INVITE_RESET_PASSWORD_STATUS_TYPE. */
-    public static final String  INVITE_RESET_PASSWORD_STATUS_TYPE="verifyAccount";
+    public static final String INVITE_RESET_PASSWORD_STATUS_TYPE = "verifyAccount";
+
+    /**
+     * This field holds the value of AUTHUSERNAME
+     */
+    public static final String AUTHUSERNAME = "as2admin";
+
+    /**
+     * This field holds the value of AUTHPASSWORD
+     */
+    public static final String AUTHPASSWORD = "hgdJbhjrnfY9KFs3KPpddQ==";
+
+    /**
+     * This field holds the value of SOURCESYSTEM
+     */
+    public static final String SOURCESYSTEM = "AS";
 
 }

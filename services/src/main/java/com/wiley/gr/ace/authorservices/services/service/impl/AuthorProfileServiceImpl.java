@@ -21,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
@@ -34,6 +35,8 @@ import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserProfile;
 import com.wiley.gr.ace.authorservices.model.UserProfileAlerts;
 import com.wiley.gr.ace.authorservices.model.external.AuthenticationObject;
+import com.wiley.gr.ace.authorservices.model.external.PasswordRequest;
+import com.wiley.gr.ace.authorservices.model.external.PasswordUpdate;
 import com.wiley.gr.ace.authorservices.model.external.UserEmailDetails;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityAttributes;
@@ -255,10 +258,13 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         userSecurityAttributes.setExistingEmail(email.getExistingEmail());
         userSecurityAttributes.setNewEmail(email.getNewEmail());
         AuthenticationObject authenticationObject = new AuthenticationObject();
-        authenticationObject.setAuthusername("as2admin");
-        authenticationObject.setAuthpassword("hgdJbhjrnfY9KFs3KPpddQ==");
+        authenticationObject
+                .setAuthusername(AuthorServicesConstants.AUTHUSERNAME);
+        authenticationObject
+                .setAuthpassword(AuthorServicesConstants.AUTHPASSWORD);
         userSecurityAttributes.setAuthenticationObject(authenticationObject);
-        userSecurityAttributes.setSourceSystem("AS");
+        userSecurityAttributes
+                .setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
         userEmailDetails
                 .setUpdateUserSecurityAttributes(userSecurityAttributes);
 
@@ -276,7 +282,20 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     public final boolean updatePassword(final PasswordDetails passwordDetails) {
 
         AuthorProfileServiceImpl.LOGGER.info("inside updatePassword Method ");
-        return userManagement.updatePassword(passwordDetails);
+        PasswordUpdate passwordUpdate = new PasswordUpdate();
+        PasswordRequest passwordRequest = new PasswordRequest();
+        passwordRequest.setExistingEmail(passwordDetails.getEmailId());
+        passwordRequest.setExistingPassword(passwordDetails.getOldPassword());
+        passwordRequest.setNewPassword(passwordDetails.getNewPassword());
+        passwordRequest.setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
+        AuthenticationObject authenticationObject = new AuthenticationObject();
+        authenticationObject
+                .setAuthusername(AuthorServicesConstants.AUTHUSERNAME);
+        authenticationObject
+                .setAuthpassword(AuthorServicesConstants.AUTHPASSWORD);
+        passwordRequest.setAuthenticationObject(authenticationObject);
+        passwordUpdate.setUpdateUserSecurityAttributes(passwordRequest);
+        return userManagement.updatePassword(passwordRequest);
     }
 
     /**
@@ -309,7 +328,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     }
 
     @Override
-    public void uploadImage(File image, String userId) {
+    public void uploadImage(final File image, final String userId) {
 
         byte[] imageData = new byte[(int) image.length()];
         try {
