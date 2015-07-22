@@ -78,7 +78,7 @@ public class DashboardServiceImpl implements DashboardService {
     public final Dashboard getProfileMeter(final int userId) throws Exception {
         DashboardServiceImpl.LOGGER
                 .info("inside getProfileMeter Method of DashboardServiceImpl");
-        final Dashboard dashBoard = new Dashboard();
+        Dashboard dashBoard = new Dashboard();
         List<DashboardInfo> dashBoardInfoList;
         final UserProfileResponse userProfileResponse = userProfileService
                 .getUserProfileResponse(userId);
@@ -118,7 +118,7 @@ public class DashboardServiceImpl implements DashboardService {
             final List<SecurityQuestion> securityQuestionList = securityQuestions
                     .getSecurityQuestion();
             if (!StringUtils.isEmpty(securityQuestionList)) {
-                for (final SecurityQuestion securityQuestion : securityQuestionList) {
+                for (SecurityQuestion securityQuestion : securityQuestionList) {
                     if (StringUtils.isEmpty(securityQuestion.getQuestion())
                             || StringUtils
                                     .isEmpty(securityQuestion.getAnswer())) {
@@ -151,7 +151,7 @@ public class DashboardServiceImpl implements DashboardService {
         DashboardServiceImpl.LOGGER
                 .info("inside checkingDashBoardInfo Method of DashboardServiceImpl");
         DashboardInfo dashboardInfo = null;
-        final List<DashboardInfo> dashboardInfoList = new ArrayList<DashboardInfo>();
+        List<DashboardInfo> dashboardInfoList = new ArrayList<DashboardInfo>();
         dashboardInfo = getSecurityDetailsForUser(userProfile
                 .getCustomerDetails().getPrimaryEmailAddr());
         if (!StringUtils.isEmpty(dashboardInfo)) {

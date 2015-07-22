@@ -108,9 +108,9 @@ public class UserLoginController extends ASExceptionController {
     @RequestMapping(value = "/login/", method = RequestMethod.POST)
     public final Service login(@Valid @RequestBody final Login login) {
 
-        final Service service = new Service();
+        Service service = new Service();
 
-        final SharedServieRequest sharedServieRequest = new SharedServieRequest();
+        SharedServieRequest sharedServieRequest = new SharedServieRequest();
         sharedServieRequest.setUserId(login.getEmailId());
         sharedServieRequest.setPassword(login.getPassword());
         sharedServieRequest.setAuthenticationType(authenticationType);

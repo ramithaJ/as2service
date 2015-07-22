@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
-import com.wiley.gr.ace.authorservices.exception.ASException;
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.externalservices.service.BPMInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.model.ASRolesAndPermissions;
@@ -151,11 +151,11 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 
         // if(roleId == null || roleId.equals("")) {
 
-        List<Roles> daoRolesList = asDataDAO.getUserRoles(roleId);
+        final List<Roles> daoRolesList = asDataDAO.getUserRoles(roleId);
 
-        for (Roles daoRoles : daoRolesList) {
+        for (final Roles daoRoles : daoRolesList) {
 
-            Role role = new Role();
+            final Role role = new Role();
             role.setRoleId(daoRoles.getRoleId() + "");
             role.setRoleName(daoRoles.getRoleName());
             role.setRoleDescription(daoRoles.getDescription());
@@ -167,7 +167,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
             rolesAndPermissions.getRolesList().add(role);
         }
 
-        List<Permissions> daoPermissionsList = asDataDAO.getPermissions();
+        final List<Permissions> daoPermissionsList = asDataDAO.getPermissions();
 
         for (Permissions daoPermissions : daoPermissionsList) {
 
@@ -201,18 +201,19 @@ public class AdminLoginServiceImpl implements AdminLoginService {
              */
         }
 
-        List<PermissionSection> permissionSectionsList = rolesAndPermissions
+        final List<PermissionSection> permissionSectionsList = rolesAndPermissions
                 .getSectionsList();
         permissionSectionsList.add(adminSection);
         permissionSectionsList.add(articleSection);
         permissionSectionsList.add(systemSection);
 
-        List<RolePermissions> daoPermissionMappings = asDataDAO
+        final List<RolePermissions> daoPermissionMappings = asDataDAO
                 .getRolePermissionMappings(roleId);
 
         for (RolePermissions daoRolePermissions : daoPermissionMappings) {
 
-            String roleIdString = daoRolePermissions.getId().getRoleId() + "";
+            final String roleIdString = daoRolePermissions.getId().getRoleId()
+                    + "";
             if (permissionsMap.containsKey(roleIdString)) {
                 List<String> permissionsList = permissionsMap.get(roleIdString);
                 if (permissionsList == null) {
@@ -276,7 +277,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
         }
 
         if (permissionsList.isEmpty()) {
-            throw new ASException("1111",
+            throw new UserException("1111",
                     "Please select atleast one permission");
         }
         final String roleId = role.getRoleId();

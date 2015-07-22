@@ -62,12 +62,12 @@ public class RegistrationServiceImpl implements RegistrationService {
         String status = null;
         Status statusObj = null;
         if (null != user) {
-            final ProfileInformation profileInformation = new ProfileInformation();
-            final CustomerProfile customerProfile = new CustomerProfile();
-            final CustomerDetails customerDetails = new CustomerDetails();
-            final AddressDetails cuAddressDetails = new AddressDetails();
-            final List<AddressElement> addressElements = new ArrayList<AddressElement>();
-            final AddressElement addressElement = new AddressElement();
+            ProfileInformation profileInformation = new ProfileInformation();
+            CustomerProfile customerProfile = new CustomerProfile();
+            CustomerDetails customerDetails = new CustomerDetails();
+            AddressDetails cuAddressDetails = new AddressDetails();
+            List<AddressElement> addressElements = new ArrayList<AddressElement>();
+            AddressElement addressElement = new AddressElement();
 
             customerDetails.setFirstname(user.getFirstName());
             customerDetails.setLastname(user.getLastName());
@@ -210,7 +210,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Override
     public final InviteRecords searchInvitationRecord(final String guid)
             throws Exception {
-        final InviteRecords inviteRecord = new InviteRecords();
+        InviteRecords inviteRecord = new InviteRecords();
         InviteResetpwdLog inviteRecordFromDB = null;
         inviteRecordFromDB = registrationServiceDAO.getInvitationRecords(guid);
         inviteRecord.setEmailAddress(inviteRecordFromDB.getEmailAddress());
