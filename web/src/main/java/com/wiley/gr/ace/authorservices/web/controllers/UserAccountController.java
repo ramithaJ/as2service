@@ -65,7 +65,7 @@ public class UserAccountController {
             @PathVariable("userId") final int userId) {
         UserAccountController.LOGGER
                 .info("inside getProfileInformation method");
-        final Service service = new Service();
+        Service service = new Service();
         service.setPayload(userAccountService.getProfileInformation(userId));
         return service;
 
@@ -86,7 +86,7 @@ public class UserAccountController {
             @RequestBody final User user) {
         UserAccountController.LOGGER
                 .info("inside updateProfileInformation method");
-        final Service service = new Service();
+        Service service = new Service();
         service.setPayload(authorProfileService.updateUserProfileInfo(userId,
                 user));
         return service;
@@ -104,7 +104,7 @@ public class UserAccountController {
     public final Service getEmailDetails(
             @PathVariable("userId") final int userId) {
         UserAccountController.LOGGER.info("inside getEmailDetails method");
-        final Service service = new Service();
+        Service service = new Service();
         service.setPayload(userAccountService.getEmailDetails(userId));
         return service;
     }
@@ -122,7 +122,7 @@ public class UserAccountController {
     public final Service updateEmail(@PathVariable("userId") final int userId,
             @RequestBody final User emailDetails) {
         UserAccountController.LOGGER.info("inside updateEmail method");
-        final Service service = new Service();
+        Service service = new Service();
         emailDetails.setUserId(userId);
         service.setPayload(authorProfileService.updateEmailDetails(userId,
                 emailDetails));
@@ -141,7 +141,7 @@ public class UserAccountController {
     public final Service getUserAddresses(
             @PathVariable("userId") final int userId) {
         UserAccountController.LOGGER.info("inside getUserAddresses method");
-        final Service service = new Service();
+        Service service = new Service();
         service.setPayload(userAccountService.getUserAddress(userId));
         return service;
     }
@@ -160,7 +160,7 @@ public class UserAccountController {
             @PathVariable("userId") final int userId,
             @RequestBody final UserProfile addresses) {
         UserAccountController.LOGGER.info("inside updateUserAddresses method");
-        final Service service = new Service();
+        Service service = new Service();
         service.setPayload(authorProfileService.updateUserAddress(userId,
                 addresses));
         return service;
@@ -178,7 +178,7 @@ public class UserAccountController {
             @RequestBody final SecurityDetailsHolder securityDetails) {
         UserAccountController.LOGGER
                 .info("inside updateSecurityDetails method");
-        final Service service = new Service();
+        Service service = new Service();
         service.setPayload(authorProfileService
                 .updateSecurityDetails(securityDetails));
         return service;
@@ -193,7 +193,7 @@ public class UserAccountController {
     @RequestMapping(value = "/updateUserId", method = RequestMethod.POST)
     public final Service updateUserId(@RequestBody final Email email) {
         UserAccountController.LOGGER.info("inside updateUserId method");
-        final Service service = new Service();
+        Service service = new Service();
         service.setPayload(authorProfileService.updateUserId(email));
         return service;
     }

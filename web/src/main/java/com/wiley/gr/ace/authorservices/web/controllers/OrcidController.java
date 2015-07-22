@@ -95,7 +95,7 @@ public class OrcidController {
             service.setPayload(url);
 
         } catch (final Exception e) {
-            final ErrorPOJO error = new ErrorPOJO();
+            ErrorPOJO error = new ErrorPOJO();
             error.setCode(noOrcidURLCode);
             error.setMessage("Error while fetching ORCID URL");
             service.setStatus("error");
@@ -117,7 +117,7 @@ public class OrcidController {
     @RequestMapping(value = "/profile/{type}/{authorizationCode}", method = RequestMethod.GET)
     public final Service getOrcidDetails(@PathVariable final String type,
             @PathVariable final String authorizationCode) {
-        final Service service = new Service();
+        Service service = new Service();
         User user = null;
         try {
 
@@ -142,7 +142,7 @@ public class OrcidController {
         } catch (final Exception e) {
             e.printStackTrace();
             LOGGER.error("Stack Trace-.", e);
-            final ErrorPOJO error = new ErrorPOJO();
+            ErrorPOJO error = new ErrorPOJO();
             error.setCode(noOrcidDataCode);
             error.setMessage("Error while fetching ORCID details");
 

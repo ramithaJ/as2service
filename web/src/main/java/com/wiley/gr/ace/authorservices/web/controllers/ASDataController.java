@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wiley.gr.ace.authorservices.exception.ASException;
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.model.AccessReasons;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.services.service.ASDataService;
@@ -283,7 +283,7 @@ public class ASDataController {
         Service service = new Service();
         List<AccessReasons> accessList = aSDataService.getAccessReasons();
         if (null == accessList) {
-            throw new ASException(nodataFound, nodataFoundmsg);
+            throw new UserException(nodataFound, nodataFoundmsg);
         }
         service.setPayload(accessList);
         return service;
