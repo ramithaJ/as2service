@@ -11,11 +11,16 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.web.controllers;
 
+import java.io.File;
+import java.io.IOException;
+
 import javax.validation.Valid;
 
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,8 +28,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
+import com.wiley.gr.ace.authorservices.model.ProfilePicture;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.Society;
@@ -32,6 +39,8 @@ import com.wiley.gr.ace.authorservices.model.UserProfileAlerts;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 
 /**
+ * The Class UserProfileController.
+ *
  * @author virtusa version 1.0
  */
 @RestController
@@ -50,7 +59,25 @@ public class UserProfileController {
     @Autowired
     private AuthorProfileService authorProfileService;
 
+    /** The image size code. */
+    @Value("${imageSizeMore.code}")
+    private String imageSizeCode;
+
+    /** The image size message. */
+    @Value("${imageSizeMore.message}")
+    private String imageSizeMessage;
+
+    /** The image not foundcd. */
+    @Value("${imageNotFound.Code}")
+    private String imageNotFoundcd;
+
+    /** The image not found message. */
+    @Value("${imageNotFound.Message}")
+    private String imageNotFoundMessage;
+
     /**
+     * Gets the affiliations list.
+     *
      * @param userId
      *            - The request value
      * @return service
@@ -66,6 +93,8 @@ public class UserProfileController {
     }
 
     /**
+     * Update affiliation.
+     *
      * @param userId
      *            - The request value
      * @param affiliation
@@ -84,6 +113,8 @@ public class UserProfileController {
     }
 
     /**
+     * Gets the research funders list.
+     *
      * @param userId
      *            - The request value
      * @return service
@@ -101,6 +132,8 @@ public class UserProfileController {
     }
 
     /**
+     * Update research funder.
+     *
      * @param userId
      *            - The request value
      * @param researchFunder
@@ -121,6 +154,8 @@ public class UserProfileController {
     }
 
     /**
+     * Gets the societies list.
+     *
      * @param userId
      *            - The request value
      * @return service
@@ -137,6 +172,8 @@ public class UserProfileController {
     }
 
     /**
+     * Update society details.
+     *
      * @param userId
      *            - The request value
      * @param society
@@ -155,6 +192,8 @@ public class UserProfileController {
     }
 
     /**
+     * Gets the my interests.
+     *
      * @param userId
      *            - The request value
      * @return service
@@ -170,6 +209,8 @@ public class UserProfileController {
     }
 
     /**
+     * Search interests.
+     *
      * @param userId
      *            - The request value
      * @param searchString
@@ -205,6 +246,8 @@ public class UserProfileController {
     }
 
     /**
+     * Update co authors.
+     *
      * @param userId
      *            - The request value
      * @param coAuthor
@@ -224,6 +267,8 @@ public class UserProfileController {
     }
 
     /**
+     * Gets the preferred journals.
+     *
      * @param userId
      *            - The request value
      * @return service
@@ -242,6 +287,8 @@ public class UserProfileController {
     }
 
     /**
+     * Search preferred journals.
+     *
      * @param userId
      *            - The request value
      * @return service
@@ -256,6 +303,8 @@ public class UserProfileController {
     }
 
     /**
+     * Gets the articles published for journals.
+     *
      * @param userId
      *            - The request value
      * @return service
@@ -270,6 +319,8 @@ public class UserProfileController {
     }
 
     /**
+     * Gets the list of alerts.
+     *
      * @param userId
      *            - The request value
      * @return service
@@ -288,6 +339,8 @@ public class UserProfileController {
     }
 
     /**
+     * Update alerts.
+     *
      * @param userId
      *            - The request value
      * @param userProfileAlerts
@@ -304,6 +357,8 @@ public class UserProfileController {
     }
 
     /**
+     * Gets the job categories.
+     *
      * @param userId
      *            - The request value
      * @return service
@@ -317,6 +372,8 @@ public class UserProfileController {
     }
 
     /**
+     * Look up profile.
+     *
      * @param userId
      *            - The request value
      * @return service
@@ -332,6 +389,8 @@ public class UserProfileController {
     }
 
     /**
+     * Gets the industries.
+     *
      * @param userId
      *            - The request value
      * @return service
@@ -342,5 +401,38 @@ public class UserProfileController {
 
         UserProfileController.LOGGER.info("inside getIndustries method ");
         return new Service();
+    }
+
+    /**
+     * This method is for uploading image.
+     *
+     * @param profilePicture
+     *            the profile picture
+     * @return the service
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
+    @RequestMapping(value = "/uploadimage/", method = RequestMethod.GET)
+    public Service profilePicture(
+            @RequestBody final ProfilePicture profilePicture)
+            throws IOException {
+        Service service = new Service();
+        String imageString = FileUtils.readFileToString(profilePicture
+                .getImage());
+        File file = new File(imageString);
+        if (file.exists()) {
+            double bytes = file.length();
+            double kilobytes = bytes / 1024;
+            double megabytes = kilobytes / 1024;
+            if (megabytes > 1) {
+                throw new ASException(imageSizeCode, imageSizeMessage);
+            } else if (megabytes < 1) {
+                authorProfileService.uploadImage(profilePicture.getImage(),
+                        profilePicture.getUserId());
+            }
+        } else {
+            throw new ASException(imageNotFoundcd, imageNotFoundMessage);
+        }
+        return service;
     }
 }
