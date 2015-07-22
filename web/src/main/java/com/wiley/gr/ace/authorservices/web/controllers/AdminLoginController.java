@@ -11,8 +11,6 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.web.controllers;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +25,7 @@ import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
 import com.wiley.gr.ace.authorservices.model.ASRolesAndPermissions;
 import com.wiley.gr.ace.authorservices.model.AdminUser;
+import com.wiley.gr.ace.authorservices.model.Login;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.UserLogin;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
@@ -64,13 +63,12 @@ public class AdminLoginController extends ASExceptionController {
      * @return service
      */
     @RequestMapping(value = "/login/", method = RequestMethod.POST)
-    public final Service login(final HttpServletRequest request) {
+    public final Service login(final @RequestBody Login login) {
         LOGGER.info("Inside Login Method");
-        String emailId = (String) request.getAttribute("emailId");
         Service service = new Service();
-        if (adminLoginService.validateEmail(emailId)) {
+        if (adminLoginService.validateEmail(login.getEmailId())) {
 
-            Users users = adminLoginService.doLogin(emailId);
+            Users users = adminLoginService.doLogin(login.getEmailId());
             LOGGER.debug(users.getUserId() + "Geeting User id from dologin");
             UserLogin userLogin = new UserLogin();
             userLogin.setUserId(users.getUserId());

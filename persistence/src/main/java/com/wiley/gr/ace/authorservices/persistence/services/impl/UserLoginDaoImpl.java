@@ -48,12 +48,13 @@ public class UserLoginDaoImpl implements UserLoginDao {
     public final boolean validateEmail(final String emailId) {
         boolean status = false;
         int userId = getUserId(emailId);
+        System.err.println(userId);
         if (userId == 0) {
             return status;
         }
         Session session = getSessionFactory().openSession();
         try {
-            AdminProfile adminDetails = (AdminProfile) session.load(
+            AdminProfile adminDetails = (AdminProfile) session.get(
                     AdminProfile.class, userId);
             if (null != adminDetails) {
 
