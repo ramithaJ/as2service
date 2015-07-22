@@ -32,16 +32,16 @@ public class CustomerDetails {
     private String secondaryEmail;
 
     @JsonProperty("FirstName")
-    private String firstName;
+    private String fName;
 
     @JsonProperty("MiddleName")
-    private String middleName;
+    private String mName;
 
     @JsonProperty("LastName")
-    private String lastName;
+    private String lName;
 
     @JsonProperty("Suffix")
-    private String suffix;
+    private String userSuffix;
 
     @JsonProperty("ECID")
     private String ecId;
@@ -64,114 +64,212 @@ public class CustomerDetails {
     @JsonProperty("ProfileVisibility")
     private String profileVisibility;
 
+    /**
+     * @return the alternativeName
+     */
     public final String getAlternativeName() {
         return alternativeName;
     }
 
+    /**
+     * @param alternativeName
+     *            the alternativeName to set
+     */
     public final void setAlternativeName(final String alternativeName) {
         this.alternativeName = alternativeName;
     }
 
+    /**
+     * @return the primaryEmail
+     */
     public final String getPrimaryEmail() {
         return primaryEmail;
     }
 
+    /**
+     * @param primaryEmail
+     *            the primaryEmail to set
+     */
     public final void setPrimaryEmail(final String primaryEmail) {
         this.primaryEmail = primaryEmail;
     }
 
+    /**
+     * @return the secondaryEmail
+     */
     public final String getSecondaryEmail() {
         return secondaryEmail;
     }
 
+    /**
+     * @param secondaryEmail
+     *            the secondaryEmail to set
+     */
     public final void setSecondaryEmail(final String secondaryEmail) {
         this.secondaryEmail = secondaryEmail;
     }
 
-    public final String getFirstName() {
-        return firstName;
+    /**
+     * @return the fName
+     */
+    public final String getfName() {
+        return fName;
     }
 
-    public final void setFirstName(final String firstName) {
-        this.firstName = firstName;
+    /**
+     * @param fName
+     *            the fName to set
+     */
+    public final void setfName(final String fName) {
+        this.fName = fName;
     }
 
-    public final String getMiddleName() {
-        return middleName;
+    /**
+     * @return the mName
+     */
+    public final String getmName() {
+        return mName;
     }
 
-    public final void setMiddleName(final String middleName) {
-        this.middleName = middleName;
+    /**
+     * @param mName
+     *            the mName to set
+     */
+    public final void setmName(final String mName) {
+        this.mName = mName;
     }
 
-    public final String getLastName() {
-        return lastName;
+    /**
+     * @return the lName
+     */
+    public final String getlName() {
+        return lName;
     }
 
-    public final void setLastName(final String lastName) {
-        this.lastName = lastName;
+    /**
+     * @param lName
+     *            the lName to set
+     */
+    public final void setlName(final String lName) {
+        this.lName = lName;
     }
 
-    public final String getSuffix() {
-        return suffix;
+    /**
+     * @return the userSuffix
+     */
+    public final String getUserSuffix() {
+        return userSuffix;
     }
 
-    public final void setSuffix(final String suffix) {
-        this.suffix = suffix;
+    /**
+     * @param userSuffix
+     *            the userSuffix to set
+     */
+    public final void setUserSuffix(final String userSuffix) {
+        this.userSuffix = userSuffix;
     }
 
+    /**
+     * @return the ecId
+     */
     public final String getEcId() {
         return ecId;
     }
 
+    /**
+     * @param ecId
+     *            the ecId to set
+     */
     public final void setEcId(final String ecId) {
         this.ecId = ecId;
     }
 
+    /**
+     * @return the orcId
+     */
     public final String getOrcId() {
         return orcId;
     }
 
+    /**
+     * @param orcId
+     *            the orcId to set
+     */
     public final void setOrcId(final String orcId) {
         this.orcId = orcId;
     }
 
+    /**
+     * @return the optInFlag
+     */
     public final String getOptInFlag() {
         return optInFlag;
     }
 
+    /**
+     * @param optInFlag
+     *            the optInFlag to set
+     */
     public final void setOptInFlag(final String optInFlag) {
         this.optInFlag = optInFlag;
     }
 
+    /**
+     * @return the jobCategoryCode
+     */
     public final String getJobCategoryCode() {
         return jobCategoryCode;
     }
 
+    /**
+     * @param jobCategoryCode
+     *            the jobCategoryCode to set
+     */
     public final void setJobCategoryCode(final String jobCategoryCode) {
         this.jobCategoryCode = jobCategoryCode;
     }
 
+    /**
+     * @return the industryCode
+     */
     public final String getIndustryCode() {
         return industryCode;
     }
 
+    /**
+     * @param industryCode
+     *            the industryCode to set
+     */
     public final void setIndustryCode(final String industryCode) {
         this.industryCode = industryCode;
     }
 
+    /**
+     * @return the title
+     */
     public final String getTitle() {
         return title;
     }
 
+    /**
+     * @param title
+     *            the title to set
+     */
     public final void setTitle(final String title) {
         this.title = title;
     }
 
+    /**
+     * @return the profileVisibility
+     */
     public final String getProfileVisibility() {
         return profileVisibility;
     }
 
+    /**
+     * @param profileVisibility
+     *            the profileVisibility to set
+     */
     public final void setProfileVisibility(final String profileVisibility) {
         this.profileVisibility = profileVisibility;
     }

@@ -41,16 +41,16 @@ public class CoAuthor {
     private String lastName;
 
     @JsonProperty("InstitutionCd")
-    private String institutionCd;
+    private String institutionCode;
 
     @JsonProperty("InstitutionName")
-    private String institutionName;
+    private String instName;
 
     @JsonProperty("DepartmentCd")
-    private String departmentCd;
+    private String departmentCode;
 
     @JsonProperty("DepartmentName")
-    private String departmentName;
+    private String deptName;
 
     @JsonProperty("PhoneNo")
     private String phoneNo;
@@ -58,90 +58,167 @@ public class CoAuthor {
     @JsonProperty("Status")
     private String status;
 
+    /**
+     * @return the id
+     */
     public final String getId() {
         return id;
     }
 
+    /**
+     * @param id
+     *            the id to set
+     */
     public final void setId(final String id) {
         this.id = id;
     }
 
+    /**
+     * @return the userId
+     */
     public final String getUserId() {
         return userId;
     }
 
+    /**
+     * @param userId
+     *            the userId to set
+     */
     public final void setUserId(final String userId) {
         this.userId = userId;
     }
 
+    /**
+     * @return the emailId
+     */
     public final String getEmailId() {
         return emailId;
     }
 
+    /**
+     * @param emailId
+     *            the emailId to set
+     */
     public final void setEmailId(final String emailId) {
         this.emailId = emailId;
     }
 
+    /**
+     * @return the firstName
+     */
     public final String getFirstName() {
         return firstName;
     }
 
+    /**
+     * @param firstName
+     *            the firstName to set
+     */
     public final void setFirstName(final String firstName) {
         this.firstName = firstName;
     }
 
+    /**
+     * @return the lastName
+     */
     public final String getLastName() {
         return lastName;
     }
 
+    /**
+     * @param lastName
+     *            the lastName to set
+     */
     public final void setLastName(final String lastName) {
         this.lastName = lastName;
     }
 
-    public final String getInstitutionCd() {
-        return institutionCd;
+    /**
+     * @return the institutionCode
+     */
+    public final String getInstitutionCode() {
+        return institutionCode;
     }
 
-    public final void setInstitutionCd(final String institutionCd) {
-        this.institutionCd = institutionCd;
+    /**
+     * @param institutionCode
+     *            the institutionCode to set
+     */
+    public final void setInstitutionCode(final String institutionCode) {
+        this.institutionCode = institutionCode;
     }
 
-    public final String getInstitutionName() {
-        return institutionName;
+    /**
+     * @return the instName
+     */
+    public final String getInstName() {
+        return instName;
     }
 
-    public final void setInstitutionName(final String institutionName) {
-        this.institutionName = institutionName;
+    /**
+     * @param instName
+     *            the instName to set
+     */
+    public final void setInstName(final String instName) {
+        this.instName = instName;
     }
 
-    public final String getDepartmentCd() {
-        return departmentCd;
+    /**
+     * @return the departmentCode
+     */
+    public final String getDepartmentCode() {
+        return departmentCode;
     }
 
-    public final void setDepartmentCd(final String departmentCd) {
-        this.departmentCd = departmentCd;
+    /**
+     * @param departmentCode
+     *            the departmentCode to set
+     */
+    public final void setDepartmentCode(final String departmentCode) {
+        this.departmentCode = departmentCode;
     }
 
-    public final String getDepartmentName() {
-        return departmentName;
+    /**
+     * @return the deptName
+     */
+    public final String getDeptName() {
+        return deptName;
     }
 
-    public final void setDepartmentName(final String departmentName) {
-        this.departmentName = departmentName;
+    /**
+     * @param deptName
+     *            the deptName to set
+     */
+    public final void setDeptName(final String deptName) {
+        this.deptName = deptName;
     }
 
+    /**
+     * @return the phoneNo
+     */
     public final String getPhoneNo() {
         return phoneNo;
     }
 
+    /**
+     * @param phoneNo
+     *            the phoneNo to set
+     */
     public final void setPhoneNo(final String phoneNo) {
         this.phoneNo = phoneNo;
     }
 
+    /**
+     * @return the status
+     */
     public final String getStatus() {
         return status;
     }
 
+    /**
+     * @param status
+     *            the status to set
+     */
     public final void setStatus(final String status) {
         this.status = status;
     }
