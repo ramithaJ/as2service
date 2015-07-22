@@ -19,6 +19,7 @@ import com.wiley.gr.ace.authorservices.model.external.JobCategories;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 import com.wiley.gr.ace.authorservices.model.external.lookup.LookupCustomerProfile;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Interface UserProfiles.
  */
@@ -101,5 +102,11 @@ public interface UserProfiles {
     UserProfileResponse updateProfile(int userId,
             UserProfileResponse userProfileResponse);
     
+    /**
+     * Gets the lookup customer profile.
+     *
+     * @param userId the user id
+     * @return the lookup customer profile
+     */
     LookupCustomerProfile getLookupCustomerProfile(String userId);
 }

@@ -76,7 +76,10 @@ public class UserProfilesImpl implements UserProfiles {
     /** The statesurl. */
     @Value("${states.url}")
     private String statesurl;
-
+    
+    /** The lookupCustomerProfileResponse. */
+    @Value("${lookupCustomerProfileResponse.url}")
+    private String lookupCustomerProfileResponse;
     /**
      * This method is used for getting area of interest.
      *
@@ -240,7 +243,7 @@ public class UserProfilesImpl implements UserProfiles {
     @Override
     public LookupCustomerProfile getLookupCustomerProfile(final String userId) {
         return (LookupCustomerProfile) StubInvokerUtil.invokeStub(
-                userProfileurl + userId + "&ECID=", HttpMethod.GET,
-                UserProfileResponse.class);
+                lookupCustomerProfileResponse + userId + "&ECID=", HttpMethod.GET,
+                LookupCustomerProfile.class);
     }
 }
