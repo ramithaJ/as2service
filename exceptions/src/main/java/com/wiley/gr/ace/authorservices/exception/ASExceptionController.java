@@ -91,4 +91,25 @@ public class ASExceptionController {
         
     }
     
+    @ExceptionHandler(UserException.class)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public final Service handleUserException(final UserException userException) {
+        
+        LOGGER.info("Inside ASException Controller");
+        
+        Service response = new Service();
+        LOGGER.error("Error Trace - ", userException);
+        response.setStatus("FAILURE");
+        ErrorPOJO errorPojo = new ErrorPOJO();
+        String errorCode = userException.getErrorCode(); 
+        if (errorCode != null && !errorCode.isEmpty()) {
+            errorPojo.setCode(Integer.parseInt(errorCode));
+        }
+        errorPojo.setMessage(userException.getDescription());
+        response.setError(errorPojo);
+        return response;
+        
+    }
+    
 }

@@ -12,14 +12,15 @@
 package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
 import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Value;
 
-import com.wiley.gr.ace.authorservices.exception.ASException;
-import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 
@@ -87,7 +88,7 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
             criteria.add(Restrictions.eq("primaryEmailAddr", emailId));
             Users user = (Users) criteria.uniqueResult();
             if (null == user) {
-                throw new ASException(invalidEmail, invalidEmailMsg);
+                throw new UserException(invalidEmail, invalidEmailMsg);
             }
             return user;
         } finally {
