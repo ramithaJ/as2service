@@ -76,10 +76,15 @@ public class UserProfilesImpl implements UserProfiles {
     /** The statesurl. */
     @Value("${states.url}")
     private String statesurl;
-    
+
     /** The lookupCustomerProfileResponse. */
     @Value("${lookupCustomerProfileResponse.url}")
     private String lookupCustomerProfileResponse;
+
+    /** The updateLookupCustomerProfile. */
+    @Value("${updateLookupCustomerProfile.url}")
+    private String updateLookupCustomerProfile;
+
     /**
      * This method is used for getting area of interest.
      *
@@ -243,7 +248,21 @@ public class UserProfilesImpl implements UserProfiles {
     @Override
     public LookupCustomerProfile getLookupCustomerProfile(final String userId) {
         return (LookupCustomerProfile) StubInvokerUtil.invokeStub(
-                lookupCustomerProfileResponse + userId + "&ECID=", HttpMethod.GET,
-                LookupCustomerProfile.class);
+                lookupCustomerProfileResponse + userId + "&ECID=",
+                HttpMethod.GET, LookupCustomerProfile.class);
     }
+
+    @Override
+    public LookupCustomerProfile updateLookupCustomerProfile(
+            final LookupCustomerProfile lookupCustomerProfile) throws Exception {
+        final Service service = (Service) StubInvokerUtil.invokeStub(
+                updateLookupCustomerProfile, HttpMethod.POST, Service.class);
+        final String status = service.getStatus();
+        if (status != null && "success".equalsIgnoreCase(status)) {
+            return lookupCustomerProfile;
+        } else {
+            return null;
+        }
+    }
+
 }
