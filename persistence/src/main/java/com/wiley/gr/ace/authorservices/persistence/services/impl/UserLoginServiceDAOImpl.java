@@ -18,6 +18,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Value;
 
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
@@ -141,8 +142,8 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
             session = getSessionFactory().openSession();
             session.beginTransaction();
             UserProfile authorProfile = new UserProfile();
-            authorProfile = (UserProfile) session
-                    .get(UserProfile.class, user.getUserId());
+            authorProfile = (UserProfile) session.get(UserProfile.class,
+                    user.getUserId());
             authorProfile.setIsAccountVerified('Y');
             session.update(authorProfile);
             session.getTransaction().commit();
@@ -152,5 +153,42 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
                 session.close();
             }
         }
+    }
+
+    /** This method will inserts a record in db */
+    @Override
+    public void insertGuid(String firstName, String lastName,
+            String emailAddress) {
+        Session session = null;
+        try {
+            session = getSessionFactory().openSession();
+            session.beginTransaction();
+            InviteResetpwdLog inviteResetpwdLog = new InviteResetpwdLog();
+            inviteResetpwdLog.setGuid("1190");
+            inviteResetpwdLog.setFirstName(firstName);
+            inviteResetpwdLog.setLastName(lastName);
+            inviteResetpwdLog.setEmailAddress(emailAddress);
+            inviteResetpwdLog
+                    .setType(AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS_TYPE);
+            inviteResetpwdLog
+                    .setStatus(AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS);
+
+            session.save(inviteResetpwdLog);
+            session.getTransaction().commit();
+        } finally {
+            if (null != session) {
+                session.flush();
+                session.close();
+
+            }
+
+        }
+    }
+
+    public static void main(String[] args) {
+        UserLoginServiceDAOImpl userLoginServiceDAOImpl = new UserLoginServiceDAOImpl();
+        userLoginServiceDAOImpl.insertGuid("Dell", "inspiron",
+                "inspiron@dell.com");
+
     }
 }

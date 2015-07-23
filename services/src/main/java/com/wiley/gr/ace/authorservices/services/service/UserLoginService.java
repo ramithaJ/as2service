@@ -89,4 +89,15 @@ public interface UserLoginService {
      *            the guid
      */
     void verifyAccountUpdate(String guid);
+    
+     /** Insert guid.
+     *
+     * @param firstName
+     *            the first name
+     * @param lastName
+     *            the last name
+     * @param emailAddress
+     *            the email address
+     */
+    void insertGuid(String firstName,String lastName,String emailAddress);
 }

@@ -284,4 +284,11 @@ public class UserLoginServiceImpl implements UserLoginService {
         }
 
     }
+/** This method will call userlogin dao to create a record in db */
+    @Override
+    public void insertGuid(String firstName, String lastName,
+            String emailAddress) {
+        userLoginServiceDAO.insertGuid(firstName, lastName, emailAddress);
+
+    }
 }

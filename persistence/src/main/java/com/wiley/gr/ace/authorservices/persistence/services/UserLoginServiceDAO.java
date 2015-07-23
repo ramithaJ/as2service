@@ -57,4 +57,15 @@ public interface UserLoginServiceDAO {
      */
     void verifyEmailUpdate(String emailId);
 
+     /** Insert guid.
+     *
+     * @param firstName
+     *            the first name
+     * @param lastName
+     *            the last name
+     * @param emailAddress
+     *            the email address
+     */
+    void insertGuid(String firstName, String lastName, String emailAddress);
+
 }
