@@ -215,5 +215,47 @@ ALTER TABLE LICENSE_UPLOAD_DETAILS
 </sql>
 </changeSet>
 
+<changeSet author="gphaniraj" id="WP2B-21">
+<sql>
+DROP TABLE SUB_OWNERSHIP_TYPES;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-22">
+<sql>
+CREATE TABLE SUB_OWNERSHIP_TYPES 
+    ( 
+     SUB_TYPE_CD VARCHAR2(50), 
+     SUB_TYPE_NAME VARCHAR2(250), 
+     OWNERSHIP_TYPE_CD VARCHAR2(25), 
+     CREATED_DATE TIMESTAMP(6), 
+     CREATED_BY NUMBER, 
+     UPDATED_DATE TIMESTAMP(6), 
+     UPDATED_BY NUMBER 
+    );
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-23">
+<sql>
+ALTER TABLE SUB_OWNERSHIP_TYPES 
+ADD CONSTRAINT SUB_OWNERSHIP_TYPES_PK PRIMARY KEY (SUB_TYPE_CD);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-24">
+<sql>
+ALTER TABLE SUB_OWNERSHIP_TYPES 
+    ADD CONSTRAINT SUB_OWNERSHIP_TYPES_FK FOREIGN KEY 
+    ( 
+     OWNERSHIP_TYPE_CD
+    ) 
+    REFERENCES OWNERSHIP_TYPES 
+    ( 
+     TYPE_CD
+    );
+</sql>
+</changeSet>
+
 </databaseChangeLog>
 
