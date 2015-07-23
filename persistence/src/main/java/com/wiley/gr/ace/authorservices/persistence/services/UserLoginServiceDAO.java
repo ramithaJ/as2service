@@ -66,6 +66,6 @@ public interface UserLoginServiceDAO {
      * @param emailAddress
      *            the email address
      */
-    void insertGuid(String firstName, String lastName, String emailAddress);
+    void insertGuid(InviteResetpwdLog inviteResetpwdLog);
 
 }

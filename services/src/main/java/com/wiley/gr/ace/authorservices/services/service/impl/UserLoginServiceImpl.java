@@ -35,6 +35,7 @@ import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsEntry
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsMap;
 import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
+import com.wiley.gr.ace.authorservices.persistence.services.impl.UserLoginServiceDAOImpl;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 
 /**
@@ -278,17 +279,28 @@ public class UserLoginServiceImpl implements UserLoginService {
                         .getType()
                         .equalsIgnoreCase(
                                 AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS_TYPE)) {
+            System.err.println(userLoginServiceDAO);
             userLoginServiceDAO.getUserId(inviteResetpwdLog.getEmailAddress());
         } else {
             throw new ASException(accountVerifiedCode, accountVerifiedMessage);
         }
 
     }
-/** This method will call userlogin dao to create a record in db */
+    
+/** This method will call user login dao to create a record in db */
     @Override
     public void insertGuid(String firstName, String lastName,
             String emailAddress) {
-        userLoginServiceDAO.insertGuid(firstName, lastName, emailAddress);
+       InviteResetpwdLog inviteResetpwdLog = new InviteResetpwdLog();
+       inviteResetpwdLog.setGuid("1126");
+       inviteResetpwdLog.setFirstName(firstName);
+       inviteResetpwdLog.setLastName(lastName);
+       inviteResetpwdLog.setEmailAddress(emailAddress);
+       inviteResetpwdLog
+               .setType(AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS_TYPE);
+       inviteResetpwdLog
+               .setStatus(AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS);
+       userLoginServiceDAO.insertGuid(inviteResetpwdLog);
 
     }
 }
