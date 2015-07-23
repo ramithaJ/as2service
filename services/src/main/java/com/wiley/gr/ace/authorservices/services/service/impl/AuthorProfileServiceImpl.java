@@ -41,6 +41,7 @@ import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityAttributes;
 import com.wiley.gr.ace.authorservices.persistence.services.AuthorProfileDao;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
+import com.wiley.gr.ace.authorservices.services.service.SendNotification;
 
 /**
  * The Class AuthorProfileServiceImpl.
@@ -63,6 +64,12 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
     @Autowired
     private AuthorProfileDao authorProfileDao;
+
+    /**
+     * Injecting SendNotification bean.
+     */
+    @Autowired(required = true)
+    private SendNotification sendNotification;
 
     /** The user profile. */
     private final UserProfile userProfile = new UserProfile();
@@ -282,7 +289,13 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         passwordRequest.setNewPassword(passwordDetails.getNewPassword());
         passwordRequest.setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
         passwordUpdate.setUpdateUserSecurityAttributes(passwordRequest);
-        return userManagement.updatePassword(passwordRequest);
+        boolean status = userManagement.updatePassword(passwordRequest);
+        if (status) {
+
+            sendNotification.notifyByEmail(passwordDetails.getEmailId());
+        }
+
+        return status;
     }
 
     /**

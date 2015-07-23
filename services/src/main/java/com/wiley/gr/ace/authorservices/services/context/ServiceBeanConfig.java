@@ -23,6 +23,7 @@ import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 import com.wiley.gr.ace.authorservices.services.service.DashboardService;
 import com.wiley.gr.ace.authorservices.services.service.OrcidService;
 import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
+import com.wiley.gr.ace.authorservices.services.service.SendNotification;
 import com.wiley.gr.ace.authorservices.services.service.UpdateUserService;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
@@ -33,6 +34,7 @@ import com.wiley.gr.ace.authorservices.services.service.impl.AuthorProfileServic
 import com.wiley.gr.ace.authorservices.services.service.impl.DashboardServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.OrcidServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.RegistrationServiceImpl;
+import com.wiley.gr.ace.authorservices.services.service.impl.SendNotificationImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UpdateUserServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UserAccountServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UserLoginServiceImpl;
@@ -154,5 +156,11 @@ public class ServiceBeanConfig {
     public AutocompleteService autocompleteService() {
         return new AutocompleteServiceImpl();
     }
-
+    /**Notification bean
+     * @return
+     */
+    @Bean(name = "SendNotification")
+    public SendNotification sendNotification() {
+        return new SendNotificationImpl();
+    }
 }
