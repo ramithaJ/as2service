@@ -26,6 +26,7 @@ import com.wiley.gr.ace.authorservices.model.Login;
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
+import com.wiley.gr.ace.authorservices.model.external.ForcefulReset;
 import com.wiley.gr.ace.authorservices.model.external.PasswordReset;
 import com.wiley.gr.ace.authorservices.model.external.PasswordResetRequest;
 import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
@@ -137,11 +138,15 @@ public class UserLoginServiceImpl implements UserLoginService {
         boolean status = false;
 
         LOGGER.info("In resetPassword method");
-
+        System.err.println(securityDetailsHolder.isForceReset());
         if (securityDetailsHolder.isForceReset()) {
-            status = userManagement.forceFulReset(
-                    securityDetailsHolder.getEmailId(),
-                    securityDetailsHolder.getPassword());
+            System.err.println("hai");
+            ForcefulReset forcefulReset = new ForcefulReset();
+            forcefulReset.setExistingEmail(securityDetailsHolder.getEmailId());
+            forcefulReset.setNewPassword(securityDetailsHolder.getPassword());
+            forcefulReset.setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
+
+            status = userManagement.forceFulReset(forcefulReset);
 
         } else {
             if (securityDetailsHolder.getSecurityDetails().isEmpty()) {

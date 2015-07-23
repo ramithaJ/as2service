@@ -14,6 +14,7 @@ package com.wiley.gr.ace.authorservices.externalservices.service;
 import com.wiley.gr.ace.authorservices.model.AdminUser;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
+import com.wiley.gr.ace.authorservices.model.external.ForcefulReset;
 import com.wiley.gr.ace.authorservices.model.external.PasswordRequest;
 import com.wiley.gr.ace.authorservices.model.external.PasswordResetRequest;
 import com.wiley.gr.ace.authorservices.model.external.RetrieveSecurityQuestions;
@@ -95,7 +96,7 @@ public interface UserManagement {
      *            the new password
      * @return true, if successful
      */
-    boolean forceFulReset(String emailId, String newPassword);
+    boolean forceFulReset(ForcefulReset forcefulReset);
 
     /**
      * Lock user.

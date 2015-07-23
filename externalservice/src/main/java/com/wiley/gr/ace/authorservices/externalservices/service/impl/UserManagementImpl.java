@@ -22,6 +22,7 @@ import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
 import com.wiley.gr.ace.authorservices.model.external.ErrorPayLoad;
+import com.wiley.gr.ace.authorservices.model.external.ForcefulReset;
 import com.wiley.gr.ace.authorservices.model.external.PasswordRequest;
 import com.wiley.gr.ace.authorservices.model.external.PasswordResetRequest;
 import com.wiley.gr.ace.authorservices.model.external.ResponseStatus;
@@ -47,7 +48,7 @@ public class UserManagementImpl implements UserManagement {
 
     /** The force ful reset. */
     @Value("${forceFulReset.url}")
-    private String forceFulReset;
+    private String forceFulReseturl;
 
     /** The update user id. */
     @Value("${updateUserId.url}")
@@ -215,15 +216,22 @@ public class UserManagementImpl implements UserManagement {
      * @return true, if successful
      */
     @Override
-    public final boolean forceFulReset(final String emailId,
-            final String newPassword) {
-        final Service service = (Service) StubInvokerUtil.invokeStub(
-                forceFulReset, HttpMethod.POST, Service.class);
-        final String status = service.getStatus();
-        if (status != null && success.equalsIgnoreCase(status)) {
-            return true;
+    public final boolean forceFulReset(final ForcefulReset forcefulReset) {
+
+        final ResponseStatus responseStatus = (ResponseStatus) StubInvokerUtil
+                .restServiceInvoker(forceFulReseturl, forcefulReset,
+                        ResponseStatus.class);
+        boolean status = false;
+        if (success.equalsIgnoreCase(responseStatus.getStatus())) {
+            status = true;
         }
-        return false;
+        if (failure.equalsIgnoreCase(responseStatus.getStatus())) {
+            final ErrorPayLoad errorPayLoad = responseStatus.getError();
+            throw new UserException(errorPayLoad.getErrorCode(),
+                    errorPayLoad.getErrorMessage());
+        }
+        System.err.println(status);
+        return status;
     }
 
     /**
@@ -382,7 +390,8 @@ public class UserManagementImpl implements UserManagement {
      * @return the security questions list
      */
     @Override
-    public RetrieveSecurityQuestions getSecurityQuestionsList(final String emailId) {
+    public RetrieveSecurityQuestions getSecurityQuestionsList(
+            final String emailId) {
         return (RetrieveSecurityQuestions) StubInvokerUtil.invokeStub(
                 retrieveSecurityQuestions + emailId, HttpMethod.GET,
                 RetrieveSecurityQuestions.class);
