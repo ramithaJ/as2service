@@ -18,7 +18,6 @@ import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
 import com.wiley.gr.ace.authorservices.model.external.DashboardView;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 import com.wiley.gr.ace.authorservices.model.external.ProfileInformation;
-import com.wiley.gr.ace.authorservices.model.external.Status;
 
 /**
  * The Interface ESBInterfaceService.
@@ -83,7 +82,7 @@ public interface ESBInterfaceService {
      * @throws Exception
      *             the exception
      */
-    Status creatUser(ProfileInformation profileForCreation) throws Exception;
+    String creatUser(ProfileInformation profileForCreation);
 
     /**
      * View dashboard.
