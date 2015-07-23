@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author yugandhark
  *
  */
-public class SecurityQuestions {
+public class RetrieveSecurityQuestions {
 
     @JsonProperty("Status")
     private String status;

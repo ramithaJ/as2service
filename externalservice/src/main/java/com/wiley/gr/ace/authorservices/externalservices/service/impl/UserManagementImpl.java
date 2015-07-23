@@ -28,7 +28,7 @@ import com.wiley.gr.ace.authorservices.model.external.ResponseStatus;
 import com.wiley.gr.ace.authorservices.model.external.SecuirtyQuestionDetails;
 import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
 import com.wiley.gr.ace.authorservices.model.external.UserEmailDetails;
-import com.wiley.gr.ace.authorservices.model.external.lookup.SecurityQuestions;
+import com.wiley.gr.ace.authorservices.model.external.lookup.RetrieveSecurityQuestions;
 
 /**
  * The Class UserManagementImpl.
@@ -382,9 +382,9 @@ public class UserManagementImpl implements UserManagement {
      * @return the security questions list
      */
     @Override
-    public SecurityQuestions getSecurityQuestionsList(final String emailId) {
-        return (SecurityQuestions) StubInvokerUtil.invokeStub(
+    public RetrieveSecurityQuestions getSecurityQuestionsList(final String emailId) {
+        return (RetrieveSecurityQuestions) StubInvokerUtil.invokeStub(
                 retrieveSecurityQuestions + emailId, HttpMethod.GET,
-                SecurityQuestions.class);
+                RetrieveSecurityQuestions.class);
     }
 }

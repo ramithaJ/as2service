@@ -19,7 +19,7 @@ import com.wiley.gr.ace.authorservices.model.external.PasswordResetRequest;
 import com.wiley.gr.ace.authorservices.model.external.SecuirtyQuestionDetails;
 import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
 import com.wiley.gr.ace.authorservices.model.external.UserEmailDetails;
-import com.wiley.gr.ace.authorservices.model.external.lookup.SecurityQuestions;
+import com.wiley.gr.ace.authorservices.model.external.lookup.RetrieveSecurityQuestions;
 
 /**
  * The Interface UserManagement.
@@ -167,5 +167,5 @@ public interface UserManagement {
      *            the email id
      * @return the security questions list
      */
-    SecurityQuestions getSecurityQuestionsList(String emailId);
+    RetrieveSecurityQuestions getSecurityQuestionsList(String emailId);
 }
