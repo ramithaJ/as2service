@@ -89,9 +89,9 @@ public class UserManagementImpl implements UserManagement {
     @Value("${securityQuestionDetails.url}")
     private String securityQuestionDetails;
 
-    /** The security questions. */
-    @Value("${securityQuestions.url}")
-    private String securityQuestionsList;
+    /** The Retrieve security questions. */
+    @Value("${RetrieveSecurityQuestions.url}")
+    private String retrieveSecurityQuestions;
     /**
      * This field holds the value of success.
      */
@@ -163,7 +163,7 @@ public class UserManagementImpl implements UserManagement {
     public final boolean resetPassword(
             final PasswordResetRequest passwordResetRequest) {
 
-        ResponseStatus responseStatus = (ResponseStatus) StubInvokerUtil
+        final ResponseStatus responseStatus = (ResponseStatus) StubInvokerUtil
                 .restServiceInvoker(resetPasswordurl, passwordResetRequest,
                         ResponseStatus.class);
         boolean status = false;
@@ -171,7 +171,7 @@ public class UserManagementImpl implements UserManagement {
             status = true;
         }
         if (failure.equalsIgnoreCase(responseStatus.getStatus())) {
-            ErrorPayLoad errorPayLoad = responseStatus.getError();
+            final ErrorPayLoad errorPayLoad = responseStatus.getError();
             throw new UserException(errorPayLoad.getErrorCode(),
                     errorPayLoad.getErrorMessage());
         }
@@ -190,7 +190,7 @@ public class UserManagementImpl implements UserManagement {
     @Override
     public final boolean updateUserId(final UserEmailDetails userEmailDetails) {
 
-        ResponseStatus responseStatus = (ResponseStatus) StubInvokerUtil
+        final ResponseStatus responseStatus = (ResponseStatus) StubInvokerUtil
                 .restServiceInvoker(updateUserIdurl, userEmailDetails,
                         ResponseStatus.class);
         boolean status = false;
@@ -198,7 +198,7 @@ public class UserManagementImpl implements UserManagement {
             status = true;
         }
         if (failure.equalsIgnoreCase(responseStatus.getStatus())) {
-            ErrorPayLoad errorPayLoad = responseStatus.getError();
+            final ErrorPayLoad errorPayLoad = responseStatus.getError();
             throw new UserException(errorPayLoad.getErrorCode(),
                     errorPayLoad.getErrorMessage());
         }
@@ -302,7 +302,7 @@ public class UserManagementImpl implements UserManagement {
     @Override
     public final boolean updatePassword(final PasswordRequest passwordRequest) {
 
-        ResponseStatus responseStatus = (ResponseStatus) StubInvokerUtil
+        final ResponseStatus responseStatus = (ResponseStatus) StubInvokerUtil
                 .restServiceInvoker(updatePasswordurl, passwordRequest,
                         ResponseStatus.class);
         boolean status = false;
@@ -310,7 +310,7 @@ public class UserManagementImpl implements UserManagement {
             status = true;
         }
         if (failure.equalsIgnoreCase(responseStatus.getStatus())) {
-            ErrorPayLoad errorPayLoad = responseStatus.getError();
+            final ErrorPayLoad errorPayLoad = responseStatus.getError();
             throw new UserException(errorPayLoad.getErrorCode(),
                     errorPayLoad.getErrorMessage());
         }
@@ -384,7 +384,7 @@ public class UserManagementImpl implements UserManagement {
     @Override
     public SecurityQuestions getSecurityQuestionsList(final String emailId) {
         return (SecurityQuestions) StubInvokerUtil.invokeStub(
-                securityQuestionsList + emailId, HttpMethod.GET,
+                retrieveSecurityQuestions + emailId, HttpMethod.GET,
                 SecurityQuestions.class);
     }
 }
