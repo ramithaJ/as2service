@@ -22,19 +22,16 @@ import org.springframework.util.StringUtils;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
-import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.Dashboard;
 import com.wiley.gr.ace.authorservices.model.DashboardInfo;
-import com.wiley.gr.ace.authorservices.model.Interests;
-import com.wiley.gr.ace.authorservices.model.ResearchFunder;
-import com.wiley.gr.ace.authorservices.model.Society;
-import com.wiley.gr.ace.authorservices.model.User;
-import com.wiley.gr.ace.authorservices.model.UserProfile;
 import com.wiley.gr.ace.authorservices.model.external.DashboardView;
-import com.wiley.gr.ace.authorservices.model.external.SecuirtyQuestionDetails;
-import com.wiley.gr.ace.authorservices.model.external.SecurityQuestion;
-import com.wiley.gr.ace.authorservices.model.external.SecurityQuestions;
-import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
+import com.wiley.gr.ace.authorservices.model.external.lookup.Affiliation;
+import com.wiley.gr.ace.authorservices.model.external.lookup.CustomerDetails;
+import com.wiley.gr.ace.authorservices.model.external.lookup.CustomerProfile;
+import com.wiley.gr.ace.authorservices.model.external.lookup.Interest;
+import com.wiley.gr.ace.authorservices.model.external.lookup.LookupCustomerProfile;
+import com.wiley.gr.ace.authorservices.model.external.lookup.ResearchFunder;
+import com.wiley.gr.ace.authorservices.model.external.lookup.Society;
 import com.wiley.gr.ace.authorservices.services.service.DashboardService;
 
 /**
@@ -75,17 +72,18 @@ public class DashboardServiceImpl implements DashboardService {
      *             the exception
      */
     @Override
-    public final Dashboard getProfileMeter(final int userId) throws Exception {
+    public final Dashboard getProfileMeter(final String userId)
+            throws Exception {
         DashboardServiceImpl.LOGGER
                 .info("inside getProfileMeter Method of DashboardServiceImpl");
-        Dashboard dashBoard = new Dashboard();
-        List<DashboardInfo> dashBoardInfoList;
-        final UserProfileResponse userProfileResponse = userProfileService
-                .getUserProfileResponse(userId);
-        final UserProfile userProfile = userProfileResponse
-                .getCustomerProfile();
-        dashBoardInfoList = checkingDashboardInfo(userProfile);
-        if (StringUtils.isEmpty(dashBoardInfoList)) {
+        final Dashboard dashBoard = new Dashboard();
+        List<DashboardInfo> dashBoardInfoList = null;
+        final LookupCustomerProfile lookupCustomerProfile = userProfileService
+                .getLookupCustomerProfile(userId);
+        final CustomerProfile customerProfile = lookupCustomerProfile
+                .getLookupCustomerProfileResponse().getCustomerProfile();
+        dashBoardInfoList = checkingDashboardInfo(customerProfile);
+        if (dashBoardInfoList.isEmpty()) {
             dashBoard.setProfileMeterMessage("Profile Completed");
             dashBoard.setDashBoardInfo(dashBoardInfoList);
         } else {
@@ -109,27 +107,15 @@ public class DashboardServiceImpl implements DashboardService {
             throws Exception {
         DashboardServiceImpl.LOGGER
                 .info("inside getSecurityDetailsForUser Method of DashboardServiceImpl");
-        final SecuirtyQuestionDetails secuirtyQuestionDetails = userManagementService
-                .getSecurityQuestionDetails(emailId);
+        final List<String> systemSecurityQuestionsList = userManagementService
+                .getSecurityQuestionsList(emailId).getSystemSecurityQuestions()
+                .getSecurityQuestionList();
         DashboardInfo dashboardInfo = null;
-        if (!StringUtils.isEmpty(secuirtyQuestionDetails)) {
-            final SecurityQuestions securityQuestions = secuirtyQuestionDetails
-                    .getSecurityQuestions();
-            final List<SecurityQuestion> securityQuestionList = securityQuestions
-                    .getSecurityQuestion();
-            if (!StringUtils.isEmpty(securityQuestionList)) {
-                for (SecurityQuestion securityQuestion : securityQuestionList) {
-                    if (StringUtils.isEmpty(securityQuestion.getQuestion())
-                            || StringUtils
-                                    .isEmpty(securityQuestion.getAnswer())) {
-                        dashboardInfo = new DashboardInfo();
-                        dashboardInfo.setId("security");
-                        dashboardInfo
-                                .setDashBoardInfoMessage("No Security Details");
-                        break;
-                    }
-                }
-            }
+        if (StringUtils.isEmpty(systemSecurityQuestionsList)
+                && systemSecurityQuestionsList.isEmpty()) {
+            dashboardInfo = new DashboardInfo();
+            dashboardInfo.setId("security");
+            dashboardInfo.setDashBoardInfoMessage("No Security Details");
         }
         return dashboardInfo;
     }
@@ -140,44 +126,45 @@ public class DashboardServiceImpl implements DashboardService {
      * to the list of dashboardInfoList then return otherwise if not empty then
      * not added to the dashboardInfoList.
      *
-     * @param userProfile
+     * @param customerProfile
      *            the user profile
      * @return the List of DashboardInfo
      * @throws Exception
      *             the exception
      */
     private List<DashboardInfo> checkingDashboardInfo(
-            final UserProfile userProfile) throws Exception {
+            final CustomerProfile customerProfile) throws Exception {
         DashboardServiceImpl.LOGGER
                 .info("inside checkingDashBoardInfo Method of DashboardServiceImpl");
         DashboardInfo dashboardInfo = null;
-        List<DashboardInfo> dashboardInfoList = new ArrayList<DashboardInfo>();
-        dashboardInfo = getSecurityDetailsForUser(userProfile
-                .getCustomerDetails().getPrimaryEmailAddr());
+        final List<DashboardInfo> dashboardInfoList = new ArrayList<DashboardInfo>();
+        dashboardInfo = getSecurityDetailsForUser(customerProfile
+                .getCustomerDetails().getPrimaryEmail());
         if (!StringUtils.isEmpty(dashboardInfo)) {
             dashboardInfoList.add(dashboardInfo);
         }
-        dashboardInfo = getRecoveryEmailAddr(userProfile.getCustomerDetails());
+        dashboardInfo = getRecoveryEmailAddr(customerProfile
+                .getCustomerDetails());
         if (!StringUtils.isEmpty(dashboardInfo)) {
             dashboardInfoList.add(dashboardInfo);
         }
-        dashboardInfo = getOrcidId(userProfile.getCustomerDetails());
+        dashboardInfo = getOrcidId(customerProfile.getCustomerDetails());
         if (!StringUtils.isEmpty(dashboardInfo)) {
             dashboardInfoList.add(dashboardInfo);
         }
-        dashboardInfo = getInterestsForUser(userProfile);
+        dashboardInfo = getInterestsForUser(customerProfile);
         if (!StringUtils.isEmpty(dashboardInfo)) {
             dashboardInfoList.add(dashboardInfo);
         }
-        dashboardInfo = getAffiliationsForUser(userProfile);
+        dashboardInfo = getAffiliationsForUser(customerProfile);
         if (!StringUtils.isEmpty(dashboardInfo)) {
             dashboardInfoList.add(dashboardInfo);
         }
-        dashboardInfo = getSocietiesForUser(userProfile);
+        dashboardInfo = getSocietiesForUser(customerProfile);
         if (!StringUtils.isEmpty(dashboardInfo)) {
             dashboardInfoList.add(dashboardInfo);
         }
-        dashboardInfo = getFundersListForUser(userProfile);
+        dashboardInfo = getFundersListForUser(customerProfile);
         if (!StringUtils.isEmpty(dashboardInfo)) {
             dashboardInfoList.add(dashboardInfo);
         }
@@ -193,10 +180,12 @@ public class DashboardServiceImpl implements DashboardService {
      *            the user profile
      * @return dashboardInfo
      */
-    private DashboardInfo getInterestsForUser(final UserProfile userProfile) {
+    private DashboardInfo getInterestsForUser(
+            final CustomerProfile customerProfile) {
         DashboardServiceImpl.LOGGER
                 .info("inside getInterestsForUser Method of DashboardServiceImpl");
-        final List<Interests> userInterestsList = userProfile.getInterests();
+        final List<Interest> userInterestsList = customerProfile
+                .getAreaOfInterest().getInterest();
         DashboardInfo dashboardInfo = null;
         if (null != userInterestsList && userInterestsList.isEmpty()) {
             dashboardInfo = new DashboardInfo();
@@ -216,11 +205,12 @@ public class DashboardServiceImpl implements DashboardService {
      *            the user profile
      * @return dashboardInfo
      */
-    private DashboardInfo getAffiliationsForUser(final UserProfile userProfile) {
+    private DashboardInfo getAffiliationsForUser(
+            final CustomerProfile customerProfile) {
         DashboardServiceImpl.LOGGER
                 .info("inside getAffiliationsForUser Method of DashboardServiceImpl");
-        final List<Affiliation> userAffiliationsList = userProfile
-                .getAffiliations();
+        final List<Affiliation> userAffiliationsList = customerProfile
+                .getAffiliations().getAffiliation();
         DashboardInfo dashboardInfo = null;
         if (!StringUtils.isEmpty(userAffiliationsList)
                 && userAffiliationsList.isEmpty()) {
@@ -240,10 +230,12 @@ public class DashboardServiceImpl implements DashboardService {
      *            the user profile
      * @return dashboardInfo
      */
-    private DashboardInfo getSocietiesForUser(final UserProfile userProfile) {
+    private DashboardInfo getSocietiesForUser(
+            final CustomerProfile customerProfile) {
         DashboardServiceImpl.LOGGER
                 .info("inside getSocietiesForUser Method of DashboardServiceImpl");
-        final List<Society> societyList = userProfile.getSocieties();
+        final List<Society> societyList = customerProfile.getSocietyList()
+                .getSociety();
         DashboardInfo dashboardInfo = null;
         if (!StringUtils.isEmpty(societyList) && societyList.isEmpty()) {
             dashboardInfo = new DashboardInfo();
@@ -262,11 +254,12 @@ public class DashboardServiceImpl implements DashboardService {
      *            the user profile
      * @return dashboardInfo
      */
-    private DashboardInfo getFundersListForUser(final UserProfile userProfile) {
+    private DashboardInfo getFundersListForUser(
+            final CustomerProfile customerProfile) {
         DashboardServiceImpl.LOGGER
                 .info("inside getFundersListForUser Method of DashboardServiceImpl");
-        final List<ResearchFunder> researchFundersList = userProfile
-                .getResearchFunders();
+        final List<ResearchFunder> researchFundersList = customerProfile
+                .getResearchFunders().getResearchFunder();
         DashboardInfo dashboardInfo = null;
         if (!StringUtils.isEmpty(researchFundersList)
                 && researchFundersList.isEmpty()) {
@@ -290,12 +283,12 @@ public class DashboardServiceImpl implements DashboardService {
      * @throws Exception
      *             the exception
      */
-    private DashboardInfo getRecoveryEmailAddr(final User user)
-            throws Exception {
+    private DashboardInfo getRecoveryEmailAddr(
+            final CustomerDetails customerDetails) throws Exception {
         DashboardServiceImpl.LOGGER
                 .info("inside getRecoveryEmailAddr Method of DashboardServiceImpl");
         DashboardInfo dashboardInfo = null;
-        if (StringUtils.isEmpty(user.getRecoveryEmailAddress())) {
+        if (StringUtils.isEmpty(customerDetails.getSecondaryEmail())) {
             dashboardInfo = new DashboardInfo();
             dashboardInfo.setId("email");
             dashboardInfo
@@ -313,11 +306,11 @@ public class DashboardServiceImpl implements DashboardService {
      *            the user
      * @return dashboardInfo
      */
-    private DashboardInfo getOrcidId(final User user) {
+    private DashboardInfo getOrcidId(final CustomerDetails customerDetails) {
         DashboardServiceImpl.LOGGER
                 .info("inside getOrcidId Method of DashboardServiceImpl");
         DashboardInfo dashboardInfo = null;
-        if (StringUtils.isEmpty(user.getOrcidId())) {
+        if (StringUtils.isEmpty(customerDetails.getOrcId())) {
             dashboardInfo = new DashboardInfo();
             dashboardInfo.setId("orcid");
             dashboardInfo.setDashBoardInfoMessage("No Orcid ID");

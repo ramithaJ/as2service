@@ -20,9 +20,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
-import com.wiley.gr.ace.authorservices.model.User;
-import com.wiley.gr.ace.authorservices.model.UserProfile;
-import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
+import com.wiley.gr.ace.authorservices.model.external.lookup.CustomerDetails;
+import com.wiley.gr.ace.authorservices.model.external.lookup.CustomerProfile;
+import com.wiley.gr.ace.authorservices.model.external.lookup.LookupCustomerProfile;
+import com.wiley.gr.ace.authorservices.model.external.lookup.LookupCustomerProfileResponse;
 import com.wiley.gr.ace.authorservices.services.service.UpdateUserService;
 
 /**
@@ -56,25 +57,41 @@ public class UpdateUserServiceImpl implements UpdateUserService {
      */
     @Override
     public final boolean updateOrcidId(final String emailId,
-            final String orcidId, final int userId) throws Exception {
+            final String orcidId, final String userId) throws Exception {
         UpdateUserServiceImpl.LOGGER
                 .info("inside updateOrcidId method of UpdateUserServiceImpl");
         boolean result = false;
-        final UserProfileResponse userProfileResponse = userProfileService
-                .getUserProfileResponse(userId);
-        if (!StringUtils.isEmpty(userProfileResponse)) {
-            final UserProfile userProfile = userProfileResponse
-                    .getCustomerProfile();
-            final User user = userProfile.getCustomerDetails();
-            if (StringUtils.isEmpty(user.getOrcidId())) {
-                user.setOrcidId(orcidId);
-                userProfile.setCustomerDetails(user);
-                userProfileResponse.setCustomerProfile(userProfile);
-                result = null != userProfileService.updateProfile(userId,
-                        userProfileResponse);
+        final LookupCustomerProfile lookupCustomerProfile = userProfileService
+                .getLookupCustomerProfile(userId);
+        if (!StringUtils.isEmpty(lookupCustomerProfile)) {
+            final LookupCustomerProfileResponse lookupCustomerProfileResponse = lookupCustomerProfile
+                    .getLookupCustomerProfileResponse();
+            if (!StringUtils.isEmpty(lookupCustomerProfileResponse)) {
+                lookupCustomerProfile
+                        .setLookupCustomerProfileResponse(updateOrcidDetails(
+                                lookupCustomerProfileResponse, orcidId));
+                result = null != userProfileService
+                        .updateLookupCustomerProfile(lookupCustomerProfile);
             }
         }
         return result;
     }
 
+    private LookupCustomerProfileResponse updateOrcidDetails(
+            final LookupCustomerProfileResponse lookupCustomerProfileResponse,
+            final String orcidId) {
+        final CustomerProfile customerProfile = lookupCustomerProfileResponse
+                .getCustomerProfile();
+        if (!StringUtils.isEmpty(customerProfile)) {
+            final CustomerDetails customerDetails = customerProfile
+                    .getCustomerDetails();
+            if (StringUtils.isEmpty(customerDetails.getOrcId())) {
+                customerDetails.setOrcId(orcidId);
+                customerProfile.setCustomerDetails(customerDetails);
+                lookupCustomerProfileResponse
+                        .setCustomerProfile(customerProfile);
+            }
+        }
+        return lookupCustomerProfileResponse;
+    }
 }

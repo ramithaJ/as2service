@@ -34,7 +34,7 @@ public interface UpdateUserService {
      * @throws Exception
      *             the exception
      */
-    boolean updateOrcidId(String emailId, String orcidId, int userId)
+    boolean updateOrcidId(String emailId, String orcidId, String userId)
             throws Exception;
 
 }

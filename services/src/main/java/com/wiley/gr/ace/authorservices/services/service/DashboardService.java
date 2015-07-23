@@ -34,7 +34,7 @@ public interface DashboardService {
      * @throws Exception
      *             the exception
      */
-    Dashboard getProfileMeter(int userId) throws Exception;
+    Dashboard getProfileMeter(String userId) throws Exception;
 
     /**
      * View dashboard.
