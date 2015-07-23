@@ -30,6 +30,7 @@ import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.UserLogin;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
+import com.wiley.gr.ace.authorservices.services.service.SendNotification;
 
 /**
  * This method takes email in encrypted format like 
@@ -56,6 +57,10 @@ public class AdminLoginController extends ASExceptionController {
     /** getting bean of adminlogin service. */
     @Autowired(required = true)
     private AdminLoginService adminLoginService;
+
+    /** getting bean of SendNotification service. */
+    @Autowired(required = true)
+    private SendNotification sendNotification;
 
     /**
      * @param request
@@ -93,6 +98,8 @@ public class AdminLoginController extends ASExceptionController {
             @PathVariable("emailId") final String emailId,
             @PathVariable("accessId") final String accessId) {
         LOGGER.info("inside requestAccess Method");
+        
+        sendNotification.notifyByEmail(emailId);
         return new Service();
 
     }

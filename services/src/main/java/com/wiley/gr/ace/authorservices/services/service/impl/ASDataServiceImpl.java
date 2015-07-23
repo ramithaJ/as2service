@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
+import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.AccessReasons;
 import com.wiley.gr.ace.authorservices.model.Country;
@@ -73,6 +74,10 @@ public class ASDataServiceImpl implements ASDataService {
     /** getting bean of societyDao. */
     @Autowired(required = true)
     private SocietyDao societyDao;
+
+    /** The user management. */
+    @Autowired
+    private UserManagement userManagement;
 
     /**
      * This will call external service to get titles data.

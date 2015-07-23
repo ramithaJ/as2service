@@ -21,13 +21,24 @@ import com.wiley.gr.ace.authorservices.externalservices.service.NotificationServ
 import com.wiley.gr.ace.authorservices.model.NotificationResponse;
 import com.wiley.gr.ace.authorservices.model.external.NotificationFieldList;
 import com.wiley.gr.ace.authorservices.model.external.NotificationRequest;
+import com.wiley.gr.ace.authorservices.persistence.entity.Users;
+import com.wiley.gr.ace.authorservices.persistence.services.SendNotificationDao;
 import com.wiley.gr.ace.authorservices.services.service.SendNotification;
 
+/**
+ * The Class SendNotificationImpl.
+ */
 public class SendNotificationImpl implements SendNotification {
 
+    /** The notification service. */
     @Autowired(required = true)
     private NotificationService notificationService;
 
+    /** The send notification dao. */
+    @Autowired(required = true)
+    private SendNotificationDao sendNotificationDao;
+    
+    /**This method will call external service notification to send email */
     @Override
     public NotificationResponse notifyByEmail(String emailId) {
 
@@ -38,14 +49,16 @@ public class SendNotificationImpl implements SendNotification {
         notificationRequest.setFrom("rasinha@wiley.com");
         notificationRequest.setTo(emailId);
         NotificationFieldList notificationFieldList = new NotificationFieldList();
-        List<String> listofFields=new ArrayList<String>();
-        listofFields.add("ravi");
+        List<String> listofFields = new ArrayList<String>();
+        Users users=sendNotificationDao.getUserProfileByEmail(emailId);
+        listofFields.add(users.getFirstName());
         listofFields.add("Test");
-        listofFields.add("google");
+        listofFields.add("www.google.com");
         notificationFieldList.setFieldList(listofFields);
         notificationRequest.setTemplateDetails(notificationFieldList);
-        return notificationService.sendNotification(appId, type, templateId, notificationRequest);
-        
+        return notificationService.sendNotification(appId, type, templateId,
+                notificationRequest);
+
     }
 
 }

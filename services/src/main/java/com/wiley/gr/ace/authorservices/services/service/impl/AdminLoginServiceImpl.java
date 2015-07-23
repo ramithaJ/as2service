@@ -88,11 +88,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
     @Override
     public final boolean validateEmail(final String emailId) {
         LOGGER.info("inside validateEmail Method");
-        Users users = userLoginServiceDAO.getUserId(emailId);
-        if (null == users) {
-            return false;
-        }
-        return true;
+        return userlogindao.validateEmail(emailId);
     }
 
     /**
