@@ -77,6 +77,15 @@ public class UpdateUserServiceImpl implements UpdateUserService {
         return result;
     }
 
+    /**
+     * Update orcid details.
+     *
+     * @param lookupCustomerProfileResponse
+     *            the lookup customer profile response
+     * @param orcidId
+     *            the orcid id
+     * @return the lookup customer profile response
+     */
     private LookupCustomerProfileResponse updateOrcidDetails(
             final LookupCustomerProfileResponse lookupCustomerProfileResponse,
             final String orcidId) {
