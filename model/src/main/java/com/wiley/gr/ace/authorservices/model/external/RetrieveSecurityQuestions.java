@@ -17,29 +17,52 @@ package com.wiley.gr.ace.authorservices.model.external;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * @author yugandhark
+ * The Class RetrieveSecurityQuestions.
  *
+ * @author yugandhark
  */
 public class RetrieveSecurityQuestions {
 
+    /** The status. */
     @JsonProperty("Status")
     private String status;
 
+    /** The system security questions. */
     @JsonProperty("SystemSecurityQuestions")
     private SystemSecurityQuestions systemSecurityQuestions;
 
+    /**
+     * Gets the status.
+     *
+     * @return the status
+     */
     public final String getStatus() {
         return status;
     }
 
+    /**
+     * Sets the status.
+     *
+     * @param status the new status
+     */
     public final void setStatus(final String status) {
         this.status = status;
     }
 
+    /**
+     * Gets the system security questions.
+     *
+     * @return the system security questions
+     */
     public final SystemSecurityQuestions getSystemSecurityQuestions() {
         return systemSecurityQuestions;
     }
 
+    /**
+     * Sets the system security questions.
+     *
+     * @param systemSecurityQuestions the new system security questions
+     */
     public final void setSystemSecurityQuestions(
             final SystemSecurityQuestions systemSecurityQuestions) {
         this.systemSecurityQuestions = systemSecurityQuestions;

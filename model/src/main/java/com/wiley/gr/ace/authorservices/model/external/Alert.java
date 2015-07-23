@@ -17,29 +17,52 @@ package com.wiley.gr.ace.authorservices.model.external;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * @author yugandhark
+ * The Class Alert.
  *
+ * @author yugandhark
  */
 public class Alert {
 
+    /** The alert id. */
     @JsonProperty("AlertID")
     private String alertID;
 
+    /** The status. */
     @JsonProperty("Status")
     private String status;
 
+    /**
+     * Gets the alert id.
+     *
+     * @return the alert id
+     */
     public final String getAlertID() {
         return alertID;
     }
 
+    /**
+     * Sets the alert id.
+     *
+     * @param alertID the new alert id
+     */
     public final void setAlertID(final String alertID) {
         this.alertID = alertID;
     }
 
+    /**
+     * Gets the status.
+     *
+     * @return the status
+     */
     public final String getStatus() {
         return status;
     }
 
+    /**
+     * Sets the status.
+     *
+     * @param status the new status
+     */
     public final void setStatus(final String status) {
         this.status = status;
     }

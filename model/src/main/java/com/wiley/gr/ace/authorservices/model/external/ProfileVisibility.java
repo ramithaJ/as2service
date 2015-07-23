@@ -19,18 +19,30 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * @author yugandhark
+ * The Class ProfileVisibility.
  *
+ * @author yugandhark
  */
 public class ProfileVisibility {
 
+    /** The visibility. */
     @JsonProperty("Visibility")
     private List<Visibility> visibility;
 
+    /**
+     * Gets the visibility.
+     *
+     * @return the visibility
+     */
     public final List<Visibility> getVisibility() {
         return visibility;
     }
 
+    /**
+     * Sets the visibility.
+     *
+     * @param visibility the new visibility
+     */
     public final void setVisibility(final List<Visibility> visibility) {
         this.visibility = visibility;
     }

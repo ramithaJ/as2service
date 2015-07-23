@@ -17,51 +17,96 @@ package com.wiley.gr.ace.authorservices.model.external;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * @author yugandhark
+ * The Class Journal.
  *
+ * @author yugandhark
  */
 public class Journal {
 
+    /** The id. */
     @JsonProperty("Id")
     private String id;
 
+    /** The journal id. */
     @JsonProperty("JournalID")
     private String journalID;
 
+    /** The journal title. */
     @JsonProperty("JournalTitle")
     private String journalTitle;
 
+    /** The status. */
     @JsonProperty("Status")
     private String status;
 
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     public final String getId() {
         return id;
     }
 
+    /**
+     * Sets the id.
+     *
+     * @param id the new id
+     */
     public final void setId(final String id) {
         this.id = id;
     }
 
+    /**
+     * Gets the journal id.
+     *
+     * @return the journal id
+     */
     public final String getJournalID() {
         return journalID;
     }
 
+    /**
+     * Sets the journal id.
+     *
+     * @param journalID the new journal id
+     */
     public final void setJournalID(final String journalID) {
         this.journalID = journalID;
     }
 
+    /**
+     * Gets the journal title.
+     *
+     * @return the journal title
+     */
     public final String getJournalTitle() {
         return journalTitle;
     }
 
+    /**
+     * Sets the journal title.
+     *
+     * @param journalTitle the new journal title
+     */
     public final void setJournalTitle(final String journalTitle) {
         this.journalTitle = journalTitle;
     }
 
+    /**
+     * Gets the status.
+     *
+     * @return the status
+     */
     public final String getStatus() {
         return status;
     }
 
+    /**
+     * Sets the status.
+     *
+     * @param status the new status
+     */
     public final void setStatus(final String status) {
         this.status = status;
     }

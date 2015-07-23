@@ -19,18 +19,30 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * @author yugandhark
+ * The Class FavoriteJournals.
  *
+ * @author yugandhark
  */
 public class FavoriteJournals {
 
+    /** The journal. */
     @JsonProperty("Journal")
     private List<Journal> journal;
 
+    /**
+     * Gets the journal.
+     *
+     * @return the journal
+     */
     public final List<Journal> getJournal() {
         return journal;
     }
 
+    /**
+     * Sets the journal.
+     *
+     * @param journal the new journal
+     */
     public final void setJournal(final List<Journal> journal) {
         this.journal = journal;
     }

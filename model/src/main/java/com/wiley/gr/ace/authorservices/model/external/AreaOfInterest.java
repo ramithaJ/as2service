@@ -19,18 +19,30 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * @author yugandhark
+ * The Class AreaOfInterest.
  *
+ * @author yugandhark
  */
 public class AreaOfInterest {
 
+    /** The interest. */
     @JsonProperty("Interest")
     private List<Interest> interest;
 
+    /**
+     * Gets the interest.
+     *
+     * @return the interest
+     */
     public final List<Interest> getInterest() {
         return interest;
     }
 
+    /**
+     * Sets the interest.
+     *
+     * @param interest the new interest
+     */
     public final void setInterest(final List<Interest> interest) {
         this.interest = interest;
     }

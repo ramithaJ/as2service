@@ -19,18 +19,30 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * @author yugandhark
+ * The Class Affiliations.
  *
+ * @author yugandhark
  */
 public class Affiliations {
 
+    /** The affiliation. */
     @JsonProperty("Affiliation")
     private List<Affiliation> affiliation;
 
+    /**
+     * Gets the affiliation.
+     *
+     * @return the affiliation
+     */
     public final List<Affiliation> getAffiliation() {
         return affiliation;
     }
 
+    /**
+     * Sets the affiliation.
+     *
+     * @param affiliation the new affiliation
+     */
     public final void setAffiliation(final List<Affiliation> affiliation) {
         this.affiliation = affiliation;
     }

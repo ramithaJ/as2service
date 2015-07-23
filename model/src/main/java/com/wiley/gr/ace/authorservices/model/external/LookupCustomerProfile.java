@@ -17,18 +17,30 @@ package com.wiley.gr.ace.authorservices.model.external;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * @author yugandhark
+ * The Class LookupCustomerProfile.
  *
+ * @author yugandhark
  */
 public class LookupCustomerProfile {
 
+    /** The lookup customer profile response. */
     @JsonProperty("LookupCustomerProfileResponse")
     private LookupCustomerProfileResponse lookupCustomerProfileResponse;
 
+    /**
+     * Gets the lookup customer profile response.
+     *
+     * @return the lookup customer profile response
+     */
     public final LookupCustomerProfileResponse getLookupCustomerProfileResponse() {
         return lookupCustomerProfileResponse;
     }
 
+    /**
+     * Sets the lookup customer profile response.
+     *
+     * @param lookupCustomerProfileResponse the new lookup customer profile response
+     */
     public final void setLookupCustomerProfileResponse(
             final LookupCustomerProfileResponse lookupCustomerProfileResponse) {
         this.lookupCustomerProfileResponse = lookupCustomerProfileResponse;

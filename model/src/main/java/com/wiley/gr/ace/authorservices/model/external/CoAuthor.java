@@ -19,46 +19,60 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * @author virtusa version 1.0
+ * The Class CoAuthor.
  *
+ * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
 public class CoAuthor {
 
+    /** The id. */
     @JsonProperty("Id")
     private String id;
 
+    /** The user id. */
     @JsonProperty("UserId")
     private String userId;
 
+    /** The email id. */
     @JsonProperty("EmailId")
     private String emailId;
 
+    /** The first name. */
     @JsonProperty("FirstName")
     private String firstName;
 
+    /** The last name. */
     @JsonProperty("LastName")
     private String lastName;
 
+    /** The institution code. */
     @JsonProperty("InstitutionCd")
     private String institutionCode;
 
+    /** The inst name. */
     @JsonProperty("InstitutionName")
     private String instName;
 
+    /** The department code. */
     @JsonProperty("DepartmentCd")
     private String departmentCode;
 
+    /** The dept name. */
     @JsonProperty("DepartmentName")
     private String deptName;
 
+    /** The phone no. */
     @JsonProperty("PhoneNo")
     private String phoneNo;
 
+    /** The status. */
     @JsonProperty("Status")
     private String status;
 
     /**
+     * Gets the id.
+     *
      * @return the id
      */
     public final String getId() {
@@ -66,14 +80,17 @@ public class CoAuthor {
     }
 
     /**
-     * @param id
-     *            the id to set
+     * Sets the id.
+     *
+     * @param id            the id to set
      */
     public final void setId(final String id) {
         this.id = id;
     }
 
     /**
+     * Gets the user id.
+     *
      * @return the userId
      */
     public final String getUserId() {
@@ -81,14 +98,17 @@ public class CoAuthor {
     }
 
     /**
-     * @param userId
-     *            the userId to set
+     * Sets the user id.
+     *
+     * @param userId            the userId to set
      */
     public final void setUserId(final String userId) {
         this.userId = userId;
     }
 
     /**
+     * Gets the email id.
+     *
      * @return the emailId
      */
     public final String getEmailId() {
@@ -96,14 +116,17 @@ public class CoAuthor {
     }
 
     /**
-     * @param emailId
-     *            the emailId to set
+     * Sets the email id.
+     *
+     * @param emailId            the emailId to set
      */
     public final void setEmailId(final String emailId) {
         this.emailId = emailId;
     }
 
     /**
+     * Gets the first name.
+     *
      * @return the firstName
      */
     public final String getFirstName() {
@@ -111,14 +134,17 @@ public class CoAuthor {
     }
 
     /**
-     * @param firstName
-     *            the firstName to set
+     * Sets the first name.
+     *
+     * @param firstName            the firstName to set
      */
     public final void setFirstName(final String firstName) {
         this.firstName = firstName;
     }
 
     /**
+     * Gets the last name.
+     *
      * @return the lastName
      */
     public final String getLastName() {
@@ -126,14 +152,17 @@ public class CoAuthor {
     }
 
     /**
-     * @param lastName
-     *            the lastName to set
+     * Sets the last name.
+     *
+     * @param lastName            the lastName to set
      */
     public final void setLastName(final String lastName) {
         this.lastName = lastName;
     }
 
     /**
+     * Gets the institution code.
+     *
      * @return the institutionCode
      */
     public final String getInstitutionCode() {
@@ -141,14 +170,17 @@ public class CoAuthor {
     }
 
     /**
-     * @param institutionCode
-     *            the institutionCode to set
+     * Sets the institution code.
+     *
+     * @param institutionCode            the institutionCode to set
      */
     public final void setInstitutionCode(final String institutionCode) {
         this.institutionCode = institutionCode;
     }
 
     /**
+     * Gets the inst name.
+     *
      * @return the instName
      */
     public final String getInstName() {
@@ -156,14 +188,17 @@ public class CoAuthor {
     }
 
     /**
-     * @param instName
-     *            the instName to set
+     * Sets the inst name.
+     *
+     * @param instName            the instName to set
      */
     public final void setInstName(final String instName) {
         this.instName = instName;
     }
 
     /**
+     * Gets the department code.
+     *
      * @return the departmentCode
      */
     public final String getDepartmentCode() {
@@ -171,14 +206,17 @@ public class CoAuthor {
     }
 
     /**
-     * @param departmentCode
-     *            the departmentCode to set
+     * Sets the department code.
+     *
+     * @param departmentCode            the departmentCode to set
      */
     public final void setDepartmentCode(final String departmentCode) {
         this.departmentCode = departmentCode;
     }
 
     /**
+     * Gets the dept name.
+     *
      * @return the deptName
      */
     public final String getDeptName() {
@@ -186,14 +224,17 @@ public class CoAuthor {
     }
 
     /**
-     * @param deptName
-     *            the deptName to set
+     * Sets the dept name.
+     *
+     * @param deptName            the deptName to set
      */
     public final void setDeptName(final String deptName) {
         this.deptName = deptName;
     }
 
     /**
+     * Gets the phone no.
+     *
      * @return the phoneNo
      */
     public final String getPhoneNo() {
@@ -201,14 +242,17 @@ public class CoAuthor {
     }
 
     /**
-     * @param phoneNo
-     *            the phoneNo to set
+     * Sets the phone no.
+     *
+     * @param phoneNo            the phoneNo to set
      */
     public final void setPhoneNo(final String phoneNo) {
         this.phoneNo = phoneNo;
     }
 
     /**
+     * Gets the status.
+     *
      * @return the status
      */
     public final String getStatus() {
@@ -216,8 +260,9 @@ public class CoAuthor {
     }
 
     /**
-     * @param status
-     *            the status to set
+     * Sets the status.
+     *
+     * @param status            the status to set
      */
     public final void setStatus(final String status) {
         this.status = status;

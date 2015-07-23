@@ -15,8 +15,9 @@
 package com.wiley.gr.ace.authorservices.model.external;
 
 /**
- * @author yugandhark
+ * The Class Interest.
  *
+ * @author yugandhark
  */
 public class Interest {
 

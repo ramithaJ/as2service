@@ -19,18 +19,30 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * @author yugandhark
+ * The Class ResearchFunders.
  *
+ * @author yugandhark
  */
 public class ResearchFunders {
 
+    /** The research funder. */
     @JsonProperty("ResearchFunder")
     private List<ResearchFunder> researchFunder;
 
+    /**
+     * Gets the research funder.
+     *
+     * @return the research funder
+     */
     public final List<ResearchFunder> getResearchFunder() {
         return researchFunder;
     }
 
+    /**
+     * Sets the research funder.
+     *
+     * @param researchFunder the new research funder
+     */
     public final void setResearchFunder(final List<ResearchFunder> researchFunder) {
         this.researchFunder = researchFunder;
     }

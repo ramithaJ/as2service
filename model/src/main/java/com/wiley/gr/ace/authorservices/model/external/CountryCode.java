@@ -17,18 +17,30 @@ package com.wiley.gr.ace.authorservices.model.external;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * @author yugandhark
+ * The Class CountryCode.
  *
+ * @author yugandhark
  */
 public class CountryCode {
 
+    /** The nil. */
     @JsonProperty("nil")
     private String nil;
 
+    /**
+     * Gets the nil.
+     *
+     * @return the nil
+     */
     public final String getNil() {
         return nil;
     }
 
+    /**
+     * Sets the nil.
+     *
+     * @param nil the new nil
+     */
     public final void setNil(final String nil) {
         this.nil = nil;
     }

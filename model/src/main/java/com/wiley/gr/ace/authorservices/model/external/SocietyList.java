@@ -19,18 +19,30 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * @author yugandhark
+ * The Class SocietyList.
  *
+ * @author yugandhark
  */
 public class SocietyList {
 
+    /** The Society. */
     @JsonProperty("Society")
     private List<Society> Society;
 
+    /**
+     * Gets the society.
+     *
+     * @return the society
+     */
     public final List<Society> getSociety() {
         return Society;
     }
 
+    /**
+     * Sets the society.
+     *
+     * @param society the new society
+     */
     public final void setSociety(final List<Society> society) {
         Society = society;
     }

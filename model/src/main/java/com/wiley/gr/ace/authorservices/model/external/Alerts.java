@@ -19,18 +19,30 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * @author yugandhark
+ * The Class Alerts.
  *
+ * @author yugandhark
  */
 public class Alerts {
 
+    /** The alert. */
     @JsonProperty("Alert")
     private List<Alert> alert;
 
+    /**
+     * Gets the alert.
+     *
+     * @return the alert
+     */
     public final List<Alert> getAlert() {
         return alert;
     }
 
+    /**
+     * Sets the alert.
+     *
+     * @param alert the new alert
+     */
     public final void setAlert(final List<Alert> alert) {
         this.alert = alert;
     }

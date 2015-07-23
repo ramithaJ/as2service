@@ -19,18 +19,30 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * @author yugandhark
+ * The Class SystemSecurityQuestions.
  *
+ * @author yugandhark
  */
 public class SystemSecurityQuestions {
 
+    /** The security question list. */
     @JsonProperty("SecurityQuestionList")
     private List<String> securityQuestionList;
 
+    /**
+     * Gets the security question list.
+     *
+     * @return the security question list
+     */
     public final List<String> getSecurityQuestionList() {
         return securityQuestionList;
     }
 
+    /**
+     * Sets the security question list.
+     *
+     * @param securityQuestionList the new security question list
+     */
     public final void setSecurityQuestionList(final List<String> securityQuestionList) {
         this.securityQuestionList = securityQuestionList;
     }

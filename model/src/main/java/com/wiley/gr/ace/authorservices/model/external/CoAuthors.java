@@ -19,18 +19,30 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * @author yugandhark
+ * The Class CoAuthors.
  *
+ * @author yugandhark
  */
 public class CoAuthors {
 
+    /** The co author. */
     @JsonProperty("CoAuthor")
     private List<CoAuthor> coAuthor;
 
+    /**
+     * Gets the co author.
+     *
+     * @return the co author
+     */
     public final List<CoAuthor> getCoAuthor() {
         return coAuthor;
     }
 
+    /**
+     * Sets the co author.
+     *
+     * @param coAuthor the new co author
+     */
     public final void setCoAuthor(final List<CoAuthor> coAuthor) {
         this.coAuthor = coAuthor;
     }
