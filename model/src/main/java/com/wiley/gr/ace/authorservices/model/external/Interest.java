@@ -9,35 +9,15 @@
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
  *******************************************************************************/
+/**
+ * 
+ */
 package com.wiley.gr.ace.authorservices.model.external;
 
 /**
- * The Class Affiliations.
- * 
- * @author virtusa version 1.0
+ * @author yugandhark
+ *
  */
-public class Affiliations {
-
-    /** The affiliation. */
-    private AffiliationElement[] affiliation;
-
-    /**
-     * Gets the affiliation.
-     *
-     * @return the affiliation
-     */
-    public final AffiliationElement[] getAffiliation() {
-        return affiliation;
-    }
-
-    /**
-     * Sets the affiliation.
-     *
-     * @param affiliation
-     *            the affiliation to set
-     */
-    public final void setAffiliation(final AffiliationElement[] affiliation) {
-        this.affiliation = affiliation;
-    }
+public class Interest {
 
 }

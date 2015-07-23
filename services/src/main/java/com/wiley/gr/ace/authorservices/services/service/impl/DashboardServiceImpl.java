@@ -24,14 +24,14 @@ import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.Dashboard;
 import com.wiley.gr.ace.authorservices.model.DashboardInfo;
+import com.wiley.gr.ace.authorservices.model.external.Affiliation;
+import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
+import com.wiley.gr.ace.authorservices.model.external.CustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.DashboardView;
-import com.wiley.gr.ace.authorservices.model.external.lookup.Affiliation;
-import com.wiley.gr.ace.authorservices.model.external.lookup.CustomerDetails;
-import com.wiley.gr.ace.authorservices.model.external.lookup.CustomerProfile;
-import com.wiley.gr.ace.authorservices.model.external.lookup.Interest;
-import com.wiley.gr.ace.authorservices.model.external.lookup.LookupCustomerProfile;
-import com.wiley.gr.ace.authorservices.model.external.lookup.ResearchFunder;
-import com.wiley.gr.ace.authorservices.model.external.lookup.Society;
+import com.wiley.gr.ace.authorservices.model.external.Interest;
+import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
+import com.wiley.gr.ace.authorservices.model.external.ResearchFunder;
+import com.wiley.gr.ace.authorservices.model.external.Society;
 import com.wiley.gr.ace.authorservices.services.service.DashboardService;
 
 /**

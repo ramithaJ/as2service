@@ -20,10 +20,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
-import com.wiley.gr.ace.authorservices.model.external.lookup.CustomerDetails;
-import com.wiley.gr.ace.authorservices.model.external.lookup.CustomerProfile;
-import com.wiley.gr.ace.authorservices.model.external.lookup.LookupCustomerProfile;
-import com.wiley.gr.ace.authorservices.model.external.lookup.LookupCustomerProfileResponse;
+import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
+import com.wiley.gr.ace.authorservices.model.external.CustomerProfile;
+import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
+import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfileResponse;
 import com.wiley.gr.ace.authorservices.services.service.UpdateUserService;
 
 /**

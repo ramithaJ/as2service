@@ -12,7 +12,7 @@
 /**
  * 
  */
-package com.wiley.gr.ace.authorservices.model.external.lookup;
+package com.wiley.gr.ace.authorservices.model.external;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -20,17 +20,28 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author yugandhark
  *
  */
-public class CountryCode {
+public class RetrieveSecurityQuestions {
 
-    @JsonProperty("nil")
-    private String nil;
+    @JsonProperty("Status")
+    private String status;
 
-    public final String getNil() {
-        return nil;
+    @JsonProperty("SystemSecurityQuestions")
+    private SystemSecurityQuestions systemSecurityQuestions;
+
+    public final String getStatus() {
+        return status;
     }
 
-    public final void setNil(final String nil) {
-        this.nil = nil;
+    public final void setStatus(final String status) {
+        this.status = status;
     }
 
+    public final SystemSecurityQuestions getSystemSecurityQuestions() {
+        return systemSecurityQuestions;
+    }
+
+    public final void setSystemSecurityQuestions(
+            final SystemSecurityQuestions systemSecurityQuestions) {
+        this.systemSecurityQuestions = systemSecurityQuestions;
+    }
 }

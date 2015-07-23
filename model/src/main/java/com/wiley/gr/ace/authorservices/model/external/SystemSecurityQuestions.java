@@ -9,35 +9,29 @@
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
  *******************************************************************************/
+/**
+ * 
+ */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
- * The Class AreaOfInterest.
- * 
- * @author virtusa version 1.0
+ * @author yugandhark
+ *
  */
-public class AreaOfInterest {
+public class SystemSecurityQuestions {
 
-    /** The interest. */
-    private String[] interest;
+    @JsonProperty("SecurityQuestionList")
+    private List<String> securityQuestionList;
 
-    /**
-     * Gets the interest.
-     *
-     * @return the interest
-     */
-    public final String[] getInterest() {
-        return interest;
+    public final List<String> getSecurityQuestionList() {
+        return securityQuestionList;
     }
 
-    /**
-     * Sets the interest.
-     *
-     * @param interest
-     *            the interest to set
-     */
-    public final void setInterest(final String[] interest) {
-        this.interest = interest;
+    public final void setSecurityQuestionList(final List<String> securityQuestionList) {
+        this.securityQuestionList = securityQuestionList;
     }
-
 }

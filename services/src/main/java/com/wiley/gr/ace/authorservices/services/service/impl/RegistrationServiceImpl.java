@@ -62,27 +62,27 @@ public class RegistrationServiceImpl implements RegistrationService {
         String status = null;
         Status statusObj = null;
         if (null != user) {
-            ProfileInformation profileInformation = new ProfileInformation();
-            CustomerProfile customerProfile = new CustomerProfile();
-            CustomerDetails customerDetails = new CustomerDetails();
-            AddressDetails cuAddressDetails = new AddressDetails();
-            List<AddressElement> addressElements = new ArrayList<AddressElement>();
-            AddressElement addressElement = new AddressElement();
+            final ProfileInformation profileInformation = new ProfileInformation();
+            final CustomerProfile customerProfile = new CustomerProfile();
+            final CustomerDetails customerDetails = new CustomerDetails();
+            final AddressDetails cuAddressDetails = new AddressDetails();
+            final List<AddressElement> addressElements = new ArrayList<AddressElement>();
+            final AddressElement addressElement = new AddressElement();
 
-            customerDetails.setFirstname(user.getFirstName());
-            customerDetails.setLastname(user.getLastName());
+            customerDetails.setfName(user.getFirstName());
+            customerDetails.setlName(user.getLastName());
             customerDetails.setPassword(user.getPassword());
             if (!StringUtils.isEmpty(user.getInvitationGuid())) {
                 final InviteResetpwdLog inviteResetpwdLog = registrationServiceDAO
                         .getInvitationRecords(user.getInvitationGuid());
                 if (inviteResetpwdLog.getEmailAddress().equalsIgnoreCase(
                         user.getPrimaryEmailAddr())) {
-                    customerDetails.setSecondaryemail(inviteResetpwdLog
+                    customerDetails.setSecondaryEmail(inviteResetpwdLog
                             .getEmailAddress());
                 }
 
             }
-            customerDetails.setPrimaryemail(user.getPrimaryEmailAddr());
+            customerDetails.setPrimaryEmail(user.getPrimaryEmailAddr());
 
             addressElement.setCountrycode(user.getCountry().getCountryCode());
             addressElement.setCountryName(user.getCountry().getCountryName());
@@ -90,8 +90,8 @@ public class RegistrationServiceImpl implements RegistrationService {
             addressElements.add(addressElement);
             cuAddressDetails.setAddress(addressElements);
 
-            customerProfile.setCustomerdetails(customerDetails);
-            customerProfile.setAddressdetails(cuAddressDetails);
+            customerProfile.setCustomerDetails(customerDetails);
+            customerProfile.setAddressDetails(cuAddressDetails);
 
             profileInformation.setCustomerprofile(customerProfile);
 
@@ -210,7 +210,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Override
     public final InviteRecords searchInvitationRecord(final String guid)
             throws Exception {
-        InviteRecords inviteRecord = new InviteRecords();
+        final InviteRecords inviteRecord = new InviteRecords();
         InviteResetpwdLog inviteRecordFromDB = null;
         inviteRecordFromDB = registrationServiceDAO.getInvitationRecords(guid);
         inviteRecord.setEmailAddress(inviteRecordFromDB.getEmailAddress());

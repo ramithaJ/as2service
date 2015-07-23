@@ -26,8 +26,8 @@ import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
 import com.wiley.gr.ace.authorservices.model.external.Industries;
 import com.wiley.gr.ace.authorservices.model.external.JobCategories;
+import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
-import com.wiley.gr.ace.authorservices.model.external.lookup.LookupCustomerProfile;
 
 /**
  * The Class UserProfilesImpl.

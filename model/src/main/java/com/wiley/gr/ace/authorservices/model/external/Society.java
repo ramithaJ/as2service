@@ -12,7 +12,7 @@
 /**
  * 
  */
-package com.wiley.gr.ace.authorservices.model.external.lookup;
+package com.wiley.gr.ace.authorservices.model.external;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

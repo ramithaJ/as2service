@@ -12,7 +12,7 @@
 /**
  * 
  */
-package com.wiley.gr.ace.authorservices.model.external.lookup;
+package com.wiley.gr.ace.authorservices.model.external;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -20,17 +20,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author yugandhark
  *
  */
-public class Address {
+public class LookupCustomerProfileResponse {
 
-    @JsonProperty("CountryCode")
-    private CountryCode countryCode;
+    @JsonProperty("CustomerProfile")
+    private CustomerProfile customerProfile;
 
-    public final CountryCode getCountryCode() {
-        return countryCode;
+    public final CustomerProfile getCustomerProfile() {
+        return customerProfile;
     }
 
-    public final void setCountryCode(final CountryCode countryCode) {
-        this.countryCode = countryCode;
+    public final void setCustomerProfile(final CustomerProfile customerProfile) {
+        this.customerProfile = customerProfile;
     }
 
 }

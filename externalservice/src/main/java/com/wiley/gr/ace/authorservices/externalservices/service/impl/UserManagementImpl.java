@@ -25,10 +25,10 @@ import com.wiley.gr.ace.authorservices.model.external.ErrorPayLoad;
 import com.wiley.gr.ace.authorservices.model.external.PasswordRequest;
 import com.wiley.gr.ace.authorservices.model.external.PasswordResetRequest;
 import com.wiley.gr.ace.authorservices.model.external.ResponseStatus;
+import com.wiley.gr.ace.authorservices.model.external.RetrieveSecurityQuestions;
 import com.wiley.gr.ace.authorservices.model.external.SecuirtyQuestionDetails;
 import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
 import com.wiley.gr.ace.authorservices.model.external.UserEmailDetails;
-import com.wiley.gr.ace.authorservices.model.external.lookup.RetrieveSecurityQuestions;
 
 /**
  * The Class UserManagementImpl.

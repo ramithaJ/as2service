@@ -14,6 +14,8 @@ package com.wiley.gr.ace.authorservices.model.external;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * The Class AddressDetails.
  * 
@@ -22,6 +24,7 @@ import java.util.List;
 public class AddressDetails {
 
     /** The address. */
+    @JsonProperty("Address")
     private List<AddressElement> address;
 
     /**

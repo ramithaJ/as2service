@@ -12,9 +12,7 @@
 /**
  * 
  */
-package com.wiley.gr.ace.authorservices.model.external.lookup;
-
-import java.util.List;
+package com.wiley.gr.ace.authorservices.model.external;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -22,17 +20,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author yugandhark
  *
  */
-public class ResearchFunders {
+public class CountryCode {
 
-    @JsonProperty("ResearchFunder")
-    private List<ResearchFunder> researchFunder;
+    @JsonProperty("nil")
+    private String nil;
 
-    public final List<ResearchFunder> getResearchFunder() {
-        return researchFunder;
+    public final String getNil() {
+        return nil;
     }
 
-    public final void setResearchFunder(final List<ResearchFunder> researchFunder) {
-        this.researchFunder = researchFunder;
+    public final void setNil(final String nil) {
+        this.nil = nil;
     }
 
 }

@@ -9,35 +9,30 @@
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
  *******************************************************************************/
-
+/**
+ * 
+ */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
- * The Class FavoriteJournals.
- * 
- * @author virtusa version 1.0
+ * @author yugandhark
+ *
  */
-public class FavoriteJournals {
+public class ProfileVisibility {
 
-    /** The journal. */
-    private JournalElement[] journal;
+    @JsonProperty("Visibility")
+    private List<Visibility> visibility;
 
-    /**
-     * Gets the journal.
-     *
-     * @return the journal
-     */
-    public final JournalElement[] getJournal() {
-        return journal;
+    public final List<Visibility> getVisibility() {
+        return visibility;
     }
 
-    /**
-     * Sets the journal.
-     *
-     * @param journal
-     *            the journal to set
-     */
-    public final void setJournal(final JournalElement[] journal) {
-        this.journal = journal;
+    public final void setVisibility(final List<Visibility> visibility) {
+        this.visibility = visibility;
     }
+
 }

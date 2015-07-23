@@ -12,9 +12,7 @@
 /**
  * 
  */
-package com.wiley.gr.ace.authorservices.model.external.lookup;
-
-import java.util.List;
+package com.wiley.gr.ace.authorservices.model.external;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -22,17 +20,27 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author yugandhark
  *
  */
-public class ProfileVisibility {
+public class Visibility {
+
+    @JsonProperty("AttributeCode")
+    private String attributeCode;
 
     @JsonProperty("Visibility")
-    private List<Visibility> visibility;
+    private String visibility;
 
-    public final List<Visibility> getVisibility() {
+    public final String getAttributeCode() {
+        return attributeCode;
+    }
+
+    public final void setAttributeCode(final String attributeCode) {
+        this.attributeCode = attributeCode;
+    }
+
+    public final String getVisibility() {
         return visibility;
     }
 
-    public final void setVisibility(final List<Visibility> visibility) {
+    public final void setVisibility(final String visibility) {
         this.visibility = visibility;
     }
-
 }
