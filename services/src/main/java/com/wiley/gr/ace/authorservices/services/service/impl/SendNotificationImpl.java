@@ -1,0 +1,51 @@
+/*******************************************************************************
+ * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
+ *
+ * All material contained herein is proprietary to John Wiley & Sons 
+ * and its third party suppliers, if any. The methods, techniques and 
+ * technical concepts contained herein are considered trade secrets 
+ * and confidential and may be protected by intellectual property laws.  
+ * Reproduction or distribution of this material, in whole or in part, 
+ * is strictly forbidden except by express prior written permission 
+ * of John Wiley & Sons.
+ *******************************************************************************/
+
+package com.wiley.gr.ace.authorservices.services.service.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.wiley.gr.ace.authorservices.externalservices.service.NotificationService;
+import com.wiley.gr.ace.authorservices.model.NotificationResponse;
+import com.wiley.gr.ace.authorservices.model.external.NotificationFieldList;
+import com.wiley.gr.ace.authorservices.model.external.NotificationRequest;
+import com.wiley.gr.ace.authorservices.services.service.SendNotification;
+
+public class SendNotificationImpl implements SendNotification {
+
+    @Autowired(required = true)
+    private NotificationService notificationService;
+
+    @Override
+    public NotificationResponse notifyByEmail(String emailId) {
+
+        String appId = "23";
+        String templateId = "112";
+        String type = "email";
+        NotificationRequest notificationRequest = new NotificationRequest();
+        notificationRequest.setFrom("rasinha@wiley.com");
+        notificationRequest.setTo(emailId);
+        NotificationFieldList notificationFieldList = new NotificationFieldList();
+        List<String> listofFields=new ArrayList<String>();
+        listofFields.add("ravi");
+        listofFields.add("Test");
+        listofFields.add("google");
+        notificationFieldList.setFieldList(listofFields);
+        notificationRequest.setTemplateDetails(notificationFieldList);
+        return notificationService.sendNotification(appId, type, templateId, notificationRequest);
+        
+    }
+
+}

@@ -35,6 +35,7 @@ import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
+import com.wiley.gr.ace.authorservices.services.service.SendNotification;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 
 /**
@@ -67,6 +68,12 @@ public class UserLoginController extends ASExceptionController {
      */
     @Autowired(required = true)
     private UserLoginServiceDAO userLoginServiceDAO;
+
+    /**
+     * Injecting SendNotification bean.
+     */
+    @Autowired(required = true)
+    private SendNotification sendNotification;
 
     /**
      * This field holds the value of SUCCESS.
@@ -235,8 +242,9 @@ public class UserLoginController extends ASExceptionController {
     @RequestMapping(value = "resetByEmail/{emailId}", method = RequestMethod.POST)
     public final Service resetByEmail(
             @PathVariable("emailId") final String emailId) {
-
-        return new Service();
+        Service service = new Service();
+        service.setPayload(sendNotification.notifyByEmail(emailId));
+        return service;
     }
 
     /**
