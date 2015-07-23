@@ -250,4 +250,14 @@ public class UserLoginController extends ASExceptionController {
         return new Service();
     }
 
+    @RequestMapping(value = "create/{fn}/{ln}/{email}/", method = RequestMethod.GET)
+    public final Service createGuid(@PathVariable("fn") final String firstName,
+            @PathVariable("ln") final String lastName,
+            @PathVariable("email") final String emailAddress) {
+        Service service = new Service();
+        service.setPayload(userLoginService.insertGuid(firstName, lastName,
+                emailAddress));
+        return service;
+    }
+
 }

@@ -281,10 +281,9 @@ public class UserLoginServiceImpl implements UserLoginService {
 
     /** This method will call user login dao to create a record in db */
     @Override
-    public void insertGuid(final String firstName, final String lastName,
+    public String insertGuid(final String firstName, final String lastName,
             final String emailAddress) {
         InviteResetpwdLog inviteResetpwdLog = new InviteResetpwdLog();
-        inviteResetpwdLog.setGuid("1126");
         inviteResetpwdLog.setFirstName(firstName);
         inviteResetpwdLog.setLastName(lastName);
         inviteResetpwdLog.setEmailAddress(emailAddress);
@@ -292,7 +291,7 @@ public class UserLoginServiceImpl implements UserLoginService {
                 .setType(AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS_TYPE);
         inviteResetpwdLog
                 .setStatus(AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS);
-        userLoginServiceDAO.insertGuid(inviteResetpwdLog);
+        return userLoginServiceDAO.insertGuid(inviteResetpwdLog);
 
     }
 }

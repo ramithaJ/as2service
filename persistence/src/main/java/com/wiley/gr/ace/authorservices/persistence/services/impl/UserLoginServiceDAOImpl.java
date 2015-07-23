@@ -15,10 +15,10 @@ import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateCo
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Value;
 
-import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
@@ -156,24 +156,31 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
     }
 
     /** This method will inserts a record in db */
+    @SuppressWarnings("unchecked")
     @Override
-    public void insertGuid(InviteResetpwdLog inviteResetpwdLog) {
+    public String insertGuid(final InviteResetpwdLog inviteResetpwdLog) {
 
         Session session = null;
+        Integer maxValue = null;
         try {
             session = getSessionFactory().openSession();
             session.beginTransaction();
 
+            Criteria criteria = session.createCriteria(InviteResetpwdLog.class);
+            criteria.setProjection(Projections.max("guid"));
+            String maxGuid = (String) criteria.uniqueResult();
+            maxValue = (Integer.parseInt(maxGuid) + 1);
+            inviteResetpwdLog.setGuid(String.valueOf(maxValue));
             session.save(inviteResetpwdLog);
             session.getTransaction().commit();
         } finally {
             if (null != session) {
                 session.flush();
                 session.close();
-
             }
-
         }
+        return maxValue.toString();
+
     }
 
 }
