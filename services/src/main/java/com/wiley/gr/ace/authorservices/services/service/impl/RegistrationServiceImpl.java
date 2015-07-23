@@ -27,7 +27,6 @@ import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
 import com.wiley.gr.ace.authorservices.model.external.CustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 import com.wiley.gr.ace.authorservices.model.external.ProfileInformation;
-import com.wiley.gr.ace.authorservices.model.external.Status;
 import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
 import com.wiley.gr.ace.authorservices.persistence.services.RegistrationServiceDAO;
 import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
@@ -60,7 +59,6 @@ public class RegistrationServiceImpl implements RegistrationService {
     public final String createUser(final User user) throws Exception {
 
         String status = null;
-        Status statusObj = null;
         if (null != user) {
             final ProfileInformation profileInformation = new ProfileInformation();
             final CustomerProfile customerProfile = new CustomerProfile();
@@ -95,17 +93,9 @@ public class RegistrationServiceImpl implements RegistrationService {
 
             profileInformation.setCustomerprofile(customerProfile);
 
-            statusObj = esbInterFaceService.creatUser(profileInformation);
+            status = esbInterFaceService.creatUser(profileInformation);
         }
-        if (null != statusObj) {
-            if ("SUCCESS".equalsIgnoreCase(statusObj.getStatus())) {
-                status = "SUCCESS";
-            } else {
-                status = "FAILURE";
-            }
-        } else {
-            status = "FAILURE";
-        }
+
         return status;
     }
 

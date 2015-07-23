@@ -14,6 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -21,30 +23,29 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * 
  * @author virtusa version 1.0
  */
-public class SearchUserResult {
+public class SearchUserResult extends ErrorResponse {
 
-    /** The search user response. */
-    @JsonProperty("SearchUserResponse")
-    private SearchUserResponse searchUserResponse;
+    @JsonProperty("status")
+    private String status;
 
-    /**
-     * Gets the search user response.
-     *
-     * @return the searchUserResponse
-     */
-    public final SearchUserResponse getSearchUserResponse() {
-        return searchUserResponse;
+    @JsonProperty("SearchCustomerResponse")
+    private List<ESBUser> searchCustomerResponse;
+
+    public final String getStatus() {
+        return status;
     }
 
-    /**
-     * Sets the search user response.
-     *
-     * @param searchUserResponse
-     *            the searchUserResponse to set
-     */
-    public final void setSearchUserResponse(
-            final SearchUserResponse searchUserResponse) {
-        this.searchUserResponse = searchUserResponse;
+    public final void setStatus(String status) {
+        this.status = status;
     }
+
+    public final List<ESBUser> getSearchCustomerResponse() {
+        return searchCustomerResponse;
+    }
+
+    public final void setSearchCustomerResponse(List<ESBUser> searchCustomerResponse) {
+        this.searchCustomerResponse = searchCustomerResponse;
+    }
+
 
 }

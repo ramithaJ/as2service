@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
 import com.wiley.gr.ace.authorservices.model.InviteRecords;
 import com.wiley.gr.ace.authorservices.model.Service;
@@ -70,30 +71,17 @@ public class RegistrationController {
             if (!StringUtils.isEmpty(email)) {
                 user = rs.checkEmailIdExists(email);
             } else {
-                ErrorPOJO err = new ErrorPOJO();
-                err.setCode(noDataFoundCode);
-                err.setMessage("Email is null or empty");
-                service.setStatus("FAILURE");
-                service.setError(err);
+                throw new UserException();
             }
             if (user != null) {
-                service.setStatus("FAILURE");
-                ErrorPOJO err = new ErrorPOJO();
-                err.setCode(noDataFoundCode);
-                err.setMessage("Email address exists in the system but not registered with AS 2.0");
-                service.setError(err);
-                service.setPayload(user);
-
+                throw new UserException(noDataFoundCode,
+                        "Email address exists in the system but not registered with AS 2.0");
             } else {
                 service.setStatus("SUCCESS");
             }
         } catch (Exception e) {
-            LOGGER.error("Print Stack Trace- ", e);
-            ErrorPOJO err = new ErrorPOJO();
-            err.setCode(noDataFoundCode);
-            err.setMessage("searching user encountered exception");
-            service.setStatus("ERROR");
-            service.setError(err);
+            throw new UserException(noDataFoundCode,
+                    "searching user encountered exception");
         }
         return service;
     }
@@ -157,41 +145,22 @@ public class RegistrationController {
                     usersList = rs.getUserFromFirstNameLastName(
                             user.getFirstName(), user.getLastName());
                     if (null != usersList) {
-                        service.setStatus("FAILURE");
-                        ErrorPOJO err = new ErrorPOJO();
-                        err.setCode(noDataFoundCode);
-                        err.setMessage("First Name and Last Name already exists");
-                        service.setError(err);
-                        service.setPayload(usersList);
-                        return service;
+                        throw new UserException("223", "User already exists");
                     }
                 }
                 status = rs.createUser(user);
                 if ("success".equalsIgnoreCase(status)) {
                     rs.assignRoleToNewUser(user.getPrimaryEmailAddr());
                 } else {
-                    service.setStatus("FAILURE");
-                    ErrorPOJO err = new ErrorPOJO();
-                    err.setCode(noDataFoundCode);
-                    err.setMessage("Creating user failed");
-                    service.setError(err);
+                    throw new UserException("221", "Creating User Failed");
                 }
             } catch (Exception e) {
-
-                LOGGER.error("Stack Trace", e);
-                ErrorPOJO err = new ErrorPOJO();
-                err.setCode(noDataFoundCode);
-                err.setMessage("searching user encountered exception");
-                service.setStatus("ERROR");
-                service.setError(err);
+                throw new UserException("222",
+                        "Creating User Encountered exception");
             }
 
         } else {
-            ErrorPOJO err = new ErrorPOJO();
-            err.setCode(noDataFoundCode);
-            err.setMessage("User object is empty");
-            service.setStatus("FAILURE");
-            service.setError(err);
+            throw new UserException(noDataFoundCode, "User object is empty");
         }
 
         return service;
