@@ -70,10 +70,10 @@ public class DashboardController {
      */
     @RequestMapping(value = "/profilemeter/{userId}", method = RequestMethod.GET)
     public final Service getProfileMeter(
-            @PathVariable("userId") final int userId) {
+            @PathVariable("userId") final String userId) {
         DashboardController.LOGGER
                 .info("inside getProfileMeter method of DashboardController");
-        Service service = new Service();
+        final Service service = new Service();
         Dashboard dashboard = null;
 
         try {
@@ -83,7 +83,7 @@ public class DashboardController {
             }
         } catch (final Exception e) {
             DashboardController.LOGGER.error("Print Stack Trace- ", e);
-            ErrorPOJO error = new ErrorPOJO();
+            final ErrorPOJO error = new ErrorPOJO();
             error.setCode(getProfileMetererrorcode);
             error.setMessage(getProfileMetererrormessage);
             service.setStatus("ERROR");
@@ -105,7 +105,7 @@ public class DashboardController {
             @PathVariable("userId") final int userId) {
         DashboardController.LOGGER
                 .info("inside viewallauthorarticles method of DashboardController");
-        Service service = new Service();
+        final Service service = new Service();
         DashboardView dashboardView = null;
         try {
             dashboardView = dashboardService.viewDashboard(userId);
@@ -114,7 +114,7 @@ public class DashboardController {
             }
         } catch (final Exception e) {
             DashboardController.LOGGER.error("Print Stack Trace- ", e);
-            ErrorPOJO error = new ErrorPOJO();
+            final ErrorPOJO error = new ErrorPOJO();
             error.setCode(noDataFoundCode);
             error.setMessage("Error Fetching To View All Author Articles");
             service.setStatus("ERROR");

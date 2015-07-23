@@ -64,8 +64,8 @@ public class UpdateUserController {
      */
     @RequestMapping(value = "/orcid/{orcidId}/{userId}", method = RequestMethod.POST)
     public final Service updateOrcidId(@PathVariable final String orcidId,
-            @PathVariable final int userId, @RequestBody final String emailId) {
-        Service service = new Service();
+            @PathVariable final String userId, @RequestBody final String emailId) {
+        final Service service = new Service();
         try {
             service.setPayload(updateUserService.updateOrcidId(emailId,
                     orcidId, userId));
