@@ -85,34 +85,4 @@ public class RestServiceInvokerUtil {
 
     }
 
-    /**
-     * Rest get service invoker.
-     *
-     * @param <T>
-     *            the generic type
-     * @param url
-     *            the url
-     * @param responseEntityClass
-     *            the response entity class
-     * @return the object
-     */
-    public static <T> Object getServiceData(final String url,
-            final Class<T> responseEntityClass) {
-
-        try {
-            ResponseEntity<T> response = new RestTemplate().getForEntity(
-                    new URI(url), responseEntityClass);
-
-            if (null == response) {
-                return new SecurityResponse();
-            }
-            return response.getBody();
-        } catch (URISyntaxException e) {
-
-            throw new ASException();
-
-        }
-
-    }
-
 }

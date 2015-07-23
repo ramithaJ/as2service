@@ -29,6 +29,7 @@ import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.Email;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
+import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.User;
@@ -36,9 +37,13 @@ import com.wiley.gr.ace.authorservices.model.UserProfile;
 import com.wiley.gr.ace.authorservices.model.UserProfileAlerts;
 import com.wiley.gr.ace.authorservices.model.external.PasswordRequest;
 import com.wiley.gr.ace.authorservices.model.external.PasswordUpdate;
+import com.wiley.gr.ace.authorservices.model.external.SecurityQuestionsUpdateRequest;
 import com.wiley.gr.ace.authorservices.model.external.UserEmailDetails;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityAttributes;
+import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestions;
+import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsEntry;
+import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsMap;
 import com.wiley.gr.ace.authorservices.persistence.services.AuthorProfileDao;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 import com.wiley.gr.ace.authorservices.services.service.SendNotification;
@@ -307,11 +312,40 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      */
     @Override
     public final boolean updateSecurityDetails(
-            final SecurityDetailsHolder securityDetails) {
+            final SecurityDetailsHolder securityDetailsHolder) {
 
         AuthorProfileServiceImpl.LOGGER
                 .info("inside updateSecurityDetails Method ");
-        return userManagement.updateSecurityDetails(securityDetails);
+        SecurityQuestionsUpdateRequest securityQuestionsUpdateRequest = new SecurityQuestionsUpdateRequest();
+        UserSecurityQuestions userSecurityQuestions = new UserSecurityQuestions();
+        UserSecurityQuestionsMap userSecurityQuestionsMap = new UserSecurityQuestionsMap();
+        List<UserSecurityQuestionsEntry> userSecurityQuestionsEntryList = new ArrayList<UserSecurityQuestionsEntry>();
+        UserSecurityQuestionsEntry userSecurityQuestionsEntry = null;
+        List<SecurityDetails> securityDetailsList = securityDetailsHolder
+                .getSecurityDetails();
+        for (SecurityDetails securityDetails : securityDetailsList) {
+
+            userSecurityQuestionsEntry = new UserSecurityQuestionsEntry();
+            userSecurityQuestionsEntry.setKey(securityDetails
+                    .getSecurityQuestion());
+            userSecurityQuestionsEntry.setText(securityDetails
+                    .getSecurityAnswer());
+            userSecurityQuestionsEntryList.add(userSecurityQuestionsEntry);
+        }
+        userSecurityQuestionsMap.setEntry(userSecurityQuestionsEntryList);
+        userSecurityQuestions
+                .setUserSecurityQuestionsMap(userSecurityQuestionsMap);
+        securityQuestionsUpdateRequest.setExistingEmail(securityDetailsHolder
+                .getEmailId());
+        securityQuestionsUpdateRequest.setNewPassword(securityDetailsHolder
+                .getPassword());
+        securityQuestionsUpdateRequest
+                .setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
+        securityQuestionsUpdateRequest
+                .setUserSecurityQuestions(userSecurityQuestions);
+
+        return userManagement
+                .updateSecurityDetails(securityQuestionsUpdateRequest);
     }
 
     /**

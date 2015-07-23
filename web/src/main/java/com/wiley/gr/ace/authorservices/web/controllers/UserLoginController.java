@@ -195,7 +195,7 @@ public class UserLoginController extends ASExceptionController {
         LOGGER.info("inside validateSecurityQuestions method");
         Service service = new Service();
         service.setPayload(userLoginService
-                .validateSecurityQuestions(securityDetails.getSecurityDetails()));
+                .validateSecurityQuestions(securityDetails));
 
         return service;
     }
@@ -212,7 +212,7 @@ public class UserLoginController extends ASExceptionController {
             @PathVariable("emailId") final String emailId) {
         LOGGER.info("inside userSecurityQuestions method");
         Service service = new Service();
-        service.setPayload(userLoginService.securityQuestions(emailId));
+        service.setPayload(userLoginService.userSecurityQuestions(emailId));
         return service;
 
     }

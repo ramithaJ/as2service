@@ -29,10 +29,13 @@ import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
 import com.wiley.gr.ace.authorservices.model.external.ForcefulReset;
 import com.wiley.gr.ace.authorservices.model.external.PasswordReset;
 import com.wiley.gr.ace.authorservices.model.external.PasswordResetRequest;
+import com.wiley.gr.ace.authorservices.model.external.RetrieveSecurityQuestions;
+import com.wiley.gr.ace.authorservices.model.external.SecurityQuestionsValidateRequest;
 import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestions;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsEntry;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsMap;
+import com.wiley.gr.ace.authorservices.model.external.ValidateUserSecurityQA;
 import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
@@ -205,11 +208,11 @@ public class UserLoginServiceImpl implements UserLoginService {
      * @return the security details holder
      */
     @Override
-    public final SecurityDetailsHolder securityQuestions(final String emailId) {
+    public final RetrieveSecurityQuestions userSecurityQuestions(
+            final String emailId) {
 
         LOGGER.info("In securityQuestions method");
-
-        return userManagement.getSecurityQuestions(emailId);
+        return userManagement.userSecurityQuestions(emailId);
     }
 
     /**
@@ -221,10 +224,36 @@ public class UserLoginServiceImpl implements UserLoginService {
      */
     @Override
     public final boolean validateSecurityQuestions(
-            final List<SecurityDetails> securityDetails) {
+            final SecurityDetailsHolder securityDetailsHolder) {
 
         LOGGER.info("In validateSecurityQuestions method");
-        return true;
+        SecurityQuestionsValidateRequest securityQuestionsValidateRequest = new SecurityQuestionsValidateRequest();
+        ValidateUserSecurityQA validateUserSecurityQA = new ValidateUserSecurityQA();
+        UserSecurityQuestions userSecurityQuestions = new UserSecurityQuestions();
+        UserSecurityQuestionsMap userSecurityQuestionsMap = new UserSecurityQuestionsMap();
+        List<UserSecurityQuestionsEntry> userSecurityQuestionsEntryList = new ArrayList<UserSecurityQuestionsEntry>();
+        UserSecurityQuestionsEntry userSecurityQuestionsEntry = null;
+        List<SecurityDetails> securityDetailsList = securityDetailsHolder
+                .getSecurityDetails();
+        for (SecurityDetails securityDetails : securityDetailsList) {
+
+            userSecurityQuestionsEntry = new UserSecurityQuestionsEntry();
+            userSecurityQuestionsEntry.setKey(securityDetails
+                    .getSecurityQuestion());
+            userSecurityQuestionsEntry.setText(securityDetails
+                    .getSecurityAnswer());
+            userSecurityQuestionsEntryList.add(userSecurityQuestionsEntry);
+        }
+        userSecurityQuestionsMap.setEntry(userSecurityQuestionsEntryList);
+        userSecurityQuestions
+                .setUserSecurityQuestionsMap(userSecurityQuestionsMap);
+        validateUserSecurityQA.setLogin(securityDetailsHolder.getEmailId());
+        validateUserSecurityQA.setUserSecurityQuestions(userSecurityQuestions);
+        securityQuestionsValidateRequest
+                .setValidateUserSecurityQA(validateUserSecurityQA);
+
+        return userManagement
+                .validateSecurityQuestions(securityQuestionsValidateRequest);
     }
 
     /**

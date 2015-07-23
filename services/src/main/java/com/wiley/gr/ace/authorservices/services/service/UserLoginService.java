@@ -11,12 +11,10 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service;
 
-import java.util.List;
-
 import com.wiley.gr.ace.authorservices.model.Login;
-import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
+import com.wiley.gr.ace.authorservices.model.external.RetrieveSecurityQuestions;
 import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
 
 /**
@@ -62,7 +60,7 @@ public interface UserLoginService {
      *            the email id
      * @return the security details holder
      */
-    SecurityDetailsHolder securityQuestions(String emailId);
+    RetrieveSecurityQuestions userSecurityQuestions(String emailId);
 
     /**
      * Validate security questions.
@@ -71,7 +69,8 @@ public interface UserLoginService {
      *            the security details
      * @return true, if successful
      */
-    boolean validateSecurityQuestions(List<SecurityDetails> securityDetails);
+    boolean validateSecurityQuestions(
+            SecurityDetailsHolder securityDetailsHolder);
 
     /**
      * Reset password.

@@ -144,7 +144,7 @@ public interface AuthorProfileService {
      *            the security details
      * @return true, if successful
      */
-    boolean updateSecurityDetails(SecurityDetailsHolder securityDetails);
+    boolean updateSecurityDetails(SecurityDetailsHolder securityDetailsHolder);
 
     /**
      * Gets the user profile response.
@@ -155,5 +155,5 @@ public interface AuthorProfileService {
      */
     UserProfileResponse getuserProfileResponse(int userId);
 
-   void uploadImage(File image,String userId);
+    void uploadImage(File image, String userId);
 }

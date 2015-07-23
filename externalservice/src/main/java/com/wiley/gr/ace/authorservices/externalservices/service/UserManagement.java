@@ -12,13 +12,13 @@
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
 import com.wiley.gr.ace.authorservices.model.AdminUser;
-import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
 import com.wiley.gr.ace.authorservices.model.external.ForcefulReset;
 import com.wiley.gr.ace.authorservices.model.external.PasswordRequest;
 import com.wiley.gr.ace.authorservices.model.external.PasswordResetRequest;
 import com.wiley.gr.ace.authorservices.model.external.RetrieveSecurityQuestions;
-import com.wiley.gr.ace.authorservices.model.external.SecuirtyQuestionDetails;
+import com.wiley.gr.ace.authorservices.model.external.SecurityQuestionsUpdateRequest;
+import com.wiley.gr.ace.authorservices.model.external.SecurityQuestionsValidateRequest;
 import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
 import com.wiley.gr.ace.authorservices.model.external.UserEmailDetails;
 
@@ -37,26 +37,6 @@ public interface UserManagement {
      * @return the security response
      */
     SecurityResponse authenticateUser(SharedServieRequest sharedServieRequest);
-
-    /**
-     * This method authenticates the user by calling the ALM LDAP Service.
-     *
-     * @param emailId
-     *            the email id
-     * @return true, if successful
-     */
-    boolean authenticateAdminUser(String emailId);
-
-    /**
-     * Authenticate user alm.
-     *
-     * @param emailId
-     *            the email id
-     * @param password
-     *            the password
-     * @return true, if successful
-     */
-    boolean authenticateUserALM(String emailId, String password);
 
     /**
      * Update password.
@@ -99,58 +79,14 @@ public interface UserManagement {
     boolean forceFulReset(ForcefulReset forcefulReset);
 
     /**
-     * Lock user.
-     *
-     * @param emailId
-     *            the email id
-     * @return true, if successful
-     */
-    boolean lockUser(String emailId);
-
-    /**
-     * Un lock user.
-     *
-     * @param emailId
-     *            the email id
-     * @return true, if successful
-     */
-    boolean unLockUser(String emailId);
-
-    /**
-     * Gets the security details.
-     *
-     * @param emailId
-     *            the email id
-     * @return SecurityDetailsHolder
-     */
-    SecurityDetailsHolder getSecurityDetails(String emailId);
-
-    /**
-     * Gets the security questions.
-     *
-     * @param emailId
-     *            the email id
-     * @return SecurityDetailsHolder
-     */
-    SecurityDetailsHolder getSecurityQuestions(String emailId);
-
-    /**
      * Update security details.
      *
      * @param securityDetails
      *            the security details
      * @return true, if successful
      */
-    boolean updateSecurityDetails(SecurityDetailsHolder securityDetails);
-
-    /**
-     * Gets the security question details.
-     *
-     * @param emailId
-     *            the email id
-     * @return the security question details
-     */
-    SecuirtyQuestionDetails getSecurityQuestionDetails(String emailId);
+    boolean updateSecurityDetails(
+            SecurityQuestionsUpdateRequest securityQuestionsUpdateRequest);
 
     /**
      * Find user.
@@ -168,5 +104,19 @@ public interface UserManagement {
      *            the email id
      * @return the security questions list
      */
-    RetrieveSecurityQuestions getSecurityQuestionsList(String emailId);
+    RetrieveSecurityQuestions userSecurityQuestions(String emailId);
+
+    /**
+     * @param emailId
+     * @return
+     */
+    RetrieveSecurityQuestions lookupSecutityQuestions();
+
+    /**
+     * @param securityQuestionsValidateRequest
+     * @return
+     */
+    boolean validateSecurityQuestions(
+            SecurityQuestionsValidateRequest securityQuestionsValidateRequest);
+
 }

@@ -14,6 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * The Class UserSecurityQuestionsEntry.
  *
@@ -25,6 +27,7 @@ public class UserSecurityQuestionsEntry {
     private String key;
 
     /** This field holds the value of text. */
+    @JsonProperty("value")
     private String text;
 
     /**
@@ -39,7 +42,8 @@ public class UserSecurityQuestionsEntry {
     /**
      * Sets the key.
      *
-     * @param key            the key to set
+     * @param key
+     *            the key to set
      */
     public final void setKey(final String key) {
         this.key = key;
@@ -57,7 +61,8 @@ public class UserSecurityQuestionsEntry {
     /**
      * Sets the text.
      *
-     * @param text            the text to set
+     * @param text
+     *            the text to set
      */
     public final void setText(final String text) {
         this.text = text;

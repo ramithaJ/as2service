@@ -32,7 +32,6 @@ import com.wiley.gr.ace.authorservices.model.Interests;
 import com.wiley.gr.ace.authorservices.model.JobCategory;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Role;
-import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.State;
 import com.wiley.gr.ace.authorservices.model.Suffix;
@@ -40,6 +39,7 @@ import com.wiley.gr.ace.authorservices.model.Title;
 import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
 import com.wiley.gr.ace.authorservices.model.external.Industries;
 import com.wiley.gr.ace.authorservices.model.external.JobCategories;
+import com.wiley.gr.ace.authorservices.model.external.RetrieveSecurityQuestions;
 import com.wiley.gr.ace.authorservices.persistence.entity.LookupValues;
 import com.wiley.gr.ace.authorservices.persistence.entity.Roles;
 import com.wiley.gr.ace.authorservices.persistence.entity.Societies;
@@ -383,21 +383,10 @@ public class ASDataServiceImpl implements ASDataService {
      * @return the security questions
      */
     @Override
-    public final List<SecurityDetails> getSecurityQuestions() {
+    public final RetrieveSecurityQuestions getSecurityQuestions() {
 
         LOGGER.info("inside getSecurityQuestions method ");
-
-        List<LookupValues> lookupList = aSDataDAO.getDropDown("SEQ");
-        List<SecurityDetails> securityQuestionsList = new ArrayList<SecurityDetails>();
-        SecurityDetails securityDetails = null;
-        for (LookupValues lookupValues : lookupList) {
-
-            securityDetails = new SecurityDetails();
-            securityDetails.setSecurityQuestionId(lookupValues.getLookupName());
-            securityDetails.setSecurityQuestion(lookupValues.getLookupValue());
-            securityQuestionsList.add(securityDetails);
-        }
-        return securityQuestionsList;
+        return userManagement.lookupSecutityQuestions();
     }
 
     /**

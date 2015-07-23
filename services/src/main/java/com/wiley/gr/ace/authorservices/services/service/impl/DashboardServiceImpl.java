@@ -108,7 +108,7 @@ public class DashboardServiceImpl implements DashboardService {
         DashboardServiceImpl.LOGGER
                 .info("inside getSecurityDetailsForUser Method of DashboardServiceImpl");
         final List<String> systemSecurityQuestionsList = userManagementService
-                .getSecurityQuestionsList(emailId).getSystemSecurityQuestions()
+                .userSecurityQuestions(emailId).getSystemSecurityQuestions()
                 .getSecurityQuestionList();
         DashboardInfo dashboardInfo = null;
         if (StringUtils.isEmpty(systemSecurityQuestionsList)

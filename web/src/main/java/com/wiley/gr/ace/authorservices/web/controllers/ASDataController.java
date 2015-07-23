@@ -237,7 +237,6 @@ public class ASDataController {
         LOGGER.info("inside getSecurityQuestions Method");
         Service service = new Service();
         service.setPayload(aSDataService.getSecurityQuestions());
-
         return service;
     }
 
