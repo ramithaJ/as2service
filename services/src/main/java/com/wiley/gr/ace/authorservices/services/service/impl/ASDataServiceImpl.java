@@ -76,7 +76,7 @@ public class ASDataServiceImpl implements ASDataService {
     private SocietyDao societyDao;
 
     /** The user management. */
-    @Autowired
+    @Autowired(required = true)
     private UserManagement userManagement;
 
     /**

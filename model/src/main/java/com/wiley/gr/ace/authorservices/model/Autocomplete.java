@@ -42,6 +42,9 @@ public class Autocomplete implements Serializable {
 
     /** The clear. */
     private Boolean clear;
+    
+    /** The offset */
+    private Integer offset;
 
     /**
      * Gets the key.
@@ -137,4 +140,19 @@ public class Autocomplete implements Serializable {
     public final void setClear(final Boolean clear) {
         this.clear = clear;
     }
+
+	/**
+	 * @return the offset
+	 */
+	public Integer getOffset() {
+		return offset;
+	}
+
+	/**
+	 * @param offset the offset to set
+	 */
+	public void setOffset(Integer offset) {
+		this.offset = offset;
+	}
+    
 }

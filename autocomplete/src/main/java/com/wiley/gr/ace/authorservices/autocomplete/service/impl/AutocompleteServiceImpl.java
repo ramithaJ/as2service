@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 
 import redis.clients.jedis.Jedis;
@@ -32,136 +34,282 @@ import com.wiley.gr.ace.authorservices.persistence.services.UserAutocomplete;
  */
 public class AutocompleteServiceImpl implements AutocompleteService {
 
-    /** The jedis connection factory. */
-    @Autowired
-    private JedisConnectionFactory jedisConnectionFactory;
+	/** The jedis connection factory. */
+	@Autowired
+	private JedisConnectionFactory jedisConnectionFactory;
 
-    /** The user autocomplete. */
-    @Autowired
-    private UserAutocomplete userAutocomplete;
+	/** The user autocomplete. */
+	@Autowired
+	private UserAutocomplete userAutocomplete;
 
-    /**
-     * Method to get Auto complete data.
-     *
-     * @param key
-     *            - the request value
-     * @param phrase
-     *            - the request value
-     * @param count
-     *            - the request value
-     * @return List
-     *
-     */
-    @Override
-    public final List<String> getAutocompleteData(final String key,
-            final String phrase, final Integer count) {
-        final Jedis redis = new Jedis(jedisConnectionFactory.getShardInfo());
-        if (null == phrase) {
-            redis.close();
-            return new ArrayList<>();
-        }
+	@Value("${autocomplete.count}")
+	private String autocompletecount;
+	
+	/**
+	 * Method to get Auto complete data.
+	 *
+	 * @param key
+	 *            - the request value
+	 * @param phrase
+	 *            - the request value
+	 * @param count
+	 *            - the request value
+	 * @return List
+	 *
+	 */
+	@Override
+	public final List<String> getAutocompleteData(final String key,
+			String phrase, final Integer count) {
+		final Jedis redis = new Jedis(jedisConnectionFactory.getShardInfo());
+		if (null == phrase) {
+			redis.close();
+			return new ArrayList<>();
+		}
 
-        final int prefixLength = phrase.length();
-        Long start = redis.zrank(key, phrase);
-        if (start == null) {
-            start = redis.zrank(key, phrase + "*");
-            if (start == null) {
-                redis.close();
-                return null;
-            }
-        }
+		final int prefixLength = phrase.length();
+		Long start = redis.zrank(key, phrase);
+		if (start == null) {
+			start = redis.zrank(key, phrase + "*");
+			if (start == null) {
+				redis.close();
+				return null;
+			}
+		}
 
-        if (start < 0 || prefixLength == 0) {
-            redis.close();
-            return new ArrayList<>();
-        }
+		if (start < 0 || prefixLength == 0) {
+			redis.close();
+			return new ArrayList<>();
+		}
 
-        final List<String> results = new ArrayList<String>();
-        final int found = 0, rangeLength = 50;
-        int maxNeeded = count;
-        while (found < maxNeeded) {
-            final Set<String> rangeResults = redis.zrange(key, start, start
-                    + rangeLength - 1);
-            start += rangeLength;
-            if (rangeResults.isEmpty()) {
-                break;
-            }
-            for (final String entry : rangeResults) {
-                final int minLength = Math.min(entry.length(), prefixLength);
-                if (!entry.substring(0, minLength).equalsIgnoreCase(
-                        phrase.substring(0, minLength))) {
-                    maxNeeded = results.size();
-                    break;
-                }
-                if (entry.endsWith("*") && results.size() < maxNeeded) {
-                    results.add(entry.substring(0, entry.length() - 1));
-                }
-            }
-        }
+		final List<String> results = new ArrayList<String>();
+		final int found = 0, rangeLength = 50;
+		int maxNeeded = count;
+		while (found < maxNeeded) {
+			final Set<String> rangeResults = redis.zrange(key, start, start
+					+ rangeLength - 1);
 
-        redis.close();
-        return results;
-    }
+			start += rangeLength;
+			if (rangeResults.isEmpty()) {
+				break;
+			}
+			for (final String entry : rangeResults) {
+				final int minLength = Math.min(entry.length(), prefixLength);
+				if (!entry.substring(0, minLength).equalsIgnoreCase(
+						phrase.substring(0, minLength))) {
+					maxNeeded = results.size();
+					break;
+				}
+				if (entry.endsWith("*") && results.size() < maxNeeded) {
+					results.add(entry.substring(0, entry.length() - 1));
+				}
+			}
+		}
 
-    /**
-     * Method to set Auto complete data.
-     *
-     * @param key
-     *            - the request value
-     * @param clear
-     *            - the request value
-     * @return boolean
-     * @throws IOException
-     *             - exception
-     */
-    @Override
-    public final boolean setAutocompleteData(final String key,
-            final Boolean clear) throws IOException {
-        final Jedis redis = new Jedis(jedisConnectionFactory.getShardInfo());
-        final List<String> societyList = userAutocomplete.getSocietyDetails();
-        for (final String word : societyList) {
-            if (null != word) {
-                addWord(word, redis, key);
-            }
-        }
-        redis.close();
-        return true;
-    }
+		redis.close();
+		return results;
+	}
 
-    /**
-     * Adds the word.
-     *
-     * @param word
-     *            the word
-     * @param redis
-     *            the redis
-     * @param redisKey
-     *            the redis key
-     *
-     */
-    private void addWord(final String word, final Jedis redis,
-            final String redisKey) {
-        // Add all the possible prefixes of the given word and also the given
-        // word with a * suffix.
-        redis.zadd(redisKey, 0, word + "*");
-        for (int index = 1, total = word.length(); index < total; index++) {
-            redis.zadd(redisKey, 0, word.substring(0, index));
-        }
-    }
+	/**
+	 * Method to set Auto complete data.
+	 *
+	 * @param key
+	 *            - the request value
+	 * @param clear
+	 *            - the request value
+	 * @return boolean
+	 * @throws IOException
+	 *             - exception
+	 */
+	@Override
+	public final boolean setAutocompleteData(final String key,
+			final Boolean clear) throws IOException {
+		final Jedis redis = new Jedis(jedisConnectionFactory.getShardInfo());
+		final List<String> societyList = userAutocomplete.getSocietyDetails();
+		for (final String word : societyList) {
+			if (null != word) {
+				addWord(word, redis, key);
+			}
+		}
+		redis.close();
+		return true;
+	}
 
-    /**
-     * Method to fulush.
-     *
-     * @param key
-     *            - the request value
-     * @return boolean
-     */
-    @Override
-    public final boolean flush(final String key) {
-        final Jedis redis = new Jedis(jedisConnectionFactory.getShardInfo());
-        redis.del(key);
-        redis.close();
-        return true;
-    }
+	/**
+	 * Adds the word.
+	 *
+	 * @param word
+	 *            the word
+	 * @param redis
+	 *            the redis
+	 * @param redisKey
+	 *            the redis key
+	 *
+	 */
+	private void addWord(final String word, final Jedis redis,
+			final String redisKey) {
+		// Add all the possible prefixes of the given word and also the given
+		// word with a * suffix.
+		redis.zadd(redisKey, 0, word + "*");
+		for (int index = 1, total = word.length(); index < total; index++) {
+			redis.zadd(redisKey, 0, word.substring(0, index));
+		}
+	}
+
+	/**
+	 * Method to flush.
+	 *
+	 * @param key
+	 *            - the request value
+	 * @return boolean
+	 */
+	@Override
+	public final boolean flush(final String key) {
+		final Jedis redis = new Jedis(jedisConnectionFactory.getShardInfo());
+		redis.del(key);
+		redis.close();
+		return true;
+	}
+
+	/**
+	 * Method to retrieve the drop down data
+	 * 
+	 * @param key
+	 * @param phrase
+	 * @param offset
+	 * @return dropDownList
+	 */
+	@Override
+	public List<String> getDropDownData(final String key, String phrase,
+			Integer offset) {
+		List<String> dropDownList = null;
+
+		if (offset == null) {
+			offset = 0;
+		}
+
+		if (phrase != null) {
+			/*
+			 * Auto Complete
+			 */
+			dropDownList = getAutoCompleteDataFromRedis(key, phrase, offset);
+
+			if (dropDownList == null) {
+				dropDownList = getCachedData(key);
+				if (dropDownList != null) {
+					dropDownList = getAutoCompleteDataFromRedis(key, phrase,
+							offset);
+				}
+			}
+
+		} else {
+			/*
+			 * Cacheable
+			 */
+			dropDownList = getCachedData(key);
+			if (dropDownList != null) {
+
+				dropDownList = dropDownList.subList(offset,
+						offset + Integer.parseInt(autocompletecount));
+			}
+		}
+		return dropDownList;
+	}
+
+	/**
+	 * This method returns the auto complete data for the given key, phrase and
+	 * offset.
+	 * 
+	 * @param key
+	 * @param phrase
+	 * @param offset
+	 * @return dropDownList
+	 */
+	private List<String> getAutoCompleteDataFromRedis(final String key,
+			String phrase, final Integer offset) {
+		List<String> dropDownList = null;
+		final Integer found = 0;
+		final Integer rangeLength = 100;
+
+		final Jedis redis = new Jedis(jedisConnectionFactory.getShardInfo());
+
+		StringBuilder phraseBuilder = new StringBuilder();
+		phraseBuilder.append("{\"name\":\"").append(phrase);
+		phrase = phraseBuilder.toString();
+
+		final int prefixLength = phrase.length();
+		// Gets the index of the phrase
+		Long start = redis.zrank(key, phrase);
+		if (start == null) {
+			start = redis.zrank(key, phrase + "*");
+			if (start == null) {
+				redis.close();
+				return dropDownList;
+			}
+		}
+
+		if (start < 0 || prefixLength == 0) {
+			redis.close();
+			return new ArrayList<>();
+		}
+
+		dropDownList = new ArrayList<String>();
+
+		int maxNeeded = Integer.parseInt(autocompletecount);
+		Integer count = -1;
+		while (found < maxNeeded) {
+			final Set<String> rangeResults = redis.zrange(key, start, start
+					+ rangeLength - 1);
+			start += rangeLength;
+			if (rangeResults.isEmpty()) {
+				break;
+			}
+			for (final String entry : rangeResults) {
+				final int minLength = Math.min(entry.length(), prefixLength);
+				if (!entry.substring(0, minLength).equalsIgnoreCase(
+						phrase.substring(0, minLength))) {
+					maxNeeded = dropDownList.size();
+					break;
+				}
+
+				/*
+				 * The name ending with '*' will only be picked as it is the
+				 * complete sentence
+				 */
+				if (entry.endsWith("*") && dropDownList.size() < maxNeeded) {
+					if (offset != null && offset != 0) {
+						count++;
+						if (count >= offset && count < maxNeeded + offset) {
+							dropDownList.add(entry.substring(0,
+									entry.length() - 1));
+						}
+					} else {
+						dropDownList
+								.add(entry.substring(0, entry.length() - 1));
+					}
+
+				}
+			}
+		}
+
+		redis.close();
+		return dropDownList;
+	}
+
+	/**
+	 * This method returns the cached drop down data. If there is no cached
+	 * data, the corresponding service is invoked and the list is set to the
+	 * cache and returns the list.
+	 * 
+	 * @param key
+	 * @return dropDownList
+	 */
+	@Cacheable(value = "dropDownList", key = "#key")
+	private List<String> getCachedData(final String key) {
+		List<String> dropDownList = null;
+
+		// @TODO: Need to implement
+
+		return dropDownList;
+	}
 
 }

@@ -56,5 +56,7 @@ public interface AutocompleteService {
      * @return status
      */
     boolean flush(String key);
+    
+	List<String> getDropDownData(String key, String phrase, Integer offset);
 
 }
