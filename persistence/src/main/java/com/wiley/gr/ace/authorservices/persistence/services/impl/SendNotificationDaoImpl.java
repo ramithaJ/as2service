@@ -76,14 +76,4 @@ public class SendNotificationDaoImpl implements SendNotificationDao {
         return users;
     }
 
-    /**
-     * The main method.
-     *
-     * @param args
-     *            the arguments
-     */
-    public static void main(String[] args) {
-        SendNotificationDaoImpl sendNotificationDaoImpl = new SendNotificationDaoImpl();
-        sendNotificationDaoImpl.getUserProfileByEmail("alley9020@temp.com");
-    }
 }
