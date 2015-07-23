@@ -115,6 +115,12 @@ public class AuthorServicesConstants {
      */
     public static final String SOURCESYSTEM = "AS";
     
+    
+    /**
+     * This field holds the value of GUID
+     */
+    public static final String GUID = "guid";
+    
    
 
 

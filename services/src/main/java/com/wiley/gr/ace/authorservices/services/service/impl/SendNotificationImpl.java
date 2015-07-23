@@ -53,7 +53,7 @@ public class SendNotificationImpl implements SendNotification {
         Users users=sendNotificationDao.getUserProfileByEmail(emailId);
         listofFields.add(users.getFirstName());
         listofFields.add("Test");
-        listofFields.add("google");
+        listofFields.add("www.google.com");
         notificationFieldList.setFieldList(listofFields);
         notificationRequest.setTemplateDetails(notificationFieldList);
         return notificationService.sendNotification(appId, type, templateId,

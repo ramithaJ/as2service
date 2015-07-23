@@ -19,6 +19,7 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Value;
 
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
@@ -167,7 +168,7 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
             session.beginTransaction();
 
             Criteria criteria = session.createCriteria(InviteResetpwdLog.class);
-            criteria.setProjection(Projections.max("guid"));
+            criteria.setProjection(Projections.max(AuthorServicesConstants.GUID));
             String maxGuid = (String) criteria.uniqueResult();
             maxValue = (Integer.parseInt(maxGuid) + 1);
             inviteResetpwdLog.setGuid(String.valueOf(maxValue));
