@@ -26,7 +26,6 @@ import com.wiley.gr.ace.authorservices.model.Login;
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
-import com.wiley.gr.ace.authorservices.model.external.AuthenticationObject;
 import com.wiley.gr.ace.authorservices.model.external.PasswordReset;
 import com.wiley.gr.ace.authorservices.model.external.PasswordResetRequest;
 import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
@@ -184,13 +183,6 @@ public class UserLoginServiceImpl implements UserLoginService {
 
                 passwordReset.setUserSecurityQuestions(userSecurityQuestions);
 
-                AuthenticationObject authenticationObject = new AuthenticationObject();
-                authenticationObject
-                        .setAuthusername(AuthorServicesConstants.AUTHUSERNAME);
-                authenticationObject
-                        .setAuthpassword(AuthorServicesConstants.AUTHPASSWORD);
-
-                passwordReset.setAuthenticationObject(authenticationObject);
                 passwordResetRequest
                         .setUpdateUserSecurityAttributes(passwordReset);
                 status = userManagement.resetPassword(passwordResetRequest);
@@ -211,6 +203,7 @@ public class UserLoginServiceImpl implements UserLoginService {
     public final SecurityDetailsHolder securityQuestions(final String emailId) {
 
         LOGGER.info("In securityQuestions method");
+
         return userManagement.getSecurityQuestions(emailId);
     }
 
@@ -285,21 +278,21 @@ public class UserLoginServiceImpl implements UserLoginService {
         }
 
     }
-    
-/** This method will call user login dao to create a record in db */
+
+    /** This method will call user login dao to create a record in db */
     @Override
-    public void insertGuid(String firstName, String lastName,
-            String emailAddress) {
-       InviteResetpwdLog inviteResetpwdLog = new InviteResetpwdLog();
-       inviteResetpwdLog.setGuid("1126");
-       inviteResetpwdLog.setFirstName(firstName);
-       inviteResetpwdLog.setLastName(lastName);
-       inviteResetpwdLog.setEmailAddress(emailAddress);
-       inviteResetpwdLog
-               .setType(AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS_TYPE);
-       inviteResetpwdLog
-               .setStatus(AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS);
-       userLoginServiceDAO.insertGuid(inviteResetpwdLog);
+    public void insertGuid(final String firstName, final String lastName,
+            final String emailAddress) {
+        InviteResetpwdLog inviteResetpwdLog = new InviteResetpwdLog();
+        inviteResetpwdLog.setGuid("1126");
+        inviteResetpwdLog.setFirstName(firstName);
+        inviteResetpwdLog.setLastName(lastName);
+        inviteResetpwdLog.setEmailAddress(emailAddress);
+        inviteResetpwdLog
+                .setType(AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS_TYPE);
+        inviteResetpwdLog
+                .setStatus(AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS);
+        userLoginServiceDAO.insertGuid(inviteResetpwdLog);
 
     }
 }

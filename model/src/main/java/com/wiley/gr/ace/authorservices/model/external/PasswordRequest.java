@@ -42,12 +42,6 @@ public class PasswordRequest {
     private String sourceSystem;
 
     /**
-     * This field holds the value of authenticationObject
-     */
-    @JsonProperty("AuthenticationObject")
-    private AuthenticationObject authenticationObject;
-
-    /**
      * @return the existingEmail
      */
     public final String getExistingEmail() {
@@ -107,19 +101,4 @@ public class PasswordRequest {
         this.sourceSystem = sourceSystem;
     }
 
-    /**
-     * @return the authenticationObject
-     */
-    public final AuthenticationObject getAuthenticationObject() {
-        return authenticationObject;
-    }
-
-    /**
-     * @param authenticationObject
-     *            the authenticationObject to set
-     */
-    public final void setAuthenticationObject(
-            final AuthenticationObject authenticationObject) {
-        this.authenticationObject = authenticationObject;
-    }
 }

@@ -34,7 +34,6 @@ import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserProfile;
 import com.wiley.gr.ace.authorservices.model.UserProfileAlerts;
-import com.wiley.gr.ace.authorservices.model.external.AuthenticationObject;
 import com.wiley.gr.ace.authorservices.model.external.PasswordRequest;
 import com.wiley.gr.ace.authorservices.model.external.PasswordUpdate;
 import com.wiley.gr.ace.authorservices.model.external.UserEmailDetails;
@@ -257,12 +256,6 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         UserSecurityAttributes userSecurityAttributes = new UserSecurityAttributes();
         userSecurityAttributes.setExistingEmail(email.getExistingEmail());
         userSecurityAttributes.setNewEmail(email.getNewEmail());
-        AuthenticationObject authenticationObject = new AuthenticationObject();
-        authenticationObject
-                .setAuthusername(AuthorServicesConstants.AUTHUSERNAME);
-        authenticationObject
-                .setAuthpassword(AuthorServicesConstants.AUTHPASSWORD);
-        userSecurityAttributes.setAuthenticationObject(authenticationObject);
         userSecurityAttributes
                 .setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
         userEmailDetails
@@ -288,12 +281,6 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         passwordRequest.setExistingPassword(passwordDetails.getOldPassword());
         passwordRequest.setNewPassword(passwordDetails.getNewPassword());
         passwordRequest.setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
-        AuthenticationObject authenticationObject = new AuthenticationObject();
-        authenticationObject
-                .setAuthusername(AuthorServicesConstants.AUTHUSERNAME);
-        authenticationObject
-                .setAuthpassword(AuthorServicesConstants.AUTHPASSWORD);
-        passwordRequest.setAuthenticationObject(authenticationObject);
         passwordUpdate.setUpdateUserSecurityAttributes(passwordRequest);
         return userManagement.updatePassword(passwordRequest);
     }
