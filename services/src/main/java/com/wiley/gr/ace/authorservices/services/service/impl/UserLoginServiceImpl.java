@@ -35,7 +35,6 @@ import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsEntry
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsMap;
 import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
-import com.wiley.gr.ace.authorservices.persistence.services.impl.UserLoginServiceDAOImpl;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 
 /**
