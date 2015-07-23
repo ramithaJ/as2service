@@ -185,10 +185,4 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
         }
     }
 
-    public static void main(String[] args) {
-        UserLoginServiceDAOImpl userLoginServiceDAOImpl = new UserLoginServiceDAOImpl();
-        userLoginServiceDAOImpl.insertGuid("Dell", "inspiron",
-                "inspiron@dell.com");
-
-    }
 }
