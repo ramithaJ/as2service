@@ -173,7 +173,7 @@ public class UserProfileController {
         service.setPayload(authorProfileService
                 .getLookupCustomerProfile(userId)
                 .getLookupCustomerProfileResponse().getCustomerProfile()
-                .getSocietyList().getSociety());
+                .getSocietyList());
         return service;
     }
 

@@ -19,23 +19,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.wiley.gr.ace.authorservices.autocomplete.cache.model.CacheData;
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.AccessReasons;
-import com.wiley.gr.ace.authorservices.model.Country;
 import com.wiley.gr.ace.authorservices.model.Department;
 import com.wiley.gr.ace.authorservices.model.DropDown;
-import com.wiley.gr.ace.authorservices.model.Industry;
 import com.wiley.gr.ace.authorservices.model.Institution;
-import com.wiley.gr.ace.authorservices.model.Interests;
-import com.wiley.gr.ace.authorservices.model.JobCategory;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Role;
-import com.wiley.gr.ace.authorservices.model.Society;
-import com.wiley.gr.ace.authorservices.model.State;
-import com.wiley.gr.ace.authorservices.model.Suffix;
-import com.wiley.gr.ace.authorservices.model.Title;
 import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
 import com.wiley.gr.ace.authorservices.model.external.Industries;
 import com.wiley.gr.ace.authorservices.model.external.JobCategories;
@@ -85,17 +78,15 @@ public class ASDataServiceImpl implements ASDataService {
      * @return the titles
      */
     @Override
-    public final List<Title> getTitles() {
+    public final List<CacheData> getTitles() {
         LOGGER.info("inside getTitles method ");
 
         List<LookupValues> lookupList = aSDataDAO.getDropDown("TITLE");
-        List<Title> titleList = new ArrayList<Title>();
-        Title title = null;
+        List<CacheData> titleList = new ArrayList<CacheData>();
         for (LookupValues lookupValues : lookupList) {
-
-            title = new Title();
-            title.setTitleId(lookupValues.getLookupName());
-            title.setTitleName(lookupValues.getLookupValue());
+            CacheData title = new CacheData();
+            title.setCode(lookupValues.getLookupName());
+            title.setName(lookupValues.getLookupValue());
             titleList.add(title);
         }
         return titleList;
@@ -107,17 +98,15 @@ public class ASDataServiceImpl implements ASDataService {
      * @return the suffixes
      */
     @Override
-    public final List<Suffix> getSuffixes() {
+    public final List<CacheData> getSuffixes() {
         LOGGER.info("inside getSuffixes method ");
 
         List<LookupValues> lookupList = aSDataDAO.getDropDown("SUFFIX");
-        List<Suffix> suffixList = new ArrayList<Suffix>();
-        Suffix suffix = null;
+        List<CacheData> suffixList = new ArrayList<CacheData>();
         for (LookupValues lookupValues : lookupList) {
-
-            suffix = new Suffix();
-            suffix.setSuffixId(lookupValues.getLookupName());
-            suffix.setSuffixName(lookupValues.getLookupValue());
+            CacheData suffix = new CacheData();
+            suffix.setCode(lookupValues.getLookupName());
+            suffix.setName(lookupValues.getLookupValue());
             suffixList.add(suffix);
         }
         return suffixList;
@@ -131,27 +120,26 @@ public class ASDataServiceImpl implements ASDataService {
      * @return the industries
      */
     @Override
-    public final List<Industry> getIndustries(final Integer count) {
+    public final List<CacheData> getIndustries() {
         LOGGER.info("inside getIndustries method ");
 
-        Industry industry = null;
-        List<Industry> industryList = new ArrayList<Industry>();
+        List<CacheData> industryList = new ArrayList<CacheData>();
         Industries industries = userProfiles.getIndustries();
         if (null == industries) {
-            return new ArrayList<Industry>();
+            return industryList;
         }
 
         List<Object> industryDocs = industries.getResponse().getDocs();
         for (Object object : industryDocs) {
 
             LinkedHashMap<String, String> industryMap = (LinkedHashMap<String, String>) object;
-            industry = new Industry();
-            industry.setIndustryId(industryMap.get("NAICS_CODE"));
-            industry.setIndustryName(industryMap.get("NAICS_TITLE"));
+            CacheData industry = new CacheData();
+            industry.setCode(industryMap.get("NAICS_CODE"));
+            industry.setName(industryMap.get("NAICS_TITLE"));
             industryList.add(industry);
         }
 
-        return industryList.subList(0, count);
+        return industryList;
     }
 
     /**
@@ -162,12 +150,11 @@ public class ASDataServiceImpl implements ASDataService {
      * @return the job categories
      */
     @Override
-    public final List<JobCategory> getJobCategories(final Integer count) {
+    public final List<CacheData> getJobCategories() {
 
         LOGGER.info("inside getJobCategories method ");
         JobCategories jobCategories = userProfiles.getJobCategories();
-        JobCategory jobCategory = null;
-        List<JobCategory> jobCategoryList = new ArrayList<JobCategory>();
+        List<CacheData> jobCategoryList = new ArrayList<CacheData>();
         if (null == jobCategories) {
             return jobCategoryList;
         }
@@ -176,13 +163,13 @@ public class ASDataServiceImpl implements ASDataService {
         for (Object object : jobCategoryDocs) {
 
             LinkedHashMap<String, String> jobCategoryMap = (LinkedHashMap<String, String>) object;
-            jobCategory = new JobCategory();
-            jobCategory.setJobCategoryId(jobCategoryMap.get("JOBCODE"));
-            jobCategory.setJobCategoryName(jobCategoryMap.get("JOBTITLE"));
+            CacheData jobCategory = new CacheData();
+            jobCategory.setCode(jobCategoryMap.get("JOBCODE"));
+            jobCategory.setName(jobCategoryMap.get("JOBTITLE"));
             jobCategoryList.add(jobCategory);
         }
 
-        return jobCategoryList.subList(0, count);
+        return jobCategoryList;
     }
 
     /**
@@ -193,11 +180,11 @@ public class ASDataServiceImpl implements ASDataService {
      * @return the countries
      */
     @Override
-    public final List<Country> getCountries(final Integer count) {
+    public final List<CacheData> getCountries() {
 
         LOGGER.info("inside getCountries method ");
         ESBResponse countrieslist = userProfiles.getCountries();
-        List<Country> countrylist = new ArrayList<Country>();
+        List<CacheData> countrylist = new ArrayList<CacheData>();
 
         List<Object> externalCountrylist = countrieslist.getResponse()
                 .getDocs();
@@ -206,13 +193,13 @@ public class ASDataServiceImpl implements ASDataService {
         }
         for (Object object : externalCountrylist) {
             LinkedHashMap<String, String> countrymap = (LinkedHashMap<String, String>) object;
-            Country country = new Country();
-            country.setCountryCode(countrymap.get("ISO_ALPHA_3"));
-            country.setCountryName(countrymap.get("COUNTRY_NAME"));
-            countrylist.add(country);
+            CacheData cacheData = new CacheData();
+            cacheData.setName(countrymap.get("ISO_ALPHA_3"));
+            cacheData.setCode(countrymap.get("COUNTRY_NAME"));
+            countrylist.add(cacheData);
         }
 
-        return countrylist.subList(0, count);
+        return countrylist;
     }
 
     /**
@@ -225,12 +212,11 @@ public class ASDataServiceImpl implements ASDataService {
      * @return the states
      */
     @Override
-    public final List<State> getStates(final String countrycode,
-            final Integer count) {
+    public final List<CacheData> getStates(final String countrycode) {
 
         LOGGER.info("inside getStates method ");
         ESBResponse statelistext = userProfiles.getStates();
-        List<State> modelststelist = new ArrayList<State>();
+        List<CacheData> modelststelist = new ArrayList<CacheData>();
 
         List<Object> externalstatelist = statelistext.getResponse().getDocs();
         if (null == externalstatelist) {
@@ -241,15 +227,15 @@ public class ASDataServiceImpl implements ASDataService {
 
             LinkedHashMap<String, String> statemap = (LinkedHashMap<String, String>) statelist;
 
-            State state = new State();
+            CacheData state = new CacheData();
             String externalcountrymap = statemap.get("id");
             String[] idsplit = externalcountrymap.split("_");
-            state.setStateCode(idsplit[2]);
-            state.setStateName(statemap.get("SUBDIVISION_NAME"));
+            state.setCode(idsplit[2]);
+            state.setName(statemap.get("SUBDIVISION_NAME"));
             modelststelist.add(state);
         }
 
-        return modelststelist.subList(0, count);
+        return modelststelist;
     }
 
     /**
@@ -258,19 +244,19 @@ public class ASDataServiceImpl implements ASDataService {
      * @return the institutions
      */
     @Override
-    public final List<Institution> getInstitutions() {
+    public final List<CacheData> getInstitutions() {
 
         LOGGER.info("inside getInstitutions method ");
 
         DropDown dropDown = userProfiles.getInstitutionsList();
         List<Institution> listofinstitute = dropDown.getInstitutions();
-        List<Institution> institutionslist = new ArrayList<Institution>();
+        List<CacheData> institutionslist = new ArrayList<CacheData>();
 
         for (Institution institute : listofinstitute) {
 
-            Institution institution = new Institution();
-            institution.setInstitutionId(institute.getInstitutionId());
-            institution.setInstitutionName(institute.getInstitutionName());
+            CacheData institution = new CacheData();
+            institution.setCode(institute.getInstitutionId());
+            institution.setName(institute.getInstitutionName());
             institutionslist.add(institution);
 
         }
@@ -284,19 +270,19 @@ public class ASDataServiceImpl implements ASDataService {
      * @return the departments
      */
     @Override
-    public final List<Department> getDepartments() {
+    public final List<CacheData> getDepartments() {
 
         LOGGER.info("inside getDepartments method ");
 
         DropDown dropDown = userProfiles.getDepartmentsList();
         List<Department> listofdepartment = dropDown.getDepartments();
-        List<Department> departmentlist = new ArrayList<Department>();
+        List<CacheData> departmentlist = new ArrayList<CacheData>();
         for (Department department : listofdepartment) {
 
-            Department departments = new Department();
-            departments.setDepartmentId(department.getDepartmentId());
-            departments.setDepartmentName(department.getDepartmentName());
-            departmentlist.add(department);
+            CacheData departments = new CacheData();
+            departments.setCode(department.getDepartmentId());
+            departments.setName(department.getDepartmentName());
+            departmentlist.add(departments);
 
         }
         return departmentlist;
@@ -308,20 +294,18 @@ public class ASDataServiceImpl implements ASDataService {
      * @return the research funders
      */
     @Override
-    public final List<ResearchFunder> getResearchFunders() {
+    public final List<CacheData> getResearchFunders() {
         LOGGER.info("inside getResearchFunders method ");
 
         DropDown dropDown = userProfiles.getReasearchFunder();
         List<ResearchFunder> researchFunder = dropDown.getResearchFunders();
-        List<ResearchFunder> researchfunderlist = new ArrayList<ResearchFunder>();
+        List<CacheData> researchfunderlist = new ArrayList<CacheData>();
 
         for (ResearchFunder researchFunders : researchFunder) {
 
-            ResearchFunder resFunder = new ResearchFunder();
-            resFunder
-                    .setResearchFunderId(researchFunders.getResearchFunderId());
-            resFunder.setResearchFunderName(researchFunders
-                    .getResearchFunderName());
+            CacheData resFunder = new CacheData();
+            resFunder.setCode(researchFunders.getResearchFunderId().toString());
+            resFunder.setName(researchFunders.getResearchFunderName());
             researchfunderlist.add(resFunder);
         }
 
@@ -334,14 +318,14 @@ public class ASDataServiceImpl implements ASDataService {
      * @return the societies
      */
     @Override
-    public final List<Society> getSocieties() {
+    public final List<CacheData> getSocieties() {
         List<Societies> SocietyListDao = societyDao.getSociety();
-        List<Society> societyList = new ArrayList<Society>();
+        List<CacheData> societyList = new ArrayList<CacheData>();
 
         for (Societies societies : SocietyListDao) {
-            Society society = new Society();
-            society.setSocietyName(societies.getSocietyName());
-            society.setSocietyId(societies.getSocietyCd());
+            CacheData society = new CacheData();
+            society.setCode(societies.getSocietyName());
+            society.setName(societies.getSocietyCd());
             societyList.add(society);
         }
         return societyList;
@@ -356,24 +340,24 @@ public class ASDataServiceImpl implements ASDataService {
      * @return the areas of interests
      */
     @Override
-    public final List<Interests> getAreasOfInterests(final Integer count) {
+    public final List<CacheData> getAreasOfInterests() {
         LOGGER.info("inside getAreasOfInterests method ");
         ESBResponse areaOfInterests = userProfiles.getAreaOfInterests();
         List<Object> externalInterests = areaOfInterests.getResponse()
                 .getDocs();
-        List<Interests> returnList = new ArrayList<Interests>();
+        List<CacheData> returnList = new ArrayList<CacheData>();
         if (null == externalInterests) {
             return returnList;
         }
 
         for (Object docs : externalInterests) {
             LinkedHashMap<String, String> interest = (LinkedHashMap<String, String>) docs;
-            Interests interests = new Interests();
-            interests.setAoeId(interest.get("SUBJECT_CODE"));
-            interests.setAoeName(interest.get("SUBJECT_NAME"));
+            CacheData interests = new CacheData();
+            interests.setCode(interest.get("SUBJECT_CODE"));
+            interests.setName(interest.get("SUBJECT_NAME"));
             returnList.add(interests);
         }
-        return returnList.subList(0, count);
+        return returnList;
 
     }
 
