@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.model.Dashboard;
 import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
 import com.wiley.gr.ace.authorservices.model.Service;
@@ -55,11 +56,13 @@ public class DashboardController {
     @Autowired(required = true)
     private DashboardService dashboardService;
 
-    /**
-     * the value of noDataFoundCode.
-     */
-    @Value("${noDataFound.code}")
-    private String noDataFoundCode;
+    /** The no data found. */
+    @Value("${noDataFound.message}")
+    private String noDataFoundMessage;
+
+    /** The input parameter not found. */
+    @Value("${inputParameterNotFound.message}")
+    private String inputParameterNotFound;
 
     /**
      * This method takes userId and return the Service.
@@ -75,19 +78,26 @@ public class DashboardController {
                 .info("inside getProfileMeter method of DashboardController");
         final Service service = new Service();
         Dashboard dashboard = null;
-
-        try {
-            dashboard = dashboardService.getProfileMeter(userId);
-            if (!StringUtils.isEmpty(dashboard)) {
-                service.setPayload(dashboard);
+        if (!StringUtils.isEmpty(userId)) {
+            try {
+                dashboard = dashboardService.getProfileMeter(userId);
+                if (!StringUtils.isEmpty(dashboard)) {
+                    LOGGER.info("Profile Meter Data is Found");
+                    service.setPayload(dashboard);
+                } else {
+                    LOGGER.info("Profile Meter Data is Not Found");
+                    service.setStatus("SUCCESS");
+                    service.setPayload(noDataFoundMessage);
+                }
+            } catch (final Exception e) {
+                LOGGER.error("Print Stack Trace- ", e);
+                throw new UserException(getProfileMetererrorcode,
+                        getProfileMetererrormessage);
             }
-        } catch (final Exception e) {
-            DashboardController.LOGGER.error("Print Stack Trace- ", e);
-            final ErrorPOJO error = new ErrorPOJO();
-            error.setCode(getProfileMetererrorcode);
-            error.setMessage(getProfileMetererrormessage);
-            service.setStatus("ERROR");
-            service.setError(error);
+        } else {
+            LOGGER.info("input Parameter userId is Not Found");
+            service.setStatus("FAILURE");
+            service.setPayload(inputParameterNotFound);
         }
         return service;
 
@@ -115,7 +125,7 @@ public class DashboardController {
         } catch (final Exception e) {
             DashboardController.LOGGER.error("Print Stack Trace- ", e);
             final ErrorPOJO error = new ErrorPOJO();
-            error.setCode(noDataFoundCode);
+            error.setCode(noDataFoundMessage);
             error.setMessage("Error Fetching To View All Author Articles");
             service.setStatus("ERROR");
             service.setError(error);

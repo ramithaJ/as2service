@@ -24,8 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wiley.gr.ace.authorservices.exception.ASException;
-import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.services.service.UpdateUserService;
 
@@ -51,6 +50,10 @@ public class UpdateUserController {
     @Value("${noOrcidUpdate.code}")
     private String noOrcidUpdateCode;
 
+    /** The no orcid update message. */
+    @Value("${noOrcidUpdate.message}")
+    private String noOrcidUpdateMessage;
+
     /**
      * Update orcid id.
      *
@@ -66,18 +69,13 @@ public class UpdateUserController {
     public final Service updateOrcidId(@PathVariable final String orcidId,
             @PathVariable final String userId, @RequestBody final String emailId) {
         final Service service = new Service();
+        LOGGER.info(" inside updateOrcidId method UpdateUserController");
         try {
             service.setPayload(updateUserService.updateOrcidId(emailId,
                     orcidId, userId));
         } catch (final Exception e) {
             LOGGER.error("Print Stack Trace- ", e);
-            final ErrorPOJO error = new ErrorPOJO();
-            error.setCode(noOrcidUpdateCode);
-            error.setMessage("Error updating user ORCID ID");
-            service.setStatus("error");
-            service.setPayload(service);
-            service.setError(error);
-            throw new ASException("-2", "Error updating user user ORCID ID", e);
+            throw new UserException(noOrcidUpdateCode, noOrcidUpdateMessage);
         }
         return service;
     }
