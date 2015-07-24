@@ -139,21 +139,14 @@ public class TokenHandler {
         // Validate provided Token
         final HttpHeaders headers = new HttpHeaders();
         headers.add(authenticationTokenHeaderName, token);
-        ResponseEntity<String> responseEntity = restTemplate.exchange(
-                authenticationTokenValidationUrl, HttpMethod.GET,
+        final ResponseEntity<String> responseEntity = restTemplate.exchange(
+                authenticationTokenRefreshUrl, HttpMethod.GET,
                 new HttpEntity<>(headers), String.class);
-        if (null == responseEntity
-                || responseEntity.getStatusCode() != HttpStatus.OK) {
-            return null;
-        }
-
-        // If valid, refresh the token
-        responseEntity = restTemplate.exchange(authenticationTokenRefreshUrl,
-                HttpMethod.GET, new HttpEntity<>(headers), String.class);
         if (null == responseEntity
                 || responseEntity.getStatusCode() != HttpStatus.CREATED) {
             return null;
         }
+
         token = responseEntity.getHeaders().getFirst(
                 authenticationTokenHeaderName);
 

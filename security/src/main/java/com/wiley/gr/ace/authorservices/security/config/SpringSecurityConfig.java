@@ -17,6 +17,7 @@ import com.wiley.gr.ace.authorservices.security.TokenAuthenticationProvider;
 import com.wiley.gr.ace.authorservices.security.filters.StatelessAuthenticationFilter;
 import com.wiley.gr.ace.authorservices.security.filters.StatelessLoginFilter;
 import com.wiley.gr.ace.authorservices.security.service.TokenAuthenticationService;
+import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 
 /**
  * SpringSecurityConfig holds configurations for access restrictions and auth
@@ -27,6 +28,9 @@ import com.wiley.gr.ace.authorservices.security.service.TokenAuthenticationServi
 @Order(2)
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    /** The Constant AUTHENTICATE. */
+    public static final String AUTHENTICATE = "/authenticate";
+
     /** The token authentication provider. */
     @Autowired
     private TokenAuthenticationProvider tokenAuthenticationProvider;
@@ -34,6 +38,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     /** The token authentication service. */
     @Autowired
     private TokenAuthenticationService tokenAuthenticationService;
+
+    /**
+     * Injecting UserLoginServiceDAO bean.
+     */
+    @Autowired(required = true)
+    private AdminLoginService adminLoginService;
 
     /**
      * Instantiates a new spring security config.
@@ -76,7 +86,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("**/*.js")
                 .permitAll()
 
-                .antMatchers(HttpMethod.POST, "/authenticate")
+                .antMatchers(HttpMethod.POST, SpringSecurityConfig.AUTHENTICATE)
                 .permitAll()
 
                 .anyRequest()
@@ -84,9 +94,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .addFilterBefore(
-                        new StatelessLoginFilter("/authenticate",
+                        new StatelessLoginFilter(
+                        SpringSecurityConfig.AUTHENTICATE,
                                 tokenAuthenticationService,
-                                authenticationManager()),
+                                authenticationManager(), adminLoginService),
                         UsernamePasswordAuthenticationFilter.class)
 
                 // Custom Token based authentication based on the
@@ -99,7 +110,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.springframework.security.config.annotation.web.configuration.
      * WebSecurityConfigurerAdapter
      * #configure(org.springframework.security.config

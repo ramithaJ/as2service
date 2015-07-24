@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
  *
- * All material contained herein is proprietary to John Wiley & Sons 
- * and its third party suppliers, if any. The methods, techniques and 
- * technical concepts contained herein are considered trade secrets 
- * and confidential and may be protected by intellectual property laws.  
- * Reproduction or distribution of this material, in whole or in part, 
- * is strictly forbidden except by express prior written permission 
+ * All material contained herein is proprietary to John Wiley & Sons
+ * and its third party suppliers, if any. The methods, techniques and
+ * technical concepts contained herein are considered trade secrets
+ * and confidential and may be protected by intellectual property laws.
+ * Reproduction or distribution of this material, in whole or in part,
+ * is strictly forbidden except by express prior written permission
  * of John Wiley & Sons.
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.model;
@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 /**
  * This is the generic service VO object which is returned by every service.
  * Data from the service is wrapped into this and returned.
- * 
+ *
  * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
@@ -31,6 +31,29 @@ public class Service {
 
     /** The error. */
     private ErrorPOJO error;
+
+    /**
+     * Instantiates a new service.
+     */
+    public Service() {
+    }
+
+    /**
+     * Instantiates a new service.
+     *
+     * @param status
+     *            the status
+     * @param payload
+     *            the payload
+     * @param error
+     *            the error
+     */
+    public Service(final String status, final Object payload,
+            final ErrorPOJO error) {
+        this.status = status;
+        this.payload = payload;
+        this.error = error;
+    }
 
     /**
      * Gets the status.
