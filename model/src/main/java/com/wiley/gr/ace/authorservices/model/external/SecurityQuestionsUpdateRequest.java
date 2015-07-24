@@ -23,63 +23,63 @@ public class SecurityQuestionsUpdateRequest {
 
     /** This field holds the value of existingEmail. */
     @JsonProperty("ExistingEmail")
-    private String existingEmail;
+    private String Email;
 
     /** This field holds the value of newPassword. */
     @JsonProperty("ExistingPassword")
-    private String newPassword;
+    private String Password;
 
     /** This field holds the value of sourceSystem. */
     @JsonProperty("SourceSystem")
-    private String sourceSystem;
+    private String sSystem;
 
     /** This field holds the value of userSecurityQuestions. */
     @JsonProperty("UserSecurityQuestions")
     private UserSecurityQuestions userSecurityQuestions;
 
     /**
-     * @return the existingEmail
+     * @return the email
      */
-    public final String getExistingEmail() {
-        return existingEmail;
+    public final String getEmail() {
+        return Email;
     }
 
     /**
-     * @param existingEmail
-     *            the existingEmail to set
+     * @param email
+     *            the email to set
      */
-    public final void setExistingEmail(final String existingEmail) {
-        this.existingEmail = existingEmail;
+    public final void setEmail(final String email) {
+        Email = email;
     }
 
     /**
-     * @return the newPassword
+     * @return the password
      */
-    public final String getNewPassword() {
-        return newPassword;
+    public final String getPassword() {
+        return Password;
     }
 
     /**
-     * @param newPassword
-     *            the newPassword to set
+     * @param password
+     *            the password to set
      */
-    public final void setNewPassword(final String newPassword) {
-        this.newPassword = newPassword;
+    public final void setPassword(final String password) {
+        Password = password;
     }
 
     /**
-     * @return the sourceSystem
+     * @return the sSystem
      */
-    public final String getSourceSystem() {
-        return sourceSystem;
+    public final String getsSystem() {
+        return sSystem;
     }
 
     /**
-     * @param sourceSystem
-     *            the sourceSystem to set
+     * @param sSystem
+     *            the sSystem to set
      */
-    public final void setSourceSystem(final String sourceSystem) {
-        this.sourceSystem = sourceSystem;
+    public final void setsSystem(final String sSystem) {
+        this.sSystem = sSystem;
     }
 
     /**

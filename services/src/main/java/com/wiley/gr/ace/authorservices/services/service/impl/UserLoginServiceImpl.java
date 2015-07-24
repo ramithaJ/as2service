@@ -189,7 +189,7 @@ public class UserLoginServiceImpl implements UserLoginService {
                 userSecurityQuestions
                         .setUserSecurityQuestionsMap(userSecurityQuestionsMap);
 
-                passwordReset.setUserSecurityQuestions(userSecurityQuestions);
+                passwordReset.setUserSQuestions(userSecurityQuestions);
 
                 passwordResetRequest
                         .setUpdateUserSecurityAttributes(passwordReset);

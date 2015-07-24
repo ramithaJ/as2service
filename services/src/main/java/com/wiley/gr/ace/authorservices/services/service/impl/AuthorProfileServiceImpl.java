@@ -335,12 +335,12 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         userSecurityQuestionsMap.setEntry(userSecurityQuestionsEntryList);
         userSecurityQuestions
                 .setUserSecurityQuestionsMap(userSecurityQuestionsMap);
-        securityQuestionsUpdateRequest.setExistingEmail(securityDetailsHolder
+        securityQuestionsUpdateRequest.setEmail(securityDetailsHolder
                 .getEmailId());
-        securityQuestionsUpdateRequest.setNewPassword(securityDetailsHolder
+        securityQuestionsUpdateRequest.setPassword(securityDetailsHolder
                 .getPassword());
         securityQuestionsUpdateRequest
-                .setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
+                .setsSystem(AuthorServicesConstants.SOURCESYSTEM);
         securityQuestionsUpdateRequest
                 .setUserSecurityQuestions(userSecurityQuestions);
 

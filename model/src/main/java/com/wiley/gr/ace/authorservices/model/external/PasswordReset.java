@@ -37,11 +37,9 @@ public class PasswordReset {
 
     /** This field holds the value of userSecurityQuestions. */
     @JsonProperty("UserSecurityQuestions")
-    private UserSecurityQuestions userSecurityQuestions;
+    private UserSecurityQuestions userSQuestions;
 
     /**
-     * Gets the existing email.
-     *
      * @return the existingEmail
      */
     public final String getExistingEmail() {
@@ -49,17 +47,14 @@ public class PasswordReset {
     }
 
     /**
-     * Sets the existing email.
-     *
-     * @param existingEmail            the existingEmail to set
+     * @param existingEmail
+     *            the existingEmail to set
      */
     public final void setExistingEmail(final String existingEmail) {
         this.existingEmail = existingEmail;
     }
 
     /**
-     * Gets the new password.
-     *
      * @return the newPassword
      */
     public final String getNewPassword() {
@@ -67,17 +62,14 @@ public class PasswordReset {
     }
 
     /**
-     * Sets the new password.
-     *
-     * @param newPassword            the newPassword to set
+     * @param newPassword
+     *            the newPassword to set
      */
     public final void setNewPassword(final String newPassword) {
         this.newPassword = newPassword;
     }
 
     /**
-     * Gets the source system.
-     *
      * @return the sourceSystem
      */
     public final String getSourceSystem() {
@@ -85,31 +77,27 @@ public class PasswordReset {
     }
 
     /**
-     * Sets the source system.
-     *
-     * @param sourceSystem            the sourceSystem to set
+     * @param sourceSystem
+     *            the sourceSystem to set
      */
     public final void setSourceSystem(final String sourceSystem) {
         this.sourceSystem = sourceSystem;
     }
 
     /**
-     * Gets the user security questions.
-     *
-     * @return the userSecurityQuestions
+     * @return the userSQuestions
      */
-    public final UserSecurityQuestions getUserSecurityQuestions() {
-        return userSecurityQuestions;
+    public final UserSecurityQuestions getUserSQuestions() {
+        return userSQuestions;
     }
 
     /**
-     * Sets the user security questions.
-     *
-     * @param userSecurityQuestions            the userSecurityQuestions to set
+     * @param userSQuestions
+     *            the userSQuestions to set
      */
-    public final void setUserSecurityQuestions(
-            final UserSecurityQuestions userSecurityQuestions) {
-        this.userSecurityQuestions = userSecurityQuestions;
+    public final void setUserSQuestions(
+            final UserSecurityQuestions userSQuestions) {
+        this.userSQuestions = userSQuestions;
     }
 
 }

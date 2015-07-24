@@ -41,10 +41,6 @@ import com.wiley.gr.ace.authorservices.model.external.UserEmailDetails;
  */
 public class UserManagementImpl implements UserManagement {
 
-    /** The lock user. */
-    @Value("${lockUser.url}")
-    private String lockUser;
-
     /** The shared service authenticate url. */
     @Value("${shared.service.authenticate.url}")
     private String sharedServiceAuthenticateUrl;
@@ -61,22 +57,6 @@ public class UserManagementImpl implements UserManagement {
     @Value("${resetPassword.url}")
     private String resetPasswordurl;
 
-    /** The authenticate admin user. */
-    @Value("${authenticateAdminUser.url}")
-    private String authenticateAdminUser;
-
-    /** The un lock user. */
-    @Value("${unLockUser.url}")
-    private String unLockUser;
-
-    /** The security details. */
-    @Value("${securityDetails.url}")
-    private String securityDetails;
-
-    /** The security questions. */
-    @Value("${securityQuestions.url}")
-    private String securityQuestions;
-
     /** The update password. */
     @Value("${updatePassword.url}")
     private String updatePasswordurl;
@@ -88,10 +68,6 @@ public class UserManagementImpl implements UserManagement {
     /** The find user. */
     @Value("${findUser.url}")
     private String findUser;
-
-    /** The security question details. */
-    @Value("${securityQuestionDetails.url}")
-    private String securityQuestionDetails;
 
     /** The Retrieve security questions. */
     @Value("${RetrieveSecurityQuestions.url}")
