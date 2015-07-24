@@ -1,4 +1,4 @@
-package com.wiley.gr.ace.authorservices.autocomplete.cache.model;
+package com.wiley.gr.ace.authorservices.model;
 
 import java.io.Serializable;
 
