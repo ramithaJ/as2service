@@ -24,6 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.wiley.gr.ace.authorservices.autocomplete.cache.model.CacheData;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrcidInterfaceService;
 import com.wiley.gr.ace.authorservices.model.Address;
 import com.wiley.gr.ace.authorservices.model.Addresses;
@@ -283,11 +284,11 @@ public class OrcidServiceImpl implements OrcidService {
         try {
             country = new Country();
             country.setCountryCode((String) countryDetails.get("value"));
-            List<Country> countryList = asDataService.getCountries(COUNT);
-            for (Country countryEntity : countryList) {
-                if (countryEntity.getCountryCode().startsWith(
+            List<CacheData> countryList = asDataService.getCountries();
+            for (CacheData countryEntity : countryList) {
+                if (countryEntity.getCode().startsWith(
                         country.getCountryCode())) {
-                    country.setCountryName(countryEntity.getCountryName());
+                    country.setCountryName(countryEntity.getName());
                     break;
                 }
             }
