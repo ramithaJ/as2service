@@ -139,9 +139,9 @@ public class AutocompleteController extends ASExceptionController {
 			service = new Service();
 			service.setPayload(autocompleteData);
 		}
-
 		return service;
 
 	}
+
 
 }
