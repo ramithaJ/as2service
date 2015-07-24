@@ -435,4 +435,18 @@ public class UserProfileController {
         }
         return service;
     }
+    
+    /**
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "/lookUpProfileCustomer/{userId}", method = RequestMethod.GET)
+    public final Service lookUpProfile(@PathVariable("userId") final String userId) {
+
+        UserProfileController.LOGGER.info("inside lookUpProfile method ");
+        Service service = new Service();
+        service.setPayload(authorProfileService.getLookupCustomerProfile(userId));
+        return service;
+
+    }
 }

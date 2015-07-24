@@ -20,5 +20,32 @@ package com.wiley.gr.ace.authorservices.model.external;
  * @author yugandhark
  */
 public class Interest {
+    
+    private String id;
+    private String Status;
+    /**
+     * @return the id
+     */
+    public final String getId() {
+        return id;
+    }
+    /**
+     * @param id the id to set
+     */
+    public final void setId(String id) {
+        this.id = id;
+    }
+    /**
+     * @return the status
+     */
+    public final String getStatus() {
+        return Status;
+    }
+    /**
+     * @param status the status to set
+     */
+    public final void setStatus(String status) {
+        Status = status;
+    }
 
 }

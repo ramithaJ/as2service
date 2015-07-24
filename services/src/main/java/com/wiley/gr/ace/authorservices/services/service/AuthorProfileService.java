@@ -24,6 +24,7 @@ import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserProfile;
 import com.wiley.gr.ace.authorservices.model.UserProfileAlerts;
+import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 
 /**
@@ -155,5 +156,15 @@ public interface AuthorProfileService {
      */
     UserProfileResponse getuserProfileResponse(int userId);
 
+    /**
+     * @param image
+     * @param userId
+     */
     void uploadImage(File image, String userId);
+    
+    /**
+     * @param userId
+     * @return
+     */
+    LookupCustomerProfile getLookupCustomerProfile(String userId);
 }

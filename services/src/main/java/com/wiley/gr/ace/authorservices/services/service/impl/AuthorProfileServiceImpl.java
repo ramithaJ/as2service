@@ -35,6 +35,7 @@ import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserProfile;
 import com.wiley.gr.ace.authorservices.model.UserProfileAlerts;
+import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.PasswordRequest;
 import com.wiley.gr.ace.authorservices.model.external.PasswordUpdate;
 import com.wiley.gr.ace.authorservices.model.external.SecurityQuestionsUpdateRequest;
@@ -373,6 +374,13 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /** Getting LookUp Profile by calling external service */
+    @Override
+    public LookupCustomerProfile getLookupCustomerProfile(String userId) {
+
+        return userProfiles.getLookupCustomerProfile(userId);
     }
 
 }
