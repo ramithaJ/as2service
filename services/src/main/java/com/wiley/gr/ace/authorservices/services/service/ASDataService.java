@@ -13,19 +13,9 @@ package com.wiley.gr.ace.authorservices.services.service;
 
 import java.util.List;
 
+import com.wiley.gr.ace.authorservices.autocomplete.cache.model.CacheData;
 import com.wiley.gr.ace.authorservices.model.AccessReasons;
-import com.wiley.gr.ace.authorservices.model.Country;
-import com.wiley.gr.ace.authorservices.model.Department;
-import com.wiley.gr.ace.authorservices.model.Industry;
-import com.wiley.gr.ace.authorservices.model.Institution;
-import com.wiley.gr.ace.authorservices.model.Interests;
-import com.wiley.gr.ace.authorservices.model.JobCategory;
-import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Role;
-import com.wiley.gr.ace.authorservices.model.Society;
-import com.wiley.gr.ace.authorservices.model.State;
-import com.wiley.gr.ace.authorservices.model.Suffix;
-import com.wiley.gr.ace.authorservices.model.Title;
 import com.wiley.gr.ace.authorservices.model.external.RetrieveSecurityQuestions;
 
 /**
@@ -40,14 +30,14 @@ public interface ASDataService {
      *
      * @return the titles
      */
-    List<Title> getTitles();
+    List<CacheData> getTitles();
 
     /**
      * Gets the suffixes.
      *
      * @return the suffixes
      */
-    List<Suffix> getSuffixes();
+    List<CacheData> getSuffixes();
 
     /**
      * Gets the industries.
@@ -56,7 +46,7 @@ public interface ASDataService {
      *            the count
      * @return the industries
      */
-    List<Industry> getIndustries(Integer count);
+    List<CacheData> getIndustries();
 
     /**
      * Gets the job categories.
@@ -65,7 +55,7 @@ public interface ASDataService {
      *            the count
      * @return the job categories
      */
-    List<JobCategory> getJobCategories(Integer count);
+    List<CacheData> getJobCategories();
 
     /**
      * Gets the countries.
@@ -74,7 +64,7 @@ public interface ASDataService {
      *            the count
      * @return the countries
      */
-    List<Country> getCountries(Integer count);
+    List<CacheData> getCountries();
 
     /**
      * Gets the states.
@@ -85,28 +75,28 @@ public interface ASDataService {
      *            the count
      * @return the states
      */
-    List<State> getStates(String countrycode, Integer count);
+    List<CacheData> getStates(String countrycode);
 
     /**
      * Gets the institutions.
      *
      * @return the institutions
      */
-    List<Institution> getInstitutions();
+    List<CacheData> getInstitutions();
 
     /**
      * Gets the departments.
      *
      * @return the departments
      */
-    List<Department> getDepartments();
+    List<CacheData> getDepartments();
 
     /**
      * Gets the research funders.
      *
      * @return the research funders
      */
-    List<ResearchFunder> getResearchFunders();
+    List<CacheData> getResearchFunders();
 
     /**
      * Gets the societies.
@@ -114,7 +104,7 @@ public interface ASDataService {
      * @return the societies
      */
 
-    List<Society> getSocieties();
+    List<CacheData> getSocieties();
 
     /**
      * Gets the areas of interests.
@@ -123,7 +113,7 @@ public interface ASDataService {
      *            the count
      * @return the areas of interests
      */
-    List<Interests> getAreasOfInterests(Integer count);
+    List<CacheData> getAreasOfInterests();
 
     /**
      * Gets the security questions.

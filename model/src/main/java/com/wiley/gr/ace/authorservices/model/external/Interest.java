@@ -14,6 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * The Class Interest.
  *
@@ -22,7 +24,8 @@ package com.wiley.gr.ace.authorservices.model.external;
 public class Interest {
     
     private String id;
-    private String Status;
+    @JsonProperty("Status")
+    private String status;
     /**
      * @return the id
      */
@@ -39,13 +42,13 @@ public class Interest {
      * @return the status
      */
     public final String getStatus() {
-        return Status;
+        return status;
     }
     /**
      * @param status the status to set
      */
     public final void setStatus(String status) {
-        Status = status;
+        this.status = status;
     }
-
+  
 }

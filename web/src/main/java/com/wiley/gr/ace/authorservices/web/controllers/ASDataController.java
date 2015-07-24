@@ -11,22 +11,8 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.web.controllers;
 
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.wiley.gr.ace.authorservices.exception.UserException;
-import com.wiley.gr.ace.authorservices.model.AccessReasons;
-import com.wiley.gr.ace.authorservices.model.Service;
-import com.wiley.gr.ace.authorservices.services.service.ASDataService;
 
 /**
  * This controller is used to get common data in dropdown across application.
@@ -38,24 +24,24 @@ import com.wiley.gr.ace.authorservices.services.service.ASDataService;
 @RestController
 @RequestMapping("/asdata")
 public class ASDataController {
-    /** logging configured. */
+    /** logging configured. *//*
     private static final Logger LOGGER = LoggerFactory
             .getLogger(ASDataController.class);
-    /** getting bean of asdataservice. */
+    *//** getting bean of asdataservice. *//*
     @Autowired(required = true)
     private ASDataService aSDataService;
-    /** getting data from props file. */
+    *//** getting data from props file. *//*
     @Value("${noDataFound.code}")
     private String nodataFound;
-    /** getting data from props file. */
+    *//** getting data from props file. *//*
     @Value("${noDataFound.message}")
     private String nodataFoundmsg;
 
-    /**
+    *//**
      * Method to getTitiles.
      * 
      * @return service
-     */
+     *//*
     @RequestMapping(value = "/titles/", method = RequestMethod.GET)
     public final Service getTitles() {
         LOGGER.info("inside getTitles Method");
@@ -64,11 +50,11 @@ public class ASDataController {
         return service;
     }
 
-    /**
+    *//**
      * Method to suffixes.
      * 
      * @return service
-     */
+     *//*
     @RequestMapping(value = "/suffixes/", method = RequestMethod.GET)
     public final Service getSuffixes() {
         LOGGER.info("inside getSuffixes Method");
@@ -77,13 +63,13 @@ public class ASDataController {
         return service;
     }
 
-    /**
+    *//**
      * Method to industries.
      * 
      * @param count
      *            - The request value
      * @return service
-     */
+     *//*
     @RequestMapping(value = "/industries/", method = RequestMethod.GET)
     public final Service getIndustries(
             @RequestParam(value = "count", required = false, defaultValue = "10") final Integer count) {
@@ -93,13 +79,13 @@ public class ASDataController {
         return service;
     }
 
-    /**
+    *//**
      * Method to jobCategories.
      * 
      * @param count
      *            - The request value
      * @return service
-     */
+     *//*
     @RequestMapping(value = "/jobCategories/", method = RequestMethod.GET)
     public final Service getJobCategories(
             @RequestParam(value = "count", required = false, defaultValue = "10") final Integer count) {
@@ -109,13 +95,13 @@ public class ASDataController {
         return service;
     }
 
-    /**
+    *//**
      * Method to countries.
      * 
      * @param count
      *            - The request value
      * @return service
-     */
+     *//*
     @RequestMapping(value = "/countries/", method = RequestMethod.GET)
     public final Service getCountries(
             @RequestParam(value = "count", required = false, defaultValue = "10") final Integer count) {
@@ -125,7 +111,7 @@ public class ASDataController {
         return service;
     }
 
-    /**
+    *//**
      * Method to states.
      * 
      * @param countrycode
@@ -133,7 +119,7 @@ public class ASDataController {
      * @param count
      *            - The request value
      * @return service
-     */
+     *//*
     @RequestMapping(value = "/states/{countrycode}", method = RequestMethod.GET)
     public final Service getStates(
             @PathVariable("countrycode") final String countrycode,
@@ -145,11 +131,11 @@ public class ASDataController {
         return service;
     }
 
-    /**
+    *//**
      * Method to institutions.
      * 
      * @return service
-     */
+     *//*
     @RequestMapping(value = "/institutions/", method = RequestMethod.GET)
     public final Service getInstitutions() {
         LOGGER.info("inside getInstitutions Method");
@@ -159,11 +145,11 @@ public class ASDataController {
         return service;
     }
 
-    /**
+    *//**
      * Method to departments.
      * 
      * @return service
-     */
+     *//*
     @RequestMapping(value = "/departments/", method = RequestMethod.GET)
     public final Service getDepartments() {
         LOGGER.info("inside getDepartments Method");
@@ -173,11 +159,11 @@ public class ASDataController {
         return service;
     }
 
-    /**
+    *//**
      * Method to researchFunders.
      * 
      * @return service
-     */
+     *//*
     @RequestMapping(value = "/researchFunders/", method = RequestMethod.GET)
     public final Service getResearchFunders() {
         LOGGER.info("inside getResearchFunders Method");
@@ -186,22 +172,22 @@ public class ASDataController {
         return service;
     }
 
-    /**
+    *//**
      * Method to articles.
      * 
      * @return service
-     */
+     *//*
     @RequestMapping(value = "/articles/", method = RequestMethod.GET)
     public final Service getArticles() {
         LOGGER.info("inside getArticles Method");
         return null;
     }
 
-    /**
+    *//**
      * Method to societies.
      * 
      * @return service
-     */
+     *//*
     @RequestMapping(value = "/societies/", method = RequestMethod.GET)
     public final Service getSocieties() {
         LOGGER.info("inside getSocieties Method");
@@ -211,13 +197,13 @@ public class ASDataController {
         return service;
     }
 
-    /**
+    *//**
      * Method to areaOfInterests.
      * 
      * @param count
      *            - The request value
      * @return service
-     */
+     *//*
     @RequestMapping(value = "/areasOfInterests/", method = RequestMethod.GET)
     public final Service getAreasOfInterests(
             @RequestParam(value = "count", required = false, defaultValue = "10") final Integer count) {
@@ -227,11 +213,11 @@ public class ASDataController {
         return service;
     }
 
-    /**
+    *//**
      * Method to secutityQuestions.
      * 
      * @return service
-     */
+     *//*
     @RequestMapping(value = "/securityQuestions/", method = RequestMethod.GET)
     public final Service getSecurityQuestions() {
         LOGGER.info("inside getSecurityQuestions Method");
@@ -240,11 +226,11 @@ public class ASDataController {
         return service;
     }
 
-    /**
+    *//**
      * Method to userRoles.
      * 
      * @return service
-     */
+     *//*
     @RequestMapping(value = "/roles/", method = RequestMethod.GET)
     public final Service getUserRoles() {
         LOGGER.info("inside getUserRoles Method");
@@ -254,13 +240,13 @@ public class ASDataController {
         return service;
     }
 
-    /**
+    *//**
      * Method to adminRoles.
      * 
      * @param roleType
      *            - The request value
      * @return service
-     */
+     *//*
     @RequestMapping(value = "/roles/{roleType}", method = RequestMethod.GET)
     public final Service getAdminRoles(
             @PathVariable("roleType") final String roleType) {
@@ -271,11 +257,11 @@ public class ASDataController {
         return service;
     }
 
-    /**
+    *//**
      * Method to adminAccessReasons.
      * 
      * @return service
-     */
+     *//*
     @RequestMapping(value = "/accessReasons/", method = RequestMethod.GET)
     public final Service getAdminAccessReasons() {
         LOGGER.info("inside getAdminAccessReasons Method");
@@ -286,5 +272,5 @@ public class ASDataController {
         }
         service.setPayload(accessList);
         return service;
-    }
+    }*/
 }
