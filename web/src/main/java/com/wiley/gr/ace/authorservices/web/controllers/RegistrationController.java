@@ -67,22 +67,25 @@ public class RegistrationController {
 
         Service service = new Service();
         User user = null;
-        try {
-            if (!StringUtils.isEmpty(email)) {
-                user = rs.checkEmailIdExists(email);
-            } else {
-                throw new UserException();
-            }
-            if (user != null) {
-                throw new UserException(noDataFoundCode,
-                        "Email address exists in the system but not registered with AS 2.0");
-            } else {
-                service.setStatus("SUCCESS");
-            }
-        } catch (Exception e) {
-            throw new UserException(noDataFoundCode,
-                    "searching user encountered exception");
+
+        if (!StringUtils.isEmpty(email)) {
+            user = rs.checkEmailIdExists(email);
         }
+        if (user != null) {
+            if ("ALM".equalsIgnoreCase(user.getFoundIn())) {
+                service.setStatus("FAILURE");
+                service.setPayload(user);
+                ErrorPOJO err = new ErrorPOJO();
+                err.setCode("USER_EXISTS_NOT_REGISTERED");
+                err.setMessage("User exists in the system but not registered with AS2.0");
+                service.setError(err);
+            } else {
+                throw new UserException(
+                        "REGISTRATION_PRIMARY_EMAIL_ADDR_EXISTS_AS_PRIMARY_ERR_TEXT",
+                        "User is already registered ");
+            }
+        }
+
         return service;
     }
 

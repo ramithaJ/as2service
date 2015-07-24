@@ -37,7 +37,7 @@ public class ESBUser {
     private String role;
 
     /** The first name. */
-    @JsonProperty("FirstName")
+    @JsonProperty("firstName")
     private String firstName;
 
     /** The zip. */
@@ -49,7 +49,7 @@ public class ESBUser {
     private String country;
 
     /** The last name. */
-    @JsonProperty("LastName")
+    @JsonProperty("lastName")
     private String lastName;
 
     /** The ecid. */
@@ -63,6 +63,9 @@ public class ESBUser {
     /** The account identifier. */
     @JsonProperty("AccountIdentifier")
     private String accountIdentifier;
+
+    @JsonProperty("FoundIN")
+    private String foundIn;
 
     /**
      * Gets the street.
@@ -271,6 +274,14 @@ public class ESBUser {
      */
     public final void setAccountIdentifier(final String accountIdentifier) {
         this.accountIdentifier = accountIdentifier;
+    }
+
+    public final String getFoundIn() {
+        return foundIn;
+    }
+
+    public final void setFoundIn(final String foundIn) {
+        this.foundIn = foundIn;
     }
 
 }

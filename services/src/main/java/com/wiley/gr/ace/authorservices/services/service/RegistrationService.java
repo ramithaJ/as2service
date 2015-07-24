@@ -57,7 +57,7 @@ public interface RegistrationService {
      * @throws Exception
      *             the exception
      */
-    User checkEmailIdExists(String emailId) throws Exception;
+    User checkEmailIdExists(String emailId);
 
     /**
      * Search user by orcid id.
