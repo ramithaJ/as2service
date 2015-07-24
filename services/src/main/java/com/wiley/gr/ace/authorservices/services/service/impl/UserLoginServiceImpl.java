@@ -38,6 +38,7 @@ import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsMap;
 import com.wiley.gr.ace.authorservices.model.external.ValidateUserSecurityQA;
 import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
+import com.wiley.gr.ace.authorservices.services.service.SendNotification;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 
 /**
@@ -94,6 +95,12 @@ public class UserLoginServiceImpl implements UserLoginService {
      */
     @Autowired(required = true)
     private UserManagement userManagement;
+
+    /**
+     * This field holds the value of sendNotification
+     */
+    @Autowired(required = true)
+    private SendNotification sendNotification;
 
     /**
      * Method to authenticate user. calling external system to authenticate
@@ -252,8 +259,12 @@ public class UserLoginServiceImpl implements UserLoginService {
         securityQuestionsValidateRequest
                 .setValidateUserSecurityQA(validateUserSecurityQA);
 
-        return userManagement
+        final boolean status = userManagement
                 .validateSecurityQuestions(securityQuestionsValidateRequest);
+        if (status) {
+            sendNotification.notifyByEmail(securityDetailsHolder.getEmailId());
+        }
+        return status;
     }
 
     /**
