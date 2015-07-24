@@ -84,11 +84,13 @@ public class UserProfileController {
      */
     @RequestMapping(value = "/affiliations/{userId}", method = RequestMethod.GET)
     public final Service getAffiliationsList(
-            @PathVariable("userId") final int userId) {
+            @PathVariable("userId") final String userId) {
         UserProfileController.LOGGER.info("inside getAffiliationsList method ");
         Service service = new Service();
-        service.setPayload(authorProfileService.getuserProfileResponse(userId)
-                .getCustomerProfile().getAffiliations());
+        service.setPayload(authorProfileService
+                .getLookupCustomerProfile(userId)
+                .getLookupCustomerProfileResponse().getCustomerProfile()
+                .getAffiliations());
         return service;
     }
 
@@ -121,13 +123,15 @@ public class UserProfileController {
      */
     @RequestMapping(value = "/researchFunders/{userId}", method = RequestMethod.GET)
     public final Service getResearchFundersList(
-            @PathVariable("userId") final int userId) {
+            @PathVariable("userId") final String userId) {
 
         UserProfileController.LOGGER
                 .info("inside getResearchFundersList method ");
         Service service = new Service();
-        service.setPayload(authorProfileService.getuserProfileResponse(userId)
-                .getCustomerProfile().getResearchFunders());
+        service.setPayload(authorProfileService
+                .getLookupCustomerProfile(userId)
+                .getLookupCustomerProfileResponse().getCustomerProfile()
+                .getResearchFunders());
         return service;
     }
 
@@ -162,12 +166,14 @@ public class UserProfileController {
      */
     @RequestMapping(value = "/societies/{userId}", method = RequestMethod.GET)
     public final Service getSocietiesList(
-            @PathVariable("userId") final int userId) {
+            @PathVariable("userId") final String userId) {
 
         UserProfileController.LOGGER.info("inside getSocietiesList method ");
         Service service = new Service();
-        service.setPayload(authorProfileService.getuserProfileResponse(userId)
-                .getCustomerProfile().getSocieties());
+        service.setPayload(authorProfileService
+                .getLookupCustomerProfile(userId)
+                .getLookupCustomerProfileResponse().getCustomerProfile()
+                .getSocietyList().getSociety());
         return service;
     }
 
@@ -199,12 +205,16 @@ public class UserProfileController {
      * @return service
      */
     @RequestMapping(value = "/interests/{userId}", method = RequestMethod.GET)
-    public final Service getMyInterests(@PathVariable("userId") final int userId) {
+    public final Service getMyInterests(
+            @PathVariable("userId") final String userId) {
 
         UserProfileController.LOGGER.info("inside getMyInterests method ");
         Service service = new Service();
-        service.setPayload(authorProfileService.getuserProfileResponse(userId)
-                .getCustomerProfile().getInterests());
+        service.setPayload(authorProfileService
+                .getLookupCustomerProfile(userId)
+                .getLookupCustomerProfileResponse().getCustomerProfile()
+                .getAreaOfInterest());
+
         return service;
     }
 
@@ -236,12 +246,14 @@ public class UserProfileController {
      */
     @RequestMapping(value = "/coAuthors/{userId}", method = RequestMethod.GET)
     public final Service getCoAuthorsList(
-            @PathVariable("userId") final int userId) {
+            @PathVariable("userId") final String userId) {
 
         UserProfileController.LOGGER.info("inside getCoAuthorsList method ");
         Service service = new Service();
-        service.setPayload(authorProfileService.getuserProfileResponse(userId)
-                .getCustomerProfile().getCoAuthors());
+        service.setPayload(authorProfileService
+                .getLookupCustomerProfile(userId)
+                .getLookupCustomerProfileResponse().getCustomerProfile()
+                .getCoAuthors());
         return service;
     }
 
@@ -276,13 +288,15 @@ public class UserProfileController {
 
     @RequestMapping(value = "/preferredJournals/{userId}", method = RequestMethod.GET)
     public final Service getPreferredJournals(
-            @PathVariable("userId") final int userId) {
+            @PathVariable("userId") final String userId) {
 
         UserProfileController.LOGGER
                 .info("inside getPreferredJournals method ");
         Service service = new Service();
-        service.setPayload(authorProfileService.getuserProfileResponse(userId)
-                .getCustomerProfile().getPreferredJournals());
+        service.setPayload(authorProfileService
+                .getLookupCustomerProfile(userId)
+                .getLookupCustomerProfileResponse().getCustomerProfile()
+                .getFavoriteJournals());
         return service;
     }
 
@@ -328,13 +342,15 @@ public class UserProfileController {
 
     @RequestMapping(value = "/alerts/{userId}", method = RequestMethod.GET)
     public final Service getListOfAlerts(
-            @PathVariable("userId") final int userId) {
+            @PathVariable("userId") final String userId) {
 
         UserProfileController.LOGGER.info("inside getListOfAlerts method ");
         Service service = new Service();
 
-        service.setPayload(authorProfileService.getuserProfileResponse(userId)
-                .getCustomerProfile().getAlerts());
+        service.setPayload(authorProfileService
+                .getLookupCustomerProfile(userId)
+                .getLookupCustomerProfileResponse().getCustomerProfile()
+                .getAlerts());
         return service;
     }
 
@@ -435,17 +451,19 @@ public class UserProfileController {
         }
         return service;
     }
-    
+
     /**
      * @param userId
      * @return
      */
     @RequestMapping(value = "/lookUpProfileCustomer/{userId}", method = RequestMethod.GET)
-    public final Service lookUpProfile(@PathVariable("userId") final String userId) {
+    public final Service lookUpProfile(
+            @PathVariable("userId") final String userId) {
 
         UserProfileController.LOGGER.info("inside lookUpProfile method ");
         Service service = new Service();
-        service.setPayload(authorProfileService.getLookupCustomerProfile(userId));
+        service.setPayload(authorProfileService
+                .getLookupCustomerProfile(userId));
         return service;
 
     }
