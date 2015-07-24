@@ -27,6 +27,7 @@ import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
 import com.wiley.gr.ace.authorservices.model.external.Industries;
 import com.wiley.gr.ace.authorservices.model.external.JobCategories;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
+import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfileResponse;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 
 /**
@@ -252,14 +253,24 @@ public class UserProfilesImpl implements UserProfiles {
                 HttpMethod.GET, LookupCustomerProfile.class);
     }
 
+    /**
+     * Update lookup customer profile.
+     *
+     * @param lookupCustomerProfileResponse
+     *            the lookup customer profile response
+     * @return the lookup customer profile response
+     * @throws Exception
+     *             the exception
+     */
     @Override
-    public LookupCustomerProfile updateLookupCustomerProfile(
-            final LookupCustomerProfile lookupCustomerProfile) throws Exception {
+    public LookupCustomerProfileResponse updateLookupCustomerProfile(
+            final LookupCustomerProfileResponse lookupCustomerProfileResponse)
+            throws Exception {
         final Service service = (Service) StubInvokerUtil.invokeStub(
                 updateLookupCustomerProfile, HttpMethod.POST, Service.class);
         final String status = service.getStatus();
         if (status != null && "success".equalsIgnoreCase(status)) {
-            return lookupCustomerProfile;
+            return lookupCustomerProfileResponse;
         } else {
             return null;
         }

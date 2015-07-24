@@ -17,6 +17,7 @@ import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
 import com.wiley.gr.ace.authorservices.model.external.Industries;
 import com.wiley.gr.ace.authorservices.model.external.JobCategories;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
+import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfileResponse;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 
 /**
@@ -113,12 +114,13 @@ public interface UserProfiles {
     /**
      * Update lookup customer profile.
      *
-     * @param lookupCustomerProfile
-     *            the lookup customer profile
-     * @return the lookup customer profile
+     * @param lookupCustomerProfileResponse
+     *            the lookup customer profile response
+     * @return the lookup customer profile response
      * @throws Exception
      *             the exception
      */
-    LookupCustomerProfile updateLookupCustomerProfile(
-            LookupCustomerProfile lookupCustomerProfile) throws Exception;
+    LookupCustomerProfileResponse updateLookupCustomerProfile(
+            LookupCustomerProfileResponse lookupCustomerProfileResponse)
+            throws Exception;
 }
