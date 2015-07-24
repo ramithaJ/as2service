@@ -13,9 +13,10 @@ package com.wiley.gr.ace.authorservices.services.service;
 
 import java.util.List;
 
-import com.wiley.gr.ace.authorservices.model.Addresses;
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.User;
+import com.wiley.gr.ace.authorservices.model.external.AddressElement;
+import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
 
 /**
  * The Interface UserAccountService.
@@ -52,7 +53,7 @@ public interface UserAccountService {
      *            the user id
      * @return the profile information
      */
-    User getProfileInformation(int userId);
+    CustomerDetails getProfileInformation(String userId);
 
     /**
      * Gets the user address.
@@ -61,5 +62,5 @@ public interface UserAccountService {
      *            the user id
      * @return the user address
      */
-    List<Addresses> getUserAddress(int userId);
+    List<AddressElement> getUserAddress(String userId);
 }

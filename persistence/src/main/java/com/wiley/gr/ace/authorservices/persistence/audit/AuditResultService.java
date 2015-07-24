@@ -34,6 +34,5 @@ public interface AuditResultService {
      *            the user
      * @return true, if successful
      */
-    boolean userAudit(List<HashMap<String, String>> auditMap,
-            HashMap<String, String> actionMap, Users user);
+    boolean userAudit(List<HashMap<String, String>> auditMap, Users user);
 }

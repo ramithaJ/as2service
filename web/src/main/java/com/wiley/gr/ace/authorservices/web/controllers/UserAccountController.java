@@ -62,7 +62,7 @@ public class UserAccountController {
      */
     @RequestMapping(value = "/profileInfo/{userId}", method = RequestMethod.GET)
     public final Service getProfileInformation(
-            @PathVariable("userId") final int userId) {
+            @PathVariable("userId") final String userId) {
         UserAccountController.LOGGER
                 .info("inside getProfileInformation method");
         Service service = new Service();
@@ -139,7 +139,7 @@ public class UserAccountController {
      */
     @RequestMapping(value = "/userAddresses/{userId}", method = RequestMethod.GET)
     public final Service getUserAddresses(
-            @PathVariable("userId") final int userId) {
+            @PathVariable("userId") final String userId) {
         UserAccountController.LOGGER.info("inside getUserAddresses method");
         Service service = new Service();
         service.setPayload(userAccountService.getUserAddress(userId));

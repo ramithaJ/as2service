@@ -13,6 +13,7 @@
 package com.wiley.gr.ace.authorservices.services.service;
 
 import java.io.File;
+import java.util.List;
 
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
@@ -161,10 +162,12 @@ public interface AuthorProfileService {
      * @param userId
      */
     void uploadImage(File image, String userId);
-    
+
     /**
      * @param userId
      * @return
      */
     LookupCustomerProfile getLookupCustomerProfile(String userId);
+
+    List<Affiliation> getAffiliationsList(String userId);
 }

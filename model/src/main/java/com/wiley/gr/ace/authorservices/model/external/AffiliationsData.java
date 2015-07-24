@@ -23,18 +23,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  * @author yugandhark
  */
-public class Affiliations {
+public class AffiliationsData {
 
     /** The affiliation. */
     @JsonProperty("Affiliation")
-    private List<Affiliation> affiliation;
+    private List<AffiliationData> affiliation;
 
     /**
      * Gets the affiliation.
      *
      * @return the affiliation
      */
-    public final List<Affiliation> getAffiliation() {
+    public final List<AffiliationData> getAffiliation() {
         return affiliation;
     }
 
@@ -43,7 +43,7 @@ public class Affiliations {
      *
      * @param affiliation the new affiliation
      */
-    public final void setAffiliation(final List<Affiliation> affiliation) {
+    public final void setAffiliation(final List<AffiliationData> affiliation) {
         this.affiliation = affiliation;
     }
 }

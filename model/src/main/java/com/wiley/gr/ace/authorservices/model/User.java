@@ -97,6 +97,8 @@ public class User implements Serializable {
     /** The affiliation. */
     private Affiliation affiliation;
 
+    private String foundIn;
+
     /**
      * Gets the user id.
      *
@@ -553,6 +555,14 @@ public class User implements Serializable {
      */
     public final void setAffiliation(final Affiliation affiliation) {
         this.affiliation = affiliation;
+    }
+
+    public final String getFoundIn() {
+        return foundIn;
+    }
+
+    public final void setFoundIn(String foundIn) {
+        this.foundIn = foundIn;
     }
 
 }

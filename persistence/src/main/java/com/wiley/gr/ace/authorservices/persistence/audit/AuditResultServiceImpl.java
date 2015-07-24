@@ -11,17 +11,17 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.audit;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
+import com.wiley.gr.ace.authorservices.model.AuditInformation;
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.entity.Actions;
 import com.wiley.gr.ace.authorservices.persistence.entity.AuditDetails;
@@ -46,20 +46,16 @@ public class AuditResultServiceImpl implements AuditResultService {
      */
     @Override
     public final boolean userAudit(
-            final List<HashMap<String, String>> auditMap,
-            final HashMap<String, String> actionMap, final Users user) {
+            final List<HashMap<String, String>> auditMap, final Users user) {
 
         Session session = null;
         Transaction transaction = null;
-        // auditDetailsSet HashSet
-        Set<AuditDetails> auditDetailsSet = new HashSet<AuditDetails>();
         try {
             // Hibernate Connection
             session = HibernateConnection.getSessionFactory().openSession();
             // begin Transaction
             transaction = session.beginTransaction();
-            // creating Actions class object.
-            Actions actions = new Actions();
+            new Actions();
             // creating AuditDetails object
             AuditDetails auditDetails = null;
             int auditSize = auditMap.size();
@@ -95,32 +91,10 @@ public class AuditResultServiceImpl implements AuditResultService {
                     }
                     // saving the auditDetails object.
                     session.save(auditDetails);
-                    session.flush();
-                    auditDetailsSet.add(auditDetails);
+                    transaction.commit();
                 }
             }
-            if (!StringUtils.isEmpty(actionMap
-                    .get(AuthorServicesConstants.AUDIT_ACTION_CD))) {
-                actions.setActionCd(actionMap
-                        .get(AuthorServicesConstants.AUDIT_ACTION_CD));
-            }
-            if (!StringUtils.isEmpty(actionMap
-                    .get(AuthorServicesConstants.AUDIT_ACTION_NAME))) {
-                actions.setActionName(actionMap
-                        .get(AuthorServicesConstants.AUDIT_ACTION_NAME));
-            }
-            if (!StringUtils.isEmpty(actionMap
-                    .get(AuthorServicesConstants.AUDIT_DESCRIPTION))) {
-                actions.setDescription(actionMap
-                        .get(AuthorServicesConstants.AUDIT_DESCRIPTION));
-            }
-            actions.setCreatedDate(new Date());
-            actions.setUpdatedDate(new Date());
-            actions.setAuditDetailses(auditDetailsSet);
-            // saving the actions class object.
-            session.save(actions);
-            // committ the transaction
-            transaction.commit();
+
         } catch (Exception e) {
             e.printStackTrace();
             if (null != session) {
@@ -136,5 +110,21 @@ public class AuditResultServiceImpl implements AuditResultService {
         return true;
     }
 
-  
+    public static void auditUserActions(final AuditInformation auditInformation) {
+
+        List<HashMap<String, String>> auditMap = new ArrayList<HashMap<String, String>>();
+        HashMap<String, String> hashMap = new HashMap<String, String>();
+        hashMap.put("OBJ_NAME", auditInformation.getTableName());// Table Name
+        hashMap.put("OBJ_ATTR", auditInformation.getColumnName());// Column Name
+        hashMap.put("OLD_VAL", auditInformation.getOldValue());
+        hashMap.put("NEW_VAL", auditInformation.getNewValue());
+        auditMap.add(hashMap);
+
+        Users users = new Users();
+        users.setUserId(auditInformation.getUserId());
+
+        AuditResultServiceImpl auditResultServiceImpl = new AuditResultServiceImpl();
+        auditResultServiceImpl.userAudit(auditMap, users);
+    }
+
 }

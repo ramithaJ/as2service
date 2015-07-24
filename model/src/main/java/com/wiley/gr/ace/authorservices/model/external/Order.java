@@ -134,7 +134,7 @@ public class Order {
      *
      * @return the affiliation
      */
-    public final Affiliation getAffiliation() {
+    public final AffiliationData getAffiliation() {
         return affiliation;
     }
 
@@ -144,7 +144,7 @@ public class Order {
      * @param affiliation
      *            the affiliation to set
      */
-    public final void setAffiliation(final Affiliation affiliation) {
+    public final void setAffiliation(final AffiliationData affiliation) {
         this.affiliation = affiliation;
     }
 
@@ -266,7 +266,7 @@ public class Order {
     private Discount discount;
 
     /** The affiliation. */
-    private Affiliation affiliation;
+    private AffiliationData affiliation;
 
     /** The payment method. */
     private String paymentMethod;

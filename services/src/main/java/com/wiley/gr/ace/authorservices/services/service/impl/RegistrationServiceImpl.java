@@ -17,6 +17,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.model.Country;
 import com.wiley.gr.ace.authorservices.model.InviteRecords;
@@ -148,19 +149,28 @@ public class RegistrationServiceImpl implements RegistrationService {
      *             the exception
      */
     @Override
-    public final User checkEmailIdExists(final String emailId) throws Exception {
+    public final User checkEmailIdExists(final String emailId) {
         User user = null;
         ESBUser esbUser = null;
         if (!StringUtils.isEmpty(emailId)) {
-            esbUser = esbInterFaceService.checkEmailIdExists(emailId);
-            if (null != esbUser) {
-                user = new User();
-                final Country countryDetails = new Country();
-                countryDetails.setCountryName(esbUser.getCountry());
-                user.setFirstName(esbUser.getFirstName());
-                user.setLastName(esbUser.getLastName());
-                user.setPrimaryEmailAddr(esbUser.getEmailId());
-                user.setCountry(countryDetails);
+            try {
+                esbUser = esbInterFaceService.checkEmailIdExists(emailId);
+
+                if (null != esbUser) {
+                    System.err.println(esbUser.getFirstName());
+                    System.err.println(esbUser.getLastName());
+                    System.err.println(esbUser.getCountry());
+                    user = new User();
+                    final Country countryDetails = new Country();
+                    countryDetails.setCountryName(esbUser.getCountry());
+                    user.setFirstName(esbUser.getFirstName());
+                    user.setLastName(esbUser.getLastName());
+                    user.setPrimaryEmailAddr(esbUser.getEmailId());
+                    user.setCountry(countryDetails);
+                    user.setFoundIn(esbUser.getFoundIn());
+                }
+            } catch (Exception e) {
+                throw new UserException();
             }
         }
         return user;
