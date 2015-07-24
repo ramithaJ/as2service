@@ -18,8 +18,7 @@ import com.wiley.gr.ace.authorservices.model.Dashboard;
 import com.wiley.gr.ace.authorservices.model.external.DashboardView;
 
 /**
- * This DashboardService is for providing service for viewing the Dashboard of
- * Corresponding Author and Co-Author.
+ * The Interface DashboardService.
  *
  * @author virtusa version 1.0
  */
@@ -29,8 +28,8 @@ public interface DashboardService {
      * Gets the profile meter.
      *
      * @param userId
-     *            to get the data from ESB ExternalService
-     * @return Dashboard
+     *            the user id
+     * @return the profile meter
      * @throws Exception
      *             the exception
      */

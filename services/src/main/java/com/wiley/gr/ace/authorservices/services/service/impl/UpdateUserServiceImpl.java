@@ -58,15 +58,16 @@ public class UpdateUserServiceImpl implements UpdateUserService {
     @Override
     public final boolean updateOrcidId(final String emailId,
             final String orcidId, final String userId) throws Exception {
-        UpdateUserServiceImpl.LOGGER
-                .info("inside updateOrcidId method of UpdateUserServiceImpl");
+        LOGGER.info("inside updateOrcidId method of UpdateUserServiceImpl");
         boolean result = false;
-        final LookupCustomerProfile lookupCustomerProfile = userProfileService
+        LookupCustomerProfile lookupCustomerProfile = userProfileService
                 .getLookupCustomerProfile(userId);
         if (!StringUtils.isEmpty(lookupCustomerProfile)) {
-            final LookupCustomerProfileResponse lookupCustomerProfileResponse = lookupCustomerProfile
+            LOGGER.info("LookupCustomerProfile data is found");
+            LookupCustomerProfileResponse lookupCustomerProfileResponse = lookupCustomerProfile
                     .getLookupCustomerProfileResponse();
             if (!StringUtils.isEmpty(lookupCustomerProfileResponse)) {
+                LOGGER.info("LookupCustomerProfileResponse  data is found");
                 lookupCustomerProfile
                         .setLookupCustomerProfileResponse(updateOrcidDetails(
                                 lookupCustomerProfileResponse, orcidId));
@@ -89,12 +90,15 @@ public class UpdateUserServiceImpl implements UpdateUserService {
     private LookupCustomerProfileResponse updateOrcidDetails(
             final LookupCustomerProfileResponse lookupCustomerProfileResponse,
             final String orcidId) {
-        final CustomerProfile customerProfile = lookupCustomerProfileResponse
+        LOGGER.info(" inside updateOrcidDetails method UpdateUserServiceImpl");
+        CustomerProfile customerProfile = lookupCustomerProfileResponse
                 .getCustomerProfile();
         if (!StringUtils.isEmpty(customerProfile)) {
-            final CustomerDetails customerDetails = customerProfile
+            LOGGER.info(" CustomeProfile Data is Found");
+            CustomerDetails customerDetails = customerProfile
                     .getCustomerDetails();
             if (StringUtils.isEmpty(customerDetails.getOrcId())) {
+                LOGGER.info(" Orcid is Not Found then Update");
                 customerDetails.setOrcId(orcidId);
                 customerProfile.setCustomerDetails(customerDetails);
                 lookupCustomerProfileResponse
