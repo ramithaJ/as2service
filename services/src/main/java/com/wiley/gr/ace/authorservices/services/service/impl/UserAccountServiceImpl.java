@@ -18,9 +18,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
-import com.wiley.gr.ace.authorservices.model.Addresses;
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.User;
+import com.wiley.gr.ace.authorservices.model.external.AddressElement;
+import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
+import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 import com.wiley.gr.ace.authorservices.persistence.services.UserAccountDAO;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
@@ -96,13 +98,15 @@ public class UserAccountServiceImpl implements UserAccountService {
      * @return the profile information
      */
     @Override
-    public final User getProfileInformation(final int userId) {
+    public final CustomerDetails getProfileInformation(final String userId) {
 
         UserAccountServiceImpl.LOGGER
                 .info("inside getProfileInformation Method");
-        final UserProfileResponse lookupProfile = userProfile
-                .getUserProfileResponse(userId);
-        return lookupProfile.getCustomerProfile().getCustomerDetails();
+        CustomerDetails customerDetails = userProfile
+                .getLookupCustomerProfile(userId)
+                .getLookupCustomerProfileResponse().getCustomerProfile()
+                .getCustomerDetails();
+        return customerDetails;
     }
 
     /**
@@ -113,12 +117,14 @@ public class UserAccountServiceImpl implements UserAccountService {
      * @return the user address
      */
     @Override
-    public final List<Addresses> getUserAddress(final int userId) {
+    public final List<AddressElement> getUserAddress(final String userId) {
 
         UserAccountServiceImpl.LOGGER.info("inside getUserAddress Method");
-        final UserProfileResponse lookupProfile = userProfile
-                .getUserProfileResponse(userId);
-        return lookupProfile.getCustomerProfile().getAddressDetails();
+        final LookupCustomerProfile lookupProfile = userProfile
+                .getLookupCustomerProfile(userId);
+
+        return lookupProfile.getLookupCustomerProfileResponse()
+                .getCustomerProfile().getAddressDetails().getAddress();
     }
 
 }
