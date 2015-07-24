@@ -18,6 +18,7 @@ import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.model.AdminUser;
+import com.wiley.gr.ace.authorservices.model.AuditInformation;
 import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
 import com.wiley.gr.ace.authorservices.model.external.ErrorPayLoad;
 import com.wiley.gr.ace.authorservices.model.external.ForcefulReset;
@@ -29,6 +30,7 @@ import com.wiley.gr.ace.authorservices.model.external.SecurityQuestionsUpdateReq
 import com.wiley.gr.ace.authorservices.model.external.SecurityQuestionsValidateRequest;
 import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
 import com.wiley.gr.ace.authorservices.model.external.UserEmailDetails;
+import com.wiley.gr.ace.authorservices.persistence.audit.AuditResultServiceImpl;
 
 /**
  * The Class UserManagementImpl.
@@ -112,8 +114,20 @@ public class UserManagementImpl implements UserManagement {
     public final boolean resetPassword(
             final PasswordResetRequest passwordResetRequest) {
 
-        return this.externalServiceInvoker(resetPasswordurl,
+        final boolean status = this.externalServiceInvoker(resetPasswordurl,
                 passwordResetRequest);
+        if (status) {
+            AuditInformation auditInformation = new AuditInformation();
+            auditInformation.setActionID("PWDRES");
+            auditInformation.setTableName("TABLE");
+            auditInformation.setColumnName("COLUMN");
+            auditInformation.setNewValue("adcd");
+            auditInformation.setOldValue("45624");
+            auditInformation.setUserId(8011047);
+            // TODO: audit password details.
+            AuditResultServiceImpl.auditUserActions(auditInformation);
+        }
+        return status;
     }
 
     /**
