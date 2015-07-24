@@ -68,11 +68,11 @@ public class UpdateUserServiceImpl implements UpdateUserService {
                     .getLookupCustomerProfileResponse();
             if (!StringUtils.isEmpty(lookupCustomerProfileResponse)) {
                 LOGGER.info("LookupCustomerProfileResponse  data is found");
-                lookupCustomerProfile
-                        .setLookupCustomerProfileResponse(updateOrcidDetails(
+                lookupCustomerProfileResponse
+                        .setCustomerProfile(updateOrcidDetails(
                                 lookupCustomerProfileResponse, orcidId));
                 result = null != userProfileService
-                        .updateLookupCustomerProfile(lookupCustomerProfile);
+                        .updateLookupCustomerProfile(lookupCustomerProfileResponse);
             }
         }
         return result;
@@ -85,9 +85,9 @@ public class UpdateUserServiceImpl implements UpdateUserService {
      *            the lookup customer profile response
      * @param orcidId
      *            the orcid id
-     * @return the lookup customer profile response
+     * @return the customer profile
      */
-    private LookupCustomerProfileResponse updateOrcidDetails(
+    private CustomerProfile updateOrcidDetails(
             final LookupCustomerProfileResponse lookupCustomerProfileResponse,
             final String orcidId) {
         LOGGER.info(" inside updateOrcidDetails method UpdateUserServiceImpl");
@@ -101,10 +101,8 @@ public class UpdateUserServiceImpl implements UpdateUserService {
                 LOGGER.info(" Orcid is Not Found then Update");
                 customerDetails.setOrcId(orcidId);
                 customerProfile.setCustomerDetails(customerDetails);
-                lookupCustomerProfileResponse
-                        .setCustomerProfile(customerProfile);
             }
         }
-        return lookupCustomerProfileResponse;
+        return customerProfile;
     }
 }
