@@ -35,6 +35,7 @@ import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserProfile;
 import com.wiley.gr.ace.authorservices.model.UserProfileAlerts;
+import com.wiley.gr.ace.authorservices.model.external.AffiliationData;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.PasswordRequest;
 import com.wiley.gr.ace.authorservices.model.external.PasswordUpdate;
@@ -381,6 +382,29 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     public LookupCustomerProfile getLookupCustomerProfile(String userId) {
 
         return userProfiles.getLookupCustomerProfile(userId);
+    }
+
+    @Override
+    public List<Affiliation> getAffiliationsList(String userId) {
+        List<AffiliationData> listofAffiliations = userProfiles
+                .getLookupCustomerProfile(userId)
+                .getLookupCustomerProfileResponse().getCustomerProfile()
+                .getAffiliations().getAffiliation();
+        List<Affiliation> affiliationList=new ArrayList<Affiliation>();
+        
+        for (AffiliationData affiliationData : listofAffiliations) {
+            Affiliation affiliation=new Affiliation();
+            affiliation.setAffiliationId(affiliationData.getId());
+            affiliation.setCity(affiliationData.getCity());
+            affiliation.setCountryCode(affiliationData.getCountryCd());
+            affiliation.setInstitutionId(affiliationData.getInstitutionCd());
+            affiliation.setDepartmentId(affiliationData.getDepartmentCd());
+            affiliation.setDepartmentName(affiliationData.getDepartmentName());
+            affiliationList.add(affiliation);
+            
+        }
+
+        return affiliationList;
     }
 
 }

@@ -53,7 +53,7 @@ public class CustomerProfile {
 
     /** The affiliations. */
     @JsonProperty("Affiliations")
-    private Affiliations affiliations;
+    private AffiliationsData affiliations;
 
     /** The society list. */
     @JsonProperty("SocietyList")
@@ -195,7 +195,7 @@ public class CustomerProfile {
      *
      * @return the affiliations
      */
-    public final Affiliations getAffiliations() {
+    public final AffiliationsData getAffiliations() {
         return affiliations;
     }
 
@@ -204,7 +204,7 @@ public class CustomerProfile {
      *
      * @param affiliations the new affiliations
      */
-    public final void setAffiliations(final Affiliations affiliations) {
+    public final void setAffiliations(final AffiliationsData affiliations) {
         this.affiliations = affiliations;
     }
 

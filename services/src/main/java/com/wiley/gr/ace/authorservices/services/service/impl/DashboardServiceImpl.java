@@ -25,7 +25,7 @@ import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.Dashboard;
 import com.wiley.gr.ace.authorservices.model.DashboardInfo;
-import com.wiley.gr.ace.authorservices.model.external.Affiliation;
+import com.wiley.gr.ace.authorservices.model.external.AffiliationData;
 import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
 import com.wiley.gr.ace.authorservices.model.external.CustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.DashboardView;
@@ -298,7 +298,7 @@ public class DashboardServiceImpl implements DashboardService {
             final CustomerProfile customerProfile) {
         DashboardServiceImpl.LOGGER
                 .info("inside getAffiliationsForUser Method of DashboardServiceImpl");
-        final List<Affiliation> userAffiliationsList = customerProfile
+        final List<AffiliationData> userAffiliationsList = customerProfile
                 .getAffiliations().getAffiliation();
         DashboardInfo dashboardInfo = null;
         if (!StringUtils.isEmpty(userAffiliationsList)
