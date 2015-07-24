@@ -11,13 +11,9 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
-import java.io.File;
-import java.io.IOException;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
@@ -116,19 +112,8 @@ public class UserManagementImpl implements UserManagement {
     public final boolean resetPassword(
             final PasswordResetRequest passwordResetRequest) {
 
-        final ResponseStatus responseStatus = (ResponseStatus) StubInvokerUtil
-                .restServiceInvoker(resetPasswordurl, passwordResetRequest,
-                        ResponseStatus.class);
-        boolean status = false;
-        if (success.equalsIgnoreCase(responseStatus.getStatus())) {
-            status = true;
-        }
-        if (failure.equalsIgnoreCase(responseStatus.getStatus())) {
-            final ErrorPayLoad errorPayLoad = responseStatus.getError();
-            throw new UserException(errorPayLoad.getErrorCode(),
-                    errorPayLoad.getErrorMessage());
-        }
-        return status;
+        return this.externalServiceInvoker(resetPasswordurl,
+                passwordResetRequest);
     }
 
     /**
@@ -143,19 +128,7 @@ public class UserManagementImpl implements UserManagement {
     @Override
     public final boolean updateUserId(final UserEmailDetails userEmailDetails) {
 
-        final ResponseStatus responseStatus = (ResponseStatus) StubInvokerUtil
-                .restServiceInvoker(updateUserIdurl, userEmailDetails,
-                        ResponseStatus.class);
-        boolean status = false;
-        if (success.equalsIgnoreCase(responseStatus.getStatus())) {
-            status = true;
-        }
-        if (failure.equalsIgnoreCase(responseStatus.getStatus())) {
-            final ErrorPayLoad errorPayLoad = responseStatus.getError();
-            throw new UserException(errorPayLoad.getErrorCode(),
-                    errorPayLoad.getErrorMessage());
-        }
-        return status;
+        return this.externalServiceInvoker(updateUserIdurl, userEmailDetails);
     }
 
     /**
@@ -170,20 +143,7 @@ public class UserManagementImpl implements UserManagement {
     @Override
     public final boolean forceFulReset(final ForcefulReset forcefulReset) {
 
-        final ResponseStatus responseStatus = (ResponseStatus) StubInvokerUtil
-                .restServiceInvoker(forceFulReseturl, forcefulReset,
-                        ResponseStatus.class);
-        boolean status = false;
-        if (success.equalsIgnoreCase(responseStatus.getStatus())) {
-            status = true;
-        }
-        if (failure.equalsIgnoreCase(responseStatus.getStatus())) {
-            final ErrorPayLoad errorPayLoad = responseStatus.getError();
-            throw new UserException(errorPayLoad.getErrorCode(),
-                    errorPayLoad.getErrorMessage());
-        }
-        System.err.println(status);
-        return status;
+        return this.externalServiceInvoker(forceFulReseturl, forcefulReset);
     }
 
     /**
@@ -196,19 +156,7 @@ public class UserManagementImpl implements UserManagement {
     @Override
     public final boolean updatePassword(final PasswordRequest passwordRequest) {
 
-        final ResponseStatus responseStatus = (ResponseStatus) StubInvokerUtil
-                .restServiceInvoker(updatePasswordurl, passwordRequest,
-                        ResponseStatus.class);
-        boolean status = false;
-        if (success.equalsIgnoreCase(responseStatus.getStatus())) {
-            status = true;
-        }
-        if (failure.equalsIgnoreCase(responseStatus.getStatus())) {
-            final ErrorPayLoad errorPayLoad = responseStatus.getError();
-            throw new UserException(errorPayLoad.getErrorCode(),
-                    errorPayLoad.getErrorMessage());
-        }
-        return status;
+        return this.externalServiceInvoker(updatePasswordurl, passwordRequest);
     }
 
     /**
@@ -222,19 +170,8 @@ public class UserManagementImpl implements UserManagement {
     public final boolean updateSecurityDetails(
             final SecurityQuestionsUpdateRequest securityQuestionsUpdateRequest) {
 
-        final ResponseStatus responseStatus = (ResponseStatus) StubInvokerUtil
-                .restServiceInvoker(updateSecurityDetailsurl,
-                        securityQuestionsUpdateRequest, ResponseStatus.class);
-        boolean status = false;
-        if (success.equalsIgnoreCase(responseStatus.getStatus())) {
-            status = true;
-        }
-        if (failure.equalsIgnoreCase(responseStatus.getStatus())) {
-            final ErrorPayLoad errorPayLoad = responseStatus.getError();
-            throw new UserException(errorPayLoad.getErrorCode(),
-                    errorPayLoad.getErrorMessage());
-        }
-        return status;
+        return this.externalServiceInvoker(updateSecurityDetailsurl,
+                securityQuestionsUpdateRequest);
     }
 
     /**
@@ -279,18 +216,16 @@ public class UserManagementImpl implements UserManagement {
     public boolean validateSecurityQuestions(
             final SecurityQuestionsValidateRequest securityQuestionsValidateRequest) {
 
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            mapper.writeValue(new File("c:\\Shiva\\user.json"),
-                    securityQuestionsValidateRequest);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        return this.externalServiceInvoker(validateSecurityQuestionsurl,
+                securityQuestionsValidateRequest);
+    }
+
+    private boolean externalServiceInvoker(final String url,
+            final Object requestEntityClass) {
 
         final ResponseStatus responseStatus = (ResponseStatus) StubInvokerUtil
-                .restServiceInvoker(validateSecurityQuestionsurl,
-                        securityQuestionsValidateRequest, ResponseStatus.class);
+                .restServiceInvoker(url, requestEntityClass,
+                        ResponseStatus.class);
         boolean status = false;
         if (success.equalsIgnoreCase(responseStatus.getStatus())) {
             status = true;
