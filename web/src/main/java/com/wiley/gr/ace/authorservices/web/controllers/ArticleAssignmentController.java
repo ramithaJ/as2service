@@ -28,8 +28,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.AssociationConfirmation;
 import com.wiley.gr.ace.authorservices.model.Service;
+import com.wiley.gr.ace.authorservices.model.ViewAssignedArticle;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
-import com.wiley.gr.ace.authorservices.model.external.ViewAssignedArticle;
 import com.wiley.gr.ace.authorservices.services.service.ArticleAssignmentService;
 
 /**
