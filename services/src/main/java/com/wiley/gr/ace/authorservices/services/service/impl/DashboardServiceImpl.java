@@ -31,7 +31,7 @@ import com.wiley.gr.ace.authorservices.model.external.CustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.DashboardView;
 import com.wiley.gr.ace.authorservices.model.external.Interest;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
-import com.wiley.gr.ace.authorservices.model.external.ResearchFunder;
+import com.wiley.gr.ace.authorservices.model.external.ResearchFunderData;
 import com.wiley.gr.ace.authorservices.model.external.Society;
 import com.wiley.gr.ace.authorservices.model.external.SystemSecurityQuestions;
 import com.wiley.gr.ace.authorservices.services.service.DashboardService;
@@ -345,7 +345,7 @@ public class DashboardServiceImpl implements DashboardService {
             final CustomerProfile customerProfile) {
         DashboardServiceImpl.LOGGER
                 .info("inside getFundersListForUser Method of DashboardServiceImpl");
-        final List<ResearchFunder> researchFundersList = customerProfile
+        final List<ResearchFunderData> researchFundersList = customerProfile
                 .getResearchFunders().getResearchFunder();
         DashboardInfo dashboardInfo = null;
         if (!StringUtils.isEmpty(researchFundersList)

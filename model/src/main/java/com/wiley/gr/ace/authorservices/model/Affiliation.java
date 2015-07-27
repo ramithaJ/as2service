@@ -36,6 +36,26 @@ public class Affiliation implements Serializable {
 
     /** The institution id. */
     private String institutionId;
+    
+    /** The institution name. */
+    private String institutionName;
+
+     /** Gets the institution name.
+     *
+     * @return the institutionName
+     */
+    public final String getInstitutionName() {
+        return institutionName;
+    }
+
+     /** Sets the institution name.
+     *
+     * @param institutionName
+     *            the institutionName to set
+     */
+    public final void setInstitutionName(String institutionName) {
+        this.institutionName = institutionName;
+    }
 
     /** The department id. */
     private String departmentId;
