@@ -25,6 +25,7 @@ import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
+import com.wiley.gr.ace.authorservices.model.Affiliations;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.Email;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
@@ -407,15 +408,18 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @param userId
      */
     @Override
-    public List<Affiliation> getAffiliationsList(final String userId) {
+    public Affiliations getAffiliationsList(final String userId) {
+
         List<AffiliationData> listofAffiliations = userProfiles
                 .getLookupCustomerProfile(userId)
                 .getLookupCustomerProfileResponse().getCustomerProfile()
                 .getAffiliations().getAffiliation();
-        List<Affiliation> affiliationList = new ArrayList<Affiliation>();
 
+        Affiliations affiliations = new Affiliations();
+        Affiliation affiliation = new Affiliation();
+        List<Affiliation> listAffiliations = new ArrayList<Affiliation>();
         for (AffiliationData affiliationData : listofAffiliations) {
-            Affiliation affiliation = new Affiliation();
+
             affiliation.setAffiliationId(affiliationData.getId());
             affiliation.setCity(affiliationData.getCity());
             affiliation.setCountryCode(affiliationData.getCountryCd());
@@ -424,9 +428,10 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             affiliation.setDepartmentName(affiliationData.getDepartmentName());
             affiliation
                     .setInstitutionName(affiliationData.getInstitutionName());
-            affiliationList.add(affiliation);
+            listAffiliations.add(affiliation);
+            affiliations.setAffiliations(listAffiliations);
         }
-        return affiliationList;
+        return affiliations;
     }
 
     /**

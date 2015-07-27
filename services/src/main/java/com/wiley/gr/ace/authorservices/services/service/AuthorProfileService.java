@@ -13,9 +13,9 @@
 package com.wiley.gr.ace.authorservices.services.service;
 
 import java.io.File;
-import java.util.List;
 
 import com.wiley.gr.ace.authorservices.model.Affiliation;
+import com.wiley.gr.ace.authorservices.model.Affiliations;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.Email;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
@@ -184,7 +184,7 @@ public interface AuthorProfileService {
      *            the user id
      * @return the affiliations list
      */
-    List<Affiliation> getAffiliationsList(String userId);
+    Affiliations getAffiliationsList(String userId);
 
     /**
      * Gets the research funders list.
