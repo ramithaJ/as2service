@@ -14,6 +14,8 @@ package com.wiley.gr.ace.authorservices.autocomplete.service;
 import java.io.IOException;
 import java.util.List;
 
+import com.wiley.gr.ace.authorservices.model.CacheData;
+
 /**
  * The Interface AutocompleteService.
  *
@@ -57,6 +59,6 @@ public interface AutocompleteService {
      */
     boolean flush(String key);
     
-	List<String> getDropDownData(String key, String phrase, Integer offset);
+	List<CacheData> getDropDownData(String key, String phrase, Integer offset);
 
 }

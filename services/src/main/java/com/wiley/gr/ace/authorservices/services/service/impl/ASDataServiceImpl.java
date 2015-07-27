@@ -194,8 +194,8 @@ public class ASDataServiceImpl implements ASDataService {
         for (Object object : externalCountrylist) {
             LinkedHashMap<String, String> countrymap = (LinkedHashMap<String, String>) object;
             CacheData cacheData = new CacheData();
-            cacheData.setName(countrymap.get("ISO_ALPHA_3"));
-            cacheData.setCode(countrymap.get("COUNTRY_NAME"));
+            cacheData.setName(countrymap.get("COUNTRY_NAME"));
+            cacheData.setCode(countrymap.get("ISO_ALPHA_3"));
             countrylist.add(cacheData);
         }
 

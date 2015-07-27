@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteService;
 import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
 import com.wiley.gr.ace.authorservices.model.Autocomplete;
+import com.wiley.gr.ace.authorservices.model.CacheData;
 import com.wiley.gr.ace.authorservices.model.Service;
 
 /**
@@ -133,7 +134,7 @@ public class AutocompleteController extends ASExceptionController {
 		Service service = null;
 
 		if (autocomplete.getKey() != null) {
-			final List<String> autocompleteData = autoCompleteService
+			final List<CacheData> autocompleteData = autoCompleteService
 					.getDropDownData(autocomplete.getKey(),
 							autocomplete.getPhrase(), autocomplete.getOffset());
 			service = new Service();

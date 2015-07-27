@@ -12,10 +12,10 @@ public class CacheData implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/** The name */
-	private String name = null;
+	private String name;
 
 	/** The code */
-	private String code = null;
+	private String code;
 
 	/**
 	 * @return the name
