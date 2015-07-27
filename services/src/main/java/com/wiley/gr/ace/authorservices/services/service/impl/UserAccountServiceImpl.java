@@ -18,13 +18,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
-import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.AddressElement;
 import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
-import com.wiley.gr.ace.authorservices.persistence.services.UserAccountDAO;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
 
 /**
@@ -37,10 +35,6 @@ public class UserAccountServiceImpl implements UserAccountService {
     /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(UserAccountServiceImpl.class);
-
-    /** getting bean of userAccountDAO. */
-    @Autowired(required = true)
-    private UserAccountDAO userAccountDAO;
 
     /** getting bean of userProfile. */
     @Autowired
@@ -68,26 +62,6 @@ public class UserAccountServiceImpl implements UserAccountService {
         user.setRecoveryEmailAddress(customerDetails.getRecoveryEmailAddress());
         return user;
 
-    }
-
-    /**
-     * this method will call the DAO to update security details which are
-     * updated by user at userProfile level.
-     *
-     * @param userId
-     *            the user id
-     * @param securityDetails
-     *            the security details
-     * @return true, if successful
-     */
-    @Override
-    public final boolean updateSecurityDetails(final int userId,
-            final List<SecurityDetails> securityDetails) {
-
-        UserAccountServiceImpl.LOGGER
-                .info("inside updateSecurityDetails Method");
-        return userAccountDAO.updateSecurityDetails(Integer.valueOf(userId),
-                securityDetails);
     }
 
     /**

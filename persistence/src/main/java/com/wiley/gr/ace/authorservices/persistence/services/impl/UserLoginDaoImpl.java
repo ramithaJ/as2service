@@ -13,8 +13,6 @@ package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
 import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -24,7 +22,6 @@ import org.hibernate.Transaction;
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.persistence.entity.AdminProfile;
-import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserRoles;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserRolesId;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
@@ -67,52 +64,6 @@ public class UserLoginDaoImpl implements UserLoginDao {
             }
         }
         return status;
-    }
-
-    /**
-     * Updates the LAST_LOGIN_TIME, UPDATED_BY, UPDATED_DATE columns of
-     * USER_PROFILE table.
-     * 
-     * @param emailId
-     *            to Login.
-     * @return the boolean value.
-     */
-    @Override
-    public final boolean doLogin(final String emailId) {
-        Session session = getSessionFactory().openSession();
-
-        UserProfile authorProfile = null;
-
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-        Date date = new Date();
-
-        String utildate = dateFormat.format(date);
-
-        java.sql.Date.valueOf(utildate);
-        int userId = getUserId(emailId);
-        try {
-            String hql = "from AuthorProfile where userId = :userId";
-            List<UserProfile> result = session.createQuery(hql)
-                    .setInteger("userId", userId).list();
-
-            if (null != result && !result.isEmpty()) {
-                authorProfile = result.get(0);
-            }
-            if (authorProfile != null) {
-                Users users = new Users();
-                users.setUserId(userId);
-                authorProfile.setUsersByUpdatedBy(users);
-                authorProfile.setUpdatedDate(date);
-            }
-            session.saveOrUpdate(authorProfile);
-        } finally {
-            if (session != null) {
-                session.flush();
-                session.close();
-            }
-        }
-
-        return true;
     }
 
     /**
@@ -212,37 +163,6 @@ public class UserLoginDaoImpl implements UserLoginDao {
                 session.close();
             }
         }
-    }
-
-    /**
-     * This method gets the User Details.
-     * 
-     * @param emailId
-     *            to get the User Details.
-     * @return the Users.
-     */
-    @Override
-    public final Users getUserDetails(final String emailId) {
-
-        Session session = getSessionFactory().openSession();
-        Users user = null;
-        try {
-            String hql = "from Users where primaryEmailAddr = :emailId";
-            List<Users> result = session.createQuery(hql)
-                    .setString("emailId", emailId).list();
-            if (result != null && !result.isEmpty()) {
-                user = result.get(0);
-            }
-
-        } finally {
-
-            if (session != null) {
-                session.flush();
-                session.close();
-            }
-        }
-
-        return user;
     }
 
     /**

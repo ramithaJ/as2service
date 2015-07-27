@@ -13,7 +13,6 @@ package com.wiley.gr.ace.authorservices.services.service;
 
 import java.util.List;
 
-import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.AddressElement;
 import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
@@ -33,18 +32,6 @@ public interface UserAccountService {
      * @return the email details
      */
     User getEmailDetails(int userId);
-
-    /**
-     * Update security details.
-     *
-     * @param userId
-     *            the user id
-     * @param securityDetails
-     *            the security details
-     * @return true, if successful
-     */
-    boolean updateSecurityDetails(int userId,
-            List<SecurityDetails> securityDetails);
 
     /**
      * Gets the profile information.

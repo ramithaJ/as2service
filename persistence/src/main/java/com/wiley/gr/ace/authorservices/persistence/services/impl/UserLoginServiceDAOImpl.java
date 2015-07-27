@@ -46,34 +46,6 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
     private String invalidEmailMsg;
 
     /**
-     * This method validates the the email Address .
-     *
-     * @param emailId
-     *            to validate the emailId.
-     * @return true, if successful.
-     */
-    @Override
-    public final boolean validateEmailAddress(final String emailId) {
-
-        Session session = null;
-        try {
-
-            Users user = getUserId(emailId);
-            session = getSessionFactory().openSession();
-            Users users = (Users) session.load(Users.class, user.getUserId());
-            if (null == users) {
-                return false;
-            }
-            return true;
-        } finally {
-            if (session != null) {
-                session.flush();
-                session.close();
-            }
-        }
-    }
-
-    /**
      * This method gets the userId.
      * 
      * @param emailId
@@ -168,7 +140,8 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
             session.beginTransaction();
 
             Criteria criteria = session.createCriteria(InviteResetpwdLog.class);
-            criteria.setProjection(Projections.max(AuthorServicesConstants.GUID));
+            criteria.setProjection(Projections
+                    .max(AuthorServicesConstants.GUID));
             String maxGuid = (String) criteria.uniqueResult();
             maxValue = (Integer.parseInt(maxGuid) + 1);
             inviteResetpwdLog.setGuid(String.valueOf(maxValue));

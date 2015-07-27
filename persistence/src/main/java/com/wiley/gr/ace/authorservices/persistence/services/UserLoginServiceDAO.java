@@ -22,15 +22,6 @@ import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 public interface UserLoginServiceDAO {
 
     /**
-     * This method validates the the email Address .
-     *
-     * @param emailId
-     *            to validate the emailId.
-     * @return true, if successful.
-     */
-    boolean validateEmailAddress(String emailId);
-
-    /**
      * This method gets the userId.
      * 
      * @param emailId
@@ -57,8 +48,9 @@ public interface UserLoginServiceDAO {
      */
     void verifyEmailUpdate(String emailId);
 
-   
-    /**Insert guid
+    /**
+     * Insert guid
+     * 
      * @param inviteResetpwdLog
      * @return
      */

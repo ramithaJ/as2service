@@ -23,7 +23,6 @@ import com.wiley.gr.ace.authorservices.persistence.services.RegistrationServiceD
 import com.wiley.gr.ace.authorservices.persistence.services.SendNotificationDao;
 import com.wiley.gr.ace.authorservices.persistence.services.SocietyDao;
 import com.wiley.gr.ace.authorservices.persistence.services.UpdateUserDAO;
-import com.wiley.gr.ace.authorservices.persistence.services.UserAccountDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserAutocomplete;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
@@ -36,7 +35,6 @@ import com.wiley.gr.ace.authorservices.persistence.services.impl.RegistrationSer
 import com.wiley.gr.ace.authorservices.persistence.services.impl.SendNotificationDaoImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.SocietyDaoImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UpdateUserDAOImpl;
-import com.wiley.gr.ace.authorservices.persistence.services.impl.UserAccountDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserAutocompleteImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserLoginDaoImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserLoginServiceDAOImpl;
@@ -111,16 +109,6 @@ public class PersistenceBeanConfig {
     }
 
     /**
-     * This method Creates UserAccountDAO.
-     *
-     * @return the UserAccountDAOImpl.
-     */
-    @Bean(name = "UserAccountDAO")
-    public UserAccountDAO userAccountDAO() {
-        return new UserAccountDAOImpl();
-    }
-
-    /**
      * This method Creates ASDataDAO.
      *
      * @return the ASDataDAOImpl
@@ -169,24 +157,24 @@ public class PersistenceBeanConfig {
     public SocietyDao societyDao() {
         return new SocietyDaoImpl();
     }
+
     /**
      * AuthorProfile dao.
      *
      * @return the Author profile dao
      */
     @Bean(name = "AuthorProfileDao")
-    public AuthorProfileDao authorProfileDao()
-    {
+    public AuthorProfileDao authorProfileDao() {
         return new AuthorProfileDaoImpl();
     }
+
     /**
      * SendNotification dao.
      *
      * @return the User profile
      */
     @Bean(name = "SendNotificationDao")
-    public SendNotificationDao sendNotificationDao()
-    {
+    public SendNotificationDao sendNotificationDao() {
         return new SendNotificationDaoImpl();
     }
 }

@@ -45,15 +45,6 @@ public interface UserLoginService {
     boolean resetPassword(SecurityDetailsHolder securityDetailsHolder);
 
     /**
-     * Validate email address.
-     *
-     * @param emailId
-     *            the email id
-     * @return true, if successful
-     */
-    boolean validateEmailAddress(String emailId);
-
-    /**
      * Security questions.
      *
      * @param emailId

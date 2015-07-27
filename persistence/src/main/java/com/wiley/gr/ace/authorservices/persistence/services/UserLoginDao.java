@@ -34,16 +34,6 @@ public interface UserLoginDao {
     boolean validateEmail(String emailId);
 
     /**
-     * Updates the LAST_LOGIN_TIME, UPDATED_BY, UPDATED_DATE columns of
-     * USER_PROFILE table.
-     * 
-     * @param emailId
-     *            to Login.
-     * @return the boolean value.
-     */
-    boolean doLogin(String emailId);
-
-    /**
      * This method creates admin user in database.
      * 
      * @param users
@@ -54,12 +44,4 @@ public interface UserLoginDao {
 
     void createAdminUser(Users users, List<UserRoles> userRolesList);
 
-    /**
-     * This method gets the User Details.
-     * 
-     * @param emailId
-     *            to get the User Details.
-     * @return the Users.
-     */
-    Users getUserDetails(String emailId);
 }

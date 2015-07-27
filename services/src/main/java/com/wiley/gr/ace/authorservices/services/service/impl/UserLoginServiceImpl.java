@@ -121,20 +121,6 @@ public class UserLoginServiceImpl implements UserLoginService {
     }
 
     /**
-     * Validate email address.
-     *
-     * @param emailId
-     *            the email id
-     * @return true, if successful
-     */
-    @Override
-    public final boolean validateEmailAddress(final String emailId) {
-
-        LOGGER.info("In validateEmailAddress method");
-        return userLoginServiceDAO.validateEmailAddress(emailId);
-    }
-
-    /**
      * Method to reset the password at the time of login.
      * 
      * @param securityDetailsHolder
