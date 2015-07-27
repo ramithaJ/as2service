@@ -56,7 +56,7 @@
         <profile>
             <id>liquibase-dev</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <activeByDefault>true</activeByDefault>
                 <property>
                     <name>liquibase-dev</name>
                 </property>
@@ -89,7 +89,7 @@
 	<profile>
             <id>liquibase-staging</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
                 <property>
                     <name>liquibase-staging</name>
                 </property>
