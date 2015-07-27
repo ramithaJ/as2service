@@ -37,7 +37,7 @@ public class ArticleDetails {
     private String articleId;
 
     /** The article doi. */
-    private String articleDoi;
+    private String articleDOI;
 
     /** The publication date. */
     private String publicationDate;
@@ -49,22 +49,22 @@ public class ArticleDetails {
     private String articleAcceptedInOO;
 
     /** The article authors. */
-    private String articleAuthorName;
+    private String articleAuthors;
 
     /** The article co authors. */
     private List<String> articleCoAuthors;
 
     /** The email. */
-    private String email;
+    private String correspondingAuthorEmail;
 
-    /** The issue. */
-    private String issue;
+    /** The issue num. */
+    private String issueNum;
 
-    /** The volume. */
-    private String volume;
+    /** The volume num. */
+    private String volumeNum;
 
-    /** The editorial ref code. */
-    private String editorialRefCode;
+    /** The editorial ref cd. */
+    private String editorialRefCd;
 
     /** The jpcms internal id. */
     private String jpcmsInternalId;
@@ -72,10 +72,20 @@ public class ArticleDetails {
     /**
      * Gets the article title.
      *
-     * @return the articleTitle
+     * @return the article title
      */
     public final String getArticleTitle() {
         return articleTitle;
+    }
+
+    /**
+     * Sets the article title.
+     *
+     * @param articleTitle
+     *            the new article title
+     */
+    public final void setArticleTitle(final String articleTitle) {
+        this.articleTitle = articleTitle;
     }
 
     /**
@@ -98,51 +108,22 @@ public class ArticleDetails {
     }
 
     /**
-     * Gets the jpcms internal id.
-     *
-     * @return the jpcms internal id
-     */
-    public final String getJpcmsInternalId() {
-        return jpcmsInternalId;
-    }
-
-    /**
-     * Sets the jpcms internal id.
-     *
-     * @param jpcmsInternalId
-     *            the new jpcms internal id
-     */
-    public final void setJpcmsInternalId(final String jpcmsInternalId) {
-        this.jpcmsInternalId = jpcmsInternalId;
-    }
-
-    /**
-     * Sets the article title.
-     *
-     * @param articleTitle
-     *            the articleTitle to set
-     */
-    public final void setArticleTitle(final String articleTitle) {
-        this.articleTitle = articleTitle;
-    }
-
-    /**
      * Gets the article doi.
      *
      * @return the article doi
      */
-    public final String getArticleDoi() {
-        return articleDoi;
+    public final String getArticleDOI() {
+        return articleDOI;
     }
 
     /**
      * Sets the article doi.
      *
-     * @param articleDoi
+     * @param articleDOI
      *            the new article doi
      */
-    public final void setArticleDoi(final String articleDoi) {
-        this.articleDoi = articleDoi;
+    public final void setArticleDOI(final String articleDOI) {
+        this.articleDOI = articleDOI;
     }
 
     /**
@@ -203,22 +184,22 @@ public class ArticleDetails {
     }
 
     /**
-     * Gets the article author name.
+     * Gets the article authors.
      *
-     * @return the article author name
+     * @return the article authors
      */
-    public final String getArticleAuthorName() {
-        return articleAuthorName;
+    public final String getArticleAuthors() {
+        return articleAuthors;
     }
 
     /**
-     * Sets the article author name.
+     * Sets the article authors.
      *
-     * @param articleAuthorName
-     *            the new article author name
+     * @param articleAuthors
+     *            the new article authors
      */
-    public final void setArticleAuthorName(final String articleAuthorName) {
-        this.articleAuthorName = articleAuthorName;
+    public final void setArticleAuthors(final String articleAuthors) {
+        this.articleAuthors = articleAuthors;
     }
 
     /**
@@ -241,79 +222,99 @@ public class ArticleDetails {
     }
 
     /**
-     * Gets the email.
+     * Gets the corresponding author email.
      *
-     * @return the email
+     * @return the corresponding author email
      */
-    public final String getEmail() {
-        return email;
+    public final String getCorrespondingAuthorEmail() {
+        return correspondingAuthorEmail;
     }
 
     /**
-     * Sets the email.
+     * Sets the corresponding author email.
      *
-     * @param email
-     *            the new email
+     * @param correspondingAuthorEmail
+     *            the new corresponding author email
      */
-    public final void setEmail(final String email) {
-        this.email = email;
+    public final void setCorrespondingAuthorEmail(
+            final String correspondingAuthorEmail) {
+        this.correspondingAuthorEmail = correspondingAuthorEmail;
     }
 
     /**
-     * Gets the issue.
+     * Gets the issue num.
      *
-     * @return the issue
+     * @return the issue num
      */
-    public final String getIssue() {
-        return issue;
+    public final String getIssueNum() {
+        return issueNum;
     }
 
     /**
-     * Sets the issue.
+     * Sets the issue num.
      *
-     * @param issue
-     *            the new issue
+     * @param issueNum
+     *            the new issue num
      */
-    public final void setIssue(final String issue) {
-        this.issue = issue;
+    public final void setIssueNum(final String issueNum) {
+        this.issueNum = issueNum;
     }
 
     /**
-     * Gets the volume.
+     * Gets the volume num.
      *
-     * @return the volume
+     * @return the volume num
      */
-    public final String getVolume() {
-        return volume;
+    public final String getVolumeNum() {
+        return volumeNum;
     }
 
     /**
-     * Sets the volume.
+     * Sets the volume num.
      *
-     * @param volume
-     *            the new volume
+     * @param volumeNum
+     *            the new volume num
      */
-    public final void setVolume(final String volume) {
-        this.volume = volume;
+    public final void setVolumeNum(final String volumeNum) {
+        this.volumeNum = volumeNum;
     }
 
     /**
-     * Gets the editorial ref code.
+     * Gets the editorial ref cd.
      *
-     * @return the editorial ref code
+     * @return the editorial ref cd
      */
-    public final String getEditorialRefCode() {
-        return editorialRefCode;
+    public final String getEditorialRefCd() {
+        return editorialRefCd;
     }
 
     /**
-     * Sets the editorial ref code.
+     * Sets the editorial ref cd.
      *
-     * @param editorialRefCode
-     *            the new editorial ref code
+     * @param editorialRefCd
+     *            the new editorial ref cd
      */
-    public final void setEditorialRefCode(final String editorialRefCode) {
-        this.editorialRefCode = editorialRefCode;
+    public final void setEditorialRefCd(final String editorialRefCd) {
+        this.editorialRefCd = editorialRefCd;
+    }
+
+    /**
+     * Gets the jpcms internal id.
+     *
+     * @return the jpcms internal id
+     */
+    public final String getJpcmsInternalId() {
+        return jpcmsInternalId;
+    }
+
+    /**
+     * Sets the jpcms internal id.
+     *
+     * @param jpcmsInternalId
+     *            the new jpcms internal id
+     */
+    public final void setJpcmsInternalId(final String jpcmsInternalId) {
+        this.jpcmsInternalId = jpcmsInternalId;
     }
 
 }
