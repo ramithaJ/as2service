@@ -31,8 +31,8 @@ import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceServ
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
-import com.wiley.gr.ace.authorservices.model.external.ViewAssignedArticle;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
+import com.wiley.gr.ace.authorservices.model.external.GetArticleDetails;
 import com.wiley.gr.ace.authorservices.model.external.License;
 import com.wiley.gr.ace.authorservices.model.external.OnlineOpen;
 import com.wiley.gr.ace.authorservices.model.external.OpenAccess;
@@ -93,6 +93,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
     @Value("${productionStatus.url}")
     private String productionStatusUrl;
 
+    /** The view assigned article url. */
     @Value("${viewAssignedArticle.url}")
     private String viewAssignedArticleUrl;
 
@@ -421,11 +422,11 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      *             the exception
      */
     @Override
-    public final ViewAssignedArticle viewAssignedArticle(final String emailId)
+    public final GetArticleDetails viewAssignedArticle(final String emailId)
             throws Exception {
-        return (ViewAssignedArticle) StubInvokerUtil.invokeStub(
-                viewAssignedArticleUrl, HttpMethod.GET,
-                ViewAssignedArticle.class);
+        return (GetArticleDetails) StubInvokerUtil
+                .invokeStub(viewAssignedArticleUrl, HttpMethod.GET,
+                        GetArticleDetails.class);
     }
 
 }
