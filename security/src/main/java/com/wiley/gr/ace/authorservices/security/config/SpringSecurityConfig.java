@@ -90,7 +90,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
 
                 .anyRequest()
-                .permitAll()
+                .authenticated()
 
                 .and()
                 .addFilterBefore(

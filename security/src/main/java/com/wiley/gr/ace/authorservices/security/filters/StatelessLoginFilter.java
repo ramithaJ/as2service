@@ -32,7 +32,7 @@ import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
  * auth server.
  */
 public class StatelessLoginFilter extends
-AbstractAuthenticationProcessingFilter {
+        AbstractAuthenticationProcessingFilter {
 
     /** The Constant APPLICATION_JSON_CHARSET_UTF_8. */
     public static final String APPLICATION_JSON_CHARSET_UTF_8 = "application/json;charset=UTF-8";
@@ -106,7 +106,7 @@ AbstractAuthenticationProcessingFilter {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.springframework.security.web.authentication.
      * AbstractAuthenticationProcessingFilter
      * #attemptAuthentication(javax.servlet.http.HttpServletRequest,
@@ -115,7 +115,7 @@ AbstractAuthenticationProcessingFilter {
     @Override
     public Authentication attemptAuthentication(
             final HttpServletRequest request, final HttpServletResponse response)
-                    throws AuthenticationException, IOException, ServletException {
+            throws AuthenticationException, IOException, ServletException {
         unp = new Gson().fromJson(request.getReader(),
                 UsernameAndPassword.class);
         final UsernamePasswordAuthenticationToken loginToken = new UsernamePasswordAuthenticationToken(
@@ -182,7 +182,7 @@ AbstractAuthenticationProcessingFilter {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.springframework.security.web.authentication.
      * AbstractAuthenticationProcessingFilter
      * #unsuccessfulAuthentication(javax.servlet.http.HttpServletRequest,
