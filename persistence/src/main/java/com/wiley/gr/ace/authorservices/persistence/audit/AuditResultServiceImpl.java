@@ -84,16 +84,22 @@ public class AuditResultServiceImpl implements AuditResultService {
                         auditDetails.setNewVal(auditDetailsMap
                                 .get(AuthorServicesConstants.AUDIT_NEW_VAL));
                     }
+                    if (!StringUtils.isEmpty(auditDetailsMap
+                            .get(AuthorServicesConstants.AUDIT_ACTION_CD))) {
+                        auditDetails.setActions(new Actions(auditDetailsMap
+                                .get(AuthorServicesConstants.AUDIT_ACTION_CD)));
+                    }
                     auditDetails.setCreatedDate(new Date());
+
                     if (null != user) {
                         auditDetails.setUsersByCreatedBy(user);
                         auditDetails.setUsersByUserId(user);
                     }
                     // saving the auditDetails object.
                     session.save(auditDetails);
-                    transaction.commit();
                 }
             }
+            transaction.commit();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -118,6 +124,7 @@ public class AuditResultServiceImpl implements AuditResultService {
         hashMap.put("OBJ_ATTR", auditInformation.getColumnName());// Column Name
         hashMap.put("OLD_VAL", auditInformation.getOldValue());
         hashMap.put("NEW_VAL", auditInformation.getNewValue());
+        hashMap.put("ACTION_CD", auditInformation.getActionID());
         auditMap.add(hashMap);
 
         Users users = new Users();
@@ -127,4 +134,18 @@ public class AuditResultServiceImpl implements AuditResultService {
         auditResultServiceImpl.userAudit(auditMap, users);
     }
 
+    /*
+     * public static void main(final String[] args) {
+     * 
+     * AuditInformation auditInformation = new AuditInformation();
+     * auditInformation.setActionID("PWDRES");
+     * auditInformation.setTableName("TABLE");
+     * auditInformation.setColumnName("COLUMN");
+     * auditInformation.setNewValue("ahsibf");
+     * auditInformation.setOldValue("45624"); auditInformation.setUserId(99999);
+     * 
+     * AuditResultServiceImpl.auditUserActions(auditInformation);
+     * 
+     * }
+     */
 }

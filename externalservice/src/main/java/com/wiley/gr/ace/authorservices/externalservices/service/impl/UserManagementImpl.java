@@ -121,10 +121,10 @@ public class UserManagementImpl implements UserManagement {
             auditInformation.setActionID("PWDRES");
             auditInformation.setTableName("TABLE");
             auditInformation.setColumnName("COLUMN");
-            auditInformation.setNewValue("adcd");
+            auditInformation.setNewValue(passwordResetRequest
+                    .getUpdateUserSecurityAttributes().getNewPassword());
             auditInformation.setOldValue("45624");
             auditInformation.setUserId(8011047);
-            // TODO: audit password details.
             AuditResultServiceImpl.auditUserActions(auditInformation);
         }
         return status;
@@ -157,7 +157,19 @@ public class UserManagementImpl implements UserManagement {
     @Override
     public final boolean forceFulReset(final ForcefulReset forcefulReset) {
 
-        return this.externalServiceInvoker(forceFulReseturl, forcefulReset);
+        boolean status = this.externalServiceInvoker(forceFulReseturl,
+                forcefulReset);
+        if (status) {
+            AuditInformation auditInformation = new AuditInformation();
+            auditInformation.setActionID("PWDRES");
+            auditInformation.setTableName("TABLE");
+            auditInformation.setColumnName("COLUMN");
+            auditInformation.setNewValue(forcefulReset.getNewPassword());
+            auditInformation.setOldValue("45624");
+            auditInformation.setUserId(8011047);
+            AuditResultServiceImpl.auditUserActions(auditInformation);
+        }
+        return status;
     }
 
     /**
