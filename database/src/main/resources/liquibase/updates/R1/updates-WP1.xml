@@ -2199,4 +2199,44 @@ DROP TABLE TEMPLATE CASCADE CONSTRAINTS;
 </sql>
 </changeSet>
 
+<changeSet author="gphaniraj" id="WP1-376">
+<sql>
+ALTER TABLE USER_AFFILIATIONS DROP
+(
+START_DT      TIMESTAMP(6) , 
+END_DT        TIMESTAMP(6) , 
+CREATED_DATE  TIMESTAMP(6)  ,
+CREATED_BY    NUMBER  ,      
+UPDATED_DATE  TIMESTAMP(6),  
+UPDATED_BY    NUMBER  
+); 
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-377">
+<sql>
+ALTER TABLE USER_AFFILIATIONS ADD
+(
+COUNTRY_CD    VARCHAR2(15),
+START_DT      TIMESTAMP(6) , 
+END_DT        TIMESTAMP(6) , 
+CREATED_DATE  TIMESTAMP(6) ,
+CREATED_BY    NUMBER  ,      
+UPDATED_DATE  TIMESTAMP(6) ,
+UPDATED_BY    NUMBER  
+); 
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-378">
+<sql>
+ALTER TABLE USER_AFFILIATIONS ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-379">
+<sql>
+ALTER TABLE USER_AFFILIATIONS ADD FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
 </databaseChangeLog>
