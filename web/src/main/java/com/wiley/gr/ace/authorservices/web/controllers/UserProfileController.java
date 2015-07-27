@@ -126,10 +126,8 @@ public class UserProfileController {
         UserProfileController.LOGGER
                 .info("inside getResearchFundersList method ");
         Service service = new Service();
-        service.setPayload(authorProfileService
-                .getLookupCustomerProfile(userId)
-                .getLookupCustomerProfileResponse().getCustomerProfile()
-                .getResearchFunders());
+        service.setPayload(authorProfileService.getResearchFundersList(userId));
+                
         return service;
     }
 

@@ -20,6 +20,7 @@ import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.Email;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
+import com.wiley.gr.ace.authorservices.model.ResearchFunders;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.User;
@@ -142,8 +143,8 @@ public interface AuthorProfileService {
     /**
      * Update security details.
      *
-     * @param securityDetails
-     *            the security details
+     * @param securityDetailsHolder
+     *            the security details holder
      * @return true, if successful
      */
     boolean updateSecurityDetails(SecurityDetailsHolder securityDetailsHolder);
@@ -158,16 +159,39 @@ public interface AuthorProfileService {
     UserProfileResponse getuserProfileResponse(int userId);
 
     /**
+     * Upload image.
+     *
      * @param image
+     *            the image
      * @param userId
+     *            the user id
      */
     void uploadImage(File image, String userId);
 
     /**
+     * Gets the lookup customer profile.
+     *
      * @param userId
-     * @return
+     *            the user id
+     * @return the lookup customer profile
      */
     LookupCustomerProfile getLookupCustomerProfile(String userId);
 
+    /**
+     * Gets the affiliations list.
+     *
+     * @param userId
+     *            the user id
+     * @return the affiliations list
+     */
     List<Affiliation> getAffiliationsList(String userId);
+
+    /**
+     * Gets the research funders list.
+     *
+     * @param userId
+     *            the user id
+     * @return the research funders list
+     */
+    ResearchFunders getResearchFundersList(String userId);
 }

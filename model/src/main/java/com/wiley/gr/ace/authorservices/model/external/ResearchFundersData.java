@@ -23,18 +23,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  * @author yugandhark
  */
-public class ResearchFunders {
+public class ResearchFundersData {
 
     /** The research funder. */
     @JsonProperty("ResearchFunder")
-    private List<ResearchFunder> researchFunder;
+    private List<ResearchFunderData> researchFunder;
 
     /**
      * Gets the research funder.
      *
      * @return the research funder
      */
-    public final List<ResearchFunder> getResearchFunder() {
+    public final List<ResearchFunderData> getResearchFunder() {
         return researchFunder;
     }
 
@@ -43,7 +43,7 @@ public class ResearchFunders {
      *
      * @param researchFunder the new research funder
      */
-    public final void setResearchFunder(final List<ResearchFunder> researchFunder) {
+    public final void setResearchFunder(final List<ResearchFunderData> researchFunder) {
         this.researchFunder = researchFunder;
     }
 

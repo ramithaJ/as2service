@@ -35,7 +35,7 @@ public class ResearchFunder implements Serializable {
     /** The research funder id. */
     @NotNull
     @NotBlank
-    private Integer researchFunderId;
+    private String researchFunderId;
 
     /** The research funder name. */
     @NotNull
@@ -56,7 +56,7 @@ public class ResearchFunder implements Serializable {
      *
      * @return the researchFunderId
      */
-    public final Integer getResearchFunderId() {
+    public final String getResearchFunderId() {
         return researchFunderId;
     }
 
@@ -66,7 +66,7 @@ public class ResearchFunder implements Serializable {
      * @param researchFunderId
      *            the researchFunderId to set
      */
-    public final void setResearchFunderId(final Integer researchFunderId) {
+    public final void setResearchFunderId(final String researchFunderId) {
         this.researchFunderId = researchFunderId;
     }
 
