@@ -18,6 +18,7 @@ import org.springframework.security.web.authentication.AbstractAuthenticationPro
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.google.gson.Gson;
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.UserLogin;
@@ -143,7 +144,16 @@ AbstractAuthenticationProcessingFilter {
         tokenAuthenticationService.addAuthentication(request, response,
                 tokenAuthentication);
 
-        final Users users = adminLoginService.doLogin(unp.getUsername());
+        Users users = null;
+
+        try {
+            users = adminLoginService.getASUser(unp.getUsername());
+        } catch (final UserException e) {
+            unsuccessfulAuthentication(request, response,
+                    new AuthenticationServiceException(
+                            StatelessLoginFilter.invalidLoginMessage));
+        }
+
         if (StringUtils.equalsIgnoreCase(StatelessLoginFilter.ADMIN,
                 unp.getType())
                 && !adminLoginService.validateEmail(unp.getUsername())) {
