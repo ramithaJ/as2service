@@ -57,44 +57,51 @@ public class RegistrationServiceImpl implements RegistrationService {
      *             the exception
      */
     @Override
-    public final String createUser(final User user) throws Exception {
+    public final String createUser(final User user) {
 
         String status = null;
-        if (null != user) {
-            final ProfileInformation profileInformation = new ProfileInformation();
-            final CustomerProfile customerProfile = new CustomerProfile();
-            final CustomerDetails customerDetails = new CustomerDetails();
-            final AddressDetails cuAddressDetails = new AddressDetails();
-            final List<AddressElement> addressElements = new ArrayList<AddressElement>();
-            final AddressElement addressElement = new AddressElement();
+        try {
+            if (null != user) {
+                ProfileInformation profileInformation = new ProfileInformation();
+                CustomerProfile customerProfile = new CustomerProfile();
+                CustomerDetails customerDetails = new CustomerDetails();
+                AddressDetails cuAddressDetails = new AddressDetails();
+                List<AddressElement> addressElements = new ArrayList<AddressElement>();
+                AddressElement addressElement = new AddressElement();
 
-            customerDetails.setfName(user.getFirstName());
-            customerDetails.setlName(user.getLastName());
-            customerDetails.setPassword(user.getPassword());
-            if (!StringUtils.isEmpty(user.getInvitationGuid())) {
-                final InviteResetpwdLog inviteResetpwdLog = registrationServiceDAO
-                        .getInvitationRecords(user.getInvitationGuid());
-                if (inviteResetpwdLog.getEmailAddress().equalsIgnoreCase(
-                        user.getPrimaryEmailAddr())) {
-                    customerDetails.setSecondaryEmail(inviteResetpwdLog
-                            .getEmailAddress());
+                customerDetails.setfName(user.getFirstName());
+                customerDetails.setlName(user.getLastName());
+                customerDetails.setPassword(user.getPassword());
+                customerDetails.setSkipTargetSystem(user.getFoundIn());
+                if (!StringUtils.isEmpty(user.getInvitationGuid())) {
+                    final InviteResetpwdLog inviteResetpwdLog = registrationServiceDAO
+                            .getInvitationRecords(user.getInvitationGuid());
+                    if (inviteResetpwdLog.getEmailAddress().equalsIgnoreCase(
+                            user.getPrimaryEmailAddr())) {
+                        customerDetails.setSecondaryEmail(inviteResetpwdLog
+                                .getEmailAddress());
+                    }
+
                 }
+                customerDetails.setPrimaryEmail(user.getPrimaryEmailAddr());
 
+                addressElement.setCountryCode(user.getCountry()
+                        .getCountryCode());
+                addressElement.setCountryName(user.getCountry()
+                        .getCountryName());
+                // addressElement.setCountrynamene(user.getCountryNameNE());
+                addressElements.add(addressElement);
+                cuAddressDetails.setAddress(addressElements);
+
+                customerProfile.setCustomerDetails(customerDetails);
+                customerProfile.setAddressDetails(cuAddressDetails);
+
+                profileInformation.setCustomerprofile(customerProfile);
+
+                status = esbInterFaceService.creatUser(profileInformation);
             }
-            customerDetails.setPrimaryEmail(user.getPrimaryEmailAddr());
-
-            addressElement.setCountryCode(user.getCountry().getCountryCode());
-            addressElement.setCountryName(user.getCountry().getCountryName());
-            // addressElement.setCountrynamene(user.getCountryNameNE());
-            addressElements.add(addressElement);
-            cuAddressDetails.setAddress(addressElements);
-
-            customerProfile.setCustomerDetails(customerDetails);
-            customerProfile.setAddressDetails(cuAddressDetails);
-
-            profileInformation.setCustomerprofile(customerProfile);
-
-            status = esbInterFaceService.creatUser(profileInformation);
+        } catch (Exception e) {
+            throw new UserException();
         }
 
         return status;
@@ -113,26 +120,30 @@ public class RegistrationServiceImpl implements RegistrationService {
      */
     @Override
     public final List<User> getUserFromFirstNameLastName(
-            final String firstName, final String lastName) throws Exception {
+            final String firstName, final String lastName) {
 
         ArrayList<User> userList = null;
         List<ESBUser> esbUserList = null;
         if (!StringUtils.isEmpty(firstName) && !StringUtils.isEmpty(lastName)) {
-            esbUserList = esbInterFaceService.getUsersFromFirstNameLastName(
-                    firstName, lastName);
+            try {
+                esbUserList = esbInterFaceService
+                        .getUsersFromFirstNameLastName(firstName, lastName);
 
-            if (!StringUtils.isEmpty(esbUserList)) {
-                for (final ESBUser esbUser : esbUserList) {
-                    userList = new ArrayList<User>();
-                    final User tempUser = new User();
-                    final Country tempCountry = new Country();
-                    tempCountry.setCountryName(esbUser.getCountry());
-                    tempUser.setFirstName(esbUser.getFirstName());
-                    tempUser.setLastName(esbUser.getLastName());
-                    tempUser.setPrimaryEmailAddr(esbUser.getEmailId());
-                    tempUser.setCountry(tempCountry);
-                    userList.add(tempUser);
+                if (!StringUtils.isEmpty(esbUserList)) {
+                    for (final ESBUser esbUser : esbUserList) {
+                        userList = new ArrayList<User>();
+                        final User tempUser = new User();
+                        final Country tempCountry = new Country();
+                        tempCountry.setCountryName(esbUser.getCountry());
+                        tempUser.setFirstName(esbUser.getFirstName());
+                        tempUser.setLastName(esbUser.getLastName());
+                        tempUser.setPrimaryEmailAddr(esbUser.getEmailId());
+                        tempUser.setCountry(tempCountry);
+                        userList.add(tempUser);
+                    }
                 }
+            } catch (Exception e) {
+                throw new UserException("Some Error",e.getMessage());
             }
         }
 

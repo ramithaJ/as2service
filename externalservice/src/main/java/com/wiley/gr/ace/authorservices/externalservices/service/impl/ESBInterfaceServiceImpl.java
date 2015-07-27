@@ -140,7 +140,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      */
     @Override
     public final List<ESBUser> getUsersFromFirstNameLastName(
-            final String firstName, final String lastName) throws Exception {
+            final String firstName, final String lastName) {
 
         return searchUser("", firstName, lastName);
     }
@@ -159,7 +159,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      *             the exception
      */
     private List<ESBUser> searchUser(final String email,
-            final String firstName, final String lastName) throws Exception {
+            final String firstName, final String lastName) {
         ArrayList<ESBUser> esbUsersList = null;
         SearchUserResult searchUserResult = null;
         String searchJobUrl = searchUserUrl;

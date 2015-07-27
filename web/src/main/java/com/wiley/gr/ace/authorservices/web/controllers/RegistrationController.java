@@ -11,6 +11,7 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.web.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -28,9 +29,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
 import com.wiley.gr.ace.authorservices.model.InviteRecords;
+import com.wiley.gr.ace.authorservices.model.SendNotificationRequest;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
+import com.wiley.gr.ace.authorservices.services.service.SendNotification;
+import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 
 /**
  * @author virtusa version 1.0
@@ -51,6 +55,11 @@ public class RegistrationController {
     @Autowired(required = true)
     private RegistrationService rs;
 
+    @Autowired(required = true)
+    private UserLoginService uls;
+
+    @Autowired(required = true)
+    private SendNotification sendNotification;
     /**
      * the value of noDataFoundCode.
      */
@@ -140,28 +149,47 @@ public class RegistrationController {
     public final Service createUser(@RequestBody final User user) {
         Service service = new Service();
         String status = null;
+        boolean executeCreate = true;
         if (null != user) {
-            try {
 
-                if (user.isSearchFullName()) {
-                    List<User> usersList = null;
-                    usersList = rs.getUserFromFirstNameLastName(
-                            user.getFirstName(), user.getLastName());
-                    if (null != usersList) {
-                        throw new UserException("223", "User already exists");
-                    }
+            if (user.isSearchFullName()) {
+                List<User> usersList = null;
+                usersList = rs.getUserFromFirstNameLastName(
+                        user.getFirstName(), user.getLastName());
+                if (null != usersList) {
+                    service.setStatus("FAILURE");
+                    service.setPayload(usersList);
+                    ErrorPOJO err = new ErrorPOJO();
+                    err.setCode("LIST_OF_USER_FOUND");
+                    err.setMessage("List of users found. Please select or continue");
+                    service.setPayload(usersList);
+                    executeCreate = false;
                 }
+            }
+
+            if (executeCreate) {
                 status = rs.createUser(user);
                 if ("success".equalsIgnoreCase(status)) {
                     rs.assignRoleToNewUser(user.getPrimaryEmailAddr());
+                    String verifyGuid = uls.insertGuid(user.getFirstName(),
+                            user.getLastName(), user.getPrimaryEmailAddr());
+                    if (!StringUtils.isEmpty(verifyGuid)) {
+                        SendNotificationRequest notificationRequest = new SendNotificationRequest();
+                        List<String> fieldList = new ArrayList<String>();
+                        fieldList.add(user.getFirstName() + user.getLastName());
+                        fieldList.add(verifyGuid);
+                        notificationRequest.setFieldList(fieldList);
+                        notificationRequest.setFrom("admin@wiley.com");
+                        notificationRequest.setTo(user.getPrimaryEmailAddr());
+
+                        sendNotification.sendEmail("24", "113", "email",
+                                notificationRequest);
+                    }
                 } else {
                     throw new UserException("221", "Creating User Failed");
                 }
-            } catch (Exception e) {
-                throw new UserException("222",
-                        "Creating User Encountered exception");
-            }
 
+            }
         } else {
             throw new UserException(noDataFoundCode, "User object is empty");
         }

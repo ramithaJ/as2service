@@ -82,6 +82,9 @@ public class CustomerDetails {
     /** The password. */
     @JsonProperty("Password")
     private String password;
+    
+    @JsonProperty("SkipTargetSystem")
+    private String skipTargetSystem;
 
     /**
      * Gets the alternative name.
@@ -351,6 +354,14 @@ public class CustomerDetails {
      */
     public final void setPassword(final String password) {
         this.password = password;
+    }
+
+    public final String getSkipTargetSystem() {
+        return skipTargetSystem;
+    }
+
+    public final void setSkipTargetSystem(String skipTargetSystem) {
+        this.skipTargetSystem = skipTargetSystem;
     }
 
 }

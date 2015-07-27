@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.NotificationService;
 import com.wiley.gr.ace.authorservices.model.NotificationResponse;
+import com.wiley.gr.ace.authorservices.model.SendNotificationRequest;
 import com.wiley.gr.ace.authorservices.model.external.NotificationFieldList;
 import com.wiley.gr.ace.authorservices.model.external.NotificationRequest;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
@@ -37,8 +38,21 @@ public class SendNotificationImpl implements SendNotification {
     /** The send notification dao. */
     @Autowired(required = true)
     private SendNotificationDao sendNotificationDao;
+
+    @Override
+    public String sendEmail(String appId, String templateId, String type,
+            SendNotificationRequest sendNotificationRequest) {
+        NotificationFieldList fieldList = new NotificationFieldList();
+        NotificationRequest notificationRequest = new NotificationRequest();
+        notificationRequest.setTo(sendNotificationRequest.getTo());
+        notificationRequest.setFrom(sendNotificationRequest.getFrom());
+        fieldList.setFieldList(sendNotificationRequest.getFieldList());
+        notificationRequest.setTemplateDetails(fieldList);
+        return notificationService.sendNotification(appId, type, templateId,
+                notificationRequest).getStatus();
+
+    }
     
-    /**This method will call external service notification to send email */
     @Override
     public NotificationResponse notifyByEmail(String emailId) {
 
@@ -60,5 +74,6 @@ public class SendNotificationImpl implements SendNotification {
                 notificationRequest);
 
     }
+
 
 }

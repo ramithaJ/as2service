@@ -71,7 +71,7 @@ public interface ESBInterfaceService {
      *             the exception
      */
     List<ESBUser> getUsersFromFirstNameLastName(String firstName,
-            String lastName) throws Exception;
+            String lastName);
 
     /**
      * Creat user.

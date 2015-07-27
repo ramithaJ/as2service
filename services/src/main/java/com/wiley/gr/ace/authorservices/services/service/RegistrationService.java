@@ -32,7 +32,7 @@ public interface RegistrationService {
      * @throws Exception
      *             the exception
      */
-    String createUser(User user) throws Exception;
+    String createUser(User user);
 
     /**
      * Gets the user from first name last name.
@@ -45,8 +45,7 @@ public interface RegistrationService {
      * @throws Exception
      *             the exception
      */
-    List<User> getUserFromFirstNameLastName(String firstName, String lastName)
-            throws Exception;
+    List<User> getUserFromFirstNameLastName(String firstName, String lastName);
 
     /**
      * Check email id exists.

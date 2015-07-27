@@ -13,14 +13,12 @@
 package com.wiley.gr.ace.authorservices.services.service;
 
 import com.wiley.gr.ace.authorservices.model.NotificationResponse;
-
-
+import com.wiley.gr.ace.authorservices.model.SendNotificationRequest;
 
 public interface SendNotification {
-    
-    NotificationResponse notifyByEmail(String emailId);
-    
-    
-    
 
+    String sendEmail(String appId, String templateId, String type,
+            SendNotificationRequest sendNotificationRequest);
+
+    NotificationResponse notifyByEmail(String emailId);
 }
