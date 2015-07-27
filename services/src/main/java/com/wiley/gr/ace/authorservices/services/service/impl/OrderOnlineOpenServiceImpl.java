@@ -315,7 +315,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 				orderId);
 		orderData = orderDataList.getOrderDatas().get(0);
 		ArticleDetails articleDetails = new ArticleDetails();
-		articleDetails.setArticleAID(orderData.getArticle().getAidECORE());
+		articleDetails.setArticleId(orderData.getArticle().getAidECORE());
 		articleDetails
 				.setArticleTitle(orderData.getArticle().getArticleTitle());
 		onlineOpenOrder.setArticleDetails(articleDetails);
@@ -492,7 +492,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 								.getDhId());
 				// Article details (ArticleId and Article title)
 				ArticleDetails articleDetails = new ArticleDetails();
-				articleDetails.setArticleAID(articleId);
+				articleDetails.setArticleId(articleId);
 				articleDetails.setArticleTitle(pdhArticleResponse.getTitle());
 				quoteDetails.setArticleDetails(articleDetails);
 				// Journal details (JornalId and jornalTitle)
@@ -948,7 +948,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 		}
 		Products products = new Products();
 		products.setDhId(Integer.parseInt(order.getArticleDetails()
-				.getArticleAID()));
+				.getArticleId()));
 		savedOrders.setProducts(products);
 
 		Users users = new Users();
