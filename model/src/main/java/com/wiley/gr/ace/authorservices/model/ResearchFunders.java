@@ -9,41 +9,33 @@
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
  *******************************************************************************/
-/**
- * 
- */
-package com.wiley.gr.ace.authorservices.model.external;
+
+package com.wiley.gr.ace.authorservices.model;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 /**
- * The Class Affiliations.
+ * @author virtusa 1.0
  *
- * @author yugandhark
  */
-public class Affiliations {
+public class ResearchFunders {
 
-    /** The affiliation. */
-    @JsonProperty("Affiliation")
-    private List<Affiliation> affiliation;
+    List<ResearchFunder> researchFunders;
 
     /**
-     * Gets the affiliation.
-     *
-     * @return the affiliation
+     * @return the researchFunders
      */
-    public final List<Affiliation> getAffiliation() {
-        return affiliation;
+    public final List<ResearchFunder> getResearchFunders() {
+        return researchFunders;
     }
 
     /**
-     * Sets the affiliation.
-     *
-     * @param affiliation the new affiliation
+     * @param researchFunders
+     *            the researchFunders to set
      */
-    public final void setAffiliation(final List<Affiliation> affiliation) {
-        this.affiliation = affiliation;
+    public final void setResearchFunders(
+            final List<ResearchFunder> researchFunders) {
+        this.researchFunders = researchFunders;
     }
+
 }

@@ -109,6 +109,7 @@ public class TokenHandler {
         entity.put("password", password);
         entity.put("authenticationType", tokenAuthType);
         entity.put("appKey", tokenAppKey);
+
         ResponseEntity<String> response = null;
         try {
             response = restTemplate.postForEntity(new URI(authenticationUrl),
@@ -118,9 +119,11 @@ public class TokenHandler {
                     "Error on authenticating with Username={}; Password={}",
                     username, password, e);
         }
+
         if (null == response || HttpStatus.OK != response.getStatusCode()) {
             return null;
         }
+
         return response.getHeaders().getFirst(authenticationTokenHeaderName);
     }
 
@@ -139,21 +142,17 @@ public class TokenHandler {
         // Validate provided Token
         final HttpHeaders headers = new HttpHeaders();
         headers.add(authenticationTokenHeaderName, token);
-        ResponseEntity<String> responseEntity = restTemplate.exchange(
-                authenticationTokenValidationUrl, HttpMethod.GET,
-                new HttpEntity<>(headers), String.class);
-        if (null == responseEntity
-                || responseEntity.getStatusCode() != HttpStatus.OK) {
-            return null;
-        }
 
-        // If valid, refresh the token
-        responseEntity = restTemplate.exchange(authenticationTokenRefreshUrl,
-                HttpMethod.GET, new HttpEntity<>(headers), String.class);
+        // Send request to Auth Server for new refreshed token
+        final ResponseEntity<String> responseEntity = restTemplate.exchange(
+                authenticationTokenRefreshUrl, HttpMethod.GET,
+                new HttpEntity<>(headers), String.class);
+
         if (null == responseEntity
                 || responseEntity.getStatusCode() != HttpStatus.CREATED) {
             return null;
         }
+
         token = responseEntity.getHeaders().getFirst(
                 authenticationTokenHeaderName);
 

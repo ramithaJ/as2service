@@ -29,15 +29,18 @@ import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.Email;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
+import com.wiley.gr.ace.authorservices.model.ResearchFunders;
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserProfile;
 import com.wiley.gr.ace.authorservices.model.UserProfileAlerts;
+import com.wiley.gr.ace.authorservices.model.external.AffiliationData;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.PasswordRequest;
 import com.wiley.gr.ace.authorservices.model.external.PasswordUpdate;
+import com.wiley.gr.ace.authorservices.model.external.ResearchFunderData;
 import com.wiley.gr.ace.authorservices.model.external.SecurityQuestionsUpdateRequest;
 import com.wiley.gr.ace.authorservices.model.external.UserEmailDetails;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
@@ -68,6 +71,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     @Autowired
     private UserManagement userManagement;
 
+    /** The author profile dao. */
     @Autowired
     private AuthorProfileDao authorProfileDao;
 
@@ -265,8 +269,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
         AuthorProfileServiceImpl.LOGGER.info("inside updateUserId Method ");
 
-        UserEmailDetails userEmailDetails = new UserEmailDetails();
-        UserSecurityAttributes userSecurityAttributes = new UserSecurityAttributes();
+        final UserEmailDetails userEmailDetails = new UserEmailDetails();
+        final UserSecurityAttributes userSecurityAttributes = new UserSecurityAttributes();
         userSecurityAttributes.setExistingEmail(email.getExistingEmail());
         userSecurityAttributes.setNewEmail(email.getNewEmail());
         userSecurityAttributes
@@ -288,14 +292,14 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     public final boolean updatePassword(final PasswordDetails passwordDetails) {
 
         AuthorProfileServiceImpl.LOGGER.info("inside updatePassword Method ");
-        PasswordUpdate passwordUpdate = new PasswordUpdate();
-        PasswordRequest passwordRequest = new PasswordRequest();
+        final PasswordUpdate passwordUpdate = new PasswordUpdate();
+        final PasswordRequest passwordRequest = new PasswordRequest();
         passwordRequest.setExistingEmail(passwordDetails.getEmailId());
         passwordRequest.setExistingPassword(passwordDetails.getOldPassword());
         passwordRequest.setNewPassword(passwordDetails.getNewPassword());
         passwordRequest.setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
         passwordUpdate.setUpdateUserSecurityAttributes(passwordRequest);
-        boolean status = userManagement.updatePassword(passwordRequest);
+        final boolean status = userManagement.updatePassword(passwordRequest);
         if (status) {
 
             sendNotification.notifyByEmail(passwordDetails.getEmailId());
@@ -307,8 +311,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     /**
      * Update security details.
      *
-     * @param securityDetails
-     *            the security details
+     * @param securityDetailsHolder
+     *            the security details holder
      * @return true, if successful
      */
     @Override
@@ -317,14 +321,14 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
         AuthorProfileServiceImpl.LOGGER
                 .info("inside updateSecurityDetails Method ");
-        SecurityQuestionsUpdateRequest securityQuestionsUpdateRequest = new SecurityQuestionsUpdateRequest();
-        UserSecurityQuestions userSecurityQuestions = new UserSecurityQuestions();
-        UserSecurityQuestionsMap userSecurityQuestionsMap = new UserSecurityQuestionsMap();
-        List<UserSecurityQuestionsEntry> userSecurityQuestionsEntryList = new ArrayList<UserSecurityQuestionsEntry>();
+        final SecurityQuestionsUpdateRequest securityQuestionsUpdateRequest = new SecurityQuestionsUpdateRequest();
+        final UserSecurityQuestions userSecurityQuestions = new UserSecurityQuestions();
+        final UserSecurityQuestionsMap userSecurityQuestionsMap = new UserSecurityQuestionsMap();
+        final List<UserSecurityQuestionsEntry> userSecurityQuestionsEntryList = new ArrayList<UserSecurityQuestionsEntry>();
         UserSecurityQuestionsEntry userSecurityQuestionsEntry = null;
-        List<SecurityDetails> securityDetailsList = securityDetailsHolder
+        final List<SecurityDetails> securityDetailsList = securityDetailsHolder
                 .getSecurityDetails();
-        for (SecurityDetails securityDetails : securityDetailsList) {
+        for (final SecurityDetails securityDetails : securityDetailsList) {
 
             userSecurityQuestionsEntry = new UserSecurityQuestionsEntry();
             userSecurityQuestionsEntry.setKey(securityDetails
@@ -362,25 +366,92 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         return userProfiles.getUserProfileResponse(userId);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.wiley.gr.ace.authorservices.services.service.AuthorProfileService
+     * #uploadImage(java.io.File, java.lang.String)
+     */
     @Override
     public void uploadImage(final File image, final String userId) {
 
-        byte[] imageData = new byte[(int) image.length()];
+        final byte[] imageData = new byte[(int) image.length()];
         try {
-            FileInputStream fileInputStream = new FileInputStream(image);
+            final FileInputStream fileInputStream = new FileInputStream(image);
             fileInputStream.read(imageData);
             fileInputStream.close();
             authorProfileDao.saveProfilePicture(imageData, userId);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
         }
     }
 
-    /** Getting LookUp Profile by calling external service */
+    /**
+     * Getting LookUp Profile by calling external service.
+     *
+     * @param userId
+     *            the user id
+     * @return the lookup customer profile
+     */
     @Override
-    public LookupCustomerProfile getLookupCustomerProfile(String userId) {
+    public LookupCustomerProfile getLookupCustomerProfile(final String userId) {
 
         return userProfiles.getLookupCustomerProfile(userId);
     }
 
+    /**
+     * This method will call externnal service look up profile to get
+     * affiliation
+     * 
+     * @param userId
+     */
+    @Override
+    public List<Affiliation> getAffiliationsList(final String userId) {
+        List<AffiliationData> listofAffiliations = userProfiles
+                .getLookupCustomerProfile(userId)
+                .getLookupCustomerProfileResponse().getCustomerProfile()
+                .getAffiliations().getAffiliation();
+        List<Affiliation> affiliationList = new ArrayList<Affiliation>();
+
+        for (AffiliationData affiliationData : listofAffiliations) {
+            Affiliation affiliation = new Affiliation();
+            affiliation.setAffiliationId(affiliationData.getId());
+            affiliation.setCity(affiliationData.getCity());
+            affiliation.setCountryCode(affiliationData.getCountryCd());
+            affiliation.setInstitutionId(affiliationData.getInstitutionCd());
+            affiliation.setDepartmentId(affiliationData.getDepartmentCd());
+            affiliation.setDepartmentName(affiliationData.getDepartmentName());
+            affiliation
+                    .setInstitutionName(affiliationData.getInstitutionName());
+            affiliationList.add(affiliation);
+        }
+        return affiliationList;
+    }
+
+    /**
+     * This method will call externnal service look up profile to get research
+     * funder
+     * 
+     * @param userId
+     */
+    @Override
+    public ResearchFunders getResearchFundersList(final String userId) {
+        List<ResearchFunderData> listOfResearchFunder = userProfiles
+                .getLookupCustomerProfile(userId)
+                .getLookupCustomerProfileResponse().getCustomerProfile()
+                .getResearchFunders().getResearchFunder();
+        ResearchFunders researchFunders = new ResearchFunders();
+        List<ResearchFunder> list = new ArrayList<ResearchFunder>();
+        for (ResearchFunderData researchFunderData1 : listOfResearchFunder) {
+            ResearchFunder researchFunder = new ResearchFunder();
+            researchFunder.setResearchFunderId(researchFunderData1
+                    .getFunderID());
+            researchFunder.setResearchFunderName(researchFunderData1
+                    .getFunderName());
+            list.add(researchFunder);
+            researchFunders.setResearchFunders(list);
+        }
+        return researchFunders;
+    }
 }

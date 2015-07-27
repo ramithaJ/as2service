@@ -38,7 +38,7 @@ public class TokenAuthentication implements Authentication {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see java.security.Principal#getName()
      */
     @Override
@@ -48,7 +48,7 @@ public class TokenAuthentication implements Authentication {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.springframework.security.core.Authentication#getAuthorities()
      */
     @Override
@@ -58,7 +58,7 @@ public class TokenAuthentication implements Authentication {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.springframework.security.core.Authentication#getCredentials()
      */
     @Override
@@ -68,7 +68,7 @@ public class TokenAuthentication implements Authentication {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.springframework.security.core.Authentication#getDetails()
      */
     @Override
@@ -78,7 +78,7 @@ public class TokenAuthentication implements Authentication {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.springframework.security.core.Authentication#getPrincipal()
      */
     @Override
@@ -88,7 +88,7 @@ public class TokenAuthentication implements Authentication {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.springframework.security.core.Authentication#isAuthenticated()
      */
     @Override
@@ -98,7 +98,7 @@ public class TokenAuthentication implements Authentication {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see
      * org.springframework.security.core.Authentication#setAuthenticated(boolean
      * )

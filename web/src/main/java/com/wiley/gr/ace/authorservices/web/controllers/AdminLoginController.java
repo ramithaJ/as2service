@@ -73,7 +73,7 @@ public class AdminLoginController extends ASExceptionController {
         Service service = new Service();
         if (adminLoginService.validateEmail(login.getEmailId())) {
 
-            Users users = adminLoginService.doLogin(login.getEmailId());
+            Users users = adminLoginService.getASUser(login.getEmailId());
             LOGGER.debug(users.getUserId() + "Geeting User id from dologin");
             UserLogin userLogin = new UserLogin();
             userLogin.setUserId(users.getUserId());

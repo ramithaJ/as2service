@@ -37,7 +37,7 @@ public class CustomerProfile {
 
     /** The research funders. */
     @JsonProperty("ResearchFunders")
-    private ResearchFunders researchFunders;
+    private ResearchFundersData researchFunders;
 
     /** The favorite journals. */
     @JsonProperty("FavoriteJournals")
@@ -53,7 +53,7 @@ public class CustomerProfile {
 
     /** The affiliations. */
     @JsonProperty("Affiliations")
-    private Affiliations affiliations;
+    private AffiliationsData affiliations;
 
     /** The society list. */
     @JsonProperty("SocietyList")
@@ -122,7 +122,7 @@ public class CustomerProfile {
      *
      * @return the research funders
      */
-    public final ResearchFunders getResearchFunders() {
+    public final ResearchFundersData getResearchFunders() {
         return researchFunders;
     }
 
@@ -131,7 +131,7 @@ public class CustomerProfile {
      *
      * @param researchFunders the new research funders
      */
-    public final void setResearchFunders(final ResearchFunders researchFunders) {
+    public final void setResearchFunders(final ResearchFundersData researchFunders) {
         this.researchFunders = researchFunders;
     }
 
@@ -195,7 +195,7 @@ public class CustomerProfile {
      *
      * @return the affiliations
      */
-    public final Affiliations getAffiliations() {
+    public final AffiliationsData getAffiliations() {
         return affiliations;
     }
 
@@ -204,7 +204,7 @@ public class CustomerProfile {
      *
      * @param affiliations the new affiliations
      */
-    public final void setAffiliations(final Affiliations affiliations) {
+    public final void setAffiliations(final AffiliationsData affiliations) {
         this.affiliations = affiliations;
     }
 

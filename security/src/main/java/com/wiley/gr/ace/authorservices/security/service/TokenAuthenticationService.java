@@ -76,8 +76,11 @@ public class TokenAuthenticationService {
         if (StringUtils.isBlank(token)) {
             return null;
         }
+
+        // Fetch new token if valid token in request
         final TokenAuthentication tokenAuthentication = tokenHandler
                 .validateAndRefresh(token);
+
         if (null != tokenAuthentication) {
             addAuthentication(request, response, tokenAuthentication);
         }
@@ -103,6 +106,7 @@ public class TokenAuthenticationService {
         if (StringUtils.isBlank(tokenAuthentication.getToken())) {
             return;
         }
+
         Cookie cookie = tokenHandler.getCookie(request,
                 authenticationCookieName);
         if (null == cookie) {
@@ -113,6 +117,7 @@ public class TokenAuthenticationService {
         } else {
             cookie.setValue(tokenAuthentication.getToken());
         }
+
         cookie.setMaxAge(authenticationCookieMaxAge);
         response.addCookie(cookie);
     }

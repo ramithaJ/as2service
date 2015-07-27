@@ -25,13 +25,13 @@ import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.Dashboard;
 import com.wiley.gr.ace.authorservices.model.DashboardInfo;
-import com.wiley.gr.ace.authorservices.model.external.Affiliation;
+import com.wiley.gr.ace.authorservices.model.external.AffiliationData;
 import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
 import com.wiley.gr.ace.authorservices.model.external.CustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.DashboardView;
 import com.wiley.gr.ace.authorservices.model.external.Interest;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
-import com.wiley.gr.ace.authorservices.model.external.ResearchFunder;
+import com.wiley.gr.ace.authorservices.model.external.ResearchFunderData;
 import com.wiley.gr.ace.authorservices.model.external.Society;
 import com.wiley.gr.ace.authorservices.model.external.SystemSecurityQuestions;
 import com.wiley.gr.ace.authorservices.services.service.DashboardService;
@@ -298,7 +298,7 @@ public class DashboardServiceImpl implements DashboardService {
             final CustomerProfile customerProfile) {
         DashboardServiceImpl.LOGGER
                 .info("inside getAffiliationsForUser Method of DashboardServiceImpl");
-        final List<Affiliation> userAffiliationsList = customerProfile
+        final List<AffiliationData> userAffiliationsList = customerProfile
                 .getAffiliations().getAffiliation();
         DashboardInfo dashboardInfo = null;
         if (!StringUtils.isEmpty(userAffiliationsList)
@@ -345,7 +345,7 @@ public class DashboardServiceImpl implements DashboardService {
             final CustomerProfile customerProfile) {
         DashboardServiceImpl.LOGGER
                 .info("inside getFundersListForUser Method of DashboardServiceImpl");
-        final List<ResearchFunder> researchFundersList = customerProfile
+        final List<ResearchFunderData> researchFundersList = customerProfile
                 .getResearchFunders().getResearchFunder();
         DashboardInfo dashboardInfo = null;
         if (!StringUtils.isEmpty(researchFundersList)

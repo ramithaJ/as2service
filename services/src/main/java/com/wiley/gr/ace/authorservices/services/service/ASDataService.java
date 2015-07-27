@@ -13,8 +13,8 @@ package com.wiley.gr.ace.authorservices.services.service;
 
 import java.util.List;
 
-import com.wiley.gr.ace.authorservices.autocomplete.cache.model.CacheData;
 import com.wiley.gr.ace.authorservices.model.AccessReasons;
+import com.wiley.gr.ace.authorservices.model.CacheData;
 import com.wiley.gr.ace.authorservices.model.Role;
 import com.wiley.gr.ace.authorservices.model.external.RetrieveSecurityQuestions;
 

@@ -148,9 +148,7 @@ public class UserLoginServiceImpl implements UserLoginService {
         boolean status = false;
 
         LOGGER.info("In resetPassword method");
-        System.err.println(securityDetailsHolder.isForceReset());
         if (securityDetailsHolder.isForceReset()) {
-            System.err.println("hai");
             ForcefulReset forcefulReset = new ForcefulReset();
             forcefulReset.setExistingEmail(securityDetailsHolder.getEmailId());
             forcefulReset.setNewPassword(securityDetailsHolder.getPassword());

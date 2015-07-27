@@ -21,7 +21,7 @@ public class TokenAuthenticationProvider implements AuthenticationProvider {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.springframework.security.authentication.AuthenticationProvider#
      * authenticate(org.springframework.security.core.Authentication)
      */
@@ -41,7 +41,7 @@ public class TokenAuthenticationProvider implements AuthenticationProvider {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * org.springframework.security.authentication.AuthenticationProvider#supports
      * (java.lang.Class)
@@ -50,7 +50,7 @@ public class TokenAuthenticationProvider implements AuthenticationProvider {
     public boolean supports(final Class<?> authentication) {
         return null != authentication
                 && authentication
-                .equals(UsernamePasswordAuthenticationToken.class);
+                        .equals(UsernamePasswordAuthenticationToken.class);
     }
 
 }

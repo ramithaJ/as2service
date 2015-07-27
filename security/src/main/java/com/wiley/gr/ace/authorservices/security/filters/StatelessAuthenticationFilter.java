@@ -47,8 +47,11 @@ public class StatelessAuthenticationFilter extends GenericFilterBean {
                     throws IOException, ServletException {
         final HttpServletRequest httpRequest = (HttpServletRequest) request;
         final HttpServletResponse httpResponse = (HttpServletResponse) response;
+
+        // Verify the authentication and Add new refreshed Token to Cookie
         final Authentication authentication = tokenAuthenticationService
                 .verifyAuthentication(httpRequest, httpResponse);
+
         SecurityContextHolder.getContext().setAuthentication(authentication);
         filterChain.doFilter(request, response);
         SecurityContextHolder.getContext().setAuthentication(null);

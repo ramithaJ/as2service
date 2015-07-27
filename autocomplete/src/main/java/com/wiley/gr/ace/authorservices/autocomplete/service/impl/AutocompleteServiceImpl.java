@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
@@ -24,7 +26,9 @@ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import redis.clients.jedis.Jedis;
 
 import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteService;
+import com.wiley.gr.ace.authorservices.model.CacheData;
 import com.wiley.gr.ace.authorservices.persistence.services.UserAutocomplete;
+import com.wiley.gr.ace.authorservices.services.service.ASDataService;
 
 /**
  * AutocompleteService provides auto suggestions.
@@ -34,17 +38,59 @@ import com.wiley.gr.ace.authorservices.persistence.services.UserAutocomplete;
  */
 public class AutocompleteServiceImpl implements AutocompleteService {
 
+	/**
+	 * Logger Configured.
+	 */
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(AutocompleteServiceImpl.class);
+
 	/** The jedis connection factory. */
-	@Autowired
+	@Autowired(required = true)
 	private JedisConnectionFactory jedisConnectionFactory;
 
 	/** The user autocomplete. */
-	@Autowired
+	@Autowired(required = true)
 	private UserAutocomplete userAutocomplete;
+
+	@Autowired(required = true)
+	private ASDataService asDataService;
 
 	@Value("${autocomplete.count}")
 	private String autocompletecount;
-	
+
+	@Value("${titles.key}")
+	private String titleskey;
+
+	@Value("${suffixes.key}")
+	private String suffixeskey;
+
+	@Value("${industries.key}")
+	private String industrieskey;
+
+	@Value("${jobCategories.key}")
+	private String jobCategorieskey;
+
+	@Value("${countries.key}")
+	private String countrieskey;
+
+	@Value("${states.key}")
+	private String stateskey;
+
+	@Value("${institutions.key}")
+	private String institutionskey;
+
+	@Value("${departments.key}")
+	private String departmentskey;
+
+	@Value("${researchFunders.key}")
+	private String researchFunderskey;
+
+	@Value("${societies.key}")
+	private String societieskey;
+
+	@Value("${areasOfIntrest.key}")
+	private String areasOfIntrestkey;
+
 	/**
 	 * Method to get Auto complete data.
 	 *
@@ -187,7 +233,7 @@ public class AutocompleteServiceImpl implements AutocompleteService {
 			offset = 0;
 		}
 
-		if (phrase != null) {
+		if (phrase != null && !"".equals(phrase.trim())) {
 			/*
 			 * Auto Complete
 			 */
@@ -196,6 +242,12 @@ public class AutocompleteServiceImpl implements AutocompleteService {
 			if (dropDownList == null) {
 				dropDownList = getCachedData(key);
 				if (dropDownList != null) {
+					final Jedis redis = new Jedis(
+							jedisConnectionFactory.getShardInfo());
+					for (String dropDownData : dropDownList) {
+						addWord(dropDownData, redis, key);
+					}
+					redis.close();
 					dropDownList = getAutoCompleteDataFromRedis(key, phrase,
 							offset);
 				}
@@ -300,14 +352,54 @@ public class AutocompleteServiceImpl implements AutocompleteService {
 	 * data, the corresponding service is invoked and the list is set to the
 	 * cache and returns the list.
 	 * 
-	 * @param key
+	 * @param dropDownKey
 	 * @return dropDownList
 	 */
-	@Cacheable(value = "dropDownList", key = "#key")
-	private List<String> getCachedData(final String key) {
+	@Cacheable(value = "dropDownList", key = "#dropDownKey")
+	private List<String> getCachedData(final String dropDownKey) {
 		List<String> dropDownList = null;
 
-		// @TODO: Need to implement
+		List<CacheData> cacheDataList = null;
+
+		if (titleskey.equals(dropDownKey)) {
+			LOGGER.info("getCachedData::titleskey");
+			cacheDataList = asDataService.getTitles();
+		} else if (suffixeskey.equals(dropDownKey)) {
+			LOGGER.info("getCachedData::titleskey");
+			cacheDataList = asDataService.getSuffixes();
+		} else if (industrieskey.equals(dropDownKey)) {
+			LOGGER.info("getCachedData::industrieskey");
+			cacheDataList = asDataService.getInstitutions();
+		} else if (jobCategorieskey.equals(dropDownKey)) {
+			LOGGER.info("getCachedData::jobCategorieskey");
+			cacheDataList = asDataService.getJobCategories();
+		} else if (countrieskey.equals(dropDownKey)) {
+			LOGGER.info("getCachedData::countrieskey");
+			cacheDataList = asDataService.getCountries();
+		} else if (institutionskey.equals(dropDownKey)) {
+			LOGGER.info("getCachedData::institutionskey");
+			cacheDataList = asDataService.getInstitutions();
+		} else if (departmentskey.equals(dropDownKey)) {
+			LOGGER.info("getCachedData::departmentskey");
+			cacheDataList = asDataService.getDepartments();
+		} else if (researchFunderskey.equals(dropDownKey)) {
+			LOGGER.info("getCachedData::researchFunderskey");
+			cacheDataList = asDataService.getResearchFunders();
+		} else if (societieskey.equals(dropDownKey)) {
+			LOGGER.info("getCachedData::societieskey");
+			cacheDataList = asDataService.getSocieties();
+		} else if (areasOfIntrestkey.equals(dropDownKey)) {
+			LOGGER.info("getCachedData::areasOfIntrestkey");
+			cacheDataList = asDataService.getAreasOfInterests();
+		}
+
+		if (cacheDataList != null && !cacheDataList.isEmpty()) {
+			dropDownList = new ArrayList<String>();
+			for (CacheData cacheData : cacheDataList) {
+				dropDownList.add(cacheData.toString());
+			}
+
+		}
 
 		return dropDownList;
 	}

@@ -14,8 +14,6 @@ package com.wiley.gr.ace.authorservices.services.context;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteService;
-import com.wiley.gr.ace.authorservices.autocomplete.service.impl.AutocompleteServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.ASDataService;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 import com.wiley.gr.ace.authorservices.services.service.ArticleAssignmentService;
@@ -147,15 +145,7 @@ public class ServiceBeanConfig {
         return new ArticleAssignmentServiceImpl();
     }
 
-    /**
-     * Article assignment service.
-     *
-     * @return the article assignment service
-     */
-    @Bean(name = "AutocompleteService")
-    public AutocompleteService autocompleteService() {
-        return new AutocompleteServiceImpl();
-    }
+   
     /**Notification bean
      * @return
      */

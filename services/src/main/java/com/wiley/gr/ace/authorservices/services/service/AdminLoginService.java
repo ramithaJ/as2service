@@ -39,7 +39,7 @@ public interface AdminLoginService {
      *            the email id
      * @return the string
      */
-    Users doLogin(String emailId);
+    Users getASUser(String emailId);
 
     /**
      * This method requests for a wiley user to get Admin Access.

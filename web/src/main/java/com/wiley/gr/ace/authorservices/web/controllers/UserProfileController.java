@@ -87,10 +87,8 @@ public class UserProfileController {
             @PathVariable("userId") final String userId) {
         UserProfileController.LOGGER.info("inside getAffiliationsList method ");
         Service service = new Service();
-        service.setPayload(authorProfileService
-                .getLookupCustomerProfile(userId)
-                .getLookupCustomerProfileResponse().getCustomerProfile()
-                .getAffiliations());
+        service.setPayload(authorProfileService.getAffiliationsList(userId));
+                
         return service;
     }
 
@@ -128,10 +126,8 @@ public class UserProfileController {
         UserProfileController.LOGGER
                 .info("inside getResearchFundersList method ");
         Service service = new Service();
-        service.setPayload(authorProfileService
-                .getLookupCustomerProfile(userId)
-                .getLookupCustomerProfileResponse().getCustomerProfile()
-                .getResearchFunders());
+        service.setPayload(authorProfileService.getResearchFundersList(userId));
+                
         return service;
     }
 
