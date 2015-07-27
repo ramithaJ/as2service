@@ -145,14 +145,15 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
             articleDetails.setArticleTitle(art.getTitle());
             final String authorName = art.getCorrespondingAuthorFirstName()
                     + art.getCorrespondingAuthorLastName();
-            articleDetails.setArticleAuthorName(authorName);
+            articleDetails.setArticleAuthors(authorName);
             articleDetails.setArticleCoAuthors(parseCoAuthors(art));
-            articleDetails.setEmail(art.getCorrespondingAuthorEmail());
-            articleDetails.setArticleDoi(art.getDoi());
+            articleDetails.setCorrespondingAuthorEmail(art
+                    .getCorrespondingAuthorEmail());
+            articleDetails.setArticleDOI(art.getDoi());
             articleDetails.setAcceptanceDate(art.getAcceptedDt());
-            articleDetails.setIssue(art.getIssNum());
-            articleDetails.setVolume(art.getVolNum());
-            articleDetails.setEditorialRefCode(art.getEdRefCode());
+            articleDetails.setIssueNum(art.getIssNum());
+            articleDetails.setVolumeNum(art.getVolNum());
+            articleDetails.setEditorialRefCd(art.getEdRefCode());
             articleDetails.setJpcmsInternalId(art.getJpcmsInternalId());
             articleDetails.setPublicationDate(art.getPubYear());
         }
