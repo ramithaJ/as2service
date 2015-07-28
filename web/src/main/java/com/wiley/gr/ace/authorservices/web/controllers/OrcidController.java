@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
-import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.orcid.OrcidAccessToken;
@@ -66,14 +65,6 @@ public class OrcidController {
     @Value("${orcid-redirect.url}")
     private String orcidRedirectUrl;
 
-    /** The no orcid url code. */
-    @Value("${noOrcidURL.code}")
-    private String noOrcidURLCode;
-
-    /** The no orcid data code. */
-    @Value("${noOrcidData.code}")
-    private String noOrcidDataCode;
-
     /** value from props file configured. */
     @Value("${OrcidController.getOrcidURL.code}")
     private String getOrcidURLErrorCode;
@@ -81,6 +72,7 @@ public class OrcidController {
     /** value from props file configured. */
     @Value("${OrcidController.getOrcidURL.message}")
     private String getOrcidURLErrorMessage;
+    
     /** value from props file configured. */
     @Value("${OrcidController.getOrcidDetails.code}")
     private String getOrcidDetailsErrorCode;
@@ -110,11 +102,6 @@ public class OrcidController {
             service.setPayload(url);
 
         } catch (final Exception e) {
-            ErrorPOJO error = new ErrorPOJO();
-            error.setCode(noOrcidURLCode);
-            error.setMessage("Error while fetching ORCID URL");
-            service.setStatus("error");
-            service.setError(error);
             throw new ASException(getOrcidURLErrorCode,
                     getOrcidURLErrorMessage, e);
         }
@@ -156,14 +143,7 @@ public class OrcidController {
                 }
             }
         } catch (final Exception e) {
-            e.printStackTrace();
             LOGGER.error("Stack Trace-.", e);
-            ErrorPOJO error = new ErrorPOJO();
-            error.setCode(noOrcidDataCode);
-            error.setMessage("Error while fetching ORCID details");
-
-            service.setStatus("error");
-            service.setError(error);
             throw new ASException(getOrcidDetailsErrorCode,
                     getOrcidDetailsErrorMessage, e);
         }
