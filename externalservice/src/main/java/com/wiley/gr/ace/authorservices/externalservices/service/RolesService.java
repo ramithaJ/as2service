@@ -13,6 +13,7 @@ package com.wiley.gr.ace.authorservices.externalservices.service;
 
 import java.util.List;
 
+import com.wiley.gr.ace.authorservices.model.external.PermissionData;
 import com.wiley.gr.ace.authorservices.model.external.RolesData;
 
 /**
@@ -28,5 +29,12 @@ public interface RolesService {
 	 * @return
 	 */
 	List<RolesData> getRoles();
+	
+	/**
+	 * Gets the permissions.
+	 *
+	 * @return the permissions
+	 */
+	List<PermissionData> getPermissions();
 	
 }
