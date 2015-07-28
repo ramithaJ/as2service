@@ -13,7 +13,6 @@ package com.wiley.gr.ace.authorservices.externalservices.service;
 
 import java.util.List;
 
-import com.wiley.gr.ace.authorservices.model.Role;
 import com.wiley.gr.ace.authorservices.model.external.RolesData;
 
 /**
@@ -30,11 +29,4 @@ public interface RolesService {
 	 */
 	List<RolesData> getRoles();
 	
-	/**
-	 * This method returns the admin related roles
-	 * 
-	 * @return
-	 */
-	List<Role> getAdminRoles();
-
 }
