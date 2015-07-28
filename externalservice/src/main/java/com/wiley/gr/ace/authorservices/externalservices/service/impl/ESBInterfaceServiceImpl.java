@@ -26,7 +26,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
-import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
+import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
@@ -172,7 +172,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
                     + "&LastName=" + lastName;
         }
 
-        searchUserResult = (SearchUserResult) StubInvokerUtil.getServiceData(
+        searchUserResult = (SearchUserResult) RestServiceInvokerUtil.getServiceData(
                 searchJobUrl, SearchUserResult.class);
 
         if ("success".equalsIgnoreCase(searchUserResult.getStatus())) {
@@ -194,7 +194,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      */
     @Override
     public final String creatUser(final ProfileInformation profileForCreation) {
-        ResponseStatus responseStatus = (ResponseStatus) StubInvokerUtil
+        ResponseStatus responseStatus = (ResponseStatus) RestServiceInvokerUtil
                 .restServiceInvoker(createUserUrl, profileForCreation,
                         ResponseStatus.class);
 

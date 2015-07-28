@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 
 import com.wiley.gr.ace.authorservices.exception.UserException;
-import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
+import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.model.AdminUser;
 import com.wiley.gr.ace.authorservices.model.AuditInformation;
@@ -98,7 +98,7 @@ public class UserManagementImpl implements UserManagement {
     @Override
     public final SecurityResponse authenticateUser(
             final SharedServieRequest sharedServieRequest) {
-        return (SecurityResponse) StubInvokerUtil.restServiceInvoker(
+        return (SecurityResponse) RestServiceInvokerUtil.restServiceInvoker(
                 sharedServiceAuthenticateUrl, sharedServieRequest,
                 SecurityResponse.class);
     }
@@ -212,7 +212,7 @@ public class UserManagementImpl implements UserManagement {
 
         final SharedServieRequest sharedServieRequest = new SharedServieRequest();
         sharedServieRequest.setUserId(emailId);
-        return (AdminUser) StubInvokerUtil.restServiceInvoker(findUser,
+        return (AdminUser) RestServiceInvokerUtil.restServiceInvoker(findUser,
                 sharedServieRequest, AdminUser.class);
 
     }
@@ -226,7 +226,7 @@ public class UserManagementImpl implements UserManagement {
      */
     @Override
     public RetrieveSecurityQuestions userSecurityQuestions(final String emailId) {
-        return (RetrieveSecurityQuestions) StubInvokerUtil.invokeStub(
+        return (RetrieveSecurityQuestions) RestServiceInvokerUtil.invokeStub(
                 retrieveSecurityQuestions + emailId, HttpMethod.GET,
                 RetrieveSecurityQuestions.class);
     }
@@ -234,7 +234,7 @@ public class UserManagementImpl implements UserManagement {
     @Override
     public RetrieveSecurityQuestions lookupSecutityQuestions() {
 
-        return (RetrieveSecurityQuestions) StubInvokerUtil.getServiceData(
+        return (RetrieveSecurityQuestions) RestServiceInvokerUtil.getServiceData(
                 lookupSecurityQuestionsurl, RetrieveSecurityQuestions.class);
     }
 
@@ -249,7 +249,7 @@ public class UserManagementImpl implements UserManagement {
     private boolean externalServiceInvoker(final String url,
             final Object requestEntityClass) {
 
-        final ResponseStatus responseStatus = (ResponseStatus) StubInvokerUtil
+        final ResponseStatus responseStatus = (ResponseStatus) RestServiceInvokerUtil
                 .restServiceInvoker(url, requestEntityClass,
                         ResponseStatus.class);
         boolean status = false;

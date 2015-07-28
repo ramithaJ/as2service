@@ -15,7 +15,7 @@ package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 
-import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
+import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.NotificationService;
 import com.wiley.gr.ace.authorservices.model.NotificationHistory;
 import com.wiley.gr.ace.authorservices.model.NotificationResponse;
@@ -46,7 +46,7 @@ public class NotificationServiceImpl implements NotificationService {
 
         String notificationFinalUrl = notificationurl + appId + "/send?tmpl="
                 + templateId + "&type=" + type;
-        return (NotificationResponse) StubInvokerUtil.restServiceInvoker(
+        return (NotificationResponse) RestServiceInvokerUtil.restServiceInvoker(
                 notificationFinalUrl, notificationRequest,
                 NotificationResponse.class);
     }
@@ -63,7 +63,7 @@ public class NotificationServiceImpl implements NotificationService {
     @Override
     public final NotificationHistory getNotificationHistory(final String userId)
             throws Exception {
-        return (NotificationHistory) StubInvokerUtil.invokeStub(
+        return (NotificationHistory) RestServiceInvokerUtil.invokeStub(
                 notificationHistoryUrl, HttpMethod.GET,
                 NotificationHistory.class);
     }
