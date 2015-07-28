@@ -28,7 +28,6 @@ import com.wiley.gr.ace.authorservices.externalservices.service.OrcidInterfaceSe
 import com.wiley.gr.ace.authorservices.model.Address;
 import com.wiley.gr.ace.authorservices.model.Addresses;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
-import com.wiley.gr.ace.authorservices.model.CacheData;
 import com.wiley.gr.ace.authorservices.model.Country;
 import com.wiley.gr.ace.authorservices.model.DisambiguatedOrganization;
 import com.wiley.gr.ace.authorservices.model.Organization;
@@ -57,7 +56,7 @@ public class OrcidServiceImpl implements OrcidService {
     private ASDataService asDataService;
 
     /** The Constant COUNT. */
-//    private static final int COUNT = 10;
+    private static final int COUNT = 10;
 
     /**
      * This method will take authorizationCode and call external service
@@ -284,11 +283,11 @@ public class OrcidServiceImpl implements OrcidService {
         try {
             country = new Country();
             country.setCountryCode((String) countryDetails.get("value"));
-            List<CacheData> countryList = asDataService.getCountries();
-            for (CacheData countryEntity : countryList) {
-                if (countryEntity.getCode().startsWith(
+            List<Country> countryList = asDataService.getCountries(COUNT);
+            for (Country countryEntity : countryList) {
+                if (countryEntity.getCountryCode().startsWith(
                         country.getCountryCode())) {
-                    country.setCountryName(countryEntity.getName());
+                    country.setCountryName(countryEntity.getCountryName());
                     break;
                 }
             }
