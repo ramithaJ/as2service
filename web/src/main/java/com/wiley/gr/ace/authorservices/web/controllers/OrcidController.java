@@ -74,6 +74,21 @@ public class OrcidController {
     @Value("${noOrcidData.code}")
     private String noOrcidDataCode;
 
+    /** value from props file configured. */
+    @Value("${OrcidController.getOrcidURL.code}")
+    private String getOrcidURLErrorCode;
+
+    /** value from props file configured. */
+    @Value("${OrcidController.getOrcidURL.message}")
+    private String getOrcidURLErrorMessage;
+    /** value from props file configured. */
+    @Value("${OrcidController.getOrcidDetails.code}")
+    private String getOrcidDetailsErrorCode;
+
+    /** value from props file configured. */
+    @Value("${OrcidController.getOrcidDetails.message}")
+    private String getOrcidDetailsErrorMessage;
+
     /**
      * Gets the orcid url.
      *
@@ -100,7 +115,8 @@ public class OrcidController {
             error.setMessage("Error while fetching ORCID URL");
             service.setStatus("error");
             service.setError(error);
-            throw new ASException("-2", "Error while fetching ORCID URL", e);
+            throw new ASException(getOrcidURLErrorCode,
+                    getOrcidURLErrorMessage, e);
         }
         return service;
     }
@@ -148,7 +164,8 @@ public class OrcidController {
 
             service.setStatus("error");
             service.setError(error);
-            throw new ASException("-2", "Error while fetching ORCID details", e);
+            throw new ASException(getOrcidDetailsErrorCode,
+                    getOrcidDetailsErrorMessage, e);
         }
         return service;
     }

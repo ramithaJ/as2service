@@ -36,7 +36,10 @@ import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
 import com.wiley.gr.ace.authorservices.services.service.SendNotification;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 
+
 /**
+ * The Class RegistrationController.
+ *
  * @author virtusa version 1.0
  */
 @RestController
@@ -46,18 +49,19 @@ public class RegistrationController {
     /**
      * Logger Configured.
      */
-    private static final Logger LOGGER = LoggerFactory
+    public static final Logger LOGGER = LoggerFactory
             .getLogger(RegistrationController.class);
 
-    /**
-     * Injected RegistrationService bean.
-     */
+    
+    /** The rs. */
     @Autowired(required = true)
     private RegistrationService rs;
 
+    /** The uls. */
     @Autowired(required = true)
     private UserLoginService uls;
 
+    /** The send notification. */
     @Autowired(required = true)
     private SendNotification sendNotification;
     /**
@@ -66,9 +70,50 @@ public class RegistrationController {
     @Value("${noDataFound.code}")
     private String noDataFoundCode;
 
+    /** value from props file configured. */
+    @Value("${RegistrationController.checkUserExists.code}")
+    private String checkUserExistsErrorCode;
+
+    /** value from props file configured. */
+    @Value("${RegistrationController.checkUserExists.message}")
+    private String checkUserExistsErrorMessage;
+
+    /** value from props file configured. */
+    @Value("${RegistrationController.getInvitationRecords.code}")
+    private String getInvitationRecordsErrorCode;
+
+    /** value from props file configured. */
+    @Value("${RegistrationController.getInvitationRecords.message}")
+    private String getInvitationRecordsErrorMessage;
+
+    /** value from props file configured. */
+    @Value("${RegistrationController.createUser.code}")
+    private String createUserErrorCode;
+
+    /** value from props file configured. */
+    @Value("${RegistrationController.createUser.message}")
+    private String createUserErrorMessage;
+
+    /** value from props file configured. */
+    @Value("${RegistrationController.createUserDetails.code}")
+    private String createUserDetailsErrorCode;
+
+    /** value from props file configured. */
+    @Value("${RegistrationController.createUserDetails.message}")
+    private String createUserDetailsErrorMessage;
+
+    /** value from props file configured. */
+    @Value("${RegistrationController.isUserFoundWithOrcidId.code}")
+    private String isUserFoundWithOrcidIdErrorCode;
+
+    /** value from props file configured. */
+    @Value("${RegistrationController.isUserFoundWithOrcidId.message}")
+    private String isUserFoundWithOrcidIdErrorMessage;
+
     /**
-     * @param email
-     *            - The request value
+     * Check user exists.
+     *
+     * @param email            - The request value
      * @return service
      */
     @RequestMapping(value = "/verify/email", method = RequestMethod.GET)
@@ -89,9 +134,8 @@ public class RegistrationController {
                 err.setMessage("User exists in the system but not registered with AS2.0");
                 service.setError(err);
             } else {
-                throw new UserException(
-                        "REGISTRATION_PRIMARY_EMAIL_ADDR_EXISTS_AS_PRIMARY_ERR_TEXT",
-                        "User is already registered ");
+                throw new UserException(checkUserExistsErrorCode,
+                        checkUserExistsErrorMessage);
             }
         }
 
@@ -99,8 +143,9 @@ public class RegistrationController {
     }
 
     /**
-     * @param guid
-     *            - The request value
+     * Gets the invitation records.
+     *
+     * @param guid            - The request value
      * @return service
      */
     @RequestMapping(value = "/invitation/{guid}", method = RequestMethod.GET)
@@ -130,19 +175,17 @@ public class RegistrationController {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                service.setStatus("ERROR");
-                ErrorPOJO err = new ErrorPOJO();
-                err.setCode(noDataFoundCode);
-                err.setMessage("Accessing invitation records encountered exception");
-                service.setError(err);
+                throw new UserException(getInvitationRecordsErrorCode,
+                        getInvitationRecordsErrorMessage);
             }
         }
         return service;
     }
 
     /**
-     * @param user
-     *            - The request value
+     * Creates the user.
+     *
+     * @param user            - The request value
      * @return service
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -186,20 +229,23 @@ public class RegistrationController {
                                 notificationRequest);
                     }
                 } else {
-                    throw new UserException("221", "Creating User Failed");
+                    throw new UserException(createUserErrorCode,
+                            createUserErrorMessage);
                 }
 
             }
         } else {
-            throw new UserException(noDataFoundCode, "User object is empty");
+            throw new UserException(createUserDetailsErrorCode,
+                    createUserDetailsErrorMessage);
         }
 
         return service;
     }
 
     /**
-     * @param orcidId
-     *            - The request value
+     * Checks if is user found with orcid id.
+     *
+     * @param orcidId            - The request value
      * @return service
      */
     @RequestMapping(value = "/search/orcid/{orcidId}", method = RequestMethod.GET)
@@ -219,12 +265,9 @@ public class RegistrationController {
                     service.setStatus("SUCCESS");
                 }
             } catch (Exception e) {
-                LOGGER.error("Print Stack Trace- ", e);
-                service.setStatus("FAILURE");
-                ErrorPOJO err = new ErrorPOJO();
-                err.setCode(noDataFoundCode);
-                err.setMessage("Searching user with ORCID Id encountered exception");
-                service.setError(err);
+                e.printStackTrace();
+                throw new UserException(isUserFoundWithOrcidIdErrorCode,
+                        isUserFoundWithOrcidIdErrorMessage);
             }
         } else {
             service.setStatus("FAILURE");
