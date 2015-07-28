@@ -46,11 +46,11 @@ public class DashboardController {
 
     /** value from props file configured. */
     @Value("${DashboardController.getProfileMeter.code}")
-    private String getProfileMetererrorcode;
+    private String getProfileMeterErrorCode;
 
     /** value from props file configured. */
     @Value("${DashboardController.getProfileMeter.message}")
-    private String getProfileMetererrormessage;
+    private String getProfileMeterErrorMessage;
 
     /** The Auto Wired for DashBoard Service . */
     @Autowired(required = true)
@@ -74,8 +74,7 @@ public class DashboardController {
     @RequestMapping(value = "/profilemeter/{userId}", method = RequestMethod.GET)
     public final Service getProfileMeter(
             @PathVariable("userId") final String userId) {
-        DashboardController.LOGGER
-                .info("inside getProfileMeter method of DashboardController");
+        LOGGER.info("inside getProfileMeter method of DashboardController");
         final Service service = new Service();
         Dashboard dashboard = null;
         if (!StringUtils.isEmpty(userId)) {
@@ -91,8 +90,8 @@ public class DashboardController {
                 }
             } catch (final Exception e) {
                 LOGGER.error("Print Stack Trace- ", e);
-                throw new UserException(getProfileMetererrorcode,
-                        getProfileMetererrormessage);
+                throw new UserException(getProfileMeterErrorCode,
+                        getProfileMeterErrorMessage);
             }
         } else {
             LOGGER.info("input Parameter userId is Not Found");
@@ -113,8 +112,7 @@ public class DashboardController {
     @RequestMapping(value = "/view/{userId}", method = RequestMethod.GET)
     public final Service getAllAuthorArticles(
             @PathVariable("userId") final int userId) {
-        DashboardController.LOGGER
-                .info("inside viewallauthorarticles method of DashboardController");
+        LOGGER.info("inside viewallauthorarticles method of DashboardController");
         final Service service = new Service();
         DashboardView dashboardView = null;
         try {
@@ -123,7 +121,7 @@ public class DashboardController {
                 service.setPayload(dashboardView);
             }
         } catch (final Exception e) {
-            DashboardController.LOGGER.error("Print Stack Trace- ", e);
+            LOGGER.error("Print Stack Trace- ", e);
             final ErrorPOJO error = new ErrorPOJO();
             error.setCode(noDataFoundMessage);
             error.setMessage("Error Fetching To View All Author Articles");
