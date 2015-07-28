@@ -13,8 +13,8 @@ package com.wiley.gr.ace.authorservices.services.service;
 
 import com.wiley.gr.ace.authorservices.model.Login;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
+import com.wiley.gr.ace.authorservices.model.SecurityQuestionsList;
 import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
-import com.wiley.gr.ace.authorservices.model.external.RetrieveSecurityQuestions;
 import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
 
 /**
@@ -51,7 +51,7 @@ public interface UserLoginService {
      *            the email id
      * @return the security details holder
      */
-    RetrieveSecurityQuestions userSecurityQuestions(String emailId);
+    SecurityQuestionsList userSecurityQuestions(String emailId);
 
     /**
      * Validate security questions.

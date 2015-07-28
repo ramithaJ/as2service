@@ -202,7 +202,6 @@ public class UserLoginController extends ASExceptionController {
 
         return service;
     }
-    
 
     /**
      * Method to get user security questions.
@@ -247,7 +246,7 @@ public class UserLoginController extends ASExceptionController {
     public final Service resetByEmail(
             @PathVariable("emailId") final String emailId) {
         Service service = new Service();
-        service.setPayload(sendNotification.notifyByEmail(emailId,templateId));
+        service.setPayload(sendNotification.notifyByEmail(emailId, templateId));
         return service;
     }
 

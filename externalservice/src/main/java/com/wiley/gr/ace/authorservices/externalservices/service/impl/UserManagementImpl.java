@@ -12,7 +12,6 @@
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpMethod;
 
 import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
@@ -69,7 +68,7 @@ public class UserManagementImpl implements UserManagement {
 
     /** The Retrieve security questions. */
     @Value("${RetrieveSecurityQuestions.url}")
-    private String retrieveSecurityQuestions;
+    private String retrieveSecurityQuestionsurl;
 
     /** The Retrieve security questions. */
     @Value("${lookupSecurityQuestions.url}")
@@ -114,8 +113,8 @@ public class UserManagementImpl implements UserManagement {
     public final boolean resetPassword(
             final PasswordResetRequest passwordResetRequest) {
 
-        final boolean status = this.externalServiceInvoker(resetPasswordurl,
-                passwordResetRequest);
+        final boolean status = this.externalPostServiceInvoker(
+                resetPasswordurl, passwordResetRequest);
         if (status) {
             AuditInformation auditInformation = new AuditInformation();
             auditInformation.setActionID("PWDRES");
@@ -142,7 +141,8 @@ public class UserManagementImpl implements UserManagement {
     @Override
     public final boolean updateUserId(final UserEmailDetails userEmailDetails) {
 
-        return this.externalServiceInvoker(updateUserIdurl, userEmailDetails);
+        return this.externalPostServiceInvoker(updateUserIdurl,
+                userEmailDetails);
     }
 
     /**
@@ -157,7 +157,7 @@ public class UserManagementImpl implements UserManagement {
     @Override
     public final boolean forceFulReset(final ForcefulReset forcefulReset) {
 
-        boolean status = this.externalServiceInvoker(forceFulReseturl,
+        boolean status = this.externalPostServiceInvoker(forceFulReseturl,
                 forcefulReset);
         if (status) {
             AuditInformation auditInformation = new AuditInformation();
@@ -182,7 +182,8 @@ public class UserManagementImpl implements UserManagement {
     @Override
     public final boolean updatePassword(final PasswordRequest passwordRequest) {
 
-        return this.externalServiceInvoker(updatePasswordurl, passwordRequest);
+        return this.externalPostServiceInvoker(updatePasswordurl,
+                passwordRequest);
     }
 
     /**
@@ -196,7 +197,7 @@ public class UserManagementImpl implements UserManagement {
     public final boolean updateSecurityDetails(
             final SecurityQuestionsUpdateRequest securityQuestionsUpdateRequest) {
 
-        return this.externalServiceInvoker(updateSecurityDetailsurl,
+        return this.externalPostServiceInvoker(updateSecurityDetailsurl,
                 securityQuestionsUpdateRequest);
     }
 
@@ -226,27 +227,40 @@ public class UserManagementImpl implements UserManagement {
      */
     @Override
     public RetrieveSecurityQuestions userSecurityQuestions(final String emailId) {
-        return (RetrieveSecurityQuestions) RestServiceInvokerUtil.invokeStub(
-                retrieveSecurityQuestions + emailId, HttpMethod.GET,
-                RetrieveSecurityQuestions.class);
+        RetrieveSecurityQuestions retrieveSecurityQuestions = (RetrieveSecurityQuestions) RestServiceInvokerUtil
+                .getServiceData(retrieveSecurityQuestionsurl + emailId,
+                        RetrieveSecurityQuestions.class);
+        if (success.equalsIgnoreCase(retrieveSecurityQuestions.getStatus())) {
+            return retrieveSecurityQuestions;
+        }
+        final ErrorPayLoad errorPayLoad = retrieveSecurityQuestions.getError();
+        throw new UserException(errorPayLoad.getErrorCode(),
+                errorPayLoad.getErrorMessage());
     }
 
     @Override
     public RetrieveSecurityQuestions lookupSecutityQuestions() {
 
-        return (RetrieveSecurityQuestions) RestServiceInvokerUtil.getServiceData(
-                lookupSecurityQuestionsurl, RetrieveSecurityQuestions.class);
+        RetrieveSecurityQuestions retrieveSecurityQuestions = (RetrieveSecurityQuestions) RestServiceInvokerUtil
+                .getServiceData(lookupSecurityQuestionsurl,
+                        RetrieveSecurityQuestions.class);
+        if (success.equalsIgnoreCase(retrieveSecurityQuestions.getStatus())) {
+            return retrieveSecurityQuestions;
+        }
+        final ErrorPayLoad errorPayLoad = retrieveSecurityQuestions.getError();
+        throw new UserException(errorPayLoad.getErrorCode(),
+                errorPayLoad.getErrorMessage());
     }
 
     @Override
     public boolean validateSecurityQuestions(
             final SecurityQuestionsValidateRequest securityQuestionsValidateRequest) {
 
-        return this.externalServiceInvoker(validateSecurityQuestionsurl,
+        return this.externalPostServiceInvoker(validateSecurityQuestionsurl,
                 securityQuestionsValidateRequest);
     }
 
-    private boolean externalServiceInvoker(final String url,
+    private boolean externalPostServiceInvoker(final String url,
             final Object requestEntityClass) {
 
         final ResponseStatus responseStatus = (ResponseStatus) RestServiceInvokerUtil
@@ -263,4 +277,5 @@ public class UserManagementImpl implements UserManagement {
         }
         return status;
     }
+
 }
