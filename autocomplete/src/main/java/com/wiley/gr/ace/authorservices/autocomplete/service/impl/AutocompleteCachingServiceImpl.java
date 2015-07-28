@@ -41,9 +41,6 @@ public class AutocompleteCachingServiceImpl implements AutocompleteCachingServic
     @Autowired(required=true)
     private UserProfiles userProfiles;
 
-	@Value("${autocomplete.count}")
-	private String autocompletecount;
-
 	@Value("${industries.key}")
 	private String industrieskey;
 

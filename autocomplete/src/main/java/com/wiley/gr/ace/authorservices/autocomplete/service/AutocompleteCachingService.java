@@ -6,11 +6,13 @@ package com.wiley.gr.ace.authorservices.autocomplete.service;
 import java.util.List;
 
 /**
- * @author kalyancj
+ * AutocompleteCachingService.
  *
+ * @author virtusa
+ * @version 1.0
  */
 public interface AutocompleteCachingService {
 	
-	public List<String> getCachedData(String dropDownKey);
+	List<String> getCachedData(String dropDownKey);
 
 }
