@@ -387,7 +387,7 @@ public class AutocompleteServiceImpl implements AutocompleteService {
 			LOGGER.info("getCachedData::institutionskey::"+dropDownKey);
 			cacheDataList = getInstitutions();
 		} else if ((departmentskey+"cached").equals(dropDownKey)) {
-			LOGGER.info("getCachedData::departmentskey");
+			LOGGER.info("getCachedData::departmentskey::"+dropDownKey);
 			cacheDataList = getDepartments();
 		} 
 
