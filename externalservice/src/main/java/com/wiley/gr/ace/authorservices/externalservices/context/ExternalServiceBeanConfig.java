@@ -15,12 +15,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.NotificationService;
+import com.wiley.gr.ace.authorservices.externalservices.service.RolesService;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.BPMInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrcidInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.NotificationServiceImpl;
+import com.wiley.gr.ace.authorservices.externalservices.service.impl.RolesServiceImpl;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.UserManagementImpl;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.BPMInterfaceServiceImpl;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.UserProfilesImpl;
@@ -92,5 +94,15 @@ public class ExternalServiceBeanConfig {
     @Bean(name = "NotificationService")
     public NotificationService notificationService() {
         return new NotificationServiceImpl();
+    }
+    
+    /**
+     * RolesService.
+     *
+     * @return the Roles service
+     */
+    @Bean(name = "RolesService")
+    public RolesService rolesService() {
+        return new RolesServiceImpl();
     }
 }
