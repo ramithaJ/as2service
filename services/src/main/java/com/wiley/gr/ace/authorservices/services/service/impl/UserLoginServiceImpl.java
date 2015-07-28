@@ -84,6 +84,9 @@ public class UserLoginServiceImpl implements UserLoginService {
     
     @Value("${templateId.password.reset}")
     private String templateId;
+    
+    @Value("${templateId.password.reset.successfully}")
+    private String templateIdPasswordSuccess;
 
     /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory
@@ -189,7 +192,10 @@ public class UserLoginServiceImpl implements UserLoginService {
                         .setUpdateUserSecurityAttributes(passwordReset);
                 status = userManagement.resetPassword(passwordResetRequest);
             }
-
+          if(status){
+              
+              sendNotification.notifyByEmail(securityDetailsHolder.getEmailId(), templateIdPasswordSuccess);
+          }
         }
         return status;
     }
