@@ -135,7 +135,7 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
      *            the get article details
      * @return the article data
      */
-    private final ArticleDetails getArticleData(
+    private ArticleDetails getArticleData(
             final GetArticleDetails getArticleDetails) {
         ArticleDetails articleDetails = null;
         final Art art = getArticleDetails.getArt();
@@ -167,7 +167,7 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
      *            the art
      * @return the list
      */
-    private final List<String> parseCoAuthors(final Art art) {
+    private List<String> parseCoAuthors(final Art art) {
         final List<CoAuthorDetails> coAuthorsList = art.getCoAuthors();
         final List<String> coAuthors = new ArrayList<String>();
         if (!StringUtils.isEmpty(coAuthorsList)) {
@@ -188,7 +188,7 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
      *            the get article details
      * @return the journal data
      */
-    private final JournalDetails getJournalData(
+    private JournalDetails getJournalData(
             final GetArticleDetails getArticleDetails) {
         final Art art = getArticleDetails.getArt();
         JournalDetails journalDetails = null;
@@ -210,7 +210,7 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
      *            the get article details
      * @return the publication data
      */
-    private final PublicationDetails getPublicationData(
+    private PublicationDetails getPublicationData(
             final GetArticleDetails getArticleDetails) {
         final Art art = getArticleDetails.getArt();
         PublicationDetails publicationDetails = null;
@@ -228,7 +228,7 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
      *
      * @return the order id
      */
-    private final OrderDetails getOrderId() {
+    private OrderDetails getOrderId() {
         final OrderDetails orderData = new OrderDetails();
         orderData.setOrderId("11232");
         return orderData;
@@ -241,7 +241,7 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
      *            the get article details
      * @return the license data
      */
-    private final LicenseDetails getLicenseData(
+    private LicenseDetails getLicenseData(
             final GetArticleDetails getArticleDetails) {
         final LastSignedLicense lastSignedLicense = getArticleDetails
                 .getLastSignedLicense();
