@@ -11,12 +11,14 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
 
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.RolesService;
+import com.wiley.gr.ace.authorservices.model.external.PermissionData;
 import com.wiley.gr.ace.authorservices.model.external.RolesData;
 
 /**
@@ -26,18 +28,34 @@ import com.wiley.gr.ace.authorservices.model.external.RolesData;
  */
 public class RolesServiceImpl implements RolesService {
     
+    /** The roles url. */
     @Value("${roles.url}")
     private String rolesUrl;
+    
+    /** The roles url. */
+    @Value("${permissions.url}")
+    private String permissionsUrl;
 
 	/* (non-Javadoc)
 	 * @see com.wiley.gr.ace.authorservices.externalservices.service.RolesService#getRoles()
 	 */
 	@Override
 	public List<RolesData> getRoles() {
-		
-	    List<RolesData> rolesList = (List<RolesData>)RestServiceInvokerUtil.getServiceData(rolesUrl, List.class);
 	    
-		return rolesList;
+	    RolesData[] rolesArray = (RolesData[]) RestServiceInvokerUtil.getServiceData(rolesUrl, RolesData[].class);
+	    
+	    return Arrays.asList(rolesArray);
 	}
+
+    /* (non-Javadoc)
+     * @see com.wiley.gr.ace.authorservices.externalservices.service.RolesService#getPermissions()
+     */
+    @Override
+    public List<PermissionData> getPermissions() {
+        
+        PermissionData[] permissionsArray = (PermissionData[])RestServiceInvokerUtil.getServiceData(permissionsUrl, PermissionData[].class);
+        
+        return Arrays.asList(permissionsArray);
+    }
 
 }
