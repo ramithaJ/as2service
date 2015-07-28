@@ -1,88 +1,124 @@
-/*******************************************************************************
- * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
- *
- * All material contained herein is proprietary to John Wiley & Sons 
- * and its third party suppliers, if any. The methods, techniques and 
- * technical concepts contained herein are considered trade secrets 
- * and confidential and may be protected by intellectual property laws.  
- * Reproduction or distribution of this material, in whole or in part, 
- * is strictly forbidden except by express prior written permission 
- * of John Wiley & Sons.
- *******************************************************************************/
-
 package com.wiley.gr.ace.authorservices.external.util;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import org.json.simple.JSONObject;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
-import com.wiley.gr.ace.authorservices.model.Login;
 import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
 
 /**
- * The Class RestServiceInvokerUtil.
+ * The Class StubInvokerUtil.
  *
  * @author virtusa version 1.0
  */
 public class RestServiceInvokerUtil {
 
     /**
-     * Invoke service.
+     * Invoke stub.
      *
+     * @param <T>
+     *            the generic type
      * @param url
      *            the url
      * @param httpMethod
      *            the http method
-     * @param className
-     *            the class name
-     * @param postObject
-     *            the post object
-     * @return the string
-     * @throws ASException
-     *             the AS exception
-     * @throws RestClientException
-     *             the rest client exception
-     * @throws URISyntaxException
-     *             the URI syntax exception
+     * @param clazz
+     *            the clazz
+     * @return Object
      */
-    public static String invokeService(final String url,
-            final HttpMethod httpMethod, final String className,
-            final Object postObject) throws ASException, RestClientException,
-            URISyntaxException {
+    public static <T> Object invokeStub(final String url,
+            final HttpMethod httpMethod, final Class<T> clazz) {
 
-        ResponseEntity<SecurityResponse> response = null;
-        if ("Login".equals(className)) {
-            JSONObject jsonObject = new JSONObject();
-            Login loginData = (Login) postObject;
-            jsonObject.put("userId", loginData.getEmailId());
-            jsonObject.put("password", loginData.getPassword());
-            jsonObject.put("authenticationType", "AD");
-            jsonObject.put("appKey", "AS");
+        try {
+            HttpHeaders requestHeaders = new HttpHeaders();
+            requestHeaders.setContentType(MediaType.APPLICATION_JSON);
+            HttpEntity<T> requestEntity = new HttpEntity<T>(requestHeaders);
+            ResponseEntity<T> response = new RestTemplate().exchange(new URI(
+                    url), httpMethod, requestEntity, clazz);
 
-            response = new RestTemplate().postForEntity(new URI(url),
-                    jsonObject, SecurityResponse.class);
-            System.err.println(response.getBody().getStatus());
-        }
-
-        if (response != null) {
-            if ("FAILURE".equalsIgnoreCase(response.getBody().getStatus())) {
-                throw new ASException(AuthorServicesConstants.INVALIDEMAILCODE,
-                        AuthorServicesConstants.INVALIDEMAILMSG);
+            if (response != null) {
+                return response.getBody();
             } else {
-                return response.getHeaders().getFirst("X-AS2-AUTH-TOKEN");
+                return null;
             }
+        } catch (URISyntaxException e) {
 
-        } else {
-            return null;
+            throw new ASException();
+
         }
 
     }
 
+    /**
+     * Rest service invoker.
+     *
+     * @param <T>
+     *            the generic type
+     * @param url
+     *            the url
+     * @param requestEntityClass
+     *            the request entity class
+     * @param responseEntityClass
+     *            the response entity class
+     * @return Object
+     */
+    public static <T> Object restServiceInvoker(final String url,
+            final Object requestEntityClass, final Class<T> responseEntityClass) {
+
+        try {
+            ResponseEntity<T> response = new RestTemplate().postForEntity(
+                    new URI(url), requestEntityClass, responseEntityClass);
+            return response.getBody();
+        } catch (Exception e) {
+
+            if (AuthorServicesConstants.UNAUTHORIZEDMSG.equalsIgnoreCase(e
+                    .getMessage())) {
+                throw new ASException(AuthorServicesConstants.UNAUTHORIZEDCODE,
+                        e.getMessage());
+            }
+            if (AuthorServicesConstants.LOCKEDMSG.equalsIgnoreCase(e
+                    .getMessage())) {
+                throw new ASException(AuthorServicesConstants.LOCKEDCODE,
+                        e.getMessage());
+            }
+            throw new ASException(AuthorServicesConstants.SERVERERRORCODE,
+                    AuthorServicesConstants.SERVERERRORMESSAGE);
+
+        }
+
+    }
+
+    /**
+     * Rest get service invoker.
+     *
+     * @param <T>
+     *            the generic type
+     * @param url
+     *            the url
+     * @param responseEntityClass
+     *            the response entity class
+     * @return the object
+     */
+    public static <T> Object getServiceData(final String url,
+            final Class<T> responseEntityClass) {
+
+        try {
+            ResponseEntity<T> response = new RestTemplate().getForEntity(
+                    new URI(url), responseEntityClass);
+            if (null == response) {
+                return new SecurityResponse();
+            }
+            return response.getBody();
+        } catch (URISyntaxException e) {
+            throw new ASException();
+        }
+    }
 }
