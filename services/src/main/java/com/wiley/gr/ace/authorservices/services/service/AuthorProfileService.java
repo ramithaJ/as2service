@@ -22,6 +22,7 @@ import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.ResearchFunders;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
+import com.wiley.gr.ace.authorservices.model.Societies;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserProfile;
@@ -194,4 +195,10 @@ public interface AuthorProfileService {
      * @return the research funders list
      */
     ResearchFunders getResearchFundersList(String userId);
+
+    /**
+     * @param userId
+     * @return
+     */
+    Societies getSocietylist(String userId);
 }

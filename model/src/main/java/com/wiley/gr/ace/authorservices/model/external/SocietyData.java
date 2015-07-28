@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  * @author yugandhark
  */
-public class Society {
+public class SocietyData {
 
     /** The id. */
     @JsonProperty("Id")

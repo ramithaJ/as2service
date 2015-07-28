@@ -33,6 +33,7 @@ import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.ResearchFunders;
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
+import com.wiley.gr.ace.authorservices.model.Societies;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserProfile;
@@ -43,6 +44,7 @@ import com.wiley.gr.ace.authorservices.model.external.PasswordRequest;
 import com.wiley.gr.ace.authorservices.model.external.PasswordUpdate;
 import com.wiley.gr.ace.authorservices.model.external.ResearchFunderData;
 import com.wiley.gr.ace.authorservices.model.external.SecurityQuestionsUpdateRequest;
+import com.wiley.gr.ace.authorservices.model.external.SocietyData;
 import com.wiley.gr.ace.authorservices.model.external.UserEmailDetails;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityAttributes;
@@ -419,7 +421,6 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         Affiliation affiliation = new Affiliation();
         List<Affiliation> listAffiliations = new ArrayList<Affiliation>();
         for (AffiliationData affiliationData : listofAffiliations) {
-
             affiliation.setAffiliationId(affiliationData.getId());
             affiliation.setCity(affiliationData.getCity());
             affiliation.setCountryCode(affiliationData.getCountryCd());
@@ -458,5 +459,31 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             researchFunders.setResearchFunders(list);
         }
         return researchFunders;
+    }
+
+    /**
+     * This method will call externnal service look up profile to get Societies
+     * 
+     * 
+     * @param userId
+     */
+
+    @Override
+    public Societies getSocietylist(final String userId) {
+        List<SocietyData> listSocietyData = userProfiles
+                .getLookupCustomerProfile(userId)
+                .getLookupCustomerProfileResponse().getCustomerProfile()
+                .getSocietyList().getSociety();
+        Societies societies = new Societies();
+        List<Society> listOfSocietie = new ArrayList<Society>();
+        for (SocietyData societyData : listSocietyData) {
+            Society society = new Society();
+            society.setSocietyId(societyData.getSocietyId());
+            society.setPromoCode(societyData.getPromoCode());
+            society.setSocietyName(societyData.getSocietyName());
+            listOfSocietie.add(society);
+            societies.setSocieties(listOfSocietie);
+        }
+        return societies;
     }
 }

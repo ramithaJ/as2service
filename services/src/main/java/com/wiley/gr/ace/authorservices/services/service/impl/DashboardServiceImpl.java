@@ -32,7 +32,7 @@ import com.wiley.gr.ace.authorservices.model.external.DashboardView;
 import com.wiley.gr.ace.authorservices.model.external.Interest;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.ResearchFunderData;
-import com.wiley.gr.ace.authorservices.model.external.Society;
+import com.wiley.gr.ace.authorservices.model.external.SocietyData;
 import com.wiley.gr.ace.authorservices.model.external.SystemSecurityQuestions;
 import com.wiley.gr.ace.authorservices.services.service.DashboardService;
 
@@ -322,7 +322,7 @@ public class DashboardServiceImpl implements DashboardService {
             final CustomerProfile customerProfile) {
         DashboardServiceImpl.LOGGER
                 .info("inside getSocietiesForUser Method of DashboardServiceImpl");
-        final List<Society> societyList = customerProfile.getSocietyList()
+        final List<SocietyData> societyList = customerProfile.getSocietyList()
                 .getSociety();
         DashboardInfo dashboardInfo = null;
         if (!StringUtils.isEmpty(societyList) && societyList.isEmpty()) {

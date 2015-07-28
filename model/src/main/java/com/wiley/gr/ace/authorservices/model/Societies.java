@@ -9,42 +9,28 @@
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
  *******************************************************************************/
-/**
- * 
- */
-package com.wiley.gr.ace.authorservices.model.external;
+
+package com.wiley.gr.ace.authorservices.model;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-/**
- * The Class SocietyList.
- *
- * @author yugandhark
- */
-public class SocietyList {
-
-    /** The Society. */
-    @JsonProperty("Society")
-    private List<SocietyData> Society;
+public class Societies {
+    
+    public List<Society> societies;
 
     /**
-     * Gets the society.
-     *
-     * @return the society
+     * @return the societies
      */
-    public final List<SocietyData> getSociety() {
-        return Society;
+    public final List<Society> getSocieties() {
+        return societies;
     }
 
     /**
-     * Sets the society.
-     *
-     * @param society the new society
+     * @param societies the societies to set
      */
-    public final void setSociety(final List<SocietyData> society) {
-        Society = society;
+    public final void setSocieties(final List<Society> societies) {
+        this.societies = societies;
     }
+    
 
 }
