@@ -11,15 +11,12 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
 
-import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.RolesService;
-import com.wiley.gr.ace.authorservices.model.Role;
 import com.wiley.gr.ace.authorservices.model.external.RolesData;
 
 /**
@@ -40,35 +37,7 @@ public class RolesServiceImpl implements RolesService {
 		
 	    List<RolesData> rolesList = (List<RolesData>)RestServiceInvokerUtil.getServiceData(rolesUrl, List.class);
 	    
-	    System.out.println("Size of rolesList:::"+rolesList.size());
-		
-		return null;
+		return rolesList;
 	}
-
-    /* (non-Javadoc)
-     * @see com.wiley.gr.ace.authorservices.externalservices.service.RolesService#getAdminRoles()
-     */
-    @Override
-    public List<Role> getAdminRoles() {
-        
-        List<RolesData> rolesList = (List<RolesData>)RestServiceInvokerUtil.getServiceData(rolesUrl, List.class);
-        List<Role> adminRoles = new ArrayList<Role>();
-        
-        for (RolesData roleData : rolesList) {
-            
-            if(roleData.getRoleType().equalsIgnoreCase(AuthorServicesConstants.ROLE_TYPE_INTERNAL)) {
-                
-                Role adminRole = new Role();
-                adminRole.setRoleId(roleData.getRoleId());
-                adminRole.setRoleName(roleData.getRoleName());
-                adminRoles.add(adminRole);
-            }
-            
-        }
-        
-        return adminRoles;
-    }
-    
-    
 
 }
