@@ -10,15 +10,26 @@
  * of John Wiley & Sons.
  *******************************************************************************/
 
-package com.wiley.gr.ace.authorservices.services.service;
+package com.wiley.gr.ace.authorservices.model;
 
-import com.wiley.gr.ace.authorservices.model.NotificationResponse;
-import com.wiley.gr.ace.authorservices.model.SendNotificationRequest;
+import java.util.List;
 
-public interface SendNotification {
+public class CoAuthors {
 
-    String sendEmail(String appId, String templateId, String type,
-            SendNotificationRequest sendNotificationRequest);
+    List<CoAuthor> coAuthors;
 
-    NotificationResponse notifyByEmail(String emailId,String templateId);
+    /**
+     * @return the coAuthors
+     */
+    public final List<CoAuthor> getCoAuthors() {
+        return coAuthors;
+    }
+
+    /**
+     * @param coAuthors the coAuthors to set
+     */
+    public final void setCoAuthors(final List<CoAuthor> coAuthors) {
+        this.coAuthors = coAuthors;
+    }
+    
 }

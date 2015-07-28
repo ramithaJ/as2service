@@ -17,6 +17,7 @@ import java.io.File;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.Affiliations;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
+import com.wiley.gr.ace.authorservices.model.CoAuthors;
 import com.wiley.gr.ace.authorservices.model.Email;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
@@ -201,4 +202,10 @@ public interface AuthorProfileService {
      * @return
      */
     Societies getSocietylist(String userId);
+    
+    /**
+     * @param userId
+     * @return
+     */
+    CoAuthors getsCoAuthorsList(String userId);
 }

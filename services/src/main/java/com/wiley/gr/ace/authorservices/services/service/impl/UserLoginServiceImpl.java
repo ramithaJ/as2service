@@ -25,6 +25,7 @@ import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.model.Login;
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
+import com.wiley.gr.ace.authorservices.model.SecurityQuestionsList;
 import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
 import com.wiley.gr.ace.authorservices.model.external.ForcefulReset;
 import com.wiley.gr.ace.authorservices.model.external.PasswordReset;
@@ -81,6 +82,12 @@ public class UserLoginServiceImpl implements UserLoginService {
     /** The account verified message. */
     @Value("${accountVerifiedMessage}")
     private String accountVerifiedMessage;
+
+    @Value("${templateId.password.reset}")
+    private String templateId;
+
+    @Value("${templateId.password.reset.successfully}")
+    private String templateIdPasswordSuccess;
 
     /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory
@@ -186,7 +193,12 @@ public class UserLoginServiceImpl implements UserLoginService {
                         .setUpdateUserSecurityAttributes(passwordReset);
                 status = userManagement.resetPassword(passwordResetRequest);
             }
+            if (status) {
 
+                sendNotification.notifyByEmail(
+                        securityDetailsHolder.getEmailId(),
+                        templateIdPasswordSuccess);
+            }
         }
         return status;
     }
@@ -199,11 +211,28 @@ public class UserLoginServiceImpl implements UserLoginService {
      * @return the security details holder
      */
     @Override
-    public final RetrieveSecurityQuestions userSecurityQuestions(
+    public final SecurityQuestionsList userSecurityQuestions(
             final String emailId) {
 
         LOGGER.info("In securityQuestions method");
-        return userManagement.userSecurityQuestions(emailId);
+        SecurityQuestionsList securityQuestionsList = new SecurityQuestionsList();
+        List<SecurityDetails> securityDetailsList = new ArrayList<SecurityDetails>();
+        SecurityDetails securityDetails = null;
+        int i = 0;
+        RetrieveSecurityQuestions retrieveSecurityQuestions = userManagement
+                .userSecurityQuestions(emailId);
+        List<String> retrieveSecurityQuestionsList = retrieveSecurityQuestions
+                .getSystemSecurityQuestions().getSecurityQuestionList();
+        for (String list : retrieveSecurityQuestionsList) {
+
+            securityDetails = new SecurityDetails();
+            securityDetails.setSecurityQuestionId("SecurityQuestion" + (++i));
+            securityDetails.setSecurityQuestion(list);
+            securityDetailsList.add(securityDetails);
+        }
+        securityQuestionsList.setSecurityDetails(securityDetailsList);
+
+        return securityQuestionsList;
     }
 
     /**
@@ -245,8 +274,9 @@ public class UserLoginServiceImpl implements UserLoginService {
 
         final boolean status = userManagement
                 .validateSecurityQuestions(securityQuestionsValidateRequest);
-        if (status) {
-            sendNotification.notifyByEmail(securityDetailsHolder.getEmailId());
+        if (status == false) {
+            sendNotification.notifyByEmail(securityDetailsHolder.getEmailId(),
+                    templateId);
         }
         return status;
     }

@@ -54,7 +54,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.springframework.security.config.annotation.web.configuration.
      * WebSecurityConfigurerAdapter
      * #configure(org.springframework.security.config
@@ -89,6 +89,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/autocomplete/dropdown/*")
                 .permitAll()
 
+                .antMatchers("/user/userSecurityQuestions/*")
+                .permitAll()
+
                 .antMatchers(HttpMethod.POST, SpringSecurityConfig.AUTHENTICATE)
                 .permitAll()
 
@@ -98,7 +101,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .addFilterBefore(
                         new StatelessLoginFilter(
-                        SpringSecurityConfig.AUTHENTICATE,
+                                SpringSecurityConfig.AUTHENTICATE,
                                 tokenAuthenticationService,
                                 authenticationManager(), adminLoginService),
                         UsernamePasswordAuthenticationFilter.class)
@@ -129,7 +132,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.springframework.security.config.annotation.web.configuration.
      * WebSecurityConfigurerAdapter#authenticationManagerBean()
      */

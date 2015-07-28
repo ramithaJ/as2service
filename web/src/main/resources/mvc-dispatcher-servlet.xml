@@ -22,7 +22,7 @@
 	<import resource="redis.xml" />
 
 	<context:property-placeholder
-		location="classpath:redis.properties,classpath:mockurls.properties,classpath:orcid.properties,classpath:userManagement.properties,classpath:exception.properties,classpath:applicationMessages.properties,classpath:persistence.exception.properties,classpath:autocomplete.properties"
+		location="classpath:redis.properties,classpath:mockurls.properties,classpath:orcid.properties,classpath:userManagement.properties,classpath:exception.properties,classpath:applicationMessages.properties,classpath:persistence.exception.properties,classpath:autocomplete.properties,classpath:notification.properties"
 		ignore-unresolvable="true" />
 
 	<mvc:annotation-driven />

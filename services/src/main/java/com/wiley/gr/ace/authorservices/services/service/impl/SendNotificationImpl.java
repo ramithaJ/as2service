@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.NotificationService;
 import com.wiley.gr.ace.authorservices.model.NotificationResponse;
@@ -39,9 +40,20 @@ public class SendNotificationImpl implements SendNotification {
     @Autowired(required = true)
     private SendNotificationDao sendNotificationDao;
 
+    @Value("${notification.email}")
+    private String notificationEmail;
+    @Value("${appId}")
+    private String appId;
+   
+    @Value("${type}")
+    private String type;
+    
+    
+
     @Override
-    public String sendEmail(String appId, String templateId, String type,
-            SendNotificationRequest sendNotificationRequest) {
+    public String sendEmail(final String appId, final String templateId,
+            final String type,
+            final SendNotificationRequest sendNotificationRequest) {
         NotificationFieldList fieldList = new NotificationFieldList();
         NotificationRequest notificationRequest = new NotificationRequest();
         notificationRequest.setTo(sendNotificationRequest.getTo());
@@ -52,28 +64,23 @@ public class SendNotificationImpl implements SendNotification {
                 notificationRequest).getStatus();
 
     }
-    
-    @Override
-    public NotificationResponse notifyByEmail(String emailId) {
 
-        String appId = "23";
-        String templateId = "112";
-        String type = "email";
+    @Override
+    public NotificationResponse notifyByEmail(final String emailId,final String templateId) {
+
         NotificationRequest notificationRequest = new NotificationRequest();
-        notificationRequest.setFrom("rasinha@wiley.com");
+        notificationRequest.setFrom(notificationEmail);
         notificationRequest.setTo(emailId);
         NotificationFieldList notificationFieldList = new NotificationFieldList();
         List<String> listofFields = new ArrayList<String>();
-        Users users=sendNotificationDao.getUserProfileByEmail(emailId);
+        Users users = sendNotificationDao.getUserProfileByEmail(emailId);
         listofFields.add(users.getFirstName());
-        listofFields.add("Test");
-        listofFields.add("www.google.com");
+        listofFields.add(emailId);
         notificationFieldList.setFieldList(listofFields);
         notificationRequest.setTemplateDetails(notificationFieldList);
         return notificationService.sendNotification(appId, type, templateId,
                 notificationRequest);
 
     }
-
 
 }

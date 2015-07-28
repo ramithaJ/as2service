@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  * @author yugandhark
  */
-public class RetrieveSecurityQuestions {
+public class RetrieveSecurityQuestions extends ErrorResponse {
 
     /** The status. */
     @JsonProperty("Status")
@@ -43,7 +43,8 @@ public class RetrieveSecurityQuestions {
     /**
      * Sets the status.
      *
-     * @param status the new status
+     * @param status
+     *            the new status
      */
     public final void setStatus(final String status) {
         this.status = status;
@@ -61,7 +62,8 @@ public class RetrieveSecurityQuestions {
     /**
      * Sets the system security questions.
      *
-     * @param systemSecurityQuestions the new system security questions
+     * @param systemSecurityQuestions
+     *            the new system security questions
      */
     public final void setSystemSecurityQuestions(
             final SystemSecurityQuestions systemSecurityQuestions) {
