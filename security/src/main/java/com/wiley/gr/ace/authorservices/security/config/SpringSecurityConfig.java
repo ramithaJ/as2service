@@ -86,6 +86,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("**/*.js")
                 .permitAll()
 
+                .antMatchers("/autocomplete/dropdown/*")
+                .permitAll()
+
                 .antMatchers(HttpMethod.POST, SpringSecurityConfig.AUTHENTICATE)
                 .permitAll()
 
