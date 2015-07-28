@@ -80,7 +80,7 @@ public class ASDataServiceImpl implements ASDataService {
     @Autowired(required = true)
     private UserManagement userManagement;
     
-    /** The user management. */
+    /** The Roles Service. */
     @Autowired(required = true)
     private RolesService rolesService;
 
