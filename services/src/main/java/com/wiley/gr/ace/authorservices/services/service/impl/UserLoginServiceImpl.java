@@ -81,6 +81,9 @@ public class UserLoginServiceImpl implements UserLoginService {
     /** The account verified message. */
     @Value("${accountVerifiedMessage}")
     private String accountVerifiedMessage;
+    
+    @Value("${templateId.password.reset}")
+    private String templateId;
 
     /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory
@@ -245,8 +248,8 @@ public class UserLoginServiceImpl implements UserLoginService {
 
         final boolean status = userManagement
                 .validateSecurityQuestions(securityQuestionsValidateRequest);
-        if (status) {
-            sendNotification.notifyByEmail(securityDetailsHolder.getEmailId());
+        if (status== false) {
+            sendNotification.notifyByEmail(securityDetailsHolder.getEmailId(),templateId);
         }
         return status;
     }

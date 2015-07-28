@@ -105,6 +105,9 @@ public class UserLoginController extends ASExceptionController {
     @Value("${AuthenticationType}")
     private String authenticationType;
 
+    @Value("${templateId.password.reset}")
+    private String templateId;
+
     /**
      * Method to authenticate user.
      * 
@@ -199,6 +202,7 @@ public class UserLoginController extends ASExceptionController {
 
         return service;
     }
+    
 
     /**
      * Method to get user security questions.
@@ -239,11 +243,11 @@ public class UserLoginController extends ASExceptionController {
      *            - The request value
      * @return service
      */
-    @RequestMapping(value = "resetByEmail/{emailId}", method = RequestMethod.POST)
+    @RequestMapping(value = "resetByEmail/{emailId}", method = RequestMethod.GET)
     public final Service resetByEmail(
             @PathVariable("emailId") final String emailId) {
         Service service = new Service();
-        service.setPayload(sendNotification.notifyByEmail(emailId));
+        service.setPayload(sendNotification.notifyByEmail(emailId,templateId));
         return service;
     }
 

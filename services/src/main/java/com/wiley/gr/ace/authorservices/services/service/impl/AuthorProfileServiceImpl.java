@@ -20,6 +20,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
@@ -27,6 +28,7 @@ import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.Affiliations;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
+import com.wiley.gr.ace.authorservices.model.CoAuthors;
 import com.wiley.gr.ace.authorservices.model.Email;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
@@ -84,6 +86,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     @Autowired(required = true)
     private SendNotification sendNotification;
 
+    @Value("${templateId.password.reset}")
+    private String templateId;
     /** The user profile. */
     private final UserProfile userProfile = new UserProfile();
 
@@ -305,7 +309,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         final boolean status = userManagement.updatePassword(passwordRequest);
         if (status) {
 
-            sendNotification.notifyByEmail(passwordDetails.getEmailId());
+            sendNotification.notifyByEmail(passwordDetails.getEmailId(),
+                    templateId);
         }
 
         return status;
@@ -485,5 +490,11 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             societies.setSocieties(listOfSocietie);
         }
         return societies;
+    }
+
+    @Override
+    public CoAuthors getsCoAuthorsList(final String userId) {
+
+        return null;
     }
 }

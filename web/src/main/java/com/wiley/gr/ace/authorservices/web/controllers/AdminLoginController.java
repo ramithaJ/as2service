@@ -61,6 +61,9 @@ public class AdminLoginController extends ASExceptionController {
     /** getting bean of SendNotification service. */
     @Autowired(required = true)
     private SendNotification sendNotification;
+    
+    @Value("${templateId.password.reset}")
+    private String templateId;
 
     /**
      * @param request
@@ -99,7 +102,7 @@ public class AdminLoginController extends ASExceptionController {
             @PathVariable("accessId") final String accessId) {
         LOGGER.info("inside requestAccess Method");
         
-        sendNotification.notifyByEmail(emailId);
+        sendNotification.notifyByEmail(emailId,templateId);
         return new Service();
 
     }
