@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
+import com.wiley.gr.ace.authorservices.externalservices.service.RolesService;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.AccessReasons;
@@ -40,8 +41,8 @@ import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
 import com.wiley.gr.ace.authorservices.model.external.Industries;
 import com.wiley.gr.ace.authorservices.model.external.JobCategories;
 import com.wiley.gr.ace.authorservices.model.external.RetrieveSecurityQuestions;
+import com.wiley.gr.ace.authorservices.model.external.RolesData;
 import com.wiley.gr.ace.authorservices.persistence.entity.LookupValues;
-import com.wiley.gr.ace.authorservices.persistence.entity.Roles;
 import com.wiley.gr.ace.authorservices.persistence.entity.Societies;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.LookUpValuesDAO;
@@ -78,6 +79,10 @@ public class ASDataServiceImpl implements ASDataService {
     /** The user management. */
     @Autowired(required = true)
     private UserManagement userManagement;
+    
+    /** The user management. */
+    @Autowired(required = true)
+    private RolesService rolesService;
 
     /**
      * This will call external service to get titles data.
@@ -401,28 +406,21 @@ public class ASDataServiceImpl implements ASDataService {
 
         LOGGER.info("inside getAdminRoles method ");
 
-        List<Roles> daoRolesList = aSDataDAO.getAdminRoles(roleType);
+        List<RolesData> rolesList = rolesService.getRoles();
         List<Role> adminRoles = new ArrayList<Role>();
-        Role adminRole = null;
-
-        if (daoRolesList != null && !daoRolesList.isEmpty()) {
-
-            for (Roles roles : daoRolesList) {
-                adminRole = new Role();
-                adminRole.setRoleId(roles.getRoleId() + "");
-                adminRole.setRoleName(roles.getRoleName());
-                adminRole.setRoleDescription(roles.getDescription());
-                if (roles.getRoleType() != null
-                        && AuthorServicesConstants.ROLE_TYPE_INTERNAL
-                                .equals(roles.getRoleType())) {
-                    adminRole.setAdminRole(true);
-                }
-                adminRole.setNoOfPermissions(String.valueOf(aSDataDAO
-                        .getCount(roles.getRoleId())));
+        
+        for (RolesData roleData : rolesList) {
+            
+            if(roleData.getRoleType().equalsIgnoreCase(AuthorServicesConstants.ROLE_TYPE_INTERNAL)) {
+                
+                Role adminRole = new Role();
+                adminRole.setRoleId(roleData.getRoleId());
+                adminRole.setRoleName(roleData.getRoleName());
                 adminRoles.add(adminRole);
             }
-
+            
         }
+        
         return adminRoles;
     }
 
