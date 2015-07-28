@@ -19,10 +19,12 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.externalservices.service.BPMInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.RolesService;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.model.ASRolesAndPermissions;
 import com.wiley.gr.ace.authorservices.model.AdminUser;
@@ -30,13 +32,13 @@ import com.wiley.gr.ace.authorservices.model.PermissionSection;
 import com.wiley.gr.ace.authorservices.model.Role;
 import com.wiley.gr.ace.authorservices.model.RolesAndPermissions;
 import com.wiley.gr.ace.authorservices.model.UserPermissions;
+import com.wiley.gr.ace.authorservices.model.external.PermissionData;
+import com.wiley.gr.ace.authorservices.model.external.RolesData;
 import com.wiley.gr.ace.authorservices.persistence.entity.Permissions;
-import com.wiley.gr.ace.authorservices.persistence.entity.RolePermissions;
 import com.wiley.gr.ace.authorservices.persistence.entity.Roles;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserRoles;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserRolesId;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
-import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserRolesDAO;
@@ -69,13 +71,13 @@ public class AdminLoginServiceImpl implements AdminLoginService {
     @Autowired(required = true)
     private BPMInterfaceService bpmService;
 
-    /** The as data dao. */
-    @Autowired(required = true)
-    private ASDataDAO asDataDAO;
-
     /** The user roles dao. */
     @Autowired(required = true)
     private UserRolesDAO userRolesDAO;
+
+    /** The Roles Service. */
+    @Autowired(required = true)
+    private RolesService rolesService;
 
     /**
      * This method will call take emailId as input and takes and validate
@@ -124,7 +126,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 
     /**
      * This method will call take roleId and gets all the permissions based on
-     * that id by calling dao.
+     * that id by calling external service.
      *
      * @param roleId
      *            the role id
@@ -149,56 +151,65 @@ public class AdminLoginServiceImpl implements AdminLoginService {
         adminSection
                 .setSectionName(AuthorServicesConstants.PERMISSION_LEVEL_ADMIN);
 
-        // if(roleId == null || roleId.equals("")) {
+        List<RolesData> rolesData = rolesService.getRoles();
 
-        final List<Roles> daoRolesList = asDataDAO.getUserRoles(roleId);
-
-        for (final Roles daoRoles : daoRolesList) {
+        for (final RolesData roleData : rolesData) {
 
             final Role role = new Role();
-            role.setRoleId(daoRoles.getRoleId() + "");
-            role.setRoleName(daoRoles.getRoleName());
-            role.setRoleDescription(daoRoles.getDescription());
-            if (daoRoles.getRoleType() != null
+            String roleIdString = roleData.getRoleId();
+            role.setRoleId(roleIdString);
+            role.setRoleName(roleData.getRoleName());
+            role.setRoleDescription(roleData.getRoleDescription());
+            if (roleData.getRoleType() != null
                     && AuthorServicesConstants.ROLE_TYPE_INTERNAL
-                            .equals(daoRoles.getRoleType())) {
+                            .equalsIgnoreCase(roleData.getRoleType())) {
                 role.setAdminRole(true);
             }
             rolesAndPermissions.getRolesList().add(role);
+            
+            List<PermissionData> permissionsDataList = roleData.getPermissions();
+            
+            for (PermissionData permissionData : permissionsDataList) {
+                
+                if (permissionsMap.containsKey(roleIdString)) {
+                    List<String> permissionsList = permissionsMap.get(roleIdString);
+                    if (permissionsList == null) {
+                        permissionsList = new ArrayList<String>();
+                        permissionsMap.put(roleIdString, permissionsList);
+                    }
+                permissionsList.add(permissionData.getPermissionCd());
+    
+                } else {
+                    List<String> permissionsList = new ArrayList<String>();
+                          permissionsList.add(permissionData.getPermissionCd());
+                    permissionsMap.put(roleIdString, permissionsList);
+                }
+            }
         }
 
-        final List<Permissions> daoPermissionsList = asDataDAO.getPermissions();
+        final List<PermissionData> permissionsDataList = rolesService
+                .getPermissions();
 
-        for (Permissions daoPermissions : daoPermissionsList) {
+        for (PermissionData permissionData : permissionsDataList) {
 
             UserPermissions permission = new UserPermissions();
 
-            permission.setPermissionId(daoPermissions.getPermissionCd() + "");
-            permission.setPermissionName(daoPermissions.getPermissionName());
+            permission.setPermissionId(permissionData.getPermissionCd());
+            permission.setPermissionName(permissionData.getPermissionName());
 
-            /**
-             * Temporary Commenting for fixing compilation issue as per new
-             * entity generated
-             */
-            /*
-             * if (daoPermissions.getPermissionGroup().equalsIgnoreCase(
-             * AuthorServicesConstants.PERMISSION_LEVEL_SYSTEM)
-             * 
-             * && daoPermissions.getPermType().equalsIgnoreCase(
-             * AuthorServicesConstants.PERMISSION_TYPE_EXTERNAL) ) { // TODO
-             * systemSection.getPermissionsList().add(permission);
-             * 
-             * } else if (daoPermissions.getPermissionGroup().equalsIgnoreCase(
-             * AuthorServicesConstants.PERMISSION_LEVEL_ADMIN)
-             * 
-             * && daoPermissions.getPermType().equalsIgnoreCase(
-             * AuthorServicesConstants.PERMISSION_TYPE_INTERNAL) ) { // TODO
-             * adminSection.getPermissionsList().add(permission);
-             * 
-             * } else if (daoPermissions.getPermissionGroup().equalsIgnoreCase(
-             * AuthorServicesConstants.PERMISSION_LEVEL_ARTICLE)) {
-             * articleSection.getPermissionsList().add(permission); }
-             */
+            if (permissionData.getGroups() != null && !StringUtils.isEmpty(permissionData.getGroups()) && permissionData.getGroups().contains(
+                    AuthorServicesConstants.PERMISSION_LEVEL_SYSTEM)) {
+                systemSection.getPermissionsList().add(permission);
+
+            } else if (permissionData.getGroups() != null && !StringUtils.isEmpty(permissionData.getGroups()) &&  permissionData.getGroups().contains(
+                    AuthorServicesConstants.PERMISSION_LEVEL_ADMIN)) {
+                adminSection.getPermissionsList().add(permission);
+
+            } else if (permissionData.getGroups() != null && !StringUtils.isEmpty(permissionData.getGroups()) &&  permissionData.getGroups().contains(
+                    AuthorServicesConstants.PERMISSION_LEVEL_ARTICLE)) {
+                articleSection.getPermissionsList().add(permission);
+            }
+
         }
 
         final List<PermissionSection> permissionSectionsList = rolesAndPermissions
@@ -206,32 +217,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
         permissionSectionsList.add(adminSection);
         permissionSectionsList.add(articleSection);
         permissionSectionsList.add(systemSection);
-
-        final List<RolePermissions> daoPermissionMappings = asDataDAO
-                .getRolePermissionMappings(roleId);
-
-        for (RolePermissions daoRolePermissions : daoPermissionMappings) {
-
-            final String roleIdString = daoRolePermissions.getId().getRoleId()
-                    + "";
-            if (permissionsMap.containsKey(roleIdString)) {
-                List<String> permissionsList = permissionsMap.get(roleIdString);
-                if (permissionsList == null) {
-                    permissionsList = new ArrayList<String>();
-                    permissionsMap.put(roleIdString, permissionsList);
-                }
-                permissionsList.add(daoRolePermissions.getId()
-                        .getPermissionCd() + "");
-
-            } else {
-                List<String> permissionsList = new ArrayList<String>();
-                permissionsList.add(daoRolePermissions.getId()
-                        .getPermissionCd() + "");
-                permissionsMap.put(roleIdString, permissionsList);
-            }
-
-        }
-
+        
         Map<String, String[]> returnMap = new HashMap<String, String[]>();
 
         for (Map.Entry<String, List<String>> entry : permissionsMap.entrySet()) {
@@ -242,7 +228,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
                             new String[entry.getValue().size()]));
         }
         rolesAndPermissions.setPermissionsMap(returnMap);
-        // }
+        
         return rolesAndPermissions;
     }
 
