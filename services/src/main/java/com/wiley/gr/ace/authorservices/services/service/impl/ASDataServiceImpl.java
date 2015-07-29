@@ -426,14 +426,17 @@ public class ASDataServiceImpl implements ASDataService {
 
         for (RolesData roleData : rolesList) {
 
-            if (roleData.getRoleType().equalsIgnoreCase(
-                    AuthorServicesConstants.ROLE_TYPE_INTERNAL)) {
+            //if (roleData.getRoleType()  !=  null && roleData.getRoleType().equalsIgnoreCase(
+              //      roleType)) {
 
                 Role adminRole = new Role();
                 adminRole.setRoleId(roleData.getRoleId());
                 adminRole.setRoleName(roleData.getRoleName());
+                adminRole.setRoleDescription(roleData.getRoleDescription());
+                adminRole.setNoOfPermissions(roleData.getPermissions().size()+"");
+                adminRole.setNoOfUsers(roleData.getUsers().size()+"");
                 adminRoles.add(adminRole);
-            }
+            //}
 
         }
 
