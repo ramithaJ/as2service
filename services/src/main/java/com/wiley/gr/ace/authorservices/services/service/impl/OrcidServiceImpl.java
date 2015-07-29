@@ -392,8 +392,7 @@ public class OrcidServiceImpl implements OrcidService {
                     .get("department-name"));
             affiliation
                     .setRoleTitle((String) affiliationJSON.get("role-title"));
-            affiliation.setStartDate((java.util.Date) affiliationJSON
-                    .get("start-date"));
+            affiliation.setStartDate( affiliationJSON .get("start-date").toString());
             organization = parseOrganization(affiliationJSON);
             if (null != organization) {
                 affiliation.setOrganization(organization);

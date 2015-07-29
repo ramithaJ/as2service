@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  * @author yugandhark
  */
-public class Interest {
+public class InterestData {
     
     private String id;
     @JsonProperty("Status")

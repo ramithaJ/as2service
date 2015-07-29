@@ -16,9 +16,9 @@ import java.io.File;
 import java.util.List;
 
 import com.wiley.gr.ace.authorservices.model.Affiliation;
-import com.wiley.gr.ace.authorservices.model.Affiliations;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.Email;
+import com.wiley.gr.ace.authorservices.model.Interests;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
@@ -184,7 +184,7 @@ public interface AuthorProfileService {
      *            the user id
      * @return the affiliations list
      */
-    Affiliations getAffiliationsList(String userId);
+    List<Affiliation> getAffiliationsList(String userId);
 
     /**
      * Gets the research funders list.
@@ -206,4 +206,6 @@ public interface AuthorProfileService {
      * @return
      */
     List<CoAuthor> getsCoAuthorsList(String userId);
+
+    List<Interests> getAreaOfInterests(String userId);
 }

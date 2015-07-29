@@ -26,9 +26,9 @@ import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
-import com.wiley.gr.ace.authorservices.model.Affiliations;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.Email;
+import com.wiley.gr.ace.authorservices.model.Interests;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
@@ -39,6 +39,7 @@ import com.wiley.gr.ace.authorservices.model.UserProfile;
 import com.wiley.gr.ace.authorservices.model.UserProfileAlerts;
 import com.wiley.gr.ace.authorservices.model.external.AffiliationData;
 import com.wiley.gr.ace.authorservices.model.external.CoAuthorData;
+import com.wiley.gr.ace.authorservices.model.external.InterestData;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.PasswordRequest;
 import com.wiley.gr.ace.authorservices.model.external.PasswordUpdate;
@@ -413,29 +414,26 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @param userId
      */
     @Override
-    public Affiliations getAffiliationsList(final String userId) {
+    public List<Affiliation> getAffiliationsList(final String userId) {
 
         List<AffiliationData> listofAffiliations = userProfiles
                 .getLookupCustomerProfile(userId)
                 .getLookupCustomerProfileResponse().getCustomerProfile()
                 .getAffiliations().getAffiliation();
 
-        Affiliations affiliations = new Affiliations();
-        Affiliation affiliation = new Affiliation();
         List<Affiliation> listAffiliations = new ArrayList<Affiliation>();
         for (AffiliationData affiliationData : listofAffiliations) {
+            Affiliation affiliation = new Affiliation();
             affiliation.setAffiliationId(affiliationData.getId());
             affiliation.setCity(affiliationData.getCity());
             affiliation.setCountryCode(affiliationData.getCountryCd());
             affiliation.setInstitutionId(affiliationData.getInstitutionCd());
             affiliation.setDepartmentId(affiliationData.getDepartmentCd());
-            affiliation.setDepartmentName(affiliationData.getDepartmentName());
-            affiliation
-                    .setInstitutionName(affiliationData.getInstitutionName());
+            affiliation.setStartDate(affiliationData.getStartDate());
+            affiliation.setEndDate(affiliationData.getEndDate());
             listAffiliations.add(affiliation);
-            affiliations.setAffiliations(listAffiliations);
         }
-        return affiliations;
+        return listAffiliations;
     }
 
     /**
@@ -450,7 +448,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                 .getLookupCustomerProfile(userId)
                 .getLookupCustomerProfileResponse().getCustomerProfile()
                 .getResearchFunders().getResearchFunder();
-        List<ResearchFunder> researchFunderList=new ArrayList<ResearchFunder>();
+        List<ResearchFunder> researchFunderList = new ArrayList<ResearchFunder>();
         for (ResearchFunderData researchFunderData1 : listOfResearchFunder) {
             ResearchFunder researchFunder = new ResearchFunder();
             researchFunder.setResearchFunderId(researchFunderData1
@@ -475,13 +473,16 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                 .getLookupCustomerProfile(userId)
                 .getLookupCustomerProfileResponse().getCustomerProfile()
                 .getSocietyList().getSociety();
-        List<Society> societyList=new ArrayList<Society>();
+        List<Society> societyList = new ArrayList<Society>();
         for (SocietyData societyData : listSocietyData) {
             Society society = new Society();
-            society.setSocietyId(societyData.getSocietyId());
             society.setSocietyName(societyData.getSocietyName());
+            society.setMembershipNumber(societyData.getMembershipNo());
+            society.setStartDate(societyData.getStartDate());
+            society.setEndDate(societyData.getEndDate());
+            society.setPromoCode(societyData.getPromoCode());
             societyList.add(society);
-            
+
         }
         return societyList;
     }
@@ -489,18 +490,35 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     @Override
     public List<CoAuthor> getsCoAuthorsList(final String userId) {
 
-        List<CoAuthorData> listOfCoauthors = userProfiles.getLookupCustomerProfile(userId)
+        List<CoAuthorData> listOfCoauthors = userProfiles
+                .getLookupCustomerProfile(userId)
                 .getLookupCustomerProfileResponse().getCustomerProfile()
                 .getCoAuthors().getCoAuthor();
-        List<CoAuthor> coAuthorList=new ArrayList<CoAuthor>();
-         for (CoAuthorData coAuthorData : listOfCoauthors) {
-            CoAuthor coAuthor=new CoAuthor();
+        List<CoAuthor> coAuthorList = new ArrayList<CoAuthor>();
+        for (CoAuthorData coAuthorData : listOfCoauthors) {
+            CoAuthor coAuthor = new CoAuthor();
             coAuthor.setCoAuthorId(coAuthorData.getId());
             coAuthor.setEmailId(coAuthorData.getEmailId());
             coAuthor.setPhone(coAuthorData.getPhoneNo());
             coAuthorList.add(coAuthor);
-            
+
         }
         return coAuthorList;
+    }
+
+    @Override
+    public List<Interests> getAreaOfInterests(final String userId) {
+        List<InterestData> listOfArea = userProfiles
+                .getLookupCustomerProfile(userId)
+                .getLookupCustomerProfileResponse().getCustomerProfile()
+                .getAreaOfInterest().getInterest();
+        List<Interests> areaList = new ArrayList<Interests>();
+        for (InterestData interestData : listOfArea) {
+            Interests interests = new Interests();
+            interests.setAoeId(interestData.getId());
+            areaList.add(interests);
+        }
+
+        return areaList;
     }
 }

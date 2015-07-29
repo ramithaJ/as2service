@@ -203,10 +203,8 @@ public class UserProfileController {
 
         UserProfileController.LOGGER.info("inside getMyInterests method ");
         Service service = new Service();
-        service.setPayload(authorProfileService
-                .getLookupCustomerProfile(userId)
-                .getLookupCustomerProfileResponse().getCustomerProfile()
-                .getAreaOfInterest());
+        service.setPayload(authorProfileService.getAreaOfInterests(userId));
+               
 
         return service;
     }

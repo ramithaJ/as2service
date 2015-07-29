@@ -27,14 +27,14 @@ public class AreaOfInterest {
 
     /** The interest. */
     @JsonProperty("Interest")
-    private List<Interest> interest;
+    private List<InterestData> interest;
 
     /**
      * Gets the interest.
      *
      * @return the interest
      */
-    public final List<Interest> getInterest() {
+    public final List<InterestData> getInterest() {
         return interest;
     }
 
@@ -43,7 +43,7 @@ public class AreaOfInterest {
      *
      * @param interest the new interest
      */
-    public final void setInterest(final List<Interest> interest) {
+    public final void setInterest(final List<InterestData> interest) {
         this.interest = interest;
     }
 
