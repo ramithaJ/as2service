@@ -11,6 +11,9 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.web.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +26,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
+import com.wiley.gr.ace.authorservices.externalservices.service.TaskService;
 import com.wiley.gr.ace.authorservices.model.ASRolesAndPermissions;
 import com.wiley.gr.ace.authorservices.model.AdminUser;
 import com.wiley.gr.ace.authorservices.model.Login;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.UserLogin;
+import com.wiley.gr.ace.authorservices.model.external.TaskServiceRequest;
+import com.wiley.gr.ace.authorservices.persistence.entity.LookupValues;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
+import com.wiley.gr.ace.authorservices.persistence.services.LookUpValuesDAO;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 import com.wiley.gr.ace.authorservices.services.service.SendNotification;
 
@@ -62,8 +69,17 @@ public class AdminLoginController extends ASExceptionController {
     @Autowired(required = true)
     private SendNotification sendNotification;
     
+    @Autowired(required = true)
+    private LookUpValuesDAO lookUpValuesDAO;
+    
+    @Autowired(required = true)
+    private TaskService taskService;
+    
     @Value("${templateId.password.reset}")
     private String templateId;
+    
+    @Value("${requestAccess.lookupKey}")
+    private String requestAccesslookupKey;
 
     /**
      * @param request
@@ -96,11 +112,37 @@ public class AdminLoginController extends ASExceptionController {
      *            - the request value
      * @return service
      */
-    @RequestMapping(value = "/requestAccess/{emailId}/{accessId}/", method = RequestMethod.POST)
+    @RequestMapping(value = "/requestAccess/{userId}/{emailId}/{accessId}/", method = RequestMethod.POST)
     public final Service requestAccess(
+    		@PathVariable("accessId") final String userId,
             @PathVariable("emailId") final String emailId,
             @PathVariable("accessId") final String accessId) {
         LOGGER.info("inside requestAccess Method");
+        
+        List<LookupValues> lookupValues = lookUpValuesDAO.getLookUpData(requestAccesslookupKey);
+        String justificationValue = null;
+        
+        if(lookupValues != null && !lookupValues.isEmpty()){
+        	for (LookupValues lookupValue : lookupValues) {
+        		
+        		if(accessId.equals(lookupValue.getLookupName())){
+        			justificationValue = lookupValue.getLookupName();
+        			break;
+        		}
+        	}
+        	
+        }
+        
+        TaskServiceRequest taskServiceRequest = new TaskServiceRequest();
+		
+		List<String> justifications = new ArrayList<String>();
+		final String requestorId = emailId.substring(0, emailId.indexOf('@'));		
+		justifications.add(justificationValue);
+		taskServiceRequest.setJustifications(justifications);
+		taskServiceRequest.setRequestorEmail(emailId);
+		taskServiceRequest.setRequestorId(requestorId);
+		taskService.invokeTaskService(taskServiceRequest, userId);
+        
         
         sendNotification.notifyByEmail(emailId,templateId);
         return new Service();
