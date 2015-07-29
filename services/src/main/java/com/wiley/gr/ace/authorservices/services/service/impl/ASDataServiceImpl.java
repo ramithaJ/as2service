@@ -33,6 +33,7 @@ import com.wiley.gr.ace.authorservices.model.Interests;
 import com.wiley.gr.ace.authorservices.model.JobCategory;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Role;
+import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.State;
 import com.wiley.gr.ace.authorservices.model.Suffix;
@@ -79,7 +80,7 @@ public class ASDataServiceImpl implements ASDataService {
     /** The user management. */
     @Autowired(required = true)
     private UserManagement userManagement;
-    
+
     /** The Roles Service. */
     @Autowired(required = true)
     private RolesService rolesService;
@@ -388,10 +389,24 @@ public class ASDataServiceImpl implements ASDataService {
      * @return the security questions
      */
     @Override
-    public final RetrieveSecurityQuestions getSecurityQuestions() {
+    public final List<SecurityDetails> getSecurityQuestions() {
 
         LOGGER.info("inside getSecurityQuestions method ");
-        return userManagement.lookupSecutityQuestions();
+        List<SecurityDetails> securityDetailsList = new ArrayList<SecurityDetails>();
+        SecurityDetails securityDetails = null;
+        int i = 0;
+        RetrieveSecurityQuestions retrieveSecurityQuestions = userManagement
+                .lookupSecutityQuestions();
+        List<String> retrieveSecurityQuestionsList = retrieveSecurityQuestions
+                .getSystemSecurityQuestions().getSecurityQuestionList();
+        for (String list : retrieveSecurityQuestionsList) {
+
+            securityDetails = new SecurityDetails();
+            securityDetails.setSecurityQuestionId("SecurityQuestion" + (++i));
+            securityDetails.setSecurityQuestion(list);
+            securityDetailsList.add(securityDetails);
+        }
+        return securityDetailsList;
     }
 
     /**
@@ -408,19 +423,20 @@ public class ASDataServiceImpl implements ASDataService {
 
         List<RolesData> rolesList = rolesService.getRoles();
         List<Role> adminRoles = new ArrayList<Role>();
-        
+
         for (RolesData roleData : rolesList) {
-            
-            if(roleData.getRoleType().equalsIgnoreCase(AuthorServicesConstants.ROLE_TYPE_INTERNAL)) {
-                
+
+            if (roleData.getRoleType().equalsIgnoreCase(
+                    AuthorServicesConstants.ROLE_TYPE_INTERNAL)) {
+
                 Role adminRole = new Role();
                 adminRole.setRoleId(roleData.getRoleId());
                 adminRole.setRoleName(roleData.getRoleName());
                 adminRoles.add(adminRole);
             }
-            
+
         }
-        
+
         return adminRoles;
     }
 

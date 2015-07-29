@@ -22,11 +22,11 @@ import com.wiley.gr.ace.authorservices.model.Interests;
 import com.wiley.gr.ace.authorservices.model.JobCategory;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Role;
+import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.State;
 import com.wiley.gr.ace.authorservices.model.Suffix;
 import com.wiley.gr.ace.authorservices.model.Title;
-import com.wiley.gr.ace.authorservices.model.external.RetrieveSecurityQuestions;
 
 /**
  * The Interface ASDataService.
@@ -130,7 +130,7 @@ public interface ASDataService {
      *
      * @return the security questions
      */
-    RetrieveSecurityQuestions getSecurityQuestions();
+    List<SecurityDetails> getSecurityQuestions();
 
     /**
      * Gets the admin roles.
