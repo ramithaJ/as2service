@@ -14,7 +14,9 @@ package com.wiley.gr.ace.authorservices.autocomplete.context;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteCachingService;
 import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteService;
+import com.wiley.gr.ace.authorservices.autocomplete.service.impl.AutocompleteCachingServiceImpl;
 import com.wiley.gr.ace.authorservices.autocomplete.service.impl.AutocompleteServiceImpl;
 
 /**
@@ -30,5 +32,10 @@ public class AutocompleteServiceBeanConfig {
     @Bean(name = "AutocompleteService")
     public AutocompleteService autocompleteService() {
         return new AutocompleteServiceImpl();
+    }
+    
+    @Bean(name = "AutocompleteCachingService")
+    public AutocompleteCachingService autocompleteCachingService(){
+    	return new AutocompleteCachingServiceImpl();
     }
 }

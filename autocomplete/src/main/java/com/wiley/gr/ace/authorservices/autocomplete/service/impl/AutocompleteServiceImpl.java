@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -23,25 +22,15 @@ import org.apache.commons.beanutils.BeanComparator;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 
 import redis.clients.jedis.Jedis;
 
-import com.wiley.gr.ace.authorservices.autocomplete.object.AutocompleteCacheData;
+import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteCachingService;
 import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteService;
-import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.CacheData;
-import com.wiley.gr.ace.authorservices.model.Department;
-import com.wiley.gr.ace.authorservices.model.DropDown;
-import com.wiley.gr.ace.authorservices.model.Institution;
-import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
-import com.wiley.gr.ace.authorservices.model.external.Industries;
-import com.wiley.gr.ace.authorservices.model.external.JobCategories;
 import com.wiley.gr.ace.authorservices.persistence.services.UserAutocomplete;
 
 /**
@@ -52,12 +41,6 @@ import com.wiley.gr.ace.authorservices.persistence.services.UserAutocomplete;
  */
 public class AutocompleteServiceImpl implements AutocompleteService {
 
-	/**
-	 * Logger Configured.
-	 */
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(AutocompleteServiceImpl.class);
-
 	/** The jedis connection factory. */
 	@Autowired(required = true)
 	private JedisConnectionFactory jedisConnectionFactory;
@@ -66,28 +49,11 @@ public class AutocompleteServiceImpl implements AutocompleteService {
 	@Autowired(required = true)
 	private UserAutocomplete userAutocomplete;
 
-    /** getting bean of userProfiles. */
-    @Autowired
-    private UserProfiles userProfiles;
+	@Autowired(required = true)
+	private AutocompleteCachingService autocompleteCachingService;
 
 	@Value("${autocomplete.count}")
 	private String autocompletecount;
-
-	@Value("${industries.key}")
-	private String industrieskey;
-
-	@Value("${jobCategories.key}")
-	private String jobCategorieskey;
-
-	@Value("${countries.key}")
-	private String countrieskey;
-
-	@Value("${institutions.key}")
-	private String institutionskey;
-
-	@Value("${departments.key}")
-	private String departmentskey;
-
 
 	/**
 	 * Method to get Auto complete data.
@@ -227,7 +193,7 @@ public class AutocompleteServiceImpl implements AutocompleteService {
 			Integer offset) {
 		List<String> dropDownList = null;
 		List<CacheData> jsonDropDownList = null;
-		AutocompleteCacheData cachedData = null;
+		// AutocompleteCacheData cachedData = null;
 
 		if (offset == null) {
 			offset = 0;
@@ -235,19 +201,18 @@ public class AutocompleteServiceImpl implements AutocompleteService {
 
 		if (phrase != null && !"".equals(phrase.trim())) {
 			// Auto Complete
-			/*
-			 * Key is appended with (auto/cached) to avoid conflict between
-			 * autocomplete and caching data. This appended string needs to be
-			 * removed once a solution is found.
-			 */
+
+			// Key is appended with (auto/cached) to avoid conflict between
+			// auto complete and caching data. This appended string needs to be
+			// removed once a solution is found.
 			dropDownList = getAutoCompleteDataFromRedis(key + "auto", phrase,
 					offset);
 
 			if (dropDownList == null) {
 				// Get the data from cache if not available in Redis and set it
 				// in Redis.
-				cachedData = getCachedData(key + "cached");
-				dropDownList = cachedData.getCachedDataList();
+				dropDownList = autocompleteCachingService.getCachedData(key
+						+ "cached");
 				if (dropDownList != null) {
 					final Jedis redis = new Jedis(
 							jedisConnectionFactory.getShardInfo());
@@ -262,13 +227,12 @@ public class AutocompleteServiceImpl implements AutocompleteService {
 
 		} else {
 			// Cacheable
-			/*
-			 * Key is appended with (auto/cached) to avoid conflict between
-			 * autocomplete and caching data. This appended string needs to be
-			 * removed once a solution is found.
-			 */
-			cachedData = getCachedData(key + "cached");
-			dropDownList = cachedData.getCachedDataList();
+			
+			// Key is appended with (auto/cached) to avoid conflict between
+			// auto complete and caching data. This appended string needs to be
+			// removed once a solution is found.
+			dropDownList = autocompleteCachingService.getCachedData(key
+					+ "cached");
 		}
 
 		jsonDropDownList = getJsonDropDownList(dropDownList);
@@ -362,53 +326,6 @@ public class AutocompleteServiceImpl implements AutocompleteService {
 	}
 
 	/**
-	 * This method returns the cached drop down data. If there is no cached
-	 * data, the corresponding service is invoked and the list is set to the
-	 * cache and returns the list.
-	 * 
-	 * @param dropDownKey
-	 * @return dropDownList
-	 */
-	@Cacheable(value = "autocompleteCacheData", key = "#dropDownKey")
-	private AutocompleteCacheData getCachedData(String dropDownKey) {
-		List<String> dropDownList = null;
-		List<CacheData> cacheDataList = null;
-
-		if ((industrieskey + "cached").equals(dropDownKey)) {
-			LOGGER.info("getCachedData::industrieskey::"+dropDownKey);
-			cacheDataList = getIndustries();
-		} else if ((jobCategorieskey + "cached").equals(dropDownKey)) {
-			LOGGER.info("getCachedData::jobCategorieskey::"+dropDownKey);
-			cacheDataList = getJobCategories();
-		} else if ((countrieskey + "cached").equals(dropDownKey)) {
-			LOGGER.info("getCachedData::countrieskey::"+dropDownKey);
-			cacheDataList = getCountries();
-		} else if ((institutionskey + "cached").equals(dropDownKey)) {
-			LOGGER.info("getCachedData::institutionskey::"+dropDownKey);
-			cacheDataList = getInstitutions();
-		} else if ((departmentskey+"cached").equals(dropDownKey)) {
-			LOGGER.info("getCachedData::departmentskey::"+dropDownKey);
-			cacheDataList = getDepartments();
-		} 
-
-		if (cacheDataList != null && !cacheDataList.isEmpty()) {
-			dropDownList = new ArrayList<String>();
-			for (CacheData cacheData : cacheDataList) {
-				dropDownList.add(cacheData.toString());
-			}
-
-		}
-
-		AutocompleteCacheData cachedData = new AutocompleteCacheData();
-
-		if (dropDownList != null && !dropDownList.isEmpty()) {
-			cachedData.setCachedDataList(dropDownList);
-		}
-
-		return cachedData;
-	}
-
-	/**
 	 * This method converts the JsonString to Cached Data object.
 	 * 
 	 * @param dropDownList
@@ -453,144 +370,6 @@ public class AutocompleteServiceImpl implements AutocompleteService {
 		Collections.sort(jsonDropDownList, comp);
 
 		return jsonDropDownList;
-	}
-
-	/**
-	 * This will call external service to get Industries data.
-	 *
-	 * @param count
-	 *            the count
-	 * @return the industries
-	 */
-	@SuppressWarnings("unchecked")
-	private List<CacheData> getIndustries() {
-		LOGGER.info("inside getIndustries method ");
-
-		List<CacheData> industryList = new ArrayList<CacheData>();
-		Industries industries = userProfiles.getIndustries();
-		if (null == industries) {
-			return industryList;
-		}
-
-		List<Object> industryDocs = industries.getResponse().getDocs();
-		for (Object object : industryDocs) {
-
-			LinkedHashMap<String, String> industryMap = (LinkedHashMap<String, String>) object;
-			CacheData industry = new CacheData();
-			industry.setCode(industryMap.get("NAICS_CODE"));
-			industry.setName(industryMap.get("NAICS_TITLE"));
-			industryList.add(industry);
-		}
-
-		return industryList;
-	}
-
-	/**
-	 * This will call external service to get JobCategories data.
-	 *
-	 * @param count
-	 *            the count
-	 * @return the job categories
-	 */
-	@SuppressWarnings("unchecked")
-	private List<CacheData> getJobCategories() {
-
-		LOGGER.info("inside getJobCategories method ");
-		JobCategories jobCategories = userProfiles.getJobCategories();
-		List<CacheData> jobCategoryList = new ArrayList<CacheData>();
-		if (null == jobCategories) {
-			return jobCategoryList;
-		}
-
-		List<Object> jobCategoryDocs = jobCategories.getResponse().getDocs();
-		for (Object object : jobCategoryDocs) {
-
-			LinkedHashMap<String, String> jobCategoryMap = (LinkedHashMap<String, String>) object;
-			CacheData jobCategory = new CacheData();
-			jobCategory.setCode(jobCategoryMap.get("JOBCODE"));
-			jobCategory.setName(jobCategoryMap.get("JOBTITLE"));
-			jobCategoryList.add(jobCategory);
-		}
-
-		return jobCategoryList;
-	}
-
-	/**
-	 * This will call external service to get Countries data.
-	 *
-	 * @param count
-	 *            the count
-	 * @return the countries
-	 */
-	@SuppressWarnings("unchecked")
-	private List<CacheData> getCountries() {
-
-		LOGGER.info("inside getCountries method ");
-		ESBResponse countrieslist = userProfiles.getCountries();
-		List<CacheData> countrylist = new ArrayList<CacheData>();
-
-		List<Object> externalCountrylist = countrieslist.getResponse()
-				.getDocs();
-		if (null == externalCountrylist) {
-			return countrylist;
-		}
-		for (Object object : externalCountrylist) {
-			LinkedHashMap<String, String> countrymap = (LinkedHashMap<String, String>) object;
-			CacheData cacheData = new CacheData();
-			cacheData.setName(countrymap.get("COUNTRY_NAME"));
-			cacheData.setCode(countrymap.get("ISO_ALPHA_3"));
-			countrylist.add(cacheData);
-		}
-
-		return countrylist;
-	}
-
-	/**
-	 * This will call external service to get Institutions data.
-	 *
-	 * @return the institutions
-	 */
-	private List<CacheData> getInstitutions() {
-
-		LOGGER.info("inside getInstitutions method ");
-
-		DropDown dropDown = userProfiles.getInstitutionsList();
-		List<Institution> listofinstitute = dropDown.getInstitutions();
-		List<CacheData> institutionslist = new ArrayList<CacheData>();
-
-		for (Institution institute : listofinstitute) {
-
-			CacheData institution = new CacheData();
-			institution.setCode(institute.getInstitutionId());
-			institution.setName(institute.getInstitutionName());
-			institutionslist.add(institution);
-
-		}
-
-		return institutionslist;
-	}
-
-	/**
-	 * This will call external service to get Departments data.
-	 *
-	 * @return the departments
-	 */
-	private List<CacheData> getDepartments() {
-
-		LOGGER.info("inside getDepartments method ");
-
-		DropDown dropDown = userProfiles.getDepartmentsList();
-		List<Department> listofdepartment = dropDown.getDepartments();
-		List<CacheData> departmentlist = new ArrayList<CacheData>();
-		for (Department department : listofdepartment) {
-
-			CacheData departments = new CacheData();
-			departments.setCode(department.getDepartmentId());
-			departments.setName(department.getDepartmentName());
-			departmentlist.add(departments);
-
-		}
-		return departmentlist;
 	}
 
 }

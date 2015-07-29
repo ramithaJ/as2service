@@ -23,41 +23,41 @@ public class Email {
     /**
      * This field holds the value of existingEmail
      */
-    private String existingEmail;
+    private String oldEmailId;
 
     /**
      * This field holds the value of newEmail
      */
-    private String newEmail;
+    private String newEmailId;
 
     /**
-     * @return the existingEmail
+     * @return the oldEmailId
      */
-    public final String getExistingEmail() {
-        return existingEmail;
+    public final String getOldEmailId() {
+        return oldEmailId;
     }
 
     /**
-     * @param existingEmail
-     *            the existingEmail to set
+     * @param oldEmailId
+     *            the oldEmailId to set
      */
-    public final void setExistingEmail(final String existingEmail) {
-        this.existingEmail = existingEmail;
+    public final void setOldEmailId(final String oldEmailId) {
+        this.oldEmailId = oldEmailId;
     }
 
     /**
-     * @return the newEmail
+     * @return the newEmailId
      */
-    public final String getNewEmail() {
-        return newEmail;
+    public final String getNewEmailId() {
+        return newEmailId;
     }
 
     /**
-     * @param newEmail
-     *            the newEmail to set
+     * @param newEmailId
+     *            the newEmailId to set
      */
-    public final void setNewEmail(final String newEmail) {
-        this.newEmail = newEmail;
+    public final void setNewEmailId(final String newEmailId) {
+        this.newEmailId = newEmailId;
     }
 
 }

@@ -92,16 +92,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/userSecurityQuestions/*")
                 .permitAll()
 
-                .antMatchers("/asdata/securityQuestions/")
-                .permitAll()
-
                 .antMatchers("/user/password/reset")
                 .permitAll()
 
                 .antMatchers("/user/securityQuestions/validate")
-                .permitAll()
-
-                .antMatchers("/user/resetPassword/{guid}")
                 .permitAll()
 
                 .antMatchers(HttpMethod.POST, SpringSecurityConfig.AUTHENTICATE)

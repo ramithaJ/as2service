@@ -278,8 +278,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
         final UserEmailDetails userEmailDetails = new UserEmailDetails();
         final UserSecurityAttributes userSecurityAttributes = new UserSecurityAttributes();
-        userSecurityAttributes.setExistingEmail(email.getExistingEmail());
-        userSecurityAttributes.setNewEmail(email.getNewEmail());
+        userSecurityAttributes.setExistingEmail(email.getOldEmailId());
+        userSecurityAttributes.setNewEmail(email.getNewEmailId());
         userSecurityAttributes
                 .setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
         userEmailDetails
