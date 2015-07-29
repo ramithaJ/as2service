@@ -56,6 +56,8 @@ import com.wiley.gr.ace.authorservices.model.external.UserSecurityAttributes;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestions;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsEntry;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsMap;
+import com.wiley.gr.ace.authorservices.persistence.entity.Alerts;
+import com.wiley.gr.ace.authorservices.persistence.services.AlertsDao;
 import com.wiley.gr.ace.authorservices.persistence.services.AuthorProfileDao;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 import com.wiley.gr.ace.authorservices.services.service.SendNotification;
@@ -88,6 +90,10 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      */
     @Autowired(required = true)
     private SendNotification sendNotification;
+
+    /** The alerts Dao. */
+    @Autowired(required = true)
+    private AlertsDao alertsDao;
 
     @Value("${templateId.password.reset}")
     private String templateId;
@@ -533,14 +539,24 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                 .getLookupCustomerProfile(userId)
                 .getLookupCustomerProfileResponse().getCustomerProfile()
                 .getAlerts().getAlert();
-
+        List<Alerts> daoAlert = alertsDao.getAlerts();
         List<Alert> alertList = new ArrayList<Alert>();
 
-        for (AlertData alertData : listOfAlert) {
-            Alert alert = new Alert();
-            alert.setAlertId(alertData.getAlertID());
+        for (Alerts alerts : daoAlert) {
+            Alert alert = null;
+            for (AlertData alertData : listOfAlert) {
+                alert = new Alert();
+                if (alerts.getAlertCd().equals(alertData.getAlertID())) {
+                    alert.setAlertId(alertData.getAlertID());
+                    alert.setEmail(true);
+                    alert.setOnScreen(true);
+                    break;
+                }
+                alert.setAlertId(alerts.getAlertCd());
+            }
             alertList.add(alert);
         }
+
         return alertList;
     }
 
@@ -551,13 +567,13 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                 .getLookupCustomerProfile(userId)
                 .getLookupCustomerProfileResponse().getCustomerProfile()
                 .getFavoriteJournals().getJournal();
-          List<PreferredJournals> prefferedList  =new ArrayList<PreferredJournals>();
+        List<PreferredJournals> prefferedList = new ArrayList<PreferredJournals>();
         for (Journal journal : journalList) {
-            PreferredJournals preferredJournals=new PreferredJournals();
+            PreferredJournals preferredJournals = new PreferredJournals();
             preferredJournals.setJournalId(journal.getId());
             preferredJournals.setJournalTitle(journal.getJournalTitle());
             prefferedList.add(preferredJournals);
-            
+
         }
         return prefferedList;
     }
