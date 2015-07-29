@@ -26,10 +26,12 @@ import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
+import com.wiley.gr.ace.authorservices.model.Alert;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.Email;
 import com.wiley.gr.ace.authorservices.model.Interests;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
+import com.wiley.gr.ace.authorservices.model.PreferredJournals;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
@@ -38,8 +40,10 @@ import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserProfile;
 import com.wiley.gr.ace.authorservices.model.UserProfileAlerts;
 import com.wiley.gr.ace.authorservices.model.external.AffiliationData;
+import com.wiley.gr.ace.authorservices.model.external.AlertData;
 import com.wiley.gr.ace.authorservices.model.external.CoAuthorData;
 import com.wiley.gr.ace.authorservices.model.external.InterestData;
+import com.wiley.gr.ace.authorservices.model.external.Journal;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.PasswordRequest;
 import com.wiley.gr.ace.authorservices.model.external.PasswordUpdate;
@@ -520,5 +524,41 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         }
 
         return areaList;
+    }
+
+    @Override
+    public List<Alert> getListOfAlerts(final String userId) {
+
+        List<AlertData> listOfAlert = userProfiles
+                .getLookupCustomerProfile(userId)
+                .getLookupCustomerProfileResponse().getCustomerProfile()
+                .getAlerts().getAlert();
+
+        List<Alert> alertList = new ArrayList<Alert>();
+
+        for (AlertData alertData : listOfAlert) {
+            Alert alert = new Alert();
+            alert.setAlertId(alertData.getAlertID());
+            alertList.add(alert);
+        }
+        return alertList;
+    }
+
+    @Override
+    public List<PreferredJournals> getPrefferedJournals(final String userId) {
+
+        List<Journal> journalList = userProfiles
+                .getLookupCustomerProfile(userId)
+                .getLookupCustomerProfileResponse().getCustomerProfile()
+                .getFavoriteJournals().getJournal();
+          List<PreferredJournals> prefferedList  =new ArrayList<PreferredJournals>();
+        for (Journal journal : journalList) {
+            PreferredJournals preferredJournals=new PreferredJournals();
+            preferredJournals.setJournalId(journal.getId());
+            preferredJournals.setJournalTitle(journal.getJournalTitle());
+            prefferedList.add(preferredJournals);
+            
+        }
+        return prefferedList;
     }
 }

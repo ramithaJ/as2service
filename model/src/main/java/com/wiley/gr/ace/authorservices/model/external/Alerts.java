@@ -27,14 +27,14 @@ public class Alerts {
 
     /** The alert. */
     @JsonProperty("Alert")
-    private List<Alert> alert;
+    private List<AlertData> alert;
 
     /**
      * Gets the alert.
      *
      * @return the alert
      */
-    public final List<Alert> getAlert() {
+    public final List<AlertData> getAlert() {
         return alert;
     }
 
@@ -43,7 +43,7 @@ public class Alerts {
      *
      * @param alert the new alert
      */
-    public final void setAlert(final List<Alert> alert) {
+    public final void setAlert(final List<AlertData> alert) {
         this.alert = alert;
     }
 
