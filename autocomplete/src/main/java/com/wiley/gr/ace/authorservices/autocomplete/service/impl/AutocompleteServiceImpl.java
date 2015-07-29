@@ -236,7 +236,7 @@ public class AutocompleteServiceImpl implements AutocompleteService {
 		}
 
 		jsonDropDownList = getJsonDropDownList(dropDownList, phrase);
-		if (jsonDropDownList != null && phrase == null) {
+		if (jsonDropDownList != null && (phrase == null || "".equals(phrase.trim()))) {
 
 			jsonDropDownList = jsonDropDownList.subList(offset, offset
 					+ Integer.parseInt(autocompletecount));
