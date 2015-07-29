@@ -235,8 +235,8 @@ public class AutocompleteServiceImpl implements AutocompleteService {
 					+ "cached");
 		}
 
-		jsonDropDownList = getJsonDropDownList(dropDownList);
-		if (jsonDropDownList != null) {
+		jsonDropDownList = getJsonDropDownList(dropDownList, phrase);
+		if (jsonDropDownList != null && phrase == null) {
 
 			jsonDropDownList = jsonDropDownList.subList(offset, offset
 					+ Integer.parseInt(autocompletecount));
@@ -331,7 +331,7 @@ public class AutocompleteServiceImpl implements AutocompleteService {
 	 * @param dropDownList
 	 * @return jsonDropDownList
 	 */
-	private List<CacheData> getJsonDropDownList(List<String> dropDownList) {
+	private List<CacheData> getJsonDropDownList(List<String> dropDownList, String phrase) {
 
 		List<CacheData> jsonDropDownList = null;
 
@@ -350,7 +350,9 @@ public class AutocompleteServiceImpl implements AutocompleteService {
 
 			}
 
-			jsonDropDownList = sortCacheData("name", jsonDropDownList);
+			if(phrase == null){
+				jsonDropDownList = sortCacheData("name", jsonDropDownList);
+			}
 		}
 
 		return jsonDropDownList;
