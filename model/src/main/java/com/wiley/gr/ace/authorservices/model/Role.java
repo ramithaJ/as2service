@@ -36,6 +36,9 @@ public class Role {
     @NotBlank
     /** The no of permissions. */
     private String noOfPermissions;
+    
+    /** The no of users. */
+    private String noOfUsers;
 
     /**
      * Gets the role id.
@@ -130,6 +133,24 @@ public class Role {
      */
     public final void setNoOfPermissions(final String noOfPermissions) {
         this.noOfPermissions = noOfPermissions;
+    }
+
+    /**
+     * Gets the no of users.
+     *
+     * @return the no of users
+     */
+    public String getNoOfUsers() {
+        return noOfUsers;
+    }
+
+    /**
+     * Sets the no of users.
+     *
+     * @param noOfUsers the new no of users
+     */
+    public void setNoOfUsers(final String noOfUsers) {
+        this.noOfUsers = noOfUsers;
     }
 
 }
