@@ -14,6 +14,8 @@ package com.wiley.gr.ace.authorservices.services.context;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.wiley.gr.ace.authorservices.externalservices.service.TaskService;
+import com.wiley.gr.ace.authorservices.externalservices.service.impl.TaskServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.ASDataService;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 import com.wiley.gr.ace.authorservices.services.service.ArticleAssignmentService;
@@ -152,5 +154,13 @@ public class ServiceBeanConfig {
     @Bean(name = "SendNotification")
     public SendNotification sendNotification() {
         return new SendNotificationImpl();
+    }
+    
+    /**TaskService bean
+     * @return
+     */
+    @Bean(name = "TaskService") 
+    public  TaskService taskService(){
+    	return new TaskServiceImpl();
     }
 }
