@@ -9,33 +9,41 @@
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
  *******************************************************************************/
-
-package com.wiley.gr.ace.authorservices.model;
+/**
+ * 
+ */
+package com.wiley.gr.ace.authorservices.model.external;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
- * @author virtusa 1.0
+ * The Class CoAuthors.
  *
+ * @author yugandhark
  */
-public class ResearchFunders {
+public class CoAuthorsData {
 
-    List<ResearchFunder> researchFunders;
+    /** The co author. */
+    @JsonProperty("CoAuthor")
+    private List<CoAuthorData> coAuthor;
 
     /**
-     * @return the researchFunders
+     * Gets the co author.
+     *
+     * @return the co author
      */
-    public final List<ResearchFunder> getResearchFunders() {
-        return researchFunders;
+    public final List<CoAuthorData> getCoAuthor() {
+        return coAuthor;
     }
 
     /**
-     * @param researchFunders
-     *            the researchFunders to set
+     * Sets the co author.
+     *
+     * @param coAuthor the new co author
      */
-    public final void setResearchFunders(
-            final List<ResearchFunder> researchFunders) {
-        this.researchFunders = researchFunders;
+    public final void setCoAuthor(final List<CoAuthorData> coAuthor) {
+        this.coAuthor = coAuthor;
     }
-
 }

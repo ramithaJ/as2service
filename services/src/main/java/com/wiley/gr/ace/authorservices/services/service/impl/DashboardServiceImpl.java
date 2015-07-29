@@ -29,7 +29,7 @@ import com.wiley.gr.ace.authorservices.model.external.AffiliationData;
 import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
 import com.wiley.gr.ace.authorservices.model.external.CustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.DashboardView;
-import com.wiley.gr.ace.authorservices.model.external.Interest;
+import com.wiley.gr.ace.authorservices.model.external.InterestData;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.ResearchFunderData;
 import com.wiley.gr.ace.authorservices.model.external.SocietyData;
@@ -274,7 +274,7 @@ public class DashboardServiceImpl implements DashboardService {
             final CustomerProfile customerProfile) {
         DashboardServiceImpl.LOGGER
                 .info("inside getInterestsForUser Method of DashboardServiceImpl");
-        final List<Interest> userInterestsList = customerProfile
+        final List<InterestData> userInterestsList = customerProfile
                 .getAreaOfInterest().getInterest();
         DashboardInfo dashboardInfo = null;
         if (!StringUtils.isEmpty(userInterestsList)

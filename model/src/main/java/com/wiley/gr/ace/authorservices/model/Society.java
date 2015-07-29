@@ -12,7 +12,6 @@
 package com.wiley.gr.ace.authorservices.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 
@@ -58,11 +57,11 @@ public class Society implements Serializable {
 
     /** The start date. */
     @NotNull
-    private Date startDate;
+    private String startDate;
 
     /** The end date. */
     @NotNull
-    private Date endDate;
+    private String endDate;
 
     /**
      * Gets the user id.
@@ -164,7 +163,7 @@ public class Society implements Serializable {
      *
      * @return the startDate
      */
-    public final Date getStartDate() {
+    public final String getStartDate() {
         return startDate;
     }
 
@@ -174,7 +173,7 @@ public class Society implements Serializable {
      * @param startDate
      *            the startDate to set
      */
-    public final void setStartDate(final Date startDate) {
+    public final void setStartDate(final String startDate) {
         this.startDate = startDate;
     }
 
@@ -183,7 +182,7 @@ public class Society implements Serializable {
      *
      * @return the endDate
      */
-    public final Date getEndDate() {
+    public final String getEndDate() {
         return endDate;
     }
 
@@ -193,7 +192,7 @@ public class Society implements Serializable {
      * @param endDate
      *            the endDate to set
      */
-    public final void setEndDate(final Date endDate) {
+    public final void setEndDate(final String endDate) {
         this.endDate = endDate;
     }
 

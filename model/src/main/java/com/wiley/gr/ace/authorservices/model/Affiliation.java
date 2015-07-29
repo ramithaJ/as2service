@@ -12,7 +12,6 @@
 package com.wiley.gr.ace.authorservices.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -53,7 +52,7 @@ public class Affiliation implements Serializable {
      * @param institutionName
      *            the institutionName to set
      */
-    public final void setInstitutionName(String institutionName) {
+    public final void setInstitutionName(final String institutionName) {
         this.institutionName = institutionName;
     }
 
@@ -101,10 +100,10 @@ public class Affiliation implements Serializable {
     private String countryCode;
 
     /** The start date. */
-    private Date startDate;
+    private String startDate;
 
     /** The end date. */
-    private Date endDate;
+    private String endDate;
 
     /** The organization. */
     private Organization organization;
@@ -307,7 +306,7 @@ public class Affiliation implements Serializable {
      *
      * @return the startDate
      */
-    public final Date getStartDate() {
+    public final String getStartDate() {
         return startDate;
     }
 
@@ -317,7 +316,7 @@ public class Affiliation implements Serializable {
      * @param startDate
      *            the startDate to set
      */
-    public final void setStartDate(final Date startDate) {
+    public final void setStartDate(final String startDate) {
         this.startDate = startDate;
     }
 
@@ -326,7 +325,7 @@ public class Affiliation implements Serializable {
      *
      * @return the endDate
      */
-    public final Date getEndDate() {
+    public final String getEndDate() {
         return endDate;
     }
 
@@ -336,7 +335,7 @@ public class Affiliation implements Serializable {
      * @param endDate
      *            the endDate to set
      */
-    public final void setEndDate(final Date endDate) {
+    public final void setEndDate(final String endDate) {
         this.endDate = endDate;
     }
 

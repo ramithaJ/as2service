@@ -88,7 +88,7 @@ public class UserProfileController {
         UserProfileController.LOGGER.info("inside getAffiliationsList method ");
         Service service = new Service();
         service.setPayload(authorProfileService.getAffiliationsList(userId));
-                
+
         return service;
     }
 
@@ -127,7 +127,7 @@ public class UserProfileController {
                 .info("inside getResearchFundersList method ");
         Service service = new Service();
         service.setPayload(authorProfileService.getResearchFundersList(userId));
-                
+
         return service;
     }
 
@@ -166,10 +166,7 @@ public class UserProfileController {
 
         UserProfileController.LOGGER.info("inside getSocietiesList method ");
         Service service = new Service();
-        service.setPayload(authorProfileService
-                .getLookupCustomerProfile(userId)
-                .getLookupCustomerProfileResponse().getCustomerProfile()
-                .getSocietyList());
+        service.setPayload(authorProfileService.getSocietylist(userId));
         return service;
     }
 
@@ -206,10 +203,8 @@ public class UserProfileController {
 
         UserProfileController.LOGGER.info("inside getMyInterests method ");
         Service service = new Service();
-        service.setPayload(authorProfileService
-                .getLookupCustomerProfile(userId)
-                .getLookupCustomerProfileResponse().getCustomerProfile()
-                .getAreaOfInterest());
+        service.setPayload(authorProfileService.getAreaOfInterests(userId));
+               
 
         return service;
     }
@@ -246,10 +241,8 @@ public class UserProfileController {
 
         UserProfileController.LOGGER.info("inside getCoAuthorsList method ");
         Service service = new Service();
-        service.setPayload(authorProfileService
-                .getLookupCustomerProfile(userId)
-                .getLookupCustomerProfileResponse().getCustomerProfile()
-                .getCoAuthors());
+        service.setPayload(authorProfileService.getsCoAuthorsList(userId));
+
         return service;
     }
 

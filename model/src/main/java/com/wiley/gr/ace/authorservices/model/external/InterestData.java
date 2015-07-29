@@ -14,36 +14,41 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * The Class CoAuthors.
+ * The Class Interest.
  *
  * @author yugandhark
  */
-public class CoAuthors {
-
-    /** The co author. */
-    @JsonProperty("CoAuthor")
-    private List<CoAuthor> coAuthor;
-
+public class InterestData {
+    
+    private String id;
+    @JsonProperty("Status")
+    private String status;
     /**
-     * Gets the co author.
-     *
-     * @return the co author
+     * @return the id
      */
-    public final List<CoAuthor> getCoAuthor() {
-        return coAuthor;
+    public final String getId() {
+        return id;
     }
-
     /**
-     * Sets the co author.
-     *
-     * @param coAuthor the new co author
+     * @param id the id to set
      */
-    public final void setCoAuthor(final List<CoAuthor> coAuthor) {
-        this.coAuthor = coAuthor;
+    public final void setId(String id) {
+        this.id = id;
     }
+    /**
+     * @return the status
+     */
+    public final String getStatus() {
+        return status;
+    }
+    /**
+     * @param status the status to set
+     */
+    public final void setStatus(String status) {
+        this.status = status;
+    }
+  
 }

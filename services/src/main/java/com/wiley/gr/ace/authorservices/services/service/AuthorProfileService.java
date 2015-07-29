@@ -13,17 +13,15 @@
 package com.wiley.gr.ace.authorservices.services.service;
 
 import java.io.File;
+import java.util.List;
 
 import com.wiley.gr.ace.authorservices.model.Affiliation;
-import com.wiley.gr.ace.authorservices.model.Affiliations;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
-import com.wiley.gr.ace.authorservices.model.CoAuthors;
 import com.wiley.gr.ace.authorservices.model.Email;
+import com.wiley.gr.ace.authorservices.model.Interests;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
-import com.wiley.gr.ace.authorservices.model.ResearchFunders;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
-import com.wiley.gr.ace.authorservices.model.Societies;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserProfile;
@@ -186,7 +184,7 @@ public interface AuthorProfileService {
      *            the user id
      * @return the affiliations list
      */
-    Affiliations getAffiliationsList(String userId);
+    List<Affiliation> getAffiliationsList(String userId);
 
     /**
      * Gets the research funders list.
@@ -195,17 +193,19 @@ public interface AuthorProfileService {
      *            the user id
      * @return the research funders list
      */
-    ResearchFunders getResearchFundersList(String userId);
+    List<ResearchFunder> getResearchFundersList(String userId);
 
     /**
      * @param userId
      * @return
      */
-    Societies getSocietylist(String userId);
-    
+    List<Society> getSocietylist(String userId);
+
     /**
      * @param userId
      * @return
      */
-    CoAuthors getsCoAuthorsList(String userId);
+    List<CoAuthor> getsCoAuthorsList(String userId);
+
+    List<Interests> getAreaOfInterests(String userId);
 }
