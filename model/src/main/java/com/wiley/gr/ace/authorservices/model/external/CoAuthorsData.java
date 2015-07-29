@@ -23,18 +23,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  * @author yugandhark
  */
-public class CoAuthors {
+public class CoAuthorsData {
 
     /** The co author. */
     @JsonProperty("CoAuthor")
-    private List<CoAuthor> coAuthor;
+    private List<CoAuthorData> coAuthor;
 
     /**
      * Gets the co author.
      *
      * @return the co author
      */
-    public final List<CoAuthor> getCoAuthor() {
+    public final List<CoAuthorData> getCoAuthor() {
         return coAuthor;
     }
 
@@ -43,7 +43,7 @@ public class CoAuthors {
      *
      * @param coAuthor the new co author
      */
-    public final void setCoAuthor(final List<CoAuthor> coAuthor) {
+    public final void setCoAuthor(final List<CoAuthorData> coAuthor) {
         this.coAuthor = coAuthor;
     }
 }

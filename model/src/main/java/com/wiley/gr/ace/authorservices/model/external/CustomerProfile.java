@@ -45,7 +45,7 @@ public class CustomerProfile {
 
     /** The co authors. */
     @JsonProperty("CoAuthors")
-    private CoAuthors coAuthors;
+    private CoAuthorsData coAuthors;
 
     /** The alerts. */
     @JsonProperty("Alerts")
@@ -159,7 +159,7 @@ public class CustomerProfile {
      *
      * @return the co authors
      */
-    public final CoAuthors getCoAuthors() {
+    public final CoAuthorsData getCoAuthors() {
         return coAuthors;
     }
 
@@ -168,7 +168,7 @@ public class CustomerProfile {
      *
      * @param coAuthors the new co authors
      */
-    public final void setCoAuthors(final CoAuthors coAuthors) {
+    public final void setCoAuthors(final CoAuthorsData coAuthors) {
         this.coAuthors = coAuthors;
     }
 

@@ -28,19 +28,17 @@ import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.Affiliations;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
-import com.wiley.gr.ace.authorservices.model.CoAuthors;
 import com.wiley.gr.ace.authorservices.model.Email;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
-import com.wiley.gr.ace.authorservices.model.ResearchFunders;
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
-import com.wiley.gr.ace.authorservices.model.Societies;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserProfile;
 import com.wiley.gr.ace.authorservices.model.UserProfileAlerts;
 import com.wiley.gr.ace.authorservices.model.external.AffiliationData;
+import com.wiley.gr.ace.authorservices.model.external.CoAuthorData;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.PasswordRequest;
 import com.wiley.gr.ace.authorservices.model.external.PasswordUpdate;
@@ -447,23 +445,21 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @param userId
      */
     @Override
-    public ResearchFunders getResearchFundersList(final String userId) {
+    public List<ResearchFunder> getResearchFundersList(final String userId) {
         List<ResearchFunderData> listOfResearchFunder = userProfiles
                 .getLookupCustomerProfile(userId)
                 .getLookupCustomerProfileResponse().getCustomerProfile()
                 .getResearchFunders().getResearchFunder();
-        ResearchFunders researchFunders = new ResearchFunders();
-        List<ResearchFunder> list = new ArrayList<ResearchFunder>();
+        List<ResearchFunder> researchFunderList=new ArrayList<ResearchFunder>();
         for (ResearchFunderData researchFunderData1 : listOfResearchFunder) {
             ResearchFunder researchFunder = new ResearchFunder();
             researchFunder.setResearchFunderId(researchFunderData1
                     .getFunderID());
             researchFunder.setResearchFunderName(researchFunderData1
                     .getFunderName());
-            list.add(researchFunder);
-            researchFunders.setResearchFunders(list);
+            researchFunderList.add(researchFunder);
         }
-        return researchFunders;
+        return researchFunderList;
     }
 
     /**
@@ -474,27 +470,37 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      */
 
     @Override
-    public Societies getSocietylist(final String userId) {
+    public List<Society> getSocietylist(final String userId) {
         List<SocietyData> listSocietyData = userProfiles
                 .getLookupCustomerProfile(userId)
                 .getLookupCustomerProfileResponse().getCustomerProfile()
                 .getSocietyList().getSociety();
-        Societies societies = new Societies();
-        List<Society> listOfSocietie = new ArrayList<Society>();
+        List<Society> societyList=new ArrayList<Society>();
         for (SocietyData societyData : listSocietyData) {
             Society society = new Society();
             society.setSocietyId(societyData.getSocietyId());
-            society.setPromoCode(societyData.getPromoCode());
             society.setSocietyName(societyData.getSocietyName());
-            listOfSocietie.add(society);
-            societies.setSocieties(listOfSocietie);
+            societyList.add(society);
+            
         }
-        return societies;
+        return societyList;
     }
 
     @Override
-    public CoAuthors getsCoAuthorsList(final String userId) {
+    public List<CoAuthor> getsCoAuthorsList(final String userId) {
 
-        return null;
+        List<CoAuthorData> listOfCoauthors = userProfiles.getLookupCustomerProfile(userId)
+                .getLookupCustomerProfileResponse().getCustomerProfile()
+                .getCoAuthors().getCoAuthor();
+        List<CoAuthor> coAuthorList=new ArrayList<CoAuthor>();
+         for (CoAuthorData coAuthorData : listOfCoauthors) {
+            CoAuthor coAuthor=new CoAuthor();
+            coAuthor.setCoAuthorId(coAuthorData.getId());
+            coAuthor.setEmailId(coAuthorData.getEmailId());
+            coAuthor.setPhone(coAuthorData.getPhoneNo());
+            coAuthorList.add(coAuthor);
+            
+        }
+        return coAuthorList;
     }
 }

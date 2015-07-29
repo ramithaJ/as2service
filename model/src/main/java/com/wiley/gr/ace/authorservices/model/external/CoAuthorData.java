@@ -24,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
-public class CoAuthor {
+public class CoAuthorData {
 
     /** The id. */
     @JsonProperty("Id")
