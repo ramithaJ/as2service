@@ -16,10 +16,12 @@ import java.io.File;
 import java.util.List;
 
 import com.wiley.gr.ace.authorservices.model.Affiliation;
+import com.wiley.gr.ace.authorservices.model.Alert;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.Email;
 import com.wiley.gr.ace.authorservices.model.Interests;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
+import com.wiley.gr.ace.authorservices.model.PreferredJournals;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Society;
@@ -208,4 +210,8 @@ public interface AuthorProfileService {
     List<CoAuthor> getsCoAuthorsList(String userId);
 
     List<Interests> getAreaOfInterests(String userId);
+
+    List<Alert> getListOfAlerts(String userId);
+
+    List<PreferredJournals> getPrefferedJournals(String userId);
 }

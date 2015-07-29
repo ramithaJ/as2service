@@ -204,7 +204,6 @@ public class UserProfileController {
         UserProfileController.LOGGER.info("inside getMyInterests method ");
         Service service = new Service();
         service.setPayload(authorProfileService.getAreaOfInterests(userId));
-               
 
         return service;
     }
@@ -282,10 +281,7 @@ public class UserProfileController {
         UserProfileController.LOGGER
                 .info("inside getPreferredJournals method ");
         Service service = new Service();
-        service.setPayload(authorProfileService
-                .getLookupCustomerProfile(userId)
-                .getLookupCustomerProfileResponse().getCustomerProfile()
-                .getFavoriteJournals());
+        service.setPayload(authorProfileService.getPrefferedJournals(userId));
         return service;
     }
 
@@ -336,10 +332,7 @@ public class UserProfileController {
         UserProfileController.LOGGER.info("inside getListOfAlerts method ");
         Service service = new Service();
 
-        service.setPayload(authorProfileService
-                .getLookupCustomerProfile(userId)
-                .getLookupCustomerProfileResponse().getCustomerProfile()
-                .getAlerts());
+        service.setPayload(authorProfileService.getListOfAlerts(userId));
         return service;
     }
 

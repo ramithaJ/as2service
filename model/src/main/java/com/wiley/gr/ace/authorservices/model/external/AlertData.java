@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  * @author yugandhark
  */
-public class Alert {
+public class AlertData {
 
     /** The alert id. */
     @JsonProperty("AlertID")
