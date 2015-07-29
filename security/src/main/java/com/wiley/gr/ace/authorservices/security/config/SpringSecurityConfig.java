@@ -101,6 +101,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/asdata/securityQuestions/")
                 .permitAll()
 
+                .antMatchers("/user/resetByEmail/*/")
+                .permitAll()
+
                 .antMatchers(HttpMethod.POST, SpringSecurityConfig.AUTHENTICATE)
                 .permitAll()
 
