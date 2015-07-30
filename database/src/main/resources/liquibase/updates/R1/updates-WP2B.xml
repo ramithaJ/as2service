@@ -215,13 +215,8 @@ ALTER TABLE LICENSE_UPLOAD_DETAILS
 </sql>
 </changeSet>
 
-<changeSet author="gphaniraj" id="WP2B-21">
-<sql>
-DROP TABLE SUB_OWNERSHIP_TYPES;
-</sql>
-</changeSet>
 
-<changeSet author="gphaniraj" id="WP2B-22">
+<changeSet author="gphaniraj" id="WP2B-21">
 <sql>
 CREATE TABLE SUB_OWNERSHIP_TYPES 
     ( 
@@ -236,14 +231,14 @@ CREATE TABLE SUB_OWNERSHIP_TYPES
 </sql>
 </changeSet>
 
-<changeSet author="gphaniraj" id="WP2B-23">
+<changeSet author="gphaniraj" id="WP2B-22">
 <sql>
 ALTER TABLE SUB_OWNERSHIP_TYPES 
 ADD CONSTRAINT SUB_OWNERSHIP_TYPES_PK PRIMARY KEY (SUB_TYPE_CD);
 </sql>
 </changeSet>
 
-<changeSet author="gphaniraj" id="WP2B-24">
+<changeSet author="gphaniraj" id="WP2B-23">
 <sql>
 ALTER TABLE SUB_OWNERSHIP_TYPES 
     ADD CONSTRAINT SUB_OWNERSHIP_TYPES_FK FOREIGN KEY 
@@ -256,6 +251,92 @@ ALTER TABLE SUB_OWNERSHIP_TYPES
     );
 </sql>
 </changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-24">
+<sql>
+ALTER TABLE OWNERSHIP_TYPES ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-25">
+<sql>
+ALTER TABLE US_GOV_OWNERSHIP_TYPES ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-26">
+<sql>
+ALTER TABLE SAVED_LICENSES ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-27">
+<sql>
+ALTER TABLE LICENSE_REJECTION_REASONS ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-28">
+<sql>
+ALTER TABLE REJECTED_LICENSE_DETAILS ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-29">
+<sql>
+ALTER TABLE LICENSE_UPLOAD_DETAILS ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-30">
+<sql>
+ALTER TABLE SUB_OWNERSHIP_TYPES ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-31">
+<sql>
+ALTER TABLE OWNERSHIP_TYPES ADD FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-32">
+<sql>
+ALTER TABLE US_GOV_OWNERSHIP_TYPES ADD FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-33">
+<sql>
+ALTER TABLE SAVED_LICENSES ADD FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-34">
+<sql>
+ALTER TABLE LICENSE_REJECTION_REASONS ADD FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-35">
+<sql>
+ALTER TABLE REJECTED_LICENSE_DETAILS ADD FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-36">
+<sql>
+ALTER TABLE LICENSE_UPLOAD_DETAILS ADD FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-37">
+<sql>
+ALTER TABLE SUB_OWNERSHIP_TYPES ADD FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+
 
 </databaseChangeLog>
 
