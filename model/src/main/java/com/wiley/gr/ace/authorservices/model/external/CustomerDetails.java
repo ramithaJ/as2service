@@ -78,11 +78,11 @@ public class CustomerDetails {
     /** The profile visibility. */
     @JsonProperty("ProfileVisibility")
     private String profileVisibility;
-    
+
     /** The password. */
     @JsonProperty("Password")
     private String password;
-    
+
     @JsonProperty("SkipTargetSystem")
     private String skipTargetSystem;
 
@@ -98,7 +98,8 @@ public class CustomerDetails {
     /**
      * Sets the alternative name.
      *
-     * @param alternativeName            the alternativeName to set
+     * @param alternativeName
+     *            the alternativeName to set
      */
     public final void setAlternativeName(final String alternativeName) {
         this.alternativeName = alternativeName;
@@ -116,7 +117,8 @@ public class CustomerDetails {
     /**
      * Sets the primary email.
      *
-     * @param primaryEmail            the primaryEmail to set
+     * @param primaryEmail
+     *            the primaryEmail to set
      */
     public final void setPrimaryEmail(final String primaryEmail) {
         this.primaryEmail = primaryEmail;
@@ -134,7 +136,8 @@ public class CustomerDetails {
     /**
      * Sets the secondary email.
      *
-     * @param secondaryEmail            the secondaryEmail to set
+     * @param secondaryEmail
+     *            the secondaryEmail to set
      */
     public final void setSecondaryEmail(final String secondaryEmail) {
         this.secondaryEmail = secondaryEmail;
@@ -152,7 +155,8 @@ public class CustomerDetails {
     /**
      * Sets the f name.
      *
-     * @param fName            the fName to set
+     * @param fName
+     *            the fName to set
      */
     public final void setfName(final String fName) {
         this.fName = fName;
@@ -170,7 +174,8 @@ public class CustomerDetails {
     /**
      * Sets the m name.
      *
-     * @param mName            the mName to set
+     * @param mName
+     *            the mName to set
      */
     public final void setmName(final String mName) {
         this.mName = mName;
@@ -188,7 +193,8 @@ public class CustomerDetails {
     /**
      * Sets the l name.
      *
-     * @param lName            the lName to set
+     * @param lName
+     *            the lName to set
      */
     public final void setlName(final String lName) {
         this.lName = lName;
@@ -206,7 +212,8 @@ public class CustomerDetails {
     /**
      * Sets the user suffix.
      *
-     * @param userSuffix            the userSuffix to set
+     * @param userSuffix
+     *            the userSuffix to set
      */
     public final void setUserSuffix(final String userSuffix) {
         this.userSuffix = userSuffix;
@@ -224,7 +231,8 @@ public class CustomerDetails {
     /**
      * Sets the ec id.
      *
-     * @param ecId            the ecId to set
+     * @param ecId
+     *            the ecId to set
      */
     public final void setEcId(final String ecId) {
         this.ecId = ecId;
@@ -242,7 +250,8 @@ public class CustomerDetails {
     /**
      * Sets the orc id.
      *
-     * @param orcId            the orcId to set
+     * @param orcId
+     *            the orcId to set
      */
     public final void setOrcId(final String orcId) {
         this.orcId = orcId;
@@ -260,7 +269,8 @@ public class CustomerDetails {
     /**
      * Sets the opt in flag.
      *
-     * @param optInFlag            the optInFlag to set
+     * @param optInFlag
+     *            the optInFlag to set
      */
     public final void setOptInFlag(final String optInFlag) {
         this.optInFlag = optInFlag;
@@ -278,7 +288,8 @@ public class CustomerDetails {
     /**
      * Sets the job category code.
      *
-     * @param jobCategoryCode            the jobCategoryCode to set
+     * @param jobCategoryCode
+     *            the jobCategoryCode to set
      */
     public final void setJobCategoryCode(final String jobCategoryCode) {
         this.jobCategoryCode = jobCategoryCode;
@@ -296,7 +307,8 @@ public class CustomerDetails {
     /**
      * Sets the industry code.
      *
-     * @param industryCode            the industryCode to set
+     * @param industryCode
+     *            the industryCode to set
      */
     public final void setIndustryCode(final String industryCode) {
         this.industryCode = industryCode;
@@ -314,7 +326,8 @@ public class CustomerDetails {
     /**
      * Sets the title.
      *
-     * @param title            the title to set
+     * @param title
+     *            the title to set
      */
     public final void setTitle(final String title) {
         this.title = title;
@@ -332,7 +345,8 @@ public class CustomerDetails {
     /**
      * Sets the profile visibility.
      *
-     * @param profileVisibility            the profileVisibility to set
+     * @param profileVisibility
+     *            the profileVisibility to set
      */
     public final void setProfileVisibility(final String profileVisibility) {
         this.profileVisibility = profileVisibility;
@@ -350,7 +364,8 @@ public class CustomerDetails {
     /**
      * Sets the password.
      *
-     * @param password the new password
+     * @param password
+     *            the new password
      */
     public final void setPassword(final String password) {
         this.password = password;
@@ -360,7 +375,7 @@ public class CustomerDetails {
         return skipTargetSystem;
     }
 
-    public final void setSkipTargetSystem(String skipTargetSystem) {
+    public final void setSkipTargetSystem(final String skipTargetSystem) {
         this.skipTargetSystem = skipTargetSystem;
     }
 

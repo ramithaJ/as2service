@@ -15,7 +15,6 @@ import java.util.List;
 
 import com.wiley.gr.ace.authorservices.model.Addresses;
 import com.wiley.gr.ace.authorservices.model.User;
-import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
 
 /**
  * The Interface UserAccountService.
@@ -40,7 +39,7 @@ public interface UserAccountService {
      *            the user id
      * @return the profile information
      */
-    CustomerDetails getProfileInformation(String userId);
+    User getProfileInformation(String userId);
 
     /**
      * Gets the user address.
