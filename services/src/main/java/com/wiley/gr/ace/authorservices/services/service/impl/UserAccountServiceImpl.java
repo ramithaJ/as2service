@@ -11,6 +11,7 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -94,7 +95,7 @@ public class UserAccountServiceImpl implements UserAccountService {
      * @return the user address
      */
     @Override
-    public final Addresses getUserAddress(final String userId) {
+    public final List<Addresses> getUserAddress(final String userId) {
 
         UserAccountServiceImpl.LOGGER.info("inside getUserAddress Method");
         final LookupCustomerProfile lookupProfile = userProfile
@@ -102,6 +103,7 @@ public class UserAccountServiceImpl implements UserAccountService {
         List<AddressElement> addressElementsList = lookupProfile
                 .getLookupCustomerProfileResponse().getCustomerProfile()
                 .getAddressDetails().getAddress();
+        List<Addresses> addressesList = new ArrayList<Addresses>();
         Addresses addresses = new Addresses();
         for (AddressElement addressElement : addressElementsList) {
 
@@ -120,7 +122,8 @@ public class UserAccountServiceImpl implements UserAccountService {
             }
 
         }
-        return addresses;
+        addressesList.add(addresses);
+        return addressesList;
     }
 
     private Address setAddressValues(final AddressElement addressElement) {
