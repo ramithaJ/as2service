@@ -30,7 +30,7 @@ public interface UserAccountService {
      *            the user id
      * @return the email details
      */
-    User getEmailDetails(int userId);
+    User getEmailDetails(String userId);
 
     /**
      * Gets the profile information.

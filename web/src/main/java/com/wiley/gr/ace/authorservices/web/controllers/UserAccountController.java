@@ -102,7 +102,7 @@ public class UserAccountController {
      */
     @RequestMapping(value = "/emailDetails/{userId}", method = RequestMethod.GET)
     public final Service getEmailDetails(
-            @PathVariable("userId") final int userId) {
+            @PathVariable("userId") final String userId) {
         UserAccountController.LOGGER.info("inside getEmailDetails method");
         Service service = new Service();
         service.setPayload(userAccountService.getEmailDetails(userId));

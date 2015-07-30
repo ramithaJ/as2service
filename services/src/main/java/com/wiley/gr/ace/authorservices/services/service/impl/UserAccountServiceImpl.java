@@ -26,7 +26,6 @@ import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.AddressElement;
 import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
-import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
 
 /**
@@ -52,18 +51,17 @@ public class UserAccountServiceImpl implements UserAccountService {
      * @return the email details
      */
     @Override
-    public final User getEmailDetails(final int userId) {
+    public final User getEmailDetails(final String userId) {
 
         UserAccountServiceImpl.LOGGER.info("inside getEmailDetails Method");
 
-        final UserProfileResponse lookupProfile = userProfile
-                .getUserProfileResponse(userId);
-        User user = new User();
-
-        final User customerDetails = lookupProfile.getCustomerProfile()
+        CustomerDetails customerDetails = userProfile
+                .getLookupCustomerProfile(userId)
+                .getLookupCustomerProfileResponse().getCustomerProfile()
                 .getCustomerDetails();
-        user.setPrimaryEmailAddr(customerDetails.getPrimaryEmailAddr());
-        user.setRecoveryEmailAddress(customerDetails.getRecoveryEmailAddress());
+        User user = new User();
+        user.setPrimaryEmailAddr(customerDetails.getPrimaryEmail());
+        user.setRecoveryEmailAddress(customerDetails.getSecondaryEmail());
         return user;
 
     }
