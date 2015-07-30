@@ -12,6 +12,7 @@
 package com.wiley.gr.ace.authorservices.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -65,7 +66,7 @@ public class User implements Serializable {
     private String orcidId;
 
     /** The visible attributes. */
-    private String[] visibleAttributes;
+    private List<String> visibleAttributes;
 
     /** The contact id. */
     private String contactId;
@@ -86,7 +87,7 @@ public class User implements Serializable {
     private String countryNameNE;
 
     /** The terms of use flg. */
-    private Character termsOfUseFlg;
+    private String termsOfUseFlg;
 
     /** The user reference data. */
     private UserReferenceData userReferenceData;
@@ -348,21 +349,17 @@ public class User implements Serializable {
     }
 
     /**
-     * Gets the visible attributes.
-     *
      * @return the visibleAttributes
      */
-    public final String[] getVisibleAttributes() {
+    public final List<String> getVisibleAttributes() {
         return visibleAttributes;
     }
 
     /**
-     * Sets the visible attributes.
-     *
      * @param visibleAttributes
      *            the visibleAttributes to set
      */
-    public final void setVisibleAttributes(final String[] visibleAttributes) {
+    public final void setVisibleAttributes(final List<String> visibleAttributes) {
         this.visibleAttributes = visibleAttributes;
     }
 
@@ -481,21 +478,17 @@ public class User implements Serializable {
     }
 
     /**
-     * Gets the terms of use flg.
-     *
      * @return the termsOfUseFlg
      */
-    public final Character getTermsOfUseFlg() {
+    public final String getTermsOfUseFlg() {
         return termsOfUseFlg;
     }
 
     /**
-     * Sets the terms of use flg.
-     *
      * @param termsOfUseFlg
      *            the termsOfUseFlg to set
      */
-    public final void setTermsOfUseFlg(final Character termsOfUseFlg) {
+    public final void setTermsOfUseFlg(final String termsOfUseFlg) {
         this.termsOfUseFlg = termsOfUseFlg;
     }
 
@@ -561,7 +554,7 @@ public class User implements Serializable {
         return foundIn;
     }
 
-    public final void setFoundIn(String foundIn) {
+    public final void setFoundIn(final String foundIn) {
         this.foundIn = foundIn;
     }
 

@@ -76,7 +76,7 @@ public class UserAccountServiceImpl implements UserAccountService {
      * @return the profile information
      */
     @Override
-    public final CustomerDetails getProfileInformation(final String userId) {
+    public final User getProfileInformation(final String userId) {
 
         UserAccountServiceImpl.LOGGER
                 .info("inside getProfileInformation Method");
@@ -84,7 +84,21 @@ public class UserAccountServiceImpl implements UserAccountService {
                 .getLookupCustomerProfile(userId)
                 .getLookupCustomerProfileResponse().getCustomerProfile()
                 .getCustomerDetails();
-        return customerDetails;
+        User user = new User();
+        user.setTitle(customerDetails.getTitle());
+        user.setFirstName(customerDetails.getfName());
+        user.setLastName(customerDetails.getlName());
+        user.setMiddleName(customerDetails.getmName());
+        user.setSuffix(customerDetails.getUserSuffix());
+        user.setAlternateName(customerDetails.getAlternativeName());
+        user.setPrimaryEmailAddr(customerDetails.getPrimaryEmail());
+        user.setRecoveryEmailAddress(customerDetails.getSecondaryEmail());
+        user.setIndustry(customerDetails.getIndustryCode());
+        user.setJobCategory(customerDetails.getJobCategoryCode());
+        user.setOrcidId(customerDetails.getOrcId());
+        user.setTermsOfUseFlg(customerDetails.getOptInFlag());
+
+        return user;
     }
 
     /**
