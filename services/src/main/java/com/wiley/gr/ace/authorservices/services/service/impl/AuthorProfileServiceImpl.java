@@ -444,6 +444,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             affiliation.setDepartmentName(affiliationData.getDepartmentName());
             affiliation.setStartDate(affiliationData.getStartDate());
             affiliation.setEndDate(affiliationData.getEndDate());
+            affiliation.setStateCode(affiliationData.getState());
             listAffiliations.add(affiliation);
         }
         return listAffiliations;
