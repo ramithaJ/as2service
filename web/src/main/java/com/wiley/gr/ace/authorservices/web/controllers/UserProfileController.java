@@ -112,6 +112,22 @@ public class UserProfileController {
     }
 
     /**
+     * Delete affiliation.
+     *
+     * @param userId
+     *            - The request value
+     * @param affiliation
+     *            - The request value
+     * @return service
+     */
+    @RequestMapping(value = "/affiliations/{userId}/{affiliationId}/", method = RequestMethod.DELETE)
+    public final Service deleteAffiliation(
+            @PathVariable("userId") final int userId) {
+        UserProfileController.LOGGER.info("inside deleteaffiliation method ");
+        return new Service();
+    }
+
+    /**
      * Gets the research funders list.
      *
      * @param userId
@@ -190,6 +206,25 @@ public class UserProfileController {
     }
 
     /**
+     * delete society details.
+     *
+     * @param userId
+     *            - The request value
+     * @param society
+     *            - The request value
+     * @return service
+     */
+    @RequestMapping(value = "/societies/{userId}/{societyId}/", method = RequestMethod.DELETE)
+    public final Service deleteSocietyDetails(
+            @PathVariable("userId") final int userId,
+            @PathVariable("societyId") final int societyId) {
+
+        UserProfileController.LOGGER
+                .info("inside deleteSocietyDetails method ");
+        return new Service();
+    }
+
+    /**
      * Gets the my interests.
      *
      * @param userId
@@ -220,6 +255,23 @@ public class UserProfileController {
     public final Service searchInterests(
             @PathVariable("userId") final String userId,
             @RequestParam(required = false, value = "searchStr") final String searchString) {
+        UserProfileController.LOGGER.info("inside searchInterests method ");
+
+        return new Service();
+    }
+
+    /**
+     * Delete interests.
+     *
+     * @param userId
+     *            - The request value
+     * @param searchString
+     *            - The request value
+     * @return service
+     */
+    @RequestMapping(value = "/interests/{userId}/{interestId}/", method = RequestMethod.DELETE)
+    public final Service deleteInterests(
+            @PathVariable("userId") final String userId,@PathVariable("interestId") final String interestId) {
         UserProfileController.LOGGER.info("inside searchInterests method ");
 
         return new Service();
@@ -294,6 +346,23 @@ public class UserProfileController {
     @RequestMapping(value = "/preferredJournals/search/{userId}", method = RequestMethod.POST)
     public final Service searchPreferredJournals(
             @PathVariable("userId") final String userId) {
+
+        UserProfileController.LOGGER
+                .info("inside searchPreferredJournals method ");
+        return new Service();
+    }
+
+    
+    /**
+     * delete preferred journals.
+     *
+     * @param userId
+     *            - The request value
+     * @return service
+     */
+    @RequestMapping(value = "/preferredJournals/{userId}/{journalId}/", method = RequestMethod.DELETE)
+    public final Service deletePreferredJournals(
+            @PathVariable("userId") final String userId,@PathVariable("journalId") final String journalId) {
 
         UserProfileController.LOGGER
                 .info("inside searchPreferredJournals method ");
