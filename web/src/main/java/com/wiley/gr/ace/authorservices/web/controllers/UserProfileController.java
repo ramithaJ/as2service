@@ -478,7 +478,7 @@ public class UserProfileController {
      * @throws IOException
      *             Signals that an I/O exception has occurred.
      */
-    @RequestMapping(value = "/uploadimage/", method = RequestMethod.GET)
+    @RequestMapping(value = "/uploadimage/", method = RequestMethod.POST)
     public Service profilePicture(
             @RequestBody final ProfilePicture profilePicture)
             throws IOException {
