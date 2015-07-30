@@ -59,8 +59,14 @@ public class User implements Serializable {
     /** The industry. */
     private String industry;
 
+    /** The industry. */
+    private String industryCode;
+
     /** The job category. */
     private String jobCategory;
+
+    /** The job category. */
+    private String jobCategoryCode;
 
     /** The orcid id. */
     private String orcidId;
@@ -99,6 +105,36 @@ public class User implements Serializable {
     private Affiliation affiliation;
 
     private String foundIn;
+
+    /**
+     * @return the industryCode
+     */
+    public final String getIndustryCode() {
+        return industryCode;
+    }
+
+    /**
+     * @param industryCode
+     *            the industryCode to set
+     */
+    public final void setIndustryCode(final String industryCode) {
+        this.industryCode = industryCode;
+    }
+
+    /**
+     * @return the jobCategoryCode
+     */
+    public final String getJobCategoryCode() {
+        return jobCategoryCode;
+    }
+
+    /**
+     * @param jobCategoryCode
+     *            the jobCategoryCode to set
+     */
+    public final void setJobCategoryCode(final String jobCategoryCode) {
+        this.jobCategoryCode = jobCategoryCode;
+    }
 
     /**
      * Gets the user id.

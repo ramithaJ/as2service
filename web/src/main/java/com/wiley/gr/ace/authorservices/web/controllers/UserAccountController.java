@@ -82,7 +82,7 @@ public class UserAccountController {
      */
     @RequestMapping(value = "/profileInfo/{userId}", method = RequestMethod.POST)
     public final Service updateProfileInformation(
-            @PathVariable("userId") final int userId,
+            @PathVariable("userId") final String userId,
             @RequestBody final User user) {
         UserAccountController.LOGGER
                 .info("inside updateProfileInformation method");

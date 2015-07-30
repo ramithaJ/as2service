@@ -136,20 +136,21 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         societyData.setPromoCode(society.getPromoCode());
         societyData.setMembershipNo(society.getMembershipNumber());
         societyData.setSocietyId(society.getSocietyId());
-        if(society.getId().equals("0")) {
+        if (society.getId().equals("0")) {
             societyData.setStatus("add");
         } else {
             societyData.setStatus("edit");
         }
-//        List<SocietyData> societyDatas = new ArrayList<SocietyData>();
-//        societyDatas.add(societyData);
-//        societyList.setSociety(societyDatas);
+        // List<SocietyData> societyDatas = new ArrayList<SocietyData>();
+        // societyDatas.add(societyData);
+        // societyList.setSociety(societyDatas);
         societyList.setSociety(new ArrayList<SocietyData>());
         societyList.getSociety().add(societyData);
         customerProfile.setCustomerDetails(customerDetails);
         customerProfile.setSocietyList(societyList);
         lookupCustomerProfileResponse.setCustomerProfile(customerProfile);
-        return userProfiles.customerProfileUpdate(lookupCustomerProfileResponse);
+        return userProfiles
+                .customerProfileUpdate(lookupCustomerProfileResponse);
 
     }
 
@@ -172,9 +173,9 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
         CustomerProfile customerProfile = new CustomerProfile();
         customerProfile.setCustomerDetails(customerDetails);
-        AffiliationsData affsData=new AffiliationsData();
-        List<AffiliationData> affDataList=new ArrayList<AffiliationData>();
-        AffiliationData affData=new AffiliationData();
+        AffiliationsData affsData = new AffiliationsData();
+        List<AffiliationData> affDataList = new ArrayList<AffiliationData>();
+        AffiliationData affData = new AffiliationData();
         affData.setId(affiliation.getId());
         affData.setStartDate(affiliation.getStartDate());
         affData.setEndDate(affiliation.getEndDate());
@@ -189,15 +190,14 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         affsData.setAffiliation(affDataList);
         customerProfile.setAffiliations(affsData);
         lookupCustomerProfileResponse.setCustomerProfile(customerProfile);
-        if(affiliation.getId().equals("0")) {
+        if (affiliation.getId().equals("0")) {
             affData.setStatus("add");
         } else {
             affData.setStatus("edit");
         }
-        return userProfiles.customerProfileUpdate(lookupCustomerProfileResponse);
-        
-        
-       
+        return userProfiles
+                .customerProfileUpdate(lookupCustomerProfileResponse);
+
     }
 
     /**
@@ -316,13 +316,48 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @return true, if successful
      */
     @Override
-    public final boolean updateUserProfileInfo(final int userId, final User user) {
+    public final boolean updateUserProfileInfo(final String userId,
+            final User user) {
 
         AuthorProfileServiceImpl.LOGGER
                 .info("inside updateUserProfileInfo Method ");
-        userProfile.setCustomerDetails(user);
-        lookUpProfile.setCustomerProfile(userProfile);
-        return null != userProfiles.updateProfile(userId, lookUpProfile);
+        LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
+        CustomerProfile customerProfile = new CustomerProfile();
+
+        CustomerDetails externalcall = userProfiles
+                .getLookupCustomerProfile(userId)
+                .getLookupCustomerProfileResponse().getCustomerProfile()
+                .getCustomerDetails();
+
+        CustomerDetails customerDetails = new CustomerDetails();
+
+        customerDetails.setPswd("");
+        customerDetails.setAsid(userId);
+        customerDetails.setUserRole("");
+        customerDetails.setNickName(externalcall.getAlternativeName());
+        customerDetails.setCustomerType("User");
+        customerDetails.setUserStatus("Active");
+        customerDetails.setTcFlag("Y");
+        customerDetails.setSendEmail("Yes");
+        customerDetails.setEcId(externalcall.getEcId());
+        customerDetails.setTitle(user.getTitle());
+        customerDetails.setfName(user.getFirstName());
+        customerDetails.setlName(user.getLastName());
+        customerDetails.setmName(user.getMiddleName());
+        customerDetails.setUserSuffix(user.getSuffix());
+        customerDetails.setAlternativeName(user.getAlternateName());
+        customerDetails.setIndustryCode(user.getIndustryCode());
+        customerDetails.setJobCategoryCode(user.getJobCategoryCode());
+        customerDetails.setOrcId(externalcall.getOrcId());
+        customerDetails.setProfileVisibility(externalcall
+                .getProfileVisibility());
+        customerDetails.setOptInFlag(user.getTermsOfUseFlg());
+        customerDetails.setPrimaryEmail(user.getPrimaryEmailAddr());
+        customerDetails.setSecondaryEmail(user.getRecoveryEmailAddress());
+        customerProfile.setCustomerDetails(customerDetails);
+        lookupCustomerProfileResponse.setCustomerProfile(customerProfile);
+        return userProfiles
+                .customerProfileUpdate(lookupCustomerProfileResponse);
     }
 
     /**
@@ -680,7 +715,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         customerDetails.setUserStatus("Active");
         customerDetails.setTcFlag("Y");
         customerDetails.setSendEmail("Yes");
-        
+
         return customerDetails;
     }
 }

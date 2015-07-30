@@ -123,7 +123,7 @@ public interface AuthorProfileService {
      *            the user
      * @return true, if successful
      */
-    boolean updateUserProfileInfo(int userId, User user);
+    boolean updateUserProfileInfo(String userId, User user);
 
     /**
      * Update user id.
@@ -198,7 +198,8 @@ public interface AuthorProfileService {
      */
     List<ResearchFunder> getResearchFundersList(String userId);
 
-   /** Gets the societylist.
+    /**
+     * Gets the societylist.
      *
      * @param userId
      *            the user id
@@ -206,7 +207,8 @@ public interface AuthorProfileService {
      */
     List<Society> getSocietylist(String userId);
 
-     /** Gets the s co authors list.
+    /**
+     * Gets the s co authors list.
      *
      * @param userId
      *            the user id
@@ -214,7 +216,8 @@ public interface AuthorProfileService {
      */
     List<CoAuthor> getsCoAuthorsList(String userId);
 
-     /** Gets the area of interests.
+    /**
+     * Gets the area of interests.
      *
      * @param userId
      *            the user id
@@ -222,7 +225,8 @@ public interface AuthorProfileService {
      */
     List<Interests> getAreaOfInterests(String userId);
 
-     /** Gets the list of alerts.
+    /**
+     * Gets the list of alerts.
      *
      * @param userId
      *            the user id
@@ -230,13 +234,14 @@ public interface AuthorProfileService {
      */
     List<Alert> getListOfAlerts(String userId);
 
-     /** Gets the preffered journals.
+    /**
+     * Gets the preffered journals.
      *
      * @param userId
      *            the user id
      * @return the preffered journals
      */
     List<PreferredJournals> getPrefferedJournals(String userId);
-    
+
     CustomerDetails getCustomeProfile(String userId);
 }
