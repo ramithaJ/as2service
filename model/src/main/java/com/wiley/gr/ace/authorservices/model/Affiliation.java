@@ -15,6 +15,7 @@ import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * The Class Affiliation.
@@ -28,18 +29,36 @@ public class Affiliation implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /** The user Id . */
+  
     private String affiliationId;
 
     /** The user id. */
     private String userId;
 
     /** The institution id. */
+    @JsonProperty("InstitutionCd")
     private String institutionId;
     
     /** The institution name. */
     private String institutionName;
+    @JsonProperty("Id")
+    private String id;
 
-     /** Gets the institution name.
+     /**
+     * @return the id
+     */
+    public final String getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public final void setId(final String id) {
+        this.id = id;
+    }
+
+    /** Gets the institution name.
      *
      * @return the institutionName
      */
@@ -91,18 +110,45 @@ public class Affiliation implements Serializable {
     private String roleTitle;
 
     /** The city. */
+    @JsonProperty("City")
     private String city;
 
     /** The state code. */
     private String stateCode;
 
     /** The country code. */
+    @JsonProperty("countryCd")
     private String countryCode;
+    @JsonProperty("State")
+    private String state;
+
+    /**
+     * @return the state
+     */
+    public final String getState() {
+        return state;
+    }
+
+    /**
+     * @param state the state to set
+     */
+    public final void setState(final String state) {
+        this.state = state;
+    }
+
+    /**
+     * @return the serialversionuid
+     */
+    public static final long getSerialversionuid() {
+        return serialVersionUID;
+    }
 
     /** The start date. */
+    @JsonProperty("StartDate")
     private String startDate;
 
     /** The end date. */
+    @JsonProperty("EndDate")
     private String endDate;
 
     /** The organization. */

@@ -107,7 +107,9 @@ public class UserProfileController {
             @RequestBody final Affiliation affiliation) {
         UserProfileController.LOGGER.info("inside updateAffiliation method ");
         Service service = new Service();
+        System.err.println(affiliation.getId());
         authorProfileService.updateAffiliation(userId, affiliation);
+        
         return service;
     }
 

@@ -40,6 +40,7 @@ import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserProfile;
 import com.wiley.gr.ace.authorservices.model.UserProfileAlerts;
 import com.wiley.gr.ace.authorservices.model.external.AffiliationData;
+import com.wiley.gr.ace.authorservices.model.external.AffiliationsData;
 import com.wiley.gr.ace.authorservices.model.external.AlertData;
 import com.wiley.gr.ace.authorservices.model.external.CoAuthorData;
 import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
@@ -135,7 +136,11 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         societyData.setPromoCode(society.getPromoCode());
         societyData.setMembershipNo(society.getMembershipNumber());
         societyData.setSocietyId(society.getSocietyId());
-        societyData.setStatus("edit");
+        if(society.getId().equals("0")) {
+            societyData.setStatus("add");
+        } else {
+            societyData.setStatus("edit");
+        }
 //        List<SocietyData> societyDatas = new ArrayList<SocietyData>();
 //        societyDatas.add(societyData);
 //        societyList.setSociety(societyDatas);
@@ -162,13 +167,37 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             final Affiliation affiliation) {
         AuthorProfileServiceImpl.LOGGER
                 .info("inside updateAffiliation Method ");
-
-        final List<Affiliation> list = new ArrayList<Affiliation>();
-        list.add(affiliation);
-
-        userProfile.setAffiliations(list);
-        lookUpProfile.setCustomerProfile(userProfile);
-        return null != userProfiles.updateProfile(userId, lookUpProfile);
+        CustomerDetails customerDetails = getCustomeProfile(String
+                .valueOf(userId));
+        LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
+        CustomerProfile customerProfile = new CustomerProfile();
+        customerProfile.setCustomerDetails(customerDetails);
+        AffiliationsData affsData=new AffiliationsData();
+        List<AffiliationData> affDataList=new ArrayList<AffiliationData>();
+        AffiliationData affData=new AffiliationData();
+        affData.setId(affiliation.getId());
+        affData.setStartDate(affiliation.getStartDate());
+        affData.setEndDate(affiliation.getEndDate());
+        affData.setCity(affiliation.getCity());
+        affData.setState(affiliation.getState());
+        affData.setCountryCd(affiliation.getCountryCode());
+        affData.setInstitutionCd(affiliation.getInstitutionId());
+        affData.setInstitutionName(affiliation.getInstitutionName());
+        affData.setDepartmentCd(affiliation.getDepartmentId());
+        affData.setDepartmentName(affiliation.getDepartmentName());
+        affDataList.add(affData);
+        affsData.setAffiliation(affDataList);
+        customerProfile.setAffiliations(affsData);
+        lookupCustomerProfileResponse.setCustomerProfile(customerProfile);
+        if(affiliation.getId().equals("0")) {
+            affData.setStatus("add");
+        } else {
+            affData.setStatus("edit");
+        }
+        return userProfiles.customerProfileUpdate(lookupCustomerProfileResponse);
+        
+        
+       
     }
 
     /**

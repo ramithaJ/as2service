@@ -37,7 +37,7 @@ public class AffiliationData {
 
     /** The City. */
     @JsonProperty("City")
-    private String City;
+    private String city;
 
     /** The state. */
     @JsonProperty("State")
@@ -121,22 +121,20 @@ public class AffiliationData {
         this.endDate = endDate;
     }
 
+ 
+
     /**
-     * Gets the city.
-     *
      * @return the city
      */
     public final String getCity() {
-        return City;
+        return city;
     }
 
     /**
-     * Sets the city.
-     *
-     * @param city the new city
+     * @param city the city to set
      */
     public final void setCity(final String city) {
-        City = city;
+        this.city = city;
     }
 
     /**
