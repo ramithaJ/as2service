@@ -14,20 +14,27 @@
 
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpMethod;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.DropDown;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
+import com.wiley.gr.ace.authorservices.model.external.ErrorPayLoad;
 import com.wiley.gr.ace.authorservices.model.external.Industries;
 import com.wiley.gr.ace.authorservices.model.external.JobCategories;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfileResponse;
+import com.wiley.gr.ace.authorservices.model.external.ResponseStatus;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 
 /**
@@ -95,8 +102,8 @@ public class UserProfilesImpl implements UserProfiles {
     @Override
     public final ESBResponse getAreaOfInterests() {
 
-        return (ESBResponse) RestServiceInvokerUtil.invokeStub(areaofInterestsurl,
-                HttpMethod.GET, ESBResponse.class);
+        return (ESBResponse) RestServiceInvokerUtil.invokeStub(
+                areaofInterestsurl, HttpMethod.GET, ESBResponse.class);
     }
 
     /**
@@ -160,8 +167,8 @@ public class UserProfilesImpl implements UserProfiles {
     @Override
     public final JobCategories getJobCategories() {
 
-        return (JobCategories) RestServiceInvokerUtil.invokeStub(jobCategoriesurl,
-                HttpMethod.GET, JobCategories.class);
+        return (JobCategories) RestServiceInvokerUtil.invokeStub(
+                jobCategoriesurl, HttpMethod.GET, JobCategories.class);
     }
 
     /**
@@ -201,8 +208,8 @@ public class UserProfilesImpl implements UserProfiles {
     @Cacheable(value = "userProfile", key = "#userId")
     public final UserProfileResponse getUserProfileResponse(final int userId) {
 
-        return (UserProfileResponse) RestServiceInvokerUtil.invokeStub(userProfileurl,
-                HttpMethod.GET, UserProfileResponse.class);
+        return (UserProfileResponse) RestServiceInvokerUtil.invokeStub(
+                userProfileurl, HttpMethod.GET, UserProfileResponse.class);
     }
 
     /**
@@ -235,8 +242,8 @@ public class UserProfilesImpl implements UserProfiles {
      * @return UserProfileResponse
      */
     private UserProfileResponse getUserProfile() {
-        return (UserProfileResponse) RestServiceInvokerUtil.invokeStub(userProfileurl,
-                HttpMethod.GET, UserProfileResponse.class);
+        return (UserProfileResponse) RestServiceInvokerUtil.invokeStub(
+                userProfileurl, HttpMethod.GET, UserProfileResponse.class);
     }
 
     /**
@@ -274,6 +281,39 @@ public class UserProfilesImpl implements UserProfiles {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public boolean customerProfileUpdate(
+            final LookupCustomerProfileResponse lookupCustomerProfileResponse) {
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            mapper.writeValue(new File("c:\\Shiva\\user.json"),
+                    lookupCustomerProfileResponse);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        final ResponseStatus responseStatus = (ResponseStatus) RestServiceInvokerUtil
+                .restServiceInvoker(updateLookupCustomerProfile, lookupCustomerProfileResponse,
+                        ResponseStatus.class);
+        boolean status = false;
+        if ("success".equalsIgnoreCase(responseStatus.getStatus())) {
+            status = true;
+        }
+        if ("failure".equalsIgnoreCase(responseStatus.getStatus())) {
+            final ErrorPayLoad errorPayLoad = responseStatus.getError();
+            throw new UserException(errorPayLoad.getErrorCode(),
+                    errorPayLoad.getErrorMessage());
+        }
+        return status;
+        
+        /*return (ResponseStatus) RestServiceInvokerUtil.restServiceInvoker(
+                updateLookupCustomerProfile, lookupCustomerProfileResponse,
+                ResponseStatus.class);*/
+
     }
 
 }

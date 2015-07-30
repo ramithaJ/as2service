@@ -63,6 +63,22 @@ public class Society implements Serializable {
     @NotNull
     private String endDate;
 
+    
+    private String id;
+    /**
+     * @return the id
+     */
+    public final String getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public final void setId(final String id) {
+        this.id = id;
+    }
+
     /**
      * Gets the user id.
      *

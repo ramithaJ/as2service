@@ -123,4 +123,7 @@ public interface UserProfiles {
     LookupCustomerProfileResponse updateLookupCustomerProfile(
             LookupCustomerProfileResponse lookupCustomerProfileResponse)
             throws Exception;
+
+    boolean customerProfileUpdate(
+            LookupCustomerProfileResponse lookupCustomerProfileResponse);
 }

@@ -14,6 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -21,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  * @author yugandhark
  */
+@JsonInclude(Include.NON_NULL)
 public class CustomerDetails {
 
     /** The alternative name. */
@@ -39,13 +42,13 @@ public class CustomerDetails {
     @JsonProperty("FirstName")
     private String fName;
 
-    /** The m name. */
-    @JsonProperty("MiddleName")
-    private String mName;
-
     /** The l name. */
     @JsonProperty("LastName")
     private String lName;
+    
+    /** The m name. */
+    @JsonProperty("MiddleName")
+    private String mName;
 
     /** The user suffix. */
     @JsonProperty("Suffix")
@@ -55,6 +58,22 @@ public class CustomerDetails {
     @JsonProperty("ECID")
     private String ecId;
 
+    /** The ec id. */
+    @JsonProperty("Password")
+    private String pswd;
+    
+    /** The ec id. */
+    @JsonProperty("ASID")
+    private String asid;
+    
+    /** The ec id. */
+    @JsonProperty("UserRole")
+    private String userRole;
+    
+    /** The ec id. */
+    @JsonProperty("NickName")
+    private String nickName;
+    
     /** The orc id. */
     @JsonProperty("ORCID")
     private String orcId;
@@ -63,6 +82,22 @@ public class CustomerDetails {
     @JsonProperty("OptInFlag")
     private String optInFlag;
 
+    /** The opt in flag. */
+    @JsonProperty("CustomerType")
+    private String customerType;
+    
+    /** The opt in flag. */
+    @JsonProperty("UserStatus")
+    private String userStatus;
+    
+    /** The opt in flag. */
+    @JsonProperty("TCFlag")
+    private String tcFlag;
+    
+    /** The opt in flag. */
+    @JsonProperty("SendEmail")
+    private String sendEmail;
+    
     /** The job category code. */
     @JsonProperty("JobCategoryCode")
     private String jobCategoryCode;
@@ -71,24 +106,18 @@ public class CustomerDetails {
     @JsonProperty("IndustryCode")
     private String industryCode;
 
-    /** The title. */
-    @JsonProperty("Title")
-    private String title;
-
     /** The profile visibility. */
     @JsonProperty("ProfileVisibility")
     private String profileVisibility;
-
-    /** The password. */
-    @JsonProperty("Password")
-    private String password;
+    
+    /** The title. */
+    @JsonProperty("Title")
+    private String title;
 
     @JsonProperty("SkipTargetSystem")
     private String skipTargetSystem;
 
     /**
-     * Gets the alternative name.
-     *
      * @return the alternativeName
      */
     public final String getAlternativeName() {
@@ -96,18 +125,13 @@ public class CustomerDetails {
     }
 
     /**
-     * Sets the alternative name.
-     *
-     * @param alternativeName
-     *            the alternativeName to set
+     * @param alternativeName the alternativeName to set
      */
     public final void setAlternativeName(final String alternativeName) {
         this.alternativeName = alternativeName;
     }
 
     /**
-     * Gets the primary email.
-     *
      * @return the primaryEmail
      */
     public final String getPrimaryEmail() {
@@ -115,18 +139,13 @@ public class CustomerDetails {
     }
 
     /**
-     * Sets the primary email.
-     *
-     * @param primaryEmail
-     *            the primaryEmail to set
+     * @param primaryEmail the primaryEmail to set
      */
     public final void setPrimaryEmail(final String primaryEmail) {
         this.primaryEmail = primaryEmail;
     }
 
     /**
-     * Gets the secondary email.
-     *
      * @return the secondaryEmail
      */
     public final String getSecondaryEmail() {
@@ -134,18 +153,13 @@ public class CustomerDetails {
     }
 
     /**
-     * Sets the secondary email.
-     *
-     * @param secondaryEmail
-     *            the secondaryEmail to set
+     * @param secondaryEmail the secondaryEmail to set
      */
     public final void setSecondaryEmail(final String secondaryEmail) {
         this.secondaryEmail = secondaryEmail;
     }
 
     /**
-     * Gets the f name.
-     *
      * @return the fName
      */
     public final String getfName() {
@@ -153,37 +167,13 @@ public class CustomerDetails {
     }
 
     /**
-     * Sets the f name.
-     *
-     * @param fName
-     *            the fName to set
+     * @param fName the fName to set
      */
     public final void setfName(final String fName) {
         this.fName = fName;
     }
 
     /**
-     * Gets the m name.
-     *
-     * @return the mName
-     */
-    public final String getmName() {
-        return mName;
-    }
-
-    /**
-     * Sets the m name.
-     *
-     * @param mName
-     *            the mName to set
-     */
-    public final void setmName(final String mName) {
-        this.mName = mName;
-    }
-
-    /**
-     * Gets the l name.
-     *
      * @return the lName
      */
     public final String getlName() {
@@ -191,18 +181,27 @@ public class CustomerDetails {
     }
 
     /**
-     * Sets the l name.
-     *
-     * @param lName
-     *            the lName to set
+     * @param lName the lName to set
      */
     public final void setlName(final String lName) {
         this.lName = lName;
     }
 
     /**
-     * Gets the user suffix.
-     *
+     * @return the mName
+     */
+    public final String getmName() {
+        return mName;
+    }
+
+    /**
+     * @param mName the mName to set
+     */
+    public final void setmName(final String mName) {
+        this.mName = mName;
+    }
+
+    /**
      * @return the userSuffix
      */
     public final String getUserSuffix() {
@@ -210,18 +209,13 @@ public class CustomerDetails {
     }
 
     /**
-     * Sets the user suffix.
-     *
-     * @param userSuffix
-     *            the userSuffix to set
+     * @param userSuffix the userSuffix to set
      */
     public final void setUserSuffix(final String userSuffix) {
         this.userSuffix = userSuffix;
     }
 
     /**
-     * Gets the ec id.
-     *
      * @return the ecId
      */
     public final String getEcId() {
@@ -229,18 +223,69 @@ public class CustomerDetails {
     }
 
     /**
-     * Sets the ec id.
-     *
-     * @param ecId
-     *            the ecId to set
+     * @param ecId the ecId to set
      */
     public final void setEcId(final String ecId) {
         this.ecId = ecId;
     }
 
     /**
-     * Gets the orc id.
-     *
+     * @return the pswd
+     */
+    public final String getPswd() {
+        return pswd;
+    }
+
+    /**
+     * @param pswd the pswd to set
+     */
+    public final void setPswd(final String pswd) {
+        this.pswd = pswd;
+    }
+
+    /**
+     * @return the asid
+     */
+    public final String getAsid() {
+        return asid;
+    }
+
+    /**
+     * @param asid the asid to set
+     */
+    public final void setAsid(final String asid) {
+        this.asid = asid;
+    }
+
+    /**
+     * @return the userRole
+     */
+    public final String getUserRole() {
+        return userRole;
+    }
+
+    /**
+     * @param userRole the userRole to set
+     */
+    public final void setUserRole(final String userRole) {
+        this.userRole = userRole;
+    }
+
+    /**
+     * @return the nickName
+     */
+    public final String getNickName() {
+        return nickName;
+    }
+
+    /**
+     * @param nickName the nickName to set
+     */
+    public final void setNickName(final String nickName) {
+        this.nickName = nickName;
+    }
+
+    /**
      * @return the orcId
      */
     public final String getOrcId() {
@@ -248,18 +293,13 @@ public class CustomerDetails {
     }
 
     /**
-     * Sets the orc id.
-     *
-     * @param orcId
-     *            the orcId to set
+     * @param orcId the orcId to set
      */
     public final void setOrcId(final String orcId) {
         this.orcId = orcId;
     }
 
     /**
-     * Gets the opt in flag.
-     *
      * @return the optInFlag
      */
     public final String getOptInFlag() {
@@ -267,18 +307,69 @@ public class CustomerDetails {
     }
 
     /**
-     * Sets the opt in flag.
-     *
-     * @param optInFlag
-     *            the optInFlag to set
+     * @param optInFlag the optInFlag to set
      */
     public final void setOptInFlag(final String optInFlag) {
         this.optInFlag = optInFlag;
     }
 
     /**
-     * Gets the job category code.
-     *
+     * @return the customerType
+     */
+    public final String getCustomerType() {
+        return customerType;
+    }
+
+    /**
+     * @param customerType the customerType to set
+     */
+    public final void setCustomerType(final String customerType) {
+        this.customerType = customerType;
+    }
+
+    /**
+     * @return the userStatus
+     */
+    public final String getUserStatus() {
+        return userStatus;
+    }
+
+    /**
+     * @param userStatus the userStatus to set
+     */
+    public final void setUserStatus(final String userStatus) {
+        this.userStatus = userStatus;
+    }
+
+    /**
+     * @return the tcFlag
+     */
+    public final String getTcFlag() {
+        return tcFlag;
+    }
+
+    /**
+     * @param tcFlag the tcFlag to set
+     */
+    public final void setTcFlag(final String tcFlag) {
+        this.tcFlag = tcFlag;
+    }
+
+    /**
+     * @return the sendEmail
+     */
+    public final String getSendEmail() {
+        return sendEmail;
+    }
+
+    /**
+     * @param sendEmail the sendEmail to set
+     */
+    public final void setSendEmail(final String sendEmail) {
+        this.sendEmail = sendEmail;
+    }
+
+    /**
      * @return the jobCategoryCode
      */
     public final String getJobCategoryCode() {
@@ -286,18 +377,13 @@ public class CustomerDetails {
     }
 
     /**
-     * Sets the job category code.
-     *
-     * @param jobCategoryCode
-     *            the jobCategoryCode to set
+     * @param jobCategoryCode the jobCategoryCode to set
      */
     public final void setJobCategoryCode(final String jobCategoryCode) {
         this.jobCategoryCode = jobCategoryCode;
     }
 
     /**
-     * Gets the industry code.
-     *
      * @return the industryCode
      */
     public final String getIndustryCode() {
@@ -305,37 +391,13 @@ public class CustomerDetails {
     }
 
     /**
-     * Sets the industry code.
-     *
-     * @param industryCode
-     *            the industryCode to set
+     * @param industryCode the industryCode to set
      */
     public final void setIndustryCode(final String industryCode) {
         this.industryCode = industryCode;
     }
 
     /**
-     * Gets the title.
-     *
-     * @return the title
-     */
-    public final String getTitle() {
-        return title;
-    }
-
-    /**
-     * Sets the title.
-     *
-     * @param title
-     *            the title to set
-     */
-    public final void setTitle(final String title) {
-        this.title = title;
-    }
-
-    /**
-     * Gets the profile visibility.
-     *
      * @return the profileVisibility
      */
     public final String getProfileVisibility() {
@@ -343,40 +405,40 @@ public class CustomerDetails {
     }
 
     /**
-     * Sets the profile visibility.
-     *
-     * @param profileVisibility
-     *            the profileVisibility to set
+     * @param profileVisibility the profileVisibility to set
      */
     public final void setProfileVisibility(final String profileVisibility) {
         this.profileVisibility = profileVisibility;
     }
 
     /**
-     * Gets the password.
-     *
-     * @return the password
+     * @return the title
      */
-    public final String getPassword() {
-        return password;
+    public final String getTitle() {
+        return title;
     }
 
     /**
-     * Sets the password.
-     *
-     * @param password
-     *            the new password
+     * @param title the title to set
      */
-    public final void setPassword(final String password) {
-        this.password = password;
+    public final void setTitle(final String title) {
+        this.title = title;
     }
 
+    /**
+     * @return the skipTargetSystem
+     */
     public final String getSkipTargetSystem() {
         return skipTargetSystem;
     }
 
+    /**
+     * @param skipTargetSystem the skipTargetSystem to set
+     */
     public final void setSkipTargetSystem(final String skipTargetSystem) {
         this.skipTargetSystem = skipTargetSystem;
     }
+    
+    
 
 }

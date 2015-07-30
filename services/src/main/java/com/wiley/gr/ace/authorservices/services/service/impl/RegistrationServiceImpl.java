@@ -71,7 +71,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 
                 customerDetails.setfName(user.getFirstName());
                 customerDetails.setlName(user.getLastName());
-                customerDetails.setPassword(user.getPassword());
+                customerDetails.setPswd(user.getPassword());
                 customerDetails.setSkipTargetSystem(user.getFoundIn());
                 if (!StringUtils.isEmpty(user.getInvitationGuid())) {
                     final InviteResetpwdLog inviteResetpwdLog = registrationServiceDAO

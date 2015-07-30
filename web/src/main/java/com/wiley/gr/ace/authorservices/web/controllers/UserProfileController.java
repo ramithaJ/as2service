@@ -198,11 +198,14 @@ public class UserProfileController {
     public final Service updateSocietyDetails(
             @PathVariable("userId") final int userId,
             @Valid @RequestBody final Society society) {
+        
+        System.err.println(society.getPromoCode());
+        Service service=new Service();
 
         UserProfileController.LOGGER
                 .info("inside updateSocietyDetails method ");
-        authorProfileService.updateSocietyDetails(userId, society);
-        return new Service();
+        service.setPayload(authorProfileService.updateSocietyDetails(userId, society));
+        return service;
     }
 
     /**

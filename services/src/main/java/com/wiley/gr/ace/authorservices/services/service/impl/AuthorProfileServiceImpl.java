@@ -42,14 +42,18 @@ import com.wiley.gr.ace.authorservices.model.UserProfileAlerts;
 import com.wiley.gr.ace.authorservices.model.external.AffiliationData;
 import com.wiley.gr.ace.authorservices.model.external.AlertData;
 import com.wiley.gr.ace.authorservices.model.external.CoAuthorData;
+import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
+import com.wiley.gr.ace.authorservices.model.external.CustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.InterestData;
 import com.wiley.gr.ace.authorservices.model.external.Journal;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
+import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfileResponse;
 import com.wiley.gr.ace.authorservices.model.external.PasswordRequest;
 import com.wiley.gr.ace.authorservices.model.external.PasswordUpdate;
 import com.wiley.gr.ace.authorservices.model.external.ResearchFunderData;
 import com.wiley.gr.ace.authorservices.model.external.SecurityQuestionsUpdateRequest;
 import com.wiley.gr.ace.authorservices.model.external.SocietyData;
+import com.wiley.gr.ace.authorservices.model.external.SocietyList;
 import com.wiley.gr.ace.authorservices.model.external.UserEmailDetails;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityAttributes;
@@ -116,13 +120,32 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     public final boolean updateSocietyDetails(final int userId,
             final Society society) {
         AuthorProfileServiceImpl.LOGGER
-                .info("inside updateSocietyDetails Method ");
+                .info("ins ide updateSocietyDetails Method ");
+        CustomerDetails customerDetails = getCustomeProfile(String
+                .valueOf(userId));
+        LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
+        CustomerProfile customerProfile = new CustomerProfile();
+        customerProfile.setCustomerDetails(customerDetails);
+        SocietyList societyList = new SocietyList();
+        SocietyData societyData = new SocietyData();
+        societyData.setId(society.getId());
+        societyData.setSocietyName(society.getSocietyName());
+        societyData.setStartDate(society.getStartDate());
+        societyData.setEndDate(society.getEndDate());
+        societyData.setPromoCode(society.getPromoCode());
+        societyData.setMembershipNo(society.getMembershipNumber());
+        societyData.setSocietyId(society.getSocietyId());
+        societyData.setStatus("edit");
+//        List<SocietyData> societyDatas = new ArrayList<SocietyData>();
+//        societyDatas.add(societyData);
+//        societyList.setSociety(societyDatas);
+        societyList.setSociety(new ArrayList<SocietyData>());
+        societyList.getSociety().add(societyData);
+        customerProfile.setCustomerDetails(customerDetails);
+        customerProfile.setSocietyList(societyList);
+        lookupCustomerProfileResponse.setCustomerProfile(customerProfile);
+        return userProfiles.customerProfileUpdate(lookupCustomerProfileResponse);
 
-        final List<Society> list = new ArrayList<Society>();
-        list.add(society);
-        userProfile.setSocieties(list);
-        lookUpProfile.setCustomerProfile(userProfile);
-        return null != userProfiles.updateProfile(userId, lookUpProfile);
     }
 
     /**
@@ -611,5 +634,24 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
         }
         return prefferedList;
+    }
+
+    @Override
+    public CustomerDetails getCustomeProfile(final String userId) {
+
+        CustomerDetails customerDetails = userProfiles
+                .getLookupCustomerProfile(userId)
+                .getLookupCustomerProfileResponse().getCustomerProfile()
+                .getCustomerDetails();
+        customerDetails.setPswd("");
+        customerDetails.setAsid(userId);
+        customerDetails.setUserRole("");
+        customerDetails.setNickName(customerDetails.getAlternativeName());
+        customerDetails.setCustomerType("User");
+        customerDetails.setUserStatus("Active");
+        customerDetails.setTcFlag("Y");
+        customerDetails.setSendEmail("Yes");
+        
+        return customerDetails;
     }
 }

@@ -27,24 +27,22 @@ public class SocietyList {
 
     /** The Society. */
     @JsonProperty("Society")
-    private List<SocietyData> Society;
+    private List<SocietyData> society;
 
     /**
-     * Gets the society.
-     *
      * @return the society
      */
     public final List<SocietyData> getSociety() {
-        return Society;
+        return society;
     }
 
     /**
-     * Sets the society.
-     *
-     * @param society the new society
+     * @param society the society to set
      */
     public final void setSociety(final List<SocietyData> society) {
-        Society = society;
+        this.society = society;
     }
+
+    
 
 }
