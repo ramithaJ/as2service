@@ -197,21 +197,43 @@ public interface AuthorProfileService {
      */
     List<ResearchFunder> getResearchFundersList(String userId);
 
-    /**
+   /** Gets the societylist.
+     *
      * @param userId
-     * @return
+     *            the user id
+     * @return the societylist
      */
     List<Society> getSocietylist(String userId);
 
-    /**
+     /** Gets the s co authors list.
+     *
      * @param userId
-     * @return
+     *            the user id
+     * @return the s co authors list
      */
     List<CoAuthor> getsCoAuthorsList(String userId);
 
+     /** Gets the area of interests.
+     *
+     * @param userId
+     *            the user id
+     * @return the area of interests
+     */
     List<Interests> getAreaOfInterests(String userId);
 
+     /** Gets the list of alerts.
+     *
+     * @param userId
+     *            the user id
+     * @return the list of alerts
+     */
     List<Alert> getListOfAlerts(String userId);
 
+     /** Gets the preffered journals.
+     *
+     * @param userId
+     *            the user id
+     * @return the preffered journals
+     */
     List<PreferredJournals> getPrefferedJournals(String userId);
 }

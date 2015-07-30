@@ -439,7 +439,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             affiliation.setCountryCode(affiliationData.getCountryCd());
             affiliation.setInstitutionId(affiliationData.getInstitutionCd());
             affiliation.setDepartmentId(affiliationData.getDepartmentCd());
-            affiliation.setInstitutionName(affiliationData.getInstitutionName());
+            affiliation
+                    .setInstitutionName(affiliationData.getInstitutionName());
             affiliation.setDepartmentName(affiliationData.getDepartmentName());
             affiliation.setStartDate(affiliationData.getStartDate());
             affiliation.setEndDate(affiliationData.getEndDate());
@@ -499,6 +500,12 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         return societyList;
     }
 
+    /**
+     * This method will call external service look up profile to get co authors
+     * 
+     * 
+     * @param userId
+     */
     @Override
     public List<CoAuthor> getsCoAuthorsList(final String userId) {
 
@@ -522,6 +529,12 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         return coAuthorList;
     }
 
+    /**
+     * This method will call external service look up profile to get interests
+     * 
+     * 
+     * @param userId
+     */
     @Override
     public List<Interests> getAreaOfInterests(final String userId) {
         List<InterestData> listOfArea = userProfiles
@@ -538,6 +551,12 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         return areaList;
     }
 
+    /**
+     * This method will call external service look up profile to get alerts
+     * 
+     * 
+     * @param userId
+     */
     @Override
     public List<Alert> getListOfAlerts(final String userId) {
 
@@ -555,8 +574,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                 if (alerts.getAlertCd().equals(alertData.getAlertID())) {
                     alert.setAlertId(alertData.getAlertID());
                     alert.setAlertName(alerts.getAlertName());
-                    alert.setEmail(true);
-                    alert.setOnScreen(true);
+                    alert.setEmail(alertData.getType().isEmail());
+                    alert.setOnScreen(alertData.getType().isOnscreen());
                     break;
                 }
                 alert.setAlertId(alerts.getAlertCd());
@@ -568,6 +587,13 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         return alertList;
     }
 
+    /**
+     * This method will call external service look up profile to get preferred
+     * journals
+     * 
+     * 
+     * @param userId
+     */
     @Override
     public List<PreferredJournals> getPrefferedJournals(final String userId) {
 

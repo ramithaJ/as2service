@@ -44,7 +44,6 @@ public class AlertsDaoImpl implements AlertsDao {
             criteria = session.createCriteria(Alerts.class);
             alertsList =criteria.list();
         } finally {
-            System.err.println("in finally............");
             if (null != session) {
                 session.flush();
                 session.getTransaction().commit();

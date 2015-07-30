@@ -30,7 +30,9 @@ public class AlertData {
     /** The status. */
     @JsonProperty("Status")
     private String status;
-
+  
+    @JsonProperty("Type")
+    private AlertType type;
     /**
      * Gets the alert id.
      *
@@ -65,6 +67,20 @@ public class AlertData {
      */
     public final void setStatus(final String status) {
         this.status = status;
+    }
+
+    /**
+     * @return the type
+     */
+    public final AlertType getType() {
+        return type;
+    }
+
+    /**
+     * @param type the type to set
+     */
+    public final void setType(final AlertType type) {
+        this.type = type;
     }
 
 }
