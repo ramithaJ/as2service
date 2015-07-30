@@ -11,10 +11,8 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service;
 
-import java.util.List;
-
+import com.wiley.gr.ace.authorservices.model.Addresses;
 import com.wiley.gr.ace.authorservices.model.User;
-import com.wiley.gr.ace.authorservices.model.external.AddressElement;
 import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
 
 /**
@@ -49,5 +47,5 @@ public interface UserAccountService {
      *            the user id
      * @return the user address
      */
-    List<AddressElement> getUserAddress(String userId);
+    Addresses getUserAddress(String userId);
 }

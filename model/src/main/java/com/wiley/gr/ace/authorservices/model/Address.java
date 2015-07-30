@@ -43,7 +43,13 @@ public class Address implements Serializable {
     private String suffix;
 
     /** The institution. */
+    private String institutionId;
+
+    /** The institution. */
     private String institution;
+
+    /** The department. */
+    private String departmentId;
 
     /** The department. */
     private String department;
@@ -399,6 +405,36 @@ public class Address implements Serializable {
      */
     public final void setRegion(final String region) {
         this.region = region;
+    }
+
+    /**
+     * @return the institutionId
+     */
+    public final String getInstitutionId() {
+        return institutionId;
+    }
+
+    /**
+     * @param institutionId
+     *            the institutionId to set
+     */
+    public final void setInstitutionId(final String institutionId) {
+        this.institutionId = institutionId;
+    }
+
+    /**
+     * @return the departmentId
+     */
+    public final String getDepartmentId() {
+        return departmentId;
+    }
+
+    /**
+     * @param departmentId
+     *            the departmentId to set
+     */
+    public final void setDepartmentId(final String departmentId) {
+        this.departmentId = departmentId;
     }
 
 }

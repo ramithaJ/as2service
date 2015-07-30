@@ -18,6 +18,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
+import com.wiley.gr.ace.authorservices.model.Address;
+import com.wiley.gr.ace.authorservices.model.Addresses;
+import com.wiley.gr.ace.authorservices.model.Country;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.AddressElement;
 import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
@@ -91,14 +94,56 @@ public class UserAccountServiceImpl implements UserAccountService {
      * @return the user address
      */
     @Override
-    public final List<AddressElement> getUserAddress(final String userId) {
+    public final Addresses getUserAddress(final String userId) {
 
         UserAccountServiceImpl.LOGGER.info("inside getUserAddress Method");
         final LookupCustomerProfile lookupProfile = userProfile
                 .getLookupCustomerProfile(userId);
+        List<AddressElement> addressElementsList = lookupProfile
+                .getLookupCustomerProfileResponse().getCustomerProfile()
+                .getAddressDetails().getAddress();
+        Addresses addresses = new Addresses();
+        for (AddressElement addressElement : addressElementsList) {
 
-        return lookupProfile.getLookupCustomerProfileResponse()
-                .getCustomerProfile().getAddressDetails().getAddress();
+            if ("Physical".equalsIgnoreCase(addressElement.getAddrTypeCD())) {
+                Address correspondenceAddress = this
+                        .setAddressValues(addressElement);
+                addresses.setCorrespondenceAddress(correspondenceAddress);
+            }
+            if ("Billing".equalsIgnoreCase(addressElement.getAddrTypeCD())) {
+                Address billingAddress = this.setAddressValues(addressElement);
+                addresses.setBillingAddress(billingAddress);
+            }
+            if ("Shipping".equalsIgnoreCase(addressElement.getAddrTypeCD())) {
+                Address shippingAddress = this.setAddressValues(addressElement);
+                addresses.setShippingAddress(shippingAddress);
+            }
+
+        }
+        return addresses;
+    }
+
+    private Address setAddressValues(final AddressElement addressElement) {
+
+        Address address = null;
+        address = new Address();
+        address.setTitle(addressElement.getTitle());
+        address.setSuffix(addressElement.getSuffix());
+        address.setFirstName(addressElement.getFirstName());
+        address.setLastName(addressElement.getLastName());
+        address.setDepartmentId(addressElement.getDepartmentCd());
+        address.setInstitutionId(addressElement.getInstitutionCd());
+        address.setAddressLine1(addressElement.getAddressLine1());
+        address.setAddressLine2(addressElement.getAddressLine2());
+        address.setCity(addressElement.getCity());
+        address.setState(addressElement.getState());
+        address.setPostCode(addressElement.getZipCode());
+        Country country = new Country();
+        country.setCountryCode(addressElement.getCountryCode());
+        address.setCountry(country);
+        address.setPhoneNumber(addressElement.getPhoneNumber());
+        address.setFaxNumber(addressElement.getFaxNumber());
+        return address;
     }
 
 }
