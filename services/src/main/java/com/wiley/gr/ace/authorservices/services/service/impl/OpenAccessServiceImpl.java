@@ -156,7 +156,7 @@ public class OpenAccessServiceImpl implements OpenAccessService {
                     .pdhLookUpArticle(Integer.valueOf(articleId));
 
             final ArticleDetails articleDetails = new ArticleDetails();
-            articleDetails.setArticleAID(pdhArticleResponse.getArticleId());
+            articleDetails.setArticleId(pdhArticleResponse.getArticleId());
 
             final PdhJournalResponse pdhJournalResponse = orderService
                     .pdhLookUpJournal(Integer.valueOf(journalId));
@@ -165,7 +165,7 @@ public class OpenAccessServiceImpl implements OpenAccessService {
             journalDetails.setJournalTitle(pdhJournalResponse
                     .getJournalPrintISSN());
             final Article article = new Article();
-            article.setArticleID(articleDetails.getArticleAID());
+            article.setArticleID(articleDetails.getArticleId());
             article.setJournalElectronicISSN(pdhJournalResponse
                     .getJournalElectronicISSN());
             article.setJournalPrintISSN(pdhJournalResponse

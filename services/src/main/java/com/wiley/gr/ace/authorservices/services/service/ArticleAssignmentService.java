@@ -15,8 +15,8 @@
 package com.wiley.gr.ace.authorservices.services.service;
 
 import com.wiley.gr.ace.authorservices.model.AssociationConfirmation;
+import com.wiley.gr.ace.authorservices.model.ViewAssignedArticle;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
-import com.wiley.gr.ace.authorservices.model.external.ViewAssignedArticle;
 
 /**
  * The Interface ArticleAssignmentService.

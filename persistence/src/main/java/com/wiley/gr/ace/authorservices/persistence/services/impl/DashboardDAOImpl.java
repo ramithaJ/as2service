@@ -19,7 +19,6 @@ import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateCo
 import java.util.List;
 
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,15 +52,12 @@ public class DashboardDAOImpl implements DashboardDAO {
             throws Exception {
         LOGGER.info("inside getInvitationLogList Method of DashboardDAOImpl");
         Session session = null;
-        Transaction txn = null;
         try {
             session = getSessionFactory().openSession();
-            txn = session.beginTransaction();
             final String invitationLogHql = "from InvitationLog il where il.userProfile.userId=:userId";
             final List<InvitationLog> invitationLogList = session
                     .createQuery(invitationLogHql)
                     .setInteger("userId", Integer.parseInt(userId)).list();
-            txn.commit();
             return invitationLogList;
         } finally {
             if (session != null) {
@@ -83,15 +79,13 @@ public class DashboardDAOImpl implements DashboardDAO {
             final String userId) {
         LOGGER.info("inside getProductPersonRelations Method of DashboardDAOImpl");
         Session session = null;
-        Transaction txn = null;
+        String productPersonRelationsHql = null;
         try {
             session = getSessionFactory().openSession();
-            txn = session.beginTransaction();
-            final String productPersonRelationsHql = "from ProductPersonRelations ppr where ppr.userProfile.userId=:userId";
+            productPersonRelationsHql = "from ProductPersonRelations ppr where ppr.userProfile.userId=:userId";
             final List<ProductPersonRelations> productPersonRelationsList = session
                     .createQuery(productPersonRelationsHql)
                     .setInteger("userId", Integer.parseInt(userId)).list();
-            txn.commit();
             return productPersonRelationsList;
         } finally {
             if (session != null) {
@@ -115,15 +109,13 @@ public class DashboardDAOImpl implements DashboardDAO {
             final Integer dhId) throws Exception {
         LOGGER.info("inside getPublishedArticleDetails Method of DashboardDAOImpl");
         Session session = null;
-        Transaction txn = null;
+        String productPublicationStatusesHql = null;
         try {
             session = getSessionFactory().openSession();
-            txn = session.beginTransaction();
-            final String productPublicationStatusesHql = "from ProductPublicationStatuses pps where pps.products.dhId=:dhId";
+            productPublicationStatusesHql = "from ProductPublicationStatuses pps where pps.products.dhId=:dhId";
             final ProductPublicationStatuses productPublicationStatuses = (ProductPublicationStatuses) session
                     .createQuery(productPublicationStatusesHql)
                     .setInteger("dhId", dhId).uniqueResult();
-            txn.commit();
             return productPublicationStatuses;
         } finally {
             if (session != null) {

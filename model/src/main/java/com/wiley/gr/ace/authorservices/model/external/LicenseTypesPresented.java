@@ -14,37 +14,38 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
- * The Class ViewAssignedArticle.
+ * The Class LicenseTypesPresented.
  *
  * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
-public class ViewAssignedArticle {
+public class LicenseTypesPresented {
 
-    /** The article data. */
-    private ArticleData articleData;
+    /** The license type. */
+    private List<String> licenseType;
 
     /**
-     * Gets the article data.
+     * Gets the license type.
      *
-     * @return the article data
+     * @return the license type
      */
-    public final ArticleData getArticleData() {
-        return articleData;
+    public final List<String> getLicenseType() {
+        return licenseType;
     }
 
     /**
-     * Sets the article data.
+     * Sets the license type.
      *
-     * @param articleData
-     *            the new article data
+     * @param licenseType
+     *            the new license type
      */
-    public final void setArticleData(final ArticleData articleData) {
-        this.articleData = articleData;
+    public final void setLicenseType(final List<String> licenseType) {
+        this.licenseType = licenseType;
     }
-
 }

@@ -81,9 +81,6 @@ public class TaskServiceRequest {
 
 	@Override
 	public String toString() {
-		return "{requestorEmail:" + requestorEmail
-				+ ", justifications:" + justifications + ", requestorId:"
-				+ requestorId + "}";
+		return "{\"requestorEmail\":\"" + requestorEmail+ "\", \"justifications\":\"" + justifications + "\", \"requestorId\":\""+ requestorId + "\"}";
 	}	
-
 }
