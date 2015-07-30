@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
@@ -221,12 +222,23 @@ public class DashboardServiceImpl implements DashboardService {
         DashboardServiceImpl.LOGGER
                 .info("inside getSecurityDetailsForUser Method of DashboardServiceImpl");
         DashboardInfo dashboardInfo = null;
+        SystemSecurityQuestions systemSecurityQuestions = null;
         if (!StringUtils.isEmpty(emailId)) {
             LOGGER.info(" EmailId is Found to Check Secuirty Questions");
-            SystemSecurityQuestions systemSecurityQuestions = userManagementService
-                    .userSecurityQuestions(emailId)
-                    .getSystemSecurityQuestions();
-            dashboardInfo = securityQuestionsChecking(systemSecurityQuestions);
+            try {
+                systemSecurityQuestions = userManagementService
+                        .userSecurityQuestions(emailId)
+                        .getSystemSecurityQuestions();
+            } catch (UserException userException) {
+                LOGGER.info("No user Found with EmailId then No Security Questions on Dashboard"
+                        + userException);
+                dashboardInfo = new DashboardInfo();
+                dashboardInfo.setId(securityId);
+                dashboardInfo.setDashBoardInfoMessage(securityMessage);
+            }
+            if (!StringUtils.isEmpty(systemSecurityQuestions)) {
+                dashboardInfo = securityQuestionsChecking(systemSecurityQuestions);
+            }
         }
         return dashboardInfo;
     }
@@ -243,22 +255,16 @@ public class DashboardServiceImpl implements DashboardService {
     private DashboardInfo securityQuestionsChecking(
             final SystemSecurityQuestions systemSecurityQuestions)
             throws Exception {
+        LOGGER.info("Inside securityQuestionsChecking method  of DashboardServiceImpl ");
         DashboardInfo dashboardInfo = null;
-        if (StringUtils.isEmpty(systemSecurityQuestions)) {
-            LOGGER.info("No user Found with EmailId then No Security Questions on Dashboard");
+        List<String> systemSecurityQuestionsList = systemSecurityQuestions
+                .getSecurityQuestionList();
+        if (!StringUtils.isEmpty(systemSecurityQuestionsList)
+                && systemSecurityQuestionsList.isEmpty()) {
+            LOGGER.info("Secuirty Questions List is Empty then No Security Questions on Dashboard");
             dashboardInfo = new DashboardInfo();
             dashboardInfo.setId(securityId);
             dashboardInfo.setDashBoardInfoMessage(securityMessage);
-        } else {
-            List<String> systemSecurityQuestionsList = systemSecurityQuestions
-                    .getSecurityQuestionList();
-            if (!StringUtils.isEmpty(systemSecurityQuestionsList)
-                    && systemSecurityQuestionsList.isEmpty()) {
-                LOGGER.info("Secuirty Questions List is Empty then No Security Questions on Dashboard");
-                dashboardInfo = new DashboardInfo();
-                dashboardInfo.setId(securityId);
-                dashboardInfo.setDashBoardInfoMessage(securityMessage);
-            }
         }
         return dashboardInfo;
     }
