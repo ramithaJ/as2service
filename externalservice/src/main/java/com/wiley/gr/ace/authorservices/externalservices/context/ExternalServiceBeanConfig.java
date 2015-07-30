@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.InvoiceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.LicenseInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.NotificationService;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrcidInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
@@ -27,6 +28,7 @@ import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.externalservices.service.ValidationService;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.ESBInterfaceServiceImpl;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.InvoiceServiceImpl;
+import com.wiley.gr.ace.authorservices.externalservices.service.impl.LicenseInterfaceServiceImpl;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.NotificationServiceImpl;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.OrcidInterfaceServiceImpl;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.OrderServiceImpl;
@@ -39,6 +41,8 @@ import com.wiley.gr.ace.authorservices.externalservices.service.impl.ValidationS
 
 /**
  * The Class ExternalServiceBeanConfig.
+ * 
+ * @author virtusa version 1.0
  */
 @Configuration
 public class ExternalServiceBeanConfig {
@@ -153,5 +157,15 @@ public class ExternalServiceBeanConfig {
     public InvoiceService invoiceService() {
 
         return new InvoiceServiceImpl();
+    }
+
+    /**
+     * License interface service.
+     *
+     * @return the license interface service
+     */
+    @Bean(name = "LicenseInterfaceService")
+    public LicenseInterfaceService licenseInterfaceService() {
+        return new LicenseInterfaceServiceImpl();
     }
 }
