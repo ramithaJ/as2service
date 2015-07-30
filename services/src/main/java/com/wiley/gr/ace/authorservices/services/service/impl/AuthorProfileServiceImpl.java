@@ -439,6 +439,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             affiliation.setCountryCode(affiliationData.getCountryCd());
             affiliation.setInstitutionId(affiliationData.getInstitutionCd());
             affiliation.setDepartmentId(affiliationData.getDepartmentCd());
+            affiliation.setInstitutionName(affiliationData.getInstitutionName());
+            affiliation.setDepartmentName(affiliationData.getDepartmentName());
             affiliation.setStartDate(affiliationData.getStartDate());
             affiliation.setEndDate(affiliationData.getEndDate());
             listAffiliations.add(affiliation);
@@ -509,7 +511,11 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             CoAuthor coAuthor = new CoAuthor();
             coAuthor.setCoAuthorId(coAuthorData.getId());
             coAuthor.setEmailId(coAuthorData.getEmailId());
+            coAuthor.setFirstName(coAuthorData.getFirstName());
+            coAuthor.setLastName(coAuthorData.getLastName());
             coAuthor.setPhone(coAuthorData.getPhoneNo());
+            coAuthor.setInstitutionName(coAuthorData.getInstName());
+            coAuthor.setDepartmentName(coAuthorData.getDeptName());
             coAuthorList.add(coAuthor);
 
         }
@@ -548,11 +554,13 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                 alert = new Alert();
                 if (alerts.getAlertCd().equals(alertData.getAlertID())) {
                     alert.setAlertId(alertData.getAlertID());
+                    alert.setAlertName(alerts.getAlertName());
                     alert.setEmail(true);
                     alert.setOnScreen(true);
                     break;
                 }
                 alert.setAlertId(alerts.getAlertCd());
+                alert.setAlertName(alerts.getAlertName());
             }
             alertList.add(alert);
         }

@@ -53,6 +53,9 @@ public class CoAuthor implements Serializable {
 
     /** The institution name. */
     private String institutionName;
+    
+    private String departmentName;
+    
 
     /**
      * Gets the user id.
@@ -223,6 +226,20 @@ public class CoAuthor implements Serializable {
      */
     public final void setInstitutionName(final String institutionName) {
         this.institutionName = institutionName;
+    }
+
+    /**
+     * @return the departmentName
+     */
+    public final String getDepartmentName() {
+        return departmentName;
+    }
+
+    /**
+     * @param departmentName the departmentName to set
+     */
+    public final void setDepartmentName(final String departmentName) {
+        this.departmentName = departmentName;
     }
 
 }

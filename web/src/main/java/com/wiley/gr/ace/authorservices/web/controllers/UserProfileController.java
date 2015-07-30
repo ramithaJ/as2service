@@ -82,7 +82,7 @@ public class UserProfileController {
      *            - The request value
      * @return service
      */
-    @RequestMapping(value = "/affiliations/{userId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/affiliations/{userId}/", method = RequestMethod.GET)
     public final Service getAffiliationsList(
             @PathVariable("userId") final String userId) {
         UserProfileController.LOGGER.info("inside getAffiliationsList method ");
@@ -106,7 +106,6 @@ public class UserProfileController {
             @PathVariable("userId") final int userId,
             @RequestBody final Affiliation affiliation) {
         UserProfileController.LOGGER.info("inside updateAffiliation method ");
-        affiliation.setUserId(userId);
         Service service = new Service();
         authorProfileService.updateAffiliation(userId, affiliation);
         return service;
@@ -119,7 +118,7 @@ public class UserProfileController {
      *            - The request value
      * @return service
      */
-    @RequestMapping(value = "/researchFunders/{userId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/researchFunders/{userId}/", method = RequestMethod.GET)
     public final Service getResearchFundersList(
             @PathVariable("userId") final String userId) {
 
@@ -234,7 +233,7 @@ public class UserProfileController {
      *            - The request value
      * @return service
      */
-    @RequestMapping(value = "/coAuthors/{userId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/coAuthors/{userId}/", method = RequestMethod.GET)
     public final Service getCoAuthorsList(
             @PathVariable("userId") final String userId) {
 

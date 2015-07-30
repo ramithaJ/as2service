@@ -31,7 +31,7 @@ public class Affiliation implements Serializable {
     private String affiliationId;
 
     /** The user id. */
-    private int userId;
+    private String userId;
 
     /** The institution id. */
     private String institutionId;
@@ -116,7 +116,7 @@ public class Affiliation implements Serializable {
      *
      * @return the userId
      */
-    public final int getUserId() {
+    public final String getUserId() {
         return userId;
     }
 
@@ -126,7 +126,7 @@ public class Affiliation implements Serializable {
      * @param userId
      *            the userId to set
      */
-    public final void setUserId(final int userId) {
+    public final void setUserId(final String userId) {
         this.userId = userId;
     }
 
