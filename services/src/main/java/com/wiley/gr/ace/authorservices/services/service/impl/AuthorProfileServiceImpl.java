@@ -299,14 +299,22 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @return true, if successful
      */
     @Override
-    public final boolean updateEmailDetails(final int userId,
+    public final boolean updateEmailDetails(final String userId,
             final User emailDetails) {
 
         AuthorProfileServiceImpl.LOGGER
                 .info("inside updateEmailDetails Method ");
-        userProfile.setCustomerDetails(emailDetails);
-        lookUpProfile.setCustomerProfile(userProfile);
-        return null != userProfiles.updateProfile(userId, lookUpProfile);
+        LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
+        CustomerProfile customerProfile = new CustomerProfile();
+
+        CustomerDetails customerDetails = getCustomeProfile(userId);
+        customerDetails.setPrimaryEmail(emailDetails.getPrimaryEmailAddr());
+        customerDetails.setSecondaryEmail(emailDetails
+                .getRecoveryEmailAddress());
+        customerProfile.setCustomerDetails(customerDetails);
+        lookupCustomerProfileResponse.setCustomerProfile(customerProfile);
+        return userProfiles
+                .customerProfileUpdate(lookupCustomerProfileResponse);
     }
 
     /**
