@@ -22,33 +22,56 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author yugandhark
  */
 public class InterestData {
-    
+
     private String id;
     @JsonProperty("Status")
     private String status;
+    @JsonProperty("AreaOfInterestCd")
+    private String interestcode;
+
+    /**
+     * @return the interestcode
+     */
+    public final String getInterestcode() {
+        return interestcode;
+    }
+
+    /**
+     * @param interestcode
+     *            the interestcode to set
+     */
+    public final void setInterestcode(final String interestcode) {
+        this.interestcode = interestcode;
+    }
+
     /**
      * @return the id
      */
     public final String getId() {
         return id;
     }
+
     /**
-     * @param id the id to set
+     * @param id
+     *            the id to set
      */
-    public final void setId(String id) {
+    public final void setId(final String id) {
         this.id = id;
     }
+
     /**
      * @return the status
      */
     public final String getStatus() {
         return status;
     }
+
     /**
-     * @param status the status to set
+     * @param status
+     *            the status to set
      */
-    public final void setStatus(String status) {
+    public final void setStatus(final String status) {
         this.status = status;
     }
-  
+
 }

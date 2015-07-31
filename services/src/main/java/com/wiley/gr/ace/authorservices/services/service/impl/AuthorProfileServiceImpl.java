@@ -545,6 +545,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             affiliation.setStartDate(affiliationData.getStartDate());
             affiliation.setEndDate(affiliationData.getEndDate());
             affiliation.setStateCode(affiliationData.getState());
+            affiliation.setId(affiliationData.getId());
             listAffiliations.add(affiliation);
         }
         return listAffiliations;
@@ -595,6 +596,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             society.setStartDate(societyData.getStartDate());
             society.setEndDate(societyData.getEndDate());
             society.setPromoCode(societyData.getPromoCode());
+            society.setId(societyData.getId());
             societyList.add(society);
 
         }
@@ -645,7 +647,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         List<Interests> areaList = new ArrayList<Interests>();
         for (InterestData interestData : listOfArea) {
             Interests interests = new Interests();
-            interests.setAoeId(interestData.getId());
+            interests.setAoeId(interestData.getInterestcode());
             areaList.add(interests);
         }
 
