@@ -750,4 +750,32 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
         return customerDetails;
     }
+
+    @Override
+    public boolean removeOrcidId(final String userId) {
+
+        return this.orcidIdDetails(userId, null);
+
+    }
+
+    @Override
+    public boolean updateOrcidId(final String userId, final String orcidId) {
+
+        return this.orcidIdDetails(userId, orcidId);
+
+    }
+
+    private boolean orcidIdDetails(final String userId, final String orcidId) {
+
+        CustomerDetails customerDetails = getCustomeProfile(userId);
+        customerDetails.setOrcId(orcidId);
+        LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
+        CustomerProfile customerProfile = new CustomerProfile();
+        customerProfile.setCustomerDetails(customerDetails);
+        lookupCustomerProfileResponse.setCustomerProfile(customerProfile);
+        return userProfiles
+                .customerProfileUpdate(lookupCustomerProfileResponse);
+
+    }
+
 }

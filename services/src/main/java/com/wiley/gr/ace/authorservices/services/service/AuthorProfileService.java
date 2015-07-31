@@ -243,4 +243,8 @@ public interface AuthorProfileService {
     List<PreferredJournals> getPrefferedJournals(String userId);
 
     CustomerDetails getCustomeProfile(String userId);
+
+    boolean removeOrcidId(String userId);
+
+    boolean updateOrcidId(String userId, String orcidId);
 }

@@ -198,4 +198,12 @@ public class UserAccountController {
         return service;
     }
 
+    @RequestMapping(value = "/orcid/remove/{userId}", method = RequestMethod.DELETE)
+    public final Service removeOrcidId(
+            @PathVariable("userId") final String userId) {
+
+        Service service = new Service();
+        service.setPayload(authorProfileService.removeOrcidId(userId));
+        return service;
+    }
 }

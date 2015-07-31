@@ -104,7 +104,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/resetByEmail/*/")
                 .permitAll()
 
-                .antMatchers("/userAccount/profileInfo/*")
+                .antMatchers("/userAccount/orcid/remove/*")
                 .permitAll()
 
                 .antMatchers(HttpMethod.POST, SpringSecurityConfig.AUTHENTICATE)
