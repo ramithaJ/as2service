@@ -17,13 +17,8 @@ package com.wiley.gr.ace.authorservices.services.service.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 
-import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
-import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
-import com.wiley.gr.ace.authorservices.model.external.CustomerProfile;
-import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
-import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfileResponse;
+import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 import com.wiley.gr.ace.authorservices.services.service.UpdateUserService;
 
 /**
@@ -39,7 +34,7 @@ public class UpdateUserServiceImpl implements UpdateUserService {
 
     /** Getting bean of userProfileService. */
     @Autowired
-    private UserProfiles userProfileService;
+    private AuthorProfileService authorProfileService;
 
     /**
      * this method is for updating updateOrcidId by taking
@@ -59,50 +54,7 @@ public class UpdateUserServiceImpl implements UpdateUserService {
     public final boolean updateOrcidId(final String emailId,
             final String orcidId, final String userId) throws Exception {
         LOGGER.info("inside updateOrcidId method of UpdateUserServiceImpl");
-        boolean result = false;
-        LookupCustomerProfile lookupCustomerProfile = userProfileService
-                .getLookupCustomerProfile(userId);
-        if (!StringUtils.isEmpty(lookupCustomerProfile)) {
-            LOGGER.info("LookupCustomerProfile data is found");
-            LookupCustomerProfileResponse lookupCustomerProfileResponse = lookupCustomerProfile
-                    .getLookupCustomerProfileResponse();
-            if (!StringUtils.isEmpty(lookupCustomerProfileResponse)) {
-                LOGGER.info("LookupCustomerProfileResponse  data is found");
-                lookupCustomerProfileResponse
-                        .setCustomerProfile(updateOrcidDetails(
-                                lookupCustomerProfileResponse, orcidId));
-                result = null != userProfileService
-                        .updateLookupCustomerProfile(lookupCustomerProfileResponse);
-            }
-        }
-        return result;
+        return authorProfileService.updateOrcidId(userId, orcidId);
     }
 
-    /**
-     * Update orcid details.
-     *
-     * @param lookupCustomerProfileResponse
-     *            the lookup customer profile response
-     * @param orcidId
-     *            the orcid id
-     * @return the customer profile
-     */
-    private CustomerProfile updateOrcidDetails(
-            final LookupCustomerProfileResponse lookupCustomerProfileResponse,
-            final String orcidId) {
-        LOGGER.info(" inside updateOrcidDetails method UpdateUserServiceImpl");
-        CustomerProfile customerProfile = lookupCustomerProfileResponse
-                .getCustomerProfile();
-        if (!StringUtils.isEmpty(customerProfile)) {
-            LOGGER.info(" CustomeProfile Data is Found");
-            CustomerDetails customerDetails = customerProfile
-                    .getCustomerDetails();
-            if (StringUtils.isEmpty(customerDetails.getOrcId())) {
-                LOGGER.info(" Orcid is Not Found then Update");
-                customerDetails.setOrcId(orcidId);
-                customerProfile.setCustomerDetails(customerDetails);
-            }
-        }
-        return customerProfile;
-    }
 }
