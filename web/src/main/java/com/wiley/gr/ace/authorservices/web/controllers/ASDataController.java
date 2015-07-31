@@ -219,11 +219,10 @@ public class ASDataController {
      * @return service
      */
     @RequestMapping(value = "/areasOfInterests/", method = RequestMethod.GET)
-    public final Service getAreasOfInterests(
-            @RequestParam(value = "count", required = false, defaultValue = "10") final Integer count) {
+    public final Service getAreasOfInterests() {
         LOGGER.info("inside getAreasOfInterests Method");
         Service service = new Service();
-        service.setPayload(aSDataService.getAreasOfInterests(count));
+        service.setPayload(aSDataService.getAreasOfInterests());
         return service;
     }
 

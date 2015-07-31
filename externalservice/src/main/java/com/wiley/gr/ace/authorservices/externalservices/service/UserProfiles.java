@@ -25,12 +25,7 @@ import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
  */
 public interface UserProfiles {
 
-    /**
-     * Gets the area of interests.
-     *
-     * @return the area of interests
-     */
-    ESBResponse getAreaOfInterests();
+ 
 
     /**
      * Gets the countries.

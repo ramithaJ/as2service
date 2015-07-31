@@ -426,8 +426,9 @@ public class UserProfileController {
             @PathVariable("userId") final String userId,
             @RequestBody final List<Alert> listOfalert) {
         UserProfileController.LOGGER.info("inside updateAlerts method ");
-        authorProfileService.updateAlerts(userId, listOfalert);
-        return new Service();
+        Service service=new Service();
+        service.setPayload(authorProfileService.updateAlerts(userId, listOfalert));
+        return service ;
     }
 
     /**

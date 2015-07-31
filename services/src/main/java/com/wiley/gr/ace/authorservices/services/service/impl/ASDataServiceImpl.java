@@ -43,9 +43,11 @@ import com.wiley.gr.ace.authorservices.model.external.Industries;
 import com.wiley.gr.ace.authorservices.model.external.JobCategories;
 import com.wiley.gr.ace.authorservices.model.external.RetrieveSecurityQuestions;
 import com.wiley.gr.ace.authorservices.model.external.RolesData;
+import com.wiley.gr.ace.authorservices.persistence.entity.AreaOfInterest;
 import com.wiley.gr.ace.authorservices.persistence.entity.LookupValues;
 import com.wiley.gr.ace.authorservices.persistence.entity.Societies;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
+import com.wiley.gr.ace.authorservices.persistence.services.AreaOfInterterestDao;
 import com.wiley.gr.ace.authorservices.persistence.services.LookUpValuesDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.SocietyDao;
 import com.wiley.gr.ace.authorservices.services.service.ASDataService;
@@ -84,6 +86,11 @@ public class ASDataServiceImpl implements ASDataService {
     /** The Roles Service. */
     @Autowired(required = true)
     private RolesService rolesService;
+    
+
+    /** The area of interest dao . */
+    @Autowired(required = true)
+    private AreaOfInterterestDao areaOfInterest;
 
     /**
      * This will call external service to get titles data.
@@ -362,24 +369,18 @@ public class ASDataServiceImpl implements ASDataService {
      * @return the areas of interests
      */
     @Override
-    public final List<Interests> getAreasOfInterests(final Integer count) {
+    public final List<Interests> getAreasOfInterests() {
         LOGGER.info("inside getAreasOfInterests method ");
-        ESBResponse areaOfInterests = userProfiles.getAreaOfInterests();
-        List<Object> externalInterests = areaOfInterests.getResponse()
-                .getDocs();
-        List<Interests> returnList = new ArrayList<Interests>();
-        if (null == externalInterests) {
-            return returnList;
+        
+        List<AreaOfInterest> areaOfInterestDao=areaOfInterest.getAreaOfInterest();
+           List<Interests> interestList=new ArrayList<Interests>();
+        for (AreaOfInterest areaOfInterest : areaOfInterestDao) {
+            Interests interests=new Interests();
+            interests.setAoeId(areaOfInterest.getAreaOfInterestCd());
+            interests.setAoeName(areaOfInterest.getInterestName());
+            interestList.add(interests);
         }
-
-        for (Object docs : externalInterests) {
-            LinkedHashMap<String, String> interest = (LinkedHashMap<String, String>) docs;
-            Interests interests = new Interests();
-            interests.setAoeId(interest.get("SUBJECT_CODE"));
-            interests.setAoeName(interest.get("SUBJECT_NAME"));
-            returnList.add(interests);
-        }
-        return returnList.subList(0, count);
+        return interestList;
 
     }
 

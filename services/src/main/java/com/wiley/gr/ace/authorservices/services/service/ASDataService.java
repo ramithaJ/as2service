@@ -123,7 +123,7 @@ public interface ASDataService {
      *            the count
      * @return the areas of interests
      */
-    List<Interests> getAreasOfInterests(Integer count);
+    List<Interests> getAreasOfInterests();
 
     /**
      * Gets the security questions.

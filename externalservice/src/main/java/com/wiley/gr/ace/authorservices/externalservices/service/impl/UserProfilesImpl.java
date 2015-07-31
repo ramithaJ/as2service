@@ -93,18 +93,6 @@ public class UserProfilesImpl implements UserProfiles {
     @Value("${updateLookupCustomerProfile.url}")
     private String updateLookupCustomerProfile;
 
-    /**
-     * This method is used for getting area of interest.
-     *
-     * @return ESBResponse
-     *
-     */
-    @Override
-    public final ESBResponse getAreaOfInterests() {
-
-        return (ESBResponse) RestServiceInvokerUtil.invokeStub(
-                areaofInterestsurl, HttpMethod.GET, ESBResponse.class);
-    }
 
     /**
      * This method is used for getting countries.

@@ -17,6 +17,7 @@ import org.springframework.context.annotation.Configuration;
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.AlertsDao;
+import com.wiley.gr.ace.authorservices.persistence.services.AreaOfInterterestDao;
 import com.wiley.gr.ace.authorservices.persistence.services.AuthorProfileDao;
 import com.wiley.gr.ace.authorservices.persistence.services.DashboardDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.LookUpValuesDAO;
@@ -30,6 +31,7 @@ import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserRolesDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.ASDataDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.AlertsDaoImpl;
+import com.wiley.gr.ace.authorservices.persistence.services.impl.AreaOfInterterestDaoImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.AuthorProfileDaoImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.DashboardDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.LookupValuesDAOImpl;
@@ -188,5 +190,16 @@ public class PersistenceBeanConfig {
     @Bean(name = "AlertsDao")
     public AlertsDao alertsDao() {
         return new AlertsDaoImpl();
+    }
+
+    /**
+     * Area of interest dao.
+     *
+     * @return the interest List
+     */
+    @Bean(name = "AreaOfInterest")
+    public AreaOfInterterestDao areaOfInterest() {
+        return new AreaOfInterterestDaoImpl();
+
     }
 }
