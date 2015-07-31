@@ -2239,4 +2239,14 @@ ALTER TABLE USER_AFFILIATIONS ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_
 ALTER TABLE USER_AFFILIATIONS ADD FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
 </sql>
 </changeSet>
+
+<changeSet author="gphaniraj" id="WP1-SOCIETIES_DATA" runOnChange="true">
+ <loadUpdateData file="src/main/resources/liquibase/updates/csv/societies_final.csv" quotchar="'" tableName="societies" primaryKey="society_cd">
+        <column name="society_cd" header="society_cd" type="string"/>
+		 <column name="society_name" header="society_name" type="string"/>	
+         <column name="created_date" header="created_date" type="date"/>
+		<column name="created_by" header="created_by" type="numeric"/>			 
+    </loadUpdateData>
+</changeSet>
+
 </databaseChangeLog>
