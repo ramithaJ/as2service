@@ -347,22 +347,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
         CustomerProfile customerProfile = new CustomerProfile();
 
-        CustomerDetails externalcall = userProfiles
-                .getLookupCustomerProfile(userId)
-                .getLookupCustomerProfileResponse().getCustomerProfile()
-                .getCustomerDetails();
+        CustomerDetails customerDetails = getCustomeProfile(userId);
 
-        CustomerDetails customerDetails = new CustomerDetails();
-
-        customerDetails.setPswd("");
-        customerDetails.setAsid(userId);
-        customerDetails.setUserRole("");
-        customerDetails.setNickName(externalcall.getAlternativeName());
-        customerDetails.setCustomerType("User");
-        customerDetails.setUserStatus("Active");
-        customerDetails.setTcFlag("Y");
-        customerDetails.setSendEmail("Yes");
-        customerDetails.setEcId(externalcall.getEcId());
         customerDetails.setTitle(user.getTitle());
         customerDetails.setfName(user.getFirstName());
         customerDetails.setlName(user.getLastName());
@@ -371,12 +357,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         customerDetails.setAlternativeName(user.getAlternateName());
         customerDetails.setIndustryCode(user.getIndustryCode());
         customerDetails.setJobCategoryCode(user.getJobCategoryCode());
-        customerDetails.setOrcId(externalcall.getOrcId());
-        customerDetails.setProfileVisibility(externalcall
-                .getProfileVisibility());
+        customerDetails.setOrcId(user.getOrcidId());
         customerDetails.setOptInFlag(user.getTermsOfUseFlg());
-        customerDetails.setPrimaryEmail(user.getPrimaryEmailAddr());
-        customerDetails.setSecondaryEmail(user.getRecoveryEmailAddress());
         customerProfile.setCustomerDetails(customerDetails);
         lookupCustomerProfileResponse.setCustomerProfile(customerProfile);
         return userProfiles
