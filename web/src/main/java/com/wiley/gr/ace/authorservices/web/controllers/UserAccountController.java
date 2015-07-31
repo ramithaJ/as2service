@@ -119,11 +119,11 @@ public class UserAccountController {
      * @return Service - Success/Failure
      */
     @RequestMapping(value = "/emailDetails/{userId}", method = RequestMethod.POST)
-    public final Service updateEmail(@PathVariable("userId") final int userId,
+    public final Service updateEmail(
+            @PathVariable("userId") final String userId,
             @RequestBody final User emailDetails) {
         UserAccountController.LOGGER.info("inside updateEmail method");
         Service service = new Service();
-        emailDetails.setUserId(userId);
         service.setPayload(authorProfileService.updateEmailDetails(userId,
                 emailDetails));
         return service;

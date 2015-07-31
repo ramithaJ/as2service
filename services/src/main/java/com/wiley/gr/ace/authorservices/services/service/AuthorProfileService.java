@@ -100,7 +100,7 @@ public interface AuthorProfileService {
      *            the email details
      * @return true, if successful
      */
-    boolean updateEmailDetails(int userId, User emailDetails);
+    boolean updateEmailDetails(String userId, User emailDetails);
 
     /**
      * Update user address.
