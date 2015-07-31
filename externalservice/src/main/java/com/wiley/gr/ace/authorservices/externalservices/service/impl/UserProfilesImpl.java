@@ -65,10 +65,6 @@ public class UserProfilesImpl implements UserProfiles {
     @Value("${reasearchFunders.url}")
     private String researchFundersurl;
 
-    /** The areaof interestsurl. */
-    @Value("${areaofInterests.url}")
-    private String areaofInterestsurl;
-
     /** The job categoriesurl. */
     @Value("${jobCategories.url}")
     private String jobCategoriesurl;
@@ -92,7 +88,6 @@ public class UserProfilesImpl implements UserProfiles {
     /** The updateLookupCustomerProfile. */
     @Value("${updateLookupCustomerProfile.url}")
     private String updateLookupCustomerProfile;
-
 
     /**
      * This method is used for getting countries.
@@ -283,10 +278,10 @@ public class UserProfilesImpl implements UserProfiles {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
+
         final ResponseStatus responseStatus = (ResponseStatus) RestServiceInvokerUtil
-                .restServiceInvoker(updateLookupCustomerProfile, lookupCustomerProfileResponse,
-                        ResponseStatus.class);
+                .restServiceInvoker(updateLookupCustomerProfile,
+                        lookupCustomerProfileResponse, ResponseStatus.class);
         boolean status = false;
         if ("success".equalsIgnoreCase(responseStatus.getStatus())) {
             status = true;
@@ -297,10 +292,12 @@ public class UserProfilesImpl implements UserProfiles {
                     errorPayLoad.getErrorMessage());
         }
         return status;
-        
-        /*return (ResponseStatus) RestServiceInvokerUtil.restServiceInvoker(
-                updateLookupCustomerProfile, lookupCustomerProfileResponse,
-                ResponseStatus.class);*/
+
+        /*
+         * return (ResponseStatus) RestServiceInvokerUtil.restServiceInvoker(
+         * updateLookupCustomerProfile, lookupCustomerProfileResponse,
+         * ResponseStatus.class);
+         */
 
     }
 
