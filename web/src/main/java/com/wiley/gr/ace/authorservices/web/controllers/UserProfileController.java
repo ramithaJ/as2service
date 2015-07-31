@@ -13,6 +13,7 @@ package com.wiley.gr.ace.authorservices.web.controllers;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -30,12 +31,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
+import com.wiley.gr.ace.authorservices.model.Alert;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.ProfilePicture;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.Society;
-import com.wiley.gr.ace.authorservices.model.UserProfileAlerts;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 
 /**
@@ -109,7 +110,7 @@ public class UserProfileController {
         Service service = new Service();
         System.err.println(affiliation.getId());
         authorProfileService.updateAffiliation(userId, affiliation);
-        
+
         return service;
     }
 
@@ -200,13 +201,14 @@ public class UserProfileController {
     public final Service updateSocietyDetails(
             @PathVariable("userId") final int userId,
             @Valid @RequestBody final Society society) {
-        
+
         System.err.println(society.getPromoCode());
-        Service service=new Service();
+        Service service = new Service();
 
         UserProfileController.LOGGER
                 .info("inside updateSocietyDetails method ");
-        service.setPayload(authorProfileService.updateSocietyDetails(userId, society));
+        service.setPayload(authorProfileService.updateSocietyDetails(userId,
+                society));
         return service;
     }
 
@@ -276,7 +278,8 @@ public class UserProfileController {
      */
     @RequestMapping(value = "/interests/{userId}/{interestId}/", method = RequestMethod.DELETE)
     public final Service deleteInterests(
-            @PathVariable("userId") final String userId,@PathVariable("interestId") final String interestId) {
+            @PathVariable("userId") final String userId,
+            @PathVariable("interestId") final String interestId) {
         UserProfileController.LOGGER.info("inside searchInterests method ");
 
         return new Service();
@@ -357,7 +360,6 @@ public class UserProfileController {
         return new Service();
     }
 
-    
     /**
      * delete preferred journals.
      *
@@ -367,7 +369,8 @@ public class UserProfileController {
      */
     @RequestMapping(value = "/preferredJournals/{userId}/{journalId}/", method = RequestMethod.DELETE)
     public final Service deletePreferredJournals(
-            @PathVariable("userId") final String userId,@PathVariable("journalId") final String journalId) {
+            @PathVariable("userId") final String userId,
+            @PathVariable("journalId") final String journalId) {
 
         UserProfileController.LOGGER
                 .info("inside searchPreferredJournals method ");
@@ -418,12 +421,12 @@ public class UserProfileController {
      *            - The request value
      * @return service
      */
-    @RequestMapping(value = "/alerts/{userId}", method = RequestMethod.POST)
-    public final Service updateAlerts(@PathVariable("userId") final int userId,
-            @RequestBody final UserProfileAlerts userProfileAlerts) {
-
+    @RequestMapping(value = "/alerts/{userId}/", method = RequestMethod.POST)
+    public final Service updateAlerts(
+            @PathVariable("userId") final String userId,
+            @RequestBody final List<Alert> listOfalert) {
         UserProfileController.LOGGER.info("inside updateAlerts method ");
-        authorProfileService.updateAlerts(userId, userProfileAlerts);
+        authorProfileService.updateAlerts(userId, listOfalert);
         return new Service();
     }
 

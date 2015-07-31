@@ -21,39 +21,37 @@ public class AlertType {
 
     /** The onscreen. */
     @JsonProperty("OnScreen")
-    private boolean onscreen;
+    private String onscreen;
     
     /** The email. */
     @JsonProperty("Email")
-    private boolean email;
+    private String email;
 
     /**
      * @return the onscreen
      */
-    public final boolean isOnscreen() {
+    public final String getOnscreen() {
         return onscreen;
-    }
-
-    /**
-     * @return the email
-     */
-    public final boolean isEmail() {
-        return email;
     }
 
     /**
      * @param onscreen the onscreen to set
      */
-    public final void setOnscreen(final boolean onscreen) {
+    public final void setOnscreen(final String onscreen) {
         this.onscreen = onscreen;
+    }
+
+    /**
+     * @return the email
+     */
+    public final String getEmail() {
+        return email;
     }
 
     /**
      * @param email the email to set
      */
-    public final void setEmail(final boolean email) {
+    public final void setEmail(final String email) {
         this.email = email;
     }
-
-   
-}
+}  

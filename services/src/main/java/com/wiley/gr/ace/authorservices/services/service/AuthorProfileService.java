@@ -27,7 +27,6 @@ import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserProfile;
-import com.wiley.gr.ace.authorservices.model.UserProfileAlerts;
 import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
@@ -79,7 +78,7 @@ public interface AuthorProfileService {
      *            the user profile alerts
      * @return true, if successful
      */
-    boolean updateAlerts(int userId, UserProfileAlerts userProfileAlerts);
+    boolean updateAlerts(String userId, List<Alert> alert);
 
     /**
      * Update Coauthor.

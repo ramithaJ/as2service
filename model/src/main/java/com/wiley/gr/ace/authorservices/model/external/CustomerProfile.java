@@ -49,7 +49,21 @@ public class CustomerProfile {
 
     /** The alerts. */
     @JsonProperty("Alerts")
-    private Alerts alerts;
+    private AlertsData alerts;
+
+    /**
+     * @return the alerts
+     */
+    public final AlertsData getAlerts() {
+        return alerts;
+    }
+
+    /**
+     * @param alerts the alerts to set
+     */
+    public final void setAlerts(final AlertsData alerts) {
+        this.alerts = alerts;
+    }
 
     /** The affiliations. */
     @JsonProperty("Affiliations")
@@ -172,23 +186,7 @@ public class CustomerProfile {
         this.coAuthors = coAuthors;
     }
 
-    /**
-     * Gets the alerts.
-     *
-     * @return the alerts
-     */
-    public final Alerts getAlerts() {
-        return alerts;
-    }
-
-    /**
-     * Sets the alerts.
-     *
-     * @param alerts the new alerts
-     */
-    public final void setAlerts(final Alerts alerts) {
-        this.alerts = alerts;
-    }
+  
 
     /**
      * Gets the affiliations.

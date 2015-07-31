@@ -23,15 +23,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  * @author yugandhark
  */
-public class Alerts {
+public class AlertsData {
 
     /** The alert. */
     @JsonProperty("Alert")
     private List<AlertData> alert;
 
     /**
-     * Gets the alert.
-     *
      * @return the alert
      */
     public final List<AlertData> getAlert() {
@@ -39,12 +37,11 @@ public class Alerts {
     }
 
     /**
-     * Sets the alert.
-     *
-     * @param alert the new alert
+     * @param alert the alert to set
      */
     public final void setAlert(final List<AlertData> alert) {
         this.alert = alert;
     }
 
+   
 }

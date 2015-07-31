@@ -38,10 +38,11 @@ import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserProfile;
-import com.wiley.gr.ace.authorservices.model.UserProfileAlerts;
 import com.wiley.gr.ace.authorservices.model.external.AffiliationData;
 import com.wiley.gr.ace.authorservices.model.external.AffiliationsData;
 import com.wiley.gr.ace.authorservices.model.external.AlertData;
+import com.wiley.gr.ace.authorservices.model.external.AlertType;
+import com.wiley.gr.ace.authorservices.model.external.AlertsData;
 import com.wiley.gr.ace.authorservices.model.external.CoAuthorData;
 import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
 import com.wiley.gr.ace.authorservices.model.external.CustomerProfile;
@@ -141,9 +142,6 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         } else {
             societyData.setStatus("edit");
         }
-        // List<SocietyData> societyDatas = new ArrayList<SocietyData>();
-        // societyDatas.add(societyData);
-        // societyList.setSociety(societyDatas);
         societyList.setSociety(new ArrayList<SocietyData>());
         societyList.getSociety().add(societyData);
         customerProfile.setCustomerDetails(customerDetails);
@@ -233,14 +231,39 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @return true, if successful
      */
     @Override
-    public final boolean updateAlerts(final int userId,
-            final UserProfileAlerts userProfileAlerts) {
-
+    public final boolean updateAlerts(final String userId,
+            final List<Alert> listOfalert) {
         AuthorProfileServiceImpl.LOGGER.info("inside updateAlerts Method ");
-
-        userProfile.setAlerts(userProfileAlerts.getAlerts());
-        lookUpProfile.setCustomerProfile(userProfile);
-        return null != userProfiles.updateProfile(userId, lookUpProfile);
+        CustomerDetails customerDetails = getCustomeProfile(userId);
+        LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
+        CustomerProfile customerProfile = new CustomerProfile();
+        customerProfile.setCustomerDetails(customerDetails);
+        AlertsData alertsData = new AlertsData();
+        List<AlertData> alertList = new ArrayList<AlertData>();
+        for (Alert alert : listOfalert) {
+            AlertData alertData = new AlertData();
+            AlertType alertType = new AlertType();
+            alertData.setAlertID(alert.getAlertId());
+            alertData.setStatus(alert.getStatus());
+            if (alert.isEmail()) {
+                alertType.setEmail("0");
+            } else {
+                alertType.setEmail("1");
+            }
+            if (alert.isOnScreen()) {
+                alertType.setOnscreen("0");
+            } else {
+                alertType.setOnscreen("1");
+            }
+            alertData.setType(alertType);
+            alertData.setStatus("edit");
+            alertList.add(alertData);
+        }
+        alertsData.setAlert(alertList);
+        customerProfile.setAlerts(alertsData);
+        lookupCustomerProfileResponse.setCustomerProfile(customerProfile);
+        return userProfiles
+                .customerProfileUpdate(lookupCustomerProfileResponse);
     }
 
     /**
@@ -662,8 +685,17 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                 if (alerts.getAlertCd().equals(alertData.getAlertID())) {
                     alert.setAlertId(alertData.getAlertID());
                     alert.setAlertName(alerts.getAlertName());
-                    alert.setEmail(alertData.getType().isEmail());
-                    alert.setOnScreen(alertData.getType().isOnscreen());
+                    if (alertData.getType().getEmail().equalsIgnoreCase("0")) {
+                        alert.setEmail(true);
+                    } else {
+                        alert.setEmail(false);
+                    }
+                    if (alertData.getType().getOnscreen().equalsIgnoreCase("0")) {
+                        alert.setOnScreen(true);
+                    } else {
+                        alert.setOnScreen(false);
+                    }
+
                     break;
                 }
                 alert.setAlertId(alerts.getAlertCd());

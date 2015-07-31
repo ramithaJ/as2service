@@ -15,6 +15,7 @@ import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * The Class Alert.
@@ -38,6 +39,23 @@ public class Alert implements Serializable {
 
     /** The email. */
     private boolean email;
+    @JsonProperty("Status")
+    private String status;
+
+    /**
+     * @return the status
+     */
+    public final String getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status
+     *            the status to set
+     */
+    public final void setStatus(final String status) {
+        this.status = status;
+    }
 
     /**
      * Gets the alert id.
