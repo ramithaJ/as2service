@@ -316,6 +316,12 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                 .getRecoveryEmailAddress());
         customerProfile.setCustomerDetails(customerDetails);
         lookupCustomerProfileResponse.setCustomerProfile(customerProfile);
+        // update UserId ALM external service
+        Email email = new Email();
+        email.setOldEmailId(customerDetails.getPrimaryEmail());
+        email.setNewEmailId(emailDetails.getPrimaryEmailAddr());
+        this.updateUserId(email);
+
         return userProfiles
                 .customerProfileUpdate(lookupCustomerProfileResponse);
     }
@@ -389,7 +395,10 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         addressElement.setLastName(addressesRequest.getLastName());
         addressElement.setSuffix(addressesRequest.getSuffix());
         addressElement.setInstitutionCd(addressesRequest.getInstitutionId());
+        addressElement.setInstitutionName(addressesRequest.getInstitution());
+        addressElement.setStatus("Edit");
         addressElement.setDepartmentCd(addressesRequest.getDepartmentId());
+        addressElement.setDepartmentName(addressesRequest.getDepartment());
         addressElement.setAddressLine1(addressesRequest.getAddressLine1());
         addressElement.setAddressLine2(addressesRequest.getAddressLine2());
         addressElement.setCity(addressesRequest.getCity());
@@ -445,13 +454,12 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      *            the email
      * @return true, if successful
      */
-    @Override
-    public final boolean updateUserId(final Email email) {
+
+    private boolean updateUserId(final Email email) {
 
         AuthorProfileServiceImpl.LOGGER.info("inside updateUserId Method ");
-
-        final UserEmailDetails userEmailDetails = new UserEmailDetails();
-        final UserSecurityAttributes userSecurityAttributes = new UserSecurityAttributes();
+        UserEmailDetails userEmailDetails = new UserEmailDetails();
+        UserSecurityAttributes userSecurityAttributes = new UserSecurityAttributes();
         userSecurityAttributes.setExistingEmail(email.getOldEmailId());
         userSecurityAttributes.setNewEmail(email.getNewEmailId());
         userSecurityAttributes
@@ -804,6 +812,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         customerDetails.setUserStatus("Active");
         customerDetails.setTcFlag("Y");
         customerDetails.setSendEmail("Yes");
+        customerDetails.setSourceSystem("AS");
+        customerDetails.setProfileVisibility("0");
 
         return customerDetails;
     }

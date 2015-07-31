@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.model.Address;
-import com.wiley.gr.ace.authorservices.model.Email;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.User;
@@ -183,19 +182,6 @@ public class UserAccountController {
                 .updateSecurityDetails(securityDetails));
         return service;
 
-    }
-
-    /**
-     * @param email
-     *            - The request value
-     * @return service
-     */
-    @RequestMapping(value = "/updateUserId", method = RequestMethod.POST)
-    public final Service updateUserId(@RequestBody final Email email) {
-        UserAccountController.LOGGER.info("inside updateUserId method");
-        Service service = new Service();
-        service.setPayload(authorProfileService.updateUserId(email));
-        return service;
     }
 
     @RequestMapping(value = "/orcid/remove/{userId}", method = RequestMethod.DELETE)

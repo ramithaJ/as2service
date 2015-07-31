@@ -19,7 +19,6 @@ import com.wiley.gr.ace.authorservices.model.Address;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.Alert;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
-import com.wiley.gr.ace.authorservices.model.Email;
 import com.wiley.gr.ace.authorservices.model.Interests;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.PreferredJournals;
@@ -123,15 +122,6 @@ public interface AuthorProfileService {
      * @return true, if successful
      */
     boolean updateUserProfileInfo(String userId, User user);
-
-    /**
-     * Update user id.
-     *
-     * @param email
-     *            the email
-     * @return true, if successful
-     */
-    boolean updateUserId(Email email);
 
     /**
      * Update password.

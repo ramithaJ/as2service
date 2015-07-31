@@ -23,6 +23,82 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonInclude(Include.NON_NULL)
 public class AddressElement {
 
+    /** The id. */
+    @JsonProperty("Id")
+    private String id;
+
+    /** The addr type cd. */
+    @JsonProperty("Addr_Type_CD")
+    private String addrTypeCD;
+
+    /** The address line1. */
+    @JsonProperty("AddressLine1")
+    private String addressLine1;
+
+    /** The address line2. */
+    @JsonProperty("AddressLine2")
+    private String addressLine2;
+
+    /** The city. */
+    @JsonProperty("City")
+    private String city;
+
+    /** The country code. */
+    @JsonProperty("CountryCode")
+    private String countryCode;
+
+    /** The state. */
+    @JsonProperty("State")
+    private String state;
+
+    /** The zip code. */
+    @JsonProperty("ZipCode")
+    private String zipCode;
+
+    /** The institution cd. */
+    @JsonProperty("InstitutionCd")
+    private String institutionCd;
+
+    /** The institution name. */
+    @JsonProperty("InstitutionName")
+    private String institutionName;
+
+    /** The department cd. */
+    @JsonProperty("DepartmentCd")
+    private String departmentCd;
+
+    /** The department name. */
+    @JsonProperty("DepartmentName")
+    private String departmentName;
+
+    /** The status. */
+    @JsonProperty("Status")
+    private String status;
+
+    /** The title. */
+    @JsonProperty("Title")
+    private String title;
+
+    /** The first name. */
+    @JsonProperty("FirstName")
+    private String firstName;
+
+    /** The last name. */
+    @JsonProperty("LastName")
+    private String lastName;
+
+    /** The suffix. */
+    @JsonProperty("Suffix")
+    private String suffix;
+
+    /** The phone number. */
+    @JsonProperty("PhoneNumber")
+    private String phoneNumber;
+
+    /** The fax number. */
+    @JsonProperty("FaxNumber")
+    private String faxNumber;
+
     /** The address start date. */
     @JsonProperty("AddressStartDate")
     private String addressStartDate;
@@ -39,10 +115,6 @@ public class AddressElement {
     @JsonProperty("ZipCodeNE")
     private String zipCodeNE;
 
-    /** The addr type cd. */
-    @JsonProperty("Addr_Type_CD")
-    private String addrTypeCD;
-
     /** The address delivery confidence code. */
     @JsonProperty("AddressDeliveryConfidenceCode")
     private String addressDeliveryConfidenceCode;
@@ -50,10 +122,6 @@ public class AddressElement {
     /** The address line1 ne. */
     @JsonProperty("AddressLine1NE")
     private String addressLine1NE;
-
-    /** The last name. */
-    @JsonProperty("LastName")
-    private String lastName;
 
     /** The city ne. */
     @JsonProperty("CityNE")
@@ -63,81 +131,33 @@ public class AddressElement {
     @JsonProperty("CountyNE")
     private String countyNE;
 
-    /** The fax number. */
-    @JsonProperty("FaxNumber")
-    private String faxNumber;
-
-    /** The first name. */
-    @JsonProperty("FirstName")
-    private String firstName;
-
     /** The state ne. */
     @JsonProperty("StateNE")
     private String stateNE;
-
-    /** The country code. */
-    @JsonProperty("CountryCode")
-    private String countryCode;
-
-    /** The department name. */
-    @JsonProperty("DepartmentName")
-    private String departmentName;
 
     /** The address cleaning flag. */
     @JsonProperty("AddressCleaningFlag")
     private String addressCleaningFlag;
 
-    /** The institution cd. */
-    @JsonProperty("InstitutionCd")
-    private String institutionCd;
-
     /** The addr type ecid. */
     @JsonProperty("Addr_Type_ECID")
     private String addrTypeECID;
-
-    /** The suffix. */
-    @JsonProperty("Suffix")
-    private String suffix;
 
     /** The address end date. */
     @JsonProperty("AddressEndDate")
     private String addressEndDate;
 
-    /** The phone number. */
-    @JsonProperty("PhoneNumber")
-    private String phoneNumber;
-
     /** The province. */
     @JsonProperty("Province")
     private String province;
-
-    /** The zip code. */
-    @JsonProperty("ZipCode")
-    private String zipCode;
 
     /** The post box. */
     @JsonProperty("PostBox")
     private String postBox;
 
-    /** The title. */
-    @JsonProperty("Title")
-    private String title;
-
-    /** The city. */
-    @JsonProperty("City")
-    private String city;
-
-    /** The status. */
-    @JsonProperty("Status")
-    private String status;
-
     /** The country name ne. */
     @JsonProperty("CountryNameNE")
     private String countryNameNE;
-
-    /** The institution name. */
-    @JsonProperty("InstitutionName")
-    private String institutionName;
 
     /** The address cleanse code. */
     @JsonProperty("AddressCleanseCode")
@@ -147,33 +167,13 @@ public class AddressElement {
     @JsonProperty("County")
     private String county;
 
-    /** The state. */
-    @JsonProperty("State")
-    private String state;
-
     /** The address line3 ne. */
     @JsonProperty("AddressLine3NE")
     private String addressLine3NE;
 
-    /** The department cd. */
-    @JsonProperty("DepartmentCd")
-    private String departmentCd;
-
     /** The address type. */
     @JsonProperty("AddressType")
     private String addressType;
-
-    /** The id. */
-    @JsonProperty("Id")
-    private String id;
-
-    /** The address line1. */
-    @JsonProperty("AddressLine1")
-    private String addressLine1;
-
-    /** The address line2. */
-    @JsonProperty("AddressLine2")
-    private String addressLine2;
 
     /** The address line3. */
     @JsonProperty("AddressLine3")
