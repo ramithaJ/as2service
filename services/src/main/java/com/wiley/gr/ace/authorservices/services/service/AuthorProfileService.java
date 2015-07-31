@@ -15,6 +15,7 @@ package com.wiley.gr.ace.authorservices.services.service;
 import java.io.File;
 import java.util.List;
 
+import com.wiley.gr.ace.authorservices.model.Address;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.Alert;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
@@ -26,7 +27,6 @@ import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.User;
-import com.wiley.gr.ace.authorservices.model.UserProfile;
 import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
@@ -111,7 +111,7 @@ public interface AuthorProfileService {
      *            the addresses
      * @return true, if successful
      */
-    boolean updateUserAddress(int userId, UserProfile addresses);
+    boolean updateUserAddress(String userId, Address addressesRequest);
 
     /**
      * Update user profile info.

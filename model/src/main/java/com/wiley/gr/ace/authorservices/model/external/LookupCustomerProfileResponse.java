@@ -14,6 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -21,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  * @author yugandhark
  */
+@JsonInclude(Include.NON_NULL)
 public class LookupCustomerProfileResponse {
 
     /** The customer profile. */
@@ -39,7 +42,8 @@ public class LookupCustomerProfileResponse {
     /**
      * Sets the customer profile.
      *
-     * @param customerProfile the new customer profile
+     * @param customerProfile
+     *            the new customer profile
      */
     public final void setCustomerProfile(final CustomerProfile customerProfile) {
         this.customerProfile = customerProfile;

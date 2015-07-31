@@ -22,6 +22,7 @@ import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.Address;
 import com.wiley.gr.ace.authorservices.model.Addresses;
 import com.wiley.gr.ace.authorservices.model.Country;
+import com.wiley.gr.ace.authorservices.model.State;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.AddressElement;
 import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
@@ -135,6 +136,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 
         }
         addressesList.add(addresses);
+
         return addressesList;
     }
 
@@ -151,10 +153,14 @@ public class UserAccountServiceImpl implements UserAccountService {
         address.setAddressLine1(addressElement.getAddressLine1());
         address.setAddressLine2(addressElement.getAddressLine2());
         address.setCity(addressElement.getCity());
-        address.setState(addressElement.getState());
+        State state = new State();
+        state.setStateCode(addressElement.getState());
+        state.setStateName("");
+        address.setState(state);
         address.setPostCode(addressElement.getZipCode());
         Country country = new Country();
         country.setCountryCode(addressElement.getCountryCode());
+        country.setCountryName("");
         address.setCountry(country);
         address.setPhoneNumber(addressElement.getPhoneNumber());
         address.setFaxNumber(addressElement.getFaxNumber());

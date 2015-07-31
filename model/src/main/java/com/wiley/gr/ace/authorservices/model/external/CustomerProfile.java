@@ -59,7 +59,8 @@ public class CustomerProfile {
     }
 
     /**
-     * @param alerts the alerts to set
+     * @param alerts
+     *            the alerts to set
      */
     public final void setAlerts(final AlertsData alerts) {
         this.alerts = alerts;
@@ -89,7 +90,8 @@ public class CustomerProfile {
     /**
      * Sets the customer details.
      *
-     * @param customerDetails the new customer details
+     * @param customerDetails
+     *            the new customer details
      */
     public final void setCustomerDetails(final CustomerDetails customerDetails) {
         this.customerDetails = customerDetails;
@@ -107,7 +109,8 @@ public class CustomerProfile {
     /**
      * Sets the address details.
      *
-     * @param addressDetails the new address details
+     * @param addressDetails
+     *            the new address details
      */
     public final void setAddressDetails(final AddressDetails addressDetails) {
         this.addressDetails = addressDetails;
@@ -125,7 +128,8 @@ public class CustomerProfile {
     /**
      * Sets the area of interest.
      *
-     * @param areaOfInterest the new area of interest
+     * @param areaOfInterest
+     *            the new area of interest
      */
     public final void setAreaOfInterest(final AreaOfInterest areaOfInterest) {
         this.areaOfInterest = areaOfInterest;
@@ -143,9 +147,11 @@ public class CustomerProfile {
     /**
      * Sets the research funders.
      *
-     * @param researchFunders the new research funders
+     * @param researchFunders
+     *            the new research funders
      */
-    public final void setResearchFunders(final ResearchFundersData researchFunders) {
+    public final void setResearchFunders(
+            final ResearchFundersData researchFunders) {
         this.researchFunders = researchFunders;
     }
 
@@ -161,7 +167,8 @@ public class CustomerProfile {
     /**
      * Sets the favorite journals.
      *
-     * @param favoriteJournals the new favorite journals
+     * @param favoriteJournals
+     *            the new favorite journals
      */
     public final void setFavoriteJournals(
             final FavoriteJournals favoriteJournals) {
@@ -180,13 +187,12 @@ public class CustomerProfile {
     /**
      * Sets the co authors.
      *
-     * @param coAuthors the new co authors
+     * @param coAuthors
+     *            the new co authors
      */
     public final void setCoAuthors(final CoAuthorsData coAuthors) {
         this.coAuthors = coAuthors;
     }
-
-  
 
     /**
      * Gets the affiliations.
@@ -200,7 +206,8 @@ public class CustomerProfile {
     /**
      * Sets the affiliations.
      *
-     * @param affiliations the new affiliations
+     * @param affiliations
+     *            the new affiliations
      */
     public final void setAffiliations(final AffiliationsData affiliations) {
         this.affiliations = affiliations;
@@ -218,7 +225,8 @@ public class CustomerProfile {
     /**
      * Sets the society list.
      *
-     * @param societyList the new society list
+     * @param societyList
+     *            the new society list
      */
     public final void setSocietyList(final SocietyList societyList) {
         this.societyList = societyList;
@@ -236,7 +244,8 @@ public class CustomerProfile {
     /**
      * Sets the profile visibility.
      *
-     * @param profileVisibility the new profile visibility
+     * @param profileVisibility
+     *            the new profile visibility
      */
     public final void setProfileVisibility(
             final ProfileVisibility profileVisibility) {

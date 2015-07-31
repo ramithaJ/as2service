@@ -64,7 +64,7 @@ public class Address implements Serializable {
     private String city;
 
     /** The state. */
-    private String state;
+    private State state;
 
     /** The post code. */
     private String postCode;
@@ -275,21 +275,17 @@ public class Address implements Serializable {
     }
 
     /**
-     * Gets the state.
-     *
      * @return the state
      */
-    public final String getState() {
+    public final State getState() {
         return state;
     }
 
     /**
-     * Sets the state.
-     *
      * @param state
      *            the state to set
      */
-    public final void setState(final String state) {
+    public final void setState(final State state) {
         this.state = state;
     }
 

@@ -25,6 +25,7 @@ import org.springframework.beans.factory.annotation.Value;
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
+import com.wiley.gr.ace.authorservices.model.Address;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.Alert;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
@@ -38,6 +39,8 @@ import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserProfile;
+import com.wiley.gr.ace.authorservices.model.external.AddressDetails;
+import com.wiley.gr.ace.authorservices.model.external.AddressElement;
 import com.wiley.gr.ace.authorservices.model.external.AffiliationData;
 import com.wiley.gr.ace.authorservices.model.external.AffiliationsData;
 import com.wiley.gr.ace.authorservices.model.external.AlertData;
@@ -327,14 +330,76 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @return true, if successful
      */
     @Override
-    public final boolean updateUserAddress(final int userId,
-            final UserProfile addresses) {
+    public final boolean updateUserAddress(final String userId,
+            final Address addressesRequest) {
 
         AuthorProfileServiceImpl.LOGGER
                 .info("inside updateUserAddress Method ");
-        userProfile.setAddressDetails(addresses.getAddressDetails());
-        lookUpProfile.setCustomerProfile(userProfile);
-        return null != userProfiles.updateProfile(userId, lookUpProfile);
+
+        CustomerDetails customerDetails = getCustomeProfile(userId);
+        LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
+        CustomerProfile customerProfile = new CustomerProfile();
+        customerProfile.setCustomerDetails(customerDetails);
+
+        AddressDetails addressDetails = new AddressDetails();
+        List<AddressElement> addressElementsList = new ArrayList<AddressElement>();
+
+        if ("Physical".equalsIgnoreCase(addressesRequest.getAddressType())) {
+            AddressElement physical = this.updateAddressFields(
+                    addressesRequest, addressesRequest.getAddressType());
+            addressElementsList.add(physical);
+            if ('Y' == addressesRequest.getAddressFag()) {
+                AddressElement Billing = this.updateAddressFields(
+                        addressesRequest, "Billing");
+                addressElementsList.add(Billing);
+            }
+        }
+
+        if ("Billing".equalsIgnoreCase(addressesRequest.getAddressType())) {
+            AddressElement physical = this.updateAddressFields(
+                    addressesRequest, addressesRequest.getAddressType());
+            addressElementsList.add(physical);
+            if ('Y' == addressesRequest.getAddressFag()) {
+                AddressElement shipping = this.updateAddressFields(
+                        addressesRequest, "Shipping");
+                addressElementsList.add(shipping);
+            }
+        }
+
+        if ("Shipping".equalsIgnoreCase(addressesRequest.getAddressType())) {
+            AddressElement shipping = this.updateAddressFields(
+                    addressesRequest, addressesRequest.getAddressType());
+            addressElementsList.add(shipping);
+        }
+
+        addressDetails.setAddress(addressElementsList);
+        customerProfile.setAddressDetails(addressDetails);
+        lookupCustomerProfileResponse.setCustomerProfile(customerProfile);
+        return userProfiles
+                .customerProfileUpdate(lookupCustomerProfileResponse);
+    }
+
+    private AddressElement updateAddressFields(final Address addressesRequest,
+            final String addressType) {
+
+        AddressElement addressElement = new AddressElement();
+        addressElement.setAddrTypeCD(addressType);
+        addressElement.setTitle(addressesRequest.getTitle());
+        addressElement.setFirstName(addressesRequest.getFirstName());
+        addressElement.setLastName(addressesRequest.getLastName());
+        addressElement.setSuffix(addressesRequest.getSuffix());
+        addressElement.setInstitutionCd(addressesRequest.getInstitutionId());
+        addressElement.setDepartmentCd(addressesRequest.getDepartmentId());
+        addressElement.setAddressLine1(addressesRequest.getAddressLine1());
+        addressElement.setAddressLine2(addressesRequest.getAddressLine2());
+        addressElement.setCity(addressesRequest.getCity());
+        addressElement.setState(addressesRequest.getState().getStateCode());
+        addressElement.setPostBox(addressesRequest.getPostCode());
+        addressElement.setCountryCode(addressesRequest.getCountry()
+                .getCountryCode());
+        addressElement.setPhoneNumber(addressesRequest.getPhoneNumber());
+        addressElement.setFaxNumber(addressesRequest.getFaxNumber());
+        return addressElement;
     }
 
     /**
