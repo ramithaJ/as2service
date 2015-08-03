@@ -45,7 +45,7 @@ public class CustomerDetails {
     /** The l name. */
     @JsonProperty("LastName")
     private String lName;
-    
+
     /** The m name. */
     @JsonProperty("MiddleName")
     private String mName;
@@ -61,19 +61,19 @@ public class CustomerDetails {
     /** The ec id. */
     @JsonProperty("Password")
     private String pswd;
-    
+
     /** The ec id. */
     @JsonProperty("ASID")
     private String asid;
-    
+
     /** The ec id. */
     @JsonProperty("UserRole")
     private String userRole;
-    
+
     /** The ec id. */
     @JsonProperty("NickName")
     private String nickName;
-    
+
     /** The orc id. */
     @JsonProperty("ORCID")
     private String orcId;
@@ -85,19 +85,19 @@ public class CustomerDetails {
     /** The opt in flag. */
     @JsonProperty("CustomerType")
     private String customerType;
-    
+
     /** The opt in flag. */
     @JsonProperty("UserStatus")
     private String userStatus;
-    
+
     /** The opt in flag. */
     @JsonProperty("TCFlag")
     private String tcFlag;
-    
+
     /** The opt in flag. */
     @JsonProperty("SendEmail")
     private String sendEmail;
-    
+
     /** The job category code. */
     @JsonProperty("JobCategoryCode")
     private String jobCategoryCode;
@@ -109,13 +109,31 @@ public class CustomerDetails {
     /** The profile visibility. */
     @JsonProperty("ProfileVisibility")
     private String profileVisibility;
-    
+
     /** The title. */
     @JsonProperty("Title")
     private String title;
 
     @JsonProperty("SkipTargetSystem")
     private String skipTargetSystem;
+
+    @JsonProperty("SourceSystem")
+    private String sourceSystem;
+
+    /**
+     * @return the sourceSystem
+     */
+    public final String getSourceSystem() {
+        return sourceSystem;
+    }
+
+    /**
+     * @param sourceSystem
+     *            the sourceSystem to set
+     */
+    public final void setSourceSystem(final String sourceSystem) {
+        this.sourceSystem = sourceSystem;
+    }
 
     /**
      * @return the alternativeName
@@ -125,7 +143,8 @@ public class CustomerDetails {
     }
 
     /**
-     * @param alternativeName the alternativeName to set
+     * @param alternativeName
+     *            the alternativeName to set
      */
     public final void setAlternativeName(final String alternativeName) {
         this.alternativeName = alternativeName;
@@ -139,7 +158,8 @@ public class CustomerDetails {
     }
 
     /**
-     * @param primaryEmail the primaryEmail to set
+     * @param primaryEmail
+     *            the primaryEmail to set
      */
     public final void setPrimaryEmail(final String primaryEmail) {
         this.primaryEmail = primaryEmail;
@@ -153,7 +173,8 @@ public class CustomerDetails {
     }
 
     /**
-     * @param secondaryEmail the secondaryEmail to set
+     * @param secondaryEmail
+     *            the secondaryEmail to set
      */
     public final void setSecondaryEmail(final String secondaryEmail) {
         this.secondaryEmail = secondaryEmail;
@@ -167,7 +188,8 @@ public class CustomerDetails {
     }
 
     /**
-     * @param fName the fName to set
+     * @param fName
+     *            the fName to set
      */
     public final void setfName(final String fName) {
         this.fName = fName;
@@ -181,7 +203,8 @@ public class CustomerDetails {
     }
 
     /**
-     * @param lName the lName to set
+     * @param lName
+     *            the lName to set
      */
     public final void setlName(final String lName) {
         this.lName = lName;
@@ -195,7 +218,8 @@ public class CustomerDetails {
     }
 
     /**
-     * @param mName the mName to set
+     * @param mName
+     *            the mName to set
      */
     public final void setmName(final String mName) {
         this.mName = mName;
@@ -209,7 +233,8 @@ public class CustomerDetails {
     }
 
     /**
-     * @param userSuffix the userSuffix to set
+     * @param userSuffix
+     *            the userSuffix to set
      */
     public final void setUserSuffix(final String userSuffix) {
         this.userSuffix = userSuffix;
@@ -223,7 +248,8 @@ public class CustomerDetails {
     }
 
     /**
-     * @param ecId the ecId to set
+     * @param ecId
+     *            the ecId to set
      */
     public final void setEcId(final String ecId) {
         this.ecId = ecId;
@@ -237,7 +263,8 @@ public class CustomerDetails {
     }
 
     /**
-     * @param pswd the pswd to set
+     * @param pswd
+     *            the pswd to set
      */
     public final void setPswd(final String pswd) {
         this.pswd = pswd;
@@ -251,7 +278,8 @@ public class CustomerDetails {
     }
 
     /**
-     * @param asid the asid to set
+     * @param asid
+     *            the asid to set
      */
     public final void setAsid(final String asid) {
         this.asid = asid;
@@ -265,7 +293,8 @@ public class CustomerDetails {
     }
 
     /**
-     * @param userRole the userRole to set
+     * @param userRole
+     *            the userRole to set
      */
     public final void setUserRole(final String userRole) {
         this.userRole = userRole;
@@ -279,7 +308,8 @@ public class CustomerDetails {
     }
 
     /**
-     * @param nickName the nickName to set
+     * @param nickName
+     *            the nickName to set
      */
     public final void setNickName(final String nickName) {
         this.nickName = nickName;
@@ -293,7 +323,8 @@ public class CustomerDetails {
     }
 
     /**
-     * @param orcId the orcId to set
+     * @param orcId
+     *            the orcId to set
      */
     public final void setOrcId(final String orcId) {
         this.orcId = orcId;
@@ -307,7 +338,8 @@ public class CustomerDetails {
     }
 
     /**
-     * @param optInFlag the optInFlag to set
+     * @param optInFlag
+     *            the optInFlag to set
      */
     public final void setOptInFlag(final String optInFlag) {
         this.optInFlag = optInFlag;
@@ -321,7 +353,8 @@ public class CustomerDetails {
     }
 
     /**
-     * @param customerType the customerType to set
+     * @param customerType
+     *            the customerType to set
      */
     public final void setCustomerType(final String customerType) {
         this.customerType = customerType;
@@ -335,7 +368,8 @@ public class CustomerDetails {
     }
 
     /**
-     * @param userStatus the userStatus to set
+     * @param userStatus
+     *            the userStatus to set
      */
     public final void setUserStatus(final String userStatus) {
         this.userStatus = userStatus;
@@ -349,7 +383,8 @@ public class CustomerDetails {
     }
 
     /**
-     * @param tcFlag the tcFlag to set
+     * @param tcFlag
+     *            the tcFlag to set
      */
     public final void setTcFlag(final String tcFlag) {
         this.tcFlag = tcFlag;
@@ -363,7 +398,8 @@ public class CustomerDetails {
     }
 
     /**
-     * @param sendEmail the sendEmail to set
+     * @param sendEmail
+     *            the sendEmail to set
      */
     public final void setSendEmail(final String sendEmail) {
         this.sendEmail = sendEmail;
@@ -377,7 +413,8 @@ public class CustomerDetails {
     }
 
     /**
-     * @param jobCategoryCode the jobCategoryCode to set
+     * @param jobCategoryCode
+     *            the jobCategoryCode to set
      */
     public final void setJobCategoryCode(final String jobCategoryCode) {
         this.jobCategoryCode = jobCategoryCode;
@@ -391,7 +428,8 @@ public class CustomerDetails {
     }
 
     /**
-     * @param industryCode the industryCode to set
+     * @param industryCode
+     *            the industryCode to set
      */
     public final void setIndustryCode(final String industryCode) {
         this.industryCode = industryCode;
@@ -405,7 +443,8 @@ public class CustomerDetails {
     }
 
     /**
-     * @param profileVisibility the profileVisibility to set
+     * @param profileVisibility
+     *            the profileVisibility to set
      */
     public final void setProfileVisibility(final String profileVisibility) {
         this.profileVisibility = profileVisibility;
@@ -419,7 +458,8 @@ public class CustomerDetails {
     }
 
     /**
-     * @param title the title to set
+     * @param title
+     *            the title to set
      */
     public final void setTitle(final String title) {
         this.title = title;
@@ -433,12 +473,11 @@ public class CustomerDetails {
     }
 
     /**
-     * @param skipTargetSystem the skipTargetSystem to set
+     * @param skipTargetSystem
+     *            the skipTargetSystem to set
      */
     public final void setSkipTargetSystem(final String skipTargetSystem) {
         this.skipTargetSystem = skipTargetSystem;
     }
-    
-    
 
 }
