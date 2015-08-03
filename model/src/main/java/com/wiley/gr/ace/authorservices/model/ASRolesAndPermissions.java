@@ -17,6 +17,7 @@ import java.util.Map;
 
 import javax.validation.constraints.NotNull;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ASRolesAndPermissions.
  *
@@ -24,6 +25,10 @@ import javax.validation.constraints.NotNull;
  */
 public class ASRolesAndPermissions {
 
+    
+    /** The user id. */
+    @NotNull
+    private String userId;
     /** The role. */
     @NotNull
     private Role role = new Role();
@@ -31,6 +36,24 @@ public class ASRolesAndPermissions {
     /** The permissions map. */
     @NotNull
     private Map<String, String[]> permissionsMap = new HashMap<String, String[]>();
+
+    /**
+     * Gets the user id.
+     *
+     * @return the user id
+     */
+    public String getUserId() {
+        return userId;
+    }
+
+    /**
+     * Sets the user id.
+     *
+     * @param userId the new user id
+     */
+    public void setUserId(final String userId) {
+        this.userId = userId;
+    }
 
     /**
      * Gets the role.
