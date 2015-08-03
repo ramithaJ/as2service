@@ -14,6 +14,7 @@ package com.wiley.gr.ace.authorservices.externalservices.service;
 import java.util.List;
 
 import com.wiley.gr.ace.authorservices.model.User;
+import com.wiley.gr.ace.authorservices.model.external.ALMAuthRequest;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
 import com.wiley.gr.ace.authorservices.model.external.DashboardView;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
@@ -108,4 +109,12 @@ public interface ESBInterfaceService {
      * @return true, if successful
      */
     boolean confirmAssociation();
+
+    /**
+     * Checks if is ALM authenticated.
+     *
+     * @param almAuthRequest the alm auth request
+     * @return true, if is ALM authenticated
+     */
+    boolean isALMAuthenticated(ALMAuthRequest almAuthRequest);
 }

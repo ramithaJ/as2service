@@ -15,13 +15,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
+import org.springframework.web.client.HttpClientErrorException;
 
 import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.model.Country;
 import com.wiley.gr.ace.authorservices.model.InviteRecords;
 import com.wiley.gr.ace.authorservices.model.User;
+import com.wiley.gr.ace.authorservices.model.external.ALMAuthRequest;
 import com.wiley.gr.ace.authorservices.model.external.AddressDetails;
 import com.wiley.gr.ace.authorservices.model.external.AddressElement;
 import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
@@ -69,10 +72,21 @@ public class RegistrationServiceImpl implements RegistrationService {
                 List<AddressElement> addressElements = new ArrayList<AddressElement>();
                 AddressElement addressElement = new AddressElement();
 
+                if ("ALM".equalsIgnoreCase(user.getFoundIn())) {
+                    ALMAuthRequest almAuthRequest = new ALMAuthRequest();
+                    almAuthRequest.setAppKey("DAAS");// remove hardcode
+                    almAuthRequest.setAuthenticationType("LDAP");// remove
+                                                                 // hardcode
+                    almAuthRequest.setPassword(user.getPassword());
+                    almAuthRequest.setUserId(user.getPrimaryEmailAddr());
+
+                    if (esbInterFaceService.isALMAuthenticated(almAuthRequest)) {
+                        customerDetails.setSkipTargetSystem(user.getFoundIn());
+                    }
+                }
                 customerDetails.setfName(user.getFirstName());
                 customerDetails.setlName(user.getLastName());
                 customerDetails.setPswd(user.getPassword());
-                customerDetails.setSkipTargetSystem(user.getFoundIn());
                 if (!StringUtils.isEmpty(user.getInvitationGuid())) {
                     final InviteResetpwdLog inviteResetpwdLog = registrationServiceDAO
                             .getInvitationRecords(user.getInvitationGuid());
@@ -84,12 +98,18 @@ public class RegistrationServiceImpl implements RegistrationService {
 
                 }
                 customerDetails.setPrimaryEmail(user.getPrimaryEmailAddr());
+                customerDetails.setCustomerType("USER"); // remove hardcode
+                customerDetails.setUserStatus("ACTIVE");// remove hardcode
+                customerDetails.setSendEmail("Y");// remove hardcode
+                customerDetails.setTcFlag(user.getTermsOfUseFlg());
+                customerDetails.setSourceSystem("AS");// remove hardcode
 
                 addressElement.setCountryCode(user.getCountry()
                         .getCountryCode());
                 addressElement.setCountryName(user.getCountry()
                         .getCountryName());
-                // addressElement.setCountrynamene(user.getCountryNameNE());
+                addressElement.setAddressType("Primary");// remove hardcode
+                addressElement.setAddrTypeCD("Physical");// remove hardcode
                 addressElements.add(addressElement);
                 cuAddressDetails.setAddress(addressElements);
 
@@ -99,6 +119,19 @@ public class RegistrationServiceImpl implements RegistrationService {
                 profileInformation.setCustomerprofile(customerProfile);
 
                 status = esbInterFaceService.creatUser(profileInformation);
+            }
+        } catch (HttpClientErrorException httpEx) {
+            if (httpEx.getStatusCode() == HttpStatus.UNAUTHORIZED) {
+                throw new UserException(
+                        "REGISTRATION_ALM_AUTH_FAILURE_ERR_TEXT",
+                        "Registration for ALM Authentication Failed. Please enter correct password.");
+            } else if (httpEx.getStatusCode() == HttpStatus.LOCKED) {
+                throw new UserException(
+                        "REGISTRATION_ALM_ACCT_LOCKED_ERR_TEXT",
+                        "Your account is locked out please try after sometime.");
+            } else {
+                throw new UserException("UNEXPECTED",
+                        "Some Unexpected Error occured");
             }
         } catch (Exception e) {
             throw new UserException();
@@ -122,7 +155,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     public final List<User> getUserFromFirstNameLastName(
             final String firstName, final String lastName) {
 
-        ArrayList<User> userList = null;
+        ArrayList<User> userList = new ArrayList<User>();
         List<ESBUser> esbUserList = null;
         if (!StringUtils.isEmpty(firstName) && !StringUtils.isEmpty(lastName)) {
             try {
@@ -130,20 +163,23 @@ public class RegistrationServiceImpl implements RegistrationService {
                         .getUsersFromFirstNameLastName(firstName, lastName);
 
                 if (!StringUtils.isEmpty(esbUserList)) {
-                    for (final ESBUser esbUser : esbUserList) {
-                        userList = new ArrayList<User>();
-                        final User tempUser = new User();
-                        final Country tempCountry = new Country();
-                        tempCountry.setCountryName(esbUser.getCountry());
+                    for (ESBUser esbUser : esbUserList) {
+                        User tempUser = new User();
+                        Country tempCountry = new Country();
+                        tempCountry.setCountryCode(esbUser.getAddresses()
+                                .get(0).getCountryCd());
                         tempUser.setFirstName(esbUser.getFirstName());
                         tempUser.setLastName(esbUser.getLastName());
-                        tempUser.setPrimaryEmailAddr(esbUser.getEmailId());
+                        tempUser.setPrimaryEmailAddr(esbUser
+                                .getPrimaryEmailAddr());
+                        tempUser.setInstituition(esbUser.getInstitution());
+                        tempUser.setOrcidId(esbUser.getOrcidId());
                         tempUser.setCountry(tempCountry);
                         userList.add(tempUser);
                     }
                 }
             } catch (Exception e) {
-                throw new UserException("Some Error",e.getMessage());
+                throw new UserException("Some Error", e.getMessage());
             }
         }
 
@@ -167,18 +203,21 @@ public class RegistrationServiceImpl implements RegistrationService {
             try {
                 esbUser = esbInterFaceService.checkEmailIdExists(emailId);
 
-                if (null != esbUser) {
-                    System.err.println(esbUser.getFirstName());
-                    System.err.println(esbUser.getLastName());
-                    System.err.println(esbUser.getCountry());
+                if (!StringUtils.isEmpty(esbUser)) {
+
                     user = new User();
                     final Country countryDetails = new Country();
-                    countryDetails.setCountryName(esbUser.getCountry());
+                    if (!StringUtils.isEmpty(esbUser.getAddresses())
+                            && !StringUtils.isEmpty(esbUser.getAddresses().get(
+                                    0))) {
+                        countryDetails.setCountryCode(esbUser.getAddresses()
+                                .get(0).getCountryCd());
+                    }
                     user.setFirstName(esbUser.getFirstName());
                     user.setLastName(esbUser.getLastName());
-                    user.setPrimaryEmailAddr(esbUser.getEmailId());
+                    user.setPrimaryEmailAddr(esbUser.getPrimaryEmailAddr());
                     user.setCountry(countryDetails);
-                    user.setFoundIn(esbUser.getFoundIn());
+                    user.setFoundIn(esbUser.getFoundIN());
                 }
             } catch (Exception e) {
                 throw new UserException();

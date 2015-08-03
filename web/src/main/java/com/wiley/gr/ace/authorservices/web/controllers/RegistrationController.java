@@ -36,7 +36,6 @@ import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
 import com.wiley.gr.ace.authorservices.services.service.SendNotification;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 
-
 /**
  * The Class RegistrationController.
  *
@@ -52,7 +51,6 @@ public class RegistrationController {
     public static final Logger LOGGER = LoggerFactory
             .getLogger(RegistrationController.class);
 
-    
     /** The rs. */
     @Autowired(required = true)
     private RegistrationService rs;
@@ -113,7 +111,8 @@ public class RegistrationController {
     /**
      * Check user exists.
      *
-     * @param email            - The request value
+     * @param email
+     *            - The request value
      * @return service
      */
     @RequestMapping(value = "/verify/email", method = RequestMethod.GET)
@@ -131,7 +130,7 @@ public class RegistrationController {
                 service.setPayload(user);
                 ErrorPOJO err = new ErrorPOJO();
                 err.setCode("USER_EXISTS_NOT_REGISTERED");
-                err.setMessage("User exists in the system but not registered with AS2.0");
+                err.setMessage("User exists in the system but not registered with AS2.0. Please enter correct password to register");
                 service.setError(err);
             } else {
                 throw new UserException(checkUserExistsErrorCode,
@@ -145,7 +144,8 @@ public class RegistrationController {
     /**
      * Gets the invitation records.
      *
-     * @param guid            - The request value
+     * @param guid
+     *            - The request value
      * @return service
      */
     @RequestMapping(value = "/invitation/{guid}", method = RequestMethod.GET)
@@ -185,7 +185,8 @@ public class RegistrationController {
     /**
      * Creates the user.
      *
-     * @param user            - The request value
+     * @param user
+     *            - The request value
      * @return service
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -245,7 +246,8 @@ public class RegistrationController {
     /**
      * Checks if is user found with orcid id.
      *
-     * @param orcidId            - The request value
+     * @param orcidId
+     *            - The request value
      * @return service
      */
     @RequestMapping(value = "/search/orcid/{orcidId}", method = RequestMethod.GET)

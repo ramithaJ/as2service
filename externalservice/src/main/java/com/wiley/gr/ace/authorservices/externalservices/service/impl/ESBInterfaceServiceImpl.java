@@ -21,14 +21,18 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.model.User;
+import com.wiley.gr.ace.authorservices.model.external.ALMAuthRequest;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
 import com.wiley.gr.ace.authorservices.model.external.DashboardView;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
@@ -172,8 +176,8 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
                     + "&LastName=" + lastName;
         }
 
-        searchUserResult = (SearchUserResult) RestServiceInvokerUtil.getServiceData(
-                searchJobUrl, SearchUserResult.class);
+        searchUserResult = (SearchUserResult) RestServiceInvokerUtil
+                .getServiceData(searchJobUrl, SearchUserResult.class);
 
         if ("success".equalsIgnoreCase(searchUserResult.getStatus())) {
             esbUsersList = (ArrayList<ESBUser>) searchUserResult
@@ -271,6 +275,35 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
     @Override
     public final boolean confirmAssociation() {
         return false;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService
+     * #isALMAuthenticated(com.wiley.gr.ace.authorservices.model.external.
+     * ALMAuthRequest)
+     */
+    @Override
+    public boolean isALMAuthenticated(ALMAuthRequest almAuthRequest) {
+
+        boolean isALMAuth = false;
+        try {
+            ResponseEntity<String> responseEntity = new RestTemplate()
+                    .postForEntity(
+                            new URI(
+                                    "http://10.201.64.81:8090/service/v1/auth/authenticate"),
+                            almAuthRequest, String.class);
+            if (responseEntity.getStatusCode() == HttpStatus.OK) {
+                isALMAuth = true;
+            }
+        } catch (URISyntaxException e) {
+            throw new UserException("UNEXPECTED",
+                    "Some Unexpected Error occured");
+        }
+
+        return isALMAuth;
     }
 
 }

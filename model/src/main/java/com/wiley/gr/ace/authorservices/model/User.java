@@ -106,6 +106,21 @@ public class User implements Serializable {
 
     private String foundIn;
 
+    /** The instituition. */
+    private String instituition;
+
+    public final String getInstituition() {
+        return instituition;
+    }
+
+    public final void setInstituition(final String instituition) {
+        this.instituition = instituition;
+    }
+
+    public static final long getSerialversionuid() {
+        return serialVersionUID;
+    }
+
     /**
      * @return the industryCode
      */
