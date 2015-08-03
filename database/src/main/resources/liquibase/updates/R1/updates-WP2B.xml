@@ -336,6 +336,53 @@ ALTER TABLE SUB_OWNERSHIP_TYPES ADD FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USE
 </sql>
 </changeSet>
 
+<changeSet author="gphaniraj" id="WP2B-38">
+<sql>
+DROP TABLE US_GOV_OWNERSHIP_TYPES;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-39">
+<sql>
+ALTER TABLE LICENSE_REJECTION_REASONS DROP(CREATED_DATE,CREATED_BY,UPDATED_DATE,UPDATED_BY);   
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-40">
+<sql>
+ALTER TABLE LICENSE_REJECTION_REASONS ADD 
+(
+REASON_DESCRIPTION    VARCHAR2(3000)
+CREATED_DATE          TIMESTAMP(6),   
+CREATED_BY            NUMBER,       
+UPDATED_DATE          TIMESTAMP(6),  
+UPDATED_BY            NUMBER   
+);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-41">
+<sql>
+ALTER TABLE LICENSE_REJECTION_REASONS MODFIY COLUMN REASON_TEXT VARCHAR2(100);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-42">
+<sql>
+ALTER TABLE LICENSE_REJECTION_REASONS ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-43">
+<sql>
+ALTER TABLE LICENSE_REJECTION_REASONS ADD FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+
+<changeSet author="gphaniraj" id="WP2B-OwnerShipData">
+    <sqlFile  path="updates/sql/ownership_data.sql" relativeToChangelogFile="true" splitStatements="true"/>
+</changeSet>
 
 
 </databaseChangeLog>
