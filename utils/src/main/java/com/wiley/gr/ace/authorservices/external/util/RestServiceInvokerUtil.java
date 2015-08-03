@@ -72,7 +72,7 @@ public class RestServiceInvokerUtil {
      */
     public static <T> Object restServiceInvoker(final String url,
             final Object requestEntityClass, final Class<T> responseEntityClass) {
-
+        
         try {
             ResponseEntity<T> response = new RestTemplate().postForEntity(
                     new URI(url), requestEntityClass, responseEntityClass);
@@ -94,6 +94,38 @@ public class RestServiceInvokerUtil {
 
         }
 
+    }
+    
+    /**
+     * Put service data.
+     *
+     * @param url the url
+     * @param requestEntity the request entity
+     */
+    public static void putServiceData(final String url,
+            final Object requestEntity) {
+
+        try {
+            new RestTemplate().put(new URI(url), requestEntity);
+           
+        } catch (URISyntaxException e) {
+            throw new ASException();
+        }
+    }
+    
+    /**
+     * Delete service data.
+     *
+     * @param url the url
+     */
+    public static void deleteServiceData(final String url) {
+
+        try {
+            new RestTemplate().delete(new URI(url));
+           
+        } catch (URISyntaxException e) {
+            throw new ASException();
+        }
     }
 
     /**
