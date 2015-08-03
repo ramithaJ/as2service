@@ -42,7 +42,6 @@ import com.wiley.gr.ace.authorservices.persistence.entity.UserRolesId;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
-import com.wiley.gr.ace.authorservices.persistence.services.UserRolesDAO;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 
 /**
@@ -71,10 +70,6 @@ public class AdminLoginServiceImpl implements AdminLoginService {
     /** The bpm service. */
     @Autowired(required = true)
     private BPMInterfaceService bpmService;
-
-    /** The user roles dao. */
-    @Autowired(required = true)
-    private UserRolesDAO userRolesDAO;
 
     /** The Roles Service. */
     @Autowired(required = true)
