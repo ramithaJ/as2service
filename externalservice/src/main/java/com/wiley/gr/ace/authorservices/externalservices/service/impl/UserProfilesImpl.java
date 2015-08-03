@@ -80,6 +80,9 @@ public class UserProfilesImpl implements UserProfiles {
     /** The statesurl. */
     @Value("${states.url}")
     private String statesurl;
+    
+    @Value("${statesurl.append}")
+    private String statesUrlAppend;
 
     /** The lookupCustomerProfileResponse. */
     @Value("${lookupCustomerProfileResponse.url}")
@@ -174,9 +177,12 @@ public class UserProfilesImpl implements UserProfiles {
      *
      */
     @Override
-    public final ESBResponse getStates() {
+    public final ESBResponse getStates(final String countrycode) {
 
-        return (ESBResponse) RestServiceInvokerUtil.invokeStub(statesurl,
+        String url=statesurl+countrycode+statesUrlAppend;
+        System.err.println(url);
+        
+        return (ESBResponse) RestServiceInvokerUtil.invokeStub(url,
                 HttpMethod.GET, ESBResponse.class);
     }
 

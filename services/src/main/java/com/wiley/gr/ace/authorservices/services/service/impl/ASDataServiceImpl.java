@@ -242,7 +242,7 @@ public class ASDataServiceImpl implements ASDataService {
             final Integer count) {
 
         LOGGER.info("inside getStates method ");
-        ESBResponse statelistext = userProfiles.getStates();
+        ESBResponse statelistext = userProfiles.getStates(countrycode);
         List<State> modelststelist = new ArrayList<State>();
 
         List<Object> externalstatelist = statelistext.getResponse().getDocs();

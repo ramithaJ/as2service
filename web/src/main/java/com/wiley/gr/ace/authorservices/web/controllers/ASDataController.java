@@ -139,6 +139,7 @@ public class ASDataController {
             @PathVariable("countrycode") final String countrycode,
             @RequestParam(value = "count", required = false, defaultValue = "10") final Integer count) {
         LOGGER.info("inside getStates Method");
+        System.err.println(countrycode);
         Service service = new Service();
         service.setPayload(aSDataService.getStates(countrycode, count));
 

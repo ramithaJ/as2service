@@ -74,7 +74,7 @@ public interface UserProfiles {
      *
      * @return the states
      */
-    ESBResponse getStates();
+    ESBResponse getStates(String countrycode);
 
     /**
      * Gets the user profile response.
