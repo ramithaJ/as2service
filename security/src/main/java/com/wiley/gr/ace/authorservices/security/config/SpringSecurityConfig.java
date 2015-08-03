@@ -109,6 +109,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/userAccount/orcid/remove/*")
                 .permitAll()
+                
+                .antMatchers("/admin/permissions/*")
+                .permitAll()
 
                 .antMatchers(HttpMethod.POST, SpringSecurityConfig.AUTHENTICATE)
                 .permitAll()
