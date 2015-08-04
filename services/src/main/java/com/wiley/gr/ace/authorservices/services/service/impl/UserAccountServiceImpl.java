@@ -144,6 +144,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 
         Address address = null;
         address = new Address();
+        address.setId(addressElement.getId());
         address.setTitle(addressElement.getTitle());
         address.setSuffix(addressElement.getSuffix());
         address.setFirstName(addressElement.getFirstName());

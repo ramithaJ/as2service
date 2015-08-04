@@ -27,6 +27,11 @@ public class Address implements Serializable {
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * This field holds the value of id
+     */
+    private String id;
+
     /** The address type. */
     private String addressType;
 
@@ -91,6 +96,21 @@ public class Address implements Serializable {
      */
     public final String getAddressType() {
         return addressType;
+    }
+
+    /**
+     * @return the id
+     */
+    public final String getId() {
+        return id;
+    }
+
+    /**
+     * @param id
+     *            the id to set
+     */
+    public final void setId(final String id) {
+        this.id = id;
     }
 
     /**

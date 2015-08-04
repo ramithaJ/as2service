@@ -396,7 +396,11 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         addressElement.setSuffix(addressesRequest.getSuffix());
         addressElement.setInstitutionCd(addressesRequest.getInstitutionId());
         addressElement.setInstitutionName(addressesRequest.getInstitution());
-        addressElement.setStatus("Edit");
+        if (addressesRequest.getId() == "0") {
+            addressElement.setStatus("Add");
+        } else {
+            addressElement.setStatus("Edit");
+        }
         addressElement.setDepartmentCd(addressesRequest.getDepartmentId());
         addressElement.setDepartmentName(addressesRequest.getDepartment());
         addressElement.setAddressLine1(addressesRequest.getAddressLine1());
@@ -812,7 +816,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         customerDetails.setUserStatus("Active");
         customerDetails.setTcFlag("Y");
         customerDetails.setSendEmail("Yes");
-        //customerDetails.setSourceSystem("AS");
+        // customerDetails.setSourceSystem("AS");
         customerDetails.setProfileVisibility("0");
 
         return customerDetails;
