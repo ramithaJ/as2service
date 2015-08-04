@@ -275,7 +275,7 @@ public class ASDataServiceImpl implements ASDataService {
 
         LOGGER.info("inside getInstitutions method ");
 
-        DropDown dropDown = userProfiles.getInstitutionsList();
+/*        DropDown dropDown = userProfiles.getInstitutionsList();
         List<Institution> listofinstitute = dropDown.getInstitutions();
         List<Institution> institutionslist = new ArrayList<Institution>();
 
@@ -286,7 +286,9 @@ public class ASDataServiceImpl implements ASDataService {
             institution.setInstitutionName(institute.getInstitutionName());
             institutionslist.add(institution);
 
-        }
+        }*/
+        List<Institution> institutionslist = new ArrayList<Institution>();
+
 
         return institutionslist;
     }
@@ -301,7 +303,7 @@ public class ASDataServiceImpl implements ASDataService {
 
         LOGGER.info("inside getDepartments method ");
 
-        DropDown dropDown = userProfiles.getDepartmentsList();
+        /*DropDown dropDown = userProfiles.getDepartmentsList();
         List<Department> listofdepartment = dropDown.getDepartments();
         List<Department> departmentlist = new ArrayList<Department>();
         for (Department department : listofdepartment) {
@@ -311,7 +313,10 @@ public class ASDataServiceImpl implements ASDataService {
             departments.setDepartmentName(department.getDepartmentName());
             departmentlist.add(department);
 
-        }
+        }*/
+        
+        List<Department> departmentlist = new ArrayList<Department>();
+
         return departmentlist;
     }
 

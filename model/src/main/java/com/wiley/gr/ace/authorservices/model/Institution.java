@@ -12,6 +12,7 @@
 package com.wiley.gr.ace.authorservices.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
@@ -22,48 +23,44 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class Institution {
 
-    /** The institution id. */
-    private String institutionId;
+	@JsonProperty("responseHeader")
+	private ResponseHeader responseHeader;
 
-    /** The institution name. */
-    private String institutionName;
+	@JsonProperty("response")
+	private Response response;
 
-    /**
-     * Gets the institution id.
-     *
-     * @return the institutionId
-     */
-    public final String getInstitutionId() {
-        return institutionId;
-    }
+	/**
+	 * 
+	 * @return The responseHeader
+	 */
+	public ResponseHeader getResponseHeader() {
+		return responseHeader;
+	}
 
-    /**
-     * Sets the institution id.
-     *
-     * @param institutionId
-     *            the institutionId to set
-     */
-    public final void setInstitutionId(final String institutionId) {
-        this.institutionId = institutionId;
-    }
+	/**
+	 * 
+	 * @param responseHeader
+	 *            The responseHeader
+	 */
+	public void setResponseHeader(ResponseHeader responseHeader) {
+		this.responseHeader = responseHeader;
+	}
 
-    /**
-     * Gets the institution name.
-     *
-     * @return the institutionName
-     */
-    public final String getInstitutionName() {
-        return institutionName;
-    }
+	/**
+	 * 
+	 * @return The response
+	 */
+	public Response getResponse() {
+		return response;
+	}
 
-    /**
-     * Sets the institution name.
-     *
-     * @param institutionName
-     *            the institutionName to set
-     */
-    public final void setInstitutionName(final String institutionName) {
-        this.institutionName = institutionName;
-    }
+	/**
+	 * 
+	 * @param response
+	 *            The response
+	 */
+	public void setResponse(Response response) {
+		this.response = response;
+	}
 
 }

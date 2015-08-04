@@ -59,6 +59,14 @@ public interface AutocompleteService {
      */
     boolean flush(String key);
     
-	List<CacheData> getDropDownData(String key, String phrase, Integer offset);
+    /**
+     * This service will return the drop down data.
+     * @param key
+     * @param phrase
+     * @param offset
+     * @param parentName
+     * @return cacheDataList
+     */
+	List<CacheData> getDropDownData(String key, String phrase, Integer offset, String parentId, String parentName);
 
 }

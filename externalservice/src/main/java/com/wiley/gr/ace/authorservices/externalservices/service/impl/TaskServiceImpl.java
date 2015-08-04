@@ -103,7 +103,7 @@ public class TaskServiceImpl implements TaskService {
         HttpResponse response = null;
 
         try {
-            String requestString = taskServiceRequest.toString();
+            String requestString = taskServiceRequest.getJsonString(taskServiceRequest);
             encodedParamString = URLEncoder.encode(requestString, "UTF-8");
 
         } catch (UnsupportedEncodingException e) {

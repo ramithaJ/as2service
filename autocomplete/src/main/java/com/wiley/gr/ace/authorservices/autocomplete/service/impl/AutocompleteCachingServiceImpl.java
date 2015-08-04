@@ -17,8 +17,9 @@ import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteCachingS
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.CacheData;
 import com.wiley.gr.ace.authorservices.model.Department;
-import com.wiley.gr.ace.authorservices.model.DropDown;
+import com.wiley.gr.ace.authorservices.model.Doc;
 import com.wiley.gr.ace.authorservices.model.Institution;
+import com.wiley.gr.ace.authorservices.model.Response;
 import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
 import com.wiley.gr.ace.authorservices.model.external.Industries;
 import com.wiley.gr.ace.authorservices.model.external.JobCategories;
@@ -67,7 +68,7 @@ public class AutocompleteCachingServiceImpl implements AutocompleteCachingServic
 	 */
 	@Override
 	@Cacheable(value = "dropDownList", key = "#dropDownKey")
-	public List<String> getCachedData(String dropDownKey) {
+	public List<String> getCachedData(String dropDownKey, String parentId) {
 		List<String> dropDownList = null;
 		List<CacheData> cacheDataList = null;
 
@@ -85,7 +86,7 @@ public class AutocompleteCachingServiceImpl implements AutocompleteCachingServic
 			cacheDataList = getInstitutions();
 		} else if ((departmentskey+"cached").equals(dropDownKey)) {
 			LOGGER.info("getCachedData::departmentskey::"+dropDownKey);
-			cacheDataList = getDepartments();
+			cacheDataList = getDepartments(parentId);
 		} 
 
 		if (cacheDataList != null && !cacheDataList.isEmpty()) {
@@ -198,15 +199,16 @@ public class AutocompleteCachingServiceImpl implements AutocompleteCachingServic
 
 		LOGGER.info("inside getInstitutions method ");
 
-		DropDown dropDown = userProfiles.getInstitutionsList();
-		List<Institution> listofinstitute = dropDown.getInstitutions();
+		Institution dropDown = userProfiles.getInstitutionsList();
+		Response response = dropDown.getResponse();
+		List<Doc> docList = response.getDocs();
 		List<CacheData> institutionslist = new ArrayList<CacheData>();
 
-		for (Institution institute : listofinstitute) {
+		for (Doc institute : docList) {
 
 			CacheData institution = new CacheData();
-			institution.setCode(institute.getInstitutionId());
-			institution.setName(institute.getInstitutionName());
+			institution.setCode(institute.getCGCUSTGRPID());
+			institution.setName(institute.getCGCUSTGRPNAME());
 			institutionslist.add(institution);
 
 		}
@@ -219,18 +221,19 @@ public class AutocompleteCachingServiceImpl implements AutocompleteCachingServic
 	 *
 	 * @return the departments
 	 */
-	private List<CacheData> getDepartments() {
+	private List<CacheData> getDepartments(String institutionId) {
 
 		LOGGER.info("inside getDepartments method ");
 
-		DropDown dropDown = userProfiles.getDepartmentsList();
-		List<Department> listofdepartment = dropDown.getDepartments();
+		Department dropDown = userProfiles.getDepartmentsList(institutionId);
+		Response response = dropDown.getResponse();
+		List<Doc> docList = response.getDocs();
 		List<CacheData> departmentlist = new ArrayList<CacheData>();
-		for (Department department : listofdepartment) {
+		for (Doc department : docList) {
 
 			CacheData departments = new CacheData();
-			departments.setCode(department.getDepartmentId());
-			departments.setName(department.getDepartmentName());
+			departments.setCode(department.getCGCUSTGRPID());
+			departments.setName(department.getCGCUSTGRPNAME());
 			departmentlist.add(departments);
 
 		}

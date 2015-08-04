@@ -189,8 +189,8 @@ public class AutocompleteServiceImpl implements AutocompleteService {
 	 * @return dropDownList
 	 */
 	@Override
-	public List<CacheData> getDropDownData(final String key, String phrase,
-			Integer offset) {
+	public List<CacheData> getDropDownData(String key, String phrase,
+			Integer offset, String parentId, String parentName) {
 		List<String> dropDownList = null;
 		List<CacheData> jsonDropDownList = null;
 		// AutocompleteCacheData cachedData = null;
@@ -199,6 +199,10 @@ public class AutocompleteServiceImpl implements AutocompleteService {
 			offset = 0;
 		}
 
+		if (parentName != null && !"".equals(parentName.trim())) {
+			key = parentName + key;
+		}
+		
 		if (phrase != null && !"".equals(phrase.trim())) {
 			// Auto Complete
 
@@ -212,7 +216,7 @@ public class AutocompleteServiceImpl implements AutocompleteService {
 				// Get the data from cache if not available in Redis and set it
 				// in Redis.
 				dropDownList = autocompleteCachingService.getCachedData(key
-						+ "cached");
+						+ "cached", parentId);
 				if (dropDownList != null) {
 					final Jedis redis = new Jedis(
 							jedisConnectionFactory.getShardInfo());
@@ -227,16 +231,17 @@ public class AutocompleteServiceImpl implements AutocompleteService {
 
 		} else {
 			// Cacheable
-			
+
 			// Key is appended with (auto/cached) to avoid conflict between
 			// auto complete and caching data. This appended string needs to be
 			// removed once a solution is found.
 			dropDownList = autocompleteCachingService.getCachedData(key
-					+ "cached");
+					+ "cached", parentId);
 		}
 
 		jsonDropDownList = getJsonDropDownList(dropDownList, phrase);
-		if (jsonDropDownList != null && (phrase == null || "".equals(phrase.trim()))) {
+		if (jsonDropDownList != null
+				&& (phrase == null || "".equals(phrase.trim()))) {
 
 			jsonDropDownList = jsonDropDownList.subList(offset, offset
 					+ Integer.parseInt(autocompletecount));
@@ -331,7 +336,8 @@ public class AutocompleteServiceImpl implements AutocompleteService {
 	 * @param dropDownList
 	 * @return jsonDropDownList
 	 */
-	private List<CacheData> getJsonDropDownList(List<String> dropDownList, String phrase) {
+	private List<CacheData> getJsonDropDownList(List<String> dropDownList,
+			String phrase) {
 
 		List<CacheData> jsonDropDownList = null;
 
@@ -350,7 +356,7 @@ public class AutocompleteServiceImpl implements AutocompleteService {
 
 			}
 
-			if(phrase == null){
+			if (phrase == null) {
 				jsonDropDownList = sortCacheData("name", jsonDropDownList);
 			}
 		}

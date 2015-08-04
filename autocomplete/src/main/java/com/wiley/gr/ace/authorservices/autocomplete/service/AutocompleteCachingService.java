@@ -13,6 +13,6 @@ import java.util.List;
  */
 public interface AutocompleteCachingService {
 	
-	List<String> getCachedData(String dropDownKey);
+	List<String> getCachedData(String dropDownKey, String parentId);
 
 }

@@ -136,13 +136,13 @@ public class AutocompleteController extends ASExceptionController {
 		if (autocomplete.getKey() != null) {
 			final List<CacheData> autocompleteData = autoCompleteService
 					.getDropDownData(autocomplete.getKey(),
-							autocomplete.getPhrase(), autocomplete.getOffset());
+							autocomplete.getPhrase(), autocomplete.getOffset(),
+							autocomplete.getParentId(),autocomplete.getParentName());
 			service = new Service();
 			service.setPayload(autocompleteData);
 		}
 		return service;
 
 	}
-
 
 }

@@ -13,6 +13,7 @@ package com.wiley.gr.ace.authorservices.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * The Class Department.
@@ -22,48 +23,44 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class Department {
 
-    /** The department id. */
-    private String departmentId;
+	@JsonProperty("responseHeader")
+	private ResponseHeader responseHeader;
 
-    /** The department name. */
-    private String departmentName;
+	@JsonProperty("response")
+	private Response response;
 
-    /**
-     * Gets the department id.
-     *
-     * @return the departmentId
-     */
-    public final String getDepartmentId() {
-        return departmentId;
-    }
+	/**
+	 * 
+	 * @return The responseHeader
+	 */
+	public ResponseHeader getResponseHeader() {
+		return responseHeader;
+	}
 
-    /**
-     * Sets the department id.
-     *
-     * @param departmentId
-     *            the departmentId to set
-     */
-    public final void setDepartmentId(final String departmentId) {
-        this.departmentId = departmentId;
-    }
+	/**
+	 * 
+	 * @param responseHeader
+	 *            The responseHeader
+	 */
+	public void setResponseHeader(ResponseHeader responseHeader) {
+		this.responseHeader = responseHeader;
+	}
 
-    /**
-     * Gets the department name.
-     *
-     * @return the departmentName
-     */
-    public final String getDepartmentName() {
-        return departmentName;
-    }
+	/**
+	 * 
+	 * @return The response
+	 */
+	public Response getResponse() {
+		return response;
+	}
 
-    /**
-     * Sets the department name.
-     *
-     * @param departmentName
-     *            the departmentName to set
-     */
-    public final void setDepartmentName(final String departmentName) {
-        this.departmentName = departmentName;
-    }
+	/**
+	 * 
+	 * @param response
+	 *            The response
+	 */
+	public void setResponse(Response response) {
+		this.response = response;
+	}
 
 }
