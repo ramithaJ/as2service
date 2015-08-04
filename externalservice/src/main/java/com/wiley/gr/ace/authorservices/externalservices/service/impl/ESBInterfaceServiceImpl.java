@@ -25,7 +25,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import com.wiley.gr.ace.authorservices.exception.UserException;
@@ -62,6 +61,10 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
     /** The update alm user url. */
     @Value("${updatealmuser.url}")
     private String updateAlmUserUrl;
+
+    /** The alm authurl. */
+    @Value("${almauthenticate.url}")
+    private String almAuthurl;
 
     /**
      * This method is for fetching ordid details by calling external service
@@ -117,12 +120,10 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      * @param emailId
      *            the email id
      * @return the ESB user
-     * @throws Exception
-     *             the exception
+     * 
      */
     @Override
-    public final ESBUser checkEmailIdExists(final String emailId)
-            throws Exception {
+    public final ESBUser checkEmailIdExists(final String emailId) {
         ESBUser esbUser = null;
         final List<ESBUser> esbUserList = searchUser(emailId, "", "");
         if (!StringUtils.isEmpty(esbUserList)) {
@@ -139,11 +140,10 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      * @param lastName
      *            the last name
      * @return the users from first name last name
-     * @throws Exception
-     *             the exception
+     * 
      */
     @Override
-    public final List<ESBUser> getUsersFromFirstNameLastName(
+    public final ArrayList<ESBUser> getUsersFromFirstNameLastName(
             final String firstName, final String lastName) {
 
         return searchUser("", firstName, lastName);
@@ -159,10 +159,9 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      * @param lastName
      *            the last name
      * @return the list
-     * @throws Exception
-     *             the exception
+     * 
      */
-    private List<ESBUser> searchUser(final String email,
+    private ArrayList<ESBUser> searchUser(final String email,
             final String firstName, final String lastName) {
         ArrayList<ESBUser> esbUsersList = null;
         SearchUserResult searchUserResult = null;
@@ -193,8 +192,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      * @param profileForCreation
      *            the profile for creation
      * @return the status
-     * @throws Exception
-     *             the exception
+     * 
      */
     @Override
     public final String creatUser(final ProfileInformation profileForCreation) {
@@ -277,24 +275,21 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
         return false;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService
-     * #isALMAuthenticated(com.wiley.gr.ace.authorservices.model.external.
-     * ALMAuthRequest)
+    /**
+     * Checks if is ALM authenticated.
+     *
+     * @param almAuthRequest
+     *            the alm auth request
+     * @return true, if is ALM authenticated
      */
     @Override
-    public boolean isALMAuthenticated(ALMAuthRequest almAuthRequest) {
+    public final boolean isALMAuthenticated(final ALMAuthRequest almAuthRequest) {
 
         boolean isALMAuth = false;
         try {
             ResponseEntity<String> responseEntity = new RestTemplate()
-                    .postForEntity(
-                            new URI(
-                                    "http://10.201.64.81:8090/service/v1/auth/authenticate"),
-                            almAuthRequest, String.class);
+                    .postForEntity(new URI(almAuthurl), almAuthRequest,
+                            String.class);
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
                 isALMAuth = true;
             }

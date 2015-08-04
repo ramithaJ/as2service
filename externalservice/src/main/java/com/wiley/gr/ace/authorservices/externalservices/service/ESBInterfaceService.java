@@ -11,7 +11,7 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.ALMAuthRequest;
@@ -55,33 +55,25 @@ public interface ESBInterfaceService {
      * @param emailId
      *            the email id
      * @return the ESB user
-     * @throws Exception
-     *             the exception
+     *
      */
-    ESBUser checkEmailIdExists(String emailId) throws Exception;
+    ESBUser checkEmailIdExists(String emailId);
 
     /**
      * Gets the users from first name last name.
      *
-     * @param firstName
-     *            the first name
-     * @param lastName
-     *            the last name
+     * @param firstName the first name
+     * @param lastName the last name
      * @return the users from first name last name
-     * @throws Exception
-     *             the exception
      */
-    List<ESBUser> getUsersFromFirstNameLastName(String firstName,
+    ArrayList<ESBUser> getUsersFromFirstNameLastName(String firstName,
             String lastName);
 
     /**
      * Creat user.
      *
-     * @param profileForCreation
-     *            the profile for creation
-     * @return the status
-     * @throws Exception
-     *             the exception
+     * @param profileForCreation the profile for creation
+     * @return the string
      */
     String creatUser(ProfileInformation profileForCreation);
 
@@ -113,7 +105,8 @@ public interface ESBInterfaceService {
     /**
      * Checks if is ALM authenticated.
      *
-     * @param almAuthRequest the alm auth request
+     * @param almAuthRequest
+     *            the alm auth request
      * @return true, if is ALM authenticated
      */
     boolean isALMAuthenticated(ALMAuthRequest almAuthRequest);

@@ -152,11 +152,11 @@ public class RegistrationServiceImpl implements RegistrationService {
      *             the exception
      */
     @Override
-    public final List<User> getUserFromFirstNameLastName(
+    public final ArrayList<User> getUserFromFirstNameLastName(
             final String firstName, final String lastName) {
 
         ArrayList<User> userList = new ArrayList<User>();
-        List<ESBUser> esbUserList = null;
+        ArrayList<ESBUser> esbUserList = null;
         if (!StringUtils.isEmpty(firstName) && !StringUtils.isEmpty(lastName)) {
             try {
                 esbUserList = esbInterFaceService

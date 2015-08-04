@@ -11,7 +11,7 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import com.wiley.gr.ace.authorservices.model.InviteRecords;
 import com.wiley.gr.ace.authorservices.model.User;
@@ -29,8 +29,7 @@ public interface RegistrationService {
      * @param user
      *            the user
      * @return the string
-     * @throws Exception
-     *             the exception
+     * 
      */
     String createUser(User user);
 
@@ -42,10 +41,10 @@ public interface RegistrationService {
      * @param lastName
      *            the last name
      * @return the user from first name last name
-     * @throws Exception
-     *             the exception
+     * 
      */
-    List<User> getUserFromFirstNameLastName(String firstName, String lastName);
+    ArrayList<User> getUserFromFirstNameLastName(String firstName,
+            String lastName);
 
     /**
      * Check email id exists.
@@ -53,8 +52,7 @@ public interface RegistrationService {
      * @param emailId
      *            the email id
      * @return the user
-     * @throws Exception
-     *             the exception
+     * 
      */
     User checkEmailIdExists(String emailId);
 

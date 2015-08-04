@@ -130,7 +130,8 @@ public class RegistrationController {
                 service.setPayload(user);
                 ErrorPOJO err = new ErrorPOJO();
                 err.setCode("USER_EXISTS_NOT_REGISTERED");
-                err.setMessage("User exists in the system but not registered with AS2.0. Please enter correct password to register");
+                err.setMessage("User exists in the system but not "
+                        + "registered with AS2.0. Please enter correct password to register");
                 service.setError(err);
             } else {
                 throw new UserException(checkUserExistsErrorCode,
@@ -197,7 +198,7 @@ public class RegistrationController {
         if (null != user) {
 
             if (user.isSearchFullName()) {
-                List<User> usersList = null;
+                ArrayList<User> usersList = null;
                 usersList = rs.getUserFromFirstNameLastName(
                         user.getFirstName(), user.getLastName());
                 if (null != usersList) {
