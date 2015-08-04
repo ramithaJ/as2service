@@ -14,6 +14,7 @@
  */
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
+import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.LicenseInterfaceService;
 import com.wiley.gr.ace.authorservices.model.external.LicenseChoiceRequest;
 import com.wiley.gr.ace.authorservices.model.external.LicenseChoiceResponse;
@@ -29,61 +30,58 @@ import com.wiley.gr.ace.authorservices.model.external.WALSResponse;
  */
 public class LicenseInterfaceServiceImpl implements LicenseInterfaceService {
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.wiley.gr.ace.authorservices.externalservices.service.
-     * LicenseInterfaceService
-     * #getLicenseChoice(com.wiley.gr.ace.authorservices.model
-     * .external.LicenseChoiceRequest)
+    /**
+     * Gets the license choice.
+     *
+     * @param licenseChoiceRequest
+     *            the license choice request
+     * @return the license choice
      */
     @Override
     public LicenseChoiceResponse getLicenseChoice(
             final LicenseChoiceRequest licenseChoiceRequest) {
-        // TODO Auto-generated method stub
-        return null;
+        return (LicenseChoiceResponse) StubInvokerUtil.restServiceInvoker("",
+                licenseChoiceRequest, LicenseChoiceResponse.class);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.wiley.gr.ace.authorservices.externalservices.service.
-     * LicenseInterfaceService
-     * #getLicenseText(com.wiley.gr.ace.authorservices.model
-     * .external.LicenseTextRequest)
+    /**
+     * Gets the license text.
+     *
+     * @param licenseTextRequest
+     *            the license text request
+     * @return the license text
      */
     @Override
-    public WALSResponse getLicenseText(final LicenseTextRequest licenseTextRequest) {
-        // TODO Auto-generated method stub
-        return null;
+    public WALSResponse getLicenseText(
+            final LicenseTextRequest licenseTextRequest) {
+        return (WALSResponse) StubInvokerUtil.restServiceInvoker("",
+                licenseTextRequest, WALSResponse.class);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.wiley.gr.ace.authorservices.externalservices.service.
-     * LicenseInterfaceService
-     * #signLicense(com.wiley.gr.ace.authorservices.model.
-     * external.SignLicenseRequest)
+    /**
+     * Sign license.
+     *
+     * @param signLicenseRequest
+     *            the sign license request
+     * @return the WALS response
      */
     @Override
     public WALSResponse signLicense(final SignLicenseRequest signLicenseRequest) {
-        // TODO Auto-generated method stub
-        return null;
+        return (WALSResponse) StubInvokerUtil.restServiceInvoker("",
+                signLicenseRequest, WALSResponse.class);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.wiley.gr.ace.authorservices.externalservices.service.
-     * LicenseInterfaceService
-     * #getLicenseCopy(com.wiley.gr.ace.authorservices.model
-     * .external.WALSRequest)
+    /**
+     * Gets the license copy.
+     *
+     * @param walsRequest
+     *            the wals request
+     * @return the license copy
      */
     @Override
     public WALSResponse getLicenseCopy(final WALSRequest walsRequest) {
-        // TODO Auto-generated method stub
-        return null;
+        return (WALSResponse) StubInvokerUtil.restServiceInvoker("",
+                walsRequest, WALSResponse.class);
     }
 
 }
