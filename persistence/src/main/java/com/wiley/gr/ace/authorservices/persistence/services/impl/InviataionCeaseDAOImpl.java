@@ -27,11 +27,11 @@ import com.wiley.gr.ace.authorservices.persistence.services.InvitationCeaseDAO;
  * 
  * @author virtusa version 1.0
  */
-public class InviataionCesaseDAOImpl implements InvitationCeaseDAO {
+public class InviataionCeaseDAOImpl implements InvitationCeaseDAO {
 
     /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(InviataionCesaseDAOImpl.class);
+            .getLogger(InviataionCeaseDAOImpl.class);
 
     /**
      * Update invite reset pwd log.

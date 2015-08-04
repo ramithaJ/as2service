@@ -11,10 +11,6 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
-import java.io.StringReader;
-
-import javax.xml.bind.JAXBContext;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,52 +27,45 @@ import com.wiley.gr.ace.authorservices.services.service.SaveInvitationStartEvent
  * @author virtusa version 1.0
  */
 public class SaveInvitationStartServiceImpl implements
-        SaveInvitationStartEventService {
+		SaveInvitationStartEventService {
 
-    /** The Constant LOGGER. */
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(SaveInvitationStartServiceImpl.class);
+	/** The Constant LOGGER. */
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(SaveInvitationStartServiceImpl.class);
 
-    /** The invitation start dao. */
-    @Autowired(required = true)
-    private InvitationStartDAO invitationStartDAO;
+	/** The invitation start dao. */
 
-    /**
-     * Parses the invitation start event.
-     *
-     * @param invitationStartEvent
-     *            the invitation start event data
-     * @throws Exception
-     *             the exception
-     */
-    @Override
-    public final void parseInvitationStartEvent(
-            final String invitationStartEvent) throws Exception {
-        LOGGER.info("inside parseInvitationStartEvent of SaveInvitationStartServiceImpl");
-        if (null != invitationStartEvent
-                && invitationStartEvent.trim().length() > 0) {
+	@Autowired(required = true)
+	private InvitationStartDAO invitationStartDAO;
 
-            StringReader reader = new StringReader(invitationStartEvent);
-            JAXBContext invitationStartEventDataContext = JAXBContext
-                    .newInstance(InvitationStartEventData.class);
-            InvitationStartEventData startEventData = (InvitationStartEventData) invitationStartEventDataContext
-                    .createUnmarshaller().unmarshal(reader);
-            if (!StringUtils.isEmpty(startEventData)) {
-                // String articleId = invitationStartEventData.getArticleId();
-                String email = startEventData.getEmail();
-                // String userRole = invitationStartEventData.getUserRole();
-                String guId = startEventData.getUserID();
-                String notificationId = startEventData.getNotificationId();
-                invitationStartDAO.updateInviteResetPWDLog(guId, email);
-                InvitationLog invitationLog = new InvitationLog();
-                invitationLog.setEmailAddr(email);
-                invitationLog
-                        .setNotificationId(Integer.valueOf(notificationId));
-                invitationStartDAO.createInvitationLog(invitationLog);
-            }
+	/**
+	 * Parses the invitation start event.
+	 *
+	 * @param invitationStartEvent
+	 *            the invitation start event data
+	 * @throws Exception
+	 *             the exception
+	 */
+	@Override
+	public final void parseInvitationStartEvent(
+			final InvitationStartEventData invitationStartEvent)
+			throws Exception {
+		LOGGER.info("inside parseInvitationStartEvent of SaveInvitationStartServiceImpl");
+		if (!StringUtils.isEmpty(invitationStartEvent)) {
+			//String articleId = invitationStartEvent.getArticleId();
+			String email = invitationStartEvent.getEmail();
+			//String userRole = invitationStartEvent.getUserRole();
 
-        }
+			String guId = invitationStartEvent.getUserID();
+			String notificationId = invitationStartEvent.getNotificationId();
+			invitationStartDAO.updateInviteResetPWDLog(guId, email);
+			InvitationLog invitationLog = new InvitationLog();
+			invitationLog.setEmailAddr(email);
+			invitationLog.setNotificationId(Integer.valueOf(notificationId));
+			invitationStartDAO.createInvitationLog(invitationLog);
 
-    }
+		}
+
+	}
 
 }
