@@ -4,16 +4,24 @@
 package com.wiley.gr.ace.authorservices.autocomplete.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Set;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.http.HttpMethod;
 
 import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteCachingService;
+import com.wiley.gr.ace.authorservices.exception.ASException;
+import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.CacheData;
 import com.wiley.gr.ace.authorservices.model.Department;
@@ -21,8 +29,11 @@ import com.wiley.gr.ace.authorservices.model.Doc;
 import com.wiley.gr.ace.authorservices.model.Institution;
 import com.wiley.gr.ace.authorservices.model.Response;
 import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
+import com.wiley.gr.ace.authorservices.model.external.Funder;
+import com.wiley.gr.ace.authorservices.model.external.Id;
 import com.wiley.gr.ace.authorservices.model.external.Industries;
 import com.wiley.gr.ace.authorservices.model.external.JobCategories;
+import com.wiley.gr.ace.authorservices.model.external.ResearchFundersResponse;
 
 /**
  * AutocompleteCachingServiceImpl provides caching.
@@ -57,6 +68,15 @@ public class AutocompleteCachingServiceImpl implements AutocompleteCachingServic
 	@Value("${departments.key}")
 	private String departmentskey;
 
+	@Value("${researchFunders.key}")
+	private String researchFundersKey;
+	
+	@Value("${researchFundersurl.url}")
+	private String researchFundersurl;
+	
+	@Value("${funderContentType}")
+	private String funderContentType;
+
 	
 	/**
 	 * This method returns the cached drop down data. If there is no cached
@@ -87,7 +107,9 @@ public class AutocompleteCachingServiceImpl implements AutocompleteCachingServic
 		} else if ((departmentskey+"cached").equals(dropDownKey)) {
 			LOGGER.info("getCachedData::departmentskey::"+dropDownKey);
 			cacheDataList = getDepartments(parentId);
-		} 
+		} else if ((researchFundersKey+"cached").equals(dropDownKey)){
+			cacheDataList = getResearchFunders();
+		}
 
 		if (cacheDataList != null && !cacheDataList.isEmpty()) {
 			dropDownList = new ArrayList<String>();
@@ -100,6 +122,68 @@ public class AutocompleteCachingServiceImpl implements AutocompleteCachingServic
 		return dropDownList;
 	}
 	
+	/**
+	 * This method returns ResearchFunders
+	 * @return List<CacheData>
+	 */
+	private List<CacheData> getResearchFunders() {
+		ResearchFundersResponse response = null;
+		
+		response = (ResearchFundersResponse) RestServiceInvokerUtil.invokeStub(researchFundersurl,
+				HttpMethod.GET, ResearchFundersResponse.class);
+		
+		return getResearchFundersList(response);
+	}
+
+	/**
+	 * THis method returns the research funders list
+	 * @param response
+	 * @return cacheList
+	 */
+	private List<CacheData> getResearchFundersList(
+			ResearchFundersResponse response) {
+		List<CacheData> cacheList = null;
+		
+		   List<Funder> funderList = response.getFunder();
+		   Set<String> cacheStringSet = new HashSet<String>();
+		   
+		   if(funderList != null && !funderList.isEmpty()) {
+			   
+			   for (Funder funder : funderList) {
+				   CacheData cacheData = new CacheData();
+				   
+				   cacheData.setName(funder.getName());
+				   List<Id> idList = funder.getSecondaryIds().getId();
+				   for (Id id : idList) {
+					if(funderContentType.equals(id.getType())){
+						cacheData.setCode(id.getContent());
+						break;
+					}
+					
+					cacheStringSet.add(cacheData.toString());
+				}
+				
+			}
+			 
+			cacheList = new ArrayList<CacheData>();
+			for (String data : cacheStringSet) {
+				try {
+					JSONObject json = (JSONObject) new JSONParser().parse(data);
+					CacheData cacheData = new CacheData();
+					cacheData.setName(json.get("name").toString());
+					cacheData.setCode(json.get("code").toString());
+					cacheList.add(cacheData);
+				} catch (ParseException e) {
+					throw new ASException("500", e.getMessage());
+				}
+			}   
+			   
+			   
+		   }
+
+		return cacheList;
+	}
+
 	/**
 	 * This will call external service to get Industries data.
 	 *
@@ -239,6 +323,8 @@ public class AutocompleteCachingServiceImpl implements AutocompleteCachingServic
 		}
 		return departmentlist;
 	}
+	
+	
 
 	
 	

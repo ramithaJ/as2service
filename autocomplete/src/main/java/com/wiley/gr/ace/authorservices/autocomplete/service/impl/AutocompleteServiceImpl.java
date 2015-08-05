@@ -30,6 +30,7 @@ import redis.clients.jedis.Jedis;
 
 import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteCachingService;
 import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteService;
+import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.CacheData;
 import com.wiley.gr.ace.authorservices.persistence.services.UserAutocomplete;
 
@@ -351,7 +352,7 @@ public class AutocompleteServiceImpl implements AutocompleteService {
 					cacheData.setCode(json.get("code").toString());
 					jsonDropDownList.add(cacheData);
 				} catch (ParseException e) {
-					e.printStackTrace();
+					throw new ASException("500", e.getMessage());
 				}
 
 			}
