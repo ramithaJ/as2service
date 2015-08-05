@@ -379,10 +379,10 @@ ALTER TABLE LICENSE_REJECTION_REASONS ADD FOREIGN KEY(UPDATED_BY) REFERENCES USE
 </sql>
 </changeSet>
 
-<!--
+
 <changeSet author="gphaniraj" id="WP2B-OwnerShipData">
     <sqlFile  path="updates/sql/ownership_data.sql" relativeToChangelogFile="true" splitStatements="true"/>
-</changeSet> -->
+</changeSet> 
 
 
 </databaseChangeLog>
