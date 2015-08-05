@@ -12,9 +12,13 @@
 
 package com.wiley.gr.ace.authorservices.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * The Class RequestOnlineOpen.
  */
+@JsonInclude(Include.NON_NULL)
 public class RequestOnlineOpen {
 
     /** The user id. */
@@ -22,7 +26,7 @@ public class RequestOnlineOpen {
 
     /** The article id. */
     private String articleId;
-    
+
     /** The article title. */
     private String articleTitle;
 
@@ -98,7 +102,8 @@ public class RequestOnlineOpen {
     /**
      * Sets the article title.
      *
-     * @param articleTitle the new article title
+     * @param articleTitle
+     *            the new article title
      */
     public final void setArticleTitle(final String articleTitle) {
         this.articleTitle = articleTitle;

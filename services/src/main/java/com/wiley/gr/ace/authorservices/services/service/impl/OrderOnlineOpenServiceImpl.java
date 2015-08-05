@@ -1453,7 +1453,10 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                 .getDhId().toString());
         requestOnlineOpen.setMessage(coauthorRequestsOoorders
                 .getMessageFromCoauth());
-        // TODO  getting article title.......
+        PdhArticleResponse pdhArticleResponse = orderservice
+                .pdhLookUpArticle(Integer.parseInt(articleId));
+        requestOnlineOpen.setArticleTitle(pdhArticleResponse.getTitle());
+        // TODO getting article title.......
         return requestOnlineOpen;
     }
 
