@@ -424,9 +424,11 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
             session.beginTransaction();
             session.save(coauthorRequestsOoorders);
             session.getTransaction().commit();
-        }
 
-        finally {
+        } catch (Exception exception) {
+            throw new ASException("2434", "Dh Id id Already Exist");
+
+        } finally {
             if (session != null) {
                 session.flush();
                 session.close();
