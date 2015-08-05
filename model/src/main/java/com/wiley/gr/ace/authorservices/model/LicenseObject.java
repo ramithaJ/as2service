@@ -16,11 +16,15 @@ package com.wiley.gr.ace.authorservices.model;
 
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * The Class LicenseObject.
  * 
  * @author virtusa version 1.0
  */
+@JsonInclude(Include.NON_NULL)
 public class LicenseObject {
 
     /** The funder details. */
@@ -56,7 +60,8 @@ public class LicenseObject {
     /**
      * Sets the funder details.
      *
-     * @param funderDetails the new funder details
+     * @param funderDetails
+     *            the new funder details
      */
     public final void setFunderDetails(final LicenseFunderDetails funderDetails) {
         this.funderDetails = funderDetails;
@@ -74,7 +79,8 @@ public class LicenseObject {
     /**
      * Sets the copyright ownership.
      *
-     * @param copyrightOwnership the new copyright ownership
+     * @param copyrightOwnership
+     *            the new copyright ownership
      */
     public final void setCopyrightOwnership(
             final CopyrightOwnership copyrightOwnership) {
@@ -93,7 +99,8 @@ public class LicenseObject {
     /**
      * Sets the online open.
      *
-     * @param onlineOpen the new online open
+     * @param onlineOpen
+     *            the new online open
      */
     public final void setOnlineOpen(final String onlineOpen) {
         this.onlineOpen = onlineOpen;
@@ -111,7 +118,8 @@ public class LicenseObject {
     /**
      * Sets the license type.
      *
-     * @param licenseType the new license type
+     * @param licenseType
+     *            the new license type
      */
     public final void setLicenseType(final String licenseType) {
         this.licenseType = licenseType;
@@ -129,7 +137,8 @@ public class LicenseObject {
     /**
      * Sets the author signature.
      *
-     * @param authorSignature the new author signature
+     * @param authorSignature
+     *            the new author signature
      */
     public final void setAuthorSignature(final String authorSignature) {
         this.authorSignature = authorSignature;
@@ -147,7 +156,8 @@ public class LicenseObject {
     /**
      * Sets the signed electronically.
      *
-     * @param signedElectronically the new signed electronically
+     * @param signedElectronically
+     *            the new signed electronically
      */
     public final void setSignedElectronically(final String signedElectronically) {
         this.signedElectronically = signedElectronically;
@@ -165,7 +175,8 @@ public class LicenseObject {
     /**
      * Sets the license type presented.
      *
-     * @param licenseTypePresented the new license type presented
+     * @param licenseTypePresented
+     *            the new license type presented
      */
     public final void setLicenseTypePresented(
             final ArrayList<String> licenseTypePresented) {

@@ -14,10 +14,25 @@
  */
 package com.wiley.gr.ace.authorservices.services.service;
 
+import java.io.File;
+import java.util.ArrayList;
+
+import com.wiley.gr.ace.authorservices.model.LicenseObject;
+
 /**
  * The Interface LicenseService.
  * 
  * @author virtusa version 1.0
  */
 public interface LicenseService {
+
+    ArrayList<String> getLicenseChoice(LicenseObject licenseObject);
+
+    File getLicenseCopy(String dhId);
+
+    void saveLicenseLater(LicenseObject licenseObject, String userId,
+            String articleId);
+
+    String signLicense(LicenseObject licenseObject, String dhId);
+
 }
