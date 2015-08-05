@@ -22,6 +22,9 @@ public class RequestOnlineOpen {
 
     /** The article id. */
     private String articleId;
+    
+    /** The article title. */
+    private String articleTitle;
 
     /** The message. */
     private String message;
@@ -81,6 +84,24 @@ public class RequestOnlineOpen {
      */
     public final void setMessage(final String message) {
         this.message = message;
+    }
+
+    /**
+     * Gets the article title.
+     *
+     * @return the article title
+     */
+    public final String getArticleTitle() {
+        return articleTitle;
+    }
+
+    /**
+     * Sets the article title.
+     *
+     * @param articleTitle the new article title
+     */
+    public final void setArticleTitle(final String articleTitle) {
+        this.articleTitle = articleTitle;
     }
 
 }
