@@ -112,7 +112,8 @@ public class TokenAuthenticationService {
         if (null == cookie) {
             cookie = new Cookie(authenticationCookieName,
                     tokenAuthentication.getToken());
-            cookie.setPath(request.getContextPath());
+            // cookie.setPath(request.getContextPath());
+            cookie.setPath("/");
             cookie.setHttpOnly(false);
         } else {
             cookie.setValue(tokenAuthentication.getToken());
