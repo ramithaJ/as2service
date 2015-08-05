@@ -16,6 +16,7 @@ package com.wiley.gr.ace.authorservices.persistence.services;
 import java.util.List;
 
 import com.wiley.gr.ace.authorservices.model.PaymentDetails;
+import com.wiley.gr.ace.authorservices.persistence.entity.CoauthorRequestsOoorders;
 import com.wiley.gr.ace.authorservices.persistence.entity.Orders;
 import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
 import com.wiley.gr.ace.authorservices.persistence.entity.ProductRelations;
@@ -83,20 +84,35 @@ public interface OrderOnlineDAO {
      */
     void savePaymentDetails(PaymentDetails paymentDetails);
 
-	/**
-	 * @param orderId
-	 */
-	void deleteSavedOrderPostOrderSubmission(Integer orderId);
+    /**
+     * @param orderId
+     */
+    void deleteSavedOrderPostOrderSubmission(Integer orderId);
 
-	/**
-	 * This method submits the saved order
-	 * @param orders
-	 */
-	void saveOrder(Orders orders);
+    /**
+     * This method submits the saved order
+     * 
+     * @param orders
+     */
+    void saveOrder(Orders orders);
 
-	/**
-	 * @param orderId
-	 * @return
-	 */
-	String retrieveOrderType(Integer orderId);
+    /**
+     * @param orderId
+     * @return
+     */
+    String retrieveOrderType(Integer orderId);
+
+    /**
+     * @param coauthorRequestsOoorders
+     * @return
+     */
+    void requestOnlineOpen(CoauthorRequestsOoorders coauthorRequestsOoorders);
+
+    /**
+     * @param userId
+     * @param articleId
+     * @return
+     */
+    CoauthorRequestsOoorders viewOnlineOpenRequest(String userId,
+            String articleId);
 }

@@ -28,6 +28,7 @@ import com.wiley.gr.ace.authorservices.exception.ASExceptionController;
 import com.wiley.gr.ace.authorservices.model.AddressDetails;
 import com.wiley.gr.ace.authorservices.model.FunderDetails;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
+import com.wiley.gr.ace.authorservices.model.RequestOnlineOpen;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.TaxDetails;
 import com.wiley.gr.ace.authorservices.services.service.OnlineOpenAuthorValidatorService;
@@ -101,7 +102,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
     public final Service initiateOnline(
             @PathVariable("userId") final String userId,
             @PathVariable("articleId") final String articleId) {
-        Service service = new Service();
+        final Service service = new Service();
         service.setPayload(orderOnlineOpenService.initiateOnline(userId,
                 articleId, onlineOpen));
         return service;
@@ -119,7 +120,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
             @PathVariable("userId") final String userId,
             @RequestBody final OnlineOpenOrder onlineOpenOrder) {
 
-        Service service = new Service();
+        final Service service = new Service();
         service.setPayload(orderOnlineOpenService.saveLaterOrder(
                 onlineOpenOrder, userId));
         return service;
@@ -138,12 +139,12 @@ public class OrderOnlineOpenController extends ASExceptionController {
             @PathVariable("userId") final String userId,
             @PathVariable("orderId") final String orderId) {
 
-        Service service = new Service();
+        final Service service = new Service();
 
         try {
             orderOnlineOpenService.submitOnlineOpenOrder(userId, orderId,
                     onlineOpen);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             throw new ASException("704", e.getMessage());
         }
 
@@ -161,7 +162,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
     public final Service getOnlineOpenOrderDetails(
             @PathVariable("userId") final String userId,
             @PathVariable("orderId") final String orderId) {
-        Service service = new Service();
+        final Service service = new Service();
         service.setPayload(orderOnlineOpenService.getOnlineOpenOrderDetails(
                 userId, orderId));
         return service;
@@ -189,7 +190,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
     @RequestMapping(value = "/fundersList/", method = RequestMethod.GET)
     public final Service getFundersList() {
 
-        Service service = new Service();
+        final Service service = new Service();
         service.setPayload(orderOnlineOpenService.getFundersList());
         return service;
     }
@@ -203,7 +204,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
     public final Service getSubFundersList(
             @PathVariable("funderId") final String funderId) {
 
-        Service service = new Service();
+        final Service service = new Service();
         service.setPayload(orderOnlineOpenService.getFundersList());
         return service;
     }
@@ -214,7 +215,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
     @RequestMapping(value = "/woaFunders/", method = RequestMethod.GET)
     public final Service getWOAFunders() {
 
-        Service service = new Service();
+        final Service service = new Service();
         service.setPayload(orderOnlineOpenService.getWOAFunders());
         return service;
     }
@@ -228,7 +229,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
     public final Service getGrantRecipients(
             @PathVariable("articleId") final String articleId) {
 
-        Service service = new Service();
+        final Service service = new Service();
         service.setPayload(orderOnlineOpenService.getGrantRecipients(articleId));
         return service;
     }
@@ -240,7 +241,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
     public final Service getDiscountedSocieties(
             @PathVariable("dhId") final String dhId) {
 
-        Service service = new Service();
+        final Service service = new Service();
         service.setPayload(orderOnlineOpenService.getDiscountedSocieties(dhId));
         return service;
     }
@@ -262,7 +263,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
             @RequestParam(value = "type", required = false) final String type,
             @RequestParam(value = "sdate", required = false) final String sdate,
             @RequestParam(value = "edate", required = false) final String edate) {
-        Service service = new Service();
+        final Service service = new Service();
         service.setPayload(orderOnlineOpenService.getAllOrders(orderId));
         return service;
     }
@@ -276,7 +277,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
     public final Service getInstitutionDiscounts(
             @PathVariable("dhId") final String dhId) {
 
-        Service service = new Service();
+        final Service service = new Service();
         service.setPayload(orderOnlineOpenService.getInstitutionDiscounts(dhId));
         return service;
     }
@@ -326,7 +327,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
             try {
                 openAccessService.validateAddress(addressDetails
                         .getContactAddress());
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 throw new ASException(invalidContactAddressCode,
                         invalidContactAddressMessage);
             }
@@ -336,7 +337,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
             try {
                 openAccessService.validateAddress(addressDetails
                         .getBillingAddress());
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 throw new ASException(invalidBillingAddressCode,
                         invalidBillingAddressMessage);
             }
@@ -354,7 +355,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
     public final Service processAllRestrictedFunderWOAAccounts(
             @PathVariable("id") final String id) {
 
-        Service service = new Service();
+        final Service service = new Service();
         service.setPayload(orderOnlineOpenService
                 .processAllRestrictedFunderWOAAccounts(id));
 
@@ -373,7 +374,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
             @PathVariable("userId") final String userId,
             @RequestBody final OnlineOpenOrder onlineOpenOrder) {
 
-        Service service = new Service();
+        final Service service = new Service();
         service.setPayload(onlineOpenAuthorValidatorService
                 .processAndValidateNext(onlineOpenOrder, userId));
 
@@ -396,4 +397,31 @@ public class OrderOnlineOpenController extends ASExceptionController {
 
     }
 
+    /**
+     * @param userId
+     * @param articleId
+     * @return
+     */
+    @RequestMapping(value = "/permissions/{userId}/{articleId}/", method = RequestMethod.GET)
+    public final Service viewOnlineOpenRequest(
+            @PathVariable("userId") final String userId,
+            @PathVariable("articleId") final String articleId) {
+        Service service = new Service();
+        service.setPayload(orderOnlineOpenService.viewOnlineOpenRequest(userId,
+                articleId));
+        return service;
+
+    }
+
+    /**
+     * @param requestOnlineOpen
+     * @return
+     */
+    @RequestMapping(value = "/permissions/", method = RequestMethod.POST)
+    public final Service requestOnlineOpen(
+            @RequestBody final RequestOnlineOpen requestOnlineOpen) {
+        orderOnlineOpenService.requestOnlineOpen(requestOnlineOpen);
+        return new Service();
+
+    }
 }

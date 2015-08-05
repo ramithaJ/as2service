@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package com.wiley.gr.ace.authorservices.services.service;
 
 import java.io.FileNotFoundException;
@@ -12,6 +15,7 @@ import com.wiley.gr.ace.authorservices.model.InstitutionalDiscounts;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.OrderDetails;
 import com.wiley.gr.ace.authorservices.model.QuoteDetails;
+import com.wiley.gr.ace.authorservices.model.RequestOnlineOpen;
 import com.wiley.gr.ace.authorservices.model.SocietyDiscounts;
 import com.wiley.gr.ace.authorservices.model.WOAAccountHolders;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSociety;
@@ -213,4 +217,16 @@ public interface OrderOnlineOpenService {
      * @throws FileNotFoundException
      */
     ResponseEntity<byte[]> getInvoice(String ooUniqueId, String articleID);
+
+    /**
+     * @param userId
+     * @param articleId
+     * @return
+     */
+    RequestOnlineOpen viewOnlineOpenRequest(String userId, String articleId);
+
+    /**
+     * @param requestOnlineOpen
+     */
+    void requestOnlineOpen(RequestOnlineOpen requestOnlineOpen);
 }
