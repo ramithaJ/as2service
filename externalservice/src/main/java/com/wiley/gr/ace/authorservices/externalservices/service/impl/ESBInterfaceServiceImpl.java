@@ -32,11 +32,11 @@ import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
-import com.wiley.gr.ace.authorservices.model.external.GetArticleDetails;
 import com.wiley.gr.ace.authorservices.model.external.License;
 import com.wiley.gr.ace.authorservices.model.external.OnlineOpen;
 import com.wiley.gr.ace.authorservices.model.external.OpenAccess;
 import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
+import com.wiley.gr.ace.authorservices.model.external.PdhLookupArticleResponse;
 import com.wiley.gr.ace.authorservices.model.external.ProductionData;
 import com.wiley.gr.ace.authorservices.model.external.ProfileInformation;
 import com.wiley.gr.ace.authorservices.model.external.Quote;
@@ -417,16 +417,16 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      *
      * @param emailId
      *            the email id
-     * @return the view assigned article
+     * @return the pdh lookup article response
      * @throws Exception
      *             the exception
      */
     @Override
-    public final GetArticleDetails viewAssignedArticle(final String emailId)
+    public final PdhLookupArticleResponse viewAssignedArticle(final String emailId)
             throws Exception {
-        return (GetArticleDetails) StubInvokerUtil
+        return (PdhLookupArticleResponse) StubInvokerUtil
                 .invokeStub(viewAssignedArticleUrl, HttpMethod.GET,
-                        GetArticleDetails.class);
+                        PdhLookupArticleResponse.class);
     }
 
 }

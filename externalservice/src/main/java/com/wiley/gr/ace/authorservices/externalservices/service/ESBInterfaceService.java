@@ -17,11 +17,11 @@ import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
-import com.wiley.gr.ace.authorservices.model.external.GetArticleDetails;
 import com.wiley.gr.ace.authorservices.model.external.License;
 import com.wiley.gr.ace.authorservices.model.external.OnlineOpen;
 import com.wiley.gr.ace.authorservices.model.external.OpenAccess;
 import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
+import com.wiley.gr.ace.authorservices.model.external.PdhLookupArticleResponse;
 import com.wiley.gr.ace.authorservices.model.external.ProductionData;
 import com.wiley.gr.ace.authorservices.model.external.ProfileInformation;
 import com.wiley.gr.ace.authorservices.model.external.Quote;
@@ -166,11 +166,12 @@ public interface ESBInterfaceService {
      *
      * @param emailId
      *            the email id
-     * @return the view assigned article
+     * @return the pdh lookup article response
      * @throws Exception
      *             the exception
      */
-    GetArticleDetails viewAssignedArticle(String emailId) throws Exception;
+    PdhLookupArticleResponse viewAssignedArticle(String emailId)
+            throws Exception;
 
     // WP2A
 
