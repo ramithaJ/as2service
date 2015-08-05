@@ -32,11 +32,8 @@ import com.wiley.gr.ace.authorservices.model.LicenseDetails;
 import com.wiley.gr.ace.authorservices.model.OrderDetails;
 import com.wiley.gr.ace.authorservices.model.PublicationDetails;
 import com.wiley.gr.ace.authorservices.model.ViewAssignedArticle;
-import com.wiley.gr.ace.authorservices.model.external.Art;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
-import com.wiley.gr.ace.authorservices.model.external.CoAuthorDetails;
-import com.wiley.gr.ace.authorservices.model.external.GetArticleDetails;
-import com.wiley.gr.ace.authorservices.model.external.LastSignedLicense;
+import com.wiley.gr.ace.authorservices.model.external.PdhLookupArticleResponse;
 import com.wiley.gr.ace.authorservices.services.service.ArticleAssignmentService;
 
 /**
@@ -110,18 +107,18 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
             throws Exception {
         LOGGER.info("inside viewAssignedArticle method of ArticleAssignmentServiceImpl");
         final ViewAssignedArticle viewAssignedArticle = new ViewAssignedArticle();
-        final GetArticleDetails getArticleDetails = esbInterfaceService
+        final PdhLookupArticleResponse pdhLookupArticleResponse = esbInterfaceService
                 .viewAssignedArticle(emailId);
-        if (!StringUtils.isEmpty(getArticleDetails)) {
+        if (!StringUtils.isEmpty(pdhLookupArticleResponse)) {
             viewAssignedArticle
-                    .setArticleData(getArticleData(getArticleDetails));
+                    .setArticleData(getArticleData(pdhLookupArticleResponse));
             viewAssignedArticle
-                    .setJournalData(getJournalData(getArticleDetails));
+                    .setJournalData(getJournalData(pdhLookupArticleResponse));
             viewAssignedArticle
-                    .setPublicationData(getPublicationData(getArticleDetails));
+                    .setPublicationData(getPublicationData(pdhLookupArticleResponse));
             viewAssignedArticle.setOrderData(getOrderId());
             viewAssignedArticle
-                    .setLicenseData(getLicenseData(getArticleDetails));
+                    .setLicenseData(getLicenseData(pdhLookupArticleResponse));
         }
 
         return viewAssignedArticle;
@@ -131,95 +128,85 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
     /**
      * Gets the article data.
      *
-     * @param getArticleDetails
-     *            the get article details
+     * @param pdhLookupArticleResponse
+     *            the pdh lookup article response
      * @return the article data
      */
     private ArticleDetails getArticleData(
-            final GetArticleDetails getArticleDetails) {
+            final PdhLookupArticleResponse pdhLookupArticleResponse) {
         ArticleDetails articleDetails = null;
-        final Art art = getArticleDetails.getArt();
-        if (!StringUtils.isEmpty(art)) {
-            articleDetails = new ArticleDetails();
-            articleDetails.setArticleId(art.getAid());
-            articleDetails.setArticleTitle(art.getTitle());
-            final String authorName = art.getCorrespondingAuthorFirstName()
-                    + art.getCorrespondingAuthorLastName();
-            articleDetails.setArticleAuthors(authorName);
-            articleDetails.setArticleCoAuthors(parseCoAuthors(art));
-            articleDetails.setCorrespondingAuthorEmail(art
-                    .getCorrespondingAuthorEmail());
-            articleDetails.setArticleDOI(art.getDoi());
-            articleDetails.setAcceptanceDate(art.getAcceptedDt());
-            articleDetails.setIssueNum(art.getIssNum());
-            articleDetails.setVolumeNum(art.getVolNum());
-            articleDetails.setEditorialRefCd(art.getEdRefCode());
-            articleDetails.setJpcmsInternalId(art.getJpcmsInternalId());
-            articleDetails.setPublicationDate(art.getPubYear());
-        }
+
+        articleDetails = new ArticleDetails();
+        articleDetails.setArticleId(pdhLookupArticleResponse
+                .getArticleUniqueID());
+        articleDetails.setArticleTitle(pdhLookupArticleResponse.getTitle());
+        articleDetails.setArticleAuthors(pdhLookupArticleResponse
+                .getAuthorName());
+        articleDetails
+                .setArticleCoAuthors(parseCoAuthors(pdhLookupArticleResponse));
+        articleDetails.setCorrespondingAuthorEmail(pdhLookupArticleResponse
+                .getAuthorEmail());
+        articleDetails.setArticleDOI(pdhLookupArticleResponse.getArticleDoi());
+        articleDetails.setAcceptanceDate(pdhLookupArticleResponse
+                .getAcceptedDate());
+        articleDetails.setIssueNum("45667");
+        articleDetails.setVolumeNum("344-567");
+        articleDetails.setEditorialRefCd(pdhLookupArticleResponse
+                .getEditorialRefCode());
+        articleDetails
+                .setJpcmsInternalId(pdhLookupArticleResponse.getJpcmsId());
+        articleDetails.setPublicationDate(pdhLookupArticleResponse
+                .getPublicationYear());
         return articleDetails;
     }
 
     /**
      * Parses the co authors.
      *
-     * @param art
-     *            the art
+     * @param pdhLookupArticleResponse
+     *            the pdh lookup article response
      * @return the list
      */
-    private List<String> parseCoAuthors(final Art art) {
-        final List<CoAuthorDetails> coAuthorsList = art.getCoAuthors();
+    private List<String> parseCoAuthors(
+            final PdhLookupArticleResponse pdhLookupArticleResponse) {
         final List<String> coAuthors = new ArrayList<String>();
-        if (!StringUtils.isEmpty(coAuthorsList)) {
-            for (final CoAuthorDetails coAuthorDetails : coAuthorsList) {
-                final String coAuthorName = coAuthorDetails
-                        .getCoAuthorFirstName()
-                        + coAuthorDetails.getCoAuthorLastName();
-                coAuthors.add(coAuthorName);
-            }
-        }
+        coAuthors.add(pdhLookupArticleResponse.getCoAuthorName());
         return coAuthors;
     }
 
     /**
      * Gets the journal data.
      *
-     * @param getArticleDetails
-     *            the get article details
+     * @param pdhLookupArticleResponse
+     *            the pdh lookup article response
      * @return the journal data
      */
     private JournalDetails getJournalData(
-            final GetArticleDetails getArticleDetails) {
-        final Art art = getArticleDetails.getArt();
-        JournalDetails journalDetails = null;
-        if (!StringUtils.isEmpty(art)) {
-            journalDetails = new JournalDetails();
-            journalDetails.setJournalId(art.getJrnlId());
-            journalDetails.setJournalTitle(art.getJrnlTitle());
-            journalDetails.setJournalDoi(art.getJrnlDoi());
-            journalDetails.setJournalPrintIssn(art.getJrnlPissn());
-            journalDetails.setJournalElectronicIssn(art.getJrnlEissn());
-        }
+            final PdhLookupArticleResponse pdhLookupArticleResponse) {
+        JournalDetails journalDetails = new JournalDetails();
+        journalDetails.setJournalId(pdhLookupArticleResponse
+                .getJournalUniqueID());
+        journalDetails.setJournalTitle("AS Journal ");
+        journalDetails.setJournalDoi(pdhLookupArticleResponse.getArticleDoi());
+        journalDetails.setJournalPrintIssn("45667");
+        journalDetails.setJournalElectronicIssn("344-567");
         return journalDetails;
     }
 
     /**
      * Gets the publication data.
      *
-     * @param getArticleDetails
-     *            the get article details
+     * @param pdhLookupArticleResponse
+     *            the pdh lookup article response
      * @return the publication data
      */
     private PublicationDetails getPublicationData(
-            final GetArticleDetails getArticleDetails) {
-        final Art art = getArticleDetails.getArt();
-        PublicationDetails publicationDetails = null;
-        if (!StringUtils.isEmpty(art)) {
-            publicationDetails = new PublicationDetails();
-            publicationDetails.setModifiedDate(art.getPubYear());
-            publicationDetails.setPublicationStatus("Make OO");
-            publicationDetails.setPublicationPath("From AS 2.0");
-        }
+            final PdhLookupArticleResponse pdhLookupArticleResponse) {
+        PublicationDetails publicationDetails = new PublicationDetails();
+        publicationDetails.setModifiedDate(pdhLookupArticleResponse
+                .getPublicationYear());
+        publicationDetails.setPublicationStatus("Make OO");
+        publicationDetails.setPublicationPath("From AS 2.0");
         return publicationDetails;
     }
 
@@ -237,24 +224,28 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
     /**
      * Gets the license data.
      *
-     * @param getArticleDetails
-     *            the get article details
+     * @param pdhLookupArticleResponse
+     *            the pdh lookup article response
      * @return the license data
      */
     private LicenseDetails getLicenseData(
-            final GetArticleDetails getArticleDetails) {
-        final LastSignedLicense lastSignedLicense = getArticleDetails
-                .getLastSignedLicense();
-        LicenseDetails licenseDetails = null;
-        if (!StringUtils.isEmpty(lastSignedLicense)) {
-            licenseDetails = new LicenseDetails();
-            licenseDetails.setLicenseSignedDate(lastSignedLicense
-                    .getLicenseSignDate());
-            licenseDetails.setLicenseStatus(lastSignedLicense
-                    .getSignedElectronically());
-        }
+            final PdhLookupArticleResponse pdhLookupArticleResponse) {
+        LicenseDetails licenseDetails = new LicenseDetails();
+        licenseDetails.setLicenseSignedDate(pdhLookupArticleResponse
+                .getLicense());
+        licenseDetails.setLicenseStatus("Sign License Agreement");
         return licenseDetails;
     }
+
+    /**
+     * Check if article invited.
+     *
+     * @param dhId
+     *            the dh id
+     * @return true, if successful
+     * @throws Exception
+     *             the exception
+     */
 
     /**
      * Check if article invited.
