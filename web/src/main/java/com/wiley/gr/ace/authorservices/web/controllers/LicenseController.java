@@ -14,18 +14,26 @@
  */
 package com.wiley.gr.ace.authorservices.web.controllers;
 
+import java.util.ArrayList;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiley.gr.ace.authorservices.exception.LicenseException;
+import com.wiley.gr.ace.authorservices.model.LicenseObject;
 import com.wiley.gr.ace.authorservices.model.Service;
+import com.wiley.gr.ace.authorservices.services.service.LicenseService;
 
 /**
  * @author virtusa version 1.0
@@ -35,34 +43,70 @@ import com.wiley.gr.ace.authorservices.model.Service;
 @RequestMapping("/license")
 public class LicenseController {
 
-	/**
-	 * Logger Configured.
-	 */
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(LicenseController.class);
+    /**
+     * Logger Configured.
+     */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(LicenseController.class);
 
-	/** The input parameter not found. */
-	@Value("${inputParameterNotFound.message}")
-	private String inputParameterNotFound;
+    /** The license service. */
+    @Autowired(required = true)
+    private LicenseService licenseService;
 
-	/**
-	 * @param dhId
-	 * @param userId
-	 * @return
-	 */
-	@RequestMapping(value = "/status/{dhId}/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Service getLicenseStatus(
-			@PathVariable("dhId") final String dhId,
-			@PathVariable("userId") final String userId) {
-		Service service = new Service();
+    /**
+     * Gets the license type.
+     *
+     * @param articleId
+     *            the article id
+     * @param licenseObject
+     *            the license object
+     * @return the license type
+     */
+    public Service getLicenseType(@RequestParam("articleId") String articleId,
+            @RequestBody LicenseObject licenseObject) {
+        Service service = new Service();
+        if (!StringUtils.isEmpty(articleId)
+                && !StringUtils.isEmpty(licenseObject)) {
+            LOGGER.info("fetching license type choice for article with article id: "
+                    + articleId);
+            ArrayList<String> licenseTypesOptions = licenseService
+                    .getLicenseChoice(articleId, licenseObject);
+            if (!StringUtils.isEmpty(licenseTypesOptions)) {
+                LOGGER.info("Fetched the available license types for the article");
+                service.setPayload(licenseTypesOptions);
+            } else {
+                LOGGER.error("No license type is available for this article");
+                throw new LicenseException(
+                        "SIGN_LICENSE_AGREEMENT_OA_CTA_LICENSE_TYPE_NOT_RETRIVED_ERR_TEXT",
+                        "Failed to retrieve license for this article");
+            }
+        }
 
-		if (StringUtils.isEmpty(dhId) || StringUtils.isEmpty(userId)) {
-			LOGGER.info("Input parameter DH_ID or UserID is null or empty");
-			service.setStatus("FAILURE");
-			service.setPayload(inputParameterNotFound);
-			return service;
-		}
-		
-		return service;
-	}
+        return service;
+    }
+
+    /** The input parameter not found. */
+    @Value("${inputParameterNotFound.message}")
+    private String inputParameterNotFound;
+
+    /**
+     * @param dhId
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "/status/{dhId}/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Service getLicenseStatus(
+            @PathVariable("dhId") final String dhId,
+            @PathVariable("userId") final String userId) {
+        Service service = new Service();
+
+        if (StringUtils.isEmpty(dhId) || StringUtils.isEmpty(userId)) {
+            LOGGER.info("Input parameter DH_ID or UserID is null or empty");
+            service.setStatus("FAILURE");
+            service.setPayload(inputParameterNotFound);
+            return service;
+        }
+
+        return service;
+    }
 }
