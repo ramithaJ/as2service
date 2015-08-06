@@ -22,6 +22,7 @@ import com.wiley.gr.ace.authorservices.services.service.AdditionalPermissionServ
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 import com.wiley.gr.ace.authorservices.services.service.ArticleAssignmentService;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
+import com.wiley.gr.ace.authorservices.services.service.CollectArticleService;
 import com.wiley.gr.ace.authorservices.services.service.DashboardService;
 import com.wiley.gr.ace.authorservices.services.service.LicenseService;
 import com.wiley.gr.ace.authorservices.services.service.OnlineOpenAuthorValidatorService;
@@ -39,6 +40,7 @@ import com.wiley.gr.ace.authorservices.services.service.impl.AdminLoginServiceIm
 import com.wiley.gr.ace.authorservices.services.service.impl.ArticleAssignmentServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.AuthorProfileServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.DashboardServiceImpl;
+import com.wiley.gr.ace.authorservices.services.service.impl.CollectArticleServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.LicenseServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.OnlineOpenAuthorValidatorServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.OpenAccessServiceImpl;
@@ -219,5 +221,9 @@ public class ServiceBeanConfig {
     public LicenseService licenseService() {
         return new LicenseServiceImpl();
     }
-
+	
+	@Bean(name = "CollectArticleService")
+	public CollectArticleService collectArticleService() {
+		return new CollectArticleServiceImpl();
+	}
 }
