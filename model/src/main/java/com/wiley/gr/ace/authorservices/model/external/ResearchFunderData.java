@@ -40,6 +40,27 @@ public class ResearchFunderData {
     private String status;
 
     /**
+     * This field holds the value of grantNumbers
+     */
+    @JsonProperty("GrantNumbers")
+    private GrantNumbers grantNumbers;
+
+    /**
+     * @return the grantNumbers
+     */
+    public final GrantNumbers getGrantNumbers() {
+        return grantNumbers;
+    }
+
+    /**
+     * @param grantNumbers
+     *            the grantNumbers to set
+     */
+    public final void setGrantNumbers(final GrantNumbers grantNumbers) {
+        this.grantNumbers = grantNumbers;
+    }
+
+    /**
      * Gets the id.
      *
      * @return the id
@@ -51,7 +72,8 @@ public class ResearchFunderData {
     /**
      * Sets the id.
      *
-     * @param id the new id
+     * @param id
+     *            the new id
      */
     public final void setId(final String id) {
         this.id = id;
@@ -69,7 +91,8 @@ public class ResearchFunderData {
     /**
      * Sets the funder id.
      *
-     * @param funderID the new funder id
+     * @param funderID
+     *            the new funder id
      */
     public final void setFunderID(final String funderID) {
         this.funderID = funderID;
@@ -87,7 +110,8 @@ public class ResearchFunderData {
     /**
      * Sets the funder name.
      *
-     * @param funderName the new funder name
+     * @param funderName
+     *            the new funder name
      */
     public final void setFunderName(final String funderName) {
         this.funderName = funderName;
@@ -105,7 +129,8 @@ public class ResearchFunderData {
     /**
      * Sets the status.
      *
-     * @param status the new status
+     * @param status
+     *            the new status
      */
     public final void setStatus(final String status) {
         this.status = status;

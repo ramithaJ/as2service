@@ -15,7 +15,9 @@ package com.wiley.gr.ace.authorservices.services.service.impl;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +29,7 @@ import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.Address;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
+import com.wiley.gr.ace.authorservices.model.Affiliations;
 import com.wiley.gr.ace.authorservices.model.Alert;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.Email;
@@ -601,13 +604,13 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @param userId
      */
     @Override
-    public List<Affiliation> getAffiliationsList(final String userId) {
+    public Affiliations getAffiliationsList(final String userId) {
 
         List<AffiliationData> listofAffiliations = userProfiles
                 .getLookupCustomerProfile(userId)
                 .getLookupCustomerProfileResponse().getCustomerProfile()
                 .getAffiliations().getAffiliation();
-
+        Affiliations affiliations = new Affiliations();
         List<Affiliation> listAffiliations = new ArrayList<Affiliation>();
         for (AffiliationData affiliationData : listofAffiliations) {
             Affiliation affiliation = new Affiliation();
@@ -625,7 +628,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             affiliation.setId(affiliationData.getId());
             listAffiliations.add(affiliation);
         }
-        return listAffiliations;
+        affiliations.setAffiliations(listAffiliations);
+        return affiliations;
     }
 
     /**
@@ -641,14 +645,23 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                 .getLookupCustomerProfileResponse().getCustomerProfile()
                 .getResearchFunders().getResearchFunder();
         List<ResearchFunder> researchFunderList = new ArrayList<ResearchFunder>();
+
         for (ResearchFunderData researchFunderData1 : listOfResearchFunder) {
             ResearchFunder researchFunder = new ResearchFunder();
             researchFunder.setResearchFunderId(researchFunderData1
                     .getFunderID());
             researchFunder.setResearchFunderName(researchFunderData1
                     .getFunderName());
+            Set<String> grantNumber = new HashSet<String>();
+            List<String> grantList = researchFunderData1.getGrantNumbers()
+                    .getGrantNo();
+            for (String grant : grantList) {
+                grantNumber.add(grant);
+            }
+            researchFunder.setGrantNumber(grantNumber);
             researchFunderList.add(researchFunder);
         }
+
         return researchFunderList;
     }
 
