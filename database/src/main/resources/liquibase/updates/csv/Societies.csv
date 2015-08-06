@@ -1,4 +1,4 @@
-society_cd,society_name,created_date,created_by
+SOCIETY_CD,SOCIETY_NAME,CREATED_DATE,CREATED_BY
 'AAH','Association of Art Historians',sysdate,0
 'ACTSQ','Association of Cardiovascular Thoracic Surgeons of Quebec',sysdate,0
 'ACAPN','Association of Child and Adolescent Psychiatric Nurses',sysdate,0
