@@ -23,7 +23,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
-import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
 import com.wiley.gr.ace.authorservices.externalservices.service.TaskService;
 import com.wiley.gr.ace.authorservices.model.ArticleDetails;
 import com.wiley.gr.ace.authorservices.model.AssociationConfirmation;
@@ -34,6 +33,7 @@ import com.wiley.gr.ace.authorservices.model.PublicationDetails;
 import com.wiley.gr.ace.authorservices.model.ViewAssignedArticle;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
 import com.wiley.gr.ace.authorservices.model.external.PdhLookupArticleResponse;
+import com.wiley.gr.ace.authorservices.model.external.PdhLookupJournalResponse;
 import com.wiley.gr.ace.authorservices.services.service.ArticleAssignmentService;
 
 /**
@@ -54,10 +54,6 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
     /** The Shared service. */
     @Autowired(required = true)
     private TaskService bpmInterfaceService;
-
-    /** The order service. */
-    @Autowired(required = true)
-    private OrderService orderService;
 
     /**
      * this method will take emailId as in input and call external service (ESb)
@@ -96,19 +92,19 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
     /**
      * View assigned article.
      *
-     * @param emailId
-     *            the email id
+     * @param articleId
+     *            the article id
      * @return the view assigned article
      * @throws Exception
      *             the exception
      */
     @Override
-    public final ViewAssignedArticle viewAssignedArticle(final String emailId)
+    public final ViewAssignedArticle viewAssignedArticle(final String articleId)
             throws Exception {
         LOGGER.info("inside viewAssignedArticle method of ArticleAssignmentServiceImpl");
         final ViewAssignedArticle viewAssignedArticle = new ViewAssignedArticle();
         final PdhLookupArticleResponse pdhLookupArticleResponse = esbInterfaceService
-                .viewAssignedArticle(emailId);
+                .viewAssignedArticle(articleId);
         if (!StringUtils.isEmpty(pdhLookupArticleResponse)) {
             viewAssignedArticle
                     .setArticleData(getArticleData(pdhLookupArticleResponse));
@@ -149,8 +145,8 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
         articleDetails.setArticleDOI(pdhLookupArticleResponse.getArticleDoi());
         articleDetails.setAcceptanceDate(pdhLookupArticleResponse
                 .getAcceptedDate());
-        articleDetails.setIssueNum("45667");
-        articleDetails.setVolumeNum("344-567");
+        articleDetails.setIssueNum(pdhLookupArticleResponse.getIssueNumber());
+        articleDetails.setVolumeNum(pdhLookupArticleResponse.getVolumeNumber());
         articleDetails.setEditorialRefCd(pdhLookupArticleResponse
                 .getEditorialRefCode());
         articleDetails
@@ -182,14 +178,20 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
      * @return the journal data
      */
     private JournalDetails getJournalData(
-            final PdhLookupArticleResponse pdhLookupArticleResponse) {
+            final PdhLookupArticleResponse pdhLookupArticleResponse)
+            throws Exception {
+        PdhLookupJournalResponse pdhLookupJournalResponse = esbInterfaceService
+                .getPdhLookupJournalResponse(pdhLookupArticleResponse
+                        .getJournalUniqueID());
         JournalDetails journalDetails = new JournalDetails();
         journalDetails.setJournalId(pdhLookupArticleResponse
                 .getJournalUniqueID());
-        journalDetails.setJournalTitle("AS Journal ");
-        journalDetails.setJournalDoi(pdhLookupArticleResponse.getArticleDoi());
-        journalDetails.setJournalPrintIssn("45667");
-        journalDetails.setJournalElectronicIssn("344-567");
+        journalDetails.setJournalTitle(pdhLookupJournalResponse.getTitle());
+        journalDetails.setJournalDoi(pdhLookupJournalResponse.getJournalDoi());
+        journalDetails.setJournalPrintIssn(pdhLookupJournalResponse
+                .getPrintIssn());
+        journalDetails.setJournalElectronicIssn(pdhLookupJournalResponse
+                .getElectronicIssn());
         return journalDetails;
     }
 
@@ -246,23 +248,13 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
      * @throws Exception
      *             the exception
      */
-
-    /**
-     * Check if article invited.
-     *
-     * @param dhId
-     *            the dh id
-     * @return true, if successful
-     * @throws Exception
-     *             the exception
-     */
     @Override
-    public final boolean checkIfArticleInvited(final Integer dhId)
+    public final boolean checkIfArticleInvited(final String dhId)
             throws Exception {
         LOGGER.info("inside checkIfArticleInvited method of ArticleAssignmentServiceImpl");
         boolean isArticleInvited = false;
-        if ("Y".equalsIgnoreCase(orderService.pdhLookUpArticle(dhId)
-                .getIsArticleInvited())) {
+        if ("Y".equalsIgnoreCase(esbInterfaceService.viewAssignedArticle(dhId)
+                .getInvitedInAs())) {
             isArticleInvited = true;
         }
         return isArticleInvited;
