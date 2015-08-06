@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -85,10 +84,6 @@ public class LicenseController {
         return service;
     }
 
-    /** The input parameter not found. */
-    @Value("${inputParameterNotFound.message}")
-    private String inputParameterNotFound;
-
     /**
      * @param dhId
      * @param userId
@@ -100,12 +95,7 @@ public class LicenseController {
             @PathVariable("userId") final String userId) {
         Service service = new Service();
 
-        if (StringUtils.isEmpty(dhId) || StringUtils.isEmpty(userId)) {
-            LOGGER.info("Input parameter DH_ID or UserID is null or empty");
-            service.setStatus("FAILURE");
-            service.setPayload(inputParameterNotFound);
-            return service;
-        }
+        
 
         return service;
     }
