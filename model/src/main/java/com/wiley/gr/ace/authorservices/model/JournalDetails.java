@@ -39,6 +39,50 @@ public class JournalDetails {
     /** The journal doi. */
     private String journalDoi;
 
+    /** The external link. */
+    private String externalLink;
+
+    /** The banner image. */
+    private String bannerImage;
+
+    /**
+     * Gets the external link.
+     *
+     * @return the external link
+     */
+    public final String getExternalLink() {
+        return externalLink;
+    }
+
+    /**
+     * Sets the external link.
+     *
+     * @param externalLink
+     *            the new external link
+     */
+    public final void setExternalLink(final String externalLink) {
+        this.externalLink = externalLink;
+    }
+
+    /**
+     * Gets the banner image.
+     *
+     * @return the banner image
+     */
+    public final String getBannerImage() {
+        return bannerImage;
+    }
+
+    /**
+     * Sets the banner image.
+     *
+     * @param bannerImage
+     *            the new banner image
+     */
+    public final void setBannerImage(final String bannerImage) {
+        this.bannerImage = bannerImage;
+    }
+
     /**
      * Gets the journal id.
      *
