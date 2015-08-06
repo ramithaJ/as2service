@@ -37,6 +37,7 @@ import com.wiley.gr.ace.authorservices.model.external.OnlineOpen;
 import com.wiley.gr.ace.authorservices.model.external.OpenAccess;
 import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhLookupArticleResponse;
+import com.wiley.gr.ace.authorservices.model.external.PdhLookupJournalResponse;
 import com.wiley.gr.ace.authorservices.model.external.ProductionData;
 import com.wiley.gr.ace.authorservices.model.external.ProfileInformation;
 import com.wiley.gr.ace.authorservices.model.external.Quote;
@@ -96,6 +97,10 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
     /** The view assigned article url. */
     @Value("${viewAssignedArticle.url}")
     private String viewAssignedArticleUrl;
+
+    /** The pdh lookup jorunal response. */
+    @Value("${pdhLookupJorunalResponse.url}")
+    private String pdhLookupJorunalResponse;
 
     /**
      * This method is for fetching ordid details by calling external service
@@ -415,18 +420,35 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
     /**
      * View assigned article.
      *
-     * @param emailId
-     *            the email id
+     * @param articleId
+     *            the article id
      * @return the pdh lookup article response
      * @throws Exception
      *             the exception
      */
     @Override
-    public final PdhLookupArticleResponse viewAssignedArticle(final String emailId)
-            throws Exception {
-        return (PdhLookupArticleResponse) StubInvokerUtil
-                .invokeStub(viewAssignedArticleUrl, HttpMethod.GET,
-                        PdhLookupArticleResponse.class);
+    public final PdhLookupArticleResponse viewAssignedArticle(
+            final String articleId) throws Exception {
+        return (PdhLookupArticleResponse) StubInvokerUtil.invokeStub(
+                viewAssignedArticleUrl, HttpMethod.GET,
+                PdhLookupArticleResponse.class);
+    }
+
+    /**
+     * Gets the pdh lookup journal response.
+     *
+     * @param journalId
+     *            the journal id
+     * @return the pdh lookup journal response
+     * @throws Exception
+     *             the exception
+     */
+    @Override
+    public final PdhLookupJournalResponse getPdhLookupJournalResponse(
+            final String journalId) throws Exception {
+        return (PdhLookupJournalResponse) StubInvokerUtil.invokeStub(
+                pdhLookupJorunalResponse, HttpMethod.GET,
+                PdhLookupJournalResponse.class);
     }
 
 }
