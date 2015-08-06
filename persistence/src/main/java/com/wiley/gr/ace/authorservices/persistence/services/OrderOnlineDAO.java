@@ -21,6 +21,7 @@ import com.wiley.gr.ace.authorservices.persistence.entity.Orders;
 import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
 import com.wiley.gr.ace.authorservices.persistence.entity.ProductRelations;
 import com.wiley.gr.ace.authorservices.persistence.entity.SavedOrders;
+import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 
 /**
  * @author virtusa version1.0
@@ -115,4 +116,10 @@ public interface OrderOnlineDAO {
      */
     CoauthorRequestsOoorders viewOnlineOpenRequest(String userId,
             String articleId);
+
+    /**
+     * @param userId
+     * @return
+     */
+    Users getUserDetails(String userId);
 }

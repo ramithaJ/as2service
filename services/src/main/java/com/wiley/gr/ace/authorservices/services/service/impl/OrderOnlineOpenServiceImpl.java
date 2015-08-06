@@ -40,6 +40,7 @@ import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.externalservices.service.InvoiceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
+import com.wiley.gr.ace.authorservices.externalservices.service.TaskService;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.Address;
 import com.wiley.gr.ace.authorservices.model.AddressDetails;
@@ -88,6 +89,7 @@ import com.wiley.gr.ace.authorservices.model.external.PricingData;
 import com.wiley.gr.ace.authorservices.model.external.ResearchFunderElement;
 import com.wiley.gr.ace.authorservices.model.external.Societies;
 import com.wiley.gr.ace.authorservices.model.external.SocietyMemberDiscount;
+import com.wiley.gr.ace.authorservices.model.external.TaskServiceRequest;
 import com.wiley.gr.ace.authorservices.model.external.TaxData;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 import com.wiley.gr.ace.authorservices.model.external.WOAAccount;
@@ -127,6 +129,10 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     /** The invoiceservice. */
     @Autowired(required = true)
     private InvoiceService invoiceservice;
+
+    /** The bpm task. */
+    @Autowired(required = true)
+    private TaskService bpmTask;
 
     /**
      * This field holds the value of correspondingAuthorId.
@@ -1480,12 +1486,26 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             coauthorRequestsOoorders.setProducts(products);
             coauthorRequestsOoorders.setMessageFromCoauth(requestOnlineOpen
                     .getMessage());
-            orderOnlineDAO.requestOnlineOpen(coauthorRequestsOoorders);
-        } else {
+            try {
+                orderOnlineDAO.requestOnlineOpen(coauthorRequestsOoorders);
+            } catch (Exception exception) {
+                throw new ASException("2434", "Dh Id id Already Exist");
+            }
+                TaskServiceRequest taskServiceRequest=new TaskServiceRequest();
+                taskServiceRequest.setRequestorId(requestOnlineOpen.getUserId());
+                List<String> articleId=new ArrayList<String>();
+                articleId.add(requestOnlineOpen.getMessage());
+                taskServiceRequest.setJustifications(articleId);
+                Users userDao=orderOnlineDAO.getUserDetails(requestOnlineOpen.getUserId());
+                taskServiceRequest.setRequestorEmail(userDao.getPrimaryEmailAddr());
+                // TODO call bpm for creating task  requestType
+                bpmTask.invokeTaskService(taskServiceRequest, requestOnlineOpen.getUserId());
+                
+            }else if (journalAllows== false) {
             throw new ASException("1234", "journal Doesnot allows to OO");
-        }
-
-        // TODO call bpm for creating task
-
+        } 
+        
     }
+    
+
 }
