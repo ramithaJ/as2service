@@ -171,17 +171,17 @@ public class ArticleAssignmentController {
      *            the email id
      * @return the confirmation article data
      */
-    @RequestMapping(value = "/confirm/view/{emailId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/view/{articleId}", method = RequestMethod.GET)
     public final Service viewAssignedArticle(
-            @PathVariable("emailId") final String emailId) {
+            @PathVariable("articleId") final String articleId) {
         LOGGER.info("inside viewAssignedArticle method of ArticleAssignmentController");
         final Service service = new Service();
         ViewAssignedArticle viewAssignedArticle = null;
-        if (!StringUtils.isEmpty(emailId)) {
+        if (!StringUtils.isEmpty(articleId)) {
             LOGGER.info("input parameter emailId is found to Get View Assigned Article");
             try {
                 viewAssignedArticle = articleAssignmentService
-                        .viewAssignedArticle(emailId);
+                        .viewAssignedArticle(articleId);
                 if (!StringUtils.isEmpty(viewAssignedArticle)) {
                     LOGGER.info(" View Assigned Article Data Found");
                     service.setStatus("SUCCESS");
