@@ -12,59 +12,34 @@
 /**
  * 
  */
-package com.wiley.gr.ace.authorservices.model;
+package com.wiley.gr.ace.authorservices.model.external;
 
-import com.wiley.gr.ace.authorservices.model.external.Funder;
+import java.util.ArrayList;
 
 /**
- * The Class FunderInfo.
- * 
- * @author virtusa version 1.0
+ * The Class Funders.
  */
-public class FunderInfo {
+public class Funders {
 
     /** The funder. */
-    private Funder funder;
-
-    /** The associate funder. */
-    private Funder associateFunder;
+    ArrayList<Funder> funder;
 
     /**
      * Gets the funder.
      *
      * @return the funder
      */
-    public final Funder getFunder() {
+    public final ArrayList<Funder> getFunder() {
         return funder;
     }
 
     /**
      * Sets the funder.
      *
-     * @param funder
-     *            the new funder
+     * @param funder the new funder
      */
-    public final void setFunder(final Funder funder) {
+    public final void setFunder(final ArrayList<Funder> funder) {
         this.funder = funder;
-    }
-
-    /**
-     * Gets the associate funder.
-     *
-     * @return the associate funder
-     */
-    public final Funder getAssociateFunder() {
-        return associateFunder;
-    }
-
-    /**
-     * Sets the associate funder.
-     *
-     * @param associateFunder
-     *            the new associate funder
-     */
-    public final void setAssociateFunder(final Funder associateFunder) {
-        this.associateFunder = associateFunder;
     }
 
 }

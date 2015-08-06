@@ -17,7 +17,13 @@ package com.wiley.gr.ace.authorservices.services.service.impl;
 import java.io.File;
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.wiley.gr.ace.authorservices.externalservices.service.LicenseInterfaceService;
 import com.wiley.gr.ace.authorservices.model.LicenseObject;
+import com.wiley.gr.ace.authorservices.model.external.Funder;
+import com.wiley.gr.ace.authorservices.model.external.Funders;
+import com.wiley.gr.ace.authorservices.model.external.LicenseChoiceRequest;
 import com.wiley.gr.ace.authorservices.services.service.LicenseService;
 
 /**
@@ -27,6 +33,9 @@ import com.wiley.gr.ace.authorservices.services.service.LicenseService;
  */
 public class LicenseServiceImpl implements LicenseService {
 
+    @Autowired(required = true)
+    private LicenseInterfaceService licenseInterfaceService;
+
     /**
      * Gets the license choice.
      *
@@ -35,9 +44,25 @@ public class LicenseServiceImpl implements LicenseService {
      * @return the license choice
      */
     @Override
-    public ArrayList<String> getLicenseChoice(LicenseObject licenseObject) {
-        // TODO Auto-generated method stub
-        return null;
+    public ArrayList<String> getLicenseChoice(String dhId,
+            LicenseObject licenseObject) {
+
+        LicenseChoiceRequest licenseChoiceRequest = new LicenseChoiceRequest();
+        Funders funders = new Funders();
+        ArrayList<Funder> funderList = new ArrayList<Funder>();
+
+        licenseChoiceRequest.setDhId(dhId);
+        
+        
+        funderList.add(licenseObject.getFunderDetails().getFunderInfo()
+                .getFunder()); // null
+        funderList.add(licenseObject.getFunderDetails().getFunderInfo()
+                .getAssociateFunder()); // Null
+        funders.setFunder(funderList);
+        licenseChoiceRequest.setFunders(funders);
+        licenseChoiceRequest.setOnlineOpen(licenseObject.getOnlineOpen());
+        return licenseInterfaceService.getLicenseChoice(licenseChoiceRequest)
+                .getLicenseTypes().getLicenseType();
     }
 
     /**

@@ -14,7 +14,6 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
-import java.util.ArrayList;
 
 /**
  * The Class LicenseChoiceRequest.
@@ -27,7 +26,7 @@ public class LicenseChoiceRequest extends WALSRequest {
     private String onlineOpen;
 
     /** The funders. */
-    private ArrayList<Funder> funders;
+    private Funders funders;
 
     /**
      * Gets the online open.
@@ -52,7 +51,7 @@ public class LicenseChoiceRequest extends WALSRequest {
      *
      * @return the funders
      */
-    public final ArrayList<Funder> getFunders() {
+    public final Funders getFunders() {
         return funders;
     }
 
@@ -61,7 +60,8 @@ public class LicenseChoiceRequest extends WALSRequest {
      *
      * @param funders the new funders
      */
-    public final void setFunders(final ArrayList<Funder> funders) {
+    public final void setFunders(final Funders funders) {
         this.funders = funders;
     }
+
 }

@@ -26,13 +26,46 @@ import com.wiley.gr.ace.authorservices.model.LicenseObject;
  */
 public interface LicenseService {
 
-    ArrayList<String> getLicenseChoice(LicenseObject licenseObject);
+    /**
+     * Gets the license choice.
+     *
+     * @param licenseObject
+     *            the license object
+     * @return the license choice
+     */
+    ArrayList<String> getLicenseChoice(String dhId, LicenseObject licenseObject);
 
+    /**
+     * Gets the license copy.
+     *
+     * @param dhId
+     *            the dh id
+     * @return the license copy
+     */
     File getLicenseCopy(String dhId);
 
+    /**
+     * Save license later.
+     *
+     * @param licenseObject
+     *            the license object
+     * @param userId
+     *            the user id
+     * @param articleId
+     *            the article id
+     */
     void saveLicenseLater(LicenseObject licenseObject, String userId,
             String articleId);
 
+    /**
+     * Sign license.
+     *
+     * @param licenseObject
+     *            the license object
+     * @param dhId
+     *            the dh id
+     * @return the string
+     */
     String signLicense(LicenseObject licenseObject, String dhId);
 
 }
