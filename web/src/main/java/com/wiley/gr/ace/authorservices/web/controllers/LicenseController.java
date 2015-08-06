@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -62,7 +61,8 @@ public class LicenseController {
      *            the license object
      * @return the license type
      */
-    public Service getLicenseType(@RequestParam("articleId") String articleId,
+    @RequestMapping(value = "/types/{articleId}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Service getLicenseType(@PathVariable("articleId") String articleId,
             @RequestBody LicenseObject licenseObject) {
         Service service = new Service();
         if (!StringUtils.isEmpty(articleId)
