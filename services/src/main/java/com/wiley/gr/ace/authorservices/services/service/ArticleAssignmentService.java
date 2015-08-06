@@ -68,6 +68,6 @@ public interface ArticleAssignmentService {
      * @throws Exception
      *             the exception
      */
-    boolean checkIfArticleInvited(Integer dhId) throws Exception;
+    boolean checkIfArticleInvited(String dhId) throws Exception;
 
 }
