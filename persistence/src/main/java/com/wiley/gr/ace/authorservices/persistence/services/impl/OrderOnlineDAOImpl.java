@@ -32,6 +32,7 @@ import com.wiley.gr.ace.authorservices.persistence.entity.Orders;
 import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
 import com.wiley.gr.ace.authorservices.persistence.entity.ProductRelations;
 import com.wiley.gr.ace.authorservices.persistence.entity.SavedOrders;
+import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.entity.WpgResponseDetails;
 import com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO;
 
@@ -472,10 +473,32 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
         return coauthorRequestsOoorders;
     }
 
-    public static void main(final String[] args) {
-        OrderOnlineDAOImpl onlineDAOImpl = new OrderOnlineDAOImpl();
-        CoauthorRequestsOoorders coauthorRequestsOoorders = onlineDAOImpl
-                .viewOnlineOpenRequest("8011047", "2");
-        System.err.println(coauthorRequestsOoorders.getMessageFromCoauth());
+    /**
+     * For getting user details by taking userId
+     * 
+     * @param userId
+     * */
+    @Override
+    public Users getUserDetails(final String userId) {
+
+        Session session = null;
+        Users users=null;
+
+        try {
+            session = getSessionFactory().openSession();
+           users=(Users) session.get(Users.class, Integer.parseInt(userId));
+
+        }
+
+        finally {
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
+        }
+        return users;
+
     }
+
+   
 }

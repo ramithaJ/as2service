@@ -98,7 +98,7 @@ public class TaskServiceImpl implements TaskService {
      */
     public final String invokeTaskService(
             final TaskServiceRequest taskServiceRequest, final String userId) {
-
+    System.err.println(taskServiceRequest.getRequestorEmail());
         String saltString = null;
         String encodedParamString = null;
         Date currentDate = null;
