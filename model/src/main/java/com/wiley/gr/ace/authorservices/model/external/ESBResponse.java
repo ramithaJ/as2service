@@ -12,11 +12,14 @@
 
 package com.wiley.gr.ace.authorservices.model.external;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * The Class ESBResponse.
  *
  * @author virtusa
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ESBResponse {
 
     /**

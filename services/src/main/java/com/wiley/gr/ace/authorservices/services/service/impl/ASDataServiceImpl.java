@@ -211,9 +211,7 @@ public class ASDataServiceImpl implements ASDataService {
         LOGGER.info("inside getCountries method ");
         ESBResponse countrieslist = userProfiles.getCountries();
         List<Country> countrylist = new ArrayList<Country>();
-
-        List<Object> externalCountrylist = countrieslist.getResponse()
-                .getDocs();
+        List<Object> externalCountrylist = countrieslist.getResponse().getDocs();
         if (null == externalCountrylist) {
             return countrylist;
         }
