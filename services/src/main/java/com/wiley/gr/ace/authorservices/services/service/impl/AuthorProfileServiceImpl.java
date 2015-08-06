@@ -355,29 +355,32 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
         if ("Physical".equalsIgnoreCase(addressesRequest.getAddressType())) {
             AddressElement physical = this.updateAddressFields(
-                    addressesRequest, addressesRequest.getAddressType());
+                    addressesRequest, addressesRequest.getAddressType(),
+                    addressesRequest.getId());
             addressElementsList.add(physical);
             if ('Y' == addressesRequest.getAddressFag()) {
                 AddressElement Billing = this.updateAddressFields(
-                        addressesRequest, "Billing");
+                        addressesRequest, "Billing", "0");
                 addressElementsList.add(Billing);
             }
         }
 
         if ("Billing".equalsIgnoreCase(addressesRequest.getAddressType())) {
             AddressElement physical = this.updateAddressFields(
-                    addressesRequest, addressesRequest.getAddressType());
+                    addressesRequest, addressesRequest.getAddressType(),
+                    addressesRequest.getId());
             addressElementsList.add(physical);
             if ('Y' == addressesRequest.getAddressFag()) {
                 AddressElement shipping = this.updateAddressFields(
-                        addressesRequest, "Shipping");
+                        addressesRequest, "Shipping", "0");
                 addressElementsList.add(shipping);
             }
         }
 
         if ("Shipping".equalsIgnoreCase(addressesRequest.getAddressType())) {
             AddressElement shipping = this.updateAddressFields(
-                    addressesRequest, addressesRequest.getAddressType());
+                    addressesRequest, addressesRequest.getAddressType(),
+                    addressesRequest.getId());
             addressElementsList.add(shipping);
         }
 
@@ -389,9 +392,10 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     }
 
     private AddressElement updateAddressFields(final Address addressesRequest,
-            final String addressType) {
+            final String addressType, final String id) {
 
         AddressElement addressElement = new AddressElement();
+        addressElement.setId(id);
         addressElement.setAddrTypeCD(addressType);
         addressElement.setTitle(addressesRequest.getTitle());
         addressElement.setFirstName(addressesRequest.getFirstName());
@@ -399,7 +403,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         addressElement.setSuffix(addressesRequest.getSuffix());
         addressElement.setInstitutionCd(addressesRequest.getInstitutionId());
         addressElement.setInstitutionName(addressesRequest.getInstitution());
-        if (addressesRequest.getId() == "0") {
+        if (id == "0") {
             addressElement.setStatus("Add");
         } else {
             addressElement.setStatus("Edit");
