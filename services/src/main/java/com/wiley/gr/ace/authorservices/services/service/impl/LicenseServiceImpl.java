@@ -24,6 +24,8 @@ import com.wiley.gr.ace.authorservices.model.LicenseObject;
 import com.wiley.gr.ace.authorservices.model.external.Funder;
 import com.wiley.gr.ace.authorservices.model.external.Funders;
 import com.wiley.gr.ace.authorservices.model.external.LicenseChoiceRequest;
+import com.wiley.gr.ace.authorservices.model.external.LicenseTypesPresented;
+import com.wiley.gr.ace.authorservices.model.external.SignLicenseRequest;
 import com.wiley.gr.ace.authorservices.services.service.LicenseService;
 
 /**
@@ -39,6 +41,8 @@ public class LicenseServiceImpl implements LicenseService {
     /**
      * Gets the license choice.
      *
+     * @param dhId
+     *            the dh id
      * @param licenseObject
      *            the license object
      * @return the license choice
@@ -52,8 +56,7 @@ public class LicenseServiceImpl implements LicenseService {
         ArrayList<Funder> funderList = new ArrayList<Funder>();
 
         licenseChoiceRequest.setDhId(dhId);
-        
-        
+
         funderList.add(licenseObject.getFunderDetails().getFunderInfo()
                 .getFunder()); // null
         funderList.add(licenseObject.getFunderDetails().getFunderInfo()
@@ -106,6 +109,29 @@ public class LicenseServiceImpl implements LicenseService {
      */
     @Override
     public String signLicense(LicenseObject licenseObject, String dhId) {
+        SignLicenseRequest signLicenseRequest = new SignLicenseRequest();
+        LicenseTypesPresented licenseTypesPresented = new LicenseTypesPresented();
+        signLicenseRequest.setDhId(dhId);
+        signLicenseRequest.setAuthorSignature(licenseObject
+                .getAuthorSignature());
+        signLicenseRequest.setCopyrightOwnership(licenseObject
+                .getCopyrightOwnership().getOwnershipType());
+        signLicenseRequest.setLicenseTypeSigned(licenseObject.getLicenseType());
+        licenseTypesPresented.setLicenseType(licenseObject
+                .getLicenseTypePresented());
+        signLicenseRequest.setLicenseTypesPresented(licenseTypesPresented);
+        signLicenseRequest.setOnlineOpen(licenseObject.getOnlineOpen());
+        signLicenseRequest.setSignedElectronically(licenseObject
+                .getSignedElectronically());
+        signLicenseRequest.setUsGovtWorkOwnership(licenseObject
+                .getCopyrightOwnership().getUsGovtWorkOwnership());
+
+        return licenseInterfaceService.signLicense(signLicenseRequest)
+                .getResponseDescription();
+    }
+
+    @Override
+    public String getLicenseText(LicenseObject licenseObject) {
         // TODO Auto-generated method stub
         return null;
     }

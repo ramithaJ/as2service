@@ -29,11 +29,21 @@ public interface LicenseService {
     /**
      * Gets the license choice.
      *
+     * @param dhId
+     *            the dh id
      * @param licenseObject
      *            the license object
      * @return the license choice
      */
     ArrayList<String> getLicenseChoice(String dhId, LicenseObject licenseObject);
+    
+    /**
+     * Gets the license text.
+     *
+     * @param licenseObject the license object
+     * @return the license text
+     */
+    String getLicenseText(LicenseObject licenseObject);
 
     /**
      * Gets the license copy.
