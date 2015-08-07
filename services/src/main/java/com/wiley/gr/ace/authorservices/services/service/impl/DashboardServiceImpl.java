@@ -623,13 +623,16 @@ public class DashboardServiceImpl implements DashboardService {
      */
     private Production getProductionDatesForArticles(final String articleId)
             throws Exception {
+        LOGGER.info("inside getProductionDatesForArticles Method of DashboardServiceImpl");
         final PdhLookupArticleResponse pdhLookupArticleResponse = esbInterfaceService
                 .viewAssignedArticle(articleId);
         Production production = null;
         if (!StringUtils.isEmpty(pdhLookupArticleResponse)) {
+            LOGGER.info("PDH Lookup Article Response data is Found");
             final SimpleDateFormat formatter = new SimpleDateFormat(
                     "dd-MMM-yyyy");
             final Map<Date, String> productionDatesStatus = new TreeMap<Date, String>();
+            LOGGER.info("Getting the Production Dates and setting the Status From dotCMS ");
             productionDatesStatus
                     .put(formatter.parse(pdhLookupArticleResponse
                             .getAcceptedDate()), articleAcptdStatus);
@@ -665,6 +668,8 @@ public class DashboardServiceImpl implements DashboardService {
             final SimpleDateFormat formatter,
             final PdhLookupArticleResponse pdhLookupArticleResponse,
             final Map<Date, String> productionDatesStatus) throws Exception {
+        LOGGER.info("inside getProductionDateStatus Method of DashboardServiceImpl");
+        LOGGER.info("Getting the Production Dates and setting the Status From dotCMS ");
         productionDatesStatus
                 .put(formatter.parse(pdhLookupArticleResponse
                         .getIssPubOnlineDate()), issPubOnlineStatus);
@@ -692,11 +697,13 @@ public class DashboardServiceImpl implements DashboardService {
             final Map<Date, String> productionDatesStatus) throws Exception {
         Date mostRecentProductionDate = null;
         String productionStatus = null;
+        LOGGER.info("inside getProductionDateStatus Method of DashboardServiceImpl");
         for (Map.Entry<Date, String> entry : productionDatesStatus.entrySet()) {
             mostRecentProductionDate = entry.getKey();
             productionStatus = productionDatesStatus
                     .get(mostRecentProductionDate);
         }
+        LOGGER.info("Getting Most Recent Date Among All Production Stages Dates and Setting Production Status");
         Production production = new Production();
         production.setProductionStatusDate(mostRecentProductionDate.toString());
         production.setProductionStatus(productionStatus);
