@@ -11,37 +11,77 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.model;
 
-import java.util.List;
+import java.util.Set;
 
+/**
+ * The Class Ownerships.
+ */
 public class Ownerships {
-	private String name;
 
-	private List<SubOwnerships> subOwnerships;
+    /** The name. */
+    private String name;
 
-	private String code;
+    /** The sub ownerships. */
+    private Set<SubOwnerships> subOwnerships;
 
-	public String getName() {
-		return name;
-	}
+    /** The code. */
+    private String code;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
+    public final String getName() {
+        return name;
+    }
 
-	public List<SubOwnerships> getSubOwnerships() {
-		return subOwnerships;
-	}
+    /**
+     * Sets the name.
+     *
+     * @param name
+     *            the new name
+     */
+    public final void setName(final String name) {
+        this.name = name;
+    }
 
-	public void setSubOwnerships(List<SubOwnerships> subOwnerships) {
-		this.subOwnerships = subOwnerships;
-	}
+    /**
+     * Gets the code.
+     *
+     * @return the code
+     */
+    public final String getCode() {
+        return code;
+    }
 
-	public String getCode() {
-		return code;
-	}
+    /**
+     * Sets the code.
+     *
+     * @param code
+     *            the new code
+     */
+    public final void setCode(final String code) {
+        this.code = code;
+    }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+    /**
+     * Gets the sub ownerships.
+     *
+     * @return the sub ownerships
+     */
+    public final Set<SubOwnerships> getSubOwnerships() {
+        return subOwnerships;
+    }
+
+    /**
+     * Sets the sub ownerships.
+     *
+     * @param subOwnerships
+     *            the new sub ownerships
+     */
+    public final void setSubOwnerships(final Set<SubOwnerships> subOwnerships) {
+        this.subOwnerships = subOwnerships;
+    }
 
 }

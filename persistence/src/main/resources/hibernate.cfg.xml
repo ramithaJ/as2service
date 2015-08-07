@@ -172,6 +172,10 @@
 			class="com.wiley.gr.ace.authorservices.persistence.entity.DiscountDetails" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.SocietyJournals" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.OwnershipTypes" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.SubOwnershipTypes" />
 
 	</session-factory>
 </hibernate-configuration>

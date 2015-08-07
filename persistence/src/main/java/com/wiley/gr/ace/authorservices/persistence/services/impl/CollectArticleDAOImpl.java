@@ -13,7 +13,9 @@ package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
 import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.springframework.util.StringUtils;
@@ -21,25 +23,37 @@ import org.springframework.util.StringUtils;
 import com.wiley.gr.ace.authorservices.persistence.entity.OwnershipTypes;
 import com.wiley.gr.ace.authorservices.persistence.services.CollectArticleDAO;
 
+/**
+ * The Class CollectArticleDAOImpl.
+ */
 public class CollectArticleDAOImpl implements CollectArticleDAO {
 
-	@Override
-	public final List<OwnershipTypes> getCollectArticle() throws Exception {
-		List<OwnershipTypes> ownershipTypesList = null;
-		Session session = null;
-		try {
+    /**
+     * Gets the collect article.
+     *
+     * @return the collect article
+     * @throws Exception
+     *             the exception
+     */
+    @Override
+    public final Set<OwnershipTypes> getCollectArticle() throws Exception {
+        List<OwnershipTypes> ownershipTypesList = null;
+        Set<OwnershipTypes> ownershipTypesSet = null;
+        Session session = null;
+        try {
 
-			session = getSessionFactory().openSession();
-			String hql = "from OwnershipTypes";
-			ownershipTypesList = session.createQuery(hql).list();
-			System.err.println("ownershipTypesList"+ownershipTypesList);
-		} finally {
-			if (!StringUtils.isEmpty(session)) {
-				session.flush();
-				session.close();
-			}
-		}
-		return ownershipTypesList;
-	}
+            session = getSessionFactory().openSession();
+            String hql = "from OwnershipTypes";
+            ownershipTypesList = session.createQuery(hql).list();
+            System.err.println("ownershipTypesList" + ownershipTypesList);
+            ownershipTypesSet = new HashSet<OwnershipTypes>(ownershipTypesList);
+        } finally {
+            if (!StringUtils.isEmpty(session)) {
+                session.flush();
+                session.close();
+            }
+        }
+        return ownershipTypesSet;
+    }
 
 }

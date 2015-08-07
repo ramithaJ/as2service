@@ -11,35 +11,53 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.model;
 
+/**
+ * The Class SubOwnerships.
+ */
 public class SubOwnerships {
 
-	 private String name;
+    /** The name. */
+    private String name;
 
-	    private String code;
+    /** The code. */
+    private String code;
 
-	    public String getName ()
-	    {
-	        return name;
-	    }
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
+    public final String getName() {
+        return name;
+    }
 
-	    public void setName (String name)
-	    {
-	        this.name = name;
-	    }
+    /**
+     * Sets the name.
+     *
+     * @param name
+     *            the new name
+     */
+    public final void setName(final String name) {
+        this.name = name;
+    }
 
-	    public String getCode ()
-	    {
-	        return code;
-	    }
+    /**
+     * Gets the code.
+     *
+     * @return the code
+     */
+    public final String getCode() {
+        return code;
+    }
 
-	    public void setCode (String code)
-	    {
-	        this.code = code;
-	    }
+    /**
+     * Sets the code.
+     *
+     * @param code
+     *            the new code
+     */
+    public final void setCode(final String code) {
+        this.code = code;
+    }
 
-	    @Override
-	    public String toString()
-	    {
-	        return "ClassPojo [name = "+name+", code = "+code+"]";
-	    }
 }

@@ -11,12 +11,22 @@
  ******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.services;
 
-import java.util.List;
+import java.util.Set;
 
 import com.wiley.gr.ace.authorservices.persistence.entity.OwnershipTypes;
 
+/**
+ * The Interface CollectArticleDAO.
+ */
 public interface CollectArticleDAO {
 
-	List<OwnershipTypes> getCollectArticle() throws Exception;
+    /**
+     * Gets the collect article.
+     *
+     * @return the collect article
+     * @throws Exception
+     *             the exception
+     */
+    Set<OwnershipTypes> getCollectArticle() throws Exception;
 
 }
