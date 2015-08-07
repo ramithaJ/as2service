@@ -564,7 +564,7 @@ public class DashboardServiceImpl implements DashboardService {
             throws Exception {
         LOGGER.info("inside getProductionDetails Method of DashboardServiceImpl");
         DashboardView dashboardView = null;
-        final List<ArticleData> articleDataListForProduction = new ArrayList<ArticleData>();
+        List<ArticleData> articleDataListForProduction = new ArrayList<ArticleData>();
         ArticleData articleData = null;
         final List<ProductPersonRelations> productPersonRelationsList = dashboardDAO
                 .getProductPersonRelations(userId);
@@ -718,7 +718,7 @@ public class DashboardServiceImpl implements DashboardService {
         LOGGER.info("inside getPublishedArticleDetails Method of DashboardServiceImpl");
         DashboardView dashboardView = null;
         ArticleData articleData = null;
-        final List<ArticleData> articleDataListforPublication = new ArrayList<ArticleData>();
+        List<ArticleData> articleDataListforPublication = new ArrayList<ArticleData>();
         final List<ProductPersonRelations> productPersonRelationsList = dashboardDAO
                 .getProductPersonRelations(userId);
         if (!StringUtils.isEmpty(productPersonRelationsList)) {
