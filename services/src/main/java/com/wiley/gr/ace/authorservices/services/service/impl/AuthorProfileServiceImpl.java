@@ -685,6 +685,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         List<Society> societyList = new ArrayList<Society>();
         for (SocietyData societyData : listSocietyData) {
             Society society = new Society();
+            society.setSocietyId(societyData.getSocietyId());
             society.setSocietyName(societyData.getSocietyName());
             society.setMembershipNumber(societyData.getMembershipNo());
             society.setStartDate(societyData.getStartDate());
