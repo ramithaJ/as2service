@@ -25,10 +25,15 @@ public class ErrorPOJO {
     /** The code. */
     private int code;
 
+    /** The error key. */
+    private String errorKey;
+
     /** The message. */
     private String message;
 
     /**
+     * Gets the code.
+     *
      * @return the code
      */
     public final int getCode() {
@@ -36,6 +41,8 @@ public class ErrorPOJO {
     }
 
     /**
+     * Sets the code.
+     *
      * @param code
      *            the code to set
      */
@@ -44,6 +51,27 @@ public class ErrorPOJO {
     }
 
     /**
+     * Gets the error key.
+     *
+     * @return the error key
+     */
+    public final String getErrorKey() {
+        return errorKey;
+    }
+
+    /**
+     * Sets the error key.
+     *
+     * @param errorKey
+     *            the new error key
+     */
+    public final void setErrorKey(final String errorKey) {
+        this.errorKey = errorKey;
+    }
+
+    /**
+     * Gets the message.
+     *
      * @return the message
      */
     public final String getMessage() {
@@ -51,6 +79,8 @@ public class ErrorPOJO {
     }
 
     /**
+     * Sets the message.
+     *
      * @param message
      *            the message to set
      */

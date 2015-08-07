@@ -21,9 +21,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.LicenseInterfaceService;
 import com.wiley.gr.ace.authorservices.model.LicenseObject;
+import com.wiley.gr.ace.authorservices.model.LicenseStatus;
 import com.wiley.gr.ace.authorservices.model.external.Funder;
 import com.wiley.gr.ace.authorservices.model.external.Funders;
 import com.wiley.gr.ace.authorservices.model.external.LicenseChoiceRequest;
+import com.wiley.gr.ace.authorservices.model.external.LicenseTypesPresented;
+import com.wiley.gr.ace.authorservices.model.external.SignLicenseRequest;
 import com.wiley.gr.ace.authorservices.services.service.LicenseService;
 
 /**
@@ -33,81 +36,118 @@ import com.wiley.gr.ace.authorservices.services.service.LicenseService;
  */
 public class LicenseServiceImpl implements LicenseService {
 
-    @Autowired(required = true)
-    private LicenseInterfaceService licenseInterfaceService;
+	@Autowired(required = true)
+	private LicenseInterfaceService licenseInterfaceService;
 
-    /**
-     * Gets the license choice.
-     *
-     * @param licenseObject
-     *            the license object
-     * @return the license choice
-     */
-    @Override
-    public ArrayList<String> getLicenseChoice(String dhId,
-            LicenseObject licenseObject) {
+	/**
+	 * Gets the license choice.
+	 *
+	 * @param dhId
+	 *            the dh id
+	 * @param licenseObject
+	 *            the license object
+	 * @return the license choice
+	 */
+	@Override
+	public ArrayList<String> getLicenseChoice(String dhId,
+			LicenseObject licenseObject) {
 
-        LicenseChoiceRequest licenseChoiceRequest = new LicenseChoiceRequest();
-        Funders funders = new Funders();
-        ArrayList<Funder> funderList = new ArrayList<Funder>();
+		LicenseChoiceRequest licenseChoiceRequest = new LicenseChoiceRequest();
+		Funders funders = new Funders();
+		ArrayList<Funder> funderList = new ArrayList<Funder>();
 
-        licenseChoiceRequest.setDhId(dhId);
-        
-        
-        funderList.add(licenseObject.getFunderDetails().getFunderInfo()
-                .getFunder()); // null
-        funderList.add(licenseObject.getFunderDetails().getFunderInfo()
-                .getAssociateFunder()); // Null
-        funders.setFunder(funderList);
-        licenseChoiceRequest.setFunders(funders);
-        licenseChoiceRequest.setOnlineOpen(licenseObject.getOnlineOpen());
-        return licenseInterfaceService.getLicenseChoice(licenseChoiceRequest)
-                .getLicenseTypes().getLicenseType();
-    }
+		licenseChoiceRequest.setDhId(dhId);
 
-    /**
-     * Gets the license copy.
-     *
-     * @param dhId
-     *            the dh id
-     * @return the license copy
-     */
-    @Override
-    public File getLicenseCopy(String dhId) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+		funderList.add(licenseObject.getFunderDetails().getFunderInfo()
+				.getFunder()); // null
+		funderList.add(licenseObject.getFunderDetails().getFunderInfo()
+				.getAssociateFunder()); // Null
+		funders.setFunder(funderList);
+		licenseChoiceRequest.setFunders(funders);
+		licenseChoiceRequest.setOnlineOpen(licenseObject.getOnlineOpen());
+		return licenseInterfaceService.getLicenseChoice(licenseChoiceRequest)
+				.getLicenseTypes().getLicenseType();
+	}
 
-    /**
-     * Save license later.
-     *
-     * @param licenseObject
-     *            the license object
-     * @param userId
-     *            the user id
-     * @param articleId
-     *            the article id
-     */
-    @Override
-    public void saveLicenseLater(LicenseObject licenseObject, String userId,
-            String articleId) {
-        // TODO Auto-generated method stub
+	/**
+	 * Gets the license copy.
+	 *
+	 * @param dhId
+	 *            the dh id
+	 * @return the license copy
+	 */
+	@Override
+	public File getLicenseCopy(String dhId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    }
+	/**
+	 * Save license later.
+	 *
+	 * @param licenseObject
+	 *            the license object
+	 * @param userId
+	 *            the user id
+	 * @param articleId
+	 *            the article id
+	 */
+	@Override
+	public void saveLicenseLater(LicenseObject licenseObject, String userId,
+			String articleId) {
+		// TODO Auto-generated method stub
 
-    /**
-     * Sign license.
-     *
-     * @param licenseObject
-     *            the license object
-     * @param dhId
-     *            the dh id
-     * @return the string
-     */
-    @Override
-    public String signLicense(LicenseObject licenseObject, String dhId) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	}
 
+	/**
+	 * Sign license.
+	 *
+	 * @param licenseObject
+	 *            the license object
+	 * @param dhId
+	 *            the dh id
+	 * @return the string
+	 */
+	@Override
+	public String signLicense(LicenseObject licenseObject, String dhId) {
+		SignLicenseRequest signLicenseRequest = new SignLicenseRequest();
+		LicenseTypesPresented licenseTypesPresented = new LicenseTypesPresented();
+		signLicenseRequest.setDhId(dhId);
+		signLicenseRequest.setAuthorSignature(licenseObject
+				.getAuthorSignature());
+		signLicenseRequest.setCopyrightOwnership(licenseObject
+				.getCopyrightOwnership().getOwnershipType());
+		signLicenseRequest.setLicenseTypeSigned(licenseObject.getLicenseType());
+		licenseTypesPresented.setLicenseType(licenseObject
+				.getLicenseTypePresented());
+		signLicenseRequest.setLicenseTypesPresented(licenseTypesPresented);
+		signLicenseRequest.setOnlineOpen(licenseObject.getOnlineOpen());
+		signLicenseRequest.setSignedElectronically(licenseObject
+				.getSignedElectronically());
+		signLicenseRequest.setUsGovtWorkOwnership(licenseObject
+				.getCopyrightOwnership().getUsGovtWorkOwnership());
+
+		return licenseInterfaceService.signLicense(signLicenseRequest)
+				.getResponseDescription();
+	}
+
+	@Override
+	public String getLicenseText(LicenseObject licenseObject) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/**
+	 * License status.
+	 *
+	 * @param dhId
+	 *            the dh id
+	 * @param userId
+	 *            the userId
+	 * @return the LicenseStatus
+	 */
+	@Override
+	public LicenseStatus getLicenseStatus(String dhId, String userId) {
+		return null;
+	}
 }

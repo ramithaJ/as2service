@@ -82,4 +82,25 @@ public class ASExceptionController {
         
     }
     
+    @ExceptionHandler(LicenseException.class)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public final Service handleLicenseException(final LicenseException licenseException) {
+
+        LOGGER.info("Inside ASException Controller");
+        System.err.println("*************************************************");
+        Service response = new Service();
+        LOGGER.error("Error Trace - ", licenseException);
+        response.setStatus("FAILURE");
+        ErrorPOJO errorPojo = new ErrorPOJO();
+        String errorCode = licenseException.getErrorKey();
+        if (errorCode != null && !errorCode.isEmpty()) {
+            errorPojo.setErrorKey(errorCode);
+        }
+        errorPojo.setMessage(licenseException.getDescription());
+        response.setError(errorPojo);
+        return response;
+
+    }
+    
 }
