@@ -224,7 +224,7 @@ public class UserProfileController {
     @RequestMapping(value = "/societies/{userId}/{societyId}/", method = RequestMethod.DELETE)
     public final Service deleteSocietyDetails(
             @PathVariable("userId") final int userId,
-            @PathVariable("societyId") final int societyId) {
+            @PathVariable("societyId") final String societyId) {
 
         UserProfileController.LOGGER
                 .info("inside deleteSocietyDetails method ");
