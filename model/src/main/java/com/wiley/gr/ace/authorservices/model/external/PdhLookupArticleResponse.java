@@ -167,6 +167,26 @@ public class PdhLookupArticleResponse {
     @JsonProperty("withdrawn_date_after_acceptance")
     private String withdrawnDateAfterAcceptance;
 
+    /** The proof corrections received date. */
+    @JsonProperty("proof_received_production_date")
+    private String proofCorrectionsReceivedDate;
+
+    /** The revised proof received date. */
+    @JsonProperty("revised_proof_received_date")
+    private String revisedProofReceivedDate;
+
+    /** The revised proof approved date. */
+    @JsonProperty("revised_proof_approved_date")
+    private String revisedProofApprovedDate;
+
+    /** The alert associate unpagpub online. */
+    @JsonProperty("alert_associate_unpagpubOnline")
+    private String alertAssociateUnpagpubOnline;
+
+    /** The wol date. */
+    @JsonProperty("wol_date")
+    private String wolDate;
+
     /** The rejected date. */
     @JsonProperty("rejectedDate")
     private String rejectedDate;
@@ -891,6 +911,105 @@ public class PdhLookupArticleResponse {
     public final void setWithdrawnDateAfterAcceptance(
             final String withdrawnDateAfterAcceptance) {
         this.withdrawnDateAfterAcceptance = withdrawnDateAfterAcceptance;
+    }
+
+    /**
+     * Gets the proof corrections received date.
+     *
+     * @return the proof corrections received date
+     */
+    public final String getProofCorrectionsReceivedDate() {
+        return proofCorrectionsReceivedDate;
+    }
+
+    /**
+     * Sets the proof corrections received date.
+     *
+     * @param proofCorrectionsReceivedDate
+     *            the new proof corrections received date
+     */
+    public final void setProofCorrectionsReceivedDate(
+            final String proofCorrectionsReceivedDate) {
+        this.proofCorrectionsReceivedDate = proofCorrectionsReceivedDate;
+    }
+
+    /**
+     * Gets the revised proof received date.
+     *
+     * @return the revised proof received date
+     */
+    public final String getRevisedProofReceivedDate() {
+        return revisedProofReceivedDate;
+    }
+
+    /**
+     * Sets the revised proof received date.
+     *
+     * @param revisedProofReceivedDate
+     *            the new revised proof received date
+     */
+    public final void setRevisedProofReceivedDate(
+            final String revisedProofReceivedDate) {
+        this.revisedProofReceivedDate = revisedProofReceivedDate;
+    }
+
+    /**
+     * Gets the revised proof approved date.
+     *
+     * @return the revised proof approved date
+     */
+    public final String getRevisedProofApprovedDate() {
+        return revisedProofApprovedDate;
+    }
+
+    /**
+     * Sets the revised proof approved date.
+     *
+     * @param revisedProofApprovedDate
+     *            the new revised proof approved date
+     */
+    public final void setRevisedProofApprovedDate(
+            final String revisedProofApprovedDate) {
+        this.revisedProofApprovedDate = revisedProofApprovedDate;
+    }
+
+    /**
+     * Gets the alert associate unpagpub online.
+     *
+     * @return the alert associate unpagpub online
+     */
+    public final String getAlertAssociateUnpagpubOnline() {
+        return alertAssociateUnpagpubOnline;
+    }
+
+    /**
+     * Sets the alert associate unpagpub online.
+     *
+     * @param alertAssociateUnpagpubOnline
+     *            the new alert associate unpagpub online
+     */
+    public final void setAlertAssociateUnpagpubOnline(
+            final String alertAssociateUnpagpubOnline) {
+        this.alertAssociateUnpagpubOnline = alertAssociateUnpagpubOnline;
+    }
+
+    /**
+     * Gets the wol date.
+     *
+     * @return the wol date
+     */
+    public final String getWolDate() {
+        return wolDate;
+    }
+
+    /**
+     * Sets the wol date.
+     *
+     * @param wolDate
+     *            the new wol date
+     */
+    public final void setWolDate(final String wolDate) {
+        this.wolDate = wolDate;
     }
 
     /**
