@@ -14,6 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.LicenseInterfaceService;
 import com.wiley.gr.ace.authorservices.model.external.License;
@@ -29,7 +31,11 @@ import com.wiley.gr.ace.authorservices.model.external.WALSResponse;
  * 
  * @author virtusa version 1.0
  */
+
 public class LicenseInterfaceServiceImpl implements LicenseInterfaceService {
+
+    @Value("${initiateLicence.url}")
+    private String initiateLicenceUrl;
 
     /**
      * Gets the license choice.
@@ -87,13 +93,12 @@ public class LicenseInterfaceServiceImpl implements LicenseInterfaceService {
 
     @Override
     public License initiateLicence(final String articleId) {
-        String url="http://vmesbdev.wiley.com:15209/licensesigning/getfunderbyarticle?articleDoi=JBI.2585.ART";
-        
-     License license=     (License) StubInvokerUtil.restGetServiceInvoker(url, License.class);
-     System.err.println(license.toString());
-          
-          return license;
-        
+
+        String url = initiateLicenceUrl + articleId;
+
+        return (License) StubInvokerUtil.restGetServiceInvoker(url,
+                License.class);
+
     }
 
 }

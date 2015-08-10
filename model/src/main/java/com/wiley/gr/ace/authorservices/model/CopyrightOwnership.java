@@ -26,6 +26,15 @@ public class CopyrightOwnership {
 
     /** The us govt work ownership. */
     private String usGovtWorkOwnership;
+    private String employmentDesc;
+
+    public final String getEmploymentDesc() {
+        return employmentDesc;
+    }
+
+    public final void setEmploymentDesc(final String employmentDesc) {
+        this.employmentDesc = employmentDesc;
+    }
 
     /**
      * Gets the ownership type.

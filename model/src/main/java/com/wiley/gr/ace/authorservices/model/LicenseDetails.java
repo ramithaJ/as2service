@@ -25,8 +25,11 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class LicenseDetails {
 
+    
+    private String name;
     /** The license status. */
     private String licenseStatus;
+    private String selectedLicenceType;
 
     /** The license signed date. */
     private String licenseSignedDate;
@@ -67,5 +70,21 @@ public class LicenseDetails {
      */
     public final void setLicenseStatus(final String licenseStatus) {
         this.licenseStatus = licenseStatus;
+    }
+
+    public final String getName() {
+        return name;
+    }
+
+    public final void setName(final String name) {
+        this.name = name;
+    }
+
+    public final String getSelectedLicenceType() {
+        return selectedLicenceType;
+    }
+
+    public final void setSelectedLicenceType(final String selectedLicenceType) {
+        this.selectedLicenceType = selectedLicenceType;
     }
 }

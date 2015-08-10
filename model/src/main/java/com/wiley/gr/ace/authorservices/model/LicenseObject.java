@@ -15,6 +15,7 @@
 package com.wiley.gr.ace.authorservices.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -26,12 +27,17 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  */
 @JsonInclude(Include.NON_NULL)
 public class LicenseObject {
+    
+    private String licenceId;
+    private String journalId;
 
+    private List<Recipents> recipents;
     /** The funder details. */
     private LicenseFunderDetails funderDetails;
 
     /** The copyright ownership. */
     private CopyrightOwnership copyrightOwnership;
+    private CopyrightOwnership ownerShipDetails;
 
     /** The online open. */
     private String onlineOpen;
@@ -181,5 +187,37 @@ public class LicenseObject {
     public final void setLicenseTypePresented(
             final ArrayList<String> licenseTypePresented) {
         this.licenseTypePresented = licenseTypePresented;
+    }
+
+    public final String getLicenceId() {
+        return licenceId;
+    }
+
+    public final String getJournalId() {
+        return journalId;
+    }
+
+    public final List<Recipents> getRecipents() {
+        return recipents;
+    }
+
+    public final CopyrightOwnership getOwnerShipDetails() {
+        return ownerShipDetails;
+    }
+
+    public final void setLicenceId(final String licenceId) {
+        this.licenceId = licenceId;
+    }
+
+    public final void setJournalId(final String journalId) {
+        this.journalId = journalId;
+    }
+
+    public final void setRecipents(final List<Recipents> recipents) {
+        this.recipents = recipents;
+    }
+
+    public final void setOwnerShipDetails(final CopyrightOwnership ownerShipDetails) {
+        this.ownerShipDetails = ownerShipDetails;
     }
 }

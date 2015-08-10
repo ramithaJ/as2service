@@ -46,7 +46,7 @@ public class LicenseFunderDetails {
      * @param funder
      *            the new funder
      */
-    public final void setFunder(Funder funder) {
+    public final void setFunder(final Funder funder) {
         this.funder = funder;
     }
 
