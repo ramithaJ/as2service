@@ -1489,17 +1489,20 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             try {
                 orderOnlineDAO.requestOnlineOpen(coauthorRequestsOoorders);
             } catch (Exception exception) {
-                throw new ASException("2434", "Dh Id id Already Exist");
+                throw new ASException("2434", " Already Requested by some one For Online Open");
             }
                 TaskServiceRequest taskServiceRequest=new TaskServiceRequest();
-                taskServiceRequest.setRequestorId(requestOnlineOpen.getUserId());
+                
                 List<String> articleId=new ArrayList<String>();
                 articleId.add(requestOnlineOpen.getMessage());
                 taskServiceRequest.setJustifications(articleId);
                 Users userDao=orderOnlineDAO.getUserDetails(requestOnlineOpen.getUserId());
-                taskServiceRequest.setRequestorEmail(userDao.getPrimaryEmailAddr());
+                String emailId=userDao.getPrimaryEmailAddr();
+                String[] emailSplit =emailId.split("@");
+                taskServiceRequest.setRequestorEmail(emailId);
+                taskServiceRequest.setRequestorId(requestOnlineOpen.getUserId());
                 // TODO call bpm for creating task  requestType
-                bpmTask.invokeTaskService(taskServiceRequest, requestOnlineOpen.getUserId());
+                bpmTask.invokeTaskService(taskServiceRequest, emailSplit[0]);
                 
             }else if (journalAllows== false) {
             throw new ASException("1234", "journal Doesnot allows to OO");
