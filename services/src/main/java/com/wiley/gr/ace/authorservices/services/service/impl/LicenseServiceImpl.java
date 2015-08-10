@@ -34,6 +34,7 @@ import com.wiley.gr.ace.authorservices.model.LicenseStatus;
 import com.wiley.gr.ace.authorservices.model.Recipents;
 import com.wiley.gr.ace.authorservices.model.external.Funder;
 import com.wiley.gr.ace.authorservices.model.external.Funders;
+import com.wiley.gr.ace.authorservices.model.external.Id;
 import com.wiley.gr.ace.authorservices.model.external.LicenseChoiceRequest;
 import com.wiley.gr.ace.authorservices.model.external.LicenseTypesPresented;
 import com.wiley.gr.ace.authorservices.model.external.ProgramData;
@@ -204,8 +205,15 @@ public class LicenseServiceImpl implements LicenseService {
         for (ProgramData programData : programList) {
             Recipents recipents=new Recipents();
             List<Recipents> recipentsList=new ArrayList<Recipents>();
-          // recipents.setRecipentsId(programData.getFunder().getId());
             recipents.setRecipentsName(programData.getFunder().getName());
+          List<Id>  lisOfId= programData.getFunder().getSecondaryIds().getId();
+         for (Id id : lisOfId) {
+            if (id.getType().equalsIgnoreCase("DOI")) {
+                recipents.setRecipentsId(id.getContent());
+                break;
+            }
+            
+        }
             recipentsList.add(recipents);
             licenseObject.setRecipents(recipentsList);
             
