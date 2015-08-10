@@ -85,14 +85,15 @@ public class NotificationHistoryServiceImpl implements
         notificationFormat.setArticleId("");
         notificationFormat.setAttachment("");
         notificationFormat.setEmailBody(userNotification.getTemplate()
-                .getBody());
-        notificationFormat.setEmailSubject("");
-        notificationFormat.setFromEmail("");
-        notificationFormat.setType("");
+                .getBody());// check
+        notificationFormat.setEmailSubject(userNotification.getTemplate()
+                .getDescription());// check
+        notificationFormat.setFromEmail(userNotification.getSenderEmail());// check
+        notificationFormat.setType(userNotification.getType());// check
         notificationFormat.setSubType("");
-        notificationFormat.setRecipients(null);
-        notificationFormat.setCc(null);
-        notificationFormat.setBcc(null);
+        notificationFormat.setRecipients(new ArrayList<String>());
+        notificationFormat.setCc(new ArrayList<String>());
+        notificationFormat.setBcc(new ArrayList<String>());
 
         return notificationFormat;
     }
