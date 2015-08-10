@@ -17,6 +17,7 @@ package com.wiley.gr.ace.authorservices.services.service.impl;
 import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.sql.rowset.serial.SerialClob;
 
@@ -34,7 +35,10 @@ import com.wiley.gr.ace.authorservices.model.external.Funders;
 import com.wiley.gr.ace.authorservices.model.external.LicenseChoiceRequest;
 import com.wiley.gr.ace.authorservices.model.external.LicenseTypesPresented;
 import com.wiley.gr.ace.authorservices.model.external.SignLicenseRequest;
+import com.wiley.gr.ace.authorservices.persistence.entity.Products;
 import com.wiley.gr.ace.authorservices.persistence.entity.SavedLicenses;
+import com.wiley.gr.ace.authorservices.persistence.entity.Users;
+import com.wiley.gr.ace.authorservices.persistence.services.LicenseDAO;
 import com.wiley.gr.ace.authorservices.services.service.LicenseService;
 
 /**
@@ -46,6 +50,9 @@ public class LicenseServiceImpl implements LicenseService {
 
     @Autowired(required = true)
     private LicenseInterfaceService licenseInterfaceService;
+
+    @Autowired(required = true)
+    private LicenseDAO licenseDAO;
 
     /**
      * Gets the license choice.
@@ -105,6 +112,7 @@ public class LicenseServiceImpl implements LicenseService {
     public Integer saveLicenseLater(LicenseObject licenseObject, String userId,
             String articleId) {
         SavedLicenses savedLicenses = new SavedLicenses();
+        Integer licenseId = null;
         try {
             String licenseObjectAsString = new ObjectMapper().writer()
                     .withDefaultPrettyPrinter()
@@ -115,11 +123,22 @@ public class LicenseServiceImpl implements LicenseService {
                         licenseObjectAsString.toCharArray()));
             }
 
+            Users users = new Users();
+            Products products = new Products();
+            users.setUserId(Integer.parseInt(userId));
+            products.setDhId(Integer.parseInt(articleId));
+
+            savedLicenses.setProducts(products);
+            savedLicenses.setUsersByUserId(users);
+            savedLicenses.setCreatedDate(new Date());
+
+            licenseId = licenseDAO.saveLicense(savedLicenses);
+
         } catch (JsonProcessingException | SQLException e) {
             throw new LicenseException("ERROR_SAVING_LICENSE",
                     "error saving the license");
         }
-        return null;
+        return licenseId;
 
     }
 

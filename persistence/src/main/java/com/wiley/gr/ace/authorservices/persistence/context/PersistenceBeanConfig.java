@@ -19,6 +19,7 @@ import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.CollectArticleDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.DashboardDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.InvitationStartDAO;
+import com.wiley.gr.ace.authorservices.persistence.services.LicenseDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.LookUpValuesDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.RegistrationServiceDAO;
@@ -34,6 +35,7 @@ import com.wiley.gr.ace.authorservices.persistence.services.impl.ASDataDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.CollectArticleDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.DashboardDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.InvitationStartDAOImpl;
+import com.wiley.gr.ace.authorservices.persistence.services.impl.LicenseDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.LookupValuesDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.OrderOnlineDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.RegistrationServiceDAOImpl;
@@ -203,8 +205,24 @@ public class PersistenceBeanConfig {
     public InvitationStartDAO InvitationStartDAO() {
         return new InvitationStartDAOImpl();
     }
-	@Bean(name = "CollectArticleDAO")
+
+    /**
+     * Collect article dao.
+     *
+     * @return the collect article dao
+     */
+    @Bean(name = "CollectArticleDAO")
     public CollectArticleDAO CollectArticleDAO() {
         return new CollectArticleDAOImpl();
+    }
+
+    /**
+     * License dao.
+     *
+     * @return the license dao
+     */
+    @Bean(name = "LicenseDAO")
+    public LicenseDAO licenseDAO() {
+        return new LicenseDAOImpl();
     }
 }
