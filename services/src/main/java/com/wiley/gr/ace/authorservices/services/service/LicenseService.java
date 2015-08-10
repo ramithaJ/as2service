@@ -19,7 +19,6 @@ import java.util.ArrayList;
 
 import com.wiley.gr.ace.authorservices.model.LicenseObject;
 import com.wiley.gr.ace.authorservices.model.LicenseStatus;
-import com.wiley.gr.ace.authorservices.model.external.License;
 
 /**
  * The Interface LicenseService.
@@ -93,6 +92,6 @@ public interface LicenseService {
      */
     LicenseStatus getLicenseStatus(String dhId, String userId);
     
-    License initiateLicence(String articleId);
+    LicenseObject initiateLicence(String articleId);
 
 }

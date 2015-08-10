@@ -18,6 +18,7 @@ import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.sql.rowset.serial.SerialClob;
 
@@ -30,11 +31,12 @@ import com.wiley.gr.ace.authorservices.exception.LicenseException;
 import com.wiley.gr.ace.authorservices.externalservices.service.LicenseInterfaceService;
 import com.wiley.gr.ace.authorservices.model.LicenseObject;
 import com.wiley.gr.ace.authorservices.model.LicenseStatus;
+import com.wiley.gr.ace.authorservices.model.Recipents;
 import com.wiley.gr.ace.authorservices.model.external.Funder;
 import com.wiley.gr.ace.authorservices.model.external.Funders;
-import com.wiley.gr.ace.authorservices.model.external.License;
 import com.wiley.gr.ace.authorservices.model.external.LicenseChoiceRequest;
 import com.wiley.gr.ace.authorservices.model.external.LicenseTypesPresented;
+import com.wiley.gr.ace.authorservices.model.external.ProgramData;
 import com.wiley.gr.ace.authorservices.model.external.SignLicenseRequest;
 import com.wiley.gr.ace.authorservices.persistence.entity.Products;
 import com.wiley.gr.ace.authorservices.persistence.entity.SavedLicenses;
@@ -193,10 +195,23 @@ public class LicenseServiceImpl implements LicenseService {
     }
 
     @Override
-    public License initiateLicence(final String articleId) {
+    public LicenseObject initiateLicence(final String articleId) {
         
-        return licenseInterfaceService.initiateLicence(articleId);
-     
+        LicenseObject licenseObject=new LicenseObject();
+        
+         
+        List<ProgramData> programList=licenseInterfaceService.initiateLicence(articleId).getProgram();
+        for (ProgramData programData : programList) {
+            Recipents recipents=new Recipents();
+            List<Recipents> recipentsList=new ArrayList<Recipents>();
+          // recipents.setRecipentsId(programData.getFunder().getId());
+            recipents.setRecipentsName(programData.getFunder().getName());
+            recipentsList.add(recipents);
+            licenseObject.setRecipents(recipentsList);
+            
+        }
+        return licenseObject;
+       
        
     }
 }
