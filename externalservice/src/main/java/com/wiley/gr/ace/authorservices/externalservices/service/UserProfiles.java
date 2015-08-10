@@ -12,9 +12,7 @@
 
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
-import com.wiley.gr.ace.authorservices.model.Department;
 import com.wiley.gr.ace.authorservices.model.DropDown;
-import com.wiley.gr.ace.authorservices.model.Institution;
 import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
 import com.wiley.gr.ace.authorservices.model.external.Industries;
 import com.wiley.gr.ace.authorservices.model.external.JobCategories;
@@ -41,7 +39,7 @@ public interface UserProfiles {
      *
      * @return the departments list
      */
-    Department getDepartmentsList(String institutionId);
+    ESBResponse getDepartmentsList(String institutionId);
 
     /**
      * Gets the industries.
@@ -55,7 +53,7 @@ public interface UserProfiles {
      *
      * @return the institutions list
      */
-    Institution getInstitutionsList();
+    ESBResponse getInstitutionsList();
 
     /**
      * Gets the job categories.

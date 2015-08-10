@@ -4,10 +4,14 @@
 package com.wiley.gr.ace.authorservices.autocomplete.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -24,10 +28,9 @@ import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.CacheData;
-import com.wiley.gr.ace.authorservices.model.Department;
-import com.wiley.gr.ace.authorservices.model.Doc;
-import com.wiley.gr.ace.authorservices.model.Institution;
-import com.wiley.gr.ace.authorservices.model.Response;
+import com.wiley.gr.ace.authorservices.model.SubFunder;
+import com.wiley.gr.ace.authorservices.model.SubFunderDetails;
+import com.wiley.gr.ace.authorservices.model.SubFunders;
 import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
 import com.wiley.gr.ace.authorservices.model.external.Funder;
 import com.wiley.gr.ace.authorservices.model.external.Id;
@@ -41,17 +44,18 @@ import com.wiley.gr.ace.authorservices.model.external.ResearchFundersResponse;
  * @author virtusa
  * @version 1.0
  */
-public class AutocompleteCachingServiceImpl implements AutocompleteCachingService {
-	
-    /**
-     * Logger Configured.
-     */
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(AutocompleteCachingServiceImpl.class);
-	
-    /** getting bean of userProfiles. */
-    @Autowired(required=true)
-    private UserProfiles userProfiles;
+public class AutocompleteCachingServiceImpl implements
+		AutocompleteCachingService {
+
+	/**
+	 * Logger Configured.
+	 */
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(AutocompleteCachingServiceImpl.class);
+
+	/** getting bean of userProfiles. */
+	@Autowired(required = true)
+	private UserProfiles userProfiles;
 
 	@Value("${industries.key}")
 	private String industrieskey;
@@ -70,14 +74,13 @@ public class AutocompleteCachingServiceImpl implements AutocompleteCachingServic
 
 	@Value("${researchFunders.key}")
 	private String researchFundersKey;
-	
+
 	@Value("${researchFundersurl.url}")
 	private String researchFundersurl;
-	
+
 	@Value("${funderContentType}")
 	private String funderContentType;
 
-	
 	/**
 	 * This method returns the cached drop down data. If there is no cached
 	 * data, the corresponding service is invoked and the list is set to the
@@ -93,21 +96,21 @@ public class AutocompleteCachingServiceImpl implements AutocompleteCachingServic
 		List<CacheData> cacheDataList = null;
 
 		if ((industrieskey + "cached").equals(dropDownKey)) {
-			LOGGER.info("getCachedData::industrieskey::"+dropDownKey);
+			LOGGER.info("getCachedData::industrieskey::" + dropDownKey);
 			cacheDataList = getIndustries();
 		} else if ((jobCategorieskey + "cached").equals(dropDownKey)) {
-			LOGGER.info("getCachedData::jobCategorieskey::"+dropDownKey);
+			LOGGER.info("getCachedData::jobCategorieskey::" + dropDownKey);
 			cacheDataList = getJobCategories();
 		} else if ((countrieskey + "cached").equals(dropDownKey)) {
-			LOGGER.info("getCachedData::countrieskey::"+dropDownKey);
+			LOGGER.info("getCachedData::countrieskey::" + dropDownKey);
 			cacheDataList = getCountries();
 		} else if ((institutionskey + "cached").equals(dropDownKey)) {
-			LOGGER.info("getCachedData::institutionskey::"+dropDownKey);
+			LOGGER.info("getCachedData::institutionskey::" + dropDownKey);
 			cacheDataList = getInstitutions();
-		} else if ((departmentskey+"cached").equals(dropDownKey)) {
-			LOGGER.info("getCachedData::departmentskey::"+dropDownKey);
+		} else if ((departmentskey + "cached").equals(dropDownKey)) {
+			LOGGER.info("getCachedData::departmentskey::" + dropDownKey);
 			cacheDataList = getDepartments(parentId);
-		} else if ((researchFundersKey+"cached").equals(dropDownKey)){
+		} else if ((researchFundersKey + "cached").equals(dropDownKey)) {
 			cacheDataList = getResearchFunders();
 		}
 
@@ -118,53 +121,56 @@ public class AutocompleteCachingServiceImpl implements AutocompleteCachingServic
 			}
 
 		}
-		
+
 		return dropDownList;
 	}
-	
+
 	/**
 	 * This method returns ResearchFunders
+	 * 
 	 * @return List<CacheData>
 	 */
 	private List<CacheData> getResearchFunders() {
 		ResearchFundersResponse response = null;
-		
-		response = (ResearchFundersResponse) RestServiceInvokerUtil.invokeStub(researchFundersurl,
-				HttpMethod.GET, ResearchFundersResponse.class);
-		
+
+		response = (ResearchFundersResponse) RestServiceInvokerUtil.invokeStub(
+				researchFundersurl, HttpMethod.GET,
+				ResearchFundersResponse.class);
+
 		return getResearchFundersList(response);
 	}
 
 	/**
 	 * THis method returns the research funders list
+	 * 
 	 * @param response
 	 * @return cacheList
 	 */
 	private List<CacheData> getResearchFundersList(
 			ResearchFundersResponse response) {
 		List<CacheData> cacheList = null;
-		
-		   List<Funder> funderList = response.getFunder();
-		   Set<String> cacheStringSet = new HashSet<String>();
-		   
-		   if(funderList != null && !funderList.isEmpty()) {
-			   
-			   for (Funder funder : funderList) {
-				   CacheData cacheData = new CacheData();
-				   
-				   cacheData.setName(funder.getName());
-				   List<Id> idList = funder.getSecondaryIds().getId();
-				   for (Id id : idList) {
-					if(funderContentType.equals(id.getType())){
+
+		List<Funder> funderList = response.getFunder();
+		Set<String> cacheStringSet = new HashSet<String>();
+
+		if (funderList != null && !funderList.isEmpty()) {
+
+			for (Funder funder : funderList) {
+				CacheData cacheData = new CacheData();
+
+				cacheData.setName(funder.getName());
+				List<Id> idList = funder.getSecondaryIds().getId();
+				for (Id id : idList) {
+					if (funderContentType.equals(id.getType())) {
 						cacheData.setCode(id.getContent());
 						break;
 					}
-					
+
 					cacheStringSet.add(cacheData.toString());
 				}
-				
+
 			}
-			 
+
 			cacheList = new ArrayList<CacheData>();
 			for (String data : cacheStringSet) {
 				try {
@@ -176,12 +182,124 @@ public class AutocompleteCachingServiceImpl implements AutocompleteCachingServic
 				} catch (ParseException e) {
 					throw new ASException("500", e.getMessage());
 				}
-			}   
-			   
-			   
-		   }
+			}
+
+		}
 
 		return cacheList;
+	}
+
+	/**
+	 * This method returns ResearchFunders
+	 * 
+	 * @return List<CacheData>
+	 */
+	@Override
+	@Cacheable(value = "subFunderDetails", key = "#dropDownKey")
+	public SubFunderDetails getCachedSubFunders(String dropDownKey) {
+		ResearchFundersResponse response = null;
+
+		response = (ResearchFundersResponse) RestServiceInvokerUtil.invokeStub(
+				researchFundersurl, HttpMethod.GET,
+				ResearchFundersResponse.class);
+
+		return getSubFundersList(response);
+	}
+
+	/**
+	 * This Method retrieves the SubFunderDetails
+	 * @param response
+	 * @return subFunderDetails
+	 */
+	private SubFunderDetails getSubFundersList(ResearchFundersResponse response) {
+
+		List<Funder> funderList = response.getFunder();
+		SubFunderDetails subFunderDetails = null;
+
+		SortedSet<String> doiSet = new TreeSet<String>();
+		if (funderList != null && !funderList.isEmpty()) {
+
+			for (Funder funder : funderList) {
+
+				List<Id> idList = funder.getParent().getSecondaryIds().getId();
+				for (Id id : idList) {
+					if (funderContentType.equals(id.getType())) {
+						doiSet.add(id.getContent().toString());
+					}
+				}
+			}
+
+			Map<String, SubFunders> subFundersMap = new HashMap<String, SubFunders>();
+
+			for (String doi : doiSet) {
+				SubFunder parentFunder = getParentFunderDetailsByDOI(
+						funderList, doi);
+				List<SubFunder> subFunderList = getSubFunderDetailsByDOI(
+						parentFunder, funderList);
+				SubFunders subFunders = new SubFunders();
+				subFunders.setId(parentFunder.getId());
+				subFunders.setName(parentFunder.getName());
+				subFunders.setSubFunderList(subFunderList);
+				subFundersMap.put(doi, subFunders);
+			}
+			subFunderDetails = new SubFunderDetails();
+			subFunderDetails.setSubFundersMap(subFundersMap);
+		}
+
+		return subFunderDetails;
+	}
+
+	/**
+	 * This method returns parent funder details.
+	 * 
+	 * @param funderList
+	 * @param doi
+	 * @return parentFunder
+	 */
+	private SubFunder getParentFunderDetailsByDOI(List<Funder> funderList,
+			String doi) {
+		SubFunder parentFunder = null;
+
+		for (Funder funder : funderList) {
+			String selectedDoi = funder.getSecondaryIds().getId().get(0)
+					.getContent();
+			if (doi.equals(selectedDoi)) {
+				parentFunder = new SubFunder();
+				parentFunder.setDoi(selectedDoi);
+				parentFunder.setId(funder.getId());
+				parentFunder.setName(funder.getName());
+				break;
+			}
+		}
+
+		return parentFunder;
+	}
+
+	/**
+	 * This method returns the SubFunderList if available
+	 * 
+	 * @param parentFunder
+	 * @param funderList
+	 * @return subFunderList
+	 */
+	private List<SubFunder> getSubFunderDetailsByDOI(SubFunder parentFunder,
+			List<Funder> funderList) {
+		List<SubFunder> subFunderList = new ArrayList<SubFunder>();
+
+		for (Funder funder : funderList) {
+			String selectedDoi = funder.getParent().getSecondaryIds().getId()
+					.get(0).getContent();
+			if (parentFunder.getDoi().equals(selectedDoi)) {
+				SubFunder subFunder = new SubFunder();
+				subFunder.setDoi(funder.getSecondaryIds().getId().get(0)
+						.getContent());
+				subFunder.setId(funder.getId());
+				subFunder.setName(funder.getName());
+				subFunderList.add(subFunder);
+			}
+		}
+
+		return subFunderList;
 	}
 
 	/**
@@ -260,7 +378,7 @@ public class AutocompleteCachingServiceImpl implements AutocompleteCachingServic
 
 		List<Object> externalCountrylist = countrieslist.getResponse()
 				.getDocs();
-		if (null == externalCountrylist) {
+		if (externalCountrylist == null) {
 			return countrylist;
 		}
 		for (Object object : externalCountrylist) {
@@ -279,22 +397,26 @@ public class AutocompleteCachingServiceImpl implements AutocompleteCachingServic
 	 *
 	 * @return the institutions
 	 */
+	@SuppressWarnings("unchecked")
 	private List<CacheData> getInstitutions() {
 
 		LOGGER.info("inside getInstitutions method ");
-
-		Institution dropDown = userProfiles.getInstitutionsList();
-		Response response = dropDown.getResponse();
-		List<Doc> docList = response.getDocs();
-		List<CacheData> institutionslist = new ArrayList<CacheData>();
-
-		for (Doc institute : docList) {
-
-			CacheData institution = new CacheData();
-			institution.setCode(institute.getCGCUSTGRPID());
-			institution.setName(institute.getCGCUSTGRPNAME());
-			institutionslist.add(institution);
-
+		List<Object> externalInstitutionlist = null;
+		List<CacheData> institutionslist = null;
+		
+		ESBResponse dropDown = userProfiles.getInstitutionsList();
+		externalInstitutionlist = dropDown.getResponse()
+				.getDocs();
+		
+		if(externalInstitutionlist != null){
+			institutionslist = new ArrayList<CacheData>();
+			for (Object object : externalInstitutionlist) {
+				LinkedHashMap<String, String> institutionmap = (LinkedHashMap<String, String>) object;
+				CacheData cacheData = new CacheData();
+				cacheData.setName(institutionmap.get("CG_CUST_GRP_NAME"));
+				cacheData.setCode(institutionmap.get("CG_CUST_GRP_ID").trim());
+				institutionslist.add(cacheData);
+			}
 		}
 
 		return institutionslist;
@@ -305,34 +427,31 @@ public class AutocompleteCachingServiceImpl implements AutocompleteCachingServic
 	 *
 	 * @return the departments
 	 */
+	@SuppressWarnings("unchecked")
 	private List<CacheData> getDepartments(String institutionId) {
 
 		LOGGER.info("inside getDepartments method ");
 
-		Department dropDown = userProfiles.getDepartmentsList(institutionId);
-		Response response = dropDown.getResponse();
-		List<Doc> docList = response.getDocs();
-		List<CacheData> departmentlist = new ArrayList<CacheData>();
-		for (Doc department : docList) {
-
-			CacheData departments = new CacheData();
-			departments.setCode(department.getCGCUSTGRPID());
-			departments.setName(department.getCGCUSTGRPNAME());
-			departmentlist.add(departments);
-
+		LOGGER.info("inside getInstitutions method ");
+		List<Object> externalDepartmentlist = null;
+		List<CacheData> departmentlist = null;
+		
+		ESBResponse dropDown = userProfiles.getDepartmentsList(institutionId);
+		externalDepartmentlist = dropDown.getResponse()
+				.getDocs();
+		
+		if(externalDepartmentlist != null){
+			departmentlist = new ArrayList<CacheData>();
+			for (Object object : externalDepartmentlist) {
+				LinkedHashMap<String, String> institutionmap = (LinkedHashMap<String, String>) object;
+				CacheData cacheData = new CacheData();
+				cacheData.setName(institutionmap.get("CG_CUST_GRP_NAME"));
+				cacheData.setCode(institutionmap.get("CG_CUST_GRP_ID").trim());
+				departmentlist.add(cacheData);
+			}
 		}
+
 		return departmentlist;
 	}
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
 
 }

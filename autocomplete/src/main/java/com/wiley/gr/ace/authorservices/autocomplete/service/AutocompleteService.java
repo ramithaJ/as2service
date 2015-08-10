@@ -67,6 +67,6 @@ public interface AutocompleteService {
      * @param parentName
      * @return cacheDataList
      */
-	List<CacheData> getDropDownData(String key, String phrase, Integer offset, String parentId, String parentName);
+	List<CacheData> getDropDownData(String key, String phrase, Integer offset, String parentId);
 
 }

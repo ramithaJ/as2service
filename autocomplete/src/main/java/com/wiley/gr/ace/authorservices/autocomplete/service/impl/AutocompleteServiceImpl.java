@@ -32,6 +32,9 @@ import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteCachingS
 import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteService;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.CacheData;
+import com.wiley.gr.ace.authorservices.model.SubFunder;
+import com.wiley.gr.ace.authorservices.model.SubFunderDetails;
+import com.wiley.gr.ace.authorservices.model.SubFunders;
 import com.wiley.gr.ace.authorservices.persistence.services.UserAutocomplete;
 
 /**
@@ -55,6 +58,9 @@ public class AutocompleteServiceImpl implements AutocompleteService {
 
 	@Value("${autocomplete.count}")
 	private String autocompletecount;
+
+	@Value("${subFunders.key}")
+	private String subFunderskey;
 
 	/**
 	 * Method to get Auto complete data.
@@ -191,19 +197,20 @@ public class AutocompleteServiceImpl implements AutocompleteService {
 	 */
 	@Override
 	public List<CacheData> getDropDownData(String key, String phrase,
-			Integer offset, String parentId, String parentName) {
+			Integer offset, String parentId) {
 		List<String> dropDownList = null;
 		List<CacheData> jsonDropDownList = null;
+		SubFunderDetails subFunderDetails = null;
 		// AutocompleteCacheData cachedData = null;
 
 		if (offset == null) {
 			offset = 0;
 		}
 
-		if (parentName != null && !"".equals(parentName.trim())) {
-			key = parentName + key;
+		if (parentId != null && !"".equals(parentId.trim())) {
+			key = key+"_"+parentId;
 		}
-		
+
 		if (phrase != null && !"".equals(phrase.trim())) {
 			// Auto Complete
 
@@ -236,11 +243,37 @@ public class AutocompleteServiceImpl implements AutocompleteService {
 			// Key is appended with (auto/cached) to avoid conflict between
 			// auto complete and caching data. This appended string needs to be
 			// removed once a solution is found.
-			dropDownList = autocompleteCachingService.getCachedData(key
-					+ "cached", parentId);
+
+			// For Sub Funders
+			if (subFunderskey.equals(key)) {
+				subFunderDetails = autocompleteCachingService
+						.getCachedSubFunders(key);
+				SubFunders subFunders = subFunderDetails.getSubFundersMap()
+						.get(parentId);
+
+				List<SubFunder> subFunderList = subFunders.getSubFunderList();
+				if (subFunderList != null && !subFunderList.isEmpty()) {
+					jsonDropDownList = new ArrayList<CacheData>();
+					for (SubFunder subFunder : subFunderList) {
+						CacheData cacheData = new CacheData();
+						cacheData.setCode(subFunder.getDoi());
+						cacheData.setName(subFunder.getName());
+						jsonDropDownList.add(cacheData);
+					}
+
+				}
+
+			} else {
+
+				dropDownList = autocompleteCachingService.getCachedData(key
+						+ "cached", parentId);
+			}
 		}
 
-		jsonDropDownList = getJsonDropDownList(dropDownList, phrase);
+		if (jsonDropDownList == null) {
+			jsonDropDownList = getJsonDropDownList(dropDownList, phrase);
+		}
+
 		if (jsonDropDownList != null
 				&& (phrase == null || "".equals(phrase.trim()))) {
 

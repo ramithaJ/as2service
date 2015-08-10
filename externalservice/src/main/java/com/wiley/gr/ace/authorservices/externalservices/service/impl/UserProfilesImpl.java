@@ -26,9 +26,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
-import com.wiley.gr.ace.authorservices.model.Department;
 import com.wiley.gr.ace.authorservices.model.DropDown;
-import com.wiley.gr.ace.authorservices.model.Institution;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
 import com.wiley.gr.ace.authorservices.model.external.ErrorPayLoad;
@@ -118,11 +116,11 @@ public class UserProfilesImpl implements UserProfiles {
      *
      */
     @Override
-    public final Department getDepartmentsList(final String institutionId) {
+    public final ESBResponse getDepartmentsList(final String institutionId) {
 
-        return (Department) RestServiceInvokerUtil.invokeStub(departmentspreurl
-                + institutionId + departmentsposturl, HttpMethod.GET,
-                Department.class);
+        return (ESBResponse) RestServiceInvokerUtil.pickListInvoker(departmentspreurl
+                + institutionId + departmentsposturl,
+                ESBResponse.class);
     }
 
     /**
@@ -145,12 +143,12 @@ public class UserProfilesImpl implements UserProfiles {
      *
      */
     @Override
-    public final Institution getInstitutionsList() {
+    public final ESBResponse getInstitutionsList() {
 
-        Institution institution = null;
+    	ESBResponse institution = null;
 
-        institution = (Institution) RestServiceInvokerUtil.invokeStub(
-                institutionsurl, HttpMethod.GET, Institution.class);
+        institution = (ESBResponse) RestServiceInvokerUtil.pickListInvoker(
+                institutionsurl, ESBResponse.class);
 
         return institution;
     }
