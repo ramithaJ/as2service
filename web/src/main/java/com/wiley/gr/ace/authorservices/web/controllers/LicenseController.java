@@ -62,8 +62,8 @@ public class LicenseController {
 	 * @return the license type
 	 */
 	@RequestMapping(value = "/types/{articleId}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Service getLicenseType(@PathVariable("articleId") String articleId,
-			@RequestBody LicenseObject licenseObject) {
+	public Service getLicenseType(@PathVariable("articleId") final String articleId,
+			@RequestBody final LicenseObject licenseObject) {
 		Service service = new Service();
 		if (!StringUtils.isEmpty(articleId)
 				&& !StringUtils.isEmpty(licenseObject)) {
@@ -101,5 +101,13 @@ public class LicenseController {
 				userId);
 		LOGGER.debug("License status :: " + licenseStatus);
 		return service;
+	}
+	
+	@RequestMapping(value="/initiate/{articleId}/" ,method=RequestMethod.GET)
+	public Service initiateLicence(@PathVariable("articleId") final String articleId){
+	    Service service= new Service();
+	   service.setPayload(licenseService.initiateLicence(articleId)); 
+        return service;
+	    
 	}
 }

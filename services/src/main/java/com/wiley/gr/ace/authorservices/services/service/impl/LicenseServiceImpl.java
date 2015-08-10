@@ -32,6 +32,7 @@ import com.wiley.gr.ace.authorservices.model.LicenseObject;
 import com.wiley.gr.ace.authorservices.model.LicenseStatus;
 import com.wiley.gr.ace.authorservices.model.external.Funder;
 import com.wiley.gr.ace.authorservices.model.external.Funders;
+import com.wiley.gr.ace.authorservices.model.external.License;
 import com.wiley.gr.ace.authorservices.model.external.LicenseChoiceRequest;
 import com.wiley.gr.ace.authorservices.model.external.LicenseTypesPresented;
 import com.wiley.gr.ace.authorservices.model.external.SignLicenseRequest;
@@ -64,8 +65,8 @@ public class LicenseServiceImpl implements LicenseService {
      * @return the license choice
      */
     @Override
-    public ArrayList<String> getLicenseChoice(String dhId,
-            LicenseObject licenseObject) {
+    public ArrayList<String> getLicenseChoice(final String dhId,
+            final LicenseObject licenseObject) {
 
         LicenseChoiceRequest licenseChoiceRequest = new LicenseChoiceRequest();
         Funders funders = new Funders();
@@ -89,7 +90,7 @@ public class LicenseServiceImpl implements LicenseService {
      * @return the license copy
      */
     @Override
-    public File getLicenseCopy(String dhId) {
+    public File getLicenseCopy(final String dhId) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -106,8 +107,8 @@ public class LicenseServiceImpl implements LicenseService {
      * @return the integer
      */
     @Override
-    public Integer saveLicenseLater(LicenseObject licenseObject, String userId,
-            String articleId) {
+    public Integer saveLicenseLater(final LicenseObject licenseObject, final String userId,
+            final String articleId) {
         SavedLicenses savedLicenses = new SavedLicenses();
         Integer licenseId = null;
         try {
@@ -149,7 +150,7 @@ public class LicenseServiceImpl implements LicenseService {
      * @return the string
      */
     @Override
-    public String signLicense(LicenseObject licenseObject, String dhId) {
+    public String signLicense(final LicenseObject licenseObject, final String dhId) {
         SignLicenseRequest signLicenseRequest = new SignLicenseRequest();
         LicenseTypesPresented licenseTypesPresented = new LicenseTypesPresented();
         signLicenseRequest.setDhId(dhId);
@@ -172,7 +173,7 @@ public class LicenseServiceImpl implements LicenseService {
     }
 
     @Override
-    public String getLicenseText(LicenseObject licenseObject) {
+    public String getLicenseText(final LicenseObject licenseObject) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -187,7 +188,15 @@ public class LicenseServiceImpl implements LicenseService {
      * @return the LicenseStatus
      */
     @Override
-    public LicenseStatus getLicenseStatus(String dhId, String userId) {
+    public LicenseStatus getLicenseStatus(final String dhId, final String userId) {
         return null;
+    }
+
+    @Override
+    public License initiateLicence(final String articleId) {
+        
+        return licenseInterfaceService.initiateLicence(articleId);
+     
+       
     }
 }

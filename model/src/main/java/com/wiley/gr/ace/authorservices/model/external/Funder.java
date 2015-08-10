@@ -14,6 +14,7 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+
 /**
  * The Class Funder.
  * 
@@ -29,7 +30,14 @@ public class Funder {
 
     /** The name. */
     private String name;
-
+    
+   private String altName;
+   private UltimateParentData ultimateParent;
+   private ParentData parent;
+   private SecondaryIds secondaryIds;
+   private Mandates mandates;
+   private String uri;
+   
     /**
      * Gets the id.
      *
@@ -82,5 +90,53 @@ public class Funder {
      */
     public final void setName(final String name) {
         this.name = name;
+    }
+
+    public final String getAltName() {
+        return altName;
+    }
+
+    public final UltimateParentData getUltimateParent() {
+        return ultimateParent;
+    }
+
+    public final ParentData getParent() {
+        return parent;
+    }
+
+    public final SecondaryIds getSecondaryIds() {
+        return secondaryIds;
+    }
+
+    public final Mandates getMandates() {
+        return mandates;
+    }
+
+    public final String getUri() {
+        return uri;
+    }
+
+    public final void setAltName(final String altName) {
+        this.altName = altName;
+    }
+
+    public final void setUltimateParent(final UltimateParentData ultimateParent) {
+        this.ultimateParent = ultimateParent;
+    }
+
+    public final void setParent(final ParentData parent) {
+        this.parent = parent;
+    }
+
+    public final void setSecondaryIds(final SecondaryIds secondaryIds) {
+        this.secondaryIds = secondaryIds;
+    }
+
+    public final void setMandates(final Mandates mandates) {
+        this.mandates = mandates;
+    }
+
+    public final void setUri(final String uri) {
+        this.uri = uri;
     }
 }

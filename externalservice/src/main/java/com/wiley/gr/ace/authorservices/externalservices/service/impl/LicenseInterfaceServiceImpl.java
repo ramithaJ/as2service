@@ -16,6 +16,7 @@ package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.LicenseInterfaceService;
+import com.wiley.gr.ace.authorservices.model.external.License;
 import com.wiley.gr.ace.authorservices.model.external.LicenseChoiceRequest;
 import com.wiley.gr.ace.authorservices.model.external.LicenseChoiceResponse;
 import com.wiley.gr.ace.authorservices.model.external.LicenseTextRequest;
@@ -82,6 +83,17 @@ public class LicenseInterfaceServiceImpl implements LicenseInterfaceService {
     public WALSResponse getLicenseCopy(final WALSRequest walsRequest) {
         return (WALSResponse) StubInvokerUtil.restServiceInvoker("",
                 walsRequest, WALSResponse.class);
+    }
+
+    @Override
+    public License initiateLicence(final String articleId) {
+        String url="http://vmesbdev.wiley.com:15209/licensesigning/getfunderbyarticle?articleDoi=JBI.2585.ART";
+        
+     License license=     (License) StubInvokerUtil.restGetServiceInvoker(url, License.class);
+     System.err.println(license.toString());
+          
+          return license;
+        
     }
 
 }

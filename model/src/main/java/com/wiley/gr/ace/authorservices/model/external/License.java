@@ -3,6 +3,8 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -16,6 +18,10 @@ public class License {
 
     /** The license status. */
     private String licenseStatus;
+    
+    private List<ProgramData> program;
+
+   
 
     /**
      * Gets the license status.
@@ -34,6 +40,14 @@ public class License {
      */
     public final void setLicenseStatus(final String licenseStatus) {
         this.licenseStatus = licenseStatus;
+    }
+
+    public final List<ProgramData> getProgram() {
+        return program;
+    }
+
+    public final void setProgram(final List<ProgramData> program) {
+        this.program = program;
     }
 
 }
