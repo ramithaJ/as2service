@@ -40,6 +40,86 @@ public class Template {
     private String tagl1;
 
     /**
+     * This field holds the value of createdBy
+     */
+    private String createdBy;
+
+    /**
+     * This field holds the value of modifiedBy
+     */
+    private String modifiedBy;
+
+    /**
+     * This field holds the value of createdOn
+     */
+    private String createdOn;
+
+    /**
+     * This field holds the value of lastModifiedOn
+     */
+    private String lastModifiedOn;
+
+    /**
+     * @return the createdBy
+     */
+    public final String getCreatedBy() {
+        return createdBy;
+    }
+
+    /**
+     * @param createdBy
+     *            the createdBy to set
+     */
+    public final void setCreatedBy(final String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    /**
+     * @return the modifiedBy
+     */
+    public final String getModifiedBy() {
+        return modifiedBy;
+    }
+
+    /**
+     * @param modifiedBy
+     *            the modifiedBy to set
+     */
+    public final void setModifiedBy(final String modifiedBy) {
+        this.modifiedBy = modifiedBy;
+    }
+
+    /**
+     * @return the createdOn
+     */
+    public final String getCreatedOn() {
+        return createdOn;
+    }
+
+    /**
+     * @param createdOn
+     *            the createdOn to set
+     */
+    public final void setCreatedOn(final String createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    /**
+     * @return the lastModifiedOn
+     */
+    public final String getLastModifiedOn() {
+        return lastModifiedOn;
+    }
+
+    /**
+     * @param lastModifiedOn
+     *            the lastModifiedOn to set
+     */
+    public final void setLastModifiedOn(final String lastModifiedOn) {
+        this.lastModifiedOn = lastModifiedOn;
+    }
+
+    /**
      * Gets the id.
      *
      * @return the id

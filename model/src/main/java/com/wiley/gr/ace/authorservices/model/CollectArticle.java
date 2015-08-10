@@ -11,7 +11,7 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.model;
 
-import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -24,14 +24,26 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class CollectArticle {
 
-	private List<Ownerships> ownerships;
+    /** The ownerships. */
+    private Set<Ownerships> ownerships;
 
-	public List<Ownerships> getOwnerships() {
-		return ownerships;
-	}
+    /**
+     * Gets the ownerships.
+     *
+     * @return the ownerships
+     */
+    public final Set<Ownerships> getOwnerships() {
+        return ownerships;
+    }
 
-	public void setOwnerships(List<Ownerships> ownerships) {
-		this.ownerships = ownerships;
-	}
+    /**
+     * Sets the ownerships.
+     *
+     * @param ownerships
+     *            the new ownerships
+     */
+    public final void setOwnerships(final Set<Ownerships> ownerships) {
+        this.ownerships = ownerships;
+    }
 
 }

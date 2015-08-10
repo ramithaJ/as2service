@@ -11,12 +11,17 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
@@ -37,6 +42,7 @@ import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserProfile;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
 import com.wiley.gr.ace.authorservices.model.external.OrderPaymentStatus;
+import com.wiley.gr.ace.authorservices.model.external.PdhLookupArticleResponse;
 import com.wiley.gr.ace.authorservices.model.external.Production;
 import com.wiley.gr.ace.authorservices.model.external.Publication;
 import com.wiley.gr.ace.authorservices.model.external.SecuirtyQuestionDetails;
@@ -80,6 +86,46 @@ public class DashboardServiceImpl implements DashboardService {
     /** The notificationService. */
     @Autowired(required = true)
     private NotificationService notificationService;
+
+    /** The article acptd status. */
+    @Value("${ARTICLE_ACCEPTED_STATUS_TEXT}")
+    private String articleAcptdStatus;
+
+    /** The acptd art pub online status. */
+    @Value("${ACCEPTED_ARTICLE_PUBLISHED_ONLINE_STATUS_TEXT}")
+    private String acptdArtPubOnlineStatus;
+
+    /** The proofs out status. */
+    @Value("${PROOFS_OUT_STATUS_TEXT}")
+    private String proofsOutStatus;
+
+    /** The proofs rcvd status. */
+    @Value("${PROOFS_RCVD_STATUS_TEXT}")
+    private String proofsRcvdStatus;
+
+    /** The proofs corr rcvd status. */
+    @Value("${PROOFS_CORRECTION_RCVD_STATUS_TEXT}")
+    private String proofsCorrRcvdStatus;
+
+    /** The early view status. */
+    @Value("${EARLY_VIEW_STATUS_TEXT}")
+    private String earlyViewStatus;
+
+    /** The iss pub online status. */
+    @Value("${ISSUE_PUBLISHED_ONLINE_STATUS_TEXT}")
+    private String issPubOnlineStatus;
+
+    /** The acptd art withdrawn status. */
+    @Value("${ACCEPTED_ARTICLE_WITHDRAWN_STATUS_TEXT}")
+    private String acptdArtWithdrawnStatus;
+
+    /** The article proof rcvd status. */
+    @Value("${ARTICLE_PROOF_RECEIVED_STATUS_TEXT}")
+    private String articleProofRcvdStatus;
+
+    /** The article proof approved status. */
+    @Value("{ARTICLE_PROOF_APPROVED_STATUS_TEXT}")
+    private String articleProofApprovedStatus;
 
     /**
      * This method is used for get the Profile Information of User from external
@@ -364,7 +410,7 @@ public class DashboardServiceImpl implements DashboardService {
     private List<ArticleData> getArticleAuthorData(final String userId)
             throws Exception {
         LOGGER.info("inside getArticleAuthorData Method of DashboardServiceImpl");
-        List<ArticleData> articleDataList = new ArrayList<ArticleData>();
+        final List<ArticleData> articleDataList = new ArrayList<ArticleData>();
         ArticleData articleData = null;
         final List<ProductPersonRelations> productPersonRelationsList = dashboardDAO
                 .getProductPersonRelations(userId);
@@ -560,14 +606,108 @@ public class DashboardServiceImpl implements DashboardService {
         if (!StringUtils.isEmpty(articleData)) {
             LOGGER.info("Article Data is Found");
             articleData.setArticleUserRole(articleAuthorRole);
-            final Production production = esbInterfaceService
-                    .getProductionData(articleId).getProduction();
-            if (!StringUtils.isEmpty(production)) {
-                LOGGER.info("Production Data is Found");
-                articleData.setProduction(production);
-            }
+            articleData.setProduction(getProductionDatesForArticles(articleId
+                    .toString()));
         }
         return articleData;
+    }
+
+    /**
+     * Gets the production dates for articles.
+     *
+     * @param articleId
+     *            the article id
+     * @return the production dates for articles
+     * @throws Exception
+     *             the exception
+     */
+    private Production getProductionDatesForArticles(final String articleId)
+            throws Exception {
+        LOGGER.info("inside getProductionDatesForArticles Method of DashboardServiceImpl");
+        final PdhLookupArticleResponse pdhLookupArticleResponse = esbInterfaceService
+                .viewAssignedArticle(articleId);
+        Production production = null;
+        if (!StringUtils.isEmpty(pdhLookupArticleResponse)) {
+            LOGGER.info("PDH Lookup Article Response data is Found");
+            final SimpleDateFormat formatter = new SimpleDateFormat(
+                    "dd-MMM-yyyy");
+            final Map<Date, String> productionDatesStatus = new TreeMap<Date, String>();
+            LOGGER.info("Getting the Production Dates and setting the Status From dotCMS ");
+            productionDatesStatus
+                    .put(formatter.parse(pdhLookupArticleResponse
+                            .getAcceptedDate()), articleAcptdStatus);
+            productionDatesStatus.put(formatter.parse(pdhLookupArticleResponse
+                    .getPublishedDate()), acptdArtPubOnlineStatus);
+            productionDatesStatus
+                    .put(formatter.parse(pdhLookupArticleResponse
+                            .getProofOutDate()), proofsOutStatus);
+            productionDatesStatus.put(formatter.parse(pdhLookupArticleResponse
+                    .getProofReceivedDate()), proofsRcvdStatus);
+            productionDatesStatus.put(formatter.parse(pdhLookupArticleResponse
+                    .getAlertAssociateUnpagpubOnline()), earlyViewStatus);
+            production = getProductionDateStatus(formatter,
+                    pdhLookupArticleResponse, productionDatesStatus);
+        }
+        return production;
+    }
+
+    /**
+     * Gets the production date status.
+     *
+     * @param formatter
+     *            the formatter
+     * @param pdhLookupArticleResponse
+     *            the pdh lookup article response
+     * @param productionDatesStatus
+     *            the production dates status
+     * @return the production date status
+     * @throws Exception
+     *             the exception
+     */
+    private Production getProductionDateStatus(
+            final SimpleDateFormat formatter,
+            final PdhLookupArticleResponse pdhLookupArticleResponse,
+            final Map<Date, String> productionDatesStatus) throws Exception {
+        LOGGER.info("inside getProductionDateStatus Method of DashboardServiceImpl");
+        LOGGER.info("Getting the Production Dates and setting the Status From dotCMS ");
+        productionDatesStatus
+                .put(formatter.parse(pdhLookupArticleResponse
+                        .getIssPubOnlineDate()), issPubOnlineStatus);
+        productionDatesStatus.put(formatter.parse(pdhLookupArticleResponse
+                .getWithdrawnDateAfterAcceptance()), acptdArtWithdrawnStatus);
+        productionDatesStatus.put(formatter.parse(pdhLookupArticleResponse
+                .getProofCorrectionsReceivedDate()), proofsCorrRcvdStatus);
+        productionDatesStatus.put(formatter.parse(pdhLookupArticleResponse
+                .getRevisedProofReceivedDate()), articleProofRcvdStatus);
+        productionDatesStatus.put(formatter.parse(pdhLookupArticleResponse
+                .getRevisedProofApprovedDate()), articleProofApprovedStatus);
+        return getMostProductionDateStatus(productionDatesStatus);
+    }
+
+    /**
+     * Gets the most production date status.
+     *
+     * @param productionDatesStatus
+     *            the production dates status
+     * @return the most production date status
+     * @throws Exception
+     *             the exception
+     */
+    private Production getMostProductionDateStatus(
+            final Map<Date, String> productionDatesStatus) throws Exception {
+        Date mostRecentProductionDate = null;
+        String productionStatus = null;
+        LOGGER.info("inside getProductionDateStatus Method of DashboardServiceImpl");
+        for (Map.Entry<Date, String> entry : productionDatesStatus.entrySet()) {
+            mostRecentProductionDate = entry.getKey();
+            productionStatus = productionDatesStatus
+                    .get(mostRecentProductionDate);
+        }
+        LOGGER.info("Getting Most Recent Date Among All Production Stages Dates and Setting Production Status");
+        Production production = new Production();
+        production.setProductionStatusDate(mostRecentProductionDate.toString());
+        production.setProductionStatus(productionStatus);
+        return production;
     }
 
     /**

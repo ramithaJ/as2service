@@ -14,7 +14,10 @@ package com.wiley.gr.ace.authorservices.externalservices.service;
 
 import com.wiley.gr.ace.authorservices.model.NotificationHistory;
 import com.wiley.gr.ace.authorservices.model.NotificationResponse;
+import com.wiley.gr.ace.authorservices.model.external.NotificationDetailsPayload;
 import com.wiley.gr.ace.authorservices.model.external.NotificationRequest;
+import com.wiley.gr.ace.authorservices.model.external.NotificationsList;
+import com.wiley.gr.ace.authorservices.model.external.UserNotifications;
 
 /**
  * The Interface NotificationService.
@@ -41,5 +44,29 @@ public interface NotificationService {
      *             the exception
      */
     NotificationHistory getNotificationHistory(String userId) throws Exception;
+
+    /**
+     * @param userId
+     * @return NotificationsList
+     */
+    UserNotifications getNotifications(String userId);
+
+    /**
+     * @param notificationId
+     * @return NotificationsList
+     */
+    NotificationDetailsPayload getNotificationDetails(String notificationId);
+
+    /**
+     * @param articleId
+     * @return NotificationsList
+     */
+    NotificationsList getArticleNotifications(String articleId);
+
+    /**
+     * @param notificationsList
+     * @return boolean
+     */
+    boolean sendNotification(NotificationsList notificationsList);
 
 }

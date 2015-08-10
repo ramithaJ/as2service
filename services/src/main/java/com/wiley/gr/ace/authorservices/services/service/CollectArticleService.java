@@ -13,8 +13,18 @@ package com.wiley.gr.ace.authorservices.services.service;
 
 import com.wiley.gr.ace.authorservices.model.CollectArticle;
 
+/**
+ * The Interface CollectArticleService.
+ */
 public interface CollectArticleService {
 
-	CollectArticle getCollectArticleObj() throws Exception;
+    /**
+     * Gets the collect article obj.
+     *
+     * @return the collect article obj
+     * @throws Exception
+     *             the exception
+     */
+    CollectArticle getCollectArticleObj() throws Exception;
 
 }

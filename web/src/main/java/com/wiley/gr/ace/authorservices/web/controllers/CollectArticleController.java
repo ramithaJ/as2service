@@ -14,6 +14,7 @@ package com.wiley.gr.ace.authorservices.web.controllers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,49 +25,70 @@ import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.services.service.CollectArticleService;
 
+/**
+ * The Class CollectArticleController.
+ */
 @RestController
 @RequestMapping("/v1")
 public class CollectArticleController {
-	
-	/** logger configured. */
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(CollectArticleController.class);
 
-	@Autowired(required = true)
-	private CollectArticleService collectArticleService;
+    /** logger configured. */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(CollectArticleController.class);
 
-	@RequestMapping(value = "/article/ownership", method = RequestMethod.GET)
-	public final Service getCollectArticle() {
-		LOGGER.info("inside getCollectArticle method of CollectArticleController");
-		Service service = new Service();
+    /** The get collect article error code. */
+    @Value("${CollectArticleController.getCollectArticle.code}")
+    private int getCollectArticleErrorCode;
 
-		try {
-			System.err.println("entered");
-			System.err.println("collectArticleService" + collectArticleService);
-			CollectArticle collectArticle = collectArticleService
-					.getCollectArticleObj();
-			System.err.println("moveeed");
-			LOGGER.info("Printtttttttt");
-			if (!StringUtils.isEmpty(collectArticle)) {
-				service.setStatus("SUCCESS");
-				service.setPayload(collectArticle);
-			} else {
-				final ErrorPOJO error = new ErrorPOJO();
-				error.setCode(68);
-				error.setMessage("not found");
-				service.setStatus("FAILURE");
-				service.setError(error);
+    /** The get collect article error message. */
+    @Value("${CollectArticleController.getCollectArticle.message}")
+    private String getCollectArticleErrorMessage;
 
-			}
-		} catch (final Exception e) {
-			LOGGER.error("Print Stack Trace- ", e);
-			final ErrorPOJO error = new ErrorPOJO();
-			error.setCode(69);
-			error.setMessage("Exception");
-			service.setStatus("ERROR");
-			service.setError(error);
-		}
-		return service;
-	}
+    /** The get collect article error codes. */
+    @Value("${CollectArticleController.getCollectArticleError.code}")
+    private int getCollectArticleErrorCodes;
+
+    /** The get collect article error messages. */
+    @Value("${CollectArticleController.getCollectArticleError.message}")
+    private String getCollectArticleErrorMessages;
+
+    /** The collect article service. */
+    @Autowired(required = true)
+    private CollectArticleService collectArticleService;
+
+    /**
+     * Gets the collect article.
+     *
+     * @return the collect article
+     */
+    @RequestMapping(value = "/article/ownership", method = RequestMethod.GET)
+    public final Service getCollectArticle() {
+        LOGGER.info("inside getCollectArticle method of CollectArticleController");
+        Service service = new Service();
+
+        try {
+            CollectArticle collectArticle = collectArticleService
+                    .getCollectArticleObj();
+            if (!StringUtils.isEmpty(collectArticle)) {
+                service.setStatus("SUCCESS");
+                service.setPayload(collectArticle);
+            } else {
+                final ErrorPOJO error = new ErrorPOJO();
+                error.setCode(getCollectArticleErrorCode);
+                error.setMessage(getCollectArticleErrorMessage);
+                service.setStatus("FAILURE");
+                service.setError(error);
+
+            }
+        } catch (final Exception e) {
+            LOGGER.error("Print Stack Trace- ", e);
+            final ErrorPOJO error = new ErrorPOJO();
+            error.setCode(getCollectArticleErrorCodes);
+            error.setMessage(getCollectArticleErrorMessages);
+            service.setStatus("ERROR");
+            service.setError(error);
+        }
+        return service;
+    }
 
 }

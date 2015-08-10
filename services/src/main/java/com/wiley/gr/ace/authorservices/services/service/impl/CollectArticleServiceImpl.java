@@ -11,8 +11,8 @@
  ******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,41 +26,52 @@ import com.wiley.gr.ace.authorservices.persistence.entity.SubOwnershipTypes;
 import com.wiley.gr.ace.authorservices.persistence.services.CollectArticleDAO;
 import com.wiley.gr.ace.authorservices.services.service.CollectArticleService;
 
+/**
+ * The Class CollectArticleServiceImpl.
+ */
 public class CollectArticleServiceImpl implements CollectArticleService {
 
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(CollectArticleServiceImpl.class);
+    /** The Constant LOGGER. */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(CollectArticleServiceImpl.class);
 
-	@Autowired(required = true)
-	private CollectArticleDAO collectArticleDAO;
-	
-	@Override
-	public CollectArticle getCollectArticleObj() throws Exception {
-		System.err.println("collectArticleDAOooooo"+collectArticleDAO);
-		LOGGER.info("inside getCollectArticleObj Method of CollectArticleServiceImpl");
-		CollectArticle collectArticle = new CollectArticle();
-		List<OwnershipTypes> ownershipTypesList = collectArticleDAO
-				.getCollectArticle();
-		List<Ownerships> ownershipsList = new ArrayList<Ownerships>();
-		for (OwnershipTypes ownershipTypes : ownershipTypesList) {
-			Ownerships ownerships = new Ownerships();
-			ownerships.setCode(ownershipTypes.getTypeCd());
-			ownerships.setName(ownershipTypes.getTypeName());
-			List<SubOwnerships> subOwnershipsList = new ArrayList<SubOwnerships>();
-			List<SubOwnershipTypes> subOwnershipTypesList = (List<SubOwnershipTypes>) ownershipTypes
-					.getSubOwnershipTypeses();
-			for (SubOwnershipTypes subOwnershipTypes : subOwnershipTypesList) {
-				SubOwnerships subOwnerships = new SubOwnerships();
-				subOwnerships.setCode(subOwnershipTypes.getSubTypeCd());
-				subOwnerships.setName(subOwnershipTypes.getSubTypeName());
-				subOwnershipsList.add(subOwnerships);
-			}
-			ownerships.setSubOwnerships(subOwnershipsList);
-			ownershipsList.add(ownerships);
-		}
-		collectArticle.setOwnerships(ownershipsList);
-		System.err.println("collectArticle"+collectArticle);
-		return collectArticle;
+    /** The collect article dao. */
+    @Autowired(required = true)
+    private CollectArticleDAO collectArticleDAO;
 
-	}
+    /**
+     * Gets the collect article obj.
+     *
+     * @return the collect article obj
+     * @throws Exception
+     *             the exception
+     */
+
+    @Override
+    public final CollectArticle getCollectArticleObj() throws Exception {
+        LOGGER.info("inside getCollectArticleObj Method of CollectArticleServiceImpl");
+        CollectArticle collectArticle = new CollectArticle();
+        Set<OwnershipTypes> ownershipTypesSet = collectArticleDAO
+                .getCollectArticle();
+        Set<Ownerships> ownershipsSet = new HashSet<Ownerships>();
+        for (OwnershipTypes ownershipTypes : ownershipTypesSet) {
+            Ownerships ownerships = new Ownerships();
+            ownerships.setCode(ownershipTypes.getTypeCd());
+            ownerships.setName(ownershipTypes.getTypeName());
+            Set<SubOwnerships> subOwnershipsSet = new HashSet<SubOwnerships>();
+            Set<SubOwnershipTypes> subOwnershipTypesSet = (Set<SubOwnershipTypes>) ownershipTypes
+                    .getSubOwnershipTypeses();
+            for (SubOwnershipTypes subOwnershipTypes : subOwnershipTypesSet) {
+                SubOwnerships subOwnerships = new SubOwnerships();
+                subOwnerships.setCode(subOwnershipTypes.getSubTypeCd());
+                subOwnerships.setName(subOwnershipTypes.getSubTypeName());
+                subOwnershipsSet.add(subOwnerships);
+            }
+            ownerships.setSubOwnerships(subOwnershipsSet);
+            ownershipsSet.add(ownerships);
+        }
+        collectArticle.setOwnerships(ownershipsSet);
+        return collectArticle;
+
+    }
 }
