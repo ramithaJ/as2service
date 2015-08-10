@@ -13,37 +13,27 @@
 package com.wiley.gr.ace.authorservices.model.external;
 
 public class UltimateParentData {
-    private String id;
-
-    private SecondaryIds secondaryIds;
-
     private String uri;
-
-    public final String getId() {
-        return id;
-    }
-
-    public final SecondaryIds getSecondaryIds() {
-        return secondaryIds;
-    }
-
+    private String id;
+    private SecondaryIds secondaryIds;
     public final String getUri() {
         return uri;
     }
-
-    public final void setId(final String id) {
-        this.id = id;
+    public final String getId() {
+        return id;
     }
-
-    public final void setSecondaryIds(final SecondaryIds secondaryIds) {
-        this.secondaryIds = secondaryIds;
+    public final SecondaryIds getSecondaryIds() {
+        return secondaryIds;
     }
-
     public final void setUri(final String uri) {
         this.uri = uri;
     }
+    public final void setId(final String id) {
+        this.id = id;
+    }
+    public final void setSecondaryIds(final SecondaryIds secondaryIds) {
+        this.secondaryIds = secondaryIds;
+    }
     
+
 }
-
-
-

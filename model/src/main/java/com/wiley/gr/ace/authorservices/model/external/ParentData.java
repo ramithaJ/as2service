@@ -12,39 +12,75 @@
 
 package com.wiley.gr.ace.authorservices.model.external;
 
+/**
+ * The Class ParentData.
+ */
 public class ParentData {
     
-    private String id;
-
-    private SecondaryIds secondaryIds;
-
+    /** The uri. */
     private String uri;
-
-    public final String getId() {
-        return id;
-    }
-
-    public final SecondaryIds getSecondaryIds() {
-        return secondaryIds;
-    }
-
+    
+    /** The id. */
+    private String id;
+    
+    /** The secondary ids. */
+    private SecondaryIds secondaryIds;
+    
+    /**
+     * Gets the uri.
+     *
+     * @return the uri
+     */
     public final String getUri() {
         return uri;
     }
-
-    public final void setId(final String id) {
-        this.id = id;
+    
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
+    public final String getId() {
+        return id;
     }
-
-    public final void setSecondaryIds(final SecondaryIds secondaryIds) {
-        this.secondaryIds = secondaryIds;
+    
+    /**
+     * Gets the secondary ids.
+     *
+     * @return the secondary ids
+     */
+    public final SecondaryIds getSecondaryIds() {
+        return secondaryIds;
     }
-
+    
+    /**
+     * Sets the uri.
+     *
+     * @param uri the new uri
+     */
     public final void setUri(final String uri) {
         this.uri = uri;
     }
     
+    /**
+     * Sets the id.
+     *
+     * @param id the new id
+     */
+    public final void setId(final String id) {
+        this.id = id;
+    }
+    
+    /**
+     * Sets the secondary ids.
+     *
+     * @param secondaryIds the new secondary ids
+     */
+    public final void setSecondaryIds(final SecondaryIds secondaryIds) {
+        this.secondaryIds = secondaryIds;
+    }
 
+   
 }
 
 

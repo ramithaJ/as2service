@@ -14,13 +14,28 @@ package com.wiley.gr.ace.authorservices.model.external;
 
 import java.util.List;
 
+/**
+ * The Class AuthorsData.
+ */
 public class AuthorsData {
+    
+    /** The author id. */
     private List<String> authorId;
 
+    /**
+     * Gets the author id.
+     *
+     * @return the author id
+     */
     public final List<String> getAuthorId() {
         return authorId;
     }
 
+    /**
+     * Sets the author id.
+     *
+     * @param authorId the new author id
+     */
     public final void setAuthorId(final List<String> authorId) {
         this.authorId = authorId;
     }

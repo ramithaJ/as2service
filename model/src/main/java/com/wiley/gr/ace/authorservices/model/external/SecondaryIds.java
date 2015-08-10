@@ -14,13 +14,28 @@ package com.wiley.gr.ace.authorservices.model.external;
 
 import java.util.List;
 
+/**
+ * The Class SecondaryIds.
+ */
 public class SecondaryIds {
+    
+    /** The id. */
     private List<Id> id;
 
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     public final List<Id> getId() {
         return id;
     }
 
+    /**
+     * Sets the id.
+     *
+     * @param id the new id
+     */
     public final void setId(final List<Id> id) {
         this.id = id;
     }

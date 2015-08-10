@@ -14,13 +14,28 @@ package com.wiley.gr.ace.authorservices.model.external;
 
 import java.util.List;
 
+/**
+ * The Class Mandates.
+ */
 public class Mandates {
+    
+    /** The mandate. */
     private List<Mandate> mandate;
 
+    /**
+     * Gets the mandate.
+     *
+     * @return the mandate
+     */
     public final List<Mandate> getMandate() {
         return mandate;
     }
 
+    /**
+     * Sets the mandate.
+     *
+     * @param mandate the new mandate
+     */
     public final void setMandate(final List<Mandate> mandate) {
         this.mandate = mandate;
     }

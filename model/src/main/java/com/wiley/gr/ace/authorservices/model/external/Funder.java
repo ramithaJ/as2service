@@ -14,7 +14,6 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
-
 /**
  * The Class Funder.
  * 
@@ -22,8 +21,14 @@ package com.wiley.gr.ace.authorservices.model.external;
  */
 public class Funder {
 
+    /** The uri. */
+    private String uri;
+
     /** The id. */
     private String id;
+    
+    /** The secondary ids. */
+    private SecondaryIds secondaryIds;
 
     /** The fund ref id. */
     private String fundRefId;
@@ -31,13 +36,18 @@ public class Funder {
     /** The name. */
     private String name;
     
-   private String altName;
-   private UltimateParentData ultimateParent;
-   private ParentData parent;
-   private SecondaryIds secondaryIds;
-   private Mandates mandates;
-   private String uri;
-   
+    /** The alt name. */
+    private String altName;
+    
+    /** The parent. */
+    private ParentData parent;
+    
+    /** The ultimate parent. */
+    private UltimateParentData ultimateParent;
+    
+    /** The mandates. */
+    private Mandates mandates;
+
     /**
      * Gets the id.
      *
@@ -50,7 +60,8 @@ public class Funder {
     /**
      * Sets the id.
      *
-     * @param id the new id
+     * @param id
+     *            the new id
      */
     public final void setId(final String id) {
         this.id = id;
@@ -68,7 +79,8 @@ public class Funder {
     /**
      * Sets the fund ref id.
      *
-     * @param fundRefId the new fund ref id
+     * @param fundRefId
+     *            the new fund ref id
      */
     public final void setFundRefId(final String fundRefId) {
         this.fundRefId = fundRefId;
@@ -86,56 +98,117 @@ public class Funder {
     /**
      * Sets the name.
      *
-     * @param name the new name
+     * @param name
+     *            the new name
      */
     public final void setName(final String name) {
         this.name = name;
     }
 
+    /**
+     * Gets the alt name.
+     *
+     * @return the alt name
+     */
     public final String getAltName() {
         return altName;
     }
 
+    /**
+     * Gets the ultimate parent.
+     *
+     * @return the ultimate parent
+     */
     public final UltimateParentData getUltimateParent() {
         return ultimateParent;
     }
 
+    /**
+     * Gets the parent.
+     *
+     * @return the parent
+     */
     public final ParentData getParent() {
         return parent;
     }
 
+    /**
+     * Gets the secondary ids.
+     *
+     * @return the secondary ids
+     */
     public final SecondaryIds getSecondaryIds() {
         return secondaryIds;
     }
 
+    /**
+     * Gets the mandates.
+     *
+     * @return the mandates
+     */
     public final Mandates getMandates() {
         return mandates;
     }
 
+    /**
+     * Gets the uri.
+     *
+     * @return the uri
+     */
     public final String getUri() {
         return uri;
     }
 
+    /**
+     * Sets the alt name.
+     *
+     * @param altName the new alt name
+     */
     public final void setAltName(final String altName) {
         this.altName = altName;
     }
 
+    /**
+     * Sets the ultimate parent.
+     *
+     * @param ultimateParent the new ultimate parent
+     */
     public final void setUltimateParent(final UltimateParentData ultimateParent) {
         this.ultimateParent = ultimateParent;
     }
 
+    /**
+     * Sets the parent.
+     *
+     * @param parent the new parent
+     */
     public final void setParent(final ParentData parent) {
         this.parent = parent;
     }
 
+    /**
+     * Sets the secondary ids.
+     *
+     * @param secondaryIds the new secondary ids
+     */
     public final void setSecondaryIds(final SecondaryIds secondaryIds) {
         this.secondaryIds = secondaryIds;
     }
 
+    /**
+     * Sets the mandates.
+     *
+     * @param mandates the new mandates
+     */
     public final void setMandates(final Mandates mandates) {
         this.mandates = mandates;
     }
 
+    /**
+     * Sets the uri.
+     *
+     * @param uri the new uri
+     */
     public final void setUri(final String uri) {
         this.uri = uri;
     }

@@ -14,37 +14,75 @@ package com.wiley.gr.ace.authorservices.model.external;
 
 
 
+/**
+ * The Class ProgramData.
+ */
 public class ProgramData {
    
+    /** The funder. */
+    private Funder funder;
+    
+    /** The authors. */
     private AuthorsData authors;
 
-    private Funder funder;
+    /** The grants. */
     private GrantsData grants;
 
-    public final AuthorsData getAuthors() {
-        return authors;
-    }
-
+    /**
+     * Gets the funder.
+     *
+     * @return the funder
+     */
     public final Funder getFunder() {
         return funder;
     }
 
+    /**
+     * Gets the authors.
+     *
+     * @return the authors
+     */
+    public final AuthorsData getAuthors() {
+        return authors;
+    }
+
+    /**
+     * Gets the grants.
+     *
+     * @return the grants
+     */
     public final GrantsData getGrants() {
         return grants;
     }
 
-    public final void setAuthors(final AuthorsData authors) {
-        this.authors = authors;
-    }
-
+    /**
+     * Sets the funder.
+     *
+     * @param funder the new funder
+     */
     public final void setFunder(final Funder funder) {
         this.funder = funder;
     }
 
+    /**
+     * Sets the authors.
+     *
+     * @param authors the new authors
+     */
+    public final void setAuthors(final AuthorsData authors) {
+        this.authors = authors;
+    }
+
+    /**
+     * Sets the grants.
+     *
+     * @param grants the new grants
+     */
     public final void setGrants(final GrantsData grants) {
         this.grants = grants;
     }
-    
+
+ 
 }
 
 
