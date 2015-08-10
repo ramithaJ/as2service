@@ -73,10 +73,7 @@ public class LicenseServiceImpl implements LicenseService {
 
         licenseChoiceRequest.setDhId(dhId);
 
-        funderList.add(licenseObject.getFunderDetails().getFunderInfo()
-                .getFunder()); // null
-        funderList.add(licenseObject.getFunderDetails().getFunderInfo()
-                .getAssociateFunder()); // Null
+        funderList.add(licenseObject.getFunderDetails().getFunder()); // null
         funders.setFunder(funderList);
         licenseChoiceRequest.setFunders(funders);
         licenseChoiceRequest.setOnlineOpen(licenseObject.getOnlineOpen());
