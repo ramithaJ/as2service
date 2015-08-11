@@ -119,7 +119,7 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
             criteria.createAlias("orders.usersByUserId", "usersByUserId");
             criteria.createAlias("orders.products", "products");
             criteria.add(Restrictions.eq("usersByUserId.userId",
-                    Integer.parseInt(articleId)));
+                    Integer.parseInt(userId)));
             criteria.add(Restrictions.eq("products.dhId",
                     Integer.parseInt(articleId)));
             return (Orders) criteria.uniqueResult();
@@ -482,11 +482,11 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
     public Users getUserDetails(final String userId) {
 
         Session session = null;
-        Users users=null;
+        Users users = null;
 
         try {
             session = getSessionFactory().openSession();
-           users=(Users) session.get(Users.class, Integer.parseInt(userId));
+            users = (Users) session.get(Users.class, Integer.parseInt(userId));
 
         }
 
@@ -500,5 +500,32 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
 
     }
 
-   
+    @Override
+    public CoauthorRequestsOoorders getcoAuthorReqOO(final String articleId,
+            final String coAuthorUserId) {
+
+        Session session = null;
+        try {
+            session = getSessionFactory().openSession();
+            Criteria criteria = session.createCriteria(
+                    CoauthorRequestsOoorders.class, "coauthorRequestsOoorders");
+            criteria.createAlias(
+                    "coauthorRequestsOoorders.usersByCoauthUserId",
+                    "usersByCoauthUserId");
+            criteria.createAlias("coauthorRequestsOoorders.products",
+                    "products");
+            criteria.add(Restrictions.eq("usersByCoauthUserId.userId",
+                    Integer.parseInt(articleId)));
+            criteria.add(Restrictions.eq("products.dhId",
+                    Integer.parseInt(coAuthorUserId)));
+            return (CoauthorRequestsOoorders) criteria.uniqueResult();
+
+        } finally {
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
+        }
+    }
+
 }

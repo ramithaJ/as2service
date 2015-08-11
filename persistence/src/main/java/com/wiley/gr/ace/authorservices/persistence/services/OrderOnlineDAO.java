@@ -122,4 +122,12 @@ public interface OrderOnlineDAO {
      * @return
      */
     Users getUserDetails(String userId);
+
+    /**
+     * @param articleId
+     * @param coAuthorUserId
+     * @return
+     */
+    CoauthorRequestsOoorders getcoAuthorReqOO(String articleId,
+            String coAuthorUserId);
 }
