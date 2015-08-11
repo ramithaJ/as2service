@@ -17,6 +17,8 @@ import com.wiley.gr.ace.authorservices.persistence.entity.OwnershipTypes;
 
 /**
  * The Interface CollectArticleDAO.
+ * 
+ * * @author virtusa version 1.0
  */
 public interface CollectArticleDAO {
 

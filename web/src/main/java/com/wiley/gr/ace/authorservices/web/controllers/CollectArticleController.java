@@ -27,6 +27,8 @@ import com.wiley.gr.ace.authorservices.services.service.CollectArticleService;
 
 /**
  * The Class CollectArticleController.
+ * 
+ * * @author virtusa version 1.0
  */
 @RestController
 @RequestMapping("/v1")

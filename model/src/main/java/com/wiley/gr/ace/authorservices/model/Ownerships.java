@@ -15,6 +15,8 @@ import java.util.Set;
 
 /**
  * The Class Ownerships.
+ * 
+ * * @author virtusa version 1.0
  */
 public class Ownerships {
 

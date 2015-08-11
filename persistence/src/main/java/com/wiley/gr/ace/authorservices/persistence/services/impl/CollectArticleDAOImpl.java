@@ -25,6 +25,8 @@ import com.wiley.gr.ace.authorservices.persistence.services.CollectArticleDAO;
 
 /**
  * The Class CollectArticleDAOImpl.
+ * 
+ * * @author virtusa version 1.0
  */
 public class CollectArticleDAOImpl implements CollectArticleDAO {
 

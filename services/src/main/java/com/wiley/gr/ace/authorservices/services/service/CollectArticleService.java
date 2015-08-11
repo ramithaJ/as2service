@@ -15,6 +15,8 @@ import com.wiley.gr.ace.authorservices.model.CollectArticle;
 
 /**
  * The Interface CollectArticleService.
+ * 
+ * * @author virtusa version 1.0
  */
 public interface CollectArticleService {
 

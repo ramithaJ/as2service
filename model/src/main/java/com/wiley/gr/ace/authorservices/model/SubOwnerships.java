@@ -13,6 +13,8 @@ package com.wiley.gr.ace.authorservices.model;
 
 /**
  * The Class SubOwnerships.
+ * 
+ * * @author virtusa version 1.0
  */
 public class SubOwnerships {
 
