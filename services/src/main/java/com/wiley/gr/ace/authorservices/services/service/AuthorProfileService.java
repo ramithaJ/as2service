@@ -69,13 +69,12 @@ public interface AuthorProfileService {
      */
     boolean updateResearchFunder(int userId, ResearchFunder researchFunder);
 
-    /**
-     * Update alerts.
+     /** Update alerts.
      *
      * @param userId
      *            the user id
-     * @param userProfileAlerts
-     *            the user profile alerts
+     * @param alert
+     *            the alert
      * @return true, if successful
      */
     boolean updateAlerts(String userId, List<Alert> alert);
@@ -102,13 +101,12 @@ public interface AuthorProfileService {
      */
     boolean updateEmailDetails(String userId, User emailDetails);
 
-    /**
-     * Update user address.
+     /** Update user address.
      *
      * @param userId
      *            the user id
-     * @param addresses
-     *            the addresses
+     * @param addressesRequest
+     *            the addresses request
      * @return true, if successful
      */
     boolean updateUserAddress(String userId, Address addressesRequest);
@@ -233,9 +231,29 @@ public interface AuthorProfileService {
      */
     List<PreferredJournals> getPrefferedJournals(String userId);
 
+     /** Gets the custome profile.
+     *
+     * @param userId
+     *            the user id
+     * @return the custome profile
+     */
     CustomerDetails getCustomeProfile(String userId);
 
+     /** Removes the orcid id.
+     *
+     * @param userId
+     *            the user id
+     * @return true, if successful
+     */
     boolean removeOrcidId(String userId);
 
+     /** Update orcid id.
+     *
+     * @param userId
+     *            the user id
+     * @param orcidId
+     *            the orcid id
+     * @return true, if successful
+     */
     boolean updateOrcidId(String userId, String orcidId);
 }

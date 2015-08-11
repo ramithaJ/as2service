@@ -107,6 +107,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     @Autowired(required = true)
     private AlertsDao alertsDao;
 
+    /** The template id. */
     @Value("${templateId.password.reset}")
     private String templateId;
     /** The user profile. */
@@ -232,7 +233,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      *
      * @param userId
      *            the user id
-     * @param userProfileAlerts
+     * @param listOfalert
      *            the user profile alerts
      * @return true, if successful
      */
@@ -329,13 +330,12 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                 .customerProfileUpdate(lookupCustomerProfileResponse);
     }
 
-    /**
-     * Update user address.
+     /** Update user address.
      *
      * @param userId
      *            the user id
-     * @param addresses
-     *            the addresses
+     * @param addressesRequest
+     *            the addresses request
      * @return true, if successful
      */
     @Override
@@ -359,9 +359,9 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                     addressesRequest.getId());
             addressElementsList.add(physical);
             if ('Y' == addressesRequest.getAddressFag()) {
-                AddressElement Billing = this.updateAddressFields(
+                AddressElement billing = this.updateAddressFields(
                         addressesRequest, "Billing", "0");
-                addressElementsList.add(Billing);
+                addressElementsList.add(billing);
             }
         }
 
@@ -391,8 +391,19 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                 .customerProfileUpdate(lookupCustomerProfileResponse);
     }
 
-    private AddressElement updateAddressFields(final Address addressesRequest,
-            final String addressType, final String id) {
+     /** Update address fields.
+     *
+     * @param addressesRequest
+     *            the addresses request
+     * @param addressType
+     *            the address type
+     * @param id
+     *            the id
+     * @return the address element
+     */
+    private final AddressElement updateAddressFields(
+            final Address addressesRequest, final String addressType,
+            final String id) {
 
         AddressElement addressElement = new AddressElement();
         addressElement.setId(id);
@@ -466,7 +477,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @return true, if successful
      */
 
-    private boolean updateUserId(final Email email) {
+    private final boolean updateUserId(final Email email) {
 
         AuthorProfileServiceImpl.LOGGER.info("inside updateUserId Method ");
         UserEmailDetails userEmailDetails = new UserEmailDetails();
@@ -567,15 +578,15 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         return userProfiles.getUserProfileResponse(userId);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.services.service.AuthorProfileService
-     * #uploadImage(java.io.File, java.lang.String)
+     /** This method is for uploading image.
+     *
+     * @param image
+     *            the image
+     * @param userId
+     *            the user id
      */
     @Override
-    public void uploadImage(final File image, final String userId) {
+    public final void uploadImage(final File image, final String userId) {
 
         final byte[] imageData = new byte[(int) image.length()];
         try {
@@ -596,19 +607,21 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @return the lookup customer profile
      */
     @Override
-    public LookupCustomerProfile getLookupCustomerProfile(final String userId) {
+    public final LookupCustomerProfile getLookupCustomerProfile(
+            final String userId) {
 
         return userProfiles.getLookupCustomerProfile(userId);
     }
 
-    /**
-     * This method will call externnal service look up profile to get
-     * affiliation
-     * 
+     /** This method will call externnal service look up profile to get
+     * affiliation.
+     *
      * @param userId
+     *            the user id
+     * @return the affiliations list
      */
     @Override
-    public Affiliations getAffiliationsList(final String userId) {
+    public final Affiliations getAffiliationsList(final String userId) {
 
         List<AffiliationData> listofAffiliations = userProfiles
                 .getLookupCustomerProfile(userId)
@@ -636,14 +649,15 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         return affiliations;
     }
 
-    /**
-     * This method will call externnal service look up profile to get research
-     * funder
-     * 
+     /** This method will call externnal service look up profile to get
+     * research funder.
+     *
      * @param userId
+     *            the user id
+     * @return the research funders list
      */
     @Override
-    public List<ResearchFunder> getResearchFundersList(final String userId) {
+    public final List<ResearchFunder> getResearchFundersList(final String userId) {
         List<ResearchFunderData> listOfResearchFunder = userProfiles
                 .getLookupCustomerProfile(userId)
                 .getLookupCustomerProfileResponse().getCustomerProfile()
@@ -669,15 +683,16 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         return researchFunderList;
     }
 
-    /**
-     * This method will call externnal service look up profile to get Societies
-     * 
-     * 
+     /** This method will call externnal service look up profile to get
+     * Societies.
+     *
      * @param userId
+     *            the user id
+     * @return the societylist
      */
 
     @Override
-    public List<Society> getSocietylist(final String userId) {
+    public final List<Society> getSocietylist(final String userId) {
         List<SocietyData> listSocietyData = userProfiles
                 .getLookupCustomerProfile(userId)
                 .getLookupCustomerProfileResponse().getCustomerProfile()
@@ -698,14 +713,15 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         return societyList;
     }
 
-    /**
-     * This method will call external service look up profile to get co authors
-     * 
-     * 
+    /** This method will call external service look up profile to get co
+     * authors.
+     *
      * @param userId
+     *            the user id
+     * @return the s co authors list
      */
     @Override
-    public List<CoAuthor> getsCoAuthorsList(final String userId) {
+    public final List<CoAuthor> getsCoAuthorsList(final String userId) {
 
         List<CoAuthorData> listOfCoauthors = userProfiles
                 .getLookupCustomerProfile(userId)
@@ -727,14 +743,15 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         return coAuthorList;
     }
 
-    /**
-     * This method will call external service look up profile to get interests
-     * 
-     * 
+     /** This method will call external service look up profile to get
+     * interests.
+     *
      * @param userId
+     *            the user id
+     * @return the area of interests
      */
     @Override
-    public List<Interests> getAreaOfInterests(final String userId) {
+    public final List<Interests> getAreaOfInterests(final String userId) {
         List<InterestData> listOfArea = userProfiles
                 .getLookupCustomerProfile(userId)
                 .getLookupCustomerProfileResponse().getCustomerProfile()
@@ -749,14 +766,14 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         return areaList;
     }
 
-    /**
-     * This method will call external service look up profile to get alerts
-     * 
-     * 
+    /** This method will call external service look up profile to get alerts.
+     *
      * @param userId
+     *            the user id
+     * @return the list of alerts
      */
     @Override
-    public List<Alert> getListOfAlerts(final String userId) {
+    public final List<Alert> getListOfAlerts(final String userId) {
 
         List<AlertData> listOfAlert = userProfiles
                 .getLookupCustomerProfile(userId)
@@ -794,15 +811,16 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         return alertList;
     }
 
-    /**
-     * This method will call external service look up profile to get preferred
-     * journals
-     * 
-     * 
+     /** This method will call external service look up profile to get
+     * preferred journals.
+     *
      * @param userId
+     *            the user id
+     * @return the preffered journals
      */
     @Override
-    public List<PreferredJournals> getPrefferedJournals(final String userId) {
+    public final List<PreferredJournals> getPrefferedJournals(
+            final String userId) {
 
         List<Journal> journalList = userProfiles
                 .getLookupCustomerProfile(userId)
@@ -819,8 +837,15 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         return prefferedList;
     }
 
+     /** This Method will get the customer details by calling external system
+     * ESB.
+     *
+     * @param userId
+     *            the user id
+     * @return the custome profile
+     */
     @Override
-    public CustomerDetails getCustomeProfile(final String userId) {
+    public final CustomerDetails getCustomeProfile(final String userId) {
 
         CustomerDetails customerDetails = userProfiles
                 .getLookupCustomerProfile(userId)
@@ -840,21 +865,45 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         return customerDetails;
     }
 
+     /** This Method will Remove Orcid Id.
+     *
+     * @param userId
+     *            the user id
+     * @return true, if successful
+     */
     @Override
-    public boolean removeOrcidId(final String userId) {
+    public final boolean removeOrcidId(final String userId) {
 
         return this.orcidIdDetails(userId, null);
 
     }
 
+     /** This Method will Update Orcid Id.
+     *
+     * @param userId
+     *            the user id
+     * @param orcidId
+     *            the orcid id
+     * @return true, if successful
+     */
+
     @Override
-    public boolean updateOrcidId(final String userId, final String orcidId) {
+    public final boolean updateOrcidId(final String userId, final String orcidId) {
 
         return this.orcidIdDetails(userId, orcidId);
 
     }
 
-    private boolean orcidIdDetails(final String userId, final String orcidId) {
+     /** This Method will Update Orcid Id.
+     *
+     * @param userId
+     *            the user id
+     * @param orcidId
+     *            the orcid id
+     * @return true, if successful
+     */
+    private final boolean orcidIdDetails(final String userId,
+            final String orcidId) {
 
         CustomerDetails customerDetails = getCustomeProfile(userId);
         customerDetails.setOrcId(orcidId);

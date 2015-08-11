@@ -147,20 +147,23 @@ public class ServiceBeanConfig {
         return new ArticleAssignmentServiceImpl();
     }
 
-   
-    /**Notification bean
+    /**
+     * Notification bean
+     * 
      * @return
      */
     @Bean(name = "SendNotification")
     public SendNotification sendNotification() {
         return new SendNotificationImpl();
     }
-    
-    /**TaskService bean
+
+    /**
+     * TaskService bean
+     * 
      * @return
      */
-    @Bean(name = "TaskService") 
-    public  TaskService taskService(){
-    	return new TaskServiceImpl();
+    @Bean(name = "TaskService")
+    public TaskService taskService() {
+        return new TaskServiceImpl();
     }
 }
