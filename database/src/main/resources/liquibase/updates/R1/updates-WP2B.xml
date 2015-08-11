@@ -381,9 +381,58 @@ ALTER TABLE LICENSE_REJECTION_REASONS ADD FOREIGN KEY(UPDATED_BY) REFERENCES USE
 
 
 <changeSet author="gphaniraj" id="WP2B-OwnerShipData">
-    <sqlFile  path="updates/sql/ownership_data.sql" relativeToChangelogFile="true" splitStatements="true"/>
+    <sqlFile  path="../sql/ownership_data.sql" relativeToChangelogFile="true" splitStatements="true"/>
 </changeSet> 
 
+<changeSet author="gphaniraj" id="WP2B-44">
+<sql>
+ALTER TABLE ORDERS
+DROP
+(
+CREATED_DATE,
+CREATED_BY,
+UPDATED_DATE,
+UPDATED_BY
+);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-45">
+<sql>
+ALTER TABLE ORDERS 
+ADD
+(
+PAYMENT_STATUS VARCHAR2(25),
+CREATED_DATE TIMESTAMP(6),
+CREATED_BY NUMBER,
+UPDATED_DATE TIMESTAMP(6),
+UPDATED_BY NUMBER
+);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-46">
+<sql>
+ALTER TABLE ORDERS ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-47">
+<sql>
+ALTER TABLE ORDERS ADD FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP2B-48">
+<sql>
+INSERT INTO LOOKUP_VALUES(LOOKUP_KEY,LOOKUP_NAME,LOOKUP_VALUE,CREATED_DATE,CREATED_BY)('LICENSE TYPE','CC-BY-NC-ND','Creative Commons Attribution Non-Commercial No Derivatives License',SYSDATE,0); 
+INSERT INTO LOOKUP_VALUES(LOOKUP_KEY,LOOKUP_NAME,LOOKUP_VALUE,CREATED_DATE,CREATED_BY)('LICENSE TYPE','CC-BY-NC-SA','Creative Commons Attribution-Non Commercial-Share Alike',SYSDATE,0);
+INSERT INTO LOOKUP_VALUES(LOOKUP_KEY,LOOKUP_NAME,LOOKUP_VALUE,CREATED_DATE,CREATED_BY)('LICENSE TYPE','CC-BY-NC','Creative Commons Attribution Non-Commercial License',SYSDATE,0);  
+INSERT INTO LOOKUP_VALUES(LOOKUP_KEY,LOOKUP_NAME,LOOKUP_VALUE,CREATED_DATE,CREATED_BY)('LICENSE TYPE','CC-BY-ND','Creative Commons Attribution-No Derivs',SYSDATE,0); 
+INSERT INTO LOOKUP_VALUES(LOOKUP_KEY,LOOKUP_NAME,LOOKUP_VALUE,CREATED_DATE,CREATED_BY)('LICENSE TYPE','CC-BY-SA','Creative Commons Attribution-Share Alike',SYSDATE,0); 
+INSERT INTO LOOKUP_VALUES(LOOKUP_KEY,LOOKUP_NAME,LOOKUP_VALUE,CREATED_DATE,CREATED_BY)('LICENSE TYPE','CC-BY','Creative Commons Attribution License',SYSDATE,0);  
+</sql>
+</changeSet>
 
 </databaseChangeLog>
 

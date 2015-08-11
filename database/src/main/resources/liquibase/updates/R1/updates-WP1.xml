@@ -2241,12 +2241,22 @@ ALTER TABLE USER_AFFILIATIONS ADD FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_
 </changeSet>
 
 <changeSet author="gphaniraj" id="WP1-SOCIETIES_DATA" runOnChange="true">
- <loadUpdateData file="src/main/resources/liquibase/updates/csv/societies_final.csv" quotchar="'" tableName="societies" primaryKey="society_cd">
-        <column name="society_cd" header="society_cd" type="string"/>
-		 <column name="society_name" header="society_name" type="string"/>	
-         <column name="created_date" header="created_date" type="date"/>
-		<column name="created_by" header="created_by" type="numeric"/>			 
+ <loadUpdateData file="src/main/resources/liquibase/updates/csv/Societies.csv" quotchar="'" tableName="societies" primaryKey="society_cd">
+        <column name="SOCIETY_CD" header="SOCIETY_CD" type="string"/>
+		 <column name="SOCIETY_NAME" header="SOCIETY_NAME" type="string"/>	
+         <column name="CREATED_DATE" header="CREATED_DATE" type="date"/>
+		<column name="CREATED_BY" header="CREATED_BY" type="numeric"/>			 
     </loadUpdateData>
 </changeSet>
+
+<changeSet author="gphaniraj" id="WP1-AOI_DATA" runOnChange="true">
+ <loadUpdateData file="src/main/resources/liquibase/updates/csv/Area_Of_Interest.csv" quotchar="'" tableName="area_of_interest" primaryKey="AREA_OF_INTEREST_CD">
+        <column name="AREA_OF_INTEREST_CD" header="SOCIETY_CD" type="string"/>
+		 <column name="INTEREST_NAME" header="SOCIETY_NAME" type="string"/>	
+         <column name="CREATED_DATE" header="CREATED_DATE" type="date"/>
+		<column name="CREATED_BY" header="CREATED_BY" type="numeric"/>			 
+    </loadUpdateData>
+</changeSet>
+
 
 </databaseChangeLog>
