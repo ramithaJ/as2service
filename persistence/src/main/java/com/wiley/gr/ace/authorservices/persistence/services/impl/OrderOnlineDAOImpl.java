@@ -117,7 +117,7 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
             criteria.createAlias("orders.usersByUserId", "usersByUserId");
             criteria.createAlias("orders.products", "products");
             criteria.add(Restrictions.eq("usersByUserId.userId",
-                    Integer.parseInt(articleId)));
+                    Integer.parseInt(userId)));
             criteria.add(Restrictions.eq("products.dhId",
                     Integer.parseInt(articleId)));
             return (Orders) criteria.uniqueResult();
