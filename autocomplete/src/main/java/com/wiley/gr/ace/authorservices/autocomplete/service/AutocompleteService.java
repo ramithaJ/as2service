@@ -35,7 +35,7 @@ public interface AutocompleteService {
      *            - the request value.
      * @return List of string values.
      */
-//    List<String> getAutocompleteData(String key, String phrase, Integer count);
+    List<String> getAutocompleteData(String key, String phrase, Integer count);
 
     /**
      * This service will set the auto complete data in redis cache.
