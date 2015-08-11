@@ -26,6 +26,7 @@ import com.wiley.gr.ace.authorservices.externalservices.service.TaskService;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.externalservices.service.ValidationService;
+import com.wiley.gr.ace.authorservices.externalservices.service.ViewLicenseExternalService;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.ESBInterfaceServiceImpl;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.InvoiceServiceImpl;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.LicenseInterfaceServiceImpl;
@@ -38,6 +39,7 @@ import com.wiley.gr.ace.authorservices.externalservices.service.impl.TaskService
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.UserManagementImpl;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.UserProfilesImpl;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.ValidationServiceImpl;
+import com.wiley.gr.ace.authorservices.externalservices.service.impl.ViewLicenseExternalServiceImpl;
 
 /**
  * The Class ExternalServiceBeanConfig.
@@ -167,5 +169,15 @@ public class ExternalServiceBeanConfig {
     @Bean(name = "LicenseInterfaceService")
     public LicenseInterfaceService licenseInterfaceService() {
         return new LicenseInterfaceServiceImpl();
+    }
+
+    /**
+     * View license external service.
+     *
+     * @return the view license external service
+     */
+    @Bean(name = "ViewLicenseExternalService")
+    public ViewLicenseExternalService viewLicenseExternalService() {
+        return new ViewLicenseExternalServiceImpl();
     }
 }

@@ -35,6 +35,7 @@ import com.wiley.gr.ace.authorservices.services.service.SaveArticleData;
 import com.wiley.gr.ace.authorservices.services.service.UpdateUserService;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
+import com.wiley.gr.ace.authorservices.services.service.ViewLicenseAgreementService;
 import com.wiley.gr.ace.authorservices.services.service.impl.ASDataServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.AdditionalPermissionServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.AdminLoginServiceImpl;
@@ -53,6 +54,8 @@ import com.wiley.gr.ace.authorservices.services.service.impl.SaveArticleDataImpl
 import com.wiley.gr.ace.authorservices.services.service.impl.UpdateUserServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UserAccountServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UserLoginServiceImpl;
+import com.wiley.gr.ace.authorservices.services.service.impl.ViewLicenseAgreementServiceImpl;
+
 
 /**
  * The Class ServiceBeanConfig.
@@ -224,6 +227,11 @@ public class ServiceBeanConfig {
         return new LicenseServiceImpl();
     }
 
+    /**
+     * Collect article service.
+     *
+     * @return the collect article service
+     */
     @Bean(name = "CollectArticleService")
     public CollectArticleService collectArticleService() {
         return new CollectArticleServiceImpl();
@@ -237,6 +245,16 @@ public class ServiceBeanConfig {
     @Bean(name = "NotificationHistoryService")
     public NotificationHistoryService notificationHistoryService() {
         return new NotificationHistoryServiceImpl();
+    }
+    
+    /**
+     * View license agreement service.
+     *
+     * @return the view license agreement service
+     */
+    @Bean(name = "ViewLicenseAgreementService")
+    public ViewLicenseAgreementService viewLicenseAgreementService() {
+        return new ViewLicenseAgreementServiceImpl();
     }
 
 }
