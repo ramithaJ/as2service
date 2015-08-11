@@ -14,9 +14,23 @@ import com.wiley.gr.ace.authorservices.model.SubFunderDetails;
  * @version 1.0
  */
 public interface AutocompleteCachingService {
-	
-	List<String> getCachedData(String dropDownKey, String parentId);
 
-	SubFunderDetails getCachedSubFunders(String key);
+    /**
+     * 
+     * @param dropDownKey
+     *            the dropDownKey
+     * @param parentId
+     *            the parentId
+     * @return caheDataList
+     */
+    List<String> getCachedData(String dropDownKey, String parentId);
+
+    /**
+     * 
+     * @param key
+     *            the key
+     * @return SubFunderDetails
+     */
+    SubFunderDetails getCachedSubFunders(String key);
 
 }

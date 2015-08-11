@@ -28,14 +28,14 @@ public interface AutocompleteService {
      * redis cache.
      *
      * @param key
-     *            - the request value
+     *            - the request value.
      * @param phrase
-     *            - the request value
+     *            - the request value.
      * @param count
-     *            - the request value
-     * @return List of string values
+     *            - the request value.
+     * @return List of string values.
      */
-    List<String> getAutocompleteData(String key, String phrase, Integer count);
+//    List<String> getAutocompleteData(String key, String phrase, Integer count);
 
     /**
      * This service will set the auto complete data in redis cache.
@@ -58,15 +58,21 @@ public interface AutocompleteService {
      * @return status
      */
     boolean flush(String key);
-    
+
     /**
      * This service will return the drop down data.
+     * 
      * @param key
+     *            - Input parameter
      * @param phrase
+     *            - Input parameter
      * @param offset
-     * @param parentName
-     * @return cacheDataList
+     *            - Input parameter
+     * @param parentId
+     *            - Input parameter
+     * @return cacheDataList - Return Type
      */
-	List<CacheData> getDropDownData(String key, String phrase, Integer offset, String parentId);
+    List<CacheData> getDropDownData(String key, String phrase, Integer offset,
+            String parentId);
 
 }
