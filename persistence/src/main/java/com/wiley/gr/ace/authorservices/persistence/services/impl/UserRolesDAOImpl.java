@@ -63,7 +63,6 @@ public class UserRolesDAOImpl implements UserRolesDAO {
 
         Session session = null;
         Transaction transaction = null;
-        List<Object[]> list = new ArrayList<Object[]>();
         List<RolePermissions> daoPermissionsList = new ArrayList<RolePermissions>();
 
         try {
@@ -83,7 +82,7 @@ public class UserRolesDAOImpl implements UserRolesDAO {
             Query query = session.createSQLQuery(
                     "select * from role_permissions where role_id = :roleId")
                     .setParameter("roleId", roles.getRoleId().toString());
-            list = query.list();
+            List<Object[]> list = query.list();
 
             for (Object[] object : list) {
 
@@ -160,14 +159,13 @@ public class UserRolesDAOImpl implements UserRolesDAO {
      */
     @Override
     public final void checkRoleName(final String roleName) {
-        List list = new ArrayList();
         Session session = getSessionFactory().openSession();
         try {
             Query query = session.createSQLQuery(
                     "select * from roles where role_name = :rolename")
                     .setParameter("rolename", roleName);
 
-            list = query.list();
+            List list = query.list();
 
             if (!(list.isEmpty())) {
                 throw new ASException(errorcode, errormessage);
