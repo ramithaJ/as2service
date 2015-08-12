@@ -515,11 +515,31 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
             criteria.createAlias("coauthorRequestsOoorders.products",
                     "products");
             criteria.add(Restrictions.eq("usersByCoauthUserId.userId",
-                    Integer.parseInt(articleId)));
-            criteria.add(Restrictions.eq("products.dhId",
                     Integer.parseInt(coAuthorUserId)));
+            criteria.add(Restrictions.eq("products.dhId",
+                    Integer.parseInt(articleId)));
             return (CoauthorRequestsOoorders) criteria.uniqueResult();
 
+        } finally {
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
+        }
+    }
+
+    @Override
+    public List<SavedOrders> getSavedOrders(final String userId) {
+
+        Session session = null;
+        try {
+            session = getSessionFactory().openSession();
+            Criteria criteria = session.createCriteria(SavedOrders.class,
+                    "savedOrders");
+            criteria.createAlias("savedOrders.usersByUserId", "usersByUserId");
+            criteria.add(Restrictions.eq("usersByUserId.userId",
+                    Integer.parseInt(userId)));
+            return criteria.list();
         } finally {
             if (session != null) {
                 session.flush();

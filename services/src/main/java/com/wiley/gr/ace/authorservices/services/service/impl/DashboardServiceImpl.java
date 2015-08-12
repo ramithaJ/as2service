@@ -14,6 +14,7 @@ package com.wiley.gr.ace.authorservices.services.service.impl;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -26,6 +27,7 @@ import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.NotificationService;
+import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
@@ -36,6 +38,7 @@ import com.wiley.gr.ace.authorservices.model.DashboardView;
 import com.wiley.gr.ace.authorservices.model.EmailCommunicationHistory;
 import com.wiley.gr.ace.authorservices.model.Interests;
 import com.wiley.gr.ace.authorservices.model.NotificationHistory;
+import com.wiley.gr.ace.authorservices.model.OrderStatus;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.User;
@@ -52,7 +55,9 @@ import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 import com.wiley.gr.ace.authorservices.persistence.entity.InvitationLog;
 import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
 import com.wiley.gr.ace.authorservices.persistence.entity.PublicationStatuses;
+import com.wiley.gr.ace.authorservices.persistence.entity.SavedOrders;
 import com.wiley.gr.ace.authorservices.persistence.services.DashboardDAO;
+import com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO;
 import com.wiley.gr.ace.authorservices.services.service.DashboardService;
 
 /**
@@ -86,6 +91,9 @@ public class DashboardServiceImpl implements DashboardService {
     /** The notificationService. */
     @Autowired(required = true)
     private NotificationService notificationService;
+
+    @Autowired(required = true)
+    private OrderOnlineDAO orderOnlinedao;
 
     /** The article acptd status. */
     @Value("${ARTICLE_ACCEPTED_STATUS_TEXT}")
@@ -126,6 +134,18 @@ public class DashboardServiceImpl implements DashboardService {
     /** The article proof approved status. */
     @Value("{ARTICLE_PROOF_APPROVED_STATUS_TEXT}")
     private String articleProofApprovedStatus;
+
+    /**
+     * This field holds the value of submitOrderStatus.
+     */
+    @Value("{SUBMIT_ORDER}")
+    private String submitOrderStatus;
+
+    /**
+     * This field holds the value of orderservice.
+     */
+    @Autowired(required = true)
+    private OrderService orderservice;
 
     /**
      * This method is used for get the Profile Information of User from external
@@ -418,16 +438,44 @@ public class DashboardServiceImpl implements DashboardService {
             LOGGER.info("ProductPersonRelations data found");
             String articleAuthorRole = null;
             Integer articleId;
+
             for (final ProductPersonRelations productPersonRelations : productPersonRelationsList) {
                 articleAuthorRole = productPersonRelations.getProductRoles()
                         .getProductRoleName();
                 articleId = productPersonRelations.getProducts().getDhId();
                 articleData = getArticleDataDetails(articleId,
-                        articleAuthorRole);
+                        articleAuthorRole, userId);
                 articleDataList.add(articleData);
             }
         }
         return articleDataList;
+    }
+
+    private HashMap<String, OrderStatus> orderStatusHasMap(final String userId) {
+
+        // calling saved orders table
+        List<SavedOrders> savedOrdersList = orderOnlinedao
+                .getSavedOrders(userId);
+        OrderStatus orderStatus = new OrderStatus();
+        String[] statusArray = submitOrderStatus.split(":");
+        orderStatus.setStatus(statusArray[0]);
+        orderStatus.setActionsRequired(statusArray[1]);
+        HashMap<String, OrderStatus> satusHashMap = new HashMap<String, OrderStatus>();
+        for (SavedOrders savedOrders : savedOrdersList) {
+            satusHashMap.put(
+                    String.valueOf(savedOrders.getProducts().getDhId()),
+                    orderStatus);
+        }
+        return satusHashMap;
+    }
+
+    public static void main(final String[] args) {
+
+        // Calling PdhLookUpJornal service with jornalDhId
+        // PdhJournalResponse pdhLookup = orderservice.pdhLookUpJournal();
+
+        DashboardServiceImpl a = new DashboardServiceImpl();
+        a.orderStatusHasMap("");
     }
 
     /**
@@ -442,7 +490,7 @@ public class DashboardServiceImpl implements DashboardService {
      *             the exception
      */
     private ArticleData getArticleDataDetails(final Integer articleId,
-            final String articleUserRole) throws Exception {
+            final String articleUserRole, final String userId) throws Exception {
         LOGGER.info("inside getArticleDataDetails Method of DashboardServiceImpl");
         final ArticleData articleData = esbInterfaceService
                 .getAuthorArticle(articleId);
@@ -455,8 +503,8 @@ public class DashboardServiceImpl implements DashboardService {
                 LOGGER.info("License Status is Found");
                 articleData.setLicenseStatus(licenseStatus);
             }
-            articleData
-                    .setOrderPaymentStatus(getOrderPaymentStatusForArticle(articleId));
+            articleData.setOrderPaymentStatus(getOrderPaymentStatusForArticle(
+                    articleId, userId));
         }
         return articleData;
     }
@@ -471,7 +519,8 @@ public class DashboardServiceImpl implements DashboardService {
      *             the exception
      */
     private OrderPaymentStatus getOrderPaymentStatusForArticle(
-            final Integer articleId) throws Exception {
+            final Integer articleId, final String userId) throws Exception {
+        // TODO: Order status
         LOGGER.info("inside getOrderPaymentStatusForArticle Method of DashboardServiceImpl");
         final OrderPaymentStatus orderPaymentStatus = new OrderPaymentStatus();
         final String openAccessStatus = esbInterfaceService
