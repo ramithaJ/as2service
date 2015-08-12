@@ -25,8 +25,6 @@ import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
  */
 public interface UserProfiles {
 
- 
-
     /**
      * Gets the countries.
      *
@@ -37,6 +35,8 @@ public interface UserProfiles {
     /**
      * Gets the departments list.
      *
+     * @param institutionId
+     *            the institution id
      * @return the departments list
      */
     ESBResponse getDepartmentsList(String institutionId);
@@ -72,6 +72,8 @@ public interface UserProfiles {
     /**
      * Gets the states.
      *
+     * @param countrycode
+     *            the countrycode
      * @return the states
      */
     ESBResponse getStates(String countrycode);
@@ -112,14 +114,18 @@ public interface UserProfiles {
      * @param lookupCustomerProfileResponse
      *            the lookup customer profile response
      * @return the lookup customer profile response
-     * 
+     * @throws Exception
+     *             the exception
      */
     LookupCustomerProfileResponse updateLookupCustomerProfile(
             LookupCustomerProfileResponse lookupCustomerProfileResponse)
             throws Exception;
 
     /**
+     * Customer profile update.
+     *
      * @param lookupCustomerProfileResponse
+     *            the lookup customer profile response
      * @return customer profile response
      */
     boolean customerProfileUpdate(

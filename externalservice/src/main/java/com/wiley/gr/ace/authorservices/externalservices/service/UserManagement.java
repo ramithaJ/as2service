@@ -41,7 +41,7 @@ public interface UserManagement {
     /**
      * Update password.
      *
-     * @param passwordDetails
+     * @param passwordRequest
      *            the password details
      * @return true, if successful
      */
@@ -50,8 +50,8 @@ public interface UserManagement {
     /**
      * Reset password.
      *
-     * @param securityDetailsHolder
-     *            the security details holder
+     * @param passwordResetRequest
+     *            the password reset request
      * @return true, if successful
      */
     boolean resetPassword(PasswordResetRequest passwordResetRequest);
@@ -59,10 +59,8 @@ public interface UserManagement {
     /**
      * Update user id.
      *
-     * @param oldEmailId
-     *            the old email id
-     * @param newEmailId
-     *            the new email id
+     * @param userEmailDetails
+     *            the user email details
      * @return true, if successful
      */
     boolean updateUserId(UserEmailDetails userEmailDetails);
@@ -70,10 +68,8 @@ public interface UserManagement {
     /**
      * Force ful reset.
      *
-     * @param emailId
-     *            the email id
-     * @param newPassword
-     *            the new password
+     * @param forcefulReset
+     *            the forceful reset
      * @return true, if successful
      */
     boolean forceFulReset(ForcefulReset forcefulReset);
@@ -81,8 +77,8 @@ public interface UserManagement {
     /**
      * Update security details.
      *
-     * @param securityDetails
-     *            the security details
+     * @param securityQuestionsUpdateRequest
+     *            the security questions update request
      * @return true, if successful
      */
     boolean updateSecurityDetails(
@@ -107,14 +103,18 @@ public interface UserManagement {
     RetrieveSecurityQuestions userSecurityQuestions(String emailId);
 
     /**
-     * @param emailId
-     * @return
+     * Lookup secutity questions.
+     *
+     * @return the retrieve security questions
      */
     RetrieveSecurityQuestions lookupSecutityQuestions();
 
     /**
+     * Validate security questions.
+     *
      * @param securityQuestionsValidateRequest
-     * @return
+     *            the security questions validate request
+     * @return true, if successful
      */
     boolean validateSecurityQuestions(
             SecurityQuestionsValidateRequest securityQuestionsValidateRequest);

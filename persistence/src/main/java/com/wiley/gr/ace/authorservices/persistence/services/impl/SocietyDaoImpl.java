@@ -32,7 +32,7 @@ public class SocietyDaoImpl implements SocietyDao {
     /** This method is calling Db to get society details */
     @SuppressWarnings("unchecked")
     @Override
-    public List<Societies> getSociety() {
+    public final List<Societies> getSociety() {
         Session session = null;
         ArrayList<Societies> societyList = new ArrayList<Societies>();
 

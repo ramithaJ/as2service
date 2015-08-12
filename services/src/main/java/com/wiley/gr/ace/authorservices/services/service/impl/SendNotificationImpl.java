@@ -44,14 +44,21 @@ public class SendNotificationImpl implements SendNotification {
     private String notificationEmail;
     @Value("${appId}")
     private String appId;
-   
+
     @Value("${type}")
     private String type;
-    
-    
+
+    /**
+     * calling notification service for sending email
+     * 
+     * @param appId
+     * @param templateId
+     * @param type
+     * @return noification response.
+     * */
 
     @Override
-    public String sendEmail(final String appId, final String templateId,
+    public final String sendEmail(final String appId, final String templateId,
             final String type,
             final SendNotificationRequest sendNotificationRequest) {
         NotificationFieldList fieldList = new NotificationFieldList();
@@ -65,8 +72,17 @@ public class SendNotificationImpl implements SendNotification {
 
     }
 
+    /**
+     * calling notification service for sending email
+     * 
+     * @param emailId
+     * @param templateId
+     * @return noification response.
+     * 
+     * */
     @Override
-    public NotificationResponse notifyByEmail(final String emailId,final String templateId) {
+    public final NotificationResponse notifyByEmail(final String emailId,
+            final String templateId) {
 
         NotificationRequest notificationRequest = new NotificationRequest();
         notificationRequest.setFrom(notificationEmail);

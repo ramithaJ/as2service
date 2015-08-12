@@ -176,7 +176,10 @@ public class TaskServiceImpl implements TaskService {
         return status;
     }
 
-    /** for creating task of bpm */
+     /** for creating task of bpm.
+     *
+     * @return true, if successful
+     */
     @Override
     public final boolean createTask() {
         // TODO Auto-generated method stub

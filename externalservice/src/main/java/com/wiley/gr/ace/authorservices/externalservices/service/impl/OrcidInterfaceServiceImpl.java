@@ -93,8 +93,7 @@ public class OrcidInterfaceServiceImpl implements OrcidInterfaceService {
                 .post(form, MediaType.APPLICATION_JSON);
         final String json = rep.getText();
         final ObjectMapper objectMapper = new ObjectMapper();
-        accessToken = objectMapper.readValue(json, OrcidAccessToken.class);
-        return accessToken;
+        return objectMapper.readValue(json, OrcidAccessToken.class);
 
     }
 
@@ -122,8 +121,7 @@ public class OrcidInterfaceServiceImpl implements OrcidInterfaceService {
         headers.add("Authorization", "Bearer " + token.getAccessToken());
         final Representation representation = client
                 .get(MediaType.APPLICATION_JSON);
-        final String orcidMessageJSON = representation.getText();
-        return orcidMessageJSON;
+        return representation.getText();
     }
 
     /**
@@ -150,7 +148,6 @@ public class OrcidInterfaceServiceImpl implements OrcidInterfaceService {
         headers.add("Authorization", "Bearer " + token.getAccessToken());
         final Representation representation = client
                 .get(MediaType.APPLICATION_JSON);
-        final String orcidMessageJSON = representation.getText();
-        return orcidMessageJSON;
+        return representation.getText();
     }
 }

@@ -24,65 +24,76 @@ import com.wiley.gr.ace.authorservices.model.external.RolesData;
  * @author virtusa version 1.0
  */
 public interface RolesService {
-	
-	/**
-	 * This method calls the Roles and Permissions Shared Service to get the role data.
-	 *
-	 * @return the roles
-	 */
-	List<RolesData> getRoles();
-	
-	/**
-	 * Gets the permissions.
-	 *
-	 * @return the permissions
-	 */
-	List<PermissionData> getPermissions();
-	
-	/**
-	 * Adds the role.
-	 *
-	 * @param roleRequest the role request
-	 */
-	void addRole(RoleRequest roleRequest);
-	
-	/**
-	 * Adds the permissions.
-	 *
-	 * @param permissionsRequest the permissions request
-	 */
-	void addPermissions(PermissionsRequest permissionsRequest);
-	
-	/**
-	 * Update role.
-	 *
-	 * @param roleRequest the role request
-	 * @param roleId the role id
-	 */
-	void updateRole(RoleRequest roleRequest, final String roleId);
-	
-	/**
-	 * Update permissions.
-	 *
-	 * @param permissionsRequest the permissions request
-	 * @param roleId the role id
-	 */
-	void updatePermissions(List<PermissionsRequest> permissionsRequestList, final String roleId);
-	
-	/**
-	 * Gets the role permissions.
-	 *
-	 * @param roleId the role id
-	 * @return the role permissions
-	 */
-	List<PermissionData> getRolePermissions(String roleId);
-	
-	/**
-	 * Delete role permission.
-	 *
-	 * @param roleId the role id
-	 * @param permissionCd the permission cd
-	 */
-	void deleteRolePermission(String roleId, String permissionCd);
-	
+
+    /**
+     * This method calls the Roles and Permissions Shared Service to get the
+     * role data.
+     *
+     * @return the roles
+     */
+    List<RolesData> getRoles();
+
+    /**
+     * Gets the permissions.
+     *
+     * @return the permissions
+     */
+    List<PermissionData> getPermissions();
+
+    /**
+     * Adds the role.
+     *
+     * @param roleRequest
+     *            the role request
+     */
+    void addRole(RoleRequest roleRequest);
+
+    /**
+     * Adds the permissions.
+     *
+     * @param permissionsRequest
+     *            the permissions request
+     */
+    void addPermissions(PermissionsRequest permissionsRequest);
+
+    /**
+     * Update role.
+     *
+     * @param roleRequest
+     *            the role request
+     * @param roleId
+     *            the role id
+     */
+    void updateRole(RoleRequest roleRequest, final String roleId);
+
+    /**
+     * Update permissions.
+     *
+     * @param permissionsRequestList
+     *            the permissions request list
+     * @param roleId
+     *            the role id
+     */
+    void updatePermissions(List<PermissionsRequest> permissionsRequestList,
+            final String roleId);
+
+    /**
+     * Gets the role permissions.
+     *
+     * @param roleId
+     *            the role id
+     * @return the role permissions
+     */
+    List<PermissionData> getRolePermissions(String roleId);
+
+    /**
+     * Delete role permission.
+     *
+     * @param roleId
+     *            the role id
+     * @param permissionCd
+     *            the permission cd
+     */
+    void deleteRolePermission(String roleId, String permissionCd);
+
 }

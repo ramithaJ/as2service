@@ -340,8 +340,8 @@ public class UserLoginServiceImpl implements UserLoginService {
 
     /** This method will call user login dao to create a record in db */
     @Override
-    public String insertGuid(final String firstName, final String lastName,
-            final String emailAddress) {
+    public final String insertGuid(final String firstName,
+            final String lastName, final String emailAddress) {
         InviteResetpwdLog inviteResetpwdLog = new InviteResetpwdLog();
         inviteResetpwdLog.setFirstName(firstName);
         inviteResetpwdLog.setLastName(lastName);

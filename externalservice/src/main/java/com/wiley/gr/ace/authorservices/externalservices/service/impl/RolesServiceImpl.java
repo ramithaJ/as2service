@@ -40,8 +40,8 @@ public class RolesServiceImpl implements RolesService {
     private String permissionsUrl;
 
     /**
-     * call Roles service of shared services
-     * 
+     * call Roles service of shared services.
+     *
      * @return roles data list
      */
     @Override
@@ -54,8 +54,8 @@ public class RolesServiceImpl implements RolesService {
     }
 
     /**
-     * call Roles service of shared services for getting permissions
-     * 
+     * call Roles service of shared services for getting permissions.
+     *
      * @return permissions data list
      */
     @Override
@@ -69,9 +69,10 @@ public class RolesServiceImpl implements RolesService {
 
     /**
      * call Roles service of shared services for adding roles..
-     * 
+     *
      * @param roleRequest
-     * */
+     *            the role request
+     */
     @Override
     public final void addRole(final RoleRequest roleRequest) {
 
@@ -81,10 +82,11 @@ public class RolesServiceImpl implements RolesService {
     }
 
     /**
-     * call Roles service of shared services for adding permissions
-     * 
+     * call Roles service of shared services for adding permissions.
+     *
      * @param permissionsRequest
-     * */
+     *            the permissions request
+     */
     @Override
     public final void addPermissions(final PermissionsRequest permissionsRequest) {
 
@@ -94,12 +96,13 @@ public class RolesServiceImpl implements RolesService {
     }
 
     /**
-     * call Roles service of shared services for updating roles
-     * 
+     * call Roles service of shared services for updating roles.
+     *
      * @param roleRequest
+     *            the role request
      * @param roleId
-     * 
-     * */
+     *            the role id
+     */
     @Override
     public final void updateRole(final RoleRequest roleRequest,
             final String roleId) {
@@ -110,11 +113,13 @@ public class RolesServiceImpl implements RolesService {
     }
 
     /**
-     * call Roles service of shared services for updating permissions
-     * 
+     * call Roles service of shared services for updating permissions.
+     *
      * @param permissionsRequestList
+     *            the permissions request list
      * @param roleId
-     * */
+     *            the role id
+     */
     @Override
     public final void updatePermissions(
             final List<PermissionsRequest> permissionsRequestList,
@@ -126,12 +131,12 @@ public class RolesServiceImpl implements RolesService {
     }
 
     /**
-     * call Roles service of shared services
-     * 
+     * call Roles service of shared services.
+     *
      * @param roleId
+     *            the role id
      * @return permissions data list
-     * 
-     * */
+     */
     @Override
     public final List<PermissionData> getRolePermissions(final String roleId) {
 
@@ -142,11 +147,13 @@ public class RolesServiceImpl implements RolesService {
     }
 
     /**
-     * call Roles service of shared services for deleting roles and permissions
-     * 
+     * call Roles service of shared services for deleting roles and permissions.
+     *
      * @param roleId
+     *            the role id
      * @param permissionCd
-     * */
+     *            the permission cd
+     */
     @Override
     public final void deleteRolePermission(final String roleId,
             final String permissionCd) {

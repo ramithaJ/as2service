@@ -13,13 +13,17 @@
  */
 package com.wiley.gr.ace.authorservices.exception;
 
+/**
+ * @author virtusa 1.0
+ *
+ */
 public class UserException extends RuntimeException {
 
     /**
      * This field holds the value of serialVersionUID.
      */
     private static final long serialVersionUID = 1L;
-    
+
     /**
      * This field holds the value of errorCode.
      */
@@ -30,13 +34,21 @@ public class UserException extends RuntimeException {
      */
     private String description;
 
-    public UserException(String errorCode, String description) {
+    /**
+     * @param errorCode
+     * @param description
+     */
+    public UserException(final String errorCode, final String description) {
         this.errorCode = errorCode;
         this.description = description;
     }
-    
+
+    /**
+     * 
+     */
     public UserException() {
     }
+
     /**
      * @return the errorCode
      */
@@ -48,7 +60,7 @@ public class UserException extends RuntimeException {
      * @param errorCode
      *            the errorCode to set
      */
-    public final void setErrorCode(String errorCode) {
+    public final void setErrorCode(final String errorCode) {
         this.errorCode = errorCode;
     }
 
@@ -63,7 +75,7 @@ public class UserException extends RuntimeException {
      * @param description
      *            the description to set
      */
-    public final void setDescription(String description) {
+    public final void setDescription(final String description) {
         this.description = description;
     }
 

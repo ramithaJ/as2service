@@ -38,10 +38,15 @@ public class NotificationServiceImpl implements NotificationService {
 
     /**
      * Calling Notification of shared services...
-     * 
+     *
      * @param appId
+     *            the app id
      * @param type
+     *            the type
      * @param templateId
+     *            the template id
+     * @param notificationRequest
+     *            the notification request
      * @return NotificationHistory response
      */
     @Override
@@ -62,7 +67,8 @@ public class NotificationServiceImpl implements NotificationService {
      * @param userId
      *            the user id
      * @return the notification history
-     * 
+     * @throws Exception
+     *             the exception
      */
     @Override
     public final NotificationHistory getNotificationHistory(final String userId)

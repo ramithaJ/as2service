@@ -31,7 +31,7 @@ public class AreaOfInterterestDaoImpl implements AreaOfInterterestDao {
     /** this method calls db to get interest details */
     @SuppressWarnings("unchecked")
     @Override
-    public List<AreaOfInterest> getAreaOfInterest() {
+    public final List<AreaOfInterest> getAreaOfInterest() {
 
         Session session = null;
         List<AreaOfInterest> interestList = new ArrayList<AreaOfInterest>();

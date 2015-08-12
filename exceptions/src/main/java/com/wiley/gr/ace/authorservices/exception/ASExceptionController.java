@@ -91,13 +91,16 @@ public class ASExceptionController {
 
     }
 
+    /**
+     * @param userException
+     * @return service..
+     */
     @ExceptionHandler(UserException.class)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     public final Service handleUserException(final UserException userException) {
 
         LOGGER.info("Inside ASException Controller");
-        System.err.println("*************************************************");
         Service response = new Service();
         LOGGER.error("Error Trace - ", userException);
         response.setStatus("FAILURE");
