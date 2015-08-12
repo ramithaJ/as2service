@@ -33,13 +33,12 @@ import com.wiley.gr.ace.authorservices.persistence.entity.Users;
  * @author virtusa version 1.0
  */
 public class AuditResultServiceImpl implements AuditResultService {
+
     /**
      * User audit.
      *
      * @param auditMap
      *            the audit map
-     * @param actionMap
-     *            the action map
      * @param user
      *            the user
      * @return true, if successful
@@ -116,7 +115,14 @@ public class AuditResultServiceImpl implements AuditResultService {
         return true;
     }
 
-    public static void auditUserActions(final AuditInformation auditInformation) {
+    /**
+     * Audit user actions.
+     *
+     * @param auditInformation
+     *            the audit information
+     */
+    public final static void auditUserActions(
+            final AuditInformation auditInformation) {
 
         List<HashMap<String, String>> auditMap = new ArrayList<HashMap<String, String>>();
         HashMap<String, String> hashMap = new HashMap<String, String>();
@@ -134,18 +140,4 @@ public class AuditResultServiceImpl implements AuditResultService {
         auditResultServiceImpl.userAudit(auditMap, users);
     }
 
-    /*
-     * public static void main(final String[] args) {
-     * 
-     * AuditInformation auditInformation = new AuditInformation();
-     * auditInformation.setActionID("PWDRES");
-     * auditInformation.setTableName("TABLE");
-     * auditInformation.setColumnName("COLUMN");
-     * auditInformation.setNewValue("ahsibf");
-     * auditInformation.setOldValue("45624"); auditInformation.setUserId(99999);
-     * 
-     * AuditResultServiceImpl.auditUserActions(auditInformation);
-     * 
-     * }
-     */
 }

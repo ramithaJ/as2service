@@ -129,7 +129,7 @@ public class UserLoginDaoImpl implements UserLoginDao {
                 session.save(users);
 
                 txn.commit();
-                txn = session.getTransaction();
+                session.getTransaction();
                 txn.begin();
 
                 AdminProfile adminDetails = new AdminProfile();

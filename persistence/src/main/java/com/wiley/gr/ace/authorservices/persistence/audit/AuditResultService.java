@@ -23,13 +23,10 @@ import com.wiley.gr.ace.authorservices.persistence.entity.Users;
  */
 public interface AuditResultService {
 
-    /**
-     * User audit.
+     /** User audit.
      *
      * @param auditMap
      *            the audit map
-     * @param actionMap
-     *            the action map
      * @param user
      *            the user
      * @return true, if successful

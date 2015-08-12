@@ -29,7 +29,11 @@ import com.wiley.gr.ace.authorservices.persistence.services.SocietyDao;
  */
 public class SocietyDaoImpl implements SocietyDao {
 
-    /** This method is calling Db to get society details */
+    /**
+     * This method is calling Db to get society details.
+     *
+     * @return the society
+     */
     @SuppressWarnings("unchecked")
     @Override
     public final List<Societies> getSociety() {

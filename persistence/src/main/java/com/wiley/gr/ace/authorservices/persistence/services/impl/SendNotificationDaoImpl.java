@@ -27,11 +27,12 @@ import com.wiley.gr.ace.authorservices.persistence.services.SendNotificationDao;
 public class SendNotificationDaoImpl implements SendNotificationDao {
 
     /**
-     * this method will take
-     * 
+     * this method will take.
+     *
      * @param userId
+     *            the user id
      * @return users
-     * */
+     */
     @Override
     public final Users getUserProfile(final Integer userId) {
         Session session = null;
@@ -51,11 +52,12 @@ public class SendNotificationDaoImpl implements SendNotificationDao {
     }
 
     /**
-     * this method will take
-     * 
-     * @param userId
+     * this method will take.
+     *
+     * @param emailId
+     *            the email id
      * @return users
-     * */
+     */
     @Override
     public final Users getUserProfileByEmail(final String emailId) {
         Session session = null;
