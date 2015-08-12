@@ -36,12 +36,10 @@ public class NotificationServiceImpl implements NotificationService {
     @Value("${notificationHistory.url}")
     private String notificationHistoryUrl;
 
-    /* (non-Javadoc)
-     * @see com.wiley.gr.ace.authorservices.externalservices.service.NotificationService#sendNotification(java.lang.String, java.lang.String, java.lang.String, com.wiley.gr.ace.authorservices.model.external.NotificationRequest)
-     */
+    /** Calling Notification of shared services... */
     @Override
-    public final NotificationResponse sendNotification(String appId,
-            String type, String templateId,
+    public final NotificationResponse sendNotification(final String appId,
+            final String type, final String templateId,
             final NotificationRequest notificationRequest) {
 
         String notificationFinalUrl = notificationurl + appId + "/send?tmpl="

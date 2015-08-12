@@ -330,7 +330,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                 .customerProfileUpdate(lookupCustomerProfileResponse);
     }
 
-     /** Update user address.
+    /**
+     * Update user address.
      *
      * @param userId
      *            the user id
@@ -391,7 +392,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                 .customerProfileUpdate(lookupCustomerProfileResponse);
     }
 
-     /** Update address fields.
+    /**
+     * Update address fields.
      *
      * @param addressesRequest
      *            the addresses request
@@ -578,7 +580,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         return userProfiles.getUserProfileResponse(userId);
     }
 
-     /** This method is for uploading image.
+    /**
+     * This method is for uploading image.
      *
      * @param image
      *            the image
@@ -613,7 +616,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         return userProfiles.getLookupCustomerProfile(userId);
     }
 
-     /** This method will call externnal service look up profile to get
+    /**
+     * This method will call externnal service look up profile to get
      * affiliation.
      *
      * @param userId
@@ -649,8 +653,9 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         return affiliations;
     }
 
-     /** This method will call externnal service look up profile to get
-     * research funder.
+    /**
+     * This method will call externnal service look up profile to get research
+     * funder.
      *
      * @param userId
      *            the user id
@@ -683,8 +688,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         return researchFunderList;
     }
 
-     /** This method will call externnal service look up profile to get
-     * Societies.
+    /**
+     * This method will call externnal service look up profile to get Societies.
      *
      * @param userId
      *            the user id
@@ -713,8 +718,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         return societyList;
     }
 
-    /** This method will call external service look up profile to get co
-     * authors.
+    /**
+     * This method will call external service look up profile to get co authors.
      *
      * @param userId
      *            the user id
@@ -743,8 +748,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         return coAuthorList;
     }
 
-     /** This method will call external service look up profile to get
-     * interests.
+    /**
+     * This method will call external service look up profile to get interests.
      *
      * @param userId
      *            the user id
@@ -766,7 +771,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         return areaList;
     }
 
-    /** This method will call external service look up profile to get alerts.
+    /**
+     * This method will call external service look up profile to get alerts.
      *
      * @param userId
      *            the user id
@@ -811,8 +817,9 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         return alertList;
     }
 
-     /** This method will call external service look up profile to get
-     * preferred journals.
+    /**
+     * This method will call external service look up profile to get preferred
+     * journals.
      *
      * @param userId
      *            the user id
@@ -837,8 +844,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         return prefferedList;
     }
 
-     /** This Method will get the customer details by calling external system
-     * ESB.
+    /**
+     * This Method will get the customer details by calling external system ESB.
      *
      * @param userId
      *            the user id
@@ -865,7 +872,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         return customerDetails;
     }
 
-     /** This Method will Remove Orcid Id.
+    /**
+     * This Method will Remove Orcid Id.
      *
      * @param userId
      *            the user id
@@ -878,7 +886,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
     }
 
-     /** This Method will Update Orcid Id.
+    /**
+     * This Method will Update Orcid Id.
      *
      * @param userId
      *            the user id
@@ -894,7 +903,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
     }
 
-     /** This Method will Update Orcid Id.
+    /**
+     * This Method will Update Orcid Id.
      *
      * @param userId
      *            the user id

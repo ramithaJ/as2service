@@ -14,15 +14,11 @@
 
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
-import java.io.File;
-import java.io.IOException;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpMethod;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
@@ -118,8 +114,8 @@ public class UserProfilesImpl implements UserProfiles {
     @Override
     public final ESBResponse getDepartmentsList(final String institutionId) {
 
-        return (ESBResponse) RestServiceInvokerUtil.pickListInvoker(departmentspreurl
-                + institutionId + departmentsposturl,
+        return (ESBResponse) RestServiceInvokerUtil.pickListInvoker(
+                departmentspreurl + institutionId + departmentsposturl,
                 ESBResponse.class);
     }
 
@@ -145,7 +141,7 @@ public class UserProfilesImpl implements UserProfiles {
     @Override
     public final ESBResponse getInstitutionsList() {
 
-    	ESBResponse institution = null;
+        ESBResponse institution = null;
 
         institution = (ESBResponse) RestServiceInvokerUtil.pickListInvoker(
                 institutionsurl, ESBResponse.class);
@@ -282,18 +278,16 @@ public class UserProfilesImpl implements UserProfiles {
         }
     }
 
+    /** Calling external service to Update look up profile 
+     * 
+     * @param lookupCustomerProfileResponse
+     * 
+     * @return boolean
+     * 
+     * */
     @Override
     public boolean customerProfileUpdate(
             final LookupCustomerProfileResponse lookupCustomerProfileResponse) {
-
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            mapper.writeValue(new File("c:\\Shiva\\user.json"),
-                    lookupCustomerProfileResponse);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
 
         final ResponseStatus responseStatus = (ResponseStatus) RestServiceInvokerUtil
                 .restServiceInvoker(updateLookupCustomerProfile,
@@ -309,12 +303,7 @@ public class UserProfilesImpl implements UserProfiles {
         }
         return status;
 
-        /*
-         * return (ResponseStatus) RestServiceInvokerUtil.restServiceInvoker(
-         * updateLookupCustomerProfile, lookupCustomerProfileResponse,
-         * ResponseStatus.class);
-         */
-
+      
     }
 
 }

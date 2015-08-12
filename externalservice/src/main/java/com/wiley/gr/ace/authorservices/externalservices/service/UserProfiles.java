@@ -112,13 +112,16 @@ public interface UserProfiles {
      * @param lookupCustomerProfileResponse
      *            the lookup customer profile response
      * @return the lookup customer profile response
-     * @throws Exception
-     *             the exception
+     * 
      */
     LookupCustomerProfileResponse updateLookupCustomerProfile(
             LookupCustomerProfileResponse lookupCustomerProfileResponse)
             throws Exception;
 
+    /**
+     * @param lookupCustomerProfileResponse
+     * @return customer profile response
+     */
     boolean customerProfileUpdate(
             LookupCustomerProfileResponse lookupCustomerProfileResponse);
 }
