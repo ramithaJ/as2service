@@ -69,7 +69,8 @@ public interface AuthorProfileService {
      */
     boolean updateResearchFunder(int userId, ResearchFunder researchFunder);
 
-     /** Update alerts.
+    /**
+     * Update alerts.
      *
      * @param userId
      *            the user id
@@ -101,7 +102,8 @@ public interface AuthorProfileService {
      */
     boolean updateEmailDetails(String userId, User emailDetails);
 
-     /** Update user address.
+    /**
+     * Update user address.
      *
      * @param userId
      *            the user id
@@ -231,7 +233,8 @@ public interface AuthorProfileService {
      */
     List<PreferredJournals> getPrefferedJournals(String userId);
 
-     /** Gets the custome profile.
+    /**
+     * Gets the custome profile.
      *
      * @param userId
      *            the user id
@@ -239,7 +242,8 @@ public interface AuthorProfileService {
      */
     CustomerDetails getCustomeProfile(String userId);
 
-     /** Removes the orcid id.
+    /**
+     * Removes the orcid id.
      *
      * @param userId
      *            the user id
@@ -247,7 +251,8 @@ public interface AuthorProfileService {
      */
     boolean removeOrcidId(String userId);
 
-     /** Update orcid id.
+    /**
+     * Update orcid id.
      *
      * @param userId
      *            the user id

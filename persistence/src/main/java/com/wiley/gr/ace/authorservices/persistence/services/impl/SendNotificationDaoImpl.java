@@ -33,7 +33,7 @@ public class SendNotificationDaoImpl implements SendNotificationDao {
      * @return users
      * */
     @Override
-    public Users getUserProfile(Integer userId) {
+    public final Users getUserProfile(final Integer userId) {
         Session session = null;
         Users users = null;
         try {
@@ -57,7 +57,7 @@ public class SendNotificationDaoImpl implements SendNotificationDao {
      * @return users
      * */
     @Override
-    public Users getUserProfileByEmail(String emailId) {
+    public final Users getUserProfileByEmail(final String emailId) {
         Session session = null;
         Users users = null;
         try {

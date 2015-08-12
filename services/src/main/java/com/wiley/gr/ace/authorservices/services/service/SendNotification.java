@@ -15,10 +15,35 @@ package com.wiley.gr.ace.authorservices.services.service;
 import com.wiley.gr.ace.authorservices.model.NotificationResponse;
 import com.wiley.gr.ace.authorservices.model.SendNotificationRequest;
 
+/**
+ * The Interface SendNotification.
+ */
 public interface SendNotification {
 
+    /**
+     * Send email.
+     *
+     * @param appId
+     *            the app id
+     * @param templateId
+     *            the template id
+     * @param type
+     *            the type
+     * @param sendNotificationRequest
+     *            the send notification request
+     * @return the string
+     */
     String sendEmail(String appId, String templateId, String type,
             SendNotificationRequest sendNotificationRequest);
 
-    NotificationResponse notifyByEmail(String emailId,String templateId);
+    /**
+     * Notify by email.
+     *
+     * @param emailId
+     *            the email id
+     * @param templateId
+     *            the template id
+     * @return the notification response
+     */
+    NotificationResponse notifyByEmail(String emailId, String templateId);
 }

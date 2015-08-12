@@ -162,22 +162,24 @@ public class AdminLoginServiceImpl implements AdminLoginService {
                 role.setAdminRole(true);
             }
             rolesAndPermissions.getRolesList().add(role);
-            
-            List<PermissionData> permissionsDataList = roleData.getPermissions();
-            
+
+            List<PermissionData> permissionsDataList = roleData
+                    .getPermissions();
+
             for (PermissionData permissionData : permissionsDataList) {
-                
+
                 if (permissionsMap.containsKey(roleIdString)) {
-                    List<String> permissionsList = permissionsMap.get(roleIdString);
+                    List<String> permissionsList = permissionsMap
+                            .get(roleIdString);
                     if (permissionsList == null) {
                         permissionsList = new ArrayList<String>();
                         permissionsMap.put(roleIdString, permissionsList);
                     }
-                permissionsList.add(permissionData.getPermissionCd());
-    
+                    permissionsList.add(permissionData.getPermissionCd());
+
                 } else {
                     List<String> permissionsList = new ArrayList<String>();
-                          permissionsList.add(permissionData.getPermissionCd());
+                    permissionsList.add(permissionData.getPermissionCd());
                     permissionsMap.put(roleIdString, permissionsList);
                 }
             }
@@ -193,16 +195,22 @@ public class AdminLoginServiceImpl implements AdminLoginService {
             permission.setPermissionId(permissionData.getPermissionCd());
             permission.setPermissionName(permissionData.getPermissionName());
 
-            if (permissionData.getGroups() != null && !StringUtils.isEmpty(permissionData.getGroups()) && permissionData.getGroups().contains(
-                    AuthorServicesConstants.PERMISSION_LEVEL_SYSTEM)) {
+            if (permissionData.getGroups() != null
+                    && !StringUtils.isEmpty(permissionData.getGroups())
+                    && permissionData.getGroups().contains(
+                            AuthorServicesConstants.PERMISSION_LEVEL_SYSTEM)) {
                 systemSection.getPermissionsList().add(permission);
 
-            } else if (permissionData.getGroups() != null && !StringUtils.isEmpty(permissionData.getGroups()) &&  permissionData.getGroups().contains(
-                    AuthorServicesConstants.PERMISSION_LEVEL_ADMIN)) {
+            } else if (permissionData.getGroups() != null
+                    && !StringUtils.isEmpty(permissionData.getGroups())
+                    && permissionData.getGroups().contains(
+                            AuthorServicesConstants.PERMISSION_LEVEL_ADMIN)) {
                 adminSection.getPermissionsList().add(permission);
 
-            } else if (permissionData.getGroups() != null && !StringUtils.isEmpty(permissionData.getGroups()) &&  permissionData.getGroups().contains(
-                    AuthorServicesConstants.PERMISSION_LEVEL_ARTICLE)) {
+            } else if (permissionData.getGroups() != null
+                    && !StringUtils.isEmpty(permissionData.getGroups())
+                    && permissionData.getGroups().contains(
+                            AuthorServicesConstants.PERMISSION_LEVEL_ARTICLE)) {
                 articleSection.getPermissionsList().add(permission);
             }
 
@@ -213,7 +221,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
         permissionSectionsList.add(adminSection);
         permissionSectionsList.add(articleSection);
         permissionSectionsList.add(systemSection);
-        
+
         Map<String, String[]> returnMap = new HashMap<String, String[]>();
 
         for (Map.Entry<String, List<String>> entry : permissionsMap.entrySet()) {
@@ -224,7 +232,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
                             new String[entry.getValue().size()]));
         }
         rolesAndPermissions.setPermissionsMap(returnMap);
-        
+
         return rolesAndPermissions;
     }
 
@@ -243,7 +251,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
         List<Permissions> permissionsList = new ArrayList<Permissions>();
         Role role = rolesAndPermissions.getRole();
         String roleIdStr = "";
-        
+
         for (Map.Entry<String, String[]> entry : rolesAndPermissions
                 .getPermissionsMap().entrySet()) {
             for (String permissionId : entry.getValue()) {
@@ -258,52 +266,53 @@ public class AdminLoginServiceImpl implements AdminLoginService {
             throw new UserException("1111",
                     "Please select atleast one permission");
         }
-        
+
         if ("0".equals(role.getRoleId())) {
             roleIdStr = getRoleId(role.getRoleName());
-            if(roleIdStr.equals("0")) {
+            if (roleIdStr.equals("0")) {
                 RoleRequest roleRequest = new RoleRequest();
                 roleRequest.setRoleName(role.getRoleName());
                 roleRequest.setRoleDescription(role.getRoleDescription());
                 roleRequest.setCreatedBy(rolesAndPermissions.getUserId());
                 roleRequest.setUpdatedBy(rolesAndPermissions.getUserId());
-                if(role.isAdminRole()) {
+                if (role.isAdminRole()) {
                     roleRequest.setRoleType("Internal");
                 } else {
                     roleRequest.setRoleType("External");
                 }
                 rolesService.addRole(roleRequest);
                 roleIdStr = getRoleId(role.getRoleName());
-                System.out.println("roleIdStr obtained:::"+roleIdStr);
-                System.out.println("Size of PermissionsList:::"+permissionsList.size());
-                
-                
-                
+                System.out.println("roleIdStr obtained:::" + roleIdStr);
+                System.out.println("Size of PermissionsList:::"
+                        + permissionsList.size());
+
             } else {
                 throw new UserException("2222",
                         "Role already exists with this name. Please Re-Enter");
             }
         } else {
-            
+
             roleIdStr = role.getRoleId();
             RoleRequest roleRequest = new RoleRequest();
             roleRequest.setRoleName(role.getRoleName());
             roleRequest.setRoleDescription(role.getRoleDescription());
             rolesService.updateRole(roleRequest, roleIdStr);
         }
-        
+
         List<PermissionsRequest> permissionsRequestList = new ArrayList<PermissionsRequest>();
         for (Permissions permissions : permissionsList) {
-            System.out.println("Adding Permission:::"+permissions.getPermissionCd());
+            System.out.println("Adding Permission:::"
+                    + permissions.getPermissionCd());
             PermissionsRequest permissionsRequest = new PermissionsRequest();
             permissionsRequest.setPermissionCd(permissions.getPermissionCd());
-            permissionsRequest.setPermissionName(permissions.getPermissionName());
+            permissionsRequest.setPermissionName(permissions
+                    .getPermissionName());
             permissionsRequest.setCreatedBy(rolesAndPermissions.getUserId());
             permissionsRequest.setUpdatedBy(rolesAndPermissions.getUserId());
             permissionsRequestList.add(permissionsRequest);
         }
         rolesService.updatePermissions(permissionsRequestList, roleIdStr);
-        
+
     }
 
     /**
@@ -359,25 +368,26 @@ public class AdminLoginServiceImpl implements AdminLoginService {
         userlogindao.createAdminUser(users, rolesList);
 
     }
-    
+
     /**
      * Role name exists.
      *
-     * @param roleName the role name
+     * @param roleName
+     *            the role name
      * @return true, if successful
      */
     private String getRoleId(final String roleName) {
-        
+
         String roleId = "0";
-        
+
         List<RolesData> rolesDataList = rolesService.getRoles();
-        
+
         for (RolesData rolesData : rolesDataList) {
-            if(rolesData.getRoleName().equalsIgnoreCase(roleName.trim())) {
+            if (rolesData.getRoleName().equalsIgnoreCase(roleName.trim())) {
                 roleId = rolesData.getRoleId();
             }
         }
-        
+
         return roleId;
     }
 

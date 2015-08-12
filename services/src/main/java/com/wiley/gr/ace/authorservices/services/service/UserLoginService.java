@@ -56,8 +56,8 @@ public interface UserLoginService {
     /**
      * Validate security questions.
      *
-     * @param securityDetails
-     *            the security details
+     * @param securityDetailsHolder
+     *            the security details holder
      * @return true, if successful
      */
     boolean validateSecurityQuestions(
@@ -89,6 +89,7 @@ public interface UserLoginService {
      *            the last name
      * @param emailAddress
      *            the email address
+     * @return the string
      */
     String insertGuid(String firstName, String lastName, String emailAddress);
 }

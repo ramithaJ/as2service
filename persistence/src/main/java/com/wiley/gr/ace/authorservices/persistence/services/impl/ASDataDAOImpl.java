@@ -250,7 +250,7 @@ public class ASDataDAOImpl implements ASDataDAO {
      * @return String response value
      */
     @Override
-    public String getData(final String id) {
+    public final String getData(final String id) {
 
         Session session = null;
         try {

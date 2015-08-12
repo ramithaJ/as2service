@@ -56,8 +56,6 @@ public class RegistrationServiceImpl implements RegistrationService {
      * @param user
      *            the user
      * @return the string
-     * @throws Exception
-     *             the exception
      */
     @Override
     public final String createUser(final User user) {
@@ -148,8 +146,6 @@ public class RegistrationServiceImpl implements RegistrationService {
      * @param lastName
      *            the last name
      * @return the user from first name last name
-     * @throws Exception
-     *             the exception
      */
     @Override
     public final ArrayList<User> getUserFromFirstNameLastName(
@@ -192,8 +188,6 @@ public class RegistrationServiceImpl implements RegistrationService {
      * @param emailId
      *            the email id
      * @return the user
-     * @throws Exception
-     *             the exception
      */
     @Override
     public final User checkEmailIdExists(final String emailId) {

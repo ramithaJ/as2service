@@ -119,8 +119,6 @@ public interface ASDataService {
     /**
      * Gets the areas of interests.
      *
-     * @param count
-     *            the count
      * @return the areas of interests
      */
     List<Interests> getAreasOfInterests();

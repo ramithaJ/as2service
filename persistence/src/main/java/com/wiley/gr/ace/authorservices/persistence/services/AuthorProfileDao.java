@@ -14,15 +14,19 @@ package com.wiley.gr.ace.authorservices.persistence.services;
 
 /**
  * The Interface AuthorProfileDao.
+ * 
  * @author virtusa version 1.0
  */
 public interface AuthorProfileDao {
 
-    /** Save profile picture.
+    /**
+     * Save profile picture.
      *
      * @param image
      *            the image
+     * @param userId
+     *            the user id
      */
-    void saveProfilePicture(byte[] image,String userId);
+    void saveProfilePicture(byte[] image, String userId);
 
 }

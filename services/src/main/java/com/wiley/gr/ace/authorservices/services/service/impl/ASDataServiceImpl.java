@@ -86,7 +86,6 @@ public class ASDataServiceImpl implements ASDataService {
     /** The Roles Service. */
     @Autowired(required = true)
     private RolesService rolesService;
-    
 
     /** The area of interest dao . */
     @Autowired(required = true)
@@ -211,7 +210,8 @@ public class ASDataServiceImpl implements ASDataService {
         LOGGER.info("inside getCountries method ");
         ESBResponse countrieslist = userProfiles.getCountries();
         List<Country> countrylist = new ArrayList<Country>();
-        List<Object> externalCountrylist = countrieslist.getResponse().getDocs();
+        List<Object> externalCountrylist = countrieslist.getResponse()
+                .getDocs();
         if (null == externalCountrylist) {
             return countrylist;
         }
@@ -273,20 +273,21 @@ public class ASDataServiceImpl implements ASDataService {
 
         LOGGER.info("inside getInstitutions method ");
 
-/*        DropDown dropDown = userProfiles.getInstitutionsList();
-        List<Institution> listofinstitute = dropDown.getInstitutions();
+        /*
+         * DropDown dropDown = userProfiles.getInstitutionsList();
+         * List<Institution> listofinstitute = dropDown.getInstitutions();
+         * List<Institution> institutionslist = new ArrayList<Institution>();
+         * 
+         * for (Institution institute : listofinstitute) {
+         * 
+         * Institution institution = new Institution();
+         * institution.setInstitutionId(institute.getInstitutionId());
+         * institution.setInstitutionName(institute.getInstitutionName());
+         * institutionslist.add(institution);
+         * 
+         * }
+         */
         List<Institution> institutionslist = new ArrayList<Institution>();
-
-        for (Institution institute : listofinstitute) {
-
-            Institution institution = new Institution();
-            institution.setInstitutionId(institute.getInstitutionId());
-            institution.setInstitutionName(institute.getInstitutionName());
-            institutionslist.add(institution);
-
-        }*/
-        List<Institution> institutionslist = new ArrayList<Institution>();
-
 
         return institutionslist;
     }
@@ -301,18 +302,20 @@ public class ASDataServiceImpl implements ASDataService {
 
         LOGGER.info("inside getDepartments method ");
 
-        /*DropDown dropDown = userProfiles.getDepartmentsList();
-        List<Department> listofdepartment = dropDown.getDepartments();
-        List<Department> departmentlist = new ArrayList<Department>();
-        for (Department department : listofdepartment) {
+        /*
+         * DropDown dropDown = userProfiles.getDepartmentsList();
+         * List<Department> listofdepartment = dropDown.getDepartments();
+         * List<Department> departmentlist = new ArrayList<Department>(); for
+         * (Department department : listofdepartment) {
+         * 
+         * Department departments = new Department();
+         * departments.setDepartmentId(department.getDepartmentId());
+         * departments.setDepartmentName(department.getDepartmentName());
+         * departmentlist.add(department);
+         * 
+         * }
+         */
 
-            Department departments = new Department();
-            departments.setDepartmentId(department.getDepartmentId());
-            departments.setDepartmentName(department.getDepartmentName());
-            departmentlist.add(department);
-
-        }*/
-        
         List<Department> departmentlist = new ArrayList<Department>();
 
         return departmentlist;
@@ -351,10 +354,10 @@ public class ASDataServiceImpl implements ASDataService {
      */
     @Override
     public final List<Society> getSocieties() {
-        List<Societies> SocietyListDao = societyDao.getSociety();
+        List<Societies> societyListDao = societyDao.getSociety();
         List<Society> societyList = new ArrayList<Society>();
 
-        for (Societies societies : SocietyListDao) {
+        for (Societies societies : societyListDao) {
             Society society = new Society();
             society.setSocietyName(societies.getSocietyName());
             society.setSocietyId(societies.getSocietyCd());
@@ -364,21 +367,19 @@ public class ASDataServiceImpl implements ASDataService {
 
     }
 
-    /**
-     * This will call external service to get AreasOfInterests data.
+     /** This will call external service to get AreasOfInterests data.
      *
-     * @param count
-     *            the count
      * @return the areas of interests
      */
     @Override
     public final List<Interests> getAreasOfInterests() {
         LOGGER.info("inside getAreasOfInterests method ");
-        
-        List<AreaOfInterest> areaOfInterestDao=areaOfInterest.getAreaOfInterest();
-           List<Interests> interestList=new ArrayList<Interests>();
+
+        List<AreaOfInterest> areaOfInterestDao = areaOfInterest
+                .getAreaOfInterest();
+        List<Interests> interestList = new ArrayList<Interests>();
         for (AreaOfInterest areaOfInterest : areaOfInterestDao) {
-            Interests interests=new Interests();
+            Interests interests = new Interests();
             interests.setAoeId(areaOfInterest.getAreaOfInterestCd());
             interests.setAoeName(areaOfInterest.getInterestName());
             interestList.add(interests);
@@ -430,17 +431,18 @@ public class ASDataServiceImpl implements ASDataService {
 
         for (RolesData roleData : rolesList) {
 
-            //if (roleData.getRoleType()  !=  null && roleData.getRoleType().equalsIgnoreCase(
-              //      roleType)) {
+            // if (roleData.getRoleType() != null &&
+            // roleData.getRoleType().equalsIgnoreCase(
+            // roleType)) {
 
-                Role adminRole = new Role();
-                adminRole.setRoleId(roleData.getRoleId());
-                adminRole.setRoleName(roleData.getRoleName());
-                adminRole.setRoleDescription(roleData.getRoleDescription());
-                adminRole.setNoOfPermissions(roleData.getPermissions().size()+"");
-                adminRole.setNoOfUsers(roleData.getUsers().size()+"");
-                adminRoles.add(adminRole);
-            //}
+            Role adminRole = new Role();
+            adminRole.setRoleId(roleData.getRoleId());
+            adminRole.setRoleName(roleData.getRoleName());
+            adminRole.setRoleDescription(roleData.getRoleDescription());
+            adminRole.setNoOfPermissions(roleData.getPermissions().size() + "");
+            adminRole.setNoOfUsers(roleData.getUsers().size() + "");
+            adminRoles.add(adminRole);
+            // }
 
         }
 

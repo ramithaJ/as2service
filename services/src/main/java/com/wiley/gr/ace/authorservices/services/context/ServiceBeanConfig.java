@@ -148,9 +148,9 @@ public class ServiceBeanConfig {
     }
 
     /**
-     * Notification bean
-     * 
-     * @return
+     * Notification bean.
+     *
+     * @return notification.
      */
     @Bean(name = "SendNotification")
     public SendNotification sendNotification() {
@@ -158,9 +158,9 @@ public class ServiceBeanConfig {
     }
 
     /**
-     * TaskService bean
-     * 
-     * @return
+     * TaskService bean.
+     *
+     * @return task service
      */
     @Bean(name = "TaskService")
     public TaskService taskService() {

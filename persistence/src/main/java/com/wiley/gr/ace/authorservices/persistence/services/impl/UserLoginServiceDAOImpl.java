@@ -128,10 +128,16 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
         }
     }
 
-    /** This method will inserts a record in db */
+    /**
+     * This method will inserts a record in db.
+     *
+     * @param inviteResetpwdLog
+     *            the invite resetpwd log
+     * @return the string
+     */
     @SuppressWarnings("unchecked")
     @Override
-    public String insertGuid(final InviteResetpwdLog inviteResetpwdLog) {
+    public final String insertGuid(final InviteResetpwdLog inviteResetpwdLog) {
 
         Session session = null;
         Integer maxValue = null;

@@ -40,22 +40,31 @@ public class SendNotificationImpl implements SendNotification {
     @Autowired(required = true)
     private SendNotificationDao sendNotificationDao;
 
+    /** The notification email. */
     @Value("${notification.email}")
     private String notificationEmail;
+
+    /** The app id. */
     @Value("${appId}")
     private String appId;
 
+    /** The type. */
     @Value("${type}")
     private String type;
 
     /**
-     * calling notification service for sending email
-     * 
+     * calling notification service for sending email.
+     *
      * @param appId
+     *            the app id
      * @param templateId
+     *            the template id
      * @param type
+     *            the type
+     * @param sendNotificationRequest
+     *            the send notification request
      * @return noification response.
-     * */
+     */
 
     @Override
     public final String sendEmail(final String appId, final String templateId,
@@ -73,13 +82,14 @@ public class SendNotificationImpl implements SendNotification {
     }
 
     /**
-     * calling notification service for sending email
-     * 
+     * calling notification service for sending email.
+     *
      * @param emailId
+     *            the email id
      * @param templateId
+     *            the template id
      * @return noification response.
-     * 
-     * */
+     */
     @Override
     public final NotificationResponse notifyByEmail(final String emailId,
             final String templateId) {

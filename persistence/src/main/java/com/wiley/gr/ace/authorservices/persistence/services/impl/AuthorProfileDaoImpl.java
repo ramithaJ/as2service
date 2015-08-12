@@ -23,35 +23,39 @@ import com.wiley.gr.ace.authorservices.persistence.services.AuthorProfileDao;
 
 /**
  * The Class AuthorProfileDaoImpl.
+ * 
  * @author virtusa version 1.0
  */
-public class AuthorProfileDaoImpl  implements AuthorProfileDao{
+public class AuthorProfileDaoImpl implements AuthorProfileDao {
 
-   /** This method will call db and update image in db
-    * 
-    * @param image
-    * */
+    /**
+     * This method will call db and update image in db.
+     *
+     * @param image
+     *            the image
+     * @param userId
+     *            the user id
+     */
     @Override
-    public void saveProfilePicture(byte[] image ,String userId) {
-        
+    public final void saveProfilePicture(final byte[] image, final String userId) {
+
         Session session = null;
         try {
 
             session = getSessionFactory().openSession();
             session.beginTransaction();
-            UserProfile userProfile=(UserProfile) session.get(UserProfile.class, Integer.parseInt(userId));
+            UserProfile userProfile = (UserProfile) session.get(
+                    UserProfile.class, Integer.parseInt(userId));
             System.err.println(userProfile.getMiddleName());
             Blob blob = new javax.sql.rowset.serial.SerialBlob(image);
             userProfile.setProfilePic(blob);
             session.save(userProfile);
             session.getTransaction().commit();
-            
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
-        
-    }
 
+}

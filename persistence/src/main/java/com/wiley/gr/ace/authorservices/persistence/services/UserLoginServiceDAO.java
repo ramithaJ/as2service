@@ -49,10 +49,11 @@ public interface UserLoginServiceDAO {
     void verifyEmailUpdate(String emailId);
 
     /**
-     * Insert guid
-     * 
+     * Insert guid.
+     *
      * @param inviteResetpwdLog
-     * @return
+     *            the invite resetpwd log
+     * @return the string
      */
     String insertGuid(InviteResetpwdLog inviteResetpwdLog);
 

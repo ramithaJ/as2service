@@ -28,7 +28,11 @@ import com.wiley.gr.ace.authorservices.persistence.services.AreaOfInterterestDao
  */
 public class AreaOfInterterestDaoImpl implements AreaOfInterterestDao {
 
-    /** this method calls db to get interest details */
+    /**
+     * this method calls db to get interest details.
+     *
+     * @return the area of interest
+     */
     @SuppressWarnings("unchecked")
     @Override
     public final List<AreaOfInterest> getAreaOfInterest() {

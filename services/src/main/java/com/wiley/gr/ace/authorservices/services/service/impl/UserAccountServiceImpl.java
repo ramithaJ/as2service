@@ -45,6 +45,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     @Autowired
     private UserProfiles userProfile;
 
+    /** The as data dao. */
     @Autowired(required = true)
     private ASDataDAO asDataDao;
 
@@ -146,6 +147,13 @@ public class UserAccountServiceImpl implements UserAccountService {
         return addressesList;
     }
 
+    /**
+     * Sets the address values.
+     *
+     * @param addressElement
+     *            the address element
+     * @return the address
+     */
     private Address setAddressValues(final AddressElement addressElement) {
 
         Address address = null;

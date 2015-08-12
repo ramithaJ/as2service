@@ -83,9 +83,11 @@ public class UserLoginServiceImpl implements UserLoginService {
     @Value("${accountVerifiedMessage}")
     private String accountVerifiedMessage;
 
+    /** The template id. */
     @Value("${templateId.password.reset}")
     private String templateId;
 
+    /** The template id password success. */
     @Value("${templateId.password.reset.successfully}")
     private String templateIdPasswordSuccess;
 
@@ -103,9 +105,7 @@ public class UserLoginServiceImpl implements UserLoginService {
     @Autowired(required = true)
     private UserManagement userManagement;
 
-    /**
-     * This field holds the value of sendNotification
-     */
+    /** This field holds the value of sendNotification. */
     @Autowired(required = true)
     private SendNotification sendNotification;
 
@@ -238,8 +238,8 @@ public class UserLoginServiceImpl implements UserLoginService {
     /**
      * Validate security questions.
      *
-     * @param securityDetails
-     *            the security details
+     * @param securityDetailsHolder
+     *            the security details holder
      * @return true, if successful
      */
     @Override
@@ -338,7 +338,17 @@ public class UserLoginServiceImpl implements UserLoginService {
 
     }
 
-    /** This method will call user login dao to create a record in db */
+    /**
+     * This method will call user login dao to create a record in db.
+     *
+     * @param firstName
+     *            the first name
+     * @param lastName
+     *            the last name
+     * @param emailAddress
+     *            the email address
+     * @return the string
+     */
     @Override
     public final String insertGuid(final String firstName,
             final String lastName, final String emailAddress) {
