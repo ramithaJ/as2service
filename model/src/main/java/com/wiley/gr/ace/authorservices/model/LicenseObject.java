@@ -27,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  */
 @JsonInclude(Include.NON_NULL)
 public class LicenseObject {
-    
+
     private String licenceId;
     private String journalId;
 
@@ -38,6 +38,8 @@ public class LicenseObject {
     /** The copyright ownership. */
     private CopyrightOwnership copyrightOwnership;
     private CopyrightOwnership ownerShipDetails;
+
+    private FunderDetails funderDetail;
 
     /** The online open. */
     private String onlineOpen;
@@ -217,7 +219,16 @@ public class LicenseObject {
         this.recipents = recipents;
     }
 
-    public final void setOwnerShipDetails(final CopyrightOwnership ownerShipDetails) {
+    public final void setOwnerShipDetails(
+            final CopyrightOwnership ownerShipDetails) {
         this.ownerShipDetails = ownerShipDetails;
+    }
+
+    public final FunderDetails getFunderDetail() {
+        return funderDetail;
+    }
+
+    public final void setFunderDetail(final FunderDetails funderDetail) {
+        this.funderDetail = funderDetail;
     }
 }
