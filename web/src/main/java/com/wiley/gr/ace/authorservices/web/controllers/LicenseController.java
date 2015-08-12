@@ -110,4 +110,15 @@ public class LicenseController {
         return service;
 	    
 	}
+	
+	/**
+	 * @return
+	 */
+	@RequestMapping(value="/licencePrinting/" ,method=RequestMethod.GET ,produces=MediaType.TEXT_PLAIN_VALUE)
+	public  String licencePrinting(){
+	   
+        return licenseService.licencePrinting();
+	    
+	    
+	}
 }

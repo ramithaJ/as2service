@@ -93,5 +93,7 @@ public interface LicenseService {
     LicenseStatus getLicenseStatus(String dhId, String userId);
     
     LicenseObject initiateLicence(String articleId);
+    
+    String licencePrinting();
 
 }
