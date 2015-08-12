@@ -143,12 +143,9 @@ public class UserProfilesImpl implements UserProfiles {
     @Override
     public final ESBResponse getInstitutionsList() {
 
-        ESBResponse institution = null;
-
-        institution = (ESBResponse) RestServiceInvokerUtil.pickListInvoker(
+        return (ESBResponse) RestServiceInvokerUtil.pickListInvoker(
                 institutionsurl, ESBResponse.class);
 
-        return institution;
     }
 
     /**

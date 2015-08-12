@@ -28,21 +28,23 @@ import com.wiley.gr.ace.authorservices.persistence.services.AlertsDao;
  */
 public class AlertsDaoImpl implements AlertsDao {
 
-    /** 
-     * calling dao to get details from alerts table
+    /**
+     * calling dao to get details from alerts table.
+     * 
+     * @return list of alerts.
      * 
      * */
     @SuppressWarnings("unchecked")
     @Override
-    public List<Alerts> getAlerts() {
+    public final List<Alerts> getAlerts() {
         Session session = null;
         Criteria criteria = null;
-        List<Alerts>  alertsList=new ArrayList<Alerts>();
+        List<Alerts> alertsList = new ArrayList<Alerts>();
         try {
             session = getSessionFactory().openSession();
             session.beginTransaction();
             criteria = session.createCriteria(Alerts.class);
-            alertsList =criteria.list();
+            alertsList = criteria.list();
         } finally {
             if (null != session) {
                 session.flush();
@@ -53,8 +55,5 @@ public class AlertsDaoImpl implements AlertsDao {
 
         return alertsList;
     }
-public static void main(final String[] args) {
-    AlertsDaoImpl alertsDaoImpl=new AlertsDaoImpl();
-    System.err.println(alertsDaoImpl.getAlerts().get(7).getAlertName());
-}
+
 }
