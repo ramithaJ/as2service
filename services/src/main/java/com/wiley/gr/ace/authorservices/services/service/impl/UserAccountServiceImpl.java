@@ -27,6 +27,7 @@ import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.AddressElement;
 import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
+import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
 
 /**
@@ -43,6 +44,9 @@ public class UserAccountServiceImpl implements UserAccountService {
     /** getting bean of userProfile. */
     @Autowired
     private UserProfiles userProfile;
+
+    @Autowired(required = true)
+    private ASDataDAO asDataDao;
 
     /**
      * this method is for getting email Details by userId.
@@ -85,10 +89,12 @@ public class UserAccountServiceImpl implements UserAccountService {
                 .getCustomerDetails();
         User user = new User();
         user.setTitle(customerDetails.getTitle());
+        user.setTitleName(asDataDao.getData(customerDetails.getTitle()));
         user.setFirstName(customerDetails.getfName());
         user.setLastName(customerDetails.getlName());
         user.setMiddleName(customerDetails.getmName());
         user.setSuffix(customerDetails.getUserSuffix());
+        user.setSuffixName(asDataDao.getData(customerDetails.getUserSuffix()));
         user.setAlternateName(customerDetails.getAlternativeName());
         user.setPrimaryEmailAddr(customerDetails.getPrimaryEmail());
         user.setRecoveryEmailAddress(customerDetails.getSecondaryEmail());

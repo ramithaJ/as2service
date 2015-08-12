@@ -78,4 +78,11 @@ public interface ASDataDAO {
      */
     int getCount(int roleId);
 
+    /**
+     * @param id
+     *            to Retrieve.
+     * @return string
+     */
+    String getData(String id);
+
 }

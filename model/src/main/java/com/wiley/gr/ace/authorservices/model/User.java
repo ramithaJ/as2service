@@ -109,6 +109,46 @@ public class User implements Serializable {
     /** The instituition. */
     private String instituition;
 
+    /**
+     * This field holds the value of titleName
+     */
+    private String titleName;
+
+    /**
+     * This field holds the value of suffixName
+     */
+    private String suffixName;
+
+    /**
+     * @return the titleName
+     */
+    public final String getTitleName() {
+        return titleName;
+    }
+
+    /**
+     * @param titleName
+     *            the titleName to set
+     */
+    public final void setTitleName(final String titleName) {
+        this.titleName = titleName;
+    }
+
+    /**
+     * @return the suffixName
+     */
+    public final String getSuffixName() {
+        return suffixName;
+    }
+
+    /**
+     * @param suffixName
+     *            the suffixName to set
+     */
+    public final void setSuffixName(final String suffixName) {
+        this.suffixName = suffixName;
+    }
+
     public final String getInstituition() {
         return instituition;
     }
