@@ -94,8 +94,6 @@ public class UserProfileController {
     }
 
     /**
-     * Update affiliation.
-     *
      * @param userId
      *            - The request value
      * @param affiliation
@@ -115,11 +113,7 @@ public class UserProfileController {
     }
 
     /**
-     * Delete affiliation.
-     *
      * @param userId
-     *            - The request value
-     * @param affiliation
      *            - The request value
      * @return service
      */
@@ -150,8 +144,6 @@ public class UserProfileController {
     }
 
     /**
-     * Update research funder.
-     *
      * @param userId
      *            - The request value
      * @param researchFunder
@@ -189,8 +181,6 @@ public class UserProfileController {
     }
 
     /**
-     * Update society details.
-     *
      * @param userId
      *            - The request value
      * @param society
@@ -202,7 +192,6 @@ public class UserProfileController {
             @PathVariable("userId") final int userId,
             @Valid @RequestBody final Society society) {
 
-        System.err.println(society.getPromoCode());
         Service service = new Service();
 
         UserProfileController.LOGGER
@@ -213,11 +202,9 @@ public class UserProfileController {
     }
 
     /**
-     * delete society details.
-     *
      * @param userId
      *            - The request value
-     * @param society
+     * @param societyId
      *            - The request value
      * @return service
      */
@@ -250,8 +237,6 @@ public class UserProfileController {
     }
 
     /**
-     * Search interests.
-     *
      * @param userId
      *            - The request value
      * @param searchString
@@ -272,7 +257,7 @@ public class UserProfileController {
      *
      * @param userId
      *            - The request value
-     * @param searchString
+     * @param interestId
      *            - The request value
      * @return service
      */
@@ -305,8 +290,6 @@ public class UserProfileController {
     }
 
     /**
-     * Update co authors.
-     *
      * @param userId
      *            - The request value
      * @param coAuthor
@@ -365,6 +348,8 @@ public class UserProfileController {
      *
      * @param userId
      *            - The request value
+     * @param journalId
+     *            - The request value
      * @return service
      */
     @RequestMapping(value = "/preferredJournals/{userId}/{journalId}/", method = RequestMethod.DELETE)
@@ -413,11 +398,9 @@ public class UserProfileController {
     }
 
     /**
-     * Update alerts.
-     *
      * @param userId
      *            - The request value
-     * @param userProfileAlerts
+     * @param listOfalert
      *            - The request value
      * @return service
      */
@@ -426,9 +409,10 @@ public class UserProfileController {
             @PathVariable("userId") final String userId,
             @RequestBody final List<Alert> listOfalert) {
         UserProfileController.LOGGER.info("inside updateAlerts method ");
-        Service service=new Service();
-        service.setPayload(authorProfileService.updateAlerts(userId, listOfalert));
-        return service ;
+        Service service = new Service();
+        service.setPayload(authorProfileService.updateAlerts(userId,
+                listOfalert));
+        return service;
     }
 
     /**
@@ -479,16 +463,14 @@ public class UserProfileController {
     }
 
     /**
-     * This method is for uploading image.
-     *
      * @param profilePicture
-     *            the profile picture
-     * @return the service
+     *            - The request value
+     * @return - service
      * @throws IOException
-     *             Signals that an I/O exception has occurred.
+     *             - exception
      */
     @RequestMapping(value = "/uploadimage/", method = RequestMethod.POST)
-    public Service profilePicture(
+    public final Service profilePicture(
             @RequestBody final ProfilePicture profilePicture)
             throws IOException {
         Service service = new Service();
@@ -496,9 +478,10 @@ public class UserProfileController {
                 .getImage());
         File file = new File(imageString);
         if (file.exists()) {
+            final int value = 1024;
             double bytes = file.length();
-            double kilobytes = bytes / 1024;
-            double megabytes = kilobytes / 1024;
+            double kilobytes = bytes / value;
+            double megabytes = kilobytes / value;
             if (megabytes > 1) {
                 throw new ASException(imageSizeCode, imageSizeMessage);
             } else if (megabytes < 1) {
@@ -513,7 +496,8 @@ public class UserProfileController {
 
     /**
      * @param userId
-     * @return
+     *            - The request value
+     * @return service
      */
     @RequestMapping(value = "/lookUpProfileCustomer/{userId}", method = RequestMethod.GET)
     public final Service lookUpProfile(

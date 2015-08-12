@@ -68,32 +68,44 @@ public class AdminLoginController extends ASExceptionController {
     /** getting bean of SendNotification service. */
     @Autowired(required = true)
     private SendNotification sendNotification;
-    
+
+    /**
+     * This field holds the value of lookUpValuesDAO.
+     */
     @Autowired(required = true)
     private LookUpValuesDAO lookUpValuesDAO;
-    
+
+    /**
+     * This field holds the value of taskService.
+     */
     @Autowired(required = true)
     private TaskService taskService;
-    
+
+    /**
+     * This field holds the value of templateId.
+     */
     @Value("${templateId.password.reset}")
     private String templateId;
-    
+
+    /**
+     * This field holds the value of requestAccesslookupKey.
+     */
     @Value("${requestAccess.lookupKey}")
     private String requestAccesslookupKey;
 
     /**
-     * @param request
+     * @param login
      *            the request
      * @return service
      */
     @RequestMapping(value = "/login/", method = RequestMethod.POST)
-    public final Service login(final @RequestBody Login login) {
+    public final Service login(@RequestBody final Login login) {
         LOGGER.info("Inside Login Method");
         Service service = new Service();
-        if (adminLoginService.validateEmail(login.getEmailId())) {
+        final String emailId = login.getEmailId();
+        if (adminLoginService.validateEmail(emailId)) {
 
-            Users users = adminLoginService.getASUser(login.getEmailId());
-            LOGGER.debug(users.getUserId() + "Geeting User id from dologin");
+            Users users = adminLoginService.getASUser(emailId);
             UserLogin userLogin = new UserLogin();
             userLogin.setUserId(users.getUserId());
             userLogin.setFirstName(users.getFirstName());
@@ -106,6 +118,8 @@ public class AdminLoginController extends ASExceptionController {
     }
 
     /**
+     * @param userId
+     *            - the request value
      * @param emailId
      *            - the request value
      * @param accessId
@@ -114,37 +128,37 @@ public class AdminLoginController extends ASExceptionController {
      */
     @RequestMapping(value = "/requestAccess/{userId}/{emailId}/{accessId}/", method = RequestMethod.POST)
     public final Service requestAccess(
-    		@PathVariable("accessId") final String userId,
+            @PathVariable("accessId") final String userId,
             @PathVariable("emailId") final String emailId,
             @PathVariable("accessId") final String accessId) {
         LOGGER.info("inside requestAccess Method");
-        
-        List<LookupValues> lookupValues = lookUpValuesDAO.getLookUpData(requestAccesslookupKey);
+
+        List<LookupValues> lookupValues = lookUpValuesDAO
+                .getLookUpData(requestAccesslookupKey);
         String justificationValue = null;
-        
-        if(lookupValues != null && !lookupValues.isEmpty()){
-        	for (LookupValues lookupValue : lookupValues) {
-        		
-        		if(accessId.equals(lookupValue.getLookupName())){
-        			justificationValue = lookupValue.getLookupName();
-        			break;
-        		}
-        	}
-        	
+
+        if (lookupValues != null && !lookupValues.isEmpty()) {
+            for (LookupValues lookupValue : lookupValues) {
+                final String lookUpName = lookupValue.getLookupName();
+                if (accessId.equals(lookUpName)) {
+                    justificationValue = lookUpName;
+                    break;
+                }
+            }
+
         }
-        
+
         TaskServiceRequest taskServiceRequest = new TaskServiceRequest();
-		
-		List<String> justifications = new ArrayList<String>();
-		final String requestorId = emailId.substring(0, emailId.indexOf('@'));		
-		justifications.add(justificationValue);
-		taskServiceRequest.setJustifications(justifications);
-		taskServiceRequest.setRequestorEmail(emailId);
-		taskServiceRequest.setRequestorId(requestorId);
-		taskService.invokeTaskService(taskServiceRequest, userId);
-        
-        
-        sendNotification.notifyByEmail(emailId,templateId);
+
+        List<String> justifications = new ArrayList<String>();
+        final String requestorId = emailId.substring(0, emailId.indexOf('@'));
+        justifications.add(justificationValue);
+        taskServiceRequest.setJustifications(justifications);
+        taskServiceRequest.setRequestorEmail(emailId);
+        taskServiceRequest.setRequestorId(requestorId);
+        taskService.invokeTaskService(taskServiceRequest, userId);
+
+        sendNotification.notifyByEmail(emailId, templateId);
         return new Service();
 
     }

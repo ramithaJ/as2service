@@ -184,6 +184,11 @@ public class UserAccountController {
 
     }
 
+    /**
+     * @param userId
+     *            - input
+     * @return service
+     */
     @RequestMapping(value = "/orcid/remove/{userId}", method = RequestMethod.DELETE)
     public final Service removeOrcidId(
             @PathVariable("userId") final String userId) {

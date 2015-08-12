@@ -215,8 +215,6 @@ public class ASDataController {
     /**
      * Method to areaOfInterests.
      * 
-     * @param count
-     *            - The request value
      * @return service
      */
     @RequestMapping(value = "/areasOfInterests/", method = RequestMethod.GET)

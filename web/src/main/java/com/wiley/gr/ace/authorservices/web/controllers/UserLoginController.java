@@ -105,6 +105,9 @@ public class UserLoginController extends ASExceptionController {
     @Value("${AuthenticationType}")
     private String authenticationType;
 
+    /**
+     * This field holds the value of templateId.
+     */
     @Value("${templateId.password.reset}")
     private String templateId;
 
@@ -261,6 +264,15 @@ public class UserLoginController extends ASExceptionController {
         return new Service();
     }
 
+    /**
+     * @param firstName
+     *            - The request value
+     * @param lastName
+     *            - The request value
+     * @param emailAddress
+     *            - The request value
+     * @return service
+     */
     @RequestMapping(value = "create/{fn}/{ln}/{email}/", method = RequestMethod.GET)
     public final Service createGuid(@PathVariable("fn") final String firstName,
             @PathVariable("ln") final String lastName,
