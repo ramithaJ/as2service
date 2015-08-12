@@ -83,20 +83,28 @@ public interface OrderOnlineDAO {
      */
     void savePaymentDetails(PaymentDetails paymentDetails);
 
-	/**
-	 * @param orderId
-	 */
-	void deleteSavedOrderPostOrderSubmission(Integer orderId);
+    /**
+     * @param orderId
+     */
+    void deleteSavedOrderPostOrderSubmission(Integer orderId);
 
-	/**
-	 * This method submits the saved order
-	 * @param orders
-	 */
-	void saveOrder(Orders orders);
+    /**
+     * This method submits the saved order
+     * 
+     * @param orders
+     */
+    void saveOrder(Orders orders);
 
-	/**
-	 * @param orderId
-	 * @return
-	 */
-	String retrieveOrderType(Integer orderId);
+    /**
+     * @param orderId
+     * @return
+     */
+    String retrieveOrderType(Integer orderId);
+
+    /**
+     * @param articleId
+     * @param userId
+     * @return
+     */
+    SavedOrders verifySavedOrders(String articleId, String userId);
 }
