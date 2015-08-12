@@ -36,7 +36,14 @@ public class NotificationServiceImpl implements NotificationService {
     @Value("${notificationHistory.url}")
     private String notificationHistoryUrl;
 
-    /** Calling Notification of shared services... */
+    /**
+     * Calling Notification of shared services...
+     * 
+     * @param appId
+     * @param type
+     * @param templateId
+     * @return NotificationHistory response
+     */
     @Override
     public final NotificationResponse sendNotification(final String appId,
             final String type, final String templateId,
@@ -44,9 +51,9 @@ public class NotificationServiceImpl implements NotificationService {
 
         String notificationFinalUrl = notificationurl + appId + "/send?tmpl="
                 + templateId + "&type=" + type;
-        return (NotificationResponse) RestServiceInvokerUtil.restServiceInvoker(
-                notificationFinalUrl, notificationRequest,
-                NotificationResponse.class);
+        return (NotificationResponse) RestServiceInvokerUtil
+                .restServiceInvoker(notificationFinalUrl, notificationRequest,
+                        NotificationResponse.class);
     }
 
     /**
@@ -55,8 +62,7 @@ public class NotificationServiceImpl implements NotificationService {
      * @param userId
      *            the user id
      * @return the notification history
-     * @throws Exception
-     *             the exception
+     * 
      */
     @Override
     public final NotificationHistory getNotificationHistory(final String userId)

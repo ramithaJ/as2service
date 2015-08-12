@@ -81,6 +81,7 @@ public class UserProfilesImpl implements UserProfiles {
     @Value("${states.url}")
     private String statesurl;
 
+    /** The states url append. */
     @Value("${statesurl.append}")
     private String statesUrlAppend;
 
@@ -108,8 +109,9 @@ public class UserProfilesImpl implements UserProfiles {
     /**
      * This method is used for getting department list.
      *
+     * @param institutionId
+     *            the institution id
      * @return DropDown
-     *
      */
     @Override
     public final ESBResponse getDepartmentsList(final String institutionId) {
@@ -178,8 +180,9 @@ public class UserProfilesImpl implements UserProfiles {
     /**
      * This method is used for getting states.
      *
+     * @param countrycode
+     *            the countrycode
      * @return ESBResponse
-     *
      */
     @Override
     public final ESBResponse getStates(final String countrycode) {
@@ -249,7 +252,8 @@ public class UserProfilesImpl implements UserProfiles {
      * @return the lookup customer profile
      */
     @Override
-    public LookupCustomerProfile getLookupCustomerProfile(final String userId) {
+    public final LookupCustomerProfile getLookupCustomerProfile(
+            final String userId) {
         return (LookupCustomerProfile) RestServiceInvokerUtil.invokeStub(
                 lookupCustomerProfileResponse + userId + "&ECID=",
                 HttpMethod.GET, LookupCustomerProfile.class);
@@ -265,7 +269,7 @@ public class UserProfilesImpl implements UserProfiles {
      *             the exception
      */
     @Override
-    public LookupCustomerProfileResponse updateLookupCustomerProfile(
+    public final LookupCustomerProfileResponse updateLookupCustomerProfile(
             final LookupCustomerProfileResponse lookupCustomerProfileResponse)
             throws Exception {
         final Service service = (Service) RestServiceInvokerUtil.invokeStub(
@@ -278,15 +282,15 @@ public class UserProfilesImpl implements UserProfiles {
         }
     }
 
-    /** Calling external service to Update look up profile 
-     * 
+    /**
+     * Calling external service to Update look up profile.
+     *
      * @param lookupCustomerProfileResponse
-     * 
+     *            the lookup customer profile response
      * @return boolean
-     * 
-     * */
+     */
     @Override
-    public boolean customerProfileUpdate(
+    public final boolean customerProfileUpdate(
             final LookupCustomerProfileResponse lookupCustomerProfileResponse) {
 
         final ResponseStatus responseStatus = (ResponseStatus) RestServiceInvokerUtil
@@ -303,7 +307,6 @@ public class UserProfilesImpl implements UserProfiles {
         }
         return status;
 
-      
     }
 
 }

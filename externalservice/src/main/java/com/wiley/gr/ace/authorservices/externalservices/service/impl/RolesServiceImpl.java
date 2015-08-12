@@ -39,7 +39,11 @@ public class RolesServiceImpl implements RolesService {
     @Value("${permissions.url}")
     private String permissionsUrl;
 
-    /** call Roles service of shared services */
+    /**
+     * call Roles service of shared services
+     * 
+     * @return roles data list
+     */
     @Override
     public final List<RolesData> getRoles() {
 
@@ -49,7 +53,11 @@ public class RolesServiceImpl implements RolesService {
         return Arrays.asList(rolesArray);
     }
 
-    /** call Roles service of shared services for getting permissions */
+    /**
+     * call Roles service of shared services for getting permissions
+     * 
+     * @return permissions data list
+     */
     @Override
     public final List<PermissionData> getPermissions() {
 

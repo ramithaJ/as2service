@@ -84,6 +84,7 @@ public class UserManagementImpl implements UserManagement {
     @Value("${STATUS}")
     private String success;
 
+    /** The failure. */
     @Value("${FAILURE}")
     private String failure;
 
@@ -105,8 +106,8 @@ public class UserManagementImpl implements UserManagement {
     /**
      * This method is for resetting the password.
      *
-     * @param securityDetailsHolder
-     *            the security details holder
+     * @param passwordResetRequest
+     *            the password reset request
      * @return true, if successful
      */
     @Override
@@ -132,10 +133,8 @@ public class UserManagementImpl implements UserManagement {
     /**
      * This method is for updateUserId.
      *
-     * @param oldEmailId
-     *            the old email id
-     * @param newEmailId
-     *            the new email id
+     * @param userEmailDetails
+     *            the user email details
      * @return true, if successful
      */
     @Override
@@ -148,10 +147,8 @@ public class UserManagementImpl implements UserManagement {
     /**
      * This method is for forceFulReset based on emailId.
      *
-     * @param emailId
-     *            the email id
-     * @param newPassword
-     *            the new password
+     * @param forcefulReset
+     *            the forceful reset
      * @return true, if successful
      */
     @Override
@@ -175,8 +172,8 @@ public class UserManagementImpl implements UserManagement {
     /**
      * This method is for updatePassword based on emailId.
      *
-     * @param passwordDetails
-     *            the password details
+     * @param passwordRequest
+     *            the password request
      * @return true, if successful
      */
     @Override
@@ -189,8 +186,8 @@ public class UserManagementImpl implements UserManagement {
     /**
      * This method is for updateSecurityDetails based on emailId.
      *
-     * @param securityDetails
-     *            the security details
+     * @param securityQuestionsUpdateRequest
+     *            the security questions update request
      * @return true, if successful
      */
     @Override
@@ -226,7 +223,8 @@ public class UserManagementImpl implements UserManagement {
      * @return the security questions list
      */
     @Override
-    public RetrieveSecurityQuestions userSecurityQuestions(final String emailId) {
+    public final RetrieveSecurityQuestions userSecurityQuestions(
+            final String emailId) {
         RetrieveSecurityQuestions retrieveSecurityQuestions = (RetrieveSecurityQuestions) RestServiceInvokerUtil
                 .getServiceData(retrieveSecurityQuestionsurl + emailId,
                         RetrieveSecurityQuestions.class);
@@ -238,8 +236,13 @@ public class UserManagementImpl implements UserManagement {
                 errorPayLoad.getErrorMessage());
     }
 
+    /**
+     * For retriving security questions.
+     * 
+     * @return retrived security questions.
+     */
     @Override
-    public RetrieveSecurityQuestions lookupSecutityQuestions() {
+    public final RetrieveSecurityQuestions lookupSecutityQuestions() {
 
         RetrieveSecurityQuestions retrieveSecurityQuestions = (RetrieveSecurityQuestions) RestServiceInvokerUtil
                 .getServiceData(lookupSecurityQuestionsurl,
@@ -252,15 +255,32 @@ public class UserManagementImpl implements UserManagement {
                 errorPayLoad.getErrorMessage());
     }
 
+    /**
+     * For validating security questions.
+     *
+     * @param securityQuestionsValidateRequest
+     *            the security questions validate request
+     * @return true, if successful
+     */
     @Override
-    public boolean validateSecurityQuestions(
+    public final boolean validateSecurityQuestions(
             final SecurityQuestionsValidateRequest securityQuestionsValidateRequest) {
 
         return this.externalPostServiceInvoker(validateSecurityQuestionsurl,
                 securityQuestionsValidateRequest);
     }
 
-    private boolean externalPostServiceInvoker(final String url,
+    /**
+     * For External service invoker.
+     *
+     * @param url
+     *            the url
+     * @param requestEntityClass
+     *            the request entity class
+     * @return true, if successful
+     */
+
+    private final boolean externalPostServiceInvoker(final String url,
             final Object requestEntityClass) {
 
         final ResponseStatus responseStatus = (ResponseStatus) RestServiceInvokerUtil
