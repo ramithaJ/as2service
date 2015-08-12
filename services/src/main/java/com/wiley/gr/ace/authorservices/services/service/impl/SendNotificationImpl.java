@@ -56,16 +56,15 @@ public class SendNotificationImpl implements SendNotification {
      * calling notification service for sending email.
      *
      * @param appId
-     *            the app id
+     *            - the app id
      * @param templateId
-     *            the template id
+     *            - the template id
      * @param type
-     *            the type
+     *            - the type
      * @param sendNotificationRequest
-     *            the send notification request
-     * @return noification response.
+     *            - the send notification request
+     * @return notification response.
      */
-
     @Override
     public final String sendEmail(final String appId, final String templateId,
             final String type,

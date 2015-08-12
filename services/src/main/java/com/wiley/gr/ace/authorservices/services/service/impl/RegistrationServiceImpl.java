@@ -72,9 +72,9 @@ public class RegistrationServiceImpl implements RegistrationService {
 
                 if ("ALM".equalsIgnoreCase(user.getFoundIn())) {
                     ALMAuthRequest almAuthRequest = new ALMAuthRequest();
-                    almAuthRequest.setAppKey("DAAS");// remove hardcode
-                    almAuthRequest.setAuthenticationType("LDAP");// remove
-                                                                 // hardcode
+                    almAuthRequest.setAppKey("DAAS"); // remove hardcode
+                    almAuthRequest.setAuthenticationType("LDAP"); // remove
+                                                                  // hardcode
                     almAuthRequest.setPassword(user.getPassword());
                     almAuthRequest.setUserId(user.getPrimaryEmailAddr());
 
@@ -97,17 +97,16 @@ public class RegistrationServiceImpl implements RegistrationService {
                 }
                 customerDetails.setPrimaryEmail(user.getPrimaryEmailAddr());
                 customerDetails.setCustomerType("USER"); // remove hardcode
-                customerDetails.setUserStatus("ACTIVE");// remove hardcode
-                customerDetails.setSendEmail("Y");// remove hardcode
+                customerDetails.setUserStatus("ACTIVE"); // remove hardcode
+                customerDetails.setSendEmail("Y"); // remove hardcode
                 customerDetails.setTcFlag(user.getTermsOfUseFlg());
-                customerDetails.setSourceSystem("AS");// remove hardcode
+                customerDetails.setSourceSystem("AS"); // remove hardcode
 
-                addressElement.setCountryCode(user.getCountry()
-                        .getCountryCode());
-                addressElement.setCountryName(user.getCountry()
-                        .getCountryName());
-                addressElement.setAddressType("Primary");// remove hardcode
-                addressElement.setAddrTypeCD("Physical");// remove hardcode
+                Country country = user.getCountry();
+                addressElement.setCountryCode(country.getCountryCode());
+                addressElement.setCountryName(country.getCountryName());
+                addressElement.setAddressType("Primary"); // remove hardcode
+                addressElement.setAddrTypeCD("Physical"); // remove hardcode
                 addressElements.add(addressElement);
                 cuAddressDetails.setAddress(addressElements);
 

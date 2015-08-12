@@ -194,23 +194,23 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 
             permission.setPermissionId(permissionData.getPermissionCd());
             permission.setPermissionName(permissionData.getPermissionName());
-
-            if (permissionData.getGroups() != null
-                    && !StringUtils.isEmpty(permissionData.getGroups())
-                    && permissionData.getGroups().contains(
-                            AuthorServicesConstants.PERMISSION_LEVEL_SYSTEM)) {
+            List<String> groupsList = permissionData.getGroups();
+            if (groupsList != null
+                    && !StringUtils.isEmpty(groupsList)
+                    && groupsList
+                            .contains(AuthorServicesConstants.PERMISSION_LEVEL_SYSTEM)) {
                 systemSection.getPermissionsList().add(permission);
 
-            } else if (permissionData.getGroups() != null
-                    && !StringUtils.isEmpty(permissionData.getGroups())
-                    && permissionData.getGroups().contains(
-                            AuthorServicesConstants.PERMISSION_LEVEL_ADMIN)) {
+            } else if (groupsList != null
+                    && !StringUtils.isEmpty(groupsList)
+                    && groupsList
+                            .contains(AuthorServicesConstants.PERMISSION_LEVEL_ADMIN)) {
                 adminSection.getPermissionsList().add(permission);
 
-            } else if (permissionData.getGroups() != null
-                    && !StringUtils.isEmpty(permissionData.getGroups())
-                    && permissionData.getGroups().contains(
-                            AuthorServicesConstants.PERMISSION_LEVEL_ARTICLE)) {
+            } else if (groupsList != null
+                    && !StringUtils.isEmpty(groupsList)
+                    && groupsList
+                            .contains(AuthorServicesConstants.PERMISSION_LEVEL_ARTICLE)) {
                 articleSection.getPermissionsList().add(permission);
             }
 
@@ -269,12 +269,13 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 
         if ("0".equals(role.getRoleId())) {
             roleIdStr = getRoleId(role.getRoleName());
-            if (roleIdStr.equals("0")) {
+            if ("0".equals(roleIdStr)) {
                 RoleRequest roleRequest = new RoleRequest();
                 roleRequest.setRoleName(role.getRoleName());
                 roleRequest.setRoleDescription(role.getRoleDescription());
-                roleRequest.setCreatedBy(rolesAndPermissions.getUserId());
-                roleRequest.setUpdatedBy(rolesAndPermissions.getUserId());
+                final String userId = rolesAndPermissions.getUserId();
+                roleRequest.setCreatedBy(userId);
+                roleRequest.setUpdatedBy(userId);
                 if (role.isAdminRole()) {
                     roleRequest.setRoleType("Internal");
                 } else {
@@ -301,14 +302,13 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 
         List<PermissionsRequest> permissionsRequestList = new ArrayList<PermissionsRequest>();
         for (Permissions permissions : permissionsList) {
-            System.out.println("Adding Permission:::"
-                    + permissions.getPermissionCd());
             PermissionsRequest permissionsRequest = new PermissionsRequest();
             permissionsRequest.setPermissionCd(permissions.getPermissionCd());
             permissionsRequest.setPermissionName(permissions
                     .getPermissionName());
-            permissionsRequest.setCreatedBy(rolesAndPermissions.getUserId());
-            permissionsRequest.setUpdatedBy(rolesAndPermissions.getUserId());
+            final String userId = rolesAndPermissions.getUserId();
+            permissionsRequest.setCreatedBy(userId);
+            permissionsRequest.setUpdatedBy(userId);
             permissionsRequestList.add(permissionsRequest);
         }
         rolesService.updatePermissions(permissionsRequestList, roleIdStr);

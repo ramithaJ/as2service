@@ -89,13 +89,15 @@ public class UserAccountServiceImpl implements UserAccountService {
                 .getLookupCustomerProfileResponse().getCustomerProfile()
                 .getCustomerDetails();
         User user = new User();
-        user.setTitle(customerDetails.getTitle());
-        user.setTitleName(asDataDao.getData(customerDetails.getTitle()));
+        final String titleId = customerDetails.getTitle();
+        user.setTitle(titleId);
+        user.setTitleName(asDataDao.getData(titleId));
         user.setFirstName(customerDetails.getfName());
         user.setLastName(customerDetails.getlName());
         user.setMiddleName(customerDetails.getmName());
-        user.setSuffix(customerDetails.getUserSuffix());
-        user.setSuffixName(asDataDao.getData(customerDetails.getUserSuffix()));
+        final String suffixId = customerDetails.getUserSuffix();
+        user.setSuffix(suffixId);
+        user.setSuffixName(asDataDao.getData(suffixId));
         user.setAlternateName(customerDetails.getAlternativeName());
         user.setPrimaryEmailAddr(customerDetails.getPrimaryEmail());
         user.setRecoveryEmailAddress(customerDetails.getSecondaryEmail());

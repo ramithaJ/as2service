@@ -13,7 +13,6 @@
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -144,7 +143,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         societyData.setPromoCode(society.getPromoCode());
         societyData.setMembershipNo(society.getMembershipNumber());
         societyData.setSocietyId(society.getSocietyId());
-        if (society.getId().equals("0")) {
+        if ("0".equals(society.getId())) {
             societyData.setStatus("add");
         } else {
             societyData.setStatus("edit");
@@ -195,7 +194,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         affsData.setAffiliation(affDataList);
         customerProfile.setAffiliations(affsData);
         lookupCustomerProfileResponse.setCustomerProfile(customerProfile);
-        if (affiliation.getId().equals("0")) {
+        if ("0".equals(affiliation.getId())) {
             affData.setStatus("add");
         } else {
             affData.setStatus("edit");
@@ -403,9 +402,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      *            the id
      * @return the address element
      */
-    private final AddressElement updateAddressFields(
-            final Address addressesRequest, final String addressType,
-            final String id) {
+    private AddressElement updateAddressFields(final Address addressesRequest,
+            final String addressType, final String id) {
 
         AddressElement addressElement = new AddressElement();
         addressElement.setId(id);
@@ -416,7 +414,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         addressElement.setSuffix(addressesRequest.getSuffix());
         addressElement.setInstitutionCd(addressesRequest.getInstitutionId());
         addressElement.setInstitutionName(addressesRequest.getInstitution());
-        if (id == "0") {
+        if ("0".equalsIgnoreCase(id)) {
             addressElement.setStatus("Add");
         } else {
             addressElement.setStatus("Edit");
@@ -479,7 +477,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @return true, if successful
      */
 
-    private final boolean updateUserId(final Email email) {
+    private boolean updateUserId(final Email email) {
 
         AuthorProfileServiceImpl.LOGGER.info("inside updateUserId Method ");
         UserEmailDetails userEmailDetails = new UserEmailDetails();
@@ -535,10 +533,10 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
         AuthorProfileServiceImpl.LOGGER
                 .info("inside updateSecurityDetails Method ");
-        final SecurityQuestionsUpdateRequest securityQuestionsUpdateRequest = new SecurityQuestionsUpdateRequest();
-        final UserSecurityQuestions userSecurityQuestions = new UserSecurityQuestions();
-        final UserSecurityQuestionsMap userSecurityQuestionsMap = new UserSecurityQuestionsMap();
-        final List<UserSecurityQuestionsEntry> userSecurityQuestionsEntryList = new ArrayList<UserSecurityQuestionsEntry>();
+        SecurityQuestionsUpdateRequest securityQuestionsUpdateRequest = new SecurityQuestionsUpdateRequest();
+        UserSecurityQuestions userSecurityQuestions = new UserSecurityQuestions();
+        UserSecurityQuestionsMap userSecurityQuestionsMap = new UserSecurityQuestionsMap();
+        List<UserSecurityQuestionsEntry> userSecurityQuestionsEntryList = new ArrayList<UserSecurityQuestionsEntry>();
         UserSecurityQuestionsEntry userSecurityQuestionsEntry = null;
         final List<SecurityDetails> securityDetailsList = securityDetailsHolder
                 .getSecurityDetails();
@@ -593,9 +591,10 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
         final byte[] imageData = new byte[(int) image.length()];
         try {
-            final FileInputStream fileInputStream = new FileInputStream(image);
-            fileInputStream.read(imageData);
-            fileInputStream.close();
+            // final FileInputStream fileInputStream = new
+            // FileInputStream(image);
+            // fileInputStream.read(imageData);
+            // fileInputStream.close();
             authorProfileDao.saveProfilePicture(imageData, userId);
         } catch (final Exception e) {
             e.printStackTrace();
@@ -792,15 +791,17 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             Alert alert = null;
             for (AlertData alertData : listOfAlert) {
                 alert = new Alert();
-                if (alerts.getAlertCd().equals(alertData.getAlertID())) {
-                    alert.setAlertId(alertData.getAlertID());
+                final String articleId = alertData.getAlertID();
+                if (alerts.getAlertCd().equals(articleId)) {
+                    alert.setAlertId(articleId);
                     alert.setAlertName(alerts.getAlertName());
-                    if (alertData.getType().getEmail().equalsIgnoreCase("0")) {
+                    AlertType alertType = alertData.getType();
+                    if ("0".equalsIgnoreCase(alertType.getEmail())) {
                         alert.setEmail(true);
                     } else {
                         alert.setEmail(false);
                     }
-                    if (alertData.getType().getOnscreen().equalsIgnoreCase("0")) {
+                    if ("0".equalsIgnoreCase(alertType.getOnscreen())) {
                         alert.setOnScreen(true);
                     } else {
                         alert.setOnScreen(false);
@@ -912,8 +913,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      *            the orcid id
      * @return true, if successful
      */
-    private final boolean orcidIdDetails(final String userId,
-            final String orcidId) {
+    private boolean orcidIdDetails(final String userId, final String orcidId) {
 
         CustomerDetails customerDetails = getCustomeProfile(userId);
         customerDetails.setOrcId(orcidId);

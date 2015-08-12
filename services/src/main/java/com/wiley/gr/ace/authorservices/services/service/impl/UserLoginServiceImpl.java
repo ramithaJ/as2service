@@ -267,16 +267,16 @@ public class UserLoginServiceImpl implements UserLoginService {
         userSecurityQuestionsMap.setEntry(userSecurityQuestionsEntryList);
         userSecurityQuestions
                 .setUserSecurityQuestionsMap(userSecurityQuestionsMap);
-        validateUserSecurityQA.setLogin(securityDetailsHolder.getEmailId());
+        final String emailId = securityDetailsHolder.getEmailId();
+        validateUserSecurityQA.setLogin(emailId);
         validateUserSecurityQA.setUserSecurityQuestions(userSecurityQuestions);
         securityQuestionsValidateRequest
                 .setValidateUserSecurityQA(validateUserSecurityQA);
 
         final boolean status = userManagement
                 .validateSecurityQuestions(securityQuestionsValidateRequest);
-        if (status == false) {
-            sendNotification.notifyByEmail(securityDetailsHolder.getEmailId(),
-                    templateId);
+        if (!status) {
+            sendNotification.notifyByEmail(emailId, templateId);
         }
         return status;
     }
@@ -326,10 +326,8 @@ public class UserLoginServiceImpl implements UserLoginService {
             throw new ASException(statusclosedcode, statusclosedmessage);
         } else if (AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS
                 .equalsIgnoreCase(inviteResetpwdLog.getStatus())
-                && inviteResetpwdLog
-                        .getType()
-                        .equalsIgnoreCase(
-                                AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS_TYPE)) {
+                && AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS_TYPE
+                        .equalsIgnoreCase(inviteResetpwdLog.getType())) {
             System.err.println(userLoginServiceDAO);
             userLoginServiceDAO.getUserId(inviteResetpwdLog.getEmailAddress());
         } else {

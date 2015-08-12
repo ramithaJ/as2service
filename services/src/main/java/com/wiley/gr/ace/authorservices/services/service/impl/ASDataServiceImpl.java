@@ -287,9 +287,7 @@ public class ASDataServiceImpl implements ASDataService {
          * 
          * }
          */
-        List<Institution> institutionslist = new ArrayList<Institution>();
-
-        return institutionslist;
+        return new ArrayList<Institution>();
     }
 
     /**
@@ -315,10 +313,7 @@ public class ASDataServiceImpl implements ASDataService {
          * 
          * }
          */
-
-        List<Department> departmentlist = new ArrayList<Department>();
-
-        return departmentlist;
+        return new ArrayList<Department>();
     }
 
     /**
@@ -367,7 +362,8 @@ public class ASDataServiceImpl implements ASDataService {
 
     }
 
-     /** This will call external service to get AreasOfInterests data.
+    /**
+     * This will call external service to get AreasOfInterests data.
      *
      * @return the areas of interests
      */
