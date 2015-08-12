@@ -166,6 +166,11 @@ public class RestServiceInvokerUtil {
         }
     }
 
+    /**
+     * @param url
+     * @param responseEntityClass
+     * @return object of picklist
+     */
     public static <T> Object pickListInvoker(final String url,
             final Class<T> responseEntityClass) {
 

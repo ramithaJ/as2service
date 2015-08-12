@@ -100,27 +100,18 @@ public class AuthorServicesConstants {
     /** The Constant INVITE_RESET_PASSWORD_STATUS_TYPE. */
     public static final String INVITE_RESET_PASSWORD_STATUS_TYPE = "verifyAccount";
 
-    /**
-     * This field holds the value of AUTHUSERNAME
-     */
+    /** This field holds the value of AUTHUSERNAME. */
     public static final String AUTHUSERNAME = "as2admin";
 
-    /**
-     * This field holds the value of AUTHPASSWORD
-     */
+    /** This field holds the value of AUTHPASSWORD. */
     public static final String AUTHPASSWORD = "hgdJbhjrnfY9KFs3KPpddQ==";
 
-    /**
-     * This field holds the value of SOURCESYSTEM
-     */
+    /** This field holds the value of SOURCESYSTEM. */
     public static final String SOURCESYSTEM = "AS";
-    
-    
-    /**
-     * This field holds the value of GUID
-     */
+
+    /** This field holds the value of GUID. */
     public static final String GUID = "guid";
-    
+
     /** The Constant for BPM_SOURCE_APP. */
     public static final String BPM_SOURCE_APP = "sourceApp";
 
@@ -138,8 +129,5 @@ public class AuthorServicesConstants {
 
     /** The Constant for BPM_CALL_SUCCESS_STATUS. */
     public static final String BPM_CALL_SUCCESS_STATUS = "SUCCESS";
-    
-   
-
 
 }
