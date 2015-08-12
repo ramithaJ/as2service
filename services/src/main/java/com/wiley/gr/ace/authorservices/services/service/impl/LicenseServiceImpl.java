@@ -198,6 +198,11 @@ public class LicenseServiceImpl implements LicenseService {
         return null;
     }
 
+    /** This will call external service to get data
+     * 
+     *  @param articleId
+     *  @return {@link LicenseObject}
+     *  */
     @Override
     public LicenseObject initiateLicence(final String articleId) {
         
@@ -226,6 +231,8 @@ public class LicenseServiceImpl implements LicenseService {
        
     }
 
+    
+    /** This will call external service to get licence */
     @Override
     public String licencePrinting() {
         
