@@ -14,8 +14,7 @@ package com.wiley.gr.ace.authorservices.web.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
@@ -48,8 +47,8 @@ public class RegistrationController {
     /**
      * Logger Configured.
      */
-    public static final Logger LOGGER = LoggerFactory
-            .getLogger(RegistrationController.class);
+    public static final Logger LOGGER = Logger
+            .getLogger(RegistrationController.class.getName());
 
     /** The rs. */
     @Autowired(required = true)
@@ -122,9 +121,11 @@ public class RegistrationController {
         User user = null;
 
         if (!StringUtils.isEmpty(email)) {
+            LOGGER.info("checking if user exists with email id " + email);
             user = rs.checkEmailIdExists(email);
         }
         if (user != null) {
+            LOGGER.info("user found with email id " + email);
             if ("ALM".equalsIgnoreCase(user.getFoundIn())) {
                 service.setStatus("FAILURE");
                 service.setPayload(user);
@@ -134,6 +135,7 @@ public class RegistrationController {
                         + "registered with AS2.0. Please enter correct password to register");
                 service.setError(err);
             } else {
+                LOGGER.error("User exists in AS");
                 throw new UserException(checkUserExistsErrorCode,
                         checkUserExistsErrorMessage);
             }
