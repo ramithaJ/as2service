@@ -25,17 +25,23 @@ import com.wiley.gr.ace.authorservices.autocomplete.service.impl.AutocompleteSer
 @Configuration
 public class AutocompleteServiceBeanConfig {
 
-   
-    /**Autocomplete Service
-     * @return
+    /**
+     * Autocomplete Service.
+     * 
+     * @return autocompleteServiceImpl
      */
     @Bean(name = "AutocompleteService")
     public AutocompleteService autocompleteService() {
         return new AutocompleteServiceImpl();
     }
-    
+
+    /**
+     * AutocompleteCachingService.
+     * 
+     * @return autocompleteCachingServiceImpl
+     */
     @Bean(name = "AutocompleteCachingService")
-    public AutocompleteCachingService autocompleteCachingService(){
-    	return new AutocompleteCachingServiceImpl();
+    public AutocompleteCachingService autocompleteCachingService() {
+        return new AutocompleteCachingServiceImpl();
     }
 }

@@ -161,8 +161,8 @@ public class AutocompleteCachingServiceImpl implements
      * @return dropDownMap
      */
     @Cacheable(value = "dropDownMap", key = "#dropDownKey")
-    public final Map<String, CacheData> getCachedData(String dropDownKey,
-            String parentId) {
+    public final Map<String, CacheData> getCachedData(final String dropDownKey,
+            final String parentId) {
         Map<String, CacheData> dropDownMap = null;
         List<CacheData> cacheDataList = null;
 
@@ -539,7 +539,7 @@ public class AutocompleteCachingServiceImpl implements
      *
      * @return societies
      */
-    private final List<CacheData> getSocieties() {
+    private List<CacheData> getSocieties() {
         List<CacheData> societyList = null;
         List<Societies> societyListDao = null;
 
