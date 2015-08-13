@@ -25,64 +25,96 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
+import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
 import com.wiley.gr.ace.authorservices.services.service.ArticleAssignmentService;
 
 /**
- * @author virtusa version1.0
+ * The Class ArticleAssignmentController.
  *
+ * @author virtusa version1.0
  */
 @RestController
 @RequestMapping("/article")
 public class ArticleAssignmentController {
 
-    /** logger configured. */
+    /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(ArticleAssignmentController.class);
 
-    /**
-     * injected ArticleAssignmentService bean.
-     */
+    /** The article assignment service. */
     @Autowired(required = true)
     private ArticleAssignmentService articleAssignmentService;
 
-    /**
-     * the value of noDataFoundCode.
-     */
-    @Value("${noDataFound.code}")
-    private String noDataFoundCode;
+    /** The get article info error code. */
+    @Value("${ArticleAssignmentController.getArticleInfo.code}")
+    private String getArticleInfoErrorCode;
+
+    /** The get article info error message. */
+    @Value("${ArticleAssignmentController.getArticleInfo.message}")
+    private String getArticleInfoErrorMessage;
+
+    /** The association confirmation error code. */
+    @Value("${ArticleAssignmentController.associationConfirmation.code}")
+    private String associationConfirmationErrorCode;
+
+    /** The association confirmation message. */
+    @Value("${ArticleAssignmentController.associationConfirmation.message}")
+    private String associationConfirmationErrorMessage;
+
+    /** The no data found. */
+    @Value("${noDataFound.message}")
+    private String noDataFound;
+
+    /** The input parameter not found. */
+    @Value("${inputParameterNotFound.message}")
+    private String inputParameterNotFound;
 
     /**
-     * @param emailId
-     *            - The Request value
-     * @return service
+     * Gets the article info.
+     *
+     * @param articleId
+     *            the article id
+     * @return the article info
      */
-    @RequestMapping(value = "/confirm/display/{emailId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/confirm/display/{articleId}", method = RequestMethod.GET)
     public final Service getArticleInfo(
-            @PathVariable("emailId") final String emailId) {
-        Service service = new Service();
+            @PathVariable("articleId") final String articleId) {
+        LOGGER.info("inside getArticleInfo method of ArticleAssignmentController");
+        final Service service = new Service();
         ArticleInfoDetails articleInfoDetails = null;
-
-        try {
-            articleInfoDetails = articleAssignmentService
-                    .getArticleInfo(emailId);
-            if (!StringUtils.isEmpty(articleInfoDetails)) {
-                service.setPayload(articleInfoDetails);
+        if (!StringUtils.isEmpty(articleId)) {
+            LOGGER.info("input parameter articleId is found to Get Article Info");
+            try {
+                articleInfoDetails = articleAssignmentService
+                        .getArticleInfo(articleId);
+                if (!StringUtils.isEmpty(articleInfoDetails)) {
+                    LOGGER.info("Article Info Details Found");
+                    service.setStatus("SUCCESS");
+                    service.setPayload(articleInfoDetails);
+                } else {
+                    LOGGER.info("Article Info Details Not Found");
+                    service.setStatus("SUCCESS");
+                    service.setPayload(noDataFound);
+                }
+            } catch (final Exception e) {
+                LOGGER.error("Print Stack Trace- ", e);
+                throw new ASException(getArticleInfoErrorCode,
+                        getArticleInfoErrorMessage);
             }
-        } catch (Exception e) {
-            ErrorPOJO error = new ErrorPOJO();
-            error.setCode(noDataFoundCode);
-            error.setMessage("Error Fetching ArticleInfo");
-            service.setStatus("ERROR");
-            service.setError(error);
+        } else {
+            LOGGER.info("input Parameter emailId is Not Found");
+            service.setStatus("FAILURE");
+            service.setPayload(inputParameterNotFound);
         }
         return service;
 
     }
 
     /**
+     * Confirm association.
+     *
      * @param articleAuthId
      *            - The Request value
      * @param userId
@@ -93,24 +125,30 @@ public class ArticleAssignmentController {
     public final Service confirmAssociation(
             @RequestBody final String articleAuthId,
             @RequestBody final String userId) {
-        Service service = new Service();
-        boolean confirmAssociation = false;
-        try {
-            confirmAssociation = articleAssignmentService.confirmAssociation(
-                    articleAuthId, userId);
-            if (confirmAssociation) {
-                service.setPayload(confirmAssociation);
-            } else {
-                service.setStatus("FAILURE");
-                service.setPayload(confirmAssociation);
+        final Service service = new Service();
+        if (!StringUtils.isEmpty(articleAuthId) && !StringUtils.isEmpty(userId)) {
+            boolean confirmAssociation = false;
+            try {
+                confirmAssociation = articleAssignmentService
+                        .confirmAssociation(articleAuthId, userId);
+                if (confirmAssociation) {
+                    LOGGER.info(" Article Association is Confirmed");
+                    service.setStatus("SUCCESS");
+                    service.setPayload(confirmAssociation);
+                } else {
+                    LOGGER.info(" Article Association is Not Confirmed");
+                    service.setStatus("FAILURE");
+                    service.setPayload(confirmAssociation);
+                }
+            } catch (final Exception e) {
+                LOGGER.error("Print Stack Trace- ", e);
+                throw new ASException(associationConfirmationErrorCode,
+                        associationConfirmationErrorMessage);
             }
-        } catch (Exception e) {
-            LOGGER.error("Print Stack Trace- ", e);
-            ErrorPOJO error = new ErrorPOJO();
-            error.setCode(noDataFoundCode);
-            error.setMessage("Error Fetching ArticleInfo");
-            service.setStatus("ERROR");
-            service.setError(error);
+        } else {
+            LOGGER.info("input Parameters are Not Found");
+            service.setStatus("FAILURE");
+            service.setPayload(inputParameterNotFound);
         }
         return service;
 

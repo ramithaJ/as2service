@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
  *
- * All material contained herein is proprietary to John Wiley & Sons 
- * and its third party suppliers, if any. The methods, techniques and 
- * technical concepts contained herein are considered trade secrets 
- * and confidential and may be protected by intellectual property laws.  
- * Reproduction or distribution of this material, in whole or in part, 
- * is strictly forbidden except by express prior written permission 
+ * All material contained herein is proprietary to John Wiley & Sons
+ * and its third party suppliers, if any. The methods, techniques and
+ * technical concepts contained herein are considered trade secrets
+ * and confidential and may be protected by intellectual property laws.
+ * Reproduction or distribution of this material, in whole or in part,
+ * is strictly forbidden except by express prior written permission
  * of John Wiley & Sons.
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service.impl;
@@ -141,11 +141,11 @@ public class AdminLoginServiceImpl implements AdminLoginService {
         PermissionSection adminSection = new PermissionSection();
 
         systemSection
-                .setSectionName(AuthorServicesConstants.PERMISSION_LEVEL_SYSTEM);
+        .setSectionName(AuthorServicesConstants.PERMISSION_LEVEL_SYSTEM);
         articleSection
-                .setSectionName(AuthorServicesConstants.PERMISSION_LEVEL_ARTICLE);
+        .setSectionName(AuthorServicesConstants.PERMISSION_LEVEL_ARTICLE);
         adminSection
-                .setSectionName(AuthorServicesConstants.PERMISSION_LEVEL_ADMIN);
+        .setSectionName(AuthorServicesConstants.PERMISSION_LEVEL_ADMIN);
 
         List<RolesData> rolesData = rolesService.getRoles();
 
@@ -158,7 +158,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
             role.setRoleDescription(roleData.getRoleDescription());
             if (roleData.getRoleType() != null
                     && AuthorServicesConstants.ROLE_TYPE_INTERNAL
-                            .equalsIgnoreCase(roleData.getRoleType())) {
+                    .equalsIgnoreCase(roleData.getRoleType())) {
                 role.setAdminRole(true);
             }
             rolesAndPermissions.getRolesList().add(role);
@@ -198,19 +198,19 @@ public class AdminLoginServiceImpl implements AdminLoginService {
             if (groupsList != null
                     && !StringUtils.isEmpty(groupsList)
                     && groupsList
-                            .contains(AuthorServicesConstants.PERMISSION_LEVEL_SYSTEM)) {
+                    .contains(AuthorServicesConstants.PERMISSION_LEVEL_SYSTEM)) {
                 systemSection.getPermissionsList().add(permission);
 
             } else if (groupsList != null
                     && !StringUtils.isEmpty(groupsList)
                     && groupsList
-                            .contains(AuthorServicesConstants.PERMISSION_LEVEL_ADMIN)) {
+                    .contains(AuthorServicesConstants.PERMISSION_LEVEL_ADMIN)) {
                 adminSection.getPermissionsList().add(permission);
 
             } else if (groupsList != null
                     && !StringUtils.isEmpty(groupsList)
                     && groupsList
-                            .contains(AuthorServicesConstants.PERMISSION_LEVEL_ARTICLE)) {
+                    .contains(AuthorServicesConstants.PERMISSION_LEVEL_ARTICLE)) {
                 articleSection.getPermissionsList().add(permission);
             }
 
@@ -283,9 +283,6 @@ public class AdminLoginServiceImpl implements AdminLoginService {
                 }
                 rolesService.addRole(roleRequest);
                 roleIdStr = getRoleId(role.getRoleName());
-                System.out.println("roleIdStr obtained:::" + roleIdStr);
-                System.out.println("Size of PermissionsList:::"
-                        + permissionsList.size());
 
             } else {
                 throw new UserException("2222",
@@ -327,14 +324,14 @@ public class AdminLoginServiceImpl implements AdminLoginService {
         LOGGER.info("inside findUser Method");
         /*
          * AdminUser adminUser = new AdminUser();
-         * 
+         *
          * Users user=userlogindao.getUserDetails(emailId);
-         * 
-         * 
+         *
+         *
          * if(! StringUtils.isEmpty(user)) {
          * adminUser.setFirstName(user.getFirstName());
          * adminUser.setLastName(user.getLastName()); }else{
-         * 
+         *
          * userManagement.findUser(emailId); } return adminUser;
          */
 

@@ -42,12 +42,18 @@ public class ResearchFunder implements Serializable {
     @NotBlank
     private String researchFunderName;
 
+    @NotBlank
+    @NotNull
     /** The article aid. */
     private String articleAID;
 
+    @NotBlank
+    @NotNull
     /** The article name. */
     private String articleName;
 
+    @NotBlank
+    @NotNull
     /** The grant number. */
     private Set<String> grantNumber;
 
