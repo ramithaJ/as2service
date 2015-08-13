@@ -13,6 +13,10 @@ package com.wiley.gr.ace.authorservices.model;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -28,23 +32,33 @@ public class Affiliation implements Serializable {
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
+    @NotBlank
+    @NotNull
     /** The user Id . */
-  
     private String affiliationId;
 
+    @NotBlank
+    @NotNull
     /** The user id. */
     private String userId;
 
+    @NotBlank
+    @NotNull
     /** The institution id. */
     @JsonProperty("InstitutionCd")
     private String institutionId;
-    
+
+    @NotBlank
+    @NotNull
     /** The institution name. */
     private String institutionName;
+
+    @NotBlank
+    @NotNull
     @JsonProperty("Id")
     private String id;
 
-     /**
+    /**
      * @return the id
      */
     public final String getId() {
@@ -52,13 +66,15 @@ public class Affiliation implements Serializable {
     }
 
     /**
-     * @param id the id to set
+     * @param id
+     *            the id to set
      */
     public final void setId(final String id) {
         this.id = id;
     }
 
-    /** Gets the institution name.
+    /**
+     * Gets the institution name.
      *
      * @return the institutionName
      */
@@ -66,7 +82,8 @@ public class Affiliation implements Serializable {
         return institutionName;
     }
 
-     /** Sets the institution name.
+    /**
+     * Sets the institution name.
      *
      * @param institutionName
      *            the institutionName to set
@@ -130,7 +147,8 @@ public class Affiliation implements Serializable {
     }
 
     /**
-     * @param state the state to set
+     * @param state
+     *            the state to set
      */
     public final void setState(final String state) {
         this.state = state;

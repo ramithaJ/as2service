@@ -14,6 +14,10 @@ package com.wiley.gr.ace.authorservices.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -27,6 +31,8 @@ public class User implements Serializable {
 
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
+    @NotBlank
+    @NotNull
     /** The user id. */
     private Integer userId;
     /** The title. */

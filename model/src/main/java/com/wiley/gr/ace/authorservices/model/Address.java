@@ -13,6 +13,10 @@ package com.wiley.gr.ace.authorservices.model;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -30,8 +34,12 @@ public class Address implements Serializable {
     /**
      * This field holds the value of id
      */
+    @NotBlank
+    @NotNull
     private String id;
 
+    @NotBlank
+    @NotNull
     /** The address type. */
     private String addressType;
 

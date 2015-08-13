@@ -13,6 +13,10 @@
  */
 package com.wiley.gr.ace.authorservices.model;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 /**
  * The Class Email.
  *
@@ -23,11 +27,15 @@ public class Email {
     /**
      * This field holds the value of existingEmail
      */
+    @NotBlank
+    @NotNull
     private String oldEmailId;
 
     /**
      * This field holds the value of newEmail
      */
+    @NotBlank
+    @NotNull
     private String newEmailId;
 
     /**

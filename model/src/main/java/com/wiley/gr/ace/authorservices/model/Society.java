@@ -32,7 +32,8 @@ public class Society implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /** The user Id . */
-
+    @NotBlank
+    @NotNull
     private String userId;
 
     /** The society id. */
@@ -57,14 +58,18 @@ public class Society implements Serializable {
 
     /** The start date. */
     @NotNull
+    @NotBlank
     private String startDate;
 
     /** The end date. */
     @NotNull
+    @NotBlank
     private String endDate;
 
-    
+    @NotBlank
+    @NotNull
     private String id;
+
     /**
      * @return the id
      */
@@ -73,7 +78,8 @@ public class Society implements Serializable {
     }
 
     /**
-     * @param id the id to set
+     * @param id
+     *            the id to set
      */
     public final void setId(final String id) {
         this.id = id;

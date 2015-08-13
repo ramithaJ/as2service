@@ -13,6 +13,10 @@ package com.wiley.gr.ace.authorservices.model;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -27,35 +31,53 @@ public class CoAuthor implements Serializable {
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
+    @NotBlank
+    @NotNull
     /** The user id. */
     private Integer userId;
-
+    @NotBlank
+    @NotNull
     /** The co author id. */
     private String coAuthorId;
 
+    @NotBlank
+    @NotNull
     /** The title. */
     private String title;
 
+    @NotBlank
+    @NotNull
     /** The first name. */
     private String firstName;
 
+    @NotBlank
+    @NotNull
     /** The last name. */
     private String lastName;
 
+    @NotBlank
+    @NotNull
     /** The email id. */
     private String emailId;
 
+    @NotBlank
+    @NotNull
     /** The phone. */
     private String phone;
 
+    @NotBlank
+    @NotNull
     /** The institution id. */
     private String institutionId;
 
+    @NotBlank
+    @NotNull
     /** The institution name. */
     private String institutionName;
-    
+
+    @NotBlank
+    @NotNull
     private String departmentName;
-    
 
     /**
      * Gets the user id.
@@ -236,7 +258,8 @@ public class CoAuthor implements Serializable {
     }
 
     /**
-     * @param departmentName the departmentName to set
+     * @param departmentName
+     *            the departmentName to set
      */
     public final void setDepartmentName(final String departmentName) {
         this.departmentName = departmentName;

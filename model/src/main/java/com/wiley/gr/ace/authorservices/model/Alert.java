@@ -13,13 +13,17 @@ package com.wiley.gr.ace.authorservices.model;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * The Class Alert.
- * 
+ *
  * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
@@ -28,18 +32,27 @@ public class Alert implements Serializable {
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
+    @NotBlank
+    @NotNull
     /** The alert id. */
     private String alertId;
-
+    @NotBlank
+    @NotNull
     /** The alert name. */
     private String alertName;
 
+    @NotBlank
+    @NotNull
     /** The on screen. */
     private boolean onScreen;
 
+    @NotBlank
+    @NotNull
     /** The email. */
     private boolean email;
     @JsonProperty("Status")
+    @NotBlank
+    @NotNull
     private String status;
 
     /**
