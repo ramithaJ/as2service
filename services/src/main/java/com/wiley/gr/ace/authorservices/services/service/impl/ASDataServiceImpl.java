@@ -39,8 +39,6 @@ import com.wiley.gr.ace.authorservices.model.State;
 import com.wiley.gr.ace.authorservices.model.Suffix;
 import com.wiley.gr.ace.authorservices.model.Title;
 import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
-import com.wiley.gr.ace.authorservices.model.external.Industries;
-import com.wiley.gr.ace.authorservices.model.external.JobCategories;
 import com.wiley.gr.ace.authorservices.model.external.RetrieveSecurityQuestions;
 import com.wiley.gr.ace.authorservices.model.external.RolesData;
 import com.wiley.gr.ace.authorservices.persistence.entity.AreaOfInterest;
@@ -142,13 +140,14 @@ public class ASDataServiceImpl implements ASDataService {
      *            the count
      * @return the industries
      */
+    @SuppressWarnings("unchecked")
     @Override
     public final List<Industry> getIndustries(final Integer count) {
         LOGGER.info("inside getIndustries method ");
 
         Industry industry = null;
         List<Industry> industryList = new ArrayList<Industry>();
-        Industries industries = userProfiles.getIndustries();
+        ESBResponse industries = userProfiles.getIndustries();
         if (null == industries) {
             return new ArrayList<Industry>();
         }
@@ -173,11 +172,12 @@ public class ASDataServiceImpl implements ASDataService {
      *            the count
      * @return the job categories
      */
+    @SuppressWarnings("unchecked")
     @Override
     public final List<JobCategory> getJobCategories(final Integer count) {
 
         LOGGER.info("inside getJobCategories method ");
-        JobCategories jobCategories = userProfiles.getJobCategories();
+        ESBResponse jobCategories = userProfiles.getJobCategories();
         JobCategory jobCategory = null;
         List<JobCategory> jobCategoryList = new ArrayList<JobCategory>();
         if (null == jobCategories) {
@@ -204,6 +204,7 @@ public class ASDataServiceImpl implements ASDataService {
      *            the count
      * @return the countries
      */
+    @SuppressWarnings("unchecked")
     @Override
     public final List<Country> getCountries(final Integer count) {
 
@@ -235,6 +236,7 @@ public class ASDataServiceImpl implements ASDataService {
      *            the count
      * @return the states
      */
+    @SuppressWarnings("unchecked")
     @Override
     public final List<State> getStates(final String countrycode,
             final Integer count) {

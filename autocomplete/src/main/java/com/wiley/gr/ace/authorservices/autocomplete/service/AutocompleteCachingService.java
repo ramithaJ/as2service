@@ -3,8 +3,9 @@
  */
 package com.wiley.gr.ace.authorservices.autocomplete.service;
 
-import java.util.List;
+import java.util.Map;
 
+import com.wiley.gr.ace.authorservices.model.CacheData;
 import com.wiley.gr.ace.authorservices.model.SubFunderDetails;
 
 /**
@@ -16,16 +17,18 @@ import com.wiley.gr.ace.authorservices.model.SubFunderDetails;
 public interface AutocompleteCachingService {
 
     /**
+     * Interface method getCacheData.
      * 
      * @param dropDownKey
-     *            the dropDownKey
+     *            - the input value
      * @param parentId
-     *            the parentId
-     * @return caheDataList
+     *            - the input value
+     * @return dropDowmMap
      */
-    List<String> getCachedData(String dropDownKey, String parentId);
+    Map<String, CacheData> getCachedData(String dropDownKey, String parentId);
 
     /**
+     * Interface method getCachedSubFunders.
      * 
      * @param key
      *            the key

@@ -26,8 +26,6 @@ import com.wiley.gr.ace.authorservices.model.DropDown;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
 import com.wiley.gr.ace.authorservices.model.external.ErrorPayLoad;
-import com.wiley.gr.ace.authorservices.model.external.Industries;
-import com.wiley.gr.ace.authorservices.model.external.JobCategories;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfileResponse;
 import com.wiley.gr.ace.authorservices.model.external.ResponseStatus;
@@ -111,33 +109,34 @@ public class UserProfilesImpl implements UserProfiles {
      *
      * @param institutionId
      *            the institution id
-     * @return DropDown
+     * @return ESBResponse
      */
     @Override
     public final ESBResponse getDepartmentsList(final String institutionId) {
-
+        String departmenturl = departmentspreurl + institutionId
+                + departmentsposturl;
+        System.out.println(departmenturl);
         return (ESBResponse) RestServiceInvokerUtil.pickListInvoker(
-                departmentspreurl + institutionId + departmentsposturl,
-                ESBResponse.class);
+                departmenturl, ESBResponse.class);
     }
 
     /**
      * This method is used for getting industries.
      *
-     * @return Industries
+     * @return ESBResponse
      *
      */
     @Override
-    public final Industries getIndustries() {
+    public final ESBResponse getIndustries() {
 
-        return (Industries) RestServiceInvokerUtil.invokeStub(industriesurl,
-                HttpMethod.GET, Industries.class);
+        return (ESBResponse) RestServiceInvokerUtil.pickListInvoker(
+                industriesurl, ESBResponse.class);
     }
 
     /**
      * This method is used for getting institution list.
      *
-     * @return DropDown
+     * @return ESBResponse
      *
      */
     @Override
@@ -151,13 +150,13 @@ public class UserProfilesImpl implements UserProfiles {
     /**
      * This method is used for getting job categories.
      *
-     * @return JobCategories
+     * @return ESBResponse
      *
      */
     @Override
-    public final JobCategories getJobCategories() {
+    public final ESBResponse getJobCategories() {
 
-        return (JobCategories) RestServiceInvokerUtil.pickListInvoker(
+        return (ESBResponse) RestServiceInvokerUtil.pickListInvoker(
                 jobCategoriesurl, ESBResponse.class);
     }
 

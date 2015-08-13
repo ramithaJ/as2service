@@ -14,8 +14,6 @@ package com.wiley.gr.ace.authorservices.externalservices.service;
 
 import com.wiley.gr.ace.authorservices.model.DropDown;
 import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
-import com.wiley.gr.ace.authorservices.model.external.Industries;
-import com.wiley.gr.ace.authorservices.model.external.JobCategories;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfileResponse;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
@@ -46,7 +44,7 @@ public interface UserProfiles {
      *
      * @return the industries
      */
-    Industries getIndustries();
+    ESBResponse getIndustries();
 
     /**
      * Gets the institutions list.
@@ -60,7 +58,7 @@ public interface UserProfiles {
      *
      * @return the job categories
      */
-    JobCategories getJobCategories();
+    ESBResponse getJobCategories();
 
     /**
      * Gets the reasearch funder.

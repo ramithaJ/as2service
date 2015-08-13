@@ -34,8 +34,6 @@ import com.wiley.gr.ace.authorservices.model.SubFunders;
 import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
 import com.wiley.gr.ace.authorservices.model.external.Funder;
 import com.wiley.gr.ace.authorservices.model.external.Id;
-import com.wiley.gr.ace.authorservices.model.external.Industries;
-import com.wiley.gr.ace.authorservices.model.external.JobCategories;
 import com.wiley.gr.ace.authorservices.model.external.ResearchFundersResponse;
 
 /**
@@ -89,51 +87,104 @@ public class AutocompleteCachingServiceImpl implements
     @Value("${funderContentType}")
     private String funderContentType;
 
+    /** the cacheDataName. */
+    @Value("${cacheData.name}")
+    private String cacheDataName;
+
+    /** the cacheDataCode. */
+    @Value("${cacheData.code}")
+    private String cacheDataCode;
+
+    /** the industryCode. */
+    @Value("${industry.code}")
+    private String industryCode;
+
+    /** the industryName. */
+    @Value("${industry.name}")
+    private String industryName;
+
+    /** the jobCategoriesCode. */
+    @Value("${jobCategories.code}")
+    private String jobCategoriesCode;
+
+    /** the jobCategoriesName. */
+    @Value("${jobCategories.name}")
+    private String jobCategoriesName;
+
+    /** the countryCode. */
+    @Value("${country.code}")
+    private String countryCode;
+
+    /** the countryName. */
+    @Value("${country.name}")
+    private String countryName;
+
+    /** the institutionCode. */
+    @Value("${institution.code}")
+    private String institutionCode;
+
+    /** the institutionName. */
+    @Value("${institution.name}")
+    private String institutionName;
+
+    /** the departmentCode. */
+    @Value("${department.code}")
+    private String departmentCode;
+
+    /** the departmentName. */
+    @Value("${department.name}")
+    private String departmentName;
+    
+    /** the INTERNAL_SERVER_ERROR_CODE. */
+    @Value("${internal.server.error.code}")
+    private String INTERNAL_SERVER_ERROR_CODE;
+
     /**
-     * This method returns the cached drop down data. If there is no cached
-     * data, the corresponding service is invoked and the list is set to the
-     * cache and returns the list.
+     * This method returns the cached drop down data in the form of Map. If
+     * there is no cached data, the corresponding service is invoked and the
+     * data is stored in a HashMap and set it to the cache and returns the same.
      * 
      * @param dropDownKey
      *            - the input value
      * @param parentId
      *            - the input value
-     * @return dropDownList
+     * @return dropDownMap
      */
-    @Cacheable(value = "dropDownList", key = "#dropDownKey")
-    public final List<String> getCachedData(final String dropDownKey,
-            final String parentId) {
-        List<String> dropDownList = null;
+    @Cacheable(value = "dropDownMap", key = "#dropDownKey")
+    public final Map<String, CacheData> getCachedData(String dropDownKey,
+            String parentId) {
+        Map<String, CacheData> dropDownMap = null;
         List<CacheData> cacheDataList = null;
 
-        if ((industrieskey + "cached").equals(dropDownKey)) {
+        if ((industrieskey + "_cached").equals(dropDownKey)) {
             LOGGER.info("getCachedData::industrieskey::" + dropDownKey);
             cacheDataList = getIndustries();
-        } else if ((jobCategorieskey + "cached").equals(dropDownKey)) {
+        } else if ((jobCategorieskey + "_cached").equals(dropDownKey)) {
             LOGGER.info("getCachedData::jobCategorieskey::" + dropDownKey);
             cacheDataList = getJobCategories();
-        } else if ((countrieskey + "cached").equals(dropDownKey)) {
+        } else if ((countrieskey + "_cached").equals(dropDownKey)) {
             LOGGER.info("getCachedData::countrieskey::" + dropDownKey);
             cacheDataList = getCountries();
-        } else if ((institutionskey + "cached").equals(dropDownKey)) {
+        } else if ((institutionskey + "_cached").equals(dropDownKey)) {
             LOGGER.info("getCachedData::institutionskey::" + dropDownKey);
             cacheDataList = getInstitutions();
-        } else if ((departmentskey + "cached").equals(dropDownKey)) {
+        } else if ((departmentskey + "_" + parentId + "_cached")
+                .equals(dropDownKey)) {
             LOGGER.info("getCachedData::departmentskey::" + dropDownKey);
             cacheDataList = getDepartments(parentId);
-        } else if ((researchFundersKey + "cached").equals(dropDownKey)) {
+        } else if ((researchFundersKey + "_cached").equals(dropDownKey)) {
             cacheDataList = getResearchFunders();
         }
 
         if (cacheDataList != null && !cacheDataList.isEmpty()) {
-            dropDownList = new ArrayList<String>();
+            dropDownMap = new HashMap<String, CacheData>();
             for (CacheData cacheData : cacheDataList) {
-                dropDownList.add(cacheData.toString());
+                dropDownMap.put(cacheData.getCode(), cacheData);
             }
 
         }
 
-        return dropDownList;
+        return dropDownMap;
     }
 
     /**
@@ -188,11 +239,11 @@ public class AutocompleteCachingServiceImpl implements
                 try {
                     JSONObject json = (JSONObject) new JSONParser().parse(data);
                     CacheData cacheData = new CacheData();
-                    cacheData.setName(json.get("name").toString());
-                    cacheData.setCode(json.get("code").toString());
+                    cacheData.setName(json.get(cacheDataName).toString());
+                    cacheData.setCode(json.get(cacheDataCode).toString());
                     cacheList.add(cacheData);
                 } catch (ParseException e) {
-                    throw new ASException("500", e.getMessage());
+                    throw new ASException(INTERNAL_SERVER_ERROR_CODE, e.getMessage());
                 }
             }
 
@@ -331,20 +382,20 @@ public class AutocompleteCachingServiceImpl implements
     private List<CacheData> getIndustries() {
         LOGGER.info("inside getIndustries method ");
 
-        List<CacheData> industryList = new ArrayList<CacheData>();
-        Industries industries = userProfiles.getIndustries();
-        if (null == industries) {
-            return industryList;
-        }
+        List<CacheData> industryList = null;
+        ESBResponse industries = userProfiles.getIndustries();
+        if (industries != null) {
 
-        List<Object> industryDocs = industries.getResponse().getDocs();
-        for (Object object : industryDocs) {
+            List<Object> industryDocs = industries.getResponse().getDocs();
+            industryList = new ArrayList<CacheData>();
+            for (Object object : industryDocs) {
 
-            LinkedHashMap<String, String> industryMap = (LinkedHashMap<String, String>) object;
-            CacheData industry = new CacheData();
-            industry.setCode(industryMap.get("NAICS_CODE"));
-            industry.setName(industryMap.get("NAICS_TITLE"));
-            industryList.add(industry);
+                LinkedHashMap<String, String> industryMap = (LinkedHashMap<String, String>) object;
+                CacheData industry = new CacheData();
+                industry.setCode(industryMap.get(industryCode));
+                industry.setName(industryMap.get(industryName));
+                industryList.add(industry);
+            }
         }
 
         return industryList;
@@ -357,22 +408,24 @@ public class AutocompleteCachingServiceImpl implements
      */
     @SuppressWarnings("unchecked")
     private List<CacheData> getJobCategories() {
+        List<CacheData> jobCategoryList = null;
 
         LOGGER.info("inside getJobCategories method ");
-        JobCategories jobCategories = userProfiles.getJobCategories();
-        List<CacheData> jobCategoryList = new ArrayList<CacheData>();
-        if (null == jobCategories) {
-            return jobCategoryList;
-        }
+        ESBResponse jobCategories = userProfiles.getJobCategories();
 
-        List<Object> jobCategoryDocs = jobCategories.getResponse().getDocs();
-        for (Object object : jobCategoryDocs) {
+        if (jobCategories != null) {
+            jobCategoryList = new ArrayList<CacheData>();
 
-            LinkedHashMap<String, String> jobCategoryMap = (LinkedHashMap<String, String>) object;
-            CacheData jobCategory = new CacheData();
-            jobCategory.setCode(jobCategoryMap.get("JOBCODE"));
-            jobCategory.setName(jobCategoryMap.get("JOBTITLE"));
-            jobCategoryList.add(jobCategory);
+            List<Object> jobCategoryDocs = jobCategories.getResponse()
+                    .getDocs();
+            for (Object object : jobCategoryDocs) {
+
+                LinkedHashMap<String, String> jobCategoryMap = (LinkedHashMap<String, String>) object;
+                CacheData jobCategory = new CacheData();
+                jobCategory.setCode(jobCategoryMap.get(jobCategoriesCode));
+                jobCategory.setName(jobCategoryMap.get(jobCategoriesName));
+                jobCategoryList.add(jobCategory);
+            }
         }
 
         return jobCategoryList;
@@ -385,24 +438,23 @@ public class AutocompleteCachingServiceImpl implements
      */
     @SuppressWarnings("unchecked")
     private List<CacheData> getCountries() {
+        List<CacheData> countrylist = null;
 
         LOGGER.info("inside getCountries method ");
         ESBResponse countrieslist = userProfiles.getCountries();
-        List<CacheData> countrylist = new ArrayList<CacheData>();
 
         List<Object> externalCountrylist = countrieslist.getResponse()
                 .getDocs();
-        if (externalCountrylist == null) {
-            return countrylist;
+        if (externalCountrylist != null) {
+            countrylist = new ArrayList<CacheData>();
+            for (Object object : externalCountrylist) {
+                LinkedHashMap<String, String> countrymap = (LinkedHashMap<String, String>) object;
+                CacheData cacheData = new CacheData();
+                cacheData.setCode(countrymap.get(countryCode));
+                cacheData.setName(countrymap.get(countryName));
+                countrylist.add(cacheData);
+            }
         }
-        for (Object object : externalCountrylist) {
-            LinkedHashMap<String, String> countrymap = (LinkedHashMap<String, String>) object;
-            CacheData cacheData = new CacheData();
-            cacheData.setName(countrymap.get("COUNTRY_NAME"));
-            cacheData.setCode(countrymap.get("ISO_ALPHA_3"));
-            countrylist.add(cacheData);
-        }
-
         return countrylist;
     }
 
@@ -426,8 +478,8 @@ public class AutocompleteCachingServiceImpl implements
             for (Object object : externalInstitutionlist) {
                 LinkedHashMap<String, String> institutionmap = (LinkedHashMap<String, String>) object;
                 CacheData cacheData = new CacheData();
-                cacheData.setName(institutionmap.get("CG_CUST_GRP_NAME"));
-                cacheData.setCode(institutionmap.get("CG_CUST_GRP_ID").trim());
+                cacheData.setCode(institutionmap.get(institutionCode));
+                cacheData.setName(institutionmap.get(institutionName));
                 institutionslist.add(cacheData);
             }
         }
@@ -436,7 +488,7 @@ public class AutocompleteCachingServiceImpl implements
     }
 
     /**
-     * This will call external service to get Departments data.
+     * This method will call external service to get Departments data.
      *
      * @param institutionId
      *            - the input value
@@ -447,7 +499,6 @@ public class AutocompleteCachingServiceImpl implements
 
         LOGGER.info("inside getDepartments method ");
 
-        LOGGER.info("inside getInstitutions method ");
         List<Object> externalDepartmentlist = null;
         List<CacheData> departmentlist = null;
 
@@ -457,10 +508,10 @@ public class AutocompleteCachingServiceImpl implements
         if (externalDepartmentlist != null) {
             departmentlist = new ArrayList<CacheData>();
             for (Object object : externalDepartmentlist) {
-                LinkedHashMap<String, String> institutionmap = (LinkedHashMap<String, String>) object;
+                LinkedHashMap<String, String> departmentmap = (LinkedHashMap<String, String>) object;
                 CacheData cacheData = new CacheData();
-                cacheData.setName(institutionmap.get("CG_CUST_GRP_NAME"));
-                cacheData.setCode(institutionmap.get("CG_CUST_GRP_ID").trim());
+                cacheData.setCode(departmentmap.get(departmentCode));
+                cacheData.setName(departmentmap.get(departmentName));
                 departmentlist.add(cacheData);
             }
         }

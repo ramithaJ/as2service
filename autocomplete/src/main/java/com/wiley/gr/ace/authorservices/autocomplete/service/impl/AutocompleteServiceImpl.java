@@ -11,11 +11,12 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.autocomplete.service.impl;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.beanutils.BeanComparator;
@@ -66,93 +67,6 @@ public class AutocompleteServiceImpl implements AutocompleteService {
     private String subFunderskey;
 
     /**
-     * Method to get Auto complete data.
-     *
-     * @param key
-     *            - the request value.
-     * @param phrase
-     *            - the request value.
-     * @param count
-     *            - the request value.
-     * @return List.
-     *
-     */
-    public final List<String> getAutocompleteData(final String key,
-            final String phrase, final Integer count) {
-        final Jedis redis = new Jedis(jedisConnectionFactory.getShardInfo());
-        if (null == phrase) {
-            redis.close();
-            return new ArrayList<String>();
-        }
-
-        final int prefixLength = phrase.length();
-        Long start = redis.zrank(key, phrase);
-        if (start == null) {
-            start = redis.zrank(key, phrase + "*");
-            if (start == null) {
-                redis.close();
-                return null;
-            }
-        }
-
-        if (start < 0 || prefixLength == 0) {
-            redis.close();
-            return new ArrayList<String>();
-        }
-
-        final List<String> results = new ArrayList<String>();
-        final int found = 0, rangeLength = 50;
-        int maxNeeded = count;
-        while (found < maxNeeded) {
-            final Set<String> rangeResults = redis.zrange(key, start, start
-                    + rangeLength - 1);
-
-            start += rangeLength;
-            if (rangeResults.isEmpty()) {
-                break;
-            }
-            for (final String entry : rangeResults) {
-                final int minLength = Math.min(entry.length(), prefixLength);
-                if (!entry.substring(0, minLength).equalsIgnoreCase(
-                        phrase.substring(0, minLength))) {
-                    maxNeeded = results.size();
-                    break;
-                }
-                if (entry.endsWith("*") && results.size() < maxNeeded) {
-                    results.add(entry.substring(0, entry.length() - 1));
-                }
-            }
-        }
-
-        redis.close();
-        return results;
-    }
-
-    /**
-     * Method to set Auto complete data.
-     *
-     * @param key
-     *            - the request value.
-     * @param clear
-     *            - the request value.
-     * @return boolean
-     * @throws IOException
-     *             - exception
-     */
-    public final boolean setAutocompleteData(final String key,
-            final Boolean clear) throws IOException {
-        final Jedis redis = new Jedis(jedisConnectionFactory.getShardInfo());
-        final List<String> societyList = userAutocomplete.getSocietyDetails();
-        for (final String word : societyList) {
-            if (null != word) {
-                addWord(word, redis, key);
-            }
-        }
-        redis.close();
-        return true;
-    }
-
-    /**
      * Adds the word.
      *
      * @param word
@@ -174,20 +88,6 @@ public class AutocompleteServiceImpl implements AutocompleteService {
     }
 
     /**
-     * Method to flush.
-     *
-     * @param key
-     *            - the request value.
-     * @return boolean
-     */
-    public final boolean flush(final String key) {
-        final Jedis redis = new Jedis(jedisConnectionFactory.getShardInfo());
-        redis.del(key);
-        redis.close();
-        return true;
-    }
-
-    /**
      * Method to retrieve the drop down data.
      * 
      * @param key
@@ -198,14 +98,15 @@ public class AutocompleteServiceImpl implements AutocompleteService {
      *            - the input value
      * @param parentId
      *            - the input value
-     * @return dropDownList - the input value
+     * @return dropDownList.
      */
     public final List<CacheData> getDropDownData(String key,
             final String phrase, Integer offset, final String parentId) {
         List<String> dropDownList = null;
         List<CacheData> jsonDropDownList = null;
         SubFunderDetails subFunderDetails = null;
-        // AutocompleteCacheData cachedData = null;
+        Map<String, CacheData> dropDownMap = null;
+        Integer autoCompCount = Integer.parseInt(autocompletecount);
 
         if (offset == null) {
             offset = 0;
@@ -218,40 +119,51 @@ public class AutocompleteServiceImpl implements AutocompleteService {
         if (phrase != null && !"".equals(phrase.trim())) {
             // Auto Complete
 
-            // Key is appended with (auto/cached) to avoid conflict between
-            // auto complete and caching data. This appended string needs to be
-            // removed once a solution is found.
-            dropDownList = getAutoCompleteDataFromRedis(key + "auto", phrase,
+            // Key is appended with (_auto/_cached) to avoid conflict between
+            // auto complete and caching data.
+            dropDownList = getAutoCompleteDataFromRedis(key + "_auto", phrase,
                     offset);
 
             if (dropDownList == null) {
                 // Get the data from cache if not available in Redis and set it
                 // in Redis.
-                dropDownList = autocompleteCachingService.getCachedData(key
-                        + "cached", parentId);
+                dropDownMap = autocompleteCachingService.getCachedData(key
+                        + "_cached", parentId);
+
+                Collection<CacheData> values = dropDownMap.values();
+                dropDownList = new ArrayList<String>();
+                for (CacheData cacheData : values) {
+                    dropDownList.add(cacheData.toString());
+                }
+
                 if (dropDownList != null) {
                     final Jedis redis = new Jedis(
                             jedisConnectionFactory.getShardInfo());
                     for (String dropDownData : dropDownList) {
-                        addWord(dropDownData, redis, key + "auto");
+                        addWord(dropDownData, redis, key + "_auto");
                     }
                     redis.close();
-                    dropDownList = getAutoCompleteDataFromRedis(key + "auto",
+                    dropDownList = getAutoCompleteDataFromRedis(key + "_auto",
                             phrase, offset);
+                }
+
+                // Convert the json string to json object and sort the list in
+                // ascending order
+                if (jsonDropDownList == null && dropDownList != null) {
+                    jsonDropDownList = getJsonDropDownList(dropDownList, phrase);
                 }
             }
 
         } else {
             // Cacheable
 
-            // Key is appended with (auto/cached) to avoid conflict between
-            // auto complete and caching data. This appended string needs to be
-            // removed once a solution is found.
+            // Key is appended with (_cached) to avoid conflict between
+            // auto complete and caching data
 
             // For Sub Funders
-            if (subFunderskey.equals(key)) {
+            if ((subFunderskey + "_" + parentId).equals(key)) {
                 subFunderDetails = autocompleteCachingService
-                        .getCachedSubFunders(key);
+                        .getCachedSubFunders(key + "_cached");
                 SubFunders subFunders = subFunderDetails.getSubFundersMap()
                         .get(parentId);
 
@@ -265,24 +177,33 @@ public class AutocompleteServiceImpl implements AutocompleteService {
                         jsonDropDownList.add(cacheData);
                     }
 
+                    jsonDropDownList = sortCacheData("name", jsonDropDownList);
+
                 }
 
             } else {
 
-                dropDownList = autocompleteCachingService.getCachedData(key
-                        + "cached", parentId);
+                dropDownMap = autocompleteCachingService.getCachedData(key
+                        + "_cached", parentId);
+
+                Collection<CacheData> values = dropDownMap.values();
+                jsonDropDownList = new ArrayList<CacheData>();
+                for (CacheData cacheData : values) {
+                    jsonDropDownList.add(cacheData);
+                }
+
+                jsonDropDownList = sortCacheData("name", jsonDropDownList);
+
             }
         }
 
-        if (jsonDropDownList == null) {
-            jsonDropDownList = getJsonDropDownList(dropDownList, phrase);
-        }
-
+        // Return the sublist based on the offset provided
         if (jsonDropDownList != null
+                && jsonDropDownList.size() >= autoCompCount
                 && (phrase == null || "".equals(phrase.trim()))) {
 
             jsonDropDownList = jsonDropDownList.subList(offset, offset
-                    + Integer.parseInt(autocompletecount));
+                    + autoCompCount);
         }
 
         return jsonDropDownList;
