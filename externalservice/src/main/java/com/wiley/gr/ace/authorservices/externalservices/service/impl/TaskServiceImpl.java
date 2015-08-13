@@ -78,6 +78,10 @@ public class TaskServiceImpl implements TaskService {
     @Value("${bpmservice.sourceAppValue}")
     private String sourceAppValue;
 
+    /** the INTERNAL_SERVER_ERROR_CODE. */
+    @Value("${internal.server.error.code}")
+    private String INTERNAL_SERVER_ERROR_CODE;
+
     /**
      * Method invokes BPM service and returns the status.
      *
@@ -110,7 +114,7 @@ public class TaskServiceImpl implements TaskService {
             encodedParamString = URLEncoder.encode(requestString, "UTF-8");
 
         } catch (UnsupportedEncodingException e) {
-            throw new ASException("3000", e.getMessage());
+            throw new ASException(INTERNAL_SERVER_ERROR_CODE, e.getMessage());
         }
 
         StringBuilder decodedParamString = new StringBuilder();
@@ -125,11 +129,7 @@ public class TaskServiceImpl implements TaskService {
 
         String url = bpmserviceurl + "?" + payLoadString;
 
-        try {
-            saltString = WileyBPMAuthenticationUtils.getSalt();
-        } catch (RuntimeException e) {
-            throw new ASException();
-        }
+        saltString = WileyBPMAuthenticationUtils.getSalt();
 
         currentDate = new Date();
         date = currentDate.getTime();
@@ -151,22 +151,18 @@ public class TaskServiceImpl implements TaskService {
                 saltString));
 
         client = HttpClients.custom().setDefaultHeaders(headers).build();
-        try {
-            request = RequestBuilder.post(url).build();
-        } catch (Exception e1) {
-            e1.printStackTrace();
-        }
+        request = RequestBuilder.post(url).build();
 
         try {
             response = client.execute(request);
         } catch (ClientProtocolException e) {
-            throw new ASException("2000", e.getMessage());
+            throw new ASException(INTERNAL_SERVER_ERROR_CODE, e.getMessage());
         } catch (IOException e) {
-            throw new ASException("2001", e.getMessage());
+            throw new ASException(INTERNAL_SERVER_ERROR_CODE, e.getMessage());
         }
         statusCode = response.getStatusLine().getStatusCode();
 
-        if (statusCode == 200) {
+        if (statusCode == Integer.parseInt(AuthorServicesConstants.STATUS_CODE_OK)) {
             status = AuthorServicesConstants.BPM_CALL_SUCCESS_STATUS;
         } else {
             throw new ASException(statusCode.toString(), response
@@ -176,13 +172,13 @@ public class TaskServiceImpl implements TaskService {
         return status;
     }
 
-     /** for creating task of bpm.
+    /**
+     * for creating task of bpm.
      *
      * @return true, if successful
      */
     @Override
     public final boolean createTask() {
-        // TODO Auto-generated method stub
         return false;
     }
 

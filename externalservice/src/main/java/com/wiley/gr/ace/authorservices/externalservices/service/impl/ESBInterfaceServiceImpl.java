@@ -27,6 +27,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
+import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
@@ -54,6 +55,14 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
     @Value("${createuser.url}")
     private String createUserUrl;
 
+    /** The viewDashboardUrl */
+    @Value("${viewDashboard.url}")
+    private String viewDashboardUrl;
+
+    /** The articleInfoUrl. */
+    @Value("${articleInfo.url}")
+    private String articleInfoUrl;
+
     /** The fetch orcid details url. */
     @Value("${fetchorciddetails.url}")
     private String fetchOrcidDetailsUrl;
@@ -65,6 +74,10 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
     /** The alm authurl. */
     @Value("${almauthenticate.url}")
     private String almAuthurl;
+
+    /** the INTERNAL_SERVER_ERROR_CODE. */
+    @Value("${internal.server.error.code}")
+    private String INTERNAL_SERVER_ERROR_CODE;
 
     /**
      * This method is for fetching ordid details by calling external service
@@ -214,9 +227,8 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
     @Override
     public final DashboardView viewDashboard(final int userId) {
         DashboardView dashboardView = null;
-        final String url = "http://demo7930138.mockable.io/dashboard/view/1000";
         try {
-            final URI uri = new URI(url);
+            final URI uri = new URI(viewDashboardUrl);
             final RestTemplate restTemplate = new RestTemplate();
             final HttpHeaders requestHeaders = new HttpHeaders();
 
@@ -229,7 +241,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
                             DashboardView.class);
             dashboardView = response.getBody();
         } catch (URISyntaxException e) {
-            e.printStackTrace();
+            throw new ASException(INTERNAL_SERVER_ERROR_CODE, e.getMessage());
         }
         return dashboardView;
 
@@ -245,9 +257,8 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
     @Override
     public final ArticleInfoDetails getArticleInfo(final String emailId) {
         ArticleInfoDetails articleInfoDetails = null;
-        final String url = "http://demo7930138.mockable.io/article/getArticleInfo/emailId";
         try {
-            final URI uri = new URI(url);
+            final URI uri = new URI(articleInfoUrl);
             final RestTemplate restTemplate = new RestTemplate();
             final HttpHeaders requestHeaders = new HttpHeaders();
 
@@ -260,7 +271,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
                             ArticleInfoDetails.class);
             articleInfoDetails = response.getBody();
         } catch (URISyntaxException e) {
-            e.printStackTrace();
+            throw new ASException(INTERNAL_SERVER_ERROR_CODE, e.getMessage());
         }
         return articleInfoDetails;
     }

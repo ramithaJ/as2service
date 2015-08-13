@@ -129,5 +129,8 @@ public class AuthorServicesConstants {
 
     /** The Constant for BPM_CALL_SUCCESS_STATUS. */
     public static final String BPM_CALL_SUCCESS_STATUS = "SUCCESS";
+    
+    /** The Constant for BPM_CALL_SUCCESS_STATUS. */
+    public static final String STATUS_CODE_OK = "200";
 
 }
