@@ -90,30 +90,55 @@ public class ASDataServiceImpl implements ASDataService {
     @Autowired(required = true)
     private AreaOfInterterestDao areaOfInterest;
 
+    /** The industry code. */
     @Value("${industry.code}")
     private String industryCode;
+    
+    /** The industry name. */
     @Value("${industry.name}")
     private String industryName;
+    
+    /** The job category code. */
     @Value("${jobCategories.code}")
     private String jobCategoryCode;
+    
+    /** The job category name. */
     @Value("${jobCategories.name}")
     private String jobCategoryName;
+    
+    /** The country code. */
     @Value("${country.code}")
     private String countryCode;
+    
+    /** The country name. */
     @Value("${country.name}")
     private String countryName;
+    
+    /** The institution code. */
     @Value("${institution.code}")
     private String institutionCode;
+    
+    /** The institution name. */
     @Value("${institution.name}")
     private String institutionName;
+    
+    /** The department code. */
     @Value("${department.code}")
     private String departmentCode;
+    
+    /** The department name. */
     @Value("${department.name}")
     private String departmentName;
+    
+    /** The state name. */
     @Value("${state.Name}")
     private String stateName;
+    
+    /** The suffix. */
     @Value("${suffix}")
     private String suffix;
+    
+    /** The title. */
     @Value("${title}")
     private String title;
 
