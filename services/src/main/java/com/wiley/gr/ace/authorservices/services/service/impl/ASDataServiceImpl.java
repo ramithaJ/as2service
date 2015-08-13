@@ -18,6 +18,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.externalservices.service.RolesService;
@@ -89,6 +90,33 @@ public class ASDataServiceImpl implements ASDataService {
     @Autowired(required = true)
     private AreaOfInterterestDao areaOfInterest;
 
+    @Value("${industry.code}")
+    private String industryCode;
+    @Value("${industry.name}")
+    private String industryName;
+    @Value("${jobCategories.code}")
+    private String jobCategoryCode;
+    @Value("${jobCategories.name}")
+    private String jobCategoryName;
+    @Value("${country.code}")
+    private String countryCode;
+    @Value("${country.name}")
+    private String countryName;
+    @Value("${institution.code}")
+    private String institutionCode;
+    @Value("${institution.name}")
+    private String institutionName;
+    @Value("${department.code}")
+    private String departmentCode;
+    @Value("${department.name}")
+    private String departmentName;
+    @Value("${state.Name}")
+    private String stateName;
+    @Value("${suffix}")
+    private String suffix;
+    @Value("${title}")
+    private String title;
+
     /**
      * This will call external service to get titles data.
      *
@@ -98,7 +126,7 @@ public class ASDataServiceImpl implements ASDataService {
     public final List<Title> getTitles() {
         LOGGER.info("inside getTitles method ");
 
-        List<LookupValues> lookupList = aSDataDAO.getDropDown("TITLE");
+        List<LookupValues> lookupList = aSDataDAO.getDropDown(title);
         List<Title> titleList = new ArrayList<Title>();
         Title title = null;
         for (LookupValues lookupValues : lookupList) {
@@ -120,7 +148,7 @@ public class ASDataServiceImpl implements ASDataService {
     public final List<Suffix> getSuffixes() {
         LOGGER.info("inside getSuffixes method ");
 
-        List<LookupValues> lookupList = aSDataDAO.getDropDown("SUFFIX");
+        List<LookupValues> lookupList = aSDataDAO.getDropDown(suffix);
         List<Suffix> suffixList = new ArrayList<Suffix>();
         Suffix suffix = null;
         for (LookupValues lookupValues : lookupList) {
@@ -157,8 +185,8 @@ public class ASDataServiceImpl implements ASDataService {
 
             LinkedHashMap<String, String> industryMap = (LinkedHashMap<String, String>) object;
             industry = new Industry();
-            industry.setIndustryId(industryMap.get("NAICS_CODE"));
-            industry.setIndustryName(industryMap.get("NAICS_TITLE"));
+            industry.setIndustryId(industryMap.get(industryCode));
+            industry.setIndustryName(industryMap.get(industryName));
             industryList.add(industry);
         }
 
@@ -189,8 +217,8 @@ public class ASDataServiceImpl implements ASDataService {
 
             LinkedHashMap<String, String> jobCategoryMap = (LinkedHashMap<String, String>) object;
             jobCategory = new JobCategory();
-            jobCategory.setJobCategoryId(jobCategoryMap.get("JOBCODE"));
-            jobCategory.setJobCategoryName(jobCategoryMap.get("JOBTITLE"));
+            jobCategory.setJobCategoryId(jobCategoryMap.get(jobCategoryCode));
+            jobCategory.setJobCategoryName(jobCategoryMap.get(jobCategoryName));
             jobCategoryList.add(jobCategory);
         }
 
@@ -219,8 +247,8 @@ public class ASDataServiceImpl implements ASDataService {
         for (Object object : externalCountrylist) {
             LinkedHashMap<String, String> countrymap = (LinkedHashMap<String, String>) object;
             Country country = new Country();
-            country.setCountryCode(countrymap.get("ISO_ALPHA_3"));
-            country.setCountryName(countrymap.get("COUNTRY_NAME"));
+            country.setCountryCode(countrymap.get(countryCode));
+            country.setCountryName(countrymap.get(countryName));
             countrylist.add(country);
         }
 
@@ -255,10 +283,8 @@ public class ASDataServiceImpl implements ASDataService {
             LinkedHashMap<String, String> statemap = (LinkedHashMap<String, String>) statelist;
 
             State state = new State();
-            String externalcountrymap = statemap.get("id");
-            String[] idsplit = externalcountrymap.split("_");
-            state.setStateCode(idsplit[2]);
-            state.setStateName(statemap.get("SUBDIVISION_NAME"));
+            state.setStateCode(statemap.get(countryCode));
+            state.setStateName(statemap.get(stateName));
             modelststelist.add(state);
         }
 
@@ -275,20 +301,6 @@ public class ASDataServiceImpl implements ASDataService {
 
         LOGGER.info("inside getInstitutions method ");
 
-        /*
-         * DropDown dropDown = userProfiles.getInstitutionsList();
-         * List<Institution> listofinstitute = dropDown.getInstitutions();
-         * List<Institution> institutionslist = new ArrayList<Institution>();
-         * 
-         * for (Institution institute : listofinstitute) {
-         * 
-         * Institution institution = new Institution();
-         * institution.setInstitutionId(institute.getInstitutionId());
-         * institution.setInstitutionName(institute.getInstitutionName());
-         * institutionslist.add(institution);
-         * 
-         * }
-         */
         return new ArrayList<Institution>();
     }
 
@@ -302,19 +314,6 @@ public class ASDataServiceImpl implements ASDataService {
 
         LOGGER.info("inside getDepartments method ");
 
-        /*
-         * DropDown dropDown = userProfiles.getDepartmentsList();
-         * List<Department> listofdepartment = dropDown.getDepartments();
-         * List<Department> departmentlist = new ArrayList<Department>(); for
-         * (Department department : listofdepartment) {
-         * 
-         * Department departments = new Department();
-         * departments.setDepartmentId(department.getDepartmentId());
-         * departments.setDepartmentName(department.getDepartmentName());
-         * departmentlist.add(department);
-         * 
-         * }
-         */
         return new ArrayList<Department>();
     }
 

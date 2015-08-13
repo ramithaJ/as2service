@@ -184,7 +184,6 @@ public class UserProfilesImpl implements UserProfiles {
     public final ESBResponse getStates(final String countrycode) {
 
         String url = statesurl + countrycode + statesUrlAppend;
-        System.err.println(url);
 
         return (ESBResponse) RestServiceInvokerUtil.pickListInvoker(url,
                 ESBResponse.class);
