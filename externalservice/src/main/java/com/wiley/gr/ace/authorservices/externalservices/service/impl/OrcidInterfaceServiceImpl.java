@@ -67,7 +67,6 @@ public class OrcidInterfaceServiceImpl implements OrcidInterfaceService {
     @Override
     public final OrcidAccessToken getAccessToken(final String authorizationCode)
             throws Exception {
-        OrcidAccessToken accessToken = null;
         final Reference ref = new Reference(orcidTokenUrl);
         if (Context.getCurrent() == null) {
             Context.setCurrent(new Context());

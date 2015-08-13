@@ -23,7 +23,6 @@ import com.wiley.gr.ace.authorservices.persistence.services.DashboardDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.LookUpValuesDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.RegistrationServiceDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.SendNotificationDao;
-import com.wiley.gr.ace.authorservices.persistence.services.SocietyDao;
 import com.wiley.gr.ace.authorservices.persistence.services.UpdateUserDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserAutocomplete;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
@@ -37,7 +36,6 @@ import com.wiley.gr.ace.authorservices.persistence.services.impl.DashboardDAOImp
 import com.wiley.gr.ace.authorservices.persistence.services.impl.LookupValuesDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.RegistrationServiceDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.SendNotificationDaoImpl;
-import com.wiley.gr.ace.authorservices.persistence.services.impl.SocietyDaoImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UpdateUserDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserAutocompleteImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserLoginDaoImpl;
@@ -150,16 +148,6 @@ public class PersistenceBeanConfig {
     @Bean(name = "UserAutocomplete")
     public UserAutocomplete userAutocomplete() {
         return new UserAutocompleteImpl();
-    }
-
-    /**
-     * Society dao.
-     *
-     * @return the society dao
-     */
-    @Bean(name = "SocietyDao")
-    public SocietyDao societyDao() {
-        return new SocietyDaoImpl();
     }
 
     /**

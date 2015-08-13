@@ -27,6 +27,7 @@ import com.wiley.gr.ace.authorservices.persistence.entity.Permissions;
 import com.wiley.gr.ace.authorservices.persistence.entity.RolePermissions;
 import com.wiley.gr.ace.authorservices.persistence.entity.RolePermissionsId;
 import com.wiley.gr.ace.authorservices.persistence.entity.Roles;
+import com.wiley.gr.ace.authorservices.persistence.entity.Societies;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
 
 /**
@@ -42,6 +43,7 @@ public class ASDataDAOImpl implements ASDataDAO {
      *            to Retrieve.
      * @return the List of Lookup Values.
      */
+    @SuppressWarnings("unchecked")
     @Override
     public final List<LookupValues> getDropDown(final String keyName) {
 
@@ -68,6 +70,7 @@ public class ASDataDAOImpl implements ASDataDAO {
      *            to Retrieve.
      * @return the List of Roles.
      */
+    @SuppressWarnings("unchecked")
     @Override
     public final List<Roles> getUserRoles(final String roleId) {
 
@@ -107,6 +110,7 @@ public class ASDataDAOImpl implements ASDataDAO {
      *            to Retrieve.
      * @return the List of Roles.
      */
+    @SuppressWarnings("unchecked")
     @Override
     public final List<Roles> getAdminRoles(final String roleType) {
 
@@ -143,11 +147,12 @@ public class ASDataDAOImpl implements ASDataDAO {
      * 
      * @return the List of Permissions.
      */
+    @SuppressWarnings("unchecked")
     @Override
     public final List<Permissions> getPermissions() {
 
         Session session = null;
-        List<Permissions> list = new ArrayList();
+        List<Permissions> list = new ArrayList<Permissions>();
 
         try {
 
@@ -175,6 +180,7 @@ public class ASDataDAOImpl implements ASDataDAO {
      *            to Retrieve.
      * @return the List of Role Permissions.
      */
+    @SuppressWarnings("unchecked")
     @Override
     public final List<RolePermissions> getRolePermissionMappings(
             final String roleId) {
@@ -230,6 +236,7 @@ public class ASDataDAOImpl implements ASDataDAO {
      *            to Retrieve.
      * @return the count
      */
+    @SuppressWarnings("rawtypes")
     @Override
     public final int getCount(final int roleId) {
         Session session = null;
@@ -268,6 +275,34 @@ public class ASDataDAOImpl implements ASDataDAO {
                 session.close();
             }
         }
+    }
+    
+    
+    /**
+     * This method is calling Db to get society details.
+     *
+     * @return the society
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public final List<Societies> getSociety() {
+        Session session = null;
+        ArrayList<Societies> societyList = new ArrayList<Societies>();
+
+        try {
+            session = getSessionFactory().openSession();
+
+            societyList = (ArrayList<Societies>) session.createCriteria(
+                    Societies.class).list();
+
+        } finally {
+            if (null != session) {
+                session.flush();
+                session.close();
+            }
+        }
+        return societyList;
+
     }
 
 }

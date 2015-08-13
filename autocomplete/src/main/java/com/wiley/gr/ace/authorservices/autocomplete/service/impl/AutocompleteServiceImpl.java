@@ -36,7 +36,6 @@ import com.wiley.gr.ace.authorservices.model.CacheData;
 import com.wiley.gr.ace.authorservices.model.SubFunder;
 import com.wiley.gr.ace.authorservices.model.SubFunderDetails;
 import com.wiley.gr.ace.authorservices.model.SubFunders;
-import com.wiley.gr.ace.authorservices.persistence.services.UserAutocomplete;
 
 /**
  * AutocompleteService provides auto suggestions.
@@ -49,10 +48,6 @@ public class AutocompleteServiceImpl implements AutocompleteService {
     /** The jedis connection factory. */
     @Autowired(required = true)
     private JedisConnectionFactory jedisConnectionFactory;
-
-    /** The user autocomplete. */
-    @Autowired(required = true)
-    private UserAutocomplete userAutocomplete;
 
     /** The autocomplete caching service. */
     @Autowired(required = true)
@@ -117,16 +112,20 @@ public class AutocompleteServiceImpl implements AutocompleteService {
         }
 
         if (phrase != null && !"".equals(phrase.trim())) {
-            // Auto Complete
-
-            // Key is appended with (_auto/_cached) to avoid conflict between
-            // auto complete and caching data.
+            /*
+             * Auto Complete
+             * 
+             * Key is appended with (_auto/_cached) to avoid conflict between
+             * auto complete and caching data.
+             */
             dropDownList = getAutoCompleteDataFromRedis(key + "_auto", phrase,
                     offset);
 
             if (dropDownList == null) {
-                // Get the data from cache if not available in Redis and set it
-                // in Redis.
+                /*
+                 * Get the data from cache if not available in Redis and set it
+                 * in Redis.
+                 */
                 dropDownMap = autocompleteCachingService.getCachedData(key
                         + "_cached", parentId);
 
@@ -147,20 +146,24 @@ public class AutocompleteServiceImpl implements AutocompleteService {
                             phrase, offset);
                 }
 
-                // Convert the json string to json object and sort the list in
-                // ascending order
+                /*
+                 * Convert the json string to json object and sort the list in
+                 * ascending order.
+                 */
                 if (jsonDropDownList == null && dropDownList != null) {
                     jsonDropDownList = getJsonDropDownList(dropDownList, phrase);
                 }
             }
 
         } else {
-            // Cacheable
+            /*
+             * Cacheable
+             * 
+             * Key is appended with (_auto/_cached) to avoid conflict between
+             * auto complete and caching data.
+             */
 
-            // Key is appended with (_cached) to avoid conflict between
-            // auto complete and caching data
-
-            // For Sub Funders
+            /* For Sub Funders */
             if ((subFunderskey + "_" + parentId).equals(key)) {
                 subFunderDetails = autocompleteCachingService
                         .getCachedSubFunders(key + "_cached");
@@ -197,7 +200,7 @@ public class AutocompleteServiceImpl implements AutocompleteService {
             }
         }
 
-        // Return the sublist based on the offset provided
+        /* Return the sublist based on the offset provided. */
         if (jsonDropDownList != null
                 && jsonDropDownList.size() >= autoCompCount
                 && (phrase == null || "".equals(phrase.trim()))) {
@@ -234,7 +237,7 @@ public class AutocompleteServiceImpl implements AutocompleteService {
         phrase = phraseBuilder.toString();
 
         final int prefixLength = phrase.length();
-        // Gets the index of the phrase
+        /* Gets the index of the phrase */
         Long start = redis.zrank(key, phrase);
         if (start == null) {
             start = redis.zrank(key, phrase + "*");
@@ -331,7 +334,7 @@ public class AutocompleteServiceImpl implements AutocompleteService {
     }
 
     /**
-     * This method sorts the Cached Object Data according to name.
+     * This method sorts the Cached Data object according to name.
      * 
      * @param name
      *            - the input value

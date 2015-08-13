@@ -48,7 +48,6 @@ import com.wiley.gr.ace.authorservices.persistence.entity.Societies;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.AreaOfInterterestDao;
 import com.wiley.gr.ace.authorservices.persistence.services.LookUpValuesDAO;
-import com.wiley.gr.ace.authorservices.persistence.services.SocietyDao;
 import com.wiley.gr.ace.authorservices.services.service.ASDataService;
 
 /**
@@ -74,10 +73,6 @@ public class ASDataServiceImpl implements ASDataService {
     @Autowired
     private UserProfiles userProfiles;
 
-    /** getting bean of societyDao. */
-    @Autowired(required = true)
-    private SocietyDao societyDao;
-
     /** The user management. */
     @Autowired(required = true)
     private UserManagement userManagement;
@@ -93,51 +88,35 @@ public class ASDataServiceImpl implements ASDataService {
     /** The industry code. */
     @Value("${industry.code}")
     private String industryCode;
-    
+
     /** The industry name. */
     @Value("${industry.name}")
     private String industryName;
-    
+
     /** The job category code. */
     @Value("${jobCategories.code}")
     private String jobCategoryCode;
-    
+
     /** The job category name. */
     @Value("${jobCategories.name}")
     private String jobCategoryName;
-    
+
     /** The country code. */
     @Value("${country.code}")
     private String countryCode;
-    
+
     /** The country name. */
     @Value("${country.name}")
     private String countryName;
-    
-    /** The institution code. */
-    @Value("${institution.code}")
-    private String institutionCode;
-    
-    /** The institution name. */
-    @Value("${institution.name}")
-    private String institutionName;
-    
-    /** The department code. */
-    @Value("${department.code}")
-    private String departmentCode;
-    
-    /** The department name. */
-    @Value("${department.name}")
-    private String departmentName;
-    
+
     /** The state name. */
     @Value("${state.Name}")
     private String stateName;
-    
+
     /** The suffix. */
     @Value("${suffix}")
     private String suffix;
-    
+
     /** The title. */
     @Value("${title}")
     private String title;
@@ -151,7 +130,7 @@ public class ASDataServiceImpl implements ASDataService {
     public final List<Title> getTitles() {
         LOGGER.info("inside getTitles method ");
 
-        List<LookupValues> lookupList = aSDataDAO.getDropDown(title);
+        List<LookupValues> lookupList = aSDataDAO.getDropDown(this.title);
         List<Title> titleList = new ArrayList<Title>();
         Title title = null;
         for (LookupValues lookupValues : lookupList) {
@@ -173,7 +152,7 @@ public class ASDataServiceImpl implements ASDataService {
     public final List<Suffix> getSuffixes() {
         LOGGER.info("inside getSuffixes method ");
 
-        List<LookupValues> lookupList = aSDataDAO.getDropDown(suffix);
+        List<LookupValues> lookupList = aSDataDAO.getDropDown(this.suffix);
         List<Suffix> suffixList = new ArrayList<Suffix>();
         Suffix suffix = null;
         for (LookupValues lookupValues : lookupList) {
@@ -375,7 +354,7 @@ public class ASDataServiceImpl implements ASDataService {
      */
     @Override
     public final List<Society> getSocieties() {
-        List<Societies> societyListDao = societyDao.getSociety();
+        List<Societies> societyListDao = aSDataDAO.getSociety();
         List<Society> societyList = new ArrayList<Society>();
 
         for (Societies societies : societyListDao) {

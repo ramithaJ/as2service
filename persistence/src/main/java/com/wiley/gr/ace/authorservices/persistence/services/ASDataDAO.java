@@ -17,6 +17,7 @@ import com.wiley.gr.ace.authorservices.persistence.entity.LookupValues;
 import com.wiley.gr.ace.authorservices.persistence.entity.Permissions;
 import com.wiley.gr.ace.authorservices.persistence.entity.RolePermissions;
 import com.wiley.gr.ace.authorservices.persistence.entity.Roles;
+import com.wiley.gr.ace.authorservices.persistence.entity.Societies;
 
 /**
  * The Interface ASDataDAO.
@@ -84,5 +85,12 @@ public interface ASDataDAO {
      * @return string
      */
     String getData(String id);
+
+    /**
+     * This method returns society details
+     * 
+     * @return societyList
+     */
+    List<Societies> getSociety();
 
 }

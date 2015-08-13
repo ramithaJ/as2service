@@ -35,6 +35,8 @@ import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
 import com.wiley.gr.ace.authorservices.model.external.Funder;
 import com.wiley.gr.ace.authorservices.model.external.Id;
 import com.wiley.gr.ace.authorservices.model.external.ResearchFundersResponse;
+import com.wiley.gr.ace.authorservices.persistence.entity.Societies;
+import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
 
 /**
  * AutocompleteCachingServiceImpl provides caching.
@@ -78,6 +80,10 @@ public class AutocompleteCachingServiceImpl implements
     /** the researchFundersKey. */
     @Value("${researchFunders.key}")
     private String researchFundersKey;
+
+    /** the societieskey. */
+    @Value("${societies.key}")
+    private String societieskey;
 
     /** the researchFundersurl. */
     @Value("${researchFundersurl.url}")
@@ -134,10 +140,14 @@ public class AutocompleteCachingServiceImpl implements
     /** the departmentName. */
     @Value("${department.name}")
     private String departmentName;
-    
+
     /** the INTERNAL_SERVER_ERROR_CODE. */
     @Value("${internal.server.error.code}")
     private String INTERNAL_SERVER_ERROR_CODE;
+
+    /** getting bean of asdata dao. */
+    @Autowired(required = true)
+    private ASDataDAO aSDataDAO;
 
     /**
      * This method returns the cached drop down data in the form of Map. If
@@ -173,7 +183,11 @@ public class AutocompleteCachingServiceImpl implements
             LOGGER.info("getCachedData::departmentskey::" + dropDownKey);
             cacheDataList = getDepartments(parentId);
         } else if ((researchFundersKey + "_cached").equals(dropDownKey)) {
+            LOGGER.info("getCachedData::researchFundersKey::" + dropDownKey);
             cacheDataList = getResearchFunders();
+        } else if ((societieskey + "_cached").equals(dropDownKey)) {
+            LOGGER.info("getCachedData::societieskey::" + dropDownKey);
+            cacheDataList = getSocieties();
         }
 
         if (cacheDataList != null && !cacheDataList.isEmpty()) {
@@ -243,7 +257,8 @@ public class AutocompleteCachingServiceImpl implements
                     cacheData.setCode(json.get(cacheDataCode).toString());
                     cacheList.add(cacheData);
                 } catch (ParseException e) {
-                    throw new ASException(INTERNAL_SERVER_ERROR_CODE, e.getMessage());
+                    throw new ASException(INTERNAL_SERVER_ERROR_CODE,
+                            e.getMessage());
                 }
             }
 
@@ -517,6 +532,33 @@ public class AutocompleteCachingServiceImpl implements
         }
 
         return departmentlist;
+    }
+
+    /**
+     * This will call Dao service to get Societies data.
+     *
+     * @return societies
+     */
+    private final List<CacheData> getSocieties() {
+        List<CacheData> societyList = null;
+        List<Societies> societyListDao = null;
+
+        LOGGER.info("inside getSocieties method ");
+
+        societyListDao = aSDataDAO.getSociety();
+
+        if (societyListDao != null) {
+            societyList = new ArrayList<CacheData>();
+            for (Societies societies : societyListDao) {
+                CacheData cacheData = new CacheData();
+                cacheData.setCode(societies.getSocietyCd());
+                cacheData.setName(societies.getSocietyName());
+                societyList.add(cacheData);
+            }
+        }
+
+        return societyList;
+
     }
 
 }
