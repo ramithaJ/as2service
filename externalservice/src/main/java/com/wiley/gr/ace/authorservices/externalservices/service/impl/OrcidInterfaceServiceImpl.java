@@ -16,6 +16,7 @@ package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.restlet.Context;
 import org.restlet.data.Form;
 import org.restlet.data.MediaType;
@@ -34,6 +35,10 @@ import com.wiley.gr.ace.authorservices.model.orcid.OrcidAccessToken;
  * @author virtusa version 1.0
  */
 public class OrcidInterfaceServiceImpl implements OrcidInterfaceService {
+
+    /** The Constant LOGGER. */
+    public static final Logger LOGGER = Logger
+            .getLogger(OrcidInterfaceServiceImpl.class);
 
     /** The orcid client id. */
     @Value("${orcid-clientid}")
@@ -72,21 +77,13 @@ public class OrcidInterfaceServiceImpl implements OrcidInterfaceService {
             Context.setCurrent(new Context());
         }
         final ClientResource client = new ClientResource(ref);
-        /**
-         * TODO : Need to fetch this values from prop files depending on
-         * environment
-         */
+        LOGGER.info(" Fetching Orcid Details From Oricd Properties File");
         final Form form = new Form();
         form.add("client_id", orcidClientId);
         form.add("client_secret", orcidClientSecret);
         form.add("grant_type", orcidGrantType);
         form.add("code", authorizationCode);
-        /**
-         * Need to change this to UI redirect URI
-         */
-        // form.add("redirect_uri",
-        // "http://www.vinay.com:8080/orcid/index.jsp");
-
+        LOGGER.info("Need to change this to UI redirect URI ");
         client.getContext().getParameters().add("followRedirects", "true");
         final Representation rep = client
                 .post(form, MediaType.APPLICATION_JSON);
@@ -108,8 +105,8 @@ public class OrcidInterfaceServiceImpl implements OrcidInterfaceService {
     @Override
     public final String getBio(final OrcidAccessToken token) throws Exception {
 
-        final Reference ref = new Reference(orcidUrl + "/" + token.getOrcid()
-                + "/orcid-bio");
+        final Reference ref = new Reference(orcidUrl.concat("/")
+                .concat(token.getOrcid()).concat("/orcid-bio"));
         final ClientResource client = new ClientResource(ref);
         Map<String, Object> reqAttributes = client.getRequestAttributes();
         Form headers = (Form) reqAttributes.get("org.restlet.http.headers");
@@ -135,8 +132,8 @@ public class OrcidInterfaceServiceImpl implements OrcidInterfaceService {
     @Override
     public final String getWork(final OrcidAccessToken token) throws Exception {
 
-        final Reference ref = new Reference(orcidUrl + "/" + token.getOrcid()
-                + "/orcid-works");
+        final Reference ref = new Reference(orcidUrl.concat("/")
+                .concat(token.getOrcid()).concat("/orcid-works"));
         final ClientResource client = new ClientResource(ref);
         Map<String, Object> reqAttributes = client.getRequestAttributes();
         Form headers = (Form) reqAttributes.get("org.restlet.http.headers");
