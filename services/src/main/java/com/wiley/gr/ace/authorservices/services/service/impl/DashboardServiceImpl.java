@@ -275,9 +275,11 @@ public class DashboardServiceImpl implements DashboardService {
      * @param customerProfile
      *            the customer profile
      * @return the interests for user
+     * @throws Exception
+     *             the exception
      */
     private DashboardInfo getInterestsForUser(
-            final CustomerProfile customerProfile) {
+            final CustomerProfile customerProfile) throws Exception {
         DashboardServiceImpl.LOGGER
                 .info("inside getInterestsForUser Method of DashboardServiceImpl");
         final List<InterestData> userInterestsList = customerProfile
@@ -299,9 +301,11 @@ public class DashboardServiceImpl implements DashboardService {
      * @param customerProfile
      *            the customer profile
      * @return the affiliations for user
+     * @throws Exception
+     *             the exception
      */
     private DashboardInfo getAffiliationsForUser(
-            final CustomerProfile customerProfile) {
+            final CustomerProfile customerProfile) throws Exception {
         DashboardServiceImpl.LOGGER
                 .info("inside getAffiliationsForUser Method of DashboardServiceImpl");
         final List<AffiliationData> userAffiliationsList = customerProfile
@@ -323,9 +327,11 @@ public class DashboardServiceImpl implements DashboardService {
      * @param customerProfile
      *            the customer profile
      * @return the societies for user
+     * @throws Exception
+     *             the exception
      */
     private DashboardInfo getSocietiesForUser(
-            final CustomerProfile customerProfile) {
+            final CustomerProfile customerProfile) throws Exception {
         DashboardServiceImpl.LOGGER
                 .info("inside getSocietiesForUser Method of DashboardServiceImpl");
         final List<SocietyData> societyList = customerProfile.getSocietyList()
@@ -346,9 +352,11 @@ public class DashboardServiceImpl implements DashboardService {
      * @param customerProfile
      *            the customer profile
      * @return the funders list for user
+     * @throws Exception
+     *             the exception
      */
     private DashboardInfo getFundersListForUser(
-            final CustomerProfile customerProfile) {
+            final CustomerProfile customerProfile) throws Exception {
         DashboardServiceImpl.LOGGER
                 .info("inside getFundersListForUser Method of DashboardServiceImpl");
         final List<ResearchFunderData> researchFundersList = customerProfile
@@ -393,8 +401,11 @@ public class DashboardServiceImpl implements DashboardService {
      * @param customerDetails
      *            the customer details
      * @return the orcid id
+     * @throws Exception
+     *             the exception
      */
-    private DashboardInfo getOrcidId(final CustomerDetails customerDetails) {
+    private DashboardInfo getOrcidId(final CustomerDetails customerDetails)
+            throws Exception {
         DashboardServiceImpl.LOGGER
                 .info("inside getOrcidId Method of DashboardServiceImpl");
         DashboardInfo dashboardInfo = null;
