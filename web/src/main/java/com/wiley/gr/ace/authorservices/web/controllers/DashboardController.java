@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.model.Dashboard;
-import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.external.DashboardView;
 import com.wiley.gr.ace.authorservices.services.service.DashboardService;
@@ -51,6 +50,14 @@ public class DashboardController {
     /** value from props file configured. */
     @Value("${DashboardController.getProfileMeter.message}")
     private String getProfileMeterErrorMessage;
+
+    /** The get all author articles error code. */
+    @Value("${DashboardController.getAllAuthorArticles.code}")
+    private String getAllAuthorArticlesErrorCode;
+
+    /** The get all author articles error message. */
+    @Value("${DashboardController.getAllAuthorArticles.message}")
+    private String getAllAuthorArticlesErrorMessage;
 
     /** The Auto Wired for DashBoard Service . */
     @Autowired(required = true)
@@ -114,19 +121,27 @@ public class DashboardController {
             @PathVariable("userId") final int userId) {
         LOGGER.info("inside viewallauthorarticles method of DashboardController");
         final Service service = new Service();
-        DashboardView dashboardView = null;
-        try {
-            dashboardView = dashboardService.viewDashboard(userId);
-            if (!StringUtils.isEmpty(dashboardView)) {
-                service.setPayload(dashboardView);
+        if (!StringUtils.isEmpty(userId)) {
+            DashboardView dashboardView = null;
+            try {
+                dashboardView = dashboardService.viewDashboard(userId);
+                if (!StringUtils.isEmpty(dashboardView)) {
+                    LOGGER.info("Author All Articles Data is Found");
+                    service.setPayload(dashboardView);
+                } else {
+                    LOGGER.info("Author All Articles Data is Not Found");
+                    service.setStatus("SUCCESS");
+                    service.setPayload(noDataFoundMessage);
+                }
+            } catch (final Exception e) {
+                LOGGER.error("Print Stack Trace- ", e);
+                throw new UserException(getAllAuthorArticlesErrorCode,
+                        getAllAuthorArticlesErrorMessage);
             }
-        } catch (final Exception e) {
-            LOGGER.error("Print Stack Trace- ", e);
-            final ErrorPOJO error = new ErrorPOJO();
-            error.setCode(noDataFoundMessage);
-            error.setMessage("Error Fetching To View All Author Articles");
-            service.setStatus("ERROR");
-            service.setError(error);
+        } else {
+            LOGGER.info("input Parameter userId is Not Found");
+            service.setStatus("FAILURE");
+            service.setPayload(inputParameterNotFound);
         }
         return service;
     }

@@ -72,7 +72,7 @@ public class OrcidController {
     /** value from props file configured. */
     @Value("${OrcidController.getOrcidURL.message}")
     private String getOrcidURLErrorMessage;
-    
+
     /** value from props file configured. */
     @Value("${OrcidController.getOrcidDetails.code}")
     private String getOrcidDetailsErrorCode;
@@ -93,11 +93,14 @@ public class OrcidController {
             /**
              * Depending on the environment the ORCID URL changes
              */
-            String url = "";
-            url = "https://" + orcidUrl + "/oauth/authorize?client_id="
-                    + orcidClientId
-                    + "&response_type=code&scope=/authenticate&redirect_uri="
-                    + orcidRedirectUrl;
+            StringBuilder url = new StringBuilder();
+            url = url
+                    .append("https://")
+                    .append(orcidUrl)
+                    .append("/oauth/authorize?client_id=")
+                    .append(orcidClientId)
+                    .append("&response_type=code&scope=/authenticate&redirect_uri=")
+                    .append(orcidRedirectUrl);
             service.setStatus("SUCCESS");
             service.setPayload(url);
 
