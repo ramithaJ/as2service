@@ -52,6 +52,7 @@ import com.wiley.gr.ace.authorservices.model.external.SecuirtyQuestionDetails;
 import com.wiley.gr.ace.authorservices.model.external.SecurityQuestion;
 import com.wiley.gr.ace.authorservices.model.external.SecurityQuestions;
 import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
+import com.wiley.gr.ace.authorservices.persistence.entity.CoauthorRequestsOoorders;
 import com.wiley.gr.ace.authorservices.persistence.entity.InvitationLog;
 import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
 import com.wiley.gr.ace.authorservices.persistence.entity.PublicationStatuses;
@@ -140,6 +141,12 @@ public class DashboardServiceImpl implements DashboardService {
      */
     @Value("{SUBMIT_ORDER}")
     private String submitOrderStatus;
+
+    /**
+     * This field holds the value of onlineOpenReqRcvd.
+     */
+    @Value("{ONLINE_OPEN_REQ_RCVD}")
+    private String onlineOpenReqRcvd;
 
     /**
      * This field holds the value of orderservice.
@@ -438,24 +445,33 @@ public class DashboardServiceImpl implements DashboardService {
             LOGGER.info("ProductPersonRelations data found");
             String articleAuthorRole = null;
             Integer articleId;
-
+            // HashMap
+            HashMap<String, OrderStatus> orderStatusHashMap = orderStatusHasMap(userId);
             for (final ProductPersonRelations productPersonRelations : productPersonRelationsList) {
                 articleAuthorRole = productPersonRelations.getProductRoles()
                         .getProductRoleName();
                 articleId = productPersonRelations.getProducts().getDhId();
-                articleData = getArticleDataDetails(articleId,
-                        articleAuthorRole, userId);
+                articleData = getArticleDataDetails(orderStatusHashMap,
+                        articleId, articleAuthorRole, userId);
                 articleDataList.add(articleData);
             }
         }
         return articleDataList;
     }
 
+    /**
+     * HashMap contains article Id's of saved orders and coAuthorRequestOOOrders
+     * tables.
+     * 
+     * @param userId
+     *            - the request value
+     * @return hashMap
+     */
     private HashMap<String, OrderStatus> orderStatusHasMap(final String userId) {
 
         // calling saved orders table
         List<SavedOrders> savedOrdersList = orderOnlinedao
-                .getSavedOrders(userId);
+                .getUserSavedOrders(userId);
         OrderStatus orderStatus = new OrderStatus();
         String[] statusArray = submitOrderStatus.split(":");
         orderStatus.setStatus(statusArray[0]);
@@ -466,16 +482,18 @@ public class DashboardServiceImpl implements DashboardService {
                     String.valueOf(savedOrders.getProducts().getDhId()),
                     orderStatus);
         }
+        // calling co Author Request OO Orders tabel
+        List<CoauthorRequestsOoorders> coauthorRequestsOoordersList = orderOnlinedao
+                .getcoAuthorReqOO(userId);
+        String[] orderStatusArray = onlineOpenReqRcvd.split(":");
+        orderStatus.setStatus(orderStatusArray[0]);
+        orderStatus.setActionsRequired(orderStatusArray[1]);
+        for (CoauthorRequestsOoorders coauthorRequestsOoorders : coauthorRequestsOoordersList) {
+            satusHashMap.put(String.valueOf(coauthorRequestsOoorders
+                    .getProducts().getDhId()), orderStatus);
+        }
+        System.err.println(satusHashMap.toString());
         return satusHashMap;
-    }
-
-    public static void main(final String[] args) {
-
-        // Calling PdhLookUpJornal service with jornalDhId
-        // PdhJournalResponse pdhLookup = orderservice.pdhLookUpJournal();
-
-        DashboardServiceImpl a = new DashboardServiceImpl();
-        a.orderStatusHasMap("");
     }
 
     /**
@@ -489,8 +507,10 @@ public class DashboardServiceImpl implements DashboardService {
      * @throws Exception
      *             the exception
      */
-    private ArticleData getArticleDataDetails(final Integer articleId,
-            final String articleUserRole, final String userId) throws Exception {
+    private ArticleData getArticleDataDetails(
+            final HashMap<String, OrderStatus> orderStatusHashMap,
+            final Integer articleId, final String articleUserRole,
+            final String userId) throws Exception {
         LOGGER.info("inside getArticleDataDetails Method of DashboardServiceImpl");
         final ArticleData articleData = esbInterfaceService
                 .getAuthorArticle(articleId);
@@ -504,7 +524,7 @@ public class DashboardServiceImpl implements DashboardService {
                 articleData.setLicenseStatus(licenseStatus);
             }
             articleData.setOrderPaymentStatus(getOrderPaymentStatusForArticle(
-                    articleId, userId));
+                    orderStatusHashMap, articleId, userId));
         }
         return articleData;
     }
@@ -519,12 +539,18 @@ public class DashboardServiceImpl implements DashboardService {
      *             the exception
      */
     private OrderPaymentStatus getOrderPaymentStatusForArticle(
+            final HashMap<String, OrderStatus> orderStatusHashMap,
             final Integer articleId, final String userId) throws Exception {
         // TODO: Order status
         LOGGER.info("inside getOrderPaymentStatusForArticle Method of DashboardServiceImpl");
-        final OrderPaymentStatus orderPaymentStatus = new OrderPaymentStatus();
-        final String openAccessStatus = esbInterfaceService
-                .getOpenAccessStatus(articleId).getOpenAccessStatus();
+        OrderPaymentStatus orderPaymentStatus = new OrderPaymentStatus();
+        if (orderStatusHashMap.containsKey(articleId)) {
+
+            // orderPaymentStatus.setOnlineOpenStatus(orderStatusHashMap.get());
+        }
+
+        String openAccessStatus = esbInterfaceService.getOpenAccessStatus(
+                articleId).getOpenAccessStatus();
         if (!StringUtils.isEmpty(openAccessStatus)) {
             LOGGER.info("Open Access Status is Found");
             orderPaymentStatus.setOpenAccessStatus(openAccessStatus);

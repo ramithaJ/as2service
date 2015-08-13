@@ -501,8 +501,7 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
     }
 
     @Override
-    public CoauthorRequestsOoorders getcoAuthorReqOO(final String articleId,
-            final String coAuthorUserId) {
+    public List<CoauthorRequestsOoorders> getcoAuthorReqOO(final String userId) {
 
         Session session = null;
         try {
@@ -512,13 +511,9 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
             criteria.createAlias(
                     "coauthorRequestsOoorders.usersByCoauthUserId",
                     "usersByCoauthUserId");
-            criteria.createAlias("coauthorRequestsOoorders.products",
-                    "products");
             criteria.add(Restrictions.eq("usersByCoauthUserId.userId",
-                    Integer.parseInt(coAuthorUserId)));
-            criteria.add(Restrictions.eq("products.dhId",
-                    Integer.parseInt(articleId)));
-            return (CoauthorRequestsOoorders) criteria.uniqueResult();
+                    Integer.parseInt(userId)));
+            return criteria.list();
 
         } finally {
             if (session != null) {
@@ -529,7 +524,7 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
     }
 
     @Override
-    public List<SavedOrders> getSavedOrders(final String userId) {
+    public List<SavedOrders> getUserSavedOrders(final String userId) {
 
         Session session = null;
         try {

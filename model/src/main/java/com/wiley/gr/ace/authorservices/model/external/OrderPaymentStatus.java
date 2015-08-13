@@ -32,6 +32,26 @@ public class OrderPaymentStatus {
     private String onlineOpenStatus;
 
     /**
+     * This field holds the value of availableActions.
+     */
+    private String availableActions;
+
+    /**
+     * @return the availableActions
+     */
+    public final String getAvailableActions() {
+        return availableActions;
+    }
+
+    /**
+     * @param availableActions
+     *            the availableActions to set
+     */
+    public final void setAvailableActions(final String availableActions) {
+        this.availableActions = availableActions;
+    }
+
+    /**
      * @return the openAccessStatus
      */
     public final String getOpenAccessStatus() {
