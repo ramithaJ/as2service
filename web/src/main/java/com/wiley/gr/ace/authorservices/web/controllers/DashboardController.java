@@ -14,6 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.web.controllers;
 
+import java.util.HashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +31,10 @@ import com.wiley.gr.ace.authorservices.model.Dashboard;
 import com.wiley.gr.ace.authorservices.model.DashboardView;
 import com.wiley.gr.ace.authorservices.model.EmailCommunicationHistory;
 import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
+import com.wiley.gr.ace.authorservices.model.OrderStatus;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.services.service.DashboardService;
+import com.wiley.gr.ace.authorservices.services.service.impl.OrderStatusServiceImpl;
 
 /**
  * This DashboardController is for view the Dashboard of Corresponding Author
@@ -285,5 +289,11 @@ public class DashboardController {
             service.setPayload(inputParameterNotFound);
         }
         return service;
+    }
+
+    @RequestMapping(value = "/shiva", method = RequestMethod.GET)
+    public HashMap<String, OrderStatus> abc() {
+        OrderStatusServiceImpl impl = new OrderStatusServiceImpl();
+        return impl.getOrderStatusMap();
     }
 }

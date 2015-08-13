@@ -44,7 +44,10 @@ import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserProfile;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
+import com.wiley.gr.ace.authorservices.model.external.OrderData;
+import com.wiley.gr.ace.authorservices.model.external.OrderDataList;
 import com.wiley.gr.ace.authorservices.model.external.OrderPaymentStatus;
+import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhLookupArticleResponse;
 import com.wiley.gr.ace.authorservices.model.external.Production;
 import com.wiley.gr.ace.authorservices.model.external.Publication;
@@ -153,6 +156,12 @@ public class DashboardServiceImpl implements DashboardService {
      */
     @Autowired(required = true)
     private OrderService orderservice;
+
+    /**
+     * This field holds the value of onlineOpen.
+     */
+    @Value("${OnlineOpen}")
+    private String onlineOpen;
 
     /**
      * This method is used for get the Profile Information of User from external
@@ -482,7 +491,7 @@ public class DashboardServiceImpl implements DashboardService {
                     String.valueOf(savedOrders.getProducts().getDhId()),
                     orderStatus);
         }
-        // calling co Author Request OO Orders tabel
+        // calling Co_Author Request OO Orders table
         List<CoauthorRequestsOoorders> coauthorRequestsOoordersList = orderOnlinedao
                 .getcoAuthorReqOO(userId);
         String[] orderStatusArray = onlineOpenReqRcvd.split(":");
@@ -492,6 +501,14 @@ public class DashboardServiceImpl implements DashboardService {
             satusHashMap.put(String.valueOf(coauthorRequestsOoorders
                     .getProducts().getDhId()), orderStatus);
         }
+
+        // calling View All Orders external Service
+        OrderDataList ordersData = orderservice.getAllOrders(userId);
+        List<OrderData> orderDataList = ordersData.getOrderDatas();
+        for (OrderData orderData : orderDataList) {
+            System.err.println(orderData.getOrderDate());
+        }
+
         System.err.println(satusHashMap.toString());
         return satusHashMap;
     }
@@ -546,7 +563,16 @@ public class DashboardServiceImpl implements DashboardService {
         OrderPaymentStatus orderPaymentStatus = new OrderPaymentStatus();
         if (orderStatusHashMap.containsKey(articleId)) {
 
-            // orderPaymentStatus.setOnlineOpenStatus(orderStatusHashMap.get());
+            OrderStatus orderStatus = orderStatusHashMap.get(articleId);
+            orderPaymentStatus.setOnlineOpenStatus(orderStatus.getStatus());
+            orderPaymentStatus.setAvailableActions(orderStatus
+                    .getActionsRequired());
+            return orderPaymentStatus;
+        }
+        // checking weather article is OO or OA
+        PdhJournalResponse pdhLookup = orderservice.pdhLookUpJournal(articleId);
+        if (onlineOpen.equalsIgnoreCase(pdhLookup.getPdmSalesModel())) {
+            userId.startsWith("0");// remove it
         }
 
         String openAccessStatus = esbInterfaceService.getOpenAccessStatus(

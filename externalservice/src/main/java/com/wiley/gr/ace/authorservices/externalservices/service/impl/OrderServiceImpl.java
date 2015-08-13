@@ -127,7 +127,8 @@ public class OrderServiceImpl implements OrderService {
 
     /** Calling Stub */
     @Override
-    public final OrderResponse submitOnlineOpenOrder(final OrderRequest orderRequest) {
+    public final OrderResponse submitOnlineOpenOrder(
+            final OrderRequest orderRequest) {
 
         return (OrderResponse) StubInvokerUtil.restServiceInvoker(
                 createorderurl, orderRequest, OrderResponse.class);
@@ -189,24 +190,24 @@ public class OrderServiceImpl implements OrderService {
      * Method to get society Member discounts
      */
     @Override
-    public SocietyMemberDiscount getSocietyMemberDiscount(String DHID) {
+    public SocietyMemberDiscount getSocietyMemberDiscount(final String DHID) {
 
-    	return (SocietyMemberDiscount) StubInvokerUtil.restGetServiceInvoker(
-				societyMemberDiscountsurl + DHID, SocietyMemberDiscount.class);
+        return (SocietyMemberDiscount) StubInvokerUtil.restGetServiceInvoker(
+                societyMemberDiscountsurl + DHID, SocietyMemberDiscount.class);
     }
 
     @Override
-    public InstitutionDiscounts getInstitutionDiscounts(String DHID) {
+    public InstitutionDiscounts getInstitutionDiscounts(final String DHID) {
 
-    	return (InstitutionDiscounts) StubInvokerUtil.restGetServiceInvoker(
-				institutionDiscountsurl + DHID, InstitutionDiscounts.class);
+        return (InstitutionDiscounts) StubInvokerUtil.restGetServiceInvoker(
+                institutionDiscountsurl + DHID, InstitutionDiscounts.class);
     }
 
     /** @param orderId */
     @Override
     public OrderDataList getAllOrders(final String orderId) {
-        return (OrderDataList) StubInvokerUtil.invokeJsonStub(
-                orderserviceurlview, HttpMethod.POST, OrderDataList.class);
+        return (OrderDataList) StubInvokerUtil.restGetServiceInvoker(
+                orderserviceurlview + orderId, OrderDataList.class);
     }
 
     @Override
@@ -219,9 +220,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public String getDiscounts(final DiscountRequest discountRequest) {
 
-    	DiscountResponse response = (DiscountResponse) StubInvokerUtil.restServiceInvoker(
-				getdiscountsurl, discountRequest, DiscountResponse.class);
-    	
+        DiscountResponse response = (DiscountResponse) StubInvokerUtil
+                .restServiceInvoker(getdiscountsurl, discountRequest,
+                        DiscountResponse.class);
+
         return response.getDiscountResponseObject().getDiscountAmount();
     }
 
@@ -241,10 +243,9 @@ public class OrderServiceImpl implements OrderService {
                 cancelOrderUrl, cancelOrderRequest, OrderResponse.class);
     }
 
-	
-	@Override
-	public String getResearchFunderDOI(String funderId) {
-		// TODO Need to retrieve the DOI from the Cache
-		return "1234";
-	}
+    @Override
+    public String getResearchFunderDOI(final String funderId) {
+        // TODO Need to retrieve the DOI from the Cache
+        return "1234";
+    }
 }
