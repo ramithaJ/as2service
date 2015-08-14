@@ -55,7 +55,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
     @Value("${createuser.url}")
     private String createUserUrl;
 
-    /** The viewDashboardUrl */
+    /** The viewDashboardUrl. */
     @Value("${viewDashboard.url}")
     private String viewDashboardUrl;
 
@@ -77,7 +77,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 
     /** the INTERNAL_SERVER_ERROR_CODE. */
     @Value("${internal.server.error.code}")
-    private String INTERNAL_SERVER_ERROR_CODE;
+    private String internalServerErrorCode;
 
     /**
      * This method is for fetching ordid details by calling external service
@@ -241,7 +241,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
                             DashboardView.class);
             dashboardView = response.getBody();
         } catch (URISyntaxException e) {
-            throw new ASException(INTERNAL_SERVER_ERROR_CODE, e.getMessage());
+            throw new ASException(internalServerErrorCode, e.getMessage());
         }
         return dashboardView;
 
@@ -271,7 +271,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
                             ArticleInfoDetails.class);
             articleInfoDetails = response.getBody();
         } catch (URISyntaxException e) {
-            throw new ASException(INTERNAL_SERVER_ERROR_CODE, e.getMessage());
+            throw new ASException(internalServerErrorCode, e.getMessage());
         }
         return articleInfoDetails;
     }

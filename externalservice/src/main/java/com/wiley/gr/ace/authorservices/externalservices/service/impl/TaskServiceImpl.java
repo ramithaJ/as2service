@@ -80,7 +80,7 @@ public class TaskServiceImpl implements TaskService {
 
     /** the INTERNAL_SERVER_ERROR_CODE. */
     @Value("${internal.server.error.code}")
-    private String INTERNAL_SERVER_ERROR_CODE;
+    private String internalServerErrorCode;
 
     /**
      * Method invokes BPM service and returns the status.
@@ -114,7 +114,7 @@ public class TaskServiceImpl implements TaskService {
             encodedParamString = URLEncoder.encode(requestString, "UTF-8");
 
         } catch (UnsupportedEncodingException e) {
-            throw new ASException(INTERNAL_SERVER_ERROR_CODE, e.getMessage());
+            throw new ASException(internalServerErrorCode, e.getMessage());
         }
 
         StringBuilder decodedParamString = new StringBuilder();
@@ -156,9 +156,9 @@ public class TaskServiceImpl implements TaskService {
         try {
             response = client.execute(request);
         } catch (ClientProtocolException e) {
-            throw new ASException(INTERNAL_SERVER_ERROR_CODE, e.getMessage());
+            throw new ASException(internalServerErrorCode, e.getMessage());
         } catch (IOException e) {
-            throw new ASException(INTERNAL_SERVER_ERROR_CODE, e.getMessage());
+            throw new ASException(internalServerErrorCode, e.getMessage());
         }
         statusCode = response.getStatusLine().getStatusCode();
 

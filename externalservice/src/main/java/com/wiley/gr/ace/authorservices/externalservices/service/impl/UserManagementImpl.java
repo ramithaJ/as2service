@@ -117,6 +117,7 @@ public class UserManagementImpl implements UserManagement {
         final boolean status = this.externalPostServiceInvoker(
                 resetPasswordurl, passwordResetRequest);
         if (status) {
+            final Integer userId = 8011047;
             AuditInformation auditInformation = new AuditInformation();
             auditInformation.setActionID("PWDRES");
             auditInformation.setTableName("TABLE");
@@ -124,7 +125,7 @@ public class UserManagementImpl implements UserManagement {
             auditInformation.setNewValue(passwordResetRequest
                     .getUpdateUserSecurityAttributes().getNewPassword());
             auditInformation.setOldValue("45624");
-            auditInformation.setUserId(8011047);
+            auditInformation.setUserId(userId);
             AuditResultServiceImpl.auditUserActions(auditInformation);
         }
         return status;
@@ -157,13 +158,14 @@ public class UserManagementImpl implements UserManagement {
         boolean status = this.externalPostServiceInvoker(forceFulReseturl,
                 forcefulReset);
         if (status) {
+            final Integer userId = 8011047;
             AuditInformation auditInformation = new AuditInformation();
             auditInformation.setActionID("PWDRES");
             auditInformation.setTableName("TABLE");
             auditInformation.setColumnName("COLUMN");
             auditInformation.setNewValue(forcefulReset.getNewPassword());
             auditInformation.setOldValue("45624");
-            auditInformation.setUserId(8011047);
+            auditInformation.setUserId(userId);
             AuditResultServiceImpl.auditUserActions(auditInformation);
         }
         return status;
@@ -280,7 +282,7 @@ public class UserManagementImpl implements UserManagement {
      * @return true, if successful
      */
 
-    private final boolean externalPostServiceInvoker(final String url,
+    private boolean externalPostServiceInvoker(final String url,
             final Object requestEntityClass) {
 
         final ResponseStatus responseStatus = (ResponseStatus) RestServiceInvokerUtil

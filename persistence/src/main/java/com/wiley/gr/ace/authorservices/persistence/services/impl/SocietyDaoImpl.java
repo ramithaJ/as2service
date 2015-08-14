@@ -38,7 +38,7 @@ public class SocietyDaoImpl implements SocietyDao {
     @Override
     public final List<Societies> getSociety() {
         Session session = null;
-        ArrayList<Societies> societyList = new ArrayList<Societies>();
+        ArrayList<Societies> societyList = null;
 
         try {
             session = getSessionFactory().openSession();

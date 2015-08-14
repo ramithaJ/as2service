@@ -15,6 +15,9 @@ package com.wiley.gr.ace.authorservices.persistence.services.impl;
 import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
 
 import java.sql.Blob;
+import java.sql.SQLException;
+
+import javax.sql.rowset.serial.SerialException;
 
 import org.hibernate.Session;
 
@@ -45,17 +48,22 @@ public class AuthorProfileDaoImpl implements AuthorProfileDao {
             session = getSessionFactory().openSession();
             session.beginTransaction();
             UserProfile userProfile = (UserProfile) session.get(
-                    UserProfile.class, Integer.parseInt(userId));
-            System.err.println(userProfile.getMiddleName());
+                    UserProfile.class, Integer.valueOf(userId));
             Blob blob = new javax.sql.rowset.serial.SerialBlob(image);
             userProfile.setProfilePic(blob);
             session.save(userProfile);
             session.getTransaction().commit();
 
-        } catch (Exception e) {
+        } catch (SerialException e) {
             e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
         }
-
     }
 
 }

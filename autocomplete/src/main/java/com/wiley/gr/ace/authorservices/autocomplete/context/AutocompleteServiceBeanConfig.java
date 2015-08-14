@@ -21,6 +21,9 @@ import com.wiley.gr.ace.authorservices.autocomplete.service.impl.AutocompleteSer
 
 /**
  * The Class ServiceBeanConfig.
+ * 
+ * @author Virtusa version1.0
+ *
  */
 @Configuration
 public class AutocompleteServiceBeanConfig {
@@ -28,7 +31,7 @@ public class AutocompleteServiceBeanConfig {
     /**
      * Autocomplete Service.
      * 
-     * @return autocompleteServiceImpl
+     * @return autocompleteServiceImpl.
      */
     @Bean(name = "AutocompleteService")
     public AutocompleteService autocompleteService() {
@@ -38,7 +41,7 @@ public class AutocompleteServiceBeanConfig {
     /**
      * AutocompleteCachingService.
      * 
-     * @return autocompleteCachingServiceImpl
+     * @return autocompleteCachingServiceImpl.
      */
     @Bean(name = "AutocompleteCachingService")
     public AutocompleteCachingService autocompleteCachingService() {

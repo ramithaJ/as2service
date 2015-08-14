@@ -14,7 +14,6 @@ package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
 import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -39,7 +38,7 @@ public class AlertsDaoImpl implements AlertsDao {
     public final List<Alerts> getAlerts() {
         Session session = null;
         Criteria criteria = null;
-        List<Alerts> alertsList = new ArrayList<Alerts>();
+        List<Alerts> alertsList = null;
         try {
             session = getSessionFactory().openSession();
             session.beginTransaction();

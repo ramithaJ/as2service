@@ -121,13 +121,14 @@ public class AuditResultServiceImpl implements AuditResultService {
      * @param auditInformation
      *            the audit information
      */
-    public final static void auditUserActions(
+    public static final void auditUserActions(
             final AuditInformation auditInformation) {
 
         List<HashMap<String, String>> auditMap = new ArrayList<HashMap<String, String>>();
         HashMap<String, String> hashMap = new HashMap<String, String>();
-        hashMap.put("OBJ_NAME", auditInformation.getTableName());// Table Name
-        hashMap.put("OBJ_ATTR", auditInformation.getColumnName());// Column Name
+        hashMap.put("OBJ_NAME", auditInformation.getTableName()); // Table Name
+        hashMap.put("OBJ_ATTR", auditInformation.getColumnName()); // Column
+                                                                   // Name
         hashMap.put("OLD_VAL", auditInformation.getOldValue());
         hashMap.put("NEW_VAL", auditInformation.getNewValue());
         hashMap.put("ACTION_CD", auditInformation.getActionID());

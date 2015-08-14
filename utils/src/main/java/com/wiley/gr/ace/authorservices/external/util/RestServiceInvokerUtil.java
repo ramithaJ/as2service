@@ -87,16 +87,16 @@ public class RestServiceInvokerUtil {
                     new URI(url), requestEntityClass, responseEntityClass);
             return response.getBody();
         } catch (Exception e) {
-
-            if (AuthorServicesConstants.UNAUTHORIZEDMSG.equalsIgnoreCase(e
-                    .getMessage())) {
+            final String message = e.getMessage();
+            if (AuthorServicesConstants.UNAUTHORIZEDMSG
+                    .equalsIgnoreCase(message)) {
                 throw new ASException(AuthorServicesConstants.UNAUTHORIZEDCODE,
-                        e.getMessage());
+                        message);
             }
             if (AuthorServicesConstants.LOCKEDMSG.equalsIgnoreCase(e
                     .getMessage())) {
                 throw new ASException(AuthorServicesConstants.LOCKEDCODE,
-                        e.getMessage());
+                        message);
             }
             throw new ASException(AuthorServicesConstants.SERVERERRORCODE,
                     AuthorServicesConstants.SERVERERRORMESSAGE);
@@ -168,13 +168,15 @@ public class RestServiceInvokerUtil {
 
     /**
      * @param url
+     *            the url
      * @param responseEntityClass
-     * @return object of picklist
+     *            the responseEntity class
+     * @return object
      */
     public static <T> Object pickListInvoker(final String url,
             final Class<T> responseEntityClass) {
 
-        StringBuffer responseString = new StringBuffer();
+        StringBuffer responseString = null;
         ESBResponse esbResponse = null;
         try {
 
@@ -182,20 +184,22 @@ public class RestServiceInvokerUtil {
             HttpURLConnection conn = (HttpURLConnection) urls.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
-
-            if (conn.getResponseCode() != 200) {
-                throw new RuntimeException("Failed : HTTP error code : "
-                        + conn.getResponseCode());
+            final Integer responseCode = 200;
+            Integer code = conn.getResponseCode();
+            if (code != responseCode) {
+                throw new RuntimeException("Failed : HTTP error code : " + code);
             }
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            BufferedReader bufferedReader = new BufferedReader(
+                    new InputStreamReader(conn.getInputStream()));
 
-            String output;
+            String output = null;
 
-            while ((output = br.readLine()) != null) {
+            while ((output = bufferedReader.readLine()) != null) {
+                responseString = new StringBuffer();
                 responseString.append(output);
             }
-
+            bufferedReader.close();
             conn.disconnect();
 
         } catch (MalformedURLException e) {
@@ -209,9 +213,10 @@ public class RestServiceInvokerUtil {
         }
         JSONObject responseJSON = new JSONObject(responseString.toString());
         ObjectMapper mapper = new ObjectMapper();
-       
+
         try {
-            esbResponse = mapper.readValue(responseJSON.toString(), ESBResponse.class);
+            esbResponse = mapper.readValue(responseJSON.toString(),
+                    ESBResponse.class);
         } catch (IOException e) {
             e.printStackTrace();
         }

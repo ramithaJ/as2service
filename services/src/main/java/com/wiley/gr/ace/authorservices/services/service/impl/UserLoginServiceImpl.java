@@ -154,7 +154,7 @@ public class UserLoginServiceImpl implements UserLoginService {
                 throw new ASException(securityquestioncode,
                         securityquestionmessage);
             } else {
-
+                List<UserSecurityQuestionsEntry> userSecurityQuestionsEntriesList = null;
                 PasswordResetRequest passwordResetRequest = new PasswordResetRequest();
 
                 PasswordReset passwordReset = new PasswordReset();
@@ -167,7 +167,7 @@ public class UserLoginServiceImpl implements UserLoginService {
 
                 UserSecurityQuestions userSecurityQuestions = new UserSecurityQuestions();
                 UserSecurityQuestionsMap userSecurityQuestionsMap = new UserSecurityQuestionsMap();
-                List<UserSecurityQuestionsEntry> userSecurityQuestionsEntriesList = new ArrayList<UserSecurityQuestionsEntry>();
+                userSecurityQuestionsEntriesList = new ArrayList<UserSecurityQuestionsEntry>();
                 UserSecurityQuestionsEntry userSecurityQuestionsEntry = null;
 
                 List<SecurityDetails> securityDetailsList = securityDetailsHolder
