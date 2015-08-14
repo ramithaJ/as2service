@@ -75,7 +75,7 @@ public class ASDataDAOImpl implements ASDataDAO {
     public final List<Roles> getUserRoles(final String roleId) {
 
         Session session = null;
-        List<Roles> list = new ArrayList<Roles>();
+        List<Roles> list = null;
         String hql = null;
 
         try {
@@ -115,7 +115,7 @@ public class ASDataDAOImpl implements ASDataDAO {
     public final List<Roles> getAdminRoles(final String roleType) {
 
         Session session = null;
-        List<Roles> list = new ArrayList<Roles>();
+        List<Roles> list = null;
         String hql = null;
         try {
 
@@ -152,7 +152,7 @@ public class ASDataDAOImpl implements ASDataDAO {
     public final List<Permissions> getPermissions() {
 
         Session session = null;
-        List<Permissions> list = new ArrayList<Permissions>();
+        List<Permissions> list = null;
 
         try {
 
@@ -186,7 +186,7 @@ public class ASDataDAOImpl implements ASDataDAO {
             final String roleId) {
 
         Session session = null;
-        List<Object[]> list = new ArrayList<Object[]>();
+        List<Object[]> list = null;
         List<RolePermissions> returnList = new ArrayList<RolePermissions>();
 
         try {
@@ -240,7 +240,7 @@ public class ASDataDAOImpl implements ASDataDAO {
     @Override
     public final int getCount(final int roleId) {
         Session session = null;
-        List list = new ArrayList();
+        List list = null;
         int count = 0;
         session = getSessionFactory().openSession();
         Query query = session.createSQLQuery(
@@ -252,6 +252,8 @@ public class ASDataDAOImpl implements ASDataDAO {
     }
 
     /**
+     * Gets the data.
+     *
      * @param id
      *            request value
      * @return String response value
@@ -276,8 +278,7 @@ public class ASDataDAOImpl implements ASDataDAO {
             }
         }
     }
-    
-    
+
     /**
      * This method is calling Db to get society details.
      *
@@ -287,7 +288,7 @@ public class ASDataDAOImpl implements ASDataDAO {
     @Override
     public final List<Societies> getSociety() {
         Session session = null;
-        ArrayList<Societies> societyList = new ArrayList<Societies>();
+        ArrayList<Societies> societyList = null;
 
         try {
             session = getSessionFactory().openSession();
