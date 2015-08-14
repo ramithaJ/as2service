@@ -47,7 +47,6 @@ import com.wiley.gr.ace.authorservices.model.external.ArticleData;
 import com.wiley.gr.ace.authorservices.model.external.OrderData;
 import com.wiley.gr.ace.authorservices.model.external.OrderDataList;
 import com.wiley.gr.ace.authorservices.model.external.OrderPaymentStatus;
-import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhLookupArticleResponse;
 import com.wiley.gr.ace.authorservices.model.external.Production;
 import com.wiley.gr.ace.authorservices.model.external.Publication;
@@ -454,7 +453,7 @@ public class DashboardServiceImpl implements DashboardService {
             LOGGER.info("ProductPersonRelations data found");
             String articleAuthorRole = null;
             Integer articleId;
-            // HashMap
+            // Order status HashMap
             HashMap<String, OrderStatus> orderStatusHashMap = orderStatusHasMap(userId);
             for (final ProductPersonRelations productPersonRelations : productPersonRelationsList) {
                 articleAuthorRole = productPersonRelations.getProductRoles()
@@ -485,6 +484,7 @@ public class DashboardServiceImpl implements DashboardService {
         String[] statusArray = submitOrderStatus.split(":");
         orderStatus.setStatus(statusArray[0]);
         orderStatus.setActionsRequired(statusArray[1]);
+        // order status HashMap
         HashMap<String, OrderStatus> satusHashMap = new HashMap<String, OrderStatus>();
         for (SavedOrders savedOrders : savedOrdersList) {
             satusHashMap.put(
@@ -506,7 +506,14 @@ public class DashboardServiceImpl implements DashboardService {
         OrderDataList ordersData = orderservice.getAllOrders(userId);
         List<OrderData> orderDataList = ordersData.getOrderDatas();
         for (OrderData orderData : orderDataList) {
-            System.err.println(orderData.getOrderDate());
+            // Taking the hashMap from orderStatusServiceImpl class
+            OrderStatusServiceImpl orderStatusServiceImpl = new OrderStatusServiceImpl();
+            HashMap<String, OrderStatus> orderStatusHashMap = orderStatusServiceImpl
+                    .getOrderStatusMap();
+            if (orderStatusHashMap.containsKey(orderData.getOrderStatusCode())) {
+                satusHashMap.put(orderData.getArticle().getDhId(),
+                        orderStatusHashMap.get(orderData.getOrderStatusCode()));
+            }
         }
 
         System.err.println(satusHashMap.toString());
@@ -569,11 +576,13 @@ public class DashboardServiceImpl implements DashboardService {
                     .getActionsRequired());
             return orderPaymentStatus;
         }
-        // checking weather article is OO or OA
-        PdhJournalResponse pdhLookup = orderservice.pdhLookUpJournal(articleId);
-        if (onlineOpen.equalsIgnoreCase(pdhLookup.getPdmSalesModel())) {
-            userId.startsWith("0");// remove it
-        }
+        // // checking weather article is OO or OA
+        // PdhJournalResponse pdhLookup =
+        // orderservice.pdhLookUpJournal(articleId);
+        // // if it is OA
+        // if (onlineOpen.equalsIgnoreCase(pdhLookup.getPdmSalesModel())) {
+        // userId.startsWith("0");// remove it
+        // }
 
         String openAccessStatus = esbInterfaceService.getOpenAccessStatus(
                 articleId).getOpenAccessStatus();
