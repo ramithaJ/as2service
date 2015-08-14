@@ -16,6 +16,7 @@ package com.wiley.gr.ace.authorservices.services.context;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 import com.wiley.gr.ace.authorservices.services.service.ASDataService;
 import com.wiley.gr.ace.authorservices.services.service.AdditionalPermissionService;
@@ -30,6 +31,7 @@ import com.wiley.gr.ace.authorservices.services.service.OnlineOpenAuthorValidato
 import com.wiley.gr.ace.authorservices.services.service.OpenAccessService;
 import com.wiley.gr.ace.authorservices.services.service.OrcidService;
 import com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService;
+import com.wiley.gr.ace.authorservices.services.service.OrderStatusService;
 import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
 import com.wiley.gr.ace.authorservices.services.service.SaveArticleData;
 import com.wiley.gr.ace.authorservices.services.service.UpdateUserService;
@@ -49,6 +51,7 @@ import com.wiley.gr.ace.authorservices.services.service.impl.OnlineOpenAuthorVal
 import com.wiley.gr.ace.authorservices.services.service.impl.OpenAccessServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.OrcidServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.OrderOnlineOpenServiceImpl;
+import com.wiley.gr.ace.authorservices.services.service.impl.OrderStatusServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.RegistrationServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.SaveArticleDataImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UpdateUserServiceImpl;
@@ -63,6 +66,7 @@ import com.wiley.gr.ace.authorservices.services.service.impl.ViewLicenseAgreemen
  * @author virtusa version 1.0
  */
 @Configuration
+@PropertySource("classpath:orderStatusOO.properties")
 public class ServiceBeanConfig {
 
     /**
@@ -256,5 +260,9 @@ public class ServiceBeanConfig {
     public ViewLicenseAgreementService viewLicenseAgreementService() {
         return new ViewLicenseAgreementServiceImpl();
     }
-
+    @Bean(name = "OrderStatusService")
+    public OrderStatusService orderStatusService() {
+        return new OrderStatusServiceImpl();
+    }
+  
 }
