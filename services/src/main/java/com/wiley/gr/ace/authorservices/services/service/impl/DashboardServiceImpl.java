@@ -162,12 +162,6 @@ public class DashboardServiceImpl implements DashboardService {
     private OrderService orderservice;
 
     /**
-     * This field holds the value of onlineOpen.
-     */
-    @Value("${OnlineOpen}")
-    private String onlineOpen;
-
-    /**
      * This field holds the value of orderStatus.
      */
     @Autowired(required = true)
@@ -475,7 +469,7 @@ public class DashboardServiceImpl implements DashboardService {
                         .getProductRoleName();
                 articleId = productPersonRelations.getProducts().getDhId();
                 articleData = getArticleDataDetails(orderStatusHashMap,
-                        articleId, articleAuthorRole, userId);
+                        articleId, articleAuthorRole);
                 articleDataList.add(articleData);
             }
         }
@@ -558,8 +552,8 @@ public class DashboardServiceImpl implements DashboardService {
      */
     private ArticleData getArticleDataDetails(
             final HashMap<String, OrderStatus> orderStatusHashMap,
-            final Integer articleId, final String articleUserRole,
-            final String userId) throws Exception {
+            final Integer articleId, final String articleUserRole)
+            throws Exception {
         LOGGER.info("inside getArticleDataDetails Method of DashboardServiceImpl");
         final ArticleData articleData = esbInterfaceService
                 .getAuthorArticle(articleId);
@@ -573,7 +567,7 @@ public class DashboardServiceImpl implements DashboardService {
                 articleData.setLicenseStatus(licenseStatus);
             }
             articleData.setOrderPaymentStatus(getOrderPaymentStatusForArticle(
-                    orderStatusHashMap, articleId, userId));
+                    orderStatusHashMap, articleId));
         }
         return articleData;
     }
@@ -589,7 +583,7 @@ public class DashboardServiceImpl implements DashboardService {
      */
     private OrderPaymentStatus getOrderPaymentStatusForArticle(
             final HashMap<String, OrderStatus> orderStatusHashMap,
-            final Integer articleId, final String userId) throws Exception {
+            final Integer articleId) throws Exception {
         // TODO: Order status
         LOGGER.info("inside getOrderPaymentStatusForArticle Method of DashboardServiceImpl");
         OrderPaymentStatus orderPaymentStatus = new OrderPaymentStatus();
