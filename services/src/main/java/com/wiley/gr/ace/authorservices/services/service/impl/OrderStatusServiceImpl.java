@@ -29,21 +29,25 @@ import com.wiley.gr.ace.authorservices.services.service.OrderStatusService;
  *
  */
 public class OrderStatusServiceImpl implements OrderStatusService {
-    
-   @Autowired
-   Environment env;
+
+    /**
+     * This field holds the value of env.
+     */
+    @Autowired
+    Environment env;
+    /**
+     * This field holds the value of orderStatusMap.
+     */
     private static HashMap<String, OrderStatus> orderStatusMap = new HashMap<String, OrderStatus>();
 
     @Override
     public HashMap<String, OrderStatus> getOrderStatusMap() {
-    
+
         for (OO_ORDER_STATUS ooOrderStatus : AuthorServicesConstants.OO_ORDER_STATUS
                 .values()) {
-
             OrderStatus orderStatus = new OrderStatus();
             StringTokenizer stk = new StringTokenizer(
-                    env.getProperty("Submit_Url"),
-                    ":");
+                    env.getProperty(ooOrderStatus.name()), ":");
             orderStatus.setStatus(stk.nextElement().toString());
             orderStatus.setActionsRequired(stk.nextElement().toString());
             orderStatusMap.put(ooOrderStatus.name(), orderStatus);

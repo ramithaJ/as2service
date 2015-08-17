@@ -14,8 +14,6 @@
  */
 package com.wiley.gr.ace.authorservices.web.controllers;
 
-import java.util.HashMap;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +29,8 @@ import com.wiley.gr.ace.authorservices.model.Dashboard;
 import com.wiley.gr.ace.authorservices.model.DashboardView;
 import com.wiley.gr.ace.authorservices.model.EmailCommunicationHistory;
 import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
-import com.wiley.gr.ace.authorservices.model.OrderStatus;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.services.service.DashboardService;
-import com.wiley.gr.ace.authorservices.services.service.OrderStatusService;
 
 /**
  * This DashboardController is for view the Dashboard of Corresponding Author
@@ -56,7 +52,7 @@ public class DashboardController {
     /** value from props file configured. */
     @Value("${DashboardController.getProfileMeter.code}")
     private int getProfileMetererrorcode;
-   
+
     /** value from props file configured. */
     @Value("${DashboardController.getProfileMeter.message}")
     private String getProfileMetererrormessage;
@@ -100,9 +96,6 @@ public class DashboardController {
     /** The input parameter not found. */
     @Value("${inputParameterNotFound.message}")
     private String inputParameterNotFound;
-
-    @Autowired(required = true)
-    private OrderStatusService orderStatus;
 
     /**
      * This method takes userId and return the Service.
@@ -294,8 +287,4 @@ public class DashboardController {
         return service;
     }
 
-    @RequestMapping(value = "/shiva", method = RequestMethod.GET)
-    public HashMap<String, OrderStatus> abc() {
-        return orderStatus.getOrderStatusMap();
-    }
 }

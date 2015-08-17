@@ -67,6 +67,7 @@ import com.wiley.gr.ace.authorservices.services.service.impl.ViewLicenseAgreemen
  */
 @Configuration
 @PropertySource("classpath:orderStatusOO.properties")
+
 public class ServiceBeanConfig {
 
     /**

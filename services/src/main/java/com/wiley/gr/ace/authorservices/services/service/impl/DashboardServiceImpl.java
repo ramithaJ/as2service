@@ -62,6 +62,7 @@ import com.wiley.gr.ace.authorservices.persistence.entity.SavedOrders;
 import com.wiley.gr.ace.authorservices.persistence.services.DashboardDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO;
 import com.wiley.gr.ace.authorservices.services.service.DashboardService;
+import com.wiley.gr.ace.authorservices.services.service.OrderStatusService;
 
 /**
  * This DashboardServiceImpl is for providing service for viewing the Dashboard
@@ -161,6 +162,12 @@ public class DashboardServiceImpl implements DashboardService {
      */
     @Value("${OnlineOpen}")
     private String onlineOpen;
+
+    /**
+     * This field holds the value of orderStatus.
+     */
+    @Autowired(required = true)
+    private OrderStatusService orderStatusService;
 
     /**
      * This method is used for get the Profile Information of User from external
@@ -507,8 +514,7 @@ public class DashboardServiceImpl implements DashboardService {
         List<OrderData> orderDataList = ordersData.getOrderDatas();
         for (OrderData orderData : orderDataList) {
             // Taking the hashMap from orderStatusServiceImpl class
-            OrderStatusServiceImpl orderStatusServiceImpl = new OrderStatusServiceImpl();
-            HashMap<String, OrderStatus> orderStatusHashMap = orderStatusServiceImpl
+            HashMap<String, OrderStatus> orderStatusHashMap = orderStatusService
                     .getOrderStatusMap();
             if (orderStatusHashMap.containsKey(orderData.getOrderStatusCode())) {
                 satusHashMap.put(orderData.getArticle().getDhId(),
