@@ -13,6 +13,7 @@
  */
 package com.wiley.gr.ace.authorservices.model;
 
+
 /**
  * @author virtusa version1.0
  *
@@ -27,7 +28,7 @@ public class GrantRecipients {
     /**
      * This field holds the value of code
      */
-    private Integer code;
+    private String code;
 
     /**
      * @return the name
@@ -44,19 +45,13 @@ public class GrantRecipients {
         this.name = name;
     }
 
-    /**
-     * @return the code
-     */
-    public final Integer getCode() {
+    public final String getCode() {
         return code;
     }
 
-    /**
-     * @param code
-     *            the code to set
-     */
-    public final void setCode(final Integer code) {
+    public final void setCode(final String code) {
         this.code = code;
     }
 
+   
 }

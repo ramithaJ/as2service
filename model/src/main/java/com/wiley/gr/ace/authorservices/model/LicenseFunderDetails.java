@@ -14,7 +14,7 @@
  */
 package com.wiley.gr.ace.authorservices.model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.wiley.gr.ace.authorservices.model.external.Funder;
 
@@ -29,7 +29,7 @@ public class LicenseFunderDetails {
     private Funder funder;
 
     /** The grants. */
-    private ArrayList<Grant> grants;
+    private List<Grant> grants;
 
     /**
      * Gets the funder.
@@ -50,22 +50,13 @@ public class LicenseFunderDetails {
         this.funder = funder;
     }
 
-    /**
-     * Gets the grants.
-     *
-     * @return the grants
-     */
-    public final ArrayList<Grant> getGrants() {
+    public final List<Grant> getGrants() {
         return grants;
     }
 
-    /**
-     * Sets the grants.
-     *
-     * @param grants
-     *            the new grants
-     */
-    public final void setGrants(final ArrayList<Grant> grants) {
+    public final void setGrants(final List<Grant> grants) {
         this.grants = grants;
     }
+
+ 
 }

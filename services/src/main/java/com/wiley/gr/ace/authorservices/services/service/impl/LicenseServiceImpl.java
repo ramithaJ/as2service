@@ -32,9 +32,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wiley.gr.ace.authorservices.exception.LicenseException;
 import com.wiley.gr.ace.authorservices.externalservices.service.LicenseInterfaceService;
+import com.wiley.gr.ace.authorservices.model.Grant;
+import com.wiley.gr.ace.authorservices.model.GrantRecipients;
+import com.wiley.gr.ace.authorservices.model.LicenseFunderDetails;
 import com.wiley.gr.ace.authorservices.model.LicenseObject;
 import com.wiley.gr.ace.authorservices.model.LicenseStatus;
-import com.wiley.gr.ace.authorservices.model.Recipents;
 import com.wiley.gr.ace.authorservices.model.external.Funder;
 import com.wiley.gr.ace.authorservices.model.external.Funders;
 import com.wiley.gr.ace.authorservices.model.external.Id;
@@ -211,19 +213,26 @@ public class LicenseServiceImpl implements LicenseService {
          
         List<ProgramData> programList=licenseInterfaceService.initiateLicence(articleId).getProgram();
         for (ProgramData programData : programList) {
-            Recipents recipents=new Recipents();
-            List<Recipents> recipentsList=new ArrayList<Recipents>();
-            recipents.setRecipentsName(programData.getFunder().getName());
+            LicenseFunderDetails licenseFunderDetails=new LicenseFunderDetails();
+            Grant grant=new Grant();
+            List<Grant> grantList=new ArrayList<Grant>();
+            GrantRecipients grantRecipients=new GrantRecipients();
+            List<GrantRecipients> listOfGrantRecipients=new ArrayList<GrantRecipients>();
+             grantRecipients.setCode(programData.getFunder().getId());
+            
           List<Id>  lisOfId= programData.getFunder().getSecondaryIds().getId();
          for (Id id : lisOfId) {
             if (id.getType().equalsIgnoreCase("DOI")) {
-                recipents.setRecipentsId(id.getContent());
+                grantRecipients.setName(programData.getFunder().getName());
                 break;
             }
-            
         }
-            recipentsList.add(recipents);
-            licenseObject.setRecipents(recipentsList);
+         grant.setRecipients(listOfGrantRecipients);
+         listOfGrantRecipients.add(grantRecipients);
+         grant.setRecipients(listOfGrantRecipients);
+         grantList.add(grant);
+         licenseFunderDetails.setGrants(grantList);
+       licenseObject.setFunderDetails(licenseFunderDetails);
             
         }
         return licenseObject;

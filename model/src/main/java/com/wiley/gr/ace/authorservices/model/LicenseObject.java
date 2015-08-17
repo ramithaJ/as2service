@@ -15,7 +15,6 @@
 package com.wiley.gr.ace.authorservices.model;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -31,15 +30,11 @@ public class LicenseObject {
     private String licenceId;
     private String journalId;
 
-    private List<Recipents> recipents;
     /** The funder details. */
     private LicenseFunderDetails funderDetails;
 
     /** The copyright ownership. */
     private CopyrightOwnership copyrightOwnership;
-    private CopyrightOwnership ownerShipDetails;
-
-    private FunderDetails funderDetail;
 
     /** The online open. */
     private String onlineOpen;
@@ -199,14 +194,6 @@ public class LicenseObject {
         return journalId;
     }
 
-    public final List<Recipents> getRecipents() {
-        return recipents;
-    }
-
-    public final CopyrightOwnership getOwnerShipDetails() {
-        return ownerShipDetails;
-    }
-
     public final void setLicenceId(final String licenceId) {
         this.licenceId = licenceId;
     }
@@ -215,20 +202,5 @@ public class LicenseObject {
         this.journalId = journalId;
     }
 
-    public final void setRecipents(final List<Recipents> recipents) {
-        this.recipents = recipents;
-    }
-
-    public final void setOwnerShipDetails(
-            final CopyrightOwnership ownerShipDetails) {
-        this.ownerShipDetails = ownerShipDetails;
-    }
-
-    public final FunderDetails getFunderDetail() {
-        return funderDetail;
-    }
-
-    public final void setFunderDetail(final FunderDetails funderDetail) {
-        this.funderDetail = funderDetail;
-    }
+  
 }

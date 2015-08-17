@@ -14,7 +14,7 @@
  */
 package com.wiley.gr.ace.authorservices.model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Class Grant.
@@ -27,7 +27,7 @@ public class Grant {
     private String grantNumber;
 
     /** The recipients. */
-    private ArrayList<GrantRecipients> recipients;
+    private List<GrantRecipients> recipients;
 
     /**
      * Gets the grant number.
@@ -47,22 +47,14 @@ public class Grant {
         this.grantNumber = grantNumber;
     }
 
-    /**
-     * Gets the recipients.
-     *
-     * @return the recipients
-     */
-    public final ArrayList<GrantRecipients> getRecipients() {
+    public final List<GrantRecipients> getRecipients() {
         return recipients;
     }
 
-    /**
-     * Sets the recipients.
-     *
-     * @param recipients the new recipients
-     */
-    public final void setRecipients(final ArrayList<GrantRecipients> recipients) {
+    public final void setRecipients(final List<GrantRecipients> recipients) {
         this.recipients = recipients;
     }
+
+  
 
 }

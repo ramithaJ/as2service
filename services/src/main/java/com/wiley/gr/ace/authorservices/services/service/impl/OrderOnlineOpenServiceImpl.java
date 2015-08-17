@@ -1048,7 +1048,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             final Users users = productPersonRelations.getUserProfile()
                     .getUsersByUserId();
             grantRecipients = new GrantRecipients();
-            grantRecipients.setCode(users.getUserId());
+            grantRecipients.setCode(users.getUserId().toString());
             grantRecipients.setName(users.getFirstName() + " "
                     + users.getLastName());
             grantRecipientsList.add(grantRecipients);
