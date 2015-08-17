@@ -43,6 +43,11 @@ public class PaymentServiceController extends ASExceptionController {
 	
 	@Value("${wpgOpenAccessRedirection.url}")
 	private String wpgOpenAccessRedirectionurl;
+	
+    /** the INTERNAL_SERVER_ERROR_CODE. */
+    @Value("${internal.server.error.code}")
+    private String internalServerErrorCode;
+
 
 	/**
 	 * @param orderId
@@ -84,7 +89,7 @@ public class PaymentServiceController extends ASExceptionController {
 			response.setStatus(HttpStatus.SC_MOVED_PERMANENTLY);
 			response.sendRedirect(url);
 		} catch (IOException e) {
-			throw new ASException("704", e.getMessage());
+			throw new ASException(internalServerErrorCode, e.getMessage());
 		}
 
 	}
