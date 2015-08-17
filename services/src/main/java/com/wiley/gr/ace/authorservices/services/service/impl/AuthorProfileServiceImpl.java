@@ -13,6 +13,7 @@
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
 import java.io.File;
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -925,5 +926,32 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                 .customerProfileUpdate(lookupCustomerProfileResponse);
 
     }
+/** This method is for getting profile picture .....
+ * @param userId
+ * @return image in terms of Byte array
+ * */
+    @Override
+    public byte[] getProfilePicture(String userId) {
+       com.wiley.gr.ace.authorservices.persistence.entity.UserProfile userProfile = null;
+        
 
+        byte[] imageAsBytes = null;
+
+        userProfile = authorProfileDao.getProfilePicture(userId);
+
+        try {
+            Blob image = userProfile.getProfilePic();
+            int blobLength = (int) image.length();
+            imageAsBytes = image.getBytes(1, blobLength);
+//            FileOutputStream fos = new FileOutputStream(
+//                    "C:\\Users\\ravisinha\\Desktop\\Retrive4.jpg");
+//            fos.write(imageAsBytes);
+//            fos.close();
+//            image.free();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return imageAsBytes;
+
+    }
 }

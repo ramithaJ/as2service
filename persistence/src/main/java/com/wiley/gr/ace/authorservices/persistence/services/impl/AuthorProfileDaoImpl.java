@@ -66,4 +66,30 @@ public class AuthorProfileDaoImpl implements AuthorProfileDao {
         }
     }
 
+    /**This method is for getting image form database 
+     * @param userId
+     * @return User profile...
+     *  */
+    @Override
+    public UserProfile getProfilePicture(String userId) {
+
+        Session session = null;
+        UserProfile userProfile = new UserProfile();
+        try {
+            session = getSessionFactory().openSession();
+            userProfile = (UserProfile) session.get(UserProfile.class,
+                    Integer.valueOf(userId));
+
+        } finally {
+            if (null != session) {
+                session.flush();
+                session.clear();
+                session.close();
+
+            }
+
+        }
+        return userProfile;
+
+    }
 }

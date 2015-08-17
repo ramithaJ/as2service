@@ -261,4 +261,13 @@ public interface AuthorProfileService {
      * @return true, if successful
      */
     boolean updateOrcidId(String userId, String orcidId);
+    
+    
+    /**
+     * @param userId
+     * @return
+     */
+    byte[] getProfilePicture(String userId);
+    
+    
 }

@@ -12,6 +12,8 @@
 
 package com.wiley.gr.ace.authorservices.persistence.services;
 
+import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
+
 /**
  * The Interface AuthorProfileDao.
  * 
@@ -28,5 +30,11 @@ public interface AuthorProfileDao {
      *            the user id
      */
     void saveProfilePicture(byte[] image, String userId);
+
+    /**
+     * @param userId
+     * @return
+     */
+    UserProfile getProfilePicture(String userId);
 
 }

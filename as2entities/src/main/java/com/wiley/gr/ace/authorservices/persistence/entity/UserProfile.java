@@ -6,17 +6,20 @@ import java.sql.Blob;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -40,6 +43,7 @@ public class UserProfile implements java.io.Serializable {
 	private String industryCd;
 	private String jobCategoryCd;
 	private String optInPromoteFlg;
+	@Lob
 	private Blob profilePic;
 	private Character isAccountActive;
 	private Character isAccountVerified;
