@@ -206,8 +206,8 @@ public class OrderServiceImpl implements OrderService {
     /** @param orderId */
     @Override
     public OrderDataList getAllOrders(final String orderId) {
-        return (OrderDataList) StubInvokerUtil.restGetServiceInvoker(
-                orderserviceurlview + orderId, OrderDataList.class);
+        return (OrderDataList) StubInvokerUtil.invokeJsonStub(
+                orderserviceurlview, HttpMethod.POST, OrderDataList.class);
     }
 
     @Override

@@ -513,8 +513,13 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
                     "usersByCoauthUserId");
             criteria.add(Restrictions.eq("usersByCoauthUserId.userId",
                     Integer.parseInt(userId)));
-            return criteria.list();
-
+            List<CoauthorRequestsOoorders> coauthorRequestsOoorders = criteria
+                    .list();
+            System.err.println(coauthorRequestsOoorders);
+            if (coauthorRequestsOoorders.isEmpty()) {
+                return null;
+            }
+            return coauthorRequestsOoorders;
         } finally {
             if (session != null) {
                 session.flush();
@@ -534,7 +539,12 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
             criteria.createAlias("savedOrders.usersByUserId", "usersByUserId");
             criteria.add(Restrictions.eq("usersByUserId.userId",
                     Integer.parseInt(userId)));
-            return criteria.list();
+            List<SavedOrders> list = criteria.list();
+            System.err.println(list.size());
+            if (list.isEmpty()) {
+                return null;
+            }
+            return list;
         } finally {
             if (session != null) {
                 session.flush();

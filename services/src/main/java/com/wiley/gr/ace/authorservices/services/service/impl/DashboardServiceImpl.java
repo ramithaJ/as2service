@@ -140,19 +140,19 @@ public class DashboardServiceImpl implements DashboardService {
     private String articleProofRcvdStatus;
 
     /** The article proof approved status. */
-    @Value("{ARTICLE_PROOF_APPROVED_STATUS_TEXT}")
+    @Value("&{ARTICLE_PROOF_APPROVED_STATUS_TEXT}")
     private String articleProofApprovedStatus;
 
     /**
      * This field holds the value of submitOrderStatus.
      */
-    @Value("{SUBMIT_ORDER}")
+    @Value("${SUBMIT_ORDER}")
     private String submitOrderStatus;
 
     /**
      * This field holds the value of onlineOpenReqRcvd.
      */
-    @Value("{ONLINE_OPEN_REQ_RCVD}")
+    @Value("${ONLINE_OPEN_REQ_RCVD}")
     private String onlineOpenReqRcvd;
 
     /**
@@ -496,40 +496,51 @@ public class DashboardServiceImpl implements DashboardService {
         List<SavedOrders> savedOrdersList = orderOnlinedao
                 .getUserSavedOrders(userId);
         OrderStatus orderStatus = new OrderStatus();
-        String[] statusArray = submitOrderStatus.split(":");
-        orderStatus.setStatus(statusArray[0]);
-        orderStatus.setActionsRequired(statusArray[1]);
-        // order status HashMap
         HashMap<String, OrderStatus> satusHashMap = new HashMap<String, OrderStatus>();
-        for (SavedOrders savedOrders : savedOrdersList) {
-            satusHashMap.put(
-                    String.valueOf(savedOrders.getProducts().getDhId()),
-                    orderStatus);
+
+        if (null != savedOrdersList) {
+            String[] statusArray = submitOrderStatus.split(":");
+            orderStatus.setStatus(statusArray[0]);
+            orderStatus.setActionsRequired(statusArray[1]);
+            // order status HashMap
+            for (SavedOrders savedOrders : savedOrdersList) {
+                satusHashMap.put(
+                        String.valueOf(savedOrders.getProducts().getDhId()),
+                        orderStatus);
+            }
         }
         // calling Co_Author Request OO Orders table
         List<CoauthorRequestsOoorders> coauthorRequestsOoordersList = orderOnlinedao
                 .getcoAuthorReqOO(userId);
-        String[] orderStatusArray = onlineOpenReqRcvd.split(":");
-        orderStatus.setStatus(orderStatusArray[0]);
-        orderStatus.setActionsRequired(orderStatusArray[1]);
-        for (CoauthorRequestsOoorders coauthorRequestsOoorders : coauthorRequestsOoordersList) {
-            satusHashMap.put(String.valueOf(coauthorRequestsOoorders
-                    .getProducts().getDhId()), orderStatus);
+
+        if (null != coauthorRequestsOoordersList) {
+            String[] orderStatusArray = onlineOpenReqRcvd.split(":");
+            orderStatus.setStatus(orderStatusArray[0]);
+            orderStatus.setActionsRequired(orderStatusArray[1]);
+            for (CoauthorRequestsOoorders coauthorRequestsOoorders : coauthorRequestsOoordersList) {
+                satusHashMap.put(String.valueOf(coauthorRequestsOoorders
+                        .getProducts().getDhId()), orderStatus);
+            }
         }
 
         // calling View All Orders external Service
         OrderDataList ordersData = orderservice.getAllOrders(userId);
-        List<OrderData> orderDataList = ordersData.getOrderDatas();
-        for (OrderData orderData : orderDataList) {
-            // Taking the hashMap from orderStatusServiceImpl class
-            HashMap<String, OrderStatus> orderStatusHashMap = orderStatusService
-                    .getOrderStatusMap();
-            if (orderStatusHashMap.containsKey(orderData.getOrderStatusCode())) {
-                satusHashMap.put(orderData.getArticle().getDhId(),
-                        orderStatusHashMap.get(orderData.getOrderStatusCode()));
-            }
-        }
 
+        if (null != ordersData) {
+            List<OrderData> orderDataList = ordersData.getOrderDatas();
+            for (OrderData orderData : orderDataList) {
+                // Taking the hashMap from orderStatusServiceImpl class
+                HashMap<String, OrderStatus> orderStatusHashMap = orderStatusService
+                        .getOrderStatusMap();
+                if (orderStatusHashMap.containsKey(orderData
+                        .getOrderStatusCode())) {
+                    satusHashMap.put(orderData.getArticle().getDhId(),
+                            orderStatusHashMap.get(orderData
+                                    .getOrderStatusCode()));
+                }
+            }
+
+        }
         System.err.println(satusHashMap.toString());
         return satusHashMap;
     }
@@ -582,9 +593,10 @@ public class DashboardServiceImpl implements DashboardService {
         // TODO: Order status
         LOGGER.info("inside getOrderPaymentStatusForArticle Method of DashboardServiceImpl");
         OrderPaymentStatus orderPaymentStatus = new OrderPaymentStatus();
-        if (orderStatusHashMap.containsKey(articleId)) {
+        if (orderStatusHashMap.containsKey(String.valueOf(articleId))) {
 
-            OrderStatus orderStatus = orderStatusHashMap.get(articleId);
+            OrderStatus orderStatus = orderStatusHashMap.get(String
+                    .valueOf(articleId));
             orderPaymentStatus.setOnlineOpenStatus(orderStatus.getStatus());
             orderPaymentStatus.setAvailableActions(orderStatus
                     .getActionsRequired());
