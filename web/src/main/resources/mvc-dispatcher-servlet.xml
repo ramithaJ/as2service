@@ -28,7 +28,7 @@
 		location="classpath:mockurls.properties,classpath:orcid.properties,classpath:userManagement.properties,
 	classpath:exception.properties,classpath:persistence.exception.properties,classpath:bpmService.properties,
 	classpath:onlineOpenProperties.properties,classpath:wpgPaymentDetails.properties,
-	classpath:applicationMessages.properties"
+	classpath:applicationMessages.properties, classpath:orderStatusOA.properties"
 		ignore-unresolvable="true" />
 	<context:annotation-config />
 	<mvc:annotation-driven />

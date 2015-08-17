@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 import java.util.TreeMap;
 
 import org.slf4j.Logger;
@@ -43,6 +44,7 @@ import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserProfile;
+import com.wiley.gr.ace.authorservices.model.external.Article;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
 import com.wiley.gr.ace.authorservices.model.external.OrderData;
 import com.wiley.gr.ace.authorservices.model.external.OrderDataList;
@@ -50,6 +52,8 @@ import com.wiley.gr.ace.authorservices.model.external.OrderPaymentStatus;
 import com.wiley.gr.ace.authorservices.model.external.PdhLookupArticleResponse;
 import com.wiley.gr.ace.authorservices.model.external.Production;
 import com.wiley.gr.ace.authorservices.model.external.Publication;
+import com.wiley.gr.ace.authorservices.model.external.Quote;
+import com.wiley.gr.ace.authorservices.model.external.QuoteRequest;
 import com.wiley.gr.ace.authorservices.model.external.SecuirtyQuestionDetails;
 import com.wiley.gr.ace.authorservices.model.external.SecurityQuestion;
 import com.wiley.gr.ace.authorservices.model.external.SecurityQuestions;
@@ -168,6 +172,10 @@ public class DashboardServiceImpl implements DashboardService {
      */
     @Autowired(required = true)
     private OrderStatusService orderStatusService;
+
+    /** The order service. */
+    @Autowired(required = true)
+    private OrderService orderService;
 
     /**
      * This method is used for get the Profile Information of User from external
@@ -582,25 +590,65 @@ public class DashboardServiceImpl implements DashboardService {
                     .getActionsRequired());
             return orderPaymentStatus;
         }
-        // // checking weather article is OO or OA
-        // PdhJournalResponse pdhLookup =
-        // orderservice.pdhLookUpJournal(articleId);
-        // // if it is OA
-        // if (onlineOpen.equalsIgnoreCase(pdhLookup.getPdmSalesModel())) {
-        // userId.startsWith("0");// remove it
-        // }
 
-        String openAccessStatus = esbInterfaceService.getOpenAccessStatus(
-                articleId).getOpenAccessStatus();
-        if (!StringUtils.isEmpty(openAccessStatus)) {
-            LOGGER.info("Open Access Status is Found");
-            orderPaymentStatus.setOpenAccessStatus(openAccessStatus);
-        }
-        final String onlineOpenStatus = esbInterfaceService
-                .getOnlineOpenStatus(articleId).getOnlineOpenStatus();
-        if (!StringUtils.isEmpty(onlineOpenStatus)) {
-            LOGGER.info("Open Order Status is Found");
-            orderPaymentStatus.setOnlineOpenStatus(onlineOpenStatus);
+        // calling get Quote external service
+        // get Quote request object.
+        QuoteRequest quoteRequest = new QuoteRequest();
+        Article article = new Article();
+        article.setArticleID(String.valueOf(articleId));
+        article.setJournalElectronicISSN(""); // TODO
+        article.setJournalPrintISSN(""); // TODO
+        quoteRequest.setArticle(article);
+        quoteRequest.setRequestCreatedTimestamp(""); // TODO
+        quoteRequest.setRequestType(""); // TODO
+
+        Quote quote = orderService.getQuote(quoteRequest);
+        return openAccessStatus(quote);
+
+        // String openAccessStatus = esbInterfaceService.getOpenAccessStatus(
+        // articleId).getOpenAccessStatus();
+        // if (!StringUtils.isEmpty(openAccessStatus)) {
+        // LOGGER.info("Open Access Status is Found");
+        // orderPaymentStatus.setOpenAccessStatus(openAccessStatus);
+        // }
+        // final String onlineOpenStatus = esbInterfaceService
+        // .getOnlineOpenStatus(articleId).getOnlineOpenStatus();
+        // if (!StringUtils.isEmpty(onlineOpenStatus)) {
+        // LOGGER.info("Open Order Status is Found");
+        // orderPaymentStatus.setOnlineOpenStatus(onlineOpenStatus);
+        // }
+        // return orderPaymentStatus;
+    }
+
+    private OrderPaymentStatus openAccessStatus(final Quote quote) {
+
+        OrderPaymentStatus orderPaymentStatus = new OrderPaymentStatus();
+        StringTokenizer stringTokenizer = null;
+        if ("AP".equalsIgnoreCase(quote.getQuoteType())
+                && "APPROVED".equalsIgnoreCase(quote.getQuoteStatus())) {
+            stringTokenizer = new StringTokenizer(
+                    "MAKE_PAYMENT_STATUS_TEXT:PAYMENT_DUE_ACTION_TEXT", ":");
+            orderPaymentStatus.setOpenAccessStatus(stringTokenizer
+                    .nextElement().toString());
+            orderPaymentStatus.setAvailableActions(stringTokenizer
+                    .nextElement().toString());
+        } else if ("FI".equalsIgnoreCase(quote.getQuoteType())
+                && "APPROVED".equalsIgnoreCase(quote.getQuoteStatus())) {
+            stringTokenizer = new StringTokenizer(
+                    "PAYMENT_COVERED_STATUS_TEXT:None", ":");
+            orderPaymentStatus.setOpenAccessStatus(stringTokenizer
+                    .nextElement().toString());
+            orderPaymentStatus.setAvailableActions(stringTokenizer
+                    .nextElement().toString());
+        } else if ("FI".equalsIgnoreCase(quote.getQuoteType())
+                && "Denied".equalsIgnoreCase(quote.getQuoteStatus())) {
+            stringTokenizer = new StringTokenizer(
+                    "FUND_DENIED_STATUS_TEXT:CONTACT_WILEY_SUPPORT_ACTION_TEXT",
+                    ":");
+            orderPaymentStatus.setOpenAccessStatus(stringTokenizer
+                    .nextElement().toString());
+            orderPaymentStatus.setAvailableActions(stringTokenizer
+                    .nextElement().toString());
         }
         return orderPaymentStatus;
     }
