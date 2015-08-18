@@ -30,6 +30,7 @@ import com.wiley.gr.ace.authorservices.persistence.entity.Roles;
 import com.wiley.gr.ace.authorservices.persistence.entity.Societies;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
 
+
 /**
  * The Class ASDataDAOImpl.
  *

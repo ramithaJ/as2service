@@ -926,14 +926,17 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                 .customerProfileUpdate(lookupCustomerProfileResponse);
 
     }
-/** This method is for getting profile picture .....
- * @param userId
- * @return image in terms of Byte array
- * */
+
+    /**
+     * This method is for getting profile picture .....
+     *
+     * @param userId
+     *            the user id
+     * @return image in terms of Byte array
+     */
     @Override
-    public byte[] getProfilePicture(String userId) {
-       com.wiley.gr.ace.authorservices.persistence.entity.UserProfile userProfile = null;
-        
+    public final byte[] getProfilePicture(final String userId) {
+        com.wiley.gr.ace.authorservices.persistence.entity.UserProfile userProfile = null;
 
         byte[] imageAsBytes = null;
 
@@ -943,11 +946,11 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             Blob image = userProfile.getProfilePic();
             int blobLength = (int) image.length();
             imageAsBytes = image.getBytes(1, blobLength);
-//            FileOutputStream fos = new FileOutputStream(
-//                    "C:\\Users\\ravisinha\\Desktop\\Retrive4.jpg");
-//            fos.write(imageAsBytes);
-//            fos.close();
-//            image.free();
+            // FileOutputStream fos = new FileOutputStream(
+            // "C:\\Users\\ravisinha\\Desktop\\Retrive4.jpg");
+            // fos.write(imageAsBytes);
+            // fos.close();
+            // image.free();
         } catch (Exception e) {
             e.printStackTrace();
         }
