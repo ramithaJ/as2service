@@ -27,8 +27,35 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class LicenseObject {
 
+    /** The licence id. */
     private String licenceId;
+    
+    /** The journal id. */
     private String journalId;
+        
+    /** The user id. */
+    private String userId;
+    
+    /** The request id. */
+    private String requestId;
+    
+    /**
+     * Gets the request id.
+     *
+     * @return the request id
+     */
+    public final String getRequestId() {
+        return requestId;
+    }
+
+    /**
+     * Sets the request id.
+     *
+     * @param requestId the new request id
+     */
+    public final void setRequestId(final String requestId) {
+        this.requestId = requestId;
+    }
 
     /** The funder details. */
     private LicenseFunderDetails funderDetails;
@@ -186,20 +213,58 @@ public class LicenseObject {
         this.licenseTypePresented = licenseTypePresented;
     }
 
+    /**
+     * Gets the licence id.
+     *
+     * @return the licence id
+     */
     public final String getLicenceId() {
         return licenceId;
     }
 
+    /**
+     * Gets the journal id.
+     *
+     * @return the journal id
+     */
     public final String getJournalId() {
         return journalId;
     }
 
+    /**
+     * Sets the licence id.
+     *
+     * @param licenceId the new licence id
+     */
     public final void setLicenceId(final String licenceId) {
         this.licenceId = licenceId;
     }
 
+    /**
+     * Sets the journal id.
+     *
+     * @param journalId the new journal id
+     */
     public final void setJournalId(final String journalId) {
         this.journalId = journalId;
+    }
+
+    /**
+     * Gets the user id.
+     *
+     * @return the user id
+     */
+    public final String getUserId() {
+        return userId;
+    }
+
+    /**
+     * Sets the user id.
+     *
+     * @param userId the new user id
+     */
+    public final void setUserId(final String userId) {
+        this.userId = userId;
     }
 
   

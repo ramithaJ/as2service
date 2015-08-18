@@ -182,9 +182,22 @@ public class LicenseServiceImpl implements LicenseService {
 
     @Override
     public String getLicenseText(final LicenseObject licenseObject) {
-        // TODO Auto-generated method stub
-        return null;
+        StringBuilder contentBuilder = new StringBuilder();
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(
+                    "/Test.html"));
+            String string;
+            while ((string = bufferedReader.readLine()) != null) {
+                contentBuilder.append(string);
+            }
+            bufferedReader.close();
+        } catch (IOException e) {
+        }
+        String content = contentBuilder.toString();
+        
+        return content;
     }
+    
 
     /**
      * License status.
@@ -239,27 +252,4 @@ public class LicenseServiceImpl implements LicenseService {
        
        
     }
-
-    
-    /** This will call external service to get licence */
-    @Override
-    public String licencePrinting() {
-        
-        StringBuilder contentBuilder = new StringBuilder();
-        try {
-            BufferedReader in = new BufferedReader(new FileReader(
-                    "/Test.html"));
-            String str;
-            while ((str = in.readLine()) != null) {
-                contentBuilder.append(str);
-            }
-            in.close();
-        } catch (IOException e) {
-        }
-        String content = contentBuilder.toString();
-        
-        return content;
-    }
-    
-    
 }

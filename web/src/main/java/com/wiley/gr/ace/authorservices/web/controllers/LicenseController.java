@@ -114,10 +114,9 @@ public class LicenseController {
 	/**
 	 * @return
 	 */
-	@RequestMapping(value="/licencePrinting/" ,method=RequestMethod.GET ,produces=MediaType.TEXT_PLAIN_VALUE)
-	public  String licencePrinting(){
-	   
-        return licenseService.licencePrinting();
+	@RequestMapping(value="/licensetext/" ,method=RequestMethod.POST ,produces=MediaType.TEXT_PLAIN_VALUE)
+	public  String getLicenseText(@RequestBody final LicenseObject licenseObject){
+        return licenseService.getLicenseText(licenseObject);
 	    
 	    
 	}

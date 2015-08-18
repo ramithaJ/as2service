@@ -100,11 +100,6 @@ public interface LicenseService {
      */
     LicenseObject initiateLicence(String articleId);
     
-    /**
-     * Licence printing.
-     *
-     * @return the string
-     */
-    String licencePrinting();
+   
 
 }
