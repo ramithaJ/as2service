@@ -31,7 +31,7 @@ import com.wiley.gr.ace.authorservices.model.Service;
 public class ASExceptionController {
 
     /**
-     * Logger.
+     * This field holds the value of LOGGER.
      */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(ASExceptionController.class);
@@ -92,7 +92,10 @@ public class ASExceptionController {
     }
 
     /**
+     * This method is used to handle Exception.
+     * 
      * @param userException
+     *            - Input value
      * @return service..
      */
     @ExceptionHandler(UserException.class)

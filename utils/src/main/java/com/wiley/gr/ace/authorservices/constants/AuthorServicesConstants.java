@@ -82,6 +82,12 @@ public class AuthorServicesConstants {
     /** The Constant SERVERERRORMESSAGE. */
     public static final String SERVERERRORMESSAGE = "Unable to process your request. Please try after some time..";
 
+    /** The Constant SERVERERRORCODE. */
+    public static final String NODATAFOUNDCODE = "2013";
+
+    /** The Constant SERVERERRORMESSAGE. */
+    public static final String NODATAFOUNDMSG = "No Data Found";
+
     /** FOR ROLES. */
     public static final int ROLEID = 10;
 
@@ -129,7 +135,7 @@ public class AuthorServicesConstants {
 
     /** The Constant for BPM_CALL_SUCCESS_STATUS. */
     public static final String BPM_CALL_SUCCESS_STATUS = "SUCCESS";
-    
+
     /** The Constant for BPM_CALL_SUCCESS_STATUS. */
     public static final String STATUS_CODE_OK = "200";
 

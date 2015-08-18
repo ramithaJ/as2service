@@ -21,7 +21,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.http.HttpMethod;
 
 import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteCachingService;
 import com.wiley.gr.ace.authorservices.exception.ASException;
@@ -160,6 +159,7 @@ public class AutocompleteCachingServiceImpl implements
      *            - the input value
      * @return dropDownMap
      */
+    @Override
     @Cacheable(value = "dropDownMap", key = "#dropDownKey")
     public final Map<String, CacheData> getCachedData(final String dropDownKey,
             final String parentId) {
@@ -209,9 +209,9 @@ public class AutocompleteCachingServiceImpl implements
     private List<CacheData> getResearchFunders() {
         ResearchFundersResponse response = null;
 
-        response = (ResearchFundersResponse) RestServiceInvokerUtil.invokeStub(
-                researchFundersurl, HttpMethod.GET,
-                ResearchFundersResponse.class);
+        response = (ResearchFundersResponse) RestServiceInvokerUtil
+                .getServiceData(researchFundersurl,
+                        ResearchFundersResponse.class);
 
         return getResearchFundersList(response);
     }
@@ -274,13 +274,14 @@ public class AutocompleteCachingServiceImpl implements
      *            - the input value
      * @return cacheDataList.
      */
+    @Override
     @Cacheable(value = "subFunderDetails", key = "#dropDownKey")
     public final SubFunderDetails getCachedSubFunders(final String dropDownKey) {
         ResearchFundersResponse response = null;
 
-        response = (ResearchFundersResponse) RestServiceInvokerUtil.invokeStub(
-                researchFundersurl, HttpMethod.GET,
-                ResearchFundersResponse.class);
+        response = (ResearchFundersResponse) RestServiceInvokerUtil
+                .getServiceData(researchFundersurl,
+                        ResearchFundersResponse.class);
 
         return getSubFundersList(response);
     }

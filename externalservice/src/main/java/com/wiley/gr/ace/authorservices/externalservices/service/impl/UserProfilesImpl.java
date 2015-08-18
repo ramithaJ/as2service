@@ -17,7 +17,6 @@ package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.http.HttpMethod;
 
 import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
@@ -169,8 +168,8 @@ public class UserProfilesImpl implements UserProfiles {
     @Override
     public final DropDown getReasearchFunder() {
 
-        return (DropDown) RestServiceInvokerUtil.invokeStub(researchFundersurl,
-                HttpMethod.GET, DropDown.class);
+        return (DropDown) RestServiceInvokerUtil.getServiceData(
+                researchFundersurl, DropDown.class);
     }
 
     /**
@@ -201,8 +200,8 @@ public class UserProfilesImpl implements UserProfiles {
     @Cacheable(value = "userProfile", key = "#userId")
     public final UserProfileResponse getUserProfileResponse(final int userId) {
 
-        return (UserProfileResponse) RestServiceInvokerUtil.invokeStub(
-                userProfileurl, HttpMethod.GET, UserProfileResponse.class);
+        return (UserProfileResponse) RestServiceInvokerUtil.getServiceData(
+                userProfileurl, UserProfileResponse.class);
     }
 
     /**
@@ -219,8 +218,8 @@ public class UserProfilesImpl implements UserProfiles {
     @CachePut(value = "userProfile", key = "#userId")
     public final UserProfileResponse updateProfile(final int userId,
             final UserProfileResponse userProfileResponse) {
-        final Service service = (Service) RestServiceInvokerUtil.invokeStub(
-                updateProfileurl, HttpMethod.POST, Service.class);
+        Service service = (Service) RestServiceInvokerUtil.getServiceData(
+                updateProfileurl, Service.class);
         final String status = service.getStatus();
         if (status != null && "success".equalsIgnoreCase(status)) {
             return getUserProfile();
@@ -235,8 +234,8 @@ public class UserProfilesImpl implements UserProfiles {
      * @return UserProfileResponse
      */
     private UserProfileResponse getUserProfile() {
-        return (UserProfileResponse) RestServiceInvokerUtil.invokeStub(
-                userProfileurl, HttpMethod.GET, UserProfileResponse.class);
+        return (UserProfileResponse) RestServiceInvokerUtil.getServiceData(
+                userProfileurl, UserProfileResponse.class);
     }
 
     /**
@@ -249,9 +248,9 @@ public class UserProfilesImpl implements UserProfiles {
     @Override
     public final LookupCustomerProfile getLookupCustomerProfile(
             final String userId) {
-        return (LookupCustomerProfile) RestServiceInvokerUtil.invokeStub(
+        return (LookupCustomerProfile) RestServiceInvokerUtil.getServiceData(
                 lookupCustomerProfileResponse + userId + "&ECID=",
-                HttpMethod.GET, LookupCustomerProfile.class);
+                LookupCustomerProfile.class);
     }
 
     /**
@@ -267,8 +266,8 @@ public class UserProfilesImpl implements UserProfiles {
     public final LookupCustomerProfileResponse updateLookupCustomerProfile(
             final LookupCustomerProfileResponse lookupCustomerProfileResponse)
             throws Exception {
-        final Service service = (Service) RestServiceInvokerUtil.invokeStub(
-                updateLookupCustomerProfile, HttpMethod.POST, Service.class);
+        final Service service = (Service) RestServiceInvokerUtil
+                .getServiceData(updateLookupCustomerProfile, Service.class);
         final String status = service.getStatus();
         if (status != null && "success".equalsIgnoreCase(status)) {
             return lookupCustomerProfileResponse;

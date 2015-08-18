@@ -13,7 +13,6 @@
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpMethod;
 
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.NotificationService;
@@ -73,8 +72,7 @@ public class NotificationServiceImpl implements NotificationService {
     @Override
     public final NotificationHistory getNotificationHistory(final String userId)
             throws Exception {
-        return (NotificationHistory) RestServiceInvokerUtil.invokeStub(
-                notificationHistoryUrl, HttpMethod.GET,
-                NotificationHistory.class);
+        return (NotificationHistory) RestServiceInvokerUtil.getServiceData(
+                notificationHistoryUrl, NotificationHistory.class);
     }
 }

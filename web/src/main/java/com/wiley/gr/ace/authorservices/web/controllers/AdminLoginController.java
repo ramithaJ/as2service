@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,10 +41,8 @@ import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 import com.wiley.gr.ace.authorservices.services.service.SendNotification;
 
 /**
- * This method takes email in encrypted format like 
+ * The Class that deals with Admin operations.
  * 
- */
-/**
  * @author virtusa version 1.0
  */
 @RestController
@@ -51,21 +50,32 @@ import com.wiley.gr.ace.authorservices.services.service.SendNotification;
 public class AdminLoginController extends ASExceptionController {
 
     /**
-     * Logger Configured.
+     * This field holds the value of LOGGER.
      */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(AdminLoginController.class);
-    /** Error code From Props File. */
+
+    /**
+     * This field holds the value of errorcode.
+     */
     @Value("${adminnotexist.code}")
     private String errorcode;
-    /** Error message From Props File. */
+
+    /**
+     * This field holds the value of errormessage.
+     */
     @Value("${adminnotexist.message}")
     private String errormessage;
-    /** getting bean of adminlogin service. */
+
+    /**
+     * This field holds the value of adminLoginService.
+     */
     @Autowired(required = true)
     private AdminLoginService adminLoginService;
 
-    /** getting bean of SendNotification service. */
+    /**
+     * This field holds the value of sendNotification.
+     */
     @Autowired(required = true)
     private SendNotification sendNotification;
 
@@ -106,6 +116,9 @@ public class AdminLoginController extends ASExceptionController {
         if (adminLoginService.validateEmail(emailId)) {
 
             Users users = adminLoginService.getASUser(emailId);
+            if (StringUtils.isEmpty(users)) {
+                return null;
+            }
             UserLogin userLogin = new UserLogin();
             userLogin.setUserId(users.getUserId());
             userLogin.setFirstName(users.getFirstName());
@@ -118,6 +131,8 @@ public class AdminLoginController extends ASExceptionController {
     }
 
     /**
+     * Method to Request admin access.
+     * 
      * @param userId
      *            - the request value
      * @param emailId
@@ -164,6 +179,8 @@ public class AdminLoginController extends ASExceptionController {
     }
 
     /**
+     * Method to create Admin User.
+     * 
      * @param admin
      *            - the request value
      * @return service
@@ -177,6 +194,8 @@ public class AdminLoginController extends ASExceptionController {
     }
 
     /**
+     * Method to get List of Permissions.
+     * 
      * @return service
      */
     @RequestMapping(value = "/permissions/", method = RequestMethod.GET)
@@ -188,6 +207,8 @@ public class AdminLoginController extends ASExceptionController {
     }
 
     /**
+     * Method to get List of Permissions with roleId.
+     * 
      * @param roleId
      *            - the request value
      * @return service
@@ -202,6 +223,8 @@ public class AdminLoginController extends ASExceptionController {
     }
 
     /**
+     * Method to add or update user role.
+     * 
      * @param rolesAndPermissions
      *            - the request value
      * @return service
@@ -216,6 +239,8 @@ public class AdminLoginController extends ASExceptionController {
     }
 
     /**
+     * Method to find/search User and get FirstName and lastName of User.
+     * 
      * @param emailId
      *            - the request value
      * @return service

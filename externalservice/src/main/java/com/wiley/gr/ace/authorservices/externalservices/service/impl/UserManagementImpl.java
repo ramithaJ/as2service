@@ -12,6 +12,7 @@
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
@@ -289,10 +290,12 @@ public class UserManagementImpl implements UserManagement {
                 .restServiceInvoker(url, requestEntityClass,
                         ResponseStatus.class);
         boolean status = false;
+        if (StringUtils.isEmpty(responseStatus)) {
+            return status;
+        }
         if (success.equalsIgnoreCase(responseStatus.getStatus())) {
             status = true;
-        }
-        if (failure.equalsIgnoreCase(responseStatus.getStatus())) {
+        } else if (failure.equalsIgnoreCase(responseStatus.getStatus())) {
             final ErrorPayLoad errorPayLoad = responseStatus.getError();
             throw new UserException(errorPayLoad.getErrorCode(),
                     errorPayLoad.getErrorMessage());

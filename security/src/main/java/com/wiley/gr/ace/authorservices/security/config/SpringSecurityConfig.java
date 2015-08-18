@@ -119,6 +119,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/permissions/*")
                 .permitAll()
 
+                .antMatchers("/userAccount/profileInfo/*")
+                .permitAll()
+
                 .antMatchers(HttpMethod.POST, SpringSecurityConfig.AUTHENTICATE)
                 .permitAll()
 

@@ -38,21 +38,33 @@ import com.wiley.gr.ace.authorservices.services.service.ASDataService;
 @RestController
 @RequestMapping("/asdata")
 public class ASDataController {
-    /** logging configured. */
+
+    /**
+     * This field holds the value of LOGGER.
+     */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(ASDataController.class);
-    /** getting bean of asdataservice. */
+
+    /**
+     * This field holds the value of aSDataService.
+     */
     @Autowired(required = true)
     private ASDataService aSDataService;
-    /** getting data from props file. */
+
+    /**
+     * This field holds the value of nodataFound.
+     */
     @Value("${noDataFound.code}")
     private String nodataFound;
-    /** getting data from props file. */
+
+    /**
+     * This field holds the value of nodataFoundmsg.
+     */
     @Value("${noDataFound.message}")
     private String nodataFoundmsg;
 
     /**
-     * Method to getTitiles.
+     * Method to get Titiles.
      * 
      * @return service
      */
@@ -65,7 +77,7 @@ public class ASDataController {
     }
 
     /**
-     * Method to suffixes.
+     * Method to get suffixes.
      * 
      * @return service
      */
@@ -78,7 +90,7 @@ public class ASDataController {
     }
 
     /**
-     * Method to industries.
+     * Method to get industries.
      * 
      * @param count
      *            - The request value
@@ -94,7 +106,7 @@ public class ASDataController {
     }
 
     /**
-     * Method to jobCategories.
+     * Method to get jobCategories.
      * 
      * @param count
      *            - The request value
@@ -110,7 +122,7 @@ public class ASDataController {
     }
 
     /**
-     * Method to countries.
+     * Method to get countries.
      * 
      * @param count
      *            - The request value
@@ -126,7 +138,7 @@ public class ASDataController {
     }
 
     /**
-     * Method to states.
+     * Method to get states.
      * 
      * @param countrycode
      *            - The request value
@@ -146,7 +158,7 @@ public class ASDataController {
     }
 
     /**
-     * Method to institutions.
+     * Method to get institutions.
      * 
      * @return service
      */
@@ -160,7 +172,7 @@ public class ASDataController {
     }
 
     /**
-     * Method to departments.
+     * Method to get departments.
      * 
      * @return service
      */
@@ -174,7 +186,7 @@ public class ASDataController {
     }
 
     /**
-     * Method to researchFunders.
+     * Method to get researchFunders.
      * 
      * @return service
      */
@@ -187,7 +199,7 @@ public class ASDataController {
     }
 
     /**
-     * Method to articles.
+     * Method to get articles.
      * 
      * @return service
      */
@@ -198,7 +210,7 @@ public class ASDataController {
     }
 
     /**
-     * Method to societies.
+     * Method to get societies.
      * 
      * @return service
      */
@@ -212,7 +224,7 @@ public class ASDataController {
     }
 
     /**
-     * Method to areaOfInterests.
+     * Method to get areaOfInterests.
      * 
      * @return service
      */
@@ -225,7 +237,7 @@ public class ASDataController {
     }
 
     /**
-     * Method to secutityQuestions.
+     * Method to get secutityQuestions.
      * 
      * @return service
      */
@@ -238,7 +250,7 @@ public class ASDataController {
     }
 
     /**
-     * Method to userRoles.
+     * Method to get userRoles.
      * 
      * @return service
      */
@@ -252,7 +264,7 @@ public class ASDataController {
     }
 
     /**
-     * Method to adminRoles.
+     * Method to get adminRoles.
      * 
      * @param roleType
      *            - The request value
@@ -269,7 +281,7 @@ public class ASDataController {
     }
 
     /**
-     * Method to adminAccessReasons.
+     * Method to get adminAccessReasons.
      * 
      * @return service
      */

@@ -10,18 +10,14 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 import org.json.JSONObject;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
-import com.wiley.gr.ace.authorservices.exception.ASException;
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
-import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
 
 /**
  * The Class StubInvokerUtil.
@@ -31,43 +27,7 @@ import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
 public class RestServiceInvokerUtil {
 
     /**
-     * Invoke stub.
-     *
-     * @param <T>
-     *            the generic type
-     * @param url
-     *            the url
-     * @param httpMethod
-     *            the http method
-     * @param clazz
-     *            the clazz
-     * @return Object
-     */
-    public static <T> Object invokeStub(final String url,
-            final HttpMethod httpMethod, final Class<T> clazz) {
-
-        try {
-            HttpHeaders requestHeaders = new HttpHeaders();
-            requestHeaders.setContentType(MediaType.APPLICATION_JSON);
-            HttpEntity<T> requestEntity = new HttpEntity<T>(requestHeaders);
-            ResponseEntity<T> response = new RestTemplate().exchange(new URI(
-                    url), httpMethod, requestEntity, clazz);
-
-            if (response != null) {
-                return response.getBody();
-            } else {
-                return null;
-            }
-        } catch (URISyntaxException e) {
-
-            throw new ASException();
-
-        }
-
-    }
-
-    /**
-     * Rest service invoker.
+     * Method to call external POST service calls.
      *
      * @param <T>
      *            the generic type
@@ -85,20 +45,26 @@ public class RestServiceInvokerUtil {
         try {
             ResponseEntity<T> response = new RestTemplate().postForEntity(
                     new URI(url), requestEntityClass, responseEntityClass);
+            if (StringUtils.isEmpty(response)) {
+                throw new UserException(
+                        AuthorServicesConstants.NODATAFOUNDCODE,
+                        AuthorServicesConstants.NODATAFOUNDMSG);
+            }
             return response.getBody();
+
         } catch (Exception e) {
             final String message = e.getMessage();
             if (AuthorServicesConstants.UNAUTHORIZEDMSG
                     .equalsIgnoreCase(message)) {
-                throw new ASException(AuthorServicesConstants.UNAUTHORIZEDCODE,
-                        message);
+                throw new UserException(
+                        AuthorServicesConstants.UNAUTHORIZEDCODE, message);
             }
             if (AuthorServicesConstants.LOCKEDMSG.equalsIgnoreCase(e
                     .getMessage())) {
-                throw new ASException(AuthorServicesConstants.LOCKEDCODE,
+                throw new UserException(AuthorServicesConstants.LOCKEDCODE,
                         message);
             }
-            throw new ASException(AuthorServicesConstants.SERVERERRORCODE,
+            throw new UserException(AuthorServicesConstants.SERVERERRORCODE,
                     AuthorServicesConstants.SERVERERRORMESSAGE);
 
         }
@@ -106,7 +72,7 @@ public class RestServiceInvokerUtil {
     }
 
     /**
-     * Put service data.
+     * Method to call external PUT service calls.
      *
      * @param url
      *            the url
@@ -120,12 +86,13 @@ public class RestServiceInvokerUtil {
             new RestTemplate().put(new URI(url), requestEntity);
 
         } catch (URISyntaxException e) {
-            throw new ASException();
+            throw new UserException(AuthorServicesConstants.SERVERERRORCODE,
+                    AuthorServicesConstants.SERVERERRORMESSAGE);
         }
     }
 
     /**
-     * Delete service data.
+     * Method to call external DELETE service calls.
      *
      * @param url
      *            the url
@@ -136,12 +103,13 @@ public class RestServiceInvokerUtil {
             new RestTemplate().delete(new URI(url));
 
         } catch (URISyntaxException e) {
-            throw new ASException();
+            throw new UserException(AuthorServicesConstants.SERVERERRORCODE,
+                    AuthorServicesConstants.SERVERERRORMESSAGE);
         }
     }
 
     /**
-     * Rest get service invoker.
+     * Method to call external GET service calls.
      *
      * @param <T>
      *            the generic type
@@ -157,12 +125,15 @@ public class RestServiceInvokerUtil {
         try {
             ResponseEntity<T> response = new RestTemplate().getForEntity(
                     new URI(url), responseEntityClass);
-            if (null == response) {
-                return new SecurityResponse();
+            if (StringUtils.isEmpty(response)) {
+                throw new UserException(
+                        AuthorServicesConstants.NODATAFOUNDCODE,
+                        AuthorServicesConstants.NODATAFOUNDMSG);
             }
             return response.getBody();
         } catch (URISyntaxException e) {
-            throw new ASException();
+            throw new UserException(AuthorServicesConstants.SERVERERRORCODE,
+                    AuthorServicesConstants.SERVERERRORMESSAGE);
         }
     }
 

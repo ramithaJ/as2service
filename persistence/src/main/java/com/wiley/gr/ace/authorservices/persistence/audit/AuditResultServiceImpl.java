@@ -35,7 +35,7 @@ import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 public class AuditResultServiceImpl implements AuditResultService {
 
     /**
-     * User audit.
+     * Method to Audit user Operations.
      *
      * @param auditMap
      *            the audit map
@@ -102,12 +102,12 @@ public class AuditResultServiceImpl implements AuditResultService {
 
         } catch (Exception e) {
             e.printStackTrace();
-            if (null != session) {
+            if (StringUtils.isEmpty(session)) {
                 // rollback the trasaction
                 transaction.rollback();
             }
         } finally {
-            if (null != session) {
+            if (StringUtils.isEmpty(session)) {
                 session.flush();
                 session.close();
             }
