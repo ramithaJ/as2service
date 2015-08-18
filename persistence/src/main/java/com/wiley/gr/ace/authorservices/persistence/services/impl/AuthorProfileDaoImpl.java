@@ -16,11 +16,8 @@ import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateCo
 
 import java.sql.Blob;
 import java.sql.SQLException;
-
 import javax.sql.rowset.serial.SerialException;
-
 import org.hibernate.Session;
-
 import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
 import com.wiley.gr.ace.authorservices.persistence.services.AuthorProfileDao;
 
@@ -66,12 +63,15 @@ public class AuthorProfileDaoImpl implements AuthorProfileDao {
         }
     }
 
-    /**This method is for getting image form database 
+    /**
+     * This method is for getting image form database .
+     *
      * @param userId
+     *            the user id
      * @return User profile...
-     *  */
+     */
     @Override
-    public UserProfile getProfilePicture(String userId) {
+    public final UserProfile getProfilePicture(final String userId) {
 
         Session session = null;
         UserProfile userProfile = new UserProfile();
