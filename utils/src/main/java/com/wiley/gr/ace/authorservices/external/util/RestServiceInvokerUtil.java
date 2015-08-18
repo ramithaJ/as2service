@@ -157,7 +157,7 @@ public class RestServiceInvokerUtil {
             conn.setRequestProperty("Accept", "application/json");
             final Integer responseCode = 200;
             Integer code = conn.getResponseCode();
-            if (code != responseCode) {
+            if (code.intValue() != responseCode) {
                 throw new RuntimeException("Failed : HTTP error code : " + code);
             }
 
