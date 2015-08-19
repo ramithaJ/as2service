@@ -42,6 +42,7 @@ import com.wiley.gr.ace.authorservices.model.NotificationHistory;
 import com.wiley.gr.ace.authorservices.model.OrderStatus;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Society;
+import com.wiley.gr.ace.authorservices.model.TrackLicense;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserProfile;
 import com.wiley.gr.ace.authorservices.model.external.Article;
@@ -66,6 +67,7 @@ import com.wiley.gr.ace.authorservices.persistence.entity.SavedOrders;
 import com.wiley.gr.ace.authorservices.persistence.services.DashboardDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO;
 import com.wiley.gr.ace.authorservices.services.service.DashboardService;
+import com.wiley.gr.ace.authorservices.services.service.LicenseService;
 import com.wiley.gr.ace.authorservices.services.service.OrderStatusService;
 
 /**
@@ -103,6 +105,9 @@ public class DashboardServiceImpl implements DashboardService {
     @Autowired(required = true)
     private OrderOnlineDAO orderOnlinedao;
 
+    @Autowired(required=true)
+    private LicenseService licenseService;
+    
     /** The article acptd status. */
     @Value("${ARTICLE_ACCEPTED_STATUS_TEXT}")
     private String articleAcptdStatus;
@@ -469,7 +474,7 @@ public class DashboardServiceImpl implements DashboardService {
                         .getProductRoleName();
                 articleId = productPersonRelations.getProducts().getDhId();
                 articleData = getArticleDataDetails(orderStatusHashMap,
-                        articleId, articleAuthorRole);
+                        articleId, articleAuthorRole,userId);
                 articleDataList.add(articleData);
             }
         }
@@ -552,7 +557,7 @@ public class DashboardServiceImpl implements DashboardService {
      */
     private ArticleData getArticleDataDetails(
             final HashMap<String, OrderStatus> orderStatusHashMap,
-            final Integer articleId, final String articleUserRole)
+            final Integer articleId, final String articleUserRole,final String userId)
             throws Exception {
         LOGGER.info("inside getArticleDataDetails Method of DashboardServiceImpl");
         final ArticleData articleData = esbInterfaceService
@@ -560,11 +565,10 @@ public class DashboardServiceImpl implements DashboardService {
         if (!StringUtils.isEmpty(articleData)) {
             LOGGER.info("Article Data is Found");
             articleData.setArticleUserRole(articleUserRole);
-            final String licenseStatus = esbInterfaceService.getLicenseStatus(
-                    articleId).getLicenseStatus();
-            if (!StringUtils.isEmpty(licenseStatus)) {
+            final TrackLicense trackLicenseStatus = licenseService.trackLicenseStatus(String.valueOf(articleId), userId);
+            if (!StringUtils.isEmpty(trackLicenseStatus)) {
                 LOGGER.info("License Status is Found");
-                articleData.setLicenseStatus(licenseStatus);
+                articleData.setLicenseStatus(trackLicenseStatus);
             }
             articleData.setOrderPaymentStatus(getOrderPaymentStatusForArticle(
                     orderStatusHashMap, articleId));

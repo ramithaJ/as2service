@@ -19,31 +19,42 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 import javax.sql.rowset.serial.SerialClob;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wiley.gr.ace.authorservices.exception.LicenseException;
 import com.wiley.gr.ace.authorservices.externalservices.service.LicenseInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.TaskService;
 import com.wiley.gr.ace.authorservices.model.Grant;
 import com.wiley.gr.ace.authorservices.model.GrantRecipients;
 import com.wiley.gr.ace.authorservices.model.LicenseFunderDetails;
 import com.wiley.gr.ace.authorservices.model.LicenseObject;
 import com.wiley.gr.ace.authorservices.model.LicenseStatus;
+import com.wiley.gr.ace.authorservices.model.LicenseUpload;
+import com.wiley.gr.ace.authorservices.model.TrackLicense;
+import com.wiley.gr.ace.authorservices.model.TrackLicenseDetails;
 import com.wiley.gr.ace.authorservices.model.external.Funder;
 import com.wiley.gr.ace.authorservices.model.external.Funders;
+import com.wiley.gr.ace.authorservices.model.external.GetArticleDetails;
 import com.wiley.gr.ace.authorservices.model.external.Id;
 import com.wiley.gr.ace.authorservices.model.external.LicenseChoiceRequest;
 import com.wiley.gr.ace.authorservices.model.external.LicenseTypesPresented;
 import com.wiley.gr.ace.authorservices.model.external.ProgramData;
 import com.wiley.gr.ace.authorservices.model.external.SignLicenseRequest;
+import com.wiley.gr.ace.authorservices.persistence.entity.LicenseUploadDetails;
 import com.wiley.gr.ace.authorservices.persistence.entity.Products;
 import com.wiley.gr.ace.authorservices.persistence.entity.SavedLicenses;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
@@ -57,11 +68,53 @@ import com.wiley.gr.ace.authorservices.services.service.LicenseService;
  */
 public class LicenseServiceImpl implements LicenseService {
 
+    /** The Constant LOGGER. */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(LicenseServiceImpl.class);
+
+    /** The license interface service. */
     @Autowired(required = true)
     private LicenseInterfaceService licenseInterfaceService;
 
+    /** The task service. */
+    @Autowired(required = true)
+    private TaskService taskService;
+
+    /** The license dao. */
     @Autowired(required = true)
     private LicenseDAO licenseDAO;
+
+    /** The sign license status. */
+    @Value("${SIGN_LICENSE_STATUS_TEXT}")
+    private String signLicenseStatus;
+
+    /** The license electronic status. */
+    @Value("${LICENSE_SIGNED_ELECTRONICALLY_STATUS_TEXT}")
+    private String licenseElectronicStatus;
+
+    /** The license download status. */
+    @Value("${LICENSE_DOWNLOADED_STATUS_TEXT}")
+    private String licenseDownloadStatus;
+
+    /** The license upload status. */
+    @Value("${LICENSE_UPLOADED_STATUS_TEXT}")
+    private String licenseUploadStatus;
+
+    /** The sign license action. */
+    @Value("${SIGN_LICENSE_ACTION_TEXT}")
+    private String signLicenseAction;
+
+    /** The license view action. */
+    @Value("${LICENSE_VIEW_ACTION_TEXT}")
+    private String licenseViewAction;
+
+    /** The license upload action. */
+    @Value("${LICENSE_UPLOAD_ACTION_TEXT}")
+    private String licenseUploadAction;
+
+    /** The license download again action. */
+    @Value("${LICENSE_DOWNLOAD_AGAIN_ACTION_TEXT}")
+    private String licenseDownloadAgainAction;
 
     /**
      * Gets the license choice.
@@ -115,8 +168,8 @@ public class LicenseServiceImpl implements LicenseService {
      * @return the integer
      */
     @Override
-    public Integer saveLicenseLater(final LicenseObject licenseObject, final String userId,
-            final String articleId) {
+    public Integer saveLicenseLater(final LicenseObject licenseObject,
+            final String userId, final String articleId) {
         SavedLicenses savedLicenses = new SavedLicenses();
         Integer licenseId = null;
         try {
@@ -158,7 +211,8 @@ public class LicenseServiceImpl implements LicenseService {
      * @return the string
      */
     @Override
-    public String signLicense(final LicenseObject licenseObject, final String dhId) {
+    public String signLicense(final LicenseObject licenseObject,
+            final String dhId) {
         SignLicenseRequest signLicenseRequest = new SignLicenseRequest();
         LicenseTypesPresented licenseTypesPresented = new LicenseTypesPresented();
         signLicenseRequest.setDhId(dhId);
@@ -180,6 +234,13 @@ public class LicenseServiceImpl implements LicenseService {
                 .getResponseDescription();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.wiley.gr.ace.authorservices.services.service.LicenseService#
+     * getLicenseText
+     * (com.wiley.gr.ace.authorservices.model.external.LicenseChoiceRequest)
+     */
     @Override
     public String getLicenseText(final LicenseChoiceRequest licenseChoiceRequest) {
         StringBuilder contentBuilder = new StringBuilder();
@@ -194,62 +255,302 @@ public class LicenseServiceImpl implements LicenseService {
         } catch (IOException e) {
         }
         String content = contentBuilder.toString();
-        
+
         return content;
     }
-    
 
     /**
-     * License status.
+     * Track license status.
      *
      * @param dhId
      *            the dh id
      * @param userId
-     *            the userId
-     * @return the LicenseStatus
+     *            the user id
+     * @return the track license
+     * @throws Exception
+     *             the exception
      */
     @Override
-    public LicenseStatus getLicenseStatus(final String dhId, final String userId) {
-        return null;
+    public TrackLicense trackLicenseStatus(final String dhId,
+            final String userId) throws Exception {
+        LOGGER.info(" inside trackLicenseStatus method of LicenseServiceImpl");
+        TrackLicenseDetails trackLicenseDetails = new TrackLicenseDetails();
+        LicenseStatus licenseStatus = taskService
+                .getLicenseStatus(dhId, userId);
+        if (!StringUtils.isEmpty(licenseStatus)) {
+            LOGGER.info(" licenseStatus is found from the BPM TaskList");
+            trackLicenseDetails.setLicenseStatus(licenseStatus);
+        }
+        GetArticleDetails getArticleDetails = licenseInterfaceService
+                .getWalsArticleDetails(dhId);
+        if (!StringUtils.isEmpty(getArticleDetails)) {
+            LOGGER.info("Electronic And Download license Status is found from the WALS");
+            trackLicenseDetails.setLastSignedLicense(getArticleDetails
+                    .getLastSignedLicense());
+            trackLicenseDetails.setLastDownloadedLicense(getArticleDetails
+                    .getLastDownloadedLicense());
+        }
+        return trackLicenseDetails(dhId, trackLicenseDetails);
     }
 
-    /** This will call external service to get data
-     * 
-     *  @param articleId
-     *  @return {@link LicenseObject}
-     *  */
+    /**
+     * Track license details.
+     *
+     * @param dhId
+     *            the dh id
+     * @param trackLicenseDetails
+     *            the track license details
+     * @return the track license
+     * @throws Exception
+     *             the exception
+     */
+    private TrackLicense trackLicenseDetails(final String dhId,
+            final TrackLicenseDetails trackLicenseDetails) throws Exception {
+        LOGGER.info(" inside trackLicenseDetails method of LicenseServiceImpl");
+        LicenseUploadDetails licenseUploadDetails = licenseDAO
+                .getlLicenseUploadDetails(dhId);
+        LicenseUpload licenseUpload = null;
+        if (!StringUtils.isEmpty(licenseUploadDetails)) {
+            LOGGER.info("Upload license Status is found from the AS2.0");
+            licenseUpload = new LicenseUpload();
+            if (!StringUtils.isEmpty(licenseUploadDetails.getCreatedDate())) {
+                licenseUpload.setLicenseCreatedDate((licenseUploadDetails
+                        .getCreatedDate().toString()));
+            }
+            if (!StringUtils.isEmpty(licenseUploadDetails.getUpdatedDate())) {
+                licenseUpload.setLicenseUpdatedDate(licenseUploadDetails
+                        .getUpdatedDate().toString());
+            }
+            trackLicenseDetails.setLicenseUpload(licenseUpload);
+        }
+        return parseAllLicenseDates(trackLicenseDetails);
+    }
+
+    /**
+     * Parses the all license dates.
+     *
+     * @param trackLicenseDetails
+     *            the track license details
+     * @return the track license
+     * @throws Exception
+     *             the exception
+     */
+    private TrackLicense parseAllLicenseDates(
+            final TrackLicenseDetails trackLicenseDetails) throws Exception {
+        LOGGER.info(" inside parseAllLicenseDates method of LicenseServiceImpl");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+        List<Date> licenseDates = new ArrayList<Date>();
+        licenseDates.clear();
+        licenseDates.add(formatter.parse(trackLicenseDetails.getLicenseStatus()
+                .getLicenseDate()));
+        licenseDates.add(formatter.parse(trackLicenseDetails
+                .getLastSignedLicense().getLicenseSignDate()));
+        licenseDates.add(formatter.parse(trackLicenseDetails
+                .getLastDownloadedLicense().getLicSignDate()));
+        return parseMostRecentDate(trackLicenseDetails, licenseDates, formatter);
+    }
+
+    /**
+     * Parses the most recent date.
+     *
+     * @param trackLicenseDetails
+     *            the track license details
+     * @param licenseDates
+     *            the license dates
+     * @param formatter
+     *            the formatter
+     * @return the track license
+     * @throws Exception
+     *             the exception
+     */
+    private TrackLicense parseMostRecentDate(
+            final TrackLicenseDetails trackLicenseDetails,
+            final List<Date> licenseDates, final SimpleDateFormat formatter)
+            throws Exception {
+        LicenseUpload licenseUpload = trackLicenseDetails.getLicenseUpload();
+        if (!StringUtils.isEmpty(licenseUpload)) {
+            licenseDates.add(formatter.parse(licenseUpload
+                    .getLicenseCreatedDate()));
+            licenseDates.add(formatter.parse(licenseUpload
+                    .getLicenseUpdatedDate()));
+        }
+        Date recentDate = Collections.max(licenseDates);
+        SimpleDateFormat formatterRecent = new SimpleDateFormat("yyyy-mm-dd");
+        String licenseMostRecentDate = formatterRecent.format(recentDate);
+        return trackRecentLicenseStatus(trackLicenseDetails,
+                licenseMostRecentDate);
+    }
+
+    /**
+     * Track recent license status.
+     *
+     * @param trackLicenseDetails
+     *            the track license details
+     * @param licenseMostRecentDate
+     *            the license most recent date
+     * @return the track license
+     * @throws Exception
+     *             the exception
+     */
+    private TrackLicense trackRecentLicenseStatus(
+            final TrackLicenseDetails trackLicenseDetails,
+            final String licenseMostRecentDate) throws Exception {
+        LOGGER.info(" inside trackRecentLicenseStatus method of LicenseServiceImpl");
+        TrackLicense trackLicense = null;
+        if (licenseMostRecentDate.equals(trackLicenseDetails.getLicenseStatus()
+                .getLicenseDate())) {
+            trackLicense = trackSignLicense(trackLicenseDetails);
+        } else if (licenseMostRecentDate.equals(trackLicenseDetails
+                .getLastSignedLicense().getLicenseSignDate())) {
+            trackLicense = trackElectronicLicense(trackLicenseDetails);
+        } else if (licenseMostRecentDate.equals(trackLicenseDetails
+                .getLastDownloadedLicense().getLicSignDate())) {
+            trackLicense = trackDownloadLicense(trackLicenseDetails);
+        } else {
+            trackLicense = trackUploadLicense(trackLicenseDetails,
+                    licenseMostRecentDate);
+        }
+        return trackLicense;
+    }
+
+    /**
+     * Track sign license.
+     *
+     * @param trackLicenseDetails
+     *            the track license details
+     * @return the track license
+     * @throws Exception
+     *             the exception
+     */
+    private TrackLicense trackSignLicense(
+            final TrackLicenseDetails trackLicenseDetails) throws Exception {
+        LOGGER.info(" inside trackSignLicense method of LicenseServiceImpl");
+        TrackLicense trackLicense = new TrackLicense();
+        LicenseStatus licenseStatus = trackLicenseDetails.getLicenseStatus();
+        if (!StringUtils.isEmpty(licenseStatus)) {
+            trackLicense.setLicenseDate(licenseStatus.getLicenseDate());
+            trackLicense.setTaskId(licenseStatus.getTaskId());
+            trackLicense.setLicenseStatus(signLicenseStatus);
+            List<String> actions = new ArrayList<String>();
+            actions.add(signLicenseAction);
+            trackLicense.setAction(actions);
+        }
+        return trackLicense;
+    }
+
+    /**
+     * Track electronic license.
+     *
+     * @param trackLicenseDetails
+     *            the track license details
+     * @return the track license
+     * @throws Exception
+     *             the exception
+     */
+    private TrackLicense trackElectronicLicense(
+            final TrackLicenseDetails trackLicenseDetails) throws Exception {
+        LOGGER.info(" inside trackElectronicLicense method of LicenseServiceImpl");
+        TrackLicense trackLicense = new TrackLicense();
+        trackLicense.setLicenseDate(trackLicenseDetails.getLastSignedLicense()
+                .getLicenseSignDate());
+        trackLicense.setLicenseStatus(licenseElectronicStatus);
+        List<String> actions = new ArrayList<String>();
+        actions.add(licenseViewAction);
+        trackLicense.setAction(actions);
+        return trackLicense;
+    }
+
+    /**
+     * Track download license.
+     *
+     * @param trackLicenseDetails
+     *            the track license details
+     * @return the track license
+     * @throws Exception
+     *             the exception
+     */
+    private TrackLicense trackDownloadLicense(
+            final TrackLicenseDetails trackLicenseDetails) throws Exception {
+        LOGGER.info(" inside trackDownloadLicense method of LicenseServiceImpl");
+        TrackLicense trackLicense = new TrackLicense();
+        trackLicense.setLicenseDate(trackLicenseDetails
+                .getLastDownloadedLicense().getLicSignDate());
+        trackLicense.setLicenseStatus(licenseDownloadStatus);
+        List<String> actions = new ArrayList<String>();
+        actions.add(licenseUploadAction);
+        actions.add(licenseDownloadAgainAction);
+        trackLicense.setAction(actions);
+        return trackLicense;
+    }
+
+    /**
+     * Track upload license.
+     *
+     * @param trackLicenseDetails
+     *            the track license details
+     * @param licenseMostRecentDate
+     *            the license most recent date
+     * @return the track license
+     * @throws Exception
+     *             the exception
+     */
+    private TrackLicense trackUploadLicense(
+            final TrackLicenseDetails trackLicenseDetails,
+            final String licenseMostRecentDate) throws Exception {
+        LOGGER.info(" inside trackUploadLicense method of LicenseServiceImpl");
+        TrackLicense trackLicense = new TrackLicense();
+        LicenseUpload licenseUpload = trackLicenseDetails.getLicenseUpload();
+        if (licenseMostRecentDate.equals(licenseUpload.getLicenseCreatedDate())) {
+            trackLicense.setLicenseDate(licenseUpload.getLicenseCreatedDate());
+        } else {
+            trackLicense.setLicenseDate(licenseUpload.getLicenseUpdatedDate());
+        }
+        trackLicense.setLicenseStatus(licenseUploadStatus);
+        List<String> actions = new ArrayList<String>();
+        actions.add(licenseViewAction);
+        trackLicense.setAction(actions);
+        return trackLicense;
+    }
+
+    /**
+     * This will call external service to get data.
+     *
+     * @param articleId
+     *            the article id
+     * @return {@link LicenseObject}
+     */
     @Override
     public LicenseObject initiateLicence(final String articleId) {
-        
-        LicenseObject licenseObject=new LicenseObject();
-        
-         
-        List<ProgramData> programList=licenseInterfaceService.initiateLicence(articleId).getProgram();
+
+        LicenseObject licenseObject = new LicenseObject();
+
+        List<ProgramData> programList = licenseInterfaceService
+                .initiateLicence(articleId).getProgram();
         for (ProgramData programData : programList) {
-            LicenseFunderDetails licenseFunderDetails=new LicenseFunderDetails();
-            Grant grant=new Grant();
-            List<Grant> grantList=new ArrayList<Grant>();
-            GrantRecipients grantRecipients=new GrantRecipients();
-            List<GrantRecipients> listOfGrantRecipients=new ArrayList<GrantRecipients>();
-             grantRecipients.setCode(programData.getFunder().getId());
-            
-          List<Id>  lisOfId= programData.getFunder().getSecondaryIds().getId();
-         for (Id id : lisOfId) {
-            if (id.getType().equalsIgnoreCase("DOI")) {
-                grantRecipients.setName(programData.getFunder().getName());
-                break;
+            LicenseFunderDetails licenseFunderDetails = new LicenseFunderDetails();
+            Grant grant = new Grant();
+            List<Grant> grantList = new ArrayList<Grant>();
+            GrantRecipients grantRecipients = new GrantRecipients();
+            List<GrantRecipients> listOfGrantRecipients = new ArrayList<GrantRecipients>();
+            grantRecipients.setCode(programData.getFunder().getId());
+
+            List<Id> lisOfId = programData.getFunder().getSecondaryIds()
+                    .getId();
+            for (Id id : lisOfId) {
+                if (id.getType().equalsIgnoreCase("DOI")) {
+                    grantRecipients.setName(programData.getFunder().getName());
+                    break;
+                }
             }
-        }
-         grant.setRecipients(listOfGrantRecipients);
-         listOfGrantRecipients.add(grantRecipients);
-         grant.setRecipients(listOfGrantRecipients);
-         grantList.add(grant);
-         licenseFunderDetails.setGrants(grantList);
-       licenseObject.setFunderDetails(licenseFunderDetails);
-            
+            grant.setRecipients(listOfGrantRecipients);
+            listOfGrantRecipients.add(grantRecipients);
+            grant.setRecipients(listOfGrantRecipients);
+            grantList.add(grant);
+            licenseFunderDetails.setGrants(grantList);
+            licenseObject.setFunderDetails(licenseFunderDetails);
+
         }
         return licenseObject;
-       
-       
+
     }
 }

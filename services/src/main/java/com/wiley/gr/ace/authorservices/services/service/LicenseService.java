@@ -18,7 +18,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import com.wiley.gr.ace.authorservices.model.LicenseObject;
-import com.wiley.gr.ace.authorservices.model.LicenseStatus;
+import com.wiley.gr.ace.authorservices.model.TrackLicense;
 import com.wiley.gr.ace.authorservices.model.external.LicenseChoiceRequest;
 
 /**
@@ -83,15 +83,18 @@ public interface LicenseService {
     String signLicense(LicenseObject licenseObject, String dhId);
 
     /**
-     * Gets the license status.
+     * Track license status.
      *
      * @param dhId
      *            the dh id
      * @param userId
      *            the user id
-     * @return the license status
+     * @return the track license
+     * @throws Exception
+     *             the exception
      */
-    LicenseStatus getLicenseStatus(String dhId, String userId);
+    TrackLicense trackLicenseStatus(String dhId, String userId)
+            throws Exception;
     
     /**
      * Initiate licence.
