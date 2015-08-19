@@ -125,11 +125,6 @@ public class RestServiceInvokerUtil {
         try {
             ResponseEntity<T> response = new RestTemplate().getForEntity(
                     new URI(url), responseEntityClass);
-            if (StringUtils.isEmpty(response)) {
-                throw new UserException(
-                        AuthorServicesConstants.NODATAFOUNDCODE,
-                        AuthorServicesConstants.NODATAFOUNDMSG);
-            }
             return response.getBody();
         } catch (URISyntaxException e) {
             throw new UserException(AuthorServicesConstants.SERVERERRORCODE,

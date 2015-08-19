@@ -17,7 +17,9 @@ package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.util.StringUtils;
 
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
@@ -248,9 +250,16 @@ public class UserProfilesImpl implements UserProfiles {
     @Override
     public final LookupCustomerProfile getLookupCustomerProfile(
             final String userId) {
-        return (LookupCustomerProfile) RestServiceInvokerUtil.getServiceData(
-                lookupCustomerProfileResponse + userId + "&ECID=",
-                LookupCustomerProfile.class);
+        LookupCustomerProfile lookupCustomerProfile = (LookupCustomerProfile) RestServiceInvokerUtil
+                .getServiceData(lookupCustomerProfileResponse + userId
+                        + "&ECID=", LookupCustomerProfile.class);
+        LookupCustomerProfileResponse lookupCustomerProfileResponse = lookupCustomerProfile
+                .getLookupCustomerProfileResponse();
+        if (StringUtils.isEmpty(lookupCustomerProfileResponse)) {
+            throw new UserException(AuthorServicesConstants.NODATAFOUNDCODE,
+                    AuthorServicesConstants.NODATAFOUNDMSG);
+        }
+        return lookupCustomerProfile;
     }
 
     /**
