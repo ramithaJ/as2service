@@ -561,7 +561,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         securityQuestionsUpdateRequest.setEmail(securityDetailsHolder
                 .getEmailId());
         securityQuestionsUpdateRequest.setPassword(securityDetailsHolder
-                .getPassword());
+                .getOldPassword());
         securityQuestionsUpdateRequest
                 .setsSystem(AuthorServicesConstants.SOURCESYSTEM);
         securityQuestionsUpdateRequest

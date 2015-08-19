@@ -39,6 +39,11 @@ public class SecurityDetailsHolder {
     private List<SecurityDetails> securityDetails = new ArrayList<SecurityDetails>();
 
     /** The password. */
+    private String oldPassword;
+
+    /**
+     * This field holds the value of password.
+     */
     private String password;
 
     /** The is force reset. */
@@ -52,6 +57,21 @@ public class SecurityDetailsHolder {
      */
     public final String getEmailId() {
         return emailId;
+    }
+
+    /**
+     * @return the password
+     */
+    public final String getPassword() {
+        return password;
+    }
+
+    /**
+     * @param password
+     *            the password to set
+     */
+    public final void setPassword(final String password) {
+        this.password = password;
     }
 
     /**
@@ -85,22 +105,18 @@ public class SecurityDetailsHolder {
     }
 
     /**
-     * Gets the password.
-     *
-     * @return the password
+     * @return the oldPassword
      */
-    public final String getPassword() {
-        return password;
+    public final String getOldPassword() {
+        return oldPassword;
     }
 
     /**
-     * Sets the password.
-     *
-     * @param password
-     *            the password to set
+     * @param oldPassword
+     *            the oldPassword to set
      */
-    public final void setPassword(final String password) {
-        this.password = password;
+    public final void setOldPassword(final String oldPassword) {
+        this.oldPassword = oldPassword;
     }
 
     /**
