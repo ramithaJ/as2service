@@ -2240,6 +2240,19 @@ ALTER TABLE USER_AFFILIATIONS ADD FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_
 </sql>
 </changeSet>
 
+<changeSet author="gphaniraj" id="WP1-380">
+<sql>
+ALTER TABLE user_profile MODIFY OPT_IN_PROMOTE_FLG DEFAULT '0';
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="WP1-381">
+<sql>
+ALTER TABLE user_profile MODIFY PROFILE_VISIBLE_FLG DEFAULT '1';
+</sql>
+</changeSet>
+
+<!--
 <changeSet author="gphaniraj" id="WP1-SOCIETIES_DATA" runOnChange="true">
  <loadUpdateData file="src/main/resources/liquibase/updates/csv/Societies.csv" quotchar="'" tableName="societies" primaryKey="society_cd">
         <column name="SOCIETY_CD" header="SOCIETY_CD" type="string"/>
@@ -2256,6 +2269,7 @@ ALTER TABLE USER_AFFILIATIONS ADD FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_
          <column name="CREATED_DATE" header="CREATED_DATE" type="date"/>
 		<column name="CREATED_BY" header="CREATED_BY" type="numeric"/>			 
     </loadUpdateData>
+-->
 </changeSet>
 
 
