@@ -11,49 +11,30 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
- * The Class LicenseStatus.
+ * The Class TrackLicense.
  *
  * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
-public class LicenseStatus {
-
-    /** The info. */
-    private String info;
-
-    /** The actions. */
-    private ArrayList<String> actions;
-
-    /** The task id. */
-    private String taskId;
+public class TrackLicense {
 
     /** The license date. */
     private String licenseDate;
 
-    /**
-     * Gets the task id.
-     *
-     * @return the task id
-     */
-    public final String getTaskId() {
-        return taskId;
-    }
+    /** The task id. */
+    private String taskId;
 
-    /**
-     * Sets the task id.
-     *
-     * @param taskId
-     *            the new task id
-     */
-    public final void setTaskId(final String taskId) {
-        this.taskId = taskId;
-    }
+    /** The license status. */
+    private String licenseStatus;
+
+    /** The action. */
+    private List<String> action;
 
     /**
      * Gets the license date.
@@ -75,41 +56,60 @@ public class LicenseStatus {
     }
 
     /**
-     * Gets the info.
+     * Gets the task id.
      *
-     * @return the info
+     * @return the task id
      */
-    public String getInfo() {
-        return info;
+    public final String getTaskId() {
+        return taskId;
     }
 
     /**
-     * Sets the info.
+     * Sets the task id.
      *
-     * @param info
-     *            the info to set
+     * @param taskId
+     *            the new task id
      */
-    public void setInfo(final String info) {
-        this.info = info;
+    public final void setTaskId(final String taskId) {
+        this.taskId = taskId;
     }
 
     /**
-     * Gets the actions.
+     * Gets the license status.
      *
-     * @return the actions
+     * @return the license status
      */
-    public ArrayList<String> getActions() {
-        return actions;
+    public final String getLicenseStatus() {
+        return licenseStatus;
     }
 
     /**
-     * Sets the actions.
+     * Sets the license status.
      *
-     * @param actions
-     *            the actions to set
+     * @param licenseStatus
+     *            the new license status
      */
-    public void setActions(final ArrayList<String> actions) {
-        this.actions = actions;
+    public final void setLicenseStatus(final String licenseStatus) {
+        this.licenseStatus = licenseStatus;
+    }
+
+    /**
+     * Gets the action.
+     *
+     * @return the action
+     */
+    public final List<String> getAction() {
+        return action;
+    }
+
+    /**
+     * Sets the action.
+     *
+     * @param action
+     *            the new action
+     */
+    public final void setAction(final List<String> action) {
+        this.action = action;
     }
 
 }

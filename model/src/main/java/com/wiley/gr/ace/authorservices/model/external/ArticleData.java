@@ -17,6 +17,7 @@ package com.wiley.gr.ace.authorservices.model.external;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.wiley.gr.ace.authorservices.model.TrackLicense;
 
 /**
  * The Class ArticleData.
@@ -49,7 +50,7 @@ public class ArticleData {
     private ArticleDetails articleDetails;
 
     /** The license status. */
-    private String licenseStatus;
+    private TrackLicense licenseStatus;
 
     /** The order payment status. */
     private OrderPaymentStatus orderPaymentStatus;
@@ -234,22 +235,11 @@ public class ArticleData {
         this.articleDetails = articleDetails;
     }
 
-    /**
-     * Gets the license status.
-     *
-     * @return the licenseStatus
-     */
-    public final String getLicenseStatus() {
+    public final TrackLicense getLicenseStatus() {
         return licenseStatus;
     }
 
-    /**
-     * Sets the license status.
-     *
-     * @param licenseStatus
-     *            the licenseStatus to set
-     */
-    public final void setLicenseStatus(final String licenseStatus) {
+    public final void setLicenseStatus(final TrackLicense licenseStatus) {
         this.licenseStatus = licenseStatus;
     }
 
