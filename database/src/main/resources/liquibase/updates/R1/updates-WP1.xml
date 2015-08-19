@@ -2269,8 +2269,7 @@ ALTER TABLE user_profile MODIFY PROFILE_VISIBLE_FLG DEFAULT '1';
          <column name="CREATED_DATE" header="CREATED_DATE" type="date"/>
 		<column name="CREATED_BY" header="CREATED_BY" type="numeric"/>			 
     </loadUpdateData>
--->
 </changeSet>
-
+-->
 
 </databaseChangeLog>
