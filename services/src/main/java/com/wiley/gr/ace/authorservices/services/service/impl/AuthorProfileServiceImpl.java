@@ -364,7 +364,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                     addressesRequest, addressesRequest.getAddressType(),
                     addressesRequest.getId());
             addressElementsList.add(physical);
-            if ('Y' == addressesRequest.getAddressFag()) {
+            if ('Y' == addressesRequest.getAddressFlag()) {
                 AddressElement billing = this.updateAddressFields(
                         addressesRequest, "Billing", "0");
                 addressElementsList.add(billing);
@@ -376,7 +376,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                     addressesRequest, addressesRequest.getAddressType(),
                     addressesRequest.getId());
             addressElementsList.add(physical);
-            if ('Y' == addressesRequest.getAddressFag()) {
+            if ('Y' == addressesRequest.getAddressFlag()) {
                 AddressElement shipping = this.updateAddressFields(
                         addressesRequest, "Shipping", "0");
                 addressElementsList.add(shipping);

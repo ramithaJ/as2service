@@ -41,61 +41,61 @@ public class Address implements Serializable {
     @NotBlank
     @NotNull
     /** The address type. */
-    private String addressType;
+    private String addressType = "";
 
     /** The title. */
-    private String title;
+    private String title = "";
 
     /** The first name. */
-    private String firstName;
+    private String firstName = "";
 
     /** The last name. */
-    private String lastName;
+    private String lastName = "";
 
     /** The suffix. */
-    private String suffix;
+    private String suffix = "";
 
     /** The institution. */
-    private String institutionId;
+    private String institutionId = "";
 
     /** The institution. */
-    private String institution;
+    private String institution = "";
 
     /** The department. */
-    private String departmentId;
+    private String departmentId = "";
 
     /** The department. */
-    private String department;
+    private String department = "";
 
     /** The address line1. */
-    private String addressLine1;
+    private String addressLine1 = "";
 
     /** The address line2. */
-    private String addressLine2;
+    private String addressLine2 = "";
 
     /** The city. */
-    private String city;
+    private String city = "";
 
     /** The state. */
     private State state;
 
     /** The post code. */
-    private String postCode;
+    private String postCode = "";
 
     /** The country. */
     private Country country;
 
     /** The phone number. */
-    private String phoneNumber;
+    private String phoneNumber = "";
 
     /** The fax number. */
-    private String faxNumber;
+    private String faxNumber = "";
 
     /** The address fag. */
-    private Character addressFag;
+    private Character addressFlag = 'N';
 
     /** The region. */
-    private String region;
+    private String region = "";
 
     /**
      * Gets the address type.
@@ -394,22 +394,18 @@ public class Address implements Serializable {
     }
 
     /**
-     * Gets the address fag.
-     *
-     * @return the addressFag
+     * @return the addressFlag
      */
-    public final Character getAddressFag() {
-        return addressFag;
+    public final Character getAddressFlag() {
+        return addressFlag;
     }
 
     /**
-     * Sets the address fag.
-     *
-     * @param addressFag
-     *            the addressFag to set
+     * @param addressFlag
+     *            the addressFlag to set
      */
-    public final void setAddressFag(final Character addressFag) {
-        this.addressFag = addressFag;
+    public final void setAddressFlag(final Character addressFlag) {
+        this.addressFlag = addressFlag;
     }
 
     /**
