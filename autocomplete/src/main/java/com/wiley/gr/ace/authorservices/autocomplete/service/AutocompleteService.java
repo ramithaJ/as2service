@@ -38,4 +38,17 @@ public interface AutocompleteService {
     List<CacheData> getDropDownData(String key, String phrase, Integer offset,
             String parentId);
 
+    /**
+     * This service will return the name based on the code.
+     * 
+     * @param key
+     *            - Input parameter
+     * @param code
+     *            - Input parameter
+     * @param parentId
+     *            - Input parameter
+     * @return name
+     */
+    String getNameByCode(String key, String code, String parentId);
+
 }

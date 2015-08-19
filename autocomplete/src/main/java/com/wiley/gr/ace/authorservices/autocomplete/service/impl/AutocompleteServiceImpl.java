@@ -33,6 +33,7 @@ import redis.clients.jedis.Jedis;
 
 import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteCachingService;
 import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteService;
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.CacheData;
 import com.wiley.gr.ace.authorservices.model.SubFunder;
@@ -69,10 +70,6 @@ public class AutocompleteServiceImpl implements AutocompleteService {
     @Value("${subFunders.key}")
     private String subFunderskey;
 
-    /** the INTERNAL_SERVER_ERROR_CODE. */
-    @Value("${internal.server.error.code}")
-    private String INTERNAL_SERVER_ERROR_CODE;
-
     /**
      * Enum For valid drop down keys.
      */
@@ -96,8 +93,10 @@ public class AutocompleteServiceImpl implements AutocompleteService {
      */
     private void addWord(final String word, final Jedis redis,
             final String redisKey) {
-        // Add all the possible prefixes of the given word and also the given
-        // word with a * suffix.
+        /*
+         * Add all the possible prefixes of the given word and also the given
+         * word with a * suffix.
+         */
         LOGGER.info("getDropDownData::addWord");
         redis.zadd(redisKey, 0, word + "*");
         for (int index = 1, total = word.length(); index < total; index++) {
@@ -115,7 +114,7 @@ public class AutocompleteServiceImpl implements AutocompleteService {
     private boolean isValidKey(final String dropDownKey) {
         boolean flag = false;
 
-        LOGGER.info("getDropDownData::isValidKey");
+        LOGGER.info("getDropDownData::isValidKey method");
 
         for (DropDownKeys keys : DropDownKeys.values()) {
 
@@ -411,7 +410,8 @@ public class AutocompleteServiceImpl implements AutocompleteService {
                     cacheData.setCode(json.get("code").toString());
                     jsonDropDownList.add(cacheData);
                 } catch (ParseException e) {
-                    throw new ASException(INTERNAL_SERVER_ERROR_CODE,
+                    throw new ASException(
+                            AuthorServicesConstants.INTERNAL_SERVER_ERROR,
                             e.getMessage());
                 }
 
@@ -443,6 +443,39 @@ public class AutocompleteServiceImpl implements AutocompleteService {
         Collections.sort(jsonDropDownList, comp);
 
         return jsonDropDownList;
+    }
+
+    /**
+     * This method will return the name for the corresponding code from the
+     * cache.
+     * 
+     * @param key
+     *            - Input parameter
+     * @param code
+     *            - Input parameter
+     * @param parentId
+     *            - Input parameter
+     * @return name
+     */
+    public String getNameByCode(String key, String code, String parentId) {
+        String name = null;
+        Map<String, CacheData> dropDownMap = null;
+
+        if (parentId != null && !"".equals(parentId.trim())) {
+            key = key + "_" + parentId;
+        }
+
+        dropDownMap = autocompleteCachingService.getCachedData(key + "_cached",
+                parentId);
+
+        if (dropDownMap != null) {
+            name = dropDownMap.get(key).getName();
+        } else {
+            throw new ASException(AuthorServicesConstants.SERVERERRORCODE,
+                    AuthorServicesConstants.SERVERERRORMESSAGE);
+        }
+
+        return name;
     }
 
 }
