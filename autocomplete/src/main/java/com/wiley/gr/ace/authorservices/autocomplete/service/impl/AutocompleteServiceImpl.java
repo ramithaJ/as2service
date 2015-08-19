@@ -209,19 +209,19 @@ public class AutocompleteServiceImpl implements AutocompleteService {
                                     + "_auto", phrase, offset);
                         }
 
-                        /*
-                         * Convert the json string to json object and sort the
-                         * list in ascending order.
-                         */
-                        if (jsonDropDownList == null && dropDownList != null) {
-                            jsonDropDownList = getJsonDropDownList(
-                                    dropDownList, phrase);
-                        }
-
                     } else {
                         LOGGER.info("getDropDownData::Data Not Available in Cache for the Key : "
                                 + key);
                     }
+                }
+                
+                /*
+                 * Convert the json string to json object and sort the
+                 * list in ascending order.
+                 */
+                if (jsonDropDownList == null && dropDownList != null) {
+                    jsonDropDownList = getJsonDropDownList(
+                            dropDownList, phrase);
                 }
 
             } else {
@@ -361,7 +361,6 @@ public class AutocompleteServiceImpl implements AutocompleteService {
                 if (!entry.substring(0, minLength).equalsIgnoreCase(
                         phrase.substring(0, minLength))) {
                     maxNeeded = dropDownList.size();
-                    LOGGER.info("getAutoCompleteDataFromRedis::List reached maximum available size");
                     break;
                 }
 
