@@ -11,9 +11,13 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
@@ -196,6 +200,16 @@ public class UserManagementImpl implements UserManagement {
     @Override
     public final boolean updateSecurityDetails(
             final SecurityQuestionsUpdateRequest securityQuestionsUpdateRequest) {
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            mapper.writeValue(new File("c:\\Shiva\\user.json"),
+                    securityQuestionsUpdateRequest);
+
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         return this.externalPostServiceInvoker(updateSecurityDetailsurl,
                 securityQuestionsUpdateRequest);
