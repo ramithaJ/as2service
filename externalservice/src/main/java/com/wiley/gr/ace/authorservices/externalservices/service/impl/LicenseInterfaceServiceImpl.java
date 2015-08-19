@@ -15,9 +15,11 @@
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpMethod;
 
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.LicenseInterfaceService;
+import com.wiley.gr.ace.authorservices.model.external.GetArticleDetails;
 import com.wiley.gr.ace.authorservices.model.external.License;
 import com.wiley.gr.ace.authorservices.model.external.LicenseChoiceRequest;
 import com.wiley.gr.ace.authorservices.model.external.LicenseChoiceResponse;
@@ -37,6 +39,9 @@ public class LicenseInterfaceServiceImpl implements LicenseInterfaceService {
     @Value("${initiateLicence.url}")
     private String initiateLicenceUrl;
 
+    @Value("${walsArticleDetails.url}")
+    private String walsArticleDetails;
+    
     /**
      * Gets the license choice.
      *
@@ -101,4 +106,17 @@ public class LicenseInterfaceServiceImpl implements LicenseInterfaceService {
 
     }
 
+    /**
+     * Gets the wals article details.
+     *
+     * @param articleId
+     *            the article id
+     * @return the wals article details
+     */
+
+    @Override
+    public GetArticleDetails getWalsArticleDetails(String articleId) {
+        return (GetArticleDetails) StubInvokerUtil.invokeStub(
+                walsArticleDetails, HttpMethod.GET, GetArticleDetails.class);
+    }
 }

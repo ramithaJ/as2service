@@ -36,6 +36,7 @@ import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.TaskService;
 import com.wiley.gr.ace.authorservices.model.AssociationConfirmation;
+import com.wiley.gr.ace.authorservices.model.LicenseStatus;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.external.TaskServiceRequest;
 
@@ -82,6 +83,9 @@ public class TaskServiceImpl implements TaskService {
     @Value("${bpmservice.sourceAppValue}")
     private String sourceAppValue;
 
+    @Value("${bpmServiceLicense.url}")
+    private String bpmServiceLicenseStatus;
+    
     /**This method is for creating task. */
     @Override
     public final boolean createTask() {
@@ -211,6 +215,21 @@ public class TaskServiceImpl implements TaskService {
         }
 
         return flag;
+    }
+    /**
+     * Gets the license status.
+     *
+     * @param dhId
+     *            the dh id
+     * @param userId
+     *            the user id
+     * @return the license status
+     */
+    @Override
+    public LicenseStatus getLicenseStatus(String dhId, String userId) {
+        return (LicenseStatus) StubInvokerUtil.invokeStub(
+                bpmServiceLicenseStatus, HttpMethod.GET,
+                LicenseStatus.class);
     }
 
 }

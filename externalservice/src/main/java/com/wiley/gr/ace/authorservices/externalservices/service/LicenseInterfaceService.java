@@ -14,6 +14,7 @@
  */
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
+import com.wiley.gr.ace.authorservices.model.external.GetArticleDetails;
 import com.wiley.gr.ace.authorservices.model.external.License;
 import com.wiley.gr.ace.authorservices.model.external.LicenseChoiceRequest;
 import com.wiley.gr.ace.authorservices.model.external.LicenseChoiceResponse;
@@ -65,6 +66,15 @@ public interface LicenseInterfaceService {
      * @return the license copy
      */
     WALSResponse getLicenseCopy(WALSRequest walsRequest);
+    
+    /**
+     * Gets the wals article details.
+     *
+     * @param articleId
+     *            the article id
+     * @return the wals article details
+     */
+    GetArticleDetails getWalsArticleDetails(String articleId);
     
     License initiateLicence(String articleId);
     
