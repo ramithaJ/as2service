@@ -23,11 +23,11 @@ public class SecurityQuestionsUpdateRequest {
 
     /** This field holds the value of existingEmail. */
     @JsonProperty("ExistingEmail")
-    private String Email;
+    private String email;
 
     /** This field holds the value of newPassword. */
     @JsonProperty("ExistingPassword")
-    private String Password;
+    private String password;
 
     /** This field holds the value of sourceSystem. */
     @JsonProperty("SourceSystem")
@@ -41,7 +41,7 @@ public class SecurityQuestionsUpdateRequest {
      * @return the email
      */
     public final String getEmail() {
-        return Email;
+        return email;
     }
 
     /**
@@ -49,14 +49,14 @@ public class SecurityQuestionsUpdateRequest {
      *            the email to set
      */
     public final void setEmail(final String email) {
-        Email = email;
+        this.email = email;
     }
 
     /**
      * @return the password
      */
     public final String getPassword() {
-        return Password;
+        return password;
     }
 
     /**
@@ -64,7 +64,7 @@ public class SecurityQuestionsUpdateRequest {
      *            the password to set
      */
     public final void setPassword(final String password) {
-        Password = password;
+        this.password = password;
     }
 
     /**

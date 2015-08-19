@@ -13,17 +13,21 @@
  */
 package com.wiley.gr.ace.authorservices.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * @author Virtusa version1.0
  *
  */
+@JsonInclude(Include.NON_NULL)
 public class State {
 
     /** The state code. */
-    private String stateCode;
+    private String stateCode = "";
 
     /** The state name. */
-    private String stateName;
+    private String stateName = "";
 
     /**
      * @return the stateCode

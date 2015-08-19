@@ -223,6 +223,7 @@ public class UserProfilesImpl implements UserProfiles {
     @CachePut(value = "userProfile", key = "#userId")
     public final LookupCustomerProfile updateProfile(final int userId,
             final UserProfileResponse userProfileResponse) {
+        // TODO: Integrate update Profile URL
         Service service = (Service) RestServiceInvokerUtil.getServiceData(
                 updateProfileurl, Service.class);
         final String status = service.getStatus();
