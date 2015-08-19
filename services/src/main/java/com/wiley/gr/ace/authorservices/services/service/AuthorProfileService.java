@@ -29,7 +29,6 @@ import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
-import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 
 /**
  * The Interface AuthorProfileService.
@@ -149,7 +148,7 @@ public interface AuthorProfileService {
      *            the user id
      * @return the user profile response
      */
-    UserProfileResponse getuserProfileResponse(int userId);
+    LookupCustomerProfile getuserProfileResponse(int userId);
 
     /**
      * Upload image.

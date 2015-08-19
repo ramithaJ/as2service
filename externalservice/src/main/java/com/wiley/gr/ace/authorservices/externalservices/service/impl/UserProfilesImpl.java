@@ -38,10 +38,6 @@ import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
  */
 public class UserProfilesImpl implements UserProfiles {
 
-    /** The user profileurl. */
-    @Value("${lookupProfile.url}")
-    private String userProfileurl;
-
     /** The update profileurl. */
     @Value("${updateProfile.url}")
     private String updateProfileurl;
@@ -208,10 +204,9 @@ public class UserProfilesImpl implements UserProfiles {
      */
     @Override
     @Cacheable(value = "userProfile", key = "#userId")
-    public final UserProfileResponse getUserProfileResponse(final int userId) {
+    public final LookupCustomerProfile getUserProfileResponse(final int userId) {
 
-        return (UserProfileResponse) RestServiceInvokerUtil.getServiceData(
-                userProfileurl, UserProfileResponse.class);
+        return getLookupCustomerProfile(String.valueOf(userId));
     }
 
     /**
@@ -226,26 +221,16 @@ public class UserProfilesImpl implements UserProfiles {
      */
     @Override
     @CachePut(value = "userProfile", key = "#userId")
-    public final UserProfileResponse updateProfile(final int userId,
+    public final LookupCustomerProfile updateProfile(final int userId,
             final UserProfileResponse userProfileResponse) {
         Service service = (Service) RestServiceInvokerUtil.getServiceData(
                 updateProfileurl, Service.class);
         final String status = service.getStatus();
-        if (status != null && "success".equalsIgnoreCase(status)) {
-            return getUserProfile();
+        if (status != null && success.equalsIgnoreCase(status)) {
+            return getLookupCustomerProfile(String.valueOf(userId));
         }
 
         return null;
-    }
-
-    /**
-     * This method is used for getting userProfile response.
-     * 
-     * @return UserProfileResponse
-     */
-    private UserProfileResponse getUserProfile() {
-        return (UserProfileResponse) RestServiceInvokerUtil.getServiceData(
-                userProfileurl, UserProfileResponse.class);
     }
 
     /**
@@ -261,7 +246,7 @@ public class UserProfilesImpl implements UserProfiles {
         LookupCustomerProfile lookupCustomerProfile = (LookupCustomerProfile) RestServiceInvokerUtil
                 .getServiceData(lookupCustomerProfileResponse + userId
                         + "&ECID=", LookupCustomerProfile.class);
-        if ("failure".equalsIgnoreCase(lookupCustomerProfile.getStatus())) {
+        if (failure.equalsIgnoreCase(lookupCustomerProfile.getStatus())) {
             final ErrorPayLoad errorPayLoad = lookupCustomerProfile.getError();
             throw new UserException(errorPayLoad.getErrorCode(),
                     errorPayLoad.getErrorMessage());
@@ -285,7 +270,7 @@ public class UserProfilesImpl implements UserProfiles {
         final Service service = (Service) RestServiceInvokerUtil
                 .getServiceData(updateLookupCustomerProfile, Service.class);
         final String status = service.getStatus();
-        if (status != null && "success".equalsIgnoreCase(status)) {
+        if (status != null && success.equalsIgnoreCase(status)) {
             return lookupCustomerProfileResponse;
         } else {
             return null;
@@ -307,10 +292,10 @@ public class UserProfilesImpl implements UserProfiles {
                 .restServiceInvoker(updateLookupCustomerProfile,
                         lookupCustomerProfileResponse, ResponseStatus.class);
         boolean status = false;
-        if ("success".equalsIgnoreCase(responseStatus.getStatus())) {
+        if (success.equalsIgnoreCase(responseStatus.getStatus())) {
             status = true;
         }
-        if ("failure".equalsIgnoreCase(responseStatus.getStatus())) {
+        if (failure.equalsIgnoreCase(responseStatus.getStatus())) {
             final ErrorPayLoad errorPayLoad = responseStatus.getError();
             throw new UserException(errorPayLoad.getErrorCode(),
                     errorPayLoad.getErrorMessage());

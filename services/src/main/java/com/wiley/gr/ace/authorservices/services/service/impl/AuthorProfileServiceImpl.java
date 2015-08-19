@@ -323,10 +323,13 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         customerProfile.setCustomerDetails(customerDetails);
         lookupCustomerProfileResponse.setCustomerProfile(customerProfile);
         // update UserId ALM external service
-        Email email = new Email();
-        email.setOldEmailId(customerDetails.getPrimaryEmail());
-        email.setNewEmailId(emailDetails.getPrimaryEmailAddr());
-        this.updateUserId(email);
+        if (!customerDetails.getPrimaryEmail().equalsIgnoreCase(
+                emailDetails.getPrimaryEmailAddr())) {
+            Email email = new Email();
+            email.setOldEmailId(customerDetails.getPrimaryEmail());
+            email.setNewEmailId(emailDetails.getPrimaryEmailAddr());
+            this.updateUserId(email);
+        }
 
         return userProfiles
                 .customerProfileUpdate(lookupCustomerProfileResponse);
@@ -576,7 +579,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @return the user profile response
      */
     @Override
-    public final UserProfileResponse getuserProfileResponse(final int userId) {
+    public final LookupCustomerProfile getuserProfileResponse(final int userId) {
         AuthorProfileServiceImpl.LOGGER.info("in UserProfileResponse Method");
         return userProfiles.getUserProfileResponse(userId);
     }
@@ -968,7 +971,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      *
      * */
     @Override
-    public boolean deleteSociety(String userId, String societyId) {
+    public boolean deleteSociety(final String userId, final String societyId) {
 
         CustomerDetails customerDetails = getCustomeProfile(String
                 .valueOf(userId));
@@ -997,7 +1000,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      *
      * */
     @Override
-    public boolean deleteAffiliations(String userId, String affiliationId) {
+    public boolean deleteAffiliations(final String userId,
+            final String affiliationId) {
         CustomerDetails customerDetails = getCustomeProfile(String
                 .valueOf(userId));
         LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
@@ -1026,7 +1030,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * */
 
     @Override
-    public boolean deleteInterests(String userId, String interestId) {
+    public boolean deleteInterests(final String userId, final String interestId) {
         CustomerDetails customerDetails = getCustomeProfile(String
                 .valueOf(userId));
         LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
@@ -1054,7 +1058,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      *
      * */
     @Override
-    public boolean deletePreferredJournals(String userId, String journalId) {
+    public boolean deletePreferredJournals(final String userId,
+            final String journalId) {
         CustomerDetails customerDetails = getCustomeProfile(String
                 .valueOf(userId));
         LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();

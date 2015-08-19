@@ -83,7 +83,7 @@ public interface UserProfiles {
      *            the user id
      * @return the user profile response
      */
-    UserProfileResponse getUserProfileResponse(int userId);
+    LookupCustomerProfile getUserProfileResponse(int userId);
 
     /**
      * Update profile.
@@ -94,7 +94,7 @@ public interface UserProfiles {
      *            the user profile response
      * @return the user profile response
      */
-    UserProfileResponse updateProfile(int userId,
+    LookupCustomerProfile updateProfile(int userId,
             UserProfileResponse userProfileResponse);
 
     /**
