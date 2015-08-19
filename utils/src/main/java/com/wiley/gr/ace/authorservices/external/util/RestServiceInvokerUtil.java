@@ -175,11 +175,15 @@ public class RestServiceInvokerUtil {
 
         } catch (MalformedURLException e) {
 
-            e.printStackTrace();
+            throw new UserException(
+                    AuthorServicesConstants.INTERNAL_SERVER_ERROR,
+                    e.getMessage());
 
         } catch (IOException e) {
 
-            e.printStackTrace();
+            throw new UserException(
+                    AuthorServicesConstants.INTERNAL_SERVER_ERROR,
+                    e.getMessage());
 
         }
         JSONObject responseJSON = new JSONObject(responseString.toString());
@@ -189,7 +193,9 @@ public class RestServiceInvokerUtil {
             esbResponse = mapper.readValue(responseJSON.toString(),
                     ESBResponse.class);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new UserException(
+                    AuthorServicesConstants.INTERNAL_SERVER_ERROR,
+                    e.getMessage());
         }
         return esbResponse;
 

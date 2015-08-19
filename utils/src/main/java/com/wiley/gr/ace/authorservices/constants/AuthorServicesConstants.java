@@ -138,5 +138,7 @@ public class AuthorServicesConstants {
 
     /** The Constant for BPM_CALL_SUCCESS_STATUS. */
     public static final String STATUS_CODE_OK = "200";
+    
+    public static final String INTERNAL_SERVER_ERROR = "500";
 
 }

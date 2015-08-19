@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 
 import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteCachingService;
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
@@ -140,10 +141,6 @@ public class AutocompleteCachingServiceImpl implements
     @Value("${department.name}")
     private String departmentName;
 
-    /** the INTERNAL_SERVER_ERROR_CODE. */
-    @Value("${internal.server.error.code}")
-    private String INTERNAL_SERVER_ERROR_CODE;
-
     /** getting bean of asdata dao. */
     @Autowired(required = true)
     private ASDataDAO aSDataDAO;
@@ -196,6 +193,9 @@ public class AutocompleteCachingServiceImpl implements
                 dropDownMap.put(cacheData.getCode(), cacheData);
             }
 
+        } else {
+            throw new ASException(AuthorServicesConstants.SERVERERRORCODE,
+                    AuthorServicesConstants.SERVERERRORMESSAGE);
         }
 
         return dropDownMap;
@@ -257,7 +257,8 @@ public class AutocompleteCachingServiceImpl implements
                     cacheData.setCode(json.get(cacheDataCode).toString());
                     cacheList.add(cacheData);
                 } catch (ParseException e) {
-                    throw new ASException(INTERNAL_SERVER_ERROR_CODE,
+                    throw new ASException(
+                            AuthorServicesConstants.INTERNAL_SERVER_ERROR,
                             e.getMessage());
                 }
             }
@@ -278,12 +279,20 @@ public class AutocompleteCachingServiceImpl implements
     @Cacheable(value = "subFunderDetails", key = "#dropDownKey")
     public final SubFunderDetails getCachedSubFunders(final String dropDownKey) {
         ResearchFundersResponse response = null;
+        SubFunderDetails details = null;
 
         response = (ResearchFundersResponse) RestServiceInvokerUtil
                 .getServiceData(researchFundersurl,
                         ResearchFundersResponse.class);
 
-        return getSubFundersList(response);
+        if (response != null) {
+            details = getSubFundersList(response);
+        } else {
+            throw new ASException(AuthorServicesConstants.SERVERERRORCODE,
+                    AuthorServicesConstants.SERVERERRORMESSAGE);
+        }
+
+        return details;
     }
 
     /**
@@ -327,6 +336,10 @@ public class AutocompleteCachingServiceImpl implements
             }
             subFunderDetails = new SubFunderDetails();
             subFunderDetails.setSubFundersMap(subFundersMap);
+            
+        } else {
+            throw new ASException(AuthorServicesConstants.SERVERERRORCODE,
+                    AuthorServicesConstants.SERVERERRORMESSAGE);
         }
 
         return subFunderDetails;
