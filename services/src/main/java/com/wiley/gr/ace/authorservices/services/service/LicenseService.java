@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 import com.wiley.gr.ace.authorservices.model.LicenseObject;
 import com.wiley.gr.ace.authorservices.model.LicenseStatus;
+import com.wiley.gr.ace.authorservices.model.external.LicenseChoiceRequest;
 
 /**
  * The Interface LicenseService.
@@ -45,7 +46,7 @@ public interface LicenseService {
      *            the license object
      * @return the license text
      */
-    String getLicenseText(LicenseObject licenseObject);
+    String getLicenseText(LicenseChoiceRequest licenseChoiceRequest);
 
     /**
      * Gets the license copy.

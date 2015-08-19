@@ -24,6 +24,26 @@ public class LicenseChoiceRequest extends WALSRequest {
 
     /** The online open. */
     private String onlineOpen;
+    
+    private String userId;
+    
+    private String requestId;
+
+    public final String getUserId() {
+        return userId;
+    }
+
+    public final String getRequestId() {
+        return requestId;
+    }
+
+    public final void setUserId(final String userId) {
+        this.userId = userId;
+    }
+
+    public final void setRequestId(final String requestId) {
+        this.requestId = requestId;
+    }
 
     /** The funders. */
     private Funders funders;

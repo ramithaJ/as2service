@@ -181,7 +181,7 @@ public class LicenseServiceImpl implements LicenseService {
     }
 
     @Override
-    public String getLicenseText(final LicenseObject licenseObject) {
+    public String getLicenseText(final LicenseChoiceRequest licenseChoiceRequest) {
         StringBuilder contentBuilder = new StringBuilder();
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(
