@@ -31,6 +31,8 @@ public class User implements Serializable {
 
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
+
+    /** The user id. */
     @NotBlank
     @NotNull
     /** The user id. */
@@ -110,22 +112,24 @@ public class User implements Serializable {
     /** The affiliation. */
     private Affiliation affiliation;
 
+    /** The found in. */
     private String foundIn;
 
     /** The instituition. */
     private String instituition;
 
-    /**
-     * This field holds the value of titleName
-     */
+    /** This field holds the value of titleName. */
     private String titleName;
 
-    /**
-     * This field holds the value of suffixName
-     */
+    /** This field holds the value of suffixName. */
     private String suffixName;
 
+    /** The country code. */
+    private String countryCode;
+
     /**
+     * Gets the title name.
+     *
      * @return the titleName
      */
     public final String getTitleName() {
@@ -133,14 +137,17 @@ public class User implements Serializable {
     }
 
     /**
-     * @param titleName
-     *            the titleName to set
+     * Sets the title name.
+     *
+     * @param titleName            the titleName to set
      */
     public final void setTitleName(final String titleName) {
         this.titleName = titleName;
     }
 
     /**
+     * Gets the suffix name.
+     *
      * @return the suffixName
      */
     public final String getSuffixName() {
@@ -148,26 +155,44 @@ public class User implements Serializable {
     }
 
     /**
-     * @param suffixName
-     *            the suffixName to set
+     * Sets the suffix name.
+     *
+     * @param suffixName            the suffixName to set
      */
     public final void setSuffixName(final String suffixName) {
         this.suffixName = suffixName;
     }
 
+    /**
+     * Gets the instituition.
+     *
+     * @return the instituition
+     */
     public final String getInstituition() {
         return instituition;
     }
 
+    /**
+     * Sets the instituition.
+     *
+     * @param instituition the new instituition
+     */
     public final void setInstituition(final String instituition) {
         this.instituition = instituition;
     }
 
+    /**
+     * Gets the serialversionuid.
+     *
+     * @return the serialversionuid
+     */
     public static final long getSerialversionuid() {
         return serialVersionUID;
     }
 
     /**
+     * Gets the industry code.
+     *
      * @return the industryCode
      */
     public final String getIndustryCode() {
@@ -175,14 +200,17 @@ public class User implements Serializable {
     }
 
     /**
-     * @param industryCode
-     *            the industryCode to set
+     * Sets the industry code.
+     *
+     * @param industryCode            the industryCode to set
      */
     public final void setIndustryCode(final String industryCode) {
         this.industryCode = industryCode;
     }
 
     /**
+     * Gets the job category code.
+     *
      * @return the jobCategoryCode
      */
     public final String getJobCategoryCode() {
@@ -190,8 +218,9 @@ public class User implements Serializable {
     }
 
     /**
-     * @param jobCategoryCode
-     *            the jobCategoryCode to set
+     * Sets the job category code.
+     *
+     * @param jobCategoryCode            the jobCategoryCode to set
      */
     public final void setJobCategoryCode(final String jobCategoryCode) {
         this.jobCategoryCode = jobCategoryCode;
@@ -446,6 +475,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Gets the visible attributes.
+     *
      * @return the visibleAttributes
      */
     public final List<String> getVisibleAttributes() {
@@ -453,8 +484,9 @@ public class User implements Serializable {
     }
 
     /**
-     * @param visibleAttributes
-     *            the visibleAttributes to set
+     * Sets the visible attributes.
+     *
+     * @param visibleAttributes            the visibleAttributes to set
      */
     public final void setVisibleAttributes(final List<String> visibleAttributes) {
         this.visibleAttributes = visibleAttributes;
@@ -575,6 +607,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Gets the terms of use flg.
+     *
      * @return the termsOfUseFlg
      */
     public final String getTermsOfUseFlg() {
@@ -582,8 +616,9 @@ public class User implements Serializable {
     }
 
     /**
-     * @param termsOfUseFlg
-     *            the termsOfUseFlg to set
+     * Sets the terms of use flg.
+     *
+     * @param termsOfUseFlg            the termsOfUseFlg to set
      */
     public final void setTermsOfUseFlg(final String termsOfUseFlg) {
         this.termsOfUseFlg = termsOfUseFlg;
@@ -647,12 +682,40 @@ public class User implements Serializable {
         this.affiliation = affiliation;
     }
 
+    /**
+     * Gets the found in.
+     *
+     * @return the found in
+     */
     public final String getFoundIn() {
         return foundIn;
     }
 
+    /**
+     * Sets the found in.
+     *
+     * @param foundIn the new found in
+     */
     public final void setFoundIn(final String foundIn) {
         this.foundIn = foundIn;
+    }
+
+    /**
+     * Gets the country code.
+     *
+     * @return the country code
+     */
+    public final String getCountryCode() {
+        return countryCode;
+    }
+
+    /**
+     * Sets the country code.
+     *
+     * @param countryCode the new country code
+     */
+    public final void setCountryCode(final String countryCode) {
+        this.countryCode = countryCode;
     }
 
 }

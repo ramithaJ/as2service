@@ -475,7 +475,7 @@ public class AutocompleteServiceImpl implements AutocompleteService {
 
         if (dropDownMap != null) {
             LOGGER.info("getNameByCode::dropDownMap is not empty");
-            name = dropDownMap.get(key).getName();
+            name = dropDownMap.get(code).getName();
         } else {
             throw new ASException(AuthorServicesConstants.SERVERERRORCODE,
                     AuthorServicesConstants.SERVERERRORMESSAGE);
