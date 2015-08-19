@@ -263,11 +263,34 @@ public interface AuthorProfileService {
     boolean updateOrcidId(String userId, String orcidId);
     
     
-    /**
+     /** Gets the profile picture.
+     *
      * @param userId
-     * @return
+     *            the user id
+     * @return the profile picture
      */
     byte[] getProfilePicture(String userId);
+    
+    
+     /** Delete society.
+     *
+     * @param userId
+     *            the user id
+     * @param societyId
+     *            the society id
+     * @return true, if successful
+     */
+    boolean deleteSociety(String userId,String societyId);
+    
+     /** Delete affiliations.
+     *
+     * @param userId
+     *            the user id
+     * @param affiliationId
+     *            the affiliation id
+     * @return true, if successful
+     */
+    boolean deleteAffiliations(String userId,String affiliationId);
     
     
 }

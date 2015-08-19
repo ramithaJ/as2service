@@ -957,4 +957,57 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         return imageAsBytes;
 
     }
+    
+    /** this will call external service to delete society
+     * @param userId
+     * @param societyId
+     *
+     * */
+    @Override
+    public boolean deleteSociety(String userId, String societyId) {
+
+        CustomerDetails customerDetails = getCustomeProfile(String
+                .valueOf(userId));
+        LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
+        CustomerProfile customerProfile = new CustomerProfile();
+        customerProfile.setCustomerDetails(customerDetails);
+        SocietyList societyList = new SocietyList();
+        SocietyData societyData = new SocietyData();
+        societyData.setId(societyId);
+        societyData.setStatus("delete");
+        societyList.setSociety(new ArrayList<SocietyData>());
+        societyList.getSociety().add(societyData);
+        customerProfile.setCustomerDetails(customerDetails);
+        customerProfile.setSocietyList(societyList);
+        lookupCustomerProfileResponse.setCustomerProfile(customerProfile);
+
+        return userProfiles
+                .customerProfileUpdate(lookupCustomerProfileResponse);
+    }
+
+    /** this will call external service to delete affiliations
+     * @param userId
+     * @param affiliationId
+     *
+     * */
+    @Override
+    public boolean deleteAffiliations(String userId, String affiliationId) {
+        CustomerDetails customerDetails = getCustomeProfile(String
+                .valueOf(userId));
+        LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
+        CustomerProfile customerProfile = new CustomerProfile();
+        customerProfile.setCustomerDetails(customerDetails);
+        AffiliationsData affsData = new AffiliationsData();
+        List<AffiliationData> affDataList = new ArrayList<AffiliationData>();
+        AffiliationData affData = new AffiliationData();
+        affData.setId(affiliationId);
+        affDataList.add(affData);
+        affsData.setAffiliation(affDataList);
+        customerProfile.setAffiliations(affsData);
+        lookupCustomerProfileResponse.setCustomerProfile(customerProfile);
+        affData.setStatus("delete");
+        return userProfiles
+                .customerProfileUpdate(lookupCustomerProfileResponse);
+
+    }
 }

@@ -120,9 +120,11 @@ public class UserProfileController {
      */
     @RequestMapping(value = "/affiliations/{userId}/{affiliationId}/", method = RequestMethod.DELETE)
     public final Service deleteAffiliation(
-            @PathVariable("userId") final int userId) {
+            @PathVariable("userId") final String userId,@PathVariable ("affiliationId") String affiliationId) {
         UserProfileController.LOGGER.info("inside deleteaffiliation method ");
-        return new Service();
+        Service service =new Service();
+        service.setPayload(authorProfileService.deleteAffiliations(userId, affiliationId));
+        return service;
     }
 
     /**
@@ -211,12 +213,16 @@ public class UserProfileController {
      */
     @RequestMapping(value = "/societies/{userId}/{societyId}/", method = RequestMethod.DELETE)
     public final Service deleteSocietyDetails(
-            @PathVariable("userId") final int userId,
+            @PathVariable("userId") final String userId,
             @PathVariable("societyId") final String societyId) {
 
         UserProfileController.LOGGER
                 .info("inside deleteSocietyDetails method ");
-        return new Service();
+        
+        Service service=new Service();
+        
+        service.setPayload(authorProfileService.deleteSociety(userId, societyId));
+        return service;
     }
 
     /**
@@ -517,7 +523,7 @@ public class UserProfileController {
      * @throws IOException
      */
     @RequestMapping(value="/getImage/{userId}" ,method = RequestMethod.GET ,produces =MediaType.IMAGE_JPEG_VALUE)
-    public final byte[] getProfile(@PathVariable("userId") final String userId) throws IOException{
+    public final byte[] getProfile(@PathVariable("userId") final String userId){
       
     return authorProfileService.getProfilePicture(userId);
         
