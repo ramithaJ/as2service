@@ -873,7 +873,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         customerDetails.setUserStatus("Active");
         customerDetails.setTcFlag("Y");
         customerDetails.setSendEmail("Yes");
-        // customerDetails.setSourceSystem("AS");
+        customerDetails.setSourceSystem("AS");
         customerDetails.setProfileVisibility("0");
 
         return customerDetails;
