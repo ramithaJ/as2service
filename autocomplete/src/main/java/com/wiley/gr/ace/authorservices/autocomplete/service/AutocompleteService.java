@@ -47,7 +47,7 @@ public interface AutocompleteService {
      *            - Input parameter
      * @param parentId
      *            - Input parameter
-     * @return name
+     * @return name.
      */
     String getNameByCode(String key, String code, String parentId);
 

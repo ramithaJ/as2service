@@ -324,6 +324,8 @@ public class AutocompleteServiceImpl implements AutocompleteService {
         phraseBuilder.append("{\"name\":\"").append(phrase);
         phrase = phraseBuilder.toString();
 
+        LOGGER.info("getAutoCompleteDataFromRedis New Phrase : "
+                + phrase);
         final int prefixLength = phrase.length();
         /* Gets the index of the phrase */
         Long start = redis.zrank(key, phrase);
@@ -331,14 +333,14 @@ public class AutocompleteServiceImpl implements AutocompleteService {
             start = redis.zrank(key, phrase + "*");
             if (start == null) {
                 redis.close();
-                LOGGER.info("getAutoCompleteDataFromRedis:: In valid Key or Phrase");
+                LOGGER.info("getAutoCompleteDataFromRedis:: In-valid Key or Phrase");
                 return dropDownList;
             }
         }
 
         if (start < 0 || prefixLength == 0) {
             redis.close();
-            LOGGER.info("getAutoCompleteDataFromRedis:: In valid Key or Phrase");
+            LOGGER.info("getAutoCompleteDataFromRedis:: In-valid Key or Phrase");
             return new ArrayList<String>();
         }
 
@@ -347,6 +349,7 @@ public class AutocompleteServiceImpl implements AutocompleteService {
         int maxNeeded = Integer.parseInt(autocompletecount);
         Integer count = -1;
         while (found < maxNeeded) {
+            LOGGER.info("getAutoCompleteDataFromRedis::Fetching Values");
             final Set<String> rangeResults = redis.zrange(key, start, start
                     + rangeLength - 1);
             start += rangeLength;
@@ -358,6 +361,7 @@ public class AutocompleteServiceImpl implements AutocompleteService {
                 if (!entry.substring(0, minLength).equalsIgnoreCase(
                         phrase.substring(0, minLength))) {
                     maxNeeded = dropDownList.size();
+                    LOGGER.info("getAutoCompleteDataFromRedis::List reached maximum available size");
                     break;
                 }
 

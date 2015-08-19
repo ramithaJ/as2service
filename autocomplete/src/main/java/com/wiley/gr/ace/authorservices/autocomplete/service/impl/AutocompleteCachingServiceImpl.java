@@ -507,7 +507,7 @@ public class AutocompleteCachingServiceImpl implements
             for (Object object : externalInstitutionlist) {
                 LinkedHashMap<String, String> institutionmap = (LinkedHashMap<String, String>) object;
                 CacheData cacheData = new CacheData();
-                cacheData.setCode(institutionmap.get(institutionCode));
+                cacheData.setCode(institutionmap.get(institutionCode).trim());
                 cacheData.setName(institutionmap.get(institutionName));
                 institutionslist.add(cacheData);
             }
