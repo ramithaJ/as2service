@@ -49,9 +49,11 @@ import com.wiley.gr.ace.authorservices.model.external.AffiliationsData;
 import com.wiley.gr.ace.authorservices.model.external.AlertData;
 import com.wiley.gr.ace.authorservices.model.external.AlertType;
 import com.wiley.gr.ace.authorservices.model.external.AlertsData;
+import com.wiley.gr.ace.authorservices.model.external.AreaOfInterest;
 import com.wiley.gr.ace.authorservices.model.external.CoAuthorData;
 import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
 import com.wiley.gr.ace.authorservices.model.external.CustomerProfile;
+import com.wiley.gr.ace.authorservices.model.external.FavoriteJournals;
 import com.wiley.gr.ace.authorservices.model.external.InterestData;
 import com.wiley.gr.ace.authorservices.model.external.Journal;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
@@ -957,8 +959,10 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         return imageAsBytes;
 
     }
-    
-    /** this will call external service to delete society
+
+    /**
+     * this will call external service to delete society
+     * 
      * @param userId
      * @param societyId
      *
@@ -985,7 +989,9 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                 .customerProfileUpdate(lookupCustomerProfileResponse);
     }
 
-    /** this will call external service to delete affiliations
+    /**
+     * this will call external service to delete affiliations
+     * 
      * @param userId
      * @param affiliationId
      *
@@ -1009,5 +1015,63 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         return userProfiles
                 .customerProfileUpdate(lookupCustomerProfileResponse);
 
+    }
+
+    /**
+     * this will call external service to delete interests
+     * 
+     * @param userId
+     * @param interestId
+     *
+     * */
+
+    @Override
+    public boolean deleteInterests(String userId, String interestId) {
+        CustomerDetails customerDetails = getCustomeProfile(String
+                .valueOf(userId));
+        LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
+        CustomerProfile customerProfile = new CustomerProfile();
+        customerProfile.setCustomerDetails(customerDetails);
+        InterestData interestData = new InterestData();
+        interestData.setId(interestId);
+        interestData.setStatus("delete");
+        List<InterestData> interestDataList = new ArrayList<InterestData>();
+        interestDataList.add(interestData);
+        AreaOfInterest areaOfInterest = new AreaOfInterest();
+        areaOfInterest.setInterest(interestDataList);
+        customerProfile.setAreaOfInterest(areaOfInterest);
+        lookupCustomerProfileResponse.setCustomerProfile(customerProfile);
+
+        return userProfiles
+                .customerProfileUpdate(lookupCustomerProfileResponse);
+    }
+
+    /**
+     * this will call external service to delete interests
+     * 
+     * @param userId
+     * @param journalId
+     *
+     * */
+    @Override
+    public boolean deletePreferredJournals(String userId, String journalId) {
+        CustomerDetails customerDetails = getCustomeProfile(String
+                .valueOf(userId));
+        LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
+        CustomerProfile customerProfile = new CustomerProfile();
+        customerProfile.setCustomerDetails(customerDetails);
+
+        Journal journal = new Journal();
+        journal.setId(journalId);
+        journal.setStatus("delete");
+        List<Journal> journalsList = new ArrayList<Journal>();
+        journalsList.add(journal);
+        FavoriteJournals favoriteJournals = new FavoriteJournals();
+        favoriteJournals.setJournal(journalsList);
+        customerProfile.setFavoriteJournals(favoriteJournals);
+        lookupCustomerProfileResponse.setCustomerProfile(customerProfile);
+
+        return userProfiles
+                .customerProfileUpdate(lookupCustomerProfileResponse);
     }
 }

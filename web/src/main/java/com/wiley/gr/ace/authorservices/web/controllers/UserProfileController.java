@@ -120,10 +120,12 @@ public class UserProfileController {
      */
     @RequestMapping(value = "/affiliations/{userId}/{affiliationId}/", method = RequestMethod.DELETE)
     public final Service deleteAffiliation(
-            @PathVariable("userId") final String userId,@PathVariable ("affiliationId") String affiliationId) {
+            @PathVariable("userId") final String userId,
+            @PathVariable("affiliationId") String affiliationId) {
         UserProfileController.LOGGER.info("inside deleteaffiliation method ");
-        Service service =new Service();
-        service.setPayload(authorProfileService.deleteAffiliations(userId, affiliationId));
+        Service service = new Service();
+        service.setPayload(authorProfileService.deleteAffiliations(userId,
+                affiliationId));
         return service;
     }
 
@@ -218,10 +220,11 @@ public class UserProfileController {
 
         UserProfileController.LOGGER
                 .info("inside deleteSocietyDetails method ");
-        
-        Service service=new Service();
-        
-        service.setPayload(authorProfileService.deleteSociety(userId, societyId));
+
+        Service service = new Service();
+
+        service.setPayload(authorProfileService
+                .deleteSociety(userId, societyId));
         return service;
     }
 
@@ -273,8 +276,10 @@ public class UserProfileController {
             @PathVariable("userId") final String userId,
             @PathVariable("interestId") final String interestId) {
         UserProfileController.LOGGER.info("inside searchInterests method ");
-
-        return new Service();
+        Service service = new Service();
+        service.setPayload(authorProfileService.deleteInterests(userId,
+                interestId));
+        return service;
     }
 
     /**
@@ -366,7 +371,10 @@ public class UserProfileController {
 
         UserProfileController.LOGGER
                 .info("inside searchPreferredJournals method ");
-        return new Service();
+        Service service = new Service();
+        service.setPayload(authorProfileService.deletePreferredJournals(userId,
+                journalId));
+        return service;
     }
 
     /**
@@ -517,15 +525,16 @@ public class UserProfileController {
         return service;
 
     }
+
     /**
      * @param userId
      * @return
      * @throws IOException
      */
-    @RequestMapping(value="/getImage/{userId}" ,method = RequestMethod.GET ,produces =MediaType.IMAGE_JPEG_VALUE)
-    public final byte[] getProfile(@PathVariable("userId") final String userId){
-      
-    return authorProfileService.getProfilePicture(userId);
-        
+    @RequestMapping(value = "/getImage/{userId}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
+    public final byte[] getProfile(@PathVariable("userId") final String userId) {
+
+        return authorProfileService.getProfilePicture(userId);
+
     }
 }

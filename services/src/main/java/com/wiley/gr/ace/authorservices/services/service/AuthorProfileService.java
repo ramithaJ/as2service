@@ -261,18 +261,18 @@ public interface AuthorProfileService {
      * @return true, if successful
      */
     boolean updateOrcidId(String userId, String orcidId);
-    
-    
-     /** Gets the profile picture.
+
+    /**
+     * Gets the profile picture.
      *
      * @param userId
      *            the user id
      * @return the profile picture
      */
     byte[] getProfilePicture(String userId);
-    
-    
-     /** Delete society.
+
+    /**
+     * Delete society.
      *
      * @param userId
      *            the user id
@@ -280,9 +280,10 @@ public interface AuthorProfileService {
      *            the society id
      * @return true, if successful
      */
-    boolean deleteSociety(String userId,String societyId);
-    
-     /** Delete affiliations.
+    boolean deleteSociety(String userId, String societyId);
+
+    /**
+     * Delete affiliations.
      *
      * @param userId
      *            the user id
@@ -290,7 +291,28 @@ public interface AuthorProfileService {
      *            the affiliation id
      * @return true, if successful
      */
-    boolean deleteAffiliations(String userId,String affiliationId);
-    
-    
+    boolean deleteAffiliations(String userId, String affiliationId);
+
+    /**
+     * Delete interests.
+     *
+     * @param userId
+     *            the user id
+     * @param interestId
+     *            the interest id
+     * @return true, if successful
+     */
+    boolean deleteInterests(String userId, String interestId);
+
+    /**
+     * Delete preferred journals.
+     *
+     * @param userId
+     *            the user id
+     * @param journalId
+     *            the journal id
+     * @return true, if successful
+     */
+    boolean deletePreferredJournals(String userId, String journalId);
+
 }
