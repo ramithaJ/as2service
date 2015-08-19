@@ -16,11 +16,14 @@ package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
 import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.wiley.gr.ace.authorservices.exception.LicenseException;
+import com.wiley.gr.ace.authorservices.persistence.entity.LicenseUploadDetails;
 import com.wiley.gr.ace.authorservices.persistence.entity.SavedLicenses;
 import com.wiley.gr.ace.authorservices.persistence.services.LicenseDAO;
 
@@ -66,5 +69,34 @@ public class LicenseDAOImpl implements LicenseDAO {
             }
         }
         return licenseId;
+    }
+
+    /**
+     * Gets the l license upload details.
+     *
+     * @param dhId
+     *            the dh id
+     * @return the l license upload details
+     */
+    @Override
+    public LicenseUploadDetails getlLicenseUploadDetails(final String dhId) {
+        LOGGER.info("inside getlLicenseUploadDetails Method of LicenseDAOImpl");
+        Session session = null;
+        try {
+            session = getSessionFactory().openSession();
+            Criteria criteria = session.createCriteria(
+                    LicenseUploadDetails.class, "licenseUploadDetails");
+            criteria.createAlias("licenseUploadDetails.savedLicenses",
+                    "savedLicenses");
+            criteria.createAlias("savedLicenses.products", "products");
+            criteria.add(Restrictions.eq("products.dhId",
+                    Integer.parseInt(dhId)));
+            return (LicenseUploadDetails) criteria.uniqueResult();
+        } finally {
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
+        }
     }
 }

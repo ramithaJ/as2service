@@ -105,6 +105,10 @@
 			class="com.wiley.gr.ace.authorservices.persistence.entity.OrderReference" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.OrderTypes" />
+			<mapping
+            class="com.wiley.gr.ace.authorservices.persistence.entity.LicenseUploadDetails" />
+            <mapping
+            class="com.wiley.gr.ace.authorservices.persistence.entity.SavedLicenses" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.PermissionGroups" />
 		<mapping

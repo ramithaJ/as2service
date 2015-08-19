@@ -14,6 +14,7 @@
  */
 package com.wiley.gr.ace.authorservices.persistence.services;
 
+import com.wiley.gr.ace.authorservices.persistence.entity.LicenseUploadDetails;
 import com.wiley.gr.ace.authorservices.persistence.entity.SavedLicenses;
 
 /**
@@ -31,4 +32,13 @@ public interface LicenseDAO {
      * @return the integer
      */
     Integer saveLicense(SavedLicenses savedLicenses);
+
+    /**
+     * Gets the l license upload details.
+     *
+     * @param dhId
+     *            the dh id
+     * @return the l license upload details
+     */
+    LicenseUploadDetails getlLicenseUploadDetails(String dhId);
 }
