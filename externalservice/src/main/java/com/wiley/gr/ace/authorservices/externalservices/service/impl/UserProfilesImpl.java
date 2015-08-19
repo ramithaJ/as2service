@@ -17,9 +17,7 @@ package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.util.StringUtils;
 
-import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
@@ -91,6 +89,16 @@ public class UserProfilesImpl implements UserProfiles {
     /** The updateLookupCustomerProfile. */
     @Value("${updateLookupCustomerProfile.url}")
     private String updateLookupCustomerProfile;
+
+    /**
+     * This field holds the value of success.
+     */
+    @Value("${STATUS}")
+    private String success;
+
+    /** The failure. */
+    @Value("${FAILURE}")
+    private String failure;
 
     /**
      * This method is used for getting countries.
@@ -253,11 +261,10 @@ public class UserProfilesImpl implements UserProfiles {
         LookupCustomerProfile lookupCustomerProfile = (LookupCustomerProfile) RestServiceInvokerUtil
                 .getServiceData(lookupCustomerProfileResponse + userId
                         + "&ECID=", LookupCustomerProfile.class);
-        LookupCustomerProfileResponse lookupCustomerProfileResponse = lookupCustomerProfile
-                .getLookupCustomerProfileResponse();
-        if (StringUtils.isEmpty(lookupCustomerProfileResponse)) {
-            throw new UserException(AuthorServicesConstants.NODATAFOUNDCODE,
-                    AuthorServicesConstants.NODATAFOUNDMSG);
+        if ("failure".equalsIgnoreCase(lookupCustomerProfile.getStatus())) {
+            final ErrorPayLoad errorPayLoad = lookupCustomerProfile.getError();
+            throw new UserException(errorPayLoad.getErrorCode(),
+                    errorPayLoad.getErrorMessage());
         }
         return lookupCustomerProfile;
     }
@@ -311,5 +318,4 @@ public class UserProfilesImpl implements UserProfiles {
         return status;
 
     }
-
 }

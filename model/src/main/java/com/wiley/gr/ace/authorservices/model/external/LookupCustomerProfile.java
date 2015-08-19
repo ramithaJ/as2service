@@ -21,7 +21,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  * @author yugandhark
  */
-public class LookupCustomerProfile {
+public class LookupCustomerProfile extends ErrorResponse {
+
+    /**
+     * This field holds the value of status.
+     */
+    private String status;
 
     /** The lookup customer profile response. */
     @JsonProperty("LookupCustomerProfileResponse")
@@ -39,11 +44,27 @@ public class LookupCustomerProfile {
     /**
      * Sets the lookup customer profile response.
      *
-     * @param lookupCustomerProfileResponse the new lookup customer profile response
+     * @param lookupCustomerProfileResponse
+     *            the new lookup customer profile response
      */
     public final void setLookupCustomerProfileResponse(
             final LookupCustomerProfileResponse lookupCustomerProfileResponse) {
         this.lookupCustomerProfileResponse = lookupCustomerProfileResponse;
+    }
+
+    /**
+     * @return the status
+     */
+    public final String getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status
+     *            the status to set
+     */
+    public final void setStatus(final String status) {
+        this.status = status;
     }
 
 }
