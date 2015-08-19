@@ -102,12 +102,14 @@ public class DashboardServiceImpl implements DashboardService {
     @Autowired(required = true)
     private NotificationService notificationService;
 
+    /** The order onlinedao. */
     @Autowired(required = true)
     private OrderOnlineDAO orderOnlinedao;
 
-    @Autowired(required=true)
+    /** The license service. */
+    @Autowired(required = true)
     private LicenseService licenseService;
-    
+
     /** The article acptd status. */
     @Value("${ARTICLE_ACCEPTED_STATUS_TEXT}")
     private String articleAcptdStatus;
@@ -132,6 +134,10 @@ public class DashboardServiceImpl implements DashboardService {
     @Value("${EARLY_VIEW_STATUS_TEXT}")
     private String earlyViewStatus;
 
+    /** The article online open status. */
+    @Value("${ARTICLE_ONLINE_OPEN_STATUS_TEXT}")
+    private String articleOnlineOpenStatus;
+
     /** The iss pub online status. */
     @Value("${ISSUE_PUBLISHED_ONLINE_STATUS_TEXT}")
     private String issPubOnlineStatus;
@@ -145,9 +151,12 @@ public class DashboardServiceImpl implements DashboardService {
     private String articleProofRcvdStatus;
 
     /** The article proof approved status. */
-    @Value("&{ARTICLE_PROOF_APPROVED_STATUS_TEXT}")
+    @Value("${ARTICLE_PROOF_APPROVED_STATUS_TEXT}")
     private String articleProofApprovedStatus;
 
+    /** The view full article action. */
+    @Value("${VIEW_FULL_ARTICLE_ACTION_TEXT}")
+    private String viewFullArticleAction;
     /**
      * This field holds the value of submitOrderStatus.
      */
@@ -474,7 +483,7 @@ public class DashboardServiceImpl implements DashboardService {
                         .getProductRoleName();
                 articleId = productPersonRelations.getProducts().getDhId();
                 articleData = getArticleDataDetails(orderStatusHashMap,
-                        articleId, articleAuthorRole,userId);
+                        articleId, articleAuthorRole, userId);
                 articleDataList.add(articleData);
             }
         }
@@ -547,25 +556,30 @@ public class DashboardServiceImpl implements DashboardService {
     /**
      * Gets the article data details.
      *
+     * @param orderStatusHashMap
+     *            the order status hash map
      * @param articleId
      *            the article id
      * @param articleUserRole
      *            the article user role
+     * @param userId
+     *            the user id
      * @return the article data details
      * @throws Exception
      *             the exception
      */
     private ArticleData getArticleDataDetails(
             final HashMap<String, OrderStatus> orderStatusHashMap,
-            final Integer articleId, final String articleUserRole,final String userId)
-            throws Exception {
+            final Integer articleId, final String articleUserRole,
+            final String userId) throws Exception {
         LOGGER.info("inside getArticleDataDetails Method of DashboardServiceImpl");
         final ArticleData articleData = esbInterfaceService
                 .getAuthorArticle(articleId);
         if (!StringUtils.isEmpty(articleData)) {
             LOGGER.info("Article Data is Found");
             articleData.setArticleUserRole(articleUserRole);
-            final TrackLicense trackLicenseStatus = licenseService.trackLicenseStatus(String.valueOf(articleId), userId);
+            final TrackLicense trackLicenseStatus = licenseService
+                    .trackLicenseStatus(String.valueOf(articleId), userId);
             if (!StringUtils.isEmpty(trackLicenseStatus)) {
                 LOGGER.info("License Status is Found");
                 articleData.setLicenseStatus(trackLicenseStatus);
@@ -579,6 +593,8 @@ public class DashboardServiceImpl implements DashboardService {
     /**
      * Gets the order payment status for article.
      *
+     * @param orderStatusHashMap
+     *            the order status hash map
      * @param articleId
      *            the article id
      * @return the order payment status for article
@@ -630,6 +646,13 @@ public class DashboardServiceImpl implements DashboardService {
         // return orderPaymentStatus;
     }
 
+    /**
+     * Open access status.
+     *
+     * @param quote
+     *            the quote
+     * @return the order payment status
+     */
     private OrderPaymentStatus openAccessStatus(final Quote quote) {
 
         OrderPaymentStatus orderPaymentStatus = new OrderPaymentStatus();
@@ -844,6 +867,8 @@ public class DashboardServiceImpl implements DashboardService {
             final Map<Date, String> productionDatesStatus) throws Exception {
         LOGGER.info("inside getProductionDateStatus Method of DashboardServiceImpl");
         LOGGER.info("Getting the Production Dates and setting the Status From dotCMS ");
+        productionDatesStatus.put(formatter.parse(pdhLookupArticleResponse
+                .getArticleAcceptedInOO()), articleOnlineOpenStatus);
         productionDatesStatus
                 .put(formatter.parse(pdhLookupArticleResponse
                         .getIssPubOnlineDate()), issPubOnlineStatus);
@@ -877,8 +902,32 @@ public class DashboardServiceImpl implements DashboardService {
             productionStatus = productionDatesStatus
                     .get(mostRecentProductionDate);
         }
-        LOGGER.info("Getting Most Recent Date Among All Production Stages Dates and Setting Production Status");
+        return trackingProductionStatusActions(mostRecentProductionDate,
+                productionStatus);
+    }
+
+    /**
+     * Tracking production status actions.
+     *
+     * @param mostRecentProductionDate
+     *            the most recent production date
+     * @param productionStatus
+     *            the production status
+     * @return the production
+     */
+    private Production trackingProductionStatusActions(
+            Date mostRecentProductionDate, String productionStatus) {
         Production production = new Production();
+        if (productionStatus.equals(acptdArtPubOnlineStatus)) {
+            production.setAction(viewFullArticleAction);
+        } else if (productionStatus.equals(earlyViewStatus)) {
+            production.setAction(viewFullArticleAction);
+        } else if (productionStatus.equals(issPubOnlineStatus)) {
+            production.setAction(viewFullArticleAction);
+        } else if (productionStatus.equals(articleOnlineOpenStatus)) {
+            production.setAction(viewFullArticleAction);
+        }
+        LOGGER.info("Getting Most Recent Date Among All Production Stages Dates and Setting Production Status,Actions");
         production.setProductionStatusDate(mostRecentProductionDate.toString());
         production.setProductionStatus(productionStatus);
         return production;
