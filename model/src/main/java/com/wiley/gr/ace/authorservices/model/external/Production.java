@@ -20,6 +20,28 @@ public class Production {
     /** The production status date. */
     private String productionStatusDate;
 
+    /** The action. */
+    private String action;
+
+    /**
+     * Gets the action.
+     *
+     * @return the action
+     */
+    public final String getAction() {
+        return action;
+    }
+
+    /**
+     * Sets the action.
+     *
+     * @param action
+     *            the new action
+     */
+    public final void setAction(final String action) {
+        this.action = action;
+    }
+
     /**
      * Gets the production status.
      *

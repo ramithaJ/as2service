@@ -83,6 +83,10 @@ public class PdhLookupArticleResponse {
     @JsonProperty("AcceptedDate")
     private String acceptedDate;
 
+    /** The article accepted in oo. */
+    @JsonProperty("articleAcceptedInOO")
+    private String articleAcceptedInOO;
+
     /** The submitted date. */
     @JsonProperty("SubmittedDate")
     private String submittedDate;
@@ -510,6 +514,25 @@ public class PdhLookupArticleResponse {
      */
     public final void setAcceptedDate(final String acceptedDate) {
         this.acceptedDate = acceptedDate;
+    }
+
+    /**
+     * Gets the article accepted in oo.
+     *
+     * @return the article accepted in oo
+     */
+    public final String getArticleAcceptedInOO() {
+        return articleAcceptedInOO;
+    }
+
+    /**
+     * Sets the article accepted in oo.
+     *
+     * @param articleAcceptedInOO
+     *            the new article accepted in oo
+     */
+    public final void setArticleAcceptedInOO(String articleAcceptedInOO) {
+        this.articleAcceptedInOO = articleAcceptedInOO;
     }
 
     /**
