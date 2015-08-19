@@ -21,7 +21,6 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
-import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.persistence.entity.LookupValues;
 import com.wiley.gr.ace.authorservices.persistence.entity.Permissions;
 import com.wiley.gr.ace.authorservices.persistence.entity.RolePermissions;
@@ -29,7 +28,6 @@ import com.wiley.gr.ace.authorservices.persistence.entity.RolePermissionsId;
 import com.wiley.gr.ace.authorservices.persistence.entity.Roles;
 import com.wiley.gr.ace.authorservices.persistence.entity.Societies;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
-
 
 /**
  * The Class ASDataDAOImpl.
@@ -269,7 +267,7 @@ public class ASDataDAOImpl implements ASDataDAO {
             criteria.add(Restrictions.eq("lookupName", id));
             LookupValues lookupValues = (LookupValues) criteria.uniqueResult();
             if (null == lookupValues) {
-                throw new UserException();
+                return null;
             }
             return lookupValues.getLookupValue();
         } finally {
