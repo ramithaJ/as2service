@@ -202,7 +202,7 @@ public class RegistrationController {
                 usersList = registrationService.getUserFromFirstNameLastName(
                         user.getFirstName(), user.getLastName());
                 if (null != usersList) {
-                    service.setStatus("SUCCESS");
+                    service.setStatus("FAILURE");
                     service.setPayload(usersList);
                     ErrorPOJO err = new ErrorPOJO();
                     err.setCode("LIST_OF_USER_FOUND");
