@@ -807,8 +807,6 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                 if (alertData != null) {
                     final String alertId = alertData.getAlertID();
                     if (daoAlert.getAlertCd().equals(alertId)) {
-                        alert.setAlertId(alertId);
-                        alert.setAlertName(daoAlert.getAlertName());
                         AlertType alertType = alertData.getType();
                         if ("1".equalsIgnoreCase(alertType.getEmail())) {
                             alert.setEmail(true);
