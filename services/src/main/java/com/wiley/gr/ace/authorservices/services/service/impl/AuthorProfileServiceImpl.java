@@ -786,41 +786,44 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     @Override
     public final List<Alert> getListOfAlerts(final String userId) {
 
-        List<AlertData> listOfAlert = userProfiles
-                .getLookupCustomerProfile(userId)
+        AlertsData alertExtData = userProfiles.getLookupCustomerProfile(userId)
                 .getLookupCustomerProfileResponse().getCustomerProfile()
-                .getAlerts().getAlert();
-        List<Alerts> daoAlert = alertsDao.getAlerts();
+                .getAlerts();
+        List<AlertData> listOfAlert = new ArrayList<AlertData>();
+        List<Alerts> daoAlertList = alertsDao.getAlerts();
+
         List<Alert> alertList = new ArrayList<Alert>();
 
-        for (Alerts alerts : daoAlert) {
-            Alert alert = null;
-            for (AlertData alertData : listOfAlert) {
-                alert = new Alert();
-                final String articleId = alertData.getAlertID();
-                if (alerts.getAlertCd().equals(articleId)) {
-                    alert.setAlertId(articleId);
-                    alert.setAlertName(alerts.getAlertName());
-                    AlertType alertType = alertData.getType();
-                    if ("0".equalsIgnoreCase(alertType.getEmail())) {
-                        alert.setEmail(true);
-                    } else {
-                        alert.setEmail(false);
-                    }
-                    if ("0".equalsIgnoreCase(alertType.getOnscreen())) {
-                        alert.setOnScreen(true);
-                    } else {
-                        alert.setOnScreen(false);
-                    }
-
-                    break;
-                }
-                alert.setAlertId(alerts.getAlertCd());
-                alert.setAlertName(alerts.getAlertName());
-            }
-            alertList.add(alert);
+        if (alertExtData != null) {
+            listOfAlert = alertExtData.getAlert();
         }
 
+        for (Alerts daoAlert : daoAlertList) {
+            Alert alert = new Alert();
+            alert.setAlertId(daoAlert.getAlertCd());
+            alert.setAlertName(daoAlert.getAlertName());
+
+            for (AlertData alertData : listOfAlert) {
+                if (alertData != null) {
+                    final String alertId = alertData.getAlertID();
+                    if (daoAlert.getAlertCd().equals(alertId)) {
+                        alert.setAlertId(alertId);
+                        alert.setAlertName(daoAlert.getAlertName());
+                        AlertType alertType = alertData.getType();
+                        if ("1".equalsIgnoreCase(alertType.getEmail())) {
+                            alert.setEmail(true);
+                        }
+                        if ("1".equalsIgnoreCase(alertType.getOnscreen())) {
+                            alert.setOnScreen(true);
+                        }
+
+                        break;
+                    }
+                }
+            }
+
+            alertList.add(alert);
+        }
         return alertList;
     }
 
