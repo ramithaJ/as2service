@@ -139,7 +139,6 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         customerProfile.setCustomerDetails(customerDetails);
         SocietyList societyList = new SocietyList();
         SocietyData societyData = new SocietyData();
-        societyData.setId(society.getId());
         societyData.setSocietyName(society.getSocietyName());
         societyData.setStartDate(society.getStartDate());
         societyData.setEndDate(society.getEndDate());
@@ -149,6 +148,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         if ("0".equals(society.getId())) {
             societyData.setStatus("add");
         } else {
+            societyData.setId(society.getId());
             societyData.setStatus("edit");
         }
         societyList.setSociety(new ArrayList<SocietyData>());
@@ -183,7 +183,6 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         AffiliationsData affsData = new AffiliationsData();
         List<AffiliationData> affDataList = new ArrayList<AffiliationData>();
         AffiliationData affData = new AffiliationData();
-        affData.setId(affiliation.getId());
         affData.setStartDate(affiliation.getStartDate());
         affData.setEndDate(affiliation.getEndDate());
         affData.setCity(affiliation.getCity());
@@ -200,6 +199,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         if ("0".equals(affiliation.getId())) {
             affData.setStatus("add");
         } else {
+            affData.setId(affiliation.getId());
             affData.setStatus("edit");
         }
         return userProfiles
@@ -412,7 +412,6 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             final String addressType, final String id) {
 
         AddressElement addressElement = new AddressElement();
-        addressElement.setId(id);
         addressElement.setAddrTypeCD(addressType);
         addressElement.setTitle(addressesRequest.getTitle());
         addressElement.setFirstName(addressesRequest.getFirstName());
@@ -423,6 +422,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         if ("0".equalsIgnoreCase(id)) {
             addressElement.setStatus("Add");
         } else {
+            addressElement.setId(id);
             addressElement.setStatus("Edit");
         }
         addressElement.setDepartmentCd(addressesRequest.getDepartmentId());
