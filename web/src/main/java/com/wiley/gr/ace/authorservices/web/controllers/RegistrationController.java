@@ -44,7 +44,7 @@ import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 public class RegistrationController {
 
     /** The Constant LOGGER. */
-   /* public static final Logger LOGGER = Logger
+    /* public static final Logger LOGGER = Logger
             .getLogger(RegistrationController.class.getName());*/
 
     /** The registration service. */
@@ -118,7 +118,7 @@ public class RegistrationController {
         User user = null;
 
         if (!StringUtils.isEmpty(email)) {
-           // LOGGER.info("checking if user exists with email id " + email);
+            // LOGGER.info("checking if user exists with email id " + email);
             user = registrationService.checkEmailIdExists(email);
         }
         if (user != null) {
@@ -132,7 +132,7 @@ public class RegistrationController {
                         + "registered with AS2.0. Please enter correct password to register");
                 service.setError(err);
             } else {
-              //  LOGGER.error("User exists in AS");
+                //  LOGGER.error("User exists in AS");
                 throw new UserException(checkUserExistsErrorCode,
                         checkUserExistsErrorMessage);
             }
@@ -202,7 +202,7 @@ public class RegistrationController {
                 usersList = registrationService.getUserFromFirstNameLastName(
                         user.getFirstName(), user.getLastName());
                 if (null != usersList) {
-                    service.setStatus("FAILURE");
+                    service.setStatus("SUCCESS");
                     service.setPayload(usersList);
                     ErrorPOJO err = new ErrorPOJO();
                     err.setCode("LIST_OF_USER_FOUND");
