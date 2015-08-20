@@ -31,8 +31,8 @@ import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceServ
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
+import com.wiley.gr.ace.authorservices.model.external.ArticlePdfResponse;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
-import com.wiley.gr.ace.authorservices.model.external.License;
 import com.wiley.gr.ace.authorservices.model.external.OnlineOpen;
 import com.wiley.gr.ace.authorservices.model.external.OpenAccess;
 import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
@@ -79,8 +79,8 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
     private String articleDataUrl;
 
     /** The license status url. */
-    @Value("${licenseStatus.url}")
-    private String licenseStatusUrl;
+    @Value("${articlePdfResponse.url}")
+    private String articlePdfResponseUrl;
 
     /** The open access status url. */
     @Value("${openAccessStatus.url}")
@@ -101,7 +101,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
     /** The pdh lookup jorunal response. */
     @Value("${pdhLookupJorunalResponse.url}")
     private String pdhLookupJorunalResponse;
-    
+
     /**
      * This method is for fetching ordid details by calling external service
      * based on orcid.
@@ -300,19 +300,19 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
     }
 
     /**
-     * Gets the license status.
+     * Gets the article pdf response.
      *
-     * @param articleId
-     *            the article id
-     * @return the license status
+     * @param journalDoi
+     *            the journal doi
+     * @return the article pdf response
      * @throws Exception
      *             the exception
      */
     @Override
-    public final License getLicenseStatus(final Integer articleId)
-            throws Exception {
-        return (License) StubInvokerUtil.invokeStub(licenseStatusUrl,
-                HttpMethod.GET, License.class);
+    public final ArticlePdfResponse getArticlePdfResponse(
+            final String articleDoi) throws Exception {
+        return (ArticlePdfResponse) StubInvokerUtil.invokeStub(
+                articlePdfResponseUrl+articleDoi, HttpMethod.GET, ArticlePdfResponse.class);
     }
 
     /**

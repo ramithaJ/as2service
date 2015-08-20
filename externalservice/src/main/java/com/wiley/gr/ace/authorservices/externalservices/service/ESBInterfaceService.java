@@ -16,8 +16,8 @@ import java.util.List;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
+import com.wiley.gr.ace.authorservices.model.external.ArticlePdfResponse;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
-import com.wiley.gr.ace.authorservices.model.external.License;
 import com.wiley.gr.ace.authorservices.model.external.OnlineOpen;
 import com.wiley.gr.ace.authorservices.model.external.OpenAccess;
 import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
@@ -108,15 +108,16 @@ public interface ESBInterfaceService {
     ArticleData getAuthorArticle(Integer articleId) throws Exception;
 
     /**
-     * Gets the license status.
+     * Gets the article pdf response.
      *
-     * @param articleId
-     *            the article id
-     * @return the license status
+     * @param articleDoi
+     *            the article doi
+     * @return the article pdf response
      * @throws Exception
      *             the exception
      */
-    License getLicenseStatus(Integer articleId) throws Exception;
+    ArticlePdfResponse getArticlePdfResponse(String articleDoi)
+            throws Exception;
 
     /**
      * Gets the open access status.
@@ -185,6 +186,7 @@ public interface ESBInterfaceService {
      */
     PdhLookupJournalResponse getPdhLookupJournalResponse(String journalId)
             throws Exception;
+
     // WP2A
 
     /**
