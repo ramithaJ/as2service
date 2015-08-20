@@ -85,10 +85,8 @@ public class UserAccountController {
             @RequestBody final User user) {
         UserAccountController.LOGGER
                 .info("inside updateProfileInformation method");
-        Service service = new Service();
-        service.setPayload(authorProfileService.updateUserProfileInfo(userId,
-                user));
-        return service;
+        authorProfileService.updateUserProfileInfo(userId, user);
+        return new Service();
 
     }
 
@@ -122,10 +120,8 @@ public class UserAccountController {
             @PathVariable("userId") final String userId,
             @RequestBody final User emailDetails) {
         UserAccountController.LOGGER.info("inside updateEmail method");
-        Service service = new Service();
-        service.setPayload(authorProfileService.updateEmailDetails(userId,
-                emailDetails));
-        return service;
+        authorProfileService.updateEmailDetails(userId, emailDetails);
+        return new Service();
     }
 
     /**
@@ -159,10 +155,8 @@ public class UserAccountController {
             @PathVariable("userId") final String userId,
             @RequestBody final Address addresses) {
         UserAccountController.LOGGER.info("inside updateUserAddresses method");
-        Service service = new Service();
-        service.setPayload(authorProfileService.updateUserAddress(userId,
-                addresses));
-        return service;
+        authorProfileService.updateUserAddress(userId, addresses);
+        return new Service();
     }
 
     /**
@@ -177,10 +171,8 @@ public class UserAccountController {
             @RequestBody final SecurityDetailsHolder securityDetails) {
         UserAccountController.LOGGER
                 .info("inside updateSecurityDetails method");
-        Service service = new Service();
-        service.setPayload(authorProfileService
-                .updateSecurityDetails(securityDetails));
-        return service;
+        authorProfileService.updateSecurityDetails(securityDetails);
+        return new Service();
 
     }
 
@@ -193,8 +185,7 @@ public class UserAccountController {
     public final Service removeOrcidId(
             @PathVariable("userId") final String userId) {
 
-        Service service = new Service();
-        service.setPayload(authorProfileService.removeOrcidId(userId));
-        return service;
+        authorProfileService.removeOrcidId(userId);
+        return new Service();
     }
 }
