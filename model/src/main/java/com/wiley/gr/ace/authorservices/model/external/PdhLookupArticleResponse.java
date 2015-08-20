@@ -79,6 +79,14 @@ public class PdhLookupArticleResponse {
     @JsonProperty("ReceivedDate")
     private String receivedDate;
 
+    /** The is article oo. */
+    @JsonProperty("isArticleOO")
+    private String isArticleOO;
+
+    /** The is article oa. */
+    @JsonProperty("isArticleOA")
+    private String isArticleOA;
+
     /** The accepted date. */
     @JsonProperty("AcceptedDate")
     private String acceptedDate;
@@ -230,6 +238,44 @@ public class PdhLookupArticleResponse {
     /** The co author address. */
     @JsonProperty("coAuthorAddress")
     private String coAuthorAddress;
+
+    /**
+     * Gets the checks if is article oo.
+     *
+     * @return the checks if is article oo
+     */
+    public final String getIsArticleOO() {
+        return isArticleOO;
+    }
+
+    /**
+     * Sets the checks if is article oo.
+     *
+     * @param isArticleOO
+     *            the new checks if is article oo
+     */
+    public final void setIsArticleOO(final String isArticleOO) {
+        this.isArticleOO = isArticleOO;
+    }
+
+    /**
+     * Gets the checks if is article oa.
+     *
+     * @return the checks if is article oa
+     */
+    public final String getIsArticleOA() {
+        return isArticleOA;
+    }
+
+    /**
+     * Sets the checks if is article oa.
+     *
+     * @param isArticleOA
+     *            the new checks if is article oa
+     */
+    public final void setIsArticleOA(final String isArticleOA) {
+        this.isArticleOA = isArticleOA;
+    }
 
     /**
      * Gets the title.

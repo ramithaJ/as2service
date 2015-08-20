@@ -31,14 +31,14 @@ public class ViewAssignedArticle {
     /** The journal data. */
     private JournalDetails journalData;
 
-    /** The order data. */
-    private OrderDetails orderData;
+    /** The article links. */
+    private ArticleLinks articleLinks;
 
     /** The publication data. */
     private PublicationDetails publicationData;
 
-    /** The license data. */
-    private LicenseDetails licenseData;
+    /** The license details. */
+    private LicenseDetails licenseDetails;
 
     /**
      * Gets the article data.
@@ -79,22 +79,22 @@ public class ViewAssignedArticle {
     }
 
     /**
-     * Gets the order data.
+     * Gets the article links.
      *
-     * @return the order data
+     * @return the article links
      */
-    public final OrderDetails getOrderData() {
-        return orderData;
+    public final ArticleLinks getArticleLinks() {
+        return articleLinks;
     }
 
     /**
-     * Sets the order data.
+     * Sets the article links.
      *
-     * @param orderData
-     *            the new order data
+     * @param articleLinks
+     *            the new article links
      */
-    public final void setOrderData(final OrderDetails orderData) {
-        this.orderData = orderData;
+    public final void setArticleLinks(ArticleLinks articleLinks) {
+        this.articleLinks = articleLinks;
     }
 
     /**
@@ -118,22 +118,22 @@ public class ViewAssignedArticle {
     }
 
     /**
-     * Gets the license data.
+     * Gets the license details.
      *
-     * @return the license data
+     * @return the license details
      */
-    public final LicenseDetails getLicenseData() {
-        return licenseData;
+    public final LicenseDetails getLicenseDetails() {
+        return licenseDetails;
     }
 
     /**
-     * Sets the license data.
+     * Sets the license details.
      *
-     * @param licenseData
-     *            the new license data
+     * @param licenseDetails
+     *            the new license details
      */
-    public final void setLicenseData(final LicenseDetails licenseData) {
-        this.licenseData = licenseData;
+    public final void setLicenseDetails(LicenseDetails licenseDetails) {
+        this.licenseDetails = licenseDetails;
     }
 
 }
