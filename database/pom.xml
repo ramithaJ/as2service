@@ -89,7 +89,7 @@
 	<profile>
             <id>liquibase-staging</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
                 <property>
                     <name>liquibase-staging</name>
                 </property>
@@ -154,7 +154,7 @@
 	<profile>
             <id>liquibase-migration</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <activeByDefault>true</activeByDefault>
                 <property>
                     <name>liquibase-migration</name>
                 </property>
