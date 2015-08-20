@@ -28,10 +28,10 @@ public class Country implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /** The country code. */
-    private String countryCode;
+    private String countryCode = "";
 
     /** The country name. */
-    private String countryName;
+    private String countryName = "";
 
     /**
      * Gets the country code.

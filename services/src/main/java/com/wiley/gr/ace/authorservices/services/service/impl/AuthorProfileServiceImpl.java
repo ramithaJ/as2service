@@ -139,7 +139,6 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         customerProfile.setCustomerDetails(customerDetails);
         SocietyList societyList = new SocietyList();
         SocietyData societyData = new SocietyData();
-        societyData.setId(society.getId());
         societyData.setSocietyName(society.getSocietyName());
         societyData.setStartDate(society.getStartDate());
         societyData.setEndDate(society.getEndDate());
@@ -149,6 +148,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         if ("0".equals(society.getId())) {
             societyData.setStatus("add");
         } else {
+            societyData.setId(society.getId());
             societyData.setStatus("edit");
         }
         societyList.setSociety(new ArrayList<SocietyData>());
@@ -183,7 +183,6 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         AffiliationsData affsData = new AffiliationsData();
         List<AffiliationData> affDataList = new ArrayList<AffiliationData>();
         AffiliationData affData = new AffiliationData();
-        affData.setId(affiliation.getId());
         affData.setStartDate(affiliation.getStartDate());
         affData.setEndDate(affiliation.getEndDate());
         affData.setCity(affiliation.getCity());
@@ -200,6 +199,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         if ("0".equals(affiliation.getId())) {
             affData.setStatus("add");
         } else {
+            affData.setId(affiliation.getId());
             affData.setStatus("edit");
         }
         return userProfiles
@@ -364,7 +364,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                     addressesRequest, addressesRequest.getAddressType(),
                     addressesRequest.getId());
             addressElementsList.add(physical);
-            if ('Y' == addressesRequest.getAddressFag()) {
+            if ('Y' == addressesRequest.getAddressFlag()) {
                 AddressElement billing = this.updateAddressFields(
                         addressesRequest, "Billing", "0");
                 addressElementsList.add(billing);
@@ -376,7 +376,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                     addressesRequest, addressesRequest.getAddressType(),
                     addressesRequest.getId());
             addressElementsList.add(physical);
-            if ('Y' == addressesRequest.getAddressFag()) {
+            if ('Y' == addressesRequest.getAddressFlag()) {
                 AddressElement shipping = this.updateAddressFields(
                         addressesRequest, "Shipping", "0");
                 addressElementsList.add(shipping);
@@ -412,7 +412,6 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             final String addressType, final String id) {
 
         AddressElement addressElement = new AddressElement();
-        addressElement.setId(id);
         addressElement.setAddrTypeCD(addressType);
         addressElement.setTitle(addressesRequest.getTitle());
         addressElement.setFirstName(addressesRequest.getFirstName());
@@ -423,6 +422,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         if ("0".equalsIgnoreCase(id)) {
             addressElement.setStatus("Add");
         } else {
+            addressElement.setId(id);
             addressElement.setStatus("Edit");
         }
         addressElement.setDepartmentCd(addressesRequest.getDepartmentId());
@@ -786,41 +786,42 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     @Override
     public final List<Alert> getListOfAlerts(final String userId) {
 
-        List<AlertData> listOfAlert = userProfiles
-                .getLookupCustomerProfile(userId)
+        AlertsData alertExtData = userProfiles.getLookupCustomerProfile(userId)
                 .getLookupCustomerProfileResponse().getCustomerProfile()
-                .getAlerts().getAlert();
-        List<Alerts> daoAlert = alertsDao.getAlerts();
+                .getAlerts();
+        List<AlertData> listOfAlert = new ArrayList<AlertData>();
+        List<Alerts> daoAlertList = alertsDao.getAlerts();
+
         List<Alert> alertList = new ArrayList<Alert>();
 
-        for (Alerts alerts : daoAlert) {
-            Alert alert = null;
-            for (AlertData alertData : listOfAlert) {
-                alert = new Alert();
-                final String articleId = alertData.getAlertID();
-                if (alerts.getAlertCd().equals(articleId)) {
-                    alert.setAlertId(articleId);
-                    alert.setAlertName(alerts.getAlertName());
-                    AlertType alertType = alertData.getType();
-                    if ("0".equalsIgnoreCase(alertType.getEmail())) {
-                        alert.setEmail(true);
-                    } else {
-                        alert.setEmail(false);
-                    }
-                    if ("0".equalsIgnoreCase(alertType.getOnscreen())) {
-                        alert.setOnScreen(true);
-                    } else {
-                        alert.setOnScreen(false);
-                    }
-
-                    break;
-                }
-                alert.setAlertId(alerts.getAlertCd());
-                alert.setAlertName(alerts.getAlertName());
-            }
-            alertList.add(alert);
+        if (alertExtData != null) {
+            listOfAlert = alertExtData.getAlert();
         }
 
+        for (Alerts daoAlert : daoAlertList) {
+            Alert alert = new Alert();
+            alert.setAlertId(daoAlert.getAlertCd());
+            alert.setAlertName(daoAlert.getAlertName());
+
+            for (AlertData alertData : listOfAlert) {
+                if (alertData != null) {
+                    final String alertId = alertData.getAlertID();
+                    if (daoAlert.getAlertCd().equals(alertId)) {
+                        AlertType alertType = alertData.getType();
+                        if ("1".equalsIgnoreCase(alertType.getEmail())) {
+                            alert.setEmail(true);
+                        }
+                        if ("1".equalsIgnoreCase(alertType.getOnscreen())) {
+                            alert.setOnScreen(true);
+                        }
+
+                        break;
+                    }
+                }
+            }
+
+            alertList.add(alert);
+        }
         return alertList;
     }
 
@@ -873,7 +874,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         customerDetails.setUserStatus("Active");
         customerDetails.setTcFlag("Y");
         customerDetails.setSendEmail("Yes");
-        // customerDetails.setSourceSystem("AS");
+        customerDetails.setSourceSystem("AS");
         customerDetails.setProfileVisibility("0");
 
         return customerDetails;

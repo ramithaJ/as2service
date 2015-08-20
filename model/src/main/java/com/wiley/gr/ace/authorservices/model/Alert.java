@@ -44,12 +44,12 @@ public class Alert implements Serializable {
     @NotBlank
     @NotNull
     /** The on screen. */
-    private boolean onScreen;
+    private boolean onScreen = false;
 
     @NotBlank
     @NotNull
     /** The email. */
-    private boolean email;
+    private boolean email = false;
     @JsonProperty("Status")
     @NotBlank
     @NotNull

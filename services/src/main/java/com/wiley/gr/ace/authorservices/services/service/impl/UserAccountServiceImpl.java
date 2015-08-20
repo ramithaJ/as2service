@@ -17,6 +17,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.Address;
@@ -29,7 +30,6 @@ import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
-
 
 /**
  * The Class UserAccountServiceImpl.
@@ -162,26 +162,55 @@ public class UserAccountServiceImpl implements UserAccountService {
         Address address = null;
         address = new Address();
         address.setId(addressElement.getId());
-        address.setTitle(addressElement.getTitle());
-        address.setSuffix(addressElement.getSuffix());
-        address.setFirstName(addressElement.getFirstName());
-        address.setLastName(addressElement.getLastName());
-        address.setDepartmentId(addressElement.getDepartmentCd());
-        address.setInstitutionId(addressElement.getInstitutionCd());
-        address.setAddressLine1(addressElement.getAddressLine1());
-        address.setAddressLine2(addressElement.getAddressLine2());
-        address.setCity(addressElement.getCity());
+        if (!StringUtils.isEmpty(addressElement.getTitle())) {
+            address.setTitle(addressElement.getTitle());
+        }
+        if (!StringUtils.isEmpty(addressElement.getSuffix())) {
+            address.setSuffix(addressElement.getSuffix());
+        }
+        if (!StringUtils.isEmpty(addressElement.getFirstName())) {
+            address.setFirstName(addressElement.getFirstName());
+        }
+        if (!StringUtils.isEmpty(addressElement.getLastName())) {
+            address.setLastName(addressElement.getLastName());
+        }
+        if (!StringUtils.isEmpty(addressElement.getDepartmentCd())) {
+            address.setDepartmentId(addressElement.getDepartmentCd());
+        }
+        if (!StringUtils.isEmpty(addressElement.getInstitutionCd())) {
+            address.setInstitutionId(addressElement.getInstitutionCd());
+        }
+
+        if (!StringUtils.isEmpty(addressElement.getAddressLine1())) {
+            address.setAddressLine1(addressElement.getAddressLine1());
+        }
+        if (!StringUtils.isEmpty(addressElement.getAddressLine2())) {
+            address.setAddressLine2(addressElement.getAddressLine2());
+        }
+        if (!StringUtils.isEmpty(addressElement.getCity())) {
+            address.setCity(addressElement.getCity());
+        }
         State state = new State();
-        state.setStateCode(addressElement.getState());
+        if (!StringUtils.isEmpty(addressElement.getState())) {
+            state.setStateCode(addressElement.getState());
+        }
         state.setStateName("");
         address.setState(state);
-        address.setPostCode(addressElement.getZipCode());
+        if (!StringUtils.isEmpty(addressElement.getZipCode())) {
+            address.setPostCode(addressElement.getZipCode());
+        }
+
         Country country = new Country();
         country.setCountryCode(addressElement.getCountryCode());
         country.setCountryName("");
         address.setCountry(country);
-        address.setPhoneNumber(addressElement.getPhoneNumber());
-        address.setFaxNumber(addressElement.getFaxNumber());
+        if (!StringUtils.isEmpty(addressElement.getPhoneNumber())) {
+            address.setPhoneNumber(addressElement.getPhoneNumber());
+        }
+        if (!StringUtils.isEmpty(addressElement.getFaxNumber())) {
+            address.setFaxNumber(addressElement.getFaxNumber());
+        }
+
         return address;
     }
 
