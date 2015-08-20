@@ -20,21 +20,25 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.TaskService;
 import com.wiley.gr.ace.authorservices.model.ArticleDetails;
+import com.wiley.gr.ace.authorservices.model.ArticleLinks;
 import com.wiley.gr.ace.authorservices.model.AssociationConfirmation;
 import com.wiley.gr.ace.authorservices.model.JournalDetails;
 import com.wiley.gr.ace.authorservices.model.LicenseDetails;
-import com.wiley.gr.ace.authorservices.model.OrderDetails;
 import com.wiley.gr.ace.authorservices.model.PublicationDetails;
+import com.wiley.gr.ace.authorservices.model.TrackLicense;
 import com.wiley.gr.ace.authorservices.model.ViewAssignedArticle;
 import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
+import com.wiley.gr.ace.authorservices.model.external.ArticlePdfResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhLookupArticleResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhLookupJournalResponse;
 import com.wiley.gr.ace.authorservices.services.service.ArticleAssignmentService;
+import com.wiley.gr.ace.authorservices.services.service.LicenseService;
 
 /**
  * The Class ArticleAssignmentServiceImpl.
@@ -54,6 +58,14 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
     /** The Shared service. */
     @Autowired(required = true)
     private TaskService bpmInterfaceService;
+
+    /** The license service. */
+    @Autowired(required = true)
+    private LicenseService licenseService;
+
+    /** The article wol url. */
+    @Value("${articleWol.url}")
+    private String articleWolUrl;
 
     /**
      * this method will take emailId as in input and call external service (ESb)
@@ -92,8 +104,8 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
     /**
      * View assigned article.
      *
-     * @param emailId
-     *            the email id
+     * @param articleId
+     *            the article id
      * @return the view assigned article
      * @throws Exception
      *             the exception
@@ -112,9 +124,10 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
                     .setJournalData(getJournalData(pdhLookupArticleResponse));
             viewAssignedArticle
                     .setPublicationData(getPublicationData(pdhLookupArticleResponse));
-            viewAssignedArticle.setOrderData(getOrderId());
             viewAssignedArticle
-                    .setLicenseData(getLicenseData(pdhLookupArticleResponse));
+                    .setArticleLinks(checkArticleOOorOa(pdhLookupArticleResponse));
+            viewAssignedArticle
+                    .setLicenseDetails(getLicenseData(pdhLookupArticleResponse));
         }
 
         return viewAssignedArticle;
@@ -176,6 +189,8 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
      * @param pdhLookupArticleResponse
      *            the pdh lookup article response
      * @return the journal data
+     * @throws Exception
+     *             the exception
      */
     private JournalDetails getJournalData(
             final PdhLookupArticleResponse pdhLookupArticleResponse)
@@ -195,8 +210,6 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
                     .getPrintIssn());
             journalDetails.setJournalElectronicIssn(pdhLookupJournalResponse
                     .getElectronicIssn());
-            journalDetails.setExternalLink(pdhLookupJournalResponse
-                    .getExternalSites());
             journalDetails.setBannerImage(pdhLookupJournalResponse
                     .getBannerImage());
         }
@@ -221,14 +234,33 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
     }
 
     /**
-     * Gets the order id.
+     * Check article o oor oa.
      *
-     * @return the order id
+     * @param pdhLookupArticleResponse
+     *            the pdh lookup article response
+     * @return the article links
+     * @throws Exception
+     *             the exception
      */
-    private OrderDetails getOrderId() {
-        final OrderDetails orderData = new OrderDetails();
-        orderData.setOrderId("11232");
-        return orderData;
+    private ArticleLinks checkArticleOOorOa(
+            final PdhLookupArticleResponse pdhLookupArticleResponse)
+            throws Exception {
+        final ArticleLinks articleLinks = new ArticleLinks();
+        if ("Y".equals(pdhLookupArticleResponse.getIsArticleOO())) {
+            ArticlePdfResponse articlePdfResponse = esbInterfaceService
+                    .getArticlePdfResponse(pdhLookupArticleResponse
+                            .getArticleDoi());
+            if (!StringUtils.isEmpty(articlePdfResponse)) {
+                articleLinks.setOrderId("232");
+                articleLinks.setArticlePdfUrl(articlePdfResponse
+                        .getGetPdfResponse().getPdfUrl());
+            }
+        } else {
+            articleLinks.setArticleWolUrl(articleWolUrl
+                    + pdhLookupArticleResponse.getArticleDoi() + "/full");
+
+        }
+        return articleLinks;
     }
 
     /**
@@ -237,13 +269,21 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
      * @param pdhLookupArticleResponse
      *            the pdh lookup article response
      * @return the license data
+     * @throws Exception
+     *             the exception
      */
     private LicenseDetails getLicenseData(
-            final PdhLookupArticleResponse pdhLookupArticleResponse) {
-        final LicenseDetails licenseDetails = new LicenseDetails();
-        licenseDetails.setLicenseSignedDate(pdhLookupArticleResponse
-                .getLicense());
-        licenseDetails.setLicenseStatus("Sign License Agreement");
+            final PdhLookupArticleResponse pdhLookupArticleResponse)
+            throws Exception {
+        LicenseDetails licenseDetails = null;
+        TrackLicense trackLicense = licenseService.trackLicenseStatus(
+                pdhLookupArticleResponse.getArticleUniqueID(),
+                pdhLookupArticleResponse.getaId());
+        if (!StringUtils.isEmpty(trackLicense)) {
+            licenseDetails = new LicenseDetails();
+            licenseDetails.setLicenseStatus(trackLicense.getLicenseStatus());
+            licenseDetails.setLicenseSignedDate(trackLicense.getLicenseDate());
+        }
         return licenseDetails;
     }
 
