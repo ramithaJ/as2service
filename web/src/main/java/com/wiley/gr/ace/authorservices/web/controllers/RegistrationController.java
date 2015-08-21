@@ -208,6 +208,7 @@ public class RegistrationController {
                     err.setCode("LIST_OF_USER_FOUND");
                     err.setMessage("List of users found. Please select or continue");
                     service.setPayload(usersList);
+                    service.setError(err);
                     executeCreate = false;
                 }
             }
