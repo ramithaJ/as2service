@@ -65,7 +65,7 @@ public class StatelessLoginFilter extends
     /**
      * Externalize constants (adminnotexist.code) to properties file.
      */
-    public static final String notAdminCode = "AE_1010";
+    public static final String notAdminCode = "1010";
 
     /**
      * Externalize constants (adminnotexist.message) to properties file.
@@ -75,7 +75,7 @@ public class StatelessLoginFilter extends
     /**
      * Externalize constants (invalidLogin.code) to properties file.
      */
-    public static final String invalidLoginCode = "AE_1000";
+    public static final String invalidLoginCode = "1000";
 
     /**
      * Externalize constants (invalidLogin.message) to properties file.
@@ -106,7 +106,7 @@ public class StatelessLoginFilter extends
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.springframework.security.web.authentication.
      * AbstractAuthenticationProcessingFilter
      * #attemptAuthentication(javax.servlet.http.HttpServletRequest,
@@ -125,7 +125,7 @@ public class StatelessLoginFilter extends
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.springframework.security.web.authentication.
      * AbstractAuthenticationProcessingFilter
      * #successfulAuthentication(javax.servlet.http.HttpServletRequest,
@@ -145,13 +145,13 @@ public class StatelessLoginFilter extends
                 tokenAuthentication);
 
         Users users = null;
-
         try {
             users = adminLoginService.getASUser(unp.getUsername());
         } catch (final UserException e) {
             unsuccessfulAuthentication(request, response,
                     new AuthenticationServiceException(
-                            StatelessLoginFilter.invalidLoginMessage));
+                            StatelessLoginFilter.notAdminMessage));
+            return;
         }
 
         if (StringUtils.equalsIgnoreCase(StatelessLoginFilter.ADMIN,
@@ -182,7 +182,7 @@ public class StatelessLoginFilter extends
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.springframework.security.web.authentication.
      * AbstractAuthenticationProcessingFilter
      * #unsuccessfulAuthentication(javax.servlet.http.HttpServletRequest,

@@ -23,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
@@ -359,14 +360,28 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         AddressDetails addressDetails = new AddressDetails();
         List<AddressElement> addressElementsList = new ArrayList<AddressElement>();
 
+        List<AddressElement> addressList = userProfiles
+                .getLookupCustomerProfile(userId)
+                .getLookupCustomerProfileResponse().getCustomerProfile()
+                .getAddressDetails().getAddress();
+
         if ("Physical".equalsIgnoreCase(addressesRequest.getAddressType())) {
             AddressElement physical = this.updateAddressFields(
                     addressesRequest, addressesRequest.getAddressType(),
                     addressesRequest.getId());
             addressElementsList.add(physical);
             if ('Y' == addressesRequest.getAddressFlag()) {
+                String id = "0";
+                if (!StringUtils.isEmpty(addressList)) {
+                    for (AddressElement addressElement : addressList) {
+                        if ("Billing".equalsIgnoreCase(addressElement
+                                .getAddrTypeCD())) {
+                            id = addressElement.getId();
+                        }
+                    }
+                }
                 AddressElement billing = this.updateAddressFields(
-                        addressesRequest, "Billing", "0");
+                        addressesRequest, "Billing", id);
                 addressElementsList.add(billing);
             }
         }
@@ -377,8 +392,17 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                     addressesRequest.getId());
             addressElementsList.add(physical);
             if ('Y' == addressesRequest.getAddressFlag()) {
+                String shippingId = "0";
+                if (!StringUtils.isEmpty(addressList)) {
+                    for (AddressElement addressElement : addressList) {
+                        if ("Shipping".equalsIgnoreCase(addressElement
+                                .getAddrTypeCD())) {
+                            shippingId = addressElement.getId();
+                        }
+                    }
+                }
                 AddressElement shipping = this.updateAddressFields(
-                        addressesRequest, "Shipping", "0");
+                        addressesRequest, "Shipping", shippingId);
                 addressElementsList.add(shipping);
             }
         }
