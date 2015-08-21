@@ -212,7 +212,6 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
         ResponseStatus responseStatus = (ResponseStatus) RestServiceInvokerUtil
                 .restServiceInvoker(createUserUrl, profileForCreation,
                         ResponseStatus.class);
-
         return responseStatus.getStatus();
 
     }
@@ -299,8 +298,8 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
         boolean isALMAuth = false;
         try {
             ResponseEntity<String> responseEntity = new RestTemplate()
-                    .postForEntity(new URI(almAuthurl), almAuthRequest,
-                            String.class);
+            .postForEntity(new URI(almAuthurl), almAuthRequest,
+                    String.class);
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
                 isALMAuth = true;
             }

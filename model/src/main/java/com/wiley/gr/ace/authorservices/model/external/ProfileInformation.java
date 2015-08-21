@@ -12,12 +12,18 @@
 
 package com.wiley.gr.ace.authorservices.model.external;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * The Class ProfileInformation.
  */
+@JsonInclude(Include.NON_NULL)
 public class ProfileInformation {
 
     /** The customerprofile. */
+    @JsonProperty("CustomerProfile")
     private CustomerProfile customerprofile;
 
     /**
