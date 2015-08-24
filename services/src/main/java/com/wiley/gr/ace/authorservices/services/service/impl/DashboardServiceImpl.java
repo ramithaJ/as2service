@@ -388,7 +388,7 @@ public class DashboardServiceImpl implements DashboardService {
                 .info("inside getRecoveryEmailAddr Method of DashboardServiceImpl");
         DashboardInfo dashboardInfo = null;
         if (StringUtils.isEmpty(customerDetails.getSecondaryEmail())) {
-            LOGGER.info(" If EmailId Not Found then No Orcid Id on Dashboard");
+            LOGGER.info(" If Secondary EmailId Not Found then No Secondary EmailId on Dashboard");
             dashboardInfo = new DashboardInfo();
             dashboardInfo.setId(emailId);
             dashboardInfo.setDashBoardInfoMessage(emailMessage);
