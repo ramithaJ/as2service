@@ -421,12 +421,13 @@ public class UserProfileController {
      *            - The request value
      * @return service
      */
-    @RequestMapping(value = "/alerts/{userId}/", method = RequestMethod.POST)
+    @RequestMapping(value = "/alerts/{userId}", method = RequestMethod.POST)
     public final Service updateAlerts(
             @PathVariable("userId") final String userId,
             @RequestBody final List<Alert> listOfalert) {
         UserProfileController.LOGGER.info("inside updateAlerts method ");
         Service service = new Service();
+        System.err.println("in controllerrrrrrrrrrrr");
         service.setPayload(authorProfileService.updateAlerts(userId,
                 listOfalert));
         return service;

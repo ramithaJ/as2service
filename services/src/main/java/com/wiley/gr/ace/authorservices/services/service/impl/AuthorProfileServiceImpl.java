@@ -254,6 +254,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         for (Alert alert : listOfalert) {
             AlertData alertData = new AlertData();
             AlertType alertType = new AlertType();
+            alertData.setId(alert.getId());
             alertData.setAlertID(alert.getAlertId());
             alertData.setStatus(alert.getStatus());
             if (alert.isEmail()) {
