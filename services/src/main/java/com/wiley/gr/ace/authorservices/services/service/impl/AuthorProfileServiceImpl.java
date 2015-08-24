@@ -257,14 +257,14 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             alertData.setAlertID(alert.getAlertId());
             alertData.setStatus(alert.getStatus());
             if (alert.isEmail()) {
-                alertType.setEmail("0");
-            } else {
                 alertType.setEmail("1");
+            } else {
+                alertType.setEmail("0");
             }
             if (alert.isOnScreen()) {
-                alertType.setOnscreen("0");
-            } else {
                 alertType.setOnscreen("1");
+            } else {
+                alertType.setOnscreen("0");
             }
             alertData.setType(alertType);
             alertData.setStatus("edit");
