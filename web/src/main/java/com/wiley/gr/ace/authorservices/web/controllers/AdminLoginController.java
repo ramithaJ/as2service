@@ -141,11 +141,11 @@ public class AdminLoginController extends ASExceptionController {
      *            - the request value
      * @return service
      */
-    @RequestMapping(value = "/requestAccess/{userId}/{emailId}/{accessId}/", method = RequestMethod.POST)
+    @RequestMapping(value = "/requestAccess/{userId}/{emailId}/", method = RequestMethod.POST)
     public final Service requestAccess(
-            @PathVariable("accessId") final String userId,
+            @PathVariable("userId") final String userId,
             @PathVariable("emailId") final String emailId,
-            @PathVariable("accessId") final String accessId) {
+            @RequestBody final List<String> accessId) {
         LOGGER.info("inside requestAccess Method");
 
         List<LookupValues> lookupValues = lookUpValuesDAO
@@ -155,14 +155,15 @@ public class AdminLoginController extends ASExceptionController {
         if (lookupValues != null && !lookupValues.isEmpty()) {
             for (LookupValues lookupValue : lookupValues) {
                 final String lookUpName = lookupValue.getLookupName();
-                if (accessId.equals(lookUpName)) {
-                    justificationValue = lookUpName;
-                    break;
+                for (String requestAccessId : accessId) {
+                    if (requestAccessId.equals(lookUpName)) {
+                        justificationValue = lookUpName;
+                        break;
+                    }
                 }
             }
 
         }
-
         TaskServiceRequest taskServiceRequest = new TaskServiceRequest();
 
         List<String> justifications = new ArrayList<String>();
