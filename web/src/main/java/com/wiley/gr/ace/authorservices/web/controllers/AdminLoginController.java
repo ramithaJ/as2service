@@ -141,9 +141,8 @@ public class AdminLoginController extends ASExceptionController {
      *            - the request value
      * @return service
      */
-    @RequestMapping(value = "/requestAccess/{userId}/{emailId}/", method = RequestMethod.POST)
+    @RequestMapping(value = "/requestAccess/{emailId}/", method = RequestMethod.POST)
     public final Service requestAccess(
-            @PathVariable("userId") final String userId,
             @PathVariable("emailId") final String emailId,
             @RequestBody final List<String> accessId) {
         LOGGER.info("inside requestAccess Method");
@@ -172,7 +171,7 @@ public class AdminLoginController extends ASExceptionController {
         taskServiceRequest.setJustifications(justifications);
         taskServiceRequest.setRequestorEmail(emailId);
         taskServiceRequest.setRequestorId(requestorId);
-        taskService.invokeTaskService(taskServiceRequest, userId);
+        taskService.invokeTaskService(taskServiceRequest, requestorId);
 
         sendNotification.notifyByEmail(emailId, templateId);
         return new Service();
