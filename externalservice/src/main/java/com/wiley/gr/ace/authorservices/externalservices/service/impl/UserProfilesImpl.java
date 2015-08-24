@@ -14,10 +14,13 @@
 
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
+import java.io.File;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
@@ -256,29 +259,6 @@ public class UserProfilesImpl implements UserProfiles {
     }
 
     /**
-     * Update lookup customer profile.
-     *
-     * @param lookupCustomerProfileResponse
-     *            the lookup customer profile response
-     * @return the lookup customer profile response
-     * @throws Exception
-     *             the exception
-     */
-    @Override
-    public final LookupCustomerProfileResponse updateLookupCustomerProfile(
-            final LookupCustomerProfileResponse lookupCustomerProfileResponse)
-            throws Exception {
-        final Service service = (Service) RestServiceInvokerUtil
-                .getServiceData(updateLookupCustomerProfile, Service.class);
-        final String status = service.getStatus();
-        if (status != null && success.equalsIgnoreCase(status)) {
-            return lookupCustomerProfileResponse;
-        } else {
-            return null;
-        }
-    }
-
-    /**
      * Calling external service to Update look up profile.
      *
      * @param lookupCustomerProfileResponse
@@ -288,7 +268,15 @@ public class UserProfilesImpl implements UserProfiles {
     @Override
     public final boolean customerProfileUpdate(
             final LookupCustomerProfileResponse lookupCustomerProfileResponse) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            mapper.writeValue(new File("c:\\ravi\\user.json"),
+                    lookupCustomerProfileResponse);
 
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
         final ResponseStatus responseStatus = (ResponseStatus) RestServiceInvokerUtil
                 .restServiceInvoker(updateLookupCustomerProfile,
                         lookupCustomerProfileResponse, ResponseStatus.class);

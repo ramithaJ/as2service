@@ -22,7 +22,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author yugandhark
  */
 public class AlertData {
+    
+    
+    @JsonProperty("Type")
+    private AlertType type;
 
+ 
     /** The alert id. */
     @JsonProperty("AlertID")
     private String alertID;
@@ -31,8 +36,7 @@ public class AlertData {
     @JsonProperty("Status")
     private String status;
   
-    @JsonProperty("Type")
-    private AlertType type;
+    private String id;
     /**
      * Gets the alert id.
      *
@@ -40,6 +44,20 @@ public class AlertData {
      */
     public final String getAlertID() {
         return alertID;
+    }
+
+    /**
+     * @return the id
+     */
+    public final String getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public final void setId(String id) {
+        this.id = id;
     }
 
     /**
@@ -79,8 +97,10 @@ public class AlertData {
     /**
      * @param type the type to set
      */
-    public final void setType(final AlertType type) {
+    public final void setType(AlertType type) {
         this.type = type;
     }
+
+ 
 
 }

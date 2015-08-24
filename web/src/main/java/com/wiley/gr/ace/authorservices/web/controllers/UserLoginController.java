@@ -163,8 +163,7 @@ public class UserLoginController extends ASExceptionController {
             @RequestBody final SecurityDetailsHolder securityDetailsHolder) {
         LOGGER.info("Inside resetPassword method");
         Service service = new Service();
-        service.setPayload(userLoginService
-                .resetPassword(securityDetailsHolder));
+        userLoginService.resetPassword(securityDetailsHolder);
         return service;
 
     }
@@ -181,7 +180,7 @@ public class UserLoginController extends ASExceptionController {
             @Valid @RequestBody final PasswordDetails passwordDetails) {
         LOGGER.info("inside updatePassword method");
         Service service = new Service();
-        service.setPayload(authorProfileService.updatePassword(passwordDetails));
+        authorProfileService.updatePassword(passwordDetails);
         return service;
 
     }

@@ -16,9 +16,10 @@ import java.io.File;
 import java.util.List;
 
 import com.wiley.gr.ace.authorservices.model.Address;
-import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.Affiliations;
+import com.wiley.gr.ace.authorservices.model.AffiliationsUpdate;
 import com.wiley.gr.ace.authorservices.model.Alert;
+import com.wiley.gr.ace.authorservices.model.AreaOfInterests;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.Interests;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
@@ -55,7 +56,7 @@ public interface AuthorProfileService {
      *            the affiliation
      * @return true, if successful
      */
-    boolean updateAffiliation(int userId, Affiliation affiliation);
+    boolean updateAffiliation(int userId, AffiliationsUpdate affiliationsUpdate,String affiliationId);
 
     /**
      * Update research funder.
@@ -78,6 +79,13 @@ public interface AuthorProfileService {
      * @return true, if successful
      */
     boolean updateAlerts(String userId, List<Alert> alert);
+    
+    /**
+     * @param userId
+     * @param areaOfInterests
+     * @return
+     */
+    boolean addInterests(String userId,AreaOfInterests areaOfInterests);
 
     /**
      * Update Coauthor.

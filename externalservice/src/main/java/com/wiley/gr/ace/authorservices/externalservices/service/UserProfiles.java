@@ -107,19 +107,6 @@ public interface UserProfiles {
     LookupCustomerProfile getLookupCustomerProfile(String userId);
 
     /**
-     * Update lookup customer profile.
-     *
-     * @param lookupCustomerProfileResponse
-     *            the lookup customer profile response
-     * @return the lookup customer profile response
-     * @throws Exception
-     *             the exception
-     */
-    LookupCustomerProfileResponse updateLookupCustomerProfile(
-            LookupCustomerProfileResponse lookupCustomerProfileResponse)
-            throws Exception;
-
-    /**
      * Customer profile update.
      *
      * @param lookupCustomerProfileResponse

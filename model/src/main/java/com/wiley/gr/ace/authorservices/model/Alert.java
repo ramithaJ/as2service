@@ -54,6 +54,23 @@ public class Alert implements Serializable {
     @NotBlank
     @NotNull
     private String status;
+    
+    private String id;
+    
+
+    /**
+     * @return the id
+     */
+    public final String getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public final void setId(String id) {
+        this.id = id;
+    }
 
     /**
      * @return the status

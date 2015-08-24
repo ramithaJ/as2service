@@ -26,6 +26,9 @@ public class Interests implements Serializable {
 
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
+    
+    
+    private String id;
 
     /** The user Id . */
     private String userId;
@@ -113,6 +116,20 @@ public class Interests implements Serializable {
      */
     public final void setAoeName(final String aoeName) {
         this.aoeName = aoeName;
+    }
+
+    /**
+     * @return the id
+     */
+    public final String getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public final void setId(String id) {
+        this.id = id;
     }
 
 }
