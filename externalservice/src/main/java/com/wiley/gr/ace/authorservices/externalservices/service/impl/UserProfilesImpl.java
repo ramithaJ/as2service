@@ -259,29 +259,6 @@ public class UserProfilesImpl implements UserProfiles {
     }
 
     /**
-     * Update lookup customer profile.
-     *
-     * @param lookupCustomerProfileResponse
-     *            the lookup customer profile response
-     * @return the lookup customer profile response
-     * @throws Exception
-     *             the exception
-     */
-    @Override
-    public final LookupCustomerProfileResponse updateLookupCustomerProfile(
-            final LookupCustomerProfileResponse lookupCustomerProfileResponse)
-            throws Exception {
-        final Service service = (Service) RestServiceInvokerUtil
-                .getServiceData(updateLookupCustomerProfile, Service.class);
-        final String status = service.getStatus();
-        if (status != null && success.equalsIgnoreCase(status)) {
-            return lookupCustomerProfileResponse;
-        } else {
-            return null;
-        }
-    }
-
-    /**
      * Calling external service to Update look up profile.
      *
      * @param lookupCustomerProfileResponse
@@ -296,8 +273,8 @@ public class UserProfilesImpl implements UserProfiles {
             mapper.writeValue(new File("c:\\ravi\\user.json"),
                     lookupCustomerProfileResponse);
 
-        }catch(Exception e){
-            
+        } catch (Exception e) {
+
             e.printStackTrace();
         }
         final ResponseStatus responseStatus = (ResponseStatus) RestServiceInvokerUtil

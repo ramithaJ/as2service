@@ -33,6 +33,7 @@ import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.Affiliations;
 import com.wiley.gr.ace.authorservices.model.AffiliationsUpdate;
 import com.wiley.gr.ace.authorservices.model.Alert;
+import com.wiley.gr.ace.authorservices.model.AreaOfInterests;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.Email;
 import com.wiley.gr.ace.authorservices.model.Interests;
@@ -1105,5 +1106,30 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
         return userProfiles
                 .customerProfileUpdate(lookupCustomerProfileResponse);
+    }
+
+    @Override
+    public boolean addInterests(String userId, AreaOfInterests areaOfInterests) {
+        CustomerDetails customerDetails = getCustomeProfile(String
+                .valueOf(userId));
+        LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
+        CustomerProfile customerProfile = new CustomerProfile();
+        customerProfile.setCustomerDetails(customerDetails);
+        List<Interests> listOfIntersts=areaOfInterests.getInterests();
+        List<InterestData> interestDataList=new ArrayList<InterestData>();
+        AreaOfInterest areaOfInterest=new AreaOfInterest();
+        for (Interests interests : listOfIntersts) {
+            InterestData interestData=new InterestData();
+            interestData.setId(interests.getId());
+            interestData.setStatus("add");
+            interestDataList.add(interestData);
+        }
+        areaOfInterest.setInterest(interestDataList);
+        customerProfile.setCustomerDetails(customerDetails);
+        customerProfile.setAreaOfInterest(areaOfInterest);
+        lookupCustomerProfileResponse.setCustomerProfile(customerProfile);
+        return userProfiles
+                .customerProfileUpdate(lookupCustomerProfileResponse);
+
     }
 }
