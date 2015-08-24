@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
-import com.wiley.gr.ace.authorservices.model.Affiliation;
+import com.wiley.gr.ace.authorservices.model.AffiliationsUpdate;
 import com.wiley.gr.ace.authorservices.model.Alert;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.ProfilePicture;
@@ -101,14 +101,16 @@ public class UserProfileController {
      *            - The request value
      * @return service
      */
-    @RequestMapping(value = "/affiliations/{userId}/{affiliationId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/affiliations/{userId}/{affiliationId}/", method = RequestMethod.POST)
     public final Service updateAffiliation(
             @PathVariable("userId") final int userId,
-            @RequestBody final Affiliation affiliation) {
+            @PathVariable("affiliationId") String affiliationId,
+            @RequestBody final AffiliationsUpdate affiliationsUpdate) {
         UserProfileController.LOGGER.info("inside updateAffiliation method ");
         Service service = new Service();
-        System.err.println(affiliation.getId());
-        authorProfileService.updateAffiliation(userId, affiliation);
+
+        authorProfileService.updateAffiliation(userId, affiliationsUpdate,
+                affiliationId);
 
         return service;
     }

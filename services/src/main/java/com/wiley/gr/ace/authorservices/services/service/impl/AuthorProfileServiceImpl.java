@@ -31,6 +31,7 @@ import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.Address;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.Affiliations;
+import com.wiley.gr.ace.authorservices.model.AffiliationsUpdate;
 import com.wiley.gr.ace.authorservices.model.Alert;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.Email;
@@ -167,13 +168,13 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      *
      * @param userId
      *            the user id
-     * @param affiliation
+     * @param affiliationUpdate
      *            the affiliation
      * @return true, if successful
      */
     @Override
     public final boolean updateAffiliation(final int userId,
-            final Affiliation affiliation) {
+            final AffiliationsUpdate affiliationUpdate ,String affiliationId) {
         AuthorProfileServiceImpl.LOGGER
                 .info("inside updateAffiliation Method ");
         CustomerDetails customerDetails = getCustomeProfile(String
@@ -181,26 +182,26 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
         CustomerProfile customerProfile = new CustomerProfile();
         customerProfile.setCustomerDetails(customerDetails);
-        AffiliationsData affsData = new AffiliationsData();
+        AffiliationsData affiliationsData = new AffiliationsData();
         List<AffiliationData> affDataList = new ArrayList<AffiliationData>();
         AffiliationData affData = new AffiliationData();
-        affData.setStartDate(affiliation.getStartDate());
-        affData.setEndDate(affiliation.getEndDate());
-        affData.setCity(affiliation.getCity());
-        affData.setState(affiliation.getState());
-        affData.setCountryCd(affiliation.getCountryCode());
-        affData.setInstitutionCd(affiliation.getInstitutionId());
-        affData.setInstitutionName(affiliation.getInstitutionName());
-        affData.setDepartmentCd(affiliation.getDepartmentId());
-        affData.setDepartmentName(affiliation.getDepartmentName());
+        affData.setStartDate(affiliationUpdate.getAffiliations().getStartDate());
+        affData.setEndDate(affiliationUpdate.getAffiliations().getEndDate());
+        affData.setCity(affiliationUpdate.getAffiliations().getCity());
+        affData.setState(affiliationUpdate.getAffiliations().getState());
+        affData.setCountryCd(affiliationUpdate.getAffiliations().getCountryCode());
+        affData.setInstitutionCd(affiliationUpdate.getAffiliations().getInstitutionId());
+        affData.setInstitutionName(affiliationUpdate.getAffiliations().getInstitutionName());
+        affData.setDepartmentCd(affiliationUpdate.getAffiliations().getDepartmentId());
+        affData.setDepartmentName(affiliationUpdate.getAffiliations().getDepartmentName());
         affDataList.add(affData);
-        affsData.setAffiliation(affDataList);
-        customerProfile.setAffiliations(affsData);
+        affiliationsData.setAffiliation(affDataList);
+        customerProfile.setAffiliations(affiliationsData);
         lookupCustomerProfileResponse.setCustomerProfile(customerProfile);
-        if ("0".equals(affiliation.getId())) {
+        if ("0".equals(affiliationId)) {
             affData.setStatus("add");
         } else {
-            affData.setId(affiliation.getId());
+            affData.setId(affiliationId);
             affData.setStatus("edit");
         }
         return userProfiles

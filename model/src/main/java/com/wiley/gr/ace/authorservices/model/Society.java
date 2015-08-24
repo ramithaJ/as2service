@@ -13,10 +13,6 @@ package com.wiley.gr.ace.authorservices.model;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.NotBlank;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -32,38 +28,32 @@ public class Society implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /** The user Id . */
-   
+
     private String userId;
 
     /** The society id. */
-    @NotNull
-    @NotBlank
+    
     private String societyId;
 
     /** The society name. */
-    
+
     private String societyName;
 
     /** The membership number. */
-    @NotNull
-    @NotBlank
+
     private String membershipNumber;
 
     /** The promo code. */
-    @NotNull
-    @NotBlank
+
     private String promoCode;
 
     /** The start date. */
-    @NotNull
-    @NotBlank
+
     private String startDate;
 
     /** The end date. */
-    @NotNull
-    @NotBlank
-    private String endDate;
 
+    private String endDate;
 
     private String id;
 
