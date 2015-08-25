@@ -30,7 +30,6 @@ import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.Address;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
-import com.wiley.gr.ace.authorservices.model.Affiliations;
 import com.wiley.gr.ace.authorservices.model.AffiliationsUpdate;
 import com.wiley.gr.ace.authorservices.model.Alert;
 import com.wiley.gr.ace.authorservices.model.AreaOfInterests;
@@ -657,13 +656,12 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @return the affiliations list
      */
     @Override
-    public final Affiliations getAffiliationsList(final String userId) {
+    public final List<Affiliation> getAffiliationsList(final String userId) {
 
         List<AffiliationData> listofAffiliations = userProfiles
                 .getLookupCustomerProfile(userId)
                 .getLookupCustomerProfileResponse().getCustomerProfile()
                 .getAffiliations().getAffiliation();
-        Affiliations affiliations = new Affiliations();
         List<Affiliation> listAffiliations = new ArrayList<Affiliation>();
         for (AffiliationData affiliationData : listofAffiliations) {
             Affiliation affiliation = new Affiliation();
@@ -681,8 +679,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             affiliation.setId(affiliationData.getId());
             listAffiliations.add(affiliation);
         }
-        affiliations.setAffiliations(listAffiliations);
-        return affiliations;
+        return listAffiliations;
     }
 
     /**
