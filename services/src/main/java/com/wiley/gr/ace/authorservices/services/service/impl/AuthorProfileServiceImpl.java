@@ -33,6 +33,7 @@ import com.wiley.gr.ace.authorservices.model.Address;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.AffiliationsUpdate;
 import com.wiley.gr.ace.authorservices.model.Alert;
+import com.wiley.gr.ace.authorservices.model.AlertsList;
 import com.wiley.gr.ace.authorservices.model.AreaOfInterests;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.Email;
@@ -829,16 +830,20 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @return the list of alerts
      */
     @Override
-    public final List<Alert> getListOfAlerts(final String userId) {
+    public final AlertsList getListOfAlerts(final String userId) {
 
-        AlertsData alertExtData = userProfiles.getLookupCustomerProfile(userId)
-                .getLookupCustomerProfileResponse().getCustomerProfile()
-                .getAlerts();
+        CustomerProfile customerProfile = userProfiles
+                .getLookupCustomerProfile(userId)
+                .getLookupCustomerProfileResponse().getCustomerProfile();
+
+        AlertsData alertExtData = customerProfile.getAlerts();
+        AlertsList alertsResponse = new AlertsList();
         List<AlertData> listOfAlert = new ArrayList<AlertData>();
         List<Alerts> daoAlertList = alertsDao.getAlerts();
-
+        List<String> emailList = new ArrayList<String>();
         List<Alert> alertList = new ArrayList<Alert>();
-
+        emailList.add(customerProfile.getCustomerDetails().getPrimaryEmail());
+        emailList.add(customerProfile.getCustomerDetails().getSecondaryEmail());
         if (alertExtData != null) {
             listOfAlert = alertExtData.getAlert();
         }
@@ -863,11 +868,14 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                         break;
                     }
                 }
+                alertList.add(alert);
+                alertsResponse.setAlertsList(alertList);
+                alertsResponse.setEmailsList(emailList);
             }
 
-            alertList.add(alert);
         }
-        return alertList;
+
+        return alertsResponse;
     }
 
     /**

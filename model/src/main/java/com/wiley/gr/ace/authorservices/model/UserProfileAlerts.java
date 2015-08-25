@@ -20,14 +20,14 @@ package com.wiley.gr.ace.authorservices.model;
 public class UserProfileAlerts {
 
     /** The alerts. */
-    private Alerts alerts;
+    private AlertsList alerts;
 
     /**
      * Gets the alerts.
      *
      * @return the alerts
      */
-    public final Alerts getAlerts() {
+    public final AlertsList getAlerts() {
         return alerts;
     }
 
@@ -37,7 +37,7 @@ public class UserProfileAlerts {
      * @param alerts
      *            the alerts to set
      */
-    public final void setAlerts(final Alerts alerts) {
+    public final void setAlerts(final AlertsList alerts) {
         this.alerts = alerts;
     }
 

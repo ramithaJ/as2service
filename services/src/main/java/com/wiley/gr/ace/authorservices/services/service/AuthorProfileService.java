@@ -19,6 +19,7 @@ import com.wiley.gr.ace.authorservices.model.Address;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.AffiliationsUpdate;
 import com.wiley.gr.ace.authorservices.model.Alert;
+import com.wiley.gr.ace.authorservices.model.AlertsList;
 import com.wiley.gr.ace.authorservices.model.AreaOfInterests;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.Interests;
@@ -229,7 +230,7 @@ public interface AuthorProfileService {
      *            the user id
      * @return the list of alerts
      */
-    List<Alert> getListOfAlerts(String userId);
+    AlertsList getListOfAlerts(String userId);
 
     /**
      * Gets the preffered journals.

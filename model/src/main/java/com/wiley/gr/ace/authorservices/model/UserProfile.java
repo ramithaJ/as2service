@@ -54,7 +54,7 @@ public class UserProfile implements Serializable {
     private List<PreferredJournals> preferredJournals;
 
     /** The alerts. */
-    private Alerts alerts;
+    private AlertsList alerts;
 
     /** The email for alerts. */
     private String emailForAlerts;
@@ -210,7 +210,7 @@ public class UserProfile implements Serializable {
      *
      * @return the alerts
      */
-    public final Alerts getAlerts() {
+    public final AlertsList getAlerts() {
         return alerts;
     }
 
@@ -219,7 +219,7 @@ public class UserProfile implements Serializable {
      *
      * @param alerts            the alerts to set
      */
-    public final void setAlerts(final Alerts alerts) {
+    public final void setAlerts(final AlertsList alerts) {
         this.alerts = alerts;
     }
 

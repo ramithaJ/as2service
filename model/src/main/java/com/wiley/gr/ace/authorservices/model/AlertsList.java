@@ -20,7 +20,7 @@ import java.util.List;
  *
  * @author virtusa version 1.0
  */
-public class Alerts implements Serializable {
+public class AlertsList implements Serializable {
 
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
