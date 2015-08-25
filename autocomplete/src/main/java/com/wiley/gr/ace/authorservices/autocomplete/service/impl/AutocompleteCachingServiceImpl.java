@@ -35,8 +35,10 @@ import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
 import com.wiley.gr.ace.authorservices.model.external.Funder;
 import com.wiley.gr.ace.authorservices.model.external.Id;
 import com.wiley.gr.ace.authorservices.model.external.ResearchFundersResponse;
+import com.wiley.gr.ace.authorservices.persistence.entity.AreaOfInterest;
 import com.wiley.gr.ace.authorservices.persistence.entity.Societies;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
+import com.wiley.gr.ace.authorservices.persistence.services.AreaOfInterterestDao;
 
 /**
  * AutocompleteCachingServiceImpl provides caching.
@@ -84,6 +86,10 @@ public class AutocompleteCachingServiceImpl implements
     /** the societieskey. */
     @Value("${societies.key}")
     private String societieskey;
+
+    /** the areasOfInterestsKey. */
+    @Value("${areasOfInterests.key}")
+    private String areasOfInterestsKey;
 
     /** the researchFundersurl. */
     @Value("${researchFundersurl.url}")
@@ -145,6 +151,10 @@ public class AutocompleteCachingServiceImpl implements
     @Autowired(required = true)
     private ASDataDAO aSDataDAO;
 
+    /** The area of interest dao . */
+    @Autowired(required = true)
+    private AreaOfInterterestDao areaOfInterest;
+
     /**
      * This method returns the cached drop down data in the form of Map. If
      * there is no cached data, the corresponding service is invoked and the
@@ -185,6 +195,9 @@ public class AutocompleteCachingServiceImpl implements
         } else if ((societieskey + "_cached").equals(dropDownKey)) {
             LOGGER.info("getCachedData::societieskey::" + dropDownKey);
             cacheDataList = getSocieties();
+        } else if ((areasOfInterestsKey + "_cached").equals(dropDownKey)) {
+            LOGGER.info("getCachedData::areasOfInterestsKey::" + dropDownKey);
+            cacheDataList = getAreasOfInterests();
         }
 
         if (cacheDataList != null && !cacheDataList.isEmpty()) {
@@ -336,7 +349,7 @@ public class AutocompleteCachingServiceImpl implements
             }
             subFunderDetails = new SubFunderDetails();
             subFunderDetails.setSubFundersMap(subFundersMap);
-            
+
         } else {
             throw new ASException(AuthorServicesConstants.SERVERERRORCODE,
                     AuthorServicesConstants.SERVERERRORMESSAGE);
@@ -573,6 +586,32 @@ public class AutocompleteCachingServiceImpl implements
 
         return societyList;
 
+    }
+
+    /**
+     * This will call external service to get AreasOfInterests data.
+     *
+     * @return the areas of interests
+     */
+    private List<CacheData> getAreasOfInterests() {
+        List<CacheData> areasOfIntrestList = null;
+        List<AreaOfInterest> areaOfInterestDao = null;
+
+        LOGGER.info("inside getAreasOfInterests method ");
+
+        areaOfInterestDao = areaOfInterest.getAreaOfInterest();
+
+        if (areaOfInterestDao != null) {
+            areasOfIntrestList = new ArrayList<CacheData>();
+            for (AreaOfInterest areaOfInterest : areaOfInterestDao) {
+                CacheData interests = new CacheData();
+                interests.setCode(areaOfInterest.getAreaOfInterestCd());
+                interests.setName(areaOfInterest.getInterestName());
+                areasOfIntrestList.add(interests);
+            }
+        }
+
+        return areasOfIntrestList;
     }
 
 }

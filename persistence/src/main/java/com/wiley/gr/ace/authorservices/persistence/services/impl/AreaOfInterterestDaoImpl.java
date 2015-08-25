@@ -18,6 +18,8 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.wiley.gr.ace.authorservices.persistence.entity.AreaOfInterest;
 import com.wiley.gr.ace.authorservices.persistence.services.AreaOfInterterestDao;
@@ -26,6 +28,10 @@ import com.wiley.gr.ace.authorservices.persistence.services.AreaOfInterterestDao
  * The Class AreaOfInterterestDaoImpl.
  */
 public class AreaOfInterterestDaoImpl implements AreaOfInterterestDao {
+    
+    /** The Constant LOGGER. */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(AreaOfInterterestDaoImpl.class);
 
     /**
      * this method calls db to get interest details.
@@ -36,6 +42,7 @@ public class AreaOfInterterestDaoImpl implements AreaOfInterterestDao {
     @Override
     public final List<AreaOfInterest> getAreaOfInterest() {
 
+        LOGGER.info("Inside getAreaOfInterest() ");
         Session session = null;
         List<AreaOfInterest> interestList = null;
         try {

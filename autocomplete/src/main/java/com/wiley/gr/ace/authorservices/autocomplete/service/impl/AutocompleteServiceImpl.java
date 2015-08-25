@@ -77,7 +77,7 @@ public class AutocompleteServiceImpl implements AutocompleteService {
         /**
          * Dropdown key list.
          */
-        industries, jobCategories, countries, states, institutions, departments, researchFunders, subFunders, societies
+        industries, jobCategories, countries, states, institutions, departments, researchFunders, subFunders, societies, areasOfInterests
     };
 
     /**
@@ -154,10 +154,7 @@ public class AutocompleteServiceImpl implements AutocompleteService {
             autoCompCount = Integer.valueOf(autocompletecount);
 
             LOGGER.info("getDropDownData::valid Key::" + key);
-            if (offset == null) {
-                offset = 0;
-            }
-
+            
             if (parentId != null && !"".equals(parentId.trim())) {
                 key = key + "_" + parentId;
             }
