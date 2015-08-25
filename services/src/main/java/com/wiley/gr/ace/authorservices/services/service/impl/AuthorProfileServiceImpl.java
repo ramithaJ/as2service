@@ -1147,6 +1147,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         for (Interests interests : listOfIntersts) {
             InterestData interestData = new InterestData();
             interestData.setId(interests.getId());
+            interestData.setInterestcode(interests.getId());
             interestData.setStatus("add");
             interestDataList.add(interestData);
         }

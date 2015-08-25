@@ -259,7 +259,6 @@ public class UserProfileController {
     public final Service searchInterests(
             @PathVariable("userId") final String userId,
             @RequestBody AreaOfInterests areaOfInterests) {
-        System.err.println("in serch  connnnnnnnnnnnnnn");
         Service service = new Service();
         service.setPayload(authorProfileService.addInterests(userId,
                 areaOfInterests));

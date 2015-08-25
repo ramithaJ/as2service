@@ -27,10 +27,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class InterestData {
 
     private String id;
-    @JsonProperty("Status")
-    private String status;
+
     @JsonProperty("AreaOfInterestCd")
     private String interestcode;
+
+    @JsonProperty("Status")
+    private String status;
 
     /**
      * @return the interestcode
@@ -73,7 +75,7 @@ public class InterestData {
      * @param status
      *            the status to set
      */
-    public final void setStatus(final String status) {
+    public final void setStatus(String status) {
         this.status = status;
     }
 
