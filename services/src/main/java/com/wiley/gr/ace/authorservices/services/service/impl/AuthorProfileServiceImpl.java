@@ -45,7 +45,6 @@ import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.User;
-import com.wiley.gr.ace.authorservices.model.UserProfile;
 import com.wiley.gr.ace.authorservices.model.external.AddressDetails;
 import com.wiley.gr.ace.authorservices.model.external.AddressElement;
 import com.wiley.gr.ace.authorservices.model.external.AffiliationData;
@@ -69,7 +68,6 @@ import com.wiley.gr.ace.authorservices.model.external.SecurityQuestionsUpdateReq
 import com.wiley.gr.ace.authorservices.model.external.SocietyData;
 import com.wiley.gr.ace.authorservices.model.external.SocietyList;
 import com.wiley.gr.ace.authorservices.model.external.UserEmailDetails;
-import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityAttributes;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestions;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsEntry;
@@ -119,11 +117,6 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     /** The template id. */
     @Value("${templateId.password.reset}")
     private String templateId;
-    /** The user profile. */
-    private final UserProfile userProfile = new UserProfile();
-
-    /** The look up profile. */
-    private final UserProfileResponse lookUpProfile = new UserProfileResponse();
 
     /**
      * Update society details.
@@ -1025,7 +1018,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      *
      * */
     @Override
-    public boolean deleteSociety(final String userId, final String societyId) {
+    public boolean deleteSociety(final String userId, final String societyId,String id) {
 
         CustomerDetails customerDetails = getCustomeProfile(String
                 .valueOf(userId));
@@ -1034,8 +1027,10 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         customerProfile.setCustomerDetails(customerDetails);
         SocietyList societyList = new SocietyList();
         SocietyData societyData = new SocietyData();
-        societyData.setId(societyId);
+        societyData.setId(id);
+        societyData.setStartDate("1999-05-31T13:20:00-05:00");
         societyData.setStatus("delete");
+        societyData.setSocietyId(societyId);
         societyList.setSociety(new ArrayList<SocietyData>());
         societyList.getSociety().add(societyData);
         customerProfile.setCustomerDetails(customerDetails);
@@ -1065,6 +1060,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         List<AffiliationData> affDataList = new ArrayList<AffiliationData>();
         AffiliationData affData = new AffiliationData();
         affData.setId(affiliationId);
+        affData.setStartDate("1999-05-31T13:20:00-05:00");
         affDataList.add(affData);
         affsData.setAffiliation(affDataList);
         customerProfile.setAffiliations(affsData);

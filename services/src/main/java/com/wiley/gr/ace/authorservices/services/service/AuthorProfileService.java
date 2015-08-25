@@ -289,7 +289,7 @@ public interface AuthorProfileService {
      *            the society id
      * @return true, if successful
      */
-    boolean deleteSociety(String userId, String societyId);
+    boolean deleteSociety(String userId, String societyId,String id);
 
     /**
      * Delete affiliations.

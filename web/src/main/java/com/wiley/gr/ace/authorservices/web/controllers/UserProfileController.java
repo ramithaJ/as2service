@@ -214,18 +214,19 @@ public class UserProfileController {
      *            - The request value
      * @return service
      */
-    @RequestMapping(value = "/societies/{userId}/{societyId}/", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/societies/{userId}/{societyId}/{id}/", method = RequestMethod.DELETE)
     public final Service deleteSocietyDetails(
             @PathVariable("userId") final String userId,
-            @PathVariable("societyId") final String societyId) {
+            @PathVariable("societyId") final String societyId,
+            @PathVariable("id") final String id) {
 
         UserProfileController.LOGGER
                 .info("inside deleteSocietyDetails method ");
 
         Service service = new Service();
 
-        service.setPayload(authorProfileService
-                .deleteSociety(userId, societyId));
+        service.setPayload(authorProfileService.deleteSociety(userId,
+                societyId, id));
         return service;
     }
 

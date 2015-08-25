@@ -37,10 +37,6 @@ import com.wiley.gr.ace.authorservices.model.external.ResponseStatus;
  */
 public class UserProfilesImpl implements UserProfiles {
 
-    /** The update profileurl. */
-    @Value("${updateProfile.url}")
-    private String updateProfileurl;
-
     /** The institutionsurl. */
     @Value("${institutions.url}")
     private String institutionsurl;
