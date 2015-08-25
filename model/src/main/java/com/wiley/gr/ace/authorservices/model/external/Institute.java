@@ -13,8 +13,6 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -27,20 +25,20 @@ public class Institute {
     /**
      * This field holds the value of instituteName.
      */
-	@JsonProperty("instituteName")
+    @JsonProperty("instituteName")
     private String instituteName;
 
     /**
      * This field holds the value of instituteCode.
      */
-	@JsonProperty("instituteCode")
+    @JsonProperty("instituteCode")
     private String instituteCode;
-	
-	/**
-	 * This field holds the value of discount.
-	 */
-	@JsonProperty("discount")
-	private List<DiscountedSociety> discountList;
+
+    /**
+     * This field holds the value of discount.
+     */
+    /*@JsonProperty("discount")
+	private List<DiscountedSociety> discountList;*/
 
     /**
      * @return the instituteName
