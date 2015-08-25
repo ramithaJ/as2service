@@ -490,7 +490,7 @@ public class UserProfileController {
      * @throws IOException
      *             - exception
      */
-    @RequestMapping(value = "/uploadimage/", method = RequestMethod.POST)
+    @RequestMapping(value = "/uploadImage/", method = RequestMethod.POST)
     public final Service profilePicture(
             @RequestBody final ProfilePicture profilePicture)
             throws IOException {
