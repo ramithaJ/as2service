@@ -31,6 +31,7 @@ import com.wiley.gr.ace.authorservices.externalservices.service.TaskService;
 import com.wiley.gr.ace.authorservices.model.ASRolesAndPermissions;
 import com.wiley.gr.ace.authorservices.model.AdminUser;
 import com.wiley.gr.ace.authorservices.model.Login;
+import com.wiley.gr.ace.authorservices.model.RequestAdminAccess;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.UserLogin;
 import com.wiley.gr.ace.authorservices.model.external.TaskServiceRequest;
@@ -144,13 +145,13 @@ public class AdminLoginController extends ASExceptionController {
     @RequestMapping(value = "/requestAccess/{emailId}/", method = RequestMethod.POST)
     public final Service requestAccess(
             @PathVariable("emailId") final String emailId,
-            @RequestBody final List<String> accessId) {
+            @RequestBody final RequestAdminAccess requestAdminAccess) {
         LOGGER.info("inside requestAccess Method");
 
         List<LookupValues> lookupValues = lookUpValuesDAO
                 .getLookUpData(requestAccesslookupKey);
         String justificationValue = null;
-
+        List<String> accessId = requestAdminAccess.getAccessList();
         if (lookupValues != null && !lookupValues.isEmpty()) {
             for (LookupValues lookupValue : lookupValues) {
                 final String lookUpName = lookupValue.getLookupName();
