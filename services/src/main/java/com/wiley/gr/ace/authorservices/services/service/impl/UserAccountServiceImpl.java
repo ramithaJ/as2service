@@ -127,25 +127,29 @@ public class UserAccountServiceImpl implements UserAccountService {
                 .getLookupCustomerProfileResponse().getCustomerProfile()
                 .getAddressDetails().getAddress();
         List<Addresses> addressesList = new ArrayList<Addresses>();
-        Addresses addresses = new Addresses();
+        Addresses corresAddress = new Addresses();
+        Addresses billAddress = new Addresses();
+        Addresses shipAddress = new Addresses();
         for (AddressElement addressElement : addressElementsList) {
 
             if ("Physical".equalsIgnoreCase(addressElement.getAddrTypeCD())) {
                 Address correspondenceAddress = this
                         .setAddressValues(addressElement);
-                addresses.setCorrespondenceAddress(correspondenceAddress);
+                corresAddress.setCorrespondenceAddress(correspondenceAddress);
             }
             if ("Billing".equalsIgnoreCase(addressElement.getAddrTypeCD())) {
                 Address billingAddress = this.setAddressValues(addressElement);
-                addresses.setBillingAddress(billingAddress);
+                billAddress.setBillingAddress(billingAddress);
             }
             if ("Shipping".equalsIgnoreCase(addressElement.getAddrTypeCD())) {
                 Address shippingAddress = this.setAddressValues(addressElement);
-                addresses.setShippingAddress(shippingAddress);
+                shipAddress.setShippingAddress(shippingAddress);
             }
 
         }
-        addressesList.add(addresses);
+        addressesList.add(corresAddress);
+        addressesList.add(billAddress);
+        addressesList.add(shipAddress);
 
         return addressesList;
     }
