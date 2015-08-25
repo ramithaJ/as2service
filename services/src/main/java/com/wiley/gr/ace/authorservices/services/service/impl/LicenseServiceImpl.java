@@ -85,35 +85,35 @@ public class LicenseServiceImpl implements LicenseService {
     private LicenseDAO licenseDAO;
 
     /** The sign license status. */
-    @Value("${SIGN_LICENSE_STATUS_TEXT}")
+    @Value("${SIGN_LICENSE}")
     private String signLicenseStatus;
 
     /** The license electronic status. */
-    @Value("${LICENSE_SIGNED_ELECTRONICALLY_STATUS_TEXT}")
+    @Value("${LICENSE_SIGNED_ELECTRONICALLY}")
     private String licenseElectronicStatus;
 
     /** The license download status. */
-    @Value("${LICENSE_DOWNLOADED_STATUS_TEXT}")
+    @Value("${LICENSE_DOWNLOADED}")
     private String licenseDownloadStatus;
 
     /** The license upload status. */
-    @Value("${LICENSE_UPLOADED_STATUS_TEXT}")
+    @Value("${LICENSE_UPLOADED}")
     private String licenseUploadStatus;
 
     /** The sign license action. */
-    @Value("${SIGN_LICENSE_ACTION_TEXT}")
+    @Value("${SIGN_LICENSE_ACTION}")
     private String signLicenseAction;
 
     /** The license view action. */
-    @Value("${LICENSE_VIEW_ACTION_TEXT}")
+    @Value("${LICENSE_VIEW_ACTION}")
     private String licenseViewAction;
 
     /** The license upload action. */
-    @Value("${LICENSE_UPLOAD_ACTION_TEXT}")
+    @Value("${LICENSE_UPLOAD_ACTION}")
     private String licenseUploadAction;
 
     /** The license download again action. */
-    @Value("${LICENSE_DOWNLOAD_AGAIN_ACTION_TEXT}")
+    @Value("${LICENSE_DOWNLOAD_AGAIN_ACTION}")
     private String licenseDownloadAgainAction;
 
     /**

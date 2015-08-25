@@ -111,51 +111,51 @@ public class DashboardServiceImpl implements DashboardService {
     private LicenseService licenseService;
 
     /** The article acptd status. */
-    @Value("${ARTICLE_ACCEPTED_STATUS_TEXT}")
+    @Value("${ARTICLE_ACCEPTED}")
     private String articleAcptdStatus;
 
     /** The acptd art pub online status. */
-    @Value("${ACCEPTED_ARTICLE_PUBLISHED_ONLINE_STATUS_TEXT}")
+    @Value("${ACCEPTED_ARTICLE_PUBLISHED}")
     private String acptdArtPubOnlineStatus;
 
     /** The proofs out status. */
-    @Value("${PROOFS_OUT_STATUS_TEXT}")
+    @Value("${PROOFS_OUT}")
     private String proofsOutStatus;
 
     /** The proofs rcvd status. */
-    @Value("${PROOFS_RCVD_STATUS_TEXT}")
+    @Value("${PROOFS_RCVD}")
     private String proofsRcvdStatus;
 
     /** The proofs corr rcvd status. */
-    @Value("${PROOFS_CORRECTION_RCVD_STATUS_TEXT}")
+    @Value("${PROOFS_CORRECTION_RCVD}")
     private String proofsCorrRcvdStatus;
 
     /** The early view status. */
-    @Value("${EARLY_VIEW_STATUS_TEXT}")
+    @Value("${EARLY_VIEW}")
     private String earlyViewStatus;
 
     /** The article online open status. */
-    @Value("${ARTICLE_ONLINE_OPEN_STATUS_TEXT}")
+    @Value("${ARTICLE_ONLINE_OPEN}")
     private String articleOnlineOpenStatus;
 
     /** The iss pub online status. */
-    @Value("${ISSUE_PUBLISHED_ONLINE_STATUS_TEXT}")
+    @Value("${ISSUE_PUBLISHED_ONLINE}")
     private String issPubOnlineStatus;
 
     /** The acptd art withdrawn status. */
-    @Value("${ACCEPTED_ARTICLE_WITHDRAWN_STATUS_TEXT}")
+    @Value("${ACCEPTED_ARTICLE_WITHDRAWN}")
     private String acptdArtWithdrawnStatus;
 
     /** The article proof rcvd status. */
-    @Value("${ARTICLE_PROOF_RECEIVED_STATUS_TEXT}")
+    @Value("${ARTICLE_PROOF_RECEIVED}")
     private String articleProofRcvdStatus;
 
     /** The article proof approved status. */
-    @Value("${ARTICLE_PROOF_APPROVED_STATUS_TEXT}")
+    @Value("${ARTICLE_PROOF_APPROVED}")
     private String articleProofApprovedStatus;
 
     /** The view full article action. */
-    @Value("${VIEW_FULL_ARTICLE_ACTION_TEXT}")
+    @Value("${VIEW_FULL_ARTICLE}")
     private String viewFullArticleAction;
     /**
      * This field holds the value of submitOrderStatus.
@@ -578,16 +578,39 @@ public class DashboardServiceImpl implements DashboardService {
         if (!StringUtils.isEmpty(articleData)) {
             LOGGER.info("Article Data is Found");
             articleData.setArticleUserRole(articleUserRole);
-            final TrackLicense trackLicenseStatus = licenseService
-                    .trackLicenseStatus(String.valueOf(articleId), userId);
-            if (!StringUtils.isEmpty(trackLicenseStatus)) {
-                LOGGER.info("License Status is Found");
-                articleData.setLicenseStatus(trackLicenseStatus);
-            }
+            articleData.setLicenseStatus(trackingLicense(
+                    String.valueOf(articleId), userId));
             articleData.setOrderPaymentStatus(getOrderPaymentStatusForArticle(
                     orderStatusHashMap, articleId));
         }
         return articleData;
+    }
+
+    /**
+     * Tracking license.
+     *
+     * @param articleId
+     *            the article id
+     * @param userId
+     *            the user id
+     * @return the track license
+     * @throws Exception
+     *             the exception
+     */
+    private TrackLicense trackingLicense(final String articleId,
+            final String userId) throws Exception {
+        final TrackLicense trackLicenseStatus = licenseService
+                .trackLicenseStatus(articleId, userId);
+        TrackLicense trackLicense = null;
+        if (!StringUtils.isEmpty(trackLicenseStatus)) {
+            LOGGER.info("License Status is Found");
+            trackLicense = new TrackLicense();
+            trackLicense
+                    .setLicenseStatus(trackLicenseStatus.getLicenseStatus());
+            trackLicense.setAction(trackLicenseStatus.getAction());
+            trackLicense.setTaskId(trackLicenseStatus.getTaskId());
+        }
+        return trackLicense;
     }
 
     /**
@@ -902,21 +925,18 @@ public class DashboardServiceImpl implements DashboardService {
             productionStatus = productionDatesStatus
                     .get(mostRecentProductionDate);
         }
-        return trackingProductionStatusActions(mostRecentProductionDate,
-                productionStatus);
+        return trackingProductionStatusActions(productionStatus);
     }
 
     /**
      * Tracking production status actions.
      *
-     * @param mostRecentProductionDate
-     *            the most recent production date
      * @param productionStatus
      *            the production status
      * @return the production
      */
     private Production trackingProductionStatusActions(
-            Date mostRecentProductionDate, String productionStatus) {
+            final String productionStatus) {
         Production production = new Production();
         if (productionStatus.equals(acptdArtPubOnlineStatus)) {
             production.setAction(viewFullArticleAction);
@@ -928,7 +948,6 @@ public class DashboardServiceImpl implements DashboardService {
             production.setAction(viewFullArticleAction);
         }
         LOGGER.info("Getting Most Recent Date Among All Production Stages Dates and Setting Production Status,Actions");
-        production.setProductionStatusDate(mostRecentProductionDate.toString());
         production.setProductionStatus(productionStatus);
         return production;
     }
@@ -996,8 +1015,6 @@ public class DashboardServiceImpl implements DashboardService {
                 LOGGER.info("Publication Statuses Data is Found");
                 publication.setPublicationStatus(publicationStatuses
                         .getPublicationStatusName());
-                publication.setModifiedDate(publicationStatuses
-                        .getUpdatedDate().toString());
             }
             articleData.setPublication(publication);
         }
