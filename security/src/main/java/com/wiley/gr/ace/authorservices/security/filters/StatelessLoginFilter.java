@@ -65,7 +65,7 @@ public class StatelessLoginFilter extends
     /**
      * Externalize constants (adminnotexist.code) to properties file.
      */
-    public static final String notAdminCode = "1010";
+    public static final String notAdminCode = "HOME_PAGE_MARKETING_USER_NOT_EXISTS_ERR_TEXT";
 
     /**
      * Externalize constants (adminnotexist.message) to properties file.
@@ -75,7 +75,7 @@ public class StatelessLoginFilter extends
     /**
      * Externalize constants (invalidLogin.code) to properties file.
      */
-    public static final String invalidLoginCode = "1000";
+    public static final String invalidLoginCode = "HOME_PAGE_MARKETING_INCRCT_PASSWORD_ERR_TEXT";
 
     /**
      * Externalize constants (invalidLogin.message) to properties file.
