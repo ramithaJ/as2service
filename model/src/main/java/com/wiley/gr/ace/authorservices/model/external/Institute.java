@@ -13,17 +13,34 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+/**
+ * The Class Institute.
+ *
+ * @author virtusa version 1.0
+ */
 public class Institute {
 
     /**
-     * This field holds the value of instituteName
+     * This field holds the value of instituteName.
      */
+	@JsonProperty("instituteName")
     private String instituteName;
 
     /**
-     * This field holds the value of instituteCode
+     * This field holds the value of instituteCode.
      */
+	@JsonProperty("instituteCode")
     private String instituteCode;
+	
+	/**
+	 * This field holds the value of discount.
+	 */
+	@JsonProperty("discount")
+	private List<DiscountedSociety> discountList;
 
     /**
      * @return the instituteName

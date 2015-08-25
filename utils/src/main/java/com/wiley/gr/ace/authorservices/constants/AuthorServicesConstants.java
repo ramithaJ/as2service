@@ -126,5 +126,32 @@ public class AuthorServicesConstants {
 
     /** The Constant PDF_NAME. */
     public static final String PDF_NAME = "Invoice.pdf";
+    
+    /** The Constant INTERNAL_SERVER_ERROR */
+    public static final String INTERNAL_SERVER_ERROR = "500";
+    
+    /** The Constant SERVERERRORCODE. */
+    public static final String SERVERERRORCODE = "2013";
+
+    /** The Constant SERVERERRORMESSAGE. */
+    public static final String SERVERERRORMESSAGE = "Unable to process your request. Please try after some time..";
+    
+    /** The Constant SERVERERRORCODE. */
+    public static final String NODATAFOUNDCODE = "2013";
+
+    /** The Constant SERVERERRORMESSAGE. */
+    public static final String NODATAFOUNDMSG = "No Data Found";
+    
+    /** UNAUTHORIZEDCODE. */
+    public static final String UNAUTHORIZEDCODE = "2015";
+
+    /** UNAUTHORIZEDMSG. */
+    public static final String UNAUTHORIZEDMSG = "401 Unauthorized";
+
+    /** LOCKEDCODE. */
+    public static final String LOCKEDCODE = "2016";
+
+    /** LOCKEDMSG. */
+    public static final String LOCKEDMSG = "423 Locked";
 
 }

@@ -74,7 +74,7 @@ import com.wiley.gr.ace.authorservices.model.external.Customer;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSociety;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSocietyResponse;
 import com.wiley.gr.ace.authorservices.model.external.Institute;
-import com.wiley.gr.ace.authorservices.model.external.InstitutionDiscounts;
+import com.wiley.gr.ace.authorservices.model.external.InstitutionDiscountsResponse;
 import com.wiley.gr.ace.authorservices.model.external.Invoice;
 import com.wiley.gr.ace.authorservices.model.external.OrderData;
 import com.wiley.gr.ace.authorservices.model.external.OrderDataList;
@@ -284,10 +284,6 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 	 */
 	@Value("${cancelOrder.cancelReasonCode}")
 	private String cancelOrderCancelReasonCode;
-
-	/** the INTERNAL_SERVER_ERROR_CODE. */
-	@Value("${internal.server.error.code}")
-	private String internalServerErrorCode;
 
 	/**
 	 * Min value for Transaction id.
@@ -923,9 +919,11 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 	public final List<DiscountedSociety> retrieveSocietyDiscountListForJournal(
 			final String DHID) {
 		List<DiscountedSociety> discountedSocietyListForJournal = null;
+		String journalAcronym = null;
 
+		// TODO: Need to implement the retrival of jrnl acronym
 		DiscountedSocietyResponse discountedSocietiesResponse = orderservice
-				.getDiscountedSocietiesForJournal(DHID);
+				.getDiscountedSocietiesForJournal(journalAcronym);
 
 		if (discountedSocietiesResponse != null) {
 			discountedSocietyListForJournal = discountedSocietiesResponse
@@ -1090,12 +1088,11 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 	 * @return InstitutionalDiscounts
 	 */
 	@Override
-	public final InstitutionalDiscounts getInstitutionDiscounts(
-			final String DHID) {
+	public final InstitutionalDiscounts getInstitutionDiscounts() {
 
-		InstitutionDiscounts institutionDiscounts = orderservice
-				.getInstitutionDiscounts(DHID);
-		List<Institute> istituteList = institutionDiscounts.getPayLoad()
+		InstitutionDiscountsResponse institutionDiscounts = orderservice
+				.getInstitutionDiscounts();
+		List<Institute> istituteList = institutionDiscounts.getInstitutionDetails()
 				.getInstituteList();
 		InstitutionalDiscounts institutionalDiscounts = new InstitutionalDiscounts();
 		List<Institution> institutionList = new ArrayList<Institution>();
@@ -1306,7 +1303,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 		String articleName = null;
 		String journalName = null;
 		String taxAmount = null;
-		
+
 		/*
 		 * Need to remove all the null checks which are not required.
 		 */
@@ -1411,13 +1408,21 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 				onlineOpenOrder = new ObjectMapper().readValue(
 						object.toJSONString(), OnlineOpenOrder.class);
 			} catch (JsonParseException e) {
-				throw new ASException(internalServerErrorCode, e.getMessage());
+				throw new ASException(
+						AuthorServicesConstants.INTERNAL_SERVER_ERROR,
+						e.getMessage());
 			} catch (JsonMappingException e) {
-				throw new ASException(internalServerErrorCode, e.getMessage());
+				throw new ASException(
+						AuthorServicesConstants.INTERNAL_SERVER_ERROR,
+						e.getMessage());
 			} catch (ParseException e) {
-				throw new ASException(internalServerErrorCode, e.getMessage());
+				throw new ASException(
+						AuthorServicesConstants.INTERNAL_SERVER_ERROR,
+						e.getMessage());
 			} catch (IOException e) {
-				throw new ASException(internalServerErrorCode, e.getMessage());
+				throw new ASException(
+						AuthorServicesConstants.INTERNAL_SERVER_ERROR,
+						e.getMessage());
 			}
 		}
 

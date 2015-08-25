@@ -18,11 +18,13 @@ import java.net.URISyntaxException;
 import org.json.simple.JSONObject;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.model.Login;
 import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
 
@@ -48,7 +50,8 @@ public class RestServiceInvokerUtil {
      * @throws URISyntaxException 
      * @throws RestClientException 
      */
-    public static String invokeService(final String url,
+    @SuppressWarnings("unchecked")
+	public static String invokeService(final String url,
             final HttpMethod httpMethod, final String className,
             final Object postObject) throws ASException, RestClientException, URISyntaxException {
 
@@ -82,12 +85,73 @@ public class RestServiceInvokerUtil {
 
     }
 
-    // public static void main(String[] args) {
-    // Login login = new Login();
-    // login.setEmailId("ssaraf@wiley.com");
-    // login.setPassword("Sripad1234");
-    // RestServiceInvokerUtil.invokeService("http://10.201.64.81:8080/service/v1/auth/authenticate",
-    // HttpMethod.POST, "Login", login);
-    // }
+    /**
+     * Method to call external GET service calls.
+     *
+     * @param <T>
+     *            the generic type
+     * @param url
+     *            the url
+     * @param responseEntityClass
+     *            the response entity class
+     * @return the object
+     */
+    public static <T> Object getServiceData(final String url,
+            final Class<T> responseEntityClass) {
+
+        try {
+            ResponseEntity<T> response = new RestTemplate().getForEntity(
+                    new URI(url), responseEntityClass);
+            return response.getBody();
+        } catch (URISyntaxException e) {
+            throw new UserException(AuthorServicesConstants.SERVERERRORCODE,
+                    AuthorServicesConstants.SERVERERRORMESSAGE);
+        }
+    }
+    
+    /**
+     * Method to call external POST service calls.
+     *
+     * @param <T>
+     *            the generic type
+     * @param url
+     *            the url
+     * @param requestEntityClass
+     *            the request entity class
+     * @param responseEntityClass
+     *            the response entity class
+     * @return Object
+     */
+    public static <T> Object restServiceInvoker(final String url,
+            final Object requestEntityClass, final Class<T> responseEntityClass) {
+
+        try {
+            ResponseEntity<T> response = new RestTemplate().postForEntity(
+                    new URI(url), requestEntityClass, responseEntityClass);
+            if (StringUtils.isEmpty(response)) {
+                throw new UserException(
+                        AuthorServicesConstants.NODATAFOUNDCODE,
+                        AuthorServicesConstants.NODATAFOUNDMSG);
+            }
+            return response.getBody();
+
+        } catch (Exception e) {
+            final String message = e.getMessage();
+            if (AuthorServicesConstants.UNAUTHORIZEDMSG
+                    .equalsIgnoreCase(message)) {
+                throw new UserException(
+                        AuthorServicesConstants.UNAUTHORIZEDCODE, message);
+            }
+            if (AuthorServicesConstants.LOCKEDMSG.equalsIgnoreCase(e
+                    .getMessage())) {
+                throw new UserException(AuthorServicesConstants.LOCKEDCODE,
+                        message);
+            }
+            throw new UserException(AuthorServicesConstants.SERVERERRORCODE,
+                    AuthorServicesConstants.SERVERERRORMESSAGE);
+
+        }
+
+    }
 
 }
