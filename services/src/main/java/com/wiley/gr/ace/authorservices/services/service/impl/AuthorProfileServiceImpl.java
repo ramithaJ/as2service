@@ -25,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 
+import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteService;
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
@@ -111,6 +112,9 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     @Autowired(required = true)
     private AlertsDao alertsDao;
 
+    @Autowired(required = true)
+    private AutocompleteService autocomplete;
+
     /** The template id. */
     @Value("${templateId.password.reset}")
     private String templateId;
@@ -174,7 +178,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      */
     @Override
     public final boolean updateAffiliation(final int userId,
-            final AffiliationsUpdate affiliationUpdate ,String affiliationId) {
+            final AffiliationsUpdate affiliationUpdate, String affiliationId) {
         AuthorProfileServiceImpl.LOGGER
                 .info("inside updateAffiliation Method ");
         CustomerDetails customerDetails = getCustomeProfile(String
@@ -189,11 +193,16 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         affData.setEndDate(affiliationUpdate.getAffiliations().getEndDate());
         affData.setCity(affiliationUpdate.getAffiliations().getCity());
         affData.setState(affiliationUpdate.getAffiliations().getState());
-        affData.setCountryCd(affiliationUpdate.getAffiliations().getCountryCode());
-        affData.setInstitutionCd(affiliationUpdate.getAffiliations().getInstitutionId());
-        affData.setInstitutionName(affiliationUpdate.getAffiliations().getInstitutionName());
-        affData.setDepartmentCd(affiliationUpdate.getAffiliations().getDepartmentId());
-        affData.setDepartmentName(affiliationUpdate.getAffiliations().getDepartmentName());
+        affData.setCountryCd(affiliationUpdate.getAffiliations()
+                .getCountryCode());
+        affData.setInstitutionCd(affiliationUpdate.getAffiliations()
+                .getInstitutionId());
+        affData.setInstitutionName(affiliationUpdate.getAffiliations()
+                .getInstitutionName());
+        affData.setDepartmentCd(affiliationUpdate.getAffiliations()
+                .getDepartmentId());
+        affData.setDepartmentName(affiliationUpdate.getAffiliations()
+                .getDepartmentName());
         affDataList.add(affData);
         affiliationsData.setAffiliation(affDataList);
         customerProfile.setAffiliations(affiliationsData);
@@ -663,21 +672,26 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                 .getLookupCustomerProfileResponse().getCustomerProfile()
                 .getAffiliations().getAffiliation();
         List<Affiliation> listAffiliations = new ArrayList<Affiliation>();
-        for (AffiliationData affiliationData : listofAffiliations) {
-            Affiliation affiliation = new Affiliation();
-            affiliation.setAffiliationId(affiliationData.getId());
-            affiliation.setCity(affiliationData.getCity());
-            affiliation.setCountryCode(affiliationData.getCountryCd());
-            affiliation.setInstitutionId(affiliationData.getInstitutionCd());
-            affiliation.setDepartmentId(affiliationData.getDepartmentCd());
-            affiliation
-                    .setInstitutionName(affiliationData.getInstitutionName());
-            affiliation.setDepartmentName(affiliationData.getDepartmentName());
-            affiliation.setStartDate(affiliationData.getStartDate());
-            affiliation.setEndDate(affiliationData.getEndDate());
-            affiliation.setStateCode(affiliationData.getState());
-            affiliation.setId(affiliationData.getId());
-            listAffiliations.add(affiliation);
+        if (listofAffiliations != null) {
+
+            for (AffiliationData affiliationData : listofAffiliations) {
+                Affiliation affiliation = new Affiliation();
+                affiliation.setAffiliationId(affiliationData.getId());
+                affiliation.setCity(affiliationData.getCity());
+                affiliation.setCountryCode(affiliationData.getCountryCd());
+                affiliation
+                        .setInstitutionId(affiliationData.getInstitutionCd());
+                affiliation.setDepartmentId(affiliationData.getDepartmentCd());
+                affiliation.setInstitutionName(affiliationData
+                        .getInstitutionName());
+                affiliation.setDepartmentName(affiliationData
+                        .getDepartmentName());
+                affiliation.setStartDate(affiliationData.getStartDate());
+                affiliation.setEndDate(affiliationData.getEndDate());
+                affiliation.setStateCode(affiliationData.getState());
+                affiliation.setId(affiliationData.getId());
+                listAffiliations.add(affiliation);
+            }
         }
         return listAffiliations;
     }
@@ -786,15 +800,22 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      */
     @Override
     public final List<Interests> getAreaOfInterests(final String userId) {
+        List<Interests> areaList = null;
         List<InterestData> listOfArea = userProfiles
                 .getLookupCustomerProfile(userId)
                 .getLookupCustomerProfileResponse().getCustomerProfile()
                 .getAreaOfInterest().getInterest();
-        List<Interests> areaList = new ArrayList<Interests>();
-        for (InterestData interestData : listOfArea) {
-            Interests interests = new Interests();
-            interests.setAoeId(interestData.getInterestcode());
-            areaList.add(interests);
+        String aoeName = null;
+        if (listOfArea != null) {
+            areaList = new ArrayList<Interests>();
+            for (InterestData interestData : listOfArea) {
+                Interests interests = new Interests();
+                interests.setAoeId(interestData.getInterestcode());
+                aoeName = autocomplete.getNameByCode("areasOfInterests",
+                        interestData.getInterestcode(), null);
+                interests.setAoeName(aoeName);
+                areaList.add(interests);
+            }
         }
 
         return areaList;
@@ -1112,11 +1133,11 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
         CustomerProfile customerProfile = new CustomerProfile();
         customerProfile.setCustomerDetails(customerDetails);
-        List<Interests> listOfIntersts=areaOfInterests.getInterests();
-        List<InterestData> interestDataList=new ArrayList<InterestData>();
-        AreaOfInterest areaOfInterest=new AreaOfInterest();
+        List<Interests> listOfIntersts = areaOfInterests.getInterests();
+        List<InterestData> interestDataList = new ArrayList<InterestData>();
+        AreaOfInterest areaOfInterest = new AreaOfInterest();
         for (Interests interests : listOfIntersts) {
-            InterestData interestData=new InterestData();
+            InterestData interestData = new InterestData();
             interestData.setId(interests.getId());
             interestData.setStatus("add");
             interestDataList.add(interestData);

@@ -430,7 +430,6 @@ public class UserProfileController {
             @RequestBody final List<Alert> listOfalert) {
         UserProfileController.LOGGER.info("inside updateAlerts method ");
         Service service = new Service();
-        System.err.println("in controllerrrrrrrrrrrr");
         service.setPayload(authorProfileService.updateAlerts(userId,
                 listOfalert));
         return service;
