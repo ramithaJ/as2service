@@ -14,6 +14,7 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -23,8 +24,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  * @author yugandhark
  */
-public class AffiliationsData {
+public class AffiliationsData implements Serializable {
 
+    /**
+     * This field holds the value of serialVersionUID.
+     */
+    private static final long serialVersionUID = 1L;
     /** The affiliation. */
     @JsonProperty("Affiliation")
     private List<AffiliationData> affiliation;
@@ -41,7 +46,8 @@ public class AffiliationsData {
     /**
      * Sets the affiliation.
      *
-     * @param affiliation the new affiliation
+     * @param affiliation
+     *            the new affiliation
      */
     public final void setAffiliation(final List<AffiliationData> affiliation) {
         this.affiliation = affiliation;

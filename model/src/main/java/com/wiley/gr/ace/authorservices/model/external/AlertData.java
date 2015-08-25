@@ -14,6 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -21,13 +23,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  * @author yugandhark
  */
-public class AlertData {
-    
-    
+public class AlertData implements Serializable {
+
+    /**
+     * This field holds the value of serialVersionUID.
+     */
+    private static final long serialVersionUID = 1L;
+
     @JsonProperty("Type")
     private AlertType type;
 
- 
     /** The alert id. */
     @JsonProperty("AlertID")
     private String alertID;
@@ -35,8 +40,9 @@ public class AlertData {
     /** The status. */
     @JsonProperty("Status")
     private String status;
-  
+
     private String id;
+
     /**
      * Gets the alert id.
      *
@@ -54,16 +60,18 @@ public class AlertData {
     }
 
     /**
-     * @param id the id to set
+     * @param id
+     *            the id to set
      */
-    public final void setId(String id) {
+    public final void setId(final String id) {
         this.id = id;
     }
 
     /**
      * Sets the alert id.
      *
-     * @param alertID the new alert id
+     * @param alertID
+     *            the new alert id
      */
     public final void setAlertID(final String alertID) {
         this.alertID = alertID;
@@ -81,7 +89,8 @@ public class AlertData {
     /**
      * Sets the status.
      *
-     * @param status the new status
+     * @param status
+     *            the new status
      */
     public final void setStatus(final String status) {
         this.status = status;
@@ -95,12 +104,11 @@ public class AlertData {
     }
 
     /**
-     * @param type the type to set
+     * @param type
+     *            the type to set
      */
-    public final void setType(AlertType type) {
+    public final void setType(final AlertType type) {
         this.type = type;
     }
-
- 
 
 }

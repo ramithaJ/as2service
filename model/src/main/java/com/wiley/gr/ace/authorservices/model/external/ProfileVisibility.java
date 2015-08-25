@@ -14,6 +14,7 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -23,8 +24,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  * @author yugandhark
  */
-public class ProfileVisibility {
+public class ProfileVisibility implements Serializable {
 
+    /**
+     * This field holds the value of serialVersionUID.
+     */
+    private static final long serialVersionUID = 1L;
     /** The visibility. */
     @JsonProperty("Visibility")
     private List<Visibility> visibility;
@@ -41,7 +46,8 @@ public class ProfileVisibility {
     /**
      * Sets the visibility.
      *
-     * @param visibility the new visibility
+     * @param visibility
+     *            the new visibility
      */
     public final void setVisibility(final List<Visibility> visibility) {
         this.visibility = visibility;

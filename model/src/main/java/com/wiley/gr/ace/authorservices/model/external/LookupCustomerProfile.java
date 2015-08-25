@@ -14,6 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -21,7 +23,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  * @author yugandhark
  */
-public class LookupCustomerProfile extends ErrorResponse {
+public class LookupCustomerProfile extends ErrorResponse implements
+        Serializable {
+
+    /**
+     * This field holds the value of serialVersionUID.
+     */
+    private static final long serialVersionUID = 1L;
 
     /**
      * This field holds the value of status.

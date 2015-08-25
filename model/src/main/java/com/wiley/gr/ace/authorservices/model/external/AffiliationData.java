@@ -14,6 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -21,7 +23,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  * @author yugandhark
  */
-public class AffiliationData {
+public class AffiliationData implements Serializable {
+
+    /**
+     * This field holds the value of serialVersionUID.
+     */
+    private static final long serialVersionUID = 1L;
 
     /** The id. */
     @JsonProperty("Id")
@@ -79,7 +86,8 @@ public class AffiliationData {
     /**
      * Sets the id.
      *
-     * @param id the new id
+     * @param id
+     *            the new id
      */
     public final void setId(final String id) {
         this.id = id;
@@ -97,7 +105,8 @@ public class AffiliationData {
     /**
      * Sets the start date.
      *
-     * @param startDate the new start date
+     * @param startDate
+     *            the new start date
      */
     public final void setStartDate(final String startDate) {
         this.startDate = startDate;
@@ -115,13 +124,12 @@ public class AffiliationData {
     /**
      * Sets the end date.
      *
-     * @param endDate the new end date
+     * @param endDate
+     *            the new end date
      */
     public final void setEndDate(final String endDate) {
         this.endDate = endDate;
     }
-
- 
 
     /**
      * @return the city
@@ -131,7 +139,8 @@ public class AffiliationData {
     }
 
     /**
-     * @param city the city to set
+     * @param city
+     *            the city to set
      */
     public final void setCity(final String city) {
         this.city = city;
@@ -149,7 +158,8 @@ public class AffiliationData {
     /**
      * Sets the state.
      *
-     * @param state the new state
+     * @param state
+     *            the new state
      */
     public final void setState(final String state) {
         this.state = state;
@@ -167,7 +177,8 @@ public class AffiliationData {
     /**
      * Sets the country cd.
      *
-     * @param countryCd the new country cd
+     * @param countryCd
+     *            the new country cd
      */
     public final void setCountryCd(final String countryCd) {
         this.countryCd = countryCd;
@@ -185,7 +196,8 @@ public class AffiliationData {
     /**
      * Sets the institution cd.
      *
-     * @param institutionCd the new institution cd
+     * @param institutionCd
+     *            the new institution cd
      */
     public final void setInstitutionCd(final String institutionCd) {
         this.institutionCd = institutionCd;
@@ -203,7 +215,8 @@ public class AffiliationData {
     /**
      * Sets the institution name.
      *
-     * @param institutionName the new institution name
+     * @param institutionName
+     *            the new institution name
      */
     public final void setInstitutionName(final String institutionName) {
         this.institutionName = institutionName;
@@ -221,7 +234,8 @@ public class AffiliationData {
     /**
      * Sets the department cd.
      *
-     * @param departmentCd the new department cd
+     * @param departmentCd
+     *            the new department cd
      */
     public final void setDepartmentCd(final String departmentCd) {
         this.departmentCd = departmentCd;
@@ -239,7 +253,8 @@ public class AffiliationData {
     /**
      * Sets the department name.
      *
-     * @param departmentName the new department name
+     * @param departmentName
+     *            the new department name
      */
     public final void setDepartmentName(final String departmentName) {
         this.departmentName = departmentName;
@@ -257,7 +272,8 @@ public class AffiliationData {
     /**
      * Sets the status.
      *
-     * @param status the new status
+     * @param status
+     *            the new status
      */
     public final void setStatus(final String status) {
         this.status = status;

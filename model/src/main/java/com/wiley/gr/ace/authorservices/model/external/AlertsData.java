@@ -14,6 +14,7 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -23,8 +24,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  * @author yugandhark
  */
-public class AlertsData {
+public class AlertsData implements Serializable {
 
+    /**
+     * This field holds the value of serialVersionUID.
+     */
+    private static final long serialVersionUID = 1L;
     /** The alert. */
     @JsonProperty("Alert")
     private List<AlertData> alert;
@@ -37,11 +42,11 @@ public class AlertsData {
     }
 
     /**
-     * @param alert the alert to set
+     * @param alert
+     *            the alert to set
      */
     public final void setAlert(final List<AlertData> alert) {
         this.alert = alert;
     }
 
-   
 }

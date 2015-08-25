@@ -14,6 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -21,7 +23,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  * @author yugandhark
  */
-public class Journal {
+public class Journal implements Serializable {
+
+    /**
+     * This field holds the value of serialVersionUID.
+     */
+    private static final long serialVersionUID = 1L;
 
     /** The id. */
     @JsonProperty("Id")
@@ -51,7 +58,8 @@ public class Journal {
     /**
      * Sets the id.
      *
-     * @param id the new id
+     * @param id
+     *            the new id
      */
     public final void setId(final String id) {
         this.id = id;
@@ -69,7 +77,8 @@ public class Journal {
     /**
      * Sets the journal id.
      *
-     * @param journalID the new journal id
+     * @param journalID
+     *            the new journal id
      */
     public final void setJournalID(final String journalID) {
         this.journalID = journalID;
@@ -87,7 +96,8 @@ public class Journal {
     /**
      * Sets the journal title.
      *
-     * @param journalTitle the new journal title
+     * @param journalTitle
+     *            the new journal title
      */
     public final void setJournalTitle(final String journalTitle) {
         this.journalTitle = journalTitle;
@@ -105,7 +115,8 @@ public class Journal {
     /**
      * Sets the status.
      *
-     * @param status the new status
+     * @param status
+     *            the new status
      */
     public final void setStatus(final String status) {
         this.status = status;

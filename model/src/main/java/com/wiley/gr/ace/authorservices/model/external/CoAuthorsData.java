@@ -14,6 +14,7 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -23,8 +24,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  * @author yugandhark
  */
-public class CoAuthorsData {
+public class CoAuthorsData implements Serializable {
 
+    /**
+     * This field holds the value of serialVersionUID.
+     */
+    private static final long serialVersionUID = 1L;
     /** The co author. */
     @JsonProperty("CoAuthor")
     private List<CoAuthorData> coAuthor;
@@ -41,7 +46,8 @@ public class CoAuthorsData {
     /**
      * Sets the co author.
      *
-     * @param coAuthor the new co author
+     * @param coAuthor
+     *            the new co author
      */
     public final void setCoAuthor(final List<CoAuthorData> coAuthor) {
         this.coAuthor = coAuthor;

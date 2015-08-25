@@ -14,6 +14,7 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -23,8 +24,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  * @author yugandhark
  */
-public class AreaOfInterest {
+public class AreaOfInterest implements Serializable {
 
+    /**
+     * This field holds the value of serialVersionUID.
+     */
+    private static final long serialVersionUID = 1L;
     /** The interest. */
     @JsonProperty("Interest")
     private List<InterestData> interest;
@@ -41,7 +46,8 @@ public class AreaOfInterest {
     /**
      * Sets the interest.
      *
-     * @param interest the new interest
+     * @param interest
+     *            the new interest
      */
     public final void setInterest(final List<InterestData> interest) {
         this.interest = interest;

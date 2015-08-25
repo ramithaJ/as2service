@@ -14,6 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -21,8 +23,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  * @author Virtusa version1.0
  */
-public class ErrorResponse {
+public class ErrorResponse implements Serializable {
 
+    /**
+     * This field holds the value of serialVersionUID.
+     */
+    private static final long serialVersionUID = 1L;
     /** This field holds the value of error. */
     @JsonProperty("Error")
     protected ErrorPayLoad error;
@@ -39,7 +45,8 @@ public class ErrorResponse {
     /**
      * Sets the error.
      *
-     * @param error            the error to set
+     * @param error
+     *            the error to set
      */
     public final void setError(final ErrorPayLoad error) {
         this.error = error;

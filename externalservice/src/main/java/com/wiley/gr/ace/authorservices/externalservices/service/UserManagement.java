@@ -14,6 +14,7 @@ package com.wiley.gr.ace.authorservices.externalservices.service;
 import com.wiley.gr.ace.authorservices.model.AdminUser;
 import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
 import com.wiley.gr.ace.authorservices.model.external.ForcefulReset;
+import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.PasswordRequest;
 import com.wiley.gr.ace.authorservices.model.external.PasswordResetRequest;
 import com.wiley.gr.ace.authorservices.model.external.RetrieveSecurityQuestions;
@@ -119,4 +120,10 @@ public interface UserManagement {
     boolean validateSecurityQuestions(
             SecurityQuestionsValidateRequest securityQuestionsValidateRequest);
 
+    /**
+     * @param userId
+     *            - the request value
+     * @return LookupCustomerProfile
+     */
+    LookupCustomerProfile updateProfile(String userId);
 }

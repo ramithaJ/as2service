@@ -57,7 +57,8 @@ public interface AuthorProfileService {
      *            the affiliation
      * @return true, if successful
      */
-    boolean updateAffiliation(int userId, AffiliationsUpdate affiliationsUpdate,String affiliationId);
+    boolean updateAffiliation(int userId,
+            AffiliationsUpdate affiliationsUpdate, String affiliationId);
 
     /**
      * Update research funder.
@@ -68,7 +69,7 @@ public interface AuthorProfileService {
      *            the research funder
      * @return true, if successful
      */
-    boolean updateResearchFunder(int userId, ResearchFunder researchFunder);
+    /* boolean updateResearchFunder(int userId, ResearchFunder researchFunder); */
 
     /**
      * Update alerts.
@@ -80,13 +81,13 @@ public interface AuthorProfileService {
      * @return true, if successful
      */
     boolean updateAlerts(String userId, List<Alert> alert);
-    
+
     /**
      * @param userId
      * @param areaOfInterests
      * @return
      */
-    boolean addInterests(String userId,AreaOfInterests areaOfInterests);
+    boolean addInterests(String userId, AreaOfInterests areaOfInterests);
 
     /**
      * Update Coauthor.
@@ -97,7 +98,7 @@ public interface AuthorProfileService {
      *            the co author
      * @return true, if successful
      */
-    boolean updatecoAuthor(int userId, CoAuthor coAuthor);
+    /* boolean updatecoAuthor(int userId, CoAuthor coAuthor); */
 
     /**
      * Update email details.
@@ -157,7 +158,7 @@ public interface AuthorProfileService {
      *            the user id
      * @return the user profile response
      */
-    LookupCustomerProfile getuserProfileResponse(int userId);
+    /* LookupCustomerProfile getuserProfileResponse(int userId); */
 
     /**
      * Upload image.

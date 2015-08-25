@@ -14,6 +14,7 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -23,8 +24,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  * @author yugandhark
  */
-public class FavoriteJournals {
+public class FavoriteJournals implements Serializable {
 
+    /**
+     * This field holds the value of serialVersionUID.
+     */
+    private static final long serialVersionUID = 1L;
     /** The journal. */
     @JsonProperty("Journal")
     private List<Journal> journal;
@@ -41,7 +46,8 @@ public class FavoriteJournals {
     /**
      * Sets the journal.
      *
-     * @param journal the new journal
+     * @param journal
+     *            the new journal
      */
     public final void setJournal(final List<Journal> journal) {
         this.journal = journal;

@@ -33,9 +33,7 @@ import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.AffiliationsUpdate;
 import com.wiley.gr.ace.authorservices.model.Alert;
 import com.wiley.gr.ace.authorservices.model.AreaOfInterests;
-import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.ProfilePicture;
-import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
@@ -104,7 +102,7 @@ public class UserProfileController {
     @RequestMapping(value = "/affiliations/{userId}/{affiliationId}/", method = RequestMethod.POST)
     public final Service updateAffiliation(
             @PathVariable("userId") final int userId,
-            @PathVariable("affiliationId") String affiliationId,
+            @PathVariable("affiliationId") final String affiliationId,
             @RequestBody final AffiliationsUpdate affiliationsUpdate) {
         UserProfileController.LOGGER.info("inside updateAffiliation method ");
         Service service = new Service();
@@ -123,7 +121,7 @@ public class UserProfileController {
     @RequestMapping(value = "/affiliations/{userId}/{affiliationId}/", method = RequestMethod.DELETE)
     public final Service deleteAffiliation(
             @PathVariable("userId") final String userId,
-            @PathVariable("affiliationId") String affiliationId) {
+            @PathVariable("affiliationId") final String affiliationId) {
         UserProfileController.LOGGER.info("inside deleteaffiliation method ");
         Service service = new Service();
         service.setPayload(authorProfileService.deleteAffiliations(userId,
@@ -157,19 +155,20 @@ public class UserProfileController {
      *            - The request value
      * @return service
      */
-    @RequestMapping(value = "/researchFunder/{userId}", method = RequestMethod.POST)
-    public final Service updateResearchFunder(
-            @PathVariable("userId") final int userId,
-            @RequestBody final ResearchFunder researchFunder) {
-
-        UserProfileController.LOGGER
-                .info("inside updateResearchFunder method ");
-        Service service = new Service();
-        service.setPayload(authorProfileService.updateResearchFunder(userId,
-                researchFunder));
-        return service;
-    }
-
+    /*
+     * @RequestMapping(value = "/researchFunder/{userId}", method =
+     * RequestMethod.POST) public final Service updateResearchFunder(
+     * 
+     * @PathVariable("userId") final int userId,
+     * 
+     * @RequestBody final ResearchFunder researchFunder) {
+     * 
+     * UserProfileController.LOGGER
+     * .info("inside updateResearchFunder method "); Service service = new
+     * Service();
+     * service.setPayload(authorProfileService.updateResearchFunder(userId,
+     * researchFunder)); return service; }
+     */
     /**
      * Gets the societies list.
      *
@@ -258,7 +257,7 @@ public class UserProfileController {
     @RequestMapping(value = "/interests/search/{userId}/", method = RequestMethod.POST)
     public final Service searchInterests(
             @PathVariable("userId") final String userId,
-            @RequestBody AreaOfInterests areaOfInterests) {
+            @RequestBody final AreaOfInterests areaOfInterests) {
         Service service = new Service();
         service.setPayload(authorProfileService.addInterests(userId,
                 areaOfInterests));
@@ -312,17 +311,18 @@ public class UserProfileController {
      *            - The request value
      * @return service
      */
-    @RequestMapping(value = "/coAuthors/{userId}", method = RequestMethod.POST)
-    public final Service updateCoAuthors(@PathVariable final int userId,
-            @RequestBody final CoAuthor coAuthor) {
-
-        UserProfileController.LOGGER.info("inside updateCoAuthors method ");
-        Service service = new Service();
-        coAuthor.setUserId(userId);
-        service.setPayload(authorProfileService
-                .updatecoAuthor(userId, coAuthor));
-        return new Service();
-    }
+    /*
+     * @RequestMapping(value = "/coAuthors/{userId}", method =
+     * RequestMethod.POST) public final Service updateCoAuthors(@PathVariable
+     * final int userId,
+     * 
+     * @RequestBody final CoAuthor coAuthor) {
+     * 
+     * UserProfileController.LOGGER.info("inside updateCoAuthors method ");
+     * Service service = new Service(); coAuthor.setUserId(userId);
+     * service.setPayload(authorProfileService .updatecoAuthor(userId,
+     * coAuthor)); return new Service(); }
+     */
 
     /**
      * Gets the preferred journals.
@@ -456,16 +456,18 @@ public class UserProfileController {
      *            - The request value
      * @return service
      */
-    @RequestMapping(value = "/lookUpProfile/{userId}", method = RequestMethod.GET)
-    public final Service lookUpProfile(@PathVariable("userId") final int userId) {
-
-        UserProfileController.LOGGER.info("inside lookUpProfile method ");
-        Service service = new Service();
-        service.setPayload(authorProfileService.getuserProfileResponse(userId));
-        return service;
-
-    }
-
+    /*
+     * @RequestMapping(value = "/lookUpProfile/{userId}", method =
+     * RequestMethod.GET) public final Service
+     * lookUpProfile(@PathVariable("userId") final int userId) {
+     * 
+     * UserProfileController.LOGGER.info("inside lookUpProfile method ");
+     * Service service = new Service();
+     * service.setPayload(authorProfileService.getuserProfileResponse(userId));
+     * return service;
+     * 
+     * }
+     */
     /**
      * Gets the industries.
      *

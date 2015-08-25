@@ -11,6 +11,8 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -21,7 +23,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
-public class AddressElement {
+public class AddressElement implements Serializable {
+
+    /**
+     * This field holds the value of serialVersionUID.
+     */
+    private static final long serialVersionUID = 1L;
 
     /** The id. */
     @JsonProperty("Id")

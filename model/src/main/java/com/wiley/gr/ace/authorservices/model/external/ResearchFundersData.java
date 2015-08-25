@@ -14,6 +14,7 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -23,8 +24,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  * @author yugandhark
  */
-public class ResearchFundersData {
+public class ResearchFundersData implements Serializable {
 
+    /**
+     * This field holds the value of serialVersionUID.
+     */
+    private static final long serialVersionUID = 1L;
     /** The research funder. */
     @JsonProperty("ResearchFunder")
     private List<ResearchFunderData> researchFunder;
@@ -41,9 +46,11 @@ public class ResearchFundersData {
     /**
      * Sets the research funder.
      *
-     * @param researchFunder the new research funder
+     * @param researchFunder
+     *            the new research funder
      */
-    public final void setResearchFunder(final List<ResearchFunderData> researchFunder) {
+    public final void setResearchFunder(
+            final List<ResearchFunderData> researchFunder) {
         this.researchFunder = researchFunder;
     }
 

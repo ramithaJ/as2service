@@ -16,7 +16,6 @@ import com.wiley.gr.ace.authorservices.model.DropDown;
 import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfileResponse;
-import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 
 /**
  * The Interface UserProfiles.
@@ -83,7 +82,7 @@ public interface UserProfiles {
      *            the user id
      * @return the user profile response
      */
-    LookupCustomerProfile getUserProfileResponse(int userId);
+    /* LookupCustomerProfile getUserProfileResponse(int userId); */
 
     /**
      * Update profile.
@@ -94,8 +93,7 @@ public interface UserProfiles {
      *            the user profile response
      * @return the user profile response
      */
-    LookupCustomerProfile updateProfile(int userId,
-            UserProfileResponse userProfileResponse);
+    /* LookupCustomerProfile updateProfile(String userId); */
 
     /**
      * Gets the lookup customer profile.

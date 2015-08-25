@@ -14,6 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -24,8 +26,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author yugandhark
  */
 @JsonInclude(Include.NON_NULL)
-public class LookupCustomerProfileResponse {
+public class LookupCustomerProfileResponse implements Serializable {
 
+    /**
+     * This field holds the value of serialVersionUID.
+     */
+    private static final long serialVersionUID = 1L;
     /** The customer profile. */
     @JsonProperty("CustomerProfile")
     private CustomerProfile customerProfile;

@@ -14,6 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -24,7 +26,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author yugandhark
  */
 @JsonInclude(Include.NON_NULL)
-public class InterestData {
+public class InterestData implements Serializable {
+
+    /**
+     * This field holds the value of serialVersionUID.
+     */
+    private static final long serialVersionUID = 1L;
 
     private String id;
 
@@ -75,7 +82,7 @@ public class InterestData {
      * @param status
      *            the status to set
      */
-    public final void setStatus(String status) {
+    public final void setStatus(final String status) {
         this.status = status;
     }
 

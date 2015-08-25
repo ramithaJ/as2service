@@ -14,6 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -21,7 +23,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  * @author yugandhark
  */
-public class Visibility {
+public class Visibility implements Serializable {
+
+    /**
+     * This field holds the value of serialVersionUID.
+     */
+    private static final long serialVersionUID = 1L;
 
     /** The attribute code. */
     @JsonProperty("AttributeCode")
@@ -43,7 +50,8 @@ public class Visibility {
     /**
      * Sets the attribute code.
      *
-     * @param attributeCode the new attribute code
+     * @param attributeCode
+     *            the new attribute code
      */
     public final void setAttributeCode(final String attributeCode) {
         this.attributeCode = attributeCode;
@@ -61,7 +69,8 @@ public class Visibility {
     /**
      * Sets the visibility.
      *
-     * @param visibility the new visibility
+     * @param visibility
+     *            the new visibility
      */
     public final void setVisibility(final String visibility) {
         this.visibility = visibility;

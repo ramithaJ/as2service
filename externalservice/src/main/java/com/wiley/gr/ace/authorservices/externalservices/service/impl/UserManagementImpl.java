@@ -11,13 +11,10 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
-import java.io.File;
-import java.io.IOException;
-
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.util.StringUtils;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
@@ -26,6 +23,7 @@ import com.wiley.gr.ace.authorservices.model.AuditInformation;
 import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
 import com.wiley.gr.ace.authorservices.model.external.ErrorPayLoad;
 import com.wiley.gr.ace.authorservices.model.external.ForcefulReset;
+import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.PasswordRequest;
 import com.wiley.gr.ace.authorservices.model.external.PasswordResetRequest;
 import com.wiley.gr.ace.authorservices.model.external.ResponseStatus;
@@ -92,6 +90,10 @@ public class UserManagementImpl implements UserManagement {
     /** The failure. */
     @Value("${FAILURE}")
     private String failure;
+
+    /** The lookupCustomerProfileResponse. */
+    @Value("${lookupCustomerProfileResponse.url}")
+    private String lookupCustomerProfileResponse;
 
     /**
      * This method is for authentacing by calling shared services.
@@ -201,16 +203,6 @@ public class UserManagementImpl implements UserManagement {
     public final boolean updateSecurityDetails(
             final SecurityQuestionsUpdateRequest securityQuestionsUpdateRequest) {
 
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            mapper.writeValue(new File("c:\\Shiva\\user.json"),
-                    securityQuestionsUpdateRequest);
-
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
         return this.externalPostServiceInvoker(updateSecurityDetailsurl,
                 securityQuestionsUpdateRequest);
     }
@@ -317,4 +309,18 @@ public class UserManagementImpl implements UserManagement {
         return status;
     }
 
+    @Override
+    @CachePut(value = "userProfile", key = "#userId")
+    public final LookupCustomerProfile updateProfile(final String userId) {
+
+        LookupCustomerProfile lookupCustomerProfile = (LookupCustomerProfile) RestServiceInvokerUtil
+                .getServiceData(lookupCustomerProfileResponse + userId
+                        + "&ECID=", LookupCustomerProfile.class);
+        if (failure.equalsIgnoreCase(lookupCustomerProfile.getStatus())) {
+            final ErrorPayLoad errorPayLoad = lookupCustomerProfile.getError();
+            throw new UserException(errorPayLoad.getErrorCode(),
+                    errorPayLoad.getErrorMessage());
+        }
+        return lookupCustomerProfile;
+    }
 }

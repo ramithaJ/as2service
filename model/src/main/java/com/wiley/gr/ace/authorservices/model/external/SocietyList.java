@@ -14,6 +14,7 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -23,8 +24,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  * @author yugandhark
  */
-public class SocietyList {
+public class SocietyList implements Serializable {
 
+    /**
+     * This field holds the value of serialVersionUID.
+     */
+    private static final long serialVersionUID = 1L;
     /** The Society. */
     @JsonProperty("Society")
     private List<SocietyData> society;
@@ -37,12 +42,11 @@ public class SocietyList {
     }
 
     /**
-     * @param society the society to set
+     * @param society
+     *            the society to set
      */
     public final void setSociety(final List<SocietyData> society) {
         this.society = society;
     }
-
-    
 
 }

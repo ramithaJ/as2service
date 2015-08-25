@@ -14,6 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -21,7 +23,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  * @author yugandhark
  */
-public class SocietyData {
+public class SocietyData implements Serializable {
+
+    /**
+     * This field holds the value of serialVersionUID.
+     */
+    private static final long serialVersionUID = 1L;
 
     /** The id. */
     @JsonProperty("Id")
@@ -67,7 +74,8 @@ public class SocietyData {
     /**
      * Sets the id.
      *
-     * @param id the new id
+     * @param id
+     *            the new id
      */
     public final void setId(final String id) {
         this.id = id;
@@ -85,7 +93,8 @@ public class SocietyData {
     /**
      * Sets the society name.
      *
-     * @param societyName the new society name
+     * @param societyName
+     *            the new society name
      */
     public final void setSocietyName(final String societyName) {
         this.societyName = societyName;
@@ -103,7 +112,8 @@ public class SocietyData {
     /**
      * Sets the start date.
      *
-     * @param startDate the new start date
+     * @param startDate
+     *            the new start date
      */
     public final void setStartDate(final String startDate) {
         this.startDate = startDate;
@@ -121,7 +131,8 @@ public class SocietyData {
     /**
      * Sets the end date.
      *
-     * @param endDate the new end date
+     * @param endDate
+     *            the new end date
      */
     public final void setEndDate(final String endDate) {
         this.endDate = endDate;
@@ -139,7 +150,8 @@ public class SocietyData {
     /**
      * Sets the promo code.
      *
-     * @param promoCode the new promo code
+     * @param promoCode
+     *            the new promo code
      */
     public final void setPromoCode(final String promoCode) {
         this.promoCode = promoCode;
@@ -157,7 +169,8 @@ public class SocietyData {
     /**
      * Sets the membership no.
      *
-     * @param membershipNo the new membership no
+     * @param membershipNo
+     *            the new membership no
      */
     public final void setMembershipNo(final String membershipNo) {
         this.membershipNo = membershipNo;
@@ -175,7 +188,8 @@ public class SocietyData {
     /**
      * Sets the society id.
      *
-     * @param societyId the new society id
+     * @param societyId
+     *            the new society id
      */
     public final void setSocietyId(final String societyId) {
         this.societyId = societyId;
@@ -193,7 +207,8 @@ public class SocietyData {
     /**
      * Sets the status.
      *
-     * @param status the new status
+     * @param status
+     *            the new status
      */
     public final void setStatus(final String status) {
         this.status = status;

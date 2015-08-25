@@ -14,12 +14,19 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * The Class ErrorPayLoad.
  */
-public class ErrorPayLoad {
+public class ErrorPayLoad implements Serializable {
+
+    /**
+     * This field holds the value of serialVersionUID.
+     */
+    private static final long serialVersionUID = 1L;
 
     /** The error code. */
     @JsonProperty("ErrorCode")
@@ -41,7 +48,8 @@ public class ErrorPayLoad {
     /**
      * Sets the error code.
      *
-     * @param errorCode            the errorCode to set
+     * @param errorCode
+     *            the errorCode to set
      */
     public final void setErrorCode(final String errorCode) {
         this.errorCode = errorCode;
@@ -59,7 +67,8 @@ public class ErrorPayLoad {
     /**
      * Sets the error message.
      *
-     * @param errorMessage            the errorMessage to set
+     * @param errorMessage
+     *            the errorMessage to set
      */
     public final void setErrorMessage(final String errorMessage) {
         this.errorMessage = errorMessage;

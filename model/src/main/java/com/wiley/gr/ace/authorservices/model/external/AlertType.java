@@ -12,17 +12,24 @@
 
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * The Class AlertType.
  */
-public class AlertType {
+public class AlertType implements Serializable {
+
+    /**
+     * This field holds the value of serialVersionUID.
+     */
+    private static final long serialVersionUID = 1L;
 
     /** The onscreen. */
     @JsonProperty("OnScreen")
     private String onscreen;
-    
+
     /** The email. */
     @JsonProperty("Email")
     private String email;
@@ -35,7 +42,8 @@ public class AlertType {
     }
 
     /**
-     * @param onscreen the onscreen to set
+     * @param onscreen
+     *            the onscreen to set
      */
     public final void setOnscreen(final String onscreen) {
         this.onscreen = onscreen;
@@ -49,9 +57,10 @@ public class AlertType {
     }
 
     /**
-     * @param email the email to set
+     * @param email
+     *            the email to set
      */
     public final void setEmail(final String email) {
         this.email = email;
     }
-}  
+}

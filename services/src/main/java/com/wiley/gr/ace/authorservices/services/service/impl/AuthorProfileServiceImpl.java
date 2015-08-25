@@ -179,7 +179,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      */
     @Override
     public final boolean updateAffiliation(final int userId,
-            final AffiliationsUpdate affiliationUpdate, String affiliationId) {
+            final AffiliationsUpdate affiliationUpdate,
+            final String affiliationId) {
         AuthorProfileServiceImpl.LOGGER
                 .info("inside updateAffiliation Method ");
         CustomerDetails customerDetails = getCustomeProfile(String
@@ -228,19 +229,18 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      *            the research funder
      * @return true, if successful
      */
-    @Override
-    public final boolean updateResearchFunder(final int userId,
-            final ResearchFunder researchFunder) {
-
-        AuthorProfileServiceImpl.LOGGER
-                .info("inside updateResearchFunder Method ");
-
-        final List<ResearchFunder> list = new ArrayList<ResearchFunder>();
-        list.add(researchFunder);
-        userProfile.setResearchFunders(list);
-        lookUpProfile.setCustomerProfile(userProfile);
-        return null != userProfiles.updateProfile(userId, lookUpProfile);
-    }
+    /*
+     * @Override public final boolean updateResearchFunder(final int userId,
+     * final ResearchFunder researchFunder) {
+     * 
+     * AuthorProfileServiceImpl.LOGGER
+     * .info("inside updateResearchFunder Method ");
+     * 
+     * final List<ResearchFunder> list = new ArrayList<ResearchFunder>();
+     * list.add(researchFunder); userProfile.setResearchFunders(list);
+     * lookUpProfile.setCustomerProfile(userProfile); return null !=
+     * userProfiles.updateProfile(userId, lookUpProfile); }
+     */
 
     /**
      * Update alerts.
@@ -297,19 +297,19 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      *            the co author
      * @return true, if successful
      */
-    @Override
-    public final boolean updatecoAuthor(final int userId,
-            final CoAuthor coAuthor) {
-
-        AuthorProfileServiceImpl.LOGGER.info("inside updatecoAuthor Method ");
-
-        final List<CoAuthor> list = new ArrayList<CoAuthor>();
-        list.add(coAuthor);
-        userProfile.setCoAuthors(list);
-        lookUpProfile.setCustomerProfile(userProfile);
-        return null != userProfiles.updateProfile(userId, lookUpProfile);
-
-    }
+    /*
+     * @Override public final boolean updatecoAuthor(final int userId, final
+     * CoAuthor coAuthor) {
+     * 
+     * AuthorProfileServiceImpl.LOGGER.info("inside updatecoAuthor Method ");
+     * 
+     * final List<CoAuthor> list = new ArrayList<CoAuthor>();
+     * list.add(coAuthor); userProfile.setCoAuthors(list);
+     * lookUpProfile.setCustomerProfile(userProfile); return null !=
+     * userProfiles.updateProfile(userId, lookUpProfile);
+     * 
+     * }
+     */
 
     /**
      * Update email details.
@@ -614,12 +614,12 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      *            the user id
      * @return the user profile response
      */
-    @Override
-    public final LookupCustomerProfile getuserProfileResponse(final int userId) {
-        AuthorProfileServiceImpl.LOGGER.info("in UserProfileResponse Method");
-        return userProfiles.getUserProfileResponse(userId);
-    }
-
+    /*
+     * @Override public final LookupCustomerProfile getuserProfileResponse(final
+     * int userId) {
+     * AuthorProfileServiceImpl.LOGGER.info("in UserProfileResponse Method");
+     * return userProfiles.getUserProfileResponse(userId); }
+     */
     /**
      * This method is for uploading image.
      *
@@ -1135,7 +1135,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     }
 
     @Override
-    public boolean addInterests(String userId, AreaOfInterests areaOfInterests) {
+    public boolean addInterests(final String userId,
+            final AreaOfInterests areaOfInterests) {
         CustomerDetails customerDetails = getCustomeProfile(String
                 .valueOf(userId));
         LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();

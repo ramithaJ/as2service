@@ -14,6 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -24,7 +26,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author yugandhark
  */
 @JsonInclude(Include.NON_NULL)
-public class CustomerProfile {
+public class CustomerProfile implements Serializable {
+
+    /**
+     * This field holds the value of serialVersionUID.
+     */
+    private static final long serialVersionUID = 1L;
 
     /** The customer details. */
     @JsonProperty("CustomerDetails")
@@ -54,21 +61,6 @@ public class CustomerProfile {
     @JsonProperty("Alerts")
     private AlertsData alerts;
 
-    /**
-     * @return the alerts
-     */
-    public final AlertsData getAlerts() {
-        return alerts;
-    }
-
-    /**
-     * @param alerts
-     *            the alerts to set
-     */
-    public final void setAlerts(final AlertsData alerts) {
-        this.alerts = alerts;
-    }
-
     /** The affiliations. */
     @JsonProperty("Affiliations")
     private AffiliationsData affiliations;
@@ -88,6 +80,21 @@ public class CustomerProfile {
      */
     public final CustomerDetails getCustomerDetails() {
         return customerDetails;
+    }
+
+    /**
+     * @return the alerts
+     */
+    public final AlertsData getAlerts() {
+        return alerts;
+    }
+
+    /**
+     * @param alerts
+     *            the alerts to set
+     */
+    public final void setAlerts(final AlertsData alerts) {
+        this.alerts = alerts;
     }
 
     /**
