@@ -14,6 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -34,22 +36,12 @@ public class OrderPaymentStatus {
     /**
      * This field holds the value of availableActions.
      */
-    private String availableActions;
+    private List<String> availableActionsList;
 
     /**
-     * @return the availableActions
+     * This field holds the value of additionalParam.
      */
-    public final String getAvailableActions() {
-        return availableActions;
-    }
-
-    /**
-     * @param availableActions
-     *            the availableActions to set
-     */
-    public final void setAvailableActions(final String availableActions) {
-        this.availableActions = availableActions;
-    }
+    private String additionalParam;
 
     /**
      * @return the openAccessStatus
@@ -79,6 +71,37 @@ public class OrderPaymentStatus {
      */
     public final void setOnlineOpenStatus(final String onlineOpenStatus) {
         this.onlineOpenStatus = onlineOpenStatus;
+    }
+
+    /**
+     * @return the availableActionsList
+     */
+    public final List<String> getAvailableActionsList() {
+        return availableActionsList;
+    }
+
+    /**
+     * @param availableActionsList
+     *            the availableActionsList to set
+     */
+    public final void setAvailableActionsList(
+            final List<String> availableActionsList) {
+        this.availableActionsList = availableActionsList;
+    }
+
+    /**
+     * @return the additionalParam
+     */
+    public final String getAdditionalParam() {
+        return additionalParam;
+    }
+
+    /**
+     * @param additionalParam
+     *            the additionalParam to set
+     */
+    public final void setAdditionalParam(final String additionalParam) {
+        this.additionalParam = additionalParam;
     }
 
 }

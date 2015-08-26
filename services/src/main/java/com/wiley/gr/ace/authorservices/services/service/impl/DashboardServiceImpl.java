@@ -635,8 +635,14 @@ public class DashboardServiceImpl implements DashboardService {
             OrderStatus orderStatus = orderStatusHashMap.get(String
                     .valueOf(articleId));
             orderPaymentStatus.setOnlineOpenStatus(orderStatus.getStatus());
-            orderPaymentStatus.setAvailableActions(orderStatus
-                    .getActionsRequired());
+            String[] actionArray = orderStatus.getActionsRequired().split(",");
+            List<String> availableActionsList = new ArrayList<String>();
+            for (String action : actionArray) {
+                availableActionsList.add(action);
+            }
+            orderPaymentStatus.setAvailableActionsList(availableActionsList);
+            // TODO: set date to additional param
+            orderPaymentStatus.setAdditionalParam("");
             return orderPaymentStatus;
         }
 
@@ -679,33 +685,39 @@ public class DashboardServiceImpl implements DashboardService {
     private OrderPaymentStatus openAccessStatus(final Quote quote) {
 
         OrderPaymentStatus orderPaymentStatus = new OrderPaymentStatus();
-        StringTokenizer stringTokenizer = null;
         if ("AP".equalsIgnoreCase(quote.getQuoteType())
                 && "APPROVED".equalsIgnoreCase(quote.getQuoteStatus())) {
-            stringTokenizer = new StringTokenizer(
-                    "MAKE_PAYMENT_STATUS_TEXT:PAYMENT_DUE_ACTION_TEXT", ":");
-            orderPaymentStatus.setOpenAccessStatus(stringTokenizer
-                    .nextElement().toString());
-            orderPaymentStatus.setAvailableActions(stringTokenizer
-                    .nextElement().toString());
-        } else if ("FI".equalsIgnoreCase(quote.getQuoteType())
-                && "APPROVED".equalsIgnoreCase(quote.getQuoteStatus())) {
-            stringTokenizer = new StringTokenizer(
-                    "PAYMENT_COVERED_STATUS_TEXT:None", ":");
-            orderPaymentStatus.setOpenAccessStatus(stringTokenizer
-                    .nextElement().toString());
-            orderPaymentStatus.setAvailableActions(stringTokenizer
-                    .nextElement().toString());
-        } else if ("FI".equalsIgnoreCase(quote.getQuoteType())
-                && "Denied".equalsIgnoreCase(quote.getQuoteStatus())) {
-            stringTokenizer = new StringTokenizer(
-                    "FUND_DENIED_STATUS_TEXT:CONTACT_WILEY_SUPPORT_ACTION_TEXT",
-                    ":");
-            orderPaymentStatus.setOpenAccessStatus(stringTokenizer
-                    .nextElement().toString());
-            orderPaymentStatus.setAvailableActions(stringTokenizer
-                    .nextElement().toString());
+            return setOAAvailableActions("MAKE_PAYMENT_STATUS_TEXT:PAYMENT_DUE_ACTION_TEXT");
         }
+        if ("FI".equalsIgnoreCase(quote.getQuoteType())
+                && "APPROVED".equalsIgnoreCase(quote.getQuoteStatus())) {
+            return setOAAvailableActions("PAYMENT_COVERED_STATUS_TEXT:None");
+        }
+        if ("FI".equalsIgnoreCase(quote.getQuoteType())
+                && "Denied".equalsIgnoreCase(quote.getQuoteStatus())) {
+            return setOAAvailableActions("FUND_DENIED_STATUS_TEXT:CONTACT_WILEY_SUPPORT_ACTION_TEXT");
+        }
+        if ("Withdrawn".equalsIgnoreCase(quote.getQuoteStatus())) {
+            return setOAAvailableActions("ARTICLE_WITHDRAWN_STATUS_TEXT:None");
+        }
+        return orderPaymentStatus;
+    }
+
+    private OrderPaymentStatus setOAAvailableActions(final String status) {
+
+        OrderPaymentStatus orderPaymentStatus = new OrderPaymentStatus();
+        StringTokenizer stringTokenizer = new StringTokenizer(status, ":");
+        orderPaymentStatus.setOpenAccessStatus(stringTokenizer.nextElement()
+                .toString());
+        String[] actionsArray = stringTokenizer.nextElement().toString()
+                .split(",");
+        List<String> availableActionsArray = new ArrayList<String>();
+        for (String action : actionsArray) {
+            availableActionsArray.add(action);
+        }
+        // TODO: we need to set date here
+        orderPaymentStatus.setAdditionalParam("");
+        orderPaymentStatus.setAvailableActionsList(availableActionsArray);
         return orderPaymentStatus;
     }
 
