@@ -24,7 +24,6 @@ import org.slf4j.LoggerFactory;
 
 import com.wiley.gr.ace.authorservices.persistence.entity.InvitationLog;
 import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
-import com.wiley.gr.ace.authorservices.persistence.entity.ProductPublicationStatuses;
 import com.wiley.gr.ace.authorservices.persistence.services.DashboardDAO;
 
 /**
@@ -87,36 +86,6 @@ public class DashboardDAOImpl implements DashboardDAO {
                     .createQuery(productPersonRelationsHql)
                     .setInteger("userId", Integer.parseInt(userId)).list();
             return productPersonRelationsList;
-        } finally {
-            if (session != null) {
-                session.flush();
-                session.close();
-            }
-        }
-    }
-
-    /**
-     * Gets the published article details.
-     *
-     * @param dhId
-     *            the dh id
-     * @return the published article details
-     * @throws Exception
-     *             the exception
-     */
-    @Override
-    public final ProductPublicationStatuses getPublishedArticleDetails(
-            final Integer dhId) throws Exception {
-        LOGGER.info("inside getPublishedArticleDetails Method of DashboardDAOImpl");
-        Session session = null;
-        String productPublicationStatusesHql = null;
-        try {
-            session = getSessionFactory().openSession();
-            productPublicationStatusesHql = "from ProductPublicationStatuses pps where pps.products.dhId=:dhId";
-            final ProductPublicationStatuses productPublicationStatuses = (ProductPublicationStatuses) session
-                    .createQuery(productPublicationStatusesHql)
-                    .setInteger("dhId", dhId).uniqueResult();
-            return productPublicationStatuses;
         } finally {
             if (session != null) {
                 session.flush();
