@@ -99,7 +99,10 @@ public class SendNotificationImpl implements SendNotification {
         NotificationFieldList notificationFieldList = new NotificationFieldList();
         List<String> listofFields = new ArrayList<String>();
         Users users = sendNotificationDao.getUserProfileByEmail(emailId);
-        listofFields.add(users.getFirstName());
+        if(users != null) {
+            listofFields.add(users.getFirstName());
+        }
+        
         listofFields.add(emailId);
         notificationFieldList.setFieldList(listofFields);
         notificationRequest.setTemplateDetails(notificationFieldList);
