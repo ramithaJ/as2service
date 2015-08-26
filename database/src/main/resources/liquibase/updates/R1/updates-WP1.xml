@@ -2253,6 +2253,11 @@ ALTER TABLE user_profile MODIFY PROFILE_VISIBLE_FLG DEFAULT '1';
 </changeSet>
 
 <!--
+
+<changeSet author="gphaniraj" id="WP1-SEED_DATA">
+    <sqlFile  path="../sql/seed_data.sql" relativeToChangelogFile="true" splitStatements="true" stripComments="true"/>
+</changeSet> 
+
 <changeSet author="gphaniraj" id="WP1-SOCIETIES_DATA" runOnChange="true">
  <loadUpdateData file="src/main/resources/liquibase/updates/csv/Societies.csv" quotchar="'" tableName="societies" primaryKey="society_cd">
         <column name="SOCIETY_CD" header="SOCIETY_CD" type="string"/>
@@ -2271,5 +2276,7 @@ ALTER TABLE user_profile MODIFY PROFILE_VISIBLE_FLG DEFAULT '1';
     </loadUpdateData>
 </changeSet>
 -->
+
+
 
 </databaseChangeLog>

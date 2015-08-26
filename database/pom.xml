@@ -150,11 +150,44 @@
                 </plugins>
             </build>        
         </profile>
+		<!-- Liquibase Profile for QA -->
+	<profile>
+            <id>liquibase-qa</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+                <property>
+                    <name>liquibase-qa</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                      <groupId>org.liquibase</groupId>
+                      <artifactId>liquibase-maven-plugin</artifactId>
+                      <version>3.3.2</version>
+                      <executions>
+                        <execution>
+                            <phase>process-resources</phase>
+                            <configuration>
+                     <propertyFile>src/main/resources/properties/liquibase-qa.properties</propertyFile>
+					<changeLogFile>src/main/resources/liquibase/dbchangelog-master.xml</changeLogFile>
+					<promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+                            </configuration>
+                            <goals>
+							    <goal>dropAll</goal>
+                                <goal>update</goal>
+                            </goals>
+                        </execution>
+                      </executions>
+                    </plugin>
+                </plugins>
+            </build>        
+        </profile>
 	<!-- Liquibase Profile for Migration -->
 	<profile>
             <id>liquibase-migration</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
                 <property>
                     <name>liquibase-migration</name>
                 </property>
