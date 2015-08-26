@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.model.Login;
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
@@ -273,13 +274,15 @@ public class UserLoginServiceImpl implements UserLoginService {
         validateUserSecurityQA.setUserSecurityQuestions(userSecurityQuestions);
         securityQuestionsValidateRequest
                 .setValidateUserSecurityQA(validateUserSecurityQA);
-
-        final boolean status = userManagement
-                .validateSecurityQuestions(securityQuestionsValidateRequest);
-        if (!status) {
+        try {
+            return userManagement
+                    .validateSecurityQuestions(securityQuestionsValidateRequest);
+        } catch (UserException userException) {
+            // need to put correct templteId here
             sendNotification.notifyByEmail(emailId, templateId);
+            throw new UserException(userException.getErrorCode(),
+                    userException.getDescription());
         }
-        return status;
     }
 
     /**

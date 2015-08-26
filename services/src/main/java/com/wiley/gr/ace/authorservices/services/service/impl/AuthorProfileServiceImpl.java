@@ -259,7 +259,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         customerProfile.setCustomerDetails(customerDetails);
         AlertsData alertsData = new AlertsData();
         List<AlertData> alertList = new ArrayList<AlertData>();
-        List<Alert> alertLIst=listOfalert.getAlertsList();
+        List<Alert> alertLIst = listOfalert.getAlertsList();
         for (Alert alert : alertLIst) {
             AlertData alertData = new AlertData();
             AlertType alertType = new AlertType();
@@ -553,7 +553,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         passwordUpdate.setUpdateUserSecurityAttributes(passwordRequest);
         final boolean status = userManagement.updatePassword(passwordRequest);
         if (status) {
-
+            // need to put correct templeteId for password update
             sendNotification.notifyByEmail(passwordDetails.getEmailId(),
                     templateId);
         }
@@ -1025,7 +1025,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * */
     @Override
     public boolean deleteSociety(final String userId, final String societyId,
-            String id) {
+            final String id) {
 
         CustomerDetails customerDetails = getCustomeProfile(String
                 .valueOf(userId));
