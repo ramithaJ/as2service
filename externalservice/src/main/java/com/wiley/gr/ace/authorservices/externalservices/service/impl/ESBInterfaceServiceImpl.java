@@ -293,7 +293,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      *             the exception
      */
     @Override
-    public final ArticleData getAuthorArticle(final Integer articleId)
+    public final ArticleData getAuthorArticle(final String articleId)
             throws Exception {
         return (ArticleData) StubInvokerUtil.invokeStub(articleDataUrl,
                 HttpMethod.GET, ArticleData.class);

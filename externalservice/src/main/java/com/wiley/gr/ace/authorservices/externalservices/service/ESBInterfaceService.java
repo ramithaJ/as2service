@@ -105,7 +105,7 @@ public interface ESBInterfaceService {
      * @throws Exception
      *             the exception
      */
-    ArticleData getAuthorArticle(Integer articleId) throws Exception;
+    ArticleData getAuthorArticle(String articleId) throws Exception;
 
     /**
      * Gets the article pdf response.
