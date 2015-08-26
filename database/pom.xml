@@ -174,7 +174,6 @@
 					<promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
                             </configuration>
                             <goals>
-							    <goal>dropAll</goal>
                                 <goal>update</goal>
                             </goals>
                         </execution>
