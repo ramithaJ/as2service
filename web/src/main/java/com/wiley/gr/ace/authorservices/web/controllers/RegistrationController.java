@@ -203,7 +203,7 @@ public class RegistrationController {
                 ArrayList<User> usersList = null;
                 usersList = registrationService.getUserFromFirstNameLastName(
                         user.getFirstName(), user.getLastName());
-                if (!StringUtils.isEmpty(usersList)) {
+                if (!StringUtils.isEmpty(usersList) && usersList.size() > 0) {
                     service.setStatus("FAILURE");
                     service.setPayload(usersList);
                     ErrorPOJO err = new ErrorPOJO();
