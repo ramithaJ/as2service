@@ -251,7 +251,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      */
     @Override
     public final boolean updateAlerts(final String userId,
-            final List<Alert> listOfalert) {
+            final AlertsList listOfalert) {
         AuthorProfileServiceImpl.LOGGER.info("inside updateAlerts Method ");
         CustomerDetails customerDetails = getCustomeProfile(userId);
         LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
@@ -259,10 +259,11 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         customerProfile.setCustomerDetails(customerDetails);
         AlertsData alertsData = new AlertsData();
         List<AlertData> alertList = new ArrayList<AlertData>();
-        for (Alert alert : listOfalert) {
+        List<Alert> alertLIst=listOfalert.getAlertsList();
+        for (Alert alert : alertLIst) {
             AlertData alertData = new AlertData();
             AlertType alertType = new AlertType();
-            alertData.setId(alert.getId());
+            alertData.setId(alert.getAlertId());
             alertData.setAlertID(alert.getAlertId());
             alertData.setStatus(alert.getStatus());
             if (alert.isEmail()) {

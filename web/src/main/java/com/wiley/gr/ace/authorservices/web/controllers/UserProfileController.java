@@ -13,7 +13,6 @@ package com.wiley.gr.ace.authorservices.web.controllers;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 import javax.validation.Valid;
 
@@ -31,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.AffiliationsUpdate;
-import com.wiley.gr.ace.authorservices.model.Alert;
+import com.wiley.gr.ace.authorservices.model.AlertsList;
 import com.wiley.gr.ace.authorservices.model.AreaOfInterests;
 import com.wiley.gr.ace.authorservices.model.ProfilePicture;
 import com.wiley.gr.ace.authorservices.model.Service;
@@ -427,7 +426,7 @@ public class UserProfileController {
     @RequestMapping(value = "/alerts/{userId}", method = RequestMethod.POST)
     public final Service updateAlerts(
             @PathVariable("userId") final String userId,
-            @RequestBody final List<Alert> listOfalert) {
+            @RequestBody final AlertsList listOfalert) {
         UserProfileController.LOGGER.info("inside updateAlerts method ");
         Service service = new Service();
         service.setPayload(authorProfileService.updateAlerts(userId,
