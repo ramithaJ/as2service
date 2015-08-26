@@ -214,7 +214,7 @@ public class UserProfileController {
      *            - The request value
      * @return service
      */
-    @RequestMapping(value = "/societies/{userId}/{societyId}/{id}/", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/societies/{userId}/{societyId}/{id}", method = RequestMethod.DELETE)
     public final Service deleteSocietyDetails(
             @PathVariable("userId") final String userId,
             @PathVariable("societyId") final String societyId,
@@ -255,7 +255,7 @@ public class UserProfileController {
      *            - The request value
      * @return service
      */
-    @RequestMapping(value = "/interests/search/{userId}/", method = RequestMethod.POST)
+    @RequestMapping(value = "/interests/{userId}/", method = RequestMethod.POST)
     public final Service searchInterests(
             @PathVariable("userId") final String userId,
             @RequestBody final AreaOfInterests areaOfInterests) {
