@@ -65,6 +65,14 @@ public class DashboardController {
     @Value("${DashboardController.getAllAuthorArticles.message}")
     private String getAllAuthorArticlesErrorMessage;
 
+    /** The get action required error code. */
+    @Value("${DashboardController.getActionRequired.code}")
+    private String getActionRequiredErrorCode;
+
+    /** The get action required error message. */
+    @Value("${DashboardController.getActionRequired.message}")
+    private String getActionRequiredErrorMessage;
+
     /** value from props file configured. */
     @Value("${DashboardController.getEmailCommunicationHistory.code}")
     private String getEmailCommunicationHistoryErrorCode;
@@ -136,22 +144,62 @@ public class DashboardController {
      *            the user id
      * @return service
      */
-    @RequestMapping(value = "/view/{userId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/viewall/{userId}", method = RequestMethod.GET)
     public final Service getAllAuthorArticles(
             @PathVariable("userId") final String userId) {
-        LOGGER.info("inside viewallauthorarticles method of DashboardController");
+        LOGGER.info("inside getAllAuthorArticles method of DashboardController");
         final Service service = new Service();
         DashboardView dashboardView = null;
         if (!StringUtils.isEmpty(userId)) {
             LOGGER.info("input parameter userId is found to Get All the Author Article Details");
             try {
-                dashboardView = dashboardService.viewDashboard(userId);
+                dashboardView = dashboardService
+                        .getAllAuthorArticles(userId);
                 if (!StringUtils.isEmpty(dashboardView)) {
-                    LOGGER.info("Author All Articles Data is Found");
+                    LOGGER.info("All Author Articles  Data is Found");
                     service.setStatus("SUCCESS");
                     service.setPayload(dashboardView);
                 } else {
-                    LOGGER.info("Author All Articles Data is Not Found");
+                    LOGGER.info("All Author Articles  Data is Not Found");
+                    service.setStatus("SUCCESS");
+                    service.setPayload(noDataFound);
+                }
+            } catch (final Exception e) {
+                LOGGER.error("Print Stack Trace- ", e);
+                throw new ASException(getActionRequiredErrorCode,
+                        getActionRequiredErrorMessage);
+            }
+        } else {
+            LOGGER.info("input Parameter userId is Not Found");
+            service.setStatus("FAILURE");
+            service.setPayload(inputParameterNotFound);
+        }
+        return service;
+    }
+
+    /**
+     * This method takes userId and return the Service.
+     *
+     * @param userId
+     *            the user id
+     * @return service
+     */
+    @RequestMapping(value = "/action/{userId}", method = RequestMethod.GET)
+    public final Service getActionRequired(
+            @PathVariable("userId") final String userId) {
+        LOGGER.info("inside getActionRequired method of DashboardController");
+        final Service service = new Service();
+        DashboardView dashboardView = null;
+        if (!StringUtils.isEmpty(userId)) {
+            LOGGER.info("input parameter userId is found to Get All the Article status Details");
+            try {
+                dashboardView = dashboardService.actionRequired(userId);
+                if (!StringUtils.isEmpty(dashboardView)) {
+                    LOGGER.info("Action Required Data is Found");
+                    service.setStatus("SUCCESS");
+                    service.setPayload(dashboardView);
+                } else {
+                    LOGGER.info("Action Required Data is Not Found");
                     service.setStatus("SUCCESS");
                     service.setPayload(noDataFound);
                 }
