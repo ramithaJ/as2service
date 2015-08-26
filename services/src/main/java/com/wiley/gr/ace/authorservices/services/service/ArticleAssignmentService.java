@@ -51,13 +51,13 @@ public interface ArticleAssignmentService {
     /**
      * View assigned article.
      *
-     * @param emailId
-     *            the email id
+     * @param articleId
+     *            the article id
      * @return the view assigned article
      * @throws Exception
      *             the exception
      */
-    ViewAssignedArticle viewAssignedArticle(String emailId) throws Exception;
+    ViewAssignedArticle viewAssignedArticle(String articleId) throws Exception;
 
     /**
      * Check if article invited.

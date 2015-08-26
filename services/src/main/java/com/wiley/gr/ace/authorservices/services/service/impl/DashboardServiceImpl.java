@@ -40,6 +40,7 @@ import com.wiley.gr.ace.authorservices.model.EmailCommunicationHistory;
 import com.wiley.gr.ace.authorservices.model.Interests;
 import com.wiley.gr.ace.authorservices.model.NotificationHistory;
 import com.wiley.gr.ace.authorservices.model.OrderStatus;
+import com.wiley.gr.ace.authorservices.model.PublicationDetails;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.TrackLicense;
@@ -52,7 +53,6 @@ import com.wiley.gr.ace.authorservices.model.external.OrderDataList;
 import com.wiley.gr.ace.authorservices.model.external.OrderPaymentStatus;
 import com.wiley.gr.ace.authorservices.model.external.PdhLookupArticleResponse;
 import com.wiley.gr.ace.authorservices.model.external.Production;
-import com.wiley.gr.ace.authorservices.model.external.Publication;
 import com.wiley.gr.ace.authorservices.model.external.Quote;
 import com.wiley.gr.ace.authorservices.model.external.QuoteRequest;
 import com.wiley.gr.ace.authorservices.model.external.SecuirtyQuestionDetails;
@@ -62,10 +62,10 @@ import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 import com.wiley.gr.ace.authorservices.persistence.entity.CoauthorRequestsOoorders;
 import com.wiley.gr.ace.authorservices.persistence.entity.InvitationLog;
 import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
-import com.wiley.gr.ace.authorservices.persistence.entity.PublicationStatuses;
 import com.wiley.gr.ace.authorservices.persistence.entity.SavedOrders;
 import com.wiley.gr.ace.authorservices.persistence.services.DashboardDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO;
+import com.wiley.gr.ace.authorservices.services.service.ArticleAssignmentService;
 import com.wiley.gr.ace.authorservices.services.service.DashboardService;
 import com.wiley.gr.ace.authorservices.services.service.LicenseService;
 import com.wiley.gr.ace.authorservices.services.service.OrderStatusService;
@@ -101,6 +101,10 @@ public class DashboardServiceImpl implements DashboardService {
     /** The notificationService. */
     @Autowired(required = true)
     private NotificationService notificationService;
+
+    /** The article assignment service. */
+    @Autowired(required = true)
+    private ArticleAssignmentService articleAssignmentService;
 
     /** The order onlinedao. */
     @Autowired(required = true)
@@ -439,16 +443,42 @@ public class DashboardServiceImpl implements DashboardService {
     }
 
     /**
-     * View dashboard.
+     * Gets the all author articles.
      *
      * @param userId
-     *            to get the data from ESB ExternalService
-     * @return DashboardView
+     *            the user id
+     * @return the all author articles
      * @throws Exception
      *             the exception
      */
     @Override
-    public final DashboardView viewDashboard(final String userId)
+    public DashboardView getAllAuthorArticles(String userId) throws Exception {
+        DashboardView dashboardView = new DashboardView();
+        List<ArticleData> articleDataList = getArticleAuthorData(userId);
+        List<ArticleData> viewAllArticles = new ArrayList<ArticleData>();
+        for (ArticleData articleData : articleDataList) {
+            articleData.setProduction(getProductionDatesForArticles(articleData
+                    .getDhId()));
+            articleData.setPublicationDetails(getPublicationArticleStatus(
+                    articleData.getArticleUserRole(), articleData.getDhId())
+                    .getPublicationDetails());
+            viewAllArticles.add(articleData);
+        }
+        dashboardView.setArticleData(viewAllArticles);
+        return dashboardView;
+    }
+
+    /**
+     * Action required.
+     *
+     * @param userId
+     *            the user id
+     * @return the dashboard view
+     * @throws Exception
+     *             the exception
+     */
+    @Override
+    public final DashboardView actionRequired(final String userId)
             throws Exception {
         LOGGER.info("inside viewDashboard Method of DashboardServiceImpl");
         final DashboardView dashboardView = new DashboardView();
@@ -574,43 +604,19 @@ public class DashboardServiceImpl implements DashboardService {
             final String userId) throws Exception {
         LOGGER.info("inside getArticleDataDetails Method of DashboardServiceImpl");
         final ArticleData articleData = esbInterfaceService
-                .getAuthorArticle(articleId);
+                .getAuthorArticle(String.valueOf(articleId));
         if (!StringUtils.isEmpty(articleData)) {
             LOGGER.info("Article Data is Found");
             articleData.setArticleUserRole(articleUserRole);
-            articleData.setLicenseStatus(trackingLicense(
-                    String.valueOf(articleId), userId));
+            TrackLicense trackLicenseStatus = licenseService
+                    .trackLicenseStatus(String.valueOf(articleId), userId);
+            if (!StringUtils.isEmpty(trackLicenseStatus)) {
+                articleData.setLicenseStatus(trackLicenseStatus);
+            }
             articleData.setOrderPaymentStatus(getOrderPaymentStatusForArticle(
                     orderStatusHashMap, articleId));
         }
         return articleData;
-    }
-
-    /**
-     * Tracking license.
-     *
-     * @param articleId
-     *            the article id
-     * @param userId
-     *            the user id
-     * @return the track license
-     * @throws Exception
-     *             the exception
-     */
-    private TrackLicense trackingLicense(final String articleId,
-            final String userId) throws Exception {
-        final TrackLicense trackLicenseStatus = licenseService
-                .trackLicenseStatus(articleId, userId);
-        TrackLicense trackLicense = null;
-        if (!StringUtils.isEmpty(trackLicenseStatus)) {
-            LOGGER.info("License Status is Found");
-            trackLicense = new TrackLicense();
-            trackLicense
-                    .setLicenseStatus(trackLicenseStatus.getLicenseStatus());
-            trackLicense.setAction(trackLicenseStatus.getAction());
-            trackLicense.setTaskId(trackLicenseStatus.getTaskId());
-        }
-        return trackLicense;
     }
 
     /**
@@ -638,7 +644,9 @@ public class DashboardServiceImpl implements DashboardService {
             String[] actionArray = orderStatus.getActionsRequired().split(",");
             List<String> availableActionsList = new ArrayList<String>();
             for (String action : actionArray) {
-                availableActionsList.add(action);
+                if (!"None".equalsIgnoreCase(action)) {
+                    availableActionsList.add(action);
+                }
             }
             orderPaymentStatus.setAvailableActionsList(availableActionsList);
             // TODO: set date to additional param
@@ -703,6 +711,13 @@ public class DashboardServiceImpl implements DashboardService {
         return orderPaymentStatus;
     }
 
+    /**
+     * Sets the oa available actions.
+     *
+     * @param status
+     *            the status
+     * @return the order payment status
+     */
     private OrderPaymentStatus setOAAvailableActions(final String status) {
 
         OrderPaymentStatus orderPaymentStatus = new OrderPaymentStatus();
@@ -713,7 +728,9 @@ public class DashboardServiceImpl implements DashboardService {
                 .split(",");
         List<String> availableActionsArray = new ArrayList<String>();
         for (String action : actionsArray) {
-            availableActionsArray.add(action);
+            if (!"None".equalsIgnoreCase(action)) {
+                availableActionsArray.add(action);
+            }
         }
         // TODO: we need to set date here
         orderPaymentStatus.setAdditionalParam("");
@@ -834,7 +851,7 @@ public class DashboardServiceImpl implements DashboardService {
             throws Exception {
         LOGGER.info("inside getProductionDetailsForArticles Method of DashboardServiceImpl");
         final ArticleData articleData = esbInterfaceService
-                .getAuthorArticle(articleId);
+                .getAuthorArticle(String.valueOf(articleId));
         if (!StringUtils.isEmpty(articleData)) {
             LOGGER.info("Article Data is Found");
             articleData.setArticleUserRole(articleAuthorRole);
@@ -937,18 +954,21 @@ public class DashboardServiceImpl implements DashboardService {
             productionStatus = productionDatesStatus
                     .get(mostRecentProductionDate);
         }
-        return trackingProductionStatusActions(productionStatus);
+        return trackingProductionStatusActions(mostRecentProductionDate,
+                productionStatus);
     }
 
     /**
      * Tracking production status actions.
      *
+     * @param mostRecentProductionDate
+     *            the most recent production date
      * @param productionStatus
      *            the production status
      * @return the production
      */
     private Production trackingProductionStatusActions(
-            final String productionStatus) {
+            final Date mostRecentProductionDate, final String productionStatus) {
         Production production = new Production();
         if (productionStatus.equals(acptdArtPubOnlineStatus)) {
             production.setAction(viewFullArticleAction);
@@ -960,6 +980,7 @@ public class DashboardServiceImpl implements DashboardService {
             production.setAction(viewFullArticleAction);
         }
         LOGGER.info("Getting Most Recent Date Among All Production Stages Dates and Setting Production Status,Actions");
+        production.setProductionStatusDate(mostRecentProductionDate.toString());
         production.setProductionStatus(productionStatus);
         return production;
     }
@@ -991,7 +1012,7 @@ public class DashboardServiceImpl implements DashboardService {
                         .getProductRoleName();
                 articleId = productPersonRelations.getProducts().getDhId();
                 articleData = getPublicationArticleStatus(articleAuthorRole,
-                        articleId);
+                        String.valueOf(articleId));
                 articleDataListforPublication.add(articleData);
             }
             dashboardView = new DashboardView();
@@ -1012,23 +1033,24 @@ public class DashboardServiceImpl implements DashboardService {
      *             the exception
      */
     private ArticleData getPublicationArticleStatus(
-            final String articleAuthorRole, final Integer dhId)
-            throws Exception {
+            final String articleAuthorRole, final String dhId) throws Exception {
         LOGGER.info("inside getPublicationArticleStatus Method of DashboardServiceImpl");
         final ArticleData articleData = esbInterfaceService
                 .getAuthorArticle(dhId);
         if (!StringUtils.isEmpty(articleData)) {
             LOGGER.info("Article Data is Found");
             articleData.setArticleUserRole(articleAuthorRole);
-            final Publication publication = new Publication();
-            final PublicationStatuses publicationStatuses = dashboardDAO
-                    .getPublishedArticleDetails(dhId).getPublicationStatuses();
-            if (!StringUtils.isEmpty(publicationStatuses)) {
+            final PublicationDetails publication = new PublicationDetails();
+            PublicationDetails publicationDetails = articleAssignmentService
+                    .viewAssignedArticle(dhId).getPublicationData();
+            if (!StringUtils.isEmpty(publicationDetails)) {
                 LOGGER.info("Publication Statuses Data is Found");
-                publication.setPublicationStatus(publicationStatuses
-                        .getPublicationStatusName());
+                publication.setPublicationStatus(publicationDetails
+                        .getPublicationStatus());
+                publication.setModifiedDate(publicationDetails
+                        .getModifiedDate());
             }
-            articleData.setPublication(publication);
+            articleData.setPublicationDetails(publication);
         }
         return articleData;
     }

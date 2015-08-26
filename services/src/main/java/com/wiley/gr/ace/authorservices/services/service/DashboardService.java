@@ -38,15 +38,26 @@ public interface DashboardService {
     Dashboard getProfileMeter(String userId) throws Exception;
 
     /**
-     * View dashboard.
+     * Gets the all author articles.
      *
      * @param userId
-     *            to get the data from ESB ExternalService
-     * @return DashboardView
+     *            the user id
+     * @return the all author articles
      * @throws Exception
      *             the exception
      */
-    DashboardView viewDashboard(String userId) throws Exception;
+    DashboardView getAllAuthorArticles(String userId) throws Exception;
+
+    /**
+     * Action required.
+     *
+     * @param userId
+     *            the user id
+     * @return the dashboard view
+     * @throws Exception
+     *             the exception
+     */
+    DashboardView actionRequired(String userId) throws Exception;
 
     /**
      * Gets the email communication history.
