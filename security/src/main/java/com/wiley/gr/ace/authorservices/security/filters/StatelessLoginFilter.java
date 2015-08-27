@@ -148,9 +148,16 @@ public class StatelessLoginFilter extends
         try {
             users = adminLoginService.getASUser(unp.getUsername());
         } catch (final UserException e) {
-            unsuccessfulAuthentication(request, response,
-                    new AuthenticationServiceException(
-                            StatelessLoginFilter.notAdminMessage));
+            if (StringUtils.equalsIgnoreCase(StatelessLoginFilter.ADMIN,
+                    unp.getType())) {
+                unsuccessfulAuthentication(request, response,
+                        new AuthenticationServiceException(
+                                StatelessLoginFilter.notAdminMessage));
+            } else {
+                unsuccessfulAuthentication(request, response,
+                        new AuthenticationServiceException(
+                                StatelessLoginFilter.invalidLoginCode));
+            }
             return;
         }
 
