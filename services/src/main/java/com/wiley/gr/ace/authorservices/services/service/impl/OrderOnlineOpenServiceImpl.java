@@ -1434,8 +1434,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         article.setJournalPrintISSN("0008543X");
         invoice.setArticle(article);
         headers.setContentType(MediaType.parseMediaType("application/pdf"));
-        headers.setContentDispositionFormData(AuthorServicesConstants.PDF_NAME,
-                AuthorServicesConstants.PDF_NAME);
+        headers.setContentDispositionFormData(AuthorServicesConstants.LICENSE_PDF_NAME,
+                AuthorServicesConstants.LICENSE_PDF_NAME);
         headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
         contents = invoiceservice.getInvoice(invoice);
         response = new ResponseEntity<byte[]>(contents, headers, HttpStatus.OK);

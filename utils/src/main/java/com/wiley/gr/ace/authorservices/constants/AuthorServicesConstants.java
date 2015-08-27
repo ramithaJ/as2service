@@ -125,7 +125,7 @@ public class AuthorServicesConstants {
     public static final String OPEN_ACCESS = "OPEN ACCESS";
 
     /** The Constant PDF_NAME. */
-    public static final String PDF_NAME = "Invoice.pdf";
+    public static final String INVOICE_PDF_NAME = "Invoice.pdf";
 
     /** The Constant LICENSE_PDF_NAME. */
     public static final String LICENSE_PDF_NAME = "License.pdf";
