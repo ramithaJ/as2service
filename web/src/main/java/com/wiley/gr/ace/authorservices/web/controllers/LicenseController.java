@@ -14,6 +14,7 @@
  */
 package com.wiley.gr.ace.authorservices.web.controllers;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import org.slf4j.Logger;
@@ -28,8 +29,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.exception.LicenseException;
+import com.wiley.gr.ace.authorservices.model.LicenceOO;
 import com.wiley.gr.ace.authorservices.model.LicenseObject;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.TrackLicense;
@@ -158,12 +161,24 @@ public class LicenseController {
      * @return the service
      */
     @RequestMapping(value = "/saveLicence/{userId}/{articleId}/", method = RequestMethod.POST)
-    public Service saveLicense(@RequestBody final LicenseObject licenseObject,
+    public Service saveLicense(@RequestBody final LicenceOO licenseObject,
             @PathVariable("userId") final String userId,
             @PathVariable("articleId") final String articleId) {
+        
+         
+        
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            mapper.writeValue(new File("c:\\ravi\\user.json"),
+                    licenseObject);
+
+        }catch(Exception e){
+            
+            e.printStackTrace();
+        }
         Service service = new Service();
-        service.setPayload(licenseService.saveLicenseLater(licenseObject,
-                userId, articleId));
+//        service.setPayload(licenseService.saveLicenseLater(licenseObject,
+//                userId, articleId));
         return service;
 
     }

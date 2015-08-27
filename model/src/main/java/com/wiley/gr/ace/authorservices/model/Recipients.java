@@ -12,13 +12,25 @@
 
 package com.wiley.gr.ace.authorservices.model;
 
+
 /**
  * The Class Recipients.
  */
+
 public class Recipients {
 
     /** The recipient id. */
     private String recipientId = "";
+    
+    private String recipentsName;
+
+    public final String getRecipentsName() {
+        return recipentsName;
+    }
+
+    public final void setRecipentsName(final String recipentsName) {
+        this.recipentsName = recipentsName;
+    }
 
     /**
      * Gets the recipient id.

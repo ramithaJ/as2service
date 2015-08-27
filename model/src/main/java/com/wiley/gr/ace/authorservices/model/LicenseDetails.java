@@ -14,15 +14,13 @@
  */
 package com.wiley.gr.ace.authorservices.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
  * The Class LicenseDetails.
  *
  * @author virtusa version 1.0
  */
-@JsonInclude(Include.NON_NULL)
+
 public class LicenseDetails {
 
     
@@ -33,6 +31,10 @@ public class LicenseDetails {
 
     /** The license signed date. */
     private String licenseSignedDate;
+    
+    private String tcAgree;
+    
+    private String date;
 
     /**
      * Gets the license signed date.
@@ -86,5 +88,21 @@ public class LicenseDetails {
 
     public final void setSelectedLicenceType(final String selectedLicenceType) {
         this.selectedLicenceType = selectedLicenceType;
+    }
+
+    public final String getTcAgree() {
+        return tcAgree;
+    }
+
+    public final String getDate() {
+        return date;
+    }
+
+    public final void setTcAgree(final String tcAgree) {
+        this.tcAgree = tcAgree;
+    }
+
+    public final void setDate(final String date) {
+        this.date = date;
     }
 }

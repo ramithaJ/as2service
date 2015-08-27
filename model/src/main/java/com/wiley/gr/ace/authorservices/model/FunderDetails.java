@@ -14,13 +14,10 @@ package com.wiley.gr.ace.authorservices.model;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
 /**
  * The Class FunderDetails.
  */
-@JsonInclude(Include.NON_NULL)
+
 public class FunderDetails {
 
     /** The woa account id. */
@@ -38,6 +35,10 @@ public class FunderDetails {
     /** The grants. */
 
     private List<Grants> grants;
+    
+   
+
+   
 
     /**
      * Gets the woa account id.
@@ -123,4 +124,5 @@ public class FunderDetails {
         this.researchFunderName = researchFunderName;
     }
 
+   
 }
