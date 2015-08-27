@@ -91,6 +91,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 
                 .antMatchers("/user/resetPassword/*")
                 .permitAll()
+                
+                .antMatchers("/user/verifyAccount/*")
+                .permitAll()
 
                 .antMatchers("/user/userSecurityQuestions/*/")
                 .permitAll()
@@ -107,13 +110,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/resetByEmail/*/")
                 .permitAll()
 
-                .antMatchers("/user/update/orcid/*/*")
-                .permitAll()
-                
                 .antMatchers("/user/orcid/profile/*/*")
-                .permitAll()
-
-                .antMatchers("/userAccount/orcid/remove/*")
                 .permitAll()
 
                 .antMatchers("/registration/verify/email")
@@ -123,9 +120,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
 
                 .antMatchers("/admin/permissions/*")
-                .permitAll()
-
-                .antMatchers("/userAccount/profileInfo/*")
                 .permitAll()
 
                 .antMatchers(HttpMethod.POST, SpringSecurityConfig.AUTHENTICATE)
