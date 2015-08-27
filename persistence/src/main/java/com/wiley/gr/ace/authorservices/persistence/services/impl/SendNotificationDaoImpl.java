@@ -18,6 +18,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
+import com.wiley.gr.ace.authorservices.persistence.entity.UserSecondaryEmailAddr;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.SendNotificationDao;
 
@@ -76,6 +77,25 @@ public class SendNotificationDaoImpl implements SendNotificationDao {
         }
 
         return users;
+    }
+
+    @Override
+    public UserSecondaryEmailAddr getUserSecEmailAddr(final String userId) {
+
+        Session session = null;
+        try {
+            session = getSessionFactory().openSession();
+            Criteria criteria = session
+                    .createCriteria(UserSecondaryEmailAddr.class);
+            criteria.add(Restrictions.eq("usersByUserId", userId));
+            return (UserSecondaryEmailAddr) criteria.uniqueResult();
+        } finally {
+            if (null != session) {
+                session.flush();
+                session.close();
+            }
+
+        }
     }
 
 }

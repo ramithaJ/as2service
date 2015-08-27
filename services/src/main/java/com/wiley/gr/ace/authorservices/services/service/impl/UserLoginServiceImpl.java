@@ -86,12 +86,15 @@ public class UserLoginServiceImpl implements UserLoginService {
     private String accountVerifiedMessage;
 
     /** The template id. */
-    @Value("${templateId.password.reset}")
+    @Value("${templateId.security.validation.failed}")
     private String templateId;
 
     /** The template id password success. */
-    @Value("${templateId.password.reset.successfully}")
-    private String templateIdPasswordSuccess;
+    @Value("${templateId.password.forceful.reset}")
+    private String passwordForcefulResetTemplateId;
+
+    @Value("${templateId.password.reset}")
+    private String passwordResetTemplateId;
 
     /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory
@@ -150,6 +153,11 @@ public class UserLoginServiceImpl implements UserLoginService {
             forcefulReset.setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
 
             status = userManagement.forceFulReset(forcefulReset);
+            if (status) {
+                sendNotification.notifyByEmail(
+                        securityDetailsHolder.getEmailId(),
+                        passwordForcefulResetTemplateId);
+            }
 
         } else {
             if (securityDetailsHolder.getSecurityDetails().isEmpty()) {
@@ -194,13 +202,13 @@ public class UserLoginServiceImpl implements UserLoginService {
                 passwordResetRequest
                         .setUpdateUserSecurityAttributes(passwordReset);
                 status = userManagement.resetPassword(passwordResetRequest);
+                if (status) {
+                    sendNotification.notifyByEmail(
+                            securityDetailsHolder.getEmailId(),
+                            passwordResetTemplateId);
+                }
             }
-            if (status) {
 
-                sendNotification.notifyByEmail(
-                        securityDetailsHolder.getEmailId(),
-                        templateIdPasswordSuccess);
-            }
         }
         return status;
     }

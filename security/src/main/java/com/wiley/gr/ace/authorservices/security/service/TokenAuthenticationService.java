@@ -41,7 +41,7 @@ public class TokenAuthenticationService {
     private SendNotification sendNotification;
 
     /** The template id. */
-    @Value("${templateId.password.reset}")
+    @Value("${templateId.invalid.login}")
     private String templateId;
 
     /**

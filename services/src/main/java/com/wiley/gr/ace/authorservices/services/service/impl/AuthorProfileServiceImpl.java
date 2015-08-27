@@ -116,8 +116,14 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     private AutocompleteService autocomplete;
 
     /** The template id. */
-    @Value("${templateId.password.reset}")
-    private String templateId;
+    @Value("${templateId.sec.email.update}")
+    private String secEmailUpdateTemplateId;
+
+    /**
+     * This field holds the value of passwordUpdatetemplateId.
+     */
+    @Value("${templateId.password.update}")
+    private String passwordUpdatetemplateId;
 
     /**
      * Update society details.
@@ -342,9 +348,15 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             email.setNewEmailId(emailDetails.getPrimaryEmailAddr());
             this.updateUserId(email);
         }
-
-        return userProfiles
+        final boolean status = userProfiles
                 .customerProfileUpdate(lookupCustomerProfileResponse);
+        if (status) {
+            sendNotification.updateSecEmailNotification(
+                    emailDetails.getRecoveryEmailAddress(),
+                    secEmailUpdateTemplateId);
+        }
+
+        return status;
     }
 
     /**
@@ -553,9 +565,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         passwordUpdate.setUpdateUserSecurityAttributes(passwordRequest);
         final boolean status = userManagement.updatePassword(passwordRequest);
         if (status) {
-            // need to put correct templeteId for password update
             sendNotification.notifyByEmail(passwordDetails.getEmailId(),
-                    templateId);
+                    passwordUpdatetemplateId);
         }
 
         return status;

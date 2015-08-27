@@ -23,6 +23,7 @@ import com.wiley.gr.ace.authorservices.model.NotificationResponse;
 import com.wiley.gr.ace.authorservices.model.SendNotificationRequest;
 import com.wiley.gr.ace.authorservices.model.external.NotificationFieldList;
 import com.wiley.gr.ace.authorservices.model.external.NotificationRequest;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserSecondaryEmailAddr;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.SendNotificationDao;
 import com.wiley.gr.ace.authorservices.services.service.SendNotification;
@@ -99,16 +100,40 @@ public class SendNotificationImpl implements SendNotification {
         NotificationFieldList notificationFieldList = new NotificationFieldList();
         List<String> listofFields = new ArrayList<String>();
         Users users = sendNotificationDao.getUserProfileByEmail(emailId);
-        if(users != null) {
+        if (users != null) {
             listofFields.add(users.getFirstName());
+
         }
-        
+
         listofFields.add(emailId);
         notificationFieldList.setFieldList(listofFields);
         notificationRequest.setTemplateDetails(notificationFieldList);
         return notificationService.sendNotification(appId, type, templateId,
                 notificationRequest);
 
+    }
+
+    @Override
+    public NotificationResponse updateSecEmailNotification(
+            final String emailId, final String templateId) {
+
+        NotificationRequest notificationRequest = new NotificationRequest();
+        notificationRequest.setFrom(notificationEmail);
+        notificationRequest.setTo(emailId);
+        NotificationFieldList notificationFieldList = new NotificationFieldList();
+        List<String> listofFields = new ArrayList<String>();
+        Users users = sendNotificationDao.getUserProfileByEmail(emailId);
+        if (users != null) {
+            listofFields.add(users.getFirstName());
+        }
+        UserSecondaryEmailAddr userSecondaryEmailAddr = sendNotificationDao
+                .getUserSecEmailAddr(String.valueOf(users.getUserId()));
+
+        listofFields.add(userSecondaryEmailAddr.getSecondaryEmailAddr());
+        notificationFieldList.setFieldList(listofFields);
+        notificationRequest.setTemplateDetails(notificationFieldList);
+        return notificationService.sendNotification(appId, type, templateId,
+                notificationRequest);
     }
 
 }

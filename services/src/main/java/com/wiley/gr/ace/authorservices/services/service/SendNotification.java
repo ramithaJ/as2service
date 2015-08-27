@@ -46,4 +46,14 @@ public interface SendNotification {
      * @return the notification response
      */
     NotificationResponse notifyByEmail(String emailId, String templateId);
+
+    /**
+     * @param userId
+     *            the request
+     * @param templateId
+     *            the request
+     * @return notification response
+     */
+    NotificationResponse updateSecEmailNotification(String emailId,
+            String templateId);
 }
