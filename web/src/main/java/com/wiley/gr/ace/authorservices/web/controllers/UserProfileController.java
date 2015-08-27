@@ -255,7 +255,7 @@ public class UserProfileController {
      * @return service
      */
     @RequestMapping(value = "/interests/{userId}/", method = RequestMethod.POST)
-    public final Service searchInterests(
+    public final Service addInterests(
             @PathVariable("userId") final String userId,
             @RequestBody final AreaOfInterests areaOfInterests) {
         Service service = new Service();
