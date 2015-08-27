@@ -88,6 +88,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/autocomplete/dropdown/*")
                 .permitAll()
+                
+                .antMatchers("/user/resetPassword/*")
+                .permitAll()
 
                 .antMatchers("/user/userSecurityQuestions/*/")
                 .permitAll()
