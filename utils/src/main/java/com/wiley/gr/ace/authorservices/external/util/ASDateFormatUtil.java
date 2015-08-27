@@ -15,20 +15,22 @@ package com.wiley.gr.ace.authorservices.external.util;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
+
 /**
  * @author virtusa version 1.0
  *
  */
 public class ASDateFormatUtil {
-    
+
     /**
      * @param longDate
      * @return
      */
-    public static String convertDate(long longDate)
-    {
-       Date date=new Date(longDate);
-        SimpleDateFormat dateFormatter = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ssXXX");
+    public static String convertDate(long longDate) {
+        Date date = new Date(longDate);
+        SimpleDateFormat dateFormatter = new SimpleDateFormat(
+                AuthorServicesConstants.DATE_FORMAT);
         String stringDate = dateFormatter.format(date);
         return stringDate;
     }

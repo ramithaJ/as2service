@@ -139,6 +139,10 @@ public class AuthorServicesConstants {
     /** The Constant for BPM_CALL_SUCCESS_STATUS. */
     public static final String STATUS_CODE_OK = "200";
     
+    /** The Constant INTERNAL_SERVER_ERROR. */
     public static final String INTERNAL_SERVER_ERROR = "500";
+    
+    /** The Constant DATE_FORMAT. */
+    public static final String DATE_FORMAT="yyyy-MM-dd'T'HH:mm:ssXXX";
 
 }
