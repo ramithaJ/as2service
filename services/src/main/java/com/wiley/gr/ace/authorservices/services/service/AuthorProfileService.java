@@ -18,7 +18,6 @@ import java.util.List;
 import com.wiley.gr.ace.authorservices.model.Address;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.AffiliationsUpdate;
-import com.wiley.gr.ace.authorservices.model.Alert;
 import com.wiley.gr.ace.authorservices.model.AlertsList;
 import com.wiley.gr.ace.authorservices.model.AreaOfInterests;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
@@ -80,7 +79,7 @@ public interface AuthorProfileService {
      *            the alert
      * @return true, if successful
      */
-    boolean updateAlerts(String userId, List<Alert> alert);
+    boolean updateAlerts(String userId, AlertsList alert);
 
     /**
      * @param userId

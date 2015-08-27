@@ -27,6 +27,7 @@ import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteService;
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
+import com.wiley.gr.ace.authorservices.external.util.ASDateFormatUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.Address;
@@ -140,8 +141,10 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         SocietyList societyList = new SocietyList();
         SocietyData societyData = new SocietyData();
         societyData.setSocietyName(society.getSocietyName());
-        societyData.setStartDate(society.getStartDate());
-        societyData.setEndDate(society.getEndDate());
+        societyData.setStartDate(ASDateFormatUtil.convertDate(Long
+                .parseLong(society.getStartDate())));
+        societyData.setEndDate(ASDateFormatUtil.convertDate(Long
+                .parseLong(society.getEndDate())));
         societyData.setPromoCode(society.getPromoCode());
         societyData.setMembershipNo(society.getMembershipNumber());
         societyData.setSocietyId(society.getSocietyId());
@@ -184,8 +187,10 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         AffiliationsData affiliationsData = new AffiliationsData();
         List<AffiliationData> affDataList = new ArrayList<AffiliationData>();
         AffiliationData affData = new AffiliationData();
-        affData.setStartDate(affiliationUpdate.getAffiliations().getStartDate());
-        affData.setEndDate(affiliationUpdate.getAffiliations().getEndDate());
+        affData.setStartDate(ASDateFormatUtil.convertDate(Long
+                .parseLong(affiliationUpdate.getAffiliations().getStartDate())));
+        affData.setEndDate(ASDateFormatUtil.convertDate(Long
+                .parseLong(affiliationUpdate.getAffiliations().getEndDate())));
         affData.setCity(affiliationUpdate.getAffiliations().getCity());
         affData.setState(affiliationUpdate.getAffiliations().getState());
         affData.setCountryCd(affiliationUpdate.getAffiliations()
@@ -246,7 +251,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      */
     @Override
     public final boolean updateAlerts(final String userId,
-            final List<Alert> listOfalert) {
+            final AlertsList listOfalert) {
         AuthorProfileServiceImpl.LOGGER.info("inside updateAlerts Method ");
         CustomerDetails customerDetails = getCustomeProfile(userId);
         LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
@@ -254,10 +259,11 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         customerProfile.setCustomerDetails(customerDetails);
         AlertsData alertsData = new AlertsData();
         List<AlertData> alertList = new ArrayList<AlertData>();
-        for (Alert alert : listOfalert) {
+        List<Alert> alertLIst = listOfalert.getAlertsList();
+        for (Alert alert : alertLIst) {
             AlertData alertData = new AlertData();
             AlertType alertType = new AlertType();
-            alertData.setId(alert.getId());
+            alertData.setId(alert.getAlertId());
             alertData.setAlertID(alert.getAlertId());
             alertData.setStatus(alert.getStatus());
             if (alert.isEmail()) {
@@ -547,7 +553,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         passwordUpdate.setUpdateUserSecurityAttributes(passwordRequest);
         final boolean status = userManagement.updatePassword(passwordRequest);
         if (status) {
-
+            // need to put correct templeteId for password update
             sendNotification.notifyByEmail(passwordDetails.getEmailId(),
                     templateId);
         }
@@ -1018,7 +1024,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      *
      * */
     @Override
-    public boolean deleteSociety(final String userId, final String societyId,String id) {
+    public boolean deleteSociety(final String userId, final String societyId,
+            final String id) {
 
         CustomerDetails customerDetails = getCustomeProfile(String
                 .valueOf(userId));

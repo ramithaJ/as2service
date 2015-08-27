@@ -28,39 +28,39 @@ import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 @Order(2)
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    /** The Constant AUTHENTICATE. */
-    public static final String AUTHENTICATE = "/authenticate";
+	/** The Constant AUTHENTICATE. */
+	public static final String AUTHENTICATE = "/authenticate";
 
-    /** The token authentication provider. */
-    @Autowired
-    private TokenAuthenticationProvider tokenAuthenticationProvider;
+	/** The token authentication provider. */
+	@Autowired
+	private TokenAuthenticationProvider tokenAuthenticationProvider;
 
-    /** The token authentication service. */
-    @Autowired
-    private TokenAuthenticationService tokenAuthenticationService;
+	/** The token authentication service. */
+	@Autowired
+	private TokenAuthenticationService tokenAuthenticationService;
 
-    /**
-     * Injecting UserLoginServiceDAO bean.
-     */
-    @Autowired(required = true)
-    private AdminLoginService adminLoginService;
+	/**
+	 * Injecting UserLoginServiceDAO bean.
+	 */
+	@Autowired(required = true)
+	private AdminLoginService adminLoginService;
 
-    /**
-     * Instantiates a new spring security config.
-     */
-    public SpringSecurityConfig() {
-        super(true);
-    }
+	/**
+	 * Instantiates a new spring security config.
+	 */
+	public SpringSecurityConfig() {
+		super(true);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.springframework.security.config.annotation.web.configuration.
-     * WebSecurityConfigurerAdapter
-     * #configure(org.springframework.security.config
-     * .annotation.web.builders.HttpSecurity)
-     */
-    @Override
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.springframework.security.config.annotation.web.configuration.
+	 * WebSecurityConfigurerAdapter
+	 * #configure(org.springframework.security.config
+	 * .annotation.web.builders.HttpSecurity)
+	 */
+	@Override
     protected void configure(final HttpSecurity http) throws Exception {
         http.exceptionHandling()
                 .and()
@@ -109,6 +109,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/user/update/orcid/*/*")
                 .permitAll()
+                
+                .antMatchers("/user/orcid/profile/*/*")
+                .permitAll()
 
                 .antMatchers("/userAccount/orcid/remove/*")
                 .permitAll()
@@ -147,41 +150,41 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                         UsernamePasswordAuthenticationFilter.class);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.springframework.security.config.annotation.web.configuration.
-     * WebSecurityConfigurerAdapter
-     * #configure(org.springframework.security.config
-     * .annotation.authentication.builders.AuthenticationManagerBuilder)
-     */
-    @Override
-    protected void configure(
-            final AuthenticationManagerBuilder authenticationManagerBuilder)
-            throws Exception {
-        authenticationManagerBuilder
-                .authenticationProvider(tokenAuthenticationProvider);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.springframework.security.config.annotation.web.configuration.
+	 * WebSecurityConfigurerAdapter
+	 * #configure(org.springframework.security.config
+	 * .annotation.authentication.builders.AuthenticationManagerBuilder)
+	 */
+	@Override
+	protected void configure(
+			final AuthenticationManagerBuilder authenticationManagerBuilder)
+			throws Exception {
+		authenticationManagerBuilder
+				.authenticationProvider(tokenAuthenticationProvider);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.springframework.security.config.annotation.web.configuration.
-     * WebSecurityConfigurerAdapter#authenticationManagerBean()
-     */
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.springframework.security.config.annotation.web.configuration.
+	 * WebSecurityConfigurerAdapter#authenticationManagerBean()
+	 */
+	@Bean
+	@Override
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
 
-    /**
-     * Rest template bean.
-     *
-     * @return the rest template
-     */
-    @Bean
-    public RestTemplate restTemplateBean() {
-        return new RestTemplate();
-    }
+	/**
+	 * Rest template bean.
+	 *
+	 * @return the rest template
+	 */
+	@Bean
+	public RestTemplate restTemplateBean() {
+		return new RestTemplate();
+	}
 }
