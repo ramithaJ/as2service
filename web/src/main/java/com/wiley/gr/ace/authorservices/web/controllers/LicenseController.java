@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.exception.LicenseException;
+import com.wiley.gr.ace.authorservices.model.LicenceOO;
 import com.wiley.gr.ace.authorservices.model.LicenseObject;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.TrackLicense;
@@ -167,6 +168,14 @@ public class LicenseController {
                 userId, articleId));
         return service;
 
+    }
+
+    @RequestMapping(value = "/saveLicenceOO/{userId}/{articleId}/", method = RequestMethod.POST)
+    public Service saveLicenceOO(@RequestBody final LicenceOO licenceOO,
+            @PathVariable("userId") final String userId,
+            @PathVariable("articleId") final String articleId) {
+        Service service = new Service();
+        return service;
     }
 
 }
