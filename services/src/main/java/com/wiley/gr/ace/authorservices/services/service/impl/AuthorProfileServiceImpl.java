@@ -459,7 +459,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         addressElement.setLastName(addressesRequest.getLastName());
         addressElement.setSuffix(addressesRequest.getSuffix());
         addressElement.setInstitutionCd(addressesRequest.getInstitutionId());
-        addressElement.setInstitutionName(addressesRequest.getInstitution());
+        addressElement.setInstitutionName(addressesRequest.getInstitutionName());
         if ("0".equalsIgnoreCase(id)) {
             addressElement.setStatus("Add");
         } else {
@@ -467,7 +467,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             addressElement.setStatus("Edit");
         }
         addressElement.setDepartmentCd(addressesRequest.getDepartmentId());
-        addressElement.setDepartmentName(addressesRequest.getDepartment());
+        addressElement.setDepartmentName(addressesRequest.getDepartmentName());
         addressElement.setAddressLine1(addressesRequest.getAddressLine1());
         addressElement.setAddressLine2(addressesRequest.getAddressLine2());
         addressElement.setCity(addressesRequest.getCity());
