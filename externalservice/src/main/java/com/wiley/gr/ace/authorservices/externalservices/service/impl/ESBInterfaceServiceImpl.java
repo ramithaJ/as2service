@@ -102,6 +102,12 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
     @Value("${pdhLookupJorunalResponse.url}")
     private String pdhLookupJorunalResponse;
 
+    @Value("${startPdhLookup.url}")
+    private String startPdhLookupUrl;
+
+    @Value("${endPdhLookup.url}")
+    private String endPdhLookupUrl;
+
     /**
      * This method is for fetching ordid details by calling external service
      * based on orcid.
@@ -312,7 +318,8 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
     public final ArticlePdfResponse getArticlePdfResponse(
             final String articleDoi) throws Exception {
         return (ArticlePdfResponse) StubInvokerUtil.invokeStub(
-                articlePdfResponseUrl+articleDoi, HttpMethod.GET, ArticlePdfResponse.class);
+                articlePdfResponseUrl + articleDoi, HttpMethod.GET,
+                ArticlePdfResponse.class);
     }
 
     /**
@@ -449,5 +456,21 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
         return (PdhLookupJournalResponse) StubInvokerUtil.invokeStub(
                 pdhLookupJorunalResponse, HttpMethod.GET,
                 PdhLookupJournalResponse.class);
+    }
+
+    /**
+     * Gets the pdh lookup response.
+     *
+     * @param dhId
+     *            the dh id
+     * @return the pdh lookup response
+     * @throws Exception
+     *             the exception
+     */
+    @Override
+    public String getPdhLookupResponse(final String dhId) throws Exception {
+        return (String) StubInvokerUtil.invokeStub(
+                startPdhLookupUrl.concat(dhId).concat(endPdhLookupUrl),
+                HttpMethod.GET, String.class);
     }
 }
