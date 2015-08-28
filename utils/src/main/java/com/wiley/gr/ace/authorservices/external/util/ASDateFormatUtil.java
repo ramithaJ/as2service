@@ -12,6 +12,7 @@
 
 package com.wiley.gr.ace.authorservices.external.util;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -33,6 +34,38 @@ public class ASDateFormatUtil {
                 AuthorServicesConstants.DATE_FORMAT);
         String stringDate = dateFormatter.format(date);
         return stringDate;
+    }
+
+    /**
+     * @param stringDate
+     * @return long Date in string
+     */
+    public static String convertDateToLong(String stringDate) {
+        Long dateasLong = 0l;
+        try {
+            String pattern = "yyyy-MM-dd'T'HH:mm:ss";
+            SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+            Date convertedDate = sdf.parse(stringDate);
+            dateasLong = convertedDate.getTime();
+
+            if (dateasLong < 0) {
+
+                dateasLong = new Date().getTime();
+
+            }
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return dateasLong.toString();
+    }
+
+    public static void main(String[] args) {
+        String string = ASDateFormatUtil
+                .convertDateToLong("08-09-0168T23:59:59");
+
+        System.err.println(string);
     }
 
 }
