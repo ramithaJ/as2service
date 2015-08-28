@@ -227,12 +227,17 @@ public class UserLoginServiceImpl implements UserLoginService {
         LOGGER.info("In securityQuestions method");
         SecurityQuestionsList securityQuestionsList = new SecurityQuestionsList();
         List<SecurityDetails> securityDetailsList = new ArrayList<SecurityDetails>();
+        List<String> retrieveSecurityQuestionsList =  new ArrayList<String>();
         SecurityDetails securityDetails = null;
         int i = 0;
         RetrieveSecurityQuestions retrieveSecurityQuestions = userManagement
                 .userSecurityQuestions(emailId);
-        List<String> retrieveSecurityQuestionsList = retrieveSecurityQuestions
-                .getSystemSecurityQuestions().getSecurityQuestionList();
+        if(retrieveSecurityQuestions
+                .getSystemSecurityQuestions() != null) {
+            retrieveSecurityQuestionsList = retrieveSecurityQuestions
+                    .getSystemSecurityQuestions().getSecurityQuestionList();
+        }
+        
         for (String list : retrieveSecurityQuestionsList) {
 
             securityDetails = new SecurityDetails();
