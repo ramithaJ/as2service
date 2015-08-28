@@ -26,14 +26,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 //import org.springframework.web.context.WebApplicationContext;
 
-
-
-
-import com.wiley.gr.ace.authorservices.web.controllers.ASDataController;
-
-
-
-import com.wiley.gr.ace.authorservices.web.controllers.UserProfileController;
+import com.wiley.gr.ace.authorservices.web.controllers.UpdateUserController;
 
 
 //import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -52,7 +45,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class UpdateUserControllerTest {
 	
 	@Autowired
-	private UpdateUserControllerTest updateUserControllerTest;
+	private UpdateUserController updateUserController;
 	
 	//UpdateUserControllerTest updateUserControllerTest = new UpdateUserControllerTest();
 		
@@ -61,7 +54,7 @@ public class UpdateUserControllerTest {
 	
 	@Before  
 	public void init() {  
-		this.mockMvc = MockMvcBuilders.standaloneSetup(updateUserControllerTest).build();
+		this.mockMvc = MockMvcBuilders.standaloneSetup(updateUserController).build();
 		}  
 	
 	@Test

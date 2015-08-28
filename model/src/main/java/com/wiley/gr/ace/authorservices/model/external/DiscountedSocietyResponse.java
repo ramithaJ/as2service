@@ -11,8 +11,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author virtusa version 1.0
  */
 public class DiscountedSocietyResponse {
+	
+	@JsonProperty("societyName")
+	private String societyName;
+	
+	@JsonProperty("societyCode")
+	private String societyCode;
 
-	@JsonProperty("societies")
+	@JsonProperty("discount")
 	private List<DiscountedSociety> societies = new ArrayList<DiscountedSociety>();
 
 	/**
@@ -32,4 +38,32 @@ public class DiscountedSocietyResponse {
 		this.societies = societies;
 	}
 
+	/**
+	 * @return the societyName
+	 */
+	public String getSocietyName() {
+		return societyName;
+	}
+
+	/**
+	 * @param societyName the societyName to set
+	 */
+	public void setSocietyName(String societyName) {
+		this.societyName = societyName;
+	}
+
+	/**
+	 * @return the societyCode
+	 */
+	public String getSocietyCode() {
+		return societyCode;
+	}
+
+	/**
+	 * @param societyCode the societyCode to set
+	 */
+	public void setSocietyCode(String societyCode) {
+		this.societyCode = societyCode;
+	}
+	
 }

@@ -15,31 +15,22 @@ package com.wiley.gr.ace.authorservices.model.external;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class InstitutionDiscounts {
+/**
+ * The Class InstitutionDiscountsResponse.
+ *
+ * @author virtusa version 1.0
+ */
+public class InstitutionDiscountsResponse {
 
     /**
      * This field holds the value of status
      */
+	@JsonProperty("status")
     private String status;
 
     @JsonProperty("payload")
-    private DiscountedInstitutions payLoad;
-
-    /**
-     * @return the payLoad
-     */
-    public final DiscountedInstitutions getPayLoad() {
-        return payLoad;
-    }
-
-    /**
-     * @param payLoad
-     *            the payLoad to set
-     */
-    public final void setPayLoad(final DiscountedInstitutions payLoad) {
-        this.payLoad = payLoad;
-    }
-
+    private InstitutionDetails institutionDetails;
+    
     /**
      * @return the status
      */
@@ -54,5 +45,20 @@ public class InstitutionDiscounts {
     public final void setStatus(final String status) {
         this.status = status;
     }
+
+	/**
+	 * @return the institutionDetails
+	 */
+	public InstitutionDetails getInstitutionDetails() {
+		return institutionDetails;
+	}
+
+	/**
+	 * @param institutionDetails the institutionDetails to set
+	 */
+	public void setInstitutionDetails(InstitutionDetails institutionDetails) {
+		this.institutionDetails = institutionDetails;
+	}
+    
 
 }

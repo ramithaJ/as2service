@@ -17,7 +17,7 @@ import java.util.List;
 import com.wiley.gr.ace.authorservices.model.external.CancelOrderRequest;
 import com.wiley.gr.ace.authorservices.model.external.DiscountRequest;
 import com.wiley.gr.ace.authorservices.model.external.DiscountedSocietyResponse;
-import com.wiley.gr.ace.authorservices.model.external.InstitutionDiscounts;
+import com.wiley.gr.ace.authorservices.model.external.InstitutionDiscountsResponse;
 import com.wiley.gr.ace.authorservices.model.external.OrderDataList;
 import com.wiley.gr.ace.authorservices.model.external.OrderRequest;
 import com.wiley.gr.ace.authorservices.model.external.OrderResponse;
@@ -68,10 +68,10 @@ public interface OrderService {
     Quote getQuote(QuoteRequest quoteRequest);
 
     /**
-     * @param DHId
+     * @param journalAcronym
      * @return PdhArticleResponse
      */
-    DiscountedSocietyResponse getDiscountedSocietiesForJournal(String DHID);
+    DiscountedSocietyResponse getDiscountedSocietiesForJournal(String journalAcronym);
 
     /**
      * @return PdhArticleResponse
@@ -86,7 +86,7 @@ public interface OrderService {
     /**
      * @return InstitutionDiscounts
      */
-    InstitutionDiscounts getInstitutionDiscounts(String DHID);
+    InstitutionDiscountsResponse getInstitutionDiscounts();
 
     /**
      * @param orderId

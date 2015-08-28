@@ -25,8 +25,9 @@ import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService;
 
 /**
- * @author kalyancj
- *
+ * The Payment Service Controller.
+ * 
+ * @author virtusa version 1.0
  */
 @RestController
 @RequestMapping("/payment")
@@ -37,14 +38,16 @@ public class PaymentServiceController extends ASExceptionController {
 	 */
 	@Autowired(required = true)
 	private OrderOnlineOpenService orderOnlineOpenService;
-	
+
 	@Value("${wpgOnlineOpenRedirection.url}")
 	private String wpgOnlineOpenRedirectionurl;
-	
+
 	@Value("${wpgOpenAccessRedirection.url}")
 	private String wpgOpenAccessRedirectionurl;
 
 	/**
+	 * Controller method to get WPGConfiguration.
+	 * 
 	 * @param orderId
 	 *            - the request value
 	 * @return service
@@ -59,32 +62,36 @@ public class PaymentServiceController extends ASExceptionController {
 	}
 
 	/**
+	 * Controller method to redirect WPG Response
 	 * 
 	 * @param form
+	 *            - the request value
 	 * @param response
 	 */
-	@RequestMapping(value = "/wpg/details/", method = RequestMethod.POST, 
-			consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	@RequestMapping(value = "/wpg/details/", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	public final void redirectWpgResponse(
 			@RequestBody final MultiValueMap<String, String> form,
 			HttpServletResponse response) {
-		
+
 		String url = null;
-		 
-		 orderOnlineOpenService.savePaymentDetails(form);
-		 String orderType = orderOnlineOpenService.getOrderType(Integer.parseInt(form.toSingleValueMap().get("transID")));
-		 
-		 if (AuthorServicesConstants.ONLINE_OPEN.equals(orderType)){
-			 url = wpgOnlineOpenRedirectionurl;
-		 } else if (AuthorServicesConstants.OPEN_ACCESS.equals(orderType)){
-			 url = wpgOpenAccessRedirectionurl;
-		 }
+
+		orderOnlineOpenService.savePaymentDetails(form);
+		String orderType = orderOnlineOpenService.getOrderType(Integer
+				.parseInt(form.toSingleValueMap().get("transID")));
+
+		if (AuthorServicesConstants.ONLINE_OPEN.equals(orderType)) {
+			url = wpgOnlineOpenRedirectionurl;
+		} else if (AuthorServicesConstants.OPEN_ACCESS.equals(orderType)) {
+			url = wpgOpenAccessRedirectionurl;
+		}
 
 		try {
 			response.setStatus(HttpStatus.SC_MOVED_PERMANENTLY);
 			response.sendRedirect(url);
 		} catch (IOException e) {
-			throw new ASException("704", e.getMessage());
+			throw new ASException(
+					AuthorServicesConstants.INTERNAL_SERVER_ERROR,
+					e.getMessage());
 		}
 
 	}

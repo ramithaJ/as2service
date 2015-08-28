@@ -5,10 +5,25 @@ public class DiscountRequest {
 
 	private String societyPromocode;
 	private String society;
-	private String institution;
-	private String country;
+	private String institutionCode;
+	private String countryCode;
 	private String jrnlArcn;
-	private String otherPromoCode;
+	private String basePrice;
+
+	
+	/**
+	 * @return the institutionCode
+	 */
+	public String getInstitutionCode() {
+		return institutionCode;
+	}
+
+	/**
+	 * @param institutionCode the institutionCode to set
+	 */
+	public void setInstitutionCode(String institutionCode) {
+		this.institutionCode = institutionCode;
+	}
 
 	/**
 	 * 
@@ -46,27 +61,10 @@ public class DiscountRequest {
 
 	/**
 	 * 
-	 * @return The institution
-	 */
-	public String getInstitution() {
-		return institution;
-	}
-
-	/**
-	 * 
-	 * @param institution
-	 *            The institution
-	 */
-	public void setInstitution(String institution) {
-		this.institution = institution;
-	}
-
-	/**
-	 * 
 	 * @return The country
 	 */
-	public String getCountry() {
-		return country;
+	public String getCountryCode() {
+		return countryCode;
 	}
 
 	/**
@@ -74,8 +72,8 @@ public class DiscountRequest {
 	 * @param country
 	 *            The country
 	 */
-	public void setCountry(String country) {
-		this.country = country;
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
 	}
 
 	/**
@@ -99,8 +97,8 @@ public class DiscountRequest {
 	 * 
 	 * @return The otherPromoCode
 	 */
-	public String getOtherPromoCode() {
-		return otherPromoCode;
+	public String getBasePrice() {
+		return basePrice;
 	}
 
 	/**
@@ -108,16 +106,16 @@ public class DiscountRequest {
 	 * @param otherPromoCode
 	 *            The otherPromoCode
 	 */
-	public void setOtherPromoCode(String otherPromoCode) {
-		this.otherPromoCode = otherPromoCode;
+	public void setBasePrice(String basePrice) {
+		this.basePrice = basePrice;
 	}
 
 	@Override
 	public String toString() {
 		return "DiscountRequest [societyPromocode=" + societyPromocode
-				+ ", society=" + society + ", institution=" + institution
-				+ ", country=" + country + ", jrnlArcn=" + jrnlArcn
-				+ ", otherPromoCode=" + otherPromoCode + "]";
+				+ ", society=" + society + ", institutionCode=" + institutionCode
+				+ ", countryCode=" + countryCode + ", jrnlArcn=" + jrnlArcn
+				+ ", basePrice=" + basePrice + "]";
 	}
 
 	

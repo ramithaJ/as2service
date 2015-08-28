@@ -172,13 +172,15 @@ public class OnlineOpenAuthorValidatorServiceImpl implements
 		Double apcPrice = Double.parseDouble(pricesList.get(0).getPrice());
 		
 		DiscountRequest discountRequest = new DiscountRequest();
-		discountRequest.setCountry(onlineOpenOrder.getAddressDetails().getBillingAddress().getCountry().getCountryName());
-		discountRequest.setInstitution(onlineOpenOrder.getAddressDetails().getBillingAddress().getInstitution());
+		discountRequest.setCountryCode(onlineOpenOrder.getAddressDetails().getBillingAddress().getCountry().getCountryCode());
+		discountRequest.setInstitutionCode(onlineOpenOrder.getAddressDetails().getBillingAddress().getInstitution());
 		// TODO: Need to check whether values need to be populated
 		discountRequest.setJrnlArcn("");
-		discountRequest.setOtherPromoCode("");
+		// discountRequest.setOtherPromoCode("");
 		discountRequest.setSociety(onlineOpenOrder.getDiscountDetails().get(0).getSocietyId());
 		discountRequest.setSocietyPromocode(onlineOpenOrder.getDiscountDetails().get(0).getPromoCode());
+		// TODO: Need to get Base Price from PDH lookup
+		discountRequest.setBasePrice("");
 		
 		Double discountPrice = Double.parseDouble(orderService.getDiscounts(discountRequest));
 		

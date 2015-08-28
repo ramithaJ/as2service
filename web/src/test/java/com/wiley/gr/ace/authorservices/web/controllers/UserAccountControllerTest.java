@@ -28,7 +28,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 
 
-import com.wiley.gr.ace.authorservices.web.controllers.ASDataController;
+import com.wiley.gr.ace.authorservices.web.controllers.UserAccountController;
 
 
 
@@ -49,7 +49,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class UserAccountControllerTest {
 	
 	@Autowired
-	private UserAccountControllerTest userAccountControllerTest;
+	private UserAccountController userAccountController;
 	
 	//UserAccountControllerTest userAccountControllerTest = new UserAccountControllerTest();
 		
@@ -58,7 +58,7 @@ public class UserAccountControllerTest {
 	
 	@Before  
 	public void init() {  
-		this.mockMvc = MockMvcBuilders.standaloneSetup(userAccountControllerTest).build();
+		this.mockMvc = MockMvcBuilders.standaloneSetup(userAccountController).build();
 		}  
 	
 	@Test
