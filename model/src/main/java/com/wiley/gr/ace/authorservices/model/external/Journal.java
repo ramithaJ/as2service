@@ -44,6 +44,28 @@ public class Journal {
     /** The journal doi. */
     private String journalDoi;
 
+    /** The journal image link. */
+    private String journalImageLink;
+
+    /**
+     * Gets the journal image link.
+     *
+     * @return the journal image link
+     */
+    public final String getJournalImageLink() {
+        return journalImageLink;
+    }
+
+    /**
+     * Sets the journal image link.
+     *
+     * @param journalImageLink
+     *            the new journal image link
+     */
+    public final void setJournalImageLink(final String journalImageLink) {
+        this.journalImageLink = journalImageLink;
+    }
+
     /**
      * Gets the journal doi.
      *

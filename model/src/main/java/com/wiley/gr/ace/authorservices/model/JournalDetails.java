@@ -42,8 +42,8 @@ public class JournalDetails {
     /** The external link. */
     private String externalLink;
 
-    /** The banner image. */
-    private String bannerImage;
+    /** The journal image link. */
+    private String journalImageLink;
 
     /**
      * Gets the external link.
@@ -65,22 +65,22 @@ public class JournalDetails {
     }
 
     /**
-     * Gets the banner image.
+     * Gets the journal image link.
      *
-     * @return the banner image
+     * @return the journal image link
      */
-    public final String getBannerImage() {
-        return bannerImage;
+    public final String getJournalImageLink() {
+        return journalImageLink;
     }
 
     /**
-     * Sets the banner image.
+     * Sets the journal image link.
      *
-     * @param bannerImage
-     *            the new banner image
+     * @param journalImageLink
+     *            the new journal image link
      */
-    public final void setBannerImage(final String bannerImage) {
-        this.bannerImage = bannerImage;
+    public final void setJournalImageLink(final String journalImageLink) {
+        this.journalImageLink = journalImageLink;
     }
 
     /**
