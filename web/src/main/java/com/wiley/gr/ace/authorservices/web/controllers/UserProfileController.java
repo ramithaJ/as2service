@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
-import com.wiley.gr.ace.authorservices.model.AffiliationsUpdate;
+import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.AlertsList;
 import com.wiley.gr.ace.authorservices.model.AreaOfInterests;
 import com.wiley.gr.ace.authorservices.model.ProfilePicture;
@@ -102,7 +102,7 @@ public class UserProfileController {
     public final Service updateAffiliation(
             @PathVariable("userId") final int userId,
             @PathVariable("affiliationId") final String affiliationId,
-            @RequestBody final AffiliationsUpdate affiliationsUpdate) {
+            @RequestBody final Affiliation affiliationsUpdate) {
         UserProfileController.LOGGER.info("inside updateAffiliation method ");
         Service service = new Service();
 

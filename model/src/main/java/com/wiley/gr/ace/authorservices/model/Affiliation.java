@@ -77,7 +77,7 @@ public class Affiliation implements Serializable {
     private String stateCode;
 
     /** The country code. */
-    @JsonProperty("countryCd")
+  
     private String countryCode;
     
     private Country country;

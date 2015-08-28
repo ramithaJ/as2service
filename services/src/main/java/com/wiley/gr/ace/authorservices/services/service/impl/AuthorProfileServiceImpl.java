@@ -32,7 +32,6 @@ import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.Address;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
-import com.wiley.gr.ace.authorservices.model.AffiliationsUpdate;
 import com.wiley.gr.ace.authorservices.model.Alert;
 import com.wiley.gr.ace.authorservices.model.AlertsList;
 import com.wiley.gr.ace.authorservices.model.AreaOfInterests;
@@ -182,8 +181,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      */
     @Override
     public final boolean updateAffiliation(final int userId,
-            final AffiliationsUpdate affiliationUpdate,
-            final String affiliationId) {
+            final Affiliation affiliationUpdate, final String affiliationId) {
         AuthorProfileServiceImpl.LOGGER
                 .info("inside updateAffiliation Method ");
         CustomerDetails customerDetails = getCustomeProfile(String
@@ -195,21 +193,16 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         List<AffiliationData> affDataList = new ArrayList<AffiliationData>();
         AffiliationData affData = new AffiliationData();
         affData.setStartDate(ASDateFormatUtil.convertDate(Long
-                .parseLong(affiliationUpdate.getAffiliations().getStartDate())));
+                .parseLong(affiliationUpdate.getStartDate())));
         affData.setEndDate(ASDateFormatUtil.convertDate(Long
-                .parseLong(affiliationUpdate.getAffiliations().getEndDate())));
-        affData.setCity(affiliationUpdate.getAffiliations().getCity());
-        affData.setState(affiliationUpdate.getAffiliations().getState());
-        affData.setCountryCd(affiliationUpdate.getAffiliations()
-                .getCountryCode());
-        affData.setInstitutionCd(affiliationUpdate.getAffiliations()
-                .getInstitutionId());
-        affData.setInstitutionName(affiliationUpdate.getAffiliations()
-                .getInstitutionName());
-        affData.setDepartmentCd(affiliationUpdate.getAffiliations()
-                .getDepartmentId());
-        affData.setDepartmentName(affiliationUpdate.getAffiliations()
-                .getDepartmentName());
+                .parseLong(affiliationUpdate.getEndDate())));
+        affData.setCity(affiliationUpdate.getCity());
+        affData.setState(affiliationUpdate.getState());
+        affData.setCountryCd(affiliationUpdate.getCountryCode());
+        affData.setInstitutionCd(affiliationUpdate.getInstitutionId());
+        affData.setInstitutionName(affiliationUpdate.getInstitutionName());
+        affData.setDepartmentCd(affiliationUpdate.getDepartmentId());
+        affData.setDepartmentName(affiliationUpdate.getDepartmentName());
         affDataList.add(affData);
         affiliationsData.setAffiliation(affDataList);
         customerProfile.setAffiliations(affiliationsData);
@@ -687,13 +680,13 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         if (!StringUtils.isEmpty(listofAffiliations)) {
 
             for (AffiliationData affiliationData : listofAffiliations) {
-                if(affiliationData.getStartDate() == null){
+                if (affiliationData.getStartDate() == null) {
                     break;
                 }
                 Affiliation affiliation = new Affiliation();
                 affiliation.setAffiliationId(affiliationData.getId());
                 affiliation.setCity(affiliationData.getCity());
-                Country country=new Country();
+                Country country = new Country();
                 country.setCountryCode(affiliationData.getCountryCd());
                 affiliation.setCountry(country);
                 affiliation

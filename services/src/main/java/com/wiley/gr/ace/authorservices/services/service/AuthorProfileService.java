@@ -17,7 +17,6 @@ import java.util.List;
 
 import com.wiley.gr.ace.authorservices.model.Address;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
-import com.wiley.gr.ace.authorservices.model.AffiliationsUpdate;
 import com.wiley.gr.ace.authorservices.model.AlertsList;
 import com.wiley.gr.ace.authorservices.model.AreaOfInterests;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
@@ -57,7 +56,7 @@ public interface AuthorProfileService {
      * @return true, if successful
      */
     boolean updateAffiliation(int userId,
-            AffiliationsUpdate affiliationsUpdate, String affiliationId);
+            Affiliation affiliationsUpdate, String affiliationId);
 
     /**
      * Update research funder.
