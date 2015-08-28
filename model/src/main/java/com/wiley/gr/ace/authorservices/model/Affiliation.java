@@ -45,7 +45,6 @@ public class Affiliation implements Serializable {
     @NotBlank
     @NotNull
     /** The institution id. */
-    @JsonProperty("InstitutionCd")
     private String institutionId;
 
     @NotBlank
@@ -57,6 +56,36 @@ public class Affiliation implements Serializable {
     @NotNull
     @JsonProperty("Id")
     private String id;
+
+    /** The department name. */
+    private String departmentName;
+
+    /** The visibility. */
+    private String visibility;
+
+    /** The type. */
+    private String type;
+
+    /** The role title. */
+    private String roleTitle;
+
+    /** The city. */
+    @JsonProperty("City")
+    private String city;
+
+    /** The state code. */
+    private String stateCode;
+
+    /** The country code. */
+    @JsonProperty("countryCd")
+    private String countryCode;
+    
+    private Country country;
+    @JsonProperty("State")
+    private String state;
+
+    /** The department id. */
+    private String departmentId;
 
     /**
      * @return the id
@@ -92,9 +121,6 @@ public class Affiliation implements Serializable {
         this.institutionName = institutionName;
     }
 
-    /** The department id. */
-    private String departmentId;
-
     /**
      * Gets the affiliation id.
      *
@@ -113,31 +139,6 @@ public class Affiliation implements Serializable {
     public void setAffiliationId(final String affiliationId) {
         this.affiliationId = affiliationId;
     }
-
-    /** The department name. */
-    private String departmentName;
-
-    /** The visibility. */
-    private String visibility;
-
-    /** The type. */
-    private String type;
-
-    /** The role title. */
-    private String roleTitle;
-
-    /** The city. */
-    @JsonProperty("City")
-    private String city;
-
-    /** The state code. */
-    private String stateCode;
-
-    /** The country code. */
-    @JsonProperty("countryCd")
-    private String countryCode;
-    @JsonProperty("State")
-    private String state;
 
     /**
      * @return the state
@@ -306,6 +307,20 @@ public class Affiliation implements Serializable {
      */
     public final void setRoleTitle(final String roleTitle) {
         this.roleTitle = roleTitle;
+    }
+
+    /**
+     * @return the country
+     */
+    public final Country getCountry() {
+        return country;
+    }
+
+    /**
+     * @param country the country to set
+     */
+    public final void setCountry(Country country) {
+        this.country = country;
     }
 
     /**

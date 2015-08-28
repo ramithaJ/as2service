@@ -37,6 +37,7 @@ import com.wiley.gr.ace.authorservices.model.Alert;
 import com.wiley.gr.ace.authorservices.model.AlertsList;
 import com.wiley.gr.ace.authorservices.model.AreaOfInterests;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
+import com.wiley.gr.ace.authorservices.model.Country;
 import com.wiley.gr.ace.authorservices.model.Email;
 import com.wiley.gr.ace.authorservices.model.Interests;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
@@ -689,7 +690,9 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                 Affiliation affiliation = new Affiliation();
                 affiliation.setAffiliationId(affiliationData.getId());
                 affiliation.setCity(affiliationData.getCity());
-                affiliation.setCountryCode(affiliationData.getCountryCd());
+                Country country=new Country();
+                country.setCountryCode(affiliationData.getCountryCd());
+                affiliation.setCountry(country);
                 affiliation
                         .setInstitutionId(affiliationData.getInstitutionCd());
                 affiliation.setDepartmentId(affiliationData.getDepartmentCd());
