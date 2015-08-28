@@ -2253,7 +2253,6 @@ ALTER TABLE user_profile MODIFY PROFILE_VISIBLE_FLG DEFAULT '1';
 </changeSet>
 
 <!--
-
 <changeSet author="gphaniraj" id="WP1-SEED_DATA">
     <sqlFile  path="../sql/seed_data.sql" relativeToChangelogFile="true" splitStatements="true" stripComments="true"/>
 </changeSet> 
@@ -2276,7 +2275,5 @@ ALTER TABLE user_profile MODIFY PROFILE_VISIBLE_FLG DEFAULT '1';
     </loadUpdateData>
 </changeSet>
 -->
-
-
 
 </databaseChangeLog>
