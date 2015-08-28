@@ -684,9 +684,12 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                 .getLookupCustomerProfileResponse().getCustomerProfile()
                 .getAffiliations().getAffiliation();
         List<Affiliation> listAffiliations = new ArrayList<Affiliation>();
-        if (listofAffiliations != null) {
+        if (!StringUtils.isEmpty(listofAffiliations)) {
 
             for (AffiliationData affiliationData : listofAffiliations) {
+                if(affiliationData.getStartDate() == null){
+                    break;
+                }
                 Affiliation affiliation = new Affiliation();
                 affiliation.setAffiliationId(affiliationData.getId());
                 affiliation.setCity(affiliationData.getCity());

@@ -29,7 +29,7 @@ public class Country implements Serializable {
 
     /** The country code. */
 
-    private String countryCode = "";
+    private String countryCode;
 
     /** The country name. */
     private String countryName;
