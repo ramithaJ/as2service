@@ -210,7 +210,7 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
                     .getPrintIssn());
             journalDetails.setJournalElectronicIssn(pdhLookupJournalResponse
                     .getElectronicIssn());
-            journalDetails.setBannerImage(pdhLookupJournalResponse
+            journalDetails.setJournalImageLink(pdhLookupJournalResponse
                     .getBannerImage());
         }
         return journalDetails;
@@ -247,7 +247,7 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
             throws Exception {
         final ArticleLinks articleLinks = new ArticleLinks();
         if ("Y".equals(pdhLookupArticleResponse.getIsArticleOO())) {
-            ArticlePdfResponse articlePdfResponse = esbInterfaceService
+            final ArticlePdfResponse articlePdfResponse = esbInterfaceService
                     .getArticlePdfResponse(pdhLookupArticleResponse
                             .getArticleDoi());
             if (!StringUtils.isEmpty(articlePdfResponse)) {
@@ -276,7 +276,7 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
             final PdhLookupArticleResponse pdhLookupArticleResponse)
             throws Exception {
         LicenseDetails licenseDetails = null;
-        TrackLicense trackLicense = licenseService.trackLicenseStatus(
+        final TrackLicense trackLicense = licenseService.trackLicenseStatus(
                 pdhLookupArticleResponse.getArticleUniqueID(),
                 pdhLookupArticleResponse.getaId());
         if (!StringUtils.isEmpty(trackLicense)) {
