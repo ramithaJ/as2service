@@ -77,9 +77,9 @@ public class Affiliation implements Serializable {
     private String stateCode;
 
     /** The country code. */
-  
+
     private String countryCode;
-    
+
     private Country country;
     @JsonProperty("State")
     private String state;
@@ -163,11 +163,11 @@ public class Affiliation implements Serializable {
     }
 
     /** The start date. */
-    @JsonProperty("StartDate")
+
     private String startDate;
 
     /** The end date. */
-    @JsonProperty("EndDate")
+
     private String endDate;
 
     /** The organization. */
@@ -317,7 +317,8 @@ public class Affiliation implements Serializable {
     }
 
     /**
-     * @param country the country to set
+     * @param country
+     *            the country to set
      */
     public final void setCountry(Country country) {
         this.country = country;
