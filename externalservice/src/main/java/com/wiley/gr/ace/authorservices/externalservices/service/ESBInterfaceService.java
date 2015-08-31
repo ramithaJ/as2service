@@ -238,5 +238,5 @@ public interface ESBInterfaceService {
      * @throws Exception
      *             the exception
      */
-    String getPdhLookupResponse(String dhId) throws Exception;
+    Object getPdhLookupResponse(String dhId) throws Exception;
 }
