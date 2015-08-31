@@ -79,11 +79,21 @@ public class Address implements Serializable {
     /** The state. */
     private State state;
 
+    /**
+     * This field holds the value of stateCode.
+     */
+    private String stateCode;
+
     /** The post code. */
     private String postCode = "";
 
     /** The country. */
     private Country country;
+
+    /**
+     * This field holds the value of countryCode.
+     */
+    private String countryCode;
 
     /** The phone number. */
     private String phoneNumber = "";
@@ -96,6 +106,43 @@ public class Address implements Serializable {
 
     /** The region. */
     private String region = "";
+
+    /**
+     * @return the stateCode
+     */
+    public final String getStateCode() {
+        return stateCode;
+    }
+
+    /**
+     * @param stateCode
+     *            the stateCode to set
+     */
+    public final void setStateCode(final String stateCode) {
+        this.stateCode = stateCode;
+    }
+
+    /**
+     * @return the countryCode
+     */
+    public final String getCountryCode() {
+        return countryCode;
+    }
+
+    /**
+     * @param countryCode
+     *            the countryCode to set
+     */
+    public final void setCountryCode(final String countryCode) {
+        this.countryCode = countryCode;
+    }
+
+    /**
+     * @return the serialversionuid
+     */
+    public static final long getSerialversionuid() {
+        return serialVersionUID;
+    }
 
     /**
      * Gets the address type.
@@ -207,7 +254,6 @@ public class Address implements Serializable {
         this.suffix = suffix;
     }
 
-  
     /**
      * Gets the address line1.
      *
@@ -323,16 +369,18 @@ public class Address implements Serializable {
     }
 
     /**
-     * @param institutionName the institutionName to set
+     * @param institutionName
+     *            the institutionName to set
      */
-    public final void setInstitutionName(String institutionName) {
+    public final void setInstitutionName(final String institutionName) {
         this.institutionName = institutionName;
     }
 
     /**
-     * @param departmentName the departmentName to set
+     * @param departmentName
+     *            the departmentName to set
      */
-    public final void setDepartmentName(String departmentName) {
+    public final void setDepartmentName(final String departmentName) {
         this.departmentName = departmentName;
     }
 

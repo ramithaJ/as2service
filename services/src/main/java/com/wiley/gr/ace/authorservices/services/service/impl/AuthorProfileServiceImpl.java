@@ -459,7 +459,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         addressElement.setLastName(addressesRequest.getLastName());
         addressElement.setSuffix(addressesRequest.getSuffix());
         addressElement.setInstitutionCd(addressesRequest.getInstitutionId());
-        addressElement.setInstitutionName(addressesRequest.getInstitutionName());
+        addressElement
+                .setInstitutionName(addressesRequest.getInstitutionName());
         if ("0".equalsIgnoreCase(id)) {
             addressElement.setStatus("Add");
         } else {
@@ -471,10 +472,9 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         addressElement.setAddressLine1(addressesRequest.getAddressLine1());
         addressElement.setAddressLine2(addressesRequest.getAddressLine2());
         addressElement.setCity(addressesRequest.getCity());
-        addressElement.setState(addressesRequest.getState().getStateCode());
-        addressElement.setPostBox(addressesRequest.getPostCode());
-        addressElement.setCountryCode(addressesRequest.getCountry()
-                .getCountryCode());
+        addressElement.setState(addressesRequest.getStateCode());
+        addressElement.setZipCode(addressesRequest.getPostCode());
+        addressElement.setCountryCode(addressesRequest.getCountryCode());
         addressElement.setPhoneNumber(addressesRequest.getPhoneNumber());
         addressElement.setFaxNumber(addressesRequest.getFaxNumber());
         return addressElement;
@@ -696,8 +696,10 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                         .getInstitutionName());
                 affiliation.setDepartmentName(affiliationData
                         .getDepartmentName());
-                affiliation.setStartDate(ASDateFormatUtil.convertDateToLong(affiliationData.getStartDate()));
-                affiliation.setEndDate(ASDateFormatUtil.convertDateToLong(affiliationData.getEndDate()));
+                affiliation.setStartDate(ASDateFormatUtil
+                        .convertDateToLong(affiliationData.getStartDate()));
+                affiliation.setEndDate(ASDateFormatUtil
+                        .convertDateToLong(affiliationData.getEndDate()));
                 affiliation.setStateCode(affiliationData.getState());
                 affiliation.setId(affiliationData.getId());
                 listAffiliations.add(affiliation);
@@ -761,8 +763,10 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             society.setSocietyId(societyData.getSocietyId());
             society.setSocietyName(societyData.getSocietyName());
             society.setMembershipNumber(societyData.getMembershipNo());
-            society.setStartDate(ASDateFormatUtil.convertDateToLong(societyData.getStartDate()));
-            society.setEndDate(ASDateFormatUtil.convertDateToLong(societyData.getEndDate()));
+            society.setStartDate(ASDateFormatUtil.convertDateToLong(societyData
+                    .getStartDate()));
+            society.setEndDate(ASDateFormatUtil.convertDateToLong(societyData
+                    .getEndDate()));
             society.setPromoCode(societyData.getPromoCode());
             society.setId(societyData.getId());
             societyList.add(society);
