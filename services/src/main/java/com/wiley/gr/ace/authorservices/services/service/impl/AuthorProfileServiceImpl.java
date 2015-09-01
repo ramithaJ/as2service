@@ -880,12 +880,19 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
                         break;
                     }
+                    
                 }
-                alertList.add(alert);
-                alertsResponse.setAlertsList(alertList);
-                alertsResponse.setEmailsList(emailList);
             }
+            alertList.add(alert);
 
+        }
+        
+        if(alertList != null && !alertList.isEmpty()){
+            alertsResponse.setAlertsList(alertList);
+        }
+        
+        if(emailList != null && !emailList.isEmpty()){
+            alertsResponse.setEmailsList(emailList);
         }
 
         return alertsResponse;
