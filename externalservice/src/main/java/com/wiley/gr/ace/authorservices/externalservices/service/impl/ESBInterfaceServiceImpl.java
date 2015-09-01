@@ -26,8 +26,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
-import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.external.util.PdhLookupServiceUtil;
+import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
@@ -464,14 +464,14 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 	 *
 	 * @param dhId
 	 *            the dh id
-	 * @return the pdh lookup response
+	 * @return the object
 	 * @throws Exception
 	 *             the exception
 	 */
 	@Override
 	public Object getPdhLookupResponse(final String dhId) throws Exception {
 
-		String xml = (String) StubInvokerUtil.invokeStub(startPdhLookupUrl
+		final String xml = (String) StubInvokerUtil.invokeStub(startPdhLookupUrl
 				.concat(dhId).concat(endPdhLookupUrl), HttpMethod.GET,
 				String.class);
 		Object lookupObject = null;
