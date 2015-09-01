@@ -248,6 +248,7 @@ public class UserLoginController extends ASExceptionController {
     public final Service resetByEmail(
             @PathVariable("emailId") final String emailId) {
         Service service = new Service();
+        userLoginServiceDAO.getUserId(emailId);
         sendNotification.notifyByEmail(emailId, templateId);
         return service;
     }
