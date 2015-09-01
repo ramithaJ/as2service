@@ -36,7 +36,7 @@ public class Address implements Serializable {
      */
     @NotBlank
     @NotNull
-    private String id;
+    private String addressId;
 
     @NotBlank
     @NotNull
@@ -154,18 +154,18 @@ public class Address implements Serializable {
     }
 
     /**
-     * @return the id
+     * @return the addressId
      */
-    public final String getId() {
-        return id;
+    public final String getAddressId() {
+        return addressId;
     }
 
     /**
-     * @param id
-     *            the id to set
+     * @param addressId
+     *            the addressId to set
      */
-    public final void setId(final String id) {
-        this.id = id;
+    public final void setAddressId(final String addressId) {
+        this.addressId = addressId;
     }
 
     /**

@@ -165,7 +165,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 
         Address address = null;
         address = new Address();
-        address.setId(addressElement.getId());
+        address.setAddressId(addressElement.getId());
         if (!StringUtils.isEmpty(addressElement.getTitle())) {
             address.setTitle(addressElement.getTitle());
         }

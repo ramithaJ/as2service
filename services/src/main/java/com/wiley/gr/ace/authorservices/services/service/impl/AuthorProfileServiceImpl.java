@@ -385,7 +385,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         if ("Physical".equalsIgnoreCase(addressesRequest.getAddressType())) {
             AddressElement physical = this.updateAddressFields(
                     addressesRequest, addressesRequest.getAddressType(),
-                    addressesRequest.getId());
+                    addressesRequest.getAddressId());
             addressElementsList.add(physical);
             if ('Y' == addressesRequest.getAddressFlag()) {
                 String id = "0";
@@ -406,7 +406,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         if ("Billing".equalsIgnoreCase(addressesRequest.getAddressType())) {
             AddressElement physical = this.updateAddressFields(
                     addressesRequest, addressesRequest.getAddressType(),
-                    addressesRequest.getId());
+                    addressesRequest.getAddressId());
             addressElementsList.add(physical);
             if ('Y' == addressesRequest.getAddressFlag()) {
                 String shippingId = "0";
@@ -427,7 +427,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         if ("Shipping".equalsIgnoreCase(addressesRequest.getAddressType())) {
             AddressElement shipping = this.updateAddressFields(
                     addressesRequest, addressesRequest.getAddressType(),
-                    addressesRequest.getId());
+                    addressesRequest.getAddressId());
             addressElementsList.add(shipping);
         }
 
