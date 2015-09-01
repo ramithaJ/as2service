@@ -132,11 +132,15 @@ public class LicenseServiceImpl implements LicenseService {
 
         LicenseChoiceRequest licenseChoiceRequest = new LicenseChoiceRequest();
         Funders funders = new Funders();
+        Funder funder = new Funder();
         ArrayList<Funder> funderList = new ArrayList<Funder>();
 
         licenseChoiceRequest.setDhId(dhId);
 
-        funderList.add(licenseObject.getFunderDetails().getFunder()); // null
+        funder.setFundRefId(licenseObject.getFunderDetails().getFunder().getResearchFunderId());
+        funder.setName(licenseObject.getFunderDetails().getFunder().getResearchFunderName());
+
+        funderList.add(funder); // null
         funders.setFunder(funderList);
         licenseChoiceRequest.setFunders(funders);
         licenseChoiceRequest.setOnlineOpen(licenseObject.getOnlineOpen());
@@ -367,7 +371,7 @@ public class LicenseServiceImpl implements LicenseService {
     private TrackLicense parseMostRecentDate(
             final TrackLicenseDetails trackLicenseDetails,
             final List<Date> licenseDates, final SimpleDateFormat formatter)
-            throws Exception {
+                    throws Exception {
         LicenseUpload licenseUpload = trackLicenseDetails.getLicenseUpload();
         if (!StringUtils.isEmpty(licenseUpload)) {
             licenseDates.add(formatter.parse(licenseUpload
