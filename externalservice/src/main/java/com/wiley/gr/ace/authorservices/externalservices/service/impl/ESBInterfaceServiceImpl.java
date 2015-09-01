@@ -26,6 +26,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
+import com.wiley.gr.ace.authorservices.external.util.PdhLookupServiceUtil;
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.model.User;
@@ -101,6 +102,12 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
     /** The pdh lookup jorunal response. */
     @Value("${pdhLookupJorunalResponse.url}")
     private String pdhLookupJorunalResponse;
+
+    @Value("${startPdhLookup.url}")
+    private String startPdhLookupUrl;
+
+    @Value("${endPdhLookup.url}")
+    private String endPdhLookupUrl;
 
     /**
      * This method is for fetching ordid details by calling external service
@@ -449,6 +456,27 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
         return (PdhLookupJournalResponse) StubInvokerUtil.invokeStub(
                 pdhLookupJorunalResponse, HttpMethod.GET,
                 PdhLookupJournalResponse.class);
+    }
+
+    /**
+     * Gets the pdh lookup response.
+     *
+     * @param dhId
+     *            the dh id
+     * @return the object
+     * @throws Exception
+     *             the exception
+     */
+    @Override
+    public Object getPdhLookupResponse(final String dhId) throws Exception {
+
+        final String xml = (String) StubInvokerUtil.invokeStub(
+                startPdhLookupUrl.concat(dhId).concat(endPdhLookupUrl),
+                HttpMethod.GET, String.class);
+        Object lookupObject = null;
+        if (!StringUtils.isEmpty(xml))
+            lookupObject = PdhLookupServiceUtil.lookup(xml);
+        return lookupObject;
     }
 
 }

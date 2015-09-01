@@ -228,4 +228,14 @@ public interface ESBInterfaceService {
      */
     TaxResponse getTaxInfo(TaxRequest taxRequest) throws Exception;
 
+    /**
+     * Gets the pdh lookup response.
+     *
+     * @param dhId
+     *            the dh id
+     * @return the object
+     * @throws Exception
+     *             the exception
+     */
+    Object getPdhLookupResponse(String dhId) throws Exception;
 }
