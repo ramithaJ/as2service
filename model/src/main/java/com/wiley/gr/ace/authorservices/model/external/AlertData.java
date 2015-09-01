@@ -41,6 +41,7 @@ public class AlertData implements Serializable {
     @JsonProperty("Status")
     private String status;
 
+    @JsonProperty("Id")
     private String id;
 
     /**

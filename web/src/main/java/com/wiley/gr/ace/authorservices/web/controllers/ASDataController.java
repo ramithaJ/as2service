@@ -149,10 +149,10 @@ public class ASDataController {
     @RequestMapping(value = "/states/{countrycode}", method = RequestMethod.GET)
     public final Service getStates(
             @PathVariable("countrycode") final String countrycode,
-            @RequestParam(value = "count", required = false, defaultValue = "10") final Integer count) {
+            @RequestParam(value = "count", required = false, defaultValue = "50") final Integer count) {
         LOGGER.info("inside getStates Method");
         Service service = new Service();
-        service.setPayload(aSDataService.getStates(countrycode, count));
+        service.setPayload(aSDataService.getStates(countrycode));
 
         return service;
     }

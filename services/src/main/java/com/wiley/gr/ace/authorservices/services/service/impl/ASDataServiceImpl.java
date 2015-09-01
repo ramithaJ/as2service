@@ -270,8 +270,7 @@ public class ASDataServiceImpl implements ASDataService {
      */
     @SuppressWarnings("unchecked")
     @Override
-    public final List<State> getStates(final String countrycode,
-            final Integer count) {
+    public final List<State> getStates(final String countrycode) {
 
         LOGGER.info("inside getStates method ");
         ESBResponse statelistext = userProfiles.getStates(countrycode);
@@ -292,7 +291,7 @@ public class ASDataServiceImpl implements ASDataService {
             modelststelist.add(state);
         }
 
-        return modelststelist.subList(0, count);
+        return modelststelist;
     }
 
     /**

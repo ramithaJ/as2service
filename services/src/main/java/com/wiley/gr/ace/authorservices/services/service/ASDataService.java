@@ -85,7 +85,7 @@ public interface ASDataService {
      *            the count
      * @return the states
      */
-    List<State> getStates(String countrycode, Integer count);
+    List<State> getStates(String countrycode);
 
     /**
      * Gets the institutions.

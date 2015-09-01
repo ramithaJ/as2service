@@ -33,20 +33,19 @@ public class AlertsData implements Serializable {
     /** The alert. */
     @JsonProperty("Alert")
     private List<AlertData> alert;
-
     /**
      * @return the alert
      */
     public final List<AlertData> getAlert() {
         return alert;
     }
-
     /**
-     * @param alert
-     *            the alert to set
+     * @param alert the alert to set
      */
-    public final void setAlert(final List<AlertData> alert) {
+    public final void setAlert(List<AlertData> alert) {
         this.alert = alert;
     }
+
+    
 
 }
