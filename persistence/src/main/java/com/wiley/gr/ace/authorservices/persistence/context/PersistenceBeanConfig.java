@@ -27,6 +27,7 @@ import com.wiley.gr.ace.authorservices.persistence.services.SaveArticleDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.SaveArticleInfoDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.SaveJournalInfoDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UpdateUserDAO;
+import com.wiley.gr.ace.authorservices.persistence.services.UploadLicenseDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserAccountDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
@@ -43,11 +44,13 @@ import com.wiley.gr.ace.authorservices.persistence.services.impl.SaveArticleDAOI
 import com.wiley.gr.ace.authorservices.persistence.services.impl.SaveArticleInfoDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.SaveJournalInfoDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UpdateUserDAOImpl;
+import com.wiley.gr.ace.authorservices.persistence.services.impl.UploadLicenseDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserAccountDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserLoginDaoImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserLoginServiceDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserRolesDAOImpl;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class PersistenceBeanConfig.
  *
@@ -224,5 +227,15 @@ public class PersistenceBeanConfig {
     @Bean(name = "LicenseDAO")
     public LicenseDAO licenseDAO() {
         return new LicenseDAOImpl();
+    }
+
+    /**
+     * Upload license dao.
+     *
+     * @return the upload license dao
+     */
+    @Bean(name = "UploadLicenseDAO")
+    public UploadLicenseDAO uploadLicenseDAO() {
+        return new UploadLicenseDAOImpl();
     }
 }

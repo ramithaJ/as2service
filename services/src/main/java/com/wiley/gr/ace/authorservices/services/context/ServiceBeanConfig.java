@@ -35,6 +35,7 @@ import com.wiley.gr.ace.authorservices.services.service.OrderStatusService;
 import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
 import com.wiley.gr.ace.authorservices.services.service.SaveArticleData;
 import com.wiley.gr.ace.authorservices.services.service.UpdateUserService;
+import com.wiley.gr.ace.authorservices.services.service.UploadLicenseService;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 import com.wiley.gr.ace.authorservices.services.service.ViewLicenseAgreementService;
@@ -55,10 +56,10 @@ import com.wiley.gr.ace.authorservices.services.service.impl.OrderStatusServiceI
 import com.wiley.gr.ace.authorservices.services.service.impl.RegistrationServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.SaveArticleDataImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UpdateUserServiceImpl;
+import com.wiley.gr.ace.authorservices.services.service.impl.UploadLicenseServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UserAccountServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UserLoginServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.ViewLicenseAgreementServiceImpl;
-
 
 /**
  * The Class ServiceBeanConfig.
@@ -67,7 +68,6 @@ import com.wiley.gr.ace.authorservices.services.service.impl.ViewLicenseAgreemen
  */
 @Configuration
 @PropertySource("classpath:orderStatusOO.properties")
-
 public class ServiceBeanConfig {
 
     /**
@@ -251,7 +251,7 @@ public class ServiceBeanConfig {
     public NotificationHistoryService notificationHistoryService() {
         return new NotificationHistoryServiceImpl();
     }
-    
+
     /**
      * View license agreement service.
      *
@@ -261,9 +261,20 @@ public class ServiceBeanConfig {
     public ViewLicenseAgreementService viewLicenseAgreementService() {
         return new ViewLicenseAgreementServiceImpl();
     }
+
     @Bean(name = "OrderStatusService")
     public OrderStatusService orderStatusService() {
         return new OrderStatusServiceImpl();
     }
-  
+
+    /**
+     * Upload license service.
+     *
+     * @return the upload license service
+     */
+    @Bean(name = "UploadLicenseService")
+    public UploadLicenseService uploadLicenseService() {
+        return new UploadLicenseServiceImpl();
+    }
+
 }
