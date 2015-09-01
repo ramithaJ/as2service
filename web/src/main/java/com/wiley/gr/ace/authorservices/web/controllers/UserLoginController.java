@@ -248,8 +248,6 @@ public class UserLoginController extends ASExceptionController {
     public final Service resetByEmail(
             @PathVariable("emailId") final String emailId) {
         Service service = new Service();
-        // TODO: we need to put template Id for reset by email
-        // TODO: we need to add link to the template
         sendNotification.notifyByEmail(emailId, templateId);
         return service;
     }
