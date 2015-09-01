@@ -178,7 +178,7 @@ public class ArticleAssignmentController {
         final Service service = new Service();
         ViewAssignedArticle viewAssignedArticle = null;
         if (!StringUtils.isEmpty(articleId)) {
-            LOGGER.info("input parameter emailId is found to Get View Assigned Article");
+            LOGGER.info("input parameter articleId is found to Get View Assigned Article");
             try {
                 viewAssignedArticle = articleAssignmentService
                         .viewAssignedArticle(articleId);
