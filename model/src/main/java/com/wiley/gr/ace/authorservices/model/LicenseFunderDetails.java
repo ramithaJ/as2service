@@ -16,8 +16,6 @@ package com.wiley.gr.ace.authorservices.model;
 
 import java.util.List;
 
-import com.wiley.gr.ace.authorservices.model.external.Funder;
-
 /**
  * The Class LicenseFunderDetails.
  * 
@@ -26,7 +24,7 @@ import com.wiley.gr.ace.authorservices.model.external.Funder;
 public class LicenseFunderDetails {
 
     /** The funder. */
-    private Funder funder;
+    private FunderDetails funder;
 
     /** The grants. */
     private List<Grant> grants;
@@ -36,7 +34,7 @@ public class LicenseFunderDetails {
      *
      * @return the funder
      */
-    public final Funder getFunder() {
+    public final FunderDetails getFunder() {
         return funder;
     }
 
@@ -46,7 +44,7 @@ public class LicenseFunderDetails {
      * @param funder
      *            the new funder
      */
-    public final void setFunder(final Funder funder) {
+    public final void setFunder(final FunderDetails funder) {
         this.funder = funder;
     }
 
@@ -58,5 +56,5 @@ public class LicenseFunderDetails {
         this.grants = grants;
     }
 
- 
+
 }
