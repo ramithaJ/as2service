@@ -13,6 +13,7 @@ package com.wiley.gr.ace.authorservices.exception;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -29,6 +30,9 @@ import com.wiley.gr.ace.authorservices.model.Service;
  */
 @ControllerAdvice
 public class ASExceptionController {
+
+    @Value("${internalError.code}")
+    private String internalErrorCode;
 
     /**
      * This field holds the value of LOGGER.
@@ -83,7 +87,7 @@ public class ASExceptionController {
         LOGGER.error("Initial SessionFactory creation failed.", exception);
         response.setStatus("FAILURE");
         ErrorPOJO errorPojo = new ErrorPOJO();
-        errorPojo.setCode("-1");
+        errorPojo.setCode(internalErrorCode);
         errorPojo.setMessage(exception.getMessage());
         response.setError(errorPojo);
 
