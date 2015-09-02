@@ -15,6 +15,7 @@
 package com.wiley.gr.ace.authorservices.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -57,6 +58,10 @@ public class LicenseObject {
 
     /** The signed date. */
     private String signedDate;
+    
+    private List<Prices> prices;
+    
+    private String license_OO_OA;
 
 
 
@@ -248,6 +253,22 @@ public class LicenseObject {
     public final void setSignedDate(final String signedDate) {
         this.signedDate = signedDate;
     }
+
+	public List<Prices> getPrices() {
+		return prices;
+	}
+
+	public void setPrices(List<Prices> prices) {
+		this.prices = prices;
+	}
+
+	public String getLicense_OO_OA() {
+		return license_OO_OA;
+	}
+
+	public void setLicense_OO_OA(String license_OO_OA) {
+		this.license_OO_OA = license_OO_OA;
+	}
 
 
 }
