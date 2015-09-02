@@ -260,6 +260,10 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         AlertsData alertsData = new AlertsData();
         List<AlertData> alertList = new ArrayList<AlertData>();
         List<Alert> alertLIst = listOfalert.getAlertsList();
+        List<AlertData> externalAlertsList = userProfiles
+                .getLookupCustomerProfile(userId)
+                .getLookupCustomerProfileResponse().getCustomerProfile()
+                .getAlerts().getAlert();
         for (Alert alert : alertLIst) {
             AlertData alertData = new AlertData();
             AlertType alertType = new AlertType();
@@ -277,7 +281,18 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                 alertType.setOnscreen("0");
             }
             alertData.setType(alertType);
-            alertData.setStatus("edit");
+            alertData.setStatus("add");
+
+            if (externalAlertsList != null && !externalAlertsList.isEmpty()) {
+                for (AlertData getAlertsData : externalAlertsList) {
+
+                    if (alert.getAlertId().equalsIgnoreCase(
+                            getAlertsData.getAlertID())) {
+                        alertData.setStatus("edit");
+                    }
+                }
+            }
+
             alertList.add(alertData);
         }
         alertsData.setAlert(alertList);
@@ -880,18 +895,18 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
                         break;
                     }
-                    
+
                 }
             }
             alertList.add(alert);
 
         }
-        
-        if(alertList != null && !alertList.isEmpty()){
+
+        if (alertList != null && !alertList.isEmpty()) {
             alertsResponse.setAlertsList(alertList);
         }
-        
-        if(emailList != null && !emailList.isEmpty()){
+
+        if (emailList != null && !emailList.isEmpty()) {
             alertsResponse.setEmailsList(emailList);
         }
 
