@@ -79,9 +79,7 @@ public class SendNotificationImpl implements SendNotification {
             final SendNotificationRequest sendNotificationRequest) {
         NotificationFieldList fieldList = new NotificationFieldList();
         NotificationRequest notificationRequest = new NotificationRequest();
-        List<String> toList = new ArrayList<String>();
-        toList.add(sendNotificationRequest.getTo());
-        notificationRequest.setTo(toList);
+        notificationRequest.setTo(sendNotificationRequest.getToList());
         notificationRequest.setFrom(sendNotificationRequest.getFrom());
         fieldList.setFieldList(sendNotificationRequest.getFieldList());
         notificationRequest.setTemplateDetails(fieldList);

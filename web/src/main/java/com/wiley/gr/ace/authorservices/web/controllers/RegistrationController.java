@@ -226,11 +226,14 @@ public class RegistrationController {
                     if (!StringUtils.isEmpty(verifyGuid)) {
                         SendNotificationRequest notificationRequest = new SendNotificationRequest();
                         List<String> fieldList = new ArrayList<String>();
-                        fieldList.add(user.getFirstName() + " " + user.getLastName());
+                        fieldList.add(user.getFirstName() + " "
+                                + user.getLastName());
                         fieldList.add(verifyGuid);
                         notificationRequest.setFieldList(fieldList);
                         notificationRequest.setFrom("admin@wiley.com");
-                        notificationRequest.setTo(user.getPrimaryEmailAddr());
+                        ArrayList<String> toList = new ArrayList<String>();
+                        toList.add(user.getPrimaryEmailAddr());
+                        notificationRequest.setToList(toList);
 
                         sendNotification.sendEmail("24", "113", "email",
                                 notificationRequest);

@@ -14,6 +14,7 @@
  */
 package com.wiley.gr.ace.authorservices.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,8 +25,7 @@ public class SendNotificationRequest {
     /** The from. */
     private String from;
 
-    /** The to. */
-    private String to;
+    private ArrayList<String> toList;
 
     /** The field list. */
     private List<String> fieldList;
@@ -42,28 +42,26 @@ public class SendNotificationRequest {
     /**
      * Sets the from.
      *
-     * @param from the new from
+     * @param from
+     *            the new from
      */
-    public final void setFrom(String from) {
+    public final void setFrom(final String from) {
         this.from = from;
     }
 
     /**
-     * Gets the to.
-     *
-     * @return the to
+     * @return the toList
      */
-    public final String getTo() {
-        return to;
+    public final ArrayList<String> getToList() {
+        return toList;
     }
 
     /**
-     * Sets the to.
-     *
-     * @param to the new to
+     * @param toList
+     *            the toList to set
      */
-    public final void setTo(String to) {
-        this.to = to;
+    public final void setToList(final ArrayList<String> toList) {
+        this.toList = toList;
     }
 
     /**
@@ -78,9 +76,10 @@ public class SendNotificationRequest {
     /**
      * Sets the field list.
      *
-     * @param fieldList the new field list
+     * @param fieldList
+     *            the new field list
      */
-    public final void setFieldList(List<String> fieldList) {
+    public final void setFieldList(final List<String> fieldList) {
         this.fieldList = fieldList;
     }
 
