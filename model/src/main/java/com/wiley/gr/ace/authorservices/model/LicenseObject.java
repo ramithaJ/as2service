@@ -29,13 +29,13 @@ public class LicenseObject {
 
     /** The licence id. */
     private String licenceId;
-    
+
     /** The journal id. */
     private String journalId;
-        
+
 
     /** The funder details. */
-    private LicenseFunderDetails funderDetails;
+    private ArrayList<FunderDetails> funderDetailsList;
 
     /** The copyright ownership. */
     private CopyrightOwnership copyrightOwnership;
@@ -55,23 +55,28 @@ public class LicenseObject {
     /** The license type presented. */
     private ArrayList<String> licenseTypePresented;
 
+    /** The signed date. */
+    private String signedDate;
+
+
+
     /**
-     * Gets the funder details.
+     * Gets the funder details list.
      *
-     * @return the funder details
+     * @return the funder details list
      */
-    public final LicenseFunderDetails getFunderDetails() {
-        return funderDetails;
+    public final ArrayList<FunderDetails> getFunderDetailsList() {
+        return funderDetailsList;
     }
 
     /**
-     * Sets the funder details.
+     * Sets the funder details list.
      *
-     * @param funderDetails
-     *            the new funder details
+     * @param funderDetailsList the new funder details list
      */
-    public final void setFunderDetails(final LicenseFunderDetails funderDetails) {
-        this.funderDetails = funderDetails;
+    public final void setFunderDetailsList(
+            final ArrayList<FunderDetails> funderDetailsList) {
+        this.funderDetailsList = funderDetailsList;
     }
 
     /**
@@ -226,5 +231,23 @@ public class LicenseObject {
         this.journalId = journalId;
     }
 
-  
+    /**
+     * Gets the signed date.
+     *
+     * @return the signed date
+     */
+    public final String getSignedDate() {
+        return signedDate;
+    }
+
+    /**
+     * Sets the signed date.
+     *
+     * @param signedDate the new signed date
+     */
+    public final void setSignedDate(final String signedDate) {
+        this.signedDate = signedDate;
+    }
+
+
 }

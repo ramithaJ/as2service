@@ -38,13 +38,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wiley.gr.ace.authorservices.exception.LicenseException;
 import com.wiley.gr.ace.authorservices.externalservices.service.LicenseInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.TaskService;
-import com.wiley.gr.ace.authorservices.model.Grant;
-import com.wiley.gr.ace.authorservices.model.GrantRecipients;
+import com.wiley.gr.ace.authorservices.model.FunderDetails;
+import com.wiley.gr.ace.authorservices.model.Grants;
 import com.wiley.gr.ace.authorservices.model.LicenceOO;
-import com.wiley.gr.ace.authorservices.model.LicenseFunderDetails;
 import com.wiley.gr.ace.authorservices.model.LicenseObject;
 import com.wiley.gr.ace.authorservices.model.LicenseStatus;
 import com.wiley.gr.ace.authorservices.model.LicenseUpload;
+import com.wiley.gr.ace.authorservices.model.Recipients;
 import com.wiley.gr.ace.authorservices.model.TrackLicense;
 import com.wiley.gr.ace.authorservices.model.TrackLicenseDetails;
 import com.wiley.gr.ace.authorservices.model.external.Funder;
@@ -132,15 +132,23 @@ public class LicenseServiceImpl implements LicenseService {
 
         LicenseChoiceRequest licenseChoiceRequest = new LicenseChoiceRequest();
         Funders funders = new Funders();
-        Funder funder = new Funder();
         ArrayList<Funder> funderList = new ArrayList<Funder>();
 
         licenseChoiceRequest.setDhId(dhId);
 
-        funder.setFundRefId(licenseObject.getFunderDetails().getFunder().getResearchFunderId());
-        funder.setName(licenseObject.getFunderDetails().getFunder().getResearchFunderName());
+        for (FunderDetails funderDetails : licenseObject.getFunderDetailsList()) {
+            Funder funder = new Funder();
+            if (!StringUtils.isEmpty(funderDetails.getAssociateFunderId())) {
+                funder.setFundRefId(funderDetails.getAssociateFunderId());
+                funder.setName(funderDetails.getAssociateFunderName());
+            } else {
+                funder.setFundRefId(funderDetails.getResearchFunderId());
+                funder.setName(funderDetails.getResearchFunderName());
+            }
 
-        funderList.add(funder); // null
+            funderList.add(funder);
+        }
+
         funders.setFunder(funderList);
         licenseChoiceRequest.setFunders(funders);
         licenseChoiceRequest.setOnlineOpen(licenseObject.getOnlineOpen());
@@ -532,27 +540,29 @@ public class LicenseServiceImpl implements LicenseService {
         List<ProgramData> programList = licenseInterfaceService
                 .initiateLicence(articleId).getProgram();
         for (ProgramData programData : programList) {
-            LicenseFunderDetails licenseFunderDetails = new LicenseFunderDetails();
-            Grant grant = new Grant();
-            List<Grant> grantList = new ArrayList<Grant>();
-            GrantRecipients grantRecipients = new GrantRecipients();
-            List<GrantRecipients> listOfGrantRecipients = new ArrayList<GrantRecipients>();
-            grantRecipients.setCode(programData.getFunder().getId());
+            FunderDetails funderDetails = new FunderDetails();
+            ArrayList<FunderDetails> funderDetailsList = new ArrayList<FunderDetails>();
+            Grants grant = new Grants();
+            List<Grants> grantList = new ArrayList<Grants>();
+            Recipients grantRecipients = new Recipients();
+            List<Recipients> listOfGrantRecipients = new ArrayList<Recipients>();
+            grantRecipients.setRecipientId(programData.getFunder().getId());
 
             List<Id> lisOfId = programData.getFunder().getSecondaryIds()
                     .getId();
             for (Id id : lisOfId) {
                 if (id.getType().equalsIgnoreCase("DOI")) {
-                    grantRecipients.setName(programData.getFunder().getName());
+                    grantRecipients.setRecipentsName(programData.getFunder()
+                            .getName());
                     break;
                 }
             }
-            grant.setRecipients(listOfGrantRecipients);
             listOfGrantRecipients.add(grantRecipients);
-            grant.setRecipients(listOfGrantRecipients);
+            grant.setRecipientsList(listOfGrantRecipients);
             grantList.add(grant);
-            licenseFunderDetails.setGrants(grantList);
-            licenseObject.setFunderDetails(licenseFunderDetails);
+            funderDetails.setGrants(grantList);
+            funderDetailsList.add(funderDetails);
+            licenseObject.setFunderDetailsList(funderDetailsList);
 
         }
         return licenseObject;

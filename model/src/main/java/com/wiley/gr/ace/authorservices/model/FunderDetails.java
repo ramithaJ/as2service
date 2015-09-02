@@ -24,21 +24,23 @@ public class FunderDetails {
     private String woaAccountId;
 
     /** The funder id. */
-    private String funderId = "";
+    private String funderId;
 
     /** The research funder id. */
-    private String researchFunderId = "";
+    private String researchFunderId;
 
     /** The funder name. */
-    private String researchFunderName = "";
+    private String researchFunderName;
+
+    /** The associate funder id. */
+    private String associateFunderId;
+
+    /** The associate funder name. */
+    private String associateFunderName;
 
     /** The grants. */
 
     private List<Grants> grants;
-    
-   
-
-   
 
     /**
      * Gets the woa account id.
@@ -116,13 +118,61 @@ public class FunderDetails {
         this.grants = grants;
     }
 
+    /**
+     * Gets the research funder name.
+     *
+     * @return the research funder name
+     */
     public final String getResearchFunderName() {
         return researchFunderName;
     }
 
+    /**
+     * Sets the research funder name.
+     *
+     * @param researchFunderName
+     *            the new research funder name
+     */
     public final void setResearchFunderName(final String researchFunderName) {
         this.researchFunderName = researchFunderName;
     }
 
-   
+    /**
+     * Gets the associate funder id.
+     *
+     * @return the associate funder id
+     */
+    public final String getAssociateFunderId() {
+        return associateFunderId;
+    }
+
+    /**
+     * Sets the associate funder id.
+     *
+     * @param associateFunderId
+     *            the new associate funder id
+     */
+    public final void setAssociateFunderId(final String associateFunderId) {
+        this.associateFunderId = associateFunderId;
+    }
+
+    /**
+     * Gets the associate funder name.
+     *
+     * @return the associate funder name
+     */
+    public final String getAssociateFunderName() {
+        return associateFunderName;
+    }
+
+    /**
+     * Sets the associate funder name.
+     *
+     * @param associateFunderName
+     *            the new associate funder name
+     */
+    public final void setAssociateFunderName(final String associateFunderName) {
+        this.associateFunderName = associateFunderName;
+    }
+
 }
