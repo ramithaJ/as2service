@@ -14,6 +14,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
+import com.wiley.gr.ace.authorservices.persistence.entity.Users;
+import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.security.TokenAuthentication;
 import com.wiley.gr.ace.authorservices.services.service.SendNotification;
 
@@ -45,6 +47,12 @@ public class TokenAuthenticationService {
     private String templateId;
 
     /**
+     * This field holds the value of userLoginServiceDAO.
+     */
+    @Autowired
+    private UserLoginServiceDAO userLoginServiceDAO;
+
+    /**
      * Authenticate.
      *
      * @param username
@@ -58,8 +66,10 @@ public class TokenAuthenticationService {
         final String authenticationToken = tokenHandler
                 .invokeTokenAuthorization(username, password);
         if (StringUtils.isBlank(authenticationToken)) {
-            // TODO: template Id need to change
-            sendNotification.notifyByEmail(username, templateId);
+            Users users = userLoginServiceDAO.getUserId(username);
+            if (null != users) {
+                sendNotification.notifyByEmail(username, templateId);
+            }
             return null;
         }
         final User user = new User(username, StringUtils.EMPTY,

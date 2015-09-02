@@ -52,33 +52,6 @@ public class SendNotificationDaoImpl implements SendNotificationDao {
         return users;
     }
 
-    /**
-     * this method will take.
-     *
-     * @param emailId
-     *            the email id
-     * @return users
-     */
-    @Override
-    public final Users getUserProfileByEmail(final String emailId) {
-        Session session = null;
-        Users users = null;
-        try {
-            session = getSessionFactory().openSession();
-            Criteria criteria = session.createCriteria(Users.class);
-            criteria.add(Restrictions.eq("primaryEmailAddr", emailId));
-            users = (Users) criteria.uniqueResult();
-        } finally {
-            if (null != session) {
-                session.flush();
-                session.close();
-            }
-
-        }
-
-        return users;
-    }
-
     @Override
     public UserSecondaryEmailAddr getUserSecEmailAddr(final String userId) {
 

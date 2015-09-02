@@ -30,15 +30,6 @@ public interface SendNotificationDao {
     Users getUserProfile(Integer userId);
 
     /**
-     * Gets the user profile by email.
-     *
-     * @param emailId
-     *            the email id
-     * @return the user profile by email
-     */
-    Users getUserProfileByEmail(String emailId);
-
-    /**
      * @param userId
      *            the request
      * @return userSecondaryEmailAddr
