@@ -93,8 +93,23 @@ public class UserLoginServiceImpl implements UserLoginService {
     @Value("${templateId.password.forceful.reset}")
     private String passwordForcefulResetTemplateId;
 
+    /**
+     * This field holds the value of passwordResetTemplateId.
+     */
     @Value("${templateId.password.reset}")
     private String passwordResetTemplateId;
+
+    /**
+     * This field holds the value of noSecutirySetupCode.
+     */
+    @Value("${noSecutirySetup.code}")
+    private String noSecutirySetupCode;
+
+    /**
+     * This field holds the value of noSecutirySetupMsg.
+     */
+    @Value("${noSecutirySetup.msg}")
+    private String noSecutirySetupMsg;
 
     /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory
@@ -227,17 +242,17 @@ public class UserLoginServiceImpl implements UserLoginService {
         LOGGER.info("In securityQuestions method");
         SecurityQuestionsList securityQuestionsList = new SecurityQuestionsList();
         List<SecurityDetails> securityDetailsList = new ArrayList<SecurityDetails>();
-        List<String> retrieveSecurityQuestionsList =  new ArrayList<String>();
+        List<String> retrieveSecurityQuestionsList = new ArrayList<String>();
         SecurityDetails securityDetails = null;
         int i = 0;
         RetrieveSecurityQuestions retrieveSecurityQuestions = userManagement
                 .userSecurityQuestions(emailId);
-        if(retrieveSecurityQuestions
-                .getSystemSecurityQuestions() != null) {
-            retrieveSecurityQuestionsList = retrieveSecurityQuestions
-                    .getSystemSecurityQuestions().getSecurityQuestionList();
+        if (null == retrieveSecurityQuestions.getSystemSecurityQuestions()) {
+            throw new UserException(noSecutirySetupCode, noSecutirySetupMsg);
         }
-        
+        retrieveSecurityQuestionsList = retrieveSecurityQuestions
+                .getSystemSecurityQuestions().getSecurityQuestionList();
+
         for (String list : retrieveSecurityQuestionsList) {
 
             securityDetails = new SecurityDetails();
