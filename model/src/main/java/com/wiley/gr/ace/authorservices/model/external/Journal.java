@@ -30,43 +30,26 @@ public class Journal {
     private String dhId;
 
     /** The journal title. */
+    @JsonProperty("journalTitle")
     private String journalTitle;
 
     /** The journal code abbreviation. */
     private String journalCodeAbbreviation;
 
-    /** The issn. */
-    private String issn;
+    /** The print issn number. */
+    private String printIssnNumber;
 
-    /** The electronic issn. */
-    private String electronicIssn;
+    /** The electronic issn number. */
+    private String electronicIssnNumber;
 
     /** The journal doi. */
-    private String journalDoi;
-
-    /**
-     * Gets the journal doi.
-     *
-     * @return the journal doi
-     */
-    public final String getJournalDoi() {
-        return journalDoi;
-    }
-
-    /**
-     * Sets the journal doi.
-     *
-     * @param journalDoi
-     *            the new journal doi
-     */
-    public final void setJournalDoi(final String journalDoi) {
-        this.journalDoi = journalDoi;
-    }
+    @JsonProperty("journalDoi")
+    private String journalDOI;
 
     /**
      * Gets the journal title.
      *
-     * @return the journalTitle
+     * @return the journal title
      */
     public final String getJournalTitle() {
         return journalTitle;
@@ -75,11 +58,30 @@ public class Journal {
     /**
      * Sets the journal title.
      *
-     * @param journalTitle
-     *            the journalTitle to set
+     * @param title
+     *            the new journal title
      */
-    public final void setJournalTitle(final String journalTitle) {
+    public final void setTitle(final String journalTitle) {
         this.journalTitle = journalTitle;
+    }
+
+    /**
+     * Gets the journal doi.
+     *
+     * @return the journal doi
+     */
+    public final String getJournalDOI() {
+        return journalDOI;
+    }
+
+    /**
+     * Sets the journal doi.
+     *
+     * @param journalDOI
+     *            the new journal doi
+     */
+    public final void setJournalDOI(final String journalDOI) {
+        this.journalDOI = journalDOI;
     }
 
     /**
@@ -177,21 +179,41 @@ public class Journal {
     }
 
     /**
-     * Gets the issn.
+     * Gets the prints the issn number.
      *
-     * @return the issn
+     * @return the prints the issn number
      */
-    public final String getIssn() {
-        return issn;
+    public final String getPrintIssnNumber() {
+        return printIssnNumber;
     }
 
     /**
-     * Gets the electronic issn.
+     * Sets the prints the issn number.
      *
-     * @return the electronic issn
+     * @param printIssnNumber
+     *            the new prints the issn number
      */
-    public final String getElectronicIssn() {
-        return electronicIssn;
+    public final void setPrintIssnNumber(final String printIssnNumber) {
+        this.printIssnNumber = printIssnNumber;
+    }
+
+    /**
+     * Gets the electronic issn number.
+     *
+     * @return the electronic issn number
+     */
+    public final String getElectronicIssnNumber() {
+        return electronicIssnNumber;
+    }
+
+    /**
+     * Sets the electronic issn number.
+     *
+     * @param electronicIssnNumber
+     *            the new electronic issn number
+     */
+    public final void setElectronicIssnNumber(final String electronicIssnNumber) {
+        this.electronicIssnNumber = electronicIssnNumber;
     }
 
     /**
@@ -203,26 +225,6 @@ public class Journal {
     public final void setJournalCodeAbbreviation(
             final String journalCodeAbbreviation) {
         this.journalCodeAbbreviation = journalCodeAbbreviation;
-    }
-
-    /**
-     * Sets the issn.
-     *
-     * @param issn
-     *            the new issn
-     */
-    public final void setIssn(final String issn) {
-        this.issn = issn;
-    }
-
-    /**
-     * Sets the electronic issn.
-     *
-     * @param electronicIssn
-     *            the new electronic issn
-     */
-    public final void setElectronicIssn(final String electronicIssn) {
-        this.electronicIssn = electronicIssn;
     }
 
 }

@@ -28,7 +28,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class ArticleDetails {
 
     /** The article id. */
-    private Integer articleId;
+    private String articleId;
 
     /** The article title. */
     private String articleTitle;
@@ -144,7 +144,7 @@ public class ArticleDetails {
      *
      * @return the articleId
      */
-    public final Integer getArticleId() {
+    public final String getArticleId() {
         return articleId;
     }
 
@@ -154,7 +154,7 @@ public class ArticleDetails {
      * @param articleId
      *            the articleId to set
      */
-    public final void setArticleId(final Integer articleId) {
+    public final void setArticleId(final String articleId) {
         this.articleId = articleId;
     }
 

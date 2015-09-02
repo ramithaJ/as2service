@@ -12,7 +12,7 @@
 /**
  * 
  */
-package com.wiley.gr.ace.authorservices.model.external;
+package com.wiley.gr.ace.authorservices.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -29,20 +29,21 @@ public class ArticleData {
     /** The article user role. */
     private String articleUserRole;
 
-    /** The journal. */
-    private Journal journal;
+    /** The journal data. */
+    private JournalData journal;
 
     /** The dhid. */
     @JsonProperty("DH_ID")
     private String dhId;
 
     /** The aid ecore. */
-    @JsonProperty("aidECORE")
     private String aidECORE;
 
     /** The article title. */
-    @JsonProperty("articleTitle")
     private String articleTitle;
+
+    /** The authors. */
+    private String authors;
 
     /** The article details. */
     private ArticleDetails articleDetails;
@@ -50,46 +51,14 @@ public class ArticleData {
     /** The license status. */
     private String licenseStatus;
 
-    /** The order. */
-    private OrderData order;
+    /** The payments status. */
+    private PaymentStatus orderPaymentStatus;
 
-    /**
-     * Gets the order.
-     *
-     * @return the order
-     */
-    public final OrderData getOrder() {
-        return order;
-    }
+    /** The production status. */
+    private ProductionStatus production;
 
-    /**
-     * Gets the dh id.
-     *
-     * @return the dh id
-     */
-    public final String getDhId() {
-        return dhId;
-    }
-
-    /**
-     * Sets the dh id.
-     *
-     * @param dhId
-     *            the new dh id
-     */
-    public final void setDhId(final String dhId) {
-        this.dhId = dhId;
-    }
-
-    /**
-     * Sets the order.
-     *
-     * @param order
-     *            the new order
-     */
-    public final void setOrder(final OrderData order) {
-        this.order = order;
-    }
+    /** The publication details. */
+    private PublicationDetails publication;
 
     /**
      * Gets the article user role.
@@ -113,9 +82,9 @@ public class ArticleData {
     /**
      * Gets the journal.
      *
-     * @return The journal
+     * @return the journal
      */
-    public final Journal getJournal() {
+    public final JournalData getJournal() {
         return journal;
     }
 
@@ -123,24 +92,54 @@ public class ArticleData {
      * Sets the journal.
      *
      * @param journal
-     *            The journal
+     *            the new journal
      */
-    public final void setJournal(final Journal journal) {
+    public final void setJournal(final JournalData journal) {
         this.journal = journal;
     }
 
+    /**
+     * Gets the dh id.
+     *
+     * @return the dh id
+     */
+    public final String getDhId() {
+        return dhId;
+    }
+
+    /**
+     * Sets the dh id.
+     *
+     * @param dhId
+     *            the new dh id
+     */
+    public final void setDhId(final String dhId) {
+        this.dhId = dhId;
+    }
+
+    /**
+     * Gets the aid ecore.
+     *
+     * @return the aid ecore
+     */
     public final String getAidECORE() {
         return aidECORE;
     }
 
-    public final void setAidEcore(final String aidECORE) {
+    /**
+     * Sets the aid ecore.
+     *
+     * @param aidECORE
+     *            the new aid ecore
+     */
+    public final void setAidECORE(final String aidECORE) {
         this.aidECORE = aidECORE;
     }
 
     /**
      * Gets the article title.
      *
-     * @return The articleTitle
+     * @return the article title
      */
     public final String getArticleTitle() {
         return articleTitle;
@@ -150,16 +149,35 @@ public class ArticleData {
      * Sets the article title.
      *
      * @param articleTitle
-     *            The articleTitle
+     *            the new article title
      */
-    public final void setTitle(final String articleTitle) {
+    public final void setArticleTitle(final String articleTitle) {
         this.articleTitle = articleTitle;
+    }
+
+    /**
+     * Gets the authors.
+     *
+     * @return the authors
+     */
+    public final String getAuthors() {
+        return authors;
+    }
+
+    /**
+     * Sets the authors.
+     *
+     * @param authors
+     *            the new authors
+     */
+    public final void setAuthors(final String authors) {
+        this.authors = authors;
     }
 
     /**
      * Gets the article details.
      *
-     * @return the articleDetails
+     * @return the article details
      */
     public final ArticleDetails getArticleDetails() {
         return articleDetails;
@@ -169,7 +187,7 @@ public class ArticleData {
      * Sets the article details.
      *
      * @param articleDetails
-     *            the articleDetails to set
+     *            the new article details
      */
     public final void setArticleDetails(final ArticleDetails articleDetails) {
         this.articleDetails = articleDetails;
@@ -178,7 +196,7 @@ public class ArticleData {
     /**
      * Gets the license status.
      *
-     * @return the licenseStatus
+     * @return the license status
      */
     public final String getLicenseStatus() {
         return licenseStatus;
@@ -188,10 +206,68 @@ public class ArticleData {
      * Sets the license status.
      *
      * @param licenseStatus
-     *            the licenseStatus to set
+     *            the new license status
      */
     public final void setLicenseStatus(final String licenseStatus) {
         this.licenseStatus = licenseStatus;
+    }
+
+    /**
+     * Gets the order payment status.
+     *
+     * @return the order payment status
+     */
+    public final PaymentStatus getOrderPaymentStatus() {
+        return orderPaymentStatus;
+    }
+
+    /**
+     * Sets the order payment status.
+     *
+     * @param orderPaymentStatus
+     *            the new order payment status
+     */
+    public final void setOrderPaymentStatus(
+            final PaymentStatus orderPaymentStatus) {
+        this.orderPaymentStatus = orderPaymentStatus;
+    }
+
+    /**
+     * Gets the production.
+     *
+     * @return the production
+     */
+    public final ProductionStatus getProduction() {
+        return production;
+    }
+
+    /**
+     * Sets the production.
+     *
+     * @param production
+     *            the new production
+     */
+    public final void setProduction(final ProductionStatus production) {
+        this.production = production;
+    }
+
+    /**
+     * Gets the publication.
+     *
+     * @return the publication
+     */
+    public final PublicationDetails getPublication() {
+        return publication;
+    }
+
+    /**
+     * Sets the publication.
+     *
+     * @param publication
+     *            the new publication
+     */
+    public final void setPublication(final PublicationDetails publication) {
+        this.publication = publication;
     }
 
 }
