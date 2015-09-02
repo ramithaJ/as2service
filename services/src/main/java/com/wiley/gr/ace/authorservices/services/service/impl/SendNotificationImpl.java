@@ -26,6 +26,7 @@ import com.wiley.gr.ace.authorservices.model.external.NotificationRequest;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserSecondaryEmailAddr;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.SendNotificationDao;
+import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.services.service.SendNotification;
 
 /**
@@ -40,6 +41,12 @@ public class SendNotificationImpl implements SendNotification {
     /** The send notification dao. */
     @Autowired(required = true)
     private SendNotificationDao sendNotificationDao;
+
+    /**
+     * This field holds the value of userLoginServiceDAO.
+     */
+    @Autowired(required = true)
+    private UserLoginServiceDAO userLoginServiceDAO;
 
     /** The notification email. */
     @Value("${notification.email}")
@@ -72,7 +79,9 @@ public class SendNotificationImpl implements SendNotification {
             final SendNotificationRequest sendNotificationRequest) {
         NotificationFieldList fieldList = new NotificationFieldList();
         NotificationRequest notificationRequest = new NotificationRequest();
-        notificationRequest.setTo(sendNotificationRequest.getTo());
+        List<String> toList = new ArrayList<String>();
+        toList.add(sendNotificationRequest.getTo());
+        notificationRequest.setTo(toList);
         notificationRequest.setFrom(sendNotificationRequest.getFrom());
         fieldList.setFieldList(sendNotificationRequest.getFieldList());
         notificationRequest.setTemplateDetails(fieldList);
@@ -96,7 +105,9 @@ public class SendNotificationImpl implements SendNotification {
 
         NotificationRequest notificationRequest = new NotificationRequest();
         notificationRequest.setFrom(notificationEmail);
-        notificationRequest.setTo(emailId);
+        List<String> toList = new ArrayList<String>();
+        toList.add(emailId);
+        notificationRequest.setTo(toList);
         NotificationFieldList notificationFieldList = new NotificationFieldList();
         List<String> listofFields = new ArrayList<String>();
         Users users = sendNotificationDao.getUserProfileByEmail(emailId);
@@ -119,26 +130,28 @@ public class SendNotificationImpl implements SendNotification {
 
         NotificationRequest notificationRequest = new NotificationRequest();
         notificationRequest.setFrom(notificationEmail);
-        notificationRequest.setTo(emailId);
+        List<String> toList = new ArrayList<String>();
+        toList.add(emailId);
+        notificationRequest.setTo(toList);
         NotificationFieldList notificationFieldList = new NotificationFieldList();
         List<String> listofFields = new ArrayList<String>();
-        Users users = sendNotificationDao.getUserProfileByEmail(emailId);
+        Users users = userLoginServiceDAO.getUserId(emailId);
         if (users != null) {
             listofFields.add(users.getFirstName());
         }
-        if(users != null) {
+        if (users != null) {
             UserSecondaryEmailAddr userSecondaryEmailAddr = sendNotificationDao
                     .getUserSecEmailAddr(String.valueOf(users.getUserId()));
 
             listofFields.add(userSecondaryEmailAddr.getSecondaryEmailAddr());
             notificationFieldList.setFieldList(listofFields);
             notificationRequest.setTemplateDetails(notificationFieldList);
-            return notificationService.sendNotification(appId, type, templateId,
-                    notificationRequest);
+            return notificationService.sendNotification(appId, type,
+                    templateId, notificationRequest);
         } else {
             return null;
         }
-        
+
     }
 
 }

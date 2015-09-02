@@ -12,6 +12,8 @@
 
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -23,7 +25,7 @@ public class NotificationRequest {
     private String from;
 
     /** The to. */
-    private String to;
+    private List<String> to;
 
     /** The template details. */
     @JsonProperty("templateDetails")
@@ -36,15 +38,6 @@ public class NotificationRequest {
      */
     public final String getFrom() {
         return from;
-    }
-
-    /**
-     * Gets the to.
-     *
-     * @return the to
-     */
-    public final String getTo() {
-        return to;
     }
 
     /**
@@ -67,16 +60,6 @@ public class NotificationRequest {
     }
 
     /**
-     * Sets the to.
-     *
-     * @param to
-     *            the new to
-     */
-    public final void setTo(final String to) {
-        this.to = to;
-    }
-
-    /**
      * Sets the template details.
      *
      * @param templateDetails
@@ -85,6 +68,21 @@ public class NotificationRequest {
     public final void setTemplateDetails(
             final NotificationFieldList templateDetails) {
         this.templateDetails = templateDetails;
+    }
+
+    /**
+     * @return the to
+     */
+    public final List<String> getTo() {
+        return to;
+    }
+
+    /**
+     * @param to
+     *            the to to set
+     */
+    public final void setTo(final List<String> to) {
+        this.to = to;
     }
 
 }

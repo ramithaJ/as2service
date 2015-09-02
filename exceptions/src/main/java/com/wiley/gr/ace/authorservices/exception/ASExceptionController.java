@@ -13,7 +13,6 @@ package com.wiley.gr.ace.authorservices.exception;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -31,14 +30,16 @@ import com.wiley.gr.ace.authorservices.model.Service;
 @ControllerAdvice
 public class ASExceptionController {
 
-    @Value("${internalError.code}")
-    private String internalErrorCode;
-
     /**
      * This field holds the value of LOGGER.
      */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(ASExceptionController.class);
+
+    /**
+     * This field holds the value of internalErrorCode.
+     */
+    public static final String internalErrorCode = "UNABLE_PROCESS_REQ_ERR_TEXT";
 
     /**
      * This method is used to handle ASException.
