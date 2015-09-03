@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
+import com.wiley.gr.ace.authorservices.persistence.services.ArticleAssignmentDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.DashboardDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.InvitationCeaseDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.InvitationStartDAO;
@@ -31,6 +32,7 @@ import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserRolesDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.ASDataDAOImpl;
+import com.wiley.gr.ace.authorservices.persistence.services.impl.ArticleAssignmentDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.DashboardDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.InviataionCeaseDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.InvitationStartDAOImpl;
@@ -102,6 +104,16 @@ public class PersistenceBeanConfig {
     @Bean(name = "DashboardDAO")
     public DashboardDAO dashboardDAO() {
         return new DashboardDAOImpl();
+    }
+
+    /**
+     * This method Creates the ArticleAssignmentDAO.
+     *
+     * @return the ArticleAssignmentDAOImpl.
+     */
+    @Bean(name = "ArticleAssignmentDAO")
+    public ArticleAssignmentDAO articleAssignmentDAO() {
+        return new ArticleAssignmentDAOImpl();
     }
 
     /**
@@ -203,9 +215,10 @@ public class PersistenceBeanConfig {
     public InvitationStartDAO invitationStartDAO() {
         return new InvitationStartDAOImpl();
     }
+
     @Bean(name = "InvitationCeaseDAO")
     public InvitationCeaseDAO invitationCeaseDAO() {
         return new InviataionCeaseDAOImpl();
     }
-    
+
 }
