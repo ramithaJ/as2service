@@ -29,7 +29,7 @@ import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.AssociationConfirmation;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.ViewAssignedArticle;
-import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
+import com.wiley.gr.ace.authorservices.model.ArticleInfoDetails;
 import com.wiley.gr.ace.authorservices.services.service.ArticleAssignmentService;
 
 /**
@@ -99,7 +99,7 @@ public class ArticleAssignmentController {
             LOGGER.info("input parameter emailId is found to Get Article Info");
             try {
                 articleInfoDetails = articleAssignmentService
-                        .getArticleInfo(emailId);
+                        .getArticleInfoDetails(emailId);
                 if (!StringUtils.isEmpty(articleInfoDetails)) {
                     LOGGER.info("Article Info Details Found");
                     service.setStatus("SUCCESS");
