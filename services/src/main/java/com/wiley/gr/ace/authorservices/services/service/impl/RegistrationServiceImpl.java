@@ -161,22 +161,27 @@ public class RegistrationServiceImpl implements RegistrationService {
 
                 if (!StringUtils.isEmpty(esbUserList)) {
                     for (ESBUser esbUser : esbUserList) {
-                        User tempUser = new User();
-                        Country tempCountry = new Country();
-                        if (!StringUtils.isEmpty(esbUser.getAddresses())
-                                && !StringUtils.isEmpty(esbUser.getAddresses()
-                                        .get(0))) {
-                            tempCountry.setCountryCode(esbUser.getAddresses()
-                                    .get(0).getCountryCd());
+                        if ("AS".equalsIgnoreCase(esbUser.getFoundIN())) {
+                            User tempUser = new User();
+                            Country tempCountry = new Country();
+                            if (!StringUtils.isEmpty(esbUser.getAddresses())
+                                    && !StringUtils.isEmpty(esbUser
+                                            .getAddresses().get(0))) {
+                                tempCountry.setCountryCode(esbUser
+                                        .getAddresses().get(0).getCountryCd());
+                            }
+                            if (!StringUtils.isEmpty(esbUser.getASID())) {
+                                tempUser.setUserId(esbUser.getASID());
+                            }
+                            tempUser.setFirstName(esbUser.getFirstName());
+                            tempUser.setLastName(esbUser.getLastName());
+                            tempUser.setPrimaryEmailAddr(esbUser
+                                    .getPrimaryEmailAddr());
+                            tempUser.setInstituition(esbUser.getInstitution());
+                            tempUser.setOrcidId(esbUser.getOrcidId());
+                            tempUser.setCountry(tempCountry);
+                            userList.add(tempUser);
                         }
-                        tempUser.setFirstName(esbUser.getFirstName());
-                        tempUser.setLastName(esbUser.getLastName());
-                        tempUser.setPrimaryEmailAddr(esbUser
-                                .getPrimaryEmailAddr());
-                        tempUser.setInstituition(esbUser.getInstitution());
-                        tempUser.setOrcidId(esbUser.getOrcidId());
-                        tempUser.setCountry(tempCountry);
-                        userList.add(tempUser);
                     }
                 }
             } catch (Exception e) {

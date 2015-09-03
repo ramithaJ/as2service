@@ -36,7 +36,7 @@ public class User implements Serializable {
     @NotBlank
     @NotNull
     /** The user id. */
-    private Integer userId;
+    private String userId;
     /** The title. */
     private String title;
 
@@ -231,7 +231,7 @@ public class User implements Serializable {
      *
      * @return the userId
      */
-    public final Integer getUserId() {
+    public final String getUserId() {
         return userId;
     }
 
@@ -241,7 +241,7 @@ public class User implements Serializable {
      * @param userId
      *            the userId to set
      */
-    public final void setUserId(final Integer userId) {
+    public final void setUserId(final String userId) {
         this.userId = userId;
     }
 

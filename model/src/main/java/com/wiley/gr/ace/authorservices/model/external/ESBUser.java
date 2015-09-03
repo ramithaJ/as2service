@@ -35,6 +35,7 @@ public class ESBUser {
     private String title;
 
     /** The asid. */
+    @JsonProperty("ASID")
     private String ASID;
 
     /** The addresses. */
