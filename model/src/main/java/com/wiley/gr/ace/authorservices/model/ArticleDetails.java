@@ -48,8 +48,8 @@ public class ArticleDetails {
     /** The article accepted in oo. */
     private String articleAcceptedInOO;
 
-    /** The article authors. */
-    private String articleAuthors;
+    /** The article author name. */
+    private String articleAuthorName;
 
     /** The article co authors. */
     private List<String> articleCoAuthors;
@@ -184,22 +184,22 @@ public class ArticleDetails {
     }
 
     /**
-     * Gets the article authors.
+     * Gets the article author name.
      *
-     * @return the article authors
+     * @return the article author name
      */
-    public final String getArticleAuthors() {
-        return articleAuthors;
+    public final String getArticleAuthorName() {
+        return articleAuthorName;
     }
 
     /**
-     * Sets the article authors.
+     * Sets the article author name.
      *
-     * @param articleAuthors
-     *            the new article authors
+     * @param articleAuthorName
+     *            the new article author name
      */
-    public final void setArticleAuthors(final String articleAuthors) {
-        this.articleAuthors = articleAuthors;
+    public final void setArticleAuthorName(final String articleAuthorName) {
+        this.articleAuthorName = articleAuthorName;
     }
 
     /**
