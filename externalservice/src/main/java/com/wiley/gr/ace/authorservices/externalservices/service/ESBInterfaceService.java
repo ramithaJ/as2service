@@ -15,7 +15,6 @@ import java.util.List;
 
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
-import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 import com.wiley.gr.ace.authorservices.model.external.License;
 import com.wiley.gr.ace.authorservices.model.external.OnlineOpen;
@@ -150,17 +149,6 @@ public interface ESBInterfaceService {
      *             the exception
      */
     ProductionData getProductionData(Integer articleId) throws Exception;
-
-    /**
-     * Gets the article info.
-     *
-     * @param emailId
-     *            the email id
-     * @return the article info
-     * @throws Exception
-     *             the exception
-     */
-    ArticleInfoDetails getArticleInfo(String emailId) throws Exception;
 
     /**
      * View assigned article.

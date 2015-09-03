@@ -31,7 +31,6 @@ import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
-import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 import com.wiley.gr.ace.authorservices.model.external.License;
 import com.wiley.gr.ace.authorservices.model.external.OnlineOpen;
@@ -70,10 +69,6 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
     /** The update alm user url. */
     @Value("${updatealmuser.url}")
     private String updateAlmUserUrl;
-
-    /** The article info details url. */
-    @Value("${articleInfoDetails.url}")
-    private String articleInfoDetailsUrl;
 
     /** The article data url. */
     @Value("${articleData.url}")
@@ -274,20 +269,6 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
             status.setStatus("FAILURE");
         }
         return status;
-    }
-
-    /**
-     * This method is for getting article info based on emailId.
-     *
-     * @param emailId
-     *            the email id
-     * @return the article info
-     */
-    @Override
-    public final ArticleInfoDetails getArticleInfo(final String emailId) {
-        return (ArticleInfoDetails) StubInvokerUtil
-                .invokeStub(articleInfoDetailsUrl, HttpMethod.GET,
-                        ArticleInfoDetails.class);
     }
 
     /**
