@@ -16,7 +16,7 @@ package com.wiley.gr.ace.authorservices.services.service;
 
 import com.wiley.gr.ace.authorservices.model.AssociationConfirmation;
 import com.wiley.gr.ace.authorservices.model.ViewAssignedArticle;
-import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
+import com.wiley.gr.ace.authorservices.model.ArticleInfoDetails;
 
 /**
  * The Interface ArticleAssignmentService.
@@ -30,11 +30,11 @@ public interface ArticleAssignmentService {
      *
      * @param emailId
      *            the email id
-     * @return the article info
+     * @return the article info details
      * @throws Exception
      *             the exception
      */
-    ArticleInfoDetails getArticleInfo(String emailId) throws Exception;
+    ArticleInfoDetails getArticleInfoDetails(String emailId) throws Exception;
 
     /**
      * Association confirmation.

@@ -40,7 +40,6 @@ import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserProfile;
-import com.wiley.gr.ace.authorservices.model.external.ArticleProductEntities;
 import com.wiley.gr.ace.authorservices.model.external.Identifier;
 import com.wiley.gr.ace.authorservices.model.external.License;
 import com.wiley.gr.ace.authorservices.model.external.PdhLookupArticle;
@@ -432,22 +431,16 @@ public class DashboardServiceImpl implements DashboardService {
      */
     private ArticleDetails parseArticleDetails(
             final PdhLookupArticle pdhLookupArticle) throws Exception {
-        ArticleProductEntities articleProductEntities = pdhLookupArticle
-                .getArticleProductEntities();
         ArticleDetails articleDetails = null;
-        if (!StringUtils.isEmpty(articleProductEntities)) {
-            Title title = articleProductEntities.getTitle();
-            String articleId = title.getTitleDhProdId();
-            if (!StringUtils.isEmpty(title)) {
-                articleDetails = new ArticleDetails();
-                articleDetails.setArticleId(articleId);
-                articleDetails.setArticleTitle(title.getTitleText());
-                articleDetails = parseProductDates(pdhLookupArticle,
-                        articleDetails);
-                articleDetails = parseAuthors(pdhLookupArticle, articleDetails);
-                articleDetails.setArticleDOI(getArticleDoi(pdhLookupArticle,
-                        articleDetails).getArticleDOI());
-            }
+        Title title = pdhLookupArticle.getArticleProductEntities().getTitle();
+        if (!StringUtils.isEmpty(title)) {
+            articleDetails = new ArticleDetails();
+            articleDetails.setArticleId(title.getTitleDhProdId());
+            articleDetails.setArticleTitle(title.getTitleText());
+            articleDetails = parseProductDates(pdhLookupArticle, articleDetails);
+            articleDetails = parseAuthors(pdhLookupArticle, articleDetails);
+            articleDetails.setArticleDOI(getArticleDoi(pdhLookupArticle,
+                    articleDetails).getArticleDOI());
         }
         return articleDetails;
     }
@@ -460,10 +453,12 @@ public class DashboardServiceImpl implements DashboardService {
      * @param articleDetails
      *            the article details
      * @return the article details
+     * @throws Exception
+     *             the exception
      */
     private ArticleDetails parseProductDates(
             final PdhLookupArticle pdhLookupArticle,
-            final ArticleDetails articleDetails) {
+            final ArticleDetails articleDetails) throws Exception{
         List<ProductDates> productDatesList = pdhLookupArticle
                 .getArticleProductEntities().getProductDates();
         if (!StringUtils.isEmpty(productDatesList)) {
@@ -486,10 +481,12 @@ public class DashboardServiceImpl implements DashboardService {
      * @param articleDetails
      *            the article details
      * @return the article details
+     * @throws Exception
+     *             the exception
      */
     private ArticleDetails parseAuthors(
             final PdhLookupArticle pdhLookupArticle,
-            final ArticleDetails articleDetails) {
+            final ArticleDetails articleDetails) throws Exception{
         List<ProductContributor> productContributorList = pdhLookupArticle
                 .getArticleProductEntities().getProductContributor();
         if (!StringUtils.isEmpty(productContributorList)) {
@@ -498,7 +495,7 @@ public class DashboardServiceImpl implements DashboardService {
             for (ProductContributor productContributor : productContributorList) {
                 String authorRoleCd = productContributor.getDhRoleTypeCd();
                 if ("Corresponding Author".equalsIgnoreCase(authorRoleCd)) {
-                    articleDetails.setArticleAuthors(productContributor
+                    articleDetails.setArticleAuthorName(productContributor
                             .getFirstName().concat(" ")
                             .concat(productContributor.getLastName()));
                 } else if ("Author".equalsIgnoreCase(authorRoleCd)) {
@@ -520,10 +517,12 @@ public class DashboardServiceImpl implements DashboardService {
      * @param articleDetails
      *            the article details
      * @return the article doi
+     * @throws Exception
+     *             the exception
      */
     private ArticleDetails getArticleDoi(
             final PdhLookupArticle pdhLookupArticle,
-            final ArticleDetails articleDetails) {
+            final ArticleDetails articleDetails) throws Exception{
         List<Identifier> identifierList = pdhLookupArticle
                 .getArticleProductEntities().getIdentifier();
         if (!StringUtils.isEmpty(identifierList)) {
