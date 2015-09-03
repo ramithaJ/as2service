@@ -460,6 +460,7 @@ public class AutocompleteServiceImpl implements AutocompleteService {
     public String getNameByCode(String key, String code, String parentId) {
         String name = null;
         Map<String, CacheData> dropDownMap = null;
+        CacheData cacheData = null;
 
         LOGGER.info("getNameByCode");
         if (parentId != null && !"".equals(parentId.trim())) {
@@ -469,10 +470,14 @@ public class AutocompleteServiceImpl implements AutocompleteService {
 
         dropDownMap = autocompleteCachingService.getCachedData(key + "_cached",
                 parentId);
-
+        
+        
         if (dropDownMap != null) {
             LOGGER.info("getNameByCode::dropDownMap is not empty");
-            name = dropDownMap.get(code).getName();
+            cacheData = dropDownMap.get(code);
+            if(cacheData != null){
+                name = cacheData.getName();
+            }
         } else {
             throw new ASException(AuthorServicesConstants.SERVERERRORCODE,
                     AuthorServicesConstants.SERVERERRORMESSAGE);
