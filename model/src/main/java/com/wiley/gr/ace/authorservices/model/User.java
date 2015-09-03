@@ -128,6 +128,46 @@ public class User implements Serializable {
     private String countryCode;
 
     /**
+     * This field holds the value of industryName.
+     */
+    private String industryName;
+
+    /**
+     * This field holds the value of jobCategoryName.
+     */
+    private String jobCategoryName;
+
+    /**
+     * @return the industryName
+     */
+    public final String getIndustryName() {
+        return industryName;
+    }
+
+    /**
+     * @param industryName
+     *            the industryName to set
+     */
+    public final void setIndustryName(final String industryName) {
+        this.industryName = industryName;
+    }
+
+    /**
+     * @return the jobCategoryName
+     */
+    public final String getJobCategoryName() {
+        return jobCategoryName;
+    }
+
+    /**
+     * @param jobCategoryName
+     *            the jobCategoryName to set
+     */
+    public final void setJobCategoryName(final String jobCategoryName) {
+        this.jobCategoryName = jobCategoryName;
+    }
+
+    /**
      * Gets the title name.
      *
      * @return the titleName
@@ -139,7 +179,8 @@ public class User implements Serializable {
     /**
      * Sets the title name.
      *
-     * @param titleName            the titleName to set
+     * @param titleName
+     *            the titleName to set
      */
     public final void setTitleName(final String titleName) {
         this.titleName = titleName;
@@ -157,7 +198,8 @@ public class User implements Serializable {
     /**
      * Sets the suffix name.
      *
-     * @param suffixName            the suffixName to set
+     * @param suffixName
+     *            the suffixName to set
      */
     public final void setSuffixName(final String suffixName) {
         this.suffixName = suffixName;
@@ -175,7 +217,8 @@ public class User implements Serializable {
     /**
      * Sets the instituition.
      *
-     * @param instituition the new instituition
+     * @param instituition
+     *            the new instituition
      */
     public final void setInstituition(final String instituition) {
         this.instituition = instituition;
@@ -202,7 +245,8 @@ public class User implements Serializable {
     /**
      * Sets the industry code.
      *
-     * @param industryCode            the industryCode to set
+     * @param industryCode
+     *            the industryCode to set
      */
     public final void setIndustryCode(final String industryCode) {
         this.industryCode = industryCode;
@@ -220,7 +264,8 @@ public class User implements Serializable {
     /**
      * Sets the job category code.
      *
-     * @param jobCategoryCode            the jobCategoryCode to set
+     * @param jobCategoryCode
+     *            the jobCategoryCode to set
      */
     public final void setJobCategoryCode(final String jobCategoryCode) {
         this.jobCategoryCode = jobCategoryCode;
@@ -486,7 +531,8 @@ public class User implements Serializable {
     /**
      * Sets the visible attributes.
      *
-     * @param visibleAttributes            the visibleAttributes to set
+     * @param visibleAttributes
+     *            the visibleAttributes to set
      */
     public final void setVisibleAttributes(final List<String> visibleAttributes) {
         this.visibleAttributes = visibleAttributes;
@@ -618,7 +664,8 @@ public class User implements Serializable {
     /**
      * Sets the terms of use flg.
      *
-     * @param termsOfUseFlg            the termsOfUseFlg to set
+     * @param termsOfUseFlg
+     *            the termsOfUseFlg to set
      */
     public final void setTermsOfUseFlg(final String termsOfUseFlg) {
         this.termsOfUseFlg = termsOfUseFlg;
@@ -694,7 +741,8 @@ public class User implements Serializable {
     /**
      * Sets the found in.
      *
-     * @param foundIn the new found in
+     * @param foundIn
+     *            the new found in
      */
     public final void setFoundIn(final String foundIn) {
         this.foundIn = foundIn;
@@ -712,7 +760,8 @@ public class User implements Serializable {
     /**
      * Sets the country code.
      *
-     * @param countryCode the new country code
+     * @param countryCode
+     *            the new country code
      */
     public final void setCountryCode(final String countryCode) {
         this.countryCode = countryCode;

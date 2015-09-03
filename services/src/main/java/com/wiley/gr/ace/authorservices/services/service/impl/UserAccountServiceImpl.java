@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
+import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteService;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.Address;
 import com.wiley.gr.ace.authorservices.model.Addresses;
@@ -49,6 +50,12 @@ public class UserAccountServiceImpl implements UserAccountService {
     /** The as data dao. */
     @Autowired(required = true)
     private ASDataDAO asDataDao;
+
+    /**
+     * This field holds the value of autoCompleteService.
+     */
+    @Autowired(required = true)
+    private AutocompleteService autoCompleteService;
 
     /**
      * this method is for getting email Details by userId.
@@ -102,8 +109,14 @@ public class UserAccountServiceImpl implements UserAccountService {
         user.setAlternateName(customerDetails.getAlternativeName());
         user.setPrimaryEmailAddr(customerDetails.getPrimaryEmail());
         user.setRecoveryEmailAddress(customerDetails.getSecondaryEmail());
-        user.setIndustry(customerDetails.getIndustryCode());
-        user.setJobCategory(customerDetails.getJobCategoryCode());
+        final String industryCode = customerDetails.getIndustryCode();
+        user.setIndustry(industryCode);
+        user.setIndustryName(autoCompleteService.getNameByCode("industries",
+                industryCode, null));
+        final String jobCategoriesCode = customerDetails.getJobCategoryCode();
+        user.setJobCategory(jobCategoriesCode);
+        user.setJobCategoryName(autoCompleteService.getNameByCode(
+                "jobCategories", jobCategoriesCode, null));
         user.setOrcidId(customerDetails.getOrcId());
         user.setTermsOfUseFlg(customerDetails.getOptInFlag());
 
@@ -178,13 +191,19 @@ public class UserAccountServiceImpl implements UserAccountService {
         if (!StringUtils.isEmpty(addressElement.getLastName())) {
             address.setLastName(addressElement.getLastName());
         }
-        if (!StringUtils.isEmpty(addressElement.getDepartmentCd())) {
-            address.setDepartmentId(addressElement.getDepartmentCd());
+        final String departmentCode = addressElement.getDepartmentCd();
+        if (!StringUtils.isEmpty(departmentCode)) {
+            address.setDepartmentId(departmentCode);
         }
-        if (!StringUtils.isEmpty(addressElement.getInstitutionCd())) {
-            address.setInstitutionId(addressElement.getInstitutionCd());
+        // TODO: need to fetch names
+        address.setDepartmentName(autoCompleteService.getNameByCode(
+                "departments", departmentCode, null));
+        final String institutionCode = addressElement.getInstitutionCd();
+        if (!StringUtils.isEmpty(institutionCode)) {
+            address.setInstitutionId(institutionCode);
         }
-
+        address.setInstitutionName(autoCompleteService.getNameByCode(
+                "institutions", institutionCode, null));
         if (!StringUtils.isEmpty(addressElement.getAddressLine1())) {
             address.setAddressLine1(addressElement.getAddressLine1());
         }
