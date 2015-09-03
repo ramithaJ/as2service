@@ -31,10 +31,6 @@ public class LicenseObject {
     /** The licence id. */
     private String licenceId;
 
-    /** The journal id. */
-    private String journalId;
-
-
     /** The funder details. */
     private ArrayList<FunderDetails> funderDetailsList;
 
@@ -58,9 +54,9 @@ public class LicenseObject {
 
     /** The signed date. */
     private String signedDate;
-    
+
     private List<Prices> prices;
-    
+
     private String license_OO_OA;
 
 
@@ -209,14 +205,6 @@ public class LicenseObject {
         return licenceId;
     }
 
-    /**
-     * Gets the journal id.
-     *
-     * @return the journal id
-     */
-    public final String getJournalId() {
-        return journalId;
-    }
 
     /**
      * Sets the licence id.
@@ -227,14 +215,6 @@ public class LicenseObject {
         this.licenceId = licenceId;
     }
 
-    /**
-     * Sets the journal id.
-     *
-     * @param journalId the new journal id
-     */
-    public final void setJournalId(final String journalId) {
-        this.journalId = journalId;
-    }
 
     /**
      * Gets the signed date.
@@ -254,21 +234,21 @@ public class LicenseObject {
         this.signedDate = signedDate;
     }
 
-	public List<Prices> getPrices() {
-		return prices;
-	}
+    public List<Prices> getPrices() {
+        return prices;
+    }
 
-	public void setPrices(List<Prices> prices) {
-		this.prices = prices;
-	}
+    public void setPrices(final List<Prices> prices) {
+        this.prices = prices;
+    }
 
-	public String getLicense_OO_OA() {
-		return license_OO_OA;
-	}
+    public String getLicense_OO_OA() {
+        return license_OO_OA;
+    }
 
-	public void setLicense_OO_OA(String license_OO_OA) {
-		this.license_OO_OA = license_OO_OA;
-	}
+    public void setLicense_OO_OA(final String license_OO_OA) {
+        this.license_OO_OA = license_OO_OA;
+    }
 
 
 }
