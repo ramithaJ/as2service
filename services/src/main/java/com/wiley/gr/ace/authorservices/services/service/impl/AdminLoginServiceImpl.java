@@ -41,7 +41,6 @@ import com.wiley.gr.ace.authorservices.persistence.entity.UserRoles;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserRolesId;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
-import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 
 /**
@@ -58,10 +57,6 @@ public class AdminLoginServiceImpl implements AdminLoginService {
     /** The userlogindao. */
     @Autowired(required = true)
     private UserLoginDao userlogindao;
-
-    /** The user login service dao. */
-    @Autowired(required = true)
-    private UserLoginServiceDAO userLoginServiceDAO;
 
     /** The user management. */
     @Autowired(required = true)
@@ -100,7 +95,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
     public final Users getASUser(final String emailId) {
         // Call external service for password validation
         LOGGER.info("inside doLogin Method");
-        return userLoginServiceDAO.getUserId(emailId);
+        return userlogindao.verifyUser(emailId);
 
     }
 

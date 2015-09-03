@@ -16,8 +16,10 @@ import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateCo
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
@@ -188,4 +190,20 @@ public class UserLoginDaoImpl implements UserLoginDao {
      * return roleId; }
      */
 
+    @Override
+    public Users verifyUser(final String emailId) {
+
+        Session session = null;
+        try {
+            session = getSessionFactory().openSession();
+            Criteria criteria = session.createCriteria(Users.class);
+            criteria.add(Restrictions.eq("primaryEmailAddr", emailId));
+            return (Users) criteria.uniqueResult();
+        } finally {
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
+        }
+    }
 }

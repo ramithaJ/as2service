@@ -241,7 +241,6 @@ public class UserProfilesImpl implements UserProfiles {
     public final LookupCustomerProfile getLookupCustomerProfile(
             final String userId) {
 
-        System.err.println("cache");
         LookupCustomerProfile lookupCustomerProfile = (LookupCustomerProfile) RestServiceInvokerUtil
                 .getServiceData(lookupCustomerProfileResponse + userId
                         + "&ECID=", LookupCustomerProfile.class);

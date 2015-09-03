@@ -22,7 +22,6 @@ import org.springframework.beans.factory.annotation.Value;
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
-import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 
@@ -98,34 +97,6 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
         }
 
         return inviteResetpwdLog;
-    }
-
-    /**
-     * This method verifying the updated emailId.
-     * 
-     * @param emailId
-     *            to verify the updated emailId.
-     * 
-     */
-    @Override
-    public final void verifyEmailUpdate(final String emailId) {
-        Session session = null;
-        Users user = getUserId(emailId);
-        try {
-            session = getSessionFactory().openSession();
-            session.beginTransaction();
-            UserProfile authorProfile = new UserProfile();
-            authorProfile = (UserProfile) session.get(UserProfile.class,
-                    user.getUserId());
-            authorProfile.setIsAccountVerified('Y');
-            session.update(authorProfile);
-            session.getTransaction().commit();
-        } finally {
-            if (null != session) {
-                session.flush();
-                session.close();
-            }
-        }
     }
 
     /**

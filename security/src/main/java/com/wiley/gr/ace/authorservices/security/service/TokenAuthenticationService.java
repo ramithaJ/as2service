@@ -15,7 +15,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
-import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
+import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
 import com.wiley.gr.ace.authorservices.security.TokenAuthentication;
 import com.wiley.gr.ace.authorservices.services.service.SendNotification;
 
@@ -50,7 +50,7 @@ public class TokenAuthenticationService {
      * This field holds the value of userLoginServiceDAO.
      */
     @Autowired
-    private UserLoginServiceDAO userLoginServiceDAO;
+    private UserLoginDao userLoginDao;
 
     /**
      * Authenticate.
@@ -66,7 +66,7 @@ public class TokenAuthenticationService {
         final String authenticationToken = tokenHandler
                 .invokeTokenAuthorization(username, password);
         if (StringUtils.isBlank(authenticationToken)) {
-            final Users users = userLoginServiceDAO.getUserId(username);
+            final Users users = userLoginDao.verifyUser(username);
             if (null != users) {
                 sendNotification.notifyByEmail(username, templateId);
             }

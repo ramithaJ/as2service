@@ -44,4 +44,11 @@ public interface UserLoginDao {
 
     void createAdminUser(Users users, List<UserRoles> userRolesList);
 
+    /**
+     * @param emailId
+     *            the request value.
+     * @return users
+     */
+    Users verifyUser(String emailId);
+
 }

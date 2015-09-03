@@ -40,15 +40,6 @@ public interface UserLoginServiceDAO {
     InviteResetpwdLog getinviteResetpwdLog(String guid);
 
     /**
-     * This method verifying the updated emailId.
-     * 
-     * @param emailId
-     *            to verify the updated emailId.
-     * 
-     */
-    void verifyEmailUpdate(String emailId);
-
-    /**
      * Insert guid.
      *
      * @param inviteResetpwdLog
