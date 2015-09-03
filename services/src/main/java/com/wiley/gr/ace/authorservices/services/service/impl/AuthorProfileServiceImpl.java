@@ -773,7 +773,14 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                 .getLookupCustomerProfileResponse().getCustomerProfile()
                 .getSocietyList().getSociety();
         List<Society> societyList = new ArrayList<Society>();
+        
+  
+        
+    
         for (SocietyData societyData : listSocietyData) {
+            if (societyData.getSocietyId()==null) {
+                break;
+            }
             Society society = new Society();
             society.setSocietyId(societyData.getSocietyId());
             society.setSocietyName(societyData.getSocietyName());
@@ -785,10 +792,11 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             society.setPromoCode(societyData.getPromoCode());
             society.setId(societyData.getId());
             societyList.add(society);
-
+        
+        
         }
         return societyList;
-    }
+}
 
     /**
      * This method will call external service look up profile to get co authors.

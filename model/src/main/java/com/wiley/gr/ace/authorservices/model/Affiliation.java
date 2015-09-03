@@ -19,7 +19,6 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * The Class Affiliation.
@@ -54,7 +53,6 @@ public class Affiliation implements Serializable {
 
     @NotBlank
     @NotNull
-    @JsonProperty("Id")
     private String id;
 
     /** The department name. */
@@ -70,7 +68,7 @@ public class Affiliation implements Serializable {
     private String roleTitle;
 
     /** The city. */
-    @JsonProperty("City")
+
     private String city;
 
     /** The state code. */
@@ -81,7 +79,7 @@ public class Affiliation implements Serializable {
     private String countryCode;
 
     private Country country;
-    @JsonProperty("State")
+
     private String state;
 
     /** The department id. */
