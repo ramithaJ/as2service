@@ -51,6 +51,10 @@ public class StatelessLoginFilter extends
 
     /** The Constant ADMIN. */
     public static final String ADMIN = "ADMIN";
+
+    /** The Constant LOCKED. */
+    public static final String LOCKED = "423 Locked";
+
     /**
      * The token authentication service.
      */
@@ -65,22 +69,32 @@ public class StatelessLoginFilter extends
     /**
      * Externalize constants (adminnotexist.code) to properties file.
      */
-    public static final String notAdminCode = "HOME_PAGE_MARKETING_USER_NOT_EXISTS_ERR_TEXT";
+    public static final String NOT_ADMIN_CODE = "HOME_PAGE_MARKETING_USER_NOT_EXISTS_ERR_TEXT";
 
     /**
      * Externalize constants (adminnotexist.message) to properties file.
      */
-    public static final String notAdminMessage = "You don't have access to Wiley Admin";
+    public static final String NOT_ADMIN_MESSAGE = "You don't have access to Wiley Admin";
 
     /**
      * Externalize constants (invalidLogin.code) to properties file.
      */
-    public static final String invalidLoginCode = "HOME_PAGE_MARKETING_INCRCT_PASSWORD_ERR_TEXT";
+    public static final String INVALID_LOGIN_CODE = "HOME_PAGE_MARKETING_INCRCT_PASSWORD_ERR_TEXT";
 
     /**
      * Externalize constants (invalidLogin.message) to properties file.
      */
-    public static final String invalidLoginMessage = "Please enter valid EmailId and Password";
+    public static final String INVALID_LOGIN_MESSAGE = "Please enter valid EmailId and Password";
+
+    /**
+     * Externalize constants (userLocked.code) to properties file.
+     */
+    public static final String USER_LOCKED_CODE = "HOME_PAGE_MARKETING_LOCKED_USER_ERR_TEXT";
+
+    /**
+     * Externalize constants (userLocked.message) to properties file.
+     */
+    public static final String USER_LOCKED_MESSAGE = "Please retry after few minutes";
 
     /**
      * Instantiates a new stateless login filter.
@@ -120,7 +134,12 @@ public class StatelessLoginFilter extends
                 UsernameAndPassword.class);
         final UsernamePasswordAuthenticationToken loginToken = new UsernamePasswordAuthenticationToken(
                 unp.getUsername(), unp.getPassword());
-        return getAuthenticationManager().authenticate(loginToken);
+        try {
+            return getAuthenticationManager().authenticate(loginToken);
+        } catch (final AuthenticationServiceException e) {
+            unsuccessfulAuthentication(request, response, e);
+        }
+        return null;
     }
 
     /*
@@ -152,11 +171,11 @@ public class StatelessLoginFilter extends
                     unp.getType())) {
                 unsuccessfulAuthentication(request, response,
                         new AuthenticationServiceException(
-                                StatelessLoginFilter.notAdminMessage));
+                                StatelessLoginFilter.NOT_ADMIN_MESSAGE));
             } else {
                 unsuccessfulAuthentication(request, response,
                         new AuthenticationServiceException(
-                                StatelessLoginFilter.invalidLoginCode));
+                                StatelessLoginFilter.INVALID_LOGIN_CODE));
             }
             return;
         }
@@ -166,7 +185,7 @@ public class StatelessLoginFilter extends
                 && !adminLoginService.validateEmail(unp.getUsername())) {
             unsuccessfulAuthentication(request, response,
                     new AuthenticationServiceException(
-                            StatelessLoginFilter.notAdminMessage));
+                            StatelessLoginFilter.NOT_ADMIN_MESSAGE));
             return;
         }
 
@@ -204,13 +223,17 @@ public class StatelessLoginFilter extends
         SecurityContextHolder.clearContext();
 
         ErrorPOJO error;
-        if (StringUtils.equalsIgnoreCase(StatelessLoginFilter.notAdminMessage,
-                failed.getMessage())) {
-            error = new ErrorPOJO(StatelessLoginFilter.notAdminCode,
-                    StatelessLoginFilter.notAdminMessage);
+        if (StringUtils.equalsIgnoreCase(
+                StatelessLoginFilter.NOT_ADMIN_MESSAGE, failed.getMessage())) {
+            error = new ErrorPOJO(StatelessLoginFilter.NOT_ADMIN_CODE,
+                    StatelessLoginFilter.NOT_ADMIN_MESSAGE);
+        } else if (StatelessLoginFilter.LOCKED.equalsIgnoreCase(failed
+                .getMessage())) {
+            error = new ErrorPOJO(StatelessLoginFilter.USER_LOCKED_CODE,
+                    StatelessLoginFilter.USER_LOCKED_MESSAGE);
         } else {
-            error = new ErrorPOJO(StatelessLoginFilter.invalidLoginCode,
-                    StatelessLoginFilter.invalidLoginMessage);
+            error = new ErrorPOJO(StatelessLoginFilter.INVALID_LOGIN_CODE,
+                    StatelessLoginFilter.INVALID_LOGIN_MESSAGE);
         }
 
         response.setContentType(StatelessLoginFilter.APPLICATION_JSON_CHARSET_UTF_8);

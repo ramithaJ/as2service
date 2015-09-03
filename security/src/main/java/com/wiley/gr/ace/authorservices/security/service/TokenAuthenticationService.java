@@ -66,7 +66,7 @@ public class TokenAuthenticationService {
         final String authenticationToken = tokenHandler
                 .invokeTokenAuthorization(username, password);
         if (StringUtils.isBlank(authenticationToken)) {
-            Users users = userLoginServiceDAO.getUserId(username);
+            final Users users = userLoginServiceDAO.getUserId(username);
             if (null != users) {
                 sendNotification.notifyByEmail(username, templateId);
             }

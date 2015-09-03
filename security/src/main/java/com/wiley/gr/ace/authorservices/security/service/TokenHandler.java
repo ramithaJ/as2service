@@ -19,6 +19,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
@@ -64,6 +65,10 @@ public class TokenHandler {
     /** The user id. */
     @Value("${authentication.service.token.user.key}")
     private String tokenUserId;
+
+    /** User locked message. */
+    @Value("${authentication.service.user.locked.message}")
+    private final String userLockedMessage = "423 Locked";
 
     /** The rest template. */
     @Autowired
@@ -118,6 +123,9 @@ public class TokenHandler {
             TokenHandler.LOGGER.error(
                     "Error on authenticating with Username={}; Password={}",
                     username, password, e);
+            if (userLockedMessage.equalsIgnoreCase(e.getMessage())) {
+                throw new AuthenticationServiceException(e.getMessage(), e);
+            }
         }
 
         if (null == response || HttpStatus.OK != response.getStatusCode()) {
