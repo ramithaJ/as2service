@@ -361,7 +361,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                 .customerProfileUpdate(lookupCustomerProfileResponse);
         if (status) {
             sendNotification.updateSecEmailNotification(
-                    emailDetails.getRecoveryEmailAddress(),
+                    emailDetails.getPrimaryEmailAddr(),
                     secEmailUpdateTemplateId);
         }
 

@@ -53,14 +53,16 @@ public class SendNotificationDaoImpl implements SendNotificationDao {
     }
 
     @Override
-    public UserSecondaryEmailAddr getUserSecEmailAddr(final String userId) {
+    public UserSecondaryEmailAddr getUserSecEmailAddr(final int userId) {
 
         Session session = null;
         try {
             session = getSessionFactory().openSession();
-            Criteria criteria = session
-                    .createCriteria(UserSecondaryEmailAddr.class);
-            criteria.add(Restrictions.eq("usersByUserId", userId));
+            Criteria criteria = session.createCriteria(
+                    UserSecondaryEmailAddr.class, "userSecondaryEmailAddr");
+            criteria.createAlias("userSecondaryEmailAddr.usersByUserId",
+                    "usersByUserId");
+            criteria.add(Restrictions.eq("usersByUserId.userId", userId));
             return (UserSecondaryEmailAddr) criteria.uniqueResult();
         } finally {
             if (null != session) {
