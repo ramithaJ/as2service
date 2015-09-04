@@ -36,6 +36,9 @@ public class ArticleDetails {
     @NotBlank
     private String articleId;
 
+    /** The dh id. */
+    private String dhId;
+
     /** The article doi. */
     private String articleDOI;
 
@@ -68,6 +71,25 @@ public class ArticleDetails {
 
     /** The jpcms internal id. */
     private String jpcmsInternalId;
+
+    /**
+     * Gets the dh id.
+     *
+     * @return the dh id
+     */
+    public final String getDhId() {
+        return dhId;
+    }
+
+    /**
+     * Sets the dh id.
+     *
+     * @param dhId
+     *            the new dh id
+     */
+    public final void setDhId(final String dhId) {
+        this.dhId = dhId;
+    }
 
     /**
      * Gets the article title.
