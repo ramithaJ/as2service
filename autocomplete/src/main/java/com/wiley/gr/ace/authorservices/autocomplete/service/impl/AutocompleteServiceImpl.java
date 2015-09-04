@@ -143,7 +143,7 @@ public class AutocompleteServiceImpl implements AutocompleteService {
      */
     @Override
     public final List<CacheData> getDropDownData(String key,
-            final String phrase, Integer offset, final String parentId) {
+            final String phrase, final Integer offset, final String parentId) {
         List<String> dropDownList = null;
         List<CacheData> jsonDropDownList = null;
         SubFunderDetails subFunderDetails = null;
@@ -154,7 +154,7 @@ public class AutocompleteServiceImpl implements AutocompleteService {
             autoCompCount = Integer.valueOf(autocompletecount);
 
             LOGGER.info("getDropDownData::valid Key::" + key);
-            
+
             if (parentId != null && !"".equals(parentId.trim())) {
                 key = key + "_" + parentId;
             }
@@ -211,14 +211,13 @@ public class AutocompleteServiceImpl implements AutocompleteService {
                                 + key);
                     }
                 }
-                
+
                 /*
-                 * Convert the json string to json object and sort the
-                 * list in ascending order.
+                 * Convert the json string to json object and sort the list in
+                 * ascending order.
                  */
                 if (jsonDropDownList == null && dropDownList != null) {
-                    jsonDropDownList = getJsonDropDownList(
-                            dropDownList, phrase);
+                    jsonDropDownList = getJsonDropDownList(dropDownList, phrase);
                 }
 
             } else {
@@ -321,8 +320,7 @@ public class AutocompleteServiceImpl implements AutocompleteService {
         phraseBuilder.append("{\"name\":\"").append(phrase);
         phrase = phraseBuilder.toString();
 
-        LOGGER.info("getAutoCompleteDataFromRedis New Phrase : "
-                + phrase);
+        LOGGER.info("getAutoCompleteDataFromRedis New Phrase : " + phrase);
         final int prefixLength = phrase.length();
         /* Gets the index of the phrase */
         Long start = redis.zrank(key, phrase);
@@ -457,7 +455,9 @@ public class AutocompleteServiceImpl implements AutocompleteService {
      *            - Input parameter
      * @return name
      */
-    public String getNameByCode(String key, String code, String parentId) {
+    @Override
+    public String getNameByCode(String key, final String code,
+            final String parentId) {
         String name = null;
         Map<String, CacheData> dropDownMap = null;
         CacheData cacheData = null;
@@ -465,17 +465,16 @@ public class AutocompleteServiceImpl implements AutocompleteService {
         LOGGER.info("getNameByCode");
         if (parentId != null && !"".equals(parentId.trim())) {
             key = key + "_" + parentId;
-            LOGGER.info("getNameByCode::Key:"+key);
+            LOGGER.info("getNameByCode::Key:" + key);
         }
 
         dropDownMap = autocompleteCachingService.getCachedData(key + "_cached",
                 parentId);
-        
-        
+
         if (dropDownMap != null) {
             LOGGER.info("getNameByCode::dropDownMap is not empty");
             cacheData = dropDownMap.get(code);
-            if(cacheData != null){
+            if (cacheData != null) {
                 name = cacheData.getName();
             }
         } else {

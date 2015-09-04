@@ -206,10 +206,11 @@ public class AutocompleteCachingServiceImpl implements
                 dropDownMap.put(cacheData.getCode(), cacheData);
             }
 
-        } else {
-            throw new ASException(AuthorServicesConstants.SERVERERRORCODE,
-                    AuthorServicesConstants.SERVERERRORMESSAGE);
-        }
+        } /*
+           * else { throw new
+           * ASException(AuthorServicesConstants.SERVERERRORCODE,
+           * AuthorServicesConstants.SERVERERRORMESSAGE); }
+           */
 
         return dropDownMap;
     }
@@ -552,7 +553,7 @@ public class AutocompleteCachingServiceImpl implements
             for (Object object : externalDepartmentlist) {
                 LinkedHashMap<String, String> departmentmap = (LinkedHashMap<String, String>) object;
                 CacheData cacheData = new CacheData();
-                cacheData.setCode(departmentmap.get(departmentCode));
+                cacheData.setCode(departmentmap.get(departmentCode).trim());
                 cacheData.setName(departmentmap.get(departmentName));
                 departmentlist.add(cacheData);
             }

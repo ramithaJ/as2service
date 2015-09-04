@@ -30,6 +30,7 @@ import com.wiley.gr.ace.authorservices.model.external.AddressElement;
 import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
+import com.wiley.gr.ace.authorservices.services.service.ASDataService;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
 
 /**
@@ -56,6 +57,12 @@ public class UserAccountServiceImpl implements UserAccountService {
      */
     @Autowired(required = true)
     private AutocompleteService autoCompleteService;
+
+    /**
+     * This field holds the value of asdataService.
+     */
+    @Autowired(required = true)
+    private ASDataService asdataService;
 
     /**
      * this method is for getting email Details by userId.
@@ -191,19 +198,19 @@ public class UserAccountServiceImpl implements UserAccountService {
         if (!StringUtils.isEmpty(addressElement.getLastName())) {
             address.setLastName(addressElement.getLastName());
         }
-        final String departmentCode = addressElement.getDepartmentCd();
-        if (!StringUtils.isEmpty(departmentCode)) {
-            address.setDepartmentId(departmentCode);
-        }
-        // TODO: need to fetch names
-        address.setDepartmentName(autoCompleteService.getNameByCode(
-                "departments", departmentCode, null));
         final String institutionCode = addressElement.getInstitutionCd();
         if (!StringUtils.isEmpty(institutionCode)) {
             address.setInstitutionId(institutionCode);
+            address.setInstitutionName(autoCompleteService.getNameByCode(
+                    "institutions", institutionCode, null));
         }
-        address.setInstitutionName(autoCompleteService.getNameByCode(
-                "institutions", institutionCode, null));
+
+        final String departmentCode = addressElement.getDepartmentCd();
+        if (!StringUtils.isEmpty(departmentCode)) {
+            address.setDepartmentId(departmentCode);
+            address.setDepartmentName(autoCompleteService.getNameByCode(
+                    "departments", departmentCode, institutionCode));
+        }
         if (!StringUtils.isEmpty(addressElement.getAddressLine1())) {
             address.setAddressLine1(addressElement.getAddressLine1());
         }
@@ -213,20 +220,22 @@ public class UserAccountServiceImpl implements UserAccountService {
         if (!StringUtils.isEmpty(addressElement.getCity())) {
             address.setCity(addressElement.getCity());
         }
-        State state = new State();
-        if (!StringUtils.isEmpty(addressElement.getState())) {
-            state.setStateCode(addressElement.getState());
-        }
-        state.setStateName("");
-        address.setState(state);
         if (!StringUtils.isEmpty(addressElement.getZipCode())) {
             address.setPostCode(addressElement.getZipCode());
         }
-
         Country country = new Country();
-        country.setCountryCode(addressElement.getCountryCode());
-        country.setCountryName("");
+        final String countryCode = addressElement.getCountryCode();
+        country.setCountryCode(countryCode);
+        country.setCountryName(autoCompleteService.getNameByCode("countries",
+                countryCode, null));
         address.setCountry(country);
+        State state = new State();
+        final String stateCode = addressElement.getState();
+        if (!StringUtils.isEmpty(stateCode)) {
+            state.setStateCode(stateCode);
+        }
+        state.setStateName(asdataService.getStateByCode(stateCode, countryCode));
+        address.setState(state);
         if (!StringUtils.isEmpty(addressElement.getPhoneNumber())) {
             address.setPhoneNumber(addressElement.getPhoneNumber());
         }

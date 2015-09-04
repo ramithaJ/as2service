@@ -109,6 +109,12 @@ public class ASDataServiceImpl implements ASDataService {
     @Value("${country.name}")
     private String countryName;
 
+    /**
+     * This field holds the value of stateCode.
+     */
+    @Value("${state.code}")
+    private String stateCode;
+
     /** The state name. */
     @Value("${state.Name}")
     private String stateName;
@@ -286,7 +292,7 @@ public class ASDataServiceImpl implements ASDataService {
             LinkedHashMap<String, String> statemap = (LinkedHashMap<String, String>) statelist;
 
             State state = new State();
-            state.setStateCode(statemap.get(countryCode));
+            state.setStateCode(statemap.get(stateCode));
             state.setStateName(statemap.get(stateName));
             modelststelist.add(state);
         }
@@ -477,4 +483,17 @@ public class ASDataServiceImpl implements ASDataService {
         return accessList;
     }
 
+    @Override
+    public String getStateByCode(final String stateCode,
+            final String countryCode) {
+
+        String code = null;
+        List<State> statesList = getStates(countryCode);
+        for (State state : statesList) {
+            if (stateCode.equalsIgnoreCase(state.getStateCode())) {
+                code = state.getStateName();
+            }
+        }
+        return code;
+    }
 }

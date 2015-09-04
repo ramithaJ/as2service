@@ -146,4 +146,13 @@ public interface ASDataService {
      */
     List<AccessReasons> getAccessReasons();
 
+    /**
+     * @param Key
+     *            the input.
+     * @param code
+     *            the input.
+     * @return string
+     */
+    String getStateByCode(String stateCode, String countryCode);
+
 }
