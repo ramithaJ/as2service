@@ -847,11 +847,14 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             areaList = new ArrayList<Interests>();
             for (InterestData interestData : listOfArea) {
                 Interests interests = new Interests();
-                interests.setAoeId(interestData.getInterestcode());
-                aoeName = autocomplete.getNameByCode("areasOfInterests",
-                        interestData.getInterestcode(), null);
-                interests.setAoeName(aoeName);
-                areaList.add(interests);
+                if(interestData != null) {
+                    interests.setAoeId(interestData.getInterestcode());
+                    aoeName = autocomplete.getNameByCode("areasOfInterests",
+                            interestData.getInterestcode(), null);
+                    interests.setAoeName(aoeName);
+                    areaList.add(interests);
+                }
+                
             }
         }
 
