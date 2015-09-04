@@ -83,7 +83,7 @@ public class ASExceptionController {
     public final Service handleException(final Exception exception) {
 
         LOGGER.info("Inside ASException Controller");
-
+        exception.printStackTrace();
         Service response = new Service();
         LOGGER.error("Initial SessionFactory creation failed.", exception);
         response.setStatus("FAILURE");
