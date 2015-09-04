@@ -25,18 +25,17 @@ import org.springframework.util.StringUtils;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.TaskService;
 import com.wiley.gr.ace.authorservices.model.ArticleDetails;
-import com.wiley.gr.ace.authorservices.model.AssociationConfirmation;
-import com.wiley.gr.ace.authorservices.model.JournalDetails;
-import com.wiley.gr.ace.authorservices.model.LicenseDetails;
-import com.wiley.gr.ace.authorservices.model.OrderDetails;
-import com.wiley.gr.ace.authorservices.model.PublicationDetails;
-import com.wiley.gr.ace.authorservices.model.ViewAssignedArticle;
 import com.wiley.gr.ace.authorservices.model.ArticleInfo;
 import com.wiley.gr.ace.authorservices.model.ArticleInfoDetails;
 import com.wiley.gr.ace.authorservices.model.ArticleUserRoleDetails;
+import com.wiley.gr.ace.authorservices.model.AssociationConfirmation;
+import com.wiley.gr.ace.authorservices.model.JournalData;
+import com.wiley.gr.ace.authorservices.model.OrderDetails;
+import com.wiley.gr.ace.authorservices.model.PublicationDetails;
+import com.wiley.gr.ace.authorservices.model.ViewAssignedArticle;
+import com.wiley.gr.ace.authorservices.model.external.Identifier;
 import com.wiley.gr.ace.authorservices.model.external.PdhLookupArticle;
-import com.wiley.gr.ace.authorservices.model.external.PdhLookupArticleResponse;
-import com.wiley.gr.ace.authorservices.model.external.PdhLookupJournalResponse;
+import com.wiley.gr.ace.authorservices.model.external.PdhLookupJournal;
 import com.wiley.gr.ace.authorservices.model.external.ProductContributor;
 import com.wiley.gr.ace.authorservices.model.external.ProductDates;
 import com.wiley.gr.ace.authorservices.model.external.Title;
@@ -120,7 +119,7 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
                 articleInfo
                         .setArticleDetails(getArticleDetails(pdhLookupArticle));
                 articleInfo
-                        .setArticleUserRoleDetails(getArticleUserRoleDetails(pdhLookupArticle));
+                        .setArticleUserRoleDetails(getArticleAuthorRoleDetails(pdhLookupArticle));
             }
         }
         return articleInfo;
@@ -141,8 +140,10 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
         ArticleDetails articleDetails = null;
         if (!StringUtils.isEmpty(title)) {
             articleDetails = new ArticleDetails();
-            articleDetails.setArticleId(title.getTitleDhProdId());
+            articleDetails.setDhId(title.getTitleDhProdId());
             articleDetails.setArticleTitle(title.getTitleText());
+            articleDetails.setArticleId(getArticleInfo(pdhLookupArticle,
+                    articleDetails).getArticleId());
             articleDetails
                     .setPublicationDate(getPublicationDate(pdhLookupArticle));
         }
@@ -183,7 +184,7 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
      * @throws Exception
      *             the exception
      */
-    private ArticleUserRoleDetails getArticleUserRoleDetails(
+    private ArticleUserRoleDetails getArticleAuthorRoleDetails(
             final PdhLookupArticle pdhLookupArticle) throws Exception {
         List<ProductContributor> productContributorList = pdhLookupArticle
                 .getArticleProductEntities().getProductContributor();
@@ -235,18 +236,14 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
             throws Exception {
         LOGGER.info("inside viewAssignedArticle method of ArticleAssignmentServiceImpl");
         final ViewAssignedArticle viewAssignedArticle = new ViewAssignedArticle();
-        final PdhLookupArticleResponse pdhLookupArticleResponse = esbInterfaceService
-                .viewAssignedArticle(articleId);
-        if (!StringUtils.isEmpty(pdhLookupArticleResponse)) {
+        final PdhLookupArticle pdhLookupArticle = (PdhLookupArticle) esbInterfaceService
+                .getPdhLookupResponse(articleId);
+        if (!StringUtils.isEmpty(pdhLookupArticle)) {
             viewAssignedArticle
-                    .setArticleData(getArticleData(pdhLookupArticleResponse));
-            viewAssignedArticle
-                    .setJournalData(getJournalData(pdhLookupArticleResponse));
-            viewAssignedArticle
-                    .setPublicationData(getPublicationData(pdhLookupArticleResponse));
+                    .setArticleData(parseFullArticleDetails(pdhLookupArticle));
+            viewAssignedArticle.setJournalData(getJournalDetails());
+            viewAssignedArticle.setPublicationData(getPublicationData());
             viewAssignedArticle.setOrderData(getOrderId());
-            viewAssignedArticle
-                    .setLicenseData(getLicenseData(pdhLookupArticleResponse));
         }
 
         return viewAssignedArticle;
@@ -254,93 +251,188 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
     }
 
     /**
-     * Gets the article data.
+     * Gets the journal details.
      *
-     * @param pdhLookupArticleResponse
-     *            the pdh lookup article response
-     * @return the article data
+     * @return the journal details
+     * @throws Exception
+     *             the exception
      */
-    private ArticleDetails getArticleData(
-            final PdhLookupArticleResponse pdhLookupArticleResponse) {
-        ArticleDetails articleDetails = null;
+    private JournalData getJournalDetails() throws Exception {
+        PdhLookupJournal pdhLookupJournal = (PdhLookupJournal) esbInterfaceService
+                .getPdhLookupResponse("6839245");
+        List<Title> titleList = pdhLookupJournal.getJournalProductEntities()
+                .getTitle();
+        JournalData journalData = null;
+        if (!StringUtils.isEmpty(titleList)) {
+            for (Title title : titleList) {
+                if ("8118618".equals(title.getTitleDhId())) {
+                    journalData = new JournalData();
+                    journalData.setJournalTitle(title.getTitleText());
+                    journalData = getJournalInfo(pdhLookupJournal, journalData);
+                }
+            }
+        }
+        return journalData;
+    }
 
-        articleDetails = new ArticleDetails();
-        articleDetails.setArticleId(pdhLookupArticleResponse
-                .getArticleUniqueID());
-        articleDetails.setArticleTitle(pdhLookupArticleResponse.getTitle());
-        articleDetails.setArticleAuthorName(pdhLookupArticleResponse
-         .getAuthorName());
-        articleDetails
-                .setArticleCoAuthors(parseCoAuthors(pdhLookupArticleResponse));
-        articleDetails.setCorrespondingAuthorEmail(pdhLookupArticleResponse
-                .getAuthorEmail());
-        articleDetails.setArticleDOI(pdhLookupArticleResponse.getArticleDoi());
-        articleDetails.setAcceptanceDate(pdhLookupArticleResponse
-                .getAcceptedDate());
-        articleDetails.setIssueNum(pdhLookupArticleResponse.getIssueNumber());
-        articleDetails.setVolumeNum(pdhLookupArticleResponse.getVolumeNumber());
-        articleDetails.setEditorialRefCd(pdhLookupArticleResponse
-                .getEditorialRefCode());
-        articleDetails
-                .setJpcmsInternalId(pdhLookupArticleResponse.getJpcmsId());
-        articleDetails.setPublicationDate(pdhLookupArticleResponse
-                .getPublicationYear());
+    /**
+     * Parses the full article details.
+     *
+     * @param pdhLookupArticle
+     *            the pdh lookup article
+     * @return the article details
+     * @throws Exception
+     *             the exception
+     */
+    private ArticleDetails parseFullArticleDetails(
+            final PdhLookupArticle pdhLookupArticle) throws Exception {
+        ArticleDetails articleDetails = null;
+        Title title = pdhLookupArticle.getArticleProductEntities().getTitle();
+        if (!StringUtils.isEmpty(title)) {
+            articleDetails = new ArticleDetails();
+            articleDetails.setDhId(title.getTitleDhId());
+            articleDetails.setArticleTitle(title.getTitleText());
+            articleDetails = parseArticleDates(pdhLookupArticle, articleDetails);
+            articleDetails = parseArticleAuthors(pdhLookupArticle,
+                    articleDetails);
+            articleDetails.setArticleDOI(getArticleInfo(pdhLookupArticle,
+                    articleDetails).getArticleDOI());
+        }
         return articleDetails;
     }
 
     /**
-     * Parses the co authors.
+     * Parses the article dates.
      *
-     * @param pdhLookupArticleResponse
-     *            the pdh lookup article response
-     * @return the list
+     * @param pdhLookupArticle
+     *            the pdh lookup article
+     * @param articleDetails
+     *            the article details
+     * @return the article details
+     * @throws Exception
+     *             the exception
      */
-    private List<String> parseCoAuthors(
-            final PdhLookupArticleResponse pdhLookupArticleResponse) {
-        final List<String> coAuthors = new ArrayList<String>();
-        coAuthors.add(pdhLookupArticleResponse.getCoAuthorName());
-        return coAuthors;
+    private ArticleDetails parseArticleDates(
+            final PdhLookupArticle pdhLookupArticle,
+            final ArticleDetails articleDetails) throws Exception {
+        List<ProductDates> productDatesList = pdhLookupArticle
+                .getArticleProductEntities().getProductDates();
+        if (!StringUtils.isEmpty(productDatesList)) {
+            for (ProductDates productDates : productDatesList) {
+                if ("ART_ACC_DT".equalsIgnoreCase(productDates
+                        .getDhDateTypeCd())) {
+                    articleDetails.setAcceptanceDate(productDates
+                            .getProdDtDateValue());
+                }
+            }
+        }
+        return articleDetails;
     }
 
     /**
-     * Gets the journal data.
+     * Parses the article authors.
      *
-     * @param pdhLookupArticleResponse
-     *            the pdh lookup article response
+     * @param pdhLookupArticle
+     *            the pdh lookup article
+     * @param articleDetails
+     *            the article details
+     * @return the article details
+     * @throws Exception
+     *             the exception
+     */
+    private ArticleDetails parseArticleAuthors(
+            final PdhLookupArticle pdhLookupArticle,
+            final ArticleDetails articleDetails) throws Exception {
+        List<ProductContributor> productContributors = pdhLookupArticle
+                .getArticleProductEntities().getProductContributor();
+        if (!StringUtils.isEmpty(productContributors)) {
+            List<String> coAuthors = new ArrayList<String>();
+            String coAuthorsNames = null;
+            for (ProductContributor productContributor : productContributors) {
+                String authorRoleCd = productContributor.getDhRoleTypeCd();
+                if ("Corresponding Author".equalsIgnoreCase(authorRoleCd)) {
+                    articleDetails.setArticleAuthorName(productContributor
+                            .getFirstName().concat(" ")
+                            .concat(productContributor.getLastName()));
+                } else if ("Author".equalsIgnoreCase(authorRoleCd)) {
+                    coAuthorsNames = productContributor.getFirstName()
+                            .concat(" ")
+                            .concat(productContributor.getLastName());
+                    coAuthors.add(coAuthorsNames);
+                }
+            }
+            articleDetails.setArticleCoAuthors(coAuthors);
+        }
+        return articleDetails;
+    }
+
+    /**
+     * Gets the article info.
+     *
+     * @param pdhLookupArticle
+     *            the pdh lookup article
+     * @param articleDetails
+     *            the article details
+     * @return the article doi
+     * @throws Exception
+     *             the exception
+     */
+    private ArticleDetails getArticleInfo(
+            final PdhLookupArticle pdhLookupArticle,
+            final ArticleDetails articleDetails) throws Exception {
+        List<Identifier> identifiersList = pdhLookupArticle
+                .getArticleProductEntities().getIdentifier();
+        if (!StringUtils.isEmpty(identifiersList)) {
+            for (Identifier identifier : identifiersList) {
+                if ("ARTICLE_IDENTIFIER".equalsIgnoreCase(identifier
+                        .getDhTypeCd())) {
+                    articleDetails.setArticleId(identifier.getIdentCd());
+                } else if ("DOI".equalsIgnoreCase(identifier.getDhTypeCd())) {
+                    articleDetails.setArticleDOI(identifier.getIdentCd());
+                }
+            }
+        }
+        return articleDetails;
+    }
+
+    /**
+     * Gets the journal info.
+     *
+     * @param pdhLookupJournal
+     *            the pdh lookup journal
+     * @param journalData
+     *            the article details
      * @return the journal data
      * @throws Exception
      *             the exception
      */
-    private JournalDetails getJournalData(
-            final PdhLookupArticleResponse pdhLookupArticleResponse)
-            throws Exception {
-        PdhLookupJournalResponse pdhLookupJournalResponse = esbInterfaceService
-                .getPdhLookupJournalResponse(pdhLookupArticleResponse
-                        .getJournalUniqueID());
-        JournalDetails journalDetails = new JournalDetails();
-        journalDetails.setJournalId(pdhLookupArticleResponse
-                .getJournalUniqueID());
-        journalDetails.setJournalTitle(pdhLookupJournalResponse.getTitle());
-        journalDetails.setJournalDoi(pdhLookupJournalResponse.getJournalDoi());
-        journalDetails.setJournalPrintIssn(pdhLookupJournalResponse
-                .getPrintIssn());
-        journalDetails.setJournalElectronicIssn(pdhLookupJournalResponse
-                .getElectronicIssn());
-        return journalDetails;
+    private JournalData getJournalInfo(final PdhLookupJournal pdhLookupJournal,
+            final JournalData journalData) throws Exception {
+        List<Identifier> identifiersList = pdhLookupJournal
+                .getJournalProductEntities().getIdentifier();
+        if (!StringUtils.isEmpty(identifiersList)) {
+            for (Identifier identifier : identifiersList) {
+                if ("ISSN".equalsIgnoreCase(identifier.getDhTypeCd())) {
+                    journalData.setIssn(identifier.getIdentCd());
+                } else if ("DOI".equalsIgnoreCase(identifier.getDhTypeCd())) {
+                    journalData.setJournalDoi(identifier.getIdentCd());
+                } else if ("DOI".equalsIgnoreCase(identifier.getDhTypeCd())) {
+                    journalData.setJournalDoi(identifier.getIdentCd());
+                }
+                journalData.setDhId("OA.1125.JOURNAL");
+            }
+        }
+        return journalData;
     }
 
     /**
      * Gets the publication data.
      *
-     * @param pdhLookupArticleResponse
-     *            the pdh lookup article response
      * @return the publication data
      */
-    private PublicationDetails getPublicationData(
-            final PdhLookupArticleResponse pdhLookupArticleResponse) {
+    private PublicationDetails getPublicationData() {
         PublicationDetails publicationDetails = new PublicationDetails();
-        publicationDetails.setModifiedDate(pdhLookupArticleResponse
-                .getPublicationYear());
+        publicationDetails.setModifiedDate("2015-08-28T14:06:31Z");
         publicationDetails.setPublicationStatus("Make OO");
         publicationDetails.setPublicationPath("From AS 2.0");
         return publicationDetails;
@@ -355,22 +447,6 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
         final OrderDetails orderData = new OrderDetails();
         orderData.setOrderId("11232");
         return orderData;
-    }
-
-    /**
-     * Gets the license data.
-     *
-     * @param pdhLookupArticleResponse
-     *            the pdh lookup article response
-     * @return the license data
-     */
-    private LicenseDetails getLicenseData(
-            final PdhLookupArticleResponse pdhLookupArticleResponse) {
-        LicenseDetails licenseDetails = new LicenseDetails();
-        licenseDetails.setLicenseSignedDate(pdhLookupArticleResponse
-                .getLicense());
-        licenseDetails.setLicenseStatus("Sign License Agreement");
-        return licenseDetails;
     }
 
     /**
