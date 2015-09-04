@@ -34,6 +34,6 @@ public interface SendNotificationDao {
      *            the request
      * @return userSecondaryEmailAddr
      */
-    UserSecondaryEmailAddr getUserSecEmailAddr(String userId);
+    UserSecondaryEmailAddr getUserSecEmailAddr(int userId);
 
 }
