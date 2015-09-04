@@ -473,17 +473,23 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         addressElement.setFirstName(addressesRequest.getFirstName());
         addressElement.setLastName(addressesRequest.getLastName());
         addressElement.setSuffix(addressesRequest.getSuffix());
-        addressElement.setInstitutionCd(addressesRequest.getInstitutionId());
-        addressElement
-                .setInstitutionName(addressesRequest.getInstitutionName());
+        if (!StringUtils.isEmpty(addressesRequest.getInstitutionId())) {
+            addressElement
+                    .setInstitutionCd(addressesRequest.getInstitutionId());
+            addressElement.setInstitutionName(addressesRequest
+                    .getInstitutionName());
+        }
         if ("0".equalsIgnoreCase(id)) {
             addressElement.setStatus("Add");
         } else {
             addressElement.setId(id);
             addressElement.setStatus("Edit");
         }
-        addressElement.setDepartmentCd(addressesRequest.getDepartmentId());
-        addressElement.setDepartmentName(addressesRequest.getDepartmentName());
+        if ("".equalsIgnoreCase(addressesRequest.getDepartmentId())) {
+            addressElement.setDepartmentCd(addressesRequest.getDepartmentId());
+            addressElement.setDepartmentName(addressesRequest
+                    .getDepartmentName());
+        }
         addressElement.setAddressLine1(addressesRequest.getAddressLine1());
         addressElement.setAddressLine2(addressesRequest.getAddressLine2());
         addressElement.setCity(addressesRequest.getCity());
@@ -773,12 +779,9 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                 .getLookupCustomerProfileResponse().getCustomerProfile()
                 .getSocietyList().getSociety();
         List<Society> societyList = new ArrayList<Society>();
-        
-  
-        
-    
+
         for (SocietyData societyData : listSocietyData) {
-            if (societyData.getSocietyId()==null) {
+            if (societyData.getSocietyId() == null) {
                 break;
             }
             Society society = new Society();
@@ -792,11 +795,10 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             society.setPromoCode(societyData.getPromoCode());
             society.setId(societyData.getId());
             societyList.add(society);
-        
-        
+
         }
         return societyList;
-}
+    }
 
     /**
      * This method will call external service look up profile to get co authors.
@@ -847,14 +849,14 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             areaList = new ArrayList<Interests>();
             for (InterestData interestData : listOfArea) {
                 Interests interests = new Interests();
-                if(interestData != null) {
+                if (interestData != null) {
                     interests.setAoeId(interestData.getInterestcode());
                     aoeName = autocomplete.getNameByCode("areasOfInterests",
                             interestData.getInterestcode(), null);
                     interests.setAoeName(aoeName);
                     areaList.add(interests);
                 }
-                
+
             }
         }
 
