@@ -19,6 +19,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class OrderPaymentStatus.
  *
@@ -27,11 +28,11 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class OrderPaymentStatus {
 
-    /** The open access status. */
-    private String openAccessStatus;
-
-    /** The online open status. */
-    private String onlineOpenStatus;
+    /** The order status. */
+    private String orderStatus;
+    
+    /** The order type. */
+    private String orderType;
 
     /**
      * This field holds the value of availableActions.
@@ -44,36 +45,8 @@ public class OrderPaymentStatus {
     private String additionalParam;
 
     /**
-     * @return the openAccessStatus
-     */
-    public final String getOpenAccessStatus() {
-        return openAccessStatus;
-    }
-
-    /**
-     * @param openAccessStatus
-     *            the openAccessStatus to set
-     */
-    public final void setOpenAccessStatus(final String openAccessStatus) {
-        this.openAccessStatus = openAccessStatus;
-    }
-
-    /**
-     * @return the onlineOpenStatus
-     */
-    public final String getOnlineOpenStatus() {
-        return onlineOpenStatus;
-    }
-
-    /**
-     * @param onlineOpenStatus
-     *            the onlineOpenStatus to set
-     */
-    public final void setOnlineOpenStatus(final String onlineOpenStatus) {
-        this.onlineOpenStatus = onlineOpenStatus;
-    }
-
-    /**
+     * Gets the available actions list.
+     *
      * @return the availableActionsList
      */
     public final List<String> getAvailableActionsList() {
@@ -81,8 +54,9 @@ public class OrderPaymentStatus {
     }
 
     /**
-     * @param availableActionsList
-     *            the availableActionsList to set
+     * Sets the available actions list.
+     *
+     * @param availableActionsList            the availableActionsList to set
      */
     public final void setAvailableActionsList(
             final List<String> availableActionsList) {
@@ -90,6 +64,8 @@ public class OrderPaymentStatus {
     }
 
     /**
+     * Gets the additional param.
+     *
      * @return the additionalParam
      */
     public final String getAdditionalParam() {
@@ -97,11 +73,38 @@ public class OrderPaymentStatus {
     }
 
     /**
-     * @param additionalParam
-     *            the additionalParam to set
+     * Sets the additional param.
+     *
+     * @param additionalParam            the additionalParam to set
      */
     public final void setAdditionalParam(final String additionalParam) {
         this.additionalParam = additionalParam;
     }
+
+	/**
+	 * Gets the order status.
+	 *
+	 * @return the order status
+	 */
+	public String getOrderStatus() {
+		return orderStatus;
+	}
+
+	/**
+	 * Sets the order status.
+	 *
+	 * @param orderStatus the new order status
+	 */
+	public void setOrderStatus(String orderStatus) {
+		this.orderStatus = orderStatus;
+	}
+
+	public String getOrderType() {
+		return orderType;
+	}
+
+	public void setOrderType(String orderType) {
+		this.orderType = orderType;
+	}
 
 }
