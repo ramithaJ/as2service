@@ -12,27 +12,19 @@
 	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
-	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-	http://www.springframework.org/schema/mvc
-	http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
-	http://www.springframework.org/schema/aop
-    http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
-	http://www.springframework.org/schema/context
-	http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+            http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+            http://www.springframework.org/schema/mvc
+            http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
 	<context:component-scan base-package="com.wiley.gr.ace.authorservices.*" />
+	<import resource="redis.xml" />
 
 	<context:property-placeholder
-	location="classpath:mockurls.properties,classpath:orcid.properties,classpath:userManagement.properties,classpath:exception.properties,classpath:persistence.exception.properties,classpath:bpmService.properties,classpath:onlineOpenProperties.properties,classpath:wpgPaymentDetails.properties"
-	ignore-unresolvable="true" />
-	
+		location="classpath:${my.envName}redis.properties,classpath:mockurls.properties,classpath:${my.envName}orcid.properties,classpath:${my.envName}userManagement.properties,classpath:exception.properties,classpath:applicationMessages.properties,classpath:persistence.exception.properties,classpath:autocomplete.properties,classpath:${my.envName}notification.properties,classpath:${my.envName}bpmService.properties"
+		ignore-unresolvable="true" />
+
 	<mvc:annotation-driven />
-	
-	<mvc:interceptors>
-        <mvc:interceptor>
-            <mvc:mapping path="/admin/login/**" />
-            <bean class="com.wiley.gr.ace.authorservices.web.interceptors.LoginInterceptor"></bean>
-        </mvc:interceptor>
-    </mvc:interceptors>
 
 </beans>

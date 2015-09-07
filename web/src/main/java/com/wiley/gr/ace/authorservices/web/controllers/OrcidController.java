@@ -9,9 +9,7 @@
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
  *******************************************************************************/
-/**
- * 
- */
+
 package com.wiley.gr.ace.authorservices.web.controllers;
 
 import org.slf4j.Logger;
@@ -22,17 +20,17 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
-import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.orcid.OrcidAccessToken;
 import com.wiley.gr.ace.authorservices.services.service.OrcidService;
 
 /**
+ * The Class OrcidController.
+ *
  * @author virtusa version 1.0
  */
 @RestController
@@ -44,11 +42,10 @@ public class OrcidController {
      */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(OrcidController.class);
-    /**
-     * GETTING BEAN OF ORCID SERVICE
-     */
+
+    /** The orcid service. */
     @Autowired(required = true)
-    OrcidService orcidService;
+    private OrcidService orcidService;
 
     /**
      * orcidUrl From Props File.
@@ -68,65 +65,79 @@ public class OrcidController {
     @Value("${orcid-redirect.url}")
     private String orcidRedirectUrl;
 
+    /** value from props file configured. */
+    @Value("${OrcidController.getOrcidURL.code}")
+    private String getOrcidURLErrorCode;
+
+    /** value from props file configured. */
+    @Value("${OrcidController.getOrcidURL.message}")
+    private String getOrcidURLErrorMessage;
+
+    /** value from props file configured. */
+    @Value("${OrcidController.getOrcidDetails.code}")
+    private String getOrcidDetailsErrorCode;
+
+    /** value from props file configured. */
+    @Value("${OrcidController.getOrcidDetails.message}")
+    private String getOrcidDetailsErrorMessage;
+
     /**
-     * @return service
+     * Gets the orcid url.
+     *
+     * @return the orcid url
      */
     @RequestMapping(value = "/url", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Service getOrcidURL() {
-        Service service = new Service();
-
+    public final Service getOrcidURL() {
+        final Service service = new Service();
         try {
             /**
              * Depending on the environment the ORCID URL changes
              */
-            String env = "DEV";// Need to fetch this from prop file
-            String url = "";
-            if (null != env) {
-                url = "https://"
-                        + orcidUrl
-                        + "/oauth/authorize?client_id="
-                        + orcidClientId
-                        + "&response_type=code&scope=/authenticate&redirect_uri="
-                        + orcidRedirectUrl;
-                service.setStatus("SUCCESS");
-                service.setPayload(url);
-            }
-        } catch (Exception e) {
-            ErrorPOJO error = new ErrorPOJO();
-            error.setCode(-101); // Need to set proper error code this one is
-                                 // dummy
-            error.setMessage("Error while fetching ORCID URL");
+            StringBuilder url = new StringBuilder();
+            url = url
+                    .append("https://")
+                    .append(orcidUrl)
+                    .append("/oauth/authorize?client_id=")
+                    .append(orcidClientId)
+                    .append("&response_type=code&scope=/authenticate&redirect_uri=")
+                    .append(orcidRedirectUrl);
+            service.setStatus("SUCCESS");
+            service.setPayload(url);
 
-            service.setStatus("error");
-            service.setError(error);
-            throw new ASException("-2", "Error while fetching ORCID URL", e);
+        } catch (final Exception e) {
+            throw new ASException(getOrcidURLErrorCode,
+                    getOrcidURLErrorMessage, e);
         }
         return service;
     }
 
     /**
+     * Gets the orcid details.
+     *
+     * @param type
+     *            the type
      * @param authorizationCode
-     * @return service
+     *            the authorization code
+     * @return the orcid details
      */
-    @RequestMapping(value = "/profile/{type}/{authorizationCode}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Service getOrcidDetails(
-            @PathVariable final String type,
+    @RequestMapping(value = "/profile/{type}/{authorizationCode}", method = RequestMethod.GET)
+    public final Service getOrcidDetails(@PathVariable final String type,
             @PathVariable final String authorizationCode) {
         Service service = new Service();
         User user = null;
         try {
 
             if (null != authorizationCode) {
-                OrcidAccessToken accessToken = orcidService
+                final OrcidAccessToken accessToken = orcidService
                         .getAccessToken(authorizationCode);
                 if (null != accessToken) {
-                    System.out.println("accessToken.getAccess_token() --->"
-                            + accessToken.getAccess_token());
-                    System.out.println("accessToken.getOrcid() ---> "
+                    LOGGER.info("accessToken.getAccess_token() --->"
+                            + accessToken.getAccessToken());
+                    LOGGER.info("accessToken.getOrcid() ---> "
                             + accessToken.getOrcid());
                     if (null != type) {
                         user = orcidService.getBio(accessToken);
-                        if (type.equalsIgnoreCase("userupdate")) {
+                        if ("userupdate".equalsIgnoreCase(type)) {
                             orcidService.getWork(accessToken, user);
                         }
                     }
@@ -134,17 +145,10 @@ public class OrcidController {
                     service.setPayload(user);
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (final Exception e) {
             LOGGER.error("Stack Trace-.", e);
-            ErrorPOJO error = new ErrorPOJO();
-            error.setCode(-101); // Need to set proper error code this one is
-                                 // dummy
-            error.setMessage("Error while fetching ORCID details");
-
-            service.setStatus("error");
-            service.setError(error);
-            throw new ASException("-2", "Error while fetching ORCID details", e);
+            throw new ASException(getOrcidDetailsErrorCode,
+                    getOrcidDetailsErrorMessage, e);
         }
         return service;
     }

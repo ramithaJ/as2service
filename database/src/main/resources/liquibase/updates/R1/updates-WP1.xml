@@ -27,7 +27,7 @@
     <changeSet author="gphaniraj" id="WP1-9">
         <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="EMAIL_TYPE_SEQ" startValue="1"/>
     </changeSet>
-  <!--  <changeSet author="gphaniraj" id="WP1-10">
+    <changeSet author="gphaniraj" id="WP1-10">
         <createSequence cacheSize="20" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="ISEQ$$_91998" startValue="1"/>
     </changeSet>
     <changeSet author="gphaniraj" id="WP1-11">
@@ -39,7 +39,6 @@
     <changeSet author="gphaniraj" id="WP1-13">
         <createSequence cacheSize="20" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="ISEQ$$_92006" startValue="1"/>
     </changeSet>
-	-->
     <changeSet author="gphaniraj" id="WP1-14">
         <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="JOURNAL_SEQ" startValue="1"/>
     </changeSet>
@@ -2156,124 +2155,5 @@ ALTER TABLE JOURNALS MODIFY CREATED_DATE TIMESTAMP(6);
 ALTER TABLE JOURNALS MODIFY UPDATED_DATE TIMESTAMP(6);
 </sql>
 </changeSet>
-
-<changeSet author="gphaniraj" id="WP1-369">
-<sql>
-ALTER TABLE USER_WOA_ACCOUNTS RENAME COLUMN WOA_INSTITUTION_ID TO WOA_INSTITUTION_CD;
-</sql>
-</changeSet>
-
-<changeSet author="gphaniraj" id="WP1-370">
-<sql>
-ALTER TABLE USER_WOA_ACCOUNTS MODIFY WOA_INSTITUTION_CD VARCHAR2(15);
-</sql>
-</changeSet>
-
-<changeSet author="gphaniraj" id="WP1-371">
-<sql>
-DROP TABLE NOTIFICATION CASCADE CONSTRAINTS;
-</sql>
-</changeSet>
-
-<changeSet author="gphaniraj" id="WP1-372">
-<sql>
-DROP TABLE NOTIFICATION_RECIPIENTS CASCADE CONSTRAINTS;
-</sql>
-</changeSet>
-
-<changeSet author="gphaniraj" id="WP1-373">
-<sql>
-DROP TABLE SCHEDULE CASCADE CONSTRAINTS;
-</sql>
-</changeSet>
-
-<changeSet author="gphaniraj" id="WP1-374">
-<sql>
-DROP TABLE SCHEDULE_TEMPLATE CASCADE CONSTRAINTS;
-</sql>
-</changeSet>
-
-<changeSet author="gphaniraj" id="WP1-375">
-<sql>
-DROP TABLE TEMPLATE CASCADE CONSTRAINTS;
-</sql>
-</changeSet>
-
-<changeSet author="gphaniraj" id="WP1-376">
-<sql>
-ALTER TABLE USER_AFFILIATIONS DROP
-(
-START_DT,      
-END_DT  ,      
-CREATED_DATE  ,
-CREATED_BY  ,       
-UPDATED_DATE  , 
-UPDATED_BY    
-); 
-</sql>
-</changeSet>
-
-<changeSet author="gphaniraj" id="WP1-377">
-<sql>
-ALTER TABLE USER_AFFILIATIONS ADD
-(
-COUNTRY_CD    VARCHAR2(15),
-START_DT      TIMESTAMP(6) , 
-END_DT        TIMESTAMP(6) , 
-CREATED_DATE  TIMESTAMP(6) ,
-CREATED_BY    NUMBER  ,      
-UPDATED_DATE  TIMESTAMP(6) ,
-UPDATED_BY    NUMBER  
-); 
-</sql>
-</changeSet>
-
-<changeSet author="gphaniraj" id="WP1-378">
-<sql>
-ALTER TABLE USER_AFFILIATIONS ADD FOREIGN KEY(CREATED_BY) REFERENCES USERS(USER_ID);
-</sql>
-</changeSet>
-
-<changeSet author="gphaniraj" id="WP1-379">
-<sql>
-ALTER TABLE USER_AFFILIATIONS ADD FOREIGN KEY(UPDATED_BY) REFERENCES USERS(USER_ID);
-</sql>
-</changeSet>
-
-<changeSet author="gphaniraj" id="WP1-380">
-<sql>
-ALTER TABLE user_profile MODIFY OPT_IN_PROMOTE_FLG DEFAULT '0';
-</sql>
-</changeSet>
-
-<changeSet author="gphaniraj" id="WP1-381">
-<sql>
-ALTER TABLE user_profile MODIFY PROFILE_VISIBLE_FLG DEFAULT '1';
-</sql>
-</changeSet>
-
-<!--
-<changeSet author="gphaniraj" id="WP1-SEED_DATA">
-    <sqlFile  path="../sql/seed_data.sql" relativeToChangelogFile="true" splitStatements="true" stripComments="true"/>
-</changeSet> 
-
-<changeSet author="gphaniraj" id="WP1-SOCIETIES_DATA" runOnChange="true">
- <loadUpdateData file="src/main/resources/liquibase/updates/csv/Societies.csv" quotchar="'" tableName="societies" primaryKey="society_cd">
-        <column name="SOCIETY_CD" header="SOCIETY_CD" type="string"/>
-		 <column name="SOCIETY_NAME" header="SOCIETY_NAME" type="string"/>	
-         <column name="CREATED_DATE" header="CREATED_DATE" type="date"/>
-		<column name="CREATED_BY" header="CREATED_BY" type="numeric"/>			 
-    </loadUpdateData>
-</changeSet>
-
-<changeSet author="gphaniraj" id="WP1-AOI_DATA" runOnChange="true">
- <loadUpdateData file="src/main/resources/liquibase/updates/csv/Area_Of_Interest.csv" quotchar="'" tableName="area_of_interest" primaryKey="AREA_OF_INTEREST_CD">
-        <column name="AREA_OF_INTEREST_CD" header="SOCIETY_CD" type="string"/>
-		 <column name="INTEREST_NAME" header="SOCIETY_NAME" type="string"/>	
-         <column name="CREATED_DATE" header="CREATED_DATE" type="date"/>
-		<column name="CREATED_BY" header="CREATED_BY" type="numeric"/>			 
-    </loadUpdateData>
-</changeSet>
--->
 
 </databaseChangeLog>

@@ -35,6 +35,7 @@ import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
+import com.wiley.gr.ace.authorservices.services.service.SendNotification;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 
 /**
@@ -68,9 +69,47 @@ public class UserLoginController extends ASExceptionController {
     @Autowired(required = true)
     private UserLoginServiceDAO userLoginServiceDAO;
 
-    /** The SUCCESS. */
+    /**
+     * Injecting SendNotification bean.
+     */
+    @Autowired(required = true)
+    private SendNotification sendNotification;
+
+    /**
+     * This field holds the value of SUCCESS.
+     */
     @Value("${SUCCESS}")
-    private String SUCCESS;
+    private String success;
+
+    /**
+     * This field holds the value of FAILURE.
+     */
+    @Value("${FAILURE}")
+    private String failure;
+
+    /**
+     * This field holds the value of LOCKED.
+     */
+    @Value("${LOCKED}")
+    private String locked;
+
+    /**
+     * This field holds the value of AuthorServices.
+     */
+    @Value("${AuthorServices}")
+    private String authorServices;
+
+    /**
+     * This field holds the value of AuthenticationType.
+     */
+    @Value("${AuthenticationType}")
+    private String authenticationType;
+
+    /**
+     * This field holds the value of templateId.
+     */
+    @Value("${templateId.password.reset}")
+    private String templateId;
 
     /**
      * Method to authenticate user.
@@ -82,23 +121,24 @@ public class UserLoginController extends ASExceptionController {
     @RequestMapping(value = "/login/", method = RequestMethod.POST)
     public final Service login(@Valid @RequestBody final Login login) {
 
-        final Service service = new Service();
+        Service service = new Service();
 
-        final SharedServieRequest sharedServieRequest = new SharedServieRequest();
+        SharedServieRequest sharedServieRequest = new SharedServieRequest();
         sharedServieRequest.setUserId(login.getEmailId());
         sharedServieRequest.setPassword(login.getPassword());
-        sharedServieRequest.setAuthenticationType("LDAP");
-        sharedServieRequest.setAppKey("AS");
+        sharedServieRequest.setAuthenticationType(authenticationType);
+        sharedServieRequest.setAppKey(authorServices);
+
         SecurityResponse securityResponse = userLoginService.login(login,
                 sharedServieRequest);
-        if ("LOCKED".equalsIgnoreCase(securityResponse.getStatus())) {
-            service.setStatus("FAILURE");
+        final String status = securityResponse.getStatus();
+        if (locked.equalsIgnoreCase(status) || failure.equalsIgnoreCase(status)) {
+            service.setStatus(failure);
             ErrorPOJO errorPOJO = new ErrorPOJO();
-            errorPOJO.setCode(Integer.parseInt(securityResponse.getCode()));
+            errorPOJO.setCode(securityResponse.getCode());
             errorPOJO.setMessage(securityResponse.getMessage());
             service.setError(errorPOJO);
-        }
-        if (SUCCESS.equals(securityResponse.getStatus())) {
+        } else if (success.equals(securityResponse.getStatus())) {
 
             Users users = userLoginServiceDAO.getUserId(login.getEmailId());
             UserLogin user = new UserLogin();
@@ -122,9 +162,8 @@ public class UserLoginController extends ASExceptionController {
     public final Service resetPassword(
             @RequestBody final SecurityDetailsHolder securityDetailsHolder) {
         LOGGER.info("Inside resetPassword method");
-        final Service service = new Service();
-        service.setPayload(userLoginService
-                .resetPassword(securityDetailsHolder));
+        Service service = new Service();
+        userLoginService.resetPassword(securityDetailsHolder);
         return service;
 
     }
@@ -140,8 +179,8 @@ public class UserLoginController extends ASExceptionController {
     public final Service updatePassword(
             @Valid @RequestBody final PasswordDetails passwordDetails) {
         LOGGER.info("inside updatePassword method");
-        final Service service = new Service();
-        service.setPayload(authorProfileService.updatePassword(passwordDetails));
+        Service service = new Service();
+        authorProfileService.updatePassword(passwordDetails);
         return service;
 
     }
@@ -150,19 +189,18 @@ public class UserLoginController extends ASExceptionController {
      * this method will validate the security questions and answers to reset the
      * password at the time of login.
      * 
-     * @param emailId
      * @param securityDetails
      *            - it takes security questions and answers as inputs in JSON
      *            array format.
      * @return Service object.
      */
-    @RequestMapping(value = "/securityQuestions/validate")
+    @RequestMapping(value = "/securityQuestions/validate", method = RequestMethod.POST)
     public final Service validateSecurityQuestions(
             @Valid @RequestBody final SecurityDetailsHolder securityDetails) {
         LOGGER.info("inside validateSecurityQuestions method");
-        final Service service = new Service();
+        Service service = new Service();
         service.setPayload(userLoginService
-                .validateSecurityQuestions(securityDetails.getSecurityDetails()));
+                .validateSecurityQuestions(securityDetails));
 
         return service;
     }
@@ -171,14 +209,15 @@ public class UserLoginController extends ASExceptionController {
      * Method to get user security questions.
      * 
      * @param emailId
+     *            - The request value
      * @return service object.
      */
-    @RequestMapping(value = "/userSecurityQuestions/{emailId}")
+    @RequestMapping(value = "/userSecurityQuestions/{emailId}", method = RequestMethod.GET)
     public final Service userSecurityQuestions(
             @PathVariable("emailId") final String emailId) {
         LOGGER.info("inside userSecurityQuestions method");
-        final Service service = new Service();
-        service.setPayload(userLoginService.securityQuestions(emailId));
+        Service service = new Service();
+        service.setPayload(userLoginService.userSecurityQuestions(emailId));
         return service;
 
     }
@@ -186,13 +225,14 @@ public class UserLoginController extends ASExceptionController {
     /**
      * Method to resetPassword.
      * 
-     * @param emailId
+     * @param guid
+     *            - The request value
      * @return service
      */
     @RequestMapping(value = "resetPassword/{guid}", method = RequestMethod.GET)
     public final Service resetPassword(@PathVariable("guid") final String guid) {
-        final Service service = new Service();
-        final Login login = new Login();
+        Service service = new Service();
+        Login login = new Login();
         login.setEmailId(userLoginService.resetPassword(guid));
         service.setPayload(login);
 
@@ -201,23 +241,46 @@ public class UserLoginController extends ASExceptionController {
 
     /**
      * @param emailId
+     *            - The request value
      * @return service
      */
-    @RequestMapping(value = "resetByEmail/{emailId}", method = RequestMethod.POST)
+    @RequestMapping(value = "resetByEmail/{emailId}/", method = RequestMethod.POST)
     public final Service resetByEmail(
             @PathVariable("emailId") final String emailId) {
-
-        return new Service();
+        Service service = new Service();
+        userLoginServiceDAO.getUserId(emailId);
+        sendNotification.notifyByEmail(emailId, templateId);
+        return service;
     }
 
     /**
      * @param guid
+     *            - The request value
      * @return service.
      */
     @RequestMapping(value = "verifyAccount/{guid}", method = RequestMethod.GET)
     public final Service verifyAccount(@PathVariable("guid") final String guid) {
         userLoginService.verifyAccountUpdate(guid);
         return new Service();
+    }
+
+    /**
+     * @param firstName
+     *            - The request value
+     * @param lastName
+     *            - The request value
+     * @param emailAddress
+     *            - The request value
+     * @return service
+     */
+    @RequestMapping(value = "create/{fn}/{ln}/{email}/", method = RequestMethod.GET)
+    public final Service createGuid(@PathVariable("fn") final String firstName,
+            @PathVariable("ln") final String lastName,
+            @PathVariable("email") final String emailAddress) {
+        Service service = new Service();
+        service.setPayload(userLoginService.insertGuid(firstName, lastName,
+                emailAddress));
+        return service;
     }
 
 }

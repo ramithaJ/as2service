@@ -76,6 +76,7 @@
 					<promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
                             </configuration>
                             <goals>
+							    <goal>dropAll</goal>
                                 <goal>update</goal>
                             </goals>
                         </execution>
@@ -216,7 +217,7 @@
         </profile>
         <!-- This profile builds a zip file, which can be used to execute liquibase updates in standalone manner -->
         <profile>
-            <id>dev-profile</id>        
+            <id>copy_zip_files-profile</id>        
             <activation>
                 <activeByDefault>false</activeByDefault>
                 <property>

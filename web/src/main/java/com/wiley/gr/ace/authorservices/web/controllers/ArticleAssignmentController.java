@@ -54,7 +54,7 @@ public class ArticleAssignmentController {
     @Value("${ArticleAssignmentController.getArticleInfo.code}")
     private String getArticleInfoErrorCode;
 
-    /** The get article info message. */
+    /** The get article info error message. */
     @Value("${ArticleAssignmentController.getArticleInfo.message}")
     private String getArticleInfoErrorMessage;
 
@@ -65,14 +65,6 @@ public class ArticleAssignmentController {
     /** The association confirmation message. */
     @Value("${ArticleAssignmentController.associationConfirmation.message}")
     private String associationConfirmationErrorMessage;
-
-    /** The view assigned article error code. */
-    @Value("${ArticleAssignmentController.viewAssignedArticle.code}")
-    private String viewAssignedArticleErrorCode;
-
-    /** The view assigned article message. */
-    @Value("${ArticleAssignmentController.viewAssignedArticle.message}")
-    private String viewAssignedArticleErrorMessage;
 
     /** The no data found. */
     @Value("${noDataFound.message}")
@@ -85,13 +77,13 @@ public class ArticleAssignmentController {
     /**
      * Gets the article info.
      *
-     * @param emailId
-     *            the email id
-     * @return service
+     * @param articleId
+     *            the article id
+     * @return the article info
      */
-    @RequestMapping(value = "/confirm/display/{emailId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/confirm/display/{articleId}", method = RequestMethod.GET)
     public final Service getArticleInfo(
-            @PathVariable("emailId") final String emailId) {
+            @PathVariable("articleId") final String articleId) {
         LOGGER.info("inside getArticleInfo method of ArticleAssignmentController");
         final Service service = new Service();
         ArticleInfoDetails articleInfoDetails = null;
@@ -128,6 +120,7 @@ public class ArticleAssignmentController {
      *
      * @param associationConfirmation
      *            the association confirmation
+     *            - The Request value
      * @return service
      */
     @RequestMapping(value = "/confirm/association", method = RequestMethod.PUT)

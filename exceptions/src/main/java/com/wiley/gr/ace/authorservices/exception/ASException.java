@@ -12,85 +12,151 @@
 package com.wiley.gr.ace.authorservices.exception;
 
 /**
- * @author virtusa
- *	version 1.0
+ * The Class ASException.
+ *
+ * @author virtusa version 1.0
  */
 public class ASException extends RuntimeException {
-    
+
     /**
-	 * 
-	 */
+     * This field holds the value of serialVersionUID.
+     */
     private static final long serialVersionUID = 1L;
+    /**
+     * This field holds the value of errorCode.
+     */
     private String errorCode;
+    /**
+     * This field holds the value of t.
+     */
     private Throwable t;
+    /**
+     * This field holds the value of description.
+     */
     private String description;
-    private Object[] msgPart;
-    
-    public ASException(String errorCode, Throwable t) {
+
+    /**
+     * Instantiates a new AS exception.
+     *
+     * @param errorCode
+     *            the error code
+     * @param t
+     *            the t
+     */
+    public ASException(final String errorCode, final Throwable t) {
         this.errorCode = errorCode;
         this.t = t;
     }
-    
-    public ASException(String errorCode, String desc, Throwable t) {
+
+    /**
+     * Instantiates a new AS exception.
+     *
+     * @param errorCode
+     *            the error code
+     * @param desc
+     *            the desc
+     * @param t
+     *            the t
+     */
+    public ASException(final String errorCode, final String desc,
+            final Throwable t) {
         this.errorCode = errorCode;
         this.description = desc;
         this.t = t;
     }
-    
-    public ASException(String errorCode, String desc) {
+
+    /**
+     * Instantiates a new AS exception.
+     *
+     * @param errorCode
+     *            the error code
+     * @param desc
+     *            the desc
+     */
+    public ASException(final String errorCode, final String desc) {
         this.errorCode = errorCode;
         this.description = desc;
     }
-    
-    public ASException(String errorCode) {
+
+    /**
+     * Instantiates a new AS exception.
+     *
+     * @param errorCode
+     *            the error code
+     */
+    public ASException(final String errorCode) {
         this.errorCode = errorCode;
     }
-    
-    public ASException(String errorCode, Object[] msgPart) {
-        this.errorCode = errorCode;
-        this.msgPart = msgPart;
-    }
-    
-    public ASException(Throwable t) {
+
+    /**
+     * Instantiates a new AS exception.
+     *
+     * @param t
+     *            the t
+     */
+    public ASException(final Throwable t) {
         this.t = t;
     }
-    
+
+    /**
+     * TODO Auto-generated constructor stub.
+     */
     public ASException() {
-        // TODO Auto-generated constructor stub
+
     }
-    
-    public String getErrorCode() {
+
+    /**
+     * Gets the error code.
+     *
+     * @return errorCode
+     */
+    public final String getErrorCode() {
         return errorCode;
     }
-    
-    public void setErrorCode(String errorCode) {
+
+    /**
+     * Sets the error code.
+     *
+     * @param errorCode
+     *            the new error code
+     */
+    public final void setErrorCode(final String errorCode) {
         this.errorCode = errorCode;
     }
-    
-    public Object[] getMsgPart() {
-        return msgPart;
-    }
-    
-    public void setMsgPart(Object[] msgPart) {
-        this.msgPart = msgPart;
-    }
-    
-    public String getDescription() {
+
+    /**
+     * Gets the description.
+     *
+     * @return description
+     */
+    public final String getDescription() {
         return description;
     }
-    
-    public void setDescription(String description) {
+
+    /**
+     * Sets the description.
+     *
+     * @param description
+     *            the new description
+     */
+    public final void setDescription(final String description) {
         this.description = description;
     }
-    
-    public Throwable getWrappedException() {
+
+    /**
+     * This method is used to getWrappedException.
+     *
+     * @return the wrapped exception
+     */
+    public final Throwable getWrappedException() {
         // Not all ASException will have Wrapped Exception, Inorder to make
         // Generic if Wrapped
         // Exception is not found, send current ASException Object itself
-        if (t != null)
+        if (t != null) {
             return t;
-        else
+        } else {
             return this;
+        }
     }
-    
+
 }
