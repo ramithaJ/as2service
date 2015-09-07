@@ -105,25 +105,34 @@ public class UserAccountServiceImpl implements UserAccountService {
                 .getCustomerDetails();
         User user = new User();
         final String titleId = customerDetails.getTitle();
-        user.setTitle(titleId);
-        user.setTitleName(asDataDao.getData(titleId));
+        if (!StringUtils.isEmpty(titleId)) {
+            user.setTitle(titleId);
+            user.setTitleName(asDataDao.getData(titleId));
+        }
         user.setFirstName(customerDetails.getfName());
         user.setLastName(customerDetails.getlName());
         user.setMiddleName(customerDetails.getmName());
         final String suffixId = customerDetails.getUserSuffix();
-        user.setSuffix(suffixId);
-        user.setSuffixName(asDataDao.getData(suffixId));
+        if (!StringUtils.isEmpty(suffixId)) {
+            user.setSuffix(suffixId);
+            user.setSuffixName(asDataDao.getData(suffixId));
+        }
         user.setAlternateName(customerDetails.getAlternativeName());
         user.setPrimaryEmailAddr(customerDetails.getPrimaryEmail());
         user.setRecoveryEmailAddress(customerDetails.getSecondaryEmail());
         final String industryCode = customerDetails.getIndustryCode();
-        user.setIndustry(industryCode);
-        user.setIndustryName(autoCompleteService.getNameByCode("industries",
-                industryCode, null));
+        if (!StringUtils.isEmpty(industryCode)) {
+            user.setIndustry(industryCode);
+            user.setIndustryName(autoCompleteService.getNameByCode(
+                    "industries", industryCode, null));
+        }
         final String jobCategoriesCode = customerDetails.getJobCategoryCode();
-        user.setJobCategory(jobCategoriesCode);
-        user.setJobCategoryName(autoCompleteService.getNameByCode(
-                "jobCategories", jobCategoriesCode, null));
+        if (!StringUtils.isEmpty(jobCategoriesCode)) {
+            user.setJobCategory(jobCategoriesCode);
+            user.setJobCategoryName(autoCompleteService.getNameByCode(
+                    "jobCategories", jobCategoriesCode, null));
+        }
+
         user.setOrcidId(customerDetails.getOrcId());
         user.setTermsOfUseFlg(customerDetails.getOptInFlag());
 
@@ -233,8 +242,10 @@ public class UserAccountServiceImpl implements UserAccountService {
         final String stateCode = addressElement.getState();
         if (!StringUtils.isEmpty(stateCode)) {
             state.setStateCode(stateCode);
+            state.setStateName(asdataService.getStateByCode(stateCode,
+                    countryCode));
         }
-        state.setStateName(asdataService.getStateByCode(stateCode, countryCode));
+
         address.setState(state);
         if (!StringUtils.isEmpty(addressElement.getPhoneNumber())) {
             address.setPhoneNumber(addressElement.getPhoneNumber());
