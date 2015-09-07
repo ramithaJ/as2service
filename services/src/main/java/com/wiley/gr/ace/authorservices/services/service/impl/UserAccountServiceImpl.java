@@ -17,6 +17,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteService;
@@ -63,6 +64,54 @@ public class UserAccountServiceImpl implements UserAccountService {
      */
     @Autowired(required = true)
     private ASDataService asdataService;
+
+    /**
+     * This field holds the value of industries.
+     */
+    @Value("${industries}")
+    private String industries;
+
+    /**
+     * This field holds the value of jobCategories.
+     */
+    @Value("${jobCategories}")
+    private String jobCategories;
+
+    /**
+     * This field holds the value of physicalAddress.
+     */
+    @Value("${PhysicalAddress}")
+    private String physicalAddress;
+
+    /**
+     * This field holds the value of billingAddress.
+     */
+    @Value("${BillingAddress}")
+    private String billingAddress;
+
+    /**
+     * This field holds the value of shippingAddress.
+     */
+    @Value("${ShippingAddress}")
+    private String shippingAddress;
+
+    /**
+     * This field holds the value of institutions.
+     */
+    @Value("${institutions}")
+    private String institutions;
+
+    /**
+     * This field holds the value of departments.
+     */
+    @Value("${departments}")
+    private String departments;
+
+    /**
+     * This field holds the value of countries.
+     */
+    @Value("${countries}")
+    private String countries;
 
     /**
      * this method is for getting email Details by userId.
@@ -123,14 +172,14 @@ public class UserAccountServiceImpl implements UserAccountService {
         final String industryCode = customerDetails.getIndustryCode();
         if (!StringUtils.isEmpty(industryCode)) {
             user.setIndustry(industryCode);
-            user.setIndustryName(autoCompleteService.getNameByCode(
-                    "industries", industryCode, null));
+            user.setIndustryName(autoCompleteService.getNameByCode(industries,
+                    industryCode, null));
         }
         final String jobCategoriesCode = customerDetails.getJobCategoryCode();
         if (!StringUtils.isEmpty(jobCategoriesCode)) {
             user.setJobCategory(jobCategoriesCode);
             user.setJobCategoryName(autoCompleteService.getNameByCode(
-                    "jobCategories", jobCategoriesCode, null));
+                    jobCategories, jobCategoriesCode, null));
         }
 
         user.setOrcidId(customerDetails.getOrcId());
@@ -161,16 +210,18 @@ public class UserAccountServiceImpl implements UserAccountService {
         Addresses shipAddress = new Addresses();
         for (AddressElement addressElement : addressElementsList) {
 
-            if ("Physical".equalsIgnoreCase(addressElement.getAddrTypeCD())) {
+            if (physicalAddress
+                    .equalsIgnoreCase(addressElement.getAddrTypeCD())) {
                 Address correspondenceAddress = this
                         .setAddressValues(addressElement);
                 corresAddress.setCorrespondenceAddress(correspondenceAddress);
             }
-            if ("Billing".equalsIgnoreCase(addressElement.getAddrTypeCD())) {
+            if (billingAddress.equalsIgnoreCase(addressElement.getAddrTypeCD())) {
                 Address billingAddress = this.setAddressValues(addressElement);
                 billAddress.setBillingAddress(billingAddress);
             }
-            if ("Shipping".equalsIgnoreCase(addressElement.getAddrTypeCD())) {
+            if (shippingAddress
+                    .equalsIgnoreCase(addressElement.getAddrTypeCD())) {
                 Address shippingAddress = this.setAddressValues(addressElement);
                 shipAddress.setShippingAddress(shippingAddress);
             }
@@ -211,14 +262,14 @@ public class UserAccountServiceImpl implements UserAccountService {
         if (!StringUtils.isEmpty(institutionCode)) {
             address.setInstitutionId(institutionCode);
             address.setInstitutionName(autoCompleteService.getNameByCode(
-                    "institutions", institutionCode, null));
+                    institutions, institutionCode, null));
         }
 
         final String departmentCode = addressElement.getDepartmentCd();
         if (!StringUtils.isEmpty(departmentCode)) {
             address.setDepartmentId(departmentCode);
             address.setDepartmentName(autoCompleteService.getNameByCode(
-                    "departments", departmentCode, institutionCode));
+                    departments, departmentCode, institutionCode));
         }
         if (!StringUtils.isEmpty(addressElement.getAddressLine1())) {
             address.setAddressLine1(addressElement.getAddressLine1());
@@ -235,7 +286,7 @@ public class UserAccountServiceImpl implements UserAccountService {
         Country country = new Country();
         final String countryCode = addressElement.getCountryCode();
         country.setCountryCode(countryCode);
-        country.setCountryName(autoCompleteService.getNameByCode("countries",
+        country.setCountryName(autoCompleteService.getNameByCode(countries,
                 countryCode, null));
         address.setCountry(country);
         State state = new State();
