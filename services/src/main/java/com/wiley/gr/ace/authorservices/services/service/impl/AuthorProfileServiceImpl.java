@@ -175,13 +175,13 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      *
      * @param userId
      *            the user id
-     * @param affiliationUpdate
+     * @param affiliation
      *            the affiliation
      * @return true, if successful
      */
     @Override
     public final boolean updateAffiliation(final int userId,
-            final Affiliation affiliationUpdate, final String affiliationId) {
+            final Affiliation affiliation, final String affiliationId) {
         AuthorProfileServiceImpl.LOGGER
                 .info("inside updateAffiliation Method ");
         CustomerDetails customerDetails = getCustomeProfile(String
@@ -193,16 +193,19 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         List<AffiliationData> affDataList = new ArrayList<AffiliationData>();
         AffiliationData affData = new AffiliationData();
         affData.setStartDate(ASDateFormatUtil.convertDate(Long
-                .parseLong(affiliationUpdate.getStartDate())));
+                .parseLong(affiliation.getStartDate())));
         affData.setEndDate(ASDateFormatUtil.convertDate(Long
-                .parseLong(affiliationUpdate.getEndDate())));
-        affData.setCity(affiliationUpdate.getCity());
-        affData.setState(affiliationUpdate.getState());
-        affData.setCountryCd(affiliationUpdate.getCountryCode());
-        affData.setInstitutionCd(affiliationUpdate.getInstitutionId());
-        affData.setInstitutionName(affiliationUpdate.getInstitutionName());
-        affData.setDepartmentCd(affiliationUpdate.getDepartmentId());
-        affData.setDepartmentName(affiliationUpdate.getDepartmentName());
+                .parseLong(affiliation.getEndDate())));
+        affData.setCity(affiliation.getCity());
+        affData.setState(affiliation.getState());
+        affData.setCountryCd(affiliation.getCountryCode());
+        String institutionId = affiliation.getInstitutionId();
+        affData.setInstitutionCd(institutionId);
+        String name = autocomplete.getNameByCode("institutions", institutionId,
+                null);
+        affData.setInstitutionName(name);
+        affData.setDepartmentCd(affiliation.getDepartmentId());
+        affData.setDepartmentName(affiliation.getDepartmentName());
         affDataList.add(affData);
         affiliationsData.setAffiliation(affDataList);
         customerProfile.setAffiliations(affiliationsData);
