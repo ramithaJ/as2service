@@ -64,6 +64,24 @@ public class UserLoginServiceImpl implements UserLoginService {
     private String securityquestionmessage;
 
 
+    /** The account verified message. */
+    @Value("${accountVerifiedMessage}")
+    private String accountVerifiedMessage;
+
+    /** The template id. */
+    @Value("${templateId.security.validation.failed}")
+    private String templateId;
+
+    /** The template id password success. */
+    @Value("${templateId.password.forceful.reset}")
+    private String passwordForcefulResetTemplateId;
+
+    /**
+     * This field holds the value of passwordResetTemplateId.
+     */
+    @Value("${templateId.password.reset}")
+    private String passwordResetTemplateId;
+
     /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(UserLoginServiceImpl.class);
@@ -153,7 +171,26 @@ public class UserLoginServiceImpl implements UserLoginService {
     public final SecurityDetailsHolder securityQuestions(final String emailId) {
 
         LOGGER.info("In securityQuestions method");
-        return userManagement.getSecurityQuestions(emailId);
+        SecurityQuestionsList securityQuestionsList = new SecurityQuestionsList();
+        List<SecurityDetails> securityDetailsList = new ArrayList<SecurityDetails>();
+        List<String> retrieveSecurityQuestionsList = new ArrayList<String>();
+        SecurityDetails securityDetails = null;
+        int i = 0;
+        RetrieveSecurityQuestions retrieveSecurityQuestions = userManagement
+                .userSecurityQuestions(emailId);
+        retrieveSecurityQuestionsList = retrieveSecurityQuestions
+                .getSystemSecurityQuestions().getSecurityQuestionList();
+
+        for (String list : retrieveSecurityQuestionsList) {
+
+            securityDetails = new SecurityDetails();
+            securityDetails.setSecurityQuestionId("SecurityQuestion" + (++i));
+            securityDetails.setSecurityQuestion(list);
+            securityDetailsList.add(securityDetails);
+        }
+        securityQuestionsList.setSecurityDetails(securityDetailsList);
+
+        return securityQuestionsList;
     }
 
     /**
