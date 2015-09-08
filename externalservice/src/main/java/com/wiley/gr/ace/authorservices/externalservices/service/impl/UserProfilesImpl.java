@@ -1,63 +1,57 @@
-/*******************************************************************************
+/**
+ * ****************************************************************************
  * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
- *
- * All material contained herein is proprietary to John Wiley & Sons 
- * and its third party suppliers, if any. The methods, techniques and 
- * technical concepts contained herein are considered trade secrets 
- * and confidential and may be protected by intellectual property laws.  
- * Reproduction or distribution of this material, in whole or in part, 
- * is strictly forbidden except by express prior written permission 
+ * <p/>
+ * All material contained herein is proprietary to John Wiley & Sons
+ * and its third party suppliers, if any. The methods, techniques and
+ * technical concepts contained herein are considered trade secrets
+ * and confidential and may be protected by intellectual property laws.
+ * Reproduction or distribution of this material, in whole or in part,
+ * is strictly forbidden except by express prior written permission
  * of John Wiley & Sons.
- *******************************************************************************/
+ * *****************************************************************************
+ */
 
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpMethod;
+import org.springframework.cache.annotation.Cacheable;
 
-import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
+import com.wiley.gr.ace.authorservices.exception.UserException;
+import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
+import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.DropDown;
-import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
-import com.wiley.gr.ace.authorservices.model.external.Industries;
-import com.wiley.gr.ace.authorservices.model.external.JobCategories;
-import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
+import com.wiley.gr.ace.authorservices.model.external.ErrorPayLoad;
+import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
+import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfileResponse;
+import com.wiley.gr.ace.authorservices.model.external.ResponseStatus;
 
 /**
  * The Class UserProfilesImpl.
  *
- * @author virtusa version 1.0
+ * @author virtusa
+ * @version 1.0
  */
 public class UserProfilesImpl implements UserProfiles {
-
-    /** The user profileurl. */
-    @Value("${lookupProfile.url}")
-    private String userProfileurl;
-
-    /** The update profileurl. */
-    @Value("${updateProfile.url}")
-    private String updateProfileurl;
 
     /** The institutionsurl. */
     @Value("${institutions.url}")
     private String institutionsurl;
 
+    /** The departmentspreurl. */
+    @Value("${departmentspre.url}")
+    private String departmentspreurl;
+
     /** The departmentsurl. */
-    @Value("${departments.url}")
-    private String departmentsurl;
+    @Value("${departmentspost.url}")
+    private String departmentsposturl;
 
     /** The research fundersurl. */
     @Value("${reasearchFunders.url}")
     private String researchFundersurl;
-
-    /** The societiesurl. */
-    @Value("${societies.url}")
-    private String societiesurl;
-
-    /** The areaof interestsurl. */
-    @Value("${areaofInterests.url}")
-    private String areaofInterestsurl;
 
     /** The job categoriesurl. */
     @Value("${jobCategories.url}")
@@ -75,167 +69,214 @@ public class UserProfilesImpl implements UserProfiles {
     @Value("${states.url}")
     private String statesurl;
 
-    /** The status. */
+    /** The states url append. */
+    @Value("${statesurl.append}")
+    private String statesUrlAppend;
+
+    /** The lookupCustomerProfileResponse. */
+    @Value("${lookupCustomerProfileResponse.url}")
+    private String lookupCustomerProfileResponse;
+
+    /** The updateLookupCustomerProfile. */
+    @Value("${updateLookupCustomerProfile.url}")
+    private String updateLookupCustomerProfile;
+
+    /**
+     * This field holds the value of success.
+     */
     @Value("${STATUS}")
-    private String STATUS;
+    private String success;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles
-     * #getUserProfileResponse(java.lang.String)
+    /** The failure. */
+    @Value("${FAILURE}")
+    private String failure;
+
+    /**
+     * This field holds the value of userManagement.
+     */
+    @Autowired(required = true)
+    private UserManagement userManagement;
+
+    /**
+     * This method is used for getting countries.
+     *
+     * @return ESBResponse
+     *
      */
     @Override
-    public UserProfileResponse getUserProfileResponse(String userId) {
+    public final ESBResponse getCountries() {
 
-        return (UserProfileResponse) StubInvokerUtil.invokeStub(userProfileurl,
-                HttpMethod.GET, UserProfileResponse.class);
+        return (ESBResponse) RestServiceInvokerUtil.pickListInvoker(
+                countriesurl, ESBResponse.class);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles
-     * #updateProfile
-     * (com.wiley.gr.ace.authorservices.model.external.UserProfileResponse)
+    /**
+     * This method is used for getting department list.
+     *
+     * @param institutionId
+     *            the institution id
+     * @return ESBResponse
      */
     @Override
-    public boolean updateProfile(UserProfileResponse userProfileResponse) {
+    public final ESBResponse getDepartmentsList(final String institutionId) {
+        String departmenturl = departmentspreurl + institutionId
+                + departmentsposturl;
+        System.out.println(departmenturl);
+        return (ESBResponse) RestServiceInvokerUtil.pickListInvoker(
+                departmenturl, ESBResponse.class);
+    }
 
-        Service service = (Service) StubInvokerUtil.invokeStub(
-                updateProfileurl, HttpMethod.POST, Service.class);
-        String status = service.getStatus();
-        if (status != null && STATUS.equalsIgnoreCase(status)) {
-            return true;
+    /**
+     * This method is used for getting industries.
+     *
+     * @return ESBResponse
+     *
+     */
+    @Override
+    public final ESBResponse getIndustries() {
+
+        return (ESBResponse) RestServiceInvokerUtil.pickListInvoker(
+                industriesurl, ESBResponse.class);
+    }
+
+    /**
+     * This method is used for getting institution list.
+     *
+     * @return ESBResponse
+     *
+     */
+    @Override
+    public final ESBResponse getInstitutionsList() {
+
+        return (ESBResponse) RestServiceInvokerUtil.pickListInvoker(
+                institutionsurl, ESBResponse.class);
+
+    }
+
+    /**
+     * This method is used for getting job categories.
+     *
+     * @return ESBResponse
+     *
+     */
+    @Override
+    public final ESBResponse getJobCategories() {
+
+        return (ESBResponse) RestServiceInvokerUtil.pickListInvoker(
+                jobCategoriesurl, ESBResponse.class);
+    }
+
+    /**
+     * This method is used for getting research funders.
+     *
+     * @return DropDown
+     *
+     */
+    @Override
+    public final DropDown getReasearchFunder() {
+
+        return (DropDown) RestServiceInvokerUtil.getServiceData(
+                researchFundersurl, DropDown.class);
+    }
+
+    /**
+     * This method is used for getting states.
+     *
+     * @param countrycode
+     *            the countrycode
+     * @return ESBResponse
+     */
+    @Override
+    public final ESBResponse getStates(final String countrycode) {
+
+        String url = statesurl + countrycode + statesUrlAppend;
+
+        return (ESBResponse) RestServiceInvokerUtil.pickListInvoker(url,
+                ESBResponse.class);
+
+    }
+
+    /**
+     * This method is used for getting userProfile response.
+     *
+     * @param userId
+     *            the user id
+     * @return UserProfileResponse
+     */
+    /*
+     * @Override
+     * 
+     * @Cacheable(value = "userProfile", key = "#userId") public final
+     * LookupCustomerProfile getUserProfileResponse(final int userId) {
+     * 
+     * return getLookupCustomerProfile(String.valueOf(userId)); }
+     */
+    /**
+     * This method is used for getting userProfile response and put the updated
+     * userProfile object into Redis cache.
+     *
+     * @param userId
+     *            the user id
+     * @param userProfileResponse
+     *            the user profile response
+     * @return UserProfileResponse
+     */
+    /*
+     * @Override
+     * 
+     * @CachePut(value = "userProfile", key = "#userId") public final
+     * LookupCustomerProfile updateProfile(final String userId) { return
+     * getLookupCustomerProfile(userId); }
+     */
+
+    /**
+     * Gets the lookup customer profile.
+     *
+     * @param userId
+     *            the user id
+     * @return the lookup customer profile
+     */
+    @Override
+    @Cacheable(value = "userProfile", key = "#userId")
+    public final LookupCustomerProfile getLookupCustomerProfile(
+            final String userId) {
+
+        LookupCustomerProfile lookupCustomerProfile = (LookupCustomerProfile) RestServiceInvokerUtil
+                .getServiceData(lookupCustomerProfileResponse + userId
+                        + "&ECID=", LookupCustomerProfile.class);
+        if (failure.equalsIgnoreCase(lookupCustomerProfile.getStatus())) {
+            final ErrorPayLoad errorPayLoad = lookupCustomerProfile.getError();
+            throw new UserException(errorPayLoad.getErrorCode(),
+                    errorPayLoad.getErrorMessage());
         }
-        return false;
+        return lookupCustomerProfile;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles
-     * #getAreaOfInterests()
+    /**
+     * Calling external service to Update look up profile.
+     *
+     * @param lookupCustomerProfileResponse
+     *            the lookup customer profile response
+     * @return boolean
      */
     @Override
-    public ESBResponse getAreaOfInterests() {
+    public final boolean customerProfileUpdate(
+            final LookupCustomerProfileResponse lookupCustomerProfileResponse) {
+        final ResponseStatus responseStatus = (ResponseStatus) RestServiceInvokerUtil
+                .restServiceInvoker(updateLookupCustomerProfile,
+                        lookupCustomerProfileResponse, ResponseStatus.class);
+        boolean status = false;
+        if (success.equalsIgnoreCase(responseStatus.getStatus())) {
+            status = true;
+            userManagement.updateProfile(lookupCustomerProfileResponse
+                    .getCustomerProfile().getCustomerDetails().getAsid());
+        }
+        if (failure.equalsIgnoreCase(responseStatus.getStatus())) {
+            final ErrorPayLoad errorPayLoad = responseStatus.getError();
+            throw new UserException(errorPayLoad.getErrorCode(),
+                    errorPayLoad.getErrorMessage());
+        }
+        return status;
 
-        return (ESBResponse) StubInvokerUtil.invokeStub(areaofInterestsurl,
-                HttpMethod.GET, ESBResponse.class);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles
-     * #getJobCategories()
-     */
-    @Override
-    public JobCategories getJobCategories() {
-
-        return (JobCategories) StubInvokerUtil.invokeStub(jobCategoriesurl,
-                HttpMethod.GET, JobCategories.class);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles
-     * #getIndustries()
-     */
-    @Override
-    public Industries getIndustries() {
-
-        return (Industries) StubInvokerUtil.invokeStub(industriesurl,
-                HttpMethod.GET, Industries.class);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles
-     * #getCountries()
-     */
-    @Override
-    public ESBResponse getCountries() {
-
-        return (ESBResponse) StubInvokerUtil.invokeStub(countriesurl,
-                HttpMethod.GET, ESBResponse.class);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles
-     * #getStates()
-     */
-    @Override
-    public ESBResponse getStates() {
-
-        return (ESBResponse) StubInvokerUtil.invokeStub(statesurl,
-                HttpMethod.GET, ESBResponse.class);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles
-     * #getInstitutionsList()
-     */
-    @Override
-    public DropDown getInstitutionsList() {
-
-        return (DropDown) StubInvokerUtil.invokeStub(institutionsurl,
-                HttpMethod.GET, DropDown.class);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles
-     * #getDepartmentsList()
-     */
-    @Override
-    public DropDown getDepartmentsList() {
-
-        return (DropDown) StubInvokerUtil.invokeStub(departmentsurl,
-                HttpMethod.GET, DropDown.class);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles
-     * #getReasearchFunder()
-     */
-    @Override
-    public DropDown getReasearchFunder() {
-
-        return (DropDown) StubInvokerUtil.invokeStub(researchFundersurl,
-                HttpMethod.GET, DropDown.class);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles
-     * #getSocietyList()
-     */
-    @Override
-    public DropDown getSocietyList() {
-
-        return (DropDown) StubInvokerUtil.invokeStub(societiesurl,
-                HttpMethod.GET, DropDown.class);
     }
 }

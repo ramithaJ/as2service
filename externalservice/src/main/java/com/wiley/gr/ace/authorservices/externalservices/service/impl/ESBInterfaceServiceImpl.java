@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
  *
- * All material contained herein is proprietary to John Wiley & Sons 
- * and its third party suppliers, if any. The methods, techniques and 
- * technical concepts contained herein are considered trade secrets 
- * and confidential and may be protected by intellectual property laws.  
- * Reproduction or distribution of this material, in whole or in part, 
- * is strictly forbidden except by express prior written permission 
+ * All material contained herein is proprietary to John Wiley & Sons
+ * and its third party suppliers, if any. The methods, techniques and
+ * technical concepts contained herein are considered trade secrets
+ * and confidential and may be protected by intellectual property laws.
+ * Reproduction or distribution of this material, in whole or in part,
+ * is strictly forbidden except by express prior written permission
  * of John Wiley & Sons.
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
@@ -26,10 +26,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
+import com.wiley.gr.ace.authorservices.exception.ASException;
+import com.wiley.gr.ace.authorservices.exception.UserException;
+import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
 import com.wiley.gr.ace.authorservices.external.util.PdhLookupServiceUtil;
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.model.User;
+import com.wiley.gr.ace.authorservices.model.external.ALMAuthRequest;
+import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
+import com.wiley.gr.ace.authorservices.model.external.DashboardView;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 import com.wiley.gr.ace.authorservices.model.external.License;
@@ -43,7 +49,6 @@ import com.wiley.gr.ace.authorservices.model.external.ProfileInformation;
 import com.wiley.gr.ace.authorservices.model.external.Quote;
 import com.wiley.gr.ace.authorservices.model.external.QuoteRequest;
 import com.wiley.gr.ace.authorservices.model.external.SearchUserResult;
-import com.wiley.gr.ace.authorservices.model.external.Status;
 import com.wiley.gr.ace.authorservices.model.external.TaxRequest;
 import com.wiley.gr.ace.authorservices.model.external.TaxResponse;
 
@@ -61,6 +66,14 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
     /** The create user url. */
     @Value("${createuser.url}")
     private String createUserUrl;
+
+    /** The viewDashboardUrl. */
+    @Value("${viewDashboard.url}")
+    private String viewDashboardUrl;
+
+    /** The articleInfoUrl. */
+    @Value("${articleInfo.url}")
+    private String articleInfoUrl;
 
     /** The fetch orcid details url. */
     @Value("${fetchorciddetails.url}")
@@ -128,8 +141,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 
         final ResponseEntity<User> response = restTemplate.exchange(uri,
                 HttpMethod.GET, requestEntity, User.class);
-        user = response.getBody();
-        return user;
+        return response.getBody();
     }
 
     /**
@@ -154,8 +166,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
                 requestHeaders);
         final ResponseEntity<String> response = restTemplate.exchange(uri,
                 HttpMethod.GET, requestEntity, String.class);
-        status = response.getBody();
-        return status;
+        return response.getBody();
     }
 
     /**
@@ -164,8 +175,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      * @param emailId
      *            the email id
      * @return the ESB user
-     * @throws Exception
-     *             the exception
+     * 
      */
     @Override
     public final ESBUser checkEmailIdExists(final String emailId)
@@ -186,17 +196,14 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      * @param lastName
      *            the last name
      * @return the users from first name last name
-     * @throws Exception
-     *             the exception
+     * 
      */
     @Override
     public final List<ESBUser> getUsersFromFirstNameLastName(
             final String firstName, final String lastName) throws Exception {
         List<ESBUser> esbUserList = null;
 
-        esbUserList = searchUser("", firstName, lastName);
-
-        return esbUserList;
+        return searchUser("", firstName, lastName);
     }
 
     /**
@@ -209,8 +216,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      * @param lastName
      *            the last name
      * @return the list
-     * @throws Exception
-     *             the exception
+     * 
      */
     private final List<ESBUser> searchUser(final String email,
             final String firstName, final String lastName) throws Exception {
@@ -233,7 +239,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
             searchUserResult = new SearchUserResult();
             searchUserResult = response.getBody();
             esbUsersList = (ArrayList<ESBUser>) searchUserResult
-                    .getSearchUserResponse().getUserList();
+                    .getSearchCustomerResponse();
         }
 
         return esbUsersList;
@@ -245,8 +251,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      * @param profileForCreation
      *            the profile for creation
      * @return the status
-     * @throws Exception
-     *             the exception
+     * 
      */
     @Override
     public final Status creatUser(final ProfileInformation profileForCreation)

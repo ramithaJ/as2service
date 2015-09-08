@@ -23,7 +23,6 @@ import com.wiley.gr.ace.authorservices.externalservices.service.PermissionServic
 import com.wiley.gr.ace.authorservices.externalservices.service.SharedService;
 import com.wiley.gr.ace.authorservices.externalservices.service.TaskService;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
-import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.externalservices.service.ValidationService;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.ESBInterfaceServiceImpl;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.InvoiceServiceImpl;
@@ -33,9 +32,13 @@ import com.wiley.gr.ace.authorservices.externalservices.service.impl.OrderServic
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.PermissionServiceImpl;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.SharedServiceImpl;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.TaskServiceImpl;
+import com.wiley.gr.ace.authorservices.externalservices.service.RolesService;
+import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
+import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
+import com.wiley.gr.ace.authorservices.externalservices.service.impl.ValidationServiceImpl;
+import com.wiley.gr.ace.authorservices.externalservices.service.impl.RolesServiceImpl;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.UserManagementImpl;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.UserProfilesImpl;
-import com.wiley.gr.ace.authorservices.externalservices.service.impl.ValidationServiceImpl;
 
 /**
  * The Class ExternalServiceBeanConfig.

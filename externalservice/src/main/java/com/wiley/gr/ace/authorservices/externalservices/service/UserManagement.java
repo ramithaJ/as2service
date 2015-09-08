@@ -12,11 +12,16 @@
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
 import com.wiley.gr.ace.authorservices.model.AdminUser;
-import com.wiley.gr.ace.authorservices.model.PasswordDetails;
-import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
-import com.wiley.gr.ace.authorservices.model.external.SecuirtyQuestionDetails;
+import com.wiley.gr.ace.authorservices.model.external.ForcefulReset;
+import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
+import com.wiley.gr.ace.authorservices.model.external.PasswordRequest;
+import com.wiley.gr.ace.authorservices.model.external.PasswordResetRequest;
+import com.wiley.gr.ace.authorservices.model.external.RetrieveSecurityQuestions;
+import com.wiley.gr.ace.authorservices.model.external.SecurityQuestionsUpdateRequest;
+import com.wiley.gr.ace.authorservices.model.external.SecurityQuestionsValidateRequest;
 import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
+import com.wiley.gr.ace.authorservices.model.external.UserEmailDetails;
 
 /**
  * The Interface UserManagement.
@@ -35,118 +40,50 @@ public interface UserManagement {
     SecurityResponse authenticateUser(SharedServieRequest sharedServieRequest);
 
     /**
-     * This method authenticates the user by calling the ALM LDAP Service.
-     *
-     * @param emailId
-     *            the email id
-     * @return true, if successful
-     */
-    boolean authenticateAdminUser(String emailId);
-
-    /**
-     * Authenticate user alm.
-     *
-     * @param emailId
-     *            the email id
-     * @param password
-     *            the password
-     * @return true, if successful
-     */
-    boolean authenticateUserALM(String emailId, String password);
-
-    /**
      * Update password.
      *
-     * @param passwordDetails
+     * @param passwordRequest
      *            the password details
      * @return true, if successful
      */
-    boolean updatePassword(PasswordDetails passwordDetails);
+    boolean updatePassword(PasswordRequest passwordRequest);
 
     /**
      * Reset password.
      *
-     * @param securityDetailsHolder
-     *            the security details holder
+     * @param passwordResetRequest
+     *            the password reset request
      * @return true, if successful
      */
-    boolean resetPassword(SecurityDetailsHolder securityDetailsHolder);
+    boolean resetPassword(PasswordResetRequest passwordResetRequest);
 
     /**
      * Update user id.
      *
-     * @param oldEmailId
-     *            the old email id
-     * @param newEmailId
-     *            the new email id
+     * @param userEmailDetails
+     *            the user email details
      * @return true, if successful
      */
-    boolean updateUserId(String oldEmailId, String newEmailId);
+    boolean updateUserId(UserEmailDetails userEmailDetails);
 
     /**
      * Force ful reset.
      *
-     * @param emailId
-     *            the email id
-     * @param newPassword
-     *            the new password
+     * @param forcefulReset
+     *            the forceful reset
      * @return true, if successful
      */
-    boolean forceFulReset(String emailId, String newPassword);
-
-    /**
-     * Lock user.
-     *
-     * @param emailId
-     *            the email id
-     * @return true, if successful
-     */
-    boolean lockUser(String emailId);
-
-    /**
-     * Un lock user.
-     *
-     * @param emailId
-     *            the email id
-     * @return true, if successful
-     */
-    boolean unLockUser(String emailId);
-
-    /**
-     * Gets the security details.
-     *
-     * @param emailId
-     *            the email id
-     * @return SecurityDetailsHolder
-     */
-    SecurityDetailsHolder getSecurityDetails(String emailId);
-
-    /**
-     * Gets the security questions.
-     *
-     * @param emailId
-     *            the email id
-     * @return SecurityDetailsHolder
-     */
-    SecurityDetailsHolder getSecurityQuestions(String emailId);
+    boolean forceFulReset(ForcefulReset forcefulReset);
 
     /**
      * Update security details.
      *
-     * @param securityDetails
-     *            the security details
+     * @param securityQuestionsUpdateRequest
+     *            the security questions update request
      * @return true, if successful
      */
-    boolean updateSecurityDetails(SecurityDetailsHolder securityDetails);
-
-    /**
-     * Gets the security question details.
-     *
-     * @param emailId
-     *            the email id
-     * @return the security question details
-     */
-    SecuirtyQuestionDetails getSecurityQuestionDetails(String emailId);
+    boolean updateSecurityDetails(
+            SecurityQuestionsUpdateRequest securityQuestionsUpdateRequest);
 
     /**
      * Find user.
@@ -156,4 +93,37 @@ public interface UserManagement {
      * @return the admin user
      */
     AdminUser findUser(String emailId);
+
+    /**
+     * Gets the security questions list.
+     *
+     * @param emailId
+     *            the email id
+     * @return the security questions list
+     */
+    RetrieveSecurityQuestions userSecurityQuestions(String emailId);
+
+    /**
+     * Lookup secutity questions.
+     *
+     * @return the retrieve security questions
+     */
+    RetrieveSecurityQuestions lookupSecutityQuestions();
+
+    /**
+     * Validate security questions.
+     *
+     * @param securityQuestionsValidateRequest
+     *            the security questions validate request
+     * @return true, if successful
+     */
+    boolean validateSecurityQuestions(
+            SecurityQuestionsValidateRequest securityQuestionsValidateRequest);
+
+    /**
+     * @param userId
+     *            - the request value
+     * @return LookupCustomerProfile
+     */
+    LookupCustomerProfile updateProfile(String userId);
 }
