@@ -8,51 +8,47 @@
  * Reproduction or distribution of this material, in whole or in part, 
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
- *******************************************************************************/
-
+ ******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.services.impl;
-
-import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
 
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.criterion.Projections;
 
-import com.wiley.gr.ace.authorservices.persistence.entity.LookupValues;
-import com.wiley.gr.ace.authorservices.persistence.services.LookUpValuesDAO;
+import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
+import com.wiley.gr.ace.authorservices.persistence.entity.Societies;
+import com.wiley.gr.ace.authorservices.persistence.services.UserAutocomplete;
 
 /**
- * The Class LookupValuesDAOImpl.
- *
+ * The Class UserAutocompleteImpl.
+ * 
  * @author virtusa version 1.0
  */
-public class LookupValuesDAOImpl implements LookUpValuesDAO {
+public class UserAutocompleteImpl implements UserAutocomplete {
 
     /**
      * This method gets data from LOOKUP_VALUES table with a key.
-     * 
-     * @param lookupKey
-     *            to Retrieve.
+     *
      * @return the List of LookupValues.
      */
+    @SuppressWarnings("unchecked")
     @Override
-    public final List<LookupValues> getLookUpData(final String lookupKey) {
-
-        List<LookupValues> lookupList = null;
+    public final List<String> getSocietyDetails() {
+        List<String> societyList = null;
         Session session = null;
         try {
-            session = getSessionFactory().openSession();
+            session = HibernateConnection.getSessionFactory().openSession();
 
-            String hql = "from LookupValues where lookupKey = :lookupKey";
-            lookupList = session.createQuery(hql)
-                    .setString("lookupKey", lookupKey).list();
+            societyList = session.createCriteria(Societies.class)
+                    .setProjection(Projections.property("societyName")).list();
+
         } finally {
             if (session != null) {
                 session.flush();
                 session.close();
             }
         }
-        return lookupList;
+        return societyList;
     }
-
 }

@@ -11,14 +11,17 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
+
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 
 import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
@@ -31,6 +34,8 @@ import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
 
 /**
+ * The Class UserLoginDaoImpl.
+ *
  * @author virtusa version 1.0
  */
 public class UserLoginDaoImpl implements UserLoginDao {
@@ -46,13 +51,14 @@ public class UserLoginDaoImpl implements UserLoginDao {
     public final boolean validateEmail(final String emailId) {
         boolean status = false;
         int userId = getUserId(emailId);
-        if(userId == 0){
+        System.err.println(userId);
+        if (userId == 0) {
             return status;
         }
         Session session = getSessionFactory().openSession();
         try {
-        	AdminProfile adminDetails = (AdminProfile) session.load(
-        			AdminProfile.class, userId);
+            AdminProfile adminDetails = (AdminProfile) session.get(
+                    AdminProfile.class, userId);
             if (null != adminDetails) {
 
                 status = true;
@@ -176,7 +182,7 @@ public class UserLoginDaoImpl implements UserLoginDao {
                 session.save(users);
 
                 txn.commit();
-                txn = session.getTransaction();
+                session.getTransaction();
                 txn.begin();
 
                 AdminProfile adminDetails = new AdminProfile();
@@ -194,7 +200,7 @@ public class UserLoginDaoImpl implements UserLoginDao {
                 // int adminRoleId = getAdminRoleId();
                 UserRoles userRoles = new UserRoles();
                 UserRolesId userRolesId = new UserRolesId();
-                userRolesId.setRoleId(6);
+                userRolesId.setRoleId(AuthorServicesConstants.ROLEID);
                 userRolesId.setUserId(users.getUserId());
                 userRoles.setId(userRolesId);
                 userRoles.setCreatedDate(date);
@@ -210,37 +216,6 @@ public class UserLoginDaoImpl implements UserLoginDao {
                 session.close();
             }
         }
-    }
-
-    /**
-     * This method gets the User Details.
-     * 
-     * @param emailId
-     *            to get the User Details.
-     * @return the Users.
-     */
-    @Override
-    public final Users getUserDetails(final String emailId) {
-
-        Session session = getSessionFactory().openSession();
-        Users user = null;
-        try {
-            String hql = "from Users where primaryEmailAddr = :emailId";
-            List<Users> result = session.createQuery(hql)
-                    .setString("emailId", emailId).list();
-            if (result != null && !result.isEmpty()) {
-                user = result.get(0);
-            }
-
-        } finally {
-
-            if (session != null) {
-                session.flush();
-                session.close();
-            }
-        }
-
-        return user;
     }
 
     /**
@@ -266,4 +241,20 @@ public class UserLoginDaoImpl implements UserLoginDao {
      * return roleId; }
      */
 
+    @Override
+    public Users verifyUser(final String emailId) {
+
+        Session session = null;
+        try {
+            session = getSessionFactory().openSession();
+            Criteria criteria = session.createCriteria(Users.class);
+            criteria.add(Restrictions.eq("primaryEmailAddr", emailId));
+            return (Users) criteria.uniqueResult();
+        } finally {
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
+        }
+    }
 }

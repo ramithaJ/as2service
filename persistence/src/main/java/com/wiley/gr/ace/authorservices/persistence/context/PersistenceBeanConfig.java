@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
  *
- * All material contained herein is proprietary to John Wiley & Sons 
- * and its third party suppliers, if any. The methods, techniques and 
- * technical concepts contained herein are considered trade secrets 
- * and confidential and may be protected by intellectual property laws.  
- * Reproduction or distribution of this material, in whole or in part, 
- * is strictly forbidden except by express prior written permission 
+ * All material contained herein is proprietary to John Wiley & Sons
+ * and its third party suppliers, if any. The methods, techniques and
+ * technical concepts contained herein are considered trade secrets
+ * and confidential and may be protected by intellectual property laws.
+ * Reproduction or distribution of this material, in whole or in part,
+ * is strictly forbidden except by express prior written permission
  * of John Wiley & Sons.
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.context;
@@ -16,6 +16,9 @@ import org.springframework.context.annotation.Configuration;
 
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
+import com.wiley.gr.ace.authorservices.persistence.services.AlertsDao;
+import com.wiley.gr.ace.authorservices.persistence.services.AreaOfInterterestDao;
+import com.wiley.gr.ace.authorservices.persistence.services.AuthorProfileDao;
 import com.wiley.gr.ace.authorservices.persistence.services.ArticleAssignmentDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.DashboardDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.InvitationCeaseDAO;
@@ -23,15 +26,19 @@ import com.wiley.gr.ace.authorservices.persistence.services.InvitationStartDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.LookUpValuesDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.RegistrationServiceDAO;
+import com.wiley.gr.ace.authorservices.persistence.services.SendNotificationDao;
 import com.wiley.gr.ace.authorservices.persistence.services.SaveArticleDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.SaveArticleInfoDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.SaveJournalInfoDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UpdateUserDAO;
-import com.wiley.gr.ace.authorservices.persistence.services.UserAccountDAO;
+import com.wiley.gr.ace.authorservices.persistence.services.UserAutocomplete;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserRolesDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.ASDataDAOImpl;
+import com.wiley.gr.ace.authorservices.persistence.services.impl.AlertsDaoImpl;
+import com.wiley.gr.ace.authorservices.persistence.services.impl.AreaOfInterterestDaoImpl;
+import com.wiley.gr.ace.authorservices.persistence.services.impl.AuthorProfileDaoImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.ArticleAssignmentDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.DashboardDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.InviataionCeaseDAOImpl;
@@ -39,11 +46,12 @@ import com.wiley.gr.ace.authorservices.persistence.services.impl.InvitationStart
 import com.wiley.gr.ace.authorservices.persistence.services.impl.LookupValuesDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.OrderOnlineDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.RegistrationServiceDAOImpl;
+import com.wiley.gr.ace.authorservices.persistence.services.impl.SendNotificationDaoImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.SaveArticleDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.SaveArticleInfoDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.SaveJournalInfoDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UpdateUserDAOImpl;
-import com.wiley.gr.ace.authorservices.persistence.services.impl.UserAccountDAOImpl;
+import com.wiley.gr.ace.authorservices.persistence.services.impl.UserAutocompleteImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserLoginDaoImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserLoginServiceDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserRolesDAOImpl;
@@ -127,16 +135,6 @@ public class PersistenceBeanConfig {
     }
 
     /**
-     * This method Creates UserAccountDAO.
-     *
-     * @return the UserAccountDAOImpl.
-     */
-    @Bean(name = "UserAccountDAO")
-    public UserAccountDAO userAccountDAO() {
-        return new UserAccountDAOImpl();
-    }
-
-    /**
      * This method Creates ASDataDAO.
      *
      * @return the ASDataDAOImpl
@@ -167,6 +165,14 @@ public class PersistenceBeanConfig {
     }
 
     /**
+     * This method Creates UserAutocomplete.
+     *
+     * @return the UserAutocompleteImpl.
+     */
+    @Bean(name = "UserAutocomplete")
+    public UserAutocomplete userAutocomplete() {
+        return new UserAutocompleteImpl();
+    /**
      * This method Creates UserRolesDAO.
      *
      * @return the UserRolesDAOImpl.
@@ -175,6 +181,48 @@ public class PersistenceBeanConfig {
     public OrderOnlineDAO orderOnlineDAO() {
         return new OrderOnlineDAOImpl();
     }
+
+    /**
+     * AuthorProfile dao.
+     *
+     * @return the Author profile dao
+     */
+    @Bean(name = "AuthorProfileDao")
+    public AuthorProfileDao authorProfileDao() {
+        return new AuthorProfileDaoImpl();
+    }
+
+    /**
+     * SendNotification dao.
+     *
+     * @return the User profile
+     */
+    @Bean(name = "SendNotificationDao")
+    public SendNotificationDao sendNotificationDao() {
+        return new SendNotificationDaoImpl();
+    }
+
+    /**
+     * Alerts dao.
+     *
+     * @return the Alerts List
+     */
+    @Bean(name = "AlertsDao")
+    public AlertsDao alertsDao() {
+        return new AlertsDaoImpl();
+    }
+
+    /**
+     * Area of interest dao.
+     *
+     * @return the interest List
+     */
+    @Bean(name = "AreaOfInterest")
+    public AreaOfInterterestDao areaOfInterest() {
+        return new AreaOfInterterestDaoImpl();
+
+    }
+}
 
     /**
      * Save article dao.

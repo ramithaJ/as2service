@@ -9,46 +9,25 @@
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
  *******************************************************************************/
+
 package com.wiley.gr.ace.authorservices.persistence.services;
 
 import java.util.List;
 
-import com.wiley.gr.ace.authorservices.persistence.entity.UserRoles;
-import com.wiley.gr.ace.authorservices.persistence.entity.Users;
+import com.wiley.gr.ace.authorservices.persistence.entity.Societies;
 
 /**
- * The Interface UserLoginDao.
- *
+ * The Interface SocietyDao.
+ * 
  * @author virtusa version 1.0
  */
-public interface UserLoginDao {
+public interface SocietyDao {
 
     /**
-     * Checks if emailId exists in USER_PROFILE in AS2.0 database.
-     * 
-     * @param emailId
-     *            to validate.
-     * @return the boolean value.
+     * Gets the society.
+     *
+     * @return the society
      */
-
-    boolean validateEmail(String emailId);
-
-    /**
-     * This method creates admin user in database.
-     * 
-     * @param users
-     *            to create Admin User.
-     * @param userRolesList
-     *            to create Admin User.
-     */
-
-    void createAdminUser(Users users, List<UserRoles> userRolesList);
-
-    /**
-     * @param emailId
-     *            the request value.
-     * @return users
-     */
-    Users verifyUser(String emailId);
+    List<Societies> getSociety();
 
 }

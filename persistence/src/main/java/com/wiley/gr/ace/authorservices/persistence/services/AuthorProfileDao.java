@@ -9,43 +9,32 @@
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
  *******************************************************************************/
+
 package com.wiley.gr.ace.authorservices.persistence.services;
 
-import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
-import com.wiley.gr.ace.authorservices.persistence.entity.Users;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
 
 /**
- * The Interface UserLoginServiceDAO.
- *
+ * The Interface AuthorProfileDao.
+ * 
  * @author virtusa version 1.0
  */
-public interface UserLoginServiceDAO {
+public interface AuthorProfileDao {
 
     /**
-     * This method gets the userId.
-     * 
-     * @param emailId
-     *            to get the userId.
-     * @return the userId.
-     */
-    Users getUserId(String emailId);
-
-    /**
-     * This method gets the reset password log.
-     * 
-     * @param guid
-     *            to get InviteResetpwdLog.
-     * @return the InviteResetpwdLog.
-     */
-    InviteResetpwdLog getinviteResetpwdLog(String guid);
-
-    /**
-     * Insert guid.
+     * Save profile picture.
      *
-     * @param inviteResetpwdLog
-     *            the invite resetpwd log
-     * @return the string
+     * @param image
+     *            the image
+     * @param userId
+     *            the user id
      */
-    String insertGuid(InviteResetpwdLog inviteResetpwdLog);
+    void saveProfilePicture(byte[] image, String userId);
+
+    /**
+     * @param userId
+     * @return
+     */
+    UserProfile getProfilePicture(String userId);
 
 }

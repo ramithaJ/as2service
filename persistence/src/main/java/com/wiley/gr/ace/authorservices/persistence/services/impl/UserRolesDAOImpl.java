@@ -31,7 +31,10 @@ import com.wiley.gr.ace.authorservices.persistence.entity.RolePermissionsId;
 import com.wiley.gr.ace.authorservices.persistence.entity.Roles;
 import com.wiley.gr.ace.authorservices.persistence.services.UserRolesDAO;
 
+// TODO: Auto-generated Javadoc
 /**
+ * The Class UserRolesDAOImpl.
+ *
  * @author virtusa version 1.0
  */
 public class UserRolesDAOImpl implements UserRolesDAO {
@@ -56,24 +59,22 @@ public class UserRolesDAOImpl implements UserRolesDAO {
      *            to add or update permissions.
      */
     @Override
-    public final void addOrUpdateUserRoles(Roles roles,
-            List<Permissions> permissionsList) {
+    public final void addOrUpdateUserRoles(final Roles roles,
+            final List<Permissions> permissionsList) {
 
         Session session = null;
         Transaction transaction = null;
-        List<Object[]> list = new ArrayList<Object[]>();
         List<RolePermissions> daoPermissionsList = new ArrayList<RolePermissions>();
 
         try {
             session = getSessionFactory().openSession();
             transaction = session.beginTransaction();
+            Integer rolesId = roles.getRoleId();
 
-            if (roles.getRoleId() != null && roles.getRoleId() != 0) {
-                Roles daoRoles = (Roles) session.get(Roles.class,
-                        roles.getRoleId());
+            if (rolesId != null && rolesId != 0) {
+                Roles daoRoles = (Roles) session.get(Roles.class, rolesId);
 
                 daoRoles.setDescription(roles.getDescription());
-
                 session.saveOrUpdate(daoRoles);
             } else {
                 session.saveOrUpdate(roles);
@@ -82,18 +83,13 @@ public class UserRolesDAOImpl implements UserRolesDAO {
             Query query = session.createSQLQuery(
                     "select * from role_permissions where role_id = :roleId")
                     .setParameter("roleId", roles.getRoleId().toString());
-            list = query.list();
-
-            // String hql = "from RolePermissions where id.roleId = :roleId";
-            // List<RolePermissions> daoPermissionsList =
-            // session.createQuery(hql)
-            // .setInteger("roleId", roles.getRoleId()).list();
+            List<Object[]> list = query.list();
 
             for (Object[] object : list) {
 
                 RolePermissions rolePermissions = new RolePermissions();
                 RolePermissionsId rolePermissionsId = new RolePermissionsId();
-                rolePermissionsId.setRoleId(Integer.valueOf(object[0]
+                rolePermissionsId.setRoleId(Integer.parseInt(object[0]
                         .toString()));
                 rolePermissionsId.setPermissionCd(object[1].toString());
                 rolePermissions.setId(rolePermissionsId);
@@ -113,10 +109,10 @@ public class UserRolesDAOImpl implements UserRolesDAO {
             }
 
             for (Permissions permissions : permissionsList) {
+                String permissons = permissions.getPermissionCd();
 
-                if (daoPermissionsMap
-                        .containsKey(permissions.getPermissionCd())) {
-                    daoPermissionsMap.remove(permissions.getPermissionCd());
+                if (daoPermissionsMap.containsKey(permissons)) {
+                    daoPermissionsMap.remove(permissons);
                 } else {
                     addList.add(permissions);
                 }
@@ -162,17 +158,17 @@ public class UserRolesDAOImpl implements UserRolesDAO {
      * @param roleName
      *            to check.
      */
+    @Override
     public final void checkRoleName(final String roleName) {
-        List list = new ArrayList();
         Session session = getSessionFactory().openSession();
         try {
             Query query = session.createSQLQuery(
                     "select * from roles where role_name = :rolename")
                     .setParameter("rolename", roleName);
 
-            list = query.list();
+            List list = query.list();
 
-            if (!(list.isEmpty()) || list == null) {
+            if (!(list.isEmpty())) {
                 throw new ASException(errorcode, errormessage);
             }
         } finally {

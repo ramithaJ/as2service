@@ -8,16 +8,23 @@
  * Reproduction or distribution of this material, in whole or in part, 
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
- ******************************************************************************/
-package com.wiley.gr.ace.authorservices.persistence.services.impl;
+ *******************************************************************************/
 
-import com.wiley.gr.ace.authorservices.persistence.services.UpdateUserDAO;
+package com.wiley.gr.ace.authorservices.persistence.services;
+
+import java.util.List;
+
+import com.wiley.gr.ace.authorservices.persistence.entity.AreaOfInterest;
 
 /**
- * The Class UpdateUserDAOImpl.
- *
- * @author virtusa version 1.0
+ * The Interface AreaOfInterterestDao.
  */
-public class UpdateUserDAOImpl implements UpdateUserDAO {
+public interface AreaOfInterterestDao {
+    
+    /** Gets the area of interest.
+     *
+     * @return the area of interest
+     */
+   List<AreaOfInterest>  getAreaOfInterest();
 
 }

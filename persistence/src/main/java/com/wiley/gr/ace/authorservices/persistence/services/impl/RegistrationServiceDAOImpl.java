@@ -22,12 +22,15 @@ import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserRoles;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserRolesId;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.RegistrationServiceDAO;
 
 /**
+ * The Class RegistrationServiceDAOImpl.
+ *
  * @author virtusa version 1.0
  */
 public class RegistrationServiceDAOImpl implements RegistrationServiceDAO {
@@ -93,17 +96,16 @@ public class RegistrationServiceDAOImpl implements RegistrationServiceDAO {
         Session session = null;
         try {
             session = getSessionFactory().openSession();
+            Transaction txn = session.beginTransaction();
             Users userEntity = (Users) session.createCriteria(Users.class)
                     .add(Restrictions.eq("primaryEmailAddr", emaildId))
                     .uniqueResult();
-
             UserRoles userRolesEntity = new UserRoles();
             UserRolesId userRolesId = new UserRolesId();
             userRolesId.setRoleId(1);
             userRolesId.setUserId(userEntity.getUserId());
             userRolesEntity.setId(userRolesId);
 
-            Transaction txn = session.beginTransaction();
             session.save(userRolesEntity);
             txn.commit();
         } finally {

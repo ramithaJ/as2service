@@ -16,43 +16,43 @@ import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateCo
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 
-import com.wiley.gr.ace.authorservices.persistence.entity.LookupValues;
-import com.wiley.gr.ace.authorservices.persistence.services.LookUpValuesDAO;
+import com.wiley.gr.ace.authorservices.persistence.entity.Alerts;
+import com.wiley.gr.ace.authorservices.persistence.services.AlertsDao;
 
 /**
- * The Class LookupValuesDAOImpl.
- *
- * @author virtusa version 1.0
+ * The Class AlertsDaoImpl.
  */
-public class LookupValuesDAOImpl implements LookUpValuesDAO {
+public class AlertsDaoImpl implements AlertsDao {
 
     /**
-     * This method gets data from LOOKUP_VALUES table with a key.
+     * calling dao to get details from alerts table.
      * 
-     * @param lookupKey
-     *            to Retrieve.
-     * @return the List of LookupValues.
-     */
+     * @return list of alerts.
+     * 
+     * */
+    @SuppressWarnings("unchecked")
     @Override
-    public final List<LookupValues> getLookUpData(final String lookupKey) {
-
-        List<LookupValues> lookupList = null;
+    public final List<Alerts> getAlerts() {
         Session session = null;
+        Criteria criteria = null;
+        List<Alerts> alertsList = null;
         try {
             session = getSessionFactory().openSession();
-
-            String hql = "from LookupValues where lookupKey = :lookupKey";
-            lookupList = session.createQuery(hql)
-                    .setString("lookupKey", lookupKey).list();
+            session.beginTransaction();
+            criteria = session.createCriteria(Alerts.class);
+            alertsList = criteria.list();
         } finally {
-            if (session != null) {
+            if (null != session) {
                 session.flush();
+                session.getTransaction().commit();
                 session.close();
             }
         }
-        return lookupList;
+
+        return alertsList;
     }
 
 }

@@ -16,43 +16,50 @@ import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateCo
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.wiley.gr.ace.authorservices.persistence.entity.LookupValues;
-import com.wiley.gr.ace.authorservices.persistence.services.LookUpValuesDAO;
+import com.wiley.gr.ace.authorservices.persistence.entity.AreaOfInterest;
+import com.wiley.gr.ace.authorservices.persistence.services.AreaOfInterterestDao;
 
 /**
- * The Class LookupValuesDAOImpl.
- *
- * @author virtusa version 1.0
+ * The Class AreaOfInterterestDaoImpl.
  */
-public class LookupValuesDAOImpl implements LookUpValuesDAO {
+public class AreaOfInterterestDaoImpl implements AreaOfInterterestDao {
+    
+    /** The Constant LOGGER. */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(AreaOfInterterestDaoImpl.class);
 
     /**
-     * This method gets data from LOOKUP_VALUES table with a key.
-     * 
-     * @param lookupKey
-     *            to Retrieve.
-     * @return the List of LookupValues.
+     * this method calls db to get interest details.
+     *
+     * @return the area of interest
      */
+    @SuppressWarnings("unchecked")
     @Override
-    public final List<LookupValues> getLookUpData(final String lookupKey) {
+    public final List<AreaOfInterest> getAreaOfInterest() {
 
-        List<LookupValues> lookupList = null;
+        LOGGER.info("Inside getAreaOfInterest() ");
         Session session = null;
+        List<AreaOfInterest> interestList = null;
         try {
             session = getSessionFactory().openSession();
+            Criteria criteria = session.createCriteria(AreaOfInterest.class);
+            interestList = criteria.list();
 
-            String hql = "from LookupValues where lookupKey = :lookupKey";
-            lookupList = session.createQuery(hql)
-                    .setString("lookupKey", lookupKey).list();
         } finally {
-            if (session != null) {
+            if (null != session) {
                 session.flush();
+                session.clear();
                 session.close();
+
             }
+
         }
-        return lookupList;
+        return interestList;
     }
 
 }

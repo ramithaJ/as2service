@@ -9,43 +9,31 @@
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
  *******************************************************************************/
+
 package com.wiley.gr.ace.authorservices.persistence.services;
 
-import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserSecondaryEmailAddr;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 
 /**
- * The Interface UserLoginServiceDAO.
- *
- * @author virtusa version 1.0
+ * The Interface SendNotificationDao.
  */
-public interface UserLoginServiceDAO {
+public interface SendNotificationDao {
 
     /**
-     * This method gets the userId.
-     * 
-     * @param emailId
-     *            to get the userId.
-     * @return the userId.
-     */
-    Users getUserId(String emailId);
-
-    /**
-     * This method gets the reset password log.
-     * 
-     * @param guid
-     *            to get InviteResetpwdLog.
-     * @return the InviteResetpwdLog.
-     */
-    InviteResetpwdLog getinviteResetpwdLog(String guid);
-
-    /**
-     * Insert guid.
+     * Gets the user profile.
      *
-     * @param inviteResetpwdLog
-     *            the invite resetpwd log
-     * @return the string
+     * @param userId
+     *            the user id
+     * @return the user profile
      */
-    String insertGuid(InviteResetpwdLog inviteResetpwdLog);
+    Users getUserProfile(Integer userId);
+
+    /**
+     * @param userId
+     *            the request
+     * @return userSecondaryEmailAddr
+     */
+    UserSecondaryEmailAddr getUserSecEmailAddr(int userId);
 
 }

@@ -14,45 +14,45 @@ package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
 import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
 
-import com.wiley.gr.ace.authorservices.persistence.entity.LookupValues;
-import com.wiley.gr.ace.authorservices.persistence.services.LookUpValuesDAO;
+import com.wiley.gr.ace.authorservices.persistence.entity.Societies;
+import com.wiley.gr.ace.authorservices.persistence.services.SocietyDao;
 
 /**
- * The Class LookupValuesDAOImpl.
- *
+ * The Class SocietyDaoImpl.
+ * 
  * @author virtusa version 1.0
  */
-public class LookupValuesDAOImpl implements LookUpValuesDAO {
+public class SocietyDaoImpl implements SocietyDao {
 
     /**
-     * This method gets data from LOOKUP_VALUES table with a key.
-     * 
-     * @param lookupKey
-     *            to Retrieve.
-     * @return the List of LookupValues.
+     * This method is calling Db to get society details.
+     *
+     * @return the society
      */
+    @SuppressWarnings("unchecked")
     @Override
-    public final List<LookupValues> getLookUpData(final String lookupKey) {
-
-        List<LookupValues> lookupList = null;
+    public final List<Societies> getSociety() {
         Session session = null;
+        ArrayList<Societies> societyList = null;
+
         try {
             session = getSessionFactory().openSession();
 
-            String hql = "from LookupValues where lookupKey = :lookupKey";
-            lookupList = session.createQuery(hql)
-                    .setString("lookupKey", lookupKey).list();
+            societyList = (ArrayList<Societies>) session.createCriteria(
+                    Societies.class).list();
+
         } finally {
-            if (session != null) {
+            if (null != session) {
                 session.flush();
                 session.close();
             }
         }
-        return lookupList;
-    }
+        return societyList;
 
+    }
 }
