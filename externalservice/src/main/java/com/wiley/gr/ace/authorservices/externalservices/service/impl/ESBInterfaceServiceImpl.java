@@ -27,16 +27,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
-import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.exception.UserException;
+import com.wiley.gr.ace.authorservices.external.util.PdhLookupServiceUtil;
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
-import com.wiley.gr.ace.authorservices.external.util.PdhLookupService;
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.ALMAuthRequest;
-import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
-import com.wiley.gr.ace.authorservices.model.external.DashboardView;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 import com.wiley.gr.ace.authorservices.model.external.License;
@@ -49,8 +46,8 @@ import com.wiley.gr.ace.authorservices.model.external.ProductionData;
 import com.wiley.gr.ace.authorservices.model.external.ProfileInformation;
 import com.wiley.gr.ace.authorservices.model.external.Quote;
 import com.wiley.gr.ace.authorservices.model.external.QuoteRequest;
+import com.wiley.gr.ace.authorservices.model.external.ResponseStatus;
 import com.wiley.gr.ace.authorservices.model.external.SearchUserResult;
-import com.wiley.gr.ace.authorservices.model.external.Status;
 import com.wiley.gr.ace.authorservices.model.external.TaxRequest;
 import com.wiley.gr.ace.authorservices.model.external.TaxResponse;
 
@@ -223,28 +220,26 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      * @return the list
      * 
      */
-    private final List<ESBUser> searchUser(final String email,
+    private ArrayList<ESBUser> searchUser(final String email,
             final String firstName, final String lastName) {
         ArrayList<ESBUser> esbUsersList = null;
         SearchUserResult searchUserResult = null;
-        final String url = searchUserUrl + "?Email=" + email + "&FirstName="
-                + firstName + "&LastName=" + lastName;
-        final URI uri = new URI(url);
-        final RestTemplate restTemplate = new RestTemplate();
-        final HttpHeaders requestHeaders = new HttpHeaders();
+        String searchJobUrl = searchUserUrl;
+        if (!StringUtils.isEmpty(email)) {
+            searchJobUrl = searchJobUrl + "?Email=" + email;
+        }
 
-        requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-        final HttpEntity<SearchUserResult> requestEntity = new HttpEntity<SearchUserResult>(
-                requestHeaders);
+        if (!StringUtils.isEmpty(firstName) && !StringUtils.isEmpty(lastName)) {
+            searchJobUrl = searchJobUrl + "?FirstName=" + firstName
+                    + "&LastName=" + lastName;
+        }
 
-        final ResponseEntity<SearchUserResult> response = restTemplate
-                .exchange(uri, HttpMethod.GET, requestEntity,
-                        SearchUserResult.class);
-        if (null != response) {
-            searchUserResult = new SearchUserResult();
-            searchUserResult = response.getBody();
+        searchUserResult = (SearchUserResult) RestServiceInvokerUtil
+                .getServiceData(searchJobUrl, SearchUserResult.class);
+
+        if ("success".equalsIgnoreCase(searchUserResult.getStatus())) {
             esbUsersList = (ArrayList<ESBUser>) searchUserResult
-                    .getSearchUserResponse().getUserList();
+                    .getSearchCustomerResponse();
         }
 
         return esbUsersList;
@@ -259,25 +254,12 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      * 
      */
     @Override
-    public final Status creatUser(final ProfileInformation profileForCreation) {
-        final Status status = new Status();
-        final String url = createUserUrl;
-        final URI uri = new URI(url);
-        final RestTemplate restTemplate = new RestTemplate();
-        final HttpHeaders requestHeaders = new HttpHeaders();
+    public final String creatUser(final ProfileInformation profileForCreation) {
+        ResponseStatus responseStatus = (ResponseStatus) RestServiceInvokerUtil
+                .restServiceInvoker(createUserUrl, profileForCreation,
+                        ResponseStatus.class);
+        return responseStatus.getStatus();
 
-        requestHeaders.setAccept(Arrays.asList(MediaType.TEXT_PLAIN));
-        final HttpEntity<ProfileInformation> requestEntity = new HttpEntity<ProfileInformation>(
-                profileForCreation, requestHeaders);
-        final ResponseEntity<Status> response = restTemplate.exchange(uri,
-                HttpMethod.POST, requestEntity, Status.class);
-        final HttpStatus httpStatus = response.getStatusCode();
-        if (httpStatus.equals(HttpStatus.OK)) {
-            status.setStatus("SUCCESS");
-        } else {
-            status.setStatus("FAILURE");
-        }
-        return status;
     }
 
     /**

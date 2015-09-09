@@ -1,6 +1,5 @@
 /*******************************************************************************
  * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
- * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
  *
  * All material contained herein is proprietary to John Wiley & Sons 
  * and its third party suppliers, if any. The methods, techniques and 
@@ -25,12 +24,18 @@ public interface NotificationService {
     /**
      * Send notification.
      *
+     * @param appId
+     *            the app id
+     * @param type
+     *            the type
+     * @param templateId
+     *            the template id
      * @param notificationRequest
      *            the notification request
-     * @return the notification response
+     * @return it will return notification request.
      */
-    NotificationResponse sendNotification(
-            NotificationRequest notificationRequest);
+    NotificationResponse sendNotification(String appId, String type,
+            String templateId, NotificationRequest notificationRequest);
 
     /**
      * Gets the notification history.

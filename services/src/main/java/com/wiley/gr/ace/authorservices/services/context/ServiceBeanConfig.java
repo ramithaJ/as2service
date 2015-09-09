@@ -38,6 +38,7 @@ import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
 import com.wiley.gr.ace.authorservices.services.service.SaveArticleData;
 import com.wiley.gr.ace.authorservices.services.service.SaveInvitationCeaseEventService;
 import com.wiley.gr.ace.authorservices.services.service.SaveInvitationStartEventService;
+import com.wiley.gr.ace.authorservices.services.service.SendNotification;
 import com.wiley.gr.ace.authorservices.services.service.UpdateUserService;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
@@ -55,6 +56,7 @@ import com.wiley.gr.ace.authorservices.services.service.impl.RegistrationService
 import com.wiley.gr.ace.authorservices.services.service.impl.SaveArticleDataImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.SaveInvitationCeaseEventServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.SaveInvitationStartServiceImpl;
+import com.wiley.gr.ace.authorservices.services.service.impl.SendNotificationImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UpdateUserServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UserAccountServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UserLoginServiceImpl;
@@ -219,6 +221,10 @@ public class ServiceBeanConfig {
         return new SaveInvitationCeaseEventServiceImpl();
     }
 
+	@Bean(name="SendNotification")
+	public SendNotification sendNotification(){
+	    return new SendNotificationImpl();
+	}
 	@Bean(name="JndiTemplate")
 	public JndiTemplate jndiTemplate() {
         Properties env = new Properties();

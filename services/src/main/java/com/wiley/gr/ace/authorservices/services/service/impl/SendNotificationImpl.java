@@ -39,6 +39,7 @@ public class SendNotificationImpl implements SendNotification {
     @Autowired(required = true)
     private NotificationService notificationService;
 
+    
     /** The send notification dao. */
     @Autowired(required = true)
     private SendNotificationDao sendNotificationDao;

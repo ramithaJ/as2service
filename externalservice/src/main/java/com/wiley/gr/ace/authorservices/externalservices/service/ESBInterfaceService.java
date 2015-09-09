@@ -89,7 +89,7 @@ public interface ESBInterfaceService {
      *            the profile for creation
      * @return the string
      */
-    Status creatUser(ProfileInformation profileForCreation);
+    String creatUser(ProfileInformation profileForCreation);
 
     /**
      * Gets the all author articles.
