@@ -76,6 +76,8 @@ import com.wiley.gr.ace.authorservices.model.external.DiscountedSocietyResponse;
 import com.wiley.gr.ace.authorservices.model.external.Institute;
 import com.wiley.gr.ace.authorservices.model.external.InstitutionDiscountsResponse;
 import com.wiley.gr.ace.authorservices.model.external.Invoice;
+import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
+import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfileResponse;
 import com.wiley.gr.ace.authorservices.model.external.OrderData;
 import com.wiley.gr.ace.authorservices.model.external.OrderDataList;
 import com.wiley.gr.ace.authorservices.model.external.OrderRequest;
@@ -321,7 +323,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 		onlineOpenOrder.setArticleDetails(articleDetails);
 		JournalDetails journalDetails = new JournalDetails();
 		journalDetails.setJournalId(orderData.getArticle().getJournal()
-				.getDhId());
+				.getJournalID());
 		journalDetails.setJournalTitle(orderData.getArticle().getJournal()
 				.getJournalTitle());
 		onlineOpenOrder.setJournalDetails(journalDetails);
@@ -356,7 +358,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 		Discounts discounts = new Discounts();
 		List<Discounts> discountsList = new ArrayList<Discounts>();
 		discounts.setSocietyId(orderData.getPricing().getDiscounts()
-				.getDiscount().getSocietyData().getCode());
+				.getDiscount().getSocietyData().getPromoCode());
 		discounts.setPromoCode(orderData.getPricing().getDiscounts()
 				.getDiscount().getPromoCode());
 		discountsList.add(discounts);
@@ -514,19 +516,19 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 						.getAdditionalDiscountAllowed());
 				// userProfile object form userProfile service for society
 				// details and addressDetails
-				UserProfileResponse userProfileResponse = userProfiles
-						.getUserProfileResponse(userId);
+				LookupCustomerProfileResponse userProfileResponse = userProfiles
+						.getLookupCustomerProfile(userId).getLookupCustomerProfileResponse();
 				// First and LastName of author
 				quoteDetails.setAuthorName(userProfileResponse
 						.getCustomerProfile().getCustomerDetails()
-						.getFirstName()
+						.getfName()
 						+ " "
 						+ userProfileResponse.getCustomerProfile()
-								.getCustomerDetails().getLastName());
+								.getCustomerDetails().getlName());
 				// GrantRecipients(coAuthors)
 				userProfileResponse.getCustomerProfile().getCoAuthors();
 				// Societies
-				userProfileResponse.getCustomerProfile().getSocieties();
+				userProfileResponse.getCustomerProfile().getSocietyList();
 				// billing and contact addresses
 				AddressDetails addressDetails = new AddressDetails();
 				addressDetails.setBillingAddress(userProfileResponse
