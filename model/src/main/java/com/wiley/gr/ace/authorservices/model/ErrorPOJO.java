@@ -23,23 +23,16 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class ErrorPOJO {
 
     /** The code. */
-    private int code;
+    private String code;
 
     /** The message. */
     private String message;
 
-    /**
-     * @return the code
-     */
-    public final int getCode() {
+    public final String getCode() {
         return code;
     }
 
-    /**
-     * @param code
-     *            the code to set
-     */
-    public final void setCode(final int code) {
+    public final void setCode(String code) {
         this.code = code;
     }
 
