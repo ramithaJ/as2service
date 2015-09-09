@@ -172,6 +172,8 @@ public class PersistenceBeanConfig {
     @Bean(name = "UserAutocomplete")
     public UserAutocomplete userAutocomplete() {
         return new UserAutocompleteImpl();
+    }
+
     /**
      * This method Creates UserRolesDAO.
      *
@@ -222,7 +224,6 @@ public class PersistenceBeanConfig {
         return new AreaOfInterterestDaoImpl();
 
     }
-}
 
     /**
      * Save article dao.
