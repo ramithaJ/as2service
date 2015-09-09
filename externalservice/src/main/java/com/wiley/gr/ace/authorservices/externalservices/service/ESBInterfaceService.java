@@ -15,17 +15,6 @@ import java.util.ArrayList;
 
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.ALMAuthRequest;
-import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
-import com.wiley.gr.ace.authorservices.model.external.DashboardView;
-import com.wiley.gr.ace.authorservices.model.external.ESBUser;
- * is strictly forbidden except by express prior written permission 
- * of John Wiley & Sons.
- *******************************************************************************/
-package com.wiley.gr.ace.authorservices.externalservices.service;
-
-import java.util.List;
-
-import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 import com.wiley.gr.ace.authorservices.model.external.License;
@@ -96,8 +85,10 @@ public interface ESBInterfaceService {
      *
      * @param profileForCreation the profile for creation
      * @return the string
+     * @throws Exception
+     *             the exception
      */
-    String creatUser(ProfileInformation profileForCreation);
+    Status creatUser(ProfileInformation profileForCreation) throws Exception;
 
     /**
      * Gets the all author articles.
