@@ -79,9 +79,10 @@ public class PaymentServiceController extends ASExceptionController {
 		String orderType = orderOnlineOpenService.getOrderType(Integer
 				.parseInt(form.toSingleValueMap().get("transID")));
 
-		if (AuthorServicesConstants.ONLINE_OPEN.equals(orderType)) {
+		//Check for :MERGE
+		if ("AuthorServicesConstants.ONLINE_OPEN".equals(orderType)) {
 			url = wpgOnlineOpenRedirectionurl;
-		} else if (AuthorServicesConstants.OPEN_ACCESS.equals(orderType)) {
+		} else if ("AuthorServicesConstants.OPEN_ACCESS".equals(orderType)) {
 			url = wpgOpenAccessRedirectionurl;
 		}
 

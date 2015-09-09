@@ -87,11 +87,11 @@ public class ArticleAssignmentController {
         LOGGER.info("inside getArticleInfo method of ArticleAssignmentController");
         final Service service = new Service();
         ArticleInfoDetails articleInfoDetails = null;
-        if (!StringUtils.isEmpty(emailId)) {
-            LOGGER.info("input parameter emailId is found to Get Article Info");
+        if (!StringUtils.isEmpty(articleId)) {
+            LOGGER.info("input parameter articleId is found to Get Article Info");
             try {
                 articleInfoDetails = articleAssignmentService
-                        .getArticleInfoDetails(emailId);
+                        .getArticleInfoDetails(articleId);
                 if (!StringUtils.isEmpty(articleInfoDetails)) {
                     LOGGER.info("Article Info Details Found");
                     service.setStatus("SUCCESS");
@@ -186,8 +186,8 @@ public class ArticleAssignmentController {
                 }
             } catch (final Exception e) {
                 LOGGER.error("Print Stack Trace- ", e);
-                throw new ASException(viewAssignedArticleErrorCode,
-                        viewAssignedArticleErrorMessage);
+                throw new ASException("viewAssignedArticleErrorCode",
+                        "viewAssignedArticleErrorMessage"); //create mapping from properties :MERGE
             }
         } else {
             LOGGER.info("input Parameter emailId is Not Found");

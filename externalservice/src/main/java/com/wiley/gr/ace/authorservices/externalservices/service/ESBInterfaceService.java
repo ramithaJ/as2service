@@ -11,7 +11,7 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.ALMAuthRequest;
@@ -27,7 +27,6 @@ import com.wiley.gr.ace.authorservices.model.external.ProductionData;
 import com.wiley.gr.ace.authorservices.model.external.ProfileInformation;
 import com.wiley.gr.ace.authorservices.model.external.Quote;
 import com.wiley.gr.ace.authorservices.model.external.QuoteRequest;
-import com.wiley.gr.ace.authorservices.model.external.Status;
 import com.wiley.gr.ace.authorservices.model.external.TaxRequest;
 import com.wiley.gr.ace.authorservices.model.external.TaxResponse;
 
@@ -73,20 +72,17 @@ public interface ESBInterfaceService {
     /**
      * Gets the users from first name last name.
      *
-     * @param firstName
-     *            the first name
-     * @param lastName
-     *            the last name
+     * @param firstName the first name
+     * @param lastName the last name
      * @return the users from first name last name
      */
-    List<ESBUser> getUsersFromFirstNameLastName(String firstName,
+    ArrayList<ESBUser> getUsersFromFirstNameLastName(String firstName,
             String lastName);
 
     /**
      * Creat user.
      *
-     * @param profileForCreation
-     *            the profile for creation
+     * @param profileForCreation the profile for creation
      * @return the string
      */
     String creatUser(ProfileInformation profileForCreation);

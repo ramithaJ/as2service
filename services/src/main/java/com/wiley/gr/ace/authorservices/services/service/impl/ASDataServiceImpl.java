@@ -38,8 +38,6 @@ import com.wiley.gr.ace.authorservices.model.State;
 import com.wiley.gr.ace.authorservices.model.Suffix;
 import com.wiley.gr.ace.authorservices.model.Title;
 import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
-import com.wiley.gr.ace.authorservices.model.external.Industries;
-import com.wiley.gr.ace.authorservices.model.external.JobCategories;
 import com.wiley.gr.ace.authorservices.persistence.entity.AreaOfInterest;
 import com.wiley.gr.ace.authorservices.persistence.entity.LookupValues;
 import com.wiley.gr.ace.authorservices.persistence.entity.Roles;
@@ -92,13 +90,13 @@ public class ASDataServiceImpl implements ASDataService {
     @Value("${jobCategories.name}")
     private String jobCategoryName;
 
-    /** The country code. */
+    /** The country code. *//*
     @Value("${country.code}")
-    private String countryCode;
+    private String countryCode;*/
 
-    /** The country name. */
+    /** The country name. *//*
     @Value("${country.name}")
-    private String countryName;
+    private String countryName;*/
 
     /**
      * This field holds the value of stateCode.
@@ -110,9 +108,9 @@ public class ASDataServiceImpl implements ASDataService {
     @Value("${state.Name}")
     private String stateName;
 
-    /** The suffix. */
+   /* *//** The suffix. *//*
     @Value("${suffix}")
-    private String suffix;
+    private String suffix;*/
     
     /**
      * This will call external service to get titles data.

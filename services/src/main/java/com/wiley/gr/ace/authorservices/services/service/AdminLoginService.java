@@ -86,5 +86,13 @@ public interface AdminLoginService {
      *            the adminuser
      */
     void createAdmin(AdminUser adminuser);
+    
+    /**
+     * Gets the AS user.
+     *
+     * @param emailId the email id
+     * @return the AS user
+     */
+    Users getASUser(final String emailId);
 
 }

@@ -22,7 +22,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
-import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.externalservices.service.SharedService;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.event.CoAuthorList;
@@ -112,7 +111,7 @@ public class SaveArticleDataImpl implements SaveArticleData {
                 invite.setFirstName(firstName);
                 invite.setLastName(lastName);
                 invite.setEmailAddress(email);
-                invite.setUserType(AuthorServicesConstants.AUTHOR_ROLE_CD);
+                invite.setUserType("AuthorServicesConstants.AUTHOR_ROLE_CD");
 
                 final boolean status = saveArticleDAO
                         .saveArticleInvitation(invite);
@@ -123,7 +122,7 @@ public class SaveArticleDataImpl implements SaveArticleData {
             productPersonRelationObject.setDhId(articleDhId);
             productPersonRelationObject.setEmailId(email);
             productPersonRelationObject
-                    .setProductRoleCd(AuthorServicesConstants.AUTHOR_ROLE_CD);
+                    .setProductRoleCd("AuthorServicesConstants.AUTHOR_ROLE_CD");
             Service service = sharedService
                     .saveProductPersonRelation(productPersonRelationObject);
             LOGGER.debug("Product person relation saved status: "
@@ -157,7 +156,7 @@ public class SaveArticleDataImpl implements SaveArticleData {
                     invite.setFirstName(firstName);
                     invite.setLastName(lastName);
                     invite.setEmailAddress(email);
-                    invite.setUserType(AuthorServicesConstants.COAUTHOR_ROLE_CD);
+                    invite.setUserType("AuthorServicesConstants.COAUTHOR_ROLE_CD");
 
                     final boolean status = saveArticleDAO
                             .saveArticleInvitation(invite);
@@ -167,7 +166,7 @@ public class SaveArticleDataImpl implements SaveArticleData {
                 productPersonRelationObject.setDhId(articleDhId);
                 productPersonRelationObject.setEmailId(email);
                 productPersonRelationObject
-                        .setProductRoleCd(AuthorServicesConstants.COAUTHOR_ROLE_CD);
+                        .setProductRoleCd("AuthorServicesConstants.COAUTHOR_ROLE_CD");
                 Service service = sharedService
                         .saveProductPersonRelation(productPersonRelationObject);
                 LOGGER.debug("Product person relation saved status: "

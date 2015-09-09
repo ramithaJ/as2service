@@ -9,7 +9,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
 import com.wiley.gr.ace.authorservices.model.Amount;
@@ -59,8 +58,8 @@ public class OnlineOpenAuthorValidatorServiceImpl implements
 
             // TODO: Error codes and messages must be changed accordingly
         	
-            if (!(AuthorServicesConstants.COUNTRY_USA.equalsIgnoreCase(taxDetails.getTaxCountryCode())
-                    || AuthorServicesConstants.COUNTRY_CANADA.equalsIgnoreCase(taxDetails
+            if (!("AuthorServicesConstants.COUNTRY_USA".equalsIgnoreCase(taxDetails.getTaxCountryCode())
+                    || "AuthorServicesConstants.COUNTRY_CANADA".equalsIgnoreCase(taxDetails
                             .getTaxCountryCode()))) {
                 throw new ASException("900",
                         "User must belong to USA or CANADA only to enter Tax Exemption Number");

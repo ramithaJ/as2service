@@ -88,7 +88,7 @@ public class OpenAccessController {
         } catch (Exception e) {
             service.setStatus("ERROR");
             ErrorPOJO err = new ErrorPOJO();
-            err.setCode(609);
+            err.setCode("609");
             err.setMessage("Submit payment unsuccessful");
             service.setError(err);
         }
@@ -150,14 +150,14 @@ public class OpenAccessController {
             } else {
                 service.setStatus("FAILURE");
                 ErrorPOJO err = new ErrorPOJO();
-                err.setCode(199);
+                err.setCode("199");
                 err.setMessage("Address is not valid");
                 service.setError(err);
             }
         } catch (Exception e) {
             service.setStatus("ERROR");
             ErrorPOJO err = new ErrorPOJO();
-            err.setCode(198);
+            err.setCode("198");
             err.setMessage("Address doctor service encountered exception");
             service.setError(err);
         }
@@ -185,14 +185,14 @@ public class OpenAccessController {
             } else {
                 service.setStatus("FAILURE");
                 ErrorPOJO err = new ErrorPOJO();
-                err.setCode(199);
+                err.setCode("199");
                 err.setMessage("Vat/Tax details is not valid");
                 service.setError(err);
             }
         } catch (Exception e) {
             service.setStatus("ERROR");
             ErrorPOJO err = new ErrorPOJO();
-            err.setCode(198);
+            err.setCode("198");
             err.setMessage("Vat/Tax details validation service encountered exception");
             service.setError(err);
         }

@@ -106,6 +106,22 @@ public class AdminLoginServiceImpl implements AdminLoginService {
         return userLoginServiceDAO.getUserId(emailId);
 
     }
+    
+    
+    /**
+     * This method will call take emailId as input and login in.
+     *
+     * @param emailId
+     *            the email id
+     * @return the string
+     */
+    @Override
+    public final Users getASUser(final String emailId) {
+        // Call external service for password validation
+        LOGGER.info("inside doLogin Method");
+        return userlogindao.verifyUser(emailId);
+
+    }
 
     /**
      * This method will call take emailId and call external service to create

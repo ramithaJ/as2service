@@ -297,7 +297,8 @@ public class UserAccountServiceImpl implements UserAccountService {
                     countryCode));
         }
 
-        address.setState(state);
+        //commented as part of codemerge
+        //address.setState(state);
         if (!StringUtils.isEmpty(addressElement.getPhoneNumber())) {
             address.setPhoneNumber(addressElement.getPhoneNumber());
         }
