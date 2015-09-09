@@ -11,6 +11,7 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -20,16 +21,29 @@ import org.springframework.beans.factory.annotation.Value;
 
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.model.Login;
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
+import com.wiley.gr.ace.authorservices.model.SecurityQuestionsList;
 import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
+import com.wiley.gr.ace.authorservices.model.external.ForcefulReset;
+import com.wiley.gr.ace.authorservices.model.external.PasswordReset;
+import com.wiley.gr.ace.authorservices.model.external.PasswordResetRequest;
+import com.wiley.gr.ace.authorservices.model.external.RetrieveSecurityQuestions;
+import com.wiley.gr.ace.authorservices.model.external.SecurityQuestionsValidateRequest;
 import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
+import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestions;
+import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsEntry;
+import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsMap;
+import com.wiley.gr.ace.authorservices.model.external.ValidateUserSecurityQA;
 import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
+import com.wiley.gr.ace.authorservices.services.service.SendNotification;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class UserLoginServiceImpl.
  *
@@ -63,6 +77,9 @@ public class UserLoginServiceImpl implements UserLoginService {
     @Value("${UserLoginServiceImpl.resetPassword.securityquestion.message}")
     private String securityquestionmessage;
 
+    /** The account verified code. */
+    @Value("${accountVerifiedCode}")
+    private String accountVerifiedCode;
 
     /** The account verified message. */
     @Value("${accountVerifiedMessage}")
@@ -71,10 +88,6 @@ public class UserLoginServiceImpl implements UserLoginService {
     /** The template id. */
     @Value("${templateId.security.validation.failed}")
     private String templateId;
-
-    /** The template id password success. */
-    @Value("${templateId.password.forceful.reset}")
-    private String passwordForcefulResetTemplateId;
 
     /**
      * This field holds the value of passwordResetTemplateId.
@@ -96,6 +109,10 @@ public class UserLoginServiceImpl implements UserLoginService {
     @Autowired(required = true)
     private UserManagement userManagement;
 
+    /** This field holds the value of sendNotification. */
+    @Autowired(required = true)
+    private SendNotification sendNotification;
+
     /**
      * Method to authenticate user. calling external system to authenticate
      * user.
@@ -115,20 +132,6 @@ public class UserLoginServiceImpl implements UserLoginService {
     }
 
     /**
-     * Validate email address.
-     *
-     * @param emailId
-     *            the email id
-     * @return true, if successful
-     */
-    @Override
-    public final boolean validateEmailAddress(final String emailId) {
-
-        LOGGER.info("In validateEmailAddress method");
-        return userLoginServiceDAO.validateEmailAddress(emailId);
-    }
-
-    /**
      * Method to reset the password at the time of login.
      * 
      * @param securityDetailsHolder
@@ -142,18 +145,67 @@ public class UserLoginServiceImpl implements UserLoginService {
         boolean status = false;
 
         LOGGER.info("In resetPassword method");
-
         if (securityDetailsHolder.isForceReset()) {
-            status = userManagement.forceFulReset(
-                    securityDetailsHolder.getEmailId(),
-                    securityDetailsHolder.getPassword());
+            ForcefulReset forcefulReset = new ForcefulReset();
+            forcefulReset.setExistingEmail(securityDetailsHolder.getEmailId());
+            forcefulReset.setNewPassword(securityDetailsHolder.getPassword());
+            forcefulReset.setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
+
+            status = userManagement.forceFulReset(forcefulReset);
+            if (status) {
+                sendNotification.notifyByEmail(
+                        securityDetailsHolder.getEmailId(),
+                        passwordResetTemplateId);
+            }
 
         } else {
             if (securityDetailsHolder.getSecurityDetails().isEmpty()) {
                 throw new ASException(securityquestioncode,
                         securityquestionmessage);
             } else {
-                status = userManagement.resetPassword(securityDetailsHolder);
+                List<UserSecurityQuestionsEntry> userSecurityQuestionsEntriesList = null;
+                PasswordResetRequest passwordResetRequest = new PasswordResetRequest();
+
+                PasswordReset passwordReset = new PasswordReset();
+                passwordReset.setExistingEmail(securityDetailsHolder
+                        .getEmailId());
+                passwordReset.setNewPassword(securityDetailsHolder
+                        .getPassword());
+                passwordReset
+                        .setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
+
+                UserSecurityQuestions userSecurityQuestions = new UserSecurityQuestions();
+                UserSecurityQuestionsMap userSecurityQuestionsMap = new UserSecurityQuestionsMap();
+                userSecurityQuestionsEntriesList = new ArrayList<UserSecurityQuestionsEntry>();
+                UserSecurityQuestionsEntry userSecurityQuestionsEntry = null;
+
+                List<SecurityDetails> securityDetailsList = securityDetailsHolder
+                        .getSecurityDetails();
+                for (SecurityDetails securityDetails : securityDetailsList) {
+
+                    userSecurityQuestionsEntry = new UserSecurityQuestionsEntry();
+                    userSecurityQuestionsEntry.setKey(securityDetails
+                            .getSecurityQuestion());
+                    userSecurityQuestionsEntry.setText(securityDetails
+                            .getSecurityAnswer());
+                    userSecurityQuestionsEntriesList
+                            .add(userSecurityQuestionsEntry);
+                }
+                userSecurityQuestionsMap
+                        .setEntry(userSecurityQuestionsEntriesList);
+                userSecurityQuestions
+                        .setUserSecurityQuestionsMap(userSecurityQuestionsMap);
+
+                passwordReset.setUserSQuestions(userSecurityQuestions);
+
+                passwordResetRequest
+                        .setUpdateUserSecurityAttributes(passwordReset);
+                status = userManagement.resetPassword(passwordResetRequest);
+                if (status) {
+                    sendNotification.notifyByEmail(
+                            securityDetailsHolder.getEmailId(),
+                            passwordResetTemplateId);
+                }
             }
 
         }
@@ -168,7 +220,8 @@ public class UserLoginServiceImpl implements UserLoginService {
      * @return the security details holder
      */
     @Override
-    public final SecurityDetailsHolder securityQuestions(final String emailId) {
+    public final SecurityQuestionsList userSecurityQuestions(
+            final String emailId) {
 
         LOGGER.info("In securityQuestions method");
         SecurityQuestionsList securityQuestionsList = new SecurityQuestionsList();
@@ -196,16 +249,49 @@ public class UserLoginServiceImpl implements UserLoginService {
     /**
      * Validate security questions.
      *
-     * @param securityDetails
-     *            the security details
+     * @param securityDetailsHolder
+     *            the security details holder
      * @return true, if successful
      */
     @Override
     public final boolean validateSecurityQuestions(
-            final List<SecurityDetails> securityDetails) {
+            final SecurityDetailsHolder securityDetailsHolder) {
 
         LOGGER.info("In validateSecurityQuestions method");
-        return true;
+        SecurityQuestionsValidateRequest securityQuestionsValidateRequest = new SecurityQuestionsValidateRequest();
+        ValidateUserSecurityQA validateUserSecurityQA = new ValidateUserSecurityQA();
+        UserSecurityQuestions userSecurityQuestions = new UserSecurityQuestions();
+        UserSecurityQuestionsMap userSecurityQuestionsMap = new UserSecurityQuestionsMap();
+        List<UserSecurityQuestionsEntry> userSecurityQuestionsEntryList = new ArrayList<UserSecurityQuestionsEntry>();
+        UserSecurityQuestionsEntry userSecurityQuestionsEntry = null;
+        List<SecurityDetails> securityDetailsList = securityDetailsHolder
+                .getSecurityDetails();
+        for (SecurityDetails securityDetails : securityDetailsList) {
+
+            userSecurityQuestionsEntry = new UserSecurityQuestionsEntry();
+            userSecurityQuestionsEntry.setKey(securityDetails
+                    .getSecurityQuestion());
+            userSecurityQuestionsEntry.setText(securityDetails
+                    .getSecurityAnswer());
+            userSecurityQuestionsEntryList.add(userSecurityQuestionsEntry);
+        }
+        userSecurityQuestionsMap.setEntry(userSecurityQuestionsEntryList);
+        userSecurityQuestions
+                .setUserSecurityQuestionsMap(userSecurityQuestionsMap);
+        final String emailId = securityDetailsHolder.getEmailId();
+        validateUserSecurityQA.setLogin(emailId);
+        validateUserSecurityQA.setUserSecurityQuestions(userSecurityQuestions);
+        securityQuestionsValidateRequest
+                .setValidateUserSecurityQA(validateUserSecurityQA);
+        try {
+            return userManagement
+                    .validateSecurityQuestions(securityQuestionsValidateRequest);
+        } catch (UserException userException) {
+            // need to put correct templteId here
+            sendNotification.notifyByEmail(emailId, templateId);
+            throw new UserException(userException.getErrorCode(),
+                    userException.getDescription());
+        }
     }
 
     /**
@@ -223,7 +309,7 @@ public class UserLoginServiceImpl implements UserLoginService {
 
         if (null == daoinviteResetpwdLog) {
             throw new ASException(recordnotexistcode, recordnotexistmessage);
-        } else if (AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS_ClOSED
+        } else if (AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS_CLOSED
                 .equalsIgnoreCase(daoinviteResetpwdLog.getStatus())) {
             throw new ASException(statusclosedcode, statusclosedmessage);
         } else if (AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS
@@ -245,7 +331,47 @@ public class UserLoginServiceImpl implements UserLoginService {
 
         InviteResetpwdLog inviteResetpwdLog = userLoginServiceDAO
                 .getinviteResetpwdLog(guid);
-        String emailId = inviteResetpwdLog.getEmailAddress();
-        userLoginServiceDAO.verifyEmailUpdate(emailId);
+
+        if (null == inviteResetpwdLog) {
+            throw new ASException(recordnotexistcode, recordnotexistmessage);
+        } else if (AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS_CLOSED
+                .equalsIgnoreCase(inviteResetpwdLog.getStatus())) {
+            throw new ASException(statusclosedcode, statusclosedmessage);
+        } else if (AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS
+                .equalsIgnoreCase(inviteResetpwdLog.getStatus())
+                && AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS_TYPE
+                        .equalsIgnoreCase(inviteResetpwdLog.getType())) {
+            System.err.println(userLoginServiceDAO);
+            userLoginServiceDAO.getUserId(inviteResetpwdLog.getEmailAddress());
+        } else {
+            throw new ASException(accountVerifiedCode, accountVerifiedMessage);
+        }
+
+    }
+
+    /**
+     * This method will call user login dao to create a record in db.
+     *
+     * @param firstName
+     *            the first name
+     * @param lastName
+     *            the last name
+     * @param emailAddress
+     *            the email address
+     * @return the string
+     */
+    @Override
+    public final String insertGuid(final String firstName,
+            final String lastName, final String emailAddress) {
+        InviteResetpwdLog inviteResetpwdLog = new InviteResetpwdLog();
+        inviteResetpwdLog.setFirstName(firstName);
+        inviteResetpwdLog.setLastName(lastName);
+        inviteResetpwdLog.setEmailAddress(emailAddress);
+        inviteResetpwdLog
+                .setType(AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS_TYPE);
+        inviteResetpwdLog
+                .setStatus(AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS);
+        return userLoginServiceDAO.insertGuid(inviteResetpwdLog);
+
     }
 }

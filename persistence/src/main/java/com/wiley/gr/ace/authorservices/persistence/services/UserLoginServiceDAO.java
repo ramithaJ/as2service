@@ -11,7 +11,10 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.services;
 
+import java.util.List;
+
 import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserRoles;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 
 /**
@@ -47,5 +50,7 @@ public interface UserLoginServiceDAO {
      * @return the string
      */
     String insertGuid(InviteResetpwdLog inviteResetpwdLog);
+
+    List<UserRoles> getSuperAdmins(int roleId);
 
 }

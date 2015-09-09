@@ -11,11 +11,9 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service;
 
-import java.util.List;
-
 import com.wiley.gr.ace.authorservices.model.Login;
-import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
+import com.wiley.gr.ace.authorservices.model.SecurityQuestionsList;
 import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
 import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
 
@@ -47,31 +45,23 @@ public interface UserLoginService {
     boolean resetPassword(SecurityDetailsHolder securityDetailsHolder);
 
     /**
-     * Validate email address.
-     *
-     * @param emailId
-     *            the email id
-     * @return true, if successful
-     */
-    boolean validateEmailAddress(String emailId);
-
-    /**
      * Security questions.
      *
      * @param emailId
      *            the email id
      * @return the security details holder
      */
-    SecurityDetailsHolder securityQuestions(String emailId);
+    SecurityQuestionsList userSecurityQuestions(String emailId);
 
     /**
      * Validate security questions.
      *
-     * @param securityDetails
-     *            the security details
+     * @param securityDetailsHolder
+     *            the security details holder
      * @return true, if successful
      */
-    boolean validateSecurityQuestions(List<SecurityDetails> securityDetails);
+    boolean validateSecurityQuestions(
+            SecurityDetailsHolder securityDetailsHolder);
 
     /**
      * Reset password.
@@ -89,4 +79,17 @@ public interface UserLoginService {
      *            the guid
      */
     void verifyAccountUpdate(String guid);
+
+    /**
+     * Insert guid.
+     *
+     * @param firstName
+     *            the first name
+     * @param lastName
+     *            the last name
+     * @param emailAddress
+     *            the email address
+     * @return the string
+     */
+    String insertGuid(String firstName, String lastName, String emailAddress);
 }

@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * The Class Interest.
  *
- * @author yugandhark
+ * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
 public class InterestData implements Serializable {

@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * The Class LookupCustomerProfileResponse.
  *
- * @author yugandhark
+ * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
 public class LookupCustomerProfileResponse implements Serializable {

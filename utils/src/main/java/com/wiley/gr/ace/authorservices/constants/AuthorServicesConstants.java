@@ -47,7 +47,7 @@ public class AuthorServicesConstants {
     public static final String INVITE_RESET_PASSWORD_STATUS = "PENDING";
 
     /** The Constant INVITE_RESET_PASSWORD_STATUS_ClOSED. */
-    public static final String INVITE_RESET_PASSWORD_STATUS_ClOSED = "CLOSED";
+    public static final String INVITE_RESET_PASSWORD_STATUS_CLOSED = "CLOSED";
 
     /** The Constant AUDIT_OBJ_NAME. */
     public static final String AUDIT_OBJ_NAME = "OBJ_NAME";
@@ -76,11 +76,47 @@ public class AuthorServicesConstants {
     /** The Constant INVALIDEMAILMSG. */
     public static final String INVALIDEMAILMSG = "Invalid email address. Please Re-Enter";
 
-    /** The Constant for OrderStatus. */
-    public static final String ORDER_STATUS_SUBMIT = "Submitted";
+    /** The Constant SERVERERRORCODE. */
+    public static final String SERVERERRORCODE = "2013";
 
-    /** The Constant for OO_OA_FLAG. */
-    public static final String OO_OA_FLAG_OO = "OO";
+    /** The Constant SERVERERRORMESSAGE. */
+    public static final String SERVERERRORMESSAGE = "Unable to process your request. Please try after some time..";
+
+    /** The Constant SERVERERRORCODE. */
+    public static final String NODATAFOUNDCODE = "2013";
+
+    /** The Constant SERVERERRORMESSAGE. */
+    public static final String NODATAFOUNDMSG = "No Data Found";
+
+    /** FOR ROLES. */
+    public static final int ROLEID = 10;
+
+    /** UNAUTHORIZEDCODE. */
+    public static final String UNAUTHORIZEDCODE = "2015";
+
+    /** UNAUTHORIZEDMSG. */
+    public static final String UNAUTHORIZEDMSG = "401 Unauthorized";
+
+    /** LOCKEDCODE. */
+    public static final String LOCKEDCODE = "2016";
+
+    /** LOCKEDMSG. */
+    public static final String LOCKEDMSG = "423 Locked";
+
+    /** The Constant INVITE_RESET_PASSWORD_STATUS_TYPE. */
+    public static final String INVITE_RESET_PASSWORD_STATUS_TYPE = "verifyAccount";
+
+    /** This field holds the value of AUTHUSERNAME. */
+    public static final String AUTHUSERNAME = "as2admin";
+
+    /** This field holds the value of AUTHPASSWORD. */
+    public static final String AUTHPASSWORD = "hgdJbhjrnfY9KFs3KPpddQ==";
+
+    /** This field holds the value of SOURCESYSTEM. */
+    public static final String SOURCESYSTEM = "AS";
+
+    /** This field holds the value of GUID. */
+    public static final String GUID = "guid";
 
     /** The Constant for BPM_SOURCE_APP. */
     public static final String BPM_SOURCE_APP = "sourceApp";
@@ -100,58 +136,28 @@ public class AuthorServicesConstants {
     /** The Constant for BPM_CALL_SUCCESS_STATUS. */
     public static final String BPM_CALL_SUCCESS_STATUS = "SUCCESS";
 
-    /** The Constant for BPM_SIGNATURE. */
-    public static final String BILLING_ADDRESS_TYPE = "billingAddress";
+    /** The Constant for BPM_CALL_SUCCESS_STATUS. */
+    public static final String STATUS_CODE_OK = "200";
 
-    /** The Constant for BPM_SALT. */
-    public static final String CONTACT_ADDRESS_TYPE = "contactAddress";
+    /** The Constant INTERNAL_SERVER_ERROR. */
+    public static final String INTERNAL_SERVER_ERROR = "500";
 
-    /** The Constant for BPM_SIGNATURE. */
-    public static final String COUNTRY_USA = "USA";
+    /** The Constant DATE_FORMAT. */
+    public static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ssXXX";
 
-    /** The Constant for BPM_SALT. */
-    public static final String COUNTRY_CANADA = "CANADA";
+    /**
+     * This field holds the value of STATUS_ADD.
+     */
+    public static final String STATUS_ADD = "add";
+
+    /**
+     * This field holds the value of STATUS_EDIT.
+     */
+    public static final String STATUS_EDIT = "edit";
 
     /** The Constant AUTHOR_ROLE_CD. */
     public static final String AUTHOR_ROLE_CD = "101";
-
+    
     /** The Constant COAUTHOR_ROLE_CD. */
     public static final String COAUTHOR_ROLE_CD = "102";
-
-    /** The Constant ONLINE_OPEN. */
-    public static final String ONLINE_OPEN = "ONLINE OPEN";
-
-    /** The Constant OPEN_ACCESS. */
-    public static final String OPEN_ACCESS = "OPEN ACCESS";
-
-    /** The Constant PDF_NAME. */
-    public static final String PDF_NAME = "Invoice.pdf";
-    
-    /** The Constant INTERNAL_SERVER_ERROR */
-    public static final String INTERNAL_SERVER_ERROR = "500";
-    
-    /** The Constant SERVERERRORCODE. */
-    public static final String SERVERERRORCODE = "2013";
-
-    /** The Constant SERVERERRORMESSAGE. */
-    public static final String SERVERERRORMESSAGE = "Unable to process your request. Please try after some time..";
-    
-    /** The Constant SERVERERRORCODE. */
-    public static final String NODATAFOUNDCODE = "2013";
-
-    /** The Constant SERVERERRORMESSAGE. */
-    public static final String NODATAFOUNDMSG = "No Data Found";
-    
-    /** UNAUTHORIZEDCODE. */
-    public static final String UNAUTHORIZEDCODE = "2015";
-
-    /** UNAUTHORIZEDMSG. */
-    public static final String UNAUTHORIZEDMSG = "401 Unauthorized";
-
-    /** LOCKEDCODE. */
-    public static final String LOCKEDCODE = "2016";
-
-    /** LOCKEDMSG. */
-    public static final String LOCKEDMSG = "423 Locked";
-
 }

@@ -85,7 +85,7 @@ public interface ASDataService {
      *            the count
      * @return the states
      */
-    List<State> getStates(String countrycode, Integer count);
+    List<State> getStates(String countrycode);
 
     /**
      * Gets the institutions.
@@ -119,11 +119,9 @@ public interface ASDataService {
     /**
      * Gets the areas of interests.
      *
-     * @param count
-     *            the count
      * @return the areas of interests
      */
-    List<Interests> getAreasOfInterests(Integer count);
+    List<Interests> getAreasOfInterests();
 
     /**
      * Gets the security questions.
@@ -148,4 +146,12 @@ public interface ASDataService {
      */
     List<AccessReasons> getAccessReasons();
 
+    /**
+     * @param Key
+     *            the input.
+     * @param code
+     *            the input.
+     * @return string
+     */
+    String getStateByCode(String stateCode, String countryCode);
 }

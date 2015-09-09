@@ -69,29 +69,29 @@ public class RegistrationServiceImpl implements RegistrationService {
             List<AddressElement> addressElements = new ArrayList<AddressElement>();
             AddressElement addressElement = new AddressElement();
 
-            customerDetails.setFirstname(user.getFirstName());
-            customerDetails.setLastname(user.getLastName());
-            customerDetails.setPassword(user.getPassword());
+            customerDetails.setfName(user.getFirstName());
+            customerDetails.setlName(user.getLastName());
+            customerDetails.setPswd(user.getPassword());
             if (!StringUtils.isEmpty(user.getInvitationGuid())) {
                 InviteResetpwdLog inviteResetpwdLog = registrationServiceDAO
                         .getInvitationRecords(user.getInvitationGuid());
                 if (inviteResetpwdLog.getEmailAddress() != user
                         .getPrimaryEmailAddr()) {
-                    customerDetails.setSecondaryemail(inviteResetpwdLog
+                    customerDetails.setSecondaryEmail(inviteResetpwdLog
                             .getEmailAddress());
                 }
 
             }
-            customerDetails.setPrimaryemail(user.getPrimaryEmailAddr());
+            customerDetails.setPrimaryEmail(user.getPrimaryEmailAddr());
 
-            addressElement.setCountrycode(user.getCountry().getCountryCode());
+            addressElement.setCountryCode(user.getCountry().getCountryCode());
             addressElement.setCountryName(user.getCountry().getCountryName());
             // addressElement.setCountrynamene(user.getCountryNameNE());
             addressElements.add(addressElement);
             cuAddressDetails.setAddress(addressElements);
 
-            customerProfile.setCustomerdetails(customerDetails);
-            customerProfile.setAddressdetails(cuAddressDetails);
+            customerProfile.setCustomerDetails(customerDetails);
+            customerProfile.setAddressDetails(cuAddressDetails);
 
             profileInformation.setCustomerprofile(customerProfile);
 

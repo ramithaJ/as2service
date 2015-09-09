@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * The Class LookupCustomerProfile.
  *
- * @author yugandhark
+ * @author virtusa version 1.0
  */
 public class LookupCustomerProfile extends ErrorResponse implements
         Serializable {

@@ -29,7 +29,7 @@ import org.springframework.web.client.RestTemplate;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
-import com.wiley.gr.ace.authorservices.external.util.PdhLookupServiceUtil;
+import com.wiley.gr.ace.authorservices.external.util.PdhLookupService;
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.model.User;
@@ -49,6 +49,7 @@ import com.wiley.gr.ace.authorservices.model.external.ProfileInformation;
 import com.wiley.gr.ace.authorservices.model.external.Quote;
 import com.wiley.gr.ace.authorservices.model.external.QuoteRequest;
 import com.wiley.gr.ace.authorservices.model.external.SearchUserResult;
+import com.wiley.gr.ace.authorservices.model.external.Status;
 import com.wiley.gr.ace.authorservices.model.external.TaxRequest;
 import com.wiley.gr.ace.authorservices.model.external.TaxResponse;
 

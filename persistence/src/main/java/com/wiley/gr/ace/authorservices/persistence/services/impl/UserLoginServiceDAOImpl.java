@@ -13,7 +13,10 @@ package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
 import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
 
+import java.util.List;
+
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.Session;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -21,9 +24,8 @@ import org.springframework.beans.factory.annotation.Value;
 
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.UserException;
-import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
-import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserRoles;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 
@@ -45,34 +47,6 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
      */
     @Value("${invalidEmail.message}")
     private String invalidEmailMsg;
-
-    /**
-     * This method validates the the email Address .
-     *
-     * @param emailId
-     *            to validate the emailId.
-     * @return true, if successful.
-     */
-    @Override
-    public final boolean validateEmailAddress(final String emailId) {
-
-        Session session = null;
-        try {
-
-            Users user = getUserId(emailId);
-            session = getSessionFactory().openSession();
-            Users users = (Users) session.load(Users.class, user.getUserId());
-            if (null == users) {
-                return false;
-            }
-            return true;
-        } finally {
-            if (session != null) {
-                session.flush();
-                session.close();
-            }
-        }
-    }
 
     /**
      * This method gets the userId.
@@ -138,25 +112,6 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
      */
     @SuppressWarnings("unchecked")
     @Override
-		Session session = null;
-        Integer userId = getUserId(emailId);
-		Users users = getUserId(emailId);
-        try {
-            session = getSessionFactory().openSession();
-            session.beginTransaction();
-            AuthorProfile authorProfile = new AuthorProfile();
-            authorProfile = (AuthorProfile) session.get(AuthorProfile.class,
-                    userId);
-            authorProfile.setIsAccountVerified('Y');
-            session.update(authorProfile);
-			session.getTransaction().commit();
-        } finally {
-            if (null != session) {
-                session.flush();
-                session.close();
-            }
-        }
-
     public final String insertGuid(final InviteResetpwdLog inviteResetpwdLog) {
 
         Session session = null;
@@ -164,7 +119,6 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
         try {
             session = getSessionFactory().openSession();
             session.beginTransaction();
-        
 
             Criteria criteria = session.createCriteria(InviteResetpwdLog.class);
             criteria.setProjection(Projections
@@ -173,12 +127,6 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
             maxValue = (Integer.parseInt(maxGuid) + 1);
             inviteResetpwdLog.setGuid(String.valueOf(maxValue));
             session.save(inviteResetpwdLog);
-            UserProfile authorProfile = new UserProfile();
-            authorProfile = (UserProfile) session.get(UserProfile.class,
-                    users.getUserId());
-            authorProfile.setIsAccountVerified('Y');
-            session.update(authorProfile);
-			
             session.getTransaction().commit();
         } finally {
             if (null != session) {
@@ -188,6 +136,26 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
         }
         return maxValue.toString();
 
+    }
+
+    @Override
+    public List<UserRoles> getSuperAdmins(final int roleId) {
+
+        Session session = null;
+        try {
+            session = getSessionFactory().openSession();
+            Criteria criteria = session.createCriteria(UserRoles.class,
+                    "userRoles");
+            criteria.createAlias("userRoles.roles", "roles");
+            criteria.add(Restrictions.eq("roles.roleId", roleId));
+            criteria.setFetchMode("usersByUserId", FetchMode.JOIN);
+            return criteria.list();
+        } finally {
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
+        }
     }
 
 }
