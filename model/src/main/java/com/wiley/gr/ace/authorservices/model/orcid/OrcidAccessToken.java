@@ -25,7 +25,7 @@ public class OrcidAccessToken {
     private String name;
 
     /** The access_token. */
-    private String access_token;
+    private String accessToken;
 
     /** The token_type. */
     private String token_type;
@@ -61,18 +61,18 @@ public class OrcidAccessToken {
     }
 
     /**
-     * @return the access_token
+     * @return the accessToken
      */
-    public final String getAccess_token() {
-        return access_token;
+    public final String getAccessToken() {
+        return accessToken;
     }
 
     /**
      * @param access_token
      *            the access_token to set
      */
-    public final void setAccess_token(final String access_token) {
-        this.access_token = access_token;
+    public final void setAccessToken(final String accessToken) {
+        this.accessToken = accessToken;
     }
 
     /**

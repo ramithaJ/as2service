@@ -43,6 +43,8 @@ public class Address implements Serializable {
     /** The address type. */
     private String addressType = "";
 
+    private String emailId;
+    
     /** The title. */
     private String title = "";
 
@@ -77,7 +79,7 @@ public class Address implements Serializable {
     private String city = "";
 
     /** The state. */
-    private State state;
+    private String state;
 
     /**
      * This field holds the value of stateCode.
@@ -106,6 +108,15 @@ public class Address implements Serializable {
 
     /** The region. */
     private String region = "";
+
+    
+    public final String getEmailId() {
+        return emailId;
+    }
+
+    public final void setEmailId(final String emailId) {
+        this.emailId = emailId;
+    }
 
     /**
      * @return the stateCode
@@ -314,7 +325,7 @@ public class Address implements Serializable {
     /**
      * @return the state
      */
-    public final State getState() {
+    public final String getState() {
         return state;
     }
 
@@ -322,7 +333,7 @@ public class Address implements Serializable {
      * @param state
      *            the state to set
      */
-    public final void setState(final State state) {
+    public final void setState(final String state) {
         this.state = state;
     }
 

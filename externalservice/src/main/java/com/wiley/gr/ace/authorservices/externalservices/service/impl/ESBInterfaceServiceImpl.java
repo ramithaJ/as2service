@@ -12,6 +12,7 @@
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -83,6 +84,10 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
     /** The update alm user url. */
     @Value("${updatealmuser.url}")
     private String updateAlmUserUrl;
+    
+    /** The alm authurl. */
+    @Value("${almauthenticate.url}")
+    private String almAuthurl;
 
     /** The article data url. */
     @Value("${articleData.url}")
@@ -179,8 +184,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      * 
      */
     @Override
-    public final ESBUser checkEmailIdExists(final String emailId)
-            throws Exception {
+    public final ESBUser checkEmailIdExists(final String emailId) {
         ESBUser esbUser = null;
         final List<ESBUser> esbUserList = searchUser(emailId, "", "");
         if (!StringUtils.isEmpty(esbUserList)) {
@@ -201,7 +205,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      */
     @Override
     public final List<ESBUser> getUsersFromFirstNameLastName(
-            final String firstName, final String lastName) throws Exception {
+            final String firstName, final String lastName)  {
         List<ESBUser> esbUserList = null;
 
         return searchUser("", firstName, lastName);
@@ -220,7 +224,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      * 
      */
     private final List<ESBUser> searchUser(final String email,
-            final String firstName, final String lastName) throws Exception {
+            final String firstName, final String lastName){
         ArrayList<ESBUser> esbUsersList = null;
         SearchUserResult searchUserResult = null;
         final String url = searchUserUrl + "?Email=" + email + "&FirstName="
@@ -255,8 +259,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      * 
      */
     @Override
-    public final Status creatUser(final ProfileInformation profileForCreation)
-            throws Exception {
+    public final Status creatUser(final ProfileInformation profileForCreation) {
         final Status status = new Status();
         final String url = createUserUrl;
         final URI uri = new URI(url);
@@ -278,17 +281,39 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
     }
 
     /**
+     * Checks if is ALM authenticated.
+     *
+     * @param almAuthRequest
+     *            the alm auth request
+     * @return true, if is ALM authenticated
+     */
+    @Override
+    public final boolean isALMAuthenticated(final ALMAuthRequest almAuthRequest) {
+
+        boolean isALMAuth = false;
+        try {
+            ResponseEntity<String> responseEntity = new RestTemplate()
+            .postForEntity(new URI(almAuthurl), almAuthRequest,
+                    String.class);
+            if (responseEntity.getStatusCode() == HttpStatus.OK) {
+                isALMAuth = true;
+            }
+        } catch (URISyntaxException e) {
+            throw new UserException("UNEXPECTED",
+                    "Some Unexpected Error occured");
+        }
+
+        return isALMAuth;
+    }
+    /**
      * Gets the author article.
      *
      * @param articleId
      *            the article id
      * @return the author article
-     * @throws Exception
-     *             the exception
      */
     @Override
-    public final ArticleData getAuthorArticle(final Integer articleId)
-            throws Exception {
+    public final ArticleData getAuthorArticle(final Integer articleId) {
         return (ArticleData) StubInvokerUtil.invokeStub(articleDataUrl,
                 HttpMethod.GET, ArticleData.class);
     }
@@ -465,5 +490,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
             lookupObject = PdhLookupServiceUtil.lookup(xml);
         return lookupObject;
     }
+
+    
 
 }

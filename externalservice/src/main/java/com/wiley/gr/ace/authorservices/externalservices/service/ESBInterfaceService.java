@@ -11,21 +11,10 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
-import java.util.ArrayList;
-
-import com.wiley.gr.ace.authorservices.model.User;
-import com.wiley.gr.ace.authorservices.model.external.ALMAuthRequest;
-import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
-import com.wiley.gr.ace.authorservices.model.external.DashboardView;
-import com.wiley.gr.ace.authorservices.model.external.ESBUser;
- * is strictly forbidden except by express prior written permission 
- * of John Wiley & Sons.
- *******************************************************************************/
-package com.wiley.gr.ace.authorservices.externalservices.service;
-
 import java.util.List;
 
 import com.wiley.gr.ace.authorservices.model.User;
+import com.wiley.gr.ace.authorservices.model.external.ALMAuthRequest;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 import com.wiley.gr.ace.authorservices.model.external.License;
@@ -84,20 +73,23 @@ public interface ESBInterfaceService {
     /**
      * Gets the users from first name last name.
      *
-     * @param firstName the first name
-     * @param lastName the last name
+     * @param firstName
+     *            the first name
+     * @param lastName
+     *            the last name
      * @return the users from first name last name
      */
-    ArrayList<ESBUser> getUsersFromFirstNameLastName(String firstName,
+    List<ESBUser> getUsersFromFirstNameLastName(String firstName,
             String lastName);
 
     /**
      * Creat user.
      *
-     * @param profileForCreation the profile for creation
+     * @param profileForCreation
+     *            the profile for creation
      * @return the string
      */
-    String creatUser(ProfileInformation profileForCreation);
+    Status creatUser(ProfileInformation profileForCreation);
 
     /**
      * Gets the all author articles.
@@ -108,7 +100,7 @@ public interface ESBInterfaceService {
      * @throws Exception
      *             the exception
      */
-    ArticleData getAuthorArticle(Integer articleId) throws Exception;
+    ArticleData getAuthorArticle(Integer articleId);
 
     /**
      * Gets the license status.

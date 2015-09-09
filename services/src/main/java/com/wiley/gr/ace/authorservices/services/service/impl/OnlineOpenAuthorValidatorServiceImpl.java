@@ -152,8 +152,8 @@ public class OnlineOpenAuthorValidatorServiceImpl implements
 			addressValidationMultiReq.setLocality1(onlineOpenOrder.getAddressDetails().getBillingAddress().getCity());
 			addressValidationMultiReq.setPostCode(onlineOpenOrder.getAddressDetails().getBillingAddress().getPostCode());
 			addressValidationMultiReq.setProvince1(onlineOpenOrder.getAddressDetails().getBillingAddress().getState());
-			addressValidationMultiReq.setOrganization1(onlineOpenOrder.getAddressDetails().getBillingAddress().getInstitution());
-			addressValidationMultiReq.setOrganizationDepartment1(onlineOpenOrder.getAddressDetails().getBillingAddress().getDepartment());
+			//addressValidationMultiReq.setOrganization1(onlineOpenOrder.getAddressDetails().getBillingAddress().getInstitution());
+			//addressValidationMultiReq.setOrganizationDepartment1(onlineOpenOrder.getAddressDetails().getBillingAddress().getDepartment());
 		}
 		
 		
@@ -173,7 +173,7 @@ public class OnlineOpenAuthorValidatorServiceImpl implements
 		
 		DiscountRequest discountRequest = new DiscountRequest();
 		discountRequest.setCountryCode(onlineOpenOrder.getAddressDetails().getBillingAddress().getCountry().getCountryCode());
-		discountRequest.setInstitutionCode(onlineOpenOrder.getAddressDetails().getBillingAddress().getInstitution());
+		//discountRequest.setInstitutionCode(onlineOpenOrder.getAddressDetails().getBillingAddress().getInstitution());
 		// TODO: Need to check whether values need to be populated
 		discountRequest.setJrnlArcn("");
 		// discountRequest.setOtherPromoCode("");

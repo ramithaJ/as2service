@@ -103,10 +103,9 @@ public class UserManagementImpl implements UserManagement {
      * @return the security response
      */
     @Override
-    public SecurityResponse authenticateUser(
+    public final SecurityResponse authenticateUser(
             final SharedServieRequest sharedServieRequest) {
-
-        return (SecurityResponse) StubInvokerUtil.restServiceInvoker(
+        return (SecurityResponse) RestServiceInvokerUtil.restServiceInvoker(
                 sharedServiceAuthenticateUrl, sharedServieRequest,
                 SecurityResponse.class);
     }
@@ -120,7 +119,7 @@ public class UserManagementImpl implements UserManagement {
      */
     @Override
     public final boolean resetPassword(
-    public boolean authenticateAdminUser(final String emailId) {
+            final PasswordResetRequest passwordResetRequest) {
 
         final boolean status = this.externalPostServiceInvoker(
                 resetPasswordurl, passwordResetRequest);
@@ -139,41 +138,9 @@ public class UserManagementImpl implements UserManagement {
         return status;
     }
 
-    /**
-     * This method is for authentaciting user based on emailId and password.
-     *
-     * @param emailId
-     *            the email id
-     * @param password
-     *            the password
-     * @return true, if successful
-     */
-    @Override
-    public boolean authenticateUserALM(final String emailId,
-            final String password) {
 
-        return "Password".equalsIgnoreCase(password);
-    }
 
-    /**
-     * This method is for resetting the password.
-     *
-     * @param securityDetailsHolder
-     *            the security details holder
-     * @return true, if successful
-     */
-    @Override
-    public boolean resetPassword(
-            final SecurityDetailsHolder securityDetailsHolder) {
-        Service service = (Service) StubInvokerUtil.invokeStub(resetPassword,
-                HttpMethod.POST, Service.class);
-        String status = service.getStatus();
-        if (status != null && status.equalsIgnoreCase(STATUS)) {
-            return true;
-        }
-        return false;
-    }
-
+    
     /**
      * This method is for updateUserId.
      *
@@ -182,12 +149,13 @@ public class UserManagementImpl implements UserManagement {
      * @return true, if successful
      */
     @Override
-    public boolean updateUserId(final String oldEmailId, final String newEmailId) {
+    public final boolean updateUserId(final UserEmailDetails userEmailDetails) {
 
         return this.externalPostServiceInvoker(updateUserIdurl,
                 userEmailDetails);
     }
 
+    /**
     /**
      * This method is for forceFulReset based on emailId.
      *
@@ -196,12 +164,20 @@ public class UserManagementImpl implements UserManagement {
      * @return true, if successful
      */
     @Override
-    public boolean forceFulReset(final String emailId, final String newPassword) {
-        Service service = (Service) StubInvokerUtil.invokeStub(forceFulReset,
-                HttpMethod.POST, Service.class);
-        String status = service.getStatus();
-        if (status != null && status.equalsIgnoreCase(STATUS)) {
-            return true;
+    public final boolean forceFulReset(final ForcefulReset forcefulReset) {
+
+        boolean status = this.externalPostServiceInvoker(forceFulReseturl,
+                forcefulReset);
+        if (status) {
+            final Integer userId = 8011047;
+            AuditInformation auditInformation = new AuditInformation();
+            auditInformation.setActionID("PWDRES");
+            auditInformation.setTableName("TABLE");
+            auditInformation.setColumnName("COLUMN");
+            auditInformation.setNewValue(forcefulReset.getNewPassword());
+            auditInformation.setOldValue("45624");
+            auditInformation.setUserId(userId);
+            AuditResultServiceImpl.auditUserActions(auditInformation);
         }
         return status;
     }
@@ -215,7 +191,6 @@ public class UserManagementImpl implements UserManagement {
      */
     @Override
     public final boolean updatePassword(final PasswordRequest passwordRequest) {
-    public boolean lockUser(final String emailId) {
 
         return this.externalPostServiceInvoker(updatePasswordurl,
                 passwordRequest);
@@ -231,12 +206,12 @@ public class UserManagementImpl implements UserManagement {
     @Override
     public final boolean updateSecurityDetails(
             final SecurityQuestionsUpdateRequest securityQuestionsUpdateRequest) {
-    public boolean unLockUser(final String emailId) {
 
         return this.externalPostServiceInvoker(updateSecurityDetailsurl,
                 securityQuestionsUpdateRequest);
     }
 
+    
     /**
      * This method is for finding admin user based on emailId.
      *
@@ -245,7 +220,7 @@ public class UserManagementImpl implements UserManagement {
      * @return the admin user
      */
     @Override
-    public SecurityDetailsHolder getSecurityDetails(final String emailId) {
+    public final AdminUser findUser(final String emailId) {
 
         final SharedServieRequest sharedServieRequest = new SharedServieRequest();
         sharedServieRequest.setUserId(emailId);
@@ -273,10 +248,6 @@ public class UserManagementImpl implements UserManagement {
         final ErrorPayLoad errorPayLoad = retrieveSecurityQuestions.getError();
         throw new UserException(errorPayLoad.getErrorCode(),
                 errorPayLoad.getErrorMessage());
-    public SecurityDetailsHolder getSecurityQuestions(final String emailId) {
-
-        return (SecurityDetailsHolder) StubInvokerUtil.invokeStub(
-                securityQuestions, HttpMethod.GET, SecurityDetailsHolder.class);
     }
 
     /**
@@ -308,8 +279,6 @@ public class UserManagementImpl implements UserManagement {
     @Override
     public final boolean validateSecurityQuestions(
             final SecurityQuestionsValidateRequest securityQuestionsValidateRequest) {
-    public boolean updateSecurityDetails(
-            final SecurityDetailsHolder securityDetails) {
 
         return this.externalPostServiceInvoker(validateSecurityQuestionsurl,
                 securityQuestionsValidateRequest);
@@ -324,9 +293,6 @@ public class UserManagementImpl implements UserManagement {
      *            the request entity class
      * @return true, if successful
      */
-    @Override
-    public SecuirtyQuestionDetails getSecurityQuestionDetails(
-            final String emailId) {
 
     private boolean externalPostServiceInvoker(final String url,
             final Object requestEntityClass) {
@@ -351,7 +317,6 @@ public class UserManagementImpl implements UserManagement {
     @Override
     @CachePut(value = "userProfile", key = "#userId")
     public final LookupCustomerProfile updateProfile(final String userId) {
-    public AdminUser findUser(final String emailId) {
 
         LookupCustomerProfile lookupCustomerProfile = (LookupCustomerProfile) RestServiceInvokerUtil
                 .getServiceData(lookupCustomerProfileResponse + userId
