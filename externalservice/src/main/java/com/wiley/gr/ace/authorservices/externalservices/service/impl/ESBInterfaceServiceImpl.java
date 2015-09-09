@@ -84,7 +84,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
     /** The update alm user url. */
     @Value("${updatealmuser.url}")
     private String updateAlmUserUrl;
-    
+
     /** The alm authurl. */
     @Value("${almauthenticate.url}")
     private String almAuthurl;
@@ -205,7 +205,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      */
     @Override
     public final List<ESBUser> getUsersFromFirstNameLastName(
-            final String firstName, final String lastName)  {
+            final String firstName, final String lastName) {
         List<ESBUser> esbUserList = null;
 
         return searchUser("", firstName, lastName);
@@ -224,7 +224,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      * 
      */
     private final List<ESBUser> searchUser(final String email,
-            final String firstName, final String lastName){
+            final String firstName, final String lastName) {
         ArrayList<ESBUser> esbUsersList = null;
         SearchUserResult searchUserResult = null;
         final String url = searchUserUrl + "?Email=" + email + "&FirstName="
@@ -244,7 +244,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
             searchUserResult = new SearchUserResult();
             searchUserResult = response.getBody();
             esbUsersList = (ArrayList<ESBUser>) searchUserResult
-                    .getSearchCustomerResponse();
+                    .getSearchUserResponse().getUserList();
         }
 
         return esbUsersList;
@@ -293,8 +293,8 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
         boolean isALMAuth = false;
         try {
             ResponseEntity<String> responseEntity = new RestTemplate()
-            .postForEntity(new URI(almAuthurl), almAuthRequest,
-                    String.class);
+                    .postForEntity(new URI(almAuthurl), almAuthRequest,
+                            String.class);
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
                 isALMAuth = true;
             }
@@ -305,6 +305,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 
         return isALMAuth;
     }
+
     /**
      * Gets the author article.
      *
@@ -490,7 +491,5 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
             lookupObject = PdhLookupServiceUtil.lookup(xml);
         return lookupObject;
     }
-
-    
 
 }

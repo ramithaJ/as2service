@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.model.Dashboard;
 import com.wiley.gr.ace.authorservices.model.DashboardView;
@@ -56,7 +57,7 @@ public class DashboardController {
     @Value("${DashboardController.getAllAuthorArticles.code}")
     private String getAllAuthorArticlesErrorCode;
 
-    /** The get all author articles error message. */
+    /** value from props file configured. */
     @Value("${DashboardController.getAllAuthorArticles.message}")
     private String getAllAuthorArticlesErrorMessage;
 
@@ -71,6 +72,34 @@ public class DashboardController {
     /** The input parameter not found. */
     @Value("${inputParameterNotFound.message}")
     private String inputParameterNotFound;
+
+    /** value from props file configured. */
+    @Value("${DashboardController.getEmailCommunicationHistory.code}")
+    private String getEmailCommunicationHistoryErrorCode;
+
+    /** value from props file configured. */
+    @Value("${DashboardController.getEmailCommunicationHistory.message}")
+    private String getEmailCommunicationHistoryErrorMessage;
+
+    /** value from props file configured. */
+    @Value("${DashboardController.getProductionDetails.code}")
+    private String getProductionDetailsErrorCode;
+
+    /** value from props file configured. */
+    @Value("${DashboardController.getProductionDetails.message}")
+    private String getProductionDetailsErrorMessage;
+
+    /** value from props file configured. */
+    @Value("${DashboardController.getPublishedArticleDetails.code}")
+    private String getPublishedArticleDetailsErrorCode;
+
+    /** value from props file configured. */
+    @Value("${DashboardController.getPublishedArticleDetails.message}")
+    private String getPublishedArticleDetailsErrorMessage;
+
+    /** The no data found. */
+    @Value("${noDataFound.message}")
+    private String noDataFound;
 
     /**
      * This method takes userId and return the Service.
@@ -108,37 +137,37 @@ public class DashboardController {
         }
         return service;
 
-	/** value from props file configured. */
-	@Value("${DashboardController.getProfileMeter.message}")
-	private String getProfileMetererrormessage;
+    }
 
     /**
      * This method takes userId and return the Service.
      *
      * @param userId
-     *            - The request value
+     *            the user id
      * @return service
      */
     @RequestMapping(value = "/view/{userId}", method = RequestMethod.GET)
     public final Service getAllAuthorArticles(
-            @PathVariable("userId") final int userId) {
+            @PathVariable("userId") final String userId) {
         LOGGER.info("inside viewallauthorarticles method of DashboardController");
         final Service service = new Service();
+        DashboardView dashboardView = null;
         if (!StringUtils.isEmpty(userId)) {
-            DashboardView dashboardView = null;
+            LOGGER.info("input parameter userId is found to Get All the Author Article Details");
             try {
                 dashboardView = dashboardService.viewDashboard(userId);
                 if (!StringUtils.isEmpty(dashboardView)) {
                     LOGGER.info("Author All Articles Data is Found");
+                    service.setStatus("SUCCESS");
                     service.setPayload(dashboardView);
                 } else {
                     LOGGER.info("Author All Articles Data is Not Found");
                     service.setStatus("SUCCESS");
-                    service.setPayload(noDataFoundMessage);
+                    service.setPayload(noDataFound);
                 }
             } catch (final Exception e) {
                 LOGGER.error("Print Stack Trace- ", e);
-                throw new UserException(getAllAuthorArticlesErrorCode,
+                throw new ASException(getAllAuthorArticlesErrorCode,
                         getAllAuthorArticlesErrorMessage);
             }
         } else {
@@ -149,226 +178,122 @@ public class DashboardController {
         return service;
     }
 
-	/** value from props file configured. */
-	@Value("${DashboardController.getAllAuthorArticles.message}")
-	private String getAllAuthorArticlesErrorMessage;
+    /**
+     * Gets the email communication history.
+     *
+     * @param userId
+     *            the user id
+     * @return the email communication history
+     */
+    @RequestMapping(value = "/communication/{userId}", method = RequestMethod.GET)
+    public final Service getEmailCommunicationHistory(
+            @PathVariable("userId") final String userId) {
+        LOGGER.info("inside getCommunicationHistory method of DashboardController");
+        final Service service = new Service();
+        EmailCommunicationHistory emailCommunicationHistory = null;
+        if (!StringUtils.isEmpty(userId)) {
+            LOGGER.info("input parameter userId is found to Get Email Communication History");
+            try {
+                emailCommunicationHistory = dashboardService
+                        .getEmailCommunicationHistory(userId);
+                if (!StringUtils.isEmpty(emailCommunicationHistory)) {
+                    LOGGER.info(" Email Communication History is Found");
+                    service.setStatus("SUCCESS");
+                    service.setPayload(emailCommunicationHistory);
+                } else {
+                    LOGGER.info(" Email Communication History Not Found");
+                    service.setStatus("SUCCESS");
+                    service.setPayload(noDataFound);
+                }
+            } catch (final Exception e) {
+                LOGGER.error("Print Stack Trace- ", e);
+                throw new ASException(getEmailCommunicationHistoryErrorCode,
+                        getEmailCommunicationHistoryErrorMessage);
+            }
+        } else {
+            LOGGER.info("input Parameter userId is Not Found");
+            service.setStatus("FAILURE");
+            service.setPayload(inputParameterNotFound);
+        }
+        return service;
+    }
 
-	/** value from props file configured. */
-	@Value("${DashboardController.getEmailCommunicationHistory.code}")
-	private String getEmailCommunicationHistoryErrorCode;
+    /**
+     * Gets the production details.
+     *
+     * @param userId
+     *            the user id
+     * @return the production details
+     */
+    @RequestMapping(value = "/production/{userId}", method = RequestMethod.GET)
+    public final Service getProductionDetails(
+            @PathVariable("userId") final String userId) {
+        LOGGER.info("inside getProductionDetails method of DashboardController");
+        final Service service = new Service();
+        DashboardView dashboardView = null;
+        if (!StringUtils.isEmpty(userId)) {
+            LOGGER.info("input parameter userId is found to Get Production Details of All Articles of An Author");
+            try {
+                dashboardView = dashboardService.getProductionDetails(userId);
+                if (!StringUtils.isEmpty(dashboardView)) {
+                    LOGGER.info("Production Details are Found");
+                    service.setStatus("SUCCESS");
+                    service.setPayload(dashboardView);
+                } else {
+                    LOGGER.info("Production Details are Not Found");
+                    service.setStatus("SUCCESS");
+                    service.setPayload(noDataFound);
+                }
+            } catch (final Exception e) {
+                LOGGER.error("Print Stack Trace- ", e);
+                throw new ASException(getProductionDetailsErrorCode,
+                        getProductionDetailsErrorMessage);
+            }
+        } else {
+            LOGGER.info("input Parameter userId is Not Found");
+            service.setStatus("FAILURE");
+            service.setPayload(inputParameterNotFound);
+        }
+        return service;
+    }
 
-	/** value from props file configured. */
-	@Value("${DashboardController.getEmailCommunicationHistory.message}")
-	private String getEmailCommunicationHistoryErrorMessage;
-
-	/** value from props file configured. */
-	@Value("${DashboardController.getProductionDetails.code}")
-	private String getProductionDetailsErrorCode;
-
-	/** value from props file configured. */
-	@Value("${DashboardController.getProductionDetails.message}")
-	private String getProductionDetailsErrorMessage;
-
-	/** value from props file configured. */
-	@Value("${DashboardController.getPublishedArticleDetails.code}")
-	private String getPublishedArticleDetailsErrorCode;
-
-	/** value from props file configured. */
-	@Value("${DashboardController.getPublishedArticleDetails.message}")
-	private String getPublishedArticleDetailsErrorMessage;
-
-	/** The no data found. */
-	@Value("${noDataFound.message}")
-	private String noDataFound;
-
-	/** The input parameter not found. */
-	@Value("${inputParameterNotFound.message}")
-	private String inputParameterNotFound;
-
-	/**
-	 * This method takes userId and return the Service.
-	 *
-	 * @param userId
-	 *            the user id
-	 * @return service
-	 */
-	@RequestMapping(value = "/profilemeter/{userId}", method = RequestMethod.GET)
-	public final Service getProfileMeter(
-			@PathVariable("userId") final String userId) {
-		LOGGER.info("inside getProfileMeter method of DashboardController");
-		final Service service = new Service();
-		Dashboard dashboard = null;
-
-		try {
-			dashboard = dashboardService.getProfileMeter(userId);
-			if (!StringUtils.isEmpty(dashboard)) {
-				service.setStatus("SUCCESS");
-				service.setPayload(dashboard);
-			}
-		} catch (final Exception e) {
-			LOGGER.error("Print Stack Trace- ", e);
-			throw new ASException(getProfileMetererrorcode,
-					getProfileMetererrormessage);
-		}
-		return service;
-
-	}
-
-	/**
-	 * This method takes userId and return the Service.
-	 *
-	 * @param userId
-	 *            the user id
-	 * @return service
-	 */
-	@RequestMapping(value = "/view/{userId}", method = RequestMethod.GET)
-	public final Service getAllAuthorArticles(
-			@PathVariable("userId") final String userId) {
-		LOGGER.info("inside viewallauthorarticles method of DashboardController");
-		final Service service = new Service();
-		DashboardView dashboardView = null;
-		if (!StringUtils.isEmpty(userId)) {
-			LOGGER.info("input parameter userId is found to Get All the Author Article Details");
-			try {
-				dashboardView = dashboardService.viewDashboard(userId);
-				if (!StringUtils.isEmpty(dashboardView)) {
-					LOGGER.info("Author All Articles Data is Found");
-					service.setStatus("SUCCESS");
-					service.setPayload(dashboardView);
-				} else {
-					LOGGER.info("Author All Articles Data is Not Found");
-					service.setStatus("SUCCESS");
-					service.setPayload(noDataFound);
-				}
-			} catch (final Exception e) {
-				LOGGER.error("Print Stack Trace- ", e);
-				throw new ASException(getAllAuthorArticlesErrorCode,
-						getAllAuthorArticlesErrorMessage);
-			}
-		} else {
-			LOGGER.info("input Parameter userId is Not Found");
-			service.setStatus("FAILURE");
-			service.setPayload(inputParameterNotFound);
-		}
-		return service;
-	}
-
-	/**
-	 * Gets the email communication history.
-	 *
-	 * @param userId
-	 *            the user id
-	 * @return the email communication history
-	 */
-	@RequestMapping(value = "/communication/{userId}", method = RequestMethod.GET)
-	public final Service getEmailCommunicationHistory(
-			@PathVariable("userId") final String userId) {
-		LOGGER.info("inside getCommunicationHistory method of DashboardController");
-		final Service service = new Service();
-		EmailCommunicationHistory emailCommunicationHistory = null;
-		if (!StringUtils.isEmpty(userId)) {
-			LOGGER.info("input parameter userId is found to Get Email Communication History");
-			try {
-				emailCommunicationHistory = dashboardService
-						.getEmailCommunicationHistory(userId);
-				if (!StringUtils.isEmpty(emailCommunicationHistory)) {
-					LOGGER.info(" Email Communication History is Found");
-					service.setStatus("SUCCESS");
-					service.setPayload(emailCommunicationHistory);
-				} else {
-					LOGGER.info(" Email Communication History Not Found");
-					service.setStatus("SUCCESS");
-					service.setPayload(noDataFound);
-				}
-			} catch (final Exception e) {
-				LOGGER.error("Print Stack Trace- ", e);
-				throw new ASException(getEmailCommunicationHistoryErrorCode,
-						getEmailCommunicationHistoryErrorMessage);
-			}
-		} else {
-			LOGGER.info("input Parameter userId is Not Found");
-			service.setStatus("FAILURE");
-			service.setPayload(inputParameterNotFound);
-		}
-		return service;
-	}
-
-	/**
-	 * Gets the production details.
-	 *
-	 * @param userId
-	 *            the user id
-	 * @return the production details
-	 */
-	@RequestMapping(value = "/production/{userId}", method = RequestMethod.GET)
-	public final Service getProductionDetails(
-			@PathVariable("userId") final String userId) {
-		LOGGER.info("inside getProductionDetails method of DashboardController");
-		final Service service = new Service();
-		DashboardView dashboardView = null;
-		if (!StringUtils.isEmpty(userId)) {
-			LOGGER.info("input parameter userId is found to Get Production Details of All Articles of An Author");
-			try {
-				dashboardView = dashboardService.getProductionDetails(userId);
-				if (!StringUtils.isEmpty(dashboardView)) {
-					LOGGER.info("Production Details are Found");
-					service.setStatus("SUCCESS");
-					service.setPayload(dashboardView);
-				} else {
-					LOGGER.info("Production Details are Not Found");
-					service.setStatus("SUCCESS");
-					service.setPayload(noDataFound);
-				}
-			} catch (final Exception e) {
-				LOGGER.error("Print Stack Trace- ", e);
-				throw new ASException(getProductionDetailsErrorCode,
-						getProductionDetailsErrorMessage);
-			}
-		} else {
-			LOGGER.info("input Parameter userId is Not Found");
-			service.setStatus("FAILURE");
-			service.setPayload(inputParameterNotFound);
-		}
-		return service;
-	}
-
-	/**
-	 * Gets the published article details.
-	 *
-	 * @param userId
-	 *            the user id
-	 * @return the published article details
-	 */
-	@RequestMapping(value = "/published/{userId}", method = RequestMethod.GET)
-	public final Service getPublishedArticleDetails(
-			@PathVariable("userId") final String userId) {
-		LOGGER.info("inside getPublishedArticleDetails method of DashboardController");
-		final Service service = new Service();
-		DashboardView dashboardView = null;
-		if (!StringUtils.isEmpty(userId)) {
-			LOGGER.info("input parameter userId is found to Get Publication Details of All Articles of An Author");
-			try {
-				dashboardView = dashboardService
-						.getPublishedArticleDetails(userId);
-				if (!StringUtils.isEmpty(dashboardView)) {
-					LOGGER.info("Publication Details are Found");
-					service.setStatus("SUCCESS");
-					service.setPayload(dashboardView);
-				} else {
-					LOGGER.info("Publication Details are Not Found");
-					service.setStatus("SUCCESS");
-					service.setPayload(noDataFound);
-				}
-			} catch (final Exception e) {
-				LOGGER.error("Print Stack Trace- ", e);
-				throw new ASException(getPublishedArticleDetailsErrorCode,
-						getPublishedArticleDetailsErrorMessage);
-			}
-		} else {
-			LOGGER.info("input Parameter userId is Not Found");
-			service.setStatus("FAILURE");
-			service.setPayload(inputParameterNotFound);
-		}
-		return service;
-	}
+    /**
+     * Gets the published article details.
+     *
+     * @param userId
+     *            the user id
+     * @return the published article details
+     */
+    @RequestMapping(value = "/published/{userId}", method = RequestMethod.GET)
+    public final Service getPublishedArticleDetails(
+            @PathVariable("userId") final String userId) {
+        LOGGER.info("inside getPublishedArticleDetails method of DashboardController");
+        final Service service = new Service();
+        DashboardView dashboardView = null;
+        if (!StringUtils.isEmpty(userId)) {
+            LOGGER.info("input parameter userId is found to Get Publication Details of All Articles of An Author");
+            try {
+                dashboardView = dashboardService
+                        .getPublishedArticleDetails(userId);
+                if (!StringUtils.isEmpty(dashboardView)) {
+                    LOGGER.info("Publication Details are Found");
+                    service.setStatus("SUCCESS");
+                    service.setPayload(dashboardView);
+                } else {
+                    LOGGER.info("Publication Details are Not Found");
+                    service.setStatus("SUCCESS");
+                    service.setPayload(noDataFound);
+                }
+            } catch (final Exception e) {
+                LOGGER.error("Print Stack Trace- ", e);
+                throw new ASException(getPublishedArticleDetailsErrorCode,
+                        getPublishedArticleDetailsErrorMessage);
+            }
+        } else {
+            LOGGER.info("input Parameter userId is Not Found");
+            service.setStatus("FAILURE");
+            service.setPayload(inputParameterNotFound);
+        }
+        return service;
+    }
 }

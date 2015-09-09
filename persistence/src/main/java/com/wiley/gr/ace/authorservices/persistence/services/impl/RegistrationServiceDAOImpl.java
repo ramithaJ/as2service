@@ -20,7 +20,6 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.util.StringUtils;
 
-import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserRoles;

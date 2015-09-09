@@ -14,7 +14,7 @@ package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 
-import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
+import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.PermissionService;
 import com.wiley.gr.ace.authorservices.model.external.AdditionalPermissions;
 
@@ -24,21 +24,21 @@ import com.wiley.gr.ace.authorservices.model.external.AdditionalPermissions;
  */
 public class PermissionServiceImpl implements PermissionService {
 
-	/**
-	 * This field holds the value of additionalPermissionsurl
-	 */
-	@Value("${additionalPermissions.url}")
-	private String additionalPermissionsurl;
+    /**
+     * This field holds the value of additionalPermissionsurl
+     */
+    @Value("${additionalPermissions.url}")
+    private String additionalPermissionsurl;
 
-	/**
-	 * Method to get additional permissions.
-	 */
-	@Override
-	public AdditionalPermissions getAdditionalPermissions(final String userId) {
+    /**
+     * Method to get additional permissions.
+     */
+    @Override
+    public AdditionalPermissions getAdditionalPermissions(final String userId) {
 
-		return (AdditionalPermissions) StubInvokerUtil.invokeJsonStub(
-				additionalPermissionsurl, HttpMethod.POST,
-				AdditionalPermissions.class);
-	}
+        return (AdditionalPermissions) RestServiceInvokerUtil
+                .restServiceInvoker(additionalPermissionsurl, HttpMethod.POST,
+                        AdditionalPermissions.class);
+    }
 
 }

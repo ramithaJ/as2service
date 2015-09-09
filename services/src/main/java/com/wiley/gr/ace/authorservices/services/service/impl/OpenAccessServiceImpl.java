@@ -267,10 +267,10 @@ public class OpenAccessServiceImpl implements OpenAccessService {
         final Country billingCountry = new Country();
         billingCountry.setCountryCode(addressOnFile.getBillingCountry());
         address.setCountry(billingCountry);
-       // address.setDepartment(addressOnFile.getBillingDepartment());
+        // address.setDepartment(addressOnFile.getBillingDepartment());
         address.setEmailId(addressOnFile.getBillingEmail());
         address.setFirstName(addressOnFile.getBillingCustomerName());
-      //  address.setInstitution(addressOnFile.getBillingInstitution());
+        // address.setInstitution(addressOnFile.getBillingInstitution());
         address.setPhoneNumber(addressOnFile.getBillingPhoneNumber());
         address.setPostCode(addressOnFile.getBillingZipPostalCode());
         address.setState(addressOnFile.getBillingStateProv());
@@ -295,13 +295,13 @@ public class OpenAccessServiceImpl implements OpenAccessService {
         final Country billingCountry = new Country();
         billingCountry.setCountryCode(addressOnFile.getContactCountry());
         address.setCountry(billingCountry);
-        //address.setDepartment(addressOnFile.getContactDepartment());
+        // address.setDepartment(addressOnFile.getContactDepartment());
         address.setEmailId(addressOnFile.getContactEmail());
         address.setFirstName(addressOnFile.getContactName());
-        //address.setInstitution(addressOnFile.getContactInstitution());
+        // address.setInstitution(addressOnFile.getContactInstitution());
         address.setPhoneNumber(addressOnFile.getContactPhoneNumber());
         address.setPostCode(addressOnFile.getContactZipPostalCode());
-        address.setState(addressOnFile.getContactStateProv());
+        address.setStateCode(addressOnFile.getContactStateProv());
         return address;
 
     }
@@ -327,9 +327,9 @@ public class OpenAccessServiceImpl implements OpenAccessService {
         addressValidationMultiReq.setProvince1(address.getState());
         addressValidationMultiReq.setCountryName(address.getCountry()
                 .getCountryName());
-        //addressValidationMultiReq.setOrganization1(address.getInstitution());
-        //addressValidationMultiReq.setOrganizationDepartment1(address
-               // .getDepartment());
+        // addressValidationMultiReq.setOrganization1(address.getInstitution());
+        // addressValidationMultiReq.setOrganizationDepartment1(address
+        // .getDepartment());
 
         addressValidationRequest
                 .setAddressValidationMultiReq(addressValidationMultiReq);

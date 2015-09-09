@@ -23,11 +23,7 @@ import org.hibernate.criterion.Restrictions;
 
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
-
-import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
-
 import com.wiley.gr.ace.authorservices.persistence.entity.AdminProfile;
-import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserRoles;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserRolesId;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;

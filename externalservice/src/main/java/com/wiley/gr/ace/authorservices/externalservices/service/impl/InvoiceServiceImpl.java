@@ -14,7 +14,6 @@ package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
 import org.springframework.beans.factory.annotation.Value;
 
-import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.InvoiceService;
 import com.wiley.gr.ace.authorservices.model.external.Invoice;
 
@@ -32,14 +31,14 @@ public class InvoiceServiceImpl implements InvoiceService {
     /**
      * Gets the invoice.
      *
-     * @param invoice            
-     * This method will take invoice as an input an call external
+     * @param invoice
+     *            This method will take invoice as an input an call external
      *            service to get invoice
      * @return the invoice
      */
     @Override
     public final byte[] getInvoice(final Invoice invoice) {
-        
+
         return (byte[]) StubInvokerUtil.getFile(invoiceUrl, invoice,
                 byte[].class);
 
