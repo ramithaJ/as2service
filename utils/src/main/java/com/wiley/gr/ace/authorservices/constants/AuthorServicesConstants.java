@@ -160,4 +160,11 @@ public class AuthorServicesConstants {
     
     /** The Constant COAUTHOR_ROLE_CD. */
     public static final String COAUTHOR_ROLE_CD = "102";
+    
+    /** The Constant for OrderStatus. */
+    public static final String ORDER_STATUS_SUBMIT = "Submitted";
+    
+    /** The Constant PDF_NAME. */
+    public static final String PDF_NAME = "Invoice.pdf";
+    
 }

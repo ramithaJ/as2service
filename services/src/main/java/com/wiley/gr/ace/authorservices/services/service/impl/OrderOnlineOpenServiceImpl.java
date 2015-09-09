@@ -76,7 +76,6 @@ import com.wiley.gr.ace.authorservices.model.external.DiscountedSocietyResponse;
 import com.wiley.gr.ace.authorservices.model.external.Institute;
 import com.wiley.gr.ace.authorservices.model.external.InstitutionDiscountsResponse;
 import com.wiley.gr.ace.authorservices.model.external.Invoice;
-import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfileResponse;
 import com.wiley.gr.ace.authorservices.model.external.OrderData;
 import com.wiley.gr.ace.authorservices.model.external.OrderDataList;
@@ -90,7 +89,6 @@ import com.wiley.gr.ace.authorservices.model.external.ResearchFunderElement;
 import com.wiley.gr.ace.authorservices.model.external.Societies;
 import com.wiley.gr.ace.authorservices.model.external.SocietyMemberDiscount;
 import com.wiley.gr.ace.authorservices.model.external.TaxData;
-import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 import com.wiley.gr.ace.authorservices.model.external.WOAAccount;
 import com.wiley.gr.ace.authorservices.model.external.WOAFunder;
 import com.wiley.gr.ace.authorservices.model.external.WPGConfiguration;
@@ -387,7 +385,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 		Address contactAddress = new Address();
 		contactAddress.setFirstName(orderData.getContactAddress().getName());
 		contactAddress.setLastName(orderData.getContactAddress().getName());
-		contactAddress.setDepartment(orderData.getContactAddress()
+		contactAddress.setDepartmentName(orderData.getContactAddress()
 				.getDepartment());
 		contactAddress.setAddressLine1(orderData.getContactAddress()
 				.getAdditionalStreet());
@@ -408,7 +406,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 		Address billingAddress = new Address();
 		billingAddress.setFirstName(orderData.getBillingAddress().getName());
 		billingAddress.setLastName(orderData.getBillingAddress().getName());
-		billingAddress.setDepartment(orderData.getBillingAddress()
+		billingAddress.setDepartmentName(orderData.getBillingAddress()
 				.getDepartment());
 		billingAddress.setAddressLine1(orderData.getBillingAddress()
 				.getAdditionalStreet());
@@ -531,12 +529,11 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 				userProfileResponse.getCustomerProfile().getSocietyList();
 				// billing and contact addresses
 				AddressDetails addressDetails = new AddressDetails();
-				addressDetails.setBillingAddress(userProfileResponse
-						.getCustomerProfile().getAddressDetails().get(1)
-						.getBillingAddress());
-				addressDetails.setContactAddress(userProfileResponse
-						.getCustomerProfile().getAddressDetails().get(0)
-						.getCorrespondenceAddress());
+//				addressDetails.setBillingAddress(userProfileResponse
+//						.getCustomerProfile().getAddressDetails().get(1)
+//						.getBillingAddress());
+//				addressDetails.setContactAddress(userProfileResponse
+//						.getCustomerProfile().getAddressDetails().getAddress().get(0));
 				quoteDetails.setAddressDetails(addressDetails);
 
 			} else {
@@ -614,7 +611,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 		// orders.setOrderTypes(new OrderTypes());
 		// orders.setOoOaFlg(orderTypeFlag);
 		orders.setOrderId(Integer.parseInt(orderId));
-		orders.setOrderStatus(AuthorServicesConstants.ORDER_STATUS_SUBMIT);
+		//orders.setOrderStatus(AuthorServicesConstants.ORDER_STATUS_SUBMIT);
 		Products products = new Products(Integer.parseInt(orderData
 				.getArticle().getDhId()));
 		orders.setProducts(products);
@@ -658,7 +655,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 			// TODO: Need to set remaining objects
 			billingAddress.setName(address.getBillingAddress().getFirstName()
 					+ address.getBillingAddress().getLastName());
-			billingAddress.setOrg(address.getBillingAddress().getInstitution());
+			//billingAddress.setOrg(address.getBillingAddress().getInstitution());
 
 			orderData.setBillingAddress(billingAddress);
 
@@ -666,7 +663,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 			// TODO: Need to set remaining objects
 			contactAddress.setName(address.getContactAddress().getFirstName()
 					+ address.getBillingAddress().getLastName());
-			contactAddress.setOrg(address.getContactAddress().getInstitution());
+			//contactAddress.setOrg(address.getContactAddress().getInstitution());
 			orderData.setContactAddress(contactAddress);
 
 			TaxData taxData = new TaxData();
@@ -1502,8 +1499,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 		article.setJournalPrintISSN("0008543X");
 		invoice.setArticle(article);
 		headers.setContentType(MediaType.parseMediaType("application/pdf"));
-		headers.setContentDispositionFormData(AuthorServicesConstants.PDF_NAME,
-				AuthorServicesConstants.PDF_NAME);
+		//headers.setContentDispositionFormData(AuthorServicesConstants.PDF_NAME,
+				//AuthorServicesConstants.PDF_NAME);
 		headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
 		contents = invoiceservice.getInvoice(invoice);
 		response = new ResponseEntity<byte[]>(contents, headers, HttpStatus.OK);
