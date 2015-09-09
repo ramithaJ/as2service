@@ -17,25 +17,13 @@ import com.wiley.gr.ace.authorservices.model.external.AdditionalPermissions;
  * The Class BPMInterfaceServiceImpl.
  *
  * @author virtusa version 1.0
- * @author virtusa version1.0
  *
  */
 public interface PermissionService {
 
     /**
-     * This method used to createTask.
-     *
-     * @return true, if successful
+     * @param userId
+     * @return AdditionalPermissions
      */
-    @Override
-    public final boolean createTask() {
-        // TODO Auto-generated method stub
-        return true;
-    }
-
-	/**
-	 * @param userId
-	 * @return AdditionalPermissions
-	 */
-	AdditionalPermissions getAdditionalPermissions(String userId);
+    AdditionalPermissions getAdditionalPermissions(String userId);
 }

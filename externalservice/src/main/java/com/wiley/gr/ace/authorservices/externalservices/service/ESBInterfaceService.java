@@ -11,7 +11,7 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.ALMAuthRequest;
@@ -73,22 +73,23 @@ public interface ESBInterfaceService {
     /**
      * Gets the users from first name last name.
      *
-     * @param firstName the first name
-     * @param lastName the last name
+     * @param firstName
+     *            the first name
+     * @param lastName
+     *            the last name
      * @return the users from first name last name
      */
-    ArrayList<ESBUser> getUsersFromFirstNameLastName(String firstName,
+    List<ESBUser> getUsersFromFirstNameLastName(String firstName,
             String lastName);
 
     /**
      * Creat user.
      *
-     * @param profileForCreation the profile for creation
+     * @param profileForCreation
+     *            the profile for creation
      * @return the string
-     * @throws Exception
-     *             the exception
      */
-    Status creatUser(ProfileInformation profileForCreation) throws Exception;
+    Status creatUser(ProfileInformation profileForCreation);
 
     /**
      * Gets the all author articles.
@@ -99,7 +100,7 @@ public interface ESBInterfaceService {
      * @throws Exception
      *             the exception
      */
-    ArticleData getAuthorArticle(Integer articleId) throws Exception;
+    ArticleData getAuthorArticle(Integer articleId);
 
     /**
      * Gets the license status.
