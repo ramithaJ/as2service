@@ -80,44 +80,34 @@ public class UserLoginDaoImpl implements UserLoginDao {
      *            to Login.
      * @return the boolean value.
      */
-    @Override
-    public final boolean doLogin(final String emailId) {
-        Session session = getSessionFactory().openSession();
-
-        UserProfile authorProfile = null;
-
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-        Date date = new Date();
-
-        String utildate = dateFormat.format(date);
-
-        java.sql.Date.valueOf(utildate);
-        int userId = getUserId(emailId);
-        try {
-            String hql = "from AuthorProfile where userId = :userId";
-            List<UserProfile> result = session.createQuery(hql)
-                    .setInteger("userId", userId).list();
-
-            if (null != result && !result.isEmpty()) {
-                authorProfile = result.get(0);
-            }
-
-            if (authorProfile != null) {
-                Users users = new Users();
-                users.setUserId(userId);
-                authorProfile.setUsersByUpdatedBy(users);
-                authorProfile.setUpdatedDate(date);
-            }
-            session.saveOrUpdate(authorProfile);
-        } finally {
-            if (session != null) {
-                session.flush();
-                session.close();
-            }
-        }
-
-        return true;
-    }
+    /* Commented as part of code merge */
+    /*
+     * @Override public final boolean doLogin(final String emailId) { Session
+     * session = getSessionFactory().openSession();
+     * 
+     * UserProfile authorProfile = null;
+     * 
+     * DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd"); Date date =
+     * new Date();
+     * 
+     * String utildate = dateFormat.format(date);
+     * 
+     * java.sql.Date.valueOf(utildate); int userId = getUserId(emailId); try {
+     * String hql = "from AuthorProfile where userId = :userId";
+     * List<UserProfile> result = session.createQuery(hql) .setInteger("userId",
+     * userId).list();
+     * 
+     * if (null != result && !result.isEmpty()) { authorProfile = result.get(0);
+     * }
+     * 
+     * if (authorProfile != null) { Users users = new Users();
+     * users.setUserId(userId); authorProfile.setUsersByUpdatedBy(users);
+     * authorProfile.setUpdatedDate(date); }
+     * session.saveOrUpdate(authorProfile); } finally { if (session != null) {
+     * session.flush(); session.close(); } }
+     * 
+     * return true; }
+     */
 
     /**
      * Method to get UserId using emailId.
