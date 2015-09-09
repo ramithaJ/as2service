@@ -14,6 +14,7 @@ package com.wiley.gr.ace.authorservices.model.external;
 import java.util.List;
 
 import com.wiley.gr.ace.authorservices.model.Address;
+import com.wiley.gr.ace.authorservices.model.TaxDetails;
 
 /**
  * The Class Order.
