@@ -29,7 +29,7 @@ public class ViewAssignedArticle {
     private ArticleDetails articleData;
 
     /** The journal data. */
-    private JournalDetails journalData;
+    private JournalData journalData;
 
     /** The article links. */
     private ArticleLinks articleLinks;
@@ -64,7 +64,7 @@ public class ViewAssignedArticle {
      *
      * @return the journal data
      */
-    public final JournalDetails getJournalData() {
+    public final JournalData getJournalData() {
         return journalData;
     }
 
@@ -74,7 +74,7 @@ public class ViewAssignedArticle {
      * @param journalData
      *            the new journal data
      */
-    public final void setJournalData(final JournalDetails journalData) {
+    public final void setJournalData(final JournalData journalData) {
         this.journalData = journalData;
     }
 

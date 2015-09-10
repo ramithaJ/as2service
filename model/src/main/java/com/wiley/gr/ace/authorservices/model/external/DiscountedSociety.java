@@ -2,7 +2,6 @@ package com.wiley.gr.ace.authorservices.model.external;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
 /**
  * The Class DiscountedSociety.
  * 
@@ -10,64 +9,94 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class DiscountedSociety {
 
-	@JsonProperty("societyName")
-	private String societyName;
-	
-	@JsonProperty("valueType")
-	private String valueType;
-	
-	@JsonProperty("value")
-	private String value;
+	@JsonProperty("discountValueType")
+	private String discountValueType;
+
+	@JsonProperty("discountValue")
+	private String discountValue;
+
+	@JsonProperty("discountCode")
+	private String discountCode;
+
+	@JsonProperty("discountTypeName")
+	private String discountTypeName;
+
+	@JsonProperty("promoCode")
+	private String promoCode;
 
 	/**
-	 * 
-	 * @return The societyName
+	 * @return the discountValueType
 	 */
-	public String getSocietyName() {
-		return societyName;
+	public String getDiscountValueType() {
+		return discountValueType;
 	}
 
 	/**
-	 * 
-	 * @param societyName
-	 *            The societyName
+	 * @param discountValueType
+	 *            the discountValueType to set
 	 */
-	public void setSocietyName(String societyName) {
-		this.societyName = societyName;
+	public void setDiscountValueType(String discountValueType) {
+		this.discountValueType = discountValueType;
 	}
 
 	/**
-	 * 
-	 * @return The valueType
+	 * @return the discountValue
 	 */
-	public String getValueType() {
-		return valueType;
+	public String getDiscountValue() {
+		return discountValue;
 	}
 
 	/**
-	 * 
-	 * @param valueType
-	 *            The valueType
+	 * @param discountValue
+	 *            the discountValue to set
 	 */
-	public void setValueType(String valueType) {
-		this.valueType = valueType;
+	public void setDiscountValue(String discountValue) {
+		this.discountValue = discountValue;
 	}
 
 	/**
-	 * 
-	 * @return The value
+	 * @return the discountCode
 	 */
-	public String getValue() {
-		return value;
+	public String getDiscountCode() {
+		return discountCode;
 	}
 
 	/**
-	 * 
-	 * @param value
-	 *            The value
+	 * @param discountCode
+	 *            the discountCode to set
 	 */
-	public void setValue(String value) {
-		this.value = value;
+	public void setDiscountCode(String discountCode) {
+		this.discountCode = discountCode;
+	}
+
+	/**
+	 * @return the discountTypeName
+	 */
+	public String getDiscountTypeName() {
+		return discountTypeName;
+	}
+
+	/**
+	 * @param discountTypeName
+	 *            the discountTypeName to set
+	 */
+	public void setDiscountTypeName(String discountTypeName) {
+		this.discountTypeName = discountTypeName;
+	}
+
+	/**
+	 * @return the promoCode
+	 */
+	public String getPromoCode() {
+		return promoCode;
+	}
+
+	/**
+	 * @param promoCode
+	 *            the promoCode to set
+	 */
+	public void setPromoCode(String promoCode) {
+		this.promoCode = promoCode;
 	}
 
 }

@@ -4,14 +4,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class DiscountResponseObject {
 
-	@JsonProperty("DiscountPercentage")
+	@JsonProperty("discountPercentage")
 	private String discountPercentage;
 
-	@JsonProperty("DiscountAmount")
+	@JsonProperty("discountValue")
 	private String discountAmount;
 
-	@JsonProperty("isValid")
-	private Boolean isValid;
+	@JsonProperty("discountTypeCode")
+	private String discountTypeCode;
+
+	@JsonProperty("discountTypeName")
+	private String discountTypeName;
 
 	/**
 	 * @return the discountPercentage
@@ -43,26 +46,12 @@ public class DiscountResponseObject {
 		this.discountAmount = discountAmount;
 	}
 
-	/**
-	 * @return the isValid
-	 */
-	public Boolean getIsValid() {
-		return isValid;
-	}
-
-	/**
-	 * @param isValid
-	 *            the isValid to set
-	 */
-	public void setIsValid(Boolean isValid) {
-		this.isValid = isValid;
-	}
-
 	@Override
 	public String toString() {
 		return "DiscountResponseObject [discountPercentage="
 				+ discountPercentage + ", discountAmount=" + discountAmount
-				+ ", isValid=" + isValid + "]";
+				+ ", discountTypeCode=" + discountTypeCode
+				+ ", discountTypeName=" + discountTypeName + "]";
 	}
 
 }

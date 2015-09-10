@@ -30,7 +30,7 @@ public class ArticleData {
     private String articleUserRole;
 
     /** The journal data. */
-    private JournalDetails journal;
+    private JournalData journal;
 
     /** The dhid. */
     @JsonProperty("DH_ID")
@@ -48,24 +48,17 @@ public class ArticleData {
     /** The article details. */
     private ArticleDetails articleDetails;
 
-    private TrackLicense trackLicense;
+    /** The license status. */
+    private String licenseStatus;
 
-    /** The order payment status. */
-    private OrderPaymentStatus orderPaymentStatus;
+    /** The payments status. */
+    private PaymentStatus orderPaymentStatus;
 
-    /** The production. */
-    private Production production;
+    /** The production status. */
+    private ProductionStatus production;
 
     /** The publication details. */
-    private PublicationDetails publicationDetails;
-
-    public final TrackLicense getTrackLicense() {
-        return trackLicense;
-    }
-
-    public final void setTrackLicense(TrackLicense trackLicense) {
-        this.trackLicense = trackLicense;
-    }
+    private PublicationDetails publication;
 
     /**
      * Gets the article user role.
@@ -91,7 +84,7 @@ public class ArticleData {
      *
      * @return the journal
      */
-    public final JournalDetails getJournal() {
+    public final JournalData getJournal() {
         return journal;
     }
 
@@ -101,7 +94,7 @@ public class ArticleData {
      * @param journal
      *            the new journal
      */
-    public final void setJournal(final JournalDetails journal) {
+    public final void setJournal(final JournalData journal) {
         this.journal = journal;
     }
 
@@ -201,11 +194,30 @@ public class ArticleData {
     }
 
     /**
+     * Gets the license status.
+     *
+     * @return the license status
+     */
+    public final String getLicenseStatus() {
+        return licenseStatus;
+    }
+
+    /**
+     * Sets the license status.
+     *
+     * @param licenseStatus
+     *            the new license status
+     */
+    public final void setLicenseStatus(final String licenseStatus) {
+        this.licenseStatus = licenseStatus;
+    }
+
+    /**
      * Gets the order payment status.
      *
      * @return the order payment status
      */
-    public final OrderPaymentStatus getOrderPaymentStatus() {
+    public final PaymentStatus getOrderPaymentStatus() {
         return orderPaymentStatus;
     }
 
@@ -216,7 +228,7 @@ public class ArticleData {
      *            the new order payment status
      */
     public final void setOrderPaymentStatus(
-            final OrderPaymentStatus orderPaymentStatus) {
+            final PaymentStatus orderPaymentStatus) {
         this.orderPaymentStatus = orderPaymentStatus;
     }
 
@@ -225,7 +237,7 @@ public class ArticleData {
      *
      * @return the production
      */
-    public final Production getProduction() {
+    public final ProductionStatus getProduction() {
         return production;
     }
 
@@ -235,17 +247,27 @@ public class ArticleData {
      * @param production
      *            the new production
      */
-    public final void setProduction(final Production production) {
+    public final void setProduction(final ProductionStatus production) {
         this.production = production;
     }
 
-    public final PublicationDetails getPublicationDetails() {
-        return publicationDetails;
+    /**
+     * Gets the publication.
+     *
+     * @return the publication
+     */
+    public final PublicationDetails getPublication() {
+        return publication;
     }
 
-    public final void setPublicationDetails(
-            final PublicationDetails publicationDetails) {
-        this.publicationDetails = publicationDetails;
+    /**
+     * Sets the publication.
+     *
+     * @param publication
+     *            the new publication
+     */
+    public final void setPublication(final PublicationDetails publication) {
+        this.publication = publication;
     }
 
 }

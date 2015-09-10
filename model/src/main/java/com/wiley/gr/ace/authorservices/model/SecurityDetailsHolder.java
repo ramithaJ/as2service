@@ -39,6 +39,11 @@ public class SecurityDetailsHolder {
     private List<SecurityDetails> securityDetails = new ArrayList<SecurityDetails>();
 
     /** The password. */
+    private String oldPassword;
+
+    /**
+     * This field holds the value of password.
+     */
     private String password;
 
     /** The is force reset. */
@@ -46,33 +51,12 @@ public class SecurityDetailsHolder {
     private boolean isForceReset;
 
     /**
+     * Gets the email id.
+     *
      * @return the emailId
      */
     public final String getEmailId() {
         return emailId;
-    }
-
-    /**
-     * @param emailId
-     *            the emailId to set
-     */
-    public final void setEmailId(final String emailId) {
-        this.emailId = emailId;
-    }
-
-    /**
-     * @return the securityDetails
-     */
-    public final List<SecurityDetails> getSecurityDetails() {
-        return securityDetails;
-    }
-
-    /**
-     * @param securityDetails
-     *            the securityDetails to set
-     */
-    public final void setSecurityDetails(final List<SecurityDetails> securityDetails) {
-        this.securityDetails = securityDetails;
     }
 
     /**
@@ -91,6 +75,53 @@ public class SecurityDetailsHolder {
     }
 
     /**
+     * Sets the email id.
+     *
+     * @param emailId
+     *            the emailId to set
+     */
+    public final void setEmailId(final String emailId) {
+        this.emailId = emailId;
+    }
+
+    /**
+     * Gets the security details.
+     *
+     * @return the securityDetails
+     */
+    public final List<SecurityDetails> getSecurityDetails() {
+        return securityDetails;
+    }
+
+    /**
+     * Sets the security details.
+     *
+     * @param securityDetails
+     *            the securityDetails to set
+     */
+    public final void setSecurityDetails(
+            final List<SecurityDetails> securityDetails) {
+        this.securityDetails = securityDetails;
+    }
+
+    /**
+     * @return the oldPassword
+     */
+    public final String getOldPassword() {
+        return oldPassword;
+    }
+
+    /**
+     * @param oldPassword
+     *            the oldPassword to set
+     */
+    public final void setOldPassword(final String oldPassword) {
+        this.oldPassword = oldPassword;
+    }
+
+    /**
+     * Checks if is force reset.
+     *
      * @return the isForceReset
      */
     public final boolean isForceReset() {
@@ -98,6 +129,8 @@ public class SecurityDetailsHolder {
     }
 
     /**
+     * Sets the force reset.
+     *
      * @param isForceReset
      *            the isForceReset to set
      */
