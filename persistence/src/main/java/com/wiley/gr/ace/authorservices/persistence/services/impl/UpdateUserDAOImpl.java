@@ -9,14 +9,13 @@
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
  ******************************************************************************/
-/**
- * 
- */
 package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
 import com.wiley.gr.ace.authorservices.persistence.services.UpdateUserDAO;
 
 /**
+ * The Class UpdateUserDAOImpl.
+ *
  * @author virtusa version 1.0
  */
 public class UpdateUserDAOImpl implements UpdateUserDAO {

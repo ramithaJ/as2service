@@ -19,6 +19,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * The Class HibernateConnection.
+ * 
+ * @author virtusa version 1.0
  */
 public class HibernateConnection {
 

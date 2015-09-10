@@ -9,40 +9,32 @@
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
  *******************************************************************************/
+
+package com.wiley.gr.ace.authorservices.persistence.services;
+
+import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
+
 /**
+ * The Interface AuthorProfileDao.
  * 
- */
-package com.wiley.gr.ace.authorservices.model.external;
-
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
-/**
- * The Class ArticleInfoDetails.
- *
  * @author virtusa version 1.0
  */
-@JsonInclude(Include.NON_NULL)
-public class ArticleInfoDetails {
-
-    /** The article info. */
-    private List<ArticleInfo> articleInfo;
+public interface AuthorProfileDao {
 
     /**
-     * @return the articleInfo
+     * Save profile picture.
+     *
+     * @param image
+     *            the image
+     * @param userId
+     *            the user id
      */
-    public final List<ArticleInfo> getArticleInfo() {
-        return articleInfo;
-    }
+    void saveProfilePicture(byte[] image, String userId);
 
     /**
-     * @param articleInfo
-     *            the articleInfo to set
+     * @param userId
+     * @return
      */
-    public final void setArticleInfo(final List<ArticleInfo> articleInfo) {
-        this.articleInfo = articleInfo;
-    }
+    UserProfile getProfilePicture(String userId);
 
 }

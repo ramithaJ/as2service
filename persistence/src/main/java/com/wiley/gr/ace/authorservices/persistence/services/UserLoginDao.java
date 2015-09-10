@@ -17,6 +17,8 @@ import com.wiley.gr.ace.authorservices.persistence.entity.UserRoles;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 
 /**
+ * The Interface UserLoginDao.
+ *
  * @author virtusa version 1.0
  */
 public interface UserLoginDao {
@@ -32,16 +34,6 @@ public interface UserLoginDao {
     boolean validateEmail(String emailId);
 
     /**
-     * Updates the LAST_LOGIN_TIME, UPDATED_BY, UPDATED_DATE columns of
-     * USER_PROFILE table.
-     * 
-     * @param emailId
-     *            to Login.
-     * @return the boolean value.
-     */
-    boolean doLogin(String emailId);
-
-    /**
      * This method creates admin user in database.
      * 
      * @param users
@@ -53,11 +45,10 @@ public interface UserLoginDao {
     void createAdminUser(Users users, List<UserRoles> userRolesList);
 
     /**
-     * This method gets the User Details.
-     * 
      * @param emailId
-     *            to get the User Details.
-     * @return the Users.
+     *            the request value.
+     * @return users
      */
-    Users getUserDetails(String emailId);
+    Users verifyUser(String emailId);
+
 }

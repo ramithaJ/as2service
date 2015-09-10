@@ -28,25 +28,16 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class ArticleDetails {
 
     /** The article id. */
-    private Integer articleId;
+    private String articleId;
 
     /** The article title. */
     private String articleTitle;
 
     /** The article doi. */
     private String articleDoi;
-
-    /** The publication date. */
-    private String publicationDt;
-
-    /** The acceptance date. */
-    private String accptnceDate;
-
-    /** The article accepted in oo. */
-    private String articleAcceptedInOO;
-
+    
     /** The article authors. */
-    private String articleAuthorName;
+    private String articleAuthors;
 
     /** The article co authors. */
     private List<String> coAuthors;

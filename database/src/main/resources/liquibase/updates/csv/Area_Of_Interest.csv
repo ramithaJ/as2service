@@ -1,0 +1,458 @@
+AREA_OF_INTEREST_CD,INTEREST_NAME,CREATED_DATE,CREATED_BY
+'RELRS','Religious Studies',SYSDATE,0
+'RELS','Spirituality',SYSDATE,0
+'RELT','Theology',SYSDATE,0
+'PHIA','Aesthetics',SYSDATE,0
+'PHIAE','Applied Ethics',SYSDATE,0
+'PHIBME','Bioethics & Medical Ethics',SYSDATE,0
+'PHIHP','History of Philosophy',SYSDATE,0
+'PHIM','Metaphysics',SYSDATE,0
+'PHIPM','Philosophy of Mind',SYSDATE,0
+'PHIPR','Philosophy of Religion',SYSDATE,0
+'PHIPS','Philosophy of Science',SYSDATE,0
+'PHIPT','Philosophy of Technology',SYSDATE,0
+'PHIPEP','Political & Economic Philosophy',SYSDATE,0
+'PHISP','Social Philosophy',SYSDATE,0
+'PHIWP','World Philosophy',SYSDATE,0
+'COMCRM','Communication Research Methods',SYSDATE,0
+'COMCS','Communication Studies',SYSDATE,0
+'COMCT','Communication Theory',SYSDATE,0
+'COMJ','Journalism',SYSDATE,0
+'COMMC','Mass Communication',SYSDATE,0
+'LINAL','Applied Linguistics',SYSDATE,0
+'LINSLA','Second Language Acquisition',SYSDATE,0
+'LINS','Sociolinguistics',SYSDATE,0
+'LINTL','Theoretical Linguistics',SYSDATE,0
+'CLAACGHS','Ancient & Classical Greek & Hellenistic Studies',SYSDATE,0
+'CLAACL','Ancient & Classical Literature',SYSDATE,0
+'CLAAC','Ancient Culture',SYSDATE,0
+'CLAAES','Ancient Egyptian Studies',SYSDATE,0
+'CLARAW','Reception of the Ancient World',SYSDATE,0
+'HISAAH','Asian & Australasian History',SYSDATE,0
+'HISBH','British History',SYSDATE,0
+'HISEMH','Early Modern History (1500-1780)',SYSDATE,0
+'HISEH','European History',SYSDATE,0
+'HISHMH','Historical Methods & Historiography',SYSDATE,0
+'HISHR','History of Religion',SYSDATE,0
+'HISP','Prehistory',SYSDATE,0
+'HISSCH','Social & Cultural History',SYSDATE,0
+'HISTCCH','Twentieth Century & Contemporary History',SYSDATE,0
+'HISUH','US History',SYSDATE,0
+'CIVSCG','Soil Constructions and Geotechnics',SYSDATE,0
+'CULDCIA','Digital Culture & the Information Age',SYSDATE,0
+'PSYCACP','Child and Adolescent Clinical Psychology',SYSDATE,0
+'ELCCTD','Circuit Theory and Design',SYSDATE,0
+'ARCPA','Prehistoric Archaeology',SYSDATE,0
+'CULRES','Race & Ethnicity Studies',SYSDATE,0
+'LITREL','Renaissance English Literature',SYSDATE,0
+'MEDSMO','Sports Medicine and Orthopedics',SYSDATE,0
+'VETVIM','Veterinary Internal Medicine',SYSDATE,0
+'ELCIST','Imaging Systems and Technology',SYSDATE,0
+'ELCSIM','Sensors, Instrumentation and Measurement',SYSDATE,0
+'ELCSP','Signal Processing',SYSDATE,0
+'ELCSEM','Systems Engineering and Management',SYSDATE,0
+'ACCCER','CIA Exam Review',SYSDATE,0
+'ACCCFA','Corporate Finance and Accounting',SYSDATE,0
+'ACCCP','CPA Practice',SYSDATE,0
+'ACCG','GAAP',SYSDATE,0
+'ACCPAC','Public Accounting and Consulting',SYSDATE,0
+'ACCT','Taxation',SYSDATE,0
+'LASLAN','Lasser Alert Newsletter',SYSDATE,0
+'AGRAA','Animal Agriculture',SYSDATE,0
+'AQUA','Aquaculture',SYSDATE,0
+'ARTBD','Building Design',SYSDATE,0
+'ARTHP','Historic Preservation',SYSDATE,0
+'ARTID','Interior Design',SYSDATE,0
+'ARTLA','Landscape Architecture',SYSDATE,0
+'ARTP','Planning',SYSDATE,0
+'ARTUD','Urban Development',SYSDATE,0
+'SOCES','Environmental Sociology',SYSDATE,0
+'SOCGS','Gender & Sexuality',SYSDATE,0
+'SOCPD','Population & Demography',SYSDATE,0
+'SOCST','Social Theory',SYSDATE,0
+'SOCSE','Sociology of Economics',SYSDATE,0
+'SOCSG','Sociology of Globalization',SYSDATE,0
+'SOCSHI','Sociology of Health & Illness',SYSDATE,0
+'SOCSF','Sociology of the Family',SYSDATE,0
+'RELBS','Biblical Studies',SYSDATE,0
+'RELB','Buddhism',SYSDATE,0
+'RELCLML','Church Life, Ministry & Leadership',SYSDATE,0
+'RELCWR','Comparative & World Religions',SYSDATE,0
+'RELCRT','Contemporary Religious Thought',SYSDATE,0
+'RELCT','Contemporary Theology',SYSDATE,0
+'RELMTCE','Moral Theology / Christian Ethics',SYSDATE,0
+'RELRE','Religious Ethics',SYSDATE,0
+'LIFAP','Anatomy and Physiology',SYSDATE,0
+'LIFCB','Comparative Biology',SYSDATE,0
+'LIFEB','Evolutionary Biology',SYSDATE,0
+'LIFM','Microbiology',SYSDATE,0
+'LIFZ','Zoology',SYSDATE,0
+'ALLHSC','Health & Social Care',SYSDATE,0
+'ALLHCA','Health Care Administration',SYSDATE,0
+'ALLND','Nutrition and Dietetics',SYSDATE,0
+'ALLST','Speech Therapy',SYSDATE,0
+'NURGCN','General Clinical Nursing',SYSDATE,0
+'NURIN','Introduction to Nursing',SYSDATE,0
+'NURM','Midwifery',SYSDATE,0
+'NURNN','Neonatal Nursing',SYSDATE,0
+'ARTAT','Architectural Theory',SYSDATE,0
+'MATCS','Computational Statistics',SYSDATE,0
+'MATM','Mathematics',SYSDATE,0
+'MATPMS','Probability and Mathematical Statistics',SYSDATE,0
+'MATS','Statistics',SYSDATE,0
+'ECNBCE','Business and Corporate Economics',SYSDATE,0
+'ECNE','Econometrics',SYSDATE,0
+'ECNEH','Economic History',SYSDATE,0
+'ECNET','Economic Theory',SYSDATE,0
+'ECNFE','Financial Economics',SYSDATE,0
+'ECNLDE','Labor and Demographics Economics',SYSDATE,0
+'ECNURRE','Urban, Rural, and Regional Economics',SYSDATE,0
+'ARTATH','Art Theory',SYSDATE,0
+'FINMB','Money & Banking',SYSDATE,0
+'FINRQF','Risk & Quantitative Finance',SYSDATE,0
+'FINSAF','Securities Analysis (including FINRA)',SYSDATE,0
+'FINWM','Wealth Management',SYSDATE,0
+'CHECA','Catalysis',SYSDATE,0
+'HUMP','Philosophy',SYSDATE,0
+'HUMRT','Religion and Theology',SYSDATE,0
+'MATC','Composites',SYSDATE,0
+'MATMS','Materials Science',SYSDATE,0
+'MATPST','Polymer Science and Technology',SYSDATE,0
+'FAMFS','Family Studies',SYSDATE,0
+'CHEINOC','Inorganic Chemistry',SYSDATE,0
+'CIVST','Structures',SYSDATE,0
+'POLCHR','Civil & Human Rights',SYSDATE,0
+'POLMPT','Modern Political Theory',SYSDATE,0
+'POLPPA','Public Policy & Administration',SYSDATE,0
+'SOCSP','Social Policy',SYSDATE,0
+'CIVTIC','Timber Construction',SYSDATE,0
+'DEVDE','Development & the Environment',SYSDATE,0
+'DEVGD','Globalization & Development',SYSDATE,0
+'CIVTUC','Tunnel Construction',SYSDATE,0
+'GEOARG','Agricultural & Rural Geography',SYSDATE,0
+'CONCMAT','Construction Materials',SYSDATE,0
+'GEOGG','Geography of Globalization',SYSDATE,0
+'GEOHG','Human Geography',SYSDATE,0
+'GEORG','Regional Geography',SYSDATE,0
+'URBUD','Urban Development',SYSDATE,0
+'URBUP','Urban Politics',SYSDATE,0
+'URBUS','Urban Sociology',SYSDATE,0
+'ENEEEI','Energy & Environmental Impact',SYSDATE,0
+'ENEGIE','General and Introductory Energy',SYSDATE,0
+'ENERE','Renewable Energy',SYSDATE,0
+'ECOAE','Applied Ecology',SYSDATE,0
+'ECOB','Biodiversity',SYSDATE,0
+'ECOE','Evolution',SYSDATE,0
+'ECOME','Molecular Ecology',SYSDATE,0
+'ANTBA','Biological Anthropology',SYSDATE,0
+'ANTLA','Linguistic Anthropology',SYSDATE,0
+'ANTMA','Medical Anthropology',SYSDATE,0
+'ANTSCA','Social & Cultural Anthropology',SYSDATE,0
+'ARCAEE','Archaeology of Egypt / Egyptology',SYSDATE,0
+'ARCSA','Social Archaeology',SYSDATE,0
+'LIFPS','Plant Science',SYSDATE,0
+'CIVBMS','Building Maintenance and Services',SYSDATE,0
+'CIVE','Earthquake',SYSDATE,0
+'CIVHWE','Hydraulic and Water Engineering',SYSDATE,0
+'CIVMC','Masonry Construction',SYSDATE,0
+'CIVQSCE','Quantity Surveying and Construction Economics',SYSDATE,0
+'CIVSCBE','Steel Construction & Bridge Engineering',SYSDATE,0
+'CIVSBE','Structural and Building Engineering',SYSDATE,0
+'FINISF','Islamic Finance',SYSDATE,0
+'GEOECG','Economic Geography',SYSDATE,0
+'CIVTE','Transportation Engineering',SYSDATE,0
+'GEOENG','Environmental Geography',SYSDATE,0
+'CIVWT','Waste Treatment',SYSDATE,0
+'CIVWR','Water Resources',SYSDATE,0
+'CONC','Construction',SYSDATE,0
+'CONCL','Construction Law',SYSDATE,0
+'GEOPHG','Physical Geography',SYSDATE,0
+'GEOPOG','Political Geography',SYSDATE,0
+'ARTAHC','Art History and Criticism',SYSDATE,0
+'ARTCF','Clothing and Fashion',SYSDATE,0
+'ARTDHT','Design History & Theory',SYSDATE,0
+'ARTMHS','Museum and Heritage Studies',SYSDATE,0
+'ARTM','Music',SYSDATE,0
+'ARTPA','Performing Arts',SYSDATE,0
+'CULAS','American Studies',SYSDATE,0
+'CULFS','Film Studies',SYSDATE,0
+'CULGS','Gender Studies',SYSDATE,0
+'HISMIH','Military History',SYSDATE,0
+'HUMLN','Linguistics',SYSDATE,0
+'HUMLT','Literature',SYSDATE,0
+'LAWCIVL','Civil Law',SYSDATE,0
+'LITAL','American Literature',SYSDATE,0
+'LAWCML','Commercial Law',SYSDATE,0
+'LITEL','European Literature',SYSDATE,0
+'LITLCT','Literary & Cultural Theory',SYSDATE,0
+'LITLCH','Literary Criticism & History',SYSDATE,0
+'LITOMMEL','Old, Middle & Medieval English Literature',SYSDATE,0
+'BUSBG','Boards and Governance',SYSDATE,0
+'BUSBE','Business Ethics',SYSDATE,0
+'BUSBSC','Business Self-Help and Careers',SYSDATE,0
+'BUSCR','Conflict Resolution',SYSDATE,0
+'BUSHRM','Human Resource Management',SYSDATE,0
+'BUSML','Management and Leadership',SYSDATE,0
+'BUSMSOR','Management Science and Operational Research',SYSDATE,0
+'BUSNPM','Nonprofit and Public Management',SYSDATE,0
+'BUSOBD','Organizational Behavior and Development',SYSDATE,0
+'LAWCPL','Company Law',SYSDATE,0
+'LAWCMPL','Competition Law',SYSDATE,0
+'LAWENL','Environmental Law',SYSDATE,0
+'LAWEUL','European Law',SYSDATE,0
+'LIFBA','Bacteriology',SYSDATE,0
+'LIFBT','Biotechnology',SYSDATE,0
+'LIFG','Genetics',SYSDATE,0
+'LIFGP','Genomics/Proteomics',SYSDATE,0
+'LINPN','Phonetics',SYSDATE,0
+'LITCEL16','16th Century English Literature',SYSDATE,0
+'LITCEL17','17th Century English Literature',SYSDATE,0
+'BUSSBE','Small Business and Entrepreneurship',SYSDATE,0
+'BUSS','Strategy',SYSDATE,0
+'BUSWC','Wiley CIO',SYSDATE,0
+'CAPCN','Capstone Newsletter',SYSDATE,0
+'LEAA','Assessments',SYSDATE,0
+'LEABAM','Books and Ancillary Materials',SYSDATE,0
+'LEAEW','Events and Workshops',SYSDATE,0
+'LEAN','Newsletter',SYSDATE,0
+'CHEAC','Analytical Chemistry',SYSDATE,0
+'CHEBB','Biochemistry (Chemical Biology)',SYSDATE,0
+'CHEE','Electrochemistry',SYSDATE,0
+'CHEEC','Environmental Chemistry',SYSDATE,0
+'CHEM','Microscopy',SYSDATE,0
+'CHEOC','Organic Chemistry',SYSDATE,0
+'CHEPMC','Pharmaceutical and Medicinal Chemistry',SYSDATE,0
+'CHEPC','Physical Chemistry',SYSDATE,0
+'CHESS','Separation Science',SYSDATE,0
+'CHES','Spectroscopy',SYSDATE,0
+'CHESGC','Sustainable and Green Chemistry',SYSDATE,0
+'CHET','Toxicology',SYSDATE,0
+'BIOBE','Biomedical Engineering',SYSDATE,0
+'INDIE','Industrial Engineering',SYSDATE,0
+'MECD','Design',SYSDATE,0
+'MECFM','Fluid Mechanics',SYSDATE,0
+'MECSM','Solid Mechanics',SYSDATE,0
+'MECT','Thermodynamics',SYSDATE,0
+'COMA','Apple',SYSDATE,0
+'COMC','Certification',SYSDATE,0
+'COMWGD','Web and Graphic Design',SYSDATE,0
+'INFCS','Computer Science',SYSDATE,0
+'INFD','Data',SYSDATE,0
+'INFNDA','Network Design and  Administration',SYSDATE,0
+'HIGDCI','Department Chair Insider',SYSDATE,0
+'HIGOTL','Online Teaching and Learning',SYSDATE,0
+'HIGSAD','Student Affairs and Development',SYSDATE,0
+'HIGTLC','Teaching, Learning, and Curriculum',SYSDATE,0
+'HIGTSLCC','The Student Leadership Challenge Community',SYSDATE,0
+'HIGWHEN','Women in Higher Education Newsletter',SYSDATE,0
+'PRILT','Language Teaching',SYSDATE,0
+'PRILAN','Leadership and Administration Newsletter',SYSDATE,0
+'PRILR','Literacy and Reading',SYSDATE,0
+'PRITLK','Teaching and Learning: K-12',SYSDATE,0
+'FOOFL','Food Legislation',SYSDATE,0
+'FOOFSOM','Food Service Operations and Management',SYSDATE,0
+'FOOMFSS','Microbiology, Food Safety and Security',SYSDATE,0
+'FOON','Nutrition',SYSDATE,0
+'LAWCP','Criminal Proceedings',SYSDATE,0
+'LAWC','Criminology',SYSDATE,0
+'LAWNCR','Negotiation & Conflict Resolution',SYSDATE,0
+'LAWPPS','Penology and Police Science',SYSDATE,0
+'DEND','Dentistry',SYSDATE,0
+'DENOMS','Oral and Maxillofacial Surgery',SYSDATE,0
+'MEDAPM','Anesthesia and Pain Management',SYSDATE,0
+'MEDCDC','Cardiovascular Disease and Cardiology',SYSDATE,0
+'MEDCMM','Cellular & Molecular Medicine',SYSDATE,0
+'MEDGIM','General Internal Medicine',SYSDATE,0
+'MEDGPFP','General Practice and Family Practice',SYSDATE,0
+'MEDGM','Geriatric Medicine',SYSDATE,0
+'MEDH','Hematology',SYSDATE,0
+'MEDIDM','Infectious Disease and Microbiology',SYSDATE,0
+'MEDPPM','Pharmacology and Pharmaceutical Medicine',SYSDATE,0
+'MEDRI','Radiology and Imaging',SYSDATE,0
+'MEDR','Rheumatology',SYSDATE,0
+'MEDSSS','Surgery and Surgical Specialties',SYSDATE,0
+'MEDTBB','Transfusion and Blood Banking',SYSDATE,0
+'MEDU','Urology',SYSDATE,0
+'PHYAA','Astronomy and Astrophysics',SYSDATE,0
+'PHYQPFT','Quantum Physics and Field Theory',SYSDATE,0
+'PHYSSP','Solid State Physics',SYSDATE,0
+'PHYTPSM','Thermal Physics and Statistical Mechanics',SYSDATE,0
+'PSYAR','Addictions and Recovery',SYSDATE,0
+'PSYCFCP','Couples and Family Clinical Psychology',SYSDATE,0
+'PSYESP','Educational and School Psychology',SYSDATE,0
+'PSYFP','Forensic Psychology',SYSDATE,0
+'PSYOIP','Organizational and Industrial Psychology',SYSDATE,0
+'PSYPID','Personality and Individual Differences',SYSDATE,0
+'VETVAP','Veterinary Anatomy and Physiology',SYSDATE,0
+'VETVI','Veterinary Imaging',SYSDATE,0
+'VETVME','Veterinary Medicine - Equine',SYSDATE,0
+'VETVPM','Veterinary Practice Management',SYSDATE,0
+'VETVSOT','Veterinary Surgery, Orthopedics and Trauma',SYSDATE,0
+'EARGG','Geology & Geophysics',SYSDATE,0
+'EARHS','Hydrological Sciences',SYSDATE,0
+'EARPPG','Paleontology, Paleobiology & Geobiology',SYSDATE,0
+'ENVEC','Environmental Change',SYSDATE,0
+'SPASPS','Space and Planetary Sciences',SYSDATE,0
+'ELCCT','Communication Technology',SYSDATE,0
+'ELCGIEEE','General and Introductory Electrical & Electronics Engineering',SYSDATE,0
+'LITCEL18','18th Century English Literature',SYSDATE,0
+'LITCEL19','19th Century English Literature',SYSDATE,0
+'LITCEL20','20th Century English Literature',SYSDATE,0
+'LITCOEL','Contemporary English Literature',SYSDATE,0
+'MATBS','Biostatitics',SYSDATE,0
+'MATBM','Biomaterials',SYSDATE,0
+'MEDDE','Dermatology',SYSDATE,0
+'MEDDI','Diabetes',SYSDATE,0
+'MEDEM','Emergency Medicine',SYSDATE,0
+'MEDEBM','Evidence-Based Medicine',SYSDATE,0
+'MEDNP','Nephrology',SYSDATE,0
+'MEDNU','Neurology',SYSDATE,0
+'MEDPA','Pathology',SYSDATE,0
+'MEDPE','Pediatrics',SYSDATE,0
+'MEDPS','Psychiatry',SYSDATE,0
+'PHIANAP','Analytic Philosophy',SYSDATE,0
+'PHIANCP','Ancient Philosophy',SYSDATE,0
+'PHIAPP','Applied Philosophy',SYSDATE,0
+'PHICP1718','17th & 18th Century Philosophy',SYSDATE,0
+'PHICP19','19th Century Philosophy',SYSDATE,0
+'PHICP20','20th Century Philosophy',SYSDATE,0
+'PHICOP','Continental Philosophy',SYSDATE,0
+'PHIEP','Epistemology',SYSDATE,0
+'PHIET','Ethics',SYSDATE,0
+'PHIPLO','Philosophical Logic',SYSDATE,0
+'PHIPLA','Philosophy of Language',SYSDATE,0
+'PHIPLI','Philosophy of Literature',SYSDATE,0
+'POLAMP','American Politics',SYSDATE,0
+'POLASP','Asian Politics',SYSDATE,0
+'PRISCE','Science Education',SYSDATE,0
+'PRISPE','Special Education',SYSDATE,0
+'PSYCLP','Clinical Psychology',SYSDATE,0
+'PSYCOGP','Cognitive Psychology',SYSDATE,0
+'PSYCOUP','Counselling and Psychoanalysis',SYSDATE,0
+'SOCSWE','Social Welfare',SYSDATE,0
+'SOCSWO','Social Work',SYSDATE,0
+'RELJ','Judaism',SYSDATE,0
+'RELRICA','Religion, Issues & Current Affairs',SYSDATE,0
+'LIFE','Entomology',SYSDATE,0
+'LIFHG','Human Genetics',SYSDATE,0
+'LIFV','Virology',SYSDATE,0
+'ALLCHG','Consumer Health General',SYSDATE,0
+'ALLOHS','Occupational Health and Safety',SYSDATE,0
+'NURMHN','Mental Health Nursing',SYSDATE,0
+'PUBPH','Public Health',SYSDATE,0
+'MATDM','Data Mining',SYSDATE,0
+'MATRME','Research Methods and Evaluation',SYSDATE,0
+'ECNED','Economic Development',SYSDATE,0
+'ECNEHSC','Economics of Health & Social Care',SYSDATE,0
+'FINIBV','Investment Banking / Valuation',SYSDATE,0
+'FINT','Trading',SYSDATE,0
+'HUMCS','Classical Studies',SYSDATE,0
+'CHECR','Crystallography',SYSDATE,0
+'CHEINDC','Industrial Chemistry',SYSDATE,0
+'MATNN','Nanotechnology and Nanomaterials',SYSDATE,0
+'POLBP','British Politics',SYSDATE,0
+'POLGP','Global Politics',SYSDATE,0
+'POLPS','Political Systems',SYSDATE,0
+'CIVSU','Surveying',SYSDATE,0
+'DEVDP','Development Policy',SYSDATE,0
+'CONCMAN','Construction Management',SYSDATE,0
+'DEVPOD','Politics of Development',SYSDATE,0
+'FININF','International Finance',SYSDATE,0
+'URBUG','Urban Geography',SYSDATE,0
+'URBGIUS','General and Introductory Urban Studies',SYSDATE,0
+'ECOCS','Conservation Science',SYSDATE,0
+'ANTATME','Anthropological Theory & Methods / Ethnography',SYSDATE,0
+'ARCHA','Historical Archaeology',SYSDATE,0
+'COMWN','Wrox Newlsetter',SYSDATE,0
+'INFIS','IT Security',SYSDATE,0
+'INFP','Programming',SYSDATE,0
+'HIGFD','Faculty Development',SYSDATE,0
+'HIGSL','Student Leadership',SYSDATE,0
+'PRIADE','Art and Design Education',SYSDATE,0
+'PRILD','Learning Disabilities',SYSDATE,0
+'FOOFC','Food Chemistry',SYSDATE,0
+'FOOFPPM','Food Processing, Production and Manufacture',SYSDATE,0
+'LAWIL','International Law',SYSDATE,0
+'LAWPL','Public Law',SYSDATE,0
+'MEDACI','Allergy & Clinical Immunology',SYSDATE,0
+'MEDGH','Gastroenterology and Hepatology',SYSDATE,0
+'MEDI','Immunology (Medical)',SYSDATE,0
+'MEDOR','Oncology and Radiotherapy',SYSDATE,0
+'MEDRM','Respiratory Medicine',SYSDATE,0
+'MEDT','Transplantation',SYSDATE,0
+'PHYAMOP','Atomic, Molecular and Optical Physics',SYSDATE,0
+'PSYAP','Abnormal Psychology',SYSDATE,0
+'PSYDP','Developmental Psychology',SYSDATE,0
+'PSYPBM','Practice Building and Management',SYSDATE,0
+'VETVMEP','Veterinary Medicine - Exotic Pets',SYSDATE,0
+'EARES','Earth Sciences',SYSDATE,0
+'EARO','Oceanography',SYSDATE,0
+'ENVES','Environmental Science',SYSDATE,0
+'PHIPA','Philosophy of Art',SYSDATE,0
+'COMMS','Media Studies',SYSDATE,0
+'CLARS','Roman Studies',SYSDATE,0
+'HISWH','World History',SYSDATE,0
+'ELCPL','Photonics and Lasers',SYSDATE,0
+'AQUF','Fisheries',SYSDATE,0
+'SOCPS','Political Sociology',SYSDATE,0
+'RELH','Hinduism',SYSDATE,0
+'LIFN','Neuroscience',SYSDATE,0
+'NURNP','Nurse Practitioners',SYSDATE,0
+'ARTATE','Architecture Technology',SYSDATE,0
+'POLEP','European Politics',SYSDATE,0
+'DEVPAD','Population & Development',SYSDATE,0
+'ARCAMT','Archaeological Methods & Theory',SYSDATE,0
+'CIVEE','Environmental Engineering',SYSDATE,0
+'GRAGD','Graphic Design',SYSDATE,0
+'HISMOH','Modern History (1780-1900)',SYSDATE,0
+'BUSMS','Marketing and Sales',SYSDATE,0
+'LINPS','Psycholinguistics',SYSDATE,0
+'CHECE','Chemical Engineering',SYSDATE,0
+'MECCPM','Control Processes and Measurements',SYSDATE,0
+'PRITLCN','Teach Like a Champion Newsletter',SYSDATE,0
+'MEDO','Otolaryngology',SYSDATE,0
+'PRJPM','Project Management',SYSDATE,0
+'EARAS','Atmospheric Science',SYSDATE,0
+'PHIIP','Introductions to Philosophy',SYSDATE,0
+'COMAC','Applied Communication',SYSDATE,0
+'LINEL','Educational Linguistics',SYSDATE,0
+'CLAGRR','Greek & Roman Religion',SYSDATE,0
+'HISLACH','Latin American & Caribbean History',SYSDATE,0
+'CONCHS','Construction Health and Safety',SYSDATE,0
+'ACCCE','CFA Exam',SYSDATE,0
+'ACCI','IFRS',SYSDATE,0
+'AGRAERM','Agricultural Economics and Resource Management',SYSDATE,0
+'SOCSC','Sociology of Culture',SYSDATE,0
+'RELC','Christianity',SYSDATE,0
+'RELI','Islam',SYSDATE,0
+'LIFCMB','Cell and Molecular Biology',SYSDATE,0
+'NURACEC','Acute, Critical and Emergency Care',SYSDATE,0
+'MATSM','Survey Methodology',SYSDATE,0
+'ECNPE','Political Economics',SYSDATE,0
+'HUMH','History',SYSDATE,0
+'MATEM','Electronic Materials',SYSDATE,0
+'POLIR','International Relations',SYSDATE,0
+'DEVRS','Regional Studies',SYSDATE,0
+'GEOSCG','Social & Cultural Geography',SYSDATE,0
+'ECOEOB','Ecology and Organismal Biology',SYSDATE,0
+'CIVFP','Fire Protection',SYSDATE,0
+'CIVSTSM','Structural Theory and Structural Mechanics',SYSDATE,0
+'HISMEH','Medieval History (500-1500)',SYSDATE,0
+'CULPC','Popular Culture',SYSDATE,0
+'LITCWL','Comparative & World Literature',SYSDATE,0
+'BUSDS','Decision Sciences',SYSDATE,0
+'BUSRE','Real Estate',SYSDATE,0
+'LIFBC','Biochemistry',SYSDATE,0
+'LINPH','Phonology',SYSDATE,0
+'BUSTHD','Training and HR Development',SYSDATE,0
+'CHECCMM','Computational Chemistry and Molecular Modeling',SYSDATE,0
+'MECAE','Aerospace Engineering',SYSDATE,0
+'COMG','Gadgets',SYSDATE,0
+'HIGAR','Assessment and Research',SYSDATE,0
+'PRIECE','Early Childhood Education',SYSDATE,0
+'DUMFDPO','For Dummies&reg Products & Offers',SYSDATE,0
+'MEDE','Endocrinology',SYSDATE,0
+'MEDOG','Obstetrics and Gynecology',SYSDATE,0
+'PHYGIP','General and Introductory Physics',SYSDATE,0
+'PSYSP','Social Psychology',SYSDATE,0
+'VETVTN','Veterinary Technician and Nursing',SYSDATE,0

@@ -126,6 +126,59 @@
   ALTER TABLE SCHEDULE_TEMPLATE ADD CONSTRAINT SCHEDULE_TEMPLATE_FK3 FOREIGN KEY (ONSCREEN_TMPL) REFERENCES TEMPLATE (ID);
 </sql>
 </changeSet>
+
+<changeSet author="gphaniraj" id="NTF-22">
+<sql>
+CREATE SEQUENCE NOTIFICATION_RECIPIENTS_SEQ START WITH 1 NOCACHE;
+</sql>
+</changeSet>
+
+
+<changeSet author="gphaniraj" id="NTF-23">
+<sql>
+ALTER TABLE NOTIFICATION ADD ATTACHMENT_PATH VARCHAR2(1000);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="NTF-24">
+<sql>
+DROP TABLE NOTIFICATION_RECIPIENTS;
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="NTF-25">
+<sql>
+CREATE  TABLE NOTIFICATION_RECIPIENTS
+(
+NOTIFICATION_ID NUMBER,
+RECIPIENTS_ID   NUMBER DEFAULT NOTIFICATION_RECIPIENTS_SEQ.NEXTVAL,
+USER_ID         VARCHAR2(255),
+EMAIL           VARCHAR2(255),
+TYPE            VARCHAR2(25) CHECK(TYPE IN ('TO','CC','BCC'))
+);
+</sql>
+</changeSet>
+
+
+<changeSet author="gphaniraj" id="NTF-26">
+<sql>
+ALTER TABLE NOTIFICATION_RECIPIENTS ADD CONSTRAINT NOTIFICATION_RECIPIENTS_PK  PRIMARY KEY(RECIPIENTS_ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="NTF-27">
+<sql>
+ALTER TABLE NOTIFICATION_RECIPIENTS ADD CONSTRAINT NOTIFICATION_RECIPIENTS_FK   FOREIGN KEY(NOTIFICATION_ID) REFERENCES NOTIFICATION(ID);
+</sql>
+</changeSet>
+
+<changeSet author="gphaniraj" id="NTF-28">
+<sql>
+DROP SEQUENCE NOTIFICATION_RECIPENTS_SEQ;
+</sql>
+</changeSet>
+
+
 </databaseChangeLog>
 
 

@@ -11,22 +11,18 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.services;
 
+import java.util.List;
+
 import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserRoles;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 
 /**
+ * The Interface UserLoginServiceDAO.
+ *
  * @author virtusa version 1.0
  */
 public interface UserLoginServiceDAO {
-
-    /**
-     * This method validates the the email Address .
-     *
-     * @param emailId
-     *            to validate the emailId.
-     * @return true, if successful.
-     */
-    boolean validateEmailAddress(String emailId);
 
     /**
      * This method gets the userId.
@@ -47,12 +43,14 @@ public interface UserLoginServiceDAO {
     InviteResetpwdLog getinviteResetpwdLog(String guid);
 
     /**
-     * This method verifying the updated emailId.
-     * 
-     * @param emailId
-     *            to verify the updated emailId.
-     * 
+     * Insert guid.
+     *
+     * @param inviteResetpwdLog
+     *            the invite resetpwd log
+     * @return the string
      */
-    void verifyEmailUpdate(String emailId);
+    String insertGuid(InviteResetpwdLog inviteResetpwdLog);
+
+    List<UserRoles> getSuperAdmins(int roleId);
 
 }

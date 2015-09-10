@@ -12,17 +12,27 @@
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpMethod;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.util.StringUtils;
 
-import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
+import com.wiley.gr.ace.authorservices.exception.UserException;
+import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.model.AdminUser;
-import com.wiley.gr.ace.authorservices.model.PasswordDetails;
-import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
-import com.wiley.gr.ace.authorservices.model.Service;
+import com.wiley.gr.ace.authorservices.model.AuditInformation;
 import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
-import com.wiley.gr.ace.authorservices.model.external.SecuirtyQuestionDetails;
+import com.wiley.gr.ace.authorservices.model.external.ErrorPayLoad;
+import com.wiley.gr.ace.authorservices.model.external.ForcefulReset;
+import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
+import com.wiley.gr.ace.authorservices.model.external.PasswordRequest;
+import com.wiley.gr.ace.authorservices.model.external.PasswordResetRequest;
+import com.wiley.gr.ace.authorservices.model.external.ResponseStatus;
+import com.wiley.gr.ace.authorservices.model.external.RetrieveSecurityQuestions;
+import com.wiley.gr.ace.authorservices.model.external.SecurityQuestionsUpdateRequest;
+import com.wiley.gr.ace.authorservices.model.external.SecurityQuestionsValidateRequest;
 import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
+import com.wiley.gr.ace.authorservices.model.external.UserEmailDetails;
+import com.wiley.gr.ace.authorservices.persistence.audit.AuditResultServiceImpl;
 
 /**
  * The Class UserManagementImpl.
@@ -31,61 +41,59 @@ import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
  */
 public class UserManagementImpl implements UserManagement {
 
-    /** The lock user. */
-    @Value("${lockUser.url}")
-    private String lockUser;
-
-    /** The status. */
-    @Value("${STATUS}")
-    private String STATUS;
-
     /** The shared service authenticate url. */
     @Value("${shared.service.authenticate.url}")
     private String sharedServiceAuthenticateUrl;
 
     /** The force ful reset. */
     @Value("${forceFulReset.url}")
-    private String forceFulReset;
+    private String forceFulReseturl;
 
     /** The update user id. */
     @Value("${updateUserId.url}")
-    private String updateUserId;
+    private String updateUserIdurl;
 
     /** The reset password. */
     @Value("${resetPassword.url}")
-    private String resetPassword;
-
-    /** The authenticate admin user. */
-    @Value("${authenticateAdminUser.url}")
-    private String authenticateAdminUser;
-
-    /** The un lock user. */
-    @Value("${unLockUser.url}")
-    private String unLockUser;
-
-    /** The security details. */
-    @Value("${securityDetails.url}")
-    private String securityDetails;
-
-    /** The security questions. */
-    @Value("${securityQuestions.url}")
-    private String securityQuestions;
+    private String resetPasswordurl;
 
     /** The update password. */
     @Value("${updatePassword.url}")
-    private String updatePassword;
+    private String updatePasswordurl;
 
     /** The update security details. */
     @Value("${updateSecurityDetails.url}")
-    private String updateSecurityDetails;
+    private String updateSecurityDetailsurl;
 
     /** The find user. */
     @Value("${findUser.url}")
     private String findUser;
 
-    /** The security question details. */
-    @Value("${securityQuestionDetails.url}")
-    private String securityQuestionDetails;
+    /** The Retrieve security questions. */
+    @Value("${RetrieveSecurityQuestions.url}")
+    private String retrieveSecurityQuestionsurl;
+
+    /** The Retrieve security questions. */
+    @Value("${lookupSecurityQuestions.url}")
+    private String lookupSecurityQuestionsurl;
+
+    /** The Retrieve security questions. */
+    @Value("${validateSecurityQuestions.url}")
+    private String validateSecurityQuestionsurl;
+
+    /**
+     * This field holds the value of success.
+     */
+    @Value("${STATUS}")
+    private String success;
+
+    /** The failure. */
+    @Value("${FAILURE}")
+    private String failure;
+
+    /** The lookupCustomerProfileResponse. */
+    @Value("${lookupCustomerProfileResponse.url}")
+    private String lookupCustomerProfileResponse;
 
     /**
      * This method is for authentacing by calling shared services.
@@ -95,231 +103,115 @@ public class UserManagementImpl implements UserManagement {
      * @return the security response
      */
     @Override
-    public SecurityResponse authenticateUser(
+    public final SecurityResponse authenticateUser(
             final SharedServieRequest sharedServieRequest) {
-
-        return (SecurityResponse) StubInvokerUtil.restServiceInvoker(
+        return (SecurityResponse) RestServiceInvokerUtil.restServiceInvoker(
                 sharedServiceAuthenticateUrl, sharedServieRequest,
                 SecurityResponse.class);
     }
 
     /**
-     * This method is for authentacing admin user by calling shared services
-     * using emailId.
-     *
-     * @param emailId
-     *            the email id
-     * @return true, if successful
-     */
-    @Override
-    public boolean authenticateAdminUser(final String emailId) {
-
-        Service service = (Service) StubInvokerUtil.invokeStub(
-                authenticateAdminUser, HttpMethod.POST, Service.class);
-        String status = service.getStatus();
-        if (status != null && status.equalsIgnoreCase(STATUS)) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * This method is for authentaciting user based on emailId and password.
-     *
-     * @param emailId
-     *            the email id
-     * @param password
-     *            the password
-     * @return true, if successful
-     */
-    @Override
-    public boolean authenticateUserALM(final String emailId,
-            final String password) {
-
-        return "Password".equalsIgnoreCase(password);
-    }
-
-    /**
      * This method is for resetting the password.
      *
-     * @param securityDetailsHolder
-     *            the security details holder
+     * @param passwordResetRequest
+     *            the password reset request
      * @return true, if successful
      */
     @Override
-    public boolean resetPassword(
-            final SecurityDetailsHolder securityDetailsHolder) {
-        Service service = (Service) StubInvokerUtil.invokeStub(resetPassword,
-                HttpMethod.POST, Service.class);
-        String status = service.getStatus();
-        if (status != null && status.equalsIgnoreCase(STATUS)) {
-            return true;
+    public final boolean resetPassword(
+            final PasswordResetRequest passwordResetRequest) {
+
+        final boolean status = this.externalPostServiceInvoker(
+                resetPasswordurl, passwordResetRequest);
+        if (status) {
+            final Integer userId = 8011047;
+            AuditInformation auditInformation = new AuditInformation();
+            auditInformation.setActionID("PWDRES");
+            auditInformation.setTableName("TABLE");
+            auditInformation.setColumnName("COLUMN");
+            auditInformation.setNewValue(passwordResetRequest
+                    .getUpdateUserSecurityAttributes().getNewPassword());
+            auditInformation.setOldValue("45624");
+            auditInformation.setUserId(userId);
+            AuditResultServiceImpl.auditUserActions(auditInformation);
         }
-        return false;
+        return status;
     }
 
+
+
+    
     /**
      * This method is for updateUserId.
      *
-     * @param oldEmailId
-     *            the old email id
-     * @param newEmailId
-     *            the new email id
+     * @param userEmailDetails
+     *            the user email details
      * @return true, if successful
      */
     @Override
-    public boolean updateUserId(final String oldEmailId, final String newEmailId) {
+    public final boolean updateUserId(final UserEmailDetails userEmailDetails) {
 
-        Service service = (Service) StubInvokerUtil.invokeStub(updateUserId,
-                HttpMethod.POST, Service.class);
-        String status = service.getStatus();
-        if (status != null && status.equalsIgnoreCase(STATUS)) {
-            return true;
-        }
-        return false;
+        return this.externalPostServiceInvoker(updateUserIdurl,
+                userEmailDetails);
     }
 
+    /**
     /**
      * This method is for forceFulReset based on emailId.
      *
-     * @param emailId
-     *            the email id
-     * @param newPassword
-     *            the new password
+     * @param forcefulReset
+     *            the forceful reset
      * @return true, if successful
      */
     @Override
-    public boolean forceFulReset(final String emailId, final String newPassword) {
-        Service service = (Service) StubInvokerUtil.invokeStub(forceFulReset,
-                HttpMethod.POST, Service.class);
-        String status = service.getStatus();
-        if (status != null && status.equalsIgnoreCase(STATUS)) {
-            return true;
+    public final boolean forceFulReset(final ForcefulReset forcefulReset) {
+
+        boolean status = this.externalPostServiceInvoker(forceFulReseturl,
+                forcefulReset);
+        if (status) {
+            final Integer userId = 8011047;
+            AuditInformation auditInformation = new AuditInformation();
+            auditInformation.setActionID("PWDRES");
+            auditInformation.setTableName("TABLE");
+            auditInformation.setColumnName("COLUMN");
+            auditInformation.setNewValue(forcefulReset.getNewPassword());
+            auditInformation.setOldValue("45624");
+            auditInformation.setUserId(userId);
+            AuditResultServiceImpl.auditUserActions(auditInformation);
         }
-        return false;
-    }
-
-    /**
-     * This method is for lockuser based on emailId.
-     *
-     * @param emailId
-     *            the email id
-     * @return true, if successful
-     */
-    @Override
-    public boolean lockUser(final String emailId) {
-
-        Service service = (Service) StubInvokerUtil.invokeStub(lockUser,
-                HttpMethod.POST, Service.class);
-        String status = service.getStatus();
-        if (status != null && status.equalsIgnoreCase(STATUS)) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * This method is for unlocking user based on emailId.
-     *
-     * @param emailId
-     *            the email id
-     * @return true, if successful
-     */
-    @Override
-    public boolean unLockUser(final String emailId) {
-
-        Service service = (Service) StubInvokerUtil.invokeStub(unLockUser,
-                HttpMethod.POST, Service.class);
-        String status = service.getStatus();
-        if (status != null && status.equalsIgnoreCase(STATUS)) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * This method is for getting security details based on emailId.
-     *
-     * @param emailId
-     *            the email id
-     * @return the security details
-     */
-    @Override
-    public SecurityDetailsHolder getSecurityDetails(final String emailId) {
-
-        return (SecurityDetailsHolder) StubInvokerUtil.invokeStub(
-                securityDetails, HttpMethod.GET, SecurityDetailsHolder.class);
-    }
-
-    /**
-     * This method is for getting SecurityQuestions based on emailId.
-     *
-     * @param emailId
-     *            the email id
-     * @return the security questions
-     */
-    @Override
-    public SecurityDetailsHolder getSecurityQuestions(final String emailId) {
-
-        return (SecurityDetailsHolder) StubInvokerUtil.invokeStub(
-                securityQuestions, HttpMethod.GET, SecurityDetailsHolder.class);
+        return status;
     }
 
     /**
      * This method is for updatePassword based on emailId.
      *
-     * @param passwordDetails
-     *            the password details
+     * @param passwordRequest
+     *            the password request
      * @return true, if successful
      */
     @Override
-    public boolean updatePassword(final PasswordDetails passwordDetails) {
+    public final boolean updatePassword(final PasswordRequest passwordRequest) {
 
-        Service service = (Service) StubInvokerUtil.invokeStub(updatePassword,
-                HttpMethod.POST, Service.class);
-        String status = service.getStatus();
-        if (status != null && status.equalsIgnoreCase(STATUS)) {
-            return true;
-        }
-        return false;
+        return this.externalPostServiceInvoker(updatePasswordurl,
+                passwordRequest);
     }
 
     /**
      * This method is for updateSecurityDetails based on emailId.
      *
-     * @param securityDetails
-     *            the security details
+     * @param securityQuestionsUpdateRequest
+     *            the security questions update request
      * @return true, if successful
      */
     @Override
-    public boolean updateSecurityDetails(
-            final SecurityDetailsHolder securityDetails) {
+    public final boolean updateSecurityDetails(
+            final SecurityQuestionsUpdateRequest securityQuestionsUpdateRequest) {
 
-        Service service = (Service) StubInvokerUtil.invokeStub(
-                updateSecurityDetails, HttpMethod.POST, Service.class);
-        String status = service.getStatus();
-        if (status != null && status.equalsIgnoreCase(STATUS)) {
-            return true;
-        }
-        return false;
+        return this.externalPostServiceInvoker(updateSecurityDetailsurl,
+                securityQuestionsUpdateRequest);
     }
 
-    /**
-     * This method is for getSecurityQuestionDetails based on emailId.
-     *
-     * @param emailId
-     *            the email id
-     * @return the security question details
-     */
-    @Override
-    public SecuirtyQuestionDetails getSecurityQuestionDetails(
-            final String emailId) {
-
-        return (SecuirtyQuestionDetails) StubInvokerUtil.invokeStub(
-                securityQuestionDetails, HttpMethod.GET,
-                SecuirtyQuestionDetails.class);
-    }
-
+    
     /**
      * This method is for finding admin user based on emailId.
      *
@@ -328,16 +220,112 @@ public class UserManagementImpl implements UserManagement {
      * @return the admin user
      */
     @Override
-    public AdminUser findUser(final String emailId) {
+    public final AdminUser findUser(final String emailId) {
 
-        /*
-         * return (AdminUser) StubInvokerUtil.invokeStub(findUser,
-         * HttpMethod.GET, AdminUser.class);
-         */
-        SharedServieRequest sharedServieRequest = new SharedServieRequest();
+        final SharedServieRequest sharedServieRequest = new SharedServieRequest();
         sharedServieRequest.setUserId(emailId);
-        return (AdminUser) StubInvokerUtil.restServiceInvoker(findUser,
+        return (AdminUser) RestServiceInvokerUtil.restServiceInvoker(findUser,
                 sharedServieRequest, AdminUser.class);
 
+    }
+
+    /**
+     * Gets the security questions list.
+     *
+     * @param emailId
+     *            the email id
+     * @return the security questions list
+     */
+    @Override
+    public final RetrieveSecurityQuestions userSecurityQuestions(
+            final String emailId) {
+        RetrieveSecurityQuestions retrieveSecurityQuestions = (RetrieveSecurityQuestions) RestServiceInvokerUtil
+                .getServiceData(retrieveSecurityQuestionsurl + emailId,
+                        RetrieveSecurityQuestions.class);
+        if (success.equalsIgnoreCase(retrieveSecurityQuestions.getStatus())) {
+            return retrieveSecurityQuestions;
+        }
+        final ErrorPayLoad errorPayLoad = retrieveSecurityQuestions.getError();
+        throw new UserException(errorPayLoad.getErrorCode(),
+                errorPayLoad.getErrorMessage());
+    }
+
+    /**
+     * For retriving security questions.
+     * 
+     * @return retrived security questions.
+     */
+    @Override
+    public final RetrieveSecurityQuestions lookupSecutityQuestions() {
+
+        RetrieveSecurityQuestions retrieveSecurityQuestions = (RetrieveSecurityQuestions) RestServiceInvokerUtil
+                .getServiceData(lookupSecurityQuestionsurl,
+                        RetrieveSecurityQuestions.class);
+        if (success.equalsIgnoreCase(retrieveSecurityQuestions.getStatus())) {
+            return retrieveSecurityQuestions;
+        }
+        final ErrorPayLoad errorPayLoad = retrieveSecurityQuestions.getError();
+        throw new UserException(errorPayLoad.getErrorCode(),
+                errorPayLoad.getErrorMessage());
+    }
+
+    /**
+     * For validating security questions.
+     *
+     * @param securityQuestionsValidateRequest
+     *            the security questions validate request
+     * @return true, if successful
+     */
+    @Override
+    public final boolean validateSecurityQuestions(
+            final SecurityQuestionsValidateRequest securityQuestionsValidateRequest) {
+
+        return this.externalPostServiceInvoker(validateSecurityQuestionsurl,
+                securityQuestionsValidateRequest);
+    }
+
+    /**
+     * For External service invoker.
+     *
+     * @param url
+     *            the url
+     * @param requestEntityClass
+     *            the request entity class
+     * @return true, if successful
+     */
+
+    private boolean externalPostServiceInvoker(final String url,
+            final Object requestEntityClass) {
+
+        final ResponseStatus responseStatus = (ResponseStatus) RestServiceInvokerUtil
+                .restServiceInvoker(url, requestEntityClass,
+                        ResponseStatus.class);
+        boolean status = false;
+        if (StringUtils.isEmpty(responseStatus)) {
+            return status;
+        }
+        if (success.equalsIgnoreCase(responseStatus.getStatus())) {
+            status = true;
+        } else if (failure.equalsIgnoreCase(responseStatus.getStatus())) {
+            final ErrorPayLoad errorPayLoad = responseStatus.getError();
+            throw new UserException(errorPayLoad.getErrorCode(),
+                    errorPayLoad.getErrorMessage());
+        }
+        return status;
+    }
+
+    @Override
+    @CachePut(value = "userProfile", key = "#userId")
+    public final LookupCustomerProfile updateProfile(final String userId) {
+
+        LookupCustomerProfile lookupCustomerProfile = (LookupCustomerProfile) RestServiceInvokerUtil
+                .getServiceData(lookupCustomerProfileResponse + userId
+                        + "&ECID=", LookupCustomerProfile.class);
+        if (failure.equalsIgnoreCase(lookupCustomerProfile.getStatus())) {
+            final ErrorPayLoad errorPayLoad = lookupCustomerProfile.getError();
+            throw new UserException(errorPayLoad.getErrorCode(),
+                    errorPayLoad.getErrorMessage());
+        }
+        return lookupCustomerProfile;
     }
 }

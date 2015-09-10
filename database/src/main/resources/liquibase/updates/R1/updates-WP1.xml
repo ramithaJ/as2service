@@ -27,7 +27,7 @@
     <changeSet author="gphaniraj" id="WP1-9">
         <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="EMAIL_TYPE_SEQ" startValue="1"/>
     </changeSet>
-  <!--  <changeSet author="gphaniraj" id="WP1-10">
+    <changeSet author="gphaniraj" id="WP1-10">
         <createSequence cacheSize="20" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="ISEQ$$_91998" startValue="1"/>
     </changeSet>
     <changeSet author="gphaniraj" id="WP1-11">
@@ -39,7 +39,6 @@
     <changeSet author="gphaniraj" id="WP1-13">
         <createSequence cacheSize="20" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="ISEQ$$_92006" startValue="1"/>
     </changeSet>
-	-->
     <changeSet author="gphaniraj" id="WP1-14">
         <createSequence cacheSize="0" cycle="false" incrementBy="1" maxValue="9999999999999999999999999999" minValue="1" ordered="false" sequenceName="JOURNAL_SEQ" startValue="1"/>
     </changeSet>
@@ -2154,48 +2153,6 @@ ALTER TABLE JOURNALS MODIFY CREATED_DATE TIMESTAMP(6);
 <changeSet author="gphaniraj" id="WP1-368">
 <sql>
 ALTER TABLE JOURNALS MODIFY UPDATED_DATE TIMESTAMP(6);
-</sql>
-</changeSet>
-
-<changeSet author="gphaniraj" id="WP1-369">
-<sql>
-ALTER TABLE USER_WOA_ACCOUNTS RENAME COLUMN WOA_INSTITUTION_ID TO WO_INSTITUTION_CD;
-</sql>
-</changeSet>
-
-<changeSet author="gphaniraj" id="WP1-370">
-<sql>
-ALTER TABLE USER_WOA_ACCOUNTS MODIFY WOA_INSTITUTION_CD VARCHAR2(15);
-</sql>
-</changeSet>
-
-<changeSet author="gphaniraj" id="WP1-371">
-<sql>
-DROP TABLE NOTIFICATION CASCADE CONSTRAINTS;
-</sql>
-</changeSet>
-
-<changeSet author="gphaniraj" id="WP1-372">
-<sql>
-DROP TABLE NOTIFICATION_RECIPIENTS CASCADE CONSTRAINTS;
-</sql>
-</changeSet>
-
-<changeSet author="gphaniraj" id="WP1-373">
-<sql>
-DROP TABLE SCHEDULE CASCADE CONSTRAINTS;
-</sql>
-</changeSet>
-
-<changeSet author="gphaniraj" id="WP1-374">
-<sql>
-DROP TABLE SCHEDULE_TEMPLATE CASCADE CONSTRAINTS;
-</sql>
-</changeSet>
-
-<changeSet author="gphaniraj" id="WP1-375">
-<sql>
-DROP TABLE TEMPLATE CASCADE CONSTRAINTS;
 </sql>
 </changeSet>
 

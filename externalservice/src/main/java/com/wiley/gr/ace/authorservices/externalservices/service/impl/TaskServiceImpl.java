@@ -82,6 +82,11 @@ public class TaskServiceImpl implements TaskService {
     /** The source app value. */
     @Value("${bpmservice.sourceAppValue}")
     private String sourceAppValue;
+    
+
+	/** the INTERNAL_SERVER_ERROR_CODE. */
+	@Value("${internal.server.error.code}")
+	private String internalServerErrorCode;
 
     @Value("${bpmServiceLicense.url}")
     private String bpmServiceLicenseStatus;
@@ -121,7 +126,7 @@ public class TaskServiceImpl implements TaskService {
             encodedParamString = URLEncoder.encode(requestString, "UTF-8");
 
         } catch (UnsupportedEncodingException e) {
-            throw new ASException("3000", e.getMessage());
+            throw new ASException(internalServerErrorCode, e.getMessage());
         }
 
         StringBuilder decodedParamString = new StringBuilder();
@@ -162,18 +167,14 @@ public class TaskServiceImpl implements TaskService {
                 saltString));
 
         client = HttpClients.custom().setDefaultHeaders(headers).build();
-        try {
-            request = RequestBuilder.post(url).build();
-        } catch (Exception e1) {
-            e1.printStackTrace();
-        }
+        request = RequestBuilder.post(url).build();
 
         try {
             response = client.execute(request);
         } catch (ClientProtocolException e) {
-            throw new ASException("2000", e.getMessage());
+            throw new ASException(internalServerErrorCode, e.getMessage());
         } catch (IOException e) {
-            throw new ASException("2001", e.getMessage());
+            throw new ASException(internalServerErrorCode, e.getMessage());
         }
         statusCode = response.getStatusLine().getStatusCode();
 

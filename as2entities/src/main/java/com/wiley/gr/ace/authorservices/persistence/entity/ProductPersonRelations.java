@@ -3,12 +3,16 @@ package com.wiley.gr.ace.authorservices.persistence.entity;
 // Generated Jul 8, 2015 3:59:02 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -18,124 +22,126 @@ import javax.persistence.Table;
 @Table(name = "PRODUCT_PERSON_RELATIONS")
 public class ProductPersonRelations implements java.io.Serializable {
 
-	private Integer prodRelationId;
-	private Users usersByCreatedBy;
-	private Users usersByUpdatedBy;
-	private Products products;
-	private UserProfile userProfile;
-	private ProductRoles productRoles;
-	private String emailAddr;
-	private Date dateActivated;
-	private Date updatedDate;
+    private Integer prodRelationId;
+    private Users usersByCreatedBy;
+    private Users usersByUpdatedBy;
+    private Products products;
+    private UserProfile userProfile;
+    private ProductRoles productRoles;
+    private String emailAddr;
+    private Date dateActivated;
+    private Date updatedDate;
 
-	public ProductPersonRelations() {
-	}
+    public ProductPersonRelations() {
+    }
 
-	public ProductPersonRelations(Integer prodRelationId, Products products) {
-		this.prodRelationId = prodRelationId;
-		this.products = products;
-	}
+    public ProductPersonRelations(final Integer prodRelationId, final Products products) {
+        this.prodRelationId = prodRelationId;
+        this.products = products;
+    }
 
-	public ProductPersonRelations(Integer prodRelationId,
-			Users usersByCreatedBy, Users usersByUpdatedBy, Products products,
-			UserProfile userProfile, ProductRoles productRoles,
-			String emailAddr, Date dateActivated, Date updatedDate) {
-		this.prodRelationId = prodRelationId;
-		this.usersByCreatedBy = usersByCreatedBy;
-		this.usersByUpdatedBy = usersByUpdatedBy;
-		this.products = products;
-		this.userProfile = userProfile;
-		this.productRoles = productRoles;
-		this.emailAddr = emailAddr;
-		this.dateActivated = dateActivated;
-		this.updatedDate = updatedDate;
-	}
+    public ProductPersonRelations(final Integer prodRelationId,
+            final Users usersByCreatedBy, final Users usersByUpdatedBy, final Products products,
+            final UserProfile userProfile, final ProductRoles productRoles,
+            final String emailAddr, final Date dateActivated, final Date updatedDate) {
+        this.prodRelationId = prodRelationId;
+        this.usersByCreatedBy = usersByCreatedBy;
+        this.usersByUpdatedBy = usersByUpdatedBy;
+        this.products = products;
+        this.userProfile = userProfile;
+        this.productRoles = productRoles;
+        this.emailAddr = emailAddr;
+        this.dateActivated = dateActivated;
+        this.updatedDate = updatedDate;
+    }
 
-	@Id
-	@Column(name = "PROD_RELATION_ID", unique = true, nullable = false, precision = 22, scale = 0)
-	public Integer getProdRelationId() {
-		return this.prodRelationId;
-	}
+    @Id
+    @Column(name = "PROD_RELATION_ID", unique = true, nullable = false, precision = 22, scale = 0)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PROD_PERSON_RELATIONS_SEQ")
+    @SequenceGenerator(name = "PROD_PERSON_RELATIONS_SEQ", sequenceName = "PROD_PERSON_RELATIONS_SEQ", allocationSize = 1)
+    public Integer getProdRelationId() {
+        return this.prodRelationId;
+    }
 
-	public void setProdRelationId(Integer prodRelationId) {
-		this.prodRelationId = prodRelationId;
-	}
+    public void setProdRelationId(final Integer prodRelationId) {
+        this.prodRelationId = prodRelationId;
+    }
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CREATED_BY")
-	public Users getUsersByCreatedBy() {
-		return this.usersByCreatedBy;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CREATED_BY")
+    public Users getUsersByCreatedBy() {
+        return this.usersByCreatedBy;
+    }
 
-	public void setUsersByCreatedBy(Users usersByCreatedBy) {
-		this.usersByCreatedBy = usersByCreatedBy;
-	}
+    public void setUsersByCreatedBy(final Users usersByCreatedBy) {
+        this.usersByCreatedBy = usersByCreatedBy;
+    }
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "UPDATED_BY")
-	public Users getUsersByUpdatedBy() {
-		return this.usersByUpdatedBy;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "UPDATED_BY")
+    public Users getUsersByUpdatedBy() {
+        return this.usersByUpdatedBy;
+    }
 
-	public void setUsersByUpdatedBy(Users usersByUpdatedBy) {
-		this.usersByUpdatedBy = usersByUpdatedBy;
-	}
+    public void setUsersByUpdatedBy(final Users usersByUpdatedBy) {
+        this.usersByUpdatedBy = usersByUpdatedBy;
+    }
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "DH_ID", nullable = false)
-	public Products getProducts() {
-		return this.products;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "DH_ID", nullable = false)
+    public Products getProducts() {
+        return this.products;
+    }
 
-	public void setProducts(Products products) {
-		this.products = products;
-	}
+    public void setProducts(final Products products) {
+        this.products = products;
+    }
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USER_ID")
-	public UserProfile getUserProfile() {
-		return this.userProfile;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "USER_ID")
+    public UserProfile getUserProfile() {
+        return this.userProfile;
+    }
 
-	public void setUserProfile(UserProfile userProfile) {
-		this.userProfile = userProfile;
-	}
+    public void setUserProfile(final UserProfile userProfile) {
+        this.userProfile = userProfile;
+    }
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "PRODUCT_ROLE_CD")
-	public ProductRoles getProductRoles() {
-		return this.productRoles;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PRODUCT_ROLE_CD")
+    public ProductRoles getProductRoles() {
+        return this.productRoles;
+    }
 
-	public void setProductRoles(ProductRoles productRoles) {
-		this.productRoles = productRoles;
-	}
+    public void setProductRoles(final ProductRoles productRoles) {
+        this.productRoles = productRoles;
+    }
 
-	@Column(name = "EMAIL_ADDR", length = 100)
-	public String getEmailAddr() {
-		return this.emailAddr;
-	}
+    @Column(name = "EMAIL_ADDR", length = 100)
+    public String getEmailAddr() {
+        return this.emailAddr;
+    }
 
-	public void setEmailAddr(String emailAddr) {
-		this.emailAddr = emailAddr;
-	}
+    public void setEmailAddr(final String emailAddr) {
+        this.emailAddr = emailAddr;
+    }
 
-	@Column(name = "DATE_ACTIVATED")
-	public Date getDateActivated() {
-		return this.dateActivated;
-	}
+    @Column(name = "DATE_ACTIVATED")
+    public Date getDateActivated() {
+        return this.dateActivated;
+    }
 
-	public void setDateActivated(Date dateActivated) {
-		this.dateActivated = dateActivated;
-	}
+    public void setDateActivated(final Date dateActivated) {
+        this.dateActivated = dateActivated;
+    }
 
-	@Column(name = "UPDATED_DATE")
-	public Date getUpdatedDate() {
-		return this.updatedDate;
-	}
+    @Column(name = "UPDATED_DATE")
+    public Date getUpdatedDate() {
+        return this.updatedDate;
+    }
 
-	public void setUpdatedDate(Date updatedDate) {
-		this.updatedDate = updatedDate;
-	}
+    public void setUpdatedDate(final Date updatedDate) {
+        this.updatedDate = updatedDate;
+    }
 
 }

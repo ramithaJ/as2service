@@ -27,12 +27,18 @@ public interface NotificationService {
     /**
      * Send notification.
      *
+     * @param appId
+     *            the app id
+     * @param type
+     *            the type
+     * @param templateId
+     *            the template id
      * @param notificationRequest
      *            the notification request
-     * @return the notification response
+     * @return it will return notification request.
      */
-    NotificationResponse sendNotification(
-            NotificationRequest notificationRequest);
+    NotificationResponse sendNotification(String appId, String type,
+            String templateId, NotificationRequest notificationRequest);
 
     /**
      * Gets the notification history.

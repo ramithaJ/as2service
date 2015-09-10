@@ -1,5 +1,10 @@
 package com.wiley.gr.ace.authorservices.model.event;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /*******************************************************************************
  * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
  *
@@ -17,21 +22,29 @@ package com.wiley.gr.ace.authorservices.model.event;
  * 
  * @author virtusa version 1.0
  */
+
+@XmlRootElement(name = "eventData", namespace = "http://www.wiley.com/bpm/event")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class InvitationCeaseEventData {
 
     /** The article id. */
+	@XmlElement(name="articleId")
     private String articleID;
 
     /** The email. */
+	@XmlElement(name="email")
     private String email;
 
     /** The user role. */
+	@XmlElement(name="userRole")
     private String userRole;
 
     /** The user id. */
+	@XmlElement(name="userID")
     private String userID;
 
     /** The persistent invitation ind. */
+	@XmlElement(name="persistentInvitationInd")
     private boolean persistentInvitationInd;
 
     /**

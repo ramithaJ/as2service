@@ -1,15 +1,21 @@
 /*******************************************************************************
  * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
  *
- * All material contained herein is proprietary to John Wiley & Sons 
- * and its third party suppliers, if any. The methods, techniques and 
- * technical concepts contained herein are considered trade secrets 
- * and confidential and may be protected by intellectual property laws.  
- * Reproduction or distribution of this material, in whole or in part, 
- * is strictly forbidden except by express prior written permission 
+ * All material contained herein is proprietary to John Wiley & Sons
+ * and its third party suppliers, if any. The methods, techniques and
+ * technical concepts contained herein are considered trade secrets
+ * and confidential and may be protected by intellectual property laws.
+ * Reproduction or distribution of this material, in whole or in part,
+ * is strictly forbidden except by express prior written permission
  * of John Wiley & Sons.
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.model;
+
+import java.io.Serializable;
+
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -20,61 +26,134 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
-public class Address {
+public class Address implements Serializable {
 
+    /** The Constant serialVersionUID. */
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * This field holds the value of id
+     */
+    @NotBlank
+    @NotNull
+    private String addressId;
+
+    @NotBlank
+    @NotNull
     /** The address type. */
-    private String addressType;
+    private String addressType = "";
 
+    private String emailId;
+    
     /** The title. */
-    private String title;
+    private String title = "";
 
     /** The first name. */
-    private String firstName;
+    private String firstName = "";
 
     /** The last name. */
-    private String lastName;
+    private String lastName = "";
 
     /** The suffix. */
-    private String suffix;
+    private String suffix = "";
 
     /** The institution. */
-    private String institution;
+    private String institutionId = "";
+
+    /** The institution. */
+    private String institutionName = "";
 
     /** The department. */
-    private String department;
+    private String departmentId = "";
+
+    /** The department. */
+    private String departmentName = "";
 
     /** The address line1. */
-    private String addressLine1;
+    private String addressLine1 = "";
 
     /** The address line2. */
-    private String addressLine2;
+    private String addressLine2 = "";
 
     /** The city. */
-    private String city;
+    private String city = "";
 
     /** The state. */
     private String state;
 
+    /**
+     * This field holds the value of stateCode.
+     */
+    private String stateCode;
+
     /** The post code. */
-    private String postCode;
+    private String postCode = "";
 
     /** The country. */
     private Country country;
 
+    /**
+     * This field holds the value of countryCode.
+     */
+    private String countryCode;
+
     /** The phone number. */
-    private String phoneNumber;
+    private String phoneNumber = "";
 
     /** The fax number. */
-    private String faxNumber;
+    private String faxNumber = "";
 
     /** The address fag. */
-    private Character addressFag;
+    private Character addressFlag = 'N';
 
     /** The region. */
-    private String region;
+    private String region = "";
 
-    /** The email id. */
-    private String emailId;
+    
+    public final String getEmailId() {
+        return emailId;
+    }
+
+    public final void setEmailId(final String emailId) {
+        this.emailId = emailId;
+    }
+
+    /**
+     * @return the stateCode
+     */
+    public final String getStateCode() {
+        return stateCode;
+    }
+
+    /**
+     * @param stateCode
+     *            the stateCode to set
+     */
+    public final void setStateCode(final String stateCode) {
+        this.stateCode = stateCode;
+    }
+
+    /**
+     * @return the countryCode
+     */
+    public final String getCountryCode() {
+        return countryCode;
+    }
+
+    /**
+     * @param countryCode
+     *            the countryCode to set
+     */
+    public final void setCountryCode(final String countryCode) {
+        this.countryCode = countryCode;
+    }
+
+    /**
+     * @return the serialversionuid
+     */
+    public static final long getSerialversionuid() {
+        return serialVersionUID;
+    }
 
     /**
      * Gets the address type.
@@ -83,6 +162,21 @@ public class Address {
      */
     public final String getAddressType() {
         return addressType;
+    }
+
+    /**
+     * @return the addressId
+     */
+    public final String getAddressId() {
+        return addressId;
+    }
+
+    /**
+     * @param addressId
+     *            the addressId to set
+     */
+    public final void setAddressId(final String addressId) {
+        this.addressId = addressId;
     }
 
     /**
@@ -172,44 +266,6 @@ public class Address {
     }
 
     /**
-     * Gets the institution.
-     *
-     * @return the institution
-     */
-    public final String getInstitution() {
-        return institution;
-    }
-
-    /**
-     * Sets the institution.
-     *
-     * @param institution
-     *            the institution to set
-     */
-    public final void setInstitution(final String institution) {
-        this.institution = institution;
-    }
-
-    /**
-     * Gets the department.
-     *
-     * @return the department
-     */
-    public final String getDepartment() {
-        return department;
-    }
-
-    /**
-     * Sets the department.
-     *
-     * @param department
-     *            the department to set
-     */
-    public final void setDepartment(final String department) {
-        this.department = department;
-    }
-
-    /**
      * Gets the address line1.
      *
      * @return the addressLine1
@@ -267,8 +323,6 @@ public class Address {
     }
 
     /**
-     * Gets the state.
-     *
      * @return the state
      */
     public final String getState() {
@@ -276,8 +330,6 @@ public class Address {
     }
 
     /**
-     * Sets the state.
-     *
      * @param state
      *            the state to set
      */
@@ -311,6 +363,36 @@ public class Address {
      */
     public final Country getCountry() {
         return country;
+    }
+
+    /**
+     * @return the institutionName
+     */
+    public final String getInstitutionName() {
+        return institutionName;
+    }
+
+    /**
+     * @return the departmentName
+     */
+    public final String getDepartmentName() {
+        return departmentName;
+    }
+
+    /**
+     * @param institutionName
+     *            the institutionName to set
+     */
+    public final void setInstitutionName(final String institutionName) {
+        this.institutionName = institutionName;
+    }
+
+    /**
+     * @param departmentName
+     *            the departmentName to set
+     */
+    public final void setDepartmentName(final String departmentName) {
+        this.departmentName = departmentName;
     }
 
     /**
@@ -352,25 +434,6 @@ public class Address {
     }
 
     /**
-     * Gets the email id.
-     *
-     * @return the email id
-     */
-    public final String getEmailId() {
-        return emailId;
-    }
-
-    /**
-     * Sets the email id.
-     *
-     * @param emailId
-     *            the new email id
-     */
-    public final void setEmailId(final String emailId) {
-        this.emailId = emailId;
-    }
-
-    /**
      * Sets the fax number.
      *
      * @param faxNumber
@@ -381,22 +444,18 @@ public class Address {
     }
 
     /**
-     * Gets the address fag.
-     *
-     * @return the addressFag
+     * @return the addressFlag
      */
-    public final Character getAddressFag() {
-        return addressFag;
+    public final Character getAddressFlag() {
+        return addressFlag;
     }
 
     /**
-     * Sets the address fag.
-     *
-     * @param addressFag
-     *            the addressFag to set
+     * @param addressFlag
+     *            the addressFlag to set
      */
-    public final void setAddressFag(final Character addressFag) {
-        this.addressFag = addressFag;
+    public final void setAddressFlag(final Character addressFlag) {
+        this.addressFlag = addressFlag;
     }
 
     /**
@@ -416,6 +475,36 @@ public class Address {
      */
     public final void setRegion(final String region) {
         this.region = region;
+    }
+
+    /**
+     * @return the institutionId
+     */
+    public final String getInstitutionId() {
+        return institutionId;
+    }
+
+    /**
+     * @param institutionId
+     *            the institutionId to set
+     */
+    public final void setInstitutionId(final String institutionId) {
+        this.institutionId = institutionId;
+    }
+
+    /**
+     * @return the departmentId
+     */
+    public final String getDepartmentId() {
+        return departmentId;
+    }
+
+    /**
+     * @param departmentId
+     *            the departmentId to set
+     */
+    public final void setDepartmentId(final String departmentId) {
+        this.departmentId = departmentId;
     }
 
 }

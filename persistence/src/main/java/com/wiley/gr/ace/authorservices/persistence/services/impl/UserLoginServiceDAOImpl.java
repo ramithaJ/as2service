@@ -1,4 +1,4 @@
-/*
+/*******************************************************************************
  * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
  *
  * All material contained herein is proprietary to John Wiley & Sons 
@@ -8,23 +8,30 @@
  * Reproduction or distribution of this material, in whole or in part, 
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
- */
+ *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
 import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
 
+import java.util.List;
+
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.Session;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Value;
 
-import com.wiley.gr.ace.authorservices.exception.ASException;
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
-import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserRoles;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 
 /**
+ * The Class UserLoginServiceDAOImpl.
+ *
  * @author virtusa version 1.0
  */
 public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
@@ -40,34 +47,6 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
      */
     @Value("${invalidEmail.message}")
     private String invalidEmailMsg;
-
-    /**
-     * This method validates the the email Address .
-     *
-     * @param emailId
-     *            to validate the emailId.
-     * @return true, if successful.
-     */
-    @Override
-    public final boolean validateEmailAddress(final String emailId) {
-
-        Session session = null;
-        try {
-
-            Users user = getUserId(emailId);
-            session = getSessionFactory().openSession();
-            Users users = (Users) session.load(Users.class, user.getUserId());
-            if (null == users) {
-                return false;
-            }
-            return true;
-        } finally {
-            if (session != null) {
-                session.flush();
-                session.close();
-            }
-        }
-    }
 
     /**
      * This method gets the userId.
@@ -86,7 +65,7 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
             criteria.add(Restrictions.eq("primaryEmailAddr", emailId));
             Users user = (Users) criteria.uniqueResult();
             if (null == user) {
-                throw new ASException(invalidEmail, invalidEmailMsg);
+                throw new UserException(invalidEmail, invalidEmailMsg);
             }
             return user;
         } finally {
@@ -125,24 +104,29 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
     }
 
     /**
-     * This method verifying the updated emailId.
-     * 
-     * @param emailId
-     *            to verify the updated emailId.
-     * 
+     * This method will inserts a record in db.
+     *
+     * @param inviteResetpwdLog
+     *            the invite resetpwd log
+     * @return the string
      */
+    @SuppressWarnings("unchecked")
     @Override
-    public final void verifyEmailUpdate(final String emailId) {
+    public final String insertGuid(final InviteResetpwdLog inviteResetpwdLog) {
+
         Session session = null;
-        Users users = getUserId(emailId);
+        Integer maxValue = null;
         try {
             session = getSessionFactory().openSession();
             session.beginTransaction();
-            UserProfile authorProfile = new UserProfile();
-            authorProfile = (UserProfile) session.get(UserProfile.class,
-                    users.getUserId());
-            authorProfile.setIsAccountVerified('Y');
-            session.update(authorProfile);
+
+            Criteria criteria = session.createCriteria(InviteResetpwdLog.class);
+            criteria.setProjection(Projections
+                    .max(AuthorServicesConstants.GUID));
+            String maxGuid = (String) criteria.uniqueResult();
+            maxValue = (Integer.parseInt(maxGuid) + 1);
+            inviteResetpwdLog.setGuid(String.valueOf(maxValue));
+            session.save(inviteResetpwdLog);
             session.getTransaction().commit();
         } finally {
             if (null != session) {
@@ -150,5 +134,28 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
                 session.close();
             }
         }
+        return maxValue.toString();
+
     }
+
+    @Override
+    public List<UserRoles> getSuperAdmins(final int roleId) {
+
+        Session session = null;
+        try {
+            session = getSessionFactory().openSession();
+            Criteria criteria = session.createCriteria(UserRoles.class,
+                    "userRoles");
+            criteria.createAlias("userRoles.roles", "roles");
+            criteria.add(Restrictions.eq("roles.roleId", roleId));
+            criteria.setFetchMode("usersByUserId", FetchMode.JOIN);
+            return criteria.list();
+        } finally {
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
+        }
+    }
+
 }

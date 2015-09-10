@@ -410,6 +410,46 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
         return orderType;
     }
 
+    @Override
+    public SavedOrders verifySavedOrders(final String articleId,
+            final String userId) {
+
+        Session session = null;
+        try {
+            session = getSessionFactory().openSession();
+            Criteria criteria = session.createCriteria(SavedOrders.class,
+                    "savedOrders");
+            criteria.createAlias("savedOrders.usersByUserId", "usersByUserId");
+            criteria.createAlias("savedOrders.products", "products");
+            criteria.add(Restrictions.eq("usersByUserId.userId",
+                    Integer.parseInt(userId)));
+            criteria.add(Restrictions.eq("products.dhId",
+                    Integer.parseInt(articleId)));
+            return (SavedOrders) criteria.uniqueResult();
+        } finally {
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
+        }
+
+    }
+        try {
+            session = getSessionFactory().openSession();
+            order = (Orders) session.load(Orders.class, orderId);
+            orderType = order.getOrderTypes().getOrderTypeName();
+
+        } finally {
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
+
+        }
+
+        return orderType;
+    }
+
     /**
      * call db to insert coauthor details
      * 

@@ -1,17 +1,18 @@
 /*******************************************************************************
  * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
  *
- * All material contained herein is proprietary to John Wiley & Sons 
- * and its third party suppliers, if any. The methods, techniques and 
- * technical concepts contained herein are considered trade secrets 
- * and confidential and may be protected by intellectual property laws.  
- * Reproduction or distribution of this material, in whole or in part, 
- * is strictly forbidden except by express prior written permission 
+ * All material contained herein is proprietary to John Wiley & Sons
+ * and its third party suppliers, if any. The methods, techniques and
+ * technical concepts contained herein are considered trade secrets
+ * and confidential and may be protected by intellectual property laws.
+ * Reproduction or distribution of this material, in whole or in part,
+ * is strictly forbidden except by express prior written permission
  * of John Wiley & Sons.
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -30,8 +31,8 @@ import com.wiley.gr.ace.authorservices.external.util.PdhLookupServiceUtil;
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.model.User;
+import com.wiley.gr.ace.authorservices.model.external.ALMAuthRequest;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
-import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
 import com.wiley.gr.ace.authorservices.model.external.ArticlePdfResponse;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 import com.wiley.gr.ace.authorservices.model.external.OnlineOpen;
@@ -42,8 +43,8 @@ import com.wiley.gr.ace.authorservices.model.external.PdhLookupJournalResponse;
 import com.wiley.gr.ace.authorservices.model.external.ProfileInformation;
 import com.wiley.gr.ace.authorservices.model.external.Quote;
 import com.wiley.gr.ace.authorservices.model.external.QuoteRequest;
+import com.wiley.gr.ace.authorservices.model.external.ResponseStatus;
 import com.wiley.gr.ace.authorservices.model.external.SearchUserResult;
-import com.wiley.gr.ace.authorservices.model.external.Status;
 import com.wiley.gr.ace.authorservices.model.external.TaxRequest;
 import com.wiley.gr.ace.authorservices.model.external.TaxResponse;
 
@@ -54,45 +55,45 @@ import com.wiley.gr.ace.authorservices.model.external.TaxResponse;
  */
 public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 
-    /** The search user url. */
-    @Value("${search-user.url}")
-    private String searchUserUrl;
+	/** The search user url. */
+	@Value("${search-user.url}")
+	private String searchUserUrl;
 
-    /** The create user url. */
-    @Value("${createuser.url}")
-    private String createUserUrl;
+	/** The create user url. */
+	@Value("${createuser.url}")
+	private String createUserUrl;
 
-    /** The fetch orcid details url. */
-    @Value("${fetchorciddetails.url}")
-    private String fetchOrcidDetailsUrl;
+	/** The fetch orcid details url. */
+	@Value("${fetchorciddetails.url}")
+	private String fetchOrcidDetailsUrl;
 
-    /** The update alm user url. */
-    @Value("${updatealmuser.url}")
-    private String updateAlmUserUrl;
+	/** The update alm user url. */
+	@Value("${updatealmuser.url}")
+	private String updateAlmUserUrl;
 
-    /** The article info details url. */
-    @Value("${articleInfoDetails.url}")
-    private String articleInfoDetailsUrl;
+	/** The alm authurl. */
+	@Value("${almauthenticate.url}")
+	private String almAuthurl;
 
-    /** The article data url. */
-    @Value("${articleData.url}")
-    private String articleDataUrl;
+	/** The article data url. */
+	@Value("${articleData.url}")
+	private String articleDataUrl;
 
     /** The license status url. */
     @Value("${articlePdfResponse.url}")
     private String articlePdfResponseUrl;
 
-    /** The open access status url. */
-    @Value("${openAccessStatus.url}")
-    private String openAccessStatusUrl;
+	/** The open access status url. */
+	@Value("${openAccessStatus.url}")
+	private String openAccessStatusUrl;
 
-    /** The online open status url. */
-    @Value("${onlineOpenStatus.url}")
-    private String onlineOpenStatusUrl;
+	/** The online open status url. */
+	@Value("${onlineOpenStatus.url}")
+	private String onlineOpenStatusUrl;
 
-    /** The view assigned article url. */
-    @Value("${viewAssignedArticle.url}")
-    private String viewAssignedArticleUrl;
+	/** The view assigned article url. */
+	@Value("${viewAssignedArticle.url}")
+	private String viewAssignedArticleUrl;
 
     /** The pdh lookup jorunal response. */
     @Value("${pdhLookupJorunalResponse.url}")
@@ -122,54 +123,72 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
         final RestTemplate restTemplate = new RestTemplate();
         final HttpHeaders requestHeaders = new HttpHeaders();
 
-        requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-        final HttpEntity<User> requestEntity = new HttpEntity<User>(
-                requestHeaders);
+	@Value("${startPdhLookup.url}")
+	private String startPdhLookupUrl;
 
-        final ResponseEntity<User> response = restTemplate.exchange(uri,
-                HttpMethod.GET, requestEntity, User.class);
-        user = response.getBody();
-        return user;
-    }
+	@Value("${endPdhLookup.url}")
+	private String endPdhLookupUrl;
 
-    /**
-     * This for updating user data.
-     *
-     * @param updateUser
-     *            the update user
-     * @return the string
-     * @throws Exception
-     *             the exception
-     */
-    @Override
-    public final String updateALMUser(final User updateUser) throws Exception {
-        String status = "failure";
-        final String url = updateAlmUserUrl;
-        final URI uri = new URI(url);
-        final RestTemplate restTemplate = new RestTemplate();
-        final HttpHeaders requestHeaders = new HttpHeaders();
+	/**
+	 * This method is for fetching ordid details by calling external service
+	 * based on orcid.
+	 *
+	 * @param orcid
+	 *            the orcid
+	 * @return the user
+	 * @throws Exception
+	 *             the exception
+	 */
+	@Override
+	public final User fetchOrcidDetails(final String orcid) throws Exception {
+		final String url = fetchOrcidDetailsUrl;
+		final URI uri = new URI(url);
+		final RestTemplate restTemplate = new RestTemplate();
+		final HttpHeaders requestHeaders = new HttpHeaders();
 
-        requestHeaders.setAccept(Arrays.asList(MediaType.TEXT_PLAIN));
-        final HttpEntity<String> requestEntity = new HttpEntity<String>(
-                requestHeaders);
-        final ResponseEntity<String> response = restTemplate.exchange(uri,
-                HttpMethod.GET, requestEntity, String.class);
-        status = response.getBody();
-        return status;
-    }
+		requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+		final HttpEntity<User> requestEntity = new HttpEntity<User>(
+				requestHeaders);
 
-    /**
+		final ResponseEntity<User> response = restTemplate.exchange(uri,
+				HttpMethod.GET, requestEntity, User.class);
+		return response.getBody();
+	}
+
+	/**
+	 * This for updating user data.
+	 *
+	 * @param updateUser
+	 *            the update user
+	 * @return the string
+	 * @throws Exception
+	 *             the exception
+	 */
+	@Override
+	public final String updateALMUser(final User updateUser) throws Exception {
+		final String url = updateAlmUserUrl;
+		final URI uri = new URI(url);
+		final RestTemplate restTemplate = new RestTemplate();
+		final HttpHeaders requestHeaders = new HttpHeaders();
+
+		requestHeaders.setAccept(Arrays.asList(MediaType.TEXT_PLAIN));
+		final HttpEntity<String> requestEntity = new HttpEntity<String>(
+				requestHeaders);
+		final ResponseEntity<String> response = restTemplate.exchange(uri,
+				HttpMethod.GET, requestEntity, String.class);
+		return response.getBody();
+	}
+
+	/**
      * This for checking if user exists or not.
      *
      * @param emailId
      *            the email id
      * @return the ESB user
-     * @throws Exception
-     *             the exception
+     * 
      */
     @Override
-    public final ESBUser checkEmailIdExists(final String emailId)
-            throws Exception {
+    public final ESBUser checkEmailIdExists(final String emailId) {
         ESBUser esbUser = null;
         final List<ESBUser> esbUserList = searchUser(emailId, "", "");
         if (!StringUtils.isEmpty(esbUserList)) {
@@ -186,17 +205,13 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      * @param lastName
      *            the last name
      * @return the users from first name last name
-     * @throws Exception
-     *             the exception
+     * 
      */
     @Override
-    public final List<ESBUser> getUsersFromFirstNameLastName(
-            final String firstName, final String lastName) throws Exception {
-        List<ESBUser> esbUserList = null;
+    public final ArrayList<ESBUser> getUsersFromFirstNameLastName(
+            final String firstName, final String lastName) {
 
-        esbUserList = searchUser("", firstName, lastName);
-
-        return esbUserList;
+        return searchUser("", firstName, lastName);
     }
 
     /**
@@ -209,31 +224,28 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      * @param lastName
      *            the last name
      * @return the list
-     * @throws Exception
-     *             the exception
+     * 
      */
-    private final List<ESBUser> searchUser(final String email,
-            final String firstName, final String lastName) throws Exception {
+    private ArrayList<ESBUser> searchUser(final String email,
+            final String firstName, final String lastName) {
         ArrayList<ESBUser> esbUsersList = null;
         SearchUserResult searchUserResult = null;
-        final String url = searchUserUrl + "?Email=" + email + "&FirstName="
-                + firstName + "&LastName=" + lastName;
-        final URI uri = new URI(url);
-        final RestTemplate restTemplate = new RestTemplate();
-        final HttpHeaders requestHeaders = new HttpHeaders();
+        String searchJobUrl = searchUserUrl;
+        if (!StringUtils.isEmpty(email)) {
+            searchJobUrl = searchJobUrl + "?Email=" + email;
+        }
 
-        requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-        final HttpEntity<SearchUserResult> requestEntity = new HttpEntity<SearchUserResult>(
-                requestHeaders);
+        if (!StringUtils.isEmpty(firstName) && !StringUtils.isEmpty(lastName)) {
+            searchJobUrl = searchJobUrl + "?FirstName=" + firstName
+                    + "&LastName=" + lastName;
+        }
 
-        final ResponseEntity<SearchUserResult> response = restTemplate
-                .exchange(uri, HttpMethod.GET, requestEntity,
-                        SearchUserResult.class);
-        if (null != response) {
-            searchUserResult = new SearchUserResult();
-            searchUserResult = response.getBody();
+        searchUserResult = (SearchUserResult) RestServiceInvokerUtil
+                .getServiceData(searchJobUrl, SearchUserResult.class);
+
+        if ("success".equalsIgnoreCase(searchUserResult.getStatus())) {
             esbUsersList = (ArrayList<ESBUser>) searchUserResult
-                    .getSearchUserResponse().getUserList();
+                    .getSearchCustomerResponse();
         }
 
         return esbUsersList;
@@ -245,61 +257,39 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      * @param profileForCreation
      *            the profile for creation
      * @return the status
-     * @throws Exception
-     *             the exception
+     * 
      */
     @Override
-    public final Status creatUser(final ProfileInformation profileForCreation)
-            throws Exception {
-        final Status status = new Status();
-        final String url = createUserUrl;
-        final URI uri = new URI(url);
-        final RestTemplate restTemplate = new RestTemplate();
-        final HttpHeaders requestHeaders = new HttpHeaders();
+    public final String creatUser(final ProfileInformation profileForCreation) {
+        ResponseStatus responseStatus = (ResponseStatus) RestServiceInvokerUtil
+                .restServiceInvoker(createUserUrl, profileForCreation,
+                        ResponseStatus.class);
+        return responseStatus.getStatus();
 
-        requestHeaders.setAccept(Arrays.asList(MediaType.TEXT_PLAIN));
-        final HttpEntity<ProfileInformation> requestEntity = new HttpEntity<ProfileInformation>(
-                profileForCreation, requestHeaders);
-        final ResponseEntity<Status> response = restTemplate.exchange(uri,
-                HttpMethod.POST, requestEntity, Status.class);
-        final HttpStatus httpStatus = response.getStatusCode();
-        if (httpStatus.equals(HttpStatus.OK)) {
-            status.setStatus("SUCCESS");
-        } else {
-            status.setStatus("FAILURE");
-        }
-        return status;
     }
 
-    /**
-     * This method is for getting article info based on emailId.
-     *
-     * @param emailId
-     *            the email id
-     * @return the article info
-     */
-    @Override
-    public final ArticleInfoDetails getArticleInfo(final String emailId) {
-        return (ArticleInfoDetails) StubInvokerUtil
-                .invokeStub(articleInfoDetailsUrl, HttpMethod.GET,
-                        ArticleInfoDetails.class);
-    }
+	/**
+	 * Checks if is ALM authenticated.
+	 *
+	 * @param almAuthRequest
+	 *            the alm auth request
+	 * @return true, if is ALM authenticated
+	 */
+	@Override
+	public final boolean isALMAuthenticated(final ALMAuthRequest almAuthRequest) {
 
-    /**
-     * Gets the author article.
-     *
-     * @param articleId
-     *            the article id
-     * @return the author article
-     * @throws Exception
-     *             the exception
-     */
-    @Override
-    public final ArticleData getAuthorArticle(final String articleId)
-            throws Exception {
-        return (ArticleData) StubInvokerUtil.invokeStub(articleDataUrl,
-                HttpMethod.GET, ArticleData.class);
-    }
+		boolean isALMAuth = false;
+		try {
+			ResponseEntity<String> responseEntity = new RestTemplate()
+					.postForEntity(new URI(almAuthurl), almAuthRequest,
+							String.class);
+			if (responseEntity.getStatusCode() == HttpStatus.OK) {
+				isALMAuth = true;
+			}
+		} catch (URISyntaxException e) {
+			throw new UserException("UNEXPECTED",
+					"Some Unexpected Error occured");
+		}
 
     /**
      * Gets the article pdf response.
@@ -318,161 +308,190 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
                 ArticlePdfResponse.class);
     }
 
-    /**
-     * Gets the open access status.
-     *
-     * @param articleId
-     *            the article id
-     * @return the open access status
-     * @throws Exception
-     *             the exception
-     */
-    @Override
-    public final OpenAccess getOpenAccessStatus(final Integer articleId)
-            throws Exception {
-        return (OpenAccess) StubInvokerUtil.invokeStub(openAccessStatusUrl,
-                HttpMethod.GET, OpenAccess.class);
-    }
+	/**
+	 * Gets the author article.
+	 *
+	 * @param articleId
+	 *            the article id
+	 * @return the author article
+	 */
+	@Override
+	public final ArticleData getAuthorArticle(final Integer articleId) {
+		return (ArticleData) StubInvokerUtil.invokeStub(articleDataUrl,
+				HttpMethod.GET, ArticleData.class);
+	}
 
-    /**
-     * Gets the online open status.
-     *
-     * @param articleId
-     *            the article id
-     * @return the online open status
-     * @throws Exception
-     *             the exception
-     */
-    @Override
-    public final OnlineOpen getOnlineOpenStatus(final Integer articleId)
-            throws Exception {
-        return (OnlineOpen) StubInvokerUtil.invokeStub(onlineOpenStatusUrl,
-                HttpMethod.GET, OnlineOpen.class);
-    }
+	/**
+	 * Gets the license status.
+	 *
+	 * @param articleId
+	 *            the article id
+	 * @return the license status
+	 * @throws Exception
+	 *             the exception
+	 */
+	@Override
+	public final License getLicenseStatus(final Integer articleId)
+			throws Exception {
+		return (License) StubInvokerUtil.invokeStub(licenseStatusUrl,
+				HttpMethod.GET, License.class);
+	}
 
-    // /**
-    // * Gets the production data.
-    // *
-    // * @param articleId
-    // * the article id
-    // * @return the production data
-    // * @throws Exception
-    // * the exception
-    // */
-    // @Override
-    // public final ProductionData getProductionData(final Integer articleId)
-    // throws Exception {
-    // return (ProductionData) StubInvokerUtil.invokeStub(productionStatusUrl,
-    // HttpMethod.GET, ProductionData.class);
-    // }
+	/**
+	 * Gets the open access status.
+	 *
+	 * @param articleId
+	 *            the article id
+	 * @return the open access status
+	 * @throws Exception
+	 *             the exception
+	 */
+	@Override
+	public final OpenAccess getOpenAccessStatus(final Integer articleId)
+			throws Exception {
+		return (OpenAccess) StubInvokerUtil.invokeStub(openAccessStatusUrl,
+				HttpMethod.GET, OpenAccess.class);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService
-     * #getQuote(com.wiley.gr.ace.authorservices.model.external.QuoteRequest)
-     */
-    @Override
-    public Quote getQuote(final QuoteRequest quoteRequest) throws Exception {
-        return (Quote) StubInvokerUtil.invokeJsonStub(
-                "http://jsonstub.com/getQuote", HttpMethod.POST, Quote.class);
-    }
+	/**
+	 * Gets the online open status.
+	 *
+	 * @param articleId
+	 *            the article id
+	 * @return the online open status
+	 * @throws Exception
+	 *             the exception
+	 */
+	@Override
+	public final OnlineOpen getOnlineOpenStatus(final Integer articleId)
+			throws Exception {
+		return (OnlineOpen) StubInvokerUtil.invokeStub(onlineOpenStatusUrl,
+				HttpMethod.GET, OnlineOpen.class);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService
-     * #getTaxInfo(com.wiley.gr.ace.authorservices.model.external.TaxRequest)
-     */
-    @Override
-    public TaxResponse getTaxInfo(final TaxRequest taxRequest) throws Exception {
-        return (TaxResponse) StubInvokerUtil.invokeJsonStub(
-                "http://jsonstub.com/getTaxDetails", HttpMethod.POST,
-                TaxResponse.class);
-    }
+	/**
+	 * Gets the production data.
+	 *
+	 * @param articleId
+	 *            the article id
+	 * @return the production data
+	 * @throws Exception
+	 *             the exception
+	 */
+	@Override
+	public final ProductionData getProductionData(final Integer articleId)
+			throws Exception {
+		return (ProductionData) StubInvokerUtil.invokeStub(productionStatusUrl,
+				HttpMethod.GET, ProductionData.class);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService
-     * #pdhGetArticle(java.lang.String)
-     */
-    @Override
-    public ArticleData pdhGetArticle(final String articleId) {
-        return (ArticleData) StubInvokerUtil.invokeJsonStub(
-                "http://google.com", HttpMethod.POST, ArticleData.class);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService
+	 * #getQuote(com.wiley.gr.ace.authorservices.model.external.QuoteRequest)
+	 */
+	@Override
+	public Quote getQuote(final QuoteRequest quoteRequest) throws Exception {
+		return (Quote) StubInvokerUtil.invokeJsonStub(
+				"http://jsonstub.com/getQuote", HttpMethod.POST, Quote.class);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService
-     * #pdhJournalLookUp(java.lang.String)
-     */
-    @Override
-    public PdhJournalResponse pdhJournalLookUp(final String journalId) {
-        return (PdhJournalResponse) StubInvokerUtil.invokeJsonStub(
-                "http://jsonstub.com/pdh/lookupjournal", HttpMethod.POST,
-                PdhJournalResponse.class);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService
+	 * #getTaxInfo(com.wiley.gr.ace.authorservices.model.external.TaxRequest)
+	 */
+	@Override
+	public TaxResponse getTaxInfo(final TaxRequest taxRequest) throws Exception {
+		return (TaxResponse) StubInvokerUtil.invokeJsonStub(
+				"http://jsonstub.com/getTaxDetails", HttpMethod.POST,
+				TaxResponse.class);
+	}
 
-    /**
-     * View assigned article.
-     *
-     * @param articleId
-     *            the article id
-     * @return the pdh lookup article response
-     * @throws Exception
-     *             the exception
-     */
-    @Override
-    public final PdhLookupArticleResponse viewAssignedArticle(
-            final String articleId) throws Exception {
-        return (PdhLookupArticleResponse) StubInvokerUtil.invokeStub(
-                viewAssignedArticleUrl, HttpMethod.GET,
-                PdhLookupArticleResponse.class);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService
+	 * #pdhGetArticle(java.lang.String)
+	 */
+	@Override
+	public ArticleData pdhGetArticle(final String articleId) {
+		return (ArticleData) StubInvokerUtil.invokeJsonStub(
+				"http://google.com", HttpMethod.POST, ArticleData.class);
+	}
 
-    /**
-     * Gets the pdh lookup journal response.
-     *
-     * @param journalId
-     *            the journal id
-     * @return the pdh lookup journal response
-     * @throws Exception
-     *             the exception
-     */
-    @Override
-    public final PdhLookupJournalResponse getPdhLookupJournalResponse(
-            final String journalId) throws Exception {
-        return (PdhLookupJournalResponse) StubInvokerUtil.invokeStub(
-                pdhLookupJorunalResponse, HttpMethod.GET,
-                PdhLookupJournalResponse.class);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService
+	 * #pdhJournalLookUp(java.lang.String)
+	 */
+	@Override
+	public PdhJournalResponse pdhJournalLookUp(final String journalId) {
+		return (PdhJournalResponse) StubInvokerUtil.invokeJsonStub(
+				"http://jsonstub.com/pdh/lookupjournal", HttpMethod.POST,
+				PdhJournalResponse.class);
+	}
 
-    /**
-     * Gets the pdh lookup response.
-     *
-     * @param dhId
-     *            the dh id
-     * @return the object
-     * @throws Exception
-     *             the exception
-     */
-    @Override
-    public Object getPdhLookupResponse(final String dhId) throws Exception {
+	/**
+	 * View assigned article.
+	 *
+	 * @param articleId
+	 *            the article id
+	 * @return the pdh lookup article response
+	 * @throws Exception
+	 *             the exception
+	 */
+	@Override
+	public final PdhLookupArticleResponse viewAssignedArticle(
+			final String articleId) throws Exception {
+		return (PdhLookupArticleResponse) StubInvokerUtil.invokeStub(
+				viewAssignedArticleUrl, HttpMethod.GET,
+				PdhLookupArticleResponse.class);
+	}
 
-        final String xml = (String) StubInvokerUtil.invokeStub(
-                startPdhLookupUrl.concat(dhId).concat(endPdhLookupUrl),
-                HttpMethod.GET, String.class);
-        Object lookupObject = null;
-        if (!StringUtils.isEmpty(xml))
-            lookupObject = PdhLookupServiceUtil.lookup(xml);
-        return lookupObject;
-    }
+	/**
+	 * Gets the pdh lookup journal response.
+	 *
+	 * @param journalId
+	 *            the journal id
+	 * @return the pdh lookup journal response
+	 * @throws Exception
+	 *             the exception
+	 */
+	@Override
+	public final PdhLookupJournalResponse getPdhLookupJournalResponse(
+			final String journalId) throws Exception {
+		return (PdhLookupJournalResponse) StubInvokerUtil.invokeStub(
+				pdhLookupJorunalResponse, HttpMethod.GET,
+				PdhLookupJournalResponse.class);
+	}
+
+	/**
+	 * Gets the pdh lookup response.
+	 *
+	 * @param dhId
+	 *            the dh id
+	 * @return the object
+	 * @throws Exception
+	 *             the exception
+	 */
+	@Override
+	public Object getPdhLookupResponse(final String dhId) throws Exception {
+
+		final String xml = (String) StubInvokerUtil.invokeStub(
+				startPdhLookupUrl.concat(dhId).concat(endPdhLookupUrl),
+				HttpMethod.GET, String.class);
+		Object lookupObject = null;
+		if (!StringUtils.isEmpty(xml))
+			lookupObject = PdhLookupServiceUtil.lookup(xml);
+		return lookupObject;
+	}
 
 }

@@ -1,15 +1,22 @@
 /*******************************************************************************
  * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
  *
- * All material contained herein is proprietary to John Wiley & Sons 
- * and its third party suppliers, if any. The methods, techniques and 
- * technical concepts contained herein are considered trade secrets 
- * and confidential and may be protected by intellectual property laws.  
- * Reproduction or distribution of this material, in whole or in part, 
- * is strictly forbidden except by express prior written permission 
+ * All material contained herein is proprietary to John Wiley & Sons
+ * and its third party suppliers, if any. The methods, techniques and
+ * technical concepts contained herein are considered trade secrets
+ * and confidential and may be protected by intellectual property laws.
+ * Reproduction or distribution of this material, in whole or in part,
+ * is strictly forbidden except by express prior written permission
  * of John Wiley & Sons.
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.model;
+
+import java.io.Serializable;
+import java.util.List;
+
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -17,18 +24,19 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 /**
  * The Class User.
  *
- * @author virtusa
- * 	version 1.0
- */
-/**
- * @author DISHARIDE
- *
+ * @author virtusa version 1.0
  */
 @JsonInclude(Include.NON_NULL)
-public class User {
+public class User implements Serializable {
+
+    /** The Constant serialVersionUID. */
+    private static final long serialVersionUID = 1L;
 
     /** The user id. */
-    private Integer userId;
+    @NotBlank
+    @NotNull
+    /** The user id. */
+    private String userId;
     /** The title. */
     private String title;
 
@@ -59,16 +67,21 @@ public class User {
     /** The industry. */
     private String industry;
 
+    /** The industry. */
+    private String industryCode;
+
     /** The job category. */
     private String jobCategory;
 
+    /** The job category. */
+    private String jobCategoryCode;
+
     /** The orcid id. */
-    private String orcidID;
+    private String orcidId;
 
     /** The visible attributes. */
-    private String[] visibleAttributes;
+    private List<String> visibleAttributes;
 
-    // Need to confirm the datatype
     /** The contact id. */
     private String contactId;
 
@@ -88,7 +101,7 @@ public class User {
     private String countryNameNE;
 
     /** The terms of use flg. */
-    private Character termsOfUseFlg;
+    private String termsOfUseFlg;
 
     /** The user reference data. */
     private UserReferenceData userReferenceData;
@@ -99,22 +112,187 @@ public class User {
     /** The affiliation. */
     private Affiliation affiliation;
 
+    /** The found in. */
+    private String foundIn;
+
+    /** The instituition. */
+    private String instituition;
+
+    /** This field holds the value of titleName. */
+    private String titleName;
+
+    /** This field holds the value of suffixName. */
+    private String suffixName;
+
+    /** The country code. */
+    private String countryCode;
+
     /**
+     * This field holds the value of industryName.
+     */
+    private String industryName;
+
+    /**
+     * This field holds the value of jobCategoryName.
+     */
+    private String jobCategoryName;
+
+    /**
+     * @return the industryName
+     */
+    public final String getIndustryName() {
+        return industryName;
+    }
+
+    /**
+     * @param industryName
+     *            the industryName to set
+     */
+    public final void setIndustryName(final String industryName) {
+        this.industryName = industryName;
+    }
+
+    /**
+     * @return the jobCategoryName
+     */
+    public final String getJobCategoryName() {
+        return jobCategoryName;
+    }
+
+    /**
+     * @param jobCategoryName
+     *            the jobCategoryName to set
+     */
+    public final void setJobCategoryName(final String jobCategoryName) {
+        this.jobCategoryName = jobCategoryName;
+    }
+
+    /**
+     * Gets the title name.
+     *
+     * @return the titleName
+     */
+    public final String getTitleName() {
+        return titleName;
+    }
+
+    /**
+     * Sets the title name.
+     *
+     * @param titleName
+     *            the titleName to set
+     */
+    public final void setTitleName(final String titleName) {
+        this.titleName = titleName;
+    }
+
+    /**
+     * Gets the suffix name.
+     *
+     * @return the suffixName
+     */
+    public final String getSuffixName() {
+        return suffixName;
+    }
+
+    /**
+     * Sets the suffix name.
+     *
+     * @param suffixName
+     *            the suffixName to set
+     */
+    public final void setSuffixName(final String suffixName) {
+        this.suffixName = suffixName;
+    }
+
+    /**
+     * Gets the instituition.
+     *
+     * @return the instituition
+     */
+    public final String getInstituition() {
+        return instituition;
+    }
+
+    /**
+     * Sets the instituition.
+     *
+     * @param instituition
+     *            the new instituition
+     */
+    public final void setInstituition(final String instituition) {
+        this.instituition = instituition;
+    }
+
+    /**
+     * Gets the serialversionuid.
+     *
+     * @return the serialversionuid
+     */
+    public static final long getSerialversionuid() {
+        return serialVersionUID;
+    }
+
+    /**
+     * Gets the industry code.
+     *
+     * @return the industryCode
+     */
+    public final String getIndustryCode() {
+        return industryCode;
+    }
+
+    /**
+     * Sets the industry code.
+     *
+     * @param industryCode
+     *            the industryCode to set
+     */
+    public final void setIndustryCode(final String industryCode) {
+        this.industryCode = industryCode;
+    }
+
+    /**
+     * Gets the job category code.
+     *
+     * @return the jobCategoryCode
+     */
+    public final String getJobCategoryCode() {
+        return jobCategoryCode;
+    }
+
+    /**
+     * Sets the job category code.
+     *
+     * @param jobCategoryCode
+     *            the jobCategoryCode to set
+     */
+    public final void setJobCategoryCode(final String jobCategoryCode) {
+        this.jobCategoryCode = jobCategoryCode;
+    }
+
+    /**
+     * Gets the user id.
+     *
      * @return the userId
      */
-    public final Integer getUserId() {
+    public final String getUserId() {
         return userId;
     }
 
     /**
+     * Sets the user id.
+     *
      * @param userId
      *            the userId to set
      */
-    public final void setUserId(final Integer userId) {
+    public final void setUserId(final String userId) {
         this.userId = userId;
     }
 
     /**
+     * Gets the title.
+     *
      * @return the title
      */
     public final String getTitle() {
@@ -122,6 +300,8 @@ public class User {
     }
 
     /**
+     * Sets the title.
+     *
      * @param title
      *            the title to set
      */
@@ -130,6 +310,8 @@ public class User {
     }
 
     /**
+     * Gets the first name.
+     *
      * @return the firstName
      */
     public final String getFirstName() {
@@ -137,6 +319,8 @@ public class User {
     }
 
     /**
+     * Sets the first name.
+     *
      * @param firstName
      *            the firstName to set
      */
@@ -145,6 +329,8 @@ public class User {
     }
 
     /**
+     * Gets the middle name.
+     *
      * @return the middleName
      */
     public final String getMiddleName() {
@@ -152,6 +338,8 @@ public class User {
     }
 
     /**
+     * Sets the middle name.
+     *
      * @param middleName
      *            the middleName to set
      */
@@ -160,6 +348,8 @@ public class User {
     }
 
     /**
+     * Gets the last name.
+     *
      * @return the lastName
      */
     public final String getLastName() {
@@ -167,6 +357,8 @@ public class User {
     }
 
     /**
+     * Sets the last name.
+     *
      * @param lastName
      *            the lastName to set
      */
@@ -175,6 +367,8 @@ public class User {
     }
 
     /**
+     * Gets the suffix.
+     *
      * @return the suffix
      */
     public final String getSuffix() {
@@ -182,6 +376,8 @@ public class User {
     }
 
     /**
+     * Sets the suffix.
+     *
      * @param suffix
      *            the suffix to set
      */
@@ -190,6 +386,8 @@ public class User {
     }
 
     /**
+     * Gets the alternate name.
+     *
      * @return the alternateName
      */
     public final String getAlternateName() {
@@ -197,6 +395,8 @@ public class User {
     }
 
     /**
+     * Sets the alternate name.
+     *
      * @param alternateName
      *            the alternateName to set
      */
@@ -205,6 +405,8 @@ public class User {
     }
 
     /**
+     * Gets the primary email addr.
+     *
      * @return the primaryEmailAddr
      */
     public final String getPrimaryEmailAddr() {
@@ -212,6 +414,8 @@ public class User {
     }
 
     /**
+     * Sets the primary email addr.
+     *
      * @param primaryEmailAddr
      *            the primaryEmailAddr to set
      */
@@ -220,6 +424,8 @@ public class User {
     }
 
     /**
+     * Gets the recovery email address.
+     *
      * @return the recoveryEmailAddress
      */
     public final String getRecoveryEmailAddress() {
@@ -227,6 +433,8 @@ public class User {
     }
 
     /**
+     * Sets the recovery email address.
+     *
      * @param recoveryEmailAddress
      *            the recoveryEmailAddress to set
      */
@@ -235,6 +443,8 @@ public class User {
     }
 
     /**
+     * Gets the additional email address.
+     *
      * @return the additionalEmailAddress
      */
     public final String getAdditionalEmailAddress() {
@@ -242,6 +452,8 @@ public class User {
     }
 
     /**
+     * Sets the additional email address.
+     *
      * @param additionalEmailAddress
      *            the additionalEmailAddress to set
      */
@@ -251,6 +463,8 @@ public class User {
     }
 
     /**
+     * Gets the industry.
+     *
      * @return the industry
      */
     public final String getIndustry() {
@@ -258,6 +472,8 @@ public class User {
     }
 
     /**
+     * Sets the industry.
+     *
      * @param industry
      *            the industry to set
      */
@@ -266,6 +482,8 @@ public class User {
     }
 
     /**
+     * Gets the job category.
+     *
      * @return the jobCategory
      */
     public final String getJobCategory() {
@@ -273,6 +491,8 @@ public class User {
     }
 
     /**
+     * Sets the job category.
+     *
      * @param jobCategory
      *            the jobCategory to set
      */
@@ -281,36 +501,46 @@ public class User {
     }
 
     /**
-     * @return the orcidID
+     * Gets the orcid id.
+     *
+     * @return the orcidId
      */
-    public final String getOrcidID() {
-        return orcidID;
+    public final String getOrcidId() {
+        return orcidId;
     }
 
     /**
-     * @param orcidID
-     *            the orcidID to set
+     * Sets the orcid id.
+     *
+     * @param orcidId
+     *            the orcidId to set
      */
-    public final void setOrcidID(final String orcidID) {
-        this.orcidID = orcidID;
+    public final void setOrcidId(final String orcidId) {
+        this.orcidId = orcidId;
     }
 
     /**
+     * Gets the visible attributes.
+     *
      * @return the visibleAttributes
      */
-    public final String[] getVisibleAttributes() {
+    public final List<String> getVisibleAttributes() {
         return visibleAttributes;
     }
 
     /**
+     * Sets the visible attributes.
+     *
      * @param visibleAttributes
      *            the visibleAttributes to set
      */
-    public final void setVisibleAttributes(final String[] visibleAttributes) {
+    public final void setVisibleAttributes(final List<String> visibleAttributes) {
         this.visibleAttributes = visibleAttributes;
     }
 
     /**
+     * Gets the contact id.
+     *
      * @return the contactId
      */
     public final String getContactId() {
@@ -318,6 +548,8 @@ public class User {
     }
 
     /**
+     * Sets the contact id.
+     *
      * @param contactId
      *            the contactId to set
      */
@@ -326,6 +558,8 @@ public class User {
     }
 
     /**
+     * Gets the password.
+     *
      * @return the password
      */
     public final String getPassword() {
@@ -333,6 +567,8 @@ public class User {
     }
 
     /**
+     * Sets the password.
+     *
      * @param password
      *            the password to set
      */
@@ -341,6 +577,8 @@ public class User {
     }
 
     /**
+     * Checks if is search full name.
+     *
      * @return the searchFullName
      */
     public final boolean isSearchFullName() {
@@ -348,6 +586,8 @@ public class User {
     }
 
     /**
+     * Sets the search full name.
+     *
      * @param searchFullName
      *            the searchFullName to set
      */
@@ -356,6 +596,8 @@ public class User {
     }
 
     /**
+     * Gets the invitation guid.
+     *
      * @return the invitationGuid
      */
     public final String getInvitationGuid() {
@@ -363,6 +605,8 @@ public class User {
     }
 
     /**
+     * Sets the invitation guid.
+     *
      * @param invitationGuid
      *            the invitationGuid to set
      */
@@ -371,6 +615,8 @@ public class User {
     }
 
     /**
+     * Gets the country.
+     *
      * @return the country
      */
     public final Country getCountry() {
@@ -378,6 +624,8 @@ public class User {
     }
 
     /**
+     * Sets the country.
+     *
      * @param country
      *            the country to set
      */
@@ -386,6 +634,8 @@ public class User {
     }
 
     /**
+     * Gets the country name ne.
+     *
      * @return the countryNameNE
      */
     public final String getCountryNameNE() {
@@ -393,6 +643,8 @@ public class User {
     }
 
     /**
+     * Sets the country name ne.
+     *
      * @param countryNameNE
      *            the countryNameNE to set
      */
@@ -401,21 +653,27 @@ public class User {
     }
 
     /**
+     * Gets the terms of use flg.
+     *
      * @return the termsOfUseFlg
      */
-    public final Character getTermsOfUseFlg() {
+    public final String getTermsOfUseFlg() {
         return termsOfUseFlg;
     }
 
     /**
+     * Sets the terms of use flg.
+     *
      * @param termsOfUseFlg
      *            the termsOfUseFlg to set
      */
-    public final void setTermsOfUseFlg(final Character termsOfUseFlg) {
+    public final void setTermsOfUseFlg(final String termsOfUseFlg) {
         this.termsOfUseFlg = termsOfUseFlg;
     }
 
     /**
+     * Gets the user reference data.
+     *
      * @return the userReferenceData
      */
     public final UserReferenceData getUserReferenceData() {
@@ -423,6 +681,8 @@ public class User {
     }
 
     /**
+     * Sets the user reference data.
+     *
      * @param userReferenceData
      *            the userReferenceData to set
      */
@@ -432,6 +692,8 @@ public class User {
     }
 
     /**
+     * Gets the addresses.
+     *
      * @return the addresses
      */
     public final Addresses getAddresses() {
@@ -439,6 +701,8 @@ public class User {
     }
 
     /**
+     * Sets the addresses.
+     *
      * @param addresses
      *            the addresses to set
      */
@@ -447,6 +711,8 @@ public class User {
     }
 
     /**
+     * Gets the affiliation.
+     *
      * @return the affiliation
      */
     public final Affiliation getAffiliation() {
@@ -454,11 +720,51 @@ public class User {
     }
 
     /**
+     * Sets the affiliation.
+     *
      * @param affiliation
      *            the affiliation to set
      */
     public final void setAffiliation(final Affiliation affiliation) {
         this.affiliation = affiliation;
+    }
+
+    /**
+     * Gets the found in.
+     *
+     * @return the found in
+     */
+    public final String getFoundIn() {
+        return foundIn;
+    }
+
+    /**
+     * Sets the found in.
+     *
+     * @param foundIn
+     *            the new found in
+     */
+    public final void setFoundIn(final String foundIn) {
+        this.foundIn = foundIn;
+    }
+
+    /**
+     * Gets the country code.
+     *
+     * @return the country code
+     */
+    public final String getCountryCode() {
+        return countryCode;
+    }
+
+    /**
+     * Sets the country code.
+     *
+     * @param countryCode
+     *            the new country code
+     */
+    public final void setCountryCode(final String countryCode) {
+        this.countryCode = countryCode;
     }
 
 }

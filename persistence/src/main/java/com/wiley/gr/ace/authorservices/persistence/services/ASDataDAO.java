@@ -17,8 +17,11 @@ import com.wiley.gr.ace.authorservices.persistence.entity.LookupValues;
 import com.wiley.gr.ace.authorservices.persistence.entity.Permissions;
 import com.wiley.gr.ace.authorservices.persistence.entity.RolePermissions;
 import com.wiley.gr.ace.authorservices.persistence.entity.Roles;
+import com.wiley.gr.ace.authorservices.persistence.entity.Societies;
 
 /**
+ * The Interface ASDataDAO.
+ *
  * @author virtusa version 1.0
  */
 public interface ASDataDAO {
@@ -75,5 +78,19 @@ public interface ASDataDAO {
      * @return the count
      */
     int getCount(int roleId);
+
+    /**
+     * @param id
+     *            to Retrieve.
+     * @return string
+     */
+    String getData(String id);
+
+    /**
+     * This method returns society details
+     * 
+     * @return societyList
+     */
+    List<Societies> getSociety();
 
 }
