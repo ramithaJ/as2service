@@ -824,7 +824,7 @@ public class DashboardServiceImpl implements DashboardService {
 
             OrderStatus orderStatus = orderStatusHashMap.get(String
                     .valueOf(articleId));
-            orderPaymentStatus.setOnlineOpenStatus(orderStatus.getStatus());
+            orderPaymentStatus.setOrderStatus(orderStatus.getStatus());
             String[] actionArray = orderStatus.getActionsRequired().split(",");
             List<String> availableActionsList = new ArrayList<String>();
             for (String action : actionArray) {
@@ -906,7 +906,8 @@ public class DashboardServiceImpl implements DashboardService {
 
         OrderPaymentStatus orderPaymentStatus = new OrderPaymentStatus();
         StringTokenizer stringTokenizer = new StringTokenizer(status, ":");
-        orderPaymentStatus.setOpenAccessStatus(stringTokenizer.nextElement()
+        orderPaymentStatus.setOrderType("OA");
+        orderPaymentStatus.setOrderStatus(stringTokenizer.nextElement()
                 .toString());
         String[] actionsArray = stringTokenizer.nextElement().toString()
                 .split(",");

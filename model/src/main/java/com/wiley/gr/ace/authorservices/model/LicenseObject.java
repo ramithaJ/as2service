@@ -20,6 +20,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class LicenseObject.
  * 
@@ -55,9 +56,14 @@ public class LicenseObject {
     /** The signed date. */
     private String signedDate;
 
+    /** The prices. */
     private List<Prices> prices;
 
+    /** The license_ o o_ oa. */
     private String license_OO_OA;
+    
+    /** The license format. */
+    private String licenseFormat;
 
 
 
@@ -234,21 +240,59 @@ public class LicenseObject {
         this.signedDate = signedDate;
     }
 
+    /**
+     * Gets the prices.
+     *
+     * @return the prices
+     */
     public List<Prices> getPrices() {
         return prices;
     }
 
+    /**
+     * Sets the prices.
+     *
+     * @param prices the new prices
+     */
     public void setPrices(final List<Prices> prices) {
         this.prices = prices;
     }
 
+    /**
+     * Gets the license_ o o_ oa.
+     *
+     * @return the license_ o o_ oa
+     */
     public String getLicense_OO_OA() {
         return license_OO_OA;
     }
 
+    /**
+     * Sets the license_ o o_ oa.
+     *
+     * @param license_OO_OA the new license_ o o_ oa
+     */
     public void setLicense_OO_OA(final String license_OO_OA) {
         this.license_OO_OA = license_OO_OA;
     }
+
+	/**
+	 * Gets the license format.
+	 *
+	 * @return the license format
+	 */
+	public String getLicenseFormat() {
+		return licenseFormat;
+	}
+
+	/**
+	 * Sets the license format.
+	 *
+	 * @param licenseFormat the new license format
+	 */
+	public void setLicenseFormat(String licenseFormat) {
+		this.licenseFormat = licenseFormat;
+	}
 
 
 }
