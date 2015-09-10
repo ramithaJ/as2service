@@ -23,14 +23,12 @@
           http://www.springframework.org/schema/util/spring-util.xsd">
 
 	<context:component-scan base-package="com.wiley.gr.ace.authorservices.*" />
+	<import resource="redis.xml" />
 
 	<context:property-placeholder
-		location="classpath:mockurls.properties,classpath:orcid.properties,classpath:userManagement.properties,
-	classpath:exception.properties,classpath:persistence.exception.properties,classpath:bpmService.properties,
-	classpath:onlineOpenProperties.properties,classpath:wpgPaymentDetails.properties,
-	classpath:applicationMessages.properties, classpath:orderStatusOA.properties"
+		location="classpath:${my.envName}redis.properties,classpath:mockurls.properties,classpath:${my.envName}orcid.properties,classpath:${my.envName}userManagement.properties,classpath:exception.properties,classpath:applicationMessages.properties,classpath:persistence.exception.properties,classpath:autocomplete.properties,classpath:${my.envName}notification.properties,classpath:${my.envName}bpmService.properties"
 		ignore-unresolvable="true" />
-	<context:annotation-config />
+
 	<mvc:annotation-driven />
 
 	<mvc:interceptors>

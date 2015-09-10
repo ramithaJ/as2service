@@ -33,7 +33,7 @@ import com.wiley.gr.ace.authorservices.web.controllers.ASDataController;
 
 //import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+//import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 //import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 //import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
@@ -198,7 +198,7 @@ public class ASDataControllerTest {
 	@Test
 	 public void getSecurityQuestions() throws Exception
 	 {
-	mockMvc.perform(get("asdata/securityQuestions")
+	mockMvc.perform(get("/asdata/securityQuestions")
 			  .contentType(MediaType.APPLICATION_JSON))
 			  
 			 .andExpect(jsonPath("$.payload").isArray())

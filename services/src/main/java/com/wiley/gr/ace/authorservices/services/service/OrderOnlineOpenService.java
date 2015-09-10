@@ -146,11 +146,9 @@ public interface OrderOnlineOpenService {
     /**
      * Gets the institution discounts.
      *
-     * @param DHID
-     *            the dhid
      * @return the institution discounts
      */
-    InstitutionalDiscounts getInstitutionDiscounts(String DHID);
+    InstitutionalDiscounts getInstitutionDiscounts();
 
     /**
      * Gets the funders list.

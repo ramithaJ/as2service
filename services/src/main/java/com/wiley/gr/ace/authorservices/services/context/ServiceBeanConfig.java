@@ -14,8 +14,18 @@
  */
 package com.wiley.gr.ace.authorservices.services.context;
 
+import java.util.Properties;
+
+import javax.jms.ConnectionFactory;
+import javax.jms.Destination;
+import javax.naming.NamingException;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.jms.connection.UserCredentialsConnectionFactoryAdapter;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jndi.JndiTemplate;
 import org.springframework.context.annotation.PropertySource;
 
 import com.wiley.gr.ace.authorservices.services.service.ASDataService;
@@ -34,6 +44,9 @@ import com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService;
 import com.wiley.gr.ace.authorservices.services.service.OrderStatusService;
 import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
 import com.wiley.gr.ace.authorservices.services.service.SaveArticleData;
+import com.wiley.gr.ace.authorservices.services.service.SaveInvitationCeaseEventService;
+import com.wiley.gr.ace.authorservices.services.service.SaveInvitationStartEventService;
+import com.wiley.gr.ace.authorservices.services.service.SendNotification;
 import com.wiley.gr.ace.authorservices.services.service.UpdateUserService;
 import com.wiley.gr.ace.authorservices.services.service.UploadLicenseService;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
@@ -55,6 +68,9 @@ import com.wiley.gr.ace.authorservices.services.service.impl.OrderOnlineOpenServ
 import com.wiley.gr.ace.authorservices.services.service.impl.OrderStatusServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.RegistrationServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.SaveArticleDataImpl;
+import com.wiley.gr.ace.authorservices.services.service.impl.SaveInvitationCeaseEventServiceImpl;
+import com.wiley.gr.ace.authorservices.services.service.impl.SaveInvitationStartServiceImpl;
+import com.wiley.gr.ace.authorservices.services.service.impl.SendNotificationImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UpdateUserServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UploadLicenseServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UserAccountServiceImpl;

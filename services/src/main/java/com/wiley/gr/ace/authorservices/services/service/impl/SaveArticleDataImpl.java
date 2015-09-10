@@ -123,7 +123,7 @@ public class SaveArticleDataImpl implements SaveArticleData {
             productPersonRelationObject.setDhId(articleDhId);
             productPersonRelationObject.setEmailId(email);
             productPersonRelationObject
-                    .setProductRoleCd(AuthorServicesConstants.AUTHOR_ROLE_CD);
+            .setProductRoleCd(AuthorServicesConstants.AUTHOR_ROLE_CD);
             Service service = sharedService
                     .saveProductPersonRelation(productPersonRelationObject);
             LOGGER.debug("Product person relation saved status: "
@@ -167,7 +167,7 @@ public class SaveArticleDataImpl implements SaveArticleData {
                 productPersonRelationObject.setDhId(articleDhId);
                 productPersonRelationObject.setEmailId(email);
                 productPersonRelationObject
-                        .setProductRoleCd(AuthorServicesConstants.COAUTHOR_ROLE_CD);
+                .setProductRoleCd(AuthorServicesConstants.COAUTHOR_ROLE_CD);
                 Service service = sharedService
                         .saveProductPersonRelation(productPersonRelationObject);
                 LOGGER.debug("Product person relation saved status: "

@@ -11,6 +11,8 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service;
 
+import com.wiley.gr.ace.authorservices.model.event.InvitationStartEventData;
+
 /**
  * The Interface SaveInvitationStartEventService.
  * 
@@ -26,6 +28,6 @@ public interface SaveInvitationStartEventService {
      * @throws Exception
      *             the exception
      */
-    void parseInvitationStartEvent(String invitationStartEventData)
+    void parseInvitationStartEvent(InvitationStartEventData invitationStartEventData)
             throws Exception;
 }

@@ -18,6 +18,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
@@ -37,11 +38,12 @@ import com.wiley.gr.ace.authorservices.model.State;
 import com.wiley.gr.ace.authorservices.model.Suffix;
 import com.wiley.gr.ace.authorservices.model.Title;
 import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
-import com.wiley.gr.ace.authorservices.model.external.Industries;
-import com.wiley.gr.ace.authorservices.model.external.JobCategories;
+import com.wiley.gr.ace.authorservices.persistence.entity.AreaOfInterest;
 import com.wiley.gr.ace.authorservices.persistence.entity.LookupValues;
 import com.wiley.gr.ace.authorservices.persistence.entity.Roles;
+import com.wiley.gr.ace.authorservices.persistence.entity.Societies;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
+import com.wiley.gr.ace.authorservices.persistence.services.AreaOfInterterestDao;
 import com.wiley.gr.ace.authorservices.persistence.services.LookUpValuesDAO;
 import com.wiley.gr.ace.authorservices.services.service.ASDataService;
 
@@ -64,10 +66,52 @@ public class ASDataServiceImpl implements ASDataService {
     @Autowired(required = true)
     private LookUpValuesDAO lookupDAO;
 
+    /** The area of interest dao . */
+    @Autowired(required = true)
+    private AreaOfInterterestDao areaOfInterest;
+    
     /** getting bean of userProfiles. */
     @Autowired
     private UserProfiles userProfiles;
 
+    /** The industry code. */
+    @Value("${industry.code}")
+    private String industryCode;
+
+    /** The industry name. */
+    @Value("${industry.name}")
+    private String industryName;
+
+    /** The job category code. */
+    @Value("${jobCategories.code}")
+    private String jobCategoryCode;
+
+    /** The job category name. */
+    @Value("${jobCategories.name}")
+    private String jobCategoryName;
+
+    /** The country code. *//*
+    @Value("${country.code}")
+    private String countryCode;*/
+
+    /** The country name. *//*
+    @Value("${country.name}")
+    private String countryName;*/
+
+    /**
+     * This field holds the value of stateCode.
+     */
+    @Value("${state.code}")
+    private String stateCode;
+
+    /** The state name. */
+    @Value("${state.Name}")
+    private String stateName;
+
+   /* *//** The suffix. *//*
+    @Value("${suffix}")
+    private String suffix;*/
+    
     /**
      * This will call external service to get titles data.
      *
@@ -119,13 +163,14 @@ public class ASDataServiceImpl implements ASDataService {
      *            the count
      * @return the industries
      */
+    @SuppressWarnings("unchecked")
     @Override
     public final List<Industry> getIndustries(final Integer count) {
         LOGGER.info("inside getIndustries method ");
 
         Industry industry = null;
         List<Industry> industryList = new ArrayList<Industry>();
-        Industries industries = userProfiles.getIndustries();
+        ESBResponse industries = userProfiles.getIndustries();
         if (null == industries) {
             return new ArrayList<Industry>();
         }
@@ -135,8 +180,8 @@ public class ASDataServiceImpl implements ASDataService {
 
             LinkedHashMap<String, String> industryMap = (LinkedHashMap<String, String>) object;
             industry = new Industry();
-            industry.setIndustryId(industryMap.get("NAICS_CODE"));
-            industry.setIndustryName(industryMap.get("NAICS_TITLE"));
+            industry.setIndustryId(industryMap.get(industryCode));
+            industry.setIndustryName(industryMap.get(industryName));
             industryList.add(industry);
         }
 
@@ -150,11 +195,12 @@ public class ASDataServiceImpl implements ASDataService {
      *            the count
      * @return the job categories
      */
+    @SuppressWarnings("unchecked")
     @Override
     public final List<JobCategory> getJobCategories(final Integer count) {
 
         LOGGER.info("inside getJobCategories method ");
-        JobCategories jobCategories = userProfiles.getJobCategories();
+        ESBResponse jobCategories = userProfiles.getJobCategories();
         JobCategory jobCategory = null;
         List<JobCategory> jobCategoryList = new ArrayList<JobCategory>();
         if (null == jobCategories) {
@@ -166,8 +212,8 @@ public class ASDataServiceImpl implements ASDataService {
 
             LinkedHashMap<String, String> jobCategoryMap = (LinkedHashMap<String, String>) object;
             jobCategory = new JobCategory();
-            jobCategory.setJobCategoryId(jobCategoryMap.get("JOBCODE"));
-            jobCategory.setJobCategoryName(jobCategoryMap.get("JOBTITLE"));
+            jobCategory.setJobCategoryId(jobCategoryMap.get(jobCategoryCode));
+            jobCategory.setJobCategoryName(jobCategoryMap.get(jobCategoryName));
             jobCategoryList.add(jobCategory);
         }
 
@@ -216,12 +262,12 @@ public class ASDataServiceImpl implements ASDataService {
      *            the count
      * @return the states
      */
+    @SuppressWarnings("unchecked")
     @Override
-    public final List<State> getStates(final String countrycode,
-            final Integer count) {
+    public final List<State> getStates(final String countrycode) {
 
         LOGGER.info("inside getStates method ");
-        ESBResponse statelistext = userProfiles.getStates();
+        ESBResponse statelistext = userProfiles.getStates(countrycode);
         List<State> modelststelist = new ArrayList<State>();
 
         List<Object> externalstatelist = statelistext.getResponse().getDocs();
@@ -234,14 +280,12 @@ public class ASDataServiceImpl implements ASDataService {
             LinkedHashMap<String, String> statemap = (LinkedHashMap<String, String>) statelist;
 
             State state = new State();
-            String externalcountrymap = statemap.get("id");
-            String[] idsplit = externalcountrymap.split("_");
-            state.setStateCode(idsplit[2]);
-            state.setStateName(statemap.get("SUBDIVISION_NAME"));
+            state.setStateCode(statemap.get(stateCode));
+            state.setStateName(statemap.get(stateName));
             modelststelist.add(state);
         }
 
-        return modelststelist.subList(0, count);
+        return modelststelist;
     }
 
     /**
@@ -254,20 +298,7 @@ public class ASDataServiceImpl implements ASDataService {
 
         LOGGER.info("inside getInstitutions method ");
 
-        DropDown dropDown = userProfiles.getInstitutionsList();
-        List<Institution> listofinstitute = dropDown.getInstitutions();
-        List<Institution> institutionslist = new ArrayList<Institution>();
-
-        for (Institution institute : listofinstitute) {
-
-            Institution institution = new Institution();
-            institution.setInstitutionId(institute.getInstitutionId());
-            institution.setInstitutionName(institute.getInstitutionName());
-            institutionslist.add(institution);
-
-        }
-
-        return institutionslist;
+        return new ArrayList<Institution>();
     }
 
     /**
@@ -280,18 +311,7 @@ public class ASDataServiceImpl implements ASDataService {
 
         LOGGER.info("inside getDepartments method ");
 
-        DropDown dropDown = userProfiles.getDepartmentsList();
-        List<Department> listofdepartment = dropDown.getDepartments();
-        List<Department> departmentlist = new ArrayList<Department>();
-        for (Department department : listofdepartment) {
-
-            Department departments = new Department();
-            departments.setDepartmentId(department.getDepartmentId());
-            departments.setDepartmentName(department.getDepartmentName());
-            departmentlist.add(department);
-
-        }
-        return departmentlist;
+        return new ArrayList<Department>();
     }
 
     /**
@@ -321,54 +341,44 @@ public class ASDataServiceImpl implements ASDataService {
     }
 
     /**
-     * This will call external service to get Societies data.
+     * This will call Dao service to get Societies data.
      *
      * @return the societies
      */
     @Override
     public final List<Society> getSocieties() {
+        List<Societies> societyListDao = aSDataDAO.getSociety();
+        List<Society> societyList = new ArrayList<Society>();
 
-        LOGGER.info("inside getSocieties method ");
-        DropDown dropDown = userProfiles.getSocietyList();
-        List<Society> listofsociety = dropDown.getSociety();
-        List<Society> societylist = new ArrayList<Society>();
-        for (Society societys : listofsociety) {
-
+        for (Societies societies : societyListDao) {
             Society society = new Society();
-            society.setSocietyId(societys.getSocietyId());
-
-            society.setSocietyName(societys.getSocietyName());
-            societylist.add(society);
+            society.setSocietyName(societies.getSocietyName());
+            society.setSocietyId(societies.getSocietyCd());
+            societyList.add(society);
         }
-        return societylist;
+        return societyList;
+
     }
 
     /**
      * This will call external service to get AreasOfInterests data.
      *
-     * @param count
-     *            the count
      * @return the areas of interests
      */
     @Override
-    public final List<Interests> getAreasOfInterests(final Integer count) {
+    public final List<Interests> getAreasOfInterests() {
         LOGGER.info("inside getAreasOfInterests method ");
-        ESBResponse areaOfInterests = userProfiles.getAreaOfInterests();
-        List<Object> externalInterests = areaOfInterests.getResponse()
-                .getDocs();
-        List<Interests> returnList = new ArrayList<Interests>();
-        if (null == externalInterests) {
-            return returnList;
-        }
 
-        for (Object docs : externalInterests) {
-            LinkedHashMap<String, String> interest = (LinkedHashMap<String, String>) docs;
+        List<AreaOfInterest> areaOfInterestDao = areaOfInterest
+                .getAreaOfInterest();
+        List<Interests> interestList = new ArrayList<Interests>();
+        for (AreaOfInterest areaOfInterest : areaOfInterestDao) {
             Interests interests = new Interests();
-            interests.setAoeId(interest.get("SUBJECT_CODE"));
-            interests.setAoeName(interest.get("SUBJECT_NAME"));
-            returnList.add(interests);
+            interests.setAoeId(areaOfInterest.getAreaOfInterestCd());
+            interests.setAoeName(areaOfInterest.getInterestName());
+            interestList.add(interests);
         }
-        return returnList.subList(0, count);
+        return interestList;
 
     }
 
@@ -461,4 +471,17 @@ public class ASDataServiceImpl implements ASDataService {
         return accessList;
     }
 
+    @Override
+    public String getStateByCode(final String stateCode,
+            final String countryCode) {
+
+        String code = null;
+        List<State> statesList = getStates(countryCode);
+        for (State state : statesList) {
+            if (stateCode.equalsIgnoreCase(state.getStateCode())) {
+                code = state.getStateName();
+            }
+        }
+        return code;
+    }
 }

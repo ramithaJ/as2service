@@ -1,16 +1,16 @@
 /*******************************************************************************
  * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
  *
- * All material contained herein is proprietary to John Wiley & Sons 
- * and its third party suppliers, if any. The methods, techniques and 
- * technical concepts contained herein are considered trade secrets 
- * and confidential and may be protected by intellectual property laws.  
- * Reproduction or distribution of this material, in whole or in part, 
- * is strictly forbidden except by express prior written permission 
+ * All material contained herein is proprietary to John Wiley & Sons
+ * and its third party suppliers, if any. The methods, techniques and
+ * technical concepts contained herein are considered trade secrets
+ * and confidential and may be protected by intellectual property laws.
+ * Reproduction or distribution of this material, in whole or in part,
+ * is strictly forbidden except by express prior written permission
  * of John Wiley & Sons.
  *******************************************************************************/
 /**
- * 
+ *
  */
 package com.wiley.gr.ace.authorservices.web.controllers;
 
@@ -25,17 +25,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.model.Dashboard;
 import com.wiley.gr.ace.authorservices.model.DashboardView;
 import com.wiley.gr.ace.authorservices.model.EmailCommunicationHistory;
-import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.services.service.DashboardService;
 
 /**
  * This DashboardController is for view the Dashboard of Corresponding Author
  * and Co-Author.
- * 
+ *
  * @author virtusa version 1.0
  */
 @RestController
@@ -45,19 +45,15 @@ public class DashboardController {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DashboardController.class);
 
-    /** The Auto Wired for DashBoard Service . */
-    @Autowired(required = true)
-    private DashboardService dashboardService;
-
     /** value from props file configured. */
     @Value("${DashboardController.getProfileMeter.code}")
-    private int getProfileMetererrorcode;
+    private String getProfileMeterErrorCode;
 
     /** value from props file configured. */
     @Value("${DashboardController.getProfileMeter.message}")
-    private String getProfileMetererrormessage;
+    private String getProfileMeterErrorMessage;
 
-    /** value from props file configured. */
+    /** The get all author articles error code. */
     @Value("${DashboardController.getAllAuthorArticles.code}")
     private String getAllAuthorArticlesErrorCode;
 
@@ -101,15 +97,11 @@ public class DashboardController {
     @Value("${noDataFound.message}")
     private String noDataFound;
 
-    /** The input parameter not found. */
-    @Value("${inputParameterNotFound.message}")
-    private String inputParameterNotFound;
-
     /**
      * This method takes userId and return the Service.
      *
      * @param userId
-     *            the user id
+     *            - The request value
      * @return service
      */
     @RequestMapping(value = "/profilemeter/{userId}", method = RequestMethod.GET)
@@ -118,20 +110,26 @@ public class DashboardController {
         LOGGER.info("inside getProfileMeter method of DashboardController");
         final Service service = new Service();
         Dashboard dashboard = null;
-
-        try {
-            dashboard = dashboardService.getProfileMeter(userId);
-            if (!StringUtils.isEmpty(dashboard)) {
-                service.setStatus("SUCCESS");
-                service.setPayload(dashboard);
+        if (!StringUtils.isEmpty(userId)) {
+            try {
+                dashboard = dashboardService.getProfileMeter(userId);
+                if (!StringUtils.isEmpty(dashboard)) {
+                    LOGGER.info("Profile Meter Data is Found");
+                    service.setPayload(dashboard);
+                } else {
+                    LOGGER.info("Profile Meter Data is Not Found");
+                    service.setStatus("SUCCESS");
+                    service.setPayload(noDataFoundMessage);
+                }
+            } catch (final Exception e) {
+                LOGGER.error("Print Stack Trace- ", e);
+                throw new UserException(getProfileMeterErrorCode,
+                        getProfileMeterErrorMessage);
             }
-        } catch (final Exception e) {
-            LOGGER.error("Print Stack Trace- ", e);
-            final ErrorPOJO error = new ErrorPOJO();
-            error.setCode(getProfileMetererrorcode);
-            error.setMessage(getProfileMetererrormessage);
-            service.setStatus("ERROR");
-            service.setError(error);
+        } else {
+            LOGGER.info("input Parameter userId is Not Found");
+            service.setStatus("FAILURE");
+            service.setPayload(inputParameterNotFound);
         }
         return service;
 

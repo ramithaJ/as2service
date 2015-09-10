@@ -9,7 +9,7 @@ package com.wiley.gr.ace.authorservices.web.controllers;
  */
 
 //import org.junit.Before;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+//import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 //import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 //import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -51,7 +51,7 @@ public class OrcidControllerTest {
 		@Test
 		 public void getorcidURL() throws Exception {
 				mockMvc.perform(
-						get("/user/orcid/").contentType(MediaType.APPLICATION_JSON))
+						get("/user/orcid/url").contentType(MediaType.APPLICATION_JSON))
 						.andExpect(status().isOk())
 						.andExpect(jsonPath("$.status").value("SUCCESS"))
 						.andExpect(jsonPath("$.payload").value("https://sandbox.orcid.org/oauth/authorize?client_id=APP-EU26CF7K2HTG34SV&response_type=code&scope=/authenticate&redirect_uri=http://www.vinay.com:8080/orcid/index.jsp"));
@@ -61,7 +61,7 @@ public class OrcidControllerTest {
 		@Test
 		public void getOrcidDetails() throws Exception {
 				mockMvc.perform(
-						get("/user/orcid/profile/").contentType(MediaType.APPLICATION_JSON)
+						get("/user/orcid/profile").contentType(MediaType.APPLICATION_JSON)
 						.content("Type = registration/userupdate (for reg UC use registration/ for update use UC userupdate)"
 								+ " Code = authorization code which you receive from callback"
 								.getBytes()))

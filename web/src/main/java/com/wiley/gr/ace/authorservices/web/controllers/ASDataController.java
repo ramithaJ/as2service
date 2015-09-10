@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wiley.gr.ace.authorservices.exception.ASException;
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.model.AccessReasons;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.services.service.ASDataService;
@@ -38,20 +38,34 @@ import com.wiley.gr.ace.authorservices.services.service.ASDataService;
 @RestController
 @RequestMapping("/asdata")
 public class ASDataController {
-    /** logging configured. */
+
+    /**
+     * This field holds the value of LOGGER.
+     */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(ASDataController.class);
-    /** getting bean of asdataservice. */
+
+    /**
+     * This field holds the value of aSDataService.
+     */
     @Autowired(required = true)
     private ASDataService aSDataService;
-    /** getting data from props file. */
+
+    /**
+     * This field holds the value of nodataFound.
+     */
     @Value("${noDataFound.code}")
     private String nodataFound;
-    /** getting data from props file. */
+
+    /**
+     * This field holds the value of nodataFoundmsg.
+     */
     @Value("${noDataFound.message}")
     private String nodataFoundmsg;
 
     /**
+     * Method to get Titiles.
+     * 
      * @return service
      */
     @RequestMapping(value = "/titles/", method = RequestMethod.GET)
@@ -63,6 +77,8 @@ public class ASDataController {
     }
 
     /**
+     * Method to get suffixes.
+     * 
      * @return service
      */
     @RequestMapping(value = "/suffixes/", method = RequestMethod.GET)
@@ -74,7 +90,10 @@ public class ASDataController {
     }
 
     /**
+     * Method to get industries.
+     * 
      * @param count
+     *            - The request value
      * @return service
      */
     @RequestMapping(value = "/industries/", method = RequestMethod.GET)
@@ -87,7 +106,10 @@ public class ASDataController {
     }
 
     /**
+     * Method to get jobCategories.
+     * 
      * @param count
+     *            - The request value
      * @return service
      */
     @RequestMapping(value = "/jobCategories/", method = RequestMethod.GET)
@@ -100,7 +122,10 @@ public class ASDataController {
     }
 
     /**
+     * Method to get countries.
+     * 
      * @param count
+     *            - The request value
      * @return service
      */
     @RequestMapping(value = "/countries/", method = RequestMethod.GET)
@@ -113,22 +138,28 @@ public class ASDataController {
     }
 
     /**
+     * Method to get states.
+     * 
      * @param countrycode
+     *            - The request value
      * @param count
+     *            - The request value
      * @return service
      */
     @RequestMapping(value = "/states/{countrycode}", method = RequestMethod.GET)
     public final Service getStates(
             @PathVariable("countrycode") final String countrycode,
-            @RequestParam(value = "count", required = false, defaultValue = "10") final Integer count) {
+            @RequestParam(value = "count", required = false, defaultValue = "50") final Integer count) {
         LOGGER.info("inside getStates Method");
         Service service = new Service();
-        service.setPayload(aSDataService.getStates(countrycode, count));
+        service.setPayload(aSDataService.getStates(countrycode));
 
         return service;
     }
 
     /**
+     * Method to get institutions.
+     * 
      * @return service
      */
     @RequestMapping(value = "/institutions/", method = RequestMethod.GET)
@@ -141,6 +172,8 @@ public class ASDataController {
     }
 
     /**
+     * Method to get departments.
+     * 
      * @return service
      */
     @RequestMapping(value = "/departments/", method = RequestMethod.GET)
@@ -153,6 +186,8 @@ public class ASDataController {
     }
 
     /**
+     * Method to get researchFunders.
+     * 
      * @return service
      */
     @RequestMapping(value = "/researchFunders/", method = RequestMethod.GET)
@@ -164,6 +199,8 @@ public class ASDataController {
     }
 
     /**
+     * Method to get articles.
+     * 
      * @return service
      */
     @RequestMapping(value = "/articles/", method = RequestMethod.GET)
@@ -173,6 +210,8 @@ public class ASDataController {
     }
 
     /**
+     * Method to get societies.
+     * 
      * @return service
      */
     @RequestMapping(value = "/societies/", method = RequestMethod.GET)
@@ -185,19 +224,21 @@ public class ASDataController {
     }
 
     /**
-     * @param count
+     * Method to get areaOfInterests.
+     * 
      * @return service
      */
     @RequestMapping(value = "/areasOfInterests/", method = RequestMethod.GET)
-    public final Service getAreasOfInterests(
-            @RequestParam(value = "count", required = false, defaultValue = "10") final Integer count) {
+    public final Service getAreasOfInterests() {
         LOGGER.info("inside getAreasOfInterests Method");
         Service service = new Service();
-        service.setPayload(aSDataService.getAreasOfInterests(count));
+        service.setPayload(aSDataService.getAreasOfInterests());
         return service;
     }
 
     /**
+     * Method to get secutityQuestions.
+     * 
      * @return service
      */
     @RequestMapping(value = "/securityQuestions/", method = RequestMethod.GET)
@@ -205,11 +246,12 @@ public class ASDataController {
         LOGGER.info("inside getSecurityQuestions Method");
         Service service = new Service();
         service.setPayload(aSDataService.getSecurityQuestions());
-
         return service;
     }
 
     /**
+     * Method to get userRoles.
+     * 
      * @return service
      */
     @RequestMapping(value = "/roles/", method = RequestMethod.GET)
@@ -222,7 +264,10 @@ public class ASDataController {
     }
 
     /**
+     * Method to get adminRoles.
+     * 
      * @param roleType
+     *            - The request value
      * @return service
      */
     @RequestMapping(value = "/roles/{roleType}", method = RequestMethod.GET)
@@ -236,6 +281,8 @@ public class ASDataController {
     }
 
     /**
+     * Method to get adminAccessReasons.
+     * 
      * @return service
      */
     @RequestMapping(value = "/accessReasons/", method = RequestMethod.GET)
@@ -244,7 +291,7 @@ public class ASDataController {
         Service service = new Service();
         List<AccessReasons> accessList = aSDataService.getAccessReasons();
         if (null == accessList) {
-            throw new ASException(nodataFound, nodataFoundmsg);
+            throw new UserException(nodataFound, nodataFoundmsg);
         }
         service.setPayload(accessList);
         return service;

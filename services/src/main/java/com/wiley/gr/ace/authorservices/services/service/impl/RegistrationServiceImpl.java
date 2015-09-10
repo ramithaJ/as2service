@@ -15,19 +15,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
+import org.springframework.web.client.HttpClientErrorException;
 
+import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteService;
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.model.Country;
 import com.wiley.gr.ace.authorservices.model.InviteRecords;
 import com.wiley.gr.ace.authorservices.model.User;
+import com.wiley.gr.ace.authorservices.model.external.ALMAuthRequest;
 import com.wiley.gr.ace.authorservices.model.external.AddressDetails;
 import com.wiley.gr.ace.authorservices.model.external.AddressElement;
 import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
 import com.wiley.gr.ace.authorservices.model.external.CustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 import com.wiley.gr.ace.authorservices.model.external.ProfileInformation;
-import com.wiley.gr.ace.authorservices.model.external.Status;
 import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
 import com.wiley.gr.ace.authorservices.persistence.services.RegistrationServiceDAO;
 import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
@@ -48,64 +52,93 @@ public class RegistrationServiceImpl implements RegistrationService {
     private RegistrationServiceDAO registrationServiceDAO;
 
     /**
+     * This field holds the value of autoCompleteService.
+     */
+    @Autowired(required = true)
+    private AutocompleteService autoCompleteService;
+
+    /**
      * This method is for creating user.
      *
      * @param user
      *            the user
      * @return the string
-     * @throws Exception
-     *             the exception
      */
     @Override
-    public final String createUser(final User user) throws Exception {
+    public final String createUser(final User user) {
 
         String status = null;
-        Status statusObj = null;
-        if (null != user) {
-            ProfileInformation profileInformation = new ProfileInformation();
-            CustomerProfile customerProfile = new CustomerProfile();
-            CustomerDetails customerDetails = new CustomerDetails();
-            AddressDetails cuAddressDetails = new AddressDetails();
-            List<AddressElement> addressElements = new ArrayList<AddressElement>();
-            AddressElement addressElement = new AddressElement();
+        try {
+            if (null != user) {
+                ProfileInformation profileInformation = new ProfileInformation();
+                CustomerProfile customerProfile = new CustomerProfile();
+                CustomerDetails customerDetails = new CustomerDetails();
+                AddressDetails cuAddressDetails = new AddressDetails();
+                List<AddressElement> addressElements = new ArrayList<AddressElement>();
+                AddressElement addressElement = new AddressElement();
 
-            customerDetails.setFirstname(user.getFirstName());
-            customerDetails.setLastname(user.getLastName());
-            customerDetails.setPassword(user.getPassword());
-            if (!StringUtils.isEmpty(user.getInvitationGuid())) {
-                InviteResetpwdLog inviteResetpwdLog = registrationServiceDAO
-                        .getInvitationRecords(user.getInvitationGuid());
-                if (inviteResetpwdLog.getEmailAddress() != user
-                        .getPrimaryEmailAddr()) {
-                    customerDetails.setSecondaryemail(inviteResetpwdLog
-                            .getEmailAddress());
+                if ("ALM".equalsIgnoreCase(user.getFoundIn())) {
+                    ALMAuthRequest almAuthRequest = new ALMAuthRequest();
+                    almAuthRequest.setAppKey("DAAS"); // remove hardcode
+                    almAuthRequest.setAuthenticationType("LDAP"); // remove
+                    // hardcode
+                    almAuthRequest.setPassword(user.getPassword());
+                    almAuthRequest.setUserId(user.getPrimaryEmailAddr());
+
+                    if (esbInterFaceService.isALMAuthenticated(almAuthRequest)) {
+                        customerDetails.setSkipTargetSystem(user.getFoundIn());
+                    }
                 }
+                customerDetails.setfName(user.getFirstName());
+                customerDetails.setlName(user.getLastName());
+                customerDetails.setPswd(user.getPassword());
+                if (!StringUtils.isEmpty(user.getInvitationGuid())) {
+                    final InviteResetpwdLog inviteResetpwdLog = registrationServiceDAO
+                            .getInvitationRecords(user.getInvitationGuid());
+                    if (inviteResetpwdLog.getEmailAddress().equalsIgnoreCase(
+                            user.getPrimaryEmailAddr())) {
+                        customerDetails.setSecondaryEmail(inviteResetpwdLog
+                                .getEmailAddress());
+                    }
 
+                }
+                customerDetails.setPrimaryEmail(user.getPrimaryEmailAddr());
+                customerDetails.setTcFlag(user.getTermsOfUseFlg());
+                customerDetails.setSourceSystem("AS"); // remove hardcode
+                final String countryCode = user.getCountryCode();
+                addressElement.setCountryCode(countryCode);
+                String tempCountryName = autoCompleteService.getNameByCode(
+                        "countries", countryCode, null);
+                addressElement.setCountryName(tempCountryName);
+                addressElement.setAddressType("Primary"); // remove hardcode
+                addressElement.setAddrTypeCD("Physical"); // remove hardcode
+                addressElements.add(addressElement);
+                cuAddressDetails.setAddress(addressElements);
+
+                customerProfile.setCustomerDetails(customerDetails);
+                customerProfile.setAddressDetails(cuAddressDetails);
+
+                profileInformation.setCustomerprofile(customerProfile);
+
+                status = esbInterFaceService.creatUser(profileInformation);
             }
-            customerDetails.setPrimaryemail(user.getPrimaryEmailAddr());
-
-            addressElement.setCountrycode(user.getCountry().getCountryCode());
-            addressElement.setCountryName(user.getCountry().getCountryName());
-            // addressElement.setCountrynamene(user.getCountryNameNE());
-            addressElements.add(addressElement);
-            cuAddressDetails.setAddress(addressElements);
-
-            customerProfile.setCustomerdetails(customerDetails);
-            customerProfile.setAddressdetails(cuAddressDetails);
-
-            profileInformation.setCustomerprofile(customerProfile);
-
-            statusObj = esbInterFaceService.creatUser(profileInformation);
-        }
-        if (null != statusObj) {
-            if ("SUCCESS".equalsIgnoreCase(statusObj.getStatus())) {
-                status = "SUCCESS";
+        } catch (HttpClientErrorException httpEx) {
+            if (httpEx.getStatusCode() == HttpStatus.UNAUTHORIZED) {
+                throw new UserException(
+                        "REGISTRATION_ALM_AUTH_FAILURE_ERR_TEXT",
+                        "Registration for ALM Authentication Failed. Please enter correct password.");
+            } else if (httpEx.getStatusCode() == HttpStatus.LOCKED) {
+                throw new UserException(
+                        "REGISTRATION_ALM_ACCT_LOCKED_ERR_TEXT",
+                        "Your account is locked out please try after sometime.");
             } else {
-                status = "FAILURE";
+                throw new UserException("UNEXPECTED",
+                        "Some Unexpected Error occured");
             }
-        } else {
-            status = "FAILURE";
+        } catch (Exception e) {
+            throw new UserException();
         }
+
         return status;
     }
 
@@ -117,32 +150,46 @@ public class RegistrationServiceImpl implements RegistrationService {
      * @param lastName
      *            the last name
      * @return the user from first name last name
-     * @throws Exception
-     *             the exception
      */
     @Override
-    public final List<User> getUserFromFirstNameLastName(
-            final String firstName, final String lastName) throws Exception {
+    public final ArrayList<User> getUserFromFirstNameLastName(
+            final String firstName, final String lastName) {
 
         ArrayList<User> userList = new ArrayList<User>();
-        List<ESBUser> esbUserList = null;
+        ArrayList<ESBUser> esbUserList = null;
         if (!StringUtils.isEmpty(firstName) && !StringUtils.isEmpty(lastName)) {
-            esbUserList = esbInterFaceService.getUsersFromFirstNameLastName(
-                    firstName, lastName);
+            try {
+                esbUserList = esbInterFaceService
+                        .getUsersFromFirstNameLastName(firstName, lastName);
 
-            if (!StringUtils.isEmpty(esbUserList)) {
-                for (ESBUser esbUser : esbUserList) {
-                    User tempUser = new User();
-                    Country tempCountry = new Country();
-                    tempCountry.setCountryName(esbUser.getCountry());
-                    tempUser.setFirstName(esbUser.getFirstName());
-                    tempUser.setLastName(esbUser.getLastName());
-                    tempUser.setPrimaryEmailAddr(esbUser.getEmailID());
-                    tempUser.setCountry(tempCountry);
-                    userList.add(tempUser);
+                if (!StringUtils.isEmpty(esbUserList)) {
+                    for (ESBUser esbUser : esbUserList) {
+                        if ("AS".equalsIgnoreCase(esbUser.getFoundIN())) {
+                            User tempUser = new User();
+                            Country tempCountry = new Country();
+                            if (!StringUtils.isEmpty(esbUser.getAddresses())
+                                    && !StringUtils.isEmpty(esbUser
+                                            .getAddresses().get(0))) {
+                                tempCountry.setCountryCode(esbUser
+                                        .getAddresses().get(0).getCountryCd());
+                            }
+                            final String asid = esbUser.getASID();
+                            if (!StringUtils.isEmpty(asid)) {
+                                tempUser.setUserId(asid);
+                            }
+                            tempUser.setFirstName(esbUser.getFirstName());
+                            tempUser.setLastName(esbUser.getLastName());
+                            tempUser.setPrimaryEmailAddr(esbUser
+                                    .getPrimaryEmailAddr());
+                            tempUser.setInstituition(esbUser.getInstitution());
+                            tempUser.setOrcidId(esbUser.getOrcidId());
+                            tempUser.setCountry(tempCountry);
+                            userList.add(tempUser);
+                        }
+                    }
                 }
-            } else {
-                userList = null;
+            } catch (Exception e) {
+                throw new UserException("Some Error", e.getMessage());
             }
         }
 
@@ -155,30 +202,35 @@ public class RegistrationServiceImpl implements RegistrationService {
      * @param emailId
      *            the email id
      * @return the user
-     * @throws Exception
-     *             the exception
      */
     @Override
-    public final User checkEmailIdExists(final String emailId) throws Exception {
+    public final User checkEmailIdExists(final String emailId) {
         User user = null;
         ESBUser esbUser = null;
         if (!StringUtils.isEmpty(emailId)) {
-            esbUser = esbInterFaceService.checkEmailIdExists(emailId);
-            if (null != esbUser) {
-                user = new User();
-                Country countryDetails = new Country();
-                countryDetails.setCountryName(esbUser.getCountry());
-                user.setFirstName(esbUser.getFirstName());
-                user.setLastName(esbUser.getLastName());
-                user.setPrimaryEmailAddr(esbUser.getEmailID());
-                user.setCountry(countryDetails);
-            } else {
-                user = null;
-            }
-        } else {
-            user = null;
-        }
+            try {
+                esbUser = esbInterFaceService.checkEmailIdExists(emailId);
 
+                if (!StringUtils.isEmpty(esbUser)) {
+
+                    user = new User();
+                    final Country countryDetails = new Country();
+                    if (!StringUtils.isEmpty(esbUser.getAddresses())
+                            && !StringUtils.isEmpty(esbUser.getAddresses().get(
+                                    0))) {
+                        countryDetails.setCountryCode(esbUser.getAddresses()
+                                .get(0).getCountryCd());
+                    }
+                    user.setFirstName(esbUser.getFirstName());
+                    user.setLastName(esbUser.getLastName());
+                    user.setPrimaryEmailAddr(esbUser.getPrimaryEmailAddr());
+                    user.setCountry(countryDetails);
+                    user.setFoundIn(esbUser.getFoundIN());
+                }
+            } catch (Exception e) {
+                throw new UserException();
+            }
+        }
         return user;
     }
 
@@ -216,7 +268,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Override
     public final InviteRecords searchInvitationRecord(final String guid)
             throws Exception {
-        InviteRecords inviteRecord = new InviteRecords();
+        final InviteRecords inviteRecord = new InviteRecords();
         InviteResetpwdLog inviteRecordFromDB = null;
         inviteRecordFromDB = registrationServiceDAO.getInvitationRecords(guid);
         inviteRecord.setEmailAddress(inviteRecordFromDB.getEmailAddress());
