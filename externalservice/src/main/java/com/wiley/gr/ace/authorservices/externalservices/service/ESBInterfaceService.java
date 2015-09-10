@@ -1,21 +1,21 @@
 /*******************************************************************************
  * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
  *
- * All material contained herein is proprietary to John Wiley & Sons 
- * and its third party suppliers, if any. The methods, techniques and 
- * technical concepts contained herein are considered trade secrets 
- * and confidential and may be protected by intellectual property laws.  
- * Reproduction or distribution of this material, in whole or in part, 
- * is strictly forbidden except by express prior written permission 
+ * All material contained herein is proprietary to John Wiley & Sons
+ * and its third party suppliers, if any. The methods, techniques and
+ * technical concepts contained herein are considered trade secrets
+ * and confidential and may be protected by intellectual property laws.
+ * Reproduction or distribution of this material, in whole or in part,
+ * is strictly forbidden except by express prior written permission
  * of John Wiley & Sons.
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import com.wiley.gr.ace.authorservices.model.User;
+import com.wiley.gr.ace.authorservices.model.external.ALMAuthRequest;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
-import com.wiley.gr.ace.authorservices.model.external.ArticleInfoDetails;
 import com.wiley.gr.ace.authorservices.model.external.ArticlePdfResponse;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 import com.wiley.gr.ace.authorservices.model.external.OnlineOpen;
@@ -26,7 +26,6 @@ import com.wiley.gr.ace.authorservices.model.external.PdhLookupJournalResponse;
 import com.wiley.gr.ace.authorservices.model.external.ProfileInformation;
 import com.wiley.gr.ace.authorservices.model.external.Quote;
 import com.wiley.gr.ace.authorservices.model.external.QuoteRequest;
-import com.wiley.gr.ace.authorservices.model.external.Status;
 import com.wiley.gr.ace.authorservices.model.external.TaxRequest;
 import com.wiley.gr.ace.authorservices.model.external.TaxResponse;
 
@@ -65,35 +64,27 @@ public interface ESBInterfaceService {
      * @param emailId
      *            the email id
      * @return the ESB user
-     * @throws Exception
-     *             the exception
+     *
      */
-    ESBUser checkEmailIdExists(String emailId) throws Exception;
+    ESBUser checkEmailIdExists(String emailId);
 
     /**
      * Gets the users from first name last name.
      *
-     * @param firstName
-     *            the first name
-     * @param lastName
-     *            the last name
+     * @param firstName the first name
+     * @param lastName the last name
      * @return the users from first name last name
-     * @throws Exception
-     *             the exception
      */
-    List<ESBUser> getUsersFromFirstNameLastName(String firstName,
-            String lastName) throws Exception;
+    ArrayList<ESBUser> getUsersFromFirstNameLastName(String firstName,
+            String lastName);
 
     /**
      * Creat user.
      *
-     * @param profileForCreation
-     *            the profile for creation
-     * @return the status
-     * @throws Exception
-     *             the exception
+     * @param profileForCreation the profile for creation
+     * @return the string
      */
-    Status creatUser(ProfileInformation profileForCreation) throws Exception;
+    String creatUser(ProfileInformation profileForCreation);
 
     /**
      * Gets the all author articles.
@@ -152,17 +143,6 @@ public interface ESBInterfaceService {
 //    ProductionData getProductionData(Integer articleId) throws Exception;
 
     /**
-     * Gets the article info.
-     *
-     * @param emailId
-     *            the email id
-     * @return the article info
-     * @throws Exception
-     *             the exception
-     */
-    ArticleInfoDetails getArticleInfo(String emailId) throws Exception;
-
-    /**
      * View assigned article.
      *
      * @param articleId
@@ -171,6 +151,20 @@ public interface ESBInterfaceService {
      * @throws Exception
      *             the exception
      */
+    PdhLookupArticleResponse viewAssignedArticle(String articleId)
+            throws Exception;
+
+    /**
+     * Gets the pdh lookup journal response.
+     *
+     * @param articleId
+     *            the article id
+     * @return the pdh lookup article response
+     * @throws Exception
+     *             the exception
+     */
+    PdhLookupJournalResponse getPdhLookupJournalResponse(String journalId)
+            throws Exception;
     PdhLookupArticleResponse viewAssignedArticle(String articleId)
             throws Exception;
 
@@ -233,9 +227,18 @@ public interface ESBInterfaceService {
      *
      * @param dhId
      *            the dh id
-     * @return the pdh lookup response
+     * @return the object
      * @throws Exception
      *             the exception
      */
     Object getPdhLookupResponse(String dhId) throws Exception;
+
+    /**
+     * Checks if is ALM authenticated.
+     *
+     * @param almAuthRequest
+     *            the alm auth request
+     * @return true, if is ALM authenticated
+     */
+    boolean isALMAuthenticated(ALMAuthRequest almAuthRequest);
 }

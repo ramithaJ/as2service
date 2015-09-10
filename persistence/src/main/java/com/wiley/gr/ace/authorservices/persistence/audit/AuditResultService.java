@@ -18,20 +18,18 @@ import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 
 /**
  * The Interface AuditResultService.
+ * 
+ * @author virtusa version 1.0
  */
 public interface AuditResultService {
 
-    /**
-     * User audit.
+     /** User audit.
      *
      * @param auditMap
      *            the audit map
-     * @param actionMap
-     *            the action map
      * @param user
      *            the user
      * @return true, if successful
      */
-    boolean userAudit(List<HashMap<String, String>> auditMap,
-            HashMap<String, String> actionMap, Users user);
+    boolean userAudit(List<HashMap<String, String>> auditMap, Users user);
 }

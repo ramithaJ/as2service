@@ -1,4 +1,3 @@
-package com.wiley.gr.ace.authorservices;
 /*******************************************************************************
  * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
  *
@@ -10,3 +9,28 @@ package com.wiley.gr.ace.authorservices;
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
  *******************************************************************************/
+/**
+ * 
+ */
+package com.wiley.gr.ace.authorservices.persistence.services;
+
+import java.util.List;
+
+import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
+
+/**
+ * The Interface ArticleAssignmentDAO.
+ *
+ * @author virtusa version 1.0
+ */
+public interface ArticleAssignmentDAO {
+
+    /**
+     * Gets the product person relations.
+     *
+     * @param emailId
+     *            the email id
+     * @return the product person relations
+     */
+    List<ProductPersonRelations> getProductPersonRelations(String emailId);
+}

@@ -22,6 +22,8 @@ import com.wiley.gr.ace.authorservices.persistence.entity.LookupValues;
 import com.wiley.gr.ace.authorservices.persistence.services.LookUpValuesDAO;
 
 /**
+ * The Class LookupValuesDAOImpl.
+ *
  * @author virtusa version 1.0
  */
 public class LookupValuesDAOImpl implements LookUpValuesDAO {

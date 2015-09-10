@@ -14,14 +14,16 @@ package com.wiley.gr.ace.authorservices.externalservices.service;
 import com.wiley.gr.ace.authorservices.model.external.AdditionalPermissions;
 
 /**
- * @author virtusa version1.0
+ * The Class BPMInterfaceServiceImpl.
+ *
+ * @author virtusa version 1.0
  *
  */
 public interface PermissionService {
 
-	/**
-	 * @param userId
-	 * @return AdditionalPermissions
-	 */
-	AdditionalPermissions getAdditionalPermissions(String userId);
+    /**
+     * @param userId
+     * @return AdditionalPermissions
+     */
+    AdditionalPermissions getAdditionalPermissions(String userId);
 }

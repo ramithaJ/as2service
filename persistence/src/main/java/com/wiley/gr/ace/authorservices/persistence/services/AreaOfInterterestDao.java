@@ -9,3 +9,22 @@
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
  *******************************************************************************/
+
+package com.wiley.gr.ace.authorservices.persistence.services;
+
+import java.util.List;
+
+import com.wiley.gr.ace.authorservices.persistence.entity.AreaOfInterest;
+
+/**
+ * The Interface AreaOfInterterestDao.
+ */
+public interface AreaOfInterterestDao {
+    
+    /** Gets the area of interest.
+     *
+     * @return the area of interest
+     */
+   List<AreaOfInterest>  getAreaOfInterest();
+
+}

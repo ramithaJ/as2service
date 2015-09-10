@@ -32,14 +32,14 @@ public class InvoiceServiceImpl implements InvoiceService {
     /**
      * Gets the invoice.
      *
-     * @param invoice            
-     * This method will take invoice as an input an call external
+     * @param invoice
+     *            This method will take invoice as an input an call external
      *            service to get invoice
      * @return the invoice
      */
     @Override
     public final byte[] getInvoice(final Invoice invoice) {
-        
+
         return (byte[]) StubInvokerUtil.getFile(invoiceUrl, invoice,
                 byte[].class);
 

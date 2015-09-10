@@ -1,0 +1,951 @@
+SOCIETY_CD,SOCIETY_NAME,CREATED_DATE,CREATED_BY
+'AAH','Association of Art Historians',sysdate,0
+'ACTSQ','Association of Cardiovascular Thoracic Surgeons of Quebec',sysdate,0
+'ACAPN','Association of Child and Adolescent Psychiatric Nurses',sysdate,0
+'ACSA','Association of Collegiate Schools of Architecture',sysdate,0
+'ACGBI','Association of Coloproctology of Great Britain and Ireland',sysdate,0
+'AFCC','Association of Family and Conciliation Courts',sysdate,0
+'AFO','Association of Field Ornithologists',sysdate,0
+'ARN','Association of Rehabilitation Nurses',sysdate,0
+'ASSB','Association of Scandinavian Slavists and Baltologists',sysdate,0
+'AWHONN','Association of Women''s Health, Obstetric and Neonatal Nurses',sysdate,0
+'AAHPSSS','Australasian Association for the History, Philosophy and Social Studies of Science',sysdate,0
+'ACEM','Australasian College for Emergency Medicine',sysdate,0
+'ACD','Australasian College of Dermatologists',sysdate,0
+'AHWRS','Australasian Hair and Wool Research Society ',sysdate,0
+'APSAD','Australasian Professional Society on Alcohol and other Drugs',sysdate,0
+'ASEM','Australasian Society for Emergency Medicine',sysdate,0
+'ASI','Australasian Society for Immunology',sysdate,0
+'ASCTS','Australasian Society of Cardiac and Thoracic Surgeons',sysdate,0
+'AARESI','Australian Agricultural and Resource Economics Society Inc',sysdate,0
+'ANZJFTAI','Australian and New Zealand Journal of Family Therapy Association Inc',sysdate,0
+'AAFT','Australian Association of Family Therapy',sysdate,0
+'AASW','Australian Association of Social Workers',sysdate,0
+'ACMHN','Australian College of Mental Health Nurses',sysdate,0
+'ACHSAMA','Australian Council on Healthcare Standards, Australian Medical Association',sysdate,0
+'ADA','Australian Dental Association',sysdate,0
+'AHRI','Australian Human Resources Institute',sysdate,0
+'AIR','Australian Institute of Radiography',sysdate,0
+'ASEI','Australian Society of Endodontology Inc',sysdate,0
+'ASVO','Australian Society of Viticulture and Oenology',sysdate,0
+'ASMM','Austrian Society for Metallurgy and Materials',sysdate,0
+'ASS','Austrian Society of Surgery',sysdate,0
+'BCLP','Baldy Center for Law and Policy',sysdate,0
+'BMPS','Banca Monte dei Paschi di Siena',sysdate,0
+'BEAT','Beating Eating Disroders',sysdate,0
+'BSTMPLITM','Belgian Society of Tropical Medicine and the Prince Leopold Institute of Tropical Medicine',sysdate,0
+'BS','Bioelectromagnetics Society',sysdate,0
+'BUL','Birkbeck, University of London',sysdate,0
+'BI','BJU International',sysdate,0
+'BNJB','Board of the Nordic Journal of Botnay',sysdate,0
+'BC','Boreas Collegium',sysdate,0
+'BSC','Botanical Society of China',sysdate,0
+'BT','Brian Towers ',sysdate,0
+'BEI','Bridgepoint Education, Inc.',sysdate,0
+'BAM','British Academy of Management',sysdate,0
+'BACP','British Association for Counselling and Psychotherapy',sysdate,0
+'BASPCAN','British Association for the Study and Prevention of Child Abuse and Neglect',sysdate,0
+'BACCH','British Association of Community Child Health',sysdate,0
+'BACCN','British Association of Critical Care Nurses',sysdate,0
+'BAD','British Association of Dermatologists',sysdate,0
+'BAOS','British Association of Oral Surgeons',sysdate,0
+'BAO','British Association of Otolaryngologists',sysdate,0
+'BAP','British Association of Psychotherapists',sysdate,0
+'BAUN','British Association of Urological Nurses',sysdate,0
+'BAUS','British Association of Urological Surgeons',sysdate,0
+'BBTS','British Blood Transfusion Society',sysdate,0
+'BDA','British Dietetic Association',sysdate,0
+'BDIAP','British Division of the International Academy of Pathology',sysdate,0
+'BERA','British Educational Research Association',sysdate,0
+'BEVA','British Equine Veterinary Association',sysdate,0
+'BGS','British Grassland Society',sysdate,0
+'BHA','British HIV Association',sysdate,0
+'BILD','British Institute of Learning Disabilities',sysdate,0
+'BJSS','British Journal of Surgery Society',sysdate,0
+'BNS','British Neuropathological Society',sysdate,0
+'BNF','British Nutrition Foundation',sysdate,0
+'BOU','British Ornithologists'' Union',sysdate,0
+'BPG','British Photodermatology Group',sysdate,0
+'BPF','British Psychotherapy Foundation ',sysdate,0
+'BSAVA','British Small Animal Veterinary Association',sysdate,0
+'BSACI','British Society for Allergy & Clinical Immunology',sysdate,0
+'BSCC','British Society for Clinical Cytology ',sysdate,0
+'BSES','British Society for Eighteenth-Century Studies',sysdate,0
+'BSGE','British Society for Gynaecological Endoscopy',sysdate,0
+'BSH','British Society for Haematology',sysdate,0
+'BSHI','British Society for Histocompatibility and Immunogenetics',sysdate,0
+'SD156','British Society for Immunology',sysdate,0
+'BSPP','British Society for Plant Pathology',sysdate,0
+'BSPD','British Society of Paediatric Dentistry',sysdate,0
+'BSSS','British Society of Soil Science',sysdate,0
+'BSSM','British Society of Strain Management',sysdate,0
+'BVNA','British Veterinary Nursing Association',sysdate,0
+'CAS','California Academy of Sciences',sysdate,0
+'CAAA','Canadian Academic Accounting Association',sysdate,0
+'CAES','Canadian Agricultural Economics Society',sysdate,0
+'CAG','Canadian Association of Geographers',sysdate,0
+'CSCE','Canadian Society for Chemical Engineering',sysdate,0
+'CSA','Canadian Sociological Association',sysdate,0
+'CCEIA','Carnegie Council for Ethics in International Affairs',sysdate,0
+'CIB','CAS Institute of Botany',sysdate,0
+'CBEBC','Center for Business Ethics at Bentley College',sysdate,0
+'CCL','Center for Creative Leadership',sysdate,0
+'CLASUM','Center for Latin American Studies at the University of Miami',sysdate,0
+'CMSNY','Center for Migration Studies of New York',sysdate,0
+'CSDI','Center for the Study of Democratic Institutions',sysdate,0
+'CSP','Center for the Study of the Presidency',sysdate,0
+'CBER','Centre for Business and Economic Research',sysdate,0
+'CEPR','Centre for Economic Policy Research',sysdate,0
+'CIS','Centre for International Studies',sysdate,0
+'CIWEM','Chartered Institution of Water and Environmental Management',sysdate,0
+'CE','ChemPubSoc Europe',sysdate,0
+'CNS','Child Neurology Society',sysdate,0
+'CLOG','China Lung Oncology Group',sysdate,0
+'CASIB','Chinese Academy of Sciences, Institute of Botany',sysdate,0
+'CASIZ','Chinese Academy of Sciences, Institute of Zoology',sysdate,0
+'CACS','Chinese Automatic Control Society',sysdate,0
+'CCCWCHSU','Chinese Cochrane Center, West China Hospital of Sichuan University',sysdate,0
+'COA','Chinese Orthopaedic Association',sysdate,0
+'CSE','Chinese Society of Endocrinology ',sysdate,0
+'CSG','Chinese Society of Gastroenterology',sysdate,0
+'CSLC','Chinese Society of Lung Cancer',sysdate,0
+'CGU','Claremont Graduate University',sysdate,0
+'CET','Clinical Endocrinology Trust',sysdate,0
+'COSA','Clinical Oncology Society of Australia',sysdate,0
+'CSS','Cognitive Science Society ',sysdate,0
+'CO','College of Optometrists',sysdate,0
+'CSHK','College of Surgeons of Hong Kong',sysdate,0
+'CSEI','College Student Educators International',sysdate,0
+'CIJEP','Company of the International Journal of  Experimental Pathology',sysdate,0
+'CLRC','Comparative and Legislative Research Center',sysdate,0
+'CSCMP','Council of Supply Chain Management Professionals',sysdate,0
+'CIM','Courant Institute of Mathematics',sysdate,0
+'CA','CPA Australia',sysdate,0
+'CEF','Creative Education Foundation',sysdate,0
+'CUT','Curtin University of Technology',sysdate,0
+'DSTS','Danish Society for Theoretical Statistics',sysdate,0
+'DSI','Decision Sciences Institute',sysdate,0
+'IUPS','International Union of Psychological Science',sysdate,0
+'IUPAC','International Union of Pure & Applied Chemistry',sysdate,0
+'IWA','International Water Association',sysdate,0
+'IWSA','International Water Supply Association',sysdate,0
+'IXA','International Xenotransplantation Association',sysdate,0
+'IRCSOG','IPSA Research Committee on the Structure and Organization of Government',sysdate,0
+'JANS','Japan Academy of Nursing Science',sysdate,0
+'JAQR','Japan Association for Quaternary Research ',sysdate,0
+'JAMS','Japan Association of Mineralogical Sciences',sysdate,0
+'JCER','Japan Center for Economic Research',sysdate,0
+'JCJF','Japan Chemical Journal Forum',sysdate,0
+'JGES','Japan Gastroenterological Endoscopy Society',sysdate,0
+'JHCS','Japan Human Cell Society',sysdate,0
+'JSOM','Japan Society for Oriental Medicine',sysdate,0
+'JSES','Japan Society of Endoscopic Surgery',sysdate,0
+'JSH','Japan Society of Hepatology',sysdate,0
+'JSOG','Japan Society of Obstetrics and Gynecology',sysdate,0
+'JAAM','Japanese Association for Acute Medicine',sysdate,0
+'JAA','Japanese Association of Anatomists',sysdate,0
+'JCA','Japanese Cancer Association',sysdate,0
+'JCS','Japanese Circulation Society',sysdate,0
+'JDA','Japanese Dermatological Association',sysdate,0
+'JEA','Japanese Economic Association',sysdate,0
+'JGS','Japanese Geriatrics Society',sysdate,0
+'JGDA','Japanese Group Dynamics Association ',sysdate,0
+'JPA','Japanese Psychological Association',sysdate,0
+'JRS','Japanese Respiratory Society',sysdate,0
+'JSB','Japanese Society for Bacteriology',sysdate,0
+'JSFO','Japanese Society for Fisheries Oceanography',sysdate,0
+'JSHDR','Japanese Society for Host Defense Research',sysdate,0
+'JSV','Japanese Society for Virology ',sysdate,0
+'JSAS','Japanese Society of Animal Science',sysdate,0
+'JSDB','Japanese Society of Developmental Biologists',sysdate,0
+'JSDT','Japanese Society of Dialysis Therapy',sysdate,0
+'JSGS','Japanese Society of Grassland Science',sysdate,0
+'JSHS','Japanese Society of Hepato-Biliary-Pancreatic Surgery ',sysdate,0
+'JSPN','Japanese Society of Psychiatry and Neurology',sysdate,0
+'JSSR','Japanese Society of Sleep Research',sysdate,0
+'JSSSPN','Japanese Society of Soil Science and Plant Nutrition',sysdate,0
+'JTS','Japanese Teratology Society',sysdate,0
+'JUA','Japanese Urological Association',sysdate,0
+'J','Jernkontoret ',sysdate,0
+'JBI','Joanna Briggs Institute',sysdate,0
+'JGHF','Journal of Gastroenterology and Hepatology Foundation',sysdate,0
+'KASW','Korean Academy of Social Welfare',sysdate,0
+'KCS','Korean Chemical Society',sysdate,0
+'KSA','Korean Securities Association',sysdate,0
+'LLRC','Language Learning Research Club',sysdate,0
+'LSA','Law and Society Association',sysdate,0
+'LF','Lethaia Foundation',sysdate,0
+'LSL','Linnean Society of London',sysdate,0
+'LBS','London Business School',sysdate,0
+'LSEPS','London School of Economics and Political Science',sysdate,0
+'MTCA','Mark Twain Circle of America',sysdate,0
+'MHCCSS','Martha Heasley Cox Center for Steinbeck Studies',sysdate,0
+'MIT','Massachusetts Institute of Technology ',sysdate,0
+'MIAESR','Melbourne Institute of Applied Economic and Social Research',sysdate,0
+'M','MENCAP',sysdate,0
+'MSL','Mendelian Society of Lund',sysdate,0
+'ML','Metaphilosphy LLC',sysdate,0
+'MAIMH','Michigan Association for Infant Mental Health',sysdate,0
+'MEPC','Middle East Policy Council',sysdate,0
+'MERIP','Middle East Research and Information Project',sysdate,0
+'MPSA','Midwest Political Science Association',sysdate,0
+'MSS','Midwest Sociological Society',sysdate,0
+'MMF','Millbank Memorial Fund',sysdate,0
+'MLRL','Modern Law Review Limited',sysdate,0
+'MBSJ','Molecular Biology Society of Japan',sysdate,0
+'MSSM','Mount Sinai School of Medicine',sysdate,0
+'MN','Museum fur Naturkunde',sysdate,0
+'NI','NANDA International',sysdate,0
+'NAM','National Accadamy of Medicine',sysdate,0
+'NAPCE','National Association for Pastoral Care in Education',sysdate,0
+'NARST','National Association for Research in Science Teaching',sysdate,0
+'NASEN','National Association for Special Educational Needs',sysdate,0
+'NATE','National Association for the Teaching of English',sysdate,0
+'NAHQ','National Association of Healthcare Quality',sysdate,0
+'CNRSP','Centre National de la Recherche',sysdate,0
+'NCB','National Children''s Bureau',sysdate,0
+'NCL','National Civic League',sysdate,0
+'NCJFCJ','National Council of Juvenile and Family Court Judges',sysdate,0
+'NCME','National Council on Measurement in Education',sysdate,0
+'NERI','National Environmental Research Institute',sysdate,0
+'NFMLTA','National Federation of Modern Language Teachers Associations',sysdate,0
+'NGWA','National Ground Water Association',sysdate,0
+'NIAB','National Institute of Agricultural Botany',sysdate,0
+'NMNS','National Museaum of Natural Sciences',sysdate,0
+'NSEAD','National Society for Education in Art and Design',sysdate,0
+'NSSE','National Society for the Study of Education',sysdate,0
+'NAS','Nautical Archaeology Society',sysdate,0
+'NES','Netherlands Entomological Society',sysdate,0
+'NSSOR','Netherlands Society for Statistics and Operations Research',sysdate,0
+'NATA','Network for Advancement of Transfusion Alternatives',sysdate,0
+'NPT','New Phytologist Trust',sysdate,0
+'NYAS','New York Academy of Sciences',sysdate,0
+'NZGS','New Zealand Geographical Society',sysdate,0
+'NZIMRT','New Zealand Institute of Medical Radiation Technology',sysdate,0
+'NFA','Nippon Finance Association',sysdate,0
+'NAPB','Nordic Association for the Publication of BCPT ',sysdate,0
+'NCCS','Nordic College of Caring Science',sysdate,0
+'NFOG1','Nordic Federation of Societies of Obstetrics and Gynecology',sysdate,0
+'NPSA','Nordic Political Science Association',sysdate,0
+'NSO','Nordic Society Oikos',sysdate,0
+'NACDS','North American Clinical Dermatologic Society',sysdate,0
+'NASSP','North American Society for Social Philosophy',sysdate,0
+'NIP','Northern Institute of Philosophy ',sysdate,0
+'NPI','Norwegian Polar Institute',sysdate,0
+'NSA','Norwegian Statistical Association',sysdate,0
+'NCHK','Nursing Council of Hong Kong',sysdate,0
+'OTAL','Occupational Therapy Australia Ltd',sysdate,0
+'OP','Oceania Publications',sysdate,0
+'OSUDE','Ohio State University Department of Economics',sysdate,0
+'OISE','Ontario Institute for Studies in Education',sysdate,0
+'OAA','Optometrists Association Australia ',sysdate,0
+'OPEC','Organization of the Petroleum Exporting Countries',sysdate,0
+'OSDFNS','Oriental Societies of Denmark, Finland, Norway and Sweden',sysdate,0
+'ORS','Orthopaedic Research Society',sysdate,0
+'OUISERA','Osaka University Institute of Social and Economic Research Association',sysdate,0
+'ODI','Overseas Development Institute',sysdate,0
+'OE','Oxford Economics',sysdate,0
+'PRCP','Pacific Rim College of Psychiatry',sysdate,0
+'PSJ','Palaeontological Society of Japan',sysdate,0
+'PHYT','Parlimentary History Yearbook Trust',sysdate,0
+'PHS','Peace History Society',sysdate,0
+'PNSSP','Peripheral Nerve Society',sysdate,0
+'PDI','Personality Disorders Institute',sysdate,0
+'MPSW','Mecial and Pharmaceutical Society for WAKAN-YAKU',sysdate,0
+'PATNHHSI','Phi Alpha Theta: National History Honor Society, Inc.',sysdate,0
+'PCCP','Philippine College of Chest Physicians',sysdate,0
+'PF','Philosophical Forum',sysdate,0
+'PPR','Philosophy and Phenonmenological Research',sysdate,0
+'PESA','Philosophy of Education Society of Australasia',sysdate,0
+'PESGB','Philosophy of Education Society of Great Britain',sysdate,0
+'PSO','Policy Studies Organization',sysdate,0
+'IUC','International Union of Crystallography',sysdate,0
+'AED','Academy for Eating Disorders',sysdate,0
+'ALSB','Academy of Legal Studies in Business',sysdate,0
+'AFAANZ','Accounting and Finance Association of Australia and New Zealand',sysdate,0
+'ARCUCBSB','Accounting Research Center at the University of Chicago Booth School of Business',sysdate,0
+'ACES','ACES',sysdate,0
+'AASF','Acta Anaesthesiologica Scandinavica Foundation',sysdate,0
+'AOSF','Acta Ophthalmologica Scandinavica Foundation ',sysdate,0
+'ASAC','Administrative Sciences Association of Canada',sysdate,0
+'AGHN','Adult and Geropsychiatric-Mental Health Nurses',sysdate,0
+'ADB','African Development Bank ',sysdate,0
+'ACEHP','Alliance for Continuing Education in the Health Professions',sysdate,0
+'AKDTISHS','Alpha Kappa Delta: The International Sociology Honor Society',sysdate,0
+'AACPDM','American Academy for Cerebral Palsy and Developmental Medicine',sysdate,0
+'AAAP','American Academy of Addiction Psychiatry',sysdate,0
+'AAED','American Academy of Esthetic Dentistry',sysdate,0
+'AAFS','American Academy of Forensic Sciences',sysdate,0
+'AAOA','American Academy of Otolaryngic Allergy',sysdate,0
+'AAPM','American Academy of Pain Medicine',sysdate,0
+'AAVPT','American Academy of Veterinary Pharmacology and Therapeutics',sysdate,0
+'AAEA','American Agricultural Economics Association',sysdate,0
+'AAMFT','American Association for Marriage and Family Therapy',sysdate,0
+'AASLD','American Association for the Study of Liver Diseases',sysdate,0
+'AABB','American Association of Blood Banks',sysdate,0
+'AACA','American Association of Clinical Anatomists',sysdate,0
+'AAEP','American Association of Equine Practitioners',sysdate,0
+'AAFCS','American Association of Family and Consumer Sciences',sysdate,0
+'AAHFN','American Association of Heart Failure Nurses',sysdate,0
+'AANP','American Association of Nurse Practitioners',sysdate,0
+'AAPG','American Association of Petroleum Geologists',sysdate,0
+'AAPA','American Association of Physical Anthropologists',sysdate,0
+'AAPHD','American Association of Public Health Dentistry',sysdate,0
+'AATG','American Association of Teachers of German',sysdate,0
+'ABF','American Bar Foundation',sysdate,0
+'ACEP','American College of Emergency Physicians',sysdate,0
+'ACG','American College of Gastroenterology',sysdate,0
+'ACNM','American College of Nurse Midwives ',sysdate,0
+'ACP','American College of Prosthodontists',sysdate,0
+'ACVAA','American College of Veterinary Anesthesia and Analgesia',sysdate,0
+'AMVET','American College of Veterinary Internal Medicine',sysdate,0
+'ACVO','American College of Veterinary Ophthalmologists',sysdate,0
+'ACVR','American College of Veterinary Radiology',sysdate,0
+'ACVS','American College of Veterinary Surgeons',sysdate,0
+'ACCI','American Council on Consumer Interests',sysdate,0
+'ACTFL','American Council on the Teaching of Foreign Languages',sysdate,0
+'AEA','American Evaluation Association',sysdate,0
+'AGU','American Geophysical Union',sysdate,0
+'AHS','American Headache Society',sysdate,0
+'AICE','American Institute of Chemical Engineers',sysdate,0
+'AMS','American Microscopical Society',sysdate,0
+'ANMS','American Neurogastroenterology and Motility Society',sysdate,0
+'AMNA','American Neurological Association',sysdate,0
+'AOA','American Orthopsychiatric Association',sysdate,0
+'AREUEA','American Real Estate and Urban Economics Association',sysdate,0
+'ARIA','American Risk and Insurance Association',sysdate,0
+'ASHA','American School Health Association',sysdate,0
+'ASBMR','American Society for Bone and Mineral Research',sysdate,0
+'ASFBD','American Society For Breast Disease',sysdate,0
+'ASCPT','American Society for Clinical Pharmacology and Therapeutics',sysdate,0
+'ASCCP','American Society for Coloscopy and Cervical Pathology',sysdate,0
+'ASDS','American Society for Dermatologic Surgery',sysdate,0
+'ASEE','American Society for Engineering Education',sysdate,0
+'ASHRM','American Society for Healthcare Risk Management',sysdate,0
+'ASIST','American Society for Information Science & Technology',sysdate,0
+'ASPTC','American Society for Pharmacology and Experimental Therapeutics',sysdate,0
+'ASP','American Society for Photobiology',sysdate,0
+'ASPC','American Society for Preventive Cardiology',sysdate,0
+'ASPA','American Society for Public Administration',sysdate,0
+'ASRI','American Society for Reproductive Immunology',sysdate,0
+'ASVCP','American Society for Veterinary Clinical Pathology',sysdate,0
+'ASC','American Society of Criminology',sysdate,0
+'ASD','American Society of Dermatopathology',sysdate,0
+'ASDIN','American Society of Diagnostic and Interventional Nephrology',sysdate,0
+'ASHI','American Society of Hypertension, Inc',sysdate,0
+'ASLME','American Society of Law, Medicine & Ethics',sysdate,0
+'ASNE','American Society of Naval Engineers',sysdate,0
+'ASNSP','American Society of Neuroimaging',sysdate,0
+'ASTS','American Society of Transplant Surgeons',sysdate,0
+'AWRA','American Water Resources Association',sysdate,0
+'AC','Analysis Committee',sysdate,0
+'ATOS','Anticancer Therapeutics and Oncology Society',sysdate,0
+'ARSC','Applied Regional Science Conference',sysdate,0
+'AL','Asempa Ltd',sysdate,0
+'AOFOG','Asia and Oceania Federation of Obstetrics and Gynaecology',sysdate,0
+'APPS','Asia and the Pacific Policy Society',sysdate,0
+'AETF','Asia Endosurgery Task Force',sysdate,0
+'APCNS','Asia Pacific Clinical Nutrition Society',sysdate,0
+'APLAR','Asia Pacific League of Associations for Rheumatology',sysdate,0
+'APSEM','Asia Pacific School of Economics and Management',sysdate,0
+'AASD3','Asian Association for the Study of Diabetes',sysdate,0
+'AASP','Asian Association of Social Psychology',sysdate,0
+'ACHES','Asian Chemical Editorial Society',sysdate,0
+'APSN','Asian Pacific Society of Nephrology',sysdate,0
+'APSR','Asian Pacific Society of Respirology',sysdate,0
+'ASAA','Asian Studies Association of Australia',sysdate,0
+'ACAMH','Association for Child and Adolescent Mental Health',sysdate,0
+'ACTS','Association for Clinical and Translational Science',sysdate,0
+'ADEE','Association for Dental Education in Europe',sysdate,0
+'AFTSPU','Association for Family Therapy and Systemic Practice in the UK',sysdate,0
+'AHME','Association for Hospital Medical Education ',sysdate,0
+'AIST','Association for Information Science and Technology',sysdate,0
+'APOR','Association for Patient Oriented Research',sysdate,0
+'APET','Association for Public Economic Theory',sysdate,0
+'APPAM','Association for Public Policy Analysis and Management',sysdate,0
+'APTJIM','Association for Publication of The Journal of Internal Medicine',sysdate,0
+'ARIL','Association for Religion and Intellectual Life',sysdate,0
+'ASLO','Association for the Sciences of Limnology and Oceanography',sysdate,0
+'ASEN','Association for the Study of Ethnicity and Nationalism',sysdate,0
+'ASME','Association for the Study of Medical Education',sysdate,0
+'ATBC','Association for Tropical Biology and Conservation',sysdate,0
+'AAG','Association of American Geographers',sysdate,0
+'AAP','Association of American Physicians',sysdate,0
+'AAGBI','Association of Anaesthetists of Great Britain and Ireland',sysdate,0
+'PQPC','Political Quarterly Publishing Co ',sysdate,0
+'PCACA','Popular Culture Association/American Culture Association',sysdate,0
+'PC','Population Council',sysdate,0
+'PDMA','Product Development and Management Association',sysdate,0
+'POMS','Production and Operations Management Society',sysdate,0
+'PNHLS','Program on Negotiation at Harvard Law School',sysdate,0
+'PMI','Project Management Institute',sysdate,0
+'PCEPOP','Provincial Council of the English Province of the Order of Preachers',sysdate,0
+'PSDFNS','Psychoanalytical Societies in Denmark, Finland, Norway and Sweden',sysdate,0
+'PFPI','Public Financial Publications, Inc.',sysdate,0
+'PHAA','Public Health Association of Australia',sysdate,0
+'QRA','Quaternary Research Association',sysdate,0
+'RDMS','R & D Management Society',sysdate,0
+'RC','RAND Corporation',sysdate,0
+'RUC','Regents of the University of California',sysdate,0
+'RSAI','Regional Science Association International',sysdate,0
+'RHS','Religious History Society',sysdate,0
+'RSPS','Remote Sensing and Photogrammetry Society',sysdate,0
+'RHM','Reproductive Health Matters',sysdate,0
+'RSA','Research Society on Alcoholism',sysdate,0
+'RMA','Resource Modeling Association',sysdate,0
+'RESL','Review of Economic Studies Limited',sysdate,0
+'RUDRS','Rice University, Department of Religious Studies',sysdate,0
+'RAI','Royal Anthropological Institute',sysdate,0
+'RAS','Royal Astronomical Society',sysdate,0
+'RACP','Royal Australasian College of Physicians',sysdate,0
+'RACS','Royal Australasian College of Surgeons',sysdate,0
+'RANZCOG','Royal Australian and New Zealand College of Obstetricians and Gynaecologists',sysdate,0
+'RANZCO','Royal Australian and New Zealand College of Ophthalmologists',sysdate,0
+'RANZCP','Royal Australian and New Zealand College of Psychiatrists',sysdate,0
+'RANZCR','Royal Australian and New Zealand College of Radiologists',sysdate,0
+'RBGK','Royal Botanic Gardens, Kew',sysdate,0
+'RBSN','Royal Botanical Society of the Netherlands',sysdate,0
+'RCOG','Royal College of Obstetricians and Gynaecologists',sysdate,0
+'RCR','Royal College of Radiologists',sysdate,0
+'RCSLT','Royal College of Speech and Language Therapists',sysdate,0
+'RDGS','Royal Dutch Geographical Society',sysdate,0
+'RGSOA','Royal Geographical Society',sysdate,0
+'RIIA','Royal Institute of International Affairs',sysdate,0
+'RPS','Royal Pharmaceutical Society',sysdate,0
+'RSC','Royal Society of Chemistry',sysdate,0
+'RSAS','Royal Swedish Academy of Sciences',sysdate,0
+'RH','Ruijin Hospital',sysdate,0
+'RCEP','Russian Centre for Economic Policy',sysdate,0
+'SCN','Scandinavian College of NeuroPsychopharmacology',sysdate,0
+'SDIADR','Scandinavian Division of the International Association for Dental Research',sysdate,0
+'SFMSS','Scandinavian Foundation of Medicine and Sceince in Sports',sysdate,0
+'SPPS','Scandinavian Plant Physiology Society ',sysdate,0
+'SSMMP','Scandinavian Societies for Medical Microbiology and Pathology',sysdate,0
+'SSCC','Scandinavian Society for Clinical Chemistry',sysdate,0
+'SSCPNM','Scandinavian Society of Clinical Physiology and Nuclear Medicine',sysdate,0
+'SA','Schering AB',sysdate,0
+'SSMA','School Science and Mathematics Association',sysdate,0
+'SP','Scientific Press ',sysdate,0
+'SPA','Scots Philosophical Association',sysdate,0
+'SIOCCAS','Shanghai Institute of Organic Chemistry, Chinese Academy of Sciences',sysdate,0
+'SJUSM','Shanghai JiaoTong University School of Medicine ',sysdate,0
+'STTIHSN','Sigma Theta Tau International Honor Society of Nursing',sysdate,0
+'SIO','Societa Italiana di Ortodonzia',sysdate,0
+'SACME','Society for Academic Continuing Medical Education',sysdate,0
+'SAEM','Society for Academic Emergency Medicine',sysdate,0
+'GSAMM','German Society for Applied Mathematics and Mechanics',sysdate,0
+'SFAMP','Society for Applied Microbiology',sysdate,0
+'SAP','Society for Applied Philosophy',sysdate,0
+'SBC-','Society for Biology of the Cell -France',sysdate,0
+'SCBIO','Society for Conservation Biology',sysdate,0
+'SDB','Society for Developmental Biology',sysdate,0
+'SER','Society for Ecological Restoration',sysdate,0
+'SELS','Society for Empirical Legal Studies',sysdate,0
+'SE','Society for Endocrinology',sysdate,0
+'SEB','Society for Experimental Biology',sysdate,0
+'SEBM','Society for Experimental Biology and Medicine',sysdate,0
+'SEM','Society for Experimental Mechanics',sysdate,0
+'SHAFR','Society for Historians of American Foreign Relations',sysdate,0
+'SIOP','Society for Industrial and Organizational  Psychology',sysdate,0
+'SID','Society for Information Display',sysdate,0
+'SICB','Society for Integrateive & Comparative Biology',sysdate,0
+'SIDESDR','Society for Investigative Dermatology and the European Society for Dermatological Research',sysdate,0
+'SIDI','Society for Investigative Dermatology, Inc.',sysdate,0
+'SLAS','Society for Latin American Studies',sysdate,0
+'SMM','Society for Marine Mammalogy',sysdate,0
+'SMIT','Society for Medical Innovation and Technology',sysdate,0
+'SMA','Society for Music Analysis',sysdate,0
+'SO','Society for Oxonomics',sysdate,0
+'SPR','Society for Psychophysiological Research',sysdate,0
+'SRS','Society for Renaissance Studies',sysdate,0
+'SRCD','Society for Research in Child Development',sysdate,0
+'SRSM','Society for Research Synthesis Methodology',sysdate,0
+'SSP','Society for Science and the Public',sysdate,0
+'SAMS','Society for the Advancement of Managment Studies',sysdate,0
+'SEAB','Society for the Experimental Analysis of Behavior',sysdate,0
+'SPSSI','Society for the Psychological Study of Social Issues',sysdate,0
+'SPWDAPA','Society for the Psychology of Women, Division 35 of the American Psychological Association',sysdate,0
+'SSSR','Society for the Scientific Study of Religion',sysdate,0
+'SSEPC','Society for the Study of Evolution',sysdate,0
+'SSSB','Society for the Study of Species Biology',sysdate,0
+'SSSI','Society for the Study of Symbolic Interaction',sysdate,0
+'SVE','Society for Vector Ecology',sysdate,0
+'SWP','Society for Women in Philosophy',sysdate,0
+'SDT','Society of Dairy Technology',sysdate,0
+'SDC','Society of Dyers and Colourists',sysdate,0
+'SETC','Society of Environmental Toxicology and Chemistry',sysdate,0
+'SGIM','Society of General Internal Medicine',sysdate,0
+'SHM','Society of Hospital Medicine',sysdate,0
+'SHPA','Society of Hospital Pharmacists of Australia',sysdate,0
+'SIC','Society of Industrial Chemistry',sysdate,0
+'SLS','Society of Legal Scholars',sysdate,0
+'SPE','Society of Plastics Engineers',sysdate,0
+'SRG','Society of Resource Geology',sysdate,0
+'SSCWD','Society on Sarcopenia, Cachexia and Wasting Disorders',sysdate,0
+'SCLAS','Southeastern Council on Latin American Studies',sysdate,0
+'SEA','Southern Economic Association',sysdate,0
+'SFASFA','Southern Finance Association and the Southwestern Finance Association',sysdate,0
+'SSSA','Southwestern Social Science Association',sysdate,0
+'SCDA','Special Care Dentistry Association',sysdate,0
+'SJDS','St. John''s Dermatological Society',sysdate,0
+'SSC','Statistical Society of Canada',sysdate,0
+'SIV','Steel Institute VDEh',sysdate,0
+'ST','Stifielsen Theoria',sysdate,0
+'SMS','Strategic Management Society',sysdate,0
+'SCHS','Supreme Court Historical Society',sysdate,0
+'SGS','Swedish Geophysical Society',sysdate,0
+'SIMR','Swedish Institute for Metals Research',sysdate,0
+'SSAG','Swedish Society for Anthropology and Geography',sysdate,0
+'SSS','Swedish Statistical Society',sysdate,0
+'SDS','System Dynamics Society',sysdate,0
+'TSPCM','Taiwan Society of Pulmonary?and?Critical Care Medicine?',sysdate,0
+'TST','Teaching Statistics Trust',sysdate,0
+'TIA','TESOL International Association',sysdate,0
+'TAFUS','The Accounting Foundation, University of Sydney',sysdate,0
+'TAACRAO','The American Association of Collegiate Registrars and Admissions Officers',sysdate,0
+'TAPOS','The American Psychosocial Oncology Society',sysdate,0
+'TBESS','The British Elbow and Shoulder Society',sysdate,0
+'TCSJ','The Chemical Society of Japan',sysdate,0
+'TCTBUH','The Council on Tall Buildings and Urban Habitat',sysdate,0
+'TESA','The Economic Society of Australia',sysdate,0
+'TESBES','The European Society of Biochemical Engineering Sciences',sysdate,0
+'BFIMRT','BAM: Federal Institute for Materials Research and Testing',sysdate,0
+'THC','The Hastings Center',sysdate,0
+'TIBD','The Institute of Brewing & Distilling',sysdate,0
+'TIACST','The International Association for Cereal Science and Technology',sysdate,0
+'KATRD','The?Korean Academy of Tuberculosis and Respiratory Disease',sysdate,0
+'TMS','The Meteoritical Society ',sysdate,0
+'TOBYS','The Obesity Society ',sysdate,0
+'TPA','The Palaeontological Association',sysdate,0
+'TPSGBI','The Pathological Society of Great Britain and Ireland',sysdate,0
+'NRHAS','National Rural Health Association',sysdate,0
+'PS','Pacioli Society',sysdate,0
+'TSAP','The Society of Analytical Psychology',sysdate,0
+'TSANZ','The Thoracic Society of Austrailia and New Zealand',sysdate,0
+'TTS','The Triological Society',sysdate,0
+'TWS','The Wildlife Society',sysdate,0
+'TS','Transplantation Society',sysdate,0
+'TFRCP','Trustees For Roman Catholic Purposes',sysdate,0
+'TBER','Trustees of the Bulletin of Economic Research',sysdate,0
+'ASIM','Austrian Society of Internal Medicine',sysdate,0
+'UV','UK Vet',sysdate,0
+'PAS','Pathological Society',sysdate,0
+'UICC','Union for International Cancer Control',sysdate,0
+'UN','United Nations',sysdate,0
+'UKLA','United Kingdom Literacy Association',sysdate,0
+'USASBE','United States Association for Small Business and Entrepreneurship',sysdate,0
+'UCWR','Universities Council on Water Resources ',sysdate,0
+'UACES','University Association for Contemporary European Studies',sysdate,0
+'UAU','University of Adelaide/Flinders University',sysdate,0
+'UB','University of Bologna',sysdate,0
+'UI','University of Illinois ',sysdate,0
+'UM','University of Memphis',sysdate,0
+'PHOS','Photomedicine Society',sysdate,0
+'UQ','University of Queensland',sysdate,0
+'USC','University of Southern California ',sysdate,0
+'UAA','Urban Affairs Association',sysdate,0
+'PHYS','Physiology Society',sysdate,0
+'VERCC','Veterinary Emergency and Critical Care Society',sysdate,0
+'WSSJ','Weed Science Society of Japan',sysdate,0
+'WU','Wesleyan University ',sysdate,0
+'WEAI','Western Economic Association International',sysdate,0
+'PHSA','Phycological Society of America',sysdate,0
+'WML','Wilmott Magazine Ltd.',sysdate,0
+'WAS','World Aquaculture Society',sysdate,0
+'WAMSOR','World Association for Market, Social and Opinion Research',sysdate,0
+'WCASG','World Coal Association and the Shenhua Group',sysdate,0
+'WCC','World Council of Churches',sysdate,0
+'WDF','World Dental Federation',sysdate,0
+'WFH','World Federation of Hemophilia',sysdate,0
+'WIP','World Institute of Pain',sysdate,0
+'WOBY','World Obesity',sysdate,0
+'WOFD','World Organization of Family Doctors',sysdate,0
+'WPA','World Psychiatric Association',sysdate,0
+'WSO','World Stroke Organization',sysdate,0
+'WSCS','World Sturgeon Conservation Society',sysdate,0
+'YU','Yale University ',sysdate,0
+'ZSL','Zoological Society of London',sysdate,0
+'AAAS','American Anthropological Association',sysdate,0
+'AAAN','American Association of Anatomists',sysdate,0
+'AABSP','Association of Applied Biologists',sysdate,0
+'AABO','Association for Applied Botany',sysdate,0
+'AAS','Australian Anthropological Society',sysdate,0
+'AASU','American Association of Suicidology',sysdate,0
+'ACA','Australian Council on the Ageing',sysdate,0
+'ACAS','American Counseling Association',sysdate,0
+'ACCPC','American College of Clinical Pharmacology',sysdate,0
+'ACCP','American College of Clinical Pharmacy',sysdate,0
+'ACR','American College of Rheumatology',sysdate,0
+'ACRE','Association for Conflict Resolution',sysdate,0
+'ACS','American Cancer Society',sysdate,0
+'ACESO','American Ceramic Society',sysdate,0
+'AENS','Australian Entomological Society',sysdate,0
+'AECS','Agricultural Economics Society',sysdate,0
+'AEPS','American Epilepsy Society',sysdate,0
+'AMFA','American Finance Association',sysdate,0
+'ASFA','Asian Finance Association',sysdate,0
+'AGS','American Geographical Society',sysdate,0
+'AGRS','American Geriatrics Society',sysdate,0
+'AHA','American Heart Association',sysdate,0
+'AHPBA','American Hepato-Pancreato-Biliary Association',sysdate,0
+'APHA','American Pharmacists Association',sysdate,0
+'APSA','American Psychological Association',sysdate,0
+'APSS','Australian Psychological Society',sysdate,0
+'APOS','Academy of Political Science',sysdate,0
+'APHS','American Physiological Society',sysdate,0
+'APSC','Association for Psychological Science',sysdate,0
+'ANS','Anatomical Society',sysdate,0
+'ARS','Aristotelian Society',sysdate,0
+'ASAS','Australian Sonographers Assocaition',sysdate,0
+'ASAE','American Society for Aesthetics',sysdate,0
+'ASAN','American Society of Andrology',sysdate,0
+'ASOA','American Sociological Association',sysdate,0
+'ASTA','American Statistical Association',sysdate,0
+'ASSA','Asian Society of Andrology',sysdate,0
+'ASFG','Austrian Society for Geomechanics',sysdate,0
+'ASOG','Austrian Society of Geomechanics',sysdate,0
+'AVAN','Association of Veterinary Anaesthetists',sysdate,0
+'AVAS','Australian Veterinary Association',sysdate,0
+'BESPC','British Ecological Society',sysdate,0
+'BENS','British Endodontic Society',sysdate,0
+'BPHS','British Pharmacological Society',sysdate,0
+'BPSS','British Psychological Society',sysdate,0
+'BSFG','British Society for Geomorphology',sysdate,0
+'BSOG','British Society of Gerodontology',sysdate,0
+'BSOCN','British Society for Nanomedicine',sysdate,0
+'TBSFN','British Society for Neuroendocrinology',sysdate,0
+'CECA','Canadian Economics Association',sysdate,0
+'CENA','Chinese Endocrinologist Association',sysdate,0
+'CPS','Cambridge Philosophical Society',sysdate,0
+'CHPS','Chinese Pharmacological Society',sysdate,0
+'ELSA','Ecological Society of Australia',sysdate,0
+'ESA','Economic Society of Australia',sysdate,0
+'ENSA','Endocrine Society of Australia',sysdate,0
+'EUSA','European Society of Anaesthesiology',sysdate,0
+'ENSC','Entomological Society of China',sysdate,0
+'ESCHF','European Society of Cardiology',sysdate,0
+'ECSJ','Ecological Society of Japan',sysdate,0
+'ENSJ','Entomological Society of Japan',sysdate,0
+'ESLRS','European Sleep Research Society',sysdate,0
+'ESRS','European Society for Rural Sociology',sysdate,0
+'GENA','Geneva Association',sysdate,0
+'GEOA','Geologists Association',sysdate,0
+'HAS','Hartford Seminary',sysdate,0
+'HIS','Historical Society',sysdate,0
+'IAFAP','International Association for Applied Psychology',sysdate,0
+'IAOAP','International Association of Applied Psychology',sysdate,0
+'INE','Immanuel Ness',sysdate,0
+'INN','Institute of Navigation',sysdate,0
+'ISAP','International Society for Apheresis',sysdate,0
+'ISA','International Studies Association',sysdate,0
+'ISANR','International Society for Antiviral Research',sysdate,0
+'ISAUR','International Society for Autism Research',sysdate,0
+'ISDER','International Society of Dermatology',sysdate,0
+'ISDI','International Society of Differentiation',sysdate,0
+'ISNCS','International Society for Neurochemistry',sysdate,0
+'ISN','International Society of Nephrology',sysdate,0
+'ISNPC','International Society of Neuropathology',sysdate,0
+'ISST','Institute of Social Studies',sysdate,0
+'ISS','International Stroke Society',sysdate,0
+'JPES','Japan Pediatric Society',sysdate,0
+'JPSS','Japanese Psychogeriatrics Society',sysdate,0
+'JSAP','Japanese Society for Apheresis',sysdate,0
+'JSAL','Japanese Society of Allergology',sysdate,0
+'JSFST','Japanese Society of Fertility and Sterility',sysdate,0
+'JSFSC','Japanese Society of Fisheries Science',sysdate,0
+'JSNI','Japanese Society for Neuroimmunology',sysdate,0
+'JSNE','Japanese Society of Neurology',sysdate,0
+'JSNP','Japanese Society of Neuropathology',sysdate,0
+'JSPA','Japanese Society of Pathology',sysdate,0
+'JSPH','Japanese Society of Phycology',sysdate,0
+'MHI','Medicalhelplines.com Inc',sysdate,0
+'MI','Mergent Inc.',sysdate,0
+'MAS','Mammal Society',sysdate,0
+'MES','Melville Society',sysdate,0
+'MOS','Morgan Stanley',sysdate,0
+'NCOFR','National Council for Family Relations',sysdate,0
+'NCFFR','National Council on Family Relations',sysdate,0
+'NRHAL','National Rural Health Alliance',sysdate,0
+'DGNUS','Department of Geography, National University of Singapore',sysdate,0
+'DMI','Design Management Institute',sysdate,0
+'GBSPC','German Bunsen Society for Physical Chemistry',sysdate,0
+'GSSRSM','German Society for Sleep Research and Sleep Medicine',sysdate,0
+'GAWWW','German Association for Water, Wastewater and Waste',sysdate,0
+'GSLM','German Society for Laboratory Medicine',sysdate,0
+'DDRC','Developmental Disabilities Research Centers',sysdate,0
+'DU','Diabetes UK',sysdate,0
+'DI','Dialog Inc',sysdate,0
+'DAA','Dietitians Association of Australia',sysdate,0
+'DNZ','Dietitians New Zealand',sysdate,0
+'DMEF','Direct Marketing Educational Foundation',sysdate,0
+'DLDCEC','Division for Learning Disabilities of the Council for Exceptional Children',sysdate,0
+'EAWLS','East African Wild Life Society',sysdate,0
+'EAEA','East Asian Economic Association',sysdate,0
+'EFA','Eastern Finance Association',sysdate,0
+'ESS','Eastern Sociological Society',sysdate,0
+'EDA','Eating Disorders Association',sysdate,0
+'ES','Econometric Society',sysdate,0
+'EHS','Economic History Society',sysdate,0
+'EHSANZ','Economic History Society of Australia and New Zealand',sysdate,0
+'ESSA','Economic Society of South Africa',sysdate,0
+'EDUP','Economics Department of the University of Pennsylvania',sysdate,0
+'EB','Editorial Board',sysdate,0
+'EBTSR','Editorial Board of The Sociological Review',sysdate,0
+'ETS','Educational Testing Service',sysdate,0
+'ELRI','English Literary Renaissance Inc',sysdate,0
+'ESK','Entomological Society of Korea',sysdate,0
+'EMS','Environmental Mutagen Society',sysdate,0
+'EE','ERP Environment',sysdate,0
+'EAACI','European Academy of Allergy and Clinical Immunology',sysdate,0
+'EADV','European Academy of Dermatology and Venereology',sysdate,0
+'EAM','European Academy of Management',sysdate,0
+'EMPPO','European and Mediterranean Plant Protection Organization',sysdate,0
+'EACG','European Association for Computer Graphics',sysdate,0
+'EACI','European Association for Creativity and Innovation',sysdate,0
+'EAEM','European Association for Experimental Mechanics',sysdate,0
+'EAO','European Association for Osseointegration',sysdate,0
+'EASL','European Association for the Study of the Liver',sysdate,0
+'EAVER','European Association for Vision & Eye Research',sysdate,0
+'EAGE','European Association of Geoscientists and Engineers',sysdate,0
+'EAPP','European Association of Personality Psychology',sysdate,0
+'EASA','European Association of Social Anthropologists',sysdate,0
+'EBRD','European Bank for Reconstruction and Development',sysdate,0
+'EBA','European Biosafety Association',sysdate,0
+'EBAC','European Board for Accrediation in Cardiology',sysdate,0
+'ECPS','European Cell Proliferation Society',sysdate,0
+'EQINT','European College of Equine Internal Medicine',sysdate,0
+'ECG','European College of Gerodontology ',sysdate,0
+'EUVET','European College of Veterinary Internal Medicine',sysdate,0
+'ECVN1','European College of Veterinary Neurology',sysdate,0
+'ECMM','European Confederation of Medical Mycology',sysdate,0
+'ECPR','European Consortium for Political Research',sysdate,0
+'EDTNARCA','European Dialysis and Transplant Nurses Association/European Renal Care Association',sysdate,0
+'EEA','European Economic Association',sysdate,0
+'EFIS','European Federation for Immunogenetics',sysdate,0
+'EFNS','European Federation for Neurological Societies',sysdate,0
+'EFSTL','European Federation for the Science and Technology of Lipids',sysdate,0
+'EFIMS','European Federation of Immunological Societies',sysdate,0
+'EFP','European Federation of Periodontology',sysdate,0
+'EFMA','European Financial Management Association',sysdate,0
+'EFAS','European Foot and Ankle Society',sysdate,0
+'EHA','European Hepato-Pancreato-Biliary Association',sysdate,0
+'EIS','European Immunodermatology Society',sysdate,0
+'ELITA','European Liver and Intestine Transplant Association',sysdate,0
+'EMBO','European Molecular Biology Organization',sysdate,0
+'EPFE','European Pain Federation - EFIC ?',sysdate,0
+'EPS','European Peptide Society',sysdate,0
+'ERA','European Renal Association',sysdate,0
+'ERS','European Respiratory Society',sysdate,0
+'ESAP','European Society for Analytic Philosophy',sysdate,0
+'ESCI','European Society for Clinical Investigation',sysdate,0
+'ESCAD','European Society for Cosmetic and Aesthetic Dermatology',sysdate,0
+'ESDAR','European Society for Domestic Animal Reproduction',sysdate,0
+'ESEBP','European Society for Evolutionary Biology',sysdate,0
+'ESOT','European Society for Organ Transplantation',sysdate,0
+'ESHS','European Society for the History of Science',sysdate,0
+'ESVCP','European Society for Veterinary Clinical Pathology',sysdate,0
+'ESCMID','European Society of Clinical Microbiology and Infectious Diseases',sysdate,0
+'ESCD','European Society of Contact Dermatology',sysdate,0
+'ESGO','European Society of Gynaecological Oncology',sysdate,0
+'ESNM','European Society of Neurogastroenterology and Motility',sysdate,0
+'ESP','European Society of Photodermatology',sysdate,0
+'ESVD','European Society of Veterinary Dermatology',sysdate,0
+'EWRS','European Weed Research Society',sysdate,0
+'FSFS','F. Scott Fitzgerald Society',sysdate,0
+'FFII','Family Firm Institute, Inc.',sysdate,0
+'FPI','Family Process Institute',sysdate,0
+'FFI','Fauna & Flora International',sysdate,0
+'IFSC','International Federation for Structural Concrete',sysdate,0
+'FEBS','Federation of European Biochemical Societies',sysdate,0
+'FEMS','Federation of European Microbiological Societies',sysdate,0
+'FENS','Federation of European Neuroscience Societies',sysdate,0
+'FEND','Federation of European Nurses in Diabetes',sysdate,0
+'FEPS','Federation of European Physiological Societies ',sysdate,0
+'FMSHK','Federation of Medical Societies of Hong Kong',sysdate,0
+'FMAI','Financial Management Association International',sysdate,0
+'FMS','Finnish Medical Society',sysdate,0
+'FSS','Finnish Statistical Society',sysdate,0
+'FSBI','Fisheries Society of the British Isles',sysdate,0
+'FGB','Fondazione Giacomo Brodolini',sysdate,0
+'FAP','Foundation Acta Paediatrica',sysdate,0
+'FAR','Foundation Acta Radiologica',sysdate,0
+'FCMM','Foundation for Cellular and Molecular Medicine',sysdate,0
+'FS','Foundation for SHIL',sysdate,0
+'FHLI','Frances Hesselbein Leadership Institute',sysdate,0
+'FSC','French Society for Cosmotology',sysdate,0
+'FSPT','French Society of Pharmacology and Therapeutics',sysdate,0
+'GS','Genetics Society',sysdate,0
+'GSA','Geological Society of Australia',sysdate,0
+'GSC','Geological Society of China',sysdate,0
+'GSJ','Geological Society of Japan',sysdate,0
+'GSL','Geological Society of London',sysdate,0
+'GORG','Geriatric Oral Research Group',sysdate,0
+'GBS','German Botanical Society',sysdate,0
+'GCS','German Chemical Society',sysdate,0
+'GDS','German Dermatological Society',sysdate,0
+'GEA','German Economic Association',sysdate,0
+'GGS','German Geotechnical Society',sysdate,0
+'GPS','German Pharmaceutical Society',sysdate,0
+'GRF','German Research Foundation',sysdate,0
+'GSO','German Society for Ornithology',sysdate,0
+'GTS','German Transplantation Society ',sysdate,0
+'GMS','German-language Mycological Society',sysdate,0
+'GOL','Government and Opposition Ltd ',sysdate,0
+'GII','Guttmacher Institute Inc',sysdate,0
+'HLGLA','Health Libraries Group of the Library Association',sysdate,0
+'HRET','Health Research and Educational Trust',sysdate,0
+'HFAOA','Heart Failure Association of the ESC',sysdate,0
+'HTRS','Hemostasis & Thrombosis Research Society',sysdate,0
+'HBPRCA','High Blood Pressure Research Council of Australia',sysdate,0
+'HES','History of Education Society',sysdate,0
+'HKCC','Hong Kong College of Cardiology',sysdate,0
+'HKCP','Hong Kong College of Paediatricians',sysdate,0
+'HKEA','Hong Kong Economic Association',sysdate,0
+'HKSPO','Hong Kong Society of Professional Optometrists',sysdate,0
+'HL','Howard League',sysdate,0
+'ISR','Indonesian Society of Respirology',sysdate,0
+'IRSA','Industrial Relations Society of Australia',sysdate,0
+'II','INSOL International',sysdate,0
+'IMBES','International Mind, Brain, and Education Society',sysdate,0
+'INS','International Neuromodulation Society',sysdate,0
+'IOM','International Organization for Migration',sysdate,0
+'IPMDS','International Parkinsons and Movement Disorder Society',sysdate,0
+'IPNA','International Pediatric Nephrology Association',sysdate,0
+'IPA','International Permafrost Association',sysdate,0
+'IPS','International Phycological Society',sysdate,0
+'IRA','International Reading Association',sysdate,0
+'ISSA','International Social Security Association',sysdate,0
+'ISAG','International Society for Animal Genetics',sysdate,0
+'ISBS','International Society for Bioengineering and the Skin',sysdate,0
+'ISBD','International Society for Bipolar Disorders',sysdate,0
+'ISBIS','International Society for Business and Industrial Statistics',sysdate,0
+'ISCP','International Society for Chinese Philosophy',sysdate,0
+'ISDP','International Society for Developmental Psychobiology',sysdate,0
+'ISDE','International Society for Diseases of the Esophagus',sysdate,0
+'ISET','International Society for Economic Theory',sysdate,0
+'ISEH','International Society for Ecosystem Health',sysdate,0
+'ISH','International Society for Hemodialysis',sysdate,0
+'ISHNEI','International Society for Holter and Noninvasive Electrocardiology, Inc.',sysdate,0
+'ISHAM','International Society for Human and Animal Mycology',sysdate,0
+'ISIE','International Society for Industrial Ecology ',sysdate,0
+'ISRVD','International Society for Influenza and other Respiratory Virus Diseases',sysdate,0
+'ISMRM','International Society for Magnetic Resonance in Medicine',sysdate,0
+'ISPAD','International Society for Pediatric and Adolescent Diabetes',sysdate,0
+'ISPI','International Society for Performance Improvement',sysdate,0
+'ISPOR','International Society for Pharmacoeconomics and Outcomes Research',sysdate,0
+'ISPD','International Society for Prenatal Diagnosis',sysdate,0
+'ISSM','International Society for Sexual Medicine',sysdate,0
+'ISTSS','International Society for Traumatic Stress Studies',sysdate,0
+'ISBT','International Society of Blood Transfusion',sysdate,0
+'ISCU','International Society of Cardiovascular Ultrasound',sysdate,0
+'ISIAQC','International Society of Indoor Air Quality and Climate',sysdate,0
+'ISPO','International Society of Paediatric Oncology',sysdate,0
+'ISPP','International Society of Political Psychology',sysdate,0
+'ISP','International Society of Protistologists',sysdate,0
+'ISTM','International Society of Travel Medicine',sysdate,0
+'ISUOG','International Society of Ultrasound in Obstetrics and Gynecology',sysdate,0
+'ISZS','International Society of Zoological Sciences',sysdate,0
+'ISIS','International Society on Infant Studies',sysdate,0
+'ISTH','International Society on Thrombosis and Haemostasis',sysdate,0
+'ISWA','International Solid Waste Association',sysdate,0
+'ISI','International Statistical Institute',sysdate,0
+'IUBMB','International Union of Biochemistry and Molecular Biology',sysdate,0
+'IFS','Institute for Fiscal Studies',sysdate,0
+'ISM','Institute for Supply Management',sysdate,0
+'IAD','Institute of Archaeology, Denmark',sysdate,0
+'IAG1','Institute of Australian Geographers Inc.',sysdate,0
+'ICS','Institute of Classical Studies',sysdate,0
+'IDE','Institute of Developing Economies',sysdate,0
+'IDS','Institute of Development Studies',sysdate,0
+'IEA','Institute of Economic Affairs',sysdate,0
+'IEF','Institute of European Finance',sysdate,0
+'IFT','Institute of Food Technologists',sysdate,0
+'IFSCT','Institute of Food, Science and Technology',sysdate,0
+'IHR','Institute of Historical Research',sysdate,0
+'IP','Institute of Psychoanalysis',sysdate,0
+'IPAS','Institute of Psychology,Chinese Academy of Sciences',sysdate,0
+'IPAA','Institute of Public Administration Australia',sysdate,0
+'IPAC','Institute of Public Administration of Canada',sysdate,0
+'IPPR','Institute of Public Policy Research',sysdate,0
+'IWEPCASS','Institute of World Economics and Politics, Chinese Academy of Social Sciences',sysdate,0
+'IRAS','Institute on Religion in an Age of Science',sysdate,0
+'IDEC','Interior Design Educators Council',sysdate,0
+'IAHS','Internaitonal Association of Hydrological Sciences',sysdate,0
+'IACD','International Academy of Cosmetic Dermatology',sysdate,0
+'IACMR','International Association for Chinese Management Research',sysdate,0
+'IADT','International Association for Dental Traumatology',sysdate,0
+'IAFN','International Association for Forensic Nurses',sysdate,0
+'IARR','International Association for Relationship Research',sysdate,0
+'IARIW','International Association for Research in Income and Wealth',sysdate,0
+'IASPMUB','International Association for the Study of Popular Music, US Branch',sysdate,0
+'IASL','International Association for the Study of the Liver',sysdate,0
+'IAVS','International Association for Vegetation Science',sysdate,0
+'IAAE','International Association of Agricultural Economists',sysdate,0
+'IAAEM','International Association of Aquaculture Economics and Management',sysdate,0
+'IAB','International Association of Bioethics',sysdate,0
+'IACM','International Association of Conflict Management',sysdate,0
+'IAG','International Association of Geoanalysts',sysdate,0
+'IAOMS','International Association of Oral and Maxillofacial Surgeons',sysdate,0
+'IAOP','International Association of Oral Pathologists',sysdate,0
+'IAPD','International Association of Paediatric Dentistry',sysdate,0
+'IAS','International Association of Sedimentologists',sysdate,0
+'IASSIDD','International Association of the Scientific Study of Intellectual and Developmental Disabilities',sysdate,0
+'IBNGS','International Behavioural and Neural Genetics Society',sysdate,0
+'IBS','International Biometric Society',sysdate,0
+'ICAOT','International Center for Artificial Organ and Transplantation',sysdate,0
+'ICRIPCE','International Centre of Research and Information on the Public and Cooperative Economy',sysdate,0
+'ICGP','International College of Geriatric Psychoneuropharmacology',sysdate,0
+'ICID','International Commission for Irrigation and Drainage',sysdate,0
+'ICA','International Communication Association',sysdate,0
+'ICPHS','International Council for Philosophy and Humanistic Studies',sysdate,0
+'ICSB','International Council for Small Business',sysdate,0
+'ICN','International Council of Nurses',sysdate,0
+'ICSE','International Council on Systems Engineering',sysdate,0
+'IEPA','International Early Psychosis Association',sysdate,0
+'IEFS','International Economics and Finance Society',sysdate,0
+'IES','International Environmetrics Society',sysdate,0
+'IFSR','International Federation for Systems Research',sysdate,0
+'IFATS','International Federation of Adipose Therapeutics and Science',sysdate,0
+'IFAC','International Federation of Automatic Control',sysdate,0
+'IFCB','International Federation of Cell Biology',sysdate,0
+'IFDH','International Federation of Dental Hygienists',sysdate,0
+'IFORS','International Federation of Operational Research Societies',sysdate,0
+'IFPCS','International Federation of Pigment Cell Societies',sysdate,0
+'IFAG','International Foundation for Animal Genetics',sysdate,0
+'IHS','International Headache Society',sysdate,0
+'IHA','International Hepato-Pancreato-Biliary Association',sysdate,0
+'IICPR','International Institute for Conflict Prevention & Resolution',sysdate,0
+'ILO','International Labour Organization',sysdate,0
+'ILEC','International Lake Environment Committee',sysdate,0
+'ILA','International Leadership Association',sysdate,0
+'ILAE','International League Against Epilepsy',sysdate,0
+'ILSI','International Life Sciences Institute',sysdate,0
+'POSA','Political Studies Association',sysdate,0
+'RECS','Royal Economic Society',sysdate,0
+'RENS','Royal Entomological Society',sysdate,0
+'RMSPC','Royal Meteorological Society',sysdate,0
+'RMIS','Royal Microscopical Society',sysdate,0
+'RSTS','Royal Statistical Society',sysdate,0
+'RSOS','Rural Sociological Society',sysdate,0
+'SCI','Society Chimica Italiana',sysdate,0
+'SCIN','Society of Chemical Industry',sysdate,0
+'SCSC','Society of Cosmetic Scientists',sysdate,0
+'SCSO','Swiss Chemical Society',sysdate,0
+'SES','Scottish Economic Society',sysdate,0
+'SEST','Society for Educational Studies',sysdate,0
+'SCPS','Scandinavian Physiological Society',sysdate,0
+'SWPS','Swedish Paediatric Society',sysdate,0
+'SOPSA','Southern Political Science Association',sysdate,0
+'SWPSA','Swiss Political Science Association',sysdate,0
+'SRA','Society for Research on Adolescence',sysdate,0
+'SRAN','Society for Risk Analysis',sysdate,0
+'SSA','Society for the Study of Addiction',sysdate,0
+'SSAU','Statistical Society of Australia',sysdate,0
+'SSOI','Scandanavian Society of Immunology',sysdate,0
+'SSI','Scandinavian Society for Immunology',sysdate,0
+'TPHS','The Philological Society',sysdate,0
+'TPRS','The Protein Society',sysdate,0
+'UPU','UNESCO Publishing',sysdate,0
+'UPH','University of Phoenix',sysdate,0
+'WIHS','Willi Hennig Society',sysdate,0
+'WOHS','Wound Healing Society',sysdate,0
