@@ -63,7 +63,7 @@ public class SendNotificationImpl implements SendNotification {
     private String type;
 
     @Value("${superAdminRoleId}")
-    private int superAdminRoleId;
+    private String superAdminRoleId;
 
     /**
      * calling notification service for sending email.
@@ -162,7 +162,7 @@ public class SendNotificationImpl implements SendNotification {
         NotificationRequest notificationRequest = new NotificationRequest();
         notificationRequest.setFrom(notificationEmail);
         List<UserRoles> superAdminsList = userLoginServiceDAO
-                .getSuperAdmins(superAdminRoleId);
+                .getSuperAdmins(Integer.parseInt(superAdminRoleId));
         List<String> toList = new ArrayList<String>();
         for (UserRoles userRoles : superAdminsList) {
             toList.add(userRoles.getUsersByUserId().getPrimaryEmailAddr());
