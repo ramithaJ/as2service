@@ -17,8 +17,6 @@ package com.wiley.gr.ace.authorservices.model.external;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.wiley.gr.ace.authorservices.model.PublicationDetails;
-import com.wiley.gr.ace.authorservices.model.TrackLicense;
 
 /**
  * The Class ArticleData.
@@ -39,48 +37,18 @@ public class ArticleData {
     private String dhId;
 
     /** The aid ecore. */
+    @JsonProperty("aidECORE")
     private String aidECORE;
 
     /** The article title. */
+    @JsonProperty("articleTitle")
     private String articleTitle;
-
-    /** The authors. */
-    private String authors;
 
     /** The article details. */
     private ArticleDetails articleDetails;
 
     /** The license status. */
-    private TrackLicense licenseStatus;
-
-    /** The order payment status. */
-    private OrderPaymentStatus orderPaymentStatus;
-
-    /** The production. */
-    private Production production;
-
-    /** The publication. */
-    private PublicationDetails publicationDetails;
-
-    /**
-     * Gets the publication details.
-     *
-     * @return the publication details
-     */
-    public final PublicationDetails getPublicationDetails() {
-        return publicationDetails;
-    }
-
-    /**
-     * Sets the publication details.
-     *
-     * @param publicationDetails
-     *            the new publication details
-     */
-    public final void setPublicationDetails(
-            PublicationDetails publicationDetails) {
-        this.publicationDetails = publicationDetails;
-    }
+    private String licenseStatus;
 
     /** The order. */
     private OrderData order;
@@ -161,22 +129,11 @@ public class ArticleData {
         this.journal = journal;
     }
 
-    /**
-     * Gets the aid ecore.
-     *
-     * @return The aidECORE
-     */
     public final String getAidECORE() {
         return aidECORE;
     }
 
-    /**
-     * Sets the aid ecore.
-     *
-     * @param aidECORE
-     *            The aidECORE
-     */
-    public final void setAidECORE(final String aidECORE) {
+    public final void setAidEcore(final String aidECORE) {
         this.aidECORE = aidECORE;
     }
 
@@ -195,27 +152,8 @@ public class ArticleData {
      * @param articleTitle
      *            The articleTitle
      */
-    public final void setArticleTitle(final String articleTitle) {
+    public final void setTitle(final String articleTitle) {
         this.articleTitle = articleTitle;
-    }
-
-    /**
-     * Gets the authors.
-     *
-     * @return The authors
-     */
-    public final String getAuthors() {
-        return authors;
-    }
-
-    /**
-     * Sets the authors.
-     *
-     * @param authors
-     *            The authors
-     */
-    public final void setAuthors(final String authors) {
-        this.authors = authors;
     }
 
     /**
@@ -240,9 +178,9 @@ public class ArticleData {
     /**
      * Gets the license status.
      *
-     * @return the license status
+     * @return the licenseStatus
      */
-    public final TrackLicense getLicenseStatus() {
+    public final String getLicenseStatus() {
         return licenseStatus;
     }
 
@@ -250,48 +188,10 @@ public class ArticleData {
      * Sets the license status.
      *
      * @param licenseStatus
-     *            the new license status
+     *            the licenseStatus to set
      */
-    public final void setLicenseStatus(final TrackLicense licenseStatus) {
+    public final void setLicenseStatus(final String licenseStatus) {
         this.licenseStatus = licenseStatus;
     }
 
-    /**
-     * Gets the order payment status.
-     *
-     * @return the orderPaymentStatus
-     */
-    public final OrderPaymentStatus getOrderPaymentStatus() {
-        return orderPaymentStatus;
-    }
-
-    /**
-     * Sets the order payment status.
-     *
-     * @param orderPaymentStatus
-     *            the orderPaymentStatus to set
-     */
-    public final void setOrderPaymentStatus(
-            final OrderPaymentStatus orderPaymentStatus) {
-        this.orderPaymentStatus = orderPaymentStatus;
-    }
-
-    /**
-     * Gets the production.
-     *
-     * @return the production
-     */
-    public final Production getProduction() {
-        return production;
-    }
-
-    /**
-     * Sets the production.
-     *
-     * @param production
-     *            the production to set
-     */
-    public final void setProduction(final Production production) {
-        this.production = production;
-    }
 }

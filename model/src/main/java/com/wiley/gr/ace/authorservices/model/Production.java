@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.wiley.gr.ace.authorservices.model.external;
+package com.wiley.gr.ace.authorservices.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;

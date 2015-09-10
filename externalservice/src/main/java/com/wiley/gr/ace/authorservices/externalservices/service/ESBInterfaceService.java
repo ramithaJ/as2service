@@ -23,7 +23,6 @@ import com.wiley.gr.ace.authorservices.model.external.OpenAccess;
 import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhLookupArticleResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhLookupJournalResponse;
-import com.wiley.gr.ace.authorservices.model.external.ProductionData;
 import com.wiley.gr.ace.authorservices.model.external.ProfileInformation;
 import com.wiley.gr.ace.authorservices.model.external.Quote;
 import com.wiley.gr.ace.authorservices.model.external.QuoteRequest;
@@ -141,16 +140,16 @@ public interface ESBInterfaceService {
      */
     OnlineOpen getOnlineOpenStatus(Integer articleId) throws Exception;
 
-    /**
-     * Gets the production data.
-     *
-     * @param articleId
-     *            the article id
-     * @return the production data
-     * @throws Exception
-     *             the exception
-     */
-    ProductionData getProductionData(Integer articleId) throws Exception;
+//    /**
+//     * Gets the production data.
+//     *
+//     * @param articleId
+//     *            the article id
+//     * @return the production data
+//     * @throws Exception
+//     *             the exception
+//     */
+//    ProductionData getProductionData(Integer articleId) throws Exception;
 
     /**
      * Gets the article info.

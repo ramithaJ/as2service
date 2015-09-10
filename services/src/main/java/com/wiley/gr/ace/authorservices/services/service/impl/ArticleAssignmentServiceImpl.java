@@ -149,8 +149,8 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
         articleDetails.setArticleId(pdhLookupArticleResponse
                 .getArticleUniqueID());
         articleDetails.setArticleTitle(pdhLookupArticleResponse.getTitle());
-        articleDetails.setArticleAuthors(pdhLookupArticleResponse
-                .getAuthorName());
+//        articleDetails.setArticleAuthors(pdhLookupArticleResponse
+//                .getAuthorName());
         articleDetails
                 .setArticleCoAuthors(parseCoAuthors(pdhLookupArticleResponse));
         articleDetails.setCorrespondingAuthorEmail(pdhLookupArticleResponse

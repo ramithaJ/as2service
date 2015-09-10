@@ -14,6 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.util.Date;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -70,7 +72,7 @@ public class ProductDates {
 
     /** The prod dt date value. */
     @XmlElement(name = "DATE_VALUE")
-    private String prodDtDateValue;
+    private Date prodDtDateValue;
 
     /** The prod dt last update date. */
     @XmlElement(name = "LAST_UPDATE_DATE")
@@ -271,7 +273,7 @@ public class ProductDates {
      *
      * @return the prod dt date value
      */
-    public final String getProdDtDateValue() {
+    public final Date getProdDtDateValue() {
         return prodDtDateValue;
     }
 
@@ -281,7 +283,7 @@ public class ProductDates {
      * @param prodDtDateValue
      *            the new prod dt date value
      */
-    public final void setProdDtDateValue(final String prodDtDateValue) {
+    public final void setProdDtDateValue(final Date prodDtDateValue) {
         this.prodDtDateValue = prodDtDateValue;
     }
 
