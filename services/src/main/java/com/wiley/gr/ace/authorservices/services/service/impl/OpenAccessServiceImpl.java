@@ -14,7 +14,10 @@
  */
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
+import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
 import com.wiley.gr.ace.authorservices.externalservices.service.ValidationService;
 import com.wiley.gr.ace.authorservices.model.Address;
@@ -40,12 +44,15 @@ import com.wiley.gr.ace.authorservices.model.external.AddressValidationMultiReq;
 import com.wiley.gr.ace.authorservices.model.external.AddressValidationRequest;
 import com.wiley.gr.ace.authorservices.model.external.Article;
 import com.wiley.gr.ace.authorservices.model.external.Discount;
+import com.wiley.gr.ace.authorservices.model.external.Identifier;
 import com.wiley.gr.ace.authorservices.model.external.Item;
-import com.wiley.gr.ace.authorservices.model.external.PdhArticleResponse;
-import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
+import com.wiley.gr.ace.authorservices.model.external.PdhLookupArticle;
+import com.wiley.gr.ace.authorservices.model.external.PdhLookupJournal;
+import com.wiley.gr.ace.authorservices.model.external.ProductContributor;
 import com.wiley.gr.ace.authorservices.model.external.Quote;
 import com.wiley.gr.ace.authorservices.model.external.QuoteRequest;
 import com.wiley.gr.ace.authorservices.model.external.TaxRequest;
+import com.wiley.gr.ace.authorservices.model.external.Title;
 import com.wiley.gr.ace.authorservices.persistence.entity.Orders;
 import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
 import com.wiley.gr.ace.authorservices.persistence.entity.ProductRoles;
@@ -72,6 +79,9 @@ public class OpenAccessServiceImpl implements OpenAccessService {
     /** The order online dao. */
     @Autowired(required = true)
     private OrderOnlineDAO orderOnlineDAO;
+
+    @Autowired(required = true)
+    private ESBInterfaceService esbInterfaceService;
     /**
      * This is for getting of online open service because same ui for onlineopen
      * and open access
@@ -123,67 +133,103 @@ public class OpenAccessServiceImpl implements OpenAccessService {
     @Override
     public final OpenAccessPaymentData getOpenAccessDetails(
             final String userId, final String articleId, final String journalId)
-            throws Exception {
+                    throws Exception {
 
         OpenAccessPaymentData openAccessPaymentData = null;
 
-        final ProductPersonRelations articleAssignmentData = orderOnlineDAO
+        ProductPersonRelations articleAssignmentData = orderOnlineDAO
                 .getProductPersonRelations(userId, articleId);
         if (articleAssignmentData == null) {
             throw new ASException(articleAcceptanceCode,
                     articleAcceptanceMessage);
         }
 
-        final ProductRoles productRoles = articleAssignmentData
-                .getProductRoles();
+        ProductRoles productRoles = articleAssignmentData.getProductRoles();
 
         if (!StringUtils.isEmpty(productRoles)
                 && productRoles.getProductRoleCd().equalsIgnoreCase(
                         correspondingAuthorId)) {
 
-            final SavedOrders savedOrders = orderOnlineDAO.getSavedOrders(
-                    articleId, userId);
+            SavedOrders savedOrders = orderOnlineDAO.getSavedOrders(articleId,
+                    userId);
             if (null != savedOrders) {
                 throw new ASException(savedOrderCode, savedOrderMessage);
             }
-            final Orders existingOrders = orderOnlineDAO.getOrder(articleId,
-                    userId);
+            Orders existingOrders = orderOnlineDAO.getOrder(articleId, userId);
             if (existingOrders != null) {
                 throw new ASException(orderExistenceCode, orderExistenceMessage);
             }
 
-            final PdhArticleResponse pdhArticleResponse = orderService
-                    .pdhLookUpArticle(Integer.valueOf(articleId));
+            PdhLookupArticle pdhLookupArticle = (PdhLookupArticle) esbInterfaceService
+                    .getPdhLookupResponse(articleId);
 
-            final ArticleDetails articleDetails = new ArticleDetails();
-            articleDetails.setArticleId(pdhArticleResponse.getArticleId());
+            ArticleDetails articleDetails = new ArticleDetails();
 
-            final PdhJournalResponse pdhJournalResponse = orderService
-                    .pdhLookUpJournal(Integer.valueOf(journalId));
-            final JournalDetails journalDetails = new JournalDetails();
-            journalDetails.setJournalId(pdhJournalResponse.getJournalId());
-            journalDetails.setJournalTitle(pdhJournalResponse
-                    .getJournalPrintISSN());
-            final Article article = new Article();
+            articleDetails.setArticleId(articleId);
+
+            articleDetails.setArticleTitle(pdhLookupArticle
+                    .getArticleProductEntities().getTitle().getTitleText());
+
+            for (ProductContributor pc : pdhLookupArticle
+                    .getArticleProductEntities().getProductContributor()) {
+                if ("Corresponding Author".equalsIgnoreCase(pc
+                        .getDhRoleTypeCd())) {
+                    articleDetails.setArticleAuthorName(pc.getFirstName() + " "
+                            + pc.getLastName());
+                }
+            }
+
+            PdhLookupJournal pdhLookupJournal = (PdhLookupJournal) esbInterfaceService
+                    .getPdhLookupResponse(journalId);
+
+            JournalDetails journalDetails = new JournalDetails();
+
+            journalDetails.setJournalId(journalId);
+
+            for (Title t : pdhLookupJournal.getJournalProductEntities()
+                    .getTitle()) {
+                if ("FULL_TITLE".equalsIgnoreCase(t.getDhTitleTypeCd())) {
+                    journalDetails.setJournalTitle(t.getTitleText());
+                }
+            }
+
+            for (Identifier i : pdhLookupJournal.getJournalProductEntities()
+                    .getIdentifier()) {
+                if ("ISSN".equalsIgnoreCase(i.getDhTypeCd())) {
+                    journalDetails.setJournalPrintIssn(i.getIdentCd());
+                }
+
+                if ("E-ISSN".equalsIgnoreCase(i.getDhTypeCd())) {
+                    journalDetails.setJournalElectronicIssn(i.getIdentCd());
+                }
+            }
+
+            Article article = new Article();
             article.setArticleID(articleDetails.getArticleId());
-            article.setJournalElectronicISSN(pdhJournalResponse
-                    .getJournalElectronicISSN());
-            article.setJournalPrintISSN(pdhJournalResponse
-                    .getJournalPrintISSN());
-            final QuoteRequest quoteRequest = new QuoteRequest();
+            article.setJournalElectronicISSN(journalDetails
+                    .getJournalElectronicIssn());
+            article.setJournalPrintISSN(journalDetails.getJournalPrintIssn());
+            QuoteRequest quoteRequest = new QuoteRequest();
             quoteRequest.setArticle(article);
-            final Quote quoteResponse = orderService.getQuote(quoteRequest);
-            final QuoteData quoteData = new QuoteData();
+
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            String requestCreatedTimestamp = df.format(new Date());
+
+            quoteRequest.setRequestCreatedTimestamp(requestCreatedTimestamp);
+            quoteRequest.setRequestType("GET_QUOTE");
+
+            Quote quoteResponse = orderService.getQuote(quoteRequest);
+            QuoteData quoteData = new QuoteData();
             quoteData.setArticlePubCharge(quoteResponse.getArticlePubCharge());
             quoteData.setCurrency(quoteResponse.getCurrency());
 
-            final DiscountDetail discountDetail = new DiscountDetail();
-            final Discount discount = quoteResponse.getDiscount();
+            DiscountDetail discountDetail = new DiscountDetail();
+            Discount discount = quoteResponse.getDiscount();
             discountDetail.setDiscountType(discount.getDiscountType());
             discountDetail.setDiscountAmount(discount.getDiscountAmount());
             discountDetail.setDiscountPercent(discount.getDiscountPercent());
 
-            final TaxDetails taxDetails = new TaxDetails();
+            TaxDetails taxDetails = new TaxDetails();
             taxDetails.setTaxCodeExpiryDate(quoteResponse.getAddressOnFile()
                     .getTaxExemptionExpiryDate());
             taxDetails.setTaxExemptionNumber(quoteResponse.getAddressOnFile()
@@ -193,9 +239,9 @@ public class OpenAccessServiceImpl implements OpenAccessService {
             taxDetails.setVatIdNumber(quoteResponse.getAddressOnFile()
                     .getVatId());
 
-            final TaxRequest taxRequest = new TaxRequest();
-            final Item taxRequestItem = new Item();
-            final List<Item> taxRequestItemList = new ArrayList<Item>();
+            TaxRequest taxRequest = new TaxRequest();
+            Item taxRequestItem = new Item();
+            List<Item> taxRequestItemList = new ArrayList<Item>();
             taxRequest.setCityName(quoteResponse.getAddressOnFile()
                     .getBillingCity());
             taxRequest.setCountry(quoteResponse.getAddressOnFile()
@@ -206,38 +252,39 @@ public class OpenAccessServiceImpl implements OpenAccessService {
             taxRequest.setTaxExemptionExpiryDate(taxDetails
                     .getTaxCodeExpiryDate());
             taxRequest.setVatId(taxDetails.getVatIdNumber());
-            taxRequestItem.setJournalElectronicISSN(pdhJournalResponse
-                    .getJournalElectronicISSN());
-            taxRequestItem.setJournalPrintISSN(pdhJournalResponse
-                    .getJournalPrintISSN());
+            taxRequestItem.setJournalElectronicISSN(journalDetails
+                    .getJournalElectronicIssn());
+            taxRequestItem.setJournalPrintISSN(journalDetails
+                    .getJournalPrintIssn());
             taxRequestItem.setProductCode(articleId);
             taxRequestItemList.add(taxRequestItem);
             taxRequest.setItem(taxRequestItemList);
 
-            final String taxAmount = orderService.getTaxAmount(taxRequest);
+            String taxAmount = orderService.getTaxAmount(taxRequest);
 
-            final String finalAmount = Integer.toString(Integer
-                    .parseInt(pdhArticleResponse.getPrices().get(0).getPrice())
+            String finalAmount = Integer.toString(Integer
+                    .parseInt(quoteResponse.getArticlePubCharge())
                     - Integer.parseInt(discountDetail.getDiscountAmount())
                     + Integer.parseInt(taxAmount));
 
-            final Amount amountPayable = new Amount();
+            Amount amountPayable = new Amount();
 
             amountPayable.setAmount(finalAmount);
 
-            final AddressDetails addressDetails = new AddressDetails();
+            AddressDetails addressDetails = new AddressDetails();
 
-            final Address contactAddressOnFile = getContactAddressFromQuoteResponse(quoteResponse
+            Address contactAddressOnFile = getContactAddressFromQuoteResponse(quoteResponse
                     .getAddressOnFile());
 
-            final Address billingAddressOnFile = getBillingAddressFromQuoteResponse(quoteResponse
+            Address billingAddressOnFile = getBillingAddressFromQuoteResponse(quoteResponse
                     .getAddressOnFile());
 
             addressDetails.setBillingAddress(billingAddressOnFile);
             addressDetails.setContactAddress(contactAddressOnFile);
 
             openAccessPaymentData = new OpenAccessPaymentData();
-            openAccessPaymentData.setAuthorName("Dishari");
+            openAccessPaymentData.setAuthorName(quoteResponse
+                    .getAddressOnFile().getContactName());
             openAccessPaymentData.setAmountPayable(amountPayable);
             openAccessPaymentData.setArticleDetails(articleDetails);
             openAccessPaymentData.setJournalDetails(journalDetails);
@@ -332,7 +379,7 @@ public class OpenAccessServiceImpl implements OpenAccessService {
         // .getDepartment());
 
         addressValidationRequest
-                .setAddressValidationMultiReq(addressValidationMultiReq);
+        .setAddressValidationMultiReq(addressValidationMultiReq);
 
         return validationService.validateAddress(addressValidationRequest);
     }
@@ -363,7 +410,8 @@ public class OpenAccessServiceImpl implements OpenAccessService {
      * @param orderId
      * */
     @Override
-    public OnlineOpenOrder viewOpenAccess(String userId, String orderId) {
+    public OnlineOpenOrder viewOpenAccess(final String userId,
+            final String orderId) {
         OnlineOpenOrder onlineOpenOrder = orderOnlineOpenService
                 .getOnlineOpenOrderDetails(userId, orderId);
         onlineOpenOrder.setFunderDetails(null);
