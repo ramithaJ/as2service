@@ -30,7 +30,7 @@ public class ArticleData {
     private String articleUserRole;
 
     /** The journal data. */
-    private JournalData journal;
+    private JournalDetails journal;
 
     /** The dhid. */
     @JsonProperty("DH_ID")
@@ -52,10 +52,10 @@ public class ArticleData {
     private String licenseStatus;
 
     /** The payments status. */
-    private PaymentStatus orderPaymentStatus;
+    private OrderPaymentStatus orderPaymentStatus;
 
     /** The production status. */
-    private ProductionStatus production;
+    private Production production;
 
     /** The publication details. */
     private PublicationDetails publication;
@@ -84,7 +84,7 @@ public class ArticleData {
      *
      * @return the journal
      */
-    public final JournalData getJournal() {
+    public final JournalDetails getJournal() {
         return journal;
     }
 
@@ -94,7 +94,7 @@ public class ArticleData {
      * @param journal
      *            the new journal
      */
-    public final void setJournal(final JournalData journal) {
+    public final void setJournal(final JournalDetails journal) {
         this.journal = journal;
     }
 
@@ -217,7 +217,7 @@ public class ArticleData {
      *
      * @return the order payment status
      */
-    public final PaymentStatus getOrderPaymentStatus() {
+    public final OrderPaymentStatus getOrderPaymentStatus() {
         return orderPaymentStatus;
     }
 
@@ -228,7 +228,7 @@ public class ArticleData {
      *            the new order payment status
      */
     public final void setOrderPaymentStatus(
-            final PaymentStatus orderPaymentStatus) {
+            final OrderPaymentStatus orderPaymentStatus) {
         this.orderPaymentStatus = orderPaymentStatus;
     }
 
@@ -237,7 +237,7 @@ public class ArticleData {
      *
      * @return the production
      */
-    public final ProductionStatus getProduction() {
+    public final Production getProduction() {
         return production;
     }
 
@@ -247,7 +247,7 @@ public class ArticleData {
      * @param production
      *            the new production
      */
-    public final void setProduction(final ProductionStatus production) {
+    public final void setProduction(final Production production) {
         this.production = production;
     }
 

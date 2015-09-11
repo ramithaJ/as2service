@@ -25,9 +25,6 @@ public class ErrorPOJO {
     /** The code. */
     private String code;
 
-    /** The error key. */
-    private String errorKey;
-
     /** The message. */
     private String message;
 

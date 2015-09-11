@@ -142,29 +142,8 @@ public interface ESBInterfaceService {
 //     */
 //    ProductionData getProductionData(Integer articleId) throws Exception;
 
-    /**
-     * View assigned article.
-     *
-     * @param articleId
-     *            the article id
-     * @return the pdh lookup article response
-     * @throws Exception
-     *             the exception
-     */
-    PdhLookupArticleResponse viewAssignedArticle(String articleId)
-            throws Exception;
+    
 
-    /**
-     * Gets the pdh lookup journal response.
-     *
-     * @param articleId
-     *            the article id
-     * @return the pdh lookup article response
-     * @throws Exception
-     *             the exception
-     */
-    PdhLookupJournalResponse getPdhLookupJournalResponse(String journalId)
-            throws Exception;
     PdhLookupArticleResponse viewAssignedArticle(String articleId)
             throws Exception;
 

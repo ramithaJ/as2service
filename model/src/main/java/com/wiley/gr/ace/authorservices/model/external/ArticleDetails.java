@@ -35,9 +35,6 @@ public class ArticleDetails {
 
     /** The article doi. */
     private String articleDoi;
-    
-    /** The article authors. */
-    private String articleAuthors;
 
     /** The article co authors. */
     private List<String> coAuthors;
@@ -59,7 +56,7 @@ public class ArticleDetails {
      *
      * @return the article id
      */
-    public final Integer getArticleId() {
+    public final String getArticleId() {
         return articleId;
     }
 
@@ -69,7 +66,7 @@ public class ArticleDetails {
      * @param articleId
      *            the new article id
      */
-    public final void setArticleId(final Integer articleId) {
+    public final void setArticleId(final String articleId) {
         this.articleId = articleId;
     }
 
@@ -109,82 +106,6 @@ public class ArticleDetails {
      */
     public final void setArticleDoi(final String articleDoi) {
         this.articleDoi = articleDoi;
-    }
-
-    /**
-     * Gets the publication dt.
-     *
-     * @return the publication dt
-     */
-    public final String getPublicationDt() {
-        return publicationDt;
-    }
-
-    /**
-     * Sets the publication dt.
-     *
-     * @param publicationDt
-     *            the new publication dt
-     */
-    public final void setPublicationDt(final String publicationDt) {
-        this.publicationDt = publicationDt;
-    }
-
-    /**
-     * Gets the accptnce date.
-     *
-     * @return the accptnce date
-     */
-    public final String getAccptnceDate() {
-        return accptnceDate;
-    }
-
-    /**
-     * Sets the accptnce date.
-     *
-     * @param accptnceDate
-     *            the new accptnce date
-     */
-    public final void setAccptnceDate(final String accptnceDate) {
-        this.accptnceDate = accptnceDate;
-    }
-
-    /**
-     * Gets the article accepted in oo.
-     *
-     * @return the article accepted in oo
-     */
-    public final String getArticleAcceptedInOO() {
-        return articleAcceptedInOO;
-    }
-
-    /**
-     * Sets the article accepted in oo.
-     *
-     * @param articleAcceptedInOO
-     *            the new article accepted in oo
-     */
-    public final void setArticleAcceptedInOO(final String articleAcceptedInOO) {
-        this.articleAcceptedInOO = articleAcceptedInOO;
-    }
-
-    /**
-     * Gets the article author name.
-     *
-     * @return the article author name
-     */
-    public final String getArticleAuthorName() {
-        return articleAuthorName;
-    }
-
-    /**
-     * Sets the article author name.
-     *
-     * @param articleAuthorName
-     *            the new article author name
-     */
-    public final void setArticleAuthorName(final String articleAuthorName) {
-        this.articleAuthorName = articleAuthorName;
     }
 
     /**
