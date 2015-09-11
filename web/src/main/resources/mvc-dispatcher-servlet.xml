@@ -31,13 +31,7 @@
 
 	<mvc:annotation-driven />
 
-	<mvc:interceptors>
-		<mvc:interceptor>
-			<mvc:mapping path="/admin/login/**" />
-			<bean
-				class="com.wiley.gr.ace.authorservices.web.interceptors.LoginInterceptor"></bean>
-		</mvc:interceptor>
-	</mvc:interceptors>
+
 
 
 
