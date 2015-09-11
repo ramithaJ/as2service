@@ -26,7 +26,7 @@
 	<import resource="redis.xml" />
 
 	<context:property-placeholder
-		location="classpath:${my.envName}redis.properties,classpath:mockurls.properties,classpath:${my.envName}orcid.properties,classpath:${my.envName}userManagement.properties,classpath:exception.properties,classpath:applicationMessages.properties,classpath:persistence.exception.properties,classpath:autocomplete.properties,classpath:${my.envName}notification.properties,classpath:${my.envName}bpmService.properties"
+		location="classpath:${my.envName}redis.properties,classpath:mockurls.properties,classpath:${my.envName}orcid.properties,classpath:${my.envName}userManagement.properties,classpath:exception.properties,classpath:applicationMessages.properties,classpath:persistence.exception.properties,classpath:autocomplete.properties,classpath:${my.envName}notification.properties,classpath:${my.envName}bpmService.properties,classpath:discountServices.properties,classpath:log4j-BAK.properties,classpath:onlineOpenProperties.properties,classpath:orderStatusOA.properties,classpath:orderStatusOO.properties,classpath:wpgPaymentDetails.properties"
 		ignore-unresolvable="true" />
 
 	<mvc:annotation-driven />
