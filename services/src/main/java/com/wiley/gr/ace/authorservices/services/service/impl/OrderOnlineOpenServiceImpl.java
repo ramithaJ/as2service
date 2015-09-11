@@ -130,10 +130,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     @Autowired(required = true)
     private InvoiceService invoiceservice;
 
-    /** The bpm task. */
-    @Autowired(required = true)
-    private TaskService bpmTask;
-
+    @Autowired(required=true)
+    private TaskService taskService;
     /**
      * This field holds the value of correspondingAuthorId.
      */
@@ -293,112 +291,16 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     @Value("${cancelOrder.cancelReasonCode}")
     private String cancelOrderCancelReasonCode;
 
-	/**
-	 * This method will take userId and orderId as input and calls external
-	 * service to get details of Online order details
-	 * 
-	 * @param userId
-	 *            - the request value
-	 * @param orderId
-	 *            - the request value
-	 * @return OnlineOpenOrder
-	 */
-	@Override
-	public final OnlineOpenOrder getOnlineOpenOrderDetails(final String userId,
-			final String orderId) {
-		OnlineOpenOrder onlineOpenOrder = new OnlineOpenOrder();
-		OrderData orderData = new OrderData();
-		OrderDataList orderDataList = orderservice.getOrderDetails(userId,
-				orderId);
-		orderData = orderDataList.getOrderDatas().get(0);
-		ArticleDetails articleDetails = new ArticleDetails();
-		articleDetails.setArticleId(orderData.getArticle().getAidECORE());
-		articleDetails
-				.setArticleTitle(orderData.getArticle().getArticleTitle());
-		onlineOpenOrder.setArticleDetails(articleDetails);
-		JournalDetails journalDetails = new JournalDetails();
-		journalDetails.setJournalId(orderData.getArticle().getJournal()
-				.getJournalID());
-		journalDetails.setJournalTitle(orderData.getArticle().getJournal()
-				.getJournalTitle());
-		onlineOpenOrder.setJournalDetails(journalDetails);
-		onlineOpenOrder
-				.setAuthorName(orderData.getWoaAccountHolder().getName());
-		QuoteDetail quoteDetail = new QuoteDetail();
-		Prices prices = new Prices();
-		List<Prices> pricesList = new ArrayList<Prices>();
-		prices.setCurrency(orderData.getPricing().getCurrency());
-		prices.setPrice(orderData.getPricing().getProductBasePrice().toString());
-		pricesList.add(prices);
-		quoteDetail.setPrices(pricesList);
-		onlineOpenOrder.setQuoteDetail(quoteDetail);
-		FunderDetails funderDetails = new FunderDetails();
-		/*
-		 * funderDetails.setResearchFunderId(orderData.getWoaAccountHolder()
-		 * .getName());
-		 */
-		funderDetails
-				.setWoaAccountId(orderData.getWoaAccountHolder().getCode());
-		List<Grants> grantsList = new ArrayList<Grants>();
-		Grants grants = new Grants();
-		Recipients recipients = new Recipients();
-		List<Recipients> recipentsList = new ArrayList<Recipients>();
-		recipentsList.add(recipients);
-		grants.setRecipientsList(recipentsList);
-		grantsList.add(grants);
-		funderDetails.setGrants(grantsList);
-		List<FunderDetails> funderDetailsList = new ArrayList<FunderDetails>();
-		funderDetailsList.add(funderDetails);
-		onlineOpenOrder.setFunderDetails(funderDetailsList);
-		Discounts discounts = new Discounts();
-		List<Discounts> discountsList = new ArrayList<Discounts>();
-		discounts.setSocietyId(orderData.getPricing().getDiscounts()
-				.getDiscount().getSocietyData().getPromoCode());
-		discounts.setPromoCode(orderData.getPricing().getDiscounts()
-				.getDiscount().getPromoCode());
-		discountsList.add(discounts);
-		onlineOpenOrder.setDiscountDetails(discountsList);
-		onlineOpenOrder.setPaymentMethod(orderData.getPayment()
-				.getPaymentMethod());
-		TaxDetails taxDetails = new TaxDetails();
-		taxDetails
-				.setTaxCountryCode(orderData.getTaxDetails().getCountryCode());
-		taxDetails.setTaxExemptionNumber(orderData.getTaxDetails()
-				.getVatExemptionNumber());
-		taxDetails.setTaxCodeExpiryDate(orderData.getTaxDetails()
-				.getTaxExpiration());
-		taxDetails.setVatExemptionNumber(orderData.getTaxDetails()
-				.getVatExemptionNumber());
-		taxDetails.setVatIdNumber(orderData.getTaxDetails().getVatIdNumber());
-		onlineOpenOrder.setTaxDetails(taxDetails);
-		Amount amount = new Amount();
-		amount.setAmount(orderData.getPricing().getAmountToBePaid().toString());
-		amount.setCurrency(orderData.getPricing().getCurrency());
-		onlineOpenOrder.setAmountPayable(amount);
-		Amount finalAmount = new Amount();
-		onlineOpenOrder.setFinalAmount(finalAmount);
-		onlineOpenOrder.setPaymentMethod(orderData.getPayment()
-				.getPaymentMethod());
-		Address contactAddress = new Address();
-		contactAddress.setFirstName(orderData.getContactAddress().getName());
-		contactAddress.setLastName(orderData.getContactAddress().getName());
-		contactAddress.setDepartmentName(orderData.getContactAddress()
-				.getDepartment());
-		contactAddress.setAddressLine1(orderData.getContactAddress()
-				.getAdditionalStreet());
-		contactAddress.setAddressLine2(orderData.getContactAddress()
-				.getAdditionalStreet());
-		contactAddress.setCity(orderData.getContactAddress().getCity());
-		contactAddress.setState(orderData.getContactAddress().getState());
-		Country country = new Country();
-		country.setCountryName(orderData.getContactAddress().getCountry());
-		contactAddress.setCountry(country);
-		contactAddress.setPostCode(orderData.getContactAddress().getZip());
-		contactAddress.setPhoneNumber(orderData.getContactAddress()
-				.getPhoneNumber());
-		contactAddress.setEmailId(orderData.getContactAddress().getEmail());
-		AddressDetails addressDetails = new AddressDetails();
-		addressDetails.setBillingAddress(contactAddress);
+    /**
+     * Min value for Transaction id.
+     *
+     * @param userId
+     *            the user id
+     * @param orderId
+     *            the order id
+     * @return the online open order details
+     */
+    // private static final int MIN_VALUE = 1;
 
     /**
      * This method will take userId and orderId as input and calls external
@@ -413,61 +315,61 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     @Override
     public final OnlineOpenOrder getOnlineOpenOrderDetails(final String userId,
             final String orderId) {
-        final OnlineOpenOrder onlineOpenOrder = new OnlineOpenOrder();
+        OnlineOpenOrder onlineOpenOrder = new OnlineOpenOrder();
         OrderData orderData = new OrderData();
-        final OrderDataList orderDataList = orderservice.getOrderDetails(
-                userId, orderId);
+        OrderDataList orderDataList = orderservice.getOrderDetails(userId,
+                orderId);
         orderData = orderDataList.getOrderDatas().get(0);
-        final ArticleDetails articleDetails = new ArticleDetails();
+        ArticleDetails articleDetails = new ArticleDetails();
         articleDetails.setArticleId(orderData.getArticle().getAidECORE());
         articleDetails
                 .setArticleTitle(orderData.getArticle().getArticleTitle());
         onlineOpenOrder.setArticleDetails(articleDetails);
-        final JournalDetails journalDetails = new JournalDetails();
+        JournalDetails journalDetails = new JournalDetails();
         journalDetails.setJournalId(orderData.getArticle().getJournal()
-                .getDhId());
+                .getJournalID());
         journalDetails.setJournalTitle(orderData.getArticle().getJournal()
                 .getJournalTitle());
         onlineOpenOrder.setJournalDetails(journalDetails);
         onlineOpenOrder
                 .setAuthorName(orderData.getWoaAccountHolder().getName());
-        final QuoteDetail quoteDetail = new QuoteDetail();
-        final Prices prices = new Prices();
-        final List<Prices> pricesList = new ArrayList<Prices>();
+        QuoteDetail quoteDetail = new QuoteDetail();
+        Prices prices = new Prices();
+        List<Prices> pricesList = new ArrayList<Prices>();
         prices.setCurrency(orderData.getPricing().getCurrency());
         prices.setPrice(orderData.getPricing().getProductBasePrice().toString());
         pricesList.add(prices);
         quoteDetail.setPrices(pricesList);
         onlineOpenOrder.setQuoteDetail(quoteDetail);
-        final FunderDetails funderDetails = new FunderDetails();
+        FunderDetails funderDetails = new FunderDetails();
         /*
          * funderDetails.setResearchFunderId(orderData.getWoaAccountHolder()
          * .getName());
          */
         funderDetails
                 .setWoaAccountId(orderData.getWoaAccountHolder().getCode());
-        final List<Grants> grantsList = new ArrayList<Grants>();
-        final Grants grants = new Grants();
-        final Recipients recipients = new Recipients();
-        final List<Recipients> recipentsList = new ArrayList<Recipients>();
+        List<Grants> grantsList = new ArrayList<Grants>();
+        Grants grants = new Grants();
+        Recipients recipients = new Recipients();
+        List<Recipients> recipentsList = new ArrayList<Recipients>();
         recipentsList.add(recipients);
         grants.setRecipientsList(recipentsList);
         grantsList.add(grants);
         funderDetails.setGrants(grantsList);
-        final List<FunderDetails> funderDetailsList = new ArrayList<FunderDetails>();
+        List<FunderDetails> funderDetailsList = new ArrayList<FunderDetails>();
         funderDetailsList.add(funderDetails);
         onlineOpenOrder.setFunderDetails(funderDetailsList);
-        final Discounts discounts = new Discounts();
-        final List<Discounts> discountsList = new ArrayList<Discounts>();
+        Discounts discounts = new Discounts();
+        List<Discounts> discountsList = new ArrayList<Discounts>();
         discounts.setSocietyId(orderData.getPricing().getDiscounts()
-                .getDiscount().getSocietyData().getCode());
+                .getDiscount().getSocietyData().getPromoCode());
         discounts.setPromoCode(orderData.getPricing().getDiscounts()
                 .getDiscount().getPromoCode());
         discountsList.add(discounts);
         onlineOpenOrder.setDiscountDetails(discountsList);
         onlineOpenOrder.setPaymentMethod(orderData.getPayment()
                 .getPaymentMethod());
-        final TaxDetails taxDetails = new TaxDetails();
+        TaxDetails taxDetails = new TaxDetails();
         taxDetails
                 .setTaxCountryCode(orderData.getTaxDetails().getCountryCode());
         taxDetails.setTaxExemptionNumber(orderData.getTaxDetails()
@@ -478,18 +380,18 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                 .getVatExemptionNumber());
         taxDetails.setVatIdNumber(orderData.getTaxDetails().getVatIdNumber());
         onlineOpenOrder.setTaxDetails(taxDetails);
-        final Amount amount = new Amount();
+        Amount amount = new Amount();
         amount.setAmount(orderData.getPricing().getAmountToBePaid().toString());
         amount.setCurrency(orderData.getPricing().getCurrency());
         onlineOpenOrder.setAmountPayable(amount);
-        final Amount finalAmount = new Amount();
+        Amount finalAmount = new Amount();
         onlineOpenOrder.setFinalAmount(finalAmount);
         onlineOpenOrder.setPaymentMethod(orderData.getPayment()
                 .getPaymentMethod());
-        final Address contactAddress = new Address();
+        Address contactAddress = new Address();
         contactAddress.setFirstName(orderData.getContactAddress().getName());
         contactAddress.setLastName(orderData.getContactAddress().getName());
-        contactAddress.setDepartment(orderData.getContactAddress()
+        contactAddress.setDepartmentName(orderData.getContactAddress()
                 .getDepartment());
         contactAddress.setAddressLine1(orderData.getContactAddress()
                 .getAdditionalStreet());
@@ -497,20 +399,20 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                 .getAdditionalStreet());
         contactAddress.setCity(orderData.getContactAddress().getCity());
         contactAddress.setState(orderData.getContactAddress().getState());
-        final Country country = new Country();
+        Country country = new Country();
         country.setCountryName(orderData.getContactAddress().getCountry());
         contactAddress.setCountry(country);
         contactAddress.setPostCode(orderData.getContactAddress().getZip());
         contactAddress.setPhoneNumber(orderData.getContactAddress()
                 .getPhoneNumber());
         contactAddress.setEmailId(orderData.getContactAddress().getEmail());
-        final AddressDetails addressDetails = new AddressDetails();
+        AddressDetails addressDetails = new AddressDetails();
         addressDetails.setBillingAddress(contactAddress);
 
-        final Address billingAddress = new Address();
+        Address billingAddress = new Address();
         billingAddress.setFirstName(orderData.getBillingAddress().getName());
         billingAddress.setLastName(orderData.getBillingAddress().getName());
-        billingAddress.setDepartment(orderData.getBillingAddress()
+        billingAddress.setDepartmentName(orderData.getBillingAddress()
                 .getDepartment());
         billingAddress.setAddressLine1(orderData.getBillingAddress()
                 .getAdditionalStreet());
@@ -518,7 +420,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                 .getAdditionalStreet());
         billingAddress.setCity(orderData.getBillingAddress().getCity());
         billingAddress.setState(orderData.getBillingAddress().getState());
-        final Country countryBilling = new Country();
+        Country countryBilling = new Country();
         countryBilling.setCountryName(orderData.getBillingAddress()
                 .getCountry());
         billingAddress.setCountry(countryBilling);
@@ -529,7 +431,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         addressDetails.setContactAddress(contactAddress);
         addressDetails.setBillingAddress(billingAddress);
         onlineOpenOrder.setAddressDetails(addressDetails);
-        final Amount taxAmount = new Amount();
+        Amount taxAmount = new Amount();
         onlineOpenOrder.setTaxAmount(taxAmount);
         return onlineOpenOrder;
     }
@@ -549,13 +451,13 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     public final QuoteDetails initiateOnline(final String userId,
             final String articleId, final String pdmSalesFlag) {
 
-        final ProductRelations productRelations = orderOnlineDAO
+        ProductRelations productRelations = orderOnlineDAO
                 .getProductRelations(articleId);
         if (null == productRelations) {
             throw new ASException(articleDetailsCode, articleDetailsMessage);
         }
         // Calling PdhLookUpJornal service with jornalDhId
-        final PdhJournalResponse pdhLookup = orderservice
+        PdhJournalResponse pdhLookup = orderservice
                 .pdhLookUpJournal(productRelations.getProductsByParentDhId()
                         .getDhId());
         // UI OnLoad object for OrderOnlineOpen order.
@@ -564,7 +466,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         if (pdmSalesFlag.equalsIgnoreCase(pdhLookup.getPdmSalesModel())) {
 
             // DB call to get ProductPersonRelations object.
-            final ProductPersonRelations productPersonRelations = orderOnlineDAO
+            ProductPersonRelations productPersonRelations = orderOnlineDAO
                     .getProductPersonRelations(userId, articleId);
             if (productPersonRelations == null) {
                 throw new ASException(articleAcceptanceCode,
@@ -577,14 +479,13 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                             .equalsIgnoreCase(correspondingAuthorId)) {
 
                 // check is there any saved orders for this article.
-                final SavedOrders savedOrders = orderOnlineDAO.getSavedOrders(
+                SavedOrders savedOrders = orderOnlineDAO.getSavedOrders(
                         articleId, userId);
                 if (null != savedOrders) {
                     throw new ASException(savedOrderCode, savedOrderMessage);
                 }
                 // check is there any placed orders for this article.
-                final Orders orders = orderOnlineDAO
-                        .getOrder(articleId, userId);
+                Orders orders = orderOnlineDAO.getOrder(articleId, userId);
                 if (orders != null) {
                     throw new ASException(orderExistenceCode,
                             orderExistenceMessage);
@@ -592,49 +493,25 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                 quoteDetails = new QuoteDetails();
                 // calling PdhLookupArticle service with article DhId for
                 // article title.
-                final PdhArticleResponse pdhArticleResponse = orderservice
+                PdhArticleResponse pdhArticleResponse = orderservice
                         .pdhLookUpArticle(productPersonRelations.getProducts()
                                 .getDhId());
                 // Article details (ArticleId and Article title)
-                final ArticleDetails articleDetails = new ArticleDetails();
+                ArticleDetails articleDetails = new ArticleDetails();
                 articleDetails.setArticleId(articleId);
                 articleDetails.setArticleTitle(pdhArticleResponse.getTitle());
                 quoteDetails.setArticleDetails(articleDetails);
                 // Journal details (JornalId and jornalTitle)
-                final JournalDetails journalDetails = new JournalDetails();
+                JournalDetails journalDetails = new JournalDetails();
                 journalDetails.setJournalId(productRelations
                         .getProductsByParentDhId().getDhId() + "");
                 journalDetails.setJournalTitle(pdhLookup.getTitle());
                 quoteDetails.setJournalDetails(journalDetails);
 
-				// values of DiscountsAllowed and AdditionalDiscountAllowed
-				quoteDetails.setDiscountsAllowed(pdhLookup
-						.getDiscountsAllowed());
-				quoteDetails.setAdditionalDiscountAllowed(pdhLookup
-						.getAdditionalDiscountAllowed());
-				// userProfile object form userProfile service for society
-				// details and addressDetails
-				LookupCustomerProfileResponse userProfileResponse = userProfiles
-						.getLookupCustomerProfile(userId).getLookupCustomerProfileResponse();
-				// First and LastName of author
-				quoteDetails.setAuthorName(userProfileResponse
-						.getCustomerProfile().getCustomerDetails()
-						.getfName()
-						+ " "
-						+ userProfileResponse.getCustomerProfile()
-								.getCustomerDetails().getlName());
-				// GrantRecipients(coAuthors)
-				userProfileResponse.getCustomerProfile().getCoAuthors();
-				// Societies
-				userProfileResponse.getCustomerProfile().getSocietyList();
-				// billing and contact addresses
-				AddressDetails addressDetails = new AddressDetails();
-//				addressDetails.setBillingAddress(userProfileResponse
-//						.getCustomerProfile().getAddressDetails().get(1)
-//						.getBillingAddress());
-//				addressDetails.setContactAddress(userProfileResponse
-//						.getCustomerProfile().getAddressDetails().getAddress().get(0));
-				quoteDetails.setAddressDetails(addressDetails);
+                // prices in 3 type of currencies
+                QuoteDetail quoteDetail = new QuoteDetail();
+                quoteDetail.setPrices(pdhArticleResponse.getPrices());
+                quoteDetails.setQuoteDetail(quoteDetail);
 
                 // values of DiscountsAllowed and AdditionalDiscountAllowed
                 quoteDetails.setDiscountsAllowed(pdhLookup
@@ -643,27 +520,26 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                         .getAdditionalDiscountAllowed());
                 // userProfile object form userProfile service for society
                 // details and addressDetails
-                final UserProfileResponse userProfileResponse = userProfiles
-                        .getUserProfileResponse(userId);
+                LookupCustomerProfileResponse userProfileResponse = userProfiles
+                        .getLookupCustomerProfile(userId).getLookupCustomerProfileResponse();
                 // First and LastName of author
                 quoteDetails.setAuthorName(userProfileResponse
                         .getCustomerProfile().getCustomerDetails()
-                        .getFirstName()
+                        .getfName()
                         + " "
                         + userProfileResponse.getCustomerProfile()
-                                .getCustomerDetails().getLastName());
+                                .getCustomerDetails().getlName());
                 // GrantRecipients(coAuthors)
                 userProfileResponse.getCustomerProfile().getCoAuthors();
                 // Societies
-                userProfileResponse.getCustomerProfile().getSocieties();
+                userProfileResponse.getCustomerProfile().getSocietyList();
                 // billing and contact addresses
-                final AddressDetails addressDetails = new AddressDetails();
-                addressDetails.setBillingAddress(userProfileResponse
-                        .getCustomerProfile().getAddressDetails().get(1)
-                        .getBillingAddress());
-                addressDetails.setContactAddress(userProfileResponse
-                        .getCustomerProfile().getAddressDetails().get(0)
-                        .getCorrespondenceAddress());
+                AddressDetails addressDetails = new AddressDetails();
+//              addressDetails.setBillingAddress(userProfileResponse
+//                      .getCustomerProfile().getAddressDetails().get(1)
+//                      .getBillingAddress());
+//              addressDetails.setContactAddress(userProfileResponse
+//                      .getCustomerProfile().getAddressDetails().getAddress().get(0));
                 quoteDetails.setAddressDetails(addressDetails);
 
             } else {
@@ -685,10 +561,10 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      */
     @Override
     public final List<OrderDetails> getAllOrders(final String orderId) {
-        final OrderDetails orderDetails = new OrderDetails();
-        final List<OrderDetails> orderDetailsList = new ArrayList<OrderDetails>();
-        final OrderDataList orderDataList = orderservice.getAllOrders(orderId);
-        for (final OrderData orderData : orderDataList.getOrderDatas()) {
+        OrderDetails orderDetails = new OrderDetails();
+        List<OrderDetails> orderDetailsList = new ArrayList<OrderDetails>();
+        OrderDataList orderDataList = orderservice.getAllOrders(orderId);
+        for (OrderData orderData : orderDataList.getOrderDatas()) {
             orderDetails.setArticleId(orderData.getArticle().getDhId());
             orderDetails.setArticleTitle(orderData.getArticle()
                     .getArticleTitle());
@@ -697,7 +573,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                     .toString());
             orderDetails.setStatus(orderData.getOrderStatusCode());
             orderDetails.setOrderId(orderData.getOoUniqueId());
-            final String type = orderData.getOrderType();
+            String type = orderData.getOrderType();
             if ("AUTHOR_PAID".equalsIgnoreCase(type)) {
                 orderDetails.setOrderType("onlineopen");
             } else {
@@ -727,7 +603,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
         OrderResponse orderResponse = null;
 
-        final OrderRequest orderRequest = new OrderRequest();
+        OrderRequest orderRequest = new OrderRequest();
         orderRequest.setApplicationKey(applicationKey);
         orderRequest.setCorrelationID(correlationId);
         OrderData orderData = null;
@@ -735,32 +611,18 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         orderRequest.setOrderData(orderData);
         orderRequest.setUserID(userId);
 
-		Orders orders = new Orders();
-		// orders.setOrderTypes(new OrderTypes());
-		// orders.setOoOaFlg(orderTypeFlag);
-		orders.setOrderId(Integer.parseInt(orderId));
-		//orders.setOrderStatus(AuthorServicesConstants.ORDER_STATUS_SUBMIT);
-		Products products = new Products(Integer.parseInt(orderData
-				.getArticle().getDhId()));
-		orders.setProducts(products);
-		// orders.setDownstreamappOrderId(Integer.parseInt(orderResponse.getOoUniqueId()));
-		Users users = new Users();
-		users.setUserId(Integer.parseInt(userId));
-		orders.setUsersByCreatedBy(users);
-		orders.setUsersByUserId(users);
-		orders.setCreatedDate(new Date());
-		orderOnlineDAO.saveOrder(orders);
+        orderResponse = orderservice.submitOnlineOpenOrder(orderRequest);
 
-        final Orders orders = new Orders();
+        Orders orders = new Orders();
         // orders.setOrderTypes(new OrderTypes());
         // orders.setOoOaFlg(orderTypeFlag);
         orders.setOrderId(Integer.parseInt(orderId));
-        orders.setOrderStatus(AuthorServicesConstants.ORDER_STATUS_SUBMIT);
-        final Products products = new Products(Integer.parseInt(orderData
+        //orders.setOrderStatus(AuthorServicesConstants.ORDER_STATUS_SUBMIT);
+        Products products = new Products(Integer.parseInt(orderData
                 .getArticle().getDhId()));
         orders.setProducts(products);
         // orders.setDownstreamappOrderId(Integer.parseInt(orderResponse.getOoUniqueId()));
-        final Users users = new Users();
+        Users users = new Users();
         users.setUserId(Integer.parseInt(userId));
         orders.setUsersByCreatedBy(users);
         orders.setUsersByUserId(users);
@@ -789,33 +651,28 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         onlineOpenOrder = getOrderDetails(null, savedOrder);
         orderData = new OrderData();
 
-			ContactAddress billingAddress = new ContactAddress();
-			// TODO: Need to set remaining objects
-			billingAddress.setName(address.getBillingAddress().getFirstName()
-					+ address.getBillingAddress().getLastName());
-			//billingAddress.setOrg(address.getBillingAddress().getInstitution());
+        if (onlineOpenOrder != null) {
+            ArticleData articleData = new ArticleData();
+            articleData.setDhId(savedOrder.getProducts().getDhId().toString());
+            orderData.setArticle(articleData);
+            AddressDetails address = onlineOpenOrder.getAddressDetails();
 
-            final ContactAddress billingAddress = new ContactAddress();
+            ContactAddress billingAddress = new ContactAddress();
             // TODO: Need to set remaining objects
             billingAddress.setName(address.getBillingAddress().getFirstName()
                     + address.getBillingAddress().getLastName());
-            billingAddress.setOrg(address.getBillingAddress().getInstitution());
+            //billingAddress.setOrg(address.getBillingAddress().getInstitution());
 
-			ContactAddress contactAddress = new ContactAddress();
-			// TODO: Need to set remaining objects
-			contactAddress.setName(address.getContactAddress().getFirstName()
-					+ address.getBillingAddress().getLastName());
-			//contactAddress.setOrg(address.getContactAddress().getInstitution());
-			orderData.setContactAddress(contactAddress);
+            orderData.setBillingAddress(billingAddress);
 
-            final ContactAddress contactAddress = new ContactAddress();
+            ContactAddress contactAddress = new ContactAddress();
             // TODO: Need to set remaining objects
             contactAddress.setName(address.getContactAddress().getFirstName()
                     + address.getBillingAddress().getLastName());
-            contactAddress.setOrg(address.getContactAddress().getInstitution());
+            //contactAddress.setOrg(address.getContactAddress().getInstitution());
             orderData.setContactAddress(contactAddress);
 
-            final TaxData taxData = new TaxData();
+            TaxData taxData = new TaxData();
             taxData.setCountryCode(onlineOpenOrder.getTaxDetails()
                     .getTaxCountryCode());
             taxData.setTaxExpiration(onlineOpenOrder.getTaxDetails()
@@ -828,8 +685,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                     .getVatIdNumber());
             orderData.setTaxDetails(taxData);
 
-            final PricingData pricingData = new PricingData();
-            final String amountToBePaidValue = onlineOpenOrder.getFinalAmount()
+            PricingData pricingData = new PricingData();
+            String amountToBePaidValue = onlineOpenOrder.getFinalAmount()
                     .getAmount();
             if (amountToBePaidValue != null
                     && !"".equals(amountToBePaidValue.trim())) {
@@ -839,11 +696,11 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                     .getCurrency());
             orderData.setPricing(pricingData);
 
-            final Payment payment = new Payment();
+            Payment payment = new Payment();
             payment.setPaymentMethod(onlineOpenOrder.getPaymentMethod());
             orderData.setPayment(payment);
 
-            final WoaAccountHolder woaAccountHolder = processWOAAccount(onlineOpenOrder);
+            WoaAccountHolder woaAccountHolder = processWOAAccount(onlineOpenOrder);
 
             /*
              * woaAccountHolder.setCode(onlineOpenOrder.getFunderDetails().get(0)
@@ -868,15 +725,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
         return orderData;
 
-	/**
-	 * This method send the WOAFunder with the correct WOA Account to the OO
-	 * app.
-	 * 
-	 * @param onlineOpenOrder
-	 * @return onlineOpenOrder
-	 */
-	private WoaAccountHolder processWOAAccount(
-			final OnlineOpenOrder onlineOpenOrder) {
+    }
 
     /**
      * This method send the WOAFunder with the correct WOA Account to the OO
@@ -890,14 +739,14 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
         WoaAccountHolder woaAccountHolder = null;
         WOAAccount selectedWOAAccount = null;
-        final List<WOAAccount> woaAccountList = onlineOpenOrder.getWoaFunder()
+        List<WOAAccount> woaAccountList = onlineOpenOrder.getWoaFunder()
                 .getWOAAccounts().getWOAAccount();
         List<WOAAccount> nonRestrictedWOAAccountList = null;
         List<WOAAccount> restrictedWOAAccountList = null;
         Integer countOfRA = 0;
         Integer countOfNRA = 0;
 
-        final List<FunderDetails> funderDetailsList = onlineOpenOrder
+        List<FunderDetails> funderDetailsList = onlineOpenOrder
                 .getFunderDetails();
 
         if (woaAccountList != null) {
@@ -926,16 +775,10 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
                 } else if (countOfNRA == 0 && countOfRA > 0) {
 
-				if (selectedWOAAccount != null) {
-					woaAccountHolder.setCode(selectedWOAAccount.getCode());
-					woaAccountHolder.setName(selectedWOAAccount.getName());
-				} else {
-
-					woaAccountHolder.setCode(nonRestrictedWOAAccountList.get(0)
-							.getCode());
-					woaAccountHolder.setName(nonRestrictedWOAAccountList.get(0)
-							.getName());
-				}
+                    selectedWOAAccount = getSelectedWOAAccount(
+                            funderDetailsList, restrictedWOAAccountList,
+                            selectedWOAAccount);
+                }
 
                 if (selectedWOAAccount != null) {
                     woaAccountHolder.setCode(selectedWOAAccount.getCode());
@@ -950,19 +793,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
             }
 
-	/**
-	 * This method retrieves the selected WOAAccount
-	 * 
-	 * @param funderDetailsList
-	 * @param restrictedWOAAccountList
-	 * @param selectedWOAAccount
-	 * @return selectedWOAAccount
-	 */
-	private WOAAccount getSelectedWOAAccount(
-			final List<FunderDetails> funderDetailsList,
-			final List<WOAAccount> restrictedWOAAccountList,
-			WOAAccount selectedWOAAccount) {
-		if (!funderDetailsList.isEmpty() && funderDetailsList.size() == 1) {
+        }
+        return woaAccountHolder;
 
     }
 
@@ -980,11 +812,10 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             WOAAccount selectedWOAAccount) {
         if (!funderDetailsList.isEmpty() && funderDetailsList.size() == 1) {
 
-            final String doi = orderservice
-                    .getResearchFunderDOI(funderDetailsList.get(0)
-                            .getFunderId());
+            String doi = orderservice.getResearchFunderDOI(funderDetailsList
+                    .get(0).getFunderId());
 
-            for (final WOAAccount woaAccount : restrictedWOAAccountList) {
+            for (WOAAccount woaAccount : restrictedWOAAccountList) {
                 if (doi.equals(woaAccount.getResearchFunders()
                         .getResearchfunder().get(0).getDoi())) {
                     selectedWOAAccount = woaAccount;
@@ -1012,9 +843,9 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         if (woaAccountList != null) {
             nonRestrictedWOAAccountList = new ArrayList<WOAAccount>();
 
-            for (final Iterator<WOAAccount> iterator = woaAccountList
-                    .iterator(); iterator.hasNext();) {
-                final WOAAccount woaAccount = iterator.next();
+            for (Iterator<WOAAccount> iterator = woaAccountList.iterator(); iterator
+                    .hasNext();) {
+                WOAAccount woaAccount = iterator.next();
 
                 if (woaAccount.getResearchFunders().getResearchfunder()
                         .isEmpty()) {
@@ -1044,9 +875,9 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         if (woaAccountList != null) {
             restrictedWOAAccountList = new ArrayList<WOAAccount>();
 
-            for (final Iterator<WOAAccount> iterator = woaAccountList
-                    .iterator(); iterator.hasNext();) {
-                final WOAAccount woaAccount = iterator.next();
+            for (Iterator<WOAAccount> iterator = woaAccountList.iterator(); iterator
+                    .hasNext();) {
+                WOAAccount woaAccount = iterator.next();
 
                 if (!(woaAccount.getResearchFunders().getResearchfunder()
                         .isEmpty())) {
@@ -1073,15 +904,13 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
         List<WOAFunder> woaFunderList = null;
 
-        final PdhArticleResponse pdhArticleResponse = orderservice
+        PdhArticleResponse pdhArticleResponse = orderservice
                 .pdhLookUpArticle(Integer.parseInt(DHID));
 
         woaFunderList = pdhArticleResponse.getWOAFunders().getWOAFunder();
-		String journalAcronym = null;
 
-		// TODO: Need to implement the retrival of jrnl acronym
-		DiscountedSocietyResponse discountedSocietiesResponse = orderservice
-				.getDiscountedSocietiesForJournal(journalAcronym);
+        return woaFunderList;
+    }
 
     /**
      * This method returns the List of Societies which provide Society discounts
@@ -1095,27 +924,18 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     public final List<DiscountedSociety> retrieveSocietyDiscountListForJournal(
             final String DHID) {
         List<DiscountedSociety> discountedSocietyListForJournal = null;
+        String journalAcronym = null;
 
-        final DiscountedSocietyResponse discountedSocietiesResponse = orderservice
-                .getDiscountedSocietiesForJournal(DHID);
+        // TODO: Need to implement the retrival of jrnl acronym
+        DiscountedSocietyResponse discountedSocietiesResponse = orderservice
+                .getDiscountedSocietiesForJournal(journalAcronym);
 
-		final ObjectMapper mapper = new ObjectMapper();
-		final SavedOrders savedOrders = new SavedOrders();
-		// Checking is there any existing saved orders in saved orders table
-		SavedOrders orders = orderOnlineDAO.verifySavedOrders(order
-				.getArticleDetails().getArticleId(), userId);
-		if (null != orders) {
-			savedOrders.setOrderId(orders.getOrderId());
-		}
-		try {
-			savedOrders.setOrderObject(mapper.writeValueAsString(order));
-		} catch (final JsonProcessingException e) {
-			throw new ASException("jsonProcessingExceptionCode", e.getMessage());
-		}
-		final Products products = new Products();
-		products.setDhId(Integer.parseInt(order.getArticleDetails()
-				.getArticleId()));
-		savedOrders.setProducts(products);
+        if (discountedSocietiesResponse != null) {
+            discountedSocietyListForJournal = discountedSocietiesResponse
+                    .getSocieties();
+        }
+        return discountedSocietyListForJournal;
+    }
 
     /**
      * Method to save orders.
@@ -1132,6 +952,12 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
         final ObjectMapper mapper = new ObjectMapper();
         final SavedOrders savedOrders = new SavedOrders();
+        // Checking is there any existing saved orders in saved orders table
+        SavedOrders orders = orderOnlineDAO.verifySavedOrders(order
+                .getArticleDetails().getArticleId(), userId);
+        if (null != orders) {
+            savedOrders.setOrderId(orders.getOrderId());
+        }
         try {
             savedOrders.setOrderObject(mapper.writeValueAsString(order));
         } catch (final JsonProcessingException e) {
@@ -1165,7 +991,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         // TODO: Need to create a request object when provided.
 
         // TODO: Need to check if journalId or DHId should be passed
-        final PdhJournalResponse pdhLookupJournal = orderservice
+        PdhJournalResponse pdhLookupJournal = orderservice
                 .pdhLookUpJournal(Integer.parseInt(DHID));
         isAdditionDiscountAvailable = Boolean.getBoolean(pdhLookupJournal
                 .getAdditionalDiscountAllowed());
@@ -1181,20 +1007,20 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     @Override
     public final WOAAccountHolders getWOAFunders() {
 
-        final WileyOpenAccessFunders wileyOpenAccessFunders = orderservice
+        WileyOpenAccessFunders wileyOpenAccessFunders = orderservice
                 .getWoaAcounts();
-        final List<WOAFunder> woaFundersList = wileyOpenAccessFunders
-                .getWoaFunders().getWOAFunder();
-        final List<WOAAccountFunders> woaAccountFundersList = new ArrayList<WOAAccountFunders>();
+        List<WOAFunder> woaFundersList = wileyOpenAccessFunders.getWoaFunders()
+                .getWOAFunder();
+        List<WOAAccountFunders> woaAccountFundersList = new ArrayList<WOAAccountFunders>();
         WOAAccountFunders woaAccountFunders = null;
-        final WOAAccountHolders woaAccountHolders = new WOAAccountHolders();
-        for (final WOAFunder woaFunder : woaFundersList) {
+        WOAAccountHolders woaAccountHolders = new WOAAccountHolders();
+        for (WOAFunder woaFunder : woaFundersList) {
             woaAccountFunders = new WOAAccountFunders();
             woaAccountFunders.setWoaFunderId(woaFunder.getId());
             woaAccountFunders.setWoaFunderName(woaFunder.getName());
-            final List<WOAAccount> woaAccountList = woaFunder.getWOAAccounts()
+            List<WOAAccount> woaAccountList = woaFunder.getWOAAccounts()
                     .getWOAAccount();
-            for (final WOAAccount woaAccount : woaAccountList) {
+            for (WOAAccount woaAccount : woaAccountList) {
                 if (null == woaAccount.getResearchFunders()) {
                     woaAccountFunders.setAllRestricted(false);
                 } else {
@@ -1217,15 +1043,15 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     @Override
     public final List<GrantRecipients> getGrantRecipients(final String articleId) {
 
-        final List<ProductPersonRelations> productPersonRelationsList = orderOnlineDAO
+        List<ProductPersonRelations> productPersonRelationsList = orderOnlineDAO
                 .getGrantRecipients(articleId);
-        final List<GrantRecipients> grantRecipientsList = new ArrayList<GrantRecipients>();
+        List<GrantRecipients> grantRecipientsList = new ArrayList<GrantRecipients>();
         GrantRecipients grantRecipients = null;
-        for (final ProductPersonRelations productPersonRelations : productPersonRelationsList) {
-            final Users users = productPersonRelations.getUserProfile()
+        for (ProductPersonRelations productPersonRelations : productPersonRelationsList) {
+            Users users = productPersonRelations.getUserProfile()
                     .getUsersByUserId();
             grantRecipients = new GrantRecipients();
-            grantRecipients.setCode(users.getUserId().toString());
+            grantRecipients.setCode(String.valueOf(users.getUserId()));
             grantRecipients.setName(users.getFirstName() + " "
                     + users.getLastName());
             grantRecipientsList.add(grantRecipients);
@@ -1243,22 +1069,21 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     @Override
     public final SocietyDiscounts getDiscountedSocieties(final String DHID) {
 
-		InstitutionDiscountsResponse institutionDiscounts = orderservice
-				.getInstitutionDiscounts();
-		List<Institute> istituteList = institutionDiscounts.getInstitutionDetails()
-				.getInstituteList();
-		InstitutionalDiscounts institutionalDiscounts = new InstitutionalDiscounts();
-		List<Institution> institutionList = new ArrayList<Institution>();
-		Institution institution = null;
-		for (Institute institute : istituteList) {
-			institution = new Institution();
-			institution.setInstitutionId(institute.getInstituteCode());
-			institution.setInstitutionName(institute.getInstituteName());
-			institutionList.add(institution);
-		}
-		institutionalDiscounts.setInstituteList(institutionList);
-		return institutionalDiscounts;
-	}
+        SocietyMemberDiscount societyMemberDiscount = orderservice
+                .getSocietyMemberDiscount(DHID);
+        List<Societies> societiesList = societyMemberDiscount.getPayload()
+                .getSocieties();
+        SocietyDiscounts societyDiscounts = new SocietyDiscounts();
+        List<Society> societyList = new ArrayList<Society>();
+        Society society = null;
+        for (Societies societies : societiesList) {
+            society = new Society();
+            society.setSocietyName(societies.getSocietyName());
+            societyList.add(society);
+        }
+        societyDiscounts.setSocieties(societyList);
+        return societyDiscounts;
+    }
 
     /**
      * Method to get Institutional discounts.
@@ -1268,17 +1093,16 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      * @return InstitutionalDiscounts
      */
     @Override
-    public final InstitutionalDiscounts getInstitutionDiscounts(
-            final String DHID) {
+    public final InstitutionalDiscounts getInstitutionDiscounts() {
 
-        final InstitutionDiscounts institutionDiscounts = orderservice
-                .getInstitutionDiscounts(DHID);
-        final List<Institute> istituteList = institutionDiscounts.getPayLoad()
+        InstitutionDiscountsResponse institutionDiscounts = orderservice
+                .getInstitutionDiscounts();
+        List<Institute> istituteList = institutionDiscounts.getInstitutionDetails()
                 .getInstituteList();
-        final InstitutionalDiscounts institutionalDiscounts = new InstitutionalDiscounts();
-        final List<Institution> institutionList = new ArrayList<Institution>();
+        InstitutionalDiscounts institutionalDiscounts = new InstitutionalDiscounts();
+        List<Institution> institutionList = new ArrayList<Institution>();
         Institution institution = null;
-        for (final Institute institute : istituteList) {
+        for (Institute institute : istituteList) {
             institution = new Institution();
             institution.setInstitutionId(institute.getInstituteCode());
             institution.setInstitutionName(institute.getInstituteName());
@@ -1296,20 +1120,20 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     @Override
     public final List<FundingOrganizations> getFundersList() {
 
-        final WileyOpenAccessFunders wileyOpenAccessFunders = orderservice
+        WileyOpenAccessFunders wileyOpenAccessFunders = orderservice
                 .getWoaAcounts();
-        final List<WOAAccount> woaAccountList = wileyOpenAccessFunders
+        List<WOAAccount> woaAccountList = wileyOpenAccessFunders
                 .getWoaFunders().getWOAFunder().get(0).getWOAAccounts()
                 .getWOAAccount();
-        final List<FundingOrganizations> fundingOrganizationsList = new ArrayList<FundingOrganizations>();
+        List<FundingOrganizations> fundingOrganizationsList = new ArrayList<FundingOrganizations>();
         FundingOrganizations fundingOrganizations = null;
-        for (final WOAAccount woaAccount : woaAccountList) {
-            final List<ResearchFunderElement> researchFunderElementList = woaAccount
+        for (WOAAccount woaAccount : woaAccountList) {
+            List<ResearchFunderElement> researchFunderElementList = woaAccount
                     .getResearchFunders().getResearchfunder();
             if (null == researchFunderElementList) {
                 return fundingOrganizationsList;
             }
-            for (final ResearchFunderElement researchFunderElement : researchFunderElementList) {
+            for (ResearchFunderElement researchFunderElement : researchFunderElementList) {
                 fundingOrganizations = new FundingOrganizations();
                 fundingOrganizations.setFunderRefId(researchFunderElement
                         .getFunderRefId());
@@ -1334,15 +1158,15 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         WOAFunder currentWoaFunder = null;
         List<WOAAccount> woaAccountList = null;
         List<String> woaAccountNameList = null;
-        final WileyOpenAccessFunders wileyOpenAccessFunders = orderservice
+        WileyOpenAccessFunders wileyOpenAccessFunders = orderservice
                 .getWoaAcounts();
 
-        final List<WOAFunder> funder = wileyOpenAccessFunders.getWoaFunders()
+        List<WOAFunder> funder = wileyOpenAccessFunders.getWoaFunders()
                 .getWOAFunder();
 
-        for (final Iterator<WOAFunder> iterator = funder.iterator(); iterator
+        for (Iterator<WOAFunder> iterator = funder.iterator(); iterator
                 .hasNext();) {
-            final WOAFunder woaFunder = iterator.next();
+            WOAFunder woaFunder = iterator.next();
 
             if (id.equals(woaFunder.getId())) {
                 currentWoaFunder = woaFunder;
@@ -1353,17 +1177,16 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         woaAccountList = currentWoaFunder.getWOAAccounts().getWOAAccount();
         woaAccountNameList = new ArrayList<String>();
 
-        for (final Iterator<WOAAccount> iterator = woaAccountList.iterator(); iterator
+        for (Iterator<WOAAccount> iterator = woaAccountList.iterator(); iterator
                 .hasNext();) {
-            final WOAAccount woaAccount = iterator.next();
+            WOAAccount woaAccount = iterator.next();
 
-            final List<ResearchFunderElement> researchfunderList = woaAccount
+            List<ResearchFunderElement> researchfunderList = woaAccount
                     .getResearchFunders().getResearchfunder();
 
-            for (final Iterator<ResearchFunderElement> iterator2 = researchfunderList
+            for (Iterator<ResearchFunderElement> iterator2 = researchfunderList
                     .iterator(); iterator2.hasNext();) {
-                final ResearchFunderElement researchFunderElement = iterator2
-                        .next();
+                ResearchFunderElement researchFunderElement = iterator2.next();
 
                 woaAccountNameList.add(researchFunderElement.getDoi());
             }
@@ -1383,15 +1206,15 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     public final void savePaymentDetails(
             final MultiValueMap<String, String> form) {
 
-        final PaymentDetails paymentDetails = new PaymentDetails();
+        PaymentDetails paymentDetails = new PaymentDetails();
 
-        final Map<String, String> map = form.toSingleValueMap();
+        Map<String, String> map = form.toSingleValueMap();
 
         paymentDetails.setOperation(map.get("operation"));
         paymentDetails.setVendorId(Integer.parseInt(map.get("vendorID")));
         paymentDetails.setTransId(Integer.parseInt(map.get("transID")));
-        final Long longDate = Long.parseLong(map.get("timestamp"));
-        final Date date = new Date(longDate);
+        Long longDate = Long.parseLong(map.get("timestamp"));
+        Date date = new Date(longDate);
         paymentDetails.setTransTimeStamp(date);
         paymentDetails.setReturnCode(Integer.parseInt(map.get("returnCode")));
         paymentDetails.setReturnMessage(map.get("returnMessage"));
@@ -1434,7 +1257,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         wpgConfiguration.setWpgCountryCode(wpgCountryCode);
         wpgConfiguration.setWpgDescription(wpgDescription);
         wpgConfiguration.setWpgMethod(wpgMethod);
-        final Long wpgTimeStmp = new Date().getTime();
+        Long wpgTimeStmp = new Date().getTime();
         wpgConfiguration.setWpgTimeStmap(wpgTimeStmp.toString());
 
         // Commented the below code - to fix on Monday 7/13
@@ -1448,7 +1271,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         // wpgConfiguration.setWpgValue(wpgValue);
         wpgConfiguration.setWpgVendorId(wpgVendorId);
 
-        final StringBuilder securityStringBuilder = new StringBuilder();
+        StringBuilder securityStringBuilder = new StringBuilder();
         securityStringBuilder.append(wpgTimeStmp.toString())
                 .append(wpgVendorId).append(orderId).append(wpgMethod)
                 .append(wpgDescription).append(wpgRegion)
@@ -1457,102 +1280,15 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                 .append(wpgCountryCode).append(wpgAllowAVSFail)
                 .append(wpgVendorPassword);
 
-	/**
-	 * This method returns the Address, Currency Details, Article and Journal
-	 * details of the requested Order.
-	 * 
-	 * @param orderId
-	 *            - the request value
-	 * @param wpgConfiguration
-	 *            - the request value
-	 * @return WpgConfiguration
-	 * 
-	 */
-	private final WPGConfiguration getAddressAndCurrencyDetailsForOrderId(
-			final String orderId, final WPGConfiguration wpgConfiguration) {
-		OnlineOpenOrder onlineOpenOrder = null;
-		String addressLine1 = null;
-		String addressPostCode = null;
-		String totalAmount = null;
-		String wpgCurrency = null;
-		String price = null;
-		String articleName = null;
-		String journalName = null;
-		String taxAmount = null;
+        wpgConfiguration.setWpgSecurity(DigestUtils
+                .md5Hex(securityStringBuilder.toString()));
 
-		/*
-		 * Need to remove all the null checks which are not required.
-		 */
-
-		onlineOpenOrder = getOrderDetails(orderId, null);
-
-		if (onlineOpenOrder != null) {
-
-			if (onlineOpenOrder.getAddressDetails().getBillingAddress() != null) {
-
-				addressLine1 = onlineOpenOrder.getAddressDetails()
-						.getBillingAddress().getAddressLine1() != null ? onlineOpenOrder
-						.getAddressDetails().getBillingAddress()
-						.getAddressLine1()
-						: "";
-
-				addressPostCode = onlineOpenOrder.getAddressDetails()
-						.getBillingAddress().getPostCode() != null ? onlineOpenOrder
-						.getAddressDetails().getBillingAddress().getPostCode()
-						: "";
-			}
-
-			if (onlineOpenOrder.getFinalAmount() != null) {
-				totalAmount = onlineOpenOrder.getFinalAmount().getAmount() != null ? onlineOpenOrder
-						.getFinalAmount().getAmount() : "";
-
-				wpgCurrency = onlineOpenOrder.getFinalAmount().getCurrency() != null ? onlineOpenOrder
-						.getFinalAmount().getCurrency() : "";
-			}
-
-			if (onlineOpenOrder.getAmountPayable() != null) {
-				price = onlineOpenOrder.getAmountPayable().getAmount() != null ? onlineOpenOrder
-						.getAmountPayable().getAmount() : "";
-			}
-
-			if (onlineOpenOrder.getArticleDetails() != null) {
-				articleName = onlineOpenOrder.getArticleDetails()
-						.getArticleTitle() != null ? onlineOpenOrder
-						.getArticleDetails().getArticleTitle() : "";
-			}
-
-			if (onlineOpenOrder.getJournalDetails() != null) {
-				journalName = onlineOpenOrder.getJournalDetails()
-						.getJournalTitle() != null ? onlineOpenOrder
-						.getJournalDetails().getJournalTitle() : "";
-			}
-
-			if (onlineOpenOrder.getTaxAmount() != null) {
-				taxAmount = onlineOpenOrder.getTaxAmount().getAmount() != null ? onlineOpenOrder
-						.getTaxAmount().getAmount() : "";
-			}
-
-			wpgConfiguration.setWpgAddress(addressLine1 != null ? addressLine1
-					: "");
-			wpgConfiguration
-					.setWpgPostCode(addressPostCode != null ? addressPostCode
-							: "");
-			wpgConfiguration.setTotalAmount(totalAmount != null ? totalAmount
-					: "");
-			wpgConfiguration.setWpgCurrency(wpgCurrency != null ? wpgCurrency
-					: "");
-			wpgConfiguration.setPrice(price != null ? price : "");
-			wpgConfiguration.setArticleName(articleName != null ? articleName
-					: "");
-			wpgConfiguration.setJournalName(journalName != null ? journalName
-					: "");
-			wpgConfiguration.setTax(taxAmount != null ? taxAmount : "");
-
-		}
+        return wpgConfiguration;
+    }
 
     /**
-     * This method returns the Address And Currency Details of the requested
-     * Order.
+     * This method returns the Address, Currency Details, Article and Journal
+     * details of the requested Order.
      * 
      * @param orderId
      *            - the request value
@@ -1564,52 +1300,103 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     private final WPGConfiguration getAddressAndCurrencyDetailsForOrderId(
             final String orderId, final WPGConfiguration wpgConfiguration) {
         OnlineOpenOrder onlineOpenOrder = null;
+        String addressLine1 = null;
+        String addressPostCode = null;
+        String totalAmount = null;
+        String wpgCurrency = null;
+        String price = null;
+        String articleName = null;
+        String journalName = null;
+        String taxAmount = null;
+
+        /*
+         * Need to remove all the null checks which are not required.
+         */
+
         onlineOpenOrder = getOrderDetails(orderId, null);
 
         if (onlineOpenOrder != null) {
-            wpgConfiguration.setWpgAddress(onlineOpenOrder.getAddressDetails()
-                    .getBillingAddress().getAddressLine1());
-            wpgConfiguration.setWpgPostCode(onlineOpenOrder.getAddressDetails()
-                    .getBillingAddress().getPostCode());
-            /*
-             * String region = onlineOpenOrder.getAddressDetails()
-             * .getBillingAddress().getRegion();
-             * wpgConfiguration.setWpgRegion(region != null ? region : "");
-             */
-            // Below line is commented since currency is not required for
-            // WPG_VALIDATE
-            // wpgConfiguration.setWpgCurrency(onlineOpenOrder.getFinalAmount().getCurrency());
+
+            if (onlineOpenOrder.getAddressDetails().getBillingAddress() != null) {
+
+                addressLine1 = onlineOpenOrder.getAddressDetails()
+                        .getBillingAddress().getAddressLine1() != null ? onlineOpenOrder
+                        .getAddressDetails().getBillingAddress()
+                        .getAddressLine1()
+                        : "";
+
+                addressPostCode = onlineOpenOrder.getAddressDetails()
+                        .getBillingAddress().getPostCode() != null ? onlineOpenOrder
+                        .getAddressDetails().getBillingAddress().getPostCode()
+                        : "";
+            }
+
+            if (onlineOpenOrder.getFinalAmount() != null) {
+                totalAmount = onlineOpenOrder.getFinalAmount().getAmount() != null ? onlineOpenOrder
+                        .getFinalAmount().getAmount() : "";
+
+                wpgCurrency = onlineOpenOrder.getFinalAmount().getCurrency() != null ? onlineOpenOrder
+                        .getFinalAmount().getCurrency() : "";
+            }
+
+            if (onlineOpenOrder.getAmountPayable() != null) {
+                price = onlineOpenOrder.getAmountPayable().getAmount() != null ? onlineOpenOrder
+                        .getAmountPayable().getAmount() : "";
+            }
+
+            if (onlineOpenOrder.getArticleDetails() != null) {
+                articleName = onlineOpenOrder.getArticleDetails()
+                        .getArticleTitle() != null ? onlineOpenOrder
+                        .getArticleDetails().getArticleTitle() : "";
+            }
+
+            if (onlineOpenOrder.getJournalDetails() != null) {
+                journalName = onlineOpenOrder.getJournalDetails()
+                        .getJournalTitle() != null ? onlineOpenOrder
+                        .getJournalDetails().getJournalTitle() : "";
+            }
+
+            if (onlineOpenOrder.getTaxAmount() != null) {
+                taxAmount = onlineOpenOrder.getTaxAmount().getAmount() != null ? onlineOpenOrder
+                        .getTaxAmount().getAmount() : "";
+            }
+
+            wpgConfiguration.setWpgAddress(addressLine1 != null ? addressLine1
+                    : "");
+            wpgConfiguration
+                    .setWpgPostCode(addressPostCode != null ? addressPostCode
+                            : "");
+            wpgConfiguration.setTotalAmount(totalAmount != null ? totalAmount
+                    : "");
+            wpgConfiguration.setWpgCurrency(wpgCurrency != null ? wpgCurrency
+                    : "");
+            wpgConfiguration.setPrice(price != null ? price : "");
+            wpgConfiguration.setArticleName(articleName != null ? articleName
+                    : "");
+            wpgConfiguration.setJournalName(journalName != null ? journalName
+                    : "");
+            wpgConfiguration.setTax(taxAmount != null ? taxAmount : "");
+
         }
 
         return wpgConfiguration;
 
     }
 
-		if (flag && savedOrder != null) {
-			orderDataObject = savedOrder.getOrderObject();
-			try {
-				JSONObject object = (JSONObject) new JSONParser()
-						.parse(orderDataObject);
-				onlineOpenOrder = new ObjectMapper().readValue(
-						object.toJSONString(), OnlineOpenOrder.class);
-			} catch (JsonParseException e) {
-				throw new ASException(
-						AuthorServicesConstants.INTERNAL_SERVER_ERROR,
-						e.getMessage());
-			} catch (JsonMappingException e) {
-				throw new ASException(
-						AuthorServicesConstants.INTERNAL_SERVER_ERROR,
-						e.getMessage());
-			} catch (ParseException e) {
-				throw new ASException(
-						AuthorServicesConstants.INTERNAL_SERVER_ERROR,
-						e.getMessage());
-			} catch (IOException e) {
-				throw new ASException(
-						AuthorServicesConstants.INTERNAL_SERVER_ERROR,
-						e.getMessage());
-			}
-		}
+    /**
+     * This method returns the Online Open Order details.
+     *
+     * @param orderId
+     *            - the request value
+     * @param savedOrder
+     *            - the request value
+     * @return onlineOpenOrder
+     */
+    private final OnlineOpenOrder getOrderDetails(final String orderId,
+            SavedOrders savedOrder) {
+        String orderDataObject = null;
+        OnlineOpenOrder onlineOpenOrder = null;
+        boolean flag = false;
 
         if (orderId != null && savedOrder == null) {
             savedOrder = orderOnlineDAO.getSavedOrdersForTheOrderId(orderId);
@@ -1621,18 +1408,26 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         if (flag && savedOrder != null) {
             orderDataObject = savedOrder.getOrderObject();
             try {
-                final JSONObject object = (JSONObject) new JSONParser()
+                JSONObject object = (JSONObject) new JSONParser()
                         .parse(orderDataObject);
                 onlineOpenOrder = new ObjectMapper().readValue(
                         object.toJSONString(), OnlineOpenOrder.class);
-            } catch (final JsonParseException e) {
-                throw new ASException("700", e.getMessage());
-            } catch (final JsonMappingException e) {
-                throw new ASException("701", e.getMessage());
-            } catch (final ParseException e) {
-                throw new ASException("702", e.getMessage());
-            } catch (final IOException e) {
-                throw new ASException("703", e.getMessage());
+            } catch (JsonParseException e) {
+                throw new ASException(
+                        AuthorServicesConstants.INTERNAL_SERVER_ERROR,
+                        e.getMessage());
+            } catch (JsonMappingException e) {
+                throw new ASException(
+                        AuthorServicesConstants.INTERNAL_SERVER_ERROR,
+                        e.getMessage());
+            } catch (ParseException e) {
+                throw new ASException(
+                        AuthorServicesConstants.INTERNAL_SERVER_ERROR,
+                        e.getMessage());
+            } catch (IOException e) {
+                throw new ASException(
+                        AuthorServicesConstants.INTERNAL_SERVER_ERROR,
+                        e.getMessage());
             }
         }
 
@@ -1660,7 +1455,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     @Override
     public OrderResponse cancelOnlineOpenOrder(final String userId,
             final String orderId) {
-        final CancelOrderRequest cancelOrderRequest = new CancelOrderRequest();
+        CancelOrderRequest cancelOrderRequest = new CancelOrderRequest();
         cancelOrderRequest.setApplicationKey(cancelOrderApplicationKey);
         cancelOrderRequest.setAsID(Integer.parseInt(userId));
         cancelOrderRequest.setCancelReasonCode(cancelOrderCancelReasonCode);
@@ -1682,48 +1477,36 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     @Override
     public String getOrderType(final Integer orderId) {
 
-	/**
-	 * This will call Invoce service to get invoice
-	 * 
-	 * @param ooUniqueId
-	 * @param articleID
-	 * @throws Exception
-	 * @throws FileNotFoundException
-	 * */
-	@Override
-	public ResponseEntity<byte[]> getInvoice(final String ooUniqueId,
-			final String articleID) {
+        return orderOnlineDAO.retrieveOrderType(orderId);
 
     }
 
-		Invoice invoice = new Invoice();
-		invoice.setRequestType("GET_INVOCIE");
-		invoice.setRequestCreatedTimestamp("2014-12-12 10:12:12");
-		Article article = new Article();
-		article.setArticleID(articleID);
-		article.setJournalPrintISSN("0008543X");
-		invoice.setArticle(article);
-		headers.setContentType(MediaType.parseMediaType("application/pdf"));
-		//headers.setContentDispositionFormData(AuthorServicesConstants.PDF_NAME,
-				//AuthorServicesConstants.PDF_NAME);
-		headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
-		contents = invoiceservice.getInvoice(invoice);
-		response = new ResponseEntity<byte[]>(contents, headers, HttpStatus.OK);
+    /**
+     * This will call Invoce service to get invoice
+     * 
+     * @param ooUniqueId
+     * @param articleID
+     * @throws Exception
+     * @throws FileNotFoundException
+     * */
+    @Override
+    public ResponseEntity<byte[]> getInvoice(final String ooUniqueId,
+            final String articleID) {
 
-        final HttpHeaders headers = new HttpHeaders();
+        HttpHeaders headers = new HttpHeaders();
         byte[] contents = null;
         ResponseEntity<byte[]> response = null;
 
-        final Invoice invoice = new Invoice();
+        Invoice invoice = new Invoice();
         invoice.setRequestType("GET_INVOCIE");
         invoice.setRequestCreatedTimestamp("2014-12-12 10:12:12");
-        final Article article = new Article();
+        Article article = new Article();
         article.setArticleID(articleID);
         article.setJournalPrintISSN("0008543X");
         invoice.setArticle(article);
         headers.setContentType(MediaType.parseMediaType("application/pdf"));
-        headers.setContentDispositionFormData(AuthorServicesConstants.LICENSE_PDF_NAME,
-                AuthorServicesConstants.LICENSE_PDF_NAME);
+        //headers.setContentDispositionFormData(AuthorServicesConstants.PDF_NAME,
+                //AuthorServicesConstants.PDF_NAME);
         headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
         contents = invoiceservice.getInvoice(invoice);
         response = new ResponseEntity<byte[]>(contents, headers, HttpStatus.OK);
@@ -1790,13 +1573,11 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                 taskServiceRequest.setRequestorEmail(emailId);
                 taskServiceRequest.setRequestorId(requestOnlineOpen.getUserId());
                 // TODO call bpm for creating task  requestType
-                bpmTask.invokeTaskService(taskServiceRequest, emailSplit[0]);
+                taskService.invokeTaskService(taskServiceRequest, emailSplit[0]);
                 
             }else if (journalAllows== false) {
             throw new ASException("1234", "journal Doesnot allows to OO");
         } 
         
     }
-    
-
 }

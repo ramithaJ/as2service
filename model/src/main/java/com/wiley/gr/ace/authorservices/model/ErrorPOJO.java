@@ -28,6 +28,16 @@ public class ErrorPOJO {
     /** The message. */
     private String message;
 
+    private String errorKey;
+
+    public final String getErrorKey() {
+        return errorKey;
+    }
+
+    public final void setErrorKey(String errorKey) {
+        this.errorKey = errorKey;
+    }
+
     /**
      * Instantiates a new error pojo.
      */

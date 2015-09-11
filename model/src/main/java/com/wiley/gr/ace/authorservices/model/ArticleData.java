@@ -60,6 +60,16 @@ public class ArticleData {
     /** The publication details. */
     private PublicationDetails publication;
 
+    private TrackLicense trackLicense;
+
+    public final TrackLicense getTrackLicense() {
+        return trackLicense;
+    }
+
+    public final void setTrackLicense(final TrackLicense trackLicense) {
+        this.trackLicense = trackLicense;
+    }
+
     /**
      * Gets the article user role.
      *

@@ -18,10 +18,7 @@ import com.wiley.gr.ace.authorservices.model.external.ALMAuthRequest;
 import com.wiley.gr.ace.authorservices.model.external.ArticleData;
 import com.wiley.gr.ace.authorservices.model.external.ArticlePdfResponse;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
-import com.wiley.gr.ace.authorservices.model.external.OnlineOpen;
-import com.wiley.gr.ace.authorservices.model.external.OpenAccess;
 import com.wiley.gr.ace.authorservices.model.external.PdhJournalResponse;
-import com.wiley.gr.ace.authorservices.model.external.PdhLookupArticleResponse;
 import com.wiley.gr.ace.authorservices.model.external.PdhLookupJournalResponse;
 import com.wiley.gr.ace.authorservices.model.external.ProfileInformation;
 import com.wiley.gr.ace.authorservices.model.external.Quote;
@@ -71,8 +68,10 @@ public interface ESBInterfaceService {
     /**
      * Gets the users from first name last name.
      *
-     * @param firstName the first name
-     * @param lastName the last name
+     * @param firstName
+     *            the first name
+     * @param lastName
+     *            the last name
      * @return the users from first name last name
      */
     ArrayList<ESBUser> getUsersFromFirstNameLastName(String firstName,
@@ -81,21 +80,11 @@ public interface ESBInterfaceService {
     /**
      * Creat user.
      *
-     * @param profileForCreation the profile for creation
+     * @param profileForCreation
+     *            the profile for creation
      * @return the string
      */
     String creatUser(ProfileInformation profileForCreation);
-
-    /**
-     * Gets the all author articles.
-     *
-     * @param articleId
-     *            the article id
-     * @return the all author articles
-     * @throws Exception
-     *             the exception
-     */
-    ArticleData getAuthorArticle(String articleId) throws Exception;
 
     /**
      * Gets the article pdf response.
@@ -107,44 +96,6 @@ public interface ESBInterfaceService {
      *             the exception
      */
     ArticlePdfResponse getArticlePdfResponse(String articleDoi)
-            throws Exception;
-
-    /**
-     * Gets the open access status.
-     *
-     * @param articleId
-     *            the article id
-     * @return the open access status
-     * @throws Exception
-     *             the exception
-     */
-    OpenAccess getOpenAccessStatus(Integer articleId) throws Exception;
-
-    /**
-     * Gets the online open status.
-     *
-     * @param articleId
-     *            the article id
-     * @return the online open status
-     * @throws Exception
-     *             the exception
-     */
-    OnlineOpen getOnlineOpenStatus(Integer articleId) throws Exception;
-
-//    /**
-//     * Gets the production data.
-//     *
-//     * @param articleId
-//     *            the article id
-//     * @return the production data
-//     * @throws Exception
-//     *             the exception
-//     */
-//    ProductionData getProductionData(Integer articleId) throws Exception;
-
-    
-
-    PdhLookupArticleResponse viewAssignedArticle(String articleId)
             throws Exception;
 
     /**

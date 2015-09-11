@@ -34,10 +34,10 @@ import com.wiley.gr.ace.authorservices.persistence.services.SaveJournalInfoDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UpdateUserDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserAutocomplete;
 import com.wiley.gr.ace.authorservices.persistence.services.UploadLicenseDAO;
-import com.wiley.gr.ace.authorservices.persistence.services.UserAccountDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserRolesDAO;
+import com.wiley.gr.ace.authorservices.persistence.services.CollectArticleDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.ASDataDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.AlertsDaoImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.AreaOfInterterestDaoImpl;
@@ -58,12 +58,10 @@ import com.wiley.gr.ace.authorservices.persistence.services.impl.SaveJournalInfo
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UpdateUserDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserAutocompleteImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UploadLicenseDAOImpl;
-import com.wiley.gr.ace.authorservices.persistence.services.impl.UserAccountDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserLoginDaoImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserLoginServiceDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserRolesDAOImpl;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class PersistenceBeanConfig.
  *

@@ -44,7 +44,7 @@ public class ViewLicenseAgreementController {
 
     /** The get view license agreement of article in pdf code. */
     @Value("${ViewLicenseAgreementController.getViewLicenseAgreementOfArticleInPDF.code}")
-    private int getViewLicenseAgreementOfArticleInPDFCode;
+    private String getViewLicenseAgreementOfArticleInPDFCode;
 
     /** The get view license agreement of article in pdf message. */
     @Value("${ViewLicenseAgreementController.getViewLicenseAgreementOfArticleInPDF.message}")
@@ -52,7 +52,7 @@ public class ViewLicenseAgreementController {
 
     /** The get view license agreement of article in pdf error code. */
     @Value("${ViewLicenseAgreementController.getViewLicenseAgreementOfArticleInPDFError.code}")
-    private int getViewLicenseAgreementOfArticleInPDFErrorCode;
+    private String getViewLicenseAgreementOfArticleInPDFErrorCode;
 
     /** The get view license agreement of article in pdf error message. */
     @Value("${ViewLicenseAgreementController.getViewLicenseAgreementOfArticleInPDFError.message}")

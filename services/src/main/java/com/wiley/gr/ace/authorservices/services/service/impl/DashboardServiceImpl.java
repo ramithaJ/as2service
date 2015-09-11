@@ -33,46 +33,25 @@ import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.ArticleData;
 import com.wiley.gr.ace.authorservices.model.ArticleDetails;
-import com.wiley.gr.ace.authorservices.model.ArticleData;
-import com.wiley.gr.ace.authorservices.model.ArticleDetails;
 import com.wiley.gr.ace.authorservices.model.CommunicationDetails;
 import com.wiley.gr.ace.authorservices.model.Dashboard;
 import com.wiley.gr.ace.authorservices.model.DashboardInfo;
 import com.wiley.gr.ace.authorservices.model.DashboardView;
 import com.wiley.gr.ace.authorservices.model.EmailCommunicationHistory;
-import com.wiley.gr.ace.authorservices.model.JournalData;
 import com.wiley.gr.ace.authorservices.model.JournalDetails;
 import com.wiley.gr.ace.authorservices.model.NotificationHistory;
-import com.wiley.gr.ace.authorservices.model.PaymentStatus;
-import com.wiley.gr.ace.authorservices.model.ProductionStatus;
-import com.wiley.gr.ace.authorservices.model.PublicationDetails;
-import com.wiley.gr.ace.authorservices.model.external.AffiliationData;
-import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
-import com.wiley.gr.ace.authorservices.model.external.CustomerProfile;
-import com.wiley.gr.ace.authorservices.model.external.Identifier;
-import com.wiley.gr.ace.authorservices.model.external.InterestData;
-import com.wiley.gr.ace.authorservices.model.external.License;
-import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
-import com.wiley.gr.ace.authorservices.model.external.PdhLookupArticle;
-import com.wiley.gr.ace.authorservices.model.external.PdhLookupJournal;
-import com.wiley.gr.ace.authorservices.model.external.ProductContributor;
-import com.wiley.gr.ace.authorservices.model.external.ProductDates;
-import com.wiley.gr.ace.authorservices.model.external.Production;
-import com.wiley.gr.ace.authorservices.model.external.ResearchFunderData;
-import com.wiley.gr.ace.authorservices.model.external.SocietyData;
-import com.wiley.gr.ace.authorservices.model.external.SystemSecurityQuestions;
-import com.wiley.gr.ace.authorservices.model.external.Title;
 import com.wiley.gr.ace.authorservices.model.OrderPaymentStatus;
 import com.wiley.gr.ace.authorservices.model.OrderStatus;
 import com.wiley.gr.ace.authorservices.model.Production;
 import com.wiley.gr.ace.authorservices.model.PublicationDetails;
-import com.wiley.gr.ace.authorservices.model.ResearchFunder;
-import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.TrackLicense;
-import com.wiley.gr.ace.authorservices.model.User;
-import com.wiley.gr.ace.authorservices.model.UserProfile;
+import com.wiley.gr.ace.authorservices.model.external.AffiliationData;
 import com.wiley.gr.ace.authorservices.model.external.Article;
+import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
+import com.wiley.gr.ace.authorservices.model.external.CustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.Identifier;
+import com.wiley.gr.ace.authorservices.model.external.InterestData;
+import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.OrderData;
 import com.wiley.gr.ace.authorservices.model.external.OrderDataList;
 import com.wiley.gr.ace.authorservices.model.external.PdhLookupArticle;
@@ -81,11 +60,10 @@ import com.wiley.gr.ace.authorservices.model.external.ProductContributor;
 import com.wiley.gr.ace.authorservices.model.external.ProductDates;
 import com.wiley.gr.ace.authorservices.model.external.Quote;
 import com.wiley.gr.ace.authorservices.model.external.QuoteRequest;
-import com.wiley.gr.ace.authorservices.model.external.SecuirtyQuestionDetails;
-import com.wiley.gr.ace.authorservices.model.external.SecurityQuestion;
-import com.wiley.gr.ace.authorservices.model.external.SecurityQuestions;
+import com.wiley.gr.ace.authorservices.model.external.ResearchFunderData;
+import com.wiley.gr.ace.authorservices.model.external.SocietyData;
+import com.wiley.gr.ace.authorservices.model.external.SystemSecurityQuestions;
 import com.wiley.gr.ace.authorservices.model.external.Title;
-import com.wiley.gr.ace.authorservices.model.external.UserProfileResponse;
 import com.wiley.gr.ace.authorservices.persistence.entity.CoauthorRequestsOoorders;
 import com.wiley.gr.ace.authorservices.persistence.entity.InvitationLog;
 import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
@@ -695,25 +673,6 @@ public class DashboardServiceImpl implements DashboardService {
         ArticleData articleData = null;
         if (!StringUtils.isEmpty(pdhLookupArticle)) {
             articleData = new ArticleData();
-        }
-        return articleData;
-    }
-
-    /**
-     * Gets the pdh article data.
-     *
-     * @param dhId
-     *            the dh id
-     * @return the pdh article data
-     * @throws Exception
-     *             the exception
-     */
-    private ArticleData getPdhArticleData(final Integer dhId) throws Exception {
-        PdhLookupArticle pdhLookupArticle = (PdhLookupArticle) esbInterfaceService
-                .getPdhLookupResponse(String.valueOf(dhId));
-        ArticleData articleData = null;
-        if (!StringUtils.isEmpty(pdhLookupArticle)) {
-            articleData = new ArticleData();
             articleData
                     .setArticleUserRole(getArticleAuthorRole(pdhLookupArticle));
             articleData
@@ -953,172 +912,6 @@ public class DashboardServiceImpl implements DashboardService {
 
 
     /**
-     * Gets the order payment status for article.
-     *
-     * @return the journal details
-     * @throws Exception
-     *             the exception
-     */
-    private JournalData getJournalDetails() throws Exception {
-        PdhLookupJournal pdhLookupJournal = (PdhLookupJournal) esbInterfaceService
-                .getPdhLookupResponse("6839245");
-        List<Title> titleList = pdhLookupJournal.getJournalProductEntities()
-                .getTitle();
-        JournalData journalData = null;
-        if (!StringUtils.isEmpty(titleList)) {
-            for (Title title : titleList) {
-                if ("8118618".equals(title.getTitleDhId())) {
-                    journalData = new JournalData();
-                    journalData.setJournalTitle(title.getTitleText());
-                }
-            }
-        }
-        return journalData;
-    }
-
-    /**
-     * Gets the article author role.
-     *
-     * @param pdhLookupArticle
-     *            the pdh lookup article
-     * @return the article author role
-     * @throws Exception
-     *             the exception
-     */
-    private String getArticleAuthorRole(final PdhLookupArticle pdhLookupArticle)
-            throws Exception {
-        List<ProductContributor> productContributorList = pdhLookupArticle
-                .getArticleProductEntities().getProductContributor();
-        String articleAuthorRole = null;
-        if (!StringUtils.isEmpty(productContributorList)) {
-            for (ProductContributor productContributor : productContributorList) {
-                String authorRoleCd = productContributor.getDhRoleTypeCd();
-                if ("Corresponding Author".equalsIgnoreCase(authorRoleCd)) {
-                    articleAuthorRole = productContributor.getDhRoleTypeCd();
-                }
-            }
-        }
-        return articleAuthorRole;
-    }
-
-    /**
-     * Parses the article details.
-     *
-     * @param pdhLookupArticle
-     *            the pdh lookup article
-     * @return the article details
-     * @throws Exception
-     *             the exception
-     */
-    private ArticleDetails parseArticleDetails(
-            final PdhLookupArticle pdhLookupArticle) throws Exception {
-        ArticleDetails articleDetails = null;
-        Title title = pdhLookupArticle.getArticleProductEntities().getTitle();
-        if (!StringUtils.isEmpty(title)) {
-            articleDetails = new ArticleDetails();
-            articleDetails.setDhId(title.getTitleDhProdId());
-            articleDetails.setArticleTitle(title.getTitleText());
-            articleDetails = parseProductDates(pdhLookupArticle, articleDetails);
-            articleDetails = parseAuthors(pdhLookupArticle, articleDetails);
-            articleDetails.setArticleDOI(getArticleData(pdhLookupArticle,
-                    articleDetails).getArticleDOI());
-        }
-        return articleDetails;
-    }
-
-    /**
-     * Parses the product dates.
-     *
-     * @param pdhLookupArticle
-     *            the pdh lookup article
-     * @param articleDetails
-     *            the article details
-     * @return the article details
-     * @throws Exception
-     *             the exception
-     */
-    private ArticleDetails parseProductDates(
-            final PdhLookupArticle pdhLookupArticle,
-            final ArticleDetails articleDetails) throws Exception {
-        List<ProductDates> productDatesList = pdhLookupArticle
-                .getArticleProductEntities().getProductDates();
-        if (!StringUtils.isEmpty(productDatesList)) {
-            for (ProductDates productDates : productDatesList) {
-                if ("ART_ACC_DT".equalsIgnoreCase(productDates
-                        .getDhDateTypeCd())) {
-                    articleDetails.setAcceptanceDate(productDates
-                            .getProdDtDateValue());
-                }
-            }
-        }
-        return articleDetails;
-    }
-
-    /**
-     * Parses the authors.
-     *
-     * @param pdhLookupArticle
-     *            the pdh lookup article
-     * @param articleDetails
-     *            the article details
-     * @return the article details
-     * @throws Exception
-     *             the exception
-     */
-    private ArticleDetails parseAuthors(
-            final PdhLookupArticle pdhLookupArticle,
-            final ArticleDetails articleDetails) throws Exception {
-        List<ProductContributor> productContributorList = pdhLookupArticle
-                .getArticleProductEntities().getProductContributor();
-        if (!StringUtils.isEmpty(productContributorList)) {
-            List<String> coAuthorsList = new ArrayList<String>();
-            String coAuthors = null;
-            for (ProductContributor productContributor : productContributorList) {
-                String authorRoleCd = productContributor.getDhRoleTypeCd();
-                if ("Corresponding Author".equalsIgnoreCase(authorRoleCd)) {
-                    articleDetails.setArticleAuthorName(productContributor
-                            .getFirstName().concat(" ")
-                            .concat(productContributor.getLastName()));
-                } else if ("Author".equalsIgnoreCase(authorRoleCd)) {
-                    coAuthors = productContributor.getFirstName().concat(" ")
-                            .concat(productContributor.getLastName());
-                    coAuthorsList.add(coAuthors);
-                }
-            }
-            articleDetails.setArticleCoAuthors(coAuthorsList);
-        }
-        return articleDetails;
-    }
-
-    /**
-     * Gets the article data.
-     *
-     * @param pdhLookupArticle
-     *            the pdh lookup article
-     * @param articleDetails
-     *            the article details
-     * @return the article doi
-     * @throws Exception
-     *             the exception
-     */
-    private ArticleDetails getArticleData(
-            final PdhLookupArticle pdhLookupArticle,
-            final ArticleDetails articleDetails) throws Exception {
-        List<Identifier> identifierList = pdhLookupArticle
-                .getArticleProductEntities().getIdentifier();
-        if (!StringUtils.isEmpty(identifierList)) {
-            for (Identifier identifier : identifierList) {
-                if ("ARTICLE_IDENTIFIER".equalsIgnoreCase(identifier.getDhTypeCd())) {
-                    articleDetails.setArticleId(identifier.getIdentCd());
-                }else if("DOI".equalsIgnoreCase(identifier.getDhTypeCd())){
-                    articleDetails.setArticleDOI(identifier.getIdentCd());
-                }
-            }
-        }
-        return articleDetails;
-    }
-
-    /**
      * Gets the license status for article.
      *
      * @param articleId
@@ -1329,33 +1122,10 @@ public class DashboardServiceImpl implements DashboardService {
     
     
     /**
-     * Gets the production articles.
-     *
-     * @param productPersonRelations
-     *            the product person relations
-     * @return the production articles
-     * @throws Exception
-     *             the exception
-     */
-    private ArticleData getProductionArticles(
-            final ProductPersonRelations productPersonRelations)
-            throws Exception {
-        ArticleData articleData = null;
-        if (!StringUtils.isEmpty(productPersonRelations)) {
-            final Integer articleId = productPersonRelations.getProducts()
-                    .getDhId();
-            if (!StringUtils.isEmpty(articleId)
-                    && "Article".equalsIgnoreCase(productPersonRelations
-                            .getProducts().getDhTypeCd())) {
-                articleData = getProductionDetailsForArticles(articleId);
-            }
-        }
-        return articleData;
-    }
-
-    /**
      * Gets the production details for articles.
      *
+     * @param articleAuthorRole
+     *            the article author role
      * @param articleId
      *            the article id
      * @return the production details for articles
@@ -1548,41 +1318,18 @@ public class DashboardServiceImpl implements DashboardService {
             publishedArticleData
                     .setArticleDetails(parseArticleDetails(pdhLookupArticle));
             publishedArticleData.setJournal(getJournalDetails());  
-            publishedArticleData.setPublicationDetails(getPublicationArticleStatus(dhId));
+            publishedArticleData.setPublication(getPublicationArticleStatus(dhId));
         }
         return publishedArticleData;
     }
         
     /**
-     * Gets the publication articles.
-     *
-     * @param productPersonRelations
-     *            the product person relations
-     * @return the publication articles
-     * @throws Exception
-     *             the exception
-     */
-    private ArticleData getPublicationArticles(
-            final ProductPersonRelations productPersonRelations)
-            throws Exception {
-        ArticleData articleData = null;
-        if (!StringUtils.isEmpty(productPersonRelations)) {
-            final Integer articleId = productPersonRelations.getProducts()
-                    .getDhId();
-            if (!StringUtils.isEmpty(articleId)
-                    && "Article".equalsIgnoreCase(productPersonRelations
-                            .getProducts().getDhTypeCd())) {
-                articleData = getPublicationArticleStatus(articleId);
-            }
-        }
-        return articleData;
-    }
-
-    /**
      * Gets the publication article status.
      *
-     * @param articleId
-     *            the article id
+     * @param articleAuthorRole
+     *            the article author role
+     * @param dhId
+     *            the dh id
      * @return the publication article status
      * @throws Exception
      *             the exception

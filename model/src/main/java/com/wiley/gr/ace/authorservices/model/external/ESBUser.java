@@ -11,6 +11,8 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.util.ArrayList;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -62,6 +64,140 @@ public class ESBUser {
     @JsonProperty("AccountIdentifier")
     private String accountIdentifier;
 
+    /** The Found in. */
+    @JsonProperty("FoundIN")
+    private String foundIN;
+    
+    /** The primary email addr. */
+    private String primaryEmailAddr;
+    
+    /** The asid. */
+    @JsonProperty("ASID")
+    private String ASID;
+    
+    /** The orcid id. */
+    private String orcidId;
+
+    /** The institution. */
+    private String institution;
+    
+    /**
+     * Gets the orcid id.
+     *
+     * @return the orcid id
+     */
+    public final String getOrcidId() {
+        return orcidId;
+    }
+
+    /**
+     * Sets the orcid id.
+     *
+     * @param orcidId
+     *            the new orcid id
+     */
+    public final void setOrcidId(final String orcidId) {
+        this.orcidId = orcidId;
+    }
+
+    /**
+     * Gets the institution.
+     *
+     * @return the institution
+     */
+    public final String getInstitution() {
+        return institution;
+    }
+
+    /**
+     * Sets the institution.
+     *
+     * @param institution
+     *            the new institution
+     */
+    public final void setInstitution(final String institution) {
+        this.institution = institution;
+    }
+    
+    /**
+     * Gets the asid.
+     *
+     * @return the asid
+     */
+    public final String getASID() {
+        return ASID;
+    }
+
+    /**
+     * Sets the asid.
+     *
+     * @param aSID
+     *            the new asid
+     */
+    public final void setASID(final String aSID) {
+        ASID = aSID;
+    }
+    
+    /**
+     * Gets the primary email addr.
+     *
+     * @return the primary email addr
+     */
+    public final String getPrimaryEmailAddr() {
+        return primaryEmailAddr;
+    }
+
+    /**
+     * Sets the primary email addr.
+     *
+     * @param primaryEmailAddr
+     *            the new primary email addr
+     */
+    public final void setPrimaryEmailAddr(final String primaryEmailAddr) {
+        this.primaryEmailAddr = primaryEmailAddr;
+    }
+    
+    /** The addresses. */
+    private ArrayList<ESBUserAddress> addresses;
+    /**
+     * Gets the addresses.
+     *
+     * @return the addresses
+     */
+    public final ArrayList<ESBUserAddress> getAddresses() {
+        return addresses;
+    }
+
+    /**
+     * Sets the addresses.
+     *
+     * @param addresses
+     *            the new addresses
+     */
+    public final void setAddresses(final ArrayList<ESBUserAddress> addresses) {
+        this.addresses = addresses;
+    }
+
+    
+    /**
+     * Gets the found in.
+     *
+     * @return the found in
+     */
+    public final String getFoundIN() {
+        return foundIN;
+    }
+
+    /**
+     * Sets the found in.
+     *
+     * @param foundIN
+     *            the new found in
+     */
+    public final void setFoundIN(final String foundIN) {
+        this.foundIN = foundIN;
+    }
+    
     /**
      * @return the street
      */

@@ -434,21 +434,6 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
         }
 
     }
-        try {
-            session = getSessionFactory().openSession();
-            order = (Orders) session.load(Orders.class, orderId);
-            orderType = order.getOrderTypes().getOrderTypeName();
-
-        } finally {
-            if (session != null) {
-                session.flush();
-                session.close();
-            }
-
-        }
-
-        return orderType;
-    }
 
     /**
      * call db to insert coauthor details

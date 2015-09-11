@@ -20,18 +20,17 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.TaskService;
 import com.wiley.gr.ace.authorservices.model.ArticleDetails;
-import com.wiley.gr.ace.authorservices.model.ArticleLinks;
 import com.wiley.gr.ace.authorservices.model.ArticleInfo;
 import com.wiley.gr.ace.authorservices.model.ArticleInfoDetails;
 import com.wiley.gr.ace.authorservices.model.ArticleUserRoleDetails;
 import com.wiley.gr.ace.authorservices.model.AssociationConfirmation;
-import com.wiley.gr.ace.authorservices.model.JournalData;
+import com.wiley.gr.ace.authorservices.model.JournalDetails;
+import com.wiley.gr.ace.authorservices.model.LicenseDetails;
 import com.wiley.gr.ace.authorservices.model.PublicationDetails;
 import com.wiley.gr.ace.authorservices.model.TrackLicense;
 import com.wiley.gr.ace.authorservices.model.ViewAssignedArticle;
@@ -73,9 +72,9 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
     @Autowired(required = true)
     private LicenseService licenseService;
 
-    /** The article wol url. */
-    @Value("${articleWol.url}")
-    private String articleWolUrl;
+//    /** The article wol url. */
+//    @Value("${articleWol.url}")
+//    private String articleWolUrl;
 
     /**
      * this method will take emailId as in input and call external service (ESb)
@@ -179,7 +178,8 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
             for (ProductDates productDates : productDatesList) {
                 if ("ART_ACC_DT".equalsIgnoreCase(productDates
                         .getDhDateTypeCd())) {
-                    publicationDate = productDates.getProdDtDateValue();
+                    publicationDate = productDates.getProdDtDateValue()
+                            .toString();
                 }
             }
         }
@@ -254,7 +254,7 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
                     .setArticleData(parseFullArticleDetails(pdhLookupArticle));
             viewAssignedArticle.setJournalData(getJournalDetails());
             viewAssignedArticle.setPublicationData(getPublicationData());
-            viewAssignedArticle.setOrderData(getOrderId());
+            viewAssignedArticle.setLicenseDetails(getLicenseData());
         }
 
         return viewAssignedArticle;
@@ -268,16 +268,16 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
      * @throws Exception
      *             the exception
      */
-    private JournalData getJournalDetails() throws Exception {
+    private JournalDetails getJournalDetails() throws Exception {
         PdhLookupJournal pdhLookupJournal = (PdhLookupJournal) esbInterfaceService
                 .getPdhLookupResponse("6839245");
         List<Title> titleList = pdhLookupJournal.getJournalProductEntities()
                 .getTitle();
-        JournalData journalData = null;
+        JournalDetails journalData = null;
         if (!StringUtils.isEmpty(titleList)) {
             for (Title title : titleList) {
                 if ("8118618".equals(title.getTitleDhId())) {
-                    journalData = new JournalData();
+                    journalData = new JournalDetails();
                     journalData.setJournalTitle(title.getTitleText());
                     journalData = getJournalInfo(pdhLookupJournal, journalData);
                 }
@@ -333,7 +333,7 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
                 if ("ART_ACC_DT".equalsIgnoreCase(productDates
                         .getDhDateTypeCd())) {
                     articleDetails.setAcceptanceDate(productDates
-                            .getProdDtDateValue());
+                            .getProdDtDateValue().toString());
                 }
             }
         }
@@ -417,20 +417,21 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
      * @throws Exception
      *             the exception
      */
-    private JournalData getJournalInfo(final PdhLookupJournal pdhLookupJournal,
-            final JournalData journalData) throws Exception {
+    private JournalDetails getJournalInfo(
+            final PdhLookupJournal pdhLookupJournal,
+            final JournalDetails journalData) throws Exception {
         List<Identifier> identifiersList = pdhLookupJournal
                 .getJournalProductEntities().getIdentifier();
         if (!StringUtils.isEmpty(identifiersList)) {
             for (Identifier identifier : identifiersList) {
                 if ("ISSN".equalsIgnoreCase(identifier.getDhTypeCd())) {
-                    journalData.setIssn(identifier.getIdentCd());
+                    journalData.setJournalPrintIssn(identifier.getIdentCd());
                 } else if ("DOI".equalsIgnoreCase(identifier.getDhTypeCd())) {
                     journalData.setJournalDoi(identifier.getIdentCd());
                 } else if ("DOI".equalsIgnoreCase(identifier.getDhTypeCd())) {
                     journalData.setJournalDoi(identifier.getIdentCd());
                 }
-                journalData.setDhId("OA.1125.JOURNAL");
+                // journalData.setDhId("OA.1125.JOURNAL");
             }
         }
         return journalData;
@@ -449,35 +450,35 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
         return publicationDetails;
     }
 
-    /**
-     * Check article o oor oa.
-     *
-     * @param pdhLookupArticleResponse
-     *            the pdh lookup article response
-     * @return the article links
-     * @throws Exception
-     *             the exception
-     */
-    private ArticleLinks checkArticleOOorOa(
-            final PdhLookupArticleResponse pdhLookupArticleResponse)
-            throws Exception {
-        final ArticleLinks articleLinks = new ArticleLinks();
-        if ("Y".equals(pdhLookupArticleResponse.getIsArticleOO())) {
-            final ArticlePdfResponse articlePdfResponse = esbInterfaceService
-                    .getArticlePdfResponse(pdhLookupArticleResponse
-                            .getArticleDoi());
-            if (!StringUtils.isEmpty(articlePdfResponse)) {
-                articleLinks.setOrderId("232");
-                articleLinks.setArticlePdfUrl(articlePdfResponse
-                        .getGetPdfResponse().getPdfUrl());
-            }
-        } else {
-            articleLinks.setArticleWolUrl(articleWolUrl
-                    + pdhLookupArticleResponse.getArticleDoi() + "/full");
-
-        }
-        return articleLinks;
-    }
+//    /**
+//     * Check article o oor oa.
+//     *
+//     * @param pdhLookupArticleResponse
+//     *            the pdh lookup article response
+//     * @return the article links
+//     * @throws Exception
+//     *             the exception
+//     */
+//    private ArticleLinks checkArticleOOorOa(
+//            final PdhLookupArticleResponse pdhLookupArticleResponse)
+//            throws Exception {
+//        final ArticleLinks articleLinks = new ArticleLinks();
+//        if ("Y".equals(pdhLookupArticleResponse.getIsArticleOO())) {
+//            final ArticlePdfResponse articlePdfResponse = esbInterfaceService
+//                    .getArticlePdfResponse(pdhLookupArticleResponse
+//                            .getArticleDoi());
+//            if (!StringUtils.isEmpty(articlePdfResponse)) {
+//                articleLinks.setOrderId("232");
+//                articleLinks.setArticlePdfUrl(articlePdfResponse
+//                        .getGetPdfResponse().getPdfUrl());
+//            }
+//        } else {
+//            articleLinks.setArticleWolUrl(articleWolUrl
+//                    + pdhLookupArticleResponse.getArticleDoi() + "/full");
+//
+//        }
+//        return articleLinks;
+//    }
 
     /**
      * Gets the license data.
@@ -488,13 +489,11 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
      * @throws Exception
      *             the exception
      */
-    private LicenseDetails getLicenseData(
-            final PdhLookupArticleResponse pdhLookupArticleResponse)
+    private LicenseDetails getLicenseData()
             throws Exception {
         LicenseDetails licenseDetails = null;
         final TrackLicense trackLicense = licenseService.trackLicenseStatus(
-                pdhLookupArticleResponse.getArticleUniqueID(),
-                pdhLookupArticleResponse.getaId());
+                "122","1023");
         if (!StringUtils.isEmpty(trackLicense)) {
             licenseDetails = new LicenseDetails();
             licenseDetails.setLicenseStatus(trackLicense.getLicenseStatus());
@@ -517,8 +516,7 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
             throws Exception {
         LOGGER.info("inside checkIfArticleInvited method of ArticleAssignmentServiceImpl");
         boolean isArticleInvited = false;
-        if ("Y".equalsIgnoreCase(esbInterfaceService.viewAssignedArticle(dhId)
-                .getInvitedInAs())) {
+        if ("Y".equalsIgnoreCase("Y")) {
             isArticleInvited = true;
         }
         return isArticleInvited;

@@ -23,10 +23,10 @@ import javax.naming.NamingException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.jms.connection.UserCredentialsConnectionFactoryAdapter;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jndi.JndiTemplate;
-import org.springframework.context.annotation.PropertySource;
 
 import com.wiley.gr.ace.authorservices.services.service.ASDataService;
 import com.wiley.gr.ace.authorservices.services.service.AdditionalPermissionService;
@@ -46,7 +46,6 @@ import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
 import com.wiley.gr.ace.authorservices.services.service.SaveArticleData;
 import com.wiley.gr.ace.authorservices.services.service.SaveInvitationCeaseEventService;
 import com.wiley.gr.ace.authorservices.services.service.SaveInvitationStartEventService;
-import com.wiley.gr.ace.authorservices.services.service.SendNotification;
 import com.wiley.gr.ace.authorservices.services.service.UpdateUserService;
 import com.wiley.gr.ace.authorservices.services.service.UploadLicenseService;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
@@ -70,7 +69,6 @@ import com.wiley.gr.ace.authorservices.services.service.impl.RegistrationService
 import com.wiley.gr.ace.authorservices.services.service.impl.SaveArticleDataImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.SaveInvitationCeaseEventServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.SaveInvitationStartServiceImpl;
-import com.wiley.gr.ace.authorservices.services.service.impl.SendNotificationImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UpdateUserServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UploadLicenseServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UserAccountServiceImpl;
@@ -293,4 +291,48 @@ public class ServiceBeanConfig {
         return new UploadLicenseServiceImpl();
     }
 
+    @Bean(name = "SaveInvitationStartEventService")
+    public SaveInvitationStartEventService saveInvitationStartEventService() {
+        return new SaveInvitationStartServiceImpl();
+    }
+
+    @Bean(name = "SaveInvitationCeaseEventService")
+    public SaveInvitationCeaseEventService saveInvitationCeaseEventService() {
+        return new SaveInvitationCeaseEventServiceImpl();
+    }
+
+    @Bean(name = "JndiTemplate")
+    public JndiTemplate jndiTemplate() {
+        Properties env = new Properties();
+
+        env.put("java.naming.factory.initial",
+                "com.tibco.tibjms.naming.TibjmsInitialContextFactory");
+        env.put("java.naming.provider.url", "tcp://vmesbdev.wiley.com:7222");
+        env.put("java.naming.security.principal", "as2team");
+        env.put("java.naming.security.credentials", "as2team");
+        return new JndiTemplate(env);
+    }
+
+    @Bean(name = "UserCredentialsConnectionFactoryAdapter")
+    @Lazy(true)
+    public UserCredentialsConnectionFactoryAdapter authenticationConnectionFactory()
+            throws NamingException {
+        UserCredentialsConnectionFactoryAdapter authenticationConnectionFactory = new UserCredentialsConnectionFactoryAdapter();
+        authenticationConnectionFactory
+                .setTargetConnectionFactory((ConnectionFactory) jndiTemplate()
+                        .lookup("QueueConnectionFactory"));
+        authenticationConnectionFactory.setUsername("as2team");
+        authenticationConnectionFactory.setPassword("as2team");
+        return authenticationConnectionFactory();
+    }
+
+    @Bean(name = "JmsTemplate")
+    @Lazy(true)
+    public JmsTemplate jmsTemplate() throws NamingException {
+        JmsTemplate jmsTemplate = new JmsTemplate();
+        jmsTemplate.setConnectionFactory(authenticationConnectionFactory());
+        jmsTemplate.setDefaultDestination((Destination) jndiTemplate().lookup(
+                "wiley.global.as2app.inbound.events.queue"));
+        return jmsTemplate;
+    }
 }

@@ -109,11 +109,7 @@ public interface OrderOnlineDAO {
      * @return
      */
     SavedOrders verifySavedOrders(String articleId, String userId);
-    /**
-     * @param orderId
-     * @return
-     */
-    String retrieveOrderType(Integer orderId);
+   
 
     /**
      * @param coauthorRequestsOoorders

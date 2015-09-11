@@ -45,6 +45,9 @@ public class DashboardController {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DashboardController.class);
 
+    @Autowired(required=true)
+    private DashboardService dashboardService;
+    
     /** value from props file configured. */
     @Value("${DashboardController.getProfileMeter.code}")
     private String getProfileMeterErrorCode;
@@ -121,7 +124,7 @@ public class DashboardController {
                 } else {
                     LOGGER.info("Profile Meter Data is Not Found");
                     service.setStatus("SUCCESS");
-                    service.setPayload(noDataFoundMessage);
+                    service.setPayload(noDataFound);
                 }
             } catch (final Exception e) {
                 LOGGER.error("Print Stack Trace- ", e);
