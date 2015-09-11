@@ -40,7 +40,7 @@ public class CollectArticleController {
 
     /** The get collect article error code. */
     @Value("${CollectArticleController.getCollectArticle.code}")
-    private int getCollectArticleErrorCode;
+    private String getCollectArticleErrorCode;
 
     /** The get collect article error message. */
     @Value("${CollectArticleController.getCollectArticle.message}")
@@ -48,7 +48,7 @@ public class CollectArticleController {
 
     /** The get collect article error codes. */
     @Value("${CollectArticleController.getCollectArticleError.code}")
-    private int getCollectArticleErrorCodes;
+    private String getCollectArticleErrorCodes;
 
     /** The get collect article error messages. */
     @Value("${CollectArticleController.getCollectArticleError.message}")

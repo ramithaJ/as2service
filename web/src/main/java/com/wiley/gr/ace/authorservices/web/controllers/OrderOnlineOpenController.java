@@ -94,23 +94,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
 	/** the INTERNAL_SERVER_ERROR_CODE. */
 	@Value("${internal.server.error.code}")
 	private String internalServerErrorCode;
-    /**
-     * @param userId
-     *            - the request value
-     * @param articleId
-     *            - the request value
-     * @return service
-     */
-    @RequestMapping(value = "/initiateOnline/{userId}/{articleId}/", method = RequestMethod.GET)
-    public final Service initiateOnline(
-            @PathVariable("userId") final String userId,
-            @PathVariable("articleId") final String articleId) {
-        final Service service = new Service();
-        service.setPayload(orderOnlineOpenService.initiateOnline(userId,
-                articleId, onlineOpen));
-        return service;
-    }
-
+    
 	/**
 	 * @param userId
 	 *            - the request value
@@ -159,40 +143,16 @@ public class OrderOnlineOpenController extends ASExceptionController {
 			@PathVariable("userId") final String userId,
 			@PathVariable("orderId") final String orderId) {
         final Service service = new Service();
-
-		Service service = new Service();
         try {
             orderOnlineOpenService.submitOnlineOpenOrder(userId, orderId,
                     onlineOpen);
-        } catch (final Exception e) {
-            throw new ASException("704", e.getMessage());
-        }
-
-		try {
-			orderOnlineOpenService.submitOnlineOpenOrder(userId, orderId,
-					onlineOpen);
 		} catch (Exception e) {
 			throw new ASException(internalServerErrorCode, e.getMessage());
 		}
 
 		return service;
 	}
-    /**
-     * @param userId
-     *            - the request value
-     * @param orderId
-     *            - the request value
-     * @return service
-     */
-    @RequestMapping(value = "/view/{userId}/{orderId}/", method = RequestMethod.GET)
-    public final Service getOnlineOpenOrderDetails(
-            @PathVariable("userId") final String userId,
-            @PathVariable("orderId") final String orderId) {
-        final Service service = new Service();
-        service.setPayload(orderOnlineOpenService.getOnlineOpenOrderDetails(
-                userId, orderId));
-        return service;
-    }
+   
 
 	/**
 	 * @param userId
@@ -237,10 +197,6 @@ public class OrderOnlineOpenController extends ASExceptionController {
         return service;
     }
 
-		Service service = new Service();
-		service.setPayload(orderOnlineOpenService.getFundersList());
-		return service;
-	}
 
 	/**
 	 * @param funderId
@@ -255,10 +211,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
         return service;
     }
 
-		Service service = new Service();
-		service.setPayload(orderOnlineOpenService.getFundersList());
-		return service;
-	}
+		
 
 	/**
 	 * @return service
@@ -270,10 +223,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
         return service;
     }
 
-		Service service = new Service();
-		service.setPayload(orderOnlineOpenService.getWOAFunders());
-		return service;
-	}
+		
 
 	/**
 	 * @param articleId
@@ -288,11 +238,6 @@ public class OrderOnlineOpenController extends ASExceptionController {
         return service;
     }
 
-		Service service = new Service();
-		service.setPayload(orderOnlineOpenService.getGrantRecipients(articleId));
-		return service;
-	}
-
 	/**
 	 * @return service
 	 */
@@ -304,32 +249,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
         return service;
     }
 
-		Service service = new Service();
-		service.setPayload(orderOnlineOpenService.retrieveSocietyDiscountListForJournal(dhId));
-		return service;
-	}
-    /**
-     * @param orderId
-     *            - the request value
-     * @param type
-     *            - the request value
-     * @param sdate
-     *            - the request value
-     * @param edate
-     *            - the request value
-     * @return service
-     */
-    @RequestMapping(value = "/allOrders/{orderId}/", method = RequestMethod.GET)
-    public final Service getAllOrders(
-            @PathVariable("orderId") final String orderId,
-            @RequestParam(value = "type", required = false) final String type,
-            @RequestParam(value = "sdate", required = false) final String sdate,
-            @RequestParam(value = "edate", required = false) final String edate) {
-        final Service service = new Service();
-        service.setPayload(orderOnlineOpenService.getAllOrders(orderId));
-        return service;
-    }
-
+    
 	/**
 	 * @param orderId
 	 *            - the request value
@@ -363,10 +283,7 @@ public class OrderOnlineOpenController extends ASExceptionController {
 		service.setPayload(orderOnlineOpenService.getInstitutionDiscounts());
 		return service;
 	}
-        final Service service = new Service();
-        service.setPayload(orderOnlineOpenService.getInstitutionDiscounts(dhId));
-        return service;
-    }
+       
 
 	/**
 	 * @param taxDetails

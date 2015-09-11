@@ -97,6 +97,8 @@ public class DashboardController {
     @Value("${noDataFound.message}")
     private String noDataFound;
 
+    @Value("${inputParameterNotFound.message}")
+    private String inputParameterNotFound;
     /**
      * This method takes userId and return the Service.
      *
