@@ -40,7 +40,6 @@ import com.wiley.gr.ace.authorservices.externalservices.service.LicenseInterface
 import com.wiley.gr.ace.authorservices.externalservices.service.TaskService;
 import com.wiley.gr.ace.authorservices.model.FunderDetails;
 import com.wiley.gr.ace.authorservices.model.Grants;
-import com.wiley.gr.ace.authorservices.model.LicenceOO;
 import com.wiley.gr.ace.authorservices.model.LicenseObject;
 import com.wiley.gr.ace.authorservices.model.LicenseStatus;
 import com.wiley.gr.ace.authorservices.model.LicenseUpload;
@@ -569,19 +568,5 @@ public class LicenseServiceImpl implements LicenseService {
 
     }
 
-    /**
-     * This Method is for saving Online Open licence in As 2 db
-     * 
-     * @param licenceOO
-     * @param userId
-     * @param articleId
-     * 
-     * @return boolean.
-     * */
-    @Override
-    public boolean saveLicenceOO(final LicenceOO licenceOO,
-            final String userId, final String articleId) {
-        // TODO Auto-generated method stub
-        return false;
-    }
+
 }
