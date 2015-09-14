@@ -14,7 +14,7 @@
 	<groupId>com.wiley.gr.ace</groupId>
 	<artifactId>as2.0</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.2-SNAPSHOT</version>
+	<version>1.0.3-SNAPSHOT</version>
 	<name>AuthorServices</name>
 
 	<properties>

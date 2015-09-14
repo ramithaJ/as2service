@@ -17,12 +17,12 @@
     <parent>
         <groupId>com.wiley.gr.ace</groupId>
         <artifactId>as2.0</artifactId>
-        <version>1.0.2-SNAPSHOT</version>
+        <version>1.0.3-SNAPSHOT</version>
     </parent>
 
     <artifactId>search</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.3-SNAPSHOT</version>
 
 
 </project>

@@ -4,12 +4,12 @@
     <parent>
         <groupId>com.wiley.gr.ace</groupId>
         <artifactId>as2.0</artifactId>
-        <version>1.0.2-SNAPSHOT</version>
+        <version>1.0.3-SNAPSHOT</version>
     </parent>
 
     <description>Hibernate Entities for Author Services 2.0</description>
     <artifactId>as2-entities</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.3-SNAPSHOT</version>
 
 </project>

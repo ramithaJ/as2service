@@ -17,33 +17,33 @@
     <parent>
         <groupId>com.wiley.gr.ace</groupId>
         <artifactId>as2.0</artifactId>
-        <version>1.0.2-SNAPSHOT</version>
+        <version>1.0.3-SNAPSHOT</version>
     </parent>
 
     <artifactId>as2-persistence</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.3-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
             <groupId>com.wiley.gr.ace</groupId>
             <artifactId>as2-model</artifactId>
-            <version>1.0.2-SNAPSHOT</version>
+            <version>1.0.3-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.wiley.gr.ace</groupId>
             <artifactId>as2-entities</artifactId>
-            <version>1.0.2-SNAPSHOT</version>
+            <version>1.0.3-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.wiley.gr.ace</groupId>
             <artifactId>as2-exceptions</artifactId>
-            <version>1.0.2-SNAPSHOT</version>
+            <version>1.0.3-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.wiley.gr.ace</groupId>
             <artifactId>as2-utils</artifactId>
-            <version>1.0.2-SNAPSHOT</version>
+            <version>1.0.3-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.scala-lang</groupId>
