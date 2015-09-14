@@ -124,7 +124,7 @@ public class LicenseController {
      *            the article id
      * @return the service
      */
-    @RequestMapping(value = "/initiate/{userId}/{articleId}/", method = RequestMethod.GET)
+    @RequestMapping(value = "/initiate/{userId}/{articleId}", method = RequestMethod.GET)
     public Service initiateLicence(@PathVariable("userId") final String userId,
             @PathVariable("articleId") final String articleId,
             @RequestParam("articleType") final String articleType) {
