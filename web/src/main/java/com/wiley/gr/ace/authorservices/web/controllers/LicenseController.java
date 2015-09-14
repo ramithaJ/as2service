@@ -16,8 +16,6 @@ package com.wiley.gr.ace.authorservices.web.controllers;
 
 import java.util.ArrayList;
 
-import javax.ws.rs.QueryParam;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +25,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -125,10 +124,10 @@ public class LicenseController {
      *            the article id
      * @return the service
      */
-    @RequestMapping(value = "/initiate/{userId}/{articleId}/{articleType}", method = RequestMethod.GET)
+    @RequestMapping(value = "/initiate/{userId}/{articleId}/", method = RequestMethod.GET)
     public Service initiateLicence(@PathVariable("userId") final String userId,
             @PathVariable("articleId") final String articleId,
-            @QueryParam("articleType") final String articleType) {
+            @RequestParam("articleType") final String articleType) {
         Service service = new Service();
         service.setPayload(licenseService.initiateLicence(userId, articleId,
                 articleType));
