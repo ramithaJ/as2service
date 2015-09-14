@@ -16,6 +16,8 @@ package com.wiley.gr.ace.authorservices.web.controllers;
 
 import java.util.ArrayList;
 
+import javax.ws.rs.QueryParam;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +32,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.exception.LicenseException;
-import com.wiley.gr.ace.authorservices.model.LicenceOO;
 import com.wiley.gr.ace.authorservices.model.LicenseObject;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.TrackLicense;
@@ -124,11 +125,13 @@ public class LicenseController {
      *            the article id
      * @return the service
      */
-    @RequestMapping(value = "/initiate/{articleId}/", method = RequestMethod.GET)
-    public Service initiateLicence(
-            @PathVariable("articleId") final String articleId) {
+    @RequestMapping(value = "/initiate/{userId}/{articleId}/{articleType}", method = RequestMethod.GET)
+    public Service initiateLicence(@PathVariable("userId") final String userId,
+            @PathVariable("articleId") final String articleId,
+            @QueryParam("articleType") final String articleType) {
         Service service = new Service();
-        service.setPayload(licenseService.initiateLicence(articleId));
+        service.setPayload(licenseService.initiateLicence(userId, articleId,
+                articleType));
         return service;
 
     }
@@ -168,14 +171,6 @@ public class LicenseController {
                 userId, articleId));
         return service;
 
-    }
-
-    @RequestMapping(value = "/saveLicenceOO/{userId}/{articleId}/", method = RequestMethod.POST)
-    public Service saveLicenceOO(@RequestBody final LicenceOO licenceOO,
-            @PathVariable("userId") final String userId,
-            @PathVariable("articleId") final String articleId) {
-        Service service = new Service();
-        return service;
     }
 
 }

@@ -104,7 +104,7 @@ public interface LicenseService {
      *            the article id
      * @return the license object
      */
-    LicenseObject initiateLicence(String articleId);
+    LicenseObject initiateLicence(String userId,String articleId,String articleType);
 
     /**
      * @param licenceOO

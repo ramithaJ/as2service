@@ -533,7 +533,7 @@ public class LicenseServiceImpl implements LicenseService {
      * @return {@link LicenseObject}
      */
     @Override
-    public LicenseObject initiateLicence(final String articleId) {
+    public LicenseObject initiateLicence(final String userId,final String articleId,final String articleType) {
 
         LicenseObject licenseObject = new LicenseObject();
 
