@@ -14,9 +14,12 @@ package com.wiley.gr.ace.authorservices.model.external;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * The Class Response.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Response {
 
     /** The docs. */
