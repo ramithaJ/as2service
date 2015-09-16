@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.UserException;
+import com.wiley.gr.ace.authorservices.external.util.AuthorServicesUtil;
 import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
 import com.wiley.gr.ace.authorservices.model.InviteRecords;
 import com.wiley.gr.ace.authorservices.model.SendNotificationRequest;
@@ -228,7 +229,7 @@ public class RegistrationController {
                         List<String> fieldList = new ArrayList<String>();
                         fieldList.add(user.getFirstName() + " "
                                 + user.getLastName());
-                        fieldList.add(verifyGuid);
+                        fieldList.add(AuthorServicesUtil.encrypt(verifyGuid));
                         notificationRequest.setFieldList(fieldList);
                         notificationRequest.setFrom("admin@wiley.com");
                         ArrayList<String> toList = new ArrayList<String>();

@@ -17,6 +17,17 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
+import java.security.Key;
+import java.security.NoSuchAlgorithmException;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.SecretKeySpec;
+
+import org.apache.commons.codec.binary.Base64;
 
 /**
  * The Class AuthorServicesUtil.
@@ -40,8 +51,9 @@ public class AuthorServicesUtil {
         try (Reader in = new InputStreamReader(is, "UTF-8")) {
             for (;;) {
                 int rsz = in.read(buffer, 0, buffer.length);
-                if (rsz < 0)
+                if (rsz < 0) {
                     break;
+                }
                 out.append(buffer, 0, rsz);
             }
         } catch (UnsupportedEncodingException ex) {
@@ -50,6 +62,50 @@ public class AuthorServicesUtil {
             ex.printStackTrace();
         }
         return out.toString();
+    }
+
+    public static String encrypt(final String input) {
+        final byte[] keyValue = new byte[] { 'T', 'h', 'e', 'B', 'e', 's', 't',
+                'S', 'e', 'c', 'r', 'e', 't', 'K', 'e', 'y' };
+        Key key = new SecretKeySpec(keyValue, "AES");
+        Cipher c;
+        byte[] encVal = null;
+        try {
+            c = Cipher.getInstance("AES");
+
+            c.init(Cipher.ENCRYPT_MODE, key);
+
+            encVal = c.doFinal(input.getBytes());
+        } catch (IllegalBlockSizeException | BadPaddingException
+                | NoSuchAlgorithmException | NoSuchPaddingException
+                | InvalidKeyException e) {
+            e.printStackTrace();
+        }
+        String encryptedValue = new Base64().encodeAsString(encVal);
+        return encryptedValue;
+    }
+
+    public static String decrypt(final String input) {
+        final byte[] keyValue = new byte[] { 'T', 'h', 'e', 'B', 'e', 's', 't',
+                'S', 'e', 'c', 'r', 'e', 't', 'K', 'e', 'y' };
+        Key key = new SecretKeySpec(keyValue, "AES");
+        Cipher c;
+        byte[] decVal = null;
+        try {
+            c = Cipher.getInstance("AES");
+
+            c.init(Cipher.DECRYPT_MODE, key);
+
+            byte[] decordedValue = new Base64().decode(input);
+            decVal = c.doFinal(decordedValue);
+        } catch (IllegalBlockSizeException | BadPaddingException
+                | NoSuchAlgorithmException | NoSuchPaddingException
+                | InvalidKeyException e) {
+            e.printStackTrace();
+        }
+
+        return new String(decVal);
+
     }
 
 }
