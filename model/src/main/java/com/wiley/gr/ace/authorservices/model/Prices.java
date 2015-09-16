@@ -15,9 +15,19 @@ package com.wiley.gr.ace.authorservices.model;
 
 public class Prices {
 
+    private String articleId;
+
     private String price;
 
     private String currency;
+
+    public final String getArticleId() {
+        return articleId;
+    }
+
+    public final void setArticleId(final String articleId) {
+        this.articleId = articleId;
+    }
 
     /**
      * @return the price
@@ -27,7 +37,8 @@ public class Prices {
     }
 
     /**
-     * @param price the price to set
+     * @param price
+     *            the price to set
      */
     public final void setPrice(String price) {
         this.price = price;
@@ -41,11 +52,11 @@ public class Prices {
     }
 
     /**
-     * @param currency the currency to set
+     * @param currency
+     *            the currency to set
      */
     public final void setCurrency(String currency) {
         this.currency = currency;
     }
-    
-    
+
 }

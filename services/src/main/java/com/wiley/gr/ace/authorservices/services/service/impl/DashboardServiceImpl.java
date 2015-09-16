@@ -423,12 +423,15 @@ public class DashboardServiceImpl implements DashboardService {
         final List<InterestData> userInterestsList = customerProfile
                 .getAreaOfInterest().getInterest();
         DashboardInfo dashboardInfo = null;
-        if (!StringUtils.isEmpty(userInterestsList)
-                && userInterestsList.isEmpty()) {
-            LOGGER.info(" Interests List is Empty then No Interests on Dashboard");
-            dashboardInfo = new DashboardInfo();
-            dashboardInfo.setId(interestsId);
-            dashboardInfo.setDashBoardInfoMessage(interestsMessage);
+        if (!StringUtils.isEmpty(userInterestsList)) {
+            for (InterestData interestData : userInterestsList) {
+                if (StringUtils.isEmpty(interestData)) {
+                    LOGGER.info(" Interests List is Empty then No Interests on Dashboard");
+                    dashboardInfo = new DashboardInfo();
+                    dashboardInfo.setId(interestsId);
+                    dashboardInfo.setDashBoardInfoMessage(interestsMessage);
+                }
+            }
         }
         return dashboardInfo;
     }
@@ -449,12 +452,15 @@ public class DashboardServiceImpl implements DashboardService {
         final List<AffiliationData> userAffiliationsList = customerProfile
                 .getAffiliations().getAffiliation();
         DashboardInfo dashboardInfo = null;
-        if (!StringUtils.isEmpty(userAffiliationsList)
-                && userAffiliationsList.isEmpty()) {
-            LOGGER.info(" Affiliations List is Empty then No Affiliations on Dashboard");
-            dashboardInfo = new DashboardInfo();
-            dashboardInfo.setId(affiliationsId);
-            dashboardInfo.setDashBoardInfoMessage(affiliationsMessage);
+        if (!StringUtils.isEmpty(userAffiliationsList)) {
+            for (AffiliationData affiliationData : userAffiliationsList) {
+                if (StringUtils.isEmpty(affiliationData.getStartDate())) {
+                    LOGGER.info(" Affiliations List is Empty then No Affiliations on Dashboard");
+                    dashboardInfo = new DashboardInfo();
+                    dashboardInfo.setId(affiliationsId);
+                    dashboardInfo.setDashBoardInfoMessage(affiliationsMessage);
+                }
+            }
         }
         return dashboardInfo;
     }
@@ -475,11 +481,15 @@ public class DashboardServiceImpl implements DashboardService {
         final List<SocietyData> societyList = customerProfile.getSocietyList()
                 .getSociety();
         DashboardInfo dashboardInfo = null;
-        if (!StringUtils.isEmpty(societyList) && societyList.isEmpty()) {
-            LOGGER.info(" Society List is Empty then No Societies on Dashboard");
-            dashboardInfo = new DashboardInfo();
-            dashboardInfo.setId(societiesId);
-            dashboardInfo.setDashBoardInfoMessage(societiesMessage);
+        if (!StringUtils.isEmpty(societyList)) {
+            for (SocietyData societyData : societyList) {
+                if (StringUtils.isEmpty(societyData.getSocietyId())) {
+                    LOGGER.info(" Society List is Empty then No Societies on Dashboard");
+                    dashboardInfo = new DashboardInfo();
+                    dashboardInfo.setId(societiesId);
+                    dashboardInfo.setDashBoardInfoMessage(societiesMessage);
+                }
+            }
         }
         return dashboardInfo;
     }
@@ -500,12 +510,16 @@ public class DashboardServiceImpl implements DashboardService {
         final List<ResearchFunderData> researchFundersList = customerProfile
                 .getResearchFunders().getResearchFunder();
         DashboardInfo dashboardInfo = null;
-        if (!StringUtils.isEmpty(researchFundersList)
-                && researchFundersList.isEmpty()) {
-            LOGGER.info(" Funders List is Empty then No Funders on Dashboard");
-            dashboardInfo = new DashboardInfo();
-            dashboardInfo.setId(researchFunderId);
-            dashboardInfo.setDashBoardInfoMessage(researchFunderMessage);
+        if (!StringUtils.isEmpty(researchFundersList)) {
+            for (ResearchFunderData researchFunderData : researchFundersList) {
+                if (StringUtils.isEmpty(researchFunderData.getFunderID())) {
+                    LOGGER.info(" Funders List is Empty then No Funders on Dashboard");
+                    dashboardInfo = new DashboardInfo();
+                    dashboardInfo.setId(researchFunderId);
+                    dashboardInfo
+                            .setDashBoardInfoMessage(researchFunderMessage);
+                }
+            }
         }
         return dashboardInfo;
     }
@@ -1251,12 +1265,7 @@ public class DashboardServiceImpl implements DashboardService {
         return production;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.wiley.gr.ace.authorservices.services.service.DashboardService#
-     * getPublishedArticleDetails(java.lang.String)
-     */
+    
     @Override
     public final DashboardView getPublishedArticleDetails(final String userId)
             throws Exception {

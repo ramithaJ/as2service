@@ -48,9 +48,6 @@ public class ArticleData {
     /** The article details. */
     private ArticleDetails articleDetails;
 
-    /** The license status. */
-    private String licenseStatus;
-
     /** The payments status. */
     private OrderPaymentStatus orderPaymentStatus;
 
@@ -201,25 +198,6 @@ public class ArticleData {
      */
     public final void setArticleDetails(final ArticleDetails articleDetails) {
         this.articleDetails = articleDetails;
-    }
-
-    /**
-     * Gets the license status.
-     *
-     * @return the license status
-     */
-    public final String getLicenseStatus() {
-        return licenseStatus;
-    }
-
-    /**
-     * Sets the license status.
-     *
-     * @param licenseStatus
-     *            the new license status
-     */
-    public final void setLicenseStatus(final String licenseStatus) {
-        this.licenseStatus = licenseStatus;
     }
 
     /**

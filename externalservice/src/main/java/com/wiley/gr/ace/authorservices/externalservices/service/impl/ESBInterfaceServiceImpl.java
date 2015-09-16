@@ -359,6 +359,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
         Object lookupObject = null;
         if (!StringUtils.isEmpty(xml))
             lookupObject = PdhLookupServiceUtil.lookup(xml);
+        lookupObject = PdhLookupServiceUtil.invokePdhLookupData(lookupObject);
         return lookupObject;
     }
 

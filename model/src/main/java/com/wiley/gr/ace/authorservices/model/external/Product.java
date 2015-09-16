@@ -14,6 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import java.util.Date;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -48,9 +50,31 @@ public class Product {
     @XmlElement(name = "DH_PROD_ID")
     private String dhProdId;
 
+    @XmlElement(name = "SUBSCRIPTION_TYPE")
+    private String subscriptionType;
+
+    @XmlElement(name = "PUB_DATE")
+    private Date pubDate;
+
     /** The last update date. */
     @XmlElement(name = "LAST_UPDATE_DATE")
     private String lastUpdateDate;
+
+    public final String getSubscriptionType() {
+        return subscriptionType;
+    }
+
+    public final void setSubscriptionType(final String subscriptionType) {
+        this.subscriptionType = subscriptionType;
+    }
+
+    public final Date getPubDate() {
+        return pubDate;
+    }
+
+    public final void setPubDate(final Date pubDate) {
+        this.pubDate = pubDate;
+    }
 
     /**
      * Gets the dh type cd.
