@@ -89,9 +89,11 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
         InviteResetpwdLog inviteResetpwdLog = null;
         try {
 
+
             session = getSessionFactory().openSession();
-            inviteResetpwdLog = (InviteResetpwdLog) session.get(
-                    InviteResetpwdLog.class, guid);
+            Criteria criteria = session.createCriteria(InviteResetpwdLog.class);
+            criteria.add(Restrictions.eq("guid", guid));
+            inviteResetpwdLog = (InviteResetpwdLog) criteria.uniqueResult();
 
         } finally {
             if (session != null) {
