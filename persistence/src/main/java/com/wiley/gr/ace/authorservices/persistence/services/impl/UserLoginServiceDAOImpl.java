@@ -25,6 +25,7 @@ import org.springframework.beans.factory.annotation.Value;
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserRoles;
 import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
@@ -159,5 +160,51 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
             }
         }
     }
+    @Override
+    public void verifyAccountStatusUpdate(final Integer logId) {
+        Session session = null;
+        InviteResetpwdLog inviteResetpwdLog = null;
+        try {
+            session = getSessionFactory().openSession();
+            session.beginTransaction();
+            inviteResetpwdLog = (InviteResetpwdLog) session.get(
+                    InviteResetpwdLog.class, logId);
+            inviteResetpwdLog.setLogId(logId);
+            inviteResetpwdLog
+                    .setStatus(AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS_CLOSED);
+            inviteResetpwdLog
+                    .setType(AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS_TYPE_VERIFIED);
+            session.update(inviteResetpwdLog);
+            session.getTransaction().commit();
+
+        } finally {
+            if (null != session) {
+                session.flush();
+                session.close();
+            }
+        }
+
+    }
+
+    @Override
+    public void updateIsAccountActive(final Integer userId) {
+        Session session = null;
+        UserProfile userProfile = null;
+        try {
+            session = getSessionFactory().openSession();
+            session.beginTransaction();
+            userProfile = (UserProfile) session.get(UserProfile.class, userId);
+            userProfile.setIsAccountActive('1');
+            session.getTransaction().commit();
+
+        } finally {
+            if (null != session) {
+                session.flush();
+                session.close();
+            }
+        }
+
+    }
+
 
 }

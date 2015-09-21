@@ -53,4 +53,8 @@ public interface UserLoginServiceDAO {
 
     List<UserRoles> getSuperAdmins(int roleId);
 
+    void verifyAccountStatusUpdate(Integer logId);
+
+    void updateIsAccountActive(Integer userId);
+
 }
