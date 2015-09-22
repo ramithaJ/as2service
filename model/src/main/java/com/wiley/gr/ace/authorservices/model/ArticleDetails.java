@@ -36,6 +36,8 @@ public class ArticleDetails {
     @NotBlank
     private String articleId;
 
+    private String articleType;
+
     /** The dh id. */
     private String dhId;
 
@@ -71,6 +73,14 @@ public class ArticleDetails {
 
     /** The jpcms internal id. */
     private String jpcmsInternalId;
+
+    public final String getArticleType() {
+        return articleType;
+    }
+
+    public final void setArticleType(final String articleType) {
+        this.articleType = articleType;
+    }
 
     /**
      * Gets the dh id.

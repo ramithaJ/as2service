@@ -52,7 +52,7 @@ public class ArticleProductEntities {
 
     /** The product relation child. */
     @XmlElement(name = "PRODUCT_RELATION_CHILD")
-    private ProductRelationChild productRelationChild;
+    private List<ProductRelationChild> productRelationChild;
 
     /** The product region. */
     @XmlElement(name = "PRODUCT_REGION")
@@ -164,7 +164,7 @@ public class ArticleProductEntities {
      *
      * @return the product relation child
      */
-    public final ProductRelationChild getProductRelationChild() {
+    public final List<ProductRelationChild> getProductRelationChild() {
         return productRelationChild;
     }
 
@@ -175,7 +175,7 @@ public class ArticleProductEntities {
      *            the new product relation child
      */
     public final void setProductRelationChild(
-            final ProductRelationChild productRelationChild) {
+            final List<ProductRelationChild> productRelationChild) {
         this.productRelationChild = productRelationChild;
     }
 

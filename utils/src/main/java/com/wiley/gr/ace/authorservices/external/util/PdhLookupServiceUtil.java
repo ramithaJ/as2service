@@ -21,6 +21,7 @@ import com.wiley.gr.ace.authorservices.model.external.ProductDates;
 import com.wiley.gr.ace.authorservices.model.external.ProductExtension;
 import com.wiley.gr.ace.authorservices.model.external.ProductImages;
 import com.wiley.gr.ace.authorservices.model.external.ProductRegion;
+import com.wiley.gr.ace.authorservices.model.external.ProductRelationChild;
 import com.wiley.gr.ace.authorservices.model.external.ProductStatus;
 import com.wiley.gr.ace.authorservices.model.external.ProductUrl;
 import com.wiley.gr.ace.authorservices.model.external.Title;
@@ -43,14 +44,17 @@ public class PdhLookupServiceUtil {
         PdhModel model = (PdhModel) XmlUnmarshaller.unmarshall(xml,
                 PdhModel.class);
         Object unmarshedObject = null;
-        if (model.getProductEntities().getTitle().getTitleDhProdTypeCd()
-                .equals("ARTICLE")) {
-            unmarshedObject = (PdhLookupArticle) XmlUnmarshaller.unmarshall(
-                    xml, PdhLookupArticle.class);
-        } else if (model.getProductEntities().getTitle().getTitleDhProdTypeCd()
-                .equals("JOURNAL")) {
-            unmarshedObject = (PdhLookupJournal) XmlUnmarshaller.unmarshall(
-                    xml, PdhLookupJournal.class);
+        List<Identifier> identifierList = model.getProductEntities()
+                .getIdentifier();
+        for (Identifier identifier : identifierList) {
+            if ("ARTICLE_IDENTIFIER".equalsIgnoreCase(identifier.getDhTypeCd())) {
+                unmarshedObject = (PdhLookupArticle) XmlUnmarshaller
+                        .unmarshall(xml, PdhLookupArticle.class);
+            } else if ("JOURNAL_CODE"
+                    .equalsIgnoreCase(identifier.getDhTypeCd())) {
+                unmarshedObject = (PdhLookupJournal) XmlUnmarshaller
+                        .unmarshall(xml, PdhLookupJournal.class);
+            }
         }
         return unmarshedObject;
     }
@@ -99,10 +103,35 @@ public class PdhLookupServiceUtil {
             final PdhArticleData pdhArticleData) {
         Title title = pdhLookupArticle.getArticleProductEntities().getTitle();
         if (!StringUtils.isEmpty(title)) {
-            pdhArticleData.setDhId(title.getTitleDhId());
+            pdhArticleData.setDhId(title.getTitleDhProdId());
             pdhArticleData.setTitle(title.getTitleText());
         }
         parseArticleDetails(pdhLookupArticle, pdhArticleData);
+        parseJournalDhId(pdhLookupArticle, pdhArticleData);
+    }
+
+    /**
+     * Parses the journal dh id.
+     *
+     * @param pdhLookupArticle
+     *            the pdh lookup article
+     * @param pdhArticleData
+     *            the pdh article data
+     */
+    private static void parseJournalDhId(
+            final PdhLookupArticle pdhLookupArticle,
+            final PdhArticleData pdhArticleData) {
+        List<ProductRelationChild> productRelationChilds = pdhLookupArticle
+                .getArticleProductEntities().getProductRelationChild();
+        if (!StringUtils.isEmpty(productRelationChilds)) {
+            for (ProductRelationChild productRelationChild : productRelationChilds) {
+                if ("JA".equalsIgnoreCase(productRelationChild
+                        .getDhRelTypeCdChild())) {
+                    pdhArticleData.setJournalDhId(productRelationChild
+                            .getDhParProdIdChild());
+                }
+            }
+        }
     }
 
     /**
@@ -308,7 +337,7 @@ public class PdhLookupServiceUtil {
                 String dhTypeCd = identifier.getDhTypeCd();
                 String identCode = identifier.getIdentCd();
                 if ("JOURNAL_CODE".equalsIgnoreCase(dhTypeCd)) {
-                    pdhJournalData.setJournalCode(identCode);
+                    pdhJournalData.setJournalId(identCode);
                 } else if ("DOI".equalsIgnoreCase(dhTypeCd)) {
                     pdhJournalData.setJournalDoi(identCode);
                 } else if ("WOL_CODE".equalsIgnoreCase(dhTypeCd)) {
@@ -401,7 +430,7 @@ public class PdhLookupServiceUtil {
         Product product = pdhLookupJournal.getJournalProductEntities()
                 .getProduct();
         if (!StringUtils.isEmpty(product)) {
-            pdhJournalData.setDhId(product.getDhId());
+            pdhJournalData.setDhId(product.getDhProdId());
             pdhJournalData.setSubcriptionType(product.getSubscriptionType());
             pdhJournalData.setPublicationDate(product.getPubDate());
         }

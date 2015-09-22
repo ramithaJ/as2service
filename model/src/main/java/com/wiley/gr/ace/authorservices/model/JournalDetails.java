@@ -24,6 +24,8 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class JournalDetails {
 
+    private String dhId;
+
     /** The journal id. */
     private String journalId;
 
@@ -42,8 +44,43 @@ public class JournalDetails {
     /** The external link. */
     private String externalLink;
 
-    /** The journal image link. */
-    private String journalImageLink;
+    private String bannerImageLink;
+
+    private String coverImageLink;
+
+    private String thumbnailLink;
+
+    public final String getDhId() {
+        return dhId;
+    }
+
+    public final void setDhId(final String dhId) {
+        this.dhId = dhId;
+    }
+
+    public final String getBannerImageLink() {
+        return bannerImageLink;
+    }
+
+    public final void setBannerImageLink(final String bannerImageLink) {
+        this.bannerImageLink = bannerImageLink;
+    }
+
+    public final String getCoverImageLink() {
+        return coverImageLink;
+    }
+
+    public final void setCoverImageLink(final String coverImageLink) {
+        this.coverImageLink = coverImageLink;
+    }
+
+    public final String getThumbnailLink() {
+        return thumbnailLink;
+    }
+
+    public final void setThumbnailLink(final String thumbnailLink) {
+        this.thumbnailLink = thumbnailLink;
+    }
 
     /**
      * Gets the external link.
@@ -62,25 +99,6 @@ public class JournalDetails {
      */
     public final void setExternalLink(final String externalLink) {
         this.externalLink = externalLink;
-    }
-
-    /**
-     * Gets the journal image link.
-     *
-     * @return the journal image link
-     */
-    public final String getJournalImageLink() {
-        return journalImageLink;
-    }
-
-    /**
-     * Sets the journal image link.
-     *
-     * @param journalImageLink
-     *            the new journal image link
-     */
-    public final void setJournalImageLink(final String journalImageLink) {
-        this.journalImageLink = journalImageLink;
     }
 
     /**

@@ -33,6 +33,7 @@ import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.ArticleData;
 import com.wiley.gr.ace.authorservices.model.ArticleDetails;
+import com.wiley.gr.ace.authorservices.model.ArticleUserRoleDetails;
 import com.wiley.gr.ace.authorservices.model.CommunicationDetails;
 import com.wiley.gr.ace.authorservices.model.Dashboard;
 import com.wiley.gr.ace.authorservices.model.DashboardInfo;
@@ -42,35 +43,29 @@ import com.wiley.gr.ace.authorservices.model.JournalDetails;
 import com.wiley.gr.ace.authorservices.model.NotificationHistory;
 import com.wiley.gr.ace.authorservices.model.OrderPaymentStatus;
 import com.wiley.gr.ace.authorservices.model.OrderStatus;
+import com.wiley.gr.ace.authorservices.model.PdhArticleData;
+import com.wiley.gr.ace.authorservices.model.PdhJournalData;
 import com.wiley.gr.ace.authorservices.model.Production;
 import com.wiley.gr.ace.authorservices.model.PublicationDetails;
 import com.wiley.gr.ace.authorservices.model.external.AffiliationData;
 import com.wiley.gr.ace.authorservices.model.external.Article;
 import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
 import com.wiley.gr.ace.authorservices.model.external.CustomerProfile;
-import com.wiley.gr.ace.authorservices.model.external.Identifier;
 import com.wiley.gr.ace.authorservices.model.external.InterestData;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.OrderData;
 import com.wiley.gr.ace.authorservices.model.external.OrderDataList;
-import com.wiley.gr.ace.authorservices.model.external.PdhLookupArticle;
-import com.wiley.gr.ace.authorservices.model.external.PdhLookupJournal;
-import com.wiley.gr.ace.authorservices.model.external.ProductContributor;
-import com.wiley.gr.ace.authorservices.model.external.ProductDates;
-import com.wiley.gr.ace.authorservices.model.external.ProductExtension;
 import com.wiley.gr.ace.authorservices.model.external.Quote;
 import com.wiley.gr.ace.authorservices.model.external.QuoteRequest;
 import com.wiley.gr.ace.authorservices.model.external.ResearchFunderData;
 import com.wiley.gr.ace.authorservices.model.external.SocietyData;
 import com.wiley.gr.ace.authorservices.model.external.SystemSecurityQuestions;
-import com.wiley.gr.ace.authorservices.model.external.Title;
 import com.wiley.gr.ace.authorservices.persistence.entity.CoauthorRequestsOoorders;
 import com.wiley.gr.ace.authorservices.persistence.entity.InvitationLog;
 import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
 import com.wiley.gr.ace.authorservices.persistence.entity.SavedOrders;
 import com.wiley.gr.ace.authorservices.persistence.services.DashboardDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO;
-import com.wiley.gr.ace.authorservices.services.service.ArticleAssignmentService;
 import com.wiley.gr.ace.authorservices.services.service.DashboardService;
 import com.wiley.gr.ace.authorservices.services.service.LicenseService;
 import com.wiley.gr.ace.authorservices.services.service.OrderStatusService;
@@ -163,10 +158,6 @@ public class DashboardServiceImpl implements DashboardService {
     @Value("${dashboard.orcid.message}")
     private String orcIdMessage;
 
-    /** The article assignment service. */
-    @Autowired(required = true)
-    private ArticleAssignmentService articleAssignmentService;
-
     /** The order onlinedao. */
     @Autowired(required = true)
     private OrderOnlineDAO orderOnlinedao;
@@ -179,9 +170,9 @@ public class DashboardServiceImpl implements DashboardService {
     @Value("${ARTICLE_ACCEPTED}")
     private String articleAcptdStatus;
 
-    /** The acptd art pub online status. */
-    @Value("${ACCEPTED_ARTICLE_PUBLISHED}")
-    private String acptdArtPubOnlineStatus;
+    // /** The acptd art pub online status. */
+    // @Value("${ACCEPTED_ARTICLE_PUBLISHED}")
+    // private String acptdArtPubOnlineStatus;
 
     /** The proofs out status. */
     @Value("${PROOFS_OUT}")
@@ -191,37 +182,37 @@ public class DashboardServiceImpl implements DashboardService {
     @Value("${PROOFS_RCVD}")
     private String proofsRcvdStatus;
 
-    /** The proofs corr rcvd status. */
-    @Value("${PROOFS_CORRECTION_RCVD}")
-    private String proofsCorrRcvdStatus;
-
-    /** The early view status. */
-    @Value("${EARLY_VIEW}")
-    private String earlyViewStatus;
-
-    /** The article online open status. */
-    @Value("${ARTICLE_ONLINE_OPEN}")
-    private String articleOnlineOpenStatus;
-
-    /** The iss pub online status. */
-    @Value("${ISSUE_PUBLISHED_ONLINE}")
-    private String issPubOnlineStatus;
-
-    /** The acptd art withdrawn status. */
-    @Value("${ACCEPTED_ARTICLE_WITHDRAWN}")
-    private String acptdArtWithdrawnStatus;
-
-    /** The article proof rcvd status. */
-    @Value("${ARTICLE_PROOF_RECEIVED}")
-    private String articleProofRcvdStatus;
-
-    /** The article proof approved status. */
-    @Value("${ARTICLE_PROOF_APPROVED}")
-    private String articleProofApprovedStatus;
-
-    /** The view full article action. */
-    @Value("${VIEW_FULL_ARTICLE}")
-    private String viewFullArticleAction;
+    // /** The proofs corr rcvd status. */
+    // @Value("${PROOFS_CORRECTION_RCVD}")
+    // private String proofsCorrRcvdStatus;
+    //
+    // /** The early view status. */
+    // @Value("${EARLY_VIEW}")
+    // private String earlyViewStatus;
+    //
+    // /** The article online open status. */
+    // @Value("${ARTICLE_ONLINE_OPEN}")
+    // private String articleOnlineOpenStatus;
+    //
+    // /** The iss pub online status. */
+    // @Value("${ISSUE_PUBLISHED_ONLINE}")
+    // private String issPubOnlineStatus;
+    //
+    // /** The acptd art withdrawn status. */
+    // @Value("${ACCEPTED_ARTICLE_WITHDRAWN}")
+    // private String acptdArtWithdrawnStatus;
+    //
+    // /** The article proof rcvd status. */
+    // @Value("${ARTICLE_PROOF_RECEIVED}")
+    // private String articleProofRcvdStatus;
+    //
+    // /** The article proof approved status. */
+    // @Value("${ARTICLE_PROOF_APPROVED}")
+    // private String articleProofApprovedStatus;
+    //
+    // /** The view full article action. */
+    // @Value("${VIEW_FULL_ARTICLE}")
+    // private String viewFullArticleAction;
     /**
      * This field holds the value of submitOrderStatus.
      */
@@ -620,14 +611,21 @@ public class DashboardServiceImpl implements DashboardService {
      *            the user id
      * @return the all articles for user
      */
-    private Map<Integer, String> getAllArticlesForUser(final String userId) {
+    private Map<Integer, ArticleUserRoleDetails> getAllArticlesForUser(
+            final String userId) {
         final List<ProductPersonRelations> productPersonRelationsList = dashboardDAO
                 .getProductPersonRelations(userId);
-        Map<Integer, String> articleMap = new HashMap<>();
+        ArticleUserRoleDetails articleUserRoleDetails = null;
+        Map<Integer, ArticleUserRoleDetails> articleMap = new HashMap<Integer, ArticleUserRoleDetails>();
         if (!StringUtils.isEmpty(productPersonRelationsList)) {
             for (ProductPersonRelations productPersonRelations : productPersonRelationsList) {
+                articleUserRoleDetails = new ArticleUserRoleDetails();
+                articleUserRoleDetails.setRoleCode(productPersonRelations
+                        .getProducts().getDhTypeCd());
+                articleUserRoleDetails.setRoleName(productPersonRelations
+                        .getProductRoles().getProductRoleName());
                 articleMap.put(productPersonRelations.getProducts().getDhId(),
-                        productPersonRelations.getProducts().getDhTypeCd());
+                        articleUserRoleDetails);
             }
         }
         return articleMap;
@@ -647,14 +645,18 @@ public class DashboardServiceImpl implements DashboardService {
         LOGGER.info("inside getArticleAuthorData Method of DashboardServiceImpl");
         final List<ArticleData> articleDataList = new ArrayList<ArticleData>();
         ArticleData articleData = null;
-        Map<Integer, String> articleDetailsMap = getAllArticlesForUser(userId);
-        for (Map.Entry<Integer, String> articleInfo : articleDetailsMap
+        Map<Integer, ArticleUserRoleDetails> articleDetailsMap = getAllArticlesForUser(userId);
+        for (Map.Entry<Integer, ArticleUserRoleDetails> articleInfo : articleDetailsMap
                 .entrySet()) {
             Integer dhId = articleInfo.getKey();
-            String dhTypeCode = articleDetailsMap.get(dhId);
+            ArticleUserRoleDetails articleUserRoleDetails = articleDetailsMap
+                    .get(dhId);
             if (!StringUtils.isEmpty(dhId)
-                    && "Article".equalsIgnoreCase(dhTypeCode)) {
+                    && "Article".equalsIgnoreCase(articleUserRoleDetails
+                            .getRoleCode())) {
                 articleData = getArticleDataForUser(dhId, userId);
+                articleData.setArticleUserRole(articleUserRoleDetails
+                        .getRoleName());
                 articleDataList.add(articleData);
             }
         }
@@ -674,18 +676,17 @@ public class DashboardServiceImpl implements DashboardService {
      */
     private ArticleData getArticleDataForUser(final Integer dhId, String userId)
             throws Exception {
-        PdhLookupArticle pdhLookupArticle = (PdhLookupArticle) esbInterfaceService
+        PdhArticleData pdhArticleData = (PdhArticleData) esbInterfaceService
                 .getPdhLookupResponse(String.valueOf(dhId));
         ArticleData articleData = null;
-        if (!StringUtils.isEmpty(pdhLookupArticle)) {
+        if (!StringUtils.isEmpty(pdhArticleData)) {
             LOGGER.info("pdhLookupArticle Data is found");
-            if (isArticleInvitedInAs(pdhLookupArticle)) {
+            if ("Y".equalsIgnoreCase(pdhArticleData.getIsInvitedInAs())) {
                 articleData = new ArticleData();
                 articleData
-                        .setArticleUserRole(getArticleAuthorRole(pdhLookupArticle));
-                articleData
-                        .setArticleDetails(parseArticleDetails(pdhLookupArticle));
-                articleData.setJournal(getJournalDetails());
+                        .setArticleDetails(parseArticleDetails(pdhArticleData));
+                articleData.setJournal(getJournalDetails(pdhArticleData
+                        .getJournalDhId()));
                 articleData.setTrackLicense(licenseService.trackLicenseStatus(
                         String.valueOf(dhId), userId));
                 HashMap<String, OrderStatus> orderStatusHashMap = orderStatusHasMap(userId);
@@ -700,167 +701,51 @@ public class DashboardServiceImpl implements DashboardService {
     /**
      * Gets the journal details.
      *
+     * @param journalDhId
+     *            the journal dh id
      * @return the journal details
      * @throws Exception
      *             the exception
      */
-    private JournalDetails getJournalDetails() throws Exception {
-        PdhLookupJournal pdhLookupJournal = (PdhLookupJournal) esbInterfaceService
-                .getPdhLookupResponse("6839245");
-        List<Title> titleList = pdhLookupJournal.getJournalProductEntities()
-                .getTitle();
+    private JournalDetails getJournalDetails(final String journalDhId)
+            throws Exception {
+        PdhJournalData pdhJournalData = (PdhJournalData) esbInterfaceService
+                .getPdhLookupResponse(journalDhId);
         JournalDetails journalDetails = null;
-        if (!StringUtils.isEmpty(titleList)) {
-            for (Title title : titleList) {
-                if ("8118618".equals(title.getTitleDhId())) {
-                    journalDetails = new JournalDetails();
-                    journalDetails.setJournalTitle(title.getTitleText());
-                }
-            }
+        if (!StringUtils.isEmpty(pdhJournalData)) {
+            journalDetails = new JournalDetails();
+            journalDetails.setDhId(pdhJournalData.getDhId());
+            journalDetails.setJournalId(pdhJournalData.geteJournalCode());
+            journalDetails.setJournalTitle(pdhJournalData.getJournalTitle());
+            journalDetails.setBannerImageLink(pdhJournalData
+                    .getBannerImageLink());
+            journalDetails
+                    .setCoverImageLink(pdhJournalData.getCoverImageLink());
         }
         return journalDetails;
     }
 
     /**
-     * Gets the article author role.
-     *
-     * @param pdhLookupArticle
-     *            the pdh lookup article
-     * @return the article author role
-     * @throws Exception
-     *             the exception
-     */
-    private String getArticleAuthorRole(final PdhLookupArticle pdhLookupArticle)
-            throws Exception {
-        List<ProductContributor> productContributorList = pdhLookupArticle
-                .getArticleProductEntities().getProductContributor();
-        String articleAuthorRole = null;
-        if (!StringUtils.isEmpty(productContributorList)) {
-            for (ProductContributor productContributor : productContributorList) {
-                String authorRoleCd = productContributor.getDhRoleTypeCd();
-                if ("Corresponding Author".equalsIgnoreCase(authorRoleCd)) {
-                    articleAuthorRole = productContributor.getDhRoleTypeCd();
-                }
-            }
-        }
-        return articleAuthorRole;
-    }
-
-    /**
      * Parses the article details.
      *
-     * @param pdhLookupArticle
-     *            the pdh lookup article
+     * @param pdhArticleData
+     *            the pdh article data
      * @return the article details
      * @throws Exception
      *             the exception
      */
     private ArticleDetails parseArticleDetails(
-            final PdhLookupArticle pdhLookupArticle) throws Exception {
-        ArticleDetails articleDetails = null;
-        Title title = pdhLookupArticle.getArticleProductEntities().getTitle();
-        if (!StringUtils.isEmpty(title)) {
-            articleDetails = new ArticleDetails();
-            articleDetails.setDhId(title.getTitleDhProdId());
-            articleDetails.setArticleTitle(title.getTitleText());
-            articleDetails = parseProductDates(pdhLookupArticle, articleDetails);
-            articleDetails = parseAuthors(pdhLookupArticle, articleDetails);
-            articleDetails.setArticleDOI(getArticleData(pdhLookupArticle,
-                    articleDetails).getArticleDOI());
-        }
-        return articleDetails;
-    }
-
-    /**
-     * Parses the product dates.
-     *
-     * @param pdhLookupArticle
-     *            the pdh lookup article
-     * @param articleDetails
-     *            the article details
-     * @return the article details
-     * @throws Exception
-     *             the exception
-     */
-    private ArticleDetails parseProductDates(
-            final PdhLookupArticle pdhLookupArticle,
-            final ArticleDetails articleDetails) throws Exception {
-        List<ProductDates> productDatesList = pdhLookupArticle
-                .getArticleProductEntities().getProductDates();
-        if (!StringUtils.isEmpty(productDatesList)) {
-            for (ProductDates productDates : productDatesList) {
-                if ("ART_ACC_DT".equalsIgnoreCase(productDates
-                        .getDhDateTypeCd())) {
-                    articleDetails.setAcceptanceDate(productDates
-                            .getProdDtDateValue().toString());
-                }
-            }
-        }
-        return articleDetails;
-    }
-
-    /**
-     * Parses the authors.
-     *
-     * @param pdhLookupArticle
-     *            the pdh lookup article
-     * @param articleDetails
-     *            the article details
-     * @return the article details
-     * @throws Exception
-     *             the exception
-     */
-    private ArticleDetails parseAuthors(
-            final PdhLookupArticle pdhLookupArticle,
-            final ArticleDetails articleDetails) throws Exception {
-        List<ProductContributor> productContributorList = pdhLookupArticle
-                .getArticleProductEntities().getProductContributor();
-        if (!StringUtils.isEmpty(productContributorList)) {
-            List<String> coAuthorsList = new ArrayList<String>();
-            String coAuthors = null;
-            for (ProductContributor productContributor : productContributorList) {
-                String authorRoleCd = productContributor.getDhRoleTypeCd();
-                if ("Corresponding Author".equalsIgnoreCase(authorRoleCd)) {
-                    articleDetails.setArticleAuthorName(productContributor
-                            .getFirstName().concat(" ")
-                            .concat(productContributor.getLastName()));
-                } else if ("Author".equalsIgnoreCase(authorRoleCd)) {
-                    coAuthors = productContributor.getFirstName().concat(" ")
-                            .concat(productContributor.getLastName());
-                    coAuthorsList.add(coAuthors);
-                }
-            }
-            articleDetails.setArticleCoAuthors(coAuthorsList);
-        }
-        return articleDetails;
-    }
-
-    /**
-     * Gets the article data.
-     *
-     * @param pdhLookupArticle
-     *            the pdh lookup article
-     * @param articleDetails
-     *            the article details
-     * @return the article data
-     * @throws Exception
-     *             the exception
-     */
-    private ArticleDetails getArticleData(
-            final PdhLookupArticle pdhLookupArticle,
-            final ArticleDetails articleDetails) throws Exception {
-        List<Identifier> identifierList = pdhLookupArticle
-                .getArticleProductEntities().getIdentifier();
-        if (!StringUtils.isEmpty(identifierList)) {
-            for (Identifier identifier : identifierList) {
-                if ("ARTICLE_IDENTIFIER".equalsIgnoreCase(identifier
-                        .getDhTypeCd())) {
-                    articleDetails.setArticleId(identifier.getIdentCd());
-                } else if ("DOI".equalsIgnoreCase(identifier.getDhTypeCd())) {
-                    articleDetails.setArticleDOI(identifier.getIdentCd());
-                }
-            }
-        }
+            final PdhArticleData pdhArticleData) throws Exception {
+        ArticleDetails articleDetails = new ArticleDetails();
+        articleDetails.setDhId(pdhArticleData.getDhId());
+        articleDetails.setArticleId(pdhArticleData.getArticleId());
+        articleDetails.setArticleTitle(pdhArticleData.getTitle());
+        articleDetails.setArticleType(pdhArticleData.getArticleType());
+        articleDetails.setAcceptanceDate(pdhArticleData.getAcceptedDate()
+                .toString());
+        articleDetails.setArticleAuthorName(pdhArticleData.getAuthorName());
+        articleDetails.setArticleCoAuthors(pdhArticleData.getCoAuthors());
+        articleDetails.setArticleDOI(pdhArticleData.getArticleDoi());
         return articleDetails;
     }
 
@@ -1124,15 +1009,20 @@ public class DashboardServiceImpl implements DashboardService {
         DashboardView dashboardView = new DashboardView();
         List<ArticleData> articleDataListForProduction = new ArrayList<ArticleData>();
         ArticleData articleDataForProduction = null;
-        Map<Integer, String> articleDetailsMap = getAllArticlesForUser(userId);
-        for (Map.Entry<Integer, String> articleInfo : articleDetailsMap
+        Map<Integer, ArticleUserRoleDetails> articleDetailsMap = getAllArticlesForUser(userId);
+        for (Map.Entry<Integer, ArticleUserRoleDetails> articleInfo : articleDetailsMap
                 .entrySet()) {
             Integer dhId = articleInfo.getKey();
-            String dhTypeCode = articleDetailsMap.get(dhId);
+            ArticleUserRoleDetails articleUserRoleDetails = articleDetailsMap
+                    .get(dhId);
             if (!StringUtils.isEmpty(dhId)
-                    && "Article".equalsIgnoreCase(dhTypeCode)) {
+                    && "Article".equalsIgnoreCase(articleUserRoleDetails
+                            .getRoleCode())) {
                 articleDataForProduction = getProductionDetailsForArticles(String
                         .valueOf(dhId));
+                articleDataForProduction
+                        .setArticleUserRole(articleUserRoleDetails
+                                .getRoleName());
                 articleDataListForProduction.add(articleDataForProduction);
             }
         }
@@ -1152,68 +1042,43 @@ public class DashboardServiceImpl implements DashboardService {
     private ArticleData getProductionDetailsForArticles(final String dhId)
             throws Exception {
         LOGGER.info("inside getProductionDetailsForArticles Method of DashboardServiceImpl");
-        PdhLookupArticle pdhLookupArticle = (PdhLookupArticle) esbInterfaceService
+        PdhArticleData pdhArticleData = (PdhArticleData) esbInterfaceService
                 .getPdhLookupResponse(dhId);
         ArticleData articleDataForProduction = null;
-        if (!StringUtils.isEmpty(pdhLookupArticle)) {
+        if (!StringUtils.isEmpty(pdhArticleData)) {
             LOGGER.info("Article Data is Found");
-            if (isArticleInvitedInAs(pdhLookupArticle)) {
+            if ("Y".equalsIgnoreCase(pdhArticleData.getIsInvitedInAs())) {
                 articleDataForProduction = new ArticleData();
                 articleDataForProduction
-                        .setArticleUserRole(getArticleAuthorRole(pdhLookupArticle));
+                        .setArticleDetails(parseArticleDetails(pdhArticleData));
                 articleDataForProduction
-                        .setArticleDetails(parseArticleDetails(pdhLookupArticle));
-                articleDataForProduction.setJournal(getJournalDetails());
+                        .setJournal(getJournalDetails(pdhArticleData
+                                .getJournalDhId()));
                 articleDataForProduction
-                        .setProduction(parseDatesForProduction(pdhLookupArticle));
+                        .setProduction(parseDatesForProduction(pdhArticleData));
             }
         }
         return articleDataForProduction;
     }
 
     /**
-     * Checks if is article invited in as.
-     *
-     * @param pdhLookupArticle
-     *            the pdh lookup article
-     * @return the boolean
-     */
-    private Boolean isArticleInvitedInAs(final PdhLookupArticle pdhLookupArticle) {
-        boolean isInvitedInAs = false;
-        List<ProductExtension> productExtensions = pdhLookupArticle
-                .getArticleProductEntities().getProductExtension();
-        if (!StringUtils.isEmpty(productExtensions)) {
-            for (ProductExtension productExtension : productExtensions) {
-                if ("AUTHOR_SERVICES_FLAG".equalsIgnoreCase(productExtension
-                        .getDhExtCd())
-                        && "Y".equalsIgnoreCase(productExtension.getExtValue())) {
-                    isInvitedInAs = true;
-                }
-            }
-        }
-        return isInvitedInAs;
-    }
-
-    /**
      * Parses the dates for production.
      *
-     * @param pdhLookupArticle
-     *            the pdh lookup article
+     * @param pdhArticleData
+     *            the pdh article data
      * @return the production
      * @throws Exception
      *             the exception
      */
     private Production parseDatesForProduction(
-            final PdhLookupArticle pdhLookupArticle) throws Exception {
-        List<ProductDates> productDatesList = pdhLookupArticle
-                .getArticleProductEntities().getProductDates();
+            final PdhArticleData pdhArticleData) throws Exception {
         Map<Date, String> productionDatesStatus = new TreeMap<Date, String>();
-        if (!StringUtils.isEmpty(productDatesList)) {
-            for (ProductDates productDates : productDatesList) {
-                productionDatesStatus.put(productDates.getProdDtDateValue(),
-                        productDates.getDhDateTypeCd());
-            }
-        }
+        productionDatesStatus.put(pdhArticleData.getAcceptedDate(),
+                articleAcptdStatus);
+        productionDatesStatus.put(pdhArticleData.getProofRcvdDate(),
+                proofsRcvdStatus);
+        productionDatesStatus.put(pdhArticleData.getProofOutDate(),
+                proofsOutStatus);
         return getMostProductionDateStatus(productionDatesStatus);
     }
 
@@ -1252,20 +1117,21 @@ public class DashboardServiceImpl implements DashboardService {
     private Production trackingProductionStatusActions(
             final Date mostRecentProductionDate, final String productionStatus) {
         Production production = new Production();
-        if ("ART_ACC_DT".equals(productionStatus)) {
-            production.setProductionStatus(articleAcptdStatus);
-            production.setProductionStatusDate(mostRecentProductionDate
-                    .toString());
-        } else if ("ART_PRFRCVD_DT".equals(productionStatus)) {
-            production.setProductionStatus(articleProofRcvdStatus);
-        }
         LOGGER.info("Getting Most Recent Date Among All Production Stages Dates and Setting Production Status,Actions");
         production.setProductionStatusDate(mostRecentProductionDate.toString());
         production.setProductionStatus(productionStatus);
         return production;
     }
 
-    
+    /**
+     * Gets the published article details.
+     *
+     * @param userId
+     *            the user id
+     * @return the published article details
+     * @throws Exception
+     *             the exception
+     */
     @Override
     public final DashboardView getPublishedArticleDetails(final String userId)
             throws Exception {
@@ -1273,15 +1139,19 @@ public class DashboardServiceImpl implements DashboardService {
         DashboardView dashboardView = null;
         ArticleData publishedArticleData = null;
         List<ArticleData> articleDataListforPublication = new ArrayList<ArticleData>();
-        Map<Integer, String> articleDetailsMap = getAllArticlesForUser(userId);
-        for (Map.Entry<Integer, String> articleInfo : articleDetailsMap
+        Map<Integer, ArticleUserRoleDetails> articleDetailsMap = getAllArticlesForUser(userId);
+        for (Map.Entry<Integer, ArticleUserRoleDetails> articleInfo : articleDetailsMap
                 .entrySet()) {
             Integer dhId = articleInfo.getKey();
-            String dhTypeCode = articleDetailsMap.get(dhId);
+            ArticleUserRoleDetails articleUserRoleDetails = articleDetailsMap
+                    .get(dhId);
             if (!StringUtils.isEmpty(dhId)
-                    && "Article".equalsIgnoreCase(dhTypeCode)) {
+                    && "Article".equalsIgnoreCase(articleUserRoleDetails
+                            .getRoleCode())) {
                 publishedArticleData = getPublishedArticleData(String
                         .valueOf(dhId));
+                publishedArticleData.setArticleUserRole(articleUserRoleDetails
+                        .getRoleName());
                 articleDataListforPublication.add(publishedArticleData);
             }
             dashboardView = new DashboardView();
@@ -1301,18 +1171,18 @@ public class DashboardServiceImpl implements DashboardService {
      */
     private ArticleData getPublishedArticleData(final String dhId)
             throws Exception {
-        PdhLookupArticle pdhLookupArticle = (PdhLookupArticle) esbInterfaceService
+        PdhArticleData pdhArticleData = (PdhArticleData) esbInterfaceService
                 .getPdhLookupResponse(dhId);
         ArticleData publishedArticleData = null;
-        if (!StringUtils.isEmpty(pdhLookupArticle)) {
+        if (!StringUtils.isEmpty(pdhArticleData)) {
             LOGGER.info("Article Data is Found");
-            if (isArticleInvitedInAs(pdhLookupArticle)) {
+            if ("Y".equalsIgnoreCase(pdhArticleData.getIsInvitedInAs())) {
                 publishedArticleData = new ArticleData();
                 publishedArticleData
-                        .setArticleUserRole(getArticleAuthorRole(pdhLookupArticle));
+                        .setArticleDetails(parseArticleDetails(pdhArticleData));
                 publishedArticleData
-                        .setArticleDetails(parseArticleDetails(pdhLookupArticle));
-                publishedArticleData.setJournal(getJournalDetails());
+                        .setJournal(getJournalDetails(pdhArticleData
+                                .getJournalDhId()));
                 publishedArticleData
                         .setPublication(getPublicationArticleStatus());
             }

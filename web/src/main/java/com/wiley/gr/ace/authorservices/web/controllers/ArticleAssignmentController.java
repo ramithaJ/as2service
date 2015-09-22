@@ -81,17 +81,17 @@ public class ArticleAssignmentController {
      *            the article id
      * @return the article info
      */
-    @RequestMapping(value = "/confirm/display/{articleId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/confirm/display/{emailId}", method = RequestMethod.GET)
     public final Service getArticleInfo(
-            @PathVariable("articleId") final String articleId) {
+            @PathVariable("emailId") final String emailId) {
         LOGGER.info("inside getArticleInfo method of ArticleAssignmentController");
         final Service service = new Service();
         ArticleInfoDetails articleInfoDetails = null;
-        if (!StringUtils.isEmpty(articleId)) {
+        if (!StringUtils.isEmpty(emailId)) {
             LOGGER.info("input parameter articleId is found to Get Article Info");
             try {
                 articleInfoDetails = articleAssignmentService
-                        .getArticleInfoDetails(articleId);
+                        .getArticleInfoDetails(emailId);
                 if (!StringUtils.isEmpty(articleInfoDetails)) {
                     LOGGER.info("Article Info Details Found");
                     service.setStatus("SUCCESS");
@@ -119,8 +119,7 @@ public class ArticleAssignmentController {
      * Association confirmation.
      *
      * @param associationConfirmation
-     *            the association confirmation
-     *            - The Request value
+     *            the association confirmation - The Request value
      * @return service
      */
     @RequestMapping(value = "/confirm/association", method = RequestMethod.PUT)
@@ -160,8 +159,8 @@ public class ArticleAssignmentController {
     /**
      * Gets the confirmation article data.
      *
-     * @param emailId
-     *            the email id
+     * @param articleId
+     *            the article id
      * @return the confirmation article data
      */
     @RequestMapping(value = "/view/{articleId}", method = RequestMethod.GET)
@@ -187,7 +186,9 @@ public class ArticleAssignmentController {
             } catch (final Exception e) {
                 LOGGER.error("Print Stack Trace- ", e);
                 throw new ASException("viewAssignedArticleErrorCode",
-                        "viewAssignedArticleErrorMessage"); //create mapping from properties :MERGE
+                        "viewAssignedArticleErrorMessage"); // create mapping
+                                                            // from properties
+                                                            // :MERGE
             }
         } else {
             LOGGER.info("input Parameter emailId is Not Found");

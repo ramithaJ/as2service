@@ -42,9 +42,6 @@ public class PdhJournalData {
     /** The wol code. */
     private String wolCode;
 
-    /** The journal code. */
-    private String journalCode;
-
     /** The e journal code. */
     private String eJournalCode;
 
@@ -234,25 +231,6 @@ public class PdhJournalData {
      */
     public final void setJournalAcronym(final String journalAcronym) {
         this.journalAcronym = journalAcronym;
-    }
-
-    /**
-     * Gets the journal code.
-     *
-     * @return the journal code
-     */
-    public final String getJournalCode() {
-        return journalCode;
-    }
-
-    /**
-     * Sets the journal code.
-     *
-     * @param journalCode
-     *            the new journal code
-     */
-    public final void setJournalCode(final String journalCode) {
-        this.journalCode = journalCode;
     }
 
     /**
