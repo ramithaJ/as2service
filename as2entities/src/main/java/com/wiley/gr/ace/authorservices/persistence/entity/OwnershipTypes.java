@@ -1,11 +1,17 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Sep 22, 2015 4:46:21 PM by Hibernate Tools 4.0.0
+// Generated Sep 24, 2015 5:21:06 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -18,11 +24,13 @@ import javax.persistence.TemporalType;
 public class OwnershipTypes implements java.io.Serializable {
 
 	private String typeCd;
+	private Users usersByCreatedBy;
+	private Users usersByUpdatedBy;
 	private String typeName;
 	private Date createdDate;
-	private Long createdBy;
 	private Date updatedDate;
-	private Long updatedBy;
+	private Set<SubOwnershipTypes> subOwnershipTypeses = new HashSet<SubOwnershipTypes>(
+			0);
 
 	public OwnershipTypes() {
 	}
@@ -31,14 +39,16 @@ public class OwnershipTypes implements java.io.Serializable {
 		this.typeCd = typeCd;
 	}
 
-	public OwnershipTypes(String typeCd, String typeName, Date createdDate,
-			Long createdBy, Date updatedDate, Long updatedBy) {
+	public OwnershipTypes(String typeCd, Users usersByCreatedBy,
+			Users usersByUpdatedBy, String typeName, Date createdDate,
+			Date updatedDate, Set<SubOwnershipTypes> subOwnershipTypeses) {
 		this.typeCd = typeCd;
+		this.usersByCreatedBy = usersByCreatedBy;
+		this.usersByUpdatedBy = usersByUpdatedBy;
 		this.typeName = typeName;
 		this.createdDate = createdDate;
-		this.createdBy = createdBy;
 		this.updatedDate = updatedDate;
-		this.updatedBy = updatedBy;
+		this.subOwnershipTypeses = subOwnershipTypeses;
 	}
 
 	@Id
@@ -49,6 +59,26 @@ public class OwnershipTypes implements java.io.Serializable {
 
 	public void setTypeCd(String typeCd) {
 		this.typeCd = typeCd;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CREATED_BY")
+	public Users getUsersByCreatedBy() {
+		return this.usersByCreatedBy;
+	}
+
+	public void setUsersByCreatedBy(Users usersByCreatedBy) {
+		this.usersByCreatedBy = usersByCreatedBy;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "UPDATED_BY")
+	public Users getUsersByUpdatedBy() {
+		return this.usersByUpdatedBy;
+	}
+
+	public void setUsersByUpdatedBy(Users usersByUpdatedBy) {
+		this.usersByUpdatedBy = usersByUpdatedBy;
 	}
 
 	@Column(name = "TYPE_NAME", length = 250)
@@ -70,15 +100,6 @@ public class OwnershipTypes implements java.io.Serializable {
 		this.createdDate = createdDate;
 	}
 
-	@Column(name = "CREATED_BY")
-	public Long getCreatedBy() {
-		return this.createdBy;
-	}
-
-	public void setCreatedBy(Long createdBy) {
-		this.createdBy = createdBy;
-	}
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "UPDATED_DATE", length = 19)
 	public Date getUpdatedDate() {
@@ -89,13 +110,14 @@ public class OwnershipTypes implements java.io.Serializable {
 		this.updatedDate = updatedDate;
 	}
 
-	@Column(name = "UPDATED_BY")
-	public Long getUpdatedBy() {
-		return this.updatedBy;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "ownershipTypes")
+	public Set<SubOwnershipTypes> getSubOwnershipTypeses() {
+		return this.subOwnershipTypeses;
 	}
 
-	public void setUpdatedBy(Long updatedBy) {
-		this.updatedBy = updatedBy;
+	public void setSubOwnershipTypeses(
+			Set<SubOwnershipTypes> subOwnershipTypeses) {
+		this.subOwnershipTypeses = subOwnershipTypeses;
 	}
 
 }

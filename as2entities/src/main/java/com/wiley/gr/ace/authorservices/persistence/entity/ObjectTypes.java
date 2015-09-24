@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Sep 22, 2015 4:46:21 PM by Hibernate Tools 4.0.0
+// Generated Sep 24, 2015 5:21:06 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import java.util.HashSet;
@@ -9,6 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -22,11 +24,13 @@ import javax.persistence.TemporalType;
 public class ObjectTypes implements java.io.Serializable {
 
 	private String objectTypeCd;
+	private Users usersByCreatedBy;
+	private Users usersByUpdatedBy;
 	private String objectType;
 	private Date createdDate;
-	private Long createdBy;
 	private Date updatedDate;
-	private Long updatedBy;
+	private Set<AdditionalPermissions> additionalPermissionses = new HashSet<AdditionalPermissions>(
+			0);
 	private Set<AuditDetails> auditDetailses = new HashSet<AuditDetails>(0);
 
 	public ObjectTypes() {
@@ -36,15 +40,18 @@ public class ObjectTypes implements java.io.Serializable {
 		this.objectTypeCd = objectTypeCd;
 	}
 
-	public ObjectTypes(String objectTypeCd, String objectType,
-			Date createdDate, Long createdBy, Date updatedDate, Long updatedBy,
+	public ObjectTypes(String objectTypeCd, Users usersByCreatedBy,
+			Users usersByUpdatedBy, String objectType, Date createdDate,
+			Date updatedDate,
+			Set<AdditionalPermissions> additionalPermissionses,
 			Set<AuditDetails> auditDetailses) {
 		this.objectTypeCd = objectTypeCd;
+		this.usersByCreatedBy = usersByCreatedBy;
+		this.usersByUpdatedBy = usersByUpdatedBy;
 		this.objectType = objectType;
 		this.createdDate = createdDate;
-		this.createdBy = createdBy;
 		this.updatedDate = updatedDate;
-		this.updatedBy = updatedBy;
+		this.additionalPermissionses = additionalPermissionses;
 		this.auditDetailses = auditDetailses;
 	}
 
@@ -56,6 +63,26 @@ public class ObjectTypes implements java.io.Serializable {
 
 	public void setObjectTypeCd(String objectTypeCd) {
 		this.objectTypeCd = objectTypeCd;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CREATED_BY")
+	public Users getUsersByCreatedBy() {
+		return this.usersByCreatedBy;
+	}
+
+	public void setUsersByCreatedBy(Users usersByCreatedBy) {
+		this.usersByCreatedBy = usersByCreatedBy;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "UPDATED_BY")
+	public Users getUsersByUpdatedBy() {
+		return this.usersByUpdatedBy;
+	}
+
+	public void setUsersByUpdatedBy(Users usersByUpdatedBy) {
+		this.usersByUpdatedBy = usersByUpdatedBy;
 	}
 
 	@Column(name = "OBJECT_TYPE", length = 50)
@@ -77,15 +104,6 @@ public class ObjectTypes implements java.io.Serializable {
 		this.createdDate = createdDate;
 	}
 
-	@Column(name = "CREATED_BY")
-	public Long getCreatedBy() {
-		return this.createdBy;
-	}
-
-	public void setCreatedBy(Long createdBy) {
-		this.createdBy = createdBy;
-	}
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "UPDATED_DATE", length = 19)
 	public Date getUpdatedDate() {
@@ -96,13 +114,14 @@ public class ObjectTypes implements java.io.Serializable {
 		this.updatedDate = updatedDate;
 	}
 
-	@Column(name = "UPDATED_BY")
-	public Long getUpdatedBy() {
-		return this.updatedBy;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "objectTypes")
+	public Set<AdditionalPermissions> getAdditionalPermissionses() {
+		return this.additionalPermissionses;
 	}
 
-	public void setUpdatedBy(Long updatedBy) {
-		this.updatedBy = updatedBy;
+	public void setAdditionalPermissionses(
+			Set<AdditionalPermissions> additionalPermissionses) {
+		this.additionalPermissionses = additionalPermissionses;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "objectTypes")

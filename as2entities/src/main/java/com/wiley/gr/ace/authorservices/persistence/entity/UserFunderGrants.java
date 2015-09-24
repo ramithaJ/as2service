@@ -1,13 +1,16 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Sep 22, 2015 4:46:21 PM by Hibernate Tools 4.0.0
+// Generated Sep 24, 2015 5:21:06 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,24 +23,25 @@ import javax.persistence.TemporalType;
 public class UserFunderGrants implements java.io.Serializable {
 
 	private Long funderGrantId;
-	private Long userFunderId;
+	private Users usersByCreatedBy;
+	private Users usersByUpdatedBy;
+	private UserFunders userFunders;
 	private String grantNum;
 	private Date createdDate;
-	private Long createdBy;
 	private Date updatedDate;
-	private Long updatedBy;
 
 	public UserFunderGrants() {
 	}
 
-	public UserFunderGrants(Long userFunderId, String grantNum,
-			Date createdDate, Long createdBy, Date updatedDate, Long updatedBy) {
-		this.userFunderId = userFunderId;
+	public UserFunderGrants(Users usersByCreatedBy, Users usersByUpdatedBy,
+			UserFunders userFunders, String grantNum, Date createdDate,
+			Date updatedDate) {
+		this.usersByCreatedBy = usersByCreatedBy;
+		this.usersByUpdatedBy = usersByUpdatedBy;
+		this.userFunders = userFunders;
 		this.grantNum = grantNum;
 		this.createdDate = createdDate;
-		this.createdBy = createdBy;
 		this.updatedDate = updatedDate;
-		this.updatedBy = updatedBy;
 	}
 
 	@Id
@@ -51,13 +55,34 @@ public class UserFunderGrants implements java.io.Serializable {
 		this.funderGrantId = funderGrantId;
 	}
 
-	@Column(name = "USER_FUNDER_ID")
-	public Long getUserFunderId() {
-		return this.userFunderId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CREATED_BY")
+	public Users getUsersByCreatedBy() {
+		return this.usersByCreatedBy;
 	}
 
-	public void setUserFunderId(Long userFunderId) {
-		this.userFunderId = userFunderId;
+	public void setUsersByCreatedBy(Users usersByCreatedBy) {
+		this.usersByCreatedBy = usersByCreatedBy;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "UPDATED_BY")
+	public Users getUsersByUpdatedBy() {
+		return this.usersByUpdatedBy;
+	}
+
+	public void setUsersByUpdatedBy(Users usersByUpdatedBy) {
+		this.usersByUpdatedBy = usersByUpdatedBy;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "USER_FUNDER_ID")
+	public UserFunders getUserFunders() {
+		return this.userFunders;
+	}
+
+	public void setUserFunders(UserFunders userFunders) {
+		this.userFunders = userFunders;
 	}
 
 	@Column(name = "GRANT_NUM", length = 100)
@@ -79,15 +104,6 @@ public class UserFunderGrants implements java.io.Serializable {
 		this.createdDate = createdDate;
 	}
 
-	@Column(name = "CREATED_BY")
-	public Long getCreatedBy() {
-		return this.createdBy;
-	}
-
-	public void setCreatedBy(Long createdBy) {
-		this.createdBy = createdBy;
-	}
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "UPDATED_DATE", length = 19)
 	public Date getUpdatedDate() {
@@ -96,15 +112,6 @@ public class UserFunderGrants implements java.io.Serializable {
 
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
-	}
-
-	@Column(name = "UPDATED_BY")
-	public Long getUpdatedBy() {
-		return this.updatedBy;
-	}
-
-	public void setUpdatedBy(Long updatedBy) {
-		this.updatedBy = updatedBy;
 	}
 
 }

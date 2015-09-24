@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Sep 22, 2015 4:46:21 PM by Hibernate Tools 4.0.0
+// Generated Sep 24, 2015 5:21:06 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -24,6 +24,7 @@ public class AuditDetails implements java.io.Serializable {
 
 	private Long auditId;
 	private Actions actions;
+	private Users users;
 	private ObjectTypes objectTypes;
 	private String objName;
 	private String objAttribute;
@@ -33,16 +34,16 @@ public class AuditDetails implements java.io.Serializable {
 	private String oldVal;
 	private String newVal;
 	private Date createdDate;
-	private Long createdBy;
 
 	public AuditDetails() {
 	}
 
-	public AuditDetails(Actions actions, ObjectTypes objectTypes,
+	public AuditDetails(Actions actions, Users users, ObjectTypes objectTypes,
 			String objName, String objAttribute, Long objectId,
 			Long primarykeycolumn1, Long primarykeycolumn2, String oldVal,
-			String newVal, Date createdDate, Long createdBy) {
+			String newVal, Date createdDate) {
 		this.actions = actions;
+		this.users = users;
 		this.objectTypes = objectTypes;
 		this.objName = objName;
 		this.objAttribute = objAttribute;
@@ -52,7 +53,6 @@ public class AuditDetails implements java.io.Serializable {
 		this.oldVal = oldVal;
 		this.newVal = newVal;
 		this.createdDate = createdDate;
-		this.createdBy = createdBy;
 	}
 
 	@Id
@@ -74,6 +74,16 @@ public class AuditDetails implements java.io.Serializable {
 
 	public void setActions(Actions actions) {
 		this.actions = actions;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CREATED_BY")
+	public Users getUsers() {
+		return this.users;
+	}
+
+	public void setUsers(Users users) {
+		this.users = users;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -149,23 +159,14 @@ public class AuditDetails implements java.io.Serializable {
 		this.newVal = newVal;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "CREATED_DATE", length = 19)
+	@Temporal(TemporalType.DATE)
+	@Column(name = "CREATED_DATE", length = 10)
 	public Date getCreatedDate() {
 		return this.createdDate;
 	}
 
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
-	}
-
-	@Column(name = "CREATED_BY")
-	public Long getCreatedBy() {
-		return this.createdBy;
-	}
-
-	public void setCreatedBy(Long createdBy) {
-		this.createdBy = createdBy;
 	}
 
 }

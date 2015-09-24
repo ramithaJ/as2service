@@ -1,13 +1,16 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Sep 22, 2015 4:46:21 PM by Hibernate Tools 4.0.0
+// Generated Sep 24, 2015 5:21:06 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,6 +23,8 @@ import javax.persistence.TemporalType;
 public class WpgResponseDetails implements java.io.Serializable {
 
 	private Long wpgLogId;
+	private Users usersByCreatedBy;
+	private Users usersByUpdatedBy;
 	private String operation;
 	private Long returnCode;
 	private String returnMessage;
@@ -27,34 +32,34 @@ public class WpgResponseDetails implements java.io.Serializable {
 	private Long transId;
 	private String merchantResponse;
 	private Long merchantId;
-	private Boolean cscResult;
-	private Boolean avsAddressResult;
-	private Boolean avsPostResult;
+	private Character cscResult;
+	private Character avsAddressResult;
+	private Character avsPostResult;
 	private String token;
-	private Boolean acquirerId;
+	private Character acquirerId;
 	private String acquirerName;
-	private Boolean bankId;
+	private Character bankId;
 	private String bankName;
-	private String maskedCardNumber;
+	private String maskedCardInt;
 	private Long cardExpiry;
 	private Date transTimestamp;
 	private String security;
 	private Date createdDate;
-	private Long createdBy;
 	private Date updatedDate;
-	private Long updatedBy;
 
 	public WpgResponseDetails() {
 	}
 
-	public WpgResponseDetails(String operation, Long returnCode,
-			String returnMessage, Long vendorId, Long transId,
-			String merchantResponse, Long merchantId, Boolean cscResult,
-			Boolean avsAddressResult, Boolean avsPostResult, String token,
-			Boolean acquirerId, String acquirerName, Boolean bankId,
-			String bankName, String maskedCardNumber, Long cardExpiry,
-			Date transTimestamp, String security, Date createdDate,
-			Long createdBy, Date updatedDate, Long updatedBy) {
+	public WpgResponseDetails(Users usersByCreatedBy, Users usersByUpdatedBy,
+			String operation, Long returnCode, String returnMessage,
+			Long vendorId, Long transId, String merchantResponse,
+			Long merchantId, Character cscResult, Character avsAddressResult,
+			Character avsPostResult, String token, Character acquirerId,
+			String acquirerName, Character bankId, String bankName,
+			String maskedCardInt, Long cardExpiry, Date transTimestamp,
+			String security, Date createdDate, Date updatedDate) {
+		this.usersByCreatedBy = usersByCreatedBy;
+		this.usersByUpdatedBy = usersByUpdatedBy;
 		this.operation = operation;
 		this.returnCode = returnCode;
 		this.returnMessage = returnMessage;
@@ -70,14 +75,12 @@ public class WpgResponseDetails implements java.io.Serializable {
 		this.acquirerName = acquirerName;
 		this.bankId = bankId;
 		this.bankName = bankName;
-		this.maskedCardNumber = maskedCardNumber;
+		this.maskedCardInt = maskedCardInt;
 		this.cardExpiry = cardExpiry;
 		this.transTimestamp = transTimestamp;
 		this.security = security;
 		this.createdDate = createdDate;
-		this.createdBy = createdBy;
 		this.updatedDate = updatedDate;
-		this.updatedBy = updatedBy;
 	}
 
 	@Id
@@ -89,6 +92,26 @@ public class WpgResponseDetails implements java.io.Serializable {
 
 	public void setWpgLogId(Long wpgLogId) {
 		this.wpgLogId = wpgLogId;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CREATED_BY")
+	public Users getUsersByCreatedBy() {
+		return this.usersByCreatedBy;
+	}
+
+	public void setUsersByCreatedBy(Users usersByCreatedBy) {
+		this.usersByCreatedBy = usersByCreatedBy;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "UPDATED_BY")
+	public Users getUsersByUpdatedBy() {
+		return this.usersByUpdatedBy;
+	}
+
+	public void setUsersByUpdatedBy(Users usersByUpdatedBy) {
+		this.usersByUpdatedBy = usersByUpdatedBy;
 	}
 
 	@Column(name = "OPERATION", length = 50)
@@ -155,29 +178,29 @@ public class WpgResponseDetails implements java.io.Serializable {
 	}
 
 	@Column(name = "CSC_RESULT", length = 1)
-	public Boolean getCscResult() {
+	public Character getCscResult() {
 		return this.cscResult;
 	}
 
-	public void setCscResult(Boolean cscResult) {
+	public void setCscResult(Character cscResult) {
 		this.cscResult = cscResult;
 	}
 
 	@Column(name = "AVS_ADDRESS_RESULT", length = 1)
-	public Boolean getAvsAddressResult() {
+	public Character getAvsAddressResult() {
 		return this.avsAddressResult;
 	}
 
-	public void setAvsAddressResult(Boolean avsAddressResult) {
+	public void setAvsAddressResult(Character avsAddressResult) {
 		this.avsAddressResult = avsAddressResult;
 	}
 
 	@Column(name = "AVS_POST_RESULT", length = 1)
-	public Boolean getAvsPostResult() {
+	public Character getAvsPostResult() {
 		return this.avsPostResult;
 	}
 
-	public void setAvsPostResult(Boolean avsPostResult) {
+	public void setAvsPostResult(Character avsPostResult) {
 		this.avsPostResult = avsPostResult;
 	}
 
@@ -191,11 +214,11 @@ public class WpgResponseDetails implements java.io.Serializable {
 	}
 
 	@Column(name = "ACQUIRER_ID", length = 1)
-	public Boolean getAcquirerId() {
+	public Character getAcquirerId() {
 		return this.acquirerId;
 	}
 
-	public void setAcquirerId(Boolean acquirerId) {
+	public void setAcquirerId(Character acquirerId) {
 		this.acquirerId = acquirerId;
 	}
 
@@ -209,11 +232,11 @@ public class WpgResponseDetails implements java.io.Serializable {
 	}
 
 	@Column(name = "BANK_ID", length = 1)
-	public Boolean getBankId() {
+	public Character getBankId() {
 		return this.bankId;
 	}
 
-	public void setBankId(Boolean bankId) {
+	public void setBankId(Character bankId) {
 		this.bankId = bankId;
 	}
 
@@ -226,13 +249,13 @@ public class WpgResponseDetails implements java.io.Serializable {
 		this.bankName = bankName;
 	}
 
-	@Column(name = "MASKED_CARD_NUMBER", length = 25)
-	public String getMaskedCardNumber() {
-		return this.maskedCardNumber;
+	@Column(name = "MASKED_CARD_INT", length = 25)
+	public String getMaskedCardInt() {
+		return this.maskedCardInt;
 	}
 
-	public void setMaskedCardNumber(String maskedCardNumber) {
-		this.maskedCardNumber = maskedCardNumber;
+	public void setMaskedCardInt(String maskedCardInt) {
+		this.maskedCardInt = maskedCardInt;
 	}
 
 	@Column(name = "CARD_EXPIRY")
@@ -273,15 +296,6 @@ public class WpgResponseDetails implements java.io.Serializable {
 		this.createdDate = createdDate;
 	}
 
-	@Column(name = "CREATED_BY")
-	public Long getCreatedBy() {
-		return this.createdBy;
-	}
-
-	public void setCreatedBy(Long createdBy) {
-		this.createdBy = createdBy;
-	}
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "UPDATED_DATE", length = 19)
 	public Date getUpdatedDate() {
@@ -290,15 +304,6 @@ public class WpgResponseDetails implements java.io.Serializable {
 
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
-	}
-
-	@Column(name = "UPDATED_BY")
-	public Long getUpdatedBy() {
-		return this.updatedBy;
-	}
-
-	public void setUpdatedBy(Long updatedBy) {
-		this.updatedBy = updatedBy;
 	}
 
 }

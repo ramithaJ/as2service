@@ -1,13 +1,16 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Sep 22, 2015 4:46:21 PM by Hibernate Tools 4.0.0
+// Generated Sep 24, 2015 5:21:06 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,24 +23,25 @@ import javax.persistence.TemporalType;
 public class SocietyJournals implements java.io.Serializable {
 
 	private Long societyJournalId;
-	private String societyCd;
-	private Long dhId;
+	private Users usersByCreatedBy;
+	private Users usersByUpdatedBy;
+	private Products products;
+	private Societies societies;
 	private Date createdDate;
-	private Long createdBy;
 	private Date updatedDate;
-	private Long updatedBy;
 
 	public SocietyJournals() {
 	}
 
-	public SocietyJournals(String societyCd, Long dhId, Date createdDate,
-			Long createdBy, Date updatedDate, Long updatedBy) {
-		this.societyCd = societyCd;
-		this.dhId = dhId;
+	public SocietyJournals(Users usersByCreatedBy, Users usersByUpdatedBy,
+			Products products, Societies societies, Date createdDate,
+			Date updatedDate) {
+		this.usersByCreatedBy = usersByCreatedBy;
+		this.usersByUpdatedBy = usersByUpdatedBy;
+		this.products = products;
+		this.societies = societies;
 		this.createdDate = createdDate;
-		this.createdBy = createdBy;
 		this.updatedDate = updatedDate;
-		this.updatedBy = updatedBy;
 	}
 
 	@Id
@@ -51,22 +55,44 @@ public class SocietyJournals implements java.io.Serializable {
 		this.societyJournalId = societyJournalId;
 	}
 
-	@Column(name = "SOCIETY_CD", length = 15)
-	public String getSocietyCd() {
-		return this.societyCd;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CREATED_BY")
+	public Users getUsersByCreatedBy() {
+		return this.usersByCreatedBy;
 	}
 
-	public void setSocietyCd(String societyCd) {
-		this.societyCd = societyCd;
+	public void setUsersByCreatedBy(Users usersByCreatedBy) {
+		this.usersByCreatedBy = usersByCreatedBy;
 	}
 
-	@Column(name = "DH_ID")
-	public Long getDhId() {
-		return this.dhId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "UPDATED_BY")
+	public Users getUsersByUpdatedBy() {
+		return this.usersByUpdatedBy;
 	}
 
-	public void setDhId(Long dhId) {
-		this.dhId = dhId;
+	public void setUsersByUpdatedBy(Users usersByUpdatedBy) {
+		this.usersByUpdatedBy = usersByUpdatedBy;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "DH_ID")
+	public Products getProducts() {
+		return this.products;
+	}
+
+	public void setProducts(Products products) {
+		this.products = products;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "SOCIETY_CD")
+	public Societies getSocieties() {
+		return this.societies;
+	}
+
+	public void setSocieties(Societies societies) {
+		this.societies = societies;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -79,15 +105,6 @@ public class SocietyJournals implements java.io.Serializable {
 		this.createdDate = createdDate;
 	}
 
-	@Column(name = "CREATED_BY")
-	public Long getCreatedBy() {
-		return this.createdBy;
-	}
-
-	public void setCreatedBy(Long createdBy) {
-		this.createdBy = createdBy;
-	}
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "UPDATED_DATE", length = 19)
 	public Date getUpdatedDate() {
@@ -96,15 +113,6 @@ public class SocietyJournals implements java.io.Serializable {
 
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
-	}
-
-	@Column(name = "UPDATED_BY")
-	public Long getUpdatedBy() {
-		return this.updatedBy;
-	}
-
-	public void setUpdatedBy(Long updatedBy) {
-		this.updatedBy = updatedBy;
 	}
 
 }

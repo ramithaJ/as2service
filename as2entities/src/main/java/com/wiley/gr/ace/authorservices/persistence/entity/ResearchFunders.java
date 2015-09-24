@@ -1,13 +1,19 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Sep 22, 2015 4:46:21 PM by Hibernate Tools 4.0.0
+// Generated Sep 24, 2015 5:21:06 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,24 +26,27 @@ import javax.persistence.TemporalType;
 public class ResearchFunders implements java.io.Serializable {
 
 	private Long resfunderid;
+	private Users usersByCreatedBy;
+	private Users usersByUpdatedBy;
 	private String funderDoi;
 	private String funderName;
 	private Date createdDate;
-	private Long createdBy;
 	private Date updatedDate;
-	private Long updatedBy;
+	private Set<UserFunders> userFunderses = new HashSet<UserFunders>(0);
 
 	public ResearchFunders() {
 	}
 
-	public ResearchFunders(String funderDoi, String funderName,
-			Date createdDate, Long createdBy, Date updatedDate, Long updatedBy) {
+	public ResearchFunders(Users usersByCreatedBy, Users usersByUpdatedBy,
+			String funderDoi, String funderName, Date createdDate,
+			Date updatedDate, Set<UserFunders> userFunderses) {
+		this.usersByCreatedBy = usersByCreatedBy;
+		this.usersByUpdatedBy = usersByUpdatedBy;
 		this.funderDoi = funderDoi;
 		this.funderName = funderName;
 		this.createdDate = createdDate;
-		this.createdBy = createdBy;
 		this.updatedDate = updatedDate;
-		this.updatedBy = updatedBy;
+		this.userFunderses = userFunderses;
 	}
 
 	@Id
@@ -49,6 +58,26 @@ public class ResearchFunders implements java.io.Serializable {
 
 	public void setResfunderid(Long resfunderid) {
 		this.resfunderid = resfunderid;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CREATED_BY")
+	public Users getUsersByCreatedBy() {
+		return this.usersByCreatedBy;
+	}
+
+	public void setUsersByCreatedBy(Users usersByCreatedBy) {
+		this.usersByCreatedBy = usersByCreatedBy;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "UPDATED_BY")
+	public Users getUsersByUpdatedBy() {
+		return this.usersByUpdatedBy;
+	}
+
+	public void setUsersByUpdatedBy(Users usersByUpdatedBy) {
+		this.usersByUpdatedBy = usersByUpdatedBy;
 	}
 
 	@Column(name = "FUNDER_DOI", length = 50)
@@ -79,15 +108,6 @@ public class ResearchFunders implements java.io.Serializable {
 		this.createdDate = createdDate;
 	}
 
-	@Column(name = "CREATED_BY")
-	public Long getCreatedBy() {
-		return this.createdBy;
-	}
-
-	public void setCreatedBy(Long createdBy) {
-		this.createdBy = createdBy;
-	}
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "UPDATED_DATE", length = 19)
 	public Date getUpdatedDate() {
@@ -98,13 +118,13 @@ public class ResearchFunders implements java.io.Serializable {
 		this.updatedDate = updatedDate;
 	}
 
-	@Column(name = "UPDATED_BY")
-	public Long getUpdatedBy() {
-		return this.updatedBy;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "researchFunders")
+	public Set<UserFunders> getUserFunderses() {
+		return this.userFunderses;
 	}
 
-	public void setUpdatedBy(Long updatedBy) {
-		this.updatedBy = updatedBy;
+	public void setUserFunderses(Set<UserFunders> userFunderses) {
+		this.userFunderses = userFunderses;
 	}
 
 }

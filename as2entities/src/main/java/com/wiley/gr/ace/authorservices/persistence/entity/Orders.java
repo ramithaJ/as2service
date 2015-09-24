@@ -1,11 +1,15 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Sep 22, 2015 4:46:21 PM by Hibernate Tools 4.0.0
+// Generated Sep 24, 2015 5:21:06 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -18,15 +22,16 @@ import javax.persistence.TemporalType;
 public class Orders implements java.io.Serializable {
 
 	private long orderId;
-	private Long userId;
-	private Long dhId;
-	private String orderTypeCd;
+	private Users usersByCreatedBy;
+	private Users usersByUpdatedBy;
+	private Products products;
+	private Users usersByUserId;
+	private OrderTypes orderTypes;
 	private String orderStatus;
 	private String paymentStatus;
 	private Date createdDate;
-	private Long createdBy;
 	private Date updatedDate;
-	private Long updatedBy;
+	private OrderReference orderReference;
 
 	public Orders() {
 	}
@@ -35,19 +40,21 @@ public class Orders implements java.io.Serializable {
 		this.orderId = orderId;
 	}
 
-	public Orders(long orderId, Long userId, Long dhId, String orderTypeCd,
+	public Orders(long orderId, Users usersByCreatedBy, Users usersByUpdatedBy,
+			Products products, Users usersByUserId, OrderTypes orderTypes,
 			String orderStatus, String paymentStatus, Date createdDate,
-			Long createdBy, Date updatedDate, Long updatedBy) {
+			Date updatedDate, OrderReference orderReference) {
 		this.orderId = orderId;
-		this.userId = userId;
-		this.dhId = dhId;
-		this.orderTypeCd = orderTypeCd;
+		this.usersByCreatedBy = usersByCreatedBy;
+		this.usersByUpdatedBy = usersByUpdatedBy;
+		this.products = products;
+		this.usersByUserId = usersByUserId;
+		this.orderTypes = orderTypes;
 		this.orderStatus = orderStatus;
 		this.paymentStatus = paymentStatus;
 		this.createdDate = createdDate;
-		this.createdBy = createdBy;
 		this.updatedDate = updatedDate;
-		this.updatedBy = updatedBy;
+		this.orderReference = orderReference;
 	}
 
 	@Id
@@ -60,31 +67,54 @@ public class Orders implements java.io.Serializable {
 		this.orderId = orderId;
 	}
 
-	@Column(name = "USER_ID")
-	public Long getUserId() {
-		return this.userId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CREATED_BY")
+	public Users getUsersByCreatedBy() {
+		return this.usersByCreatedBy;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setUsersByCreatedBy(Users usersByCreatedBy) {
+		this.usersByCreatedBy = usersByCreatedBy;
 	}
 
-	@Column(name = "DH_ID")
-	public Long getDhId() {
-		return this.dhId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "UPDATED_BY")
+	public Users getUsersByUpdatedBy() {
+		return this.usersByUpdatedBy;
 	}
 
-	public void setDhId(Long dhId) {
-		this.dhId = dhId;
+	public void setUsersByUpdatedBy(Users usersByUpdatedBy) {
+		this.usersByUpdatedBy = usersByUpdatedBy;
 	}
 
-	@Column(name = "ORDER_TYPE_CD", length = 15)
-	public String getOrderTypeCd() {
-		return this.orderTypeCd;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "DH_ID")
+	public Products getProducts() {
+		return this.products;
 	}
 
-	public void setOrderTypeCd(String orderTypeCd) {
-		this.orderTypeCd = orderTypeCd;
+	public void setProducts(Products products) {
+		this.products = products;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "USER_ID")
+	public Users getUsersByUserId() {
+		return this.usersByUserId;
+	}
+
+	public void setUsersByUserId(Users usersByUserId) {
+		this.usersByUserId = usersByUserId;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ORDER_TYPE_CD")
+	public OrderTypes getOrderTypes() {
+		return this.orderTypes;
+	}
+
+	public void setOrderTypes(OrderTypes orderTypes) {
+		this.orderTypes = orderTypes;
 	}
 
 	@Column(name = "ORDER_STATUS", length = 300)
@@ -115,15 +145,6 @@ public class Orders implements java.io.Serializable {
 		this.createdDate = createdDate;
 	}
 
-	@Column(name = "CREATED_BY")
-	public Long getCreatedBy() {
-		return this.createdBy;
-	}
-
-	public void setCreatedBy(Long createdBy) {
-		this.createdBy = createdBy;
-	}
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "UPDATED_DATE", length = 19)
 	public Date getUpdatedDate() {
@@ -134,13 +155,13 @@ public class Orders implements java.io.Serializable {
 		this.updatedDate = updatedDate;
 	}
 
-	@Column(name = "UPDATED_BY")
-	public Long getUpdatedBy() {
-		return this.updatedBy;
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "orders")
+	public OrderReference getOrderReference() {
+		return this.orderReference;
 	}
 
-	public void setUpdatedBy(Long updatedBy) {
-		this.updatedBy = updatedBy;
+	public void setOrderReference(OrderReference orderReference) {
+		this.orderReference = orderReference;
 	}
 
 }
