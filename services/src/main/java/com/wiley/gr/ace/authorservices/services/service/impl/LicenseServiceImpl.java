@@ -489,8 +489,9 @@ public class LicenseServiceImpl implements LicenseService {
         WALSRequest walsRequest = new WALSRequest();
         walsRequest
                 .setDhId(String.valueOf(dhId));
+        Date timestamp=new Date();
         walsRequest
-                .setRequestCreatedTimestamp(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").toString());
+                .setRequestCreatedTimestamp(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(timestamp).toString());
         viewLicenseAgreement.setGetLicenseCopyRequest(walsRequest);
         headers.setContentType(MediaType.parseMediaType("application/pdf"));
         headers.setContentDispositionFormData(
