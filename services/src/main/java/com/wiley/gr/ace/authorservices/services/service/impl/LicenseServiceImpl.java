@@ -478,20 +478,15 @@ public class LicenseServiceImpl implements LicenseService {
     @Override
     public ResponseEntity<byte[]> viewLicenseAgreement(Integer dhId)
             throws Exception {
-        ViewLicenseAgreement viewLicenseAgreement = null;
-
+        ViewLicenseAgreement viewLicenseAgreement = new ViewLicenseAgreement();
         ResponseEntity<byte[]> response = null;
-        viewLicenseAgreement = new ViewLicenseAgreement();
-
         HttpHeaders headers = new HttpHeaders();
         byte[] contents = null;
-
         WALSRequest walsRequest = new WALSRequest();
-        walsRequest
-                .setDhId(String.valueOf(dhId));
-        Date timestamp=new Date();
-        walsRequest
-                .setRequestCreatedTimestamp(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(timestamp).toString());
+        walsRequest.setDhId(String.valueOf(dhId));
+        Date timestamp = new Date();
+        walsRequest.setRequestCreatedTimestamp(new SimpleDateFormat(
+                "yyyy-MM-dd'T'HH:mm:ss").format(timestamp).toString());
         viewLicenseAgreement.setGetLicenseCopyRequest(walsRequest);
         headers.setContentType(MediaType.parseMediaType("application/pdf"));
         headers.setContentDispositionFormData(
