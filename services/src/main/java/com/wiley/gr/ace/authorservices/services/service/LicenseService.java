@@ -17,6 +17,8 @@ package com.wiley.gr.ace.authorservices.services.service;
 import java.io.File;
 import java.util.ArrayList;
 
+import org.springframework.http.ResponseEntity;
+
 import com.wiley.gr.ace.authorservices.model.LicenseObject;
 import com.wiley.gr.ace.authorservices.model.TrackLicense;
 import com.wiley.gr.ace.authorservices.model.external.LicenseChoiceRequest;
@@ -106,4 +108,6 @@ public interface LicenseService {
     LicenseObject initiateLicence(String userId,String articleId,String articleType);
 
  
+    ResponseEntity<byte[]> viewLicenseAgreement(Integer dhId)
+            throws Exception;
 }

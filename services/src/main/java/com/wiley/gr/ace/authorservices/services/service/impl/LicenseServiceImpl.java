@@ -19,6 +19,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,10 +31,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.LicenseException;
 import com.wiley.gr.ace.authorservices.externalservices.service.LicenseInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.TaskService;
@@ -52,6 +59,8 @@ import com.wiley.gr.ace.authorservices.model.external.LicenseChoiceRequest;
 import com.wiley.gr.ace.authorservices.model.external.LicenseTypesPresented;
 import com.wiley.gr.ace.authorservices.model.external.ProgramData;
 import com.wiley.gr.ace.authorservices.model.external.SignLicenseRequest;
+import com.wiley.gr.ace.authorservices.model.external.ViewLicenseAgreement;
+import com.wiley.gr.ace.authorservices.model.external.WALSRequest;
 import com.wiley.gr.ace.authorservices.persistence.entity.LicenseUploadDetails;
 import com.wiley.gr.ace.authorservices.persistence.entity.Products;
 import com.wiley.gr.ace.authorservices.persistence.entity.SavedLicenses;
@@ -466,4 +475,32 @@ public class LicenseServiceImpl implements LicenseService {
 
     }
 
+    @Override
+    public ResponseEntity<byte[]> viewLicenseAgreement(Integer dhId)
+            throws Exception {
+        ViewLicenseAgreement viewLicenseAgreement = null;
+
+        ResponseEntity<byte[]> response = null;
+        viewLicenseAgreement = new ViewLicenseAgreement();
+
+        HttpHeaders headers = new HttpHeaders();
+        byte[] contents = null;
+
+        WALSRequest walsRequest = new WALSRequest();
+        walsRequest
+                .setDhId(String.valueOf(dhId));
+        walsRequest
+                .setRequestCreatedTimestamp(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").toString());
+        viewLicenseAgreement.setGetLicenseCopyRequest(walsRequest);
+        headers.setContentType(MediaType.parseMediaType("application/pdf"));
+        headers.setContentDispositionFormData(
+                AuthorServicesConstants.LICENSE_PDF_NAME,
+                AuthorServicesConstants.LICENSE_PDF_NAME);
+        headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+        contents = licenseInterfaceService
+                .viewLicenseAgreement(viewLicenseAgreement);
+        response = new ResponseEntity<byte[]>(contents, headers, HttpStatus.OK);
+
+        return response;
+    }
 }

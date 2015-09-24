@@ -25,6 +25,7 @@ import com.wiley.gr.ace.authorservices.model.external.LicenseChoiceRequest;
 import com.wiley.gr.ace.authorservices.model.external.LicenseChoiceResponse;
 import com.wiley.gr.ace.authorservices.model.external.LicenseTextRequest;
 import com.wiley.gr.ace.authorservices.model.external.SignLicenseRequest;
+import com.wiley.gr.ace.authorservices.model.external.ViewLicenseAgreement;
 import com.wiley.gr.ace.authorservices.model.external.WALSRequest;
 import com.wiley.gr.ace.authorservices.model.external.WALSResponse;
 
@@ -41,7 +42,10 @@ public class LicenseInterfaceServiceImpl implements LicenseInterfaceService {
 
     @Value("${walsArticleDetails.url}")
     private String walsArticleDetails;
-    
+
+    @Value("${viewLicenseAgreement.url}")
+    private String viewLicenseAgreementUrl;
+
     /**
      * Gets the license choice.
      *
@@ -118,5 +122,13 @@ public class LicenseInterfaceServiceImpl implements LicenseInterfaceService {
     public GetArticleDetails getWalsArticleDetails(String articleId) {
         return (GetArticleDetails) StubInvokerUtil.invokeStub(
                 walsArticleDetails, HttpMethod.GET, GetArticleDetails.class);
+    }
+
+    @Override
+    public byte[] viewLicenseAgreement(
+            ViewLicenseAgreement viewLicenseAgreement) {
+
+        return (byte[]) StubInvokerUtil.getFile(viewLicenseAgreementUrl,
+                viewLicenseAgreement, byte[].class);
     }
 }

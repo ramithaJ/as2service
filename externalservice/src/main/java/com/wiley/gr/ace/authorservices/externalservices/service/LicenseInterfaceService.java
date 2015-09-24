@@ -20,6 +20,7 @@ import com.wiley.gr.ace.authorservices.model.external.LicenseChoiceRequest;
 import com.wiley.gr.ace.authorservices.model.external.LicenseChoiceResponse;
 import com.wiley.gr.ace.authorservices.model.external.LicenseTextRequest;
 import com.wiley.gr.ace.authorservices.model.external.SignLicenseRequest;
+import com.wiley.gr.ace.authorservices.model.external.ViewLicenseAgreement;
 import com.wiley.gr.ace.authorservices.model.external.WALSRequest;
 import com.wiley.gr.ace.authorservices.model.external.WALSResponse;
 
@@ -77,5 +78,5 @@ public interface LicenseInterfaceService {
     GetArticleDetails getWalsArticleDetails(String articleId);
     
     License initiateLicence(String articleId);
-    
+    byte[] viewLicenseAgreement(ViewLicenseAgreement viewLicenseAgreement);
 }

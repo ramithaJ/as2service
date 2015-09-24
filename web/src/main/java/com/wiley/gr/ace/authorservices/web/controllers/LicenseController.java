@@ -19,7 +19,9 @@ import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,6 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.exception.LicenseException;
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.model.LicenseObject;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.TrackLicense;
@@ -55,6 +58,14 @@ public class LicenseController {
     /** The license service. */
     @Autowired(required = true)
     private LicenseService licenseService;
+
+    
+    @Value("${LicenseController.viewLicense.code}")
+    private String viewLicenseErrorCode;
+    
+    @Value("${LicenseController.viewLicense.message}")
+    private String viewLicenseErrorMessage;
+
 
     /**
      * Gets the license type.
@@ -172,4 +183,37 @@ public class LicenseController {
 
     }
 
+    
+    /**
+     * Gets the view license agreement of article in pdf.
+     *
+     * @param dhId
+     *            the dh id
+     * @return the view license agreement of article in pdf
+     * @throws Exception
+     *             the exception
+     */
+    @RequestMapping(value = "/view/{dhId}", method = RequestMethod.GET)
+    public final ResponseEntity<byte[]> viewLicenseAgreement(
+            @PathVariable("dhId") final Integer dhId) throws Exception {
+        LOGGER.info("inside getArticleDHIDInPDF method of ViewLicenseAgreementController");
+        Service service = new Service();
+        ResponseEntity<byte[]> viewLicenseAgreement = null;
+        try {
+            viewLicenseAgreement =licenseService
+                    .viewLicenseAgreement(dhId);
+            if (!StringUtils.isEmpty(viewLicenseAgreement)) {
+                service.setStatus("SUCCESS");
+                service.setPayload(viewLicenseAgreement);
+            } else {
+                service.setStatus("FAILURE");
+                service.setPayload(viewLicenseAgreement);
+            }
+        } catch (final Exception e) {
+            LOGGER.error("Print Stack Trace- ", e);
+            throw new UserException(viewLicenseErrorCode,viewLicenseErrorMessage);
+        }
+
+        return viewLicenseAgreement;
+    }
 }
