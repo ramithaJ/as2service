@@ -1,11 +1,14 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Sep 22, 2015 4:46:21 PM by Hibernate Tools 4.0.0
+// Generated Sep 24, 2015 5:21:06 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -18,12 +21,12 @@ import javax.persistence.TemporalType;
 public class SubOwnershipTypes implements java.io.Serializable {
 
 	private String subTypeCd;
+	private OwnershipTypes ownershipTypes;
+	private Users usersByCreatedBy;
+	private Users usersByUpdatedBy;
 	private String subTypeName;
-	private String ownershipTypeCd;
 	private Date createdDate;
-	private Long createdBy;
 	private Date updatedDate;
-	private Long updatedBy;
 
 	public SubOwnershipTypes() {
 	}
@@ -32,16 +35,16 @@ public class SubOwnershipTypes implements java.io.Serializable {
 		this.subTypeCd = subTypeCd;
 	}
 
-	public SubOwnershipTypes(String subTypeCd, String subTypeName,
-			String ownershipTypeCd, Date createdDate, Long createdBy,
-			Date updatedDate, Long updatedBy) {
+	public SubOwnershipTypes(String subTypeCd, OwnershipTypes ownershipTypes,
+			Users usersByCreatedBy, Users usersByUpdatedBy, String subTypeName,
+			Date createdDate, Date updatedDate) {
 		this.subTypeCd = subTypeCd;
+		this.ownershipTypes = ownershipTypes;
+		this.usersByCreatedBy = usersByCreatedBy;
+		this.usersByUpdatedBy = usersByUpdatedBy;
 		this.subTypeName = subTypeName;
-		this.ownershipTypeCd = ownershipTypeCd;
 		this.createdDate = createdDate;
-		this.createdBy = createdBy;
 		this.updatedDate = updatedDate;
-		this.updatedBy = updatedBy;
 	}
 
 	@Id
@@ -54,6 +57,36 @@ public class SubOwnershipTypes implements java.io.Serializable {
 		this.subTypeCd = subTypeCd;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "OWNERSHIP_TYPE_CD")
+	public OwnershipTypes getOwnershipTypes() {
+		return this.ownershipTypes;
+	}
+
+	public void setOwnershipTypes(OwnershipTypes ownershipTypes) {
+		this.ownershipTypes = ownershipTypes;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CREATED_BY")
+	public Users getUsersByCreatedBy() {
+		return this.usersByCreatedBy;
+	}
+
+	public void setUsersByCreatedBy(Users usersByCreatedBy) {
+		this.usersByCreatedBy = usersByCreatedBy;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "UPDATED_BY")
+	public Users getUsersByUpdatedBy() {
+		return this.usersByUpdatedBy;
+	}
+
+	public void setUsersByUpdatedBy(Users usersByUpdatedBy) {
+		this.usersByUpdatedBy = usersByUpdatedBy;
+	}
+
 	@Column(name = "SUB_TYPE_NAME", length = 250)
 	public String getSubTypeName() {
 		return this.subTypeName;
@@ -61,15 +94,6 @@ public class SubOwnershipTypes implements java.io.Serializable {
 
 	public void setSubTypeName(String subTypeName) {
 		this.subTypeName = subTypeName;
-	}
-
-	@Column(name = "OWNERSHIP_TYPE_CD", length = 25)
-	public String getOwnershipTypeCd() {
-		return this.ownershipTypeCd;
-	}
-
-	public void setOwnershipTypeCd(String ownershipTypeCd) {
-		this.ownershipTypeCd = ownershipTypeCd;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -82,15 +106,6 @@ public class SubOwnershipTypes implements java.io.Serializable {
 		this.createdDate = createdDate;
 	}
 
-	@Column(name = "CREATED_BY")
-	public Long getCreatedBy() {
-		return this.createdBy;
-	}
-
-	public void setCreatedBy(Long createdBy) {
-		this.createdBy = createdBy;
-	}
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "UPDATED_DATE", length = 19)
 	public Date getUpdatedDate() {
@@ -99,15 +114,6 @@ public class SubOwnershipTypes implements java.io.Serializable {
 
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
-	}
-
-	@Column(name = "UPDATED_BY")
-	public Long getUpdatedBy() {
-		return this.updatedBy;
-	}
-
-	public void setUpdatedBy(Long updatedBy) {
-		this.updatedBy = updatedBy;
 	}
 
 }

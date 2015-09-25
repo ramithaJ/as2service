@@ -1,13 +1,19 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Sep 22, 2015 4:46:21 PM by Hibernate Tools 4.0.0
+// Generated Sep 24, 2015 5:21:06 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,26 +26,31 @@ import javax.persistence.TemporalType;
 public class SavedLicenses implements java.io.Serializable {
 
 	private Long licenseId;
-	private Long userId;
-	private Long dhId;
-	private byte[] licenseObject;
+	private Users usersByCreatedBy;
+	private Users usersByUpdatedBy;
+	private Products products;
+	private Users usersByUserId;
+	private String licenseObject;
 	private Date createdDate;
-	private Long createdBy;
 	private Date updatedDate;
-	private Long updatedBy;
+	private Set<LicenseUploadDetails> licenseUploadDetailses = new HashSet<LicenseUploadDetails>(
+			0);
 
 	public SavedLicenses() {
 	}
 
-	public SavedLicenses(Long userId, Long dhId, byte[] licenseObject,
-			Date createdDate, Long createdBy, Date updatedDate, Long updatedBy) {
-		this.userId = userId;
-		this.dhId = dhId;
+	public SavedLicenses(Users usersByCreatedBy, Users usersByUpdatedBy,
+			Products products, Users usersByUserId, String licenseObject,
+			Date createdDate, Date updatedDate,
+			Set<LicenseUploadDetails> licenseUploadDetailses) {
+		this.usersByCreatedBy = usersByCreatedBy;
+		this.usersByUpdatedBy = usersByUpdatedBy;
+		this.products = products;
+		this.usersByUserId = usersByUserId;
 		this.licenseObject = licenseObject;
 		this.createdDate = createdDate;
-		this.createdBy = createdBy;
 		this.updatedDate = updatedDate;
-		this.updatedBy = updatedBy;
+		this.licenseUploadDetailses = licenseUploadDetailses;
 	}
 
 	@Id
@@ -53,30 +64,52 @@ public class SavedLicenses implements java.io.Serializable {
 		this.licenseId = licenseId;
 	}
 
-	@Column(name = "USER_ID")
-	public Long getUserId() {
-		return this.userId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CREATED_BY")
+	public Users getUsersByCreatedBy() {
+		return this.usersByCreatedBy;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setUsersByCreatedBy(Users usersByCreatedBy) {
+		this.usersByCreatedBy = usersByCreatedBy;
 	}
 
-	@Column(name = "DH_ID")
-	public Long getDhId() {
-		return this.dhId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "UPDATED_BY")
+	public Users getUsersByUpdatedBy() {
+		return this.usersByUpdatedBy;
 	}
 
-	public void setDhId(Long dhId) {
-		this.dhId = dhId;
+	public void setUsersByUpdatedBy(Users usersByUpdatedBy) {
+		this.usersByUpdatedBy = usersByUpdatedBy;
 	}
 
-	@Column(name = "LICENSE_OBJECT")
-	public byte[] getLicenseObject() {
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "DH_ID")
+	public Products getProducts() {
+		return this.products;
+	}
+
+	public void setProducts(Products products) {
+		this.products = products;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "USER_ID")
+	public Users getUsersByUserId() {
+		return this.usersByUserId;
+	}
+
+	public void setUsersByUserId(Users usersByUserId) {
+		this.usersByUserId = usersByUserId;
+	}
+
+	@Column(name = "LICENSE_OBJECT", length = 65535)
+	public String getLicenseObject() {
 		return this.licenseObject;
 	}
 
-	public void setLicenseObject(byte[] licenseObject) {
+	public void setLicenseObject(String licenseObject) {
 		this.licenseObject = licenseObject;
 	}
 
@@ -90,15 +123,6 @@ public class SavedLicenses implements java.io.Serializable {
 		this.createdDate = createdDate;
 	}
 
-	@Column(name = "CREATED_BY")
-	public Long getCreatedBy() {
-		return this.createdBy;
-	}
-
-	public void setCreatedBy(Long createdBy) {
-		this.createdBy = createdBy;
-	}
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "UPDATED_DATE", length = 19)
 	public Date getUpdatedDate() {
@@ -109,13 +133,14 @@ public class SavedLicenses implements java.io.Serializable {
 		this.updatedDate = updatedDate;
 	}
 
-	@Column(name = "UPDATED_BY")
-	public Long getUpdatedBy() {
-		return this.updatedBy;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "savedLicenses")
+	public Set<LicenseUploadDetails> getLicenseUploadDetailses() {
+		return this.licenseUploadDetailses;
 	}
 
-	public void setUpdatedBy(Long updatedBy) {
-		this.updatedBy = updatedBy;
+	public void setLicenseUploadDetailses(
+			Set<LicenseUploadDetails> licenseUploadDetailses) {
+		this.licenseUploadDetailses = licenseUploadDetailses;
 	}
 
 }

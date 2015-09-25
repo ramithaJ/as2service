@@ -1,13 +1,16 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Sep 22, 2015 4:46:21 PM by Hibernate Tools 4.0.0
+// Generated Sep 24, 2015 5:21:06 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,27 +24,28 @@ import javax.persistence.UniqueConstraint;
 public class CoauthorRequestsOoorders implements java.io.Serializable {
 
 	private Long requestId;
-	private Long coauthUserId;
-	private Long dhId;
+	private Users usersByCreatedBy;
+	private Users usersByCoauthUserId;
+	private Users usersByUpdatedBy;
+	private Products products;
 	private String messageFromCoauth;
 	private Date createdDate;
-	private Long createdBy;
 	private Date updatedDate;
-	private Long updatedBy;
 
 	public CoauthorRequestsOoorders() {
 	}
 
-	public CoauthorRequestsOoorders(Long coauthUserId, Long dhId,
-			String messageFromCoauth, Date createdDate, Long createdBy,
-			Date updatedDate, Long updatedBy) {
-		this.coauthUserId = coauthUserId;
-		this.dhId = dhId;
+	public CoauthorRequestsOoorders(Users usersByCreatedBy,
+			Users usersByCoauthUserId, Users usersByUpdatedBy,
+			Products products, String messageFromCoauth, Date createdDate,
+			Date updatedDate) {
+		this.usersByCreatedBy = usersByCreatedBy;
+		this.usersByCoauthUserId = usersByCoauthUserId;
+		this.usersByUpdatedBy = usersByUpdatedBy;
+		this.products = products;
 		this.messageFromCoauth = messageFromCoauth;
 		this.createdDate = createdDate;
-		this.createdBy = createdBy;
 		this.updatedDate = updatedDate;
-		this.updatedBy = updatedBy;
 	}
 
 	@Id
@@ -55,22 +59,44 @@ public class CoauthorRequestsOoorders implements java.io.Serializable {
 		this.requestId = requestId;
 	}
 
-	@Column(name = "COAUTH_USER_ID")
-	public Long getCoauthUserId() {
-		return this.coauthUserId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CREATED_BY")
+	public Users getUsersByCreatedBy() {
+		return this.usersByCreatedBy;
 	}
 
-	public void setCoauthUserId(Long coauthUserId) {
-		this.coauthUserId = coauthUserId;
+	public void setUsersByCreatedBy(Users usersByCreatedBy) {
+		this.usersByCreatedBy = usersByCreatedBy;
 	}
 
-	@Column(name = "DH_ID", unique = true)
-	public Long getDhId() {
-		return this.dhId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "COAUTH_USER_ID")
+	public Users getUsersByCoauthUserId() {
+		return this.usersByCoauthUserId;
 	}
 
-	public void setDhId(Long dhId) {
-		this.dhId = dhId;
+	public void setUsersByCoauthUserId(Users usersByCoauthUserId) {
+		this.usersByCoauthUserId = usersByCoauthUserId;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "UPDATED_BY")
+	public Users getUsersByUpdatedBy() {
+		return this.usersByUpdatedBy;
+	}
+
+	public void setUsersByUpdatedBy(Users usersByUpdatedBy) {
+		this.usersByUpdatedBy = usersByUpdatedBy;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "DH_ID", unique = true)
+	public Products getProducts() {
+		return this.products;
+	}
+
+	public void setProducts(Products products) {
+		this.products = products;
 	}
 
 	@Column(name = "MESSAGE_FROM_COAUTH", length = 1000)
@@ -92,15 +118,6 @@ public class CoauthorRequestsOoorders implements java.io.Serializable {
 		this.createdDate = createdDate;
 	}
 
-	@Column(name = "CREATED_BY")
-	public Long getCreatedBy() {
-		return this.createdBy;
-	}
-
-	public void setCreatedBy(Long createdBy) {
-		this.createdBy = createdBy;
-	}
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "UPDATED_DATE", length = 19)
 	public Date getUpdatedDate() {
@@ -109,15 +126,6 @@ public class CoauthorRequestsOoorders implements java.io.Serializable {
 
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
-	}
-
-	@Column(name = "UPDATED_BY")
-	public Long getUpdatedBy() {
-		return this.updatedBy;
-	}
-
-	public void setUpdatedBy(Long updatedBy) {
-		this.updatedBy = updatedBy;
 	}
 
 }

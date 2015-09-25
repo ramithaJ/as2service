@@ -1,11 +1,17 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Sep 22, 2015 4:46:21 PM by Hibernate Tools 4.0.0
+// Generated Sep 24, 2015 5:21:06 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -18,12 +24,14 @@ import javax.persistence.TemporalType;
 public class LicenseRejectionReasons implements java.io.Serializable {
 
 	private String reasonCd;
+	private Users usersByCreatedBy;
+	private Users usersByUpdatedBy;
 	private String reasonText;
 	private String reasonDescription;
 	private Date createdDate;
-	private Long createdBy;
 	private Date updatedDate;
-	private Long updatedBy;
+	private Set<RejectedLicenseDetails> rejectedLicenseDetailses = new HashSet<RejectedLicenseDetails>(
+			0);
 
 	public LicenseRejectionReasons() {
 	}
@@ -32,16 +40,18 @@ public class LicenseRejectionReasons implements java.io.Serializable {
 		this.reasonCd = reasonCd;
 	}
 
-	public LicenseRejectionReasons(String reasonCd, String reasonText,
-			String reasonDescription, Date createdDate, Long createdBy,
-			Date updatedDate, Long updatedBy) {
+	public LicenseRejectionReasons(String reasonCd, Users usersByCreatedBy,
+			Users usersByUpdatedBy, String reasonText,
+			String reasonDescription, Date createdDate, Date updatedDate,
+			Set<RejectedLicenseDetails> rejectedLicenseDetailses) {
 		this.reasonCd = reasonCd;
+		this.usersByCreatedBy = usersByCreatedBy;
+		this.usersByUpdatedBy = usersByUpdatedBy;
 		this.reasonText = reasonText;
 		this.reasonDescription = reasonDescription;
 		this.createdDate = createdDate;
-		this.createdBy = createdBy;
 		this.updatedDate = updatedDate;
-		this.updatedBy = updatedBy;
+		this.rejectedLicenseDetailses = rejectedLicenseDetailses;
 	}
 
 	@Id
@@ -52,6 +62,26 @@ public class LicenseRejectionReasons implements java.io.Serializable {
 
 	public void setReasonCd(String reasonCd) {
 		this.reasonCd = reasonCd;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CREATED_BY")
+	public Users getUsersByCreatedBy() {
+		return this.usersByCreatedBy;
+	}
+
+	public void setUsersByCreatedBy(Users usersByCreatedBy) {
+		this.usersByCreatedBy = usersByCreatedBy;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "UPDATED_BY")
+	public Users getUsersByUpdatedBy() {
+		return this.usersByUpdatedBy;
+	}
+
+	public void setUsersByUpdatedBy(Users usersByUpdatedBy) {
+		this.usersByUpdatedBy = usersByUpdatedBy;
 	}
 
 	@Column(name = "REASON_TEXT", length = 100)
@@ -82,15 +112,6 @@ public class LicenseRejectionReasons implements java.io.Serializable {
 		this.createdDate = createdDate;
 	}
 
-	@Column(name = "CREATED_BY")
-	public Long getCreatedBy() {
-		return this.createdBy;
-	}
-
-	public void setCreatedBy(Long createdBy) {
-		this.createdBy = createdBy;
-	}
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "UPDATED_DATE", length = 19)
 	public Date getUpdatedDate() {
@@ -101,13 +122,14 @@ public class LicenseRejectionReasons implements java.io.Serializable {
 		this.updatedDate = updatedDate;
 	}
 
-	@Column(name = "UPDATED_BY")
-	public Long getUpdatedBy() {
-		return this.updatedBy;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "licenseRejectionReasons")
+	public Set<RejectedLicenseDetails> getRejectedLicenseDetailses() {
+		return this.rejectedLicenseDetailses;
 	}
 
-	public void setUpdatedBy(Long updatedBy) {
-		this.updatedBy = updatedBy;
+	public void setRejectedLicenseDetailses(
+			Set<RejectedLicenseDetails> rejectedLicenseDetailses) {
+		this.rejectedLicenseDetailses = rejectedLicenseDetailses;
 	}
 
 }

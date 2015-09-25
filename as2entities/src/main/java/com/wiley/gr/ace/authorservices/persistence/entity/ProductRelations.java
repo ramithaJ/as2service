@@ -1,11 +1,16 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Sep 22, 2015 4:46:21 PM by Hibernate Tools 4.0.0
+// Generated Sep 24, 2015 5:21:06 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -17,59 +22,89 @@ import javax.persistence.TemporalType;
 @Table(name = "product_relations", catalog = "as2_app_db")
 public class ProductRelations implements java.io.Serializable {
 
-	private String productRoleCd;
-	private String productRoleName;
-	private String description;
+	private Long dhRelId;
+	private Products productsByChildDhId;
+	private Users usersByCreatedBy;
+	private Users usersByUpdatedBy;
+	private Products productsByParentDhId;
+	private String dhTypeRelCd;
 	private Date createdDate;
-	private Long createdBy;
 	private Date updatedDate;
-	private Long updatedBy;
 
 	public ProductRelations() {
 	}
 
-	public ProductRelations(String productRoleCd) {
-		this.productRoleCd = productRoleCd;
-	}
-
-	public ProductRelations(String productRoleCd, String productRoleName,
-			String description, Date createdDate, Long createdBy,
-			Date updatedDate, Long updatedBy) {
-		this.productRoleCd = productRoleCd;
-		this.productRoleName = productRoleName;
-		this.description = description;
+	public ProductRelations(Products productsByChildDhId,
+			Users usersByCreatedBy, Users usersByUpdatedBy,
+			Products productsByParentDhId, String dhTypeRelCd,
+			Date createdDate, Date updatedDate) {
+		this.productsByChildDhId = productsByChildDhId;
+		this.usersByCreatedBy = usersByCreatedBy;
+		this.usersByUpdatedBy = usersByUpdatedBy;
+		this.productsByParentDhId = productsByParentDhId;
+		this.dhTypeRelCd = dhTypeRelCd;
 		this.createdDate = createdDate;
-		this.createdBy = createdBy;
 		this.updatedDate = updatedDate;
-		this.updatedBy = updatedBy;
 	}
 
 	@Id
-	@Column(name = "PRODUCT_ROLE_CD", unique = true, nullable = false, length = 15)
-	public String getProductRoleCd() {
-		return this.productRoleCd;
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "DH_REL_ID", unique = true, nullable = false)
+	public Long getDhRelId() {
+		return this.dhRelId;
 	}
 
-	public void setProductRoleCd(String productRoleCd) {
-		this.productRoleCd = productRoleCd;
+	public void setDhRelId(Long dhRelId) {
+		this.dhRelId = dhRelId;
 	}
 
-	@Column(name = "PRODUCT_ROLE_NAME", length = 100)
-	public String getProductRoleName() {
-		return this.productRoleName;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CHILD_DH_ID")
+	public Products getProductsByChildDhId() {
+		return this.productsByChildDhId;
 	}
 
-	public void setProductRoleName(String productRoleName) {
-		this.productRoleName = productRoleName;
+	public void setProductsByChildDhId(Products productsByChildDhId) {
+		this.productsByChildDhId = productsByChildDhId;
 	}
 
-	@Column(name = "DESCRIPTION", length = 250)
-	public String getDescription() {
-		return this.description;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CREATED_BY")
+	public Users getUsersByCreatedBy() {
+		return this.usersByCreatedBy;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setUsersByCreatedBy(Users usersByCreatedBy) {
+		this.usersByCreatedBy = usersByCreatedBy;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "UPDATED_BY")
+	public Users getUsersByUpdatedBy() {
+		return this.usersByUpdatedBy;
+	}
+
+	public void setUsersByUpdatedBy(Users usersByUpdatedBy) {
+		this.usersByUpdatedBy = usersByUpdatedBy;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "PARENT_DH_ID")
+	public Products getProductsByParentDhId() {
+		return this.productsByParentDhId;
+	}
+
+	public void setProductsByParentDhId(Products productsByParentDhId) {
+		this.productsByParentDhId = productsByParentDhId;
+	}
+
+	@Column(name = "DH_TYPE_REL_CD", length = 15)
+	public String getDhTypeRelCd() {
+		return this.dhTypeRelCd;
+	}
+
+	public void setDhTypeRelCd(String dhTypeRelCd) {
+		this.dhTypeRelCd = dhTypeRelCd;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -82,15 +117,6 @@ public class ProductRelations implements java.io.Serializable {
 		this.createdDate = createdDate;
 	}
 
-	@Column(name = "CREATED_BY")
-	public Long getCreatedBy() {
-		return this.createdBy;
-	}
-
-	public void setCreatedBy(Long createdBy) {
-		this.createdBy = createdBy;
-	}
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "UPDATED_DATE", length = 19)
 	public Date getUpdatedDate() {
@@ -99,15 +125,6 @@ public class ProductRelations implements java.io.Serializable {
 
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
-	}
-
-	@Column(name = "UPDATED_BY")
-	public Long getUpdatedBy() {
-		return this.updatedBy;
-	}
-
-	public void setUpdatedBy(Long updatedBy) {
-		this.updatedBy = updatedBy;
 	}
 
 }

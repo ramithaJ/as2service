@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Sep 22, 2015 4:46:21 PM by Hibernate Tools 4.0.0
+// Generated Sep 24, 2015 5:21:06 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import java.util.HashSet;
@@ -9,6 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -22,11 +24,11 @@ import javax.persistence.TemporalType;
 public class JournalSetupStates implements java.io.Serializable {
 
 	private String setupStateCd;
+	private Users usersByCreatedBy;
+	private Users usersByUpdatedBy;
 	private String setupStateName;
 	private Date createdDate;
-	private Long createdBy;
 	private Date updatedDate;
-	private Long updatedBy;
 	private Set<JournalConfiguration> journalConfigurations = new HashSet<JournalConfiguration>(
 			0);
 
@@ -37,15 +39,15 @@ public class JournalSetupStates implements java.io.Serializable {
 		this.setupStateCd = setupStateCd;
 	}
 
-	public JournalSetupStates(String setupStateCd, String setupStateName,
-			Date createdDate, Long createdBy, Date updatedDate, Long updatedBy,
-			Set<JournalConfiguration> journalConfigurations) {
+	public JournalSetupStates(String setupStateCd, Users usersByCreatedBy,
+			Users usersByUpdatedBy, String setupStateName, Date createdDate,
+			Date updatedDate, Set<JournalConfiguration> journalConfigurations) {
 		this.setupStateCd = setupStateCd;
+		this.usersByCreatedBy = usersByCreatedBy;
+		this.usersByUpdatedBy = usersByUpdatedBy;
 		this.setupStateName = setupStateName;
 		this.createdDate = createdDate;
-		this.createdBy = createdBy;
 		this.updatedDate = updatedDate;
-		this.updatedBy = updatedBy;
 		this.journalConfigurations = journalConfigurations;
 	}
 
@@ -57,6 +59,26 @@ public class JournalSetupStates implements java.io.Serializable {
 
 	public void setSetupStateCd(String setupStateCd) {
 		this.setupStateCd = setupStateCd;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CREATED_BY")
+	public Users getUsersByCreatedBy() {
+		return this.usersByCreatedBy;
+	}
+
+	public void setUsersByCreatedBy(Users usersByCreatedBy) {
+		this.usersByCreatedBy = usersByCreatedBy;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "UPDATED_BY")
+	public Users getUsersByUpdatedBy() {
+		return this.usersByUpdatedBy;
+	}
+
+	public void setUsersByUpdatedBy(Users usersByUpdatedBy) {
+		this.usersByUpdatedBy = usersByUpdatedBy;
 	}
 
 	@Column(name = "SETUP_STATE_NAME", length = 250)
@@ -78,15 +100,6 @@ public class JournalSetupStates implements java.io.Serializable {
 		this.createdDate = createdDate;
 	}
 
-	@Column(name = "CREATED_BY")
-	public Long getCreatedBy() {
-		return this.createdBy;
-	}
-
-	public void setCreatedBy(Long createdBy) {
-		this.createdBy = createdBy;
-	}
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "UPDATED_DATE", length = 19)
 	public Date getUpdatedDate() {
@@ -95,15 +108,6 @@ public class JournalSetupStates implements java.io.Serializable {
 
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
-	}
-
-	@Column(name = "UPDATED_BY")
-	public Long getUpdatedBy() {
-		return this.updatedBy;
-	}
-
-	public void setUpdatedBy(Long updatedBy) {
-		this.updatedBy = updatedBy;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "journalSetupStates")
