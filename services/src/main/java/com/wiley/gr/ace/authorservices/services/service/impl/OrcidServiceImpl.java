@@ -23,6 +23,7 @@ import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.OrcidInterfaceService;
 import com.wiley.gr.ace.authorservices.model.Address;
@@ -142,6 +143,7 @@ public class OrcidServiceImpl implements OrcidService {
         LOGGER.info("orcidProfile ##### ", orcidProfile);
         if (null != orcidProfile) {
             LOGGER.error("Orcid Message found");
+            parseOrcidIdentifier(orcidProfile, user);
             JSONObject orcidBioJSON = (JSONObject) new JSONParser()
                     .parse(orcidProfile.toJSONString());
             JSONObject orcidBio = (JSONObject) orcidBioJSON.get("orcid-bio");
@@ -154,6 +156,31 @@ public class OrcidServiceImpl implements OrcidService {
             }
         }
 
+    }
+
+    /**
+     * Parses the orcid identifier.
+     *
+     * @param orcidProfile
+     *            the orcid profile
+     * @param user
+     *            the user
+     * @throws Exception
+     *             the exception
+     */
+    private void parseOrcidIdentifier(final JSONObject orcidProfile,
+            final User user) throws Exception {
+        JSONObject orcidIdentifierJSON = (JSONObject) new JSONParser()
+                .parse(orcidProfile.toJSONString());
+        JSONObject orcidIdentifier = (JSONObject) orcidIdentifierJSON
+                .get("orcid-identifier");
+        LOGGER.info("orcidIdentifier ##### ", orcidIdentifier);
+        if (!StringUtils.isEmpty(orcidIdentifier)) {
+            LOGGER.info("orcidId Found ##### ", orcidIdentifier);
+            JSONObject orcidIdentifierValueJSON = (JSONObject) new JSONParser()
+                    .parse(orcidIdentifier.toJSONString());
+            user.setOrcidId((String) orcidIdentifierValueJSON.get("path"));
+        }
     }
 
     /**
@@ -233,7 +260,6 @@ public class OrcidServiceImpl implements OrcidService {
                     if (isPrimary) {
                         user.setPrimaryEmailAddr((String) emailJSON
                                 .get("value"));
-                        user.setOrcidId((String) emailJSON.get("source"));
                     }
                 }
             }
