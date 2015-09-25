@@ -54,7 +54,7 @@ public class LicenseDAOImpl implements LicenseDAO {
             session.beginTransaction();
             session.save(savedLicenses);
             session.getTransaction().commit();
-            licenseId = savedLicenses.getLicenseId();
+            licenseId = savedLicenses.getLicenseId().intValue();
         } catch (final Exception e) {
             LOGGER.error("Print Stack Trace- ", e);
             if (null != session) {

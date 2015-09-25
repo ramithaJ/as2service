@@ -135,7 +135,7 @@ public class AuditResultServiceImpl implements AuditResultService {
         auditMap.add(hashMap);
 
         Users users = new Users();
-        users.setUserId(auditInformation.getUserId());
+        users.setUserId(new Long(auditInformation.getUserId()));
 
         AuditResultServiceImpl auditResultServiceImpl = new AuditResultServiceImpl();
         auditResultServiceImpl.userAudit(auditMap, users);

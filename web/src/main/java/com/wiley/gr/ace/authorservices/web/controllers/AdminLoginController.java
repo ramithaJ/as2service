@@ -121,7 +121,7 @@ public class AdminLoginController extends ASExceptionController {
                 return null;
             }
             UserLogin userLogin = new UserLogin();
-            userLogin.setUserId(users.getUserId());
+            userLogin.setUserId(users.getUserId().intValue());
             userLogin.setFirstName(users.getFirstName());
             userLogin.setLastName(users.getLastName());
             service.setPayload(userLogin);

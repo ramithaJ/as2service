@@ -46,15 +46,10 @@ public class AuthorProfileDaoImpl implements AuthorProfileDao {
             session.beginTransaction();
             UserProfile userProfile = (UserProfile) session.get(
                     UserProfile.class, Integer.valueOf(userId));
-            Blob blob = new javax.sql.rowset.serial.SerialBlob(image);
-            userProfile.setProfilePic(blob);
+            userProfile.setProfilePic(image);
             session.save(userProfile);
             session.getTransaction().commit();
 
-        } catch (SerialException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
         } finally {
             if (session != null) {
                 session.flush();
