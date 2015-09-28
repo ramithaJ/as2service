@@ -13,7 +13,6 @@
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
 import java.io.File;
-import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -1053,9 +1052,9 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         userProfile = authorProfileDao.getProfilePicture(userId);
 
         try {
-            Blob image = userProfile.getProfilePic();
-            int blobLength = (int) image.length();
-            imageAsBytes = image.getBytes(1, blobLength);
+//            Blob image = userProfile.getProfilePic();
+//            int blobLength = (int) image.length();
+//            imageAsBytes = image.getBytes(1, blobLength);
             // FileOutputStream fos = new FileOutputStream(
             // "C:\\Users\\ravisinha\\Desktop\\Retrive4.jpg");
             // fos.write(imageAsBytes);

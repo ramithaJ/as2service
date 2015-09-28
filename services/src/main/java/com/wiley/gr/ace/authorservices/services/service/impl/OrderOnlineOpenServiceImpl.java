@@ -458,8 +458,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         }
         // Calling PdhLookUpJornal service with jornalDhId
         PdhJournalResponse pdhLookup = orderservice
-                .pdhLookUpJournal(productRelations.getProductsByParentDhId()
-                        .getDhId());
+                .pdhLookUpJournal(Integer.parseInt(String.valueOf(productRelations.getProductsByParentDhId()
+                        .getDhId())));
         // UI OnLoad object for OrderOnlineOpen order.
         QuoteDetails quoteDetails = null;
         // check article is onlineOpen article or not.
@@ -494,8 +494,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                 // calling PdhLookupArticle service with article DhId for
                 // article title.
                 PdhArticleResponse pdhArticleResponse = orderservice
-                        .pdhLookUpArticle(productPersonRelations.getProducts()
-                                .getDhId());
+                        .pdhLookUpArticle(Integer.parseInt(String.valueOf(productPersonRelations.getProducts()
+                                .getDhId())));
                 // Article details (ArticleId and Article title)
                 ArticleDetails articleDetails = new ArticleDetails();
                 articleDetails.setArticleId(articleId);
@@ -623,7 +623,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         orders.setProducts(products);
         // orders.setDownstreamappOrderId(Integer.parseInt(orderResponse.getOoUniqueId()));
         Users users = new Users();
-        users.setUserId(Integer.parseInt(userId));
+        users.setUserId(Long.valueOf(userId));
         orders.setUsersByCreatedBy(users);
         orders.setUsersByUserId(users);
         orders.setCreatedDate(new Date());
@@ -653,7 +653,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
         if (onlineOpenOrder != null) {
             ArticleData articleData = new ArticleData();
-            articleData.setDhId(savedOrder.getProducts().getDhId().toString());
+            articleData.setDhId(String.valueOf(savedOrder.getProducts().getDhId()));
             orderData.setArticle(articleData);
             AddressDetails address = onlineOpenOrder.getAddressDetails();
 
@@ -969,7 +969,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         savedOrders.setProducts(products);
 
         final Users users = new Users();
-        users.setUserId(Integer.parseInt(userId));
+        users.setUserId(Long.valueOf(userId));
         savedOrders.setUsersByUserId(users);
         savedOrders.setUsersByCreatedBy(users);
         savedOrders.setCreatedDate(new Date());
@@ -1526,8 +1526,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         RequestOnlineOpen requestOnlineOpen = new RequestOnlineOpen();
         CoauthorRequestsOoorders coauthorRequestsOoorders = orderOnlineDAO
                 .viewOnlineOpenRequest(userId, articleId);
-        requestOnlineOpen.setArticleId(coauthorRequestsOoorders.getProducts()
-                .getDhId().toString());
+        requestOnlineOpen.setArticleId(String.valueOf(coauthorRequestsOoorders.getProducts()
+                .getDhId()));
         requestOnlineOpen.setMessage(coauthorRequestsOoorders
                 .getMessageFromCoauth());
         PdhArticleResponse pdhArticleResponse = orderservice
@@ -1550,7 +1550,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         if (journalAllows) {
             CoauthorRequestsOoorders coauthorRequestsOoorders = new CoauthorRequestsOoorders();
             Users users = new Users();
-            users.setUserId(Integer.parseInt(requestOnlineOpen.getUserId()));
+            users.setUserId(Long.valueOf(requestOnlineOpen.getUserId()));
             Products products = new Products();
             products.setDhId(Integer.parseInt(requestOnlineOpen.getArticleId()));
             coauthorRequestsOoorders.setUsersByCoauthUserId(users);
