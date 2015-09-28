@@ -1,0 +1,458 @@
+AREA_OF_INTEREST_CD,INTEREST_NAME
+RELRS,Religious Studies
+RELS,Spirituality
+RELT,Theology
+PHIA,Aesthetics
+PHIAE,Applied Ethics
+PHIBME,Bioethics & Medical Ethics
+PHIHP,History of Philosophy
+PHIIP,Introductions to Philosophy
+PHIM,Metaphysics
+PHIPA,Philosophy of Art
+PHIPM,Philosophy of Mind
+PHIPR,Philosophy of Religion
+PHIPS,Philosophy of Science
+PHIPT,Philosophy of Technology
+PHIPEP,Political & Economic Philosophy
+PHISP,Social Philosophy
+PHIWP,World Philosophy
+COMAC,Applied Communication
+COMCRM,Communication Research Methods
+COMCS,Communication Studies
+COMCT,Communication Theory
+COMJ,Journalism
+COMMC,Mass Communication
+COMMS,Media Studies
+LINAL,Applied Linguistics
+LINEL,Educational Linguistics
+LINSLA,Second Language Acquisition
+LINS,Sociolinguistics
+LINTL,Theoretical Linguistics
+CLAACGHS,Ancient & Classical Greek & Hellenistic Studies
+CLAACL,Ancient & Classical Literature
+CLAAC,Ancient Culture
+CLAAES,Ancient Egyptian Studies
+CLAGRR,Greek & Roman Religion
+CLARAW,Reception of the Ancient World
+CLARS,Roman Studies
+HISAAH,Asian & Australasian History
+HISBH,British History
+HISEMH,Early Modern History (1500-1780)
+HISEH,European History
+HISHMH,Historical Methods & Historiography
+HISHR,History of Religion
+HISLACH,Latin American & Caribbean History
+HISP,Prehistory
+HISSCH,Social & Cultural History
+HISTCCH,Twentieth Century & Contemporary History
+HISUH,US History
+HISWH,World History
+CIVSCG,Soil Constructions and Geotechnics
+CULDCIA,Digital Culture & the Information Age
+PSYCACP,Child and Adolescent Clinical Psychology
+ELCCTD,Circuit Theory and Design
+ARCPA,Prehistoric Archaeology
+CONCHS,Construction Health and Safety
+CULRES,Race & Ethnicity Studies
+LITREL,Renaissance English Literature
+MEDSMO,Sports Medicine and Orthopedics
+VETVIM,Veterinary Internal Medicine
+ELCIST,Imaging Systems and Technology
+ELCPL,Photonics and Lasers
+ELCSIM,Sensors, Instrumentation and Measurement
+ELCSP,Signal Processing
+ELCSEM,Systems Engineering and Management
+ACCCE,CFA Exam
+ACCCER,CIA Exam Review
+ACCCFA,Corporate Finance and Accounting
+ACCCP,CPA Practice
+ACCG,GAAP
+ACCI,IFRS
+ACCPAC,Public Accounting and Consulting
+ACCT,Taxation
+LASLAN,Lasser Alert Newsletter
+AGRAERM,Agricultural Economics and Resource Management
+AGRAA,Animal Agriculture
+AQUA,Aquaculture
+AQUF,Fisheries
+ARTBD,Building Design
+ARTHP,Historic Preservation
+ARTID,Interior Design
+ARTLA,Landscape Architecture
+ARTP,Planning
+ARTUD,Urban Development
+SOCES,Environmental Sociology
+SOCGS,Gender & Sexuality
+SOCPS,Political Sociology
+SOCPD,Population & Demography
+SOCST,Social Theory
+SOCSC,Sociology of Culture
+SOCSE,Sociology of Economics
+SOCSG,Sociology of Globalization
+SOCSHI,Sociology of Health & Illness
+SOCSF,Sociology of the Family
+RELBS,Biblical Studies
+RELB,Buddhism
+RELC,Christianity
+RELCLML,Church Life, Ministry & Leadership
+RELCWR,Comparative & World Religions
+RELCRT,Contemporary Religious Thought
+RELCT,Contemporary Theology
+RELH,Hinduism
+RELI,Islam
+RELJ,Judaism
+RELMTCE,Moral Theology / Christian Ethics
+RELRICA,Religion, Issues & Current Affairs
+RELRE,Religious Ethics
+LIFAP,Anatomy and Physiology
+LIFCMB,Cell and Molecular Biology
+LIFCB,Comparative Biology
+LIFE,Entomology
+LIFEB,Evolutionary Biology
+LIFHG,Human Genetics
+LIFM,Microbiology
+LIFN,Neuroscience
+LIFV,Virology
+LIFZ,Zoology
+ALLCHG,Consumer Health General
+ALLHSC,Health & Social Care
+ALLHCA,Health Care Administration
+ALLND,Nutrition and Dietetics
+ALLOHS,Occupational Health and Safety
+ALLST,Speech Therapy
+NURACEC,Acute, Critical and Emergency Care
+NURGCN,General Clinical Nursing
+NURIN,Introduction to Nursing
+NURMHN,Mental Health Nursing
+NURM,Midwifery
+NURNN,Neonatal Nursing
+NURNP,Nurse Practitioners
+PUBPH,Public Health
+ARTAT,Architectural Theory
+MATCS,Computational Statistics
+MATDM,Data Mining
+MATM,Mathematics
+MATPMS,Probability and Mathematical Statistics
+MATRME,Research Methods and Evaluation
+MATS,Statistics
+MATSM,Survey Methodology
+ECNBCE,Business and Corporate Economics
+ECNE,Econometrics
+ECNED,Economic Development
+ECNEH,Economic History
+ECNET,Economic Theory
+ECNEHSC,Economics of Health & Social Care
+ECNFE,Financial Economics
+ECNLDE,Labor and Demographics Economics
+ECNPE,Political Economics
+ECNURRE,Urban, Rural, and Regional Economics
+ARTATE,Architecture Technology
+FINIBV,Investment Banking / Valuation
+ARTATH,Art Theory
+FINMB,Money & Banking
+FINRQF,Risk & Quantitative Finance
+FINSAF,Securities Analysis (including FINRA)
+FINT,Trading
+FINWM,Wealth Management
+HUMCS,Classical Studies
+HUMH,History
+CHECA,Catalysis
+CHECR,Crystallography
+HUMP,Philosophy
+HUMRT,Religion and Theology
+CHEINDC,Industrial Chemistry
+MATC,Composites
+MATEM,Electronic Materials
+MATMS,Materials Science
+MATNN,Nanotechnology and Nanomaterials
+MATPST,Polymer Science and Technology
+FAMFS,Family Studies
+CHEINOC,Inorganic Chemistry
+CIVST,Structures
+POLBP,British Politics
+POLCHR,Civil & Human Rights
+POLEP,European Politics
+POLGP,Global Politics
+POLIR,International Relations
+POLMPT,Modern Political Theory
+POLPS,Political Systems
+POLPPA,Public Policy & Administration
+SOCSP,Social Policy
+CIVSU,Surveying
+CIVTIC,Timber Construction
+DEVDE,Development & the Environment
+DEVDP,Development Policy
+DEVGD,Globalization & Development
+CIVTUC,Tunnel Construction
+CONCMAN,Construction Management
+DEVRS,Regional Studies
+GEOARG,Agricultural & Rural Geography
+CONCMAT,Construction Materials
+DEVPOD,Politics of Development
+GEOGG,Geography of Globalization
+GEOHG,Human Geography
+DEVPAD,Population & Development
+FININF,International Finance
+GEORG,Regional Geography
+GEOSCG,Social & Cultural Geography
+URBUD,Urban Development
+URBUG,Urban Geography
+URBUP,Urban Politics
+URBUS,Urban Sociology
+URBGIUS,General and Introductory Urban Studies
+ENEEEI,Energy & Environmental Impact
+ENEGIE,General and Introductory Energy
+ENERE,Renewable Energy
+ECOAE,Applied Ecology
+ECOB,Biodiversity
+ECOCS,Conservation Science
+ECOEOB,Ecology and Organismal Biology
+ECOE,Evolution
+ECOME,Molecular Ecology
+ANTATME,Anthropological Theory & Methods / Ethnography
+ANTBA,Biological Anthropology
+ANTLA,Linguistic Anthropology
+ANTMA,Medical Anthropology
+ANTSCA,Social & Cultural Anthropology
+ARCAMT,Archaeological Methods & Theory
+ARCAEE,Archaeology of Egypt / Egyptology
+ARCHA,Historical Archaeology
+ARCSA,Social Archaeology
+LIFPS,Plant Science
+CIVBMS,Building Maintenance and Services
+CIVE,Earthquake
+CIVEE,Environmental Engineering
+CIVFP,Fire Protection
+CIVHWE,Hydraulic and Water Engineering
+CIVMC,Masonry Construction
+CIVQSCE,Quantity Surveying and Construction Economics
+CIVSCBE,Steel Construction & Bridge Engineering
+CIVSBE,Structural and Building Engineering
+CIVSTSM,Structural Theory and Structural Mechanics
+FINISF,Islamic Finance
+GEOECG,Economic Geography
+CIVTE,Transportation Engineering
+GEOENG,Environmental Geography
+CIVWT,Waste Treatment
+CIVWR,Water Resources
+CONC,Construction
+CONCL,Construction Law
+GEOPHG,Physical Geography
+GEOPOG,Political Geography
+GRAGD,Graphic Design
+ARTAHC,Art History and Criticism
+HISMEH,Medieval History (500-1500)
+ARTCF,Clothing and Fashion
+ARTDHT,Design History & Theory
+ARTMHS,Museum and Heritage Studies
+ARTM,Music
+ARTPA,Performing Arts
+CULAS,American Studies
+CULFS,Film Studies
+CULGS,Gender Studies
+CULPC,Popular Culture
+HISMIH,Military History
+HISMOH,Modern History (1780-1900)
+HUMLN,Linguistics
+HUMLT,Literature
+LAWCIVL,Civil Law
+LITAL,American Literature
+LITCWL,Comparative & World Literature
+LAWCML,Commercial Law
+LITEL,European Literature
+LITLCT,Literary & Cultural Theory
+LITLCH,Literary Criticism & History
+LITOMMEL,Old, Middle & Medieval English Literature
+BUSBG,Boards and Governance
+BUSBE,Business Ethics
+BUSBSC,Business Self-Help and Careers
+BUSCR,Conflict Resolution
+BUSDS,Decision Sciences
+BUSHRM,Human Resource Management
+BUSML,Management and Leadership
+BUSMSOR,Management Science and Operational Research
+BUSMS,Marketing and Sales
+BUSNPM,Nonprofit and Public Management
+BUSOBD,Organizational Behavior and Development
+BUSRE,Real Estate
+LAWCPL,Company Law
+LAWCMPL,Competition Law
+LAWENL,Environmental Law
+LAWEUL,European Law
+LIFBA,Bacteriology
+LIFBC,Biochemistry
+LIFBT,Biotechnology
+LIFG,Genetics
+LIFGP,Genomics/Proteomics
+LINPN,Phonetics
+LINPH,Phonology
+LINPS,Psycholinguistics
+LITCEL16,16th Century English Literature
+LITCEL17,17th Century English Literature
+BUSSBE,Small Business and Entrepreneurship
+BUSS,Strategy
+BUSTHD,Training and HR Development
+BUSWC,Wiley CIO
+CAPCN,Capstone Newsletter
+LEAA,Assessments
+LEABAM,Books and Ancillary Materials
+LEAEW,Events and Workshops
+LEAN,Newsletter
+CHEAC,Analytical Chemistry
+CHEBB,Biochemistry (Chemical Biology)
+CHECE,Chemical Engineering
+CHECCMM,Computational Chemistry and Molecular Modeling
+CHEE,Electrochemistry
+CHEEC,Environmental Chemistry
+CHEM,Microscopy
+CHEOC,Organic Chemistry
+CHEPMC,Pharmaceutical and Medicinal Chemistry
+CHEPC,Physical Chemistry
+CHESS,Separation Science
+CHES,Spectroscopy
+CHESGC,Sustainable and Green Chemistry
+CHET,Toxicology
+BIOBE,Biomedical Engineering
+INDIE,Industrial Engineering
+MECAE,Aerospace Engineering
+MECCPM,Control Processes and Measurements
+MECD,Design
+MECFM,Fluid Mechanics
+MECSM,Solid Mechanics
+MECT,Thermodynamics
+COMA,Apple
+COMC,Certification
+COMG,Gadgets
+COMWGD,Web and Graphic Design
+COMWN,Wrox Newlsetter
+INFCS,Computer Science
+INFD,Data
+INFIS,IT Security
+INFNDA,Network Design and  Administration
+INFP,Programming
+HIGAR,Assessment and Research
+HIGDCI,Department Chair Insider
+HIGFD,Faculty Development
+HIGOTL,Online Teaching and Learning
+HIGSAD,Student Affairs and Development
+HIGSL,Student Leadership
+HIGTLC,Teaching, Learning, and Curriculum
+HIGTSLCC,The Student Leadership Challenge Community
+HIGWHEN,Women in Higher Education Newsletter
+PRIADE,Art and Design Education
+PRIECE,Early Childhood Education
+PRILT,Language Teaching
+PRILAN,Leadership and Administration Newsletter
+PRILD,Learning Disabilities
+PRILR,Literacy and Reading
+PRITLCN,Teach Like a Champion Newsletter
+PRITLK,Teaching and Learning: K-12
+FOOFC,Food Chemistry
+FOOFL,Food Legislation
+FOOFPPM,Food Processing, Production and Manufacture
+FOOFSOM,Food Service Operations and Management
+FOOMFSS,Microbiology, Food Safety and Security
+FOON,Nutrition
+DUMFDPO,For Dummies&reg Products & Offers
+LAWCP,Criminal Proceedings
+LAWC,Criminology
+LAWIL,International Law
+LAWNCR,Negotiation & Conflict Resolution
+LAWPPS,Penology and Police Science
+LAWPL,Public Law
+DEND,Dentistry
+DENOMS,Oral and Maxillofacial Surgery
+MEDACI,Allergy & Clinical Immunology
+MEDAPM,Anesthesia and Pain Management
+MEDCDC,Cardiovascular Disease and Cardiology
+MEDCMM,Cellular & Molecular Medicine
+MEDE,Endocrinology
+MEDGH,Gastroenterology and Hepatology
+MEDGIM,General Internal Medicine
+MEDGPFP,General Practice and Family Practice
+MEDGM,Geriatric Medicine
+MEDH,Hematology
+MEDI,Immunology (Medical)
+MEDIDM,Infectious Disease and Microbiology
+MEDOG,Obstetrics and Gynecology
+MEDOR,Oncology and Radiotherapy
+MEDO,Otolaryngology
+MEDPPM,Pharmacology and Pharmaceutical Medicine
+MEDRI,Radiology and Imaging
+MEDRM,Respiratory Medicine
+MEDR,Rheumatology
+MEDSSS,Surgery and Surgical Specialties
+MEDTBB,Transfusion and Blood Banking
+MEDT,Transplantation
+MEDU,Urology
+PHYAA,Astronomy and Astrophysics
+PHYAMOP,Atomic, Molecular and Optical Physics
+PHYGIP,General and Introductory Physics
+PHYQPFT,Quantum Physics and Field Theory
+PHYSSP,Solid State Physics
+PHYTPSM,Thermal Physics and Statistical Mechanics
+PRJPM,Project Management
+PSYAP,Abnormal Psychology
+PSYAR,Addictions and Recovery
+PSYCFCP,Couples and Family Clinical Psychology
+PSYDP,Developmental Psychology
+PSYESP,Educational and School Psychology
+PSYFP,Forensic Psychology
+PSYOIP,Organizational and Industrial Psychology
+PSYPID,Personality and Individual Differences
+PSYPBM,Practice Building and Management
+PSYSP,Social Psychology
+VETVAP,Veterinary Anatomy and Physiology
+VETVI,Veterinary Imaging
+VETVME,Veterinary Medicine - Equine
+VETVMEP,Veterinary Medicine - Exotic Pets
+VETVPM,Veterinary Practice Management
+VETVSOT,Veterinary Surgery, Orthopedics and Trauma
+VETVTN,Veterinary Technician and Nursing
+EARAS,Atmospheric Science
+EARES,Earth Sciences
+EARGG,Geology & Geophysics
+EARHS,Hydrological Sciences
+EARO,Oceanography
+EARPPG,Paleontology, Paleobiology & Geobiology
+ENVEC,Environmental Change
+ENVES,Environmental Science
+SPASPS,Space and Planetary Sciences
+ELCCT,Communication Technology
+ELCGIEEE,General and Introductory Electrical & Electronics Engineering
+LITCEL18,18th Century English Literature
+LITCEL19,19th Century English Literature
+LITCEL20,20th Century English Literature
+LITCOEL,Contemporary English Literature
+MATBS,Biostatitics
+MATBM,Biomaterials
+MEDDE,Dermatology
+MEDDI,Diabetes
+MEDEM,Emergency Medicine
+MEDEBM,Evidence-Based Medicine
+MEDNP,Nephrology
+MEDNU,Neurology
+MEDPA,Pathology
+MEDPE,Pediatrics
+MEDPS,Psychiatry
+PHIANAP,Analytic Philosophy
+PHIANCP,Ancient Philosophy
+PHIAPP,Applied Philosophy
+PHICP1718,17th & 18th Century Philosophy
+PHICP19,19th Century Philosophy
+PHICP20,20th Century Philosophy
+PHICOP,Continental Philosophy
+PHIEP,Epistemology
+PHIET,Ethics
+PHIPLO,Philosophical Logic
+PHIPLA,Philosophy of Language
+PHIPLI,Philosophy of Literature
+POLAMP,American Politics
+POLASP,Asian Politics
+PRISCE,Science Education
+PRISPE,Special Education
+PSYCLP,Clinical Psychology
+PSYCOGP,Cognitive Psychology
+PSYCOUP,Counselling and Psychoanalysis
+SOCSWE,Social Welfare
+SOCSWO,Social Work
