@@ -571,7 +571,7 @@ public class DashboardServiceImpl implements DashboardService {
      *             the exception
      */
     @Override
-    public DashboardView getAllAuthorArticles(String userId) throws Exception {
+    public DashboardView getAllAuthorArticles(final String userId) throws Exception {
         DashboardView dashboardView = new DashboardView();
         List<ArticleData> articleDataList = getArticleAuthorData(userId);
         List<ArticleData> viewAllArticles = new ArrayList<ArticleData>();
@@ -674,7 +674,7 @@ public class DashboardServiceImpl implements DashboardService {
      * @throws Exception
      *             the exception
      */
-    private ArticleData getArticleDataForUser(final Integer dhId, String userId)
+    private ArticleData getArticleDataForUser(final Integer dhId, final String userId)
             throws Exception {
         PdhArticleData pdhArticleData = (PdhArticleData) esbInterfaceService
                 .getPdhLookupResponse(String.valueOf(dhId));

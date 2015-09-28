@@ -120,8 +120,8 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
                     .getPdhLookupResponse(String.valueOf(articleId));
             if (!StringUtils.isEmpty(pdhArticleData)) {
                 articleInfo = new ArticleInfo();
-                articleInfo.setArticleAuthId(productPersonRelations
-                        .getUserProfile().getUserId());
+                articleInfo.setArticleAuthId(String.valueOf(productPersonRelations
+                        .getUserProfile().getUserId()));
                 articleInfo
                         .setArticleDetails(getArticleDetails(pdhArticleData));
                 articleInfo

@@ -349,7 +349,7 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
                     .getAvsPostResult());
             wpgResponseDetails.setBankId(paymentDetails.getBankId());
             wpgResponseDetails.setBankName(paymentDetails.getBankName());
-            wpgResponseDetails.setCardExpiry(paymentDetails.getCardExpiry());
+            wpgResponseDetails.setCardExpiry(Long.valueOf(paymentDetails.getCardExpiry()));
             wpgResponseDetails.setCscResult(paymentDetails.getCscResult());
             wpgResponseDetails.setMaskedCardNumber(paymentDetails
                     .getMaskedCardNumber());
