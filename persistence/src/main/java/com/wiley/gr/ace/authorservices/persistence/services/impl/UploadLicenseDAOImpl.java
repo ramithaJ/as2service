@@ -13,11 +13,8 @@ package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
 import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
 
-import java.sql.Blob;
-import java.sql.Clob;
 import java.util.Date;
 
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,8 +60,10 @@ public class UploadLicenseDAOImpl implements UploadLicenseDAO {
                 SavedLicenses savedLicenses = (SavedLicenses) session
                         .createQuery(hql).setString("dhId", dhId)
                         .setString("userId", userId).uniqueResult();
-                Clob clob = savedLicenses.getLicenseObject();
-                license = clob.getSubString(1, (int) clob.length());
+                
+//                Clob clob = savedLicenses.getLicenseObject();
+//                license = clob.getSubString(1, (int) clob.length());
+                  license = savedLicenses.getLicenseObject();
             }finally {
                 if (session != null) {
                     session.flush();
@@ -106,9 +105,10 @@ public class UploadLicenseDAOImpl implements UploadLicenseDAO {
                 if (!StringUtils.isEmpty(savedLicense)) {
                     LicenseUploadDetails licenseUploadDetails = new LicenseUploadDetails();
                     licenseUploadDetails.setSavedLicenses(savedLicense);
-                    Blob blobFile = Hibernate.getLobCreator(session)
-                            .createBlob(file.getInputStream(), file.getSize());
-                    licenseUploadDetails.setLicenseFile(blobFile);
+//                    
+//                    Blob blobFile = Hibernate.getLobCreator(session)
+//                            .createBlob(file.getInputStream(), file.getSize());
+                    licenseUploadDetails.setLicenseFile(file.getBytes());
                     Date date = new Date();
                     licenseUploadDetails.setCreatedDate(date);
                     Users users = new Users();

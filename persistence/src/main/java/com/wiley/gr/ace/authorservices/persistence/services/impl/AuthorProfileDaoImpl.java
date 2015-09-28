@@ -14,10 +14,8 @@ package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
 import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
 
-import java.sql.Blob;
-import java.sql.SQLException;
-import javax.sql.rowset.serial.SerialException;
 import org.hibernate.Session;
+
 import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
 import com.wiley.gr.ace.authorservices.persistence.services.AuthorProfileDao;
 

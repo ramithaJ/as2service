@@ -1045,13 +1045,12 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      */
     @Override
     public final byte[] getProfilePicture(final String userId) {
-        com.wiley.gr.ace.authorservices.persistence.entity.UserProfile userProfile = null;
 
         byte[] imageAsBytes = null;
 
-        userProfile = authorProfileDao.getProfilePicture(userId);
+      //  UserProfile userProfile = authorProfileDao.getProfilePicture(userId);
 
-        try {
+        /*try {
 //            Blob image = userProfile.getProfilePic();
 //            int blobLength = (int) image.length();
 //            imageAsBytes = image.getBytes(1, blobLength);
@@ -1062,7 +1061,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             // image.free();
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
         return imageAsBytes;
 
     }

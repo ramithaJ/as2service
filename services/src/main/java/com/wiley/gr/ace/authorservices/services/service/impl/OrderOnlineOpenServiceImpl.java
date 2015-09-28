@@ -628,8 +628,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         orders.setUsersByUserId(users);
         orders.setCreatedDate(new Date());
         orderOnlineDAO.saveOrder(orders);
-
-        orderOnlineDAO.deleteSavedOrderPostOrderSubmission(orders.getOrderId());
+            Long longOrderId=orders.getOrderId();
+        orderOnlineDAO.deleteSavedOrderPostOrderSubmission(longOrderId.intValue());
 
         return orderResponse;
     }

@@ -341,7 +341,7 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
             WpgResponseDetails wpgResponseDetails = new WpgResponseDetails();
 
             wpgResponseDetails
-                    .setAcquirerBank(paymentDetails.getAcquirerBank());
+                    .setAcquirerName(paymentDetails.getAcquirerBank());
             wpgResponseDetails.setAcquirerId(paymentDetails.getAcquirerId());
             wpgResponseDetails.setAvsAddressResult(paymentDetails
                     .getAvsAddressResult());
@@ -353,19 +353,19 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
             wpgResponseDetails.setCscResult(paymentDetails.getCscResult());
             wpgResponseDetails.setMaskedCardNumber(paymentDetails
                     .getMaskedCardNumber());
-            wpgResponseDetails.setMerchantId(paymentDetails.getMerchantId());
+            wpgResponseDetails.setMerchantId(new Long(paymentDetails.getMerchantId()));
             wpgResponseDetails.setMerchantResponse(paymentDetails
                     .getMerchantResponse());
             wpgResponseDetails.setOperation(paymentDetails.getOperation());
-            wpgResponseDetails.setReturnCode(paymentDetails.getReturnCode());
+            wpgResponseDetails.setReturnCode(new Long(paymentDetails.getReturnCode()));
             wpgResponseDetails.setReturnMessage(paymentDetails
                     .getReturnMessage());
             wpgResponseDetails.setSecurity(paymentDetails.getSecurity());
             wpgResponseDetails.setToken(paymentDetails.getToken());
-            wpgResponseDetails.setTransId(paymentDetails.getTransId());
+            wpgResponseDetails.setTransId(new Long(paymentDetails.getTransId()));
             wpgResponseDetails.setTransTimestamp(paymentDetails
                     .getTransTimeStamp());
-            wpgResponseDetails.setVendorId(paymentDetails.getVendorId());
+            wpgResponseDetails.setVendorId(new Long(paymentDetails.getVendorId()));
             session.save(wpgResponseDetails);
             session.getTransaction().commit();
 
