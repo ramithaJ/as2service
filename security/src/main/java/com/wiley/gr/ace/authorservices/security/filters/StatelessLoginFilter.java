@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package com.wiley.gr.ace.authorservices.security.filters;
 
 import java.io.IOException;
@@ -190,7 +193,7 @@ public class StatelessLoginFilter extends
         }
 
         final UserLogin user = new UserLogin();
-        user.setUserId(users.getUserId());
+        user.setUserId(users.getUserId().intValue());
         user.setFirstName(users.getFirstName());
         user.setLastName(users.getLastName());
 

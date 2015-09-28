@@ -1059,7 +1059,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             // FileOutputStream fos = new FileOutputStream(
             // "C:\\Users\\ravisinha\\Desktop\\Retrive4.jpg");
             // fos.write(imageAsBytes);
-            // fos.close();
+            // fos.close();;
             // image.free();
         } catch (Exception e) {
             e.printStackTrace();

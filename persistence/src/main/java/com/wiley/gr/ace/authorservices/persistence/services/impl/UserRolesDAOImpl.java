@@ -69,7 +69,7 @@ public class UserRolesDAOImpl implements UserRolesDAO {
         try {
             session = getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            Integer rolesId = roles.getRoleId();
+            Long rolesId = roles.getRoleId();
 
             if (rolesId != null && rolesId != 0) {
                 Roles daoRoles = (Roles) session.get(Roles.class, rolesId);

@@ -309,8 +309,8 @@ public class AdminLoginServiceImpl implements AdminLoginService {
         if (rolesAndPermissions.getRole().getRoleId() != null
                 && !rolesAndPermissions.getRole().getRoleId().trim()
                         .equals("0")) {
-            roles.setRoleId(Integer.valueOf(rolesAndPermissions.getRole()
-                    .getRoleId()));
+            roles.setRoleId(Long.valueOf(Integer.valueOf(rolesAndPermissions.getRole()
+                    .getRoleId())));
         }
         roles.setDescription(rolesAndPermissions.getRole().getRoleDescription());
         roles.setRoleName(rolesAndPermissions.getRole().getRoleName());

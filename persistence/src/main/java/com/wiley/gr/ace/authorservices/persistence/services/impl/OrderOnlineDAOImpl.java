@@ -180,7 +180,7 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
             session.beginTransaction();
             session.saveOrUpdate(savedOrders);
             session.getTransaction().commit();
-            return savedOrders.getOrderId();
+            return savedOrders.getOrderId().intValue();
         } finally {
             if (session != null) {
                 session.flush();

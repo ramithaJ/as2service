@@ -110,9 +110,9 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
      *             the exception
      */
     private ArticleInfo getPdhLookupArticle(
-            ProductPersonRelations productPersonRelations) throws Exception {
+            final ProductPersonRelations productPersonRelations) throws Exception {
         ArticleInfo articleInfo = null;
-        Integer articleId = productPersonRelations.getProducts().getDhId();
+        Long articleId = productPersonRelations.getProducts().getDhId();
         if (!StringUtils.isEmpty(articleId)
                 && "Article".equalsIgnoreCase(productPersonRelations
                         .getProducts().getDhTypeCd())) {
