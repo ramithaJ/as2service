@@ -20,7 +20,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -198,12 +197,12 @@ public class LicenseServiceImpl implements LicenseService {
 
             if (!StringUtils.isEmpty(licenseObjectAsString)) {
                 savedLicenses.setLicenseObject(new SerialClob(
-                        licenseObjectAsString.toCharArray()));
+                        licenseObjectAsString.toCharArray()).toString());
             }
 
             Users users = new Users();
             Products products = new Products();
-            users.setUserId(Integer.parseInt(userId));
+            users.setUserId(Long.valueOf(userId));
             products.setDhId(Integer.parseInt(articleId));
 
             savedLicenses.setProducts(products);

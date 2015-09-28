@@ -624,7 +624,8 @@ public class DashboardServiceImpl implements DashboardService {
                         .getProducts().getDhTypeCd());
                 articleUserRoleDetails.setRoleName(productPersonRelations
                         .getProductRoles().getProductRoleName());
-                articleMap.put(productPersonRelations.getProducts().getDhId(),
+                Long dhIdasLong=productPersonRelations.getProducts().getDhId();
+                articleMap.put(dhIdasLong.intValue(),
                         articleUserRoleDetails);
             }
         }
@@ -978,13 +979,13 @@ public class DashboardServiceImpl implements DashboardService {
             communicationDetailsList = new ArrayList<CommunicationDetails>();
             for (final InvitationLog invitationLog : invitationLogList) {
                 final CommunicationDetails communicationDetails = new CommunicationDetails();
-                communicationDetails.setUserId(invitationLog.getUserProfile()
-                        .getUserId());
-                communicationDetails.setInviationId(invitationLog
-                        .getInvitationId());
-                communicationDetails.setEmailId(invitationLog.getEmailAddr());
-                communicationDetails.setArticleId(invitationLog.getProducts()
-                        .getDhId());
+//                communicationDetails.setUserId(invitationLog.getUserProfile()
+//                        .getUserId());
+//                communicationDetails.setInviationId(invitationLog
+//                        .getInvitationId());
+//                communicationDetails.setEmailId(invitationLog.getEmailAddr());
+//                communicationDetails.setArticleId(invitationLog.getProducts()
+//                        .getDhId());
                 communicationDetails.setSentDate(invitationLog.getSentDate()
                         .toString());
                 communicationDetailsList.add(communicationDetails);
