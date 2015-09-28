@@ -112,7 +112,7 @@ public class UploadLicenseDAOImpl implements UploadLicenseDAO {
                     Date date = new Date();
                     licenseUploadDetails.setCreatedDate(date);
                     Users users = new Users();
-                    users.setUserId(Integer.valueOf(userId));
+                    users.setUserId(Long.valueOf(Integer.valueOf(userId)));
                     licenseUploadDetails.setUsersByCreatedBy(users);
                     session.beginTransaction();
                     session.save(licenseUploadDetails);
