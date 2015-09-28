@@ -169,7 +169,7 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
             session.beginTransaction();
             inviteResetpwdLog = (InviteResetpwdLog) session.get(
                     InviteResetpwdLog.class, logId);
-            inviteResetpwdLog.setLogId(logId);
+            inviteResetpwdLog.setLogId(Long.valueOf(logId));
             inviteResetpwdLog
                     .setStatus(AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS_CLOSED);
             inviteResetpwdLog
