@@ -142,7 +142,7 @@ public class SendNotificationImpl implements SendNotification {
         if (users != null) {
             listofFields.add(users.getFirstName());
             UserSecondaryEmailAddr userSecondaryEmailAddr = sendNotificationDao
-                    .getUserSecEmailAddr(users.getUserId());
+                    .getUserSecEmailAddr(users.getUserId().intValue());
 
             listofFields.add(userSecondaryEmailAddr.getSecondaryEmailAddr());
             notificationFieldList.setFieldList(listofFields);

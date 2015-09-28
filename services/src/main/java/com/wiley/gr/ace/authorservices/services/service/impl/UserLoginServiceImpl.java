@@ -342,9 +342,9 @@ public class UserLoginServiceImpl implements UserLoginService {
                 && AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS_TYPE
                         .equalsIgnoreCase(inviteResetpwdLog.getType())) {
             userLoginServiceDAO.verifyAccountStatusUpdate(inviteResetpwdLog
-                    .getLogId());
+                    .getLogId().intValue());
             Integer userId = userLoginServiceDAO.getUserId(
-                    inviteResetpwdLog.getEmailAddress()).getUserId();
+                    inviteResetpwdLog.getEmailAddress()).getUserId().intValue();
             userLoginServiceDAO.updateIsAccountActive(userId);
 
         } else {

@@ -61,7 +61,7 @@ public class SaveInvitationStartServiceImpl implements
 			invitationStartDAO.updateInviteResetPWDLog(guId, email);
 			InvitationLog invitationLog = new InvitationLog();
 			invitationLog.setEmailAddr(email);
-			invitationLog.setNotificationId(Integer.valueOf(notificationId));
+			invitationLog.setNotificationId(Long.parseLong(notificationId));
 			invitationStartDAO.createInvitationLog(invitationLog);
 
 		}

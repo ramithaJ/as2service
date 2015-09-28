@@ -125,7 +125,7 @@ public class UserLoginDaoImpl implements UserLoginDao {
             if (result != null && !result.isEmpty()) {
 
                 user = result.get(0);
-                userId = user.getUserId();
+                userId = user.getUserId().intValue();
             }
 
         } finally {
