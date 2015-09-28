@@ -41,7 +41,6 @@ import com.wiley.gr.ace.authorservices.services.service.UpdateUserService;
 import com.wiley.gr.ace.authorservices.services.service.UploadLicenseService;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
-import com.wiley.gr.ace.authorservices.services.service.ViewLicenseAgreementService;
 import com.wiley.gr.ace.authorservices.services.service.impl.ASDataServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.AdditionalPermissionServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.AdminLoginServiceImpl;
@@ -65,7 +64,6 @@ import com.wiley.gr.ace.authorservices.services.service.impl.UpdateUserServiceIm
 import com.wiley.gr.ace.authorservices.services.service.impl.UploadLicenseServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UserAccountServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UserLoginServiceImpl;
-import com.wiley.gr.ace.authorservices.services.service.impl.ViewLicenseAgreementServiceImpl;
 
 /**
  * The Class ServiceBeanConfig.
@@ -258,16 +256,6 @@ public class ServiceBeanConfig {
         return new NotificationHistoryServiceImpl();
     }
 
-    /**
-     * View license agreement service.
-     *
-     * @return the view license agreement service
-     */
-    @Bean(name = "ViewLicenseAgreementService")
-    public ViewLicenseAgreementService viewLicenseAgreementService() {
-        return new ViewLicenseAgreementServiceImpl();
-    }
-
     @Bean(name = "OrderStatusService")
     public OrderStatusService orderStatusService() {
         return new OrderStatusServiceImpl();
@@ -287,6 +275,7 @@ public class ServiceBeanConfig {
     public SendNotification sendNotification() {
         return new SendNotificationImpl();
     }
+
     @Bean(name = "SaveInvitationStartEventService")
     public SaveInvitationStartEventService saveInvitationStartEventService() {
         return new SaveInvitationStartServiceImpl();
@@ -297,38 +286,40 @@ public class ServiceBeanConfig {
         return new SaveInvitationCeaseEventServiceImpl();
     }
 
-//    @Bean(name = "JndiTemplate")
-//    public JndiTemplate jndiTemplate() {
-//        Properties env = new Properties();
-//
-//        env.put("java.naming.factory.initial",
-//                "com.tibco.tibjms.naming.TibjmsInitialContextFactory");
-//        env.put("java.naming.provider.url", "tcp://vmesbdev.wiley.com:7222");
-//        env.put("java.naming.security.principal", "as2team");
-//        env.put("java.naming.security.credentials", "as2team");
-//        return new JndiTemplate(env);
-//    }
-//
-//    @Bean(name = "UserCredentialsConnectionFactoryAdapter")
-//    @Lazy(true)
-//    public UserCredentialsConnectionFactoryAdapter authenticationConnectionFactory()
-//            throws NamingException {
-//        UserCredentialsConnectionFactoryAdapter authenticationConnectionFactory = new UserCredentialsConnectionFactoryAdapter();
-//        authenticationConnectionFactory
-//                .setTargetConnectionFactory((ConnectionFactory) jndiTemplate()
-//                        .lookup("QueueConnectionFactory"));
-//        authenticationConnectionFactory.setUsername("as2team");
-//        authenticationConnectionFactory.setPassword("as2team");
-//        return authenticationConnectionFactory();
-//    }
-//
-//    @Bean(name = "JmsTemplate")
-//    @Lazy(true)
-//    public JmsTemplate jmsTemplate() throws NamingException {
-//        JmsTemplate jmsTemplate = new JmsTemplate();
-//        jmsTemplate.setConnectionFactory(authenticationConnectionFactory());
-//        jmsTemplate.setDefaultDestination((Destination) jndiTemplate().lookup(
-//                "wiley.global.as2app.inbound.events.queue"));
-//        return jmsTemplate;
-//    }
+    // @Bean(name = "JndiTemplate")
+    // public JndiTemplate jndiTemplate() {
+    // Properties env = new Properties();
+    //
+    // env.put("java.naming.factory.initial",
+    // "com.tibco.tibjms.naming.TibjmsInitialContextFactory");
+    // env.put("java.naming.provider.url", "tcp://vmesbdev.wiley.com:7222");
+    // env.put("java.naming.security.principal", "as2team");
+    // env.put("java.naming.security.credentials", "as2team");
+    // return new JndiTemplate(env);
+    // }
+    //
+    // @Bean(name = "UserCredentialsConnectionFactoryAdapter")
+    // @Lazy(true)
+    // public UserCredentialsConnectionFactoryAdapter
+    // authenticationConnectionFactory()
+    // throws NamingException {
+    // UserCredentialsConnectionFactoryAdapter authenticationConnectionFactory =
+    // new UserCredentialsConnectionFactoryAdapter();
+    // authenticationConnectionFactory
+    // .setTargetConnectionFactory((ConnectionFactory) jndiTemplate()
+    // .lookup("QueueConnectionFactory"));
+    // authenticationConnectionFactory.setUsername("as2team");
+    // authenticationConnectionFactory.setPassword("as2team");
+    // return authenticationConnectionFactory();
+    // }
+    //
+    // @Bean(name = "JmsTemplate")
+    // @Lazy(true)
+    // public JmsTemplate jmsTemplate() throws NamingException {
+    // JmsTemplate jmsTemplate = new JmsTemplate();
+    // jmsTemplate.setConnectionFactory(authenticationConnectionFactory());
+    // jmsTemplate.setDefaultDestination((Destination) jndiTemplate().lookup(
+    // "wiley.global.as2app.inbound.events.queue"));
+    // return jmsTemplate;
+    // }
 }
