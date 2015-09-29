@@ -13,11 +13,11 @@
                                          "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
 	<session-factory name="asdb">
-		<property name="connection.driver_class">oracle.jdbc.OracleDriver</property>
-		<property name="connection.url">jdbc:oracle:thin:@10.6.4.146:1521/pdasstg</property>
-		<property name="connection.username">pdbadmin</property>
-		<property name="connection.password">board</property>
-		<property name="dialect">org.hibernate.dialect.OracleDialect</property>
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql://10.6.4.146:3310/as2_app_db</property>
+		<property name="connection.username">as2_app_usr</property>
+		<property name="connection.password">as2_app_usr</property>
+		<property name="dialect"> org.hibernate.dialect.MySQLDialect</property>
 		<property name="show_sql">true</property>
 		<!-- <property name="validationQuery">select 1 from dual</property> -->
 		<property name="format_sql">true</property>
@@ -42,15 +42,10 @@
 			class="com.wiley.gr.ace.authorservices.persistence.entity.AuthCoauthDetails" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.AuthColleagueDetails" />
-		
+
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.CoauthorRequestsOoorders" />
-		<mapping
-			class="com.wiley.gr.ace.authorservices.persistence.entity.Databasechangelog" />
-		<mapping
-			class="com.wiley.gr.ace.authorservices.persistence.entity.DatabasechangelogId" />
-		<mapping
-			class="com.wiley.gr.ace.authorservices.persistence.entity.Databasechangeloglock" />
+
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.InvitationLog" />
 		<mapping
@@ -71,12 +66,11 @@
 		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Roles" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.SavedOrders" />
-		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Schedule" />
-		<mapping
-			class="com.wiley.gr.ace.authorservices.persistence.entity.ScheduleTemplate" />
+
+
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.Societies" />
-		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Template" />
+
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.UserProfileAttribVisible" />
 		<mapping
@@ -91,32 +85,27 @@
 			class="com.wiley.gr.ace.authorservices.persistence.entity.UserPreferredJournalsId" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.LookupValues" />
-		<mapping
-			class="com.wiley.gr.ace.authorservices.persistence.entity.Notification" />
-		<mapping
-			class="com.wiley.gr.ace.authorservices.persistence.entity.NotificationRecipients" />
+	
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.ObjectTypes" />
 		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Orders" />
-		<mapping
-			class="com.wiley.gr.ace.authorservices.persistence.entity.OrderAuthorsQuery" />
-		<mapping
-			class="com.wiley.gr.ace.authorservices.persistence.entity.OrderArticleQuery" />
+		
+	
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.OrderReference" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.OrderTypes" />
-			<mapping
-            class="com.wiley.gr.ace.authorservices.persistence.entity.LicenseUploadDetails" />
-            <mapping
-            class="com.wiley.gr.ace.authorservices.persistence.entity.SavedLicenses" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.LicenseUploadDetails" />
+		<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.SavedLicenses" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.PermissionGroups" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.PermissionGroupsId" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.UserSocietyDetails" />
-				<mapping
+		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.Societies" />
 		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Address" />
 		<mapping
@@ -153,12 +142,7 @@
 			class="com.wiley.gr.ace.authorservices.persistence.entity.AddressType" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.AdminProfile" />
-		<mapping
-			class="com.wiley.gr.ace.authorservices.persistence.entity.Databasechangelog" />
-		<mapping
-			class="com.wiley.gr.ace.authorservices.persistence.entity.DatabasechangelogId" />
-		<mapping
-			class="com.wiley.gr.ace.authorservices.persistence.entity.Databasechangeloglock" />
+		
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.LockedAccountDetails" />
 		<mapping
@@ -167,9 +151,9 @@
 			class="com.wiley.gr.ace.authorservices.persistence.entity.PermissionGroups" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.PermissionGroupsId" />
-			<mapping
+		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.UserFunders" />
-			<mapping
+		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.UserProfile" />
 
 		<mapping
