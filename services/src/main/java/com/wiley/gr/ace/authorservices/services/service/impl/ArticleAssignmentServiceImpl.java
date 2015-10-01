@@ -27,7 +27,6 @@ import com.wiley.gr.ace.authorservices.externalservices.service.TaskService;
 import com.wiley.gr.ace.authorservices.model.ArticleDetails;
 import com.wiley.gr.ace.authorservices.model.ArticleInfo;
 import com.wiley.gr.ace.authorservices.model.ArticleInfoDetails;
-import com.wiley.gr.ace.authorservices.model.ArticleUserRoleDetails;
 import com.wiley.gr.ace.authorservices.model.AssociationConfirmation;
 import com.wiley.gr.ace.authorservices.model.JournalDetails;
 import com.wiley.gr.ace.authorservices.model.LicenseDetails;
@@ -36,8 +35,6 @@ import com.wiley.gr.ace.authorservices.model.PdhJournalData;
 import com.wiley.gr.ace.authorservices.model.PublicationDetails;
 import com.wiley.gr.ace.authorservices.model.TrackLicense;
 import com.wiley.gr.ace.authorservices.model.ViewAssignedArticle;
-import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
-import com.wiley.gr.ace.authorservices.persistence.services.ArticleAssignmentDAO;
 import com.wiley.gr.ace.authorservices.services.service.ArticleAssignmentService;
 import com.wiley.gr.ace.authorservices.services.service.LicenseService;
 
@@ -52,9 +49,9 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(ArticleAssignmentServiceImpl.class);
 
-    /** The article assignment dao. */
-    @Autowired(required = true)
-    private ArticleAssignmentDAO articleAssignmentDAO;
+//    /** The article assignment dao. */
+//    @Autowired(required = true)
+//    private ArticleAssignmentDAO articleAssignmentDAO;
 
     /** The esb interface service. */
     @Autowired(required = true)
@@ -86,85 +83,85 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
     public final ArticleInfoDetails getArticleInfoDetails(final String emailId)
             throws Exception {
         LOGGER.info("inside getArticleInfo method of ArticleAssignmentServiceImpl");
-        List<ProductPersonRelations> productPersonRelationsList = articleAssignmentDAO
-                .getProductPersonRelations(emailId);
-        List<ArticleInfo> articleInfoList = new ArrayList<ArticleInfo>();
-        if (!StringUtils.isEmpty(productPersonRelationsList)) {
-            for (final ProductPersonRelations productPersonRelations : productPersonRelationsList) {
-                articleInfoList
-                        .add(getPdhLookupArticle(productPersonRelations));
-            }
-        }
+//        List<ProductPersonRelations> productPersonRelationsList = articleAssignmentDAO
+//                .getProductPersonRelations(emailId);
+         List<ArticleInfo> articleInfoList = new ArrayList<ArticleInfo>();
+//        if (!StringUtils.isEmpty(productPersonRelationsList)) {
+//            for (final ProductPersonRelations productPersonRelations : productPersonRelationsList) {
+//                articleInfoList
+//                        .add(getPdhLookupArticle(productPersonRelations));
+//            }
+//        }
         ArticleInfoDetails articleInfoDetails = new ArticleInfoDetails();
         articleInfoDetails.setArticleInfo(articleInfoList);
         return articleInfoDetails;
     }
 
-    /**
-     * Gets the pdh lookup article.
-     *
-     * @param productPersonRelations
-     *            the product person relations
-     * @return the pdh lookup article
-     * @throws Exception
-     *             the exception
-     */
-    private ArticleInfo getPdhLookupArticle(
-            final ProductPersonRelations productPersonRelations) throws Exception {
-        ArticleInfo articleInfo = null;
-        Long articleId = productPersonRelations.getProducts().getDhId();
-        if (!StringUtils.isEmpty(articleId)
-                && "Article".equalsIgnoreCase(productPersonRelations
-                        .getProducts().getDhTypeCd())) {
-            PdhArticleData pdhArticleData = (PdhArticleData) esbInterfaceService
-                    .getPdhLookupResponse(String.valueOf(articleId));
-            if (!StringUtils.isEmpty(pdhArticleData)) {
-                articleInfo = new ArticleInfo();
-                articleInfo.setArticleAuthId(String.valueOf(productPersonRelations
-                        .getUserProfile().getUserId()));
-                articleInfo
-                        .setArticleDetails(getArticleDetails(pdhArticleData));
-                articleInfo
-                        .setArticleUserRoleDetails(getArticleAuthorRoleDetails(productPersonRelations));
-            }
-        }
-        return articleInfo;
-    }
+//    /**
+//     * Gets the pdh lookup article.
+//     *
+//     * @param productPersonRelations
+//     *            the product person relations
+//     * @return the pdh lookup article
+//     * @throws Exception
+//     *             the exception
+//     */
+//    private ArticleInfo getPdhLookupArticle(
+//            final ProductPersonRelations productPersonRelations) throws Exception {
+//        ArticleInfo articleInfo = null;
+//        Long articleId = productPersonRelations.getProducts().getDhId();
+//        if (!StringUtils.isEmpty(articleId)
+//                && "Article".equalsIgnoreCase(productPersonRelations
+//                        .getProducts().getDhTypeCd())) {
+//            PdhArticleData pdhArticleData = (PdhArticleData) esbInterfaceService
+//                    .getPdhLookupResponse(String.valueOf(articleId));
+//            if (!StringUtils.isEmpty(pdhArticleData)) {
+//                articleInfo = new ArticleInfo();
+//                articleInfo.setArticleAuthId(String.valueOf(productPersonRelations
+//                        .getUserProfile().getUserId()));
+//                articleInfo
+//                        .setArticleDetails(getArticleDetails(pdhArticleData));
+//                articleInfo
+//                        .setArticleUserRoleDetails(getArticleAuthorRoleDetails(productPersonRelations));
+//            }
+//        }
+//        return articleInfo;
+//    }
 
-    /**
-     * Gets the article details.
-     *
-     * @param pdhArticleData
-     *            the pdh article data
-     * @return the article details
-     */
-    private ArticleDetails getArticleDetails(final PdhArticleData pdhArticleData) {
-        ArticleDetails articleDetails = new ArticleDetails();
-        articleDetails.setDhId(pdhArticleData.getDhId());
-        articleDetails.setArticleId(pdhArticleData.getArticleId());
-        articleDetails.setPublicationDate(pdhArticleData.getPublicationYear());
-        return articleDetails;
-    }
+//    /**
+//     * Gets the article details.
+//     *
+//     * @param pdhArticleData
+//     *            the pdh article data
+//     * @return the article details
+//     */
+//    private ArticleDetails getArticleDetails(final PdhArticleData pdhArticleData) {
+//        ArticleDetails articleDetails = new ArticleDetails();
+//        articleDetails.setDhId(pdhArticleData.getDhId());
+//        articleDetails.setArticleId(pdhArticleData.getArticleId());
+//        articleDetails.setPublicationDate(pdhArticleData.getPublicationYear());
+//        return articleDetails;
+//    }
 
-    /**
-     * Gets the article user role details.
-     *
-     * @param productPersonRelations
-     *            the product person relations
-     * @return the article user role details
-     * @throws Exception
-     *             the exception
-     */
-    private ArticleUserRoleDetails getArticleAuthorRoleDetails(
-            final ProductPersonRelations productPersonRelations)
-            throws Exception {
-        ArticleUserRoleDetails articleUserRoleDetails = new ArticleUserRoleDetails();
-        articleUserRoleDetails.setRoleCode(productPersonRelations
-                .getProductRoles().getProductRoleCd());
-        articleUserRoleDetails.setRoleName(productPersonRelations
-                .getProductRoles().getProductRoleName());
-        return articleUserRoleDetails;
-    }
+//    /**
+//     * Gets the article user role details.
+//     *
+//     * @param productPersonRelations
+//     *            the product person relations
+//     * @return the article user role details
+//     * @throws Exception
+//     *             the exception
+//     */
+//    private ArticleUserRoleDetails getArticleAuthorRoleDetails(
+//            final ProductPersonRelations productPersonRelations)
+//            throws Exception {
+//        ArticleUserRoleDetails articleUserRoleDetails = new ArticleUserRoleDetails();
+//        articleUserRoleDetails.setRoleCode(productPersonRelations
+//                .getProductRoles().getProductRoleCd());
+//        articleUserRoleDetails.setRoleName(productPersonRelations
+//                .getProductRoles().getProductRoleName());
+//        return articleUserRoleDetails;
+//    }
 
     /**
      * Association confirmation.

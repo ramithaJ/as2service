@@ -14,10 +14,6 @@
  */
 package com.wiley.gr.ace.authorservices.persistence.services;
 
-import java.util.List;
-
-import com.wiley.gr.ace.authorservices.persistence.entity.InvitationLog;
-import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
 
 /**
  * The Interface DashboardDAO.
@@ -26,24 +22,24 @@ import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations
  */
 public interface DashboardDAO {
 
-    /**
-     * Gets the product person relations.
-     *
-     * @param userId
-     *            the user id
-     * @return the product person relations
-     */
-    List<ProductPersonRelations> getProductPersonRelations(String userId);
-
-    /**
-     * Gets the invitation log list.
-     *
-     * @param userId
-     *            the user id
-     * @return the invitation log list
-     * @throws Exception
-     *             the exception
-     */
-    List<InvitationLog> getInvitationLogList(String userId) throws Exception;
+//    /**
+//     * Gets the product person relations.
+//     *
+//     * @param userId
+//     *            the user id
+//     * @return the product person relations
+//     */
+//    List<ProductPersonRelations> getProductPersonRelations(String userId);
+//
+//    /**
+//     * Gets the invitation log list.
+//     *
+//     * @param userId
+//     *            the user id
+//     * @return the invitation log list
+//     * @throws Exception
+//     *             the exception
+//     */
+//    List<InvitationLog> getInvitationLogList(String userId) throws Exception;
 
 }

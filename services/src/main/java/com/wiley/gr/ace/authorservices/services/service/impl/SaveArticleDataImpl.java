@@ -29,10 +29,7 @@ import com.wiley.gr.ace.authorservices.model.event.CoAuthorList;
 import com.wiley.gr.ace.authorservices.model.event.EventData;
 import com.wiley.gr.ace.authorservices.model.external.ProductPersonRelationObject;
 import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
-import com.wiley.gr.ace.authorservices.persistence.entity.ProductRelations;
-import com.wiley.gr.ace.authorservices.persistence.entity.Products;
 import com.wiley.gr.ace.authorservices.persistence.services.SaveArticleDAO;
-import com.wiley.gr.ace.authorservices.persistence.services.SaveArticleInfoDAO;
 import com.wiley.gr.ace.authorservices.services.service.SaveArticleData;
 
 // TODO: Auto-generated Javadoc
@@ -53,9 +50,9 @@ public class SaveArticleDataImpl implements SaveArticleData {
     @Autowired(required = true)
     private SaveArticleDAO saveArticleDAO;
 
-    /** The save article info dao. */
-    @Autowired(required = true)
-    private SaveArticleInfoDAO saveArticleInfoDAO;
+//    /** The save article info dao. */
+//    @Autowired(required = true)
+//    private SaveArticleInfoDAO saveArticleInfoDAO;
 
     /*
      * (non-Javadoc)
@@ -81,9 +78,9 @@ public class SaveArticleDataImpl implements SaveArticleData {
             LOGGER.debug("Parsed article name :: "
                     + eventData.getArticleInfo().getArticleName());
 
-            saveArticleData(eventData);
-            saveJournalData(eventData);
-            saveProductRelations(eventData);
+            //saveArticleData(eventData);
+           // saveJournalData(eventData);
+           // saveProductRelations(eventData);
             handleCorrenspondingAuthorDetails(eventData);
             handleCoAuthorDetails(eventData);
         }
@@ -204,47 +201,47 @@ public class SaveArticleDataImpl implements SaveArticleData {
         return isAuthorCoAuthorExist;
     }
 
-    /**
-     * Save journal data.
-     *
-     * @param eventData
-     *            the event data
-     */
-    private void saveJournalData(final EventData eventData) {
-        final Products products = new Products();
-        products.setDhId(Integer.parseInt(eventData.getJournalInfo()
-                .getJournalID()));
-        products.setDhTypeCd("JOURNAL");
-        saveArticleInfoDAO.saveProductDetails(products);
+//    /**
+//     * Save journal data.
+//     *
+//     * @param eventData
+//     *            the event data
+//     */
+//    private void saveJournalData(final EventData eventData) {
+//        final Products products = new Products();
+//        products.setDhId(Integer.parseInt(eventData.getJournalInfo()
+//                .getJournalID()));
+//        products.setDhTypeCd("JOURNAL");
+//        saveArticleInfoDAO.saveProductDetails(products);
+//
+//    }
 
-    }
+//    /**
+//     * Save article data.
+//     *
+//     * @param eventData
+//     *            the event data
+//     */
+//    private void saveArticleData(final EventData eventData) {
+//        final Products products = new Products();
+//        products.setDhId(Integer.parseInt(eventData.getArticleInfo()
+//                .getArticleID()));
+//        products.setDhTypeCd("ARTICLE");
+//        saveArticleInfoDAO.saveProductDetails(products);
+//    }
 
-    /**
-     * Save article data.
-     *
-     * @param eventData
-     *            the event data
-     */
-    private void saveArticleData(final EventData eventData) {
-        final Products products = new Products();
-        products.setDhId(Integer.parseInt(eventData.getArticleInfo()
-                .getArticleID()));
-        products.setDhTypeCd("ARTICLE");
-        saveArticleInfoDAO.saveProductDetails(products);
-    }
-
-    private void saveProductRelations(final EventData eventData) {
-        final ProductRelations productRelations = new ProductRelations();
-        final Products journalProduct = new Products();
-        final Products artcleProduct = new Products();
-        journalProduct.setDhId(Integer.parseInt(eventData.getJournalInfo()
-                .getJournalID()));
-        artcleProduct.setDhId(Integer.parseInt(eventData.getArticleInfo()
-                .getArticleID()));
-        productRelations.setDhTypeRelCd("JOURNAL-ARTICLE");//Will come from PDH
-        productRelations.setProductsByParentDhId(journalProduct);
-        productRelations.setProductsByChildDhId(artcleProduct);
-        saveArticleInfoDAO.saveProductRelation(productRelations);
-    }
+//    private void saveProductRelations(final EventData eventData) {
+//        final ProductRelations productRelations = new ProductRelations();
+////        final Products journalProduct = new Products();
+////        final Products artcleProduct = new Products();
+////        journalProduct.setDhId(Integer.parseInt(eventData.getJournalInfo()
+////                .getJournalID()));
+////        artcleProduct.setDhId(Integer.parseInt(eventData.getArticleInfo()
+////                .getArticleID()));
+//        //productRelations.setDhTypeRelCd("JOURNAL-ARTICLE");//Will come from PDH
+////        productRelations.setProductsByParentDhId(journalProduct);
+////        productRelations.setProductsByChildDhId(artcleProduct);
+//        saveArticleInfoDAO.saveProductRelation(productRelations);
+//    }
 
 }

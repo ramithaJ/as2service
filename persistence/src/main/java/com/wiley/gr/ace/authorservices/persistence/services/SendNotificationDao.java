@@ -12,28 +12,26 @@
 
 package com.wiley.gr.ace.authorservices.persistence.services;
 
-import com.wiley.gr.ace.authorservices.persistence.entity.UserSecondaryEmailAddr;
-import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 
 /**
  * The Interface SendNotificationDao.
  */
 public interface SendNotificationDao {
 
-    /**
-     * Gets the user profile.
-     *
-     * @param userId
-     *            the user id
-     * @return the user profile
-     */
-    Users getUserProfile(Integer userId);
-
-    /**
-     * @param userId
-     *            the request
-     * @return userSecondaryEmailAddr
-     */
-    UserSecondaryEmailAddr getUserSecEmailAddr(int userId);
+//    /**
+//     * Gets the user profile.
+//     *
+//     * @param userId
+//     *            the user id
+//     * @return the user profile
+//     */
+//    Users getUserProfile(Integer userId);
+//
+//    /**
+//     * @param userId
+//     *            the request
+//     * @return userSecondaryEmailAddr
+//     */
+//    UserSecondaryEmailAddr getUserSecEmailAddr(int userId);
 
 }

@@ -14,9 +14,6 @@
  */
 package com.wiley.gr.ace.authorservices.persistence.services;
 
-import java.util.List;
-
-import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
 
 /**
  * The Interface ArticleAssignmentDAO.
@@ -25,12 +22,12 @@ import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations
  */
 public interface ArticleAssignmentDAO {
 
-    /**
-     * Gets the product person relations.
-     *
-     * @param emailId
-     *            the email id
-     * @return the product person relations
-     */
-    List<ProductPersonRelations> getProductPersonRelations(String emailId);
+//    /**
+//     * Gets the product person relations.
+//     *
+//     * @param emailId
+//     *            the email id
+//     * @return the product person relations
+//     */
+//    List<ProductPersonRelations> getProductPersonRelations(String emailId);
 }

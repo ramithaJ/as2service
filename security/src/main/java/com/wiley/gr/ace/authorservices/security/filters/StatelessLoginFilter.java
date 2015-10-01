@@ -25,7 +25,6 @@ import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.UserLogin;
-import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.security.TokenAuthentication;
 import com.wiley.gr.ace.authorservices.security.service.TokenAuthenticationService;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
@@ -166,9 +165,10 @@ public class StatelessLoginFilter extends
         tokenAuthenticationService.addAuthentication(request, response,
                 tokenAuthentication);
 
-        Users users = null;
+       // Users users = null;
         try {
-            users = adminLoginService.getASUser(unp.getUsername());
+            System.out.println("code commented");
+           // users = adminLoginService.getASUser(unp.getUsername());
         } catch (final UserException e) {
             if (StringUtils.equalsIgnoreCase(StatelessLoginFilter.ADMIN,
                     unp.getType())) {
@@ -193,9 +193,9 @@ public class StatelessLoginFilter extends
         }
 
         final UserLogin user = new UserLogin();
-        user.setUserId(users.getUserId().intValue());
-        user.setFirstName(users.getFirstName());
-        user.setLastName(users.getLastName());
+//        user.setUserId(users.getUserId().intValue());
+//        user.setFirstName(users.getFirstName());
+//        user.setLastName(users.getLastName());
 
         response.setContentType(StatelessLoginFilter.APPLICATION_JSON_CHARSET_UTF_8);
         response.setHeader(StatelessLoginFilter.CACHE_CONTROL,

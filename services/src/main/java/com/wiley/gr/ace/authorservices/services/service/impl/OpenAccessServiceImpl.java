@@ -22,7 +22,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
@@ -54,8 +53,6 @@ import com.wiley.gr.ace.authorservices.model.external.QuoteRequest;
 import com.wiley.gr.ace.authorservices.model.external.TaxRequest;
 import com.wiley.gr.ace.authorservices.model.external.Title;
 import com.wiley.gr.ace.authorservices.persistence.entity.Orders;
-import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
-import com.wiley.gr.ace.authorservices.persistence.entity.ProductRoles;
 import com.wiley.gr.ace.authorservices.persistence.entity.SavedOrders;
 import com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO;
 import com.wiley.gr.ace.authorservices.services.service.OpenAccessService;
@@ -89,13 +86,13 @@ public class OpenAccessServiceImpl implements OpenAccessService {
     @Autowired(required = true)
     OrderOnlineOpenService orderOnlineOpenService;
 
-    /** This field holds the value of articleAcceptanceCode. */
-    @Value("${articleAcceptance.code}")
-    private String articleAcceptanceCode;
-
-    /** This field holds the value of articleAcceptanceMessage. */
-    @Value("${articleAcceptance.message}")
-    private String articleAcceptanceMessage;
+//    /** This field holds the value of articleAcceptanceCode. */
+//    @Value("${articleAcceptance.code}")
+//    private String articleAcceptanceCode;
+//
+//    /** This field holds the value of articleAcceptanceMessage. */
+//    @Value("${articleAcceptance.message}")
+//    private String articleAcceptanceMessage;
 
     /** This field holds the value of savedOrderCode. */
     @Value("${savedOrder.code}")
@@ -113,9 +110,9 @@ public class OpenAccessServiceImpl implements OpenAccessService {
     @Value("${orderExistence.message}")
     private String orderExistenceMessage;
 
-    /** This field holds the value of correspondingAuthorId. */
-    @Value("${CorrespondingAuthorId}")
-    private String correspondingAuthorId;
+//    /** This field holds the value of correspondingAuthorId. */
+//    @Value("${CorrespondingAuthorId}")
+//    private String correspondingAuthorId;
 
     /**
      * Gets the open access details.
@@ -137,18 +134,18 @@ public class OpenAccessServiceImpl implements OpenAccessService {
 
         OpenAccessPaymentData openAccessPaymentData = null;
 
-        ProductPersonRelations articleAssignmentData = orderOnlineDAO
-                .getProductPersonRelations(userId, articleId);
-        if (articleAssignmentData == null) {
-            throw new ASException(articleAcceptanceCode,
-                    articleAcceptanceMessage);
-        }
+//        ProductPersonRelations articleAssignmentData = orderOnlineDAO
+//                .getProductPersonRelations(userId, articleId);
+//        if (articleAssignmentData == null) {
+//            throw new ASException(articleAcceptanceCode,
+//                    articleAcceptanceMessage);
+//        }
 
-        ProductRoles productRoles = articleAssignmentData.getProductRoles();
-
-        if (!StringUtils.isEmpty(productRoles)
-                && productRoles.getProductRoleCd().equalsIgnoreCase(
-                        correspondingAuthorId)) {
+//        ProductRoles productRoles = articleAssignmentData.getProductRoles();
+//
+//        if (!StringUtils.isEmpty(productRoles)
+//                && productRoles.getProductRoleCd().equalsIgnoreCase(
+//                        correspondingAuthorId)) {
 
             SavedOrders savedOrders = orderOnlineDAO.getSavedOrders(articleId,
                     userId);
@@ -293,7 +290,7 @@ public class OpenAccessServiceImpl implements OpenAccessService {
             openAccessPaymentData.setDiscountDetail(discountDetail);
             openAccessPaymentData.setTaxAmount(taxAmount);
             openAccessPaymentData.setTaxDetails(taxDetails);
-        }
+        
         return openAccessPaymentData;
     }
 

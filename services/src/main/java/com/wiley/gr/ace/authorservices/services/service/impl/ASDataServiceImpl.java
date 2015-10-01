@@ -40,7 +40,6 @@ import com.wiley.gr.ace.authorservices.model.Title;
 import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
 import com.wiley.gr.ace.authorservices.persistence.entity.AreaOfInterest;
 import com.wiley.gr.ace.authorservices.persistence.entity.LookupValues;
-import com.wiley.gr.ace.authorservices.persistence.entity.Roles;
 import com.wiley.gr.ace.authorservices.persistence.entity.Societies;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.AreaOfInterterestDao;
@@ -417,29 +416,29 @@ public class ASDataServiceImpl implements ASDataService {
 
         LOGGER.info("inside getAdminRoles method ");
 
-        List<Roles> daoRolesList = aSDataDAO.getAdminRoles(roleType);
+//        List<Roles> daoRolesList = aSDataDAO.getAdminRoles(roleType);
         List<Role> adminRoles = new ArrayList<Role>();
-        Role adminRole = null;
+//        Role adminRole = null;
        
 
-        if (daoRolesList != null && !daoRolesList.isEmpty()) {
+//        if (daoRolesList != null && !daoRolesList.isEmpty()) {
+//
+//            for (Roles roles : daoRolesList) {
+//                adminRole = new Role();
+//                adminRole.setRoleId(roles.getRoleId() + "");
+//                adminRole.setRoleName(roles.getRoleName());
+//                adminRole.setRoleDescription(roles.getDescription());
+//                if (roles.getRoleType() != null
+//                        && roles.getRoleType().equals(
+//                                AuthorServicesConstants.ROLE_TYPE_INTERNAL)) {
+//                    adminRole.setAdminRole(true);
+//                }
+//                        adminRole.setNoOfPermissions(String.valueOf(aSDataDAO.getCount(roles
+//                                .getRoleId().intValue())));
+//                adminRoles.add(adminRole);
+//            }
 
-            for (Roles roles : daoRolesList) {
-                adminRole = new Role();
-                adminRole.setRoleId(roles.getRoleId() + "");
-                adminRole.setRoleName(roles.getRoleName());
-                adminRole.setRoleDescription(roles.getDescription());
-                if (roles.getRoleType() != null
-                        && roles.getRoleType().equals(
-                                AuthorServicesConstants.ROLE_TYPE_INTERNAL)) {
-                    adminRole.setAdminRole(true);
-                }
-                        adminRole.setNoOfPermissions(String.valueOf(aSDataDAO.getCount(roles
-                                .getRoleId().intValue())));
-                adminRoles.add(adminRole);
-            }
-
-        }
+//        }
         return adminRoles;
     }
 

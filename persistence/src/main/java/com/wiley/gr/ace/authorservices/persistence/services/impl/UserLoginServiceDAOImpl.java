@@ -13,21 +13,13 @@ package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
 import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
 
-import java.util.List;
-
 import org.hibernate.Criteria;
-import org.hibernate.FetchMode;
 import org.hibernate.Session;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Value;
 
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
-import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
-import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
-import com.wiley.gr.ace.authorservices.persistence.entity.UserRoles;
-import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 
 /**
@@ -37,45 +29,45 @@ import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
  */
 public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 
-    /**
-     * The invalidEmail code.
-     */
-    @Value("${invalidEmail.code}")
-    private String invalidEmail;
+//    /**
+//     * The invalidEmail code.
+//     */
+//    @Value("${invalidEmail.code}")
+//    private String invalidEmail;
 
-    /**
-     * The invalidEmail message.
-     */
-    @Value("${invalidEmail.message}")
-    private String invalidEmailMsg;
+//    /**
+//     * The invalidEmail message.
+//     */
+//    @Value("${invalidEmail.message}")
+//    private String invalidEmailMsg;
 
-    /**
-     * This method gets the userId.
-     * 
-     * @param emailId
-     *            to get the userId.
-     * @return the userId.
-     */
-    @Override
-    public final Users getUserId(final String emailId) {
-
-        Session session = null;
-        try {
-            session = getSessionFactory().openSession();
-            Criteria criteria = session.createCriteria(Users.class);
-            criteria.add(Restrictions.eq("primaryEmailAddr", emailId));
-            Users user = (Users) criteria.uniqueResult();
-            if (null == user) {
-                throw new UserException(invalidEmail, invalidEmailMsg);
-            }
-            return user;
-        } finally {
-            if (session != null) {
-                session.flush();
-                session.close();
-            }
-        }
-    }
+//    /**
+//     * This method gets the userId.
+//     * 
+//     * @param emailId
+//     *            to get the userId.
+//     * @return the userId.
+//     */
+//    @Override
+//    public final Users getUserId(final String emailId) {
+//
+//        Session session = null;
+//        try {
+//            session = getSessionFactory().openSession();
+//            Criteria criteria = session.createCriteria(Users.class);
+//            criteria.add(Restrictions.eq("primaryEmailAddr", emailId));
+//            Users user = (Users) criteria.uniqueResult();
+//            if (null == user) {
+//                throw new UserException(invalidEmail, invalidEmailMsg);
+//            }
+//            return user;
+//        } finally {
+//            if (session != null) {
+//                session.flush();
+//                session.close();
+//            }
+//        }
+//    }
 
     /**
      * This method gets the reset password log.
@@ -141,25 +133,25 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
 
     }
 
-    @Override
-    public List<UserRoles> getSuperAdmins(final int roleId) {
-
-        Session session = null;
-        try {
-            session = getSessionFactory().openSession();
-            Criteria criteria = session.createCriteria(UserRoles.class,
-                    "userRoles");
-            criteria.createAlias("userRoles.roles", "roles");
-            criteria.add(Restrictions.eq("roles.roleId", roleId));
-            criteria.setFetchMode("usersByUserId", FetchMode.JOIN);
-            return criteria.list();
-        } finally {
-            if (session != null) {
-                session.flush();
-                session.close();
-            }
-        }
-    }
+//    @Override
+//    public List<UserRoles> getSuperAdmins(final int roleId) {
+//
+//        Session session = null;
+//        try {
+//            session = getSessionFactory().openSession();
+//            Criteria criteria = session.createCriteria(UserRoles.class,
+//                    "userRoles");
+//            criteria.createAlias("userRoles.roles", "roles");
+//            criteria.add(Restrictions.eq("roles.roleId", roleId));
+//            criteria.setFetchMode("usersByUserId", FetchMode.JOIN);
+//            return criteria.list();
+//        } finally {
+//            if (session != null) {
+//                session.flush();
+//                session.close();
+//            }
+//        }
+//    }
     @Override
     public void verifyAccountStatusUpdate(final Integer logId) {
         Session session = null;
@@ -189,12 +181,12 @@ public class UserLoginServiceDAOImpl implements UserLoginServiceDAO {
     @Override
     public void updateIsAccountActive(final Integer userId) {
         Session session = null;
-        UserProfile userProfile = null;
+        //UserProfile userProfile = null;
         try {
             session = getSessionFactory().openSession();
             session.beginTransaction();
-            userProfile = (UserProfile) session.get(UserProfile.class, userId);
-            userProfile.setIsAccountActive('1');
+//            userProfile = (UserProfile) session.get(UserProfile.class, userId);
+//            userProfile.setIsAccountActive('1');
             session.getTransaction().commit();
 
         } finally {

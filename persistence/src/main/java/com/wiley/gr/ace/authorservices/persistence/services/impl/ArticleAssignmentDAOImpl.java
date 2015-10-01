@@ -14,15 +14,6 @@
  */
 package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
-import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
-
-import java.util.List;
-
-import org.hibernate.Session;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
 import com.wiley.gr.ace.authorservices.persistence.services.ArticleAssignmentDAO;
 
 /**
@@ -32,35 +23,35 @@ import com.wiley.gr.ace.authorservices.persistence.services.ArticleAssignmentDAO
  */
 public class ArticleAssignmentDAOImpl implements ArticleAssignmentDAO {
 
-    /** The Constant LOGGER. */
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(ArticleAssignmentDAOImpl.class);
-
-    /**
-     * Gets the product person relations.
-     *
-     * @param emailId
-     *            the email id
-     * @return the product person relations
-     */
-    @Override
-    public final List<ProductPersonRelations> getProductPersonRelations(
-            final String emailAddr) {
-        LOGGER.info("inside getProductPersonRelations Method of DashboardDAOImpl");
-        Session session = null;
-        String productPersonRelationsHql = null;
-        try {
-            session = getSessionFactory().openSession();
-            productPersonRelationsHql = "from ProductPersonRelations ppr where ppr.emailAddr=:emailAddr";
-            final List<ProductPersonRelations> productPersonRelationsList = session
-                    .createQuery(productPersonRelationsHql)
-                    .setString("emailAddr", emailAddr).list();
-            return productPersonRelationsList;
-        } finally {
-            if (session != null) {
-                session.flush();
-                session.close();
-            }
-        }
-    }
+//    /** The Constant LOGGER. */
+//    private static final Logger LOGGER = LoggerFactory
+//            .getLogger(ArticleAssignmentDAOImpl.class);
+//
+//    /**
+//     * Gets the product person relations.
+//     *
+//     * @param emailId
+//     *            the email id
+//     * @return the product person relations
+//     */
+//    @Override
+//    public final List<ProductPersonRelations> getProductPersonRelations(
+//            final String emailAddr) {
+//        LOGGER.info("inside getProductPersonRelations Method of DashboardDAOImpl");
+//        Session session = null;
+//        String productPersonRelationsHql = null;
+//        try {
+//            session = getSessionFactory().openSession();
+//            productPersonRelationsHql = "from ProductPersonRelations ppr where ppr.emailAddr=:emailAddr";
+//            final List<ProductPersonRelations> productPersonRelationsList = session
+//                    .createQuery(productPersonRelationsHql)
+//                    .setString("emailAddr", emailAddr).list();
+//            return productPersonRelationsList;
+//        } finally {
+//            if (session != null) {
+//                session.flush();
+//                session.close();
+//            }
+//        }
+//    }
 }

@@ -16,7 +16,7 @@ import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateCo
 
 import org.hibernate.Session;
 
-import com.wiley.gr.ace.authorservices.persistence.entity.UserProfile;
+import com.wiley.gr.ace.authorservices.model.UserProfile;
 import com.wiley.gr.ace.authorservices.persistence.services.AuthorProfileDao;
 
 /**
@@ -44,7 +44,7 @@ public class AuthorProfileDaoImpl implements AuthorProfileDao {
             session.beginTransaction();
             UserProfile userProfile = (UserProfile) session.get(
                     UserProfile.class, Integer.valueOf(userId));
-            userProfile.setProfilePic(image);
+            //userProfile.setProfilePic(image);
             session.save(userProfile);
             session.getTransaction().commit();
 
@@ -56,33 +56,33 @@ public class AuthorProfileDaoImpl implements AuthorProfileDao {
         }
     }
 
-    /**
-     * This method is for getting image form database .
-     *
-     * @param userId
-     *            the user id
-     * @return User profile...
-     */
-    @Override
-    public final UserProfile getProfilePicture(final String userId) {
-
-        Session session = null;
-        UserProfile userProfile = new UserProfile();
-        try {
-            session = getSessionFactory().openSession();
-            userProfile = (UserProfile) session.get(UserProfile.class,
-                    Integer.valueOf(userId));
-
-        } finally {
-            if (null != session) {
-                session.flush();
-                session.clear();
-                session.close();
-
-            }
-
-        }
-        return userProfile;
-
-    }
+//    /**
+//     * This method is for getting image form database .
+//     *
+//     * @param userId
+//     *            the user id
+//     * @return User profile...
+//     */
+//    @Override
+//    public final UserProfile getProfilePicture(final String userId) {
+//
+//        Session session = null;
+//        UserProfile userProfile = new UserProfile();
+//        try {
+//            session = getSessionFactory().openSession();
+//            userProfile = (UserProfile) session.get(UserProfile.class,
+//                    Integer.valueOf(userId));
+//
+//        } finally {
+//            if (null != session) {
+//                session.flush();
+//                session.clear();
+//                session.close();
+//
+//            }
+//
+//        }
+//        return userProfile;
+//
+//    }
 }

@@ -14,8 +14,6 @@ package com.wiley.gr.ace.authorservices.persistence.audit;
 import java.util.HashMap;
 import java.util.List;
 
-import com.wiley.gr.ace.authorservices.persistence.entity.Users;
-
 /**
  * The Interface AuditResultService.
  * 
@@ -31,5 +29,6 @@ public interface AuditResultService {
      *            the user
      * @return true, if successful
      */
-    boolean userAudit(List<HashMap<String, String>> auditMap, Users user);
+    boolean userAudit(List<HashMap<String, String>> auditMap);
+//    boolean userAudit(List<HashMap<String, String>> auditMap,Users user);
 }

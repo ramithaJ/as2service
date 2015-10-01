@@ -32,8 +32,6 @@ import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
 import com.wiley.gr.ace.authorservices.model.UserLogin;
 import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
-import com.wiley.gr.ace.authorservices.persistence.entity.Users;
-import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 import com.wiley.gr.ace.authorservices.services.service.SendNotification;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
@@ -63,11 +61,11 @@ public class UserLoginController extends ASExceptionController {
     @Autowired
     private AuthorProfileService authorProfileService;
 
-    /**
-     * Injecting UserLoginServiceDAO bean.
-     */
-    @Autowired(required = true)
-    private UserLoginServiceDAO userLoginServiceDAO;
+//    /**
+//     * Injecting UserLoginServiceDAO bean.
+//     */
+//    @Autowired(required = true)
+//    private UserLoginServiceDAO userLoginServiceDAO;
 
     /**
      * Injecting SendNotification bean.
@@ -140,11 +138,11 @@ public class UserLoginController extends ASExceptionController {
             service.setError(errorPOJO);
         } else if (success.equals(securityResponse.getStatus())) {
 
-            Users users = userLoginServiceDAO.getUserId(login.getEmailId());
+            //Users users = userLoginServiceDAO.getUserId(login.getEmailId());
             UserLogin user = new UserLogin();
-            user.setUserId(users.getUserId().intValue());
-            user.setFirstName(users.getFirstName());
-            user.setLastName(users.getLastName());
+           // user.setUserId(users.getUserId().intValue());
+            //user.setFirstName(users.getFirstName());
+           // user.setLastName(users.getLastName());
             service.setPayload(user);
         }
         return service;
@@ -248,7 +246,7 @@ public class UserLoginController extends ASExceptionController {
     public final Service resetByEmail(
             @PathVariable("emailId") final String emailId) {
         Service service = new Service();
-        userLoginServiceDAO.getUserId(emailId);
+        //userLoginServiceDAO.getUserId(emailId);
         sendNotification.notifyByEmail(emailId, templateId);
         return service;
     }

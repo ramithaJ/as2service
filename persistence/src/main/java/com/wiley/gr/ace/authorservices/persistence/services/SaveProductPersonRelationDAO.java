@@ -14,7 +14,6 @@
  */
 package com.wiley.gr.ace.authorservices.persistence.services;
 
-import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
 
 /**
  * The Interface SaveProductPersonRelationDAO.
@@ -23,13 +22,13 @@ import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations
  */
 public interface SaveProductPersonRelationDAO {
 
-    /**
-     * Save product person relation.
-     *
-     * @param productPersonRelations
-     *            the product person relations
-     * @return true, if successful
-     */
-    boolean saveProductPersonRelation(
-            ProductPersonRelations productPersonRelations);
+//    /**
+//     * Save product person relation.
+//     *
+//     * @param productPersonRelations
+//     *            the product person relations
+//     * @return true, if successful
+//     */
+//    boolean saveProductPersonRelation(
+//            ProductPersonRelations productPersonRelations);
 }

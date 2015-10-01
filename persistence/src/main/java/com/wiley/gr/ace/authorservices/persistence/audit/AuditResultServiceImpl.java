@@ -25,7 +25,6 @@ import com.wiley.gr.ace.authorservices.model.AuditInformation;
 import com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection;
 import com.wiley.gr.ace.authorservices.persistence.entity.Actions;
 import com.wiley.gr.ace.authorservices.persistence.entity.AuditDetails;
-import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 
 /**
  * The Class AuditResultServiceImpl.
@@ -45,8 +44,10 @@ public class AuditResultServiceImpl implements AuditResultService {
      */
     @Override
     public final boolean userAudit(
-            final List<HashMap<String, String>> auditMap, final Users user) {
-
+            final List<HashMap<String, String>> auditMap) {
+//        @Override
+//        public final boolean userAudit(
+//                final List<HashMap<String, String>> auditMap, final Users user)
         Session session = null;
         Transaction transaction = null;
         try {
@@ -90,10 +91,10 @@ public class AuditResultServiceImpl implements AuditResultService {
                     }
                     auditDetails.setCreatedDate(new Date());
 
-                    if (null != user) {
-                        auditDetails.setUsers(user);
-
-                    }
+//                    if (null != user) {
+//                        auditDetails.setUsers(user);
+//
+//                    }
                     // saving the auditDetails object.
                     session.save(auditDetails);
                 }
@@ -134,11 +135,12 @@ public class AuditResultServiceImpl implements AuditResultService {
         hashMap.put("ACTION_CD", auditInformation.getActionID());
         auditMap.add(hashMap);
 
-        Users users = new Users();
-        users.setUserId(new Long(auditInformation.getUserId()));
+//        Users users = new Users();
+//        users.setUserId(new Long(auditInformation.getUserId()));
 
         AuditResultServiceImpl auditResultServiceImpl = new AuditResultServiceImpl();
-        auditResultServiceImpl.userAudit(auditMap, users);
+        auditResultServiceImpl.userAudit(auditMap);
+//        auditResultServiceImpl.userAudit(auditMap, users);
     }
 
 }

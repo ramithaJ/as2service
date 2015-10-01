@@ -14,10 +14,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
-import com.wiley.gr.ace.authorservices.persistence.entity.Users;
-import com.wiley.gr.ace.authorservices.persistence.services.UserLoginDao;
 import com.wiley.gr.ace.authorservices.security.TokenAuthentication;
-import com.wiley.gr.ace.authorservices.services.service.SendNotification;
 
 /**
  * TokenAuthenticationService contacts external auth server to
@@ -38,19 +35,19 @@ public class TokenAuthenticationService {
     @Autowired
     private TokenHandler tokenHandler;
 
-    /** This field holds the value of sendNotification. */
-    @Autowired(required = true)
-    private SendNotification sendNotification;
+//    /** This field holds the value of sendNotification. */
+//    @Autowired(required = true)
+//    private SendNotification sendNotification;
 
-    /** The template id. */
-    @Value("${templateId.invalid.login}")
-    private String templateId;
-
-    /**
-     * This field holds the value of userLoginServiceDAO.
-     */
-    @Autowired
-    private UserLoginDao userLoginDao;
+//    /** The template id. */
+//    @Value("${templateId.invalid.login}")
+//    private String templateId;
+//
+//    /**
+//     * This field holds the value of userLoginServiceDAO.
+//     */
+//    @Autowired
+//    private UserLoginDao userLoginDao;
 
     /**
      * Authenticate.
@@ -66,10 +63,10 @@ public class TokenAuthenticationService {
         final String authenticationToken = tokenHandler
                 .invokeTokenAuthorization(username, password);
         if (StringUtils.isBlank(authenticationToken)) {
-            final Users users = userLoginDao.verifyUser(username);
-            if (null != users) {
-                sendNotification.notifyByEmail(username, templateId);
-            }
+//            final Users users = userLoginDao.verifyUser(username);
+//            if (null != users) {
+//                sendNotification.notifyByEmail(username, templateId);
+//            }
             return null;
         }
         final User user = new User(username, StringUtils.EMPTY,

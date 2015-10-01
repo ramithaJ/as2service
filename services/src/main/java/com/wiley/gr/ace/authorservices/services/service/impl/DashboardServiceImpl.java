@@ -34,7 +34,6 @@ import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.ArticleData;
 import com.wiley.gr.ace.authorservices.model.ArticleDetails;
 import com.wiley.gr.ace.authorservices.model.ArticleUserRoleDetails;
-import com.wiley.gr.ace.authorservices.model.CommunicationDetails;
 import com.wiley.gr.ace.authorservices.model.Dashboard;
 import com.wiley.gr.ace.authorservices.model.DashboardInfo;
 import com.wiley.gr.ace.authorservices.model.DashboardView;
@@ -61,10 +60,7 @@ import com.wiley.gr.ace.authorservices.model.external.ResearchFunderData;
 import com.wiley.gr.ace.authorservices.model.external.SocietyData;
 import com.wiley.gr.ace.authorservices.model.external.SystemSecurityQuestions;
 import com.wiley.gr.ace.authorservices.persistence.entity.CoauthorRequestsOoorders;
-import com.wiley.gr.ace.authorservices.persistence.entity.InvitationLog;
-import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
 import com.wiley.gr.ace.authorservices.persistence.entity.SavedOrders;
-import com.wiley.gr.ace.authorservices.persistence.services.DashboardDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO;
 import com.wiley.gr.ace.authorservices.services.service.DashboardService;
 import com.wiley.gr.ace.authorservices.services.service.LicenseService;
@@ -94,9 +90,9 @@ public class DashboardServiceImpl implements DashboardService {
     @Autowired(required = true)
     private ESBInterfaceService esbInterfaceService;
 
-    /** The dashboardDAO. */
-    @Autowired(required = true)
-    private DashboardDAO dashboardDAO;
+//    /** The dashboardDAO. */
+//    @Autowired(required = true)
+//    private DashboardDAO dashboardDAO;
 
     /** The notificationService. */
     @Autowired(required = true)
@@ -604,33 +600,33 @@ public class DashboardServiceImpl implements DashboardService {
         return dashboardView;
     }
 
-    /**
-     * Gets the all articles for user.
-     *
-     * @param userId
-     *            the user id
-     * @return the all articles for user
-     */
-    private Map<Integer, ArticleUserRoleDetails> getAllArticlesForUser(
-            final String userId) {
-        final List<ProductPersonRelations> productPersonRelationsList = dashboardDAO
-                .getProductPersonRelations(userId);
-        ArticleUserRoleDetails articleUserRoleDetails = null;
-        Map<Integer, ArticleUserRoleDetails> articleMap = new HashMap<Integer, ArticleUserRoleDetails>();
-        if (!StringUtils.isEmpty(productPersonRelationsList)) {
-            for (ProductPersonRelations productPersonRelations : productPersonRelationsList) {
-                articleUserRoleDetails = new ArticleUserRoleDetails();
-                articleUserRoleDetails.setRoleCode(productPersonRelations
-                        .getProducts().getDhTypeCd());
-                articleUserRoleDetails.setRoleName(productPersonRelations
-                        .getProductRoles().getProductRoleName());
-                Long dhIdasLong=productPersonRelations.getProducts().getDhId();
-                articleMap.put(dhIdasLong.intValue(),
-                        articleUserRoleDetails);
-            }
-        }
-        return articleMap;
-    }
+//    /**
+//     * Gets the all articles for user.
+//     *
+//     * @param userId
+//     *            the user id
+//     * @return the all articles for user
+//     */
+//    private Map<Integer, ArticleUserRoleDetails> getAllArticlesForUser(
+//            final String userId) {
+//        final List<ProductPersonRelations> productPersonRelationsList = dashboardDAO
+//                .getProductPersonRelations(userId);
+//        ArticleUserRoleDetails articleUserRoleDetails = null;
+//        Map<Integer, ArticleUserRoleDetails> articleMap = new HashMap<Integer, ArticleUserRoleDetails>();
+//        if (!StringUtils.isEmpty(productPersonRelationsList)) {
+//            for (ProductPersonRelations productPersonRelations : productPersonRelationsList) {
+//                articleUserRoleDetails = new ArticleUserRoleDetails();
+//                articleUserRoleDetails.setRoleCode(productPersonRelations
+//                        .getProducts().getDhTypeCd());
+//                articleUserRoleDetails.setRoleName(productPersonRelations
+//                        .getProductRoles().getProductRoleName());
+//                Long dhIdasLong=productPersonRelations.getProducts().getDhId();
+//                articleMap.put(dhIdasLong.intValue(),
+//                        articleUserRoleDetails);
+//            }
+//        }
+//        return articleMap;
+//    }
 
     /**
      * Gets the article author data.
@@ -646,7 +642,7 @@ public class DashboardServiceImpl implements DashboardService {
         LOGGER.info("inside getArticleAuthorData Method of DashboardServiceImpl");
         final List<ArticleData> articleDataList = new ArrayList<ArticleData>();
         ArticleData articleData = null;
-        Map<Integer, ArticleUserRoleDetails> articleDetailsMap = getAllArticlesForUser(userId);
+        Map<Integer, ArticleUserRoleDetails> articleDetailsMap = new HashMap<Integer, ArticleUserRoleDetails>();//getAllArticlesForUser(userId);
         for (Map.Entry<Integer, ArticleUserRoleDetails> articleInfo : articleDetailsMap
                 .entrySet()) {
             Integer dhId = articleInfo.getKey();
@@ -771,11 +767,11 @@ public class DashboardServiceImpl implements DashboardService {
             orderStatus.setStatus(statusArray[0]);
             orderStatus.setActionsRequired(statusArray[1]);
             // order status HashMap
-            for (SavedOrders savedOrders : savedOrdersList) {
-                satusHashMap.put(
-                        String.valueOf(savedOrders.getProducts().getDhId()),
-                        orderStatus);
-            }
+//            for (SavedOrders savedOrders : savedOrdersList) {
+////                satusHashMap.put(
+////                        String.valueOf(savedOrders.getProducts().getDhId()),
+////                        orderStatus);
+//            }
         }
         // calling Co_Author Request OO Orders table
         List<CoauthorRequestsOoorders> coauthorRequestsOoordersList = orderOnlinedao
@@ -785,10 +781,10 @@ public class DashboardServiceImpl implements DashboardService {
             String[] orderStatusArray = onlineOpenReqRcvd.split(":");
             orderStatus.setStatus(orderStatusArray[0]);
             orderStatus.setActionsRequired(orderStatusArray[1]);
-            for (CoauthorRequestsOoorders coauthorRequestsOoorders : coauthorRequestsOoordersList) {
-                satusHashMap.put(String.valueOf(coauthorRequestsOoorders
-                        .getProducts().getDhId()), orderStatus);
-            }
+//            for (CoauthorRequestsOoorders coauthorRequestsOoorders : coauthorRequestsOoordersList) {
+////                satusHashMap.put(String.valueOf(coauthorRequestsOoorders
+////                        .getProducts().getDhId()), orderStatus);
+//            }
         }
 
         // calling View All Orders external Service
@@ -947,8 +943,8 @@ public class DashboardServiceImpl implements DashboardService {
             final String userId) throws Exception {
         LOGGER.info("inside getCommunicationDetailsList Method of DashboardServiceImpl");
         final EmailCommunicationHistory emailCommunicationHistory = new EmailCommunicationHistory();
-        emailCommunicationHistory
-                .setInvitationCommunicationDetails(getInvitationLogsList(userId));
+//        emailCommunicationHistory
+//                .setInvitationCommunicationDetails(getInvitationLogsList(userId));
         final NotificationHistory notificationsHistory = notificationService
                 .getNotificationHistory(userId);
         if (!StringUtils.isEmpty(notificationsHistory)) {
@@ -959,40 +955,40 @@ public class DashboardServiceImpl implements DashboardService {
         return emailCommunicationHistory;
     }
 
-    /**
-     * Gets the invitation logs list.
-     *
-     * @param userId
-     *            the user id
-     * @return the invitation logs list
-     * @throws Exception
-     *             the exception
-     */
-    private List<CommunicationDetails> getInvitationLogsList(final String userId)
-            throws Exception {
-        LOGGER.info("inside getInvitationLogsList Method of DashboardServiceImpl");
-        List<CommunicationDetails> communicationDetailsList = null;
-        final List<InvitationLog> invitationLogList = dashboardDAO
-                .getInvitationLogList(userId);
-        if (!StringUtils.isEmpty(invitationLogList)) {
-            LOGGER.info("Invitation Logs  Found");
-            communicationDetailsList = new ArrayList<CommunicationDetails>();
-            for (final InvitationLog invitationLog : invitationLogList) {
-                final CommunicationDetails communicationDetails = new CommunicationDetails();
-//                communicationDetails.setUserId(invitationLog.getUserProfile()
-//                        .getUserId());
-//                communicationDetails.setInviationId(invitationLog
-//                        .getInvitationId());
-//                communicationDetails.setEmailId(invitationLog.getEmailAddr());
-//                communicationDetails.setArticleId(invitationLog.getProducts()
-//                        .getDhId());
-                communicationDetails.setSentDate(invitationLog.getSentDate()
-                        .toString());
-                communicationDetailsList.add(communicationDetails);
-            }
-        }
-        return communicationDetailsList;
-    }
+//    /**
+//     * Gets the invitation logs list.
+//     *
+//     * @param userId
+//     *            the user id
+//     * @return the invitation logs list
+//     * @throws Exception
+//     *             the exception
+//     */
+//    private List<CommunicationDetails> getInvitationLogsList(final String userId)
+//            throws Exception {
+//        LOGGER.info("inside getInvitationLogsList Method of DashboardServiceImpl");
+//        List<CommunicationDetails> communicationDetailsList = null;
+//        final List<InvitationLog> invitationLogList = dashboardDAO
+//                .getInvitationLogList(userId);
+//        if (!StringUtils.isEmpty(invitationLogList)) {
+//            LOGGER.info("Invitation Logs  Found");
+//            communicationDetailsList = new ArrayList<CommunicationDetails>();
+//            for (final InvitationLog invitationLog : invitationLogList) {
+//                final CommunicationDetails communicationDetails = new CommunicationDetails();
+////                communicationDetails.setUserId(invitationLog.getUserProfile()
+////                        .getUserId());
+////                communicationDetails.setInviationId(invitationLog
+////                        .getInvitationId());
+////                communicationDetails.setEmailId(invitationLog.getEmailAddr());
+////                communicationDetails.setArticleId(invitationLog.getProducts()
+////                        .getDhId());
+//                communicationDetails.setSentDate(invitationLog.getSentDate()
+//                        .toString());
+//                communicationDetailsList.add(communicationDetails);
+//            }
+//        }
+//        return communicationDetailsList;
+//    }
 
     /**
      * Gets the production details.
@@ -1010,7 +1006,7 @@ public class DashboardServiceImpl implements DashboardService {
         DashboardView dashboardView = new DashboardView();
         List<ArticleData> articleDataListForProduction = new ArrayList<ArticleData>();
         ArticleData articleDataForProduction = null;
-        Map<Integer, ArticleUserRoleDetails> articleDetailsMap = getAllArticlesForUser(userId);
+        Map<Integer, ArticleUserRoleDetails> articleDetailsMap =new HashMap<Integer, ArticleUserRoleDetails>();//getAllArticlesForUser(userId);
         for (Map.Entry<Integer, ArticleUserRoleDetails> articleInfo : articleDetailsMap
                 .entrySet()) {
             Integer dhId = articleInfo.getKey();
@@ -1140,7 +1136,7 @@ public class DashboardServiceImpl implements DashboardService {
         DashboardView dashboardView = null;
         ArticleData publishedArticleData = null;
         List<ArticleData> articleDataListforPublication = new ArrayList<ArticleData>();
-        Map<Integer, ArticleUserRoleDetails> articleDetailsMap = getAllArticlesForUser(userId);
+        Map<Integer, ArticleUserRoleDetails> articleDetailsMap = new HashMap<Integer, ArticleUserRoleDetails>();//getAllArticlesForUser(userId);
         for (Map.Entry<Integer, ArticleUserRoleDetails> articleInfo : articleDetailsMap
                 .entrySet()) {
             Integer dhId = articleInfo.getKey();

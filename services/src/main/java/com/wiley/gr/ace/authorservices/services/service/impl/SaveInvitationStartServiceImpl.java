@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.model.event.InvitationStartEventData;
-import com.wiley.gr.ace.authorservices.persistence.entity.InvitationLog;
 import com.wiley.gr.ace.authorservices.persistence.services.InvitationStartDAO;
 import com.wiley.gr.ace.authorservices.services.service.SaveInvitationStartEventService;
 
@@ -57,12 +56,12 @@ public class SaveInvitationStartServiceImpl implements
 			//String userRole = invitationStartEvent.getUserRole();
 
 			String guId = invitationStartEvent.getUserID();
-			String notificationId = invitationStartEvent.getNotificationId();
+			//String notificationId = invitationStartEvent.getNotificationId();
 			invitationStartDAO.updateInviteResetPWDLog(guId, email);
-			InvitationLog invitationLog = new InvitationLog();
-			invitationLog.setEmailAddr(email);
-			invitationLog.setNotificationId(Long.parseLong(notificationId));
-			invitationStartDAO.createInvitationLog(invitationLog);
+//			InvitationLog invitationLog = new InvitationLog();
+//			invitationLog.setEmailAddr(email);
+//			invitationLog.setNotificationId(Long.parseLong(notificationId));
+//			invitationStartDAO.createInvitationLog(invitationLog);
 
 		}
 

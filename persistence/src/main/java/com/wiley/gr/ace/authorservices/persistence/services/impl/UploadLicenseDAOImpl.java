@@ -23,7 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.wiley.gr.ace.authorservices.persistence.entity.LicenseUploadDetails;
 import com.wiley.gr.ace.authorservices.persistence.entity.SavedLicenses;
-import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.UploadLicenseDAO;
 
 /**
@@ -55,15 +54,15 @@ public class UploadLicenseDAOImpl implements UploadLicenseDAO {
         if (!StringUtils.isEmpty(dhId) && !StringUtils.isEmpty(userId)) {
             try {
                 session = getSessionFactory().openSession();
-                String hql = "from SavedLicenses sl where sl.products.dhId = :dhId "
-                        + "and sl.usersByUserId.userId = :userId";
-                SavedLicenses savedLicenses = (SavedLicenses) session
-                        .createQuery(hql).setString("dhId", dhId)
-                        .setString("userId", userId).uniqueResult();
+//                String hql = "from SavedLicenses sl where sl.products.dhId = :dhId "
+//                        + "and sl.usersByUserId.userId = :userId";
+//                SavedLicenses savedLicenses = (SavedLicenses) session
+//                        .createQuery(hql).setString("dhId", dhId)
+//                        .setString("userId", userId).uniqueResult();
                 
 //                Clob clob = savedLicenses.getLicenseObject();
 //                license = clob.getSubString(1, (int) clob.length());
-                  license = savedLicenses.getLicenseObject();
+                //  license = savedLicenses.getLicenseObject();
             }finally {
                 if (session != null) {
                     session.flush();
@@ -104,16 +103,16 @@ public class UploadLicenseDAOImpl implements UploadLicenseDAO {
                         .setString("userId", userId).uniqueResult();
                 if (!StringUtils.isEmpty(savedLicense)) {
                     LicenseUploadDetails licenseUploadDetails = new LicenseUploadDetails();
-                    licenseUploadDetails.setSavedLicenses(savedLicense);
+                   // licenseUploadDetails.setSavedLicenses(savedLicense);
 //                    
 //                    Blob blobFile = Hibernate.getLobCreator(session)
 //                            .createBlob(file.getInputStream(), file.getSize());
                     licenseUploadDetails.setLicenseFile(file.getBytes());
                     Date date = new Date();
                     licenseUploadDetails.setCreatedDate(date);
-                    Users users = new Users();
-                    users.setUserId(Long.valueOf(Integer.valueOf(userId)));
-                    licenseUploadDetails.setUsersByCreatedBy(users);
+//                    Users users = new Users();
+//                    users.setUserId(Long.valueOf(Integer.valueOf(userId)));
+//                    licenseUploadDetails.setUsersByCreatedBy(users);
                     session.beginTransaction();
                     session.save(licenseUploadDetails);
                     session.getTransaction().commit();

@@ -11,10 +11,6 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.services;
 
-import java.util.List;
-
-import com.wiley.gr.ace.authorservices.persistence.entity.UserRoles;
-import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 
 /**
  * The Interface UserLoginDao.
@@ -33,22 +29,22 @@ public interface UserLoginDao {
 
     boolean validateEmail(String emailId);
 
-    /**
-     * This method creates admin user in database.
-     * 
-     * @param users
-     *            to create Admin User.
-     * @param userRolesList
-     *            to create Admin User.
-     */
-
-    void createAdminUser(Users users, List<UserRoles> userRolesList);
-
-    /**
-     * @param emailId
-     *            the request value.
-     * @return users
-     */
-    Users verifyUser(String emailId);
+//    /**
+//     * This method creates admin user in database.
+//     * 
+//     * @param users
+//     *            to create Admin User.
+//     * @param userRolesList
+//     *            to create Admin User.
+//     */
+//
+//    void createAdminUser(Users users, List<UserRoles> userRolesList);
+//
+//    /**
+//     * @param emailId
+//     *            the request value.
+//     * @return users
+//     */
+//    Users verifyUser(String emailId);
 
 }

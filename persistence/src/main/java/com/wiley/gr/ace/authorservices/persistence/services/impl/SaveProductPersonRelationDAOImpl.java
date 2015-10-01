@@ -14,11 +14,6 @@
  */
 package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
-import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
-
-import org.hibernate.Session;
-
-import com.wiley.gr.ace.authorservices.persistence.entity.ProductPersonRelations;
 import com.wiley.gr.ace.authorservices.persistence.services.SaveProductPersonRelationDAO;
 
 /**
@@ -29,33 +24,33 @@ import com.wiley.gr.ace.authorservices.persistence.services.SaveProductPersonRel
 public class SaveProductPersonRelationDAOImpl implements
         SaveProductPersonRelationDAO {
 
-    /**
-     * Save product person relation.
-     *
-     * @param productPersonRelations
-     *            the product person relations
-     * @return true, if successful
-     */
-    @Override
-    public final boolean saveProductPersonRelation(
-            final ProductPersonRelations productPersonRelations) {
-        Session session = null;
-        try {
-            session = getSessionFactory().openSession();
-            session.beginTransaction();
-            session.save(productPersonRelations);
-            session.getTransaction().commit();
-            return true;
-
-        } catch (final Exception e) {
-            e.printStackTrace();
-            return false;
-        } finally {
-            if (session != null) {
-                session.flush();
-                session.close();
-            }
-        }
-    }
+//    /**
+//     * Save product person relation.
+//     *
+//     * @param productPersonRelations
+//     *            the product person relations
+//     * @return true, if successful
+//     */
+//    @Override
+//    public final boolean saveProductPersonRelation(
+//            final ProductPersonRelations productPersonRelations) {
+//        Session session = null;
+//        try {
+//            session = getSessionFactory().openSession();
+//            session.beginTransaction();
+//            session.save(productPersonRelations);
+//            session.getTransaction().commit();
+//            return true;
+//
+//        } catch (final Exception e) {
+//            e.printStackTrace();
+//            return false;
+//        } finally {
+//            if (session != null) {
+//                session.flush();
+//                session.close();
+//            }
+//        }
+//    }
 
 }

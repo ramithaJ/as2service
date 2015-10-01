@@ -22,7 +22,6 @@ import com.wiley.gr.ace.authorservices.model.CollectArticle;
 import com.wiley.gr.ace.authorservices.model.Ownerships;
 import com.wiley.gr.ace.authorservices.model.SubOwnerships;
 import com.wiley.gr.ace.authorservices.persistence.entity.OwnershipTypes;
-import com.wiley.gr.ace.authorservices.persistence.entity.SubOwnershipTypes;
 import com.wiley.gr.ace.authorservices.persistence.services.CollectArticleDAO;
 import com.wiley.gr.ace.authorservices.services.service.CollectArticleService;
 
@@ -61,14 +60,14 @@ public class CollectArticleServiceImpl implements CollectArticleService {
             ownerships.setCode(ownershipTypes.getTypeCd());
             ownerships.setName(ownershipTypes.getTypeName());
             Set<SubOwnerships> subOwnershipsSet = new HashSet<SubOwnerships>();
-            Set<SubOwnershipTypes> subOwnershipTypesSet = (Set<SubOwnershipTypes>) ownershipTypes
-                    .getSubOwnershipTypeses();
-            for (SubOwnershipTypes subOwnershipTypes : subOwnershipTypesSet) {
-                SubOwnerships subOwnerships = new SubOwnerships();
-                subOwnerships.setCode(subOwnershipTypes.getSubTypeCd());
-                subOwnerships.setName(subOwnershipTypes.getSubTypeName());
-                subOwnershipsSet.add(subOwnerships);
-            }
+//            Set<SubOwnershipTypes> subOwnershipTypesSet = (Set<SubOwnershipTypes>) ownershipTypes
+//                    .getSubOwnershipTypeses();
+//            for (SubOwnershipTypes subOwnershipTypes : subOwnershipTypesSet) {
+//                SubOwnerships subOwnerships = new SubOwnerships();
+//                subOwnerships.setCode(subOwnershipTypes.getSubTypeCd());
+//                subOwnerships.setName(subOwnershipTypes.getSubTypeName());
+//                subOwnershipsSet.add(subOwnerships);
+//            }
             ownerships.setSubOwnerships(subOwnershipsSet);
             ownershipsSet.add(ownerships);
         }

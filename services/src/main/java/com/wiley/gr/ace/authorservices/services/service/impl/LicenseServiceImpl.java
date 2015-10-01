@@ -18,13 +18,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import javax.sql.rowset.serial.SerialClob;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,10 +33,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
-import com.wiley.gr.ace.authorservices.exception.LicenseException;
 import com.wiley.gr.ace.authorservices.externalservices.service.LicenseInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.TaskService;
 import com.wiley.gr.ace.authorservices.model.FunderDetails;
@@ -61,9 +55,7 @@ import com.wiley.gr.ace.authorservices.model.external.SignLicenseRequest;
 import com.wiley.gr.ace.authorservices.model.external.ViewLicenseAgreement;
 import com.wiley.gr.ace.authorservices.model.external.WALSRequest;
 import com.wiley.gr.ace.authorservices.persistence.entity.LicenseUploadDetails;
-import com.wiley.gr.ace.authorservices.persistence.entity.Products;
 import com.wiley.gr.ace.authorservices.persistence.entity.SavedLicenses;
-import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.LicenseDAO;
 import com.wiley.gr.ace.authorservices.services.service.LicenseService;
 
@@ -190,31 +182,16 @@ public class LicenseServiceImpl implements LicenseService {
             final String userId, final String articleId) {
         SavedLicenses savedLicenses = new SavedLicenses();
         Integer licenseId = null;
-        try {
-            String licenseObjectAsString = new ObjectMapper().writer()
-                    .withDefaultPrettyPrinter()
-                    .writeValueAsString(licenseObject);
-
-            if (!StringUtils.isEmpty(licenseObjectAsString)) {
-                savedLicenses.setLicenseObject(new SerialClob(
-                        licenseObjectAsString.toCharArray()).toString());
-            }
-
-            Users users = new Users();
-            Products products = new Products();
-            users.setUserId(Long.valueOf(userId));
-            products.setDhId(Integer.parseInt(articleId));
-
-            savedLicenses.setProducts(products);
-            savedLicenses.setUsersByUserId(users);
-            savedLicenses.setCreatedDate(new Date());
-
-            licenseId = licenseDAO.saveLicense(savedLicenses);
-
-        } catch (JsonProcessingException | SQLException e) {
-            throw new LicenseException("ERROR_SAVING_LICENSE",
-                    "error saving the license");
-        }
+        //            Users users = new Users();
+        //            Products products = new Products();
+        //            users.setUserId(Long.valueOf(userId));
+        //            products.setDhId(Integer.parseInt(articleId));
+        //
+        //            savedLicenses.setProducts(products);
+                   // savedLicenses.setUsersByUserId(users);
+                    savedLicenses.setCreatedDate(new Date());
+        
+                    licenseId = licenseDAO.saveLicense(savedLicenses);
         return licenseId;
 
     }
@@ -271,6 +248,7 @@ public class LicenseServiceImpl implements LicenseService {
             }
             bufferedReader.close();
         } catch (IOException e) {
+            LOGGER.error("Exception "+e);
         }
         String content = contentBuilder.toString();
 

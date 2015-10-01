@@ -18,7 +18,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,7 +35,6 @@ import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.UserLogin;
 import com.wiley.gr.ace.authorservices.model.external.TaskServiceRequest;
 import com.wiley.gr.ace.authorservices.persistence.entity.LookupValues;
-import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 import com.wiley.gr.ace.authorservices.persistence.services.LookUpValuesDAO;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 import com.wiley.gr.ace.authorservices.services.service.SendNotification;
@@ -116,15 +114,15 @@ public class AdminLoginController extends ASExceptionController {
         final String emailId = login.getEmailId();
         if (adminLoginService.validateEmail(emailId)) {
 
-            Users users = adminLoginService.getASUser(emailId);
-            if (StringUtils.isEmpty(users)) {
-                return null;
-            }
-            UserLogin userLogin = new UserLogin();
-            userLogin.setUserId(users.getUserId().intValue());
-            userLogin.setFirstName(users.getFirstName());
-            userLogin.setLastName(users.getLastName());
-            service.setPayload(userLogin);
+//            Users users = adminLoginService.getASUser(emailId);
+//            if (StringUtils.isEmpty(users)) {
+//                return null;
+//            }
+                UserLogin userLogin = new UserLogin();
+//            userLogin.setUserId(users.getUserId().intValue());
+//            userLogin.setFirstName(users.getFirstName());
+//            userLogin.setLastName(users.getLastName());
+             service.setPayload(userLogin);
         } else {
             throw new ASException(errorcode, errormessage);
         }

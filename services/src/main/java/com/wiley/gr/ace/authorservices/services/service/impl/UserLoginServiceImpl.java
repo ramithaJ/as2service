@@ -343,9 +343,9 @@ public class UserLoginServiceImpl implements UserLoginService {
                         .equalsIgnoreCase(inviteResetpwdLog.getType())) {
             userLoginServiceDAO.verifyAccountStatusUpdate(inviteResetpwdLog
                     .getLogId().intValue());
-            Integer userId = userLoginServiceDAO.getUserId(
-                    inviteResetpwdLog.getEmailAddress()).getUserId().intValue();
-            userLoginServiceDAO.updateIsAccountActive(userId);
+//            Integer userId = userLoginServiceDAO.getUserId(
+//                    inviteResetpwdLog.getEmailAddress()).getUserId().intValue();
+//            userLoginServiceDAO.updateIsAccountActive(userId);
 
         } else {
             throw new ASException(accountVerifiedCode, accountVerifiedMessage);

@@ -11,11 +11,7 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.services;
 
-import java.util.List;
-
 import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
-import com.wiley.gr.ace.authorservices.persistence.entity.UserRoles;
-import com.wiley.gr.ace.authorservices.persistence.entity.Users;
 
 /**
  * The Interface UserLoginServiceDAO.
@@ -24,14 +20,14 @@ import com.wiley.gr.ace.authorservices.persistence.entity.Users;
  */
 public interface UserLoginServiceDAO {
 
-    /**
-     * This method gets the userId.
-     * 
-     * @param emailId
-     *            to get the userId.
-     * @return the userId.
-     */
-    Users getUserId(String emailId);
+//    /**
+//     * This method gets the userId.
+//     * 
+//     * @param emailId
+//     *            to get the userId.
+//     * @return the userId.
+//     */
+//    Users getUserId(String emailId);
 
     /**
      * This method gets the reset password log.
@@ -51,7 +47,7 @@ public interface UserLoginServiceDAO {
      */
     String insertGuid(InviteResetpwdLog inviteResetpwdLog);
 
-    List<UserRoles> getSuperAdmins(int roleId);
+//    List<UserRoles> getSuperAdmins(int roleId);
 
     void verifyAccountStatusUpdate(Integer logId);
 
