@@ -92,7 +92,7 @@ public class User implements Serializable {
     private boolean searchFullName;
 
     /** The invitation guid. */
-    private String invitationGuid;
+    private String participantId;
 
     /** The country. */
     private Country country;
@@ -138,6 +138,8 @@ public class User implements Serializable {
     private String jobCategoryName;
 
     /**
+     * Gets the industry name.
+     *
      * @return the industryName
      */
     public final String getIndustryName() {
@@ -145,6 +147,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Sets the industry name.
+     *
      * @param industryName
      *            the industryName to set
      */
@@ -153,6 +157,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Gets the job category name.
+     *
      * @return the jobCategoryName
      */
     public final String getJobCategoryName() {
@@ -160,6 +166,8 @@ public class User implements Serializable {
     }
 
     /**
+     * Sets the job category name.
+     *
      * @param jobCategoryName
      *            the jobCategoryName to set
      */
@@ -596,22 +604,22 @@ public class User implements Serializable {
     }
 
     /**
-     * Gets the invitation guid.
+     * Gets the participant id.
      *
-     * @return the invitationGuid
+     * @return the participant id
      */
-    public final String getInvitationGuid() {
-        return invitationGuid;
+    public final String getParticipantId() {
+        return participantId;
     }
 
     /**
-     * Sets the invitation guid.
+     * Sets the participant id.
      *
-     * @param invitationGuid
-     *            the invitationGuid to set
+     * @param participantId
+     *            the new participant id
      */
-    public final void setInvitationGuid(final String invitationGuid) {
-        this.invitationGuid = invitationGuid;
+    public final void setParticipantId(final String participantId) {
+        this.participantId = participantId;
     }
 
     /**

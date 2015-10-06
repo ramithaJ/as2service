@@ -86,4 +86,31 @@ public interface RegistrationService {
      */
     void assignRoleToNewUser(String emailId);
 
+    /**
+     * Creates the alm user.
+     *
+     * @param user
+     *            the user
+     * @return the string
+     */
+    String createALMUser(User user);
+
+    /**
+     * Creates the participant.
+     *
+     * @param user
+     *            the user
+     * @return the string
+     */
+    String createParticipant(User user);
+
+    /**
+     * Creates the contact.
+     *
+     * @param user
+     *            the user
+     * @return the string
+     */
+    String createContact(User user);
+
 }

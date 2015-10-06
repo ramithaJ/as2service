@@ -92,9 +92,9 @@ public class RegistrationServiceImpl implements RegistrationService {
                 customerDetails.setfName(user.getFirstName());
                 customerDetails.setlName(user.getLastName());
                 customerDetails.setPswd(user.getPassword());
-                if (!StringUtils.isEmpty(user.getInvitationGuid())) {
+                if (!StringUtils.isEmpty(user.getParticipantId())) {
                     final InviteResetpwdLog inviteResetpwdLog = registrationServiceDAO
-                            .getInvitationRecords(user.getInvitationGuid());
+                            .getInvitationRecords(user.getParticipantId());
                     if (inviteResetpwdLog.getEmailAddress().equalsIgnoreCase(
                             user.getPrimaryEmailAddr())) {
                         customerDetails.setSecondaryEmail(inviteResetpwdLog
@@ -290,5 +290,23 @@ public class RegistrationServiceImpl implements RegistrationService {
     public final void assignRoleToNewUser(final String emailId) {
 
         registrationServiceDAO.assignRoleToNewRegistration(emailId);
+    }
+
+    @Override
+    public String createALMUser(final User user) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String createParticipant(final User user) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String createContact(final User user) {
+        // TODO Auto-generated method stub
+        return null;
     }
 }
