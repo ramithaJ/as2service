@@ -14,6 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.services.service;
 
+import java.util.ArrayList;
+
 import com.wiley.gr.ace.authorservices.model.Address;
 import com.wiley.gr.ace.authorservices.model.OnlineOpenOrder;
 import com.wiley.gr.ace.authorservices.model.OpenAccessPaymentData;
@@ -50,7 +52,7 @@ public interface OpenAccessService {
      * @throws Exception
      *             the exception
      */
-    boolean validateAddress(Address address) throws Exception;
+    ArrayList<Address> validateAddress(Address address) throws Exception;
 
     /**
      * Validate vat tax details.

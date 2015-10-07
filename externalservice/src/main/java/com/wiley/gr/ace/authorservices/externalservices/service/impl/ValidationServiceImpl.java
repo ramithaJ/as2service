@@ -14,6 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 
@@ -22,6 +24,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.ValidationService;
+import com.wiley.gr.ace.authorservices.model.external.AddressValidationMultiRes;
 import com.wiley.gr.ace.authorservices.model.external.AddressValidationRequest;
 import com.wiley.gr.ace.authorservices.model.external.AddressValidationResponse;
 import com.wiley.gr.ace.authorservices.model.external.VatIdValidationResponse;
@@ -49,28 +52,31 @@ public class ValidationServiceImpl implements ValidationService {
      * @return true, if successful
      */
     @Override
-    public final boolean validateAddress(
+    public final ArrayList<AddressValidationMultiRes> validateAddress(
             final AddressValidationRequest addressValidationRequest) {
-        boolean isValid = false;
-        final ObjectWriter ow = new ObjectMapper().writer()
+        ObjectWriter ow = new ObjectMapper().writer()
                 .withDefaultPrettyPrinter();
+
+        ArrayList<AddressValidationMultiRes> validAddressList = null;
+
+        AddressValidationResponse addressValidationResponse = null;
         try {
-            final String addressRequestJson = ow
+            String addressRequestJson = ow
                     .writeValueAsString(addressValidationRequest);
-            final String addressValidationUrl = addressDoctorUrl
-                    + addressRequestJson;
-            final AddressValidationResponse addressValidationResponse = (AddressValidationResponse) StubInvokerUtil
+            String addressValidationUrl = addressDoctorUrl + addressRequestJson;
+            addressValidationResponse = (AddressValidationResponse) StubInvokerUtil
                     .restGetServiceInvoker(addressValidationUrl,
                             AddressValidationResponse.class);
 
-            if (StringUtils.isEmpty(addressValidationResponse)) {
-                isValid = true;
+            if (!StringUtils.isEmpty(addressValidationResponse)) {
+                validAddressList = addressValidationResponse
+                        .getAddressValidationMultiResList();
             }
         } catch (final JsonProcessingException e) {
             e.printStackTrace();
         }
 
-        return isValid;
+        return validAddressList;
     }
 
     /**

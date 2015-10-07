@@ -22,6 +22,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
@@ -40,6 +41,7 @@ import com.wiley.gr.ace.authorservices.model.QuoteData;
 import com.wiley.gr.ace.authorservices.model.TaxDetails;
 import com.wiley.gr.ace.authorservices.model.external.AddressOnFile;
 import com.wiley.gr.ace.authorservices.model.external.AddressValidationMultiReq;
+import com.wiley.gr.ace.authorservices.model.external.AddressValidationMultiRes;
 import com.wiley.gr.ace.authorservices.model.external.AddressValidationRequest;
 import com.wiley.gr.ace.authorservices.model.external.Article;
 import com.wiley.gr.ace.authorservices.model.external.Discount;
@@ -86,13 +88,13 @@ public class OpenAccessServiceImpl implements OpenAccessService {
     @Autowired(required = true)
     OrderOnlineOpenService orderOnlineOpenService;
 
-//    /** This field holds the value of articleAcceptanceCode. */
-//    @Value("${articleAcceptance.code}")
-//    private String articleAcceptanceCode;
-//
-//    /** This field holds the value of articleAcceptanceMessage. */
-//    @Value("${articleAcceptance.message}")
-//    private String articleAcceptanceMessage;
+    // /** This field holds the value of articleAcceptanceCode. */
+    // @Value("${articleAcceptance.code}")
+    // private String articleAcceptanceCode;
+    //
+    // /** This field holds the value of articleAcceptanceMessage. */
+    // @Value("${articleAcceptance.message}")
+    // private String articleAcceptanceMessage;
 
     /** This field holds the value of savedOrderCode. */
     @Value("${savedOrder.code}")
@@ -110,9 +112,9 @@ public class OpenAccessServiceImpl implements OpenAccessService {
     @Value("${orderExistence.message}")
     private String orderExistenceMessage;
 
-//    /** This field holds the value of correspondingAuthorId. */
-//    @Value("${CorrespondingAuthorId}")
-//    private String correspondingAuthorId;
+    // /** This field holds the value of correspondingAuthorId. */
+    // @Value("${CorrespondingAuthorId}")
+    // private String correspondingAuthorId;
 
     /**
      * Gets the open access details.
@@ -134,163 +136,159 @@ public class OpenAccessServiceImpl implements OpenAccessService {
 
         OpenAccessPaymentData openAccessPaymentData = null;
 
-//        ProductPersonRelations articleAssignmentData = orderOnlineDAO
-//                .getProductPersonRelations(userId, articleId);
-//        if (articleAssignmentData == null) {
-//            throw new ASException(articleAcceptanceCode,
-//                    articleAcceptanceMessage);
-//        }
+        // ProductPersonRelations articleAssignmentData = orderOnlineDAO
+        // .getProductPersonRelations(userId, articleId);
+        // if (articleAssignmentData == null) {
+        // throw new ASException(articleAcceptanceCode,
+        // articleAcceptanceMessage);
+        // }
 
-//        ProductRoles productRoles = articleAssignmentData.getProductRoles();
-//
-//        if (!StringUtils.isEmpty(productRoles)
-//                && productRoles.getProductRoleCd().equalsIgnoreCase(
-//                        correspondingAuthorId)) {
+        // ProductRoles productRoles = articleAssignmentData.getProductRoles();
+        //
+        // if (!StringUtils.isEmpty(productRoles)
+        // && productRoles.getProductRoleCd().equalsIgnoreCase(
+        // correspondingAuthorId)) {
 
-            SavedOrders savedOrders = orderOnlineDAO.getSavedOrders(articleId,
-                    userId);
-            if (null != savedOrders) {
-                throw new ASException(savedOrderCode, savedOrderMessage);
+        SavedOrders savedOrders = orderOnlineDAO.getSavedOrders(articleId,
+                userId);
+        if (null != savedOrders) {
+            throw new ASException(savedOrderCode, savedOrderMessage);
+        }
+        Orders existingOrders = orderOnlineDAO.getOrder(articleId, userId);
+        if (existingOrders != null) {
+            throw new ASException(orderExistenceCode, orderExistenceMessage);
+        }
+
+        PdhLookupArticle pdhLookupArticle = (PdhLookupArticle) esbInterfaceService
+                .getPdhLookupResponse(articleId);
+
+        ArticleDetails articleDetails = new ArticleDetails();
+
+        articleDetails.setArticleId(articleId);
+
+        articleDetails.setArticleTitle(pdhLookupArticle
+                .getArticleProductEntities().getTitle().getTitleText());
+
+        for (ProductContributor pc : pdhLookupArticle
+                .getArticleProductEntities().getProductContributor()) {
+            if ("Corresponding Author".equalsIgnoreCase(pc.getDhRoleTypeCd())) {
+                articleDetails.setArticleAuthorName(pc.getFirstName() + " "
+                        + pc.getLastName());
             }
-            Orders existingOrders = orderOnlineDAO.getOrder(articleId, userId);
-            if (existingOrders != null) {
-                throw new ASException(orderExistenceCode, orderExistenceMessage);
+        }
+
+        PdhLookupJournal pdhLookupJournal = (PdhLookupJournal) esbInterfaceService
+                .getPdhLookupResponse(journalId);
+
+        JournalDetails journalDetails = new JournalDetails();
+
+        journalDetails.setJournalId(journalId);
+
+        for (Title t : pdhLookupJournal.getJournalProductEntities().getTitle()) {
+            if ("FULL_TITLE".equalsIgnoreCase(t.getDhTitleTypeCd())) {
+                journalDetails.setJournalTitle(t.getTitleText());
             }
+        }
 
-            PdhLookupArticle pdhLookupArticle = (PdhLookupArticle) esbInterfaceService
-                    .getPdhLookupResponse(articleId);
-
-            ArticleDetails articleDetails = new ArticleDetails();
-
-            articleDetails.setArticleId(articleId);
-
-            articleDetails.setArticleTitle(pdhLookupArticle
-                    .getArticleProductEntities().getTitle().getTitleText());
-
-            for (ProductContributor pc : pdhLookupArticle
-                    .getArticleProductEntities().getProductContributor()) {
-                if ("Corresponding Author".equalsIgnoreCase(pc
-                        .getDhRoleTypeCd())) {
-                    articleDetails.setArticleAuthorName(pc.getFirstName() + " "
-                            + pc.getLastName());
-                }
-            }
-
-            PdhLookupJournal pdhLookupJournal = (PdhLookupJournal) esbInterfaceService
-                    .getPdhLookupResponse(journalId);
-
-            JournalDetails journalDetails = new JournalDetails();
-
-            journalDetails.setJournalId(journalId);
-
-            for (Title t : pdhLookupJournal.getJournalProductEntities()
-                    .getTitle()) {
-                if ("FULL_TITLE".equalsIgnoreCase(t.getDhTitleTypeCd())) {
-                    journalDetails.setJournalTitle(t.getTitleText());
-                }
-            }
-
-            for (Identifier i : pdhLookupJournal.getJournalProductEntities()
-                    .getIdentifier()) {
-                if ("ISSN".equalsIgnoreCase(i.getDhTypeCd())) {
-                    journalDetails.setJournalPrintIssn(i.getIdentCd());
-                }
-
-                if ("E-ISSN".equalsIgnoreCase(i.getDhTypeCd())) {
-                    journalDetails.setJournalElectronicIssn(i.getIdentCd());
-                }
+        for (Identifier i : pdhLookupJournal.getJournalProductEntities()
+                .getIdentifier()) {
+            if ("ISSN".equalsIgnoreCase(i.getDhTypeCd())) {
+                journalDetails.setJournalPrintIssn(i.getIdentCd());
             }
 
-            Article article = new Article();
-            article.setArticleID(articleDetails.getArticleId());
-            article.setJournalElectronicISSN(journalDetails
-                    .getJournalElectronicIssn());
-            article.setJournalPrintISSN(journalDetails.getJournalPrintIssn());
-            QuoteRequest quoteRequest = new QuoteRequest();
-            quoteRequest.setArticle(article);
+            if ("E-ISSN".equalsIgnoreCase(i.getDhTypeCd())) {
+                journalDetails.setJournalElectronicIssn(i.getIdentCd());
+            }
+        }
 
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-            String requestCreatedTimestamp = df.format(new Date());
+        Article article = new Article();
+        article.setArticleID(articleDetails.getArticleId());
+        article.setJournalElectronicISSN(journalDetails
+                .getJournalElectronicIssn());
+        article.setJournalPrintISSN(journalDetails.getJournalPrintIssn());
+        QuoteRequest quoteRequest = new QuoteRequest();
+        quoteRequest.setArticle(article);
 
-            quoteRequest.setRequestCreatedTimestamp(requestCreatedTimestamp);
-            quoteRequest.setRequestType("GET_QUOTE");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String requestCreatedTimestamp = df.format(new Date());
 
-            Quote quoteResponse = orderService.getQuote(quoteRequest);
-            QuoteData quoteData = new QuoteData();
-            quoteData.setArticlePubCharge(quoteResponse.getArticlePubCharge());
-            quoteData.setCurrency(quoteResponse.getCurrency());
+        quoteRequest.setRequestCreatedTimestamp(requestCreatedTimestamp);
+        quoteRequest.setRequestType("GET_QUOTE");
 
-            DiscountDetail discountDetail = new DiscountDetail();
-            Discount discount = quoteResponse.getDiscount();
-            discountDetail.setDiscountType(discount.getDiscountType());
-            discountDetail.setDiscountAmount(discount.getDiscountAmount());
-            discountDetail.setDiscountPercent(discount.getDiscountPercent());
+        Quote quoteResponse = orderService.getQuote(quoteRequest);
+        QuoteData quoteData = new QuoteData();
+        quoteData.setArticlePubCharge(quoteResponse.getArticlePubCharge());
+        quoteData.setCurrency(quoteResponse.getCurrency());
 
-            TaxDetails taxDetails = new TaxDetails();
-            taxDetails.setTaxCodeExpiryDate(quoteResponse.getAddressOnFile()
-                    .getTaxExemptionExpiryDate());
-            taxDetails.setTaxExemptionNumber(quoteResponse.getAddressOnFile()
-                    .getTaxExemption());
-            taxDetails.setVatExemptionNumber(quoteResponse.getAddressOnFile()
-                    .getVatExemptionNumber());
-            taxDetails.setVatIdNumber(quoteResponse.getAddressOnFile()
-                    .getVatId());
+        DiscountDetail discountDetail = new DiscountDetail();
+        Discount discount = quoteResponse.getDiscount();
+        discountDetail.setDiscountType(discount.getDiscountType());
+        discountDetail.setDiscountAmount(discount.getDiscountAmount());
+        discountDetail.setDiscountPercent(discount.getDiscountPercent());
 
-            TaxRequest taxRequest = new TaxRequest();
-            Item taxRequestItem = new Item();
-            List<Item> taxRequestItemList = new ArrayList<Item>();
-            taxRequest.setCityName(quoteResponse.getAddressOnFile()
-                    .getBillingCity());
-            taxRequest.setCountry(quoteResponse.getAddressOnFile()
-                    .getBillingCountry());
-            taxRequest.setStateProv(quoteResponse.getAddressOnFile()
-                    .getBillingStateProv());
-            taxRequest.setTaxExemption(taxDetails.getTaxExemptionNumber());
-            taxRequest.setTaxExemptionExpiryDate(taxDetails
-                    .getTaxCodeExpiryDate());
-            taxRequest.setVatId(taxDetails.getVatIdNumber());
-            taxRequestItem.setJournalElectronicISSN(journalDetails
-                    .getJournalElectronicIssn());
-            taxRequestItem.setJournalPrintISSN(journalDetails
-                    .getJournalPrintIssn());
-            taxRequestItem.setProductCode(articleId);
-            taxRequestItemList.add(taxRequestItem);
-            taxRequest.setItem(taxRequestItemList);
+        TaxDetails taxDetails = new TaxDetails();
+        taxDetails.setTaxCodeExpiryDate(quoteResponse.getAddressOnFile()
+                .getTaxExemptionExpiryDate());
+        taxDetails.setTaxExemptionNumber(quoteResponse.getAddressOnFile()
+                .getTaxExemption());
+        taxDetails.setVatExemptionNumber(quoteResponse.getAddressOnFile()
+                .getVatExemptionNumber());
+        taxDetails.setVatIdNumber(quoteResponse.getAddressOnFile().getVatId());
 
-            String taxAmount = orderService.getTaxAmount(taxRequest);
+        TaxRequest taxRequest = new TaxRequest();
+        Item taxRequestItem = new Item();
+        List<Item> taxRequestItemList = new ArrayList<Item>();
+        taxRequest.setCityName(quoteResponse.getAddressOnFile()
+                .getBillingCity());
+        taxRequest.setCountry(quoteResponse.getAddressOnFile()
+                .getBillingCountry());
+        taxRequest.setStateProv(quoteResponse.getAddressOnFile()
+                .getBillingStateProv());
+        taxRequest.setTaxExemption(taxDetails.getTaxExemptionNumber());
+        taxRequest.setTaxExemptionExpiryDate(taxDetails.getTaxCodeExpiryDate());
+        taxRequest.setVatId(taxDetails.getVatIdNumber());
+        taxRequestItem.setJournalElectronicISSN(journalDetails
+                .getJournalElectronicIssn());
+        taxRequestItem
+        .setJournalPrintISSN(journalDetails.getJournalPrintIssn());
+        taxRequestItem.setProductCode(articleId);
+        taxRequestItemList.add(taxRequestItem);
+        taxRequest.setItem(taxRequestItemList);
 
-            String finalAmount = Integer.toString(Integer
-                    .parseInt(quoteResponse.getArticlePubCharge())
-                    - Integer.parseInt(discountDetail.getDiscountAmount())
-                    + Integer.parseInt(taxAmount));
+        String taxAmount = orderService.getTaxAmount(taxRequest);
 
-            Amount amountPayable = new Amount();
+        String finalAmount = Integer.toString(Integer.parseInt(quoteResponse
+                .getArticlePubCharge())
+                - Integer.parseInt(discountDetail.getDiscountAmount())
+                + Integer.parseInt(taxAmount));
 
-            amountPayable.setAmount(finalAmount);
+        Amount amountPayable = new Amount();
 
-            AddressDetails addressDetails = new AddressDetails();
+        amountPayable.setAmount(finalAmount);
 
-            Address contactAddressOnFile = getContactAddressFromQuoteResponse(quoteResponse
-                    .getAddressOnFile());
+        AddressDetails addressDetails = new AddressDetails();
 
-            Address billingAddressOnFile = getBillingAddressFromQuoteResponse(quoteResponse
-                    .getAddressOnFile());
+        Address contactAddressOnFile = getContactAddressFromQuoteResponse(quoteResponse
+                .getAddressOnFile());
 
-            addressDetails.setBillingAddress(billingAddressOnFile);
-            addressDetails.setContactAddress(contactAddressOnFile);
+        Address billingAddressOnFile = getBillingAddressFromQuoteResponse(quoteResponse
+                .getAddressOnFile());
 
-            openAccessPaymentData = new OpenAccessPaymentData();
-            openAccessPaymentData.setAuthorName(quoteResponse
-                    .getAddressOnFile().getContactName());
-            openAccessPaymentData.setAmountPayable(amountPayable);
-            openAccessPaymentData.setArticleDetails(articleDetails);
-            openAccessPaymentData.setJournalDetails(journalDetails);
-            openAccessPaymentData.setQuoteData(quoteData);
-            openAccessPaymentData.setAddressOnFile(addressDetails);
-            openAccessPaymentData.setDiscountDetail(discountDetail);
-            openAccessPaymentData.setTaxAmount(taxAmount);
-            openAccessPaymentData.setTaxDetails(taxDetails);
-        
+        addressDetails.setBillingAddress(billingAddressOnFile);
+        addressDetails.setContactAddress(contactAddressOnFile);
+
+        openAccessPaymentData = new OpenAccessPaymentData();
+        openAccessPaymentData.setAuthorName(quoteResponse.getAddressOnFile()
+                .getContactName());
+        openAccessPaymentData.setAmountPayable(amountPayable);
+        openAccessPaymentData.setArticleDetails(articleDetails);
+        openAccessPaymentData.setJournalDetails(journalDetails);
+        openAccessPaymentData.setQuoteData(quoteData);
+        openAccessPaymentData.setAddressOnFile(addressDetails);
+        openAccessPaymentData.setDiscountDetail(discountDetail);
+        openAccessPaymentData.setTaxAmount(taxAmount);
+        openAccessPaymentData.setTaxDetails(taxDetails);
+
         return openAccessPaymentData;
     }
 
@@ -360,10 +358,11 @@ public class OpenAccessServiceImpl implements OpenAccessService {
      *             the exception
      */
     @Override
-    public final boolean validateAddress(final Address address)
+    public final ArrayList<Address> validateAddress(final Address address)
             throws Exception {
-        final AddressValidationRequest addressValidationRequest = new AddressValidationRequest();
-        final AddressValidationMultiReq addressValidationMultiReq = new AddressValidationMultiReq();
+        ArrayList<Address> validAddressList = new ArrayList<>();
+        AddressValidationRequest addressValidationRequest = new AddressValidationRequest();
+        AddressValidationMultiReq addressValidationMultiReq = new AddressValidationMultiReq();
         addressValidationMultiReq.setStreet1(address.getAddressLine1());
         addressValidationMultiReq.setStreet2(address.getAddressLine2());
         addressValidationMultiReq.setLocality1(address.getCity());
@@ -371,14 +370,37 @@ public class OpenAccessServiceImpl implements OpenAccessService {
         addressValidationMultiReq.setProvince1(address.getState());
         addressValidationMultiReq.setCountryName(address.getCountry()
                 .getCountryName());
-        // addressValidationMultiReq.setOrganization1(address.getInstitution());
-        // addressValidationMultiReq.setOrganizationDepartment1(address
-        // .getDepartment());
 
         addressValidationRequest
         .setAddressValidationMultiReq(addressValidationMultiReq);
 
-        return validationService.validateAddress(addressValidationRequest);
+        ArrayList<AddressValidationMultiRes> validAddressListFromAddressDoctor = validationService
+                .validateAddress(addressValidationRequest);
+
+        if (!StringUtils.isEmpty(validAddressListFromAddressDoctor)) {
+            for (AddressValidationMultiRes addressValidationMultiRes : validAddressListFromAddressDoctor) {
+                Address tempAddr = new Address();
+                tempAddr.setAddressLine1(addressValidationMultiRes
+                        .getDeliveryAddress1());
+                tempAddr.setAddressLine2(addressValidationMultiRes
+                        .getDeliveryAddress2());
+                tempAddr.setCity(addressValidationMultiRes.getLocality1());
+                tempAddr.setState(addressValidationMultiRes
+                        .getProvinceExtended1());
+                tempAddr.setPostCode(addressValidationMultiRes.getPostCode());
+                Country tempCountry = new Country();
+                tempCountry.setCountryName(addressValidationMultiRes
+                        .getCountryName1());
+                tempCountry.setCountryCode(addressValidationMultiRes
+                        .getCountryISO2Char());
+                tempAddr.setCountry(tempCountry);
+                validAddressList.add(tempAddr);
+            }
+        } else {
+            validAddressList = null;
+        }
+
+        return validAddressList;
     }
 
     /**

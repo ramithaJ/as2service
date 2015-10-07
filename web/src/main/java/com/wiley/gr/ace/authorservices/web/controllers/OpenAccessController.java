@@ -47,9 +47,9 @@ public class OpenAccessController {
      */
     @RequestMapping(value = "/getQuote", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Service getOpenAccessQuote(
-            @RequestParam("userId") String userId,
-            @RequestParam("articleId") String articleId,
-            @RequestParam("journalId") String journalId) {
+            @RequestParam("userId") final String userId,
+            @RequestParam("articleId") final String articleId,
+            @RequestParam("journalId") final String journalId) {
         Service service = new Service();
         OpenAccessPaymentData openAccessPaymentData = new OpenAccessPaymentData();
 
@@ -78,8 +78,8 @@ public class OpenAccessController {
      */
     @RequestMapping(value = "/pay", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Service payOpenAccess(
-            @RequestParam("userId") String userId,
-            @RequestParam("orderId") String orderId) {
+            @RequestParam("userId") final String userId,
+            @RequestParam("orderId") final String orderId) {
         Service service = new Service();
 
         try {
@@ -107,8 +107,8 @@ public class OpenAccessController {
      */
     @RequestMapping(value = "/saveforlater", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Service saveForLater(
-            @RequestParam("userId") String userId,
-            @RequestBody OnlineOpenOrder onlineOpenOrder) {
+            @RequestParam("userId") final String userId,
+            @RequestBody final OnlineOpenOrder onlineOpenOrder) {
         Service service = new Service();
 
         orderOnlineOpenService.saveLaterOrder(onlineOpenOrder, userId);
@@ -127,8 +127,8 @@ public class OpenAccessController {
      */
     @RequestMapping(value = "/view/{userId}/{orderId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Service viewOpenAccess(
-            @PathVariable("userId") String userId,
-            @PathVariable("orderId") String orderId) {
+            @PathVariable("userId") final String userId,
+            @PathVariable("orderId") final String orderId) {
         Service service = new Service();
         service.setPayload(openAccessService.viewOpenAccess(userId, orderId));
         return service;
@@ -142,14 +142,15 @@ public class OpenAccessController {
      * @return the service
      */
     @RequestMapping(value = "/validate/address", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Service validateAddress(@RequestBody Address address) {
+    public @ResponseBody Service validateAddress(@RequestBody final Address address) {
         Service service = new Service();
         try {
-            if (openAccessService.validateAddress(address)) {
+            if (StringUtils.isEmpty(openAccessService.validateAddress(address))) {
                 service.setStatus("SUCCESS");
             } else {
                 service.setStatus("FAILURE");
                 ErrorPOJO err = new ErrorPOJO();
+                service.setPayload(openAccessService.validateAddress(address));
                 err.setCode("199");
                 err.setMessage("Address is not valid");
                 service.setError(err);
@@ -175,8 +176,8 @@ public class OpenAccessController {
      */
     @RequestMapping(value = "/validate/vat", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Service validateVatTaxDetails(
-            @RequestParam("countryCD") String countryCode,
-            @RequestParam("vat") String vatTaxRegNum) {
+            @RequestParam("countryCD") final String countryCode,
+            @RequestParam("vat") final String vatTaxRegNum) {
         Service service = new Service();
         try {
             if (openAccessService.validateVatTaxDetails(countryCode,
