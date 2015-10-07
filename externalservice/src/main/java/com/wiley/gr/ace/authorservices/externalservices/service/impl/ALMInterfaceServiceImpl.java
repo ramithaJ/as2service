@@ -16,6 +16,7 @@ package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
 import com.wiley.gr.ace.authorservices.model.external.ALMCreateUserRespnse;
+import com.wiley.gr.ace.authorservices.model.external.ALMResponse;
 import com.wiley.gr.ace.authorservices.model.external.ALMSearchUserResponse;
 import com.wiley.gr.ace.authorservices.model.external.ALMUser;
 
@@ -42,15 +43,22 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
      *
      * @param email
      *            the email
-     * @param firstName
-     *            the first name
-     * @param lastName
-     *            the last name
      * @return the ALM search user response
      */
     @Override
-    public ALMSearchUserResponse searchUser(final String email, final String firstName,
-            final String lastName) {
+    public ALMSearchUserResponse searchUser(final String email) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    
+    /**
+     * Update user.
+     *
+     * @param almUser the alm user
+     * @return the ALM response
+     */
+    @Override
+    public ALMResponse updateUser(ALMUser almUser) {
         // TODO Auto-generated method stub
         return null;
     }

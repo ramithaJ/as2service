@@ -361,38 +361,16 @@ public class DashboardServiceImpl implements DashboardService {
                 dashboardInfo.setId(securityId);
                 dashboardInfo.setDashBoardInfoMessage(securityMessage);
             }
-            if (!StringUtils.isEmpty(systemSecurityQuestions)) {
-                dashboardInfo = securityQuestionsChecking(systemSecurityQuestions);
+            if (StringUtils.isEmpty(systemSecurityQuestions)) {
+                LOGGER.info("Secuirty Questions List is Empty then No Security Questions on Dashboard");
+                dashboardInfo = new DashboardInfo();
+                dashboardInfo.setId(securityId);
+                dashboardInfo.setDashBoardInfoMessage(securityMessage);
             }
         }
         return dashboardInfo;
     }
 
-    /**
-     * Security questions checking.
-     *
-     * @param systemSecurityQuestions
-     *            the system security questions
-     * @return the dashboard info
-     * @throws Exception
-     *             the exception
-     */
-    private DashboardInfo securityQuestionsChecking(
-            final SystemSecurityQuestions systemSecurityQuestions)
-            throws Exception {
-        LOGGER.info("Inside securityQuestionsChecking method  of DashboardServiceImpl ");
-        DashboardInfo dashboardInfo = null;
-        List<String> systemSecurityQuestionsList = systemSecurityQuestions
-                .getSecurityQuestionList();
-        if (!StringUtils.isEmpty(systemSecurityQuestionsList)
-                && systemSecurityQuestionsList.isEmpty()) {
-            LOGGER.info("Secuirty Questions List is Empty then No Security Questions on Dashboard");
-            dashboardInfo = new DashboardInfo();
-            dashboardInfo.setId(securityId);
-            dashboardInfo.setDashBoardInfoMessage(securityMessage);
-        }
-        return dashboardInfo;
-    }
 
     /**
      * Gets the interests for user.

@@ -15,9 +15,11 @@
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
 import com.wiley.gr.ace.authorservices.model.external.ALMCreateUserRespnse;
+import com.wiley.gr.ace.authorservices.model.external.ALMResponse;
 import com.wiley.gr.ace.authorservices.model.external.ALMSearchUserResponse;
 import com.wiley.gr.ace.authorservices.model.external.ALMUser;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Interface ALMInterfaceService.
  */
@@ -37,13 +39,15 @@ public interface ALMInterfaceService {
      *
      * @param email
      *            the email
-     * @param firstName
-     *            the first name
-     * @param lastName
-     *            the last name
      * @return the ALM search user response
      */
-    ALMSearchUserResponse searchUser(String email, String firstName,
-            String lastName);
-
+    ALMSearchUserResponse searchUser(String email);
+  
+    /**
+     * Update user.
+     *
+     * @param almUser the alm user
+     * @return the ALM response
+     */
+    ALMResponse updateUser(ALMUser almUser);
 }

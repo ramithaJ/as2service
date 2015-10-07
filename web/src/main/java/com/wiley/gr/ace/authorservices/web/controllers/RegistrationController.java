@@ -291,4 +291,10 @@ public class RegistrationController {
 
         return service;
     }
+    
+    @RequestMapping(value = "verifyAccount/{emailId}", method = RequestMethod.GET)
+    public final Service verifyAccount(@PathVariable("emailId") final String emailId) {
+        registrationService.verifyAccount(emailId);
+        return new Service();
+    }
 }

@@ -15,17 +15,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.HttpClientErrorException;
 
 import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteService;
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
+import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.exception.UserException;
+import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.model.Country;
 import com.wiley.gr.ace.authorservices.model.InviteRecords;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.ALMAuthRequest;
+import com.wiley.gr.ace.authorservices.model.external.ALMUser;
 import com.wiley.gr.ace.authorservices.model.external.AddressDetails;
 import com.wiley.gr.ace.authorservices.model.external.AddressElement;
 import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
@@ -56,6 +61,27 @@ public class RegistrationServiceImpl implements RegistrationService {
      */
     @Autowired(required = true)
     private AutocompleteService autoCompleteService;
+
+    @Autowired(required = true)
+    private ALMInterfaceService almInterfaceService;
+
+    @Value("${RegistrationController.verifyAccount.activated.code}")
+    private String accountActivatedErrorCode;
+
+    @Value("${RegistrationController.verifyAccount.activated.message}")
+    private String accountActivatedErrorMessage;
+
+    @Value("${RegistrationController.verifyAccount.suspended.code}")
+    private String accountSuspendedErrorCode;
+
+    @Value("${RegistrationController.verifyAccount.suspended.message}")
+    private String accountSuspendedErrorMessage;
+
+    @Value("${RegistrationController.verifyAccount.noUserFound.code}")
+    private String noUserFoundErrorCode;
+
+    @Value("${RegistrationController.verifyAccount.noUserFound.message}")
+    private String noUserFoundErrorMessage;
 
     /**
      * This method is for creating user.
@@ -308,5 +334,36 @@ public class RegistrationServiceImpl implements RegistrationService {
     public String createContact(final User user) {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public final void verifyAccount(final String emailId) {
+        List<ALMUser> almUserList = almInterfaceService.searchUser(emailId)
+                .getUserPayload();
+        if (!StringUtils.isEmpty(almUserList)) {
+            for (ALMUser almUser : almUserList) {
+                if (almUser.getEmail().equals(emailId)) {
+                    String userStatus = almUser.getUserStatus();
+                    if (userStatus
+                            .equalsIgnoreCase(AuthorServicesConstants.VERIFY_ACCOUNT_ACTIVE)) {
+                        throw new ASException(accountActivatedErrorCode,
+                                accountActivatedErrorMessage);
+                    } else if (userStatus
+                            .equalsIgnoreCase(AuthorServicesConstants.VERIFY_ACCOUNT_SUSPENDED)) {
+                        throw new ASException(accountSuspendedErrorCode,
+                                accountSuspendedErrorMessage);
+                    } else if (userStatus
+                            .equalsIgnoreCase(AuthorServicesConstants.VERIFY_ACCOUNT_AWAITING_ACTIVATION)) {
+                        userStatus = AuthorServicesConstants.VERIFY_ACCOUNT_ACTIVE;
+                        almUser.setUserStatus(userStatus);
+                        almInterfaceService.updateUser(almUser);
+                    }
+                } else {
+                    throw new ASException(noUserFoundErrorCode,
+                            noUserFoundErrorMessage);
+                }
+            }
+        }
+
     }
 }
