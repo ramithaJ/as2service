@@ -14,7 +14,18 @@ package com.wiley.gr.ace.authorservices.services.search.external.service;
 import com.wiley.gr.ace.authorservices.search.model.SearchRequest;
 import com.wiley.gr.ace.authorservices.search.model.SearchResponse;
 
+/**
+ * The Interface SearchExternalService.
+ */
 public interface SearchExternalService {
+
+	/**
+	 * Search.
+	 *
+	 * @param searchRequest
+	 *            the search request
+	 * @return the search response
+	 */
 	SearchResponse search(SearchRequest searchRequest);
 
 }

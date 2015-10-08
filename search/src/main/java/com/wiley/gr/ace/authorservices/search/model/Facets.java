@@ -11,13 +11,28 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.search.model;
 
+/**
+ * The Class Facets.
+ */
 public class Facets {
+	
+	/** The tag. */
 	private Tag tag;
 
+	/**
+	 * Gets the tag.
+	 *
+	 * @return the tag
+	 */
 	public final Tag getTag() {
 		return tag;
 	}
 
+	/**
+	 * Sets the tag.
+	 *
+	 * @param tag the new tag
+	 */
 	public final void setTag(final Tag tag) {
 		this.tag = tag;
 	}

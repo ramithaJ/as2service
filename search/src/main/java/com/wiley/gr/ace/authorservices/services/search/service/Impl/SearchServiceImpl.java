@@ -18,13 +18,24 @@ import com.wiley.gr.ace.authorservices.search.model.SearchResponse;
 import com.wiley.gr.ace.authorservices.services.search.external.service.SearchExternalService;
 import com.wiley.gr.ace.authorservices.services.search.service.SearchService;
 
+/**
+ * The Class SearchServiceImpl.
+ */
 public class SearchServiceImpl implements SearchService {
 
+	/** The search external service. */
 	@Autowired(required = true)
 	private SearchExternalService searchExternalService;
 
+	/**
+	 * This method is for search
+	 * 
+	 * @param searchRequest
+	 * 
+	 * @return search response..
+	 * */
 	@Override
-	public SearchResponse search(final SearchRequest searchRequest) {
+	public final SearchResponse search(final SearchRequest searchRequest) {
 
 		return searchExternalService.search(searchRequest);
 	}
