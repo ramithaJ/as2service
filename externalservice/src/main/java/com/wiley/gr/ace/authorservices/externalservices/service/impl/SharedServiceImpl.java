@@ -45,4 +45,10 @@ public class SharedServiceImpl implements SharedService {
                         "http://10.201.64.81:8090/as2crossrefservices/v1/article/assign",
                         productPersonRelationObject, Service.class);
     }
+
+    @Override
+    public boolean searchInvitationRecord(String emailId) {
+        
+        return false;
+    }
 }

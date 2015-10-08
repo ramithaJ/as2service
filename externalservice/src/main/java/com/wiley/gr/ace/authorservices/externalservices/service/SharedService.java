@@ -31,4 +31,6 @@ public interface SharedService {
 
     Service saveProductPersonRelation(
             ProductPersonRelationObject productPersonRelationObject);
+    
+   boolean searchInvitationRecord(String emailId);
 }
