@@ -76,10 +76,11 @@
 			<version>0.9.1.2</version>
 		</dependency>
 		<dependency>
-			<groupId>com.oracle</groupId>
-			<artifactId>ojdbc7</artifactId>
-			<version>12.1.0.2</version>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.6</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
@@ -91,12 +92,12 @@
 			<artifactId>spring-web</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-redis</artifactId>
@@ -117,29 +118,17 @@
 			<artifactId>spring-security-config</artifactId>
 			<version>${spring.security.version}</version>
 		</dependency>
-		<!--  <dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-			<version>${spring.version}</version>
-			<scope>test</scope>
-		</dependency>  -->
+		<!-- <dependency> <groupId>org.springframework</groupId> <artifactId>spring-test</artifactId> 
+			<version>${spring.version}</version> <scope>test</scope> </dependency> -->
 
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>3.4</version>
 		</dependency>
-		<!--  <dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.5</version>
-		</dependency>  
-
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpcore</artifactId>
-			<version>4.4.1</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>org.apache.httpcomponents</groupId> <artifactId>httpclient</artifactId> 
+			<version>4.5</version> </dependency> <dependency> <groupId>org.apache.httpcomponents</groupId> 
+			<artifactId>httpcore</artifactId> <version>4.4.1</version> </dependency> -->
 		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
@@ -196,7 +185,7 @@
 			<version>${spring.version}</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
@@ -217,11 +206,8 @@
 			<version>5.0.6</version>
 		</dependency>
 
-		<!--  <dependency>
-			<groupId>hsqldb</groupId>
-			<artifactId>hsqldb</artifactId>
-			<version>1.8.0.10</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>hsqldb</groupId> <artifactId>hsqldb</artifactId> 
+			<version>1.8.0.10</version> </dependency> -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -263,20 +249,20 @@
 			<version>1.1-rev-1</version>
 		</dependency>
 		<dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>7.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jms</artifactId>
-            <version>4.1.7.RELEASE</version>
-        </dependency>
-            <dependency>
-            <groupId>com.tibco</groupId>
-            <artifactId>tibjms</artifactId>
-            <version>8.0.0</version>
-        </dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>7.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jms</artifactId>
+			<version>4.1.7.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>com.tibco</groupId>
+			<artifactId>tibjms</artifactId>
+			<version>8.0.0</version>
+		</dependency>
 	</dependencies>
 
 	<repositories>

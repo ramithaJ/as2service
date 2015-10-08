@@ -9,3 +9,27 @@
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
  *******************************************************************************/
+package com.wiley.gr.ace.authorservices.search.model;
+
+public class Sort {
+	private String sortBy;
+
+	private String sortOrder;
+
+	public final String getSortBy() {
+		return sortBy;
+	}
+
+	public final void setSortBy(final String sortBy) {
+		this.sortBy = sortBy;
+	}
+
+	public final String getSortOrder() {
+		return sortOrder;
+	}
+
+	public final void setSortOrder(final String sortOrder) {
+		this.sortOrder = sortOrder;
+	}
+
+}

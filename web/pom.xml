@@ -30,6 +30,11 @@
         </dependency>
         <dependency>
             <groupId>com.wiley.gr.ace</groupId>
+            <artifactId>search</artifactId>
+            <version>1.0.3-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.wiley.gr.ace</groupId>
             <artifactId>as2-exceptions</artifactId>
             <version>1.0.3-SNAPSHOT</version>
         </dependency>
