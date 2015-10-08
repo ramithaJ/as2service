@@ -39,12 +39,19 @@ import com.wiley.gr.ace.authorservices.model.external.ALMUser;
 import com.wiley.gr.ace.authorservices.model.external.ALMUserAddress;
 import com.wiley.gr.ace.authorservices.model.external.AddressDetails;
 import com.wiley.gr.ace.authorservices.model.external.AddressElement;
+import com.wiley.gr.ace.authorservices.model.external.CDMResponse;
 import com.wiley.gr.ace.authorservices.model.external.CDMUser;
+import com.wiley.gr.ace.authorservices.model.external.ContactEBM;
+import com.wiley.gr.ace.authorservices.model.external.ContactIdentification;
+import com.wiley.gr.ace.authorservices.model.external.ContactProfile;
+import com.wiley.gr.ace.authorservices.model.external.CreateContactRequestCDM;
+import com.wiley.gr.ace.authorservices.model.external.CreateContactRequestEBM;
 import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
 import com.wiley.gr.ace.authorservices.model.external.CustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 import com.wiley.gr.ace.authorservices.model.external.Participant;
 import com.wiley.gr.ace.authorservices.model.external.ProfileInformation;
+import com.wiley.gr.ace.authorservices.model.external.SourceContactXREF;
 import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
 import com.wiley.gr.ace.authorservices.persistence.services.RegistrationServiceDAO;
 import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
@@ -385,6 +392,12 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Override
     public String createContact(final User user) {
         CDMUser cdmUser = new CDMUser();
+        CreateContactRequestCDM createContactRequestCDM = new CreateContactRequestCDM();
+        CreateContactRequestEBM createContactRequestEBM = new CreateContactRequestEBM();
+        ContactEBM contactEBM = new ContactEBM();
+        ContactProfile contactProfile = new ContactProfile();
+        ContactIdentification contactIdentification = new ContactIdentification();
+        SourceContactXREF sourceContactXREF = new SourceContactXREF();
 
         cdmUser.setAsId(user.getParticipantId());
         cdmUser.setAuthorFlag(AuthorServicesConstants.CDM_AUTHOR_FLAG);
@@ -395,7 +408,21 @@ public class RegistrationServiceImpl implements RegistrationService {
         cdmUser.setSendEmail(AuthorServicesConstants.CDM_SEND_EMAIL_FLAG);
         cdmUser.setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
         cdmUser.setUserRole(AuthorServicesConstants.CDM_USER_ROLE);
-        return null;
+
+        sourceContactXREF.setSourceCustomerID(user.getParticipantId());
+        sourceContactXREF.setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
+        contactIdentification.setSourceContactXREF(sourceContactXREF);
+        contactProfile.setContactIdentification(contactIdentification);
+        contactEBM.setContactProfile(contactProfile);
+        contactEBM.setCustomerDetails(cdmUser);
+        createContactRequestEBM.setContactEBM(contactEBM);
+        createContactRequestCDM
+        .setCreateContactRequestEBM(createContactRequestEBM);
+
+        CDMResponse cdmResponse = cdmInterfaceService
+                .createContact(createContactRequestCDM);
+
+        return cdmResponse.getStatus();
     }
 
     @Override
