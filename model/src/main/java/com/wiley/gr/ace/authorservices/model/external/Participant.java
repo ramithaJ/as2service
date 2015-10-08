@@ -14,6 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * The Class Participant.
  */
@@ -39,6 +41,17 @@ public class Participant {
 
     /** The participant country. */
     private String participantCountry;
+
+    /** The state. */
+    private String state;
+
+    /** The created date. */
+    @JsonProperty("created")
+    private String createdDate;
+
+    /** The modified date. */
+    @JsonProperty("modified")
+    private String modifiedDate;
 
     /**
      * Gets the user id.
@@ -171,5 +184,62 @@ public class Participant {
      */
     public final void setParticipantCountry(final String participantCountry) {
         this.participantCountry = participantCountry;
+    }
+
+    /**
+     * Gets the state.
+     *
+     * @return the state
+     */
+    public final String getState() {
+        return state;
+    }
+
+    /**
+     * Sets the state.
+     *
+     * @param state
+     *            the new state
+     */
+    public final void setState(final String state) {
+        this.state = state;
+    }
+
+    /**
+     * Gets the created date.
+     *
+     * @return the created date
+     */
+    public final String getCreatedDate() {
+        return createdDate;
+    }
+
+    /**
+     * Sets the created date.
+     *
+     * @param createdDate
+     *            the new created date
+     */
+    public final void setCreatedDate(final String createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    /**
+     * Gets the modified date.
+     *
+     * @return the modified date
+     */
+    public final String getModifiedDate() {
+        return modifiedDate;
+    }
+
+    /**
+     * Sets the modified date.
+     *
+     * @param modifiedDate
+     *            the new modified date
+     */
+    public final void setModifiedDate(final String modifiedDate) {
+        this.modifiedDate = modifiedDate;
     }
 }

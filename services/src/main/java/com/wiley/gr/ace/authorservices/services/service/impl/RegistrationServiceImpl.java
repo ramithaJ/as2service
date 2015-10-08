@@ -11,7 +11,9 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,17 +27,23 @@ import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.ParticipantsInterfaceService;
 import com.wiley.gr.ace.authorservices.model.Country;
 import com.wiley.gr.ace.authorservices.model.InviteRecords;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.ALMAuthRequest;
+import com.wiley.gr.ace.authorservices.model.external.ALMCreateUserRespnse;
 import com.wiley.gr.ace.authorservices.model.external.ALMUser;
+import com.wiley.gr.ace.authorservices.model.external.ALMUserAddress;
 import com.wiley.gr.ace.authorservices.model.external.AddressDetails;
 import com.wiley.gr.ace.authorservices.model.external.AddressElement;
+import com.wiley.gr.ace.authorservices.model.external.CDMUser;
 import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
 import com.wiley.gr.ace.authorservices.model.external.CustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.ESBUser;
+import com.wiley.gr.ace.authorservices.model.external.Participant;
 import com.wiley.gr.ace.authorservices.model.external.ProfileInformation;
 import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
 import com.wiley.gr.ace.authorservices.persistence.services.RegistrationServiceDAO;
@@ -64,6 +72,12 @@ public class RegistrationServiceImpl implements RegistrationService {
 
     @Autowired(required = true)
     private ALMInterfaceService almInterfaceService;
+
+    @Autowired(required = true)
+    private ParticipantsInterfaceService participantInterfaceService;
+
+    @Autowired(required = true)
+    private CDMInterfaceService cdmInterfaceService;
 
     @Value("${RegistrationController.verifyAccount.activated.code}")
     private String accountActivatedErrorCode;
@@ -320,19 +334,67 @@ public class RegistrationServiceImpl implements RegistrationService {
 
     @Override
     public String createALMUser(final User user) {
-        // TODO Auto-generated method stub
-        return null;
+
+        String almUserId = null;
+        ALMUser almUser = new ALMUser();
+        ALMUserAddress almUserAddress = new ALMUserAddress();
+        almUser.setEmail(user.getPrimaryEmailAddr());
+        almUser.setFirstName(user.getFirstName());
+        almUser.setLastName(user.getLastName());
+        almUser.setPassword(user.getPassword());
+        almUser.setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
+        almUser.setTcFlag(AuthorServicesConstants.AS_ALM_TNC_FLAG);
+        almUser.setCustomerType(AuthorServicesConstants.AS_ALM_USER_TYPE);
+        almUserAddress.setCountry(user.getCountryCode());
+        almUser.setUserAddress(almUserAddress);
+        almUser.setUserStatus(AuthorServicesConstants.VERIFY_ACCOUNT_AWAITING_ACTIVATION);
+        try {
+            ALMCreateUserRespnse almCreateUserRespnse = almInterfaceService
+                    .createUser(almUser);
+
+            if (!StringUtils.isEmpty(almCreateUserRespnse)
+                    && "Success".equalsIgnoreCase(almCreateUserRespnse
+                            .getStatus())) {
+                almUserId = almCreateUserRespnse.getUserId();
+            }
+        } catch (Exception e) {
+            throw new UserException();
+        }
+
+        return almUserId;
     }
 
     @Override
     public String createParticipant(final User user) {
-        // TODO Auto-generated method stub
-        return null;
+
+        Participant participant = new Participant();
+        String ptpId = null;
+
+        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        participant.setCreatedDate(dt.format(new Date()));
+        participant.setFamilyName(user.getLastName());
+        participant.setGivenName(user.getFirstName());
+        participant.setModifiedDate(dt.format(new Date()));
+        participant.setParticipantCountry(user.getCountryCode());
+        participant.setUserId(user.getUserId());
+
+        ptpId = participantInterfaceService.createParticipant(participant);
+        return ptpId;
     }
 
     @Override
     public String createContact(final User user) {
-        // TODO Auto-generated method stub
+        CDMUser cdmUser = new CDMUser();
+
+        cdmUser.setAsId(user.getParticipantId());
+        cdmUser.setAuthorFlag(AuthorServicesConstants.CDM_AUTHOR_FLAG);
+        cdmUser.setFirstName(user.getFirstName());
+        cdmUser.setLastName(user.getLastName());
+        cdmUser.setPrimaryEmail(user.getPrimaryEmailAddr());
+        cdmUser.setRegistrantFlag(AuthorServicesConstants.CDM_REG_FLAG);
+        cdmUser.setSendEmail(AuthorServicesConstants.CDM_SEND_EMAIL_FLAG);
+        cdmUser.setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
+        cdmUser.setUserRole(AuthorServicesConstants.CDM_USER_ROLE);
         return null;
     }
 

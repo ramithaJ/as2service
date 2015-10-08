@@ -137,6 +137,9 @@ public class User implements Serializable {
      */
     private String jobCategoryName;
 
+    /** The send email flag. */
+    private String sendEmailFlag;
+
     /**
      * Gets the industry name.
      *
@@ -773,6 +776,24 @@ public class User implements Serializable {
      */
     public final void setCountryCode(final String countryCode) {
         this.countryCode = countryCode;
+    }
+
+    /**
+     * Gets the send email flag.
+     *
+     * @return the send email flag
+     */
+    public final String getSendEmailFlag() {
+        return sendEmailFlag;
+    }
+
+    /**
+     * Sets the send email flag.
+     *
+     * @param sendEmailFlag the new send email flag
+     */
+    public final void setSendEmailFlag(final String sendEmailFlag) {
+        this.sendEmailFlag = sendEmailFlag;
     }
 
 }
