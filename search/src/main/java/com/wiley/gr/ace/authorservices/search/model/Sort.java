@@ -11,23 +11,49 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.search.model;
 
+/**
+ * The Class Sort.
+ */
 public class Sort {
+	
+	/** The sort by. */
 	private String sortBy;
 
+	/** The sort order. */
 	private String sortOrder;
 
+	/**
+	 * Gets the sort by.
+	 *
+	 * @return the sort by
+	 */
 	public final String getSortBy() {
 		return sortBy;
 	}
 
+	/**
+	 * Sets the sort by.
+	 *
+	 * @param sortBy the new sort by
+	 */
 	public final void setSortBy(final String sortBy) {
 		this.sortBy = sortBy;
 	}
 
+	/**
+	 * Gets the sort order.
+	 *
+	 * @return the sort order
+	 */
 	public final String getSortOrder() {
 		return sortOrder;
 	}
 
+	/**
+	 * Sets the sort order.
+	 *
+	 * @param sortOrder the new sort order
+	 */
 	public final void setSortOrder(final String sortOrder) {
 		this.sortOrder = sortOrder;
 	}

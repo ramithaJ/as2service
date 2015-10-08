@@ -3,10 +3,15 @@
  */
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.SharedService;
+import com.wiley.gr.ace.authorservices.model.NotificationHistory;
+import com.wiley.gr.ace.authorservices.model.Notifications;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.external.ProductPersonRelationObject;
 
@@ -20,6 +25,9 @@ public class SharedServiceImpl implements SharedService {
 
     @Value("${authorLookup.url}")
     private String authorLookupUrl;
+
+    @Value("${notification.url}")
+    private String notificationHistroyUrl;
 
     /*
      * (non-Javadoc)
@@ -47,8 +55,23 @@ public class SharedServiceImpl implements SharedService {
     }
 
     @Override
-    public boolean searchInvitationRecord(String emailId) {
-        
-        return false;
+    public boolean searchInvitationRecord(final String emailId) {
+        boolean searchInvitation = false;
+        NotificationHistory notificationHistory = (NotificationHistory) RestServiceInvokerUtil
+                .getServiceData(
+                        notificationHistroyUrl.concat("appId").concat("?from=")
+                                .concat(emailId), NotificationHistory.class);
+        if (!StringUtils.isEmpty(notificationHistory)) {
+            List<Notifications> notificationsList = notificationHistory
+                    .getNotifications();
+            if (!StringUtils.isEmpty(notificationsList)) {
+                for (Notifications notification : notificationsList) {
+                    if ("Invitation".equalsIgnoreCase(notification.getTemplate().getTagl1())) {
+                        searchInvitation = true;
+                    }
+                }
+            }
+        }
+        return searchInvitation;
     }
 }

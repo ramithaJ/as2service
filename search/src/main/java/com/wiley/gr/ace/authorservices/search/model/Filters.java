@@ -11,13 +11,28 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.search.model;
 
+/**
+ * The Class Filters.
+ */
 public class Filters {
+	
+	/** The term. */
 	private Term term;
 
+	/**
+	 * Gets the term.
+	 *
+	 * @return the term
+	 */
 	public final Term getTerm() {
 		return term;
 	}
 
+	/**
+	 * Sets the term.
+	 *
+	 * @param term the new term
+	 */
 	public final void setTerm(final Term term) {
 		this.term = term;
 	}

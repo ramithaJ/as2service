@@ -11,13 +11,28 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.search.model;
 
+/**
+ * The Class Term.
+ */
 public class Term {
+	
+	/** The journal_title. */
 	private String[] journal_title;
 
+	/**
+	 * Gets the journal_title.
+	 *
+	 * @return the journal_title
+	 */
 	public final String[] getJournal_title() {
 		return journal_title;
 	}
 
+	/**
+	 * Sets the journal_title.
+	 *
+	 * @param journal_title the new journal_title
+	 */
 	public final void setJournal_title(final String[] journal_title) {
 		this.journal_title = journal_title;
 	}

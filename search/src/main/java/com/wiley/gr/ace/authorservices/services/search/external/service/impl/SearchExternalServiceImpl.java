@@ -16,10 +16,20 @@ import com.wiley.gr.ace.authorservices.search.model.SearchRequest;
 import com.wiley.gr.ace.authorservices.search.model.SearchResponse;
 import com.wiley.gr.ace.authorservices.services.search.external.service.SearchExternalService;
 
+/**
+ * The Class SearchExternalServiceImpl.
+ */
 public class SearchExternalServiceImpl implements SearchExternalService {
 
+	/**
+	 * This method is for Searching
+	 * 
+	 * @param searchRequest
+	 * @return searchresponse.
+	 * 
+	 * */
 	@Override
-	public SearchResponse search(final SearchRequest searchRequest) {
+	public final SearchResponse search(final SearchRequest searchRequest) {
 
 		final SearchResponse searchResponse = (SearchResponse) RestServiceInvokerUtil
 				.restServiceInvoker(
