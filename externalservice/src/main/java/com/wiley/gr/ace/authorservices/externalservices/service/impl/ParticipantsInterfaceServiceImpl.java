@@ -14,9 +14,12 @@
  */
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
+import java.util.List;
+
 import com.wiley.gr.ace.authorservices.externalservices.service.ParticipantsInterfaceService;
 import com.wiley.gr.ace.authorservices.model.external.Participant;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ParticipantsInterfaceServiceImpl.
  */
@@ -35,5 +38,30 @@ ParticipantsInterfaceService {
         // TODO Auto-generated method stub
         return null;
     }
+
+	/* (non-Javadoc)
+	 * @see com.wiley.gr.ace.authorservices.externalservices.service.ParticipantsInterfaceService#searchParticipantByParticipantId(java.lang.String)
+	 */
+	@Override
+	public Participant searchParticipantByParticipantId(String particpantId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.wiley.gr.ace.authorservices.externalservices.service.ParticipantsInterfaceService#searchParticipantByUserId(java.lang.String)
+	 */
+	@Override
+	public Participant searchParticipantByUserId(String userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Participant> searchParticipantByName(String firstName,
+			String lastName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
