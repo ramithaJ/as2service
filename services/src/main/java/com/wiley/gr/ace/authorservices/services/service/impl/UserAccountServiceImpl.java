@@ -133,13 +133,12 @@ public class UserAccountServiceImpl implements UserAccountService {
 
 		UserAccountServiceImpl.LOGGER.info("inside getEmailDetails Method");
 
-		CustomerDetails customerDetails = userProfile
-				.getLookupCustomerProfile(userId)
-				.getLookupCustomerProfileResponse().getCustomerProfile()
-				.getCustomerDetails();
+		Participant participantResponse = participantService
+				.searchParticipantByParticipantId(userId);
+		
 		User user = new User();
-		user.setPrimaryEmailAddr(customerDetails.getPrimaryEmail());
-		user.setRecoveryEmailAddress(customerDetails.getSecondaryEmail());
+		user.setPrimaryEmailAddr(participantResponse.getEmail());
+		user.setRecoveryEmailAddress(participantResponse.getRecoveryEmail());
 		return user;
 
 	}
