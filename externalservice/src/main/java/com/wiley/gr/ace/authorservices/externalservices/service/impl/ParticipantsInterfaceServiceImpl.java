@@ -16,7 +16,11 @@ package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
+
+import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.ParticipantsInterfaceService;
+import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.Participant;
 
 // TODO: Auto-generated Javadoc
@@ -25,7 +29,8 @@ import com.wiley.gr.ace.authorservices.model.external.Participant;
  */
 public class ParticipantsInterfaceServiceImpl implements
 ParticipantsInterfaceService {
-
+	 @Value("${searchparticipantbyid.url}")
+	    private String searchparticipantbyidurl;
     /**
      * Creates the participant.
      *
@@ -43,9 +48,11 @@ ParticipantsInterfaceService {
 	 * @see com.wiley.gr.ace.authorservices.externalservices.service.ParticipantsInterfaceService#searchParticipantByParticipantId(java.lang.String)
 	 */
 	@Override
-	public Participant searchParticipantByParticipantId(String particpantId) {
+	public Participant searchParticipantByParticipantId(String participantId) {
+		 Participant participant= (Participant) RestServiceInvokerUtil
+	                .getServiceData(searchparticipantbyidurl + participantId, Participant.class);
 		// TODO Auto-generated method stub
-		return null;
+		return participant;
 	}
 
 	/* (non-Javadoc)
