@@ -17,10 +17,15 @@ package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
+import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.ParticipantsInterfaceService;
+import com.wiley.gr.ace.authorservices.model.external.AlertElement;
 import com.wiley.gr.ace.authorservices.model.external.Participant;
+import com.wiley.gr.ace.authorservices.model.external.ParticipantAddress;
 
 /**
  * The Class ParticipantsInterfaceServiceImpl.
@@ -77,6 +82,67 @@ public class ParticipantsInterfaceServiceImpl implements
 			final String lastName) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<ParticipantAddress> getAddress(String participantId)
+			throws Exception {
+		String url = "https://schema.org/PostalAddress/participants/"
+				+ participantId + "/addresses";
+		List<ParticipantAddress> participantAddresses = (List<ParticipantAddress>) StubInvokerUtil
+				.restGetServiceInvoker(url, ParticipantAddress.class);
+		return participantAddresses;
+	}
+
+	@Override
+	public ResponseEntity updateAddress(String participantId,
+			ParticipantAddress participantAddress) throws Exception {
+		String url = "https://schema.org/PostalAddress/participants/"
+				+ participantId + "/addresses";
+		ResponseEntity resposeEntity = (ResponseEntity) StubInvokerUtil
+				.restServiceResponseInvoker(url, HttpMethod.POST,
+						participantAddress, ParticipantError.class, null);
+		return resposeEntity;
+	}
+
+	@Override
+	public ResponseEntity uploadProfileImage(String participantId,
+			Byte[] imageFile) throws Exception {
+		String url = "https://schema.org/PostalAddress/participants/"
+				+ participantId + "/profileImage";
+		ResponseEntity resposeEntity = (ResponseEntity) StubInvokerUtil
+				.restServiceResponseInvoker(url, HttpMethod.PUT, imageFile,
+						ParticipantError.class, null);
+		return resposeEntity;
+	}
+
+	@Override
+	public Byte[] getProfileImage(String participantId) throws Exception {
+		String url = "https://schema.org/PostalAddress/participants/"
+				+ participantId + "/profileImage";
+		Byte[] profileImage = (Byte[]) StubInvokerUtil.restGetServiceInvoker(
+				url, Byte[].class);
+		return profileImage;
+	}
+
+	@Override
+	public ResponseEntity updateAlerts(String participantId, AlertElement alert)
+			throws Exception {
+		String url = "https://schema.org/PostalAddress/participants/"
+				+ participantId + "/preferences";
+		ResponseEntity resposeEntity = (ResponseEntity) StubInvokerUtil
+				.restServiceResponseInvoker(url, HttpMethod.POST, alert,
+						ParticipantError.class, null);
+		return resposeEntity;
+	}
+
+	@Override
+	public List<AlertElement> getAlerts(String participantId) throws Exception {
+		String url = "https://schema.org/PostalAddress/participants/"
+				+ participantId + "/preferences";
+		List<AlertElement> alertElements = (List<AlertElement>) StubInvokerUtil
+				.restGetServiceInvoker(url, AlertElement.class);
+		return alertElements;
 	}
 
 }

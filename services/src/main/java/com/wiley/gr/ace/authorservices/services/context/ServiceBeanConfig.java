@@ -41,6 +41,7 @@ import com.wiley.gr.ace.authorservices.services.service.UpdateUserService;
 import com.wiley.gr.ace.authorservices.services.service.UploadLicenseService;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
+import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
 import com.wiley.gr.ace.authorservices.services.service.impl.ASDataServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.AdditionalPermissionServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.AdminLoginServiceImpl;
@@ -64,6 +65,7 @@ import com.wiley.gr.ace.authorservices.services.service.impl.UpdateUserServiceIm
 import com.wiley.gr.ace.authorservices.services.service.impl.UploadLicenseServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UserAccountServiceImpl;
 import com.wiley.gr.ace.authorservices.services.service.impl.UserLoginServiceImpl;
+import com.wiley.gr.ace.authorservices.services.service.impl.UserProfileServiceImpl;
 
 /**
  * The Class ServiceBeanConfig.
@@ -285,7 +287,12 @@ public class ServiceBeanConfig {
     public SaveInvitationCeaseEventService saveInvitationCeaseEventService() {
         return new SaveInvitationCeaseEventServiceImpl();
     }
-
+    
+    @Bean(name = "UserProfileService")
+    public UserProfileService userProfileService() {
+        return new UserProfileServiceImpl();
+    }
+    
     // @Bean(name = "JndiTemplate")
     // public JndiTemplate jndiTemplate() {
     // Properties env = new Properties();

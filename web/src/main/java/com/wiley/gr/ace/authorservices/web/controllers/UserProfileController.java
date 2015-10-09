@@ -29,13 +29,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.ASException;
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.AlertsList;
 import com.wiley.gr.ace.authorservices.model.AreaOfInterests;
 import com.wiley.gr.ace.authorservices.model.ProfilePicture;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.Society;
+import com.wiley.gr.ace.authorservices.model.external.AlertElement;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
+import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
 
 /**
  * The Class UserProfileController.
@@ -46,522 +49,595 @@ import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 @RequestMapping("/userprofile")
 public class UserProfileController {
 
-    /**
-     * Logger configured.
-     */
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(UserProfileController.class);
+	/**
+	 * Logger configured.
+	 */
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(UserProfileController.class);
 
-    /**
-     * AuthorProfileService bean.
-     */
-    @Autowired
-    private AuthorProfileService authorProfileService;
+	/**
+	 * AuthorProfileService bean.
+	 */
+	@Autowired
+	private AuthorProfileService authorProfileService;
 
-    /** The image size code. */
-    @Value("${imageSizeMore.code}")
-    private String imageSizeCode;
+	@Autowired
+	private UserProfileService userProfileService;
 
-    /** The image size message. */
-    @Value("${imageSizeMore.message}")
-    private String imageSizeMessage;
+	/** The image size code. */
+	@Value("${imageSizeMore.code}")
+	private String imageSizeCode;
 
-    /** The image not foundcd. */
-    @Value("${imageNotFound.Code}")
-    private String imageNotFoundcd;
+	/** The image size message. */
+	@Value("${imageSizeMore.message}")
+	private String imageSizeMessage;
 
-    /** The image not found message. */
-    @Value("${imageNotFound.Message}")
-    private String imageNotFoundMessage;
+	/** The image not foundcd. */
+	@Value("${imageNotFound.Code}")
+	private String imageNotFoundcd;
 
-    /**
-     * Gets the affiliations list.
-     *
-     * @param userId
-     *            - The request value
-     * @return service
-     */
-    @RequestMapping(value = "/affiliations/{userId}/", method = RequestMethod.GET)
-    public final Service getAffiliationsList(
-            @PathVariable("userId") final String userId) {
-        UserProfileController.LOGGER.info("inside getAffiliationsList method ");
-        Service service = new Service();
-        service.setPayload(authorProfileService.getAffiliationsList(userId));
+	/** The image not found message. */
+	@Value("${imageNotFound.Message}")
+	private String imageNotFoundMessage;
 
-        return service;
-    }
+	/**
+	 * Gets the affiliations list.
+	 *
+	 * @param userId
+	 *            - The request value
+	 * @return service
+	 */
+	@RequestMapping(value = "/affiliations/{userId}/", method = RequestMethod.GET)
+	public final Service getAffiliationsList(
+			@PathVariable("userId") final String userId) {
+		UserProfileController.LOGGER.info("inside getAffiliationsList method ");
+		Service service = new Service();
+		service.setPayload(authorProfileService.getAffiliationsList(userId));
 
-    /**
-     * @param userId
-     *            - The request value
-     * @param affiliation
-     *            - The request value
-     * @return service
-     */
-    @RequestMapping(value = "/affiliations/{userId}/{affiliationId}/", method = RequestMethod.POST)
-    public final Service updateAffiliation(
-            @PathVariable("userId") final int userId,
-            @PathVariable("affiliationId") final String affiliationId,
-            @RequestBody final Affiliation affiliationsUpdate) {
-        UserProfileController.LOGGER.info("inside updateAffiliation method ");
-        Service service = new Service();
+		return service;
+	}
 
-        authorProfileService.updateAffiliation(userId, affiliationsUpdate,
-                affiliationId);
+	/**
+	 * @param userId
+	 *            - The request value
+	 * @param affiliation
+	 *            - The request value
+	 * @return service
+	 */
+	@RequestMapping(value = "/affiliations/{userId}/{affiliationId}/", method = RequestMethod.POST)
+	public final Service updateAffiliation(
+			@PathVariable("userId") final int userId,
+			@PathVariable("affiliationId") final String affiliationId,
+			@RequestBody final Affiliation affiliationsUpdate) {
+		UserProfileController.LOGGER.info("inside updateAffiliation method ");
+		Service service = new Service();
 
-        return service;
-    }
+		authorProfileService.updateAffiliation(userId, affiliationsUpdate,
+				affiliationId);
 
-    /**
-     * @param userId
-     *            - The request value
-     * @return service
-     */
-    @RequestMapping(value = "/affiliations/{userId}/{affiliationId}/", method = RequestMethod.DELETE)
-    public final Service deleteAffiliation(
-            @PathVariable("userId") final String userId,
-            @PathVariable("affiliationId") final String affiliationId) {
-        UserProfileController.LOGGER.info("inside deleteaffiliation method ");
-        Service service = new Service();
-        service.setPayload(authorProfileService.deleteAffiliations(userId,
-                affiliationId));
-        return service;
-    }
+		return service;
+	}
 
-    /**
-     * Gets the research funders list.
-     *
-     * @param userId
-     *            - The request value
-     * @return service
-     */
-    @RequestMapping(value = "/researchFunders/{userId}/", method = RequestMethod.GET)
-    public final Service getResearchFundersList(
-            @PathVariable("userId") final String userId) {
+	/**
+	 * @param userId
+	 *            - The request value
+	 * @return service
+	 */
+	@RequestMapping(value = "/affiliations/{userId}/{affiliationId}/", method = RequestMethod.DELETE)
+	public final Service deleteAffiliation(
+			@PathVariable("userId") final String userId,
+			@PathVariable("affiliationId") final String affiliationId) {
+		UserProfileController.LOGGER.info("inside deleteaffiliation method ");
+		Service service = new Service();
+		service.setPayload(authorProfileService.deleteAffiliations(userId,
+				affiliationId));
+		return service;
+	}
 
-        UserProfileController.LOGGER
-                .info("inside getResearchFundersList method ");
-        Service service = new Service();
-        service.setPayload(authorProfileService.getResearchFundersList(userId));
+	/**
+	 * Gets the research funders list.
+	 *
+	 * @param userId
+	 *            - The request value
+	 * @return service
+	 */
+	@RequestMapping(value = "/researchFunders/{userId}/", method = RequestMethod.GET)
+	public final Service getResearchFundersList(
+			@PathVariable("userId") final String userId) {
 
-        return service;
-    }
+		UserProfileController.LOGGER
+				.info("inside getResearchFundersList method ");
+		Service service = new Service();
+		service.setPayload(authorProfileService.getResearchFundersList(userId));
 
-    /**
-     * @param userId
-     *            - The request value
-     * @param researchFunder
-     *            - The request value
-     * @return service
-     */
-    /*
-     * @RequestMapping(value = "/researchFunder/{userId}", method =
-     * RequestMethod.POST) public final Service updateResearchFunder(
-     * 
-     * @PathVariable("userId") final int userId,
-     * 
-     * @RequestBody final ResearchFunder researchFunder) {
-     * 
-     * UserProfileController.LOGGER
-     * .info("inside updateResearchFunder method "); Service service = new
-     * Service();
-     * service.setPayload(authorProfileService.updateResearchFunder(userId,
-     * researchFunder)); return service; }
-     */
-    /**
-     * Gets the societies list.
-     *
-     * @param userId
-     *            - The request value
-     * @return service
-     */
-    @RequestMapping(value = "/societies/{userId}", method = RequestMethod.GET)
-    public final Service getSocietiesList(
-            @PathVariable("userId") final String userId) {
+		return service;
+	}
 
-        UserProfileController.LOGGER.info("inside getSocietiesList method ");
-        Service service = new Service();
-        service.setPayload(authorProfileService.getSocietylist(userId));
-        return service;
-    }
+	/**
+	 * @param userId
+	 *            - The request value
+	 * @param researchFunder
+	 *            - The request value
+	 * @return service
+	 */
+	/*
+	 * @RequestMapping(value = "/researchFunder/{userId}", method =
+	 * RequestMethod.POST) public final Service updateResearchFunder(
+	 * 
+	 * @PathVariable("userId") final int userId,
+	 * 
+	 * @RequestBody final ResearchFunder researchFunder) {
+	 * 
+	 * UserProfileController.LOGGER
+	 * .info("inside updateResearchFunder method "); Service service = new
+	 * Service();
+	 * service.setPayload(authorProfileService.updateResearchFunder(userId,
+	 * researchFunder)); return service; }
+	 */
+	/**
+	 * Gets the societies list.
+	 *
+	 * @param userId
+	 *            - The request value
+	 * @return service
+	 */
+	@RequestMapping(value = "/societies/{userId}", method = RequestMethod.GET)
+	public final Service getSocietiesList(
+			@PathVariable("userId") final String userId) {
 
-    /**
-     * @param userId
-     *            - The request value
-     * @param society
-     *            - The request value
-     * @return service
-     */
-    @RequestMapping(value = "/societies/{userId}", method = RequestMethod.POST)
-    public final Service updateSocietyDetails(
-            @PathVariable("userId") final int userId,
-            @Valid @RequestBody final Society society) {
+		UserProfileController.LOGGER.info("inside getSocietiesList method ");
+		Service service = new Service();
+		service.setPayload(authorProfileService.getSocietylist(userId));
+		return service;
+	}
 
-        Service service = new Service();
+	/**
+	 * @param userId
+	 *            - The request value
+	 * @param society
+	 *            - The request value
+	 * @return service
+	 */
+	@RequestMapping(value = "/societies/{userId}", method = RequestMethod.POST)
+	public final Service updateSocietyDetails(
+			@PathVariable("userId") final int userId,
+			@Valid @RequestBody final Society society) {
 
-        UserProfileController.LOGGER
-                .info("inside updateSocietyDetails method ");
-        service.setPayload(authorProfileService.updateSocietyDetails(userId,
-                society));
-        return service;
-    }
+		Service service = new Service();
 
-    /**
-     * @param userId
-     *            - The request value
-     * @param societyId
-     *            - The request value
-     * @return service
-     */
-    @RequestMapping(value = "/societies/{userId}/{societyId}/{id}", method = RequestMethod.DELETE)
-    public final Service deleteSocietyDetails(
-            @PathVariable("userId") final String userId,
-            @PathVariable("societyId") final String societyId,
-            @PathVariable("id") final String id) {
+		UserProfileController.LOGGER
+				.info("inside updateSocietyDetails method ");
+		service.setPayload(authorProfileService.updateSocietyDetails(userId,
+				society));
+		return service;
+	}
 
-        UserProfileController.LOGGER
-                .info("inside deleteSocietyDetails method ");
+	/**
+	 * @param userId
+	 *            - The request value
+	 * @param societyId
+	 *            - The request value
+	 * @return service
+	 */
+	@RequestMapping(value = "/societies/{userId}/{societyId}/{id}", method = RequestMethod.DELETE)
+	public final Service deleteSocietyDetails(
+			@PathVariable("userId") final String userId,
+			@PathVariable("societyId") final String societyId,
+			@PathVariable("id") final String id) {
 
-        Service service = new Service();
+		UserProfileController.LOGGER
+				.info("inside deleteSocietyDetails method ");
 
-        service.setPayload(authorProfileService.deleteSociety(userId,
-                societyId, id));
-        return service;
-    }
+		Service service = new Service();
 
-    /**
-     * Gets the my interests.
-     *
-     * @param userId
-     *            - The request value
-     * @return service
-     */
-    @RequestMapping(value = "/interests/{userId}", method = RequestMethod.GET)
-    public final Service getMyInterests(
-            @PathVariable("userId") final String userId) {
+		service.setPayload(authorProfileService.deleteSociety(userId,
+				societyId, id));
+		return service;
+	}
 
-        UserProfileController.LOGGER.info("inside getMyInterests method ");
-        Service service = new Service();
-        service.setPayload(authorProfileService.getAreaOfInterests(userId));
+	/**
+	 * Gets the my interests.
+	 *
+	 * @param userId
+	 *            - The request value
+	 * @return service
+	 */
+	@RequestMapping(value = "/interests/{userId}", method = RequestMethod.GET)
+	public final Service getMyInterests(
+			@PathVariable("userId") final String userId) {
 
-        return service;
-    }
+		UserProfileController.LOGGER.info("inside getMyInterests method ");
+		Service service = new Service();
+		service.setPayload(authorProfileService.getAreaOfInterests(userId));
 
-    /**
-     * @param userId
-     *            - The request value
-     * @param searchString
-     *            - The request value
-     * @return service
-     */
-    @RequestMapping(value = "/interests/{userId}/", method = RequestMethod.POST)
-    public final Service addInterests(
-            @PathVariable("userId") final String userId,
-            @RequestBody final AreaOfInterests areaOfInterests) {
-        Service service = new Service();
-        service.setPayload(authorProfileService.addInterests(userId,
-                areaOfInterests));
-        return service;
+		return service;
+	}
 
-    }
+	/**
+	 * @param userId
+	 *            - The request value
+	 * @param searchString
+	 *            - The request value
+	 * @return service
+	 */
+	@RequestMapping(value = "/interests/{userId}/", method = RequestMethod.POST)
+	public final Service addInterests(
+			@PathVariable("userId") final String userId,
+			@RequestBody final AreaOfInterests areaOfInterests) {
+		Service service = new Service();
+		service.setPayload(authorProfileService.addInterests(userId,
+				areaOfInterests));
+		return service;
 
-    /**
-     * Delete interests.
-     *
-     * @param userId
-     *            - The request value
-     * @param interestId
-     *            - The request value
-     * @return service
-     */
-    @RequestMapping(value = "/interests/{userId}/{interestId}/", method = RequestMethod.DELETE)
-    public final Service deleteInterests(
-            @PathVariable("userId") final String userId,
-            @PathVariable("interestId") final String interestId) {
-        UserProfileController.LOGGER.info("inside searchInterests method ");
-        Service service = new Service();
-        service.setPayload(authorProfileService.deleteInterests(userId,
-                interestId));
-        return service;
-    }
+	}
 
-    /**
-     * This service will give list of Co-authors that are tagged to the
-     * author/user.
-     *
-     * @param userId
-     *            - The request value
-     * @return service
-     */
-    @RequestMapping(value = "/coAuthors/{userId}/", method = RequestMethod.GET)
-    public final Service getCoAuthorsList(
-            @PathVariable("userId") final String userId) {
+	/**
+	 * Delete interests.
+	 *
+	 * @param userId
+	 *            - The request value
+	 * @param interestId
+	 *            - The request value
+	 * @return service
+	 */
+	@RequestMapping(value = "/interests/{userId}/{interestId}/", method = RequestMethod.DELETE)
+	public final Service deleteInterests(
+			@PathVariable("userId") final String userId,
+			@PathVariable("interestId") final String interestId) {
+		UserProfileController.LOGGER.info("inside searchInterests method ");
+		Service service = new Service();
+		service.setPayload(authorProfileService.deleteInterests(userId,
+				interestId));
+		return service;
+	}
 
-        UserProfileController.LOGGER.info("inside getCoAuthorsList method ");
-        Service service = new Service();
-        service.setPayload(authorProfileService.getsCoAuthorsList(userId));
+	/**
+	 * This service will give list of Co-authors that are tagged to the
+	 * author/user.
+	 *
+	 * @param userId
+	 *            - The request value
+	 * @return service
+	 */
+	@RequestMapping(value = "/coAuthors/{userId}/", method = RequestMethod.GET)
+	public final Service getCoAuthorsList(
+			@PathVariable("userId") final String userId) {
 
-        return service;
-    }
+		UserProfileController.LOGGER.info("inside getCoAuthorsList method ");
+		Service service = new Service();
+		service.setPayload(authorProfileService.getsCoAuthorsList(userId));
 
-    /**
-     * @param userId
-     *            - The request value
-     * @param coAuthor
-     *            - The request value
-     * @return service
-     */
-    /*
-     * @RequestMapping(value = "/coAuthors/{userId}", method =
-     * RequestMethod.POST) public final Service updateCoAuthors(@PathVariable
-     * final int userId,
-     * 
-     * @RequestBody final CoAuthor coAuthor) {
-     * 
-     * UserProfileController.LOGGER.info("inside updateCoAuthors method ");
-     * Service service = new Service(); coAuthor.setUserId(userId);
-     * service.setPayload(authorProfileService .updatecoAuthor(userId,
-     * coAuthor)); return new Service(); }
-     */
+		return service;
+	}
 
-    /**
-     * Gets the preferred journals.
-     *
-     * @param userId
-     *            - The request value
-     * @return service
-     */
+	/**
+	 * @param userId
+	 *            - The request value
+	 * @param coAuthor
+	 *            - The request value
+	 * @return service
+	 */
+	/*
+	 * @RequestMapping(value = "/coAuthors/{userId}", method =
+	 * RequestMethod.POST) public final Service updateCoAuthors(@PathVariable
+	 * final int userId,
+	 * 
+	 * @RequestBody final CoAuthor coAuthor) {
+	 * 
+	 * UserProfileController.LOGGER.info("inside updateCoAuthors method ");
+	 * Service service = new Service(); coAuthor.setUserId(userId);
+	 * service.setPayload(authorProfileService .updatecoAuthor(userId,
+	 * coAuthor)); return new Service(); }
+	 */
 
-    @RequestMapping(value = "/preferredJournals/{userId}", method = RequestMethod.GET)
-    public final Service getPreferredJournals(
-            @PathVariable("userId") final String userId) {
+	/**
+	 * Gets the preferred journals.
+	 *
+	 * @param userId
+	 *            - The request value
+	 * @return service
+	 */
 
-        UserProfileController.LOGGER
-                .info("inside getPreferredJournals method ");
-        Service service = new Service();
-        service.setPayload(authorProfileService.getPrefferedJournals(userId));
-        return service;
-    }
+	@RequestMapping(value = "/preferredJournals/{userId}", method = RequestMethod.GET)
+	public final Service getPreferredJournals(
+			@PathVariable("userId") final String userId) {
 
-    /**
-     * Search preferred journals.
-     *
-     * @param userId
-     *            - The request value
-     * @return service
-     */
-    @RequestMapping(value = "/preferredJournals/search/{userId}", method = RequestMethod.POST)
-    public final Service searchPreferredJournals(
-            @PathVariable("userId") final String userId) {
+		UserProfileController.LOGGER
+				.info("inside getPreferredJournals method ");
+		Service service = new Service();
+		service.setPayload(authorProfileService.getPrefferedJournals(userId));
+		return service;
+	}
 
-        UserProfileController.LOGGER
-                .info("inside searchPreferredJournals method ");
-        return new Service();
-    }
+	/**
+	 * Search preferred journals.
+	 *
+	 * @param userId
+	 *            - The request value
+	 * @return service
+	 */
+	@RequestMapping(value = "/preferredJournals/search/{userId}", method = RequestMethod.POST)
+	public final Service searchPreferredJournals(
+			@PathVariable("userId") final String userId) {
 
-    /**
-     * delete preferred journals.
-     *
-     * @param userId
-     *            - The request value
-     * @param journalId
-     *            - The request value
-     * @return service
-     */
-    @RequestMapping(value = "/preferredJournals/{userId}/{journalId}/", method = RequestMethod.DELETE)
-    public final Service deletePreferredJournals(
-            @PathVariable("userId") final String userId,
-            @PathVariable("journalId") final String journalId) {
+		UserProfileController.LOGGER
+				.info("inside searchPreferredJournals method ");
+		return new Service();
+	}
 
-        UserProfileController.LOGGER
-                .info("inside searchPreferredJournals method ");
-        Service service = new Service();
-        service.setPayload(authorProfileService.deletePreferredJournals(userId,
-                journalId));
-        return service;
-    }
+	/**
+	 * delete preferred journals.
+	 *
+	 * @param userId
+	 *            - The request value
+	 * @param journalId
+	 *            - The request value
+	 * @return service
+	 */
+	@RequestMapping(value = "/preferredJournals/{userId}/{journalId}/", method = RequestMethod.DELETE)
+	public final Service deletePreferredJournals(
+			@PathVariable("userId") final String userId,
+			@PathVariable("journalId") final String journalId) {
 
-    /**
-     * Gets the articles published for journals.
-     *
-     * @param userId
-     *            - The request value
-     * @return service
-     */
-    @RequestMapping(value = "/articlesPublishedForJournals/{userId}", method = RequestMethod.GET)
-    public final Service getArticlesPublishedForJournals(
-            @PathVariable("userId") final String userId) {
+		UserProfileController.LOGGER
+				.info("inside searchPreferredJournals method ");
+		Service service = new Service();
+		service.setPayload(authorProfileService.deletePreferredJournals(userId,
+				journalId));
+		return service;
+	}
 
-        UserProfileController.LOGGER
-                .info("inside getArticlesPublishedForJournals method ");
-        return new Service();
-    }
+	/**
+	 * Gets the articles published for journals.
+	 *
+	 * @param userId
+	 *            - The request value
+	 * @return service
+	 */
+	@RequestMapping(value = "/articlesPublishedForJournals/{userId}", method = RequestMethod.GET)
+	public final Service getArticlesPublishedForJournals(
+			@PathVariable("userId") final String userId) {
 
-    /**
-     * Gets the list of alerts.
-     *
-     * @param userId
-     *            - The request value
-     * @return service
-     */
+		UserProfileController.LOGGER
+				.info("inside getArticlesPublishedForJournals method ");
+		return new Service();
+	}
 
-    @RequestMapping(value = "/alerts/{userId}", method = RequestMethod.GET)
-    public final Service getListOfAlerts(
-            @PathVariable("userId") final String userId) {
+	/**
+	 * Gets the list of alerts.
+	 *
+	 * @param userId
+	 *            - The request value
+	 * @return service
+	 */
 
-        UserProfileController.LOGGER.info("inside getListOfAlerts method ");
-        Service service = new Service();
+	@RequestMapping(value = "/alerts/{userId}", method = RequestMethod.GET)
+	public final Service getListOfAlerts(
+			@PathVariable("userId") final String userId) {
 
-        service.setPayload(authorProfileService.getListOfAlerts(userId));
-        return service;
-    }
+		UserProfileController.LOGGER.info("inside getListOfAlerts method ");
+		Service service = new Service();
 
-    /**
-     * @param userId
-     *            - The request value
-     * @param listOfalert
-     *            - The request value
-     * @return service
-     */
-    @RequestMapping(value = "/alerts/{userId}", method = RequestMethod.POST)
-    public final Service updateAlerts(
-            @PathVariable("userId") final String userId,
-            @RequestBody final AlertsList listOfalert) {
-        UserProfileController.LOGGER.info("inside updateAlerts method ");
-        Service service = new Service();
-        service.setPayload(authorProfileService.updateAlerts(userId,
-                listOfalert));
-        return service;
-    }
+		service.setPayload(authorProfileService.getListOfAlerts(userId));
+		return service;
+	}
 
-    /**
-     * Gets the job categories.
-     *
-     * @param userId
-     *            - The request value
-     * @return service
-     */
-    @RequestMapping(value = "/jobCategories/{userId}", method = RequestMethod.GET)
-    public final Service getJobCategories(
-            @PathVariable("userId") final String userId) {
+	/**
+	 * @param userId
+	 *            - The request value
+	 * @param listOfalert
+	 *            - The request value
+	 * @return service
+	 */
+	@RequestMapping(value = "/alerts/{userId}", method = RequestMethod.POST)
+	public final Service updateAlerts(
+			@PathVariable("userId") final String userId,
+			@RequestBody final AlertsList listOfalert) {
+		UserProfileController.LOGGER.info("inside updateAlerts method ");
+		Service service = new Service();
+		service.setPayload(authorProfileService.updateAlerts(userId,
+				listOfalert));
+		return service;
+	}
 
-        UserProfileController.LOGGER.info("inside getJobCategories method ");
-        return new Service();
-    }
+	/**
+	 * Gets the job categories.
+	 *
+	 * @param userId
+	 *            - The request value
+	 * @return service
+	 */
+	@RequestMapping(value = "/jobCategories/{userId}", method = RequestMethod.GET)
+	public final Service getJobCategories(
+			@PathVariable("userId") final String userId) {
 
-    /**
-     * Look up profile.
-     *
-     * @param userId
-     *            - The request value
-     * @return service
-     */
-    /*
-     * @RequestMapping(value = "/lookUpProfile/{userId}", method =
-     * RequestMethod.GET) public final Service
-     * lookUpProfile(@PathVariable("userId") final int userId) {
-     * 
-     * UserProfileController.LOGGER.info("inside lookUpProfile method ");
-     * Service service = new Service();
-     * service.setPayload(authorProfileService.getuserProfileResponse(userId));
-     * return service;
-     * 
-     * }
-     */
-    /**
-     * Gets the industries.
-     *
-     * @param userId
-     *            - The request value
-     * @return service
-     */
-    @RequestMapping(value = "/industries/{userId}", method = RequestMethod.GET)
-    public final Service getIndustries(
-            @PathVariable("userId") final String userId) {
+		UserProfileController.LOGGER.info("inside getJobCategories method ");
+		return new Service();
+	}
 
-        UserProfileController.LOGGER.info("inside getIndustries method ");
-        return new Service();
-    }
+	/**
+	 * Look up profile.
+	 *
+	 * @param userId
+	 *            - The request value
+	 * @return service
+	 */
+	/*
+	 * @RequestMapping(value = "/lookUpProfile/{userId}", method =
+	 * RequestMethod.GET) public final Service
+	 * lookUpProfile(@PathVariable("userId") final int userId) {
+	 * 
+	 * UserProfileController.LOGGER.info("inside lookUpProfile method ");
+	 * Service service = new Service();
+	 * service.setPayload(authorProfileService.getuserProfileResponse(userId));
+	 * return service;
+	 * 
+	 * }
+	 */
+	/**
+	 * Gets the industries.
+	 *
+	 * @param userId
+	 *            - The request value
+	 * @return service
+	 */
+	@RequestMapping(value = "/industries/{userId}", method = RequestMethod.GET)
+	public final Service getIndustries(
+			@PathVariable("userId") final String userId) {
 
-    /**
-     * @param profilePicture
-     *            - The request value
-     * @return - service
-     * @throws IOException
-     *             - exception
-     */
-    @RequestMapping(value = "/uploadImage/", method = RequestMethod.POST)
-    public final Service profilePicture(
-            @RequestBody final ProfilePicture profilePicture)
-            throws IOException {
-        Service service = new Service();
-        String imageString = FileUtils.readFileToString(profilePicture
-                .getImage());
-        File file = new File(imageString);
-        if (file.exists()) {
-            final int value = 1024;
-            double bytes = file.length();
-            double kilobytes = bytes / value;
-            double megabytes = kilobytes / value;
-            if (megabytes > 1) {
-                throw new ASException(imageSizeCode, imageSizeMessage);
-            } else if (megabytes < 1) {
-                authorProfileService.uploadImage(profilePicture.getImage(),
-                        profilePicture.getUserId());
-            }
-        } else {
-            throw new ASException(imageNotFoundcd, imageNotFoundMessage);
-        }
-        return service;
-    }
+		UserProfileController.LOGGER.info("inside getIndustries method ");
+		return new Service();
+	}
 
-    /**
-     * @param userId
-     *            - The request value
-     * @return service
-     */
-    @RequestMapping(value = "/lookUpProfileCustomer/{userId}", method = RequestMethod.GET)
-    public final Service lookUpProfile(
-            @PathVariable("userId") final String userId) {
+	/**
+	 * @param profilePicture
+	 *            - The request value
+	 * @return - service
+	 * @throws IOException
+	 *             - exception
+	 */
+	@RequestMapping(value = "/uploadImage/", method = RequestMethod.POST)
+	public final Service profilePicture(
+			@RequestBody final ProfilePicture profilePicture)
+			throws IOException {
+		Service service = new Service();
+		String imageString = FileUtils.readFileToString(profilePicture
+				.getImage());
+		File file = new File(imageString);
+		if (file.exists()) {
+			final int value = 1024;
+			double bytes = file.length();
+			double kilobytes = bytes / value;
+			double megabytes = kilobytes / value;
+			if (megabytes > 1) {
+				throw new ASException(imageSizeCode, imageSizeMessage);
+			} else if (megabytes < 1) {
+				authorProfileService.uploadImage(profilePicture.getImage(),
+						profilePicture.getUserId());
+			}
+		} else {
+			throw new ASException(imageNotFoundcd, imageNotFoundMessage);
+		}
+		return service;
+	}
 
-        UserProfileController.LOGGER.info("inside lookUpProfile method ");
-        Service service = new Service();
-        service.setPayload(authorProfileService
-                .getLookupCustomerProfile(userId));
-        return service;
+	/**
+	 * @param userId
+	 *            - The request value
+	 * @return service
+	 */
+	@RequestMapping(value = "/lookUpProfileCustomer/{userId}", method = RequestMethod.GET)
+	public final Service lookUpProfile(
+			@PathVariable("userId") final String userId) {
 
-    }
+		UserProfileController.LOGGER.info("inside lookUpProfile method ");
+		Service service = new Service();
+		service.setPayload(authorProfileService
+				.getLookupCustomerProfile(userId));
+		return service;
 
-    /**
-     * @param userId
-     * @return
-     * @throws IOException
-     */
-    @RequestMapping(value = "/getImage/{userId}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
-    public final byte[] getProfile(@PathVariable("userId") final String userId) {
+	}
 
-        return authorProfileService.getProfilePicture(userId);
+	/**
+	 * @param userId
+	 * @return
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "/getImage/{userId}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
+	public final byte[] getProfile(@PathVariable("userId") final String userId) {
 
-    }
+		return authorProfileService.getProfilePicture(userId);
 
-    @RequestMapping(value = "/uploadimage/{image}/", method = RequestMethod.GET)
-    public Service profilePicture(@PathVariable("image") File image) {
-        Service service = new Service();
+	}
 
-        File file = new File("image");
-        if (file.exists()) {
-            double bytes = file.length();
-            double kilobytes = bytes / 1024;
-            double megabytes = kilobytes / 1024;
-            if (megabytes < 1) {
-                service.setPayload("image uploaded successfully.......");
-            } else if (megabytes > 1) {
-                throw new ASException("1818",
-                        "please select file not more than 1 mb");
-            }
-        } else {
-            throw new ASException("1819", "file doesnt exist");
-        }
-        return service;
-    }
+	@RequestMapping(value = "/uploadimage/{image}/", method = RequestMethod.GET)
+	public Service profilePicture(@PathVariable("image") File image) {
+		Service service = new Service();
+
+		File file = new File("image");
+		if (file.exists()) {
+			double bytes = file.length();
+			double kilobytes = bytes / 1024;
+			double megabytes = kilobytes / 1024;
+			if (megabytes < 1) {
+				service.setPayload("image uploaded successfully.......");
+			} else if (megabytes > 1) {
+				throw new ASException("1818",
+						"please select file not more than 1 mb");
+			}
+		} else {
+			throw new ASException("1819", "file doesnt exist");
+		}
+		return service;
+	}
+
+	@RequestMapping(value = "/{participantId}/profileImage", method = RequestMethod.GET)
+	public Service getProfileImage(
+			@PathVariable("ParticipantId") final String participantId) {
+		Service service = new Service();
+		try {
+			service.setPayload(userProfileService
+					.getProfileImage(participantId));
+		} catch (Exception e) {
+			throw new UserException("5000", "Unable to fetch");
+		}
+		return service;
+
+	}
+
+	@RequestMapping(value = "/{participantId}/profileImage/", method = RequestMethod.POST)
+	public Service updateService(
+			@PathVariable("ParticipantId") final String participantId,
+			@RequestBody Byte[] imageFile) {
+		boolean isUpdated = false;
+		Service service = new Service();
+		try {
+			isUpdated = userProfileService.uploadProfileImage(participantId,
+					imageFile);
+		} catch (Exception e) {
+			throw new UserException("50001", e.getMessage());
+		}
+		if (isUpdated) {
+			service.setStatus("SUCCESS");
+			service.setPayload(isUpdated);
+		} else {
+			service.setStatus("Failure");
+			service.setPayload(isUpdated);
+		}
+		return service;
+	}
+
+	@RequestMapping(value = "/{participantId}/alerts", method = RequestMethod.GET)
+	public Service getAlerts(
+			@PathVariable("ParticipantId") final String participantId) {
+		Service service = new Service();
+		try {
+			service.setPayload(userProfileService.getAlerts(participantId));
+		} catch (Exception e) {
+			throw new UserException("5005", "Unable to fetch");
+		}
+		return service;
+
+	}
+
+	@RequestMapping(value = "/{participantId}/alerts/", method = RequestMethod.POST)
+	public Service updateAlerts(
+			@PathVariable("ParticipantId") final String participantId,
+			@RequestBody AlertElement alert) {
+		boolean isUpdated = false;
+		Service service = new Service();
+		try {
+			isUpdated = userProfileService.updateAlerts(participantId, alert);
+		} catch (Exception e) {
+			throw new UserException("50006", e.getMessage());
+		}
+		if (isUpdated) {
+			service.setStatus("SUCCESS");
+			service.setPayload(isUpdated);
+		} else {
+			service.setStatus("Failure");
+			service.setPayload(isUpdated);
+		}
+		return service;
+	}
 }

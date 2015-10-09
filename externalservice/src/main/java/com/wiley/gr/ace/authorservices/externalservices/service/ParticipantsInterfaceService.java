@@ -16,7 +16,11 @@ package com.wiley.gr.ace.authorservices.externalservices.service;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
+
+import com.wiley.gr.ace.authorservices.model.external.AlertElement;
 import com.wiley.gr.ace.authorservices.model.external.Participant;
+import com.wiley.gr.ace.authorservices.model.external.ParticipantAddress;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -36,7 +40,8 @@ public interface ParticipantsInterfaceService {
 	/**
 	 * Search participant by participant id.
 	 *
-	 * @param particpantId the particpant id
+	 * @param particpantId
+	 *            the particpant id
 	 * @return the participant
 	 */
 	Participant searchParticipantByParticipantId(String particpantId);
@@ -44,7 +49,8 @@ public interface ParticipantsInterfaceService {
 	/**
 	 * Search participant by user id.
 	 *
-	 * @param userId the user id
+	 * @param userId
+	 *            the user id
 	 * @return the participant
 	 */
 	Participant searchParticipantByUserId(String userId);
@@ -52,9 +58,26 @@ public interface ParticipantsInterfaceService {
 	/**
 	 * Search participant by name.
 	 *
-	 * @param firstName the first name
-	 * @param lastName the last name
+	 * @param firstName
+	 *            the first name
+	 * @param lastName
+	 *            the last name
 	 * @return the list
 	 */
 	List<Participant> searchParticipantByName(String firstName, String lastName);
+
+	List<ParticipantAddress> getAddress(String participantId) throws Exception;
+
+	ResponseEntity<?> updateAddress(String participantId,
+			ParticipantAddress participantAddress) throws Exception;
+
+	ResponseEntity<?> uploadProfileImage(String participantId, Byte[] imageFile)
+			throws Exception;
+
+	Byte[] getProfileImage(String participantId) throws Exception;
+
+	ResponseEntity<?> updateAlerts(String participantId, AlertElement alert)
+			throws Exception;
+
+	List<AlertElement> getAlerts(String participantId) throws Exception;
 }
