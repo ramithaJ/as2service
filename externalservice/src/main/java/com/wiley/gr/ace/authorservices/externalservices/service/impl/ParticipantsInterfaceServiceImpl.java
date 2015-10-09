@@ -56,7 +56,6 @@ public class ParticipantsInterfaceServiceImpl implements
 		final Participant participant = (Participant) RestServiceInvokerUtil
 				.getServiceData(searchparticipantbyidurl + participantId,
 						Participant.class);
-		// TODO Auto-generated method stub
 		return participant;
 	}
 
