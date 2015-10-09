@@ -28,160 +28,162 @@ import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 @Order(2)
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    /** The Constant AUTHENTICATE. */
-    public static final String AUTHENTICATE = "/authenticate";
+	/** The Constant AUTHENTICATE. */
+	public static final String AUTHENTICATE = "/authenticate";
 
-    /** The token authentication provider. */
-    @Autowired
-    private TokenAuthenticationProvider tokenAuthenticationProvider;
+	/** The token authentication provider. */
+	@Autowired
+	private TokenAuthenticationProvider tokenAuthenticationProvider;
 
-    /** The token authentication service. */
-    @Autowired
-    private TokenAuthenticationService tokenAuthenticationService;
+	/** The token authentication service. */
+	@Autowired
+	private TokenAuthenticationService tokenAuthenticationService;
 
-    /**
-     * Injecting UserLoginServiceDAO bean.
-     */
-    @Autowired(required = true)
-    private AdminLoginService adminLoginService;
+	/**
+	 * Injecting UserLoginServiceDAO bean.
+	 */
+	@Autowired(required = true)
+	private AdminLoginService adminLoginService;
 
-    /**
-     * Instantiates a new spring security config.
-     */
-    public SpringSecurityConfig() {
-        super(true);
-    }
+	/**
+	 * Instantiates a new spring security config.
+	 */
+	public SpringSecurityConfig() {
+		super(true);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.springframework.security.config.annotation.web.configuration.
-     * WebSecurityConfigurerAdapter
-     * #configure(org.springframework.security.config
-     * .annotation.web.builders.HttpSecurity)
-     */
-    @Override
-    protected void configure(final HttpSecurity http) throws Exception {
-        http.exceptionHandling()
-                .and()
-                .anonymous()
-                .and()
-                .servletApi()
-                .and()
-                .authorizeRequests()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.springframework.security.config.annotation.web.configuration.
+	 * WebSecurityConfigurerAdapter
+	 * #configure(org.springframework.security.config
+	 * .annotation.web.builders.HttpSecurity)
+	 */
+	@Override
+	protected void configure(final HttpSecurity http) throws Exception {
+		http.exceptionHandling()
+				.and()
+				.anonymous()
+				.and()
+				.servletApi()
+				.and()
+				.authorizeRequests()
 
-                // Allow anonymous resource requests
-                .antMatchers("/")
-                .permitAll()
+				// Allow anonymous resource requests
+				.antMatchers("/")
+				.permitAll()
 
-                .antMatchers("/favicon.ico")
-                .permitAll()
+				.antMatchers("/favicon.ico")
+				.permitAll()
 
-                .antMatchers("**/*.html")
-                .permitAll()
+				.antMatchers("**/*.html")
+				.permitAll()
 
-                .antMatchers("**/*.css")
-                .permitAll()
+				.antMatchers("**/*.css")
+				.permitAll()
 
-                .antMatchers("**/*.js")
-                .permitAll()
+				.antMatchers("**/*.js")
+				.permitAll()
 
-                .antMatchers("/autocomplete/dropdown/*")
-                .permitAll()
+				.antMatchers("/autocomplete/dropdown/*")
+				.permitAll()
 
-                .antMatchers("/user/resetPassword/*")
-                .permitAll()
+				.antMatchers("/user/resetPassword/*")
+				.permitAll()
 
-                .antMatchers("/user/verifyAccount/*")
-                .permitAll()
+				.antMatchers("/user/verifyAccount/*")
+				.permitAll()
 
-                .antMatchers("/user/userSecurityQuestions/*/")
-                .permitAll()
+				.antMatchers("/user/userSecurityQuestions/*/")
+				.permitAll()
 
-                .antMatchers("/user/password/reset")
-                .permitAll()
+				.antMatchers("/user/password/reset")
+				.permitAll()
 
-                .antMatchers("/user/securityQuestions/validate")
-                .permitAll()
+				.antMatchers("/user/securityQuestions/validate")
+				.permitAll()
 
-                .antMatchers("/asdata/securityQuestions/")
-                .permitAll()
+				.antMatchers("/asdata/securityQuestions/")
+				.permitAll()
 
-                .antMatchers("/user/resetByEmail/*/")
-                .permitAll()
+				.antMatchers("/user/resetByEmail/*/")
+				.permitAll()
 
-                .antMatchers("/user/orcid/profile/*/*")
-                .permitAll()
+				.antMatchers("/user/orcid/profile/*/*")
+				.permitAll()
 
-                .antMatchers("/registration/verify/email")
-                .permitAll()
+				.antMatchers("/registration/verify/email")
+				.permitAll()
 
-                .antMatchers("/registration/register")
-                .permitAll()
+				.antMatchers("/registration/register")
+				.permitAll()
 
-                .antMatchers("/admin/permissions/*")
-                .permitAll()
+				.antMatchers("/admin/permissions/*")
+				.permitAll()
 
-                .antMatchers("/registration/invitation/*")
-                .permitAll()
+				.antMatchers("/registration/invitation/*")
+				.permitAll()
+				.antMatchers("/search/api")
+				.permitAll()
 
-                .antMatchers(HttpMethod.POST, SpringSecurityConfig.AUTHENTICATE)
-                .permitAll()
+				.antMatchers(HttpMethod.POST, SpringSecurityConfig.AUTHENTICATE)
+				.permitAll()
 
-                .anyRequest()
-                .authenticated()
+				.anyRequest()
+				.authenticated()
 
-                .and()
-                .addFilterBefore(
-                        new StatelessLoginFilter(
-                                SpringSecurityConfig.AUTHENTICATE,
-                                tokenAuthenticationService,
-                                authenticationManager(), adminLoginService),
-                        UsernamePasswordAuthenticationFilter.class)
+				.and()
+				.addFilterBefore(
+						new StatelessLoginFilter(
+								SpringSecurityConfig.AUTHENTICATE,
+								tokenAuthenticationService,
+								authenticationManager(), adminLoginService),
+						UsernamePasswordAuthenticationFilter.class)
 
-                // Custom Token based authentication based on the
-                // header previously given to the client
-                .addFilterBefore(
-                        new StatelessAuthenticationFilter(
-                                tokenAuthenticationService),
-                        UsernamePasswordAuthenticationFilter.class);
-    }
+				// Custom Token based authentication based on the
+				// header previously given to the client
+				.addFilterBefore(
+						new StatelessAuthenticationFilter(
+								tokenAuthenticationService),
+						UsernamePasswordAuthenticationFilter.class);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.springframework.security.config.annotation.web.configuration.
-     * WebSecurityConfigurerAdapter
-     * #configure(org.springframework.security.config
-     * .annotation.authentication.builders.AuthenticationManagerBuilder)
-     */
-    @Override
-    protected void configure(
-            final AuthenticationManagerBuilder authenticationManagerBuilder)
-            throws Exception {
-        authenticationManagerBuilder
-                .authenticationProvider(tokenAuthenticationProvider);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.springframework.security.config.annotation.web.configuration.
+	 * WebSecurityConfigurerAdapter
+	 * #configure(org.springframework.security.config
+	 * .annotation.authentication.builders.AuthenticationManagerBuilder)
+	 */
+	@Override
+	protected void configure(
+			final AuthenticationManagerBuilder authenticationManagerBuilder)
+			throws Exception {
+		authenticationManagerBuilder
+				.authenticationProvider(tokenAuthenticationProvider);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.springframework.security.config.annotation.web.configuration.
-     * WebSecurityConfigurerAdapter#authenticationManagerBean()
-     */
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.springframework.security.config.annotation.web.configuration.
+	 * WebSecurityConfigurerAdapter#authenticationManagerBean()
+	 */
+	@Bean
+	@Override
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
 
-    /**
-     * Rest template bean.
-     *
-     * @return the rest template
-     */
-    @Bean
-    public RestTemplate restTemplateBean() {
-        return new RestTemplate();
-    }
+	/**
+	 * Rest template bean.
+	 *
+	 * @return the rest template
+	 */
+	@Bean
+	public RestTemplate restTemplateBean() {
+		return new RestTemplate();
+	}
 }
