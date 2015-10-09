@@ -13,7 +13,6 @@ package com.wiley.gr.ace.authorservices.web.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,8 +42,7 @@ public class SearchController {
 	 * @return the service
 	 */
 	@RequestMapping(value = "/api", method = RequestMethod.POST)
-	public Service search(@RequestBody final SearchRequest searchRequest,
-			@RequestHeader(value = "role") final String role) {
+	public Service search(@RequestBody final SearchRequest searchRequest) {
 		final Service service = new Service();
 
 		service.setPayload(searchService.search(searchRequest));
