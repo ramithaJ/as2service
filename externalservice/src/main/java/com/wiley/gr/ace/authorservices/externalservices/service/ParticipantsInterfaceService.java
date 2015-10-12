@@ -22,6 +22,7 @@ import org.springframework.http.ResponseEntity;
 import com.wiley.gr.ace.authorservices.model.external.AlertElement;
 import com.wiley.gr.ace.authorservices.model.external.Participant;
 import com.wiley.gr.ace.authorservices.model.external.ParticipantAddress;
+import com.wiley.gr.ace.authorservices.model.external.ProfileEntity;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -151,4 +152,6 @@ public interface ParticipantsInterfaceService {
      * @return the participant
      */
     Participant searchParticipantByEmail(String email);
+
+    ResponseEntity updateProfile(ProfileEntity profileEntity);
 }
