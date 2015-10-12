@@ -37,7 +37,6 @@ import com.wiley.gr.ace.authorservices.model.AlertsList;
 import com.wiley.gr.ace.authorservices.model.AreaOfInterests;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.Country;
-import com.wiley.gr.ace.authorservices.model.Email;
 import com.wiley.gr.ace.authorservices.model.Interests;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.PreferredJournals;
@@ -60,9 +59,11 @@ import com.wiley.gr.ace.authorservices.model.external.CustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.EntityValue;
 import com.wiley.gr.ace.authorservices.model.external.FavoriteJournals;
 import com.wiley.gr.ace.authorservices.model.external.InterestData;
+import com.wiley.gr.ace.authorservices.model.external.InterestList;
 import com.wiley.gr.ace.authorservices.model.external.Journal;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfileResponse;
+import com.wiley.gr.ace.authorservices.model.external.Participant;
 import com.wiley.gr.ace.authorservices.model.external.PasswordRequest;
 import com.wiley.gr.ace.authorservices.model.external.PasswordUpdate;
 import com.wiley.gr.ace.authorservices.model.external.ProfileEntity;
@@ -71,8 +72,6 @@ import com.wiley.gr.ace.authorservices.model.external.ResearchFunderData;
 import com.wiley.gr.ace.authorservices.model.external.SecurityQuestionsUpdateRequest;
 import com.wiley.gr.ace.authorservices.model.external.SocietyData;
 import com.wiley.gr.ace.authorservices.model.external.SocietyList;
-import com.wiley.gr.ace.authorservices.model.external.UserEmailDetails;
-import com.wiley.gr.ace.authorservices.model.external.UserSecurityAttributes;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestions;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsEntry;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsMap;
@@ -133,6 +132,12 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      */
     @Autowired(required = true)
     private ParticipantsInterfaceService participantsInterfaceService;
+
+    /**
+     * This field holds the value of participantService.
+     */
+    @Autowired(required = true)
+    private ParticipantsInterfaceService participantService;
 
     /**
      * Update society details.
@@ -352,25 +357,43 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
         AuthorProfileServiceImpl.LOGGER
                 .info("inside updateEmailDetails Method ");
-        LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
-        CustomerProfile customerProfile = new CustomerProfile();
 
-        CustomerDetails customerDetails = getCustomeProfile(userId);
-        customerDetails.setPrimaryEmail(emailDetails.getPrimaryEmailAddr());
-        customerDetails.setSecondaryEmail(emailDetails
-                .getRecoveryEmailAddress());
-        customerProfile.setCustomerDetails(customerDetails);
-        lookupCustomerProfileResponse.setCustomerProfile(customerProfile);
-        // update UserId ALM external service
-        if (!customerDetails.getPrimaryEmail().equalsIgnoreCase(
-                emailDetails.getPrimaryEmailAddr())) {
-            Email email = new Email();
-            email.setOldEmailId(customerDetails.getPrimaryEmail());
-            email.setNewEmailId(emailDetails.getPrimaryEmailAddr());
-            this.updateUserId(email);
-        }
-        final boolean status = userProfiles
-                .customerProfileUpdate(lookupCustomerProfileResponse);
+        ProfileEntity profileEntity = new ProfileEntity();
+        profileEntity.setEntityType("EMAIL");
+
+        EntityValue entityValue = new EntityValue();
+
+        ProfileRequest profileRequest = new ProfileRequest();
+        Participant participantResponse = participantService
+                .searchParticipantByParticipantId(userId);
+        profileRequest.setAlternativeName(""); // TODO
+        profileRequest.setFirstName(participantResponse.getGivenName());
+        profileRequest.setMiddleName(participantResponse.getAdditionalName()); // TODO
+        profileRequest.setLastName(participantResponse.getFamilyName());
+        profileRequest.setPrimaryEmail(participantResponse.getEmail());
+        profileRequest.setRecoveryEmail(participantResponse.getRecoveryEmail());
+        profileRequest.setOldEmail(""); // TODO
+        profileRequest.setIndustryCode(participantResponse.getIndustryId());
+        profileRequest.setJobCategoryCode(participantResponse
+                .getJobCategoryId());
+        profileRequest.setTitleCode(participantResponse.getHonorificPrefix());
+        profileRequest.setSuffixCode(participantResponse.getHonorificSuffix());
+
+        List<InterestList> interestList = new ArrayList<InterestList>();
+        InterestList interest = new InterestList();
+        interest.setInterestCode(""); // interest code TODO
+        profileRequest.setInterestList(interestList);
+
+        profileRequest.setOrcid(participantResponse.getOrcidId()); // orcid id
+
+        entityValue.setProfile(profileRequest);
+        profileEntity.setEntityValue(entityValue);
+        profileEntity.setSourceSystem("AS2.0");
+        profileEntity.setEntityId(userId);
+
+        participantsInterfaceService.updateProfile(profileEntity);
+
+        boolean status = false;
         if (status) {
             sendNotification.updateSecEmailNotification(
                     emailDetails.getPrimaryEmailAddr(),
@@ -529,8 +552,10 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         AuthorProfileServiceImpl.LOGGER
                 .info("inside updateUserProfileInfo Method ");
         ProfileEntity profileEntity = new ProfileEntity();
+
         profileEntity.setEntityType("PROFILE");
         EntityValue entityValue = new EntityValue();
+
         ProfileRequest profileRequest = new ProfileRequest();
         profileRequest.setTitleCode(user.getTitle());
         profileRequest.setSuffixCode(user.getSuffix());
@@ -541,6 +566,15 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         profileRequest.setIndustryCode(user.getIndustry());
         profileRequest.setJobCategoryCode(user.getJobCategory());
         profileRequest.setSendEmail(user.getSendEmailFlag());
+        profileRequest.setPrimaryEmail(""); // primary email Address
+
+        List<InterestList> interestList = new ArrayList<InterestList>();
+        InterestList interest = new InterestList();
+        interest.setInterestCode(""); // interest code
+        profileRequest.setInterestList(interestList);
+
+        profileRequest.setOrcid(""); // orcid id
+
         entityValue.setProfile(profileRequest);
         profileEntity.setEntityValue(entityValue);
         profileEntity.setSourceSystem("AS2.0");
@@ -549,29 +583,6 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         participantsInterfaceService.updateProfile(profileEntity);
 
         return false;
-    }
-
-    /**
-     * Update user id.
-     *
-     * @param email
-     *            the email
-     * @return true, if successful
-     */
-
-    private boolean updateUserId(final Email email) {
-
-        AuthorProfileServiceImpl.LOGGER.info("inside updateUserId Method ");
-        UserEmailDetails userEmailDetails = new UserEmailDetails();
-        UserSecurityAttributes userSecurityAttributes = new UserSecurityAttributes();
-        userSecurityAttributes.setExistingEmail(email.getOldEmailId());
-        userSecurityAttributes.setNewEmail(email.getNewEmailId());
-        userSecurityAttributes
-                .setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
-        userEmailDetails
-                .setUpdateUserSecurityAttributes(userSecurityAttributes);
-
-        return userManagement.updateUserId(userEmailDetails);
     }
 
     /**

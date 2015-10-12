@@ -17,26 +17,26 @@ package com.wiley.gr.ace.authorservices.model.external;
  * @author virtusa version 1.0
  *
  */
-public class EntityValue {
+public class InterestList {
 
     /**
-     * This field holds the value of profile.
+     * This field holds the value of interestCode.
      */
-    private ProfileRequest profile;
+    private String interestCode;
 
     /**
-     * @return the profile
+     * @return the interestCode
      */
-    public final ProfileRequest getProfile() {
-        return profile;
+    public final String getInterestCode() {
+        return interestCode;
     }
 
     /**
-     * @param profile
-     *            the profile to set
+     * @param interestCode
+     *            the interestCode to set
      */
-    public final void setProfile(final ProfileRequest profile) {
-        this.profile = profile;
+    public final void setInterestCode(final String interestCode) {
+        this.interestCode = interestCode;
     }
 
 }
