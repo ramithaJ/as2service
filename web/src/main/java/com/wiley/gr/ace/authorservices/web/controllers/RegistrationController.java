@@ -71,14 +71,13 @@ public class RegistrationController {
     private String noDataFoundCode;
 
     /** value from props file configured. */
-    /*
-     * @Value("${RegistrationController.getInvitationRecords.code}") private
-     * String getInvitationRecordsErrorCode;
-     *//** value from props file configured. */
-    /*
-     * @Value("${RegistrationController.getInvitationRecords.message}") private
-     * String getInvitationRecordsErrorMessage;
-     */
+
+    @Value("${RegistrationController.getInvitationRecords.code}")
+    private String getInvitationRecordsErrorCode;
+    /** value from props file configured. */
+
+    @Value("${RegistrationController.getInvitationRecords.message}")
+    private String getInvitationRecordsErrorMessage;
 
     /** value from props file configured. */
     @Value("${RegistrationController.createUser.code}")
@@ -180,29 +179,32 @@ public class RegistrationController {
     /**
      * Gets the invitation records.
      *
-     * @param user
-     *            the user
-     * @return service
+     * @param encryptedId
+     *            the encrypted id
+     * @return the invitation records
      */
-    /*
-     * @RequestMapping(value = "/invitation/{guid}", method = RequestMethod.GET)
-     * public final Service getInvitationRecords(
-     * 
-     * @PathVariable("guid") final String guid) { Service service = new
-     * Service(); InviteRecords inviteRecords = null; if
-     * (!StringUtils.isEmpty(guid)) { try { inviteRecords = registrationService
-     * .searchInvitationRecord(guid); if (!StringUtils.isEmpty(inviteRecords)) {
-     * if ("PENDING".equalsIgnoreCase(inviteRecords.getStatus())) {
-     * service.setPayload(inviteRecords); } else { service.setStatus("FAILURE");
-     * ErrorPOJO err = new ErrorPOJO(); err.setCode(noDataFoundCode);
-     * err.setMessage("User Already Registered"); service.setError(err); } }
-     * else { service.setStatus("FAILURE"); ErrorPOJO err = new ErrorPOJO();
-     * err.setCode(noDataFoundCode);
-     * err.setMessage("Invitation record does not exist");
-     * service.setError(err); } } catch (Exception e) { e.printStackTrace();
-     * throw new UserException(getInvitationRecordsErrorCode,
-     * getInvitationRecordsErrorMessage); } } return service; }
-     */
+    @RequestMapping(value = "/invitation/{encryptedId}", method = RequestMethod.GET)
+    public final Service getInvitationRecords(
+            @PathVariable("guid") final String encryptedId) {
+        Service service = new Service();
+        String participantId = null;
+        User user = null;
+        try {
+            participantId = AuthorServicesUtil.decrypt(encryptedId);
+            user = registrationService.searchInvitationRecord(participantId);
+            if (!StringUtils.isEmpty(user)) {
+                service.setStatus("SUCCESS");
+                service.setPayload(user);
+            } else {
+                throw new UserException(getInvitationRecordsErrorCode,
+                        getInvitationRecordsErrorMessage);
+            }
+        } catch (Exception e) {
+            throw new UserException(getInvitationRecordsErrorCode,
+                    getInvitationRecordsErrorMessage);
+        }
+        return service;
+    }
 
     /**
      * Creates the user.
@@ -215,9 +217,8 @@ public class RegistrationController {
     public final Service createUser(@RequestBody final User user) {
         Service service = null;
         String userId = null;
-        boolean executeCreate = true;
         if (null != user) {
-
+            boolean executeCreate = true;
             if (user.isSearchFullName()) {
                 service = new Service();
                 ArrayList<User> usersList = null;
@@ -384,7 +385,7 @@ public class RegistrationController {
      */
     @RequestMapping(value = "/verify/resend", method = RequestMethod.GET)
     public final Service resendVerificationMail(
-            @RequestParam final String emailId) {
+            @RequestParam("email") final String emailId) {
         try {
             String status = registrationService.resendVerification(emailId);
             if ("failure".equalsIgnoreCase(status)) {

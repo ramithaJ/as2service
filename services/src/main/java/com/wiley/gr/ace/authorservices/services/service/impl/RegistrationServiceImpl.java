@@ -238,9 +238,20 @@ public class RegistrationServiceImpl implements RegistrationService {
      *             the exception
      */
     @Override
-    public final User searchInvitationRecord(final String almUserId) {
+    public final User searchInvitationRecord(final String participantId) {
 
-        return null;
+        Participant participant = participantInterfaceService
+                .searchParticipantByParticipantId(participantId);
+        User user = null;
+        if (!StringUtils.isEmpty(participant)) {
+            user = new User();
+            user.setFirstName(participant.getGivenName());
+            user.setLastName(participant.getFamilyName());
+            user.setCountryCode(participant.getParticipantCountry());
+            user.setInvited(true);
+            user.setPrimaryEmailAddr(participant.getEmail());
+        }
+        return user;
     }
 
     /**

@@ -63,7 +63,7 @@ public interface RegistrationService {
      *            the alm user id
      * @return the user
      */
-    User searchInvitationRecord(String almUserId);
+    User searchInvitationRecord(String participantId);
 
     /**
      * Creates the alm user.
