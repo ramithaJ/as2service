@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Sep 29, 2015 12:48:43 PM by Hibernate Tools 4.0.0
+// Generated Oct 12, 2015 11:27:32 AM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -26,17 +26,17 @@ public class JournalAlertsConfiguration implements java.io.Serializable {
 	private Alerts alerts;
 	private Long dhId;
 	private Boolean alertCdFlg;
-	private Long createdBy;
+	private byte[] createdBy;
 	private Date createdDate;
-	private Long updatedBy;
+	private byte[] updatedBy;
 	private Date updatedDate;
 
 	public JournalAlertsConfiguration() {
 	}
 
 	public JournalAlertsConfiguration(Alerts alerts, Long dhId,
-			Boolean alertCdFlg, Long createdBy, Date createdDate,
-			Long updatedBy, Date updatedDate) {
+			Boolean alertCdFlg, byte[] createdBy, Date createdDate,
+			byte[] updatedBy, Date updatedDate) {
 		this.alerts = alerts;
 		this.dhId = dhId;
 		this.alertCdFlg = alertCdFlg;
@@ -86,11 +86,11 @@ public class JournalAlertsConfiguration implements java.io.Serializable {
 	}
 
 	@Column(name = "CREATED_BY")
-	public Long getCreatedBy() {
+	public byte[] getCreatedBy() {
 		return this.createdBy;
 	}
 
-	public void setCreatedBy(Long createdBy) {
+	public void setCreatedBy(byte[] createdBy) {
 		this.createdBy = createdBy;
 	}
 
@@ -105,11 +105,11 @@ public class JournalAlertsConfiguration implements java.io.Serializable {
 	}
 
 	@Column(name = "UPDATED_BY")
-	public Long getUpdatedBy() {
+	public byte[] getUpdatedBy() {
 		return this.updatedBy;
 	}
 
-	public void setUpdatedBy(Long updatedBy) {
+	public void setUpdatedBy(byte[] updatedBy) {
 		this.updatedBy = updatedBy;
 	}
 

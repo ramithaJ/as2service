@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Sep 29, 2015 12:48:43 PM by Hibernate Tools 4.0.0
+// Generated Oct 12, 2015 11:27:32 AM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -22,65 +22,160 @@ public class JournalConfiguration implements java.io.Serializable {
 
 	private long dhId;
 	private JournalSetupStates journalSetupStates;
-	private String nickname;
 	private String titleDispOoo;
-	private Boolean invitedInAs;
+	private String discontinued;
+	private Date lasteUpdateDate;
+	private String invitedInAs;
 	private Date invitedInAsStartDate;
 	private Date invitedInAsEndDate;
-	private Boolean dispForOoOrdering;
-	private Boolean prodTrkPath;
-	private Boolean coauthCanHaveFreeAccArt;
+	private String dispForOoOrdering;
+	private String prodTrkPath;
+	private String alrtProofsAuthors;
+	private String alrtCorrectionsRcvd;
+	private String alrtAcceptedArtPubOnline;
+	private String alrtPublishedAsEarlyView;
+	private String alrtFinanceOnlineDate;
+	private String alrtArticlePubOnlineIssue;
+	private String coauthCanHaveFreeAccArt;
 	private Boolean coauthCanSeeArtProdStages;
 	private Boolean coauthCanSubstReviewProofs;
 	private Boolean collgCanViewArtWol;
-	private Boolean artCanHavePrdNonprdPath;
-	private Boolean canCollConflIntrstForms;
-	private Boolean coauthReceiveInvitation;
-	private Boolean dispOrEmailMrktngToUsr;
-	private Boolean dispOrEmailSurveyToUsr;
-	private Boolean corrauCanHaveFreeAccArt;
+	private String artCanHavePrdNonprdPath;
+	private String canCollConflIntrstForms;
+	private String dispWarnMissingLa;
+	private Date firstWelcomeMailSentDate;
+	private Date mostRecentWelcomeMailSentDate;
+	private Integer myFavoriteUserCount;
+	private Integer countRegisteredArticle;
+	private Integer countEmailSent;
+	private Integer countEmailReSent;
+	private Integer countRegisteredCorrAuthors;
+	private Integer countWelcomeMailSentCorrAuthors;
+	private Integer countWelcomeMailSentCoAuthors;
+	private Integer countRegisteredAuthors;
+	private Integer countTotalWelcomeMailSent;
+	private String daasParticipation;
+	private Date daasParticipationStartDate;
+	private Date daasParticipationEndDate;
+	private String coauthReceiveInvitation;
+	private String journalNickname;
+	private String dispOrEmailMrktngToUsr;
+	private String dispOrEmailSurveyToUsr;
+	private String corrauCanHaveFreeAccArt;
+	private String allowVideoAbstrOrder;
 	private Date createdDate;
-	private Long createdBy;
+	private byte[] createdBy;
 	private Date updatedDate;
-	private Long updatedBy;
+	private byte[] updatedBy;
 
 	public JournalConfiguration() {
 	}
 
-	public JournalConfiguration(long dhId) {
+	public JournalConfiguration(long dhId, String discontinued,
+			Date lasteUpdateDate, String invitedInAs, String dispForOoOrdering,
+			String prodTrkPath, String alrtProofsAuthors,
+			String alrtCorrectionsRcvd, String alrtAcceptedArtPubOnline,
+			String alrtPublishedAsEarlyView, String alrtFinanceOnlineDate,
+			String alrtArticlePubOnlineIssue, String coauthCanHaveFreeAccArt,
+			Boolean coauthCanSeeArtProdStages,
+			Boolean coauthCanSubstReviewProofs, String artCanHavePrdNonprdPath,
+			String canCollConflIntrstForms, String dispWarnMissingLa,
+			String daasParticipation, String coauthReceiveInvitation,
+			String dispOrEmailMrktngToUsr, String dispOrEmailSurveyToUsr,
+			String corrauCanHaveFreeAccArt, String allowVideoAbstrOrder) {
 		this.dhId = dhId;
+		this.discontinued = discontinued;
+		this.lasteUpdateDate = lasteUpdateDate;
+		this.invitedInAs = invitedInAs;
+		this.dispForOoOrdering = dispForOoOrdering;
+		this.prodTrkPath = prodTrkPath;
+		this.alrtProofsAuthors = alrtProofsAuthors;
+		this.alrtCorrectionsRcvd = alrtCorrectionsRcvd;
+		this.alrtAcceptedArtPubOnline = alrtAcceptedArtPubOnline;
+		this.alrtPublishedAsEarlyView = alrtPublishedAsEarlyView;
+		this.alrtFinanceOnlineDate = alrtFinanceOnlineDate;
+		this.alrtArticlePubOnlineIssue = alrtArticlePubOnlineIssue;
+		this.coauthCanHaveFreeAccArt = coauthCanHaveFreeAccArt;
+		this.coauthCanSeeArtProdStages = coauthCanSeeArtProdStages;
+		this.coauthCanSubstReviewProofs = coauthCanSubstReviewProofs;
+		this.artCanHavePrdNonprdPath = artCanHavePrdNonprdPath;
+		this.canCollConflIntrstForms = canCollConflIntrstForms;
+		this.dispWarnMissingLa = dispWarnMissingLa;
+		this.daasParticipation = daasParticipation;
+		this.coauthReceiveInvitation = coauthReceiveInvitation;
+		this.dispOrEmailMrktngToUsr = dispOrEmailMrktngToUsr;
+		this.dispOrEmailSurveyToUsr = dispOrEmailSurveyToUsr;
+		this.corrauCanHaveFreeAccArt = corrauCanHaveFreeAccArt;
+		this.allowVideoAbstrOrder = allowVideoAbstrOrder;
 	}
 
 	public JournalConfiguration(long dhId,
-			JournalSetupStates journalSetupStates, String nickname,
-			String titleDispOoo, Boolean invitedInAs,
+			JournalSetupStates journalSetupStates, String titleDispOoo,
+			String discontinued, Date lasteUpdateDate, String invitedInAs,
 			Date invitedInAsStartDate, Date invitedInAsEndDate,
-			Boolean dispForOoOrdering, Boolean prodTrkPath,
-			Boolean coauthCanHaveFreeAccArt, Boolean coauthCanSeeArtProdStages,
+			String dispForOoOrdering, String prodTrkPath,
+			String alrtProofsAuthors, String alrtCorrectionsRcvd,
+			String alrtAcceptedArtPubOnline, String alrtPublishedAsEarlyView,
+			String alrtFinanceOnlineDate, String alrtArticlePubOnlineIssue,
+			String coauthCanHaveFreeAccArt, Boolean coauthCanSeeArtProdStages,
 			Boolean coauthCanSubstReviewProofs, Boolean collgCanViewArtWol,
-			Boolean artCanHavePrdNonprdPath, Boolean canCollConflIntrstForms,
-			Boolean coauthReceiveInvitation, Boolean dispOrEmailMrktngToUsr,
-			Boolean dispOrEmailSurveyToUsr, Boolean corrauCanHaveFreeAccArt,
-			Date createdDate, Long createdBy, Date updatedDate, Long updatedBy) {
+			String artCanHavePrdNonprdPath, String canCollConflIntrstForms,
+			String dispWarnMissingLa, Date firstWelcomeMailSentDate,
+			Date mostRecentWelcomeMailSentDate, Integer myFavoriteUserCount,
+			Integer countRegisteredArticle, Integer countEmailSent,
+			Integer countEmailReSent, Integer countRegisteredCorrAuthors,
+			Integer countWelcomeMailSentCorrAuthors,
+			Integer countWelcomeMailSentCoAuthors,
+			Integer countRegisteredAuthors, Integer countTotalWelcomeMailSent,
+			String daasParticipation, Date daasParticipationStartDate,
+			Date daasParticipationEndDate, String coauthReceiveInvitation,
+			String journalNickname, String dispOrEmailMrktngToUsr,
+			String dispOrEmailSurveyToUsr, String corrauCanHaveFreeAccArt,
+			String allowVideoAbstrOrder, Date createdDate, byte[] createdBy,
+			Date updatedDate, byte[] updatedBy) {
 		this.dhId = dhId;
 		this.journalSetupStates = journalSetupStates;
-		this.nickname = nickname;
 		this.titleDispOoo = titleDispOoo;
+		this.discontinued = discontinued;
+		this.lasteUpdateDate = lasteUpdateDate;
 		this.invitedInAs = invitedInAs;
 		this.invitedInAsStartDate = invitedInAsStartDate;
 		this.invitedInAsEndDate = invitedInAsEndDate;
 		this.dispForOoOrdering = dispForOoOrdering;
 		this.prodTrkPath = prodTrkPath;
+		this.alrtProofsAuthors = alrtProofsAuthors;
+		this.alrtCorrectionsRcvd = alrtCorrectionsRcvd;
+		this.alrtAcceptedArtPubOnline = alrtAcceptedArtPubOnline;
+		this.alrtPublishedAsEarlyView = alrtPublishedAsEarlyView;
+		this.alrtFinanceOnlineDate = alrtFinanceOnlineDate;
+		this.alrtArticlePubOnlineIssue = alrtArticlePubOnlineIssue;
 		this.coauthCanHaveFreeAccArt = coauthCanHaveFreeAccArt;
 		this.coauthCanSeeArtProdStages = coauthCanSeeArtProdStages;
 		this.coauthCanSubstReviewProofs = coauthCanSubstReviewProofs;
 		this.collgCanViewArtWol = collgCanViewArtWol;
 		this.artCanHavePrdNonprdPath = artCanHavePrdNonprdPath;
 		this.canCollConflIntrstForms = canCollConflIntrstForms;
+		this.dispWarnMissingLa = dispWarnMissingLa;
+		this.firstWelcomeMailSentDate = firstWelcomeMailSentDate;
+		this.mostRecentWelcomeMailSentDate = mostRecentWelcomeMailSentDate;
+		this.myFavoriteUserCount = myFavoriteUserCount;
+		this.countRegisteredArticle = countRegisteredArticle;
+		this.countEmailSent = countEmailSent;
+		this.countEmailReSent = countEmailReSent;
+		this.countRegisteredCorrAuthors = countRegisteredCorrAuthors;
+		this.countWelcomeMailSentCorrAuthors = countWelcomeMailSentCorrAuthors;
+		this.countWelcomeMailSentCoAuthors = countWelcomeMailSentCoAuthors;
+		this.countRegisteredAuthors = countRegisteredAuthors;
+		this.countTotalWelcomeMailSent = countTotalWelcomeMailSent;
+		this.daasParticipation = daasParticipation;
+		this.daasParticipationStartDate = daasParticipationStartDate;
+		this.daasParticipationEndDate = daasParticipationEndDate;
 		this.coauthReceiveInvitation = coauthReceiveInvitation;
+		this.journalNickname = journalNickname;
 		this.dispOrEmailMrktngToUsr = dispOrEmailMrktngToUsr;
 		this.dispOrEmailSurveyToUsr = dispOrEmailSurveyToUsr;
 		this.corrauCanHaveFreeAccArt = corrauCanHaveFreeAccArt;
+		this.allowVideoAbstrOrder = allowVideoAbstrOrder;
 		this.createdDate = createdDate;
 		this.createdBy = createdBy;
 		this.updatedDate = updatedDate;
@@ -107,15 +202,6 @@ public class JournalConfiguration implements java.io.Serializable {
 		this.journalSetupStates = journalSetupStates;
 	}
 
-	@Column(name = "NICKNAME", length = 250)
-	public String getNickname() {
-		return this.nickname;
-	}
-
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
-	}
-
 	@Column(name = "TITLE_DISP_OOO", length = 250)
 	public String getTitleDispOoo() {
 		return this.titleDispOoo;
@@ -125,12 +211,31 @@ public class JournalConfiguration implements java.io.Serializable {
 		this.titleDispOoo = titleDispOoo;
 	}
 
-	@Column(name = "INVITED_IN_AS", length = 1)
-	public Boolean getInvitedInAs() {
+	@Column(name = "DISCONTINUED", nullable = false, length = 3)
+	public String getDiscontinued() {
+		return this.discontinued;
+	}
+
+	public void setDiscontinued(String discontinued) {
+		this.discontinued = discontinued;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "LASTE_UPDATE_DATE", nullable = false, length = 19)
+	public Date getLasteUpdateDate() {
+		return this.lasteUpdateDate;
+	}
+
+	public void setLasteUpdateDate(Date lasteUpdateDate) {
+		this.lasteUpdateDate = lasteUpdateDate;
+	}
+
+	@Column(name = "INVITED_IN_AS", nullable = false, length = 3)
+	public String getInvitedInAs() {
 		return this.invitedInAs;
 	}
 
-	public void setInvitedInAs(Boolean invitedInAs) {
+	public void setInvitedInAs(String invitedInAs) {
 		this.invitedInAs = invitedInAs;
 	}
 
@@ -154,34 +259,88 @@ public class JournalConfiguration implements java.io.Serializable {
 		this.invitedInAsEndDate = invitedInAsEndDate;
 	}
 
-	@Column(name = "DISP_FOR_OO_ORDERING", length = 1)
-	public Boolean getDispForOoOrdering() {
+	@Column(name = "DISP_FOR_OO_ORDERING", nullable = false, length = 3)
+	public String getDispForOoOrdering() {
 		return this.dispForOoOrdering;
 	}
 
-	public void setDispForOoOrdering(Boolean dispForOoOrdering) {
+	public void setDispForOoOrdering(String dispForOoOrdering) {
 		this.dispForOoOrdering = dispForOoOrdering;
 	}
 
-	@Column(name = "PROD_TRK_PATH", length = 1)
-	public Boolean getProdTrkPath() {
+	@Column(name = "PROD_TRK_PATH", nullable = false, length = 3)
+	public String getProdTrkPath() {
 		return this.prodTrkPath;
 	}
 
-	public void setProdTrkPath(Boolean prodTrkPath) {
+	public void setProdTrkPath(String prodTrkPath) {
 		this.prodTrkPath = prodTrkPath;
 	}
 
-	@Column(name = "COAUTH_CAN_HAVE_FREE_ACC_ART", length = 1)
-	public Boolean getCoauthCanHaveFreeAccArt() {
+	@Column(name = "ALRT_PROOFS_AUTHORS", nullable = false, length = 3)
+	public String getAlrtProofsAuthors() {
+		return this.alrtProofsAuthors;
+	}
+
+	public void setAlrtProofsAuthors(String alrtProofsAuthors) {
+		this.alrtProofsAuthors = alrtProofsAuthors;
+	}
+
+	@Column(name = "ALRT_CORRECTIONS_RCVD", nullable = false, length = 3)
+	public String getAlrtCorrectionsRcvd() {
+		return this.alrtCorrectionsRcvd;
+	}
+
+	public void setAlrtCorrectionsRcvd(String alrtCorrectionsRcvd) {
+		this.alrtCorrectionsRcvd = alrtCorrectionsRcvd;
+	}
+
+	@Column(name = "ALRT_ACCEPTED_ART_PUB_ONLINE", nullable = false, length = 3)
+	public String getAlrtAcceptedArtPubOnline() {
+		return this.alrtAcceptedArtPubOnline;
+	}
+
+	public void setAlrtAcceptedArtPubOnline(String alrtAcceptedArtPubOnline) {
+		this.alrtAcceptedArtPubOnline = alrtAcceptedArtPubOnline;
+	}
+
+	@Column(name = "ALRT_PUBLISHED_AS_EARLY_VIEW", nullable = false, length = 3)
+	public String getAlrtPublishedAsEarlyView() {
+		return this.alrtPublishedAsEarlyView;
+	}
+
+	public void setAlrtPublishedAsEarlyView(String alrtPublishedAsEarlyView) {
+		this.alrtPublishedAsEarlyView = alrtPublishedAsEarlyView;
+	}
+
+	@Column(name = "ALRT_FINANCE_ONLINE_DATE", nullable = false, length = 3)
+	public String getAlrtFinanceOnlineDate() {
+		return this.alrtFinanceOnlineDate;
+	}
+
+	public void setAlrtFinanceOnlineDate(String alrtFinanceOnlineDate) {
+		this.alrtFinanceOnlineDate = alrtFinanceOnlineDate;
+	}
+
+	@Column(name = "ALRT_ARTICLE_PUB_ONLINE_ISSUE", nullable = false, length = 3)
+	public String getAlrtArticlePubOnlineIssue() {
+		return this.alrtArticlePubOnlineIssue;
+	}
+
+	public void setAlrtArticlePubOnlineIssue(String alrtArticlePubOnlineIssue) {
+		this.alrtArticlePubOnlineIssue = alrtArticlePubOnlineIssue;
+	}
+
+	@Column(name = "COAUTH_CAN_HAVE_FREE_ACC_ART", nullable = false, length = 3)
+	public String getCoauthCanHaveFreeAccArt() {
 		return this.coauthCanHaveFreeAccArt;
 	}
 
-	public void setCoauthCanHaveFreeAccArt(Boolean coauthCanHaveFreeAccArt) {
+	public void setCoauthCanHaveFreeAccArt(String coauthCanHaveFreeAccArt) {
 		this.coauthCanHaveFreeAccArt = coauthCanHaveFreeAccArt;
 	}
 
-	@Column(name = "COAUTH_CAN_SEE_ART_PROD_STAGES", length = 1)
+	@Column(name = "COAUTH_CAN_SEE_ART_PROD_STAGES", nullable = false, length = 1)
 	public Boolean getCoauthCanSeeArtProdStages() {
 		return this.coauthCanSeeArtProdStages;
 	}
@@ -190,7 +349,7 @@ public class JournalConfiguration implements java.io.Serializable {
 		this.coauthCanSeeArtProdStages = coauthCanSeeArtProdStages;
 	}
 
-	@Column(name = "COAUTH_CAN_SUBST_REVIEW_PROOFS", length = 1)
+	@Column(name = "COAUTH_CAN_SUBST_REVIEW_PROOFS", nullable = false, length = 1)
 	public Boolean getCoauthCanSubstReviewProofs() {
 		return this.coauthCanSubstReviewProofs;
 	}
@@ -208,58 +367,218 @@ public class JournalConfiguration implements java.io.Serializable {
 		this.collgCanViewArtWol = collgCanViewArtWol;
 	}
 
-	@Column(name = "ART_CAN_HAVE_PRD_NONPRD_PATH", length = 1)
-	public Boolean getArtCanHavePrdNonprdPath() {
+	@Column(name = "ART_CAN_HAVE_PRD_NONPRD_PATH", nullable = false, length = 3)
+	public String getArtCanHavePrdNonprdPath() {
 		return this.artCanHavePrdNonprdPath;
 	}
 
-	public void setArtCanHavePrdNonprdPath(Boolean artCanHavePrdNonprdPath) {
+	public void setArtCanHavePrdNonprdPath(String artCanHavePrdNonprdPath) {
 		this.artCanHavePrdNonprdPath = artCanHavePrdNonprdPath;
 	}
 
-	@Column(name = "CAN_COLL_CONFL_INTRST_FORMS", length = 1)
-	public Boolean getCanCollConflIntrstForms() {
+	@Column(name = "CAN_COLL_CONFL_INTRST_FORMS", nullable = false, length = 3)
+	public String getCanCollConflIntrstForms() {
 		return this.canCollConflIntrstForms;
 	}
 
-	public void setCanCollConflIntrstForms(Boolean canCollConflIntrstForms) {
+	public void setCanCollConflIntrstForms(String canCollConflIntrstForms) {
 		this.canCollConflIntrstForms = canCollConflIntrstForms;
 	}
 
-	@Column(name = "COAUTH_RECEIVE_INVITATION", length = 1)
-	public Boolean getCoauthReceiveInvitation() {
+	@Column(name = "DISP_WARN_MISSING_LA", nullable = false, length = 3)
+	public String getDispWarnMissingLa() {
+		return this.dispWarnMissingLa;
+	}
+
+	public void setDispWarnMissingLa(String dispWarnMissingLa) {
+		this.dispWarnMissingLa = dispWarnMissingLa;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "FIRST_WELCOME_MAIL_SENT_DATE", length = 19)
+	public Date getFirstWelcomeMailSentDate() {
+		return this.firstWelcomeMailSentDate;
+	}
+
+	public void setFirstWelcomeMailSentDate(Date firstWelcomeMailSentDate) {
+		this.firstWelcomeMailSentDate = firstWelcomeMailSentDate;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "MOST_RECENT_WELCOME_MAIL_SENT_DATE", length = 19)
+	public Date getMostRecentWelcomeMailSentDate() {
+		return this.mostRecentWelcomeMailSentDate;
+	}
+
+	public void setMostRecentWelcomeMailSentDate(
+			Date mostRecentWelcomeMailSentDate) {
+		this.mostRecentWelcomeMailSentDate = mostRecentWelcomeMailSentDate;
+	}
+
+	@Column(name = "MY_FAVORITE_USER_COUNT")
+	public Integer getMyFavoriteUserCount() {
+		return this.myFavoriteUserCount;
+	}
+
+	public void setMyFavoriteUserCount(Integer myFavoriteUserCount) {
+		this.myFavoriteUserCount = myFavoriteUserCount;
+	}
+
+	@Column(name = "COUNT_REGISTERED_ARTICLE")
+	public Integer getCountRegisteredArticle() {
+		return this.countRegisteredArticle;
+	}
+
+	public void setCountRegisteredArticle(Integer countRegisteredArticle) {
+		this.countRegisteredArticle = countRegisteredArticle;
+	}
+
+	@Column(name = "COUNT_EMAIL_SENT")
+	public Integer getCountEmailSent() {
+		return this.countEmailSent;
+	}
+
+	public void setCountEmailSent(Integer countEmailSent) {
+		this.countEmailSent = countEmailSent;
+	}
+
+	@Column(name = "COUNT_EMAIL_RE_SENT")
+	public Integer getCountEmailReSent() {
+		return this.countEmailReSent;
+	}
+
+	public void setCountEmailReSent(Integer countEmailReSent) {
+		this.countEmailReSent = countEmailReSent;
+	}
+
+	@Column(name = "COUNT_REGISTERED_CORR_AUTHORS")
+	public Integer getCountRegisteredCorrAuthors() {
+		return this.countRegisteredCorrAuthors;
+	}
+
+	public void setCountRegisteredCorrAuthors(Integer countRegisteredCorrAuthors) {
+		this.countRegisteredCorrAuthors = countRegisteredCorrAuthors;
+	}
+
+	@Column(name = "COUNT_WELCOME_MAIL_SENT_CORR_AUTHORS")
+	public Integer getCountWelcomeMailSentCorrAuthors() {
+		return this.countWelcomeMailSentCorrAuthors;
+	}
+
+	public void setCountWelcomeMailSentCorrAuthors(
+			Integer countWelcomeMailSentCorrAuthors) {
+		this.countWelcomeMailSentCorrAuthors = countWelcomeMailSentCorrAuthors;
+	}
+
+	@Column(name = "COUNT_WELCOME_MAIL_SENT_CO_AUTHORS")
+	public Integer getCountWelcomeMailSentCoAuthors() {
+		return this.countWelcomeMailSentCoAuthors;
+	}
+
+	public void setCountWelcomeMailSentCoAuthors(
+			Integer countWelcomeMailSentCoAuthors) {
+		this.countWelcomeMailSentCoAuthors = countWelcomeMailSentCoAuthors;
+	}
+
+	@Column(name = "COUNT_REGISTERED_AUTHORS")
+	public Integer getCountRegisteredAuthors() {
+		return this.countRegisteredAuthors;
+	}
+
+	public void setCountRegisteredAuthors(Integer countRegisteredAuthors) {
+		this.countRegisteredAuthors = countRegisteredAuthors;
+	}
+
+	@Column(name = "COUNT_TOTAL_WELCOME_MAIL_SENT")
+	public Integer getCountTotalWelcomeMailSent() {
+		return this.countTotalWelcomeMailSent;
+	}
+
+	public void setCountTotalWelcomeMailSent(Integer countTotalWelcomeMailSent) {
+		this.countTotalWelcomeMailSent = countTotalWelcomeMailSent;
+	}
+
+	@Column(name = "DAAS_PARTICIPATION", nullable = false, length = 3)
+	public String getDaasParticipation() {
+		return this.daasParticipation;
+	}
+
+	public void setDaasParticipation(String daasParticipation) {
+		this.daasParticipation = daasParticipation;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "DAAS_PARTICIPATION_START_DATE", length = 19)
+	public Date getDaasParticipationStartDate() {
+		return this.daasParticipationStartDate;
+	}
+
+	public void setDaasParticipationStartDate(Date daasParticipationStartDate) {
+		this.daasParticipationStartDate = daasParticipationStartDate;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "DAAS_PARTICIPATION_END_DATE", length = 19)
+	public Date getDaasParticipationEndDate() {
+		return this.daasParticipationEndDate;
+	}
+
+	public void setDaasParticipationEndDate(Date daasParticipationEndDate) {
+		this.daasParticipationEndDate = daasParticipationEndDate;
+	}
+
+	@Column(name = "COAUTH_RECEIVE_INVITATION", nullable = false, length = 3)
+	public String getCoauthReceiveInvitation() {
 		return this.coauthReceiveInvitation;
 	}
 
-	public void setCoauthReceiveInvitation(Boolean coauthReceiveInvitation) {
+	public void setCoauthReceiveInvitation(String coauthReceiveInvitation) {
 		this.coauthReceiveInvitation = coauthReceiveInvitation;
 	}
 
-	@Column(name = "DISP_OR_EMAIL_MRKTNG_TO_USR", length = 1)
-	public Boolean getDispOrEmailMrktngToUsr() {
+	@Column(name = "JOURNAL_NICKNAME", length = 250)
+	public String getJournalNickname() {
+		return this.journalNickname;
+	}
+
+	public void setJournalNickname(String journalNickname) {
+		this.journalNickname = journalNickname;
+	}
+
+	@Column(name = "DISP_OR_EMAIL_MRKTNG_TO_USR", nullable = false, length = 3)
+	public String getDispOrEmailMrktngToUsr() {
 		return this.dispOrEmailMrktngToUsr;
 	}
 
-	public void setDispOrEmailMrktngToUsr(Boolean dispOrEmailMrktngToUsr) {
+	public void setDispOrEmailMrktngToUsr(String dispOrEmailMrktngToUsr) {
 		this.dispOrEmailMrktngToUsr = dispOrEmailMrktngToUsr;
 	}
 
-	@Column(name = "DISP_OR_EMAIL_SURVEY_TO_USR", length = 1)
-	public Boolean getDispOrEmailSurveyToUsr() {
+	@Column(name = "DISP_OR_EMAIL_SURVEY_TO_USR", nullable = false, length = 3)
+	public String getDispOrEmailSurveyToUsr() {
 		return this.dispOrEmailSurveyToUsr;
 	}
 
-	public void setDispOrEmailSurveyToUsr(Boolean dispOrEmailSurveyToUsr) {
+	public void setDispOrEmailSurveyToUsr(String dispOrEmailSurveyToUsr) {
 		this.dispOrEmailSurveyToUsr = dispOrEmailSurveyToUsr;
 	}
 
-	@Column(name = "CORRAU_CAN_HAVE_FREE_ACC_ART", length = 1)
-	public Boolean getCorrauCanHaveFreeAccArt() {
+	@Column(name = "CORRAU_CAN_HAVE_FREE_ACC_ART", nullable = false, length = 3)
+	public String getCorrauCanHaveFreeAccArt() {
 		return this.corrauCanHaveFreeAccArt;
 	}
 
-	public void setCorrauCanHaveFreeAccArt(Boolean corrauCanHaveFreeAccArt) {
+	public void setCorrauCanHaveFreeAccArt(String corrauCanHaveFreeAccArt) {
 		this.corrauCanHaveFreeAccArt = corrauCanHaveFreeAccArt;
+	}
+
+	@Column(name = "ALLOW_VIDEO_ABSTR_ORDER", nullable = false, length = 3)
+	public String getAllowVideoAbstrOrder() {
+		return this.allowVideoAbstrOrder;
+	}
+
+	public void setAllowVideoAbstrOrder(String allowVideoAbstrOrder) {
+		this.allowVideoAbstrOrder = allowVideoAbstrOrder;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -273,11 +592,11 @@ public class JournalConfiguration implements java.io.Serializable {
 	}
 
 	@Column(name = "CREATED_BY")
-	public Long getCreatedBy() {
+	public byte[] getCreatedBy() {
 		return this.createdBy;
 	}
 
-	public void setCreatedBy(Long createdBy) {
+	public void setCreatedBy(byte[] createdBy) {
 		this.createdBy = createdBy;
 	}
 
@@ -292,11 +611,11 @@ public class JournalConfiguration implements java.io.Serializable {
 	}
 
 	@Column(name = "UPDATED_BY")
-	public Long getUpdatedBy() {
+	public byte[] getUpdatedBy() {
 		return this.updatedBy;
 	}
 
-	public void setUpdatedBy(Long updatedBy) {
+	public void setUpdatedBy(byte[] updatedBy) {
 		this.updatedBy = updatedBy;
 	}
 

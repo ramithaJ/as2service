@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Sep 29, 2015 12:48:43 PM by Hibernate Tools 4.0.0
+// Generated Oct 12, 2015 11:27:32 AM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -40,9 +40,9 @@ public class WpgResponseDetails implements java.io.Serializable {
 	private Date transTimestamp;
 	private String security;
 	private Date createdDate;
-	private Long createdBy;
+	private byte[] createdBy;
 	private Date updatedDate;
-	private Long updatedBy;
+	private byte[] updatedBy;
 
 	public WpgResponseDetails() {
 	}
@@ -54,7 +54,7 @@ public class WpgResponseDetails implements java.io.Serializable {
 			Boolean acquirerId, String acquirerName, Boolean bankId,
 			String bankName, String maskedCardNumber, Long cardExpiry,
 			Date transTimestamp, String security, Date createdDate,
-			Long createdBy, Date updatedDate, Long updatedBy) {
+			byte[] createdBy, Date updatedDate, byte[] updatedBy) {
 		this.operation = operation;
 		this.returnCode = returnCode;
 		this.returnMessage = returnMessage;
@@ -274,11 +274,11 @@ public class WpgResponseDetails implements java.io.Serializable {
 	}
 
 	@Column(name = "CREATED_BY")
-	public Long getCreatedBy() {
+	public byte[] getCreatedBy() {
 		return this.createdBy;
 	}
 
-	public void setCreatedBy(Long createdBy) {
+	public void setCreatedBy(byte[] createdBy) {
 		this.createdBy = createdBy;
 	}
 
@@ -293,11 +293,11 @@ public class WpgResponseDetails implements java.io.Serializable {
 	}
 
 	@Column(name = "UPDATED_BY")
-	public Long getUpdatedBy() {
+	public byte[] getUpdatedBy() {
 		return this.updatedBy;
 	}
 
-	public void setUpdatedBy(Long updatedBy) {
+	public void setUpdatedBy(byte[] updatedBy) {
 		this.updatedBy = updatedBy;
 	}
 

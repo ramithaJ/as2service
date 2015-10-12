@@ -1,11 +1,14 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Sep 29, 2015 12:48:43 PM by Hibernate Tools 4.0.0
+// Generated Oct 12, 2015 11:27:32 AM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -18,12 +21,12 @@ import javax.persistence.TemporalType;
 public class SubOwnershipTypes implements java.io.Serializable {
 
 	private String subTypeCd;
+	private OwnershipTypes ownershipTypes;
 	private String subTypeName;
-	private String ownershipTypeCd;
 	private Date createdDate;
-	private Long createdBy;
+	private byte[] createdBy;
 	private Date updatedDate;
-	private Long updatedBy;
+	private byte[] updatedBy;
 
 	public SubOwnershipTypes() {
 	}
@@ -32,12 +35,12 @@ public class SubOwnershipTypes implements java.io.Serializable {
 		this.subTypeCd = subTypeCd;
 	}
 
-	public SubOwnershipTypes(String subTypeCd, String subTypeName,
-			String ownershipTypeCd, Date createdDate, Long createdBy,
-			Date updatedDate, Long updatedBy) {
+	public SubOwnershipTypes(String subTypeCd, OwnershipTypes ownershipTypes,
+			String subTypeName, Date createdDate, byte[] createdBy,
+			Date updatedDate, byte[] updatedBy) {
 		this.subTypeCd = subTypeCd;
+		this.ownershipTypes = ownershipTypes;
 		this.subTypeName = subTypeName;
-		this.ownershipTypeCd = ownershipTypeCd;
 		this.createdDate = createdDate;
 		this.createdBy = createdBy;
 		this.updatedDate = updatedDate;
@@ -54,6 +57,16 @@ public class SubOwnershipTypes implements java.io.Serializable {
 		this.subTypeCd = subTypeCd;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "TYPE_CD")
+	public OwnershipTypes getOwnershipTypes() {
+		return this.ownershipTypes;
+	}
+
+	public void setOwnershipTypes(OwnershipTypes ownershipTypes) {
+		this.ownershipTypes = ownershipTypes;
+	}
+
 	@Column(name = "SUB_TYPE_NAME", length = 250)
 	public String getSubTypeName() {
 		return this.subTypeName;
@@ -61,15 +74,6 @@ public class SubOwnershipTypes implements java.io.Serializable {
 
 	public void setSubTypeName(String subTypeName) {
 		this.subTypeName = subTypeName;
-	}
-
-	@Column(name = "OWNERSHIP_TYPE_CD", length = 25)
-	public String getOwnershipTypeCd() {
-		return this.ownershipTypeCd;
-	}
-
-	public void setOwnershipTypeCd(String ownershipTypeCd) {
-		this.ownershipTypeCd = ownershipTypeCd;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -83,11 +87,11 @@ public class SubOwnershipTypes implements java.io.Serializable {
 	}
 
 	@Column(name = "CREATED_BY")
-	public Long getCreatedBy() {
+	public byte[] getCreatedBy() {
 		return this.createdBy;
 	}
 
-	public void setCreatedBy(Long createdBy) {
+	public void setCreatedBy(byte[] createdBy) {
 		this.createdBy = createdBy;
 	}
 
@@ -102,11 +106,11 @@ public class SubOwnershipTypes implements java.io.Serializable {
 	}
 
 	@Column(name = "UPDATED_BY")
-	public Long getUpdatedBy() {
+	public byte[] getUpdatedBy() {
 		return this.updatedBy;
 	}
 
-	public void setUpdatedBy(Long updatedBy) {
+	public void setUpdatedBy(byte[] updatedBy) {
 		this.updatedBy = updatedBy;
 	}
 

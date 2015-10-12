@@ -1,11 +1,15 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Sep 29, 2015 12:48:43 PM by Hibernate Tools 4.0.0
+// Generated Oct 12, 2015 11:27:32 AM by Hibernate Tools 4.0.0
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,9 +24,11 @@ public class PublicationStatuses implements java.io.Serializable {
 	private String publicationStatusCd;
 	private String publicationStatusName;
 	private Date createdDate;
-	private Long createdBy;
+	private byte[] createdBy;
 	private Date updatedDate;
-	private Long updatedBy;
+	private byte[] updatedBy;
+	private Set<ProductPublicationStatuses> productPublicationStatuseses = new HashSet<ProductPublicationStatuses>(
+			0);
 
 	public PublicationStatuses() {
 	}
@@ -32,14 +38,16 @@ public class PublicationStatuses implements java.io.Serializable {
 	}
 
 	public PublicationStatuses(String publicationStatusCd,
-			String publicationStatusName, Date createdDate, Long createdBy,
-			Date updatedDate, Long updatedBy) {
+			String publicationStatusName, Date createdDate, byte[] createdBy,
+			Date updatedDate, byte[] updatedBy,
+			Set<ProductPublicationStatuses> productPublicationStatuseses) {
 		this.publicationStatusCd = publicationStatusCd;
 		this.publicationStatusName = publicationStatusName;
 		this.createdDate = createdDate;
 		this.createdBy = createdBy;
 		this.updatedDate = updatedDate;
 		this.updatedBy = updatedBy;
+		this.productPublicationStatuseses = productPublicationStatuseses;
 	}
 
 	@Id
@@ -72,11 +80,11 @@ public class PublicationStatuses implements java.io.Serializable {
 	}
 
 	@Column(name = "CREATED_BY")
-	public Long getCreatedBy() {
+	public byte[] getCreatedBy() {
 		return this.createdBy;
 	}
 
-	public void setCreatedBy(Long createdBy) {
+	public void setCreatedBy(byte[] createdBy) {
 		this.createdBy = createdBy;
 	}
 
@@ -91,12 +99,22 @@ public class PublicationStatuses implements java.io.Serializable {
 	}
 
 	@Column(name = "UPDATED_BY")
-	public Long getUpdatedBy() {
+	public byte[] getUpdatedBy() {
 		return this.updatedBy;
 	}
 
-	public void setUpdatedBy(Long updatedBy) {
+	public void setUpdatedBy(byte[] updatedBy) {
 		this.updatedBy = updatedBy;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "publicationStatuses")
+	public Set<ProductPublicationStatuses> getProductPublicationStatuseses() {
+		return this.productPublicationStatuseses;
+	}
+
+	public void setProductPublicationStatuseses(
+			Set<ProductPublicationStatuses> productPublicationStatuseses) {
+		this.productPublicationStatuseses = productPublicationStatuseses;
 	}
 
 }

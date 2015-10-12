@@ -1,11 +1,15 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Sep 29, 2015 12:48:43 PM by Hibernate Tools 4.0.0
+// Generated Oct 12, 2015 11:27:32 AM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -18,15 +22,16 @@ import javax.persistence.TemporalType;
 public class Orders implements java.io.Serializable {
 
 	private long orderId;
-	private Long userId;
+	private OrderTypes orderTypes;
+	private byte[] participantId;
 	private Long dhId;
-	private String orderTypeCd;
 	private String orderStatus;
 	private String paymentStatus;
 	private Date createdDate;
-	private Long createdBy;
+	private byte[] createdBy;
 	private Date updatedDate;
-	private Long updatedBy;
+	private byte[] updatedBy;
+	private OrderReference orderReference;
 
 	public Orders() {
 	}
@@ -35,19 +40,21 @@ public class Orders implements java.io.Serializable {
 		this.orderId = orderId;
 	}
 
-	public Orders(long orderId, Long userId, Long dhId, String orderTypeCd,
-			String orderStatus, String paymentStatus, Date createdDate,
-			Long createdBy, Date updatedDate, Long updatedBy) {
+	public Orders(long orderId, OrderTypes orderTypes, byte[] participantId,
+			Long dhId, String orderStatus, String paymentStatus,
+			Date createdDate, byte[] createdBy, Date updatedDate,
+			byte[] updatedBy, OrderReference orderReference) {
 		this.orderId = orderId;
-		this.userId = userId;
+		this.orderTypes = orderTypes;
+		this.participantId = participantId;
 		this.dhId = dhId;
-		this.orderTypeCd = orderTypeCd;
 		this.orderStatus = orderStatus;
 		this.paymentStatus = paymentStatus;
 		this.createdDate = createdDate;
 		this.createdBy = createdBy;
 		this.updatedDate = updatedDate;
 		this.updatedBy = updatedBy;
+		this.orderReference = orderReference;
 	}
 
 	@Id
@@ -60,13 +67,23 @@ public class Orders implements java.io.Serializable {
 		this.orderId = orderId;
 	}
 
-	@Column(name = "USER_ID")
-	public Long getUserId() {
-		return this.userId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ORDER_TYPE_CD")
+	public OrderTypes getOrderTypes() {
+		return this.orderTypes;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setOrderTypes(OrderTypes orderTypes) {
+		this.orderTypes = orderTypes;
+	}
+
+	@Column(name = "PARTICIPANT_ID")
+	public byte[] getParticipantId() {
+		return this.participantId;
+	}
+
+	public void setParticipantId(byte[] participantId) {
+		this.participantId = participantId;
 	}
 
 	@Column(name = "DH_ID")
@@ -76,15 +93,6 @@ public class Orders implements java.io.Serializable {
 
 	public void setDhId(Long dhId) {
 		this.dhId = dhId;
-	}
-
-	@Column(name = "ORDER_TYPE_CD", length = 15)
-	public String getOrderTypeCd() {
-		return this.orderTypeCd;
-	}
-
-	public void setOrderTypeCd(String orderTypeCd) {
-		this.orderTypeCd = orderTypeCd;
 	}
 
 	@Column(name = "ORDER_STATUS", length = 300)
@@ -116,11 +124,11 @@ public class Orders implements java.io.Serializable {
 	}
 
 	@Column(name = "CREATED_BY")
-	public Long getCreatedBy() {
+	public byte[] getCreatedBy() {
 		return this.createdBy;
 	}
 
-	public void setCreatedBy(Long createdBy) {
+	public void setCreatedBy(byte[] createdBy) {
 		this.createdBy = createdBy;
 	}
 
@@ -135,12 +143,21 @@ public class Orders implements java.io.Serializable {
 	}
 
 	@Column(name = "UPDATED_BY")
-	public Long getUpdatedBy() {
+	public byte[] getUpdatedBy() {
 		return this.updatedBy;
 	}
 
-	public void setUpdatedBy(Long updatedBy) {
+	public void setUpdatedBy(byte[] updatedBy) {
 		this.updatedBy = updatedBy;
+	}
+
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "orders")
+	public OrderReference getOrderReference() {
+		return this.orderReference;
+	}
+
+	public void setOrderReference(OrderReference orderReference) {
+		this.orderReference = orderReference;
 	}
 
 }

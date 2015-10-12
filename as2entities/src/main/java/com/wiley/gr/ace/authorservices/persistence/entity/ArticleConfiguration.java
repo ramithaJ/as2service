@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Sep 29, 2015 12:48:43 PM by Hibernate Tools 4.0.0
+// Generated Oct 12, 2015 11:27:32 AM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -18,26 +18,78 @@ import javax.persistence.TemporalType;
 public class ArticleConfiguration implements java.io.Serializable {
 
 	private long dhId;
-	private Boolean prodTrkPathArticle;
+	private String prodTrkPathArticle;
 	private byte[] notes;
+	private Date firstRecvdDate;
+	private Date lastUpdateDate;
+	private Date authorActvnDate;
+	private Date sysLastUpdateDate;
+	private String licenseVerificationFlag;
+	private byte[] coAuthorUserId;
+	private byte[] colleaguesUserId;
+	private String colleaguesEmailId;
+	private byte[] correspondingAuthorUserId;
+	private Boolean resetLicenseFlag;
+	private byte[] licenseUserId;
+	private Date coAuthorInvitationSendDate;
+	private Date initialInvitationSentDate;
+	private Date secondInvitationSentDate;
+	private Date thirdInvitationSentDate;
+	private Date fourthInvitationSentDate;
+	private Date fifthInvitationSentDate;
 	private Date createdDate;
-	private Long createdBy;
+	private byte[] createdBy;
 	private Date updatedDate;
-	private Long updatedBy;
+	private byte[] updatedBy;
 
 	public ArticleConfiguration() {
 	}
 
-	public ArticleConfiguration(long dhId) {
+	public ArticleConfiguration(long dhId, Date firstRecvdDate,
+			Date lastUpdateDate, String licenseVerificationFlag,
+			byte[] coAuthorUserId, byte[] colleaguesUserId,
+			byte[] correspondingAuthorUserId, byte[] licenseUserId) {
 		this.dhId = dhId;
+		this.firstRecvdDate = firstRecvdDate;
+		this.lastUpdateDate = lastUpdateDate;
+		this.licenseVerificationFlag = licenseVerificationFlag;
+		this.coAuthorUserId = coAuthorUserId;
+		this.colleaguesUserId = colleaguesUserId;
+		this.correspondingAuthorUserId = correspondingAuthorUserId;
+		this.licenseUserId = licenseUserId;
 	}
 
-	public ArticleConfiguration(long dhId, Boolean prodTrkPathArticle,
-			byte[] notes, Date createdDate, Long createdBy, Date updatedDate,
-			Long updatedBy) {
+	public ArticleConfiguration(long dhId, String prodTrkPathArticle,
+			byte[] notes, Date firstRecvdDate, Date lastUpdateDate,
+			Date authorActvnDate, Date sysLastUpdateDate,
+			String licenseVerificationFlag, byte[] coAuthorUserId,
+			byte[] colleaguesUserId, String colleaguesEmailId,
+			byte[] correspondingAuthorUserId, Boolean resetLicenseFlag,
+			byte[] licenseUserId, Date coAuthorInvitationSendDate,
+			Date initialInvitationSentDate, Date secondInvitationSentDate,
+			Date thirdInvitationSentDate, Date fourthInvitationSentDate,
+			Date fifthInvitationSentDate, Date createdDate, byte[] createdBy,
+			Date updatedDate, byte[] updatedBy) {
 		this.dhId = dhId;
 		this.prodTrkPathArticle = prodTrkPathArticle;
 		this.notes = notes;
+		this.firstRecvdDate = firstRecvdDate;
+		this.lastUpdateDate = lastUpdateDate;
+		this.authorActvnDate = authorActvnDate;
+		this.sysLastUpdateDate = sysLastUpdateDate;
+		this.licenseVerificationFlag = licenseVerificationFlag;
+		this.coAuthorUserId = coAuthorUserId;
+		this.colleaguesUserId = colleaguesUserId;
+		this.colleaguesEmailId = colleaguesEmailId;
+		this.correspondingAuthorUserId = correspondingAuthorUserId;
+		this.resetLicenseFlag = resetLicenseFlag;
+		this.licenseUserId = licenseUserId;
+		this.coAuthorInvitationSendDate = coAuthorInvitationSendDate;
+		this.initialInvitationSentDate = initialInvitationSentDate;
+		this.secondInvitationSentDate = secondInvitationSentDate;
+		this.thirdInvitationSentDate = thirdInvitationSentDate;
+		this.fourthInvitationSentDate = fourthInvitationSentDate;
+		this.fifthInvitationSentDate = fifthInvitationSentDate;
 		this.createdDate = createdDate;
 		this.createdBy = createdBy;
 		this.updatedDate = updatedDate;
@@ -54,12 +106,12 @@ public class ArticleConfiguration implements java.io.Serializable {
 		this.dhId = dhId;
 	}
 
-	@Column(name = "PROD_TRK_PATH_ARTICLE", length = 1)
-	public Boolean getProdTrkPathArticle() {
+	@Column(name = "PROD_TRK_PATH_ARTICLE")
+	public String getProdTrkPathArticle() {
 		return this.prodTrkPathArticle;
 	}
 
-	public void setProdTrkPathArticle(Boolean prodTrkPathArticle) {
+	public void setProdTrkPathArticle(String prodTrkPathArticle) {
 		this.prodTrkPathArticle = prodTrkPathArticle;
 	}
 
@@ -73,6 +125,169 @@ public class ArticleConfiguration implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "FIRST_RECVD_DATE", nullable = false, length = 19)
+	public Date getFirstRecvdDate() {
+		return this.firstRecvdDate;
+	}
+
+	public void setFirstRecvdDate(Date firstRecvdDate) {
+		this.firstRecvdDate = firstRecvdDate;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "LAST_UPDATE_DATE", nullable = false, length = 19)
+	public Date getLastUpdateDate() {
+		return this.lastUpdateDate;
+	}
+
+	public void setLastUpdateDate(Date lastUpdateDate) {
+		this.lastUpdateDate = lastUpdateDate;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "AUTHOR_ACTVN_DATE", length = 19)
+	public Date getAuthorActvnDate() {
+		return this.authorActvnDate;
+	}
+
+	public void setAuthorActvnDate(Date authorActvnDate) {
+		this.authorActvnDate = authorActvnDate;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "SYS_LAST_UPDATE_DATE", length = 19)
+	public Date getSysLastUpdateDate() {
+		return this.sysLastUpdateDate;
+	}
+
+	public void setSysLastUpdateDate(Date sysLastUpdateDate) {
+		this.sysLastUpdateDate = sysLastUpdateDate;
+	}
+
+	@Column(name = "LICENSE_VERIFICATION_FLAG", nullable = false, length = 3)
+	public String getLicenseVerificationFlag() {
+		return this.licenseVerificationFlag;
+	}
+
+	public void setLicenseVerificationFlag(String licenseVerificationFlag) {
+		this.licenseVerificationFlag = licenseVerificationFlag;
+	}
+
+	@Column(name = "CO_AUTHOR_USER_ID", nullable = false)
+	public byte[] getCoAuthorUserId() {
+		return this.coAuthorUserId;
+	}
+
+	public void setCoAuthorUserId(byte[] coAuthorUserId) {
+		this.coAuthorUserId = coAuthorUserId;
+	}
+
+	@Column(name = "COLLEAGUES_USER_ID", nullable = false)
+	public byte[] getColleaguesUserId() {
+		return this.colleaguesUserId;
+	}
+
+	public void setColleaguesUserId(byte[] colleaguesUserId) {
+		this.colleaguesUserId = colleaguesUserId;
+	}
+
+	@Column(name = "COLLEAGUES_EMAIL_ID")
+	public String getColleaguesEmailId() {
+		return this.colleaguesEmailId;
+	}
+
+	public void setColleaguesEmailId(String colleaguesEmailId) {
+		this.colleaguesEmailId = colleaguesEmailId;
+	}
+
+	@Column(name = "CORRESPONDING_AUTHOR_USER_ID", nullable = false)
+	public byte[] getCorrespondingAuthorUserId() {
+		return this.correspondingAuthorUserId;
+	}
+
+	public void setCorrespondingAuthorUserId(byte[] correspondingAuthorUserId) {
+		this.correspondingAuthorUserId = correspondingAuthorUserId;
+	}
+
+	@Column(name = "RESET_LICENSE_FLAG", length = 1)
+	public Boolean getResetLicenseFlag() {
+		return this.resetLicenseFlag;
+	}
+
+	public void setResetLicenseFlag(Boolean resetLicenseFlag) {
+		this.resetLicenseFlag = resetLicenseFlag;
+	}
+
+	@Column(name = "LICENSE_USER_ID", nullable = false)
+	public byte[] getLicenseUserId() {
+		return this.licenseUserId;
+	}
+
+	public void setLicenseUserId(byte[] licenseUserId) {
+		this.licenseUserId = licenseUserId;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "CO_AUTHOR_INVITATION_SEND_DATE", length = 19)
+	public Date getCoAuthorInvitationSendDate() {
+		return this.coAuthorInvitationSendDate;
+	}
+
+	public void setCoAuthorInvitationSendDate(Date coAuthorInvitationSendDate) {
+		this.coAuthorInvitationSendDate = coAuthorInvitationSendDate;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "INITIAL_INVITATION_SENT_DATE", length = 19)
+	public Date getInitialInvitationSentDate() {
+		return this.initialInvitationSentDate;
+	}
+
+	public void setInitialInvitationSentDate(Date initialInvitationSentDate) {
+		this.initialInvitationSentDate = initialInvitationSentDate;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "SECOND_INVITATION_SENT_DATE", length = 19)
+	public Date getSecondInvitationSentDate() {
+		return this.secondInvitationSentDate;
+	}
+
+	public void setSecondInvitationSentDate(Date secondInvitationSentDate) {
+		this.secondInvitationSentDate = secondInvitationSentDate;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "THIRD_INVITATION_SENT_DATE", length = 19)
+	public Date getThirdInvitationSentDate() {
+		return this.thirdInvitationSentDate;
+	}
+
+	public void setThirdInvitationSentDate(Date thirdInvitationSentDate) {
+		this.thirdInvitationSentDate = thirdInvitationSentDate;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "FOURTH_INVITATION_SENT_DATE", length = 19)
+	public Date getFourthInvitationSentDate() {
+		return this.fourthInvitationSentDate;
+	}
+
+	public void setFourthInvitationSentDate(Date fourthInvitationSentDate) {
+		this.fourthInvitationSentDate = fourthInvitationSentDate;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "FIFTH_INVITATION_SENT_DATE", length = 19)
+	public Date getFifthInvitationSentDate() {
+		return this.fifthInvitationSentDate;
+	}
+
+	public void setFifthInvitationSentDate(Date fifthInvitationSentDate) {
+		this.fifthInvitationSentDate = fifthInvitationSentDate;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "CREATED_DATE", length = 19)
 	public Date getCreatedDate() {
 		return this.createdDate;
@@ -83,11 +298,11 @@ public class ArticleConfiguration implements java.io.Serializable {
 	}
 
 	@Column(name = "CREATED_BY")
-	public Long getCreatedBy() {
+	public byte[] getCreatedBy() {
 		return this.createdBy;
 	}
 
-	public void setCreatedBy(Long createdBy) {
+	public void setCreatedBy(byte[] createdBy) {
 		this.createdBy = createdBy;
 	}
 
@@ -102,11 +317,11 @@ public class ArticleConfiguration implements java.io.Serializable {
 	}
 
 	@Column(name = "UPDATED_BY")
-	public Long getUpdatedBy() {
+	public byte[] getUpdatedBy() {
 		return this.updatedBy;
 	}
 
-	public void setUpdatedBy(Long updatedBy) {
+	public void setUpdatedBy(byte[] updatedBy) {
 		this.updatedBy = updatedBy;
 	}
 

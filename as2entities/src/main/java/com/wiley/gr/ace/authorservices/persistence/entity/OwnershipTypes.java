@@ -1,11 +1,15 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Sep 29, 2015 12:48:43 PM by Hibernate Tools 4.0.0
+// Generated Oct 12, 2015 11:27:32 AM by Hibernate Tools 4.0.0
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,9 +24,11 @@ public class OwnershipTypes implements java.io.Serializable {
 	private String typeCd;
 	private String typeName;
 	private Date createdDate;
-	private Long createdBy;
+	private byte[] createdBy;
 	private Date updatedDate;
-	private Long updatedBy;
+	private byte[] updatedBy;
+	private Set<SubOwnershipTypes> subOwnershipTypeses = new HashSet<SubOwnershipTypes>(
+			0);
 
 	public OwnershipTypes() {
 	}
@@ -32,13 +38,15 @@ public class OwnershipTypes implements java.io.Serializable {
 	}
 
 	public OwnershipTypes(String typeCd, String typeName, Date createdDate,
-			Long createdBy, Date updatedDate, Long updatedBy) {
+			byte[] createdBy, Date updatedDate, byte[] updatedBy,
+			Set<SubOwnershipTypes> subOwnershipTypeses) {
 		this.typeCd = typeCd;
 		this.typeName = typeName;
 		this.createdDate = createdDate;
 		this.createdBy = createdBy;
 		this.updatedDate = updatedDate;
 		this.updatedBy = updatedBy;
+		this.subOwnershipTypeses = subOwnershipTypeses;
 	}
 
 	@Id
@@ -71,11 +79,11 @@ public class OwnershipTypes implements java.io.Serializable {
 	}
 
 	@Column(name = "CREATED_BY")
-	public Long getCreatedBy() {
+	public byte[] getCreatedBy() {
 		return this.createdBy;
 	}
 
-	public void setCreatedBy(Long createdBy) {
+	public void setCreatedBy(byte[] createdBy) {
 		this.createdBy = createdBy;
 	}
 
@@ -90,12 +98,22 @@ public class OwnershipTypes implements java.io.Serializable {
 	}
 
 	@Column(name = "UPDATED_BY")
-	public Long getUpdatedBy() {
+	public byte[] getUpdatedBy() {
 		return this.updatedBy;
 	}
 
-	public void setUpdatedBy(Long updatedBy) {
+	public void setUpdatedBy(byte[] updatedBy) {
 		this.updatedBy = updatedBy;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "ownershipTypes")
+	public Set<SubOwnershipTypes> getSubOwnershipTypeses() {
+		return this.subOwnershipTypeses;
+	}
+
+	public void setSubOwnershipTypeses(
+			Set<SubOwnershipTypes> subOwnershipTypeses) {
+		this.subOwnershipTypeses = subOwnershipTypeses;
 	}
 
 }

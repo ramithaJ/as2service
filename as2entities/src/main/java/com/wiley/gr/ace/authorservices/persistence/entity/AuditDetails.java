@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Sep 29, 2015 12:48:43 PM by Hibernate Tools 4.0.0
+// Generated Oct 12, 2015 11:27:32 AM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -22,47 +22,54 @@ import javax.persistence.TemporalType;
 @Table(name = "audit_details", catalog = "as2_app_db")
 public class AuditDetails implements java.io.Serializable {
 
-	private Long auditId;
+	private Integer auditId;
 	private Actions actions;
 	private ObjectTypes objectTypes;
 	private String objName;
 	private String objAttribute;
-	private Long objectId;
-	private Long primarykeycolumn1;
-	private Long primarykeycolumn2;
+	private byte[] participantId;
+	private Integer objId;
 	private String oldVal;
 	private String newVal;
 	private Date createdDate;
-	private Long createdBy;
+	private byte[] createdBy;
+	private Date updatedDate;
+	private byte[] updatedBy;
 
 	public AuditDetails() {
 	}
 
+	public AuditDetails(byte[] createdBy, byte[] updatedBy) {
+		this.createdBy = createdBy;
+		this.updatedBy = updatedBy;
+	}
+
 	public AuditDetails(Actions actions, ObjectTypes objectTypes,
-			String objName, String objAttribute, Long objectId,
-			Long primarykeycolumn1, Long primarykeycolumn2, String oldVal,
-			String newVal, Date createdDate, Long createdBy) {
+			String objName, String objAttribute, byte[] participantId,
+			Integer objId, String oldVal, String newVal, Date createdDate,
+			byte[] createdBy, Date updatedDate, byte[] updatedBy) {
 		this.actions = actions;
 		this.objectTypes = objectTypes;
 		this.objName = objName;
 		this.objAttribute = objAttribute;
-		this.objectId = objectId;
-		this.primarykeycolumn1 = primarykeycolumn1;
-		this.primarykeycolumn2 = primarykeycolumn2;
+		this.participantId = participantId;
+		this.objId = objId;
 		this.oldVal = oldVal;
 		this.newVal = newVal;
 		this.createdDate = createdDate;
 		this.createdBy = createdBy;
+		this.updatedDate = updatedDate;
+		this.updatedBy = updatedBy;
 	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "AUDIT_ID", unique = true, nullable = false)
-	public Long getAuditId() {
+	public Integer getAuditId() {
 		return this.auditId;
 	}
 
-	public void setAuditId(Long auditId) {
+	public void setAuditId(Integer auditId) {
 		this.auditId = auditId;
 	}
 
@@ -77,7 +84,7 @@ public class AuditDetails implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "OBJECT_TYPE_CD")
+	@JoinColumn(name = "OBJ_TYPE_CD")
 	public ObjectTypes getObjectTypes() {
 		return this.objectTypes;
 	}
@@ -104,31 +111,22 @@ public class AuditDetails implements java.io.Serializable {
 		this.objAttribute = objAttribute;
 	}
 
-	@Column(name = "OBJECT_ID")
-	public Long getObjectId() {
-		return this.objectId;
+	@Column(name = "PARTICIPANT_ID")
+	public byte[] getParticipantId() {
+		return this.participantId;
 	}
 
-	public void setObjectId(Long objectId) {
-		this.objectId = objectId;
+	public void setParticipantId(byte[] participantId) {
+		this.participantId = participantId;
 	}
 
-	@Column(name = "PRIMARYKEYCOLUMN1")
-	public Long getPrimarykeycolumn1() {
-		return this.primarykeycolumn1;
+	@Column(name = "OBJ_ID")
+	public Integer getObjId() {
+		return this.objId;
 	}
 
-	public void setPrimarykeycolumn1(Long primarykeycolumn1) {
-		this.primarykeycolumn1 = primarykeycolumn1;
-	}
-
-	@Column(name = "PRIMARYKEYCOLUMN2")
-	public Long getPrimarykeycolumn2() {
-		return this.primarykeycolumn2;
-	}
-
-	public void setPrimarykeycolumn2(Long primarykeycolumn2) {
-		this.primarykeycolumn2 = primarykeycolumn2;
+	public void setObjId(Integer objId) {
+		this.objId = objId;
 	}
 
 	@Column(name = "OLD_VAL", length = 250)
@@ -149,8 +147,8 @@ public class AuditDetails implements java.io.Serializable {
 		this.newVal = newVal;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "CREATED_DATE", length = 19)
+	@Temporal(TemporalType.DATE)
+	@Column(name = "CREATED_DATE", length = 10)
 	public Date getCreatedDate() {
 		return this.createdDate;
 	}
@@ -159,13 +157,32 @@ public class AuditDetails implements java.io.Serializable {
 		this.createdDate = createdDate;
 	}
 
-	@Column(name = "CREATED_BY")
-	public Long getCreatedBy() {
+	@Column(name = "CREATED_BY", nullable = false)
+	public byte[] getCreatedBy() {
 		return this.createdBy;
 	}
 
-	public void setCreatedBy(Long createdBy) {
+	public void setCreatedBy(byte[] createdBy) {
 		this.createdBy = createdBy;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "UPDATED_DATE", length = 19)
+	public Date getUpdatedDate() {
+		return this.updatedDate;
+	}
+
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
+	}
+
+	@Column(name = "UPDATED_BY", nullable = false)
+	public byte[] getUpdatedBy() {
+		return this.updatedBy;
+	}
+
+	public void setUpdatedBy(byte[] updatedBy) {
+		this.updatedBy = updatedBy;
 	}
 
 }

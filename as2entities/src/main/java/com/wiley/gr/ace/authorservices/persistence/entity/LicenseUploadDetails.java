@@ -1,13 +1,16 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Sep 29, 2015 12:48:43 PM by Hibernate Tools 4.0.0
+// Generated Oct 12, 2015 11:27:32 AM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,19 +23,20 @@ import javax.persistence.TemporalType;
 public class LicenseUploadDetails implements java.io.Serializable {
 
 	private Long uploadId;
-	private Long licenseId;
+	private SavedLicenses savedLicenses;
 	private byte[] licenseFile;
 	private Date createdDate;
-	private Long createdBy;
+	private byte[] createdBy;
 	private Date updatedDate;
-	private Long updatedBy;
+	private byte[] updatedBy;
 
 	public LicenseUploadDetails() {
 	}
 
-	public LicenseUploadDetails(Long licenseId, byte[] licenseFile,
-			Date createdDate, Long createdBy, Date updatedDate, Long updatedBy) {
-		this.licenseId = licenseId;
+	public LicenseUploadDetails(SavedLicenses savedLicenses,
+			byte[] licenseFile, Date createdDate, byte[] createdBy,
+			Date updatedDate, byte[] updatedBy) {
+		this.savedLicenses = savedLicenses;
 		this.licenseFile = licenseFile;
 		this.createdDate = createdDate;
 		this.createdBy = createdBy;
@@ -51,13 +55,14 @@ public class LicenseUploadDetails implements java.io.Serializable {
 		this.uploadId = uploadId;
 	}
 
-	@Column(name = "LICENSE_ID")
-	public Long getLicenseId() {
-		return this.licenseId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "LICENSE_ID")
+	public SavedLicenses getSavedLicenses() {
+		return this.savedLicenses;
 	}
 
-	public void setLicenseId(Long licenseId) {
-		this.licenseId = licenseId;
+	public void setSavedLicenses(SavedLicenses savedLicenses) {
+		this.savedLicenses = savedLicenses;
 	}
 
 	@Column(name = "LICENSE_FILE")
@@ -80,11 +85,11 @@ public class LicenseUploadDetails implements java.io.Serializable {
 	}
 
 	@Column(name = "CREATED_BY")
-	public Long getCreatedBy() {
+	public byte[] getCreatedBy() {
 		return this.createdBy;
 	}
 
-	public void setCreatedBy(Long createdBy) {
+	public void setCreatedBy(byte[] createdBy) {
 		this.createdBy = createdBy;
 	}
 
@@ -99,11 +104,11 @@ public class LicenseUploadDetails implements java.io.Serializable {
 	}
 
 	@Column(name = "UPDATED_BY")
-	public Long getUpdatedBy() {
+	public byte[] getUpdatedBy() {
 		return this.updatedBy;
 	}
 
-	public void setUpdatedBy(Long updatedBy) {
+	public void setUpdatedBy(byte[] updatedBy) {
 		this.updatedBy = updatedBy;
 	}
 

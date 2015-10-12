@@ -1,6 +1,6 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Sep 29, 2015 12:48:43 PM by Hibernate Tools 4.0.0
+// Generated Oct 12, 2015 11:27:32 AM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import java.util.HashSet;
@@ -24,9 +24,9 @@ public class AlertTypes implements java.io.Serializable {
 	private String alertTypeCd;
 	private String alertTypeName;
 	private Date createdDate;
-	private Long createdBy;
+	private byte[] createdBy;
 	private Date updatedDate;
-	private Long updatedBy;
+	private byte[] updatedBy;
 	private Set<Alerts> alertses = new HashSet<Alerts>(0);
 
 	public AlertTypes() {
@@ -37,8 +37,8 @@ public class AlertTypes implements java.io.Serializable {
 	}
 
 	public AlertTypes(String alertTypeCd, String alertTypeName,
-			Date createdDate, Long createdBy, Date updatedDate, Long updatedBy,
-			Set<Alerts> alertses) {
+			Date createdDate, byte[] createdBy, Date updatedDate,
+			byte[] updatedBy, Set<Alerts> alertses) {
 		this.alertTypeCd = alertTypeCd;
 		this.alertTypeName = alertTypeName;
 		this.createdDate = createdDate;
@@ -78,11 +78,11 @@ public class AlertTypes implements java.io.Serializable {
 	}
 
 	@Column(name = "CREATED_BY")
-	public Long getCreatedBy() {
+	public byte[] getCreatedBy() {
 		return this.createdBy;
 	}
 
-	public void setCreatedBy(Long createdBy) {
+	public void setCreatedBy(byte[] createdBy) {
 		this.createdBy = createdBy;
 	}
 
@@ -97,11 +97,11 @@ public class AlertTypes implements java.io.Serializable {
 	}
 
 	@Column(name = "UPDATED_BY")
-	public Long getUpdatedBy() {
+	public byte[] getUpdatedBy() {
 		return this.updatedBy;
 	}
 
-	public void setUpdatedBy(Long updatedBy) {
+	public void setUpdatedBy(byte[] updatedBy) {
 		this.updatedBy = updatedBy;
 	}
 

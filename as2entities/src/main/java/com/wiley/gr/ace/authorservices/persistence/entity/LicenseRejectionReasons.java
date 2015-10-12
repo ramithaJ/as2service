@@ -1,11 +1,15 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Sep 29, 2015 12:48:43 PM by Hibernate Tools 4.0.0
+// Generated Oct 12, 2015 11:27:32 AM by Hibernate Tools 4.0.0
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,9 +25,11 @@ public class LicenseRejectionReasons implements java.io.Serializable {
 	private String reasonText;
 	private String reasonDescription;
 	private Date createdDate;
-	private Long createdBy;
+	private byte[] createdBy;
 	private Date updatedDate;
-	private Long updatedBy;
+	private byte[] updatedBy;
+	private Set<RejectedLicenseDetails> rejectedLicenseDetailses = new HashSet<RejectedLicenseDetails>(
+			0);
 
 	public LicenseRejectionReasons() {
 	}
@@ -33,8 +39,9 @@ public class LicenseRejectionReasons implements java.io.Serializable {
 	}
 
 	public LicenseRejectionReasons(String reasonCd, String reasonText,
-			String reasonDescription, Date createdDate, Long createdBy,
-			Date updatedDate, Long updatedBy) {
+			String reasonDescription, Date createdDate, byte[] createdBy,
+			Date updatedDate, byte[] updatedBy,
+			Set<RejectedLicenseDetails> rejectedLicenseDetailses) {
 		this.reasonCd = reasonCd;
 		this.reasonText = reasonText;
 		this.reasonDescription = reasonDescription;
@@ -42,6 +49,7 @@ public class LicenseRejectionReasons implements java.io.Serializable {
 		this.createdBy = createdBy;
 		this.updatedDate = updatedDate;
 		this.updatedBy = updatedBy;
+		this.rejectedLicenseDetailses = rejectedLicenseDetailses;
 	}
 
 	@Id
@@ -83,11 +91,11 @@ public class LicenseRejectionReasons implements java.io.Serializable {
 	}
 
 	@Column(name = "CREATED_BY")
-	public Long getCreatedBy() {
+	public byte[] getCreatedBy() {
 		return this.createdBy;
 	}
 
-	public void setCreatedBy(Long createdBy) {
+	public void setCreatedBy(byte[] createdBy) {
 		this.createdBy = createdBy;
 	}
 
@@ -102,12 +110,22 @@ public class LicenseRejectionReasons implements java.io.Serializable {
 	}
 
 	@Column(name = "UPDATED_BY")
-	public Long getUpdatedBy() {
+	public byte[] getUpdatedBy() {
 		return this.updatedBy;
 	}
 
-	public void setUpdatedBy(Long updatedBy) {
+	public void setUpdatedBy(byte[] updatedBy) {
 		this.updatedBy = updatedBy;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "licenseRejectionReasons")
+	public Set<RejectedLicenseDetails> getRejectedLicenseDetailses() {
+		return this.rejectedLicenseDetailses;
+	}
+
+	public void setRejectedLicenseDetailses(
+			Set<RejectedLicenseDetails> rejectedLicenseDetailses) {
+		this.rejectedLicenseDetailses = rejectedLicenseDetailses;
 	}
 
 }

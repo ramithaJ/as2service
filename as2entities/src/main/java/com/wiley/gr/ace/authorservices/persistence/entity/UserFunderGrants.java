@@ -1,13 +1,16 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Sep 29, 2015 12:48:43 PM by Hibernate Tools 4.0.0
+// Generated Oct 12, 2015 11:27:32 AM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,19 +23,20 @@ import javax.persistence.TemporalType;
 public class UserFunderGrants implements java.io.Serializable {
 
 	private Long funderGrantId;
-	private Long userFunderId;
+	private UserFunders userFunders;
 	private String grantNum;
 	private Date createdDate;
-	private Long createdBy;
+	private byte[] createdBy;
 	private Date updatedDate;
-	private Long updatedBy;
+	private byte[] updatedBy;
 
 	public UserFunderGrants() {
 	}
 
-	public UserFunderGrants(Long userFunderId, String grantNum,
-			Date createdDate, Long createdBy, Date updatedDate, Long updatedBy) {
-		this.userFunderId = userFunderId;
+	public UserFunderGrants(UserFunders userFunders, String grantNum,
+			Date createdDate, byte[] createdBy, Date updatedDate,
+			byte[] updatedBy) {
+		this.userFunders = userFunders;
 		this.grantNum = grantNum;
 		this.createdDate = createdDate;
 		this.createdBy = createdBy;
@@ -51,13 +55,14 @@ public class UserFunderGrants implements java.io.Serializable {
 		this.funderGrantId = funderGrantId;
 	}
 
-	@Column(name = "USER_FUNDER_ID")
-	public Long getUserFunderId() {
-		return this.userFunderId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "USER_FUNDER_ID")
+	public UserFunders getUserFunders() {
+		return this.userFunders;
 	}
 
-	public void setUserFunderId(Long userFunderId) {
-		this.userFunderId = userFunderId;
+	public void setUserFunders(UserFunders userFunders) {
+		this.userFunders = userFunders;
 	}
 
 	@Column(name = "GRANT_NUM", length = 100)
@@ -80,11 +85,11 @@ public class UserFunderGrants implements java.io.Serializable {
 	}
 
 	@Column(name = "CREATED_BY")
-	public Long getCreatedBy() {
+	public byte[] getCreatedBy() {
 		return this.createdBy;
 	}
 
-	public void setCreatedBy(Long createdBy) {
+	public void setCreatedBy(byte[] createdBy) {
 		this.createdBy = createdBy;
 	}
 
@@ -99,11 +104,11 @@ public class UserFunderGrants implements java.io.Serializable {
 	}
 
 	@Column(name = "UPDATED_BY")
-	public Long getUpdatedBy() {
+	public byte[] getUpdatedBy() {
 		return this.updatedBy;
 	}
 
-	public void setUpdatedBy(Long updatedBy) {
+	public void setUpdatedBy(byte[] updatedBy) {
 		this.updatedBy = updatedBy;
 	}
 
