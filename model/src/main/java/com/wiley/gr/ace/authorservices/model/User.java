@@ -140,6 +140,10 @@ public class User implements Serializable {
     /** The send email flag. */
     private String sendEmailFlag;
 
+
+    /** The is invited. */
+    private boolean isInvited;
+
     /**
      * Gets the industry name.
      *
@@ -794,6 +798,24 @@ public class User implements Serializable {
      */
     public final void setSendEmailFlag(final String sendEmailFlag) {
         this.sendEmailFlag = sendEmailFlag;
+    }
+
+    /**
+     * Checks if is invited.
+     *
+     * @return true, if is invited
+     */
+    public final boolean isInvited() {
+        return isInvited;
+    }
+
+    /**
+     * Sets the invited.
+     *
+     * @param isInvited the new invited
+     */
+    public final void setInvited(final boolean isInvited) {
+        this.isInvited = isInvited;
     }
 
 }

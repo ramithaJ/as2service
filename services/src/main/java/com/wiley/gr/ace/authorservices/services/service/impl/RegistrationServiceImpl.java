@@ -30,11 +30,13 @@ import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceServ
 import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.ParticipantsInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.SharedService;
 import com.wiley.gr.ace.authorservices.model.Country;
 import com.wiley.gr.ace.authorservices.model.InviteRecords;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.ALMAuthRequest;
 import com.wiley.gr.ace.authorservices.model.external.ALMCreateUserRespnse;
+import com.wiley.gr.ace.authorservices.model.external.ALMSearchUserResponse;
 import com.wiley.gr.ace.authorservices.model.external.ALMUser;
 import com.wiley.gr.ace.authorservices.model.external.ALMUserAddress;
 import com.wiley.gr.ace.authorservices.model.external.AddressDetails;
@@ -48,7 +50,6 @@ import com.wiley.gr.ace.authorservices.model.external.CreateContactRequestCDM;
 import com.wiley.gr.ace.authorservices.model.external.CreateContactRequestEBM;
 import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
 import com.wiley.gr.ace.authorservices.model.external.CustomerProfile;
-import com.wiley.gr.ace.authorservices.model.external.ESBUser;
 import com.wiley.gr.ace.authorservices.model.external.Participant;
 import com.wiley.gr.ace.authorservices.model.external.ProfileInformation;
 import com.wiley.gr.ace.authorservices.model.external.SourceContactXREF;
@@ -86,6 +87,9 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Autowired(required = true)
     private CDMInterfaceService cdmInterfaceService;
 
+    @Autowired(required = true)
+    private SharedService sharedService;
+
     @Value("${RegistrationController.verifyAccount.activated.code}")
     private String accountActivatedErrorCode;
 
@@ -103,6 +107,22 @@ public class RegistrationServiceImpl implements RegistrationService {
 
     @Value("${RegistrationController.verifyAccount.noUserFound.message}")
     private String noUserFoundErrorMessage;
+
+    /** value from props file configured. */
+    @Value("${RegistrationController.checkUserExists.code}")
+    private String checkUserExistsErrorCode;
+
+    /** value from props file configured. */
+    @Value("${RegistrationController.checkUserExists.message}")
+    private String checkUserExistsErrorMessage;
+
+    /** value from props file configured. */
+    @Value("${RegistrationController.createUser.code}")
+    private String createUserErrorCode;
+
+    /** value from props file configured. */
+    @Value("${RegistrationController.createUser.message}")
+    private String createUserErrorMessage;
 
     /**
      * This method is for creating user.
@@ -203,34 +223,40 @@ public class RegistrationServiceImpl implements RegistrationService {
             final String firstName, final String lastName) {
 
         ArrayList<User> userList = new ArrayList<User>();
-        ArrayList<ESBUser> esbUserList = null;
         if (!StringUtils.isEmpty(firstName) && !StringUtils.isEmpty(lastName)) {
             try {
-                esbUserList = esbInterFaceService
-                        .getUsersFromFirstNameLastName(firstName, lastName);
+                ArrayList<Participant> participantList = participantInterfaceService
+                        .searchParticipantByName(firstName, lastName);
 
-                if (!StringUtils.isEmpty(esbUserList)) {
-                    for (ESBUser esbUser : esbUserList) {
-                        if ("AS".equalsIgnoreCase(esbUser.getFoundIN())) {
+                if (!StringUtils.isEmpty(participantList)) {
+                    for (Participant participant : participantList) {
+                        if ("ACTIVE".equalsIgnoreCase(participant.getState())) {
+
                             User tempUser = new User();
                             Country tempCountry = new Country();
-                            if (!StringUtils.isEmpty(esbUser.getAddresses())
-                                    && !StringUtils.isEmpty(esbUser
-                                            .getAddresses().get(0))) {
-                                tempCountry.setCountryCode(esbUser
-                                        .getAddresses().get(0).getCountryCd());
-                            }
-                            final String asid = esbUser.getASID();
-                            if (!StringUtils.isEmpty(asid)) {
-                                tempUser.setUserId(asid);
-                            }
-                            tempUser.setFirstName(esbUser.getFirstName());
-                            tempUser.setLastName(esbUser.getLastName());
-                            tempUser.setPrimaryEmailAddr(esbUser
-                                    .getPrimaryEmailAddr());
-                            tempUser.setInstituition(esbUser.getInstitution());
-                            tempUser.setOrcidId(esbUser.getOrcidId());
+                            tempCountry.setCountryCode(participant
+                                    .getParticipantCountry());
                             tempUser.setCountry(tempCountry);
+
+                            tempUser.setFirstName(participant.getGivenName());
+                            tempUser.setLastName(participant.getFamilyName());
+                            tempUser.setPrimaryEmailAddr(participant.getEmail());
+                            // tempUser.setInstituition(participant.geti);
+                            tempUser.setOrcidId(participant.getOrcidId());
+                            userList.add(tempUser);
+                        }
+
+                    }
+                } else {
+                    ArrayList<CDMUser> cdmUserList = cdmInterfaceService
+                            .searchCDM(firstName, lastName);
+                    if (!StringUtils.isEmpty(cdmUserList)) {
+                        for (CDMUser cdmUser : cdmUserList) {
+                            User tempUser = new User();
+                            tempUser.setFirstName(cdmUser.getFirstName());
+                            tempUser.setLastName(cdmUser.getLastName());
+                            tempUser.setPrimaryEmailAddr(cdmUser
+                                    .getPrimaryEmail());
                             userList.add(tempUser);
                         }
                     }
@@ -253,27 +279,24 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Override
     public final User checkEmailIdExists(final String emailId) {
         User user = null;
-        ESBUser esbUser = null;
         if (!StringUtils.isEmpty(emailId)) {
             try {
-                esbUser = esbInterFaceService.checkEmailIdExists(emailId);
-
-                if (!StringUtils.isEmpty(esbUser)) {
-
-                    user = new User();
-                    final Country countryDetails = new Country();
-                    if (!StringUtils.isEmpty(esbUser.getAddresses())
-                            && !StringUtils.isEmpty(esbUser.getAddresses().get(
-                                    0))) {
-                        countryDetails.setCountryCode(esbUser.getAddresses()
-                                .get(0).getCountryCd());
+                ALMSearchUserResponse almSearchUserResponse = almInterfaceService
+                        .searchUser(emailId);
+                if (StringUtils.isEmpty(almSearchUserResponse)) {
+                    if (sharedService.searchInvitationRecord(emailId)) {
+                        Participant participant = participantInterfaceService
+                                .searchParticipantByEmail(emailId);
+                        user = new User();
+                        user.setFirstName(participant.getGivenName());
+                        user.setLastName(participant.getFamilyName());
+                        user.setCountryCode(participant.getParticipantCountry());
                     }
-                    user.setFirstName(esbUser.getFirstName());
-                    user.setLastName(esbUser.getLastName());
-                    user.setPrimaryEmailAddr(esbUser.getPrimaryEmailAddr());
-                    user.setCountry(countryDetails);
-                    user.setFoundIn(esbUser.getFoundIN());
+                } else {
+                    throw new UserException(checkUserExistsErrorCode,
+                            checkUserExistsErrorMessage);
                 }
+
             } catch (Exception e) {
                 throw new UserException();
             }
@@ -339,6 +362,13 @@ public class RegistrationServiceImpl implements RegistrationService {
         registrationServiceDAO.assignRoleToNewRegistration(emailId);
     }
 
+    /**
+     * Creates the alm user.
+     *
+     * @param user
+     *            the user
+     * @return the string
+     */
     @Override
     public String createALMUser(final User user) {
 
@@ -365,17 +395,23 @@ public class RegistrationServiceImpl implements RegistrationService {
                 almUserId = almCreateUserRespnse.getUserId();
             }
         } catch (Exception e) {
-            throw new UserException();
+            throw new UserException(createUserErrorCode, createUserErrorMessage);
         }
 
         return almUserId;
     }
 
+    /**
+     * Creates the participant.
+     *
+     * @param user
+     *            the user
+     * @return the string
+     */
     @Override
     public String createParticipant(final User user) {
 
         Participant participant = new Participant();
-        String ptpId = null;
 
         SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         participant.setCreatedDate(dt.format(new Date()));
@@ -385,10 +421,16 @@ public class RegistrationServiceImpl implements RegistrationService {
         participant.setParticipantCountry(user.getCountryCode());
         participant.setUserId(user.getUserId());
 
-        ptpId = participantInterfaceService.createParticipant(participant);
-        return ptpId;
+        return participantInterfaceService.createParticipant(participant);
     }
 
+    /**
+     * Creates the contact.
+     *
+     * @param user
+     *            the user
+     * @return the string
+     */
     @Override
     public String createContact(final User user) {
         CDMUser cdmUser = new CDMUser();
@@ -417,7 +459,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         contactEBM.setCustomerDetails(cdmUser);
         createContactRequestEBM.setContactEBM(contactEBM);
         createContactRequestCDM
-        .setCreateContactRequestEBM(createContactRequestEBM);
+                .setCreateContactRequestEBM(createContactRequestEBM);
 
         CDMResponse cdmResponse = cdmInterfaceService
                 .createContact(createContactRequestCDM);
@@ -425,6 +467,12 @@ public class RegistrationServiceImpl implements RegistrationService {
         return cdmResponse.getStatus();
     }
 
+    /**
+     * Verify account.
+     *
+     * @param emailId
+     *            the email id
+     */
     @Override
     public final void verifyAccount(final String emailId) {
         List<ALMUser> almUserList = almInterfaceService.searchUser(emailId)
@@ -433,16 +481,16 @@ public class RegistrationServiceImpl implements RegistrationService {
             for (ALMUser almUser : almUserList) {
                 if (almUser.getEmail().equals(emailId)) {
                     String userStatus = almUser.getUserStatus();
-                    if (userStatus
-                            .equalsIgnoreCase(AuthorServicesConstants.VERIFY_ACCOUNT_ACTIVE)) {
+                    if (AuthorServicesConstants.VERIFY_ACCOUNT_ACTIVE
+                            .equalsIgnoreCase(userStatus)) {
                         throw new ASException(accountActivatedErrorCode,
                                 accountActivatedErrorMessage);
-                    } else if (userStatus
-                            .equalsIgnoreCase(AuthorServicesConstants.VERIFY_ACCOUNT_SUSPENDED)) {
+                    } else if (AuthorServicesConstants.VERIFY_ACCOUNT_SUSPENDED
+                            .equalsIgnoreCase(userStatus)) {
                         throw new ASException(accountSuspendedErrorCode,
                                 accountSuspendedErrorMessage);
-                    } else if (userStatus
-                            .equalsIgnoreCase(AuthorServicesConstants.VERIFY_ACCOUNT_AWAITING_ACTIVATION)) {
+                    } else if (AuthorServicesConstants.VERIFY_ACCOUNT_AWAITING_ACTIVATION
+                            .equalsIgnoreCase(userStatus)) {
                         userStatus = AuthorServicesConstants.VERIFY_ACCOUNT_ACTIVE;
                         almUser.setUserStatus(userStatus);
                         almInterfaceService.updateUser(almUser);

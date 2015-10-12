@@ -14,8 +14,11 @@
  */
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
+import java.util.ArrayList;
+
 import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
 import com.wiley.gr.ace.authorservices.model.external.CDMResponse;
+import com.wiley.gr.ace.authorservices.model.external.CDMUser;
 import com.wiley.gr.ace.authorservices.model.external.CreateContactRequestCDM;
 
 /**
@@ -33,6 +36,21 @@ public class CDMInterfaceServiceImpl implements CDMInterfaceService {
     @Override
     public CDMResponse createContact(
             final CreateContactRequestCDM createContactRequestCDM) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /**
+     * Search cdm.
+     *
+     * @param firstName
+     *            the first name
+     * @param lastName
+     *            the last name
+     * @return the array list
+     */
+    @Override
+    public ArrayList<CDMUser> searchCDM(final String firstName, final String lastName) {
         // TODO Auto-generated method stub
         return null;
     }

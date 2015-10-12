@@ -14,6 +14,7 @@
  */
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -28,56 +29,126 @@ import com.wiley.gr.ace.authorservices.model.external.ParticipantAddress;
  */
 public interface ParticipantsInterfaceService {
 
-	/**
-	 * Creates the participant.
-	 *
-	 * @param participant
-	 *            the participant
-	 * @return the string
-	 */
-	String createParticipant(Participant participant);
+    /**
+     * Creates the participant.
+     *
+     * @param participant
+     *            the participant
+     * @return the string
+     */
+    String createParticipant(Participant participant);
 
-	/**
-	 * Search participant by participant id.
-	 *
-	 * @param particpantId
-	 *            the particpant id
-	 * @return the participant
-	 */
-	Participant searchParticipantByParticipantId(String particpantId);
+    /**
+     * Search participant by participant id.
+     *
+     * @param particpantId
+     *            the particpant id
+     * @return the participant
+     */
+    Participant searchParticipantByParticipantId(String particpantId);
 
-	/**
-	 * Search participant by user id.
-	 *
-	 * @param userId
-	 *            the user id
-	 * @return the participant
-	 */
-	Participant searchParticipantByUserId(String userId);
+    /**
+     * Search participant by user id.
+     *
+     * @param userId
+     *            the user id
+     * @return the participant
+     */
+    Participant searchParticipantByUserId(String userId);
 
-	/**
-	 * Search participant by name.
-	 *
-	 * @param firstName
-	 *            the first name
-	 * @param lastName
-	 *            the last name
-	 * @return the list
-	 */
-	List<Participant> searchParticipantByName(String firstName, String lastName);
+    /**
+     * Search participant by name.
+     *
+     * @param firstName
+     *            the first name
+     * @param lastName
+     *            the last name
+     * @return the list
+     */
+    ArrayList<Participant> searchParticipantByName(String firstName,
+            String lastName);
 
-	List<ParticipantAddress> getAddress(String participantId) throws Exception;
+    /**
+     * Gets the address.
+     *
+     * @param participantId
+     *            the participant id
+     * @return the address
+     * @throws Exception
+     *             the exception
+     */
+    List<ParticipantAddress> getAddress(String participantId) throws Exception;
 
-	ResponseEntity<?> updateAddress(String participantId,
-			ParticipantAddress participantAddress) throws Exception;
+    /**
+     * Update address.
+     *
+     * @param participantId
+     *            the participant id
+     * @param participantAddress
+     *            the participant address
+     * @return the response entity
+     * @throws Exception
+     *             the exception
+     */
+    ResponseEntity<?> updateAddress(String participantId,
+            ParticipantAddress participantAddress) throws Exception;
 
-	ResponseEntity<?> uploadProfileImage(String participantId, Byte[] imageFile)
-			throws Exception;
+    /**
+     * Upload profile image.
+     *
+     * @param participantId
+     *            the participant id
+     * @param imageFile
+     *            the image file
+     * @return the response entity
+     * @throws Exception
+     *             the exception
+     */
+    ResponseEntity<?> uploadProfileImage(String participantId, Byte[] imageFile)
+            throws Exception;
 
-	Byte[] getProfileImage(String participantId) throws Exception;
+    /**
+     * Gets the profile image.
+     *
+     * @param participantId
+     *            the participant id
+     * @return the profile image
+     * @throws Exception
+     *             the exception
+     */
+    Byte[] getProfileImage(String participantId) throws Exception;
 
-	ResponseEntity<?> updateAlerts(String participantId, AlertElement alert)
-			throws Exception;
+    /**
+     * Update alerts.
+     *
+     * @param participantId
+     *            the participant id
+     * @param alert
+     *            the alert
+     * @return the response entity
+     * @throws Exception
+     *             the exception
+     */
+    ResponseEntity<?> updateAlerts(String participantId, AlertElement alert)
+            throws Exception;
 
-	List<AlertElement> getAlerts(String participantId) throws Exception;
+    /**
+     * Gets the alerts.
+     *
+     * @param participantId
+     *            the participant id
+     * @return the alerts
+     * @throws Exception
+     *             the exception
+     */
+    List<AlertElement> getAlerts(String participantId) throws Exception;
+
+    /**
+     * Search participant by email.
+     *
+     * @param email
+     *            the email
+     * @return the participant
+     */
+    Participant searchParticipantByEmail(String email);
 }

@@ -113,5 +113,11 @@ public interface RegistrationService {
      */
     String createContact(User user);
 
+    /**
+     * Verify account.
+     *
+     * @param emailId
+     *            the email id
+     */
     void verifyAccount(String emailId);
 }

@@ -14,7 +14,10 @@
  */
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
+import java.util.ArrayList;
+
 import com.wiley.gr.ace.authorservices.model.external.CDMResponse;
+import com.wiley.gr.ace.authorservices.model.external.CDMUser;
 import com.wiley.gr.ace.authorservices.model.external.CreateContactRequestCDM;
 
 /**
@@ -30,4 +33,13 @@ public interface CDMInterfaceService {
      * @return the CDM response
      */
     CDMResponse createContact(CreateContactRequestCDM createContactRequestCDM);
+
+    /**
+     * Search cdm.
+     *
+     * @param firstName the first name
+     * @param lastName the last name
+     * @return the array list
+     */
+    ArrayList<CDMUser> searchCDM(String firstName, String lastName);
 }

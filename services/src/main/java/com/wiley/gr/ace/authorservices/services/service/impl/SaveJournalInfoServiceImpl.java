@@ -76,7 +76,8 @@ public class SaveJournalInfoServiceImpl implements SaveJournalInfoService {
             if (dhId != Integer.parseInt(journalInfo.getJournalID())) {
                 journalConfiguration.setDhId(Integer.parseInt(journalInfo
                         .getJournalID()));
-                journalConfiguration.setNickname(journalInfo.getJournalName());
+                journalConfiguration.setJournalNickname(journalInfo
+                        .getJournalName());
                 final JournalSetupStates journalSetupStates = new JournalSetupStates();
                 journalSetupStates.setSetupStateCd(journalInfo
                         .getJournalSetupState());
@@ -84,7 +85,8 @@ public class SaveJournalInfoServiceImpl implements SaveJournalInfoService {
                 journalConfiguration.setTitleDispOoo(journalInfo
                         .getRevenueModel());
 
-                result = saveJournalInfoDAO.saveJournalInfo(journalConfiguration);
+                result = saveJournalInfoDAO
+                        .saveJournalInfo(journalConfiguration);
                 System.err.println(" Journal Info Type Event " + result);
             }
         }

@@ -19,7 +19,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,9 +27,13 @@ import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.external.util.AuthorServicesUtil;
 import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
 import com.wiley.gr.ace.authorservices.model.InviteRecords;
+import com.wiley.gr.ace.authorservices.model.Login;
 import com.wiley.gr.ace.authorservices.model.SendNotificationRequest;
 import com.wiley.gr.ace.authorservices.model.Service;
+import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
 import com.wiley.gr.ace.authorservices.model.User;
+import com.wiley.gr.ace.authorservices.model.UserLogin;
+import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
 import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
 import com.wiley.gr.ace.authorservices.services.service.SendNotification;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
@@ -68,14 +71,6 @@ public class RegistrationController {
     private String noDataFoundCode;
 
     /** value from props file configured. */
-    @Value("${RegistrationController.checkUserExists.code}")
-    private String checkUserExistsErrorCode;
-
-    /** value from props file configured. */
-    @Value("${RegistrationController.checkUserExists.message}")
-    private String checkUserExistsErrorMessage;
-
-    /** value from props file configured. */
     @Value("${RegistrationController.getInvitationRecords.code}")
     private String getInvitationRecordsErrorCode;
 
@@ -107,37 +102,73 @@ public class RegistrationController {
     @Value("${RegistrationController.isUserFoundWithOrcidId.message}")
     private String isUserFoundWithOrcidIdErrorMessage;
 
+    /** The success. */
+    @Value("${SUCCESS}")
+    private String success;
+
+    /**
+     * This field holds the value of LOCKED.
+     */
+    @Value("${LOCKED}")
+    private String locked;
+
+    /**
+     * This field holds the value of FAILURE.
+     */
+    @Value("${FAILURE}")
+    private String failure;
+
+    /**
+     * This field holds the value of AuthorServices.
+     */
+    @Value("${AuthorServices}")
+    private String authorServices;
+
+    /**
+     * This field holds the value of AuthenticationType.
+     */
+    @Value("${AuthenticationType}")
+    private String authenticationType;
+
     /**
      * Check user exists.
      *
-     * @param email
-     *            - The request value
-     * @return service
+     * @param user
+     *            the user
+     * @return the service
      */
-    @RequestMapping(value = "/verify/email", method = RequestMethod.GET)
-    public final Service checkUserExists(@RequestHeader final String email) {
+    @RequestMapping(value = "/verify/email", method = RequestMethod.POST)
+    public final Service checkUserExists(@RequestBody final User user) {
 
         Service service = new Service();
-        User user = null;
+        User retrievedUser = null;
+        User foundUserToReturn = null;
 
-        if (!StringUtils.isEmpty(email)) {
-            // LOGGER.info("checking if user exists with email id " + email);
-            user = registrationService.checkEmailIdExists(email);
+        if (!StringUtils.isEmpty(user.getPrimaryEmailAddr())) {
+            retrievedUser = registrationService.checkEmailIdExists(user
+                    .getPrimaryEmailAddr());
         }
-        if (user != null) {
-            // LOGGER.info("user found with email id " + email);
-            if ("ALM".equalsIgnoreCase(user.getFoundIn())) {
-                service.setStatus("FAILURE");
-                service.setPayload(user);
-                ErrorPOJO err = new ErrorPOJO();
-                err.setCode("USER_EXISTS_NOT_REGISTERED");
-                err.setMessage("User exists in the system but not "
-                        + "registered with AS2.0. Please enter correct password to register");
-                service.setError(err);
+        if (!StringUtils.isEmpty(retrievedUser)) {
+            foundUserToReturn = new User();
+            if (retrievedUser.getFirstName().equalsIgnoreCase(
+                    user.getFirstName())
+                    && retrievedUser.getLastName().equalsIgnoreCase(
+                            user.getLastName())) {
+                foundUserToReturn.setInvited(true);
+                service.setStatus("SUCCESS");
+                service.setPayload(foundUserToReturn);
             } else {
-                // LOGGER.error("User exists in AS");
-                throw new UserException(checkUserExistsErrorCode,
-                        checkUserExistsErrorMessage);
+                foundUserToReturn.setFirstName(retrievedUser.getFirstName());
+                foundUserToReturn.setLastName(retrievedUser.getLastName());
+                foundUserToReturn.setInvited(true);
+                foundUserToReturn
+                        .setCountryCode(retrievedUser.getCountryCode());
+                ErrorPOJO err = new ErrorPOJO();
+                err.setCode("PREPOP_INVITE_DETAILS");
+                err.setMessage("PREPOP_INVITE_DETAILS");
+                service.setStatus("SUCCESS");
+                service.setPayload(user);
+                service.setError(err);
             }
         }
 
@@ -195,12 +226,13 @@ public class RegistrationController {
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public final Service createUser(@RequestBody final User user) {
-        Service service = new Service();
-        String status = null;
+        Service service = null;
+        String userId = null;
         boolean executeCreate = true;
         if (null != user) {
 
             if (user.isSearchFullName()) {
+                service = new Service();
                 ArrayList<User> usersList = null;
                 usersList = registrationService.getUserFromFirstNameLastName(
                         user.getFirstName(), user.getLastName());
@@ -217,19 +249,15 @@ public class RegistrationController {
             }
 
             if (executeCreate) {
-                status = registrationService.createUser(user);
-                if ("success".equalsIgnoreCase(status)) {
-                    registrationService.assignRoleToNewUser(user
-                            .getPrimaryEmailAddr());
-                    String verifyGuid = userLoginService.insertGuid(
-                            user.getFirstName(), user.getLastName(),
-                            user.getPrimaryEmailAddr());
-                    if (!StringUtils.isEmpty(verifyGuid)) {
+                userId = registrationService.createALMUser(user);
+
+                if (!StringUtils.isEmpty(userId)) {
+                    if (!user.isInvited()) {
                         SendNotificationRequest notificationRequest = new SendNotificationRequest();
                         List<String> fieldList = new ArrayList<String>();
                         fieldList.add(user.getFirstName() + " "
                                 + user.getLastName());
-                        fieldList.add(AuthorServicesUtil.encrypt(verifyGuid));
+                        fieldList.add(AuthorServicesUtil.encrypt(userId));
                         notificationRequest.setFieldList(fieldList);
                         notificationRequest.setFrom("admin@wiley.com");
                         ArrayList<String> toList = new ArrayList<String>();
@@ -238,7 +266,43 @@ public class RegistrationController {
 
                         sendNotification.sendEmail("24", "113", "email",
                                 notificationRequest);
+                    } else {
+                        SharedServieRequest loginSharedServieRequest = new SharedServieRequest();
+                        Login invitedLogin = new Login();
+                        invitedLogin.setEmailId(user.getPrimaryEmailAddr());
+                        invitedLogin.setPassword(user.getPassword());
+                        loginSharedServieRequest.setUserId(invitedLogin
+                                .getEmailId());
+                        loginSharedServieRequest.setPassword(invitedLogin
+                                .getPassword());
+                        loginSharedServieRequest
+                                .setAuthenticationType(authenticationType);
+                        loginSharedServieRequest.setAppKey(authorServices);
+
+                        SecurityResponse loginSecurityResponse = userLoginService
+                                .login(invitedLogin, loginSharedServieRequest);
+                        String status = loginSecurityResponse.getStatus();
+                        if (locked.equalsIgnoreCase(status)
+                                || failure.equalsIgnoreCase(status)) {
+                            service.setStatus(failure);
+                            ErrorPOJO errorPOJO = new ErrorPOJO();
+                            errorPOJO.setCode(loginSecurityResponse.getCode());
+                            errorPOJO.setMessage(loginSecurityResponse
+                                    .getMessage());
+                            service.setError(errorPOJO);
+                        } else if (success.equals(loginSecurityResponse
+                                .getStatus())) {
+
+                            // Users users =
+                            // userLoginServiceDAO.getUserId(login.getEmailId());
+                            UserLogin userLogin = new UserLogin();
+                            // userLogin.setUserId(users.getUserId().intValue());
+                            // userLogin.setFirstName(users.getFirstName());
+                            // userLogin.setLastName(users.getLastName());
+                            service.setPayload(userLogin);
+                        }
                     }
+
                 } else {
                     throw new UserException(createUserErrorCode,
                             createUserErrorMessage);
@@ -250,7 +314,7 @@ public class RegistrationController {
                     createUserDetailsErrorMessage);
         }
 
-        return service;
+        return new Service();
     }
 
     /**
@@ -291,9 +355,17 @@ public class RegistrationController {
 
         return service;
     }
-    
+
+    /**
+     * Verify account.
+     *
+     * @param emailId
+     *            the email id
+     * @return the service
+     */
     @RequestMapping(value = "verifyAccount/{emailId}", method = RequestMethod.GET)
-    public final Service verifyAccount(@PathVariable("emailId") final String emailId) {
+    public final Service verifyAccount(
+            @PathVariable("emailId") final String emailId) {
         registrationService.verifyAccount(emailId);
         return new Service();
     }
