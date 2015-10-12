@@ -121,6 +121,12 @@
 			class="com.wiley.gr.ace.authorservices.persistence.entity.OwnershipTypes" />
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.SubOwnershipTypes" />
+			<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.UserFunders" />
+			<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.UserSocietyDetails" />
+			<mapping
+			class="com.wiley.gr.ace.authorservices.persistence.entity.UserAffiliations" />
 
 	</session-factory>
 </hibernate-configuration>
