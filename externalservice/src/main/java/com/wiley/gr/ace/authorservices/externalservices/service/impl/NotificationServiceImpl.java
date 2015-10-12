@@ -130,4 +130,19 @@ public class NotificationServiceImpl implements NotificationService {
         // TODO Auto-generated method stub
         return false;
     }
+
+    /**
+     * Resend notification.
+     *
+     * @param notificationId
+     *            the notification id
+     * @return the notification response
+     */
+    @Override
+    public NotificationResponse resendNotification(final String notificationId) {
+        String notificationFinalUrl = notificationurl.concat("24")
+                .concat("/resend/").concat(notificationId);
+        return (NotificationResponse) RestServiceInvokerUtil.getServiceData(
+                notificationFinalUrl, NotificationResponse.class);
+    }
 }

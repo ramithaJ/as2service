@@ -12,6 +12,7 @@
 package com.wiley.gr.ace.authorservices.persistence.services;
 
 import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
+import com.wiley.gr.ace.authorservices.persistence.entity.RegistrationDetails;
 
 /**
  * The Interface RegistrationServiceDAO.
@@ -41,11 +42,28 @@ public interface RegistrationServiceDAO {
     InviteResetpwdLog getInvitationRecords(String guid);
 
     /**
-     * This method Assigns the Role to New Registration.
-     * 
-     * @param emaildId
-     *            to assign.
+     * Creates the registration record.
+     *
+     * @param registrationDetails
+     *            the registration details
      */
-    void assignRoleToNewRegistration(String emaildId);
+    void createRegistrationRecord(RegistrationDetails registrationDetails);
+
+    /**
+     * Gets the registration record.
+     *
+     * @param almUserId
+     *            the alm user id
+     * @return the registration record
+     */
+    RegistrationDetails getRegistrationRecord(String almUserId);
+
+    /**
+     * Delete registration details.
+     *
+     * @param almUserId
+     *            the alm user id
+     */
+    void deleteRegistrationDetails(String almUserId);
 
 }

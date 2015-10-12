@@ -52,27 +52,48 @@ public interface NotificationService {
     NotificationHistory getNotificationHistory(String userId) throws Exception;
 
     /**
+     * Gets the notifications.
+     *
      * @param userId
+     *            the user id
      * @return NotificationsList
      */
     UserNotifications getNotifications(String userId);
 
     /**
+     * Gets the notification details.
+     *
      * @param notificationId
+     *            the notification id
      * @return NotificationsList
      */
     NotificationDetailsPayload getNotificationDetails(String notificationId);
 
     /**
+     * Gets the article notifications.
+     *
      * @param articleId
+     *            the article id
      * @return NotificationsList
      */
     NotificationsList getArticleNotifications(String articleId);
 
     /**
+     * Send notification.
+     *
      * @param notificationsList
+     *            the notifications list
      * @return boolean
      */
     boolean sendNotification(NotificationsList notificationsList);
+
+    /**
+     * Resend notification.
+     *
+     * @param notificationId
+     *            the notification id
+     * @return the notification response
+     */
+    NotificationResponse resendNotification(String notificationId);
 
 }

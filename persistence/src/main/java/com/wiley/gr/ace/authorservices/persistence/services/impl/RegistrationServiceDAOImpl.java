@@ -15,11 +15,13 @@ import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateCo
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
+import com.wiley.gr.ace.authorservices.persistence.entity.RegistrationDetails;
 import com.wiley.gr.ace.authorservices.persistence.services.RegistrationServiceDAO;
 
 /**
@@ -43,14 +45,15 @@ public class RegistrationServiceDAOImpl implements RegistrationServiceDAO {
             throws Exception {
 
         boolean isUserFound = false;
-//        Session session = getSessionFactory().openSession();
-//        String searchOrcidHql = "from AuthorProfile af where af.orcidId=:orcidId";
-//        List<UserProfile> authorProfilesList = session
-//                .createQuery(searchOrcidHql).setString("orcidId", "orcidId")
-//                .list();
-//        if (!StringUtils.isEmpty(authorProfilesList)) {
-//            isUserFound = true;
-//        }
+        // Session session = getSessionFactory().openSession();
+        // String searchOrcidHql =
+        // "from AuthorProfile af where af.orcidId=:orcidId";
+        // List<UserProfile> authorProfilesList = session
+        // .createQuery(searchOrcidHql).setString("orcidId", "orcidId")
+        // .list();
+        // if (!StringUtils.isEmpty(authorProfilesList)) {
+        // isUserFound = true;
+        // }
 
         return isUserFound;
     }
@@ -78,32 +81,56 @@ public class RegistrationServiceDAOImpl implements RegistrationServiceDAO {
         return inviteRecord;
     }
 
-    /**
-     * This method Assigns the Role to New Registration.
-     * 
-     * @param emaildId
-     *            to assign.
-     */
     @Override
-    public final void assignRoleToNewRegistration(final String emaildId) {
-
+    public void createRegistrationRecord(
+            final RegistrationDetails registrationDetails) {
         Session session = null;
         try {
             session = getSessionFactory().openSession();
-            Transaction txn = session.beginTransaction();
-//            Users userEntity = (Users) session.createCriteria(Users.class)
-//                    .add(Restrictions.eq("primaryEmailAddr", emaildId))
-//                    .uniqueResult();
-//            UserRoles userRolesEntity = new UserRoles();
-//            UserRolesId userRolesId = new UserRolesId();
-//            userRolesId.setRoleId(1);
-//            userRolesId.setUserId(userEntity.getUserId());
-//            userRolesEntity.setId(userRolesId);
-//
-//            session.save(userRolesEntity);
-            txn.commit();
+            session.beginTransaction();
+            session.save(registrationDetails);
+            session.getTransaction().commit();
         } finally {
-            if (session != null) {
+            if (null != session) {
+                session.flush();
+                session.close();
+            }
+        }
+    }
+
+    @Override
+    public RegistrationDetails getRegistrationRecord(final String almUserId) {
+        Session session = null;
+        RegistrationDetails registrationDetails = null;
+        try {
+            session = getSessionFactory().openSession();
+
+            Criteria criteria = session.createCriteria(InviteResetpwdLog.class);
+            criteria.add(Restrictions.eq("almUserId", almUserId));
+            registrationDetails = (RegistrationDetails) criteria.uniqueResult();
+        } finally {
+            if (null != session) {
+                session.flush();
+                session.close();
+            }
+        }
+        return registrationDetails;
+    }
+
+    @Override
+    public void deleteRegistrationDetails(final String almUserId) {
+
+        Session session = null;
+        try {
+            RegistrationDetails registrationDetails = new RegistrationDetails();
+            session = getSessionFactory().openSession();
+            session.beginTransaction();
+            registrationDetails.setAlmUserId(almUserId);
+            session.delete(registrationDetails);
+            session.getTransaction().commit();
+
+        } finally {
+            if (null != session) {
                 session.flush();
                 session.close();
             }

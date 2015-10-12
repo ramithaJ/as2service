@@ -3,8 +3,6 @@
  */
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 
@@ -55,23 +53,16 @@ public class SharedServiceImpl implements SharedService {
     }
 
     @Override
-    public boolean searchInvitationRecord(final String emailId) {
-        boolean searchInvitation = false;
+    public Notifications searchInvitationRecord(final String emailId) {
+
+        Notifications notifications = null;
         NotificationHistory notificationHistory = (NotificationHistory) RestServiceInvokerUtil
                 .getServiceData(
                         notificationHistroyUrl.concat("appId").concat("?from=")
                                 .concat(emailId), NotificationHistory.class);
         if (!StringUtils.isEmpty(notificationHistory)) {
-            List<Notifications> notificationsList = notificationHistory
-                    .getNotifications();
-            if (!StringUtils.isEmpty(notificationsList)) {
-                for (Notifications notification : notificationsList) {
-                    if ("Invitation".equalsIgnoreCase(notification.getTemplate().getTagl1())) {
-                        searchInvitation = true;
-                    }
-                }
-            }
+            notifications = notificationHistory.getNotifications().get(0);
         }
-        return searchInvitation;
+        return notifications;
     }
 }

@@ -21,12 +21,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.external.util.AuthorServicesUtil;
 import com.wiley.gr.ace.authorservices.model.ErrorPOJO;
-import com.wiley.gr.ace.authorservices.model.InviteRecords;
 import com.wiley.gr.ace.authorservices.model.Login;
 import com.wiley.gr.ace.authorservices.model.SendNotificationRequest;
 import com.wiley.gr.ace.authorservices.model.Service;
@@ -71,12 +71,14 @@ public class RegistrationController {
     private String noDataFoundCode;
 
     /** value from props file configured. */
-    @Value("${RegistrationController.getInvitationRecords.code}")
-    private String getInvitationRecordsErrorCode;
-
-    /** value from props file configured. */
-    @Value("${RegistrationController.getInvitationRecords.message}")
-    private String getInvitationRecordsErrorMessage;
+    /*
+     * @Value("${RegistrationController.getInvitationRecords.code}") private
+     * String getInvitationRecordsErrorCode;
+     *//** value from props file configured. */
+    /*
+     * @Value("${RegistrationController.getInvitationRecords.message}") private
+     * String getInvitationRecordsErrorMessage;
+     */
 
     /** value from props file configured. */
     @Value("${RegistrationController.createUser.code}")
@@ -178,44 +180,29 @@ public class RegistrationController {
     /**
      * Gets the invitation records.
      *
-     * @param guid
-     *            - The request value
+     * @param user
+     *            the user
      * @return service
      */
-    @RequestMapping(value = "/invitation/{guid}", method = RequestMethod.GET)
-    public final Service getInvitationRecords(
-            @PathVariable("guid") final String guid) {
-        Service service = new Service();
-        InviteRecords inviteRecords = null;
-        if (!StringUtils.isEmpty(guid)) {
-            try {
-                inviteRecords = registrationService
-                        .searchInvitationRecord(guid);
-                if (!StringUtils.isEmpty(inviteRecords)) {
-                    if ("PENDING".equalsIgnoreCase(inviteRecords.getStatus())) {
-                        service.setPayload(inviteRecords);
-                    } else {
-                        service.setStatus("FAILURE");
-                        ErrorPOJO err = new ErrorPOJO();
-                        err.setCode(noDataFoundCode);
-                        err.setMessage("User Already Registered");
-                        service.setError(err);
-                    }
-                } else {
-                    service.setStatus("FAILURE");
-                    ErrorPOJO err = new ErrorPOJO();
-                    err.setCode(noDataFoundCode);
-                    err.setMessage("Invitation record does not exist");
-                    service.setError(err);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                throw new UserException(getInvitationRecordsErrorCode,
-                        getInvitationRecordsErrorMessage);
-            }
-        }
-        return service;
-    }
+    /*
+     * @RequestMapping(value = "/invitation/{guid}", method = RequestMethod.GET)
+     * public final Service getInvitationRecords(
+     * 
+     * @PathVariable("guid") final String guid) { Service service = new
+     * Service(); InviteRecords inviteRecords = null; if
+     * (!StringUtils.isEmpty(guid)) { try { inviteRecords = registrationService
+     * .searchInvitationRecord(guid); if (!StringUtils.isEmpty(inviteRecords)) {
+     * if ("PENDING".equalsIgnoreCase(inviteRecords.getStatus())) {
+     * service.setPayload(inviteRecords); } else { service.setStatus("FAILURE");
+     * ErrorPOJO err = new ErrorPOJO(); err.setCode(noDataFoundCode);
+     * err.setMessage("User Already Registered"); service.setError(err); } }
+     * else { service.setStatus("FAILURE"); ErrorPOJO err = new ErrorPOJO();
+     * err.setCode(noDataFoundCode);
+     * err.setMessage("Invitation record does not exist");
+     * service.setError(err); } } catch (Exception e) { e.printStackTrace();
+     * throw new UserException(getInvitationRecordsErrorCode,
+     * getInvitationRecordsErrorMessage); } } return service; }
+     */
 
     /**
      * Creates the user.
@@ -367,6 +354,49 @@ public class RegistrationController {
     public final Service verifyAccount(
             @PathVariable("emailId") final String emailId) {
         registrationService.verifyAccount(emailId);
+        return new Service();
+    }
+
+    /**
+     * Creates the participant and contact.
+     *
+     * @param user
+     *            the user
+     * @return the service
+     */
+    @RequestMapping(value = "/createFinal", method = RequestMethod.POST)
+    public final Service createParticipantAndContact(
+            @RequestBody final User user) {
+        if (!StringUtils.isEmpty(registrationService.createParticipant(user))) {
+            user.setParticipantId(registrationService.createParticipant(user));
+            registrationService.createContact(user);
+        }
+
+        return new Service();
+    }
+
+    /**
+     * Resend verification mail.
+     *
+     * @param emailId
+     *            the email id
+     * @return the service
+     */
+    @RequestMapping(value = "/verify/resend", method = RequestMethod.GET)
+    public final Service resendVerificationMail(
+            @RequestParam final String emailId) {
+        try {
+            String status = registrationService.resendVerification(emailId);
+            if ("failure".equalsIgnoreCase(status)) {
+                throw new UserException(
+                        "REGISTRATION_RESEND_VER_FAIL_ERR_TEXT",
+                        "Resend verification email failed");
+            }
+        } catch (Exception e) {
+            throw new UserException("REGISTRATION_RESEND_VER_FAIL_ERR_TEXT",
+                    "Resend verification email failed");
+        }
+
         return new Service();
     }
 }

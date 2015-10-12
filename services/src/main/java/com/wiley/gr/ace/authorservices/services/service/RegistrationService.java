@@ -13,7 +13,6 @@ package com.wiley.gr.ace.authorservices.services.service;
 
 import java.util.ArrayList;
 
-import com.wiley.gr.ace.authorservices.model.InviteRecords;
 import com.wiley.gr.ace.authorservices.model.User;
 
 /**
@@ -22,16 +21,6 @@ import com.wiley.gr.ace.authorservices.model.User;
  * @author virtusa version 1.0
  */
 public interface RegistrationService {
-
-    /**
-     * Creates the user.
-     *
-     * @param user
-     *            the user
-     * @return the string
-     * 
-     */
-    String createUser(User user);
 
     /**
      * Gets the user from first name last name.
@@ -70,21 +59,11 @@ public interface RegistrationService {
     /**
      * Search invitation record.
      *
-     * @param guid
-     *            the guid
-     * @return the invite records
-     * @throws Exception
-     *             the exception
+     * @param almUserId
+     *            the alm user id
+     * @return the user
      */
-    InviteRecords searchInvitationRecord(String guid) throws Exception;
-
-    /**
-     * Assign role to new user.
-     *
-     * @param emailId
-     *            the email id
-     */
-    void assignRoleToNewUser(String emailId);
+    User searchInvitationRecord(String almUserId);
 
     /**
      * Creates the alm user.
@@ -120,4 +99,12 @@ public interface RegistrationService {
      *            the email id
      */
     void verifyAccount(String emailId);
+
+    /**
+     * Resend verification.
+     *
+     * @param emailId
+     *            the email id
+     */
+    String resendVerification(String emailId);
 }
