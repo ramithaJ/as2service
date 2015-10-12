@@ -27,6 +27,7 @@ import org.springframework.util.StringUtils;
 import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteService;
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.external.util.ASDateFormatUtil;
+import com.wiley.gr.ace.authorservices.externalservices.service.ParticipantsInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.Address;
@@ -56,6 +57,7 @@ import com.wiley.gr.ace.authorservices.model.external.AreaOfInterest;
 import com.wiley.gr.ace.authorservices.model.external.CoAuthorData;
 import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
 import com.wiley.gr.ace.authorservices.model.external.CustomerProfile;
+import com.wiley.gr.ace.authorservices.model.external.EntityValue;
 import com.wiley.gr.ace.authorservices.model.external.FavoriteJournals;
 import com.wiley.gr.ace.authorservices.model.external.InterestData;
 import com.wiley.gr.ace.authorservices.model.external.Journal;
@@ -63,6 +65,8 @@ import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfileResponse;
 import com.wiley.gr.ace.authorservices.model.external.PasswordRequest;
 import com.wiley.gr.ace.authorservices.model.external.PasswordUpdate;
+import com.wiley.gr.ace.authorservices.model.external.ProfileEntity;
+import com.wiley.gr.ace.authorservices.model.external.ProfileRequest;
 import com.wiley.gr.ace.authorservices.model.external.ResearchFunderData;
 import com.wiley.gr.ace.authorservices.model.external.SecurityQuestionsUpdateRequest;
 import com.wiley.gr.ace.authorservices.model.external.SocietyData;
@@ -123,6 +127,12 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      */
     @Value("${templateId.password.update}")
     private String passwordUpdatetemplateId;
+
+    /**
+     * This field holds the value of participantsInterfaceService.
+     */
+    @Autowired(required = true)
+    private ParticipantsInterfaceService participantsInterfaceService;
 
     /**
      * Update society details.
@@ -518,25 +528,27 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
         AuthorProfileServiceImpl.LOGGER
                 .info("inside updateUserProfileInfo Method ");
-        LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
-        CustomerProfile customerProfile = new CustomerProfile();
+        ProfileEntity profileEntity = new ProfileEntity();
+        profileEntity.setEntityType("PROFILE");
+        EntityValue entityValue = new EntityValue();
+        ProfileRequest profileRequest = new ProfileRequest();
+        profileRequest.setTitleCode(user.getTitle());
+        profileRequest.setSuffixCode(user.getSuffix());
+        profileRequest.setMiddleName(user.getMiddleName());
+        profileRequest.setLastName(user.getLastName());
+        profileRequest.setFirstName(user.getFirstName());
+        profileRequest.setAlternativeName(user.getAlternateName());
+        profileRequest.setIndustryCode(user.getIndustry());
+        profileRequest.setJobCategoryCode(user.getJobCategory());
+        profileRequest.setSendEmail(user.getSendEmailFlag());
+        entityValue.setProfile(profileRequest);
+        profileEntity.setEntityValue(entityValue);
+        profileEntity.setSourceSystem("AS2.0");
+        profileEntity.setEntityId(userId);
 
-        CustomerDetails customerDetails = getCustomeProfile(userId);
+        participantsInterfaceService.updateProfile(profileEntity);
 
-        customerDetails.setTitle(user.getTitle());
-        customerDetails.setfName(user.getFirstName());
-        customerDetails.setlName(user.getLastName());
-        customerDetails.setmName(user.getMiddleName());
-        customerDetails.setUserSuffix(user.getSuffix());
-        customerDetails.setAlternativeName(user.getAlternateName());
-        customerDetails.setIndustryCode(user.getIndustryCode());
-        customerDetails.setJobCategoryCode(user.getJobCategoryCode());
-        customerDetails.setOrcId(user.getOrcidId());
-        customerDetails.setOptInFlag(user.getTermsOfUseFlg());
-        customerProfile.setCustomerDetails(customerDetails);
-        lookupCustomerProfileResponse.setCustomerProfile(customerProfile);
-        return userProfiles
-                .customerProfileUpdate(lookupCustomerProfileResponse);
+        return false;
     }
 
     /**
@@ -1048,20 +1060,16 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
         byte[] imageAsBytes = null;
 
-      //  UserProfile userProfile = authorProfileDao.getProfilePicture(userId);
+        // UserProfile userProfile = authorProfileDao.getProfilePicture(userId);
 
-        /*try {
-//            Blob image = userProfile.getProfilePic();
-//            int blobLength = (int) image.length();
-//            imageAsBytes = image.getBytes(1, blobLength);
-            // FileOutputStream fos = new FileOutputStream(
-            // "C:\\Users\\ravisinha\\Desktop\\Retrive4.jpg");
-            // fos.write(imageAsBytes);
-            // fos.close();;
-            // image.free();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
+        /*
+         * try { // Blob image = userProfile.getProfilePic(); // int blobLength
+         * = (int) image.length(); // imageAsBytes = image.getBytes(1,
+         * blobLength); // FileOutputStream fos = new FileOutputStream( //
+         * "C:\\Users\\ravisinha\\Desktop\\Retrive4.jpg"); //
+         * fos.write(imageAsBytes); // fos.close();; // image.free(); } catch
+         * (Exception e) { e.printStackTrace(); }
+         */
         return imageAsBytes;
 
     }

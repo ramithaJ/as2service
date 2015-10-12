@@ -27,6 +27,8 @@ import com.wiley.gr.ace.authorservices.externalservices.service.ParticipantsInte
 import com.wiley.gr.ace.authorservices.model.external.AlertElement;
 import com.wiley.gr.ace.authorservices.model.external.Participant;
 import com.wiley.gr.ace.authorservices.model.external.ParticipantAddress;
+import com.wiley.gr.ace.authorservices.model.external.ProfileEntity;
+import com.wiley.gr.ace.authorservices.model.external.ProfileResponse;
 
 /**
  * The Class ParticipantsInterfaceServiceImpl.
@@ -205,6 +207,16 @@ public class ParticipantsInterfaceServiceImpl implements
     public Participant searchParticipantByEmail(final String email) {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public ResponseEntity updateProfile(final ProfileEntity profileEntity) {
+
+        String url = "http://assearchdev.wiley.com:8080/v1/profile/";
+        ResponseEntity resposeEntity = (ResponseEntity) StubInvokerUtil
+                .restServiceResponseInvoker(url, HttpMethod.PUT, profileEntity,
+                        ProfileResponse.class, null);
+        return resposeEntity;
     }
 
 }
