@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
+import com.wiley.gr.ace.authorservices.model.external.AddressMapper;
 import com.wiley.gr.ace.authorservices.model.external.AlertElement;
 import com.wiley.gr.ace.authorservices.model.external.Participant;
 import com.wiley.gr.ace.authorservices.model.external.ParticipantAddress;
@@ -78,7 +79,7 @@ public interface ParticipantsInterfaceService {
      * @throws Exception
      *             the exception
      */
-    List<ParticipantAddress> getAddress(String participantId) throws Exception;
+    AddressMapper getAddress(String participantId) throws Exception;
 
     /**
      * Update address.

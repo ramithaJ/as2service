@@ -24,6 +24,7 @@ import org.springframework.http.ResponseEntity;
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.ParticipantsInterfaceService;
+import com.wiley.gr.ace.authorservices.model.external.AddressMapper;
 import com.wiley.gr.ace.authorservices.model.external.AlertElement;
 import com.wiley.gr.ace.authorservices.model.external.Participant;
 import com.wiley.gr.ace.authorservices.model.external.ParticipantAddress;
@@ -96,22 +97,66 @@ public class ParticipantsInterfaceServiceImpl implements
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.wiley.gr.ace.authorservices.externalservices.service.
-     * ParticipantsInterfaceService#getAddress(java.lang.String)
+    /**
+     * Gets the address.
+     *
+     * @param participantId the participant id
+     * @return the address
+     * @throws Exception the exception
      */
     @Override
-    public List<ParticipantAddress> getAddress(final String participantId)
+    public final AddressMapper getAddress(final String participantId)
             throws Exception {
-        String url = "https://schema.org/PostalAddress/participants/"
+        String url = "http://assearchdev.wiley.com:8080/v1/participants/"
                 + participantId + "/addresses";
-        List<ParticipantAddress> participantAddresses = (List<ParticipantAddress>) StubInvokerUtil
-                .restGetServiceInvoker(url, ParticipantAddress.class);
-        return participantAddresses;
+        return (AddressMapper) StubInvokerUtil
+                .restGetServiceInvoker(url, AddressMapper.class);
     }
-
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /*
      * (non-Javadoc)
      * 

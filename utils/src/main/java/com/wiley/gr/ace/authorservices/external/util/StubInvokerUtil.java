@@ -190,7 +190,6 @@ public class StubInvokerUtil {
 		try {
 			ResponseEntity<T> response = new RestTemplate().getForEntity(
 					new URI(url), responseEntityClass);
-
 			if (null == response) {
 				return new SecurityResponse();
 			}

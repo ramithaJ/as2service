@@ -33,10 +33,10 @@ import com.wiley.gr.ace.authorservices.model.State;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.AddressData;
 import com.wiley.gr.ace.authorservices.model.external.AddressElement;
+import com.wiley.gr.ace.authorservices.model.external.AddressMapper;
 import com.wiley.gr.ace.authorservices.model.external.AddressValidationMultiReq;
 import com.wiley.gr.ace.authorservices.model.external.AddressValidationMultiRes;
 import com.wiley.gr.ace.authorservices.model.external.AddressValidationRequest;
-import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
 import com.wiley.gr.ace.authorservices.model.external.Entity;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.Participant;
@@ -330,9 +330,10 @@ public class UserAccountServiceImpl implements UserAccountService {
 	}
 
 	@Override
-	public ParticipantAddress getAddress(String participantId) throws Exception {
-		return (ParticipantAddress) participantsInterfaceService
+	public List<ParticipantAddress> getAddress(String participantId) throws Exception {
+	    AddressMapper mapper = (AddressMapper) participantsInterfaceService
 				.getAddress(participantId);
+	    return mapper.getContent();
 	}
 
 	@Override

@@ -40,6 +40,7 @@ import com.wiley.gr.ace.authorservices.model.external.AlertElement;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class UserProfileController.
  *
@@ -61,6 +62,7 @@ public class UserProfileController {
 	@Autowired
 	private AuthorProfileService authorProfileService;
 
+	/** The user profile service. */
 	@Autowired
 	private UserProfileService userProfileService;
 
@@ -98,10 +100,11 @@ public class UserProfileController {
 	}
 
 	/**
-	 * @param userId
-	 *            - The request value
-	 * @param affiliation
-	 *            - The request value
+	 * Update affiliation.
+	 *
+	 * @param userId            - The request value
+	 * @param affiliationId the affiliation id
+	 * @param affiliationsUpdate the affiliations update
 	 * @return service
 	 */
 	@RequestMapping(value = "/affiliations/{userId}/{affiliationId}/", method = RequestMethod.POST)
@@ -119,8 +122,10 @@ public class UserProfileController {
 	}
 
 	/**
-	 * @param userId
-	 *            - The request value
+	 * Delete affiliation.
+	 *
+	 * @param userId            - The request value
+	 * @param affiliationId the affiliation id
 	 * @return service
 	 */
 	@RequestMapping(value = "/affiliations/{userId}/{affiliationId}/", method = RequestMethod.DELETE)
@@ -154,10 +159,9 @@ public class UserProfileController {
 	}
 
 	/**
-	 * @param userId
-	 *            - The request value
-	 * @param researchFunder
-	 *            - The request value
+	 * Gets the societies list.
+	 *
+	 * @param userId            - The request value
 	 * @return service
 	 */
 	/*
@@ -192,10 +196,10 @@ public class UserProfileController {
 	}
 
 	/**
-	 * @param userId
-	 *            - The request value
-	 * @param society
-	 *            - The request value
+	 * Update society details.
+	 *
+	 * @param userId            - The request value
+	 * @param society            - The request value
 	 * @return service
 	 */
 	@RequestMapping(value = "/societies/{userId}", method = RequestMethod.POST)
@@ -213,10 +217,11 @@ public class UserProfileController {
 	}
 
 	/**
-	 * @param userId
-	 *            - The request value
-	 * @param societyId
-	 *            - The request value
+	 * Delete society details.
+	 *
+	 * @param userId            - The request value
+	 * @param societyId            - The request value
+	 * @param id the id
 	 * @return service
 	 */
 	@RequestMapping(value = "/societies/{userId}/{societyId}/{id}", method = RequestMethod.DELETE)
@@ -254,10 +259,10 @@ public class UserProfileController {
 	}
 
 	/**
-	 * @param userId
-	 *            - The request value
-	 * @param searchString
-	 *            - The request value
+	 * Adds the interests.
+	 *
+	 * @param userId            - The request value
+	 * @param areaOfInterests the area of interests
 	 * @return service
 	 */
 	@RequestMapping(value = "/interests/{userId}/", method = RequestMethod.POST)
@@ -311,10 +316,9 @@ public class UserProfileController {
 	}
 
 	/**
-	 * @param userId
-	 *            - The request value
-	 * @param coAuthor
-	 *            - The request value
+	 * Gets the preferred journals.
+	 *
+	 * @param userId            - The request value
 	 * @return service
 	 */
 	/*
@@ -423,10 +427,10 @@ public class UserProfileController {
 	}
 
 	/**
-	 * @param userId
-	 *            - The request value
-	 * @param listOfalert
-	 *            - The request value
+	 * Update alerts.
+	 *
+	 * @param userId            - The request value
+	 * @param listOfalert            - The request value
 	 * @return service
 	 */
 	@RequestMapping(value = "/alerts/{userId}", method = RequestMethod.POST)
@@ -490,11 +494,11 @@ public class UserProfileController {
 	}
 
 	/**
-	 * @param profilePicture
-	 *            - The request value
+	 * Profile picture.
+	 *
+	 * @param profilePicture            - The request value
 	 * @return - service
-	 * @throws IOException
-	 *             - exception
+	 * @throws IOException             - exception
 	 */
 	@RequestMapping(value = "/uploadImage/", method = RequestMethod.POST)
 	public final Service profilePicture(
@@ -522,8 +526,9 @@ public class UserProfileController {
 	}
 
 	/**
-	 * @param userId
-	 *            - The request value
+	 * Look up profile.
+	 *
+	 * @param userId            - The request value
 	 * @return service
 	 */
 	@RequestMapping(value = "/lookUpProfileCustomer/{userId}", method = RequestMethod.GET)
@@ -539,9 +544,10 @@ public class UserProfileController {
 	}
 
 	/**
-	 * @param userId
-	 * @return
-	 * @throws IOException
+	 * Gets the profile.
+	 *
+	 * @param userId the user id
+	 * @return the profile
 	 */
 	@RequestMapping(value = "/getImage/{userId}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
 	public final byte[] getProfile(@PathVariable("userId") final String userId) {
@@ -550,6 +556,12 @@ public class UserProfileController {
 
 	}
 
+	/**
+	 * Profile picture.
+	 *
+	 * @param image the image
+	 * @return the service
+	 */
 	@RequestMapping(value = "/uploadimage/{image}/", method = RequestMethod.GET)
 	public Service profilePicture(@PathVariable("image") File image) {
 		Service service = new Service();
@@ -571,6 +583,12 @@ public class UserProfileController {
 		return service;
 	}
 
+	/**
+	 * Gets the profile image.
+	 *
+	 * @param participantId the participant id
+	 * @return the profile image
+	 */
 	@RequestMapping(value = "/{participantId}/profileImage", method = RequestMethod.GET)
 	public Service getProfileImage(
 			@PathVariable("ParticipantId") final String participantId) {
@@ -585,6 +603,13 @@ public class UserProfileController {
 
 	}
 
+	/**
+	 * Update service.
+	 *
+	 * @param participantId the participant id
+	 * @param imageFile the image file
+	 * @return the service
+	 */
 	@RequestMapping(value = "/{participantId}/profileImage/", method = RequestMethod.POST)
 	public Service updateService(
 			@PathVariable("ParticipantId") final String participantId,
@@ -607,6 +632,12 @@ public class UserProfileController {
 		return service;
 	}
 
+	/**
+	 * Gets the alerts.
+	 *
+	 * @param participantId the participant id
+	 * @return the alerts
+	 */
 	@RequestMapping(value = "/{participantId}/alerts", method = RequestMethod.GET)
 	public Service getAlerts(
 			@PathVariable("ParticipantId") final String participantId) {
@@ -620,6 +651,13 @@ public class UserProfileController {
 
 	}
 
+	/**
+	 * Update alerts.
+	 *
+	 * @param participantId the participant id
+	 * @param alert the alert
+	 * @return the service
+	 */
 	@RequestMapping(value = "/{participantId}/alerts/", method = RequestMethod.POST)
 	public Service updateAlerts(
 			@PathVariable("ParticipantId") final String participantId,
