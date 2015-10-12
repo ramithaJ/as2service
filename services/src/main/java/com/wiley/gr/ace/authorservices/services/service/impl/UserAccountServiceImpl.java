@@ -39,6 +39,7 @@ import com.wiley.gr.ace.authorservices.model.external.AddressValidationRequest;
 import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
 import com.wiley.gr.ace.authorservices.model.external.Entity;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
+import com.wiley.gr.ace.authorservices.model.external.Participant;
 import com.wiley.gr.ace.authorservices.model.external.ParticipantAddress;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
 import com.wiley.gr.ace.authorservices.services.service.ASDataService;
@@ -127,6 +128,12 @@ public class UserAccountServiceImpl implements UserAccountService {
 	 */
 	@Value("${countries}")
 	private String countries;
+	
+	/**
+	 * This field holds the value of participantService.
+	 */
+	@Autowired(required = true)
+	private ParticipantsInterfaceService participantService;
 
 	/**
 	 * this method is for getting email Details by userId.
@@ -140,13 +147,12 @@ public class UserAccountServiceImpl implements UserAccountService {
 
 		UserAccountServiceImpl.LOGGER.info("inside getEmailDetails Method");
 
-		CustomerDetails customerDetails = userProfile
-				.getLookupCustomerProfile(userId)
-				.getLookupCustomerProfileResponse().getCustomerProfile()
-				.getCustomerDetails();
+		Participant participantResponse = participantService
+				.searchParticipantByParticipantId(userId);
+		
 		User user = new User();
-		user.setPrimaryEmailAddr(customerDetails.getPrimaryEmail());
-		user.setRecoveryEmailAddress(customerDetails.getSecondaryEmail());
+		user.setPrimaryEmailAddr(participantResponse.getEmail());
+		user.setRecoveryEmailAddress(participantResponse.getRecoveryEmail());
 		return user;
 
 	}
@@ -163,42 +169,41 @@ public class UserAccountServiceImpl implements UserAccountService {
 
 		UserAccountServiceImpl.LOGGER
 				.info("inside getProfileInformation Method");
-		CustomerDetails customerDetails = userProfile
-				.getLookupCustomerProfile(userId)
-				.getLookupCustomerProfileResponse().getCustomerProfile()
-				.getCustomerDetails();
+		
+		Participant participantResponse = participantService
+				.searchParticipantByParticipantId(userId);
 		User user = new User();
-		final String titleId = customerDetails.getTitle();
+		final String titleId = participantResponse.getHonorificPrefix();
 		if (!StringUtils.isEmpty(titleId)) {
 			user.setTitle(titleId);
 			user.setTitleName(asDataDao.getData(titleId));
 		}
-		user.setFirstName(customerDetails.getfName());
-		user.setLastName(customerDetails.getlName());
-		user.setMiddleName(customerDetails.getmName());
-		final String suffixId = customerDetails.getUserSuffix();
+		user.setFirstName(participantResponse.getGivenName());
+		user.setLastName(participantResponse.getFamilyName());
+		// user.setMiddleName(customerDetails.getmName()); // check
+		final String suffixId = participantResponse.getHonorificSuffix();
 		if (!StringUtils.isEmpty(suffixId)) {
 			user.setSuffix(suffixId);
 			user.setSuffixName(asDataDao.getData(suffixId));
 		}
-		user.setAlternateName(customerDetails.getAlternativeName());
-		user.setPrimaryEmailAddr(customerDetails.getPrimaryEmail());
-		user.setRecoveryEmailAddress(customerDetails.getSecondaryEmail());
-		final String industryCode = customerDetails.getIndustryCode();
+		// user.setAlternateName();
+		user.setPrimaryEmailAddr(participantResponse.getEmail());
+		user.setRecoveryEmailAddress(participantResponse.getRecoveryEmail());
+		final String industryCode = participantResponse.getIndustryId();
 		if (!StringUtils.isEmpty(industryCode)) {
 			user.setIndustry(industryCode);
 			user.setIndustryName(autoCompleteService.getNameByCode(industries,
 					industryCode, null));
 		}
-		final String jobCategoriesCode = customerDetails.getJobCategoryCode();
+		final String jobCategoriesCode = participantResponse.getJobCategoryId();
 		if (!StringUtils.isEmpty(jobCategoriesCode)) {
 			user.setJobCategory(jobCategoriesCode);
 			user.setJobCategoryName(autoCompleteService.getNameByCode(
 					jobCategories, jobCategoriesCode, null));
 		}
 
-		user.setOrcidId(customerDetails.getOrcId());
-		user.setTermsOfUseFlg(customerDetails.getOptInFlag());
+		user.setOrcidId(participantResponse.getOrcidId());
+		// user.setTermsOfUseFlg(customerDetails.getOptInFlag());
 
 		return user;
 	}
