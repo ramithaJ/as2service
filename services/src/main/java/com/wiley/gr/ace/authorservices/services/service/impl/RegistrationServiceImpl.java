@@ -11,6 +11,7 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,6 +21,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
@@ -61,36 +64,47 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Autowired(required = true)
     private RegistrationServiceDAO registrationServiceDAO;
 
+    /** The alm interface service. */
     @Autowired(required = true)
     private ALMInterfaceService almInterfaceService;
 
+    /** The participant interface service. */
     @Autowired(required = true)
     private ParticipantsInterfaceService participantInterfaceService;
 
+    /** The cdm interface service. */
     @Autowired(required = true)
     private CDMInterfaceService cdmInterfaceService;
 
+    /** The shared service. */
     @Autowired(required = true)
     private SharedService sharedService;
 
+    /** The notification service. */
     @Autowired(required = true)
     private NotificationService notificationService;
 
+    /** The account activated error code. */
     @Value("${RegistrationController.verifyAccount.activated.code}")
     private String accountActivatedErrorCode;
 
+    /** The account activated error message. */
     @Value("${RegistrationController.verifyAccount.activated.message}")
     private String accountActivatedErrorMessage;
 
+    /** The account suspended error code. */
     @Value("${RegistrationController.verifyAccount.suspended.code}")
     private String accountSuspendedErrorCode;
 
+    /** The account suspended error message. */
     @Value("${RegistrationController.verifyAccount.suspended.message}")
     private String accountSuspendedErrorMessage;
 
+    /** The no user found error code. */
     @Value("${RegistrationController.verifyAccount.noUserFound.code}")
     private String noUserFoundErrorCode;
 
+    /** The no user found error message. */
     @Value("${RegistrationController.verifyAccount.noUserFound.message}")
     private String noUserFoundErrorMessage;
 
@@ -231,11 +245,9 @@ public class RegistrationServiceImpl implements RegistrationService {
     /**
      * This is for searchInvitationRecord or not by taking guid as input.
      *
-     * @param guid
-     *            the guid
+     * @param participantId
+     *            the participant id
      * @return the invite records
-     * @throws Exception
-     *             the exception
      */
     @Override
     public final User searchInvitationRecord(final String participantId) {
@@ -305,32 +317,24 @@ public class RegistrationServiceImpl implements RegistrationService {
     }
 
     /**
-     * Creates the participant.
+     * Do final create.
      *
-     * @param user
-     *            the user
+     * @param almUserId
+     *            the alm user id
      * @return the string
      */
     @Override
-    public String createParticipant(final User user) {
+    public String doFinalCreate(final String almUserId) {
 
-        String ptpId = null;
+        String status = null;
         try {
-
-            Participant participant = new Participant();
-
-            SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-            participant.setCreatedDate(dt.format(new Date()));
-            participant.setFamilyName(user.getLastName());
-            participant.setGivenName(user.getFirstName());
-            participant.setModifiedDate(dt.format(new Date()));
-            participant.setParticipantCountry(user.getCountryCode());
-            participant.setUserId(user.getUserId());
-
-            ptpId = participantInterfaceService.createParticipant(participant);
+            User user = returnUserFromDB(almUserId);
+            user.setUserId(almUserId);
+            String ptpId = createParticipant(user);
             if (!StringUtils.isEmpty(ptpId)) {
-                registrationServiceDAO.deleteRegistrationDetails(user
-                        .getUserId());
+                user.setParticipantId(ptpId);
+                createContact(user);
+                status = "SUCCESS";
             } else {
                 throw new UserException(createUserErrorCode,
                         createUserErrorMessage);
@@ -338,6 +342,37 @@ public class RegistrationServiceImpl implements RegistrationService {
         } catch (Exception e) {
             throw new UserException(createUserErrorCode, createUserErrorMessage);
         }
+        return status;
+    }
+
+    /**
+     * Creates the participant.
+     *
+     * @param user
+     *            the user
+     * @return the string
+     */
+    private String createParticipant(final User user) {
+
+        String ptpId = null;
+
+        Participant participant = new Participant();
+
+        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        participant.setCreatedDate(dt.format(new Date()));
+        participant.setFamilyName(user.getLastName());
+        participant.setGivenName(user.getFirstName());
+        participant.setModifiedDate(dt.format(new Date()));
+        participant.setParticipantCountry(user.getCountryCode());
+        participant.setUserId(user.getUserId());
+
+        ptpId = participantInterfaceService.createParticipant(participant);
+        if (!StringUtils.isEmpty(ptpId)) {
+            registrationServiceDAO.deleteRegistrationDetails(user.getUserId());
+        } else {
+            throw new UserException(createUserErrorCode, createUserErrorMessage);
+        }
+
         return ptpId;
     }
 
@@ -348,44 +383,37 @@ public class RegistrationServiceImpl implements RegistrationService {
      *            the user
      * @return the string
      */
-    @Override
-    public String createContact(final User user) {
-        CDMResponse cdmResponse = new CDMResponse();
-        try {
-            CDMUser cdmUser = new CDMUser();
-            CreateContactRequestCDM createContactRequestCDM = new CreateContactRequestCDM();
-            CreateContactRequestEBM createContactRequestEBM = new CreateContactRequestEBM();
-            ContactEBM contactEBM = new ContactEBM();
-            ContactProfile contactProfile = new ContactProfile();
-            ContactIdentification contactIdentification = new ContactIdentification();
-            SourceContactXREF sourceContactXREF = new SourceContactXREF();
+    private String createContact(final User user) {
+        CDMUser cdmUser = new CDMUser();
+        CreateContactRequestCDM createContactRequestCDM = new CreateContactRequestCDM();
+        CreateContactRequestEBM createContactRequestEBM = new CreateContactRequestEBM();
+        ContactEBM contactEBM = new ContactEBM();
+        ContactProfile contactProfile = new ContactProfile();
+        ContactIdentification contactIdentification = new ContactIdentification();
+        SourceContactXREF sourceContactXREF = new SourceContactXREF();
 
-            cdmUser.setAsId(user.getParticipantId());
-            cdmUser.setAuthorFlag(AuthorServicesConstants.CDM_AUTHOR_FLAG);
-            cdmUser.setFirstName(user.getFirstName());
-            cdmUser.setLastName(user.getLastName());
-            cdmUser.setPrimaryEmail(user.getPrimaryEmailAddr());
-            cdmUser.setRegistrantFlag(AuthorServicesConstants.CDM_REG_FLAG);
-            cdmUser.setSendEmail(user.getSendEmailFlag());
-            cdmUser.setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
-            cdmUser.setUserRole(AuthorServicesConstants.CDM_USER_ROLE);
+        cdmUser.setAsId(user.getParticipantId());
+        cdmUser.setAuthorFlag(AuthorServicesConstants.CDM_AUTHOR_FLAG);
+        cdmUser.setFirstName(user.getFirstName());
+        cdmUser.setLastName(user.getLastName());
+        cdmUser.setPrimaryEmail(user.getPrimaryEmailAddr());
+        cdmUser.setRegistrantFlag(AuthorServicesConstants.CDM_REG_FLAG);
+        cdmUser.setSendEmail(user.getSendEmailFlag());
+        cdmUser.setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
+        cdmUser.setUserRole(AuthorServicesConstants.CDM_USER_ROLE);
 
-            sourceContactXREF.setSourceCustomerID(user.getParticipantId());
-            sourceContactXREF
-                    .setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
-            contactIdentification.setSourceContactXREF(sourceContactXREF);
-            contactProfile.setContactIdentification(contactIdentification);
-            contactEBM.setContactProfile(contactProfile);
-            contactEBM.setCustomerDetails(cdmUser);
-            createContactRequestEBM.setContactEBM(contactEBM);
-            createContactRequestCDM
-                    .setCreateContactRequestEBM(createContactRequestEBM);
+        sourceContactXREF.setSourceCustomerID(user.getParticipantId());
+        sourceContactXREF.setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
+        contactIdentification.setSourceContactXREF(sourceContactXREF);
+        contactProfile.setContactIdentification(contactIdentification);
+        contactEBM.setContactProfile(contactProfile);
+        contactEBM.setCustomerDetails(cdmUser);
+        createContactRequestEBM.setContactEBM(contactEBM);
+        createContactRequestCDM
+                .setCreateContactRequestEBM(createContactRequestEBM);
 
-            cdmResponse = cdmInterfaceService
-                    .createContact(createContactRequestCDM);
-        } catch (Exception e) {
-            throw new UserException(createUserErrorCode, createUserErrorMessage);
-        }
+        CDMResponse cdmResponse = cdmInterfaceService
+                .createContact(createContactRequestCDM);
 
         return cdmResponse.getStatus();
     }
@@ -393,40 +421,53 @@ public class RegistrationServiceImpl implements RegistrationService {
     /**
      * Verify account.
      *
-     * @param emailId
-     *            the email id
+     * @param almUserId
+     *            the alm user id
      */
     @Override
-    public final void verifyAccount(final String emailId) {
-        List<ALMUser> almUserList = almInterfaceService.searchUser(emailId)
-                .getUserPayload();
-        if (!StringUtils.isEmpty(almUserList)) {
-            for (ALMUser almUser : almUserList) {
-                if (almUser.getEmail().equals(emailId)) {
-                    String userStatus = almUser.getUserStatus();
-                    if (AuthorServicesConstants.VERIFY_ACCOUNT_ACTIVE
-                            .equalsIgnoreCase(userStatus)) {
-                        throw new ASException(accountActivatedErrorCode,
-                                accountActivatedErrorMessage);
-                    } else if (AuthorServicesConstants.VERIFY_ACCOUNT_SUSPENDED
-                            .equalsIgnoreCase(userStatus)) {
-                        throw new ASException(accountSuspendedErrorCode,
-                                accountSuspendedErrorMessage);
-                    } else if (AuthorServicesConstants.VERIFY_ACCOUNT_AWAITING_ACTIVATION
-                            .equalsIgnoreCase(userStatus)) {
-                        userStatus = AuthorServicesConstants.VERIFY_ACCOUNT_ACTIVE;
-                        almUser.setUserStatus(userStatus);
-                        almInterfaceService.updateUser(almUser);
+    public final void verifyAccount(final String almUserId) {
+        try {
+            User user = returnUserFromDB(almUserId);
+
+            List<ALMUser> almUserList = almInterfaceService.searchUser(
+                    user.getPrimaryEmailAddr()).getUserPayload();
+            if (!StringUtils.isEmpty(almUserList)) {
+                for (ALMUser almUser : almUserList) {
+                    if (almUser.getEmail().equals(user.getPrimaryEmailAddr())) {
+                        String userStatus = almUser.getUserStatus();
+                        if (AuthorServicesConstants.VERIFY_ACCOUNT_ACTIVE
+                                .equalsIgnoreCase(userStatus)) {
+                            throw new ASException(accountActivatedErrorCode,
+                                    accountActivatedErrorMessage);
+                        } else if (AuthorServicesConstants.VERIFY_ACCOUNT_SUSPENDED
+                                .equalsIgnoreCase(userStatus)) {
+                            throw new ASException(accountSuspendedErrorCode,
+                                    accountSuspendedErrorMessage);
+                        } else if (AuthorServicesConstants.VERIFY_ACCOUNT_AWAITING_ACTIVATION
+                                .equalsIgnoreCase(userStatus)) {
+                            userStatus = AuthorServicesConstants.VERIFY_ACCOUNT_ACTIVE;
+                            almUser.setUserStatus(userStatus);
+                            almInterfaceService.updateUser(almUser);
+                        }
+                    } else {
+                        throw new ASException(noUserFoundErrorCode,
+                                noUserFoundErrorMessage);
                     }
-                } else {
-                    throw new ASException(noUserFoundErrorCode,
-                            noUserFoundErrorMessage);
                 }
             }
+        } catch (Exception e) {
+            throw new ASException(noUserFoundErrorCode, noUserFoundErrorMessage);
         }
 
     }
 
+    /**
+     * Resend verification.
+     *
+     * @param emailId
+     *            the email id
+     * @return the string
+     */
     @Override
     public String resendVerification(final String emailId) {
 
@@ -439,6 +480,32 @@ public class RegistrationServiceImpl implements RegistrationService {
         }
 
         return status;
+    }
+
+    /**
+     * Return user from db.
+     *
+     * @param almUserId
+     *            the alm user id
+     * @return the user
+     * @throws IOException.
+     * @throws JsonMappingException.
+     * @throws JsonParseException.
+     */
+    private User returnUserFromDB(final String almUserId)
+            throws JsonParseException, JsonMappingException, IOException {
+
+        RegistrationDetails registrationDetails = registrationServiceDAO
+                .getRegistrationRecord(almUserId);
+
+        User user = null;
+
+        if (!StringUtils.isEmpty(registrationDetails)) {
+            user = new ObjectMapper().readValue(
+                    registrationDetails.getRegistrastionObject(), User.class);
+        }
+
+        return user;
     }
 
 }

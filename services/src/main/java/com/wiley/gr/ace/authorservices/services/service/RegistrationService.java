@@ -59,8 +59,8 @@ public interface RegistrationService {
     /**
      * Search invitation record.
      *
-     * @param almUserId
-     *            the alm user id
+     * @param participantId
+     *            the participant id
      * @return the user
      */
     User searchInvitationRecord(String participantId);
@@ -75,22 +75,13 @@ public interface RegistrationService {
     String createALMUser(User user);
 
     /**
-     * Creates the participant.
+     * Do final create.
      *
-     * @param user
-     *            the user
+     * @param almUserId
+     *            the alm user id
      * @return the string
      */
-    String createParticipant(User user);
-
-    /**
-     * Creates the contact.
-     *
-     * @param user
-     *            the user
-     * @return the string
-     */
-    String createContact(User user);
+    String doFinalCreate(String almUserId);
 
     /**
      * Verify account.
@@ -105,6 +96,8 @@ public interface RegistrationService {
      *
      * @param emailId
      *            the email id
+     * @return the string
      */
     String resendVerification(String emailId);
+
 }

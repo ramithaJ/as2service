@@ -347,31 +347,29 @@ public class RegistrationController {
     /**
      * Verify account.
      *
-     * @param emailId
-     *            the email id
+     * @param almUserId
+     *            the alm user id
      * @return the service
      */
     @RequestMapping(value = "verifyAccount/{emailId}", method = RequestMethod.GET)
     public final Service verifyAccount(
-            @PathVariable("emailId") final String emailId) {
-        registrationService.verifyAccount(emailId);
+            @PathVariable("almUserId") final String almUserId) {
+        registrationService.verifyAccount(almUserId);
         return new Service();
     }
 
     /**
      * Creates the participant and contact.
      *
-     * @param user
-     *            the user
+     * @param almUserId
+     *            the alm user id
      * @return the service
      */
-    @RequestMapping(value = "/createFinal", method = RequestMethod.POST)
+    @RequestMapping(value = "/createFinal", method = RequestMethod.GET)
     public final Service createParticipantAndContact(
-            @RequestBody final User user) {
-        if (!StringUtils.isEmpty(registrationService.createParticipant(user))) {
-            user.setParticipantId(registrationService.createParticipant(user));
-            registrationService.createContact(user);
-        }
+            @RequestParam("almUserId") final String almUserId) {
+
+        registrationService.doFinalCreate(almUserId);
 
         return new Service();
     }
