@@ -42,6 +42,9 @@ public class ParticipantsInterfaceServiceImpl implements
     @Value("${searchparticipantbyid.url}")
     private String searchparticipantbyidurl;
 
+    @Value("${participant-crud.url}")
+    private String participantCrudUrl;
+
     /**
      * Creates the participant.
      *
@@ -68,7 +71,6 @@ public class ParticipantsInterfaceServiceImpl implements
         final Participant participant = (Participant) RestServiceInvokerUtil
                 .getServiceData(searchparticipantbyidurl + participantId,
                         Participant.class);
-        // TODO Auto-generated method stub
         return participant;
     }
 
@@ -111,7 +113,7 @@ public class ParticipantsInterfaceServiceImpl implements
     @Override
     public final AddressMapper getAddress(final String participantId)
             throws Exception {
-        final String url = "http://assearchdev.wiley.com:8080/v1/participants/"
+        String url = "http://assearchdev.wiley.com:8080/v1/participants/"
                 + participantId + "/addresses";
         return (AddressMapper) StubInvokerUtil.restGetServiceInvoker(url,
                 AddressMapper.class);

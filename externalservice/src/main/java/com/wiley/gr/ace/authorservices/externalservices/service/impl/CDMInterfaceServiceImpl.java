@@ -16,6 +16,9 @@ package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Value;
+
+import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
 import com.wiley.gr.ace.authorservices.model.external.CDMResponse;
 import com.wiley.gr.ace.authorservices.model.external.CDMUser;
@@ -25,6 +28,9 @@ import com.wiley.gr.ace.authorservices.model.external.CreateContactRequestCDM;
  * The Class CDMInterfaceServiceImpl.
  */
 public class CDMInterfaceServiceImpl implements CDMInterfaceService {
+
+    @Value("${cdm-create.url}")
+    private String cdmCreateUrl;
 
     /**
      * Creates the contact.
@@ -36,8 +42,9 @@ public class CDMInterfaceServiceImpl implements CDMInterfaceService {
     @Override
     public CDMResponse createContact(
             final CreateContactRequestCDM createContactRequestCDM) {
-        // TODO Auto-generated method stub
-        return null;
+
+        return (CDMResponse) RestServiceInvokerUtil.restServiceInvoker(
+                cdmCreateUrl, createContactRequestCDM, CDMResponse.class);
     }
 
     /**
@@ -50,7 +57,8 @@ public class CDMInterfaceServiceImpl implements CDMInterfaceService {
      * @return the array list
      */
     @Override
-    public ArrayList<CDMUser> searchCDM(final String firstName, final String lastName) {
+    public ArrayList<CDMUser> searchCDM(final String firstName,
+            final String lastName) {
         // TODO Auto-generated method stub
         return null;
     }

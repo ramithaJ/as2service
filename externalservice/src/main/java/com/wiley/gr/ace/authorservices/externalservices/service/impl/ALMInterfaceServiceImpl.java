@@ -14,9 +14,11 @@
  */
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
+import org.springframework.beans.factory.annotation.Value;
+
+import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
 import com.wiley.gr.ace.authorservices.model.external.ALMCreateUserRespnse;
-import com.wiley.gr.ace.authorservices.model.external.ALMResponse;
 import com.wiley.gr.ace.authorservices.model.external.ALMSearchUserResponse;
 import com.wiley.gr.ace.authorservices.model.external.ALMUser;
 
@@ -24,6 +26,15 @@ import com.wiley.gr.ace.authorservices.model.external.ALMUser;
  * The Class ALMInterfaceServiceImpl.
  */
 public class ALMInterfaceServiceImpl implements ALMInterfaceService {
+
+    @Value("${alm-create.url}")
+    private String almCreateUrl;
+
+    @Value("${alm-search.url}")
+    private String almSearchUrl;
+
+    @Value("${alm-update.url}")
+    private String almUpdateUrl;
 
     /**
      * Creates the user.
@@ -34,8 +45,9 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
      */
     @Override
     public ALMCreateUserRespnse createUser(final ALMUser almUser) {
-        // TODO Auto-generated method stub
-        return null;
+        return (ALMCreateUserRespnse) RestServiceInvokerUtil
+                .restServiceInvoker(almCreateUrl, almUser,
+                        ALMCreateUserRespnse.class);
     }
 
     /**
@@ -47,20 +59,21 @@ public class ALMInterfaceServiceImpl implements ALMInterfaceService {
      */
     @Override
     public ALMSearchUserResponse searchUser(final String email) {
-        // TODO Auto-generated method stub
-        return null;
+        String serachURL = almSearchUrl.concat("?Email=").concat(email);
+        return (ALMSearchUserResponse) RestServiceInvokerUtil.getServiceData(
+                serachURL, ALMSearchUserResponse.class);
     }
-    
+
     /**
      * Update user.
      *
-     * @param almUser the alm user
+     * @param almUser
+     *            the alm user
      * @return the ALM response
      */
     @Override
-    public ALMResponse updateUser(ALMUser almUser) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+    public void updateUser(final ALMUser almUser) {
 
+        RestServiceInvokerUtil.putServiceData(almUpdateUrl, almUser);
+    }
 }

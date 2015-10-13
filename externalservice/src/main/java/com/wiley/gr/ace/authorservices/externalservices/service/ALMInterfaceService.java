@@ -15,7 +15,6 @@
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
 import com.wiley.gr.ace.authorservices.model.external.ALMCreateUserRespnse;
-import com.wiley.gr.ace.authorservices.model.external.ALMResponse;
 import com.wiley.gr.ace.authorservices.model.external.ALMSearchUserResponse;
 import com.wiley.gr.ace.authorservices.model.external.ALMUser;
 
@@ -42,12 +41,13 @@ public interface ALMInterfaceService {
      * @return the ALM search user response
      */
     ALMSearchUserResponse searchUser(String email);
-  
+
     /**
      * Update user.
      *
-     * @param almUser the alm user
+     * @param almUser
+     *            the alm user
      * @return the ALM response
      */
-    ALMResponse updateUser(ALMUser almUser);
+    void updateUser(ALMUser almUser);
 }
