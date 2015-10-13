@@ -161,7 +161,7 @@ public interface ESBInterfaceService {
      * @throws Exception
      *             the exception
      */
-    Object getPdhLookupResponse(String dhId) throws Exception;
+    Object getPdhLookupResponse(String dhId);
 
     /**
      * Checks if is ALM authenticated.

@@ -220,7 +220,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      */
     @Override
     public final String creatUser(final ProfileInformation profileForCreation) {
-        ResponseStatus responseStatus = (ResponseStatus) RestServiceInvokerUtil
+        final ResponseStatus responseStatus = (ResponseStatus) RestServiceInvokerUtil
                 .restServiceInvoker(createUserUrl, profileForCreation,
                         ResponseStatus.class);
         return responseStatus.getStatus();
@@ -239,13 +239,13 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 
         boolean isALMAuth = false;
         try {
-            ResponseEntity<String> responseEntity = new RestTemplate()
+            final ResponseEntity<String> responseEntity = new RestTemplate()
                     .postForEntity(new URI(almAuthurl), almAuthRequest,
                             String.class);
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
                 isALMAuth = true;
             }
-        } catch (URISyntaxException e) {
+        } catch (final URISyntaxException e) {
             throw new UserException("UNEXPECTED",
                     "Some Unexpected Error occured");
         }
@@ -351,14 +351,18 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      *             the exception
      */
     @Override
-    public Object getPdhLookupResponse(final String dhId) throws Exception {
+    public Object getPdhLookupResponse(final String dhId) {
 
         final String xml = (String) StubInvokerUtil.invokeStub(
                 startPdhLookupUrl.concat(dhId).concat(endPdhLookupUrl),
                 HttpMethod.GET, String.class);
         Object lookupObject = null;
         if (!StringUtils.isEmpty(xml))
-            lookupObject = PdhLookupServiceUtil.lookup(xml);
+            try {
+                lookupObject = PdhLookupServiceUtil.lookup(xml);
+            } catch (final Exception e) {
+                e.printStackTrace();
+            }
         lookupObject = PdhLookupServiceUtil.invokePdhLookupData(lookupObject);
         return lookupObject;
     }

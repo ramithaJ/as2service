@@ -27,6 +27,7 @@ import org.springframework.util.StringUtils;
 import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteService;
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.external.util.ASDateFormatUtil;
+import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.ParticipantsInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
@@ -134,11 +135,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     @Autowired(required = true)
     private ParticipantsInterfaceService participantsInterfaceService;
 
-    /**
-     * This field holds the value of participantService.
-     */
-    @Autowired(required = true)
-    private ParticipantsInterfaceService participantService;
+    @Autowired
+    private ESBInterfaceService eSBInterfaceService;
 
     /**
      * Update society details.
@@ -365,7 +363,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         final EntityValue entityValue = new EntityValue();
 
         final ProfileRequest profileRequest = new ProfileRequest();
-        final Participant participantResponse = participantService
+        final Participant participantResponse = participantsInterfaceService
                 .searchParticipantByParticipantId(userId);
         profileRequest.setAlternativeName(""); // TODO
         profileRequest.setFirstName(participantResponse.getGivenName());
@@ -964,14 +962,20 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     public final List<PreferredJournals> getPrefferedJournals(
             final String participantId) {
 
-        final List<Preferences> preference = participantService
+        final List<Preferences> preference = participantsInterfaceService
                 .getPreferredJournals(participantId).getContent();
 
         final List<PreferredJournals> prefferedList = new ArrayList<PreferredJournals>();
         for (final Preferences preferences : preference) {
+            /*
+             * final PdhJournalData pdhJournalData = (PdhJournalData)
+             * eSBInterfaceService
+             * .getPdhLookupResponse(preferences.getPreferenceKey());
+             */
             final PreferredJournals preferredJournals = new PreferredJournals();
             preferredJournals.setJournalId(preferences.getPreferenceKey());
             preferredJournals.setJournalTitle(preferences.getPreferenceValue());
+            // preferredJournals.setPdhimage(pdhJournalData.getBannerImageLink());
             prefferedList.add(preferredJournals);
         }
 
