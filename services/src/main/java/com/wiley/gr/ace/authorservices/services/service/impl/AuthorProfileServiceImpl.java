@@ -38,6 +38,7 @@ import com.wiley.gr.ace.authorservices.model.AreaOfInterests;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.Country;
 import com.wiley.gr.ace.authorservices.model.Interests;
+import com.wiley.gr.ace.authorservices.model.JournalDetails;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.PreferredJournals;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
@@ -1224,5 +1225,25 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         return userProfiles
                 .customerProfileUpdate(lookupCustomerProfileResponse);
 
+    }
+
+    @Override
+    public boolean addPreferredJournal(final String userId,
+            final JournalDetails journalDetails) {
+        final ProfileEntity profileEntity = new ProfileEntity();
+        profileEntity.setEntityType("FAVJOURNAL");
+        final EntityValue entityValue = new EntityValue();
+        final JournalElement journalElement = new JournalElement();
+        journalElement.setRelationshipId("");
+        journalElement.setJournalID(journalDetails.getJournalId());
+        // TODO pdh look up for getting journal title
+        entityValue.setJournal(journalElement);
+        profileEntity.setEntityValue(entityValue);
+        profileEntity.setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
+        profileEntity.setEntityId(userId);
+
+        participantsInterfaceService.addPreferredJournals(profileEntity);
+
+        return false;
     }
 }

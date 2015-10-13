@@ -175,4 +175,6 @@ public interface ParticipantsInterfaceService {
 
     boolean deletePreferredJournal(ProfileEntity profileEntity);
 
+    void addPreferredJournals(ProfileEntity profileEntity);
+
 }
