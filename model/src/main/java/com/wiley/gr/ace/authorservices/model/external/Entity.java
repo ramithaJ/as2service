@@ -1,8 +1,9 @@
 package com.wiley.gr.ace.authorservices.model.external;
 
 /**
- * @author virtusa version 1.0
+ * The Class Entity.
  *
+ * @author virtusa version 1.0
  */
 public class Entity {
 
@@ -29,7 +30,8 @@ public class Entity {
     /**
      * This field holds the value of journalElement.
      */
-    private JournalElement journalElement;
+
+    private JournalElement journal;
 
     /**
      * This field holds the value of alerts.
@@ -47,6 +49,8 @@ public class Entity {
     private String entityId;
 
     /**
+     * Gets the entity type.
+     *
      * @return the entityType
      */
     public final String getEntityType() {
@@ -54,6 +58,8 @@ public class Entity {
     }
 
     /**
+     * Sets the entity type.
+     *
      * @param entityType
      *            the entityType to set
      */
@@ -62,6 +68,8 @@ public class Entity {
     }
 
     /**
+     * Gets the address.
+     *
      * @return the address
      */
     public final AddressData getAddress() {
@@ -69,6 +77,8 @@ public class Entity {
     }
 
     /**
+     * Sets the address.
+     *
      * @param address
      *            the address to set
      */
@@ -77,6 +87,8 @@ public class Entity {
     }
 
     /**
+     * Gets the profile information.
+     *
      * @return the profileInformation
      */
     public final ProfileInformation getProfileInformation() {
@@ -84,6 +96,8 @@ public class Entity {
     }
 
     /**
+     * Sets the profile information.
+     *
      * @param profileInformation
      *            the profileInformation to set
      */
@@ -93,6 +107,8 @@ public class Entity {
     }
 
     /**
+     * Gets the interest data.
+     *
      * @return the interestData
      */
     public final InterestData getInterestData() {
@@ -100,6 +116,8 @@ public class Entity {
     }
 
     /**
+     * Sets the interest data.
+     *
      * @param interestData
      *            the interestData to set
      */
@@ -108,21 +126,8 @@ public class Entity {
     }
 
     /**
-     * @return the journalElement
-     */
-    public final JournalElement getJournalElement() {
-        return journalElement;
-    }
-
-    /**
-     * @param journalElement
-     *            the journalElement to set
-     */
-    public final void setJournalElement(final JournalElement journalElement) {
-        this.journalElement = journalElement;
-    }
-
-    /**
+     * Gets the alerts.
+     *
      * @return the alerts
      */
     public final Alerts getAlerts() {
@@ -130,6 +135,8 @@ public class Entity {
     }
 
     /**
+     * Sets the alerts.
+     *
      * @param alerts
      *            the alerts to set
      */
@@ -138,6 +145,8 @@ public class Entity {
     }
 
     /**
+     * Gets the source system.
+     *
      * @return the sourceSystem
      */
     public final String getSourceSystem() {
@@ -145,6 +154,8 @@ public class Entity {
     }
 
     /**
+     * Sets the source system.
+     *
      * @param sourceSystem
      *            the sourceSystem to set
      */
@@ -153,6 +164,8 @@ public class Entity {
     }
 
     /**
+     * Gets the entity id.
+     *
      * @return the entityId
      */
     public final String getEntityId() {
@@ -160,11 +173,32 @@ public class Entity {
     }
 
     /**
+     * Sets the entity id.
+     *
      * @param entityId
      *            the entityId to set
      */
     public final void setEntityId(final String entityId) {
         this.entityId = entityId;
+    }
+
+    /**
+     * Gets the journal.
+     *
+     * @return the journal
+     */
+    public final JournalElement getJournal() {
+        return journal;
+    }
+
+    /**
+     * Sets the journal.
+     *
+     * @param journal
+     *            the new journal
+     */
+    public final void setJournal(final JournalElement journal) {
+        this.journal = journal;
     }
 
 }

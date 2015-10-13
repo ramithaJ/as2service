@@ -53,7 +53,7 @@ public interface UserAccountService {
 	 */
 	List<Addresses> getUserAddress(String userId);
 
-	ParticipantAddress getAddress(String participantId) throws Exception;
+	List<ParticipantAddress> getAddress(String participantId) throws Exception;
 
 	Object updatAddress(String participantId, Entity entity)
 			throws Exception;

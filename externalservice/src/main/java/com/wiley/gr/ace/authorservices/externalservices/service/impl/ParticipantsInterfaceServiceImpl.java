@@ -24,9 +24,11 @@ import org.springframework.http.ResponseEntity;
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.ParticipantsInterfaceService;
+import com.wiley.gr.ace.authorservices.model.external.AddressMapper;
 import com.wiley.gr.ace.authorservices.model.external.AlertElement;
 import com.wiley.gr.ace.authorservices.model.external.Participant;
 import com.wiley.gr.ace.authorservices.model.external.ParticipantAddress;
+import com.wiley.gr.ace.authorservices.model.external.Preference;
 import com.wiley.gr.ace.authorservices.model.external.ProfileEntity;
 import com.wiley.gr.ace.authorservices.model.external.ProfileResponse;
 
@@ -96,20 +98,23 @@ public class ParticipantsInterfaceServiceImpl implements
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.wiley.gr.ace.authorservices.externalservices.service.
-     * ParticipantsInterfaceService#getAddress(java.lang.String)
+    /**
+     * Gets the address.
+     *
+     * @param participantId
+     *            the participant id
+     * @return the address
+     * @throws Exception
+     *             the exception
      */
+
     @Override
-    public List<ParticipantAddress> getAddress(final String participantId)
+    public final AddressMapper getAddress(final String participantId)
             throws Exception {
-        String url = "https://schema.org/PostalAddress/participants/"
+        final String url = "http://assearchdev.wiley.com:8080/v1/participants/"
                 + participantId + "/addresses";
-        List<ParticipantAddress> participantAddresses = (List<ParticipantAddress>) StubInvokerUtil
-                .restGetServiceInvoker(url, ParticipantAddress.class);
-        return participantAddresses;
+        return (AddressMapper) StubInvokerUtil.restGetServiceInvoker(url,
+                AddressMapper.class);
     }
 
     /*
@@ -122,9 +127,9 @@ public class ParticipantsInterfaceServiceImpl implements
     @Override
     public ResponseEntity updateAddress(final String participantId,
             final ParticipantAddress participantAddress) throws Exception {
-        String url = "https://schema.org/PostalAddress/participants/"
+        final String url = "https://schema.org/PostalAddress/participants/"
                 + participantId + "/addresses";
-        ResponseEntity resposeEntity = (ResponseEntity) StubInvokerUtil
+        final ResponseEntity resposeEntity = (ResponseEntity) StubInvokerUtil
                 .restServiceResponseInvoker(url, HttpMethod.POST,
                         participantAddress, ParticipantError.class, null);
         return resposeEntity;
@@ -140,9 +145,9 @@ public class ParticipantsInterfaceServiceImpl implements
     @Override
     public ResponseEntity uploadProfileImage(final String participantId,
             final Byte[] imageFile) throws Exception {
-        String url = "https://schema.org/PostalAddress/participants/"
+        final String url = "https://schema.org/PostalAddress/participants/"
                 + participantId + "/profileImage";
-        ResponseEntity resposeEntity = (ResponseEntity) StubInvokerUtil
+        final ResponseEntity resposeEntity = (ResponseEntity) StubInvokerUtil
                 .restServiceResponseInvoker(url, HttpMethod.PUT, imageFile,
                         ParticipantError.class, null);
         return resposeEntity;
@@ -156,10 +161,10 @@ public class ParticipantsInterfaceServiceImpl implements
      */
     @Override
     public Byte[] getProfileImage(final String participantId) throws Exception {
-        String url = "https://schema.org/PostalAddress/participants/"
+        final String url = "https://schema.org/PostalAddress/participants/"
                 + participantId + "/profileImage";
-        Byte[] profileImage = (Byte[]) StubInvokerUtil.restGetServiceInvoker(
-                url, Byte[].class);
+        final Byte[] profileImage = (Byte[]) StubInvokerUtil
+                .restGetServiceInvoker(url, Byte[].class);
         return profileImage;
     }
 
@@ -173,9 +178,9 @@ public class ParticipantsInterfaceServiceImpl implements
     @Override
     public ResponseEntity updateAlerts(final String participantId,
             final AlertElement alert) throws Exception {
-        String url = "https://schema.org/PostalAddress/participants/"
+        final String url = "https://schema.org/PostalAddress/participants/"
                 + participantId + "/preferences";
-        ResponseEntity resposeEntity = (ResponseEntity) StubInvokerUtil
+        final ResponseEntity resposeEntity = (ResponseEntity) StubInvokerUtil
                 .restServiceResponseInvoker(url, HttpMethod.POST, alert,
                         ParticipantError.class, null);
         return resposeEntity;
@@ -190,9 +195,9 @@ public class ParticipantsInterfaceServiceImpl implements
     @Override
     public List<AlertElement> getAlerts(final String participantId)
             throws Exception {
-        String url = "https://schema.org/PostalAddress/participants/"
+        final String url = "https://schema.org/PostalAddress/participants/"
                 + participantId + "/preferences";
-        List<AlertElement> alertElements = (List<AlertElement>) StubInvokerUtil
+        final List<AlertElement> alertElements = (List<AlertElement>) StubInvokerUtil
                 .restGetServiceInvoker(url, AlertElement.class);
         return alertElements;
     }
@@ -212,11 +217,20 @@ public class ParticipantsInterfaceServiceImpl implements
     @Override
     public ResponseEntity updateProfile(final ProfileEntity profileEntity) {
 
-        String url = "http://assearchdev.wiley.com:8080/v1/profile/";
-        ResponseEntity resposeEntity = (ResponseEntity) StubInvokerUtil
+        final String url = "http://assearchdev.wiley.com:8080/v1/profile/";
+        final ResponseEntity resposeEntity = (ResponseEntity) StubInvokerUtil
                 .restServiceResponseInvoker(url, HttpMethod.PUT, profileEntity,
                         ProfileResponse.class, null);
         return resposeEntity;
+    }
+
+    @Override
+    public Preference getPreferredJournals(final String participantId) {
+        final String url = "http://assearchdev.wiley.com:8080/v1/participants/ede3be84-84a7-4954-9750-654c2902492f/preferences";
+        final Preference preferred = (Preference) RestServiceInvokerUtil
+                .getServiceData(url, Preference.class);
+
+        return preferred;
     }
 
 }

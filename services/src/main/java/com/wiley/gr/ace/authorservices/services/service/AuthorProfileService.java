@@ -55,8 +55,8 @@ public interface AuthorProfileService {
      *            the affiliation
      * @return true, if successful
      */
-    boolean updateAffiliation(int userId,
-            Affiliation affiliationsUpdate, String affiliationId);
+    boolean updateAffiliation(int userId, Affiliation affiliationsUpdate,
+            String affiliationId);
 
     /**
      * Update research funder.
@@ -238,7 +238,7 @@ public interface AuthorProfileService {
      *            the user id
      * @return the preffered journals
      */
-    List<PreferredJournals> getPrefferedJournals(String userId);
+    List<PreferredJournals> getPrefferedJournals(String participantId);
 
     /**
      * Gets the custome profile.
@@ -287,7 +287,7 @@ public interface AuthorProfileService {
      *            the society id
      * @return true, if successful
      */
-    boolean deleteSociety(String userId, String societyId,String id);
+    boolean deleteSociety(String userId, String societyId, String id);
 
     /**
      * Delete affiliations.

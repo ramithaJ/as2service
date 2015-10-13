@@ -28,7 +28,12 @@ public class PreferredJournals {
     /** The journal title. */
     private String journalTitle;
 
+    /** The journal image. */
+    private String journalImage = "";
+
     /**
+     * Gets the journal id.
+     *
      * @return the journalId
      */
     public final String getJournalId() {
@@ -36,6 +41,8 @@ public class PreferredJournals {
     }
 
     /**
+     * Sets the journal id.
+     *
      * @param journalId
      *            the journalId to set
      */
@@ -44,6 +51,8 @@ public class PreferredJournals {
     }
 
     /**
+     * Gets the journal title.
+     *
      * @return the journalTitle
      */
     public final String getJournalTitle() {
@@ -51,11 +60,32 @@ public class PreferredJournals {
     }
 
     /**
+     * Sets the journal title.
+     *
      * @param journalTitle
      *            the journalTitle to set
      */
     public final void setJournalTitle(final String journalTitle) {
         this.journalTitle = journalTitle;
+    }
+
+    /**
+     * Gets the journal image.
+     *
+     * @return the journal image
+     */
+    public final String getJournalImage() {
+        return journalImage;
+    }
+
+    /**
+     * Sets the journal image.
+     *
+     * @param journalImage
+     *            the new journal image
+     */
+    public final void setJournalImage(final String journalImage) {
+        this.journalImage = journalImage;
     }
 
 }

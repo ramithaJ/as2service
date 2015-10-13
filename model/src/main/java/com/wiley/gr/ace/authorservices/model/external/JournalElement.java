@@ -8,13 +8,56 @@ package com.wiley.gr.ace.authorservices.model.external;
  */
 public class JournalElement {
 
+    /** The relationship id. */
+    private String relationshipId;
+
+    /** The journal id. */
+    private String journalID;
+
     /** The journaltitle. */
     private String journaltitle;
 
-    /** The journalid. */
-    private String journalid;
+    /**
+     * Gets the relationship id.
+     *
+     * @return the relationship id
+     */
+    public final String getRelationshipId() {
+        return relationshipId;
+    }
 
     /**
+     * Sets the relationship id.
+     *
+     * @param relationshipId
+     *            the new relationship id
+     */
+    public final void setRelationshipId(final String relationshipId) {
+        this.relationshipId = relationshipId;
+    }
+
+    /**
+     * Gets the journal id.
+     *
+     * @return the journal id
+     */
+    public final String getJournalID() {
+        return journalID;
+    }
+
+    /**
+     * Sets the journal id.
+     *
+     * @param journalID
+     *            the new journal id
+     */
+    public final void setJournalID(final String journalID) {
+        this.journalID = journalID;
+    }
+
+    /**
+     * Gets the journaltitle.
+     *
      * @return the journaltitle
      */
     public final String getJournaltitle() {
@@ -22,26 +65,13 @@ public class JournalElement {
     }
 
     /**
+     * Sets the journaltitle.
+     *
      * @param journaltitle
-     *            the journaltitle to set
+     *            the new journaltitle
      */
     public final void setJournaltitle(final String journaltitle) {
         this.journaltitle = journaltitle;
-    }
-
-    /**
-     * @return the journalid
-     */
-    public final String getJournalid() {
-        return journalid;
-    }
-
-    /**
-     * @param journalid
-     *            the journalid to set
-     */
-    public final void setJournalid(final String journalid) {
-        this.journalid = journalid;
     }
 
 }
