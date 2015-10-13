@@ -42,9 +42,8 @@ public class ParticipantsInterfaceServiceImpl implements
     @Value("${searchparticipantbyid.url}")
     private String searchparticipantbyidurl;
 
-    /*
-     * @Value("${participant-crud.url}") private String participantCrudUrl;
-     */
+    @Value("${participant-crud.url}")
+    private String participantCrudUrl;
 
     /**
      * Creates the participant.
@@ -55,8 +54,10 @@ public class ParticipantsInterfaceServiceImpl implements
      */
     @Override
     public String createParticipant(final Participant participant) {
-        // TODO Auto-generated method stub
-        return null;
+        Participant createdParticipant = (Participant) RestServiceInvokerUtil
+                .restServiceInvoker(participantCrudUrl, participant,
+                        Participant.class);
+        return createdParticipant.getParticipantId();
     }
 
     /*
@@ -83,8 +84,11 @@ public class ParticipantsInterfaceServiceImpl implements
      */
     @Override
     public Participant searchParticipantByUserId(final String userId) {
-        // TODO Auto-generated method stub
-        return null;
+
+        String participantSearchUrl = participantCrudUrl.concat("?userId=")
+                .concat(userId);
+        return (Participant) RestServiceInvokerUtil.getServiceData(
+                participantSearchUrl, Participant.class);
     }
 
     /*
