@@ -66,6 +66,7 @@ import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfileRespo
 import com.wiley.gr.ace.authorservices.model.external.Participant;
 import com.wiley.gr.ace.authorservices.model.external.PasswordRequest;
 import com.wiley.gr.ace.authorservices.model.external.PasswordUpdate;
+import com.wiley.gr.ace.authorservices.model.external.Preferences;
 import com.wiley.gr.ace.authorservices.model.external.ProfileEntity;
 import com.wiley.gr.ace.authorservices.model.external.ProfileRequest;
 import com.wiley.gr.ace.authorservices.model.external.ResearchFunderData;
@@ -153,13 +154,13 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             final Society society) {
         AuthorProfileServiceImpl.LOGGER
                 .info("ins ide updateSocietyDetails Method ");
-        CustomerDetails customerDetails = getCustomeProfile(String
+        final CustomerDetails customerDetails = getCustomeProfile(String
                 .valueOf(userId));
-        LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
-        CustomerProfile customerProfile = new CustomerProfile();
+        final LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
+        final CustomerProfile customerProfile = new CustomerProfile();
         customerProfile.setCustomerDetails(customerDetails);
-        SocietyList societyList = new SocietyList();
-        SocietyData societyData = new SocietyData();
+        final SocietyList societyList = new SocietyList();
+        final SocietyData societyData = new SocietyData();
         societyData.setSocietyName(society.getSocietyName());
         societyData.setStartDate(ASDateFormatUtil.convertDate(Long
                 .parseLong(society.getStartDate())));
@@ -198,14 +199,14 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             final Affiliation affiliation, final String affiliationId) {
         AuthorProfileServiceImpl.LOGGER
                 .info("inside updateAffiliation Method ");
-        CustomerDetails customerDetails = getCustomeProfile(String
+        final CustomerDetails customerDetails = getCustomeProfile(String
                 .valueOf(userId));
-        LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
-        CustomerProfile customerProfile = new CustomerProfile();
+        final LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
+        final CustomerProfile customerProfile = new CustomerProfile();
         customerProfile.setCustomerDetails(customerDetails);
-        AffiliationsData affiliationsData = new AffiliationsData();
-        List<AffiliationData> affDataList = new ArrayList<AffiliationData>();
-        AffiliationData affData = new AffiliationData();
+        final AffiliationsData affiliationsData = new AffiliationsData();
+        final List<AffiliationData> affDataList = new ArrayList<AffiliationData>();
+        final AffiliationData affData = new AffiliationData();
         affData.setStartDate(ASDateFormatUtil.convertDate(Long
                 .parseLong(affiliation.getStartDate())));
         affData.setEndDate(ASDateFormatUtil.convertDate(Long
@@ -213,10 +214,10 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         affData.setCity(affiliation.getCity());
         affData.setState(affiliation.getState());
         affData.setCountryCd(affiliation.getCountryCode());
-        String institutionId = affiliation.getInstitutionId();
+        final String institutionId = affiliation.getInstitutionId();
         affData.setInstitutionCd(institutionId);
-        String name = autocomplete.getNameByCode("institutions", institutionId,
-                null);
+        final String name = autocomplete.getNameByCode("institutions",
+                institutionId, null);
         affData.setInstitutionName(name);
         affData.setDepartmentCd(affiliation.getDepartmentId());
         affData.setDepartmentName(affiliation.getDepartmentName());
@@ -270,20 +271,20 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     public final boolean updateAlerts(final String userId,
             final AlertsList listOfalert) {
         AuthorProfileServiceImpl.LOGGER.info("inside updateAlerts Method ");
-        CustomerDetails customerDetails = getCustomeProfile(userId);
-        LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
-        CustomerProfile customerProfile = new CustomerProfile();
+        final CustomerDetails customerDetails = getCustomeProfile(userId);
+        final LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
+        final CustomerProfile customerProfile = new CustomerProfile();
         customerProfile.setCustomerDetails(customerDetails);
-        AlertsData alertsData = new AlertsData();
-        List<AlertData> alertList = new ArrayList<AlertData>();
-        List<Alert> alertLIst = listOfalert.getAlertsList();
-        List<AlertData> externalAlertsList = userProfiles
+        final AlertsData alertsData = new AlertsData();
+        final List<AlertData> alertList = new ArrayList<AlertData>();
+        final List<Alert> alertLIst = listOfalert.getAlertsList();
+        final List<AlertData> externalAlertsList = userProfiles
                 .getLookupCustomerProfile(userId)
                 .getLookupCustomerProfileResponse().getCustomerProfile()
                 .getAlerts().getAlert();
-        for (Alert alert : alertLIst) {
-            AlertData alertData = new AlertData();
-            AlertType alertType = new AlertType();
+        for (final Alert alert : alertLIst) {
+            final AlertData alertData = new AlertData();
+            final AlertType alertType = new AlertType();
             alertData.setId(alert.getAlertId());
             alertData.setAlertID(alert.getAlertId());
             alertData.setStatus(alert.getStatus());
@@ -301,7 +302,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             alertData.setStatus("add");
 
             if (externalAlertsList != null && !externalAlertsList.isEmpty()) {
-                for (AlertData getAlertsData : externalAlertsList) {
+                for (final AlertData getAlertsData : externalAlertsList) {
 
                     if (alert.getAlertId().equalsIgnoreCase(
                             getAlertsData.getAlertID())) {
@@ -358,13 +359,13 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         AuthorProfileServiceImpl.LOGGER
                 .info("inside updateEmailDetails Method ");
 
-        ProfileEntity profileEntity = new ProfileEntity();
+        final ProfileEntity profileEntity = new ProfileEntity();
         profileEntity.setEntityType("EMAIL");
 
-        EntityValue entityValue = new EntityValue();
+        final EntityValue entityValue = new EntityValue();
 
-        ProfileRequest profileRequest = new ProfileRequest();
-        Participant participantResponse = participantService
+        final ProfileRequest profileRequest = new ProfileRequest();
+        final Participant participantResponse = participantService
                 .searchParticipantByParticipantId(userId);
         profileRequest.setAlternativeName(""); // TODO
         profileRequest.setFirstName(participantResponse.getGivenName());
@@ -379,8 +380,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         profileRequest.setTitleCode(participantResponse.getHonorificPrefix());
         profileRequest.setSuffixCode(participantResponse.getHonorificSuffix());
 
-        List<InterestList> interestList = new ArrayList<InterestList>();
-        InterestList interest = new InterestList();
+        final List<InterestList> interestList = new ArrayList<InterestList>();
+        final InterestList interest = new InterestList();
         interest.setInterestCode(""); // interest code TODO
         profileRequest.setInterestList(interestList);
 
@@ -393,7 +394,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
         participantsInterfaceService.updateProfile(profileEntity);
 
-        boolean status = false;
+        final boolean status = false;
         if (status) {
             sendNotification.updateSecEmailNotification(
                     emailDetails.getPrimaryEmailAddr(),
@@ -419,63 +420,63 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         AuthorProfileServiceImpl.LOGGER
                 .info("inside updateUserAddress Method ");
 
-        CustomerDetails customerDetails = getCustomeProfile(userId);
-        LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
-        CustomerProfile customerProfile = new CustomerProfile();
+        final CustomerDetails customerDetails = getCustomeProfile(userId);
+        final LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
+        final CustomerProfile customerProfile = new CustomerProfile();
         customerProfile.setCustomerDetails(customerDetails);
 
-        AddressDetails addressDetails = new AddressDetails();
-        List<AddressElement> addressElementsList = new ArrayList<AddressElement>();
+        final AddressDetails addressDetails = new AddressDetails();
+        final List<AddressElement> addressElementsList = new ArrayList<AddressElement>();
 
-        List<AddressElement> addressList = userProfiles
+        final List<AddressElement> addressList = userProfiles
                 .getLookupCustomerProfile(userId)
                 .getLookupCustomerProfileResponse().getCustomerProfile()
                 .getAddressDetails().getAddress();
 
         if ("Physical".equalsIgnoreCase(addressesRequest.getAddressType())) {
-            AddressElement physical = this.updateAddressFields(
+            final AddressElement physical = this.updateAddressFields(
                     addressesRequest, addressesRequest.getAddressType(),
                     addressesRequest.getAddressId());
             addressElementsList.add(physical);
             if ('Y' == addressesRequest.getAddressFlag()) {
                 String id = "0";
                 if (!StringUtils.isEmpty(addressList)) {
-                    for (AddressElement addressElement : addressList) {
+                    for (final AddressElement addressElement : addressList) {
                         if ("Billing".equalsIgnoreCase(addressElement
                                 .getAddrTypeCD())) {
                             id = addressElement.getId();
                         }
                     }
                 }
-                AddressElement billing = this.updateAddressFields(
+                final AddressElement billing = this.updateAddressFields(
                         addressesRequest, "Billing", id);
                 addressElementsList.add(billing);
             }
         }
 
         if ("Billing".equalsIgnoreCase(addressesRequest.getAddressType())) {
-            AddressElement physical = this.updateAddressFields(
+            final AddressElement physical = this.updateAddressFields(
                     addressesRequest, addressesRequest.getAddressType(),
                     addressesRequest.getAddressId());
             addressElementsList.add(physical);
             if ('Y' == addressesRequest.getAddressFlag()) {
                 String shippingId = "0";
                 if (!StringUtils.isEmpty(addressList)) {
-                    for (AddressElement addressElement : addressList) {
+                    for (final AddressElement addressElement : addressList) {
                         if ("Shipping".equalsIgnoreCase(addressElement
                                 .getAddrTypeCD())) {
                             shippingId = addressElement.getId();
                         }
                     }
                 }
-                AddressElement shipping = this.updateAddressFields(
+                final AddressElement shipping = this.updateAddressFields(
                         addressesRequest, "Shipping", shippingId);
                 addressElementsList.add(shipping);
             }
         }
 
         if ("Shipping".equalsIgnoreCase(addressesRequest.getAddressType())) {
-            AddressElement shipping = this.updateAddressFields(
+            final AddressElement shipping = this.updateAddressFields(
                     addressesRequest, addressesRequest.getAddressType(),
                     addressesRequest.getAddressId());
             addressElementsList.add(shipping);
@@ -502,7 +503,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     private AddressElement updateAddressFields(final Address addressesRequest,
             final String addressType, final String id) {
 
-        AddressElement addressElement = new AddressElement();
+        final AddressElement addressElement = new AddressElement();
         addressElement.setAddrTypeCD(addressType);
         addressElement.setTitle(addressesRequest.getTitle());
         addressElement.setFirstName(addressesRequest.getFirstName());
@@ -551,12 +552,12 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
         AuthorProfileServiceImpl.LOGGER
                 .info("inside updateUserProfileInfo Method ");
-        ProfileEntity profileEntity = new ProfileEntity();
+        final ProfileEntity profileEntity = new ProfileEntity();
 
         profileEntity.setEntityType("PROFILE");
-        EntityValue entityValue = new EntityValue();
+        final EntityValue entityValue = new EntityValue();
 
-        ProfileRequest profileRequest = new ProfileRequest();
+        final ProfileRequest profileRequest = new ProfileRequest();
         profileRequest.setTitleCode(user.getTitle());
         profileRequest.setSuffixCode(user.getSuffix());
         profileRequest.setMiddleName(user.getMiddleName());
@@ -568,8 +569,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         profileRequest.setSendEmail(user.getSendEmailFlag());
         profileRequest.setPrimaryEmail(""); // primary email Address
 
-        List<InterestList> interestList = new ArrayList<InterestList>();
-        InterestList interest = new InterestList();
+        final List<InterestList> interestList = new ArrayList<InterestList>();
+        final InterestList interest = new InterestList();
         interest.setInterestCode(""); // interest code
         profileRequest.setInterestList(interestList);
 
@@ -625,10 +626,10 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
         AuthorProfileServiceImpl.LOGGER
                 .info("inside updateSecurityDetails Method ");
-        SecurityQuestionsUpdateRequest securityQuestionsUpdateRequest = new SecurityQuestionsUpdateRequest();
-        UserSecurityQuestions userSecurityQuestions = new UserSecurityQuestions();
-        UserSecurityQuestionsMap userSecurityQuestionsMap = new UserSecurityQuestionsMap();
-        List<UserSecurityQuestionsEntry> userSecurityQuestionsEntryList = new ArrayList<UserSecurityQuestionsEntry>();
+        final SecurityQuestionsUpdateRequest securityQuestionsUpdateRequest = new SecurityQuestionsUpdateRequest();
+        final UserSecurityQuestions userSecurityQuestions = new UserSecurityQuestions();
+        final UserSecurityQuestionsMap userSecurityQuestionsMap = new UserSecurityQuestionsMap();
+        final List<UserSecurityQuestionsEntry> userSecurityQuestionsEntryList = new ArrayList<UserSecurityQuestionsEntry>();
         UserSecurityQuestionsEntry userSecurityQuestionsEntry = null;
         final List<SecurityDetails> securityDetailsList = securityDetailsHolder
                 .getSecurityDetails();
@@ -718,21 +719,21 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     @Override
     public final List<Affiliation> getAffiliationsList(final String userId) {
 
-        List<AffiliationData> listofAffiliations = userProfiles
+        final List<AffiliationData> listofAffiliations = userProfiles
                 .getLookupCustomerProfile(userId)
                 .getLookupCustomerProfileResponse().getCustomerProfile()
                 .getAffiliations().getAffiliation();
-        List<Affiliation> listAffiliations = new ArrayList<Affiliation>();
+        final List<Affiliation> listAffiliations = new ArrayList<Affiliation>();
         if (!StringUtils.isEmpty(listofAffiliations)) {
 
-            for (AffiliationData affiliationData : listofAffiliations) {
+            for (final AffiliationData affiliationData : listofAffiliations) {
                 if (affiliationData.getStartDate() == null) {
                     break;
                 }
-                Affiliation affiliation = new Affiliation();
+                final Affiliation affiliation = new Affiliation();
                 affiliation.setAffiliationId(affiliationData.getId());
                 affiliation.setCity(affiliationData.getCity());
-                Country country = new Country();
+                final Country country = new Country();
                 country.setCountryCode(affiliationData.getCountryCd());
                 affiliation.setCountry(country);
                 affiliation
@@ -764,22 +765,22 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      */
     @Override
     public final List<ResearchFunder> getResearchFundersList(final String userId) {
-        List<ResearchFunderData> listOfResearchFunder = userProfiles
+        final List<ResearchFunderData> listOfResearchFunder = userProfiles
                 .getLookupCustomerProfile(userId)
                 .getLookupCustomerProfileResponse().getCustomerProfile()
                 .getResearchFunders().getResearchFunder();
-        List<ResearchFunder> researchFunderList = new ArrayList<ResearchFunder>();
+        final List<ResearchFunder> researchFunderList = new ArrayList<ResearchFunder>();
 
-        for (ResearchFunderData researchFunderData1 : listOfResearchFunder) {
-            ResearchFunder researchFunder = new ResearchFunder();
+        for (final ResearchFunderData researchFunderData1 : listOfResearchFunder) {
+            final ResearchFunder researchFunder = new ResearchFunder();
             researchFunder.setResearchFunderId(researchFunderData1
                     .getFunderID());
             researchFunder.setResearchFunderName(researchFunderData1
                     .getFunderName());
-            Set<String> grantNumber = new HashSet<String>();
-            List<String> grantList = researchFunderData1.getGrantNumbers()
-                    .getGrantNo();
-            for (String grant : grantList) {
+            final Set<String> grantNumber = new HashSet<String>();
+            final List<String> grantList = researchFunderData1
+                    .getGrantNumbers().getGrantNo();
+            for (final String grant : grantList) {
                 grantNumber.add(grant);
             }
             researchFunder.setGrantNumber(grantNumber);
@@ -799,17 +800,17 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
     @Override
     public final List<Society> getSocietylist(final String userId) {
-        List<SocietyData> listSocietyData = userProfiles
+        final List<SocietyData> listSocietyData = userProfiles
                 .getLookupCustomerProfile(userId)
                 .getLookupCustomerProfileResponse().getCustomerProfile()
                 .getSocietyList().getSociety();
-        List<Society> societyList = new ArrayList<Society>();
+        final List<Society> societyList = new ArrayList<Society>();
 
-        for (SocietyData societyData : listSocietyData) {
+        for (final SocietyData societyData : listSocietyData) {
             if (societyData.getSocietyId() == null) {
                 break;
             }
-            Society society = new Society();
+            final Society society = new Society();
             society.setSocietyId(societyData.getSocietyId());
             society.setSocietyName(societyData.getSocietyName());
             society.setMembershipNumber(societyData.getMembershipNo());
@@ -835,13 +836,13 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     @Override
     public final List<CoAuthor> getsCoAuthorsList(final String userId) {
 
-        List<CoAuthorData> listOfCoauthors = userProfiles
+        final List<CoAuthorData> listOfCoauthors = userProfiles
                 .getLookupCustomerProfile(userId)
                 .getLookupCustomerProfileResponse().getCustomerProfile()
                 .getCoAuthors().getCoAuthor();
-        List<CoAuthor> coAuthorList = new ArrayList<CoAuthor>();
-        for (CoAuthorData coAuthorData : listOfCoauthors) {
-            CoAuthor coAuthor = new CoAuthor();
+        final List<CoAuthor> coAuthorList = new ArrayList<CoAuthor>();
+        for (final CoAuthorData coAuthorData : listOfCoauthors) {
+            final CoAuthor coAuthor = new CoAuthor();
             coAuthor.setCoAuthorId(coAuthorData.getId());
             coAuthor.setEmailId(coAuthorData.getEmailId());
             coAuthor.setFirstName(coAuthorData.getFirstName());
@@ -865,15 +866,15 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     @Override
     public final List<Interests> getAreaOfInterests(final String userId) {
         List<Interests> areaList = null;
-        List<InterestData> listOfArea = userProfiles
+        final List<InterestData> listOfArea = userProfiles
                 .getLookupCustomerProfile(userId)
                 .getLookupCustomerProfileResponse().getCustomerProfile()
                 .getAreaOfInterest().getInterest();
         String aoeName = null;
         if (listOfArea != null) {
             areaList = new ArrayList<Interests>();
-            for (InterestData interestData : listOfArea) {
-                Interests interests = new Interests();
+            for (final InterestData interestData : listOfArea) {
+                final Interests interests = new Interests();
                 if (interestData != null) {
                     interests.setAoeId(interestData.getInterestcode());
                     aoeName = autocomplete.getNameByCode("areasOfInterests",
@@ -898,32 +899,32 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     @Override
     public final AlertsList getListOfAlerts(final String userId) {
 
-        CustomerProfile customerProfile = userProfiles
+        final CustomerProfile customerProfile = userProfiles
                 .getLookupCustomerProfile(userId)
                 .getLookupCustomerProfileResponse().getCustomerProfile();
 
-        AlertsData alertExtData = customerProfile.getAlerts();
-        AlertsList alertsResponse = new AlertsList();
+        final AlertsData alertExtData = customerProfile.getAlerts();
+        final AlertsList alertsResponse = new AlertsList();
         List<AlertData> listOfAlert = new ArrayList<AlertData>();
-        List<Alerts> daoAlertList = alertsDao.getAlerts();
-        List<String> emailList = new ArrayList<String>();
-        List<Alert> alertList = new ArrayList<Alert>();
+        final List<Alerts> daoAlertList = alertsDao.getAlerts();
+        final List<String> emailList = new ArrayList<String>();
+        final List<Alert> alertList = new ArrayList<Alert>();
         emailList.add(customerProfile.getCustomerDetails().getPrimaryEmail());
         emailList.add(customerProfile.getCustomerDetails().getSecondaryEmail());
         if (alertExtData != null) {
             listOfAlert = alertExtData.getAlert();
         }
 
-        for (Alerts daoAlert : daoAlertList) {
-            Alert alert = new Alert();
+        for (final Alerts daoAlert : daoAlertList) {
+            final Alert alert = new Alert();
             alert.setAlertId(daoAlert.getAlertCd());
             alert.setAlertName(daoAlert.getAlertName());
 
-            for (AlertData alertData : listOfAlert) {
+            for (final AlertData alertData : listOfAlert) {
                 if (alertData != null) {
                     final String alertId = alertData.getAlertID();
                     if (daoAlert.getAlertCd().equals(alertId)) {
-                        AlertType alertType = alertData.getType();
+                        final AlertType alertType = alertData.getType();
                         if ("1".equalsIgnoreCase(alertType.getEmail())) {
                             alert.setEmail(true);
                         }
@@ -961,20 +962,19 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      */
     @Override
     public final List<PreferredJournals> getPrefferedJournals(
-            final String userId) {
+            final String participantId) {
 
-        List<Journal> journalList = userProfiles
-                .getLookupCustomerProfile(userId)
-                .getLookupCustomerProfileResponse().getCustomerProfile()
-                .getFavoriteJournals().getJournal();
-        List<PreferredJournals> prefferedList = new ArrayList<PreferredJournals>();
-        for (Journal journal : journalList) {
-            PreferredJournals preferredJournals = new PreferredJournals();
-            preferredJournals.setJournalId(journal.getId());
-            preferredJournals.setJournalTitle(journal.getJournalTitle());
+        final List<Preferences> preference = participantService
+                .getPreferredJournals(participantId).getContent();
+
+        final List<PreferredJournals> prefferedList = new ArrayList<PreferredJournals>();
+        for (final Preferences preferences : preference) {
+            final PreferredJournals preferredJournals = new PreferredJournals();
+            preferredJournals.setJournalId(preferences.getPreferenceKey());
+            preferredJournals.setJournalTitle(preferences.getPreferenceValue());
             prefferedList.add(preferredJournals);
-
         }
+
         return prefferedList;
     }
 
@@ -988,7 +988,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     @Override
     public final CustomerDetails getCustomeProfile(final String userId) {
 
-        CustomerDetails customerDetails = userProfiles
+        final CustomerDetails customerDetails = userProfiles
                 .getLookupCustomerProfile(userId)
                 .getLookupCustomerProfileResponse().getCustomerProfile()
                 .getCustomerDetails();
@@ -1048,10 +1048,10 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      */
     private boolean orcidIdDetails(final String userId, final String orcidId) {
 
-        CustomerDetails customerDetails = getCustomeProfile(userId);
+        final CustomerDetails customerDetails = getCustomeProfile(userId);
         customerDetails.setOrcId(orcidId);
-        LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
-        CustomerProfile customerProfile = new CustomerProfile();
+        final LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
+        final CustomerProfile customerProfile = new CustomerProfile();
         customerProfile.setCustomerDetails(customerDetails);
         lookupCustomerProfileResponse.setCustomerProfile(customerProfile);
         return userProfiles
@@ -1069,7 +1069,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     @Override
     public final byte[] getProfilePicture(final String userId) {
 
-        byte[] imageAsBytes = null;
+        final byte[] imageAsBytes = null;
 
         // UserProfile userProfile = authorProfileDao.getProfilePicture(userId);
 
@@ -1096,13 +1096,13 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     public boolean deleteSociety(final String userId, final String societyId,
             final String id) {
 
-        CustomerDetails customerDetails = getCustomeProfile(String
+        final CustomerDetails customerDetails = getCustomeProfile(String
                 .valueOf(userId));
-        LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
-        CustomerProfile customerProfile = new CustomerProfile();
+        final LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
+        final CustomerProfile customerProfile = new CustomerProfile();
         customerProfile.setCustomerDetails(customerDetails);
-        SocietyList societyList = new SocietyList();
-        SocietyData societyData = new SocietyData();
+        final SocietyList societyList = new SocietyList();
+        final SocietyData societyData = new SocietyData();
         societyData.setId(id);
         societyData.setStartDate("1999-05-31T13:20:00-05:00");
         societyData.setStatus("delete");
@@ -1127,14 +1127,14 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     @Override
     public boolean deleteAffiliations(final String userId,
             final String affiliationId) {
-        CustomerDetails customerDetails = getCustomeProfile(String
+        final CustomerDetails customerDetails = getCustomeProfile(String
                 .valueOf(userId));
-        LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
-        CustomerProfile customerProfile = new CustomerProfile();
+        final LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
+        final CustomerProfile customerProfile = new CustomerProfile();
         customerProfile.setCustomerDetails(customerDetails);
-        AffiliationsData affsData = new AffiliationsData();
-        List<AffiliationData> affDataList = new ArrayList<AffiliationData>();
-        AffiliationData affData = new AffiliationData();
+        final AffiliationsData affsData = new AffiliationsData();
+        final List<AffiliationData> affDataList = new ArrayList<AffiliationData>();
+        final AffiliationData affData = new AffiliationData();
         affData.setId(affiliationId);
         affData.setStartDate("1999-05-31T13:20:00-05:00");
         affDataList.add(affData);
@@ -1157,17 +1157,17 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
     @Override
     public boolean deleteInterests(final String userId, final String interestId) {
-        CustomerDetails customerDetails = getCustomeProfile(String
+        final CustomerDetails customerDetails = getCustomeProfile(String
                 .valueOf(userId));
-        LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
-        CustomerProfile customerProfile = new CustomerProfile();
+        final LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
+        final CustomerProfile customerProfile = new CustomerProfile();
         customerProfile.setCustomerDetails(customerDetails);
-        InterestData interestData = new InterestData();
+        final InterestData interestData = new InterestData();
         interestData.setId(interestId);
         interestData.setStatus("delete");
-        List<InterestData> interestDataList = new ArrayList<InterestData>();
+        final List<InterestData> interestDataList = new ArrayList<InterestData>();
         interestDataList.add(interestData);
-        AreaOfInterest areaOfInterest = new AreaOfInterest();
+        final AreaOfInterest areaOfInterest = new AreaOfInterest();
         areaOfInterest.setInterest(interestDataList);
         customerProfile.setAreaOfInterest(areaOfInterest);
         lookupCustomerProfileResponse.setCustomerProfile(customerProfile);
@@ -1186,18 +1186,18 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     @Override
     public boolean deletePreferredJournals(final String userId,
             final String journalId) {
-        CustomerDetails customerDetails = getCustomeProfile(String
+        final CustomerDetails customerDetails = getCustomeProfile(String
                 .valueOf(userId));
-        LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
-        CustomerProfile customerProfile = new CustomerProfile();
+        final LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
+        final CustomerProfile customerProfile = new CustomerProfile();
         customerProfile.setCustomerDetails(customerDetails);
 
-        Journal journal = new Journal();
+        final Journal journal = new Journal();
         journal.setId(journalId);
         journal.setStatus("delete");
-        List<Journal> journalsList = new ArrayList<Journal>();
+        final List<Journal> journalsList = new ArrayList<Journal>();
         journalsList.add(journal);
-        FavoriteJournals favoriteJournals = new FavoriteJournals();
+        final FavoriteJournals favoriteJournals = new FavoriteJournals();
         favoriteJournals.setJournal(journalsList);
         customerProfile.setFavoriteJournals(favoriteJournals);
         lookupCustomerProfileResponse.setCustomerProfile(customerProfile);
@@ -1209,16 +1209,16 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     @Override
     public boolean addInterests(final String userId,
             final AreaOfInterests areaOfInterests) {
-        CustomerDetails customerDetails = getCustomeProfile(String
+        final CustomerDetails customerDetails = getCustomeProfile(String
                 .valueOf(userId));
-        LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
-        CustomerProfile customerProfile = new CustomerProfile();
+        final LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
+        final CustomerProfile customerProfile = new CustomerProfile();
         customerProfile.setCustomerDetails(customerDetails);
-        List<Interests> listOfIntersts = areaOfInterests.getInterests();
-        List<InterestData> interestDataList = new ArrayList<InterestData>();
-        AreaOfInterest areaOfInterest = new AreaOfInterest();
-        for (Interests interests : listOfIntersts) {
-            InterestData interestData = new InterestData();
+        final List<Interests> listOfIntersts = areaOfInterests.getInterests();
+        final List<InterestData> interestDataList = new ArrayList<InterestData>();
+        final AreaOfInterest areaOfInterest = new AreaOfInterest();
+        for (final Interests interests : listOfIntersts) {
+            final InterestData interestData = new InterestData();
             interestData.setId(interests.getId());
             interestData.setInterestcode(interests.getId());
             interestData.setStatus("add");
