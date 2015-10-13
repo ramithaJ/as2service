@@ -19,6 +19,9 @@ import org.springframework.http.HttpMethod;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
+import com.wiley.gr.ace.authorservices.model.external.AutocompleteResponse;
+import com.wiley.gr.ace.authorservices.model.external.AutocompleteSearch;
 import com.wiley.gr.ace.authorservices.search.model.SearchRequest;
 import com.wiley.gr.ace.authorservices.search.model.SearchResponse;
 import com.wiley.gr.ace.authorservices.services.search.external.service.SearchExternalService;
@@ -57,6 +60,16 @@ public class SearchExternalServiceImpl implements SearchExternalService {
                 HttpMethod.POST, httpEntity, SearchResponse.class).getBody();
 
         return response;
+    }
+
+    @Override
+    public AutocompleteResponse autocompleteSearch(
+            final AutocompleteSearch autocompleteSearch) {
+
+        return (AutocompleteResponse) RestServiceInvokerUtil
+                .restServiceInvoker(
+                        "http://10.201.64.81:8090/searchservice/v1/api/_suggest",
+                        autocompleteSearch, AutocompleteResponse.class);
     }
 
 }

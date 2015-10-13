@@ -233,13 +233,22 @@ public class ParticipantsInterfaceServiceImpl implements
 
     @Override
     public Preference getPreferredJournals(final String participantId) {
-        final String url = "http://assearchdev.wiley.com:8080/v1/participants/ede3be84-84a7-4954-9750-654c2902492f/preferences";
+        final String url = "http://assearchdev.wiley.com:8080/v1/participants/"
+                + participantId + "/preferences";
         final Preference preferred = (Preference) RestServiceInvokerUtil
                 .getServiceData(url, Preference.class);
 
         return preferred;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.wiley.gr.ace.authorservices.externalservices.service.
+     * ParticipantsInterfaceService
+     * #deletePreferredJournal(com.wiley.gr.ace.authorservices
+     * .model.external.ProfileEntity)
+     */
     @Override
     public boolean deletePreferredJournal(final ProfileEntity profileEntity) {
         final String url = "/v1/profile/";
@@ -248,4 +257,11 @@ public class ParticipantsInterfaceServiceImpl implements
         return false;
     }
 
+    @Override
+    public void addPreferredJournals(final ProfileEntity profileEntity) {
+
+        final String url = "/v1/profile/";
+        RestServiceInvokerUtil.restServiceInvoker(url, profileEntity,
+                String.class);
+    }
 }

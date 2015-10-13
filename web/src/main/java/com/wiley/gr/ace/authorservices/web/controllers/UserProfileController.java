@@ -33,6 +33,7 @@ import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.AlertsList;
 import com.wiley.gr.ace.authorservices.model.AreaOfInterests;
+import com.wiley.gr.ace.authorservices.model.JournalDetails;
 import com.wiley.gr.ace.authorservices.model.ProfilePicture;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.Society;
@@ -375,13 +376,16 @@ public class UserProfileController {
      *            - The request value
      * @return service
      */
-    @RequestMapping(value = "/preferredJournals/search/{userId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/preferredJournals/{userId}/", method = RequestMethod.POST)
     public final Service searchPreferredJournals(
-            @PathVariable("userId") final String userId) {
-
+            @PathVariable("userId") final String userId,
+            @RequestBody final JournalDetails journalDetails) {
+        final Service service = new Service();
         UserProfileController.LOGGER
                 .info("inside searchPreferredJournals method ");
-        return new Service();
+        service.setPayload(authorProfileService.addPreferredJournal(userId,
+                journalDetails));
+        return service;
     }
 
     /**
@@ -704,6 +708,21 @@ public class UserProfileController {
             service.setStatus("Failure");
             service.setPayload(isUpdated);
         }
+        return service;
+    }
+
+    /**
+     * get WOA accounts.
+     * 
+     * @param participantId
+     *            the request value.
+     * @return service
+     */
+    @RequestMapping(value = "/woaaccounts/{participantId}/", method = RequestMethod.GET)
+    public Service getWOAAccounts(
+            @PathVariable("ParticipantId") final String participantId) {
+        Service service = new Service();
+        service.setPayload(userProfileService.getWOAaccounts(participantId));
         return service;
     }
 }
