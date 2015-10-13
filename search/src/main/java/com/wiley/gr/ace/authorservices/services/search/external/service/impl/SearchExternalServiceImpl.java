@@ -11,14 +11,12 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.search.external.service.impl;
 
-import java.io.File;
-
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
 import com.wiley.gr.ace.authorservices.model.external.AutocompleteResponse;
 import com.wiley.gr.ace.authorservices.model.external.AutocompleteSearch;
@@ -41,21 +39,13 @@ public class SearchExternalServiceImpl implements SearchExternalService {
     @Override
     public final SearchResponse search(final SearchRequest searchRequest) {
 
-        final ObjectMapper mapper = new ObjectMapper();
-        try {
-            mapper.writeValue(new File("c:\\ravi\\user.json"), searchRequest);
-
-        } catch (final Exception e) {
-
-            e.printStackTrace();
-        }
-
-        final HttpHeaders headers = new HttpHeaders();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         headers.add("role", "REGISTERED");
 
-        final HttpEntity<SearchResponse> httpEntity = new HttpEntity<SearchResponse>(
-                headers);
-        final SearchResponse response = new RestTemplate().exchange(
+        HttpEntity<SearchRequest> httpEntity = new HttpEntity<SearchRequest>(
+                searchRequest, headers);
+        SearchResponse response = new RestTemplate().exchange(
                 "http://10.201.64.81:8090/searchservice/v1/api/_search",
                 HttpMethod.POST, httpEntity, SearchResponse.class).getBody();
 
