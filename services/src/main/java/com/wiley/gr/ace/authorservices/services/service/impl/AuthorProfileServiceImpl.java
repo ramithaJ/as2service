@@ -27,7 +27,6 @@ import org.springframework.util.StringUtils;
 import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteService;
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.external.util.ASDateFormatUtil;
-import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.ParticipantsInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
@@ -135,8 +134,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     @Autowired(required = true)
     private ParticipantsInterfaceService participantsInterfaceService;
 
-    @Autowired
-    private ESBInterfaceService eSBInterfaceService;
+    
 
     /**
      * Update society details.
