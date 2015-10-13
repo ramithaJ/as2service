@@ -42,8 +42,9 @@ public class ParticipantsInterfaceServiceImpl implements
     @Value("${searchparticipantbyid.url}")
     private String searchparticipantbyidurl;
 
-    @Value("${participant-crud.url}")
-    private String participantCrudUrl;
+    /*
+     * @Value("${participant-crud.url}") private String participantCrudUrl;
+     */
 
     /**
      * Creates the participant.
