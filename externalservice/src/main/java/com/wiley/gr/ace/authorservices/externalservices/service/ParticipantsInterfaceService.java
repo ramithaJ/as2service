@@ -173,4 +173,6 @@ public interface ParticipantsInterfaceService {
      */
     Preference getPreferredJournals(String participantId);
 
+    boolean deletePreferredJournal(ProfileEntity profileEntity);
+
 }

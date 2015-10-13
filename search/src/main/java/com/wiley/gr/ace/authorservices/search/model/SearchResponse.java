@@ -11,135 +11,149 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.search.model;
 
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * The Class SearchResponse.
  */
-public class SearchResponse {
-	
-	/** The total. */
-	private String total;
+public class SearchResponse implements Serializable {
 
-	/** The hits. */
-	private Hits[] hits;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
 
-	/** The timed_out. */
-	private String timed_out;
+    /** The total. */
+    private String total;
 
-	/** The facets. */
-	private Facets facets;
+    /** The hits. */
+    private List<Hits> hits;
 
-	/** The took. */
-	private String took;
+    /** The timed_out. */
+    private String timed_out;
 
-	/** The max_score. */
-	private String max_score;
+    /** The facets. */
+    private Facets facets;
 
-	/**
-	 * Gets the total.
-	 *
-	 * @return the total
-	 */
-	public final String getTotal() {
-		return total;
-	}
+    /** The took. */
+    private String took;
 
-	/**
-	 * Sets the total.
-	 *
-	 * @param total the new total
-	 */
-	public final void setTotal(final String total) {
-		this.total = total;
-	}
+    /** The max_score. */
+    private String max_score;
 
-	/**
-	 * Gets the hits.
-	 *
-	 * @return the hits
-	 */
-	public final Hits[] getHits() {
-		return hits;
-	}
+    /**
+     * Gets the total.
+     *
+     * @return the total
+     */
+    public final String getTotal() {
+        return total;
+    }
 
-	/**
-	 * Sets the hits.
-	 *
-	 * @param hits the new hits
-	 */
-	public final void setHits(final Hits[] hits) {
-		this.hits = hits;
-	}
+    /**
+     * Sets the total.
+     *
+     * @param total
+     *            the new total
+     */
+    public final void setTotal(final String total) {
+        this.total = total;
+    }
 
-	/**
-	 * Gets the timed_out.
-	 *
-	 * @return the timed_out
-	 */
-	public final String getTimed_out() {
-		return timed_out;
-	}
+    /**
+     * Gets the hits.
+     *
+     * @return the hits
+     */
+    public final List<Hits> getHits() {
+        return hits;
+    }
 
-	/**
-	 * Sets the timed_out.
-	 *
-	 * @param timed_out the new timed_out
-	 */
-	public final void setTimed_out(final String timed_out) {
-		this.timed_out = timed_out;
-	}
+    /**
+     * Sets the hits.
+     *
+     * @param hits
+     *            the new hits
+     */
+    public final void setHits(final List<Hits> hits) {
+        this.hits = hits;
+    }
 
-	/**
-	 * Gets the facets.
-	 *
-	 * @return the facets
-	 */
-	public final Facets getFacets() {
-		return facets;
-	}
+    /**
+     * Gets the timed_out.
+     *
+     * @return the timed_out
+     */
+    public final String getTimed_out() {
+        return timed_out;
+    }
 
-	/**
-	 * Sets the facets.
-	 *
-	 * @param facets the new facets
-	 */
-	public final void setFacets(final Facets facets) {
-		this.facets = facets;
-	}
+    /**
+     * Sets the timed_out.
+     *
+     * @param timed_out
+     *            the new timed_out
+     */
+    public final void setTimed_out(final String timed_out) {
+        this.timed_out = timed_out;
+    }
 
-	/**
-	 * Gets the took.
-	 *
-	 * @return the took
-	 */
-	public final String getTook() {
-		return took;
-	}
+    /**
+     * Gets the facets.
+     *
+     * @return the facets
+     */
+    public final Facets getFacets() {
+        return facets;
+    }
 
-	/**
-	 * Sets the took.
-	 *
-	 * @param took the new took
-	 */
-	public final void setTook(final String took) {
-		this.took = took;
-	}
+    /**
+     * Sets the facets.
+     *
+     * @param facets
+     *            the new facets
+     */
+    public final void setFacets(final Facets facets) {
+        this.facets = facets;
+    }
 
-	/**
-	 * Gets the max_score.
-	 *
-	 * @return the max_score
-	 */
-	public final String getMax_score() {
-		return max_score;
-	}
+    /**
+     * Gets the took.
+     *
+     * @return the took
+     */
+    public final String getTook() {
+        return took;
+    }
 
-	/**
-	 * Sets the max_score.
-	 *
-	 * @param max_score the new max_score
-	 */
-	public final void setMax_score(final String max_score) {
-		this.max_score = max_score;
-	}
+    /**
+     * Sets the took.
+     *
+     * @param took
+     *            the new took
+     */
+    public final void setTook(final String took) {
+        this.took = took;
+    }
+
+    /**
+     * Gets the max_score.
+     *
+     * @return the max_score
+     */
+    public final String getMax_score() {
+        return max_score;
+    }
+
+    /**
+     * Sets the max_score.
+     *
+     * @param max_score
+     *            the new max_score
+     */
+    public final void setMax_score(final String max_score) {
+        this.max_score = max_score;
+    }
 
 }

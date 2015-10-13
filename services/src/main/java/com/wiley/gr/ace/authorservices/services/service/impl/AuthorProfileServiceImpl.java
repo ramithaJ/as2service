@@ -57,10 +57,9 @@ import com.wiley.gr.ace.authorservices.model.external.CoAuthorData;
 import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
 import com.wiley.gr.ace.authorservices.model.external.CustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.EntityValue;
-import com.wiley.gr.ace.authorservices.model.external.FavoriteJournals;
 import com.wiley.gr.ace.authorservices.model.external.InterestData;
 import com.wiley.gr.ace.authorservices.model.external.InterestList;
-import com.wiley.gr.ace.authorservices.model.external.Journal;
+import com.wiley.gr.ace.authorservices.model.external.JournalElement;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfileResponse;
 import com.wiley.gr.ace.authorservices.model.external.Participant;
@@ -133,8 +132,6 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      */
     @Autowired(required = true)
     private ParticipantsInterfaceService participantsInterfaceService;
-
-    
 
     /**
      * Update society details.
@@ -1188,24 +1185,18 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     @Override
     public boolean deletePreferredJournals(final String userId,
             final String journalId) {
-        final CustomerDetails customerDetails = getCustomeProfile(String
-                .valueOf(userId));
-        final LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
-        final CustomerProfile customerProfile = new CustomerProfile();
-        customerProfile.setCustomerDetails(customerDetails);
-
-        final Journal journal = new Journal();
-        journal.setId(journalId);
-        journal.setStatus("delete");
-        final List<Journal> journalsList = new ArrayList<Journal>();
-        journalsList.add(journal);
-        final FavoriteJournals favoriteJournals = new FavoriteJournals();
-        favoriteJournals.setJournal(journalsList);
-        customerProfile.setFavoriteJournals(favoriteJournals);
-        lookupCustomerProfileResponse.setCustomerProfile(customerProfile);
-
-        return userProfiles
-                .customerProfileUpdate(lookupCustomerProfileResponse);
+        final boolean status = false;
+        final ProfileEntity profileEntity = new ProfileEntity();
+        profileEntity.setEntityType("FAVJOURNAL");
+        final JournalElement journalElement = new JournalElement();
+        journalElement.setRelationshipId(journalId);
+        final EntityValue entityValue = new EntityValue();
+        entityValue.setJournal(journalElement);
+        profileEntity.setEntityValue(entityValue);
+        profileEntity.setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
+        profileEntity.setEntityId(userId);
+        participantsInterfaceService.deletePreferredJournal(profileEntity);
+        return status;
     }
 
     @Override
