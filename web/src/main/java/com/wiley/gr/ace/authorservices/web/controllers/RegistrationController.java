@@ -363,13 +363,16 @@ public class RegistrationController {
      *
      * @param almUserId
      *            the alm user id
+     * @param sendEmailFlag
+     *            the send email flag
      * @return the service
      */
     @RequestMapping(value = "/createFinal", method = RequestMethod.GET)
     public final Service createParticipantAndContact(
-            @RequestParam("almUserId") final String almUserId) {
+            @RequestParam("almUserId") final String almUserId,
+            @RequestParam("sendEmailFlag") final String sendEmailFlag) {
 
-        registrationService.doFinalCreate(almUserId);
+        registrationService.doFinalCreate(almUserId, sendEmailFlag);
 
         return new Service();
     }

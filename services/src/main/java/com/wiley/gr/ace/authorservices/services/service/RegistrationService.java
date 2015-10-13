@@ -79,9 +79,11 @@ public interface RegistrationService {
      *
      * @param almUserId
      *            the alm user id
+     * @param sendEmailFlag
+     *            the send email flag
      * @return the string
      */
-    String doFinalCreate(String almUserId);
+    String doFinalCreate(String almUserId, String sendEmailFlag);
 
     /**
      * Verify account.

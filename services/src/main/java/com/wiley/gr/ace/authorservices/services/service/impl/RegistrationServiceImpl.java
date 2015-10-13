@@ -321,15 +321,19 @@ public class RegistrationServiceImpl implements RegistrationService {
      *
      * @param almUserId
      *            the alm user id
+     * @param sendEmailFlag
+     *            the send email flag
      * @return the string
      */
     @Override
-    public String doFinalCreate(final String almUserId) {
+    public String doFinalCreate(final String almUserId,
+            final String sendEmailFlag) {
 
         String status = null;
         try {
             User user = returnUserFromDB(almUserId);
             user.setUserId(almUserId);
+            user.setSendEmailFlag(sendEmailFlag);
             String ptpId = createParticipant(user);
             if (!StringUtils.isEmpty(ptpId)) {
                 user.setParticipantId(ptpId);
