@@ -11,11 +11,14 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.search.external.service.impl;
 
+import java.io.File;
+
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wiley.gr.ace.authorservices.search.model.SearchRequest;
 import com.wiley.gr.ace.authorservices.search.model.SearchResponse;
 import com.wiley.gr.ace.authorservices.services.search.external.service.SearchExternalService;
@@ -25,26 +28,35 @@ import com.wiley.gr.ace.authorservices.services.search.external.service.SearchEx
  */
 public class SearchExternalServiceImpl implements SearchExternalService {
 
-	/**
-	 * This method is for Searching
-	 * 
-	 * @param searchRequest
-	 * @return searchresponse.
-	 * 
-	 * */
-	@Override
-	public final SearchResponse search(final SearchRequest searchRequest) {
+    /**
+     * This method is for Searching
+     * 
+     * @param searchRequest
+     * @return searchresponse.
+     * 
+     * */
+    @Override
+    public final SearchResponse search(final SearchRequest searchRequest) {
 
-		final HttpHeaders headers = new HttpHeaders();
-		headers.add("role", "REGISTERED");
+        final ObjectMapper mapper = new ObjectMapper();
+        try {
+            mapper.writeValue(new File("c:\\ravi\\user.json"), searchRequest);
 
-		final HttpEntity<SearchResponse> httpEntity = new HttpEntity<SearchResponse>(
-				headers);
-		final SearchResponse response = new RestTemplate().exchange(
-				"http://10.201.64.81:8090/searchservice/v1/api/_search",
-				HttpMethod.POST, httpEntity, SearchResponse.class).getBody();
+        } catch (final Exception e) {
 
-		return response;
-	}
+            e.printStackTrace();
+        }
+
+        final HttpHeaders headers = new HttpHeaders();
+        headers.add("role", "REGISTERED");
+
+        final HttpEntity<SearchResponse> httpEntity = new HttpEntity<SearchResponse>(
+                headers);
+        final SearchResponse response = new RestTemplate().exchange(
+                "http://10.201.64.81:8090/searchservice/v1/api/_search",
+                HttpMethod.POST, httpEntity, SearchResponse.class).getBody();
+
+        return response;
+    }
 
 }

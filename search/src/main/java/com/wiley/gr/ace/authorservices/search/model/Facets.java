@@ -11,30 +11,37 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.search.model;
 
+import java.io.Serializable;
+
 /**
  * The Class Facets.
  */
-public class Facets {
-	
-	/** The tag. */
-	private Tag tag;
+public class Facets implements Serializable {
 
-	/**
-	 * Gets the tag.
-	 *
-	 * @return the tag
-	 */
-	public final Tag getTag() {
-		return tag;
-	}
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+    /** The tag. */
+    private Tag tag;
 
-	/**
-	 * Sets the tag.
-	 *
-	 * @param tag the new tag
-	 */
-	public final void setTag(final Tag tag) {
-		this.tag = tag;
-	}
+    /**
+     * Gets the tag.
+     *
+     * @return the tag
+     */
+    public final Tag getTag() {
+        return tag;
+    }
+
+    /**
+     * Sets the tag.
+     *
+     * @param tag
+     *            the new tag
+     */
+    public final void setTag(final Tag tag) {
+        this.tag = tag;
+    }
 
 }

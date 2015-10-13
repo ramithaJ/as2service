@@ -11,97 +11,104 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.search.model;
 
+import java.io.Serializable;
+
 /**
  * The Class Hits.
  */
-public class Hits {
+public class Hits implements Serializable {
 
-	/** The id. */
-	private String id;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
 
-	/** The source. */
-	private Source source;
+    /** The id. */
+    private String id;
 
-	/** The score. */
-	private String score;
+    /** The source. */
+    private Source source;
 
-	/** The type. */
-	private String type;
+    /** The score. */
+    private String score;
 
-	/**
-	 * Gets the id.
-	 *
-	 * @return the id
-	 */
-	public final String getId() {
-		return id;
-	}
+    /** The type. */
+    private String type;
 
-	/**
-	 * Sets the id.
-	 *
-	 * @param id
-	 *            the new id
-	 */
-	public final void setId(final String id) {
-		this.id = id;
-	}
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
+    public final String getId() {
+        return id;
+    }
 
-	/**
-	 * Gets the source.
-	 *
-	 * @return the source
-	 */
-	public final Source getSource() {
-		return source;
-	}
+    /**
+     * Sets the id.
+     *
+     * @param id
+     *            the new id
+     */
+    public final void setId(final String id) {
+        this.id = id;
+    }
 
-	/**
-	 * Sets the source.
-	 *
-	 * @param source
-	 *            the new source
-	 */
-	public final void setSource(final Source source) {
-		this.source = source;
-	}
+    /**
+     * Gets the source.
+     *
+     * @return the source
+     */
+    public final Source getSource() {
+        return source;
+    }
 
-	/**
-	 * Gets the score.
-	 *
-	 * @return the score
-	 */
-	public final String getScore() {
-		return score;
-	}
+    /**
+     * Sets the source.
+     *
+     * @param source
+     *            the new source
+     */
+    public final void setSource(final Source source) {
+        this.source = source;
+    }
 
-	/**
-	 * Sets the score.
-	 *
-	 * @param score
-	 *            the new score
-	 */
-	public final void setScore(final String score) {
-		this.score = score;
-	}
+    /**
+     * Gets the score.
+     *
+     * @return the score
+     */
+    public final String getScore() {
+        return score;
+    }
 
-	/**
-	 * Gets the type.
-	 *
-	 * @return the type
-	 */
-	public final String getType() {
-		return type;
-	}
+    /**
+     * Sets the score.
+     *
+     * @param score
+     *            the new score
+     */
+    public final void setScore(final String score) {
+        this.score = score;
+    }
 
-	/**
-	 * Sets the type.
-	 *
-	 * @param type
-	 *            the new type
-	 */
-	public final void setType(final String type) {
-		this.type = type;
-	}
+    /**
+     * Gets the type.
+     *
+     * @return the type
+     */
+    public final String getType() {
+        return type;
+    }
+
+    /**
+     * Sets the type.
+     *
+     * @param type
+     *            the new type
+     */
+    public final void setType(final String type) {
+        this.type = type;
+    }
 
 }

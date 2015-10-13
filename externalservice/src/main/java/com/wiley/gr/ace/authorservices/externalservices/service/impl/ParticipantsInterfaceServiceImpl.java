@@ -114,7 +114,7 @@ public class ParticipantsInterfaceServiceImpl implements
     @Override
     public final AddressMapper getAddress(final String participantId)
             throws Exception {
-        String url = "http://assearchdev.wiley.com:8080/v1/participants/"
+        final String url = "http://assearchdev.wiley.com:8080/v1/participants/"
                 + participantId + "/addresses";
         return (AddressMapper) StubInvokerUtil.restGetServiceInvoker(url,
                 AddressMapper.class);
@@ -234,6 +234,14 @@ public class ParticipantsInterfaceServiceImpl implements
                 .getServiceData(url, Preference.class);
 
         return preferred;
+    }
+
+    @Override
+    public boolean deletePreferredJournal(final ProfileEntity profileEntity) {
+        final String url = "/v1/profile/";
+
+        RestServiceInvokerUtil.deleteparticipantServiceData(url, profileEntity);
+        return false;
     }
 
 }

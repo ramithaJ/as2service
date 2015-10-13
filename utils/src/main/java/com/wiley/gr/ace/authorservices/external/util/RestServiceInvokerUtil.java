@@ -13,6 +13,7 @@
 package com.wiley.gr.ace.authorservices.external.util;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -64,12 +65,12 @@ public class RestServiceInvokerUtil {
             final Object postObject) throws ASException, RestClientException,
             URISyntaxException {
 
-        RestTemplate restTemplate = new RestTemplate();
+        final RestTemplate restTemplate = new RestTemplate();
 
         ResponseEntity<SecurityResponse> response = null;
         if (className.equals("Login")) {
-            JSONObject jsonObject = new JSONObject();
-            Login loginData = (Login) postObject;
+            final JSONObject jsonObject = new JSONObject();
+            final Login loginData = (Login) postObject;
             jsonObject.put("userId", loginData.getEmailId());
             jsonObject.put("password", loginData.getPassword());
             jsonObject.put("authenticationType", "AD");
@@ -109,10 +110,10 @@ public class RestServiceInvokerUtil {
             final Class<T> responseEntityClass) {
 
         try {
-            ResponseEntity<T> response = new RestTemplate().getForEntity(
+            final ResponseEntity<T> response = new RestTemplate().getForEntity(
                     new URI(url), responseEntityClass);
             return response.getBody();
-        } catch (URISyntaxException e) {
+        } catch (final URISyntaxException e) {
             throw new UserException(AuthorServicesConstants.SERVERERRORCODE,
                     AuthorServicesConstants.SERVERERRORMESSAGE);
         }
@@ -135,8 +136,9 @@ public class RestServiceInvokerUtil {
             final Object requestEntityClass, final Class<T> responseEntityClass) {
 
         try {
-            ResponseEntity<T> response = new RestTemplate().postForEntity(
-                    new URI(url), requestEntityClass, responseEntityClass);
+            final ResponseEntity<T> response = new RestTemplate()
+                    .postForEntity(new URI(url), requestEntityClass,
+                            responseEntityClass);
             if (StringUtils.isEmpty(response)) {
                 throw new UserException(
                         AuthorServicesConstants.NODATAFOUNDCODE,
@@ -144,7 +146,7 @@ public class RestServiceInvokerUtil {
             }
             return response.getBody();
 
-        } catch (Exception e) {
+        } catch (final Exception e) {
             final String message = e.getMessage();
             if (AuthorServicesConstants.UNAUTHORIZEDMSG
                     .equalsIgnoreCase(message)) {
@@ -177,7 +179,7 @@ public class RestServiceInvokerUtil {
         try {
             new RestTemplate().put(new URI(url), requestEntity);
 
-        } catch (URISyntaxException e) {
+        } catch (final URISyntaxException e) {
             throw new UserException(AuthorServicesConstants.SERVERERRORCODE,
                     AuthorServicesConstants.SERVERERRORMESSAGE);
         }
@@ -194,11 +196,12 @@ public class RestServiceInvokerUtil {
         try {
             new RestTemplate().delete(new URI(url));
 
-        } catch (URISyntaxException e) {
+        } catch (final URISyntaxException e) {
             throw new UserException(AuthorServicesConstants.SERVERERRORCODE,
                     AuthorServicesConstants.SERVERERRORMESSAGE);
         }
     }
+
     /**
      * @param url
      *            the request value.
@@ -213,17 +216,18 @@ public class RestServiceInvokerUtil {
         ESBResponse esbResponse = null;
         try {
 
-            URL urls = new URL(url);
-            HttpURLConnection conn = (HttpURLConnection) urls.openConnection();
+            final URL urls = new URL(url);
+            final HttpURLConnection conn = (HttpURLConnection) urls
+                    .openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
             final Integer responseCode = 200;
-            Integer code = conn.getResponseCode();
+            final Integer code = conn.getResponseCode();
             if (code.intValue() != responseCode) {
                 throw new RuntimeException("Failed : HTTP error code : " + code);
             }
 
-            BufferedReader bufferedReader = new BufferedReader(
+            final BufferedReader bufferedReader = new BufferedReader(
                     new InputStreamReader(conn.getInputStream()));
 
             String output = null;
@@ -235,31 +239,55 @@ public class RestServiceInvokerUtil {
             bufferedReader.close();
             conn.disconnect();
 
-        } catch (MalformedURLException e) {
+        } catch (final MalformedURLException e) {
 
             throw new UserException(
                     AuthorServicesConstants.INTERNAL_SERVER_ERROR,
                     e.getMessage());
 
-        } catch (IOException e) {
+        } catch (final IOException e) {
 
             throw new UserException(
                     AuthorServicesConstants.INTERNAL_SERVER_ERROR,
                     e.getMessage());
 
         }
-        JSONObject responseJSON = new JSONObject(responseString.toString());
-        ObjectMapper mapper = new ObjectMapper();
+        final JSONObject responseJSON = new JSONObject(
+                responseString.toString());
+        final ObjectMapper mapper = new ObjectMapper();
 
         try {
             esbResponse = mapper.readValue(responseJSON.toString(),
                     ESBResponse.class);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throw new UserException(
                     AuthorServicesConstants.INTERNAL_SERVER_ERROR,
                     e.getMessage());
         }
         return esbResponse;
 
+    }
+
+    /**
+     * Deleteparticipant service data.
+     *
+     * @param url
+     *            the url
+     * @param requestEntityClass
+     *            the request entity class
+     */
+    public static void deleteparticipantServiceData(final String url,
+            final Object requestEntityClass) {
+        final ObjectMapper mapper = new ObjectMapper();
+        try {
+            mapper.writeValue(new File("c:\\ravi\\user.json"),
+                    requestEntityClass);
+
+        } catch (final Exception e) {
+
+            e.printStackTrace();
+        }
+
+        new RestTemplate().delete(url, requestEntityClass);
     }
 }
