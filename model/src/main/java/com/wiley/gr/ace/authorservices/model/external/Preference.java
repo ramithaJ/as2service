@@ -14,6 +14,7 @@ package com.wiley.gr.ace.authorservices.model.external;
 import java.util.List;
 
 public class Preference {
+
     private List<Preferences> content;
 
     public final List<Preferences> getContent() {

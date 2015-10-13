@@ -710,4 +710,19 @@ public class UserProfileController {
         }
         return service;
     }
+
+    /**
+     * get WOA accounts.
+     * 
+     * @param participantId
+     *            the request value.
+     * @return service
+     */
+    @RequestMapping(value = "/woaaccounts/{participantId}/", method = RequestMethod.GET)
+    public Service getWOAAccounts(
+            @PathVariable("ParticipantId") final String participantId) {
+        Service service = new Service();
+        service.setPayload(userProfileService.getWOAaccounts(participantId));
+        return service;
+    }
 }

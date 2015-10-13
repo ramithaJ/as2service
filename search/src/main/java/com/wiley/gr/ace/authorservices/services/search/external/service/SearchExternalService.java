@@ -11,6 +11,8 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.search.external.service;
 
+import com.wiley.gr.ace.authorservices.model.external.AutocompleteResponse;
+import com.wiley.gr.ace.authorservices.model.external.AutocompleteSearch;
 import com.wiley.gr.ace.authorservices.search.model.SearchRequest;
 import com.wiley.gr.ace.authorservices.search.model.SearchResponse;
 
@@ -19,13 +21,16 @@ import com.wiley.gr.ace.authorservices.search.model.SearchResponse;
  */
 public interface SearchExternalService {
 
-	/**
-	 * Search.
-	 *
-	 * @param searchRequest
-	 *            the search request
-	 * @return the search response
-	 */
-	SearchResponse search(SearchRequest searchRequest);
+    /**
+     * Search.
+     *
+     * @param searchRequest
+     *            the search request
+     * @return the search response
+     */
+    SearchResponse search(SearchRequest searchRequest);
+
+    AutocompleteResponse autocompleteSearch(
+            AutocompleteSearch autocompleteSearch);
 
 }

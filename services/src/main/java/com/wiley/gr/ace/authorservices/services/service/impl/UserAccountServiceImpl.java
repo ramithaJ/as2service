@@ -179,13 +179,13 @@ public class UserAccountServiceImpl implements UserAccountService {
         }
         user.setFirstName(participantResponse.getGivenName());
         user.setLastName(participantResponse.getFamilyName());
-        // user.setMiddleName(customerDetails.getmName()); // check
+        user.setMiddleName(participantResponse.getAdditionalName());
         final String suffixId = participantResponse.getHonorificSuffix();
         if (!StringUtils.isEmpty(suffixId)) {
             user.setSuffix(suffixId);
             user.setSuffixName(asDataDao.getData(suffixId));
         }
-        // user.setAlternateName();
+        user.setAlternateName(""); // TODO
         user.setPrimaryEmailAddr(participantResponse.getEmail());
         user.setRecoveryEmailAddress(participantResponse.getRecoveryEmail());
         final String industryCode = participantResponse.getIndustryId();
@@ -202,7 +202,7 @@ public class UserAccountServiceImpl implements UserAccountService {
         }
 
         user.setOrcidId(participantResponse.getOrcidId());
-        // user.setTermsOfUseFlg(customerDetails.getOptInFlag());
+        // user.setTermsOfUseFlg(customerDetails.getOptInFlag()); TODO
 
         return user;
     }

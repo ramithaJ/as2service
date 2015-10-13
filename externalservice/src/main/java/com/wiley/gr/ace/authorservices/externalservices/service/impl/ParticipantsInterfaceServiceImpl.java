@@ -229,7 +229,8 @@ public class ParticipantsInterfaceServiceImpl implements
 
     @Override
     public Preference getPreferredJournals(final String participantId) {
-        final String url = "http://assearchdev.wiley.com:8080/v1/participants/ede3be84-84a7-4954-9750-654c2902492f/preferences";
+        final String url = "http://assearchdev.wiley.com:8080/v1/participants/"
+                + participantId + "/preferences";
         final Preference preferred = (Preference) RestServiceInvokerUtil
                 .getServiceData(url, Preference.class);
 
