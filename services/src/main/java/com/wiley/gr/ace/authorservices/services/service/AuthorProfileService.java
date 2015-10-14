@@ -44,7 +44,7 @@ public interface AuthorProfileService {
      *            the society
      * @return true, if successful
      */
-    boolean updateSocietyDetails(int userId, Society society);
+    boolean updateSocietyDetails(String userId, Society society);
 
     /**
      * Update affiliation.

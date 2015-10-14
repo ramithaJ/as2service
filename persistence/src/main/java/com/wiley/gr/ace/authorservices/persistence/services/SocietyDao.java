@@ -14,7 +14,9 @@ package com.wiley.gr.ace.authorservices.persistence.services;
 
 import java.util.List;
 
+import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.persistence.entity.Societies;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserSocietyDetails;
 
 /**
  * The Interface SocietyDao.
@@ -29,5 +31,9 @@ public interface SocietyDao {
      * @return the society
      */
     List<Societies> getSociety();
+
+    List<UserSocietyDetails> getSocietyDetails(String participantId);
+
+    boolean updateSociety(String userId, Society society);
 
 }

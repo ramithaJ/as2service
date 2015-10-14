@@ -213,7 +213,7 @@ public class UserProfileController {
      */
     @RequestMapping(value = "/societies/{userId}", method = RequestMethod.POST)
     public final Service updateSocietyDetails(
-            @PathVariable("userId") final int userId,
+            @PathVariable("userId") final String userId,
             @Valid @RequestBody final Society society) {
 
         final Service service = new Service();

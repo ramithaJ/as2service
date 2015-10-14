@@ -74,8 +74,10 @@ import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestions;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsEntry;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsMap;
 import com.wiley.gr.ace.authorservices.persistence.entity.Alerts;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserSocietyDetails;
 import com.wiley.gr.ace.authorservices.persistence.services.AlertsDao;
 import com.wiley.gr.ace.authorservices.persistence.services.AuthorProfileDao;
+import com.wiley.gr.ace.authorservices.persistence.services.SocietyDao;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 import com.wiley.gr.ace.authorservices.services.service.SendNotification;
 
@@ -132,6 +134,12 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     private ParticipantsInterfaceService participantsInterfaceService;
 
     /**
+     * This field holds the value of societyDao.
+     */
+    @Autowired(required = true)
+    private SocietyDao societyDao;
+
+    /**
      * Update society details.
      *
      * @param userId
@@ -141,38 +149,11 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @return true, if successful
      */
     @Override
-    public final boolean updateSocietyDetails(final int userId,
+    public final boolean updateSocietyDetails(final String userId,
             final Society society) {
         AuthorProfileServiceImpl.LOGGER
                 .info("ins ide updateSocietyDetails Method ");
-        final CustomerDetails customerDetails = getCustomeProfile(String
-                .valueOf(userId));
-        final LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
-        final CustomerProfile customerProfile = new CustomerProfile();
-        customerProfile.setCustomerDetails(customerDetails);
-        final SocietyList societyList = new SocietyList();
-        final SocietyData societyData = new SocietyData();
-        societyData.setSocietyName(society.getSocietyName());
-        societyData.setStartDate(ASDateFormatUtil.convertDate(Long
-                .parseLong(society.getStartDate())));
-        societyData.setEndDate(ASDateFormatUtil.convertDate(Long
-                .parseLong(society.getEndDate())));
-        societyData.setPromoCode(society.getPromoCode());
-        societyData.setMembershipNo(society.getMembershipNumber());
-        societyData.setSocietyId(society.getSocietyId());
-        if ("0".equals(society.getId())) {
-            societyData.setStatus("add");
-        } else {
-            societyData.setId(society.getId());
-            societyData.setStatus("edit");
-        }
-        societyList.setSociety(new ArrayList<SocietyData>());
-        societyList.getSociety().add(societyData);
-        customerProfile.setCustomerDetails(customerDetails);
-        customerProfile.setSocietyList(societyList);
-        lookupCustomerProfileResponse.setCustomerProfile(customerProfile);
-        return userProfiles
-                .customerProfileUpdate(lookupCustomerProfileResponse);
+        return societyDao.updateSociety(userId, society);
 
     }
 
@@ -761,30 +742,29 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
     @Override
     public final List<Society> getSocietylist(final String userId) {
-        final List<SocietyData> listSocietyData = userProfiles
-                .getLookupCustomerProfile(userId)
-                .getLookupCustomerProfileResponse().getCustomerProfile()
-                .getSocietyList().getSociety();
-        final List<Society> societyList = new ArrayList<Society>();
 
-        for (final SocietyData societyData : listSocietyData) {
-            if (societyData.getSocietyId() == null) {
-                break;
-            }
-            final Society society = new Society();
-            society.setSocietyId(societyData.getSocietyId());
-            society.setSocietyName(societyData.getSocietyName());
-            society.setMembershipNumber(societyData.getMembershipNo());
-            society.setStartDate(ASDateFormatUtil.convertDateToLong(societyData
-                    .getStartDate()));
-            society.setEndDate(ASDateFormatUtil.convertDateToLong(societyData
-                    .getEndDate()));
-            society.setPromoCode(societyData.getPromoCode());
-            society.setId(societyData.getId());
-            societyList.add(society);
-
+        List<UserSocietyDetails> userSocietyDetailsList = societyDao
+                .getSocietyDetails(userId);
+        if (userSocietyDetailsList.isEmpty()) {
+            return null;
         }
-        return societyList;
+        List<Society> societiesList = new ArrayList<Society>();
+        Society society = null;
+        for (UserSocietyDetails userSocietyDetails : userSocietyDetailsList) {
+            society = new Society();
+            society.setId(userSocietyDetails.getUserSocietyId());
+            society.setSocietyId(userSocietyDetails.getSocieties()
+                    .getSocietyCd());
+            society.setSocietyName(userSocietyDetails.getSocietyName());
+            society.setMembershipNumber(userSocietyDetails.getMembershipNo());
+            society.setPromoCode(userSocietyDetails.getPromoCode());
+            society.setStartDate(null); // need to convert date to string
+                                        // userSocietyDetails.getStartDt()
+            society.setEndDate(null); // need to convert date to string
+                                      // userSocietyDetails.getEndDt()
+            societiesList.add(society);
+        }
+        return societiesList;
     }
 
     /**

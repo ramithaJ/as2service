@@ -32,7 +32,7 @@ public class Society implements Serializable {
     private String userId;
 
     /** The society id. */
-    
+
     private String societyId;
 
     /** The society name. */
@@ -55,12 +55,12 @@ public class Society implements Serializable {
 
     private String endDate;
 
-    private String id;
+    private Long id;
 
     /**
      * @return the id
      */
-    public final String getId() {
+    public final Long getId() {
         return id;
     }
 
@@ -68,8 +68,15 @@ public class Society implements Serializable {
      * @param id
      *            the id to set
      */
-    public final void setId(final String id) {
+    public final void setId(final Long id) {
         this.id = id;
+    }
+
+    /**
+     * @return the serialversionuid
+     */
+    public static final long getSerialversionuid() {
+        return serialVersionUID;
     }
 
     /**
