@@ -61,485 +61,497 @@ import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
  */
 public class RegistrationServiceImpl implements RegistrationService {
 
-    /** The registration service dao. */
-    @Autowired(required = true)
-    private RegistrationServiceDAO registrationServiceDAO;
+	/** The registration service dao. */
+	@Autowired(required = true)
+	private RegistrationServiceDAO registrationServiceDAO;
 
-    /** The alm interface service. */
-    @Autowired(required = true)
-    private ALMInterfaceService almInterfaceService;
+	/** The alm interface service. */
+	@Autowired(required = true)
+	private ALMInterfaceService almInterfaceService;
 
-    /** The participant interface service. */
-    @Autowired(required = true)
-    private ParticipantsInterfaceService participantInterfaceService;
+	/** The participant interface service. */
+	@Autowired(required = true)
+	private ParticipantsInterfaceService participantInterfaceService;
 
-    /** The cdm interface service. */
-    @Autowired(required = true)
-    private CDMInterfaceService cdmInterfaceService;
+	/** The cdm interface service. */
+	@Autowired(required = true)
+	private CDMInterfaceService cdmInterfaceService;
 
-    /** The shared service. */
-    @Autowired(required = true)
-    private SharedService sharedService;
+	/** The shared service. */
+	@Autowired(required = true)
+	private SharedService sharedService;
 
-    /** The notification service. */
-    @Autowired(required = true)
-    private NotificationService notificationService;
+	/** The notification service. */
+	@Autowired(required = true)
+	private NotificationService notificationService;
 
-    /** The account activated error code. */
-    @Value("${RegistrationController.verifyAccount.activated.code}")
-    private String accountActivatedErrorCode;
+	/** The account activated error code. */
+	@Value("${RegistrationController.verifyAccount.activated.code}")
+	private String accountActivatedErrorCode;
 
-    /** The account activated error message. */
-    @Value("${RegistrationController.verifyAccount.activated.message}")
-    private String accountActivatedErrorMessage;
+	/** The account activated error message. */
+	@Value("${RegistrationController.verifyAccount.activated.message}")
+	private String accountActivatedErrorMessage;
 
-    /** The account suspended error code. */
-    @Value("${RegistrationController.verifyAccount.suspended.code}")
-    private String accountSuspendedErrorCode;
+	/** The account suspended error code. */
+	@Value("${RegistrationController.verifyAccount.suspended.code}")
+	private String accountSuspendedErrorCode;
 
-    /** The account suspended error message. */
-    @Value("${RegistrationController.verifyAccount.suspended.message}")
-    private String accountSuspendedErrorMessage;
+	/** The account suspended error message. */
+	@Value("${RegistrationController.verifyAccount.suspended.message}")
+	private String accountSuspendedErrorMessage;
 
-    /** The no user found error code. */
-    @Value("${RegistrationController.verifyAccount.noUserFound.code}")
-    private String noUserFoundErrorCode;
+	/** The no user found error code. */
+	@Value("${RegistrationController.verifyAccount.noUserFound.code}")
+	private String noUserFoundErrorCode;
 
-    /** The no user found error message. */
-    @Value("${RegistrationController.verifyAccount.noUserFound.message}")
-    private String noUserFoundErrorMessage;
+	/** The no user found error message. */
+	@Value("${RegistrationController.verifyAccount.noUserFound.message}")
+	private String noUserFoundErrorMessage;
 
-    /** value from props file configured. */
-    @Value("${RegistrationController.checkUserExists.code}")
-    private String checkUserExistsErrorCode;
+	/** value from props file configured. */
+	@Value("${RegistrationController.checkUserExists.code}")
+	private String checkUserExistsErrorCode;
 
-    /** value from props file configured. */
-    @Value("${RegistrationController.checkUserExists.message}")
-    private String checkUserExistsErrorMessage;
+	/** value from props file configured. */
+	@Value("${RegistrationController.checkUserExists.message}")
+	private String checkUserExistsErrorMessage;
 
-    /** value from props file configured. */
-    @Value("${RegistrationController.createUser.code}")
-    private String createUserErrorCode;
+	/** value from props file configured. */
+	@Value("${RegistrationController.createUser.code}")
+	private String createUserErrorCode;
 
-    /** value from props file configured. */
-    @Value("${RegistrationController.createUser.message}")
-    private String createUserErrorMessage;
+	/** value from props file configured. */
+	@Value("${RegistrationController.createUser.message}")
+	private String createUserErrorMessage;
 
-    /**
-     * This is for getting details by UserFromFirstNameLastName.
-     *
-     * @param firstName
-     *            the first name
-     * @param lastName
-     *            the last name
-     * @return the user from first name last name
-     */
-    @Override
-    public final ArrayList<User> getUserFromFirstNameLastName(
-            final String firstName, final String lastName) {
+	/**
+	 * This is for getting details by UserFromFirstNameLastName.
+	 *
+	 * @param firstName
+	 *            the first name
+	 * @param lastName
+	 *            the last name
+	 * @return the user from first name last name
+	 */
+	@Override
+	public final ArrayList<User> getUserFromFirstNameLastName(
+			final String firstName, final String lastName) {
 
-        ArrayList<User> userList = new ArrayList<User>();
-        if (!StringUtils.isEmpty(firstName) && !StringUtils.isEmpty(lastName)) {
-            try {
-                ArrayList<Participant> participantList = participantInterfaceService
-                        .searchParticipantByName(firstName, lastName);
+		ArrayList<User> userList = new ArrayList<User>();
+		if (!StringUtils.isEmpty(firstName) && !StringUtils.isEmpty(lastName)) {
+			try {
+				ArrayList<Participant> participantList = participantInterfaceService
+						.searchParticipantByName(firstName, lastName);
 
-                if (!StringUtils.isEmpty(participantList)) {
-                    for (Participant participant : participantList) {
-                        if ("ACTIVE".equalsIgnoreCase(participant.getState())) {
+				if (!StringUtils.isEmpty(participantList)) {
+					for (Participant participant : participantList) {
+						if ("ACTIVE".equalsIgnoreCase(participant.getState())) {
 
-                            User tempUser = new User();
-                            Country tempCountry = new Country();
-                            tempCountry.setCountryCode(participant
-                                    .getParticipantCountry());
-                            tempUser.setCountry(tempCountry);
+							User tempUser = new User();
+							Country tempCountry = new Country();
+							tempCountry.setCountryCode(participant
+									.getParticipantCountry());
+							tempUser.setCountry(tempCountry);
 
-                            tempUser.setFirstName(participant.getGivenName());
-                            tempUser.setLastName(participant.getFamilyName());
-                            tempUser.setPrimaryEmailAddr(participant.getEmail());
-                            // tempUser.setInstituition(participant.geti);
-                            tempUser.setOrcidId(participant.getOrcidId());
-                            userList.add(tempUser);
-                        }
+							tempUser.setFirstName(participant.getGivenName());
+							tempUser.setLastName(participant.getFamilyName());
+							tempUser.setPrimaryEmailAddr(participant.getEmail());
+							// tempUser.setInstituition(participant.geti);
+							tempUser.setOrcidId(participant.getOrcidId());
+							userList.add(tempUser);
+						}
 
-                    }
-                } else {
-                    ArrayList<CDMUser> cdmUserList = cdmInterfaceService
-                            .searchCDM(firstName, lastName);
-                    if (!StringUtils.isEmpty(cdmUserList)) {
-                        for (CDMUser cdmUser : cdmUserList) {
-                            User tempUser = new User();
-                            tempUser.setFirstName(cdmUser.getFirstName());
-                            tempUser.setLastName(cdmUser.getLastName());
-                            tempUser.setPrimaryEmailAddr(cdmUser
-                                    .getPrimaryEmail());
-                            userList.add(tempUser);
-                        }
-                    }
-                }
-            } catch (Exception e) {
-                throw new UserException("Some Error", e.getMessage());
-            }
-        }
+					}
+				} else {
+					ArrayList<CDMUser> cdmUserList = cdmInterfaceService
+							.searchCDM(firstName, lastName);
+					if (!StringUtils.isEmpty(cdmUserList)) {
+						for (CDMUser cdmUser : cdmUserList) {
+							User tempUser = new User();
+							tempUser.setFirstName(cdmUser.getFirstName());
+							tempUser.setLastName(cdmUser.getLastName());
+							tempUser.setPrimaryEmailAddr(cdmUser
+									.getPrimaryEmail());
+							userList.add(tempUser);
+						}
+					}
+				}
+			} catch (Exception e) {
+				throw new UserException("Some Error", e.getMessage());
+			}
+		}
 
-        return userList;
-    }
+		return userList;
+	}
 
-    /**
-     * This is for checking user exists or not by taking emailId as input.
-     *
-     * @param emailId
-     *            the email id
-     * @return the user
-     */
-    @Override
-    public final User checkEmailIdExists(final String emailId) {
-        User user = null;
-        if (!StringUtils.isEmpty(emailId)) {
-            try {
-                ALMSearchUserResponse almSearchUserResponse = almInterfaceService
-                        .searchUser(emailId);
-                if (StringUtils.isEmpty(almSearchUserResponse)) {
-                    if (StringUtils.isEmpty(sharedService
-                            .searchInvitationRecord(emailId))) {
-                        Participant participant = participantInterfaceService
-                                .searchParticipantByEmail(emailId);
-                        user = new User();
-                        user.setFirstName(participant.getGivenName());
-                        user.setLastName(participant.getFamilyName());
-                        user.setCountryCode(participant.getParticipantCountry());
-                        user.setParticipantId(participant.getParticipantId());
-                    }
-                } else {
-                    throw new UserException(checkUserExistsErrorCode,
-                            checkUserExistsErrorMessage);
-                }
+	/**
+	 * This is for checking user exists or not by taking emailId as input.
+	 *
+	 * @param emailId
+	 *            the email id
+	 * @return the user
+	 */
+	@Override
+	public final User checkEmailIdExists(final String emailId) {
+		User user = null;
+		if (!StringUtils.isEmpty(emailId)) {
+			try {
+				ALMSearchUserResponse almSearchUserResponse = almInterfaceService
+						.searchUser(emailId);
+				if (StringUtils.isEmpty(almSearchUserResponse)) {
+					if (StringUtils.isEmpty(sharedService
+							.searchInvitationRecord(emailId))) {
+						Participant participant = participantInterfaceService
+								.searchParticipantByEmail(emailId);
+						user = new User();
+						user.setFirstName(participant.getGivenName());
+						user.setLastName(participant.getFamilyName());
+						user.setCountryCode(participant.getParticipantCountry());
+						user.setParticipantId(participant.getParticipantId());
+					}
+				} else {
+					throw new UserException(checkUserExistsErrorCode,
+							checkUserExistsErrorMessage);
+				}
 
-            } catch (Exception e) {
-                throw new UserException();
-            }
-        }
-        return user;
-    }
+			} catch (Exception e) {
+				throw new UserException();
+			}
+		}
+		return user;
+	}
 
-    /**
-     * This is for checking user exists or not by taking orcidId as input.
-     *
-     * @param orcidId
-     *            the orcid id
-     * @return true, if successful
-     * @throws Exception
-     *             the exception
-     */
-    @Override
-    public final boolean searchUserByOrcidId(final String orcidId)
-            throws Exception {
+	/**
+	 * This is for checking user exists or not by taking orcidId as input.
+	 *
+	 * @param orcidId
+	 *            the orcid id
+	 * @return true, if successful
+	 * @throws Exception
+	 *             the exception
+	 */
+	@Override
+	public final boolean searchUserByOrcidId(final String orcidId)
+			throws Exception {
 
-        boolean isUserFound = false;
-        if (!StringUtils.isEmpty(orcidId)
-                && registrationServiceDAO.searchUserByOrcidId(orcidId)) {
-            isUserFound = true;
-        }
+		boolean isUserFound = false;
+		/*
+		 * if (!StringUtils.isEmpty(orcidId) &&
+		 * registrationServiceDAO.searchUserByOrcidId(orcidId)) { isUserFound =
+		 * true; }
+		 */
+		if (!StringUtils.isEmpty(orcidId)) {
+			Participant participant = participantInterfaceService
+					.searchParticipantByOrcidId(orcidId);
+			User user = null;
+			if (!StringUtils.isEmpty(participant)) {
+				user = new User();
+				user.setOrcidId(participant.getOrcidId());
+				user.setPrimaryEmailAddr(participant.getEmail());
+				user.setRecoveryEmailAddress(participant.getRecoveryEmail());
+			}
+			isUserFound = true;
+		}
+		return isUserFound;
+	}
 
-        return isUserFound;
-    }
+	/**
+	 * This is for searchInvitationRecord or not by taking guid as input.
+	 *
+	 * @param participantId
+	 *            the participant id
+	 * @return the invite records
+	 */
+	@Override
+	public final User searchInvitationRecord(final String participantId) {
 
-    /**
-     * This is for searchInvitationRecord or not by taking guid as input.
-     *
-     * @param participantId
-     *            the participant id
-     * @return the invite records
-     */
-    @Override
-    public final User searchInvitationRecord(final String participantId) {
+		Participant participant = participantInterfaceService
+				.searchParticipantByParticipantId(participantId);
+		User user = null;
+		if (!StringUtils.isEmpty(participant)) {
+			user = new User();
+			user.setFirstName(participant.getGivenName());
+			user.setLastName(participant.getFamilyName());
+			user.setCountryCode(participant.getParticipantCountry());
+			user.setInvited(true);
+			user.setPrimaryEmailAddr(participant.getEmail());
+		}
+		return user;
+	}
 
-        Participant participant = participantInterfaceService
-                .searchParticipantByParticipantId(participantId);
-        User user = null;
-        if (!StringUtils.isEmpty(participant)) {
-            user = new User();
-            user.setFirstName(participant.getGivenName());
-            user.setLastName(participant.getFamilyName());
-            user.setCountryCode(participant.getParticipantCountry());
-            user.setInvited(true);
-            user.setPrimaryEmailAddr(participant.getEmail());
-        }
-        return user;
-    }
+	/**
+	 * Creates the alm user.
+	 *
+	 * @param user
+	 *            the user
+	 * @return the string
+	 */
+	@Override
+	public final String createALMUser(final User user) {
 
-    /**
-     * Creates the alm user.
-     *
-     * @param user
-     *            the user
-     * @return the string
-     */
-    @Override
-    public final String createALMUser(final User user) {
+		String almUserId = null;
+		ALMUser almUser = new ALMUser();
+		ALMUserAddress almUserAddress = new ALMUserAddress();
+		almUser.setEmail(user.getPrimaryEmailAddr());
+		almUser.setFirstName(user.getFirstName());
+		almUser.setLastName(user.getLastName());
+		almUser.setPassword(user.getPassword());
+		almUser.setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
+		almUser.setTcFlag(AuthorServicesConstants.AS_ALM_TNC_FLAG);
+		almUser.setCustomerType(AuthorServicesConstants.AS_ALM_USER_TYPE);
+		almUserAddress.setCountry(user.getCountryCode());
+		almUser.setUserAddress(almUserAddress);
+		almUser.setUserStatus(AuthorServicesConstants.VERIFY_ACCOUNT_AWAITING_ACTIVATION);
+		try {
+			ALMCreateUserRespnse almCreateUserRespnse = almInterfaceService
+					.createUser(almUser);
 
-        String almUserId = null;
-        ALMUser almUser = new ALMUser();
-        ALMUserAddress almUserAddress = new ALMUserAddress();
-        almUser.setEmail(user.getPrimaryEmailAddr());
-        almUser.setFirstName(user.getFirstName());
-        almUser.setLastName(user.getLastName());
-        almUser.setPassword(user.getPassword());
-        almUser.setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
-        almUser.setTcFlag(AuthorServicesConstants.AS_ALM_TNC_FLAG);
-        almUser.setCustomerType(AuthorServicesConstants.AS_ALM_USER_TYPE);
-        almUserAddress.setCountry(user.getCountryCode());
-        almUser.setUserAddress(almUserAddress);
-        almUser.setUserStatus(AuthorServicesConstants.VERIFY_ACCOUNT_AWAITING_ACTIVATION);
-        try {
-            ALMCreateUserRespnse almCreateUserRespnse = almInterfaceService
-                    .createUser(almUser);
+			if (!StringUtils.isEmpty(almCreateUserRespnse)
+					&& "Success".equalsIgnoreCase(almCreateUserRespnse
+							.getStatus())) {
+				almUserId = almCreateUserRespnse.getUserId();
+				RegistrationDetails registrationDetails = new RegistrationDetails();
+				registrationDetails.setAlmUserId(almUserId);
+				ObjectWriter ow = new ObjectMapper().writer()
+						.withDefaultPrettyPrinter();
+				String registrationJson = ow.writeValueAsString(user);
+				registrationDetails.setRegistrastionObject(registrationJson
+						.getBytes());
 
-            if (!StringUtils.isEmpty(almCreateUserRespnse)
-                    && "Success".equalsIgnoreCase(almCreateUserRespnse
-                            .getStatus())) {
-                almUserId = almCreateUserRespnse.getUserId();
-                RegistrationDetails registrationDetails = new RegistrationDetails();
-                registrationDetails.setAlmUserId(almUserId);
-                ObjectWriter ow = new ObjectMapper().writer()
-                        .withDefaultPrettyPrinter();
-                String registrationJson = ow.writeValueAsString(user);
-                registrationDetails.setRegistrastionObject(registrationJson
-                        .getBytes());
+				registrationServiceDAO
+						.createRegistrationRecord(registrationDetails);
 
-                registrationServiceDAO
-                        .createRegistrationRecord(registrationDetails);
+			}
+		} catch (Exception e) {
+			throw new UserException(createUserErrorCode, createUserErrorMessage);
+		}
 
-            }
-        } catch (Exception e) {
-            throw new UserException(createUserErrorCode, createUserErrorMessage);
-        }
+		return almUserId;
+	}
 
-        return almUserId;
-    }
+	/**
+	 * Do final create.
+	 *
+	 * @param almUserId
+	 *            the alm user id
+	 * @param sendEmailFlag
+	 *            the send email flag
+	 * @return the string
+	 */
+	@Override
+	public String doFinalCreate(final String almUserId,
+			final String sendEmailFlag) {
 
-    /**
-     * Do final create.
-     *
-     * @param almUserId
-     *            the alm user id
-     * @param sendEmailFlag
-     *            the send email flag
-     * @return the string
-     */
-    @Override
-    public String doFinalCreate(final String almUserId,
-            final String sendEmailFlag) {
+		String status = null;
+		try {
+			User user = returnUserFromDB(almUserId);
+			user.setUserId(almUserId);
+			user.setSendEmailFlag(sendEmailFlag);
+			String ptpId = createParticipant(user);
+			if (!StringUtils.isEmpty(ptpId)) {
+				ALMUser almUser = new ALMUser();
+				almUser.setEmail(user.getPrimaryEmailAddr());
+				almUser.setTcFlag(AuthorServicesConstants.AS_ALM_TNC_FLAG);
+				almUser.setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
+				almInterfaceService.updateUser(almUser);
+				user.setParticipantId(ptpId);
+				createContact(user);
+				status = "SUCCESS";
+			} else {
+				throw new UserException(createUserErrorCode,
+						createUserErrorMessage);
+			}
+		} catch (Exception e) {
+			throw new UserException(createUserErrorCode, createUserErrorMessage);
+		}
+		return status;
+	}
 
-        String status = null;
-        try {
-            User user = returnUserFromDB(almUserId);
-            user.setUserId(almUserId);
-            user.setSendEmailFlag(sendEmailFlag);
-            String ptpId = createParticipant(user);
-            if (!StringUtils.isEmpty(ptpId)) {
-                ALMUser almUser = new ALMUser();
-                almUser.setEmail(user.getPrimaryEmailAddr());
-                almUser.setTcFlag(AuthorServicesConstants.AS_ALM_TNC_FLAG);
-                almUser.setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
-                almInterfaceService.updateUser(almUser);
-                user.setParticipantId(ptpId);
-                createContact(user);
-                status = "SUCCESS";
-            } else {
-                throw new UserException(createUserErrorCode,
-                        createUserErrorMessage);
-            }
-        } catch (Exception e) {
-            throw new UserException(createUserErrorCode, createUserErrorMessage);
-        }
-        return status;
-    }
+	/**
+	 * Creates the participant.
+	 *
+	 * @param user
+	 *            the user
+	 * @return the string
+	 */
+	private String createParticipant(final User user) {
 
-    /**
-     * Creates the participant.
-     *
-     * @param user
-     *            the user
-     * @return the string
-     */
-    private String createParticipant(final User user) {
+		String ptpId = null;
 
-        String ptpId = null;
+		Participant participant = new Participant();
 
-        Participant participant = new Participant();
+		SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		participant.setCreatedDate(dt.format(new Date()));
+		participant.setFamilyName(user.getLastName());
+		participant.setGivenName(user.getFirstName());
+		participant.setModifiedDate(dt.format(new Date()));
+		participant.setParticipantCountry(user.getCountryCode());
+		participant.setUserId(user.getUserId());
 
-        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        participant.setCreatedDate(dt.format(new Date()));
-        participant.setFamilyName(user.getLastName());
-        participant.setGivenName(user.getFirstName());
-        participant.setModifiedDate(dt.format(new Date()));
-        participant.setParticipantCountry(user.getCountryCode());
-        participant.setUserId(user.getUserId());
+		ptpId = participantInterfaceService.createParticipant(participant);
+		if (!StringUtils.isEmpty(ptpId)) {
+			registrationServiceDAO.deleteRegistrationDetails(user.getUserId());
+		} else {
+			throw new UserException(createUserErrorCode, createUserErrorMessage);
+		}
 
-        ptpId = participantInterfaceService.createParticipant(participant);
-        if (!StringUtils.isEmpty(ptpId)) {
-            registrationServiceDAO.deleteRegistrationDetails(user.getUserId());
-        } else {
-            throw new UserException(createUserErrorCode, createUserErrorMessage);
-        }
+		return ptpId;
+	}
 
-        return ptpId;
-    }
+	/**
+	 * Creates the contact.
+	 *
+	 * @param user
+	 *            the user
+	 * @return the string
+	 */
+	private String createContact(final User user) {
+		CDMUser cdmUser = new CDMUser();
+		CreateContactRequestCDM createContactRequestCDM = new CreateContactRequestCDM();
+		CreateContactRequestEBM createContactRequestEBM = new CreateContactRequestEBM();
+		ContactEBM contactEBM = new ContactEBM();
+		ContactProfile contactProfile = new ContactProfile();
+		ContactIdentification contactIdentification = new ContactIdentification();
+		SourceContactXREF sourceContactXREF = new SourceContactXREF();
 
-    /**
-     * Creates the contact.
-     *
-     * @param user
-     *            the user
-     * @return the string
-     */
-    private String createContact(final User user) {
-        CDMUser cdmUser = new CDMUser();
-        CreateContactRequestCDM createContactRequestCDM = new CreateContactRequestCDM();
-        CreateContactRequestEBM createContactRequestEBM = new CreateContactRequestEBM();
-        ContactEBM contactEBM = new ContactEBM();
-        ContactProfile contactProfile = new ContactProfile();
-        ContactIdentification contactIdentification = new ContactIdentification();
-        SourceContactXREF sourceContactXREF = new SourceContactXREF();
+		cdmUser.setAsId(user.getParticipantId());
+		cdmUser.setAuthorFlag(AuthorServicesConstants.CDM_AUTHOR_FLAG);
+		cdmUser.setFirstName(user.getFirstName());
+		cdmUser.setLastName(user.getLastName());
+		cdmUser.setPrimaryEmail(user.getPrimaryEmailAddr());
+		cdmUser.setRegistrantFlag(AuthorServicesConstants.CDM_REG_FLAG);
+		cdmUser.setSendEmail(user.getSendEmailFlag());
+		cdmUser.setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
+		cdmUser.setUserRole(AuthorServicesConstants.CDM_USER_ROLE);
 
-        cdmUser.setAsId(user.getParticipantId());
-        cdmUser.setAuthorFlag(AuthorServicesConstants.CDM_AUTHOR_FLAG);
-        cdmUser.setFirstName(user.getFirstName());
-        cdmUser.setLastName(user.getLastName());
-        cdmUser.setPrimaryEmail(user.getPrimaryEmailAddr());
-        cdmUser.setRegistrantFlag(AuthorServicesConstants.CDM_REG_FLAG);
-        cdmUser.setSendEmail(user.getSendEmailFlag());
-        cdmUser.setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
-        cdmUser.setUserRole(AuthorServicesConstants.CDM_USER_ROLE);
+		sourceContactXREF.setSourceCustomerID(user.getParticipantId());
+		sourceContactXREF.setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
+		contactIdentification.setSourceContactXREF(sourceContactXREF);
+		contactProfile.setContactIdentification(contactIdentification);
+		contactEBM.setContactProfile(contactProfile);
+		contactEBM.setCustomerDetails(cdmUser);
+		createContactRequestEBM.setContactEBM(contactEBM);
+		createContactRequestCDM
+				.setCreateContactRequestEBM(createContactRequestEBM);
 
-        sourceContactXREF.setSourceCustomerID(user.getParticipantId());
-        sourceContactXREF.setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
-        contactIdentification.setSourceContactXREF(sourceContactXREF);
-        contactProfile.setContactIdentification(contactIdentification);
-        contactEBM.setContactProfile(contactProfile);
-        contactEBM.setCustomerDetails(cdmUser);
-        createContactRequestEBM.setContactEBM(contactEBM);
-        createContactRequestCDM
-                .setCreateContactRequestEBM(createContactRequestEBM);
+		CDMResponse cdmResponse = cdmInterfaceService
+				.createContact(createContactRequestCDM);
 
-        CDMResponse cdmResponse = cdmInterfaceService
-                .createContact(createContactRequestCDM);
+		return cdmResponse.getStatus();
+	}
 
-        return cdmResponse.getStatus();
-    }
+	/**
+	 * Verify account.
+	 *
+	 * @param almUserId
+	 *            the alm user id
+	 */
+	@Override
+	public final void verifyAccount(final String almUserIdEncrypted) {
+		try {
+			User user = returnUserFromDB(AuthorServicesUtil
+					.decrypt(almUserIdEncrypted));
 
-    /**
-     * Verify account.
-     *
-     * @param almUserId
-     *            the alm user id
-     */
-    @Override
-    public final void verifyAccount(final String almUserIdEncrypted) {
-        try {
-            User user = returnUserFromDB(AuthorServicesUtil
-                    .decrypt(almUserIdEncrypted));
+			List<ALMUser> almUserList = almInterfaceService.searchUser(
+					user.getPrimaryEmailAddr()).getUserPayload();
+			if (!StringUtils.isEmpty(almUserList)) {
+				for (ALMUser almUser : almUserList) {
+					if (almUser.getEmail().equals(user.getPrimaryEmailAddr())) {
+						String userStatus = almUser.getUserStatus();
+						if (AuthorServicesConstants.VERIFY_ACCOUNT_ACTIVE
+								.equalsIgnoreCase(userStatus)) {
+							throw new ASException(accountActivatedErrorCode,
+									accountActivatedErrorMessage);
+						} else if (AuthorServicesConstants.VERIFY_ACCOUNT_SUSPENDED
+								.equalsIgnoreCase(userStatus)) {
+							throw new ASException(accountSuspendedErrorCode,
+									accountSuspendedErrorMessage);
+						} else if (AuthorServicesConstants.VERIFY_ACCOUNT_AWAITING_ACTIVATION
+								.equalsIgnoreCase(userStatus)) {
+							userStatus = AuthorServicesConstants.VERIFY_ACCOUNT_ACTIVE;
+							almUser.setUserStatus(userStatus);
+							almInterfaceService.updateUser(almUser);
+						}
+					} else {
+						throw new ASException(noUserFoundErrorCode,
+								noUserFoundErrorMessage);
+					}
+				}
+			}
+		} catch (Exception e) {
+			throw new ASException(noUserFoundErrorCode, noUserFoundErrorMessage);
+		}
 
-            List<ALMUser> almUserList = almInterfaceService.searchUser(
-                    user.getPrimaryEmailAddr()).getUserPayload();
-            if (!StringUtils.isEmpty(almUserList)) {
-                for (ALMUser almUser : almUserList) {
-                    if (almUser.getEmail().equals(user.getPrimaryEmailAddr())) {
-                        String userStatus = almUser.getUserStatus();
-                        if (AuthorServicesConstants.VERIFY_ACCOUNT_ACTIVE
-                                .equalsIgnoreCase(userStatus)) {
-                            throw new ASException(accountActivatedErrorCode,
-                                    accountActivatedErrorMessage);
-                        } else if (AuthorServicesConstants.VERIFY_ACCOUNT_SUSPENDED
-                                .equalsIgnoreCase(userStatus)) {
-                            throw new ASException(accountSuspendedErrorCode,
-                                    accountSuspendedErrorMessage);
-                        } else if (AuthorServicesConstants.VERIFY_ACCOUNT_AWAITING_ACTIVATION
-                                .equalsIgnoreCase(userStatus)) {
-                            userStatus = AuthorServicesConstants.VERIFY_ACCOUNT_ACTIVE;
-                            almUser.setUserStatus(userStatus);
-                            almInterfaceService.updateUser(almUser);
-                        }
-                    } else {
-                        throw new ASException(noUserFoundErrorCode,
-                                noUserFoundErrorMessage);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            throw new ASException(noUserFoundErrorCode, noUserFoundErrorMessage);
-        }
+	}
 
-    }
+	/**
+	 * Resend verification.
+	 *
+	 * @param emailId
+	 *            the email id
+	 * @return the string
+	 */
+	@Override
+	public String resendVerification(final String emailId) {
 
-    /**
-     * Resend verification.
-     *
-     * @param emailId
-     *            the email id
-     * @return the string
-     */
-    @Override
-    public String resendVerification(final String emailId) {
+		Notifications notifications = sharedService
+				.searchInvitationRecord(emailId);
+		String status = null;
+		if (!StringUtils.isEmpty(notifications)) {
+			status = notificationService.resendNotification(
+					notifications.getId().toString()).getStatus();
+		}
 
-        Notifications notifications = sharedService
-                .searchInvitationRecord(emailId);
-        String status = null;
-        if (!StringUtils.isEmpty(notifications)) {
-            status = notificationService.resendNotification(
-                    notifications.getId().toString()).getStatus();
-        }
+		return status;
+	}
 
-        return status;
-    }
+	/**
+	 * Return user from db.
+	 *
+	 * @param almUserId
+	 *            the alm user id
+	 * @return the user
+	 * @throws IOException.
+	 * @throws JsonMappingException.
+	 * @throws JsonParseException.
+	 */
+	private User returnUserFromDB(final String almUserId)
+			throws JsonParseException, JsonMappingException, IOException {
 
-    /**
-     * Return user from db.
-     *
-     * @param almUserId
-     *            the alm user id
-     * @return the user
-     * @throws IOException.
-     * @throws JsonMappingException.
-     * @throws JsonParseException.
-     */
-    private User returnUserFromDB(final String almUserId)
-            throws JsonParseException, JsonMappingException, IOException {
+		RegistrationDetails registrationDetails = registrationServiceDAO
+				.getRegistrationRecord(almUserId);
 
-        RegistrationDetails registrationDetails = registrationServiceDAO
-                .getRegistrationRecord(almUserId);
+		User user = null;
 
-        User user = null;
+		if (!StringUtils.isEmpty(registrationDetails)) {
+			user = new ObjectMapper().readValue(
+					registrationDetails.getRegistrastionObject(), User.class);
+		}
 
-        if (!StringUtils.isEmpty(registrationDetails)) {
-            user = new ObjectMapper().readValue(
-                    registrationDetails.getRegistrastionObject(), User.class);
-        }
+		return user;
+	}
 
-        return user;
-    }
+	/**
+	 * Update participant.
+	 *
+	 * @param user
+	 *            the user
+	 * @return the string
+	 */
+	@Override
+	public void updateParticipant(final User user) throws UserException {
+		Participant participant = new Participant();
 
-    /**
-     * Update participant.
-     *
-     * @param user
-     *            the user
-     * @return the string
-     */
-    @Override
-    public void updateParticipant(final User user) throws UserException {
-        Participant participant = new Participant();
+		SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		participant.setCreatedDate(dt.format(new Date()));
+		participant.setFamilyName(user.getLastName());
+		participant.setGivenName(user.getFirstName());
+		participant.setModifiedDate(dt.format(new Date()));
+		participant.setParticipantCountry(user.getCountryCode());
+		participant.setUserId(user.getUserId());
 
-        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        participant.setCreatedDate(dt.format(new Date()));
-        participant.setFamilyName(user.getLastName());
-        participant.setGivenName(user.getFirstName());
-        participant.setModifiedDate(dt.format(new Date()));
-        participant.setParticipantCountry(user.getCountryCode());
-        participant.setUserId(user.getUserId());
-
-        participantInterfaceService.updateParticipant(participant);
-    }
+		participantInterfaceService.updateParticipant(participant);
+	}
 
 }
