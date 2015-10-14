@@ -23,7 +23,7 @@ import com.wiley.gr.ace.authorservices.model.external.AddressMapper;
 import com.wiley.gr.ace.authorservices.model.external.AlertElement;
 import com.wiley.gr.ace.authorservices.model.external.Participant;
 import com.wiley.gr.ace.authorservices.model.external.ParticipantAddress;
-import com.wiley.gr.ace.authorservices.model.external.Preference;
+import com.wiley.gr.ace.authorservices.model.external.Preferences;
 import com.wiley.gr.ace.authorservices.model.external.ProfileEntity;
 
 // TODO: Auto-generated Javadoc
@@ -171,7 +171,7 @@ public interface ParticipantsInterfaceService {
      *            the participant id
      * @return the preferred journals
      */
-    Preference getPreferredJournals(String participantId);
+    Preferences getPreferredJournals(String participantId);
 
     boolean deletePreferredJournal(ProfileEntity profileEntity);
 

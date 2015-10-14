@@ -40,7 +40,6 @@ import com.wiley.gr.ace.authorservices.model.Country;
 import com.wiley.gr.ace.authorservices.model.Interests;
 import com.wiley.gr.ace.authorservices.model.JournalDetails;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
-import com.wiley.gr.ace.authorservices.model.PreferredJournals;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
@@ -66,7 +65,6 @@ import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfileRespo
 import com.wiley.gr.ace.authorservices.model.external.Participant;
 import com.wiley.gr.ace.authorservices.model.external.PasswordRequest;
 import com.wiley.gr.ace.authorservices.model.external.PasswordUpdate;
-import com.wiley.gr.ace.authorservices.model.external.Preferences;
 import com.wiley.gr.ace.authorservices.model.external.ProfileEntity;
 import com.wiley.gr.ace.authorservices.model.external.ProfileRequest;
 import com.wiley.gr.ace.authorservices.model.external.ResearchFunderData;
@@ -955,27 +953,13 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @return the preffered journals
      */
     @Override
-    public final List<PreferredJournals> getPrefferedJournals(
-            final String participantId) {
+    public final String getPrefferedJournals(final String participantId) {
 
-        final List<Preferences> preference = participantsInterfaceService
-                .getPreferredJournals(participantId).getContent();
+        final String value = participantsInterfaceService.getPreferredJournals(
+                participantId).getPreferenceValue();
 
-        final List<PreferredJournals> prefferedList = new ArrayList<PreferredJournals>();
-        for (final Preferences preferences : preference) {
-            /*
-             * final PdhJournalData pdhJournalData = (PdhJournalData)
-             * eSBInterfaceService
-             * .getPdhLookupResponse(preferences.getPreferenceKey());
-             */
-            final PreferredJournals preferredJournals = new PreferredJournals();
-            preferredJournals.setJournalId(preferences.getPreferenceKey());
-            preferredJournals.setJournalTitle(preferences.getPreferenceValue());
-            // preferredJournals.setPdhimage(pdhJournalData.getBannerImageLink());
-            prefferedList.add(preferredJournals);
-        }
+        return value;
 
-        return prefferedList;
     }
 
     /**

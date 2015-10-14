@@ -28,7 +28,7 @@ import com.wiley.gr.ace.authorservices.model.external.AddressMapper;
 import com.wiley.gr.ace.authorservices.model.external.AlertElement;
 import com.wiley.gr.ace.authorservices.model.external.Participant;
 import com.wiley.gr.ace.authorservices.model.external.ParticipantAddress;
-import com.wiley.gr.ace.authorservices.model.external.Preference;
+import com.wiley.gr.ace.authorservices.model.external.Preferences;
 import com.wiley.gr.ace.authorservices.model.external.ProfileEntity;
 import com.wiley.gr.ace.authorservices.model.external.ProfileResponse;
 
@@ -54,7 +54,7 @@ public class ParticipantsInterfaceServiceImpl implements
      */
     @Override
     public String createParticipant(final Participant participant) {
-        Participant createdParticipant = (Participant) RestServiceInvokerUtil
+        final Participant createdParticipant = (Participant) RestServiceInvokerUtil
                 .restServiceInvoker(participantCrudUrl, participant,
                         Participant.class);
         return createdParticipant.getParticipantId();
@@ -85,8 +85,8 @@ public class ParticipantsInterfaceServiceImpl implements
     @Override
     public Participant searchParticipantByUserId(final String userId) {
 
-        String participantSearchUrl = participantCrudUrl.concat("?userId=")
-                .concat(userId);
+        final String participantSearchUrl = participantCrudUrl.concat(
+                "?userId=").concat(userId);
         return (Participant) RestServiceInvokerUtil.getServiceData(
                 participantSearchUrl, Participant.class);
     }
@@ -232,11 +232,10 @@ public class ParticipantsInterfaceServiceImpl implements
     }
 
     @Override
-    public Preference getPreferredJournals(final String participantId) {
-        final String url = "http://assearchdev.wiley.com:8080/v1/participants/"
-                + participantId + "/preferences";
-        final Preference preferred = (Preference) RestServiceInvokerUtil
-                .getServiceData(url, Preference.class);
+    public Preferences getPreferredJournals(final String participantId) {
+        final String url = "http://assearchdev.wiley.com:8080/v1/participants/1478cd2b-1671-443c-a0ea-09cbdc4169e9/preferences/FAVJOURNAL";
+        final Preferences preferred = (Preferences) RestServiceInvokerUtil
+                .getServiceData(url, Preferences.class);
 
         return preferred;
     }

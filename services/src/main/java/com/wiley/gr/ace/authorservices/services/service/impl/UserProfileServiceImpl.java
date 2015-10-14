@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import com.wiley.gr.ace.authorservices.externalservices.service.ParticipantsInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.ParticipantError;
 import com.wiley.gr.ace.authorservices.model.external.AlertElement;
-import com.wiley.gr.ace.authorservices.model.external.Preference;
 import com.wiley.gr.ace.authorservices.model.external.Preferences;
 import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
 
@@ -21,14 +20,14 @@ public class UserProfileServiceImpl implements UserProfileService {
     public boolean uploadProfileImage(final String participantId,
             final Byte[] imageFile) throws Exception {
         boolean isUpdated = false;
-        ResponseEntity resposeEntity = participantsInterfaceService
+        final ResponseEntity resposeEntity = participantsInterfaceService
                 .uploadProfileImage(participantId, imageFile);
-        Integer code = resposeEntity.getStatusCode().value();
+        final Integer code = resposeEntity.getStatusCode().value();
         if (code.equals(200)) {
             isUpdated = true;
         } else {
             isUpdated = false;
-            ParticipantError participantError = (ParticipantError) resposeEntity
+            final ParticipantError participantError = (ParticipantError) resposeEntity
                     .getBody();
             throw new Exception(participantError.getMessage());
         }
@@ -44,14 +43,14 @@ public class UserProfileServiceImpl implements UserProfileService {
     public boolean updateAlerts(final String participantId,
             final AlertElement alert) throws Exception {
         boolean isUpdated = false;
-        ResponseEntity resposeEntity = participantsInterfaceService
+        final ResponseEntity resposeEntity = participantsInterfaceService
                 .updateAlerts(participantId, alert);
-        Integer code = resposeEntity.getStatusCode().value();
+        final Integer code = resposeEntity.getStatusCode().value();
         if (code.equals(200)) {
             isUpdated = true;
         } else {
             isUpdated = false;
-            ParticipantError participantError = (ParticipantError) resposeEntity
+            final ParticipantError participantError = (ParticipantError) resposeEntity
                     .getBody();
             throw new Exception(participantError.getMessage());
         }
@@ -67,9 +66,10 @@ public class UserProfileServiceImpl implements UserProfileService {
     @Override
     public List<Preferences> getWOAaccounts(final String participantId) {
 
-        Preference preference = participantsInterfaceService
-                .getPreferredJournals(participantId);
-        return preference.getContent();
+        /*
+         * final Preferences preference = participantsInterfaceService
+         * .getPreferredJournals(participantId);
+         */
+        return null;
     }
-
 }
