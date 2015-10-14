@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -80,6 +81,14 @@ public class OrcidController {
     /** value from props file configured. */
     @Value("${OrcidController.getOrcidDetails.message}")
     private String getOrcidDetailsErrorMessage;
+
+    /** The get orcid id error code. */
+    @Value("${OrcidController.getOrcidId.code}")
+    private String getOrcidIdErrorCode;
+
+    /** The get orcid id error message. */
+    @Value("{OrcidController.getOrcidDetails.message}")
+    private String getOrcidIdErrorMessage;
 
     /**
      * Gets the orcid url.
@@ -152,4 +161,26 @@ public class OrcidController {
         }
         return service;
     }
+
+    /**
+     * Gets the orcid id.
+     *
+     * @param participantId
+     *            the participant id
+     * @return the orcid id
+     */
+    @RequestMapping(value = "/{participantId}", method = RequestMethod.GET)
+    public final Service getOrcidId(@PathVariable final String participantId) {
+        Service service = new Service();
+        if (!StringUtils.isEmpty(participantId))
+            try {
+                service.setPayload(orcidService.getOrcidId(participantId));
+            } catch (final Exception e) {
+                LOGGER.error("Stack Trace-.", e);
+                throw new ASException(getOrcidIdErrorCode,
+                        getOrcidIdErrorMessage, e);
+            }
+        return service;
+    }
+
 }

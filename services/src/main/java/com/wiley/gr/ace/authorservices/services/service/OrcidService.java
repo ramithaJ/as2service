@@ -58,4 +58,15 @@ public interface OrcidService {
      *             the exception
      */
     User getWork(OrcidAccessToken token, User user) throws Exception;
+
+    /**
+     * Gets the orcid id.
+     *
+     * @param participantId
+     *            the participant id
+     * @return the orcid id
+     * @throws Exception
+     *             the exception
+     */
+    String getOrcidId(String participantId) throws Exception;
 }

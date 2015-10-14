@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import com.wiley.gr.ace.authorservices.externalservices.service.ParticipantsInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.ParticipantError;
 import com.wiley.gr.ace.authorservices.model.external.AlertElement;
-import com.wiley.gr.ace.authorservices.model.external.Preference;
+import com.wiley.gr.ace.authorservices.model.external.PreferenceAlert;
 import com.wiley.gr.ace.authorservices.model.external.Preferences;
 import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
 
@@ -18,8 +18,8 @@ public class UserProfileServiceImpl implements UserProfileService {
     ParticipantsInterfaceService participantsInterfaceService;
 
     @Override
-    public boolean uploadProfileImage(final String participantId,
-            final Byte[] imageFile) throws Exception {
+    public boolean uploadProfileImage(String participantId, Byte[] imageFile)
+            throws Exception {
         boolean isUpdated = false;
         ResponseEntity resposeEntity = participantsInterfaceService
                 .uploadProfileImage(participantId, imageFile);
@@ -36,13 +36,13 @@ public class UserProfileServiceImpl implements UserProfileService {
     }
 
     @Override
-    public Byte[] getProfileImage(final String participantId) throws Exception {
+    public Byte[] getProfileImage(String participantId) throws Exception {
         return participantsInterfaceService.getProfileImage(participantId);
     }
 
     @Override
-    public boolean updateAlerts(final String participantId,
-            final AlertElement alert) throws Exception {
+    public boolean updateAlerts(String participantId, AlertElement alert)
+            throws Exception {
         boolean isUpdated = false;
         ResponseEntity resposeEntity = participantsInterfaceService
                 .updateAlerts(participantId, alert);
@@ -59,7 +59,7 @@ public class UserProfileServiceImpl implements UserProfileService {
     }
 
     @Override
-    public List<AlertElement> getAlerts(final String participantId)
+    public List<PreferenceAlert> getAlerts(String participantId)
             throws Exception {
         return participantsInterfaceService.getAlerts(participantId);
     }
@@ -67,9 +67,10 @@ public class UserProfileServiceImpl implements UserProfileService {
     @Override
     public List<Preferences> getWOAaccounts(final String participantId) {
 
-        Preference preference = participantsInterfaceService
-                .getPreferredJournals(participantId);
-        return preference.getContent();
+        /*
+         * final Preferences preference = participantsInterfaceService
+         * .getPreferredJournals(participantId);
+         */
+        return null;
     }
-
 }

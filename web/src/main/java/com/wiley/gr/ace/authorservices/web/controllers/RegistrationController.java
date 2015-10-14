@@ -350,7 +350,7 @@ public class RegistrationController {
      *            the alm user id
      * @return the service
      */
-    @RequestMapping(value = "verifyAccount/{emailId}", method = RequestMethod.GET)
+    @RequestMapping(value = "verifyAccount/{almUserId}", method = RequestMethod.GET)
     public final Service verifyAccount(
             @PathVariable("almUserId") final String almUserId) {
         registrationService.verifyAccount(almUserId);

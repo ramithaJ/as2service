@@ -33,11 +33,12 @@ import com.wiley.gr.ace.authorservices.model.State;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.AddressData;
 import com.wiley.gr.ace.authorservices.model.external.AddressElement;
+import com.wiley.gr.ace.authorservices.model.external.AddressMapper;
 import com.wiley.gr.ace.authorservices.model.external.AddressValidationMultiReq;
 import com.wiley.gr.ace.authorservices.model.external.AddressValidationMultiRes;
 import com.wiley.gr.ace.authorservices.model.external.AddressValidationRequest;
+import com.wiley.gr.ace.authorservices.model.external.AddressesData;
 import com.wiley.gr.ace.authorservices.model.external.Entity;
-import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.Participant;
 import com.wiley.gr.ace.authorservices.model.external.ParticipantAddress;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
@@ -213,46 +214,22 @@ public class UserAccountServiceImpl implements UserAccountService {
      * @param userId
      *            the user id
      * @return the user address
+     * @throws Exception
      */
     @Override
-    public final List<Addresses> getUserAddress(final String userId) {
+    public final AddressesData getUserAddress(final String userId)
+            throws Exception {
 
         UserAccountServiceImpl.LOGGER.info("inside getUserAddress Method");
-        final LookupCustomerProfile lookupProfile = userProfile
-                .getLookupCustomerProfile(userId);
-        final List<AddressElement> addressElementsList = lookupProfile
-                .getLookupCustomerProfileResponse().getCustomerProfile()
-                .getAddressDetails().getAddress();
-        final List<Addresses> addressesList = new ArrayList<Addresses>();
-        final Addresses corresAddress = new Addresses();
-        final Addresses billAddress = new Addresses();
-        final Addresses shipAddress = new Addresses();
-        for (final AddressElement addressElement : addressElementsList) {
+        AddressMapper mapper = (AddressMapper) participantsInterfaceService
+                .getAddress(userId);
 
-            if (physicalAddress
-                    .equalsIgnoreCase(addressElement.getAddrTypeCD())) {
-                final Address correspondenceAddress = this
-                        .setAddressValues(addressElement);
-                corresAddress.setCorrespondenceAddress(correspondenceAddress);
-            }
-            if (billingAddress.equalsIgnoreCase(addressElement.getAddrTypeCD())) {
-                final Address billingAddress = this
-                        .setAddressValues(addressElement);
-                billAddress.setBillingAddress(billingAddress);
-            }
-            if (shippingAddress
-                    .equalsIgnoreCase(addressElement.getAddrTypeCD())) {
-                final Address shippingAddress = this
-                        .setAddressValues(addressElement);
-                shipAddress.setShippingAddress(shippingAddress);
-            }
-
+        List<ParticipantAddress> participantAddresses = mapper.getContent();
+        AddressesData address = new AddressesData();
+        for (ParticipantAddress participantAddr : participantAddresses) {
+            partipcipantAddrToAddr(participantAddr, address);
         }
-        addressesList.add(corresAddress);
-        addressesList.add(billAddress);
-        addressesList.add(shipAddress);
-
-        return addressesList;
+        return address;
     }
 
     /**
@@ -423,6 +400,44 @@ public class UserAccountServiceImpl implements UserAccountService {
         }
 
         return validAddressList;
+    }
+
+    private Addresses partipcipantAddrToAddr(
+            ParticipantAddress participantAddr, AddressesData address) {
+        if (!StringUtils.isEmpty(participantAddr)) {
+            String type = participantAddr.getAddressType();
+            AddressData addressData = new AddressData();
+            addressData.setAddressEndDate(participantAddr.getValidTo());
+            addressData.setAddressId(participantAddr.getAddressId());
+            List<String> streetAddr = participantAddr.getStreetAddress();
+            if (!StringUtils.isEmpty(streetAddr)) {
+                addressData.setAddressLine1(streetAddr.get(0));
+                addressData.setAddressLine2(streetAddr.get(1));
+            }
+            addressData.setAddressStartDate(participantAddr.getValidFrom());
+            addressData.setAddressType(participantAddr.getAddressFunctiom());
+            addressData.setAddressTypeCode(type);
+            addressData.setCity(participantAddr.getAddressLocality());
+            addressData.setCountryCode(participantAddr.getAddressCountry());
+            addressData.setDepartmentCode(participantAddr.getDepartmentID());
+            addressData.setDepartmentName(participantAddr.getDepartment());
+            addressData.setInstitutionCode(participantAddr.getOrganizationId());
+            addressData.setInstitutionName(participantAddr.getOrganization());
+            addressData.setPhoneNumber(participantAddr.getTelephone());
+            addressData.setStateCode(participantAddr.getAddressRegion());
+            addressData.setZipCode(participantAddr.getPostalCode());
+            if (type.equalsIgnoreCase("correspondance")) {
+                address.setCorrespondenceAddress(addressData);
+            }
+            if (type.equalsIgnoreCase("billing")) {
+                address.setBillingAddress(addressData);
+            }
+            if (type.equalsIgnoreCase("shipping")) {
+                address.setShippingAddress(addressData);
+            }
+        }
+        return null;
+
     }
 
 }

@@ -88,10 +88,10 @@ public interface RegistrationService {
     /**
      * Verify account.
      *
-     * @param emailId
-     *            the email id
+     * @param almUserId
+     *            the alm user id
      */
-    void verifyAccount(String emailId);
+    void verifyAccount(String almUserId);
 
     /**
      * Resend verification.
