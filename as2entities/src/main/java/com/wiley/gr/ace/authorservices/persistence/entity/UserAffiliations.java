@@ -1,10 +1,12 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Oct 12, 2015 11:27:32 AM by Hibernate Tools 4.0.0
+// Generated Oct 14, 2015 5:33:21 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -17,7 +19,7 @@ import javax.persistence.TemporalType;
 @Table(name = "user_affiliations", catalog = "as2_app_db")
 public class UserAffiliations implements java.io.Serializable {
 
-	private byte[] affiliationId;
+	private Long affiliationId;
 	private byte[] participantId;
 	private String institutionCd;
 	private String institutionName;
@@ -36,17 +38,11 @@ public class UserAffiliations implements java.io.Serializable {
 	public UserAffiliations() {
 	}
 
-	public UserAffiliations(byte[] affiliationId) {
-		this.affiliationId = affiliationId;
-	}
-
-	public UserAffiliations(byte[] affiliationId, byte[] participantId,
-			String institutionCd, String institutionName, String departmentCd,
-			String departmentName, String townOrCityName,
-			String stateOrProvinceName, String countryCd, Date startDt,
-			Date endDt, Date createdDate, byte[] createdBy, Date updatedDate,
-			byte[] updatedBy) {
-		this.affiliationId = affiliationId;
+	public UserAffiliations(byte[] participantId, String institutionCd,
+			String institutionName, String departmentCd, String departmentName,
+			String townOrCityName, String stateOrProvinceName,
+			String countryCd, Date startDt, Date endDt, Date createdDate,
+			byte[] createdBy, Date updatedDate, byte[] updatedBy) {
 		this.participantId = participantId;
 		this.institutionCd = institutionCd;
 		this.institutionName = institutionName;
@@ -64,12 +60,13 @@ public class UserAffiliations implements java.io.Serializable {
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "AFFILIATION_ID", unique = true, nullable = false)
-	public byte[] getAffiliationId() {
+	public Long getAffiliationId() {
 		return this.affiliationId;
 	}
 
-	public void setAffiliationId(byte[] affiliationId) {
+	public void setAffiliationId(Long affiliationId) {
 		this.affiliationId = affiliationId;
 	}
 
