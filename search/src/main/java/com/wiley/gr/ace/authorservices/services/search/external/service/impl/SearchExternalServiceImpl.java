@@ -14,7 +14,6 @@ package com.wiley.gr.ace.authorservices.services.search.external.service.impl;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
@@ -39,13 +38,12 @@ public class SearchExternalServiceImpl implements SearchExternalService {
     @Override
     public final SearchResponse search(final SearchRequest searchRequest) {
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        final HttpHeaders headers = new HttpHeaders();
         headers.add("role", "REGISTERED");
 
-        HttpEntity<SearchRequest> httpEntity = new HttpEntity<SearchRequest>(
+        final HttpEntity<SearchRequest> httpEntity = new HttpEntity<SearchRequest>(
                 searchRequest, headers);
-        SearchResponse response = new RestTemplate().exchange(
+        final SearchResponse response = new RestTemplate().exchange(
                 "http://10.201.64.81:8090/searchservice/v1/api/_search",
                 HttpMethod.POST, httpEntity, SearchResponse.class).getBody();
 
