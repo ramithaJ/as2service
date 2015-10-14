@@ -28,6 +28,7 @@ import com.wiley.gr.ace.authorservices.model.external.AddressMapper;
 import com.wiley.gr.ace.authorservices.model.external.AlertElement;
 import com.wiley.gr.ace.authorservices.model.external.Participant;
 import com.wiley.gr.ace.authorservices.model.external.ParticipantAddress;
+import com.wiley.gr.ace.authorservices.model.external.ParticipantGetResponse;
 import com.wiley.gr.ace.authorservices.model.external.PreferenceAlert;
 import com.wiley.gr.ace.authorservices.model.external.PreferenceMapper;
 import com.wiley.gr.ace.authorservices.model.external.Preferences;
@@ -55,22 +56,22 @@ public class ParticipantsInterfaceServiceImpl implements
      * @return the string
      */
     @Override
-    public String createParticipant(final Participant participant) {
+    public final String createParticipant(final Participant participant) {
         final Participant createdParticipant = (Participant) RestServiceInvokerUtil
                 .restServiceInvoker(participantCrudUrl, participant,
                         Participant.class);
         return createdParticipant.getParticipantId();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.wiley.gr.ace.authorservices.externalservices.service.
-     * ParticipantsInterfaceService
-     * #searchParticipantByParticipantId(java.lang.String)
+    /**
+     * Search participant by participant id.
+     *
+     * @param particpantId
+     *            the particpant id
+     * @return the participant
      */
     @Override
-    public Participant searchParticipantByParticipantId(
+    public final Participant searchParticipantByParticipantId(
             final String participantId) {
         final Participant participant = (Participant) RestServiceInvokerUtil
                 .getServiceData(searchparticipantbyidurl + participantId,
@@ -78,33 +79,43 @@ public class ParticipantsInterfaceServiceImpl implements
         return participant;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.wiley.gr.ace.authorservices.externalservices.service.
-     * ParticipantsInterfaceService#searchParticipantByUserId(java.lang.String)
+    /**
+     * Search participant by user id.
+     *
+     * @param userId
+     *            the user id
+     * @return the participant
      */
     @Override
-    public Participant searchParticipantByUserId(final String userId) {
+    public final Participant searchParticipantByUserId(final String userId) {
 
         final String participantSearchUrl = participantCrudUrl.concat(
                 "?userId=").concat(userId);
-        return (Participant) RestServiceInvokerUtil.getServiceData(
-                participantSearchUrl, Participant.class);
+        ParticipantGetResponse participantGetResponse = (ParticipantGetResponse) RestServiceInvokerUtil
+                .getServiceData(participantSearchUrl,
+                        ParticipantGetResponse.class);
+        return participantGetResponse.getParticipantList().get(0);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.wiley.gr.ace.authorservices.externalservices.service.
-     * ParticipantsInterfaceService#searchParticipantByName(java.lang.String,
-     * java.lang.String)
+    /**
+     * Search participant by name.
+     *
+     * @param firstName
+     *            the first name
+     * @param lastName
+     *            the last name
+     * @return the list
      */
     @Override
-    public ArrayList<Participant> searchParticipantByName(
+    public final ArrayList<Participant> searchParticipantByName(
             final String firstName, final String lastName) {
-        // TODO Auto-generated method stub
-        return null;
+        final String participantSearchUrl = participantCrudUrl
+                .concat("?firstName=").concat(firstName).concat("?familyName=")
+                .concat(lastName);
+        ParticipantGetResponse participantGetResponse = (ParticipantGetResponse) RestServiceInvokerUtil
+                .getServiceData(participantSearchUrl,
+                        ParticipantGetResponse.class);
+        return participantGetResponse.getParticipantList();
     }
 
     /**
@@ -120,8 +131,8 @@ public class ParticipantsInterfaceServiceImpl implements
     @Override
     public final AddressMapper getAddress(final String participantId)
             throws Exception {
-        final String url = "http://assearchdev.wiley.com:8080/v1/participants/"
-                + participantId + "/addresses";
+        final String url = participantCrudUrl.concat("/").concat(participantId)
+                .concat("/addresses");
         return (AddressMapper) StubInvokerUtil.restGetServiceInvoker(url,
                 AddressMapper.class);
     }
@@ -134,7 +145,7 @@ public class ParticipantsInterfaceServiceImpl implements
      * com.wiley.gr.ace.authorservices.model.external.ParticipantAddress)
      */
     @Override
-    public ResponseEntity updateAddress(final String participantId,
+    public final ResponseEntity updateAddress(final String participantId,
             final ParticipantAddress participantAddress) throws Exception {
         final String url = "https://schema.org/PostalAddress/participants/"
                 + participantId + "/addresses";
@@ -152,10 +163,10 @@ public class ParticipantsInterfaceServiceImpl implements
      * java.lang.Byte[])
      */
     @Override
-    public ResponseEntity uploadProfileImage(final String participantId,
+    public final ResponseEntity uploadProfileImage(final String participantId,
             final Byte[] imageFile) throws Exception {
-        final String url = "http://assearchdev.wiley.com:8080/v1/participants/"
-                + participantId + "/profileImage";
+        final String url = participantCrudUrl.concat("/").concat(participantId)
+                .concat("/profileImage");
         final ResponseEntity resposeEntity = (ResponseEntity) StubInvokerUtil
                 .restServiceResponseInvoker(url, HttpMethod.PUT, imageFile,
                         ParticipantError.class, null);
@@ -169,9 +180,10 @@ public class ParticipantsInterfaceServiceImpl implements
      * ParticipantsInterfaceService#getProfileImage(java.lang.String)
      */
     @Override
-    public Byte[] getProfileImage(final String participantId) throws Exception {
-        final String url = "http://assearchdev.wiley.com:8080/v1/participants/"
-                + participantId + "/profileImage";
+    public final Byte[] getProfileImage(final String participantId)
+            throws Exception {
+        final String url = participantCrudUrl.concat("/").concat(participantId)
+                .concat("/profileImage");
         final Byte[] profileImage = (Byte[]) StubInvokerUtil
                 .restGetServiceInvoker(url, Byte[].class);
         return profileImage;
@@ -185,7 +197,7 @@ public class ParticipantsInterfaceServiceImpl implements
      * com.wiley.gr.ace.authorservices.model.external.AlertElement)
      */
     @Override
-    public ResponseEntity updateAlerts(final String participantId,
+    public final ResponseEntity updateAlerts(final String participantId,
             final AlertElement alert) throws Exception {
         final String url = "https://schema.org/PostalAddress/participants/"
                 + participantId + "/preferences";
@@ -196,29 +208,35 @@ public class ParticipantsInterfaceServiceImpl implements
     }
 
     @Override
-    public List<PreferenceAlert> getAlerts(final String participantId)
+    public final List<PreferenceAlert> getAlerts(final String participantId)
             throws Exception {
-        final String url = "http://assearchdev.wiley.com:8080/v1/participants/"
-                + participantId + "/preferences";
+        final String url = participantCrudUrl.concat("/").concat(participantId)
+                .concat("/preferences");
         final PreferenceMapper preferenceMapper = (PreferenceMapper) StubInvokerUtil
                 .restGetServiceInvoker(url, PreferenceMapper.class);
         return preferenceMapper.getContent();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.wiley.gr.ace.authorservices.externalservices.service.
-     * ParticipantsInterfaceService#searchParticipantByEmail(java.lang.String)
+    /**
+     * Search participant by email.
+     *
+     * @param email
+     *            the email
+     * @return the participant
      */
     @Override
-    public Participant searchParticipantByEmail(final String email) {
-        // TODO Auto-generated method stub
-        return null;
+    public final Participant searchParticipantByEmail(final String email) {
+
+        final String participantSearchUrl = participantCrudUrl
+                .concat("?email=").concat(email);
+        ParticipantGetResponse participantGetResponse = (ParticipantGetResponse) RestServiceInvokerUtil
+                .getServiceData(participantSearchUrl,
+                        ParticipantGetResponse.class);
+        return participantGetResponse.getParticipantList().get(0);
     }
 
     @Override
-    public ResponseEntity updateProfile(final ProfileEntity profileEntity) {
+    public final ResponseEntity updateProfile(final ProfileEntity profileEntity) {
 
         final String url = "http://assearchdev.wiley.com:8080/v1/profile/";
         final ResponseEntity resposeEntity = (ResponseEntity) StubInvokerUtil
@@ -228,7 +246,7 @@ public class ParticipantsInterfaceServiceImpl implements
     }
 
     @Override
-    public Preferences getPreferredJournals(final String participantId) {
+    public final Preferences getPreferredJournals(final String participantId) {
         final String url = "http://assearchdev.wiley.com:8080/v1/participants/1478cd2b-1671-443c-a0ea-09cbdc4169e9/preferences/FAVJOURNAL";
         final Preferences preferred = (Preferences) RestServiceInvokerUtil
                 .getServiceData(url, Preferences.class);
@@ -245,7 +263,8 @@ public class ParticipantsInterfaceServiceImpl implements
      * .model.external.ProfileEntity)
      */
     @Override
-    public boolean deletePreferredJournal(final ProfileEntity profileEntity) {
+    public final boolean deletePreferredJournal(
+            final ProfileEntity profileEntity) {
         final String url = "/v1/profile/";
 
         RestServiceInvokerUtil.deleteparticipantServiceData(url, profileEntity);
@@ -253,10 +272,26 @@ public class ParticipantsInterfaceServiceImpl implements
     }
 
     @Override
-    public void addPreferredJournals(final ProfileEntity profileEntity) {
+    public final void addPreferredJournals(final ProfileEntity profileEntity) {
 
         final String url = "/v1/profile/";
         RestServiceInvokerUtil.restServiceInvoker(url, profileEntity,
                 String.class);
+    }
+
+    /**
+     * Update participant.
+     *
+     * @param participant
+     *            the participant
+     */
+    @Override
+    public final void updateParticipant(final Participant participant) {
+        String participantUpdateUrl = participantCrudUrl.concat("/").concat(
+                participant.getParticipantId());
+
+        RestServiceInvokerUtil
+                .putServiceData(participantUpdateUrl, participant);
+
     }
 }

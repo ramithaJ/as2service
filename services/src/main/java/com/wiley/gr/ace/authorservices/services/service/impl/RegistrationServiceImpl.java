@@ -28,6 +28,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.exception.UserException;
+import com.wiley.gr.ace.authorservices.external.util.AuthorServicesUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.ALMInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.CDMInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.NotificationService;
@@ -207,6 +208,7 @@ public class RegistrationServiceImpl implements RegistrationService {
                         user.setFirstName(participant.getGivenName());
                         user.setLastName(participant.getFamilyName());
                         user.setCountryCode(participant.getParticipantCountry());
+                        user.setParticipantId(participant.getParticipantId());
                     }
                 } else {
                     throw new UserException(checkUserExistsErrorCode,
@@ -274,7 +276,7 @@ public class RegistrationServiceImpl implements RegistrationService {
      * @return the string
      */
     @Override
-    public String createALMUser(final User user) {
+    public final String createALMUser(final User user) {
 
         String almUserId = null;
         ALMUser almUser = new ALMUser();
@@ -336,6 +338,11 @@ public class RegistrationServiceImpl implements RegistrationService {
             user.setSendEmailFlag(sendEmailFlag);
             String ptpId = createParticipant(user);
             if (!StringUtils.isEmpty(ptpId)) {
+                ALMUser almUser = new ALMUser();
+                almUser.setEmail(user.getPrimaryEmailAddr());
+                almUser.setTcFlag(AuthorServicesConstants.AS_ALM_TNC_FLAG);
+                almUser.setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
+                almInterfaceService.updateUser(almUser);
                 user.setParticipantId(ptpId);
                 createContact(user);
                 status = "SUCCESS";
@@ -429,9 +436,10 @@ public class RegistrationServiceImpl implements RegistrationService {
      *            the alm user id
      */
     @Override
-    public final void verifyAccount(final String almUserId) {
+    public final void verifyAccount(final String almUserIdEncrypted) {
         try {
-            User user = returnUserFromDB(almUserId);
+            User user = returnUserFromDB(AuthorServicesUtil
+                    .decrypt(almUserIdEncrypted));
 
             List<ALMUser> almUserList = almInterfaceService.searchUser(
                     user.getPrimaryEmailAddr()).getUserPayload();
@@ -510,6 +518,28 @@ public class RegistrationServiceImpl implements RegistrationService {
         }
 
         return user;
+    }
+
+    /**
+     * Update participant.
+     *
+     * @param user
+     *            the user
+     * @return the string
+     */
+    @Override
+    public void updateParticipant(final User user) throws UserException {
+        Participant participant = new Participant();
+
+        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        participant.setCreatedDate(dt.format(new Date()));
+        participant.setFamilyName(user.getLastName());
+        participant.setGivenName(user.getFirstName());
+        participant.setModifiedDate(dt.format(new Date()));
+        participant.setParticipantCountry(user.getCountryCode());
+        participant.setUserId(user.getUserId());
+
+        participantInterfaceService.updateParticipant(participant);
     }
 
 }

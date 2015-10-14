@@ -174,8 +174,29 @@ public interface ParticipantsInterfaceService {
      */
     Preferences getPreferredJournals(String participantId);
 
+    /**
+     * Delete preferred journal.
+     *
+     * @param profileEntity
+     *            the profile entity
+     * @return true, if successful
+     */
     boolean deletePreferredJournal(ProfileEntity profileEntity);
 
+    /**
+     * Adds the preferred journals.
+     *
+     * @param profileEntity
+     *            the profile entity
+     */
     void addPreferredJournals(ProfileEntity profileEntity);
+
+    /**
+     * Update participant.
+     *
+     * @param participant
+     *            the participant
+     */
+    void updateParticipant(Participant participant);
 
 }
