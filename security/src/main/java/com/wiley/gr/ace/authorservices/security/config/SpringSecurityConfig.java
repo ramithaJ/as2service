@@ -17,7 +17,6 @@ import com.wiley.gr.ace.authorservices.security.TokenAuthenticationProvider;
 import com.wiley.gr.ace.authorservices.security.filters.StatelessAuthenticationFilter;
 import com.wiley.gr.ace.authorservices.security.filters.StatelessLoginFilter;
 import com.wiley.gr.ace.authorservices.security.service.TokenAuthenticationService;
-import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
 import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 

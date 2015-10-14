@@ -68,8 +68,6 @@ import com.wiley.gr.ace.authorservices.model.external.ProfileEntity;
 import com.wiley.gr.ace.authorservices.model.external.ProfileRequest;
 import com.wiley.gr.ace.authorservices.model.external.ResearchFunderData;
 import com.wiley.gr.ace.authorservices.model.external.SecurityQuestionsUpdateRequest;
-import com.wiley.gr.ace.authorservices.model.external.SocietyData;
-import com.wiley.gr.ace.authorservices.model.external.SocietyList;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestions;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsEntry;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsMap;
@@ -1026,28 +1024,9 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      *
      * */
     @Override
-    public boolean deleteSociety(final String userId, final String societyId,
-            final String id) {
+    public boolean deleteSociety(final Long id) {
 
-        final CustomerDetails customerDetails = getCustomeProfile(String
-                .valueOf(userId));
-        final LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
-        final CustomerProfile customerProfile = new CustomerProfile();
-        customerProfile.setCustomerDetails(customerDetails);
-        final SocietyList societyList = new SocietyList();
-        final SocietyData societyData = new SocietyData();
-        societyData.setId(id);
-        societyData.setStartDate("1999-05-31T13:20:00-05:00");
-        societyData.setStatus("delete");
-        societyData.setSocietyId(societyId);
-        societyList.setSociety(new ArrayList<SocietyData>());
-        societyList.getSociety().add(societyData);
-        customerProfile.setCustomerDetails(customerDetails);
-        customerProfile.setSocietyList(societyList);
-        lookupCustomerProfileResponse.setCustomerProfile(customerProfile);
-
-        return userProfiles
-                .customerProfileUpdate(lookupCustomerProfileResponse);
+        return societyDao.deleteSociety(id);
     }
 
     /**
@@ -1179,4 +1158,5 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
         return false;
     }
+
 }

@@ -217,11 +217,9 @@ public class UserProfileController {
             @Valid @RequestBody final Society society) {
 
         final Service service = new Service();
-
         UserProfileController.LOGGER
                 .info("inside updateSocietyDetails method ");
-        service.setPayload(authorProfileService.updateSocietyDetails(userId,
-                society));
+        authorProfileService.updateSocietyDetails(userId, society);
         return service;
     }
 
@@ -236,19 +234,12 @@ public class UserProfileController {
      *            the id
      * @return service
      */
-    @RequestMapping(value = "/societies/{userId}/{societyId}/{id}", method = RequestMethod.DELETE)
-    public final Service deleteSocietyDetails(
-            @PathVariable("userId") final String userId,
-            @PathVariable("societyId") final String societyId,
-            @PathVariable("id") final String id) {
-
+    @RequestMapping(value = "/societies/{id}", method = RequestMethod.DELETE)
+    public final Service deleteSocietyDetails(@PathVariable("id") final Long id) {
         UserProfileController.LOGGER
                 .info("inside deleteSocietyDetails method ");
-
         final Service service = new Service();
-
-        service.setPayload(authorProfileService.deleteSociety(userId,
-                societyId, id));
+        authorProfileService.deleteSociety(id);
         return service;
     }
 
