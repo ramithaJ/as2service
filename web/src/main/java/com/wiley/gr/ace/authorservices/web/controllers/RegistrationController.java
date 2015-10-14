@@ -14,6 +14,8 @@ package com.wiley.gr.ace.authorservices.web.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
@@ -47,6 +49,8 @@ import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 public class RegistrationController {
 
     /** The Constant LOGGER. */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(RegistrationController.class);
     /*
      * public static final Logger LOGGER = Logger
      * .getLogger(RegistrationController.class.getName());
@@ -145,6 +149,9 @@ public class RegistrationController {
         User foundUserToReturn = null;
 
         if (!StringUtils.isEmpty(user.getPrimaryEmailAddr())) {
+            LOGGER.debug("checking if user with email id "
+                    + user.getPrimaryEmailAddr()
+                    + " is existing in ALM or invitee records");
             retrievedUser = registrationService.checkEmailIdExists(user
                     .getPrimaryEmailAddr());
         }
@@ -160,6 +167,7 @@ public class RegistrationController {
                 service.setStatus("SUCCESS");
                 service.setPayload(foundUserToReturn);
             } else {
+                LOGGER.info("Pre-populating user data");
                 foundUserToReturn.setFirstName(retrievedUser.getFirstName());
                 foundUserToReturn.setLastName(retrievedUser.getLastName());
                 foundUserToReturn.setInvited(true);
@@ -194,6 +202,7 @@ public class RegistrationController {
         User user = null;
         try {
             participantId = AuthorServicesUtil.decrypt(encryptedId);
+            LOGGER.info("Searching invitation records");
             user = registrationService.searchInvitationRecord(participantId);
             if (!StringUtils.isEmpty(user)) {
                 service.setStatus("SUCCESS");
@@ -223,11 +232,13 @@ public class RegistrationController {
         if (null != user) {
             boolean executeCreate = true;
             if (user.isSearchFullName()) {
+                LOGGER.info("Searching if any user exist with the same firstname and lastname");
                 service = new Service();
                 ArrayList<User> usersList = null;
                 usersList = registrationService.getUserFromFirstNameLastName(
                         user.getFirstName(), user.getLastName());
                 if (!StringUtils.isEmpty(usersList) && usersList.size() > 0) {
+                    LOGGER.info("List of users found with the same firstname and lastname");
                     service.setStatus("FAILURE");
                     service.setPayload(usersList);
                     ErrorPOJO err = new ErrorPOJO();
@@ -240,10 +251,12 @@ public class RegistrationController {
             }
 
             if (executeCreate) {
+                LOGGER.info("Creating user in ALM");
                 userId = registrationService.createALMUser(user);
 
                 if (!StringUtils.isEmpty(userId)) {
                     if (!user.isInvited()) {
+                        LOGGER.info("Sending verification email to user as user is not invited");
                         SendNotificationRequest notificationRequest = new SendNotificationRequest();
                         List<String> fieldList = new ArrayList<String>();
                         fieldList.add(user.getFirstName() + " "
@@ -258,6 +271,7 @@ public class RegistrationController {
                         sendNotification.sendEmail("24", "113", "email",
                                 notificationRequest);
                     } else {
+                        LOGGER.info("User is invited, authenticating the user");
                         user.setUserId(userId);
                         registrationService.updateParticipant(user);
                         SharedServieRequest loginSharedServieRequest = new SharedServieRequest();
@@ -359,6 +373,7 @@ public class RegistrationController {
     @RequestMapping(value = "verifyAccount/{almUserIdEncrypted}", method = RequestMethod.GET)
     public final Service verifyAccount(
             @PathVariable("almUserIdEncrypted") final String almUserIdEncrypted) {
+        LOGGER.info("Verifying user in AS");
         registrationService.verifyAccount(almUserIdEncrypted);
         return new Service();
     }
@@ -374,6 +389,7 @@ public class RegistrationController {
     public final Service createParticipantAndContact(
             @RequestBody final User user) {
 
+        LOGGER.info("Creating participant and contact");
         registrationService.doFinalCreate(user.getUserId(),
                 user.getSendEmailFlag());
 

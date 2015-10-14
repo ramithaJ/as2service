@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
@@ -61,6 +63,10 @@ import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
  * @author virtusa version 1.0
  */
 public class RegistrationServiceImpl implements RegistrationService {
+
+    /** The Constant LOGGER. */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(RegistrationServiceImpl.class);
 
     /** The registration service dao. */
     @Autowired(required = true)
@@ -199,11 +205,14 @@ public class RegistrationServiceImpl implements RegistrationService {
         User user = null;
         if (!StringUtils.isEmpty(emailId)) {
             try {
+                LOGGER.info("checking if user exists in ALM");
                 ALMSearchUserResponse almSearchUserResponse = almInterfaceService
                         .searchUser(emailId);
                 if (StringUtils.isEmpty(almSearchUserResponse)) {
-                    if (StringUtils.isEmpty(sharedService
+                    LOGGER.info("User is not found in ALM, Searching the invitation records");
+                    if (!StringUtils.isEmpty(sharedService
                             .searchInvitationRecord(emailId))) {
+                        LOGGER.info("User is an invited user");
                         Participant participant = participantInterfaceService
                                 .searchParticipantByEmail(emailId);
                         user = new User();
