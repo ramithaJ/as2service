@@ -320,16 +320,17 @@ public class RegistrationController {
     @RequestMapping(value = "/search/orcid/{orcidId}", method = RequestMethod.GET)
     public final Service isUserFoundWithOrcidId(
             @PathVariable("orcidId") final String orcidId) {
-
         Service service = new Service();
         if (!StringUtils.isEmpty(orcidId)) {
             try {
-                if (registrationService.searchUserByOrcidId(orcidId)) {
+                User user = registrationService.searchUserByOrcidId(orcidId);
+                if (!StringUtils.isEmpty(user)) {
                     service.setStatus("FAILURE");
                     ErrorPOJO err = new ErrorPOJO();
-                    err.setCode(noDataFoundCode);
-                    err.setMessage("User already exists with the same ORCID Id");
+                    err.setCode(isUserFoundWithOrcidIdErrorCode);
+                    err.setMessage(isUserFoundWithOrcidIdErrorMessage);
                     service.setError(err);
+                    service.setPayload(user);
                 } else {
                     service.setStatus("SUCCESS");
                 }
@@ -345,7 +346,6 @@ public class RegistrationController {
             err.setMessage("Please enter ORCID Id");
             service.setError(err);
         }
-
         return service;
     }
 

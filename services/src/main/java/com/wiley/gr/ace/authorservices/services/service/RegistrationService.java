@@ -55,7 +55,7 @@ public interface RegistrationService {
      * @throws Exception
      *             the exception
      */
-    boolean searchUserByOrcidId(String orcidId) throws Exception;
+    User searchUserByOrcidId(String orcidId) throws Exception;
 
     /**
      * Search invitation record.

@@ -242,28 +242,21 @@ public class RegistrationServiceImpl implements RegistrationService {
      *             the exception
      */
     @Override
-    public final boolean searchUserByOrcidId(final String orcidId)
+    public final User searchUserByOrcidId(final String orcidId)
             throws Exception {
-
-        boolean isUserFound = false;
-        /*
-         * if (!StringUtils.isEmpty(orcidId) &&
-         * registrationServiceDAO.searchUserByOrcidId(orcidId)) { isUserFound =
-         * true; }
-         */
+        User user = null;
         if (!StringUtils.isEmpty(orcidId)) {
             Participant participant = participantInterfaceService
                     .searchParticipantByOrcidId(orcidId);
-            User user = null;
             if (!StringUtils.isEmpty(participant)) {
                 user = new User();
-                user.setOrcidId(participant.getOrcidId());
-                user.setPrimaryEmailAddr(participant.getEmail());
-                user.setRecoveryEmailAddress(participant.getRecoveryEmail());
+                user.setOrcidId(orcidId);
+                user.setParticipantId(participant.getParticipantId());
+                user.setPrimaryEmailAddr(participant.getUserName());
+                user.setUserId(participant.getUserId());
             }
-            isUserFound = true;
         }
-        return isUserFound;
+        return user;
     }
 
     /**
