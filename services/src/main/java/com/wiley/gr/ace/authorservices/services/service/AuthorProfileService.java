@@ -21,8 +21,8 @@ import com.wiley.gr.ace.authorservices.model.AlertsList;
 import com.wiley.gr.ace.authorservices.model.AreaOfInterests;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.Interests;
+import com.wiley.gr.ace.authorservices.model.JournalDetails;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
-import com.wiley.gr.ace.authorservices.model.PreferredJournals;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Society;
@@ -184,7 +184,7 @@ public interface AuthorProfileService {
      *            the user id
      * @return the affiliations list
      */
-    List<Affiliation> getAffiliationsList(String userId);
+    List<String> getAffiliationsList(String userId);
 
     /**
      * Gets the research funders list.
@@ -238,7 +238,7 @@ public interface AuthorProfileService {
      *            the user id
      * @return the preffered journals
      */
-    List<PreferredJournals> getPrefferedJournals(String participantId);
+    String getPrefferedJournals(String participantId);
 
     /**
      * Gets the custome profile.
@@ -321,5 +321,7 @@ public interface AuthorProfileService {
      * @return true, if successful
      */
     boolean deletePreferredJournals(String userId, String journalId);
+
+    boolean addPreferredJournal(String userId, JournalDetails journalDetails);
 
 }

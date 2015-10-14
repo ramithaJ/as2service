@@ -13,10 +13,15 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
- * @author virtusa version 1.0
+ * The Class EntityValue.
  *
+ * @author virtusa version 1.0
  */
+@JsonInclude(Include.NON_NULL)
 public class EntityValue {
 
     /**
@@ -24,7 +29,12 @@ public class EntityValue {
      */
     private ProfileRequest profile;
 
+    /** The journal. */
+    private JournalElement journal;
+
     /**
+     * Gets the profile.
+     *
      * @return the profile
      */
     public final ProfileRequest getProfile() {
@@ -32,11 +42,32 @@ public class EntityValue {
     }
 
     /**
+     * Sets the profile.
+     *
      * @param profile
      *            the profile to set
      */
     public final void setProfile(final ProfileRequest profile) {
         this.profile = profile;
+    }
+
+    /**
+     * Gets the journal.
+     *
+     * @return the journal
+     */
+    public final JournalElement getJournal() {
+        return journal;
+    }
+
+    /**
+     * Sets the journal.
+     *
+     * @param journal
+     *            the new journal
+     */
+    public final void setJournal(final JournalElement journal) {
+        this.journal = journal;
     }
 
 }

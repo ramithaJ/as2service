@@ -11,11 +11,16 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.search.external.service.impl;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.client.RestTemplate;
 
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
+import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
+import com.wiley.gr.ace.authorservices.model.external.AutocompleteResponse;
+import com.wiley.gr.ace.authorservices.model.external.AutocompleteSearch;
 import com.wiley.gr.ace.authorservices.search.model.SearchRequest;
 import com.wiley.gr.ace.authorservices.search.model.SearchResponse;
 import com.wiley.gr.ace.authorservices.services.search.external.service.SearchExternalService;
@@ -25,26 +30,47 @@ import com.wiley.gr.ace.authorservices.services.search.external.service.SearchEx
  */
 public class SearchExternalServiceImpl implements SearchExternalService {
 
-	/**
-	 * This method is for Searching
-	 * 
-	 * @param searchRequest
-	 * @return searchresponse.
-	 * 
-	 * */
-	@Override
-	public final SearchResponse search(final SearchRequest searchRequest) {
+    /**
+     * This method is for Searching
+     * 
+     * @param searchRequest
+     * @return searchresponse.
+     * 
+     * */
 
-		final HttpHeaders headers = new HttpHeaders();
-		headers.add("role", "REGISTERED");
+    @Value("${search.url}")
+    private String searchUrl;
 
-		final HttpEntity<SearchResponse> httpEntity = new HttpEntity<SearchResponse>(
-				headers);
-		final SearchResponse response = new RestTemplate().exchange(
-				"http://10.201.64.81:8090/searchservice/v1/api/_search",
-				HttpMethod.POST, httpEntity, SearchResponse.class).getBody();
+    @Value("${search.autocomplete}")
+    private String autocompleteSearchUrl;
 
-		return response;
-	}
+    /** This method is calling search api for getting search related data */
+    @Override
+    public final SearchResponse search(final SearchRequest searchRequest) {
+
+        final HttpHeaders headers = new HttpHeaders();
+        headers.add(AuthorServicesConstants.SEARCH_ROLE,
+                AuthorServicesConstants.SEARCH_ROLE_REGISTERED);
+
+        final HttpEntity<SearchRequest> httpEntity = new HttpEntity<SearchRequest>(
+                searchRequest, headers);
+        final SearchResponse response = new RestTemplate().exchange(searchUrl,
+                HttpMethod.POST, httpEntity, SearchResponse.class).getBody();
+
+        return response;
+    }
+
+    /**
+     * This method is calling search api for getting autocomplete suggest
+     * related data related data
+     */
+    @Override
+    public AutocompleteResponse autocompleteSearch(
+            final AutocompleteSearch autocompleteSearch) {
+
+        return (AutocompleteResponse) RestServiceInvokerUtil
+                .restServiceInvoker(autocompleteSearchUrl, autocompleteSearch,
+                        AutocompleteResponse.class);
+    }
 
 }

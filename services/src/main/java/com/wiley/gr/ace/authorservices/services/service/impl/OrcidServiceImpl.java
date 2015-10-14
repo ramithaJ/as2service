@@ -26,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.OrcidInterfaceService;
+import com.wiley.gr.ace.authorservices.externalservices.service.ParticipantsInterfaceService;
 import com.wiley.gr.ace.authorservices.model.Address;
 import com.wiley.gr.ace.authorservices.model.Addresses;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
@@ -33,6 +34,7 @@ import com.wiley.gr.ace.authorservices.model.Country;
 import com.wiley.gr.ace.authorservices.model.DisambiguatedOrganization;
 import com.wiley.gr.ace.authorservices.model.Organization;
 import com.wiley.gr.ace.authorservices.model.User;
+import com.wiley.gr.ace.authorservices.model.external.Participant;
 import com.wiley.gr.ace.authorservices.model.orcid.OrcidAccessToken;
 import com.wiley.gr.ace.authorservices.services.service.ASDataService;
 import com.wiley.gr.ace.authorservices.services.service.OrcidService;
@@ -56,6 +58,8 @@ public class OrcidServiceImpl implements OrcidService {
     @Autowired(required = true)
     private ASDataService asDataService;
 
+    @Autowired(required = true)
+    private ParticipantsInterfaceService participantsInterfaceService;
     /** The Constant COUNT. */
     private static final int COUNT = 10;
 
@@ -510,5 +514,25 @@ public class OrcidServiceImpl implements OrcidService {
                             .get("disambiguation-source"));
         }
         return disambiguatedOrganization;
+    }
+
+    /**
+     * Gets the orcid id.
+     *
+     * @param participantId
+     *            the participant id
+     * @return the orcid id
+     * @throws Exception
+     *             the exception
+     */
+    @Override
+    public String getOrcidId(final String participantId) throws Exception {
+        String orcidId = null;
+        Participant participant = participantsInterfaceService
+                .searchParticipantByParticipantId(participantId);
+        if (!StringUtils.isEmpty(participant)) {
+            orcidId = participant.getOrcidId();
+        }
+        return orcidId;
     }
 }

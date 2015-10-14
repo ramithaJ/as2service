@@ -13,9 +13,9 @@ package com.wiley.gr.ace.authorservices.services.service;
 
 import java.util.List;
 
-import com.wiley.gr.ace.authorservices.model.Addresses;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.AddressData;
+import com.wiley.gr.ace.authorservices.model.external.AddressesData;
 import com.wiley.gr.ace.authorservices.model.external.Entity;
 import com.wiley.gr.ace.authorservices.model.external.ParticipantAddress;
 
@@ -26,37 +26,37 @@ import com.wiley.gr.ace.authorservices.model.external.ParticipantAddress;
  */
 public interface UserAccountService {
 
-	/**
-	 * Gets the email details.
-	 *
-	 * @param userId
-	 *            the user id
-	 * @return the email details
-	 */
-	User getEmailDetails(String userId);
+    /**
+     * Gets the email details.
+     *
+     * @param userId
+     *            the user id
+     * @return the email details
+     */
+    User getEmailDetails(String userId);
 
-	/**
-	 * Gets the profile information.
-	 *
-	 * @param userId
-	 *            the user id
-	 * @return the profile information
-	 */
-	User getProfileInformation(String userId);
+    /**
+     * Gets the profile information.
+     *
+     * @param userId
+     *            the user id
+     * @return the profile information
+     */
+    User getProfileInformation(String userId);
 
-	/**
-	 * Gets the user address.
-	 *
-	 * @param userId
-	 *            the user id
-	 * @return the user address
-	 */
-	List<Addresses> getUserAddress(String userId);
+    /**
+     * Gets the user address.
+     *
+     * @param userId
+     *            the user id
+     * @return the user address
+     * @throws Exception
+     */
+    AddressesData getUserAddress(String userId) throws Exception;
 
-	List<ParticipantAddress> getAddress(String participantId) throws Exception;
+    List<ParticipantAddress> getAddress(String participantId) throws Exception;
 
-	Object updatAddress(String participantId, Entity entity)
-			throws Exception;
+    Object updatAddress(String participantId, Entity entity) throws Exception;
 
-	List<AddressData> validateAddress(AddressData address) throws Exception;
+    List<AddressData> validateAddress(AddressData address) throws Exception;
 }

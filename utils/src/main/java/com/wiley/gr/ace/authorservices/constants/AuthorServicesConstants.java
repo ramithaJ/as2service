@@ -125,7 +125,7 @@ public class AuthorServicesConstants {
     public static final String AUTHPASSWORD = "hgdJbhjrnfY9KFs3KPpddQ==";
 
     /** This field holds the value of SOURCESYSTEM. */
-    public static final String SOURCESYSTEM = "AS";
+    public static final String SOURCESYSTEM = "AS2.0";
     /** The Constant PDF_NAME. */
     public static final String INVOICE_PDF_NAME = "Invoice.pdf";
 
@@ -188,6 +188,12 @@ public class AuthorServicesConstants {
 
     /** The Constant VERIFY_ACCOUNT_SUSPENDED. */
     public static final String VERIFY_ACCOUNT_SUSPENDED = "Suspended";
+
+    /** The Constant Search_role. */
+    public static final String SEARCH_ROLE = "role";
+
+    /** The Constant Search_role_Registered. */
+    public static final String SEARCH_ROLE_REGISTERED = "REGISTERED";
 
     /** The Constant VERIFY_ACCOUNT_AWAITING_ACTIVATION. */
     public static final String VERIFY_ACCOUNT_AWAITING_ACTIVATION = "Awaiting Activation";

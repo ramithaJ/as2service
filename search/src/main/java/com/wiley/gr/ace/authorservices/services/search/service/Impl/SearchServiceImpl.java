@@ -13,6 +13,8 @@ package com.wiley.gr.ace.authorservices.services.search.service.Impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.wiley.gr.ace.authorservices.model.external.AutocompleteResponse;
+import com.wiley.gr.ace.authorservices.model.external.AutocompleteSearch;
 import com.wiley.gr.ace.authorservices.search.model.SearchRequest;
 import com.wiley.gr.ace.authorservices.search.model.SearchResponse;
 import com.wiley.gr.ace.authorservices.services.search.external.service.SearchExternalService;
@@ -23,21 +25,27 @@ import com.wiley.gr.ace.authorservices.services.search.service.SearchService;
  */
 public class SearchServiceImpl implements SearchService {
 
-	/** The search external service. */
-	@Autowired(required = true)
-	private SearchExternalService searchExternalService;
+    /** The search external service. */
+    @Autowired(required = true)
+    private SearchExternalService searchExternalService;
 
-	/**
-	 * This method is for search
-	 * 
-	 * @param searchRequest
-	 * 
-	 * @return search response..
-	 * */
-	@Override
-	public final SearchResponse search(final SearchRequest searchRequest) {
+    /**
+     * This method is for search
+     * 
+     * @param searchRequest
+     * 
+     * @return search response..
+     * */
+    @Override
+    public final SearchResponse search(final SearchRequest searchRequest) {
 
-		return searchExternalService.search(searchRequest);
-	}
+        return searchExternalService.search(searchRequest);
+    }
+
+    @Override
+    public AutocompleteResponse autocompleteSearch(
+            final AutocompleteSearch autocompleteSearch) {
+        return searchExternalService.autocompleteSearch(autocompleteSearch);
+    }
 
 }

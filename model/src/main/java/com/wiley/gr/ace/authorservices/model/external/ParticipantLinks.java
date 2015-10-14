@@ -9,39 +9,57 @@
  * is strictly forbidden except by express prior written permission 
  * of John Wiley & Sons.
  *******************************************************************************/
-package com.wiley.gr.ace.authorservices.search.model;
-
-import java.io.Serializable;
+/**
+ * 
+ */
+package com.wiley.gr.ace.authorservices.model.external;
 
 /**
- * The Class Facets.
+ * The Class ParticipantLinks.
  */
-public class Facets implements Serializable {
+public class ParticipantLinks {
+
+    /** The rel. */
+    private String rel;
+
+    /** The href. */
+    private String href;
 
     /**
-     * 
-     */
-    private static final long serialVersionUID = 1L;
-    /** The tag. */
-    private Tag tag;
-
-    /**
-     * Gets the tag.
+     * Gets the rel.
      *
-     * @return the tag
+     * @return the rel
      */
-    public final Tag getTag() {
-        return tag;
+    public final String getRel() {
+        return rel;
     }
 
     /**
-     * Sets the tag.
+     * Sets the rel.
      *
-     * @param tag
-     *            the new tag
+     * @param rel
+     *            the new rel
      */
-    public final void setTag(final Tag tag) {
-        this.tag = tag;
+    public final void setRel(final String rel) {
+        this.rel = rel;
     }
 
+    /**
+     * Gets the href.
+     *
+     * @return the href
+     */
+    public final String getHref() {
+        return href;
+    }
+
+    /**
+     * Sets the href.
+     *
+     * @param href
+     *            the new href
+     */
+    public final void setHref(final String href) {
+        this.href = href;
+    }
 }

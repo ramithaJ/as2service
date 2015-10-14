@@ -36,10 +36,9 @@ import com.wiley.gr.ace.authorservices.model.Alert;
 import com.wiley.gr.ace.authorservices.model.AlertsList;
 import com.wiley.gr.ace.authorservices.model.AreaOfInterests;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
-import com.wiley.gr.ace.authorservices.model.Country;
 import com.wiley.gr.ace.authorservices.model.Interests;
+import com.wiley.gr.ace.authorservices.model.JournalDetails;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
-import com.wiley.gr.ace.authorservices.model.PreferredJournals;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
@@ -57,16 +56,14 @@ import com.wiley.gr.ace.authorservices.model.external.CoAuthorData;
 import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
 import com.wiley.gr.ace.authorservices.model.external.CustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.EntityValue;
-import com.wiley.gr.ace.authorservices.model.external.FavoriteJournals;
 import com.wiley.gr.ace.authorservices.model.external.InterestData;
 import com.wiley.gr.ace.authorservices.model.external.InterestList;
-import com.wiley.gr.ace.authorservices.model.external.Journal;
+import com.wiley.gr.ace.authorservices.model.external.JournalElement;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfileResponse;
 import com.wiley.gr.ace.authorservices.model.external.Participant;
 import com.wiley.gr.ace.authorservices.model.external.PasswordRequest;
 import com.wiley.gr.ace.authorservices.model.external.PasswordUpdate;
-import com.wiley.gr.ace.authorservices.model.external.Preferences;
 import com.wiley.gr.ace.authorservices.model.external.ProfileEntity;
 import com.wiley.gr.ace.authorservices.model.external.ProfileRequest;
 import com.wiley.gr.ace.authorservices.model.external.ResearchFunderData;
@@ -133,8 +130,6 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      */
     @Autowired(required = true)
     private ParticipantsInterfaceService participantsInterfaceService;
-
-    
 
     /**
      * Update society details.
@@ -713,42 +708,12 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @return the affiliations list
      */
     @Override
-    public final List<Affiliation> getAffiliationsList(final String userId) {
+    public final List<String> getAffiliationsList(final String userId) {
 
-        final List<AffiliationData> listofAffiliations = userProfiles
-                .getLookupCustomerProfile(userId)
-                .getLookupCustomerProfileResponse().getCustomerProfile()
-                .getAffiliations().getAffiliation();
-        final List<Affiliation> listAffiliations = new ArrayList<Affiliation>();
-        if (!StringUtils.isEmpty(listofAffiliations)) {
+        final List<String> areasOfInterest = participantsInterfaceService
+                .searchParticipantByUserId(userId).getAreasOfInterest();
+        return areasOfInterest;
 
-            for (final AffiliationData affiliationData : listofAffiliations) {
-                if (affiliationData.getStartDate() == null) {
-                    break;
-                }
-                final Affiliation affiliation = new Affiliation();
-                affiliation.setAffiliationId(affiliationData.getId());
-                affiliation.setCity(affiliationData.getCity());
-                final Country country = new Country();
-                country.setCountryCode(affiliationData.getCountryCd());
-                affiliation.setCountry(country);
-                affiliation
-                        .setInstitutionId(affiliationData.getInstitutionCd());
-                affiliation.setDepartmentId(affiliationData.getDepartmentCd());
-                affiliation.setInstitutionName(affiliationData
-                        .getInstitutionName());
-                affiliation.setDepartmentName(affiliationData
-                        .getDepartmentName());
-                affiliation.setStartDate(ASDateFormatUtil
-                        .convertDateToLong(affiliationData.getStartDate()));
-                affiliation.setEndDate(ASDateFormatUtil
-                        .convertDateToLong(affiliationData.getEndDate()));
-                affiliation.setStateCode(affiliationData.getState());
-                affiliation.setId(affiliationData.getId());
-                listAffiliations.add(affiliation);
-            }
-        }
-        return listAffiliations;
     }
 
     /**
@@ -957,27 +922,13 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @return the preffered journals
      */
     @Override
-    public final List<PreferredJournals> getPrefferedJournals(
-            final String participantId) {
+    public final String getPrefferedJournals(final String participantId) {
 
-        final List<Preferences> preference = participantsInterfaceService
-                .getPreferredJournals(participantId).getContent();
+        final String value = participantsInterfaceService.getPreferredJournals(
+                participantId).getPreferenceValue();
 
-        final List<PreferredJournals> prefferedList = new ArrayList<PreferredJournals>();
-        for (final Preferences preferences : preference) {
-            /*
-             * final PdhJournalData pdhJournalData = (PdhJournalData)
-             * eSBInterfaceService
-             * .getPdhLookupResponse(preferences.getPreferenceKey());
-             */
-            final PreferredJournals preferredJournals = new PreferredJournals();
-            preferredJournals.setJournalId(preferences.getPreferenceKey());
-            preferredJournals.setJournalTitle(preferences.getPreferenceValue());
-            // preferredJournals.setPdhimage(pdhJournalData.getBannerImageLink());
-            prefferedList.add(preferredJournals);
-        }
+        return value;
 
-        return prefferedList;
     }
 
     /**
@@ -1188,24 +1139,18 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     @Override
     public boolean deletePreferredJournals(final String userId,
             final String journalId) {
-        final CustomerDetails customerDetails = getCustomeProfile(String
-                .valueOf(userId));
-        final LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
-        final CustomerProfile customerProfile = new CustomerProfile();
-        customerProfile.setCustomerDetails(customerDetails);
-
-        final Journal journal = new Journal();
-        journal.setId(journalId);
-        journal.setStatus("delete");
-        final List<Journal> journalsList = new ArrayList<Journal>();
-        journalsList.add(journal);
-        final FavoriteJournals favoriteJournals = new FavoriteJournals();
-        favoriteJournals.setJournal(journalsList);
-        customerProfile.setFavoriteJournals(favoriteJournals);
-        lookupCustomerProfileResponse.setCustomerProfile(customerProfile);
-
-        return userProfiles
-                .customerProfileUpdate(lookupCustomerProfileResponse);
+        final boolean status = false;
+        final ProfileEntity profileEntity = new ProfileEntity();
+        profileEntity.setEntityType("FAVJOURNAL");
+        final JournalElement journalElement = new JournalElement();
+        journalElement.setRelationshipId(journalId);
+        final EntityValue entityValue = new EntityValue();
+        entityValue.setJournal(journalElement);
+        profileEntity.setEntityValue(entityValue);
+        profileEntity.setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
+        profileEntity.setEntityId(userId);
+        participantsInterfaceService.deletePreferredJournal(profileEntity);
+        return status;
     }
 
     @Override
@@ -1233,5 +1178,25 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         return userProfiles
                 .customerProfileUpdate(lookupCustomerProfileResponse);
 
+    }
+
+    @Override
+    public boolean addPreferredJournal(final String userId,
+            final JournalDetails journalDetails) {
+        final ProfileEntity profileEntity = new ProfileEntity();
+        profileEntity.setEntityType("FAVJOURNAL");
+        final EntityValue entityValue = new EntityValue();
+        final JournalElement journalElement = new JournalElement();
+        journalElement.setRelationshipId("");
+        journalElement.setJournalID(journalDetails.getJournalId());
+        // TODO pdh look up for getting journal title
+        entityValue.setJournal(journalElement);
+        profileEntity.setEntityValue(entityValue);
+        profileEntity.setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
+        profileEntity.setEntityId(userId);
+
+        participantsInterfaceService.addPreferredJournals(profileEntity);
+
+        return false;
     }
 }

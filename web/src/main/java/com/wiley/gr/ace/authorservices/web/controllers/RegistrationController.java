@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.UserException;
@@ -156,12 +155,16 @@ public class RegistrationController {
                     && retrievedUser.getLastName().equalsIgnoreCase(
                             user.getLastName())) {
                 foundUserToReturn.setInvited(true);
+                foundUserToReturn.setParticipantId(retrievedUser
+                        .getParticipantId());
                 service.setStatus("SUCCESS");
                 service.setPayload(foundUserToReturn);
             } else {
                 foundUserToReturn.setFirstName(retrievedUser.getFirstName());
                 foundUserToReturn.setLastName(retrievedUser.getLastName());
                 foundUserToReturn.setInvited(true);
+                foundUserToReturn.setParticipantId(retrievedUser
+                        .getParticipantId());
                 foundUserToReturn
                         .setCountryCode(retrievedUser.getCountryCode());
                 ErrorPOJO err = new ErrorPOJO();
@@ -210,8 +213,8 @@ public class RegistrationController {
      * Creates the user.
      *
      * @param user
-     *            - The request value
-     * @return service
+     *            the user
+     * @return the service
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public final Service createUser(@RequestBody final User user) {
@@ -255,6 +258,8 @@ public class RegistrationController {
                         sendNotification.sendEmail("24", "113", "email",
                                 notificationRequest);
                     } else {
+                        user.setUserId(userId);
+                        registrationService.updateParticipant(user);
                         SharedServieRequest loginSharedServieRequest = new SharedServieRequest();
                         Login invitedLogin = new Login();
                         invitedLogin.setEmailId(user.getPrimaryEmailAddr());
@@ -309,8 +314,8 @@ public class RegistrationController {
      * Checks if is user found with orcid id.
      *
      * @param orcidId
-     *            - The request value
-     * @return service
+     *            the orcid id
+     * @return the service
      */
     @RequestMapping(value = "/search/orcid/{orcidId}", method = RequestMethod.GET)
     public final Service isUserFoundWithOrcidId(
@@ -347,29 +352,30 @@ public class RegistrationController {
     /**
      * Verify account.
      *
-     * @param almUserId
-     *            the alm user id
+     * @param almUserIdEncrypted
+     *            the alm user id encrypted
      * @return the service
      */
-    @RequestMapping(value = "verifyAccount/{emailId}", method = RequestMethod.GET)
+    @RequestMapping(value = "verifyAccount/{almUserIdEncrypted}", method = RequestMethod.GET)
     public final Service verifyAccount(
-            @PathVariable("almUserId") final String almUserId) {
-        registrationService.verifyAccount(almUserId);
+            @PathVariable("almUserIdEncrypted") final String almUserIdEncrypted) {
+        registrationService.verifyAccount(almUserIdEncrypted);
         return new Service();
     }
 
     /**
      * Creates the participant and contact.
      *
-     * @param almUserId
-     *            the alm user id
+     * @param user
+     *            the user
      * @return the service
      */
-    @RequestMapping(value = "/createFinal", method = RequestMethod.GET)
+    @RequestMapping(value = "/createFinal", method = RequestMethod.POST)
     public final Service createParticipantAndContact(
-            @RequestParam("almUserId") final String almUserId) {
+            @RequestBody final User user) {
 
-        registrationService.doFinalCreate(almUserId);
+        registrationService.doFinalCreate(user.getUserId(),
+                user.getSendEmailFlag());
 
         return new Service();
     }
@@ -377,15 +383,15 @@ public class RegistrationController {
     /**
      * Resend verification mail.
      *
-     * @param emailId
-     *            the email id
+     * @param user
+     *            the user
      * @return the service
      */
-    @RequestMapping(value = "/verify/resend", method = RequestMethod.GET)
-    public final Service resendVerificationMail(
-            @RequestParam("email") final String emailId) {
+    @RequestMapping(value = "/verify/resend", method = RequestMethod.POST)
+    public final Service resendVerificationMail(@RequestBody final User user) {
         try {
-            String status = registrationService.resendVerification(emailId);
+            String status = registrationService.resendVerification(user
+                    .getPrimaryEmailAddr());
             if ("failure".equalsIgnoreCase(status)) {
                 throw new UserException(
                         "REGISTRATION_RESEND_VER_FAIL_ERR_TEXT",

@@ -13,6 +13,7 @@ package com.wiley.gr.ace.authorservices.services.service;
 
 import java.util.ArrayList;
 
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.model.User;
 
 /**
@@ -79,17 +80,19 @@ public interface RegistrationService {
      *
      * @param almUserId
      *            the alm user id
+     * @param sendEmailFlag
+     *            the send email flag
      * @return the string
      */
-    String doFinalCreate(String almUserId);
+    String doFinalCreate(String almUserId, String sendEmailFlag);
 
     /**
      * Verify account.
      *
-     * @param emailId
-     *            the email id
+     * @param almUserId
+     *            the alm user id
      */
-    void verifyAccount(String emailId);
+    void verifyAccount(String almUserId);
 
     /**
      * Resend verification.
@@ -99,5 +102,14 @@ public interface RegistrationService {
      * @return the string
      */
     String resendVerification(String emailId);
+
+    /**
+     * Update participant.
+     *
+     * @param user
+     *            the user
+     * @return the string
+     */
+    void updateParticipant(User user) throws UserException;
 
 }
