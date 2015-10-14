@@ -419,7 +419,7 @@ public class DashboardServiceImpl implements DashboardService {
         DashboardInfo dashboardInfo = null;
         if (!StringUtils.isEmpty(userAffiliationsList)) {
             for (AffiliationData affiliationData : userAffiliationsList) {
-                if (StringUtils.isEmpty(affiliationData.getStartDate())) {
+                if (StringUtils.isEmpty(affiliationData.getInstitutionCd())) {
                     LOGGER.info(" Affiliations List is Empty then No Affiliations on Dashboard");
                     dashboardInfo = new DashboardInfo();
                     dashboardInfo.setId(affiliationsId);
