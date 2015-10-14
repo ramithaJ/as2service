@@ -184,7 +184,7 @@ public interface AuthorProfileService {
      *            the user id
      * @return the affiliations list
      */
-    List<Affiliation> getAffiliationsList(String userId);
+    List<String> getAffiliationsList(String userId);
 
     /**
      * Gets the research funders list.

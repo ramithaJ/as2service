@@ -36,7 +36,6 @@ import com.wiley.gr.ace.authorservices.model.Alert;
 import com.wiley.gr.ace.authorservices.model.AlertsList;
 import com.wiley.gr.ace.authorservices.model.AreaOfInterests;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
-import com.wiley.gr.ace.authorservices.model.Country;
 import com.wiley.gr.ace.authorservices.model.Interests;
 import com.wiley.gr.ace.authorservices.model.JournalDetails;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
@@ -709,42 +708,12 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @return the affiliations list
      */
     @Override
-    public final List<Affiliation> getAffiliationsList(final String userId) {
+    public final List<String> getAffiliationsList(final String userId) {
 
-        final List<AffiliationData> listofAffiliations = userProfiles
-                .getLookupCustomerProfile(userId)
-                .getLookupCustomerProfileResponse().getCustomerProfile()
-                .getAffiliations().getAffiliation();
-        final List<Affiliation> listAffiliations = new ArrayList<Affiliation>();
-        if (!StringUtils.isEmpty(listofAffiliations)) {
+        final List<String> areasOfInterest = participantsInterfaceService
+                .searchParticipantByUserId(userId).getAreasOfInterest();
+        return areasOfInterest;
 
-            for (final AffiliationData affiliationData : listofAffiliations) {
-                if (affiliationData.getStartDate() == null) {
-                    break;
-                }
-                final Affiliation affiliation = new Affiliation();
-                affiliation.setAffiliationId(affiliationData.getId());
-                affiliation.setCity(affiliationData.getCity());
-                final Country country = new Country();
-                country.setCountryCode(affiliationData.getCountryCd());
-                affiliation.setCountry(country);
-                affiliation
-                        .setInstitutionId(affiliationData.getInstitutionCd());
-                affiliation.setDepartmentId(affiliationData.getDepartmentCd());
-                affiliation.setInstitutionName(affiliationData
-                        .getInstitutionName());
-                affiliation.setDepartmentName(affiliationData
-                        .getDepartmentName());
-                affiliation.setStartDate(ASDateFormatUtil
-                        .convertDateToLong(affiliationData.getStartDate()));
-                affiliation.setEndDate(ASDateFormatUtil
-                        .convertDateToLong(affiliationData.getEndDate()));
-                affiliation.setStateCode(affiliationData.getState());
-                affiliation.setId(affiliationData.getId());
-                listAffiliations.add(affiliation);
-            }
-        }
-        return listAffiliations;
     }
 
     /**
