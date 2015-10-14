@@ -28,6 +28,8 @@ import com.wiley.gr.ace.authorservices.model.external.AddressMapper;
 import com.wiley.gr.ace.authorservices.model.external.AlertElement;
 import com.wiley.gr.ace.authorservices.model.external.Participant;
 import com.wiley.gr.ace.authorservices.model.external.ParticipantAddress;
+import com.wiley.gr.ace.authorservices.model.external.PreferenceAlert;
+import com.wiley.gr.ace.authorservices.model.external.PreferenceMapper;
 import com.wiley.gr.ace.authorservices.model.external.Preferences;
 import com.wiley.gr.ace.authorservices.model.external.ProfileEntity;
 import com.wiley.gr.ace.authorservices.model.external.ProfileResponse;
@@ -152,7 +154,7 @@ public class ParticipantsInterfaceServiceImpl implements
     @Override
     public ResponseEntity uploadProfileImage(final String participantId,
             final Byte[] imageFile) throws Exception {
-        final String url = "https://schema.org/PostalAddress/participants/"
+        final String url = "http://assearchdev.wiley.com:8080/v1/participants/"
                 + participantId + "/profileImage";
         final ResponseEntity resposeEntity = (ResponseEntity) StubInvokerUtil
                 .restServiceResponseInvoker(url, HttpMethod.PUT, imageFile,
@@ -168,7 +170,7 @@ public class ParticipantsInterfaceServiceImpl implements
      */
     @Override
     public Byte[] getProfileImage(final String participantId) throws Exception {
-        final String url = "https://schema.org/PostalAddress/participants/"
+        final String url = "http://assearchdev.wiley.com:8080/v1/participants/"
                 + participantId + "/profileImage";
         final Byte[] profileImage = (Byte[]) StubInvokerUtil
                 .restGetServiceInvoker(url, Byte[].class);
@@ -193,20 +195,14 @@ public class ParticipantsInterfaceServiceImpl implements
         return resposeEntity;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.wiley.gr.ace.authorservices.externalservices.service.
-     * ParticipantsInterfaceService#getAlerts(java.lang.String)
-     */
     @Override
-    public List<AlertElement> getAlerts(final String participantId)
+    public List<PreferenceAlert> getAlerts(final String participantId)
             throws Exception {
-        final String url = "https://schema.org/PostalAddress/participants/"
+        final String url = "http://assearchdev.wiley.com:8080/v1/participants/"
                 + participantId + "/preferences";
-        final List<AlertElement> alertElements = (List<AlertElement>) StubInvokerUtil
-                .restGetServiceInvoker(url, AlertElement.class);
-        return alertElements;
+        final PreferenceMapper preferenceMapper = (PreferenceMapper) StubInvokerUtil
+                .restGetServiceInvoker(url, PreferenceMapper.class);
+        return preferenceMapper.getContent();
     }
 
     /*

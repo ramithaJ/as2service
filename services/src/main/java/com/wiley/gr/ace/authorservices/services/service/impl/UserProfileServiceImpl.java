@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import com.wiley.gr.ace.authorservices.externalservices.service.ParticipantsInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.impl.ParticipantError;
 import com.wiley.gr.ace.authorservices.model.external.AlertElement;
+import com.wiley.gr.ace.authorservices.model.external.PreferenceAlert;
 import com.wiley.gr.ace.authorservices.model.external.Preferences;
 import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
 
@@ -17,17 +18,17 @@ public class UserProfileServiceImpl implements UserProfileService {
     ParticipantsInterfaceService participantsInterfaceService;
 
     @Override
-    public boolean uploadProfileImage(final String participantId,
-            final Byte[] imageFile) throws Exception {
+    public boolean uploadProfileImage(String participantId, Byte[] imageFile)
+            throws Exception {
         boolean isUpdated = false;
-        final ResponseEntity resposeEntity = participantsInterfaceService
+        ResponseEntity resposeEntity = participantsInterfaceService
                 .uploadProfileImage(participantId, imageFile);
-        final Integer code = resposeEntity.getStatusCode().value();
+        Integer code = resposeEntity.getStatusCode().value();
         if (code.equals(200)) {
             isUpdated = true;
         } else {
             isUpdated = false;
-            final ParticipantError participantError = (ParticipantError) resposeEntity
+            ParticipantError participantError = (ParticipantError) resposeEntity
                     .getBody();
             throw new Exception(participantError.getMessage());
         }
@@ -35,22 +36,22 @@ public class UserProfileServiceImpl implements UserProfileService {
     }
 
     @Override
-    public Byte[] getProfileImage(final String participantId) throws Exception {
+    public Byte[] getProfileImage(String participantId) throws Exception {
         return participantsInterfaceService.getProfileImage(participantId);
     }
 
     @Override
-    public boolean updateAlerts(final String participantId,
-            final AlertElement alert) throws Exception {
+    public boolean updateAlerts(String participantId, AlertElement alert)
+            throws Exception {
         boolean isUpdated = false;
-        final ResponseEntity resposeEntity = participantsInterfaceService
+        ResponseEntity resposeEntity = participantsInterfaceService
                 .updateAlerts(participantId, alert);
-        final Integer code = resposeEntity.getStatusCode().value();
+        Integer code = resposeEntity.getStatusCode().value();
         if (code.equals(200)) {
             isUpdated = true;
         } else {
             isUpdated = false;
-            final ParticipantError participantError = (ParticipantError) resposeEntity
+            ParticipantError participantError = (ParticipantError) resposeEntity
                     .getBody();
             throw new Exception(participantError.getMessage());
         }
@@ -58,7 +59,7 @@ public class UserProfileServiceImpl implements UserProfileService {
     }
 
     @Override
-    public List<AlertElement> getAlerts(final String participantId)
+    public List<PreferenceAlert> getAlerts(String participantId)
             throws Exception {
         return participantsInterfaceService.getAlerts(participantId);
     }

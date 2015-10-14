@@ -126,12 +126,16 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/registration/invitation/*")
                 .permitAll()
 
-                .antMatchers("/userAccount/*/address")
+               .antMatchers("/userAccount/userAddresses/*")
                 .permitAll()
 
-                .antMatchers("/userprofile/preferredJournals/*")
+                .antMatchers("/userprofile/alerts/*")
                 .permitAll()
-                .antMatchers("/userprofile/preferredJournals/*/*/")
+                 
+                .antMatchers("/userprofile/getImage/*")
+                .permitAll()
+                
+                .antMatchers("/userprofile/uploadImage/*/")
                 .permitAll()
                 .antMatchers("/search/api")
                 .permitAll()

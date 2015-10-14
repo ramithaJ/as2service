@@ -440,8 +440,11 @@ public class UserProfileController {
 
         UserProfileController.LOGGER.info("inside getListOfAlerts method ");
         final Service service = new Service();
-
-        service.setPayload(authorProfileService.getListOfAlerts(userId));
+        try {
+            service.setPayload(userProfileService.getAlerts(userId));
+        } catch (final Exception e) {
+            throw new UserException("5005", "Unable to fetch");
+        }
         return service;
     }
 
@@ -575,9 +578,15 @@ public class UserProfileController {
      * @return the profile
      */
     @RequestMapping(value = "/getImage/{userId}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
-    public final byte[] getProfile(@PathVariable("userId") final String userId) {
+    public final Service getProfile(@PathVariable("userId") final String userId) {
 
-        return authorProfileService.getProfilePicture(userId);
+        final Service service = new Service();
+        try {
+            service.setPayload(userProfileService.getProfileImage(userId));
+        } catch (final Exception e) {
+            throw new UserException("5000", "Unable to fetch");
+        }
+        return service;
 
     }
 
@@ -588,46 +597,52 @@ public class UserProfileController {
      *            the image
      * @return the service
      */
-    @RequestMapping(value = "/uploadimage/{image}/", method = RequestMethod.GET)
-    public Service profilePicture(@PathVariable("image") final File image) {
-        final Service service = new Service();
+    @RequestMapping(value = "/uploadImage/{userId}/", method = RequestMethod.POST)
+    public final Service profilePicture(
+            @PathVariable("userId") final String userId,
+            @RequestBody final byte[] image) throws IOException {
+        Service service = new Service();
+        String res = null;
+        char[] charTemp = new char[image.length];
+        for (int i = 0; i < image.length; i++) {
+            charTemp[i] = (char) image[i];
 
-        final File file = new File("image");
-        if (file.exists()) {
-            final double bytes = file.length();
-            final double kilobytes = bytes / 1024;
-            final double megabytes = kilobytes / 1024;
-            if (megabytes < 1) {
-                service.setPayload("image uploaded successfully.......");
-            } else if (megabytes > 1) {
-                throw new ASException("1818",
-                        "please select file not more than 1 mb");
-            }
-        } else {
-            throw new ASException("1819", "file doesnt exist");
         }
-        return service;
-    }
-
-    /**
-     * Gets the profile image.
-     *
-     * @param participantId
-     *            the participant id
-     * @return the profile image
-     */
-    @RequestMapping(value = "/{participantId}/profileImage", method = RequestMethod.GET)
-    public Service getProfileImage(
-            @PathVariable("ParticipantId") final String participantId) {
-        final Service service = new Service();
+        res = new String(charTemp);
+        boolean isUpdated = false;
         try {
-            service.setPayload(userProfileService
-                    .getProfileImage(participantId));
+            File file = new File("c:/Images/Image");
+            FileUtils.writeByteArrayToFile(file, image);
+            if (file.exists()) {
+                final int value = 1024;
+                double bytes = file.length();
+                double kilobytes = bytes / value;
+                double megabytes = kilobytes / value;
+                if (megabytes > 1) {
+                    throw new ASException(imageSizeCode, imageSizeMessage);
+                } else if (megabytes < 1) {
+                    Byte[] byteWrapper = new Byte[image.length];
+                    int i = 0;
+                    for (byte b : image) {
+                        byteWrapper[i++] = b;
+                    }
+                    isUpdated = userProfileService.uploadProfileImage(userId,
+                            byteWrapper);
+                }
+            }
         } catch (final Exception e) {
-            throw new UserException("5000", "Unable to fetch");
+            throw new UserException("50001", e.getMessage());
         }
-        return service;
+        if (isUpdated) {
+            service.setStatus("SUCCESS");
+            service.setPayload(isUpdated);
+        } else {
+            service.setStatus("Failure");
+            service.setPayload(isUpdated);
+        }
 
+        service.setPayload(res);
+        return service;
     }
 
     /**

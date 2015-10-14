@@ -23,6 +23,7 @@ import com.wiley.gr.ace.authorservices.model.external.AddressMapper;
 import com.wiley.gr.ace.authorservices.model.external.AlertElement;
 import com.wiley.gr.ace.authorservices.model.external.Participant;
 import com.wiley.gr.ace.authorservices.model.external.ParticipantAddress;
+import com.wiley.gr.ace.authorservices.model.external.PreferenceAlert;
 import com.wiley.gr.ace.authorservices.model.external.Preferences;
 import com.wiley.gr.ace.authorservices.model.external.ProfileEntity;
 
@@ -144,7 +145,7 @@ public interface ParticipantsInterfaceService {
      * @throws Exception
      *             the exception
      */
-    List<AlertElement> getAlerts(String participantId) throws Exception;
+    List<PreferenceAlert> getAlerts(String participantId) throws Exception;
 
     /**
      * Search participant by email.

@@ -3,6 +3,7 @@ package com.wiley.gr.ace.authorservices.services.service;
 import java.util.List;
 
 import com.wiley.gr.ace.authorservices.model.external.AlertElement;
+import com.wiley.gr.ace.authorservices.model.external.PreferenceAlert;
 import com.wiley.gr.ace.authorservices.model.external.Preferences;
 
 public interface UserProfileService {
@@ -14,7 +15,7 @@ public interface UserProfileService {
     boolean updateAlerts(String participantId, AlertElement alert)
             throws Exception;
 
-    List<AlertElement> getAlerts(String participantId) throws Exception;
+    List<PreferenceAlert> getAlerts(String participantId) throws Exception;
 
     List<Preferences> getWOAaccounts(String participantId);
 }
