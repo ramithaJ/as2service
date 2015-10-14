@@ -18,6 +18,8 @@ import com.wiley.gr.ace.authorservices.security.filters.StatelessAuthenticationF
 import com.wiley.gr.ace.authorservices.security.filters.StatelessLoginFilter;
 import com.wiley.gr.ace.authorservices.security.service.TokenAuthenticationService;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
+import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
+import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 
 /**
  * SpringSecurityConfig holds configurations for access restrictions and auth
@@ -39,11 +41,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private TokenAuthenticationService tokenAuthenticationService;
 
-    /**
-     * Injecting UserLoginServiceDAO bean.
-     */
     @Autowired(required = true)
-    private AdminLoginService adminLoginService;
+    private UserLoginService userLoginService;
+
+    @Autowired(required = true)
+    private RegistrationService registrationService;
 
     /**
      * Instantiates a new spring security config.
@@ -151,7 +153,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                         new StatelessLoginFilter(
                                 SpringSecurityConfig.AUTHENTICATE,
                                 tokenAuthenticationService,
-                                authenticationManager(), adminLoginService),
+                                authenticationManager(), userLoginService, registrationService),
                         UsernamePasswordAuthenticationFilter.class)
 
                 // Custom Token based authentication based on the
