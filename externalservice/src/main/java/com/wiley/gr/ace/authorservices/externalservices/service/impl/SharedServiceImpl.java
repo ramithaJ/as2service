@@ -58,7 +58,7 @@ public class SharedServiceImpl implements SharedService {
         Notifications notifications = null;
         NotificationHistory notificationHistory = (NotificationHistory) RestServiceInvokerUtil
                 .getServiceData(
-                        notificationHistroyUrl.concat("appId").concat("?from=")
+                        notificationHistroyUrl.concat("appId").concat("?to=")
                                 .concat(emailId), NotificationHistory.class);
         if (!StringUtils.isEmpty(notificationHistory)) {
             notifications = notificationHistory.getNotifications().get(0);
