@@ -36,4 +36,6 @@ public interface SocietyDao {
 
     boolean updateSociety(String userId, Society society);
 
+    boolean deleteSociety(Long id);
+
 }

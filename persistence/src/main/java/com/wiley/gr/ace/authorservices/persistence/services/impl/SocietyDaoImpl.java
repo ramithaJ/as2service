@@ -66,6 +66,7 @@ public class SocietyDaoImpl implements SocietyDao {
         Session session = null;
         try {
             session = getSessionFactory().openSession();
+            session.beginTransaction();
             UserSocietyDetails userSocietyDetails = (UserSocietyDetails) session
                     .get(UserSocietyDetails.class, society.getId());
             userSocietyDetails.setParticipantId(userId.getBytes());
@@ -85,6 +86,7 @@ public class SocietyDaoImpl implements SocietyDao {
             userSocietyDetails.setUpdatedBy(null); // need to update type
 
             session.update(userSocietyDetails);
+            session.getTransaction().commit();
 
         } finally {
             if (null != session) {
@@ -114,5 +116,28 @@ public class SocietyDaoImpl implements SocietyDao {
                 session.close();
             }
         }
+    }
+
+    @Override
+    public boolean deleteSociety(final Long id) {
+
+        Session session = null;
+
+        try {
+            session = getSessionFactory().openSession();
+            session.beginTransaction();
+            UserSocietyDetails userSocietyDetails = new UserSocietyDetails();
+            userSocietyDetails.setUserSocietyId(id);
+            session.delete(userSocietyDetails);
+            session.getTransaction().commit();
+
+        } finally {
+            if (null != session) {
+                session.flush();
+                session.close();
+            }
+        }
+
+        return true;
     }
 }
