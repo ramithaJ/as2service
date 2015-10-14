@@ -15,8 +15,10 @@ import com.wiley.gr.ace.authorservices.model.Login;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.SecurityQuestionsList;
 import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
+import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Interface UserLoginService.
  *
@@ -92,4 +94,20 @@ public interface UserLoginService {
      * @return the string
      */
     String insertGuid(String firstName, String lastName, String emailAddress);
+    
+    /**
+     * Search user in alm.
+     *
+     * @param emailId the email id
+     * @return the user
+     */
+    User searchUserInALM(String emailId);
+    
+    /**
+     * Search user in participant by alm id.
+     *
+     * @param almUserId the alm user id
+     * @return true, if successful
+     */
+    boolean searchUserInParticipantByALMId(String almUserId);
 }
