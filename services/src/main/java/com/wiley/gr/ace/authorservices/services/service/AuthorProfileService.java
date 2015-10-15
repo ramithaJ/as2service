@@ -148,7 +148,7 @@ public interface AuthorProfileService {
     boolean uploadProfileImage(String participantId, Byte[] imageFile)
             throws Exception;
 
-    List<String> getAffiliationsList(String userId);
+    List<Affiliation> getAffiliationsList(String userId);
 
     /**
      * Gets the research funders list.

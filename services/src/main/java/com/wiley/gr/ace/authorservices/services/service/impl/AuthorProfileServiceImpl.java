@@ -469,11 +469,9 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @return the affiliations list
      */
     @Override
-    public final List<String> getAffiliationsList(final String userId) {
+    public final List<Affiliation> getAffiliationsList(final String userId) {
 
-        final List<String> areasOfInterest = participantsInterfaceService
-                .searchParticipantByUserId(userId).getAreasOfInterest();
-        return areasOfInterest;
+        return null;
 
     }
 
