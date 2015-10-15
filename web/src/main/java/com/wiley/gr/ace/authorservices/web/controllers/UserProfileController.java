@@ -275,6 +275,7 @@ public class UserProfileController {
             @PathVariable("userId") final String userId,
             @RequestBody final AreaOfInterests areaOfInterests) {
         final Service service = new Service();
+
         service.setPayload(authorProfileService.addInterests(userId,
                 areaOfInterests));
         return service;
@@ -592,9 +593,9 @@ public class UserProfileController {
     public final Service profilePicture(
             @PathVariable("userId") final String userId,
             @RequestBody final byte[] image) throws IOException {
-        Service service = new Service();
+        final Service service = new Service();
         String res = null;
-        char[] charTemp = new char[image.length];
+        final char[] charTemp = new char[image.length];
         for (int i = 0; i < image.length; i++) {
             charTemp[i] = (char) image[i];
 
@@ -602,19 +603,19 @@ public class UserProfileController {
         res = new String(charTemp);
         boolean isUpdated = false;
         try {
-            File file = new File("c:/Images/Image");
+            final File file = new File("c:/Images/Image");
             FileUtils.writeByteArrayToFile(file, image);
             if (file.exists()) {
                 final int value = 1024;
-                double bytes = file.length();
-                double kilobytes = bytes / value;
-                double megabytes = kilobytes / value;
+                final double bytes = file.length();
+                final double kilobytes = bytes / value;
+                final double megabytes = kilobytes / value;
                 if (megabytes > 1) {
                     throw new ASException(imageSizeCode, imageSizeMessage);
                 } else if (megabytes < 1) {
-                    Byte[] byteWrapper = new Byte[image.length];
+                    final Byte[] byteWrapper = new Byte[image.length];
                     int i = 0;
-                    for (byte b : image) {
+                    for (final byte b : image) {
                         byteWrapper[i++] = b;
                     }
                     isUpdated = userProfileService.uploadProfileImage(userId,
@@ -727,7 +728,7 @@ public class UserProfileController {
     @RequestMapping(value = "/woaaccounts/{participantId}/", method = RequestMethod.GET)
     public Service getWOAAccounts(
             @PathVariable("ParticipantId") final String participantId) {
-        Service service = new Service();
+        final Service service = new Service();
         service.setPayload(userProfileService.getWOAaccounts(participantId));
         return service;
     }

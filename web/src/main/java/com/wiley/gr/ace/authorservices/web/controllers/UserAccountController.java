@@ -68,7 +68,7 @@ public class UserAccountController {
             @PathVariable("userId") final String userId) {
         UserAccountController.LOGGER
                 .info("inside getProfileInformation method");
-        Service service = new Service();
+        final Service service = new Service();
         service.setPayload(userAccountService.getProfileInformation(userId));
         return service;
 
@@ -90,6 +90,7 @@ public class UserAccountController {
         UserAccountController.LOGGER
                 .info("inside updateProfileInformation method");
         authorProfileService.updateUserProfileInfo(userId, user);
+
         return new Service();
 
     }
@@ -105,7 +106,7 @@ public class UserAccountController {
     public final Service getEmailDetails(
             @PathVariable("userId") final String userId) {
         UserAccountController.LOGGER.info("inside getEmailDetails method");
-        Service service = new Service();
+        final Service service = new Service();
         service.setPayload(userAccountService.getEmailDetails(userId));
         return service;
     }
@@ -140,10 +141,10 @@ public class UserAccountController {
     public final Service getUserAddresses(
             @PathVariable("userId") final String userId) {
         UserAccountController.LOGGER.info("inside getUserAddresses method");
-        Service service = new Service();
+        final Service service = new Service();
         try {
             service.setPayload(userAccountService.getUserAddress(userId));
-        } catch (Exception e) {
+        } catch (final Exception e) {
             throw new UserException("500", "Unable to fetch");
         }
         return service;
@@ -200,10 +201,10 @@ public class UserAccountController {
     @RequestMapping(value = "/{participantId}/address", method = RequestMethod.POST)
     public Service updateService(
             @PathVariable("participantId") final String participantId,
-            @RequestBody Entity entity) {
+            @RequestBody final Entity entity) {
         Object result = null;
         boolean isUpdated = false;
-        Service service = new Service();
+        final Service service = new Service();
         try {
             result = userAccountService.updatAddress(participantId, entity);
             if (result instanceof Boolean) {
@@ -219,7 +220,7 @@ public class UserAccountController {
                 service.setStatus("Failure");
                 service.setPayload(result);
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             throw new UserException("500", e.getMessage());
         }
 

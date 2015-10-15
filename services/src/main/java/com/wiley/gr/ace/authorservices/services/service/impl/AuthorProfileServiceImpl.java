@@ -36,7 +36,6 @@ import com.wiley.gr.ace.authorservices.model.Alert;
 import com.wiley.gr.ace.authorservices.model.AlertsList;
 import com.wiley.gr.ace.authorservices.model.AreaOfInterests;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
-import com.wiley.gr.ace.authorservices.model.Interests;
 import com.wiley.gr.ace.authorservices.model.JournalDetails;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
@@ -51,12 +50,10 @@ import com.wiley.gr.ace.authorservices.model.external.AffiliationsData;
 import com.wiley.gr.ace.authorservices.model.external.AlertData;
 import com.wiley.gr.ace.authorservices.model.external.AlertType;
 import com.wiley.gr.ace.authorservices.model.external.AlertsData;
-import com.wiley.gr.ace.authorservices.model.external.AreaOfInterest;
 import com.wiley.gr.ace.authorservices.model.external.CoAuthorData;
 import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
 import com.wiley.gr.ace.authorservices.model.external.CustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.EntityValue;
-import com.wiley.gr.ace.authorservices.model.external.InterestData;
 import com.wiley.gr.ace.authorservices.model.external.InterestList;
 import com.wiley.gr.ace.authorservices.model.external.JournalElement;
 import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
@@ -1051,23 +1048,42 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
     @Override
     public boolean deleteInterests(final String userId, final String interestId) {
-        final CustomerDetails customerDetails = getCustomeProfile(String
-                .valueOf(userId));
-        final LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
-        final CustomerProfile customerProfile = new CustomerProfile();
-        customerProfile.setCustomerDetails(customerDetails);
-        final InterestData interestData = new InterestData();
-        interestData.setId(interestId);
-        interestData.setStatus("delete");
-        final List<InterestData> interestDataList = new ArrayList<InterestData>();
-        interestDataList.add(interestData);
-        final AreaOfInterest areaOfInterest = new AreaOfInterest();
-        areaOfInterest.setInterest(interestDataList);
-        customerProfile.setAreaOfInterest(areaOfInterest);
-        lookupCustomerProfileResponse.setCustomerProfile(customerProfile);
 
-        return userProfiles
-                .customerProfileUpdate(lookupCustomerProfileResponse);
+        final Participant participant = participantsInterfaceService
+                .searchParticipantByUserId(userId);
+
+        final ProfileEntity profileEntity = new ProfileEntity();
+
+        profileEntity.setEntityType("PROFILE");
+        final EntityValue entityValue = new EntityValue();
+
+        final ProfileRequest profileRequest = new ProfileRequest();
+        profileRequest.setTitleCode(participant.getJobTitle());
+        profileRequest.setSuffixCode(participant.getHonorificSuffix());
+        profileRequest.setMiddleName("");
+        profileRequest.setLastName(participant.getFamilyName());
+        profileRequest.setFirstName(participant.getName());
+        profileRequest.setAlternativeName("");
+        profileRequest.setIndustryCode(participant.getIndustryId());
+        profileRequest.setJobCategoryCode(participant.getJobCategoryId());
+        profileRequest.setSendEmail(participant.getEmail());
+        profileRequest.setPrimaryEmail(""); // primary email Address
+
+        final List<InterestList> interestList = new ArrayList<InterestList>();
+        final InterestList interest = new InterestList();
+        interest.setInterestCode(""); // interest code
+        profileRequest.setInterestList(interestList);
+
+        profileRequest.setOrcid(""); // orcid id
+
+        entityValue.setProfile(profileRequest);
+        profileEntity.setEntityValue(entityValue);
+        profileEntity.setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
+        profileEntity.setEntityId(userId);
+
+        participantsInterfaceService.updateProfile(profileEntity);
+        return false;
+
     }
 
     /**
@@ -1097,27 +1113,42 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     @Override
     public boolean addInterests(final String userId,
             final AreaOfInterests areaOfInterests) {
-        final CustomerDetails customerDetails = getCustomeProfile(String
-                .valueOf(userId));
-        final LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
-        final CustomerProfile customerProfile = new CustomerProfile();
-        customerProfile.setCustomerDetails(customerDetails);
-        final List<Interests> listOfIntersts = areaOfInterests.getInterests();
-        final List<InterestData> interestDataList = new ArrayList<InterestData>();
-        final AreaOfInterest areaOfInterest = new AreaOfInterest();
-        for (final Interests interests : listOfIntersts) {
-            final InterestData interestData = new InterestData();
-            interestData.setId(interests.getId());
-            interestData.setInterestcode(interests.getId());
-            interestData.setStatus("add");
-            interestDataList.add(interestData);
-        }
-        areaOfInterest.setInterest(interestDataList);
-        customerProfile.setCustomerDetails(customerDetails);
-        customerProfile.setAreaOfInterest(areaOfInterest);
-        lookupCustomerProfileResponse.setCustomerProfile(customerProfile);
-        return userProfiles
-                .customerProfileUpdate(lookupCustomerProfileResponse);
+        /*
+         * final Participant participant = participantsInterfaceService
+         * .searchParticipantByUserId(userId);
+         * 
+         * final ProfileEntity profileEntity = new ProfileEntity();
+         * 
+         * profileEntity.setEntityType("PROFILE"); final EntityValue entityValue
+         * = new EntityValue();
+         * 
+         * final ProfileRequest profileRequest = new ProfileRequest();
+         * profileRequest.setTitleCode(participant.getJobTitle());
+         * profileRequest.setSuffixCode(participant.getHonorificSuffix());
+         * profileRequest.setMiddleName("");
+         * profileRequest.setLastName(participant.getFamilyName());
+         * profileRequest.setFirstName(participant.getName());
+         * profileRequest.setAlternativeName("");
+         * profileRequest.setIndustryCode(participant.getIndustryId());
+         * profileRequest.setJobCategoryCode(participant.getJobCategoryId());
+         * profileRequest.setSendEmail(participant.getEmail());
+         * profileRequest.setPrimaryEmail(""); // primary email Address
+         * 
+         * final List<InterestList> interestList = new
+         * ArrayList<InterestList>(); final InterestList interest = new
+         * InterestList(); interest.setInterestCode(""); // interest code
+         * profileRequest.setInterestList(interestList);
+         * 
+         * profileRequest.setOrcid(""); // orcid id
+         * 
+         * entityValue.setProfile(profileRequest);
+         * profileEntity.setEntityValue(entityValue);
+         * profileEntity.setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
+         * profileEntity.setEntityId(userId);
+         * 
+         * participantsInterfaceService.updateProfile(profileEntity);
+         */
+        return false;
 
     }
 
@@ -1139,6 +1170,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         participantsInterfaceService.addPreferredJournals(profileEntity);
 
         return false;
+
     }
 
 }
