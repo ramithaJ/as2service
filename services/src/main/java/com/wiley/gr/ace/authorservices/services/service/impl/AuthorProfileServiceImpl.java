@@ -741,14 +741,14 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     @Override
     public final List<Society> getSocietylist(final String userId) {
 
-        List<UserSocietyDetails> userSocietyDetailsList = societyDao
+        final List<UserSocietyDetails> userSocietyDetailsList = societyDao
                 .getSocietyDetails(userId);
         if (userSocietyDetailsList.isEmpty()) {
             return null;
         }
-        List<Society> societiesList = new ArrayList<Society>();
+        final List<Society> societiesList = new ArrayList<Society>();
         Society society = null;
-        for (UserSocietyDetails userSocietyDetails : userSocietyDetailsList) {
+        for (final UserSocietyDetails userSocietyDetails : userSocietyDetailsList) {
             society = new Society();
             society.setId(userSocietyDetails.getUserSocietyId());
             society.setSocietyId(userSocietyDetails.getSocieties()
@@ -803,29 +803,11 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @return the area of interests
      */
     @Override
-    public final List<Interests> getAreaOfInterests(final String userId) {
-        List<Interests> areaList = null;
-        final List<InterestData> listOfArea = userProfiles
-                .getLookupCustomerProfile(userId)
-                .getLookupCustomerProfileResponse().getCustomerProfile()
-                .getAreaOfInterest().getInterest();
-        String aoeName = null;
-        if (listOfArea != null) {
-            areaList = new ArrayList<Interests>();
-            for (final InterestData interestData : listOfArea) {
-                final Interests interests = new Interests();
-                if (interestData != null) {
-                    interests.setAoeId(interestData.getInterestcode());
-                    aoeName = autocomplete.getNameByCode("areasOfInterests",
-                            interestData.getInterestcode(), null);
-                    interests.setAoeName(aoeName);
-                    areaList.add(interests);
-                }
+    public final List<String> getAreaOfInterests(final String userId) {
+        final List<String> areaOfInterest = participantsInterfaceService
+                .searchParticipantByParticipantId(userId).getAreasOfInterest();
 
-            }
-        }
-
-        return areaList;
+        return areaOfInterest;
     }
 
     /**

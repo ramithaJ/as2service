@@ -220,7 +220,7 @@ public interface AuthorProfileService {
      *            the user id
      * @return the area of interests
      */
-    List<Interests> getAreaOfInterests(String userId);
+    List<String> getAreaOfInterests(String userId);
 
     /**
      * Gets the list of alerts.
