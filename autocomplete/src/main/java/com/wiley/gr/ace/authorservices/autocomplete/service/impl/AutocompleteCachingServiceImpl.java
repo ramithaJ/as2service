@@ -226,6 +226,7 @@ public class AutocompleteCachingServiceImpl implements
         response = (ResearchFundersResponse) RestServiceInvokerUtil
                 .getServiceData(researchFundersurl,
                         ResearchFundersResponse.class);
+        
 
         return getResearchFundersList(response);
     }
@@ -241,23 +242,29 @@ public class AutocompleteCachingServiceImpl implements
             final ResearchFundersResponse response) {
         List<CacheData> cacheList = null;
 
-        List<Funder> funderList = response.getFunder();
+        List<Funder> funderList = response.getFunders().getFunder();
+        
         Set<String> cacheStringSet = new HashSet<String>();
 
         if (funderList != null && !funderList.isEmpty()) {
 
             for (Funder funder : funderList) {
                 CacheData cacheData = new CacheData();
-
-                cacheData.setName(funder.getName());
+                
+                String funderName = funder.getName();
+                if(funderName.contains("\"")){
+                	funderName = funderName.replaceAll("\"", "&quot;");
+                }
+                
+                cacheData.setName(funderName);
                 List<Id> idList = funder.getSecondaryIds().getId();
                 for (Id id : idList) {
                     if (funderContentType.equals(id.getType())) {
                         cacheData.setCode(id.getContent());
+                        cacheStringSet.add(cacheData.toString());
                         break;
                     }
 
-                    cacheStringSet.add(cacheData.toString());
                 }
 
             }
@@ -267,8 +274,9 @@ public class AutocompleteCachingServiceImpl implements
                 try {
                     JSONObject json = (JSONObject) new JSONParser().parse(data);
                     CacheData cacheData = new CacheData();
-                    cacheData.setName(json.get(cacheDataName).toString());
+                    cacheData.setName(json.get(cacheDataName).toString().toUpperCase());
                     cacheData.setCode(json.get(cacheDataCode).toString());
+                    cacheData.setDisplayName(json.get(cacheDataName).toString());
                     cacheList.add(cacheData);
                 } catch (ParseException e) {
                     throw new ASException(
@@ -319,20 +327,23 @@ public class AutocompleteCachingServiceImpl implements
     private SubFunderDetails getSubFundersList(
             final ResearchFundersResponse response) {
 
-        List<Funder> funderList = response.getFunder();
+        List<Funder> funderList = response.getFunders().getFunder();
         SubFunderDetails subFunderDetails = null;
 
         SortedSet<String> doiSet = new TreeSet<String>();
         if (funderList != null && !funderList.isEmpty()) {
 
             for (Funder funder : funderList) {
+            	
+            	if(funder.getParent() != null){
+            		List<Id> idList = funder.getParent().getSecondaryIds().getId();
+            		for (Id id : idList) {
+            			if (funderContentType.equals(id.getType())) {
+            				doiSet.add(id.getContent());
+            			}
+            		}
+            	}
 
-                List<Id> idList = funder.getParent().getSecondaryIds().getId();
-                for (Id id : idList) {
-                    if (funderContentType.equals(id.getType())) {
-                        doiSet.add(id.getContent());
-                    }
-                }
             }
 
             Map<String, SubFunders> subFundersMap = new HashMap<String, SubFunders>();
@@ -401,16 +412,18 @@ public class AutocompleteCachingServiceImpl implements
         List<SubFunder> subFunderList = new ArrayList<SubFunder>();
 
         for (Funder funder : funderList) {
-            String selectedDoi = funder.getParent().getSecondaryIds().getId()
-                    .get(0).getContent();
-            if (parentFunder.getDoi().equals(selectedDoi)) {
-                SubFunder subFunder = new SubFunder();
-                subFunder.setDoi(funder.getSecondaryIds().getId().get(0)
-                        .getContent());
-                subFunder.setId(funder.getId());
-                subFunder.setName(funder.getName());
-                subFunderList.add(subFunder);
-            }
+        	if(funder.getParent() != null){
+        		String selectedDoi = funder.getParent().getSecondaryIds().getId()
+        				.get(0).getContent();
+        		if (parentFunder.getDoi().equals(selectedDoi)) {
+        			SubFunder subFunder = new SubFunder();
+        			subFunder.setDoi(funder.getSecondaryIds().getId().get(0)
+        					.getContent());
+        			subFunder.setId(funder.getId());
+        			subFunder.setName(funder.getName());
+        			subFunderList.add(subFunder);
+        		}
+        	}
         }
 
         return subFunderList;
@@ -436,7 +449,11 @@ public class AutocompleteCachingServiceImpl implements
                 LinkedHashMap<String, String> industryMap = (LinkedHashMap<String, String>) object;
                 CacheData industry = new CacheData();
                 industry.setCode(industryMap.get(industryCode));
-                industry.setName(industryMap.get(industryName));
+                industry.setName(industryMap.get(industryName).toUpperCase());
+                LOGGER.info("Industry Name : " + industry.getName());
+                industry.setDisplayName(industryMap.get(industryName));
+                LOGGER.info("Industry Display Name : "
+                        + industry.getDisplayName());
                 industryList.add(industry);
             }
         }
@@ -466,7 +483,14 @@ public class AutocompleteCachingServiceImpl implements
                 LinkedHashMap<String, String> jobCategoryMap = (LinkedHashMap<String, String>) object;
                 CacheData jobCategory = new CacheData();
                 jobCategory.setCode(jobCategoryMap.get(jobCategoriesCode));
-                jobCategory.setName(jobCategoryMap.get(jobCategoriesName));
+                jobCategory.setName(jobCategoryMap.get(jobCategoriesName)
+                        .toUpperCase());
+                jobCategory.setDisplayName(jobCategoryMap
+                        .get(jobCategoriesName));
+                LOGGER.info("Job Category Name : "
+                        + jobCategory.getName());
+                LOGGER.info("Job Category Display Name : "
+                        + jobCategory.getDisplayName());
                 jobCategoryList.add(jobCategory);
             }
         }
@@ -494,7 +518,11 @@ public class AutocompleteCachingServiceImpl implements
                 LinkedHashMap<String, String> countrymap = (LinkedHashMap<String, String>) object;
                 CacheData cacheData = new CacheData();
                 cacheData.setCode(countrymap.get(countryCode));
-                cacheData.setName(countrymap.get(countryName));
+                cacheData.setName(countrymap.get(countryName).toUpperCase());
+                cacheData.setDisplayName(countrymap.get(countryName));
+                LOGGER.info("Country Name : " + cacheData.getName());
+                LOGGER.info("Country Display Name : "
+                        + cacheData.getDisplayName());
                 countrylist.add(cacheData);
             }
         }
@@ -522,7 +550,13 @@ public class AutocompleteCachingServiceImpl implements
                 LinkedHashMap<String, String> institutionmap = (LinkedHashMap<String, String>) object;
                 CacheData cacheData = new CacheData();
                 cacheData.setCode(institutionmap.get(institutionCode).trim());
-                cacheData.setName(institutionmap.get(institutionName));
+                cacheData.setName(institutionmap.get(institutionName)
+                        .toUpperCase());
+                cacheData.setDisplayName(institutionmap.get(institutionName));
+
+                LOGGER.info("Institution Name : " + cacheData.getName());
+                LOGGER.info("Institution Display Name : "
+                        + cacheData.getDisplayName());
                 institutionslist.add(cacheData);
             }
         }
@@ -554,7 +588,13 @@ public class AutocompleteCachingServiceImpl implements
                 LinkedHashMap<String, String> departmentmap = (LinkedHashMap<String, String>) object;
                 CacheData cacheData = new CacheData();
                 cacheData.setCode(departmentmap.get(departmentCode).trim());
-                cacheData.setName(departmentmap.get(departmentName));
+                cacheData.setName(departmentmap.get(departmentName)
+                        .toUpperCase());
+                cacheData.setDisplayName(departmentmap.get(departmentName));
+
+                LOGGER.info("Department Name : " + cacheData.getName());
+                LOGGER.info("Department Display Name : "
+                        + cacheData.getDisplayName());
                 departmentlist.add(cacheData);
             }
         }
@@ -580,7 +620,12 @@ public class AutocompleteCachingServiceImpl implements
             for (Societies societies : societyListDao) {
                 CacheData cacheData = new CacheData();
                 cacheData.setCode(societies.getSocietyCd());
-                cacheData.setName(societies.getSocietyName());
+                cacheData.setName(societies.getSocietyName().toUpperCase());
+                cacheData.setDisplayName(societies.getSocietyName());
+
+                LOGGER.info("Society Name : " + cacheData.getName());
+                LOGGER.info("Society Display Name : "
+                        + cacheData.getDisplayName());
                 societyList.add(cacheData);
             }
         }
@@ -607,7 +652,14 @@ public class AutocompleteCachingServiceImpl implements
             for (AreaOfInterest areaOfInterest : areaOfInterestDao) {
                 CacheData interests = new CacheData();
                 interests.setCode(areaOfInterest.getAreaOfInterestCd());
-                interests.setName(areaOfInterest.getInterestName());
+                interests.setName(areaOfInterest.getInterestName()
+                        .toUpperCase());
+                interests.setDisplayName(areaOfInterest.getInterestName());
+
+                LOGGER.info("Area of interests Name : "
+                        + interests.getName());
+                LOGGER.info("Area of interests Display Name : "
+                        + interests.getDisplayName());
                 areasOfIntrestList.add(interests);
             }
         }

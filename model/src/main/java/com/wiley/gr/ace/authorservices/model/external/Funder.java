@@ -14,6 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * The Class Funder.
  * 
@@ -22,32 +24,39 @@ package com.wiley.gr.ace.authorservices.model.external;
 public class Funder {
 
     /** The uri. */
+    @JsonProperty("uri")
     private String uri;
 
     /** The id. */
+    @JsonProperty("id")
     private String id;
     
     /** The secondary ids. */
+    @JsonProperty("secondaryIds")
     private SecondaryIds secondaryIds;
 
     /** The fund ref id. */
     private String fundRefId;
 
     /** The name. */
+    @JsonProperty("name")
     private String name;
     
     /** The alt name. */
+    @JsonProperty("altName")
     private String altName;
     
     /** The parent. */
+    @JsonProperty("parent")
     private ParentData parent;
     
     /** The ultimate parent. */
+    @JsonProperty("ultimateParent")
     private UltimateParentData ultimateParent;
     
     /** The mandates. */
     private Mandates mandates;
-
+    
     /**
      * Gets the id.
      *
@@ -212,4 +221,6 @@ public class Funder {
     public final void setUri(final String uri) {
         this.uri = uri;
     }
+    
+    
 }

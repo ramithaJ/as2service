@@ -12,28 +12,61 @@
 
 package com.wiley.gr.ace.authorservices.model.external;
 
-public class UltimateParentData {
-    private String uri;
-    private String id;
-    private SecondaryIds secondaryIds;
-    public final String getUri() {
-        return uri;
-    }
-    public final String getId() {
-        return id;
-    }
-    public final SecondaryIds getSecondaryIds() {
-        return secondaryIds;
-    }
-    public final void setUri(final String uri) {
-        this.uri = uri;
-    }
-    public final void setId(final String id) {
-        this.id = id;
-    }
-    public final void setSecondaryIds(final SecondaryIds secondaryIds) {
-        this.secondaryIds = secondaryIds;
-    }
-    
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+public class UltimateParentData {
+    /** The uri. */
+    @JsonProperty("uri")
+    private String uri;
+
+    /** The id. */
+    @JsonProperty("id")
+    private String id;
+    
+    /** The secondary ids. */
+    @JsonProperty("secondaryIds")
+    private SecondaryIds secondaryIds;
+
+	/**
+	 * @return the uri
+	 */
+	public String getUri() {
+		return uri;
+	}
+
+	/**
+	 * @param uri the uri to set
+	 */
+	public void setUri(String uri) {
+		this.uri = uri;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the secondaryIds
+	 */
+	public SecondaryIds getSecondaryIds() {
+		return secondaryIds;
+	}
+
+	/**
+	 * @param secondaryIds the secondaryIds to set
+	 */
+	public void setSecondaryIds(SecondaryIds secondaryIds) {
+		this.secondaryIds = secondaryIds;
+	}
+    
 }

@@ -59,7 +59,6 @@ public class RestServiceInvokerUtil {
      * @throws URISyntaxException
      * @throws RestClientException
      */
-    @SuppressWarnings("unchecked")
     public static String invokeService(final String url,
             final HttpMethod httpMethod, final String className,
             final Object postObject) throws ASException, RestClientException,

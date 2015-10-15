@@ -14,12 +14,15 @@ package com.wiley.gr.ace.authorservices.model.external;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * The Class SecondaryIds.
  */
 public class SecondaryIds {
     
     /** The id. */
+	@JsonProperty("id")
     private List<Id> id;
 
     /**

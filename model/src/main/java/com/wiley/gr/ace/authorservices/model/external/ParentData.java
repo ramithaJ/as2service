@@ -12,18 +12,23 @@
 
 package com.wiley.gr.ace.authorservices.model.external;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * The Class ParentData.
  */
 public class ParentData {
     
     /** The uri. */
+    @JsonProperty("uri")
     private String uri;
-    
+
     /** The id. */
+    @JsonProperty("id")
     private String id;
     
     /** The secondary ids. */
+    @JsonProperty("secondaryIds")
     private SecondaryIds secondaryIds;
     
     /**
