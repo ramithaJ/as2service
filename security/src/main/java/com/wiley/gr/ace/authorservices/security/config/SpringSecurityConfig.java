@@ -119,6 +119,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers("/registration/search/orcid/*")
                 .permitAll()
+                .antMatchers("/user/orcid/authorization/*")
+                .permitAll()
+                
                 .antMatchers("/registration/register")
                 .permitAll()
 

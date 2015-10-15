@@ -12,6 +12,9 @@
 
 package com.wiley.gr.ace.authorservices.web.controllers;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -120,6 +123,50 @@ public class OrcidController {
         return service;
     }
 
+    
+    /**
+     * Gets the orcid data.
+     *
+     * @param type the type
+     * @param request the request
+     * @param response the response
+     * @return the orcid data
+     */
+    @RequestMapping(value = "/authorization/{type}", method = RequestMethod.GET)
+    public final Service getOrcidData(@PathVariable final String type,
+            HttpServletRequest request,HttpServletResponse response) {
+        LOGGER.info("inside getOrcidData() method of OrcidController ");
+        Service service = new Service();
+        User user = null;
+        try {
+            String authrizationCode = request.getParameter("code");
+            LOGGER.info("authrizationCode------>"+authrizationCode);
+            if (null != authrizationCode) {
+                final OrcidAccessToken orcidAccessToken = orcidService
+                        .getAccessToken(authrizationCode);
+                if (null != orcidAccessToken) {
+                    LOGGER.info("accessToken.getAccess_token() --->"
+                            + orcidAccessToken.getAccessToken());
+                    LOGGER.info("accessToken.getOrcid() ---> "
+                            + orcidAccessToken.getOrcid());
+                    if (null != type) {
+                        user = orcidService.getBio(orcidAccessToken);
+                        if ("userupdate".equalsIgnoreCase(type)) {
+                            orcidService.getWork(orcidAccessToken, user);
+                        }
+                    }
+                    service.setStatus("SUCCESS");
+                    service.setPayload(user);
+                }
+            }
+        } catch (final Exception e) {
+            LOGGER.error("Stack Trace-.", e);
+            throw new ASException(getOrcidDetailsErrorCode,
+                    getOrcidDetailsErrorMessage, e);
+        }
+        return service;
+    }
+    
     /**
      * Gets the orcid details.
      *
