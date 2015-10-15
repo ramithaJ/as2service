@@ -34,13 +34,10 @@ import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.AlertsList;
 import com.wiley.gr.ace.authorservices.model.AreaOfInterests;
 import com.wiley.gr.ace.authorservices.model.JournalDetails;
-import com.wiley.gr.ace.authorservices.model.ProfilePicture;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
-import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class UserProfileController.
  *
@@ -62,10 +59,6 @@ public class UserProfileController {
     @Autowired
     private AuthorProfileService authorProfileService;
 
-    /** The user profile service. */
-    @Autowired
-    private UserProfileService userProfileService;
-
     /** The image size code. */
     @Value("${imageSizeMore.code}")
     private String imageSizeCode;
@@ -73,14 +66,6 @@ public class UserProfileController {
     /** The image size message. */
     @Value("${imageSizeMore.message}")
     private String imageSizeMessage;
-
-    /** The image not foundcd. */
-    @Value("${imageNotFound.Code}")
-    private String imageNotFoundcd;
-
-    /** The image not found message. */
-    @Value("${imageNotFound.Message}")
-    private String imageNotFoundMessage;
 
     /**
      * Gets the affiliations list.
@@ -163,27 +148,6 @@ public class UserProfileController {
         return service;
     }
 
-    /**
-     * Gets the societies list.
-     *
-     * @param userId
-     *            - The request value
-     * @return service
-     */
-    /*
-     * @RequestMapping(value = "/researchFunder/{userId}", method =
-     * RequestMethod.POST) public final Service updateResearchFunder(
-     * 
-     * @PathVariable("userId") final int userId,
-     * 
-     * @RequestBody final ResearchFunder researchFunder) {
-     * 
-     * UserProfileController.LOGGER
-     * .info("inside updateResearchFunder method "); Service service = new
-     * Service();
-     * service.setPayload(authorProfileService.updateResearchFunder(userId,
-     * researchFunder)); return service; }
-     */
     /**
      * Gets the societies list.
      *
@@ -327,26 +291,6 @@ public class UserProfileController {
      *            - The request value
      * @return service
      */
-    /*
-     * @RequestMapping(value = "/coAuthors/{userId}", method =
-     * RequestMethod.POST) public final Service updateCoAuthors(@PathVariable
-     * final int userId,
-     * 
-     * @RequestBody final CoAuthor coAuthor) {
-     * 
-     * UserProfileController.LOGGER.info("inside updateCoAuthors method ");
-     * Service service = new Service(); coAuthor.setUserId(userId);
-     * service.setPayload(authorProfileService .updatecoAuthor(userId,
-     * coAuthor)); return new Service(); }
-     */
-
-    /**
-     * Gets the preferred journals.
-     *
-     * @param userId
-     *            - The request value
-     * @return service
-     */
 
     @RequestMapping(value = "/preferredJournals/{participantId}", method = RequestMethod.GET)
     public final Service getPreferredJournals(
@@ -431,7 +375,7 @@ public class UserProfileController {
         UserProfileController.LOGGER.info("inside getListOfAlerts method ");
         final Service service = new Service();
         try {
-            service.setPayload(userProfileService.getAlerts(userId));
+            service.setPayload(authorProfileService.getAlerts(userId));
         } catch (final Exception e) {
             throw new UserException("5005", "Unable to fetch");
         }
@@ -455,7 +399,7 @@ public class UserProfileController {
         boolean isUpdated = false;
         final Service service = new Service();
         try {
-            isUpdated = userProfileService.updateAlerts(userId, listOfalert);
+            isUpdated = authorProfileService.updateAlerts(userId, listOfalert);
         } catch (final Exception e) {
             throw new UserException("50006", e.getMessage());
         }
@@ -485,25 +429,6 @@ public class UserProfileController {
     }
 
     /**
-     * Look up profile.
-     *
-     * @param userId
-     *            - The request value
-     * @return service
-     */
-    /*
-     * @RequestMapping(value = "/lookUpProfile/{userId}", method =
-     * RequestMethod.GET) public final Service
-     * lookUpProfile(@PathVariable("userId") final int userId) {
-     * 
-     * UserProfileController.LOGGER.info("inside lookUpProfile method ");
-     * Service service = new Service();
-     * service.setPayload(authorProfileService.getuserProfileResponse(userId));
-     * return service;
-     * 
-     * }
-     */
-    /**
      * Gets the industries.
      *
      * @param userId
@@ -519,59 +444,6 @@ public class UserProfileController {
     }
 
     /**
-     * Profile picture.
-     *
-     * @param profilePicture
-     *            - The request value
-     * @return - service
-     * @throws IOException
-     *             - exception
-     */
-    @RequestMapping(value = "/uploadImage/", method = RequestMethod.POST)
-    public final Service profilePicture(
-            @RequestBody final ProfilePicture profilePicture)
-            throws IOException {
-        final Service service = new Service();
-        final String imageString = FileUtils.readFileToString(profilePicture
-                .getImage());
-        final File file = new File(imageString);
-        if (file.exists()) {
-            final int value = 1024;
-            final double bytes = file.length();
-            final double kilobytes = bytes / value;
-            final double megabytes = kilobytes / value;
-            if (megabytes > 1) {
-                throw new ASException(imageSizeCode, imageSizeMessage);
-            } else if (megabytes < 1) {
-                authorProfileService.uploadImage(profilePicture.getImage(),
-                        profilePicture.getUserId());
-            }
-        } else {
-            throw new ASException(imageNotFoundcd, imageNotFoundMessage);
-        }
-        return service;
-    }
-
-    /**
-     * Look up profile.
-     *
-     * @param userId
-     *            - The request value
-     * @return service
-     */
-    @RequestMapping(value = "/lookUpProfileCustomer/{userId}", method = RequestMethod.GET)
-    public final Service lookUpProfile(
-            @PathVariable("userId") final String userId) {
-
-        UserProfileController.LOGGER.info("inside lookUpProfile method ");
-        final Service service = new Service();
-        service.setPayload(authorProfileService
-                .getLookupCustomerProfile(userId));
-        return service;
-
-    }
-
-    /**
      * Gets the profile.
      *
      * @param userId
@@ -583,7 +455,7 @@ public class UserProfileController {
 
         final Service service = new Service();
         try {
-            service.setPayload(userProfileService.getProfileImage(userId));
+            service.setPayload(authorProfileService.getProfileImage(userId));
         } catch (final Exception e) {
             throw new UserException("5000", "Unable to fetch");
         }
@@ -606,9 +478,9 @@ public class UserProfileController {
     public final Service profilePicture(
             @PathVariable("userId") final String userId,
             @RequestBody final byte[] image) throws IOException {
-        Service service = new Service();
+        final Service service = new Service();
         String res = null;
-        char[] charTemp = new char[image.length];
+        final char[] charTemp = new char[image.length];
         for (int i = 0; i < image.length; i++) {
             charTemp[i] = (char) image[i];
 
@@ -616,22 +488,22 @@ public class UserProfileController {
         res = new String(charTemp);
         boolean isUpdated = false;
         try {
-            File file = new File("c:/Images/Image");
+            final File file = new File("c:/Images/Image");
             FileUtils.writeByteArrayToFile(file, image);
             if (file.exists()) {
                 final int value = 1024;
-                double bytes = file.length();
-                double kilobytes = bytes / value;
-                double megabytes = kilobytes / value;
+                final double bytes = file.length();
+                final double kilobytes = bytes / value;
+                final double megabytes = kilobytes / value;
                 if (megabytes > 1) {
                     throw new ASException(imageSizeCode, imageSizeMessage);
                 } else if (megabytes < 1) {
-                    Byte[] byteWrapper = new Byte[image.length];
+                    final Byte[] byteWrapper = new Byte[image.length];
                     int i = 0;
-                    for (byte b : image) {
+                    for (final byte b : image) {
                         byteWrapper[i++] = b;
                     }
-                    isUpdated = userProfileService.uploadProfileImage(userId,
+                    isUpdated = authorProfileService.uploadProfileImage(userId,
                             byteWrapper);
                 }
             }
@@ -666,7 +538,7 @@ public class UserProfileController {
         boolean isUpdated = false;
         final Service service = new Service();
         try {
-            isUpdated = userProfileService.uploadProfileImage(participantId,
+            isUpdated = authorProfileService.uploadProfileImage(participantId,
                     imageFile);
         } catch (final Exception e) {
             throw new UserException("50001", e.getMessage());
@@ -693,7 +565,7 @@ public class UserProfileController {
             @PathVariable("ParticipantId") final String participantId) {
         final Service service = new Service();
         try {
-            service.setPayload(userProfileService.getAlerts(participantId));
+            service.setPayload(authorProfileService.getAlerts(participantId));
         } catch (final Exception e) {
             throw new UserException("5005", "Unable to fetch");
         }
@@ -712,7 +584,7 @@ public class UserProfileController {
     public Service getWOAAccounts(
             @PathVariable("ParticipantId") final String participantId) {
         final Service service = new Service();
-        service.setPayload(userProfileService.getWOAaccounts(participantId));
+        service.setPayload(authorProfileService.getWOAaccounts(participantId));
         return service;
     }
 }

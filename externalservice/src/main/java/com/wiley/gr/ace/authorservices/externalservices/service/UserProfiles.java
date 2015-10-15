@@ -14,8 +14,6 @@ package com.wiley.gr.ace.authorservices.externalservices.service;
 
 import com.wiley.gr.ace.authorservices.model.DropDown;
 import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
-import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
-import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfileResponse;
 
 /**
  * The Interface UserProfiles.
@@ -75,42 +73,4 @@ public interface UserProfiles {
      */
     ESBResponse getStates(String countrycode);
 
-    /**
-     * Gets the user profile response.
-     *
-     * @param userId
-     *            the user id
-     * @return the user profile response
-     */
-    /* LookupCustomerProfile getUserProfileResponse(int userId); */
-
-    /**
-     * Update profile.
-     *
-     * @param userId
-     *            the user id
-     * @param userProfileResponse
-     *            the user profile response
-     * @return the user profile response
-     */
-    /* LookupCustomerProfile updateProfile(String userId); */
-
-    /**
-     * Gets the lookup customer profile.
-     *
-     * @param userId
-     *            the user id
-     * @return the lookup customer profile
-     */
-    LookupCustomerProfile getLookupCustomerProfile(String userId);
-
-    /**
-     * Customer profile update.
-     *
-     * @param lookupCustomerProfileResponse
-     *            the lookup customer profile response
-     * @return customer profile response
-     */
-    boolean customerProfileUpdate(
-            LookupCustomerProfileResponse lookupCustomerProfileResponse);
 }

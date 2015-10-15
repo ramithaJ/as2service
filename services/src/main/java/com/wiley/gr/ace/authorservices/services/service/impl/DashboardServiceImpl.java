@@ -30,7 +30,6 @@ import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceServ
 import com.wiley.gr.ace.authorservices.externalservices.service.NotificationService;
 import com.wiley.gr.ace.authorservices.externalservices.service.OrderService;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
-import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.ArticleData;
 import com.wiley.gr.ace.authorservices.model.ArticleDetails;
 import com.wiley.gr.ace.authorservices.model.ArticleUserRoleDetails;
@@ -78,10 +77,6 @@ public class DashboardServiceImpl implements DashboardService {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DashboardServiceImpl.class);
 
-    /** The user profile service. */
-    @Autowired(required = true)
-    private UserProfiles userProfileService;
-
     /** The user management service. */
     @Autowired(required = true)
     private UserManagement userManagementService;
@@ -90,9 +85,9 @@ public class DashboardServiceImpl implements DashboardService {
     @Autowired(required = true)
     private ESBInterfaceService esbInterfaceService;
 
-//    /** The dashboardDAO. */
-//    @Autowired(required = true)
-//    private DashboardDAO dashboardDAO;
+    // /** The dashboardDAO. */
+    // @Autowired(required = true)
+    // private DashboardDAO dashboardDAO;
 
     /** The notificationService. */
     @Autowired(required = true)
@@ -256,8 +251,9 @@ public class DashboardServiceImpl implements DashboardService {
         LOGGER.info("inside getProfileMeter Method of DashboardServiceImpl");
         final Dashboard dashBoard = new Dashboard();
         List<DashboardInfo> dashBoardInfoList = null;
-        final LookupCustomerProfile lookupCustomerProfile = userProfileService
-                .getLookupCustomerProfile(userId);
+        final LookupCustomerProfile lookupCustomerProfile = new LookupCustomerProfile();
+        // userProfileService
+        // .getLookupCustomerProfile(userId);
         if (!StringUtils.isEmpty(lookupCustomerProfile)) {
             LOGGER.info("lookupCustomerProfile data is found");
             final CustomerProfile customerProfile = lookupCustomerProfile
@@ -292,7 +288,7 @@ public class DashboardServiceImpl implements DashboardService {
         DashboardServiceImpl.LOGGER
                 .info("inside checkingDashBoardInfo Method of DashboardServiceImpl");
         DashboardInfo dashboardInfo = null;
-        List<DashboardInfo> dashboardInfoList = new ArrayList<DashboardInfo>();
+        final List<DashboardInfo> dashboardInfoList = new ArrayList<DashboardInfo>();
         dashboardInfo = getSecurityDetailsForUser(customerProfile
                 .getCustomerDetails().getPrimaryEmail());
         if (!StringUtils.isEmpty(dashboardInfo)) {
@@ -354,7 +350,7 @@ public class DashboardServiceImpl implements DashboardService {
                 systemSecurityQuestions = userManagementService
                         .userSecurityQuestions(emailId)
                         .getSystemSecurityQuestions();
-            } catch (UserException userException) {
+            } catch (final UserException userException) {
                 LOGGER.info("No user Found with EmailId then No Security Questions on Dashboard"
                         + userException);
                 dashboardInfo = new DashboardInfo();
@@ -370,7 +366,6 @@ public class DashboardServiceImpl implements DashboardService {
         }
         return dashboardInfo;
     }
-
 
     /**
      * Gets the interests for user.
@@ -389,7 +384,7 @@ public class DashboardServiceImpl implements DashboardService {
                 .getAreaOfInterest().getInterest();
         DashboardInfo dashboardInfo = null;
         if (!StringUtils.isEmpty(userInterestsList)) {
-            for (InterestData interestData : userInterestsList) {
+            for (final InterestData interestData : userInterestsList) {
                 if (StringUtils.isEmpty(interestData)) {
                     LOGGER.info(" Interests List is Empty then No Interests on Dashboard");
                     dashboardInfo = new DashboardInfo();
@@ -418,7 +413,7 @@ public class DashboardServiceImpl implements DashboardService {
                 .getAffiliations().getAffiliation();
         DashboardInfo dashboardInfo = null;
         if (!StringUtils.isEmpty(userAffiliationsList)) {
-            for (AffiliationData affiliationData : userAffiliationsList) {
+            for (final AffiliationData affiliationData : userAffiliationsList) {
                 if (StringUtils.isEmpty(affiliationData.getInstitutionCd())) {
                     LOGGER.info(" Affiliations List is Empty then No Affiliations on Dashboard");
                     dashboardInfo = new DashboardInfo();
@@ -447,7 +442,7 @@ public class DashboardServiceImpl implements DashboardService {
                 .getSociety();
         DashboardInfo dashboardInfo = null;
         if (!StringUtils.isEmpty(societyList)) {
-            for (SocietyData societyData : societyList) {
+            for (final SocietyData societyData : societyList) {
                 if (StringUtils.isEmpty(societyData.getSocietyId())) {
                     LOGGER.info(" Society List is Empty then No Societies on Dashboard");
                     dashboardInfo = new DashboardInfo();
@@ -476,7 +471,7 @@ public class DashboardServiceImpl implements DashboardService {
                 .getResearchFunders().getResearchFunder();
         DashboardInfo dashboardInfo = null;
         if (!StringUtils.isEmpty(researchFundersList)) {
-            for (ResearchFunderData researchFunderData : researchFundersList) {
+            for (final ResearchFunderData researchFunderData : researchFundersList) {
                 if (StringUtils.isEmpty(researchFunderData.getFunderID())) {
                     LOGGER.info(" Funders List is Empty then No Funders on Dashboard");
                     dashboardInfo = new DashboardInfo();
@@ -545,11 +540,12 @@ public class DashboardServiceImpl implements DashboardService {
      *             the exception
      */
     @Override
-    public DashboardView getAllAuthorArticles(final String userId) throws Exception {
-        DashboardView dashboardView = new DashboardView();
-        List<ArticleData> articleDataList = getArticleAuthorData(userId);
-        List<ArticleData> viewAllArticles = new ArrayList<ArticleData>();
-        for (ArticleData articleData : articleDataList) {
+    public DashboardView getAllAuthorArticles(final String userId)
+            throws Exception {
+        final DashboardView dashboardView = new DashboardView();
+        final List<ArticleData> articleDataList = getArticleAuthorData(userId);
+        final List<ArticleData> viewAllArticles = new ArrayList<ArticleData>();
+        for (final ArticleData articleData : articleDataList) {
             articleData.setProduction(getProductionDetailsForArticles(
                     articleData.getDhId()).getProduction());
             articleData.setPublication(getPublishedArticleData(
@@ -578,33 +574,36 @@ public class DashboardServiceImpl implements DashboardService {
         return dashboardView;
     }
 
-//    /**
-//     * Gets the all articles for user.
-//     *
-//     * @param userId
-//     *            the user id
-//     * @return the all articles for user
-//     */
-//    private Map<Integer, ArticleUserRoleDetails> getAllArticlesForUser(
-//            final String userId) {
-//        final List<ProductPersonRelations> productPersonRelationsList = dashboardDAO
-//                .getProductPersonRelations(userId);
-//        ArticleUserRoleDetails articleUserRoleDetails = null;
-//        Map<Integer, ArticleUserRoleDetails> articleMap = new HashMap<Integer, ArticleUserRoleDetails>();
-//        if (!StringUtils.isEmpty(productPersonRelationsList)) {
-//            for (ProductPersonRelations productPersonRelations : productPersonRelationsList) {
-//                articleUserRoleDetails = new ArticleUserRoleDetails();
-//                articleUserRoleDetails.setRoleCode(productPersonRelations
-//                        .getProducts().getDhTypeCd());
-//                articleUserRoleDetails.setRoleName(productPersonRelations
-//                        .getProductRoles().getProductRoleName());
-//                Long dhIdasLong=productPersonRelations.getProducts().getDhId();
-//                articleMap.put(dhIdasLong.intValue(),
-//                        articleUserRoleDetails);
-//            }
-//        }
-//        return articleMap;
-//    }
+    // /**
+    // * Gets the all articles for user.
+    // *
+    // * @param userId
+    // * the user id
+    // * @return the all articles for user
+    // */
+    // private Map<Integer, ArticleUserRoleDetails> getAllArticlesForUser(
+    // final String userId) {
+    // final List<ProductPersonRelations> productPersonRelationsList =
+    // dashboardDAO
+    // .getProductPersonRelations(userId);
+    // ArticleUserRoleDetails articleUserRoleDetails = null;
+    // Map<Integer, ArticleUserRoleDetails> articleMap = new HashMap<Integer,
+    // ArticleUserRoleDetails>();
+    // if (!StringUtils.isEmpty(productPersonRelationsList)) {
+    // for (ProductPersonRelations productPersonRelations :
+    // productPersonRelationsList) {
+    // articleUserRoleDetails = new ArticleUserRoleDetails();
+    // articleUserRoleDetails.setRoleCode(productPersonRelations
+    // .getProducts().getDhTypeCd());
+    // articleUserRoleDetails.setRoleName(productPersonRelations
+    // .getProductRoles().getProductRoleName());
+    // Long dhIdasLong=productPersonRelations.getProducts().getDhId();
+    // articleMap.put(dhIdasLong.intValue(),
+    // articleUserRoleDetails);
+    // }
+    // }
+    // return articleMap;
+    // }
 
     /**
      * Gets the article author data.
@@ -620,11 +619,11 @@ public class DashboardServiceImpl implements DashboardService {
         LOGGER.info("inside getArticleAuthorData Method of DashboardServiceImpl");
         final List<ArticleData> articleDataList = new ArrayList<ArticleData>();
         ArticleData articleData = null;
-        Map<Integer, ArticleUserRoleDetails> articleDetailsMap = new HashMap<Integer, ArticleUserRoleDetails>();//getAllArticlesForUser(userId);
-        for (Map.Entry<Integer, ArticleUserRoleDetails> articleInfo : articleDetailsMap
+        final Map<Integer, ArticleUserRoleDetails> articleDetailsMap = new HashMap<Integer, ArticleUserRoleDetails>();// getAllArticlesForUser(userId);
+        for (final Map.Entry<Integer, ArticleUserRoleDetails> articleInfo : articleDetailsMap
                 .entrySet()) {
-            Integer dhId = articleInfo.getKey();
-            ArticleUserRoleDetails articleUserRoleDetails = articleDetailsMap
+            final Integer dhId = articleInfo.getKey();
+            final ArticleUserRoleDetails articleUserRoleDetails = articleDetailsMap
                     .get(dhId);
             if (!StringUtils.isEmpty(dhId)
                     && "Article".equalsIgnoreCase(articleUserRoleDetails
@@ -649,9 +648,9 @@ public class DashboardServiceImpl implements DashboardService {
      * @throws Exception
      *             the exception
      */
-    private ArticleData getArticleDataForUser(final Integer dhId, final String userId)
-            throws Exception {
-        PdhArticleData pdhArticleData = (PdhArticleData) esbInterfaceService
+    private ArticleData getArticleDataForUser(final Integer dhId,
+            final String userId) throws Exception {
+        final PdhArticleData pdhArticleData = (PdhArticleData) esbInterfaceService
                 .getPdhLookupResponse(String.valueOf(dhId));
         ArticleData articleData = null;
         if (!StringUtils.isEmpty(pdhArticleData)) {
@@ -664,7 +663,7 @@ public class DashboardServiceImpl implements DashboardService {
                         .getJournalDhId()));
                 articleData.setTrackLicense(licenseService.trackLicenseStatus(
                         String.valueOf(dhId), userId));
-                HashMap<String, OrderStatus> orderStatusHashMap = orderStatusHasMap(userId);
+                final HashMap<String, OrderStatus> orderStatusHashMap = orderStatusHasMap(userId);
                 articleData
                         .setOrderPaymentStatus(getOrderPaymentStatusForArticle(
                                 orderStatusHashMap, dhId));
@@ -684,7 +683,7 @@ public class DashboardServiceImpl implements DashboardService {
      */
     private JournalDetails getJournalDetails(final String journalDhId)
             throws Exception {
-        PdhJournalData pdhJournalData = (PdhJournalData) esbInterfaceService
+        final PdhJournalData pdhJournalData = (PdhJournalData) esbInterfaceService
                 .getPdhLookupResponse(journalDhId);
         JournalDetails journalDetails = null;
         if (!StringUtils.isEmpty(pdhJournalData)) {
@@ -711,7 +710,7 @@ public class DashboardServiceImpl implements DashboardService {
      */
     private ArticleDetails parseArticleDetails(
             final PdhArticleData pdhArticleData) throws Exception {
-        ArticleDetails articleDetails = new ArticleDetails();
+        final ArticleDetails articleDetails = new ArticleDetails();
         articleDetails.setDhId(pdhArticleData.getDhId());
         articleDetails.setArticleId(pdhArticleData.getArticleId());
         articleDetails.setArticleTitle(pdhArticleData.getTitle());
@@ -735,44 +734,45 @@ public class DashboardServiceImpl implements DashboardService {
     private HashMap<String, OrderStatus> orderStatusHasMap(final String userId) {
 
         // calling saved orders table
-        List<SavedOrders> savedOrdersList = orderOnlinedao
+        final List<SavedOrders> savedOrdersList = orderOnlinedao
                 .getUserSavedOrders(userId);
-        OrderStatus orderStatus = new OrderStatus();
-        HashMap<String, OrderStatus> satusHashMap = new HashMap<String, OrderStatus>();
+        final OrderStatus orderStatus = new OrderStatus();
+        final HashMap<String, OrderStatus> satusHashMap = new HashMap<String, OrderStatus>();
 
         if (null != savedOrdersList) {
-            String[] statusArray = submitOrderStatus.split(":");
+            final String[] statusArray = submitOrderStatus.split(":");
             orderStatus.setStatus(statusArray[0]);
             orderStatus.setActionsRequired(statusArray[1]);
             // order status HashMap
-//            for (SavedOrders savedOrders : savedOrdersList) {
-////                satusHashMap.put(
-////                        String.valueOf(savedOrders.getProducts().getDhId()),
-////                        orderStatus);
-//            }
+            // for (SavedOrders savedOrders : savedOrdersList) {
+            // // satusHashMap.put(
+            // // String.valueOf(savedOrders.getProducts().getDhId()),
+            // // orderStatus);
+            // }
         }
         // calling Co_Author Request OO Orders table
-        List<CoauthorRequestsOoorders> coauthorRequestsOoordersList = orderOnlinedao
+        final List<CoauthorRequestsOoorders> coauthorRequestsOoordersList = orderOnlinedao
                 .getcoAuthorReqOO(userId);
 
         if (null != coauthorRequestsOoordersList) {
-            String[] orderStatusArray = onlineOpenReqRcvd.split(":");
+            final String[] orderStatusArray = onlineOpenReqRcvd.split(":");
             orderStatus.setStatus(orderStatusArray[0]);
             orderStatus.setActionsRequired(orderStatusArray[1]);
-//            for (CoauthorRequestsOoorders coauthorRequestsOoorders : coauthorRequestsOoordersList) {
-////                satusHashMap.put(String.valueOf(coauthorRequestsOoorders
-////                        .getProducts().getDhId()), orderStatus);
-//            }
+            // for (CoauthorRequestsOoorders coauthorRequestsOoorders :
+            // coauthorRequestsOoordersList) {
+            // // satusHashMap.put(String.valueOf(coauthorRequestsOoorders
+            // // .getProducts().getDhId()), orderStatus);
+            // }
         }
 
         // calling View All Orders external Service
-        OrderDataList ordersData = orderservice.getAllOrders(userId);
+        final OrderDataList ordersData = orderservice.getAllOrders(userId);
 
         if (null != ordersData) {
-            List<OrderData> orderDataList = ordersData.getOrderDatas();
-            for (OrderData orderData : orderDataList) {
+            final List<OrderData> orderDataList = ordersData.getOrderDatas();
+            for (final OrderData orderData : orderDataList) {
                 // Taking the hashMap from orderStatusServiceImpl class
-                HashMap<String, OrderStatus> orderStatusHashMap = orderStatusService
+                final HashMap<String, OrderStatus> orderStatusHashMap = orderStatusService
                         .getOrderStatusMap();
                 if (orderStatusHashMap.containsKey(orderData
                         .getOrderStatusCode())) {
@@ -803,15 +803,16 @@ public class DashboardServiceImpl implements DashboardService {
             final Integer articleId) throws Exception {
         // TODO: Order status
         LOGGER.info("inside getOrderPaymentStatusForArticle Method of DashboardServiceImpl");
-        OrderPaymentStatus orderPaymentStatus = new OrderPaymentStatus();
+        final OrderPaymentStatus orderPaymentStatus = new OrderPaymentStatus();
         if (orderStatusHashMap.containsKey(String.valueOf(articleId))) {
 
-            OrderStatus orderStatus = orderStatusHashMap.get(String
+            final OrderStatus orderStatus = orderStatusHashMap.get(String
                     .valueOf(articleId));
             orderPaymentStatus.setOrderStatus(orderStatus.getStatus());
-            String[] actionArray = orderStatus.getActionsRequired().split(",");
-            List<String> availableActionsList = new ArrayList<String>();
-            for (String action : actionArray) {
+            final String[] actionArray = orderStatus.getActionsRequired()
+                    .split(",");
+            final List<String> availableActionsList = new ArrayList<String>();
+            for (final String action : actionArray) {
                 if (!"None".equalsIgnoreCase(action)) {
                     availableActionsList.add(action);
                 }
@@ -824,8 +825,8 @@ public class DashboardServiceImpl implements DashboardService {
 
         // calling get Quote external service
         // get Quote request object.
-        QuoteRequest quoteRequest = new QuoteRequest();
-        Article article = new Article();
+        final QuoteRequest quoteRequest = new QuoteRequest();
+        final Article article = new Article();
         article.setArticleID(String.valueOf(articleId));
         article.setJournalElectronicISSN(""); // TODO
         article.setJournalPrintISSN(""); // TODO
@@ -833,7 +834,7 @@ public class DashboardServiceImpl implements DashboardService {
         quoteRequest.setRequestCreatedTimestamp(""); // TODO
         quoteRequest.setRequestType(""); // TODO
 
-        Quote quote = orderService.getQuote(quoteRequest);
+        final Quote quote = orderService.getQuote(quoteRequest);
         return openAccessStatus(quote);
 
         // String openAccessStatus = esbInterfaceService.getOpenAccessStatus(
@@ -860,7 +861,7 @@ public class DashboardServiceImpl implements DashboardService {
      */
     private OrderPaymentStatus openAccessStatus(final Quote quote) {
 
-        OrderPaymentStatus orderPaymentStatus = new OrderPaymentStatus();
+        final OrderPaymentStatus orderPaymentStatus = new OrderPaymentStatus();
         if ("AP".equalsIgnoreCase(quote.getQuoteType())
                 && "APPROVED".equalsIgnoreCase(quote.getQuoteStatus())) {
             return setOAAvailableActions("MAKE_PAYMENT_STATUS_TEXT:PAYMENT_DUE_ACTION_TEXT");
@@ -888,15 +889,15 @@ public class DashboardServiceImpl implements DashboardService {
      */
     private OrderPaymentStatus setOAAvailableActions(final String status) {
 
-        OrderPaymentStatus orderPaymentStatus = new OrderPaymentStatus();
-        StringTokenizer stringTokenizer = new StringTokenizer(status, ":");
+        final OrderPaymentStatus orderPaymentStatus = new OrderPaymentStatus();
+        final StringTokenizer stringTokenizer = new StringTokenizer(status, ":");
         orderPaymentStatus.setOrderType("OA");
         orderPaymentStatus.setOrderStatus(stringTokenizer.nextElement()
                 .toString());
-        String[] actionsArray = stringTokenizer.nextElement().toString()
+        final String[] actionsArray = stringTokenizer.nextElement().toString()
                 .split(",");
-        List<String> availableActionsArray = new ArrayList<String>();
-        for (String action : actionsArray) {
+        final List<String> availableActionsArray = new ArrayList<String>();
+        for (final String action : actionsArray) {
             if (!"None".equalsIgnoreCase(action)) {
                 availableActionsArray.add(action);
             }
@@ -921,8 +922,8 @@ public class DashboardServiceImpl implements DashboardService {
             final String userId) throws Exception {
         LOGGER.info("inside getCommunicationDetailsList Method of DashboardServiceImpl");
         final EmailCommunicationHistory emailCommunicationHistory = new EmailCommunicationHistory();
-//        emailCommunicationHistory
-//                .setInvitationCommunicationDetails(getInvitationLogsList(userId));
+        // emailCommunicationHistory
+        // .setInvitationCommunicationDetails(getInvitationLogsList(userId));
         final NotificationHistory notificationsHistory = notificationService
                 .getNotificationHistory(userId);
         if (!StringUtils.isEmpty(notificationsHistory)) {
@@ -933,40 +934,42 @@ public class DashboardServiceImpl implements DashboardService {
         return emailCommunicationHistory;
     }
 
-//    /**
-//     * Gets the invitation logs list.
-//     *
-//     * @param userId
-//     *            the user id
-//     * @return the invitation logs list
-//     * @throws Exception
-//     *             the exception
-//     */
-//    private List<CommunicationDetails> getInvitationLogsList(final String userId)
-//            throws Exception {
-//        LOGGER.info("inside getInvitationLogsList Method of DashboardServiceImpl");
-//        List<CommunicationDetails> communicationDetailsList = null;
-//        final List<InvitationLog> invitationLogList = dashboardDAO
-//                .getInvitationLogList(userId);
-//        if (!StringUtils.isEmpty(invitationLogList)) {
-//            LOGGER.info("Invitation Logs  Found");
-//            communicationDetailsList = new ArrayList<CommunicationDetails>();
-//            for (final InvitationLog invitationLog : invitationLogList) {
-//                final CommunicationDetails communicationDetails = new CommunicationDetails();
-////                communicationDetails.setUserId(invitationLog.getUserProfile()
-////                        .getUserId());
-////                communicationDetails.setInviationId(invitationLog
-////                        .getInvitationId());
-////                communicationDetails.setEmailId(invitationLog.getEmailAddr());
-////                communicationDetails.setArticleId(invitationLog.getProducts()
-////                        .getDhId());
-//                communicationDetails.setSentDate(invitationLog.getSentDate()
-//                        .toString());
-//                communicationDetailsList.add(communicationDetails);
-//            }
-//        }
-//        return communicationDetailsList;
-//    }
+    // /**
+    // * Gets the invitation logs list.
+    // *
+    // * @param userId
+    // * the user id
+    // * @return the invitation logs list
+    // * @throws Exception
+    // * the exception
+    // */
+    // private List<CommunicationDetails> getInvitationLogsList(final String
+    // userId)
+    // throws Exception {
+    // LOGGER.info("inside getInvitationLogsList Method of DashboardServiceImpl");
+    // List<CommunicationDetails> communicationDetailsList = null;
+    // final List<InvitationLog> invitationLogList = dashboardDAO
+    // .getInvitationLogList(userId);
+    // if (!StringUtils.isEmpty(invitationLogList)) {
+    // LOGGER.info("Invitation Logs  Found");
+    // communicationDetailsList = new ArrayList<CommunicationDetails>();
+    // for (final InvitationLog invitationLog : invitationLogList) {
+    // final CommunicationDetails communicationDetails = new
+    // CommunicationDetails();
+    // // communicationDetails.setUserId(invitationLog.getUserProfile()
+    // // .getUserId());
+    // // communicationDetails.setInviationId(invitationLog
+    // // .getInvitationId());
+    // // communicationDetails.setEmailId(invitationLog.getEmailAddr());
+    // // communicationDetails.setArticleId(invitationLog.getProducts()
+    // // .getDhId());
+    // communicationDetails.setSentDate(invitationLog.getSentDate()
+    // .toString());
+    // communicationDetailsList.add(communicationDetails);
+    // }
+    // }
+    // return communicationDetailsList;
+    // }
 
     /**
      * Gets the production details.
@@ -981,14 +984,14 @@ public class DashboardServiceImpl implements DashboardService {
     public final DashboardView getProductionDetails(final String userId)
             throws Exception {
         LOGGER.info("inside getProductionDetails Method of DashboardServiceImpl");
-        DashboardView dashboardView = new DashboardView();
-        List<ArticleData> articleDataListForProduction = new ArrayList<ArticleData>();
+        final DashboardView dashboardView = new DashboardView();
+        final List<ArticleData> articleDataListForProduction = new ArrayList<ArticleData>();
         ArticleData articleDataForProduction = null;
-        Map<Integer, ArticleUserRoleDetails> articleDetailsMap =new HashMap<Integer, ArticleUserRoleDetails>();//getAllArticlesForUser(userId);
-        for (Map.Entry<Integer, ArticleUserRoleDetails> articleInfo : articleDetailsMap
+        final Map<Integer, ArticleUserRoleDetails> articleDetailsMap = new HashMap<Integer, ArticleUserRoleDetails>();// getAllArticlesForUser(userId);
+        for (final Map.Entry<Integer, ArticleUserRoleDetails> articleInfo : articleDetailsMap
                 .entrySet()) {
-            Integer dhId = articleInfo.getKey();
-            ArticleUserRoleDetails articleUserRoleDetails = articleDetailsMap
+            final Integer dhId = articleInfo.getKey();
+            final ArticleUserRoleDetails articleUserRoleDetails = articleDetailsMap
                     .get(dhId);
             if (!StringUtils.isEmpty(dhId)
                     && "Article".equalsIgnoreCase(articleUserRoleDetails
@@ -1017,7 +1020,7 @@ public class DashboardServiceImpl implements DashboardService {
     private ArticleData getProductionDetailsForArticles(final String dhId)
             throws Exception {
         LOGGER.info("inside getProductionDetailsForArticles Method of DashboardServiceImpl");
-        PdhArticleData pdhArticleData = (PdhArticleData) esbInterfaceService
+        final PdhArticleData pdhArticleData = (PdhArticleData) esbInterfaceService
                 .getPdhLookupResponse(dhId);
         ArticleData articleDataForProduction = null;
         if (!StringUtils.isEmpty(pdhArticleData)) {
@@ -1047,7 +1050,7 @@ public class DashboardServiceImpl implements DashboardService {
      */
     private Production parseDatesForProduction(
             final PdhArticleData pdhArticleData) throws Exception {
-        Map<Date, String> productionDatesStatus = new TreeMap<Date, String>();
+        final Map<Date, String> productionDatesStatus = new TreeMap<Date, String>();
         productionDatesStatus.put(pdhArticleData.getAcceptedDate(),
                 articleAcptdStatus);
         productionDatesStatus.put(pdhArticleData.getProofRcvdDate(),
@@ -1071,7 +1074,8 @@ public class DashboardServiceImpl implements DashboardService {
         Date mostRecentProductionDate = null;
         String productionStatus = null;
         LOGGER.info("inside getProductionDateStatus Method of DashboardServiceImpl");
-        for (Map.Entry<Date, String> entry : productionDatesStatus.entrySet()) {
+        for (final Map.Entry<Date, String> entry : productionDatesStatus
+                .entrySet()) {
             mostRecentProductionDate = entry.getKey();
             productionStatus = productionDatesStatus
                     .get(mostRecentProductionDate);
@@ -1091,7 +1095,7 @@ public class DashboardServiceImpl implements DashboardService {
      */
     private Production trackingProductionStatusActions(
             final Date mostRecentProductionDate, final String productionStatus) {
-        Production production = new Production();
+        final Production production = new Production();
         LOGGER.info("Getting Most Recent Date Among All Production Stages Dates and Setting Production Status,Actions");
         production.setProductionStatusDate(mostRecentProductionDate.toString());
         production.setProductionStatus(productionStatus);
@@ -1113,12 +1117,12 @@ public class DashboardServiceImpl implements DashboardService {
         LOGGER.info("inside getPublishedArticleDetails Method of DashboardServiceImpl");
         DashboardView dashboardView = null;
         ArticleData publishedArticleData = null;
-        List<ArticleData> articleDataListforPublication = new ArrayList<ArticleData>();
-        Map<Integer, ArticleUserRoleDetails> articleDetailsMap = new HashMap<Integer, ArticleUserRoleDetails>();//getAllArticlesForUser(userId);
-        for (Map.Entry<Integer, ArticleUserRoleDetails> articleInfo : articleDetailsMap
+        final List<ArticleData> articleDataListforPublication = new ArrayList<ArticleData>();
+        final Map<Integer, ArticleUserRoleDetails> articleDetailsMap = new HashMap<Integer, ArticleUserRoleDetails>();// getAllArticlesForUser(userId);
+        for (final Map.Entry<Integer, ArticleUserRoleDetails> articleInfo : articleDetailsMap
                 .entrySet()) {
-            Integer dhId = articleInfo.getKey();
-            ArticleUserRoleDetails articleUserRoleDetails = articleDetailsMap
+            final Integer dhId = articleInfo.getKey();
+            final ArticleUserRoleDetails articleUserRoleDetails = articleDetailsMap
                     .get(dhId);
             if (!StringUtils.isEmpty(dhId)
                     && "Article".equalsIgnoreCase(articleUserRoleDetails
@@ -1146,7 +1150,7 @@ public class DashboardServiceImpl implements DashboardService {
      */
     private ArticleData getPublishedArticleData(final String dhId)
             throws Exception {
-        PdhArticleData pdhArticleData = (PdhArticleData) esbInterfaceService
+        final PdhArticleData pdhArticleData = (PdhArticleData) esbInterfaceService
                 .getPdhLookupResponse(dhId);
         ArticleData publishedArticleData = null;
         if (!StringUtils.isEmpty(pdhArticleData)) {
@@ -1174,7 +1178,7 @@ public class DashboardServiceImpl implements DashboardService {
      */
     private PublicationDetails getPublicationArticleStatus() throws Exception {
         LOGGER.info("inside getPublicationArticleStatus Method of DashboardServiceImpl");
-        PublicationDetails publication = new PublicationDetails();
+        final PublicationDetails publication = new PublicationDetails();
         if (!StringUtils.isEmpty(publication)) {
             LOGGER.info("Publication Statuses Data is Found");
             publication.setModifiedDate("2015-08-28T14:06:31Z");

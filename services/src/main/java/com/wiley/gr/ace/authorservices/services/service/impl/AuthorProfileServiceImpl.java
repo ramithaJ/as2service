@@ -12,25 +12,21 @@
 
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.util.StringUtils;
+import org.springframework.http.ResponseEntity;
 
 import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteService;
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
-import com.wiley.gr.ace.authorservices.external.util.ASDateFormatUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.ParticipantsInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
-import com.wiley.gr.ace.authorservices.model.Address;
+import com.wiley.gr.ace.authorservices.externalservices.service.impl.ParticipantError;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.Alert;
 import com.wiley.gr.ace.authorservices.model.AlertsList;
@@ -43,32 +39,23 @@ import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.User;
-import com.wiley.gr.ace.authorservices.model.external.AddressDetails;
-import com.wiley.gr.ace.authorservices.model.external.AddressElement;
-import com.wiley.gr.ace.authorservices.model.external.AffiliationData;
-import com.wiley.gr.ace.authorservices.model.external.AffiliationsData;
-import com.wiley.gr.ace.authorservices.model.external.AlertData;
+import com.wiley.gr.ace.authorservices.model.external.AlertRequest;
 import com.wiley.gr.ace.authorservices.model.external.AlertType;
-import com.wiley.gr.ace.authorservices.model.external.AlertsData;
-import com.wiley.gr.ace.authorservices.model.external.CoAuthorData;
-import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
-import com.wiley.gr.ace.authorservices.model.external.CustomerProfile;
 import com.wiley.gr.ace.authorservices.model.external.EntityValue;
 import com.wiley.gr.ace.authorservices.model.external.InterestList;
 import com.wiley.gr.ace.authorservices.model.external.JournalElement;
-import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
-import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfileResponse;
 import com.wiley.gr.ace.authorservices.model.external.Participant;
 import com.wiley.gr.ace.authorservices.model.external.PasswordRequest;
 import com.wiley.gr.ace.authorservices.model.external.PasswordUpdate;
+import com.wiley.gr.ace.authorservices.model.external.PreferenceAlert;
+import com.wiley.gr.ace.authorservices.model.external.PreferenceValue;
+import com.wiley.gr.ace.authorservices.model.external.Preferences;
 import com.wiley.gr.ace.authorservices.model.external.ProfileEntity;
 import com.wiley.gr.ace.authorservices.model.external.ProfileRequest;
-import com.wiley.gr.ace.authorservices.model.external.ResearchFunderData;
 import com.wiley.gr.ace.authorservices.model.external.SecurityQuestionsUpdateRequest;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestions;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsEntry;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsMap;
-import com.wiley.gr.ace.authorservices.persistence.entity.Alerts;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserSocietyDetails;
 import com.wiley.gr.ace.authorservices.persistence.services.AlertsDao;
 import com.wiley.gr.ace.authorservices.persistence.services.AuthorProfileDao;
@@ -166,40 +153,37 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             final Affiliation affiliation, final String affiliationId) {
         AuthorProfileServiceImpl.LOGGER
                 .info("inside updateAffiliation Method ");
-        final CustomerDetails customerDetails = getCustomeProfile(String
-                .valueOf(userId));
-        final LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
-        final CustomerProfile customerProfile = new CustomerProfile();
-        customerProfile.setCustomerDetails(customerDetails);
-        final AffiliationsData affiliationsData = new AffiliationsData();
-        final List<AffiliationData> affDataList = new ArrayList<AffiliationData>();
-        final AffiliationData affData = new AffiliationData();
-        affData.setStartDate(ASDateFormatUtil.convertDate(Long
-                .parseLong(affiliation.getStartDate())));
-        affData.setEndDate(ASDateFormatUtil.convertDate(Long
-                .parseLong(affiliation.getEndDate())));
-        affData.setCity(affiliation.getCity());
-        affData.setState(affiliation.getState());
-        affData.setCountryCd(affiliation.getCountryCode());
-        final String institutionId = affiliation.getInstitutionId();
-        affData.setInstitutionCd(institutionId);
-        final String name = autocomplete.getNameByCode("institutions",
-                institutionId, null);
-        affData.setInstitutionName(name);
-        affData.setDepartmentCd(affiliation.getDepartmentId());
-        affData.setDepartmentName(affiliation.getDepartmentName());
-        affDataList.add(affData);
-        affiliationsData.setAffiliation(affDataList);
-        customerProfile.setAffiliations(affiliationsData);
-        lookupCustomerProfileResponse.setCustomerProfile(customerProfile);
-        if ("0".equals(affiliationId)) {
-            affData.setStatus("add");
-        } else {
-            affData.setId(affiliationId);
-            affData.setStatus("edit");
-        }
-        return userProfiles
-                .customerProfileUpdate(lookupCustomerProfileResponse);
+        /*
+         * final CustomerDetails customerDetails = getCustomeProfile(String
+         * .valueOf(userId)); final LookupCustomerProfileResponse
+         * lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
+         * final CustomerProfile customerProfile = new CustomerProfile();
+         * customerProfile.setCustomerDetails(customerDetails); final
+         * AffiliationsData affiliationsData = new AffiliationsData(); final
+         * List<AffiliationData> affDataList = new ArrayList<AffiliationData>();
+         * final AffiliationData affData = new AffiliationData();
+         * affData.setStartDate(ASDateFormatUtil.convertDate(Long
+         * .parseLong(affiliation.getStartDate())));
+         * affData.setEndDate(ASDateFormatUtil.convertDate(Long
+         * .parseLong(affiliation.getEndDate())));
+         * affData.setCity(affiliation.getCity());
+         * affData.setState(affiliation.getState());
+         * affData.setCountryCd(affiliation.getCountryCode()); final String
+         * institutionId = affiliation.getInstitutionId();
+         * affData.setInstitutionCd(institutionId); final String name =
+         * autocomplete.getNameByCode("institutions", institutionId, null);
+         * affData.setInstitutionName(name);
+         * affData.setDepartmentCd(affiliation.getDepartmentId());
+         * affData.setDepartmentName(affiliation.getDepartmentName());
+         * affDataList.add(affData);
+         * affiliationsData.setAffiliation(affDataList);
+         * customerProfile.setAffiliations(affiliationsData);
+         * lookupCustomerProfileResponse.setCustomerProfile(customerProfile); if
+         * ("0".equals(affiliationId)) { affData.setStatus("add"); } else {
+         * affData.setId(affiliationId); affData.setStatus("edit"); }
+         */
+
+        return false;
 
     }
 
@@ -235,26 +219,17 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @return true, if successful
      */
     @Override
-    public final boolean updateAlerts(final String userId,
-            final AlertsList listOfalert) {
-        AuthorProfileServiceImpl.LOGGER.info("inside updateAlerts Method ");
-        final CustomerDetails customerDetails = getCustomeProfile(userId);
-        final LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
-        final CustomerProfile customerProfile = new CustomerProfile();
-        customerProfile.setCustomerDetails(customerDetails);
-        final AlertsData alertsData = new AlertsData();
-        final List<AlertData> alertList = new ArrayList<AlertData>();
-        final List<Alert> alertLIst = listOfalert.getAlertsList();
-        final List<AlertData> externalAlertsList = userProfiles
-                .getLookupCustomerProfile(userId)
-                .getLookupCustomerProfileResponse().getCustomerProfile()
-                .getAlerts().getAlert();
-        for (final Alert alert : alertLIst) {
-            final AlertData alertData = new AlertData();
+    public boolean updateAlerts(final String participantId,
+            final AlertsList alertList) throws Exception {
+        boolean isUpdated = false;
+        Integer code = null;
+        final AlertRequest alertRequest = new AlertRequest();
+        alertRequest.setPreferredEmailId(alertList.getEmailsList().get(0));
+        final List<PreferenceAlert> preferList = new ArrayList<>();
+        for (final Alert alert : alertList.getAlertsList()) {
+            final PreferenceAlert preferenceAlert = new PreferenceAlert();
+            preferenceAlert.setPreferenceKey(alert.getAlertId());
             final AlertType alertType = new AlertType();
-            alertData.setId(alert.getAlertId());
-            alertData.setAlertID(alert.getAlertId());
-            alertData.setStatus(alert.getStatus());
             if (alert.isEmail()) {
                 alertType.setEmail("1");
             } else {
@@ -265,50 +240,25 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             } else {
                 alertType.setOnscreen("0");
             }
-            alertData.setType(alertType);
-            alertData.setStatus("add");
-
-            if (externalAlertsList != null && !externalAlertsList.isEmpty()) {
-                for (final AlertData getAlertsData : externalAlertsList) {
-
-                    if (alert.getAlertId().equalsIgnoreCase(
-                            getAlertsData.getAlertID())) {
-                        alertData.setStatus("edit");
-                    }
-                }
-            }
-
-            alertList.add(alertData);
+            preferenceAlert.setAlertType(alertType);
+            preferList.add(preferenceAlert);
         }
-        alertsData.setAlert(alertList);
-        customerProfile.setAlerts(alertsData);
-        lookupCustomerProfileResponse.setCustomerProfile(customerProfile);
-        return userProfiles
-                .customerProfileUpdate(lookupCustomerProfileResponse);
-    }
+        alertRequest.setAlertList(preferList);
+        final ResponseEntity resposeEntity = participantsInterfaceService
+                .updateAlerts(participantId, alertRequest);
+        code = resposeEntity.getStatusCode().value();
+        if (!code.equals(200)) {
+            isUpdated = false;
+            final ParticipantError participantError = (ParticipantError) resposeEntity
+                    .getBody();
+            throw new Exception(participantError.getMessage());
+        }
 
-    /**
-     * Update Coauthor.
-     *
-     * @param userId
-     *            the user id
-     * @param coAuthor
-     *            the co author
-     * @return true, if successful
-     */
-    /*
-     * @Override public final boolean updatecoAuthor(final int userId, final
-     * CoAuthor coAuthor) {
-     * 
-     * AuthorProfileServiceImpl.LOGGER.info("inside updatecoAuthor Method ");
-     * 
-     * final List<CoAuthor> list = new ArrayList<CoAuthor>();
-     * list.add(coAuthor); userProfile.setCoAuthors(list);
-     * lookUpProfile.setCustomerProfile(userProfile); return null !=
-     * userProfiles.updateProfile(userId, lookUpProfile);
-     * 
-     * }
-     */
+        if (code.equals(200)) {
+            isUpdated = true;
+        }
+        return isUpdated;
+    }
 
     /**
      * Update email details.
@@ -369,139 +319,6 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         }
 
         return status;
-    }
-
-    /**
-     * Update user address.
-     *
-     * @param userId
-     *            the user id
-     * @param addressesRequest
-     *            the addresses request
-     * @return true, if successful
-     */
-    @Override
-    public final boolean updateUserAddress(final String userId,
-            final Address addressesRequest) {
-
-        AuthorProfileServiceImpl.LOGGER
-                .info("inside updateUserAddress Method ");
-
-        final CustomerDetails customerDetails = getCustomeProfile(userId);
-        final LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
-        final CustomerProfile customerProfile = new CustomerProfile();
-        customerProfile.setCustomerDetails(customerDetails);
-
-        final AddressDetails addressDetails = new AddressDetails();
-        final List<AddressElement> addressElementsList = new ArrayList<AddressElement>();
-
-        final List<AddressElement> addressList = userProfiles
-                .getLookupCustomerProfile(userId)
-                .getLookupCustomerProfileResponse().getCustomerProfile()
-                .getAddressDetails().getAddress();
-
-        if ("Physical".equalsIgnoreCase(addressesRequest.getAddressType())) {
-            final AddressElement physical = this.updateAddressFields(
-                    addressesRequest, addressesRequest.getAddressType(),
-                    addressesRequest.getAddressId());
-            addressElementsList.add(physical);
-            if ('Y' == addressesRequest.getAddressFlag()) {
-                String id = "0";
-                if (!StringUtils.isEmpty(addressList)) {
-                    for (final AddressElement addressElement : addressList) {
-                        if ("Billing".equalsIgnoreCase(addressElement
-                                .getAddrTypeCD())) {
-                            id = addressElement.getId();
-                        }
-                    }
-                }
-                final AddressElement billing = this.updateAddressFields(
-                        addressesRequest, "Billing", id);
-                addressElementsList.add(billing);
-            }
-        }
-
-        if ("Billing".equalsIgnoreCase(addressesRequest.getAddressType())) {
-            final AddressElement physical = this.updateAddressFields(
-                    addressesRequest, addressesRequest.getAddressType(),
-                    addressesRequest.getAddressId());
-            addressElementsList.add(physical);
-            if ('Y' == addressesRequest.getAddressFlag()) {
-                String shippingId = "0";
-                if (!StringUtils.isEmpty(addressList)) {
-                    for (final AddressElement addressElement : addressList) {
-                        if ("Shipping".equalsIgnoreCase(addressElement
-                                .getAddrTypeCD())) {
-                            shippingId = addressElement.getId();
-                        }
-                    }
-                }
-                final AddressElement shipping = this.updateAddressFields(
-                        addressesRequest, "Shipping", shippingId);
-                addressElementsList.add(shipping);
-            }
-        }
-
-        if ("Shipping".equalsIgnoreCase(addressesRequest.getAddressType())) {
-            final AddressElement shipping = this.updateAddressFields(
-                    addressesRequest, addressesRequest.getAddressType(),
-                    addressesRequest.getAddressId());
-            addressElementsList.add(shipping);
-        }
-
-        addressDetails.setAddress(addressElementsList);
-        customerProfile.setAddressDetails(addressDetails);
-        lookupCustomerProfileResponse.setCustomerProfile(customerProfile);
-        return userProfiles
-                .customerProfileUpdate(lookupCustomerProfileResponse);
-    }
-
-    /**
-     * Update address fields.
-     *
-     * @param addressesRequest
-     *            the addresses request
-     * @param addressType
-     *            the address type
-     * @param id
-     *            the id
-     * @return the address element
-     */
-    private AddressElement updateAddressFields(final Address addressesRequest,
-            final String addressType, final String id) {
-
-        final AddressElement addressElement = new AddressElement();
-        addressElement.setAddrTypeCD(addressType);
-        addressElement.setTitle(addressesRequest.getTitle());
-        addressElement.setFirstName(addressesRequest.getFirstName());
-        addressElement.setLastName(addressesRequest.getLastName());
-        addressElement.setSuffix(addressesRequest.getSuffix());
-        if (!StringUtils.isEmpty(addressesRequest.getInstitutionId())) {
-            addressElement
-                    .setInstitutionCd(addressesRequest.getInstitutionId());
-            addressElement.setInstitutionName(addressesRequest
-                    .getInstitutionName());
-        }
-        if ("0".equalsIgnoreCase(id)) {
-            addressElement.setStatus("Add");
-        } else {
-            addressElement.setId(id);
-            addressElement.setStatus("Edit");
-        }
-        if ("".equalsIgnoreCase(addressesRequest.getDepartmentId())) {
-            addressElement.setDepartmentCd(addressesRequest.getDepartmentId());
-            addressElement.setDepartmentName(addressesRequest
-                    .getDepartmentName());
-        }
-        addressElement.setAddressLine1(addressesRequest.getAddressLine1());
-        addressElement.setAddressLine2(addressesRequest.getAddressLine2());
-        addressElement.setCity(addressesRequest.getCity());
-        addressElement.setState(addressesRequest.getStateCode());
-        addressElement.setZipCode(addressesRequest.getPostCode());
-        addressElement.setCountryCode(addressesRequest.getCountryCode());
-        addressElement.setPhoneNumber(addressesRequest.getPhoneNumber());
-        addressElement.setFaxNumber(addressesRequest.getFaxNumber());
-        return addressElement;
     }
 
     /**
@@ -625,54 +442,22 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                 .updateSecurityDetails(securityQuestionsUpdateRequest);
     }
 
-    /**
-     * Gets the user profile response.
-     *
-     * @param userId
-     *            the user id
-     * @return the user profile response
-     */
-    /*
-     * @Override public final LookupCustomerProfile getuserProfileResponse(final
-     * int userId) {
-     * AuthorProfileServiceImpl.LOGGER.info("in UserProfileResponse Method");
-     * return userProfiles.getUserProfileResponse(userId); }
-     */
-    /**
-     * This method is for uploading image.
-     *
-     * @param image
-     *            the image
-     * @param userId
-     *            the user id
-     */
     @Override
-    public final void uploadImage(final File image, final String userId) {
-
-        final byte[] imageData = new byte[(int) image.length()];
-        try {
-            // final FileInputStream fileInputStream = new
-            // FileInputStream(image);
-            // fileInputStream.read(imageData);
-            // fileInputStream.close();
-            authorProfileDao.saveProfilePicture(imageData, userId);
-        } catch (final Exception e) {
-            e.printStackTrace();
+    public boolean uploadProfileImage(final String participantId,
+            final Byte[] imageFile) throws Exception {
+        boolean isUpdated = false;
+        final ResponseEntity resposeEntity = participantsInterfaceService
+                .uploadProfileImage(participantId, imageFile);
+        final Integer code = resposeEntity.getStatusCode().value();
+        if (code.equals(200)) {
+            isUpdated = true;
+        } else {
+            isUpdated = false;
+            final ParticipantError participantError = (ParticipantError) resposeEntity
+                    .getBody();
+            throw new Exception(participantError.getMessage());
         }
-    }
-
-    /**
-     * Getting LookUp Profile by calling external service.
-     *
-     * @param userId
-     *            the user id
-     * @return the lookup customer profile
-     */
-    @Override
-    public final LookupCustomerProfile getLookupCustomerProfile(
-            final String userId) {
-
-        return userProfiles.getLookupCustomerProfile(userId);
+        return isUpdated;
     }
 
     /**
@@ -702,29 +487,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      */
     @Override
     public final List<ResearchFunder> getResearchFundersList(final String userId) {
-        final List<ResearchFunderData> listOfResearchFunder = userProfiles
-                .getLookupCustomerProfile(userId)
-                .getLookupCustomerProfileResponse().getCustomerProfile()
-                .getResearchFunders().getResearchFunder();
-        final List<ResearchFunder> researchFunderList = new ArrayList<ResearchFunder>();
 
-        for (final ResearchFunderData researchFunderData1 : listOfResearchFunder) {
-            final ResearchFunder researchFunder = new ResearchFunder();
-            researchFunder.setResearchFunderId(researchFunderData1
-                    .getFunderID());
-            researchFunder.setResearchFunderName(researchFunderData1
-                    .getFunderName());
-            final Set<String> grantNumber = new HashSet<String>();
-            final List<String> grantList = researchFunderData1
-                    .getGrantNumbers().getGrantNo();
-            for (final String grant : grantList) {
-                grantNumber.add(grant);
-            }
-            researchFunder.setGrantNumber(grantNumber);
-            researchFunderList.add(researchFunder);
-        }
-
-        return researchFunderList;
+        return null;
     }
 
     /**
@@ -763,36 +527,6 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     }
 
     /**
-     * This method will call external service look up profile to get co authors.
-     *
-     * @param userId
-     *            the user id
-     * @return the s co authors list
-     */
-    @Override
-    public final List<CoAuthor> getsCoAuthorsList(final String userId) {
-
-        final List<CoAuthorData> listOfCoauthors = userProfiles
-                .getLookupCustomerProfile(userId)
-                .getLookupCustomerProfileResponse().getCustomerProfile()
-                .getCoAuthors().getCoAuthor();
-        final List<CoAuthor> coAuthorList = new ArrayList<CoAuthor>();
-        for (final CoAuthorData coAuthorData : listOfCoauthors) {
-            final CoAuthor coAuthor = new CoAuthor();
-            coAuthor.setCoAuthorId(coAuthorData.getId());
-            coAuthor.setEmailId(coAuthorData.getEmailId());
-            coAuthor.setFirstName(coAuthorData.getFirstName());
-            coAuthor.setLastName(coAuthorData.getLastName());
-            coAuthor.setPhone(coAuthorData.getPhoneNo());
-            coAuthor.setInstitutionName(coAuthorData.getInstName());
-            coAuthor.setDepartmentName(coAuthorData.getDeptName());
-            coAuthorList.add(coAuthor);
-
-        }
-        return coAuthorList;
-    }
-
-    /**
      * This method will call external service look up profile to get interests.
      *
      * @param userId
@@ -807,67 +541,10 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         return areaOfInterest;
     }
 
-    /**
-     * This method will call external service look up profile to get alerts.
-     *
-     * @param userId
-     *            the user id
-     * @return the list of alerts
-     */
     @Override
-    public final AlertsList getListOfAlerts(final String userId) {
-
-        final CustomerProfile customerProfile = userProfiles
-                .getLookupCustomerProfile(userId)
-                .getLookupCustomerProfileResponse().getCustomerProfile();
-
-        final AlertsData alertExtData = customerProfile.getAlerts();
-        final AlertsList alertsResponse = new AlertsList();
-        List<AlertData> listOfAlert = new ArrayList<AlertData>();
-        final List<Alerts> daoAlertList = alertsDao.getAlerts();
-        final List<String> emailList = new ArrayList<String>();
-        final List<Alert> alertList = new ArrayList<Alert>();
-        emailList.add(customerProfile.getCustomerDetails().getPrimaryEmail());
-        emailList.add(customerProfile.getCustomerDetails().getSecondaryEmail());
-        if (alertExtData != null) {
-            listOfAlert = alertExtData.getAlert();
-        }
-
-        for (final Alerts daoAlert : daoAlertList) {
-            final Alert alert = new Alert();
-            alert.setAlertId(daoAlert.getAlertCd());
-            alert.setAlertName(daoAlert.getAlertName());
-
-            for (final AlertData alertData : listOfAlert) {
-                if (alertData != null) {
-                    final String alertId = alertData.getAlertID();
-                    if (daoAlert.getAlertCd().equals(alertId)) {
-                        final AlertType alertType = alertData.getType();
-                        if ("1".equalsIgnoreCase(alertType.getEmail())) {
-                            alert.setEmail(true);
-                        }
-                        if ("1".equalsIgnoreCase(alertType.getOnscreen())) {
-                            alert.setOnScreen(true);
-                        }
-
-                        break;
-                    }
-
-                }
-            }
-            alertList.add(alert);
-
-        }
-
-        if (alertList != null && !alertList.isEmpty()) {
-            alertsResponse.setAlertsList(alertList);
-        }
-
-        if (emailList != null && !emailList.isEmpty()) {
-            alertsResponse.setEmailsList(emailList);
-        }
-
-        return alertsResponse;
+    public PreferenceValue getAlerts(final String participantId)
+            throws Exception {
+        return participantsInterfaceService.getAlerts(participantId);
     }
 
     /**
@@ -886,34 +563,6 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
         return value;
 
-    }
-
-    /**
-     * This Method will get the customer details by calling external system ESB.
-     *
-     * @param userId
-     *            the user id
-     * @return the custome profile
-     */
-    @Override
-    public final CustomerDetails getCustomeProfile(final String userId) {
-
-        final CustomerDetails customerDetails = userProfiles
-                .getLookupCustomerProfile(userId)
-                .getLookupCustomerProfileResponse().getCustomerProfile()
-                .getCustomerDetails();
-        customerDetails.setPswd("");
-        customerDetails.setAsid(userId);
-        customerDetails.setUserRole("");
-        customerDetails.setNickName(customerDetails.getAlternativeName());
-        customerDetails.setCustomerType("User");
-        customerDetails.setUserStatus("Active");
-        customerDetails.setTcFlag("Y");
-        customerDetails.setSendEmail("Yes");
-        customerDetails.setSourceSystem("AS");
-        customerDetails.setProfileVisibility("0");
-
-        return customerDetails;
     }
 
     /**
@@ -958,14 +607,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      */
     private boolean orcidIdDetails(final String userId, final String orcidId) {
 
-        final CustomerDetails customerDetails = getCustomeProfile(userId);
-        customerDetails.setOrcId(orcidId);
-        final LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
-        final CustomerProfile customerProfile = new CustomerProfile();
-        customerProfile.setCustomerDetails(customerDetails);
-        lookupCustomerProfileResponse.setCustomerProfile(customerProfile);
-        return userProfiles
-                .customerProfileUpdate(lookupCustomerProfileResponse);
+        return false;
 
     }
 
@@ -977,22 +619,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @return image in terms of Byte array
      */
     @Override
-    public final byte[] getProfilePicture(final String userId) {
-
-        final byte[] imageAsBytes = null;
-
-        // UserProfile userProfile = authorProfileDao.getProfilePicture(userId);
-
-        /*
-         * try { // Blob image = userProfile.getProfilePic(); // int blobLength
-         * = (int) image.length(); // imageAsBytes = image.getBytes(1,
-         * blobLength); // FileOutputStream fos = new FileOutputStream( //
-         * "C:\\Users\\ravisinha\\Desktop\\Retrive4.jpg"); //
-         * fos.write(imageAsBytes); // fos.close();; // image.free(); } catch
-         * (Exception e) { e.printStackTrace(); }
-         */
-        return imageAsBytes;
-
+    public Byte[] getProfileImage(final String participantId) throws Exception {
+        return participantsInterfaceService.getProfileImage(participantId);
     }
 
     /**
@@ -1018,23 +646,23 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     @Override
     public boolean deleteAffiliations(final String userId,
             final String affiliationId) {
-        final CustomerDetails customerDetails = getCustomeProfile(String
-                .valueOf(userId));
-        final LookupCustomerProfileResponse lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
-        final CustomerProfile customerProfile = new CustomerProfile();
-        customerProfile.setCustomerDetails(customerDetails);
-        final AffiliationsData affsData = new AffiliationsData();
-        final List<AffiliationData> affDataList = new ArrayList<AffiliationData>();
-        final AffiliationData affData = new AffiliationData();
-        affData.setId(affiliationId);
-        affData.setStartDate("1999-05-31T13:20:00-05:00");
-        affDataList.add(affData);
-        affsData.setAffiliation(affDataList);
-        customerProfile.setAffiliations(affsData);
-        lookupCustomerProfileResponse.setCustomerProfile(customerProfile);
-        affData.setStatus("delete");
-        return userProfiles
-                .customerProfileUpdate(lookupCustomerProfileResponse);
+        /*
+         * final CustomerDetails customerDetails = getCustomeProfile(String
+         * .valueOf(userId)); final LookupCustomerProfileResponse
+         * lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
+         * final CustomerProfile customerProfile = new CustomerProfile();
+         * customerProfile.setCustomerDetails(customerDetails); final
+         * AffiliationsData affsData = new AffiliationsData(); final
+         * List<AffiliationData> affDataList = new ArrayList<AffiliationData>();
+         * final AffiliationData affData = new AffiliationData();
+         * affData.setId(affiliationId);
+         * affData.setStartDate("1999-05-31T13:20:00-05:00");
+         * affDataList.add(affData); affsData.setAffiliation(affDataList);
+         * customerProfile.setAffiliations(affsData);
+         * lookupCustomerProfileResponse.setCustomerProfile(customerProfile);
+         * affData.setStatus("delete");
+         */
+        return false;
 
     }
 
@@ -1113,6 +741,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     @Override
     public boolean addInterests(final String userId,
             final AreaOfInterests areaOfInterests) {
+
         /*
          * final Participant participant = participantsInterfaceService
          * .searchParticipantByUserId(userId);
@@ -1171,6 +800,22 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
         return false;
 
+    }
+
+    @Override
+    public List<Preferences> getWOAaccounts(final String participantId) {
+
+        /*
+         * final Preferences preference = participantsInterfaceService
+         * .getPreferredJournals(participantId);
+         */
+        return null;
+    }
+
+    @Override
+    public List<CoAuthor> getsCoAuthorsList(final String userId) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

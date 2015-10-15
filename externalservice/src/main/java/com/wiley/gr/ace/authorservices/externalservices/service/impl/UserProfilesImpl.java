@@ -14,20 +14,12 @@
 
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cache.annotation.Cacheable;
 
-import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
-import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.model.DropDown;
 import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
-import com.wiley.gr.ace.authorservices.model.external.ErrorPayLoad;
-import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
-import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfileResponse;
-import com.wiley.gr.ace.authorservices.model.external.ResponseStatus;
 
 /**
  * The Class UserProfilesImpl.
@@ -73,30 +65,6 @@ public class UserProfilesImpl implements UserProfiles {
     @Value("${statesurl.append}")
     private String statesUrlAppend;
 
-    /** The lookupCustomerProfileResponse. */
-    @Value("${lookupCustomerProfileResponse.url}")
-    private String lookupCustomerProfileResponse;
-
-    /** The updateLookupCustomerProfile. */
-    @Value("${updateLookupCustomerProfile.url}")
-    private String updateLookupCustomerProfile;
-
-    /**
-     * This field holds the value of success.
-     */
-    @Value("${STATUS}")
-    private String success;
-
-    /** The failure. */
-    @Value("${FAILURE}")
-    private String failure;
-
-    /**
-     * This field holds the value of userManagement.
-     */
-    @Autowired(required = true)
-    private UserManagement userManagement;
-
     /**
      * This method is used for getting countries.
      *
@@ -119,7 +87,7 @@ public class UserProfilesImpl implements UserProfiles {
      */
     @Override
     public final ESBResponse getDepartmentsList(final String institutionId) {
-        String departmenturl = departmentspreurl + institutionId
+        final String departmenturl = departmentspreurl + institutionId
                 + departmentsposturl;
         System.out.println(departmenturl);
         return (ESBResponse) RestServiceInvokerUtil.pickListInvoker(
@@ -189,94 +157,11 @@ public class UserProfilesImpl implements UserProfiles {
     @Override
     public final ESBResponse getStates(final String countrycode) {
 
-        String url = statesurl + countrycode + statesUrlAppend;
+        final String url = statesurl + countrycode + statesUrlAppend;
 
         return (ESBResponse) RestServiceInvokerUtil.pickListInvoker(url,
                 ESBResponse.class);
 
     }
 
-    /**
-     * This method is used for getting userProfile response.
-     *
-     * @param userId
-     *            the user id
-     * @return UserProfileResponse
-     */
-    /*
-     * @Override
-     * 
-     * @Cacheable(value = "userProfile", key = "#userId") public final
-     * LookupCustomerProfile getUserProfileResponse(final int userId) {
-     * 
-     * return getLookupCustomerProfile(String.valueOf(userId)); }
-     */
-    /**
-     * This method is used for getting userProfile response and put the updated
-     * userProfile object into Redis cache.
-     *
-     * @param userId
-     *            the user id
-     * @param userProfileResponse
-     *            the user profile response
-     * @return UserProfileResponse
-     */
-    /*
-     * @Override
-     * 
-     * @CachePut(value = "userProfile", key = "#userId") public final
-     * LookupCustomerProfile updateProfile(final String userId) { return
-     * getLookupCustomerProfile(userId); }
-     */
-
-    /**
-     * Gets the lookup customer profile.
-     *
-     * @param userId
-     *            the user id
-     * @return the lookup customer profile
-     */
-    @Override
-    @Cacheable(value = "userProfile", key = "#userId")
-    public final LookupCustomerProfile getLookupCustomerProfile(
-            final String userId) {
-
-        LookupCustomerProfile lookupCustomerProfile = (LookupCustomerProfile) RestServiceInvokerUtil
-                .getServiceData(lookupCustomerProfileResponse + userId
-                        + "&ECID=", LookupCustomerProfile.class);
-        if (failure.equalsIgnoreCase(lookupCustomerProfile.getStatus())) {
-            final ErrorPayLoad errorPayLoad = lookupCustomerProfile.getError();
-            throw new UserException(errorPayLoad.getErrorCode(),
-                    errorPayLoad.getErrorMessage());
-        }
-        return lookupCustomerProfile;
-    }
-
-    /**
-     * Calling external service to Update look up profile.
-     *
-     * @param lookupCustomerProfileResponse
-     *            the lookup customer profile response
-     * @return boolean
-     */
-    @Override
-    public final boolean customerProfileUpdate(
-            final LookupCustomerProfileResponse lookupCustomerProfileResponse) {
-        final ResponseStatus responseStatus = (ResponseStatus) RestServiceInvokerUtil
-                .restServiceInvoker(updateLookupCustomerProfile,
-                        lookupCustomerProfileResponse, ResponseStatus.class);
-        boolean status = false;
-        if (success.equalsIgnoreCase(responseStatus.getStatus())) {
-            status = true;
-            userManagement.updateProfile(lookupCustomerProfileResponse
-                    .getCustomerProfile().getCustomerDetails().getAsid());
-        }
-        if (failure.equalsIgnoreCase(responseStatus.getStatus())) {
-            final ErrorPayLoad errorPayLoad = responseStatus.getError();
-            throw new UserException(errorPayLoad.getErrorCode(),
-                    errorPayLoad.getErrorMessage());
-        }
-        return status;
-
-    }
 }

@@ -12,10 +12,8 @@
 
 package com.wiley.gr.ace.authorservices.services.service;
 
-import java.io.File;
 import java.util.List;
 
-import com.wiley.gr.ace.authorservices.model.Address;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.AlertsList;
 import com.wiley.gr.ace.authorservices.model.AreaOfInterests;
@@ -26,8 +24,8 @@ import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.model.User;
-import com.wiley.gr.ace.authorservices.model.external.CustomerDetails;
-import com.wiley.gr.ace.authorservices.model.external.LookupCustomerProfile;
+import com.wiley.gr.ace.authorservices.model.external.PreferenceValue;
+import com.wiley.gr.ace.authorservices.model.external.Preferences;
 
 /**
  * The Interface AuthorProfileService.
@@ -77,7 +75,8 @@ public interface AuthorProfileService {
      *            the alert
      * @return true, if successful
      */
-    boolean updateAlerts(String userId, AlertsList alert);
+    boolean updateAlerts(String participantId, AlertsList alertList)
+            throws Exception;
 
     /**
      * @param userId
@@ -107,17 +106,6 @@ public interface AuthorProfileService {
      * @return true, if successful
      */
     boolean updateEmailDetails(String userId, User emailDetails);
-
-    /**
-     * Update user address.
-     *
-     * @param userId
-     *            the user id
-     * @param addressesRequest
-     *            the addresses request
-     * @return true, if successful
-     */
-    boolean updateUserAddress(String userId, Address addressesRequest);
 
     /**
      * Update user profile info.
@@ -157,32 +145,9 @@ public interface AuthorProfileService {
      */
     /* LookupCustomerProfile getuserProfileResponse(int userId); */
 
-    /**
-     * Upload image.
-     *
-     * @param image
-     *            the image
-     * @param userId
-     *            the user id
-     */
-    void uploadImage(File image, String userId);
+    boolean uploadProfileImage(String participantId, Byte[] imageFile)
+            throws Exception;
 
-    /**
-     * Gets the lookup customer profile.
-     *
-     * @param userId
-     *            the user id
-     * @return the lookup customer profile
-     */
-    LookupCustomerProfile getLookupCustomerProfile(String userId);
-
-    /**
-     * Gets the affiliations list.
-     *
-     * @param userId
-     *            the user id
-     * @return the affiliations list
-     */
     List<String> getAffiliationsList(String userId);
 
     /**
@@ -221,14 +186,7 @@ public interface AuthorProfileService {
      */
     List<String> getAreaOfInterests(String userId);
 
-    /**
-     * Gets the list of alerts.
-     *
-     * @param userId
-     *            the user id
-     * @return the list of alerts
-     */
-    AlertsList getListOfAlerts(String userId);
+    PreferenceValue getAlerts(String participantId) throws Exception;
 
     /**
      * Gets the preffered journals.
@@ -239,22 +197,6 @@ public interface AuthorProfileService {
      */
     String getPrefferedJournals(String participantId);
 
-    /**
-     * Gets the custome profile.
-     *
-     * @param userId
-     *            the user id
-     * @return the custome profile
-     */
-    CustomerDetails getCustomeProfile(String userId);
-
-    /**
-     * Removes the orcid id.
-     *
-     * @param userId
-     *            the user id
-     * @return true, if successful
-     */
     boolean removeOrcidId(String userId);
 
     /**
@@ -275,7 +217,7 @@ public interface AuthorProfileService {
      *            the user id
      * @return the profile picture
      */
-    byte[] getProfilePicture(String userId);
+    Byte[] getProfileImage(String participantId) throws Exception;
 
     /**
      * Delete society.
@@ -322,5 +264,7 @@ public interface AuthorProfileService {
     boolean deletePreferredJournals(String userId, String journalId);
 
     boolean addPreferredJournal(String userId, JournalDetails journalDetails);
+
+    List<Preferences> getWOAaccounts(String participantId);
 
 }
