@@ -20,6 +20,7 @@ import com.wiley.gr.ace.authorservices.model.AreaOfInterests;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.JournalDetails;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
+import com.wiley.gr.ace.authorservices.model.PreferredJournals;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Society;
@@ -195,7 +196,7 @@ public interface AuthorProfileService {
      *            the user id
      * @return the preffered journals
      */
-    String getPrefferedJournals(String participantId);
+    List<PreferredJournals> getPrefferedJournals(String participantId);
 
     boolean removeOrcidId(String userId);
 

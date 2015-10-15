@@ -15,6 +15,7 @@ package com.wiley.gr.ace.authorservices.services.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteService;
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
+import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.ParticipantsInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
@@ -34,6 +36,7 @@ import com.wiley.gr.ace.authorservices.model.AreaOfInterests;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
 import com.wiley.gr.ace.authorservices.model.JournalDetails;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
+import com.wiley.gr.ace.authorservices.model.PreferredJournals;
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.SecurityDetails;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
@@ -47,6 +50,7 @@ import com.wiley.gr.ace.authorservices.model.external.JournalElement;
 import com.wiley.gr.ace.authorservices.model.external.Participant;
 import com.wiley.gr.ace.authorservices.model.external.PasswordRequest;
 import com.wiley.gr.ace.authorservices.model.external.PasswordUpdate;
+import com.wiley.gr.ace.authorservices.model.external.PdhLookupJournalResponse;
 import com.wiley.gr.ace.authorservices.model.external.PreferenceAlert;
 import com.wiley.gr.ace.authorservices.model.external.PreferenceValue;
 import com.wiley.gr.ace.authorservices.model.external.Preferences;
@@ -120,6 +124,9 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      */
     @Autowired(required = true)
     private SocietyDao societyDao;
+
+    @Autowired(required = true)
+    private ESBInterfaceService eSBInterfaceService;
 
     /**
      * Update society details.
@@ -554,12 +561,34 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @return the preffered journals
      */
     @Override
-    public final String getPrefferedJournals(final String participantId) {
-
+    public final List<PreferredJournals> getPrefferedJournals(
+            final String participantId) {
         final String value = participantsInterfaceService.getPreferredJournals(
                 participantId).getPreferenceValue();
+        String journalTitle = null;
+        String journalImage = null;
+        try {
+            final PdhLookupJournalResponse pdhLookupJournalResponse = eSBInterfaceService
+                    .getPdhLookupJournalResponse("");
+            journalTitle = pdhLookupJournalResponse.getTitle();
+            journalImage = pdhLookupJournalResponse.getBannerImage();
+        } catch (final Exception e) {
+            e.printStackTrace();
+        }
+        final ArrayList<PreferredJournals> listdata = new ArrayList<PreferredJournals>();
+        final JSONArray jsonArray = new JSONArray(value);
+        final List<String> list = new ArrayList<String>();
 
-        return value;
+        for (int i = 0; i < jsonArray.length(); i++) {
+            final PreferredJournals preferredJournals = new PreferredJournals();
+            preferredJournals.setJournalTitle(journalTitle);
+            preferredJournals.setJournalImage(journalImage);
+            list.add("");
+            // preferredJournals.setJournalId(list.get(i));
+            // PDh Lokkup
+        }
+
+        return listdata;
 
     }
 
@@ -786,9 +815,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         profileEntity.setEntityType("FAVJOURNAL");
         final EntityValue entityValue = new EntityValue();
         final JournalElement journalElement = new JournalElement();
-        journalElement.setRelationshipId("");
         journalElement.setJournalID(journalDetails.getJournalId());
-        // TODO pdh look up for getting journal title
         entityValue.setJournal(journalElement);
         profileEntity.setEntityValue(entityValue);
         profileEntity.setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
