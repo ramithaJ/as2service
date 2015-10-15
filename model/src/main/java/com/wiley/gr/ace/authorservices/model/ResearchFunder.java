@@ -32,6 +32,11 @@ public class ResearchFunder implements Serializable {
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * This field holds the value of id.
+     */
+    private Long id;
+
     /** The research funder id. */
     @NotNull
     @NotBlank
@@ -56,6 +61,21 @@ public class ResearchFunder implements Serializable {
     @NotNull
     /** The grant number. */
     private Set<String> grantNumber;
+
+    /**
+     * @return the id
+     */
+    public final Long getId() {
+        return id;
+    }
+
+    /**
+     * @param id
+     *            the id to set
+     */
+    public final void setId(final Long id) {
+        this.id = id;
+    }
 
     /**
      * Gets the research funder id.

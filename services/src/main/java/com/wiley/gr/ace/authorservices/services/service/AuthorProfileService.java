@@ -268,4 +268,9 @@ public interface AuthorProfileService {
 
     List<Preferences> getWOAaccounts(String participantId);
 
+    boolean updateResearchFunders(String participantId,
+            ResearchFunder researchFunder);
+
+    boolean deleteResearchFunder(Long participantSeqId);
+
 }

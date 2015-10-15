@@ -34,6 +34,7 @@ import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.AlertsList;
 import com.wiley.gr.ace.authorservices.model.AreaOfInterests;
 import com.wiley.gr.ace.authorservices.model.JournalDetails;
+import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
@@ -136,15 +137,40 @@ public class UserProfileController {
      *            - The request value
      * @return service
      */
-    @RequestMapping(value = "/researchFunders/{userId}/", method = RequestMethod.GET)
+    @RequestMapping(value = "/researchFunders/{participantId}/", method = RequestMethod.GET)
     public final Service getResearchFundersList(
-            @PathVariable("userId") final String userId) {
+            @PathVariable("participantId") final String participantId) {
 
         UserProfileController.LOGGER
                 .info("inside getResearchFundersList method ");
         final Service service = new Service();
-        service.setPayload(authorProfileService.getResearchFundersList(userId));
+        service.setPayload(authorProfileService
+                .getResearchFundersList(participantId));
 
+        return service;
+    }
+
+    @RequestMapping(value = "/researchFunders/{participantId}/", method = RequestMethod.POST)
+    public final Service updateResearchFunder(
+            @PathVariable("participantId") final String participantId,
+            @RequestBody final ResearchFunder researchFunder) {
+        UserProfileController.LOGGER
+                .info("inside updateResearchFundersList method ");
+        Service service = new Service();
+        authorProfileService.updateResearchFunders(participantId,
+                researchFunder);
+        return service;
+    }
+
+    @RequestMapping(value = "/researchFunders/{participantSeqId}/", method = RequestMethod.DELETE)
+    public final Service updateResearchFunder(
+            @PathVariable("participantSeqId") final Long participantSeqId) {
+
+        UserProfileController.LOGGER
+                .info("inside deleteResearchFunder method ");
+        Service service = new Service();
+
+        authorProfileService.deleteResearchFunder(participantSeqId);
         return service;
     }
 
@@ -411,21 +437,6 @@ public class UserProfileController {
             service.setPayload(isUpdated);
         }
         return service;
-    }
-
-    /**
-     * Gets the job categories.
-     *
-     * @param userId
-     *            - The request value
-     * @return service
-     */
-    @RequestMapping(value = "/jobCategories/{userId}", method = RequestMethod.GET)
-    public final Service getJobCategories(
-            @PathVariable("userId") final String userId) {
-
-        UserProfileController.LOGGER.info("inside getJobCategories method ");
-        return new Service();
     }
 
     /**

@@ -18,6 +18,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
+import com.wiley.gr.ace.authorservices.persistence.services.ResearchFunderDAO;
+import com.wiley.gr.ace.authorservices.persistence.services.impl.ResearchFunderDAOImpl;
 import com.wiley.gr.ace.authorservices.services.service.ASDataService;
 import com.wiley.gr.ace.authorservices.services.service.AdditionalPermissionService;
 import com.wiley.gr.ace.authorservices.services.service.AdminLoginService;
@@ -284,6 +286,11 @@ public class ServiceBeanConfig {
     @Bean(name = "SaveInvitationCeaseEventService")
     public SaveInvitationCeaseEventService saveInvitationCeaseEventService() {
         return new SaveInvitationCeaseEventServiceImpl();
+    }
+
+    @Bean(name = "ResearchFunderDAO")
+    public ResearchFunderDAO researchFunderDAO() {
+        return new ResearchFunderDAOImpl();
     }
 
 }

@@ -13,7 +13,10 @@
 package com.wiley.gr.ace.authorservices.services.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.json.JSONArray;
 import org.slf4j.Logger;
@@ -60,9 +63,13 @@ import com.wiley.gr.ace.authorservices.model.external.SecurityQuestionsUpdateReq
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestions;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsEntry;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsMap;
+import com.wiley.gr.ace.authorservices.persistence.entity.Societies;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserFunderGrants;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserFunders;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserSocietyDetails;
 import com.wiley.gr.ace.authorservices.persistence.services.AlertsDao;
 import com.wiley.gr.ace.authorservices.persistence.services.AuthorProfileDao;
+import com.wiley.gr.ace.authorservices.persistence.services.ResearchFunderDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.SocietyDao;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 import com.wiley.gr.ace.authorservices.services.service.SendNotification;
@@ -125,8 +132,17 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     @Autowired(required = true)
     private SocietyDao societyDao;
 
+    /**
+     * This field holds the value of eSBInterfaceService.
+     */
     @Autowired(required = true)
     private ESBInterfaceService eSBInterfaceService;
+
+    /**
+     * This field holds the value of researchFunderDAO.
+     */
+    @Autowired(required = true)
+    private ResearchFunderDAO researchFunderDAO;
 
     /**
      * Update society details.
@@ -142,7 +158,32 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             final Society society) {
         AuthorProfileServiceImpl.LOGGER
                 .info("ins ide updateSocietyDetails Method ");
-        return societyDao.updateSociety(userId, society);
+
+        if (0 == society.getId()) {
+            UserSocietyDetails userSocietyDetails = new UserSocietyDetails();
+            userSocietyDetails.setParticipantId(userId.getBytes());
+
+            Societies societies = new Societies();
+            societies.setSocietyCd(society.getSocietyId());
+            userSocietyDetails.setSocieties(societies);
+
+            userSocietyDetails.setSocietyName(society.getSocietyName());
+            userSocietyDetails.setMembershipNo(society.getMembershipNumber());
+            userSocietyDetails.setPromoCode(society.getPromoCode());
+            userSocietyDetails.setStartDt(new Date(new Long(society
+                    .getStartDate())));
+            userSocietyDetails
+                    .setEndDt(new Date(new Long(society.getEndDate())));
+            userSocietyDetails.setCreatedBy(userId.getBytes());
+            userSocietyDetails.setCreatedDate(new Date());
+            userSocietyDetails.setUpdatedBy(userId.getBytes());
+            userSocietyDetails.setUpdatedDate(new Date());
+
+            return societyDao.addSociety(userSocietyDetails);
+        } else {
+            return societyDao.updateSociety(userId, society);
+
+        }
 
     }
 
@@ -493,7 +534,25 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     @Override
     public final List<ResearchFunder> getResearchFundersList(final String userId) {
 
-        return null;
+        List<UserFunders> userFundersList = researchFunderDAO
+                .getResearchFunders(userId);
+        List<ResearchFunder> researchFundersList = new ArrayList<ResearchFunder>();
+        ResearchFunder researchFunder = null;
+        for (UserFunders userFunders : userFundersList) {
+            researchFunder = new ResearchFunder();
+            researchFunder.setId(userFunders.getUserFunderId());
+            researchFunder.setResearchFunderId(userFunders.getFunderDoi()); // TODO
+            researchFunder.setResearchFunderName(userFunders.getFunderName());
+            Set<UserFunderGrants> userFunderGrantsSet = userFunders
+                    .getUserFunderGrantses();
+            Set<String> grantsSet = new HashSet<String>();
+            for (UserFunderGrants userFunderGrants : userFunderGrantsSet) {
+                grantsSet.add(userFunderGrants.getGrantNum());
+            }
+            researchFunder.setGrantNumber(grantsSet);
+            researchFundersList.add(researchFunder);
+        }
+        return researchFundersList;
     }
 
     /**
@@ -522,10 +581,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             society.setSocietyName(userSocietyDetails.getSocietyName());
             society.setMembershipNumber(userSocietyDetails.getMembershipNo());
             society.setPromoCode(userSocietyDetails.getPromoCode());
-            society.setStartDate(null); // need to convert date to string
-                                        // userSocietyDetails.getStartDt()
-            society.setEndDate(null); // need to convert date to string
-                                      // userSocietyDetails.getEndDt()
+            society.setStartDate(userSocietyDetails.getStartDt().toString());
+            society.setEndDate(userSocietyDetails.getEndDt().toString());
             societiesList.add(society);
         }
         return societiesList;
@@ -841,6 +898,37 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     public List<CoAuthor> getsCoAuthorsList(final String userId) {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public boolean updateResearchFunders(final String participantId,
+            final ResearchFunder researchFunder) {
+
+        if (0 == researchFunder.getId()) {
+            UserFunders userFunders = new UserFunders();
+            userFunders.setFunderDoi(researchFunder.getResearchFunderId());
+            userFunders.setFunderName(researchFunder.getResearchFunderName());
+            userFunders.setParticipantId(participantId.getBytes());
+
+            Set<UserFunderGrants> userFunderGrantsSet = new HashSet<UserFunderGrants>();
+            UserFunderGrants userFunderGrants = null;
+            Set<String> grantSet = researchFunder.getGrantNumber();
+            for (String grnat : grantSet) {
+                userFunderGrants = new UserFunderGrants();
+                userFunderGrants.setGrantNum(grnat);
+                userFunderGrantsSet.add(userFunderGrants);
+            }
+            userFunders.setUserFunderGrantses(userFunderGrantsSet);
+            return researchFunderDAO.addResearchFunder(userFunders);
+        } else {
+            return researchFunderDAO.updateResearchFunder(researchFunder);
+        }
+    }
+
+    @Override
+    public boolean deleteResearchFunder(final Long participantSeqId) {
+
+        return researchFunderDAO.deleteResearchFunder(participantSeqId);
     }
 
 }

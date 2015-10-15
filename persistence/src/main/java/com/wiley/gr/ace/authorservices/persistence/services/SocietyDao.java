@@ -38,4 +38,5 @@ public interface SocietyDao {
 
     boolean deleteSociety(Long id);
 
+    boolean addSociety(UserSocietyDetails userSocietyDetails);
 }

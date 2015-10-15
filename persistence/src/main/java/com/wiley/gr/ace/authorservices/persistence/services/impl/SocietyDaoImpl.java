@@ -15,6 +15,7 @@ package com.wiley.gr.ace.authorservices.persistence.services.impl;
 import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -78,12 +79,12 @@ public class SocietyDaoImpl implements SocietyDao {
             userSocietyDetails.setSocietyName(society.getSocietyName());
             userSocietyDetails.setMembershipNo(society.getMembershipNumber());
             userSocietyDetails.setPromoCode(society.getPromoCode());
-            userSocietyDetails.setStartDt(null); // need to convert string to
-                                                 // date type
-            userSocietyDetails.setEndDt(null); // need to convert string to date
-                                               // type
-            userSocietyDetails.setUpdatedDate(null); // need to update date
-            userSocietyDetails.setUpdatedBy(null); // need to update type
+            userSocietyDetails.setStartDt(new Date(new Long(society
+                    .getStartDate())));
+            userSocietyDetails
+                    .setEndDt(new Date(new Long(society.getEndDate())));
+            userSocietyDetails.setUpdatedDate(new Date());
+            userSocietyDetails.setUpdatedBy(userId.getBytes());
 
             session.update(userSocietyDetails);
             session.getTransaction().commit();
@@ -129,6 +130,27 @@ public class SocietyDaoImpl implements SocietyDao {
             UserSocietyDetails userSocietyDetails = new UserSocietyDetails();
             userSocietyDetails.setUserSocietyId(id);
             session.delete(userSocietyDetails);
+            session.getTransaction().commit();
+
+        } finally {
+            if (null != session) {
+                session.flush();
+                session.close();
+            }
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean addSociety(final UserSocietyDetails userSocietyDetails) {
+
+        Session session = null;
+
+        try {
+            session = getSessionFactory().openSession();
+            session.beginTransaction();
+            session.save(userSocietyDetails);
             session.getTransaction().commit();
 
         } finally {
