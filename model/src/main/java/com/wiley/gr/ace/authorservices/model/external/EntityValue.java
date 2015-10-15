@@ -32,6 +32,28 @@ public class EntityValue {
     /** The journal. */
     private JournalElement journal;
 
+    private AddressData addressData;
+    
+    private AlertRequest alertRequest;
+
+   
+
+    public AlertRequest getAlertRequest() {
+        return alertRequest;
+    }
+
+    public void setAlertRequest(AlertRequest alertRequest) {
+        this.alertRequest = alertRequest;
+    }
+
+    public AddressData getAddressData() {
+        return addressData;
+    }
+
+    public void setAddressData(AddressData addressData) {
+        this.addressData = addressData;
+    }
+
     /**
      * Gets the profile.
      *

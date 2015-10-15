@@ -38,12 +38,12 @@ import com.wiley.gr.ace.authorservices.model.external.AddressValidationMultiReq;
 import com.wiley.gr.ace.authorservices.model.external.AddressValidationMultiRes;
 import com.wiley.gr.ace.authorservices.model.external.AddressValidationRequest;
 import com.wiley.gr.ace.authorservices.model.external.AddressesData;
-import com.wiley.gr.ace.authorservices.model.external.Entity;
 import com.wiley.gr.ace.authorservices.model.external.Participant;
 import com.wiley.gr.ace.authorservices.model.external.ParticipantAddress;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
 import com.wiley.gr.ace.authorservices.services.service.ASDataService;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
+
 
 /**
  * The Class UserAccountServiceImpl.
@@ -69,16 +69,17 @@ public class UserAccountServiceImpl implements UserAccountService {
      */
     @Autowired(required = true)
     private AutocompleteService autoCompleteService;
-
     /**
      * This field holds the value of asdataService.
      */
     @Autowired(required = true)
     private ASDataService asdataService;
 
+    /** The participants interface service. */
     @Autowired(required = true)
     ParticipantsInterfaceService participantsInterfaceService;
 
+    /** The validation service. */
     @Autowired(required = true)
     private ValidationService validationService;
     /**
@@ -211,10 +212,9 @@ public class UserAccountServiceImpl implements UserAccountService {
     /**
      * getting UserAddress info by user id.
      *
-     * @param userId
-     *            the user id
+     * @param userId            the user id
      * @return the user address
-     * @throws Exception
+     * @throws Exception the exception
      */
     @Override
     public final AddressesData getUserAddress(final String userId)
@@ -233,118 +233,21 @@ public class UserAccountServiceImpl implements UserAccountService {
     }
 
     /**
-     * Sets the address values.
+     * Updat address.
      *
-     * @param addressElement
-     *            the address element
-     * @return the address
+     * @param participantId the participant id
+     * @param address the address
+     * @return the object
+     * @throws Exception the exception
      */
-    private Address setAddressValues(final AddressElement addressElement) {
-
-        Address address = null;
-        address = new Address();
-        address.setAddressId(addressElement.getId());
-        if (!StringUtils.isEmpty(addressElement.getTitle())) {
-            address.setTitle(addressElement.getTitle());
-        }
-        if (!StringUtils.isEmpty(addressElement.getSuffix())) {
-            address.setSuffix(addressElement.getSuffix());
-        }
-        if (!StringUtils.isEmpty(addressElement.getFirstName())) {
-            address.setFirstName(addressElement.getFirstName());
-        }
-        if (!StringUtils.isEmpty(addressElement.getLastName())) {
-            address.setLastName(addressElement.getLastName());
-        }
-        final String institutionCode = addressElement.getInstitutionCd();
-        if (!StringUtils.isEmpty(institutionCode)) {
-            address.setInstitutionId(institutionCode);
-            address.setInstitutionName(autoCompleteService.getNameByCode(
-                    institutions, institutionCode, null));
-        }
-
-        final String departmentCode = addressElement.getDepartmentCd();
-        if (!StringUtils.isEmpty(departmentCode)) {
-            address.setDepartmentId(departmentCode);
-            address.setDepartmentName(autoCompleteService.getNameByCode(
-                    departments, departmentCode, institutionCode));
-        }
-        if (!StringUtils.isEmpty(addressElement.getAddressLine1())) {
-            address.setAddressLine1(addressElement.getAddressLine1());
-        }
-        if (!StringUtils.isEmpty(addressElement.getAddressLine2())) {
-            address.setAddressLine2(addressElement.getAddressLine2());
-        }
-        if (!StringUtils.isEmpty(addressElement.getCity())) {
-            address.setCity(addressElement.getCity());
-        }
-        if (!StringUtils.isEmpty(addressElement.getZipCode())) {
-            address.setPostCode(addressElement.getZipCode());
-        }
-        final Country country = new Country();
-        final String countryCode = addressElement.getCountryCode();
-        country.setCountryCode(countryCode);
-        country.setCountryName(autoCompleteService.getNameByCode(countries,
-                countryCode, null));
-        address.setCountry(country);
-        final State state = new State();
-        final String stateCode = addressElement.getState();
-        if (!StringUtils.isEmpty(stateCode)) {
-            state.setStateCode(stateCode);
-            state.setStateName(asdataService.getStateByCode(stateCode,
-                    countryCode));
-        }
-
-        // commented as part of codemerge
-        // address.setState(state);
-        if (!StringUtils.isEmpty(addressElement.getPhoneNumber())) {
-            address.setPhoneNumber(addressElement.getPhoneNumber());
-        }
-        if (!StringUtils.isEmpty(addressElement.getFaxNumber())) {
-            address.setFaxNumber(addressElement.getFaxNumber());
-        }
-
-        return address;
-    }
-
     @Override
-    public List<ParticipantAddress> getAddress(final String participantId)
-            throws Exception {
-        /*
-         * AddressMapper mapper = (AddressMapper) participantsInterfaceService
-         * .getAddress(participantId);
-         */
-        return null;
-    }
-
-    @Override
-    public Object updatAddress(final String participantId, final Entity entity)
-            throws Exception {
-        boolean isUpdated = false;
-        final AddressData address = entity.getAddress();
+    public Object updatAddress(final String participantId,
+            final AddressData address) throws Exception {
         final List<AddressData> varifiedAddress = validateAddress(address);
         if (StringUtils.isEmpty(varifiedAddress)) {
-            final ParticipantAddress participantAddress = new ParticipantAddress();
-            participantAddress.setAddressCountry(address.getCountryCode());
-            participantAddress.setAddressFunctiom(address.getAddressType());
-            participantAddress.setAddressLocality(address.getCity());
-            participantAddress.setAddressRegion(address.getStateCode());
-            participantAddress.setAddressType(address.getAddressTypeCode());
-            participantAddress.setDepartment(address.getDepartmentName());
-            participantAddress.setDepartmentID(address.getDepartmentCode());
-            participantAddress.setOrganizationId(address.getInstitutionCode());
-            participantAddress.setOrganization(address.getInstitutionName());
-            participantAddress.setPostalCode(address.getZipCode());
-            final ArrayList<String> streetAddress = new ArrayList<>();
-            streetAddress.add(address.getAddressLine1());
-            streetAddress.add(address.getAddressLine2());
-            participantAddress.setStreetAddress(streetAddress);
-            participantAddress.setTelephone(address.getPhoneNumber());
-            participantAddress.setValidFrom(address.getAddressStartDate());
-            participantAddress.setValidTo(address.getAddressEndDate());
-            participantAddress.setAddressId(address.getAddressId());
+            boolean isUpdated = false;
             final ResponseEntity resposeEntity = participantsInterfaceService
-                    .updateAddress(participantId, participantAddress);
+                    .updateAddress(participantId, address);
             final Integer code = resposeEntity.getStatusCode().value();
             if (code.equals(200)) {
                 isUpdated = true;
@@ -360,13 +263,19 @@ public class UserAccountServiceImpl implements UserAccountService {
         }
     }
 
+    /**
+     * Validate address.
+     *
+     * @param address the address
+     * @return the list
+     * @throws Exception the exception
+     */
     @Override
     public List<AddressData> validateAddress(final AddressData address)
             throws Exception {
         ArrayList<AddressData> validAddressList = new ArrayList<>();
         final AddressValidationRequest addressValidationRequest = new AddressValidationRequest();
         final AddressValidationMultiReq addressValidationMultiReq = new AddressValidationMultiReq();
-        System.err.println(address.getAddressLine1());
         addressValidationMultiReq.setStreet1(address.getAddressLine1());
         addressValidationMultiReq.setStreet2(address.getAddressLine2());
         addressValidationMultiReq.setLocality1(address.getCity());
@@ -402,6 +311,13 @@ public class UserAccountServiceImpl implements UserAccountService {
         return validAddressList;
     }
 
+    /**
+     * Partipcipant addr to addr.
+     *
+     * @param participantAddr the participant addr
+     * @param address the address
+     * @return the addresses
+     */
     private Addresses partipcipantAddrToAddr(
             ParticipantAddress participantAddr, AddressesData address) {
         if (!StringUtils.isEmpty(participantAddr)) {
@@ -426,18 +342,17 @@ public class UserAccountServiceImpl implements UserAccountService {
             addressData.setPhoneNumber(participantAddr.getTelephone());
             addressData.setStateCode(participantAddr.getAddressRegion());
             addressData.setZipCode(participantAddr.getPostalCode());
-            if (type.equalsIgnoreCase("correspondance")) {
+            if ("correspondance".equalsIgnoreCase(type)) {
                 address.setCorrespondenceAddress(addressData);
             }
-            if (type.equalsIgnoreCase("billing")) {
+            if ("billing".equalsIgnoreCase(type)) {
                 address.setBillingAddress(addressData);
             }
-            if (type.equalsIgnoreCase("shipping")) {
+            if ("shipping".equalsIgnoreCase(type)) {
                 address.setShippingAddress(addressData);
             }
         }
         return null;
 
     }
-
 }

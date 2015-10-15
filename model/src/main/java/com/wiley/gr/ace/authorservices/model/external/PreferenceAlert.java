@@ -2,7 +2,7 @@ package com.wiley.gr.ace.authorservices.model.external;
 
 public class PreferenceAlert {
     private String preferenceKey;
-    private PreferenceValue preferenceValue;
+    AlertType alertType;
 
     public String getPreferenceKey() {
         return preferenceKey;
@@ -12,11 +12,13 @@ public class PreferenceAlert {
         this.preferenceKey = preferenceKey;
     }
 
-    public PreferenceValue getPreferenceVAlue() {
-        return preferenceValue;
+    public AlertType getAlertType() {
+        return alertType;
     }
 
-    public void setPreferenceValue(PreferenceValue preferenceValue) {
-        this.preferenceValue = preferenceValue;
+    public void setAlertType(AlertType alertType) {
+        this.alertType = alertType;
     }
+
+ 
 }

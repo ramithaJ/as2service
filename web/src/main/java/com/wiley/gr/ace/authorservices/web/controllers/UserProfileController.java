@@ -37,7 +37,6 @@ import com.wiley.gr.ace.authorservices.model.JournalDetails;
 import com.wiley.gr.ace.authorservices.model.ProfilePicture;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.Society;
-import com.wiley.gr.ace.authorservices.model.external.AlertElement;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 import com.wiley.gr.ace.authorservices.services.service.UserProfileService;
 
@@ -422,10 +421,9 @@ public class UserProfileController {
      * Gets the list of alerts.
      *
      * @param userId
-     *            - The request value
-     * @return service
+     *            the user id
+     * @return the list of alerts
      */
-
     @RequestMapping(value = "/alerts/{userId}", method = RequestMethod.GET)
     public final Service getListOfAlerts(
             @PathVariable("userId") final String userId) {
@@ -444,19 +442,30 @@ public class UserProfileController {
      * Update alerts.
      *
      * @param userId
-     *            - The request value
+     *            the user id
      * @param listOfalert
-     *            - The request value
-     * @return service
+     *            the list ofalert
+     * @return the service
      */
     @RequestMapping(value = "/alerts/{userId}", method = RequestMethod.POST)
     public final Service updateAlerts(
             @PathVariable("userId") final String userId,
             @RequestBody final AlertsList listOfalert) {
         UserProfileController.LOGGER.info("inside updateAlerts method ");
+        boolean isUpdated = false;
         final Service service = new Service();
-        service.setPayload(authorProfileService.updateAlerts(userId,
-                listOfalert));
+        try {
+            isUpdated = userProfileService.updateAlerts(userId, listOfalert);
+        } catch (final Exception e) {
+            throw new UserException("50006", e.getMessage());
+        }
+        if (isUpdated) {
+            service.setStatus("SUCCESS");
+            service.setPayload(isUpdated);
+        } else {
+            service.setStatus("Failure");
+            service.setPayload(isUpdated);
+        }
         return service;
     }
 
@@ -585,17 +594,21 @@ public class UserProfileController {
     /**
      * Profile picture.
      *
+     * @param userId
+     *            the user id
      * @param image
      *            the image
      * @return the service
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     @RequestMapping(value = "/uploadImage/{userId}/", method = RequestMethod.POST)
     public final Service profilePicture(
             @PathVariable("userId") final String userId,
             @RequestBody final byte[] image) throws IOException {
-        final Service service = new Service();
+        Service service = new Service();
         String res = null;
-        final char[] charTemp = new char[image.length];
+        char[] charTemp = new char[image.length];
         for (int i = 0; i < image.length; i++) {
             charTemp[i] = (char) image[i];
 
@@ -603,19 +616,19 @@ public class UserProfileController {
         res = new String(charTemp);
         boolean isUpdated = false;
         try {
-            final File file = new File("c:/Images/Image");
+            File file = new File("c:/Images/Image");
             FileUtils.writeByteArrayToFile(file, image);
             if (file.exists()) {
                 final int value = 1024;
-                final double bytes = file.length();
-                final double kilobytes = bytes / value;
-                final double megabytes = kilobytes / value;
+                double bytes = file.length();
+                double kilobytes = bytes / value;
+                double megabytes = kilobytes / value;
                 if (megabytes > 1) {
                     throw new ASException(imageSizeCode, imageSizeMessage);
                 } else if (megabytes < 1) {
-                    final Byte[] byteWrapper = new Byte[image.length];
+                    Byte[] byteWrapper = new Byte[image.length];
                     int i = 0;
-                    for (final byte b : image) {
+                    for (byte b : image) {
                         byteWrapper[i++] = b;
                     }
                     isUpdated = userProfileService.uploadProfileImage(userId,
@@ -686,36 +699,6 @@ public class UserProfileController {
         }
         return service;
 
-    }
-
-    /**
-     * Update alerts.
-     *
-     * @param participantId
-     *            the participant id
-     * @param alert
-     *            the alert
-     * @return the service
-     */
-    @RequestMapping(value = "/{participantId}/alerts/", method = RequestMethod.POST)
-    public Service updateAlerts(
-            @PathVariable("ParticipantId") final String participantId,
-            @RequestBody final AlertElement alert) {
-        boolean isUpdated = false;
-        final Service service = new Service();
-        try {
-            isUpdated = userProfileService.updateAlerts(participantId, alert);
-        } catch (final Exception e) {
-            throw new UserException("50006", e.getMessage());
-        }
-        if (isUpdated) {
-            service.setStatus("SUCCESS");
-            service.setPayload(isUpdated);
-        } else {
-            service.setStatus("Failure");
-            service.setPayload(isUpdated);
-        }
-        return service;
     }
 
     /**

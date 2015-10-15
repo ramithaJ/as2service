@@ -16,8 +16,6 @@ import java.util.List;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.AddressData;
 import com.wiley.gr.ace.authorservices.model.external.AddressesData;
-import com.wiley.gr.ace.authorservices.model.external.Entity;
-import com.wiley.gr.ace.authorservices.model.external.ParticipantAddress;
 
 /**
  * The Interface UserAccountService.
@@ -51,12 +49,32 @@ public interface UserAccountService {
      *            the user id
      * @return the user address
      * @throws Exception
+     *             the exception
      */
     AddressesData getUserAddress(String userId) throws Exception;
 
-    List<ParticipantAddress> getAddress(String participantId) throws Exception;
+    /**
+     * Updat address.
+     *
+     * @param participantId
+     *            the participant id
+     * @param address
+     *            the address
+     * @return the object
+     * @throws Exception
+     *             the exception
+     */
+    Object updatAddress(String participantId, AddressData address)
+            throws Exception;
 
-    Object updatAddress(String participantId, Entity entity) throws Exception;
-
+    /**
+     * Validate address.
+     *
+     * @param address
+     *            the address
+     * @return the list
+     * @throws Exception
+     *             the exception
+     */
     List<AddressData> validateAddress(AddressData address) throws Exception;
 }

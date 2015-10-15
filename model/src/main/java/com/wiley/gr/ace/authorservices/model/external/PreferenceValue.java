@@ -1,22 +1,18 @@
 package com.wiley.gr.ace.authorservices.model.external;
 
 public class PreferenceValue {
-    private String onScreen;
-    private String email;
-
-    public String getOnScreen() {
-        return onScreen;
+    String prefferedEmailId;
+    PreferenceAlert alert;
+    public String getPrefferedEmailId() {
+        return prefferedEmailId;
     }
-
-    public void setOnScreen(String onScreen) {
-        this.onScreen = onScreen;
+    public void setPrefferedEmailId(String prefferedEmailId) {
+        this.prefferedEmailId = prefferedEmailId;
     }
-
-    public String getEmail() {
-        return email;
+    public PreferenceAlert getAlert() {
+        return alert;
     }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setAlert(PreferenceAlert alert) {
+        this.alert = alert;
     }
 }

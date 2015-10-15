@@ -1,15 +1,22 @@
 package com.wiley.gr.ace.authorservices.model.external;
 
-import java.util.List;
-
 public class PreferenceMapper {
-    private List<PreferenceAlert> content;
+    String prefernceKey;
+    PreferenceValue preferenceValue;
 
-    public List<PreferenceAlert> getContent() {
-        return content;
+    public String getPrefernceKey() {
+        return prefernceKey;
     }
 
-    public void setContent(List<PreferenceAlert> content) {
-        this.content = content;
+    public void setPrefernceKey(String prefernceKey) {
+        this.prefernceKey = prefernceKey;
+    }
+
+    public PreferenceValue getPreferenceValue() {
+        return preferenceValue;
+    }
+
+    public void setPreferenceValue(PreferenceValue preferenceValue) {
+        this.preferenceValue = preferenceValue;
     }
 }

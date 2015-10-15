@@ -23,11 +23,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wiley.gr.ace.authorservices.exception.UserException;
-import com.wiley.gr.ace.authorservices.model.Address;
 import com.wiley.gr.ace.authorservices.model.SecurityDetailsHolder;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.User;
-import com.wiley.gr.ace.authorservices.model.external.Entity;
+import com.wiley.gr.ace.authorservices.model.external.AddressData;
 import com.wiley.gr.ace.authorservices.services.service.AuthorProfileService;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
 
@@ -130,42 +129,62 @@ public class UserAccountController {
     }
 
     /**
-     * Method to get user Address information (correspondence, shipping and
-     * Billing addresses).
+     * Gets the user addresses.
      *
      * @param userId
-     *            - The request value
-     * @return Service - Success/Failure
+     *            the user id
+     * @return the user addresses
      */
     @RequestMapping(value = "/userAddresses/{userId}", method = RequestMethod.GET)
     public final Service getUserAddresses(
             @PathVariable("userId") final String userId) {
         UserAccountController.LOGGER.info("inside getUserAddresses method");
-        final Service service = new Service();
+        Service service = new Service();
         try {
             service.setPayload(userAccountService.getUserAddress(userId));
-        } catch (final Exception e) {
+        } catch (Exception e) {
             throw new UserException("500", "Unable to fetch");
         }
         return service;
     }
 
     /**
-     * Method to update User Address information.
+     * Update user addresses.
      *
      * @param userId
-     *            - The request value
-     * @param addresses
-     *            - object having user Address details.
-     * @return Service - Success/Failure
+     *            the user id
+     * @param address
+     *            the address
+     * @return the service
      */
     @RequestMapping(value = "/userAddresses/{userId}", method = RequestMethod.POST)
     public final Service updateUserAddresses(
             @PathVariable("userId") final String userId,
-            @RequestBody final Address addresses) {
+            @RequestBody final AddressData address) {
         UserAccountController.LOGGER.info("inside updateUserAddresses method");
-        authorProfileService.updateUserAddress(userId, addresses);
-        return new Service();
+        Object result = null;
+        boolean isUpdated;
+        Service service = new Service();
+        try {
+            result = userAccountService.updatAddress(userId, address);
+            if (result instanceof Boolean) {
+                isUpdated = (boolean) result;
+                if (isUpdated) {
+                    service.setStatus("SUCCESS");
+                    service.setPayload(isUpdated);
+                } else {
+                    service.setStatus("Failure");
+                    service.setPayload(isUpdated);
+                }
+            } else if (result instanceof List) {
+                service.setStatus("Failure");
+                service.setPayload(result);
+            }
+        } catch (Exception e) {
+            throw new UserException("500", e.getMessage());
+        }
+
+        return service;
     }
 
     /**
@@ -196,34 +215,5 @@ public class UserAccountController {
 
         authorProfileService.removeOrcidId(userId);
         return new Service();
-    }
-
-    @RequestMapping(value = "/{participantId}/address", method = RequestMethod.POST)
-    public Service updateService(
-            @PathVariable("participantId") final String participantId,
-            @RequestBody final Entity entity) {
-        Object result = null;
-        boolean isUpdated = false;
-        final Service service = new Service();
-        try {
-            result = userAccountService.updatAddress(participantId, entity);
-            if (result instanceof Boolean) {
-                isUpdated = (boolean) result;
-                if (isUpdated) {
-                    service.setStatus("SUCCESS");
-                    service.setPayload(isUpdated);
-                } else {
-                    service.setStatus("Failure");
-                    service.setPayload(isUpdated);
-                }
-            } else if (result instanceof List) {
-                service.setStatus("Failure");
-                service.setPayload(result);
-            }
-        } catch (final Exception e) {
-            throw new UserException("500", e.getMessage());
-        }
-
-        return service;
     }
 }

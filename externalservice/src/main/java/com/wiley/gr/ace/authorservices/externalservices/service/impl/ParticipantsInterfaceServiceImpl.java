@@ -15,7 +15,6 @@
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
@@ -24,13 +23,14 @@ import org.springframework.http.ResponseEntity;
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.ParticipantsInterfaceService;
+import com.wiley.gr.ace.authorservices.model.external.AddressData;
 import com.wiley.gr.ace.authorservices.model.external.AddressMapper;
-import com.wiley.gr.ace.authorservices.model.external.AlertElement;
+import com.wiley.gr.ace.authorservices.model.external.AlertRequest;
+import com.wiley.gr.ace.authorservices.model.external.EntityValue;
 import com.wiley.gr.ace.authorservices.model.external.Participant;
-import com.wiley.gr.ace.authorservices.model.external.ParticipantAddress;
 import com.wiley.gr.ace.authorservices.model.external.ParticipantGetResponse;
-import com.wiley.gr.ace.authorservices.model.external.PreferenceAlert;
 import com.wiley.gr.ace.authorservices.model.external.PreferenceMapper;
+import com.wiley.gr.ace.authorservices.model.external.PreferenceValue;
 import com.wiley.gr.ace.authorservices.model.external.Preferences;
 import com.wiley.gr.ace.authorservices.model.external.ProfileEntity;
 import com.wiley.gr.ace.authorservices.model.external.ProfileResponse;
@@ -134,8 +134,8 @@ public class ParticipantsInterfaceServiceImpl implements
     @Override
     public final AddressMapper getAddress(final String participantId)
             throws Exception {
-        final String url = participantCrudUrl.concat("/").concat(participantId)
-                .concat("/addresses");
+        final String url = "http://assearchdev.wiley.com:8080/v1/participants/"
+                + participantId + "/addresses";
         return (AddressMapper) StubInvokerUtil.restGetServiceInvoker(url,
                 AddressMapper.class);
     }
@@ -148,13 +148,16 @@ public class ParticipantsInterfaceServiceImpl implements
      * com.wiley.gr.ace.authorservices.model.external.ParticipantAddress)
      */
     @Override
-    public final ResponseEntity updateAddress(final String participantId,
-            final ParticipantAddress participantAddress) throws Exception {
-        final String url = "https://schema.org/PostalAddress/participants/"
-                + participantId + "/addresses";
+    public ResponseEntity updateAddress(final String participantId,
+            final AddressData address) throws Exception {
+        final String url = "http://demo7580012.mockable.io/address";
+        EntityValue entityValue = new EntityValue();
+        entityValue.setAddressData(address);
+        ProfileEntity profileEntity = new ProfileEntity();
+        profileEntity.setEntityValue(entityValue);
         final ResponseEntity resposeEntity = (ResponseEntity) StubInvokerUtil
                 .restServiceResponseInvoker(url, HttpMethod.POST,
-                        participantAddress, ParticipantError.class, null);
+                        profileEntity, ParticipantError.class, null);
         return resposeEntity;
     }
 
@@ -166,10 +169,10 @@ public class ParticipantsInterfaceServiceImpl implements
      * java.lang.Byte[])
      */
     @Override
-    public final ResponseEntity uploadProfileImage(final String participantId,
+    public ResponseEntity uploadProfileImage(final String participantId,
             final Byte[] imageFile) throws Exception {
-        final String url = participantCrudUrl.concat("/").concat(participantId)
-                .concat("/profileImage");
+        final String url = "http://assearchdev.wiley.com:8080/v1/participants/"
+                + participantId + "/profileImage";
         final ResponseEntity resposeEntity = (ResponseEntity) StubInvokerUtil
                 .restServiceResponseInvoker(url, HttpMethod.PUT, imageFile,
                         ParticipantError.class, null);
@@ -183,10 +186,9 @@ public class ParticipantsInterfaceServiceImpl implements
      * ParticipantsInterfaceService#getProfileImage(java.lang.String)
      */
     @Override
-    public final Byte[] getProfileImage(final String participantId)
-            throws Exception {
-        final String url = participantCrudUrl.concat("/").concat(participantId)
-                .concat("/profileImage");
+    public Byte[] getProfileImage(final String participantId) throws Exception {
+        final String url = "http://assearchdev.wiley.com:8080/v1/participants/"
+                + participantId + "/profileImage";
         final Byte[] profileImage = (Byte[]) StubInvokerUtil
                 .restGetServiceInvoker(url, Byte[].class);
         return profileImage;
@@ -200,24 +202,27 @@ public class ParticipantsInterfaceServiceImpl implements
      * com.wiley.gr.ace.authorservices.model.external.AlertElement)
      */
     @Override
-    public final ResponseEntity updateAlerts(final String participantId,
-            final AlertElement alert) throws Exception {
-        final String url = "https://schema.org/PostalAddress/participants/"
-                + participantId + "/preferences";
+    public ResponseEntity updateAlerts(final String participantId,
+            final AlertRequest alert) throws Exception {
+        final String url = "http://demo7580012.mockable.io/alert";
+        EntityValue entityValue = new EntityValue();
+        entityValue.setAlertRequest(alert);
+        ProfileEntity profileEntity = new ProfileEntity();
+        profileEntity.setEntityValue(entityValue);
         final ResponseEntity resposeEntity = (ResponseEntity) StubInvokerUtil
-                .restServiceResponseInvoker(url, HttpMethod.POST, alert,
-                        ParticipantError.class, null);
+                .restServiceResponseInvoker(url, HttpMethod.POST,
+                        profileEntity, ParticipantError.class, null);
         return resposeEntity;
     }
 
     @Override
-    public final List<PreferenceAlert> getAlerts(final String participantId)
+    public PreferenceValue getAlerts(final String participantId)
             throws Exception {
-        final String url = participantCrudUrl.concat("/").concat(participantId)
-                .concat("/preferences");
+        final String url = "http://assearchdev.wiley.com:8080/v1/participants/"
+                + participantId + "/preferences/" + "ALERT";
         final PreferenceMapper preferenceMapper = (PreferenceMapper) StubInvokerUtil
                 .restGetServiceInvoker(url, PreferenceMapper.class);
-        return preferenceMapper.getContent();
+        return preferenceMapper.getPreferenceValue();
     }
 
     /**
