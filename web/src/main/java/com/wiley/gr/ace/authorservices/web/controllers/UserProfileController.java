@@ -80,7 +80,11 @@ public class UserProfileController {
             @PathVariable("userId") final String userId) {
         UserProfileController.LOGGER.info("inside getAffiliationsList method ");
         final Service service = new Service();
-        service.setPayload(authorProfileService.getAffiliationsList(userId));
+        try {
+            service.setPayload(authorProfileService.getAffiliationList(userId));
+        } catch (final Exception e) {
+            throw new UserException("50009", e.getMessage());
+        }
 
         return service;
     }
@@ -103,10 +107,20 @@ public class UserProfileController {
             @RequestBody final Affiliation affiliationsUpdate) {
         UserProfileController.LOGGER.info("inside updateAffiliation method ");
         final Service service = new Service();
-
-        authorProfileService.updateAffiliation(userId, affiliationsUpdate,
-                affiliationId);
-
+        boolean isUpdated = false;
+        try {
+            isUpdated = authorProfileService.updateAffiliation(
+                    Integer.toString(userId), affiliationsUpdate);
+        } catch (final Exception e) {
+            throw new UserException("50006", e.getMessage());
+        }
+        if (isUpdated) {
+            service.setStatus("SUCCESS");
+            service.setPayload(isUpdated);
+        } else {
+            service.setStatus("Failure");
+            service.setPayload(isUpdated);
+        }
         return service;
     }
 
@@ -125,8 +139,20 @@ public class UserProfileController {
             @PathVariable("affiliationId") final String affiliationId) {
         UserProfileController.LOGGER.info("inside deleteaffiliation method ");
         final Service service = new Service();
-        service.setPayload(authorProfileService.deleteAffiliations(userId,
-                affiliationId));
+        boolean isDeleted = false;
+        try {
+            isDeleted = authorProfileService.deleteAffiliations(new Integer(
+                    userId).toString());
+        } catch (final Exception e) {
+            throw new UserException("50006", e.getMessage());
+        }
+        if (isDeleted) {
+            service.setStatus("SUCCESS");
+            service.setPayload(isDeleted);
+        } else {
+            service.setStatus("Failure");
+            service.setPayload(isDeleted);
+        }
         return service;
     }
 
@@ -462,15 +488,17 @@ public class UserProfileController {
      * @return the profile
      */
     @RequestMapping(value = "/getImage/{userId}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
-    public final Service getProfile(@PathVariable("userId") final String userId) {
-
-        final Service service = new Service();
+    public final byte[] getProfile(@PathVariable("userId") final String userId) {
+        UserProfileController.LOGGER.info("inside getProfile method ");
+        final byte[] bites = null;
         try {
-            service.setPayload(authorProfileService.getProfileImage(userId));
+            final File file = new File("c:/Images/Image");
+
+            // service.setPayload(authorProfileService.getProfileImage(userId));
         } catch (final Exception e) {
             throw new UserException("5000", "Unable to fetch");
         }
-        return service;
+        return bites;
 
     }
 
@@ -489,6 +517,7 @@ public class UserProfileController {
     public final Service profilePicture(
             @PathVariable("userId") final String userId,
             @RequestBody final byte[] image) throws IOException {
+        UserProfileController.LOGGER.info("inside profilePicture method ");
         final Service service = new Service();
         String res = null;
         final char[] charTemp = new char[image.length];
@@ -509,13 +538,8 @@ public class UserProfileController {
                 if (megabytes > 1) {
                     throw new ASException(imageSizeCode, imageSizeMessage);
                 } else if (megabytes < 1) {
-                    final Byte[] byteWrapper = new Byte[image.length];
-                    int i = 0;
-                    for (final byte b : image) {
-                        byteWrapper[i++] = b;
-                    }
                     isUpdated = authorProfileService.uploadProfileImage(userId,
-                            byteWrapper);
+                            image);
                 }
             }
         } catch (final Exception e) {
@@ -530,37 +554,6 @@ public class UserProfileController {
         }
 
         service.setPayload(res);
-        return service;
-    }
-
-    /**
-     * Update service.
-     *
-     * @param participantId
-     *            the participant id
-     * @param imageFile
-     *            the image file
-     * @return the service
-     */
-    @RequestMapping(value = "/{participantId}/profileImage/", method = RequestMethod.POST)
-    public Service updateService(
-            @PathVariable("ParticipantId") final String participantId,
-            @RequestBody final Byte[] imageFile) {
-        boolean isUpdated = false;
-        final Service service = new Service();
-        try {
-            isUpdated = authorProfileService.uploadProfileImage(participantId,
-                    imageFile);
-        } catch (final Exception e) {
-            throw new UserException("50001", e.getMessage());
-        }
-        if (isUpdated) {
-            service.setStatus("SUCCESS");
-            service.setPayload(isUpdated);
-        } else {
-            service.setStatus("Failure");
-            service.setPayload(isUpdated);
-        }
         return service;
     }
 

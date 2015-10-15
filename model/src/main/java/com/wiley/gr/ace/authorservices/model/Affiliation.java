@@ -31,26 +31,31 @@ public class Affiliation implements Serializable {
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
+    /** The affiliation id. */
     @NotBlank
     @NotNull
     /** The user Id . */
     private String affiliationId;
 
+    /** The user id. */
     @NotBlank
     @NotNull
     /** The user id. */
     private String userId;
 
+    /** The institution id. */
     @NotBlank
     @NotNull
     /** The institution id. */
     private String institutionId;
 
+    /** The institution name. */
     @NotBlank
     @NotNull
     /** The institution name. */
     private String institutionName;
 
+    /** The id. */
     @NotBlank
     @NotNull
     private String id;
@@ -78,14 +83,18 @@ public class Affiliation implements Serializable {
 
     private String countryCode;
 
+    /** The country. */
     private Country country;
 
+    /** The state. */
     private String state;
 
     /** The department id. */
     private String departmentId;
 
     /**
+     * Gets the id.
+     *
      * @return the id
      */
     public final String getId() {
@@ -93,8 +102,9 @@ public class Affiliation implements Serializable {
     }
 
     /**
-     * @param id
-     *            the id to set
+     * Sets the id.
+     *
+     * @param id            the id to set
      */
     public final void setId(final String id) {
         this.id = id;
@@ -124,7 +134,7 @@ public class Affiliation implements Serializable {
      *
      * @return the affiliation id
      */
-    public String getAffiliationId() {
+    public final String getAffiliationId() {
         return affiliationId;
     }
 
@@ -134,11 +144,13 @@ public class Affiliation implements Serializable {
      * @param affiliationId
      *            the new affiliation id
      */
-    public void setAffiliationId(final String affiliationId) {
+    public final void setAffiliationId(final String affiliationId) {
         this.affiliationId = affiliationId;
     }
 
     /**
+     * Gets the state.
+     *
      * @return the state
      */
     public final String getState() {
@@ -146,14 +158,17 @@ public class Affiliation implements Serializable {
     }
 
     /**
-     * @param state
-     *            the state to set
+     * Sets the state.
+     *
+     * @param state            the state to set
      */
     public final void setState(final String state) {
         this.state = state;
     }
 
     /**
+     * Gets the serialversionuid.
+     *
      * @return the serialversionuid
      */
     public static final long getSerialversionuid() {
@@ -308,6 +323,8 @@ public class Affiliation implements Serializable {
     }
 
     /**
+     * Gets the country.
+     *
      * @return the country
      */
     public final Country getCountry() {
@@ -315,10 +332,11 @@ public class Affiliation implements Serializable {
     }
 
     /**
-     * @param country
-     *            the country to set
+     * Sets the country.
+     *
+     * @param country            the country to set
      */
-    public final void setCountry(Country country) {
+    public final void setCountry(final Country country) {
         this.country = country;
     }
 
@@ -391,11 +409,11 @@ public class Affiliation implements Serializable {
     /**
      * Sets the start date.
      *
-     * @param startDate
+     * @param date
      *            the startDate to set
      */
-    public final void setStartDate(final String startDate) {
-        this.startDate = startDate;
+    public final void setStartDate(final String date) {
+        this.startDate = date;
     }
 
     /**

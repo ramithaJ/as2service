@@ -26,7 +26,6 @@ import com.wiley.gr.ace.authorservices.model.external.PreferenceValue;
 import com.wiley.gr.ace.authorservices.model.external.Preferences;
 import com.wiley.gr.ace.authorservices.model.external.ProfileEntity;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Interface ParticipantsInterfaceService.
  */
@@ -107,7 +106,7 @@ public interface ParticipantsInterfaceService {
      * @throws Exception
      *             the exception
      */
-    ResponseEntity<?> uploadProfileImage(String participantId, Byte[] imageFile)
+    ResponseEntity<?> uploadProfileImage(String participantId, byte[] imageFile)
             throws Exception;
 
     /**
@@ -119,7 +118,7 @@ public interface ParticipantsInterfaceService {
      * @throws Exception
      *             the exception
      */
-    Byte[] getProfileImage(String participantId) throws Exception;
+    byte[] getProfileImage(String participantId) throws Exception;
 
     /**
      * Update alerts.

@@ -30,6 +30,7 @@ public class AlertData implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
+    /** The type. */
     @JsonProperty("Type")
     private AlertType type;
 
@@ -41,6 +42,7 @@ public class AlertData implements Serializable {
     @JsonProperty("Status")
     private String status;
 
+    /** The id. */
     @JsonProperty("Id")
     private String id;
 
@@ -54,6 +56,8 @@ public class AlertData implements Serializable {
     }
 
     /**
+     * Gets the id.
+     *
      * @return the id
      */
     public final String getId() {
@@ -61,8 +65,9 @@ public class AlertData implements Serializable {
     }
 
     /**
-     * @param id
-     *            the id to set
+     * Sets the id.
+     *
+     * @param id            the id to set
      */
     public final void setId(final String id) {
         this.id = id;
@@ -98,6 +103,8 @@ public class AlertData implements Serializable {
     }
 
     /**
+     * Gets the type.
+     *
      * @return the type
      */
     public final AlertType getType() {
@@ -105,8 +112,9 @@ public class AlertData implements Serializable {
     }
 
     /**
-     * @param type
-     *            the type to set
+     * Sets the type.
+     *
+     * @param type            the type to set
      */
     public final void setType(final AlertType type) {
         this.type = type;

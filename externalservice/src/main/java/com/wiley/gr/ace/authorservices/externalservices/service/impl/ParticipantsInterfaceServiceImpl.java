@@ -14,6 +14,7 @@
  */
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -28,6 +29,7 @@ import com.wiley.gr.ace.authorservices.model.external.AddressMapper;
 import com.wiley.gr.ace.authorservices.model.external.AlertRequest;
 import com.wiley.gr.ace.authorservices.model.external.EntityValue;
 import com.wiley.gr.ace.authorservices.model.external.Participant;
+import com.wiley.gr.ace.authorservices.model.external.ParticipantError;
 import com.wiley.gr.ace.authorservices.model.external.ParticipantGetResponse;
 import com.wiley.gr.ace.authorservices.model.external.PreferenceMapper;
 import com.wiley.gr.ace.authorservices.model.external.PreferenceValue;
@@ -40,14 +42,15 @@ import com.wiley.gr.ace.authorservices.model.external.ProfileResponse;
  */
 public class ParticipantsInterfaceServiceImpl implements
         ParticipantsInterfaceService {
-
     /** The searchparticipantbyidurl. */
     @Value("${searchparticipantbyid.url}")
     private String searchparticipantbyidurl;
 
+    /** The participant crud url. */
     @Value("${participant-crud.url}")
     private String participantCrudUrl;
 
+    /** The search participantby orcid id. */
     @Value("${searchParticipantbyOrcidId.url}")
     private String searchParticipantbyOrcidId;
 
@@ -69,17 +72,16 @@ public class ParticipantsInterfaceServiceImpl implements
     /**
      * Search participant by participant id.
      *
-     * @param particpantId
-     *            the particpant id
+     * @param participantId
+     *            the participant id
      * @return the participant
      */
     @Override
     public final Participant searchParticipantByParticipantId(
             final String participantId) {
-        final Participant participant = (Participant) RestServiceInvokerUtil
-                .getServiceData(searchparticipantbyidurl + participantId,
-                        Participant.class);
-        return participant;
+        return (Participant) RestServiceInvokerUtil.getServiceData(
+                searchparticipantbyidurl + participantId, Participant.class);
+
     }
 
     /**
@@ -140,83 +142,104 @@ public class ParticipantsInterfaceServiceImpl implements
                 AddressMapper.class);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.wiley.gr.ace.authorservices.externalservices.service.
-     * ParticipantsInterfaceService#updateAddress(java.lang.String,
-     * com.wiley.gr.ace.authorservices.model.external.ParticipantAddress)
+    /**
+     * Update address.
+     *
+     * @param participantId
+     *            the participant id
+     * @param address
+     *            the address
+     * @return the response entity
+     * @throws Exception
+     *             the exception
      */
     @Override
-    public ResponseEntity updateAddress(final String participantId,
+    public final ResponseEntity updateAddress(final String participantId,
             final AddressData address) throws Exception {
         final String url = "http://demo7580012.mockable.io/address";
         EntityValue entityValue = new EntityValue();
         entityValue.setAddressData(address);
         ProfileEntity profileEntity = new ProfileEntity();
         profileEntity.setEntityValue(entityValue);
-        final ResponseEntity resposeEntity = (ResponseEntity) StubInvokerUtil
-                .restServiceResponseInvoker(url, HttpMethod.POST,
-                        profileEntity, ParticipantError.class, null);
-        return resposeEntity;
+        return (ResponseEntity) StubInvokerUtil.restServiceResponseInvoker(url,
+                HttpMethod.POST, profileEntity, ParticipantError.class, null);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.wiley.gr.ace.authorservices.externalservices.service.
-     * ParticipantsInterfaceService#uploadProfileImage(java.lang.String,
-     * java.lang.Byte[])
+    /**
+     * Upload profile image.
+     *
+     * @param participantId
+     *            the participant id
+     * @param imageFile
+     *            the image file
+     * @return the response entity
+     * @throws Exception
+     *             the exception
      */
     @Override
-    public ResponseEntity uploadProfileImage(final String participantId,
-            final Byte[] imageFile) throws Exception {
+    public final ResponseEntity uploadProfileImage(final String participantId,
+            final byte[] imageFile) throws Exception {
         final String url = "http://assearchdev.wiley.com:8080/v1/participants/"
                 + participantId + "/profileImage";
-        final ResponseEntity resposeEntity = (ResponseEntity) StubInvokerUtil
-                .restServiceResponseInvoker(url, HttpMethod.PUT, imageFile,
-                        ParticipantError.class, null);
-        return resposeEntity;
+        return (ResponseEntity) StubInvokerUtil.restServiceResponseInvoker(url,
+                HttpMethod.PUT, new String(imageFile, StandardCharsets.UTF_8),
+                ParticipantError.class, null);
+
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.wiley.gr.ace.authorservices.externalservices.service.
-     * ParticipantsInterfaceService#getProfileImage(java.lang.String)
+    /**
+     * Gets the profile image.
+     *
+     * @param participantId
+     *            the participant id
+     * @return the profile image
+     * @throws Exception
+     *             the exception
      */
     @Override
-    public Byte[] getProfileImage(final String participantId) throws Exception {
+    public final byte[] getProfileImage(final String participantId)
+            throws Exception {
         final String url = "http://assearchdev.wiley.com:8080/v1/participants/"
                 + participantId + "/profileImage";
-        final Byte[] profileImage = (Byte[]) StubInvokerUtil
+        return (byte[]) StubInvokerUtil
                 .restGetServiceInvoker(url, Byte[].class);
-        return profileImage;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.wiley.gr.ace.authorservices.externalservices.service.
-     * ParticipantsInterfaceService#updateAlerts(java.lang.String,
-     * com.wiley.gr.ace.authorservices.model.external.AlertElement)
+    /**
+     * Update alerts.
+     *
+     * @param participantId
+     *            the participant id
+     * @param alert
+     *            the alert
+     * @return the response entity
+     * @throws Exception
+     *             the exception
      */
     @Override
-    public ResponseEntity updateAlerts(final String participantId,
+    public final ResponseEntity updateAlerts(final String participantId,
             final AlertRequest alert) throws Exception {
         final String url = "http://demo7580012.mockable.io/alert";
         EntityValue entityValue = new EntityValue();
         entityValue.setAlertRequest(alert);
         ProfileEntity profileEntity = new ProfileEntity();
         profileEntity.setEntityValue(entityValue);
-        final ResponseEntity resposeEntity = (ResponseEntity) StubInvokerUtil
-                .restServiceResponseInvoker(url, HttpMethod.POST,
-                        profileEntity, ParticipantError.class, null);
-        return resposeEntity;
+        return (ResponseEntity) StubInvokerUtil.restServiceResponseInvoker(url,
+                HttpMethod.POST, profileEntity, ParticipantError.class, null);
+
     }
 
+    /**
+     * Gets the alerts.
+     *
+     * @param participantId
+     *            the participant id
+     * @return the alerts
+     * @throws Exception
+     *             the exception
+     */
     @Override
-    public PreferenceValue getAlerts(final String participantId)
+    public final PreferenceValue getAlerts(final String participantId)
             throws Exception {
         final String url = "http://assearchdev.wiley.com:8080/v1/participants/"
                 + participantId + "/preferences/" + "ALERT";
@@ -243,16 +266,29 @@ public class ParticipantsInterfaceServiceImpl implements
         return participantGetResponse.getParticipantList().get(0);
     }
 
+    /**
+     * Update profile.
+     *
+     * @param profileEntity
+     *            the profile entity
+     * @return the response entity
+     */
     @Override
     public final ResponseEntity updateProfile(final ProfileEntity profileEntity) {
 
         final String url = "http://assearchdev.wiley.com:8080/v1/profile/";
-        final ResponseEntity resposeEntity = (ResponseEntity) StubInvokerUtil
-                .restServiceResponseInvoker(url, HttpMethod.PUT, profileEntity,
-                        ProfileResponse.class, null);
-        return resposeEntity;
+        return (ResponseEntity) StubInvokerUtil.restServiceResponseInvoker(url,
+                HttpMethod.PUT, profileEntity, ProfileResponse.class, null);
+
     }
 
+    /**
+     * Gets the preferred journals.
+     *
+     * @param participantId
+     *            the participant id
+     * @return the preferred journals
+     */
     @Override
     public final Preferences getPreferredJournals(final String participantId) {
         final String url = "http://assearchdev.wiley.com:8080/v1/participants/1478cd2b-1671-443c-a0ea-09cbdc4169e9/preferences/FAVJOURNAL";
@@ -262,13 +298,12 @@ public class ParticipantsInterfaceServiceImpl implements
         return preferred;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.wiley.gr.ace.authorservices.externalservices.service.
-     * ParticipantsInterfaceService
-     * #deletePreferredJournal(com.wiley.gr.ace.authorservices
-     * .model.external.ProfileEntity)
+    /**
+     * Delete preferred journal.
+     *
+     * @param profileEntity
+     *            the profile entity
+     * @return true, if successful
      */
     @Override
     public final boolean deletePreferredJournal(
@@ -279,6 +314,12 @@ public class ParticipantsInterfaceServiceImpl implements
         return false;
     }
 
+    /**
+     * Adds the preferred journals.
+     *
+     * @param profileEntity
+     *            the profile entity
+     */
     @Override
     public final void addPreferredJournals(final ProfileEntity profileEntity) {
 
@@ -311,7 +352,7 @@ public class ParticipantsInterfaceServiceImpl implements
      * @return the participant
      */
     @Override
-    public Participant searchParticipantByOrcidId(String orcidId) {
+    public final Participant searchParticipantByOrcidId(String orcidId) {
         ParticipantGetResponse participantGetResponse = (ParticipantGetResponse) RestServiceInvokerUtil
                 .getServiceData(searchParticipantbyOrcidId.concat(orcidId),
                         ParticipantGetResponse.class);

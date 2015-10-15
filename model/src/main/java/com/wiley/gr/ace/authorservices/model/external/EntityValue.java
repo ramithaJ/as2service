@@ -16,6 +16,7 @@ package com.wiley.gr.ace.authorservices.model.external;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+
 /**
  * The Class EntityValue.
  *
@@ -32,25 +33,47 @@ public class EntityValue {
     /** The journal. */
     private JournalElement journal;
 
+    /** The address data. */
     private AddressData addressData;
     
+    /** The alert request. */
     private AlertRequest alertRequest;
 
    
 
-    public AlertRequest getAlertRequest() {
+    /**
+     * Gets the alert request.
+     *
+     * @return the alert request
+     */
+    public final AlertRequest getAlertRequest() {
         return alertRequest;
     }
 
-    public void setAlertRequest(AlertRequest alertRequest) {
+    /**
+     * Sets the alert request.
+     *
+     * @param alertRequest the new alert request
+     */
+    public final void setAlertRequest(final AlertRequest alertRequest) {
         this.alertRequest = alertRequest;
     }
 
-    public AddressData getAddressData() {
+    /**
+     * Gets the address data.
+     *
+     * @return the address data
+     */
+    public final AddressData getAddressData() {
         return addressData;
     }
 
-    public void setAddressData(AddressData addressData) {
+    /**
+     * Sets the address data.
+     *
+     * @param addressData the new address data
+     */
+    public final void setAddressData(final AddressData addressData) {
         this.addressData = addressData;
     }
 

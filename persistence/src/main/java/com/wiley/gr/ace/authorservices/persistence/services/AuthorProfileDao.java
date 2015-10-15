@@ -12,6 +12,10 @@
 
 package com.wiley.gr.ace.authorservices.persistence.services;
 
+import java.util.List;
+
+import com.wiley.gr.ace.authorservices.model.Affiliation;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserAffiliations;
 
 /**
  * The Interface AuthorProfileDao.
@@ -30,10 +34,46 @@ public interface AuthorProfileDao {
      */
     void saveProfilePicture(byte[] image, String userId);
 
-//    /**
-//     * @param userId
-//     * @return
-//     */
-//    UserProfile getProfilePicture(String userId);
+    /**
+     * Update affiliation.
+     *
+     * @param userId
+     *            the user id
+     * @param affiliation
+     *            the affiliation
+     * @return true, if successful
+     * @throws Exception
+     *             the exception
+     */
+    boolean updateAffiliation(String userId, Affiliation affiliation)
+            throws Exception;
+
+    /**
+     * Delete affiliations.
+     *
+     * @param userId
+     *            the user id
+     * @return true, if successful
+     * @throws Exception
+     *             the exception
+     */
+    boolean deleteAffiliations(String userId) throws Exception;
+
+    /**
+     * Gets the affiliation list.
+     *
+     * @param userId
+     *            the user id
+     * @return the affiliation list
+     * @throws Exception
+     *             the exception
+     */
+    List<UserAffiliations> getAffiliationList(String userId) throws Exception;
+
+    // /**
+    // * @param userId
+    // * @return
+    // */
+    // UserProfile getProfilePicture(String userId);
 
 }

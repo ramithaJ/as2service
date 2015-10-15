@@ -25,14 +25,9 @@ import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteService;
 import com.wiley.gr.ace.authorservices.externalservices.service.ParticipantsInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
 import com.wiley.gr.ace.authorservices.externalservices.service.ValidationService;
-import com.wiley.gr.ace.authorservices.externalservices.service.impl.ParticipantError;
-import com.wiley.gr.ace.authorservices.model.Address;
 import com.wiley.gr.ace.authorservices.model.Addresses;
-import com.wiley.gr.ace.authorservices.model.Country;
-import com.wiley.gr.ace.authorservices.model.State;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.AddressData;
-import com.wiley.gr.ace.authorservices.model.external.AddressElement;
 import com.wiley.gr.ace.authorservices.model.external.AddressMapper;
 import com.wiley.gr.ace.authorservices.model.external.AddressValidationMultiReq;
 import com.wiley.gr.ace.authorservices.model.external.AddressValidationMultiRes;
@@ -40,10 +35,10 @@ import com.wiley.gr.ace.authorservices.model.external.AddressValidationRequest;
 import com.wiley.gr.ace.authorservices.model.external.AddressesData;
 import com.wiley.gr.ace.authorservices.model.external.Participant;
 import com.wiley.gr.ace.authorservices.model.external.ParticipantAddress;
+import com.wiley.gr.ace.authorservices.model.external.ParticipantError;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
 import com.wiley.gr.ace.authorservices.services.service.ASDataService;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
-
 
 /**
  * The Class UserAccountServiceImpl.
@@ -212,9 +207,11 @@ public class UserAccountServiceImpl implements UserAccountService {
     /**
      * getting UserAddress info by user id.
      *
-     * @param userId            the user id
+     * @param userId
+     *            the user id
      * @return the user address
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Override
     public final AddressesData getUserAddress(final String userId)
@@ -235,10 +232,13 @@ public class UserAccountServiceImpl implements UserAccountService {
     /**
      * Updat address.
      *
-     * @param participantId the participant id
-     * @param address the address
+     * @param participantId
+     *            the participant id
+     * @param address
+     *            the address
      * @return the object
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Override
     public Object updatAddress(final String participantId,
@@ -266,9 +266,11 @@ public class UserAccountServiceImpl implements UserAccountService {
     /**
      * Validate address.
      *
-     * @param address the address
+     * @param address
+     *            the address
      * @return the list
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Override
     public List<AddressData> validateAddress(final AddressData address)
@@ -314,8 +316,10 @@ public class UserAccountServiceImpl implements UserAccountService {
     /**
      * Partipcipant addr to addr.
      *
-     * @param participantAddr the participant addr
-     * @param address the address
+     * @param participantAddr
+     *            the participant addr
+     * @param address
+     *            the address
      * @return the addresses
      */
     private Addresses partipcipantAddrToAddr(

@@ -31,12 +31,12 @@ import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceServ
 import com.wiley.gr.ace.authorservices.externalservices.service.ParticipantsInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserProfiles;
-import com.wiley.gr.ace.authorservices.externalservices.service.impl.ParticipantError;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.Alert;
 import com.wiley.gr.ace.authorservices.model.AlertsList;
 import com.wiley.gr.ace.authorservices.model.AreaOfInterests;
 import com.wiley.gr.ace.authorservices.model.CoAuthor;
+import com.wiley.gr.ace.authorservices.model.Country;
 import com.wiley.gr.ace.authorservices.model.JournalDetails;
 import com.wiley.gr.ace.authorservices.model.PasswordDetails;
 import com.wiley.gr.ace.authorservices.model.PreferredJournals;
@@ -51,6 +51,7 @@ import com.wiley.gr.ace.authorservices.model.external.EntityValue;
 import com.wiley.gr.ace.authorservices.model.external.InterestList;
 import com.wiley.gr.ace.authorservices.model.external.JournalElement;
 import com.wiley.gr.ace.authorservices.model.external.Participant;
+import com.wiley.gr.ace.authorservices.model.external.ParticipantError;
 import com.wiley.gr.ace.authorservices.model.external.PasswordRequest;
 import com.wiley.gr.ace.authorservices.model.external.PasswordUpdate;
 import com.wiley.gr.ace.authorservices.model.external.PdhLookupJournalResponse;
@@ -64,6 +65,7 @@ import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestions;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsEntry;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsMap;
 import com.wiley.gr.ace.authorservices.persistence.entity.Societies;
+import com.wiley.gr.ace.authorservices.persistence.entity.UserAffiliations;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserFunderGrants;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserFunders;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserSocietyDetails;
@@ -195,44 +197,15 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @param affiliation
      *            the affiliation
      * @return true, if successful
+     * @throws Exception
+     *             the exception
      */
     @Override
-    public final boolean updateAffiliation(final int userId,
-            final Affiliation affiliation, final String affiliationId) {
+    public boolean updateAffiliation(String userId, Affiliation affiliation)
+            throws Exception {
         AuthorProfileServiceImpl.LOGGER
                 .info("inside updateAffiliation Method ");
-        /*
-         * final CustomerDetails customerDetails = getCustomeProfile(String
-         * .valueOf(userId)); final LookupCustomerProfileResponse
-         * lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
-         * final CustomerProfile customerProfile = new CustomerProfile();
-         * customerProfile.setCustomerDetails(customerDetails); final
-         * AffiliationsData affiliationsData = new AffiliationsData(); final
-         * List<AffiliationData> affDataList = new ArrayList<AffiliationData>();
-         * final AffiliationData affData = new AffiliationData();
-         * affData.setStartDate(ASDateFormatUtil.convertDate(Long
-         * .parseLong(affiliation.getStartDate())));
-         * affData.setEndDate(ASDateFormatUtil.convertDate(Long
-         * .parseLong(affiliation.getEndDate())));
-         * affData.setCity(affiliation.getCity());
-         * affData.setState(affiliation.getState());
-         * affData.setCountryCd(affiliation.getCountryCode()); final String
-         * institutionId = affiliation.getInstitutionId();
-         * affData.setInstitutionCd(institutionId); final String name =
-         * autocomplete.getNameByCode("institutions", institutionId, null);
-         * affData.setInstitutionName(name);
-         * affData.setDepartmentCd(affiliation.getDepartmentId());
-         * affData.setDepartmentName(affiliation.getDepartmentName());
-         * affDataList.add(affData);
-         * affiliationsData.setAffiliation(affDataList);
-         * customerProfile.setAffiliations(affiliationsData);
-         * lookupCustomerProfileResponse.setCustomerProfile(customerProfile); if
-         * ("0".equals(affiliationId)) { affData.setStatus("add"); } else {
-         * affData.setId(affiliationId); affData.setStatus("edit"); }
-         */
-
-        return false;
-
+        return authorProfileDao.updateAffiliation(userId, affiliation);
     }
 
     /**
@@ -269,6 +242,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     @Override
     public boolean updateAlerts(final String participantId,
             final AlertsList alertList) throws Exception {
+        AuthorProfileServiceImpl.LOGGER.info("inside updateAlerts Method ");
         boolean isUpdated = false;
         Integer code = null;
         final AlertRequest alertRequest = new AlertRequest();
@@ -490,9 +464,22 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                 .updateSecurityDetails(securityQuestionsUpdateRequest);
     }
 
+    /**
+     * Upload profile image.
+     *
+     * @param participantId
+     *            the participant id
+     * @param imageFile
+     *            the image file
+     * @return true, if successful
+     * @throws Exception
+     *             the exception
+     */
     @Override
     public boolean uploadProfileImage(final String participantId,
-            final Byte[] imageFile) throws Exception {
+            final byte[] imageFile) throws Exception {
+        AuthorProfileServiceImpl.LOGGER
+                .info("ins ide uploadProfileImage Method ");
         boolean isUpdated = false;
         final ResponseEntity resposeEntity = participantsInterfaceService
                 .uploadProfileImage(participantId, imageFile);
@@ -509,17 +496,39 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     }
 
     /**
-     * This method will call externnal service look up profile to get
-     * affiliation.
+     * Gets the affiliation list.
      *
      * @param userId
      *            the user id
-     * @return the affiliations list
+     * @return the affiliation list
+     * @throws Exception
+     *             the exception
      */
     @Override
-    public final List<Affiliation> getAffiliationsList(final String userId) {
-
-        return null;
+    public List<Affiliation> getAffiliationList(String userId) throws Exception {
+        AuthorProfileServiceImpl.LOGGER
+                .info("inside getAffiliationList Method ");
+        List<UserAffiliations> userAffiliations = authorProfileDao
+                .getAffiliationList(userId);
+        List<Affiliation> affiliations = new ArrayList<>();
+        for (UserAffiliations userAffiliation : userAffiliations) {
+            Affiliation affiliation = new Affiliation();
+            Country country = new Country();
+            country.setCountryCode(userAffiliation.getCountryCd());
+            affiliation.setCountry(country);
+            affiliation.setAffiliationId(userAffiliation.getAffiliationId()
+                    .toString());
+            affiliation.setInstitutionId(userAffiliation.getInstitutionCd());
+            affiliation
+                    .setInstitutionName(userAffiliation.getInstitutionName());
+            affiliation.setDepartmentName(userAffiliation.getDepartmentName());
+            affiliation.setStateCode(userAffiliation.getStateOrProvinceName());
+            affiliation.setCity(userAffiliation.getTownOrCityName());
+            affiliation.setStartDate(userAffiliation.getStartDt().toString());
+            affiliation.setEndDate(userAffiliation.getEndDt().toString());
+            affiliations.add(affiliation);
+        }
+        return affiliations;
 
     }
 
@@ -603,9 +612,19 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         return areaOfInterest;
     }
 
+    /**
+     * Gets the alerts.
+     *
+     * @param participantId
+     *            the participant id
+     * @return the alerts
+     * @throws Exception
+     *             the exception
+     */
     @Override
     public PreferenceValue getAlerts(final String participantId)
             throws Exception {
+        AuthorProfileServiceImpl.LOGGER.info("inside getAlerts Method ");
         return participantsInterfaceService.getAlerts(participantId);
     }
 
@@ -698,12 +717,15 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     /**
      * This method is for getting profile picture .....
      *
-     * @param userId
-     *            the user id
+     * @param participantId
+     *            the participant id
      * @return image in terms of Byte array
+     * @throws Exception
+     *             the exception
      */
     @Override
-    public Byte[] getProfileImage(final String participantId) throws Exception {
+    public byte[] getProfileImage(final String participantId) throws Exception {
+        AuthorProfileServiceImpl.LOGGER.info("inside getProfileImage Method ");
         return participantsInterfaceService.getProfileImage(participantId);
     }
 
@@ -721,32 +743,19 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     }
 
     /**
-     * this will call external service to delete affiliations
-     * 
-     * @param userId
-     * @param affiliationId
+     * Delete affiliations.
      *
-     * */
+     * @param userId
+     *            the user id
+     * @return true, if successful
+     * @throws Exception
+     *             the exception
+     */
     @Override
-    public boolean deleteAffiliations(final String userId,
-            final String affiliationId) {
-        /*
-         * final CustomerDetails customerDetails = getCustomeProfile(String
-         * .valueOf(userId)); final LookupCustomerProfileResponse
-         * lookupCustomerProfileResponse = new LookupCustomerProfileResponse();
-         * final CustomerProfile customerProfile = new CustomerProfile();
-         * customerProfile.setCustomerDetails(customerDetails); final
-         * AffiliationsData affsData = new AffiliationsData(); final
-         * List<AffiliationData> affDataList = new ArrayList<AffiliationData>();
-         * final AffiliationData affData = new AffiliationData();
-         * affData.setId(affiliationId);
-         * affData.setStartDate("1999-05-31T13:20:00-05:00");
-         * affDataList.add(affData); affsData.setAffiliation(affDataList);
-         * customerProfile.setAffiliations(affsData);
-         * lookupCustomerProfileResponse.setCustomerProfile(customerProfile);
-         * affData.setStatus("delete");
-         */
-        return false;
+    public boolean deleteAffiliations(String userId) throws Exception {
+        AuthorProfileServiceImpl.LOGGER
+                .info("inside deleteAffiliations Method ");
+        return authorProfileDao.deleteAffiliations(userId);
 
     }
 

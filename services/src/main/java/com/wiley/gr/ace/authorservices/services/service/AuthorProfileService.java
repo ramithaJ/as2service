@@ -45,18 +45,6 @@ public interface AuthorProfileService {
     boolean updateSocietyDetails(String userId, Society society);
 
     /**
-     * Update affiliation.
-     *
-     * @param userId
-     *            the user id
-     * @param affiliation
-     *            the affiliation
-     * @return true, if successful
-     */
-    boolean updateAffiliation(int userId, Affiliation affiliationsUpdate,
-            String affiliationId);
-
-    /**
      * Update research funder.
      *
      * @param userId
@@ -140,16 +128,18 @@ public interface AuthorProfileService {
     /**
      * Gets the user profile response.
      *
-     * @param userId
-     *            the user id
+     * @param participantId
+     *            the participant id
+     * @param imageFile
+     *            the image file
      * @return the user profile response
+     * @throws Exception
+     *             the exception
      */
     /* LookupCustomerProfile getuserProfileResponse(int userId); */
 
-    boolean uploadProfileImage(String participantId, Byte[] imageFile)
+    boolean uploadProfileImage(String participantId, byte[] imageFile)
             throws Exception;
-
-    List<Affiliation> getAffiliationsList(String userId);
 
     /**
      * Gets the research funders list.
@@ -187,6 +177,15 @@ public interface AuthorProfileService {
      */
     List<String> getAreaOfInterests(String userId);
 
+    /**
+     * Gets the alerts.
+     *
+     * @param participantId
+     *            the participant id
+     * @return the alerts
+     * @throws Exception
+     *             the exception
+     */
     PreferenceValue getAlerts(String participantId) throws Exception;
 
     /**
@@ -214,11 +213,13 @@ public interface AuthorProfileService {
     /**
      * Gets the profile picture.
      *
-     * @param userId
-     *            the user id
+     * @param participantId
+     *            the participant id
      * @return the profile picture
+     * @throws Exception
+     *             the exception
      */
-    Byte[] getProfileImage(String participantId) throws Exception;
+    byte[] getProfileImage(String participantId) throws Exception;
 
     /**
      * Delete society.
@@ -230,17 +231,6 @@ public interface AuthorProfileService {
      * @return true, if successful
      */
     boolean deleteSociety(Long id);
-
-    /**
-     * Delete affiliations.
-     *
-     * @param userId
-     *            the user id
-     * @param affiliationId
-     *            the affiliation id
-     * @return true, if successful
-     */
-    boolean deleteAffiliations(String userId, String affiliationId);
 
     /**
      * Delete interests.
@@ -263,6 +253,42 @@ public interface AuthorProfileService {
      * @return true, if successful
      */
     boolean deletePreferredJournals(String userId, String journalId);
+
+    /**
+     * Gets the affiliation list.
+     *
+     * @param userId
+     *            the user id
+     * @return the affiliation list
+     * @throws Exception
+     *             the exception
+     */
+    List<Affiliation> getAffiliationList(String userId) throws Exception;
+
+    /**
+     * Delete affiliations.
+     *
+     * @param userId
+     *            the user id
+     * @return true, if successful
+     * @throws Exception
+     *             the exception
+     */
+    boolean deleteAffiliations(String userId) throws Exception;
+
+    /**
+     * Update affiliation.
+     *
+     * @param userId
+     *            the user id
+     * @param affiliation
+     *            the affiliation
+     * @return true, if successful
+     * @throws Exception
+     *             the exception
+     */
+    boolean updateAffiliation(String userId, Affiliation affiliation)
+            throws Exception;
 
     boolean addPreferredJournal(String userId, JournalDetails journalDetails);
 
