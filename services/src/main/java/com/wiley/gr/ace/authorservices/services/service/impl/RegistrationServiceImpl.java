@@ -253,11 +253,13 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Override
     public final User searchUserByOrcidId(final String orcidId)
             throws Exception {
+        LOGGER.info("inside isUserFoundWithOrcidId() method of RegistrationServiceImpl");
         User user = null;
         if (!StringUtils.isEmpty(orcidId)) {
             Participant participant = participantInterfaceService
                     .searchParticipantByOrcidId(orcidId);
             if (!StringUtils.isEmpty(participant)) {
+                LOGGER.info("if user with orcid found in participant then return the User");
                 user = new User();
                 user.setOrcidId(orcidId);
                 user.setParticipantId(participant.getParticipantId());

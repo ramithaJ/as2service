@@ -334,11 +334,13 @@ public class RegistrationController {
     @RequestMapping(value = "/search/orcid/{orcidId}", method = RequestMethod.GET)
     public final Service isUserFoundWithOrcidId(
             @PathVariable("orcidId") final String orcidId) {
+        LOGGER.info("inside isUserFoundWithOrcidId() method of RegistrationController");
         Service service = new Service();
         if (!StringUtils.isEmpty(orcidId)) {
             try {
                 User user = registrationService.searchUserByOrcidId(orcidId);
                 if (!StringUtils.isEmpty(user)) {
+                    LOGGER.info("User has already orcid Id");
                     service.setStatus("FAILURE");
                     ErrorPOJO err = new ErrorPOJO();
                     err.setCode(isUserFoundWithOrcidIdErrorCode);
@@ -346,14 +348,16 @@ public class RegistrationController {
                     service.setError(err);
                     service.setPayload(user);
                 } else {
+                    LOGGER.info("User has already orcid Id");
                     service.setStatus("SUCCESS");
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                LOGGER.error("Print Stack Trace....",e);
                 throw new UserException(isUserFoundWithOrcidIdErrorCode,
                         isUserFoundWithOrcidIdErrorMessage);
             }
         } else {
+            LOGGER.info("Send valid ORCID Id");
             service.setStatus("FAILURE");
             ErrorPOJO err = new ErrorPOJO();
             err.setCode(noDataFoundCode);

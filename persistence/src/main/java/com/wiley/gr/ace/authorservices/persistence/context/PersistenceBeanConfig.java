@@ -31,6 +31,7 @@ import com.wiley.gr.ace.authorservices.persistence.services.SendNotificationDao;
 import com.wiley.gr.ace.authorservices.persistence.services.SaveArticleDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.SaveArticleInfoDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.SaveJournalInfoDAO;
+import com.wiley.gr.ace.authorservices.persistence.services.SocietyDao;
 import com.wiley.gr.ace.authorservices.persistence.services.UpdateUserDAO;
 import com.wiley.gr.ace.authorservices.persistence.services.UserAutocomplete;
 import com.wiley.gr.ace.authorservices.persistence.services.UploadLicenseDAO;
@@ -55,6 +56,7 @@ import com.wiley.gr.ace.authorservices.persistence.services.impl.SendNotificatio
 import com.wiley.gr.ace.authorservices.persistence.services.impl.SaveArticleDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.SaveArticleInfoDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.SaveJournalInfoDAOImpl;
+import com.wiley.gr.ace.authorservices.persistence.services.impl.SocietyDaoImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UpdateUserDAOImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UserAutocompleteImpl;
 import com.wiley.gr.ace.authorservices.persistence.services.impl.UploadLicenseDAOImpl;
@@ -221,6 +223,16 @@ public class PersistenceBeanConfig {
     }
 
     /**
+     * Society dao.
+     *
+     * @return the society dao
+     */
+    @Bean(name = "SocietyDao")
+    public SocietyDao societyDao() {
+        return new SocietyDaoImpl();
+    }
+
+    /**
      * Area of interest dao.
      *
      * @return the interest List
@@ -271,11 +283,15 @@ public class PersistenceBeanConfig {
         return new InvitationStartDAOImpl();
     }
 
+    /**
+     * Invitation cease dao.
+     *
+     * @return the invitation cease dao
+     */
     @Bean(name = "InvitationCeaseDAO")
     public InvitationCeaseDAO invitationCeaseDAO() {
         return new InviataionCeaseDAOImpl();
     }
-
 
     /**
      * Collect article dao.
