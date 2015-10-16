@@ -94,20 +94,24 @@ public interface UserLoginService {
      * @return the string
      */
     String insertGuid(String firstName, String lastName, String emailAddress);
-    
+
     /**
      * Search user in alm.
      *
-     * @param emailId the email id
+     * @param emailId
+     *            the email id
      * @return the user
      */
     User searchUserInALM(String emailId);
-    
+
     /**
      * Search user in participant by alm id.
      *
-     * @param almUserId the alm user id
+     * @param almUserId
+     *            the alm user id
      * @return true, if successful
      */
     boolean searchUserInParticipantByALMId(String almUserId);
+
+    boolean resetByEmail(String emailId);
 }

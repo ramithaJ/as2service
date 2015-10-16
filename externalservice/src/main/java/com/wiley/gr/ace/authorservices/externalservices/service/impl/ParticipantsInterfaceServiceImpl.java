@@ -352,10 +352,22 @@ public class ParticipantsInterfaceServiceImpl implements
      * @return the participant
      */
     @Override
-    public final Participant searchParticipantByOrcidId(String orcidId) {
+    public final Participant searchParticipantByOrcidId(final String orcidId) {
         ParticipantGetResponse participantGetResponse = (ParticipantGetResponse) RestServiceInvokerUtil
                 .getServiceData(searchParticipantbyOrcidId.concat(orcidId),
                         ParticipantGetResponse.class);
         return participantGetResponse.getParticipantList().get(0);
+    }
+
+    /** This method will call participatn service search by email */
+    @Override
+    public ParticipantGetResponse searchParticipanyByEmailId(
+            final String emailId) {
+        final String participantSearchUrl = participantCrudUrl
+                .concat("?email=").concat(emailId);
+        ParticipantGetResponse participantGetResponse = (ParticipantGetResponse) RestServiceInvokerUtil
+                .getServiceData(participantSearchUrl,
+                        ParticipantGetResponse.class);
+        return participantGetResponse;
     }
 }
