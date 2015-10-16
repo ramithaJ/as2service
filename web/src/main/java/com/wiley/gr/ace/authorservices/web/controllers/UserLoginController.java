@@ -248,7 +248,7 @@ public class UserLoginController extends ASExceptionController {
         Service service = new Service();
         userLoginService.resetByEmail(emailId);
 
-        // sendNotification.notifyByEmail(emailId, templateId);
+        sendNotification.notifyByEmail(emailId, templateId);
         return service;
     }
 
