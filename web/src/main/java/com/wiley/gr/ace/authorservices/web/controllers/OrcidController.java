@@ -12,6 +12,7 @@
 
 package com.wiley.gr.ace.authorservices.web.controllers;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -133,11 +134,12 @@ public class OrcidController {
      * @return the orcid data
      */
     @RequestMapping(value = "/authorization/{type}", method = RequestMethod.GET)
-    public final Service getOrcidData(@PathVariable("type") final String type,
+    public final void getOrcidData(@PathVariable("type") final String type,
             HttpServletRequest request,HttpServletResponse response) {
         LOGGER.info("inside getOrcidData() method of OrcidController ");
         Service service = new Service();
         User user = null;
+        String redirectUrl=null;
         try {
             String authrizationCode = request.getParameter("code");
             LOGGER.info("authrizationCode------>"+authrizationCode);
@@ -157,6 +159,9 @@ public class OrcidController {
                     }
                     service.setStatus("SUCCESS");
                     service.setPayload(user);
+                    request.setAttribute("ORCIDINFO", service);
+                    RequestDispatcher rd = request.getRequestDispatcher("http://authorservicesdev.wiley.com/landing.html#register/orcid");
+                    rd.forward(request, response);
                 }
             }
         } catch (final Exception e) {
@@ -164,7 +169,7 @@ public class OrcidController {
             throw new ASException(getOrcidDetailsErrorCode,
                     getOrcidDetailsErrorMessage, e);
         }
-        return service;
+//        return service;
     }
     
     /**
