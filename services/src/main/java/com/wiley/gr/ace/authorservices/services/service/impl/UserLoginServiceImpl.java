@@ -44,7 +44,6 @@ import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestions;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsEntry;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsMap;
 import com.wiley.gr.ace.authorservices.model.external.ValidateUserSecurityQA;
-import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
 import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.services.service.SendNotification;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
@@ -316,21 +315,20 @@ public class UserLoginServiceImpl implements UserLoginService {
      */
     @Override
     public final String resetPassword(final String guid) {
-        InviteResetpwdLog daoinviteResetpwdLog = userLoginServiceDAO
-                .getinviteResetpwdLog(guid);
-        String emailId = null;
-
-        if (null == daoinviteResetpwdLog) {
-            throw new ASException(recordnotexistcode, recordnotexistmessage);
-        } else if (AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS_CLOSED
-                .equalsIgnoreCase(daoinviteResetpwdLog.getStatus())) {
-            throw new ASException(statusclosedcode, statusclosedmessage);
-        } else if (AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS
-                .equalsIgnoreCase(daoinviteResetpwdLog.getStatus())) {
-            emailId = daoinviteResetpwdLog.getEmailAddress();
-        }
-        return emailId;
-
+        return guid;
+        /*
+         * InviteResetpwdLog daoinviteResetpwdLog = userLoginServiceDAO
+         * .getinviteResetpwdLog(guid); String emailId = null;
+         * 
+         * if (null == daoinviteResetpwdLog) { throw new
+         * ASException(recordnotexistcode, recordnotexistmessage); } else if
+         * (AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS_CLOSED
+         * .equalsIgnoreCase(daoinviteResetpwdLog.getStatus())) { throw new
+         * ASException(statusclosedcode, statusclosedmessage); } else if
+         * (AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS
+         * .equalsIgnoreCase(daoinviteResetpwdLog.getStatus())) { emailId =
+         * daoinviteResetpwdLog.getEmailAddress(); } return emailId;
+         */
     }
 
     /**
@@ -342,27 +340,28 @@ public class UserLoginServiceImpl implements UserLoginService {
     @Override
     public final void verifyAccountUpdate(final String guid) {
 
-        InviteResetpwdLog inviteResetpwdLog = userLoginServiceDAO
-                .getinviteResetpwdLog(guid);
-
-        if (null == inviteResetpwdLog) {
-            throw new ASException(recordnotexistcode, recordnotexistmessage);
-        } else if (AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS_CLOSED
-                .equalsIgnoreCase(inviteResetpwdLog.getStatus())) {
-            throw new ASException(statusclosedcode, statusclosedmessage);
-        } else if (AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS
-                .equalsIgnoreCase(inviteResetpwdLog.getStatus())
-                && AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS_TYPE
-                        .equalsIgnoreCase(inviteResetpwdLog.getType())) {
-            userLoginServiceDAO.verifyAccountStatusUpdate(inviteResetpwdLog
-                    .getLogId().intValue());
-            // Integer userId = userLoginServiceDAO.getUserId(
-            // inviteResetpwdLog.getEmailAddress()).getUserId().intValue();
-            // userLoginServiceDAO.updateIsAccountActive(userId);
-
-        } else {
-            throw new ASException(accountVerifiedCode, accountVerifiedMessage);
-        }
+        /*
+         * InviteResetpwdLog inviteResetpwdLog = userLoginServiceDAO
+         * .getinviteResetpwdLog(guid);
+         * 
+         * if (null == inviteResetpwdLog) { throw new
+         * ASException(recordnotexistcode, recordnotexistmessage); } else if
+         * (AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS_CLOSED
+         * .equalsIgnoreCase(inviteResetpwdLog.getStatus())) { throw new
+         * ASException(statusclosedcode, statusclosedmessage); } else if
+         * (AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS
+         * .equalsIgnoreCase(inviteResetpwdLog.getStatus()) &&
+         * AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS_TYPE
+         * .equalsIgnoreCase(inviteResetpwdLog.getType())) {
+         * userLoginServiceDAO.verifyAccountStatusUpdate(inviteResetpwdLog
+         * .getLogId().intValue()); // Integer userId =
+         * userLoginServiceDAO.getUserId( //
+         * inviteResetpwdLog.getEmailAddress()).getUserId().intValue(); //
+         * userLoginServiceDAO.updateIsAccountActive(userId);
+         * 
+         * } else { throw new ASException(accountVerifiedCode,
+         * accountVerifiedMessage); }
+         */
 
     }
 
@@ -380,16 +379,17 @@ public class UserLoginServiceImpl implements UserLoginService {
     @Override
     public final String insertGuid(final String firstName,
             final String lastName, final String emailAddress) {
-        InviteResetpwdLog inviteResetpwdLog = new InviteResetpwdLog();
-        inviteResetpwdLog.setFirstName(firstName);
-        inviteResetpwdLog.setLastName(lastName);
-        inviteResetpwdLog.setEmailAddress(emailAddress);
-        inviteResetpwdLog
-                .setType(AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS_TYPE);
-        inviteResetpwdLog
-                .setStatus(AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS);
-        return userLoginServiceDAO.insertGuid(inviteResetpwdLog);
-
+        return emailAddress;
+        /*
+         * InviteResetpwdLog inviteResetpwdLog = new InviteResetpwdLog();
+         * inviteResetpwdLog.setFirstName(firstName);
+         * inviteResetpwdLog.setLastName(lastName);
+         * inviteResetpwdLog.setEmailAddress(emailAddress); inviteResetpwdLog
+         * .setType(AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS_TYPE);
+         * inviteResetpwdLog
+         * .setStatus(AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS);
+         * return userLoginServiceDAO.insertGuid(inviteResetpwdLog);
+         */
     }
 
     /*

@@ -11,7 +11,6 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.services;
 
-import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
 import com.wiley.gr.ace.authorservices.persistence.entity.RegistrationDetails;
 
 /**
@@ -39,8 +38,9 @@ public interface RegistrationServiceDAO {
      *            to Retrieve.
      * @return the InviteResetpwdLog.
      */
-    InviteResetpwdLog getInvitationRecords(String guid);
-
+    /*
+     * InviteResetpwdLog getInvitationRecords(String guid);
+     */
     /**
      * Creates the registration record.
      *

@@ -15,7 +15,6 @@
 package com.wiley.gr.ace.authorservices.persistence.services;
 
 import com.wiley.gr.ace.authorservices.persistence.entity.ArticleConfiguration;
-import com.wiley.gr.ace.authorservices.persistence.entity.ProductRelations;
 
 /**
  * The Interface SaveArticleInfoDAO.
@@ -41,14 +40,14 @@ public interface SaveArticleInfoDAO {
      * @return true, if successful
      */
     boolean saveArticleInfo(ArticleConfiguration articleConfiguration);
-    
-//    /**
-//     * Save product details.
-//     *
-//     * @param products the products
-//     * @return true, if successful
-//     */
-//    boolean saveProductDetails(Products products);
-    
-    void saveProductRelation(ProductRelations productRelations);
+
+    // /**
+    // * Save product details.
+    // *
+    // * @param products the products
+    // * @return true, if successful
+    // */
+    // boolean saveProductDetails(Products products);
+
+    /* void saveProductRelation(ProductRelations productRelations); */
 }
