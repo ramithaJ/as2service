@@ -15,7 +15,6 @@ package com.wiley.gr.ace.authorservices.web.controllers;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -165,8 +164,8 @@ public class OrcidController {
                     ObjectMapper objectMapper = new ObjectMapper();
                     String serviceStr = objectMapper.writeValueAsString(service);
                     LOGGER.info("serviceStr--> "+ serviceStr);
-                    response.setHeader("ORCIDINFO", serviceStr);
-                    response.setStatus(HttpStatus.SC_MOVED_PERMANENTLY);
+                    response.addHeader("ORCIDINFO", serviceStr);
+//                    response.setStatus(HttpStatus.SC_MOVED_PERMANENTLY);
                     response.sendRedirect("http://authorservicesdev.wiley.com/landing.html#register/orcid");
                                                            
                     
