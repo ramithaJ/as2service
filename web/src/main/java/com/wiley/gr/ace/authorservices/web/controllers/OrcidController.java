@@ -124,25 +124,26 @@ public class OrcidController {
         return service;
     }
 
-    
     /**
      * Gets the orcid data.
      *
-     * @param type the type
-     * @param request the request
-     * @param response the response
+     * @param type
+     *            the type
+     * @param request
+     *            the request
+     * @param response
+     *            the response
      * @return the orcid data
      */
     @RequestMapping(value = "/authorization/{type}", method = RequestMethod.GET)
     public final void getOrcidData(@PathVariable("type") final String type,
-            HttpServletRequest request,HttpServletResponse response) {
+            HttpServletRequest request, HttpServletResponse response) {
         LOGGER.info("inside getOrcidData() method of OrcidController ");
         Service service = new Service();
         User user = null;
-        String redirectUrl=null;
         try {
             String authrizationCode = request.getParameter("code");
-            LOGGER.info("authrizationCode------>"+authrizationCode);
+            LOGGER.info("authrizationCode------>" + authrizationCode);
             if (null != authrizationCode) {
                 final OrcidAccessToken orcidAccessToken = orcidService
                         .getAccessToken(authrizationCode);
@@ -160,7 +161,8 @@ public class OrcidController {
                     service.setStatus("SUCCESS");
                     service.setPayload(user);
                     request.setAttribute("ORCIDINFO", service);
-                    RequestDispatcher rd = request.getRequestDispatcher("http://authorservicesdev.wiley.com/landing.html#register/orcid");
+                    RequestDispatcher rd = request
+                            .getRequestDispatcher("http://authorservicesdev.wiley.com/landing.html#register/orcid");
                     rd.forward(request, response);
                 }
             }
@@ -169,9 +171,9 @@ public class OrcidController {
             throw new ASException(getOrcidDetailsErrorCode,
                     getOrcidDetailsErrorMessage, e);
         }
-//        return service;
+        // return service;
     }
-    
+
     /**
      * Gets the orcid details.
      *

@@ -30,8 +30,7 @@
 		<property name="hibernate.c3p0.timeout">1800</property>
 		<property name="hibernate.enable_lazy_load_no_trans">true</property>
 		
-		<mapping
-			class="com.wiley.gr.ace.authorservices.persistence.entity.AddressType" />
+	
 		
 		<mapping class="com.wiley.gr.ace.authorservices.persistence.entity.Alerts" />
 
@@ -40,6 +39,9 @@
 	
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.ResearchFunders" />
+			
+        <mapping
+            class="com.wiley.gr.ace.authorservices.persistence.entity.ResetPasswd" />
 	
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.UserFunderGrants" />
@@ -81,8 +83,6 @@
 			class="com.wiley.gr.ace.authorservices.persistence.entity.AuditDetails" />
 
 		<mapping
-			class="com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog" />
-		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.AddressType" />
 
 		
@@ -94,8 +94,7 @@
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.AuditDetails" />
 	
-		<mapping
-			class="com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog" />
+
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.JournalAlertsConfiguration" />
 

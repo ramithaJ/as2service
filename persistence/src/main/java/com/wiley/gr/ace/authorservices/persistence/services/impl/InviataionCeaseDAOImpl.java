@@ -12,9 +12,6 @@ package com.wiley.gr.ace.authorservices.persistence.services.impl;
  * of John Wiley & Sons.
  *******************************************************************************/
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.wiley.gr.ace.authorservices.persistence.services.InvitationCeaseDAO;
 
 /**
@@ -24,9 +21,9 @@ import com.wiley.gr.ace.authorservices.persistence.services.InvitationCeaseDAO;
  */
 public class InviataionCeaseDAOImpl implements InvitationCeaseDAO {
 
-    /** The Constant LOGGER. */
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(InviataionCeaseDAOImpl.class);
+//    /** The Constant LOGGER. */
+//    private static final Logger LOGGER = LoggerFactory
+//            .getLogger(InviataionCeaseDAOImpl.class);
 
     /**
      * Update invite reset pwd log.

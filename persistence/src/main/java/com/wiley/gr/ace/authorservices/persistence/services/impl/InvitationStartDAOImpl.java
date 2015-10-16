@@ -11,9 +11,6 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.wiley.gr.ace.authorservices.persistence.services.InvitationStartDAO;
 
 /**
@@ -23,9 +20,9 @@ import com.wiley.gr.ace.authorservices.persistence.services.InvitationStartDAO;
  */
 public class InvitationStartDAOImpl implements InvitationStartDAO {
 
-    /** The Constant LOGGER. */
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(InvitationStartDAOImpl.class);
+//    /** The Constant LOGGER. */
+//    private static final Logger LOGGER = LoggerFactory
+//            .getLogger(InvitationStartDAOImpl.class);
 
     /**
      * Update invite reset pwd log.

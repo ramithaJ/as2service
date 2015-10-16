@@ -130,17 +130,17 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     // @Value("${CorrespondingAuthorId}")
     // private String correspondingAuthorId;
     //
-    /**
-     * This field holds the value of articleDetailsCode.
-     */
-    @Value("${articleDetails.code}")
-    private String articleDetailsCode;
-
-    /**
-     * This field holds the value of articleDetailsMessage.
-     */
-    @Value("${articleDetails.message}")
-    private String articleDetailsMessage;
+//    /**
+//     * This field holds the value of articleDetailsCode.
+//     */
+//    @Value("${articleDetails.code}")
+//    private String articleDetailsCode;
+//
+//    /**
+//     * This field holds the value of articleDetailsMessage.
+//     */
+//    @Value("${articleDetails.message}")
+//    private String articleDetailsMessage;
     //
     // /**
     // * This field holds the value of articleAcceptanceCode.

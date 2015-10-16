@@ -28,7 +28,6 @@ import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.event.CoAuthorList;
 import com.wiley.gr.ace.authorservices.model.event.EventData;
 import com.wiley.gr.ace.authorservices.model.external.ProductPersonRelationObject;
-import com.wiley.gr.ace.authorservices.persistence.services.SaveArticleDAO;
 import com.wiley.gr.ace.authorservices.services.service.SaveArticleData;
 
 // TODO: Auto-generated Javadoc
@@ -45,9 +44,9 @@ public class SaveArticleDataImpl implements SaveArticleData {
     @Autowired(required = true)
     private SharedService sharedService;
 
-    /** The save article service dao. */
-    @Autowired(required = true)
-    private SaveArticleDAO saveArticleDAO;
+    // /** The save article service dao. */
+    // @Autowired(required = true)
+    // private SaveArticleDAO saveArticleDAO;
 
     // /** The save article info dao. */
     // @Autowired(required = true)
@@ -100,9 +99,9 @@ public class SaveArticleDataImpl implements SaveArticleData {
         final String email = eventData.getCorrespondingAuthor().getEmail();
         final String articleDhId = eventData.getArticleInfo().getArticleID();
         try {
-            final boolean isAuthorExisting = authorCoAuthorLookUp(firstName,
-                    lastName, email);
-
+             final boolean isAuthorExisting = authorCoAuthorLookUp(firstName,
+             lastName, email);
+LOGGER.info(""+isAuthorExisting);
             /*
              * if (!isAuthorExisting) { final InviteResetpwdLog invite = new
              * InviteResetpwdLog(); invite.setFirstName(firstName);
@@ -146,7 +145,7 @@ public class SaveArticleDataImpl implements SaveArticleData {
             try {
                 final boolean isCoAuthorExisting = authorCoAuthorLookUp(
                         firstName, lastName, email);
-
+                LOGGER.info("" + isCoAuthorExisting);
                 /*
                  * if (!isCoAuthorExisting) { final InviteResetpwdLog invite =
                  * new InviteResetpwdLog(); invite.setFirstName(firstName);

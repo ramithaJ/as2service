@@ -44,7 +44,6 @@ import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestions;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsEntry;
 import com.wiley.gr.ace.authorservices.model.external.UserSecurityQuestionsMap;
 import com.wiley.gr.ace.authorservices.model.external.ValidateUserSecurityQA;
-import com.wiley.gr.ace.authorservices.persistence.services.UserLoginServiceDAO;
 import com.wiley.gr.ace.authorservices.services.service.SendNotification;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 
@@ -55,24 +54,24 @@ import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
  */
 public class UserLoginServiceImpl implements UserLoginService {
 
-    /**
-     * Logger for UserLoginServiceImpl class.
-     */
-    @Value("${UserLoginServiceImpl.resetPassword.statusclosedcode}")
-    private String statusclosedcode;
-
-    /** The statusclosedmessage. */
-    @Value("${UserLoginServiceImpl.resetPassword.statusclosedmessage}")
-    private String statusclosedmessage;
-
-    /** The recordnotexistcode. */
-    @Value("${UserLoginServiceImpl.resetPassword.doesntexist.code}")
-    private String recordnotexistcode;
-
-    /** The recordnotexistmessage. */
-    @Value("${UserLoginServiceImpl.resetPassword.doesntexist.message}")
-    private String recordnotexistmessage;
-
+//    /**
+//     * Logger for UserLoginServiceImpl class.
+//     */
+//    @Value("${UserLoginServiceImpl.resetPassword.statusclosedcode}")
+//    private String statusclosedcode;
+//
+//    /** The statusclosedmessage. */
+//    @Value("${UserLoginServiceImpl.resetPassword.statusclosedmessage}")
+//    private String statusclosedmessage;
+//
+//    /** The recordnotexistcode. */
+//    @Value("${UserLoginServiceImpl.resetPassword.doesntexist.code}")
+//    private String recordnotexistcode;
+//
+//    /** The recordnotexistmessage. */
+//    @Value("${UserLoginServiceImpl.resetPassword.doesntexist.message}")
+//    private String recordnotexistmessage;
+//
     /** The securityquestioncode. */
     @Value("${UserLoginServiceImpl.resetPassword.securityquestion.code}")
     private String securityquestioncode;
@@ -81,13 +80,13 @@ public class UserLoginServiceImpl implements UserLoginService {
     @Value("${UserLoginServiceImpl.resetPassword.securityquestion.message}")
     private String securityquestionmessage;
 
-    /** The account verified code. */
-    @Value("${accountVerifiedCode}")
-    private String accountVerifiedCode;
-
-    /** The account verified message. */
-    @Value("${accountVerifiedMessage}")
-    private String accountVerifiedMessage;
+//    /** The account verified code. */
+//    @Value("${accountVerifiedCode}")
+//    private String accountVerifiedCode;
+//
+//    /** The account verified message. */
+//    @Value("${accountVerifiedMessage}")
+//    private String accountVerifiedMessage;
 
     /** The template id. */
     @Value("${templateId.security.validation.failed}")
@@ -110,11 +109,11 @@ public class UserLoginServiceImpl implements UserLoginService {
     /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(UserLoginServiceImpl.class);
-    /**
-     * Injecting UserLoginServiceDAO bean.
-     */
-    @Autowired(required = true)
-    private UserLoginServiceDAO userLoginServiceDAO;
+//    /**
+//     * Injecting UserLoginServiceDAO bean.
+//     */
+//    @Autowired(required = true)
+//    private UserLoginServiceDAO userLoginServiceDAO;
     /**
      * Injecting UserMangement bean.
      */

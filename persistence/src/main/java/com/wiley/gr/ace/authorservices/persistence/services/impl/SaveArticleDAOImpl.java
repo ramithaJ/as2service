@@ -11,9 +11,6 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.wiley.gr.ace.authorservices.persistence.services.SaveArticleDAO;
 
 // TODO: Auto-generated Javadoc
@@ -22,9 +19,9 @@ import com.wiley.gr.ace.authorservices.persistence.services.SaveArticleDAO;
  */
 public class SaveArticleDAOImpl implements SaveArticleDAO {
 
-    /** The Constant LOGGER. */
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(SaveArticleDAOImpl.class);
+//    /** The Constant LOGGER. */
+//    private static final Logger LOGGER = LoggerFactory
+//            .getLogger(SaveArticleDAOImpl.class);
 
     /*
      * (non-Javadoc)
