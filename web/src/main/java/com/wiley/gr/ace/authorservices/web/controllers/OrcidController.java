@@ -133,7 +133,7 @@ public class OrcidController {
      * @return the orcid data
      */
     @RequestMapping(value = "/authorization/{type}", method = RequestMethod.GET)
-    public final Service getOrcidData(@PathVariable final String type,
+    public final Service getOrcidData(@PathVariable("type") final String type,
             HttpServletRequest request,HttpServletResponse response) {
         LOGGER.info("inside getOrcidData() method of OrcidController ");
         Service service = new Service();
