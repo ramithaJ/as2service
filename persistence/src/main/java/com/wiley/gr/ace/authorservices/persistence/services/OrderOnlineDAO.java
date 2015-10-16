@@ -17,7 +17,6 @@ import java.util.List;
 
 import com.wiley.gr.ace.authorservices.persistence.entity.CoauthorRequestsOoorders;
 import com.wiley.gr.ace.authorservices.persistence.entity.Orders;
-import com.wiley.gr.ace.authorservices.persistence.entity.ProductRelations;
 import com.wiley.gr.ace.authorservices.persistence.entity.SavedOrders;
 
 /**
@@ -26,13 +25,13 @@ import com.wiley.gr.ace.authorservices.persistence.entity.SavedOrders;
  */
 public interface OrderOnlineDAO {
 
-//    /**
-//     * @param userId
-//     * @param articleId
-//     * @return
-//     */
-//    ProductPersonRelations getProductPersonRelations(String userId,
-//            String articleId);
+    // /**
+    // * @param userId
+    // * @param articleId
+    // * @return
+    // */
+    // ProductPersonRelations getProductPersonRelations(String userId,
+    // String articleId);
 
     /**
      * @param articleId
@@ -53,11 +52,12 @@ public interface OrderOnlineDAO {
      */
     Orders getOrder(String articleId, String userId);
 
-//    /**
-//     * @param userId
-//     * @return
-//     */
-//    List<ProductPersonRelations> getArticleAuthId(Integer userId, String type);
+    // /**
+    // * @param userId
+    // * @return
+    // */
+    // List<ProductPersonRelations> getArticleAuthId(Integer userId, String
+    // type);
 
     /**
      * @param order
@@ -65,22 +65,22 @@ public interface OrderOnlineDAO {
      */
     Integer saveLaterOrder(SavedOrders savedOrders);
 
-//    /**
-//     * @param ArticleId
-//     * @return
-//     */
-//    List<ProductPersonRelations> getGrantRecipients(String articleId);
+    // /**
+    // * @param ArticleId
+    // * @return
+    // */
+    // List<ProductPersonRelations> getGrantRecipients(String articleId);
 
     /**
      * @param articleDhId
      * @return
      */
-    ProductRelations getProductRelations(String articleDhId);
+    // ProductRelations getProductRelations(String articleDhId);
 
-//    /**
-//     * @param paymentDetails
-//     */
-//    void savePaymentDetails(PaymentDetails paymentDetails);
+    // /**
+    // * @param paymentDetails
+    // */
+    // void savePaymentDetails(PaymentDetails paymentDetails);
 
     /**
      * @param orderId
@@ -94,11 +94,11 @@ public interface OrderOnlineDAO {
      */
     void saveOrder(Orders orders);
 
-//    /**
-//     * @param orderId
-//     * @return
-//     */
-//    String retrieveOrderType(Integer orderId);
+    // /**
+    // * @param orderId
+    // * @return
+    // */
+    // String retrieveOrderType(Integer orderId);
 
     /**
      * @param articleId
@@ -106,7 +106,6 @@ public interface OrderOnlineDAO {
      * @return
      */
     SavedOrders verifySavedOrders(String articleId, String userId);
-   
 
     /**
      * @param coauthorRequestsOoorders
@@ -122,11 +121,11 @@ public interface OrderOnlineDAO {
     CoauthorRequestsOoorders viewOnlineOpenRequest(String userId,
             String articleId);
 
-//    /**
-//     * @param userId
-//     * @return
-//     */
-//    Users getUserDetails(String userId);
+    // /**
+    // * @param userId
+    // * @return
+    // */
+    // Users getUserDetails(String userId);
 
     /**
      * @param articleId

@@ -12,14 +12,9 @@ package com.wiley.gr.ace.authorservices.persistence.services.impl;
  * of John Wiley & Sons.
  *******************************************************************************/
 
-import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
-
-import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.StringUtils;
 
-import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
 import com.wiley.gr.ace.authorservices.persistence.services.InvitationCeaseDAO;
 
 /**
@@ -45,32 +40,22 @@ public class InviataionCeaseDAOImpl implements InvitationCeaseDAO {
     @Override
     public final boolean updateInviteResetPWDLog(final String email)
             throws Exception {
-        LOGGER.info("inside updateInviteResetPWDLog of InviataionCesaseDAOImpl");
-        boolean isUpdated = false;
-        Session session = null;
-        if (!StringUtils.isEmpty(email)) {
-            try {
-                session = getSessionFactory().openSession();
-                String hql = "from InviteResetpwdLog ip where ip.emailAddress = :email";
-                InviteResetpwdLog inviteResetpwdLog = (InviteResetpwdLog) session
-                        .createQuery(hql).setString("email", email)
-                        .uniqueResult();
-                session.beginTransaction();
-                inviteResetpwdLog.setStatus("Closed");
-                session.getTransaction().commit();
-                isUpdated = true;
-            } catch (Exception e) {
-                if (!StringUtils.isEmpty(session)) {
-                    session.getTransaction().rollback();
-                }
-            } finally {
-                if (!StringUtils.isEmpty(session)) {
-                    session.flush();
-                    session.close();
-                }
-            }
-        }
-        return isUpdated;
+        return false;
+        /*
+         * LOGGER.info("inside updateInviteResetPWDLog of InviataionCesaseDAOImpl"
+         * ); boolean isUpdated = false; Session session = null; if
+         * (!StringUtils.isEmpty(email)) { try { session =
+         * getSessionFactory().openSession(); String hql =
+         * "from InviteResetpwdLog ip where ip.emailAddress = :email";
+         * InviteResetpwdLog inviteResetpwdLog = (InviteResetpwdLog) session
+         * .createQuery(hql).setString("email", email) .uniqueResult();
+         * session.beginTransaction(); inviteResetpwdLog.setStatus("Closed");
+         * session.getTransaction().commit(); isUpdated = true; } catch
+         * (Exception e) { if (!StringUtils.isEmpty(session)) {
+         * session.getTransaction().rollback(); } } finally { if
+         * (!StringUtils.isEmpty(session)) { session.flush(); session.close(); }
+         * } } return isUpdated;
+         */
     }
 
 }

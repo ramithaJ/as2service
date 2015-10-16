@@ -95,7 +95,6 @@ import com.wiley.gr.ace.authorservices.model.external.WileyOpenAccessFunders;
 import com.wiley.gr.ace.authorservices.model.external.WoaAccountHolder;
 import com.wiley.gr.ace.authorservices.persistence.entity.CoauthorRequestsOoorders;
 import com.wiley.gr.ace.authorservices.persistence.entity.Orders;
-import com.wiley.gr.ace.authorservices.persistence.entity.ProductRelations;
 import com.wiley.gr.ace.authorservices.persistence.entity.SavedOrders;
 import com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO;
 import com.wiley.gr.ace.authorservices.services.service.OrderOnlineOpenService;
@@ -115,22 +114,22 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     @Autowired(required = true)
     private OrderOnlineDAO orderOnlineDAO;
 
-//    /** The user profiles. */
-//    @Autowired
-//    private UserProfiles userProfiles;
+    // /** The user profiles. */
+    // @Autowired
+    // private UserProfiles userProfiles;
 
     /** The invoiceservice. */
     @Autowired(required = true)
     private InvoiceService invoiceservice;
 
-//    @Autowired(required=true)
-//    private TaskService taskService;
-//    /**
-//     * This field holds the value of correspondingAuthorId.
-//     */
-//    @Value("${CorrespondingAuthorId}")
-//    private String correspondingAuthorId;
-//
+    // @Autowired(required=true)
+    // private TaskService taskService;
+    // /**
+    // * This field holds the value of correspondingAuthorId.
+    // */
+    // @Value("${CorrespondingAuthorId}")
+    // private String correspondingAuthorId;
+    //
     /**
      * This field holds the value of articleDetailsCode.
      */
@@ -142,66 +141,66 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      */
     @Value("${articleDetails.message}")
     private String articleDetailsMessage;
-//
-//    /**
-//     * This field holds the value of articleAcceptanceCode.
-//     */
-//    @Value("${articleAcceptance.code}")
-//    private String articleAcceptanceCode;
-//
-//    /**
-//     * This field holds the value of articleAcceptanceMessage.
-//     */
-//    @Value("${articleAcceptance.message}")
-//    private String articleAcceptanceMessage;
-//
-//    /**
-//     * This field holds the value of savedOrderCode.
-//     */
-//    @Value("${savedOrder.code}")
-//    private String savedOrderCode;
-//
-//    /**
-//     * This field holds the value of savedOrderMessage.
-//     */
-//    @Value("${savedOrder.message}")
-//    private String savedOrderMessage;
-//
-//    /**
-//     * This field holds the value of orderExistenceCode.
-//     */
-//    @Value("${orderExistence.code}")
-//    private String orderExistenceCode;
-//
-//    /**
-//     * This field holds the value of orderExistenceMessage.
-//     */
-//    @Value("${orderExistence.message}")
-//    private String orderExistenceMessage;
-//
-//    /**
-//     * This field holds the value of onlineOpenCode.
-//     */
-//    @Value("${OnlineOpen.code}")
-//    private String onlineOpenCode;
-//
-//    /**
-//     * This field holds the value of onlineOpenMessage.
-//     */
-//    @Value("${OnlineOpen.message}")
-//    private String onlineOpenMessage;
-//
-//    /**
-//     * This field holds the value of onlineOpenJournalCode.
-//     */
-//    @Value("${OnlineOpenJournal.code}")
-//    private String onlineOpenJournalCode;
-//
-//    /**
-//     * This field holds the value of OnlineOpenJournalMessage.
-//     */
-//    @Value("${OnlineOpenJournal.message}")
-//    private String OnlineOpenJournalMessage;
+    //
+    // /**
+    // * This field holds the value of articleAcceptanceCode.
+    // */
+    // @Value("${articleAcceptance.code}")
+    // private String articleAcceptanceCode;
+    //
+    // /**
+    // * This field holds the value of articleAcceptanceMessage.
+    // */
+    // @Value("${articleAcceptance.message}")
+    // private String articleAcceptanceMessage;
+    //
+    // /**
+    // * This field holds the value of savedOrderCode.
+    // */
+    // @Value("${savedOrder.code}")
+    // private String savedOrderCode;
+    //
+    // /**
+    // * This field holds the value of savedOrderMessage.
+    // */
+    // @Value("${savedOrder.message}")
+    // private String savedOrderMessage;
+    //
+    // /**
+    // * This field holds the value of orderExistenceCode.
+    // */
+    // @Value("${orderExistence.code}")
+    // private String orderExistenceCode;
+    //
+    // /**
+    // * This field holds the value of orderExistenceMessage.
+    // */
+    // @Value("${orderExistence.message}")
+    // private String orderExistenceMessage;
+    //
+    // /**
+    // * This field holds the value of onlineOpenCode.
+    // */
+    // @Value("${OnlineOpen.code}")
+    // private String onlineOpenCode;
+    //
+    // /**
+    // * This field holds the value of onlineOpenMessage.
+    // */
+    // @Value("${OnlineOpen.message}")
+    // private String onlineOpenMessage;
+    //
+    // /**
+    // * This field holds the value of onlineOpenJournalCode.
+    // */
+    // @Value("${OnlineOpenJournal.code}")
+    // private String onlineOpenJournalCode;
+    //
+    // /**
+    // * This field holds the value of OnlineOpenJournalMessage.
+    // */
+    // @Value("${OnlineOpenJournal.message}")
+    // private String OnlineOpenJournalMessage;
 
     /**
      * This field holds the value of jsonProcessingExceptionCode.
@@ -443,106 +442,106 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     @Override
     public final QuoteDetails initiateOnline(final String userId,
             final String articleId, final String pdmSalesFlag) {
-        QuoteDetails quoteDetails = null;
-        ProductRelations productRelations = orderOnlineDAO
-                .getProductRelations(articleId);
-        if (null == productRelations) {
-            throw new ASException(articleDetailsCode, articleDetailsMessage);
-        }
-//        // Calling PdhLookUpJornal service with jornalDhId
-//        PdhJournalResponse pdhLookup = orderservice
-//                .pdhLookUpJournal(Integer.parseInt(String.valueOf(productRelations.getProductsByParentDhId()
-//                        .getDhId())));
-//        // UI OnLoad object for OrderOnlineOpen order.
-//        //QuoteDetails quoteDetails = null;
-//        // check article is onlineOpen article or not.
-//        if (pdmSalesFlag.equalsIgnoreCase(pdhLookup.getPdmSalesModel())) {
-//
-//            // DB call to get ProductPersonRelations object.
-//            ProductPersonRelations productPersonRelations = orderOnlineDAO
-//                    .getProductPersonRelations(userId, articleId);
-//            if (productPersonRelations == null) {
-//                throw new ASException(articleAcceptanceCode,
-//                        articleAcceptanceMessage);
-//            }
-//            // check user is corresponding author or not.
-//            if (productPersonRelations.getProductRoles() != null
-//                    && productPersonRelations.getProductRoles()
-//                            .getProductRoleCd()
-//                            .equalsIgnoreCase(correspondingAuthorId)) {
-//
-//                // check is there any saved orders for this article.
-//                SavedOrders savedOrders = orderOnlineDAO.getSavedOrders(
-//                        articleId, userId);
-//                if (null != savedOrders) {
-//                    throw new ASException(savedOrderCode, savedOrderMessage);
-//                }
-//                // check is there any placed orders for this article.
-//                Orders orders = orderOnlineDAO.getOrder(articleId, userId);
-//                if (orders != null) {
-//                    throw new ASException(orderExistenceCode,
-//                            orderExistenceMessage);
-//                }
-//                quoteDetails = new QuoteDetails();
-//                // calling PdhLookupArticle service with article DhId for
-//                // article title.
-//                PdhArticleResponse pdhArticleResponse = orderservice
-//                        .pdhLookUpArticle(Integer.parseInt(String.valueOf(productPersonRelations.getProducts()
-//                                .getDhId())));
-//                // Article details (ArticleId and Article title)
-//                ArticleDetails articleDetails = new ArticleDetails();
-//                articleDetails.setArticleId(articleId);
-//                articleDetails.setArticleTitle(pdhArticleResponse.getTitle());
-//                quoteDetails.setArticleDetails(articleDetails);
-//                // Journal details (JornalId and jornalTitle)
-//                JournalDetails journalDetails = new JournalDetails();
-//                journalDetails.setJournalId(productRelations
-//                        .getProductsByParentDhId().getDhId() + "");
-//                journalDetails.setJournalTitle(pdhLookup.getTitle());
-//                quoteDetails.setJournalDetails(journalDetails);
-//
-//                // prices in 3 type of currencies
-//                QuoteDetail quoteDetail = new QuoteDetail();
-//                quoteDetail.setPrices(pdhArticleResponse.getPrices());
-//                quoteDetails.setQuoteDetail(quoteDetail);
-//
-//                // values of DiscountsAllowed and AdditionalDiscountAllowed
-//                quoteDetails.setDiscountsAllowed(pdhLookup
-//                        .getDiscountsAllowed());
-//                quoteDetails.setAdditionalDiscountAllowed(pdhLookup
-//                        .getAdditionalDiscountAllowed());
-//                // userProfile object form userProfile service for society
-//                // details and addressDetails
-//                LookupCustomerProfileResponse userProfileResponse = userProfiles
-//                        .getLookupCustomerProfile(userId).getLookupCustomerProfileResponse();
-//                // First and LastName of author
-//                quoteDetails.setAuthorName(userProfileResponse
-//                        .getCustomerProfile().getCustomerDetails()
-//                        .getfName()
-//                        + " "
-//                        + userProfileResponse.getCustomerProfile()
-//                                .getCustomerDetails().getlName());
-//                // GrantRecipients(coAuthors)
-//                userProfileResponse.getCustomerProfile().getCoAuthors();
-//                // Societies
-//                userProfileResponse.getCustomerProfile().getSocietyList();
-//                // billing and contact addresses
-//                AddressDetails addressDetails = new AddressDetails();
-////              addressDetails.setBillingAddress(userProfileResponse
-////                      .getCustomerProfile().getAddressDetails().get(1)
-////                      .getBillingAddress());
-////              addressDetails.setContactAddress(userProfileResponse
-////                      .getCustomerProfile().getAddressDetails().getAddress().get(0));
-//                quoteDetails.setAddressDetails(addressDetails);
-//
-//            } else {
-//                throw new ASException(onlineOpenCode, onlineOpenMessage);
-//            }
-//        } else {
-//            throw new ASException(onlineOpenJournalCode,
-//                    OnlineOpenJournalMessage);
-//        }
-        return quoteDetails;
+        /*
+         * QuoteDetails quoteDetails = null; ProductRelations productRelations =
+         * orderOnlineDAO .getProductRelations(articleId); if (null ==
+         * productRelations) { throw new ASException(articleDetailsCode,
+         * articleDetailsMessage); }
+         */
+        // // Calling PdhLookUpJornal service with jornalDhId
+        // PdhJournalResponse pdhLookup = orderservice
+        // .pdhLookUpJournal(Integer.parseInt(String.valueOf(productRelations.getProductsByParentDhId()
+        // .getDhId())));
+        // // UI OnLoad object for OrderOnlineOpen order.
+        // //QuoteDetails quoteDetails = null;
+        // // check article is onlineOpen article or not.
+        // if (pdmSalesFlag.equalsIgnoreCase(pdhLookup.getPdmSalesModel())) {
+        //
+        // // DB call to get ProductPersonRelations object.
+        // ProductPersonRelations productPersonRelations = orderOnlineDAO
+        // .getProductPersonRelations(userId, articleId);
+        // if (productPersonRelations == null) {
+        // throw new ASException(articleAcceptanceCode,
+        // articleAcceptanceMessage);
+        // }
+        // // check user is corresponding author or not.
+        // if (productPersonRelations.getProductRoles() != null
+        // && productPersonRelations.getProductRoles()
+        // .getProductRoleCd()
+        // .equalsIgnoreCase(correspondingAuthorId)) {
+        //
+        // // check is there any saved orders for this article.
+        // SavedOrders savedOrders = orderOnlineDAO.getSavedOrders(
+        // articleId, userId);
+        // if (null != savedOrders) {
+        // throw new ASException(savedOrderCode, savedOrderMessage);
+        // }
+        // // check is there any placed orders for this article.
+        // Orders orders = orderOnlineDAO.getOrder(articleId, userId);
+        // if (orders != null) {
+        // throw new ASException(orderExistenceCode,
+        // orderExistenceMessage);
+        // }
+        // quoteDetails = new QuoteDetails();
+        // // calling PdhLookupArticle service with article DhId for
+        // // article title.
+        // PdhArticleResponse pdhArticleResponse = orderservice
+        // .pdhLookUpArticle(Integer.parseInt(String.valueOf(productPersonRelations.getProducts()
+        // .getDhId())));
+        // // Article details (ArticleId and Article title)
+        // ArticleDetails articleDetails = new ArticleDetails();
+        // articleDetails.setArticleId(articleId);
+        // articleDetails.setArticleTitle(pdhArticleResponse.getTitle());
+        // quoteDetails.setArticleDetails(articleDetails);
+        // // Journal details (JornalId and jornalTitle)
+        // JournalDetails journalDetails = new JournalDetails();
+        // journalDetails.setJournalId(productRelations
+        // .getProductsByParentDhId().getDhId() + "");
+        // journalDetails.setJournalTitle(pdhLookup.getTitle());
+        // quoteDetails.setJournalDetails(journalDetails);
+        //
+        // // prices in 3 type of currencies
+        // QuoteDetail quoteDetail = new QuoteDetail();
+        // quoteDetail.setPrices(pdhArticleResponse.getPrices());
+        // quoteDetails.setQuoteDetail(quoteDetail);
+        //
+        // // values of DiscountsAllowed and AdditionalDiscountAllowed
+        // quoteDetails.setDiscountsAllowed(pdhLookup
+        // .getDiscountsAllowed());
+        // quoteDetails.setAdditionalDiscountAllowed(pdhLookup
+        // .getAdditionalDiscountAllowed());
+        // // userProfile object form userProfile service for society
+        // // details and addressDetails
+        // LookupCustomerProfileResponse userProfileResponse = userProfiles
+        // .getLookupCustomerProfile(userId).getLookupCustomerProfileResponse();
+        // // First and LastName of author
+        // quoteDetails.setAuthorName(userProfileResponse
+        // .getCustomerProfile().getCustomerDetails()
+        // .getfName()
+        // + " "
+        // + userProfileResponse.getCustomerProfile()
+        // .getCustomerDetails().getlName());
+        // // GrantRecipients(coAuthors)
+        // userProfileResponse.getCustomerProfile().getCoAuthors();
+        // // Societies
+        // userProfileResponse.getCustomerProfile().getSocietyList();
+        // // billing and contact addresses
+        // AddressDetails addressDetails = new AddressDetails();
+        // // addressDetails.setBillingAddress(userProfileResponse
+        // // .getCustomerProfile().getAddressDetails().get(1)
+        // // .getBillingAddress());
+        // // addressDetails.setContactAddress(userProfileResponse
+        // // .getCustomerProfile().getAddressDetails().getAddress().get(0));
+        // quoteDetails.setAddressDetails(addressDetails);
+        //
+        // } else {
+        // throw new ASException(onlineOpenCode, onlineOpenMessage);
+        // }
+        // } else {
+        // throw new ASException(onlineOpenJournalCode,
+        // OnlineOpenJournalMessage);
+        // }
+        return null;
     }
 
     /**
@@ -610,19 +609,21 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         // orders.setOrderTypes(new OrderTypes());
         // orders.setOoOaFlg(orderTypeFlag);
         orders.setOrderId(Integer.parseInt(orderId));
-        //orders.setOrderStatus(AuthorServicesConstants.ORDER_STATUS_SUBMIT);
-//        Products products = new Products(Integer.parseInt(orderData
-//                .getArticle().getDhId()));
-//        orders.setProducts(products);
-//        // orders.setDownstreamappOrderId(Integer.parseInt(orderResponse.getOoUniqueId()));
-//        Users users = new Users();
-//        users.setUserId(Long.valueOf(userId));
-//        orders.setUsersByCreatedBy(users);
-//        orders.setUsersByUserId(users);
+        // orders.setOrderStatus(AuthorServicesConstants.ORDER_STATUS_SUBMIT);
+        // Products products = new Products(Integer.parseInt(orderData
+        // .getArticle().getDhId()));
+        // orders.setProducts(products);
+        // //
+        // orders.setDownstreamappOrderId(Integer.parseInt(orderResponse.getOoUniqueId()));
+        // Users users = new Users();
+        // users.setUserId(Long.valueOf(userId));
+        // orders.setUsersByCreatedBy(users);
+        // orders.setUsersByUserId(users);
         orders.setCreatedDate(new Date());
         orderOnlineDAO.saveOrder(orders);
-            Long longOrderId=orders.getOrderId();
-        orderOnlineDAO.deleteSavedOrderPostOrderSubmission(longOrderId.intValue());
+        Long longOrderId = orders.getOrderId();
+        orderOnlineDAO.deleteSavedOrderPostOrderSubmission(longOrderId
+                .intValue());
 
         return orderResponse;
     }
@@ -646,7 +647,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
         if (onlineOpenOrder != null) {
             ArticleData articleData = new ArticleData();
-            //articleData.setDhId(String.valueOf(savedOrder.getProducts().getDhId()));
+            // articleData.setDhId(String.valueOf(savedOrder.getProducts().getDhId()));
             orderData.setArticle(articleData);
             AddressDetails address = onlineOpenOrder.getAddressDetails();
 
@@ -654,7 +655,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             // TODO: Need to set remaining objects
             billingAddress.setName(address.getBillingAddress().getFirstName()
                     + address.getBillingAddress().getLastName());
-            //billingAddress.setOrg(address.getBillingAddress().getInstitution());
+            // billingAddress.setOrg(address.getBillingAddress().getInstitution());
 
             orderData.setBillingAddress(billingAddress);
 
@@ -662,7 +663,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             // TODO: Need to set remaining objects
             contactAddress.setName(address.getContactAddress().getFirstName()
                     + address.getBillingAddress().getLastName());
-            //contactAddress.setOrg(address.getContactAddress().getInstitution());
+            // contactAddress.setOrg(address.getContactAddress().getInstitution());
             orderData.setContactAddress(contactAddress);
 
             TaxData taxData = new TaxData();
@@ -943,7 +944,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     public final Integer saveLaterOrder(final OnlineOpenOrder order,
             final String userId) {
 
-//        final ObjectMapper mapper = new ObjectMapper();
+        // final ObjectMapper mapper = new ObjectMapper();
         final SavedOrders savedOrders = new SavedOrders();
         // Checking is there any existing saved orders in saved orders table
         SavedOrders orders = orderOnlineDAO.verifySavedOrders(order
@@ -951,15 +952,15 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         if (null != orders) {
             savedOrders.setOrderId(orders.getOrderId());
         }
-        //        final Products products = new Products();
-//        products.setDhId(Integer.parseInt(order.getArticleDetails()
-//                .getArticleId()));
-//        savedOrders.setProducts(products);
-//
-//        final Users users = new Users();
-//        users.setUserId(Long.valueOf(userId));
-//        savedOrders.setUsersByUserId(users);
-//        savedOrders.setUsersByCreatedBy(users);
+        // final Products products = new Products();
+        // products.setDhId(Integer.parseInt(order.getArticleDetails()
+        // .getArticleId()));
+        // savedOrders.setProducts(products);
+        //
+        // final Users users = new Users();
+        // users.setUserId(Long.valueOf(userId));
+        // savedOrders.setUsersByUserId(users);
+        // savedOrders.setUsersByCreatedBy(users);
         savedOrders.setCreatedDate(new Date());
         return orderOnlineDAO.saveLaterOrder(savedOrders);
     }
@@ -1031,19 +1032,21 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     @Override
     public final List<GrantRecipients> getGrantRecipients(final String articleId) {
 
-//        List<ProductPersonRelations> productPersonRelationsList = orderOnlineDAO
-//                .getGrantRecipients(articleId);
+        // List<ProductPersonRelations> productPersonRelationsList =
+        // orderOnlineDAO
+        // .getGrantRecipients(articleId);
         List<GrantRecipients> grantRecipientsList = new ArrayList<GrantRecipients>();
-//        GrantRecipients grantRecipients = null;
-//        for (ProductPersonRelations productPersonRelations : productPersonRelationsList) {
-//            Users users = productPersonRelations.getUserProfile()
-//                    .getUsersByUserId();
-//            grantRecipients = new GrantRecipients();
-//            grantRecipients.setCode(String.valueOf(users.getUserId()));
-//            grantRecipients.setName(users.getFirstName() + " "
-//                    + users.getLastName());
-//            grantRecipientsList.add(grantRecipients);
-//        }
+        // GrantRecipients grantRecipients = null;
+        // for (ProductPersonRelations productPersonRelations :
+        // productPersonRelationsList) {
+        // Users users = productPersonRelations.getUserProfile()
+        // .getUsersByUserId();
+        // grantRecipients = new GrantRecipients();
+        // grantRecipients.setCode(String.valueOf(users.getUserId()));
+        // grantRecipients.setName(users.getFirstName() + " "
+        // + users.getLastName());
+        // grantRecipientsList.add(grantRecipients);
+        // }
         return grantRecipientsList;
     }
 
@@ -1085,8 +1088,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
         InstitutionDiscountsResponse institutionDiscounts = orderservice
                 .getInstitutionDiscounts();
-        List<Institute> istituteList = institutionDiscounts.getInstitutionDetails()
-                .getInstituteList();
+        List<Institute> istituteList = institutionDiscounts
+                .getInstitutionDetails().getInstituteList();
         InstitutionalDiscounts institutionalDiscounts = new InstitutionalDiscounts();
         List<Institution> institutionList = new ArrayList<Institution>();
         Institution institution = null;
@@ -1222,7 +1225,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                 .setAvsPostResult(map.get("AVSPostResult").toCharArray()[0]);
         paymentDetails.setSecurity(map.get("security"));
 
-        //orderOnlineDAO.savePaymentDetails(paymentDetails);
+        // orderOnlineDAO.savePaymentDetails(paymentDetails);
     }
 
     /**
@@ -1394,7 +1397,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         }
 
         if (flag && savedOrder != null) {
-           // orderDataObject = savedOrder.getOrderObject();
+            // orderDataObject = savedOrder.getOrderObject();
             try {
                 JSONObject object = (JSONObject) new JSONParser()
                         .parse(orderDataObject);
@@ -1464,7 +1467,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      */
     @Override
     public String getOrderType(final Integer orderId) {
-        //return orderOnlineDAO.retrieveOrderType(orderId);
+        // return orderOnlineDAO.retrieveOrderType(orderId);
         return null;
 
     }
@@ -1493,8 +1496,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         article.setJournalPrintISSN("0008543X");
         invoice.setArticle(article);
         headers.setContentType(MediaType.parseMediaType("application/pdf"));
-        //headers.setContentDispositionFormData(AuthorServicesConstants.PDF_NAME,
-                //AuthorServicesConstants.PDF_NAME);
+        // headers.setContentDispositionFormData(AuthorServicesConstants.PDF_NAME,
+        // AuthorServicesConstants.PDF_NAME);
         headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
         contents = invoiceservice.getInvoice(invoice);
         response = new ResponseEntity<byte[]>(contents, headers, HttpStatus.OK);
@@ -1514,8 +1517,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         RequestOnlineOpen requestOnlineOpen = new RequestOnlineOpen();
         CoauthorRequestsOoorders coauthorRequestsOoorders = orderOnlineDAO
                 .viewOnlineOpenRequest(userId, articleId);
-//        requestOnlineOpen.setArticleId(String.valueOf(coauthorRequestsOoorders.getProducts()
-//                .getDhId()));
+        // requestOnlineOpen.setArticleId(String.valueOf(coauthorRequestsOoorders.getProducts()
+        // .getDhId()));
         requestOnlineOpen.setMessage(coauthorRequestsOoorders
                 .getMessageFromCoauth());
         PdhArticleResponse pdhArticleResponse = orderservice
@@ -1537,35 +1540,37 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         // TODO call Pdh To get Status
         if (journalAllows) {
             CoauthorRequestsOoorders coauthorRequestsOoorders = new CoauthorRequestsOoorders();
-//            Users users = new Users();
-//            users.setUserId(Long.valueOf(requestOnlineOpen.getUserId()));
-//            Products products = new Products();
-//            products.setDhId(Integer.parseInt(requestOnlineOpen.getArticleId()));
-//            coauthorRequestsOoorders.setUsersByCoauthUserId(users);
-//            coauthorRequestsOoorders.setProducts(products);
+            // Users users = new Users();
+            // users.setUserId(Long.valueOf(requestOnlineOpen.getUserId()));
+            // Products products = new Products();
+            // products.setDhId(Integer.parseInt(requestOnlineOpen.getArticleId()));
+            // coauthorRequestsOoorders.setUsersByCoauthUserId(users);
+            // coauthorRequestsOoorders.setProducts(products);
             coauthorRequestsOoorders.setMessageFromCoauth(requestOnlineOpen
                     .getMessage());
             try {
                 orderOnlineDAO.requestOnlineOpen(coauthorRequestsOoorders);
             } catch (Exception exception) {
-                throw new ASException("2434", " Already Requested by some one For Online Open");
+                throw new ASException("2434",
+                        " Already Requested by some one For Online Open");
             }
-                TaskServiceRequest taskServiceRequest=new TaskServiceRequest();
-                
-                List<String> articleId=new ArrayList<String>();
-                articleId.add(requestOnlineOpen.getMessage());
-                taskServiceRequest.setJustifications(articleId);
-//                Users userDao=orderOnlineDAO.getUserDetails(requestOnlineOpen.getUserId());
-//                String emailId=userDao.getPrimaryEmailAddr();
-//                String[] emailSplit =emailId.split("@");
-//                taskServiceRequest.setRequestorEmail(emailId);
-                taskServiceRequest.setRequestorId(requestOnlineOpen.getUserId());
-                // TODO call bpm for creating task  requestType
-//                taskService.invokeTaskService(taskServiceRequest, emailSplit[0]);
-                
-            }else if (journalAllows== false) {
+            TaskServiceRequest taskServiceRequest = new TaskServiceRequest();
+
+            List<String> articleId = new ArrayList<String>();
+            articleId.add(requestOnlineOpen.getMessage());
+            taskServiceRequest.setJustifications(articleId);
+            // Users
+            // userDao=orderOnlineDAO.getUserDetails(requestOnlineOpen.getUserId());
+            // String emailId=userDao.getPrimaryEmailAddr();
+            // String[] emailSplit =emailId.split("@");
+            // taskServiceRequest.setRequestorEmail(emailId);
+            taskServiceRequest.setRequestorId(requestOnlineOpen.getUserId());
+            // TODO call bpm for creating task requestType
+            // taskService.invokeTaskService(taskServiceRequest, emailSplit[0]);
+
+        } else if (journalAllows == false) {
             throw new ASException("1234", "journal Doesnot allows to OO");
-        } 
-        
+        }
+
     }
 }

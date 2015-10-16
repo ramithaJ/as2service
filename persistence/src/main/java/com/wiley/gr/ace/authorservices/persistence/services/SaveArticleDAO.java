@@ -11,7 +11,6 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.services;
 
-import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -19,21 +18,21 @@ import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
  */
 public interface SaveArticleDAO {
 
-	/**
-	 * Save article invitation.
-	 *
-	 * @param firstName
-	 *            the first name
-	 * @param lastName
-	 *            the last name
-	 * @param email
-	 *            the email
-	 * @param role
-	 *            the role
-	 * @return true, if successful
-	 * @throws Exception
-	 *             the exception
-	 */
-	boolean saveArticleInvitation(InviteResetpwdLog invite) throws Exception;
-	
+    /**
+     * Save article invitation.
+     *
+     * @param firstName
+     *            the first name
+     * @param lastName
+     *            the last name
+     * @param email
+     *            the email
+     * @param role
+     *            the role
+     * @return true, if successful
+     * @throws Exception
+     *             the exception
+     */
+    /* boolean saveArticleInvitation(InviteResetpwdLog invite) throws Exception; */
+
 }

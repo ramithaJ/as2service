@@ -13,14 +13,8 @@ package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
 import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
 
-import java.util.List;
-
-import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
-import org.springframework.util.StringUtils;
 
-import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
 import com.wiley.gr.ace.authorservices.persistence.entity.RegistrationDetails;
 import com.wiley.gr.ace.authorservices.persistence.services.RegistrationServiceDAO;
 
@@ -65,21 +59,18 @@ public class RegistrationServiceDAOImpl implements RegistrationServiceDAO {
      *            to Retrieve.
      * @return the InviteResetpwdLog.
      */
-    @Override
-    public final InviteResetpwdLog getInvitationRecords(final String guid) {
-        InviteResetpwdLog inviteRecord = new InviteResetpwdLog();
-        Session session = getSessionFactory().openSession();
-        String searchInviteHql = "from InviteResetpwdLog ir where ir.guid=:guid";
-        List<InviteResetpwdLog> inviteRecordList = session
-                .createQuery(searchInviteHql).setString("guid", guid).list();
-        if (!StringUtils.isEmpty(inviteRecordList)) {
-            inviteRecord = inviteRecordList.get(0);
-        } else {
-            inviteRecord = null;
-        }
-
-        return inviteRecord;
-    }
+    /*
+     * @Override public final InviteResetpwdLog getInvitationRecords(final
+     * String guid) { InviteResetpwdLog inviteRecord = new InviteResetpwdLog();
+     * Session session = getSessionFactory().openSession(); String
+     * searchInviteHql = "from InviteResetpwdLog ir where ir.guid=:guid";
+     * List<InviteResetpwdLog> inviteRecordList = session
+     * .createQuery(searchInviteHql).setString("guid", guid).list(); if
+     * (!StringUtils.isEmpty(inviteRecordList)) { inviteRecord =
+     * inviteRecordList.get(0); } else { inviteRecord = null; }
+     * 
+     * return inviteRecord; }
+     */
 
     @Override
     public void createRegistrationRecord(
@@ -100,21 +91,17 @@ public class RegistrationServiceDAOImpl implements RegistrationServiceDAO {
 
     @Override
     public RegistrationDetails getRegistrationRecord(final String almUserId) {
-        Session session = null;
-        RegistrationDetails registrationDetails = null;
-        try {
-            session = getSessionFactory().openSession();
-
-            Criteria criteria = session.createCriteria(InviteResetpwdLog.class);
-            criteria.add(Restrictions.eq("almUserId", almUserId));
-            registrationDetails = (RegistrationDetails) criteria.uniqueResult();
-        } finally {
-            if (null != session) {
-                session.flush();
-                session.close();
-            }
-        }
-        return registrationDetails;
+        return null;
+        /*
+         * Session session = null; RegistrationDetails registrationDetails =
+         * null; try { session = getSessionFactory().openSession();
+         * 
+         * Criteria criteria = session.createCriteria(InviteResetpwdLog.class);
+         * criteria.add(Restrictions.eq("almUserId", almUserId));
+         * registrationDetails = (RegistrationDetails) criteria.uniqueResult();
+         * } finally { if (null != session) { session.flush(); session.close();
+         * } } return registrationDetails;
+         */
     }
 
     @Override

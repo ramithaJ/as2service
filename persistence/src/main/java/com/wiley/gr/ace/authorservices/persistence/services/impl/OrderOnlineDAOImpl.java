@@ -25,7 +25,6 @@ import org.hibernate.criterion.Restrictions;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.persistence.entity.CoauthorRequestsOoorders;
 import com.wiley.gr.ace.authorservices.persistence.entity.Orders;
-import com.wiley.gr.ace.authorservices.persistence.entity.ProductRelations;
 import com.wiley.gr.ace.authorservices.persistence.entity.SavedOrders;
 import com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO;
 
@@ -35,42 +34,42 @@ import com.wiley.gr.ace.authorservices.persistence.services.OrderOnlineDAO;
  */
 public class OrderOnlineDAOImpl implements OrderOnlineDAO {
 
-//    /**
-//     * This field holds the value of coAuthorId
-//     */
-//    @Value("${coAuthorId}")
-//    private String coAuthorId;
+    // /**
+    // * This field holds the value of coAuthorId
+    // */
+    // @Value("${coAuthorId}")
+    // private String coAuthorId;
 
-//    @Value("${CorrespondingAuthorId}")
-//    private String CorrespondingAuthorId;
+    // @Value("${CorrespondingAuthorId}")
+    // private String CorrespondingAuthorId;
 
-//    /**
-//     * Method to get ArticleAssigmentDetails table object.
-//     */
-//    @Override
-//    public final ProductPersonRelations getProductPersonRelations(
-//            final String userId, final String articleId) {
-//
-//        Session session = null;
-//        try {
-//            session = getSessionFactory().openSession();
-//            Criteria criteria = session.createCriteria(
-//                    ProductPersonRelations.class, "productPersonRelations");
-//            criteria.createAlias("productPersonRelations.products", "products");
-//            criteria.createAlias("productPersonRelations.userProfile",
-//                    "userProfile");
-//            criteria.add(Restrictions.eq("products.dhId",
-//                    Integer.parseInt(articleId)));
-//            criteria.add(Restrictions.eq("userProfile.userId",
-//                    Integer.parseInt(userId)));
-//            return (ProductPersonRelations) criteria.uniqueResult();
-//        } finally {
-//            if (session != null) {
-//                session.flush();
-//                session.close();
-//            }
-//        }
-//    }
+    // /**
+    // * Method to get ArticleAssigmentDetails table object.
+    // */
+    // @Override
+    // public final ProductPersonRelations getProductPersonRelations(
+    // final String userId, final String articleId) {
+    //
+    // Session session = null;
+    // try {
+    // session = getSessionFactory().openSession();
+    // Criteria criteria = session.createCriteria(
+    // ProductPersonRelations.class, "productPersonRelations");
+    // criteria.createAlias("productPersonRelations.products", "products");
+    // criteria.createAlias("productPersonRelations.userProfile",
+    // "userProfile");
+    // criteria.add(Restrictions.eq("products.dhId",
+    // Integer.parseInt(articleId)));
+    // criteria.add(Restrictions.eq("userProfile.userId",
+    // Integer.parseInt(userId)));
+    // return (ProductPersonRelations) criteria.uniqueResult();
+    // } finally {
+    // if (session != null) {
+    // session.flush();
+    // session.close();
+    // }
+    // }
+    // }
 
     /**
      * Method to get savedOrders.
@@ -125,38 +124,39 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
         }
     }
 
-//    /** For Getting List Of ArticleAuthId */
-//    @Override
-//    public List<ProductPersonRelations> getArticleAuthId(final Integer userId,
-//            final String type) {
-//
-//        Session session = null;
-//        List<ProductPersonRelations> listArticleAuthorAssignments = null;
-//        System.err.println(type);
-//        try {
-//            session = getSessionFactory().openSession();
-//            Criteria criteria = session.createCriteria(
-//                    ProductPersonRelations.class, "articleAuthorAssignment");
-//            criteria.createAlias("articleAuthorAssignment.userProfile",
-//                    "userProfile");
-//            criteria.add(Restrictions.eq("userProfile.userId", userId));
-//            if (type == null) {
-//                criteria.setFetchMode("orderses", FetchMode.JOIN);
-//                criteria.setFetchMode("articles", FetchMode.JOIN);
-//            } else {
-//                criteria.createAlias("articleAuthorAssignment.orderses",
-//                        "orderses");
-//                criteria.add(Restrictions.eq("orderses.ooOaFlg", type));
-//            }
-//            listArticleAuthorAssignments = criteria.list();
-//        } finally {
-//            if (session != null) {
-//                session.flush();
-//                session.close();
-//            }
-//        }
-//        return listArticleAuthorAssignments;
-//    }
+    // /** For Getting List Of ArticleAuthId */
+    // @Override
+    // public List<ProductPersonRelations> getArticleAuthId(final Integer
+    // userId,
+    // final String type) {
+    //
+    // Session session = null;
+    // List<ProductPersonRelations> listArticleAuthorAssignments = null;
+    // System.err.println(type);
+    // try {
+    // session = getSessionFactory().openSession();
+    // Criteria criteria = session.createCriteria(
+    // ProductPersonRelations.class, "articleAuthorAssignment");
+    // criteria.createAlias("articleAuthorAssignment.userProfile",
+    // "userProfile");
+    // criteria.add(Restrictions.eq("userProfile.userId", userId));
+    // if (type == null) {
+    // criteria.setFetchMode("orderses", FetchMode.JOIN);
+    // criteria.setFetchMode("articles", FetchMode.JOIN);
+    // } else {
+    // criteria.createAlias("articleAuthorAssignment.orderses",
+    // "orderses");
+    // criteria.add(Restrictions.eq("orderses.ooOaFlg", type));
+    // }
+    // listArticleAuthorAssignments = criteria.list();
+    // } finally {
+    // if (session != null) {
+    // session.flush();
+    // session.close();
+    // }
+    // }
+    // return listArticleAuthorAssignments;
+    // }
 
     /**
      * This method save the order
@@ -265,143 +265,140 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
 
     }
 
-//    @Override
-//    public List<ProductPersonRelations> getGrantRecipients(
-//            final String articleId) {
-//
-//        Session session = null;
-//        List list = new ArrayList();
-//        list.add(coAuthorId);
-//        list.add(CorrespondingAuthorId);
-//        try {
-//            session = getSessionFactory().openSession();
-//            Criteria criteria = session.createCriteria(
-//                    ProductPersonRelations.class, "productPersonRelations");
-//            criteria.createAlias("productPersonRelations.products", "products");
-//            criteria.createAlias("productPersonRelations.productRoles",
-//                    "productRoles");
-//            criteria.add(Restrictions.eq("products.dhId",
-//                    Integer.parseInt(articleId)));
-//            criteria.add(Restrictions.in("productRoles.productRoleCd", list));
-//            criteria.setFetchMode("userProfile", FetchMode.JOIN);
-//            criteria.setFetchMode("userProfile.usersByUserId", FetchMode.JOIN);
-//            return criteria.list();
-//        } finally {
-//            if (session != null) {
-//                session.flush();
-//                session.close();
-//            }
-//        }
-//    }
+    // @Override
+    // public List<ProductPersonRelations> getGrantRecipients(
+    // final String articleId) {
+    //
+    // Session session = null;
+    // List list = new ArrayList();
+    // list.add(coAuthorId);
+    // list.add(CorrespondingAuthorId);
+    // try {
+    // session = getSessionFactory().openSession();
+    // Criteria criteria = session.createCriteria(
+    // ProductPersonRelations.class, "productPersonRelations");
+    // criteria.createAlias("productPersonRelations.products", "products");
+    // criteria.createAlias("productPersonRelations.productRoles",
+    // "productRoles");
+    // criteria.add(Restrictions.eq("products.dhId",
+    // Integer.parseInt(articleId)));
+    // criteria.add(Restrictions.in("productRoles.productRoleCd", list));
+    // criteria.setFetchMode("userProfile", FetchMode.JOIN);
+    // criteria.setFetchMode("userProfile.usersByUserId", FetchMode.JOIN);
+    // return criteria.list();
+    // } finally {
+    // if (session != null) {
+    // session.flush();
+    // session.close();
+    // }
+    // }
+    // }
 
-    @Override
-    public ProductRelations getProductRelations(final String articleDhId) {
+    /*
+     * @Override public ProductRelations getProductRelations(final String
+     * articleDhId) {
+     * 
+     * Session session = null; try { session =
+     * getSessionFactory().openSession(); Criteria criteria =
+     * session.createCriteria(ProductRelations.class, "productRelations");
+     * criteria.createAlias("productRelations.productsByChildDhId",
+     * "productsByChildDhId");
+     * criteria.add(Restrictions.eq("productsByChildDhId.dhId",
+     * Integer.parseInt(articleDhId))); return (ProductRelations)
+     * criteria.uniqueResult(); } finally { if (session != null) {
+     * session.flush(); session.close(); } }
+     * 
+     * }
+     */
 
-        Session session = null;
-        try {
-            session = getSessionFactory().openSession();
-            Criteria criteria = session.createCriteria(ProductRelations.class,
-                    "productRelations");
-            criteria.createAlias("productRelations.productsByChildDhId",
-                    "productsByChildDhId");
-            criteria.add(Restrictions.eq("productsByChildDhId.dhId",
-                    Integer.parseInt(articleDhId)));
-            return (ProductRelations) criteria.uniqueResult();
-        } finally {
-            if (session != null) {
-                session.flush();
-                session.close();
-            }
-        }
+    // /**
+    // * Method to updated payment details
+    // *
+    // * @param paymentDetails
+    // * @return boolean
+    // *
+    // */
+    // @Override
+    // public void savePaymentDetails(final PaymentDetails paymentDetails) {
+    //
+    // Session session = null;
+    //
+    // try {
+    // session = getSessionFactory().openSession();
+    // session.getTransaction().begin();
+    // WpgResponseDetails wpgResponseDetails = new WpgResponseDetails();
+    //
+    // wpgResponseDetails
+    // .setAcquirerName(paymentDetails.getAcquirerBank());
+    // wpgResponseDetails.setAcquirerId(paymentDetails.getAcquirerId());
+    // wpgResponseDetails.setAvsAddressResult(paymentDetails
+    // .getAvsAddressResult());
+    // wpgResponseDetails.setAvsPostResult(paymentDetails
+    // .getAvsPostResult());
+    // wpgResponseDetails.setBankId(paymentDetails.getBankId());
+    // wpgResponseDetails.setBankName(paymentDetails.getBankName());
+    // wpgResponseDetails.setCardExpiry(Long.valueOf(paymentDetails.getCardExpiry()));
+    // wpgResponseDetails.setCscResult(paymentDetails.getCscResult());
+    // wpgResponseDetails.setMaskedCardNumber(paymentDetails
+    // .getMaskedCardNumber());
+    // wpgResponseDetails.setMerchantId(new
+    // Long(paymentDetails.getMerchantId()));
+    // wpgResponseDetails.setMerchantResponse(paymentDetails
+    // .getMerchantResponse());
+    // wpgResponseDetails.setOperation(paymentDetails.getOperation());
+    // wpgResponseDetails.setReturnCode(new
+    // Long(paymentDetails.getReturnCode()));
+    // wpgResponseDetails.setReturnMessage(paymentDetails
+    // .getReturnMessage());
+    // wpgResponseDetails.setSecurity(paymentDetails.getSecurity());
+    // wpgResponseDetails.setToken(paymentDetails.getToken());
+    // wpgResponseDetails.setTransId(new Long(paymentDetails.getTransId()));
+    // wpgResponseDetails.setTransTimestamp(paymentDetails
+    // .getTransTimeStamp());
+    // wpgResponseDetails.setVendorId(new Long(paymentDetails.getVendorId()));
+    // session.save(wpgResponseDetails);
+    // session.getTransaction().commit();
+    //
+    // } catch (HibernateException e) {
+    // session.getTransaction().rollback();
+    // throw new ASException("704", e.getMessage());
+    // } finally {
+    // if (session != null) {
+    // session.flush();
+    // session.close();
+    // }
+    // }
+    //
+    // }
 
-    }
-
-//    /**
-//     * Method to updated payment details
-//     * 
-//     * @param paymentDetails
-//     * @return boolean
-//     * 
-//     */
-//    @Override
-//    public void savePaymentDetails(final PaymentDetails paymentDetails) {
-//
-//        Session session = null;
-//
-//        try {
-//            session = getSessionFactory().openSession();
-//            session.getTransaction().begin();
-//            WpgResponseDetails wpgResponseDetails = new WpgResponseDetails();
-//
-//            wpgResponseDetails
-//                    .setAcquirerName(paymentDetails.getAcquirerBank());
-//            wpgResponseDetails.setAcquirerId(paymentDetails.getAcquirerId());
-//            wpgResponseDetails.setAvsAddressResult(paymentDetails
-//                    .getAvsAddressResult());
-//            wpgResponseDetails.setAvsPostResult(paymentDetails
-//                    .getAvsPostResult());
-//            wpgResponseDetails.setBankId(paymentDetails.getBankId());
-//            wpgResponseDetails.setBankName(paymentDetails.getBankName());
-//            wpgResponseDetails.setCardExpiry(Long.valueOf(paymentDetails.getCardExpiry()));
-//            wpgResponseDetails.setCscResult(paymentDetails.getCscResult());
-//            wpgResponseDetails.setMaskedCardNumber(paymentDetails
-//                    .getMaskedCardNumber());
-//            wpgResponseDetails.setMerchantId(new Long(paymentDetails.getMerchantId()));
-//            wpgResponseDetails.setMerchantResponse(paymentDetails
-//                    .getMerchantResponse());
-//            wpgResponseDetails.setOperation(paymentDetails.getOperation());
-//            wpgResponseDetails.setReturnCode(new Long(paymentDetails.getReturnCode()));
-//            wpgResponseDetails.setReturnMessage(paymentDetails
-//                    .getReturnMessage());
-//            wpgResponseDetails.setSecurity(paymentDetails.getSecurity());
-//            wpgResponseDetails.setToken(paymentDetails.getToken());
-//            wpgResponseDetails.setTransId(new Long(paymentDetails.getTransId()));
-//            wpgResponseDetails.setTransTimestamp(paymentDetails
-//                    .getTransTimeStamp());
-//            wpgResponseDetails.setVendorId(new Long(paymentDetails.getVendorId()));
-//            session.save(wpgResponseDetails);
-//            session.getTransaction().commit();
-//
-//        } catch (HibernateException e) {
-//            session.getTransaction().rollback();
-//            throw new ASException("704", e.getMessage());
-//        } finally {
-//            if (session != null) {
-//                session.flush();
-//                session.close();
-//            }
-//        }
-//
-//    }
-
-//    /**
-//     * Method returns the order type for the corresponding order id
-//     * 
-//     * @param orderId
-//     * @return orderType
-//     * 
-//     */
-//    @Override
-//    public String retrieveOrderType(final Integer orderId) {
-//        Session session = null;
-//        Orders order = null;
-//        String orderType = null;
-//
-//        try {
-//            session = getSessionFactory().openSession();
-//            order = (Orders) session.load(Orders.class, orderId);
-//            orderType = order.getOrderTypes().getOrderTypeName();
-//
-//        } finally {
-//            if (session != null) {
-//                session.flush();
-//                session.close();
-//            }
-//
-//        }
-//
-//        return orderType;
-//    }
+    // /**
+    // * Method returns the order type for the corresponding order id
+    // *
+    // * @param orderId
+    // * @return orderType
+    // *
+    // */
+    // @Override
+    // public String retrieveOrderType(final Integer orderId) {
+    // Session session = null;
+    // Orders order = null;
+    // String orderType = null;
+    //
+    // try {
+    // session = getSessionFactory().openSession();
+    // order = (Orders) session.load(Orders.class, orderId);
+    // orderType = order.getOrderTypes().getOrderTypeName();
+    //
+    // } finally {
+    // if (session != null) {
+    // session.flush();
+    // session.close();
+    // }
+    //
+    // }
+    //
+    // return orderType;
+    // }
 
     @Override
     public SavedOrders verifySavedOrders(final String articleId,
@@ -491,32 +488,32 @@ public class OrderOnlineDAOImpl implements OrderOnlineDAO {
         return coauthorRequestsOoorders;
     }
 
-//    /**
-//     * For getting user details by taking userId
-//     * 
-//     * @param userId
-//     * */
-//    @Override
-//    public Users getUserDetails(final String userId) {
-//
-//        Session session = null;
-//        Users users = null;
-//
-//        try {
-//            session = getSessionFactory().openSession();
-//            users = (Users) session.get(Users.class, Integer.parseInt(userId));
-//
-//        }
-//
-//        finally {
-//            if (session != null) {
-//                session.flush();
-//                session.close();
-//            }
-//        }
-//        return users;
-//
-//    }
+    // /**
+    // * For getting user details by taking userId
+    // *
+    // * @param userId
+    // * */
+    // @Override
+    // public Users getUserDetails(final String userId) {
+    //
+    // Session session = null;
+    // Users users = null;
+    //
+    // try {
+    // session = getSessionFactory().openSession();
+    // users = (Users) session.get(Users.class, Integer.parseInt(userId));
+    //
+    // }
+    //
+    // finally {
+    // if (session != null) {
+    // session.flush();
+    // session.close();
+    // }
+    // }
+    // return users;
+    //
+    // }
 
     @Override
     public List<CoauthorRequestsOoorders> getcoAuthorReqOO(final String userId) {

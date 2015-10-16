@@ -11,8 +11,6 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.persistence.services;
 
-import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
-
 /**
  * The Interface UserLoginServiceDAO.
  *
@@ -20,14 +18,14 @@ import com.wiley.gr.ace.authorservices.persistence.entity.InviteResetpwdLog;
  */
 public interface UserLoginServiceDAO {
 
-//    /**
-//     * This method gets the userId.
-//     * 
-//     * @param emailId
-//     *            to get the userId.
-//     * @return the userId.
-//     */
-//    Users getUserId(String emailId);
+    // /**
+    // * This method gets the userId.
+    // *
+    // * @param emailId
+    // * to get the userId.
+    // * @return the userId.
+    // */
+    // Users getUserId(String emailId);
 
     /**
      * This method gets the reset password log.
@@ -36,20 +34,22 @@ public interface UserLoginServiceDAO {
      *            to get InviteResetpwdLog.
      * @return the InviteResetpwdLog.
      */
-    InviteResetpwdLog getinviteResetpwdLog(String guid);
-
-    /**
+    /*
+     * InviteResetpwdLog getinviteResetpwdLog(String guid);
+     *//**
      * Insert guid.
      *
      * @param inviteResetpwdLog
      *            the invite resetpwd log
      * @return the string
      */
-    String insertGuid(InviteResetpwdLog inviteResetpwdLog);
+    /*
+     * String insertGuid(InviteResetpwdLog inviteResetpwdLog);
+     */
 
-//    List<UserRoles> getSuperAdmins(int roleId);
+    // List<UserRoles> getSuperAdmins(int roleId);
 
-    void verifyAccountStatusUpdate(Integer logId);
+    // void verifyAccountStatusUpdate(Integer logId);
 
     void updateIsAccountActive(Integer userId);
 
