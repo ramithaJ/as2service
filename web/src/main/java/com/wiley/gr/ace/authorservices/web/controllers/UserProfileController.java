@@ -141,8 +141,7 @@ public class UserProfileController {
         final Service service = new Service();
         boolean isDeleted = false;
         try {
-            isDeleted = authorProfileService.deleteAffiliations(new Integer(
-                    userId).toString());
+            isDeleted = authorProfileService.deleteAffiliations(userId);
         } catch (final Exception e) {
             throw new UserException("50006", e.getMessage());
         }
@@ -491,13 +490,13 @@ public class UserProfileController {
     public final byte[] getProfile(@PathVariable("userId") final String userId) {
         UserProfileController.LOGGER.info("inside getProfile method ");
         final byte[] bites = null;
-        try {
-            final File file = new File("c:/Images/Image");
-
-            // service.setPayload(authorProfileService.getProfileImage(userId));
-        } catch (final Exception e) {
-            throw new UserException("5000", "Unable to fetch");
-        }
+//        try {
+//            final File file = new File("c:/Images/Image");
+//
+//            // service.setPayload(authorProfileService.getProfileImage(userId));
+//        } catch (final Exception e) {
+//            throw new UserException("5000", "Unable to fetch");
+//        }
         return bites;
 
     }
