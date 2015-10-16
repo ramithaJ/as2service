@@ -12,10 +12,10 @@
 
 package com.wiley.gr.ace.authorservices.web.controllers;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.User;
@@ -160,10 +161,19 @@ public class OrcidController {
                     }
                     service.setStatus("SUCCESS");
                     service.setPayload(user);
-                    request.setAttribute("ORCIDINFO", service);
-                    RequestDispatcher rd = request
-                            .getRequestDispatcher("http://authorservicesdev.wiley.com/landing.html#register/orcid");
-                    rd.forward(request, response);
+                    LOGGER.info("service.toString() --> "+ service.toString());
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    String serviceStr = objectMapper.writeValueAsString(service);
+                    LOGGER.info("serviceStr--> "+ serviceStr);
+                    response.setHeader("ORCIDINFO", serviceStr);
+                    response.setStatus(HttpStatus.SC_MOVED_PERMANENTLY);
+                    response.sendRedirect("http://authorservicesdev.wiley.com/landing.html#register/orcid");
+                                                           
+                    
+//                    request.setAttribute("ORCIDINFO", service);
+//                    RequestDispatcher rd = request
+//                            .getRequestDispatcher("http://authorservicesdev.wiley.com/landing.html#register/orcid");
+//                    rd.forward(request, response);
                 }
             }
         } catch (final Exception e) {
