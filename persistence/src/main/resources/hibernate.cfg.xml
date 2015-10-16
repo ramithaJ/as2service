@@ -37,8 +37,7 @@
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.CoauthorRequestsOoorders" />
 	
-		<mapping
-			class="com.wiley.gr.ace.authorservices.persistence.entity.ResearchFunders" />
+		
 			
         <mapping
             class="com.wiley.gr.ace.authorservices.persistence.entity.ResetPasswd" />
@@ -82,8 +81,7 @@
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.AuditDetails" />
 
-		<mapping
-			class="com.wiley.gr.ace.authorservices.persistence.entity.AddressType" />
+		
 
 		
 		<mapping
@@ -114,8 +112,7 @@
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.WpgResponseDetails" />
 
-		<mapping
-			class="com.wiley.gr.ace.authorservices.persistence.entity.SocietyJournals" />
+		
 		<mapping
 			class="com.wiley.gr.ace.authorservices.persistence.entity.OwnershipTypes" />
 		<mapping
