@@ -113,7 +113,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/user/orcid/profile/*/*")
                 .permitAll()
-                 .antMatchers("/user/orcid/*")
+                .antMatchers("/user/orcid/*")
                 .permitAll()
                 .antMatchers("/registration/verify/email")
                 .permitAll()
@@ -121,7 +121,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers("/user/orcid/authorization/*")
                 .permitAll()
-                
+
                 .antMatchers("/registration/register")
                 .permitAll()
 
@@ -131,18 +131,22 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/registration/invitation/*")
                 .permitAll()
 
-               .antMatchers("/userAccount/userAddresses/*")
+                .antMatchers("/userAccount/userAddresses/*")
                 .permitAll()
 
                 .antMatchers("/userprofile/alerts/*")
                 .permitAll()
-                 
+
                 .antMatchers("/userprofile/getImage/*")
                 .permitAll()
-                
+
                 .antMatchers("/userprofile/uploadImage/*/")
                 .permitAll()
+
                 .antMatchers("/search/api")
+                .permitAll()
+
+                .antMatchers("/search/autocomplete")
                 .permitAll()
 
                 .antMatchers(HttpMethod.POST, SpringSecurityConfig.AUTHENTICATE)
@@ -156,7 +160,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                         new StatelessLoginFilter(
                                 SpringSecurityConfig.AUTHENTICATE,
                                 tokenAuthenticationService,
-                                authenticationManager(), userLoginService, registrationService),
+                                authenticationManager(), userLoginService,
+                                registrationService),
                         UsernamePasswordAuthenticationFilter.class)
 
                 // Custom Token based authentication based on the
