@@ -1,8 +1,9 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Oct 16, 2015 3:47:59 PM by Hibernate Tools 4.0.0
+// Generated Oct 19, 2015 4:16:00 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -64,9 +65,9 @@ public class JournalConfiguration implements java.io.Serializable {
 	private String corrauCanHaveFreeAccArt;
 	private String allowVideoAbstrOrder;
 	private Date createdDate;
-	private byte[] createdBy;
+	private UUID createdBy;
 	private Date updatedDate;
-	private byte[] updatedBy;
+	private UUID updatedBy;
 
 	public JournalConfiguration() {
 	}
@@ -131,8 +132,8 @@ public class JournalConfiguration implements java.io.Serializable {
 			Date daasParticipationEndDate, String coauthReceiveInvitation,
 			String journalNickname, String dispOrEmailMrktngToUsr,
 			String dispOrEmailSurveyToUsr, String corrauCanHaveFreeAccArt,
-			String allowVideoAbstrOrder, Date createdDate, byte[] createdBy,
-			Date updatedDate, byte[] updatedBy) {
+			String allowVideoAbstrOrder, Date createdDate, UUID createdBy,
+			Date updatedDate, UUID updatedBy) {
 		this.dhId = dhId;
 		this.journalSetupStates = journalSetupStates;
 		this.titleDispOoo = titleDispOoo;
@@ -592,11 +593,11 @@ public class JournalConfiguration implements java.io.Serializable {
 	}
 
 	@Column(name = "CREATED_BY")
-	public byte[] getCreatedBy() {
+	public UUID getCreatedBy() {
 		return this.createdBy;
 	}
 
-	public void setCreatedBy(byte[] createdBy) {
+	public void setCreatedBy(UUID createdBy) {
 		this.createdBy = createdBy;
 	}
 
@@ -611,11 +612,11 @@ public class JournalConfiguration implements java.io.Serializable {
 	}
 
 	@Column(name = "UPDATED_BY")
-	public byte[] getUpdatedBy() {
+	public UUID getUpdatedBy() {
 		return this.updatedBy;
 	}
 
-	public void setUpdatedBy(byte[] updatedBy) {
+	public void setUpdatedBy(UUID updatedBy) {
 		this.updatedBy = updatedBy;
 	}
 

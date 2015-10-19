@@ -1,12 +1,11 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Oct 16, 2015 3:47:59 PM by Hibernate Tools 4.0.0
+// Generated Oct 19, 2015 4:16:00 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -41,9 +40,9 @@ public class UserFunders implements java.io.Serializable {
 		this.userFunderId = userFunderId;
 	}
 
-	public UserFunders(long userFunderId, UUID participantId,
-			String funderDoi, String funderName, Date createdDate,
-			UUID createdBy, Date updatedDate, UUID updatedBy,
+	public UserFunders(long userFunderId, UUID participantId, String funderDoi,
+			String funderName, Date createdDate, UUID createdBy,
+			Date updatedDate, UUID updatedBy,
 			Set<UserFunderGrants> userFunderGrantses) {
 		this.userFunderId = userFunderId;
 		this.participantId = participantId;

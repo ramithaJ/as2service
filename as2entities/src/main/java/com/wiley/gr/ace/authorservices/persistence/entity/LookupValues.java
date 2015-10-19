@@ -1,8 +1,9 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Oct 16, 2015 3:47:59 PM by Hibernate Tools 4.0.0
+// Generated Oct 19, 2015 4:16:00 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -22,9 +23,9 @@ public class LookupValues implements java.io.Serializable {
 	private String lookupName;
 	private String lookupValue;
 	private Date createdDate;
-	private byte[] createdBy;
+	private UUID createdBy;
 	private Date updatedDate;
-	private byte[] updatedBy;
+	private UUID updatedBy;
 
 	public LookupValues() {
 	}
@@ -34,8 +35,8 @@ public class LookupValues implements java.io.Serializable {
 	}
 
 	public LookupValues(long lookupId, String lookupKey, String lookupName,
-			String lookupValue, Date createdDate, byte[] createdBy,
-			Date updatedDate, byte[] updatedBy) {
+			String lookupValue, Date createdDate, UUID createdBy,
+			Date updatedDate, UUID updatedBy) {
 		this.lookupId = lookupId;
 		this.lookupKey = lookupKey;
 		this.lookupName = lookupName;
@@ -94,11 +95,11 @@ public class LookupValues implements java.io.Serializable {
 	}
 
 	@Column(name = "CREATED_BY")
-	public byte[] getCreatedBy() {
+	public UUID getCreatedBy() {
 		return this.createdBy;
 	}
 
-	public void setCreatedBy(byte[] createdBy) {
+	public void setCreatedBy(UUID createdBy) {
 		this.createdBy = createdBy;
 	}
 
@@ -113,11 +114,11 @@ public class LookupValues implements java.io.Serializable {
 	}
 
 	@Column(name = "UPDATED_BY")
-	public byte[] getUpdatedBy() {
+	public UUID getUpdatedBy() {
 		return this.updatedBy;
 	}
 
-	public void setUpdatedBy(byte[] updatedBy) {
+	public void setUpdatedBy(UUID updatedBy) {
 		this.updatedBy = updatedBy;
 	}
 

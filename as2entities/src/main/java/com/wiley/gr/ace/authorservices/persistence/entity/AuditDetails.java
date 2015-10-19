@@ -1,8 +1,9 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Oct 16, 2015 3:47:59 PM by Hibernate Tools 4.0.0
+// Generated Oct 19, 2015 4:16:00 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,27 +28,27 @@ public class AuditDetails implements java.io.Serializable {
 	private ObjectTypes objectTypes;
 	private String objName;
 	private String objAttribute;
-	private byte[] participantId;
+	private UUID participantId;
 	private Integer objId;
 	private String oldVal;
 	private String newVal;
 	private Date createdDate;
-	private byte[] createdBy;
+	private UUID createdBy;
 	private Date updatedDate;
-	private byte[] updatedBy;
+	private UUID updatedBy;
 
 	public AuditDetails() {
 	}
 
-	public AuditDetails(byte[] createdBy, byte[] updatedBy) {
+	public AuditDetails(UUID createdBy, UUID updatedBy) {
 		this.createdBy = createdBy;
 		this.updatedBy = updatedBy;
 	}
 
 	public AuditDetails(Actions actions, ObjectTypes objectTypes,
-			String objName, String objAttribute, byte[] participantId,
+			String objName, String objAttribute, UUID participantId,
 			Integer objId, String oldVal, String newVal, Date createdDate,
-			byte[] createdBy, Date updatedDate, byte[] updatedBy) {
+			UUID createdBy, Date updatedDate, UUID updatedBy) {
 		this.actions = actions;
 		this.objectTypes = objectTypes;
 		this.objName = objName;
@@ -112,11 +113,11 @@ public class AuditDetails implements java.io.Serializable {
 	}
 
 	@Column(name = "PARTICIPANT_ID")
-	public byte[] getParticipantId() {
+	public UUID getParticipantId() {
 		return this.participantId;
 	}
 
-	public void setParticipantId(byte[] participantId) {
+	public void setParticipantId(UUID participantId) {
 		this.participantId = participantId;
 	}
 
@@ -158,11 +159,11 @@ public class AuditDetails implements java.io.Serializable {
 	}
 
 	@Column(name = "CREATED_BY", nullable = false)
-	public byte[] getCreatedBy() {
+	public UUID getCreatedBy() {
 		return this.createdBy;
 	}
 
-	public void setCreatedBy(byte[] createdBy) {
+	public void setCreatedBy(UUID createdBy) {
 		this.createdBy = createdBy;
 	}
 
@@ -177,11 +178,11 @@ public class AuditDetails implements java.io.Serializable {
 	}
 
 	@Column(name = "UPDATED_BY", nullable = false)
-	public byte[] getUpdatedBy() {
+	public UUID getUpdatedBy() {
 		return this.updatedBy;
 	}
 
-	public void setUpdatedBy(byte[] updatedBy) {
+	public void setUpdatedBy(UUID updatedBy) {
 		this.updatedBy = updatedBy;
 	}
 

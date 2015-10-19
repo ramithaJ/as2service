@@ -1,17 +1,14 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Oct 16, 2015 3:47:59 PM by Hibernate Tools 4.0.0
+// Generated Oct 19, 2015 4:16:00 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import java.util.UUID;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-
 import static javax.persistence.GenerationType.IDENTITY;
-
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
