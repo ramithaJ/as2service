@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.model.Service;
 import com.wiley.gr.ace.authorservices.model.User;
@@ -159,13 +160,13 @@ public class OrcidController {
                     }
                     service.setStatus("SUCCESS");
                     service.setPayload(user);
-//                    LOGGER.info("service.toString() --> "+ service.toString());
-//                    ObjectMapper objectMapper = new ObjectMapper();
-//                    String serviceStr = objectMapper.writeValueAsString(service);
-//                    LOGGER.info("serviceStr--> "+ serviceStr);
+                    LOGGER.info("service.toString() --> "+ service.toString());
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    String serviceStr = objectMapper.writeValueAsString(service);
+                    LOGGER.info("serviceStr--> "+ serviceStr);
 //                    response.addHeader("ORCIDINFO", serviceStr);
 //                    response.setStatus(HttpStatus.SC_MOVED_PERMANENTLY);
-                    response.sendRedirect("http://authorservicesdev.wiley.com/landing.html#register/orcid"+service);
+                    response.sendRedirect("http://authorservicesdev.wiley.com/landing.html#register/orcid"+serviceStr);
                                                            
                     
 //                    request.setAttribute("ORCIDINFO", service);
