@@ -5,6 +5,8 @@ package com.wiley.gr.ace.authorservices.persistence.entity;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,13 +24,13 @@ import javax.persistence.TemporalType;
 public class UserFunders implements java.io.Serializable {
 
 	private long userFunderId;
-	private byte[] participantId;
+	private UUID participantId;
 	private String funderDoi;
 	private String funderName;
 	private Date createdDate;
-	private byte[] createdBy;
+	private UUID createdBy;
 	private Date updatedDate;
-	private byte[] updatedBy;
+	private UUID updatedBy;
 	private Set<UserFunderGrants> userFunderGrantses = new HashSet<UserFunderGrants>(
 			0);
 
@@ -39,9 +41,9 @@ public class UserFunders implements java.io.Serializable {
 		this.userFunderId = userFunderId;
 	}
 
-	public UserFunders(long userFunderId, byte[] participantId,
+	public UserFunders(long userFunderId, UUID participantId,
 			String funderDoi, String funderName, Date createdDate,
-			byte[] createdBy, Date updatedDate, byte[] updatedBy,
+			UUID createdBy, Date updatedDate, UUID updatedBy,
 			Set<UserFunderGrants> userFunderGrantses) {
 		this.userFunderId = userFunderId;
 		this.participantId = participantId;
@@ -65,11 +67,11 @@ public class UserFunders implements java.io.Serializable {
 	}
 
 	@Column(name = "PARTICIPANT_ID")
-	public byte[] getParticipantId() {
+	public UUID getParticipantId() {
 		return this.participantId;
 	}
 
-	public void setParticipantId(byte[] participantId) {
+	public void setParticipantId(UUID participantId) {
 		this.participantId = participantId;
 	}
 
@@ -102,11 +104,11 @@ public class UserFunders implements java.io.Serializable {
 	}
 
 	@Column(name = "CREATED_BY")
-	public byte[] getCreatedBy() {
+	public UUID getCreatedBy() {
 		return this.createdBy;
 	}
 
-	public void setCreatedBy(byte[] createdBy) {
+	public void setCreatedBy(UUID createdBy) {
 		this.createdBy = createdBy;
 	}
 
@@ -121,11 +123,11 @@ public class UserFunders implements java.io.Serializable {
 	}
 
 	@Column(name = "UPDATED_BY")
-	public byte[] getUpdatedBy() {
+	public UUID getUpdatedBy() {
 		return this.updatedBy;
 	}
 
-	public void setUpdatedBy(byte[] updatedBy) {
+	public void setUpdatedBy(UUID updatedBy) {
 		this.updatedBy = updatedBy;
 	}
 

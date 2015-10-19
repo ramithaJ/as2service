@@ -17,6 +17,7 @@ import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateCo
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -62,7 +63,7 @@ public class SocietyDaoImpl implements SocietyDao {
     }
 
     @Override
-    public boolean updateSociety(final String userId, final Society society) {
+    public boolean updateSociety(final UUID participantUUID, final Society society) {
 
         Session session = null;
         try {
@@ -70,7 +71,7 @@ public class SocietyDaoImpl implements SocietyDao {
             session.beginTransaction();
             UserSocietyDetails userSocietyDetails = (UserSocietyDetails) session
                     .get(UserSocietyDetails.class, society.getId());
-            userSocietyDetails.setParticipantId(userId.getBytes());
+            userSocietyDetails.setParticipantId(participantUUID);
 
             Societies societies = new Societies();
             societies.setSocietyCd(society.getSocietyId());
@@ -84,7 +85,7 @@ public class SocietyDaoImpl implements SocietyDao {
             userSocietyDetails
                     .setEndDt(new Date(new Long(society.getEndDate())));
             userSocietyDetails.setUpdatedDate(new Date());
-            userSocietyDetails.setUpdatedBy(userId.getBytes());
+            userSocietyDetails.setUpdatedBy(participantUUID);
 
             session.update(userSocietyDetails);
             session.getTransaction().commit();
@@ -99,16 +100,15 @@ public class SocietyDaoImpl implements SocietyDao {
     }
 
     @Override
-    public List<UserSocietyDetails> getSocietyDetails(final String participantId) {
+    public List<UserSocietyDetails> getSocietyDetails(final UUID participantId) {
 
         Session session = null;
-
         try {
             session = getSessionFactory().openSession();
             Criteria criteria = session
                     .createCriteria(UserSocietyDetails.class);
             criteria.add(Restrictions.eq("participantId",
-                    participantId.getBytes()));
+            		participantId));
             return criteria.list();
 
         } finally {
@@ -118,7 +118,7 @@ public class SocietyDaoImpl implements SocietyDao {
             }
         }
     }
-
+    
     @Override
     public boolean deleteSociety(final Long id) {
 
