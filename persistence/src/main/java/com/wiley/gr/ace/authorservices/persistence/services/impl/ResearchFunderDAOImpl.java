@@ -15,9 +15,11 @@ package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
 import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -35,14 +37,14 @@ import com.wiley.gr.ace.authorservices.persistence.services.ResearchFunderDAO;
 public class ResearchFunderDAOImpl implements ResearchFunderDAO {
 
     @Override
-    public List<UserFunders> getResearchFunders(final String participantId) {
+    public List<UserFunders> getResearchFunders(final UUID participantId) {
 
         Session session = null;
         try {
             session = getSessionFactory().openSession();
             Criteria criteria = session.createCriteria(UserFunders.class);
             criteria.add(Restrictions.eq("participantId",
-                    participantId.getBytes()));
+            		participantId));
             return criteria.list();
 
         } finally {
@@ -54,14 +56,16 @@ public class ResearchFunderDAOImpl implements ResearchFunderDAO {
     }
 
     @Override
-    public boolean updateResearchFunder(final ResearchFunder researchFunder) {
+    public boolean updateResearchFunder(final String participantId, final ResearchFunder researchFunder) {
 
+    	UUID participantUUID = UUID.fromString(participantId);
         Session session = null;
         try {
             session = getSessionFactory().openSession();
             session.beginTransaction();
             UserFunders userFunders = (UserFunders) session.get(
                     UserFunders.class, researchFunder.getId());
+            userFunders.setParticipantId(participantUUID);
             userFunders.setFunderDoi(researchFunder.getResearchFunderId());
             userFunders.setFunderName(researchFunder.getResearchFunderName());
 
@@ -74,6 +78,8 @@ public class ResearchFunderDAOImpl implements ResearchFunderDAO {
             }
             userFunderGrantsSet.add(userFunderGrants);
             userFunders.setUserFunderGrantses(userFunderGrantsSet);
+            userFunders.setUpdatedBy(participantUUID);
+            userFunders.setUpdatedDate(new Date());
 
             session.update(userFunders);
             session.getTransaction().commit();
