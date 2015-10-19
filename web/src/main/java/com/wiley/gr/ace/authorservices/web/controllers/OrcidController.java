@@ -166,7 +166,7 @@ public class OrcidController {
 //                    LOGGER.info("serviceStr--> "+ serviceStr);
 //                    response.addHeader("ORCIDINFO", serviceStr);
 //                    response.setStatus(HttpStatus.SC_MOVED_PERMANENTLY);
-                    response.sendRedirect("http://authorservicesdev.wiley.com/landing.html#register/orcid");
+                    response.sendRedirect("http://authorservicesdev.wiley.com/landing.html#register/orcid?code="+authrizationCode);
                                                            
                     
 //                    request.setAttribute("ORCIDINFO", service);
