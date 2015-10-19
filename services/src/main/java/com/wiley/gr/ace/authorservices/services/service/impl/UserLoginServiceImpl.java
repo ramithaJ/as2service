@@ -404,6 +404,7 @@ public class UserLoginServiceImpl implements UserLoginService {
         User user = new User();
         user.setTermsOfUseFlg(response.getUserPayload().get(0).getTcFlag());
         user.setStatus(response.getUserPayload().get(0).getUserStatus());
+        user.setAlmUserId(response.getUserPayload().get(0).getAlmUserId());
         return user;
     }
 
