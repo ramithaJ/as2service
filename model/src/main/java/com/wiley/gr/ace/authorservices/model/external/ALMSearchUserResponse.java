@@ -14,34 +14,24 @@
  */
 package com.wiley.gr.ace.authorservices.model.external;
 
-import java.util.ArrayList;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 /**
  * The Class ALMSearchUserResponse.
  */
 public class ALMSearchUserResponse extends ALMResponse {
 
-    /** The user payload. */
-    @JsonProperty("UserPayload")
-    private ArrayList<ALMUser> userPayload;
+	@JsonProperty("UserPayloads")
+	private UserPayload userPayload;
 
-    /**
-     * Gets the user payload.
-     *
-     * @return the user payload
-     */
-    public final ArrayList<ALMUser> getUserPayload() {
-        return userPayload;
-    }
+	public UserPayload getUserPayload() {
+		return userPayload;
+	}
 
-    /**
-     * Sets the user payload.
-     *
-     * @param userPayload the new user payload
-     */
-    public final void setUserPayload(final ArrayList<ALMUser> userPayload) {
-        this.userPayload = userPayload;
-    }
+	public void setUserPayload(UserPayload userPayload) {
+		this.userPayload = userPayload;
+	}
+
+    
 }
