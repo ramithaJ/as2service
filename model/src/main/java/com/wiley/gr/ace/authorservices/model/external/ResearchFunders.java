@@ -9,8 +9,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * The Class ResearchFunders.
- * 
- * @author virtusa version 1.0
  */
 public class ResearchFunders {
 
