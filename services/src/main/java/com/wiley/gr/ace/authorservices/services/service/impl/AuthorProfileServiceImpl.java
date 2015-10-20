@@ -624,7 +624,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             journalTitle = pdhLookupJournalResponse.getTitle();
             journalImage = pdhLookupJournalResponse.getBannerImage();
         } catch (final Exception e) {
-            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE);
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE,e);
             throw new ASException();
         }
         final List<PreferredJournals> listdata = new ArrayList<PreferredJournals>();
