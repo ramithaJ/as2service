@@ -1126,10 +1126,10 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             }
             for (ResearchFunderElement researchFunderElement : researchFunderElementList) {
                 fundingOrganizations = new FundingOrganizations();
-                fundingOrganizations.setFunderRefId(researchFunderElement
-                        .getFunderRefId());
+//                fundingOrganizations.setFunderRefId(researchFunderElement
+//                        .getFunderRefId());
                 fundingOrganizations.setFunderName(researchFunderElement
-                        .getFunderName());
+                        .getName());
                 fundingOrganizationsList.add(fundingOrganizations);
             }
         }
