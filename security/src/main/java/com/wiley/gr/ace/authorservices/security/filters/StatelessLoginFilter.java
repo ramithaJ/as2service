@@ -28,7 +28,6 @@ import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.UserLogin;
 import com.wiley.gr.ace.authorservices.security.TokenAuthentication;
 import com.wiley.gr.ace.authorservices.security.service.TokenAuthenticationService;
-import com.wiley.gr.ace.authorservices.services.service.RegistrationService;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 
 /**
@@ -65,8 +64,6 @@ public class StatelessLoginFilter extends
 	private final TokenAuthenticationService tokenAuthenticationService;
 
 	private final UserLoginService userLoginService;
-
-	private final RegistrationService registrationService;
 
 	/** The unp. */
 	private UsernameAndPassword unp = null;
@@ -150,12 +147,11 @@ public class StatelessLoginFilter extends
 	public StatelessLoginFilter(final String urlMapping,
 			final TokenAuthenticationService tokenAuthenticationService,
 			final AuthenticationManager authenticationManager,
-			UserLoginService userLoginService,
-			RegistrationService registrationService) {
+			UserLoginService userLoginService) {
 		super(new AntPathRequestMatcher(urlMapping));
 		this.tokenAuthenticationService = tokenAuthenticationService;
 		setAuthenticationManager(authenticationManager);
-		this.registrationService = registrationService;
+		//this.registrationService = registrationService;
 		this.userLoginService = userLoginService;
 	}
 
