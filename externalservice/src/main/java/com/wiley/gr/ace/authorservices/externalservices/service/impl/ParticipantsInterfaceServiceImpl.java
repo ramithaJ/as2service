@@ -122,7 +122,7 @@ public class ParticipantsInterfaceServiceImpl implements
                         ParticipantGetResponse.class);
         return participantGetResponse.getParticipantList();
     }
-
+    
     /**
      * Gets the address.
      *
@@ -249,24 +249,6 @@ public class ParticipantsInterfaceServiceImpl implements
     }
 
     /**
-     * Search participant by email.
-     *
-     * @param email
-     *            the email
-     * @return the participant
-     */
-    @Override
-    public final Participant searchParticipantByEmail(final String email) {
-
-        final String participantSearchUrl = participantCrudUrl
-                .concat("?email=").concat(email);
-        ParticipantGetResponse participantGetResponse = (ParticipantGetResponse) RestServiceInvokerUtil
-                .getServiceData(participantSearchUrl,
-                        ParticipantGetResponse.class);
-        return participantGetResponse.getParticipantList().get(0);
-    }
-
-    /**
      * Update profile.
      *
      * @param profileEntity
@@ -359,15 +341,15 @@ public class ParticipantsInterfaceServiceImpl implements
         return participantGetResponse.getParticipantList().get(0);
     }
 
-    /** This method will call participatn service search by email */
-    @Override
-    public ParticipantGetResponse searchParticipanyByEmailId(
-            final String emailId) {
-        final String participantSearchUrl = participantCrudUrl
-                .concat("?email=").concat(emailId);
+
+	@Override
+	public Participant searchParticipantByEmailId(String userId) {
+		final String participantSearchUrl = participantCrudUrl
+                .concat("?email=").concat(userId);
         ParticipantGetResponse participantGetResponse = (ParticipantGetResponse) RestServiceInvokerUtil
                 .getServiceData(participantSearchUrl,
                         ParticipantGetResponse.class);
-        return participantGetResponse;
-    }
+        return (Participant)participantGetResponse.getParticipantList().get(0);
+	}
+
 }
