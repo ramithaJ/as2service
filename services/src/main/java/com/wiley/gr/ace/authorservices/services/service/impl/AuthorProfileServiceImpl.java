@@ -51,7 +51,7 @@ import com.wiley.gr.ace.authorservices.model.external.EntityValue;
 import com.wiley.gr.ace.authorservices.model.external.InterestList;
 import com.wiley.gr.ace.authorservices.model.external.JournalElement;
 import com.wiley.gr.ace.authorservices.model.external.Participant;
-import com.wiley.gr.ace.authorservices.model.external.ParticipantError;
+import com.wiley.gr.ace.authorservices.model.external.ParticipantErrorResponse;
 import com.wiley.gr.ace.authorservices.model.external.PasswordRequest;
 import com.wiley.gr.ace.authorservices.model.external.PasswordUpdate;
 import com.wiley.gr.ace.authorservices.model.external.PdhLookupJournalResponse;
@@ -236,7 +236,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             code = resposeEntity.getStatusCode().value();
             if (!code.equals(200)) {
                 isUpdated = false;
-                final ParticipantError participantError = (ParticipantError) resposeEntity
+                final ParticipantErrorResponse participantError = (ParticipantErrorResponse) resposeEntity
                         .getBody();
                 throw new ASException(participantError.getMessage());
             }
@@ -455,7 +455,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             isUpdated = true;
         } else {
             isUpdated = false;
-            final ParticipantError participantError = (ParticipantError) resposeEntity
+            final ParticipantErrorResponse participantError = (ParticipantErrorResponse) resposeEntity
                     .getBody();
             LOGGER.info("participant error " + participantError);
             throw new ASException();

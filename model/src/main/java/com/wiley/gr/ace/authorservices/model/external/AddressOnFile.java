@@ -168,7 +168,7 @@ public class AddressOnFile {
     /**
      * This field holds the value of ECID
      */
-    private String ECID;
+    private String eCID;
 
     /**
      * This field holds the value of billingCustomerName
@@ -183,9 +183,10 @@ public class AddressOnFile {
     }
 
     /**
-     * @param billingStreetLine1 the billingStreetLine1 to set
+     * @param billingStreetLine1
+     *            the billingStreetLine1 to set
      */
-    public final void setBillingStreetLine1(String billingStreetLine1) {
+    public final void setBillingStreetLine1(final String billingStreetLine1) {
         this.billingStreetLine1 = billingStreetLine1;
     }
 
@@ -197,9 +198,10 @@ public class AddressOnFile {
     }
 
     /**
-     * @param billingEmail the billingEmail to set
+     * @param billingEmail
+     *            the billingEmail to set
      */
-    public final void setBillingEmail(String billingEmail) {
+    public final void setBillingEmail(final String billingEmail) {
         this.billingEmail = billingEmail;
     }
 
@@ -211,9 +213,10 @@ public class AddressOnFile {
     }
 
     /**
-     * @param contactPhoneNumber the contactPhoneNumber to set
+     * @param contactPhoneNumber
+     *            the contactPhoneNumber to set
      */
-    public final void setContactPhoneNumber(String contactPhoneNumber) {
+    public final void setContactPhoneNumber(final String contactPhoneNumber) {
         this.contactPhoneNumber = contactPhoneNumber;
     }
 
@@ -225,9 +228,10 @@ public class AddressOnFile {
     }
 
     /**
-     * @param vatId the vatId to set
+     * @param vatId
+     *            the vatId to set
      */
-    public final void setVatId(String vatId) {
+    public final void setVatId(final String vatId) {
         this.vatId = vatId;
     }
 
@@ -239,9 +243,10 @@ public class AddressOnFile {
     }
 
     /**
-     * @param billingZipPostalCode the billingZipPostalCode to set
+     * @param billingZipPostalCode
+     *            the billingZipPostalCode to set
      */
-    public final void setBillingZipPostalCode(String billingZipPostalCode) {
+    public final void setBillingZipPostalCode(final String billingZipPostalCode) {
         this.billingZipPostalCode = billingZipPostalCode;
     }
 
@@ -253,9 +258,11 @@ public class AddressOnFile {
     }
 
     /**
-     * @param taxExemptionExpiryDate the taxExemptionExpiryDate to set
+     * @param taxExemptionExpiryDate
+     *            the taxExemptionExpiryDate to set
      */
-    public final void setTaxExemptionExpiryDate(String taxExemptionExpiryDate) {
+    public final void setTaxExemptionExpiryDate(
+            final String taxExemptionExpiryDate) {
         this.taxExemptionExpiryDate = taxExemptionExpiryDate;
     }
 
@@ -267,9 +274,10 @@ public class AddressOnFile {
     }
 
     /**
-     * @param billingPhoneNumber the billingPhoneNumber to set
+     * @param billingPhoneNumber
+     *            the billingPhoneNumber to set
      */
-    public final void setBillingPhoneNumber(String billingPhoneNumber) {
+    public final void setBillingPhoneNumber(final String billingPhoneNumber) {
         this.billingPhoneNumber = billingPhoneNumber;
     }
 
@@ -281,9 +289,10 @@ public class AddressOnFile {
     }
 
     /**
-     * @param contactStateProv the contactStateProv to set
+     * @param contactStateProv
+     *            the contactStateProv to set
      */
-    public final void setContactStateProv(String contactStateProv) {
+    public final void setContactStateProv(final String contactStateProv) {
         this.contactStateProv = contactStateProv;
     }
 
@@ -295,9 +304,10 @@ public class AddressOnFile {
     }
 
     /**
-     * @param taxExemption the taxExemption to set
+     * @param taxExemption
+     *            the taxExemption to set
      */
-    public final void setTaxExemption(String taxExemption) {
+    public final void setTaxExemption(final String taxExemption) {
         this.taxExemption = taxExemption;
     }
 
@@ -309,9 +319,10 @@ public class AddressOnFile {
     }
 
     /**
-     * @param billingCity the billingCity to set
+     * @param billingCity
+     *            the billingCity to set
      */
-    public final void setBillingCity(String billingCity) {
+    public final void setBillingCity(final String billingCity) {
         this.billingCity = billingCity;
     }
 
@@ -323,9 +334,10 @@ public class AddressOnFile {
     }
 
     /**
-     * @param contactInstitution the contactInstitution to set
+     * @param contactInstitution
+     *            the contactInstitution to set
      */
-    public final void setContactInstitution(String contactInstitution) {
+    public final void setContactInstitution(final String contactInstitution) {
         this.contactInstitution = contactInstitution;
     }
 
@@ -337,9 +349,10 @@ public class AddressOnFile {
     }
 
     /**
-     * @param billingCountry the billingCountry to set
+     * @param billingCountry
+     *            the billingCountry to set
      */
-    public final void setBillingCountry(String billingCountry) {
+    public final void setBillingCountry(final String billingCountry) {
         this.billingCountry = billingCountry;
     }
 
@@ -351,9 +364,10 @@ public class AddressOnFile {
     }
 
     /**
-     * @param contactCountry the contactCountry to set
+     * @param contactCountry
+     *            the contactCountry to set
      */
-    public final void setContactCountry(String contactCountry) {
+    public final void setContactCountry(final String contactCountry) {
         this.contactCountry = contactCountry;
     }
 
@@ -365,9 +379,10 @@ public class AddressOnFile {
     }
 
     /**
-     * @param contactEmail the contactEmail to set
+     * @param contactEmail
+     *            the contactEmail to set
      */
-    public final void setContactEmail(String contactEmail) {
+    public final void setContactEmail(final String contactEmail) {
         this.contactEmail = contactEmail;
     }
 
@@ -379,9 +394,10 @@ public class AddressOnFile {
     }
 
     /**
-     * @param billingInstitution the billingInstitution to set
+     * @param billingInstitution
+     *            the billingInstitution to set
      */
-    public final void setBillingInstitution(String billingInstitution) {
+    public final void setBillingInstitution(final String billingInstitution) {
         this.billingInstitution = billingInstitution;
     }
 
@@ -393,9 +409,10 @@ public class AddressOnFile {
     }
 
     /**
-     * @param billingStreetLine2 the billingStreetLine2 to set
+     * @param billingStreetLine2
+     *            the billingStreetLine2 to set
      */
-    public final void setBillingStreetLine2(String billingStreetLine2) {
+    public final void setBillingStreetLine2(final String billingStreetLine2) {
         this.billingStreetLine2 = billingStreetLine2;
     }
 
@@ -407,9 +424,10 @@ public class AddressOnFile {
     }
 
     /**
-     * @param billingStreetLine3 the billingStreetLine3 to set
+     * @param billingStreetLine3
+     *            the billingStreetLine3 to set
      */
-    public final void setBillingStreetLine3(String billingStreetLine3) {
+    public final void setBillingStreetLine3(final String billingStreetLine3) {
         this.billingStreetLine3 = billingStreetLine3;
     }
 
@@ -421,9 +439,10 @@ public class AddressOnFile {
     }
 
     /**
-     * @param contactCity the contactCity to set
+     * @param contactCity
+     *            the contactCity to set
      */
-    public final void setContactCity(String contactCity) {
+    public final void setContactCity(final String contactCity) {
         this.contactCity = contactCity;
     }
 
@@ -435,9 +454,11 @@ public class AddressOnFile {
     }
 
     /**
-     * @param billingCustomerNameExt the billingCustomerNameExt to set
+     * @param billingCustomerNameExt
+     *            the billingCustomerNameExt to set
      */
-    public final void setBillingCustomerNameExt(String billingCustomerNameExt) {
+    public final void setBillingCustomerNameExt(
+            final String billingCustomerNameExt) {
         this.billingCustomerNameExt = billingCustomerNameExt;
     }
 
@@ -449,9 +470,10 @@ public class AddressOnFile {
     }
 
     /**
-     * @param contactStreetLine3 the contactStreetLine3 to set
+     * @param contactStreetLine3
+     *            the contactStreetLine3 to set
      */
-    public final void setContactStreetLine3(String contactStreetLine3) {
+    public final void setContactStreetLine3(final String contactStreetLine3) {
         this.contactStreetLine3 = contactStreetLine3;
     }
 
@@ -463,9 +485,10 @@ public class AddressOnFile {
     }
 
     /**
-     * @param accountIDPart2 the accountIDPart2 to set
+     * @param accountIDPart2
+     *            the accountIDPart2 to set
      */
-    public final void setAccountIDPart2(String accountIDPart2) {
+    public final void setAccountIDPart2(final String accountIDPart2) {
         this.accountIDPart2 = accountIDPart2;
     }
 
@@ -477,9 +500,10 @@ public class AddressOnFile {
     }
 
     /**
-     * @param accountIDPart1 the accountIDPart1 to set
+     * @param accountIDPart1
+     *            the accountIDPart1 to set
      */
-    public final void setAccountIDPart1(String accountIDPart1) {
+    public final void setAccountIDPart1(final String accountIDPart1) {
         this.accountIDPart1 = accountIDPart1;
     }
 
@@ -491,9 +515,10 @@ public class AddressOnFile {
     }
 
     /**
-     * @param contactStreetLine1 the contactStreetLine1 to set
+     * @param contactStreetLine1
+     *            the contactStreetLine1 to set
      */
-    public final void setContactStreetLine1(String contactStreetLine1) {
+    public final void setContactStreetLine1(final String contactStreetLine1) {
         this.contactStreetLine1 = contactStreetLine1;
     }
 
@@ -505,9 +530,10 @@ public class AddressOnFile {
     }
 
     /**
-     * @param contactDepartment the contactDepartment to set
+     * @param contactDepartment
+     *            the contactDepartment to set
      */
-    public final void setContactDepartment(String contactDepartment) {
+    public final void setContactDepartment(final String contactDepartment) {
         this.contactDepartment = contactDepartment;
     }
 
@@ -519,9 +545,10 @@ public class AddressOnFile {
     }
 
     /**
-     * @param contactStreetLine2 the contactStreetLine2 to set
+     * @param contactStreetLine2
+     *            the contactStreetLine2 to set
      */
-    public final void setContactStreetLine2(String contactStreetLine2) {
+    public final void setContactStreetLine2(final String contactStreetLine2) {
         this.contactStreetLine2 = contactStreetLine2;
     }
 
@@ -533,9 +560,10 @@ public class AddressOnFile {
     }
 
     /**
-     * @param billingDepartment the billingDepartment to set
+     * @param billingDepartment
+     *            the billingDepartment to set
      */
-    public final void setBillingDepartment(String billingDepartment) {
+    public final void setBillingDepartment(final String billingDepartment) {
         this.billingDepartment = billingDepartment;
     }
 
@@ -547,9 +575,10 @@ public class AddressOnFile {
     }
 
     /**
-     * @param contactName the contactName to set
+     * @param contactName
+     *            the contactName to set
      */
-    public final void setContactName(String contactName) {
+    public final void setContactName(final String contactName) {
         this.contactName = contactName;
     }
 
@@ -561,9 +590,10 @@ public class AddressOnFile {
     }
 
     /**
-     * @param contactZipPostalCode the contactZipPostalCode to set
+     * @param contactZipPostalCode
+     *            the contactZipPostalCode to set
      */
-    public final void setContactZipPostalCode(String contactZipPostalCode) {
+    public final void setContactZipPostalCode(final String contactZipPostalCode) {
         this.contactZipPostalCode = contactZipPostalCode;
     }
 
@@ -575,9 +605,10 @@ public class AddressOnFile {
     }
 
     /**
-     * @param billingStateProv the billingStateProv to set
+     * @param billingStateProv
+     *            the billingStateProv to set
      */
-    public final void setBillingStateProv(String billingStateProv) {
+    public final void setBillingStateProv(final String billingStateProv) {
         this.billingStateProv = billingStateProv;
     }
 
@@ -589,9 +620,10 @@ public class AddressOnFile {
     }
 
     /**
-     * @param vatExemptionNumber the vatExemptionNumber to set
+     * @param vatExemptionNumber
+     *            the vatExemptionNumber to set
      */
-    public final void setVatExemptionNumber(String vatExemptionNumber) {
+    public final void setVatExemptionNumber(final String vatExemptionNumber) {
         this.vatExemptionNumber = vatExemptionNumber;
     }
 
@@ -599,14 +631,15 @@ public class AddressOnFile {
      * @return the eCID
      */
     public final String getECID() {
-        return ECID;
+        return eCID;
     }
 
     /**
-     * @param eCID the eCID to set
+     * @param eCID
+     *            the eCID to set
      */
-    public final void setECID(String eCID) {
-        ECID = eCID;
+    public final void setECID(final String eCID) {
+        this.eCID = eCID;
     }
 
     /**
@@ -617,12 +650,11 @@ public class AddressOnFile {
     }
 
     /**
-     * @param billingCustomerName the billingCustomerName to set
+     * @param billingCustomerName
+     *            the billingCustomerName to set
      */
-    public final void setBillingCustomerName(String billingCustomerName) {
+    public final void setBillingCustomerName(final String billingCustomerName) {
         this.billingCustomerName = billingCustomerName;
     }
-    
-    
 
 }

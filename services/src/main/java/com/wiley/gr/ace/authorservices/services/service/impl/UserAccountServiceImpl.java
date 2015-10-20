@@ -36,7 +36,7 @@ import com.wiley.gr.ace.authorservices.model.external.AddressValidationRequest;
 import com.wiley.gr.ace.authorservices.model.external.AddressesData;
 import com.wiley.gr.ace.authorservices.model.external.Participant;
 import com.wiley.gr.ace.authorservices.model.external.ParticipantAddress;
-import com.wiley.gr.ace.authorservices.model.external.ParticipantError;
+import com.wiley.gr.ace.authorservices.model.external.ParticipantErrorResponse;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
 import com.wiley.gr.ace.authorservices.services.service.UserAccountService;
 
@@ -214,7 +214,7 @@ public class UserAccountServiceImpl implements UserAccountService {
                     isUpdated = true;
                 } else {
                     isUpdated = false;
-                    final ParticipantError participantError = (ParticipantError) resposeEntity
+                    final ParticipantErrorResponse participantError = (ParticipantErrorResponse) resposeEntity
                             .getBody();
                     LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE,
                             participantError);
