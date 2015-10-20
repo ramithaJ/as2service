@@ -35,20 +35,6 @@ public class TokenAuthenticationService {
     @Autowired
     private TokenHandler tokenHandler;
 
-//    /** This field holds the value of sendNotification. */
-//    @Autowired(required = true)
-//    private SendNotification sendNotification;
-
-//    /** The template id. */
-//    @Value("${templateId.invalid.login}")
-//    private String templateId;
-//
-//    /**
-//     * This field holds the value of userLoginServiceDAO.
-//     */
-//    @Autowired
-//    private UserLoginDao userLoginDao;
-
     /**
      * Authenticate.
      *
@@ -63,10 +49,6 @@ public class TokenAuthenticationService {
         final String authenticationToken = tokenHandler
                 .invokeTokenAuthorization(username, password);
         if (StringUtils.isBlank(authenticationToken)) {
-//            final Users users = userLoginDao.verifyUser(username);
-//            if (null != users) {
-//                sendNotification.notifyByEmail(username, templateId);
-//            }
             return null;
         }
         final User user = new User(username, StringUtils.EMPTY,
@@ -130,7 +112,6 @@ public class TokenAuthenticationService {
         if (null == cookie) {
             cookie = new Cookie(authenticationCookieName,
                     tokenAuthentication.getToken());
-            // cookie.setPath(request.getContextPath());
             cookie.setPath("/");
             cookie.setHttpOnly(false);
         } else {

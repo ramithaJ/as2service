@@ -28,6 +28,8 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The Class AuthorServicesUtil.
@@ -35,6 +37,24 @@ import org.apache.commons.codec.binary.Base64;
  * @author virtusa version 1.0
  */
 public class AuthorServicesUtil {
+
+    /**
+     * This field holds the value of LOGGER
+     */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(AuthorServicesUtil.class);
+
+    /**
+     * This field holds the value of PRINTSTACKTRACE
+     */
+    private static final String PRINTSTACKTRACE = "Print Stack Trace-";
+
+    /**
+     * constructor.
+     */
+    private AuthorServicesUtil() {
+
+    }
 
     /**
      * Read stream.
@@ -56,10 +76,10 @@ public class AuthorServicesUtil {
                 }
                 out.append(buffer, 0, rsz);
             }
-        } catch (UnsupportedEncodingException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            LOGGER.error(PRINTSTACKTRACE, e);
+        } catch (IOException e) {
+            LOGGER.error(PRINTSTACKTRACE, e);
         }
         return out.toString();
     }
@@ -79,7 +99,7 @@ public class AuthorServicesUtil {
         } catch (IllegalBlockSizeException | BadPaddingException
                 | NoSuchAlgorithmException | NoSuchPaddingException
                 | InvalidKeyException e) {
-            e.printStackTrace();
+            LOGGER.error(PRINTSTACKTRACE, e);
         }
         String encryptedValue = new Base64().encodeAsString(encVal);
         return encryptedValue;
@@ -101,7 +121,7 @@ public class AuthorServicesUtil {
         } catch (IllegalBlockSizeException | BadPaddingException
                 | NoSuchAlgorithmException | NoSuchPaddingException
                 | InvalidKeyException e) {
-            e.printStackTrace();
+            LOGGER.error(PRINTSTACKTRACE, e);
         }
 
         return new String(decVal);

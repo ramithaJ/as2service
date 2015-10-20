@@ -52,7 +52,7 @@ public class TokenAuthentication implements Authentication {
      * @see org.springframework.security.core.Authentication#getAuthorities()
      */
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+    public Collection<GrantedAuthority> getAuthorities() {
         return user.getAuthorities();
     }
 

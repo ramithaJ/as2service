@@ -98,9 +98,6 @@ public class ASException extends RuntimeException {
         this.t = t;
     }
 
-    /**
-     * TODO Auto-generated constructor stub.
-     */
     public ASException() {
 
     }

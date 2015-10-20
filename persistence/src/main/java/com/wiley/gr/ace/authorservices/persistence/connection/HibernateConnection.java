@@ -29,7 +29,7 @@ public class HibernateConnection {
             .getLogger(HibernateConnection.class);
 
     /** The Constant sessionFactory. */
-    private static final SessionFactory sessionFactory = buildSessionFactory();
+    private static final SessionFactory SESSIONFACTORY = buildSessionFactory();
 
     /**
      * Builds the session factory.
@@ -56,7 +56,7 @@ public class HibernateConnection {
      * @return the session factory
      */
     public static SessionFactory getSessionFactory() {
-        return sessionFactory;
+        return SESSIONFACTORY;
     }
 
     /**

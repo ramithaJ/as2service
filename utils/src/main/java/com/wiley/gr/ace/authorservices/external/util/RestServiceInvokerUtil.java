@@ -25,19 +25,14 @@ import java.net.URL;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
-import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.exception.UserException;
-import com.wiley.gr.ace.authorservices.model.Login;
 import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
-import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
 
 /**
  * The Class RestServiceInvokerUtil.
@@ -49,53 +44,7 @@ public class RestServiceInvokerUtil {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(RestServiceInvokerUtil.class);
 
-    /**
-     * Invoke service.
-     *
-     * @param url
-     *            the url
-     * @param httpMethod
-     *            the http method
-     * @param className
-     *            the class name
-     * @param postObject
-     *            the post object
-     * @return the string
-     * @throws URISyntaxException
-     * @throws RestClientException
-     */
-    public static String invokeService(final String url,
-            final HttpMethod httpMethod, final String className,
-            final Object postObject) throws ASException, RestClientException,
-            URISyntaxException {
-
-        final RestTemplate restTemplate = new RestTemplate();
-
-        ResponseEntity<SecurityResponse> response = null;
-        if (className.equals("Login")) {
-            final JSONObject jsonObject = new JSONObject();
-            final Login loginData = (Login) postObject;
-            jsonObject.put("userId", loginData.getEmailId());
-            jsonObject.put("password", loginData.getPassword());
-            jsonObject.put("authenticationType", "AD");
-            jsonObject.put("appKey", "AS");
-
-            response = restTemplate.postForEntity(new URI(url), jsonObject,
-                    SecurityResponse.class);
-            System.err.println(response.getBody().getStatus());
-        }
-
-        if (response != null) {
-            if ("FAILURE".equalsIgnoreCase(response.getBody().getStatus())) {
-                throw new ASException(AuthorServicesConstants.INVALIDEMAILCODE,
-                        AuthorServicesConstants.INVALIDEMAILMSG);
-            } else {
-                return response.getHeaders().getFirst("X-AS2-AUTH-TOKEN");
-            }
-
-        } else {
-            return null;
-        }
+    private RestServiceInvokerUtil() {
 
     }
 
@@ -113,13 +62,13 @@ public class RestServiceInvokerUtil {
     public static <T> Object getServiceData(final String url,
             final Class<T> responseEntityClass) {
 
-        LOGGER.info("Calling service:::" + url);
+        LOGGER.info("Calling service:::");
         try {
             final ResponseEntity<T> response = new RestTemplate().getForEntity(
                     new URI(url), responseEntityClass);
             return response.getBody();
         } catch (final URISyntaxException e) {
-            LOGGER.error("Exception while calling service:::" + url + ":::", e);
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
             throw new UserException(AuthorServicesConstants.SERVERERRORCODE,
                     AuthorServicesConstants.SERVERERRORMESSAGE);
         }
@@ -153,6 +102,7 @@ public class RestServiceInvokerUtil {
             return response.getBody();
 
         } catch (final Exception e) {
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
             final String message = e.getMessage();
             if (AuthorServicesConstants.UNAUTHORIZEDMSG
                     .equalsIgnoreCase(message)) {
@@ -186,6 +136,7 @@ public class RestServiceInvokerUtil {
             new RestTemplate().put(new URI(url), requestEntity);
 
         } catch (final URISyntaxException e) {
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
             throw new UserException(AuthorServicesConstants.SERVERERRORCODE,
                     AuthorServicesConstants.SERVERERRORMESSAGE);
         }
@@ -203,6 +154,7 @@ public class RestServiceInvokerUtil {
             new RestTemplate().delete(new URI(url));
 
         } catch (final URISyntaxException e) {
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
             throw new UserException(AuthorServicesConstants.SERVERERRORCODE,
                     AuthorServicesConstants.SERVERERRORMESSAGE);
         }
@@ -230,7 +182,8 @@ public class RestServiceInvokerUtil {
             final Integer responseCode = 200;
             final Integer code = conn.getResponseCode();
             if (code.intValue() != responseCode) {
-                throw new RuntimeException("Failed : HTTP error code : " + code);
+                throw new UserException("Failed : HTTP error code : ",
+                        String.valueOf(code));
             }
 
             final BufferedReader bufferedReader = new BufferedReader(
@@ -246,13 +199,13 @@ public class RestServiceInvokerUtil {
             conn.disconnect();
 
         } catch (final MalformedURLException e) {
-
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
             throw new UserException(
                     AuthorServicesConstants.INTERNAL_SERVER_ERROR,
                     e.getMessage());
 
         } catch (final IOException e) {
-
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
             throw new UserException(
                     AuthorServicesConstants.INTERNAL_SERVER_ERROR,
                     e.getMessage());
@@ -266,6 +219,7 @@ public class RestServiceInvokerUtil {
             esbResponse = mapper.readValue(responseJSON.toString(),
                     ESBResponse.class);
         } catch (final IOException e) {
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
             throw new UserException(
                     AuthorServicesConstants.INTERNAL_SERVER_ERROR,
                     e.getMessage());
@@ -291,7 +245,7 @@ public class RestServiceInvokerUtil {
 
         } catch (final Exception e) {
 
-            e.printStackTrace();
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
         }
 
         new RestTemplate().delete(url, requestEntityClass);

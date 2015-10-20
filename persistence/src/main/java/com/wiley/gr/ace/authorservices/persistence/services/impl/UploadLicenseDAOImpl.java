@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.persistence.entity.LicenseUploadDetails;
 import com.wiley.gr.ace.authorservices.persistence.entity.SavedLicenses;
@@ -91,6 +92,7 @@ public class UploadLicenseDAOImpl implements UploadLicenseDAO {
                     isUpdated = true;
                 }
             } catch (Exception e) {
+                LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
                 session.getTransaction().rollback();
                 isUpdated = false;
                 throw new UserException();

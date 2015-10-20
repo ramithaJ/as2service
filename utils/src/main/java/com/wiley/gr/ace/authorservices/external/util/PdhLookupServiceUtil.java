@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.model.PdhArticleData;
 import com.wiley.gr.ace.authorservices.model.PdhJournalData;
 import com.wiley.gr.ace.authorservices.model.Prices;
@@ -32,6 +36,19 @@ import com.wiley.gr.ace.authorservices.model.external.Title;
 public class PdhLookupServiceUtil {
 
     /**
+     * This field holds the value of LOGGER
+     */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(PdhLookupServiceUtil.class);
+
+    /**
+     * constructor.
+     */
+    private PdhLookupServiceUtil() {
+
+    }
+
+    /**
      * Lookup.
      *
      * @param xml
@@ -40,22 +57,31 @@ public class PdhLookupServiceUtil {
      * @throws Exception
      *             the exception
      */
-    public static Object lookup(String xml) throws Exception {
-        PdhModel model = (PdhModel) XmlUnmarshaller.unmarshall(xml,
-                PdhModel.class);
+    public static Object lookup(final String xml) {
+
         Object unmarshedObject = null;
-        List<Identifier> identifierList = model.getProductEntities()
-                .getIdentifier();
-        for (Identifier identifier : identifierList) {
-            if ("ARTICLE_IDENTIFIER".equalsIgnoreCase(identifier.getDhTypeCd())) {
-                unmarshedObject = (PdhLookupArticle) XmlUnmarshaller
-                        .unmarshall(xml, PdhLookupArticle.class);
-            } else if ("JOURNAL_CODE"
-                    .equalsIgnoreCase(identifier.getDhTypeCd())) {
-                unmarshedObject = (PdhLookupJournal) XmlUnmarshaller
-                        .unmarshall(xml, PdhLookupJournal.class);
+        try {
+            PdhModel model = (PdhModel) XmlUnmarshaller.unmarshall(xml,
+                    PdhModel.class);
+
+            List<Identifier> identifierList = model.getProductEntities()
+                    .getIdentifier();
+            for (Identifier identifier : identifierList) {
+                if ("ARTICLE_IDENTIFIER".equalsIgnoreCase(identifier
+                        .getDhTypeCd())) {
+                    unmarshedObject = XmlUnmarshaller.unmarshall(xml,
+                            PdhLookupArticle.class);
+                } else if ("JOURNAL_CODE".equalsIgnoreCase(identifier
+                        .getDhTypeCd())) {
+                    unmarshedObject = XmlUnmarshaller.unmarshall(xml,
+                            PdhLookupJournal.class);
+                }
             }
+        } catch (Exception e) {
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+            throw new UserException();
         }
+
         return unmarshedObject;
     }
 
@@ -69,10 +95,10 @@ public class PdhLookupServiceUtil {
     public static Object invokePdhLookupData(final Object pdhLookupObject) {
         if (pdhLookupObject instanceof PdhLookupArticle) {
             PdhLookupArticle pdhLookupArticle = (PdhLookupArticle) pdhLookupObject;
-            return (Object) parsePdhArticleData(pdhLookupArticle);
+            return parsePdhArticleData(pdhLookupArticle);
         } else {
             PdhLookupJournal pdhLookupJournal = (PdhLookupJournal) pdhLookupObject;
-            return (Object) parsePdhJournalData(pdhLookupJournal);
+            return parsePdhJournalData(pdhLookupJournal);
         }
     }
 

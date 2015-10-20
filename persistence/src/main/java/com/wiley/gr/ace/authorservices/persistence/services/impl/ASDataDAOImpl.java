@@ -13,7 +13,6 @@ package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
 import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -57,172 +56,6 @@ public class ASDataDAOImpl implements ASDataDAO {
             }
         }
     }
-
-//    /**
-//     * This method gets the List of Roles of User from AS 2.0 DB.
-//     * 
-//     * @param roleId
-//     *            to Retrieve.
-//     * @return the List of Roles.
-//     */
-//    @SuppressWarnings("unchecked")
-//    @Override
-//    public final List<Roles> getUserRoles(final String roleId) {
-//
-//        Session session = null;
-//        List<Roles> list = null;
-//        String hql = null;
-//
-//        try {
-//
-//            session = getSessionFactory().openSession();
-//
-//            if (roleId == null) {
-//
-//                hql = "from Roles";
-//                list = session.createQuery(hql).list();
-//
-//            } else {
-//                hql = "from Roles where roleId = :roleId";
-//                list = session.createQuery(hql).setString("roleId", roleId)
-//                        .list();
-//            }
-//
-//        } finally {
-//            if (session != null) {
-//                session.flush();
-//                session.close();
-//            }
-//        }
-//
-//        return list;
-//    }
-//
-//    /**
-//     * This method gets the List of Roles of Admin from AS 2.0 DB.
-//     * 
-//     * @param roleType
-//     *            to Retrieve.
-//     * @return the List of Roles.
-//     */
-//    @SuppressWarnings("unchecked")
-//    @Override
-//    public final List<Roles> getAdminRoles(final String roleType) {
-//
-//        Session session = null;
-//        List<Roles> list = null;
-//        String hql = null;
-//        try {
-//
-//            session = getSessionFactory().openSession();
-//
-//            if (roleType == null) {
-//
-//                hql = "from Roles";
-//                list = session.createQuery(hql).list();
-//
-//            } else {
-//                hql = "from Roles where roleType = :roleType";
-//                list = session.createQuery(hql).setString("roleType", roleType)
-//                        .list();
-//            }
-//
-//        } finally {
-//            if (session != null) {
-//                session.flush();
-//                session.close();
-//            }
-//        }
-//
-//        return list;
-//    }
-//
-//    /**
-//     * This method gets all the permissions from AS 2.0 DB.
-//     * 
-//     * @return the List of Permissions.
-//     */
-//    @SuppressWarnings("unchecked")
-//    @Override
-//    public final List<Permissions> getPermissions() {
-//
-//        Session session = null;
-//        List<Permissions> list = null;
-//
-//        try {
-//
-//            session = getSessionFactory().openSession();
-//
-//            String hql = "from Permissions";
-//
-//            list = session.createQuery(hql).list();
-//
-//        } finally {
-//            if (session != null) {
-//                session.flush();
-//                session.close();
-//            }
-//        }
-//
-//        return list;
-//    }
-//
-//    /**
-//     * This method gets the Role Permissions Mappings for all roles from AS 2.0
-//     * DB.
-//     * 
-//     * @param roleId
-//     *            to Retrieve.
-//     * @return the List of Role Permissions.
-//     */
-//    @SuppressWarnings("unchecked")
-//    @Override
-//    public final List<RolePermissions> getRolePermissionMappings(
-//            final String roleId) {
-//
-//        Session session = null;
-//        List<Object[]> list = null;
-//        List<RolePermissions> returnList = new ArrayList<RolePermissions>();
-//
-//        try {
-//
-//            session = getSessionFactory().openSession();
-//
-//            if (roleId == null) {
-//
-//                Query query = session
-//                        .createSQLQuery("select * from role_permissions");
-//                list = query.list();
-//
-//            } else {
-//
-//                Query query = session
-//                        .createSQLQuery(
-//                                "select * from role_permissions where role_id = :roleId")
-//                        .setParameter("roleId", roleId);
-//                list = query.list();
-//            }
-//
-//            for (Object[] object : list) {
-//
-//                RolePermissions rolePermissions = new RolePermissions();
-//                RolePermissionsId rolePermissionsId = new RolePermissionsId();
-//                rolePermissionsId.setRoleId(Integer.parseInt(object[0]
-//                        .toString()));
-//                rolePermissionsId.setPermissionCd(object[1].toString());
-//                rolePermissions.setId(rolePermissionsId);
-//                returnList.add(rolePermissions);
-//            }
-//
-//        } finally {
-//            if (session != null) {
-//                session.flush();
-//                session.close();
-//            }
-//        }
-//
-//        return returnList;
-//    }
 
     /**
      * This method gets the count of Roles.
@@ -283,13 +116,12 @@ public class ASDataDAOImpl implements ASDataDAO {
     @Override
     public final List<Societies> getSociety() {
         Session session = null;
-        ArrayList<Societies> societyList = null;
+        List<Societies> societyList = null;
 
         try {
             session = getSessionFactory().openSession();
 
-            societyList = (ArrayList<Societies>) session.createCriteria(
-                    Societies.class).list();
+            societyList = session.createCriteria(Societies.class).list();
 
         } finally {
             if (null != session) {

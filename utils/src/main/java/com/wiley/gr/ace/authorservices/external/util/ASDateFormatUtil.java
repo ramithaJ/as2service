@@ -16,6 +16,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 
 /**
@@ -23,6 +26,19 @@ import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
  *
  */
 public class ASDateFormatUtil {
+
+    /**
+     * This field holds the value of LOGGER
+     */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(ASDateFormatUtil.class);
+
+    /**
+     * constructor.
+     */
+    private ASDateFormatUtil() {
+
+    }
 
     /**
      * @param longDate
@@ -56,7 +72,7 @@ public class ASDateFormatUtil {
             }
 
         } catch (ParseException e) {
-            e.printStackTrace();
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
         }
 
         return dateasLong.toString();

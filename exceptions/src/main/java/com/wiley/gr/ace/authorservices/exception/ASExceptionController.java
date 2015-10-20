@@ -39,7 +39,17 @@ public class ASExceptionController {
     /**
      * This field holds the value of internalErrorCode.
      */
-    public static final String internalErrorCode = "UNABLE_PROCESS_REQ_ERR_TEXT";
+    public static final String INTERNALERRORCODE = "UNABLE_PROCESS_REQ_ERR_TEXT";
+
+    /**
+     * This field holds the value of PRINTSTACKTRACE
+     */
+    private static final String PRINTSTACKTRACE = "Print Stack Trace-";
+
+    /**
+     * This field holds the value of FAILURE
+     */
+    private static final String FAILURE = "FAILURE";
 
     /**
      * This method is used to handle ASException.
@@ -54,11 +64,11 @@ public class ASExceptionController {
     @ResponseBody
     public final Service handleASException(final ASException asException) {
 
-        LOGGER.info("Inside ASException Controller");
+        LOGGER.info("Inside handleASException metod");
 
         Service response = new Service();
         LOGGER.error("Error Trace - ", asException);
-        response.setStatus("FAILURE");
+        response.setStatus(FAILURE);
         ErrorPOJO errorPojo = new ErrorPOJO();
         String errorCode = asException.getErrorCode();
         if (errorCode != null && !errorCode.isEmpty()) {
@@ -82,13 +92,12 @@ public class ASExceptionController {
     @ResponseBody
     public final Service handleException(final Exception exception) {
 
-        LOGGER.info("Inside ASException Controller");
-        exception.printStackTrace();
+        LOGGER.info("Inside handleException method");
+        LOGGER.error(PRINTSTACKTRACE, exception);
         Service response = new Service();
-        LOGGER.error("Initial SessionFactory creation failed.", exception);
-        response.setStatus("FAILURE");
+        response.setStatus(FAILURE);
         ErrorPOJO errorPojo = new ErrorPOJO();
-        errorPojo.setCode(internalErrorCode);
+        errorPojo.setCode(INTERNALERRORCODE);
         errorPojo.setMessage(exception.getMessage());
         response.setError(errorPojo);
 
@@ -108,10 +117,10 @@ public class ASExceptionController {
     @ResponseBody
     public final Service handleUserException(final UserException userException) {
 
-        LOGGER.info("Inside ASException Controller");
+        LOGGER.info("Inside handleUserException method");
         Service response = new Service();
         LOGGER.error("Error Trace - ", userException);
-        response.setStatus("FAILURE");
+        response.setStatus(FAILURE);
         ErrorPOJO errorPojo = new ErrorPOJO();
         String errorCode = userException.getErrorCode();
         if (errorCode != null && !errorCode.isEmpty()) {
@@ -126,13 +135,13 @@ public class ASExceptionController {
     @ExceptionHandler(LicenseException.class)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public final Service handleLicenseException(final LicenseException licenseException) {
+    public final Service handleLicenseException(
+            final LicenseException licenseException) {
 
-        LOGGER.info("Inside ASException Controller");
-        System.err.println("*************************************************");
+        LOGGER.info("Inside handleLicenseException method");
         Service response = new Service();
-        LOGGER.error("Error Trace - ", licenseException);
-        response.setStatus("FAILURE");
+        LOGGER.error(PRINTSTACKTRACE, licenseException);
+        response.setStatus(FAILURE);
         ErrorPOJO errorPojo = new ErrorPOJO();
         String errorCode = licenseException.getErrorKey();
         if (errorCode != null && !errorCode.isEmpty()) {
@@ -143,5 +152,5 @@ public class ASExceptionController {
         return response;
 
     }
-    
+
 }

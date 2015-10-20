@@ -36,7 +36,8 @@ import com.wiley.gr.ace.authorservices.security.TokenAuthentication;
 public class TokenHandler {
 
     /** The logger. */
-    private static Logger LOGGER = LoggerFactory.getLogger(TokenHandler.class);
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(TokenHandler.class);
 
     /** The authentication token header name. */
     @Value("${authentication.service.token.header.name}")
@@ -68,7 +69,7 @@ public class TokenHandler {
 
     /** User locked message. */
     @Value("${authentication.service.user.locked.message}")
-    private final String userLockedMessage = "423 Locked";
+    private static final String userLockedMessage = "423 Locked";
 
     /** The rest template. */
     @Autowired
@@ -142,7 +143,7 @@ public class TokenHandler {
      *            the token
      * @return the token authentication
      */
-    public TokenAuthentication validateAndRefresh(String token) {
+    public TokenAuthentication validateAndRefresh(final String token) {
         if (StringUtils.isBlank(token)) {
             return null;
         }
@@ -160,15 +161,15 @@ public class TokenHandler {
                 || responseEntity.getStatusCode() != HttpStatus.CREATED) {
             return null;
         }
-
-        token = responseEntity.getHeaders().getFirst(
+        String tokenValue = null;
+        tokenValue = responseEntity.getHeaders().getFirst(
                 authenticationTokenHeaderName);
 
-        final User user = parseUser(token);
+        final User user = parseUser(tokenValue);
         if (user == null) {
             return null;
         }
-        return new TokenAuthentication(token, user);
+        return new TokenAuthentication(tokenValue, user);
     }
 
     /**

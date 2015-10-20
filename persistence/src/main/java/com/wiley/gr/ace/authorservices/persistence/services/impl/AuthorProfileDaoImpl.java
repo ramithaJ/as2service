@@ -22,6 +22,7 @@ import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.UserProfile;
@@ -129,6 +130,7 @@ public class AuthorProfileDaoImpl implements AuthorProfileDao {
             session.getTransaction().commit();
             isDeleted = true;
         } catch (Exception e) {
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
             session.getTransaction().rollback();
             throw new UserException();
         } finally {

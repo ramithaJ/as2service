@@ -251,7 +251,7 @@ public class PersistenceBeanConfig {
      * @return the collect article dao
      */
     @Bean(name = "CollectArticleDAO")
-    public CollectArticleDAO CollectArticleDAO() {
+    public CollectArticleDAO collectArticleDAO() {
         return new CollectArticleDAOImpl();
     }
 
