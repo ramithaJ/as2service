@@ -139,7 +139,7 @@ public class OrderServiceImpl implements OrderService {
 	 * Method to call PDHLookupJournal external service.
 	 */
 	@Override
-	public final PdhJournalResponse pdhLookUpJournal(final Integer dhId) {
+	public final PdhJournalResponse pdhLookUpJournal(final Integer dhid) {
 
 		return (PdhJournalResponse) StubInvokerUtil.invokeJsonStub(
 				lookupjournalurl, HttpMethod.POST, PdhJournalResponse.class);
@@ -149,7 +149,7 @@ public class OrderServiceImpl implements OrderService {
 	 * Method to call PDHLookupArticle external service.
 	 */
 	@Override
-	public final PdhArticleResponse pdhLookUpArticle(final Integer dhId) {
+	public final PdhArticleResponse pdhLookUpArticle(final Integer dhid) {
 
 		return (PdhArticleResponse) StubInvokerUtil.invokeJsonStub(
 				lookuparticleurl, HttpMethod.POST, PdhArticleResponse.class);
@@ -199,10 +199,10 @@ public class OrderServiceImpl implements OrderService {
 	 * @return SocietyMemberDiscount
 	 */
 	@Override
-	public SocietyMemberDiscount getSocietyMemberDiscount(String dhId) {
+	public SocietyMemberDiscount getSocietyMemberDiscount(String dhid) {
 
 		return (SocietyMemberDiscount) StubInvokerUtil.restGetServiceInvoker(
-				societyMemberDiscountsurl + dhId, SocietyMemberDiscount.class);
+				societyMemberDiscountsurl + dhid, SocietyMemberDiscount.class);
 	}
 
 	/**

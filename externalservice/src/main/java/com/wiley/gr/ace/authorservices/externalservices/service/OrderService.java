@@ -50,20 +50,21 @@ public interface OrderService {
     OrderResponse submitOnlineOpenOrder(OrderRequest orderRequest);
 
     /**
-     * @param DHId
+     * @param dhid
      * @return PdhJournalResponse
      */
-    PdhJournalResponse pdhLookUpJournal(Integer DHId);
+    PdhJournalResponse pdhLookUpJournal(Integer dhid);
 
     /**
-     * @param DHId
+     * @param dhid
      * @return PdhArticleResponse
      */
-    PdhArticleResponse pdhLookUpArticle(Integer DHId);
+    PdhArticleResponse pdhLookUpArticle(Integer dhid);
 
     /**
-     * @param articleId
-     * @return Quote
+     *
+     * @param quoteRequest
+     * @return
      */
     Quote getQuote(QuoteRequest quoteRequest);
 
@@ -81,7 +82,7 @@ public interface OrderService {
     /**
      * @return SocietyMemberDiscount
      */
-    SocietyMemberDiscount getSocietyMemberDiscount(String DHID);
+    SocietyMemberDiscount getSocietyMemberDiscount(String dhid);
 
     /**
      * @return InstitutionDiscounts

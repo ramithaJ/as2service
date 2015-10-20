@@ -1,56 +1,52 @@
-/*******************************************************************************
- * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
- *
- * All material contained herein is proprietary to John Wiley & Sons 
- * and its third party suppliers, if any. The methods, techniques and 
- * technical concepts contained herein are considered trade secrets 
- * and confidential and may be protected by intellectual property laws.  
- * Reproduction or distribution of this material, in whole or in part, 
- * is strictly forbidden except by express prior written permission 
- * of John Wiley & Sons.
- *******************************************************************************/
 /**
- * 
+ * ****************************************************************************
+ * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
+ * <p>
+ * All material contained herein is proprietary to John Wiley & Sons
+ * and its third party suppliers, if any. The methods, techniques and
+ * technical concepts contained herein are considered trade secrets
+ * and confidential and may be protected by intellectual property laws.
+ * Reproduction or distribution of this material, in whole or in part,
+ * is strictly forbidden except by express prior written permission
+ * of John Wiley & Sons.
+ * *****************************************************************************
+ */
+/**
+ *
  */
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
-
-import java.nio.charset.StandardCharsets;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.ParticipantsInterfaceService;
-import com.wiley.gr.ace.authorservices.model.external.AddressData;
-import com.wiley.gr.ace.authorservices.model.external.AddressMapper;
-import com.wiley.gr.ace.authorservices.model.external.AlertRequest;
-import com.wiley.gr.ace.authorservices.model.external.EntityValue;
-import com.wiley.gr.ace.authorservices.model.external.Participant;
-import com.wiley.gr.ace.authorservices.model.external.ParticipantError;
-import com.wiley.gr.ace.authorservices.model.external.ParticipantGetResponse;
-import com.wiley.gr.ace.authorservices.model.external.PreferenceMapper;
-import com.wiley.gr.ace.authorservices.model.external.PreferenceValue;
-import com.wiley.gr.ace.authorservices.model.external.Preferences;
-import com.wiley.gr.ace.authorservices.model.external.ProfileEntity;
-import com.wiley.gr.ace.authorservices.model.external.ProfileResponse;
+import com.wiley.gr.ace.authorservices.model.external.*;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 /**
  * The Class ParticipantsInterfaceServiceImpl.
  */
 public class ParticipantsInterfaceServiceImpl implements
         ParticipantsInterfaceService {
-    /** The searchparticipantbyidurl. */
+    /**
+     * The searchparticipantbyidurl.
+     */
     @Value("${searchparticipantbyid.url}")
     private String searchparticipantbyidurl;
 
-    /** The participant crud url. */
+    /**
+     * The participant crud url.
+     */
     @Value("${participant-crud.url}")
     private String participantCrudUrl;
 
-    /** The search participantby orcid id. */
+    /**
+     * The search participantby orcid id.
+     */
     @Value("${searchParticipantbyOrcidId.url}")
     private String searchParticipantbyOrcidId;
 
@@ -59,8 +55,7 @@ public class ParticipantsInterfaceServiceImpl implements
     /**
      * Creates the participant.
      *
-     * @param participant
-     *            the participant
+     * @param participant the participant
      * @return the string
      */
     @Override
@@ -74,8 +69,7 @@ public class ParticipantsInterfaceServiceImpl implements
     /**
      * Search participant by participant id.
      *
-     * @param participantId
-     *            the participant id
+     * @param participantId the participant id
      * @return the participant
      */
     @Override
@@ -89,8 +83,7 @@ public class ParticipantsInterfaceServiceImpl implements
     /**
      * Search participant by user id.
      *
-     * @param userId
-     *            the user id
+     * @param userId the user id
      * @return the participant
      */
     @Override
@@ -107,10 +100,8 @@ public class ParticipantsInterfaceServiceImpl implements
     /**
      * Search participant by name.
      *
-     * @param firstName
-     *            the first name
-     * @param lastName
-     *            the last name
+     * @param firstName the first name
+     * @param lastName  the last name
      * @return the list
      */
     @Override
@@ -128,16 +119,13 @@ public class ParticipantsInterfaceServiceImpl implements
     /**
      * Gets the address.
      *
-     * @param participantId
-     *            the participant id
+     * @param participantId the participant id
      * @return the address
-     * @throws Exception
-     *             the exception
+     * @throws Exception the exception
      */
 
     @Override
-    public final AddressMapper getAddress(final String participantId)
-            throws Exception {
+    public final AddressMapper getAddress(final String participantId) {
         final String url = URL + participantId + "/addresses";
         return (AddressMapper) StubInvokerUtil.restGetServiceInvoker(url,
                 AddressMapper.class);
@@ -146,18 +134,15 @@ public class ParticipantsInterfaceServiceImpl implements
     /**
      * Update address.
      *
-     * @param participantId
-     *            the participant id
-     * @param address
-     *            the address
+     * @param participantId the participant id
+     * @param address       the address
      * @return the response entity
-     * @throws Exception
-     *             the exception
+     * @throws Exception the exception
      */
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
     public final ResponseEntity updateAddress(final String participantId,
-            final AddressData address) throws Exception {
+                                              final AddressData address) {
         final String url = "http://demo7580012.mockable.io/address";
         EntityValue entityValue = new EntityValue();
         entityValue.setAddressData(address);
@@ -170,18 +155,15 @@ public class ParticipantsInterfaceServiceImpl implements
     /**
      * Upload profile image.
      *
-     * @param participantId
-     *            the participant id
-     * @param imageFile
-     *            the image file
+     * @param participantId the participant id
+     * @param imageFile     the image file
      * @return the response entity
-     * @throws Exception
-     *             the exception
+     * @throws Exception the exception
      */
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
     public final ResponseEntity uploadProfileImage(final String participantId,
-            final byte[] imageFile)  {
+                                                   final byte[] imageFile) {
         final String url = URL + participantId + "/profileImage";
         return (ResponseEntity) StubInvokerUtil.restServiceResponseInvoker(url,
                 HttpMethod.PUT, new String(imageFile, StandardCharsets.UTF_8),
@@ -192,8 +174,7 @@ public class ParticipantsInterfaceServiceImpl implements
     /**
      * Gets the profile image.
      *
-     * @param participantId
-     *            the participant id
+     * @param participantId the participant id
      * @return the profile image
      */
     @Override
@@ -206,18 +187,15 @@ public class ParticipantsInterfaceServiceImpl implements
     /**
      * Update alerts.
      *
-     * @param participantId
-     *            the participant id
-     * @param alert
-     *            the alert
+     * @param participantId the participant id
+     * @param alert         the alert
      * @return the response entity
-     * @throws Exception
-     *             the exception
+     * @throws Exception the exception
      */
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
     public final ResponseEntity updateAlerts(final String participantId,
-            final AlertRequest alert) throws Exception {
+                                             final AlertRequest alert) {
         final String url = "http://demo7580012.mockable.io/alert";
         EntityValue entityValue = new EntityValue();
         entityValue.setAlertRequest(alert);
@@ -231,15 +209,12 @@ public class ParticipantsInterfaceServiceImpl implements
     /**
      * Gets the alerts.
      *
-     * @param participantId
-     *            the participant id
+     * @param participantId the participant id
      * @return the alerts
-     * @throws Exception
-     *             the exception
+     * @throws Exception the exception
      */
     @Override
-    public final PreferenceValue getAlerts(final String participantId)
-            throws Exception {
+    public final PreferenceValue getAlerts(final String participantId) {
         final String url = URL + participantId + "/preferences/" + "ALERT";
         final PreferenceMapper preferenceMapper = (PreferenceMapper) StubInvokerUtil
                 .restGetServiceInvoker(url, PreferenceMapper.class);
@@ -249,11 +224,10 @@ public class ParticipantsInterfaceServiceImpl implements
     /**
      * Update profile.
      *
-     * @param profileEntity
-     *            the profile entity
+     * @param profileEntity the profile entity
      * @return the response entity
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"rawtypes", "unchecked"})
     @Override
     public final ResponseEntity updateProfile(final ProfileEntity profileEntity) {
 
@@ -266,8 +240,7 @@ public class ParticipantsInterfaceServiceImpl implements
     /**
      * Gets the preferred journals.
      *
-     * @param participantId
-     *            the participant id
+     * @param participantId the participant id
      * @return the preferred journals
      */
     @Override
@@ -282,8 +255,7 @@ public class ParticipantsInterfaceServiceImpl implements
     /**
      * Delete preferred journal.
      *
-     * @param profileEntity
-     *            the profile entity
+     * @param profileEntity the profile entity
      * @return true, if successful
      */
     @Override
@@ -298,8 +270,7 @@ public class ParticipantsInterfaceServiceImpl implements
     /**
      * Adds the preferred journals.
      *
-     * @param profileEntity
-     *            the profile entity
+     * @param profileEntity the profile entity
      */
     @Override
     public final void addPreferredJournals(final ProfileEntity profileEntity) {
@@ -312,8 +283,7 @@ public class ParticipantsInterfaceServiceImpl implements
     /**
      * Update participant.
      *
-     * @param participant
-     *            the participant
+     * @param participant the participant
      */
     @Override
     public final void updateParticipant(final Participant participant) {
@@ -328,8 +298,7 @@ public class ParticipantsInterfaceServiceImpl implements
     /**
      * Search participant by orcid id.
      *
-     * @param orcidId
-     *            the orcid id
+     * @param orcidId the orcid id
      * @return the participant
      */
     @Override

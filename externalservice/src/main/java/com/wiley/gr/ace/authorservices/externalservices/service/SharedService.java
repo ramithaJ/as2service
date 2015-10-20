@@ -38,8 +38,7 @@ public interface SharedService {
      * @throws Exception
      *             the exception
      */
-    Service authorLookup(String firstName, String lastName, String email)
-            throws Exception;
+    Service authorLookup(String firstName, String lastName, String email);
 
     /**
      * Save product person relation.
