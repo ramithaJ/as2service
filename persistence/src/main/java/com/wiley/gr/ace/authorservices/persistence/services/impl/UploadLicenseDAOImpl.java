@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.persistence.entity.LicenseUploadDetails;
 import com.wiley.gr.ace.authorservices.persistence.entity.SavedLicenses;
 import com.wiley.gr.ace.authorservices.persistence.services.UploadLicenseDAO;
@@ -46,22 +47,9 @@ public class UploadLicenseDAOImpl implements UploadLicenseDAO {
      *             the exception
      */
     @Override
-    public final String viewLicense(final String dhId, final String userId)
-            throws Exception {
+    public final String viewLicense(final String dhId, final String userId) {
         LOGGER.info("Inside viewLicense method of UploadLicenseDAOImpl");
-        String license = null;
-        Session session = null;
-        if (!StringUtils.isEmpty(dhId) && !StringUtils.isEmpty(userId)) {
-            try {
-                session = getSessionFactory().openSession();
-            } finally {
-                if (session != null) {
-                    session.flush();
-                    session.close();
-                }
-            }
-        }
-        return license;
+        return null;
     }
 
     /**
@@ -79,7 +67,7 @@ public class UploadLicenseDAOImpl implements UploadLicenseDAO {
      */
     @Override
     public final boolean uploadLicense(final String dhId, final String userId,
-            final MultipartFile file) throws Exception {
+            final MultipartFile file) {
         LOGGER.info("Inside uploadLicense method of UploadLicenseDAOImpl");
         boolean isUpdated = false;
         Session session = null;
@@ -105,7 +93,7 @@ public class UploadLicenseDAOImpl implements UploadLicenseDAO {
             } catch (Exception e) {
                 session.getTransaction().rollback();
                 isUpdated = false;
-                throw e;
+                throw new UserException();
             } finally {
                 if (session != null) {
                     session.flush();

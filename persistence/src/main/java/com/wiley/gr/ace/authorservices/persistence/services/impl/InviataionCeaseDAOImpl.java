@@ -21,10 +21,6 @@ import com.wiley.gr.ace.authorservices.persistence.services.InvitationCeaseDAO;
  */
 public class InviataionCeaseDAOImpl implements InvitationCeaseDAO {
 
-//    /** The Constant LOGGER. */
-//    private static final Logger LOGGER = LoggerFactory
-//            .getLogger(InviataionCeaseDAOImpl.class);
-
     /**
      * Update invite reset pwd log.
      *
@@ -35,24 +31,8 @@ public class InviataionCeaseDAOImpl implements InvitationCeaseDAO {
      *             the exception
      */
     @Override
-    public final boolean updateInviteResetPWDLog(final String email)
-            throws Exception {
+    public final boolean updateInviteResetPWDLog(final String email) {
         return false;
-        /*
-         * LOGGER.info("inside updateInviteResetPWDLog of InviataionCesaseDAOImpl"
-         * ); boolean isUpdated = false; Session session = null; if
-         * (!StringUtils.isEmpty(email)) { try { session =
-         * getSessionFactory().openSession(); String hql =
-         * "from InviteResetpwdLog ip where ip.emailAddress = :email";
-         * InviteResetpwdLog inviteResetpwdLog = (InviteResetpwdLog) session
-         * .createQuery(hql).setString("email", email) .uniqueResult();
-         * session.beginTransaction(); inviteResetpwdLog.setStatus("Closed");
-         * session.getTransaction().commit(); isUpdated = true; } catch
-         * (Exception e) { if (!StringUtils.isEmpty(session)) {
-         * session.getTransaction().rollback(); } } finally { if
-         * (!StringUtils.isEmpty(session)) { session.flush(); session.close(); }
-         * } } return isUpdated;
-         */
     }
 
 }

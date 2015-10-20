@@ -19,7 +19,6 @@ import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
 import com.wiley.gr.ace.authorservices.model.AdminUser;
-import com.wiley.gr.ace.authorservices.model.AuditInformation;
 import com.wiley.gr.ace.authorservices.model.SharedServieRequest;
 import com.wiley.gr.ace.authorservices.model.external.ErrorPayLoad;
 import com.wiley.gr.ace.authorservices.model.external.ForcefulReset;
@@ -32,7 +31,6 @@ import com.wiley.gr.ace.authorservices.model.external.SecurityQuestionsUpdateReq
 import com.wiley.gr.ace.authorservices.model.external.SecurityQuestionsValidateRequest;
 import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
 import com.wiley.gr.ace.authorservices.model.external.UserEmailDetails;
-import com.wiley.gr.ace.authorservices.persistence.audit.AuditResultServiceImpl;
 
 /**
  * The Class UserManagementImpl.
@@ -123,24 +121,9 @@ public class UserManagementImpl implements UserManagement {
 
         final boolean status = this.externalPostServiceInvoker(
                 resetPasswordurl, passwordResetRequest);
-        if (status) {
-            final Integer userId = 8011047;
-            AuditInformation auditInformation = new AuditInformation();
-            auditInformation.setActionID("PWDRES");
-            auditInformation.setTableName("TABLE");
-            auditInformation.setColumnName("COLUMN");
-            auditInformation.setNewValue(passwordResetRequest
-                    .getUpdateUserSecurityAttributes().getNewPassword());
-            auditInformation.setOldValue("45624");
-            auditInformation.setUserId(userId);
-            AuditResultServiceImpl.auditUserActions(auditInformation);
-        }
         return status;
     }
 
-
-
-    
     /**
      * This method is for updateUserId.
      *
@@ -156,8 +139,7 @@ public class UserManagementImpl implements UserManagement {
     }
 
     /**
-    /**
-     * This method is for forceFulReset based on emailId.
+     * /** This method is for forceFulReset based on emailId.
      *
      * @param forcefulReset
      *            the forceful reset
@@ -168,17 +150,6 @@ public class UserManagementImpl implements UserManagement {
 
         boolean status = this.externalPostServiceInvoker(forceFulReseturl,
                 forcefulReset);
-        if (status) {
-            final Integer userId = 8011047;
-            AuditInformation auditInformation = new AuditInformation();
-            auditInformation.setActionID("PWDRES");
-            auditInformation.setTableName("TABLE");
-            auditInformation.setColumnName("COLUMN");
-            auditInformation.setNewValue(forcefulReset.getNewPassword());
-            auditInformation.setOldValue("45624");
-            auditInformation.setUserId(userId);
-            AuditResultServiceImpl.auditUserActions(auditInformation);
-        }
         return status;
     }
 
@@ -211,7 +182,6 @@ public class UserManagementImpl implements UserManagement {
                 securityQuestionsUpdateRequest);
     }
 
-    
     /**
      * This method is for finding admin user based on emailId.
      *

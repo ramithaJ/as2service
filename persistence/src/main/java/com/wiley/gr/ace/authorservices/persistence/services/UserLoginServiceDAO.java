@@ -18,39 +18,6 @@ package com.wiley.gr.ace.authorservices.persistence.services;
  */
 public interface UserLoginServiceDAO {
 
-    // /**
-    // * This method gets the userId.
-    // *
-    // * @param emailId
-    // * to get the userId.
-    // * @return the userId.
-    // */
-    // Users getUserId(String emailId);
-
-    /**
-     * This method gets the reset password log.
-     * 
-     * @param guid
-     *            to get InviteResetpwdLog.
-     * @return the InviteResetpwdLog.
-     */
-    /*
-     * InviteResetpwdLog getinviteResetpwdLog(String guid);
-     *//**
-     * Insert guid.
-     *
-     * @param inviteResetpwdLog
-     *            the invite resetpwd log
-     * @return the string
-     */
-    /*
-     * String insertGuid(InviteResetpwdLog inviteResetpwdLog);
-     */
-
-    // List<UserRoles> getSuperAdmins(int roleId);
-
-    // void verifyAccountStatusUpdate(Integer logId);
-
     void updateIsAccountActive(Integer userId);
 
 }

@@ -29,6 +29,6 @@ public interface CollectArticleDAO {
      * @throws Exception
      *             the exception
      */
-    Set<OwnershipTypes> getCollectArticle() throws Exception;
+    Set<OwnershipTypes> getCollectArticle();
 
 }

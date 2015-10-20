@@ -22,6 +22,7 @@ import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.model.Affiliation;
 import com.wiley.gr.ace.authorservices.model.UserProfile;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserAffiliations;
@@ -77,8 +78,7 @@ public class AuthorProfileDaoImpl implements AuthorProfileDao {
      *             the exception
      */
     @Override
-    public final List<UserAffiliations> getAffiliationList(final String userId)
-            throws Exception {
+    public final List<UserAffiliations> getAffiliationList(final String userId) {
         AuthorProfileDaoImpl.LOGGER.info("inside getAffiliationsList method ");
 
         Session session = null;
@@ -113,8 +113,7 @@ public class AuthorProfileDaoImpl implements AuthorProfileDao {
      *             the exception
      */
     @Override
-    public final boolean deleteAffiliations(final String userId)
-            throws Exception {
+    public final boolean deleteAffiliations(final String userId) {
         AuthorProfileDaoImpl.LOGGER.info("inside deleteAffiliations method ");
 
         Session session = null;
@@ -131,7 +130,7 @@ public class AuthorProfileDaoImpl implements AuthorProfileDao {
             isDeleted = true;
         } catch (Exception e) {
             session.getTransaction().rollback();
-            throw e;
+            throw new UserException();
         } finally {
             if (session != null) {
                 session.flush();
@@ -154,7 +153,7 @@ public class AuthorProfileDaoImpl implements AuthorProfileDao {
      */
     @Override
     public final boolean updateAffiliation(final String userId,
-            final Affiliation affiliation) throws Exception {
+            final Affiliation affiliation) {
         AuthorProfileDaoImpl.LOGGER.info("inside updateAffiliation method ");
         Session session = null;
         boolean isUpdated = false;
