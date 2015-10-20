@@ -15,54 +15,61 @@ import java.util.List;
  */
 public class SubFunders implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
-	private String id;
-	
-	private String name;
-	
-	private List<SubFunder> subFunderList = new ArrayList<SubFunder>();
+    /** Serial Version Id. */
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * @return the id
-	 */
-	public String getId() {
-		return id;
-	}
+    /** the id. */
+    private String id;
 
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(String id) {
-		this.id = id;
-	}
+    /** the name. */
+    private String name;
 
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
+    /** the sub funder list. */
+    private List<SubFunder> subFunderList = new ArrayList<SubFunder>();
 
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+    /**
+     * @return the id
+     */
+    public String getId() {
+        return id;
+    }
 
-	/**
-	 * @return the subFunderList
-	 */
-	public List<SubFunder> getSubFunderList() {
-		return subFunderList;
-	}
+    /**
+     * @param id
+     *            the id to set
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	/**
-	 * @param subFunderList the subFunderList to set
-	 */
-	public void setSubFunderList(List<SubFunder> subFunderList) {
-		this.subFunderList = subFunderList;
-	}
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name
+     *            the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return the subFunderList
+     */
+    public List<SubFunder> getSubFunderList() {
+        return subFunderList;
+    }
+
+    /**
+     * @param subFunderList
+     *            the subFunderList to set
+     */
+    public void setSubFunderList(List<SubFunder> subFunderList) {
+        this.subFunderList = subFunderList;
+    }
 
 }

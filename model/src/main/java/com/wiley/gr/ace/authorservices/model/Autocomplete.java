@@ -42,13 +42,13 @@ public class Autocomplete implements Serializable {
 
     /** The clear. */
     private Boolean clear;
-    
+
     /** The offset */
     private Integer offset;
-    
+
     /** The parentName */
     private String parentId;
-    
+
     /** The parentName */
     private String parentName;
 
@@ -147,46 +147,49 @@ public class Autocomplete implements Serializable {
         this.clear = clear;
     }
 
-	/**
-	 * @return the offset
-	 */
-	public Integer getOffset() {
-		return offset;
-	}
+    /**
+     * @return the offset
+     */
+    public Integer getOffset() {
+        return offset;
+    }
 
-	/**
-	 * @param offset the offset to set
-	 */
-	public void setOffset(Integer offset) {
-		this.offset = offset;
-	}
+    /**
+     * @param offset
+     *            the offset to set
+     */
+    public void setOffset(Integer offset) {
+        this.offset = offset;
+    }
 
-	/**
-	 * @return the parentName
-	 */
-	public String getParentName() {
-		return parentName;
-	}
+    /**
+     * @return the parentName
+     */
+    public String getParentName() {
+        return parentName;
+    }
 
-	/**
-	 * @param parentName the parentName to set
-	 */
-	public void setParentName(String parentName) {
-		this.parentName = parentName;
-	}
+    /**
+     * @param parentName
+     *            the parentName to set
+     */
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
+    }
 
-	/**
-	 * @return the parentId
-	 */
-	public String getParentId() {
-		return parentId;
-	}
+    /**
+     * @return the parentId
+     */
+    public String getParentId() {
+        return parentId;
+    }
 
-	/**
-	 * @param parentId the parentId to set
-	 */
-	public void setParentId(String parentId) {
-		this.parentId = parentId;
-	}
-	
+    /**
+     * @param parentId
+     *            the parentId to set
+     */
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
+    }
+
 }

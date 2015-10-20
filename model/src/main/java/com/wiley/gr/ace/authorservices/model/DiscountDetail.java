@@ -1,6 +1,5 @@
 package com.wiley.gr.ace.authorservices.model;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class DiscountDetail.
  */

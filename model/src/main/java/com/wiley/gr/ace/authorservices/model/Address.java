@@ -44,7 +44,7 @@ public class Address implements Serializable {
     private String addressType = "";
 
     private String emailId;
-    
+
     /** The title. */
     private String title = "";
 
@@ -109,7 +109,6 @@ public class Address implements Serializable {
     /** The region. */
     private String region = "";
 
-    
     public final String getEmailId() {
         return emailId;
     }

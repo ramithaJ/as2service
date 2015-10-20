@@ -92,6 +92,18 @@ public class Affiliation implements Serializable {
     /** The department id. */
     private String departmentId;
 
+    /** The start date. */
+    private String startDate;
+
+    /** The end date. */
+    private String endDate;
+
+    /** The organization. */
+    private Organization organization;
+
+    /** The disambiguated organization. */
+    private DisambiguatedOrganization disambiguatedOrganization;
+
     /**
      * Gets the id.
      *
@@ -104,7 +116,8 @@ public class Affiliation implements Serializable {
     /**
      * Sets the id.
      *
-     * @param id            the id to set
+     * @param id
+     *            the id to set
      */
     public final void setId(final String id) {
         this.id = id;
@@ -160,7 +173,8 @@ public class Affiliation implements Serializable {
     /**
      * Sets the state.
      *
-     * @param state            the state to set
+     * @param state
+     *            the state to set
      */
     public final void setState(final String state) {
         this.state = state;
@@ -174,20 +188,6 @@ public class Affiliation implements Serializable {
     public static final long getSerialversionuid() {
         return serialVersionUID;
     }
-
-    /** The start date. */
-
-    private String startDate;
-
-    /** The end date. */
-
-    private String endDate;
-
-    /** The organization. */
-    private Organization organization;
-
-    /** The disambiguated organization. */
-    private DisambiguatedOrganization disambiguatedOrganization;
 
     /**
      * Gets the user id.
@@ -334,7 +334,8 @@ public class Affiliation implements Serializable {
     /**
      * Sets the country.
      *
-     * @param country            the country to set
+     * @param country
+     *            the country to set
      */
     public final void setCountry(final Country country) {
         this.country = country;

@@ -16,54 +16,49 @@ package com.wiley.gr.ace.authorservices.model;
  * The Class OwnershipDetailsOO.
  */
 public class OwnershipDetailsOO {
-    
-    /** The ownership type. */
-    private String ownershipType;
 
-    /** The employment desc. */
-    private String employmentDesc;
+	/** The ownership type. */
+	private String ownershipType;
 
-    /**
-     * Gets the ownership type.
-     *
-     * @return the ownership type
-     */
-    public String getOwnershipType ()
-    {
-        return ownershipType;
-    }
+	/** The employment desc. */
+	private String employmentDesc;
 
-    /**
-     * Sets the ownership type.
-     *
-     * @param ownershipType the new ownership type
-     */
-    public void setOwnershipType (final String ownershipType)
-    {
-        this.ownershipType = ownershipType;
-    }
+	/**
+	 * Gets the ownership type.
+	 *
+	 * @return the ownership type
+	 */
+	public String getOwnershipType() {
+		return ownershipType;
+	}
 
-    /**
-     * Gets the employment desc.
-     *
-     * @return the employment desc
-     */
-    public String getEmploymentDesc ()
-    {
-        return employmentDesc;
-    }
+	/**
+	 * Sets the ownership type.
+	 *
+	 * @param ownershipType
+	 *            the new ownership type
+	 */
+	public void setOwnershipType(final String ownershipType) {
+		this.ownershipType = ownershipType;
+	}
 
-    /**
-     * Sets the employment desc.
-     *
-     * @param employmentDesc the new employment desc
-     */
-    public void setEmploymentDesc (final String employmentDesc)
-    {
-        this.employmentDesc = employmentDesc;
-    }
+	/**
+	 * Gets the employment desc.
+	 *
+	 * @return the employment desc
+	 */
+	public String getEmploymentDesc() {
+		return employmentDesc;
+	}
+
+	/**
+	 * Sets the employment desc.
+	 *
+	 * @param employmentDesc
+	 *            the new employment desc
+	 */
+	public void setEmploymentDesc(final String employmentDesc) {
+		this.employmentDesc = employmentDesc;
+	}
 
 }
-
-
-

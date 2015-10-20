@@ -1,5 +1,7 @@
 package com.wiley.gr.ace.authorservices.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * The Class UserReferenceData.
  *
@@ -11,7 +13,8 @@ public class UserReferenceData {
     private String ecid;
 
     /** The Status. */
-    private String Status;
+    @JsonProperty("Status")
+    private String status;
 
     /**
      * @return the ecid
@@ -32,15 +35,15 @@ public class UserReferenceData {
      * @return the status
      */
     public final String getStatus() {
-        return Status;
+        return status;
     }
 
     /**
      * @param status
      *            the status to set
      */
-    public final void setStatus(final String status) {
-        Status = status;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
 }

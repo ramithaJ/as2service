@@ -15,24 +15,24 @@ import java.util.List;
 
 public class AdditionalPermissionsResponse {
 
-	/**
-	 * This field holds the value of permissions
-	 */
-	private List<Permissions> permissions;
+    /**
+     * This field holds the value of permissions
+     */
+    private List<Permissions> permissions;
 
-	/**
-	 * @return the permissions
-	 */
-	public List<Permissions> getPermissions() {
-		return permissions;
-	}
+    /**
+     * @return the permissions
+     */
+    public List<Permissions> getPermissions() {
+        return permissions;
+    }
 
-	/**
-	 * @param permissions the permissions to set
-	 */
-	public void setPermissions(final List<Permissions> permissions) {
-		this.permissions = permissions;
-	}
-	
-	
+    /**
+     * @param permissions
+     *            the permissions to set
+     */
+    public void setPermissions(final List<Permissions> permissions) {
+        this.permissions = permissions;
+    }
+
 }

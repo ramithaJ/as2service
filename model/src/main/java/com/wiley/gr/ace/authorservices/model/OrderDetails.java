@@ -14,6 +14,7 @@ package com.wiley.gr.ace.authorservices.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * The Class ViewAllOrders.
@@ -25,30 +26,97 @@ public class OrderDetails {
     private String status;
 
     /** The Article id. */
-    private String ArticleId;
+    @JsonProperty("ArticleId")
+    private String articleId;
 
     /** The order date. */
     private String orderDate;
 
     /** The Article title. */
-    private String ArticleTitle;
+    @JsonProperty("ArticleTitle")
+    private String articleTitle;
 
     /** The price. */
     private String price;
 
-    /**
-     * the orderId.
-     */
+    /** the orderId. */
     private String orderId;
 
+    /** The order type. */
     private String orderType;
 
-    public final String getOrderType() {
-        return orderType;
+    /**
+     * @return the status
+     */
+    public String getStatus() {
+        return status;
     }
 
-    public final void setOrderType(String orderType) {
-        this.orderType = orderType;
+    /**
+     * @param status
+     *            the status to set
+     */
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    /**
+     * @return the articleId
+     */
+    public String getArticleId() {
+        return articleId;
+    }
+
+    /**
+     * @param articleId
+     *            the articleId to set
+     */
+    public void setArticleId(String articleId) {
+        this.articleId = articleId;
+    }
+
+    /**
+     * @return the orderDate
+     */
+    public String getOrderDate() {
+        return orderDate;
+    }
+
+    /**
+     * @param orderDate
+     *            the orderDate to set
+     */
+    public void setOrderDate(String orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    /**
+     * @return the articleTitle
+     */
+    public String getArticleTitle() {
+        return articleTitle;
+    }
+
+    /**
+     * @param articleTitle the articleTitle to set
+     */
+    public void setArticleTitle(String articleTitle) {
+        this.articleTitle = articleTitle;
+    }
+
+    /**
+     * @return the price
+     */
+    public String getPrice() {
+        return price;
+    }
+
+    /**
+     * @param price
+     *            the price to set
+     */
+    public void setPrice(String price) {
+        this.price = price;
     }
 
     /**
@@ -62,103 +130,23 @@ public class OrderDetails {
      * @param orderId
      *            the orderId to set
      */
-    public void setOrderId(final String orderId) {
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 
     /**
-     * Gets the status.
-     *
-     * @return the status
+     * @return the orderType
      */
-    public final String getStatus() {
-        return status;
+    public String getOrderType() {
+        return orderType;
     }
 
     /**
-     * Sets the status.
-     *
-     * @param status
-     *            the new status
+     * @param orderType
+     *            the orderType to set
      */
-    public final void setStatus(final String status) {
-        this.status = status;
-    }
-
-    /**
-     * Gets the article id.
-     *
-     * @return the article id
-     */
-    public final String getArticleId() {
-        return ArticleId;
-    }
-
-    /**
-     * Sets the article id.
-     *
-     * @param articleId
-     *            the new article id
-     */
-    public final void setArticleId(final String articleId) {
-        ArticleId = articleId;
-    }
-
-    /**
-     * Gets the order date.
-     *
-     * @return the order date
-     */
-    public final String getOrderDate() {
-        return orderDate;
-    }
-
-    /**
-     * Sets the order date.
-     *
-     * @param orderDate
-     *            the new order date
-     */
-    public final void setOrderDate(final String orderDate) {
-        this.orderDate = orderDate;
-    }
-
-    /**
-     * Gets the article title.
-     *
-     * @return the article title
-     */
-    public final String getArticleTitle() {
-        return ArticleTitle;
-    }
-
-    /**
-     * Sets the article title.
-     *
-     * @param articleTitle
-     *            the new article title
-     */
-    public final void setArticleTitle(final String articleTitle) {
-        ArticleTitle = articleTitle;
-    }
-
-    /**
-     * Gets the price.
-     *
-     * @return the price
-     */
-    public final String getPrice() {
-        return price;
-    }
-
-    /**
-     * Sets the price.
-     *
-     * @param price
-     *            the new price
-     */
-    public final void setPrice(final String price) {
-        this.price = price;
+    public void setOrderType(String orderType) {
+        this.orderType = orderType;
     }
 
 }

@@ -21,7 +21,6 @@ import org.hibernate.validator.constraints.NotBlank;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class User.
  *
@@ -141,13 +140,12 @@ public class User implements Serializable {
     /** The send email flag. */
     private String sendEmailFlag;
 
-
     /** The is invited. */
     private boolean isInvited;
-    
+
     /** The status. */
     private String status;
-    
+
     /** The alm user id. */
     private String almUserId;
 
@@ -801,7 +799,8 @@ public class User implements Serializable {
     /**
      * Sets the send email flag.
      *
-     * @param sendEmailFlag the new send email flag
+     * @param sendEmailFlag
+     *            the new send email flag
      */
     public final void setSendEmailFlag(final String sendEmailFlag) {
         this.sendEmailFlag = sendEmailFlag;
@@ -819,46 +818,49 @@ public class User implements Serializable {
     /**
      * Sets the invited.
      *
-     * @param isInvited the new invited
+     * @param isInvited
+     *            the new invited
      */
     public final void setInvited(final boolean isInvited) {
         this.isInvited = isInvited;
     }
 
-	/**
-	 * Gets the status.
-	 *
-	 * @return the status
-	 */
-	public String getStatus() {
-		return status;
-	}
+    /**
+     * Gets the status.
+     *
+     * @return the status
+     */
+    public String getStatus() {
+        return status;
+    }
 
-	/**
-	 * Sets the status.
-	 *
-	 * @param status the new status
-	 */
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    /**
+     * Sets the status.
+     *
+     * @param status
+     *            the new status
+     */
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-	/**
-	 * Gets the alm user id.
-	 *
-	 * @return the alm user id
-	 */
-	public String getAlmUserId() {
-		return almUserId;
-	}
+    /**
+     * Gets the alm user id.
+     *
+     * @return the alm user id
+     */
+    public String getAlmUserId() {
+        return almUserId;
+    }
 
-	/**
-	 * Sets the alm user id.
-	 *
-	 * @param almUserId the new alm user id
-	 */
-	public void setAlmUserId(String almUserId) {
-		this.almUserId = almUserId;
-	}
+    /**
+     * Sets the alm user id.
+     *
+     * @param almUserId
+     *            the new alm user id
+     */
+    public void setAlmUserId(String almUserId) {
+        this.almUserId = almUserId;
+    }
 
 }

@@ -14,11 +14,11 @@
  */
 package com.wiley.gr.ace.authorservices.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -60,186 +60,148 @@ public class LicenseObject {
     private List<Prices> prices;
 
     /** The license_ o o_ oa. */
-    private String license_OO_OA;
+    @JsonProperty("license_OO_OA")
+    private String licenseOoOa;
 
     /** The license format. */
     private String licenseFormat;
 
-    public List<FunderDetails> getFunderDetailsList() {
-        return funderDetailsList;
-    }
-
-    public void setFunderDetailsList(final List<FunderDetails> funderDetailsList) {
-        this.funderDetailsList = funderDetailsList;
-    }
-
     /**
-     * Sets the funder details list.
-     *
-     * @param funderDetailsList
-     *            the new funder details list
+     * @return the licenceId
      */
-    public final void setFunderDetailsList(
-            final ArrayList<FunderDetails> funderDetailsList) {
-        this.funderDetailsList = funderDetailsList;
-    }
-
-    /**
-     * Gets the copyright ownership.
-     *
-     * @return the copyright ownership
-     */
-    public final CopyrightOwnership getCopyrightOwnership() {
-        return copyrightOwnership;
-    }
-
-    /**
-     * Sets the copyright ownership.
-     *
-     * @param copyrightOwnership
-     *            the new copyright ownership
-     */
-    public final void setCopyrightOwnership(
-            final CopyrightOwnership copyrightOwnership) {
-        this.copyrightOwnership = copyrightOwnership;
-    }
-
-    /**
-     * Gets the online open.
-     *
-     * @return the online open
-     */
-    public final String getOnlineOpen() {
-        return onlineOpen;
-    }
-
-    /**
-     * Sets the online open.
-     *
-     * @param onlineOpen
-     *            the new online open
-     */
-    public final void setOnlineOpen(final String onlineOpen) {
-        this.onlineOpen = onlineOpen;
-    }
-
-    /**
-     * Gets the license type.
-     *
-     * @return the license type
-     */
-    public final String getLicenseType() {
-        return licenseType;
-    }
-
-    /**
-     * Sets the license type.
-     *
-     * @param licenseType
-     *            the new license type
-     */
-    public final void setLicenseType(final String licenseType) {
-        this.licenseType = licenseType;
-    }
-
-    /**
-     * Gets the author signature.
-     *
-     * @return the author signature
-     */
-    public final String getAuthorSignature() {
-        return authorSignature;
-    }
-
-    /**
-     * Sets the author signature.
-     *
-     * @param authorSignature
-     *            the new author signature
-     */
-    public final void setAuthorSignature(final String authorSignature) {
-        this.authorSignature = authorSignature;
-    }
-
-    /**
-     * Gets the signed electronically.
-     *
-     * @return the signed electronically
-     */
-    public final String getSignedElectronically() {
-        return signedElectronically;
-    }
-
-    /**
-     * Sets the signed electronically.
-     *
-     * @param signedElectronically
-     *            the new signed electronically
-     */
-    public final void setSignedElectronically(final String signedElectronically) {
-        this.signedElectronically = signedElectronically;
-    }
-
-    public List<String> getLicenseTypePresented() {
-        return licenseTypePresented;
-    }
-
-    public void setLicenseTypePresented(final List<String> licenseTypePresented) {
-        this.licenseTypePresented = licenseTypePresented;
-    }
-
-    /**
-     * Sets the license type presented.
-     *
-     * @param licenseTypePresented
-     *            the new license type presented
-     */
-    public final void setLicenseTypePresented(
-            final ArrayList<String> licenseTypePresented) {
-        this.licenseTypePresented = licenseTypePresented;
-    }
-
-    /**
-     * Gets the licence id.
-     *
-     * @return the licence id
-     */
-    public final String getLicenceId() {
+    public String getLicenceId() {
         return licenceId;
     }
 
     /**
-     * Sets the licence id.
-     *
      * @param licenceId
-     *            the new licence id
+     *            the licenceId to set
      */
-    public final void setLicenceId(final String licenceId) {
+    public void setLicenceId(String licenceId) {
         this.licenceId = licenceId;
     }
 
     /**
-     * Gets the signed date.
-     *
-     * @return the signed date
+     * @return the funderDetailsList
      */
-    public final String getSignedDate() {
+    public List<FunderDetails> getFunderDetailsList() {
+        return funderDetailsList;
+    }
+
+    /**
+     * @param funderDetailsList
+     *            the funderDetailsList to set
+     */
+    public void setFunderDetailsList(List<FunderDetails> funderDetailsList) {
+        this.funderDetailsList = funderDetailsList;
+    }
+
+    /**
+     * @return the copyrightOwnership
+     */
+    public CopyrightOwnership getCopyrightOwnership() {
+        return copyrightOwnership;
+    }
+
+    /**
+     * @param copyrightOwnership
+     *            the copyrightOwnership to set
+     */
+    public void setCopyrightOwnership(CopyrightOwnership copyrightOwnership) {
+        this.copyrightOwnership = copyrightOwnership;
+    }
+
+    /**
+     * @return the onlineOpen
+     */
+    public String getOnlineOpen() {
+        return onlineOpen;
+    }
+
+    /**
+     * @param onlineOpen
+     *            the onlineOpen to set
+     */
+    public void setOnlineOpen(String onlineOpen) {
+        this.onlineOpen = onlineOpen;
+    }
+
+    /**
+     * @return the licenseType
+     */
+    public String getLicenseType() {
+        return licenseType;
+    }
+
+    /**
+     * @param licenseType
+     *            the licenseType to set
+     */
+    public void setLicenseType(String licenseType) {
+        this.licenseType = licenseType;
+    }
+
+    /**
+     * @return the authorSignature
+     */
+    public String getAuthorSignature() {
+        return authorSignature;
+    }
+
+    /**
+     * @param authorSignature
+     *            the authorSignature to set
+     */
+    public void setAuthorSignature(String authorSignature) {
+        this.authorSignature = authorSignature;
+    }
+
+    /**
+     * @return the signedElectronically
+     */
+    public String getSignedElectronically() {
+        return signedElectronically;
+    }
+
+    /**
+     * @param signedElectronically
+     *            the signedElectronically to set
+     */
+    public void setSignedElectronically(String signedElectronically) {
+        this.signedElectronically = signedElectronically;
+    }
+
+    /**
+     * @return the licenseTypePresented
+     */
+    public List<String> getLicenseTypePresented() {
+        return licenseTypePresented;
+    }
+
+    /**
+     * @param licenseTypePresented
+     *            the licenseTypePresented to set
+     */
+    public void setLicenseTypePresented(List<String> licenseTypePresented) {
+        this.licenseTypePresented = licenseTypePresented;
+    }
+
+    /**
+     * @return the signedDate
+     */
+    public String getSignedDate() {
         return signedDate;
     }
 
     /**
-     * Sets the signed date.
-     *
      * @param signedDate
-     *            the new signed date
+     *            the signedDate to set
      */
-    public final void setSignedDate(final String signedDate) {
+    public void setSignedDate(String signedDate) {
         this.signedDate = signedDate;
     }
 
     /**
-     * Gets the prices.
-     *
      * @return the prices
      */
     public List<Prices> getPrices() {
@@ -247,50 +209,40 @@ public class LicenseObject {
     }
 
     /**
-     * Sets the prices.
-     *
      * @param prices
-     *            the new prices
+     *            the prices to set
      */
-    public void setPrices(final List<Prices> prices) {
+    public void setPrices(List<Prices> prices) {
         this.prices = prices;
     }
 
     /**
-     * Gets the license_ o o_ oa.
-     *
-     * @return the license_ o o_ oa
+     * @return the licenseOoOa
      */
-    public String getLicense_OO_OA() {
-        return license_OO_OA;
+    public String getLicenseOoOa() {
+        return licenseOoOa;
     }
 
     /**
-     * Sets the license_ o o_ oa.
-     *
-     * @param license_OO_OA
-     *            the new license_ o o_ oa
+     * @param licenseOoOa
+     *            the licenseOoOa to set
      */
-    public void setLicense_OO_OA(final String license_OO_OA) {
-        this.license_OO_OA = license_OO_OA;
+    public void setLicenseOoOa(String licenseOoOa) {
+        this.licenseOoOa = licenseOoOa;
     }
 
     /**
-     * Gets the license format.
-     *
-     * @return the license format
+     * @return the licenseFormat
      */
     public String getLicenseFormat() {
         return licenseFormat;
     }
 
     /**
-     * Sets the license format.
-     *
      * @param licenseFormat
-     *            the new license format
+     *            the licenseFormat to set
      */
-    public void setLicenseFormat(final String licenseFormat) {
+    public void setLicenseFormat(String licenseFormat) {
         this.licenseFormat = licenseFormat;
     }
 

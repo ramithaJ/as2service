@@ -15,26 +15,27 @@ import java.util.Map;
  */
 public class SubFunderDetails implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	private Map<String, SubFunders> subFundersMap = new HashMap<String, SubFunders>();
+    /**
+     * Serial Version Id.
+     */
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * @return the subFundersMap
-	 */
-	public Map<String, SubFunders> getSubFundersMap() {
-		return subFundersMap;
-	}
+    /** The sub funders map */
+    private Map<String, SubFunders> subFundersMap = new HashMap<String, SubFunders>();
 
-	/**
-	 * @param subFundersMap the subFundersMap to set
-	 */
-	public void setSubFundersMap(Map<String, SubFunders> subFundersMap) {
-		this.subFundersMap = subFundersMap;
-	}
-	
+    /**
+     * @return the subFundersMap
+     */
+    public Map<String, SubFunders> getSubFundersMap() {
+        return subFundersMap;
+    }
+
+    /**
+     * @param subFundersMap
+     *            the subFundersMap to set
+     */
+    public void setSubFundersMap(Map<String, SubFunders> subFundersMap) {
+        this.subFundersMap = subFundersMap;
+    }
 
 }

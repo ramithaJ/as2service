@@ -13,7 +13,6 @@
  */
 package com.wiley.gr.ace.authorservices.model;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class UserLogin.
  *
@@ -29,10 +28,10 @@ public class UserLogin {
 
     /** This field holds the value of lastName. */
     private String lastName;
-    
+
     /** The alm user id. */
     private String almUserId;
-    
+
     /** The orcid id. */
     private String orcidId;
 
@@ -48,7 +47,8 @@ public class UserLogin {
     /**
      * Sets the user id.
      *
-     * @param userId            the userId to set
+     * @param userId
+     *            the userId to set
      */
     public final void setUserId(final String userId) {
         this.userId = userId;
@@ -66,7 +66,8 @@ public class UserLogin {
     /**
      * Sets the first name.
      *
-     * @param firstName            the firstName to set
+     * @param firstName
+     *            the firstName to set
      */
     public final void setFirstName(final String firstName) {
         this.firstName = firstName;
@@ -84,46 +85,49 @@ public class UserLogin {
     /**
      * Sets the last name.
      *
-     * @param lastName            the lastName to set
+     * @param lastName
+     *            the lastName to set
      */
     public final void setLastName(final String lastName) {
         this.lastName = lastName;
     }
 
-	/**
-	 * Gets the alm user id.
-	 *
-	 * @return the alm user id
-	 */
-	public String getAlmUserId() {
-		return almUserId;
-	}
+    /**
+     * Gets the alm user id.
+     *
+     * @return the alm user id
+     */
+    public String getAlmUserId() {
+        return almUserId;
+    }
 
-	/**
-	 * Sets the alm user id.
-	 *
-	 * @param almUserId the new alm user id
-	 */
-	public void setAlmUserId(String almUserId) {
-		this.almUserId = almUserId;
-	}
+    /**
+     * Sets the alm user id.
+     *
+     * @param almUserId
+     *            the new alm user id
+     */
+    public void setAlmUserId(String almUserId) {
+        this.almUserId = almUserId;
+    }
 
-	/**
-	 * Gets the orcid id.
-	 *
-	 * @return the orcid id
-	 */
-	public String getOrcidId() {
-		return orcidId;
-	}
+    /**
+     * Gets the orcid id.
+     *
+     * @return the orcid id
+     */
+    public String getOrcidId() {
+        return orcidId;
+    }
 
-	/**
-	 * Sets the orcid id.
-	 *
-	 * @param orcidId the new orcid id
-	 */
-	public void setOrcidId(String orcidId) {
-		this.orcidId = orcidId;
-	}
+    /**
+     * Sets the orcid id.
+     *
+     * @param orcidId
+     *            the new orcid id
+     */
+    public void setOrcidId(String orcidId) {
+        this.orcidId = orcidId;
+    }
 
 }

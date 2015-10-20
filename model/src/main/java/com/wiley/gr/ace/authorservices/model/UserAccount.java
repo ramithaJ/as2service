@@ -228,7 +228,8 @@ public class UserAccount {
      * @param profileVisibilityFlag
      *            the profileVisibilityFlag to set
      */
-    public final void setProfileVisibilityFlag(final boolean profileVisibilityFlag) {
+    public final void setProfileVisibilityFlag(
+            final boolean profileVisibilityFlag) {
         this.profileVisibilityFlag = profileVisibilityFlag;
     }
 

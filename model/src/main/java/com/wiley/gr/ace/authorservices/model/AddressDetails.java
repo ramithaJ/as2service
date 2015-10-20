@@ -20,44 +20,44 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class AddressDetails {
 
-	/**
-	 * This field holds the value of billingAddress
-	 */
-	private Address billingAddress;
+    /**
+     * This field holds the value of billingAddress
+     */
+    private Address billingAddress;
 
-	/**
-	 * This field holds the value of contactAddress
-	 */
-	private Address contactAddress;
+    /**
+     * This field holds the value of contactAddress
+     */
+    private Address contactAddress;
 
-	/**
-	 * @return the billingAddress
-	 */
-	public final Address getBillingAddress() {
-		return billingAddress;
-	}
+    /**
+     * @return the billingAddress
+     */
+    public final Address getBillingAddress() {
+        return billingAddress;
+    }
 
-	/**
-	 * @param billingAddress
-	 *            the billingAddress to set
-	 */
-	public final void setBillingAddress(Address billingAddress) {
-		this.billingAddress = billingAddress;
-	}
+    /**
+     * @param billingAddress
+     *            the billingAddress to set
+     */
+    public final void setBillingAddress(Address billingAddress) {
+        this.billingAddress = billingAddress;
+    }
 
-	/**
-	 * @return the contactAddress
-	 */
-	public Address getContactAddress() {
-		return contactAddress;
-	}
+    /**
+     * @return the contactAddress
+     */
+    public Address getContactAddress() {
+        return contactAddress;
+    }
 
-	/**
-	 * @param contactAddress
-	 *            the contactAddress to set
-	 */
-	public void setContactAddress(Address contactAddress) {
-		this.contactAddress = contactAddress;
-	}
+    /**
+     * @param contactAddress
+     *            the contactAddress to set
+     */
+    public void setContactAddress(Address contactAddress) {
+        this.contactAddress = contactAddress;
+    }
 
 }

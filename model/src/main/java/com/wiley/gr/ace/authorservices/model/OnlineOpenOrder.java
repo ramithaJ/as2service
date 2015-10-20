@@ -73,7 +73,7 @@ public class OnlineOpenOrder {
 
     /** The order Id. */
     private String orderId;
-    
+
     /** The WOA Funder */
     private WOAFunder woaFunder;
 
@@ -493,19 +493,19 @@ public class OnlineOpenOrder {
         this.orderId = orderId;
     }
 
-	/**
-	 * @return the woaFunder
-	 */
-	public WOAFunder getWoaFunder() {
-		return woaFunder;
-	}
+    /**
+     * @return the woaFunder
+     */
+    public WOAFunder getWoaFunder() {
+        return woaFunder;
+    }
 
-	/**
-	 * @param woaFunder the woaFunder to set
-	 */
-	public void setWoaFunder(WOAFunder woaFunder) {
-		this.woaFunder = woaFunder;
-	}
-
+    /**
+     * @param woaFunder
+     *            the woaFunder to set
+     */
+    public void setWoaFunder(WOAFunder woaFunder) {
+        this.woaFunder = woaFunder;
+    }
 
 }

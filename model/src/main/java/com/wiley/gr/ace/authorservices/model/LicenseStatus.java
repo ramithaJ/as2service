@@ -11,7 +11,7 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -28,7 +28,7 @@ public class LicenseStatus {
     private String info;
 
     /** The actions. */
-    private ArrayList<String> actions;
+    private List<String> actions;
 
     /** The task id. */
     private String taskId;
@@ -98,7 +98,7 @@ public class LicenseStatus {
      *
      * @return the actions
      */
-    public ArrayList<String> getActions() {
+    public List<String> getActions() {
         return actions;
     }
 
@@ -108,7 +108,7 @@ public class LicenseStatus {
      * @param actions
      *            the actions to set
      */
-    public void setActions(final ArrayList<String> actions) {
+    public void setActions(final List<String> actions) {
         this.actions = actions;
     }
 

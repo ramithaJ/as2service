@@ -38,7 +38,8 @@ public class Discount {
     }
 
     /**
-     * @param discountType the discountType to set
+     * @param discountType
+     *            the discountType to set
      */
     public final void setDiscountType(String discountType) {
         this.discountType = discountType;
@@ -52,7 +53,8 @@ public class Discount {
     }
 
     /**
-     * @param discountPercent the discountPercent to set
+     * @param discountPercent
+     *            the discountPercent to set
      */
     public final void setDiscountPercent(String discountPercent) {
         this.discountPercent = discountPercent;
@@ -66,11 +68,11 @@ public class Discount {
     }
 
     /**
-     * @param discountAmount the discountAmount to set
+     * @param discountAmount
+     *            the discountAmount to set
      */
     public final void setDiscountAmount(String discountAmount) {
         this.discountAmount = discountAmount;
     }
 
-    
 }

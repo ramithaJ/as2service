@@ -19,7 +19,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class OrderPaymentStatus.
  *
@@ -30,7 +29,7 @@ public class OrderPaymentStatus {
 
     /** The order status. */
     private String orderStatus;
-    
+
     /** The order type. */
     private String orderType;
 
@@ -56,7 +55,8 @@ public class OrderPaymentStatus {
     /**
      * Sets the available actions list.
      *
-     * @param availableActionsList            the availableActionsList to set
+     * @param availableActionsList
+     *            the availableActionsList to set
      */
     public final void setAvailableActionsList(
             final List<String> availableActionsList) {
@@ -75,36 +75,38 @@ public class OrderPaymentStatus {
     /**
      * Sets the additional param.
      *
-     * @param additionalParam            the additionalParam to set
+     * @param additionalParam
+     *            the additionalParam to set
      */
     public final void setAdditionalParam(final String additionalParam) {
         this.additionalParam = additionalParam;
     }
 
-	/**
-	 * Gets the order status.
-	 *
-	 * @return the order status
-	 */
-	public String getOrderStatus() {
-		return orderStatus;
-	}
+    /**
+     * Gets the order status.
+     *
+     * @return the order status
+     */
+    public String getOrderStatus() {
+        return orderStatus;
+    }
 
-	/**
-	 * Sets the order status.
-	 *
-	 * @param orderStatus the new order status
-	 */
-	public void setOrderStatus(String orderStatus) {
-		this.orderStatus = orderStatus;
-	}
+    /**
+     * Sets the order status.
+     *
+     * @param orderStatus
+     *            the new order status
+     */
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
+    }
 
-	public String getOrderType() {
-		return orderType;
-	}
+    public String getOrderType() {
+        return orderType;
+    }
 
-	public void setOrderType(String orderType) {
-		this.orderType = orderType;
-	}
+    public void setOrderType(String orderType) {
+        this.orderType = orderType;
+    }
 
 }
