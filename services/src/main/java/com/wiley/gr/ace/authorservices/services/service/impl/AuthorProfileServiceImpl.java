@@ -89,10 +89,6 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(AuthorProfileServiceImpl.class);
 
-    /** The user profiles. */
-    @Autowired
-    private UserProfiles userProfiles;
-
     /** The user management. */
     @Autowired
     private UserManagement userManagement;
@@ -106,13 +102,6 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      */
     @Autowired(required = true)
     private SendNotification sendNotification;
-
-    /** The alerts Dao. */
-    @Autowired(required = true)
-    private AlertsDao alertsDao;
-
-    @Autowired(required = true)
-    private AutocompleteService autocomplete;
 
     /** The template id. */
     @Value("${templateId.sec.email.update}")
@@ -209,28 +198,6 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                 .info("inside updateAffiliation Method ");
         return authorProfileDao.updateAffiliation(userId, affiliation);
     }
-
-    /**
-     * Update research funder.
-     *
-     * @param userId
-     *            the user id
-     * @param researchFunder
-     *            the research funder
-     * @return true, if successful
-     */
-    /*
-     * @Override public final boolean updateResearchFunder(final int userId,
-     * final ResearchFunder researchFunder) {
-     * 
-     * AuthorProfileServiceImpl.LOGGER
-     * .info("inside updateResearchFunder Method ");
-     * 
-     * final List<ResearchFunder> list = new ArrayList<ResearchFunder>();
-     * list.add(researchFunder); userProfile.setResearchFunders(list);
-     * lookUpProfile.setCustomerProfile(userProfile); return null !=
-     * userProfiles.updateProfile(userId, lookUpProfile); }
-     */
 
     /**
      * Update alerts.
@@ -585,13 +552,13 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     public final List<Society> getSocietylist(final String userId) {
 
         UUID participantId = UUID.fromString(userId);
-
+        final List<Society> societiesList = new ArrayList<Society>();
         final List<UserSocietyDetails> userSocietyDetailsList = societyDao
                 .getSocietyDetails(participantId);
         if (userSocietyDetailsList.isEmpty()) {
-            return null;
+            return societiesList;
         }
-        final List<Society> societiesList = new ArrayList<Society>();
+
         Society society = null;
         for (final UserSocietyDetails userSocietyDetails : userSocietyDetailsList) {
             society = new Society();
@@ -656,13 +623,14 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         String journalImage = null;
         try {
             final PdhLookupJournalResponse pdhLookupJournalResponse = eSBInterfaceService
-                    .getPdhLookupJournalResponse("");
+                    .getPdhLookupJournalResponse(participantId);
             journalTitle = pdhLookupJournalResponse.getTitle();
             journalImage = pdhLookupJournalResponse.getBannerImage();
         } catch (final Exception e) {
-            e.printStackTrace();
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE);
+            throw new ASException();
         }
-        final ArrayList<PreferredJournals> listdata = new ArrayList<PreferredJournals>();
+        final List<PreferredJournals> listdata = new ArrayList<PreferredJournals>();
         final JSONArray jsonArray = new JSONArray(value);
         final List<String> list = new ArrayList<String>();
 
@@ -670,9 +638,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             final PreferredJournals preferredJournals = new PreferredJournals();
             preferredJournals.setJournalTitle(journalTitle);
             preferredJournals.setJournalImage(journalImage);
-            list.add("");
-            // preferredJournals.setJournalId(list.get(i));
-            // PDh Lokkup
+            list.add(AuthorServicesConstants.EMPTY);
+
         }
 
         return listdata;
@@ -843,42 +810,6 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     @Override
     public boolean addInterests(final String userId,
             final AreaOfInterests areaOfInterests) {
-
-        /*
-         * final Participant participant = participantsInterfaceService
-         * .searchParticipantByUserId(userId);
-         * 
-         * final ProfileEntity profileEntity = new ProfileEntity();
-         * 
-         * profileEntity.setEntityType("PROFILE"); final EntityValue entityValue
-         * = new EntityValue();
-         * 
-         * final ProfileRequest profileRequest = new ProfileRequest();
-         * profileRequest.setTitleCode(participant.getJobTitle());
-         * profileRequest.setSuffixCode(participant.getHonorificSuffix());
-         * profileRequest.setMiddleName("");
-         * profileRequest.setLastName(participant.getFamilyName());
-         * profileRequest.setFirstName(participant.getName());
-         * profileRequest.setAlternativeName("");
-         * profileRequest.setIndustryCode(participant.getIndustryId());
-         * profileRequest.setJobCategoryCode(participant.getJobCategoryId());
-         * profileRequest.setSendEmail(participant.getEmail());
-         * profileRequest.setPrimaryEmail(""); // primary email Address
-         * 
-         * final List<InterestList> interestList = new
-         * ArrayList<InterestList>(); final InterestList interest = new
-         * InterestList(); interest.setInterestCode(""); // interest code
-         * profileRequest.setInterestList(interestList);
-         * 
-         * profileRequest.setOrcid(""); // orcid id
-         * 
-         * entityValue.setProfile(profileRequest);
-         * profileEntity.setEntityValue(entityValue);
-         * profileEntity.setSourceSystem(AuthorServicesConstants.SOURCESYSTEM);
-         * profileEntity.setEntityId(userId);
-         * 
-         * participantsInterfaceService.updateProfile(profileEntity);
-         */
         return false;
 
     }
@@ -904,17 +835,12 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
     @Override
     public List<Preferences> getWOAaccounts(final String participantId) {
-
-        /*
-         * final Preferences preference = participantsInterfaceService
-         * .getPreferredJournals(participantId);
-         */
-        return null;
+        return new ArrayList<Preferences>();
     }
 
     @Override
     public List<CoAuthor> getsCoAuthorsList(final String userId) {
-        return null;
+        return new ArrayList<CoAuthor>();
     }
 
     @Override
