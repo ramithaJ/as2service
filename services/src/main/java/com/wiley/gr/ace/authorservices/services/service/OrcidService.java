@@ -69,4 +69,6 @@ public interface OrcidService {
      *             the exception
      */
     String getOrcidId(String participantId) throws Exception;
+    User putOrcidData(User user,String authorizationCode);
+    User getCachedOrcidData(User user,String authorizationCode);
 }

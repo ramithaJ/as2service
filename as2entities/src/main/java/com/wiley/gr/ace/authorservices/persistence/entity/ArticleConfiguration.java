@@ -1,8 +1,9 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Oct 16, 2015 3:47:59 PM by Hibernate Tools 4.0.0
+// Generated Oct 19, 2015 4:16:00 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -25,12 +26,8 @@ public class ArticleConfiguration implements java.io.Serializable {
 	private Date authorActvnDate;
 	private Date sysLastUpdateDate;
 	private String licenseVerificationFlag;
-	private byte[] coAuthorUserId;
-	private byte[] colleaguesUserId;
-	private String colleaguesEmailId;
-	private byte[] correspondingAuthorUserId;
 	private Boolean resetLicenseFlag;
-	private byte[] licenseUserId;
+	private UUID licenseUserId;
 	private Date coAuthorInvitationSendDate;
 	private Date initialInvitationSentDate;
 	private Date secondInvitationSentDate;
@@ -38,38 +35,32 @@ public class ArticleConfiguration implements java.io.Serializable {
 	private Date fourthInvitationSentDate;
 	private Date fifthInvitationSentDate;
 	private Date createdDate;
-	private byte[] createdBy;
+	private UUID createdBy;
 	private Date updatedDate;
-	private byte[] updatedBy;
+	private UUID updatedBy;
 
 	public ArticleConfiguration() {
 	}
 
 	public ArticleConfiguration(long dhId, Date firstRecvdDate,
 			Date lastUpdateDate, String licenseVerificationFlag,
-			byte[] coAuthorUserId, byte[] colleaguesUserId,
-			byte[] correspondingAuthorUserId, byte[] licenseUserId) {
+			UUID licenseUserId) {
 		this.dhId = dhId;
 		this.firstRecvdDate = firstRecvdDate;
 		this.lastUpdateDate = lastUpdateDate;
 		this.licenseVerificationFlag = licenseVerificationFlag;
-		this.coAuthorUserId = coAuthorUserId;
-		this.colleaguesUserId = colleaguesUserId;
-		this.correspondingAuthorUserId = correspondingAuthorUserId;
 		this.licenseUserId = licenseUserId;
 	}
 
 	public ArticleConfiguration(long dhId, String prodTrkPathArticle,
 			byte[] notes, Date firstRecvdDate, Date lastUpdateDate,
 			Date authorActvnDate, Date sysLastUpdateDate,
-			String licenseVerificationFlag, byte[] coAuthorUserId,
-			byte[] colleaguesUserId, String colleaguesEmailId,
-			byte[] correspondingAuthorUserId, Boolean resetLicenseFlag,
-			byte[] licenseUserId, Date coAuthorInvitationSendDate,
+			String licenseVerificationFlag, Boolean resetLicenseFlag,
+			UUID licenseUserId, Date coAuthorInvitationSendDate,
 			Date initialInvitationSentDate, Date secondInvitationSentDate,
 			Date thirdInvitationSentDate, Date fourthInvitationSentDate,
-			Date fifthInvitationSentDate, Date createdDate, byte[] createdBy,
-			Date updatedDate, byte[] updatedBy) {
+			Date fifthInvitationSentDate, Date createdDate, UUID createdBy,
+			Date updatedDate, UUID updatedBy) {
 		this.dhId = dhId;
 		this.prodTrkPathArticle = prodTrkPathArticle;
 		this.notes = notes;
@@ -78,10 +69,6 @@ public class ArticleConfiguration implements java.io.Serializable {
 		this.authorActvnDate = authorActvnDate;
 		this.sysLastUpdateDate = sysLastUpdateDate;
 		this.licenseVerificationFlag = licenseVerificationFlag;
-		this.coAuthorUserId = coAuthorUserId;
-		this.colleaguesUserId = colleaguesUserId;
-		this.colleaguesEmailId = colleaguesEmailId;
-		this.correspondingAuthorUserId = correspondingAuthorUserId;
 		this.resetLicenseFlag = resetLicenseFlag;
 		this.licenseUserId = licenseUserId;
 		this.coAuthorInvitationSendDate = coAuthorInvitationSendDate;
@@ -173,42 +160,6 @@ public class ArticleConfiguration implements java.io.Serializable {
 		this.licenseVerificationFlag = licenseVerificationFlag;
 	}
 
-	@Column(name = "CO_AUTHOR_USER_ID", nullable = false)
-	public byte[] getCoAuthorUserId() {
-		return this.coAuthorUserId;
-	}
-
-	public void setCoAuthorUserId(byte[] coAuthorUserId) {
-		this.coAuthorUserId = coAuthorUserId;
-	}
-
-	@Column(name = "COLLEAGUES_USER_ID", nullable = false)
-	public byte[] getColleaguesUserId() {
-		return this.colleaguesUserId;
-	}
-
-	public void setColleaguesUserId(byte[] colleaguesUserId) {
-		this.colleaguesUserId = colleaguesUserId;
-	}
-
-	@Column(name = "COLLEAGUES_EMAIL_ID")
-	public String getColleaguesEmailId() {
-		return this.colleaguesEmailId;
-	}
-
-	public void setColleaguesEmailId(String colleaguesEmailId) {
-		this.colleaguesEmailId = colleaguesEmailId;
-	}
-
-	@Column(name = "CORRESPONDING_AUTHOR_USER_ID", nullable = false)
-	public byte[] getCorrespondingAuthorUserId() {
-		return this.correspondingAuthorUserId;
-	}
-
-	public void setCorrespondingAuthorUserId(byte[] correspondingAuthorUserId) {
-		this.correspondingAuthorUserId = correspondingAuthorUserId;
-	}
-
 	@Column(name = "RESET_LICENSE_FLAG", length = 1)
 	public Boolean getResetLicenseFlag() {
 		return this.resetLicenseFlag;
@@ -219,11 +170,11 @@ public class ArticleConfiguration implements java.io.Serializable {
 	}
 
 	@Column(name = "LICENSE_USER_ID", nullable = false)
-	public byte[] getLicenseUserId() {
+	public UUID getLicenseUserId() {
 		return this.licenseUserId;
 	}
 
-	public void setLicenseUserId(byte[] licenseUserId) {
+	public void setLicenseUserId(UUID licenseUserId) {
 		this.licenseUserId = licenseUserId;
 	}
 
@@ -298,11 +249,11 @@ public class ArticleConfiguration implements java.io.Serializable {
 	}
 
 	@Column(name = "CREATED_BY")
-	public byte[] getCreatedBy() {
+	public UUID getCreatedBy() {
 		return this.createdBy;
 	}
 
-	public void setCreatedBy(byte[] createdBy) {
+	public void setCreatedBy(UUID createdBy) {
 		this.createdBy = createdBy;
 	}
 
@@ -317,11 +268,11 @@ public class ArticleConfiguration implements java.io.Serializable {
 	}
 
 	@Column(name = "UPDATED_BY")
-	public byte[] getUpdatedBy() {
+	public UUID getUpdatedBy() {
 		return this.updatedBy;
 	}
 
-	public void setUpdatedBy(byte[] updatedBy) {
+	public void setUpdatedBy(UUID updatedBy) {
 		this.updatedBy = updatedBy;
 	}
 

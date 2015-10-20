@@ -23,6 +23,8 @@ import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.externalservices.service.OrcidInterfaceService;
@@ -534,5 +536,17 @@ public class OrcidServiceImpl implements OrcidService {
             orcidId = participant.getOrcidId();
         }
         return orcidId;
+    }
+
+    @Override
+    @CachePut(value = "user", key = "#authorizationCode")
+    public User putOrcidData(User user, String authorizationCode) {
+        return user;
+    }
+
+    @Override
+    @Cacheable(value = "user", key = "#authorizationCode")
+    public User getCachedOrcidData(User user,String authorizationCode) {
+        return user;
     }
 }

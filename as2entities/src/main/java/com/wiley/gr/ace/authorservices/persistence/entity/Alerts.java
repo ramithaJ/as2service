@@ -1,10 +1,11 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Oct 16, 2015 3:47:59 PM by Hibernate Tools 4.0.0
+// Generated Oct 19, 2015 4:16:00 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -28,9 +29,9 @@ public class Alerts implements java.io.Serializable {
 	private String alertName;
 	private String description;
 	private Date createdDate;
-	private byte[] createdBy;
+	private UUID createdBy;
 	private Date updatedDate;
-	private byte[] updatedBy;
+	private UUID updatedBy;
 	private Set<JournalAlertsConfiguration> journalAlertsConfigurations = new HashSet<JournalAlertsConfiguration>(
 			0);
 
@@ -42,8 +43,8 @@ public class Alerts implements java.io.Serializable {
 	}
 
 	public Alerts(String alertCd, AlertTypes alertTypes, String alertName,
-			String description, Date createdDate, byte[] createdBy,
-			Date updatedDate, byte[] updatedBy,
+			String description, Date createdDate, UUID createdBy,
+			Date updatedDate, UUID updatedBy,
 			Set<JournalAlertsConfiguration> journalAlertsConfigurations) {
 		this.alertCd = alertCd;
 		this.alertTypes = alertTypes;
@@ -105,11 +106,11 @@ public class Alerts implements java.io.Serializable {
 	}
 
 	@Column(name = "CREATED_BY")
-	public byte[] getCreatedBy() {
+	public UUID getCreatedBy() {
 		return this.createdBy;
 	}
 
-	public void setCreatedBy(byte[] createdBy) {
+	public void setCreatedBy(UUID createdBy) {
 		this.createdBy = createdBy;
 	}
 
@@ -124,11 +125,11 @@ public class Alerts implements java.io.Serializable {
 	}
 
 	@Column(name = "UPDATED_BY")
-	public byte[] getUpdatedBy() {
+	public UUID getUpdatedBy() {
 		return this.updatedBy;
 	}
 
-	public void setUpdatedBy(byte[] updatedBy) {
+	public void setUpdatedBy(UUID updatedBy) {
 		this.updatedBy = updatedBy;
 	}
 

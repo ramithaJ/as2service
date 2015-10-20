@@ -14,6 +14,7 @@
 package com.wiley.gr.ace.authorservices.persistence.services;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.wiley.gr.ace.authorservices.model.ResearchFunder;
 import com.wiley.gr.ace.authorservices.persistence.entity.UserFunders;
@@ -28,13 +29,13 @@ public interface ResearchFunderDAO {
      * @param participantId
      * @return
      */
-    List<UserFunders> getResearchFunders(String participantId);
+    List<UserFunders> getResearchFunders(UUID participantUUID);
 
     /**
      * @param researchFunder
      * @return
      */
-    boolean updateResearchFunder(ResearchFunder researchFunder);
+    boolean updateResearchFunder(String participantId, ResearchFunder researchFunder);
 
     /**
      * @param researchFunderId

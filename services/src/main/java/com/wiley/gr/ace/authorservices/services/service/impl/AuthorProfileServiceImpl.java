@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import org.json.JSONArray;
 import org.slf4j.Logger;
@@ -161,9 +162,11 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         AuthorProfileServiceImpl.LOGGER
                 .info("ins ide updateSocietyDetails Method ");
 
+        UUID participantUUID = UUID.fromString(userId);
+        
         if (0 == society.getId()) {
             UserSocietyDetails userSocietyDetails = new UserSocietyDetails();
-            userSocietyDetails.setParticipantId(userId.getBytes());
+            userSocietyDetails.setParticipantId(participantUUID);
 
             Societies societies = new Societies();
             societies.setSocietyCd(society.getSocietyId());
@@ -176,14 +179,12 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                     .getStartDate())));
             userSocietyDetails
                     .setEndDt(new Date(new Long(society.getEndDate())));
-            userSocietyDetails.setCreatedBy(userId.getBytes());
+            userSocietyDetails.setCreatedBy(participantUUID);
             userSocietyDetails.setCreatedDate(new Date());
-            userSocietyDetails.setUpdatedBy(userId.getBytes());
-            userSocietyDetails.setUpdatedDate(new Date());
 
             return societyDao.addSociety(userSocietyDetails);
         } else {
-            return societyDao.updateSociety(userId, society);
+            return societyDao.updateSociety(participantUUID, society);
 
         }
 
@@ -201,8 +202,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      *             the exception
      */
     @Override
-    public boolean updateAffiliation(String userId, Affiliation affiliation)
-            throws Exception {
+    public boolean updateAffiliation(final String userId,
+            final Affiliation affiliation) throws Exception {
         AuthorProfileServiceImpl.LOGGER
                 .info("inside updateAffiliation Method ");
         return authorProfileDao.updateAffiliation(userId, affiliation);
@@ -505,7 +506,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      *             the exception
      */
     @Override
-    public List<Affiliation> getAffiliationList(String userId) throws Exception {
+    public List<Affiliation> getAffiliationList(final String userId)
+            throws Exception {
         AuthorProfileServiceImpl.LOGGER
                 .info("inside getAffiliationList Method ");
         List<UserAffiliations> userAffiliations = authorProfileDao
@@ -542,9 +544,11 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      */
     @Override
     public final List<ResearchFunder> getResearchFundersList(final String userId) {
+    	
+    	UUID participantUUID = UUID.fromString(userId);
 
         List<UserFunders> userFundersList = researchFunderDAO
-                .getResearchFunders(userId);
+                .getResearchFunders(participantUUID);
         List<ResearchFunder> researchFundersList = new ArrayList<ResearchFunder>();
         ResearchFunder researchFunder = null;
         for (UserFunders userFunders : userFundersList) {
@@ -574,9 +578,11 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
     @Override
     public final List<Society> getSocietylist(final String userId) {
+    	
+    	UUID participantId = UUID.fromString(userId);
 
         final List<UserSocietyDetails> userSocietyDetailsList = societyDao
-                .getSocietyDetails(userId);
+                .getSocietyDetails(participantId);
         if (userSocietyDetailsList.isEmpty()) {
             return null;
         }
@@ -752,7 +758,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      *             the exception
      */
     @Override
-    public boolean deleteAffiliations(String userId) throws Exception {
+    public boolean deleteAffiliations(final String userId) throws Exception {
         AuthorProfileServiceImpl.LOGGER
                 .info("inside deleteAffiliations Method ");
         return authorProfileDao.deleteAffiliations(userId);
@@ -913,11 +919,13 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     public boolean updateResearchFunders(final String participantId,
             final ResearchFunder researchFunder) {
 
+    	UUID participantUUID = UUID.fromString(participantId);
         if (0 == researchFunder.getId()) {
             UserFunders userFunders = new UserFunders();
+            userFunders.setParticipantId(participantUUID);
             userFunders.setFunderDoi(researchFunder.getResearchFunderId());
             userFunders.setFunderName(researchFunder.getResearchFunderName());
-            userFunders.setParticipantId(participantId.getBytes());
+            userFunders.setParticipantId(participantUUID);
 
             Set<UserFunderGrants> userFunderGrantsSet = new HashSet<UserFunderGrants>();
             UserFunderGrants userFunderGrants = null;
@@ -928,9 +936,11 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                 userFunderGrantsSet.add(userFunderGrants);
             }
             userFunders.setUserFunderGrantses(userFunderGrantsSet);
+            userFunders.setCreatedBy(participantUUID);
+            userFunders.setCreatedDate(new Date());
             return researchFunderDAO.addResearchFunder(userFunders);
         } else {
-            return researchFunderDAO.updateResearchFunder(researchFunder);
+            return researchFunderDAO.updateResearchFunder(participantId, researchFunder);
         }
     }
 

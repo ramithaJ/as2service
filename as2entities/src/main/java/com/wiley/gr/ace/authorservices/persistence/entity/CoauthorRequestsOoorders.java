@@ -1,8 +1,9 @@
 package com.wiley.gr.ace.authorservices.persistence.entity;
 
-// Generated Oct 16, 2015 3:47:59 PM by Hibernate Tools 4.0.0
+// Generated Oct 19, 2015 4:16:00 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,20 +22,20 @@ import javax.persistence.UniqueConstraint;
 public class CoauthorRequestsOoorders implements java.io.Serializable {
 
 	private Long requestId;
-	private byte[] coauthParticipantId;
+	private UUID coauthParticipantId;
 	private Long dhId;
 	private String messageFromCoauth;
 	private Date createdDate;
-	private byte[] createdBy;
+	private UUID createdBy;
 	private Date updatedDate;
-	private byte[] updatedBy;
+	private UUID updatedBy;
 
 	public CoauthorRequestsOoorders() {
 	}
 
-	public CoauthorRequestsOoorders(byte[] coauthParticipantId, Long dhId,
-			String messageFromCoauth, Date createdDate, byte[] createdBy,
-			Date updatedDate, byte[] updatedBy) {
+	public CoauthorRequestsOoorders(UUID coauthParticipantId, Long dhId,
+			String messageFromCoauth, Date createdDate, UUID createdBy,
+			Date updatedDate, UUID updatedBy) {
 		this.coauthParticipantId = coauthParticipantId;
 		this.dhId = dhId;
 		this.messageFromCoauth = messageFromCoauth;
@@ -56,11 +57,11 @@ public class CoauthorRequestsOoorders implements java.io.Serializable {
 	}
 
 	@Column(name = "COAUTH_PARTICIPANT_ID")
-	public byte[] getCoauthParticipantId() {
+	public UUID getCoauthParticipantId() {
 		return this.coauthParticipantId;
 	}
 
-	public void setCoauthParticipantId(byte[] coauthParticipantId) {
+	public void setCoauthParticipantId(UUID coauthParticipantId) {
 		this.coauthParticipantId = coauthParticipantId;
 	}
 
@@ -93,11 +94,11 @@ public class CoauthorRequestsOoorders implements java.io.Serializable {
 	}
 
 	@Column(name = "CREATED_BY")
-	public byte[] getCreatedBy() {
+	public UUID getCreatedBy() {
 		return this.createdBy;
 	}
 
-	public void setCreatedBy(byte[] createdBy) {
+	public void setCreatedBy(UUID createdBy) {
 		this.createdBy = createdBy;
 	}
 
@@ -112,11 +113,11 @@ public class CoauthorRequestsOoorders implements java.io.Serializable {
 	}
 
 	@Column(name = "UPDATED_BY")
-	public byte[] getUpdatedBy() {
+	public UUID getUpdatedBy() {
 		return this.updatedBy;
 	}
 
-	public void setUpdatedBy(byte[] updatedBy) {
+	public void setUpdatedBy(UUID updatedBy) {
 		this.updatedBy = updatedBy;
 	}
 

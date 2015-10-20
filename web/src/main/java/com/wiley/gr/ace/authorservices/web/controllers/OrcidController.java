@@ -138,7 +138,7 @@ public class OrcidController {
     public final void getOrcidData(@PathVariable("type") final String type,
             HttpServletRequest request, HttpServletResponse response) {
         LOGGER.info("inside getOrcidData() method of OrcidController ");
-        Service service = new Service();
+        
         User user = null;
         try {
             String authrizationCode = request.getParameter("code");
@@ -157,15 +157,16 @@ public class OrcidController {
                             orcidService.getWork(orcidAccessToken, user);
                         }
                     }
-                    service.setStatus("SUCCESS");
-                    service.setPayload(user);
+                    orcidService.putOrcidData(user, authrizationCode);
+//                    service.setStatus("SUCCESS");
+//                    service.setPayload(user);
 //                    LOGGER.info("service.toString() --> "+ service.toString());
 //                    ObjectMapper objectMapper = new ObjectMapper();
 //                    String serviceStr = objectMapper.writeValueAsString(service);
 //                    LOGGER.info("serviceStr--> "+ serviceStr);
 //                    response.addHeader("ORCIDINFO", serviceStr);
 //                    response.setStatus(HttpStatus.SC_MOVED_PERMANENTLY);
-                    response.sendRedirect("http://authorservicesdev.wiley.com/landing.html#register/orcid"+service);
+                    response.sendRedirect("http://authorservicesdev.wiley.com/landing.html#register/orcid?code="+authrizationCode);
                                                            
                     
 //                    request.setAttribute("ORCIDINFO", service);
@@ -197,25 +198,25 @@ public class OrcidController {
         Service service = new Service();
         User user = null;
         try {
-
-            if (null != authorizationCode) {
-                final OrcidAccessToken accessToken = orcidService
-                        .getAccessToken(authorizationCode);
-                if (null != accessToken) {
-                    LOGGER.info("accessToken.getAccess_token() --->"
-                            + accessToken.getAccessToken());
-                    LOGGER.info("accessToken.getOrcid() ---> "
-                            + accessToken.getOrcid());
-                    if (null != type) {
-                        user = orcidService.getBio(accessToken);
-                        if ("userupdate".equalsIgnoreCase(type)) {
-                            orcidService.getWork(accessToken, user);
-                        }
-                    }
+             user=orcidService.getCachedOrcidData(user, authorizationCode);
+             if(!StringUtils.isEmpty(user)) {
+//            if (null != authorizationCode) {
+//                final OrcidAccessToken accessToken = orcidService
+//                        .getAccessToken(authorizationCode);
+//                if (null != accessToken) {
+//                    LOGGER.info("accessToken.getAccess_token() --->"
+//                            + accessToken.getAccessToken());
+//                    LOGGER.info("accessToken.getOrcid() ---> "
+//                            + accessToken.getOrcid());
+//                    if (null != type) {
+//                        user = orcidService.getBio(accessToken);
+//                        if ("userupdate".equalsIgnoreCase(type)) {
+//                            orcidService.getWork(accessToken, user);
+//                        }
+//                    }
                     service.setStatus("SUCCESS");
                     service.setPayload(user);
                 }
-            }
         } catch (final Exception e) {
             LOGGER.error("Stack Trace-.", e);
             throw new ASException(getOrcidDetailsErrorCode,

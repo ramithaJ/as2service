@@ -13,6 +13,7 @@
 package com.wiley.gr.ace.authorservices.persistence.services;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.wiley.gr.ace.authorservices.model.Society;
 import com.wiley.gr.ace.authorservices.persistence.entity.Societies;
@@ -32,9 +33,9 @@ public interface SocietyDao {
      */
     List<Societies> getSociety();
 
-    List<UserSocietyDetails> getSocietyDetails(String participantId);
+    List<UserSocietyDetails> getSocietyDetails(UUID participantId);
 
-    boolean updateSociety(String userId, Society society);
+    boolean updateSociety(UUID participantUUID, Society society);
 
     boolean deleteSociety(Long id);
 
