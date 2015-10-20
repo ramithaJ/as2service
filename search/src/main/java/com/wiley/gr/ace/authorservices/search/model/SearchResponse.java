@@ -30,8 +30,8 @@ public class SearchResponse implements Serializable {
     /** The hits. */
     private List<Hits> hits;
 
-    /** The timed_out. */
-    private String timed_out;
+    /** The timed out. */
+    private String timedOut;
 
     /** The facets. */
     private Facets facets;
@@ -40,7 +40,7 @@ public class SearchResponse implements Serializable {
     private String took;
 
     /** The max_score. */
-    private String max_score;
+    private String maxScore;
 
     /**
      * Gets the total.
@@ -81,22 +81,22 @@ public class SearchResponse implements Serializable {
     }
 
     /**
-     * Gets the timed_out.
+     * Gets the timedOut.
      *
-     * @return the timed_out
+     * @return the timedOut
      */
-    public final String getTimed_out() {
-        return timed_out;
+    public final String getTimedOut() {
+        return timedOut;
     }
 
     /**
-     * Sets the timed_out.
+     * Sets the timedOut.
      *
-     * @param timed_out
-     *            the new timed_out
+     * @param timedOut
+     *            the new timedOut
      */
-    public final void setTimed_out(final String timed_out) {
-        this.timed_out = timed_out;
+    public final void setTimedOut(final String timedOut) {
+        this.timedOut = timedOut;
     }
 
     /**
@@ -138,22 +138,22 @@ public class SearchResponse implements Serializable {
     }
 
     /**
-     * Gets the max_score.
+     * Gets the maxScore.
      *
-     * @return the max_score
+     * @return the maxScore
      */
-    public final String getMax_score() {
-        return max_score;
+    public final String getMaxScore() {
+        return maxScore;
     }
 
     /**
-     * Sets the max_score.
+     * Sets the maxScore.
      *
-     * @param max_score
-     *            the new max_score
+     * @param maxScore
+     *            the new maxScore
      */
-    public final void setMax_score(final String max_score) {
-        this.max_score = max_score;
+    public final void setMaxScore(final String maxScore) {
+        this.maxScore = maxScore;
     }
 
 }
