@@ -34,16 +34,6 @@ public class SendNotificationImpl implements SendNotification {
     @Autowired(required = true)
     private NotificationService notificationService;
 
-    // /** The send notification dao. */
-    // @Autowired(required = true)
-    // private SendNotificationDao sendNotificationDao;
-
-    // /**
-    // * This field holds the value of userLoginServiceDAO.
-    // */
-    // @Autowired(required = true)
-    // private UserLoginServiceDAO userLoginServiceDAO;
-
     /** The notification email. */
     @Value("${notification.email}")
     private String notificationEmail;
@@ -55,9 +45,6 @@ public class SendNotificationImpl implements SendNotification {
     /** The type. */
     @Value("${type}")
     private String type;
-
-    // @Value("${superAdminRoleId}")
-    // private String superAdminRoleId;
 
     /**
      * calling notification service for sending email.
@@ -127,20 +114,11 @@ public class SendNotificationImpl implements SendNotification {
         notificationRequest.setTo(toList);
         NotificationFieldList notificationFieldList = new NotificationFieldList();
         List<String> listofFields = new ArrayList<String>();
-        // Users users = userLoginServiceDAO.getUserId(emailId);
-        // if (users != null) {
-        // listofFields.add(users.getFirstName());
-        // UserSecondaryEmailAddr userSecondaryEmailAddr = sendNotificationDao
-        // .getUserSecEmailAddr(users.getUserId().intValue());
 
-        // listofFields.add(userSecondaryEmailAddr.getSecondaryEmailAddr());
         notificationFieldList.setFieldList(listofFields);
         notificationRequest.setTemplateDetails(notificationFieldList);
         return notificationService.sendNotification(appId, type, templateId,
                 notificationRequest);
-        // } else {
-        // return null;
-        // }
 
     }
 
@@ -150,12 +128,9 @@ public class SendNotificationImpl implements SendNotification {
 
         NotificationRequest notificationRequest = new NotificationRequest();
         notificationRequest.setFrom(notificationEmail);
-        // List<UserRoles> superAdminsList = userLoginServiceDAO
-        // .getSuperAdmins(Integer.parseInt(superAdminRoleId));
+
         List<String> toList = new ArrayList<String>();
-        // for (UserRoles userRoles : superAdminsList) {
-        // toList.add(userRoles.getUsersByUserId().getPrimaryEmailAddr());
-        // }
+
         notificationRequest.setTo(toList);
         NotificationFieldList notificationFieldList = new NotificationFieldList();
         List<String> listofFields = new ArrayList<String>();
