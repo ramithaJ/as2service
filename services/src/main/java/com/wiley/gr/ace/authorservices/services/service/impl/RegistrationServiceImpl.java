@@ -214,7 +214,7 @@ public class RegistrationServiceImpl implements RegistrationService {
                             .searchInvitationRecord(emailId))) {
                         LOGGER.info("User is an invited user");
                         Participant participant = participantInterfaceService
-                                .searchParticipantByEmail(emailId);
+                                .searchParticipantByEmailId(emailId);
                         user = new User();
                         user.setFirstName(participant.getGivenName());
                         user.setLastName(participant.getFamilyName());
@@ -472,7 +472,7 @@ public class RegistrationServiceImpl implements RegistrationService {
                     .decrypt(almUserIdEncrypted));
 
             List<ALMUser> almUserList = almInterfaceService.searchUser(
-                    user.getPrimaryEmailAddr()).getUserPayload();
+                    user.getPrimaryEmailAddr()).getUserPayload().getUserPayload();
             if (!StringUtils.isEmpty(almUserList)) {
                 for (ALMUser almUser : almUserList) {
                     if (almUser.getEmail().equals(user.getPrimaryEmailAddr())) {
