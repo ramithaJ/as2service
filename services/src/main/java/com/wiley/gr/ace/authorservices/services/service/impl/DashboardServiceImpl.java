@@ -694,7 +694,7 @@ public class DashboardServiceImpl implements DashboardService {
             final List<OrderData> orderDataList = ordersData.getOrderDatas();
             for (final OrderData orderData : orderDataList) {
 
-                final HashMap<String, OrderStatus> orderStatusHashMap = orderStatusService
+                final Map<String, OrderStatus> orderStatusHashMap = orderStatusService
                         .getOrderStatusMap();
                 if (orderStatusHashMap.containsKey(orderData
                         .getOrderStatusCode())) {
