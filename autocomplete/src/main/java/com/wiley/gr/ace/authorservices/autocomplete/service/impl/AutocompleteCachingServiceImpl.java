@@ -35,6 +35,8 @@ import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
 import com.wiley.gr.ace.authorservices.model.external.Funder;
 import com.wiley.gr.ace.authorservices.model.external.Id;
 import com.wiley.gr.ace.authorservices.model.external.ResearchFundersResponse;
+import com.wiley.gr.ace.authorservices.model.external.WOAFunder;
+import com.wiley.gr.ace.authorservices.model.external.WileyOpenAccessFunders;
 import com.wiley.gr.ace.authorservices.persistence.entity.AreaOfInterest;
 import com.wiley.gr.ace.authorservices.persistence.entity.Societies;
 import com.wiley.gr.ace.authorservices.persistence.services.ASDataDAO;
@@ -154,6 +156,14 @@ public class AutocompleteCachingServiceImpl implements
     /** The area of interest dao . */
     @Autowired(required = true)
     private AreaOfInterterestDao areaOfInterest;
+    
+    /** The woa funders. */
+    @Value("${woaFunders.key}")
+    private String woaFundersKey;
+    
+    /** The woa accounts url. */
+    @Value("${woaAccounts.url}")    
+    private String woaAccountsurl;
 
     /**
      * This method returns the cached drop down data in the form of Map. If
@@ -173,31 +183,43 @@ public class AutocompleteCachingServiceImpl implements
         Map<String, CacheData> dropDownMap = null;
         List<CacheData> cacheDataList = null;
 
-        if ((industrieskey + "_cached").equals(dropDownKey)) {
+        String industryKey = industrieskey + "_cached";
+        String jobCategoryKey = jobCategorieskey + "_cached";
+        String countryKey = countrieskey + "_cached";
+        String institutionKey = institutionskey + "_cached";
+        String departmentKey = departmentskey + "_" + parentId + "_cached";
+        String researchFunderKey = researchFundersKey + "_cached";
+        String societyKey = societieskey + "_cached";
+        String areaOfIntrestKey = areasOfInterestsKey + "_cached";
+        String woaFunderKey = woaFundersKey + "_cached"; 
+        
+        if (industryKey.equals(dropDownKey)) {
             LOGGER.info("getCachedData::industrieskey::" + dropDownKey);
             cacheDataList = getIndustries();
-        } else if ((jobCategorieskey + "_cached").equals(dropDownKey)) {
+        } else if (jobCategoryKey.equals(dropDownKey)) {
             LOGGER.info("getCachedData::jobCategorieskey::" + dropDownKey);
             cacheDataList = getJobCategories();
-        } else if ((countrieskey + "_cached").equals(dropDownKey)) {
+        } else if (countryKey.equals(dropDownKey)) {
             LOGGER.info("getCachedData::countrieskey::" + dropDownKey);
             cacheDataList = getCountries();
-        } else if ((institutionskey + "_cached").equals(dropDownKey)) {
+        } else if (institutionKey.equals(dropDownKey)) {
             LOGGER.info("getCachedData::institutionskey::" + dropDownKey);
             cacheDataList = getInstitutions();
-        } else if ((departmentskey + "_" + parentId + "_cached")
-                .equals(dropDownKey)) {
+        } else if (departmentKey.equals(dropDownKey)) {
             LOGGER.info("getCachedData::departmentskey::" + dropDownKey);
             cacheDataList = getDepartments(parentId);
-        } else if ((researchFundersKey + "_cached").equals(dropDownKey)) {
+        } else if (researchFunderKey.equals(dropDownKey)) {
             LOGGER.info("getCachedData::researchFundersKey::" + dropDownKey);
             cacheDataList = getResearchFunders();
-        } else if ((societieskey + "_cached").equals(dropDownKey)) {
+        } else if (societyKey.equals(dropDownKey)) {
             LOGGER.info("getCachedData::societieskey::" + dropDownKey);
             cacheDataList = getSocieties();
-        } else if ((areasOfInterestsKey + "_cached").equals(dropDownKey)) {
+        } else if (areaOfIntrestKey.equals(dropDownKey)) {
             LOGGER.info("getCachedData::areasOfInterestsKey::" + dropDownKey);
             cacheDataList = getAreasOfInterests();
+        } else if(woaFunderKey.equals(dropDownKey)){
+        	LOGGER.info("getCachedData::woaFundersKey::" + dropDownKey);
+            cacheDataList = getWoaFundersKey();
         }
 
         if (cacheDataList != null && !cacheDataList.isEmpty()) {
@@ -215,7 +237,7 @@ public class AutocompleteCachingServiceImpl implements
         return dropDownMap;
     }
 
-    /**
+	/**
      * This method returns ResearchFunders.
      * 
      * @return cacheDataList.
@@ -666,5 +688,37 @@ public class AutocompleteCachingServiceImpl implements
 
         return areasOfIntrestList;
     }
+    
+    /**
+     * This method returns the woaFundersList.
+     * @return cachedata
+     */
+    private List<CacheData> getWoaFundersKey() {
+    	
+    	List<CacheData> woaFunderList = null;
+  
+    	WileyOpenAccessFunders wileyOpenAccessFunders =(WileyOpenAccessFunders) RestServiceInvokerUtil
+                .getServiceData(woaAccountsurl,
+                		WileyOpenAccessFunders.class);
+    	
+    	if(wileyOpenAccessFunders != null){
+    		List<WOAFunder> woaFundersList = wileyOpenAccessFunders.getWoaFunders()
+    				.getWOAFunder();
+    		
+    		if(woaFundersList != null && !woaFundersList.isEmpty()){
+    	    	woaFunderList = new ArrayList<CacheData>();
+
+    			for (WOAFunder woaFunder : woaFundersList) {
+    				CacheData cacheData = new CacheData();
+    				cacheData.setCode(woaFunder.getId());
+    				cacheData.setName(woaFunder.getName().toUpperCase());
+    				cacheData.setDisplayName(woaFunder.getName());
+    				woaFunderList.add(cacheData);
+    			}	
+    		}
+    		
+    	}
+		return woaFunderList;
+	}
 
 }

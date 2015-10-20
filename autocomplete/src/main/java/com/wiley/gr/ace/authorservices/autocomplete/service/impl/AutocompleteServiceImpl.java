@@ -77,7 +77,7 @@ public class AutocompleteServiceImpl implements AutocompleteService {
 		/**
 		 * Dropdown key list.
 		 */
-		industries, jobCategories, countries, states, institutions, departments, researchFunders, subFunders, societies, areasOfInterests
+		INDUSTRIES, JOBCATEGORIES, COUNTRIES, STATES, INSTITUTIONS, DEPARTMENTS, RESEARCHFUNDERS, SUBFUNDERS, SOCIETIES, AREASOFINTERESTS, WOAFUNDERS
 	};
 
 	/**
@@ -118,7 +118,7 @@ public class AutocompleteServiceImpl implements AutocompleteService {
 
 		for (DropDownKeys keys : DropDownKeys.values()) {
 
-			if (dropDownKey.equals(keys.toString())) {
+			if (dropDownKey.equalsIgnoreCase(keys.toString())) {
 				flag = true;
 				LOGGER.info("getDropDownData::isValidKey::" + flag);
 				break;
