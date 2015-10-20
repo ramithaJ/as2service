@@ -471,8 +471,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @return the affiliation list
      */
     @Override
-    public List<Affiliation> getAffiliationList(final String userId)
-             {
+    public List<Affiliation> getAffiliationList(final String userId) {
         AuthorProfileServiceImpl.LOGGER
                 .info("inside getAffiliationList Method ");
         List<Affiliation> affiliations = new ArrayList<>();
@@ -596,11 +595,12 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     public PreferenceValue getAlerts(final String participantId)
             throws ASException {
         AuthorProfileServiceImpl.LOGGER.info("inside getAlerts Method ");
-        PreferenceValue preferenceValue=null;
-        try{
-            preferenceValue=participantsInterfaceService.getAlerts(participantId);
-        }catch(Exception e){
-            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE,e);
+        PreferenceValue preferenceValue = null;
+        try {
+            preferenceValue = participantsInterfaceService
+                    .getAlerts(participantId);
+        } catch (Exception e) {
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
         }
         return preferenceValue;
     }
@@ -626,7 +626,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             journalTitle = pdhLookupJournalResponse.getTitle();
             journalImage = pdhLookupJournalResponse.getBannerImage();
         } catch (final Exception e) {
-            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE,e);
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
             throw new ASException();
         }
         final List<PreferredJournals> listdata = new ArrayList<PreferredJournals>();
@@ -725,7 +725,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @return true, if successful
      */
     @Override
-    public boolean deleteAffiliations(final String userId)  {
+    public boolean deleteAffiliations(final String userId) {
         AuthorProfileServiceImpl.LOGGER
                 .info("inside deleteAffiliations Method ");
         return authorProfileDao.deleteAffiliations(userId);
@@ -761,14 +761,14 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         profileRequest.setIndustryCode(participant.getIndustryId());
         profileRequest.setJobCategoryCode(participant.getJobCategoryId());
         profileRequest.setSendEmail(participant.getEmail());
-        profileRequest.setPrimaryEmail(AuthorServicesConstants.EMPTY); 
+        profileRequest.setPrimaryEmail(AuthorServicesConstants.EMPTY);
 
         final List<InterestList> interestList = new ArrayList<InterestList>();
         final InterestList interest = new InterestList();
-        interest.setInterestCode(AuthorServicesConstants.EMPTY); 
+        interest.setInterestCode(AuthorServicesConstants.EMPTY);
         profileRequest.setInterestList(interestList);
 
-        profileRequest.setOrcid(AuthorServicesConstants.EMPTY); 
+        profileRequest.setOrcid(AuthorServicesConstants.EMPTY);
 
         entityValue.setProfile(profileRequest);
         profileEntity.setEntityValue(entityValue);

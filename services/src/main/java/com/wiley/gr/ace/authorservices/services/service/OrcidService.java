@@ -31,10 +31,8 @@ public interface OrcidService {
      * @param authorizationCode
      *            the authorization code
      * @return the access token
-     * @throws Exception
-     *             the exception
      */
-    OrcidAccessToken getAccessToken(String authorizationCode) throws Exception;
+    OrcidAccessToken getAccessToken(String authorizationCode) ;
 
     /**
      * Gets the bio.

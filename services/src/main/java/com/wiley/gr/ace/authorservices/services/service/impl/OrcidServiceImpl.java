@@ -74,13 +74,10 @@ public class OrcidServiceImpl implements OrcidService {
      * @param authorizationCode
      *            the authorization code
      * @return the access token
-     * @throws Exception
-     *             the exception
      */
 
     @Override
-    public final OrcidAccessToken getAccessToken(final String authorizationCode)
-            throws Exception {
+    public final OrcidAccessToken getAccessToken(final String authorizationCode) {
         return oricdInterfaceService.getAccessToken(authorizationCode);
     }
 
@@ -592,7 +589,7 @@ public class OrcidServiceImpl implements OrcidService {
      * @return the orcid id
      */
     @Override
-    public String getOrcidId(final String participantId)  {
+    public String getOrcidId(final String participantId) {
         String orcidId = null;
         Participant participant = participantsInterfaceService
                 .searchParticipantByParticipantId(participantId);

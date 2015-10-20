@@ -49,12 +49,9 @@ public class SaveJournalInfoServiceImpl implements SaveJournalInfoService {
      *
      * @param journalInfoTypeEvent
      *            the journal info type event
-     * @throws Exception
-     *             the exception
      */
     @Override
-    public void parseJournalInfoTypeEvent(final String journalInfoTypeEvent)
-            throws Exception {
+    public void parseJournalInfoTypeEvent(final String journalInfoTypeEvent) {
         LOGGER.info("Parsing Journal Info Type Event ...");
         if (null != journalInfoTypeEvent
                 && journalInfoTypeEvent.trim().length() > 0) {

@@ -38,11 +38,9 @@ public interface OpenAccessService {
      * @param journalId
      *            the journal id
      * @return the open access details
-     * @throws Exception
-     *             the exception
      */
     OpenAccessPaymentData getOpenAccessDetails(String userId, String articleId,
-            String journalId) throws Exception;
+            String journalId);
 
     /**
      * Validate address.
@@ -63,11 +61,8 @@ public interface OpenAccessService {
      * @param vatTaxRegNum
      *            the vat tax reg num
      * @return true, if successful
-     * @throws Exception
-     *             the exception
      */
-    boolean validateVatTaxDetails(String countryCode, String vatTaxRegNum)
-            throws Exception;
+    boolean validateVatTaxDetails(String countryCode, String vatTaxRegNum);
 
     /**
      * @param userId

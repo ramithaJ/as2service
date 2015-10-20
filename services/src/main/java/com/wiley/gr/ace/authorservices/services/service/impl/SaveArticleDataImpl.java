@@ -45,7 +45,7 @@ public class SaveArticleDataImpl implements SaveArticleData {
     private SharedService sharedService;
 
     @Override
-    public void parseArticleEvent(final String articleEvent) throws Exception {
+    public void parseArticleEvent(final String articleEvent)  {
 
         LOGGER.info("Parsing article event ...");
         if (null != articleEvent && articleEvent.trim().length() > 0) {

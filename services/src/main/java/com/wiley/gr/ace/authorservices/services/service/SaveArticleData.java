@@ -11,18 +11,17 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.services.service;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Interface SaveArticleData.
  */
 public interface SaveArticleData {
-	
-	/**
-	 * Parses the article event.
-	 *
-	 * @param articleEvent the article event
-	 * @throws Exception the exception
-	 */
-	void parseArticleEvent(String articleEvent) throws Exception;
-	
+
+    /**
+     * Parses the article event.
+     *
+     * @param articleEvent
+     *            the article event
+     */
+    void parseArticleEvent(String articleEvent);
+
 }

@@ -74,11 +74,9 @@ public interface OrderOnlineOpenService {
      * @param orderTypeFlag
      *            the order type flag
      * @return the order response
-     * @throws Exception
-     *             the exception
      */
     OrderResponse submitOnlineOpenOrder(String userId, String orderId,
-            String orderTypeFlag) throws Exception;
+            String orderTypeFlag);
 
     /**
      * Retrieve discounted woa funder list.
