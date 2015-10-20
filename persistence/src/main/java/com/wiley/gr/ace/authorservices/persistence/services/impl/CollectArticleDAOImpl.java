@@ -18,8 +18,12 @@ import java.util.List;
 import java.util.Set;
 
 import org.hibernate.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.persistence.entity.OwnershipTypes;
 import com.wiley.gr.ace.authorservices.persistence.services.CollectArticleDAO;
 
@@ -31,6 +35,12 @@ import com.wiley.gr.ace.authorservices.persistence.services.CollectArticleDAO;
 public class CollectArticleDAOImpl implements CollectArticleDAO {
 
     /**
+     * This field holds the value of LOGGER
+     */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(CollectArticleDAOImpl.class);
+
+    /**
      * Gets the collect article.
      *
      * @return the collect article
@@ -38,7 +48,7 @@ public class CollectArticleDAOImpl implements CollectArticleDAO {
      *             the exception
      */
     @Override
-    public final Set<OwnershipTypes> getCollectArticle() throws Exception {
+    public final Set<OwnershipTypes> getCollectArticle() {
         List<OwnershipTypes> ownershipTypesList = null;
         Set<OwnershipTypes> ownershipTypesSet = null;
         Session session = null;
@@ -47,8 +57,10 @@ public class CollectArticleDAOImpl implements CollectArticleDAO {
             session = getSessionFactory().openSession();
             String hql = "from OwnershipTypes";
             ownershipTypesList = session.createQuery(hql).list();
-            System.err.println("ownershipTypesList" + ownershipTypesList);
             ownershipTypesSet = new HashSet<OwnershipTypes>(ownershipTypesList);
+        } catch (Exception e) {
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+            throw new UserException();
         } finally {
             if (!StringUtils.isEmpty(session)) {
                 session.flush();

@@ -14,7 +14,6 @@ package com.wiley.gr.ace.authorservices.persistence.services.impl;
 
 import static com.wiley.gr.ace.authorservices.persistence.connection.HibernateConnection.getSessionFactory;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -44,13 +43,12 @@ public class SocietyDaoImpl implements SocietyDao {
     @Override
     public final List<Societies> getSociety() {
         Session session = null;
-        ArrayList<Societies> societyList = null;
+        List<Societies> societyList = null;
 
         try {
             session = getSessionFactory().openSession();
 
-            societyList = (ArrayList<Societies>) session.createCriteria(
-                    Societies.class).list();
+            societyList = session.createCriteria(Societies.class).list();
 
         } finally {
             if (null != session) {
@@ -63,7 +61,8 @@ public class SocietyDaoImpl implements SocietyDao {
     }
 
     @Override
-    public boolean updateSociety(final UUID participantUUID, final Society society) {
+    public boolean updateSociety(final UUID participantUUID,
+            final Society society) {
 
         Session session = null;
         try {
@@ -107,8 +106,7 @@ public class SocietyDaoImpl implements SocietyDao {
             session = getSessionFactory().openSession();
             Criteria criteria = session
                     .createCriteria(UserSocietyDetails.class);
-            criteria.add(Restrictions.eq("participantId",
-            		participantId));
+            criteria.add(Restrictions.eq("participantId", participantId));
             return criteria.list();
 
         } finally {
@@ -118,7 +116,7 @@ public class SocietyDaoImpl implements SocietyDao {
             }
         }
     }
-    
+
     @Override
     public boolean deleteSociety(final Long id) {
 

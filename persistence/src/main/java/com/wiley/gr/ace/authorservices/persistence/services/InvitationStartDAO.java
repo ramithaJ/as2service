@@ -12,7 +12,6 @@
 
 package com.wiley.gr.ace.authorservices.persistence.services;
 
-
 /**
  * The Interface InvitationStartDAO.
  * 
@@ -31,16 +30,6 @@ public interface InvitationStartDAO {
      * @throws Exception
      *             the exception
      */
-    boolean updateInviteResetPWDLog(String GuId, String Email) throws Exception;
+    boolean updateInviteResetPWDLog(String guId, String email);
 
-//    /**
-//     * Creates the invitation log.
-//     *
-//     * @param invitationLog
-//     *            the invitation log
-//     * @return true, if successful
-//     * @throws Exception
-//     *             the exception
-//     */
-//    boolean createInvitationLog(InvitationLog invitationLog) throws Exception;
 }

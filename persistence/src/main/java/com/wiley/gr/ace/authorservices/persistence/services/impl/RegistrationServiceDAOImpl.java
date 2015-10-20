@@ -35,8 +35,7 @@ public class RegistrationServiceDAOImpl implements RegistrationServiceDAO {
      *             if unable to search.
      */
     @Override
-    public final boolean searchUserByOrcidId(final String orcidId)
-            throws Exception {
+    public final boolean searchUserByOrcidId(final String orcidId) {
 
         return false;
     }
