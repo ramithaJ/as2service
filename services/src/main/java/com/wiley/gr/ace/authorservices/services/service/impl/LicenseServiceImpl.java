@@ -34,6 +34,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.externalservices.service.LicenseInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.TaskService;
 import com.wiley.gr.ace.authorservices.model.FunderDetails;
@@ -162,7 +163,7 @@ public class LicenseServiceImpl implements LicenseService {
      */
     @Override
     public File getLicenseCopy(final String dhId) {
-        // TODO Auto-generated method stub
+
         return null;
     }
 
@@ -182,16 +183,16 @@ public class LicenseServiceImpl implements LicenseService {
             final String userId, final String articleId) {
         SavedLicenses savedLicenses = new SavedLicenses();
         Integer licenseId = null;
-        //            Users users = new Users();
-        //            Products products = new Products();
-        //            users.setUserId(Long.valueOf(userId));
-        //            products.setDhId(Integer.parseInt(articleId));
+        // Users users = new Users();
+        // Products products = new Products();
+        // users.setUserId(Long.valueOf(userId));
+        // products.setDhId(Integer.parseInt(articleId));
         //
-        //            savedLicenses.setProducts(products);
-                   // savedLicenses.setUsersByUserId(users);
-                    savedLicenses.setCreatedDate(new Date());
-        
-                    licenseId = licenseDAO.saveLicense(savedLicenses);
+        // savedLicenses.setProducts(products);
+        // savedLicenses.setUsersByUserId(users);
+        savedLicenses.setCreatedDate(new Date());
+
+        licenseId = licenseDAO.saveLicense(savedLicenses);
         return licenseId;
 
     }
@@ -248,7 +249,7 @@ public class LicenseServiceImpl implements LicenseService {
             }
             bufferedReader.close();
         } catch (IOException e) {
-            LOGGER.error("Exception "+e);
+            LOGGER.error("Exception " + e);
         }
         String content = contentBuilder.toString();
 
@@ -263,12 +264,12 @@ public class LicenseServiceImpl implements LicenseService {
      * @param userId
      *            the user id
      * @return the track license
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
     @Override
     public TrackLicense trackLicenseStatus(final String dhId,
-            final String userId) throws Exception {
+            final String userId) throws UserException {
         LOGGER.info(" inside trackLicenseStatus method of LicenseServiceImpl");
         LicenseStatus licenseStatus = taskService
                 .getLicenseStatus(dhId, userId);
@@ -291,12 +292,12 @@ public class LicenseServiceImpl implements LicenseService {
      * @param dhId
      *            the dh id
      * @return the wals license details
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
     private TrackLicense getWalsLicenseDetails(
             final GetArticleDetails getArticleDetails, final String dhId)
-            throws Exception {
+            throws UserException {
         LastSignedLicense electronicSign = getArticleDetails
                 .getLastSignedLicense();
         if (!StringUtils.isEmpty(electronicSign)) {
@@ -320,11 +321,11 @@ public class LicenseServiceImpl implements LicenseService {
      * @param licenseStatus
      *            the license status
      * @return the track license
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
     private TrackLicense trackSignLicense(final LicenseStatus licenseStatus)
-            throws Exception {
+            throws UserException {
         LOGGER.info(" inside trackSignLicense method of LicenseServiceImpl");
         TrackLicense trackLicense = new TrackLicense();
         trackLicense.setLicenseDate(licenseStatus.getLicenseDate());
@@ -342,11 +343,11 @@ public class LicenseServiceImpl implements LicenseService {
      * @param electronicSignLicense
      *            the electronic sign license
      * @return the track license
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
     private TrackLicense trackElectronicLicense(
-            final LastSignedLicense electronicSignLicense) throws Exception {
+            final LastSignedLicense electronicSignLicense) throws UserException {
         LOGGER.info(" inside trackElectronicLicense method of LicenseServiceImpl");
         TrackLicense trackLicense = new TrackLicense();
         trackLicense.setLicenseDate(electronicSignLicense.getLicenseSignDate());
@@ -363,11 +364,12 @@ public class LicenseServiceImpl implements LicenseService {
      * @param lastDownloadedLicense
      *            the last downloaded license
      * @return the track license
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
     private TrackLicense trackDownloadLicense(
-            final LastDownloadedLicense lastDownloadedLicense) throws Exception {
+            final LastDownloadedLicense lastDownloadedLicense)
+            throws UserException {
         LOGGER.info(" inside trackDownloadLicense method of LicenseServiceImpl");
         TrackLicense trackLicense = new TrackLicense();
         trackLicense.setLicenseDate(lastDownloadedLicense.getLicSignDate());
@@ -385,11 +387,12 @@ public class LicenseServiceImpl implements LicenseService {
      * @param licenseUploadDetails
      *            the license upload details
      * @return the track license
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
     private TrackLicense trackUploadLicense(
-            final LicenseUploadDetails licenseUploadDetails) throws Exception {
+            final LicenseUploadDetails licenseUploadDetails)
+            throws UserException {
         LOGGER.info(" inside trackUploadLicense method of LicenseServiceImpl");
         TrackLicense trackLicense = new TrackLicense();
         if (!StringUtils.isEmpty(licenseUploadDetails)) {

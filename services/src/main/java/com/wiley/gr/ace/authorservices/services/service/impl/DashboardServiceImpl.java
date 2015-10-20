@@ -25,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.NotificationService;
@@ -84,10 +85,6 @@ public class DashboardServiceImpl implements DashboardService {
     /** The esb interface service. */
     @Autowired(required = true)
     private ESBInterfaceService esbInterfaceService;
-
-    // /** The dashboardDAO. */
-    // @Autowired(required = true)
-    // private DashboardDAO dashboardDAO;
 
     /** The notificationService. */
     @Autowired(required = true)
@@ -161,10 +158,6 @@ public class DashboardServiceImpl implements DashboardService {
     @Value("${ARTICLE_ACCEPTED}")
     private String articleAcptdStatus;
 
-    // /** The acptd art pub online status. */
-    // @Value("${ACCEPTED_ARTICLE_PUBLISHED}")
-    // private String acptdArtPubOnlineStatus;
-
     /** The proofs out status. */
     @Value("${PROOFS_OUT}")
     private String proofsOutStatus;
@@ -173,37 +166,6 @@ public class DashboardServiceImpl implements DashboardService {
     @Value("${PROOFS_RCVD}")
     private String proofsRcvdStatus;
 
-    // /** The proofs corr rcvd status. */
-    // @Value("${PROOFS_CORRECTION_RCVD}")
-    // private String proofsCorrRcvdStatus;
-    //
-    // /** The early view status. */
-    // @Value("${EARLY_VIEW}")
-    // private String earlyViewStatus;
-    //
-    // /** The article online open status. */
-    // @Value("${ARTICLE_ONLINE_OPEN}")
-    // private String articleOnlineOpenStatus;
-    //
-    // /** The iss pub online status. */
-    // @Value("${ISSUE_PUBLISHED_ONLINE}")
-    // private String issPubOnlineStatus;
-    //
-    // /** The acptd art withdrawn status. */
-    // @Value("${ACCEPTED_ARTICLE_WITHDRAWN}")
-    // private String acptdArtWithdrawnStatus;
-    //
-    // /** The article proof rcvd status. */
-    // @Value("${ARTICLE_PROOF_RECEIVED}")
-    // private String articleProofRcvdStatus;
-    //
-    // /** The article proof approved status. */
-    // @Value("${ARTICLE_PROOF_APPROVED}")
-    // private String articleProofApprovedStatus;
-    //
-    // /** The view full article action. */
-    // @Value("${VIEW_FULL_ARTICLE}")
-    // private String viewFullArticleAction;
     /**
      * This field holds the value of submitOrderStatus.
      */
@@ -242,18 +204,16 @@ public class DashboardServiceImpl implements DashboardService {
      * @param userId
      *            the user id
      * @return the profile meter
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
     @Override
     public final Dashboard getProfileMeter(final String userId)
-            throws Exception {
+            throws UserException {
         LOGGER.info("inside getProfileMeter Method of DashboardServiceImpl");
         final Dashboard dashBoard = new Dashboard();
         List<DashboardInfo> dashBoardInfoList = null;
         final LookupCustomerProfile lookupCustomerProfile = new LookupCustomerProfile();
-        // userProfileService
-        // .getLookupCustomerProfile(userId);
         if (!StringUtils.isEmpty(lookupCustomerProfile)) {
             LOGGER.info("lookupCustomerProfile data is found");
             final CustomerProfile customerProfile = lookupCustomerProfile
@@ -280,11 +240,11 @@ public class DashboardServiceImpl implements DashboardService {
      * @param customerProfile
      *            the customer profile
      * @return the list
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
     private List<DashboardInfo> checkingDashboardInfo(
-            final CustomerProfile customerProfile) throws Exception {
+            final CustomerProfile customerProfile) throws UserException {
         DashboardServiceImpl.LOGGER
                 .info("inside checkingDashBoardInfo Method of DashboardServiceImpl");
         DashboardInfo dashboardInfo = null;
@@ -335,11 +295,11 @@ public class DashboardServiceImpl implements DashboardService {
      * @param emailId
      *            the email id
      * @return the security details for user
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
     private DashboardInfo getSecurityDetailsForUser(final String emailId)
-            throws Exception {
+            throws UserException {
         DashboardServiceImpl.LOGGER
                 .info("inside getSecurityDetailsForUser Method of DashboardServiceImpl");
         DashboardInfo dashboardInfo = null;
@@ -373,11 +333,11 @@ public class DashboardServiceImpl implements DashboardService {
      * @param customerProfile
      *            the customer profile
      * @return the interests for user
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
     private DashboardInfo getInterestsForUser(
-            final CustomerProfile customerProfile) throws Exception {
+            final CustomerProfile customerProfile) throws UserException {
         DashboardServiceImpl.LOGGER
                 .info("inside getInterestsForUser Method of DashboardServiceImpl");
         final List<InterestData> userInterestsList = customerProfile
@@ -402,11 +362,11 @@ public class DashboardServiceImpl implements DashboardService {
      * @param customerProfile
      *            the customer profile
      * @return the affiliations for user
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
     private DashboardInfo getAffiliationsForUser(
-            final CustomerProfile customerProfile) throws Exception {
+            final CustomerProfile customerProfile) throws UserException {
         DashboardServiceImpl.LOGGER
                 .info("inside getAffiliationsForUser Method of DashboardServiceImpl");
         final List<AffiliationData> userAffiliationsList = customerProfile
@@ -431,11 +391,11 @@ public class DashboardServiceImpl implements DashboardService {
      * @param customerProfile
      *            the customer profile
      * @return the societies for user
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
     private DashboardInfo getSocietiesForUser(
-            final CustomerProfile customerProfile) throws Exception {
+            final CustomerProfile customerProfile) throws UserException {
         DashboardServiceImpl.LOGGER
                 .info("inside getSocietiesForUser Method of DashboardServiceImpl");
         final List<SocietyData> societyList = customerProfile.getSocietyList()
@@ -460,11 +420,11 @@ public class DashboardServiceImpl implements DashboardService {
      * @param customerProfile
      *            the customer profile
      * @return the funders list for user
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
     private DashboardInfo getFundersListForUser(
-            final CustomerProfile customerProfile) throws Exception {
+            final CustomerProfile customerProfile) throws UserException {
         DashboardServiceImpl.LOGGER
                 .info("inside getFundersListForUser Method of DashboardServiceImpl");
         final List<ResearchFunderData> researchFundersList = customerProfile
@@ -490,11 +450,11 @@ public class DashboardServiceImpl implements DashboardService {
      * @param customerDetails
      *            the customer details
      * @return the recovery email addr
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
     private DashboardInfo getRecoveryEmailAddr(
-            final CustomerDetails customerDetails) throws Exception {
+            final CustomerDetails customerDetails) throws UserException {
         DashboardServiceImpl.LOGGER
                 .info("inside getRecoveryEmailAddr Method of DashboardServiceImpl");
         DashboardInfo dashboardInfo = null;
@@ -513,11 +473,11 @@ public class DashboardServiceImpl implements DashboardService {
      * @param customerDetails
      *            the customer details
      * @return the orcid id
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
     private DashboardInfo getOrcidId(final CustomerDetails customerDetails)
-            throws Exception {
+            throws UserException {
         DashboardServiceImpl.LOGGER
                 .info("inside getOrcidId Method of DashboardServiceImpl");
         DashboardInfo dashboardInfo = null;
@@ -536,12 +496,12 @@ public class DashboardServiceImpl implements DashboardService {
      * @param userId
      *            the user id
      * @return the all author articles
-     * @throws Exception
+     * @throws UserException
      *             the exception
      */
     @Override
     public DashboardView getAllAuthorArticles(final String userId)
-            throws Exception {
+            throws UserException {
         final DashboardView dashboardView = new DashboardView();
         final List<ArticleData> articleDataList = getArticleAuthorData(userId);
         final List<ArticleData> viewAllArticles = new ArrayList<ArticleData>();
@@ -562,48 +522,17 @@ public class DashboardServiceImpl implements DashboardService {
      * @param userId
      *            the user id
      * @return the dashboard view
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
     @Override
     public final DashboardView actionRequired(final String userId)
-            throws Exception {
+            throws UserException {
         LOGGER.info("inside viewDashboard Method of DashboardServiceImpl");
         final DashboardView dashboardView = new DashboardView();
         dashboardView.setArticleData(getArticleAuthorData(userId));
         return dashboardView;
     }
-
-    // /**
-    // * Gets the all articles for user.
-    // *
-    // * @param userId
-    // * the user id
-    // * @return the all articles for user
-    // */
-    // private Map<Integer, ArticleUserRoleDetails> getAllArticlesForUser(
-    // final String userId) {
-    // final List<ProductPersonRelations> productPersonRelationsList =
-    // dashboardDAO
-    // .getProductPersonRelations(userId);
-    // ArticleUserRoleDetails articleUserRoleDetails = null;
-    // Map<Integer, ArticleUserRoleDetails> articleMap = new HashMap<Integer,
-    // ArticleUserRoleDetails>();
-    // if (!StringUtils.isEmpty(productPersonRelationsList)) {
-    // for (ProductPersonRelations productPersonRelations :
-    // productPersonRelationsList) {
-    // articleUserRoleDetails = new ArticleUserRoleDetails();
-    // articleUserRoleDetails.setRoleCode(productPersonRelations
-    // .getProducts().getDhTypeCd());
-    // articleUserRoleDetails.setRoleName(productPersonRelations
-    // .getProductRoles().getProductRoleName());
-    // Long dhIdasLong=productPersonRelations.getProducts().getDhId();
-    // articleMap.put(dhIdasLong.intValue(),
-    // articleUserRoleDetails);
-    // }
-    // }
-    // return articleMap;
-    // }
 
     /**
      * Gets the article author data.
@@ -611,11 +540,11 @@ public class DashboardServiceImpl implements DashboardService {
      * @param userId
      *            the user id
      * @return the article author data
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
     private List<ArticleData> getArticleAuthorData(final String userId)
-            throws Exception {
+            throws UserException {
         LOGGER.info("inside getArticleAuthorData Method of DashboardServiceImpl");
         final List<ArticleData> articleDataList = new ArrayList<ArticleData>();
         ArticleData articleData = null;
@@ -645,11 +574,10 @@ public class DashboardServiceImpl implements DashboardService {
      * @param userId
      *            the user id
      * @return the article data for user
-     * @throws Exception
-     *             the exception
+     * @throws UserException 
      */
     private ArticleData getArticleDataForUser(final Integer dhId,
-            final String userId) throws Exception {
+            final String userId) throws UserException {
         final PdhArticleData pdhArticleData = (PdhArticleData) esbInterfaceService
                 .getPdhLookupResponse(String.valueOf(dhId));
         ArticleData articleData = null;
@@ -661,8 +589,13 @@ public class DashboardServiceImpl implements DashboardService {
                         .setArticleDetails(parseArticleDetails(pdhArticleData));
                 articleData.setJournal(getJournalDetails(pdhArticleData
                         .getJournalDhId()));
-                articleData.setTrackLicense(licenseService.trackLicenseStatus(
-                        String.valueOf(dhId), userId));
+                try {
+                    articleData.setTrackLicense(licenseService.trackLicenseStatus(
+                            String.valueOf(dhId), userId));
+                } catch (Exception e) {
+                    LOGGER.info(AuthorServicesConstants.PRINTSTACKTRACE,e);
+                    throw new UserException();
+                }
                 final HashMap<String, OrderStatus> orderStatusHashMap = orderStatusHasMap(userId);
                 articleData
                         .setOrderPaymentStatus(getOrderPaymentStatusForArticle(
@@ -678,11 +611,11 @@ public class DashboardServiceImpl implements DashboardService {
      * @param journalDhId
      *            the journal dh id
      * @return the journal details
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
     private JournalDetails getJournalDetails(final String journalDhId)
-            throws Exception {
+            throws UserException {
         final PdhJournalData pdhJournalData = (PdhJournalData) esbInterfaceService
                 .getPdhLookupResponse(journalDhId);
         JournalDetails journalDetails = null;
@@ -705,11 +638,11 @@ public class DashboardServiceImpl implements DashboardService {
      * @param pdhArticleData
      *            the pdh article data
      * @return the article details
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
     private ArticleDetails parseArticleDetails(
-            final PdhArticleData pdhArticleData) throws Exception {
+            final PdhArticleData pdhArticleData) throws UserException {
         final ArticleDetails articleDetails = new ArticleDetails();
         articleDetails.setDhId(pdhArticleData.getDhId());
         articleDetails.setArticleId(pdhArticleData.getArticleId());
@@ -733,7 +666,6 @@ public class DashboardServiceImpl implements DashboardService {
      */
     private HashMap<String, OrderStatus> orderStatusHasMap(final String userId) {
 
-        // calling saved orders table
         final List<SavedOrders> savedOrdersList = orderOnlinedao
                 .getUserSavedOrders(userId);
         final OrderStatus orderStatus = new OrderStatus();
@@ -743,14 +675,9 @@ public class DashboardServiceImpl implements DashboardService {
             final String[] statusArray = submitOrderStatus.split(":");
             orderStatus.setStatus(statusArray[0]);
             orderStatus.setActionsRequired(statusArray[1]);
-            // order status HashMap
-            // for (SavedOrders savedOrders : savedOrdersList) {
-            // // satusHashMap.put(
-            // // String.valueOf(savedOrders.getProducts().getDhId()),
-            // // orderStatus);
-            // }
+
         }
-        // calling Co_Author Request OO Orders table
+
         final List<CoauthorRequestsOoorders> coauthorRequestsOoordersList = orderOnlinedao
                 .getcoAuthorReqOO(userId);
 
@@ -758,20 +685,15 @@ public class DashboardServiceImpl implements DashboardService {
             final String[] orderStatusArray = onlineOpenReqRcvd.split(":");
             orderStatus.setStatus(orderStatusArray[0]);
             orderStatus.setActionsRequired(orderStatusArray[1]);
-            // for (CoauthorRequestsOoorders coauthorRequestsOoorders :
-            // coauthorRequestsOoordersList) {
-            // // satusHashMap.put(String.valueOf(coauthorRequestsOoorders
-            // // .getProducts().getDhId()), orderStatus);
-            // }
+
         }
 
-        // calling View All Orders external Service
         final OrderDataList ordersData = orderservice.getAllOrders(userId);
 
         if (null != ordersData) {
             final List<OrderData> orderDataList = ordersData.getOrderDatas();
             for (final OrderData orderData : orderDataList) {
-                // Taking the hashMap from orderStatusServiceImpl class
+
                 final HashMap<String, OrderStatus> orderStatusHashMap = orderStatusService
                         .getOrderStatusMap();
                 if (orderStatusHashMap.containsKey(orderData
@@ -795,13 +717,13 @@ public class DashboardServiceImpl implements DashboardService {
      * @param articleId
      *            the article id
      * @return the license status for article
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
     private OrderPaymentStatus getOrderPaymentStatusForArticle(
             final HashMap<String, OrderStatus> orderStatusHashMap,
-            final Integer articleId) throws Exception {
-        // TODO: Order status
+            final Integer articleId) throws UserException {
+
         LOGGER.info("inside getOrderPaymentStatusForArticle Method of DashboardServiceImpl");
         final OrderPaymentStatus orderPaymentStatus = new OrderPaymentStatus();
         if (orderStatusHashMap.containsKey(String.valueOf(articleId))) {
@@ -813,43 +735,29 @@ public class DashboardServiceImpl implements DashboardService {
                     .split(",");
             final List<String> availableActionsList = new ArrayList<String>();
             for (final String action : actionArray) {
-                if (!"None".equalsIgnoreCase(action)) {
+                if (!AuthorServicesConstants.EMPTY.equalsIgnoreCase(action)) {
                     availableActionsList.add(action);
                 }
             }
             orderPaymentStatus.setAvailableActionsList(availableActionsList);
-            // TODO: set date to additional param
-            orderPaymentStatus.setAdditionalParam("");
+
+            orderPaymentStatus
+                    .setAdditionalParam(AuthorServicesConstants.EMPTY);
             return orderPaymentStatus;
         }
 
-        // calling get Quote external service
-        // get Quote request object.
         final QuoteRequest quoteRequest = new QuoteRequest();
         final Article article = new Article();
         article.setArticleID(String.valueOf(articleId));
-        article.setJournalElectronicISSN(""); // TODO
-        article.setJournalPrintISSN(""); // TODO
+        article.setJournalElectronicISSN(AuthorServicesConstants.EMPTY);
+        article.setJournalPrintISSN(AuthorServicesConstants.EMPTY);
         quoteRequest.setArticle(article);
-        quoteRequest.setRequestCreatedTimestamp(""); // TODO
-        quoteRequest.setRequestType(""); // TODO
+        quoteRequest.setRequestCreatedTimestamp(AuthorServicesConstants.EMPTY);
+        quoteRequest.setRequestType(AuthorServicesConstants.EMPTY);
 
         final Quote quote = orderService.getQuote(quoteRequest);
         return openAccessStatus(quote);
 
-        // String openAccessStatus = esbInterfaceService.getOpenAccessStatus(
-        // articleId).getOpenAccessStatus();
-        // if (!StringUtils.isEmpty(openAccessStatus)) {
-        // LOGGER.info("Open Access Status is Found");
-        // orderPaymentStatus.setOpenAccessStatus(openAccessStatus);
-        // }
-        // final String onlineOpenStatus = esbInterfaceService
-        // .getOnlineOpenStatus(articleId).getOnlineOpenStatus();
-        // if (!StringUtils.isEmpty(onlineOpenStatus)) {
-        // LOGGER.info("Open Order Status is Found");
-        // orderPaymentStatus.setOnlineOpenStatus(onlineOpenStatus);
-        // }
-        // return orderPaymentStatus;
     }
 
     /**
@@ -898,12 +806,12 @@ public class DashboardServiceImpl implements DashboardService {
                 .split(",");
         final List<String> availableActionsArray = new ArrayList<String>();
         for (final String action : actionsArray) {
-            if (!"None".equalsIgnoreCase(action)) {
+            if (!AuthorServicesConstants.EMPTY.equalsIgnoreCase(action)) {
                 availableActionsArray.add(action);
             }
         }
-        // TODO: we need to set date here
-        orderPaymentStatus.setAdditionalParam("");
+
+        orderPaymentStatus.setAdditionalParam(AuthorServicesConstants.EMPTY);
         orderPaymentStatus.setAvailableActionsList(availableActionsArray);
         return orderPaymentStatus;
     }
@@ -922,8 +830,7 @@ public class DashboardServiceImpl implements DashboardService {
             final String userId) throws Exception {
         LOGGER.info("inside getCommunicationDetailsList Method of DashboardServiceImpl");
         final EmailCommunicationHistory emailCommunicationHistory = new EmailCommunicationHistory();
-        // emailCommunicationHistory
-        // .setInvitationCommunicationDetails(getInvitationLogsList(userId));
+
         final NotificationHistory notificationsHistory = notificationService
                 .getNotificationHistory(userId);
         if (!StringUtils.isEmpty(notificationsHistory)) {
@@ -934,55 +841,18 @@ public class DashboardServiceImpl implements DashboardService {
         return emailCommunicationHistory;
     }
 
-    // /**
-    // * Gets the invitation logs list.
-    // *
-    // * @param userId
-    // * the user id
-    // * @return the invitation logs list
-    // * @throws Exception
-    // * the exception
-    // */
-    // private List<CommunicationDetails> getInvitationLogsList(final String
-    // userId)
-    // throws Exception {
-    // LOGGER.info("inside getInvitationLogsList Method of DashboardServiceImpl");
-    // List<CommunicationDetails> communicationDetailsList = null;
-    // final List<InvitationLog> invitationLogList = dashboardDAO
-    // .getInvitationLogList(userId);
-    // if (!StringUtils.isEmpty(invitationLogList)) {
-    // LOGGER.info("Invitation Logs  Found");
-    // communicationDetailsList = new ArrayList<CommunicationDetails>();
-    // for (final InvitationLog invitationLog : invitationLogList) {
-    // final CommunicationDetails communicationDetails = new
-    // CommunicationDetails();
-    // // communicationDetails.setUserId(invitationLog.getUserProfile()
-    // // .getUserId());
-    // // communicationDetails.setInviationId(invitationLog
-    // // .getInvitationId());
-    // // communicationDetails.setEmailId(invitationLog.getEmailAddr());
-    // // communicationDetails.setArticleId(invitationLog.getProducts()
-    // // .getDhId());
-    // communicationDetails.setSentDate(invitationLog.getSentDate()
-    // .toString());
-    // communicationDetailsList.add(communicationDetails);
-    // }
-    // }
-    // return communicationDetailsList;
-    // }
-
     /**
      * Gets the production details.
      *
      * @param userId
      *            the user id
      * @return the production details
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
     @Override
     public final DashboardView getProductionDetails(final String userId)
-            throws Exception {
+            throws UserException {
         LOGGER.info("inside getProductionDetails Method of DashboardServiceImpl");
         final DashboardView dashboardView = new DashboardView();
         final List<ArticleData> articleDataListForProduction = new ArrayList<ArticleData>();
@@ -1014,11 +884,11 @@ public class DashboardServiceImpl implements DashboardService {
      * @param dhId
      *            the dh id
      * @return the production details for articles
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
     private ArticleData getProductionDetailsForArticles(final String dhId)
-            throws Exception {
+            throws UserException {
         LOGGER.info("inside getProductionDetailsForArticles Method of DashboardServiceImpl");
         final PdhArticleData pdhArticleData = (PdhArticleData) esbInterfaceService
                 .getPdhLookupResponse(dhId);
@@ -1045,11 +915,11 @@ public class DashboardServiceImpl implements DashboardService {
      * @param pdhArticleData
      *            the pdh article data
      * @return the production
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
     private Production parseDatesForProduction(
-            final PdhArticleData pdhArticleData) throws Exception {
+            final PdhArticleData pdhArticleData) throws UserException {
         final Map<Date, String> productionDatesStatus = new TreeMap<Date, String>();
         productionDatesStatus.put(pdhArticleData.getAcceptedDate(),
                 articleAcptdStatus);
@@ -1066,11 +936,11 @@ public class DashboardServiceImpl implements DashboardService {
      * @param productionDatesStatus
      *            the production dates status
      * @return the most production date status
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
     private Production getMostProductionDateStatus(
-            final Map<Date, String> productionDatesStatus) throws Exception {
+            final Map<Date, String> productionDatesStatus) throws UserException {
         Date mostRecentProductionDate = null;
         String productionStatus = null;
         LOGGER.info("inside getProductionDateStatus Method of DashboardServiceImpl");
@@ -1108,12 +978,12 @@ public class DashboardServiceImpl implements DashboardService {
      * @param userId
      *            the user id
      * @return the published article details
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
     @Override
     public final DashboardView getPublishedArticleDetails(final String userId)
-            throws Exception {
+            throws UserException {
         LOGGER.info("inside getPublishedArticleDetails Method of DashboardServiceImpl");
         DashboardView dashboardView = null;
         ArticleData publishedArticleData = null;
@@ -1145,11 +1015,11 @@ public class DashboardServiceImpl implements DashboardService {
      * @param dhId
      *            the dh id
      * @return the published article data
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
     private ArticleData getPublishedArticleData(final String dhId)
-            throws Exception {
+            throws UserException {
         final PdhArticleData pdhArticleData = (PdhArticleData) esbInterfaceService
                 .getPdhLookupResponse(dhId);
         ArticleData publishedArticleData = null;
@@ -1173,10 +1043,10 @@ public class DashboardServiceImpl implements DashboardService {
      * Gets the publication article status.
      *
      * @return the publication article status
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
-    private PublicationDetails getPublicationArticleStatus() throws Exception {
+    private PublicationDetails getPublicationArticleStatus() throws UserException {
         LOGGER.info("inside getPublicationArticleStatus Method of DashboardServiceImpl");
         final PublicationDetails publication = new PublicationDetails();
         if (!StringUtils.isEmpty(publication)) {
