@@ -113,5 +113,19 @@ public interface UserLoginService {
      */
     boolean searchUserInParticipantByALMId(String almUserId);
 
+    /**
+     * Reset by email.
+     *
+     * @param emailId the email id
+     * @return true, if successful
+     */
     boolean resetByEmail(String emailId);
+    
+    /**
+     * Gets the user details from participant service.
+     *
+     * @param emailId the email id
+     * @return the user details from participant service
+     */
+    User getUserDetailsFromParticipantService(String emailId);
 }
