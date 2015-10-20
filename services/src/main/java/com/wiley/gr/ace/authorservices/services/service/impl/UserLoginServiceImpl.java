@@ -46,7 +46,6 @@ import com.wiley.gr.ace.authorservices.model.external.ValidateUserSecurityQA;
 import com.wiley.gr.ace.authorservices.services.service.SendNotification;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class UserLoginServiceImpl.
  *
@@ -54,24 +53,6 @@ import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
  */
 public class UserLoginServiceImpl implements UserLoginService {
 
-//    /**
-//     * Logger for UserLoginServiceImpl class.
-//     */
-//    @Value("${UserLoginServiceImpl.resetPassword.statusclosedcode}")
-//    private String statusclosedcode;
-//
-//    /** The statusclosedmessage. */
-//    @Value("${UserLoginServiceImpl.resetPassword.statusclosedmessage}")
-//    private String statusclosedmessage;
-//
-//    /** The recordnotexistcode. */
-//    @Value("${UserLoginServiceImpl.resetPassword.doesntexist.code}")
-//    private String recordnotexistcode;
-//
-//    /** The recordnotexistmessage. */
-//    @Value("${UserLoginServiceImpl.resetPassword.doesntexist.message}")
-//    private String recordnotexistmessage;
-//
     /** The securityquestioncode. */
     @Value("${UserLoginServiceImpl.resetPassword.securityquestion.code}")
     private String securityquestioncode;
@@ -79,14 +60,6 @@ public class UserLoginServiceImpl implements UserLoginService {
     /** The securityquestionmessage. */
     @Value("${UserLoginServiceImpl.resetPassword.securityquestion.message}")
     private String securityquestionmessage;
-
-//    /** The account verified code. */
-//    @Value("${accountVerifiedCode}")
-//    private String accountVerifiedCode;
-//
-//    /** The account verified message. */
-//    @Value("${accountVerifiedMessage}")
-//    private String accountVerifiedMessage;
 
     /** The template id. */
     @Value("${templateId.security.validation.failed}")
@@ -109,11 +82,6 @@ public class UserLoginServiceImpl implements UserLoginService {
     /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(UserLoginServiceImpl.class);
-//    /**
-//     * Injecting UserLoginServiceDAO bean.
-//     */
-//    @Autowired(required = true)
-//    private UserLoginServiceDAO userLoginServiceDAO;
     /**
      * Injecting UserMangement bean.
      */
@@ -298,6 +266,7 @@ public class UserLoginServiceImpl implements UserLoginService {
             return userManagement
                     .validateSecurityQuestions(securityQuestionsValidateRequest);
         } catch (UserException userException) {
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, userException);
             // need to put correct templteId here
             sendNotification.notifyByEmail(emailId, templateId);
             throw new UserException(userException.getErrorCode(),
@@ -315,19 +284,6 @@ public class UserLoginServiceImpl implements UserLoginService {
     @Override
     public final String resetPassword(final String guid) {
         return guid;
-        /*
-         * InviteResetpwdLog daoinviteResetpwdLog = userLoginServiceDAO
-         * .getinviteResetpwdLog(guid); String emailId = null;
-         * 
-         * if (null == daoinviteResetpwdLog) { throw new
-         * ASException(recordnotexistcode, recordnotexistmessage); } else if
-         * (AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS_CLOSED
-         * .equalsIgnoreCase(daoinviteResetpwdLog.getStatus())) { throw new
-         * ASException(statusclosedcode, statusclosedmessage); } else if
-         * (AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS
-         * .equalsIgnoreCase(daoinviteResetpwdLog.getStatus())) { emailId =
-         * daoinviteResetpwdLog.getEmailAddress(); } return emailId;
-         */
     }
 
     /**
@@ -338,29 +294,6 @@ public class UserLoginServiceImpl implements UserLoginService {
      */
     @Override
     public final void verifyAccountUpdate(final String guid) {
-
-        /*
-         * InviteResetpwdLog inviteResetpwdLog = userLoginServiceDAO
-         * .getinviteResetpwdLog(guid);
-         * 
-         * if (null == inviteResetpwdLog) { throw new
-         * ASException(recordnotexistcode, recordnotexistmessage); } else if
-         * (AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS_CLOSED
-         * .equalsIgnoreCase(inviteResetpwdLog.getStatus())) { throw new
-         * ASException(statusclosedcode, statusclosedmessage); } else if
-         * (AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS
-         * .equalsIgnoreCase(inviteResetpwdLog.getStatus()) &&
-         * AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS_TYPE
-         * .equalsIgnoreCase(inviteResetpwdLog.getType())) {
-         * userLoginServiceDAO.verifyAccountStatusUpdate(inviteResetpwdLog
-         * .getLogId().intValue()); // Integer userId =
-         * userLoginServiceDAO.getUserId( //
-         * inviteResetpwdLog.getEmailAddress()).getUserId().intValue(); //
-         * userLoginServiceDAO.updateIsAccountActive(userId);
-         * 
-         * } else { throw new ASException(accountVerifiedCode,
-         * accountVerifiedMessage); }
-         */
 
     }
 
@@ -379,16 +312,6 @@ public class UserLoginServiceImpl implements UserLoginService {
     public final String insertGuid(final String firstName,
             final String lastName, final String emailAddress) {
         return emailAddress;
-        /*
-         * InviteResetpwdLog inviteResetpwdLog = new InviteResetpwdLog();
-         * inviteResetpwdLog.setFirstName(firstName);
-         * inviteResetpwdLog.setLastName(lastName);
-         * inviteResetpwdLog.setEmailAddress(emailAddress); inviteResetpwdLog
-         * .setType(AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS_TYPE);
-         * inviteResetpwdLog
-         * .setStatus(AuthorServicesConstants.INVITE_RESET_PASSWORD_STATUS);
-         * return userLoginServiceDAO.insertGuid(inviteResetpwdLog);
-         */
     }
 
     /*
@@ -402,9 +325,12 @@ public class UserLoginServiceImpl implements UserLoginService {
 
         ALMSearchUserResponse response = almService.searchUser(emailId);
         User user = new User();
-        user.setTermsOfUseFlg(response.getUserPayload().getUserPayload().get(0).getTcFlag());
-        user.setStatus(response.getUserPayload().getUserPayload().get(0).getUserStatus());
-        user.setAlmUserId(response.getUserPayload().getUserPayload().get(0).getAlmUserId());
+        user.setTermsOfUseFlg(response.getUserPayload().getUserPayload().get(0)
+                .getTcFlag());
+        user.setStatus(response.getUserPayload().getUserPayload().get(0)
+                .getUserStatus());
+        user.setAlmUserId(response.getUserPayload().getUserPayload().get(0)
+                .getAlmUserId());
         return user;
     }
 
@@ -428,48 +354,30 @@ public class UserLoginServiceImpl implements UserLoginService {
     @Override
     public boolean resetByEmail(final String emailId) {
 
-//        ParticipantGetResponse participantGetResponse = participantsInterfaceService
-//                .searchParticipanyByEmailId(emailId);
-//
-//        if (participantGetResponse.getParticipantList().isEmpty()) {
-//            throw new ASException("111", "data not founddd");
-//
-//        }
-//
-//        if (!participantGetResponse.getParticipantList().isEmpty()
-//                && participantGetResponse.getParticipantList().size() > 0) {
-//            List<Participant> participantsList = participantGetResponse
-//                    .getParticipantList();
-//
-//            for (Participant participant : participantsList) {
-//                participant.getName();
-//                participant.getFamilyName();
-//                participant.getEmail();
-//
-//            }
-//
-//        }
-//
         return false;
     }
 
-	/* (non-Javadoc)
- * @see com.wiley.gr.ace.authorservices.services.service.UserLoginService#getUserDetailsFromParticipantService(java.lang.String)
- */
-@Override
-	public User getUserDetailsFromParticipantService(String emailId) {
-		User userDetails = null;
-		
-		Participant participantDetails  = participantsInterfaceService.searchParticipantByEmailId(emailId);
-		
-		if(participantDetails != null){
-			userDetails = new User();
-			userDetails.setUserId(participantDetails.getParticipantId());
-			userDetails.setFirstName(participantDetails.getGivenName());
-			userDetails.setLastName(participantDetails.getFamilyName());
-			userDetails.setOrcidId(participantDetails.getOrcidId());
-		}
-		
-		return userDetails;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.wiley.gr.ace.authorservices.services.service.UserLoginService#
+     * getUserDetailsFromParticipantService(java.lang.String)
+     */
+    @Override
+    public User getUserDetailsFromParticipantService(final String emailId) {
+        User userDetails = null;
+
+        Participant participantDetails = participantsInterfaceService
+                .searchParticipantByEmailId(emailId);
+
+        if (participantDetails != null) {
+            userDetails = new User();
+            userDetails.setUserId(participantDetails.getParticipantId());
+            userDetails.setFirstName(participantDetails.getGivenName());
+            userDetails.setLastName(participantDetails.getFamilyName());
+            userDetails.setOrcidId(participantDetails.getOrcidId());
+        }
+
+        return userDetails;
+    }
 }

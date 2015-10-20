@@ -33,7 +33,7 @@ public class LicenseObject {
     private String licenceId;
 
     /** The funder details. */
-    private ArrayList<FunderDetails> funderDetailsList;
+    private List<FunderDetails> funderDetailsList;
 
     /** The copyright ownership. */
     private CopyrightOwnership copyrightOwnership;
@@ -51,7 +51,7 @@ public class LicenseObject {
     private String signedElectronically;
 
     /** The license type presented. */
-    private ArrayList<String> licenseTypePresented;
+    private List<String> licenseTypePresented;
 
     /** The signed date. */
     private String signedDate;
@@ -61,25 +61,23 @@ public class LicenseObject {
 
     /** The license_ o o_ oa. */
     private String license_OO_OA;
-    
+
     /** The license format. */
     private String licenseFormat;
 
-
-
-    /**
-     * Gets the funder details list.
-     *
-     * @return the funder details list
-     */
-    public final ArrayList<FunderDetails> getFunderDetailsList() {
+    public List<FunderDetails> getFunderDetailsList() {
         return funderDetailsList;
+    }
+
+    public void setFunderDetailsList(final List<FunderDetails> funderDetailsList) {
+        this.funderDetailsList = funderDetailsList;
     }
 
     /**
      * Sets the funder details list.
      *
-     * @param funderDetailsList the new funder details list
+     * @param funderDetailsList
+     *            the new funder details list
      */
     public final void setFunderDetailsList(
             final ArrayList<FunderDetails> funderDetailsList) {
@@ -182,13 +180,12 @@ public class LicenseObject {
         this.signedElectronically = signedElectronically;
     }
 
-    /**
-     * Gets the license type presented.
-     *
-     * @return the license type presented
-     */
-    public final ArrayList<String> getLicenseTypePresented() {
+    public List<String> getLicenseTypePresented() {
         return licenseTypePresented;
+    }
+
+    public void setLicenseTypePresented(final List<String> licenseTypePresented) {
+        this.licenseTypePresented = licenseTypePresented;
     }
 
     /**
@@ -211,16 +208,15 @@ public class LicenseObject {
         return licenceId;
     }
 
-
     /**
      * Sets the licence id.
      *
-     * @param licenceId the new licence id
+     * @param licenceId
+     *            the new licence id
      */
     public final void setLicenceId(final String licenceId) {
         this.licenceId = licenceId;
     }
-
 
     /**
      * Gets the signed date.
@@ -234,7 +230,8 @@ public class LicenseObject {
     /**
      * Sets the signed date.
      *
-     * @param signedDate the new signed date
+     * @param signedDate
+     *            the new signed date
      */
     public final void setSignedDate(final String signedDate) {
         this.signedDate = signedDate;
@@ -252,7 +249,8 @@ public class LicenseObject {
     /**
      * Sets the prices.
      *
-     * @param prices the new prices
+     * @param prices
+     *            the new prices
      */
     public void setPrices(final List<Prices> prices) {
         this.prices = prices;
@@ -270,29 +268,30 @@ public class LicenseObject {
     /**
      * Sets the license_ o o_ oa.
      *
-     * @param license_OO_OA the new license_ o o_ oa
+     * @param license_OO_OA
+     *            the new license_ o o_ oa
      */
     public void setLicense_OO_OA(final String license_OO_OA) {
         this.license_OO_OA = license_OO_OA;
     }
 
-	/**
-	 * Gets the license format.
-	 *
-	 * @return the license format
-	 */
-	public String getLicenseFormat() {
-		return licenseFormat;
-	}
+    /**
+     * Gets the license format.
+     *
+     * @return the license format
+     */
+    public String getLicenseFormat() {
+        return licenseFormat;
+    }
 
-	/**
-	 * Sets the license format.
-	 *
-	 * @param licenseFormat the new license format
-	 */
-	public void setLicenseFormat(String licenseFormat) {
-		this.licenseFormat = licenseFormat;
-	}
-
+    /**
+     * Sets the license format.
+     *
+     * @param licenseFormat
+     *            the new license format
+     */
+    public void setLicenseFormat(final String licenseFormat) {
+        this.licenseFormat = licenseFormat;
+    }
 
 }
