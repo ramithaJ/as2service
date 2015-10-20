@@ -199,6 +199,21 @@ public class AuthorServicesConstants {
     public static final String VERIFY_ACCOUNT_AWAITING_ACTIVATION = "Awaiting Activation";
 
     /**
+     * This field holds the value of PRINTSTACKTRACE
+     */
+    public static final String PRINTSTACKTRACE = "Print Stack Trace- ";
+
+    /**
+     * This field holds the value of SUCCESS
+     */
+    public static final String SUCCESS = "success";
+
+    /**
+     * This field holds the value of FAILURE
+     */
+    public static final String FAILURE = "failure";
+
+    /**
      * The Enum OO_ORDER_STATUS.
      */
     public static enum OO_ORDER_STATUS {
