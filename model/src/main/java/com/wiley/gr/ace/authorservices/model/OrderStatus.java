@@ -13,7 +13,6 @@
  */
 package com.wiley.gr.ace.authorservices.model;
 
-
 /**
  * @author Virtusa version1.0
  *
@@ -28,7 +27,7 @@ public class OrderStatus {
     /**
      * This field holds the value of ActionsRequired.
      */
-    private String ActionsRequired;
+    private String actionsRequired;
 
     /**
      * @return the status
@@ -49,7 +48,7 @@ public class OrderStatus {
      * @return the actionsRequired
      */
     public final String getActionsRequired() {
-        return ActionsRequired;
+        return actionsRequired;
     }
 
     /**
@@ -57,7 +56,7 @@ public class OrderStatus {
      *            the actionsRequired to set
      */
     public final void setActionsRequired(final String actionsRequired) {
-        ActionsRequired = actionsRequired;
+        this.actionsRequired = actionsRequired;
     }
 
 }
