@@ -70,12 +70,9 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
      * @param emailId
      *            the email id
      * @return the article info
-     * @throws UserException
-     *             the user exception
      */
     @Override
-    public final ArticleInfoDetails getArticleInfoDetails(final String emailId)
-            throws UserException {
+    public final ArticleInfoDetails getArticleInfoDetails(final String emailId) {
         LOGGER.info("inside getArticleInfo method of ArticleAssignmentServiceImpl");
 
         List<ArticleInfo> articleInfoList = new ArrayList<ArticleInfo>();
@@ -91,13 +88,10 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
      * @param associationConfirmation
      *            the association confirmation
      * @return true, if successful
-     * @throws UserException
-     *             the user exception
      */
     @Override
     public final boolean associationConfirmation(
-            final AssociationConfirmation associationConfirmation)
-            throws UserException {
+            final AssociationConfirmation associationConfirmation) {
         LOGGER.info("inside associationConfirmation method of ArticleAssignmentServiceImpl");
         return bpmInterfaceService.finishTask(associationConfirmation);
     }
@@ -108,12 +102,9 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
      * @param articleId
      *            the article id
      * @return the view assigned article
-     * @throws UserException
-     *             the user exception
      */
     @Override
-    public final ViewAssignedArticle viewAssignedArticle(final String articleId)
-            throws UserException {
+    public final ViewAssignedArticle viewAssignedArticle(final String articleId) {
         LOGGER.info("inside viewAssignedArticle method of ArticleAssignmentServiceImpl");
         final ViewAssignedArticle viewAssignedArticle = new ViewAssignedArticle();
         final PdhArticleData pdhArticleData = (PdhArticleData) esbInterfaceService
@@ -231,12 +222,9 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
      * @param dhId
      *            the dh id
      * @return true, if successful
-     * @throws UserException
-     *             the user exception
      */
     @Override
-    public final boolean checkIfArticleInvited(final String dhId)
-            throws UserException {
+    public final boolean checkIfArticleInvited(final String dhId) {
         LOGGER.info("inside checkIfArticleInvited method of ArticleAssignmentServiceImpl");
         final PdhArticleData pdhArticleData = (PdhArticleData) esbInterfaceService
                 .getPdhLookupResponse(dhId);

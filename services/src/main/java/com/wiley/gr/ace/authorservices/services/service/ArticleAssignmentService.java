@@ -14,9 +14,9 @@
  */
 package com.wiley.gr.ace.authorservices.services.service;
 
+import com.wiley.gr.ace.authorservices.model.ArticleInfoDetails;
 import com.wiley.gr.ace.authorservices.model.AssociationConfirmation;
 import com.wiley.gr.ace.authorservices.model.ViewAssignedArticle;
-import com.wiley.gr.ace.authorservices.model.ArticleInfoDetails;
 
 /**
  * The Interface ArticleAssignmentService.
@@ -31,10 +31,8 @@ public interface ArticleAssignmentService {
      * @param emailId
      *            the email id
      * @return the article info details
-     * @throws Exception
-     *             the exception
      */
-    ArticleInfoDetails getArticleInfoDetails(String emailId) throws Exception;
+    ArticleInfoDetails getArticleInfoDetails(String emailId);
 
     /**
      * Association confirmation.
@@ -42,11 +40,9 @@ public interface ArticleAssignmentService {
      * @param associationConfirmation
      *            the association confirmation
      * @return true, if successful
-     * @throws Exception
-     *             the exception
      */
     boolean associationConfirmation(
-            AssociationConfirmation associationConfirmation) throws Exception;
+            AssociationConfirmation associationConfirmation);
 
     /**
      * View assigned article.
@@ -54,10 +50,8 @@ public interface ArticleAssignmentService {
      * @param articleId
      *            the article id
      * @return the view assigned article
-     * @throws Exception
-     *             the exception
      */
-    ViewAssignedArticle viewAssignedArticle(String articleId) throws Exception;
+    ViewAssignedArticle viewAssignedArticle(String articleId);
 
     /**
      * Check if article invited.
@@ -65,9 +59,7 @@ public interface ArticleAssignmentService {
      * @param dhId
      *            the dh id
      * @return true, if successful
-     * @throws Exception
-     *             the exception
      */
-    boolean checkIfArticleInvited(String dhId) throws Exception;
+    boolean checkIfArticleInvited(String dhId);
 
 }
