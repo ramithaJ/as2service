@@ -113,6 +113,7 @@ public class RestServiceInvokerUtil {
                     new URI(url), responseEntityClass);
             return response.getBody();
         } catch (final URISyntaxException e) {
+            e.printStackTrace();
             throw new UserException(AuthorServicesConstants.SERVERERRORCODE,
                     AuthorServicesConstants.SERVERERRORMESSAGE);
         }
