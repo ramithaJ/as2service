@@ -14,7 +14,7 @@
  */
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
@@ -76,7 +76,7 @@ public interface ParticipantsInterfaceService {
      *            the last name
      * @return the list
      */
-    ArrayList<Participant> searchParticipantByName(String firstName,
+    List<Participant> searchParticipantByName(String firstName,
             String lastName);
 
     /**
@@ -158,7 +158,7 @@ public interface ParticipantsInterfaceService {
      *            the profile entity
      * @return the response entity
      */
-    ResponseEntity updateProfile(ProfileEntity profileEntity);
+    ResponseEntity<?> updateProfile(ProfileEntity profileEntity);
 
     /**
      * Gets the preferred journals.

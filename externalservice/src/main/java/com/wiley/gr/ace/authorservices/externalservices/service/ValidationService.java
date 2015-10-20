@@ -14,7 +14,7 @@
  */
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.wiley.gr.ace.authorservices.model.external.AddressValidationMultiRes;
 import com.wiley.gr.ace.authorservices.model.external.AddressValidationRequest;
@@ -33,7 +33,7 @@ public interface ValidationService {
      *            the address validation request
      * @return true, if successful
      */
-    ArrayList<AddressValidationMultiRes> validateAddress(AddressValidationRequest addressValidationRequest);
+    List<AddressValidationMultiRes> validateAddress(AddressValidationRequest addressValidationRequest);
 
     /**
      * Vat validation.

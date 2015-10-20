@@ -14,7 +14,7 @@
  */
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.wiley.gr.ace.authorservices.model.external.CDMResponse;
 import com.wiley.gr.ace.authorservices.model.external.CDMUser;
@@ -41,5 +41,5 @@ public interface CDMInterfaceService {
      * @param lastName the last name
      * @return the array list
      */
-    ArrayList<CDMUser> searchCDM(String firstName, String lastName);
+    List<CDMUser> searchCDM(String firstName, String lastName);
 }

@@ -126,10 +126,10 @@ public class OrderServiceImpl implements OrderService {
 
 	}
 
-    /** Calling Stub */
-    @Override
-    public final OrderResponse submitOnlineOpenOrder(
-            final OrderRequest orderRequest) {
+	/** Calling Stub */
+	@Override
+	public final OrderResponse submitOnlineOpenOrder(
+			final OrderRequest orderRequest) {
 
 		return (OrderResponse) StubInvokerUtil.restServiceInvoker(
 				createorderurl, orderRequest, OrderResponse.class);
@@ -139,7 +139,7 @@ public class OrderServiceImpl implements OrderService {
 	 * Method to call PDHLookupJournal external service.
 	 */
 	@Override
-	public final PdhJournalResponse pdhLookUpJournal(final Integer DHId) {
+	public final PdhJournalResponse pdhLookUpJournal(final Integer dhId) {
 
 		return (PdhJournalResponse) StubInvokerUtil.invokeJsonStub(
 				lookupjournalurl, HttpMethod.POST, PdhJournalResponse.class);
@@ -149,7 +149,7 @@ public class OrderServiceImpl implements OrderService {
 	 * Method to call PDHLookupArticle external service.
 	 */
 	@Override
-	public final PdhArticleResponse pdhLookUpArticle(final Integer DHId) {
+	public final PdhArticleResponse pdhLookUpArticle(final Integer dhId) {
 
 		return (PdhArticleResponse) StubInvokerUtil.invokeJsonStub(
 				lookuparticleurl, HttpMethod.POST, PdhArticleResponse.class);
@@ -199,10 +199,10 @@ public class OrderServiceImpl implements OrderService {
 	 * @return SocietyMemberDiscount
 	 */
 	@Override
-	public SocietyMemberDiscount getSocietyMemberDiscount(String DHID) {
+	public SocietyMemberDiscount getSocietyMemberDiscount(String dhId) {
 
 		return (SocietyMemberDiscount) StubInvokerUtil.restGetServiceInvoker(
-				societyMemberDiscountsurl + DHID, SocietyMemberDiscount.class);
+				societyMemberDiscountsurl + dhId, SocietyMemberDiscount.class);
 	}
 
 	/**
@@ -268,7 +268,6 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public String getResearchFunderDOI(String funderId) {
-		// TODO Need to retrieve the DOI from the Cache
 		return "1234";
 	}
 }

@@ -27,6 +27,8 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicHeader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 
@@ -47,189 +49,194 @@ import com.wiley.gr.ace.authorservices.model.external.TaskServiceRequest;
  */
 public class TaskServiceImpl implements TaskService {
 
-    /** The bpmserviceurl. */
-    @Value("${bpmservice.url}")
-    private String bpmserviceurl;
+	/** The bpmserviceurl. */
+	@Value("${bpmservice.url}")
+	private String bpmserviceurl;
 
-    /** The key. */
-    @Value("${bpmservice.key}")
-    private String key;
+	/** The key. */
+	@Value("${bpmservice.key}")
+	private String key;
 
-    /** The action. */
-    @Value("${bpmservice.action}")
-    private String action;
+	/** The action. */
+	@Value("${bpmservice.action}")
+	private String action;
 
-    /** The bp id. */
-    @Value("${bpmservice.bpdId}")
-    private String bpId;
+	/** The bp id. */
+	@Value("${bpmservice.bpdId}")
+	private String bpId;
 
-    /** The process app id. */
-    @Value("${bpmservice.processAppId}")
-    private String processAppId;
+	/** The process app id. */
+	@Value("${bpmservice.processAppId}")
+	private String processAppId;
 
-    /** The parts. */
-    @Value("${bpmservice.parts}")
-    private String parts;
+	/** The parts. */
+	@Value("${bpmservice.parts}")
+	private String parts;
 
-    /** The http header accept value. */
-    @Value("${bpmservice.httpHeaderAcceptValue}")
-    private String httpHeaderAcceptValue;
+	/** The http header accept value. */
+	@Value("${bpmservice.httpHeaderAcceptValue}")
+	private String httpHeaderAcceptValue;
 
-    /** The http header content type value. */
-    @Value("${bpmservice.httpHeaderContentTypeValue}")
-    private String httpHeaderContentTypeValue;
+	/** The http header content type value. */
+	@Value("${bpmservice.httpHeaderContentTypeValue}")
+	private String httpHeaderContentTypeValue;
 
-    /** The source app value. */
-    @Value("${bpmservice.sourceAppValue}")
-    private String sourceAppValue;
-    
+	/** The source app value. */
+	@Value("${bpmservice.sourceAppValue}")
+	private String sourceAppValue;
 
 	/** the INTERNAL_SERVER_ERROR_CODE. */
 	@Value("${internal.server.error.code}")
 	private String internalServerErrorCode;
 
-    @Value("${bpmServiceLicense.url}")
-    private String bpmServiceLicenseStatus;
-    
-    /**This method is for creating task. */
-    @Override
-    public final boolean createTask() {
-        // TODO Auto-generated method stub
-        return true;
-    }
+	@Value("${bpmServiceLicense.url}")
+	private String bpmServiceLicenseStatus;
 
-    /**
-     * Method invokes BPM service and returns the status.
-     *
-     * @param taskServiceRequest the task service request
-     * @param userId the user id
-     * @return status
-     */
-    @Override
-    public final String invokeTaskService(
-            final TaskServiceRequest taskServiceRequest, final String userId) {
-        String saltString = null;
-        String encodedParamString = null;
-        Date currentDate = null;
-        Long date = null;
-        String generatedSignature = null;
-        Integer statusCode = null;
-        String status = null;
-        String payLoadString = null;
+	/**
+	 * Logger Configured.
+	 */
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(TaskServiceImpl.class);
 
-        HttpClient client = null;
-        HttpUriRequest request = null;
-        HttpResponse response = null;
+	/**
+	 * Method invokes BPM service and returns the status.
+	 *
+	 * @param taskServiceRequest
+	 *            the task service request
+	 * @param userId
+	 *            the user id
+	 * @return status
+	 */
+	@Override
+	public final String invokeTaskService(
+			final TaskServiceRequest taskServiceRequest, final String userId) {
+		String saltString = null;
+		String encodedParamString = null;
+		Date currentDate = null;
+		Long date = null;
+		String generatedSignature = null;
+		Integer statusCode = null;
+		String status = null;
+		String payLoadString = null;
 
-        try {
-            String requestString = taskServiceRequest.getJsonString(taskServiceRequest);
-            encodedParamString = URLEncoder.encode(requestString, "UTF-8");
+		HttpClient client = null;
+		HttpUriRequest request = null;
+		HttpResponse response = null;
 
-        } catch (UnsupportedEncodingException e) {
-            throw new ASException(internalServerErrorCode, e.getMessage());
-        }
+		try {
+			String requestString = taskServiceRequest
+					.getJsonString(taskServiceRequest);
+			encodedParamString = URLEncoder.encode(requestString, "UTF-8");
 
-        StringBuilder decodedParamString = new StringBuilder();
+		} catch (UnsupportedEncodingException e) {
+			LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+			throw new ASException(internalServerErrorCode, e.getMessage());
+		}
 
-        decodedParamString.append("action=").append(action).append("&")
-                .append("bpdId=").append(bpId).append("&")
-                .append("processAppId=").append(processAppId).append("&")
-                .append("params=").append(encodedParamString).append("&")
-                .append("parts=").append(parts);
+		StringBuilder decodedParamString = new StringBuilder();
 
-        payLoadString = decodedParamString.toString();
+		decodedParamString.append("action=").append(action).append("&")
+				.append("bpdId=").append(bpId).append("&")
+				.append("processAppId=").append(processAppId).append("&")
+				.append("params=").append(encodedParamString).append("&")
+				.append("parts=").append(parts);
 
-        String url = bpmserviceurl + "?" + payLoadString;
+		payLoadString = decodedParamString.toString();
 
-        try {
-            saltString = WileyBPMAuthenticationUtils.getSalt();
-        } catch (RuntimeException e) {
-            throw new ASException();
-        }
+		String url = bpmserviceurl + "?" + payLoadString;
 
-        currentDate = new Date();
-        date = currentDate.getTime();
-        generatedSignature = WileyBPMAuthenticationUtils.generateSignature(key,
-                saltString, "POST", payLoadString, userId, date);
+		try {
+			saltString = WileyBPMAuthenticationUtils.getSalt();
+		} catch (RuntimeException e) {
+			LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+			throw new ASException();
+		}
 
-        List<Header> headers = new ArrayList<Header>();
-        headers.add(new BasicHeader(HttpHeaders.ACCEPT, httpHeaderAcceptValue));
-        headers.add(new BasicHeader(HttpHeaders.CONTENT_TYPE,
-                httpHeaderContentTypeValue));
-        headers.add(new BasicHeader(AuthorServicesConstants.BPM_SOURCE_APP,
-                sourceAppValue));
-        headers.add(new BasicHeader(AuthorServicesConstants.BPM_LONG_DATE, date
-                .toString()));
-        headers.add(new BasicHeader(AuthorServicesConstants.BPM_USERID, userId));
-        headers.add(new BasicHeader(AuthorServicesConstants.BPM_SIGNATURE,
-                generatedSignature));
-        headers.add(new BasicHeader(AuthorServicesConstants.BPM_SALT,
-                saltString));
+		currentDate = new Date();
+		date = currentDate.getTime();
+		generatedSignature = WileyBPMAuthenticationUtils.generateSignature(key,
+				saltString, "POST", payLoadString, userId, date);
 
-        client = HttpClients.custom().setDefaultHeaders(headers).build();
-        request = RequestBuilder.post(url).build();
+		List<Header> headers = new ArrayList<Header>();
+		headers.add(new BasicHeader(HttpHeaders.ACCEPT, httpHeaderAcceptValue));
+		headers.add(new BasicHeader(HttpHeaders.CONTENT_TYPE,
+				httpHeaderContentTypeValue));
+		headers.add(new BasicHeader(AuthorServicesConstants.BPM_SOURCE_APP,
+				sourceAppValue));
+		headers.add(new BasicHeader(AuthorServicesConstants.BPM_LONG_DATE, date
+				.toString()));
+		headers.add(new BasicHeader(AuthorServicesConstants.BPM_USERID, userId));
+		headers.add(new BasicHeader(AuthorServicesConstants.BPM_SIGNATURE,
+				generatedSignature));
+		headers.add(new BasicHeader(AuthorServicesConstants.BPM_SALT,
+				saltString));
 
-        try {
-            response = client.execute(request);
-        } catch (ClientProtocolException e) {
-            throw new ASException(internalServerErrorCode, e.getMessage());
-        } catch (IOException e) {
-            throw new ASException(internalServerErrorCode, e.getMessage());
-        }
-        statusCode = response.getStatusLine().getStatusCode();
+		client = HttpClients.custom().setDefaultHeaders(headers).build();
+		request = RequestBuilder.post(url).build();
 
-        if (statusCode == 200) {
-            status = AuthorServicesConstants.BPM_CALL_SUCCESS_STATUS;
-        } else {
-            throw new ASException(statusCode.toString(), response
-                    .getStatusLine().getReasonPhrase());
-        }
+		try {
+			response = client.execute(request);
+		} catch (ClientProtocolException e) {
+			LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+			throw new ASException(internalServerErrorCode, e.getMessage());
+		} catch (IOException e) {
+			LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+			throw new ASException(internalServerErrorCode, e.getMessage());
+		}
+		statusCode = response.getStatusLine().getStatusCode();
 
-        return status;
-    }
+		if (statusCode == 200) {
+			status = AuthorServicesConstants.BPM_CALL_SUCCESS_STATUS;
+		} else {
+			throw new ASException(statusCode.toString(), response
+					.getStatusLine().getReasonPhrase());
+		}
 
-    /**
-     * Finish task.
-     *
-     * @param associationConfirmation
-     *            the association confirmation
-     * @return true, if successful
-     * @throws Exception
-     *             the exception
-     */
-    @Override
-    public final boolean finishTask(
-            final AssociationConfirmation associationConfirmation) {
-        boolean flag = false;
-        final String url = "http://demo7930138.mockable.io/rest/bpm/wle/v1/task/"
-                + associationConfirmation.getTaskId()
-                + "55?action="
-                + associationConfirmation.isAssociationConfirmed()
-                + "&parts=all";
-        final Service service = (Service) StubInvokerUtil.invokeStub(url,
-                HttpMethod.PUT, Service.class);
-        if (service != null
-                && AuthorServicesConstants.BPM_CALL_SUCCESS_STATUS
-                        .equals(service.getStatus())) {
-            flag = true;
-        }
+		return status;
+	}
 
-        return flag;
-    }
-    /**
-     * Gets the license status.
-     *
-     * @param dhId
-     *            the dh id
-     * @param userId
-     *            the user id
-     * @return the license status
-     */
-    @Override
-    public LicenseStatus getLicenseStatus(String dhId, String userId) {
-        return (LicenseStatus) StubInvokerUtil.invokeStub(
-                bpmServiceLicenseStatus, HttpMethod.GET,
-                LicenseStatus.class);
-    }
+	/**
+	 * Finish task.
+	 *
+	 * @param associationConfirmation
+	 *            the association confirmation
+	 * @return true, if successful
+	 * @throws Exception
+	 *             the exception
+	 */
+	@Override
+	public final boolean finishTask(
+			final AssociationConfirmation associationConfirmation) {
+		boolean flag = false;
+		final String url = "http://demo7930138.mockable.io/rest/bpm/wle/v1/task/"
+				+ associationConfirmation.getTaskId()
+				+ "55?action="
+				+ associationConfirmation.isAssociationConfirmed()
+				+ "&parts=all";
+		final Service service = (Service) StubInvokerUtil.invokeStub(url,
+				HttpMethod.PUT, Service.class);
+		if (service != null
+				&& AuthorServicesConstants.BPM_CALL_SUCCESS_STATUS
+						.equals(service.getStatus())) {
+			flag = true;
+		}
+
+		return flag;
+	}
+
+	/**
+	 * Gets the license status.
+	 *
+	 * @param dhId
+	 *            the dh id
+	 * @param userId
+	 *            the user id
+	 * @return the license status
+	 */
+	@Override
+	public LicenseStatus getLicenseStatus(String dhId, String userId) {
+		return (LicenseStatus) StubInvokerUtil.invokeStub(
+				bpmServiceLicenseStatus, HttpMethod.GET, LicenseStatus.class);
+	}
 
 }

@@ -11,7 +11,7 @@
  *******************************************************************************/
 package com.wiley.gr.ace.authorservices.externalservices.service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.ALMAuthRequest;
@@ -74,7 +74,7 @@ public interface ESBInterfaceService {
      *            the last name
      * @return the users from first name last name
      */
-    ArrayList<ESBUser> getUsersFromFirstNameLastName(String firstName,
+    List<ESBUser> getUsersFromFirstNameLastName(String firstName,
             String lastName);
 
     /**

@@ -14,14 +14,17 @@
  */
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
-import java.util.ArrayList;
+import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.external.util.StubInvokerUtil;
 import com.wiley.gr.ace.authorservices.externalservices.service.ValidationService;
 import com.wiley.gr.ace.authorservices.model.external.AddressValidationMultiRes;
@@ -43,6 +46,12 @@ public class ValidationServiceImpl implements ValidationService {
     /** The vat validation url. */
     @Value("$vatidvalidation.url")
     private String vatValidationUrl;
+    
+    /**
+     * Logger Configured.
+     */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(ValidationServiceImpl.class);
 
     /**
      * Validate address.
@@ -52,12 +61,12 @@ public class ValidationServiceImpl implements ValidationService {
      * @return true, if successful
      */
     @Override
-    public final ArrayList<AddressValidationMultiRes> validateAddress(
+    public final List<AddressValidationMultiRes> validateAddress(
             final AddressValidationRequest addressValidationRequest) {
         ObjectWriter ow = new ObjectMapper().writer()
                 .withDefaultPrettyPrinter();
 
-        ArrayList<AddressValidationMultiRes> validAddressList = null;
+        List<AddressValidationMultiRes> validAddressList = null;
 
         AddressValidationResponse addressValidationResponse = null;
         try {
@@ -73,7 +82,7 @@ public class ValidationServiceImpl implements ValidationService {
                         .getAddressValidationMultiResList();
             }
         } catch (final JsonProcessingException e) {
-            e.printStackTrace();
+			LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
         }
 
         return validAddressList;

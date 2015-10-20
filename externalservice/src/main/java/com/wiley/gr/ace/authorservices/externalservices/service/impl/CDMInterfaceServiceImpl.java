@@ -14,7 +14,8 @@
  */
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
-import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
 
@@ -57,10 +58,9 @@ public class CDMInterfaceServiceImpl implements CDMInterfaceService {
      * @return the array list
      */
     @Override
-    public ArrayList<CDMUser> searchCDM(final String firstName,
+    public List<CDMUser> searchCDM(final String firstName,
             final String lastName) {
-        // TODO Auto-generated method stub
-        return null;
+        return Collections.emptyList();
     }
 
 }

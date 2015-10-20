@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -27,6 +29,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
 import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.external.util.PdhLookupServiceUtil;
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
@@ -87,6 +90,12 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
 
     @Value("${endPdhLookup.url}")
     private String endPdhLookupUrl;
+    
+    /**
+     * Logger Configured.
+     */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(ESBInterfaceServiceImpl.class);
 
     /**
      * This method is for fetching ordid details by calling external service
@@ -163,11 +172,12 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      *            the first name
      * @param lastName
      *            the last name
+     * @return 
      * @return the users from first name last name
      * 
      */
     @Override
-    public final ArrayList<ESBUser> getUsersFromFirstNameLastName(
+    public final List<ESBUser> getUsersFromFirstNameLastName(
             final String firstName, final String lastName) {
 
         return searchUser("", firstName, lastName);
@@ -185,9 +195,9 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
      * @return the list
      * 
      */
-    private ArrayList<ESBUser> searchUser(final String email,
+    private List<ESBUser> searchUser(final String email,
             final String firstName, final String lastName) {
-        ArrayList<ESBUser> esbUsersList = null;
+        List<ESBUser> esbUsersList = null;
         SearchUserResult searchUserResult = null;
         String searchJobUrl = searchUserUrl;
         if (!StringUtils.isEmpty(email)) {
@@ -246,6 +256,7 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
                 isALMAuth = true;
             }
         } catch (final URISyntaxException e) {
+        	LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
             throw new UserException("UNEXPECTED",
                     "Some Unexpected Error occured");
         }
@@ -357,12 +368,13 @@ public class ESBInterfaceServiceImpl implements ESBInterfaceService {
                 startPdhLookupUrl.concat(dhId).concat(endPdhLookupUrl),
                 HttpMethod.GET, String.class);
         Object lookupObject = null;
-        if (!StringUtils.isEmpty(xml))
-            try {
-                lookupObject = PdhLookupServiceUtil.lookup(xml);
-            } catch (final Exception e) {
-                e.printStackTrace();
-            }
+        if (!StringUtils.isEmpty(xml)){
+        	try {
+        		lookupObject = PdhLookupServiceUtil.lookup(xml);
+        	} catch (final Exception e) {
+        		LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+        	}
+        }
         lookupObject = PdhLookupServiceUtil.invokePdhLookupData(lookupObject);
         return lookupObject;
     }

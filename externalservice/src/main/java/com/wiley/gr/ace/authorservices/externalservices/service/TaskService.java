@@ -23,13 +23,6 @@ import com.wiley.gr.ace.authorservices.model.external.TaskServiceRequest;
 public interface TaskService {
 
     /**
-     * Creates the task.
-     *
-     * @return true, if successful
-     */
-    boolean createTask();
-
-    /**
      * Finish task.
      *
      * @param associationConfirmation

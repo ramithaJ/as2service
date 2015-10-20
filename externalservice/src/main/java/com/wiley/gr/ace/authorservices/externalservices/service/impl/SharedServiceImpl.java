@@ -26,6 +26,9 @@ public class SharedServiceImpl implements SharedService {
 
     @Value("${notification.url}")
     private String notificationHistroyUrl;
+    
+    @Value("${productPersonRelation.url}")
+    private String productPersonRelationUrl;
 
     /*
      * (non-Javadoc)
@@ -48,7 +51,7 @@ public class SharedServiceImpl implements SharedService {
 
         return (Service) RestServiceInvokerUtil
                 .restServiceInvoker(
-                        "http://10.201.64.81:8090/as2crossrefservices/v1/article/assign",
+                		productPersonRelationUrl,
                         productPersonRelationObject, Service.class);
     }
 

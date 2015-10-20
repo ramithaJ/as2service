@@ -36,114 +36,117 @@ import com.wiley.gr.ace.authorservices.model.orcid.OrcidAccessToken;
  */
 public class OrcidInterfaceServiceImpl implements OrcidInterfaceService {
 
-    /** The Constant LOGGER. */
-    public static final Logger LOGGER = Logger
-            .getLogger(OrcidInterfaceServiceImpl.class);
+	/** The Constant LOGGER. */
+	private static final Logger LOGGER = Logger
+			.getLogger(OrcidInterfaceServiceImpl.class);
 
-    /** The orcid client id. */
-    @Value("${orcid-clientid}")
-    private String orcidClientId;
+	/** The orcid client id. */
+	@Value("${orcid-clientid}")
+	private String orcidClientId;
 
-    /** The orcid client secret. */
-    @Value("${orcid-clientsecret}")
-    private String orcidClientSecret;
+	/** The orcid client secret. */
+	@Value("${orcid-clientsecret}")
+	private String orcidClientSecret;
 
-    /** The orcid grant type. */
-    @Value("${orcid-granttype}")
-    private String orcidGrantType;
+	/** The orcid grant type. */
+	@Value("${orcid-granttype}")
+	private String orcidGrantType;
 
-    /** The orcid url. */
-    @Value("${orcid-url}")
-    private String orcidUrl;
+	/** The orcid url. */
+	@Value("${orcid-url}")
+	private String orcidUrl;
 
-    /** The orcid token url. */
-    @Value("${orcid-tokenurl}")
-    private String orcidTokenUrl;
+	/** The orcid token url. */
+	@Value("${orcid-tokenurl}")
+	private String orcidTokenUrl;
 
-    /**
-     * This method is for authorizing token.
-     *
-     * @param authorizationCode
-     *            the authorization code
-     * @return the access token
-     * @throws Exception
-     *             the exception
-     */
-    @Override
-    public final OrcidAccessToken getAccessToken(final String authorizationCode)
-            throws Exception {
-        final Reference ref = new Reference(orcidTokenUrl);
-        if (Context.getCurrent() == null) {
-            Context.setCurrent(new Context());
-        }
-        final ClientResource client = new ClientResource(ref);
-        LOGGER.info(" Fetching Orcid Details From Oricd Properties File");
-        final Form form = new Form();
-        form.add("client_id", orcidClientId);
-        form.add("client_secret", orcidClientSecret);
-        form.add("grant_type", orcidGrantType);
-        form.add("code", authorizationCode);
-        LOGGER.info("Need to change this to UI redirect URI ");
-        client.getContext().getParameters().add("followRedirects", "true");
-        final Representation rep = client
-                .post(form, MediaType.APPLICATION_JSON);
-        final String json = rep.getText();
-        final ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(json, OrcidAccessToken.class);
+	/** The Logger */
+	private static final String HEADER_REQUEST_ATTRIBUTE_KEY = "org.restlet.http.headers";
 
-    }
+	/**
+	 * This method is for authorizing token.
+	 *
+	 * @param authorizationCode
+	 *            the authorization code
+	 * @return the access token
+	 * @throws Exception
+	 *             the exception
+	 */
+	@Override
+	public final OrcidAccessToken getAccessToken(final String authorizationCode)
+			throws Exception {
+		final Reference ref = new Reference(orcidTokenUrl);
+		if (Context.getCurrent() == null) {
+			Context.setCurrent(new Context());
+		}
+		final ClientResource client = new ClientResource(ref);
+		LOGGER.info(" Fetching Orcid Details From Oricd Properties File");
+		final Form form = new Form();
+		form.add("client_id", orcidClientId);
+		form.add("client_secret", orcidClientSecret);
+		form.add("grant_type", orcidGrantType);
+		form.add("code", authorizationCode);
+		LOGGER.info("Need to change this to UI redirect URI ");
+		client.getContext().getParameters().add("followRedirects", "true");
+		final Representation rep = client
+				.post(form, MediaType.APPLICATION_JSON);
+		final String json = rep.getText();
+		final ObjectMapper objectMapper = new ObjectMapper();
+		return objectMapper.readValue(json, OrcidAccessToken.class);
 
-    /**
-     * This method is for getting bio details based on orcid token.
-     *
-     * @param token
-     *            the token
-     * @return the bio
-     * @throws Exception
-     *             the exception
-     */
-    @Override
-    public final String getBio(final OrcidAccessToken token) throws Exception {
+	}
 
-        final Reference ref = new Reference(orcidUrl.concat("/")
-                .concat(token.getOrcid()).concat("/orcid-bio"));
-        final ClientResource client = new ClientResource(ref);
-        Map<String, Object> reqAttributes = client.getRequestAttributes();
-        Form headers = (Form) reqAttributes.get("org.restlet.http.headers");
-        if (headers == null) {
-            headers = new Form();
-            reqAttributes.put("org.restlet.http.headers", headers);
-        }
-        headers.add("Authorization", "Bearer " + token.getAccessToken());
-        final Representation representation = client
-                .get(MediaType.APPLICATION_JSON);
-        return representation.getText();
-    }
+	/**
+	 * This method is for getting bio details based on orcid token.
+	 *
+	 * @param token
+	 *            the token
+	 * @return the bio
+	 * @throws Exception
+	 *             the exception
+	 */
+	@Override
+	public final String getBio(final OrcidAccessToken token) throws Exception {
 
-    /**
-     * this method os for gettin work details.
-     *
-     * @param token
-     *            the token
-     * @return the work
-     * @throws Exception
-     *             the exception
-     */
-    @Override
-    public final String getWork(final OrcidAccessToken token) throws Exception {
+		final Reference ref = new Reference(orcidUrl.concat("/")
+				.concat(token.getOrcid()).concat("/orcid-bio"));
+		final ClientResource client = new ClientResource(ref);
+		Map<String, Object> reqAttributes = client.getRequestAttributes();
+		Form headers = (Form) reqAttributes.get(HEADER_REQUEST_ATTRIBUTE_KEY);
+		if (headers == null) {
+			headers = new Form();
+			reqAttributes.put(HEADER_REQUEST_ATTRIBUTE_KEY, headers);
+		}
+		headers.add("Authorization", "Bearer " + token.getAccessToken());
+		final Representation representation = client
+				.get(MediaType.APPLICATION_JSON);
+		return representation.getText();
+	}
 
-        final Reference ref = new Reference(orcidUrl.concat("/")
-                .concat(token.getOrcid()).concat("/orcid-works"));
-        final ClientResource client = new ClientResource(ref);
-        Map<String, Object> reqAttributes = client.getRequestAttributes();
-        Form headers = (Form) reqAttributes.get("org.restlet.http.headers");
-        if (headers == null) {
-            headers = new Form();
-            reqAttributes.put("org.restlet.http.headers", headers);
-        }
-        headers.add("Authorization", "Bearer " + token.getAccessToken());
-        final Representation representation = client
-                .get(MediaType.APPLICATION_JSON);
-        return representation.getText();
-    }
+	/**
+	 * this method os for gettin work details.
+	 *
+	 * @param token
+	 *            the token
+	 * @return the work
+	 * @throws Exception
+	 *             the exception
+	 */
+	@Override
+	public final String getWork(final OrcidAccessToken token) throws Exception {
+
+		final Reference ref = new Reference(orcidUrl.concat("/")
+				.concat(token.getOrcid()).concat("/orcid-works"));
+		final ClientResource client = new ClientResource(ref);
+		Map<String, Object> reqAttributes = client.getRequestAttributes();
+		Form headers = (Form) reqAttributes.get(HEADER_REQUEST_ATTRIBUTE_KEY);
+		if (headers == null) {
+			headers = new Form();
+			reqAttributes.put(HEADER_REQUEST_ATTRIBUTE_KEY, headers);
+		}
+		headers.add("Authorization", "Bearer " + token.getAccessToken());
+		final Representation representation = client
+				.get(MediaType.APPLICATION_JSON);
+		return representation.getText();
+	}
 }

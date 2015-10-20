@@ -14,6 +14,8 @@
 
 package com.wiley.gr.ace.authorservices.externalservices.service.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.wiley.gr.ace.authorservices.external.util.RestServiceInvokerUtil;
@@ -29,139 +31,145 @@ import com.wiley.gr.ace.authorservices.model.external.ESBResponse;
  */
 public class UserProfilesImpl implements UserProfiles {
 
-    /** The institutionsurl. */
-    @Value("${institutions.url}")
-    private String institutionsurl;
+	/** The institutionsurl. */
+	@Value("${institutions.url}")
+	private String institutionsurl;
 
-    /** The departmentspreurl. */
-    @Value("${departmentspre.url}")
-    private String departmentspreurl;
+	/** The departmentspreurl. */
+	@Value("${departmentspre.url}")
+	private String departmentspreurl;
 
-    /** The departmentsurl. */
-    @Value("${departmentspost.url}")
-    private String departmentsposturl;
+	/** The departmentsurl. */
+	@Value("${departmentspost.url}")
+	private String departmentsposturl;
 
-    /** The research fundersurl. */
-    @Value("${reasearchFunders.url}")
-    private String researchFundersurl;
+	/** The research fundersurl. */
+	@Value("${reasearchFunders.url}")
+	private String researchFundersurl;
 
-    /** The job categoriesurl. */
-    @Value("${jobCategories.url}")
-    private String jobCategoriesurl;
+	/** The job categoriesurl. */
+	@Value("${jobCategories.url}")
+	private String jobCategoriesurl;
 
-    /** The industriesurl. */
-    @Value("${industries.url}")
-    private String industriesurl;
+	/** The industriesurl. */
+	@Value("${industries.url}")
+	private String industriesurl;
 
-    /** The countriesurl. */
-    @Value("${countries.url}")
-    private String countriesurl;
+	/** The countriesurl. */
+	@Value("${countries.url}")
+	private String countriesurl;
 
-    /** The statesurl. */
-    @Value("${states.url}")
-    private String statesurl;
+	/** The statesurl. */
+	@Value("${states.url}")
+	private String statesurl;
 
-    /** The states url append. */
-    @Value("${statesurl.append}")
-    private String statesUrlAppend;
+	/** The states url append. */
+	@Value("${statesurl.append}")
+	private String statesUrlAppend;
 
-    /**
-     * This method is used for getting countries.
-     *
-     * @return ESBResponse
-     *
-     */
-    @Override
-    public final ESBResponse getCountries() {
+	/**
+	 * Logger Configured.
+	 */
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(UserProfilesImpl.class);
 
-        return (ESBResponse) RestServiceInvokerUtil.pickListInvoker(
-                countriesurl, ESBResponse.class);
-    }
+	/**
+	 * This method is used for getting countries.
+	 *
+	 * @return ESBResponse
+	 *
+	 */
+	@Override
+	public final ESBResponse getCountries() {
 
-    /**
-     * This method is used for getting department list.
-     *
-     * @param institutionId
-     *            the institution id
-     * @return ESBResponse
-     */
-    @Override
-    public final ESBResponse getDepartmentsList(final String institutionId) {
-        final String departmenturl = departmentspreurl + institutionId
-                + departmentsposturl;
-        System.out.println(departmenturl);
-        return (ESBResponse) RestServiceInvokerUtil.pickListInvoker(
-                departmenturl, ESBResponse.class);
-    }
+		return (ESBResponse) RestServiceInvokerUtil.pickListInvoker(
+				countriesurl, ESBResponse.class);
+	}
 
-    /**
-     * This method is used for getting industries.
-     *
-     * @return ESBResponse
-     *
-     */
-    @Override
-    public final ESBResponse getIndustries() {
+	/**
+	 * This method is used for getting department list.
+	 *
+	 * @param institutionId
+	 *            the institution id
+	 * @return ESBResponse
+	 */
+	@Override
+	public final ESBResponse getDepartmentsList(final String institutionId) {
+		final String departmenturl = departmentspreurl + institutionId
+				+ departmentsposturl;
+		LOGGER.info(departmenturl);
+		return (ESBResponse) RestServiceInvokerUtil.pickListInvoker(
+				departmenturl, ESBResponse.class);
+	}
 
-        return (ESBResponse) RestServiceInvokerUtil.pickListInvoker(
-                industriesurl, ESBResponse.class);
-    }
+	/**
+	 * This method is used for getting industries.
+	 *
+	 * @return ESBResponse
+	 *
+	 */
+	@Override
+	public final ESBResponse getIndustries() {
 
-    /**
-     * This method is used for getting institution list.
-     *
-     * @return ESBResponse
-     *
-     */
-    @Override
-    public final ESBResponse getInstitutionsList() {
+		return (ESBResponse) RestServiceInvokerUtil.pickListInvoker(
+				industriesurl, ESBResponse.class);
+	}
 
-        return (ESBResponse) RestServiceInvokerUtil.pickListInvoker(
-                institutionsurl, ESBResponse.class);
+	/**
+	 * This method is used for getting institution list.
+	 *
+	 * @return ESBResponse
+	 *
+	 */
+	@Override
+	public final ESBResponse getInstitutionsList() {
 
-    }
+		return (ESBResponse) RestServiceInvokerUtil.pickListInvoker(
+				institutionsurl, ESBResponse.class);
 
-    /**
-     * This method is used for getting job categories.
-     *
-     * @return ESBResponse
-     *
-     */
-    @Override
-    public final ESBResponse getJobCategories() {
+	}
 
-        return (ESBResponse) RestServiceInvokerUtil.pickListInvoker(
-                jobCategoriesurl, ESBResponse.class);
-    }
+	/**
+	 * This method is used for getting job categories.
+	 *
+	 * @return ESBResponse
+	 *
+	 */
+	@Override
+	public final ESBResponse getJobCategories() {
 
-    /**
-     * This method is used for getting research funders.
-     *
-     * @return DropDown
-     *
-     */
-    @Override
-    public final DropDown getReasearchFunder() {
+		return (ESBResponse) RestServiceInvokerUtil.pickListInvoker(
+				jobCategoriesurl, ESBResponse.class);
+	}
 
-        return (DropDown) RestServiceInvokerUtil.getServiceData(
-                researchFundersurl, DropDown.class);
-    }
+	/**
+	 * This method is used for getting research funders.
+	 *
+	 * @return DropDown
+	 *
+	 */
+	@Override
+	public final DropDown getReasearchFunder() {
 
-    /**
-     * This method is used for getting states.
-     *
-     * @param countrycode
-     *            the countrycode
-     * @return ESBResponse
-     */
-    @Override
-    public final ESBResponse getStates(final String countrycode) {
+		return (DropDown) RestServiceInvokerUtil.getServiceData(
+				researchFundersurl, DropDown.class);
+	}
 
-        final String url = statesurl + countrycode + statesUrlAppend;
+	/**
+	 * This method is used for getting states.
+	 *
+	 * @param countrycode
+	 *            the countrycode
+	 * @return ESBResponse
+	 */
+	@Override
+	public final ESBResponse getStates(final String countrycode) {
 
-        return (ESBResponse) RestServiceInvokerUtil.pickListInvoker(url,
-                ESBResponse.class);
+		final String url = statesurl + countrycode + statesUrlAppend;
 
-    }
+		return (ESBResponse) RestServiceInvokerUtil.pickListInvoker(url,
+				ESBResponse.class);
+
+	}
 
 }

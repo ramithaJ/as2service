@@ -119,9 +119,8 @@ public class UserManagementImpl implements UserManagement {
     public final boolean resetPassword(
             final PasswordResetRequest passwordResetRequest) {
 
-        final boolean status = this.externalPostServiceInvoker(
+        return this.externalPostServiceInvoker(
                 resetPasswordurl, passwordResetRequest);
-        return status;
     }
 
     /**
@@ -148,9 +147,8 @@ public class UserManagementImpl implements UserManagement {
     @Override
     public final boolean forceFulReset(final ForcefulReset forcefulReset) {
 
-        boolean status = this.externalPostServiceInvoker(forceFulReseturl,
+        return this.externalPostServiceInvoker(forceFulReseturl,
                 forcefulReset);
-        return status;
     }
 
     /**

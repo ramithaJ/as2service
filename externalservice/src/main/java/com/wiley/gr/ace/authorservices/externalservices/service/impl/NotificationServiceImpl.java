@@ -64,7 +64,7 @@ public class NotificationServiceImpl implements NotificationService {
     /**
      * This field holds the value of applicationId.
      */
-    private final String applicationId = "24";
+    private static final String applicationId = "24";
 
     /**
      * 
@@ -112,7 +112,6 @@ public class NotificationServiceImpl implements NotificationService {
     public NotificationDetailsPayload getNotificationDetails(
             final String notificationId) {
 
-        // TODO: here application Id constant for total application.
         return (NotificationDetailsPayload) StubInvokerUtil
                 .restGetServiceInvoker(notificationDetailsurl + applicationId
                         + "/" + notificationId,
@@ -121,13 +120,11 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public NotificationsList getArticleNotifications(final String articleId) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public boolean sendNotification(final NotificationsList notificationsList) {
-        // TODO Auto-generated method stub
         return false;
     }
 
