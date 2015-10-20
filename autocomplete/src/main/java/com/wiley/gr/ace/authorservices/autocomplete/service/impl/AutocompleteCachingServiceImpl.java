@@ -192,7 +192,8 @@ public class AutocompleteCachingServiceImpl implements
         String jobCategoryKey = jobCategorieskey + CACHED;
         String countryKey = countrieskey + CACHED;
         String institutionKey = institutionskey + CACHED;
-        String departmentKey = departmentskey + "_" + parentId + CACHED;
+        String departmentKey = departmentskey
+                + AuthorServicesConstants.UNDERSCORE + parentId + CACHED;
         String researchFunderKey = researchFundersKey + CACHED;
         String societyKey = societieskey + CACHED;
         String areaOfIntrestKey = areasOfInterestsKey + CACHED;
@@ -233,11 +234,7 @@ public class AutocompleteCachingServiceImpl implements
                 dropDownMap.put(cacheData.getCode(), cacheData);
             }
 
-        } /*
-           * else { throw new
-           * ASException(AuthorServicesConstants.SERVERERRORCODE,
-           * AuthorServicesConstants.SERVERERRORMESSAGE); }
-           */
+        }
 
         return dropDownMap;
     }
@@ -475,7 +472,7 @@ public class AutocompleteCachingServiceImpl implements
             industryList = new ArrayList<CacheData>();
             for (Object object : industryDocs) {
 
-                LinkedHashMap<String, String> industryMap = (LinkedHashMap<String, String>) object;
+                Map<String, String> industryMap = (LinkedHashMap<String, String>) object;
                 CacheData industry = new CacheData();
                 industry.setCode(industryMap.get(industryCode));
                 industry.setName(industryMap.get(industryName).toUpperCase());
@@ -509,7 +506,7 @@ public class AutocompleteCachingServiceImpl implements
                     .getDocs();
             for (Object object : jobCategoryDocs) {
 
-                LinkedHashMap<String, String> jobCategoryMap = (LinkedHashMap<String, String>) object;
+                Map<String, String> jobCategoryMap = (LinkedHashMap<String, String>) object;
                 CacheData jobCategory = new CacheData();
                 jobCategory.setCode(jobCategoryMap.get(jobCategoriesCode));
                 jobCategory.setName(jobCategoryMap.get(jobCategoriesName)
@@ -543,11 +540,11 @@ public class AutocompleteCachingServiceImpl implements
         if (externalCountrylist != null) {
             countrylist = new ArrayList<CacheData>();
             for (Object object : externalCountrylist) {
-                LinkedHashMap<String, String> countrymap = (LinkedHashMap<String, String>) object;
+                Map<String, String> countryMap = (LinkedHashMap<String, String>) object;
                 CacheData cacheData = new CacheData();
-                cacheData.setCode(countrymap.get(countryCode));
-                cacheData.setName(countrymap.get(countryName).toUpperCase());
-                cacheData.setDisplayName(countrymap.get(countryName));
+                cacheData.setCode(countryMap.get(countryCode));
+                cacheData.setName(countryMap.get(countryName).toUpperCase());
+                cacheData.setDisplayName(countryMap.get(countryName));
                 LOGGER.info("Country Name : " + cacheData.getName());
                 LOGGER.info("Country Display Name : "
                         + cacheData.getDisplayName());
@@ -575,12 +572,12 @@ public class AutocompleteCachingServiceImpl implements
         if (externalInstitutionlist != null) {
             institutionslist = new ArrayList<CacheData>();
             for (Object object : externalInstitutionlist) {
-                LinkedHashMap<String, String> institutionmap = (LinkedHashMap<String, String>) object;
+                Map<String, String> institutionMap = (LinkedHashMap<String, String>) object;
                 CacheData cacheData = new CacheData();
-                cacheData.setCode(institutionmap.get(institutionCode).trim());
-                cacheData.setName(institutionmap.get(institutionName)
+                cacheData.setCode(institutionMap.get(institutionCode).trim());
+                cacheData.setName(institutionMap.get(institutionName)
                         .toUpperCase());
-                cacheData.setDisplayName(institutionmap.get(institutionName));
+                cacheData.setDisplayName(institutionMap.get(institutionName));
 
                 LOGGER.info("Institution Name : " + cacheData.getName());
                 LOGGER.info("Institution Display Name : "
@@ -613,12 +610,12 @@ public class AutocompleteCachingServiceImpl implements
         if (externalDepartmentlist != null) {
             departmentlist = new ArrayList<CacheData>();
             for (Object object : externalDepartmentlist) {
-                LinkedHashMap<String, String> departmentmap = (LinkedHashMap<String, String>) object;
+                Map<String, String> departmentMap = (LinkedHashMap<String, String>) object;
                 CacheData cacheData = new CacheData();
-                cacheData.setCode(departmentmap.get(departmentCode).trim());
-                cacheData.setName(departmentmap.get(departmentName)
+                cacheData.setCode(departmentMap.get(departmentCode).trim());
+                cacheData.setName(departmentMap.get(departmentName)
                         .toUpperCase());
-                cacheData.setDisplayName(departmentmap.get(departmentName));
+                cacheData.setDisplayName(departmentMap.get(departmentName));
 
                 LOGGER.info("Department Name : " + cacheData.getName());
                 LOGGER.info("Department Display Name : "

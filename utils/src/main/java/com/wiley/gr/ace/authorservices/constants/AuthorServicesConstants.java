@@ -240,15 +240,35 @@ public class AuthorServicesConstants {
     /** The Constant ARTICLE. */
     public static final String ARTICLE = "Article";
 
+    /** The Constant UPDATE_ALM_USER. */
     public static final String UPDATE_ALM_USER = "updateALMUser";
 
+    /** The Constant FETCH_ORCID_DETAILS. */
     public static final String FETCH_ORCID_DETAILS = "fetchOrcidDetails";
 
+    /** The Constant GET_WORK. */
     public static final String GET_WORK = "getWork";
 
+    /** The Constant GET_BIO. */
     public static final String GET_BIO = "getBio";
 
+    /** The Constant GET_ACCESS_TOKEN. */
     public static final String GET_ACCESS_TOKEN = "getAccessToken";
+
+    /** The Constant UNDERSCORE. */
+    public static final String UNDERSCORE = "_";
+
+    /** The Constant NAME_FIELD. */
+    public static final String NAME_FIELD = "name";
+
+    /** The Constant DISPLAY_NAME_FIELD. */
+    public static final String DISPLAY_NAME_FIELD = "displayName";
+
+    /** The Constant CODE_FIELD. */
+    public static final String CODE_FIELD = "code";
+
+    /** The Constant ASTRISK. */
+    public static final String ASTRISK = "*";
 
     /**
      * constructor.

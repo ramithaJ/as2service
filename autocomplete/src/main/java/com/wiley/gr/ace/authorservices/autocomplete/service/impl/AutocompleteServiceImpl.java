@@ -108,7 +108,7 @@ public class AutocompleteServiceImpl implements AutocompleteService {
          * word with a * suffix.
          */
         LOGGER.info("getDropDownData::addWord");
-        redis.zadd(redisKey, 0, word + "*");
+        redis.zadd(redisKey, 0, word + AuthorServicesConstants.ASTRISK);
         for (int index = 1, total = word.length(); index < total; index++) {
             redis.zadd(redisKey, 0, word.substring(0, index));
         }
@@ -123,11 +123,8 @@ public class AutocompleteServiceImpl implements AutocompleteService {
      */
     private boolean isValidKey(final String dropDownKey) {
         boolean flag = false;
-
         LOGGER.info("getDropDownData::isValidKey method");
-
         for (DropDownKeys keys : DropDownKeys.values()) {
-
             if (dropDownKey.equalsIgnoreCase(keys.toString())) {
                 flag = true;
                 LOGGER.info("getDropDownData::isValidKey::" + flag);
@@ -141,9 +138,9 @@ public class AutocompleteServiceImpl implements AutocompleteService {
     /**
      * Method to retrieve the drop down data.
      * 
-     * @param key
+     * @param redisCacheKey
      *            - the input value
-     * @param phrase
+     * @param redisPhrase
      *            - the input value
      * @param offset
      *            - the input value
@@ -152,38 +149,40 @@ public class AutocompleteServiceImpl implements AutocompleteService {
      * @return dropDownList.
      */
     @Override
-    public final List<CacheData> getDropDownData(String key,
-            final String phrase, final Integer offset, final String parentId) {
+    public final List<CacheData> getDropDownData(String redisCacheKey,
+            final String redisPhrase, final Integer offset,
+            final String parentId) {
         List<String> dropDownList = null;
         List<CacheData> jsonDropDownList = null;
         SubFunderDetails subFunderDetails = null;
         Map<String, CacheData> dropDownMap = null;
         Integer autoCompCount = null;
 
-        if (isValidKey(key)) {
+        if (isValidKey(redisCacheKey)) {
             autoCompCount = Integer.valueOf(autocompletecount);
+            LOGGER.info("getDropDownData::valid Key::" + redisCacheKey);
 
-            LOGGER.info("getDropDownData::valid Key::" + key);
-
-            if (parentId != null && !"".equals(parentId.trim())) {
-                key = key + "_" + parentId;
+            if (parentId != null
+                    && !AuthorServicesConstants.EMPTY.equals(parentId.trim())) {
+                redisCacheKey = redisCacheKey
+                        + AuthorServicesConstants.UNDERSCORE + parentId;
             }
 
-            if (phrase != null && !"".equals(phrase.trim())) {
-
+            if (redisPhrase != null
+                    && !AuthorServicesConstants.EMPTY
+                            .equals(redisPhrase.trim())) {
                 LOGGER.info("getDropDownData::Autocomplete Request with phrase:"
-                        + phrase);
-
-                dropDownList = getAutoCompleteDataFromRedis(key + AUTO, phrase,
-                        offset);
+                        + redisPhrase);
+                dropDownList = getAutoCompleteDataFromRedis(redisCacheKey
+                        + AUTO, redisPhrase, offset);
 
                 if (dropDownList == null) {
 
                     LOGGER.info("getDropDownData::No Data found in Redis with the Key : "
-                            + key);
+                            + redisCacheKey);
 
-                    dropDownMap = autocompleteCachingService.getCachedData(key
-                            + CACHED, parentId);
+                    dropDownMap = autocompleteCachingService.getCachedData(
+                            redisCacheKey + CACHED, parentId);
                     if (dropDownMap != null && !dropDownMap.isEmpty()) {
 
                         Collection<CacheData> values = dropDownMap.values();
@@ -200,40 +199,43 @@ public class AutocompleteServiceImpl implements AutocompleteService {
                                 final Jedis redis = new Jedis(
                                         jedisConnectionFactory.getShardInfo());
                                 for (String dropDownData : dropDownList) {
-                                    addWord(dropDownData, redis, key + AUTO);
+                                    addWord(dropDownData, redis, redisCacheKey
+                                            + AUTO);
                                 }
                                 redis.close();
-                                dropDownList = getAutoCompleteDataFromRedis(key
-                                        + AUTO, phrase, offset);
+                                dropDownList = getAutoCompleteDataFromRedis(
+                                        redisCacheKey + AUTO, redisPhrase,
+                                        offset);
                             }
 
                         } else {
                             LOGGER.info("getDropDownData::Data Not Available in Cache for the Key : "
-                                    + key);
+                                    + redisCacheKey);
                         }
 
                     } else {
                         LOGGER.info("getDropDownData::Data Not Available in Cache for the Key : "
-                                + key);
+                                + redisCacheKey);
                     }
-
                 }
 
                 if (dropDownList != null) {
-                    jsonDropDownList = getJsonDropDownList(dropDownList, phrase);
+                    jsonDropDownList = getJsonDropDownList(dropDownList,
+                            redisPhrase);
                 }
 
             } else {
 
                 LOGGER.info("getDropDownData::Caching Request");
-                String subFunderKey = subFunderskey + "_" + parentId;
+                String subFunderKey = subFunderskey
+                        + AuthorServicesConstants.UNDERSCORE + parentId;
 
                 /* For Sub Funders */
-                if (subFunderKey.equals(key)) {
+                if (subFunderKey.equals(redisCacheKey)) {
                     LOGGER.info("getDropDownData::Caching Request for Key :"
-                            + key);
+                            + redisCacheKey);
                     subFunderDetails = autocompleteCachingService
-                            .getCachedSubFunders(key + CACHED);
+                            .getCachedSubFunders(redisCacheKey + CACHED);
                     SubFunders subFunders = subFunderDetails.getSubFundersMap()
                             .get(parentId);
 
@@ -250,7 +252,8 @@ public class AutocompleteServiceImpl implements AutocompleteService {
                             jsonDropDownList.add(cacheData);
                         }
 
-                        jsonDropDownList = sortCacheData("name",
+                        jsonDropDownList = sortCacheData(
+                                AuthorServicesConstants.NAME_FIELD,
                                 jsonDropDownList);
 
                     }
@@ -258,10 +261,10 @@ public class AutocompleteServiceImpl implements AutocompleteService {
                 } else {
 
                     LOGGER.info("getDropDownData::Caching Request for Key :"
-                            + key);
+                            + redisCacheKey);
 
-                    dropDownMap = autocompleteCachingService.getCachedData(key
-                            + CACHED, parentId);
+                    dropDownMap = autocompleteCachingService.getCachedData(
+                            redisCacheKey + CACHED, parentId);
 
                     if (dropDownMap != null && !dropDownMap.isEmpty()) {
                         Collection<CacheData> values = dropDownMap.values();
@@ -269,7 +272,8 @@ public class AutocompleteServiceImpl implements AutocompleteService {
                             jsonDropDownList = new ArrayList<CacheData>();
                             jsonDropDownList.addAll(values);
 
-                            jsonDropDownList = sortCacheData("name",
+                            jsonDropDownList = sortCacheData(
+                                    AuthorServicesConstants.NAME_FIELD,
                                     jsonDropDownList);
                         }
                     }
@@ -280,14 +284,15 @@ public class AutocompleteServiceImpl implements AutocompleteService {
             /* Return the sublist based on the offset provided. */
             if (jsonDropDownList != null
                     && jsonDropDownList.size() >= autoCompCount
-                    && (phrase == null || "".equals(phrase.trim()))) {
+                    && (redisPhrase == null || AuthorServicesConstants.EMPTY
+                            .equals(redisPhrase.trim()))) {
 
                 jsonDropDownList = jsonDropDownList.subList(offset, offset
                         + autoCompCount);
             }
 
         } else {
-            LOGGER.info("getDropDownData::Invalid Key::" + key);
+            LOGGER.info("getDropDownData::Invalid Key::" + redisCacheKey);
         }
 
         return jsonDropDownList;
@@ -297,36 +302,37 @@ public class AutocompleteServiceImpl implements AutocompleteService {
      * This method returns the auto complete data for the given key, phrase and
      * offset.
      * 
-     * @param key
+     * @param redisCacheKey
      *            - the input value
-     * @param phrase
+     * @param redisPhrase
      *            - the input value
      * @param offset
      *            - the input value
      * @return dropDownList
      */
-    private List<String> getAutoCompleteDataFromRedis(final String key,
-            String phrase, final Integer offset) {
+    private List<String> getAutoCompleteDataFromRedis(
+            final String redisCacheKey, String redisPhrase, final Integer offset) {
         List<String> dropDownList = null;
         final Integer found = 0;
         final Integer rangeLength = 100;
 
         final Jedis redis = new Jedis(jedisConnectionFactory.getShardInfo());
 
-        LOGGER.info("getAutoCompleteDataFromRedis::Key :" + key + " Phrase : "
-                + phrase);
+        LOGGER.info("getAutoCompleteDataFromRedis::Key :" + redisCacheKey
+                + " Phrase : " + redisPhrase);
 
         StringBuilder phraseBuilder = new StringBuilder();
-        phraseBuilder.append("{\"name\":\"").append(phrase);
-        phrase = phraseBuilder.toString();
+        phraseBuilder.append("{\"name\":\"").append(redisPhrase);
+        redisPhrase = phraseBuilder.toString();
 
-        LOGGER.info("getAutoCompleteDataFromRedis New Phrase : " + phrase);
-        final int prefixLength = phrase.length();
+        LOGGER.info("getAutoCompleteDataFromRedis New Phrase : " + redisPhrase);
+        final int prefixLength = redisPhrase.length();
         /* Gets the index of the phrase */
-        Long start = redis.zrank(key, phrase);
-        if (start == null) {
-            start = redis.zrank(key, phrase + "*");
-            if (start == null) {
+        Long start = redis.zrank(redisCacheKey, redisPhrase);
+        if (null == start) {
+            start = redis.zrank(redisCacheKey, redisPhrase
+                    + AuthorServicesConstants.ASTRISK);
+            if (null == start) {
                 redis.close();
                 LOGGER.info("getAutoCompleteDataFromRedis:: In-valid Key or Phrase");
                 return dropDownList;
@@ -345,8 +351,8 @@ public class AutocompleteServiceImpl implements AutocompleteService {
         Integer count = -1;
         while (found < maxNeeded) {
             LOGGER.info("getAutoCompleteDataFromRedis::Fetching Values");
-            final Set<String> rangeResults = redis.zrange(key, start, start
-                    + rangeLength - 1);
+            final Set<String> rangeResults = redis.zrange(redisCacheKey, start,
+                    start + rangeLength - 1);
             start += rangeLength;
             if (rangeResults.isEmpty()) {
                 break;
@@ -354,7 +360,7 @@ public class AutocompleteServiceImpl implements AutocompleteService {
             for (final String entry : rangeResults) {
                 final int minLength = Math.min(entry.length(), prefixLength);
                 if (!entry.substring(0, minLength).equalsIgnoreCase(
-                        phrase.substring(0, minLength))) {
+                        redisPhrase.substring(0, minLength))) {
                     maxNeeded = dropDownList.size();
                     break;
                 }
@@ -363,7 +369,8 @@ public class AutocompleteServiceImpl implements AutocompleteService {
                  * The name ending with '*' will only be picked as it is the
                  * complete sentence
                  */
-                if (entry.endsWith("*") && dropDownList.size() < maxNeeded) {
+                if (entry.endsWith(AuthorServicesConstants.ASTRISK)
+                        && dropDownList.size() < maxNeeded) {
                     if (offset != null && offset != 0) {
                         count++;
                         if (count >= offset && count < maxNeeded + offset) {
@@ -397,18 +404,21 @@ public class AutocompleteServiceImpl implements AutocompleteService {
 
         List<CacheData> jsonDropDownList = null;
 
-        LOGGER.info("getJsonDropDownList");
         if (dropDownList != null && !dropDownList.isEmpty()) {
             jsonDropDownList = new ArrayList<CacheData>();
             for (String data : dropDownList) {
                 try {
                     JSONObject json = (JSONObject) new JSONParser().parse(data);
                     CacheData cacheData = new CacheData();
-                    cacheData.setName(json.get("name").toString());
-                    cacheData.setCode(json.get("code").toString());
-                    LOGGER.info("Display Name : " + json.get("displayName"));
-                    cacheData
-                            .setDisplayName(json.get("displayName").toString());
+                    cacheData.setName(json.get(
+                            AuthorServicesConstants.NAME_FIELD).toString());
+                    cacheData.setCode(json.get(
+                            AuthorServicesConstants.CODE_FIELD).toString());
+                    LOGGER.info("Display Name : "
+                            + json.get(AuthorServicesConstants.DISPLAY_NAME_FIELD));
+                    cacheData.setDisplayName(json.get(
+                            AuthorServicesConstants.DISPLAY_NAME_FIELD)
+                            .toString());
                     jsonDropDownList.add(cacheData);
                 } catch (ParseException e) {
                     throw new ASException(
@@ -418,8 +428,9 @@ public class AutocompleteServiceImpl implements AutocompleteService {
 
             }
 
-            if (phrase == null) {
-                jsonDropDownList = sortCacheData("name", jsonDropDownList);
+            if (null == phrase) {
+                jsonDropDownList = sortCacheData(
+                        AuthorServicesConstants.NAME_FIELD, jsonDropDownList);
             }
         }
 
@@ -450,7 +461,7 @@ public class AutocompleteServiceImpl implements AutocompleteService {
      * This method will return the name for the corresponding code from the
      * cache.
      * 
-     * @param key
+     * @param redisCacheKey
      *            - Input parameter
      * @param code
      *            - Input parameter
@@ -459,20 +470,21 @@ public class AutocompleteServiceImpl implements AutocompleteService {
      * @return name
      */
     @Override
-    public final String getNameByCode(String key, final String code,
+    public final String getNameByCode(String redisCacheKey, final String code,
             final String parentId) {
         String name = null;
         Map<String, CacheData> dropDownMap = null;
         CacheData cacheData = null;
 
-        LOGGER.info("getNameByCode");
-        if (parentId != null && !"".equals(parentId.trim())) {
-            key = key + "_" + parentId;
-            LOGGER.info("getNameByCode::Key:" + key);
+        if (parentId != null
+                && !AuthorServicesConstants.EMPTY.equals(parentId.trim())) {
+            redisCacheKey = redisCacheKey + AuthorServicesConstants.UNDERSCORE
+                    + parentId;
+            LOGGER.info("getNameByCode::Key:" + redisCacheKey);
         }
 
-        dropDownMap = autocompleteCachingService.getCachedData(key + CACHED,
-                parentId);
+        dropDownMap = autocompleteCachingService.getCachedData(redisCacheKey
+                + CACHED, parentId);
 
         if (dropDownMap != null) {
             LOGGER.info("getNameByCode::dropDownMap is not empty");
