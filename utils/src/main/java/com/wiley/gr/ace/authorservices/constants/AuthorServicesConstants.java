@@ -199,6 +199,21 @@ public class AuthorServicesConstants {
     public static final String VERIFY_ACCOUNT_AWAITING_ACTIVATION = "Awaiting Activation";
 
     /**
+     * This field holds the value of PRINTSTACKTRACE
+     */
+    public static final String PRINTSTACKTRACE = "Print Stack Trace- ";
+
+    /**
+     * This field holds the value of SUCCESS
+     */
+    public static final String SUCCESS = "success";
+
+    /**
+     * This field holds the value of FAILURE
+     */
+    public static final String FAILURE = "failure";
+
+    /**
      * The Enum OO_ORDER_STATUS.
      */
     public static enum OO_ORDER_STATUS {
@@ -293,5 +308,7 @@ public class AuthorServicesConstants {
 
     /** The Constant CDM_USER_ROLE. */
     public static final String CDM_USER_ROLE = "UR";
-
+    
+    /** The Constant LIST_OF_USER_FOUND. */
+    public static final String LIST_OF_USER_FOUND = "LIST_OF_USER_FOUND";
 }
