@@ -35,11 +35,8 @@ public interface TaskService {
      * @param associationConfirmation
      *            the association confirmation
      * @return true, if successful
-     * @throws Exception
-     *             the exception
      */
-    boolean finishTask(AssociationConfirmation associationConfirmation)
-            throws Exception;
+    boolean finishTask(AssociationConfirmation associationConfirmation);
 
     /**
      * Invoke task service.

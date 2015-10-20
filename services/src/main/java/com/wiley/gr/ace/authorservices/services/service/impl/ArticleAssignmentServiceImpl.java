@@ -22,6 +22,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
+import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.TaskService;
 import com.wiley.gr.ace.authorservices.model.ArticleDetails;
@@ -49,10 +51,6 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(ArticleAssignmentServiceImpl.class);
 
-//    /** The article assignment dao. */
-//    @Autowired(required = true)
-//    private ArticleAssignmentDAO articleAssignmentDAO;
-
     /** The esb interface service. */
     @Autowired(required = true)
     private ESBInterfaceService esbInterfaceService;
@@ -65,10 +63,6 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
     @Autowired(required = true)
     private LicenseService licenseService;
 
-    // /** The article wol url. */
-    // @Value("${articleWol.url}")
-    // private String articleWolUrl;
-
     /**
      * this method will take emailId as in input and call external service (ESb)
      * to get article info.
@@ -76,92 +70,20 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
      * @param emailId
      *            the email id
      * @return the article info
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
     @Override
     public final ArticleInfoDetails getArticleInfoDetails(final String emailId)
-            throws Exception {
+            throws UserException {
         LOGGER.info("inside getArticleInfo method of ArticleAssignmentServiceImpl");
-//        List<ProductPersonRelations> productPersonRelationsList = articleAssignmentDAO
-//                .getProductPersonRelations(emailId);
-         List<ArticleInfo> articleInfoList = new ArrayList<ArticleInfo>();
-//        if (!StringUtils.isEmpty(productPersonRelationsList)) {
-//            for (final ProductPersonRelations productPersonRelations : productPersonRelationsList) {
-//                articleInfoList
-//                        .add(getPdhLookupArticle(productPersonRelations));
-//            }
-//        }
+
+        List<ArticleInfo> articleInfoList = new ArrayList<ArticleInfo>();
+
         ArticleInfoDetails articleInfoDetails = new ArticleInfoDetails();
         articleInfoDetails.setArticleInfo(articleInfoList);
         return articleInfoDetails;
     }
-
-//    /**
-//     * Gets the pdh lookup article.
-//     *
-//     * @param productPersonRelations
-//     *            the product person relations
-//     * @return the pdh lookup article
-//     * @throws Exception
-//     *             the exception
-//     */
-//    private ArticleInfo getPdhLookupArticle(
-//            final ProductPersonRelations productPersonRelations) throws Exception {
-//        ArticleInfo articleInfo = null;
-//        Long articleId = productPersonRelations.getProducts().getDhId();
-//        if (!StringUtils.isEmpty(articleId)
-//                && "Article".equalsIgnoreCase(productPersonRelations
-//                        .getProducts().getDhTypeCd())) {
-//            PdhArticleData pdhArticleData = (PdhArticleData) esbInterfaceService
-//                    .getPdhLookupResponse(String.valueOf(articleId));
-//            if (!StringUtils.isEmpty(pdhArticleData)) {
-//                articleInfo = new ArticleInfo();
-//                articleInfo.setArticleAuthId(String.valueOf(productPersonRelations
-//                        .getUserProfile().getUserId()));
-//                articleInfo
-//                        .setArticleDetails(getArticleDetails(pdhArticleData));
-//                articleInfo
-//                        .setArticleUserRoleDetails(getArticleAuthorRoleDetails(productPersonRelations));
-//            }
-//        }
-//        return articleInfo;
-//    }
-
-//    /**
-//     * Gets the article details.
-//     *
-//     * @param pdhArticleData
-//     *            the pdh article data
-//     * @return the article details
-//     */
-//    private ArticleDetails getArticleDetails(final PdhArticleData pdhArticleData) {
-//        ArticleDetails articleDetails = new ArticleDetails();
-//        articleDetails.setDhId(pdhArticleData.getDhId());
-//        articleDetails.setArticleId(pdhArticleData.getArticleId());
-//        articleDetails.setPublicationDate(pdhArticleData.getPublicationYear());
-//        return articleDetails;
-//    }
-
-//    /**
-//     * Gets the article user role details.
-//     *
-//     * @param productPersonRelations
-//     *            the product person relations
-//     * @return the article user role details
-//     * @throws Exception
-//     *             the exception
-//     */
-//    private ArticleUserRoleDetails getArticleAuthorRoleDetails(
-//            final ProductPersonRelations productPersonRelations)
-//            throws Exception {
-//        ArticleUserRoleDetails articleUserRoleDetails = new ArticleUserRoleDetails();
-//        articleUserRoleDetails.setRoleCode(productPersonRelations
-//                .getProductRoles().getProductRoleCd());
-//        articleUserRoleDetails.setRoleName(productPersonRelations
-//                .getProductRoles().getProductRoleName());
-//        return articleUserRoleDetails;
-//    }
 
     /**
      * Association confirmation.
@@ -169,13 +91,13 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
      * @param associationConfirmation
      *            the association confirmation
      * @return true, if successful
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
     @Override
     public final boolean associationConfirmation(
             final AssociationConfirmation associationConfirmation)
-            throws Exception {
+            throws UserException {
         LOGGER.info("inside associationConfirmation method of ArticleAssignmentServiceImpl");
         return bpmInterfaceService.finishTask(associationConfirmation);
     }
@@ -186,12 +108,12 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
      * @param articleId
      *            the article id
      * @return the view assigned article
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
     @Override
     public final ViewAssignedArticle viewAssignedArticle(final String articleId)
-            throws Exception {
+            throws UserException {
         LOGGER.info("inside viewAssignedArticle method of ArticleAssignmentServiceImpl");
         final ViewAssignedArticle viewAssignedArticle = new ViewAssignedArticle();
         final PdhArticleData pdhArticleData = (PdhArticleData) esbInterfaceService
@@ -216,11 +138,11 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
      * @param journalDhId
      *            the journal dh id
      * @return the journal details
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
     private JournalDetails getJournalDetails(final String journalDhId)
-            throws Exception {
+            throws UserException {
         PdhJournalData pdhJournalData = (PdhJournalData) esbInterfaceService
                 .getPdhLookupResponse(journalDhId);
         JournalDetails journalData = new JournalDetails();
@@ -241,11 +163,11 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
      * @param pdhArticleData
      *            the pdh article data
      * @return the article details
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
     private ArticleDetails parseFullArticleDetails(
-            final PdhArticleData pdhArticleData) throws Exception {
+            final PdhArticleData pdhArticleData) throws UserException {
         ArticleDetails articleDetails = new ArticleDetails();
         articleDetails.setArticleId(pdhArticleData.getArticleId());
         articleDetails.setArticleTitle(pdhArticleData.getTitle());
@@ -270,9 +192,9 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
      */
     private PublicationDetails getPublicationData() {
         PublicationDetails publicationDetails = new PublicationDetails();
-        publicationDetails.setModifiedDate("2015-08-28T14:06:31Z");
-        publicationDetails.setPublicationStatus("Make OO");
-        publicationDetails.setPublicationPath("From AS 2.0");
+        publicationDetails.setModifiedDate(new String());
+        publicationDetails.setPublicationStatus(new String());
+        publicationDetails.setPublicationPath(new String());
         return publicationDetails;
     }
 
@@ -282,13 +204,19 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
      * @param dhId
      *            the dh id
      * @return the license data
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
-    private LicenseDetails getLicenseData(final String dhId) throws Exception {
+    private LicenseDetails getLicenseData(final String dhId)
+            throws UserException {
         LicenseDetails licenseDetails = null;
-        final TrackLicense trackLicense = licenseService.trackLicenseStatus(
-                dhId, "1023");
+        TrackLicense trackLicense;
+        try {
+            trackLicense = licenseService.trackLicenseStatus(dhId, dhId);
+        } catch (Exception e) {
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+            throw new UserException();
+        }
         if (!StringUtils.isEmpty(trackLicense)) {
             licenseDetails = new LicenseDetails();
             licenseDetails.setLicenseStatus(trackLicense.getLicenseStatus());
@@ -303,17 +231,18 @@ public class ArticleAssignmentServiceImpl implements ArticleAssignmentService {
      * @param dhId
      *            the dh id
      * @return true, if successful
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
     @Override
     public final boolean checkIfArticleInvited(final String dhId)
-            throws Exception {
+            throws UserException {
         LOGGER.info("inside checkIfArticleInvited method of ArticleAssignmentServiceImpl");
         final PdhArticleData pdhArticleData = (PdhArticleData) esbInterfaceService
                 .getPdhLookupResponse(dhId);
         boolean isArticleInvited = false;
-        if ("Y".equalsIgnoreCase(pdhArticleData.getIsInvitedInAs())) {
+        if (AuthorServicesConstants.AS_ALM_TNC_FLAG
+                .equalsIgnoreCase(pdhArticleData.getIsInvitedInAs())) {
             isArticleInvited = true;
         }
         return isArticleInvited;

@@ -14,6 +14,7 @@
  */
 package com.wiley.gr.ace.authorservices.services.service;
 
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.model.Dashboard;
 import com.wiley.gr.ace.authorservices.model.DashboardView;
 import com.wiley.gr.ace.authorservices.model.EmailCommunicationHistory;
@@ -32,10 +33,10 @@ public interface DashboardService {
      * @param userId
      *            to get the data from ESB ExternalService
      * @return Dashboard
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
-    Dashboard getProfileMeter(String userId) throws Exception;
+    Dashboard getProfileMeter(String userId) throws UserException;
 
     /**
      * Gets the all author articles.
@@ -43,10 +44,10 @@ public interface DashboardService {
      * @param userId
      *            the user id
      * @return the all author articles
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
-    DashboardView getAllAuthorArticles(String userId) throws Exception;
+    DashboardView getAllAuthorArticles(String userId) throws UserException;
 
     /**
      * Action required.
@@ -54,10 +55,10 @@ public interface DashboardService {
      * @param userId
      *            the user id
      * @return the dashboard view
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
-    DashboardView actionRequired(String userId) throws Exception;
+    DashboardView actionRequired(String userId) throws UserException;
 
     /**
      * Gets the email communication history.
@@ -65,11 +66,11 @@ public interface DashboardService {
      * @param userId
      *            the user id
      * @return the email communication history
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
     EmailCommunicationHistory getEmailCommunicationHistory(String userId)
-            throws Exception;
+            throws UserException;
 
     /**
      * Gets the production details.
@@ -77,10 +78,10 @@ public interface DashboardService {
      * @param userId
      *            the user id
      * @return the production details
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
-    DashboardView getProductionDetails(String userId) throws Exception;
+    DashboardView getProductionDetails(String userId) throws UserException;
 
     /**
      * Gets the published article details.
@@ -88,8 +89,8 @@ public interface DashboardService {
      * @param userId
      *            the user id
      * @return the published article details
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
-    DashboardView getPublishedArticleDetails(String userId) throws Exception;
+    DashboardView getPublishedArticleDetails(String userId) throws UserException;
 }

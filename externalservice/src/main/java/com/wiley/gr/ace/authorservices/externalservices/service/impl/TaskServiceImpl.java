@@ -199,8 +199,7 @@ public class TaskServiceImpl implements TaskService {
      */
     @Override
     public final boolean finishTask(
-            final AssociationConfirmation associationConfirmation)
-            throws Exception {
+            final AssociationConfirmation associationConfirmation) {
         boolean flag = false;
         final String url = "http://demo7930138.mockable.io/rest/bpm/wle/v1/task/"
                 + associationConfirmation.getTaskId()

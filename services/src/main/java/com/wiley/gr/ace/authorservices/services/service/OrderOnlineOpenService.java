@@ -83,29 +83,29 @@ public interface OrderOnlineOpenService {
     /**
      * Retrieve discounted woa funder list.
      *
-     * @param DHID
+     * @param dhId
      *            the dhid
      * @return the list
      */
-    List<WOAFunder> retrieveDiscountedWOAFunderList(String DHID);
+    List<WOAFunder> retrieveDiscountedWOAFunderList(String dhId);
 
     /**
      * Retrieve society discount list for journal.
      *
-     * @param DHID
+     * @param dhId
      *            the dhid
      * @return the list
      */
-    List<DiscountedSociety> retrieveSocietyDiscountListForJournal(String DHID);
+    List<DiscountedSociety> retrieveSocietyDiscountListForJournal(String dhId);
 
     /**
      * Checks if is addition discount available for journal.
      *
-     * @param DHID
+     * @param dhId
      *            the dhid
      * @return true, if is addition discount available for journal
      */
-    boolean isAdditionDiscountAvailableForJournal(String DHID);
+    boolean isAdditionDiscountAvailableForJournal(String dhId);
 
     /**
      * Save later order.
@@ -137,11 +137,11 @@ public interface OrderOnlineOpenService {
     /**
      * Gets the discounted societies.
      *
-     * @param DHID
+     * @param dhId
      *            the dhid
      * @return the discounted societies
      */
-    SocietyDiscounts getDiscountedSocieties(String DHID);
+    SocietyDiscounts getDiscountedSocieties(String dhId);
 
     /**
      * Gets the institution discounts.
@@ -208,13 +208,13 @@ public interface OrderOnlineOpenService {
      *
      * @param ooUniqueId
      *            the oo unique id
-     * @param articleID
+     * @param articleId
      *            the article id
      * @return the file
      * @throws Exception
      * @throws FileNotFoundException
      */
-    ResponseEntity<byte[]> getInvoice(String ooUniqueId, String articleID);
+    ResponseEntity<byte[]> getInvoice(String ooUniqueId, String articleId);
 
     /**
      * @param userId

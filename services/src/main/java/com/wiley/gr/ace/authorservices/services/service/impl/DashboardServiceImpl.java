@@ -827,12 +827,18 @@ public class DashboardServiceImpl implements DashboardService {
      */
     @Override
     public final EmailCommunicationHistory getEmailCommunicationHistory(
-            final String userId) throws Exception {
+            final String userId) throws UserException {
         LOGGER.info("inside getCommunicationDetailsList Method of DashboardServiceImpl");
         final EmailCommunicationHistory emailCommunicationHistory = new EmailCommunicationHistory();
 
-        final NotificationHistory notificationsHistory = notificationService
-                .getNotificationHistory(userId);
+        NotificationHistory notificationsHistory;
+        try {
+            notificationsHistory = notificationService
+                    .getNotificationHistory(userId);
+        } catch (Exception e) {
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE,e);
+            throw new UserException();
+        }
         if (!StringUtils.isEmpty(notificationsHistory)) {
             LOGGER.info("Notification History Found");
             emailCommunicationHistory.setNotifications(notificationsHistory
