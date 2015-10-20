@@ -1,1210 +1,2349 @@
+/*******************************************************************************
+ * Copyright (c) 2015 John Wiley & Sons, Inc. All rights reserved.
+ *
+ * All material contained herein is proprietary to John Wiley & Sons 
+ * and its third party suppliers, if any. The methods, techniques and 
+ * technical concepts contained herein are considered trade secrets 
+ * and confidential and may be protected by intellectual property laws.  
+ * Reproduction or distribution of this material, in whole or in part, 
+ * is strictly forbidden except by express prior written permission 
+ * of John Wiley & Sons.
+ *******************************************************************************/
 package com.wiley.gr.ace.authorservices.model.external;
 
+import com.fasterxml.jackson.annotation.JsonProperty; 
+
+
+/**
+ * @author virtusa version1.0
+ *
+ */
 public class AddressValidationMultiRes {
 
-	private String USSpecificDSF2VacantIndicator;
-
-	private String PostalPhraseDescriptor;
-
-	private String ProvinceCountryStandard3;
-
-	private String USSpecificRuralRouteDefault;
-
-	private String USSpecificRuralRouteExact;
-
-	private String StreetPreDescriptor;
-
-	private String USSpecificCongressionalDistrict;
-
-	private String DeliveryAddress5;
-
-	private String DeliveryAddress4;
-
-	private String USSpecificBarcode;
-
-	private String DeliveryAddress6;
-
-	private String USSpecificLACS;
-
-	private String DeliveryAddress1;
-
-	private String DeliveryAddress3;
-
-	private String USSpecificCMRA;
-
-	private String DeliveryAddress2;
-
-	private String ProvinceCountryStandard2;
-
-	private String ProvinceCountryStandard1;
-
-	private String CountryName1;
-
-	private String StreetNumberComplete;
-
-	private String USSpecificDSF2NostatsIndicator;
-
-	private String CANSpecificExcludeFlag;
-
-	private String BuildingComplete2;
-
-	private String Postcode1;
-
-	private String BuildingComplete1;
-
-	private String Postcode2;
-
-	private String StreetPostDescriptor;
-
-	private String StreetNumberDescriptor;
-
-	private String ProvinceAbbrevation3;
-
-	private String OrganizationName;
-
-	private String CANSpecificCategory;
-
-	private String ProvinceExtended1;
-
-	private String ProvinceExtended2;
-
-	private String ProvinceAbbrevation1;
-
-	private String ProvinceExtended3;
-
-	private String ProvinceAbbrevation2;
-
-	private String CANSpecificSERPStatus;
-
-	private String OrganizationDepartment;
-
-	private String AustraliaSpecificStreetNumberSuffix1;
-
-	private String AustraliaSpecificStreetNumberSuffix2;
-
-	private String CountrySpecificLastLine1;
-
-	private String BuildingDescriptor2;
-
-	private String BuildingDescriptor1;
-
-	private String PostalPhraseNumber;
-
-	private String StreetName2;
-
-	private String CountryISO2Char;
-
-	private String StatusInfoMatchCode;
-
-	private String StreetName1;
-
-	private String AustraliaSpecificDeliverPointID;
-
-	private String LocalitySortCode;
-
-	private String USSpecificCarrierRoute;
-
-	private String AustraliaSpecificPostalPhraseSuffix;
-
-	private String BuildingName2;
-
-	private String BuildingName1;
-
-	private String OrganizationDescriptor;
-
-	private String PostCode;
-
-	private String AustraliaSpecificLotNumber;
-
-	private String CountrySpecificLastLine3;
-
-	private String CountrySpecificLastLine2;
-
-	private String StreetPreDirectional;
-
-	private String LocalityName1;
-
-	private String AustraliaSpecificAMASStatus;
-
-	private String LocalityName2;
-
-	private String LocalityName3;
-
-	private String USSpecificDPVConfirmation;
-
-	private String SubBuildingDescriptor2;
-
-	private String SubBuildingDescriptor1;
-
-	private String AustraliaSpecificRecordType;
-
-	private String USSpecificHighRiseExact;
-
-	private String USSupplementaryMSAID;
-
-	private String USSpecificZipMoveReturnCode;
-
-	private String USSpecificDPVFalsePositive;
-
-	private String BuildingNumber2;
-
-	private String BuildingNumber1;
-
-	private String StatusInfoMailabilityScore;
-
-	private String USSpecificEWSReturnCode;
-
-	private String PostalPhraseAddInfo;
-
-	private String USSupplementaryCountyFIPSCode;
-
-	private String Locality3;
-
-	private String OrganizationComplete;
-
-	private String SubBuildingName1;
-
-	private String USSupplementaryStateFIPSCode;
-
-	private String SubBuildingName2;
-
-	private String USSpecificSuiteLinkReturnCode;
-
-	private String StreetComplete1;
-
-	private String StreetComplete2;
-
-	private String USSupplementaryFinanceNumber;
-
-	private String UKSupplementaryDeliveryPointSuffix;
-
-	private String Locality2;
-
-	private String Locality1;
-
-	private String USSpecificDPVFootnote3;
-
-	private String USSpecificDPVFootnote2;
-
-	private String USSpecificCASSStatus;
-
-	private String USSpecificDPVFootnote1;
-
-	private String USSpecificLACSLinkReturnCode;
-
-	private String PostalPhraseComplete2;
-
-	private String PostalPhraseComplete1;
-
-	private String SubBuildingNumber1;
-
-	private String SubBuildingNumber2;
-
-	private String USSpecificDefaultFlag;
-
-	private String USSpecificLACSLinkIndicator;
-
-	private String USSpecificRecordType;
-
-	private String USSpecificDeliveryPointCheckDigit;
-
-	private String StreetPostDirectional;
-
-	private String SubBuildingComplete1;
-
-	private String USSpecificDeliveryPointCode;
-
-	private String SubBuildingComplete2;
-
-	private String AustraliaSpecificStreetNumber1;
-
-	private String StreetNumber;
-
-	private String AustraliaSpecificStreetNumber2;
-
-	private String USSupplementaryCBSAID;
-
-	private String AustraliaSpecificPostalPhrasePrefix;
-
-	private String USSpecificHighRiseDefault;
-
-	private String AustraliaSpecificPostalPhraseNumber;
-
-	private String USSupplementaryRecordType;
-
-	public final String getUSSpecificDSF2VacantIndicator() {
-		return USSpecificDSF2VacantIndicator;
+	/**
+	 * This field holds the value of uSSpecificDSF2VacantIndicator
+	 */
+	@JsonProperty("USSpecificDSF2VacantIndicator")
+	private String uSSpecificDSF2VacantIndicator;
+
+	/**
+	 * This field holds the value of postalPhraseDescriptor
+	 */
+	@JsonProperty("PostalPhraseDescriptor")
+	private String postalPhraseDescriptor;
+
+	/**
+	 * This field holds the value of provinceCountryStandard3
+	 */
+	@JsonProperty("ProvinceCountryStandard3")
+	private String provinceCountryStandard3;
+
+	/**
+	 * This field holds the value of uSSpecificRuralRouteDefault
+	 */
+	@JsonProperty("USSpecificRuralRouteDefault")
+	private String uSSpecificRuralRouteDefault;
+
+	/**
+	 * This field holds the value of uSSpecificRuralRouteExact
+	 */
+	@JsonProperty("USSpecificRuralRouteExact")
+	private String uSSpecificRuralRouteExact;
+
+	/**
+	 * This field holds the value of streetPreDescriptor
+	 */
+	@JsonProperty("StreetPreDescriptor")
+	private String streetPreDescriptor;
+
+	/**
+	 * This field holds the value of uSSpecificCongressionalDistrict
+	 */
+	@JsonProperty("USSpecificCongressionalDistrict")
+	private String uSSpecificCongressionalDistrict;
+
+	/**
+	 * This field holds the value of deliveryAddress5
+	 */
+	@JsonProperty("DeliveryAddress5")
+	private String deliveryAddress5;
+
+	/**
+	 * This field holds the value of deliveryAddress4
+	 */
+	@JsonProperty("DeliveryAddress4")
+	private String deliveryAddress4;
+
+	/**
+	 * This field holds the value of uSSpecificBarcode
+	 */
+	@JsonProperty("USSpecificBarcode")
+	private String uSSpecificBarcode;
+
+	/**
+	 * This field holds the value of deliveryAddress6
+	 */
+	@JsonProperty("DeliveryAddress6")
+	private String deliveryAddress6;
+
+	/**
+	 * This field holds the value of uSSpecificLACS
+	 */
+	@JsonProperty("USSpecificLACS")
+	private String uSSpecificLACS;
+
+	/**
+	 * This field holds the value of deliveryAddress1
+	 */
+	@JsonProperty("DeliveryAddress1")
+	private String deliveryAddress1;
+
+	/**
+	 * This field holds the value of deliveryAddress3
+	 */
+	@JsonProperty("DeliveryAddress3")
+	private String deliveryAddress3;
+
+	/**
+	 * This field holds the value of uSSpecificCMRA
+	 */
+	@JsonProperty("USSpecificCMRA")
+	private String uSSpecificCMRA;
+
+	/**
+	 * This field holds the value of deliveryAddress2
+	 */
+	@JsonProperty("DeliveryAddress2")
+	private String deliveryAddress2;
+
+	/**
+	 * This field holds the value of provinceCountryStandard2
+	 */
+	@JsonProperty("ProvinceCountryStandard2")
+	private String provinceCountryStandard2;
+
+	/**
+	 * This field holds the value of provinceCountryStandard1
+	 */
+	@JsonProperty("ProvinceCountryStandard1")
+	private String provinceCountryStandard1;
+
+	/**
+	 * This field holds the value of countryName1
+	 */
+	@JsonProperty("CountryName1")
+	private String countryName1;
+
+	/**
+	 * This field holds the value of streetNumberComplete
+	 */
+	@JsonProperty("StreetNumberComplete")
+	private String streetNumberComplete;
+
+	/**
+	 * This field holds the value of uSSpecificDSF2NostatsIndicator
+	 */
+	@JsonProperty("USSpecificDSF2NostatsIndicator")
+	private String uSSpecificDSF2NostatsIndicator;
+
+	/**
+	 * This field holds the value of cANSpecificExcludeFlag
+	 */
+	@JsonProperty("CANSpecificExcludeFlag")
+	private String cANSpecificExcludeFlag;
+
+	/**
+	 * This field holds the value of buildingComplete2
+	 */
+	@JsonProperty("BuildingComplete2")
+	private String buildingComplete2;
+
+	/**
+	 * This field holds the value of postcode1
+	 */
+	@JsonProperty("Postcode1")
+	private String postcode1;
+
+	/**
+	 * This field holds the value of buildingComplete1
+	 */
+	@JsonProperty("BuildingComplete1")
+	private String buildingComplete1;
+
+	/**
+	 * This field holds the value of postcode2
+	 */
+	@JsonProperty("Postcode2")
+	private String postcode2;
+
+	/**
+	 * This field holds the value of streetPostDescriptor
+	 */
+	@JsonProperty("StreetPostDescriptor")
+	private String streetPostDescriptor;
+
+	/**
+	 * This field holds the value of streetNumberDescriptor
+	 */
+	@JsonProperty("StreetNumberDescriptor")
+	private String streetNumberDescriptor;
+
+	/**
+	 * This field holds the value of provinceAbbrevation3
+	 */
+	@JsonProperty("ProvinceAbbrevation3")
+	private String provinceAbbrevation3;
+
+	/**
+	 * This field holds the value of organizationName
+	 */
+	@JsonProperty("OrganizationName")
+	private String organizationName;
+
+	/**
+	 * This field holds the value of cANSpecificCategory
+	 */
+	@JsonProperty("CANSpecificCategory")
+	private String cANSpecificCategory;
+
+	/**
+	 * This field holds the value of provinceExtended1
+	 */
+	@JsonProperty("ProvinceExtended1")
+	private String provinceExtended1;
+
+	/**
+	 * This field holds the value of provinceExtended2
+	 */
+	@JsonProperty("ProvinceExtended2")
+	private String provinceExtended2;
+
+	/**
+	 * This field holds the value of provinceAbbrevation1
+	 */
+	@JsonProperty("ProvinceAbbrevation1")
+	private String provinceAbbrevation1;
+
+	/**
+	 * This field holds the value of provinceExtended3
+	 */
+	@JsonProperty("ProvinceExtended3")
+	private String provinceExtended3;
+
+	/**
+	 * This field holds the value of provinceAbbrevation2
+	 */
+	@JsonProperty("ProvinceAbbrevation2")
+	private String provinceAbbrevation2;
+
+	/**
+	 * This field holds the value of cANSpecificSERPStatus
+	 */
+	@JsonProperty("CANSpecificSERPStatus")
+	private String cANSpecificSERPStatus;
+
+	/**
+	 * This field holds the value of organizationDepartment
+	 */
+	@JsonProperty("OrganizationDepartment")
+	private String organizationDepartment;
+
+	/**
+	 * This field holds the value of australiaSpecificStreetNumberSuffix1
+	 */
+	@JsonProperty("AustraliaSpecificStreetNumberSuffix1")
+	private String australiaSpecificStreetNumberSuffix1;
+
+	/**
+	 * This field holds the value of australiaSpecificStreetNumberSuffix2
+	 */
+	@JsonProperty("AustraliaSpecificStreetNumberSuffix2")
+	private String australiaSpecificStreetNumberSuffix2;
+
+	/**
+	 * This field holds the value of countrySpecificLastLine1
+	 */
+	@JsonProperty("CountrySpecificLastLine1")
+	private String countrySpecificLastLine1;
+
+	/**
+	 * This field holds the value of buildingDescriptor2
+	 */
+	@JsonProperty("BuildingDescriptor2")
+	private String buildingDescriptor2;
+
+	/**
+	 * This field holds the value of buildingDescriptor1
+	 */
+	@JsonProperty("BuildingDescriptor1")
+	private String buildingDescriptor1;
+
+	/**
+	 * This field holds the value of postalPhraseNumber
+	 */
+	@JsonProperty("PostalPhraseNumber")
+	private String postalPhraseNumber;
+
+	/**
+	 * This field holds the value of streetName2
+	 */
+	@JsonProperty("StreetName2")
+	private String streetName2;
+
+	/**
+	 * This field holds the value of countryISO2Char
+	 */
+	@JsonProperty("CountryISO2Char")
+	private String countryISO2Char;
+
+	/**
+	 * This field holds the value of statusInfoMatchCode
+	 */
+	@JsonProperty("StatusInfoMatchCode")
+	private String statusInfoMatchCode;
+
+	/**
+	 * This field holds the value of streetName1
+	 */
+	@JsonProperty("StreetName1")
+	private String streetName1;
+
+	/**
+	 * This field holds the value of australiaSpecificDeliverPointID
+	 */
+	@JsonProperty("AustraliaSpecificDeliverPointID")
+	private String australiaSpecificDeliverPointID;
+
+	/**
+	 * This field holds the value of localitySortCode
+	 */
+	@JsonProperty("LocalitySortCode")
+	private String localitySortCode;
+
+	/**
+	 * This field holds the value of uSSpecificCarrierRoute
+	 */
+	@JsonProperty("USSpecificCarrierRoute")
+	private String uSSpecificCarrierRoute;
+
+	/**
+	 * This field holds the value of australiaSpecificPostalPhraseSuffix
+	 */
+	@JsonProperty("AustraliaSpecificPostalPhraseSuffix")
+	private String australiaSpecificPostalPhraseSuffix;
+
+	/**
+	 * This field holds the value of buildingName2
+	 */
+	@JsonProperty("BuildingName2")
+	private String buildingName2;
+
+	/**
+	 * This field holds the value of buildingName1
+	 */
+	@JsonProperty("BuildingName1")
+	private String buildingName1;
+
+	/**
+	 * This field holds the value of organizationDescriptor
+	 */
+	@JsonProperty("OrganizationDescriptor")
+	private String organizationDescriptor;
+
+	/**
+	 * This field holds the value of postCode
+	 */
+	@JsonProperty("PostCode")
+	private String postCode;
+
+	/**
+	 * This field holds the value of australiaSpecificLotNumber
+	 */
+	@JsonProperty("AustraliaSpecificLotNumber")
+	private String australiaSpecificLotNumber;
+
+	/**
+	 * This field holds the value of countrySpecificLastLine3
+	 */
+	@JsonProperty("CountrySpecificLastLine3")
+	private String countrySpecificLastLine3;
+
+	/**
+	 * This field holds the value of countrySpecificLastLine2
+	 */
+	@JsonProperty("CountrySpecificLastLine2")
+	private String countrySpecificLastLine2;
+
+	/**
+	 * This field holds the value of streetPreDirectional
+	 */
+	@JsonProperty("StreetPreDirectional")
+	private String streetPreDirectional;
+
+	/**
+	 * This field holds the value of localityName1
+	 */
+	@JsonProperty("LocalityName1")
+	private String localityName1;
+
+	/**
+	 * This field holds the value of australiaSpecificAMASStatus
+	 */
+	@JsonProperty("AustraliaSpecificAMASStatus")
+	private String australiaSpecificAMASStatus;
+
+	/**
+	 * This field holds the value of localityName2
+	 */
+	@JsonProperty("LocalityName2")
+	private String localityName2;
+
+	/**
+	 * This field holds the value of localityName3
+	 */
+	@JsonProperty("LocalityName3")
+	private String localityName3;
+
+	/**
+	 * This field holds the value of uSSpecificDPVConfirmation
+	 */
+	@JsonProperty("USSpecificDPVConfirmation")
+	private String uSSpecificDPVConfirmation;
+
+	/**
+	 * This field holds the value of subBuildingDescriptor2
+	 */
+	@JsonProperty("SubBuildingDescriptor2")
+	private String subBuildingDescriptor2;
+
+	/**
+	 * This field holds the value of subBuildingDescriptor1
+	 */
+	@JsonProperty("SubBuildingDescriptor1")
+	private String subBuildingDescriptor1;
+
+	/**
+	 * This field holds the value of australiaSpecificRecordType
+	 */
+	@JsonProperty("AustraliaSpecificRecordType")
+	private String australiaSpecificRecordType;
+
+	/**
+	 * This field holds the value of uSSpecificHighRiseExact
+	 */
+	@JsonProperty("USSpecificHighRiseExact")
+	private String uSSpecificHighRiseExact;
+
+	/**
+	 * This field holds the value of uSSupplementaryMSAID
+	 */
+	@JsonProperty("USSupplementaryMSAID")
+	private String uSSupplementaryMSAID;
+
+	/**
+	 * This field holds the value of uSSpecificZipMoveReturnCode
+	 */
+	@JsonProperty("USSpecificZipMoveReturnCode")
+	private String uSSpecificZipMoveReturnCode;
+
+	/**
+	 * This field holds the value of uSSpecificDPVFalsePositive
+	 */
+	@JsonProperty("USSpecificDPVFalsePositive")
+	private String uSSpecificDPVFalsePositive;
+
+	/**
+	 * This field holds the value of buildingNumber2
+	 */
+	@JsonProperty("BuildingNumber2")
+	private String buildingNumber2;
+
+	/**
+	 * This field holds the value of buildingNumber1
+	 */
+	@JsonProperty("BuildingNumber1")
+	private String buildingNumber1;
+
+	/**
+	 * This field holds the value of statusInfoMailabilityScore
+	 */
+	@JsonProperty("StatusInfoMailabilityScore")
+	private String statusInfoMailabilityScore;
+
+	/**
+	 * This field holds the value of uSSpecificEWSReturnCode
+	 */
+	@JsonProperty("USSpecificEWSReturnCode")
+	private String uSSpecificEWSReturnCode;
+
+	/**
+	 * This field holds the value of postalPhraseAddInfo
+	 */
+	@JsonProperty("PostalPhraseAddInfo")
+	private String postalPhraseAddInfo;
+
+	/**
+	 * This field holds the value of uSSupplementaryCountyFIPSCode
+	 */
+	@JsonProperty("USSupplementaryCountyFIPSCode")
+	private String uSSupplementaryCountyFIPSCode;
+
+	/**
+	 * This field holds the value of locality3
+	 */
+	@JsonProperty("Locality3")
+	private String locality3;
+
+	/**
+	 * This field holds the value of organizationComplete
+	 */
+	@JsonProperty("OrganizationComplete")
+	private String organizationComplete;
+
+	/**
+	 * This field holds the value of subBuildingName1
+	 */
+	@JsonProperty("SubBuildingName1")
+	private String subBuildingName1;
+
+	/**
+	 * This field holds the value of uSSupplementaryStateFIPSCode
+	 */
+	@JsonProperty("USSupplementaryStateFIPSCode")
+	private String uSSupplementaryStateFIPSCode;
+
+	/**
+	 * This field holds the value of subBuildingName2
+	 */
+	@JsonProperty("SubBuildingName2")
+	private String subBuildingName2;
+
+	/**
+	 * This field holds the value of uSSpecificSuiteLinkReturnCode
+	 */
+	@JsonProperty("USSpecificSuiteLinkReturnCode")
+	private String uSSpecificSuiteLinkReturnCode;
+
+	/**
+	 * This field holds the value of streetComplete1
+	 */
+	@JsonProperty("StreetComplete1")
+	private String streetComplete1;
+
+	/**
+	 * This field holds the value of streetComplete2
+	 */
+	@JsonProperty("StreetComplete2")
+	private String streetComplete2;
+
+	/**
+	 * This field holds the value of uSSupplementaryFinanceNumber
+	 */
+	@JsonProperty("USSupplementaryFinanceNumber")
+	private String uSSupplementaryFinanceNumber;
+	
+	/**
+	 * This field holds the value of uKSupplementaryDeliveryPointSuffix
+	 */
+	@JsonProperty("UKSupplementaryDeliveryPointSuffix")
+	private String uKSupplementaryDeliveryPointSuffix;
+
+	/**
+	 * This field holds the value of locality2
+	 */
+	@JsonProperty("Locality2")
+	private String locality2;
+
+	/**
+	 * This field holds the value of locality1
+	 */
+	@JsonProperty("Locality1")
+	private String locality1;
+
+	/**
+	 * This field holds the value of uSSpecificDPVFootnote3
+	 */
+	@JsonProperty("USSpecificDPVFootnote3")
+	private String uSSpecificDPVFootnote3;
+
+	/**
+	 * This field holds the value of uSSpecificDPVFootnote2
+	 */
+	@JsonProperty("USSpecificDPVFootnote2")
+	private String uSSpecificDPVFootnote2;
+
+	/**
+	 * This field holds the value of uSSpecificCASSStatus
+	 */
+	@JsonProperty("USSpecificCASSStatus")
+	private String uSSpecificCASSStatus;
+
+	/**
+	 * This field holds the value of uSSpecificDPVFootnote1
+	 */
+	@JsonProperty("USSpecificDPVFootnote1")
+	private String uSSpecificDPVFootnote1;
+
+	/**
+	 * This field holds the value of uSSpecificLACSLinkReturnCode
+	 */
+	@JsonProperty("USSpecificLACSLinkReturnCode")
+	private String uSSpecificLACSLinkReturnCode;
+
+	/**
+	 * This field holds the value of postalPhraseComplete2
+	 */
+	@JsonProperty("PostalPhraseComplete2")
+	private String postalPhraseComplete2;
+
+	/**
+	 * This field holds the value of postalPhraseComplete1
+	 */
+	@JsonProperty("PostalPhraseComplete1")
+	private String postalPhraseComplete1;
+
+	/**
+	 * This field holds the value of subBuildingNumber1
+	 */
+	@JsonProperty("SubBuildingNumber1")
+	private String subBuildingNumber1;
+
+	/**
+	 * This field holds the value of subBuildingNumber2
+	 */
+	@JsonProperty("SubBuildingNumber2")
+	private String subBuildingNumber2;
+
+	/**
+	 * This field holds the value of uSSpecificDefaultFlag
+	 */
+	@JsonProperty("USSpecificDefaultFlag")
+	private String uSSpecificDefaultFlag;
+
+	/**
+	 * This field holds the value of uSSpecificLACSLinkIndicator
+	 */
+	@JsonProperty("USSpecificLACSLinkIndicator")
+	private String uSSpecificLACSLinkIndicator;
+
+	/**
+	 * This field holds the value of uSSpecificRecordType
+	 */
+	@JsonProperty("USSpecificRecordType")
+	private String uSSpecificRecordType;
+
+	/**
+	 * This field holds the value of uSSpecificDeliveryPointCheckDigit
+	 */
+	@JsonProperty("USSpecificDeliveryPointCheckDigit")
+	private String uSSpecificDeliveryPointCheckDigit;
+
+	/**
+	 * This field holds the value of streetPostDirectional
+	 */
+	@JsonProperty("StreetPostDirectional")
+	private String streetPostDirectional;
+
+	/**
+	 * This field holds the value of subBuildingComplete1
+	 */
+	@JsonProperty("SubBuildingComplete1")
+	private String subBuildingComplete1;
+
+	/**
+	 * This field holds the value of uSSpecificDeliveryPointCode
+	 */
+	@JsonProperty("USSpecificDeliveryPointCode")
+	private String uSSpecificDeliveryPointCode;
+
+	/**
+	 * This field holds the value of subBuildingComplete2
+	 */
+	@JsonProperty("SubBuildingComplete2")
+	private String subBuildingComplete2;
+
+	/**
+	 * This field holds the value of australiaSpecificStreetNumber1
+	 */
+	@JsonProperty("AustraliaSpecificStreetNumber1")
+	private String australiaSpecificStreetNumber1;
+
+	/**
+	 * This field holds the value of streetNumber
+	 */
+	@JsonProperty("StreetNumber")
+	private String streetNumber;
+
+	/**
+	 * This field holds the value of australiaSpecificStreetNumber2
+	 */
+	@JsonProperty("AustraliaSpecificStreetNumber2")
+	private String australiaSpecificStreetNumber2;
+
+	/**
+	 * This field holds the value of uSSupplementaryCBSAID
+	 */
+	@JsonProperty("USSupplementaryCBSAID")
+	private String uSSupplementaryCBSAID;
+
+	/**
+	 * This field holds the value of australiaSpecificPostalPhrasePrefix
+	 */
+	@JsonProperty("AustraliaSpecificPostalPhrasePrefix")
+	private String australiaSpecificPostalPhrasePrefix;
+
+	/**
+	 * This field holds the value of uSSpecificHighRiseDefault
+	 */
+	@JsonProperty("USSpecificHighRiseDefault")
+	private String uSSpecificHighRiseDefault;
+
+	/**
+	 * This field holds the value of australiaSpecificPostalPhraseNumber
+	 */
+	@JsonProperty("AustraliaSpecificPostalPhraseNumber")
+	private String australiaSpecificPostalPhraseNumber;
+
+	/**
+	 * This field holds the value of uSSupplementaryRecordType
+	 */
+	@JsonProperty("USSupplementaryRecordType")
+	private String uSSupplementaryRecordType;
+
+	/**
+	 * @return the uSSpecificDSF2VacantIndicator
+	 */
+	public final String getuSSpecificDSF2VacantIndicator() {
+		return uSSpecificDSF2VacantIndicator;
 	}
 
-	public final void setUSSpecificDSF2VacantIndicator(
-			final String uSSpecificDSF2VacantIndicator) {
-		USSpecificDSF2VacantIndicator = uSSpecificDSF2VacantIndicator;
+	/**
+	 * @param uSSpecificDSF2VacantIndicator the uSSpecificDSF2VacantIndicator to set
+	 */
+	public final void setuSSpecificDSF2VacantIndicator(
+			String uSSpecificDSF2VacantIndicator) {
+		this.uSSpecificDSF2VacantIndicator = uSSpecificDSF2VacantIndicator;
 	}
 
+	/**
+	 * @return the postalPhraseDescriptor
+	 */
 	public final String getPostalPhraseDescriptor() {
-		return PostalPhraseDescriptor;
+		return postalPhraseDescriptor;
 	}
 
-	public final void setPostalPhraseDescriptor(
-			final String postalPhraseDescriptor) {
-		PostalPhraseDescriptor = postalPhraseDescriptor;
+	/**
+	 * @param postalPhraseDescriptor the postalPhraseDescriptor to set
+	 */
+	public final void setPostalPhraseDescriptor(String postalPhraseDescriptor) {
+		this.postalPhraseDescriptor = postalPhraseDescriptor;
 	}
 
+	/**
+	 * @return the provinceCountryStandard3
+	 */
 	public final String getProvinceCountryStandard3() {
-		return ProvinceCountryStandard3;
+		return provinceCountryStandard3;
 	}
 
-	public final void setProvinceCountryStandard3(
-			final String provinceCountryStandard3) {
-		ProvinceCountryStandard3 = provinceCountryStandard3;
+	/**
+	 * @param provinceCountryStandard3 the provinceCountryStandard3 to set
+	 */
+	public final void setProvinceCountryStandard3(String provinceCountryStandard3) {
+		this.provinceCountryStandard3 = provinceCountryStandard3;
 	}
 
-	public final String getUSSpecificRuralRouteDefault() {
-		return USSpecificRuralRouteDefault;
+	/**
+	 * @return the uSSpecificRuralRouteDefault
+	 */
+	public final String getuSSpecificRuralRouteDefault() {
+		return uSSpecificRuralRouteDefault;
 	}
 
-	public final void setUSSpecificRuralRouteDefault(
-			final String uSSpecificRuralRouteDefault) {
-		USSpecificRuralRouteDefault = uSSpecificRuralRouteDefault;
+	/**
+	 * @param uSSpecificRuralRouteDefault the uSSpecificRuralRouteDefault to set
+	 */
+	public final void setuSSpecificRuralRouteDefault(
+			String uSSpecificRuralRouteDefault) {
+		this.uSSpecificRuralRouteDefault = uSSpecificRuralRouteDefault;
 	}
 
-	public final String getUSSpecificRuralRouteExact() {
-		return USSpecificRuralRouteExact;
+	/**
+	 * @return the uSSpecificRuralRouteExact
+	 */
+	public final String getuSSpecificRuralRouteExact() {
+		return uSSpecificRuralRouteExact;
 	}
 
-	public final void setUSSpecificRuralRouteExact(
-			final String uSSpecificRuralRouteExact) {
-		USSpecificRuralRouteExact = uSSpecificRuralRouteExact;
+	/**
+	 * @param uSSpecificRuralRouteExact the uSSpecificRuralRouteExact to set
+	 */
+	public final void setuSSpecificRuralRouteExact(String uSSpecificRuralRouteExact) {
+		this.uSSpecificRuralRouteExact = uSSpecificRuralRouteExact;
 	}
 
+	/**
+	 * @return the streetPreDescriptor
+	 */
 	public final String getStreetPreDescriptor() {
-		return StreetPreDescriptor;
+		return streetPreDescriptor;
 	}
 
-	public final void setStreetPreDescriptor(final String streetPreDescriptor) {
-		StreetPreDescriptor = streetPreDescriptor;
+	/**
+	 * @param streetPreDescriptor the streetPreDescriptor to set
+	 */
+	public final void setStreetPreDescriptor(String streetPreDescriptor) {
+		this.streetPreDescriptor = streetPreDescriptor;
 	}
 
-	public final String getUSSpecificCongressionalDistrict() {
-		return USSpecificCongressionalDistrict;
+	/**
+	 * @return the uSSpecificCongressionalDistrict
+	 */
+	public final String getuSSpecificCongressionalDistrict() {
+		return uSSpecificCongressionalDistrict;
 	}
 
-	public final void setUSSpecificCongressionalDistrict(
-			final String uSSpecificCongressionalDistrict) {
-		USSpecificCongressionalDistrict = uSSpecificCongressionalDistrict;
+	/**
+	 * @param uSSpecificCongressionalDistrict the uSSpecificCongressionalDistrict to set
+	 */
+	public final void setuSSpecificCongressionalDistrict(
+			String uSSpecificCongressionalDistrict) {
+		this.uSSpecificCongressionalDistrict = uSSpecificCongressionalDistrict;
 	}
 
+	/**
+	 * @return the deliveryAddress5
+	 */
 	public final String getDeliveryAddress5() {
-		return DeliveryAddress5;
+		return deliveryAddress5;
 	}
 
-	public final void setDeliveryAddress5(final String deliveryAddress5) {
-		DeliveryAddress5 = deliveryAddress5;
+	/**
+	 * @param deliveryAddress5 the deliveryAddress5 to set
+	 */
+	public final void setDeliveryAddress5(String deliveryAddress5) {
+		this.deliveryAddress5 = deliveryAddress5;
 	}
 
+	/**
+	 * @return the deliveryAddress4
+	 */
 	public final String getDeliveryAddress4() {
-		return DeliveryAddress4;
+		return deliveryAddress4;
 	}
 
-	public final void setDeliveryAddress4(final String deliveryAddress4) {
-		DeliveryAddress4 = deliveryAddress4;
+	/**
+	 * @param deliveryAddress4 the deliveryAddress4 to set
+	 */
+	public final void setDeliveryAddress4(String deliveryAddress4) {
+		this.deliveryAddress4 = deliveryAddress4;
 	}
 
-	public final String getUSSpecificBarcode() {
-		return USSpecificBarcode;
+	/**
+	 * @return the uSSpecificBarcode
+	 */
+	public final String getuSSpecificBarcode() {
+		return uSSpecificBarcode;
 	}
 
-	public final void setUSSpecificBarcode(final String uSSpecificBarcode) {
-		USSpecificBarcode = uSSpecificBarcode;
+	/**
+	 * @param uSSpecificBarcode the uSSpecificBarcode to set
+	 */
+	public final void setuSSpecificBarcode(String uSSpecificBarcode) {
+		this.uSSpecificBarcode = uSSpecificBarcode;
 	}
 
+	/**
+	 * @return the deliveryAddress6
+	 */
 	public final String getDeliveryAddress6() {
-		return DeliveryAddress6;
+		return deliveryAddress6;
 	}
 
-	public final void setDeliveryAddress6(final String deliveryAddress6) {
-		DeliveryAddress6 = deliveryAddress6;
+	/**
+	 * @param deliveryAddress6 the deliveryAddress6 to set
+	 */
+	public final void setDeliveryAddress6(String deliveryAddress6) {
+		this.deliveryAddress6 = deliveryAddress6;
 	}
 
-	public final String getUSSpecificLACS() {
-		return USSpecificLACS;
+	/**
+	 * @return the uSSpecificLACS
+	 */
+	public final String getuSSpecificLACS() {
+		return uSSpecificLACS;
 	}
 
-	public final void setUSSpecificLACS(final String uSSpecificLACS) {
-		USSpecificLACS = uSSpecificLACS;
+	/**
+	 * @param uSSpecificLACS the uSSpecificLACS to set
+	 */
+	public final void setuSSpecificLACS(String uSSpecificLACS) {
+		this.uSSpecificLACS = uSSpecificLACS;
 	}
 
+	/**
+	 * @return the deliveryAddress1
+	 */
 	public final String getDeliveryAddress1() {
-		return DeliveryAddress1;
+		return deliveryAddress1;
 	}
 
-	public final void setDeliveryAddress1(final String deliveryAddress1) {
-		DeliveryAddress1 = deliveryAddress1;
+	/**
+	 * @param deliveryAddress1 the deliveryAddress1 to set
+	 */
+	public final void setDeliveryAddress1(String deliveryAddress1) {
+		this.deliveryAddress1 = deliveryAddress1;
 	}
 
+	/**
+	 * @return the deliveryAddress3
+	 */
 	public final String getDeliveryAddress3() {
-		return DeliveryAddress3;
+		return deliveryAddress3;
 	}
 
-	public final void setDeliveryAddress3(final String deliveryAddress3) {
-		DeliveryAddress3 = deliveryAddress3;
+	/**
+	 * @param deliveryAddress3 the deliveryAddress3 to set
+	 */
+	public final void setDeliveryAddress3(String deliveryAddress3) {
+		this.deliveryAddress3 = deliveryAddress3;
 	}
 
-	public final String getUSSpecificCMRA() {
-		return USSpecificCMRA;
+	/**
+	 * @return the uSSpecificCMRA
+	 */
+	public final String getuSSpecificCMRA() {
+		return uSSpecificCMRA;
 	}
 
-	public final void setUSSpecificCMRA(final String uSSpecificCMRA) {
-		USSpecificCMRA = uSSpecificCMRA;
+	/**
+	 * @param uSSpecificCMRA the uSSpecificCMRA to set
+	 */
+	public final void setuSSpecificCMRA(String uSSpecificCMRA) {
+		this.uSSpecificCMRA = uSSpecificCMRA;
 	}
 
+	/**
+	 * @return the deliveryAddress2
+	 */
 	public final String getDeliveryAddress2() {
-		return DeliveryAddress2;
+		return deliveryAddress2;
 	}
 
-	public final void setDeliveryAddress2(final String deliveryAddress2) {
-		DeliveryAddress2 = deliveryAddress2;
+	/**
+	 * @param deliveryAddress2 the deliveryAddress2 to set
+	 */
+	public final void setDeliveryAddress2(String deliveryAddress2) {
+		this.deliveryAddress2 = deliveryAddress2;
 	}
 
+	/**
+	 * @return the provinceCountryStandard2
+	 */
 	public final String getProvinceCountryStandard2() {
-		return ProvinceCountryStandard2;
+		return provinceCountryStandard2;
 	}
 
-	public final void setProvinceCountryStandard2(
-			final String provinceCountryStandard2) {
-		ProvinceCountryStandard2 = provinceCountryStandard2;
+	/**
+	 * @param provinceCountryStandard2 the provinceCountryStandard2 to set
+	 */
+	public final void setProvinceCountryStandard2(String provinceCountryStandard2) {
+		this.provinceCountryStandard2 = provinceCountryStandard2;
 	}
 
+	/**
+	 * @return the provinceCountryStandard1
+	 */
 	public final String getProvinceCountryStandard1() {
-		return ProvinceCountryStandard1;
+		return provinceCountryStandard1;
 	}
 
-	public final void setProvinceCountryStandard1(
-			final String provinceCountryStandard1) {
-		ProvinceCountryStandard1 = provinceCountryStandard1;
+	/**
+	 * @param provinceCountryStandard1 the provinceCountryStandard1 to set
+	 */
+	public final void setProvinceCountryStandard1(String provinceCountryStandard1) {
+		this.provinceCountryStandard1 = provinceCountryStandard1;
 	}
 
+	/**
+	 * @return the countryName1
+	 */
 	public final String getCountryName1() {
-		return CountryName1;
+		return countryName1;
 	}
 
-	public final void setCountryName1(final String countryName1) {
-		CountryName1 = countryName1;
+	/**
+	 * @param countryName1 the countryName1 to set
+	 */
+	public final void setCountryName1(String countryName1) {
+		this.countryName1 = countryName1;
 	}
 
+	/**
+	 * @return the streetNumberComplete
+	 */
 	public final String getStreetNumberComplete() {
-		return StreetNumberComplete;
+		return streetNumberComplete;
 	}
 
-	public final void setStreetNumberComplete(final String streetNumberComplete) {
-		StreetNumberComplete = streetNumberComplete;
+	/**
+	 * @param streetNumberComplete the streetNumberComplete to set
+	 */
+	public final void setStreetNumberComplete(String streetNumberComplete) {
+		this.streetNumberComplete = streetNumberComplete;
 	}
 
-	public final String getUSSpecificDSF2NostatsIndicator() {
-		return USSpecificDSF2NostatsIndicator;
+	/**
+	 * @return the uSSpecificDSF2NostatsIndicator
+	 */
+	public final String getuSSpecificDSF2NostatsIndicator() {
+		return uSSpecificDSF2NostatsIndicator;
 	}
 
-	public final void setUSSpecificDSF2NostatsIndicator(
-			final String uSSpecificDSF2NostatsIndicator) {
-		USSpecificDSF2NostatsIndicator = uSSpecificDSF2NostatsIndicator;
+	/**
+	 * @param uSSpecificDSF2NostatsIndicator the uSSpecificDSF2NostatsIndicator to set
+	 */
+	public final void setuSSpecificDSF2NostatsIndicator(
+			String uSSpecificDSF2NostatsIndicator) {
+		this.uSSpecificDSF2NostatsIndicator = uSSpecificDSF2NostatsIndicator;
 	}
 
-	public final String getCANSpecificExcludeFlag() {
-		return CANSpecificExcludeFlag;
+	/**
+	 * @return the cANSpecificExcludeFlag
+	 */
+	public final String getcANSpecificExcludeFlag() {
+		return cANSpecificExcludeFlag;
 	}
 
-	public final void setCANSpecificExcludeFlag(
-			final String cANSpecificExcludeFlag) {
-		CANSpecificExcludeFlag = cANSpecificExcludeFlag;
+	/**
+	 * @param cANSpecificExcludeFlag the cANSpecificExcludeFlag to set
+	 */
+	public final void setcANSpecificExcludeFlag(String cANSpecificExcludeFlag) {
+		this.cANSpecificExcludeFlag = cANSpecificExcludeFlag;
 	}
 
+	/**
+	 * @return the buildingComplete2
+	 */
 	public final String getBuildingComplete2() {
-		return BuildingComplete2;
+		return buildingComplete2;
 	}
 
-	public final void setBuildingComplete2(final String buildingComplete2) {
-		BuildingComplete2 = buildingComplete2;
+	/**
+	 * @param buildingComplete2 the buildingComplete2 to set
+	 */
+	public final void setBuildingComplete2(String buildingComplete2) {
+		this.buildingComplete2 = buildingComplete2;
 	}
 
+	/**
+	 * @return the postcode1
+	 */
 	public final String getPostcode1() {
-		return Postcode1;
+		return postcode1;
 	}
 
-	public final void setPostcode1(final String postcode1) {
-		Postcode1 = postcode1;
+	/**
+	 * @param postcode1 the postcode1 to set
+	 */
+	public final void setPostcode1(String postcode1) {
+		this.postcode1 = postcode1;
 	}
 
+	/**
+	 * @return the buildingComplete1
+	 */
 	public final String getBuildingComplete1() {
-		return BuildingComplete1;
+		return buildingComplete1;
 	}
 
-	public final void setBuildingComplete1(final String buildingComplete1) {
-		BuildingComplete1 = buildingComplete1;
+	/**
+	 * @param buildingComplete1 the buildingComplete1 to set
+	 */
+	public final void setBuildingComplete1(String buildingComplete1) {
+		this.buildingComplete1 = buildingComplete1;
 	}
 
+	/**
+	 * @return the postcode2
+	 */
 	public final String getPostcode2() {
-		return Postcode2;
+		return postcode2;
 	}
 
-	public final void setPostcode2(final String postcode2) {
-		Postcode2 = postcode2;
+	/**
+	 * @param postcode2 the postcode2 to set
+	 */
+	public final void setPostcode2(String postcode2) {
+		this.postcode2 = postcode2;
 	}
 
+	/**
+	 * @return the streetPostDescriptor
+	 */
 	public final String getStreetPostDescriptor() {
-		return StreetPostDescriptor;
+		return streetPostDescriptor;
 	}
 
-	public final void setStreetPostDescriptor(final String streetPostDescriptor) {
-		StreetPostDescriptor = streetPostDescriptor;
+	/**
+	 * @param streetPostDescriptor the streetPostDescriptor to set
+	 */
+	public final void setStreetPostDescriptor(String streetPostDescriptor) {
+		this.streetPostDescriptor = streetPostDescriptor;
 	}
 
+	/**
+	 * @return the streetNumberDescriptor
+	 */
 	public final String getStreetNumberDescriptor() {
-		return StreetNumberDescriptor;
+		return streetNumberDescriptor;
 	}
 
-	public final void setStreetNumberDescriptor(
-			final String streetNumberDescriptor) {
-		StreetNumberDescriptor = streetNumberDescriptor;
+	/**
+	 * @param streetNumberDescriptor the streetNumberDescriptor to set
+	 */
+	public final void setStreetNumberDescriptor(String streetNumberDescriptor) {
+		this.streetNumberDescriptor = streetNumberDescriptor;
 	}
 
+	/**
+	 * @return the provinceAbbrevation3
+	 */
 	public final String getProvinceAbbrevation3() {
-		return ProvinceAbbrevation3;
+		return provinceAbbrevation3;
 	}
 
-	public final void setProvinceAbbrevation3(final String provinceAbbrevation3) {
-		ProvinceAbbrevation3 = provinceAbbrevation3;
+	/**
+	 * @param provinceAbbrevation3 the provinceAbbrevation3 to set
+	 */
+	public final void setProvinceAbbrevation3(String provinceAbbrevation3) {
+		this.provinceAbbrevation3 = provinceAbbrevation3;
 	}
 
+	/**
+	 * @return the organizationName
+	 */
 	public final String getOrganizationName() {
-		return OrganizationName;
+		return organizationName;
 	}
 
-	public final void setOrganizationName(final String organizationName) {
-		OrganizationName = organizationName;
+	/**
+	 * @param organizationName the organizationName to set
+	 */
+	public final void setOrganizationName(String organizationName) {
+		this.organizationName = organizationName;
 	}
 
-	public final String getCANSpecificCategory() {
-		return CANSpecificCategory;
+	/**
+	 * @return the cANSpecificCategory
+	 */
+	public final String getcANSpecificCategory() {
+		return cANSpecificCategory;
 	}
 
-	public final void setCANSpecificCategory(final String cANSpecificCategory) {
-		CANSpecificCategory = cANSpecificCategory;
+	/**
+	 * @param cANSpecificCategory the cANSpecificCategory to set
+	 */
+	public final void setcANSpecificCategory(String cANSpecificCategory) {
+		this.cANSpecificCategory = cANSpecificCategory;
 	}
 
+	/**
+	 * @return the provinceExtended1
+	 */
 	public final String getProvinceExtended1() {
-		return ProvinceExtended1;
+		return provinceExtended1;
 	}
 
-	public final void setProvinceExtended1(final String provinceExtended1) {
-		ProvinceExtended1 = provinceExtended1;
+	/**
+	 * @param provinceExtended1 the provinceExtended1 to set
+	 */
+	public final void setProvinceExtended1(String provinceExtended1) {
+		this.provinceExtended1 = provinceExtended1;
 	}
 
+	/**
+	 * @return the provinceExtended2
+	 */
 	public final String getProvinceExtended2() {
-		return ProvinceExtended2;
+		return provinceExtended2;
 	}
 
-	public final void setProvinceExtended2(final String provinceExtended2) {
-		ProvinceExtended2 = provinceExtended2;
+	/**
+	 * @param provinceExtended2 the provinceExtended2 to set
+	 */
+	public final void setProvinceExtended2(String provinceExtended2) {
+		this.provinceExtended2 = provinceExtended2;
 	}
 
+	/**
+	 * @return the provinceAbbrevation1
+	 */
 	public final String getProvinceAbbrevation1() {
-		return ProvinceAbbrevation1;
+		return provinceAbbrevation1;
 	}
 
-	public final void setProvinceAbbrevation1(final String provinceAbbrevation1) {
-		ProvinceAbbrevation1 = provinceAbbrevation1;
+	/**
+	 * @param provinceAbbrevation1 the provinceAbbrevation1 to set
+	 */
+	public final void setProvinceAbbrevation1(String provinceAbbrevation1) {
+		this.provinceAbbrevation1 = provinceAbbrevation1;
 	}
 
+	/**
+	 * @return the provinceExtended3
+	 */
 	public final String getProvinceExtended3() {
-		return ProvinceExtended3;
+		return provinceExtended3;
 	}
 
-	public final void setProvinceExtended3(final String provinceExtended3) {
-		ProvinceExtended3 = provinceExtended3;
+	/**
+	 * @param provinceExtended3 the provinceExtended3 to set
+	 */
+	public final void setProvinceExtended3(String provinceExtended3) {
+		this.provinceExtended3 = provinceExtended3;
 	}
 
+	/**
+	 * @return the provinceAbbrevation2
+	 */
 	public final String getProvinceAbbrevation2() {
-		return ProvinceAbbrevation2;
+		return provinceAbbrevation2;
 	}
 
-	public final void setProvinceAbbrevation2(final String provinceAbbrevation2) {
-		ProvinceAbbrevation2 = provinceAbbrevation2;
+	/**
+	 * @param provinceAbbrevation2 the provinceAbbrevation2 to set
+	 */
+	public final void setProvinceAbbrevation2(String provinceAbbrevation2) {
+		this.provinceAbbrevation2 = provinceAbbrevation2;
 	}
 
-	public final String getCANSpecificSERPStatus() {
-		return CANSpecificSERPStatus;
+	/**
+	 * @return the cANSpecificSERPStatus
+	 */
+	public final String getcANSpecificSERPStatus() {
+		return cANSpecificSERPStatus;
 	}
 
-	public final void setCANSpecificSERPStatus(
-			final String cANSpecificSERPStatus) {
-		CANSpecificSERPStatus = cANSpecificSERPStatus;
+	/**
+	 * @param cANSpecificSERPStatus the cANSpecificSERPStatus to set
+	 */
+	public final void setcANSpecificSERPStatus(String cANSpecificSERPStatus) {
+		this.cANSpecificSERPStatus = cANSpecificSERPStatus;
 	}
 
+	/**
+	 * @return the organizationDepartment
+	 */
 	public final String getOrganizationDepartment() {
-		return OrganizationDepartment;
+		return organizationDepartment;
 	}
 
-	public final void setOrganizationDepartment(
-			final String organizationDepartment) {
-		OrganizationDepartment = organizationDepartment;
+	/**
+	 * @param organizationDepartment the organizationDepartment to set
+	 */
+	public final void setOrganizationDepartment(String organizationDepartment) {
+		this.organizationDepartment = organizationDepartment;
 	}
 
+	/**
+	 * @return the australiaSpecificStreetNumberSuffix1
+	 */
 	public final String getAustraliaSpecificStreetNumberSuffix1() {
-		return AustraliaSpecificStreetNumberSuffix1;
+		return australiaSpecificStreetNumberSuffix1;
 	}
 
+	/**
+	 * @param australiaSpecificStreetNumberSuffix1 the australiaSpecificStreetNumberSuffix1 to set
+	 */
 	public final void setAustraliaSpecificStreetNumberSuffix1(
-			final String australiaSpecificStreetNumberSuffix1) {
-		AustraliaSpecificStreetNumberSuffix1 = australiaSpecificStreetNumberSuffix1;
+			String australiaSpecificStreetNumberSuffix1) {
+		this.australiaSpecificStreetNumberSuffix1 = australiaSpecificStreetNumberSuffix1;
 	}
 
+	/**
+	 * @return the australiaSpecificStreetNumberSuffix2
+	 */
 	public final String getAustraliaSpecificStreetNumberSuffix2() {
-		return AustraliaSpecificStreetNumberSuffix2;
+		return australiaSpecificStreetNumberSuffix2;
 	}
 
+	/**
+	 * @param australiaSpecificStreetNumberSuffix2 the australiaSpecificStreetNumberSuffix2 to set
+	 */
 	public final void setAustraliaSpecificStreetNumberSuffix2(
-			final String australiaSpecificStreetNumberSuffix2) {
-		AustraliaSpecificStreetNumberSuffix2 = australiaSpecificStreetNumberSuffix2;
+			String australiaSpecificStreetNumberSuffix2) {
+		this.australiaSpecificStreetNumberSuffix2 = australiaSpecificStreetNumberSuffix2;
 	}
 
+	/**
+	 * @return the countrySpecificLastLine1
+	 */
 	public final String getCountrySpecificLastLine1() {
-		return CountrySpecificLastLine1;
+		return countrySpecificLastLine1;
 	}
 
-	public final void setCountrySpecificLastLine1(
-			final String countrySpecificLastLine1) {
-		CountrySpecificLastLine1 = countrySpecificLastLine1;
+	/**
+	 * @param countrySpecificLastLine1 the countrySpecificLastLine1 to set
+	 */
+	public final void setCountrySpecificLastLine1(String countrySpecificLastLine1) {
+		this.countrySpecificLastLine1 = countrySpecificLastLine1;
 	}
 
+	/**
+	 * @return the buildingDescriptor2
+	 */
 	public final String getBuildingDescriptor2() {
-		return BuildingDescriptor2;
+		return buildingDescriptor2;
 	}
 
-	public final void setBuildingDescriptor2(final String buildingDescriptor2) {
-		BuildingDescriptor2 = buildingDescriptor2;
+	/**
+	 * @param buildingDescriptor2 the buildingDescriptor2 to set
+	 */
+	public final void setBuildingDescriptor2(String buildingDescriptor2) {
+		this.buildingDescriptor2 = buildingDescriptor2;
 	}
 
+	/**
+	 * @return the buildingDescriptor1
+	 */
 	public final String getBuildingDescriptor1() {
-		return BuildingDescriptor1;
+		return buildingDescriptor1;
 	}
 
-	public final void setBuildingDescriptor1(final String buildingDescriptor1) {
-		BuildingDescriptor1 = buildingDescriptor1;
+	/**
+	 * @param buildingDescriptor1 the buildingDescriptor1 to set
+	 */
+	public final void setBuildingDescriptor1(String buildingDescriptor1) {
+		this.buildingDescriptor1 = buildingDescriptor1;
 	}
 
+	/**
+	 * @return the postalPhraseNumber
+	 */
 	public final String getPostalPhraseNumber() {
-		return PostalPhraseNumber;
+		return postalPhraseNumber;
 	}
 
-	public final void setPostalPhraseNumber(final String postalPhraseNumber) {
-		PostalPhraseNumber = postalPhraseNumber;
+	/**
+	 * @param postalPhraseNumber the postalPhraseNumber to set
+	 */
+	public final void setPostalPhraseNumber(String postalPhraseNumber) {
+		this.postalPhraseNumber = postalPhraseNumber;
 	}
 
+	/**
+	 * @return the streetName2
+	 */
 	public final String getStreetName2() {
-		return StreetName2;
+		return streetName2;
 	}
 
-	public final void setStreetName2(final String streetName2) {
-		StreetName2 = streetName2;
+	/**
+	 * @param streetName2 the streetName2 to set
+	 */
+	public final void setStreetName2(String streetName2) {
+		this.streetName2 = streetName2;
 	}
 
+	/**
+	 * @return the countryISO2Char
+	 */
 	public final String getCountryISO2Char() {
-		return CountryISO2Char;
+		return countryISO2Char;
 	}
 
-	public final void setCountryISO2Char(final String countryISO2Char) {
-		CountryISO2Char = countryISO2Char;
+	/**
+	 * @param countryISO2Char the countryISO2Char to set
+	 */
+	public final void setCountryISO2Char(String countryISO2Char) {
+		this.countryISO2Char = countryISO2Char;
 	}
 
+	/**
+	 * @return the statusInfoMatchCode
+	 */
 	public final String getStatusInfoMatchCode() {
-		return StatusInfoMatchCode;
+		return statusInfoMatchCode;
 	}
 
-	public final void setStatusInfoMatchCode(final String statusInfoMatchCode) {
-		StatusInfoMatchCode = statusInfoMatchCode;
+	/**
+	 * @param statusInfoMatchCode the statusInfoMatchCode to set
+	 */
+	public final void setStatusInfoMatchCode(String statusInfoMatchCode) {
+		this.statusInfoMatchCode = statusInfoMatchCode;
 	}
 
+	/**
+	 * @return the streetName1
+	 */
 	public final String getStreetName1() {
-		return StreetName1;
+		return streetName1;
 	}
 
-	public final void setStreetName1(final String streetName1) {
-		StreetName1 = streetName1;
+	/**
+	 * @param streetName1 the streetName1 to set
+	 */
+	public final void setStreetName1(String streetName1) {
+		this.streetName1 = streetName1;
 	}
 
+	/**
+	 * @return the australiaSpecificDeliverPointID
+	 */
 	public final String getAustraliaSpecificDeliverPointID() {
-		return AustraliaSpecificDeliverPointID;
+		return australiaSpecificDeliverPointID;
 	}
 
+	/**
+	 * @param australiaSpecificDeliverPointID the australiaSpecificDeliverPointID to set
+	 */
 	public final void setAustraliaSpecificDeliverPointID(
-			final String australiaSpecificDeliverPointID) {
-		AustraliaSpecificDeliverPointID = australiaSpecificDeliverPointID;
+			String australiaSpecificDeliverPointID) {
+		this.australiaSpecificDeliverPointID = australiaSpecificDeliverPointID;
 	}
 
+	/**
+	 * @return the localitySortCode
+	 */
 	public final String getLocalitySortCode() {
-		return LocalitySortCode;
+		return localitySortCode;
 	}
 
-	public final void setLocalitySortCode(final String localitySortCode) {
-		LocalitySortCode = localitySortCode;
+	/**
+	 * @param localitySortCode the localitySortCode to set
+	 */
+	public final void setLocalitySortCode(String localitySortCode) {
+		this.localitySortCode = localitySortCode;
 	}
 
-	public final String getUSSpecificCarrierRoute() {
-		return USSpecificCarrierRoute;
+	/**
+	 * @return the uSSpecificCarrierRoute
+	 */
+	public final String getuSSpecificCarrierRoute() {
+		return uSSpecificCarrierRoute;
 	}
 
-	public final void setUSSpecificCarrierRoute(
-			final String uSSpecificCarrierRoute) {
-		USSpecificCarrierRoute = uSSpecificCarrierRoute;
+	/**
+	 * @param uSSpecificCarrierRoute the uSSpecificCarrierRoute to set
+	 */
+	public final void setuSSpecificCarrierRoute(String uSSpecificCarrierRoute) {
+		this.uSSpecificCarrierRoute = uSSpecificCarrierRoute;
 	}
 
+	/**
+	 * @return the australiaSpecificPostalPhraseSuffix
+	 */
 	public final String getAustraliaSpecificPostalPhraseSuffix() {
-		return AustraliaSpecificPostalPhraseSuffix;
+		return australiaSpecificPostalPhraseSuffix;
 	}
 
+	/**
+	 * @param australiaSpecificPostalPhraseSuffix the australiaSpecificPostalPhraseSuffix to set
+	 */
 	public final void setAustraliaSpecificPostalPhraseSuffix(
-			final String australiaSpecificPostalPhraseSuffix) {
-		AustraliaSpecificPostalPhraseSuffix = australiaSpecificPostalPhraseSuffix;
+			String australiaSpecificPostalPhraseSuffix) {
+		this.australiaSpecificPostalPhraseSuffix = australiaSpecificPostalPhraseSuffix;
 	}
 
+	/**
+	 * @return the buildingName2
+	 */
 	public final String getBuildingName2() {
-		return BuildingName2;
+		return buildingName2;
 	}
 
-	public final void setBuildingName2(final String buildingName2) {
-		BuildingName2 = buildingName2;
+	/**
+	 * @param buildingName2 the buildingName2 to set
+	 */
+	public final void setBuildingName2(String buildingName2) {
+		this.buildingName2 = buildingName2;
 	}
 
+	/**
+	 * @return the buildingName1
+	 */
 	public final String getBuildingName1() {
-		return BuildingName1;
+		return buildingName1;
 	}
 
-	public final void setBuildingName1(final String buildingName1) {
-		BuildingName1 = buildingName1;
+	/**
+	 * @param buildingName1 the buildingName1 to set
+	 */
+	public final void setBuildingName1(String buildingName1) {
+		this.buildingName1 = buildingName1;
 	}
 
+	/**
+	 * @return the organizationDescriptor
+	 */
 	public final String getOrganizationDescriptor() {
-		return OrganizationDescriptor;
+		return organizationDescriptor;
 	}
 
-	public final void setOrganizationDescriptor(
-			final String organizationDescriptor) {
-		OrganizationDescriptor = organizationDescriptor;
+	/**
+	 * @param organizationDescriptor the organizationDescriptor to set
+	 */
+	public final void setOrganizationDescriptor(String organizationDescriptor) {
+		this.organizationDescriptor = organizationDescriptor;
 	}
 
+	/**
+	 * @return the postCode
+	 */
 	public final String getPostCode() {
-		return PostCode;
+		return postCode;
 	}
 
-	public final void setPostCode(final String postCode) {
-		PostCode = postCode;
+	/**
+	 * @param postCode the postCode to set
+	 */
+	public final void setPostCode(String postCode) {
+		this.postCode = postCode;
 	}
 
+	/**
+	 * @return the australiaSpecificLotNumber
+	 */
 	public final String getAustraliaSpecificLotNumber() {
-		return AustraliaSpecificLotNumber;
+		return australiaSpecificLotNumber;
 	}
 
+	/**
+	 * @param australiaSpecificLotNumber the australiaSpecificLotNumber to set
+	 */
 	public final void setAustraliaSpecificLotNumber(
-			final String australiaSpecificLotNumber) {
-		AustraliaSpecificLotNumber = australiaSpecificLotNumber;
+			String australiaSpecificLotNumber) {
+		this.australiaSpecificLotNumber = australiaSpecificLotNumber;
 	}
 
+	/**
+	 * @return the countrySpecificLastLine3
+	 */
 	public final String getCountrySpecificLastLine3() {
-		return CountrySpecificLastLine3;
+		return countrySpecificLastLine3;
 	}
 
-	public final void setCountrySpecificLastLine3(
-			final String countrySpecificLastLine3) {
-		CountrySpecificLastLine3 = countrySpecificLastLine3;
+	/**
+	 * @param countrySpecificLastLine3 the countrySpecificLastLine3 to set
+	 */
+	public final void setCountrySpecificLastLine3(String countrySpecificLastLine3) {
+		this.countrySpecificLastLine3 = countrySpecificLastLine3;
 	}
 
+	/**
+	 * @return the countrySpecificLastLine2
+	 */
 	public final String getCountrySpecificLastLine2() {
-		return CountrySpecificLastLine2;
+		return countrySpecificLastLine2;
 	}
 
-	public final void setCountrySpecificLastLine2(
-			final String countrySpecificLastLine2) {
-		CountrySpecificLastLine2 = countrySpecificLastLine2;
+	/**
+	 * @param countrySpecificLastLine2 the countrySpecificLastLine2 to set
+	 */
+	public final void setCountrySpecificLastLine2(String countrySpecificLastLine2) {
+		this.countrySpecificLastLine2 = countrySpecificLastLine2;
 	}
 
+	/**
+	 * @return the streetPreDirectional
+	 */
 	public final String getStreetPreDirectional() {
-		return StreetPreDirectional;
+		return streetPreDirectional;
 	}
 
-	public final void setStreetPreDirectional(final String streetPreDirectional) {
-		StreetPreDirectional = streetPreDirectional;
+	/**
+	 * @param streetPreDirectional the streetPreDirectional to set
+	 */
+	public final void setStreetPreDirectional(String streetPreDirectional) {
+		this.streetPreDirectional = streetPreDirectional;
 	}
 
+	/**
+	 * @return the localityName1
+	 */
 	public final String getLocalityName1() {
-		return LocalityName1;
+		return localityName1;
 	}
 
-	public final void setLocalityName1(final String localityName1) {
-		LocalityName1 = localityName1;
+	/**
+	 * @param localityName1 the localityName1 to set
+	 */
+	public final void setLocalityName1(String localityName1) {
+		this.localityName1 = localityName1;
 	}
 
+	/**
+	 * @return the australiaSpecificAMASStatus
+	 */
 	public final String getAustraliaSpecificAMASStatus() {
-		return AustraliaSpecificAMASStatus;
+		return australiaSpecificAMASStatus;
 	}
 
+	/**
+	 * @param australiaSpecificAMASStatus the australiaSpecificAMASStatus to set
+	 */
 	public final void setAustraliaSpecificAMASStatus(
-			final String australiaSpecificAMASStatus) {
-		AustraliaSpecificAMASStatus = australiaSpecificAMASStatus;
+			String australiaSpecificAMASStatus) {
+		this.australiaSpecificAMASStatus = australiaSpecificAMASStatus;
 	}
 
+	/**
+	 * @return the localityName2
+	 */
 	public final String getLocalityName2() {
-		return LocalityName2;
+		return localityName2;
 	}
 
-	public final void setLocalityName2(final String localityName2) {
-		LocalityName2 = localityName2;
+	/**
+	 * @param localityName2 the localityName2 to set
+	 */
+	public final void setLocalityName2(String localityName2) {
+		this.localityName2 = localityName2;
 	}
 
+	/**
+	 * @return the localityName3
+	 */
 	public final String getLocalityName3() {
-		return LocalityName3;
+		return localityName3;
 	}
 
-	public final void setLocalityName3(final String localityName3) {
-		LocalityName3 = localityName3;
+	/**
+	 * @param localityName3 the localityName3 to set
+	 */
+	public final void setLocalityName3(String localityName3) {
+		this.localityName3 = localityName3;
 	}
 
-	public final String getUSSpecificDPVConfirmation() {
-		return USSpecificDPVConfirmation;
+	/**
+	 * @return the uSSpecificDPVConfirmation
+	 */
+	public final String getuSSpecificDPVConfirmation() {
+		return uSSpecificDPVConfirmation;
 	}
 
-	public final void setUSSpecificDPVConfirmation(
-			final String uSSpecificDPVConfirmation) {
-		USSpecificDPVConfirmation = uSSpecificDPVConfirmation;
+	/**
+	 * @param uSSpecificDPVConfirmation the uSSpecificDPVConfirmation to set
+	 */
+	public final void setuSSpecificDPVConfirmation(String uSSpecificDPVConfirmation) {
+		this.uSSpecificDPVConfirmation = uSSpecificDPVConfirmation;
 	}
 
+	/**
+	 * @return the subBuildingDescriptor2
+	 */
 	public final String getSubBuildingDescriptor2() {
-		return SubBuildingDescriptor2;
+		return subBuildingDescriptor2;
 	}
 
-	public final void setSubBuildingDescriptor2(
-			final String subBuildingDescriptor2) {
-		SubBuildingDescriptor2 = subBuildingDescriptor2;
+	/**
+	 * @param subBuildingDescriptor2 the subBuildingDescriptor2 to set
+	 */
+	public final void setSubBuildingDescriptor2(String subBuildingDescriptor2) {
+		this.subBuildingDescriptor2 = subBuildingDescriptor2;
 	}
 
+	/**
+	 * @return the subBuildingDescriptor1
+	 */
 	public final String getSubBuildingDescriptor1() {
-		return SubBuildingDescriptor1;
+		return subBuildingDescriptor1;
 	}
 
-	public final void setSubBuildingDescriptor1(
-			final String subBuildingDescriptor1) {
-		SubBuildingDescriptor1 = subBuildingDescriptor1;
+	/**
+	 * @param subBuildingDescriptor1 the subBuildingDescriptor1 to set
+	 */
+	public final void setSubBuildingDescriptor1(String subBuildingDescriptor1) {
+		this.subBuildingDescriptor1 = subBuildingDescriptor1;
 	}
 
+	/**
+	 * @return the australiaSpecificRecordType
+	 */
 	public final String getAustraliaSpecificRecordType() {
-		return AustraliaSpecificRecordType;
+		return australiaSpecificRecordType;
 	}
 
+	/**
+	 * @param australiaSpecificRecordType the australiaSpecificRecordType to set
+	 */
 	public final void setAustraliaSpecificRecordType(
-			final String australiaSpecificRecordType) {
-		AustraliaSpecificRecordType = australiaSpecificRecordType;
+			String australiaSpecificRecordType) {
+		this.australiaSpecificRecordType = australiaSpecificRecordType;
 	}
 
-	public final String getUSSpecificHighRiseExact() {
-		return USSpecificHighRiseExact;
+	/**
+	 * @return the uSSpecificHighRiseExact
+	 */
+	public final String getuSSpecificHighRiseExact() {
+		return uSSpecificHighRiseExact;
 	}
 
-	public final void setUSSpecificHighRiseExact(
-			final String uSSpecificHighRiseExact) {
-		USSpecificHighRiseExact = uSSpecificHighRiseExact;
+	/**
+	 * @param uSSpecificHighRiseExact the uSSpecificHighRiseExact to set
+	 */
+	public final void setuSSpecificHighRiseExact(String uSSpecificHighRiseExact) {
+		this.uSSpecificHighRiseExact = uSSpecificHighRiseExact;
 	}
 
-	public final String getUSSupplementaryMSAID() {
-		return USSupplementaryMSAID;
+	/**
+	 * @return the uSSupplementaryMSAID
+	 */
+	public final String getuSSupplementaryMSAID() {
+		return uSSupplementaryMSAID;
 	}
 
-	public final void setUSSupplementaryMSAID(final String uSSupplementaryMSAID) {
-		USSupplementaryMSAID = uSSupplementaryMSAID;
+	/**
+	 * @param uSSupplementaryMSAID the uSSupplementaryMSAID to set
+	 */
+	public final void setuSSupplementaryMSAID(String uSSupplementaryMSAID) {
+		this.uSSupplementaryMSAID = uSSupplementaryMSAID;
 	}
 
-	public final String getUSSpecificZipMoveReturnCode() {
-		return USSpecificZipMoveReturnCode;
+	/**
+	 * @return the uSSpecificZipMoveReturnCode
+	 */
+	public final String getuSSpecificZipMoveReturnCode() {
+		return uSSpecificZipMoveReturnCode;
 	}
 
-	public final void setUSSpecificZipMoveReturnCode(
-			final String uSSpecificZipMoveReturnCode) {
-		USSpecificZipMoveReturnCode = uSSpecificZipMoveReturnCode;
+	/**
+	 * @param uSSpecificZipMoveReturnCode the uSSpecificZipMoveReturnCode to set
+	 */
+	public final void setuSSpecificZipMoveReturnCode(
+			String uSSpecificZipMoveReturnCode) {
+		this.uSSpecificZipMoveReturnCode = uSSpecificZipMoveReturnCode;
 	}
 
-	public final String getUSSpecificDPVFalsePositive() {
-		return USSpecificDPVFalsePositive;
+	/**
+	 * @return the uSSpecificDPVFalsePositive
+	 */
+	public final String getuSSpecificDPVFalsePositive() {
+		return uSSpecificDPVFalsePositive;
 	}
 
-	public final void setUSSpecificDPVFalsePositive(
-			final String uSSpecificDPVFalsePositive) {
-		USSpecificDPVFalsePositive = uSSpecificDPVFalsePositive;
+	/**
+	 * @param uSSpecificDPVFalsePositive the uSSpecificDPVFalsePositive to set
+	 */
+	public final void setuSSpecificDPVFalsePositive(
+			String uSSpecificDPVFalsePositive) {
+		this.uSSpecificDPVFalsePositive = uSSpecificDPVFalsePositive;
 	}
 
+	/**
+	 * @return the buildingNumber2
+	 */
 	public final String getBuildingNumber2() {
-		return BuildingNumber2;
+		return buildingNumber2;
 	}
 
-	public final void setBuildingNumber2(final String buildingNumber2) {
-		BuildingNumber2 = buildingNumber2;
+	/**
+	 * @param buildingNumber2 the buildingNumber2 to set
+	 */
+	public final void setBuildingNumber2(String buildingNumber2) {
+		this.buildingNumber2 = buildingNumber2;
 	}
 
+	/**
+	 * @return the buildingNumber1
+	 */
 	public final String getBuildingNumber1() {
-		return BuildingNumber1;
+		return buildingNumber1;
 	}
 
-	public final void setBuildingNumber1(final String buildingNumber1) {
-		BuildingNumber1 = buildingNumber1;
+	/**
+	 * @param buildingNumber1 the buildingNumber1 to set
+	 */
+	public final void setBuildingNumber1(String buildingNumber1) {
+		this.buildingNumber1 = buildingNumber1;
 	}
 
+	/**
+	 * @return the statusInfoMailabilityScore
+	 */
 	public final String getStatusInfoMailabilityScore() {
-		return StatusInfoMailabilityScore;
+		return statusInfoMailabilityScore;
 	}
 
+	/**
+	 * @param statusInfoMailabilityScore the statusInfoMailabilityScore to set
+	 */
 	public final void setStatusInfoMailabilityScore(
-			final String statusInfoMailabilityScore) {
-		StatusInfoMailabilityScore = statusInfoMailabilityScore;
+			String statusInfoMailabilityScore) {
+		this.statusInfoMailabilityScore = statusInfoMailabilityScore;
 	}
 
-	public final String getUSSpecificEWSReturnCode() {
-		return USSpecificEWSReturnCode;
+	/**
+	 * @return the uSSpecificEWSReturnCode
+	 */
+	public final String getuSSpecificEWSReturnCode() {
+		return uSSpecificEWSReturnCode;
 	}
 
-	public final void setUSSpecificEWSReturnCode(
-			final String uSSpecificEWSReturnCode) {
-		USSpecificEWSReturnCode = uSSpecificEWSReturnCode;
+	/**
+	 * @param uSSpecificEWSReturnCode the uSSpecificEWSReturnCode to set
+	 */
+	public final void setuSSpecificEWSReturnCode(String uSSpecificEWSReturnCode) {
+		this.uSSpecificEWSReturnCode = uSSpecificEWSReturnCode;
 	}
 
+	/**
+	 * @return the postalPhraseAddInfo
+	 */
 	public final String getPostalPhraseAddInfo() {
-		return PostalPhraseAddInfo;
+		return postalPhraseAddInfo;
 	}
 
-	public final void setPostalPhraseAddInfo(final String postalPhraseAddInfo) {
-		PostalPhraseAddInfo = postalPhraseAddInfo;
+	/**
+	 * @param postalPhraseAddInfo the postalPhraseAddInfo to set
+	 */
+	public final void setPostalPhraseAddInfo(String postalPhraseAddInfo) {
+		this.postalPhraseAddInfo = postalPhraseAddInfo;
 	}
 
-	public final String getUSSupplementaryCountyFIPSCode() {
-		return USSupplementaryCountyFIPSCode;
+	/**
+	 * @return the uSSupplementaryCountyFIPSCode
+	 */
+	public final String getuSSupplementaryCountyFIPSCode() {
+		return uSSupplementaryCountyFIPSCode;
 	}
 
-	public final void setUSSupplementaryCountyFIPSCode(
-			final String uSSupplementaryCountyFIPSCode) {
-		USSupplementaryCountyFIPSCode = uSSupplementaryCountyFIPSCode;
+	/**
+	 * @param uSSupplementaryCountyFIPSCode the uSSupplementaryCountyFIPSCode to set
+	 */
+	public final void setuSSupplementaryCountyFIPSCode(
+			String uSSupplementaryCountyFIPSCode) {
+		this.uSSupplementaryCountyFIPSCode = uSSupplementaryCountyFIPSCode;
 	}
 
+	/**
+	 * @return the locality3
+	 */
 	public final String getLocality3() {
-		return Locality3;
+		return locality3;
 	}
 
-	public final void setLocality3(final String locality3) {
-		Locality3 = locality3;
+	/**
+	 * @param locality3 the locality3 to set
+	 */
+	public final void setLocality3(String locality3) {
+		this.locality3 = locality3;
 	}
 
+	/**
+	 * @return the organizationComplete
+	 */
 	public final String getOrganizationComplete() {
-		return OrganizationComplete;
+		return organizationComplete;
 	}
 
-	public final void setOrganizationComplete(final String organizationComplete) {
-		OrganizationComplete = organizationComplete;
+	/**
+	 * @param organizationComplete the organizationComplete to set
+	 */
+	public final void setOrganizationComplete(String organizationComplete) {
+		this.organizationComplete = organizationComplete;
 	}
 
+	/**
+	 * @return the subBuildingName1
+	 */
 	public final String getSubBuildingName1() {
-		return SubBuildingName1;
+		return subBuildingName1;
 	}
 
-	public final void setSubBuildingName1(final String subBuildingName1) {
-		SubBuildingName1 = subBuildingName1;
+	/**
+	 * @param subBuildingName1 the subBuildingName1 to set
+	 */
+	public final void setSubBuildingName1(String subBuildingName1) {
+		this.subBuildingName1 = subBuildingName1;
 	}
 
-	public final String getUSSupplementaryStateFIPSCode() {
-		return USSupplementaryStateFIPSCode;
+	/**
+	 * @return the uSSupplementaryStateFIPSCode
+	 */
+	public final String getuSSupplementaryStateFIPSCode() {
+		return uSSupplementaryStateFIPSCode;
 	}
 
-	public final void setUSSupplementaryStateFIPSCode(
-			final String uSSupplementaryStateFIPSCode) {
-		USSupplementaryStateFIPSCode = uSSupplementaryStateFIPSCode;
+	/**
+	 * @param uSSupplementaryStateFIPSCode the uSSupplementaryStateFIPSCode to set
+	 */
+	public final void setuSSupplementaryStateFIPSCode(
+			String uSSupplementaryStateFIPSCode) {
+		this.uSSupplementaryStateFIPSCode = uSSupplementaryStateFIPSCode;
 	}
 
+	/**
+	 * @return the subBuildingName2
+	 */
 	public final String getSubBuildingName2() {
-		return SubBuildingName2;
+		return subBuildingName2;
 	}
 
-	public final void setSubBuildingName2(final String subBuildingName2) {
-		SubBuildingName2 = subBuildingName2;
+	/**
+	 * @param subBuildingName2 the subBuildingName2 to set
+	 */
+	public final void setSubBuildingName2(String subBuildingName2) {
+		this.subBuildingName2 = subBuildingName2;
 	}
 
-	public final String getUSSpecificSuiteLinkReturnCode() {
-		return USSpecificSuiteLinkReturnCode;
+	/**
+	 * @return the uSSpecificSuiteLinkReturnCode
+	 */
+	public final String getuSSpecificSuiteLinkReturnCode() {
+		return uSSpecificSuiteLinkReturnCode;
 	}
 
-	public final void setUSSpecificSuiteLinkReturnCode(
-			final String uSSpecificSuiteLinkReturnCode) {
-		USSpecificSuiteLinkReturnCode = uSSpecificSuiteLinkReturnCode;
+	/**
+	 * @param uSSpecificSuiteLinkReturnCode the uSSpecificSuiteLinkReturnCode to set
+	 */
+	public final void setuSSpecificSuiteLinkReturnCode(
+			String uSSpecificSuiteLinkReturnCode) {
+		this.uSSpecificSuiteLinkReturnCode = uSSpecificSuiteLinkReturnCode;
 	}
 
+	/**
+	 * @return the streetComplete1
+	 */
 	public final String getStreetComplete1() {
-		return StreetComplete1;
+		return streetComplete1;
 	}
 
-	public final void setStreetComplete1(final String streetComplete1) {
-		StreetComplete1 = streetComplete1;
+	/**
+	 * @param streetComplete1 the streetComplete1 to set
+	 */
+	public final void setStreetComplete1(String streetComplete1) {
+		this.streetComplete1 = streetComplete1;
 	}
 
+	/**
+	 * @return the streetComplete2
+	 */
 	public final String getStreetComplete2() {
-		return StreetComplete2;
+		return streetComplete2;
 	}
 
-	public final void setStreetComplete2(final String streetComplete2) {
-		StreetComplete2 = streetComplete2;
+	/**
+	 * @param streetComplete2 the streetComplete2 to set
+	 */
+	public final void setStreetComplete2(String streetComplete2) {
+		this.streetComplete2 = streetComplete2;
 	}
 
-	public final String getUSSupplementaryFinanceNumber() {
-		return USSupplementaryFinanceNumber;
+	/**
+	 * @return the uSSupplementaryFinanceNumber
+	 */
+	public final String getuSSupplementaryFinanceNumber() {
+		return uSSupplementaryFinanceNumber;
 	}
 
-	public final void setUSSupplementaryFinanceNumber(
-			final String uSSupplementaryFinanceNumber) {
-		USSupplementaryFinanceNumber = uSSupplementaryFinanceNumber;
+	/**
+	 * @param uSSupplementaryFinanceNumber the uSSupplementaryFinanceNumber to set
+	 */
+	public final void setuSSupplementaryFinanceNumber(
+			String uSSupplementaryFinanceNumber) {
+		this.uSSupplementaryFinanceNumber = uSSupplementaryFinanceNumber;
 	}
 
-	public final String getUKSupplementaryDeliveryPointSuffix() {
-		return UKSupplementaryDeliveryPointSuffix;
+	/**
+	 * @return the uKSupplementaryDeliveryPointSuffix
+	 */
+	public final String getuKSupplementaryDeliveryPointSuffix() {
+		return uKSupplementaryDeliveryPointSuffix;
 	}
 
-	public final void setUKSupplementaryDeliveryPointSuffix(
-			final String uKSupplementaryDeliveryPointSuffix) {
-		UKSupplementaryDeliveryPointSuffix = uKSupplementaryDeliveryPointSuffix;
+	/**
+	 * @param uKSupplementaryDeliveryPointSuffix the uKSupplementaryDeliveryPointSuffix to set
+	 */
+	public final void setuKSupplementaryDeliveryPointSuffix(
+			String uKSupplementaryDeliveryPointSuffix) {
+		this.uKSupplementaryDeliveryPointSuffix = uKSupplementaryDeliveryPointSuffix;
 	}
 
+	/**
+	 * @return the locality2
+	 */
 	public final String getLocality2() {
-		return Locality2;
+		return locality2;
 	}
 
-	public final void setLocality2(final String locality2) {
-		Locality2 = locality2;
+	/**
+	 * @param locality2 the locality2 to set
+	 */
+	public final void setLocality2(String locality2) {
+		this.locality2 = locality2;
 	}
 
+	/**
+	 * @return the locality1
+	 */
 	public final String getLocality1() {
-		return Locality1;
+		return locality1;
 	}
 
-	public final void setLocality1(final String locality1) {
-		Locality1 = locality1;
+	/**
+	 * @param locality1 the locality1 to set
+	 */
+	public final void setLocality1(String locality1) {
+		this.locality1 = locality1;
 	}
 
-	public final String getUSSpecificDPVFootnote3() {
-		return USSpecificDPVFootnote3;
+	/**
+	 * @return the uSSpecificDPVFootnote3
+	 */
+	public final String getuSSpecificDPVFootnote3() {
+		return uSSpecificDPVFootnote3;
 	}
 
-	public final void setUSSpecificDPVFootnote3(
-			final String uSSpecificDPVFootnote3) {
-		USSpecificDPVFootnote3 = uSSpecificDPVFootnote3;
+	/**
+	 * @param uSSpecificDPVFootnote3 the uSSpecificDPVFootnote3 to set
+	 */
+	public final void setuSSpecificDPVFootnote3(String uSSpecificDPVFootnote3) {
+		this.uSSpecificDPVFootnote3 = uSSpecificDPVFootnote3;
 	}
 
-	public final String getUSSpecificDPVFootnote2() {
-		return USSpecificDPVFootnote2;
+	/**
+	 * @return the uSSpecificDPVFootnote2
+	 */
+	public final String getuSSpecificDPVFootnote2() {
+		return uSSpecificDPVFootnote2;
 	}
 
-	public final void setUSSpecificDPVFootnote2(
-			final String uSSpecificDPVFootnote2) {
-		USSpecificDPVFootnote2 = uSSpecificDPVFootnote2;
+	/**
+	 * @param uSSpecificDPVFootnote2 the uSSpecificDPVFootnote2 to set
+	 */
+	public final void setuSSpecificDPVFootnote2(String uSSpecificDPVFootnote2) {
+		this.uSSpecificDPVFootnote2 = uSSpecificDPVFootnote2;
 	}
 
-	public final String getUSSpecificCASSStatus() {
-		return USSpecificCASSStatus;
+	/**
+	 * @return the uSSpecificCASSStatus
+	 */
+	public final String getuSSpecificCASSStatus() {
+		return uSSpecificCASSStatus;
 	}
 
-	public final void setUSSpecificCASSStatus(final String uSSpecificCASSStatus) {
-		USSpecificCASSStatus = uSSpecificCASSStatus;
+	/**
+	 * @param uSSpecificCASSStatus the uSSpecificCASSStatus to set
+	 */
+	public final void setuSSpecificCASSStatus(String uSSpecificCASSStatus) {
+		this.uSSpecificCASSStatus = uSSpecificCASSStatus;
 	}
 
-	public final String getUSSpecificDPVFootnote1() {
-		return USSpecificDPVFootnote1;
+	/**
+	 * @return the uSSpecificDPVFootnote1
+	 */
+	public final String getuSSpecificDPVFootnote1() {
+		return uSSpecificDPVFootnote1;
 	}
 
-	public final void setUSSpecificDPVFootnote1(
-			final String uSSpecificDPVFootnote1) {
-		USSpecificDPVFootnote1 = uSSpecificDPVFootnote1;
+	/**
+	 * @param uSSpecificDPVFootnote1 the uSSpecificDPVFootnote1 to set
+	 */
+	public final void setuSSpecificDPVFootnote1(String uSSpecificDPVFootnote1) {
+		this.uSSpecificDPVFootnote1 = uSSpecificDPVFootnote1;
 	}
 
-	public final String getUSSpecificLACSLinkReturnCode() {
-		return USSpecificLACSLinkReturnCode;
+	/**
+	 * @return the uSSpecificLACSLinkReturnCode
+	 */
+	public final String getuSSpecificLACSLinkReturnCode() {
+		return uSSpecificLACSLinkReturnCode;
 	}
 
-	public final void setUSSpecificLACSLinkReturnCode(
-			final String uSSpecificLACSLinkReturnCode) {
-		USSpecificLACSLinkReturnCode = uSSpecificLACSLinkReturnCode;
+	/**
+	 * @param uSSpecificLACSLinkReturnCode the uSSpecificLACSLinkReturnCode to set
+	 */
+	public final void setuSSpecificLACSLinkReturnCode(
+			String uSSpecificLACSLinkReturnCode) {
+		this.uSSpecificLACSLinkReturnCode = uSSpecificLACSLinkReturnCode;
 	}
 
+	/**
+	 * @return the postalPhraseComplete2
+	 */
 	public final String getPostalPhraseComplete2() {
-		return PostalPhraseComplete2;
+		return postalPhraseComplete2;
 	}
 
-	public final void setPostalPhraseComplete2(
-			final String postalPhraseComplete2) {
-		PostalPhraseComplete2 = postalPhraseComplete2;
+	/**
+	 * @param postalPhraseComplete2 the postalPhraseComplete2 to set
+	 */
+	public final void setPostalPhraseComplete2(String postalPhraseComplete2) {
+		this.postalPhraseComplete2 = postalPhraseComplete2;
 	}
 
+	/**
+	 * @return the postalPhraseComplete1
+	 */
 	public final String getPostalPhraseComplete1() {
-		return PostalPhraseComplete1;
+		return postalPhraseComplete1;
 	}
 
-	public final void setPostalPhraseComplete1(
-			final String postalPhraseComplete1) {
-		PostalPhraseComplete1 = postalPhraseComplete1;
+	/**
+	 * @param postalPhraseComplete1 the postalPhraseComplete1 to set
+	 */
+	public final void setPostalPhraseComplete1(String postalPhraseComplete1) {
+		this.postalPhraseComplete1 = postalPhraseComplete1;
 	}
 
+	/**
+	 * @return the subBuildingNumber1
+	 */
 	public final String getSubBuildingNumber1() {
-		return SubBuildingNumber1;
+		return subBuildingNumber1;
 	}
 
-	public final void setSubBuildingNumber1(final String subBuildingNumber1) {
-		SubBuildingNumber1 = subBuildingNumber1;
+	/**
+	 * @param subBuildingNumber1 the subBuildingNumber1 to set
+	 */
+	public final void setSubBuildingNumber1(String subBuildingNumber1) {
+		this.subBuildingNumber1 = subBuildingNumber1;
 	}
 
+	/**
+	 * @return the subBuildingNumber2
+	 */
 	public final String getSubBuildingNumber2() {
-		return SubBuildingNumber2;
+		return subBuildingNumber2;
 	}
 
-	public final void setSubBuildingNumber2(final String subBuildingNumber2) {
-		SubBuildingNumber2 = subBuildingNumber2;
+	/**
+	 * @param subBuildingNumber2 the subBuildingNumber2 to set
+	 */
+	public final void setSubBuildingNumber2(String subBuildingNumber2) {
+		this.subBuildingNumber2 = subBuildingNumber2;
 	}
 
-	public final String getUSSpecificDefaultFlag() {
-		return USSpecificDefaultFlag;
+	/**
+	 * @return the uSSpecificDefaultFlag
+	 */
+	public final String getuSSpecificDefaultFlag() {
+		return uSSpecificDefaultFlag;
 	}
 
-	public final void setUSSpecificDefaultFlag(
-			final String uSSpecificDefaultFlag) {
-		USSpecificDefaultFlag = uSSpecificDefaultFlag;
+	/**
+	 * @param uSSpecificDefaultFlag the uSSpecificDefaultFlag to set
+	 */
+	public final void setuSSpecificDefaultFlag(String uSSpecificDefaultFlag) {
+		this.uSSpecificDefaultFlag = uSSpecificDefaultFlag;
 	}
 
-	public final String getUSSpecificLACSLinkIndicator() {
-		return USSpecificLACSLinkIndicator;
+	/**
+	 * @return the uSSpecificLACSLinkIndicator
+	 */
+	public final String getuSSpecificLACSLinkIndicator() {
+		return uSSpecificLACSLinkIndicator;
 	}
 
-	public final void setUSSpecificLACSLinkIndicator(
-			final String uSSpecificLACSLinkIndicator) {
-		USSpecificLACSLinkIndicator = uSSpecificLACSLinkIndicator;
+	/**
+	 * @param uSSpecificLACSLinkIndicator the uSSpecificLACSLinkIndicator to set
+	 */
+	public final void setuSSpecificLACSLinkIndicator(
+			String uSSpecificLACSLinkIndicator) {
+		this.uSSpecificLACSLinkIndicator = uSSpecificLACSLinkIndicator;
 	}
 
-	public final String getUSSpecificRecordType() {
-		return USSpecificRecordType;
+	/**
+	 * @return the uSSpecificRecordType
+	 */
+	public final String getuSSpecificRecordType() {
+		return uSSpecificRecordType;
 	}
 
-	public final void setUSSpecificRecordType(final String uSSpecificRecordType) {
-		USSpecificRecordType = uSSpecificRecordType;
+	/**
+	 * @param uSSpecificRecordType the uSSpecificRecordType to set
+	 */
+	public final void setuSSpecificRecordType(String uSSpecificRecordType) {
+		this.uSSpecificRecordType = uSSpecificRecordType;
 	}
 
-	public final String getUSSpecificDeliveryPointCheckDigit() {
-		return USSpecificDeliveryPointCheckDigit;
+	/**
+	 * @return the uSSpecificDeliveryPointCheckDigit
+	 */
+	public final String getuSSpecificDeliveryPointCheckDigit() {
+		return uSSpecificDeliveryPointCheckDigit;
 	}
 
-	public final void setUSSpecificDeliveryPointCheckDigit(
-			final String uSSpecificDeliveryPointCheckDigit) {
-		USSpecificDeliveryPointCheckDigit = uSSpecificDeliveryPointCheckDigit;
+	/**
+	 * @param uSSpecificDeliveryPointCheckDigit the uSSpecificDeliveryPointCheckDigit to set
+	 */
+	public final void setuSSpecificDeliveryPointCheckDigit(
+			String uSSpecificDeliveryPointCheckDigit) {
+		this.uSSpecificDeliveryPointCheckDigit = uSSpecificDeliveryPointCheckDigit;
 	}
 
+	/**
+	 * @return the streetPostDirectional
+	 */
 	public final String getStreetPostDirectional() {
-		return StreetPostDirectional;
+		return streetPostDirectional;
 	}
 
-	public final void setStreetPostDirectional(
-			final String streetPostDirectional) {
-		StreetPostDirectional = streetPostDirectional;
+	/**
+	 * @param streetPostDirectional the streetPostDirectional to set
+	 */
+	public final void setStreetPostDirectional(String streetPostDirectional) {
+		this.streetPostDirectional = streetPostDirectional;
 	}
 
+	/**
+	 * @return the subBuildingComplete1
+	 */
 	public final String getSubBuildingComplete1() {
-		return SubBuildingComplete1;
+		return subBuildingComplete1;
 	}
 
-	public final void setSubBuildingComplete1(final String subBuildingComplete1) {
-		SubBuildingComplete1 = subBuildingComplete1;
+	/**
+	 * @param subBuildingComplete1 the subBuildingComplete1 to set
+	 */
+	public final void setSubBuildingComplete1(String subBuildingComplete1) {
+		this.subBuildingComplete1 = subBuildingComplete1;
 	}
 
-	public final String getUSSpecificDeliveryPointCode() {
-		return USSpecificDeliveryPointCode;
+	/**
+	 * @return the uSSpecificDeliveryPointCode
+	 */
+	public final String getuSSpecificDeliveryPointCode() {
+		return uSSpecificDeliveryPointCode;
 	}
 
-	public final void setUSSpecificDeliveryPointCode(
-			final String uSSpecificDeliveryPointCode) {
-		USSpecificDeliveryPointCode = uSSpecificDeliveryPointCode;
+	/**
+	 * @param uSSpecificDeliveryPointCode the uSSpecificDeliveryPointCode to set
+	 */
+	public final void setuSSpecificDeliveryPointCode(
+			String uSSpecificDeliveryPointCode) {
+		this.uSSpecificDeliveryPointCode = uSSpecificDeliveryPointCode;
 	}
 
+	/**
+	 * @return the subBuildingComplete2
+	 */
 	public final String getSubBuildingComplete2() {
-		return SubBuildingComplete2;
+		return subBuildingComplete2;
 	}
 
-	public final void setSubBuildingComplete2(final String subBuildingComplete2) {
-		SubBuildingComplete2 = subBuildingComplete2;
+	/**
+	 * @param subBuildingComplete2 the subBuildingComplete2 to set
+	 */
+	public final void setSubBuildingComplete2(String subBuildingComplete2) {
+		this.subBuildingComplete2 = subBuildingComplete2;
 	}
 
+	/**
+	 * @return the australiaSpecificStreetNumber1
+	 */
 	public final String getAustraliaSpecificStreetNumber1() {
-		return AustraliaSpecificStreetNumber1;
+		return australiaSpecificStreetNumber1;
 	}
 
+	/**
+	 * @param australiaSpecificStreetNumber1 the australiaSpecificStreetNumber1 to set
+	 */
 	public final void setAustraliaSpecificStreetNumber1(
-			final String australiaSpecificStreetNumber1) {
-		AustraliaSpecificStreetNumber1 = australiaSpecificStreetNumber1;
+			String australiaSpecificStreetNumber1) {
+		this.australiaSpecificStreetNumber1 = australiaSpecificStreetNumber1;
 	}
 
+	/**
+	 * @return the streetNumber
+	 */
 	public final String getStreetNumber() {
-		return StreetNumber;
+		return streetNumber;
 	}
 
-	public final void setStreetNumber(final String streetNumber) {
-		StreetNumber = streetNumber;
+	/**
+	 * @param streetNumber the streetNumber to set
+	 */
+	public final void setStreetNumber(String streetNumber) {
+		this.streetNumber = streetNumber;
 	}
 
+	/**
+	 * @return the australiaSpecificStreetNumber2
+	 */
 	public final String getAustraliaSpecificStreetNumber2() {
-		return AustraliaSpecificStreetNumber2;
+		return australiaSpecificStreetNumber2;
 	}
 
+	/**
+	 * @param australiaSpecificStreetNumber2 the australiaSpecificStreetNumber2 to set
+	 */
 	public final void setAustraliaSpecificStreetNumber2(
-			final String australiaSpecificStreetNumber2) {
-		AustraliaSpecificStreetNumber2 = australiaSpecificStreetNumber2;
+			String australiaSpecificStreetNumber2) {
+		this.australiaSpecificStreetNumber2 = australiaSpecificStreetNumber2;
 	}
 
-	public final String getUSSupplementaryCBSAID() {
-		return USSupplementaryCBSAID;
+	/**
+	 * @return the uSSupplementaryCBSAID
+	 */
+	public final String getuSSupplementaryCBSAID() {
+		return uSSupplementaryCBSAID;
 	}
 
-	public final void setUSSupplementaryCBSAID(
-			final String uSSupplementaryCBSAID) {
-		USSupplementaryCBSAID = uSSupplementaryCBSAID;
+	/**
+	 * @param uSSupplementaryCBSAID the uSSupplementaryCBSAID to set
+	 */
+	public final void setuSSupplementaryCBSAID(String uSSupplementaryCBSAID) {
+		this.uSSupplementaryCBSAID = uSSupplementaryCBSAID;
 	}
 
+	/**
+	 * @return the australiaSpecificPostalPhrasePrefix
+	 */
 	public final String getAustraliaSpecificPostalPhrasePrefix() {
-		return AustraliaSpecificPostalPhrasePrefix;
+		return australiaSpecificPostalPhrasePrefix;
 	}
 
+	/**
+	 * @param australiaSpecificPostalPhrasePrefix the australiaSpecificPostalPhrasePrefix to set
+	 */
 	public final void setAustraliaSpecificPostalPhrasePrefix(
-			final String australiaSpecificPostalPhrasePrefix) {
-		AustraliaSpecificPostalPhrasePrefix = australiaSpecificPostalPhrasePrefix;
+			String australiaSpecificPostalPhrasePrefix) {
+		this.australiaSpecificPostalPhrasePrefix = australiaSpecificPostalPhrasePrefix;
 	}
 
-	public final String getUSSpecificHighRiseDefault() {
-		return USSpecificHighRiseDefault;
+	/**
+	 * @return the uSSpecificHighRiseDefault
+	 */
+	public final String getuSSpecificHighRiseDefault() {
+		return uSSpecificHighRiseDefault;
 	}
 
-	public final void setUSSpecificHighRiseDefault(
-			final String uSSpecificHighRiseDefault) {
-		USSpecificHighRiseDefault = uSSpecificHighRiseDefault;
+	/**
+	 * @param uSSpecificHighRiseDefault the uSSpecificHighRiseDefault to set
+	 */
+	public final void setuSSpecificHighRiseDefault(String uSSpecificHighRiseDefault) {
+		this.uSSpecificHighRiseDefault = uSSpecificHighRiseDefault;
 	}
 
+	/**
+	 * @return the australiaSpecificPostalPhraseNumber
+	 */
 	public final String getAustraliaSpecificPostalPhraseNumber() {
-		return AustraliaSpecificPostalPhraseNumber;
+		return australiaSpecificPostalPhraseNumber;
 	}
 
+	/**
+	 * @param australiaSpecificPostalPhraseNumber the australiaSpecificPostalPhraseNumber to set
+	 */
 	public final void setAustraliaSpecificPostalPhraseNumber(
-			final String australiaSpecificPostalPhraseNumber) {
-		AustraliaSpecificPostalPhraseNumber = australiaSpecificPostalPhraseNumber;
+			String australiaSpecificPostalPhraseNumber) {
+		this.australiaSpecificPostalPhraseNumber = australiaSpecificPostalPhraseNumber;
 	}
 
-	public final String getUSSupplementaryRecordType() {
-		return USSupplementaryRecordType;
+	/**
+	 * @return the uSSupplementaryRecordType
+	 */
+	public final String getuSSupplementaryRecordType() {
+		return uSSupplementaryRecordType;
 	}
 
-	public final void setUSSupplementaryRecordType(
-			final String uSSupplementaryRecordType) {
-		USSupplementaryRecordType = uSSupplementaryRecordType;
+	/**
+	 * @param uSSupplementaryRecordType the uSSupplementaryRecordType to set
+	 */
+	public final void setuSSupplementaryRecordType(String uSSupplementaryRecordType) {
+		this.uSSupplementaryRecordType = uSSupplementaryRecordType;
 	}
 }
