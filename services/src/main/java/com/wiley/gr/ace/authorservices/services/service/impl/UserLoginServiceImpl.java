@@ -34,7 +34,6 @@ import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.ALMSearchUserResponse;
 import com.wiley.gr.ace.authorservices.model.external.ForcefulReset;
 import com.wiley.gr.ace.authorservices.model.external.Participant;
-import com.wiley.gr.ace.authorservices.model.external.ParticipantGetResponse;
 import com.wiley.gr.ace.authorservices.model.external.PasswordReset;
 import com.wiley.gr.ace.authorservices.model.external.PasswordResetRequest;
 import com.wiley.gr.ace.authorservices.model.external.RetrieveSecurityQuestions;
@@ -47,6 +46,7 @@ import com.wiley.gr.ace.authorservices.model.external.ValidateUserSecurityQA;
 import com.wiley.gr.ace.authorservices.services.service.SendNotification;
 import com.wiley.gr.ace.authorservices.services.service.UserLoginService;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class UserLoginServiceImpl.
  *
@@ -402,9 +402,9 @@ public class UserLoginServiceImpl implements UserLoginService {
 
         ALMSearchUserResponse response = almService.searchUser(emailId);
         User user = new User();
-        user.setTermsOfUseFlg(response.getUserPayload().get(0).getTcFlag());
-        user.setStatus(response.getUserPayload().get(0).getUserStatus());
-        user.setAlmUserId(response.getUserPayload().get(0).getAlmUserId());
+        user.setTermsOfUseFlg(response.getUserPayload().getUserPayload().get(0).getTcFlag());
+        user.setStatus(response.getUserPayload().getUserPayload().get(0).getUserStatus());
+        user.setAlmUserId(response.getUserPayload().getUserPayload().get(0).getAlmUserId());
         return user;
     }
 
@@ -428,28 +428,48 @@ public class UserLoginServiceImpl implements UserLoginService {
     @Override
     public boolean resetByEmail(final String emailId) {
 
-        ParticipantGetResponse participantGetResponse = participantsInterfaceService
-                .searchParticipanyByEmailId(emailId);
-
-        if (participantGetResponse.getParticipantList().isEmpty()) {
-            throw new ASException("111", "data not founddd");
-
-        }
-
-        if (!participantGetResponse.getParticipantList().isEmpty()
-                && participantGetResponse.getParticipantList().size() > 0) {
-            List<Participant> participantsList = participantGetResponse
-                    .getParticipantList();
-
-            for (Participant participant : participantsList) {
-                participant.getName();
-                participant.getFamilyName();
-                participant.getEmail();
-
-            }
-
-        }
-
+//        ParticipantGetResponse participantGetResponse = participantsInterfaceService
+//                .searchParticipanyByEmailId(emailId);
+//
+//        if (participantGetResponse.getParticipantList().isEmpty()) {
+//            throw new ASException("111", "data not founddd");
+//
+//        }
+//
+//        if (!participantGetResponse.getParticipantList().isEmpty()
+//                && participantGetResponse.getParticipantList().size() > 0) {
+//            List<Participant> participantsList = participantGetResponse
+//                    .getParticipantList();
+//
+//            for (Participant participant : participantsList) {
+//                participant.getName();
+//                participant.getFamilyName();
+//                participant.getEmail();
+//
+//            }
+//
+//        }
+//
         return false;
     }
+
+	/* (non-Javadoc)
+ * @see com.wiley.gr.ace.authorservices.services.service.UserLoginService#getUserDetailsFromParticipantService(java.lang.String)
+ */
+@Override
+	public User getUserDetailsFromParticipantService(String emailId) {
+		User userDetails = null;
+		
+		Participant participantDetails  = participantsInterfaceService.searchParticipantByEmailId(emailId);
+		
+		if(participantDetails != null){
+			userDetails = new User();
+			userDetails.setUserId(participantDetails.getParticipantId());
+			userDetails.setFirstName(participantDetails.getGivenName());
+			userDetails.setLastName(participantDetails.getFamilyName());
+			userDetails.setOrcidId(participantDetails.getOrcidId());
+		}
+		
+		return userDetails;
+	}
 }
