@@ -51,7 +51,6 @@ public class UserAccountServiceImpl implements UserAccountService {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(UserAccountServiceImpl.class);
 
-    
     /** The as data dao. */
     @Autowired(required = true)
     private ASDataDAO asDataDao;
@@ -61,7 +60,6 @@ public class UserAccountServiceImpl implements UserAccountService {
      */
     @Autowired(required = true)
     private AutocompleteService autoCompleteService;
-    
 
     /** The participants interface service. */
     @Autowired(required = true)
@@ -81,8 +79,6 @@ public class UserAccountServiceImpl implements UserAccountService {
      */
     @Value("${jobCategories}")
     private String jobCategories;
-
- 
 
     /**
      * This field holds the value of participantService.
@@ -141,7 +137,7 @@ public class UserAccountServiceImpl implements UserAccountService {
             user.setSuffix(suffixId);
             user.setSuffixName(asDataDao.getData(suffixId));
         }
-        user.setAlternateName(AuthorServicesConstants.EMPTY); 
+        user.setAlternateName(AuthorServicesConstants.EMPTY);
         user.setPrimaryEmailAddr(participantResponse.getEmail());
         user.setRecoveryEmailAddress(participantResponse.getRecoveryEmail());
         final String industryCode = participantResponse.getIndustryId();
@@ -158,7 +154,6 @@ public class UserAccountServiceImpl implements UserAccountService {
         }
 
         user.setOrcidId(participantResponse.getOrcidId());
-        
 
         return user;
     }
@@ -169,21 +164,27 @@ public class UserAccountServiceImpl implements UserAccountService {
      * @param userId
      *            the user id
      * @return the user address
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
     @Override
     public final AddressesData getUserAddress(final String userId)
-            throws Exception {
+            throws UserException {
 
         UserAccountServiceImpl.LOGGER.info("inside getUserAddress Method");
-        AddressMapper mapper = (AddressMapper) participantsInterfaceService
-                .getAddress(userId);
-
-        List<ParticipantAddress> participantAddresses = mapper.getContent();
         AddressesData address = new AddressesData();
-        for (ParticipantAddress participantAddr : participantAddresses) {
-            partipcipantAddrToAddr(participantAddr, address);
+        try {
+            AddressMapper mapper = (AddressMapper) participantsInterfaceService
+                    .getAddress(userId);
+
+            List<ParticipantAddress> participantAddresses = mapper.getContent();
+
+            for (ParticipantAddress participantAddr : participantAddresses) {
+                partipcipantAddrToAddr(participantAddr, address);
+            }
+        } catch (Exception e) {
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE);
+            throw new UserException();
         }
         return address;
     }
@@ -196,30 +197,36 @@ public class UserAccountServiceImpl implements UserAccountService {
      * @param address
      *            the address
      * @return the object
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
     @Override
     public Object updatAddress(final String participantId,
-            final AddressData address) throws Exception {
-        final List<AddressData> varifiedAddress = validateAddress(address);
-        if (StringUtils.isEmpty(varifiedAddress)) {
-            boolean isUpdated = false;
-            final ResponseEntity resposeEntity = participantsInterfaceService
-                    .updateAddress(participantId, address);
-            final Integer code = resposeEntity.getStatusCode().value();
-            if (code.equals(200)) {
-                isUpdated = true;
+            final AddressData address) throws UserException {
+        try {
+            final List<AddressData> varifiedAddress = validateAddress(address);
+            if (StringUtils.isEmpty(varifiedAddress)) {
+                boolean isUpdated = false;
+                final ResponseEntity resposeEntity = participantsInterfaceService
+                        .updateAddress(participantId, address);
+                final Integer code = resposeEntity.getStatusCode().value();
+                if (code.equals(200)) {
+                    isUpdated = true;
+                } else {
+                    isUpdated = false;
+                    final ParticipantError participantError = (ParticipantError) resposeEntity
+                            .getBody();
+                    LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE,
+                            participantError);
+                    throw new UserException();
+                }
+                return isUpdated;
             } else {
-                isUpdated = false;
-                final ParticipantError participantError = (ParticipantError) resposeEntity
-                        .getBody();
-                LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE,participantError);
-                throw new UserException();
+                return varifiedAddress;
             }
-            return isUpdated;
-        } else {
-            return varifiedAddress;
+        } catch (Exception e) {
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE);
+            throw new UserException();
         }
     }
 

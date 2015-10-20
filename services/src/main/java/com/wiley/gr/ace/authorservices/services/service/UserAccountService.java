@@ -13,6 +13,7 @@ package com.wiley.gr.ace.authorservices.services.service;
 
 import java.util.List;
 
+import com.wiley.gr.ace.authorservices.exception.UserException;
 import com.wiley.gr.ace.authorservices.model.User;
 import com.wiley.gr.ace.authorservices.model.external.AddressData;
 import com.wiley.gr.ace.authorservices.model.external.AddressesData;
@@ -48,10 +49,10 @@ public interface UserAccountService {
      * @param userId
      *            the user id
      * @return the user address
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
-    AddressesData getUserAddress(String userId) throws Exception;
+    AddressesData getUserAddress(String userId) throws UserException;
 
     /**
      * Updat address.
@@ -61,11 +62,11 @@ public interface UserAccountService {
      * @param address
      *            the address
      * @return the object
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
     Object updatAddress(String participantId, AddressData address)
-            throws Exception;
+            throws UserException;
 
     /**
      * Validate address.
@@ -73,8 +74,8 @@ public interface UserAccountService {
      * @param address
      *            the address
      * @return the list
-     * @throws Exception
-     *             the exception
+     * @throws UserException
+     *             the user exception
      */
-    List<AddressData> validateAddress(AddressData address) throws Exception;
+    List<AddressData> validateAddress(AddressData address) throws UserException;
 }
