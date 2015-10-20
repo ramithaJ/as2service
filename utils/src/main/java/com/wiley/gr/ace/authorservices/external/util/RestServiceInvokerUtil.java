@@ -23,6 +23,8 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
@@ -43,6 +45,9 @@ import com.wiley.gr.ace.authorservices.model.external.SecurityResponse;
  * @author virtusa version 1.0
  */
 public class RestServiceInvokerUtil {
+
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(RestServiceInvokerUtil.class);
 
     /**
      * Invoke service.
@@ -108,12 +113,13 @@ public class RestServiceInvokerUtil {
     public static <T> Object getServiceData(final String url,
             final Class<T> responseEntityClass) {
 
+        LOGGER.info("Calling service:::" + url);
         try {
             final ResponseEntity<T> response = new RestTemplate().getForEntity(
                     new URI(url), responseEntityClass);
             return response.getBody();
         } catch (final URISyntaxException e) {
-            e.printStackTrace();
+            LOGGER.error("Exception while calling service:::" + url + ":::", e);
             throw new UserException(AuthorServicesConstants.SERVERERRORCODE,
                     AuthorServicesConstants.SERVERERRORMESSAGE);
         }
