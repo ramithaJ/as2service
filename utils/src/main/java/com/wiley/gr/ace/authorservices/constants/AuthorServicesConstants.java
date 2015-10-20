@@ -324,4 +324,7 @@ public class AuthorServicesConstants {
 
     /** The Constant EMPTY. */
     public static final String EMPTY = "";
+    
+    /** The Constant ARTICLE. */
+    public static final String ARTICLE= "Article";
 }

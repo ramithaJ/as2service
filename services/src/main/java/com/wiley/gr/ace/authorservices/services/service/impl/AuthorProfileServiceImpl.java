@@ -28,6 +28,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.wiley.gr.ace.authorservices.autocomplete.service.AutocompleteService;
 import com.wiley.gr.ace.authorservices.constants.AuthorServicesConstants;
+import com.wiley.gr.ace.authorservices.exception.ASException;
 import com.wiley.gr.ace.authorservices.externalservices.service.ESBInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.ParticipantsInterfaceService;
 import com.wiley.gr.ace.authorservices.externalservices.service.UserManagement;
@@ -163,7 +164,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
                 .info("ins ide updateSocietyDetails Method ");
 
         UUID participantUUID = UUID.fromString(userId);
-        
+
         if (0 == society.getId()) {
             UserSocietyDetails userSocietyDetails = new UserSocietyDetails();
             userSocietyDetails.setParticipantId(participantUUID);
@@ -267,14 +268,19 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             preferList.add(preferenceAlert);
         }
         alertRequest.setAlertList(preferList);
-        final ResponseEntity resposeEntity = participantsInterfaceService
-                .updateAlerts(participantId, alertRequest);
-        code = resposeEntity.getStatusCode().value();
-        if (!code.equals(200)) {
-            isUpdated = false;
-            final ParticipantError participantError = (ParticipantError) resposeEntity
-                    .getBody();
-            throw new Exception(participantError.getMessage());
+        try {
+            final ResponseEntity resposeEntity = participantsInterfaceService
+                    .updateAlerts(participantId, alertRequest);
+            code = resposeEntity.getStatusCode().value();
+            if (!code.equals(200)) {
+                isUpdated = false;
+                final ParticipantError participantError = (ParticipantError) resposeEntity
+                        .getBody();
+                throw new ASException(participantError.getMessage());
+            }
+        } catch (Exception e) {
+            LOGGER.error(AuthorServicesConstants.PRINTSTACKTRACE, e);
+            throw new ASException();
         }
 
         if (code.equals(200)) {
@@ -307,13 +313,13 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         final ProfileRequest profileRequest = new ProfileRequest();
         final Participant participantResponse = participantsInterfaceService
                 .searchParticipantByParticipantId(userId);
-        profileRequest.setAlternativeName(""); // TODO
+        profileRequest.setAlternativeName(AuthorServicesConstants.EMPTY);
         profileRequest.setFirstName(participantResponse.getGivenName());
-        profileRequest.setMiddleName(participantResponse.getAdditionalName()); // TODO
+        profileRequest.setMiddleName(participantResponse.getAdditionalName());
         profileRequest.setLastName(participantResponse.getFamilyName());
         profileRequest.setPrimaryEmail(participantResponse.getEmail());
         profileRequest.setRecoveryEmail(participantResponse.getRecoveryEmail());
-        profileRequest.setOldEmail(""); // TODO
+        profileRequest.setOldEmail(AuthorServicesConstants.EMPTY);
         profileRequest.setIndustryCode(participantResponse.getIndustryId());
         profileRequest.setJobCategoryCode(participantResponse
                 .getJobCategoryId());
@@ -322,10 +328,10 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
         final List<InterestList> interestList = new ArrayList<InterestList>();
         final InterestList interest = new InterestList();
-        interest.setInterestCode(""); // interest code TODO
+        interest.setInterestCode(AuthorServicesConstants.EMPTY);
         profileRequest.setInterestList(interestList);
 
-        profileRequest.setOrcid(participantResponse.getOrcidId()); // orcid id
+        profileRequest.setOrcid(participantResponse.getOrcidId());
 
         entityValue.setProfile(profileRequest);
         profileEntity.setEntityValue(entityValue);
@@ -473,12 +479,10 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @param imageFile
      *            the image file
      * @return true, if successful
-     * @throws Exception
-     *             the exception
      */
     @Override
     public boolean uploadProfileImage(final String participantId,
-            final byte[] imageFile) throws Exception {
+            final byte[] imageFile) {
         AuthorProfileServiceImpl.LOGGER
                 .info("ins ide uploadProfileImage Method ");
         boolean isUpdated = false;
@@ -491,7 +495,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             isUpdated = false;
             final ParticipantError participantError = (ParticipantError) resposeEntity
                     .getBody();
-            throw new Exception(participantError.getMessage());
+            LOGGER.info("participant error " + participantError);
+            throw new ASException();
         }
         return isUpdated;
     }
@@ -544,8 +549,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      */
     @Override
     public final List<ResearchFunder> getResearchFundersList(final String userId) {
-    	
-    	UUID participantUUID = UUID.fromString(userId);
+
+        UUID participantUUID = UUID.fromString(userId);
 
         List<UserFunders> userFundersList = researchFunderDAO
                 .getResearchFunders(participantUUID);
@@ -554,7 +559,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
         for (UserFunders userFunders : userFundersList) {
             researchFunder = new ResearchFunder();
             researchFunder.setId(userFunders.getUserFunderId());
-            researchFunder.setResearchFunderId(userFunders.getFunderDoi()); // TODO
+            researchFunder.setResearchFunderId(userFunders.getFunderDoi());
             researchFunder.setResearchFunderName(userFunders.getFunderName());
             Set<UserFunderGrants> userFunderGrantsSet = userFunders
                     .getUserFunderGrantses();
@@ -578,8 +583,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
     @Override
     public final List<Society> getSocietylist(final String userId) {
-    	
-    	UUID participantId = UUID.fromString(userId);
+
+        UUID participantId = UUID.fromString(userId);
 
         final List<UserSocietyDetails> userSocietyDetailsList = societyDao
                 .getSocietyDetails(participantId);
@@ -726,11 +731,9 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
      * @param participantId
      *            the participant id
      * @return image in terms of Byte array
-     * @throws Exception
-     *             the exception
      */
     @Override
-    public byte[] getProfileImage(final String participantId) throws Exception {
+    public byte[] getProfileImage(final String participantId) {
         AuthorProfileServiceImpl.LOGGER.info("inside getProfileImage Method ");
         return participantsInterfaceService.getProfileImage(participantId);
     }
@@ -911,7 +914,6 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
 
     @Override
     public List<CoAuthor> getsCoAuthorsList(final String userId) {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -919,7 +921,7 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
     public boolean updateResearchFunders(final String participantId,
             final ResearchFunder researchFunder) {
 
-    	UUID participantUUID = UUID.fromString(participantId);
+        UUID participantUUID = UUID.fromString(participantId);
         if (0 == researchFunder.getId()) {
             UserFunders userFunders = new UserFunders();
             userFunders.setParticipantId(participantUUID);
@@ -940,7 +942,8 @@ public class AuthorProfileServiceImpl implements AuthorProfileService {
             userFunders.setCreatedDate(new Date());
             return researchFunderDAO.addResearchFunder(userFunders);
         } else {
-            return researchFunderDAO.updateResearchFunder(participantId, researchFunder);
+            return researchFunderDAO.updateResearchFunder(participantId,
+                    researchFunder);
         }
     }
 

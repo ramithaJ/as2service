@@ -26,7 +26,6 @@ import com.wiley.gr.ace.authorservices.model.external.PreferenceValue;
 import com.wiley.gr.ace.authorservices.model.external.Preferences;
 import com.wiley.gr.ace.authorservices.model.external.ProfileEntity;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Interface ParticipantsInterfaceService.
  */
@@ -58,11 +57,12 @@ public interface ParticipantsInterfaceService {
      * @return the participant
      */
     Participant searchParticipantByUserId(String userId);
-    
+
     /**
      * Search participant by email id.
      *
-     * @param userId the user id
+     * @param userId
+     *            the user id
      * @return the participant
      */
     Participant searchParticipantByEmailId(String userId);
@@ -76,8 +76,7 @@ public interface ParticipantsInterfaceService {
      *            the last name
      * @return the list
      */
-    List<Participant> searchParticipantByName(String firstName,
-            String lastName);
+    List<Participant> searchParticipantByName(String firstName, String lastName);
 
     /**
      * Gets the address.
@@ -93,10 +92,13 @@ public interface ParticipantsInterfaceService {
     /**
      * Update address.
      *
-     * @param participantId            the participant id
-     * @param address the address
+     * @param participantId
+     *            the participant id
+     * @param address
+     *            the address
      * @return the response entity
-     * @throws Exception             the exception
+     * @throws Exception
+     *             the exception
      */
     ResponseEntity<?> updateAddress(String participantId, AddressData address)
             throws Exception;
@@ -109,11 +111,8 @@ public interface ParticipantsInterfaceService {
      * @param imageFile
      *            the image file
      * @return the response entity
-     * @throws Exception
-     *             the exception
      */
-    ResponseEntity<?> uploadProfileImage(String participantId, byte[] imageFile)
-            throws Exception;
+    ResponseEntity<?> uploadProfileImage(String participantId, byte[] imageFile);
 
     /**
      * Gets the profile image.
@@ -121,10 +120,8 @@ public interface ParticipantsInterfaceService {
      * @param participantId
      *            the participant id
      * @return the profile image
-     * @throws Exception
-     *             the exception
      */
-    byte[] getProfileImage(String participantId) throws Exception;
+    byte[] getProfileImage(String participantId);
 
     /**
      * Update alerts.
