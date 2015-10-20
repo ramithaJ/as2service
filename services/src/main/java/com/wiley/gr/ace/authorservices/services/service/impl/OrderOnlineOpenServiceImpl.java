@@ -114,101 +114,9 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     @Autowired(required = true)
     private OrderOnlineDAO orderOnlineDAO;
 
-    // /** The user profiles. */
-    // @Autowired
-    // private UserProfiles userProfiles;
-
     /** The invoiceservice. */
     @Autowired(required = true)
     private InvoiceService invoiceservice;
-
-    // @Autowired(required=true)
-    // private TaskService taskService;
-    // /**
-    // * This field holds the value of correspondingAuthorId.
-    // */
-    // @Value("${CorrespondingAuthorId}")
-    // private String correspondingAuthorId;
-    //
-//    /**
-//     * This field holds the value of articleDetailsCode.
-//     */
-//    @Value("${articleDetails.code}")
-//    private String articleDetailsCode;
-//
-//    /**
-//     * This field holds the value of articleDetailsMessage.
-//     */
-//    @Value("${articleDetails.message}")
-//    private String articleDetailsMessage;
-    //
-    // /**
-    // * This field holds the value of articleAcceptanceCode.
-    // */
-    // @Value("${articleAcceptance.code}")
-    // private String articleAcceptanceCode;
-    //
-    // /**
-    // * This field holds the value of articleAcceptanceMessage.
-    // */
-    // @Value("${articleAcceptance.message}")
-    // private String articleAcceptanceMessage;
-    //
-    // /**
-    // * This field holds the value of savedOrderCode.
-    // */
-    // @Value("${savedOrder.code}")
-    // private String savedOrderCode;
-    //
-    // /**
-    // * This field holds the value of savedOrderMessage.
-    // */
-    // @Value("${savedOrder.message}")
-    // private String savedOrderMessage;
-    //
-    // /**
-    // * This field holds the value of orderExistenceCode.
-    // */
-    // @Value("${orderExistence.code}")
-    // private String orderExistenceCode;
-    //
-    // /**
-    // * This field holds the value of orderExistenceMessage.
-    // */
-    // @Value("${orderExistence.message}")
-    // private String orderExistenceMessage;
-    //
-    // /**
-    // * This field holds the value of onlineOpenCode.
-    // */
-    // @Value("${OnlineOpen.code}")
-    // private String onlineOpenCode;
-    //
-    // /**
-    // * This field holds the value of onlineOpenMessage.
-    // */
-    // @Value("${OnlineOpen.message}")
-    // private String onlineOpenMessage;
-    //
-    // /**
-    // * This field holds the value of onlineOpenJournalCode.
-    // */
-    // @Value("${OnlineOpenJournal.code}")
-    // private String onlineOpenJournalCode;
-    //
-    // /**
-    // * This field holds the value of OnlineOpenJournalMessage.
-    // */
-    // @Value("${OnlineOpenJournal.message}")
-    // private String OnlineOpenJournalMessage;
-
-    /**
-     * This field holds the value of jsonProcessingExceptionCode.
-     */
-    /*
-     * @Value("${JsonProcessingException}") private String
-     * jsonProcessingExceptionCode;
-     */
 
     /**
      * This field holds the value of applicationKey.
@@ -221,10 +129,6 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      */
     @Value("${OnlineOpenProperties.correlationId}")
     private String correlationId;
-
-    /*
-     * WPG Configuration property values
-     */
 
     /** The acquirer id. */
     @Value("${wpgAcquirerId}")
@@ -258,7 +162,6 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     @Value("${wpgRegion}")
     private String wpgRegion;
 
-    // Cancel order request values from property file
     /**
      * This field holds the value of cancelOrderCorrelationID.
      */
@@ -282,17 +185,6 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      */
     @Value("${cancelOrder.cancelReasonCode}")
     private String cancelOrderCancelReasonCode;
-
-    /**
-     * Min value for Transaction id.
-     *
-     * @param userId
-     *            the user id
-     * @param orderId
-     *            the order id
-     * @return the online open order details
-     */
-    // private static final int MIN_VALUE = 1;
 
     /**
      * This method will take userId and orderId as input and calls external
@@ -334,10 +226,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         quoteDetail.setPrices(pricesList);
         onlineOpenOrder.setQuoteDetail(quoteDetail);
         FunderDetails funderDetails = new FunderDetails();
-        /*
-         * funderDetails.setResearchFunderId(orderData.getWoaAccountHolder()
-         * .getName());
-         */
+
         funderDetails
                 .setWoaAccountId(orderData.getWoaAccountHolder().getCode());
         List<Grants> grantsList = new ArrayList<Grants>();
@@ -442,105 +331,6 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     @Override
     public final QuoteDetails initiateOnline(final String userId,
             final String articleId, final String pdmSalesFlag) {
-        /*
-         * QuoteDetails quoteDetails = null; ProductRelations productRelations =
-         * orderOnlineDAO .getProductRelations(articleId); if (null ==
-         * productRelations) { throw new ASException(articleDetailsCode,
-         * articleDetailsMessage); }
-         */
-        // // Calling PdhLookUpJornal service with jornalDhId
-        // PdhJournalResponse pdhLookup = orderservice
-        // .pdhLookUpJournal(Integer.parseInt(String.valueOf(productRelations.getProductsByParentDhId()
-        // .getDhId())));
-        // // UI OnLoad object for OrderOnlineOpen order.
-        // //QuoteDetails quoteDetails = null;
-        // // check article is onlineOpen article or not.
-        // if (pdmSalesFlag.equalsIgnoreCase(pdhLookup.getPdmSalesModel())) {
-        //
-        // // DB call to get ProductPersonRelations object.
-        // ProductPersonRelations productPersonRelations = orderOnlineDAO
-        // .getProductPersonRelations(userId, articleId);
-        // if (productPersonRelations == null) {
-        // throw new ASException(articleAcceptanceCode,
-        // articleAcceptanceMessage);
-        // }
-        // // check user is corresponding author or not.
-        // if (productPersonRelations.getProductRoles() != null
-        // && productPersonRelations.getProductRoles()
-        // .getProductRoleCd()
-        // .equalsIgnoreCase(correspondingAuthorId)) {
-        //
-        // // check is there any saved orders for this article.
-        // SavedOrders savedOrders = orderOnlineDAO.getSavedOrders(
-        // articleId, userId);
-        // if (null != savedOrders) {
-        // throw new ASException(savedOrderCode, savedOrderMessage);
-        // }
-        // // check is there any placed orders for this article.
-        // Orders orders = orderOnlineDAO.getOrder(articleId, userId);
-        // if (orders != null) {
-        // throw new ASException(orderExistenceCode,
-        // orderExistenceMessage);
-        // }
-        // quoteDetails = new QuoteDetails();
-        // // calling PdhLookupArticle service with article DhId for
-        // // article title.
-        // PdhArticleResponse pdhArticleResponse = orderservice
-        // .pdhLookUpArticle(Integer.parseInt(String.valueOf(productPersonRelations.getProducts()
-        // .getDhId())));
-        // // Article details (ArticleId and Article title)
-        // ArticleDetails articleDetails = new ArticleDetails();
-        // articleDetails.setArticleId(articleId);
-        // articleDetails.setArticleTitle(pdhArticleResponse.getTitle());
-        // quoteDetails.setArticleDetails(articleDetails);
-        // // Journal details (JornalId and jornalTitle)
-        // JournalDetails journalDetails = new JournalDetails();
-        // journalDetails.setJournalId(productRelations
-        // .getProductsByParentDhId().getDhId() + "");
-        // journalDetails.setJournalTitle(pdhLookup.getTitle());
-        // quoteDetails.setJournalDetails(journalDetails);
-        //
-        // // prices in 3 type of currencies
-        // QuoteDetail quoteDetail = new QuoteDetail();
-        // quoteDetail.setPrices(pdhArticleResponse.getPrices());
-        // quoteDetails.setQuoteDetail(quoteDetail);
-        //
-        // // values of DiscountsAllowed and AdditionalDiscountAllowed
-        // quoteDetails.setDiscountsAllowed(pdhLookup
-        // .getDiscountsAllowed());
-        // quoteDetails.setAdditionalDiscountAllowed(pdhLookup
-        // .getAdditionalDiscountAllowed());
-        // // userProfile object form userProfile service for society
-        // // details and addressDetails
-        // LookupCustomerProfileResponse userProfileResponse = userProfiles
-        // .getLookupCustomerProfile(userId).getLookupCustomerProfileResponse();
-        // // First and LastName of author
-        // quoteDetails.setAuthorName(userProfileResponse
-        // .getCustomerProfile().getCustomerDetails()
-        // .getfName()
-        // + " "
-        // + userProfileResponse.getCustomerProfile()
-        // .getCustomerDetails().getlName());
-        // // GrantRecipients(coAuthors)
-        // userProfileResponse.getCustomerProfile().getCoAuthors();
-        // // Societies
-        // userProfileResponse.getCustomerProfile().getSocietyList();
-        // // billing and contact addresses
-        // AddressDetails addressDetails = new AddressDetails();
-        // // addressDetails.setBillingAddress(userProfileResponse
-        // // .getCustomerProfile().getAddressDetails().get(1)
-        // // .getBillingAddress());
-        // // addressDetails.setContactAddress(userProfileResponse
-        // // .getCustomerProfile().getAddressDetails().getAddress().get(0));
-        // quoteDetails.setAddressDetails(addressDetails);
-        //
-        // } else {
-        // throw new ASException(onlineOpenCode, onlineOpenMessage);
-        // }
-        // } else {
-        // throw new ASException(onlineOpenJournalCode,
-        // OnlineOpenJournalMessage);
-        // }
         return null;
     }
 
@@ -606,19 +396,9 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         orderResponse = orderservice.submitOnlineOpenOrder(orderRequest);
 
         Orders orders = new Orders();
-        // orders.setOrderTypes(new OrderTypes());
-        // orders.setOoOaFlg(orderTypeFlag);
+
         orders.setOrderId(Integer.parseInt(orderId));
-        // orders.setOrderStatus(AuthorServicesConstants.ORDER_STATUS_SUBMIT);
-        // Products products = new Products(Integer.parseInt(orderData
-        // .getArticle().getDhId()));
-        // orders.setProducts(products);
-        // //
-        // orders.setDownstreamappOrderId(Integer.parseInt(orderResponse.getOoUniqueId()));
-        // Users users = new Users();
-        // users.setUserId(Long.valueOf(userId));
-        // orders.setUsersByCreatedBy(users);
-        // orders.setUsersByUserId(users);
+
         orders.setCreatedDate(new Date());
         orderOnlineDAO.saveOrder(orders);
         Long longOrderId = orders.getOrderId();
@@ -647,23 +427,22 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
         if (onlineOpenOrder != null) {
             ArticleData articleData = new ArticleData();
-            // articleData.setDhId(String.valueOf(savedOrder.getProducts().getDhId()));
+
             orderData.setArticle(articleData);
             AddressDetails address = onlineOpenOrder.getAddressDetails();
 
             ContactAddress billingAddress = new ContactAddress();
-            // TODO: Need to set remaining objects
+
             billingAddress.setName(address.getBillingAddress().getFirstName()
                     + address.getBillingAddress().getLastName());
-            // billingAddress.setOrg(address.getBillingAddress().getInstitution());
 
             orderData.setBillingAddress(billingAddress);
 
             ContactAddress contactAddress = new ContactAddress();
-            // TODO: Need to set remaining objects
+
             contactAddress.setName(address.getContactAddress().getFirstName()
                     + address.getBillingAddress().getLastName());
-            // contactAddress.setOrg(address.getContactAddress().getInstitution());
+
             orderData.setContactAddress(contactAddress);
 
             TaxData taxData = new TaxData();
@@ -683,7 +462,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             String amountToBePaidValue = onlineOpenOrder.getFinalAmount()
                     .getAmount();
             if (amountToBePaidValue != null
-                    && !"".equals(amountToBePaidValue.trim())) {
+                    && !AuthorServicesConstants.EMPTY
+                            .equals(amountToBePaidValue.trim())) {
                 Double.parseDouble(amountToBePaidValue);
             }
             pricingData.setCurrency(onlineOpenOrder.getFinalAmount()
@@ -696,24 +476,19 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
 
             WoaAccountHolder woaAccountHolder = processWOAAccount(onlineOpenOrder);
 
-            /*
-             * woaAccountHolder.setCode(onlineOpenOrder.getFunderDetails().get(0)
-             * .getWoaAccountId());
-             */
-
             orderData.setWoaAccountHolder(woaAccountHolder);
 
-            orderData.setSpecialNotes("");
+            orderData.setSpecialNotes(AuthorServicesConstants.EMPTY);
             orderData.setCustomer(new Customer());
-            orderData.setEnteredBy("");
-            orderData.setOoUniqueId("");
+            orderData.setEnteredBy(AuthorServicesConstants.EMPTY);
+            orderData.setOoUniqueId(AuthorServicesConstants.EMPTY);
             orderData.setOrderDate(new Date().toString());
-            orderData.setOrderSource("");
-            orderData.setOrderStatusCode("");
-            orderData.setOrderSubType("");
-            orderData.setOrderType("");
-            orderData.setPoNumber("");
-            orderData.setReferenceOoUniqueId("");
+            orderData.setOrderSource(AuthorServicesConstants.EMPTY);
+            orderData.setOrderStatusCode(AuthorServicesConstants.EMPTY);
+            orderData.setOrderSubType(AuthorServicesConstants.EMPTY);
+            orderData.setOrderType(AuthorServicesConstants.EMPTY);
+            orderData.setPoNumber(AuthorServicesConstants.EMPTY);
+            orderData.setReferenceOoUniqueId(AuthorServicesConstants.EMPTY);
 
         }
 
@@ -920,7 +695,6 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         List<DiscountedSociety> discountedSocietyListForJournal = null;
         String journalAcronym = null;
 
-        // TODO: Need to implement the retrival of jrnl acronym
         DiscountedSocietyResponse discountedSocietiesResponse = orderservice
                 .getDiscountedSocietiesForJournal(journalAcronym);
 
@@ -944,23 +718,14 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     public final Integer saveLaterOrder(final OnlineOpenOrder order,
             final String userId) {
 
-        // final ObjectMapper mapper = new ObjectMapper();
         final SavedOrders savedOrders = new SavedOrders();
-        // Checking is there any existing saved orders in saved orders table
+
         SavedOrders orders = orderOnlineDAO.verifySavedOrders(order
                 .getArticleDetails().getArticleId(), userId);
         if (null != orders) {
             savedOrders.setOrderId(orders.getOrderId());
         }
-        // final Products products = new Products();
-        // products.setDhId(Integer.parseInt(order.getArticleDetails()
-        // .getArticleId()));
-        // savedOrders.setProducts(products);
-        //
-        // final Users users = new Users();
-        // users.setUserId(Long.valueOf(userId));
-        // savedOrders.setUsersByUserId(users);
-        // savedOrders.setUsersByCreatedBy(users);
+
         savedOrders.setCreatedDate(new Date());
         return orderOnlineDAO.saveLaterOrder(savedOrders);
     }
@@ -968,20 +733,16 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     /**
      * This method checks if additional discount is available for the journal.
      *
-     * @param DHID
+     * @param dhId
      *            the dhid
      * @return boolean
      */
     @Override
-    public final boolean isAdditionDiscountAvailableForJournal(final String DHID) {
+    public final boolean isAdditionDiscountAvailableForJournal(final String dhId) {
         boolean isAdditionDiscountAvailable = false;
-        // Need confirmation on DHID or journal id.
 
-        // TODO: Need to create a request object when provided.
-
-        // TODO: Need to check if journalId or DHId should be passed
         PdhJournalResponse pdhLookupJournal = orderservice
-                .pdhLookUpJournal(Integer.parseInt(DHID));
+                .pdhLookUpJournal(Integer.parseInt(dhId));
         isAdditionDiscountAvailable = Boolean.getBoolean(pdhLookupJournal
                 .getAdditionalDiscountAllowed());
 
@@ -1032,36 +793,23 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     @Override
     public final List<GrantRecipients> getGrantRecipients(final String articleId) {
 
-        // List<ProductPersonRelations> productPersonRelationsList =
-        // orderOnlineDAO
-        // .getGrantRecipients(articleId);
         List<GrantRecipients> grantRecipientsList = new ArrayList<GrantRecipients>();
-        // GrantRecipients grantRecipients = null;
-        // for (ProductPersonRelations productPersonRelations :
-        // productPersonRelationsList) {
-        // Users users = productPersonRelations.getUserProfile()
-        // .getUsersByUserId();
-        // grantRecipients = new GrantRecipients();
-        // grantRecipients.setCode(String.valueOf(users.getUserId()));
-        // grantRecipients.setName(users.getFirstName() + " "
-        // + users.getLastName());
-        // grantRecipientsList.add(grantRecipients);
-        // }
+
         return grantRecipientsList;
     }
 
     /**
      * Method to get Discounted Societies.
      *
-     * @param DHID
+     * @param dhId
      *            the dhid
      * @return SocietyDiscounts
      */
     @Override
-    public final SocietyDiscounts getDiscountedSocieties(final String DHID) {
+    public final SocietyDiscounts getDiscountedSocieties(final String dhId) {
 
         SocietyMemberDiscount societyMemberDiscount = orderservice
-                .getSocietyMemberDiscount(DHID);
+                .getSocietyMemberDiscount(dhId);
         List<Societies> societiesList = societyMemberDiscount.getPayload()
                 .getSocieties();
         SocietyDiscounts societyDiscounts = new SocietyDiscounts();
@@ -1126,8 +874,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             }
             for (ResearchFunderElement researchFunderElement : researchFunderElementList) {
                 fundingOrganizations = new FundingOrganizations();
-//                fundingOrganizations.setFunderRefId(researchFunderElement
-//                        .getFunderRefId());
+
                 fundingOrganizations.setFunderName(researchFunderElement
                         .getName());
                 fundingOrganizationsList.add(fundingOrganizations);
@@ -1225,7 +972,6 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                 .setAvsPostResult(map.get("AVSPostResult").toCharArray()[0]);
         paymentDetails.setSecurity(map.get("security"));
 
-        // orderOnlineDAO.savePaymentDetails(paymentDetails);
     }
 
     /**
@@ -1251,15 +997,8 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         Long wpgTimeStmp = new Date().getTime();
         wpgConfiguration.setWpgTimeStmap(wpgTimeStmp.toString());
 
-        // Commented the below code - to fix on Monday 7/13
-
-        // Integer intWpgTransId = generateRandomTransactionId(MIN_VALUE,
-        // Integer.MAX_VALUE);
-        // String wpgTransId = intWpgTransId.toString();
-
         wpgConfiguration.setWpgTransId(orderId);
-        // wpgValue is not required for WPG_VALIDATE
-        // wpgConfiguration.setWpgValue(wpgValue);
+
         wpgConfiguration.setWpgVendorId(wpgVendorId);
 
         StringBuilder securityStringBuilder = new StringBuilder();
@@ -1300,10 +1039,6 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         String journalName = null;
         String taxAmount = null;
 
-        /*
-         * Need to remove all the null checks which are not required.
-         */
-
         onlineOpenOrder = getOrderDetails(orderId, null);
 
         if (onlineOpenOrder != null) {
@@ -1314,59 +1049,67 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
                         .getBillingAddress().getAddressLine1() != null ? onlineOpenOrder
                         .getAddressDetails().getBillingAddress()
                         .getAddressLine1()
-                        : "";
+                        : AuthorServicesConstants.EMPTY;
 
                 addressPostCode = onlineOpenOrder.getAddressDetails()
                         .getBillingAddress().getPostCode() != null ? onlineOpenOrder
                         .getAddressDetails().getBillingAddress().getPostCode()
-                        : "";
+                        : AuthorServicesConstants.EMPTY;
             }
 
             if (onlineOpenOrder.getFinalAmount() != null) {
                 totalAmount = onlineOpenOrder.getFinalAmount().getAmount() != null ? onlineOpenOrder
-                        .getFinalAmount().getAmount() : "";
+                        .getFinalAmount().getAmount()
+                        : AuthorServicesConstants.EMPTY;
 
                 wpgCurrency = onlineOpenOrder.getFinalAmount().getCurrency() != null ? onlineOpenOrder
-                        .getFinalAmount().getCurrency() : "";
+                        .getFinalAmount().getCurrency()
+                        : AuthorServicesConstants.EMPTY;
             }
 
             if (onlineOpenOrder.getAmountPayable() != null) {
                 price = onlineOpenOrder.getAmountPayable().getAmount() != null ? onlineOpenOrder
-                        .getAmountPayable().getAmount() : "";
+                        .getAmountPayable().getAmount()
+                        : AuthorServicesConstants.EMPTY;
             }
 
             if (onlineOpenOrder.getArticleDetails() != null) {
                 articleName = onlineOpenOrder.getArticleDetails()
                         .getArticleTitle() != null ? onlineOpenOrder
-                        .getArticleDetails().getArticleTitle() : "";
+                        .getArticleDetails().getArticleTitle()
+                        : AuthorServicesConstants.EMPTY;
             }
 
             if (onlineOpenOrder.getJournalDetails() != null) {
                 journalName = onlineOpenOrder.getJournalDetails()
                         .getJournalTitle() != null ? onlineOpenOrder
-                        .getJournalDetails().getJournalTitle() : "";
+                        .getJournalDetails().getJournalTitle()
+                        : AuthorServicesConstants.EMPTY;
             }
 
             if (onlineOpenOrder.getTaxAmount() != null) {
                 taxAmount = onlineOpenOrder.getTaxAmount().getAmount() != null ? onlineOpenOrder
-                        .getTaxAmount().getAmount() : "";
+                        .getTaxAmount().getAmount()
+                        : AuthorServicesConstants.EMPTY;
             }
 
             wpgConfiguration.setWpgAddress(addressLine1 != null ? addressLine1
-                    : "");
+                    : AuthorServicesConstants.EMPTY);
             wpgConfiguration
                     .setWpgPostCode(addressPostCode != null ? addressPostCode
-                            : "");
+                            : AuthorServicesConstants.EMPTY);
             wpgConfiguration.setTotalAmount(totalAmount != null ? totalAmount
-                    : "");
+                    : AuthorServicesConstants.EMPTY);
             wpgConfiguration.setWpgCurrency(wpgCurrency != null ? wpgCurrency
-                    : "");
-            wpgConfiguration.setPrice(price != null ? price : "");
+                    : AuthorServicesConstants.EMPTY);
+            wpgConfiguration.setPrice(price != null ? price
+                    : AuthorServicesConstants.EMPTY);
             wpgConfiguration.setArticleName(articleName != null ? articleName
-                    : "");
+                    : AuthorServicesConstants.EMPTY);
             wpgConfiguration.setJournalName(journalName != null ? journalName
-                    : "");
-            wpgConfiguration.setTax(taxAmount != null ? taxAmount : "");
+                    : AuthorServicesConstants.EMPTY);
+            wpgConfiguration.setTax(taxAmount != null ? taxAmount
+                    : AuthorServicesConstants.EMPTY);
 
         }
 
@@ -1397,7 +1140,6 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         }
 
         if (flag && savedOrder != null) {
-            // orderDataObject = savedOrder.getOrderObject();
             try {
                 JSONObject object = (JSONObject) new JSONParser()
                         .parse(orderDataObject);
@@ -1467,7 +1209,6 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
      */
     @Override
     public String getOrderType(final Integer orderId) {
-        // return orderOnlineDAO.retrieveOrderType(orderId);
         return null;
 
     }
@@ -1496,8 +1237,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         article.setJournalPrintISSN("0008543X");
         invoice.setArticle(article);
         headers.setContentType(MediaType.parseMediaType("application/pdf"));
-        // headers.setContentDispositionFormData(AuthorServicesConstants.PDF_NAME,
-        // AuthorServicesConstants.PDF_NAME);
+
         headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
         contents = invoiceservice.getInvoice(invoice);
         response = new ResponseEntity<byte[]>(contents, headers, HttpStatus.OK);
@@ -1517,14 +1257,13 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
         RequestOnlineOpen requestOnlineOpen = new RequestOnlineOpen();
         CoauthorRequestsOoorders coauthorRequestsOoorders = orderOnlineDAO
                 .viewOnlineOpenRequest(userId, articleId);
-        // requestOnlineOpen.setArticleId(String.valueOf(coauthorRequestsOoorders.getProducts()
-        // .getDhId()));
+
         requestOnlineOpen.setMessage(coauthorRequestsOoorders
                 .getMessageFromCoauth());
         PdhArticleResponse pdhArticleResponse = orderservice
                 .pdhLookUpArticle(Integer.parseInt(articleId));
         requestOnlineOpen.setArticleTitle(pdhArticleResponse.getTitle());
-        // TODO getting article title.......
+
         return requestOnlineOpen;
     }
 
@@ -1537,15 +1276,9 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
     public void requestOnlineOpen(final RequestOnlineOpen requestOnlineOpen) {
 
         boolean journalAllows = true;
-        // TODO call Pdh To get Status
+
         if (journalAllows) {
             CoauthorRequestsOoorders coauthorRequestsOoorders = new CoauthorRequestsOoorders();
-            // Users users = new Users();
-            // users.setUserId(Long.valueOf(requestOnlineOpen.getUserId()));
-            // Products products = new Products();
-            // products.setDhId(Integer.parseInt(requestOnlineOpen.getArticleId()));
-            // coauthorRequestsOoorders.setUsersByCoauthUserId(users);
-            // coauthorRequestsOoorders.setProducts(products);
             coauthorRequestsOoorders.setMessageFromCoauth(requestOnlineOpen
                     .getMessage());
             try {
@@ -1559,14 +1292,7 @@ public class OrderOnlineOpenServiceImpl implements OrderOnlineOpenService {
             List<String> articleId = new ArrayList<String>();
             articleId.add(requestOnlineOpen.getMessage());
             taskServiceRequest.setJustifications(articleId);
-            // Users
-            // userDao=orderOnlineDAO.getUserDetails(requestOnlineOpen.getUserId());
-            // String emailId=userDao.getPrimaryEmailAddr();
-            // String[] emailSplit =emailId.split("@");
-            // taskServiceRequest.setRequestorEmail(emailId);
             taskServiceRequest.setRequestorId(requestOnlineOpen.getUserId());
-            // TODO call bpm for creating task requestType
-            // taskService.invokeTaskService(taskServiceRequest, emailSplit[0]);
 
         } else if (journalAllows == false) {
             throw new ASException("1234", "journal Doesnot allows to OO");
