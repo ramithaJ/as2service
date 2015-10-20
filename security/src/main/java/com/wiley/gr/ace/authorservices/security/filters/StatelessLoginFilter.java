@@ -207,6 +207,7 @@ public class StatelessLoginFilter extends
 		User almUser = userLoginService.searchUserInALM(unp.getUsername());
 
 		ErrorPOJO errorPOJO = null;
+		User userDetails = null;
 
 		if (!StringUtils.equalsIgnoreCase(StatelessLoginFilter.ADMIN,
 				unp.getType())) {
@@ -214,11 +215,13 @@ public class StatelessLoginFilter extends
 			if (almUser.getTermsOfUseFlg().equalsIgnoreCase("Y")
 					&& almUser.getStatus().equalsIgnoreCase(
 							AuthorServicesConstants.VERIFY_ACCOUNT_ACTIVE)) {
-
-				if (!userLoginService.searchUserInParticipantByALMId(almUser
+				
+				/* Temporarily commenting this till we get ParticipantByALMId  working...   */
+				/*if (!userLoginService.searchUserInParticipantByALMId(almUser
 						.getUserId())) {
 					registrationService.doFinalCreate(almUser.getUserId(),"false");
-				}
+				}*/
+				userDetails = userLoginService.getUserDetailsFromParticipantService(unp.getUsername());
 
 			} else if (almUser.getTermsOfUseFlg().equalsIgnoreCase("N")
 					&& almUser.getStatus().equalsIgnoreCase(
@@ -240,12 +243,18 @@ public class StatelessLoginFilter extends
 
 			}
 		}
+		
+		
 
 		final UserLogin user = new UserLogin();
-		user.setUserId(almUser.getParticipantId());
-		user.setFirstName(almUser.getFirstName());
-		user.setLastName(almUser.getLastName());
-		user.setOrcidId(almUser.getOrcidId());
+		if(userDetails != null) {
+			user.setUserId(userDetails.getUserId());
+			user.setFirstName(userDetails.getFirstName());
+			user.setLastName(userDetails.getLastName());
+			user.setOrcidId(userDetails.getOrcidId());
+			user.setAlmUserId(almUser.getAlmUserId());
+		}
+		
 
 		response.setContentType(StatelessLoginFilter.APPLICATION_JSON_CHARSET_UTF_8);
 		response.setHeader(StatelessLoginFilter.CACHE_CONTROL,
